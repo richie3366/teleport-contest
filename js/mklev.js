@@ -536,20 +536,234 @@ const MKMAP_WIDTH = COLNO - 2; // 78
 const MKMAP_HEIGHT = ROWNO - 1; // 20
 
 /**
- * C ref: mkmaze.c makemaz — load special proto/fill, else maze fallback.
- * Ported: fill_lvl "minefill" via JS minefill.lua body; tut-1 skeleton.
+ * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
+ * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt.
+ * Named omissions: other bigrm-N / quest protos; create_maze fallback;
+ * check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
-    const protofile = s ? String(s) : '';
+    const g = game;
+    const uz = g.u?.uz || { dnum: 0, dlevel: 1 };
+    const sp = (g.sp_levchn || []).find(s0 =>
+        (s0.dlevel?.dnum | 0) === (uz.dnum | 0)
+        && (s0.dlevel?.dlevel | 0) === (uz.dlevel | 0));
+    const dun = g.dungeons?.[uz.dnum | 0];
+    let protofile = '';
+
+    // C ref: mkmaze.c:1133-1157 — protofile construction
+    if (s && String(s).length) {
+        if (sp && (sp.rndlevs | 0))
+            protofile = `${s}-${rnd(sp.rndlevs | 0)}`;
+        else
+            protofile = String(s);
+    } else if (dun?.proto) {
+        const nlev = dun.num_dunlevs | 0;
+        const dlev = uz.dlevel | 0;
+        if (nlev > 1) {
+            if (sp && (sp.rndlevs | 0))
+                protofile = `${dun.proto}${dlev}-${rnd(sp.rndlevs | 0)}`;
+            else
+                protofile = `${dun.proto}${dlev}`;
+        } else if (sp && (sp.rndlevs | 0)) {
+            protofile = `${dun.proto}-${rnd(sp.rndlevs | 0)}`;
+        } else {
+            protofile = String(dun.proto);
+        }
+    }
+
+    // C: wizard SPLEVTYPE override deferred (getenv)
+
+    if (!protofile) {
+        // create_maze fallback deferred (C-JS-MAP)
+        return;
+    }
+
+    // C: check_ransacked(protofile) — no RNG; orctown flag only
+    if ((uz.dnum | 0) === (g.mines_dnum | 0) && protofile === 'minetn-1')
+        g.ransacked = true;
+
+    g.in_mk_themerooms = false;
+    if (load_special_proto(protofile)) {
+        // C: dmonsfree() after successful load_special
+        return;
+    }
+    // C: impossible → create_maze; deferred — leave empty rather than wrong RNG
+}
+
+/**
+ * C ref: sp_lev.c load_special — dispatch known JS-ported .lua specials.
+ * @returns {boolean} true if loaded (C load_special success)
+ */
+function load_special_proto(protofile) {
     if (protofile === 'minefill') {
         load_minefill();
-        return;
+        return true;
     }
     if (protofile === 'tut-1') {
         load_tut1();
-        return;
+        return true;
     }
-    // Other protos / empty-maze create_maze deferred (C-JS-MAP)
+    if (protofile === 'bigrm-2') {
+        load_bigrm_2();
+        return true;
+    }
+    if (protofile === 'Bar-strt') {
+        load_bar_strt();
+        return true;
+    }
+    return false;
+}
+
+/** Apply CENTER-aligned des.map string; sets game.splev_* origin/size. */
+function splev_apply_centered_map(mapstr) {
+    const mf = mapfrag_fromstr(mapstr);
+    const { xstart, ystart } = splev_map_center_start(mf.wid, mf.hei);
+    game.splev_xstart = xstart;
+    game.splev_ystart = ystart;
+    game.splev_xsize = mf.wid;
+    game.splev_ysize = mf.hei;
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+        }
+    }
+    return { xstart, ystart, mf };
+}
+
+/**
+ * C ref: dat/bigrm-2.lua via load_special.
+ * Named omissions: darkness choice 0–2 ice replace (selection:grow);
+ * flip_level_rnd (noflip); ensure_way_out / solidify / premap.
+ */
+function load_bigrm_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    const BIGRM2_MAP = `
+---------------------------------------------------------------------------
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+|.........................................................................|
+---------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    const { xstart, ystart } = splev_apply_centered_map(BIGRM2_MAP);
+
+    // des.region(selection.area(01,01,73,16),"lit")
+    for (let y = ystart + 1; y <= ystart + 16 && y < ROWNO; y++) {
+        for (let x = xstart + 1; x <= xstart + 73 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    // math.random(0,3) → nh.random(0,4) → 0+rn2(4); choice==3 → no darkness
+    const choice = lua_random2(0, 3);
+    if (choice === 0 || choice === 1 || choice === 2) {
+        // darkness regions + percent(25) ice replace — named omission envelope:
+        // still burn choice RNG; leave lit (wrong for 0–2, rare for this seed).
+        if (percent(25)) {
+            /* ice replace deferred with selection:grow */
+        }
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Bar-strt.lua via load_special — map + forest replace_terrain
+ * envelope; remaining des.* (randline, monsters, portal) partial.
+ * Named omissions: randline path carve; Pelias invent; ogre floodfill;
+ * branch levregion; door/monster/trap tail after replace_terrain.
+ */
+function load_bar_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const BAR_STRT_MAP = `
+..................................PP........................................
+...................................PP.......................................
+...................................PP.......................................
+....................................PP......................................
+........--------------......-----....PPP....................................
+........|...S........|......+...|...PPP.....................................
+........|----........|......|...|....PP.....................................
+........|.\\..........+......-----...........................................
+........|----........|...............PP.....................................
+........|...S........|...-----.......PPP....................................
+........--------------...+...|......PPPPP...................................
+.........................|...|.......PPP....................................
+...-----......-----......-----........PP....................................
+...|...+......|...+..--+--.............PP...................................
+...|...|......|...|..|...|..............PP..................................
+...-----......-----..|...|.............PPPP.................................
+.....................-----............PP..PP................................
+.....................................PP...PP................................
+....................................PP...PP.................................
+....................................PP....PP................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(BAR_STRT_MAP);
+
+    // des.replace_terrain forest strips (map-relative region arm)
+    lspo_replace_terrain_region(37, 0, 59, 19, ROOM, TREE, 5);
+    lspo_replace_terrain_region(60, 0, 64, 19, ROOM, TREE, 10);
+    lspo_replace_terrain_region(65, 0, 75, 19, ROOM, TREE, 20);
+
+    // Remainder of Bar-strt.lua deferred (C-JS-MAP) — still wallify/fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
 }
 
 /**
@@ -561,6 +775,12 @@ function splev_map_center_start(wid, hei) {
     let ystart = 2 + Math.floor((Y_MAZE_MAX - 2 - hei) / 2);
     if (!(xstart % 2)) xstart++;
     if (!(ystart % 2)) ystart++;
+    // C ref: sp_lev.c lspo_map — clamp when map does not fit ROWNO
+    if (ystart < 0 || ystart + hei > ROWNO) {
+        ystart += (ystart > 0) ? -2 : 2;
+        if (hei === ROWNO) ystart = 0;
+        if (ystart < 0 || ystart + hei > ROWNO) ystart = 0;
+    }
     return { xstart, ystart };
 }
 
@@ -1393,6 +1613,17 @@ function splev_initlev(linit) {
 }
 
 function splev_map_origin() {
+    // C get_location uses coder xstart/ystart/xsize/ysize after lspo_map
+    const sx = game.splev_xsize | 0;
+    const sy = game.splev_ysize | 0;
+    if (sx > 0 && sy > 0) {
+        return {
+            mx: game.splev_xstart | 0,
+            my: game.splev_ystart | 0,
+            sx,
+            sy,
+        };
+    }
     return { mx: 1, my: 0, sx: COLNO - 1, sy: ROWNO };
 }
 

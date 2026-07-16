@@ -941,6 +941,11 @@ function m_initinv(mtmp) {
             mpickobj(mtmp, otmp);
         }
         break;
+    case 'S_NYMPH':
+        // C ref: makemon.c m_initinv S_NYMPH — mirror + potion of object detection
+        if (!rn2(2)) mongets(mtmp, otyp('MIRROR'));
+        if (!rn2(2)) mongets(mtmp, otyp('POT_OBJECT_DETECTION'));
+        break;
     case 'S_HUMAN':
         if (is_mercenary(ptr)) {
             // C ref: makemon.c m_initinv mercenary armor rounds
@@ -1286,8 +1291,16 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
-    // C: switch (ptr->mlet) case S_MIMIC → set_mimic_sym before invent
+    // C: switch (ptr->mlet) before invent — mimic + sleepers (D-0519).
+    // Named omissions: spider/snake hideunder+mkobj; eel hideunder; orc/elf
+    // peace; unicorn align peace; bat hell speed; elemental invis.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
+    else if (ptr.mlet === 'S_LEPRECHAUN') mtmp.msleeping = 1;
+    else if (ptr.mlet === 'S_JABBERWOCK' || ptr.mlet === 'S_NYMPH') {
+        // C: if (rn2(5) && !u.uhave.amulet) msleeping = 1
+        if (rn2(5) && !(game.u?.uhave?.amulet || game.u?.uhave_amulet))
+            mtmp.msleeping = 1;
+    }
 
     // C: allow_minvent → is_armed? m_initweap; m_initinv; domestic saddle
     if (allow_minvent) {

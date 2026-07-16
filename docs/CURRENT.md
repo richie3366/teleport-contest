@@ -24,7 +24,7 @@ focused session.
 Score last measured: **2026-07-16** — full `sessions` suite (loop **#575**),
 post D-0512…D-0517. Screens **5895**/11405; RNG **314432**/792838 (39.66%).
 **30/44** PASS. Speed `26+0.14/turn`. Δ vs #570: Scr +375, RNG +10941,
-PASS +1 (seed0398 formal). (D-0518 focused only — next %5 refreshes suite.)
+PASS +1 (seed0398 formal). (D-0518/D-0519 focused only — next %5 refreshes.)
 
 ## Score
 
@@ -45,9 +45,9 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 6383/12562 | **107**/127 | D-0518; next `makemaz` @6374 |
+| seed0116 | 9351/12562 | **110**/127 | D-0519; next `makemaz` rnd(2) @9350 |
 | seed5006 | 8507/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 2598/35386 | 20/124 | D-0518; next quest `makemaz`/nhlib |
+| seed0373 | 3346/35386 | 20/124 | D-0519; next Bar-strt randline @3289 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,17 +71,18 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0518 `print_dungeon`, peel special-level /
-quest `makemaz` (seed0373 @2550 / seed0116 @6374) or seed5006
-`dosounds` @8468. Prefer shared makemaz over parked seed2200 RC.
+**Gameplay next:** after D-0519 `makemaz`/`bigrm-2`/`Bar-strt`, peel next
+special (seed0116 @9350 `makemaz` rnd(2)), Bar-strt `selection_do_randline`
+(seed0373 @3289), or seed5006 `dosounds` @8468. Prefer shared special
+loaders over parked seed2200 RC.
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
 node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
+node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
 node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0518.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0519.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

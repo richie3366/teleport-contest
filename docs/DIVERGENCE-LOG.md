@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0519 — makemaz protofile + bigrm-2 / Bar-strt load_special
+
+- **Status:** fixed
+- **Symptom:** seed0116 @6374 C `rnd(13)` @ `makemaz` vs JS ordinary
+  `rn2(79)`; seed0373 @2550 C nhlib shuffle vs JS ordinary. Both reached
+  `makemaz(slev.proto)` but the stub only handled `minefill`/`tut-1`.
+- **Cause:** `makemaz` omitted C protofile construction (`rnd(rndlevs)` for
+  multi-variant specials) and `load_special` for `bigrm-*` / quest start.
+- **C locus:** `mkmaze.c` `makemaz`; `sp_lev.c` `load_special` /
+  `lspo_replace_terrain` / `get_location`; `dat/bigrm-2.lua`;
+  `dat/Bar-strt.lua`; `makemon.c` nymph/jabberwock sleep + `m_initinv`
+  `S_NYMPH`.
+- **Change:** `js/mklev.js` — `makemaz` builds protofile like C; dispatch
+  `load_special_proto`; port `load_bigrm_2` (choice=3 path); `load_bar_strt`
+  through three forest `replace_terrain`; `splev_map_origin` uses
+  `splev_*`; CENTER ystart ROWNO clamp; `js/makemon.js` — mlet sleepers +
+  nymph invent.
+- **Verification:** seed0116 prefix **6374→9351** Scr **107→110**/127
+  (next `makemaz` rnd(2) proto load); seed0373 **2550→3289** (next
+  `selection_do_randline`); green+strict PASS; cohort **30/30** PASS.
+- **Named omission:** other `bigrm-N`; Bar-strt randline/monsters/portal
+  tail; `create_maze` fallback; spider/eel hideunder in makemon switch.
+- **Next:** next special after seed0116 @9350; Bar-strt randline; or
+  seed5006 `dosounds`.
+
 ## D-0518 — print_dungeon(TRUE) wizard ^V `?` menu
 
 - **Status:** fixed
