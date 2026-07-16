@@ -4972,15 +4972,87 @@ async function makelevel_ordinary() {
 }
 
 /**
+ * C ref: mkroom.c pick_room(strict) — walk rooms from rn2(nroom), wrap at
+ * nroom sentinel. Non-strict may keep downstairs with !rn2(3); doorct==1
+ * or !rn2(5) or wizard accepts. Short-circuit matches C.
+ */
+function pick_room(strict) {
+    const g = game;
+    const nroom = g.level?.nroom | 0;
+    if (nroom <= 0) return null;
+    let i = nroom;
+    let idx = rn2(nroom);
+    for (; i--; idx++) {
+        if (idx === nroom) idx = 0;
+        const sroom = g.level.rooms[idx];
+        if (!sroom || sroom.hx < 0) return null;
+        if (sroom.rtype !== OROOM) continue;
+        if (!strict) {
+            if (has_upstairs(sroom) || (has_dnstairs(sroom) && rn2(3)))
+                continue;
+        } else if (has_upstairs(sroom) || has_dnstairs(sroom)) {
+            continue;
+        }
+        if ((sroom.doorct | 0) === 1 || !rn2(5) || g.flags?.wizard)
+            return sroom;
+    }
+    return null;
+}
+
+/**
+ * C ref: mkroom.c mkzoo — pick_room(FALSE), set rtype + needfill.
+ * Stocking deferred to fill_special_room → fill_zoo at end of makelevel.
+ */
+function mkzoo(type) {
+    const sroom = pick_room(false);
+    if (sroom) {
+        sroom.rtype = type;
+        sroom.needfill = FILL_NORMAL;
+    }
+}
+
+/**
  * C ref: mkroom.c do_mkroom — dispatch special room makers.
  * Shop path: mkshop sets rtype/needfill; stock_room deferred to fill_special_room.
+ * TEMPLE/SWAMP bodies deferred (mktemple/mkswamp) — named in C-JS-MAP.
  */
 function do_mkroom(roomtype) {
     if (roomtype >= SHOPBASE) {
         mkshop();
         return;
     }
-    // COURT/ZOO/… bodies deferred — named in C-JS-MAP.md
+    switch (roomtype) {
+    case COURT:
+        mkzoo(COURT);
+        break;
+    case ZOO:
+        mkzoo(ZOO);
+        break;
+    case BEEHIVE:
+        mkzoo(BEEHIVE);
+        break;
+    case MORGUE:
+        mkzoo(MORGUE);
+        break;
+    case BARRACKS:
+        mkzoo(BARRACKS);
+        break;
+    case LEPREHALL:
+        mkzoo(LEPREHALL);
+        break;
+    case COCKNEST:
+        mkzoo(COCKNEST);
+        break;
+    case ANTHOLE:
+        mkzoo(ANTHOLE);
+        break;
+    case SWAMP:
+    case TEMPLE:
+        // mkswamp / mktemple deferred — no RNG burned (C would pick_room)
+        break;
+    default:
+        break;
+    }
 }
 
 /** C ref: mkroom.c isbig() */

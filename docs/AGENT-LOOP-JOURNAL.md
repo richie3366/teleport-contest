@@ -18,6 +18,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 01:45 — #661 D-0592 pick_room/mkzoo
+- Objective: seed0361 `pick_room` @5483 (PRIMARY).
+- C locus: `mkroom.c` `pick_room`/`mkzoo`/`do_mkroom`; caller
+  `makelevel` COURT gate.
+- Change: ported `pick_room` + `mkzoo`; wired zoo-type `do_mkroom`.
+  Falsified “nroom drift” — both sides had 6 rooms; JS stub skipped
+  `pick_room` entirely.
+- Verification: seed0361 **5483→5859** (RNG **5605→5934** Scr
+  **175**); green+strict PASS; cohort 31/31 PASS.
+- Next: seed0361 COURT `fill_zoo`/`mk_zoo_thronemon` @5859; or
+  Pri-strt seed0367.
 ## 2026-07-17 01:42 — #660 formal score refresh
 - Objective: mandatory #660 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).

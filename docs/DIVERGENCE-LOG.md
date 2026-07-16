@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0592 — do_mkroom COURT → pick_room / mkzoo
+
+- **Status:** fixed (partial — TEMPLE/SWAMP + COURT fill_zoo next)
+- **Symptom:** seed0361 @5483 — C `rn2(6) @ pick_room` vs JS `rn2(4)`.
+  NOTES misread as room-count drift; both sides had `nroom=6`
+  (makecorridors/`generate_stairs` already used `rn2(6)`).
+- **Cause:** JS `do_mkroom` only handled shops; COURT/ZOO/… were stubs, so
+  after `!rn2(6)` COURT gate JS skipped `pick_room` and jumped to
+  `place_branch` → `generate_stairs_find_room` (`rn2(4)`).
+- **C locus:** `mkroom.c` `do_mkroom` / `mkzoo` / `pick_room`; caller
+  `makelevel` special-room chain (`mklev.c:1344–1375`).
+- **Change:** `js/mklev.js` — port `pick_room` (strict/non-strict +
+  short-circuit), `mkzoo` (rtype + `FILL_NORMAL`), wire COURT/ZOO/
+  BEEHIVE/MORGUE/BARRACKS/LEPREHALL/COCKNEST/ANTHOLE through `do_mkroom`.
+- **Verification:** seed0361 prefix **5483→5859** (runner RNG
+  **5605→5934**, Scr **175**/366); green+strict PASS; cohort 31/31 PASS.
+  Next @5859 COURT `fill_zoo` / `mk_zoo_thronemon` (`somex` vs JS).
+- **Named omission:** `mktemple` / `mkswamp`; COURT throne/`mk_zoo_thronemon`
+  / `courtmon` in `fill_zoo`; `has_court` flag.
+- **Next:** seed0361 COURT `fill_zoo` @5859; or Pri-strt seed0367.
+
 ## D-0591 — movemon deferred_goto after schedule_goto
 
 - **Status:** fixed
