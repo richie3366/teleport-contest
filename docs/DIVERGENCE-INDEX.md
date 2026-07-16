@@ -481,6 +481,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0492 | fixed | eye_of_newt_buzz via cpostfx | seed0007 @13259→15284; dog_move next |
 | D-0493 | fixed | set_move_cmd clears travel on walk/run | seed0007 @15284→15877; Amulet_on next |
 | D-0494 | fixed | Amulet_on RESTFUL_SLEEP rnd(98)/HSleepy | seed0007 @15877→15983; dowatersnakes next |
+| D-0495 | fixed | drinkfountain dowatersnakes rn1(5,2) | seed0007 @15983→16339; distfleeck next |
 
 
 

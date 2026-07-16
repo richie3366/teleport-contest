@@ -70,16 +70,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **D-0495** (next): @15983 C `rn2(5) @
-dowatersnakes` vs JS `rn2(3)`. D-0494 ported `AMULET_OF_RESTFUL_SLEEP`
-`rnd(98)` in `Amulet_on` (prefix 15877→15983).
+**Gameplay next:** seed0007 — **D-0496** (next): @16339 C `rn2(5) @
+distfleeck` vs JS `rnd(20)`. D-0495 ported `dowatersnakes` `rn1(5,2)`
+(drink case 22 / dip case 23); prefix 15983→16339.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0494.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0495.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0495 — drinkfountain dowatersnakes rn1(5,2) (seed0007 @15983)
+
+- **Status:** fixed
+- **Symptom:** after D-0494, first RNG miss @15983 — C `rn2(5) @
+  dowatersnakes` vs JS `rn2(3)` (`dryup`). Scr **60**/302; matched RNG
+  **15985**/16373 before fix.
+- **Cause:** `drinkfountain` case 22 was empty (snakes deferred), so the
+  turn fell through to `dryup` `rn2(3)` while C rolled `rn1(5,2)` then
+  `makemon` water moccasins.
+- **C locus:** `fountain.c` `dowatersnakes` (≈38–60): `num = rn1(5, 2)`
+  before `G_GONE`; Blind/`You_hear` vs stream pline; loop `makemon`
+  `PM_WATER_MOCCASIN` + `mintrap` on trap tile. Drink case 22 / dip
+  case 23 call it.
+- **Change:** `js/fountain.js` — port `dowatersnakes`; wire drink case
+  22 and dip case 23.
+- **Verification:** rng-diff **15983→16339**; seed0007 RNG
+  **16344**/16373 Scr **60**; green+strict PASS; cohort 28/28 PASS.
+- **Named omission:** Hallucination `makeplural(rndmonnam)`;
+  `dowaternymph` / looted case-27 fallthrough; dip uncurse/demon/nymph.
+- **Next:** @16339 C `distfleeck` `rn2(5)` vs JS `rnd(20)`.
+
 ## D-0494 — Amulet_on RESTFUL_SLEEP rnd(98) (seed0007 @15877)
 
 - **Status:** fixed
