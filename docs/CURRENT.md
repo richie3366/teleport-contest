@@ -43,7 +43,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 26771/27158 | **320**/595 | @26692 dog_goal fobj scan (D-0451) |
+| seed0002 | 26771/27158 | **320**/595 | @26692 pet udist after door-step (D-0451) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -63,22 +63,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @26692 — `dog_goal` fobj `dogfood` vs JS `!rn2(4)`** (D-0451).
-Prefix **26692**; Scr **320**/595. After two matched `obj_resists`, C
-keeps scanning floor `dogfood` while JS already hits `dog_goal`
-`!rn2(4)` (follow-hero). Likely fewer in-radius `fobj` / pet pos after
-sleep zap — not bare monmove.
+**seed0002 @26692 — pet `udist` after `dog_move` door-step** (D-0451).
+Prefix **26692**; Scr **320**/595. State capture (#486): both did 2
+fobj `obj_resists`; C then invent-scans (~20) because `udist≤1` (no
+`rn2(4)`); JS rolls `!rn2(4)` with `udist=5`. Prior turn: JS pet walked
+to DOOR(35,5); C kept pet at (34,6). Map desync: JS ROOM/VWALL vs C
+ndoor+CORR east of hero. Naive `#force` port regressed to @26426 —
+do not ship until uwep/loot gates match.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: pet mx/my + in-SQSRCHRADIUS fobj count vs C at dog_goal
+# Focus: C vs JS terrain (34..35,5..7) + mfndpos poss[4] / why C stays
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0450;
-treating @26692 as invent `dogfood` (that path is after `rn2(4)`).
+“missing fobj count” without pet-udist proof; invent-first at @26692.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

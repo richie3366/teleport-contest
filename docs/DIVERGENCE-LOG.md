@@ -6,23 +6,27 @@ to preserve, record it here.
 
 ## D-0451 — seed0002 @26692 dog_goal fobj dogfood vs JS !rn2(4)
 
-- **Status:** open
+- **Status:** open (state captured #486)
 - **Symptom:** seed0002 first RNG miss @26692 — C `rn2(100)` @
   `obj_resists(zap.c:1469)` vs JS `rn2(4)=2`. Prefix 26692; Scr 320/595.
   Matched through sleep-wand RAY zap (D-0450) and two prior `obj_resists`
-  at 26690–26691.
-- **Hypothesis (#485):** both are in `dog_goal` fobj scan (`dogfood` →
-  `obj_resists`); after two in-radius floor objs JS finishes and hits
-  follow-hero `!rn2(4)` (`dogmove.c:575`) while C still has ≥1 more
-  in-SQSRCHRADIUS `fobj`. Invent `dogfood` is *after* `rn2(4)` — reject
-  that path at this index. Likely cause: fewer JS floor objs in radius
-  and/or pet `mx/my` diverge after sleep zap.
-- **C locus:** `dogmove.c` `dog_goal` fobj loop + `!rn2(4)`; `dog.c`
-  `dogfood` → `zap.c` `obj_resists`.
-- **Falsifier:** dump pet coords + in-radius `fobj` count at first
-  `dog_goal` after the sleep zap; compare to C.
-- **Next:** state capture at mismatch; do not treat as invent dogfood
-  or bare monmove.
+  at 26690–26691. C then continues 20 more `obj_resists` then
+  `dog_move` (no `rn2(4)`); inventN=20 explains 2+20=22.
+- **Cause (partial, #486 DIAG):** not “missing fobj”. Both scanned 2
+  in-radius floor objs. JS `udist=5` → follow `!rn2(4)`; C `udist≤1`
+  skips that roll and invent-`dogfood`s. Prior `dog_move` (step 518,
+  appr=0): JS mfndpos cnt=5 ends at DOOR(35,5); C screen keeps pet on
+  (34,6) (`@d`). Terrain: JS (34,6)=ROOM (35,6)=VWALL vs C ndoor then
+  CORR east of hero.
+- **Rejected:** invent-first at @26692; fewer in-radius fobj alone;
+  bare monmove without pet pos; naive `doforce` EXT_CMDS port
+  (regressed mismatch to @26426 on step 511 `y`).
+- **C locus:** `dogmove.c` `dog_goal`/`dog_move`; `mon.c` `mfndpos`;
+  map/door typ at (34..35,*); `lock.c` `doforce` still absent.
+- **Falsifier / next:** C recorder or screen-proven terrain at
+  (34..35,5..7); why C stays after same `rn2(1)..rn2(5)` selection
+  (different poss[4] vs move abort). Do not ship `#force` until
+  uwep/autounlock gates match.
 
 ## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
 
