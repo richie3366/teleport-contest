@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:46 — #616 D-0555 get_location_coord retry
+- Objective: seed0373 @30743 C get_location vs JS next_ident
+- C locus: sp_lev.c get_location_coord; create_monster humidity
+- Change: js/mklev.js get_location_coord_random (double get_location
+  on random miss) used by splev_create_monster
+- Verification: rng-diff 30743→31895; runner RNG 31908/35386;
+  green+strict PASS; cohort 28/28 PASS
+- Next: @31895 salamander m_initweap rn2(7); or dosounds @8468
+
 ## 2026-07-16 20:39 — #615 formal score refresh
 - Objective: mandatory 5-iter full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score cadence; no port peel this iter).
@@ -160,10 +169,3 @@ Use this shape:
 - Verification: rng-diff **21730→22651**; runner RNG **22674**/35386
   Scr 22/124; green+strict; cohort 28/28.
 - Next: nhlib shuffle @22651; or dosounds @8468.
-## 2026-07-16 19:22 — #601 D-0541 m_initweap is_elf kit
-- Objective: peel seed0373 @19071 C `m_initweap` `rn2(2)` vs JS `rn2(75)`.
-- C locus: `makemon.c` `m_initweap` `is_elf`; `mondata.h` `M2_ELF`.
-- Change: `js/monsters.js` `is_elf`; `js/makemon.js` full S_HUMAN elf kit.
-- Verification: rng-diff **19071→21730**; runner RNG **21757**/35386
-  Scr 22/124; green+strict; cohort 28/28.
-- Next: m_initinv S_QUANTMECH @21730; or dosounds @8468.

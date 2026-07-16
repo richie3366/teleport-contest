@@ -71,9 +71,9 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0554 (`newmonhp` `golemhp`), seed0373
-@30743 C `get_location` vs JS `rnd(2)` `next_ident` (JS finished a
-makemon while C still places). Or peel seed5006 `dosounds` @8468.
+**Gameplay next:** after D-0555 (`get_location_coord` double-retry),
+seed0373 @31895 C `m_initweap` S_LIZARD salamander spear vs JS
+`rn2(75)` offensive. Or peel seed5006 `dosounds` @8468.
 Prefer over parked seed2200 RC / seed0116 screen residual.
 
 ```bash
@@ -82,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0554.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0555.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

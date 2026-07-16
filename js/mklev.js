@@ -3640,6 +3640,20 @@ function get_location_random(ok_fn, humidity = DRY) {
     return { x, y };
 }
 
+/**
+ * C ref: sp_lev.c get_location_coord — random coord path only.
+ * First get_location(humidity|NO_LOC_WARN); on (-1,-1) retry
+ * get_location(humidity) so amphibious WET-only searches burn two
+ * full 100-try loops before create_monster's DRY fallback.
+ * Named omission: fixed (non-random) coords; croom/somexy.
+ */
+function get_location_coord_random(humidity) {
+    let pos = get_location_random(null, humidity | NO_LOC_WARN);
+    if (pos.x < 0)
+        pos = get_location_random(null, humidity);
+    return pos;
+}
+
 function lua_random2(lo, hi) {
     return lo + rn2(hi - lo + 1);
 }
@@ -3695,16 +3709,17 @@ function splev_create_monster(id_or_class, peaceful) {
         pm = mlet ? mkclass(mlet, G_NOGEN) : null;
     }
     // C: pm_to_humidity then get_location_coord(loc|NO_LOC_WARN); on fail |= DRY
+    // get_location_coord itself retries get_location once on random miss.
     let pos;
     if (pm) {
         let loc = pm_to_humidity(pm);
-        pos = get_location_random(null, loc | NO_LOC_WARN);
+        pos = get_location_coord_random(loc | NO_LOC_WARN);
         if (pos.x < 0) {
             loc |= DRY;
-            pos = get_location_random(null, loc);
+            pos = get_location_coord_random(loc);
         }
     } else {
-        pos = get_location_random(null, DRY);
+        pos = get_location_coord_random(DRY);
     }
     pos = splev_resolve_occupied(pos.x, pos.y, pm);
     const mtmp = makemon(pm, pos.x, pos.y, 0);

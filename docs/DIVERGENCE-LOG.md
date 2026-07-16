@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0555 — get_location_coord random double-retry
+
+- **Status:** fixed (partial — fixed coords / croom `somexy`; object/trap
+  callers still single `get_location_random`)
+- **Symptom:** seed0373 @30743 C `get_location` `rn2(79)` vs JS `rnd(2)`
+  `next_ident` (post D-0554). JS placed a pit viper while C still searched.
+- **Cause:** C `get_location_coord` on random miss calls `get_location`
+  twice (second with the same humidity). Amphibious `pm_to_humidity` →
+  WET-only; fire plane has no pools, so both 100-try loops fail before
+  `create_monster` `loc |= DRY`. JS did one WET loop then DRY → accepted
+  ~200 RNG early.
+- **C locus:** `sp_lev.c` `get_location_coord`; `create_monster` humidity
+  path; `pm_to_humidity` WET replace for amphibious.
+- **Change:** `js/mklev.js` `get_location_coord_random` + use in
+  `splev_create_monster`.
+- **Verification:** seed0373 rng-diff **30743→31895**; runner RNG
+  **31908**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** non-random coords; croom/`somexy`; object/trap/
+  stair `get_location_coord` parity.
+- **Next:** @31895 C `m_initweap` S_LIZARD salamander `rn2(7)` spear
+  vs JS `rn2(75)` offensive; or seed5006 `dosounds` @8468.
+
 ## D-0554 — newmonhp golemhp fixed HP (no d(m_lev,8))
 
 - **Status:** fixed (partial — rider / mlevel>49 / is_home_elemental deferred)

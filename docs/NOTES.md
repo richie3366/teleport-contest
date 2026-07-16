@@ -7,14 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0554 done:** `newmonhp` `is_golem`→`golemhp(mndx)` fixed HP (stone=100).
-  seed0373 **30344→30743**; runner RNG **30755**/35386.
-- **seed0373 next:** @30743 C `get_location` vs JS `rnd(2)` `next_ident`
-  (JS finished makemon; C still placing — humidity/retry?).
+- **D-0555 done:** `get_location_coord` random double-retry before
+  create_monster DRY fallback. seed0373 **30743→31895**; runner RNG
+  **31908**/35386.
+- **seed0373 next:** @31895 C `m_initweap` S_LIZARD salamander
+  `rn2(7)` spear/trident/stiletto vs JS `rn2(75)` `rnd_offensive_item`
+  (JS lacks salamander weapon arm).
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#615 formal score:** **30/44**, Scr **5901**/11405, RNG
-  **348962**/792838 (44.01%), `31+0.15/turn` (R² 0.77). Δ#610 +559 RNG.
+  **348962**/792838 (44.01%), `31+0.15/turn` (R² 0.77).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -27,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0554; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0555; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -56,14 +58,15 @@ Objective/score live in `CURRENT.md`.
   burn `d(m_lev,8)` for adult dragons in endgame (D-0551);
   always DRY-place fire-plane flyers/lava-likers (D-0552);
   skip S_GIANT `m_initinv` gem/`WAN_DIGGING` (D-0553);
-  burn `d(m_lev,8)` for golems (D-0554).
+  burn `d(m_lev,8)` for golems (D-0554);
+  single-loop WET search for amphibious before DRY (D-0555).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0554
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0555
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -73,12 +76,9 @@ Objective/score live in `CURRENT.md`.
 - seed0007 peels D-0485…D-0506 done → **PASS**.
 - D-0512: !verbose drop leaves getobj topline until parse clear.
 - D-0513: `zapwrapup` must `You_feel` shudder (not defer).
-- D-0514: wizard `#quit` → `Dump core?` before disclose; stopprint
-  skips Goodbye; wizard topten early-exit msg + trailing blanks.
-- getbones `rn2(3)` gap with JS dog_move arity was unbound level change
-  (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
-  (D-0068/D-0149).
-- D-0519…D-0554 makemaz / tower / Bar / soko / endgame fire — see index.
+- D-0514: wizard `#quit` → `Dump core?` before disclose.
+- getbones `rn2(3)` gap was unbound level change — D-0515/18.
+- D-0519…D-0555 makemaz / tower / Bar / soko / endgame fire — see index.
 
 ## Landmarks (≤15)
 
@@ -97,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 tour: fire plane @30743 after golemhp (D-0554).
+- seed0373 tour: fire plane @31895 salamander weap after D-0555.
