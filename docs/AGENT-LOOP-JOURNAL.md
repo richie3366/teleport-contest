@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 11:20 — D-0481 makemon newsym after spawn
+- Objective: seed0006 @102 JS `.` vs C `&` after water-demon unleash.
+- C locus: `makemon.c` `makemon` `!gi.in_mklev` → `newsym` (+ byyou).
+- Change: `js/makemon.js` `newsym(mx,my)` after invent when not
+  mklev; early byyou `newsym`. Omit `set_apparxy` (circular import).
+- Verification: seed0006 Scr **106→110**/123 @102→@110; RNG full;
+  green+strict; 25 PASS cohort held.
+- Next: seed0006 @110 disclose invent pages (or seed0007).
+
 ## 2026-07-16 10:35 — LB 23-vs-27 investigate + D-0480
 - Objective: close judge 14-cell gap on seed0002/0004/0012/0030.
 - C locus: tty blank fg; `insight.c` vanqsort `strcmpi`; altar DEC (D-0293).
@@ -161,25 +170,3 @@ Use this shape:
 - Verification: @538 matches; first miss @538→@587; Scr 568→593;
   RNG full; green+strict; cohort 24/24.
 - Next: D-0469 discoveries menu class order / `{buy}` @587.
-
-## 2026-07-16 07:00 — #505 score + D-0467 invent itemed
-- Objective: mandatory #505 full `sessions` score; primary D-0467
-  invent `i` → `itemactions` menu @530.
-- C locus: `invent.c` `ddoinv`/`dispinv_with_action`; `iactions.c`
-  `itemactions`; status blank until bot after fullscreen invent.
-- Change: `js/iactions.js` + `ddoinv` PICK_ONE→`itemactions`;
-  `ia_checkfile`; status suppress only inside `itemactions`.
-- Verification: #505 score **26/44** Scr **4877**/11405 RNG
-  **285359**/792838; seed0002 Scr **566→568** first miss
-  **@530→@538**; green+strict; cohort seed0004 held.
-- Next: D-0468 sleep-ray bounce map `@` vs `q` @538.
-
-## 2026-07-16 06:50 — #504 D-0466 apply getobj compactify
-- Objective: seed0002 @525 C `[ch-kop or ?*]` vs JS `[chijkop or ?*]`.
-- C locus: `invent.c` `getobj`/`compactify`; `apply.c` `doapply`.
-- Change: `js/apply.js` prompt `compactify_invlets` when suggested>5;
-  `?`/`*` keeps raw lets (same as D-0455 drink).
-- Verification: @525 matches; first miss @525→@530; Scr 563→566;
-  RNG full; green+strict; cohort 26/26.
-- Next: D-0467 invent `i` → `itemactions` `Do what with` menu.
-

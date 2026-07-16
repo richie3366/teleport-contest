@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0481 — makemon !in_mklev newsym so spawned mon shows up
+
+- **Status:** fixed
+- **Symptom:** seed0006 screen@102 sole cell miss — JS floor `·` vs C `&`
+  (blue water demon) east of stairs after “You unleash a water demon!”.
+  Demon existed (combat/RNG full) but map never painted it until later.
+- **Cause:** JS `makemon` linked onto `fmon` and returned without
+  `newsym`; C always `newsym(mx,my)` when `!gi.in_mklev` (and early
+  when `byyou`).
+- **C locus:** `makemon.c` `makemon` (`!gi.in_mklev` → `newsym`;
+  `byyou` early `newsym`+`set_apparxy`).
+- **Change:** `js/makemon.js` call `newsym` on byyou path and again
+  after invent when `!game.in_mklev`. `set_apparxy` omitted (circular
+  import; `dochug` sets mux/muy before combat).
+- **Verification:** seed0006 Scr **106→110**/123 first miss
+  **@102→@110**; RNG full; green+strict; 25 PASS cohort held.
+- **Named omissions:** byyou `set_apparxy`; MM_NOMSG appear-pline arm.
+- **Next:** seed0006 @110 disclose invent pages after possessions yn
+  (C `Weapons` / `Gems/Stones`; JS skips to attributes ynq).
+
 ## D-0480 — serialize glyphless spaces as NO_COLOR; vanqsort strcmpi
 
 - **Status:** fixed (local C-fidelity; does not close leaderboard 23-vs-27)

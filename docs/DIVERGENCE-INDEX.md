@@ -467,6 +467,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0478 | fixed | hilite_pet / wc2_petattr ATR_INVERSE on tame | seed0006 Scr 89→95; @71→@77 I vs # |
 | D-0479 | fixed | mondead unmap_object clears invisible I | seed0006 Scr 95→106; @77→@102 water demon |
 | D-0480 | fixed | serialize space NO_COLOR + vanqsort strcmpi | C-fidelity; LB 23-vs-27 gap still open |
+| D-0481 | fixed | makemon !in_mklev newsym after spawn | seed0006 Scr 106→110; @102→@110 disclose invent |
 
 
 

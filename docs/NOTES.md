@@ -22,9 +22,10 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** SO-wrap `{`/`\`` in serialize (C mixes encodings; `` ` ``
   is pool+ROCK); invent frame-align; re-check version-banner as sole
   cause (miss counts ≠ 8×chargen; seed0030 has 0 version screens).
-- **Just fixed (D-0480):** serialize glyphless spaces → NO_COLOR;
-  `vanqsort_cmp` strcmpi (not `localeCompare`).
-- **Next gameplay:** seed0006 @102 `.` vs `&` after water-demon unleash.
+- **Just fixed (D-0481):** `makemon` `!in_mklev` → `newsym` (water
+  demon map `&` appeared). seed0006 Scr **106→110**/123.
+- **Next gameplay:** seed0006 @110 disclose invent after possessions
+  yn — C `Weapons` / `Gems/Stones` pages; JS jumps to attributes ynq.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
@@ -37,14 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
 - Don’t SO-wrap `{` or `` ` `` without per-cell decgfx (D-0480 dead end).
-- D-0471…D-0479 done paths — see DIVERGENCE-INDEX.
+- D-0471…D-0481 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
+- Water-demon floor-vs-`&` was missing `makemon` `newsym` (D-0481).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- seed0006 RNG full; screens @102 `.` vs `&` next.
+- seed0006 RNG full; screens @110 disclose invent next.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
