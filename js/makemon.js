@@ -45,6 +45,7 @@ import {
     is_floater,
     is_mercenary,
     is_elf,
+    is_giant,
     is_ndemon,
     is_shapeshifter,
     is_vampire,
@@ -70,7 +71,7 @@ import {
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import {
     mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable,
-    set_corpsenm, stop_timer, add_to_container,
+    set_corpsenm, stop_timer, add_to_container, rnd_class,
 } from './mkobj.js';
 
 /** Local t_at — avoid makemon↔trap import cycle; matches trap.js t_at. */
@@ -1271,7 +1272,7 @@ function rnd_misc_item(mtmp) {
 }
 
 // C ref: makemon.c m_initinv — S_GNOME candle, S_MUMMY wrap, S_QUANTMECH box,
-//   PM_SHOPKEEPER, trailing misc
+//   S_GIANT gems, PM_SHOPKEEPER, trailing misc
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -1295,6 +1296,25 @@ function m_initinv(mtmp) {
         // C ref: makemon.c m_initinv S_NYMPH — mirror + potion of object detection
         if (!rn2(2)) mongets(mtmp, otyp('MIRROR'));
         if (!rn2(2)) mongets(mtmp, otyp('POT_OBJECT_DETECTION'));
+        break;
+    case 'S_GIANT':
+        // C ref: makemon.c m_initinv S_GIANT — minotaur wand / giant gem stack
+        if (ptr.mndx === pm('MINOTAUR')) {
+            if (!rn2(8) || (game.in_mklev && Is_earthlevel(game.u?.uz))) {
+                mongets(mtmp, otyp('WAN_DIGGING'));
+            }
+        } else if (is_giant(ptr)) {
+            for (let cnt = rn2((mtmp.m_lev / 2) | 0); cnt; cnt--) {
+                const otmp = mksobj(
+                    rnd_class(otyp('DILITHIUM_CRYSTAL'), otyp('LUCKSTONE') - 1),
+                    false,
+                    false,
+                );
+                otmp.quan = rn1(2, 3);
+                otmp.owt = weight(otmp);
+                mpickobj(mtmp, otmp);
+            }
+        }
         break;
     case 'S_LEPRECHAUN':
         // C ref: makemon.c m_initinv S_LEPRECHAUN — mkmonmoney(d(level_difficulty(),30))
@@ -1417,7 +1437,7 @@ function m_initinv(mtmp) {
         // elf / priest / guardian arms deferred
         break;
     default:
-        // Other m_initinv bodies (S_DEMON, S_GIANT, S_WRAITH, S_LICH, …) deferred
+        // Other m_initinv bodies (S_DEMON, S_WRAITH, S_LICH, …) deferred
         break;
     }
 

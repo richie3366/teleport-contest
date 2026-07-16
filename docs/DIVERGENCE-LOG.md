@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0553 — m_initinv S_GIANT gem stack / minotaur wand
+
+- **Status:** fixed (partial — S_WRAITH/S_LICH/S_DEMON invent still deferred)
+- **Symptom:** seed0373 @30308 C `rn2(6)` `m_initinv` S_GIANT gem count
+  vs JS trailing `rn2(50)` defensive (post D-0552).
+- **Cause:** JS `m_initinv` omitted `S_GIANT` — minotaur `WAN_DIGGING`
+  and `is_giant` gem loop `rn2(m_lev/2)` + `rnd_class(DILITHIUM..LUCKSTONE-1)`.
+- **C locus:** `makemon.c` `m_initinv` `case S_GIANT`; `mondata.h`
+  `is_giant` (`M2_GIANT`).
+- **Change:** `js/makemon.js` `S_GIANT` invent; `js/monsters.js`
+  `M2_GIANT` + `is_giant`.
+- **Verification:** seed0373 rng-diff **30308→30344**; runner RNG
+  **30351**/35386 Scr 23/124; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** `S_WRAITH`/`S_LICH`/`S_DEMON` invent bodies.
+- **Next:** @30344 C silent `newmonhp` (stone golem `golemhp`) vs JS
+  `d(21,8)`; or seed5006 `dosounds` @8468.
+
 ## D-0552 — splev create_monster pm_to_humidity / HOT lava
 
 - **Status:** fixed (partial — Is_waterlevel always-accept)

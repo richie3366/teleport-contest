@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:35 — #613 D-0553 m_initinv S_GIANT
+- Objective: seed0373 @30308 S_GIANT invent vs trailing rn2(50)
+- C locus: makemon.c m_initinv case S_GIANT; mondata.h is_giant
+- Change: JS S_GIANT minotaur WAN_DIGGING + is_giant gem loop; M2_GIANT
+- Verification: rng-diff 30308→30344; RNG 30351/35386; green+strict;
+  cohort 30/30 PASS
+- Next: @30344 golemhp (stone golem silent newmonhp) vs d(21,8)
+
 ## 2026-07-16 20:29 — #612 D-0552 splev pm_to_humidity
 - Objective: peel seed0373 @30263 C `next_ident` vs JS `get_location`.
 - C locus: `sp_lev.c` `pm_to_humidity` / `is_ok_location` /

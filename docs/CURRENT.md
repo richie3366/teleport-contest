@@ -25,7 +25,7 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#610**),
 post D-0550. Screens **5901**/11405; RNG **348403**/792838 (43.94%).
 **30/44** PASS. Speed `31+0.14/turn` (R² 0.77). Δ vs #605: Scr +1,
 RNG +4340 (D-0546…D-0550 peels), PASS unchanged.
-*(#611–#612 D-0551/D-0552: seed0373 focused RNG 30272→30336; full suite
+*(#611–#613 D-0551…D-0553: seed0373 focused RNG 30272→30351; full suite
 next at #615.)*
 
 ## Score
@@ -49,7 +49,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 30336/35386 | 23/124 | D-0552; next `m_initinv` S_GIANT @30308 |
+| seed0373 | 30351/35386 | 23/124 | D-0553; next `golemhp` @30344 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -73,8 +73,8 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0552 (splev `pm_to_humidity`), seed0373
-@30308 C `m_initinv` S_GIANT gem `rn2(m_lev/2)` vs JS `rn2(50)`.
+**Gameplay next:** after D-0553 (`m_initinv` S_GIANT), seed0373
+@30344 C silent `newmonhp` (`golemhp` stone golem) vs JS `d(21,8)`.
 Or peel seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
 seed0116 screen residual.
 
@@ -84,7 +84,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0552.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0553.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
