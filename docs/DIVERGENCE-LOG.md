@@ -4,16 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0453 — seed0002 @26987 dog_goal vs JS obj_resists
+## D-0453 — seed0002 @26987 dog_goal udist gate vs invent obj_resists
 
 - **Status:** open
 - **Symptom:** seed0002 first RNG miss @26987 — C `rn2(4)=3` @
   `dog_goal(dogmove.c:575)` vs JS `rn2(100)` (`obj_resists`). Prefix
   26987; Scr 323/595. Matched through shield `ureflects`/`makeknown`
   (D-0452).
-- **Cause:** TBD — pet goal vs continued invent `obj_resists` walk.
-- **C locus:** `dogmove.c` `dog_goal`; `zap.c` `obj_resists`.
-- **Falsifier / next:** rng-diff pet state at step of 26987.
+- **Cause (partial):** same `dog_goal` call — 2× fobj `obj_resists`
+  then C follow `rn2(4)` because `udist>1`; JS `udist==1` skips that
+  gate and walks invent `dogfood`→`obj_resists`. JS DIAG at entry:
+  pet (33,8) hero (34,8) `udist=1`, inbox boulder(32,10)+gold(37,13).
+  Prior matching selection RNG `rn2(1)..rn2(8)` stepped JS
+  (32,7)→(33,8) chi=7. C’s 2-fobj + `rn2(4)` implies C is not
+  ortho-adjacent after that step (e.g. pet (32,8) or hero still
+  (34,7) → diagonal `udist=2`).
+- **Rejected:** broken `dog_goal` `rn2(4)` / invent order; extra JS
+  fobj (inboxN=2 matches C’s two pre-`rn2(4)` resists); mfndpos cnt
+  mismatch (both burned 8 selection rolls).
+- **C locus:** `dogmove.c` `dog_goal` `udist>1` / `dog_move` place;
+  possibly `m_in_out_region` / `postmov` (JS `dog_move` omits
+  `m_in_out_region` + `m_digweapon_check` before place).
+- **Falsifier / next:** C `mx,my,ux,uy` at dog_goal after idx 26982;
+  or prove JS place/`postmov` desync without RNG.
 
 ## D-0452 — seed0002 @26883 ureflects makeknown exercise vs JS zap_hit
 

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 05:25 — #490 score cadence + D-0453 DIAG
+- Objective: mandatory full `sessions` score (#490 %5); D-0453 peel.
+- C locus: `dogmove.c` `dog_goal` `udist>1` / `dog_move` place.
+- Change: no code — DIAG only (removed). Score **26/44** Scr
+  **4632**/11405 RNG **285242**/792838 (+3/+274 vs #485). D-0453:
+  same dog_goal; JS udist=1 invent vs C rn2(4); JS stepped
+  (32,7)→(33,8) with matching mfndpos RNG.
+- Verification: green+strict PASS; full sessions documented.
+- Next: C mx/my/ux/uy at @26987 (or JS place/postmov desync).
+
 ## 2026-07-16 05:16 — #489 D-0452 ureflects makeknown
 - Objective: seed0002 @26883 D-0452 primary.
 - C locus: `muse.c` `ureflects`; `o_init.c` `makeknown`/`discover_object`.

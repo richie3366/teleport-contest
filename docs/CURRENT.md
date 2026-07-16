@@ -17,19 +17,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#485 score
-cadence). Screens **4629**/11405; RNG **284968**/792838. **26/44** PASS.
-Speed `23+0.13/turn`. Δ vs #480: Scr +9, RNG +7334. Focused peels since:
-#488 D-0451 → @26883; #489 D-0452 → @26987 (suite totals stale until
-next %5 cadence).
+Score last measured: **2026-07-16** — full `sessions` suite (#490 score
+cadence). Screens **4632**/11405; RNG **285242**/792838. **26/44** PASS.
+Speed `23+0.13/turn`. Δ vs #485: Scr +3, RNG +274 (peels #486–#489;
+focused seed0002 still @26987).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4629 / 11,405** (40.59%) |
-| Positional RNG calls matched | **284,968 / 792,838** (35.94%) |
+| Screens matched | **4632 / 11,405** (40.61%) |
+| Positional RNG calls matched | **285,242 / 792,838** (35.98%) |
 | Speed label | `23+0.13/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
@@ -43,9 +42,9 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 27042/27158 | **323**/595 | @26987 dog_goal (D-0453); was @26883 |
+| seed0002 | 27042/27158 | **323**/595 | @26987 dog_goal udist (D-0453) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
-| seed0007 | 2939/16373 | **20**/302 | snake swamp |
+| seed0007 | 2975/16373 | **20**/302 | snake swamp (+36 RNG vs #485) |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -63,10 +62,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @26987 — `dog_goal` vs JS `obj_resists`** (D-0453).
-Prefix **26987**; Scr **323**/595. After D-0452 (`ureflects` shield
-`makeknown`→`exercise`), C enters pet `dog_goal` `rn2(4)` while JS
-still walks `obj_resists`.
+**seed0002 @26987 — `dog_goal` udist gate** (D-0453).
+Prefix **26987**; Scr **323**/595. Same `dog_goal`: 2× fobj
+`obj_resists` then C `rn2(4)` (udist>1) vs JS invent `obj_resists`
+(udist==1). JS DIAG: pet (33,8) hero (34,8) after matching mfndpos
+chi=7 step (32,7)→(33,8); C’s 2-fobj+`rn2(4)` implies not ortho-adjacent.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -76,7 +76,7 @@ node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.js
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening D-0452; inventing
-pet alignment without C path.
+pet alignment without C path / mx,my,ux,uy capture.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

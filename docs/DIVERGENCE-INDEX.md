@@ -439,7 +439,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0450 | fixed | zap getobj ? + RAY ubuzz/dobuzz sleep | seed0002 prefix 25767→26692; Scr 320; @26692 obj_resists next |
 | D-0451 | fixed | doloot lootmon getdir + help_dir quitchar More; doforce ECMD_TIME | seed0002 26692→26883; Scr 320→322 |
 | D-0452 | fixed | ureflects shield makeknown→exercise | seed0002 26883→26987; Scr 322→323; @26987 dog_goal next |
-| D-0453 | open | dog_goal rn2(4) vs JS obj_resists after reflect peel | seed0002 @26987 |
+| D-0453 | open | dog_goal udist>1 rn2(4) vs JS udist==1 invent | seed0002 @26987; need C mx/my/ux/uy |
 
 
 
