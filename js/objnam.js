@@ -24,7 +24,7 @@ import { monsterNames } from './monsters.js';
 import { PM_SAMURAI, PM_CLERIC } from './generated/monsters_data.js';
 import {
     W_ARMOR, W_AMUL, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
-    Has_contents, Is_container, P_BOW, P_CROSSBOW, P_SHURIKEN,
+    Has_contents, Is_container, Is_box, P_BOW, P_CROSSBOW, P_SHURIKEN,
 } from './const.js';
 
 function Role_if(pm) {
@@ -686,6 +686,16 @@ export function doname(obj) {
                     && !Role_if(PM_CLERIC));
             if (showUncursed) prefix += 'uncursed ';
         }
+    }
+
+    // C ref: objnam.c doname_base — box trap/lock prefixes (before greased)
+    if (Is_box(obj) && obj.otrapped && obj.tknown && obj.dknown) {
+        prefix += 'trapped ';
+    }
+    if (obj.lknown && Is_box(obj)) {
+        if (obj.obroken) prefix += 'broken ';
+        else if (obj.olocked) prefix += 'locked ';
+        else prefix += 'unlocked ';
     }
 
     // C: WEAPON_CLASS — re-insert stripped "poisoned " before erosion/spe

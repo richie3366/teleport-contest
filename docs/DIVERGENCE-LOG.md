@@ -4,19 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0464 — seed0002 screen@454 locked chest look_here/doname
+## D-0465 — seed0002 screen@502 #terrain known-map trap glyphs
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @502 — `#terrain` "Showing
+  known terrain only..." map: C floor/`·` cells vs JS trap `^`
+  (and possibly other TER_MAP strip misses); RNG full; Scr 561/595.
+- **Cause:** TBD — TER_MAP should strip traps; JS
+  `reveal_terrain_getglyph` may keep trap layer.
+- **C locus:** `detect.c` `reveal_terrain` / `reveal_terrain_getglyph`;
+  `cmd.c` `doterrain` which=1 → `TER_MAP`.
+- **Falsifier / next:** strip traps under `!(which_subset & TER_TRP)`;
+  re-check @502 cell grid.
+
+## D-0464 — seed0002 screen@454 locked chest look_here/doname
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @454 — C
   `You see here a locked chest.` vs JS `You see here a chest.`;
   RNG full; Scr 560/595 (post D-0463).
-- **Cause:** TBD — C `doname_base` prefixes `"locked "` when
-  `lknown && Is_box && olocked`; JS `doname` omits lock state
-  (and possibly `lknown` never set on floor chest).
-- **C locus:** `objnam.c` `doname_base` box lock/trap prefixes;
-  callers that set `lknown`.
-- **Falsifier / next:** port lock/trap doname prefixes + verify
-  `lknown`/`olocked` on the looked-at chest.
+- **Cause:** JS `doname` omitted C `doname_base` box prefixes
+  (`trapped`/`locked`/`unlocked`/`broken` when `tknown`/`lknown`).
+  Floor chest already had `lknown`+`olocked` from prior loot/`#force`.
+- **C locus:** `objnam.c` `doname_base` (~1356–1368); `obj.h` `Is_box`.
+- **Change:** `js/objnam.js` `doname` — trap/lock prefixes after BUC;
+  `js/const.js` export `Is_box`. Deferred: `greased` prefix.
+- **Verification:** @454 matches; first miss **@454→@502**; Scr
+  **560→561**; RNG full; green+strict; cohort **26/26**.
+- **Next:** #terrain known-map trap glyphs (D-0465).
 
 ## D-0463 — seed0002 screen@363 wear pline appearance vs type
 
