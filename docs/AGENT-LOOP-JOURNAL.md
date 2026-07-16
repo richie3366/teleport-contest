@@ -18,6 +18,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 00:17 — #645 formal score refresh
+- Objective: mandatory #645 full `sessions` score (÷5 cadence).
+- C locus: n/a (score-only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **31/44**, Scr
+  **6514**/11405, RNG **359063**/792838 (45.29%), `32+0.15/turn`
+  (R² 0.769). Δ vs #640: Scr **+41**, RNG **+109**, PASS same
+  (D-0578/D-0579).
+- Next: seed5006 @162 confused mispronounce; or seed0116 Scr 115/127.
+
 ## 2026-07-17 00:15 — #644 D-0579 equip SUGGEST + Blindf_on / Blind vision
 - Objective: seed5006 Scr residual 217/249 (CURRENT primary).
 - C locus: do_wear.c equip_ok/cursed/Blindf_on; vision.c Blind vision_recalc;
@@ -157,11 +167,3 @@ Use this shape:
 - Verification: seed0373 Scr 101→110 RNG full; green+strict PASS; cohort 28/28.
 - Next: @101 Wizard Monnam capitalization; or seed5006 dosounds @8468.
 
-## 2026-07-16 22:28 — #630 formal score refresh
-- Objective: mandatory #630 full `sessions` score (÷5 cadence).
-- C locus: n/a (score-only; no port patch).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-- Verification: green+strict PASS; full suite **30/44**, Scr
-  **6378**/11405, RNG **353648**/792838 (44.61%), `31+0.15/turn`
-  (R² 0.76). Δ vs #625: Scr +23, RNG 0 (D-0565…D-0568), PASS same.
-- Next: seed0373 @100 Fire vision; or seed5006 dosounds @8468.
