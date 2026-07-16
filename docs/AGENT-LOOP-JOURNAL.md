@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 09:55 — D-0479 mondead unmap_object clears I
+- Objective: seed0006 @77 JS `I` vs C `#` after kitten kills unseen mon.
+- C locus: `mon.c` `mondead` → `unmap_object`; `display.c` unmap_*.
+- Change: `unmap_object`/`unmap_invisible` in `display.js`; wire into
+  `mondead` (mhitm/uhitm/trap) before `newsym`.
+- Verification: seed0006 Scr **95→106**/123 @77→@102; green+strict;
+  25 PASS cohort held.
+- Next: seed0006 @102 `.` vs `&` water-demon display (or seed0007).
+
 ## 2026-07-16 08:15 — #515 score + D-0478 hilite_pet
 - Objective: #515 %5 full score; seed0006 @71 hilite_pet primary.
 - C locus: `wintty.c` `tty_print_glyph` MG_PET; `options.c` opt_hilite_pet.

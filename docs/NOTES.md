@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **27/44** PASS (#515 suite post D-0478). seed0006
-  focused RNG **6736**/6736 Scr **95**/123.
-- **Just fixed:** D-0478 — `hilite_pet`/`wc2_petattr` ATR_INVERSE on
-  tame map glyphs (`mon_map_attr` in `newsym`).
-- **Next:** seed0006 screen@77 — JS `I` vs C `#` (invisible memory /
-  corridor). Or pivot seed0007.
+- **Score:** **27/44** PASS (#515 suite; focused seed0006 post D-0479
+  Scr **106**/123, suite totals not remeasured this iter).
+- **Just fixed:** D-0479 — `mondead` `unmap_object` when
+  `glyph_is_invisible` (clears remembered `I` before `newsym`).
+- **Next:** seed0006 screen@102 — JS `.` vs C `&` after water-demon
+  unleash (display/placement). Or pivot seed0007.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -44,7 +44,8 @@ Objective/score live in `CURRENT.md`.
   seed0006 screen@13 without rename docorner/`_base_cury` (D-0475);
   seed0006 screen@22 without filter `tty_end_menu` page packing (D-0476);
   pager Node `fs` for dat/* (D-0477);
-  seed0006 screen@71 without `hilite_pet`/`wc2_petattr` (D-0478).
+  seed0006 screen@71 without `hilite_pet`/`wc2_petattr` (D-0478);
+  seed0006 screen@77 without `mondead`/`unmap_object` (D-0479).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -63,7 +64,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0478 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0479 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -72,7 +73,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0478 done; seed0006 RNG full, screens @77 `I` vs `#` next.
+- D-0408–D-0479 done; seed0006 RNG full, screens @102 `.` vs `&` next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

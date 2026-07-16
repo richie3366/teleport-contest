@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0479 — mondead unmap_object clears remembered invisible glyph
+
+- **Status:** fixed
+- **Symptom:** seed0006 screen@77 sole cell miss — JS `I` vs C `#` after
+  "The kitten bites it." (invisible defender killed).
+- **Cause:** `pre_mm_attack` correctly `map_invisible`'d the unseen mon;
+  on death C `mondead` calls `unmap_object` when `glyph_is_invisible`, but
+  JS `mondead` only `newsym`'d — and `newsym` re-paints remembered `I`.
+- **C locus:** `mon.c` `mondead` (invisible glyph → `unmap_object`);
+  `display.c` `unmap_object` / `unmap_invisible`.
+- **Change:** `display.js` `unmap_object` + `unmap_invisible` + export
+  `glyph_is_invisible`; `mondead` in `mhitm.js` / `uhitm.js` / `trap.js`
+  clears invisible memory before `newsym`.
+- **Verification:** seed0006 Scr **95→106**/123 first miss **@77→@102**;
+  RNG full; green+strict; 25-session PASS cohort held.
+- **Named omissions:** makemon `PM_STALKER`/`PM_BLACK_LIGHT` perminvis;
+  dark-room `S_room`→`S_stone` waslit tweak in `unmap_object`; callers of
+  `unmap_invisible` outside death (detect/zap/apply).
+- **Next:** seed0006 @102 JS `.` vs C `&` after water-demon unleash.
+
 ## D-0478 — hilite_pet / wc2_petattr ATR_INVERSE on tame map glyphs
 
 - **Status:** fixed
