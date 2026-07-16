@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0503 — TIN xname known + otyp_uses_known (seed0007 @150)
+
+- **Status:** fixed
+- **Symptom:** after D-0502, first cell miss @150 (Scr **291**/302) —
+  Take-out `c - a tin` (C) vs `c - a tin of lichen` (JS). RNG full.
+- **Cause:** (1) JS `pretty_base` always called tin_details; C
+  `xname_flags` FOOD only appends when `obj->known`. (2) Generated
+  objects table omits `oc_uses_known`; FOOD `unk=1` (tin/egg) fell
+  through the heuristic so `mksobj` started `known=1`.
+- **C locus:** `objnam.c` `xname_flags` TIN/`known`; `eat.c`
+  `tin_details`; `mkobj.c` `unknow_object`; `objects.h` FOOD unk.
+- **Change:** `js/objnam.js` — gate tin_details on `obj.known`;
+  `otyp_uses_known` treats TIN/EGG as uses_known (mksobj known=0).
+- **Verification:** seed0007 Scr **291→294**/302; @150 bare tin;
+  first miss @161 invent `very burnt` leather; RNG full; green+strict
+  PASS; cohort **26/26** PASS.
+- **Named omission:** `add_erosion_words` oeroded/oeroded2 (burnt/
+  rusty/corroded degrees); full `tin_variety`/tintxts; table still
+  lacks extracted `oc_uses_known`.
+- **Next:** seed0007 @161 doname erosion words on worn leather.
+
 ## D-0502 — find_ac ARM_BONUS erosion (seed0007 @124 AC)
 
 - **Status:** fixed

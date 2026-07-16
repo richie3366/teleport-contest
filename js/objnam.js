@@ -141,7 +141,14 @@ function uses_known_otyp(otyp) {
     const oc = game.objects?.[otyp];
     if (oc?.oc_uses_known) return true;
     const cls = oc?.oc_class ?? 0;
-    return cls === WEAPON_CLASS || cls === ARMOR_CLASS || is_charged_otyp(otyp);
+    if (cls === WEAPON_CLASS || cls === ARMOR_CLASS || is_charged_otyp(otyp))
+        return true;
+    // C objects.h FOOD(..., unk=1, ...) → oc_uses_known; generated table
+    // omits the bit (same debt as D-0316 WAND). Egg/tin contents stay
+    // hidden until obj.known (open/eat / starter ini_inv).
+    const n = objectNames[otyp];
+    if (n === 'TIN' || n === 'EGG') return true;
+    return false;
 }
 
 export function otyp_uses_known(otyp) {
@@ -160,8 +167,9 @@ function mon_name(mndx) {
 
 /**
  * C ref: eat.c tin_details() — spinach / "of X meat" / vegetarian bare name.
+ * Caller must already have decided known (C: xname_flags FOOD TIN && known).
  */
-function tin_base(obj) {
+function tin_details(obj) {
     // spinach: corpsenm unset and spe == 1 (set_tin_variety)
     if ((obj.corpsenm == null || obj.corpsenm < 0) && (obj.spe | 0) === 1)
         return 'tin of spinach';
@@ -171,15 +179,16 @@ function tin_base(obj) {
     // C: vegetarian monsters omit " meat"; newt is not vegetarian
     const vegetarian = /^(lichen|fungus|mold|jelly|pudding|blob|jelly)$/i
         .test(mname) || mname.includes('fungus') || mname.includes('mold');
-    // Minimal: only the Tourist spinach/newt cases matter for now.
-    // Newt → "newt meat"; spinach handled above.
+    // Named omission: full tin_variety / tintxts / cknown rotten prefix.
     if (vegetarian) return `tin of ${mname}`;
     return `tin of ${mname} meat`;
 }
 
 function pretty_base(obj) {
     const n = objectNames[obj.otyp];
-    if (n === 'TIN') return tin_base(obj);
+    // C ref: objnam.c xname_flags FOOD_CLASS — Concat(actualn);
+    // if (typ == TIN && known) tin_details(...). Unidentified → bare "tin".
+    if (n === 'TIN') return obj.known ? tin_details(obj) : 'tin';
     // C: corpse → "<monster> corpse" when corpsenm known
     if (n === 'CORPSE' && obj.corpsenm != null && obj.corpsenm >= 0)
         return `${mon_name(obj.corpsenm)} corpse`;

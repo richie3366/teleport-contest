@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:36 — D-0503 TIN known + otyp_uses_known
+- Objective: seed0007 @150 Take-out `a tin` vs `a tin of lichen`
+- C locus: `objnam.c` xname_flags TIN+known; `eat.c` tin_details;
+  `mkobj.c` unknow_object; FOOD unk
+- Change: gate tin_details on `obj.known`; TIN/EGG in
+  `otyp_uses_known` so mksobj starts known=0 (D-0503)
+- Verification: Scr **291→294**/302 RNG full; green+strict;
+  cohort 26/26; @161 very burnt leather next
+- Next: `add_erosion_words` oeroded/oeroded2 degrees
+
 ## 2026-07-16 15:31 — #560 score + D-0502 find_ac ARM_BONUS
 - Objective: mandatory full `sessions` score (#560÷5); seed0007 @124 AC
 - C locus: `do_wear.c` `find_ac` / `hack.h` `ARM_BONUS`

@@ -7,9 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0503 (next):** after D-0502 find_ac ARM_BONUS, Scr
-  **291**/302; first miss @150 — Take-out `c - a tin` (C) vs
-  `c - a tin of lichen` (JS). RNG still full. Falsifier:
+- **seed0007 / D-0504 (next):** after D-0503 TIN known, Scr **294**/302;
+  first miss @161 — invent `very burnt +1 leather armor` (C) vs
+  `+1 leather armor` (JS). `add_erosion_words` oeroded degrees missing.
+  RNG full. Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0502
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0503
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0501 RNG/botl/loot path done; D-0502 find_ac ARM_BONUS.
+- D-0490…D-0502 RNG/botl/loot/AC path done; D-0503 tin known.
 
 ## Landmarks (≤15)
 
@@ -51,9 +52,8 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
-- D-0498…D-0501: doset/botl/loot → Scr 60→126; @124 AC.
-- D-0502: `find_ac` ARM_BONUS erosion (+ rings/amulet/HProt/spellprot);
-  Scr 126→291; @150 tin doname next.
+- D-0502: `find_ac` ARM_BONUS; Scr 126→291.
+- D-0503: TIN `known` gate + egg/tin `otyp_uses_known`; Scr 291→294.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
