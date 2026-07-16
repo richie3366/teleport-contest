@@ -18,6 +18,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 00:20 — #646 D-0580 doread confused mispronounce
+- Objective: seed5006 Scr @162 mispronounce vs level_tele (CURRENT).
+- C locus: read.c doread confused/Hallu pline + can_chant silently;
+  before seffect_teleportation → level_tele.
+- Change: port mispronounce/`Being so trippy` plines; Blind
+  cogitate/pronounce via exported can_chant (Strangled subset).
+- Verification: seed5006 Scr **228→230**/249 RNG FULL; first miss
+  @185 Die?; green+strict PASS; cohort **31**/31 PASS; seed0116
+  Scr 115/127 held.
+- Next: seed5006 @185 Die?/Save-bones yn; or seed0116 Scr 115/127.
+
 ## 2026-07-17 00:17 — #645 formal score refresh
 - Objective: mandatory #645 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -158,12 +169,4 @@ Use this shape:
 - Verification: seed0373 Scr 110→111 RNG full; @101 match; green+strict;
   cohort 30/30 PASS.
 - Next: @110 Air gravity map clouds; or seed5006 dosounds @8468.
-
-## 2026-07-16 22:40 — D-0569 Fire lit + monster lights
-- Objective: seed0373 @100 Fire vision (CURRENT primary).
-- C locus: sp_lev.c set_levltyp_lit; light.c do_light_sources; makemon emits_light.
-- Change: load_fire SpLev_Map lit epilogue; js/light.js + vision TEMP_LIT;
-  makemon/goto_level hooks. Global sel_set_ter force-unlit falsified (seed0009).
-- Verification: seed0373 Scr 101→110 RNG full; green+strict PASS; cohort 28/28.
-- Next: @101 Wizard Monnam capitalization; or seed5006 dosounds @8468.
 

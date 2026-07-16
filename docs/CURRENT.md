@@ -25,7 +25,7 @@ Score last measured: **2026-07-17** — full `sessions` suite (loop **#645**),
 post D-0579. Screens **6514**/11405; RNG **359063**/792838 (45.29%).
 **31/44** PASS. Speed `32+0.15/turn` (R² 0.769). Δ vs #640: PASS 0,
 Scr **+41**, RNG **+109** (D-0578/D-0579 seed5006 Scr 192→228; seed0116
-114→115).
+114→115). *(#646 D-0580: seed5006 Scr 228→230 focused; suite not remeasured.)*
 
 ## Score
 
@@ -46,8 +46,8 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 12562/12562 | **115**/127 | D-0579 wear/Blind; residual |
-| seed5006 | **13923**/13923 | **228**/249 | D-0579; first miss @162 |
+| seed0116 | 12562/12562 | **115**/127 | residual after D-0579 |
+| seed5006 | **13923**/13923 | **230**/249 | D-0580; first miss @185 Die? |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,15 +71,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** seed5006 Scr **228**/249 first miss @162 confused
-scroll mispronounce vs level_tele prompt; or seed0116 Scr 115/127.
+**Gameplay next:** seed5006 Scr **230**/249 first miss @185 Die?/
+Save-bones yn timing; or seed0116 Scr 115/127.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0579.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0580.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

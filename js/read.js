@@ -15,8 +15,9 @@
 // Blind gates; study_book occupation/learn / novel / cursed_book; other
 // seffect_*; SCR_DESTROY_ARMOR confused erodeproof / cursed vibrate+stun /
 // blessed getobj choice / disintegrate_cursed_armor; nommap/Hallucination/
-// blessed-SDOOR convert body; notice_mon_off/on; can_chant silently;
-// check_capacity; SPE_MAGIC_MAPPING / SPE_REMOVE_CURSE cast;
+// blessed-SDOOR convert body; notice_mon_off/on; can_chant poly silent/
+// headless/buzz/burble; check_capacity; SPE_MAGIC_MAPPING /
+// SPE_REMOVE_CURSE cast;
 // Teleport_control getpos; confused light yellow/black-light pets;
 // snuff_lit / impact_arti_light / Punished ball; gremlin light-hit list;
 // Rogue whole-room light; Sunsword radius-0; remove-curse shop water
@@ -40,7 +41,7 @@ import { A_WIS, A_STR, A_CON, exercise } from './attrib.js';
 import { makeknown, display_pickinv_reply } from './invent.js';
 import { more_experienced } from './exper.js';
 import { do_mapping, cvt_sdoor_to_door } from './detect.js';
-import { study_book } from './spell.js';
+import { study_book, can_chant } from './spell.js';
 import { scrolltele, level_tele } from './teleport.js';
 import { trycall } from './do_name.js';
 import { chwepon } from './wield.js';
@@ -745,14 +746,19 @@ export async function doread() {
 
     scroll.in_use = true;
     if (otyp !== SCR_BLANK_PAPER) {
-        const Blind = !!(game.u?.Blind || game.u?.ublind);
+        const u = game.u || {};
+        // C: Confusion != 0; Blind; can_chant → silently
+        const confused = !!(u.HConfusion || u.Confusion);
+        const Blind = !!(u.Blind || u.ublind);
+        const silently = !can_chant();
         // C: nodisappear for SCR_FIRE / cursed SCR_REMOVE_CURSE
         const nodisappear = (otyp === SCR_REMOVE_CURSE && !!scroll.cursed);
         if (Blind) {
+            const verb = silently ? 'cogitate' : 'pronounce';
             await pline(
                 nodisappear
-                    ? 'You pronounce the formula on the scroll.'
-                    : 'As you pronounce the formula on it, the scroll disappears.',
+                    ? `You ${verb} the formula on the scroll.`
+                    : `As you ${verb} the formula on it, the scroll disappears.`,
             );
         } else {
             await pline(
@@ -761,7 +767,16 @@ export async function doread() {
                     : 'As you read the scroll, it disappears.',
             );
         }
-        // Confusion mispronounce deferred
+        // C ref: read.c doread — confused pline before seffects (D-0580)
+        if (confused) {
+            if (u.HHallucination || u.Hallucination) {
+                await pline('Being so trippy, you screw up...');
+            } else {
+                await pline(
+                    `Being confused, you ${silently ? 'misunderstand' : 'mispronounce'} the magic words...`,
+                );
+            }
+        }
     }
 
     const sr = await seffects(scroll);

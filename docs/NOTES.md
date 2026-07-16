@@ -7,22 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0579 fixed:** equip getobj SUGGEST-only letters; cursed boots/gloves
-  plural; Blindf_on/off + EBlinded mirror; vision_recalc Blind clears
-  IN_SIGHT; hitmu map_invisible. seed5006 Scr **217→228**/249; first
-  miss @162 confused scroll mispronounce vs level_tele prompt.
+- **D-0580 fixed:** `doread` confused mispronounce (+ Blind
+  cogitate/`can_chant`) before `seffects`. seed5006 Scr **228→230**/249;
+  first miss @185 Die?/Save-bones yn.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Next gameplay:** seed5006 @162 confused spellbook/scroll path; or
-  seed0116 Scr 115/127.
+- **Next gameplay:** seed5006 @185 Die?/bones yn; or seed0116 Scr 115/127.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0579; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0580; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -45,13 +43,14 @@ Objective/score live in `CURRENT.md`.
   `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
   `can_make_bones`; omit cemetery / `familiar_level_msg`; omit bones
   `utrack` or `initrack` after `getbones`; list DOWNPLAY letters in
-  wear/puton/takeoff prompts; skip Blindf_on / Blind vision_recalc.
+  wear/puton/takeoff prompts; skip Blindf_on / Blind vision_recalc;
+  skip confused scroll mispronounce before `seffects`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0579 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0580 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
 - D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
@@ -66,6 +65,8 @@ Objective/score live in `CURRENT.md`.
 - D-0578: C gg via bones `gettrack` to grave, not mfndpos cnt at (32,4).
 - D-0579: first Scr miss was getobj DOWNPLAY letters + Blindf_on, not
   RNG; Blind without vision_recalc left IN_SIGHT → named hitmsg overflow.
+- D-0580: @162 was missing confused mispronounce `--More--`, not
+  `level_tele` itself.
 
 ## Landmarks (≤15)
 
@@ -83,3 +84,4 @@ Objective/score live in `CURRENT.md`.
 - Bones `utrack` via `save_track`/`rest_track` (D-0578); no post-getbones
   `initrack`.
 - Blindfold: Blindf_on + EBlinded + vision_recalc Blind (D-0579).
+- Confused read: mispronounce pline before seffects (D-0580).

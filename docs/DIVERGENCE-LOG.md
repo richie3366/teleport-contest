@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0580 — doread confused mispronounce before seffects (seed5006 Scr)
+
+- **Status:** fixed (partial — Die?/Save-bones yn @185; other seffect_*)
+- **Symptom:** seed5006 Scr **228**/249 after D-0579; first miss @162 —
+  C `Being confused, you mispronounce the magic words...--More--` vs JS
+  immediate `To what level do you want to teleport?`.
+- **Cause:** `doread` deferred the Confusion pline that C emits after the
+  scroll-disappear message and before `seffects` → `level_tele`.
+- **C locus:** `read.c` `doread` (`confused` + `can_chant` silently /
+  Hallucination arms); callers via `seffect_teleportation` → `level_tele`.
+- **Change:** port confused/Hallu mispronounce plines; Blind
+  cogitate/pronounce via exported `can_chant` (Strangled subset).
+- **Verification:** seed5006 Scr **228→230**/249 RNG FULL; first miss
+  @185 Die?; green+strict PASS; cohort **31**/31 PASS; seed0116
+  Scr **115**/127 unchanged.
+- **Named omission:** `can_chant` poly silent/headless/buzz/burble;
+  seed5006 Die?/Save-bones yn timing @185.
+- **Next:** seed5006 @185 Die?/bones yn; or seed0116 Scr 115/127.
+
 ## D-0579 — equip getobj SUGGEST + Blindf_on / Blind vision (seed5006 Scr)
 
 - **Status:** fixed (partial — confused scroll mispronounce @162; Die?/
