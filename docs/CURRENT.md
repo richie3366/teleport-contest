@@ -71,17 +71,18 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0559 (Amulet wish / empty `readobjnam` `any`),
-seed0373 @32479 C `getbones` after `^V-2` levelport. Or peel seed5006
-`dosounds` @8468. Prefer over parked seed2200 RC / seed0116 screen residual.
+**Gameplay next:** after D-0560/D-0561 (endgame `^V-2` → air.lua +
+bubbles), seed0373 **RNG full** 35386/35386; screen residual **23**/124.
+Peel screen/cursor, or seed5006 `dosounds` @8468. Prefer over parked
+seed2200 RC / seed0116 screen residual.
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
+node frozen/ps_test_runner.mjs sessions/seed0373-barbarian-quest-tour.session.json
 node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0559.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0561.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

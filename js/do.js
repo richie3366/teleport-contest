@@ -26,6 +26,7 @@ import {
     u_on_rndspot,
     mklev,
     fumaroles,
+    movebubbles,
 } from './mklev.js';
 import { In_tutorial } from './dungeon.js';
 import { Is_waterlevel, Is_airlevel } from './const.js';
@@ -488,7 +489,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C: do.c goto_level — movebubbles / fumaroles before vision_recalc
     if (Is_waterlevel(u.uz) || Is_airlevel(u.uz)) {
-        // movebubbles deferred
+        movebubbles();
     } else if (game.level?.flags?.fumaroles) {
         fumaroles();
     }
@@ -506,6 +507,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.dfr_post_msg = null;
         await pline(msg);
     }
+    // C: deliver_splev_message() before endgame/quest arrival arms
+    await deliver_splev_message();
     // C: if (In_endgame) { … else if (newdungeon && amulet) resurrect(); }
     //     else if (In_quest) onquest();
     if (In_endgame(u.uz)) {
@@ -529,6 +532,18 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C: goto_level ends with pickup(1) — autopick or check_here/engr
     await pickup(1);
+}
+
+/**
+ * C ref: questpgr.c deliver_splev_message — pline lev_message lines then free.
+ */
+async function deliver_splev_message() {
+    const msg = game.lev_message;
+    if (!msg) return;
+    game.lev_message = null;
+    for (const line of String(msg).split('\n')) {
+        if (line) await pline(line);
+    }
 }
 
 /**

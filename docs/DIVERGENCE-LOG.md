@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0561 — air.lua load_special + bubbles / movebubbles
+
+- **Status:** fixed (partial — water cons pickup; water.lua/earth/astral;
+  moveloop movebubbles cadence polish)
+- **Symptom:** seed0373 @32480 C nhlib shuffle vs JS rn2(79) after
+  D-0560 getbones; then mkclass D/E/J; then setup_waterlevel /
+  movebubbles rn2 gaps.
+- **Cause:** (1) `load_special_proto` omitted `air`; (2)
+  `monclass_letter_to_mlet` only mapped G/h/V/O/T; (3) no
+  `setup_waterlevel`/`movebubbles` for Plane of Air.
+- **C locus:** `dat/air.lua`; `sp_lev.c` `load_special`; `mkmaze.c`
+  `setup_waterlevel`/`mk_bubble`/`movebubbles`/`mv_bubble`; `do.c`
+  `deliver_splev_message` / arrival `movebubbles`.
+- **Change:** `js/mklev.js` `load_air` + full monclass map +
+  `setup_waterlevel`/`movebubbles`/`mv_bubble` boing; `js/do.js`
+  `deliver_splev_message` + `movebubbles` call.
+- **Verification:** seed0373 rng-diff **RNG OK 35386**; runner RNG
+  **35386**/35386 Scr **23**/124 (cursors 121/124); green+strict PASS;
+  cohort **28**/28 PASS.
+- **Next:** seed0373 screen residual; or seed5006 `dosounds` @8468.
+
+## D-0560 — In_endgame level_tele negative dest
+
+- **Status:** fixed (partial — heaven/escape outside endgame; Knox;
+  lev_by_name)
+- **Symptom:** seed0373 @32479 C `getbones` `rn2(3)` vs JS missing after
+  D-0559 Amulet wish. Session `^V-2` from Fire plane.
+- **Cause:** JS stubbed all `In_endgame` `level_tele` as "can't get
+  there"; C maps `newlev` in `(-llimit,0)` to `dlevel = llimit + newlev`
+  (Air = 4-2) and `schedule_goto`.
+- **C locus:** `teleport.c` `level_tele` In_endgame block (~1308).
+- **Change:** `js/teleport.js` endgame negative dest + schedule_goto
+  (no materialize post_msg).
+- **Verification:** seed0373 rng-diff **32479→32480** (getbones match);
+  green+strict PASS.
+- **Next:** (superseded by D-0561) air.lua nhlib shuffle @32480.
+
 ## D-0559 — Amulet wish + empty readobjnam `any` + Wizard appear / hot
 
 - **Status:** fixed (partial — makemon appear still caller-side in

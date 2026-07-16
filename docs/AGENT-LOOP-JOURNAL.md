@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 21:35 — #621 D-0560/61 endgame ^V-2 → air RNG full
+- Objective: seed0373 @32479 getbones after `^V-2` from Fire plane.
+- C locus: teleport.c In_endgame level_tele; dat/air.lua; mkmaze.c
+  setup_waterlevel/movebubbles/mv_bubble; do.c deliver_splev_message.
+- Change: endgame negative dest; load_air; monclass D/E/J map;
+  bubbles+movebubbles boing; splev arrival msgs.
+- Verification: seed0373 RNG **OK 35386**/35386 Scr 23/124; green+strict
+  PASS; cohort **28**/28 PASS.
+- Next: seed0373 screen residual; or seed5006 dosounds @8468.
+
 ## 2026-07-16 21:20 — #620 score + D-0559 Amulet wish
 - Objective: mandatory full score (#620÷5); seed0373 @32473 makewish.
 - C locus: allmain amulet_wish; objnam readobjnam any; makemon appear;
@@ -156,14 +166,3 @@ Use this shape:
 - Verification: rng-diff **29189→29533**; runner RNG **29554**/35386
   Scr 22; green+strict PASS; cohort **28**/28 PASS.
 - Next: nhlib shuffle @29533 (likely soko3-1); or dosounds @8468.
-
-## 2026-07-16 19:43 — #606 D-0546 m_initinv S_MUMMY
-- Objective: peel seed0373 @25869 C `m_initinv` `rn2(7)` vs JS
-  trailing `rn2(50)`.
-- C locus: `makemon.c` `m_initinv` S_MUMMY (~772).
-- Change: `js/makemon.js` `case 'S_MUMMY': if (rn2(7)) mongets(MUMMY_WRAPPING)`.
-- Verification: rng-diff **25869→29189**; runner RNG **29214**/35386
-  Scr 22; green+strict PASS; cohort **30**/30 PASS.
-- Next: nhlib shuffle `rn2(3)` @29189; or dosounds @8468.
-```
-
