@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:20 — #477 peffect_healing (D-0444)
+- Objective: seed0002 @14081 peffect_healing (PRIMARY).
+- C locus: `potion.c` `peffect_healing` / `peffects` / `healup`.
+- Change: wired `POT_HEALING` — `You_feel` + `healup(8+d(4+2*bcsign,4),…)`
+  + `exercise(A_CON)`; `healup` sets `flags.botl`.
+- Verification: seed0002 prefix **14081→16501**; Scr **284→292**/595;
+  green+strict; cohort **26/26** PASS.
+- Next: seed0002 @16501 C `rnd(3)` @ `goto_level` descend fall vs JS
+  `rn2(10)` `mon_arrive` (D-0445).
+
 ## 2026-07-16 03:14 — #476 rottenfood→occupation (D-0443)
 - Objective: seed0002 @12530 umovement/SLT / eat EOT interleave (PRIMARY).
 - C locus: `eat.c` `rottenfood` / `eatcorpse` / `start_eating`.

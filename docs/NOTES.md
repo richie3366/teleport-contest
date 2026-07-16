@@ -8,13 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#475 full). Scr **4556**/11405; RNG
-  **270988**/792838. seed0002 Scr **284**/595 prefix **14081**.
-- **Next (D-0444):** seed0002 @14081 — C `d(4,4)` @ `peffect_healing`
-  vs JS `rn2(5)` (`distfleeck`). After D-0443 rottenfood→occupation.
+  **270988**/792838. seed0002 Scr **292**/595 prefix **16501**.
+- **Next (D-0445):** seed0002 @16501 — C `rnd(3)` @ `goto_level`
+  descend fall vs JS `rn2(10)` (`mon_arrive`). After D-0444 healing.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** SLT `u_calc_moveamt` math; @12530 as zap or
+- **Don’t re-check:** SLT `u_calc_moveamt` math; @14081 as monmove
+  without potion (D-0444 was peffect_healing); @12530 as zap or
   umovement leftover (D-0443 was dont_start); @12222 safemon/flee
   (D-0442); @11487 wipe_engr (D-0441); @11309 run-into-visible
   (D-0440); @11150 ohitmon (D-0439); @10634–@4565 D-0438…D-0430.
@@ -50,7 +51,8 @@ Objective/score live in `CURRENT.md`.
   ohitmon / run-stop / CONFUSION-timeout / safemon-move0 as monmove
   without those peffect/timeout/do_attack paths (D-0430–D-0442);
   treat @12530 as zap/`destroy_items` or SLT leftover math (D-0443 —
-  was rottenfood forced dont_start); re-audit SLT trunc math.
+  was rottenfood forced dont_start); treat @14081 as distfleeck without
+  `peffect_healing` (D-0444); re-audit SLT trunc math.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -62,7 +64,7 @@ Objective/score live in `CURRENT.md`.
 - Travel/autodescribe/invent/throw/eat/drink/scrolls D-0408–D-0435;
   confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
   safemon-move+flee-teleport D-0436–D-0442; rottenfood→occupation
-  D-0443; peffect_healing D-0444 next.
+  D-0443; peffect_healing D-0444; goto_level descend fall D-0445 next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

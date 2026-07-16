@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 14147/27158 | **284**/595 | @14081 peffect_healing (D-0444) |
+| seed0002 | 17119/27158 | **292**/595 | @16501 goto_level fall (D-0445) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,21 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @14081 — `peffect_healing`** (D-0444). Prefix **14081**;
-Scr **284**/595. C `d(4,4)` @ `potion.c` `peffect_healing`; JS
-`rn2(5)` (`distfleeck`) — healing quaff not ported / not dispatched.
-D-0443 fixed: rottenfood non-faint no longer forces dont_start.
+**seed0002 @16501 — `goto_level` descend fall** (D-0445). Prefix **16501**;
+Scr **292**/595. C `rnd(3)` @ `do.c` `goto_level` encumber/Punished/
+Fumbling stair fall `losehp`; JS ordinary descend → `rn2(10)`
+(`mon_arrive`). D-0444 fixed: `peffect_healing` + `POT_HEALING`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C peffect_healing d(4,4) vs JS drink/potion otyp path
+# Focus: C goto_level descend fall rnd(3) vs JS ordinary-descend stub
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0443;
-treating @14081 as monmove/`distfleeck` without the potion path.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0444;
+treating @16501 as `mon_arrive`/`collect_coords` without the stair-fall arm.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

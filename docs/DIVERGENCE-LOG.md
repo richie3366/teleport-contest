@@ -4,19 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0444 — seed0002 @14081 peffect_healing missing `d(4,4)`
+## D-0445 — seed0002 @16501 goto_level descend fall `rnd(3)`
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @16501 — C `rnd(3)=2` @
+  `goto_level(do.c:1792)` (encumber/Punished/Fumbling stair fall
+  `losehp`) vs JS `rn2(10)` @ `mon_arrive`. Prefix 16501; Scr 292/595.
+- **Hypothesis:** JS `goto_level` descend always prints ordinary
+  climb-down and skips C Flying / `near_capacity()>UNENCUMBERED` /
+  Punished / Fumbling fall arm that burns `rnd(3)`.
+- **C locus:** `do.c` `goto_level` descend `losehp(Maybe_Half_Phys(rnd(3)))`.
+- **Next:** port descend fall branch (+ `selftouch` / drag_down as needed);
+  compare vs JS ordinary-descend stub.
+- **Verification:** after D-0444; green+strict; cohort 26/26 PASS.
+
+## D-0444 — seed0002 @14081 peffect_healing missing `d(4,4)`
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @14081 — C `d(4,4)=8` @
   `peffect_healing(potion.c:1122)` vs JS `rn2(5)` @ `distfleeck`.
   Prefix 14081; Scr 284/595. After D-0443 eat occupation restored.
-- **Hypothesis:** JS `dodrink`/potion path lacks C `peffect_healing`
-  (or healing potion otyp dispatch), so quaff burns no `d(4,4)` and
-  monmove/`distfleeck` runs instead.
-- **C locus:** `potion.c` `peffect_healing` / `dopotion` healing otyps.
-- **Next:** port `peffect_healing` (+ wire otyp); compare heal HP/`d`
-  vs JS drink stub.
-- **Verification:** after D-0443; green+strict; cohort 26/26 PASS.
+- **Cause:** JS `peffects` lacked `POT_HEALING` — default stub returned 0
+  (no useup, no `d(4+2*bcsign,4)`), so the quaff turn never burned
+  healing RNG and monmove/`distfleeck` ran instead.
+- **C locus:** `potion.c` `peffect_healing` / `peffects` / `healup`.
+- **Change:** port `peffect_healing` (`You_feel` + `healup(8+d(…),…)` +
+  `exercise(A_CON)`); wire `POT_HEALING` in `peffects`; `healup` sets
+  `flags.botl` like C `disp.botl`.
+- **Verification:** seed0002 prefix **14081→16501**; Scr **284→292**/595;
+  green+strict; cohort **26/26** PASS (24 cohort + green).
+- **Omissions named:** `peffect_extra_healing` / `peffect_full_healing`;
+  `make_blinded`/`make_deaf`/`make_sick` bodies inside `healup` when
+  cure flags set.
+- **Next:** seed0002 @16501 C `rnd(3)` @ `goto_level` descend fall vs
+  JS `rn2(10)` `mon_arrive`.
 
 ## D-0443 — seed0002 @12530 rottenfood dont_start blocked occupation
 
