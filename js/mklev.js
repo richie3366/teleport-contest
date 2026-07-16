@@ -2719,6 +2719,17 @@ function monclass_letter_to_mlet(ch) {
     return null;
 }
 
+/**
+ * C ref: sp_lev.c create_monster — if MON_AT(x,y) && enexto, relocate
+ * before makemon. Shared by splev_create_monster and quest fill helpers.
+ */
+function splev_resolve_occupied(x, y, pm) {
+    if (!m_at(x, y)) return { x, y };
+    const cc = { x: 0, y: 0 };
+    if (enexto(cc, x, y, pm)) return { x: cc.x, y: cc.y };
+    return { x, y };
+}
+
 // C ref: sp_lev.c create_monster — sp_amask_to_amask before mkclass / makemon
 // optional peaceful (> BOOL_RANDOM) overrides after makemon (quest fills).
 function splev_create_monster(id_or_class, peaceful) {
@@ -2738,7 +2749,8 @@ function splev_create_monster(id_or_class, peaceful) {
         const mlet = monclass_letter_to_mlet(id_or_class);
         pm = mlet ? mkclass(mlet, G_NOGEN) : null;
     }
-    const pos = get_location_random(null);
+    let pos = get_location_random(null);
+    pos = splev_resolve_occupied(pos.x, pos.y, pm);
     const mtmp = makemon(pm, pos.x, pos.y, 0);
     if (mtmp && typeof id_or_class === 'string' && id_or_class.length > 1) {
         mtmp.female = female;

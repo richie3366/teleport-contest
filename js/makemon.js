@@ -56,6 +56,7 @@ import {
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
+    MM_ADJACENTOK,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines, In_sokoban,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
@@ -1480,10 +1481,23 @@ export function makemon(mdat, x, y, mmflags = 0) {
         y = cc.y;
     }
 
-    // Does monster already exist at the position?
-    if (game.fmon) {
-        for (const m of game.fmon) {
-            if (m.mx === x && m.my === y) return null;
+    // C: MON_AT(x,y) — without MM_ADJACENTOK fail; else enexto_core relocate
+    {
+        let occupied = false;
+        if (game.fmon) {
+            for (const m of game.fmon) {
+                if (m.mx === x && m.my === y) {
+                    occupied = true;
+                    break;
+                }
+            }
+        }
+        if (occupied) {
+            if (!(mmflags & MM_ADJACENTOK)) return null;
+            const cc = { x: 0, y: 0 };
+            if (!enexto_core(cc, x, y, ptr, gpflags)) return null;
+            x = cc.x;
+            y = cc.y;
         }
     }
 

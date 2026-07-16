@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0536 — create_monster MON_AT → enexto before makemon
+
+- **Status:** fixed (partial — fixed-coord Bar-strt chieftain/eel
+  paths still omit the relocate; humidity get_location deferred)
+- **Symptom:** seed0373 @11988 C `collect_coords` `rn2(8)` vs JS
+  `rn2(2)` after matched `get_location`.
+- **Cause:** C `create_monster` relocates via `enexto` when
+  `MON_AT(x,y)` before `makemon`; JS `splev_create_monster` called
+  `makemon` on the occupied cell, which returned null — next
+  `find_montype` emitted `rn2(2)` while C shuffled enexto rings.
+- **C locus:** `sp_lev.c` `create_monster` (~1976); `makemon.c`
+  `MON_AT` + `MM_ADJACENTOK` → `enexto_core`.
+- **Change:** `splev_resolve_occupied` + wire into
+  `splev_create_monster`; `makemon` occupied arm matches C
+  `MM_ADJACENTOK` / `enexto_core`.
+- **Verification:** seed0373 rng-diff **11988→12327**; runner RNG
+  **14397**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS.
+- **Named omission:** Bar-strt fixed-coord `makemon` without
+  `splev_resolve_occupied`; full `mm_flags` from Lua tables.
+- **Next:** @12327 C `mineralize` `rn2(1000)` vs JS `rnd(2)`
+  (`next_ident` / gem cnt) — goldprob/gemprob or stone-cell filter;
+  or seed5006 `dosounds` @8468.
+
 ## D-0535 — rnd_offensive_item case-0 FALLTHROUGH to WAN_STRIKING
 
 - **Status:** fixed (partial — full muse offensive/misc tables still thin)
