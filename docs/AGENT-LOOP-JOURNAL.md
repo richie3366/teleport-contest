@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:06 — #495 score + D-0457 wield SUGGEST prompt
+- Objective: mandatory full `sessions` (#495 %5); D-0457 primary.
+- C locus: `invent.c` `getobj`/`compactify`; `wield.c` `wield_ok`.
+- Change: `js/wield.js` — SUGGEST-only prompt letters, `- ` hands
+  prefix, compactify when suggested>5; DOWNPLAY still selectable.
+- Verification: full suite **26/44** Scr **4636**/11405 RNG
+  **285358**/792838; seed0002 @229→@237 Scr 326→327; green+strict;
+  cohort **26/26**.
+- Next: D-0458 screen@237 botl `Conf`.
+
 ## 2026-07-16 06:02 — D-0456 pickup_prinv slightload lifting
 - Objective: seed0002 screen@221 C `You have a little trouble lifting x - a chain mail.--More--` vs JS bare `x - a chain mail.--More--`.
 - C locus: `pickup.c` `pickup_prinv` / `slightloadpfx` + `gp.pickup_encumbrance`.

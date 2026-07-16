@@ -4,18 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0457 — seed0002 screen@229 wield getobj compactify
+## D-0458 — seed0002 screen@237 botl Conf condition
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @237 — topline
+  `Huh, What?  Where am I?` matches; C botl ends `Burdened Conf`
+  vs JS `Burdened`. RNG full; Scr 327/595.
+- **Cause:** TBD — `_statusLine2` emits enc_stat + Ride only; C
+  `do_statusline2` appends Blind…Conf… after enc_stat (D-0401
+  deferred list).
+- **C locus:** `botl.c` `do_statusline2` / condition flags;
+  Confusion via `make_confused` (already sets `HConfusion`).
+- **Falsifier / next:** append ` Conf` when Confusion/HConfusion.
+
+## D-0457 — seed0002 screen@229 wield getobj SUGGEST/`- ` prompt
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @229 — C
   `What do you want to wield? [- ar or ?*]` vs JS
   `[-abcdefghijkloprsuwx or ?*]`. RNG full; Scr 326/595.
-- **Cause:** TBD — `getobj_wield` joins invent letters without C
-  `getobj` `if (suggested > 5) compactify(bp)` (drink fixed D-0455).
-- **C locus:** `invent.c` `compactify` / `getobj`; wield via
-  `wield.c` `dowield` → `getobj("wield",…)`.
-- **Falsifier / next:** wire prompt compactify when lets>5; keep `?`
-  non-compacted if applicable.
+- **Cause:** `getobj_wield` listed all invent (DOWNPLAY+SUGGEST) with
+  no space after `-`; C `wield_ok` SUGGEST only weapons/weptools,
+  hands prefix `"- "`, then `if (suggested > 5) compactify(bp)`.
+- **C locus:** `invent.c` `getobj` / `compactify`; `wield.c`
+  `wield_ok` / `dowield`.
+- **Change:** `js/wield.js` — `wield_ok` returns SUGGEST/DOWNPLAY/
+  EXCLUDE; prompt `- ` + SUGGEST lets + compactify when >5;
+  DOWNPLAY still selectable.
+- **Deferred:** `?`/`*` `display_pickinv`; count-split.
+- **Verification:** seed0002 first miss **@229→@237**; Scr **326→327**;
+  RNG still full 27158; green+strict; cohort **26/26**; full suite
+  Scr **4636**/11405.
+- **Next:** screen@237 botl Conf (D-0458).
 
 ## D-0456 — seed0002 screen@221 pickup_prinv slightload lifting
 

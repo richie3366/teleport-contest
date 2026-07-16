@@ -7,20 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#490). seed0002 RNG **full** 27158; Scr **326**/595.
-- **Next (D-0457):** seed0002 screen@229 — C `[- ar or ?*]` vs JS
-  `[-abcdefghijkloprsuwx or ?*]` (wield getobj compactify).
+- **Score:** **26/44** PASS (#495). Scr **4636**/11405; RNG **285358**/792838.
+  seed0002 RNG **full** 27158; Scr **327**/595.
+- **Next (D-0458):** seed0002 screen@237 — C botl `Burdened Conf` vs JS
+  `Burdened` (topline matches). Wire `_statusLine2` Conf condition
+  (`botl.c` Blind…Conf… after enc_stat; D-0401 deferred list).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: wire `compactify_invlets` when suggested>5 (like D-0455 drink).
+  Falsify: append ` Conf` when `Confusion`/`HConfusion` set (after Burdened).
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
   dog_goal rn2(4) for @26987 (D-0453 travelcc); @27050 music arity
   without instruments (D-0454); TOOL resist ulevel; silent onscary;
   dosounds bare u.Deaf; screen@54 without drink compactify (D-0455);
-  screen@221 without pickup_prinv slightload (D-0456).
+  screen@221 without pickup_prinv slightload (D-0456); screen@229
+  without wield SUGGEST/`- ` (D-0457).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -39,7 +42,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0456 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0457 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -48,8 +51,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0455 done (travel…drink compactify); D-0456 pickup_prinv
-  slightload lifting done; screen@229 wield getobj compactify next.
+- D-0408–D-0457 done (travel…wield SUGGEST prompt); screen@237 botl
+  Conf next (D-0458).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

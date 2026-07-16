@@ -17,21 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#490 score
-cadence). Screens **4632**/11405; RNG **285242**/792838. **26/44** PASS.
-Speed `23+0.13/turn`. Δ vs #485: Scr +3, RNG +274 (peels #486–#489).
-Post-#490 peels (not yet in full-suite Scr): D-0454 music → RNG full;
-D-0455 drink compactify Scr 323→325; D-0456 pickup_prinv Scr **325→326**,
-first miss @229.
+Score last measured: **2026-07-16** — full `sessions` suite (#495 score
+cadence, post D-0457). Screens **4636**/11405; RNG **285358**/792838.
+**26/44** PASS. Speed `23+0.13/turn`. Δ vs #490: Scr +4, RNG +116
+(peels #491–#495 incl. D-0457 wield SUGGEST/`- ` prompt).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4632 / 11,405** (40.61%) |
-| Positional RNG calls matched | **285,242 / 792,838** (35.98%) |
-| Speed label | `23+0.13/turn` (R² 0.76) |
+| Screens matched | **4636 / 11,405** (40.65%) |
+| Positional RNG calls matched | **285,358 / 792,838** (35.99%) |
+| Speed label | `23+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -44,9 +42,9 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **326**/595 | RNG full; first cell @229 wield getobj compactify (D-0457) |
+| seed0002 | **27158**/27158 | **327**/595 | RNG full; first cell @237 botl `Conf` (D-0458) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
-| seed0007 | 2975/16373 | **20**/302 | snake swamp (+36 RNG vs #485) |
+| seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -64,10 +62,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@229 — wield getobj compactify** (D-0457).
-RNG **full** 27158/27158; Scr **326**/595; first cell-miss: C
-`What do you want to wield? [- ar or ?*]` vs JS
-`[-abcdefghijkloprsuwx or ?*]`.
+**seed0002 screen@237 — botl Conf condition** (D-0458).
+RNG **full** 27158/27158; Scr **327**/595; first cell-miss: C botl
+`… Burdened Conf` vs JS `… Burdened` (topline `Huh, What?  Where am I?`
+matches).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,7 +73,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0456.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0457.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

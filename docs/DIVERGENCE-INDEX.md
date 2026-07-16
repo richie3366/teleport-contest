@@ -443,7 +443,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0454 | fixed | do_improvisation LEATHER_DRUM + resist alev=10 + auditory monflee + dosounds HDeaf | seed0002 RNG full 27158; Scr 323; screen@54 drink compactify next |
 | D-0455 | fixed | drink getobj compactify when suggested>5 | seed0002 first miss @54→@221; Scr 323→325 |
 | D-0456 | fixed | pickup_prinv slightload lifting + pickup_encumbrance | seed0002 first miss @221→@229; Scr 325→326 |
-| D-0457 | open | wield getobj compactify when suggested>5 | seed0002 first screen miss @229 |
+| D-0457 | fixed | wield getobj SUGGEST/`- ` + compactify>5 | seed0002 first miss @229→@237; Scr 326→327 |
+| D-0458 | open | botl Conf condition after enc_stat | seed0002 first screen miss @237 |
 
 
 
