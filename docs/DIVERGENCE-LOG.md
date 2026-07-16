@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0509 — IMMEDIATE weffects bhit/bhito WAN_POLYMORPH (seed0398 @2852)
+
+- **Status:** fixed
+- **Symptom:** seed0398 first RNG miss @2852 — C `rn2(8)` at
+  `weffects` `bhit(..., rn1(8,6), ...)` vs JS `rn2(5)` (IMMEDIATE
+  stub). Scr 0; RNG **2853**/3026.
+- **Cause:** `weffects` skipped IMMEDIATE `bhit`/`bhito`; also
+  `learnwand` called `discover_object` without `credit_hero`, so
+  seen `obj_shudders` missed `makeknown`→`exercise(A_WIS)`.
+- **C locus:** `zap.c` `weffects` IMMEDIATE arm; `bhit`/`bhitpile`/
+  `bhito` WAN_POLYMORPH; `obj_shudders`/`obj_unpolyable`/`poly_obj`;
+  `learnwand`→`makeknown`; `mkobj.c` `replace_object`.
+- **Change:** `js/zap.js` — IMMEDIATE `bhit`+`bhito` poly pile;
+  `poly_obj` floor; `learnwand`→`makeknown`. `js/mkobj.js` —
+  `replace_object` floor + export `oc_merge_of`.
+- **Verification:** seed0398 RNG **2853→2960**/3026 (prefix
+  2852→2960); green+strict PASS; cohort **27/27** PASS.
+- **Named omission:** `bhitm` poly body; `zap_updown`/`zap_map`;
+  `create_polymon`; invent/worn `poly_obj`; other `bhito` otyps;
+  boxlock; shop bill in `do_osshock`.
+- **Next:** @2960 C `collect_coords` `rn2(8)` vs JS `rnl(20)`.
+
 ## D-0508 — trapeffect_rust_trap hero+monster (seed0398 @2839)
 
 - **Status:** fixed

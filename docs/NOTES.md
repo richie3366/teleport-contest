@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Gameplay next:** seed0398 post-rust — RNG **2853**/3026, Scr 0.
-  First miss @2852: C `weffects` `rn2(8)` vs JS `rn2(5)` (wand zap).
+- **Gameplay next:** seed0398 post D-0509 — RNG **2960**/3026, Scr 0.
+  First miss @2960: C `collect_coords` `rn2(8)` vs JS `rnl(20)`.
   Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0508
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0509
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -37,9 +37,9 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0507 RNG/botl/loot/AC/tin/erosion/enlightenment/wish done.
-- D-0508: @2838 “rust vs distfleeck” was arity coincidence — selector
-  omitted `RUST_TRAP` (JS fleeck matched C rust `rn2(5)`).
+- D-0490…D-0508 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust done.
+- D-0509: IMMEDIATE `bhit`/`bhito` poly + `learnwand`→`makeknown`
+  (shudder WIS exercise); next is teleport `collect_coords`.
 
 ## Landmarks (≤15)
 

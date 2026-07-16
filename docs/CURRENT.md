@@ -26,6 +26,7 @@ post D-0507. Screens **5296**/11405; RNG **303302**/792838 (38.26%).
 **29/44** PASS. Speed `25+0.13/turn`. Δ vs #564: Scr **0**, PASS **0**,
 RNG **+84**; seed0398 wish charges/wrp (D-0507) RNG 2773→2840.
 *(#566: D-0508 rust trap — focused RNG 2840→2853; full suite not due.)*
+*(#567: D-0509 IMMEDIATE poly bhit — focused RNG 2853→2960; full suite not due.)*
 
 ## Score
 
@@ -47,7 +48,7 @@ seed0012, seed0004, seed0002, seed0006, **seed0007**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0398 | **2853**/3026 | 0/87 | post rust; @2852 weffects |
+| seed0398 | **2960**/3026 | 0/87 | post poly bhit; @2960 collect_coords |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -70,17 +71,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0398 after D-0508 rust trap — RNG **2853**/3026;
-first miss @2852 `weffects` `rn2(8)` vs JS `rn2(5)` (wand zap path). Prefer
-shared zap/weffects blockers over late peels. Do **not** reopen
-D-0474…D-0508.
+**Gameplay next:** seed0398 after D-0509 IMMEDIATE poly bhit — RNG
+**2960**/3026; first miss @2960 `collect_coords` `rn2(8)` vs JS
+`rnl(20)` (teleport path). Prefer shared teleport/coords blockers
+over late peels. Do **not** reopen D-0474…D-0509.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
 node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0508.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0509.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

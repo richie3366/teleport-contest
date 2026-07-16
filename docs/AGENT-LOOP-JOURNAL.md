@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:12 — #567 D-0509 IMMEDIATE poly bhit
+- Objective: seed0398 @2852 C weffects rn2(8) vs JS rn2(5)
+- C: `zap.c` IMMEDIATE `bhit(rn1(8,6))` + `bhito` WAN_POLYMORPH;
+  `learnwand`→`makeknown`→`exercise` on seen shudder
+- Fix: `js/zap.js` bhit/bhito/poly_obj; learnwand→makeknown;
+  `js/mkobj.js` replace_object floor + oc_merge_of export
+- Verify: seed0398 RNG **2853→2960**/3026 (prefix 2852→2960);
+  green+strict PASS; cohort **27/27** PASS
+- Next: @2960 C `collect_coords` rn2(8) vs JS rnl(20)
+
 ## 2026-07-16 16:05 — #566 D-0508 trapeffect_rust_trap
 - Objective: seed0398 @2839 C distfleeck rn2(5) vs JS rn2(20)
 - C: `trap.c` `trapeffect_rust_trap` + selector `RUST_TRAP`
@@ -159,13 +169,3 @@ Use this shape:
 - Verification: rng-diff **15983→16339**; RNG 16344/16373 Scr 60;
   green+strict PASS; cohort 28/28 PASS.
 - Next: @16339 distfleeck rn2(5) vs rnd(20) (D-0496).
-
-## 2026-07-16 14:52 — D-0494 Amulet_on RESTFUL_SLEEP rnd(98)
-- Objective: primary D-0494 — seed0007 @15877 Amulet_on vs distfleeck.
-- C locus: `do_wear.c` `Amulet_on` AMULET_OF_RESTFUL_SLEEP → `rnd(98)+2`
-  into `HSleepy` TIMEOUT.
-- Change: port RESTFUL_SLEEP arm in `js/do_wear.js` (was deferred with
-  change/strangle/flying). Still `on_msg` when `!on_msg_done`.
-- Verification: rng-diff **15877→15983**; RNG 15985/16373 Scr 60;
-  green+strict PASS; cohort 26/26 PASS.
-- Next: @15983 dowatersnakes rn2(5) vs rn2(3) (D-0495).
