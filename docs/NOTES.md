@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0492:** @13259 C `eye_of_newt_buzz` rn2(3) vs JS
-  rn2(100). After eating newt corpse (D-0491 destroy-armor cleared).
-  Falsifier:
+- **seed0007 / D-0493:** @15284 C `dog_move` rn2(12) vs JS rn2(4)
+  (after D-0492 eye_of_newt cleared). Likely mfndpos/allow/appr candidate
+  count before `dog_move` choose. Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0491
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0492
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -45,6 +45,8 @@ Objective/score live in `CURRENT.md`.
   was missing `#loot` take-out gold (`$` before TRIPE in invent scan).
 - D-0491 @7175 was **not** umovement/encumbrance extra movemon — it
   was unimplemented `SCR_DESTROY_ARMOR` (FOOBIE BLETCH → smoulders).
+- D-0492 @13259 was **not** corpse_intrinsic — missing
+  `eye_of_newt_buzz` after finishing newt corpse.
 - query_category single-class skips menu (seed0012 bag gold-only).
 
 ## Landmarks (≤15)
@@ -66,4 +68,5 @@ Objective/score live in `CURRENT.md`.
 - D-0489: `#loot` → `do_loot_cont` box `pick_lock` (chance 4*DEX+25).
 - D-0490: MENU_FULL take-out + accept lootabc `a`; invent `$` gold.
 - D-0491: `SCR_DESTROY_ARMOR` + `destroy_arm` + `erode_obj` burn.
+- D-0492: `done_eating`→`cpostfx`→`eye_of_newt_buzz` (AT_MAGC||NEWT).
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.

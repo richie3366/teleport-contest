@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0492 — seed0007 @13259 eye_of_newt_buzz
+
+- **Status:** fixed
+- **Symptom:** after D-0491, first RNG miss @13259 — C `rn2(3) @
+  eye_of_newt_buzz` vs JS `rn2(100)`. Scr **60**/302; matched RNG
+  **~13657**/16373.
+- **Cause:** finishing a newt corpse never ran `cpostfx`; JS skipped the
+  AT_MAGC||PM_NEWT energy boost (`rn2(3)` / `rnd(3)` / optional `rn2(3)`).
+- **C locus:** `eat.c` `done_eating` → `cpostfx` → `eye_of_newt_buzz`.
+- **Change:** `js/eat.js` — `eye_of_newt_buzz`; thin `cpostfx` for the
+  default check_intrinsics energy path; call from `done_eating` for
+  CORPSE/globby (cookie still via `fpostfx` rumor).
+- **Verification:** rng-diff **13259→15284**; RNG **15339**/16373;
+  Scr **60**; green+strict PASS; cohort 28/28 PASS.
+- **Named omission:** cpostfx specials (wraith/were/nurse/…);
+  `corpse_intrinsic` / `givit`; AD_STUN/AD_HALU hallu; floor `useupf`.
+- **Next:** @15284 C `dog_move` rn2(12) vs JS rn2(4).
+
 ## D-0491 — seed0007 @7175 SCR_DESTROY_ARMOR / destroy_arm
 
 - **Status:** fixed
