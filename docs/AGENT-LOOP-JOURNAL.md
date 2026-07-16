@@ -11,15 +11,24 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
-
+## 2026-07-17 01:33 — #658 D-0590 ^T dotele + quest_talk
+- Objective: seed0361 nhlib shuffle @4363 (PRIMARY; was misread as
+  Arc-loca).
+- C locus: `teleport.c` `dotelecmd`/`scrolltele` getpos; `makemon.c`
+  M3_CLOSE→STRAT_CLOSE + leader_m_id; `monmove.c` dochug; `quest.c`
+  chat_with_leader / is_pure / expulsion.
+- Change: wire `^T`; controlled tele; STRAT_CLOSE quest_talk; Arc
+  leader_first/badalign; Arc role ldrnum; Arc-loca loader prep.
+- Verification: seed0361 **4363→4368** (RNG **4414→4516** Scr
+  **161→178**); green+strict PASS; cohort 31/31 PASS.
+- Next: seed0361 getbones @4368 after expulsion; or Pri-strt seed0367.
 ## 2026-07-17 01:21 — #657 D-0589 m_move hides_under rn2(10)
 - Objective: seed0361 m_move @4247 (PRIMARY).
 - C locus: `monmove.c` `m_move` hides_under + OBJ_AT +
@@ -28,7 +37,6 @@ Use this shape:
 - Verification: seed0361 **4247→4363** (RNG **4323→4414** Scr
   **161**); green+strict PASS; cohort 33/33 PASS.
 - Next: seed0361 nhlib shuffle @4363; or Pri-strt seed0367.
-
 ## 2026-07-17 01:20 — #656 D-0588 Arc-strt + invent discard + nartifact
 - Objective: seed0361 quest start after getbones (PRIMARY).
 - C locus: `dat/Arc-strt.lua`; `sp_lev.c` create_monster /
@@ -39,7 +47,6 @@ Use this shape:
   **160→161**); green+strict PASS; cohort 11/11 prior PASS held;
   seed0367 still @2040.
 - Next: seed0361 `m_move` @4247; or `Pri-strt` seed0367.
-
 ## 2026-07-17 01:11 — #655 formal score refresh
 - Objective: mandatory #655 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -49,7 +56,6 @@ Use this shape:
   (R² 0.765). Δ vs #650: Scr **+12**, PASS **32→33** (seed0116 /
   D-0584…D-0587), RNG unchanged.
 - Next: seed0361/0367 quest/`makemaz`; or leaderboard cron.
-
 ## 2026-07-17 01:09 — #654 D-0587 ^X armor + Teleport_control
 - Objective: seed0116 Scr 126/127 @122 ^X enlightenment residual.
 - C locus: insight.c status_enlightenment nudity;
@@ -60,7 +66,6 @@ Use this shape:
 - Verification: seed0116 Scr **126→127**/127 RNG FULL **PASS** +
   strict; green+strict PASS; cohort **31**/31 PASS.
 - Next: leaderboard cron; earliest remaining suite FAIL (quest).
-
 ## 2026-07-17 01:03 — #653 D-0586 dospellmenu wizard turns
 - Objective: seed0116 Scr 125/127 @117 spells menu centering.
 - C locus: spell.c dospellmenu wizard turns / spellknow(i);
@@ -70,7 +75,6 @@ Use this shape:
 - Verification: seed0116 Scr **125→126**/127 RNG FULL; green+strict
   PASS; cohort **30**/30 (seed0106 + wizard seeds). Residual @122.
 - Next: seed0116 @122 ^X armor nudity + Teleport_control from_what.
-
 ## 2026-07-17 01:00 — #652 D-0585 does_block is_lightblocker_mappear
 - Objective: seed0116 Scr 116/127 @114 materialize map `` ` `` vs `·`.
 - C locus: vision.c does_block; monst.h is_lightblocker_mappear.
@@ -79,7 +83,6 @@ Use this shape:
 - Verification: seed0116 Scr **116→125**/127 RNG FULL; green+strict PASS;
   cohort **30**/30 PASS; seed0373 PASS. Residual @117 spells / @122 insight.
 - Next: seed0116 @117 “Currently known spells” centering; or leaderboard.
-
 ## 2026-07-17 00:50 — #651 D-0584 wear/puton empty `[*]`
 - Objective: seed0116 Scr 115/127 (CURRENT primary).
 - C locus: invent.c getobj empty-buf `" [*]"`; do_wear wear_ok/puton_ok.
@@ -87,7 +90,6 @@ Use this shape:
 - Verification: seed0116 Scr **115→116**/127 RNG FULL; green+strict
   PASS; cohort **30**/30 PASS.
 - Next: seed0116 @114 materialize map `` ` `` vs `·` (32,13).
-
 ## 2026-07-17 00:46 — #650 formal score refresh
 - Objective: mandatory #650 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -97,7 +99,6 @@ Use this shape:
   (R² 0.755). Δ vs #645: Scr **+21**, RNG 0, PASS **31→32**
   (D-0580…D-0583 / seed5006 PASS).
 - Next: seed0116 Scr 115/127; or leaderboard gap.
-
 ## 2026-07-17 00:45 — #649 D-0583 getbones leave-level gbuf
 - Objective: seed5006 @198/@199 Get bones? map glyphs (CURRENT primary).
 - C locus: vision.c vision_recalc(2); bones.c getbones yn flush;
@@ -108,7 +109,6 @@ Use this shape:
 - Verification: seed5006 Scr **247→249**/249 RNG FULL PASS;
   green+strict PASS; cohort **29**/29 PASS; seed0116 115/127 held.
 - Next: seed0116 Scr 115/127; or leaderboard gap / full suite score.
-
 ## 2026-07-17 00:35 — #648 D-0582 identify more_experienced(0,10)
 - Objective: seed5006 @187 points 134 vs 144 (CURRENT primary).
 - C locus: potion.c dopotion; zap.c weffects/zapnodir.
@@ -118,7 +118,6 @@ Use this shape:
   Get-bones map water; green+strict PASS; cohort **29**/29 PASS;
   seed0116 115/127 held.
 - Next: seed5006 @198/@199 Get bones? map glyphs; or seed0116 115/127.
-
 ## 2026-07-17 00:28 — #647 D-0581 wizard Die?/bones yn
 - Objective: seed5006 @185 Die?/Save-bones yn (CURRENT primary).
 - C locus: end.c done Die?/savelife; really_done Save bones?;
@@ -130,7 +129,6 @@ Use this shape:
   PASS; cohort **29**/29 PASS; seed0116 115/127 held.
 - Next: seed5006 @187 urexp 134 vs 144; or Get bones? stale map
   glyphs; or seed0116 Scr 115/127.
-
 ## 2026-07-17 00:20 — #646 D-0580 doread confused mispronounce
 - Objective: seed5006 Scr @162 mispronounce vs level_tele (CURRENT).
 - C locus: read.c doread confused/Hallu pline + can_chant silently;
@@ -141,7 +139,6 @@ Use this shape:
   @185 Die?; green+strict PASS; cohort **31**/31 PASS; seed0116
   Scr 115/127 held.
 - Next: seed5006 @185 Die?/Save-bones yn; or seed0116 Scr 115/127.
-
 ## 2026-07-17 00:17 — #645 formal score refresh
 - Objective: mandatory #645 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -150,14 +147,4 @@ Use this shape:
   **6514**/11405, RNG **359063**/792838 (45.29%), `32+0.15/turn`
   (R² 0.769). Δ vs #640: Scr **+41**, RNG **+109**, PASS same
   (D-0578/D-0579).
-- Next: seed5006 @162 confused mispronounce; or seed0116 Scr 115/127.
-
-## 2026-07-17 00:15 — #644 D-0579 equip SUGGEST + Blindf_on / Blind vision
-- Objective: seed5006 Scr residual 217/249 (CURRENT primary).
-- C locus: do_wear.c equip_ok/cursed/Blindf_on; vision.c Blind vision_recalc;
-  mhitu.c hitmu map_invisible; youprop.h EBlinded.
-- Change: SUGGEST-only P/W/T prompts; cursed boots/gloves plural;
-  Blindf_on/off + EBlinded mirror; Blind vision_recalc; hitmu map_invisible.
-- Verification: seed5006 Scr **217→228**/249 RNG FULL; seed0116 **114→115**;
-  green+strict PASS; cohort PASS held (0373/0398/0030/…).
 - Next: seed5006 @162 confused mispronounce; or seed0116 Scr 115/127.

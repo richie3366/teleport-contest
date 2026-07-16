@@ -45,7 +45,7 @@ import {
     P_AXE, P_PICK_AXE, W_WEP, SQSRCHRADIUS, COLNO, ROWNO, NATTK,
     MON_POLE_DIST, AKLYS_LIM, engulfing_u, M_AP_TYPE, M_AP_OBJECT,
     M_AP_FURNITURE,
-    STRAT_WAITFORU, STRAT_WAITMASK,
+    STRAT_WAITFORU, STRAT_WAITMASK, STRAT_CLOSE,
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
 } from './const.js';
 import { is_pool, is_lava } from './hack.js';
@@ -65,6 +65,7 @@ import { is_pole } from './wield.js';
 import { acurrstr } from './attrib.js';
 import { m_canseeu } from './mondata.js';
 import { rloc } from './teleport.js';
+import { quest_talk, quest_stat_check } from './quest.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -1189,10 +1190,17 @@ export async function dochug(mtmp) {
         && (m_canseeu(mtmp) || (mtmp.mhp | 0) < (mtmp.mhpmax | 0))) {
         mtmp.mstrategy &= ~STRAT_WAITFORU;
     }
+    // C: quest_stat_check before waitmask early-out
+    quest_stat_check(mtmp);
     // C: frozen or still waiting — no distfleeck / movement RNG
     if (!mtmp.mcanmove || (mtmp.mstrategy & STRAT_WAITMASK)) {
         if (game.u?.Hallucination) newsym(mtmp.mx, mtmp.my);
-        // STRAT_CLOSE quest_talk deferred
+        // C: STRAT_CLOSE + monnear → quest_talk (leader speaks)
+        if (mtmp.mcanmove && (mtmp.mstrategy & STRAT_CLOSE)
+            && !mtmp.msleeping
+            && monnear(mtmp, game.u?.ux, game.u?.uy)) {
+            await quest_talk(mtmp);
+        }
         return 0;
     }
 

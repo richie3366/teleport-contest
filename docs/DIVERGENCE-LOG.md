@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0590 — ^T dotelecmd + controlled tele + STRAT_CLOSE quest_talk
+
+- **Status:** fixed (partial — Arc-loca getbones next; assignquest path)
+- **Symptom:** seed0361 @4363 — C nhlib `shuffle` vs JS `rn2(5)`. Prior
+  NOTES read as quest-map load; session `^T` getpos then `.` confirms
+  teleport beside Carnarvon, then `quest_talk` → `leader_first` shuffle.
+- **Cause:** (1) `rhack` omitted `^T`/`dotelecmd`; `scrolltele` deferred
+  controlled `getpos` (hero never reached leader). (2) `makemon` omitted
+  `M3_CLOSE`→`STRAT_CLOSE` + `leader_m_id`; `dochug` deferred
+  `STRAT_CLOSE`→`quest_talk`. (3) Arc role lacked `ldrnum`/`homebase`.
+- **C locus:** `teleport.c` `dotelecmd`/`dotele`/`scrolltele`;
+  `makemon.c` mflags3 STRAT + leader_m_id; `monmove.c` `dochug`
+  WAITMASK; `quest.c` `quest_talk`/`chat_with_leader`/`is_pure`/
+  `expulsion`; `dat/quest.lua` Arc leader_first/badalign.
+- **Change:** `js/teleport.js` controlled getpos + `dotele`/`dotelecmd`;
+  `js/cmd.js` `^T`; `js/makemon.js` STRAT_CLOSE + leader_m_id;
+  `js/monmove.js` quest_talk; `js/quest.js` leader chat/is_pure/
+  expulsion; `js/questpgr.js` Arc texts; `js/roles.js` Arc quest
+  fields; `js/mklev.js` `load_arc_loca` (prep, not exercised @4368).
+- **Verification:** seed0361 prefix **4363→4368** (runner RNG
+  **4414→4516**, Scr **161→178**/366); next @4368 `getbones`.
+  green+strict PASS; cohort 31/31 prior PASS held.
+- **Named omission:** assignquest/encourage/banished; m-prefix ^T menu;
+  trap-at-feet dotele; non-wizard energy; Arc-fila/goal; expulsion
+  RMPORTAL seal.
+- **Next:** seed0361 expulsion return `getbones` @4368; or Pri-strt
+  seed0367 @2040.
+
 ## D-0589 — m_move hides_under rn2(10) stay-put
 
 - **Status:** fixed

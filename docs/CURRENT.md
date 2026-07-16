@@ -24,7 +24,7 @@ focused session.
 Score last measured: **2026-07-17** — full `sessions` suite (loop **#655**),
 post D-0584…D-0587 (seed0116 PASS). Screens **6547**/11405; RNG
 **359063**/792838 (45.29%). **33/44** PASS. Δ vs #650: Scr **+12**, PASS
-**32→33**, RNG unchanged.
+**32→33**, RNG unchanged. (#658 focused peel only — no full rescore.)
 
 ## Score
 
@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 4323/53865 | 161/366 | post Arc-strt; next `m_move` @4247 |
+| seed0361 | 4516/53865 | 178/366 | post D-0590; next `getbones` @4368 |
 | seed0367 | 2040/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,11 +72,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0589 `m_move` hides_under stay-put (seed0361
-**4247→4363** / RNG **4323→4414**), next peel is seed0361 nhlib
-`shuffle` @4363 (likely next quest map), or seed0367 `Pri-strt`
+**Gameplay next:** after D-0590 `^T` controlled tele + `STRAT_CLOSE`
+`quest_talk` (seed0361 **4363→4368** / RNG **4414→4516** / Scr
+**161→178**), next peel is seed0361 expulsion return `getbones`
+@4368 (main dungeon after badalign), or seed0367 `Pri-strt`
 (still @2040), or seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0589.
+seed2200 RC; do not reopen D-0474…D-0590.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

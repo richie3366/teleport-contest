@@ -76,6 +76,10 @@ export const roles = [
         // C: { 7, 10, 10, 7, 7, 7 } / { 20, 20, 20, 10, 20, 10 }
         attrbase: [7, 10, 10, 7, 7, 7],
         attrdist: [20, 20, 20, 10, 20, 10],
+        // C role.c: homebase / intermed / ldrnum for quest talk / convert_arg
+        homebase: 'the College of Archeology',
+        intermed: 'the Tomb of the Toltec Kings',
+        ldrnum: pm('PM_LORD_CARNARVON'),
         xlev: 14,
         initrecord: 10,
         // C: { 11, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }

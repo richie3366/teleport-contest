@@ -7,21 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#657:** D-0589 `m_move` hides_under + `can_hide_under_obj` +
-  `rn2(10)` stay-put. seed0361 prefix **4247→4363** (RNG
-  **4323→4414**, Scr **161**). Next @4363 nhlib `shuffle` (quest map),
-  not more hides_under.
+- **#658:** D-0590 `^T` dotele + controlled getpos + `STRAT_CLOSE`
+  `quest_talk` (leader_first/badalign). seed0361 prefix **4363→4368**
+  (RNG **4414→4516**, Scr **161→178**). Next @4368 `getbones` after
+  expulsion to main dungeon — not Arc-loca shuffle (that was a misread).
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361 nhlib shuffle @4363; or seed0367
-  `Pri-strt` (still @2040); seed0014/0108. Prefer over parked D-0006 /
+- **Gameplay next:** seed0361 getbones @4368; or seed0367 `Pri-strt`
+  (still @2040); seed0014/0108. Prefer over parked D-0006 /
   seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0589; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0590; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -52,7 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0589 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0590 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0578: C gg via bones `gettrack`, not mfndpos cnt.
@@ -68,6 +68,8 @@ Objective/score live in `CURRENT.md`.
   `mdrop_special_objs` + armor/weapon `nartifact_exist` artif gate.
 - D-0589: @4247 was missing `m_move` hides_under `rn2(10)` stay-put
   (not distfleeck).
+- D-0590: @4363 was missing `^T` controlled tele + `quest_talk`
+  (not Arc-loca load); next getbones after expulsion.
 
 ## Landmarks (≤15)
 
@@ -90,3 +92,4 @@ Objective/score live in `CURRENT.md`.
 - Quest start: `Arc-strt` / `Bar-strt` loaders; CUSTOM_INVENT needs
   `mdrop_special_objs` before discard (D-0588).
 - Concealers: `m_move` stay-put `rn2(10)` before apparxy (D-0589).
+- Wizard `^T`: controlled getpos + `STRAT_CLOSE` leader talk (D-0590).
