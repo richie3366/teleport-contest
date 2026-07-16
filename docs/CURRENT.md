@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 27042/27158 | **323**/595 | @26987 dog_goal udist (D-0453) |
+| seed0002 | 27061/27158 | **323**/595 | @27050 music `do_improvisation` (D-0454) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp (+36 RNG vs #485) |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,11 +62,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @26987 — `dog_goal` udist gate** (D-0453).
-Prefix **26987**; Scr **323**/595. Same `dog_goal`: 2× fobj
-`obj_resists` then C `rn2(4)` (udist>1) vs JS invent `obj_resists`
-(udist==1). JS DIAG: pet (33,8) hero (34,8) after matching mfndpos
-chi=7 step (32,7)→(33,8); C’s 2-fobj+`rn2(4)` implies not ortho-adjacent.
+**seed0002 @27050 — `do_improvisation` / music** (D-0454).
+Prefix **27050**; Scr **323**/595. Past D-0453 (travelcc→hero Y→
+`dog_goal` udist). C `rn2(2)=0` @ `do_improvisation(music.c:535)` vs
+JS `rn2(19)`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,7 +74,7 @@ node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.js
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0452; inventing
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0453; inventing
 pet alignment without C path / mx,my,ux,uy capture.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +

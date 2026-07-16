@@ -8,22 +8,20 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#490 full). Scr **4632**/11405; RNG
-  **285242**/792838. seed0002 Scr **323**/595 prefix **26987**.
-- **Next (D-0453):** seed0002 @26987 — same `dog_goal`: C `rn2(4)`
-  (udist>1) vs JS invent `obj_resists` (udist==1). JS pet (33,8)
-  hero (34,8) after mfndpos chi=7 (32,7)→(33,8) with matching
-  selection RNG; C 2-fobj+`rn2(4)` ⇒ not ortho-adjacent.
+  **285242**/792838. seed0002 Scr **323**/595 prefix **27050**.
+- **Next (D-0454):** seed0002 @27050 — C `rn2(2)` `do_improvisation`
+  vs JS `rn2(19)`. Prefix past D-0453 travelcc/hero-Y.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: capture C `mx,my,ux,uy` at dog_goal after idx 26982 step;
-  or prove JS hero/pet step differs without RNG (place/`postmov`).
+  Falsify: C music.c path after `aou` / toot; JS apply/music stub arity.
 - **Don’t re-check:** invent-first @26692; ship `#force` TIME without
   lootmon getdir first; `help_dir` More accepting any key; treat @26883
   as mid-buzz mon `exercise`/`zap_hit` without hero `ureflects`→
   `makeknown` (D-0452 done); treat @26692 as bare pet mfndpos without
   `#loot`/`doforce` key accounting (D-0451 done); rewrite `dog_goal`
-  follow `rn2(4)` body (gate is correct — udist desync).
+  follow `rn2(4)` body / skip-place for @26987 (D-0453 was travelcc);
+  treat @26987 as pet place/`m_in_out_region` without proving hero Y.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -66,10 +64,9 @@ Objective/score live in `CURRENT.md`.
   (D-0450 done); treat @26692 as invent-first / bare pet door-step
   without `#loot` lootmon + `help_dir` quitchar More + `doforce`
   ECMD_TIME (D-0451 done); treat @26883 as mon mid-buzz exercise
-  without hero shield `ureflects`/`makeknown` (D-0452 done); re-audit
-  SLT trunc; ship `#force` TIME without fixing loot getdir first;
-  patch `dog_goal` `rn2(4)` / invent order for @26987 without udist
-  proof (D-0453).
+  without hero shield `ureflects`/`makeknown` (D-0452 done); patch
+  `dog_goal` `rn2(4)` / invent / skip-place for @26987 without travelcc
+  proof (D-0453 done).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -86,8 +83,8 @@ Objective/score live in `CURRENT.md`.
   D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
   next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450;
   D-0451 `#loot` lootmon + help_dir quitchar More + `doforce` TIME
-  done; D-0452 `ureflects` shield `makeknown` done; D-0453 @26987
-  udist gate (JS adjacent / C not) next.
+  done; D-0452 `ureflects` shield `makeknown` done; D-0453 travelcc
+  clear on BFS dest + `goto_level` done; @27050 music next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

@@ -4,29 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0453 — seed0002 @26987 dog_goal udist gate vs invent obj_resists
+## D-0454 — seed0002 @27050 do_improvisation vs JS rn2(19)
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @27050 — C `rn2(2)=0` @
+  `do_improvisation(music.c:535)` vs JS `rn2(19)`. Prefix 27050;
+  Scr 323/595. Matched through D-0453 travelcc/hero-Y.
+- **Cause:** TBD — read `music.c` `do_improvisation` / toot path.
+- **C locus:** `music.c` `do_improvisation`.
+- **Falsifier / next:** C branch after apply/toot; JS music stub arity.
+
+## D-0453 — seed0002 @26987 dog_goal udist gate vs invent obj_resists
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @26987 — C `rn2(4)=3` @
   `dog_goal(dogmove.c:575)` vs JS `rn2(100)` (`obj_resists`). Prefix
-  26987; Scr 323/595. Matched through shield `ureflects`/`makeknown`
-  (D-0452).
-- **Cause (partial):** same `dog_goal` call — 2× fobj `obj_resists`
-  then C follow `rn2(4)` because `udist>1`; JS `udist==1` skips that
-  gate and walks invent `dogfood`→`obj_resists`. JS DIAG at entry:
-  pet (33,8) hero (34,8) `udist=1`, inbox boulder(32,10)+gold(37,13).
-  Prior matching selection RNG `rn2(1)..rn2(8)` stepped JS
-  (32,7)→(33,8) chi=7. C’s 2-fobj + `rn2(4)` implies C is not
-  ortho-adjacent after that step (e.g. pet (32,8) or hero still
-  (34,7) → diagonal `udist=2`).
-- **Rejected:** broken `dog_goal` `rn2(4)` / invent order; extra JS
-  fobj (inboxN=2 matches C’s two pre-`rn2(4)` resists); mfndpos cnt
-  mismatch (both burned 8 selection rolls).
-- **C locus:** `dogmove.c` `dog_goal` `udist>1` / `dog_move` place;
-  possibly `m_in_out_region` / `postmov` (JS `dog_move` omits
-  `m_in_out_region` + `m_digweapon_check` before place).
-- **Falsifier / next:** C `mx,my,ux,uy` at dog_goal after idx 26982;
-  or prove JS place/`postmov` desync without RNG.
+  26987; Scr 323/595.
+- **Cause:** stale `iflags.travelcc` after a prior `_` travel. JS
+  `findtravelpath_bfs` never cleared `travelcc` when the next step cell
+  was the destination (C `hack.c` ~1413); also `goto_level` omitted C’s
+  `travelcc=0` (`do.c` ~1607). Next `_`+`.` restarted getpos on the old
+  dest, so JS walked hero to (34,8) while C stayed at (34,7). Same pet
+  place then gave JS `udist=1` (skip `rn2(4)`) vs C `udist=2`.
+- **Rejected:** broken `dog_goal` `rn2(4)` / invent order; `m_in_out_region`
+  skip-place (falsified — staying at (32,7) drops to 1 fobj vs C’s 2).
+- **C locus:** `hack.c` `findtravelpath` destination clear; `do.c`
+  `goto_level` travelcc discard.
+- **Change:** clear `travelcc` + `nomul(0)` when BFS step cell is dest;
+  clear `travelcc` in `goto_level`. Deferred: travelmap visited “unsure”
+  arm; `m_in_out_region`/`m_digweapon_check` in `dog_move`.
+- **Verification:** seed0002 prefix **26987→27050**; RNG matched
+  **27042→27061**; Scr still **323**/595 (next miss music); green+strict;
+  cohort **26/26**.
+- **Next:** seed0002 @27050 C `do_improvisation` vs JS `rn2(19)`.
 
 ## D-0452 — seed0002 @26883 ureflects makeknown exercise vs JS zap_hit
 
