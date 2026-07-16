@@ -3,6 +3,7 @@
 //        paybill / inherits / set_repo_loc / money2mon; priest.c move_special;
 //        addtobill / append_honorific / get_cost / getprice / billable;
 //        get_cost_of_shop_item / doname_with_price (D-0460);
+//        is_unpaid / unpaid_cost + doname unpaid suffix (D-0461);
 //        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline; following verbalize;
@@ -14,9 +15,10 @@
 // mnearto home_shk; paygd; M1_NOHEAD has_head (assume headed for shk path);
 // container bill_box_content / contained_cost; remote_burglary; gem glass
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM; costly_gold;
-// doname_with_price unpaid_cost / pricequotes; get_obj_location buried/minvent;
+// pricequotes; get_obj_location buried/minvent;
 // dopay: debit/robbed/angry appease; used-up/container bill arms;
-// traditional itemize ynq; paydoname/observe_object/makeknown; getpos pay-whom.
+// traditional itemize ynq; observe_object/makeknown in shk_names_obj;
+// getpos pay-whom; container paydoname rewrite; contained_cost.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -26,6 +28,7 @@ import {
     ESHK, IS_ROOM, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE, ACH_SHOP,
     OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, NO_ROOM,
     LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
+    COST_CONTENTS, COST_SINGLEOBJ,
 } from './const.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
@@ -41,7 +44,7 @@ import { shtypes, shkname, Shknam } from './shknam.js';
 import { splitobj } from './mkobj.js';
 import { add_to_minv } from './makemon.js';
 import { acurr, A_CHA } from './attrib.js';
-import { xname, doname } from './objnam.js';
+import { xname, doname, paydoname, set_doname_shop_suffix } from './objnam.js';
 import { is_human } from './monsters.js';
 import { nhgetch } from './input.js';
 import { paint_corner_nhw_menu } from './invent.js';
@@ -301,6 +304,72 @@ function get_pricing_units(obj) {
 }
 
 /**
+ * C ref: invent.c count_unpaid — unpaid items in list incl. contents.
+ */
+function count_unpaid(list) {
+    let count = 0;
+    for (let otmp = list; otmp; otmp = otmp.nobj) {
+        if (otmp.unpaid) count++;
+        if (Has_contents(otmp)) count += count_unpaid(otmp.cobj);
+    }
+    return count;
+}
+
+/**
+ * C ref: shk.c is_unpaid — object or any contents on a shop bill.
+ */
+export function is_unpaid(obj) {
+    return !!(obj?.unpaid
+        || (Has_contents(obj) && count_unpaid(obj.cobj)));
+}
+
+/**
+ * C ref: shk.c unpaid_cost — bill price for unpaid invent / contents.
+ * Named omissions: contained_cost when COST_CONTENTS && Has_contents;
+ * impossible() when unpaid but not on bill.
+ */
+export function unpaid_cost(unp_obj, cost_type) {
+    let amt = 0;
+    let shkp = null;
+    let bp = null;
+    const ushops = game.u?.ushops || '';
+    for (let i = 0; i < ushops.length; i++) {
+        shkp = shop_keeper(ushops.charCodeAt(i));
+        if (!shkp) continue;
+        bp = onbill(unp_obj, shkp, true);
+        if (bp) {
+            amt = bp.price | 0;
+            if (cost_type !== COST_SINGLEOBJ) {
+                amt *= (unp_obj.quan | 0) || 1;
+            }
+        }
+        if (cost_type === COST_CONTENTS && Has_contents(unp_obj)) {
+            // contained_cost deferred — outer bill amt only for now
+        }
+        if (bp || (!unp_obj.unpaid && amt)) break;
+    }
+    // C: if (!shkp || (unp_obj->unpaid && !bp)) impossible(...);
+    return amt;
+}
+
+/**
+ * C ref: objnam.c doname_base unpaid arm (is_unpaid → unpaid_cost).
+ * Wired into plain doname via set_doname_shop_suffix(…, with_price ignored).
+ * Named omissions: record_price_quote; contained_cost contents label path
+ * still uses unpaid_cost amt without nested walk.
+ */
+function append_doname_unpaid_suffix(obj, bp, _with_price) {
+    if (game.iflags?.suppress_price || game.program_state?.restoring) {
+        return bp;
+    }
+    if (!is_unpaid(obj)) return bp;
+    const quotedprice = unpaid_cost(obj, COST_CONTENTS);
+    const pricebuf = `${quotedprice} ${currency(quotedprice)}`;
+    const label = obj.unpaid ? 'unpaid' : 'contents';
+    return `${bp} (${label}, ${pricebuf})`;
+}
+
+/**
  * C ref: shk.c get_cost_of_shop_item — price of floor/shop goods for doname.
  * Named omissions: contained_cost for Has_contents; globby weight units.
  * @returns {{ cost: number, nochrg: number }}
@@ -345,16 +414,17 @@ export function get_cost_of_shop_item(obj) {
 
 /**
  * C ref: objnam.c doname_with_price → doname_base(DONAME_WITH_PRICE).
- * Lives here to reach get_cost_of_shop_item without objnam↔shk cycle.
- * Named omissions: unpaid_cost invent path; suppress_price/restoring;
- * pricequotes append; contents-of-container bill suffix via contained_cost.
+ * Plain doname already applies unpaid (C first else-if); this only adds
+ * for-sale / no-charge when !is_unpaid.
+ * Named omissions: pricequotes append; contained_cost contents bill.
  */
 export function doname_with_price(obj) {
     let bp = doname(obj);
     if (game.iflags?.suppress_price || game.program_state?.restoring) {
         return bp;
     }
-    // is_unpaid invent/container unpaid arm deferred — look_here is floor
+    // C: else if (is_unpaid) already handled inside doname
+    if (is_unpaid(obj)) return bp;
     const { cost: price, nochrg } = get_cost_of_shop_item(obj);
     if (price > 0) {
         const pricebuf = `${price} ${currency(price)}`;
@@ -362,9 +432,11 @@ export function doname_with_price(obj) {
     } else if (nochrg > 0) {
         bp += ' (no charge)';
     }
-    // iflags.pricequotes append_price_quote deferred
     return bp;
 }
+
+// Wire C doname_base unpaid arm into objnam.doname.
+set_doname_shop_suffix(append_doname_unpaid_suffix);
 
 /**
  * C ref: shk.c getprice — base oc_cost + class tweaks.
@@ -1307,7 +1379,7 @@ async function menu_pick_pay_items(ibill) {
         ];
         for (const it of items) {
             const mark = it.selected ? '+' : '-';
-            const nm = doname(it.obj);
+            const nm = paydoname(it.obj);
             const amt = String(it.cost).padStart(amtWidth, ' ');
             entries.push({
                 text: `${it.letch} ${mark} ${amt} Zm, ${nm}`,
@@ -1370,8 +1442,8 @@ async function dopayobj(shkp, bp, obj, _which, _itemize, unseen) {
     pay(ltmp, shkp);
     if (!unseen) {
         // C: shk_names_obj → You("bought %s for %ld gold piece%s.%s", …)
-        // paydoname/observe_object/makeknown deferred → doname
-        const nm = doname(obj);
+        // observe_object/makeknown deferred; paydoname suppresses unpaid
+        const nm = paydoname(obj);
         const pcs = ltmp === 1 ? '' : 's';
         await pline(`You bought ${nm} for ${ltmp} gold piece${pcs}.`);
     }

@@ -447,7 +447,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0458 | fixed | botl Blind…Conf…Fly conditions after enc_stat | seed0002 @237→@272; Scr 327→353 |
 | D-0459 | fixed | do_attack safemon “in the way” pline + end_running | seed0002 @272→@342; Scr 353→354 |
 | D-0460 | fixed | look_here doname_with_price for-sale suffix | seed0002 @342→@345; Scr 354→361 |
-| D-0461 | open | doname unpaid_cost slightload prinv | seed0002 first screen miss @345 |
+| D-0461 | fixed | doname unpaid_cost + paydoname suppress_price | seed0002 @345→@359; Scr 361→363 |
+| D-0462 | open | botl `$:` after shop pay/money2mon | seed0002 first screen miss @359 |
 
 
 

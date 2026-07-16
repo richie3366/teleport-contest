@@ -4,20 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0461 — seed0002 screen@345 doname unpaid_cost on prinv
+## D-0462 — seed0002 screen@359 botl `$:` after shop pay
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @359 — C botl
+  `Dlvl:2 $:1175 HP:14(14) …` vs JS `$:1225` (Δ=+50);
+  buy topline `You bought a polished silver shield for 50 gold
+  pieces.` matches. RNG full; Scr 363/595.
+- **Cause:** TBD — `pay`/`money2mon`/`splitobj` or botl gold source.
+- **C locus:** `shk.c` `pay` / `money2mon`; botl `$` display.
+- **Falsifier / next:** deduct invent gold on pay so botl `$` matches.
+
+## D-0461 — seed0002 screen@345 doname unpaid_cost on prinv
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @345 — C
   `You have a little trouble lifting y - a polished silver shield
   (unpaid, 50 zorkmids).--More--` vs JS bare
   `… y - a polished silver shield.`; botl matches. RNG full;
   Scr 361/595.
-- **Cause:** TBD — C `doname_base` `is_unpaid` → `unpaid_cost` suffix;
-  JS `doname` / `xprname` omit unpaid.
-- **C locus:** `objnam.c` `doname_base` unpaid arm; `shk.c`
-  `is_unpaid` / `unpaid_cost`.
-- **Falsifier / next:** port unpaid suffix into `doname` (pickup
-  `prinv` / `xprname` path).
+- **Cause:** C `doname_base` `is_unpaid` → `unpaid_cost` suffix;
+  JS `doname` omitted unpaid. Pay menu/`dopayobj` used bare
+  `doname` instead of `paydoname` (`suppress_price`).
+- **C locus:** `objnam.c` `doname_base` unpaid arm / `paydoname`;
+  `shk.c` `is_unpaid` / `unpaid_cost` / `count_unpaid`.
+- **Change:** `js/shk.js` — `is_unpaid`, `unpaid_cost`,
+  `count_unpaid`, unpaid hook into `doname`; `paydoname` path in
+  `menu_pick_pay_items` / `dopayobj`. `js/objnam.js` —
+  `set_doname_shop_suffix` + `paydoname`. Deferred:
+  `contained_cost`; container paydoname rewrite; `record_price_quote`.
+- **Verification:** seed0002 @345 matches; first miss **@345→@359**;
+  Scr **361→363**; RNG full; green+strict; cohort **24/24**.
+- **Next:** botl `$` after pay (D-0462).
 
 ## D-0460 — seed0002 screen@342 look_here doname_with_price
 

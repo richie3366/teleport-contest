@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:26 — #499 D-0461 doname unpaid_cost + paydoname
+- Objective: seed0002 screen@345 C slightload prinv unpaid suffix vs
+  JS bare shield name.
+- C locus: `objnam.c` `doname_base` unpaid / `paydoname`; `shk.c`
+  `is_unpaid` / `unpaid_cost` / `count_unpaid`.
+- Change: `js/shk.js` unpaid helpers + doname suffix hook;
+  `js/objnam.js` `paydoname` (`suppress_price`); pay menu/`dopayobj`
+  use `paydoname`. Deferred: `contained_cost`; container paydoname
+  rewrite.
+- Verification: seed0002 @345 matches; first miss @345→@359; Scr
+  361→363; RNG full; green+strict; cohort 24/24.
+- Next: D-0462 botl `$:1175` vs `$:1225` after `pay`/`money2mon`.
+
 ## 2026-07-16 06:20 — #498 D-0460 look_here doname_with_price
 - Objective: seed0002 screen@342 C `You see here a banded mail
   (for sale, 68 zorkmids).` vs JS bare banded mail.
