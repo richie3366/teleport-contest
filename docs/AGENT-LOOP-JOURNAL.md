@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:46 — D-0533 attach_egg_hatch_timeout
+- Objective: seed0373 @9839 egg hatch `rnd(151)` vs JS `rn2(79)`.
+- C locus: `timeout.c` `attach_egg_hatch_timeout`/`stop_timer`;
+  `mkobj.c` `set_corpsenm` EGG + `mksobj` case EGG.
+- Change: port hatch roll + `stop_timer`; wire EGG through
+  `set_corpsenm`/`mksobj`. `hatch_egg` callback still deferred.
+- Verification: rng-diff **9839→9875**; RNG **10034**/35386;
+  green+strict PASS; cohort **30**/30 PASS.
+- Next: @9875 `next_ident` `rnd(2)` vs `rnd(4)`; or seed5006
+  dosounds @8468.
+
 ## 2026-07-16 18:45 — #592 D-0532 qt_montype quest gate
 - Objective: seed0373 @6811 C `rndmonst_adj` `rn2(7)` vs JS `rn2(3)`.
 - C locus: `makemon.c` `rndmonst_adj`; `questpgr.c` `qt_montype`;
@@ -165,14 +176,3 @@ Use this shape:
   green+strict; cohort 8/8 PASS.
 - Next: `put_lregion_here` accept vs C reject @12330; or Bar-strt /
   dosounds.
-
-## 2026-07-16 17:25 — #578 D-0520 soko1-1 / builds_up difficulty
-- Objective: seed0116 @9350 next special after bigrm (`makemaz` rnd(2)→soko1-1).
-- C locus: `dat/soko1-1.lua`; `dungeon.c` builds_up/level_difficulty;
-  `makemon.c` set_mimic_sym/m_initinv; `mkroom.c` fill_zoo; `sp_lev.c` flip.
-- Change: load_soko1_1 + flip + fill_zoo ZOO; hacklib builds_up difficulty;
-  Sokoban set_mimic_sym gate + t_at; leprechaun gold; spider/snake mkobj_at.
-- Verification: seed0116 **9351→12294** (runner RNG **12336**/12562) Scr 110;
-  green+strict; cohort 6/6 PASS. seed0373 still @3289.
-- Next: fill_zoo cell filter after flip / place_lregion; or Bar-strt randline;
-  or seed5006 dosounds.

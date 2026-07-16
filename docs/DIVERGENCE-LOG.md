@@ -4,10 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0533 — attach_egg_hatch_timeout for typed eggs
+
+- **Status:** fixed (partial — `hatch_egg` callback deferred)
+- **Symptom:** seed0373 @9839 C `attach_egg_hatch_timeout` `rnd(151)`
+  vs JS `rn2(79)` after matched egg `can_be_hatched`/`mksobj_init`.
+- **Cause:** JS created typed eggs in `mksobj_init` but never called
+  C `mksobj` post-init `set_corpsenm` → `attach_egg_hatch_timeout`
+  (`rnd(i)>150` for i=151..200).
+- **C locus:** `timeout.c` `attach_egg_hatch_timeout`/`stop_timer`;
+  `mkobj.c` `set_corpsenm` EGG + `mksobj` case EGG.
+- **Change:** port `stop_timer`/`attach_egg_hatch_timeout`; EGG path in
+  `set_corpsenm`; `mksobj` calls `set_corpsenm` for EGG.
+- **Verification:** seed0373 rng-diff **9839→9875**; runner RNG
+  **9872→10034**/35386 Scr 22/124; green+strict PASS; cohort **30**/30.
+- **Named omission:** `hatch_egg` body; FIG_TRANSFORM; burn/revive
+  timer callbacks.
+- **Next:** @9875 C `next_ident` `rnd(2)` vs JS `rnd(4)`; or seed5006
+  `dosounds` @8468.
+
 ## D-0532 — rndmonst_adj quest gate → qt_montype
 
-- **Status:** fixed (partial — rndmonst_adj rogue/elem/Inhell filters;
-  egg hatch timeout)
+- **Status:** fixed (partial — rndmonst_adj rogue/elem/Inhell filters)
 - **Symptom:** seed0373 @6811 C `rndmonst_adj` `rn2(7)` vs JS
   ordinary weight `rn2(3)` after Bar-fila load.
 - **Cause:** JS `rndmonst_adj` omitted C quest prologue
@@ -21,10 +39,8 @@ to preserve, record it here.
 - **Verification:** seed0373 rng-diff **6811→9839**; runner RNG
   **6849→9872**/35386 Scr still 22/124; green+strict PASS; cohort
   **30**/30 PASS; seed0116 RNG still full Scr 110/127.
-- **Named omission:** `rndmonst_adj` upper/elemlevel/Inhell continues;
-  `attach_egg_hatch_timeout` (next @9839).
-- **Next:** @9839 C `attach_egg_hatch_timeout` `rnd(151)` vs JS
-  `rn2(79)`; or seed5006 `dosounds` @8468.
+- **Named omission:** `rndmonst_adj` upper/elemlevel/Inhell continues.
+- **Next:** superseded by D-0533.
 
 ## D-0531 — on_locate + In_quest Bar-fila/filb + reset_xystart_size
 

@@ -71,10 +71,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0532 (`rndmonst_adj`→`qt_montype` + roles
-`enemy*`), seed0373 @9839 C `attach_egg_hatch_timeout` `rnd(151)`
-vs JS `rn2(79)`. Or peel seed5006 `dosounds` @8468. Prefer over
-parked seed2200 RC / seed0116 screen residual.
+**Gameplay next:** after D-0533 (`attach_egg_hatch_timeout` typed eggs),
+seed0373 @9875 C `next_ident` `rnd(2)` vs JS `rnd(4)`. Or peel
+seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
+seed0116 screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -82,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0532.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0533.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
