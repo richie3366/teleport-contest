@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#658:** D-0590 `^T` dotele + controlled getpos + `STRAT_CLOSE`
-  `quest_talk` (leader_first/badalign). seed0361 prefix **4363→4368**
-  (RNG **4414→4516**, Scr **161→178**). Next @4368 `getbones` after
-  expulsion to main dungeon — not Arc-loca shuffle (that was a misread).
+- **#659:** D-0591 `movemon` `deferred_goto` after quest expulsion
+  `schedule_goto`. seed0361 prefix **4368→5483** (RNG **4516→5605**,
+  Scr **178**/366). Next @5483 `pick_room` (mkroom) during post-return
+  `makelevel` — not getbones (that was missing deferred_goto).
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361 getbones @4368; or seed0367 `Pri-strt`
+- **Gameplay next:** seed0361 `pick_room` @5483; or seed0367 `Pri-strt`
   (still @2040); seed0014/0108. Prefer over parked D-0006 /
   seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0590; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0591; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -52,24 +52,18 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0590 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0591 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
-- D-0578: C gg via bones `gettrack`, not mfndpos cnt.
-- D-0579: first Scr miss was getobj DOWNPLAY + Blindf_on, not RNG.
-- D-0581: @185 Die?/bones yn; gold 311 needs `hidden_gold`.
-- D-0582: @187 points was identify `more_experienced(0,10)`.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
 - D-0587: @122 was Status armor nudity + Teleport_control what_gives.
-- D-0588: seed0361 @3293 was missing `Arc-strt`; then invent
-  `mdrop_special_objs` + armor/weapon `nartifact_exist` artif gate.
-- D-0589: @4247 was missing `m_move` hides_under `rn2(10)` stay-put
-  (not distfleeck).
-- D-0590: @4363 was missing `^T` controlled tele + `quest_talk`
-  (not Arc-loca load); next getbones after expulsion.
+- D-0588: seed0361 @3293 was missing `Arc-strt` + invent discard artif.
+- D-0589: @4247 was missing `m_move` hides_under `rn2(10)` stay-put.
+- D-0590: @4363 was missing `^T` controlled tele + `quest_talk`.
+- D-0591: @4368 was missing `movemon` `deferred_goto` after expulsion.
 
 ## Landmarks (≤15)
 
@@ -93,3 +87,4 @@ Objective/score live in `CURRENT.md`.
   `mdrop_special_objs` before discard (D-0588).
 - Concealers: `m_move` stay-put `rn2(10)` before apparxy (D-0589).
 - Wizard `^T`: controlled getpos + `STRAT_CLOSE` leader talk (D-0590).
+- Expulsion return: `movemon` must `deferred_goto` (D-0591).

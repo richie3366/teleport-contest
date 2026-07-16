@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0591 — movemon deferred_goto after schedule_goto
+
+- **Status:** fixed
+- **Symptom:** seed0361 @4368 — C `rn2(3) @ getbones` vs JS `rn2(5)`
+  (makelevel Medusa gate without prior getbones chance roll).
+- **Cause:** Quest `expulsion` → `schedule_goto` during `dochug` /
+  `movemon`. C `movemon` ends with `if (u.utotype) deferred_goto()`
+  (`mon.c` ~1342–1347); JS only ran `deferred_goto` after `rhack`, so
+  expulsion return never reached `mklev`/`getbones` on that tick.
+- **C locus:** `mon.c` `movemon`; callers `schedule_goto`/`deferred_goto`
+  (`do.c`); `getbones` chance `rn2(3)` (`bones.c:645`).
+- **Change:** `js/mon.js` `movemon` — lazy-import `deferred_goto` when
+  `u.utotype`, then clear `_somebody_can_move` (avoid do.js cycle).
+- **Verification:** seed0361 prefix **4368→5483** (runner RNG
+  **4516→5605**, Scr **178**/366); next @5483 `pick_room`.
+  green+strict PASS; cohort 31/31 prior PASS held.
+- **Named omission:** `any_light_source` vision recalc; `clear_bypasses`;
+  `clear_splitobjs`; `dmonsfree` before utotype check.
+- **Next:** seed0361 `pick_room` @5483; or Pri-strt seed0367 @2040.
+
 ## D-0590 — ^T dotelecmd + controlled tele + STRAT_CLOSE quest_talk
 
 - **Status:** fixed (partial — Arc-loca getbones next; assignquest path)

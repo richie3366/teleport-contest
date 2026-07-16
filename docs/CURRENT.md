@@ -72,12 +72,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0590 `^T` controlled tele + `STRAT_CLOSE`
-`quest_talk` (seed0361 **4363→4368** / RNG **4414→4516** / Scr
-**161→178**), next peel is seed0361 expulsion return `getbones`
-@4368 (main dungeon after badalign), or seed0367 `Pri-strt`
-(still @2040), or seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0590.
+**Gameplay next:** after D-0591 `movemon` `deferred_goto` (seed0361
+**4368→5483** / RNG **4516→5605** / Scr **178**), next peel is
+seed0361 `pick_room` @5483 (post-expulsion main-dungeon `makelevel`),
+or seed0367 `Pri-strt` (still @2040), or seed0014/0108. Prefer over
+parked D-0006 / seed2200 RC; do not reopen D-0474…D-0591.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

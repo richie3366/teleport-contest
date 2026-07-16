@@ -18,6 +18,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 01:40 — #659 D-0591 movemon deferred_goto
+- Objective: seed0361 getbones @4368 after quest expulsion (PRIMARY).
+- C locus: `mon.c` `movemon` — `if (u.utotype) deferred_goto()`.
+- Change: `js/mon.js` `movemon` lazy-imports `deferred_goto` when
+  `u.utotype` (expulsion `schedule_goto` during dochug).
+- Verification: seed0361 **4368→5483** (RNG **4516→5605** Scr
+  **178**); green+strict PASS; cohort 31/31 PASS.
+- Next: seed0361 `pick_room` @5483; or Pri-strt seed0367.
 ## 2026-07-17 01:33 — #658 D-0590 ^T dotele + quest_talk
 - Objective: seed0361 nhlib shuffle @4363 (PRIMARY; was misread as
   Arc-loca).
