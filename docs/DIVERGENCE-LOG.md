@@ -4,17 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0472 — seed0006 collect_coords (teleport) late RNG
+## D-0473 — seed0006 summonmu (demon help) late RNG
 
 - **Status:** open
-- **Symptom:** seed0006 rng-diff first mismatch @6574 —
-  C `rn2(8)=7 @ collect_coords(teleport.c:700)` vs JS `rn2(3)=1`.
-  RNG **6578**/6736; Scr **68**/123 (post D-0471).
-- **Cause:** TBD — reconstruct `collect_coords` / teleport callers.
+- **Symptom:** seed0006 rng-diff first mismatch @6660 —
+  C `rn2(16)=3 @ summonmu(mhitu.c:968)` vs JS `rnd(21)=10 @ mattacku`.
+  RNG **6667**/6736; Scr **68**/123 (post D-0472).
+- **Cause:** TBD — `mattacku` missing demon `summonmu` / `msummon` arm.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
+
+## D-0472 — seed0006 dowaterdemon + S_DEMON weapon fallthrough
+
+- **Status:** fixed
+- **Symptom:** seed0006 rng-diff first mismatch @6574 —
+  C `rn2(8)=7 @ collect_coords(teleport.c:700)` vs JS `rn2(3)=1`.
+  RNG **6578**/6736; Scr **68**/123 (post D-0471).
+- **Cause:** `drinkfountain` case 23 deferred → `dryup` `rn2(3)` ran
+  where C calls `dowaterdemon`→`makemon`→`enexto`→`collect_coords`.
+  After spawn, JS `m_initweap` `S_DEMON` broke without C's
+  `is_demon` FALLTHROUGH to default `rnd(14-2*bias)` (=`rnd(12)`).
+- **C locus:** `fountain.c` `dowaterdemon`; `makemon.c` `m_initweap`
+  `S_DEMON` + default; `mondata.h` `is_demon`.
+- **Change:** `fountain.js` `dowaterdemon` + case 23; `mongrantswish`
+  subset; `makemon.js` named-demon specials + `is_demon`→default;
+  `monsters.js` `M2_DEMON`/`is_demon`.
+- **Verification:** rng-diff prefix **6574→6660**; seed0006 RNG
+  **6578→6667**/6736 Scr **68**/123; green+strict; cohort **25/25**;
+  full suite **27/44**.
+- **Deferred:** `mongrantswish` `tmp_at` glyph hide; `dowatersnakes`/
+  nymph; angel/kop/lizard/troll `m_initweap` specials.
+- **Next:** D-0473 @6660 `summonmu`.
 
 ## D-0471 — seed0006 chargen rename + role filter (early RNG)
 

@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **27/44** PASS (seed0002 via D-0470). Suite aggs stale
-  (#505). seed0006 focused RNG **6578**/6736 Scr **68**/123 (D-0471).
-- **Next (D-0472):** seed0006 `collect_coords` — rng-diff @6574
-  C `rn2(8) @ teleport.c:700` vs JS `rn2(3)`.
+- **Score:** **27/44** PASS (#510 suite). Scr **4959**/11405; RNG
+  **289750**/792838. seed0006 focused RNG **6667**/6736 Scr **68**/123.
+- **Next (D-0473):** seed0006 `summonmu` — rng-diff @6660
+  C `rn2(16) @ summonmu(mhitu.c:968)` vs JS `rnd(21) @ mattacku`.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
   node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
-  Falsify: first mismatch → C `collect_coords` callers / candidate set.
+  Falsify: first mismatch → C `mattacku`→`summonmu`/`msummon` call site.
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -36,7 +36,8 @@ Objective/score live in `CURRENT.md`.
   screen@538 without dobuzz DISP_BEAM (D-0468);
   screen@587 without distant_name/price quotes (D-0469);
   screen@590 without Status Deaf/`near_capacity` (D-0470);
-  seed0006 early pick_align without rename/`reset_role_filtering` (D-0471).
+  seed0006 early pick_align without rename/`reset_role_filtering` (D-0471);
+  seed0006 @6574 without `dowaterdemon` / S_DEMON fallthrough (D-0472).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,7 +56,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0471 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0472 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -64,7 +65,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0471 done; seed0006 collect_coords next.
+- D-0408–D-0472 done; seed0006 summonmu next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

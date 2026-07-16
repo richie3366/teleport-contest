@@ -29,6 +29,7 @@ import {
     is_armed,
     is_lord,
     is_prince,
+    is_demon,
     extra_nasty,
     strongmonst,
     is_placeholder,
@@ -570,6 +571,39 @@ export function mongets(mtmp, otyp_) {
     return otmp;
 }
 
+// C ref: makemon.c m_initweap default arm — bias then rnd(14-2*bias)
+function m_initweap_default(mtmp, ptr) {
+    const bias = (is_lord(ptr) ? 1 : 0) + (is_prince(ptr) ? 2 : 0)
+        + (extra_nasty(ptr) ? 1 : 0);
+    switch (rnd(14 - (2 * bias))) {
+    case 1:
+        if (strongmonst(ptr)) mongets(mtmp, otyp('BATTLE_AXE'));
+        else m_initthrow(mtmp, otyp('DART'), 12);
+        break;
+    case 2:
+        if (strongmonst(ptr)) mongets(mtmp, otyp('TWO_HANDED_SWORD'));
+        else {
+            mongets(mtmp, otyp('CROSSBOW'));
+            m_initthrow(mtmp, otyp('CROSSBOW_BOLT'), 12);
+        }
+        break;
+    case 3:
+        mongets(mtmp, otyp('BOW'));
+        m_initthrow(mtmp, otyp('ARROW'), 12);
+        break;
+    case 4:
+        if (strongmonst(ptr)) mongets(mtmp, otyp('LONG_SWORD'));
+        else m_initthrow(mtmp, otyp('DAGGER'), 3);
+        break;
+    case 5:
+        if (strongmonst(ptr)) mongets(mtmp, otyp('LUCERN_HAMMER'));
+        else mongets(mtmp, otyp('AKLYS'));
+        break;
+    default:
+        break;
+    }
+}
+
 // C ref: makemon.c m_initweap — ordinary-level armed-mlet envelope
 function m_initweap(mtmp) {
     const ptr = mtmp.data;
@@ -710,45 +744,40 @@ function m_initweap(mtmp) {
         }
         // is_elf / MS_PRIEST / ninja / MS_GUARDIAN deferred
         break;
-    case 'S_ANGEL':
-    case 'S_KOP':
     case 'S_DEMON':
-    case 'S_LIZARD':
-    case 'S_TROLL':
-        // Deferred special cases (C-JS-MAP). C breaks here (except demon→default).
-        break;
-    default: {
-        const bias = (is_lord(ptr) ? 1 : 0) + (is_prince(ptr) ? 2 : 0)
-            + (extra_nasty(ptr) ? 1 : 0);
-        switch (rnd(14 - (2 * bias))) {
-        case 1:
-            if (strongmonst(ptr)) mongets(mtmp, otyp('BATTLE_AXE'));
-            else m_initthrow(mtmp, otyp('DART'), 12);
+        // C: named demon specials then is_demon → FALLTHROUGH default
+        switch (mm) {
+        case pm('BALROG'):
+            mongets(mtmp, otyp('BULLWHIP'));
+            mongets(mtmp, otyp('BROADSWORD'));
             break;
-        case 2:
-            if (strongmonst(ptr)) mongets(mtmp, otyp('TWO_HANDED_SWORD'));
-            else {
-                mongets(mtmp, otyp('CROSSBOW'));
-                m_initthrow(mtmp, otyp('CROSSBOW_BOLT'), 12);
-            }
+        case pm('ORCUS'):
+            mongets(mtmp, otyp('WAN_DEATH'));
             break;
-        case 3:
-            mongets(mtmp, otyp('BOW'));
-            m_initthrow(mtmp, otyp('ARROW'), 12);
+        case pm('HORNED_DEVIL'):
+            mongets(mtmp, rn2(4) ? otyp('TRIDENT') : otyp('BULLWHIP'));
             break;
-        case 4:
-            if (strongmonst(ptr)) mongets(mtmp, otyp('LONG_SWORD'));
-            else m_initthrow(mtmp, otyp('DAGGER'), 3);
+        case pm('DISPATER'):
+            mongets(mtmp, otyp('WAN_STRIKING'));
             break;
-        case 5:
-            if (strongmonst(ptr)) mongets(mtmp, otyp('LUCERN_HAMMER'));
-            else mongets(mtmp, otyp('AKLYS'));
+        case pm('YEENOGHU'):
+            mongets(mtmp, otyp('FLAIL'));
             break;
         default:
             break;
         }
+        if (!is_demon(ptr)) break;
+        m_initweap_default(mtmp, ptr);
         break;
-    }
+    case 'S_ANGEL':
+    case 'S_KOP':
+    case 'S_LIZARD':
+    case 'S_TROLL':
+        // Deferred special cases (C-JS-MAP).
+        break;
+    default:
+        m_initweap_default(mtmp, ptr);
+        break;
     }
 
     if (mtmp.m_lev > rn2(75)) mongets(mtmp, rnd_offensive_item(mtmp));

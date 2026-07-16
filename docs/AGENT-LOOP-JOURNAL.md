@@ -12,6 +12,24 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-16 07:34 — #510 D-0472 dowaterdemon + score cadence
+- Objective: #510 %5 full score + seed0006 @6574 collect_coords.
+- C locus: `fountain.c` `dowaterdemon`; `makemon.c` `m_initweap`
+  `S_DEMON`→default; `mondata.h` `is_demon`.
+- Change: `fountain.js` case 23 `dowaterdemon`; `makemon.js`
+  named demons + `is_demon` fallthrough; `monsters.js` `is_demon`.
+- Verification: suite **27/44** Scr **4959** RNG **289750**;
+  seed0006 prefix **6574→6660** RNG **6578→6667**; green+cohort.
+- Next: D-0473 @6660 `summonmu` (mhitu.c:968).
+
 ## 2026-07-16 07:29 — #509 D-0471 chargen rename + role filter
 - Objective: seed0006 early RNG — missing 2nd pick_align rn2(1).
 - C locus: `role.c` genl_player_setup case 3 rename; `reset_role_filtering`
@@ -21,14 +39,6 @@ Use this shape:
 - Verification: rng-diff prefix **1→6574**; seed0006 RNG **2276→6578**
   Scr **13→68**; green+strict; cohort **25/25**.
 - Next: D-0472 seed0006 @6574 `collect_coords` (teleport.c:700).
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-16 07:21 — #508 D-0470 ^X Status deaf + encumbrance
 - Objective: seed0002 screen@590 ^X Status missing deaf / burdened.

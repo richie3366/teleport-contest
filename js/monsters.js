@@ -96,6 +96,7 @@ export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
 export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
+export const M2_DEMON = 0x00000100; /* monflag.h — is a demon */
 export const M2_ORC = 0x00000080; /* monflag.h — is an orc (≡ MH_ORC) */
 export const M2_HUMAN = 0x00000008; /* monflag.h — is a human */
 
@@ -404,6 +405,10 @@ export function is_prince(ptr) {
 }
 export function extra_nasty(ptr) {
     return !!(ptr?.mflags2 & M2_NASTY);
+}
+/** C ref: mondata.h is_demon */
+export function is_demon(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_DEMON);
 }
 export function is_mercenary(ptr) {
     return !!(ptr?.mflags2 & M2_MERC);
