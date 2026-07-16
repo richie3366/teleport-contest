@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:55 — #513 D-0475 rename askname BASE cury
+- Objective: seed0006 first screen miss @13 — C `Who are you?` row 10
+  vs JS row 12 after confirm `'a'` rename.
+- C locus: `wintty.c` `erase_menu_or_text`/`docorner` + `tty_askname`
+  blank putstr; `role.c` case 3 rename (no `term_clear_screen`).
+- Change: dismiss corner confirm via docorner (sets `_base_cury`);
+  `tty_askname` uses BASE cury not hardcoded row 12; splash sets 11.
+  Deferred: filter `(N of M)` page packing @22.
+- Verification: seed0006 Scr **72→80**/123 first miss **@13→@22**;
+  RNG full; green+strict; cohort **25/25**.
+- Next: seed0006 @22 filter menu `(1 of 2)` page packing.
+
 ## 2026-07-16 07:46 — #512 D-0474 M2_STALK levl_follower
 - Objective: seed0006 @6685 C `rn2(2) @ mon_arrive` vs JS `rn2(5)`.
 - C locus: `mondata.c` `levl_follower`; `dog.c` `keepdogs`/`relmon`/
@@ -171,15 +183,3 @@ Use this shape:
   361→363; RNG full; green+strict; cohort 24/24.
 - Next: D-0462 botl `$:1175` vs `$:1225` after `pay`/`money2mon`.
 
-## 2026-07-16 06:20 — #498 D-0460 look_here doname_with_price
-- Objective: seed0002 screen@342 C `You see here a banded mail
-  (for sale, 68 zorkmids).` vs JS bare banded mail.
-- C locus: `invent.c` `look_here`; `objnam.c` `doname_with_price`;
-  `shk.c` `get_cost_of_shop_item` / `inside_shop`.
-- Change: `js/shk.js` — roomno `inside_shop`, `get_obj_location`
-  subset, `get_cost_of_shop_item`, `doname_with_price`.
-  `js/invent.js` `look_here` single+pile. Deferred: unpaid_cost /
-  pricequotes / contained_cost.
-- Verification: seed0002 @342 matches; first miss @342→@345; Scr
-  354→361; RNG full; green+strict; cohort 24/24.
-- Next: D-0461 screen@345 doname unpaid on slightload prinv.

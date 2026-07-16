@@ -461,6 +461,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0472 | fixed | dowaterdemon + S_DEMON m_initweap fallthrough | seed0006 RNG 6578→6667; @6660 summonmu |
 | D-0473 | fixed | mattacku summonmu + msummon demon arms | seed0006 RNG 6667→6686; @6685 mon_arrive |
 | D-0474 | fixed | levl_follower M2_STALK + mydogs prepend | seed0006 RNG full 6736; Scr 68→72 |
+| D-0475 | fixed | rename tty_askname BASE cury after docorner | seed0006 Scr 72→80; @13→@22 filter page |
 
 
 

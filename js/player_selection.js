@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
-import { paint_corner_nhw_menu } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_chargen_nhw_menu } from './invent.js';
 import { an } from './objnam.js';
 import { roles, races, aligns, genders, findRole, findRace, findAlign } from './roles.js';
 import { tty_askname } from './askname.js';
@@ -1205,6 +1205,9 @@ export async function genl_player_setup() {
         if (choice === 3) {
             // C ref: role.c genl_player_setup case 3 — rename via askname;
             // honor only the new name (restore role facets after plnamesuffix).
+            // C: destroy_nhwindow(confirm) → erase_menu_or_text corner
+            // docorner (not term_clear_screen); tty_askname blank+who at
+            // BASE cury left by docorner (D-0475).
             const saveROLE = flags.initrole;
             const saveRACE = flags.initrace;
             const saveGEND = flags.initgend;
@@ -1213,8 +1216,7 @@ export async function genl_player_setup() {
             game.iflags.renameinprogress = true;
             game.plname = '';
             game._menu_overlay = false;
-            const disp = game.nhDisplay;
-            if (disp?.clearScreen) disp.clearScreen();
+            dismiss_chargen_nhw_menu();
             await tty_askname();
             flags.initrole = saveROLE;
             flags.initrace = saveRACE;

@@ -408,6 +408,11 @@ export function nhw_menu_geometry(entries, morestr = '(end) ') {
  * next. Fullscreen (offx==0): term_clear_screen. Corner: docorner cl_end
  * from offx for maxrow+1 rows. Only needed when flush_screen is skipped
  * (chargen — no map/botl yet).
+ *
+ * C docorner(offx, maxrow+1, 0) ends with tty_curs(BASE, …, maxrow), so
+ * BASE cury = maxrow. JS endRow is the morestr row (= C nitems); C
+ * maxrow = nitems+1 → last cury = endRow+1. Fullscreen clear matches
+ * erase_tty_screen → tty_curs(BASE, 1, 0).
  */
 function erase_prior_nhw_menu_chargen() {
     const g = game._tty_menu_geom;
@@ -416,13 +421,25 @@ function erase_prior_nhw_menu_chargen() {
     if (!disp) return;
     if (g.offx === 0) {
         disp.clearScreen?.();
+        game._base_cury = 0;
     } else {
-        for (let r = 0; r <= g.endRow; r++) {
+        // C: docorner(offx, maxrow+1, 0) — y from 0..maxrow inclusive
+        const ymax = g.endRow + 1; // C maxrow
+        for (let r = 0; r <= ymax; r++) {
             for (let c = g.offx; c < disp.cols; c++)
                 disp.setCell(c, r, ' ', NO_COLOR, 0);
         }
+        game._base_cury = ymax;
     }
     game._tty_menu_geom = null;
+}
+
+/**
+ * C ref: destroy_nhwindow → tty_dismiss_nhwindow during in_role_selection.
+ * Used by confirm `'a'` rename before tty_askname (no term_clear_screen).
+ */
+export function dismiss_chargen_nhw_menu() {
+    erase_prior_nhw_menu_chargen();
 }
 
 /**

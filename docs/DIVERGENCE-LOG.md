@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0475 — seed0006 rename askname BASE cury (screen@13)
+
+- **Status:** fixed
+- **Symptom:** seed0006 first cell-miss @13 — C `Who are you?` on
+  row 10 (cursor `[13,10]`) vs JS row 12 (`[13,12]`) after confirm
+  `'a'` rename; RNG full; Scr **72**/123 (post D-0474).
+- **Cause:** JS `clearScreen` + hardcoded `PROMPT_ROW=12` on rename.
+  C `destroy_nhwindow` corner confirm → `docorner(offx, maxrow+1)`
+  leaves `wins[BASE]->cury = maxrow` (= morestr row + 1); `tty_askname`
+  blank `putstr` then `Who are you?` at cury+1 → row 10. No
+  `term_clear_screen` on corner dismiss during role selection.
+- **C locus:** `wintty.c` `erase_menu_or_text` / `docorner` /
+  `tty_askname`; `role.c` `genl_player_setup` case 3 rename.
+- **Change:** `invent.js` `dismiss_chargen_nhw_menu` docorner sets
+  `_base_cury`; `askname.js` splash cury=11 + askname blank/who from
+  `_base_cury`; `player_selection.js` rename uses dismiss not clear.
+- **Verification:** @13–@19 match; first miss **@13→@22** (`(1 of 2)`
+  filter page); Scr **72→80**/123; RNG full; green+strict; cohort
+  **25/25**.
+- **Deferred:** filter tty `(N of M)` page packing (D-0471 omit).
+- **Next:** seed0006 screen@22 filter multipage morestr.
+
 ## D-0474 — seed0006 mon_arrive M2_STALK follow
 - **Status:** fixed
 - **Symptom:** seed0006 rng-diff first mismatch @6685 —
