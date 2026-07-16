@@ -20,6 +20,16 @@ Use this shape:
     20|- Next: …
 ```
 
+## 2026-07-16 23:03 — #636 wizard ^X Attributes (D-0573)
+- Objective: seed0373 @119 Attributes / wizard MAGICENLIGHTENMENT.
+- C locus: insight.c doattributes/attributes_enlightenment/status;
+  attrib.c from_what/is_innate; hack.c weight_cap Is_airlevel→MAX.
+- Change: invent.js wizard|discover MAGIC + status `<%d>` + Attributes
+  subset + Air weight_cap MAX; attrib.js from_what/is_innate.
+- Verification: seed0373 Scr 123→124/124 **PASS**; green+strict PASS;
+  cohort 28/28 PASS.
+- Next: seed5006 dosounds @8468; or seed0116 residual 114/127.
+
 ## 2026-07-16 22:57 — #635 formal score refresh
 - Objective: mandatory #635 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0573 — wizard ^X MAGICENLIGHTENMENT + Air weight_cap MAX
+
+- **Status:** fixed (partial — full attributes catalogue / from_what equipment)
+- **Symptom:** seed0373 Scr **123**/124; @119 Attributes — C wizard hunger
+  `<%d>`, unencumbered `<-557>`, Attributes (fervently / alignment /
+  poison innately / stealth+fast from experience / warded / luck zero /
+  can't safely pray (398) / debug mode) vs JS BASIC-only Misc.
+- **Cause:** (1) `doattributes` never ORed `MAGICENLIGHTENMENT` for
+  wizard (only explore stub). (2) status hunger/encumb omitted wizard
+  `<%d>`. (3) `weight_cap` missed C `Is_airlevel` → `MAX_CARR_CAP`, so
+  Air plane showed `<-507>` not `<-557>`.
+- **C locus:** `insight.c` `doattributes` / `attributes_enlightenment` /
+  `status_enlightenment`; `attrib.c` `from_what` / `is_innate`;
+  `hack.c` `weight_cap` Levitation\|Is_airlevel → MAX.
+- **Change:** `js/invent.js` wizard\|discover MAGIC + Attributes subset +
+  status suffixes + Air `weight_cap`; `js/attrib.js` `from_what` /
+  `is_innate` for poison/stealth/fast.
+- **Verification:** seed0373 Scr **123→124**/124 RNG full **PASS**;
+  green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** other resists/vision/appearance props; `what_gives`
+  extrinsic `from_what`; strong steed MAX; Upolyd weight_cap.
+- **Next:** seed5006 `dosounds` @8468; or seed0116 residual 114/127.
+
 ## D-0572 — pluslvl uexp + insight endgame Background (^X)
 
 - **Status:** fixed (partial — @119 Attributes / wizard hunger `<%d>`)
