@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0589 — m_move hides_under rn2(10) stay-put
+
+- **Status:** fixed
+- **Symptom:** seed0361 @4247 — C `rn2(10) @ m_move(monmove.c:1753)` vs
+  JS `rn2(5)` (distfleeck on next mon).
+- **Cause:** `m_move` omitted C’s early return for concealers sitting on
+  hide-able floor objects (`hides_under` + `OBJ_AT` +
+  `can_hide_under_obj` + `rn2(10)` → `MMOVE_NOTHING` before
+  `set_apparxy`).
+- **C locus:** `monmove.c` `m_move` (~1751–1754); reuse
+  `can_hide_under_obj` (D-0496).
+- **Change:** `js/monmove.js` — port stay-put gate; refresh `ptr` after
+  `mintrap` like C.
+- **Verification:** seed0361 prefix **4247→4363** (runner RNG
+  **4323→4414**, Scr **161**/366); next @4363 nhlib `shuffle`.
+  green+strict PASS; cohort 33/33 prior PASS held.
+- **Named omission:** `is_rider` unlock; covetous/special AI gaps already
+  listed in turns.md.
+- **Next:** seed0361 @4363 nhlib shuffle (likely next quest map load);
+  or seed0367 `Pri-strt` @2040.
+
 ## D-0588 — Arc-strt load_special + invent discard + nartifact artif gate
 
 - **Status:** fixed

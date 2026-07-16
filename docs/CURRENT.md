@@ -72,10 +72,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0588 `Arc-strt` (seed0361 **3293→4247** /
-RNG **3307→4323**), next peel is seed0361 `m_move` @4247, or seed0367
-`Pri-strt` (still @2040), or seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0588.
+**Gameplay next:** after D-0589 `m_move` hides_under stay-put (seed0361
+**4247→4363** / RNG **4323→4414**), next peel is seed0361 nhlib
+`shuffle` @4363 (likely next quest map), or seed0367 `Pri-strt`
+(still @2040), or seed0014/0108. Prefer over parked D-0006 /
+seed2200 RC; do not reopen D-0474…D-0589.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

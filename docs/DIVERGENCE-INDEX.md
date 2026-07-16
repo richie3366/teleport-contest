@@ -569,6 +569,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0586 | fixed | dospellmenu wizard turns column | seed0116 Scr 125→126; next @122 ^X armor / Teleport_control |
 | D-0587 | fixed | ^X armor nudity + Teleport_control what_gives | seed0116 Scr 126→127 **PASS** |
 | D-0588 | fixed | Arc-strt load + invent discard + nartifact artif | seed0361 3293→4247 RNG 3307→4323; next m_move |
+| D-0589 | fixed | m_move hides_under rn2(10) stay-put | seed0361 4247→4363 RNG 4323→4414; next nhlib shuffle |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

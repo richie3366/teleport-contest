@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 01:21 — #657 D-0589 m_move hides_under rn2(10)
+- Objective: seed0361 m_move @4247 (PRIMARY).
+- C locus: `monmove.c` `m_move` hides_under + OBJ_AT +
+  `can_hide_under_obj` + `rn2(10)` → MMOVE_NOTHING.
+- Change: `js/monmove.js` stay-put gate; refresh `ptr` after mintrap.
+- Verification: seed0361 **4247→4363** (RNG **4323→4414** Scr
+  **161**); green+strict PASS; cohort 33/33 PASS.
+- Next: seed0361 nhlib shuffle @4363; or Pri-strt seed0367.
+
 ## 2026-07-17 01:20 — #656 D-0588 Arc-strt + invent discard + nartifact
 - Objective: seed0361 quest start after getbones (PRIMARY).
 - C locus: `dat/Arc-strt.lua`; `sp_lev.c` create_monster /
@@ -99,6 +108,7 @@ Use this shape:
 - Verification: seed5006 Scr **247→249**/249 RNG FULL PASS;
   green+strict PASS; cohort **29**/29 PASS; seed0116 115/127 held.
 - Next: seed0116 Scr 115/127; or leaderboard gap / full suite score.
+
 ## 2026-07-17 00:35 — #648 D-0582 identify more_experienced(0,10)
 - Objective: seed5006 @187 points 134 vs 144 (CURRENT primary).
 - C locus: potion.c dopotion; zap.c weffects/zapnodir.
@@ -108,6 +118,7 @@ Use this shape:
   Get-bones map water; green+strict PASS; cohort **29**/29 PASS;
   seed0116 115/127 held.
 - Next: seed5006 @198/@199 Get bones? map glyphs; or seed0116 115/127.
+
 ## 2026-07-17 00:28 — #647 D-0581 wizard Die?/bones yn
 - Objective: seed5006 @185 Die?/Save-bones yn (CURRENT primary).
 - C locus: end.c done Die?/savelife; really_done Save bones?;
@@ -119,6 +130,7 @@ Use this shape:
   PASS; cohort **29**/29 PASS; seed0116 115/127 held.
 - Next: seed5006 @187 urexp 134 vs 144; or Get bones? stale map
   glyphs; or seed0116 Scr 115/127.
+
 ## 2026-07-17 00:20 — #646 D-0580 doread confused mispronounce
 - Objective: seed5006 Scr @162 mispronounce vs level_tele (CURRENT).
 - C locus: read.c doread confused/Hallu pline + can_chant silently;
@@ -129,6 +141,7 @@ Use this shape:
   @185 Die?; green+strict PASS; cohort **31**/31 PASS; seed0116
   Scr 115/127 held.
 - Next: seed5006 @185 Die?/Save-bones yn; or seed0116 Scr 115/127.
+
 ## 2026-07-17 00:17 — #645 formal score refresh
 - Objective: mandatory #645 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -138,6 +151,7 @@ Use this shape:
   (R² 0.769). Δ vs #640: Scr **+41**, RNG **+109**, PASS same
   (D-0578/D-0579).
 - Next: seed5006 @162 confused mispronounce; or seed0116 Scr 115/127.
+
 ## 2026-07-17 00:15 — #644 D-0579 equip SUGGEST + Blindf_on / Blind vision
 - Objective: seed5006 Scr residual 217/249 (CURRENT primary).
 - C locus: do_wear.c equip_ok/cursed/Blindf_on; vision.c Blind vision_recalc;
@@ -147,20 +161,3 @@ Use this shape:
 - Verification: seed5006 Scr **217→228**/249 RNG FULL; seed0116 **114→115**;
   green+strict PASS; cohort PASS held (0373/0398/0030/…).
 - Next: seed5006 @162 confused mispronounce; or seed0116 Scr 115/127.
-## 2026-07-17 00:06 — #643 D-0578 bones utrack / gettrack
-- Objective: seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28).
-- C locus: save.c save_track; restore.c rest_track; track.c gettrack;
-  monmove.c m_move gg from gettrack.
-- Change: bones persist/restore utrack; drop post-mklev initrack wipe.
-  C dest (30,5) via grave gettrack — not (32,4) hero-aim.
-- Verification: seed5006 RNG **FULL** Scr **217**/249; green+strict
-  PASS; cohort **31**/31 PASS.
-- Next: seed5006 Scr residual; or seed0116 Scr 114/127.
-## 2026-07-16 23:52 — #642 D-0578 kitten first-dest / track shape
-- Objective: seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28).
-- C locus: monmove.c m_move:1963; mon.c mfndpos.
-- Falsified: empty-ROOM trap/obj/Elbereth; gettrack; shortsighted;
-  loot gg; dest=(32,5)→rn2(20). New: JS @(32,4) emits rn2(28)+rn2(24);
-  C @2782 one rn2(16); C @2800–2801 is 28+24 (JS shape, next turn).
-- Verification: green+strict PASS; seed5006 still 13814/13923 Scr 192.
-- Next: prove C first-move dest (gg/poss/appr); or seed0116.
