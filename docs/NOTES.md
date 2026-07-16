@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0522 done (partial):** `put_lregion_here` TELE must reject
-  `m_at` when `!oneshot` (C `mkmaze.c`). seed0116 @12330 was
-  `LR_UPTELE` on mon cell — JS accepted → C more `place_lregion`
-  retries. Prefix **12330→12461** (runner **12509**/12562) Scr 110.
-- **Next miss @12461:** C `were_change` `rn2(50)` vs JS `rn2(12)`.
+- **D-0523 done (partial):** `m_calcdistress` → `were_change`
+  (`were.c`). seed0116 @12461 was human were `rn2(50)` skipped.
+  Prefix **12461→12521** (runner **12554**/12562) Scr 110.
+- **Next miss @12521:** C `distfleeck` `rn2(5)` vs JS `dog_move`
+  `rn2(3)`; C next `were_change` `rn2(50)=0` (transform) @12522.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#580 formal score:** **30/44**, Scr **5898**/11405, RNG
   **321672**/792838 (40.57%), `29+0.15/turn`.
@@ -27,17 +27,18 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0522; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0523; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
-  loaders (makelevel owns fill); accept TELE on occupied mon cell.
+  loaders (makelevel owns fill); accept TELE on occupied mon cell;
+  skip `were_change` in `m_calcdistress`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0522
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0523
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -58,6 +59,7 @@ Objective/score live in `CURRENT.md`.
 - D-0521: seed0116 @12294 was **not** fill_zoo irregular/door filter
   — was double `fill_special_room` from load_soko1_1.
 - D-0522: seed0116 @12330 was **not** typ/exclusion — TELE on `m_at`.
+- D-0523: seed0116 @12461 was missing `were_change` in distress.
 
 ## Landmarks (≤15)
 

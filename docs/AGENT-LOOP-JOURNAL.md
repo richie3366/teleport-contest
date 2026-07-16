@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 17:40 — #581 D-0523 were_change from m_calcdistress
+- Objective: peel seed0116 @12461 C `were_change` `rn2(50)` vs JS
+  `mcalcmove` `rn2(12)`.
+- C locus: `were.c` `were_change`/`new_were`; `mon.c` `m_calcdistress`.
+- Change: new `js/were.js`; call `were_change` after `mon_regen`.
+- Verification: prefix **12461→12521** (RNG **12554**/12562) Scr 110;
+  green+strict; cohort 28/28 PASS.
+- Next: @12521 fleeck `rn2(5)` vs dog_move `rn2(3)`; C transform @12522.
+
 ## 2026-07-16 17:35 — #580 score + D-0522 TELE m_at reject
 - Objective: mandatory full `sessions` score; peel seed0116 @12330
   `put_lregion_here` accept vs C reject.

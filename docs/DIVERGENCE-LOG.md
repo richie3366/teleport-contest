@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0523 — m_calcdistress must call were_change
+
+- **Status:** fixed (partial — howl / armor break / flee onscary)
+- **Symptom:** seed0116 @12461 C `rn2(50)` @ `were_change` vs JS
+  `rn2(12)` @ `mcalcmove`.
+- **Cause:** JS `m_calcdistress` deferred `were_change`; human-form
+  lycanthropes never burned night/moonphase `rn2(3|10|30|50)`.
+- **C locus:** `were.c` `were_change` / `new_were` / `counter_were`;
+  `mon.c` `m_calcdistress` after `mon_regen`.
+- **Change:** new `js/were.js`; wire `were_change(mtmp)` from
+  `m_calcdistress`.
+- **Verification:** seed0116 prefix **12461→12521** (runner RNG
+  **12509→12554**/12562) Scr still **110**/127; green+strict PASS;
+  cohort 28/28 PASS.
+- **Named omission:** howl `You_hear`/`wake_nearto`; `mon_break_armor`;
+  `possibly_unwield`; `monflee` when `onscary` after transform; cham
+  `decide_to_shapeshift`.
+- **Next:** @12521 C `distfleeck` `rn2(5)` vs JS `dog_move` `rn2(3)`;
+  next C `were_change` `rn2(50)=0` (transform) @12522.
+
 ## D-0522 — put_lregion_here TELE must reject m_at when !oneshot
 
 - **Status:** fixed (partial — were_change / exclusion populate / oneshot limbo)
