@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0496 (next):** @16339 C `rn2(5) @ distfleeck` vs JS
-  `rnd(20)`. After D-0495 snakes, prefix 16339/16373; Scr still **60**/302.
+- **seed0007 / D-0497 (next):** @16346 C `rn2(10) @ mhitm_mgc_atk_negated`
+  vs JS `rn2(3)`. After D-0496 hideunder, prefix 16346/16373; Scr **60**/302.
   Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0495
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0496
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -43,6 +43,7 @@ Objective/score live in `CURRENT.md`.
 - D-0493 @15284 was stale `travel=1` after `_` (not dochug nearby).
 - D-0494 `Amulet_on` RESTFUL_SLEEP `rnd(98)` → HSleepy TIMEOUT.
 - D-0495 `dowatersnakes` `rn1(5,2)` drink case 22 / dip case 23.
+- D-0496 `postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` (moccasins).
 
 ## Landmarks (≤15)
 
@@ -60,6 +61,5 @@ Objective/score live in `CURRENT.md`.
   `pickup_types=$"?!=/`.
 - D-0489: `#loot` → `do_loot_cont` box `pick_lock` (chance 4*DEX+25).
 - D-0490: MENU_FULL take-out + accept lootabc `a`; invent `$` gold.
-- D-0491: `SCR_DESTROY_ARMOR` + `destroy_arm` + `erode_obj` burn.
-- D-0492: `done_eating`→`cpostfx`→`eye_of_newt_buzz` (AT_MAGC||NEWT).
+- Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.

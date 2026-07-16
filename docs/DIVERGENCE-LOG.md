@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0496 — postmov hides_under rn2(5) / hideunder (seed0007 @16339)
+
+- **Status:** fixed
+- **Symptom:** after D-0495, first RNG miss @16339 — C `rn2(5) @
+  distfleeck` vs JS `rnd(20)`. Scr **60**/302; matched prefix **16339**.
+  Prior slots matched C `postmov` `rn2(5)` vs JS (arity coincidence with
+  another `distfleeck`).
+- **Cause:** `postmov` omitted the `hides_under` / `S_EEL` gate
+  (`mundetected || (!helpless && rn2(5))` → `hideunder`). Water moccasins
+  are `M1_CONCEAL`; after snake spawn their move burned C’s hide roll while
+  JS fell through to `mattacku` `rnd(20)`.
+- **C locus:** `monmove.c` `postmov` (≈1692–1698); `mon.c` `hideunder`;
+  `monmove.c` `can_hide_under_obj`.
+- **Change:** `js/monmove.js` — port `can_hide_under_obj` subset,
+  `hideunder` mundetected body, and the postmov gate (outside `OBJ_AT`).
+- **Verification:** rng-diff **16339→16346**; seed0007 RNG
+  **16355**/16373 Scr **60**; green+strict PASS; cohort 28/28 PASS.
+- **Named omission:** hideunder `You_see` pline; pet `cursed_object_at`;
+  cockatrice corpse skip; `maybe_spin_web`; `after_shk_move`.
+- **Next:** @16346 C `mhitm_mgc_atk_negated` `rn2(10)` vs JS `rn2(3)`.
+
 ## D-0495 — drinkfountain dowatersnakes rn1(5,2) (seed0007 @15983)
 
 - **Status:** fixed

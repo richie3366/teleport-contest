@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:00 — D-0496 postmov hides_under / hideunder
+- Objective: primary D-0496 — seed0007 @16339 distfleeck vs rnd(20).
+- C locus: `monmove.c` `postmov` hides_under/`S_EEL` `rn2(5)` →
+  `hideunder` (`mon.c`); `can_hide_under_obj`.
+- Change: `js/monmove.js` — gate + mundetected hideunder subset
+  (water moccasins are M1_CONCEAL after D-0495 snakes).
+- Verification: rng-diff **16339→16346**; seed0007 RNG **16355**/16373
+  Scr 60; green+strict PASS; cohort 28/28 PASS.
+- Next: @16346 `mhitm_mgc_atk_negated` rn2(10) vs rn2(3) (D-0497).
+
 ## 2026-07-16 14:55 — D-0495 dowatersnakes rn1(5,2)
 - Objective: primary D-0495 — seed0007 @15983 dryup rn2(3) vs snakes.
 - C locus: `fountain.c` `dowatersnakes` — `rn1(5,2)` then makemon
