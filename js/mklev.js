@@ -5922,13 +5922,15 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
     const dunLevel = uz?.dlevel ?? 1;
     if (goldprob < 0) goldprob = 20 + Math.trunc(absDepth / 3);
     if (gemprob < 0) gemprob = Math.trunc(goldprob / 4);
-    // C: mines have ***MORE*** goodies
+    // C ref: mklev.c mineralize — mines boost; quest sparsifies
     if (!skip_lvl_checks) {
         if (In_mines(uz)) {
             goldprob *= 2;
             gemprob *= 3;
+        } else if (In_quest(uz)) {
+            goldprob = Math.trunc(goldprob / 4);
+            gemprob = Math.trunc(gemprob / 6);
         }
-        // In_quest goldprob/=4 gemprob/=6 deferred until quest fill
     }
     for (let x = 2; x < COLNO - 2; x++) {
         for (let y = 1; y < ROWNO - 1; y++) {

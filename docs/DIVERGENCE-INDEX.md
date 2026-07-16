@@ -522,6 +522,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0534 | fixed | mktrap WEB → makemon GIANT_SPIDER before victim rnd(4) | seed0373 9875→11957 RNG 12021; next mksobj_init @11957 |
 | D-0535 | fixed | rnd_offensive_item case0 FALLTHROUGH → WAN_STRIKING | seed0373 11957→11988 RNG 12023; next collect_coords @11988 |
 | D-0536 | fixed | create_monster MON_AT → enexto before makemon | seed0373 11988→12327 RNG 14397; next mineralize @12327 |
+| D-0537 | fixed | mineralize In_quest goldprob/=4 gemprob/=6 | seed0373 12327→14748 RNG 14774; next rndmonst_adj @14748 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

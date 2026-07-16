@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0537 — mineralize In_quest goldprob/=4 gemprob/=6
+
+- **Status:** fixed
+- **Symptom:** seed0373 @12327 C `mineralize` `rn2(1000)` vs JS
+  `rnd(2)` (`next_ident` after gold place).
+- **Cause:** C sparsifies quest deposits (`goldprob /= 4`,
+  `gemprob /= 6`); JS left that arm deferred. With full probs, JS
+  accepted `rn2(1000)=15` as gold and burned `next_ident`/`rnd(quan)`
+  while C skipped to the gem check.
+- **C locus:** `mklev.c` `mineralize` (~1490–1492).
+- **Change:** `js/mklev.js` `mineralize` — `else if (In_quest)` trunc
+  divide matching C integer division.
+- **Verification:** seed0373 rng-diff **12327→14748**; runner RNG
+  **14774**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS.
+- **Named omission:** none new (quest mineralize probs now match C).
+- **Next:** @14748 C `rndmonst_adj` `rn2(7)` vs JS `rnd(4)` after
+  matched `traptype_rnd`; or seed5006 `dosounds` @8468.
+
 ## D-0536 — create_monster MON_AT → enexto before makemon
 
 - **Status:** fixed (partial — fixed-coord Bar-strt chieftain/eel

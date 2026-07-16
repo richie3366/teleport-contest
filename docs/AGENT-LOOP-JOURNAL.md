@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:05 — #597 D-0537 mineralize In_quest probs
+- Objective: peel seed0373 @12327 C `mineralize` rn2(1000) vs JS rnd(2).
+- C locus: `mklev.c` `mineralize` In_quest `goldprob/=4` `gemprob/=6`.
+- Change: port quest sparsify arm in `js/mklev.js` `mineralize`.
+- Verification: rng-diff **12327→14748**; runner RNG **14774**/35386
+  Scr 22; green+strict; cohort 28/28 PASS.
+- Next: `rndmonst_adj` @14748; or dosounds @8468.
+
 ## 2026-07-16 19:05 — #596 D-0536 create_monster MON_AT→enexto
 - Objective: peel seed0373 @11988 C `collect_coords` rn2(8) vs JS rn2(2).
 - C locus: `sp_lev.c` `create_monster` MON_AT→`enexto`; `makemon.c`
