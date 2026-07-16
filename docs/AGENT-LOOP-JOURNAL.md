@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:10 — #598 D-0538 STATUE_TRAP mk_trap_statue
+- Objective: peel seed0373 @14748 C `rndmonst_adj` rn2(7) vs JS rnd(4)
+  after matched `traptype_rnd` (STATUE_TRAP).
+- C locus: `trap.c` `maketrap` / `mk_trap_statue`.
+- Change: port `mk_trap_statue` + STATUE_TRAP case in `js/trap.js`.
+- Verification: rng-diff **14748→15574**; runner RNG **15601**/35386
+  Scr 22; green+strict; cohort 30/30 PASS.
+- Next: nhlib shuffle @15574; or dosounds @8468.
+
 ## 2026-07-16 19:05 — #597 D-0537 mineralize In_quest probs
 - Objective: peel seed0373 @12327 C `mineralize` rn2(1000) vs JS rnd(2).
 - C locus: `mklev.c` `mineralize` In_quest `goldprob/=4` `gemprob/=6`.
@@ -161,15 +170,3 @@ Use this shape:
 - Verification: rng-diff **3303→4157**; runner RNG **4185**/35386;
   green+strict PASS; cohort **30**/30 PASS.
 - Next: @4157 nhlib shuffle; or dosounds @8468; or 0116 screen.
-
-## 2026-07-16 17:49 — #583 D-0525 Bar-strt selection_do_randline
-- Objective: peel seed0373 @3289 C `selection_do_randline` rn2(7) vs
-  JS rn2(79) after forest replace_terrain.
-- C locus: `selvar.c` `selection_do_randline`; `nhlsel.c`
-  `l_selection_randline` (rec=12); `dat/Bar-strt.lua`.
-- Change: port selection new/get/set + `selection_do_randline` in
-  `js/mklev.js`; wire path carve + portal free spot in `load_bar_strt`.
-- Verification: seed0373 **3289→3303**; runner RNG **3343**/35386
-  Scr 20; green+strict; cohort PASS sample held; seed0116 RNG full.
-- Next: @3303 C `induced_align` rn2(3) (Pelias/makemon) vs wallify;
-  or seed5006 dosounds @8468.

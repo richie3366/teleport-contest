@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0538 — maketrap STATUE_TRAP → mk_trap_statue
+
+- **Status:** fixed (partial — full `mongone`; `MM_NOCOUNTBIRTH` born tally)
+- **Symptom:** seed0373 @14748 C `rndmonst_adj` `rn2(7)` vs JS `rnd(4)`
+  after matched `traptype_rnd` (=STATUE_TRAP).
+- **Cause:** JS `maketrap` omitted C `STATUE_TRAP` → `mk_trap_statue`
+  (`rndmonnum_adj(3,6)` → quest `rndmonst_adj`); next JS RNG was victim
+  gate `rnd(4)` which C also burns later for STATUE but after the statue.
+- **C locus:** `trap.c` `maketrap` / `mk_trap_statue`.
+- **Change:** port `mk_trap_statue` (unicorn co-align retry, `mkcorpstat`
+  CORPSTAT_NONE, temp `makemon` invent → container, local mongone);
+  wire `maketrap` STATUE_TRAP case.
+- **Verification:** seed0373 rng-diff **14748→15574**; runner RNG
+  **15601**/35386 Scr 22/124; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** full `mongone`; `mvitals.born` / MM_NOCOUNTBIRTH.
+- **Next:** @15574 C nhlib `shuffle` vs JS `get_location` after matched
+  `makemaz`/`getbones`; or seed5006 `dosounds` @8468.
+
 ## D-0537 — mineralize In_quest goldprob/=4 gemprob/=6
 
 - **Status:** fixed
