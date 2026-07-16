@@ -21,10 +21,11 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#545**).
-Screens **5054**/11405; RNG **294730**/792838 (37.17%).
-**28/44** PASS. Speed `24+0.13/turn`. Δ vs #540: Scr **+40**, PASS **28→28**,
-RNG **+4921** (+0.62pp); absorbs D-0488/D-0489 seed0007 peels (Scr 20→60).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#550**).
+Screens **5054**/11405; RNG **302184**/792838 (38.11%).
+**28/44** PASS. Speed `25+0.13/turn`. Δ vs #545: Scr **0**, PASS **28→28**,
+RNG **+7454** (+0.94pp); speed label `24→25` (same suite shape; recount after
+D-0492 land).
 
 ## Score
 
@@ -32,8 +33,8 @@ RNG **+4921** (+0.62pp); absorbs D-0488/D-0489 seed0007 peels (Scr 20→60).
 |--------|------:|
 | Sessions passing | **28 / 44** |
 | Screens matched | **5,054 / 11,405** |
-| Positional RNG calls matched | **294,730 / 792,838** (37.17%) |
-| Speed label | `24+0.13/turn` (R² 0.75) |
+| Positional RNG calls matched | **302,184 / 792,838** (38.11%) |
+| Speed label | `25+0.13/turn` (R² 0.75) |
 | Role-init throws | **0 / 44** |
 
 **PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -46,7 +47,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | 15339/16373 | **60**/302 | snake swamp; RNG peel @15284 dog_move |
+| seed0007 | 15339/16373 | **60**/302 | @15284; D-0493 open (dochug want_move) |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -69,9 +70,12 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — **D-0493** (open): after
-D-0492 eye_of_newt, first miss @15284 C `dog_move` rn2(12) vs JS rn2(4)
-(pet path choice / candidate allow).
+**Gameplay next:** seed0007 — **D-0493** (open): @15284 is **not** bare
+`dog_move` cnt. DIAG: post-fleeck kitten `@ (22,16)` `u=(22,15)` nearby=1
+`mflee=0` burns `dochug` wanderer `rn2(4)`; C skips to `dog_move` `rn2(12)`
+(early want_move short-circuit — likely C `!nearby`/`mflee`). Peaceful-first
+reorder **falsified** (breaks @2837 C `dochug` `rn2(4)`). After force
+`!nearby`, next miss JS `obj_resists` vs C selection — invent/goal fobj.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json

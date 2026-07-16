@@ -7,9 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0493:** @15284 C `dog_move` rn2(12) vs JS rn2(4)
-  (after D-0492 eye_of_newt cleared). Likely mfndpos/allow/appr candidate
-  count before `dog_move` choose. Falsifier:
+- **seed0007 / D-0493:** @15284 C `dog_move` rn2(12) vs JS rn2(4).
+  **Falsified:** bare mfndpos/cnt / dog_move selection arity as first cause.
+  **DIAG:** kitten `@ (22,16)` `u=(22,15)` nearby=1 mflee=0 mpeaceful=1
+  wanderer=true → JS `dochug` want_move burns wanderer `rn2(4)`; C goes
+  straight to `dog_move` rn2(12) (early `!nearby`/`mflee`/… short-circuit).
+  Peaceful-before-wanderer reorder **breaks** @2837 (C still needs
+  `dochug` rn2(4)). Force JS `!nearby` → next miss JS `obj_resists`
+  (invent/goal) vs C selection. Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -48,6 +53,8 @@ Objective/score live in `CURRENT.md`.
 - D-0492 @13259 was **not** corpse_intrinsic — missing
   `eye_of_newt_buzz` after finishing newt corpse.
 - query_category single-class skips menu (seed0012 bag gold-only).
+- D-0493 @15284 was **not** dog_move cand cnt alone — JS wanderer
+  `dochug` rn2(4) while C early-short-circuits want_move.
 
 ## Landmarks (≤15)
 
@@ -57,8 +64,8 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #545 score: **28/44**, Scr 5054, RNG 294730 (37.17%), `24+0.13/turn`
-  (Δ vs #540: Scr +40, RNG +4921).
+- #550 score: **28/44**, Scr 5054, RNG 302184 (38.11%), `25+0.13/turn`
+  (Δ vs #545: Scr 0, RNG +7454).
 - Capital `H` = multi-step run inside one session key (`continue_run`).
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0485: post-quiver `mark_topline_seen` + getdir MV_ANY capitals.

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0493 — seed0007 @15284 dochug want_move vs dog_move
+
+- **Status:** open (diagnosed; no production patch)
+- **Symptom:** after D-0492, first RNG miss @15284 — C `rn2(12) @
+  dog_move` vs JS `rn2(4)`. Scr **60**/302; matched RNG **15339**/16373.
+- **DIAG:** post-fleeck actor is tame kitten `@ (22,16)` with `u=(22,15)`,
+  `nearby=1`, `mflee=0`, `mpeaceful=1`, `is_wanderer=true` (M2_WANDER).
+  JS `dochug` want_move burns wanderer `rn2(4)` before `mpeaceful`;
+  C provenance jumps fleeck → `dog_move` selection `rn2(12)` (early
+  want_move short-circuit: `!nearby` / `mflee` / `scared` / conf / stun).
+- **Falsified:** (1) bare `dog_move`/`mfndpos` candidate cnt as the first
+  cause; (2) reordering `mpeaceful` before wanderer RNG — breaks @2837 where
+  C still emits `rn2(4) @ dochug`; (3) force JS `nearby=0` only — next
+  miss becomes JS `obj_resists` (dog_invent/dog_goal `dogfood`) vs C
+  selection `rn2(12)`.
+- **C locus:** `monmove.c` `dochug` want_move (`is_wanderer && !rn2(4)`);
+  then `dogmove.c` `dog_move` / `dog_invent` / `dog_goal`.
+- **JS locus:** `js/monmove.js` `dochug`; `js/dogmove.js`.
+- **Next:** capture why C early-short-circuits (mflee / mux-nearby /
+  pet pos) without peaceful-first; then invent/goal fobj parity.
+- **Named omission:** `distfleeck` `scared`/`onscary`/`flees_light` still
+  stubbed `scared=0` (would add monflee RNG if live).
+
 ## D-0492 — seed0007 @13259 eye_of_newt_buzz
 
 - **Status:** fixed
