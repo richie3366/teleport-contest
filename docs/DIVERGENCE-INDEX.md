@@ -536,6 +536,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0548 | fixed | soko3-1 / soko3-2 / soko4-2 load_special | seed0373 29533→30061 RNG 30129; next next_ident @30061 |
 | D-0549 | fixed | level_tele endgame AMULET_OF_YENDOR grant | seed0373 30061→30065 RNG 30115; next nhlib shuffle @30065 |
 | D-0550 | fixed | fire.lua load_special + endgame level_difficulty | seed0373 30065→30209 RNG 30222; next makemon female @30209 |
+| D-0551 | fixed | newmonhp adult dragon In_endgame 8*m_lev | seed0373 30209→30263 RNG 30272; next next_ident vs get_location @30263 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

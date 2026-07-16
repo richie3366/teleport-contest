@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0551 — newmonhp adult dragon In_endgame HP
+
+- **Status:** fixed (partial — golem/rider/`mlevel>49`/`is_home_elemental`)
+- **Symptom:** seed0373 @30209 C `makemon` female `rn2(2)` vs JS
+  `newmonhp` `d(22,8)` on first Plane of Fire red dragon (post D-0550).
+- **Cause:** C `newmonhp` adult dragon (`S_DRAGON` && `mndx >=
+  PM_GRAY_DRAGON`) uses `In_endgame` → `8 * m_lev` (no RNG); else
+  `4*m_lev + d(m_lev,4)`. JS always `d(m_lev,8)`, burning a roll before
+  female.
+- **C locus:** `makemon.c` `newmonhp` adult-dragon arm.
+- **Change:** `js/makemon.js` `newmonhp` adult-dragon branch +
+  `In_endgame` import.
+- **Verification:** seed0373 rng-diff **30209→30263**; runner RNG
+  **30272**/35386 Scr 23/124; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** golem `golemhp`; rider `d(10,8)`; `mlevel>49`
+  fixed HP; `is_home_elemental` `*=3`.
+- **Next:** @30263 C `next_ident` vs JS `get_location`; or seed5006
+  `dosounds` @8468.
+
 ## D-0550 — fire.lua load_special + endgame level_difficulty
 
 - **Status:** fixed (partial — fire monsters HP/gender order; air/water/
@@ -22,10 +41,10 @@ to preserve, record it here.
 - **Verification:** seed0373 rng-diff **30065→30209**; runner RNG
   **30222**/35386 Scr 23/124; green+strict PASS; cohort smoke PASS.
   Full suite **#610** 30/44 Scr 5901 RNG 348403 (43.94%).
-- **Named omission:** fire mon makemon HP/female order; air/water/earth/
-  astral; create_gas_cloud region / Norep whoosh; movebubbles.
-- **Next:** @30209 C `makemon` female `rn2(2)` vs JS `newmonhp` `d(22,8)`;
-  or seed5006 `dosounds` @8468.
+- **Named omission:** air/water/earth/astral; create_gas_cloud region /
+  Norep whoosh; movebubbles. (Adult-dragon HP → D-0551.)
+- **Next:** (superseded by D-0551) @30263 C `next_ident` vs JS
+  `get_location`.
 
 ## D-0549 — level_tele endgame AMULET_OF_YENDOR grant
 

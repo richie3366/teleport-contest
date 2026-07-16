@@ -59,7 +59,7 @@ import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
     MM_ADJACENTOK, MM_NOTAIL,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
-    In_mines, In_sokoban,
+    In_mines, In_sokoban, In_endgame,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
@@ -543,14 +543,22 @@ function adj_lev(ptr) {
 // level-0 and level-1 monsters always start with mhpmax >= 2.
 function newmonhp(mon, ptr) {
     mon.m_lev = adj_lev(ptr);
-    let basehp;
-    if (!mon.m_lev) {
+    let basehp = 0;
+    const mndx = ptr.mndx | 0;
+    // Named omission: is_golem golemhp; is_rider d(10,8); mlevel>49 fixed HP
+    if (ptr.mlet === 'S_DRAGON' && mndx >= pm('GRAY_DRAGON')) {
+        // C: adult dragons — N*(4+rnd(4)) before endgame, N*8 once there
+        basehp = mon.m_lev | 0;
+        mon.mhpmax = mon.mhp = In_endgame(game.u?.uz)
+            ? (8 * basehp)
+            : (4 * basehp + d(basehp, 4));
+    } else if (!mon.m_lev) {
         basehp = 1; /* minimum is 1, increased to 2 below when rnd(4)=1 */
         mon.mhpmax = mon.mhp = rnd(4);
     } else {
         basehp = mon.m_lev | 0;
         mon.mhpmax = mon.mhp = d(basehp, 8);
-        // Named omission: is_home_elemental mhp*=3; golem/rider/dragon arms
+        // Named omission: is_home_elemental mhp*=3
     }
     if (mon.mhpmax === basehp) {
         mon.mhpmax += 1;

@@ -25,6 +25,7 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#610**),
 post D-0550. Screens **5901**/11405; RNG **348403**/792838 (43.94%).
 **30/44** PASS. Speed `31+0.14/turn` (R² 0.77). Δ vs #605: Scr +1,
 RNG +4340 (D-0546…D-0550 peels), PASS unchanged.
+*(#611 D-0551: seed0373 focused RNG 30222→30272; full suite next at #615.)*
 
 ## Score
 
@@ -47,7 +48,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 30222/35386 | 23/124 | D-0550; next red dragon makemon @30209 |
+| seed0373 | 30272/35386 | 23/124 | D-0551; next `next_ident` vs `get_location` @30263 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,10 +72,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0550 (Plane of Fire `load_special` + endgame
-`level_difficulty`), seed0373 @30209 C `makemon` female `rn2(2)` vs JS
-`newmonhp` `d(22,8)` on first fire monster (red dragon). Or peel seed5006
-`dosounds` @8468. Prefer over parked seed2200 RC / seed0116 screen residual.
+**Gameplay next:** after D-0551 (adult-dragon endgame `newmonhp`), seed0373
+@30263 C `next_ident` vs JS `get_location` (fire mon placement / invent
+gap). Or peel seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
+seed0116 screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -82,7 +83,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0550.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0551.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
