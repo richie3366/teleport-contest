@@ -11,12 +11,18 @@ to preserve, record it here.
   `append_honorific(shk.c:3611)` (`,` pickup bill quote) vs JS
   `rn2(5)` @ `distfleeck`. Prefix 18457; Scr 311/595. Matched
   through once-per-hero `rn1(31,15)` seer_turn.
-- **Hypothesis:** JS shop `addtobill` / unpaid pickup verbalize skips
-  `append_honorific` (`rn2(SIZE(honored)-1)` → `rn2(4)`).
-- **C locus:** `shk.c` `append_honorific` caller in bill quote
-  (`"For you, " + honorific + "; only …"`).
-- **Next:** port `append_honorific` + wire into invent/shop pickup
-  quote path; compare Deaf/muteshk/surcharge/Angry gates.
+- **Hypothesis:** JS `pick_obj` omits robshop `addtobill` (pickup.c:1920)
+  so unpaid `"For you,"` quote + `append_honorific` never burn `rn2(4)`.
+- **Prerequisite (diagnosed #480):** `scripts/extract-objects.py` dumps
+  `oc_cost` in the C struct but does **not** emit it into
+  `objects_data.js` / `createObjectsArray` — `getprice`/`get_cost`
+  cannot quote “50 zorkmids” until cost is exposed.
+- **C locus:** `shk.c` `addtobill` → `append_honorific`; callers
+  `pickup.c` `pick_obj` robshop; `getprice`/`get_cost`/`billable`.
+- **Next:** (1) emit `oc_cost` via extractor; (2) port
+  `getprice`/`get_cost`/`billable`/`add_one_tobill`/`addtobill` subset
+  + `append_honorific`; (3) wire `pick_obj`. Name deferred: container
+  bill, remote_burglary, gem glass pseudo-ID, Angry/surcharge arms.
 - **Verification:** after D-0446; green+strict; cohort 26/26 PASS.
 
 ## D-0446 — seed0002 @18354 seer_turn `rn1(31,15)` in wrong phase

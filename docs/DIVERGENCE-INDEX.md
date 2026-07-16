@@ -433,7 +433,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0444 | fixed | peffect_healing + POT_HEALING peffects | seed0002 prefix 14081→16501; Scr 284→292 |
 | D-0445 | fixed | goto_level descend fall rnd(3) | seed0002 prefix 16501→18354; Scr 292→311 |
 | D-0446 | fixed | seer_turn rn1(31,15) once-per-hero | seed0002 prefix 18354→18457; Scr 311; @18457 honorific next |
-| D-0447 | open | pickup shop append_honorific rn2(4) | seed0002 @18457; C shk append_honorific vs JS distfleeck |
+| D-0447 | open | pickup shop append_honorific rn2(4) | seed0002 @18457; needs oc_cost extract + addtobill quote |
 
 
 

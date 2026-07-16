@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#475 full). Scr **4556**/11405; RNG
-  **270988**/792838. seed0002 Scr **311**/595 prefix **18457**.
+- **Score:** **26/44** PASS (#480 full). Scr **4620**/11405; RNG
+  **277634**/792838; speed `23+0.13/turn`. seed0002 Scr **311**/595
+  prefix **18457**.
 - **Next (D-0447):** seed0002 @18457 — C `rn2(4)` @ `append_honorific`
   (`,` unpaid shop bill quote) vs JS `rn2(5)` @ `distfleeck`.
+  **Blocker:** `oc_cost` not in objects extract → no `getprice`/`get_cost`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
@@ -54,7 +56,8 @@ Objective/score live in `CURRENT.md`.
   treat @14081 as distfleeck without `peffect_healing` (D-0444);
   treat @16501 as `mon_arrive`/`collect_coords` without stair-fall
   (D-0445); treat @18354 as distfleeck without seer_turn phase
-  (D-0446); re-audit SLT trunc math.
+  (D-0446); invent `addtobill` quote without `oc_cost`/`get_cost`
+  (D-0447); re-audit SLT trunc math.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -67,7 +70,8 @@ Objective/score live in `CURRENT.md`.
   confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
   safemon-move+flee-teleport D-0436–D-0442; rottenfood→occupation
   D-0443; peffect_healing D-0444; goto_level descend fall D-0445;
-  seer_turn once-per-hero D-0446; shop append_honorific D-0447 next.
+  seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
+  D-0447 next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

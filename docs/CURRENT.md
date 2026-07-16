@@ -17,18 +17,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#475 score
-cadence). Screens **4556**/11405; RNG **270988**/792838. **26/44** PASS.
-Speed `22+0.13/turn`.
+Score last measured: **2026-07-16** — full `sessions` suite (#480 score
+cadence). Screens **4620**/11405; RNG **277634**/792838. **26/44** PASS.
+Speed `23+0.13/turn`. Δ vs #475: Scr +64, RNG +6646 (D-0443…D-0446 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4556 / 11,405** (39.95%) |
-| Positional RNG calls matched | **270,988 / 792,838** (34.18%) |
-| Speed label | `22+0.13/turn` (R² 0.77) |
+| Screens matched | **4620 / 11,405** (40.51%) |
+| Positional RNG calls matched | **277,634 / 792,838** (35.02%) |
+| Speed label | `23+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -65,10 +65,14 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 **18457**; Scr **311**/595. After D-0446 seer_turn: C `rn2(4)` @
 `append_honorific` (`,` unpaid bill quote) vs JS `rn2(5)` @ `distfleeck`.
 
+**Prerequisite:** `objects[]` lacks `oc_cost` (extractor omits it) — needed
+for `getprice`/`get_cost` before a faithful `addtobill` quote (“50 zorkmids”).
+
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: port append_honorific + wire into addtobill invent quote
+# Focus: expose oc_cost → getprice/get_cost → addtobill + append_honorific
+#        wire pick_obj robshop path (pickup.c:1920)
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
