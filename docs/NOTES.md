@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Gameplay next:** seed0398 post D-0510 — RNG **3026**/3026, Scr **0**/87
-  (cursors 84/87). First-cell screen peel; RNG already full.
+- **Gameplay next:** seed0398 post D-0511 — RNG **3026**/3026, Scr **77**/87.
+  First miss @28: C topline `What do you want to drop? [a-o or ?*]` vs
+  JS blank (cursor matches). Likely getobj prompt paint/capture.
   Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0510
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0511
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -37,9 +38,9 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0509 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly done.
-- D-0510: `#wizgenesis` was missing from EXT_CMDS — `jackal` keys became
-  apply/`rnl(20)`; now `create_particular`→`makemon`→`collect_coords`.
+- D-0490…D-0510 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly/wizgenesis done.
+- D-0511: `playmode:debug` → `set_playmode` plname `"wizard"`; do not
+  re-apply `OPTIONS=name` from `setup_role_race_from_rc`.
 
 ## Landmarks (≤15)
 

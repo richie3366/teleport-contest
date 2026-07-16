@@ -25,8 +25,8 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#565**),
 post D-0507. Screens **5296**/11405; RNG **303302**/792838 (38.26%).
 **29/44** PASS. Speed `25+0.13/turn`. Δ vs #564: Scr **0**, PASS **0**,
 RNG **+84**; seed0398 wish charges/wrp (D-0507) RNG 2773→2840.
-*(#566–#568: D-0508…D-0510 seed0398 peels; full suite not due. #568:
-seed0398 RNG **3026**/3026 after wizgenesis; Scr still 0/87.)*
+*(#566–#569: D-0508…D-0511 seed0398 peels; full suite not due. #569:
+seed0398 Scr **0→77**/87 after set_playmode; RNG still full.)*
 
 ## Score
 
@@ -48,7 +48,7 @@ seed0012, seed0004, seed0002, seed0006, **seed0007**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0398 | **3026**/3026 | 0/87 | RNG full post D-0510; Scr peel next |
+| seed0398 | **3026**/3026 | **77**/87 | D-0511 plname; @28 drop getobj next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -71,17 +71,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0398 after D-0510 `#wizgenesis`/`create_particular`
-— RNG **3026**/3026; Scr **0**/87 (cursors 84/87). Prefer first-cell
-screen peel (chargen / topline / map) over late peels. Do **not** reopen
-D-0474…D-0510.
+**Gameplay next:** seed0398 after D-0511 `set_playmode` — RNG **3026**/3026;
+Scr **77**/87. First miss @28: C `What do you want to drop? [a-o or ?*]`
+vs JS blank topline (cursor OK). Peel getobj drop prompt paint/capture.
+Do **not** reopen D-0474…D-0511.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
-node scripts/rng-diff.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0510.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0511.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

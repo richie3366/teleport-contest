@@ -1556,7 +1556,8 @@ export function setup_role_race_from_rc(opts = {}) {
     // C: flags.initalign indexes aligns[]
     const alignIdx = aligns.indexOf(align);
     game.flags.initalign = alignIdx >= 0 ? alignIdx : 1;
-    if (opts.name) game.plname = opts.name;
+    // C: setup does not rewrite plname — unixmain set_playmode / askname
+    // already applied OPTIONS=name (and debug → "wizard").
 
     // C ref: role.c role_init() — pantheon (Priest) then nemesis gender
     const initrole = roles.indexOf(role);

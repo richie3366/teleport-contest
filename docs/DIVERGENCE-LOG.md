@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0511 — set_playmode plname "wizard" (seed0398 Scr 0)
+- **Status:** fixed
+- **Symptom:** seed0398 Scr **0**/87 (RNG full) — first cell
+  `Hello Polly` / botl `Polly` vs C `Hello wizard` / `Wizard`.
+- **Cause:** C `set_playmode` overwrites `OPTIONS=name` with
+  `"wizard"` when `wizard`; JS never called it, and
+  `setup_role_race_from_rc` re-applied `opts.name` in newgame.
+- **C locus:** `options.c` `set_playmode`; `unixmain.c` call before
+  `plnamesuffix`.
+- **Change:** `js/options.js` `set_playmode`; `js/jsmain.js` call
+  after rc flags merge; remove plname rewrite in
+  `js/u_init.js` `setup_role_race_from_rc`.
+- **Verification:** seed0398 Scr **0→77**/87 (RNG 3026/3026);
+  green+strict PASS; cohort **27/27** PASS.
+- **Named omission:** `authorize_wizard_mode` / sysopt.wizards gate;
+  explore authorize / deferred_X; restore-path `set_playmode`.
+- **Next:** @28 blank `What do you want to drop?` getobj topline.
+
 ## D-0510 — #wizgenesis create_particular (seed0398 @2960)
 
 - **Status:** fixed

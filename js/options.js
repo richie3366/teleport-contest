@@ -224,6 +224,24 @@ export function option_help_lines() {
     return lines;
 }
 
+/**
+ * C ref: options.c set_playmode — after playmode:debug / -D (wizard set),
+ * strcpy(plname, "wizard") when authorize_wizard_mode succeeds.
+ * Contest/JS: flags.debug already means wizard authorized (no
+ * sysopt.wizards gate); explore authorize / deferred_X explore prompt
+ * deferred.
+ */
+export function set_playmode() {
+    if (!game.flags) game.flags = {};
+    if (game.flags.debug || game.flags.wizard) {
+        game.plname = 'wizard';
+        // C: discover = !wizard after successful wizard entry
+        game.flags.explore = false;
+        if (game.iflags) game.iflags.deferred_X = false;
+    }
+    // C: if (discover && !authorize_explore_mode()) clear — deferred
+}
+
 export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
@@ -256,7 +274,8 @@ export function parseNethackrc(rc) {
                 else if (key === 'gender') result.gender = val;
                 else if (key === 'align') result.align = val;
                 else if (key === 'playmode') {
-                    // C ref: options.c playmode — explore skips bones RNG (getbones)
+                    // C ref: options.c optfn_playmode — sets wizard/discover;
+                    // set_playmode() later renames plname to "wizard".
                     const mode = val.toLowerCase();
                     if (mode === 'debug' || mode === 'wizard') result.flags.debug = true;
                     else if (mode === 'explore' || mode === 'discover') result.flags.explore = true;
