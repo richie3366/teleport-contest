@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0483 — revert D-0480 serialize space/NO_COLOR coerce
+
+- **Status:** fixed
+- **Symptom:** Judge PASS **23→22** at `lastScored` 2026-07-16T08:55Z
+  (after D-0480). Lost PASS: seed0013-rogue-friday13-combat **59→58**/59
+  (full RNG). Also judge cell bleed seed0004 −1, seed0030 −3, seed2200 −2
+  while local still PASS. D-0479 did not change seed0013 wire; D-0480
+  rewrote **56/59** screens (stripped `\x1b[37m` on clearScreen blanks).
+- **Cause:** Blind serialize tweak for an offline-irreproducible LB gap;
+  local `diffCell` forgives space color so suite stayed green; judge did
+  not. Broader than Hoimar (who only coerces space+attr0+CLR_GRAY).
+- **Change:** Restore pre-D-0480 `serialize_for_scoring` color path
+  (`colorToFg(cell.color)` only). Keep D-0480 `vanqsort_cmp` strcmpi.
+- **Verification:** green+strict; seed0013/0002/0004/0012/0030 local PASS.
+- **Next:** next judge cron should restore seed0013 if hypothesis holds;
+  else upstream #5-style report.
+
 ## D-0482 — death disclose invent + enlightenment + vanquished ask
 
 - **Status:** fixed
@@ -28,7 +45,7 @@ to preserve, record it here.
   full resistance catalogue; builds_up overview; set_vanq_order.
 - **Next:** seed0007 snake swamp Scr 20/302.
 
-
+## D-0481 — makemon newsym after spawn
 
 - **Status:** fixed
 - **Symptom:** seed0006 screen@102 sole cell miss — JS floor `·` vs C `&`
@@ -50,7 +67,7 @@ to preserve, record it here.
 
 ## D-0480 — serialize glyphless spaces as NO_COLOR; vanqsort strcmpi
 
-- **Status:** fixed (local C-fidelity; does not close leaderboard 23-vs-27)
+- **Status:** partial — strcmpi kept; serialize coerce **reverted** (D-0483)
 - **Symptom / context:** Official LB `richie3366` **23/44** PASS vs local
   **27/44**; gap sessions seed0002/0004/0012/0030 have **full RNG** and
   **14 cell misses** total on judge. Local + hub `/sessions/` both **PASS
@@ -60,13 +77,11 @@ to preserve, record it here.
   SO+`{`; `` ` `` is both DEC pool and ROCK_CLASS.
 - **C locus:** tty default fg for blank cells; `insight.c` `vanqsort_cmp`
   `strcmpi` (not ICU `localeCompare`).
-- **Change:** `serialize_for_scoring` coerces glyphless non-inv/uline
-  spaces to `NO_COLOR` + `tty_map_color` on glyphs; `vanqsort_cmp`
-  ALPHA uses byte `toLowerCase` order.
-- **Verification:** green+strict PASS; seed0002/0004/0012/0030 PASS local
-  + hub corpus.
-- **Next:** wait next judge cron; if still 14 misses, open upstream issue
-  like #5 (corpus/verifier hash). Resume seed0006 @102.
+- **Change (original):** `serialize_for_scoring` coerced glyphless spaces
+  to `NO_COLOR` + `tty_map_color` on glyphs; `vanqsort_cmp` ALPHA uses
+  byte `toLowerCase` order.
+- **Verification:** green+strict PASS locally; **judge worsened** (D-0483).
+- **Next:** see D-0483.
 
 ## D-0479 — mondead unmap_object clears remembered invisible glyph
 

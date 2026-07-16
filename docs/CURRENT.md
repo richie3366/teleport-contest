@@ -64,9 +64,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 23-vs-28 gap** — local PASS seed0002/0004/0012/0030 (+seed0006);
-judge fails with **14 cell misses**, full RNG (see NOTES / D-0480).
-Next cron after D-0480; if unchanged → upstream issue like #5.
+**Leaderboard 22-vs-28 gap** — local PASS includes seed0002/0004/0012/0030
+(+seed0006); judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue
+59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
+restored but four near-misses remain → upstream #5.
 
 **Gameplay next:** seed0007 rogue snake swamp — Scr **20**/302.
 

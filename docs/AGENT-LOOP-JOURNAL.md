@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 11:50 — D-0483 revert D-0480 serialize coerce
+- Objective: undo judge PASS 23→22 after D-0480 (seed0013-rogue 59→58).
+- C locus: n/a (revert contestant serialize); keep insight vanqsort strcmpi.
+- Change: restore pre-D-0480 `serialize_for_scoring` color path.
+- Verification: green+strict; seed0013/0002/0004/0012/0030 local PASS.
+- Next: next judge cron; seed0007 snake swamp.
+
 ## 2026-07-16 11:40 — D-0482 seed0006 disclose invent PASS
 - Objective: seed0006 @110 invent pages after possessions yn.
 - C locus: `end.c` disclose/really_done; `windows.c` add_menu_heading;

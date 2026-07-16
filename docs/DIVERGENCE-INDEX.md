@@ -466,9 +466,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0477 | fixed | Rule #2: pager dat texts in-process | remove Node fs/path/url; embed dat_text.js |
 | D-0478 | fixed | hilite_pet / wc2_petattr ATR_INVERSE on tame | seed0006 Scr 89→95; @71→@77 I vs # |
 | D-0479 | fixed | mondead unmap_object clears invisible I | seed0006 Scr 95→106; @77→@102 water demon |
-| D-0480 | fixed | serialize space NO_COLOR + vanqsort strcmpi | C-fidelity; LB 23-vs-27 gap still open |
-| D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
+| D-0480 | partial | vanqsort strcmpi kept; serialize coerce reverted | D-0483; LB gap still open |
 | D-0481 | fixed | makemon !in_mklev newsym after spawn | seed0006 Scr 106→110; @102→@110 disclose invent |
+| D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
+| D-0483 | fixed | revert D-0480 serialize space/tty_map_color | judge 23→22 correlated; keep strcmpi |
 
 
 
