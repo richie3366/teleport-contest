@@ -11,12 +11,17 @@ Objective/score live in `CURRENT.md`.
   `rn2(4)` RANSEUR/PARTISAN/GLAIVE/SPETUM). seed0373 rng-diff
   **5082→5497**; runner RNG **5511**/35386 Scr 21/124.
 - **seed0373 next:** @5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)`
-  (likely another special-level / getbones path after Bar-loca).
+  after matched `collect_coords` + shuffle `rn2(3)`. C then
+  `getbones` @5498 + another 3-shuffle — JS likely fell through
+  ordinary `makemaz` Medusa `rn2(5)` (missing Bar-goal/fila/filb
+  after tour `^V2` post-Bar-loca). Falsify: identify C protofile
+  for that `^V2` hop before porting.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#585 formal score:** **30/44**, Scr **5898**/11405, RNG
-  **322564**/792838 (40.68%), `29+0.15/turn` (R² 0.76).
+- **#590 formal score:** **30/44**, Scr **5899**/11405, RNG
+  **323852**/792838 (40.85%), `29+0.15/turn` (R² 0.80).
+  Δ vs #585: Scr +1, RNG +1288 (D-0527…30), PASS same.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -70,7 +75,7 @@ Objective/score live in `CURRENT.md`.
   seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #585 score: **30/44**, Scr 5898, RNG 322564 (40.68%), `29+0.15/turn`.
+- #590 score: **30/44**, Scr 5899, RNG 323852 (40.85%), `29+0.15/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
@@ -80,4 +85,4 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca.
+  seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca; next `^V2`.

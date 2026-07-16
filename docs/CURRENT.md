@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#585**),
-post D-0526. Screens **5898**/11405; RNG **322564**/792838 (40.68%).
-**30/44** PASS. Speed `29+0.15/turn` (R² 0.76). Δ vs #580: Scr 0,
-RNG +892, PASS unchanged (D-0525/26 peels between score snaps).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#590**),
+post D-0530. Screens **5899**/11405; RNG **323852**/792838 (40.85%).
+**30/44** PASS. Speed `29+0.15/turn` (R² 0.80). Δ vs #585: Scr +1,
+RNG +1288 (D-0527…D-0530 peels), PASS unchanged.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **30 / 44** |
-| Screens matched | **5,898 / 11,405** |
-| Positional RNG calls matched | **322,564 / 792,838** (40.68%) |
-| Speed label | `29+0.15/turn` (R² 0.76) |
+| Screens matched | **5,899 / 11,405** |
+| Positional RNG calls matched | **323,852 / 792,838** (40.85%) |
+| Speed label | `29+0.15/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 4596/35386 | 21/124 | D-0528 tower1; next Bar-loca @4571 |
+| seed0373 | 5511/35386 | 21/124 | D-0530; next nhlib shuffle @5497 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -72,9 +72,10 @@ that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
 **Gameplay next:** after D-0530 (`m_initweap` S_TROLL), seed0373
-next @5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)`. Or peel
-seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
-seed0116 screen residual.
+@5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)` — likely missing next
+quest special after Bar-loca (`^V2`; Bar-goal/fila/filb named in
+D-0529). Or peel seed5006 `dosounds` @8468. Prefer over parked
+seed2200 RC / seed0116 screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
