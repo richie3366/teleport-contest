@@ -21,6 +21,15 @@ Category: **agentic**. No shipping a transpiled C engine.
 4. A session trace is an **observation**, not a missing C specification.
    When docs, comments, or hypotheses disagree with pinned C + observable
    contest patches, C wins.
+5. **Contest Rule #2 — plain JS, dual runtime (HARD BAN).** Scored `js/`
+   must be plain ES6 modules, runnable **as-is** in **both** Node 22+ and
+   modern Chrome: no build step, no WASM, no network, **no filesystem**,
+   no threads, no native addons. Persistent state goes only through frozen
+   `js/storage.js` VFS; everything else stays in-process. Never
+   `import` Node builtins (`fs`, `path`, `url`, `os`, `node:*`, …) or call
+   `readFileSync` / `existsSync` from scored code. Dat/help texts and similar
+   assets belong in `js/generated/` (checked-in extractors), not runtime disk
+   reads. Offline PASS does not excuse Chrome/Session-Viewer breakage.
 
 ---
 
@@ -54,12 +63,16 @@ Category: **agentic**. No shipping a transpiled C engine.
 3. Global state lives on the mutable `game` object from `gstate.js`
    for now. Evolve toward C’s `u` / transient / saved groupings
    **without** inventing a parallel Redux store.
-4. Keep the DAG acyclic. Generated data under `js/generated/` is fine.
+4. Keep the DAG acyclic. Generated data under `js/generated/` is fine —
+   and is the **required** home for upstream `dat/*` text (and similar)
+   that the port needs at runtime (Rule #2 / D-0477).
 5. Frozen files (`isaac64.js`, `terminal.js`, `storage.js`) are
    untouchable for scoring — do not fork their contracts.
 6. A partial module must name semantic omissions in the relevant
    `docs/c-js-map/*.md` section.
    Passing one session is not proof that a C function is complete.
+7. **No Node-only modules in scored `js/`.** If it needs `fs` to load, it
+   is unfinished — embed or redesign before handoff.
 
 ---
 
@@ -125,8 +138,9 @@ does (`nhlib.lua` → `nh.rn2`, etc.).
   is a spike candidate only — verify script compatibility or replace
   with a 5.4-capable pure-JS VM / agentic port of the Lua submodule.
 - No WASM. VM source must be plain JS loadable in the sandbox.
-- Read scripts from the fork tree (`nethack-c/upstream/dat/…`); do not
-  depend on network.
+- Upstream `dat/*.lua` may be read by **checked-in extractors / a pure-JS
+  loader that never uses Node `fs` at game runtime**; do not depend on
+  network. Runtime disk I/O in scored `js/` is forbidden (Rule #2).
 
 **Forbidden as the long-term path:** prebaking special levels to JSON
 for scoring. Prebake is allowed only as a temporary local scaffold

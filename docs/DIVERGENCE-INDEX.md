@@ -463,6 +463,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0474 | fixed | levl_follower M2_STALK + mydogs prepend | seed0006 RNG full 6736; Scr 68→72 |
 | D-0475 | fixed | rename tty_askname BASE cury after docorner | seed0006 Scr 72→80; @13→@22 filter page |
 | D-0476 | fixed | filter reset_role_filtering tty page packing | seed0006 Scr 80→89; @22→@71 hilite_pet |
+| D-0477 | fixed | Rule #2: pager dat texts in-process | remove Node fs/path/url; embed dat_text.js |
 
 
 

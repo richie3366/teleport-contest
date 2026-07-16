@@ -24,6 +24,11 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   Constitution, runbook, **GROK-PLAYBOOK**, API/phase/strategy docs, Cursor
   rules, loop scripts/prompt, `frozen/**`, `sessions/**`, upstream C, or contest
   patches.
+- **Contest Rule #2:** scored `js/` must be plain ESM for **Node and Chrome** —
+  no build step, WASM, network, **filesystem**, threads, or native addons.
+  Persist only via frozen `storage.js` VFS. Never import Node builtins
+  (`fs`/`path`/`url`/`os`/`node:*`) or `readFileSync` from scored code; embed
+  dat texts in `js/generated/` (see D-0477).
 - Do **not** add entries to `js/fastforward.js` (delete-only).
 - Do **not** invent frame-alignment queues, “sparse boundary frames”, or replay middleware to paper over RNG/order bugs.
 - Do **not** ship Emscripten / C-heap-in-JS / whole-program transpile as the port.

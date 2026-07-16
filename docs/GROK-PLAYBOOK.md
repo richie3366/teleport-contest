@@ -9,6 +9,16 @@ It is operational guidance, not architecture law — `CONSTITUTION.md` and
 progress; they are **not** the specification. A longer RNG prefix from a
 trace-shaped hack is failure, not success.
 
+### Contest Rule #2 — HARD BAN (read every iteration)
+
+Scored `js/` is **plain ESM**, runnable as-is in **Node 22+ and modern
+Chrome**. No build step, WASM, network, **filesystem**, threads, or native
+addons. Persist only via frozen `storage.js` VFS; keep everything else
+in-process. **Never** add `import … from 'fs'|'path'|'url'|'os'|'node:*'`
+or `readFileSync` to scored code. Embed dat/help (and similar) via
+`js/generated/` extractors (D-0477). Node-only offline PASS while Chrome /
+Session Viewer cannot load the module is a **failed handoff**.
+
 ---
 
 ## 1. Read order (time-boxed)
@@ -18,8 +28,8 @@ docs before touching C.
 
 | Order | Doc | What to extract | Skip |
 |------:|-----|-----------------|------|
-| 1 | **This file** | priority, anti-patterns, endings | — |
-| 2 | Cursor rules / `CONSTITUTION.md` §1–2, §5, §10 | hard bans only | full essays |
+| 1 | **This file** | priority, **Rule #2**, anti-patterns, endings | — |
+| 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
 | 4 | `NOTES.md` | live hypothesis + don’t-recheck | — |
 | 5 | One `c-js-map/*.md` via `C-JS-MAP.md` index | rows for the subsystem you edit | other map files |
@@ -71,6 +81,8 @@ state/candidate capture exists.
 | `// not needed for seed8000` as design | Omission must live in C-JS-MAP section |
 | New `fastforward.js` burns | Constitution §5 — delete-only |
 | PASS without `strict-output-check` | Trailing RNG/screens can hide bugs |
+| `import` from `fs` / `path` / `url` / `node:*` | Contest Rule #2 — Chrome + judge both must load `js/` |
+| Runtime `readFileSync` of `dat/*` | Embed via `js/generated/` (D-0477); VFS is storage only |
 
 **Rule of thumb:** if you cannot explain the change by pointing at a C `if`,
 call order, struct field, or macro expansion, it is probably trace tailoring.
@@ -155,6 +167,7 @@ in the journal for human/auditor review.
 - Confuse observation with rule — trace coords are evidence, not JS control flow.
 - Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
 - Prefer **delete wrong JS + re-port from C** over stacking shims.
+- Reach for Node `fs` because “the judge is Node” — **Rule #2**; Chrome must load it too.
 
 ---
 

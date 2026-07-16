@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0477 — Rule #2: pager dat texts must not use filesystem
+
+- **Status:** fixed
+- **Symptom:** Contest Rule #2 requires plain ESM runnable in Node *and*
+  Chrome with no filesystem. `js/pager.js` imported Node `fs`/`path`/`url`
+  and `readFileSync`'d `nethack-c/upstream/dat/*` for `display_file` /
+  `checkfile`. Hub Session Viewer re-runs `/play/<fork>/js/` in-browser
+  and cannot use those APIs (shim throws or paths miss).
+- **Cause:** Help/encyclopedia texts were loaded from disk at runtime
+  instead of living in-process like other generated tables.
+- **C locus:** `pager.c` `display_file` / `checkfile`; contest README
+  Rule #2; frozen storage VFS is the only allowed persistence channel.
+- **Change:** `scripts/extract-dat-text.py` → `js/generated/dat_text.js`
+  (`DAT_TEXT` map: data.base as `data`, keyhelp, help, hh, …);
+  `pager.js` `readDat` reads the map only — no Node builtins.
+- **Verification:** green+strict PASS; seed0030 **1953/1953** PASS;
+  seed0002/seed0012 PASS (`?`/`/` help paths); `js/` has zero
+  `fs`/`path`/`url` imports.
+- **Named omissions:** other future dat file readers must embed the same
+  way; full dlb/`OPTIONS_USED` parse still deferred.
+- **Next:** resume seed0006 @71 hilite_pet (or seed0007).
+
 ## D-0476 — seed0006 filter menu tty page packing (screen@22)
 
 - **Status:** fixed

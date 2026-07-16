@@ -12,6 +12,13 @@ alwaysApply: false
 - Prefer C function/field names on `game` / `game.u` for greppability.
 - Keep imports acyclic; put X-macro / table dumps in `js/generated/` if codegen’d.
 
+## Contest Rule #2 (HARD)
+
+- Plain ESM only: must load in Node **and** Chrome with no build step.
+- **No** `fs` / `path` / `url` / `os` / `node:*` imports; **no** runtime
+  filesystem. Persist only via frozen `storage.js` VFS.
+- Dat/help and similar assets → `js/generated/` via extractors (D-0477).
+
 ## Parity
 
 - All gameplay RNG via `js/rng.js` → frozen ISAAC64; keep log strings judge-compatible.

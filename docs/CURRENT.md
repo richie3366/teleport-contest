@@ -4,6 +4,10 @@
 Do not paste completed D-chains here — those live in `DIVERGENCE-INDEX.md`
 and `archive/PROGRESS-HISTORY.md`.
 
+**HARD (Contest Rule #2):** scored `js/` = plain ESM for Node **and** Chrome —
+no `fs`/`path`/`url`/`node:*`, no runtime filesystem. Persist only via
+`storage.js` VFS; dat texts live in `js/generated/` (D-0477 / Constitution §1.5).
+
 ## Public score cadence
 
 **Every 5 global loop iterations** (when `iteration-count % 5 == 0`), run and

@@ -4,8 +4,8 @@ small, accurate repo notes are.
 
 ## Read first (≤15k tokens of docs)
 
-1. `docs/GROK-PLAYBOOK.md` — priority, anti-patterns, endings.
-2. Hard bans via Cursor rules / `CONSTITUTION.md` §1–2, §5, §10 (skim).
+1. `docs/GROK-PLAYBOOK.md` — priority, **Contest Rule #2**, anti-patterns, endings.
+2. Hard bans via Cursor rules / `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10 (skim).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective (chooses work).
 4. `docs/NOTES.md` — live hypothesis / don’t-recheck only.
 5. **One** subsystem file via `docs/C-JS-MAP.md` index (`docs/c-js-map/*.md`).
@@ -13,6 +13,11 @@ small, accurate repo notes are.
 
 **Priority:** `CURRENT.md` primary beats NOTES and parked canaries.
 **Do not implement** D-0006 until its C-state falsifier exists.
+
+**HARD — Contest Rule #2:** scored `js/` must run as plain ESM in **Node and
+Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
+`readFileSync`. Persist only via `storage.js` VFS; embed dat texts in
+`js/generated/`. Offline PASS with a Chrome-unloadable module is a failed handoff.
 
 **Do not read:** `docs/archive/**`, full `DIVERGENCE-LOG.md`,
 `PORTING-STRATEGY.md`, full journal history. Use `DIVERGENCE-INDEX.md` + one

@@ -9,6 +9,10 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **27/44** PASS (#510 suite; #514 not cadence). seed0006
   focused RNG **6736**/6736 Scr **89**/123 (post D-0476).
+- **Just fixed:** D-0477 — Rule #2: `pager.js` no longer uses Node
+  `fs`/`path`/`url`; dat texts embedded in `js/generated/dat_text.js`.
+  Offline seed0030 still **1953/1953**. Hub Session Viewer should stop
+  dying on module load / help paths after push.
 - **Next:** seed0006 screen@71 — pet fox `f` C `ATR_INVERSE`
   (`hilite_pet` / `wc2_petattr`) vs JS plain attr. Or pivot seed0007.
   ```bash
@@ -40,7 +44,8 @@ Objective/score live in `CURRENT.md`.
   seed0006 @6660 without `summonmu`/`msummon` (D-0473);
   seed0006 @6685 without `M2_STALK` `levl_follower` (D-0474);
   seed0006 screen@13 without rename docorner/`_base_cury` (D-0475);
-  seed0006 screen@22 without filter `tty_end_menu` page packing (D-0476).
+  seed0006 screen@22 without filter `tty_end_menu` page packing (D-0476);
+  pager Node `fs` for dat/* (D-0477).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
