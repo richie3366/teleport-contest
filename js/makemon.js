@@ -44,6 +44,7 @@ import {
     mindless,
     is_floater,
     is_mercenary,
+    is_elf,
     is_ndemon,
     is_shapeshifter,
     is_vampire,
@@ -57,7 +58,8 @@ import {
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
     MM_ADJACENTOK,
-    GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines, In_sokoban,
+    GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
+    In_mines, In_sokoban,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
@@ -971,6 +973,43 @@ function m_initweap(mtmp) {
             if (w1) mongets(mtmp, w1);
             if (!w2 && w1 !== otyp('DAGGER') && !rn2(4)) w2 = otyp('KNIFE');
             if (w2) mongets(mtmp, w2);
+        } else if (is_elf(ptr)) {
+            // C: makemon.c m_initweap S_HUMAN is_elf kit
+            if (rn2(2)) {
+                mongets(mtmp, rn2(2)
+                    ? otyp('ELVEN_MITHRIL_COAT')
+                    : otyp('ELVEN_CLOAK'));
+            }
+            if (rn2(2)) {
+                mongets(mtmp, otyp('ELVEN_LEATHER_HELM'));
+            } else if (!rn2(4)) {
+                mongets(mtmp, otyp('ELVEN_BOOTS'));
+            }
+            if (rn2(2)) mongets(mtmp, otyp('ELVEN_DAGGER'));
+            switch (rn2(3)) {
+            case 0:
+                if (!rn2(4)) mongets(mtmp, otyp('ELVEN_SHIELD'));
+                if (rn2(3)) mongets(mtmp, otyp('ELVEN_SHORT_SWORD'));
+                mongets(mtmp, otyp('ELVEN_BOW'));
+                m_initthrow(mtmp, otyp('ELVEN_ARROW'), 12);
+                break;
+            case 1:
+                mongets(mtmp, otyp('ELVEN_BROADSWORD'));
+                if (rn2(2)) mongets(mtmp, otyp('ELVEN_SHIELD'));
+                break;
+            case 2:
+                if (rn2(2)) {
+                    mongets(mtmp, otyp('ELVEN_SPEAR'));
+                    mongets(mtmp, otyp('ELVEN_SHIELD'));
+                }
+                break;
+            }
+            if (mm === pm('ELVEN_MONARCH')) {
+                if (rn2(3) || (game.in_mklev && Is_earthlevel(game.u?.uz))) {
+                    mongets(mtmp, otyp('PICK_AXE'));
+                }
+                if (!rn2(50)) mongets(mtmp, otyp('CRYSTAL_BALL'));
+            }
         } else if (
             // C: ptr->msound == MS_GUARDIAN — tables omit msound; gate by mndx
             mm === pm('STUDENT') || mm === pm('ATTENDANT')
@@ -1041,7 +1080,7 @@ function m_initweap(mtmp) {
                 break;
             }
         }
-        // is_elf / MS_PRIEST / ninja deferred
+        // MS_PRIEST / quest cleric / PM_NINJA deferred (C-JS-MAP)
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default

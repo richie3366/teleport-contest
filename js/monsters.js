@@ -101,6 +101,7 @@ export const M2_MERC = 0x00000200;
 export const M2_DEMON = 0x00000100; /* monflag.h — is a demon */
 export const M2_ORC = 0x00000080; /* monflag.h — is an orc (≡ MH_ORC) */
 export const M2_HUMAN = 0x00000008; /* monflag.h — is a human */
+export const M2_ELF = 0x00000010; /* monflag.h — is an elf */
 export const M2_SHAPESHIFTER = 0x00004000; /* monflag.h — shapeshifting species */
 
 export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
@@ -308,6 +309,11 @@ export function is_orc(ptr) {
 /** C ref: mondata.h is_human */
 export function is_human(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_HUMAN);
+}
+
+/** C ref: mondata.h is_elf */
+export function is_elf(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_ELF);
 }
 
 /** C ref: mondata.h likes_gold */

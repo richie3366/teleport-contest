@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0541 — m_initweap S_HUMAN is_elf kit
+
+- **Status:** fixed (partial — MS_PRIEST / ninja; ANGEL/KOP/LIZARD)
+- **Symptom:** seed0373 @19071 C `m_initweap` `rn2(2)` vs JS `rn2(75)`.
+- **Cause:** JS S_HUMAN arm had mercenary + guardian only; C
+  `else if (is_elf(ptr))` kit (line 226+) was deferred, so elves
+  fell through to trailing `m_lev > rn2(75)` offensive roll.
+- **C locus:** `makemon.c` `m_initweap` `is_elf`; `mondata.h`
+  `is_elf` / `M2_ELF`.
+- **Change:** `js/monsters.js` `M2_ELF` + `is_elf`; `js/makemon.js`
+  port full elf kit (coat/cloak, helm/boots, dagger, `rn2(3)` weapon
+  cases + `m_initthrow` arrows, ELVEN_MONARCH pickaxe/crystal ball).
+- **Verification:** seed0373 rng-diff **19071→21730**; runner RNG
+  **21757**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30).
+- **Named omission:** S_HUMAN MS_PRIEST / quest cleric / PM_NINJA;
+  ANGEL/KOP/LIZARD specials; `m_initinv` S_QUANTMECH.
+- **Next:** @21730 C `m_initinv` S_QUANTMECH `rn2(20)` vs JS
+  `rn2(50)`; or seed5006 `dosounds` @8468.
+
 ## D-0540 — m_initweap soldier/watchman polearm rn1
 
 - **Status:** fixed (partial — S_HUMAN elf / MS_PRIEST / ninja kits)

@@ -11,13 +11,23 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-16 19:22 — #601 D-0541 m_initweap is_elf kit
+- Objective: peel seed0373 @19071 C `m_initweap` `rn2(2)` vs JS `rn2(75)`.
+- C locus: `makemon.c` `m_initweap` `is_elf`; `mondata.h` `M2_ELF`.
+- Change: `js/monsters.js` `is_elf`; `js/makemon.js` full S_HUMAN elf kit.
+- Verification: rng-diff **19071→21730**; runner RNG **21757**/35386
+  Scr 22/124; green+strict; cohort 28/28.
+- Next: m_initinv S_QUANTMECH @21730; or dosounds @8468.
+
 ## 2026-07-16 19:20 — #600 score + D-0540 soldier polearm rn1
 - Objective: mandatory 5-iter score refresh; peel seed0373 @16261
   C `m_initweap` `rn2(12)` vs JS `rn2(2)`.
@@ -157,13 +167,3 @@ Use this shape:
 - Verification: rng-diff **4159→4571**; runner RNG **4596**/35386;
   green+strict; cohort 28/28 PASS; seed0116 RNG full.
 - Next: Bar-loca @4571 (menu `z`); or seed5006 dosounds @8468.
-
-## 2026-07-16 18:10 — #586 D-0527 onquest firsttime nhl shuffle
-- Objective: seed0373 @4157 C nhlib shuffle vs JS rn2(79).
-- C locus: `quest.c` onquest/on_start; `questpgr.c` qt_pager/
-  com_pager_core nhl_init; `do.c` goto_level materialize→onquest.
-- Change: `js/quest.js`; qt_pager Bar firsttime + nhl shuffle;
-  wire inside goto_level; Barbarian homebase/ldrnum.
-- Verification: rng-diff **4157→4159**; runner RNG **4209**/35386
-  Scr 21/124; green+strict; cohort **30**/30; seed0116 RNG full.
-- Next: Bar-loca load_special @4159; or seed5006 dosounds @8468.
