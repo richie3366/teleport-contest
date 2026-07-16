@@ -459,7 +459,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0470 | fixed | ^X Status deaf + encumbrance | seed0002 PASS Scr 595/595 |
 | D-0471 | fixed | chargen rename + reset_role_filtering | seed0006 RNG 2276→6578 Scr 13→68 |
 | D-0472 | fixed | dowaterdemon + S_DEMON m_initweap fallthrough | seed0006 RNG 6578→6667; @6660 summonmu |
-| D-0473 | open | seed0006 summonmu demon help | rng-diff @6660 mhitu.c:968 |
+| D-0473 | fixed | mattacku summonmu + msummon demon arms | seed0006 RNG 6667→6686; @6685 mon_arrive |
+| D-0474 | open | seed0006 mon_arrive peaceful rn2 gate | rng-diff @6685 dog.c:475 |
 
 
 

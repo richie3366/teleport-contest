@@ -42,7 +42,7 @@ seed0012, seed0004, seed0002.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0006 | 6667/6736 | **68**/123 | summonmu @6660 (D-0473) |
+| seed0006 | 6686/6736 | **68**/123 | mon_arrive @6685 (D-0474) |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -61,8 +61,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0006 wizard water demon** — late RNG @6660 `summonmu`
-(D-0473). Prefer shared teleport/combat path over late seed0007 peels.
+**seed0006 wizard water demon** — late RNG @6685 `mon_arrive`
+(D-0474). Prefer shared teleport/pet-arrive path over late seed0007 peels.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
@@ -71,7 +71,7 @@ node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
 
 **Alternates:** seed0007 snake swamp; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0472.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0473.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

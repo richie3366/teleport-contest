@@ -46,7 +46,7 @@ import {
     is_mercenary,
 } from './monsters.js';
 import {
-    NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD,
+    NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
@@ -114,6 +114,22 @@ export function newegd(mtmp) {
         };
     }
     return mtmp.mextra.egd;
+}
+
+/**
+ * C ref: minion.c newemin — allocate emin for MM_EMIN makemon.
+ * Does not set isminion (angel branch of msummon does).
+ */
+export function newemin(mtmp) {
+    if (!mtmp.mextra) mtmp.mextra = {};
+    if (!mtmp.mextra.emin) {
+        mtmp.mextra.emin = {
+            parentmid: mtmp.m_id | 0,
+            min_align: 0,
+            renegade: false,
+        };
+    }
+    return mtmp.mextra.emin;
 }
 
 // C ref: makemon.c set_mimic_sym — S_MIMIC_DEF sentinel (MONSYMS_S_ENUM idx 60)
@@ -1222,13 +1238,15 @@ export function makemon(mdat, x, y, mmflags = 0) {
         minvent: null,
     };
 
-    // C: MM_EGD / MM_ESHK → new* before m_id assignment
+    // C: MM_EGD / MM_ESHK / MM_EMIN → new* before m_id assignment
     if (mmflags & MM_EGD) newegd(mtmp);
     if (mmflags & MM_ESHK) neweshk(mtmp);
+    if (mmflags & MM_EMIN) newemin(mtmp);
 
     mtmp.m_id = next_ident();
     if (mtmp.mextra?.egd) mtmp.mextra.egd.parentmid = mtmp.m_id;
     if (mtmp.mextra?.eshk) mtmp.mextra.eshk.parentmid = mtmp.m_id;
+    if (mtmp.mextra?.emin) mtmp.mextra.emin.parentmid = mtmp.m_id;
     newmonhp(mtmp, ptr);
 
     const femaleok = !is_male(ptr) && !is_neuter(ptr);

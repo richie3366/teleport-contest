@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:40 — #511 D-0473 summonmu demon help
+- Objective: seed0006 @6660 C `rn2(16) @ summonmu` vs JS `rnd(21) @ mattacku`.
+- C locus: `mhitu.c` `summonmu`/`mattacku`; `minion.c` `msummon`/`ndemon`.
+- Change: `mhitu.js` summonmu before find_offensive; `minion.js` msummon
+  demon arms + ndemon/dlord/dprince; `makemon.js` MM_EMIN; `monsters.js`
+  is_ndemon/is_were. Deferred: were_summon; is_lminion/angel msummon.
+- Verification: seed0006 prefix **6660→6685** RNG **6667→6686**/6736;
+  green+strict; cohort **25/25**.
+- Next: D-0474 @6685 `mon_arrive` rn2(2) vs JS rn2(5).
+
 ## 2026-07-16 07:34 — #510 D-0472 dowaterdemon + score cadence
 - Objective: #510 %5 full score + seed0006 @6574 collect_coords.
 - C locus: `fountain.c` `dowaterdemon`; `makemon.c` `m_initweap`
@@ -162,17 +172,3 @@ Use this shape:
 - Verification: seed0002 @342 matches; first miss @342→@345; Scr
   354→361; RNG full; green+strict; cohort 24/24.
 - Next: D-0461 screen@345 doname unpaid on slightload prinv.
-
-## 2026-07-16 06:14 — #497 D-0459 safemon in-the-way pline
-- Objective: seed0002 screen@272 C `You stop.  Your little dog is in
-  the way!` vs JS blank topline.
-- C locus: `uhitm.c` `do_attack` safemon `foo` → `y_monnam`/`You`/
-  `end_running(TRUE)`.
-- Change: `js/uhitm.js` — after tame monflee, emit stop pline via
-  `x_monnam_tame`+highc; clear run/travel/mv/multi. Deferred: inshop
-  when !foo; isshk dopay; frozen/helpless pline; longworm/`passes_walls`
-  in foo; `mon_track_clear`/Vrock.
-- Verification: seed0002 @272 matches; first miss @272→@342; Scr
-  353→354; RNG full; green+strict; cohort 24/24.
-- Next: D-0460 screen@342 look_here `doname_with_price` for-sale.
-

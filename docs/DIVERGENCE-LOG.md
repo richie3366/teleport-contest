@@ -4,17 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0473 — seed0006 summonmu (demon help) late RNG
-
+## D-0474 — seed0006 mon_arrive peaceful gate
 - **Status:** open
-- **Symptom:** seed0006 rng-diff first mismatch @6660 —
-  C `rn2(16)=3 @ summonmu(mhitu.c:968)` vs JS `rnd(21)=10 @ mattacku`.
-  RNG **6667**/6736; Scr **68**/123 (post D-0472).
-- **Cause:** TBD — `mattacku` missing demon `summonmu` / `msummon` arm.
+- **Symptom:** seed0006 rng-diff first mismatch @6685 —
+  C `rn2(2)=1 @ mon_arrive(dog.c:475)` vs JS `rn2(5)=0`.
+  RNG **6686**/6736; Scr **68**/123 (post D-0473).
+- **Cause:** TBD — arriving mon JS peaceful→`rn2(5)` vs C hostile `rn2(2)`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
+
+## D-0473 — seed0006 summonmu (demon help) late RNG
+
+- **Status:** fixed
+- **Symptom:** seed0006 rng-diff first mismatch @6660 —
+  C `rn2(16)=3 @ summonmu(mhitu.c:968)` vs JS `rnd(21)=10 @ mattacku`.
+  RNG **6667**/6736; Scr **68**/123 (post D-0472).
+- **Cause:** `mattacku` omitted `summonmu` before `find_offensive` —
+  water demon never burned `rn2(Inhell?10:16)` before melee `rnd(21)`.
+- **C locus:** `mhitu.c` `summonmu` / `mattacku`; `minion.c` `msummon`
+  / `ndemon` / `dlord` / `dprince`; `mondata.h` `is_ndemon`/`is_were`.
+- **Change:** `mhitu.js` — `summonmu` after AC, before `find_offensive`
+  (demon arm → `msummon`); `minion.js` — `msummon` + helpers;
+  `makemon.js` `MM_EMIN`/`newemin`; `monsters.js` `is_ndemon`/`is_were`
+  / `is_dlord`/`is_dprince`.
+- **Verification:** rng-diff prefix **6660→6685**; seed0006 RNG
+  **6667→6686**/6736 Scr **68**/123; green+strict; cohort **25/25**.
+- **Deferred:** were `new_were`/`were_summon`; `msummon` `is_lminion`/
+  `PM_ANGEL` + transient light.
+- **Next:** D-0474 @6685 `mon_arrive`.
 
 ## D-0472 — seed0006 dowaterdemon + S_DEMON weapon fallthrough
 
