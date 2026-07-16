@@ -8,6 +8,7 @@
 import { game } from './gstate.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
+import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level, dist2, distmin, level_difficulty as level_difficulty_of } from './hacklib.js';
 import { try_load_bones } from './bones.js';
@@ -2503,11 +2504,17 @@ function setup_waterlevel() {
     const gbymax = ymax - 1;
     g.waterlevel_bounds = { xmin, ymin, xmax, ymax, gbxmin, gbymin, gbxmax, gbymax };
 
+    // C: glyph = cmap_to_glyph(water ? S_water : S_air); set on every cell
+    const memGlyph = Is_waterlevel(uz)
+        ? { ch: '}', color: CLR_BRIGHT_BLUE, decgfx: false }
+        : { ch: ' ', color: CLR_CYAN, decgfx: false };
     const typ = Is_waterlevel(uz) ? WATER : AIR;
     for (let x = 1; x <= COLNO - 1; x++) {
         for (let y = 0; y <= ROWNO - 1; y++) {
             const loc = g.level.at(x, y);
-            if (loc && loc.typ === STONE) loc.typ = typ;
+            if (!loc) continue;
+            loc.remembered_glyph = { ...memGlyph };
+            if (loc.typ === STONE) loc.typ = typ;
         }
     }
 
@@ -2600,10 +2607,14 @@ export function movebubbles() {
     const { gbxmin, gbymin, gbxmax, gbymax } = bounds;
 
     if (Is_airlevel(uz)) {
+        // C: levl[x][y] = air_pos — glyph S_cloud, typ AIR, lit 1
+        // (docrt paints lev->glyph for the whole map before vision).
+        const airGlyph = { ch: '#', color: CLR_GRAY, decgfx: false };
         for (let x = 1; x <= COLNO - 1; x++) {
             for (let y = 0; y <= ROWNO - 1; y++) {
                 const loc = g.level.at(x, y);
                 if (!loc) continue;
+                loc.remembered_glyph = { ...airGlyph };
                 loc.typ = AIR;
                 loc.lit = true;
                 const xedge = x < gbxmin || x > gbxmax;

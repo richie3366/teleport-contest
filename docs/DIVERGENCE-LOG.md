@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0571 — movebubbles air_pos S_cloud glyph + AIR/CLOUD terrain_glyph
+
+- **Status:** fixed (partial — water cons pickup; water.lua/earth/astral;
+  enlightenment Background @118)
+- **Symptom:** seed0373 Scr **111**/124; @110 Air gravity More — C map
+  dense `#` clouds vs JS blank/`?`.
+- **Cause:** (1) C `movebubbles` assigns `air_pos` with
+  `glyph=cmap(S_cloud)` on every cell; `docrt` paints `lev->glyph` before
+  vision, so out-of-sight Air shows `#`. JS set typ=AIR only, no memory
+  glyph. (2) `terrain_glyph` lacked AIR/CLOUD → visible cells showed `?`.
+- **C locus:** `mkmaze.c` `movebubbles` `air_pos` / `setup_waterlevel`
+  S_air memory; `display.c` `back_to_glyph` AIR→S_air / CLOUD→S_cloud;
+  `defsym.h` S_air/S_cloud; `docrt` show `lev->glyph`.
+- **Change:** `js/mklev.js` `movebubbles` stamps `remembered_glyph` `#`
+  /CLR_GRAY (air_pos) + `setup_waterlevel` S_air/`S_water` memory;
+  `js/display.js` `terrain_glyph` AIR/CLOUD.
+- **Verification:** seed0373 Scr **111→122**/124 RNG full; @110–117
+  match; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** @118–119 enlightenment Background (“endgame, on
+  the Elemental Plane of Air”) / attributes score page; water bubble
+  cons; water/earth/astral loaders.
+- **Next:** seed0373 @118 enlightenment Background; or seed5006
+  `dosounds` @8468.
+
 ## D-0570 — mon_pmname / M2_PNAME article in x_monnam
 
 - **Status:** fixed (partial — Air-plane map @110; gas-cloud region; hallu/

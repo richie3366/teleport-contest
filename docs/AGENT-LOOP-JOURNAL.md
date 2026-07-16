@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:49 — D-0571 air_pos S_cloud glyph
+- Objective: seed0373 @110 Air gravity map clouds (CURRENT primary).
+- C locus: mkmaze.c movebubbles air_pos / setup_waterlevel S_air;
+  display.c back_to_glyph AIR/CLOUD; docrt lev->glyph.
+- Change: js/mklev.js air_pos remembered_glyph + setup memory;
+  js/display.js terrain_glyph AIR/CLOUD.
+- Verification: seed0373 Scr 111→122 RNG full; @110 match; green+
+  strict; cohort 28/28 PASS.
+- Next: @118 enlightenment Background; or seed5006 dosounds @8468.
+
 ## 2026-07-16 22:44 — D-0570 mon_pmname / M2_PNAME article
 - Objective: seed0373 @101 Wizard appear capitalization (CURRENT primary).
 - C locus: do_name.c mon_pmname/pmname/x_monnam name_at_start; mondata.h
