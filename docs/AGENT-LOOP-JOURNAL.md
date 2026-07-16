@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 10:35 — LB 23-vs-27 investigate + D-0480
+- Objective: close judge 14-cell gap on seed0002/0004/0012/0030.
+- C locus: tty blank fg; `insight.c` vanqsort `strcmpi`; altar DEC (D-0293).
+- Change or falsified theory: local+hub PASS 100%; cannot repro judge
+  misses. D-0480 serialize space NO_COLOR + vanqsort strcmpi. Rejected
+  SO-wrap `{`/`\`` (C encoding mix / ROCK_CLASS).
+- Verification: green+strict; four gap sessions PASS local+hub.
+- Next: next judge cron; else upstream #5-style report; seed0006 @102.
+
 ## 2026-07-16 09:55 — D-0479 mondead unmap_object clears I
 - Objective: seed0006 @77 JS `I` vs C `#` after kitten kills unseen mon.
 - C locus: `mon.c` `mondead` → `unmap_object`; `display.c` unmap_*.

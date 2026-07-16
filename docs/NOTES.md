@@ -7,73 +7,44 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **27/44** PASS (#515 suite; focused seed0006 post D-0479
-  Scr **106**/123, suite totals not remeasured this iter).
-- **Just fixed:** D-0479 — `mondead` `unmap_object` when
-  `glyph_is_invisible` (clears remembered `I` before `newsym`).
-- **Next:** seed0006 screen@102 — JS `.` vs C `&` after water-demon
-  unleash (display/placement). Or pivot seed0007.
+- **Leaderboard gap (primary this session):** local **27/44** vs judge
+  **23/44** ([data.json](https://mazesofmenace.ai/leaderboard/data.json)
+  `lastScored` ~2026-07-16T06:59Z). Exactly **14** cell misses:
+  seed0002 **5**, seed0004 **2**, seed0012 **3**, seed0030 **4**.
+  All four: **full RNG + full cursors** on judge.
+- **Falsifier already run:** `ps_test_runner` PASS 100% on local
+  `sessions/` **and** hub `https://mazesofmenace.ai/sessions/…`
+  (Node 22+24). Hub SHA ≠ github template; screens visually equal.
+  Hoimar/kevinjosethomas/serteal/xeophon PASS those four on judge.
+- **Hypothesis left:** judge private corpus or verifier ≠ public
+  `frozen/ps_test_runner` + hub `/sessions/` (issue #5 class). Cannot
+  reproduce the 14 misses offline.
+- **Don’t:** SO-wrap `{`/`\`` in serialize (C mixes encodings; `` ` ``
+  is pool+ROCK); invent frame-align; re-check version-banner as sole
+  cause (miss counts ≠ 8×chargen; seed0030 has 0 version screens).
+- **Just fixed (D-0480):** serialize glyphless spaces → NO_COLOR;
+  `vanqsort_cmp` strcmpi (not `localeCompare`).
+- **Next gameplay:** seed0006 @102 `.` vs `&` after water-demon unleash.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
-  node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
-- **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
-  getdir; help_dir More any-key; @26883 mid-buzz without ureflects
-  (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
-  dog_goal rn2(4) for @26987 (D-0453 travelcc); @27050 music arity
-  without instruments (D-0454); TOOL resist ulevel; silent onscary;
-  dosounds bare u.Deaf; screen@54 without drink compactify (D-0455);
-  screen@221 without pickup_prinv slightload (D-0456);
-  screen@229 without wield SUGGEST/`- ` (D-0457); screen@237 without botl Conf
-  (D-0458); screen@272 without safemon stop pline (D-0459);
-  screen@342 without look_here `doname_with_price` (D-0460);
-  screen@345 without unpaid/`paydoname` (D-0461);
-  screen@359 without `money2mon` `_goldCount` (D-0462);
-  screen@363 without `on_msg`→`xname` (D-0463);
-  screen@454 without doname locked-box prefix (D-0464);
-  screen@502 without TER_MAP trap kind/strip (D-0465);
-  screen@525 without apply compactify (D-0466);
-  screen@530 without invent itemed (D-0467);
-  screen@538 without dobuzz DISP_BEAM (D-0468);
-  screen@587 without distant_name/price quotes (D-0469);
-  screen@590 without Status Deaf/`near_capacity` (D-0470);
-  seed0006 early pick_align without rename/`reset_role_filtering` (D-0471);
-  seed0006 @6574 without `dowaterdemon` / S_DEMON fallthrough (D-0472);
-  seed0006 @6660 without `summonmu`/`msummon` (D-0473);
-  seed0006 @6685 without `M2_STALK` `levl_follower` (D-0474);
-  seed0006 screen@13 without rename docorner/`_base_cury` (D-0475);
-  seed0006 screen@22 without filter `tty_end_menu` page packing (D-0476);
-  pager Node `fs` for dat/* (D-0477);
-  seed0006 screen@71 without `hilite_pet`/`wc2_petattr` (D-0478);
-  seed0006 screen@77 without `mondead`/`unmap_object` (D-0479).
-- **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
-- **Parked:** D-0006; seed2200 @158 RC.
+- **Parked:** D-0006; seed2200 @158 RC path (`/Users/davidbau/…` vs
+  hardcoded `/home/nethack/…`).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate gates in production.
-- **Don’t:** invent bag containing without cknown; empty-bag from
-  outokay; floor yname as your; skip teleds gold botl (D-0393);
-  skip stop_occupation (D-0392); clear topline get_count (D-0391);
-  skip auto_describe (D-0390); skip clear_glyph_buffer cls (D-0389);
-  bare merged-quan gold prinv (D-0388); skip check_here autopick
-  (D-0387); early dochug msleeping (D-0278); D-0396–D-0404 trap/
-  encumber/flee; RING obj.known as type-ID (D-0420); bypass yn ring
-  (D-0421); force corner invent lets==1 (D-0422); D-0423–D-0428;
-  drink/scroll/door/sink/conf/impaired as monmove (D-0430–D-0442);
-  @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
-  @16501 without stair-fall (D-0445); @18354 without seer_turn
-  (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0479 done paths — see DIVERGENCE-INDEX.
+- Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
+- Altar raw `{` (D-0293); don’t π-convert in scoring grid.
+- Don’t SO-wrap `{` or `` ` `` without per-cell decgfx (D-0480 dead end).
+- D-0471…D-0479 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
-- First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
+- Hub `/sessions/` ≠ template bytes; still visual-PASS.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0479 done; seed0006 RNG full, screens @102 `.` vs `&` next.
-- hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
-  bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
-  (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).
+- seed0006 RNG full; screens @102 `.` vs `&` next.
+- LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.

@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0480 — serialize glyphless spaces as NO_COLOR; vanqsort strcmpi
+
+- **Status:** fixed (local C-fidelity; does not close leaderboard 23-vs-27)
+- **Symptom / context:** Official LB `richie3366` **23/44** PASS vs local
+  **27/44**; gap sessions seed0002/0004/0012/0030 have **full RNG** and
+  **14 cell misses** total on judge. Local + hub `/sessions/` both **PASS
+  100%** (Node 22/24). Hub session bytes ≠ github template but visually
+  equal after `decodeScreen`. Competitors (Hoimar/serteal/…) PASS those
+  four on the same judge. SO-wrap of `{` rejected: C mixes bare `{` and
+  SO+`{`; `` ` `` is both DEC pool and ROCK_CLASS.
+- **C locus:** tty default fg for blank cells; `insight.c` `vanqsort_cmp`
+  `strcmpi` (not ICU `localeCompare`).
+- **Change:** `serialize_for_scoring` coerces glyphless non-inv/uline
+  spaces to `NO_COLOR` + `tty_map_color` on glyphs; `vanqsort_cmp`
+  ALPHA uses byte `toLowerCase` order.
+- **Verification:** green+strict PASS; seed0002/0004/0012/0030 PASS local
+  + hub corpus.
+- **Next:** wait next judge cron; if still 14 misses, open upstream issue
+  like #5 (corpus/verifier hash). Resume seed0006 @102.
+
 ## D-0479 — mondead unmap_object clears remembered invisible glyph
 
 - **Status:** fixed

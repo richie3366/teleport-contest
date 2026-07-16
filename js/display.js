@@ -1936,6 +1936,9 @@ export function serialize_terminal_grid(display) {
  * spaces that carry visible attrs (inverse/underline) are emitted so
  * decode preserves them. Frozen Terminal.serialize() cursor-forwards
  * past all leading spaces and drops those attrs (D-0129 spell heading).
+ *
+ * D-0293: S_altar stays raw `{` in the grid (frozen DEC_MAP omits it) so
+ * decodeScreen matches C whether the recorder emitted SO+`{` or bare `{`.
  */
 export function serialize_for_scoring(term) {
     if (!term?.grid) return term?.serialize?.() ?? '';
@@ -1997,8 +2000,13 @@ export function serialize_for_scoring(term) {
         else if (firstCol > 0) out += ' '.repeat(firstCol);
         for (let c = firstCol; c <= lastCol; c++) {
             const cell = term.grid[r][c];
-            const wantFg = colorToFg(cell.color);
             const wantAttr = cell.attr | 0;
+            // clearScreen fills CLR_GRAY spaces; C tty leaves default fg.
+            // Glyphless spaces without inv/uline: emit as NO_COLOR.
+            let cellColor = cell.color;
+            if (cell.ch === ' ' && !(wantAttr & 0x5)) cellColor = NO_COLOR;
+            else cellColor = tty_map_color(cellColor);
+            const wantFg = colorToFg(cellColor);
             out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
             curFg = wantFg;
             curAttr = wantAttr;

@@ -65,8 +65,12 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0006 wizard water demon** — RNG full; Scr **106**/123 after
-D-0479. Next: screen@102 JS `.` vs C `&` after
+**Leaderboard 23-vs-27 gap** — local PASS seed0002/0004/0012/0030;
+judge fails with **14 cell misses**, full RNG (see NOTES / D-0480).
+Next cron after D-0480; if unchanged → upstream issue like #5.
+
+**Gameplay next:** seed0006 wizard water demon — RNG full; Scr
+**106**/123 after D-0479. screen@102 JS `.` vs C `&` after
 “You unleash a water demon!” (summon display / placement).
 
 ```bash
