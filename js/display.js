@@ -2283,6 +2283,34 @@ function _paintToplineAndStatus() {
         display.setCell(c, 23, s2[c], NO_COLOR, 0);
 }
 
+/**
+ * C: show_glyph updates persistent gbuf; flush_screen prints dirty spans.
+ * After vision_recalc(2) leave-level newsyms, Get bones? yn flushes that
+ * gbuf before flush_screen(-1) postpone. JS stores gbuf in loc.disp_* on
+ * the stashed leave-level — paint only gnew cells to the Terminal.
+ */
+export function paint_gbuf_level_to_terminal(level) {
+    const display = game?.nhDisplay;
+    if (!display?.setCell || !level?.at) return;
+    for (let y = 0; y < ROWNO; y++) {
+        const sr = y + 1;
+        for (let x = 1; x < COLNO; x++) {
+            const loc = level.at(x, y);
+            if (!loc?.gnew) continue;
+            let ch = loc.disp_ch ?? ' ';
+            const color = loc.disp_color ?? NO_COLOR;
+            const attr = loc.disp_attr ?? 0;
+            if (loc.disp_decgfx && ch && ch !== ' ') {
+                const uni = DEC_TO_UNICODE[ch];
+                if (uni && ch !== '{' && ch !== '`' && ch !== 'g' && ch !== '|')
+                    ch = uni;
+            }
+            display.setCell(x - 1, sr, ch || ' ', color, attr);
+            loc.gnew = 0;
+        }
+    }
+}
+
 // ── flush_screen ──
 // C ref: display.c flush_screen — mode -1 toggles postpone; while postponed,
 // map/botl flushes are no-ops (message paints still allowed for more()).

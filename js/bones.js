@@ -12,6 +12,8 @@ import { OBJ_FLOOR, OBJ_MINVENT, OBJ_BURIED } from './const.js';
 import { peace_minded, set_malign } from './makemon.js';
 import { save_track, rest_track } from './track.js';
 import { yn_function } from './getline.js';
+import { paint_gbuf_level_to_terminal } from './display.js';
+import { vision_off_newsym_gbuf } from './vision.js';
 
 const BONES_VFS_PREFIX = 'bones/';
 
@@ -337,7 +339,28 @@ export async function try_load_bones(lev) {
     const wizard = !!(flags.wizard || flags.debug);
     // Keep stale terminal map through Get/Unlink yn like C gbuf (display
     // redraw waits until goto_level flush_screen(-1) / docrt).
+    // C: vision_recalc(2) newsyms leave-level into gbuf; Get bones? yn
+    // flush_screen paints that gbuf before postpone. JS applies the same
+    // mon→memory newsym pass on the stashed leave-level, then paints dirty
+    // cells (ordinary vision_recalc(2) skips the loop — see vision.js).
     game._stale_map_flush = true;
+    if (game._leave_gbuf_level) {
+        const savedLevel = game.level;
+        const savedFmon = game.fmon;
+        let leaveFmon = null;
+        for (const info of game.level_info || []) {
+            if (info?.level === game._leave_gbuf_level) {
+                leaveFmon = info.fmon;
+                break;
+            }
+        }
+        game.level = game._leave_gbuf_level;
+        game.fmon = leaveFmon;
+        vision_off_newsym_gbuf();
+        paint_gbuf_level_to_terminal(game._leave_gbuf_level);
+        game.level = savedLevel;
+        game.fmon = savedFmon;
+    }
     try {
         // C: after validate OK — wizard y_n("Get bones?"); 'n' → leave file
         if (wizard) {
@@ -449,5 +472,7 @@ export async function try_load_bones(lev) {
         return true;
     } finally {
         game._stale_map_flush = false;
+        game._leave_gbuf_level = null;
+        game._leave_viz_snapshot = null;
     }
 }

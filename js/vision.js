@@ -638,6 +638,11 @@ export function vision_recalc(control = 0) {
 
     const old_rmin = game._viz_rmin;
     const old_rmax = game._viz_rmax;
+    // C: control==2 falls through to the main update loop (clears live
+    // mon glyphs in gbuf). JS gbuf is loc.disp_* and full flushes paint it
+    // immediately — running that loop here regresses mid-goto / getpos
+    // screens that C still shows from an unflushed tty. Leave-level gbuf
+    // flush for Get bones? is handled in bones.js (D-0583).
     if (old_array && control !== 2 && game.level) {
         for (let row = 0; row < ROWNO; row++) {
             const old_row = old_array[row];
@@ -723,4 +728,40 @@ export function init_vision_globals() {
     game.cs_rows = null;
     game.cs_left = null;
     game.cs_right = null;
+}
+
+/**
+ * C vision_recalc(2) main update loop only — newsym previously IN_SIGHT
+ * cells while cansee is false (mon→memory in gbuf). Used by getbones yn
+ * flush because JS cannot run that loop inside ordinary vision_recalc(2)
+ * without painting cleared gbuf on later full flushes (D-0583).
+ * Caller must set game.level (and fmon if mon_at matters) to the leave level.
+ * Uses game._leave_viz_snapshot when present (pre-vision_recalc(2) sight).
+ */
+export function vision_off_newsym_gbuf() {
+    const u = game.u;
+    if (!u || !game.level) return;
+    const snap = game._leave_viz_snapshot;
+    const old_array = snap?.array || game.viz_array;
+    const old_rmin = snap?.rmin || game._viz_rmin;
+    const old_rmax = snap?.rmax || game._viz_rmax;
+    const next = game.active_buf === 0 ? cs_buf1 : cs_buf0;
+    for (let y = 0; y < ROWNO; y++) next[y].fill(0);
+    // cansee() reads viz_array — empty ⇒ !cansee ⇒ mon cells show memory
+    const savedViz = game.viz_array;
+    game.viz_array = next;
+    if (old_array) {
+        for (let row = 0; row < ROWNO; row++) {
+            const old_row = old_array[row];
+            const start = old_rmin ? old_rmin[row] : 1;
+            const stop = old_rmax ? old_rmax[row] : COLNO - 1;
+            if (start > stop) continue;
+            for (let col = start; col <= stop; col++) {
+                if (col === 0) continue;
+                if (old_row[col] & IN_SIGHT) newsym(col, row);
+            }
+        }
+    }
+    if ((u.ux | 0) > 0) newsym(u.ux, u.uy);
+    game.viz_array = savedViz;
 }

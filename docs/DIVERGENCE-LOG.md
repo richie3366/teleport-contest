@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0583 — getbones yn leave-level gbuf mon→memory (seed5006 Scr)
+
+- **Status:** fixed
+- **Symptom:** seed5006 Scr **247**/249 after D-0582; @198/@199 Get bones?/
+  Unlink bones? — C DEC floor `~` beside `@` vs JS live cyan `u`.
+- **Cause:** C `vision_recalc(2)` newsyms prior IN_SIGHT into persistent
+  gbuf (mon→memory) before mklev; Get bones? yn `flush_screen` paints that
+  gbuf before `flush_screen(-1)` postpone. JS skipped the control==2 newsym
+  loop (gbuf≡`loc.disp_*`; early flush regresses other seeds) and stale-map
+  yn only refreshed topline/status, leaving the live mon glyph on Terminal.
+- **C locus:** `vision.c` `vision_recalc(2)`; `bones.c` `getbones` yn;
+  `do.c` `goto_level` order vs postpone.
+- **Change:** snapshot pre-leave viz; on Get bones? apply
+  `vision_off_newsym_gbuf` on stashed leave-level + paint dirty `gnew`
+  cells to Terminal (`paint_gbuf_level_to_terminal`). Ordinary
+  `vision_recalc(2)` still skips the loop (named omission).
+- **Verification:** seed5006 Scr **247→249**/249 RNG FULL PASS;
+  green+strict PASS; cohort **29**/29 PASS (seed0116 115/127 held);
+  seed0002/0012/0013-restore stay PASS.
+- **Named omission:** full `vision_recalc(2)` newsym loop in ordinary
+  path (needs separate gbuf≠display or tty snapshot); `notice_all_mons`.
+- **Next:** seed0116 Scr 115/127; or leaderboard 22-vs-32 gap.
+
 ## D-0582 — identify more_experienced(0,10) (seed5006 Scr)
 
 - **Status:** fixed (partial — Get bones? map glyphs @198/@199)

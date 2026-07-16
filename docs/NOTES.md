@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0582 fixed:** `dopotion`/`weffects`/`zapnodir` `more_experienced(0,10)`
-  on type discovery. seed5006 Scr **246→247**/249; @187 points OK.
+- **D-0583 fixed:** getbones yn leave-level gbuf mon→memory paint.
+  seed5006 Scr **247→249**/249 PASS.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Next gameplay:** seed5006 @198/@199 Get bones? map (water `~` vs
-  prior floor/`·`); or seed0116 Scr 115/127.
-- **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
+- **Next gameplay:** seed0116 Scr 115/127.
+- **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
-- **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
+- **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
+  gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0582; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0583; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -51,7 +51,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0582 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0583 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
 - D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
@@ -61,34 +61,27 @@ Objective/score live in `CURRENT.md`.
 - seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
 - `rng-diff.mjs` runs **seg0 only** — seed5006 “@11026 gemcolors” was
   seg1 start; seg0 is FULL.
-- seg1 @2780 `rn2(5)` is kitten **post-move** `distfleeck` recalc
-  (dochug after `m_move`), not a second monster.
 - D-0578: C gg via bones `gettrack` to grave, not mfndpos cnt at (32,4).
-- D-0579: first Scr miss was getobj DOWNPLAY letters + Blindf_on, not
-  RNG; Blind without vision_recalc left IN_SIGHT → named hitmsg overflow.
-- D-0580: @162 was missing confused mispronounce `--More--`, not
-  `level_tele` itself.
-- D-0581: @185 was missing Die?/bones yn; gold 311 needs `hidden_gold`;
-  death-ray him/her is `flags.female` not `u.female`.
-- D-0582: @187 points 134 vs 144 was missing potion/wand identify XP
-  (`more_experienced(0,10)`), not death-score gold/depth.
+- D-0579: first Scr miss was getobj DOWNPLAY + Blindf_on, not RNG.
+- D-0581: @185 Die?/bones yn; gold 311 needs `hidden_gold`.
+- D-0582: @187 points was identify `more_experienced(0,10)`.
+- D-0583: @198 was leave-level gbuf mon→memory + getbones yn flush,
+  not water terrain; ordinary `vision_recalc(2)` newsym loop regresses.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398/0373 **PASS**; #645 **31/44** Scr 6514.
+- seed0006/0007/0398/0373/**seed5006** **PASS**; #645 suite 31/44.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
-- wizgenesis flags=5 — do not add to EXT_CMD_AC.
-- Air plane: `weight_cap` = `MAX_CARR_CAP` (Is_airlevel).
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
 - Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.
-- Debug `set_playmode` → `plname="wizard"`; cemetery who uses that.
-- Bones `utrack` via `save_track`/`rest_track` (D-0578); no post-getbones
-  `initrack`.
+- Bones `utrack` via `save_track`/`rest_track` (D-0578).
 - Blindfold: Blindf_on + EBlinded + vision_recalc Blind (D-0579).
 - Confused read: mispronounce pline before seffects (D-0580).
 - Wizard death: Die?/Save bones?/Get/Unlink/Replace yn (D-0581).
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
+- Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
+  dirty `paint_gbuf_level_to_terminal` (D-0583).

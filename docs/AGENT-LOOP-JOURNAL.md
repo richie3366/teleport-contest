@@ -18,6 +18,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 00:45 — #649 D-0583 getbones leave-level gbuf
+- Objective: seed5006 @198/@199 Get bones? map glyphs (CURRENT primary).
+- C locus: vision.c vision_recalc(2); bones.c getbones yn flush;
+  do.c goto_level vs flush_screen(-1) postpone.
+- Change: snapshot pre-leave viz; on Get bones? run
+  vision_off_newsym_gbuf on stashed leave-level + paint dirty gnew
+  cells to Terminal. Ordinary vision_recalc(2) still skips newsym loop.
+- Verification: seed5006 Scr **247→249**/249 RNG FULL PASS;
+  green+strict PASS; cohort **29**/29 PASS; seed0116 115/127 held.
+- Next: seed0116 Scr 115/127; or leaderboard gap / full suite score.
 ## 2026-07-17 00:35 — #648 D-0582 identify more_experienced(0,10)
 - Objective: seed5006 @187 points 134 vs 144 (CURRENT primary).
 - C locus: potion.c dopotion; zap.c weffects/zapnodir.

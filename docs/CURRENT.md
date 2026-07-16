@@ -23,32 +23,30 @@ focused session.
 
 Score last measured: **2026-07-17** — full `sessions` suite (loop **#645**),
 post D-0579. Screens **6514**/11405; RNG **359063**/792838 (45.29%).
-**31/44** PASS. Speed `32+0.15/turn` (R² 0.769). Δ vs #640: PASS 0,
-Scr **+41**, RNG **+109** (D-0578/D-0579 seed5006 Scr 192→228; seed0116
-114→115). *(#647 D-0581: seed5006 Scr 230→246; #648 D-0582: 246→247
-focused; suite not remeasured.)*
+**31/44** PASS then. **#649 D-0583:** seed5006 focused **249**/249 PASS
+(was 247/249) → local PASS list **32/44**; suite aggregates not remeasured.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **31 / 44** |
-| Screens matched | **6,514 / 11,405** |
+| Sessions passing | **32 / 44** (seed5006 focused PASS; suite Scr/RNG from #645) |
+| Screens matched | **6,514 / 11,405** (+2 seed5006 pending suite) |
 | Positional RNG calls matched | **359,063 / 792,838** (45.29%) |
 | Speed label | `32+0.15/turn` (R² 0.769) |
 | Role-init throws | **0 / 44** |
 
-**PASS (31):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (32):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373.
+seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
+**seed5006**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **115**/127 | residual after D-0579 |
-| seed5006 | **13923**/13923 | **247**/249 | D-0582; @198 Get-bones map glyphs |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -67,27 +65,26 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-31 gap** — local PASS includes seed0398 + seed0373;
-judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
-**D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
-but near-misses remain → upstream #5.
+**Leaderboard 22-vs-32 gap** — local PASS includes seed5006 + seed0398 +
+seed0373; judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue
+59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
+restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed5006 Scr **247**/249 first miss @198/@199 Get
-bones? map (C water `~` vs JS prior-level floor); or seed0116 Scr 115/127.
+**Gameplay next:** seed0116 Scr **115**/127.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0582.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0583.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
 **seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
-**seed0007** + **seed0398** (must stay PASS) + **seed0373** + strict lengths.
+**seed0007** + **seed0398** (must stay PASS) + **seed0373** + **seed5006** +
+strict lengths.
 
 ## Parked (diagnose only — do not implement)
 
