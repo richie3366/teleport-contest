@@ -4,17 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0451 — seed0002 @26692 dogfood obj_resists vs JS rn2(4)
+## D-0451 — seed0002 @26692 dog_goal fobj dogfood vs JS !rn2(4)
 
 - **Status:** open
-- **Symptom:** seed0002 first RNG miss @26692 — C continues `obj_resists`
-  `rn2(100)` (pet food scan) vs JS `rn2(4)`. Prefix 26692; Scr 320/595.
-  Matched through sleep-wand RAY zap (D-0450).
-- **Hypothesis:** incomplete zap/sleep side effects change pet goals so
-  JS leaves the dogfood `obj_resists` loop early (`rn2(4)` ≈ `dog_goal`).
-- **C locus:** `dog.c`/`dogmove.c` dogfood/`obj_resists`; prior zap state.
-- **Next:** compare pet/invent state at mismatch; do not treat as raw
-  monmove without dogfood proof.
+- **Symptom:** seed0002 first RNG miss @26692 — C `rn2(100)` @
+  `obj_resists(zap.c:1469)` vs JS `rn2(4)=2`. Prefix 26692; Scr 320/595.
+  Matched through sleep-wand RAY zap (D-0450) and two prior `obj_resists`
+  at 26690–26691.
+- **Hypothesis (#485):** both are in `dog_goal` fobj scan (`dogfood` →
+  `obj_resists`); after two in-radius floor objs JS finishes and hits
+  follow-hero `!rn2(4)` (`dogmove.c:575`) while C still has ≥1 more
+  in-SQSRCHRADIUS `fobj`. Invent `dogfood` is *after* `rn2(4)` — reject
+  that path at this index. Likely cause: fewer JS floor objs in radius
+  and/or pet `mx/my` diverge after sleep zap.
+- **C locus:** `dogmove.c` `dog_goal` fobj loop + `!rn2(4)`; `dog.c`
+  `dogfood` → `zap.c` `obj_resists`.
+- **Falsifier:** dump pet coords + in-radius `fobj` count at first
+  `dog_goal` after the sleep zap; compare to C.
+- **Next:** state capture at mismatch; do not treat as invent dogfood
+  or bare monmove.
 
 ## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
 

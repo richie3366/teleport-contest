@@ -17,20 +17,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#480 score
-cadence). Screens **4620**/11405; RNG **277634**/792838. **26/44** PASS.
-Speed `23+0.13/turn`. Δ vs #475: Scr +64, RNG +6646 (D-0443…D-0446 peels).
-Focused D-0450 peel: seed0002 prefix **25767→26692**, RNG matched
-**25921→26771** (Scr still 320/595).
+Score last measured: **2026-07-16** — full `sessions` suite (#485 score
+cadence). Screens **4629**/11405; RNG **284968**/792838. **26/44** PASS.
+Speed `23+0.13/turn`. Δ vs #480: Scr +9, RNG +7334 (D-0447…D-0450 peels
+landed on FAIL prefixes; PASS set unchanged). Primary still D-0451
+@26692.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4620 / 11,405** (40.51%) |
-| Positional RNG calls matched | **277,634 / 792,838** (35.02%) |
-| Speed label | `23+0.13/turn` (R² 0.77) |
+| Screens matched | **4629 / 11,405** (40.59%) |
+| Positional RNG calls matched | **284,968 / 792,838** (35.94%) |
+| Speed label | `23+0.13/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -43,7 +43,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 26771/27158 | **320**/595 | @26692 dogfood obj_resists (D-0451) |
+| seed0002 | 26771/27158 | **320**/595 | @26692 dog_goal fobj scan (D-0451) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -63,20 +63,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @26692 — dogfood `obj_resists` vs JS `rn2(4)`** (D-0451).
-Prefix **26692**; Scr **320**/595. After D-0450 sleep-wand RAY zap,
-C continues pet `obj_resists` `rn2(100)` while JS emits `rn2(4)`.
+**seed0002 @26692 — `dog_goal` fobj `dogfood` vs JS `!rn2(4)`** (D-0451).
+Prefix **26692**; Scr **320**/595. After two matched `obj_resists`, C
+keeps scanning floor `dogfood` while JS already hits `dog_goal`
+`!rn2(4)` (follow-hero). Likely fewer in-radius `fobj` / pet pos after
+sleep zap — not bare monmove.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: pet/invent state at dogfood scan after sleep zap
+# Focus: pet mx/my + in-SQSRCHRADIUS fobj count vs C at dog_goal
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0450;
-treating @26692 as bare monmove without dogfood proof.
+treating @26692 as invent `dogfood` (that path is after `rn2(4)`).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

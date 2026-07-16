@@ -7,11 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#480 full). Scr **4620**/11405; RNG
-  **277634**/792838; speed `23+0.13/turn`. seed0002 Scr **320**/595
-  prefix **26692** (after D-0450).
-- **Next (D-0451):** seed0002 @26692 — C `obj_resists` `rn2(100)` vs
-  JS `rn2(4)` mid dogfood scan after sleep-wand zap.
+- **Score:** **26/44** PASS (#485 full). Scr **4629**/11405; RNG
+  **284968**/792838; speed `23+0.13/turn`. Δ vs #480: Scr +9, RNG
+  +7334. seed0002 Scr **320**/595 prefix **26692**.
+- **Next (D-0451):** seed0002 @26692 — after 2 matched `obj_resists`,
+  C continues `dog_goal` fobj `dogfood` `rn2(100)`; JS already at
+  `!rn2(4)` (follow). Falsify: dump pet `mx/my` + count of `fobj` in
+  SQSRCHRADIUS=5 vs C after sleep zap.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
@@ -21,7 +23,8 @@ Objective/score live in `CURRENT.md`.
   @18457 as monmove without shop bill (D-0447); @18354 as monmove
   without seer_turn (D-0446); @16501 as mon_arrive without stair fall
   (D-0445); @14081 as monmove without potion (D-0444); @12530 as zap
-  leftover (D-0443); @12222–@4565 D-0442…D-0430.
+  leftover (D-0443); @12222–@4565 D-0442…D-0430; invent `dogfood` at
+  @26692 (that loop is after `rn2(4)`).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -62,8 +65,8 @@ Objective/score live in `CURRENT.md`.
   `get_cost`; treat @19167 as `do_attack`/`rn2(7)` without missing
   `dopay` (D-0448); treat @25615 as wipe_engr without `exerchk`
   (D-0449 done); treat @25767 as monmove without zap getobj/`dobuzz`
-  (D-0450 done); treat @26692 as monmove without dogfood/`obj_resists`
-  proof (D-0451); re-audit SLT trunc math.
+  (D-0450 done); treat @26692 as invent `dogfood` or bare monmove
+  without fobj-radius/`pet` pos proof (D-0451); re-audit SLT trunc.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -79,7 +82,7 @@ Objective/score live in `CURRENT.md`.
   seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
   D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
   next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450
-  done; dogfood obj_resists @26692 D-0451 next.
+  done; dog_goal fobj scan vs `!rn2(4)` @26692 D-0451 next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).
