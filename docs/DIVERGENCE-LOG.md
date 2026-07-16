@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0498 — doset fmtstr + bool defaults (seed0007 Scr @20)
+
+- **Status:** fixed
+- **Symptom:** after D-0497 full RNG, first screen miss @20 — `mO` full
+  `doset` menu: JS `name[value]` vs C `%-Ns [value]`; many On defaults
+  showed `[false]` (undefined bag fields). Scr **60**/302.
+- **Cause:** D-0488 `doset()` used bare concat and `doset_bool_value`
+  treated undefined as false; C `Sprintf(fmtstr,"%%s%%-%us [%%s]",
+  longest_option_name)` + `allopt_array_init` `*(addr)=initval`.
+- **C locus:** `options.c` `doset` / `doset_add_menu` / `longest_option_name`;
+  `optlist.h` NHOPTB On initvals; `optfn_boolean` showexp/time → `disp.botl`.
+- **Change:** `js/options.js` — `format_doset_opt_line` (width
+  `dosetSimpleNameWidth`); help `%4s` indent; `DOSET_BOOL_DEFAULT_ON` +
+  corrected addrs; showexp/time toggles set `flags.botl`.
+- **Verification:** seed0007 Scr **60→84**/302 (prefix @20→@38); RNG
+  still full; green+strict PASS; cohort 26/26 PASS.
+- **Named omission:** pick-list vs message timing for showexp before
+  its pline (@38 C `Xp:1/0` vs JS early `T:1`); full `parseoptions`
+  after-change arms; `allopt_array_init` into bags at startup.
+- **Next:** seed0007 @38 botl timing / remaining screen peel.
+
 ## D-0497 — mhitm_ad_drst mhitu poison gate (seed0007 @16346)
 
 - **Status:** fixed

@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0498 (next):** RNG **16373**/16373 after D-0497
-  `mhitm_ad_drst`; Scr **60**/302 (cursors 292). Screen-channel peel —
-  first diverge vs C display after moccasin combat / hideunder.
+- **seed0007 / D-0499 (next):** after D-0498 doset fmt, Scr **84**/302;
+  first miss @38 — C `Xp:1/0` during price_quotes More vs JS
+  `Xp:1/0 T:1` (time applied one message pair early). RNG still full.
   Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0497
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0498
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,14 +38,7 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490 `#loot` take-out gold (`$` before TRIPE).
-- D-0491 `SCR_DESTROY_ARMOR` / `destroy_arm` / `erode_obj` burn.
-- D-0492 `eye_of_newt_buzz` via `cpostfx` after newt corpse.
-- D-0493 @15284 was stale `travel=1` after `_` (not dochug nearby).
-- D-0494 `Amulet_on` RESTFUL_SLEEP `rnd(98)` → HSleepy TIMEOUT.
-- D-0495 `dowatersnakes` `rn1(5,2)` drink case 22 / dip case 23.
-- D-0496 `postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` (moccasins).
-- D-0497 `mhitm_ad_drst` mgc gate before knockback; leather `a_can=1`.
+- D-0490…D-0497 RNG path done; D-0498 was doset screen @20.
 
 ## Landmarks (≤15)
 
@@ -61,7 +54,6 @@ Objective/score live in `CURRENT.md`.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0488: `mO` keeps `menu_requested` for `O`; `doset` sets
   `pickup_types=$"?!=/`.
-- D-0489: `#loot` → `do_loot_cont` box `pick_lock` (chance 4*DEX+25).
-- D-0490: MENU_FULL take-out + accept lootabc `a`; invent `$` gold.
+- D-0498: doset `%-23s [val]` + On defaults; Scr 60→84.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.

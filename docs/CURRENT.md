@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | **16373**/16373 | **60**/302 | RNG complete (D-0497); screen peel next |
+| seed0007 | **16373**/16373 | **84**/302 | D-0498 doset; @38 botl next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -69,16 +69,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel** (D-0498 next). RNG is full
-**16373**/16373 after D-0497 `mhitm_ad_drst`; Scr still **60**/302
-(cursors 292/302). Find first screen diverge vs C — likely display /
-`newsym` / hideunder visibility after moccasin combat, not further RNG.
+**Gameplay next:** seed0007 — **screen peel @38** (D-0499 next). RNG full
+**16373**/16373; Scr **84**/302 after D-0498 doset fmt/defaults (was 60;
+prefix @20→@38). @38: C `Xp:1/0` on price_quotes More vs JS early `T:1`
+(showexp/time botl vs message order). Then hunger `Satiated` / later map.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0497.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0498.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
