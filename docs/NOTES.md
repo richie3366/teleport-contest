@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0526 done:** Bar-strt through Pelias/chieftains/trap/eels/ogres/
-  flip/branch; guardian `m_initweap`; eel sleep before invent.
-  seed0373 rng-diff **3303→4157**; runner RNG **4185**/35386.
-- **seed0373 next:** @4157 C nhlib `shuffle` `rn2(2)` vs JS `rn2(79)`
-  (post-Bar-strt — next special / themerms / bones path).
+- **D-0527 done:** `onquest`/`qt_pager("firsttime")` nhl_init shuffle;
+  materialize pline before onquest inside `goto_level`.
+  seed0373 rng-diff **4157→4159**; runner RNG **4209**/35386 Scr 21/124.
+- **seed0373 next:** @4159 C Bar-loca `load_special` nhlib `shuffle`
+  `rn2(3)` vs JS `u_on_rndspot` `rn2(79)` (makemaz missing Bar-loca).
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#585 formal score:** **30/44**, Scr **5898**/11405, RNG
   **322564**/792838 (40.68%), `29+0.15/turn` (R² 0.76).
-  Δ vs #580: Scr 0, RNG +892 (D-0525/26 between snaps).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -30,19 +29,19 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0526; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0527; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
   skip `were_change` in `m_calcdistress`; stub `m_avoid_soko_push_loc`;
-  skip Bar-strt after randline (loader complete through branch).
+  skip Bar-strt after randline; skip onquest firsttime nhl shuffle.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0526
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0527
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -57,7 +56,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0526 Bar-strt / soko / fleeck peels — see index.
+- D-0519…D-0527 Bar-strt / soko / fleeck / onquest peels — see index.
 
 ## Landmarks (≤15)
 

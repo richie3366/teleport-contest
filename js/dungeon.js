@@ -617,7 +617,8 @@ function fixup_level_locations() {
 
 // C ref: nhl_init() loads nhlib.lua which shuffles align[].
 // nhlib math.random(i) → 1+nh.rn2(i); Fisher-Yates with rn2(i) matches logged calls.
-function nhl_nhlib_align_shuffle() {
+// Also used by questpgr.com_pager_core nhl_init before loading quest.lua.
+export function nhl_nhlib_align_shuffle() {
     const align = ['law', 'neutral', 'chaos'];
     for (let i = align.length; i > 1; i--) {
         const j = rn2(i);

@@ -577,7 +577,8 @@ const MKMAP_HEIGHT = ROWNO - 1; // 20
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt,
  * soko1-1.
- * Named omissions: other bigrm-N / soko*-* / quest protos; create_maze
+ * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-loca/goal/
+ * fila/filb); create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {

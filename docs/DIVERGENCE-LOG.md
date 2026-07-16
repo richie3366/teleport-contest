@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0527 — onquest firsttime qt_pager nhl_init shuffle
+
+- **Status:** fixed (partial — Bar-loca loader next)
+- **Symptom:** seed0373 @4157 C nhlib `shuffle` `rn2(2)` vs JS
+  `place_lregion` `rn2(79)` after matched Bar-strt losedogs
+  `collect_coords`.
+- **Cause:** JS `goto_level` omitted C `onquest` → `qt_pager("firsttime")`
+  → `nhl_init` → nhlib.lua `shuffle(align)`. Materialize pline was also
+  deferred until after `goto_level` returned.
+- **C locus:** `quest.c` `onquest`/`on_start`; `questpgr.c`
+  `com_pager_core`/`qt_pager`; `nhlua.c` `nhl_init` → `nhlib.lua`;
+  `do.c` `goto_level` maybe_lvltport_feedback before onquest.
+- **Change:** `js/quest.js` onquest/on_start; `qt_pager` nhl shuffle +
+  Bar firsttime NHW_TEXT; wire materialize+onquest inside `goto_level`;
+  Barbarian `homebase`/`ldrnum` for convert_arg.
+- **Verification:** seed0373 rng-diff **4157→4159**; runner RNG
+  **4185→4209**/35386 Scr **20→21**/124; green+strict PASS; cohort
+  **30**/30 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** locate/goal/nexttime qt_pager; full convert_arg;
+  other-role firsttime texts; quest.lua embed beyond Bar firsttime.
+- **Next:** @4159 C Bar-loca `load_special` nhlib shuffle vs JS
+  `u_on_rndspot` `rn2(79)`; or seed5006 `dosounds` @8468.
+
 ## D-0526 — Bar-strt Pelias→branch + guardian m_initweap + eel sleep
 
 - **Status:** fixed (partial — post-Bar-strt gameplay shuffle next)
