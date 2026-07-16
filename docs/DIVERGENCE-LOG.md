@@ -21,18 +21,33 @@ to preserve, record it here.
   0006/0002/0012/0004/0030/0009 PASS.
 - **Next:** D-0485 gettrack/`!couldsee` on ordinary levels.
 
-## D-0487 — picklock rn2(100) vs distfleeck (seed0007 @3219)
+## D-0488 — eatcorpse rn2(20) vs rn2(7) (seed0007 @6414)
 
 - **Status:** open
+- **Symptom:** after D-0487, first RNG miss @6414 — C `rn2(20) @ eatcorpse`
+  vs JS `rn2(7)`.
+- **Context:** seed0007 Scr still **20**/302; lock peel done.
+- **C locus:** `eat.c` `eatcorpse` (likely acid/sick/`rnd` vs `rn2` arm).
+- **Next:** C vs JS `eatcorpse` call path at first corpse eat after swamp
+  unlock — no coord hacks.
+- **Named omission:** see eat map row.
+
+## D-0487 — picklock + doopen autounlock (seed0007 @3219)
+
+- **Status:** fixed
 - **Symptom:** after D-0485, first RNG miss @3219 — C `rn2(100) @ picklock`
-  vs JS `rn2(5) @ distfleeck` (runner matched ~3241).
-- **Context:** seed0007 Scr still **20**/302; capital `H` run now reaches
-  deeper into the swamp path.
-- **C locus:** `lock.c` `picklock` / occupation; symptom may be earlier
-  door/force/`#` path leaving JS off the lock occupation.
-- **Next:** C vs JS at first `a`/`#`/`force`/`lock` after the H/Y run —
-  no coord hacks.
-- **Named omission:** see lock/apply map row.
+  vs JS `rn2(5) @ distfleeck`.
+- **Cause:** JS `doopen_indir` stubbed locked-door autounlock; `pick_lock`
+  default branch faked "no door" instead of ynq + `set_occupation(picklock)`.
+  Autoopen into a locked door never entered the occupation.
+- **Change:** `js/lock.js` — `autokey`, door LOCKED/CLOSED `pick_lock` ynq +
+  `picklock` occupation (`rn2(100)` vs chance), `doopen_indir` autounlock
+  APPLY_KEY path; `js/jsmain.js` default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
+- **Verification:** rng-diff **3219→6414**; green+strict PASS; cohort 10 PASS.
+  Scr still 20/302.
+- **Next:** @6414 C `rn2(20) @ eatcorpse` vs JS `rn2(7)`.
+- **Named omission:** box pick_lock; magic-key trap disarm; `b_trapped` body;
+  AUTOUNLOCK_KICK; quest-artifact autokey ranking; forcelock occupation.
 
 ## D-0485 — dofire ready More + getdir MV_ANY (seed0007 @2832)
 

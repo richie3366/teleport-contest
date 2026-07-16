@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0487:** @3219 C `rn2(100) @ picklock` vs JS
-  `rn2(5) @ distfleeck` (after D-0485 peel 2832→3219).
+- **seed0007 / D-0488:** @6414 C `rn2(20) @ eatcorpse` vs JS `rn2(7)`
+  (after D-0487 peel 3219→6414).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
-  Next: lock/`#force`/`a` occupation path after H/Y run.
 - **Leaderboard gap:** local **28/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0486
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0487
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -34,6 +33,8 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @2832 was **not** lookaround/dog_move/gettrack — it was
   dofire ready-More + getdir rejecting capital `H` (D-0485).
 - C/JS upstairs spawn both `(38,18)` for seed0007.
+- seed0007 @3219 was missing locked-door autounlock/`picklock`
+  occupation (D-0487) — not a mid-run pet peel.
 
 ## Landmarks (≤15)
 
@@ -48,3 +49,4 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run inside one session key (`continue_run`).
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0485: post-quiver `mark_topline_seen` + getdir MV_ANY capitals.
+- D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.

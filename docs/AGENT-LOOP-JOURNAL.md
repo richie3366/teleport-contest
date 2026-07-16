@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:25 — D-0487 picklock + doopen autounlock
+- Objective: seed0007 @3219 picklock rn2(100) (D-0487).
+- C locus: `lock.c` picklock/`pick_lock`/`doopen_indir` autounlock; `autokey`.
+- Change: door LOCKED path ynq + `set_occupation(picklock)`; locked autoopen
+  → APPLY_KEY autounlock; default `flags.autounlock`. Was: stub "no door" /
+  deferred autounlock so JS stayed in distfleeck.
+- Verification: rng-diff **3219→6414**; green+strict PASS; cohort 10 PASS.
+  Scr still 20/302.
+- Next: D-0488 @6414 `eatcorpse` rn2(20).
+
 ## 2026-07-16 13:20 — D-0485 dofire ready More + getdir MV_ANY
 - Objective: seed0007 @2832 hero Y drift (D-0485).
 - C locus: `cmd.c` getdir/`movecmd(MV_ANY)`; `dothrow.c` dofire; topline More.

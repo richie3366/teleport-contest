@@ -473,7 +473,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0484 | fixed | dofire empty-quiver continue + letter More | seed0007 RNG 2824→2832; dog_move next |
 | D-0485 | fixed | dofire ready More + getdir MV_ANY capitals | seed0007 RNG 2832→3219; picklock next |
 | D-0486 | fixed | vision_recalc rogue_vision for Is_rogue_level | C vision.c; not seed0007 (dlvl1) |
-| D-0487 | open | picklock rn2(100) vs distfleeck | seed0007 @3219 after D-0485 |
+| D-0487 | fixed | picklock + doopen autounlock | seed0007 RNG 3219→6414; eatcorpse next |
+| D-0488 | open | eatcorpse rn2(20) vs rn2(7) | seed0007 @6414 after D-0487 |
 
 
 
