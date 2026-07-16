@@ -7,11 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0583 fixed:** getbones yn leave-level gbuf mon→memory paint.
-  seed5006 Scr **247→249**/249 PASS.
-  ```bash
-  node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
-  ```
+- **#650 score:** suite **32/44** Scr **6535**/11405 RNG
+  **359063**/792838 (45.29%); seed5006 suite-confirmed PASS.
 - **Next gameplay:** seed0116 Scr 115/127.
 - **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
@@ -72,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398/0373/**seed5006** **PASS**; #645 suite 31/44.
+- seed0006/0007/0398/0373/**seed5006** **PASS**; #650 suite 32/44.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
