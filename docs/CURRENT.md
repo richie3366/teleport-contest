@@ -17,18 +17,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#470 score
-cadence, post D-0439 ohitmon). Screens **4503**/11405; RNG
-**267277**/792838. **26/44** PASS. Speed `22+0.13/turn`.
+Score last measured: **2026-07-16** — full `sessions` suite (#475 score
+cadence). Screens **4556**/11405; RNG **270988**/792838. **26/44** PASS.
+Speed `22+0.13/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4503 / 11,405** (39.48%) |
-| Positional RNG calls matched | **267,277 / 792,838** (33.71%) |
-| Speed label | `22+0.13/turn` (R² 0.78) |
+| Screens matched | **4556 / 11,405** (39.95%) |
+| Positional RNG calls matched | **270,988 / 792,838** (34.18%) |
+| Speed label | `22+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -41,9 +41,9 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 11521/27158 | **233**/595 | @11309 u_maybe_impaired next |
+| seed0002 | 12782/27158 | **247**/595 | @12530 umovement/SLT (D-0443) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
-| seed0007 | 2941/16373 | **20**/302 | snake swamp |
+| seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,22 +61,23 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @12530 — `umovement` / SLT phase** (after D-0443 diagnosis).
-Prefix **12530**; Scr **247**/595. Matched `obj_resists` look like a
-zap stack but are `dog_goal` invent-scan; C hero stays @**(41,18)**
-(`udist≤1`) while JS already moved W via rhack/`H` (umo **15** after
-SLT EOT vs C still in `movemon`).
+**seed0002 @12530 — `umovement` / SLT phase** (D-0443). Prefix **12530**;
+Scr **247**/595. JS SLT `u_calc_moveamt` is clean (+9 only; leftover cycle
+9→18→15→12 from first Burdened @moves~236 ≡ C eot~237). Symptom remains:
+JS hero acts with umo **15** @**(41,18)**→west while C still invent-scans
+(`udist≤1`). Next: EOT/occupation interleave around goblin-corpse eat
+(C key `y` @rng~12463 has **4** EOTs).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: why JS umovement is +6 ahead of C’s SLT net−3 oscillation
+# Focus: C 4-EOT eat step vs JS occupation/movemon between double-EOT halves
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0442;
-treating @12530 as zap/`destroy_items`.
+treating @12530 as zap/`destroy_items`; re-checking SLT integer math.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

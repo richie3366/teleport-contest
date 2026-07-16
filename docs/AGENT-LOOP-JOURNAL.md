@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:10 — #475 score cadence + D-0443 SLT math
+- Objective: mandatory full `sessions` score; D-0443 leftover hypothesis.
+- C locus: `allmain.c` `u_calc_moveamt` / `moveloop_core`; eat occupation.
+- Falsified: broken SLT trunc/`moveamt` — JS always +9, cycle 9→18→15→12
+  from Burdened @~236 ≡ C eot~237. No code change. Score refreshed.
+- Verification: full suite **26/44**; Scr **4556**/11405; RNG
+  **270988**/792838; speed `22+0.13/turn`; green+strict PASS.
+- Next: C goblin-eat `y` @12463 (4 EOTs) vs JS occupation/monscan
+  between double-EOT halves.
+
 ## 2026-07-16 02:55 — #474 seed0002 @12530 umovement (D-0443)
 - Objective: seed0002 @12530 C `obj_resists` vs JS `rn2(5)` (labeled zap).
 - C locus: `allmain.c` `u_calc_moveamt`/`moveloop_core`; `dogmove.c`
