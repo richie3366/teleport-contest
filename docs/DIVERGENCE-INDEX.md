@@ -451,7 +451,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0462 | fixed | money2mon decrements `_goldCount` for botl `$:` | seed0002 @359→@363; Scr 363→559 |
 | D-0463 | fixed | wear `on_msg` uses `xname` not type string | seed0002 @363→@454; Scr 559→560 |
 | D-0464 | fixed | doname box locked/unlocked/trapped prefixes | seed0002 @454→@502; Scr 560→561 |
-| D-0465 | open | #terrain TER_MAP still shows traps | seed0002 first cell-miss @502 |
+| D-0465 | fixed | #terrain TER_MAP strip traps (kind=trap) | seed0002 @502→@525; Scr 561→563 |
+| D-0466 | open | apply getobj compactify | seed0002 first cell-miss @525 |
 
 
 

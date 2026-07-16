@@ -1012,12 +1012,25 @@ function copy_glyph(g) {
 }
 
 /**
+ * C ref: display.h glyph_is_trap — JS has no integer glyph IDs; match
+ * tseen trap_to_glyph / map_trap remembered ch at (x,y).
+ */
+function glyph_is_trap_at(glyph, x, y) {
+    if (!glyph) return false;
+    const trap = t_at_display(x, y);
+    if (!(trap && trap.tseen && !covers_traps(x, y))) return false;
+    const tg = trap_glyph(trap);
+    return glyph.ch === tg.ch;
+}
+
+/**
  * C ref: detect.c reveal_terrain_getglyph
  * Branch envelope: hero_memory / seenv; strip mon/obj/trap/invisible per
  * TER_* bits; lastseentyp vs typ → back_to_glyph; litcorr→corr hack.
  * Named omissions: visible_region_at / gascloud; keep_traps trap_to_glyph
- * restore; M_AP_FURNITURE lastseentyp fake; swallowed ustuck mon glyph;
- * warning glyphs; TER_FULL seenv temp already covered; arboreal default.
+ * restore when stripping objs; M_AP_FURNITURE lastseentyp fake; swallowed
+ * ustuck mon glyph; warning glyphs; TER_FULL seenv temp already covered;
+ * arboreal default.
  */
 export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_subset) {
     const loc = game.level?.at(x, y);
@@ -1087,6 +1100,18 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
                         glyph = og;
                     }
                 }
+                // C map_location order: object → trap → engraving → terrain
+                if (kind === 'other') {
+                    const trap = t_at_display(x, y);
+                    if (trap && trap.tseen && !covers_traps(x, y)) {
+                        const tg = trap_glyph(trap);
+                        const rg = loc.remembered_glyph;
+                        if (cansee(x, y) || (rg && rg.ch === tg.ch)) {
+                            kind = 'trap';
+                            glyph = { ch: tg.ch, color: tg.color, dec: !!tg.dec };
+                        }
+                    }
+                }
                 if (kind === 'other') {
                     // C glyph_at for terrain/engraving — prefer memory / back_to_glyph
                     // over disp_* (disp_color is already tty-mapped).
@@ -1112,14 +1137,31 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
             if (obj && !covers_objects(x, y)) {
                 const og = obj_glyph(obj);
                 if (glyph && glyph.ch === og.ch) kind = 'obj';
+                else if (glyph_is_trap_at(glyph, x, y)) kind = 'trap';
                 else kind = 'other';
+            } else if (glyph_is_trap_at(glyph, x, y)) {
+                kind = 'trap';
             } else {
                 kind = 'other';
             }
         }
     }
 
-    // C: keep_traps && !keep_objs && object → trap_to_glyph — traps deferred
+    // C glyph_is_trap after memory/terrain pick (levl.glyph may be trap)
+    if (kind === 'other' && glyph_is_trap_at(glyph, x, y)) {
+        kind = 'trap';
+    }
+
+    // C: keep_traps && (!keep_objs object | invisible) → trap_to_glyph
+    if (((!keep_objs && kind === 'obj') || kind === 'invisible')
+        && keep_traps && !covers_traps(x, y)) {
+        const t = t_at_display(x, y);
+        if (t && t.tseen) {
+            const tg = trap_glyph(t);
+            glyph = { ch: tg.ch, color: tg.color, dec: !!tg.dec };
+            kind = 'trap';
+        }
+    }
 
     // C: strip objects / traps / invisible / (region && was_mon)
     if (((!keep_objs && kind === 'obj')

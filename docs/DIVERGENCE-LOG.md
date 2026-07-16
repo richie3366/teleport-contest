@@ -4,18 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0465 — seed0002 screen@502 #terrain known-map trap glyphs
+## D-0466 — seed0002 screen@525 apply getobj compactify
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @525 — C
+  `What do you want to use or apply? [ch-kop or ?*]` vs JS
+  `[chijkop or ?*]`; RNG full; Scr 563/595 (post D-0465).
+- **Cause:** TBD — `getobj_apply` omits C `compactify` when
+  suggested > 5 (same helper as D-0455 drink / wield).
+- **C locus:** `invent.c` `getobj` / `compactify`; `apply.c` `doapply`.
+- **Falsifier / next:** `js/apply.js` `getobj_apply` prompt
+  `compactify_invlets` when `lets.length > 5`; `?` keeps raw lets.
+
+## D-0465 — seed0002 screen@502 #terrain known-map trap glyphs
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @502 — `#terrain` "Showing
-  known terrain only..." map: C floor/`·` cells vs JS trap `^`
-  (and possibly other TER_MAP strip misses); RNG full; Scr 561/595.
-- **Cause:** TBD — TER_MAP should strip traps; JS
-  `reveal_terrain_getglyph` may keep trap layer.
-- **C locus:** `detect.c` `reveal_terrain` / `reveal_terrain_getglyph`;
-  `cmd.c` `doterrain` which=1 → `TER_MAP`.
-- **Falsifier / next:** strip traps under `!(which_subset & TER_TRP)`;
-  re-check @502 cell grid.
+  known terrain only..." map: C floor/`·` cells vs JS trap `^`;
+  RNG full; Scr 561/595.
+- **Cause:** JS `reveal_terrain_getglyph` never set `kind === 'trap'`,
+  so `!(which_subset & TER_TRP)` strip never ran; remembered `^`
+  stayed on the TER_MAP rewrite.
+- **C locus:** `detect.c` `reveal_terrain_getglyph` (`glyph_is_trap`
+  + trap strip / keep_traps restore); `cmd.c` `doterrain` → `TER_MAP`.
+- **Change:** `js/display.js` — classify tseen trap layer (map_location
+  order); `glyph_is_trap_at` after mon→levl_glyph; keep_traps
+  `trap_to_glyph` when stripping objs/invisible; existing terrain
+  strip path then fires for TER_MAP.
+- **Verification:** @502 matches; first miss **@502→@525**; Scr
+  **561→563**; RNG full; green+strict; cohort **26/26**.
+- **Deferred:** region/gascloud; M_AP_FURNITURE; warning glyphs;
+  arboreal default.
+- **Next:** apply getobj compactify (D-0466).
 
 ## D-0464 — seed0002 screen@454 locked chest look_here/doname
 

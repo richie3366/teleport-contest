@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:46 — #503 D-0465 TER_MAP trap strip
+- Objective: seed0002 @502 #terrain C floor/`·` vs JS trap `^`.
+- C locus: `detect.c` `reveal_terrain_getglyph` `glyph_is_trap` strip.
+- Change: `js/display.js` classify tseen traps + `glyph_is_trap_at`
+  after mon→memory; keep_traps `trap_to_glyph` restore; TER_MAP strip.
+- Verification: @502 matches; first miss @502→@525; Scr 561→563;
+  RNG full; green+strict; cohort 26/26.
+- Next: D-0466 apply getobj compactify `[ch-kop]` vs `[chijkop]`.
+
 ## 2026-07-16 06:40 — #502 D-0464 doname locked-box prefixes
 - Objective: seed0002 @454 C `You see here a locked chest.` vs JS
   `You see here a chest.`
