@@ -7,10 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0525 done:** `selection_do_randline` + Bar-strt path carve.
-  seed0373 rng-diff **3289→3303**; next C `induced_align` `rn2(3)` @3303.
-- **seed0373 next:** Bar-strt after randline — Pelias/`makemon` path
-  (`induced_align`) before wallify; regions/doors may be RNG-free.
+- **D-0526 done:** Bar-strt through Pelias/chieftains/trap/eels/ogres/
+  flip/branch; guardian `m_initweap`; eel sleep before invent.
+  seed0373 rng-diff **3303→4157**; runner RNG **4185**/35386.
+- **seed0373 next:** @4157 C nhlib `shuffle` `rn2(2)` vs JS `rn2(79)`
+  (post-Bar-strt — next special / themerms / bones path).
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
@@ -28,19 +29,19 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0525; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0526; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
   skip `were_change` in `m_calcdistress`; stub `m_avoid_soko_push_loc`;
-  skip Bar-strt `selection.randline` after forest replace_terrain.
+  skip Bar-strt after randline (loader complete through branch).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0525
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0526
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -55,15 +56,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519: `makemaz` stub was the shared 0116/0373 special miss.
-- D-0520: Sokoban needs `builds_up` difficulty; `set_mimic_sym`
-  must `!In_sokoban` before maze `rn2(2)` and real `t_at`.
-- D-0521: seed0116 @12294 was **not** fill_zoo irregular/door filter
-  — was double `fill_special_room` from load_soko1_1.
-- D-0522: seed0116 @12330 was **not** typ/exclusion — TELE on `m_at`.
-- D-0523: seed0116 @12461 was missing `were_change` in distress.
-- D-0524: seed0116 @12521 was stubbed `m_avoid_soko_push_loc`.
-- D-0525: seed0373 @3289 was missing Bar-strt `selection_do_randline`.
+- D-0519…D-0526 Bar-strt / soko / fleeck peels — see index.
 
 ## Landmarks (≤15)
 

@@ -511,6 +511,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0522 | fixed | put_lregion_here TELE m_at reject when !oneshot | seed0116 12330→12461 (RNG 12509/12562); Scr 110; next were_change |
 | D-0524 | fixed | m_avoid_soko_push_loc | seed0116 RNG full 12562; was dog_move vs fleeck @12521 |
 | D-0525 | fixed | Bar-strt selection_do_randline path carve | seed0373 3289→3303; next induced_align @3303 |
+| D-0526 | fixed | Bar-strt Pelias→branch + guardian weap + eel sleep | seed0373 3303→4157 RNG 4185; next shuffle @4157 |
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 
 

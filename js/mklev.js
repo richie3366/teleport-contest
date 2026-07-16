@@ -60,7 +60,7 @@ import {
     set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
     add_to_container, objects_at,
 } from './mkobj.js';
-import { makemon, mkclass, MM_NOGRP, set_mimic_sym } from './makemon.js';
+import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj } from './makemon.js';
 import { m_at } from './mon.js';
 import { enexto, rloc } from './teleport.js';
 import {
@@ -95,6 +95,8 @@ const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
+const RUNESWORD = objectNames.indexOf('RUNESWORD');
+const CHAIN_MAIL = objectNames.indexOf('CHAIN_MAIL');
 const FOOD_RATION = objectNames.indexOf('FOOD_RATION');
 const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
@@ -753,11 +755,10 @@ function load_bigrm_2() {
 }
 
 /**
- * C ref: dat/Bar-strt.lua via load_special — map + forest replace_terrain
- * + randline path carve; remaining des.* (regions, Pelias, ogres, portal)
- * partial.
- * Named omissions: lit regions; stairs; branch levregion; doors; Pelias
- * invent; chest/chieftains; non_diggable; spiked pit; eels; ogre floodfill.
+ * C ref: dat/Bar-strt.lua via load_special — full script through branch
+ * levregion; m_dowear after Pelias invent still partial.
+ * Named omissions: m_dowear after custom invent; flip_level lregion
+ * coord update (C also leaves lregions unflipped in this port path).
  */
 function load_bar_strt() {
     const g = game;
@@ -813,9 +814,149 @@ function load_bar_strt() {
     // des.terrain({62,02}, ".") — portal free spot
     sel_set_ter(mx + 62, my + 2, ROOM, false);
 
-    // Remainder of Bar-strt.lua deferred (C-JS-MAP) — still wallify/fixup
+    // des.region lit/unlit (map-relative; RNG-free)
+    const barLit = (x1, y1, x2, y2, lit) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    barLit(0, 0, 75, 19, true);
+    barLit(9, 5, 11, 5, false);
+    barLit(9, 7, 11, 7, true);
+    barLit(9, 9, 11, 9, false);
+    barLit(13, 5, 20, 9, true);
+    barLit(29, 5, 31, 6, true);
+    barLit(26, 10, 28, 11, true);
+    barLit(4, 13, 6, 14, true);
+    barLit(15, 13, 17, 14, true);
+    barLit(22, 14, 24, 15, true);
+
+    // des.stair("down", 09,09)
+    mkstairs(mx + 9, my + 9, 0, null);
+    // des.levregion branch — placed after wallify/flip in load_special epilogue
+
+    // des.door — C lspo_door → sel_set_door (typ already DOOR/SDOOR from map)
+    const barDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    barDoor(12, 5, D_LOCKED);
+    barDoor(12, 9, D_LOCKED);
+    barDoor(21, 7, D_CLOSED);
+    barDoor(7, 13, D_ISOPEN);
+    barDoor(18, 13, D_ISOPEN);
+    barDoor(23, 13, D_ISOPEN);
+    barDoor(25, 10, D_ISOPEN);
+    barDoor(28, 5, D_ISOPEN);
+
+    // des.monster({ id = "Pelias", coord = {10,07}, inventory = ... })
+    // C: sp_lev.c create_monster — induced_align then makemon; CUSTOM_INVENT
+    // discards default minvent then invent callback objects → mpickobj.
+    {
+        find_montype_gender('Pelias');
+        induced_align(80);
+        const pmIdx = name_to_mon('Pelias');
+        const mtmp = pmIdx >= 0
+            ? makemon(mons(pmIdx), mx + 10, my + 7, 0)
+            : null;
+        if (mtmp) {
+            // !(has_invent & DEFAULT_INVENT) → discard_minvent(TRUE)
+            while (mtmp.minvent) obj_extract_self(mtmp.minvent);
+            // invent: des.object runesword/chain mail spe=5 (no coord → random)
+            for (const [otyp, spe] of [[RUNESWORD, 5], [CHAIN_MAIL, 5]]) {
+                const pos = get_location_random(null);
+                const otmp = mksobj_at(otyp, pos.x, pos.y, true, true);
+                if (!otmp) continue;
+                otmp.spe = spe;
+                otmp.oeroded = 0;
+                otmp.oeroded2 = 0;
+                otmp.oerodeproof = 0;
+                obj_extract_self(otmp);
+                mpickobj(mtmp, otmp);
+            }
+            // spo_end_moninvent → m_dowear deferred (C-JS-MAP)
+        }
+    }
+
+    // des.object("chest", 09, 05)
+    mksobj_at(CHEST, mx + 9, my + 5, true, true);
+
+    // des.monster("chieftain", ...) — string+coord form
+    for (const [rx, ry] of [
+        [10, 5], [10, 9], [11, 5], [11, 9],
+        [14, 5], [14, 9], [16, 5], [16, 9],
+    ]) {
+        const { mndx, female } = find_montype_gender('chieftain');
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // des.non_diggable(selection.area(00,00,75,19))
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.trap("spiked pit",37,07) — create_trap → mktrap; pits still burn
+    // victim-gate rnd(4) then skip body via is_pit (mklev.c order).
+    {
+        const ttmp = maketrap(mx + 37, my + 7, SPIKED_PIT);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    // des.monster("giant eel", ...) — fixed river coords
+    for (const [rx, ry] of [[36, 1], [37, 9], [39, 15]]) {
+        const { mndx, female } = find_montype_gender('giant eel');
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // local ogrelocs = selection.floodfill(37,7) & selection.area(40,03, 45,20)
+    // C: nhlsel floodfill match-under typ; area → fillrect; & → and
+    {
+        const fx = mx + 37;
+        const fy = my + 7;
+        const flood = selection_new();
+        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
+        selection_floodfill(flood, fx, fy, false, matchTyp);
+        const area = selection_fillrect(mx + 40, my + 3, mx + 45, my + 20);
+        const ogrelocs = selection_and(flood, area);
+        // for i = 0, 11 do des.monster({ id="ogre", coord=rndcoord(1), peaceful=0 })
+        for (let i = 0; i < 12; i++) {
+            const pos = selection_rndcoord(ogrelocs, true);
+            const { mndx, female } = find_montype_gender('ogre');
+            induced_align(80);
+            if (!pos || mndx < 0 || mndx === NON_PM) continue;
+            const mtmp = makemon(mons(mndx), pos.x, pos.y, 0);
+            if (mtmp) {
+                mtmp.female = female;
+                mtmp.mpeaceful = 0; // C: peaceful > BOOL_RANDOM override
+            }
+        }
+    }
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion({ region={62,02,62,02}, type="branch" }) via fixup
+    // C levregion_add then fixup place_lregion oneshot (rn2(1) x2).
+    place_lregion(
+        mx + 62, my + 2, mx + 62, my + 2,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
     fixup_special();
 }
 
@@ -3204,6 +3345,75 @@ function selection_setpoint(x, y, sel, c) {
     } else {
         sel.pts.delete(key);
     }
+}
+
+/**
+ * C ref: selvar.c selection_floodfill + sp_lev floodfillchk_match_under.
+ * Stack walk; matchTyp is terrain under the seed cell.
+ */
+function selection_floodfill(ov, x0, y0, diagonals, matchTyp) {
+    if (!ov || !isok(x0, y0)) return;
+    const stackX = [];
+    const stackY = [];
+    const queued = new Set();
+    const enqueue = (nx, ny) => {
+        if (!isok(nx, ny)) return;
+        const key = `${nx},${ny}`;
+        if (queued.has(key) || selection_getpoint(nx, ny, ov)) return;
+        const loc = game.level.at(nx, ny);
+        if (!loc || loc.typ !== matchTyp) return;
+        queued.add(key);
+        stackX.push(nx);
+        stackY.push(ny);
+    };
+    enqueue(x0, y0);
+    while (stackX.length) {
+        const x = stackX.pop();
+        const y = stackY.pop();
+        selection_setpoint(x, y, ov, 1);
+        enqueue(x + 1, y);
+        enqueue(x - 1, y);
+        enqueue(x, y + 1);
+        enqueue(x, y - 1);
+        if (diagonals) {
+            enqueue(x + 1, y + 1);
+            enqueue(x - 1, y - 1);
+            enqueue(x - 1, y + 1);
+            enqueue(x + 1, y - 1);
+        }
+    }
+}
+
+/** C ref: nhlsel.c l_selection_fillrect / selection.area — absolute rect. */
+function selection_fillrect(x1, y1, x2, y2) {
+    const sel = selection_new();
+    const xa = Math.min(x1, x2);
+    const xb = Math.max(x1, x2);
+    const ya = Math.min(y1, y2);
+    const yb = Math.max(y1, y2);
+    for (let y = ya; y <= yb; y++) {
+        for (let x = xa; x <= xb; x++) {
+            if (isok(x, y)) selection_setpoint(x, y, sel, 1);
+        }
+    }
+    return sel;
+}
+
+/** C ref: nhlsel.c l_selection_and — intersection. */
+function selection_and(sela, selb) {
+    const selr = selection_new();
+    if (!sela?.pts?.size || !selb?.pts?.size) return selr;
+    const lx = Math.max(sela.lx, selb.lx);
+    const ly = Math.max(sela.ly, selb.ly);
+    const hx = Math.min(sela.hx, selb.hx);
+    const hy = Math.min(sela.hy, selb.hy);
+    for (let x = lx; x <= hx; x++) {
+        for (let y = ly; y <= hy; y++) {
+            if (selection_getpoint(x, y, sela) && selection_getpoint(x, y, selb))
+                selection_setpoint(x, y, selr, 1);
+        }
+    }
+    return selr;
 }
 
 // C ref: selvar.c selection_do_randline — recursive midpoint displace

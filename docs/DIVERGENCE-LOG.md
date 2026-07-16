@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0526 — Bar-strt Pelias→branch + guardian m_initweap + eel sleep
+
+- **Status:** fixed (partial — post-Bar-strt gameplay shuffle next)
+- **Symptom:** seed0373 @3303 C `induced_align` `rn2(3)` (Pelias) vs JS
+  wallify `rn2(79)` after D-0525 randline.
+- **Cause:** `load_bar_strt` jumped to wallify before regions/doors/Pelias/
+  chest/chieftains/trap/eels/ogre floodfill/flip/branch. Also missing
+  `m_initweap` MS_GUARDIAN kit and `in_mklev` giant-eel sleep before invent.
+- **C locus:** `dat/Bar-strt.lua`; `sp_lev.c` `create_monster`/`load_special`;
+  `makemon.c` `m_initweap` MS_GUARDIAN + eel sleep; `selvar.c`
+  `selection_floodfill`/`selection_rndcoord`; `nhlsel.c` flood/area/and.
+- **Change:** extend `load_bar_strt` through branch levregion; port
+  floodfill/area/and; guardian `m_initweap` (mndx gate); eel/ndemon sleep
+  before invent; flip then oneshot `place_lregion` LR_BRANCH.
+- **Verification:** seed0373 rng-diff **3303→4157**; runner RNG
+  **3343→4185**/35386 Scr still 20/124; green+strict PASS; cohort
+  **30**/30 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** Pelias `m_dowear` after custom invent; S_HUMAN
+  elf/priest/ninja `m_initweap`; flip lregion coord update.
+- **Next:** @4157 C nhlib `shuffle` `rn2(2)` vs JS `rn2(79)` (post-
+  Bar-strt); or seed5006 `dosounds` @8468; or seed0116 screen residual.
+
 ## D-0525 — Bar-strt selection_do_randline path carve
 
 - **Status:** fixed (partial — Bar-strt loader continues)

@@ -44,6 +44,7 @@ import {
     mindless,
     is_floater,
     is_mercenary,
+    is_ndemon,
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
@@ -778,8 +779,77 @@ function m_initweap(mtmp) {
             if (w1) mongets(mtmp, w1);
             if (!w2 && w1 !== otyp('DAGGER') && !rn2(4)) w2 = otyp('KNIFE');
             if (w2) mongets(mtmp, w2);
+        } else if (
+            // C: ptr->msound == MS_GUARDIAN — tables omit msound; gate by mndx
+            mm === pm('STUDENT') || mm === pm('ATTENDANT')
+            || mm === pm('ABBOT') || mm === pm('ACOLYTE')
+            || mm === pm('GUIDE') || mm === pm('APPRENTICE')
+            || mm === pm('CHIEFTAIN') || mm === pm('PAGE')
+            || mm === pm('ROSHI') || mm === pm('WARRIOR')
+            || mm === pm('HUNTER') || mm === pm('THUG')
+            || mm === pm('NEANDERTHAL')
+        ) {
+            // C: makemon.c m_initweap MS_GUARDIAN switch
+            switch (mm) {
+            case pm('STUDENT'):
+            case pm('ATTENDANT'):
+            case pm('ABBOT'):
+            case pm('ACOLYTE'):
+            case pm('GUIDE'):
+            case pm('APPRENTICE'):
+                if (rn2(2)) mongets(mtmp, rn2(3) ? otyp('DAGGER') : otyp('KNIFE'));
+                if (rn2(5)) {
+                    mongets(mtmp, rn2(3)
+                        ? otyp('LEATHER_JACKET')
+                        : otyp('LEATHER_CLOAK'));
+                }
+                if (rn2(3)) {
+                    mongets(mtmp, rn2(3) ? otyp('LOW_BOOTS') : otyp('HIGH_BOOTS'));
+                }
+                if (rn2(3)) mongets(mtmp, otyp('POT_HEALING'));
+                break;
+            case pm('CHIEFTAIN'):
+            case pm('PAGE'):
+            case pm('ROSHI'):
+            case pm('WARRIOR'):
+                mongets(mtmp, rn2(3) ? otyp('LONG_SWORD') : otyp('SHORT_SWORD'));
+                mongets(mtmp, rn2(3) ? otyp('CHAIN_MAIL') : otyp('LEATHER_ARMOR'));
+                if (rn2(2)) {
+                    mongets(mtmp, rn2(2) ? otyp('LOW_BOOTS') : otyp('HIGH_BOOTS'));
+                }
+                if (!rn2(3)) mongets(mtmp, otyp('LEATHER_CLOAK'));
+                if (!rn2(3)) {
+                    mongets(mtmp, otyp('BOW'));
+                    m_initthrow(mtmp, otyp('ARROW'), 12);
+                }
+                break;
+            case pm('HUNTER'):
+                mongets(mtmp, rn2(3) ? otyp('SHORT_SWORD') : otyp('DAGGER'));
+                if (rn2(2)) {
+                    mongets(mtmp, rn2(2)
+                        ? otyp('LEATHER_JACKET')
+                        : otyp('LEATHER_ARMOR'));
+                }
+                mongets(mtmp, otyp('BOW'));
+                m_initthrow(mtmp, otyp('ARROW'), 12);
+                break;
+            case pm('THUG'):
+                mongets(mtmp, otyp('CLUB'));
+                mongets(mtmp, rn2(3) ? otyp('DAGGER') : otyp('KNIFE'));
+                if (rn2(2)) mongets(mtmp, otyp('LEATHER_GLOVES'));
+                mongets(mtmp, rn2(2)
+                    ? otyp('LEATHER_JACKET')
+                    : otyp('LEATHER_ARMOR'));
+                break;
+            case pm('NEANDERTHAL'):
+                mongets(mtmp, otyp('CLUB'));
+                mongets(mtmp, otyp('LEATHER_ARMOR'));
+                break;
+            default:
+                break;
+            }
         }
-        // is_elf / MS_PRIEST / ninja / MS_GUARDIAN deferred
+        // is_elf / MS_PRIEST / ninja deferred
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default
@@ -1330,6 +1400,16 @@ export function makemon(mdat, x, y, mmflags = 0) {
         // C: if (rn2(5) && !u.uhave.amulet) msleeping = 1
         if (rn2(5) && !(game.u?.uhave?.amulet || game.u?.uhave_amulet))
             mtmp.msleeping = 1;
+    }
+
+    // C: in_mklev ndemon/wumpus/long worm/giant eel sleep — before invent
+    if (game.in_mklev) {
+        if ((is_ndemon(ptr) || ptr.mndx === pm('WUMPUS')
+            || ptr.mndx === pm('LONG_WORM') || ptr.mndx === pm('GIANT_EEL'))
+            && !(game.u?.uhave?.amulet || game.u?.uhave_amulet)
+            && rn2(5)) {
+            mtmp.msleeping = 1;
+        }
     }
 
     // C: allow_minvent → is_armed? m_initweap; m_initinv; domestic saddle
