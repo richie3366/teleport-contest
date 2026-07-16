@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0521 — load_soko1_1 must not fill_special_room
+
+- **Status:** fixed (partial — post-fill `place_lregion` / `put_lregion_here`)
+- **Symptom:** seed0116 @12294 C `place_lregion` `rn2(79)` vs JS
+  `rn2(1156)` after matched fill_zoo gold; NOTES guessed irregular cell
+  filter / door adjacency after flip.
+- **Cause:** D-0520 `load_soko1_1` called `fill_special_room` inside the
+  loader; C `load_special` only wallifies/flips/`fixup_special`. Filling
+  runs once later in `makelevel` (`mklev.c:1416`). JS filled the zoo twice
+  (`needfill` stays FILL_NORMAL), so after C’s last gold JS started a
+  second `mkgold`/`rn1`.
+- **C locus:** `sp_lev.c` `load_special` (no fill); `mklev.c` `makelevel`
+  `fill_special_room` loop after `makemaz`.
+- **Change:** `js/mklev.js` `load_soko1_1` — remove premature
+  `fill_special_room` loop; leave fill to makelevel common tail.
+- **Verification:** seed0116 prefix **12294→12330** (runner RNG
+  **12336→12368**/12562) Scr still **110**/127; green+strict PASS;
+  cohort 8/8 PASS (0007/0060/0102/0398/0900/1500/1800/8000).
+- **Named omission:** `put_lregion_here` accepts a spot C rejects
+  (same `rn2(79)/rn2(21)` then JS exits to `rn2(8)`); exclusion zones;
+  `is_exclusion_zone` in put path; other soko*-*.
+- **Next:** diagnose `put_lregion_here` / `bad_location` / typ after flip
+  for that coordinate; or Bar-strt randline / seed5006 dosounds.
+
 ## D-0520 — soko1-1 load_special + builds_up level_difficulty
 
 - **Status:** fixed (partial — fill_zoo cell tail / post-fill place_lregion)

@@ -507,6 +507,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0518 | fixed | print_dungeon(TRUE) wizard ^V `?` force_dest | seed0116 6373→6383; seed0373 2549→2550; next makemaz |
 | D-0519 | fixed | makemaz protofile + bigrm-2 / Bar-strt load | seed0116 6374→9351 Scr 107→110; seed0373 2550→3289 |
 | D-0520 | fixed | soko1-1 load + builds_up difficulty + mimic/soko invent | seed0116 9351→12294 (RNG 12336/12562); Scr 110; next fill_zoo tail / place_lregion |
+| D-0521 | fixed | load_soko1_1 must not fill_special_room (makelevel once) | seed0116 12294→12330 (RNG 12368/12562); Scr 110; next put_lregion_here |
 
 
 

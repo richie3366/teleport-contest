@@ -781,7 +781,8 @@ function load_bar_strt() {
 /**
  * C ref: dat/soko1-1.lua via load_special.
  * Named omissions: solidify_map / premap_detect / ensure_way_out;
- * exclusion zones; COURT/BEEHIVE/… fill_zoo arms beyond ZOO.
+ * exclusion zones; link_doors_rooms full scan; COURT/BEEHIVE/… fill_zoo
+ * arms beyond ZOO. Room fill is deferred to makelevel (not here).
  */
 function load_soko1_1() {
     const g = game;
@@ -941,12 +942,12 @@ function load_soko1_1() {
         }
     }
 
+    // C ref: sp_lev.c load_special — wallify, flip, fixup_special only.
+    // fill_special_room runs once later in makelevel (mklev.c:1416), not here.
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
     fixup_special();
-    for (let i = 0; i < (g.level.nroom | 0); i++)
-        fill_special_room(g.level.rooms[i]);
 }
 
 /** C ref: sp_lev.c add_doors_to_room — scan bbox±1 for doors. */
