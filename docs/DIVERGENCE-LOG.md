@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0484 — dofire empty quiver continue + getobj letter ownership
+
+- **Status:** fixed (partial peel)
+- **Symptom:** seed0007 first RNG miss @2824 — C `rn2(12) @ mcalcmove`
+  vs JS `rn2(7) @ do_attack` (safemon bump). Input desync: getobj More
+  ate invent letter `h` after `f`, so later keys shifted into pet bump.
+- **Cause:** (1) `dofire` returned after `doquiver_core` instead of C's
+  fall-through to getdir/throw; (2) `You("no ammunition readied.")` left
+  NEED_MORE and getobj `flush_topl_more` discarded `h`/`=`/`/`/`\r`
+  before the invent letter (session has no More-dismiss between `f` and
+  `h`).
+- **C locus:** `dothrow.c` `dofire` (!uquiver → You → `doquiver_core` →
+  continue); `invent.c` `getobj` / `topl.c` `tty_yn_function` more;
+  `wintty.c` `tty_nhgetch` NEED_MORE→NON_EMPTY.
+- **Change:** `js/dothrow.js` `dofire` — mark_topline_seen after ammo
+  pline; doquiver then continue with uquiver → getdir like C.
+- **Verification:** rng-diff prefix **2824→2832**; green+strict PASS;
+  cohort seed1500/1800/0101/0013/0006 PASS. Scr still 20/302.
+- **Next:** @2832 C `rn2(1) @ dog_move` vs JS next `distfleeck` —
+  pet candidate j==0 / mfndpos order under whappr=1.
+- **Named omission:** autoquiver body; polearm/bullwhip empty-quiver
+  arms; post-quiver fireassist find_launcher.
+
 ## D-0483 — revert D-0480 serialize space/NO_COLOR coerce
 
 - **Status:** fixed

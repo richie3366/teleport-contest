@@ -470,6 +470,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0481 | fixed | makemon !in_mklev newsym after spawn | seed0006 Scr 106→110; @102→@110 disclose invent |
 | D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
 | D-0483 | fixed | revert D-0480 serialize space/tty_map_color | judge 23→22 correlated; keep strcmpi |
+| D-0484 | fixed | dofire empty-quiver continue + letter More | seed0007 RNG 2824→2832; dog_move next |
 
 
 

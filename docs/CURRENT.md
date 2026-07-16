@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | 2975/16373 | **20**/302 | snake swamp |
+| seed0007 | 2964/16373 | **20**/302 | snake swamp; RNG peel @2832 dog_move |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -69,15 +69,18 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — Scr **20**/302.
+**Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373
+(was 2824); Scr still **20**/302. Next: dog_move `rn2(1)` vs skipped
+pet selection (mfndpos order / whappr).
 
 ```bash
+node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
 **Alternates:** quest early-0 (seed0361/0373); seed0108 wishlist.
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0482.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0484.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
