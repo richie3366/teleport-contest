@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0508 — trapeffect_rust_trap hero+monster (seed0398 @2839)
+
+- **Status:** fixed
+- **Symptom:** seed0398 first RNG miss @2839 — C `rn2(5)` at
+  `distfleeck` vs JS `rn2(20)` after matching `rn2(5)` labeled
+  `trapeffect_rust_trap`. Scr 0; RNG **2840**/3026.
+- **Cause:** `trapeffect_selector` omitted `RUST_TRAP`; JS never
+  called hero `trapeffect_rust_trap` `rn2(5)`. Matched @2838 was
+  JS `distfleeck` arity coincidence with C’s rust aim roll, then
+  JS was already in `m_move` `rn2(20)`.
+- **C locus:** `trap.c` `trapeffect_rust_trap`; selector case
+  `RUST_TRAP`; `water_damage`/`splash_lit` aim arms.
+- **Change:** `js/trap.js` — `trapeffect_rust_trap` hero+monster
+  `rn2(5)` switch + `water_damage`/`splash_lit`; wire selector;
+  `body_part` HEAD/ARM.
+- **Verification:** seed0398 RNG **2840→2853**/3026 (prefix
+  2839→2852); green+strict PASS; cohort **27/27** PASS.
+- **Named omission:** `update_inventory`; lantern dunk in
+  `splash_lit`; `split_mon` body; mlifesaver “starts to fall”;
+  poly `body_part` table; full `erode_obj` rust from water.
+- **Next:** @2852 C `weffects` `rn2(8)` vs JS `rn2(5)`.
+
 ## D-0507 — wish parse_charges + wrp class words (seed0398 @2764)
 
 - **Status:** fixed

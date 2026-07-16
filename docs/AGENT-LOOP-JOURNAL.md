@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:05 — #566 D-0508 trapeffect_rust_trap
+- Objective: seed0398 @2839 C distfleeck rn2(5) vs JS rn2(20)
+- C: `trap.c` `trapeffect_rust_trap` + selector `RUST_TRAP`
+- Cause: selector omitted rust; @2838 match was JS fleeck vs C rust
+  arity coincidence
+- Fix: `js/trap.js` hero+monster rust trap rn2(5)/water_damage;
+  wire selector; body_part HEAD/ARM
+- Verify: seed0398 RNG **2840→2853**/3026 (prefix 2839→2852);
+  green+strict PASS; cohort **27/27** PASS
+- Next: @2852 C `weffects` rn2(8) vs JS rn2(5)
+
 ## 2026-07-16 15:54 — #565 score + D-0507 wish charges/wrp
 - Objective: mandatory full `sessions` (#565÷5); seed0398 wish @2764
 - C: `objnam.c` `readobjnam_parse_charges` + wrp[] class words;

@@ -494,6 +494,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0505 | fixed | tin_details tintxts / homemade (cknown+spe<0) | seed0007 Scr 296→297; @297 Final Attr next |
 | D-0506 | fixed | enlightenment Sleepy + Poison_res + Stealth | seed0007 **PASS** 302/302; suite 29/44 |
 | D-0507 | fixed | wish parse_charges + wrp `wand of X` | seed0398 RNG 2773→2840; suite RNG +84 |
+| D-0508 | fixed | trapeffect_rust_trap hero+mon rn2(5) | seed0398 RNG 2840→2853; @2852 weffects next |
 
 
 
