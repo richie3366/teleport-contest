@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 — D-0490 DIAG (seed0007 @7142)
+- Objective: primary D-0490 — missing `obj_resists` after box unlock.
+- C locus: `dogmove.c` `dog_goal` invent / `dog_move` cand; `dog.c` `dogfood`.
+- Falsified: permanent carrot-before-tripe invent order; geometry-only
+  hero-cell box cand (matched `@7102` same pet@7,3 without +1). DIAG:
+  invent stops on TRIPE; C wants +1 then `rn2(1)`; JS world identical
+  at `@7102` vs `@7142` except `moves` 92→93. Probe +1 dogfood → 7175.
+- Verification: green+strict PASS; no JS production change (DIAG removed).
+- Next: C-only state for that +1 (invent/sack/cand object desync).
+
 ## 2026-07-16 13:47 — #545 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only; D-0490 left open).

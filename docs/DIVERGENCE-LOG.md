@@ -6,16 +6,27 @@ to preserve, record it here.
 
 ## D-0490 — seed0007 @7142 obj_resists vs dog_move rn2(1)
 
-- **Status:** open
+- **Status:** open (DIAG'd; cause not yet ported)
 - **Symptom:** after D-0489, first RNG miss @7142 — C `rn2(100) @
   obj_resists` vs JS `rn2(1)`. Scr **60**/302; matched RNG **7885**/16373.
-- **Observation:** C burns four consecutive `obj_resists` then
-  `dog_move` `rn2(1)`; JS burns three then selection RNG. Classic missing
-  invent/fobj `dogfood`→`obj_resists` scan (one object), post box-unlock.
-- **Rejected (not yet DIAG'd):** raw cause unknown this iteration (#545
-  score cadence). Do not invent invent-scan shims from index alone.
-- **Next:** DIAG which call site emits C's fourth `obj_resists`
-  (dog_goal invent vs fobj vs dog_invent/dog_eat).
+- **Aligned turn shape:** fobj LARGE_BOX + `rn2(8)` APPORT fail + **7**
+  invent `dogfood` (sword…TRIPE, stop) + **C +1 `obj_resists`** +
+  `dog_move` `rn2(1)`. JS stops after TRIPE → selection.
+- **DIAG (#546):** invent `g:TRIPE h:CARROT`; kitten `carni`; pet
+  ortho-adjacent to hero-on-box `(7,2)`; cand cells empty; Conflict
+  false (no ALLOW_U → hero cell not in `mfndpos`). Same JS invent /
+  pet/`fobj`/cands at matched `@7102` (7 invent → `rn2(1)`) vs miss
+  `@7142` (C wants +1) — only `moves` 92→93 between.
+- **Falsified:** permanent carrot-before-tripe invent order (breaks
+  earlier matched invent stops @7078/@7102/@7121); geometry-only
+  “always cand the box” (same pet@7,3 matched @7102 without +1).
+- **Probe (not shipped):** forcing one extra `dogfood` (CARROT or
+  hero-cell box) advances prefix **7142→7175**; next miss
+  `exercise` vs `rn2(7)` / `destroy_arm`.
+- **Next:** explain C-only +1 `obj_resists` after TRIPE on the
+  `moves=93` pet turn despite identical JS world — C invent letter
+  order / sack contents / cand object not visible in JS, or a
+  non-RNG state desync from the rest/`#loot` path.
 
 ## D-0486 — vision_recalc rogue_vision (Is_rogue_level)
 

@@ -69,10 +69,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — **D-0489** fixed (RNG
-prefix **7066→7142**, matched **7309→7885**): `#loot` locked chest →
-`do_loot_cont`/`pick_lock` box occupation. **D-0490** (open): @7142 C
-`rn2(100) @ obj_resists` vs JS `rn2(1)` — after box unlock.
+**Gameplay next:** seed0007 rogue snake swamp — **D-0490** (open,
+DIAG’d #546): @7142 C +1 `obj_resists` after invent stops on TRIPE;
+same JS invent/pet/`fobj` as matched `@7102`. Not invent-order /
+geometry-only. Probe +1 dogfood → prefix **7175** (`exercise` next).
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
