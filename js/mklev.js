@@ -592,9 +592,9 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
- * Bar-strt, Bar-loca, Bar-fila, Bar-filb, soko1-1, tower1.
- * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-goal);
- * tower2/3; create_maze
+ * Bar-strt, Bar-loca, Bar-fila, Bar-filb, soko1-1, soko1-2, soko2-1, tower1.
+ * Named omissions: other bigrm-N / soko2-2 / soko3-* / soko4-* / quest
+ * protos (Bar-goal); tower2/3; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
@@ -695,6 +695,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'soko1-2') {
         load_soko1_2();
+        return true;
+    }
+    if (protofile === 'soko2-1') {
+        load_soko2_1();
         return true;
     }
     return false;
@@ -1797,6 +1801,107 @@ function load_soko1_2() {
         }
     }
 
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/soko2-1.lua via load_special.
+ * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * populate exclusion_zones from des.exclusion; soko2-2 / soko3-* / soko4-*.
+ */
+function load_soko2_1() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.sokoban = true;
+    g.level.flags.sokoban_rules = true;
+    g.Sokoban = true;
+
+    // C ref: dat/soko2-1.lua des.map — 20×12
+    const SOKO2_1_MAP = `
+--------------------
+|........|...|.....|
+|.....-..|.-.|.....|
+|..|.....|...|.....|
+|-.|..-..|.-.|.....|
+|...--.......|.....|
+|...|...-...-|.....|
+|...|..|...--|.....|
+|-..|..|----------+|
+|..................|
+|...|..|------------
+--------            
+`.replace(/^\n/, '');
+    const { xstart, ystart } = splev_apply_centered_map(SOKO2_1_MAP);
+
+    mkstairs(xstart + 6, ystart + 10, 0, null); // des.stair("down", 06, 10)
+    mkstairs(xstart + 16, ystart + 4, 1, null); // des.stair("up", 16, 04)
+
+    {
+        const loc = g.level.at(xstart + 18, ystart + 8);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    // des.region(selection.area(00,00, 19,11), "lit")
+    for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
+        for (let x = xstart; x <= xstart + 19 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
+        for (let x = Math.max(1, xstart); x <= xstart + 19 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE | W_NONPASSWALL;
+            }
+        }
+    }
+
+    const boulderCoords = [
+        [2, 2], [3, 2],
+        [5, 3], [7, 3], [7, 2], [8, 2],
+        [10, 3], [11, 3],
+        [2, 7], [2, 8], [3, 9],
+        [5, 7], [6, 6],
+    ];
+    for (const [mx, my] of boulderCoords) {
+        mksobj_at(BOULDER, xstart + mx, ystart + my, true, true);
+    }
+
+    const trapSpecs = [
+        [ROLLING_BOULDER_TRAP, 7, 9],
+        [HOLE, 8, 9], [HOLE, 9, 9], [HOLE, 10, 9], [HOLE, 11, 9],
+        [HOLE, 12, 9], [HOLE, 13, 9], [HOLE, 14, 9], [HOLE, 15, 9],
+        [HOLE, 16, 9], [HOLE, 17, 9],
+    ];
+    for (const [ttyp, mx, my] of trapSpecs) {
+        const ttmp = maketrap(xstart + mx, ystart + my, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    for (let i = 0; i < 4; i++) splev_create_object(FOOD_CLASS);
+    splev_create_object(RING_CLASS);
+    splev_create_object(WAND_CLASS);
+
+    // C ref: sp_lev.c load_special — wallify, flip, fixup_special
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -2922,10 +3027,15 @@ function good_stair_loc(x, y) {
     return typ === ROOM || typ === CORR || typ === ICE;
 }
 
+/** C ref: sp_lev.c is_ok_location humidity DRY|SPACELOC — SPACE_POS and
+ *  no boulder (unless SOLID). */
 function is_ok_location_dry(x, y) {
     if (!isok(x, y)) return false;
     const typ = game.level.at(x, y)?.typ;
-    return SPACE_POS(typ);
+    if (!SPACE_POS(typ)) return false;
+    // C: bould && !(humidity & SOLID) → reject
+    if (sobj_at(BOULDER, x, y)) return false;
+    return true;
 }
 
 function get_location_random(ok_fn) {

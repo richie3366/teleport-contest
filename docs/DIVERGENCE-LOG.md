@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0547 — soko2-1 load_special + DRY boulder reject
+
+- **Status:** fixed (partial — soko2-2 / soko3-* / soko4-*; solidify/premap)
+- **Symptom:** seed0373 @29189 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `makemaz` `rnd(2)=1` / getbones.
+- **Cause:** (1) `load_special_proto` omitted `soko2-1`, so JS skipped
+  nhlib shuffle and fell through. (2) After loader, object placement
+  diverged @29460 because `is_ok_location_dry` accepted boulder cells
+  while C DRY humidity retries `get_location`.
+- **C locus:** `dat/soko2-1.lua`; `sp_lev.c` `load_special` /
+  `is_ok_location` DRY; `mkmaze.c` `makemaz` protofile `rnd(rndlevs)`.
+- **Change:** `js/mklev.js` `load_soko2_1` + dispatch; `is_ok_location_dry`
+  rejects `sobj_at(BOULDER)` like C.
+- **Verification:** seed0373 rng-diff **29189→29533**; runner RNG
+  **29554**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30).
+- **Named omission:** soko2-2 / soko3-* / soko4-*; solidify_map /
+  premap_detect / exclusion_zones.
+- **Next:** @29533 C nhlib shuffle (likely `soko3-1`); or seed5006
+  `dosounds` @8468.
+
 ## D-0546 — m_initinv S_MUMMY wrapping
 
 - **Status:** fixed (partial — S_DEMON / S_GIANT / S_WRAITH / S_LICH)

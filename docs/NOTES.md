@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0546 done:** `m_initinv` S_MUMMY `rn2(7)`→`MUMMY_WRAPPING`
-  (makemon.c:772). seed0373 rng-diff **25869→29189**; runner RNG
-  **29214**/35386 Scr 22.
-- **seed0373 next:** @29189 C nhlib `shuffle` `rn2(3)` (parent
-  shuffle) vs JS `rn2(79)` — makemaz / special-level path after
-  getbones.
+- **D-0547 done:** `soko2-1` load_special + `is_ok_location_dry`
+  rejects boulder (sp_lev.c DRY). seed0373 rng-diff **29189→29533**;
+  runner RNG **29554**/35386 Scr 22.
+- **seed0373 next:** @29533 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)`
+  — likely `soko3-1` after matched makemaz `rnd(2)=1`.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#605 formal score:** **30/44**, Scr **5900**/11405, RNG
@@ -29,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0546; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0547; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -50,14 +49,15 @@ Objective/score live in `CURRENT.md`.
   `m_initinv` `rn2(20)` SchroedingersBox; skip `soko1-2` when
   `makemaz` `rnd(2)=2`; skip LONG_WORM `initworm`/`place_worm_tail`;
   treat fill_zoo `rn2(100)` @25654 as missing gold roll — was makemon
-  succeeding on worm-seg cells (D-0545); skip S_MUMMY `rn2(7)` wrapping.
+  succeeding on worm-seg cells (D-0545); skip S_MUMMY `rn2(7)` wrapping;
+  skip `soko2-1`; accept DRY `get_location` on boulder cells.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0546
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0547
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -72,11 +72,11 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0546 makemaz / tower1 / Bar / fila / qt_montype / egg /
+- D-0519…D-0547 makemaz / tower1 / Bar / fila / qt_montype / egg /
   WEB spider / offensive FALLTHROUGH / create_monster enexto /
   mineralize / STATUE_TRAP / bigrm-8 / soldier polearm / is_elf /
   QUANTMECH / soko1-2 / LONG_WORM / makemon worm-seg MON_AT /
-  S_MUMMY wrapping — see index.
+  S_MUMMY wrapping / soko2-1 + DRY boulder — see index.
 
 ## Landmarks (≤15)
 
@@ -97,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: next nhlib shuffle @29189 after S_MUMMY.
+  seed0373 tour: next nhlib shuffle @29533 (likely soko3-1).

@@ -19,6 +19,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:52 — #607 D-0547 soko2-1 + DRY boulder
+- Objective: peel seed0373 @29189 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched makemaz `rnd(2)=1`.
+- C locus: `dat/soko2-1.lua`; `sp_lev.c` `load_special` /
+  `is_ok_location` DRY boulder reject.
+- Change: `js/mklev.js` `load_soko2_1` + dispatch; `is_ok_location_dry`
+  rejects `sobj_at(BOULDER)`.
+- Verification: rng-diff **29189→29533**; runner RNG **29554**/35386
+  Scr 22; green+strict PASS; cohort **28**/28 PASS.
+- Next: nhlib shuffle @29533 (likely soko3-1); or dosounds @8468.
+
 ## 2026-07-16 19:43 — #606 D-0546 m_initinv S_MUMMY
 - Objective: peel seed0373 @25869 C `m_initinv` `rn2(7)` vs JS
   trailing `rn2(50)`.
