@@ -12,6 +12,26 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-16 17:49 — #583 D-0525 Bar-strt selection_do_randline
+- Objective: peel seed0373 @3289 C `selection_do_randline` rn2(7) vs
+  JS rn2(79) after forest replace_terrain.
+- C locus: `selvar.c` `selection_do_randline`; `nhlsel.c`
+  `l_selection_randline` (rec=12); `dat/Bar-strt.lua`.
+- Change: port selection new/get/set + `selection_do_randline` in
+  `js/mklev.js`; wire path carve + portal free spot in `load_bar_strt`.
+- Verification: seed0373 **3289→3303**; runner RNG **3343**/35386
+  Scr 20; green+strict; cohort PASS sample held; seed0116 RNG full.
+- Next: @3303 C `induced_align` rn2(3) (Pelias/makemon) vs wallify;
+  or seed5006 dosounds @8468.
+
 ## 2026-07-16 17:46 — #582 D-0524 m_avoid_soko_push_loc
 - Objective: peel seed0116 @12521 C `distfleeck` rn2(5) vs JS
   `dog_move` rn2(3).
@@ -20,14 +40,6 @@ Use this shape:
 - Verification: seed0116 RNG **full 12562**/12562; Scr still 110/127;
   green+strict; cohort **30/30** PASS.
 - Next: seed0116 screen residual; or Bar-strt @3289 / dosounds @8468.
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-16 17:40 — #581 D-0523 were_change from m_calcdistress
 - Objective: peel seed0116 @12461 C `were_change` `rn2(50)` vs JS
@@ -138,38 +150,3 @@ Use this shape:
   **4182→8468** Scr **4→121**; green+strict; cohort **28/28**.
   seed0373 still @2549 (`print_dungeon` `?`). Suite survey **30/44**.
 - Next: seed0116 `zap_dig` / seed5006 `dosounds` / seed0373 menu.
-
-## 2026-07-16 16:35 — #571 D-0513/D-0514 seed0398 PASS
-- Objective: seed0398 @48 shudder + remaining end screens.
-- C locus: `zap.c` `zapwrapup`; `end.c` `done2` Dump core / stopprint;
-  `topten.c` wizard early-exit; `really_done` trailing raw blanks.
-- Change: `You_feel` shudder; wizard `Dump core?` ynq; skip rip on
-  stopprint; wizard topten msg; `raw_print_blanks(2)`; GameDisplay
-  `getCursor`.
-- Verification: seed0398 **87/87 PASS**; green+strict; cohort **28/28**.
-- Next: near-miss survey / LB gap; suite refresh @#575.
-
-## 2026-07-16 16:30 — #570 score + D-0512 !verbose drop topline
-- Mandatory full `sessions` (#570÷5): **29/44**, Scr **5520**/11405,
-  RNG **303491**/792838 (38.28%), `27+0.12/turn`. Δ vs #565 Scr +224.
-- Objective: seed0398 @28 blank vs C drop getobj leftover.
-- C: `getobj`→`yn_function` leaves toplines; `!verbose` silent `drop`;
-  `parse` `clear_nhwindow(WIN_MESSAGE)`; cursor on hero for leftovers.
-- Fix: `getobj_drop` via `yn_function` + `mark_topline_prompt`;
-  `clear_nhwindow_message` clears pending; drop getobj cursor steal
-  from `flush_screen`.
-- Verify: seed0398 Scr **77→83**/87; green+strict; cohort **27/27**;
-  full suite still **29/44**.
-- Next: @48 `You feel shuddering vibrations.`
-
-## 2026-07-16 16:21 — #569 D-0511 set_playmode plname wizard
-- Objective: seed0398 first-cell screen (Scr 0/87, RNG full)
-- C: `options.c` `set_playmode` → `strcpy(plname,"wizard")` when
-  wizard; unixmain calls before plnamesuffix. JS `setup_role_race_from_rc`
-  re-applied `OPTIONS=name` after that.
-- Fix: `js/options.js` `set_playmode`; `jsmain` call after rc flags;
-  drop `u_init` plname rewrite from opts.name.
-- Verify: seed0398 Scr **0→77**/87; green+strict PASS; cohort **27/27**
-  PASS. First remaining miss @28 blank drop getobj topline.
-- Next: seed0398 @28 `What do you want to drop?` capture/paint
-

@@ -7,8 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0524 done:** `m_avoid_soko_push_loc` (was stubbed false).
-  seed0116 RNG **full 12562**/12562; Scr still **110**/127.
+- **D-0525 done:** `selection_do_randline` + Bar-strt path carve.
+  seed0373 rng-diff **3289→3303**; next C `induced_align` `rn2(3)` @3303.
+- **seed0373 next:** Bar-strt after randline — Pelias/`makemon` path
+  (`induced_align`) before wallify; regions/doors may be RNG-free.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
@@ -18,26 +20,27 @@ Objective/score live in `CURRENT.md`.
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
   node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
   node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
   ```
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0524; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0525; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
-  skip `were_change` in `m_calcdistress`; stub `m_avoid_soko_push_loc`.
+  skip `were_change` in `m_calcdistress`; stub `m_avoid_soko_push_loc`;
+  skip Bar-strt `selection.randline` after forest replace_terrain.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0524
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0525
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -60,6 +63,7 @@ Objective/score live in `CURRENT.md`.
 - D-0522: seed0116 @12330 was **not** typ/exclusion — TELE on `m_at`.
 - D-0523: seed0116 @12461 was missing `were_change` in distress.
 - D-0524: seed0116 @12521 was stubbed `m_avoid_soko_push_loc`.
+- D-0525: seed0373 @3289 was missing Bar-strt `selection_do_randline`.
 
 ## Landmarks (≤15)
 

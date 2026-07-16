@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0525 — Bar-strt selection_do_randline path carve
+
+- **Status:** fixed (partial — Bar-strt loader continues)
+- **Symptom:** seed0373 @3289 C `selection_do_randline` `rn2(7)` vs JS
+  `rn2(79)` after matched `lspo_replace_terrain` forest strips.
+- **Cause:** `load_bar_strt` stopped after replace_terrain and jumped to
+  wallify; C runs `des.terrain(selection.randline(..., 37,7, 62,02, 7), ".")`
+  then portal free spot before regions/monsters.
+- **C locus:** `selvar.c` `selection_do_randline`; `nhlsel.c`
+  `l_selection_randline` (rec=12); `dat/Bar-strt.lua`.
+- **Change:** port `selection_new`/`getpoint`/`setpoint`/
+  `selection_do_randline` in `js/mklev.js`; wire map-relative path carve +
+  `{62,02}` ROOM in `load_bar_strt`.
+- **Verification:** seed0373 rng-diff **3289→3303**; runner RNG
+  **3343**/35386 Scr still 20/124; green+strict PASS; cohort PASS
+  sample held; seed0116 RNG still full 12562 Scr 110/127.
+- **Named omission:** Bar-strt lit regions, stairs, branch levregion,
+  doors, Pelias invent, chest/chieftains, non_diggable, spiked pit,
+  eels, ogre floodfill.
+- **Next:** @3303 C `induced_align` `rn2(3)` (Pelias/makemon path) vs
+  JS wallify `rn2(79)`; or seed5006 `dosounds` @8468.
+
 ## D-0524 — m_avoid_soko_push_loc must skip boulder-line cells
 
 - **Status:** fixed

@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 3346/35386 | 20/124 | D-0519; next Bar-strt randline @3289 |
+| seed0373 | 3343/35386 | 20/124 | D-0525; next induced_align @3303 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,18 +71,19 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0524 (`m_avoid_soko_push_loc`), seed0116
-RNG is full; residual **Scr 110**/127 (display/cursor). Prefer
-Bar-strt `selection_do_randline` (seed0373 @3289) or seed5006
-`dosounds` @8468 over parked seed2200 RC.
+**Gameplay next:** after D-0525 (Bar-strt `selection_do_randline`),
+seed0373 next @3303 C `induced_align` `rn2(3)` (Pelias/`makemon`
+path) vs JS wallify. Continue Bar-strt loader (regions/stairs/doors/
+Pelias) or peel seed5006 `dosounds` @8468. Prefer over parked
+seed2200 RC / seed0116 screen residual.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
 node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
+node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0524.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0525.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

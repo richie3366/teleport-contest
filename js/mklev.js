@@ -754,9 +754,10 @@ function load_bigrm_2() {
 
 /**
  * C ref: dat/Bar-strt.lua via load_special — map + forest replace_terrain
- * envelope; remaining des.* (randline, monsters, portal) partial.
- * Named omissions: randline path carve; Pelias invent; ogre floodfill;
- * branch levregion; door/monster/trap tail after replace_terrain.
+ * + randline path carve; remaining des.* (regions, Pelias, ogres, portal)
+ * partial.
+ * Named omissions: lit regions; stairs; branch levregion; doors; Pelias
+ * invent; chest/chieftains; non_diggable; spiked pit; eels; ogre floodfill.
  */
 function load_bar_strt() {
     const g = game;
@@ -800,6 +801,17 @@ function load_bar_strt() {
     lspo_replace_terrain_region(37, 0, 59, 19, ROOM, TREE, 5);
     lspo_replace_terrain_region(60, 0, 64, 19, ROOM, TREE, 10);
     lspo_replace_terrain_region(65, 0, 75, 19, ROOM, TREE, 20);
+
+    // des.terrain(selection.randline(selection.new(), 37,7, 62,02, 7), ".")
+    // C: nhlsel.c l_selection_randline → get_location_coord then
+    // selection_do_randline(..., roughness, 12, sel)
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+    const pathSel = selection_new();
+    selection_do_randline(mx + 37, my + 7, mx + 62, my + 2, 7, 12, pathSel);
+    selection_iterate(pathSel, (x, y) => sel_set_ter(x, y, ROOM, false));
+    // des.terrain({62,02}, ".") — portal free spot
+    sel_set_ter(mx + 62, my + 2, ROOM, false);
 
     // Remainder of Bar-strt.lua deferred (C-JS-MAP) — still wallify/fixup
     if (!g.level.flags.corrmaze)
@@ -3166,6 +3178,66 @@ function selection_iterate(sel, fn) {
             if (sel.pts.has(`${x},${y}`)) fn(x, y);
         }
     }
+}
+
+// C ref: selvar.c selection_new — empty COLNO×ROWNO selection (Set-backed)
+function selection_new() {
+    return { pts: new Set(), lx: COLNO, ly: ROWNO, hx: 0, hy: 0 };
+}
+
+// C ref: selvar.c selection_getpoint
+function selection_getpoint(x, y, sel) {
+    if (!sel || x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return 0;
+    return sel.pts.has(`${x},${y}`) ? 1 : 0;
+}
+
+// C ref: selvar.c selection_setpoint — set/clear; update bounds on set
+function selection_setpoint(x, y, sel, c) {
+    if (!sel || x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return;
+    const key = `${x},${y}`;
+    if (c) {
+        sel.pts.add(key);
+        if (x < sel.lx) sel.lx = x;
+        if (y < sel.ly) sel.ly = y;
+        if (x > sel.hx) sel.hx = x;
+        if (y > sel.hy) sel.hy = y;
+    } else {
+        sel.pts.delete(key);
+    }
+}
+
+// C ref: selvar.c selection_do_randline — recursive midpoint displace
+// Caller: nhlsel.c l_selection_randline passes rec=12.
+function selection_do_randline(x1, y1, x2, y2, rough, rec, ov) {
+    if (rec < 1 || (x2 === x1 && y2 === y1)) return;
+
+    let r = rough | 0;
+    const span = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+    if (r > span) r = span;
+
+    let mx, my;
+    if (r < 2) {
+        mx = ((x1 + x2) / 2) | 0;
+        my = ((y1 + y2) / 2) | 0;
+    } else {
+        let dx, dy;
+        do {
+            dx = rn2(r) - ((r / 2) | 0);
+            dy = rn2(r) - ((r / 2) | 0);
+            mx = (((x1 + x2) / 2) | 0) + dx;
+            my = (((y1 + y2) / 2) | 0) + dy;
+        } while (mx > COLNO - 1 || mx < 0 || my < 0 || my > ROWNO - 1);
+    }
+
+    if (!selection_getpoint(mx, my, ov)) {
+        selection_setpoint(mx, my, ov, 1);
+    }
+
+    r = ((r * 2) / 3) | 0;
+    rec--;
+    selection_do_randline(x1, y1, mx, my, r, rec, ov);
+    selection_do_randline(mx, my, x2, y2, r, rec, ov);
+    selection_setpoint(x2, y2, ov, 1);
 }
 
 // C ref: sp_lev.c get_location with croom → somexy for random room place
