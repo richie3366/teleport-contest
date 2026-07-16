@@ -7,13 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0557 done:** sticky `g.Sokoban` cleared in `clear_level_structures`
-  + getlev sync; `rnd_defensive_item` uses level `sokoban_rules`.
-  seed0373 **32011→32419**; runner RNG **32421**/35386.
-- **seed0373 next:** @32419 C `collect_coords` `rn2(8)` vs JS `rn2(12)`.
-  Hypothesis: fire-plane tele/`safe_teleds` filter yields different
-  candidate counts before scramble. Falsify: compare `collect_coords`
-  result count + filter predicates vs C `teleport.c` ~684–708.
+- **D-0558 done:** endgame `resurrect` Wizard on `newdungeon`+amulet;
+  Wizard `adj_lev` / `iswiz` / `no_of_wizards`. seed0373 **32419→32473**.
+- **seed0373 next:** @32473 C `readobjnam`/`makewish` (session ESC on
+  wish prompt after Wizard voice). Falsify: wire `makewish` getlin ESC
+  → `readobjnam(null)` random oclass path vs C zap.c ~6360–6421.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#615 formal score:** **30/44**, Scr **5901**/11405, RNG
@@ -30,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0557; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0558; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -62,14 +60,15 @@ Objective/score live in `CURRENT.md`.
   burn `d(m_lev,8)` for golems (D-0554);
   single-loop WET search for amphibious before DRY (D-0555);
   stub S_LIZARD salamander weap (D-0556);
-  leave sticky `g.Sokoban` after leaving Sokoban (D-0557).
+  leave sticky `g.Sokoban` after leaving Sokoban (D-0557);
+  skip endgame `resurrect` Wizard on newdungeon+amulet (D-0558).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0557
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0558
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -81,7 +80,7 @@ Objective/score live in `CURRENT.md`.
 - D-0513: `zapwrapup` must `You_feel` shudder (not defer).
 - D-0514: wizard `#quit` → `Dump core?` before disclose.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0557 makemaz / tower / Bar / soko / endgame — see index.
+- D-0519…D-0558 makemaz / tower / Bar / soko / endgame — see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -97,4 +96,4 @@ Objective/score live in `CURRENT.md`.
 - D-0502: `find_ac` ARM_BONUS; Scr 126→291.
 - Water moccasin `hides_under` (M1_CONCEAL); Rogue leather +1 → AC 7.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 @32419 collect_coords rn2(8) vs rn2(12) after D-0557.
+- seed0373 @32473 makewish/readobjnam after D-0558 Wizard resurrect.

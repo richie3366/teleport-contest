@@ -527,6 +527,13 @@ export function mkclass_aligned(mletClass, spc = 0, atyp = A_NONE) {
 
 // C ref: makemon.c adj_lev() — no RNG
 function adj_lev(ptr) {
+    // C: Wizard level = base + times killed (capped 49); independent of depth
+    if ((ptr?.mndx | 0) === pm('WIZARD_OF_YENDOR')) {
+        let tmp = (ptr.mlevel | 0)
+            + ((game.mvitals?.[ptr.mndx]?.died | 0));
+        if (tmp > 49) tmp = 49;
+        return tmp;
+    }
     let tmp = ptr.mlevel;
     if (tmp > 49) return 50;
     let tmp2 = level_difficulty() - tmp;
@@ -1760,12 +1767,13 @@ export function makemon(mdat, x, y, mmflags = 0) {
             mtmp.msleeping = 1;
     }
 
-    // C ref: makemon.c — cham / Vlad candelabrum / newcham before invent.
-    // Named omissions: Wizard/Croesus/nemesis/pestilence mitem arms;
-    // Protection_from_shape_changers; chameleon non-vamp newcham.
+    // C ref: makemon.c — cham / Vlad candelabrum / Wizard iswiz / newcham.
+    // Named omissions: Croesus/nemesis/pestilence mitem; first-Wizard
+    // SPE_DIG on earth; Protection_from_shape_changers; non-vamp newcham.
     let allow_minvent_local = allow_minvent;
     let mitem = -1; // STRANGE_OBJECT
     const PM_VLAD = pm('VLAD_THE_IMPALER');
+    const PM_WIZ = pm('WIZARD_OF_YENDOR');
     if (ptr.mndx === PM_VLAD) mitem = otyp('CANDELABRUM_OF_INVOCATION');
     mtmp.cham = NON_PM;
     {
@@ -1776,6 +1784,13 @@ export function makemon(mdat, x, y, mmflags = 0) {
             if (ptr.mndx !== PM_VLAD && newcham(mtmp, null, 0))
                 allow_minvent_local = false;
         }
+    }
+    if (ptr.mndx === PM_WIZ) {
+        // C: mtmp->iswiz = TRUE; context.no_of_wizards++
+        mtmp.iswiz = true;
+        if (!game.context) game.context = {};
+        game.context.no_of_wizards = (game.context.no_of_wizards | 0) + 1;
+        // SPE_DIG when first Wizard on earth — deferred (fire/air/water first)
     }
     if (mitem >= 0 && allow_minvent_local) mongets(mtmp, mitem);
 

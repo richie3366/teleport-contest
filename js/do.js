@@ -47,7 +47,8 @@ import { more_experienced, newexplevel } from './exper.js';
 import { PM_TOURIST } from './generated/monsters_data.js';
 import { dismount_steed } from './steed.js';
 import { onquest } from './quest.js';
-import { In_quest } from './const.js';
+import { In_quest, In_endgame } from './const.js';
+import { resurrect } from './wizard.js';
 
 /**
  * C ref: nhlua.c nhl_gamestate(false) via tutorial_enter / tutorial(TRUE).
@@ -268,11 +269,13 @@ async function selftouch_stair_fall(_arg) {
  * stairway_find_from → climb/descend pline (Flying / encumber|Punished|
  * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs → vision/docrt →
  * pickup(1).
- * Deferred: binary NHFILE, mysterious force, quest gate, portals, endgame,
- * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
- * familiar_level_msg, temperature/hellish, Flying/Punished climb variants,
- * Punished `drag_down`/`ballrelease`, full `selftouch` petrify, u_collide_m
- * full limbo. Ported: In_quest `onquest`/`qt_pager("firsttime")` nhl shuffle.
+ * Deferred: binary NHFILE, mysterious force, quest gate, portals, endgame
+ * astral `final_level` / migrating-Wizard resurrect arm, trap-door fall
+ * damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE, familiar_level_msg,
+ * temperature/hellish, Flying/Punished climb variants, Punished
+ * `drag_down`/`ballrelease`, full `selftouch` petrify, u_collide_m full
+ * limbo. Ported: In_quest `onquest`; In_endgame `newdungeon`+amulet
+ * `resurrect` new-Wizard makemon.
  */
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
@@ -500,8 +503,16 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.dfr_post_msg = null;
         await pline(msg);
     }
-    // C: else if (In_quest(&u.uz)) onquest();
-    if (In_quest(u.uz)) await onquest();
+    // C: if (In_endgame) { … else if (newdungeon && amulet) resurrect(); }
+    //     else if (In_quest) onquest();
+    if (In_endgame(u.uz)) {
+        // ACH_ENDG / astral final_level deferred
+        if (newdungeon && (u.uhave?.amulet || u.uhave_amulet)) {
+            await resurrect();
+        }
+    } else if (In_quest(u.uz)) {
+        await onquest();
+    }
 
     // C: goto_level `if (new)` Tourist more_experienced(level_difficulty())
     // level_difficulty ≈ depth(&u.uz) outside endgame/amulet/builds_up.

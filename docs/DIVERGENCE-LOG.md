@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0558 — endgame resurrect Wizard on newdungeon+amulet
+
+- **Status:** fixed (partial — migrating-Wizard arm deferred; SPE_DIG on
+  earth; astral `final_level`)
+- **Symptom:** seed0373 @32419 C `collect_coords` `rn2(8)` vs JS
+  `rn2(12)` after matched fumaroles (post D-0557). DIAG: JS was already
+  in `mcalcmove` (moveloop); C was `resurrect`→`makemon(Wizard)`→
+  `enexto` nearcandy scramble.
+- **Cause:** `goto_level` omitted `In_endgame && newdungeon && amulet`
+  → `resurrect()`. Also missing Wizard `adj_lev` / `iswiz` /
+  `no_of_wizards++`.
+- **C locus:** `do.c` `goto_level` endgame block; `wizard.c` `resurrect`;
+  `makemon.c` `adj_lev` / Wizard `iswiz`.
+- **Change:** new `js/wizard.js` `resurrect`; `js/do.js` call site;
+  `js/makemon.js` Wizard `adj_lev` + `iswiz`/`no_of_wizards`.
+- **Verification:** seed0373 rng-diff **32419→32473**; runner RNG
+  **32473**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS.
+- **Next:** @32473 `makewish`/`readobjnam` (ESC wish abort); or
+  seed5006 `dosounds` @8468.
+
 ## D-0557 — sticky Sokoban after level leave (rnd_defensive dig-avoid)
 
 - **Status:** fixed (partial — trap/monmove still consult `g.Sokoban` alias;
