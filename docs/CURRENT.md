@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#555**),
-post D-0497. Screens **5054**/11405; RNG **303218**/792838 (38.24%).
-**28/44** PASS. Speed `26+0.14/turn`. Δ vs #550: Scr **0**, PASS **28→28**,
-RNG **+1034** (+0.13pp); speed label `25→26`.
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#560**),
+post D-0502. Screens **5285**/11405; RNG **303218**/792838 (38.24%).
+**28/44** PASS. Speed `25+0.13/turn`. Δ vs #555: Scr **+231**, PASS **28→28**,
+RNG **0**; seed0007 Scr 126→291 (D-0502 `find_ac` ARM_BONUS).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **28 / 44** |
-| Screens matched | **5,054 / 11,405** |
+| Screens matched | **5,285 / 11,405** |
 | Positional RNG calls matched | **303,218 / 792,838** (38.24%) |
-| Speed label | `26+0.14/turn` (R² 0.74) |
+| Speed label | `25+0.13/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | **16373**/16373 | **84**/302 | D-0498 doset; @38 botl next |
+| seed0007 | **16373**/16373 | **291**/302 | D-0502 AC; @150 tin name next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -69,16 +69,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel @124** (D-0502 next). RNG full
-**16373**/16373; Scr **126**/302 after D-0501 lootabc + take-out
-INVORDER_SORT + gold `bot()` (was 116; @111/@116 loot menus fixed).
-@124: botl `AC:9` vs JS `AC:7` (armor/wear after chest loot).
+**Gameplay next:** seed0007 — **screen peel @150** (D-0503 next). RNG full
+**16373**/16373; Scr **291**/302 after D-0502 `find_ac` ARM_BONUS erosion
+(was 126; @124 AC:9 fixed). @150: Take-out menu `c - a tin` (C) vs
+`c - a tin of lichen` (JS) — doname/truncation in loot list.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0501.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0502.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

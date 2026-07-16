@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0502 — find_ac ARM_BONUS erosion (seed0007 @124 AC)
+
+- **Status:** fixed
+- **Symptom:** after D-0501, first cell miss @124 (Scr **126**/302) —
+  botl `AC:9` (C) vs `AC:7` (JS) after chest loot. RNG full.
+- **Cause:** JS `find_ac` used `a_ac + spe` only; C `ARM_BONUS` is
+  `a_ac + spe - min(greatest_erosion, a_ac)`. Rogue start leather is
+  `+1` (AC 7 when uneroded); eroded suit yields AC 9. Also omitted
+  ring-of-protection / amulet-of-guarding / HProtection / uspellprot
+  and form-base `mons[umonnum].ac`.
+- **C locus:** `do_wear.c` `find_ac`; `hack.h` `ARM_BONUS`; `obj.h`
+  `greatest_erosion`.
+- **Change:** `js/u_init.js` `find_ac` — ARM_BONUS + rings/amulet/
+  intrinsic Protection/`uspellprot`; set `botl` on AC change.
+- **Verification:** seed0007 Scr **126→291**/302; first miss @150
+  tin doname; RNG full; green+strict PASS; cohort **26/26** PASS;
+  full suite #560 **28/44**, Scr **5285**/11405.
+- **Named omission:** monster `find_mac` ARM_BONUS still spe-only in
+  places; full `HProtection` prop wiring beyond intrinsic bits.
+- **Next:** seed0007 @150 Take-out `a tin` vs `a tin of lichen`.
+
 ## D-0501 — lootabc display + take-out INVORDER_SORT + gold bot()
 
 - **Status:** fixed

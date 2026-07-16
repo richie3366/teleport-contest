@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:31 — #560 score + D-0502 find_ac ARM_BONUS
+- Objective: mandatory full `sessions` score (#560÷5); seed0007 @124 AC
+- C locus: `do_wear.c` `find_ac` / `hack.h` `ARM_BONUS`
+- Change: `js/u_init.js` `find_ac` — erosion via ARM_BONUS + rings/
+  amulet/HProt/uspellprot; botl on change (D-0502)
+- Verification: seed0007 Scr **126→291**/302 RNG full; green+strict;
+  cohort 26/26; full suite **28/44** Scr **5285**/11405 RNG 303218
+  (38.24%) speed `25+0.13/turn`
+- Next: seed0007 @150 Take-out `a tin` vs `a tin of lichen` (D-0503)
+
+
 ## 2026-07-16 15:28 — D-0501 lootabc + take-out sort + gold bot()
 - Objective: primary seed0007 screen peel @116 (`#loot` take-out;
   first cell miss was @111 lootabc letters).
