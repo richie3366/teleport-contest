@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Gameplay next:** seed0398 post D-0511 — RNG **3026**/3026, Scr **77**/87.
-  First miss @28: C topline `What do you want to drop? [a-o or ?*]` vs
-  JS blank (cursor matches). Likely getobj prompt paint/capture.
+- **Gameplay next:** seed0398 post D-0512 — RNG **3026**/3026, Scr **83**/87.
+  First miss @48: C topline `You feel shuddering vibrations.` vs JS blank
+  (cursor matches). Likely poly/zap aftermath pline omission.
   Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
@@ -18,7 +18,8 @@ Objective/score live in `CURRENT.md`.
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
-  walk/run after `_` travel; batch doset toggle plines (D-0499).
+  walk/run after `_` travel; batch doset toggle plines (D-0499);
+  steal hero cursor for leftover getobj text in `flush_screen`.
 - **Parked:** D-0006; seed2200 @158 RC path.
 
 ## Don’t re-check (≤15)
@@ -26,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0511
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0512
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,9 +39,10 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0510 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly/wizgenesis done.
-- D-0511: `playmode:debug` → `set_playmode` plname `"wizard"`; do not
-  re-apply `OPTIONS=name` from `setup_role_race_from_rc`.
+- D-0490…D-0511 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly/wizgenesis/plname done.
+- D-0512: !verbose drop leaves getobj topline until parse clear;
+  do not wipe `_pending_message` on getobj return; do not pin cursor
+  on leftover `What do you want` text at rhack.
 
 ## Landmarks (≤15)
 
@@ -50,7 +52,7 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482; seed0007 **PASS** after D-0506.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #565 score: **29/44**, Scr 5296, RNG 303302 (38.26%), `25+0.13/turn`.
+- #570 score: **29/44**, Scr 5520, RNG 303491 (38.28%), `27+0.12/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.

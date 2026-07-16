@@ -498,6 +498,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0509 | fixed | IMMEDIATE weffects bhit/bhito WAN_POLYMORPH | seed0398 RNG 2853→2960; @2960 collect_coords next |
 | D-0510 | fixed | #wizgenesis create_particular named makemon | seed0398 RNG 2960→3026 full; Scr 0/87 next |
 | D-0511 | fixed | set_playmode plname "wizard" + no u_init rewrite | seed0398 Scr 0→77; @28 drop getobj next |
+| D-0512 | fixed | !verbose drop getobj leave topline + parse clear/cursor | seed0398 Scr 77→83; @48 shudder next |
 
 
 

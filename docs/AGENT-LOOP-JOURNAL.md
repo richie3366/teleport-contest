@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:30 — #570 score + D-0512 !verbose drop topline
+- Mandatory full `sessions` (#570÷5): **29/44**, Scr **5520**/11405,
+  RNG **303491**/792838 (38.28%), `27+0.12/turn`. Δ vs #565 Scr +224.
+- Objective: seed0398 @28 blank vs C drop getobj leftover.
+- C: `getobj`→`yn_function` leaves toplines; `!verbose` silent `drop`;
+  `parse` `clear_nhwindow(WIN_MESSAGE)`; cursor on hero for leftovers.
+- Fix: `getobj_drop` via `yn_function` + `mark_topline_prompt`;
+  `clear_nhwindow_message` clears pending; drop getobj cursor steal
+  from `flush_screen`.
+- Verify: seed0398 Scr **77→83**/87; green+strict; cohort **27/27**;
+  full suite still **29/44**.
+- Next: @48 `You feel shuddering vibrations.`
+
 ## 2026-07-16 16:21 — #569 D-0511 set_playmode plname wizard
 - Objective: seed0398 first-cell screen (Scr 0/87, RNG full)
 - C: `options.c` `set_playmode` → `strcpy(plname,"wizard")` when

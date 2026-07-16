@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0512 — !verbose drop getobj leftover topline (seed0398 @28)
+- **Status:** fixed
+- **Symptom:** seed0398 Scr **77**/87 — first miss @28: C still shows
+  `What do you want to drop? [a-o or ?*]` with hero cursor vs JS blank
+  (or, after leaving prompt text, cursor stuck on topline).
+- **Cause:** With `OPTIONS=!verbose`, C `drop()` is silent and
+  `getobj`→`yn_function` leaves `gt.toplines` TOPLINE_NON_EMPTY until
+  `parse()` `clear_nhwindow(WIN_MESSAGE)`. JS wiped `_pending_message`
+  on getobj return; `clear_nhwindow_message` no-op'd when `_toplin`
+  stayed EMPTY; `flush_screen` matched `/^What do you want/` and stole
+  the hero cursor for leftover prompts.
+- **C locus:** `invent.c` `getobj` → `yn_function`; `do.c` `drop`
+  (`flags.verbose`); `cmd.c` `parse` clear; tty cursor on map.
+- **Change:** `getobj_drop` via `yn_function`; `mark_topline_prompt`;
+  `clear_nhwindow_message` clears pending; remove getobj cursor steal
+  from `flush_screen` (callers set cursor while awaiting input).
+- **Verification:** seed0398 Scr **77→83**/87 (RNG 3026/3026);
+  green+strict PASS; cohort **27/27** PASS; full suite **29/44**,
+  Scr 5520/11405.
+- **Named omission:** shuddering vibrations @48; end-disclose Dump
+  core vs invent yn @84; getobj `?`/`*` menus / ALLOWCNT split.
+- **Next:** @48 `You feel shuddering vibrations.` vs blank.
+
 ## D-0511 — set_playmode plname "wizard" (seed0398 Scr 0)
 - **Status:** fixed
 - **Symptom:** seed0398 Scr **0**/87 (RNG full) — first cell

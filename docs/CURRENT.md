@@ -21,21 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#565**),
-post D-0507. Screens **5296**/11405; RNG **303302**/792838 (38.26%).
-**29/44** PASS. Speed `25+0.13/turn`. Δ vs #564: Scr **0**, PASS **0**,
-RNG **+84**; seed0398 wish charges/wrp (D-0507) RNG 2773→2840.
-*(#566–#569: D-0508…D-0511 seed0398 peels; full suite not due. #569:
-seed0398 Scr **0→77**/87 after set_playmode; RNG still full.)*
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#570**),
+post D-0512. Screens **5520**/11405; RNG **303491**/792838 (38.28%).
+**29/44** PASS. Speed `27+0.12/turn`. Δ vs #565: Scr **+224**, PASS **0**,
+RNG **+189**; seed0398 Scr 0→83 after D-0508…D-0512 peels (+6 this iter).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **29 / 44** |
-| Screens matched | **5,296 / 11,405** |
-| Positional RNG calls matched | **303,302 / 792,838** (38.26%) |
-| Speed label | `25+0.13/turn` (R² 0.76) |
+| Screens matched | **5,520 / 11,405** |
+| Positional RNG calls matched | **303,491 / 792,838** (38.28%) |
+| Speed label | `27+0.12/turn` (R² 0.68) |
 | Role-init throws | **0 / 44** |
 
 **PASS (29):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -48,7 +46,7 @@ seed0012, seed0004, seed0002, seed0006, **seed0007**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0398 | **3026**/3026 | **77**/87 | D-0511 plname; @28 drop getobj next |
+| seed0398 | **3026**/3026 | **83**/87 | D-0512 drop topline; @48 shudder next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -71,16 +69,15 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0398 after D-0511 `set_playmode` — RNG **3026**/3026;
-Scr **77**/87. First miss @28: C `What do you want to drop? [a-o or ?*]`
-vs JS blank topline (cursor OK). Peel getobj drop prompt paint/capture.
-Do **not** reopen D-0474…D-0511.
+**Gameplay next:** seed0398 after D-0512 — RNG **3026**/3026; Scr **83**/87.
+First miss @48: C `You feel shuddering vibrations.` vs JS blank (cursor OK).
+Do **not** reopen D-0474…D-0512.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0511.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0512.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

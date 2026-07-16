@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, flush_topl_more, pline } from './display.js';
+import { flush_screen, flush_topl_more, pline, mark_topline_prompt } from './display.js';
 import { COLNO } from './const.js';
 
 /**
@@ -519,7 +519,9 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
         prompt = `${query} `;
     }
     for (;;) {
-        game._pending_message = prompt;
+        // C: tty_yn_function leaves gt.toplin TOPLINE_NON_EMPTY so the
+        // next parse() clear_nhwindow(WIN_MESSAGE) blanks a silent follow-up.
+        mark_topline_prompt(prompt);
         await flush_screen(1);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(prompt.length, 0);
