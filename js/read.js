@@ -1,13 +1,15 @@
 // read.js — Read command / scroll effects (partial).
 // C ref: read.c doread, seffects, seffect_magic_mapping, seffect_teleportation,
-// seffect_light / litroom / set_lit, seffect_remove_curse; invent.c getobj;
-// detect.c do_mapping; spell.c study_book (via spell.js); teleport.c
-// scrolltele/safe_teleds; zap.c lightdamage (non-gremlin stub);
-// do_name.c trycall; mkobj.c uncurse/blessorcurse.
+// seffect_light / litroom / set_lit, seffect_remove_curse,
+// seffect_enchant_weapon; invent.c getobj; detect.c do_mapping; spell.c
+// study_book (via spell.js); teleport.c scrolltele/safe_teleds; zap.c
+// lightdamage (non-gremlin stub); do_name.c trycall; mkobj.c uncurse/
+// blessorcurse; wield.c chwepon.
 //
 // Branch envelope: getobj read loop (scrolls/spellbooks + ?/* pickinv) +
 // SCROLL_CLASS path for SCR_MAGIC_MAPPING / SCR_TELEPORTATION / SCR_LIGHT /
-// SCR_REMOVE_CURSE + SPBOOK_CLASS → study_book (already-known refresh yn).
+// SCR_REMOVE_CURSE / SCR_ENCHANT_WEAPON + SPBOOK_CLASS → study_book
+// (already-known refresh yn).
 // Named omissions: fortune/shirt/credit-card/marker/coin/orb/candy/Braille
 // Blind gates; study_book occupation/learn / novel / cursed_book; other
 // seffect_*; nommap/Hallucination/blessed-SDOOR convert body;
@@ -16,14 +18,16 @@
 // confused light yellow/black-light pets; snuff_lit / impact_arti_light /
 // Punished ball; gremlin light-hit list; Rogue whole-room light; Sunsword
 // radius-0; remove-curse shop water costly_alteration; Punished/unpunish;
-// buried_ball_to_freedom; steed saddle Yobjnam2 glow; update_inventory.
+// buried_ball_to_freedom; steed saddle Yobjnam2 glow; update_inventory;
+// enchant-weapon confused erodeproof Yobjnam2/hcolor polish; twoweapon
+// secondary; shop costly_alteration on proof strip.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, pline, newsym, You_feel } from './display.js';
 import {
     SCROLL_CLASS, SPBOOK_CLASS, COIN_CLASS, WEAPON_CLASS, GEM_CLASS,
-    objectNames,
+    ARMOR_CLASS, objectNames,
 } from './objects.js';
 import { weight, uncurse, blessorcurse } from './mkobj.js';
 import { A_WIS, exercise } from './attrib.js';
@@ -33,9 +37,11 @@ import { do_mapping, cvt_sdoor_to_door } from './detect.js';
 import { study_book } from './spell.js';
 import { scrolltele } from './teleport.js';
 import { trycall } from './do_name.js';
+import { chwepon } from './wield.js';
+import { rn2, rnd } from './rng.js';
 import {
     COLNO, ROWNO, SDOOR, CORR, ROOMOFFSET, Is_rogue_level, Is_waterlevel,
-    W_BALL, W_ART, W_ARTI, W_SADDLE, P_SLING,
+    W_BALL, W_ART, W_ARTI, W_SADDLE, P_SLING, SPE_LIM,
 } from './const.js';
 import { vision_recalc, do_clear_area } from './vision.js';
 
@@ -43,6 +49,7 @@ const SCR_MAGIC_MAPPING = objectNames.indexOf('SCR_MAGIC_MAPPING');
 const SCR_TELEPORTATION = objectNames.indexOf('SCR_TELEPORTATION');
 const SCR_LIGHT = objectNames.indexOf('SCR_LIGHT');
 const SCR_REMOVE_CURSE = objectNames.indexOf('SCR_REMOVE_CURSE');
+const SCR_ENCHANT_WEAPON = objectNames.indexOf('SCR_ENCHANT_WEAPON');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
@@ -463,6 +470,99 @@ async function seffect_remove_curse(sobj) {
     // update_inventory deferred
 }
 
+/** C ref: read.c cap_spe — clamp |spe| to SPE_LIM. */
+function cap_spe(obj) {
+    if (!obj) return;
+    const spe = obj.spe | 0;
+    const lim = SPE_LIM;
+    if (Math.abs(spe) > lim) {
+        obj.spe = (spe < 0 ? -1 : 1) * lim;
+    }
+}
+
+/**
+ * C ref: objnam.c erosion_matters — weapon/armor/ball/chain; tools if weptool.
+ * Local copy to avoid exporting from mkobj (weptool name list matches).
+ */
+function erosion_matters_obj(otmp) {
+    if (!otmp) return false;
+    const c = otmp.oclass;
+    if (c === WEAPON_CLASS || c === ARMOR_CLASS) return true;
+    // BALL/CHAIN / weptool deferred for enchant-weapon confused proof path
+    return false;
+}
+
+/**
+ * C ref: read.c seffect_enchant_weapon
+ * Confused: erodeproof/unproof uwep (non-armor). Else chwepon(s) + cap_spe.
+ * Deferred: twoweapon secondary choice; confused Yobjnam2/hcolor Blind polish;
+ * shop costly_alteration on proof strip.
+ * @returns {Promise<object|null>} sobj or null if strange_feeling used it up
+ */
+async function seffect_enchant_weapon(sobj) {
+    const sblessed = !!sobj.blessed;
+    const scursed = !!sobj.cursed;
+    const confused = !!(game.u?.Confusion);
+    const u = game.u || {};
+    const uwep = u.uwep;
+    const Blind = !!(u.Blind || u.ublind);
+
+    if (confused && uwep
+        && erosion_matters_obj(uwep) && uwep.oclass !== ARMOR_CLASS) {
+        const old_erodeproof = !!uwep.oerodeproof;
+        const new_erodeproof = !scursed;
+        uwep.oerodeproof = 0;
+        if (Blind) {
+            uwep.rknown = 0;
+            await pline('Your weapon feels warm for a moment.');
+        } else {
+            uwep.rknown = 1;
+            // Yobjnam2 / hcolor NH_PURPLE|GOLDEN polish deferred
+            await pline(
+                `Your ${uwep.quan > 1 ? 'weapons are' : 'weapon is'} covered by a ${
+                    scursed ? 'mottled' : 'shimmering'
+                } ${scursed ? 'purple' : 'golden'} ${scursed ? 'glow' : 'shield'}!`,
+            );
+        }
+        if (new_erodeproof && ((uwep.oeroded | 0) || (uwep.oeroded2 | 0))) {
+            uwep.oeroded = 0;
+            uwep.oeroded2 = 0;
+            await pline(
+                Blind
+                    ? 'Your weapon feels as good as new!'
+                    : 'Your weapon looks as good as new!',
+            );
+        }
+        if (old_erodeproof && !new_erodeproof) {
+            uwep.oerodeproof = 1;
+            // costly_alteration COST_DEGRD deferred
+        }
+        uwep.oerodeproof = new_erodeproof ? 1 : 0;
+        return sobj;
+    }
+
+    // C: s = scursed ? -1 : !uwep ? 1 : spe>=9 ? (rn2(spe)==0)
+    //      : sblessed ? rnd(3 - spe/3) : 1
+    let s;
+    if (scursed) {
+        s = -1;
+    } else if (!uwep) {
+        s = 1;
+    } else if ((uwep.spe | 0) >= 9) {
+        s = rn2(uwep.spe | 0) === 0 ? 1 : 0;
+    } else if (sblessed) {
+        s = rnd(3 - ((uwep.spe | 0) / 3 | 0));
+    } else {
+        s = 1;
+    }
+
+    if (!(await chwepon(sobj, s))) {
+        return null; // strange_feeling already useup'd
+    }
+    if (uwep) cap_spe(uwep);
+    return sobj;
+}
+
 /**
  * C ref: read.c seffects — oc_magic exercise + otyp dispatch.
  * @returns {number} 0 = caller useup/learn; 1 = already used up;
@@ -488,6 +588,11 @@ async function seffects(sobj) {
     case SCR_REMOVE_CURSE:
         await seffect_remove_curse(sobj);
         break;
+    case SCR_ENCHANT_WEAPON: {
+        const kept = await seffect_enchant_weapon(sobj);
+        if (!kept) return 1;
+        break;
+    }
     default:
         // Other seffect_* deferred — do not useup
         await pline('That scroll is not implemented yet.');
@@ -535,7 +640,7 @@ export async function doread() {
     // Gate unported scroll otyps before disappear/useup (C would seffect)
     if (otyp !== SCR_MAGIC_MAPPING && otyp !== SCR_BLANK_PAPER
         && otyp !== SCR_TELEPORTATION && otyp !== SCR_LIGHT
-        && otyp !== SCR_REMOVE_CURSE) {
+        && otyp !== SCR_REMOVE_CURSE && otyp !== SCR_ENCHANT_WEAPON) {
         await pline('That scroll is not implemented yet.');
         return 0;
     }

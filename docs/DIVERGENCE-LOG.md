@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0435 — SCR_ENCHANT_WEAPON seffect + chwepon (seed0002 @8863)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @8863 — C `rn2(19) @
+  exercise(attrib.c:509)` vs JS `rn2(5)` (`distfleeck`). Prefix
+  8863; Scr 194/595. Keys `r`/`m` then space — “Your scalpel glows
+  blue for a moment.”
+- **Cause:** JS `doread` gated `SCR_ENCHANT_WEAPON` as unimplemented
+  (return 0, no turn); C `seffects` → `exercise(A_WIS)` then
+  `seffect_enchant_weapon` → `chwepon(sobj, 1)` on +0 scalpel.
+- **C locus:** `read.c` `seffect_enchant_weapon` / `cap_spe`;
+  `wield.c` `chwepon`; `potion.c` `strange_feeling`.
+- **Change:** wire otyp in `doread`/`seffects`; port
+  `seffect_enchant_weapon` amount formula + confused erodeproof
+  subset; port `chwepon` glow/spe path (+ worm-tooth/crysknife,
+  evaporate, strange_feeling).
+- **Verification:** seed0002 prefix **8863→10511**; Scr **194→233**/595;
+  RNG matched **10900**/27158; green+strict; cohort **26/26**.
+- **Omissions named:** confused Yobjnam2/hcolor polish; twoweapon
+  secondary; shop costly_alteration/alter_cost; Magicbane clue;
+  artifact restrict_name; useupall inventory polish (c-js-map turns).
+- **Next:** seed0002 @10511 `peffect_confusion`.
+
 ## D-0434 — drinksink + dodrink sink yn (seed0002 @8831)
 
 - **Status:** fixed

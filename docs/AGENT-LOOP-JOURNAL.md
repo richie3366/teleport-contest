@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 02:04 — #466 SCR_ENCHANT_WEAPON (D-0435)
+- Objective: seed0002 @8863 C `exercise` rn2(19) vs JS `rn2(5)` (PRIMARY).
+- C locus: `read.c` `seffect_enchant_weapon`/`cap_spe`; `wield.c`
+  `chwepon`; `potion.c` `strange_feeling`.
+- Change: JS gated ENCHANT_WEAPON unimplemented; ported seffect +
+  chwepon glow/spe (scalpel +0→+1 blue moment) + doread/seffects wire.
+- Verification: seed0002 prefix **8863→10511**; Scr **194→233**/595;
+  RNG matched **10900**/27158; green+strict; cohort **26/26**.
+- Next: seed0002 @10511 `peffect_confusion` (`rn2(7)`).
+
 ## 2026-07-16 01:55 — #465 score + drinksink (D-0434)
 - Objective: mandatory full `sessions` score (#465÷5); primary
   seed0002 @8831 drinksink.
