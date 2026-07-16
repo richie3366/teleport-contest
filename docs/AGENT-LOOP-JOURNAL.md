@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:58 — #514 D-0476 filter tty page packing
+- Objective: seed0006 screen@22 — C filter `(1 of 2)` vs JS blank
+  morestr off-screen after `~`.
+- C locus: `wintty.c` `tty_end_menu`/`process_menu_window`;
+  `role.c` `reset_role_filtering`.
+- Change: page title+blank inside `nitems`/`lmax` (was re-prepended
+  each page so morestr landed at row 25).
+- Verification: seed0006 Scr **80→89**/123; @22–@30 match; first
+  miss **@22→@71** (`hilite_pet` inverse on fox); RNG full;
+  green+strict; cohort **25/25**.
+- Next: seed0006 @71 pet `hilite_pet` / `wc2_petattr` ATR_INVERSE.
+
 ## 2026-07-16 07:55 — #513 D-0475 rename askname BASE cury
 - Objective: seed0006 first screen miss @13 — C `Who are you?` row 10
   vs JS row 12 after confirm `'a'` rename.
@@ -157,29 +169,3 @@ Use this shape:
   (`locked chest`); Scr 559→560; RNG full; green+strict; cohort
   26/26.
 - Next: D-0464 doname locked-box prefix @454.
-
-## 2026-07-16 06:30 — #500 D-0462 money2mon `_goldCount` + public score
-- Objective: mandatory #500 full `sessions` score; primary D-0462
-  seed0002 botl `$:1175` vs `$:1225` after shop pay.
-- C locus: `shk.c` `money2mon` / `freeinv_core`; `botl.c` `money_cnt`.
-- Change: `js/shk.js` `money2mon` decrements `game._goldCount` by
-  payment amount (JS botl `$:` cache).
-- Verification: seed0002 @359 botl matches; first miss @359→@363
-  (`polished silver shield` vs `shield of reflection`); Scr 363→559;
-  RNG full; green+strict; cohort 26/26. Full suite: **26/44** PASS;
-  Scr **4868**/11405; RNG **285358**/792838; speed `23+0.13/turn`.
-- Next: D-0463 wear pline appearance vs type name @363.
-
-## 2026-07-16 06:26 — #499 D-0461 doname unpaid_cost + paydoname
-- Objective: seed0002 screen@345 C slightload prinv unpaid suffix vs
-  JS bare shield name.
-- C locus: `objnam.c` `doname_base` unpaid / `paydoname`; `shk.c`
-  `is_unpaid` / `unpaid_cost` / `count_unpaid`.
-- Change: `js/shk.js` unpaid helpers + doname suffix hook;
-  `js/objnam.js` `paydoname` (`suppress_price`); pay menu/`dopayobj`
-  use `paydoname`. Deferred: `contained_cost`; container paydoname
-  rewrite.
-- Verification: seed0002 @345 matches; first miss @345→@359; Scr
-  361→363; RNG full; green+strict; cohort 24/24.
-- Next: D-0462 botl `$:1175` vs `$:1225` after `pay`/`money2mon`.
-

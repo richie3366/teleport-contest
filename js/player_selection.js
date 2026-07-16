@@ -190,34 +190,31 @@ async function reset_role_filtering() {
         ? 'Pick all that apply and/or unpick any that no longer apply'
         : 'Pick all that apply';
     const rows = game.nhDisplay?.rows || 24;
+    // C ref: wintty.c tty_end_menu — lmax = min(52, rows-1); prompt+blank
+    // are part of nitems (end_menu prepends them), not re-added per page.
     const lmax = Math.min(52, rows - 1);
-    // Body lines under inverse title + blank (same packing as C tty pages).
-    const bodyLines = () => items.map(it => {
-        if (it.kind !== 'item') return { text: it.text, attr: 0 };
-        const mark = it.selected ? '+' : '-';
-        return { text: `${it.key} ${mark} ${it.textBase}`, attr: 0 };
-    });
+    const allEntries = () => [
+        { text: title, attr: ATR_INVERSE },
+        { text: '', attr: 0 },
+        ...items.map(it => {
+            if (it.kind !== 'item') return { text: it.text, attr: 0 };
+            const mark = it.selected ? '+' : '-';
+            return { text: `${it.key} ${mark} ${it.textBase}`, attr: 0 };
+        }),
+    ];
     let currPage = 0;
-    const npages = () => {
-        const n = bodyLines().length;
-        return Math.max(1, Math.floor((n + lmax - 1) / lmax));
-    };
 
     for (;;) {
-        const bodies = bodyLines();
-        const pages = npages();
+        const entries = allEntries();
+        const nitems = entries.length;
+        const pages = Math.max(1, Math.floor((nitems + lmax - 1) / lmax));
         if (currPage >= pages) currPage = pages - 1;
         const start = currPage * lmax;
-        const pageBodies = bodies.slice(start, start + lmax);
+        const page = entries.slice(start, start + lmax);
         const morestr = pages > 1
             ? `(${currPage + 1} of ${pages})`
             : '(end) ';
-        const entries = [
-            { text: title, attr: ATR_INVERSE },
-            { text: '', attr: 0 },
-            ...pageBodies,
-        ];
-        await paint_corner_nhw_menu(entries, morestr);
+        await paint_corner_nhw_menu(page, morestr);
         const key = await nhgetch();
         game._menu_overlay = false;
         if (key === 27) return false; // cancel — leave filters unchanged

@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0476 — seed0006 filter menu tty page packing (screen@22)
+
+- **Status:** fixed
+- **Symptom:** seed0006 first cell-miss @22 — C filter `~` menu
+  morestr `(1 of 2)` on row 23; JS blank row 23 / morestr off-screen
+  (cursor `[9,25]`); RNG full; Scr **80**/123 (post D-0475).
+- **Cause:** `reset_role_filtering` paged body lines only and
+  re-prepended title+blank every page. C `tty_end_menu` counts
+  prompt+blank in `nitems` with `lmax=rows-1`, so page 1 ends at
+  `O - orc` with `(1 of 2)` on the morestr row.
+- **C locus:** `wintty.c` `tty_end_menu` / `process_menu_window`;
+  `role.c` `reset_role_filtering`.
+- **Change:** `js/player_selection.js` — build full entry list
+  (title+blank+items) then slice pages at `lmax` like
+  `select_menu_pick_none` / C `tty_end_menu`.
+- **Verification:** @22–@30 match; Scr **80→89**/123; first miss
+  **@22→@71** (pet `f` ATR_INVERSE / `hilite_pet`); RNG full;
+  green+strict; cohort **25/25**.
+- **Deferred:** `hilite_pet` / `wc2_petattr` map attr; SELECTSAVED;
+  `plnamesuffix` rename facet parse.
+- **Next:** seed0006 screen@71 pet inverse attr.
+
 ## D-0475 — seed0006 rename askname BASE cury (screen@13)
 
 - **Status:** fixed

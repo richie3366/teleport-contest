@@ -42,7 +42,7 @@ seed0012, seed0004, seed0002.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0006 | **6736**/6736 | **80**/123 | RNG full; @22 filter `(1 of 2)` |
+| seed0006 | **6736**/6736 | **89**/123 | RNG full; @71 hilite_pet |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -61,9 +61,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0006 wizard water demon** — RNG full; Scr **80**/123 after
-D-0475. Next: filter `~` menu `(1 of 2)` page packing @22, or
-pivot to seed0007 snake swamp.
+**seed0006 wizard water demon** — RNG full; Scr **89**/123 after
+D-0476. Next: map pet `hilite_pet` / `wc2_petattr` ATR_INVERSE @71
+(fox `f`), or pivot to seed0007 snake swamp.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
@@ -72,7 +72,7 @@ node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 
 **Alternates:** seed0007 snake swamp; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474/D-0475.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0476.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
