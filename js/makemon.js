@@ -55,6 +55,7 @@ import {
     unsolid,
     passes_walls,
     noncorporeal,
+    is_golem,
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
@@ -539,6 +540,36 @@ function adj_lev(ptr) {
     return tmp > 0 ? tmp : 0;
 }
 
+// C ref: makemon.c golemhp() — fixed HP by golem type; no RNG.
+function golemhp(type) {
+    switch (type) {
+    case pm('STRAW_GOLEM'):
+        return 20;
+    case pm('PAPER_GOLEM'):
+        return 20;
+    case pm('ROPE_GOLEM'):
+        return 30;
+    case pm('LEATHER_GOLEM'):
+        return 40;
+    case pm('GOLD_GOLEM'):
+        return 60;
+    case pm('WOOD_GOLEM'):
+        return 50;
+    case pm('FLESH_GOLEM'):
+        return 40;
+    case pm('CLAY_GOLEM'):
+        return 70;
+    case pm('STONE_GOLEM'):
+        return 100;
+    case pm('GLASS_GOLEM'):
+        return 80;
+    case pm('IRON_GOLEM'):
+        return 120;
+    default:
+        return 0;
+    }
+}
+
 // C ref: makemon.c newmonhp()
 // After rolling HP, if result equals basehp (all 1s / rnd(4)=1), boost +1 so
 // level-0 and level-1 monsters always start with mhpmax >= 2.
@@ -546,8 +577,11 @@ function newmonhp(mon, ptr) {
     mon.m_lev = adj_lev(ptr);
     let basehp = 0;
     const mndx = ptr.mndx | 0;
-    // Named omission: is_golem golemhp; is_rider d(10,8); mlevel>49 fixed HP
-    if (ptr.mlet === 'S_DRAGON' && mndx >= pm('GRAY_DRAGON')) {
+    // Named omission: is_rider d(10,8); mlevel>49 fixed HP; is_home_elemental
+    if (is_golem(ptr)) {
+        // C: golems have fixed HP via golemhp(mndx) — no d(m_lev,8)
+        mon.mhpmax = mon.mhp = golemhp(mndx);
+    } else if (ptr.mlet === 'S_DRAGON' && mndx >= pm('GRAY_DRAGON')) {
         // C: adult dragons — N*(4+rnd(4)) before endgame, N*8 once there
         basehp = mon.m_lev | 0;
         mon.mhpmax = mon.mhp = In_endgame(game.u?.uz)
@@ -559,7 +593,6 @@ function newmonhp(mon, ptr) {
     } else {
         basehp = mon.m_lev | 0;
         mon.mhpmax = mon.mhp = d(basehp, 8);
-        // Named omission: is_home_elemental mhp*=3
     }
     if (mon.mhpmax === basehp) {
         mon.mhpmax += 1;

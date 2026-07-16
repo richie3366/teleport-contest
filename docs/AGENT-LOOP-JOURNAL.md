@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:36 — #614 D-0554 newmonhp golemhp
+- Objective: seed0373 @30344 C silent stone-golem HP vs JS d(21,8)
+- C locus: makemon.c newmonhp is_golem arm; golemhp()
+- Change: js/makemon.js golemhp + newmonhp is_golem branch
+- Verification: rng-diff 30344→30743; runner RNG 30755/35386;
+  green+strict PASS; cohort 28/28 PASS
+- Next: @30743 get_location vs next_ident; or dosounds @8468
+
 ## 2026-07-16 20:35 — #613 D-0553 m_initinv S_GIANT
 - Objective: seed0373 @30308 S_GIANT invent vs trailing rn2(50)
 - C locus: makemon.c m_initinv case S_GIANT; mondata.h is_giant

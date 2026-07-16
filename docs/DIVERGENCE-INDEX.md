@@ -539,6 +539,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0551 | fixed | newmonhp adult dragon In_endgame 8*m_lev | seed0373 30209→30263 RNG 30272; next next_ident vs get_location @30263 |
 | D-0552 | fixed | splev pm_to_humidity HOT/WET for create_monster | seed0373 30263→30308 RNG 30336; next m_initinv S_GIANT @30308 |
 | D-0553 | fixed | m_initinv S_GIANT gems / minotaur wand | seed0373 30308→30344 RNG 30351; next golemhp @30344 |
+| D-0554 | fixed | newmonhp is_golem → golemhp fixed HP | seed0373 30344→30743 RNG 30755; next get_location vs next_ident @30743 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

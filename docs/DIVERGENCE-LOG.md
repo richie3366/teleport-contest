@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0554 — newmonhp golemhp fixed HP (no d(m_lev,8))
+
+- **Status:** fixed (partial — rider / mlevel>49 / is_home_elemental deferred)
+- **Symptom:** seed0373 @30344 C `rn2(2)` `makemon` (post silent stone-golem
+  HP) vs JS `d(21,8)=82` (post D-0553).
+- **Cause:** C `newmonhp` `is_golem` arm sets `mhp=golemhp(mndx)` with no RNG;
+  JS fell through to `d(m_lev,8)`. Stone golem = 100.
+- **C locus:** `makemon.c` `newmonhp` golem arm; `golemhp` switch.
+- **Change:** `js/makemon.js` `golemhp` + `newmonhp` `is_golem` branch
+  (import `is_golem`).
+- **Verification:** seed0373 rng-diff **30344→30743**; runner RNG
+  **30755**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** `is_rider` `d(10,8)`; `mlevel>49` fixed HP;
+  `is_home_elemental` `mhp*=3`; drain helper `golemhp`/`mlevel` path.
+- **Next:** @30743 C `get_location` vs JS `rnd(2)` `next_ident` (extra
+  makemon / fewer placement retries); or seed5006 `dosounds` @8468.
+
 ## D-0553 — m_initinv S_GIANT gem stack / minotaur wand
 
 - **Status:** fixed (partial — S_WRAITH/S_LICH/S_DEMON invent still deferred)

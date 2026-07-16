@@ -25,7 +25,7 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#610**),
 post D-0550. Screens **5901**/11405; RNG **348403**/792838 (43.94%).
 **30/44** PASS. Speed `31+0.14/turn` (R² 0.77). Δ vs #605: Scr +1,
 RNG +4340 (D-0546…D-0550 peels), PASS unchanged.
-*(#611–#613 D-0551…D-0553: seed0373 focused RNG 30272→30351; full suite
+*(#611–#614 D-0551…D-0554: seed0373 focused RNG 30272→30755; full suite
 next at #615.)*
 
 ## Score
@@ -49,7 +49,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 30351/35386 | 23/124 | D-0553; next `golemhp` @30344 |
+| seed0373 | 30755/35386 | 23/124 | D-0554; next get_location vs next_ident @30743 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -73,10 +73,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0553 (`m_initinv` S_GIANT), seed0373
-@30344 C silent `newmonhp` (`golemhp` stone golem) vs JS `d(21,8)`.
-Or peel seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
-seed0116 screen residual.
+**Gameplay next:** after D-0554 (`newmonhp` `golemhp`), seed0373
+@30743 C `get_location` vs JS `rnd(2)` `next_ident` (JS finished a
+makemon while C still places). Or peel seed5006 `dosounds` @8468.
+Prefer over parked seed2200 RC / seed0116 screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -84,7 +84,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0553.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0554.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
