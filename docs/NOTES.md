@@ -7,9 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0494 (next):** @15877 C `rnd(98) @ Amulet_on` vs JS
-  `rn2(5) @ distfleeck`. After D-0493 travel clear, H-run path matches;
-  wear-amulet path not ported / not reached. Falsifier:
+- **seed0007 / D-0495 (next):** @15983 C `rn2(5) @ dowatersnakes` vs JS
+  `rn2(3)`. After D-0494 RESTFUL_SLEEP `rnd(98)`, drinkfountain path
+  matches through `rnd(30)`; snakes arm wrong arity (`rn1(5,2)`≡`rn2(5)+2`).
+  Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0493
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0494
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -40,8 +41,8 @@ Objective/score live in `CURRENT.md`.
 - D-0490 `#loot` take-out gold (`$` before TRIPE).
 - D-0491 `SCR_DESTROY_ARMOR` / `destroy_arm` / `erode_obj` burn.
 - D-0492 `eye_of_newt_buzz` via `cpostfx` after newt corpse.
-- D-0493 @15284 was **not** dochug nearby/mflee — stale `travel=1`
-  after `_` made `H` `continue_run` rewrite dx/dy via findtravelpath.
+- D-0493 @15284 was stale `travel=1` after `_` (not dochug nearby).
+- D-0494 `Amulet_on` RESTFUL_SLEEP `rnd(98)` → HSleepy TIMEOUT.
 
 ## Landmarks (≤15)
 

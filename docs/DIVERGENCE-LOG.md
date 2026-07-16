@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0494 — Amulet_on RESTFUL_SLEEP rnd(98) (seed0007 @15877)
+
+- **Status:** fixed
+- **Symptom:** after D-0493, first RNG miss @15877 — C `rnd(98) @
+  Amulet_on` vs JS `rn2(5) @ distfleeck`. Scr **60**/302; matched RNG
+  **15898**/16373 before fix.
+- **Cause:** `Amulet_on` deferred all sleep/change/strangle/flying bodies;
+  putting on `AMULET_OF_RESTFUL_SLEEP` never rolled `rnd(98)+2` into
+  `HSleepy` TIMEOUT, so JS entered the monster pass one call early.
+- **C locus:** `do_wear.c` `Amulet_on` case `AMULET_OF_RESTFUL_SLEEP`
+  (≈1047–1054): `newnap = rnd(98)+2`; keep shorter/non-zero vs oldnap.
+- **Change:** `js/do_wear.js` — RESTFUL_SLEEP arm sets `u.HSleepy`
+  TIMEOUT bits; still `on_msg` when `!on_msg_done`.
+- **Verification:** rng-diff **15877→15983**; seed0007 RNG
+  **15985**/16373 Scr **60**; green+strict PASS; cohort 26/26 PASS.
+- **Named omission:** change/strangle/flying/breathing/ESP see_monsters;
+  Guarding makeknown; `Amulet_off` RESTFUL clear; `nh_timeout` SLEEPY
+  dialogue / fall_asleep.
+- **Next:** @15983 C `dowatersnakes` `rn2(5)` vs JS `rn2(3)`.
+
 ## D-0493 — set_move_cmd clears travel (seed0007 @15284)
 
 - **Status:** fixed
