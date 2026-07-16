@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:15 — #540 public score (mandatory ÷5)
+- Objective: full `sessions` score cadence (#540).
+- C locus: n/a (score-only; no port patch).
+- Change or falsified theory: **28/44** PASS; Scr **5014**/11405;
+  RNG **289809**/792838 (36.55%); speed `24+0.14/turn` (R² 0.75).
+  Flat vs #535 (Scr/PASS/RNG unchanged). seed0007 still Scr 20/302
+  @2832; seed2200 229/230 parked.
+- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
+- Next: D-0485 mid-`H` Y drift — `lookaround`/`continue_run`/pet-swap.
+
 ## 2026-07-16 13:10 — D-0485 C capture: !couldsee falsified; hero Y drift
 - Objective: seed0007 @2832 dog_move `rn2(1)` (D-0485).
 - C locus: recorder `dog_goal`/`dog_move`; symptom `hack.c` lookaround/run.

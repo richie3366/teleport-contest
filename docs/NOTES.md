@@ -49,7 +49,8 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #535 score: **28/44**, Scr 5014, RNG 289809 (36.55%), `24+0.13/turn`.
+- #540 score: **28/44**, Scr 5014, RNG 289809 (36.55%), `24+0.14/turn`
+  (flat vs #535).
 - seed0007 mismatch on `H` step (rng in step 48); next key `Y`.
 - Capital `H` = multi-step run inside one session key (`continue_run`).
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
