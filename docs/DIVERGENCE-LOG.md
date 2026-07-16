@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0442 — safemon in-the-way keeps move + dochug flee-teleport (seed0002 @12222)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @12222 — C `rn2(5)` @
+  `distfleeck` vs JS `rn2(7)` @ `do_attack`. Prefix 12222;
+  Scr 242/595. Matched safemon `rn2(7)`+`rnd(6)` then C monmove,
+  JS another `do_attack`.
+- **Cause:** (1) JS `do_attack` safemon foo path set `context.move=0`,
+  so moveloop skipped `movemon`; C leaves move=1 after “in the way”
+  stop. (2) After setting pet `mflee`, JS deferred `dochug` flee
+  `rn2(40)` while C always rolls it when `mflee`.
+- **C locus:** `uhitm.c` `do_attack` safemon/`monflee`; `monmove.c`
+  `dochug` mflee teleport / mconf / mstun / courage.
+- **Change:** stop clearing move on safemon stop; set `mflee`/
+  `mfleetim` from `monflee(rnd(6),F,F)`; port dochug recover rolls +
+  flee-teleport (`can_teleport`/`M1_TPORT` + `rloc`) + courage.
+- **Verification:** seed0002 prefix **12222→12530**; Scr
+  **242→247**/595; green+strict; cohort **24/24** PASS.
+- **Omissions named:** `mon_track_clear`/fleemsg/Vrock; `m_respond`/
+  leppie_stash; shared `monflee` export; hell-court noteleport.
+- **Next:** seed0002 @12530 C `obj_resists` `rn2(100)` vs JS
+  `rn2(5)` @ `distfleeck`.
+
 ## D-0441 — nh_timeout CONFUSION expiry (seed0002 @11487)
 
 - **Status:** fixed

@@ -8,15 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#470 full post D-0439). Scr **4503**/11405;
-  RNG **267277**/792838. seed0002 Scr **242**/595 prefix **12222**.
-- **Next:** seed0002 @12222 — C `rn2(5)` @ `distfleeck` vs JS
-  `rn2(7)` @ `do_attack` after matched hit rolls. Suspect mon
-  dochug/order or extra hero attack arm.
+  RNG **267277**/792838. seed0002 Scr **247**/595 prefix **12530**.
+- **Next:** seed0002 @12530 — C continues `obj_resists` `rn2(100)` vs
+  JS `rn2(5)` (`distfleeck`). After D-0442 safemon/flee-teleport.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @11487 wipe_engr vs rn2(2) (D-0441 was stale
-  Confusion — nh_timeout CONFUSION); @11309 run-into-visible
+- **Don’t re-check:** @12222 safemon `move=0` / flee `rn2(40)` (D-0442);
+  @11487 wipe_engr vs rn2(2) (D-0441 Confusion); @11309 run-into-visible
   (D-0440); @11150 ohitmon (D-0439); @10634 peffect_booze (D-0438);
   @10550 u_maybe_impaired (D-0437); @10511 confusion (D-0436);
   @8863–@4565 D-0435…D-0430.
@@ -42,15 +41,15 @@ Objective/score live in `CURRENT.md`.
   `msleeping` (D-0278); drop gold without `_goldCount`/botl (D-0396);
   defer Move along! / skip `gd_move_cleanup` Suddenly (D-0396/97);
   omit bear-trap / pile-gem observe / encumber+trapmove / Norep /
-  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@11487
-  as index D-0405…D-0441 without those C paths — see DIVERGENCE-INDEX;
+  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@12222
+  as index D-0405…D-0442 without those C paths — see DIVERGENCE-INDEX;
   treat RING `obj.known` as type-ID (D-0420); bypass yn ring-hand
   (D-0421); force corner invent when lets len==1 (D-0422); leave
   autodescribe unset (D-0423); skip tseen trap / wall DECgraphics /
   invent paging / throw newsym / eatcorpse `1+rn2` (D-0424–D-0428);
   treat drink/? / SCR_* / door / sink / confusion / impaired / booze /
-  ohitmon / run-stop / wipe_engr rn2(2) as monmove without those
-  peffect/timeout paths (D-0429–D-0441).
+  ohitmon / run-stop / CONFUSION-timeout / safemon-move0 as monmove
+  without those peffect/timeout/do_attack paths (D-0429–D-0442).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -60,8 +59,8 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
 - Travel/autodescribe/invent/throw/eat/drink/scrolls D-0408–D-0435;
-  confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout
-  D-0436–D-0441.
+  confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
+  safemon-move+flee-teleport D-0436–D-0442.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

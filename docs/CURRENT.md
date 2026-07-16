@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @12222 — monmove after hero attack** (after D-0441
-CONFUSION timeout). Prefix **12222**; Scr **242**/595. C
-`rn2(5)` @ `distfleeck` vs JS `rn2(7)` @ `do_attack`. Wipe_engr
-EOT and confusion expiry fixed — do not re-open @11487.
+**seed0002 @12530 — `obj_resists` / zap stack** (after D-0442
+safemon move + dochug flee-teleport). Prefix **12530**; Scr
+**247**/595. C keeps rolling `obj_resists` `rn2(100)` while JS
+returns to `distfleeck`/`m_move`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: after matched do_attack rn2(7)+rnd(6) — mon dochug/distfleeck order
+# Focus: after matched obj_resists trio — why C continues vs JS monmove
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0441.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0442.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
