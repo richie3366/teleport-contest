@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0439 — ohitmon + omon_adj on mon missile hit (seed0002 @11150)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @11150 — C `rnd(20)` @
+  `ohitmon(mthrowu.c:350)` vs JS `rn2(5)` (`distfleeck`).
+  Prefix 11150; Scr 233/595.
+- **Cause:** JS `m_throw` deferred `ohitmon` — on `m_at` hit, stop+drop
+  without to-hit `rnd(20)` / `dmgval` / mulch path.
+- **C locus:** `mthrowu.c` `ohitmon` / `m_throw`; `dothrow.c` `omon_adj`.
+- **Change:** port `omon_adj` + `ohitmon` (hit/miss/`dmgval`/drop;
+  miss-with-range continues); wire `m_throw` mon cell to `ohitmon`.
+- **Verification:** seed0002 prefix **11150→11309**; Scr still
+  **233**/595; green+strict; cohort seed0013/1800/0004/0104 PASS;
+  full suite (#470) **26/44**.
+- **Omissions named:** shade_miss; distant_name/mshot_xname; spec_abon;
+  stone_missile/poison/silver/acid/egg petrify/can_blnd; setmangry;
+  corpse_chance on mon-kill; mon_notices unfreeze.
+- **Next:** seed0002 @11309 `u_maybe_impaired` `rn2(5)` vs JS `rn2(20)`.
+
 ## D-0438 — peffect_booze + newuhs field / uhs init (seed0002 @10634)
 
 - **Status:** fixed

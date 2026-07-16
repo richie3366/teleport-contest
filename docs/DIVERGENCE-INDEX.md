@@ -425,6 +425,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0436 | fixed | peffect_confusion + make_confused | seed0002 prefix 10511→10550; Scr 233; @10550 monmove next |
 | D-0437 | fixed | u_maybe_impaired / confdir on domove | seed0002 prefix 10550→10634; Scr 233; @10634 peffect_booze next |
 | D-0438 | fixed | peffect_booze + newuhs field / uhs init | seed0002 prefix 10634→11150; Scr 233; @11150 ohitmon next |
+| D-0439 | fixed | ohitmon + omon_adj on mon missile hit | seed0002 prefix 11150→11309; Scr 233; @11309 u_maybe_impaired next |
 
 
 

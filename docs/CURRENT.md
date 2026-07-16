@@ -17,8 +17,8 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#465 score
-cadence, post D-0434 drinksink). Screens **4503**/11405; RNG
+Score last measured: **2026-07-16** — full `sessions` suite (#470 score
+cadence, post D-0439 ohitmon). Screens **4503**/11405; RNG
 **267277**/792838. **26/44** PASS. Speed `22+0.13/turn`.
 
 ## Score
@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 11598/27158 | **233**/595 | @11150 ohitmon next |
+| seed0002 | 11521/27158 | **233**/595 | @11309 u_maybe_impaired next |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @11150 — ohitmon / mon missile hit** (after D-0438
-`peffect_booze`). Prefix **11150**; Scr **233**/595. C `rnd(20)` @
-`ohitmon` vs JS `rn2(5)` (`distfleeck`). Do not re-open @10634 booze
-path (fixed).
+**seed0002 @11309 — u_maybe_impaired / confdir again** (after D-0439
+`ohitmon`). Prefix **11309**; Scr **233**/595. C `rn2(5)` @
+`u_maybe_impaired` vs JS `rn2(20)` (extra/missed hit-roll path?). Do not
+re-open @11150 ohitmon (fixed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: thrwmu / m_throw → ohitmon hit roll after booze quaff combat
+# Focus: confused domove / second u_maybe_impaired after ohitmon combat
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0438.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0439.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

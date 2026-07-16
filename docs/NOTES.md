@@ -7,18 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#465 full post D-0434). Scr **4503**/11405;
-  RNG **267277**/792838. seed0002 Scr **233**/595 prefix **11150**.
-- **Next:** seed0002 @11150 — C `rnd(20)` @ `ohitmon(mthrowu.c:350)`
-  vs JS `rn2(5)` @ `distfleeck` (post D-0438 peffect_booze).
+- **Score:** **26/44** PASS (#470 full post D-0439). Scr **4503**/11405;
+  RNG **267277**/792838. seed0002 Scr **233**/595 prefix **11309**.
+- **Next:** seed0002 @11309 — C `rn2(5)` @ `u_maybe_impaired(hack.c:2420)`
+  vs JS `rn2(20)` (post D-0439 ohitmon). Suspect extra/missed mon-hit
+  `rnd(20)` or second confused-move gate.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @10634 peffect_booze (D-0438); @10550
-  u_maybe_impaired (D-0437); @10511 peffect_confusion (D-0436);
-  @8863 ENCHANT_WEAPON (D-0435); @8831 drinksink (D-0434); @8609
-  door bump (D-0433); @6954 remove-curse (D-0432); @6186 light
-  (D-0431); @4565 drink getobj (D-0430).
+- **Don’t re-check:** @11150 ohitmon (D-0439); @10634 peffect_booze
+  (D-0438); @10550 u_maybe_impaired (D-0437); @10511 confusion
+  (D-0436); @8863–@4565 D-0435…D-0430 (see don’t-recheck block).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -53,32 +52,34 @@ Objective/score live in `CURRENT.md`.
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
   @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565/@6186/@6954/
-  @8609/@8831/@8863/@10511/@10550/@10634 as index D-0405…D-0438 without those C paths; treat RING
-  `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
-  feeltrap when `tseen` already set (D-0419); bypass `yn_function` for
-  ring-hand (D-0421); force corner invent for getobj `?` when
-  `strlen(lets)==1` (D-0422); leave `autodescribe` unset / skip stairs
-  in travel `auto_describe_text` (D-0423); skip tseen trap in `brief_at`
-  / `lookat` before floor cmap (D-0424); treat wall look as dark-room
-  without swallow/cmap DECgraphics envelope (D-0425); invent/`*`
-  pickinv without `lmax` paging / `(N of M)` (D-0426); throw land
-  without `cansee`→`newsym` (D-0427); eatcorpse acid/sick damage via
-  `1+rn2(N)` instead of `rnd(N)` (D-0428); patch `obj_resists` /
-  dog_goal invent for @4565 when cause was drink getobj `?` cancel
-  + missing trycall (D-0429/D-0430); treat @6186 exercise/`rn2(5)` as
-  attrib bug when cause was unimplemented SCR_LIGHT (D-0431); treat
-  @6954 exercise/`rn2(5)` as attrib when cause was unimplemented
-  SCR_REMOVE_CURSE + missing trycall/nodisappear (D-0432); treat
-  @8609 `rnl(20)` as lock.doopen when cause was `end_running` before
-  autoopen `!run` check (D-0433); treat @8831 `rn2(5)` as monmove when
-  cause was missing sink yn→`drinksink` (D-0434); treat @8863
-  exercise/`rn2(5)` as monmove when cause was unimplemented
-  SCR_ENCHANT_WEAPON (D-0435); treat @10511 `rn2(5)` as monmove when
-  cause was unimplemented `peffect_confusion`/`rn1(7,…)` (D-0436);
-  treat @10550 `distfleeck` vs `m_move` as mon AI when cause was
-  missing `u_maybe_impaired` on confused `domove` (D-0437); treat
-  @10634 `distfleeck`/`rn2(5)` as monmove when cause was unimplemented
-  `peffect_booze`/`d(2+uhs,8)` (D-0438).
+  @8609/@8831/@8863/@10511/@10550/@10634/@11150 as index D-0405…D-0439
+  without those C paths; treat RING `obj.known` as type-ID (D-0420);
+  treat @248 floor vs `^` as missing feeltrap when `tseen` already set
+  (D-0419); bypass `yn_function` for ring-hand (D-0421); force corner
+  invent for getobj `?` when `strlen(lets)==1` (D-0422); leave
+  `autodescribe` unset / skip stairs in travel `auto_describe_text`
+  (D-0423); skip tseen trap in `brief_at` / `lookat` before floor cmap
+  (D-0424); treat wall look as dark-room without swallow/cmap
+  DECgraphics envelope (D-0425); invent/`*` pickinv without `lmax`
+  paging / `(N of M)` (D-0426); throw land without `cansee`→`newsym`
+  (D-0427); eatcorpse acid/sick damage via `1+rn2(N)` instead of
+  `rnd(N)` (D-0428); patch `obj_resists` / dog_goal invent for @4565
+  when cause was drink getobj `?` cancel + missing trycall
+  (D-0429/D-0430); treat @6186 exercise/`rn2(5)` as attrib when cause
+  was unimplemented SCR_LIGHT (D-0431); treat @6954 exercise/`rn2(5)`
+  as attrib when cause was unimplemented SCR_REMOVE_CURSE + missing
+  trycall/nodisappear (D-0432); treat @8609 `rnl(20)` as lock.doopen
+  when cause was `end_running` before autoopen `!run` check (D-0433);
+  treat @8831 `rn2(5)` as monmove when cause was missing sink
+  yn→`drinksink` (D-0434); treat @8863 exercise/`rn2(5)` as monmove
+  when cause was unimplemented SCR_ENCHANT_WEAPON (D-0435); treat
+  @10511 `rn2(5)` as monmove when cause was unimplemented
+  `peffect_confusion`/`rn1(7,…)` (D-0436); treat @10550 `distfleeck`
+  vs `m_move` as mon AI when cause was missing `u_maybe_impaired` on
+  confused `domove` (D-0437); treat @10634 `distfleeck`/`rn2(5)` as
+  monmove when cause was unimplemented `peffect_booze`/`d(2+uhs,8)`
+  (D-0438); treat @11150 `distfleeck`/`rn2(5)` as monmove when cause
+  was deferred `ohitmon`/`rnd(20)` on mon missile hit (D-0439).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -92,7 +93,7 @@ Objective/score live in `CURRENT.md`.
   eatcorpse `rnd` (D-0428); drink `?`/`*` trycall (D-0430);
   SCR_LIGHT/REMOVE_CURSE/ENCHANT_WEAPON (D-0431–35); peffect_confusion
   (D-0436); u_maybe_impaired (D-0437); peffect_booze + newuhs field
-  (D-0438).
+  (D-0438); ohitmon + omon_adj (D-0439).
 - eatcorpse/gethungry via `hero_form_data` (D-0409/10); basic
   `youmonst.data` (D-0411); bag put-in/out (D-0375/76); throw→tamedog
   (D-0415); Monk SPELL_LEV_PW(1) (D-0380); travel BFS (D-0412);
