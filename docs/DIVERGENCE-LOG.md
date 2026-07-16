@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0437 — u_maybe_impaired / confdir on domove (seed0002 @10550)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @10550 — C `rn2(5)` @
+  `distfleeck(monmove.c:538)` vs JS `rn2(12)` @ `m_move` track.
+  Prefix 10550; Scr 233/595. Looked like a monmove path split after
+  confusion quaff.
+- **Cause:** JS `domove` never called `u_maybe_impaired` /
+  `impaired_movement`. After D-0436 Confusion, C’s next move rolls
+  `Confusion && !rn2(5)` before monmove; JS skipped that call so the
+  first hostile `distfleeck` consumed the slot and JS was already in
+  `m_move` track `rn2(4*(cnt-j))`.
+- **C locus:** `hack.c` `u_maybe_impaired` / `impaired_movement`;
+  `cmd.c` `confdir` (`dirs_ord` + NODIAG cardinals).
+- **Change:** port `u_maybe_impaired` (Stunned short-circuit;
+  Confusion `!rn2(5)`), `confdir(force)`, `impaired_movement` loop;
+  call from `domove` after setting `u.dx/u.dy`, before `m_at`.
+- **Verification:** seed0002 prefix **10550→10634**; Scr still
+  **233**/595; RNG matched **10667**/27158; green+strict; cohort
+  **26/26**.
+- **Omissions named:** Sokoban boulder / tunnels / `passes_walls` in
+  `bad_rock`; carrying_too_much / air_turbulence / slippery_ice before
+  impaired; `nh_timeout` CONFUSION expiry still deferred.
+- **Next:** seed0002 @10634 `peffect_booze`.
+
 ## D-0436 — peffect_confusion + make_confused (seed0002 @10511)
 
 - **Status:** fixed

@@ -47,6 +47,7 @@ import { spoteffects, dopickup } from './pickup.js';
 import { getpos } from './getpos.js';
 import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
+    impaired_movement,
 } from './hack.js';
 import { acurr, exercise, A_DEX } from './attrib.js';
 
@@ -972,8 +973,6 @@ export async function rhack(key) {
 // C ref: hack.c domove — execute a movement
 async function domove(dx, dy) {
     const u = game.u;
-    const newx = u.ux + dx;
-    const newy = u.uy + dy;
     const forcefight = !!game.context?.forcefight;
     // C ref: hack.c domove — clear succeeded; clear attempting in finally
     game.domove_succeeded = 0;
@@ -992,6 +991,16 @@ async function domove(dx, dy) {
     u.dy = dy;
     u.ux0 = u.ux;
     u.uy0 = u.uy;
+
+    // C ref: hack.c domove_core — impaired_movement after ux+dx (Confusion/
+    // Stunned may rn2(5) then confdir). Named omissions ahead of this call:
+    // carrying_too_much, uswallow, air_turbulence, slippery_ice_fumbling.
+    if (impaired_movement()) {
+        if (game.context?.run) end_running();
+        return;
+    }
+    let newx = (u.ux | 0) + (u.dx | 0);
+    let newy = (u.uy | 0) + (u.dy | 0);
 
     // C ref: hack.c domove_core — m_at / domove_attackmon_at BEFORE test_move
     // (closed_door / testdiag / rock). Diagonal intact-doorway bans must not
@@ -1070,7 +1079,7 @@ async function domove(dx, dy) {
 
     // C ref: hack.c test_move testdiag — no diagonal into intact doorway
     // (open/closed/locked; only doorless D_NODOOR/D_BROKEN allowed).
-    if (dx && dy) {
+    if (u.dx && u.dy) {
         const dest = game.level?.at(newx, newy);
         if (dest && IS_DOOR(dest.typ)
             && (!doorless_door(newx, newy) || block_door(newx, newy))) {

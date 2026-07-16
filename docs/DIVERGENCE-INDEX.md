@@ -423,6 +423,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0434 | fixed | drinksink + dodrink sink yn | seed0002 prefix 8831→8863; Scr 190→194; @8863 ENCHANT_WEAPON next |
 | D-0435 | fixed | SCR_ENCHANT_WEAPON seffect + chwepon | seed0002 prefix 8863→10511; Scr 194→233; @10511 confusion next |
 | D-0436 | fixed | peffect_confusion + make_confused | seed0002 prefix 10511→10550; Scr 233; @10550 monmove next |
+| D-0437 | fixed | u_maybe_impaired / confdir on domove | seed0002 prefix 10550→10634; Scr 233; @10634 peffect_booze next |
+
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

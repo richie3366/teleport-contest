@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 9069/27158 | **194**/595 | @8863 SCR_ENCHANT_WEAPON |
+| seed0002 | 10667/27158 | **233**/595 | @10634 peffect_booze next |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @10550 — monmove path split** (after D-0436 confusion
-potion). Prefix **10550**; Scr **233**/595. C `rn2(5)` @
-`distfleeck` vs JS `rn2(12)` @ `m_move`. Do not re-open @10511
-`peffect_confusion` (fixed).
+**seed0002 @10634 — peffect_booze** (after D-0437
+`u_maybe_impaired`). Prefix **10634**; Scr **233**/595. C `d(3,8)` @
+`peffect_booze` vs JS `rn2(5)` (`distfleeck`). Do not re-open @10550
+impaired path (fixed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C/JS mon state after confusion quaff; distfleeck vs m_move
+# Focus: peffects POT_BOOZE → peffect_booze / make_confused / healup / hunger
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0436.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0437.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

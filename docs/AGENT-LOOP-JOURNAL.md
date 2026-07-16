@@ -19,6 +19,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 02:16 — #468 u_maybe_impaired (D-0437)
+- Objective: seed0002 @10550 C `rn2(5)` @ `distfleeck` vs JS `rn2(12)` @
+  `m_move` (PRIMARY — was monmove path split after confusion).
+- C locus: `hack.c` `u_maybe_impaired` / `impaired_movement`; `cmd.c`
+  `confdir`.
+- Change: JS `domove` skipped Confusion `!rn2(5)`; ported helpers and
+  call before `m_at` (C `domove_core` order). DIAG showed JS already in
+  hostile `m_move` track while C still on first `distfleeck`.
+- Verification: seed0002 prefix **10550→10634**; Scr still **233**/595;
+  RNG matched **10667**/27158; green+strict; cohort **26/26**.
+- Next: seed0002 @10634 `peffect_booze` `d(3,8)`.
+
 ## 2026-07-16 02:08 — #467 peffect_confusion (D-0436)
 - Objective: seed0002 @10511 C `rn2(7)` @ `peffect_confusion` vs
   JS `rn2(5)` (PRIMARY).
@@ -166,15 +178,4 @@ Use this shape:
 - Verification: seed0004 Scr **391→395**/409; @297 fixed; miss
   @310 `dart trap`; RNG full; green+strict; cohort **25/25**.
 - Next: seed0004 @310 whatis `brief_at` / trap_description.
-
-## 2026-07-15 19:43 — #453 seed0004 @288 message_menu (D-0422)
-- Objective: seed0004 @288 PRIMARY — C invent
-  `o - a scroll…--More--` vs JS corner `Scrolls` heading.
-- C locus: `invent.c` `display_pickinv` n==1; `wintty.c`
-  `tty_message_menu`; `getline.c` `xwaitforspace` dismiss_more.
-- Change: getobj `?` with `strlen(lets)==1` → `message_menu`
-  PICK_ONE + `more` dismiss_more; not corner NHW_MENU.
-- Verification: seed0004 Scr **390→391**/409; @288 fixed; miss
-  @297 `staircase down`; RNG full; green+strict; cohort **25/25**.
-- Next: seed0004 @297 getpos autodescribe stairs.
 
