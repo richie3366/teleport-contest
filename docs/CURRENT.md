@@ -26,7 +26,7 @@ post D-0564. Screens **6355**/11405; RNG **353648**/792838 (44.61%).
 **30/44** PASS. Speed `31+0.14/turn` (R² 0.77). Δ vs #620: Scr +454,
 RNG +2962 (D-0560…D-0564 peels), PASS unchanged.
 *(#626 D-0565: seed0373 Scr 78→85; #627 D-0566: 85→88; #628 D-0567:
-88→100; suite total not remeasured.)*
+88→100; #629 D-0568: 100→101; suite total not remeasured.)*
 
 ## Score
 
@@ -49,7 +49,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **113**/127 | D-0563; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 35386/35386 | **100**/124 | D-0567; next @99 Fire/`an` Amulet |
+| seed0373 | 35386/35386 | **101**/124 | D-0568; next @100 Fire vision |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -73,10 +73,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0567 (Sokoban `premap_detect` + solidify +
-flip `fix_wall_spines` + Sokoban wall CLR_BLUE), seed0373 Scr
-**100**/124 (was 88; RNG full). Next @99 Fire plane / `an` vs `the`
-Amulet phrasing, or seed5006 `dosounds` @8468.
+**Gameplay next:** after D-0568 (`doname` `the_unique_obj` + `print_dungeon`
+`bot()` restore), seed0373 Scr **101**/124 (was 100; RNG full). Next @100
+Fire-plane vision (`·` lit vs C dark/cloud `` ` `` / `~`), or seed5006
+`dosounds` @8468.
 Prefer over parked seed2200 RC / seed0116 residual (113/127).
 
 ```bash
@@ -85,7 +85,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0567.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0568.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

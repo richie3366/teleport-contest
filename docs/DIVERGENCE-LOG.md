@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0568 — doname the_unique_obj + print_dungeon bot after menu
+
+- **Status:** fixed (partial — Fire-plane vision @100; CORPSE doname article
+  skip deferred; slime-mold fake_arti; full not_fully_identified)
+- **Symptom:** seed0373 Scr **100**/124; @99 JS `an Amulet of Yendor` + blank
+  botl under `--More--` vs C `the Amulet` + status; cursor col 54 vs 55.
+- **Cause:** (1) `doname` always used `"a "`/`just_an` for quan==1 — omitted
+  C `the_unique_obj` / `obj_is_pname` → `"the "` for `oc_unique` (Amulet of
+  Yendor even when `!known`). (2) `select_menu_pick_one` `clear_committed_status`
+  after fullscreen pick blanks botl for Options→submenu (D-0385); `print_dungeon`
+  then `prinv`/`more` painted suppressed status. C wintty `bot()`s after a
+  fullscreen menu that wrecked WIN_STATUS.
+- **C locus:** `objnam.c` `the_unique_obj`/`doname_base`; `wintty.c` fullscreen
+  menu dismiss → `disp.botlx`+`bot()`; `dungeon.c` `print_dungeon`.
+- **Change:** `js/objnam.js` `the_unique_obj`/`obj_is_pname` + doname `"the "`
+  + Amulet uncursed exclusion; `js/dungeon.js` `print_dungeon` `await bot()`
+  after menu (keep Options clear_committed).
+- **Verification:** seed0373 Scr **100→101**/124 RNG full; @99 match; green+
+  strict PASS; cohort **30**/30 PASS (incl. seed0012/1500); seed0116 113/127.
+- **Named omission:** Fire-plane map @100 (`·` lit vs C dark/cloud `` ` `` /
+  `~`); CORPSE doname article skip (callers still need `an(corpse_xname)`).
+- **Next:** seed0373 @100 Fire vision / light; or seed5006 `dosounds` @8468.
+
 ## D-0567 — Sokoban premap_detect + solidify + flip fix_wall_spines + wall color
 
 - **Status:** fixed (partial — Fire-plane residual @99; gehennom/knox wallcolors;
@@ -27,7 +50,7 @@ to preserve, record it here.
 - **Named omission:** @99 endgame amulet phrasing / Fire vision; gehennom/
   knox wallcolors; `flip_visuals` extras path.
 - **Next:** seed0373 @99 Fire/`an` vs `the` Amulet; or seed5006 `dosounds`
-  @8468.
+  @8468. → **superseded by D-0568** (Scr 101; next Fire vision @100).
 
 ## D-0566 — bigrm light_region + IRONBARS + makemon hide/minvis + HI_LORD
 

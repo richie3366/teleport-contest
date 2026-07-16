@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0567 done:** Sokoban `premap_detect` + `solidify_map`/`SpLev_Map` +
-  flip `fix_wall_spines` + Sokoban wall CLR_BLUE + traps via
-  `level.traps[]`. seed0373 Scr **88→100**/124; RNG full. @78–98 match.
-- **seed0373 next:** @99 — JS `an Amulet` vs C `the Amulet`; botl blank
-  under More; then Fire-plane vision (`·` vs DEC `` ` `` / `~`). Falsify:
-  `an()`/`the()` for unique Amulet; Fire `light_region` / premapped?
+- **D-0568 done:** `doname` `the_unique_obj`/`obj_is_pname` + Amulet
+  uncursed skip; `print_dungeon` `bot()` after menu. seed0373 Scr
+  **100→101**/124; @99 match. Do **not** skip CORPSE article in doname
+  yet (breaks seed1500 kitten/orc corpse until `an(corpse_xname)`).
+- **seed0373 next:** @100 Fire plane — JS paints lit `·` + visible mons
+  where C has dark/space + cloud `` ` `` / lava `~`. Falsify:
+  `vision_recalc` / fire.lua lit / cloud terrain glyph / see_monsters.
 - **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#625 formal score:** **30/44**, Scr **6355**/11405, RNG
@@ -29,7 +30,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0567; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0568; stub-cancel `^V?` as if menu (breaks 0373);
   treat empty wish ESC as cancel (C → `any` random); skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature msg
   (More key timing for wish getlin); template `\.` in map strings;
@@ -73,17 +74,19 @@ Objective/score live in `CURRENT.md`.
   `HI_LORD`→13 (must CLR_MAGENTA=5); skip Sokoban `premap_detect` /
   `solidify_map`; flip without `fix_wall_spines`; Sokoban walls as
   CLR_GRAY (recorder SGR 34 = CLR_BLUE); iterate only `ftrap` for
-  premap (JS uses `level.traps[]`).
+  premap (JS uses `level.traps[]`); remove Options
+  `clear_committed_status` on fullscreen pick (breaks seed0012);
+  skip CORPSE article in doname without fixing callers (breaks 1500).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0567 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0568 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0567 makemaz / endgame / air / rank / menu / Home / TREE /
-  bigrm light / Sokoban premap — see index.
+- D-0519…D-0568 makemaz / endgame / air / rank / menu / Home / TREE /
+  bigrm light / Sokoban premap / Amulet the — see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -94,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 RNG **full**; Scr **100**/124 after D-0567; next @99 Fire.
+- seed0373 RNG **full**; Scr **101**/124 after D-0568; next @100 Fire.
