@@ -4,17 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0466 — seed0002 screen@525 apply getobj compactify
+## D-0467 — seed0002 screen@530 invent `i` itemactions menu
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @530 — C fullscreen
+  `Do what with the spellbook of stone to flesh?` (Name/Drop/
+  Adjust/Study…) vs JS still on invent `Coins` listing; RNG full;
+  Scr 566/595 (post D-0466).
+- **Cause:** TBD — JS `ddoinv` only `display_inventory` dismiss;
+  C `dispinv_with_action` → `itemactions` (`iactions.c`) on letter.
+- **C locus:** `invent.c` `ddoinv`/`dispinv_with_action`;
+  `iactions.c` `itemactions`.
+- **Falsifier / next:** selecting invent letter must open itemed
+  menu (`Do what with %s?`); Study/`itemactions_pushkeys` deferred
+  until menu shows.
+
+## D-0466 — seed0002 screen@525 apply getobj compactify
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @525 — C
   `What do you want to use or apply? [ch-kop or ?*]` vs JS
   `[chijkop or ?*]`; RNG full; Scr 563/595 (post D-0465).
-- **Cause:** TBD — `getobj_apply` omits C `compactify` when
-  suggested > 5 (same helper as D-0455 drink / wield).
+- **Cause:** `getobj_apply` used raw SUGGEST lets in the prompt
+  without C `if (suggested > 5) compactify(bp)`.
 - **C locus:** `invent.c` `getobj` / `compactify`; `apply.c` `doapply`.
-- **Falsifier / next:** `js/apply.js` `getobj_apply` prompt
-  `compactify_invlets` when `lets.length > 5`; `?` keeps raw lets.
+- **Change:** `js/apply.js` — prompt via `compactify_invlets` when
+  `lets.length > 5`; `?`/`*` pickinv keeps raw lets (D-0455 pattern).
+- **Verification:** @525 matches; first miss **@525→@530**; Scr
+  **563→566**; RNG full; green+strict; cohort **26/26**.
+- **Deferred:** other getobj callers still omitting prompt compactify;
+  invent `i` → `itemed` (D-0467).
+- **Next:** invent itemed menu (D-0467).
 
 ## D-0465 — seed0002 screen@502 #terrain known-map trap glyphs
 

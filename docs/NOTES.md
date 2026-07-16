@@ -8,16 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#500 cadence). Scr **4868**/11405; RNG
-  **285358**/792838. seed0002 RNG **full** 27158; Scr **563**/595
-  (post D-0465).
-- **Next (D-0466):** seed0002 screen@525 — apply getobj C
-  `[ch-kop or ?*]` vs JS `[chijkop or ?*]` (`compactify` when
-  suggested > 5; same as D-0455 drink).
+  **285358**/792838. seed0002 RNG **full** 27158; Scr **566**/595
+  (post D-0466).
+- **Next (D-0467):** seed0002 screen@530 — invent `i` letter → C
+  `itemed` `Do what with the spellbook…` vs JS invent stays up.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: `js/apply.js` `getobj_apply` prompt must call
-  `compactify_invlets` when `lets.length > 5`; `?` keeps raw lets.
+  Falsify: `ddoinv`/`dispinv_with_action` must call `itemactions`
+  (`iactions.c`) when a letter is selected; not dismiss-only.
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -32,7 +31,8 @@ Objective/score live in `CURRENT.md`.
   screen@359 without `money2mon` `_goldCount` (D-0462);
   screen@363 without `on_msg`→`xname` (D-0463);
   screen@454 without doname locked-box prefix (D-0464);
-  screen@502 without TER_MAP trap kind/strip (D-0465).
+  screen@502 without TER_MAP trap kind/strip (D-0465);
+  screen@525 without apply compactify (D-0466).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -51,7 +51,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0465 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0466 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -60,7 +60,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0465 done; screen@525 apply compactify next (D-0466).
+- D-0408–D-0466 done; screen@530 invent itemed next (D-0467).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:50 — #504 D-0466 apply getobj compactify
+- Objective: seed0002 @525 C `[ch-kop or ?*]` vs JS `[chijkop or ?*]`.
+- C locus: `invent.c` `getobj`/`compactify`; `apply.c` `doapply`.
+- Change: `js/apply.js` prompt `compactify_invlets` when suggested>5;
+  `?`/`*` keeps raw lets (same as D-0455 drink).
+- Verification: @525 matches; first miss @525→@530; Scr 563→566;
+  RNG full; green+strict; cohort 26/26.
+- Next: D-0467 invent `i` → `itemactions` `Do what with` menu.
+
 ## 2026-07-16 06:46 — #503 D-0465 TER_MAP trap strip
 - Objective: seed0002 @502 #terrain C floor/`·` vs JS trap `^`.
 - C locus: `detect.c` `reveal_terrain_getglyph` `glyph_is_trap` strip.
@@ -163,14 +172,4 @@ Use this shape:
   (32,7)→(33,8) with matching mfndpos RNG.
 - Verification: green+strict PASS; full sessions documented.
 - Next: C mx/my/ux/uy at @26987 (or JS place/postmov desync).
-
-## 2026-07-16 05:16 — #489 D-0452 ureflects makeknown
-- Objective: seed0002 @26883 D-0452 primary.
-- C locus: `muse.c` `ureflects`; `o_init.c` `makeknown`/`discover_object`.
-- Change: shield `ureflects` calls `makeknown(SHIELD_OF_REFLECTION)`
-  after pline (WIS exercise on first discover). Deferred: W_WEP/
-  W_AMUL/W_ARM/dragon; `mon_reflects`; setworn EReflecting.
-- Verification: seed0002 **26883→26987**; Scr **322→323**; green+strict;
-  cohort **24/24**.
-- Next: @26987 C `dog_goal` vs JS `obj_resists` (D-0453).
 

@@ -11,6 +11,7 @@ import {
 import { P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline } from './insight.js';
+import { compactify_invlets } from './invent.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -139,6 +140,12 @@ function apply_lets() {
     return lets.join('');
 }
 
+/** C invent.c getobj: if (suggested > 5) compactify(bp) for prompt only. */
+function apply_prompt_lets(raw) {
+    if (!raw || raw.length <= 5) return raw;
+    return compactify_invlets(raw);
+}
+
 /** True when invent has DOWNPLAY (forces prompt even if SUGGEST empty). */
 function apply_has_downplay() {
     for (const o of game.invent || []) {
@@ -163,11 +170,13 @@ async function getobj_apply() {
 
     for (;;) {
         await flush_topl_more();
-        const lets = apply_lets();
-        if (!lets && !apply_has_downplay()) {
+        const rawLets = apply_lets();
+        if (!rawLets && !apply_has_downplay()) {
             await pline("You don't have anything to use or apply.");
             return null;
         }
+        // C: Strcpy(lets, bp); if (suggested > 5) compactify(bp); prompt uses bp
+        const lets = apply_prompt_lets(rawLets);
         const query = lets
             ? `What do you want to use or apply? [${lets} or ?*]`
             : 'What do you want to use or apply? [*]';
@@ -184,9 +193,9 @@ async function getobj_apply() {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            // C: display_pickinv(lets or all, want_reply) → selected invlet
+            // C: display_pickinv uses non-compacted lets[]
             const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : lets);
+            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;

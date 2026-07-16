@@ -452,7 +452,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0463 | fixed | wear `on_msg` uses `xname` not type string | seed0002 @363→@454; Scr 559→560 |
 | D-0464 | fixed | doname box locked/unlocked/trapped prefixes | seed0002 @454→@502; Scr 560→561 |
 | D-0465 | fixed | #terrain TER_MAP strip traps (kind=trap) | seed0002 @502→@525; Scr 561→563 |
-| D-0466 | open | apply getobj compactify | seed0002 first cell-miss @525 |
+| D-0466 | fixed | apply getobj compactify when suggested>5 | seed0002 @525→@530; Scr 563→566 |
+| D-0467 | open | invent `i` → itemed `Do what with` menu | seed0002 first cell-miss @530 |
 
 
 

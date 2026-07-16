@@ -21,7 +21,7 @@ Score last measured: **2026-07-16** — full `sessions` suite (#500 score
 cadence, post D-0462). Screens **4868**/11405; RNG **285358**/792838.
 **26/44** PASS. Speed `23+0.13/turn`. Δ vs #495: Scr **+232**, RNG 0
 (D-0462 `money2mon` `_goldCount`; seed0002 Scr 363→559).
-Focused peel since: D-0465 @502→@525 Scr **561→563** (suite total
+Focused peel since: D-0466 @525→@530 Scr **563→566** (suite total
 unchanged until next cadence).
 
 ## Score
@@ -44,7 +44,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **563**/595 | RNG full; first cell-miss @525 apply compactify (D-0466) |
+| seed0002 | **27158**/27158 | **566**/595 | RNG full; first cell-miss @530 invent itemed (D-0467) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -64,10 +64,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@525 — apply getobj `compactify`** (D-0466).
-RNG **full** 27158/27158; Scr **563**/595; first cell-miss: C
-`[ch-kop or ?*]` vs JS `[chijkop or ?*]` (D-0465 TER_MAP trap strip
-locked @502).
+**seed0002 screen@530 — invent `i` → itemed menu** (D-0467).
+RNG **full** 27158/27158; Scr **566**/595; first cell-miss: C
+`Do what with the spellbook of stone to flesh?` vs JS invent
+`Coins` (D-0466 apply compactify locked @525).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,7 +75,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0465.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0466.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
