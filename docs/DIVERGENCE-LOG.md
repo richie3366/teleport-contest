@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0520 — soko1-1 load_special + builds_up level_difficulty
+
+- **Status:** fixed (partial — fill_zoo cell tail / post-fill place_lregion)
+- **Symptom:** seed0116 @9350 matched `makemaz` `rnd(2)=1` then JS ordinary
+  `rn2(79)` vs C nhlib shuffle — next proto after bigrm was `soko1-1`.
+- **Cause:** `load_special_proto` omitted Sokoban; `level_difficulty` ignored
+  `builds_up` (Sokoban adj_lev/goldlim); `set_mimic_sym` burned maze
+  `rn2(2)` on Sokoban and used `ftrap` instead of `t_at`; `m_initinv`
+  omitted `S_LEPRECHAUN` / spider-snake `mkobj_at`.
+- **C locus:** `dat/soko1-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c`
+  `load_special` / `flip_level_rnd` / `fill_special_room`; `dungeon.c`
+  `builds_up` / `level_difficulty`; `makemon.c` `set_mimic_sym` /
+  `m_initinv` S_LEPRECHAUN + S_SPIDER/S_SNAKE; `mkroom.c` `fill_zoo`.
+- **Change:** `js/mklev.js` — `load_soko1_1` + dispatch; `flip_level_rnd` /
+  `flip_level`; `fill_zoo` ZOO path + `fill_special_room`; `js/hacklib.js`
+  — `builds_up` / `level_difficulty`; `js/makemon.js` — Sokoban
+  `set_mimic_sym` gate + `t_at_local`; leprechaun gold; spider/snake
+  `mkobj_at`.
+- **Verification:** seed0116 prefix **9351→12294** (runner matched RNG
+  **12336**/12562) Scr **110**/127; green+strict PASS; cohort 6/6 PASS
+  (0007/0060/0102/0398/1500/1800). seed0373 still @3289 randline.
+- **Named omission:** fill_zoo irregular cell-count vs C after flip
+  (extra JS gold after C’s 32nd); post-fill `place_lregion` branch;
+  solidify/premap; other `soko*-*`; COURT/BEEHIVE/… fill_zoo arms.
+- **Next:** reconcile fill_zoo cell filter / door adjacency after flip;
+  or Bar-strt `selection_do_randline`; or seed5006 `dosounds`.
+
 ## D-0519 — makemaz protofile + bigrm-2 / Bar-strt load_special
 
 - **Status:** fixed

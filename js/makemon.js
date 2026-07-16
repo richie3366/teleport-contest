@@ -4,7 +4,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { depth as depth_of_level } from './hacklib.js';
+import { depth as depth_of_level, level_difficulty as level_difficulty_of } from './hacklib.js';
 import { put_saddle_on_mon } from './steed.js';
 import {
     LOW_PM,
@@ -47,7 +47,7 @@ import {
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
-    GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines,
+    GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines, In_sokoban,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
@@ -55,7 +55,27 @@ import {
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
-import { mksobj, mkobj, weight, objects_at, curse } from './mkobj.js';
+import { mksobj, mkobj, mkobj_at, weight, objects_at, curse } from './mkobj.js';
+
+/** Local t_at — avoid makemon↔trap import cycle; matches trap.js t_at. */
+function t_at_local(x, y) {
+    const traps = game.level?.traps;
+    if (traps) {
+        for (const t of traps) {
+            if (t && t.tx === x && t.ty === y) return t;
+        }
+    }
+    if (Array.isArray(game.ftrap)) {
+        for (const t of game.ftrap) {
+            if (t && t.tx === x && t.ty === y) return t;
+        }
+    } else {
+        for (let t = game.ftrap; t; t = t.ntrap) {
+            if (t.tx === x && t.ty === y) return t;
+        }
+    }
+    return null;
+}
 import {
     objectNames, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, WAND_CLASS,
     FOOD_CLASS, COIN_CLASS, SCROLL_CLASS, POTION_CLASS, AMULET_CLASS,
@@ -182,7 +202,7 @@ function pm(name) {
 }
 
 function level_difficulty() {
-    return depth_of_level(game.u?.uz) || 1;
+    return level_difficulty_of(game.u?.uz) || 1;
 }
 
 // C ref: mkobj.c next_ident — duplicated here to avoid mkobj↔makemon cycle
@@ -946,6 +966,10 @@ function m_initinv(mtmp) {
         if (!rn2(2)) mongets(mtmp, otyp('MIRROR'));
         if (!rn2(2)) mongets(mtmp, otyp('POT_OBJECT_DETECTION'));
         break;
+    case 'S_LEPRECHAUN':
+        // C ref: makemon.c m_initinv S_LEPRECHAUN — mkmonmoney(d(level_difficulty(),30))
+        mkmonmoney(mtmp, d(level_difficulty(), 30));
+        break;
     case 'S_HUMAN':
         if (is_mercenary(ptr)) {
             // C ref: makemon.c m_initinv mercenary armor rounds
@@ -1291,11 +1315,17 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
-    // C: switch (ptr->mlet) before invent — mimic + sleepers (D-0519).
-    // Named omissions: spider/snake hideunder+mkobj; eel hideunder; orc/elf
-    // peace; unicorn align peace; bat hell speed; elemental invis.
+    // C: switch (ptr->mlet) before invent — mimic + sleepers + spider/snake.
+    // Named omissions: eel hideunder; orc/elf peace; unicorn align peace;
+    // bat hell speed; elemental invis.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
-    else if (ptr.mlet === 'S_LEPRECHAUN') mtmp.msleeping = 1;
+    else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
+        // C: in_mklev → mkobj_at(RANDOM) then hideunder
+        if (game.in_mklev) {
+            if (mtmp.mx && mtmp.my) mkobj_at(RANDOM_CLASS, mtmp.mx, mtmp.my, true);
+            // hideunder deferred (no RNG at creation)
+        }
+    } else if (ptr.mlet === 'S_LEPRECHAUN') mtmp.msleeping = 1;
     else if (ptr.mlet === 'S_JABBERWOCK' || ptr.mlet === 'S_NYMPH') {
         // C: if (rn2(5) && !u.uhave.amulet) msleeping = 1
         if (rn2(5) && !(game.u?.uhave?.amulet || game.u?.uhave_amulet))
@@ -1323,9 +1353,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
 
 /**
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) paths.
- * Named omissions: maze town/sokoban arms, altar Align2amask MCORPSENM,
+ * Named omissions: maze town arms, altar Align2amask MCORPSENM,
  * Protection_from_shape_changers early-out when hero wears the amulet
- * (stubbed false at mklev), full t_at for corridor boulder.
+ * (stubbed false at mklev).
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -1354,12 +1384,12 @@ export function set_mimic_sym(mtmp) {
         appear = 0;
     } else if (game.level?.flags?.is_maze_lev
         && !(In_mines(game.u?.uz) /* && in_town */)
-        && !rn2(2)) {
-        // Sokoban gate omitted — not on ordinary themerms path
+        && !In_sokoban(game.u?.uz) && rn2(2)) {
+        // C: !In_sokoban before rn2(2) — Sokoban must not burn this roll
         ap_type = M_AP_OBJECT;
         appear = STATUE;
-    } else if (roomno < 0 && !game.ftrap?.some?.(t => t.tx === mx && t.ty === my)) {
-        // t_at stub: no trap → boulder. Named omission: full t_at.
+    } else if (roomno < 0 && !t_at_local(mx, my)) {
+        // C: roomno < 0 && !t_at → boulder
         ap_type = M_AP_OBJECT;
         appear = BOULDER;
     } else if (rt === ZOO || rt === VAULT) {

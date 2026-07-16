@@ -7,16 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0519 done:** `makemaz` protofile + `bigrm-2` / `Bar-strt` load —
-  seed0116 **6374→9351** Scr **107→110** (next `makemaz` rnd(2) @9350);
-  seed0373 **2550→3289** (next `selection_do_randline`).
+- **D-0520 done (partial):** `soko1-1` load_special + `builds_up`
+  `level_difficulty` + Sokoban `set_mimic_sym` + leprechaun/spider invent.
+  seed0116 **9351→12294** (runner **12336**/12562) Scr **110**/127.
+  Next miss: extra JS `fill_zoo` gold after C’s 32nd, then C
+  `place_lregion` @12294.
 - **D-0515 residual:** seed5006 still @8468 `dosounds`.
 - **#575 formal score:** **30/44**, Scr **5895**/11405, RNG
   **314432**/792838 (39.66%), `26+0.14/turn`. seed0398 PASS confirmed.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
-- **Gameplay next:** next special after seed0116 @9350 (`makemaz`
-  rnd(2) → nhlib); Bar-strt `selection_do_randline`; or seed5006
+- **Gameplay next:** fill_zoo irregular/door filter after soko flip;
+  Bar-strt `selection_do_randline` (seed0373 @3289); or seed5006
   `dosounds`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
@@ -27,15 +29,16 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0519; stub-cancel `^V?` as if menu (breaks 0373);
-  template `\.` in map strings (use `\\` for throne).
+  reopen D-0474…D-0520; stub-cancel `^V?` as if menu (breaks 0373);
+  template `\.` in map strings (use `\\` for throne); burn maze
+  `rn2(2)` in `set_mimic_sym` on Sokoban.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0519
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0520
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -51,6 +54,8 @@ Objective/score live in `CURRENT.md`.
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
 - D-0519: `makemaz` stub was the shared 0116/0373 special miss.
+- D-0520: Sokoban needs `builds_up` difficulty; `set_mimic_sym`
+  must `!In_sokoban` before maze `rn2(2)` and real `t_at`.
 
 ## Landmarks (≤15)
 
