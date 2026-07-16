@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0524 — m_avoid_soko_push_loc must skip boulder-line cells
+
+- **Status:** fixed
+- **Symptom:** seed0116 @12521 C `distfleeck` `rn2(5)` vs JS `dog_move`
+  `rn2(3)` after matched candidate rolls; C next EOT `were_change`
+  `rn2(50)=0`.
+- **Cause:** JS `m_avoid_soko_push_loc` was stubbed `false`. On Sokoban,
+  C skips a pet candidate when `dist2(nx,ny,u)==4` and a boulder sits
+  between that cell and the hero. Pet at (31,9) evaluated (30,10) in JS
+  (extra `rn2(3)`/`rn2(12)`) while C continued past it to (31,8)/(32,9),
+  finished `dog_move`, then post-move `distfleeck`.
+- **C locus:** `monmove.c` `m_avoid_soko_push_loc`; caller
+  `dogmove.c` `dog_move` (also `m_move` for hostiles).
+- **Change:** port `m_avoid_soko_push_loc` in `js/mon.js` (Sokoban +
+  peaceful/tame + `dist2==4` + `sobj_at(BOULDER)` on intervening cell).
+- **Verification:** seed0116 RNG **12562**/12562 (full); Scr still
+  **110**/127; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** hostile `m_move` still may not call this helper
+  (dog_move path wired); `mfndpos` pool/lava/squeeze still partial.
+- **Next:** seed0116 screen/cursor residual (110/127); or Bar-strt /
+  dosounds peels.
+
 ## D-0523 — m_calcdistress must call were_change
 
 - **Status:** fixed (partial — howl / armor break / flee onscary)

@@ -269,10 +269,25 @@ export function m_avoid_kicked_loc(mtmp, nx, ny) {
 }
 
 /**
- * C ref: monmove.c m_avoid_soko_push_loc — Sokoban boulder-line skip.
- * Deferred until Sokoban; always false for now.
+ * C ref: monmove.c m_avoid_soko_push_loc — Sokoban: peaceful/tame skip a
+ * cell when a boulder sits between it and the hero (dist2 == 4).
  */
-export function m_avoid_soko_push_loc(_mtmp, _nx, _ny) {
+export function m_avoid_soko_push_loc(mtmp, nx, ny) {
+    const Sokoban = !!(game.level?.flags?.sokoban_rules
+        || game.level?.flags?.sokoban
+        || game.Sokoban);
+    if (!Sokoban) return false;
+    if (!(mtmp.mpeaceful || mtmp.mtame)) return false;
+    if (mtmp.mconf || mtmp.mstun) return false;
+    if (hero_conflict()) return false;
+    const u = game.u;
+    if (!u) return false;
+    if (dist2(nx, ny, u.ux, u.uy) !== 4) return false;
+    const bx = nx + Math.sign(u.ux - nx);
+    const by = ny + Math.sign(u.uy - ny);
+    for (let o = objects_at(bx, by); o; o = o.nexthere) {
+        if (o.otyp === BOULDER) return true;
+    }
     return false;
 }
 
