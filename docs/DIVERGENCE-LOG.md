@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0506 — enlightenment Sleepy / Poison_res / Stealth (seed0007 @297)
+
+- **Status:** fixed
+- **Symptom:** after D-0505, first cell miss @297 (Scr **297**/302) —
+  Final Status/Attributes omitted `You fell asleep uncontrollably.` /
+  `poison resistant` / `stealthy` (cascading Mores). RNG full.
+- **Cause:** gameover `enlightenment` Status/Attributes subset skipped
+  C `Sleepy` (`fall`/`fell` asleep uncontrollably),
+  `Poison_resistance`, and `Stealth` lines already active via
+  restful-sleep amulet + orc/rogue `adjabil`.
+- **C locus:** `insight.c` `status_enlightenment` Sleepy arm;
+  `attributes_enlightenment` Poison_resistance / Stealth;
+  `youprop.h` macros; `cause_known(SLEEPY)`.
+- **Change:** `js/invent.js` — `status_core_lines` Sleepy (+ magic /
+  RESTFUL_SLEEP `cause_known` subset); MAGIC attributes
+  `poison resistant` + `stealthy` in C order.
+- **Verification:** seed0007 **PASS** Scr **302**/302 RNG full;
+  green+strict PASS; cohort **26/26** PASS; full `sessions`
+  **29/44** (Scr 5296, RNG 303218).
+- **Named omission:** other status troubles; remaining resistances /
+  appearance props; blocked-Stealth; full `cause_known` via oc_oprop;
+  from_what suffixes.
+- **Next:** leaderboard 22-vs-29 gap; next near-miss survey.
+
 ## D-0505 — tin_details tintxts / homemade (seed0007 @293)
 
 - **Status:** fixed
@@ -23,7 +47,7 @@ to preserve, record it here.
   RNG full; green+strict PASS; cohort **26/26** PASS.
 - **Named omission:** non-display `tin_variety`/`set_tin_variety` RNG
   arms; `use_tinning_kit`; eat-path tin open.
-- **Next:** seed0007 @297 enlightenment Status attributes.
+- **Next:** seed0007 @297 enlightenment Status attributes (D-0506 fixed).
 
 ## D-0504 — add_erosion_words oeroded degrees (seed0007 @161)
 

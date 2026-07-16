@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:50 — D-0506 enlightenment Sleepy/Poison_res/Stealth
+- Objective: seed0007 @297 Final Status/Attributes missing lines
+- C: `insight.c` status_enlightenment Sleepy; attributes_enlightenment
+  Poison_resistance / Stealth; youprop.h macros
+- Fix: `js/invent.js` status_core_lines Sleepy + MAGIC attr poison/stealth
+- Verify: seed0007 **PASS** 302/302; green+strict; cohort 26/26;
+  full sessions **29/44** Scr 5296
+- Next: leaderboard gap; seed0398 near-RNG survey
+
 ## 2026-07-16 15:45 — D-0505 tin_details homemade tintxts
 - Objective: seed0007 @293 invent `homemade tin of lichen`
 - C: `eat.c` tin_details / tin_variety(displ) / tintxts[]; set_cknown_lknown

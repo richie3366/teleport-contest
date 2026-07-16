@@ -492,6 +492,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0503 | fixed | TIN xname known + otyp_uses_known (egg/tin) | seed0007 Scr 291→294; @161 burnt next |
 | D-0504 | fixed | add_erosion_words oeroded degrees + proofs | seed0007 Scr 294→296; @293 homemade next |
 | D-0505 | fixed | tin_details tintxts / homemade (cknown+spe<0) | seed0007 Scr 296→297; @297 Final Attr next |
+| D-0506 | fixed | enlightenment Sleepy + Poison_res + Stealth | seed0007 **PASS** 302/302; suite 29/44 |
 
 
 

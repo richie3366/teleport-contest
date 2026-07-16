@@ -21,32 +21,32 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#560**),
-post D-0502. Screens **5285**/11405; RNG **303218**/792838 (38.24%).
-**28/44** PASS. Speed `25+0.13/turn`. Δ vs #555: Scr **+231**, PASS **28→28**,
-RNG **0**; seed0007 Scr 126→291 (D-0502 `find_ac` ARM_BONUS).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#564**),
+post D-0506. Screens **5296**/11405; RNG **303218**/792838 (38.24%).
+**29/44** PASS. Speed `25+0.13/turn`. Δ vs #560: Scr **+11**, PASS **28→29**,
+RNG **0**; seed0007 **PASS** (D-0506 enlightenment Sleepy/Poison_res/Stealth).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **28 / 44** |
-| Screens matched | **5,285 / 11,405** |
+| Sessions passing | **29 / 44** |
+| Screens matched | **5,296 / 11,405** |
 | Positional RNG calls matched | **303,218 / 792,838** (38.24%) |
 | Speed label | `25+0.13/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
-**PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (29):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004, seed0002, **seed0006**.
+seed0012, seed0004, seed0002, seed0006, **seed0007**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | **16373**/16373 | **297**/302 | D-0505 homemade; @297 Final Attr next |
+| seed0398 | **2773**/3026 | 0/87 | near RNG; wandpoly pile |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -64,29 +64,27 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-28 gap** — local PASS includes seed0002/0004/0012/0030
+**Leaderboard 22-vs-29 gap** — local PASS includes seed0002/0004/0007/0012/0030
 (+seed0006); judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel @297** (D-0506 next). RNG full
-**16373**/16373; Scr **297**/302 after D-0505 `tin_details` tintxts
-(was 296; @293 `homemade tin of lichen` fixed). @297 Final Attributes:
-C has `You fell asleep uncontrollably.` / `poison resistant` /
-`stealthy`; JS omits those Status lines (cascades later Mores).
+**Gameplay next:** shared-blocker survey among remaining FAILs — prefer
+sessions with long RNG prefix (seed0398 **2773**/3026) over late single-seed
+peels. Do **not** reopen D-0474…D-0506.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
+node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0505.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0506.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006**
-(must stay PASS) + strict lengths.
+**seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
+**seed0007** (must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

@@ -7,14 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0506 (next):** after D-0505 homemade tin, Scr **297**/302;
-  first miss @297 Final Attributes — C has `You fell asleep
-  uncontrollably.` / `poison resistant` / `stealthy`; JS omits those
-  Status lines (cascades More). RNG full. Falsifier:
+- **Gameplay next:** seed0398 wandpoly pile — RNG **2773**/3026, Scr 0.
+  Prefer shared-blocker survey over late peels. Falsifier:
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
   ```
-- **Leaderboard gap:** local **28/44** vs judge **22** after D-0480;
+- **Leaderboard gap:** local **29/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
@@ -26,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0505
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0506
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,22 +36,22 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0504 RNG/botl/loot/AC/tin/erosion done; D-0505 homemade.
+- D-0490…D-0506 RNG/botl/loot/AC/tin/erosion/enlightenment done.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- seed0006 **PASS** after D-0482.
+- seed0006 **PASS** after D-0482; seed0007 **PASS** after D-0506.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #560 score: **28/44**, Scr 5285, RNG 303218 (38.24%), `25+0.13/turn`.
+- #564 score: **29/44**, Scr 5296, RNG 303218 (38.24%), `25+0.13/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0502: `find_ac` ARM_BONUS; Scr 126→291.
 - D-0503…D-0505: tin known → erosion → homemade; Scr 291→297.
+- D-0506: Sleepy + Poison_res + Stealth enlightenment → **PASS**.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
-- @297: Sleep from amulet of restful sleep; Poison_res/Stealth props.
