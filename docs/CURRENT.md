@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#655**),
-post D-0584…D-0587 (seed0116 PASS). Screens **6547**/11405; RNG
-**359063**/792838 (45.29%). **33/44** PASS. Δ vs #650: Scr **+12**, PASS
-**32→33**, RNG unchanged. (#658 focused peel only — no full rescore.)
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#660**),
+post D-0588…D-0591 (seed0361 prefix through expulsion return). Screens
+**6570**/11405; RNG **361303**/792838 (45.57%). **33/44** PASS. Δ vs #655:
+Scr **+23**, RNG **+2240**, PASS unchanged. (D-0591 seed0361 4516→5605.)
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **33 / 44** |
-| Screens matched | **6,547 / 11,405** |
-| Positional RNG calls matched | **359,063 / 792,838** (45.29%) |
-| Speed label | `32+0.15/turn` (R² 0.765) |
+| Screens matched | **6,570 / 11,405** |
+| Positional RNG calls matched | **361,303 / 792,838** (45.57%) |
+| Speed label | `33+0.15/turn` (R² 0.789) |
 | Role-init throws | **0 / 44** |
 
 **PASS (33):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,8 +47,8 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 4516/53865 | 178/366 | post D-0590; next `getbones` @4368 |
-| seed0367 | 2040/50125 | 75/324 | quest / `Pri-strt` |
+| seed0361 | 5605/53865 | 178/366 | next `pick_room` @5483 |
+| seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -72,11 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0591 `movemon` `deferred_goto` (seed0361
-**4368→5483** / RNG **4516→5605** / Scr **178**), next peel is
-seed0361 `pick_room` @5483 (post-expulsion main-dungeon `makelevel`),
-or seed0367 `Pri-strt` (still @2040), or seed0014/0108. Prefer over
-parked D-0006 / seed2200 RC; do not reopen D-0474…D-0591.
+**Gameplay next:** seed0361 `pick_room` @5483 (C `mkroom.c:225`
+`rn2(6)` vs JS `rn2(4)` — room-count drift during post-expulsion
+`makelevel`), or seed0367 `Pri-strt` (still ~@2053), or seed0014/0108.
+Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0591.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

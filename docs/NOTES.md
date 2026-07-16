@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#659:** D-0591 `movemon` `deferred_goto` after quest expulsion
-  `schedule_goto`. seed0361 prefix **4368→5483** (RNG **4516→5605**,
-  Scr **178**/366). Next @5483 `pick_room` (mkroom) during post-return
-  `makelevel` — not getbones (that was missing deferred_goto).
+- **#660 score:** full suite **33/44**, Scr **6570**/11405, RNG
+  **361303**/792838 (45.57%). Δ vs #655: Scr **+23**, RNG **+2240**
+  (D-0591 seed0361). PASS unchanged.
+- **seed0361 @5483:** C `pick_room` `rn2(6)` vs JS `rn2(4)` — room
+  count drift in post-expulsion `makelevel` (not getbones).
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
 - **Gameplay next:** seed0361 `pick_room` @5483; or seed0367 `Pri-strt`
-  (still @2040); seed0014/0108. Prefer over parked D-0006 /
-  seed2200 RC.
+  (~@2053); seed0014/0108. Prefer over parked D-0006 / seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
