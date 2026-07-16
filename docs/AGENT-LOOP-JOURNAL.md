@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:23 — #478 goto_level descend fall (D-0445)
+- Objective: seed0002 @16501 goto_level descend fall rnd(3) (PRIMARY).
+- C locus: `do.c` `goto_level` encumber/Punished/Fumbling fall `losehp(Maybe_Half_Phys(rnd(3)))`.
+- Change: port descend Flying / fall / ordinary arms; `near_capacity()>UNENCUMBERED` burns `rnd(3)` before `mon_arrive`.
+- Verification: seed0002 prefix **16501→18354**; Scr **292→311**/595; green+strict; cohort **26/26** PASS.
+- Next: seed0002 @18354 C `rn2(5)` @ `distfleeck` vs JS `rn2(31)` (D-0446).
+
 ## 2026-07-16 03:20 — #477 peffect_healing (D-0444)
 - Objective: seed0002 @14081 peffect_healing (PRIMARY).
 - C locus: `potion.c` `peffect_healing` / `peffects` / `healup`.
@@ -168,15 +175,3 @@ Use this shape:
 - Verification: seed0002 prefix **8609→8831**; Scr **172→190**/595;
   RNG matched **9227**/27158; green+strict; cohort **24/24**.
 - Next: seed0002 @8831 `drinksink` rn2(20) vs JS rn2(5).
-## 2026-07-16 01:45 — #463 SCR_REMOVE_CURSE (D-0432)
-- Objective: seed0002 @6954 C `exercise` rn2(19) vs JS rn2(5) (PRIMARY).
-- C locus: `read.c` `doread` nodisappear / `seffects` /
-  `seffect_remove_curse`; `mkobj.c` `uncurse`; `do_name.c` `trycall`.
-- Change: JS gated SCR_REMOVE_CURSE unimplemented; C cursed remove-curse
-  read `v` exercises WIS, You_feel + disintegrates, then trycall
-  (“helping you”). Ported seffect_remove_curse/uncurse + nodisappear +
-  trycall wire.
-- Verification: seed0002 prefix **6954→8609**; Scr **126→172**/595;
-  RNG matched **8887**/27158; green+strict; cohort **24/24**.
-- Next: seed0002 @8609 H-rush door bump `exercise` rn2(2) vs JS
-  `doopen_indir` rnl(20).

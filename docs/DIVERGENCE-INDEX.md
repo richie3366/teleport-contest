@@ -431,7 +431,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0442 | fixed | safemon keep move + dochug flee rn2(40) | seed0002 prefix 12222→12530; Scr 242→247; @12530 obj_resists next |
 | D-0443 | fixed | rottenfood non-faint must start_eating | seed0002 prefix 12530→14081; Scr 247→284; @14081 healing next |
 | D-0444 | fixed | peffect_healing + POT_HEALING peffects | seed0002 prefix 14081→16501; Scr 284→292 |
-| D-0445 | open | goto_level descend fall rnd(3) | seed0002 @16501; C stair fall vs JS mon_arrive |
+| D-0445 | fixed | goto_level descend fall rnd(3) | seed0002 prefix 16501→18354; Scr 292→311 |
+| D-0446 | open | post-descend monmove vs rn2(31) | seed0002 @18354; C distfleeck vs JS rn2(31) |
 
 
 

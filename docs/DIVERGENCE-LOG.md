@@ -4,19 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0445 — seed0002 @16501 goto_level descend fall `rnd(3)`
+## D-0446 — seed0002 @18354 post-descend `distfleeck` vs `rn2(31)`
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @18354 — C `rn2(5)=3` @
+  `distfleeck(monmove.c:538)` vs JS `rn2(31)=30`. Prefix 18354;
+  Scr 311/595. Matched through `moveloop_core` `rn2(61)`; C next
+  is `obj_resists`, JS later reaches `distfleeck`.
+- **Hypothesis:** after D-0445 stair fall, JS burns an extra `rn2(31)`
+  (or skips a zap/`obj_resists` path C takes) before monmove fleeck.
+- **C locus:** reconstruct post-descend turn — `monmove`/`distfleeck`
+  vs JS caller of `rn2(31)`.
+- **Next:** identify JS `rn2(31)` site; compare C call path after
+  descend + `losedogs` / EOT.
+- **Verification:** after D-0445; green+strict; cohort 26/26 PASS.
+
+## D-0445 — seed0002 @16501 goto_level descend fall `rnd(3)`
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @16501 — C `rnd(3)=2` @
   `goto_level(do.c:1792)` (encumber/Punished/Fumbling stair fall
   `losehp`) vs JS `rn2(10)` @ `mon_arrive`. Prefix 16501; Scr 292/595.
-- **Hypothesis:** JS `goto_level` descend always prints ordinary
-  climb-down and skips C Flying / `near_capacity()>UNENCUMBERED` /
+- **Cause:** JS `goto_level` descend always printed ordinary
+  climb-down and skipped C Flying / `near_capacity()>UNENCUMBERED` /
   Punished / Fumbling fall arm that burns `rnd(3)`.
 - **C locus:** `do.c` `goto_level` descend `losehp(Maybe_Half_Phys(rnd(3)))`.
-- **Next:** port descend fall branch (+ `selftouch` / drag_down as needed);
-  compare vs JS ordinary-descend stub.
-- **Verification:** after D-0444; green+strict; cohort 26/26 PASS.
+- **Change:** port descend branch — Flying verbose fly-down;
+  encumber|Punished|Fumbling → fall pline + `losehp(maybe_half_phys(rnd(3)))`
+  (+ steed `dismount_steed(DISMOUNT_FELL)`); else ordinary verbose.
+- **Verification:** seed0002 prefix **16501→18354**; Scr **292→311**/595;
+  green+strict; cohort **26/26** PASS (24 cohort + green).
+- **Omissions named:** Punished `drag_down`/`ballrelease`; full
+  `selftouch` petrify; trap-door `do_fall_dmg` / non-stairs falling.
+- **Next:** seed0002 @18354 C `rn2(5)` @ `distfleeck` vs JS `rn2(31)`.
 
 ## D-0444 — seed0002 @14081 peffect_healing missing `d(4,4)`
 

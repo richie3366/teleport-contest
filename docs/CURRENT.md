@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 17119/27158 | **292**/595 | @16501 goto_level fall (D-0445) |
+| seed0002 | 19465/27158 | **311**/595 | @18354 post-descend (D-0446) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,21 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @16501 — `goto_level` descend fall** (D-0445). Prefix **16501**;
-Scr **292**/595. C `rnd(3)` @ `do.c` `goto_level` encumber/Punished/
-Fumbling stair fall `losehp`; JS ordinary descend → `rn2(10)`
-(`mon_arrive`). D-0444 fixed: `peffect_healing` + `POT_HEALING`.
+**seed0002 @18354 — post-descend monmove vs `rn2(31)`** (D-0446). Prefix
+**18354**; Scr **311**/595. After D-0445 stair fall: C `rn2(5)` @
+`distfleeck` vs JS `rn2(31)`. Matched through `moveloop_core` `rn2(61)`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C goto_level descend fall rnd(3) vs JS ordinary-descend stub
+# Focus: identify JS rn2(31) caller vs C distfleeck / obj_resists path
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0444;
-treating @16501 as `mon_arrive`/`collect_coords` without the stair-fall arm.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0445;
+treating @18354 as stair-fall without checking the extra `rn2(31)`.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
