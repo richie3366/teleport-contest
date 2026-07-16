@@ -516,6 +516,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0528 | fixed | tower1 load_special + vampshift/newcham | seed0373 4159→4571 RNG 4596; next Bar-loca @4571 |
 | D-0529 | fixed | Bar-loca load_special + traptype_rnd level_difficulty | seed0373 4571→5082 RNG 5133; next m_initweap @5082 |
 | D-0530 | fixed | m_initweap S_TROLL polearm kit | seed0373 5082→5497 RNG 5511; next nhlib shuffle @5497 |
+| D-0531 | fixed | on_locate + In_quest Bar-fila/filb + reset_xystart | seed0373 5497→6811 RNG 6849; next rndmonst_adj @6811 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

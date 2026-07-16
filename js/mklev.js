@@ -40,6 +40,7 @@ import {
     BOOL_RANDOM,
     LVLINIT_SOLIDFILL, LVLINIT_MINES,
     In_mines,
+    In_quest,
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
@@ -73,6 +74,7 @@ import {
 import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
+import { find_level } from './dungeon.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -575,12 +577,20 @@ const Y_MAZE_MAX = (ROWNO - 1) & ~1; // 20
 const MKMAP_WIDTH = COLNO - 2; // 78
 const MKMAP_HEIGHT = ROWNO - 1; // 20
 
+/** C ref: sp_lev.c reset_xystart_size — full-level get_location bounds. */
+function reset_xystart_size() {
+    game.splev_xstart = 1;
+    game.splev_ystart = 0;
+    game.splev_xsize = COLNO - 1;
+    game.splev_ysize = ROWNO;
+}
+
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt,
- * Bar-loca, soko1-1, tower1.
- * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-goal/
- * fila/filb); tower2/3; create_maze
+ * Bar-loca, Bar-fila, Bar-filb, soko1-1, tower1.
+ * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-goal);
+ * tower2/3; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
@@ -637,6 +647,8 @@ async function makemaz(s) {
  * @returns {boolean} true if loaded (C load_special success)
  */
 function load_special_proto(protofile) {
+    // C ref: sp_lev.c create_des_coder / reset_xystart_size at load start
+    reset_xystart_size();
     if (protofile === 'minefill') {
         load_minefill();
         return true;
@@ -655,6 +667,14 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Bar-loca') {
         load_bar_loca();
+        return true;
+    }
+    if (protofile === 'Bar-fila') {
+        load_bar_fila();
+        return true;
+    }
+    if (protofile === 'Bar-filb') {
+        load_bar_filb();
         return true;
     }
     if (protofile === 'tower1') {
@@ -975,7 +995,7 @@ function load_bar_strt() {
  * C ref: dat/Bar-loca.lua via load_special — locate level (ogre fort).
  * Named omissions: humidity-aware get_location for water-likers;
  * set_malign after peaceful override (matches Bar-strt partial);
- * Bar-goal/fila/filb.
+ * Bar-goal.
  */
 function load_bar_loca() {
     const g = game;
@@ -2689,7 +2709,8 @@ function monclass_letter_to_mlet(ch) {
 }
 
 // C ref: sp_lev.c create_monster — sp_amask_to_amask before mkclass / makemon
-function splev_create_monster(id_or_class) {
+// optional peaceful (> BOOL_RANDOM) overrides after makemon (quest fills).
+function splev_create_monster(id_or_class, peaceful) {
     let pm = null;
     let female = 0;
     const isClass = typeof id_or_class === 'string' && id_or_class.length === 1;
@@ -2711,6 +2732,8 @@ function splev_create_monster(id_or_class) {
     if (mtmp && typeof id_or_class === 'string' && id_or_class.length > 1) {
         mtmp.female = female;
     }
+    if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
+        mtmp.mpeaceful = peaceful;
 }
 
 function splev_create_stair(up) {
@@ -2810,6 +2833,86 @@ function load_minefill() {
     fixup_special();
 }
 
+/**
+ * C ref: dat/Bar-fila.lua via load_special — quest filler above locate.
+ * Named omissions: other-role *-fila; humidity get_location.
+ */
+function load_bar_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " }) — ' ' → STONE
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=".", lit=0, walled=false
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ROOM, filling: ROOM,
+        lit: 0, smoothed: true, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    splev_create_monster('ogre', 0);
+    splev_create_monster('ogre', 0);
+    splev_create_monster('O', 0);
+    splev_create_monster('rock troll', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Bar-filb.lua via load_special — quest filler below locate.
+ * Named omissions: other-role *-filb; humidity get_location.
+ */
+function load_bar_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" ", lit=0, walled=true
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        lit: 0, smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 7; i++) splev_create_monster('ogre', 0);
+    splev_create_monster('O', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('rock troll', 0);
+    splev_create_monster('T', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
 
 // C ref: mklev.c makelevel()
 async function makelevel() {
@@ -2821,15 +2924,25 @@ async function makelevel() {
 
     const dun = g.dungeons?.[g.u?.uz?.dnum | 0];
     const fill = dun?.fill_lvl || '';
-    // C ref: mklev.c:1267-1289 — Is_special / proto / fill_lvl before ordinary.
-    // Medusa rn2(5) only in hell/medusa else-if — NOT before fill_lvl.
+    // C ref: mklev.c:1267-1289 — Is_special / proto / fill_lvl / In_quest
+    // before ordinary. Medusa rn2(5) only in hell/medusa else-if.
     const slev = (g.sp_levchn || []).find(s =>
         (s.dlevel?.dnum | 0) === (g.u?.uz?.dnum | 0)
         && (s.dlevel?.dlevel | 0) === (g.u?.uz?.dlevel | 0));
     if (slev && !Is_rogue_level(g.u?.uz)) {
         await makemaz(slev.proto);
+    } else if (dun?.proto) {
+        // C: makemaz("") → create_maze; deferred (empty protofile early-return)
+        await makemaz('');
     } else if (fill) {
         await makemaz(fill);
+    } else if (In_quest(g.u?.uz)) {
+        // C ref: mklev.c:1275-1285 — role-fil a/b relative to locate
+        const code = g.urole?.filecode || 'Tou';
+        const loc_lev = find_level(`${code}-loca`);
+        const loc_dlvl = loc_lev?.dlevel?.dlevel | 0;
+        const suffix = ((g.u.uz.dlevel | 0) < loc_dlvl) ? 'a' : 'b';
+        await makemaz(`${code}-fil${suffix}`);
     } else {
         await makelevel_ordinary();
         return; // ordinary already runs fill_special + themerms_post + wallify

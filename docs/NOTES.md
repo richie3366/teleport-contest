@@ -7,21 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0530 done:** `m_initweap` S_TROLL polearm kit (`rn2(2)` →
-  `rn2(4)` RANSEUR/PARTISAN/GLAIVE/SPETUM). seed0373 rng-diff
-  **5082→5497**; runner RNG **5511**/35386 Scr 21/124.
-- **seed0373 next:** @5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)`
-  after matched `collect_coords` + shuffle `rn2(3)`. C then
-  `getbones` @5498 + another 3-shuffle — JS likely fell through
-  ordinary `makemaz` Medusa `rn2(5)` (missing Bar-goal/fila/filb
-  after tour `^V2` post-Bar-loca). Falsify: identify C protofile
-  for that `^V2` hop before porting.
+- **D-0531 done:** `on_locate` + `makelevel` In_quest `Bar-fila`/`filb`
+  + `reset_xystart_size`. seed0373 rng-diff **5497→6811**; runner RNG
+  **6849**/35386 Scr **22**/124. Immediate miss was locate nhl shuffle
+  (not Medusa); `^V2` → quest dlevel 2 → `Bar-fila`.
+- **seed0373 next:** @6811 C `rndmonst_adj` `rn2(7)` vs JS `rn2(3)`
+  then `qt_montype` — quest monster generation after fila load.
+  Falsify: compare C `rndmonst`/`qt_montype` vs JS path for Bar.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#590 formal score:** **30/44**, Scr **5899**/11405, RNG
   **323852**/792838 (40.85%), `29+0.15/turn` (R² 0.80).
-  Δ vs #585: Scr +1, RNG +1288 (D-0527…30), PASS same.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -34,22 +31,23 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0530; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0531; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
   skip `were_change` in `m_calcdistress`; stub `m_avoid_soko_push_loc`;
-  skip Bar-strt after randline; skip onquest firsttime nhl shuffle;
-  treat noteleport as blocking covetous (Vlad); compare `mons()` objects
-  by reference in pickvampshape (use mndx); use `dlevel` in
-  `traptype_rnd` (must be `level_difficulty`); stub S_TROLL m_initweap.
+  skip Bar-strt after randline; skip onquest firsttime/on_locate nhl
+  shuffle; treat noteleport as blocking covetous (Vlad); compare `mons()`
+  objects by reference in pickvampshape (use mndx); use `dlevel` in
+  `traptype_rnd` (must be `level_difficulty`); stub S_TROLL m_initweap;
+  skip In_quest `*-fila`/`*-filb`; leave stale `splev_*` after map load.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0530
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0531
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -64,7 +62,8 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0530 makemaz / tower1 / Bar-loca / S_TROLL peels — see index.
+- D-0519…D-0531 makemaz / tower1 / Bar-loca / fila / on_locate —
+  see index.
 
 ## Landmarks (≤15)
 
@@ -85,4 +84,5 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca; next `^V2`.
+  seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca (+on_locate),
+  `^V2`→Bar-fila; next rndmonst_adj @6811.

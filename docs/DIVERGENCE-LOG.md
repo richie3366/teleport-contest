@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0531 — on_locate + In_quest Bar-fila/filb + reset_xystart_size
+
+- **Status:** fixed (partial — Bar-goal; other-role fills; on_goal)
+- **Symptom:** seed0373 @5497 C nhlib `shuffle` `rn2(2)` vs JS
+  Medusa `rn2(5)` after matched Bar-loca / S_TROLL.
+- **Cause:** (1) `onquest` deferred `on_locate`, skipping C
+  `qt_pager("locate_first")` nhl shuffle after Bar-loca arrival;
+  JS then entered `^V2` quest dlevel 2 via ordinary `makelevel`
+  (Medusa `rn2(5)`). (2) `makelevel` omitted C `In_quest` →
+  `Bar-fila`/`Bar-filb`. (3) stale `splev_*` map bounds after
+  Bar-loca skewed `get_location` (`rn2(76)` vs C `rn2(79)`).
+- **C locus:** `quest.c` `on_locate`; `questpgr.c` `qt_pager`;
+  `dat/quest.lua` Bar locate_*; `mklev.c` `makelevel` In_quest;
+  `dat/Bar-fila.lua` / `Bar-filb.lua`; `sp_lev.c` `reset_xystart_size`.
+- **Change:** port `on_locate` + Bar locate texts; `makelevel`
+  In_quest fill + `load_bar_fila`/`load_bar_filb`; reset bounds at
+  `load_special_proto` start; `splev_create_monster` peaceful override.
+- **Verification:** seed0373 rng-diff **5497→6811**; runner RNG
+  **5511→6849**/35386 Scr **21→22**/124; green+strict PASS; cohort
+  **30**/30 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** Bar-goal; other-role `*-fila`/`*-filb` loaders;
+  `on_goal`; humidity `get_location`; dungeon.proto `makemaz("")`
+  create_maze body.
+- **Next:** @6811 C `rndmonst_adj` `rn2(7)` vs JS `rn2(3)` /
+  `qt_montype`; or seed5006 `dosounds` @8468.
+
 ## D-0530 — m_initweap S_TROLL polearm kit
 
 - **Status:** fixed (partial — S_ANGEL/S_KOP/S_LIZARD still deferred)

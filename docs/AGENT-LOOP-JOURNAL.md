@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 18:40 — #591 D-0531 on_locate + Bar-fila
+- Objective: seed0373 @5497 nhlib shuffle vs Medusa `rn2(5)`.
+- C locus: `quest.c` `on_locate`; `mklev.c` In_quest fill;
+  `dat/Bar-fila.lua`/`Bar-filb.lua`; `sp_lev.c` `reset_xystart_size`.
+- Change: port `on_locate`+Bar locate texts; `makelevel` → `Bar-fila`
+  for `^V2` quest dlevel 2; reset splev bounds at load_special start.
+- Verification: seed0373 **5497→6811** (RNG **6849**, Scr 22/124);
+  green+strict; cohort **30**/30; seed0116 RNG full Scr 110/127.
+- Next: @6811 `rndmonst_adj`/`qt_montype`; or seed5006 dosounds @8468.
+
 ## 2026-07-16 18:30 — #590 formal public score
 - Objective: mandatory 5-iter score refresh (global #590).
 - C locus: n/a (score+docs); light diagnose seed0373 @5497.
@@ -168,14 +178,3 @@ Use this shape:
   **2550→3289**; green+strict; cohort **30/30**.
 - Next: seed0116 @9350 next special; Bar-strt randline; or seed5006
   dosounds.
-
-## 2026-07-16 16:58 — #576 D-0518 print_dungeon(TRUE)
-- Objective: shared `^V?` getbones blocker (seed0116 @6373 / seed0373 @2549).
-- C locus: `dungeon.c` `print_dungeon`/`tport_menu`/`print_branch`;
-  `teleport.c` `level_tele` levTport_menu force_dest.
-- Change: bymenu PICK_ONE menu + `?`/menu_requested → force_dest
-  `schedule_goto`; export `select_menu_pick_one`.
-- Verification: seed0116 **6373→6383** (getbones+); seed0373
-  **2549→2550**; Scr unchanged; green+strict; cohort **30/30**.
-  seed5006 still @8468.
-- Next: quest/`makemaz` special (0373/0116) or seed5006 `dosounds`.
