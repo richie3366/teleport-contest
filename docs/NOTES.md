@@ -15,8 +15,9 @@ Objective/score live in `CURRENT.md`.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#580 formal score:** **30/44**, Scr **5898**/11405, RNG
-  **321672**/792838 (40.57%), `29+0.15/turn`.
+- **#585 formal score:** **30/44**, Scr **5898**/11405, RNG
+  **322564**/792838 (40.68%), `29+0.15/turn` (R² 0.76).
+  Δ vs #580: Scr 0, RNG +892 (D-0525/26 between snaps).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -67,7 +68,7 @@ Objective/score live in `CURRENT.md`.
   seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #580 score: **30/44**, Scr 5898, RNG 321672 (40.57%), `29+0.15/turn`.
+- #585 score: **30/44**, Scr 5898, RNG 322564 (40.68%), `29+0.15/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
