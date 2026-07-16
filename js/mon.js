@@ -299,7 +299,8 @@ export function seemimic(mtmp) {
     // has_mcorpsenm / freemcorpsenm deferred
     mtmp.m_ap_type = M_AP_NOTHING;
     mtmp.mappearance = 0;
-    // is_lightblocker_mappear / unblock_point deferred
+    // is_lightblocker unblock_point on discover deferred (vision_reset covers
+    // does_block; D-0585 ports is_lightblocker_mappear into _blocks)
     if (mtmp.mx > 0) newsym(mtmp.mx, mtmp.my);
 }
 

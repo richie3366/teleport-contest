@@ -1,6 +1,6 @@
 // vision.js — C ref: vision.c Algorithm C shadow-casting
-// Partial: light sources, mimics, underwater, blindness, pits deferred.
-// BOULDER does_block is ported (linedup boulderhandling depends on it).
+// Partial: underwater, blindness pits deferred.
+// BOULDER + is_lightblocker_mappear (mimic boulder/door/wall) in does_block.
 
 import { game } from './gstate.js';
 import {
@@ -8,7 +8,7 @@ import {
     D_CLOSED, D_LOCKED, D_TRAPPED,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7, SVALL,
     IS_WALL, IS_WATERWALL, ROOMOFFSET, Is_rogue_level,
-    TEMP_LIT,
+    TEMP_LIT, M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE,
 } from './const.js';
 import { newsym } from './display.js';
 import { objectNames } from './objects.js';
@@ -17,6 +17,11 @@ import { do_light_sources } from './light.js';
 const COULD_SEE = 0x1;
 const IN_SIGHT = 0x2;
 const BOULDER = objectNames.indexOf('BOULDER');
+// C ref: defsym.h cmap indices used by is_lightblocker_mappear
+const S_ndoor = 12;
+const S_vcdoor = 15;
+const S_hcdoor = 16;
+const S_tree = 18;
 
 // C ref: vision.c seenv_matrix
 const seenv_matrix = [
@@ -75,7 +80,21 @@ function mark_visible_range(row, left, right) {
 }
 
 /**
- * C ref: vision.c does_block — terrain/door + BOULDER (mimic/region deferred).
+ * C ref: monst.h is_lightblocker_mappear — boulder / closed-door / wall / tree
+ * disguise blocks light like the real feature.
+ */
+function is_lightblocker_mappear(mon) {
+    if (!mon) return false;
+    const ap = M_AP_TYPE(mon);
+    if (ap === M_AP_OBJECT) return (mon.mappearance | 0) === BOULDER;
+    if (ap !== M_AP_FURNITURE) return false;
+    const app = mon.mappearance | 0;
+    return app === S_hcdoor || app === S_vcdoor || app < S_ndoor || app === S_tree;
+}
+
+/**
+ * C ref: vision.c does_block — terrain/door + BOULDER + lightblocker mimic.
+ * Named omission: opaque gas-cloud region return 2.
  */
 function _blocks(level, x, y) {
     const loc = level.at(x, y);
@@ -91,6 +110,14 @@ function _blocks(level, x, y) {
     const head = game._objects_at?.get?.(`${x},${y}`);
     for (let obj = head; obj; obj = obj.nexthere) {
         if (obj.otyp === BOULDER) return true;
+    }
+    // C: mimics mimicking boulder/door/wall/tree block light
+    const steed = game.u?.usteed;
+    for (const mon of game.fmon || []) {
+        if (!mon || mon === steed) continue;
+        if (mon.mx !== x || mon.my !== y) continue;
+        if (mon.minvis && !game.u?.See_invisible) continue;
+        if (is_lightblocker_mappear(mon)) return true;
     }
     return false;
 }

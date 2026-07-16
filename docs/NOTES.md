@@ -9,18 +9,18 @@ Objective/score live in `CURRENT.md`.
 
 - **#650 score:** suite **32/44** Scr **6535**/11405 RNG
   **359063**/792838 (45.29%); seed5006 suite-confirmed PASS.
-- **Next gameplay:** seed0116 Scr 116/127 — @114 materialize
-  map (32,13) C `` ` `` vs JS `·` (wear `[*]` fixed D-0584).
+- **Next gameplay:** seed0116 Scr **125**/127 — @117 “Currently known
+  spells” title centering; @122 enlightenment block layout.
+  Map `` ` `` vs `·` fixed D-0585 (`is_lightblocker_mappear`).
 - **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
-- **Falsifier @114:** dump screen after `You materialize…`; compare
-  terrain/glyph at map (32,13) vs C dark-stone `` ` ``.
+- **Falsifier @117:** dump spells menu screen; compare title col vs C.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0584; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0585; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -51,7 +51,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0583 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0585 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
 - D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
@@ -68,6 +68,8 @@ Objective/score live in `CURRENT.md`.
 - D-0583: @198 was leave-level gbuf mon→memory + getbones yn flush,
   not water terrain; ordinary `vision_recalc(2)` newsym loop regresses.
 - D-0584: seed0116 @14 was empty wear `[*?]` vs C `[*]`, not SUGGEST.
+- D-0585: @114 was mimic-as-boulder missing from `does_block`, not
+  terrain STONE; Bresenham through wall (33,11) left a clear-cell hole.
 
 ## Landmarks (≤15)
 
@@ -87,3 +89,4 @@ Objective/score live in `CURRENT.md`.
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
 - Empty wear/puton getobj → `[*]` (D-0584).
+- Mimic-as-boulder → `does_block` / Algorithm C edge COULD_SEE (D-0585).

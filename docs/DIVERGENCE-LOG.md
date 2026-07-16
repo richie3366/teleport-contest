@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0585 — does_block is_lightblocker_mappear (seed0116 Scr)
+
+- **Status:** fixed (partial — seed0116 residual @117/@122 menu layout)
+- **Symptom:** seed0116 Scr **116**/127; @114 after Sokoban materialize —
+  C boulder `` ` `` vs JS floor `·` at screen (32,13)=map (33,12).
+  RNG already FULL. Cell holds giant mimic `M_AP_OBJECT`/BOULDER;
+  `cansee` false (vision hole) so newsym painted premap floor memory.
+- **Cause:** C `vision.c` `does_block` treats `is_lightblocker_mappear`
+  (mimic-as-boulder) like a real boulder. Algorithm C marks blocking
+  edge cells COULD_SEE; clear cells only reachable through a wall via
+  Bresenham stay unmarked. JS `_blocks` omitted mimics → (33,12) clear
+  but unreachable → hole → floor glyph.
+- **C locus:** `vision.c` `does_block`; `monst.h` `is_lightblocker_mappear`;
+  `sp_lev.c` create_monster `block_point` after appear_as.
+- **Change:** `js/vision.js` `_blocks` + `is_lightblocker_mappear`
+  (BOULDER object + furniture door/wall/tree).
+- **Verification:** seed0116 Scr **116→125**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 PASS (excl. seed0116 residual); seed0373 PASS.
+- **Named omission:** gas-cloud region return 2; `seemimic`/`set_mimic_blocking`
+  incremental block_point; seed0116 @117 spells / @122 enlightenment layout.
+- **Next:** seed0116 @117 “Currently known spells” centering; or leaderboard.
+
 ## D-0584 — wear/puton empty getobj prompt `[*]` (seed0116 Scr)
 
 - **Status:** fixed
