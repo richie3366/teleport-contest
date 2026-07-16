@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 22:44 — D-0570 mon_pmname / M2_PNAME article
+- Objective: seed0373 @101 Wizard appear capitalization (CURRENT primary).
+- C locus: do_name.c mon_pmname/pmname/x_monnam name_at_start; mondata.h
+  type_is_pname; wizard.c resurrect Norep(Monnam).
+- Change: js/do_name.js mon_pmname from pmnames + M2_PNAME article skip.
+- Verification: seed0373 Scr 110→111 RNG full; @101 match; green+strict;
+  cohort 30/30 PASS.
+- Next: @110 Air gravity map clouds; or seed5006 dosounds @8468.
+
 ## 2026-07-16 22:40 — D-0569 Fire lit + monster lights
 - Objective: seed0373 @100 Fire vision (CURRENT primary).
 - C locus: sp_lev.c set_levltyp_lit; light.c do_light_sources; makemon emits_light.

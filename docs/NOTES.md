@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0569 done:** Fire SpLev_Map lit epilogue (clear solidfill random lit;
-  lava stays lit) + `js/light.js` monster `emits_light`/`do_light_sources`
-  TEMP_LIT in `vision_recalc`. seed0373 Scr **101→110**/124. Do **not**
-  make global `sel_set_ter(false)` force-unlit (breaks seed0009 themerms).
-- **seed0373 next:** @101 `The wizard of yendor` vs C `Wizard of Yendor`
-  (unique Monnam). Falsify: `x_monnam`/`Monnam` for PM_WIZARD_OF_YENDOR.
+- **D-0570 done:** `mon_pmname`/`pmnames` casing + `M2_PNAME` article
+  skip in `do_name.js`. seed0373 Scr **110→111**/124; @101 Wizard
+  appear matches. Do **not** lowercase PM_ identifiers for display.
+- **seed0373 next:** @110 Air `no gravity` More — C map `#` clouds vs
+  JS blank/`?`. Falsify: air.lua / `movebubbles` / cloud glyphs.
 - **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#630 score:** **30/44**, Scr **6378**/11405, RNG **353648**
@@ -29,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0569; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0570; stub-cancel `^V?` as if menu (breaks 0373);
   treat empty wish ESC as cancel (C → `any` random); skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature msg
   (More key timing for wish getlin); template `\.` in map strings;
@@ -82,11 +81,12 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0569 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0570 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0569 makemaz / endgame / air / rank / menu / Home / TREE /
-  bigrm light / Sokoban premap / Amulet the / Fire lit+lights — see index.
+- D-0519…D-0570 makemaz / endgame / air / rank / menu / Home / TREE /
+  bigrm light / Sokoban premap / Amulet the / Fire lit / Wizard Monnam —
+  see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -97,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 RNG **full**; Scr **110**/124 after D-0569; next @101 Wizard.
+- seed0373 RNG **full**; Scr **111**/124 after D-0570; next @110 Air map.

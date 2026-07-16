@@ -4,10 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0570 — mon_pmname / M2_PNAME article in x_monnam
+
+- **Status:** fixed (partial — Air-plane map @110; gas-cloud region; hallu/
+  invis/priest/`called`/`is_mplayer`/`AUGMENT_IT` x_monnam arms)
+- **Symptom:** seed0373 Scr **110**/124; @101 JS
+  `The wizard of yendor suddenly appears…` vs C `The Wizard of Yendor…`.
+- **Cause:** `mon_plain_name` lowercased `PM_*` identifiers instead of
+  `mon_pmname`/`pmnames[]` (table already has `"Wizard of Yendor"`);
+  `M2_PNAME` never cleared ARTICLE_THE (Medusa etc.).
+- **C locus:** `do_name.c` `mon_pmname`/`pmname`/`x_monnam` name_at_start;
+  `mondata.h` `type_is_pname`; `wizard.c` `resurrect` appear `Norep(Monnam)`.
+- **Change:** `js/do_name.js` `mon_pmname` from `pmnames` + gender;
+  `type_is_pname` → skip `"the "` when no adjectives.
+- **Verification:** seed0373 Scr **110→111**/124 RNG full; @101 match;
+  green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** @110 Air gravity More map `#`/`?` clouds; gas-cloud
+  glyphs; full x_monnam hallu/invis/priest arms.
+- **Next:** seed0373 @110 Air map / `movebubbles`; or seed5006 `dosounds`
+  @8468.
+
 ## D-0569 — Fire plane lit clear + monster do_light_sources
 
-- **Status:** fixed (partial — Wizard appear capitalization @101; create_gas_cloud
-  region body; LS_OBJECT lights; circle_ptr range>1)
+- **Status:** fixed (partial — create_gas_cloud region body; LS_OBJECT
+  lights; circle_ptr range>1)
 - **Symptom:** seed0373 Scr **101**/124; @100 JS lit `·` across Fire plane vs C
   dark + DEC room `~` / lava `` ` ``; after lit-only fix, blank vs TEMP_LIT floors.
 - **Cause:** (1) `load_fire` solidfill `BOOL_RANDOM`→`rn2(2)=1` left `.lit` on map
@@ -23,8 +43,8 @@ to preserve, record it here.
   themerms).
 - **Verification:** seed0373 Scr **101→110**/124 RNG full; @100 match; green+
   strict PASS; cohort **28**/28 PASS (incl. seed0009/0398).
-- **Named omission:** @101 `wizard of yendor` vs `Wizard of Yendor`; gas-cloud
-  region glyphs; object lights.
+- **Named omission:** gas-cloud region glyphs; object lights (Wizard Monnam
+  → D-0570).
 - **Next:** seed0373 @101 Wizard Monnam; or seed5006 `dosounds` @8468.
 
 ## D-0568 — doname the_unique_obj + print_dungeon bot after menu
