@@ -46,6 +46,7 @@ import {
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
     MM_ASLEEP, IS_TREE, G_GENOD,
     MKTRAP_NOSPIDERONWEB,
+    MKTRAP_NOVICTIM,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -1958,7 +1959,7 @@ function load_tut1() {
     {
         // spider_on_web=false → no spider; still burns victim-gate rnd(4)
         const ttmp = maketrap(xstart + 15, ystart + 16, WEB);
-        mktrap_seen_victim(ttmp, {});
+        mktrap_seen_victim(ttmp, { nospider: true });
     }
     tut1_door(18, 13, D_CLOSED);
 
@@ -2202,15 +2203,25 @@ function tut1_object_quan(xstart, ystart, mx, my, otyp, quan) {
 }
 
 /**
- * C ref: mklev.c mktrap — SEEN flag + victim gate after maketrap().
+ * C ref: mklev.c mktrap post-maketrap — spider on WEB, SEEN, victim gate.
+ * Order matches C: WEB makemon before SEEN before victim `rnd(4)`.
  * `rnd(4)` is evaluated only when !novictim (clang && short-circuit).
  * MAGIC_PORTAL/WEB fail (kind < HOLE || MAGIC_TRAP) so no victim body.
+ * opts.nospider / MKTRAP_NOSPIDERONWEB skips giant spider (create_trap).
  */
 function mktrap_seen_victim(ttmp, opts) {
     if (!ttmp) return;
-    if (opts?.seen) ttmp.tseen = true;
     const kind = ttmp.ttyp;
-    const novictim = !!opts?.novictim;
+    const nospider = !!(opts?.nospider
+        || ((opts?.mktrapflags ?? 0) & MKTRAP_NOSPIDERONWEB));
+    // C: if (kind == WEB && !(mktrapflags & MKTRAP_NOSPIDERONWEB))
+    //        makemon(&mons[PM_GIANT_SPIDER], m.x, m.y, NO_MM_FLAGS);
+    if (kind === WEB && !nospider) {
+        makemon(mons(PM_GIANT_SPIDER), ttmp.tx, ttmp.ty, 0);
+    }
+    if (opts?.seen) ttmp.tseen = true;
+    const novictim = !!(opts?.novictim
+        || ((opts?.mktrapflags ?? 0) & MKTRAP_NOVICTIM));
     const lvl = level_difficulty();
     if (game.in_mklev
         && kind !== NO_TRAP
@@ -2754,6 +2765,7 @@ function splev_create_stair(up) {
 }
 
 // C ref: sp_lev.c create_trap → mktrap(random) — retry until kind != NO_TRAP
+// Default spider_on_web=true → no MKTRAP_NOSPIDERONWEB (giant spider on WEB).
 function splev_create_trap() {
     const pos = get_location_random(null);
     let kind;
@@ -2765,19 +2777,8 @@ function splev_create_trap() {
     const canFallThru = (game.u?.uz?.dlevel ?? 1) < (dungeon?.num_dunlevs ?? 1);
     if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
     const trap = maketrap(pos.x, pos.y, kind);
-    kind = trap ? trap.ttyp : NO_TRAP;
-    // C mktrap victim gate (minefill des.trap has no novictim)
-    const lvl = level_difficulty();
-    if (game.in_mklev
-        && kind !== NO_TRAP
-        && lvl <= rnd(4)
-        && kind !== SQKY_BOARD && kind !== RUST_TRAP
-        && !(kind === ROLLING_BOULDER_TRAP
-            && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
-        && !is_pit(kind) && (kind < HOLE || kind === MAGIC_TRAP)) {
-        if (kind === LANDMINE) { trap.ttyp = PIT; trap.tseen = true; }
-        mktrap_victim(trap);
-    }
+    // C: WEB spider → SEEN → victim gate (mklev.c mktrap)
+    mktrap_seen_victim(trap, {});
 }
 
 /**
@@ -5690,16 +5691,8 @@ async function mktrap_room(croom) {
     const pos = { x: 0, y: 0 };
     if (!somexyspace(croom, pos)) return;
     const trap = await maketrap(pos.x, pos.y, kind);
-    kind = trap ? trap.ttyp : NO_TRAP;
-    const lvl = game.u?.uz?.dlevel ?? 1;
-    if (game.in_mklev && kind !== NO_TRAP
-        && lvl <= rnd(4)
-        && kind !== SQKY_BOARD && kind !== RUST_TRAP
-        && !(kind === ROLLING_BOULDER_TRAP && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
-        && !is_pit(kind) && (kind < HOLE || kind === MAGIC_TRAP)) {
-        if (kind === LANDMINE) { trap.ttyp = PIT; trap.tseen = true; }
-        mktrap_victim(trap);
-    }
+    // C mktrap: WEB spider before victim gate; level_difficulty not dlevel
+    mktrap_seen_victim(trap, {});
 }
 
 function mkfount(croom) {

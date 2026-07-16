@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0534 — mktrap WEB giant spider before victim gate
+
+- **Status:** fixed (partial — full unified `mktrap()` still fragmented)
+- **Symptom:** seed0373 @9875 C `next_ident`/`newmonhp` (WEB spider)
+  vs JS victim-gate `rnd(4)` after matched `traptype_rnd` WEB.
+- **Cause:** `splev_create_trap` / `mktrap_room` omitted C
+  `mktrap` `kind == WEB && !MKTRAP_NOSPIDERONWEB` →
+  `makemon(PM_GIANT_SPIDER)` before SEEN/victim.
+- **C locus:** `mklev.c` `mktrap` WEB arm; `sp_lev.c` `create_trap`.
+- **Change:** `mktrap_seen_victim` creates spider unless `nospider`;
+  wire `splev_create_trap`/`mktrap_room` through it; tut-1 WEB keeps
+  `nospider: true` (`spider_on_web=false`).
+- **Verification:** seed0373 rng-diff **9875→11957**; runner RNG
+  **10034→12021**/35386 Scr 22/124; green+strict PASS; cohort
+  **28**/28 PASS.
+- **Named omission:** single C-shaped `mktrap()` still split across
+  callers; `make_a_trap` TELEP path unchanged.
+- **Next:** @11957 C `mksobj_init` `rn2(5)` vs JS `rn2(4)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0533 — attach_egg_hatch_timeout for typed eggs
 
 - **Status:** fixed (partial — `hatch_egg` callback deferred)

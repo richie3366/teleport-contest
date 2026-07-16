@@ -519,6 +519,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0531 | fixed | on_locate + In_quest Bar-fila/filb + reset_xystart | seed0373 5497→6811 RNG 6849; next rndmonst_adj @6811 |
 | D-0532 | fixed | rndmonst_adj quest rn2(7)→qt_montype + roles enemy* | seed0373 6811→9839 RNG 9872; next egg hatch @9839 |
 | D-0533 | fixed | attach_egg_hatch_timeout + mksobj EGG set_corpsenm | seed0373 9839→9875 RNG 10034; next next_ident @9875 |
+| D-0534 | fixed | mktrap WEB → makemon GIANT_SPIDER before victim rnd(4) | seed0373 9875→11957 RNG 12021; next mksobj_init @11957 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

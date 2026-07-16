@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0533 done:** `attach_egg_hatch_timeout` + `stop_timer` +
-  `mksobj` EGG→`set_corpsenm`. seed0373 rng-diff **9839→9875**;
-  runner RNG **10034**/35386 Scr **22**/124.
-- **seed0373 next:** @9875 C `next_ident` `rnd(2)` vs JS `rnd(4)`
-  after matched fila traps / get_location. Falsify: compare C
-  `next_ident` vs JS object-id path around that call.
+- **D-0534 done:** `mktrap` WEB → `makemon(PM_GIANT_SPIDER)` before
+  victim gate (`mktrap_seen_victim` + `splev_create_trap` /
+  `mktrap_room`). seed0373 rng-diff **9875→11957**; runner RNG
+  **12021**/35386 Scr **22**/124.
+- **seed0373 next:** @11957 C `mksobj_init` `rn2(5)` vs JS `rn2(4)`
+  after matched `m_initweap` / `rnd_offensive_item` / `next_ident`.
+  Falsify: compare C `mksobj_init` switch arm vs JS for that otyp.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
@@ -30,7 +31,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0533; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0534; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -40,14 +41,15 @@ Objective/score live in `CURRENT.md`.
   objects by reference in pickvampshape (use mndx); use `dlevel` in
   `traptype_rnd` (must be `level_difficulty`); stub S_TROLL m_initweap;
   skip In_quest `*-fila`/`*-filb`; leave stale `splev_*` after map load;
-  skip quest `rndmonst_adj`→`qt_montype`; skip EGG `attach_egg_hatch_timeout`.
+  skip quest `rndmonst_adj`→`qt_montype`; skip EGG `attach_egg_hatch_timeout`;
+  skip WEB `makemon(PM_GIANT_SPIDER)` when `!MKTRAP_NOSPIDERONWEB`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0533
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0534
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -62,8 +64,8 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0533 makemaz / tower1 / Bar / fila / qt_montype / egg hatch —
-  see index.
+- D-0519…D-0534 makemaz / tower1 / Bar / fila / qt_montype / egg /
+  WEB spider — see index.
 
 ## Landmarks (≤15)
 
@@ -84,5 +86,4 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca (+on_locate),
-  `^V2`→Bar-fila; egg hatch done; next next_ident @9875.
+  seed0373 tour: egg hatch + WEB spider done; next mksobj_init @11957.

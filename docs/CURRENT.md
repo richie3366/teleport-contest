@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 5511/35386 | 21/124 | D-0530; next nhlib shuffle @5497 |
+| seed0373 | 12021/35386 | 22/124 | D-0534; next `mksobj_init` @11957 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,8 +71,8 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0533 (`attach_egg_hatch_timeout` typed eggs),
-seed0373 @9875 C `next_ident` `rnd(2)` vs JS `rnd(4)`. Or peel
+**Gameplay next:** after D-0534 (`mktrap` WEB→giant spider),
+seed0373 @11957 C `mksobj_init` `rn2(5)` vs JS `rn2(4)`. Or peel
 seed5006 `dosounds` @8468. Prefer over parked seed2200 RC /
 seed0116 screen residual.
 
@@ -82,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0533.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0534.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

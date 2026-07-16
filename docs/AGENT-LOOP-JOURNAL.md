@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:52 — D-0534 mktrap WEB giant spider
+- Objective: seed0373 @9875 C `next_ident`/`newmonhp` vs JS `rnd(4)`.
+- C locus: `mklev.c` `mktrap` WEB→`makemon(PM_GIANT_SPIDER)`;
+  `sp_lev.c` `create_trap`.
+- Change: `mktrap_seen_victim` creates spider unless `nospider`;
+  wire `splev_create_trap`/`mktrap_room`; tut-1 WEB keeps nospider.
+- Verification: rng-diff **9875→11957**; RNG **12021**/35386;
+  green+strict PASS; cohort **28**/28 PASS.
+- Next: @11957 `mksobj_init` `rn2(5)` vs `rn2(4)`; or seed5006.
+
 ## 2026-07-16 16:46 — D-0533 attach_egg_hatch_timeout
 - Objective: seed0373 @9839 egg hatch `rnd(151)` vs JS `rn2(79)`.
 - C locus: `timeout.c` `attach_egg_hatch_timeout`/`stop_timer`;
@@ -164,15 +174,3 @@ Use this shape:
   **321672**/792838 (40.57%), `29+0.15/turn`; seed0116
   **12330→12461** (RNG **12509**); green+strict; cohort 10/10.
 - Next: `were_change` @12461; or Bar-strt / dosounds.
-
-## 2026-07-16 17:35 — #579 D-0521 load_special must not fill
-- Objective: seed0116 @12294 C `place_lregion` vs JS `rn2(1156)` after
-  fill_zoo (NOTES guessed irregular/door filter).
-- C locus: `sp_lev.c` `load_special` (no fill); `mklev.c:1416`
-  `fill_special_room` once after `makemaz`.
-- Change: remove premature `fill_special_room` from `load_soko1_1`
-  (double zoo fill). Not a cell-filter bug.
-- Verification: prefix **12294→12330** (RNG **12368**/12562) Scr 110;
-  green+strict; cohort 8/8 PASS.
-- Next: `put_lregion_here` accept vs C reject @12330; or Bar-strt /
-  dosounds.
