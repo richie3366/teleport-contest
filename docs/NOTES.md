@@ -16,8 +16,8 @@ Objective/score live in `CURRENT.md`.
   `vision_recalc` / fire.lua lit / cloud terrain glyph / see_monsters.
 - **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#625 formal score:** **30/44**, Scr **6355**/11405, RNG
-  **353648**/792838 (44.61%), `31+0.14/turn` (R² 0.77).
+- **#630 score:** **30/44**, Scr **6378**/11405, RNG **353648**
+  (44.61%), `31+0.15/turn`. Δ#625 Scr +23 (D-0565…68), RNG 0.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -93,7 +93,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398 **PASS** (D-0482/D-0506/D-0514).
 - LB gap: 14 cells / 4 sessions; report upstream if cron unchanged.
-- #625 score: **30/44**, Scr 6355, RNG 353648 (44.61%), `31+0.14/turn`.
+- #630 score: **30/44**, Scr 6378, RNG 353648 (44.61%), `31+0.15/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
