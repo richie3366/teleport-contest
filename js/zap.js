@@ -13,7 +13,8 @@
 // non-sleep; shopdamage; beam glyphs/tmp_at; backfire body; other NODIR;
 // wrest pline; check_capacity/nohands; check_unpaid; more_experienced;
 // update_inventory; shieldeff/monstunseesu; setworn EReflecting bits
-// (worn SHIELD_OF_REFLECTION stands in).
+// (worn SHIELD_OF_REFLECTION stands in); ureflects W_WEP/W_AMUL/W_ARM/
+// silver-dragon arms beyond shield makeknown.
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -22,7 +23,7 @@ import { flush_screen, flush_topl_more, pline, You_feel } from './display.js';
 import { cansee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
-import { hold_another_object, discover_object } from './invent.js';
+import { hold_another_object, discover_object, makeknown } from './invent.js';
 import { doname, xname } from './objnam.js';
 import { A_WIS, A_STR, exercise } from './attrib.js';
 import { findit } from './detect.js';
@@ -104,11 +105,18 @@ function flash_str(fltyp) {
     return names[zaptype(fltyp) % 10] || 'ray';
 }
 
-/** C ref: muse.c ureflects — shield slot only. */
+/**
+ * C ref: muse.c ureflects — shield slot only (W_WEP/W_AMUL/W_ARM/dragon
+ * deferred). When fmt+str given, makeknown like C so first observed
+ * reflection discovers the type and may exercise(A_WIS) (D-0452).
+ */
 async function ureflects(fmt, str) {
     if (game.u?.uarms?.otyp === SHIELD_OF_REFLECTION) {
-        // C: pline(fmt, str, "shield") with fmt "But %s reflects from your %s!"
-        await pline(`But ${str} reflects from your shield!`);
+        if (fmt && str) {
+            // C: pline(fmt, str, "shield") with fmt "But %s reflects from your %s!"
+            await pline(`But ${str} reflects from your shield!`);
+            makeknown(SHIELD_OF_REFLECTION);
+        }
         return true;
     }
     return false;

@@ -438,7 +438,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0449 | fixed | exerchk next_attrib_check + rn2(50) loop | seed0002 prefix 25615→25767; Scr 320; @25767 exercise/dobuzz next |
 | D-0450 | fixed | zap getobj ? + RAY ubuzz/dobuzz sleep | seed0002 prefix 25767→26692; Scr 320; @26692 obj_resists next |
 | D-0451 | fixed | doloot lootmon getdir + help_dir quitchar More; doforce ECMD_TIME | seed0002 26692→26883; Scr 320→322 |
-| D-0452 | open | exercise then zap_hit vs JS rn2(20) after peel | seed0002 @26883 |
+| D-0452 | fixed | ureflects shield makeknown→exercise | seed0002 26883→26987; Scr 322→323; @26987 dog_goal next |
+| D-0453 | open | dog_goal rn2(4) vs JS obj_resists after reflect peel | seed0002 @26987 |
 
 
 

@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#485 full; #488 focused peel only). Scr
-  **4629**/11405 suite; seed0002 Scr **322**/595 prefix **26883**.
-- **Next (D-0452):** seed0002 @26883 — C `rn2(19)` @ `exercise` then
-  `zap_hit` vs JS `rn2(20)=17`.
+- **Score:** **26/44** PASS (#485 full; #489 focused peel). Scr
+  **4629**/11405 suite; seed0002 Scr **323**/595 prefix **26987**.
+- **Next (D-0453):** seed0002 @26987 — C `dog_goal` `rn2(4)` vs JS
+  `obj_resists` `rn2(100)`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
 - **Don’t re-check:** invent-first @26692; ship `#force` TIME without
-  lootmon getdir first; `help_dir` More accepting any key (`f` then
-  leftover `\r`→LF rush); treat @26692 as bare pet mfndpos without
+  lootmon getdir first; `help_dir` More accepting any key; treat @26883
+  as mid-buzz mon `exercise`/`zap_hit` without hero `ureflects`→
+  `makeknown` (D-0452 done); treat @26692 as bare pet mfndpos without
   `#loot`/`doforce` key accounting (D-0451 done).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
@@ -39,8 +40,8 @@ Objective/score live in `CURRENT.md`.
   `msleeping` (D-0278); drop gold without `_goldCount`/botl (D-0396);
   defer Move along! / skip `gd_move_cleanup` Suddenly (D-0396/97);
   omit bear-trap / pile-gem observe / encumber+trapmove / Norep /
-  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@26692
-  as index D-0405…D-0450 without those C paths — see DIVERGENCE-INDEX;
+  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@26883
+  as index D-0405…D-0452 without those C paths — see DIVERGENCE-INDEX;
   treat RING `obj.known` as type-ID (D-0420); bypass yn ring-hand
   (D-0421); force corner invent when lets len==1 (D-0422); leave
   autodescribe unset (D-0423); skip tseen trap / wall DECgraphics /
@@ -59,8 +60,9 @@ Objective/score live in `CURRENT.md`.
   (D-0449 done); treat @25767 as monmove without zap getobj/`dobuzz`
   (D-0450 done); treat @26692 as invent-first / bare pet door-step
   without `#loot` lootmon + `help_dir` quitchar More + `doforce`
-  ECMD_TIME (D-0451 done); re-audit SLT trunc; ship `#force` TIME
-  without fixing loot getdir key accounting first.
+  ECMD_TIME (D-0451 done); treat @26883 as mon mid-buzz exercise
+  without hero shield `ureflects`/`makeknown` (D-0452 done); re-audit
+  SLT trunc; ship `#force` TIME without fixing loot getdir first.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -77,7 +79,8 @@ Objective/score live in `CURRENT.md`.
   D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
   next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450;
   D-0451 `#loot` lootmon + help_dir quitchar More + `doforce` TIME
-  done; D-0452 @26883 exercise/zap_hit next.
+  done; D-0452 `ureflects` shield `makeknown` done; D-0453 @26987
+  dog_goal vs obj_resists next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

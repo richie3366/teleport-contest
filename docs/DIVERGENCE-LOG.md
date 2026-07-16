@@ -4,15 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0452 — seed0002 @26883 exercise then zap_hit vs JS rn2(20)
+## D-0453 — seed0002 @26987 dog_goal vs JS obj_resists
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @26987 — C `rn2(4)=3` @
+  `dog_goal(dogmove.c:575)` vs JS `rn2(100)` (`obj_resists`). Prefix
+  26987; Scr 323/595. Matched through shield `ureflects`/`makeknown`
+  (D-0452).
+- **Cause:** TBD — pet goal vs continued invent `obj_resists` walk.
+- **C locus:** `dogmove.c` `dog_goal`; `zap.c` `obj_resists`.
+- **Falsifier / next:** rng-diff pet state at step of 26987.
+
+## D-0452 — seed0002 @26883 ureflects makeknown exercise vs JS zap_hit
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @26883 — C `rn2(19)=9` @
   `exercise(attrib.c:509)` then `zap_hit` vs JS `rn2(20)=17`. Prefix
-  26883; Scr 322/595. Matched through `#force` ECMD_TIME peels (D-0451).
-- **Cause:** TBD — reconstruct C path after sleep-wand / force turns.
-- **C locus:** `attrib.c` `exercise`; `zap.c` `dobuzz`/`zap_hit`.
-- **Falsifier / next:** rng-diff callers + hero action at step of 26883.
+  26883; Scr 322/595. Screen: `But it reflects from your shield!`.
+- **Cause:** sleep ray bounced onto hero; C `ureflects` pline then
+  `makeknown(SHIELD_OF_REFLECTION)` → `discover_object` credit_hero
+  `exercise(A_WIS)`; JS `ureflects` printed the shield line but omitted
+  `makeknown`, so the next call was another `zap_hit`.
+- **C locus:** `muse.c` `ureflects`; `o_init.c` `discover_object`/
+  `makeknown`; `zap.c` `dobuzz` hero Reflecting arm.
+- **Change:** `ureflects` calls `makeknown(SHIELD_OF_REFLECTION)` when
+  fmt+str given (shield path). Deferred: W_WEP/W_AMUL/W_ARM/dragon
+  `ureflects`; `mon_reflects`; setworn `EReflecting` bits.
+- **Verification:** seed0002 prefix **26883→26987**; Scr **322→323**/595;
+  RNG matched **26954→27042**; green+strict; cohort **24/24** (+green
+  26/26).
+- **Next:** seed0002 @26987 C `dog_goal` vs JS `obj_resists` (D-0453).
 
 ## D-0451 — seed0002 @26692 dog_goal fobj dogfood vs JS !rn2(4)
 

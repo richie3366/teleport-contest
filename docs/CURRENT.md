@@ -19,9 +19,9 @@ focused session.
 
 Score last measured: **2026-07-16** — full `sessions` suite (#485 score
 cadence). Screens **4629**/11405; RNG **284968**/792838. **26/44** PASS.
-Speed `23+0.13/turn`. Δ vs #480: Scr +9, RNG +7334 (D-0447…D-0450 peels
-landed on FAIL prefixes; PASS set unchanged). Primary still D-0451
-@26692 at that measure; #488 peeled D-0451 → @26883 (focused only).
+Speed `23+0.13/turn`. Δ vs #480: Scr +9, RNG +7334. Focused peels since:
+#488 D-0451 → @26883; #489 D-0452 → @26987 (suite totals stale until
+next %5 cadence).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 26954/27158 | **322**/595 | @26883 exercise/zap (D-0452); was @26692 |
+| seed0002 | 27042/27158 | **323**/595 | @26987 dog_goal (D-0453); was @26883 |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -63,10 +63,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @26883 — `exercise` then `zap_hit` vs JS `rn2(20)`** (D-0452).
-Prefix **26883**; Scr **322**/595. After D-0451 (`#loot` lootmon +
-`help_dir` quitchar More + `doforce` ECMD_TIME), C continues
-`exercise`/`zap_hit` while JS diverges at `rn2(20)`.
+**seed0002 @26987 — `dog_goal` vs JS `obj_resists`** (D-0453).
+Prefix **26987**; Scr **323**/595. After D-0452 (`ureflects` shield
+`makeknown`→`exercise`), C enters pet `dog_goal` `rn2(4)` while JS
+still walks `obj_resists`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,8 +75,8 @@ node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.js
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0451; inventing
-zap alignment without C path.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0452; inventing
+pet alignment without C path.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
