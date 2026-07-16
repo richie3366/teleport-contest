@@ -7,32 +7,33 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0517 residual:** seed0116 next miss @6373 C `getbones` rn2(3) vs JS
-  (after `^V?` — needs `print_dungeon`). Scr **107**/127.
-- **D-0515 residual:** seed5006 still @8468 `dosounds`; seed0373
-  @2578 needs `print_dungeon` `?` menu (same as seed0116 next).
+- **D-0518 done:** `print_dungeon(TRUE)` — seed0116 past getbones
+  @6373→6383 (next `makemaz` rnd(13)); seed0373 @2549→2550 (next
+  nhlib shuffle / quest special). Scr still 107/127 and 20/124.
+- **D-0515 residual:** seed5006 still @8468 `dosounds`.
 - **#575 formal score:** **30/44**, Scr **5895**/11405, RNG
   **314432**/792838 (39.66%), `26+0.14/turn`. seed0398 PASS confirmed.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
-- **Gameplay next:** prefer shared `print_dungeon` (`^V?` /
-  seed0373 / seed0116 @6373) or seed5006 `dosounds`.
+- **Gameplay next:** special-level `makemaz` / quest load (seed0373 /
+  seed0116 after ^V?) or seed5006 `dosounds`.
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
   node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
+  node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
+  node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0517; stub-cancel `^V?` as if menu (breaks 0373).
+  reopen D-0474…D-0518; stub-cancel `^V?` as if menu (breaks 0373).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0517
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0518
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -44,9 +45,9 @@ Objective/score live in `CURRENT.md`.
 - D-0513: `zapwrapup` must `You_feel` shudder (not defer).
 - D-0514: wizard `#quit` → `Dump core?` before disclose; stopprint
   skips Goodbye; wizard topten early-exit msg + trailing blanks.
-- getbones `rn2(3)` gap with JS dog_move arity = unbound level change
-  (`>` / `^V` / missing `print_dungeon` `?`) — not getbones stub
-  (D-0068/D-0149/D-0515/D-0517).
+- getbones `rn2(3)` gap with JS dog_move arity was unbound level change
+  (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
+  (D-0068/D-0149).
 
 ## Landmarks (≤15)
 

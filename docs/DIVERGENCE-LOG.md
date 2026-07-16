@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0518 — print_dungeon(TRUE) wizard ^V `?` menu
+
+- **Status:** fixed
+- **Symptom:** seed0116 @6373 / seed0373 @2549 — C `getbones` rn2(3) vs JS
+  dog_move / ordinary arity. JS cancelled wizard `^V?` instead of opening
+  the level-teleport menu, so no `goto_level` / `getbones`.
+- **Cause:** `level_tele` treated `?` and `menu_requested` as cancel;
+  `print_dungeon` absent.
+- **C locus:** `dungeon.c` `print_dungeon` / `tport_menu` / `print_branch`
+  / `unreachable_level` / `unplaced_floater`; `teleport.c` `level_tele`
+  levTport_menu → force_dest.
+- **Change:** `js/dungeon.js` bymenu PICK_ONE (headings, specials,
+  branches, continuous a..z/A selectors, unreachable Knox letter skip);
+  `js/teleport.js` `?`/menu_requested → `print_dungeon(TRUE)` force_dest
+  schedule_goto; export `select_menu_pick_one` from `options.js`.
+- **Verification:** seed0116 prefix **6373→6383** (getbones match; next
+  `makemaz` rnd(13)); seed0373 **2549→2550** (getbones match; next
+  nhlib shuffle / quest special); Scr unchanged 107/127 and 20/124;
+  green+strict PASS; cohort **30/30** PASS. seed5006 still @8468
+  `dosounds`.
+- **Named omission:** bymenu=FALSE putstr; floating-branch listing;
+  invocation/portal debug lines; endgame amulet grant after pick;
+  `lev_by_name`.
+- **Next:** seed0373/0116 special-level `makemaz` / quest `makemaz`;
+  seed5006 `dosounds`.
+
 ## D-0517 — wizard Force-the-gods + pleased envelope
 
 - **Status:** fixed

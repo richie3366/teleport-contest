@@ -504,6 +504,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0515 | fixed | ^V wiz_level_tele / level_tele numeric + deferred_goto | seed0116 2978→5910 Scr 9→79; seed5006 4182→8468 Scr 4→121 |
 | D-0516 | fixed | weffects WAN_DIGGING → zap_dig horizontal beam | seed0116 5910→6246 Scr 79→101; next moveloop @6246 |
 | D-0517 | fixed | wizard Force-the-gods + pleased You_feel/rn1/rnz | seed0116 6246→6373 Scr 101→107; next getbones/^V? |
+| D-0518 | fixed | print_dungeon(TRUE) wizard ^V `?` force_dest | seed0116 6373→6383; seed0373 2549→2550; next makemaz |
 
 
 
