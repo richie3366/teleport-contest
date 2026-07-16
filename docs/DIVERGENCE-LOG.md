@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0582 — identify more_experienced(0,10) (seed5006 Scr)
+
+- **Status:** fixed (partial — Get bones? map glyphs @198/@199)
+- **Symptom:** seed5006 Scr **246**/249 after D-0581; first miss @187 —
+  death summary points **134** vs **144** (pre-death urexp 30 vs ~40).
+- **Cause:** `dopotion` called `makeknown` on clear potion ID but omitted
+  C’s `more_experienced(0, 10)`; same score bonus deferred in
+  `weffects`/`zapnodir` disclose paths.
+- **C locus:** `potion.c` `dopotion`; `zap.c` `weffects` / `zapnodir`.
+- **Change:** port `more_experienced(0, 10)` after potion `makeknown` and
+  on wand disclose/zapnodir when type was unknown.
+- **Verification:** seed5006 Scr **246→247**/249 RNG FULL; first remaining
+  miss @198 Get-bones map (water `~` vs prior floor); green+strict PASS;
+  cohort **29**/29 PASS; seed0116 Scr **115**/127 held.
+- **Named omission:** Get bones? yn map still shows prior-level floor
+  glyphs where C has water (`~`); other identify XP sites (engrave, etc.).
+- **Next:** seed5006 @198/@199 Get bones? map glyphs; or seed0116 115/127.
+
 ## D-0581 — wizard Die?/bones yn + hidden_gold (seed5006 Scr)
 
 - **Status:** fixed (partial — death urexp 134 vs 144 @187; Get bones?

@@ -18,6 +18,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 00:35 — #648 D-0582 identify more_experienced(0,10)
+- Objective: seed5006 @187 points 134 vs 144 (CURRENT primary).
+- C locus: potion.c dopotion; zap.c weffects/zapnodir.
+- Change: port more_experienced(0,10) on potion makeknown and wand
+  disclose/zapnodir when type was unknown.
+- Verification: seed5006 Scr **246→247**/249 RNG FULL; remaining @198
+  Get-bones map water; green+strict PASS; cohort **29**/29 PASS;
+  seed0116 115/127 held.
+- Next: seed5006 @198/@199 Get bones? map glyphs; or seed0116 115/127.
 ## 2026-07-17 00:28 — #647 D-0581 wizard Die?/bones yn
 - Objective: seed5006 @185 Die?/Save-bones yn (CURRENT primary).
 - C locus: end.c done Die?/savelife; really_done Save bones?;
@@ -138,23 +147,3 @@ Use this shape:
   (R² 0.772). Δ vs #630: Scr +23, RNG 0 (D-0569…D-0572), PASS same;
   seed0116 113→114.
 - Next: seed0373 @119 Attributes; or seed5006 dosounds @8468.
-## 2026-07-16 22:55 — D-0572 pluslvl uexp + endgame ^X Background
-- Objective: seed0373 @118 enlightenment Background (CURRENT primary).
-- C locus: insight.c background_enlightenment In_endgame/moves==1/
-  wizard xp delta; dungeon.c endgamelevelname; exper.c pluslvl uexp.
-- Change: js/exper.js pluslvl sets uexp; js/invent.js
-  background_dungeon_clause + adventure/wizard xp; export
-  endgamelevelname from display.js.
-- Verification: seed0373 Scr 122→123 RNG full; @118 match; green+
-  strict; cohort 28/28 PASS.
-- Next: @119 Attributes (wizard MAGICENLIGHTENMENT); or seed5006
-  dosounds @8468.
-## 2026-07-16 20:49 — D-0571 air_pos S_cloud glyph
-- Objective: seed0373 @110 Air gravity map clouds (CURRENT primary).
-- C locus: mkmaze.c movebubbles air_pos / setup_waterlevel S_air;
-  display.c back_to_glyph AIR/CLOUD; docrt lev->glyph.
-- Change: js/mklev.js air_pos remembered_glyph + setup memory;
-  js/display.js terrain_glyph AIR/CLOUD.
-- Verification: seed0373 Scr 111→122 RNG full; @110 match; green+
-  strict; cohort 28/28 PASS.
-- Next: @118 enlightenment Background; or seed5006 dosounds @8468.

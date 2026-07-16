@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0581 fixed:** wizard `Die?`/`Save bones?`/`Get`/`Unlink`/`Replace`
-  yn + `savelife` + `hidden_gold` + death-ray `flags.female`.
-  seed5006 Scr **230→246**/249; first miss @187 points 134 vs 144.
+- **D-0582 fixed:** `dopotion`/`weffects`/`zapnodir` `more_experienced(0,10)`
+  on type discovery. seed5006 Scr **246→247**/249; @187 points OK.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Next gameplay:** seed5006 @187 urexp (pre-death 30 vs ~40 for 144);
-  or Get bones? stale map glyphs @198; or seed0116 Scr 115/127.
+- **Next gameplay:** seed5006 @198/@199 Get bones? map (water `~` vs
+  prior floor/`·`); or seed0116 Scr 115/127.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0581; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0582; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -46,13 +45,13 @@ Objective/score live in `CURRENT.md`.
   `utrack` or `initrack` after `getbones`; list DOWNPLAY letters in
   wear/puton/takeoff prompts; skip Blindf_on / Blind vision_recalc;
   skip confused scroll mispronounce before `seffects`; skip wizard
-  Die?/Save bones?/Get bones? yn.
+  Die?/Save bones?/Get bones? yn; skip identify `more_experienced(0,10)`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0581 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0582 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
 - D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
@@ -71,6 +70,8 @@ Objective/score live in `CURRENT.md`.
   `level_tele` itself.
 - D-0581: @185 was missing Die?/bones yn; gold 311 needs `hidden_gold`;
   death-ray him/her is `flags.female` not `u.female`.
+- D-0582: @187 points 134 vs 144 was missing potion/wand identify XP
+  (`more_experienced(0,10)`), not death-score gold/depth.
 
 ## Landmarks (≤15)
 
@@ -90,3 +91,4 @@ Objective/score live in `CURRENT.md`.
 - Blindfold: Blindf_on + EBlinded + vision_recalc Blind (D-0579).
 - Confused read: mispronounce pline before seffects (D-0580).
 - Wizard death: Die?/Save bones?/Get/Unlink/Replace yn (D-0581).
+- Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).

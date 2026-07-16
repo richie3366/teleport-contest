@@ -25,7 +25,8 @@ Score last measured: **2026-07-17** — full `sessions` suite (loop **#645**),
 post D-0579. Screens **6514**/11405; RNG **359063**/792838 (45.29%).
 **31/44** PASS. Speed `32+0.15/turn` (R² 0.769). Δ vs #640: PASS 0,
 Scr **+41**, RNG **+109** (D-0578/D-0579 seed5006 Scr 192→228; seed0116
-114→115). *(#647 D-0581: seed5006 Scr 230→246 focused; suite not remeasured.)*
+114→115). *(#647 D-0581: seed5006 Scr 230→246; #648 D-0582: 246→247
+focused; suite not remeasured.)*
 
 ## Score
 
@@ -47,7 +48,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **115**/127 | residual after D-0579 |
-| seed5006 | **13923**/13923 | **246**/249 | D-0581; @187 urexp 134 vs 144 |
+| seed5006 | **13923**/13923 | **247**/249 | D-0582; @198 Get-bones map glyphs |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,16 +72,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** seed5006 Scr **246**/249 first miss @187 death
-summary points (urexp 134 vs 144; invent gold+hidden OK); or Get bones?
-stale map glyphs @198; or seed0116 Scr 115/127.
+**Gameplay next:** seed5006 Scr **247**/249 first miss @198/@199 Get
+bones? map (C water `~` vs JS prior-level floor); or seed0116 Scr 115/127.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0581.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0582.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
