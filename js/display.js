@@ -2,6 +2,7 @@
 // C ref: display.c — newsym, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
+import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
 import { mcolors, mons, infravision, infravisible } from './monsters.js';
@@ -1808,8 +1809,13 @@ function _statusLine1() {
     if (name.length && name.charCodeAt(0) >= 97 && name.charCodeAt(0) <= 122) {
         name = String.fromCharCode(name.charCodeAt(0) - 32) + name.slice(1);
     }
-    const role = game.urole?.rank?.m || game.urole?.name?.m || 'Adventurer';
-    const title = `${name} the ${role}`;
+    // C ref: botl.c rank() → rank_of(u.ulevel, Role_switch, flags.female)
+    const roleTitle = rank_of(
+        u.ulevel | 0,
+        game.urole?.mnum,
+        !!(game.flags?.female),
+    );
+    const title = `${name} the ${roleTitle}`;
     // C ref: botl.c do_statusline1 — get_strength_str + ACURR order
     const stats = u.acurr?.a
         ? `St:${get_strength_str()} Dx:${acurr(A_DEX)} Co:${acurr(A_CON)} In:${acurr(A_INT)} Wi:${acurr(A_WIS)} Ch:${acurr(A_CHA)}`

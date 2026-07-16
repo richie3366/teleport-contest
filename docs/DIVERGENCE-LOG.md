@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0562 — botl rank_of / xlev_to_rank titles
+
+- **Status:** fixed (partial — `rank_to_xlev` unused; achievement rank
+  msgs; mplayer/`title_to_mon` polish)
+- **Symptom:** seed0373 Scr **23**/124 after D-0561 RNG full; first
+  miss @screen 20 botl `Wizard the Plunderer` vs C `… the Pillager`
+  at Xp:3.
+- **Cause:** `_statusLine1` used sticky `urole.rank = title[0]`; C
+  `rank()` → `rank_of(u.ulevel, Role_switch, female)` with
+  `xlev_to_rank` (1..2→0, 3..5→1, …). Role `title[]` only had 2 of 9.
+- **C locus:** `botl.c` `xlev_to_rank`/`rank_of`; `role.c` `roles[].rank[9]`.
+- **Change:** full `title[9]` in `roles.js`; export `xlev_to_rank`/
+  `rank_of`; botl + insight + questpgr `%r` call `rank_of`; u_init
+  stores `urole.title`.
+- **Verification:** seed0373 Scr **23→47**/124 (cursors 121/124);
+  RNG full; green+strict PASS; cohort **30**/30 PASS.
+- **Next:** seed0373 @screen 41 `print_dungeon` menu (fakewiz1 vs
+  wizard3); or seed5006 `dosounds` @8468.
+
 ## D-0561 — air.lua load_special + bubbles / movebubbles
 
 - **Status:** fixed (partial — water cons pickup; water.lua/earth/astral;

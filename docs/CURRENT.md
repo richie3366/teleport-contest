@@ -71,10 +71,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0560/D-0561 (endgame `^V-2` → air.lua +
-bubbles), seed0373 **RNG full** 35386/35386; screen residual **23**/124.
-Peel screen/cursor, or seed5006 `dosounds` @8468. Prefer over parked
-seed2200 RC / seed0116 screen residual.
+**Gameplay next:** after D-0562 (`rank_of` titles), seed0373 Scr
+**47**/124 (was 23; RNG still full). Next peel `@screen 41`
+`print_dungeon` menu (fakewiz1 vs wizard3), or seed5006 `dosounds`
+@8468. Prefer over parked seed2200 RC / seed0116 screen residual.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -82,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0561.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0562.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
