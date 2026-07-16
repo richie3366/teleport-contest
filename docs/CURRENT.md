@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-16** — full `sessions` suite (#480 score
 cadence). Screens **4620**/11405; RNG **277634**/792838. **26/44** PASS.
 Speed `23+0.13/turn`. Δ vs #475: Scr +64, RNG +6646 (D-0443…D-0446 peels).
-Focused D-0447 peel: seed0002 Scr **311→313**, RNG matched **19428→20315**.
+Focused D-0448 peel: seed0002 Scr **313→320**, RNG matched **20315→25725**.
 
 ## Score
 
@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 20315/27158 | **313**/595 | @19167 next_ident (D-0448) |
+| seed0002 | 25725/27158 | **320**/595 | @25615 exerchk (D-0449) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,20 +62,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @19167 — `next_ident` rnd(2)** (D-0448). Prefix **19167**;
-Scr **313**/595. After D-0447 shop bill: C `rnd(2)` @ `next_ident`
-vs JS `rn2(7)` (locus TBD).
+**seed0002 @25615 — `exerchk` rn2(50)** (D-0449). Prefix **25615**;
+Scr **320**/595. After D-0448 `dopay`/`next_ident`: C `rn2(50)` @
+`exerchk` vs JS `rn2(61)` (wipe_engr).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C caller of next_ident after moveloop rn2(61); find JS rn2(7)
+# Focus: C exerchk after exercise rn2(19); compare JS exerchk vs wipe_engr
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0447;
-treating @19167 as monmove without object/mon creation proof.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0448;
+treating @25615 as wipe_engr without exercise-state proof.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

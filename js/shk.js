@@ -1,7 +1,8 @@
 // shk.js — Shopkeeper movement + shop enter/leave (partial).
 // C ref: shk.c shk_move / after_shk_move / u_entered_shop / u_left_shop;
 //        paybill / inherits / set_repo_loc / money2mon; priest.c move_special;
-//        addtobill / append_honorific / get_cost / getprice / billable.
+//        addtobill / append_honorific / get_cost / getprice / billable;
+//        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline; following verbalize;
 // pri_move altar mill rn1; m_break_boulder; m_move_aggress;
@@ -11,7 +12,9 @@
 // addupbill body; clear_unpaid/no_charge walks in setpaid; mongone full;
 // mnearto home_shk; paygd; M1_NOHEAD has_head (assume headed for shk path);
 // container bill_box_content / contained_cost; remote_burglary; gem glass
-// pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM; costly_gold.
+// pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM; costly_gold;
+// dopay: debit/robbed/angry appease; used-up/container bill arms;
+// traditional itemize ynq; paydoname/observe_object/makeknown; getpos pay-whom.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -19,13 +22,13 @@ import { dist2, online2 } from './hacklib.js';
 import { in_rooms } from './hack.js';
 import {
     ESHK, IS_ROOM, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE, ACH_SHOP,
-    OBJ_MINVENT, LOW_PM, Has_contents, MAXULEV,
+    OBJ_MINVENT, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
 } from './const.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, objects, POT_WATER,
 } from './objects.js';
-import { newsym, pline, verbalize } from './display.js';
+import { newsym, pline, verbalize, docrt, flush_screen } from './display.js';
 import { cansee } from './vision.js';
 import { objectNames } from './generated/objects_data.js';
 import { mattacku } from './mhitu.js';
@@ -35,8 +38,11 @@ import { shtypes, shkname, Shknam } from './shknam.js';
 import { splitobj } from './mkobj.js';
 import { add_to_minv } from './makemon.js';
 import { acurr, A_CHA } from './attrib.js';
-import { xname } from './objnam.js';
+import { xname, doname } from './objnam.js';
 import { is_human } from './monsters.js';
+import { nhgetch } from './input.js';
+import { paint_corner_nhw_menu } from './invent.js';
+import { ATR_INVERSE } from './terminal.js';
 
 const PICK_AXE = objectNames.indexOf('PICK_AXE');
 const DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
@@ -1096,4 +1102,312 @@ export async function paybill(croaked, silently) {
         if (!local) mongone_nonlocal(m);
     }
     return taken;
+}
+
+/** C shk.c billitem_status FullyIntact — ordinary unpaid. */
+const FullyIntact = 4;
+/** C shk.c PAY_* dopayobj results. */
+const PAY_BUY = 1;
+
+/**
+ * C ref: mkobj.c find_oid — invent walk (floor/buried/billobjs deferred).
+ */
+function bp_to_obj(bp) {
+    const id = bp?.bo_id | 0;
+    if (!id) return null;
+    for (const o of game.invent || []) {
+        if ((o?.o_id | 0) === id) return o;
+    }
+    return null;
+}
+
+/**
+ * C ref: shk.c check_credit — apply shop credit toward tmp.
+ * Named omissions: pline_The credit messages (silent when credit==0).
+ */
+function check_credit(tmp, shkp) {
+    const eshkp = ESHK(shkp);
+    let credit = eshkp?.credit | 0;
+    if (!credit) return tmp;
+    if (credit >= tmp) {
+        eshkp.credit = credit - tmp;
+        return 0;
+    }
+    eshkp.credit = 0;
+    return tmp - credit;
+}
+
+/**
+ * C ref: shk.c pay — money2mon after credit; robbed trim deferred detail.
+ */
+function pay(tmp, shkp) {
+    const eshkp = ESHK(shkp);
+    const robbed = eshkp?.robbed | 0;
+    const balance = tmp <= 0 ? tmp : check_credit(tmp, shkp);
+    if (balance > 0) money2mon(shkp, balance);
+    // money2u credit-refund deferred
+    if (game.flags) game.flags.botl = true;
+    if (robbed && eshkp) {
+        eshkp.robbed = Math.max(0, robbed - tmp);
+    }
+}
+
+/**
+ * C ref: shk.c make_itemized_bill — FullyIntact invent unpaid only.
+ * Deferred: used-up / PartlyIntact / container KnownContainer arms; qsort.
+ */
+function make_itemized_bill(shkp) {
+    const eshkp = ESHK(shkp);
+    const bill = eshkp?.bill_p || eshkp?.bill || [];
+    const ibill = [];
+    const ebillct = eshkp?.billct | 0;
+    for (let i = 0; i < ebillct; i++) {
+        const bp = bill[i];
+        const otmp = bp_to_obj(bp);
+        if (!otmp) continue;
+        // containers / used-up billobjs deferred
+        if (Has_contents(otmp)) continue;
+        const quan = otmp.quan | 0;
+        const cost = (bp.price | 0) * quan;
+        ibill.push({
+            obj: otmp,
+            quan,
+            cost,
+            bidx: i,
+            usedup: FullyIntact,
+            queuedpay: false,
+        });
+    }
+    return ibill;
+}
+
+/**
+ * C ref: shk.c menu_pick_pay_items — PICK_ANY "Pay for which items?".
+ * Letter toggle; Return confirms; ESC cancels. SELECT_ALL `.` deferred
+ * (session uses item letter `a`).
+ */
+async function menu_pick_pay_items(ibill) {
+    if (!ibill.length) return 0;
+    let largest = 0;
+    for (const e of ibill) {
+        if ((e.cost | 0) > largest) largest = e.cost | 0;
+    }
+    const amtWidth = String(largest).length;
+    const items = ibill.map((e, i) => ({
+        ibillIdx: i,
+        letch: String.fromCharCode('a'.charCodeAt(0) + i),
+        selected: false,
+        cost: e.cost | 0,
+        obj: e.obj,
+    }));
+
+    for (;;) {
+        const entries = [
+            { text: 'Pay for which items?', attr: ATR_INVERSE },
+            { text: '', attr: 0 },
+        ];
+        for (const it of items) {
+            const mark = it.selected ? '+' : '-';
+            const nm = doname(it.obj);
+            const amt = String(it.cost).padStart(amtWidth, ' ');
+            entries.push({
+                text: `${it.letch} ${mark} ${amt} Zm, ${nm}`,
+                attr: 0,
+            });
+        }
+        await paint_corner_nhw_menu(entries, '(end) ');
+        await flush_screen(1);
+        const key = await nhgetch();
+        game._menu_overlay = false;
+        await docrt();
+        await flush_screen(1);
+
+        if (key === 27) return 0;
+        if (key === 13 || key === 10 || key === 32) {
+            let n = 0;
+            for (const it of items) {
+                if (!it.selected) continue;
+                ibill[it.ibillIdx].queuedpay = true;
+                n++;
+            }
+            return n;
+        }
+        const ch = String.fromCharCode(key);
+        const hit = items.find((it) => it.letch === ch);
+        if (hit) hit.selected = !hit.selected;
+        // invalid (incl. stray `p`/`y`/`W`) → re-prompt like C select_menu
+    }
+}
+
+/**
+ * C ref: shk.c update_bill — clear unpaid; swap-remove bill slot.
+ * PartlyUsedUp / OBJ_ONBILL dealloc deferred.
+ */
+function update_bill_simple(eshkp, bp, paiditem) {
+    paiditem.unpaid = 0;
+    const bill = eshkp.bill_p || eshkp.bill;
+    const newebillct = (eshkp.billct | 0) - 1;
+    const idx = bill.indexOf(bp);
+    if (idx >= 0 && newebillct >= 0) {
+        bill[idx] = bill[newebillct];
+        bill[newebillct] = undefined;
+    }
+    eshkp.billct = Math.max(0, newebillct);
+}
+
+/**
+ * C ref: shk.c dopayobj — non-itemize unpaid buy (which==1).
+ * Named omissions: itemize yn; partly-used reject; consumed/used-up;
+ * insufficient_funds plines; suppress_price quan dance detail.
+ */
+async function dopayobj(shkp, bp, obj, _which, _itemize, unseen) {
+    if (!obj?.unpaid && !bp?.useup) return 0; // not PAY_BUY
+    const quan = obj.quan | 0;
+    const ltmp = (bp.price | 0) * quan;
+    const umoney = money_cnt(game.invent);
+    const credit = ESHK(shkp)?.credit | 0;
+    if (umoney + credit < ltmp) return 0;
+
+    pay(ltmp, shkp);
+    if (!unseen) {
+        // C: shk_names_obj → You("bought %s for %ld gold piece%s.%s", …)
+        // paydoname/observe_object/makeknown deferred → doname
+        const nm = doname(obj);
+        const pcs = ltmp === 1 ? '' : 's';
+        await pline(`You bought ${nm} for ${ltmp} gold piece${pcs}.`);
+    }
+    return PAY_BUY;
+}
+
+/**
+ * C ref: shk.c pay_billed_items — menu path only (via_menu).
+ * Traditional itemize / 'm' toggle deferred; always menu like non-Traditional.
+ */
+async function pay_billed_items(shkp, ibill, paidRef) {
+    const eshkp = ESHK(shkp);
+    const umoney = money_cnt(game.invent);
+    if (!umoney && !(eshkp?.credit | 0)) {
+        await pline('You have no gold or credit.');
+        return true;
+    }
+    if (!await menu_pick_pay_items(ibill)) return true;
+
+    for (let indx = 0; indx < ibill.length; indx++) {
+        if (!ibill[indx].queuedpay) continue;
+        const otmp = ibill[indx].obj;
+        const bidx = ibill[indx].bidx | 0;
+        const bp = (eshkp.bill_p || eshkp.bill)[bidx];
+        if (!bp || !otmp) continue;
+        const buy = await dopayobj(shkp, bp, otmp, 1, false, false);
+        if (buy === PAY_BUY) {
+            update_bill_simple(eshkp, bp, otmp);
+            paidRef.paid = true;
+        }
+    }
+    return true;
+}
+
+/**
+ * C ref: shk.c dopay — #pay / `p`.
+ * Covered: single resident shk; bill menu → money2mon/splitobj next_ident;
+ * thank-you verbalize; ECMD_TIME when paid.
+ * Deferred: multi-shk getpos; debit; robbed/angry appease; used-up/containers;
+ * traditional itemize; mute/Deaf thank-you nod; hidden_gold stashed msgs.
+ */
+export async function dopay() {
+    game.multi = 0;
+    let sk = 0;
+    let seensk = 0;
+    let nexttosk = 0;
+    let nxtm = null;
+    let resident = null;
+
+    let walk = next_shkp(0, false);
+    while (walk.shkp) {
+        const m = walk.shkp;
+        sk++;
+        if (m_next2u(m)) {
+            if (!(nxtm && ANGRY(nxtm))) {
+                nexttosk++;
+                nxtm = m;
+            }
+        }
+        // canspotmon stub: live isshk on map counts as seen
+        if ((m.mhp | 0) > 0 && (m.mx | 0) > 0) seensk++;
+        const eshk = ESHK(m);
+        const ushops0 = (game.u?.ushops || '').charCodeAt(0) || 0;
+        if (inhishop(m) && ushops0 === (eshk?.shoproom | 0)) {
+            resident = m;
+        }
+        walk = next_shkp(walk.nextIdx, false);
+    }
+
+    let shkp = null;
+    if (nxtm && nexttosk === 1) {
+        shkp = nxtm;
+    } else if ((!sk && !seensk) || (!seensk && sk)) {
+        await pline('There appears to be no shopkeeper here to receive your payment.');
+        return ECMD_OK;
+    } else if (sk === 1 && resident) {
+        shkp = resident;
+    } else if (seensk === 1) {
+        walk = next_shkp(0, false);
+        while (walk.shkp) {
+            if ((walk.shkp.mhp | 0) > 0 && (walk.shkp.mx | 0) > 0) {
+                shkp = walk.shkp;
+                break;
+            }
+            walk = next_shkp(walk.nextIdx, false);
+        }
+        if (shkp && shkp !== resident && !m_next2u(shkp)) {
+            await pline(`${Shknam(shkp)} is not near enough to receive your payment.`);
+            return ECMD_OK;
+        }
+    } else {
+        // multi-shk getpos deferred — prefer resident
+        shkp = resident;
+        if (!shkp) {
+            await pline('There appears to be no shopkeeper here to receive your payment.');
+            return ECMD_OK;
+        }
+    }
+
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return ECMD_OK;
+
+    if (helpless(shkp)) {
+        await pline(`${Shknam(shkp)} ${rn2(2) ? 'seems to be napping' : "doesn't respond"}.`);
+        return ECMD_OK;
+    }
+
+    // debit / robbed / angry non-bill paths deferred
+    if (!(eshkp.billct | 0) && !(eshkp.debit | 0)) {
+        await pline(`You do not owe ${shkname(shkp)} anything.`);
+        return ECMD_OK;
+    }
+
+    let paid = false;
+    let pay_done = true;
+    if (eshkp.billct | 0) {
+        const ibill = make_itemized_bill(shkp);
+        const paidRef = { paid: false };
+        if (!await pay_billed_items(shkp, ibill, paidRef)) pay_done = false;
+        paid = paidRef.paid;
+    }
+
+    if (pay_done && !ANGRY(shkp) && paid) {
+        const u = game.u;
+        const deaf = !!(u?.Deaf || (u?.HDeaf | 0) || (u?.EDeaf | 0));
+        if (!deaf && !muteshk(shkp)) {
+            const st = shtypes[(eshkp.shoptype | 0) - SHOPBASE];
+            const shopNm = st?.name || 'shop';
+            const bang = eshkp.surcharge ? '.' : '!';
+            await verbalize(
+                `Thank you for shopping in ${s_suffix(shkname(shkp))} ${shopNm}${bang}`,
+            );
+        }
+    }
+
+    if (game.iflags) game.iflags.menu_requested = false;
+    return paid ? ECMD_TIME : ECMD_OK;
 }

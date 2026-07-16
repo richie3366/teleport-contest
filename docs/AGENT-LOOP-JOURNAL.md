@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:45 — #482 dopay → money2mon/next_ident (D-0448)
+- Objective: seed0002 @19167 C `rnd(2)` @ `next_ident` (PRIMARY).
+- C locus: `shk.c` `dopay`/`pay`/`money2mon`/`menu_pick_pay_items`/
+  `dopayobj`; `mkobj.c` `splitobj`/`next_ident`; `cmd.c` `p`.
+- Change: JS lacked `dopay` so `p` was unknown and `y` NE-attacked
+  (`rn2(7)`); ported menu pay subset + wired `p`/`#pay`. Deferred:
+  debit/robbed/angry, containers/used-up, traditional itemize,
+  `paydoname`/`makeknown`, multi-shk getpos.
+- Verification: seed0002 prefix **19167→25615**; Scr **313→320**; RNG
+  matched **20315→25725**; green+strict; cohort **24/24** PASS.
+- Next: seed0002 @25615 C `exerchk` `rn2(50)` vs JS `rn2(61)` (D-0449).
+
 ## 2026-07-16 03:35 — #481 shop addtobill + append_honorific (D-0447)
 - Objective: seed0002 @18457 C `rn2(4)` @ `append_honorific` (PRIMARY).
 - C locus: `shk.c` `addtobill`/`append_honorific`/`get_cost`/`getprice`/

@@ -4,19 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0448 — seed0002 @19167 `next_ident` rnd(2) vs JS rn2(7)
+## D-0449 — seed0002 @25615 `exerchk` rn2(50) vs JS wipe_engr rn2(61)
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @25615 — C `rn2(50)=14` @
+  `exerchk(attrib.c:655)` vs JS `rn2(61)=52` (wipe_engr DEX check).
+  Prefix 25615; Scr 320/595. Matched through shop `dopay`/`next_ident`
+  (D-0448).
+- **Hypothesis:** C runs `exerchk` exercise rolls where JS still takes
+  the moveloop wipe_engr path (or skips an `exerchk` gate). Reconstruct
+  after matched `exercise` `rn2(19)`.
+- **C locus:** `attrib.c` `exerchk`; callers via EOT `exerchk()` in
+  `moveloop_core`.
+- **Next:** compare JS `exerchk`/`exercise` vs C; do not treat as
+  wipe_engr alone without exercise-state proof.
+
+## D-0448 — seed0002 @19167 `dopay` → `money2mon`/`next_ident`
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @19167 — C `rnd(2)=1` @
-  `next_ident(mkobj.c:521)` vs JS `rn2(7)=6` (locus TBD). Prefix
-  19167; Scr 313/595. Matched through shop `append_honorific` (D-0447).
-- **Hypothesis:** C allocates a new o_id/m_id (`next_ident`) where JS
-  takes a different branch that burns `rn2(7)` (ghost name / cloak /
-  corpse rot / etc.). Reconstruct C path after `moveloop` `rn2(61)`.
-- **C locus:** `mkobj.c` `next_ident`; caller TBD (splitobj / mksobj /
-  makemon).
-- **Next:** rng-diff + C caller of `next_ident` at this turn; do not
-  treat as monmove `distfleeck` without object/mon creation proof.
+  `next_ident(mkobj.c:521)` vs JS `rn2(7)=6` @ `do_attack`. Prefix
+  19167; Scr 313/595.
+- **Cause:** JS had no `dopay` (`p` unknown); session `y` was NE
+  attack (`rn2(7)` in `do_attack`) while C paid the shield via
+  `dopay`→`pay`→`money2mon`→`splitobj`→`next_ident`.
+- **C locus:** `shk.c` `dopay`/`pay_billed_items`/`menu_pick_pay_items`/
+  `dopayobj`/`pay`/`money2mon`; `mkobj.c` `splitobj`/`next_ident`;
+  `cmd.c` `p`→`dopay`.
+- **Change:** port menu pay subset; wire `cmd.js`/`#pay` to `dopay`.
+  Deferred: debit/robbed/angry appease; used-up/container bills;
+  traditional itemize; `paydoname`/`makeknown`; multi-shk getpos.
+- **Verification:** seed0002 prefix **19167→25615**; Scr **313→320**;
+  RNG matched **20315→25725**; green+strict; cohort **24/24** PASS.
+- **Next:** seed0002 @25615 C `exerchk` `rn2(50)` vs JS `rn2(61)`
+  (D-0449).
 
 ## D-0447 — seed0002 @18457 pickup shop `append_honorific`
 
