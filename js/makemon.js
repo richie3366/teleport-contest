@@ -58,6 +58,7 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
+    In_quest,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import { mksobj, mkobj, mkobj_at, weight, objects_at, curse } from './mkobj.js';
@@ -266,7 +267,32 @@ function temperature_shift(ptr) {
 }
 
 // C ref: makemon.c rndmonst_adj()
+// C: quest_dnum gate → questpgr.c qt_montype() before ordinary weights
+export function qt_montype() {
+    const urole = game.urole || {};
+    if (rn2(5)) {
+        const qpm = urole.enemy1num ?? NON_PM;
+        if (qpm !== NON_PM && rn2(5)
+            && !((game.mvitals?.[qpm]?.mvflags ?? 0) & G_GENOD)) {
+            return mons(qpm);
+        }
+        return mkclass(urole.enemy1sym, 0);
+    }
+    const qpm = urole.enemy2num ?? NON_PM;
+    if (qpm !== NON_PM && rn2(5)
+        && !((game.mvitals?.[qpm]?.mvflags ?? 0) & G_GENOD)) {
+        return mons(qpm);
+    }
+    return mkclass(urole.enemy2sym, 0);
+}
+
 export function rndmonst_adj(minadj = 0, maxadj = 0) {
+    // C: if (u.uz.dnum == quest_dnum && rn2(7) && (ptr = qt_montype()) != 0)
+    if (In_quest(game.u?.uz) && rn2(7)) {
+        const qptr = qt_montype();
+        if (qptr) return qptr;
+    }
+
     const zlevel = level_difficulty();
     const ulevel = game.u?.ulevel ?? 1;
     const minmlev = monmin_difficulty(zlevel) + minadj;

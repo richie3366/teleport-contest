@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0532 — rndmonst_adj quest gate → qt_montype
+
+- **Status:** fixed (partial — rndmonst_adj rogue/elem/Inhell filters;
+  egg hatch timeout)
+- **Symptom:** seed0373 @6811 C `rndmonst_adj` `rn2(7)` vs JS
+  ordinary weight `rn2(3)` after Bar-fila load.
+- **Cause:** JS `rndmonst_adj` omitted C quest prologue
+  `u.uz.dnum == quest_dnum && rn2(7) && qt_montype()`; roles lacked
+  `enemy1num`/`enemy2num`/`enemy1sym`/`enemy2sym`.
+- **C locus:** `makemon.c` `rndmonst_adj`; `questpgr.c` `qt_montype`;
+  `role.c` `roles[]` enemy fields; `you.h` Role.
+- **Change:** port `qt_montype` (enemy1/2 + `mkclass` fallback);
+  quest `rn2(7)` gate in `rndmonst_adj`; copy enemy fields onto
+  `game.urole` from all `roles[]`.
+- **Verification:** seed0373 rng-diff **6811→9839**; runner RNG
+  **6849→9872**/35386 Scr still 22/124; green+strict PASS; cohort
+  **30**/30 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** `rndmonst_adj` upper/elemlevel/Inhell continues;
+  `attach_egg_hatch_timeout` (next @9839).
+- **Next:** @9839 C `attach_egg_hatch_timeout` `rnd(151)` vs JS
+  `rn2(79)`; or seed5006 `dosounds` @8468.
+
 ## D-0531 — on_locate + In_quest Bar-fila/filb + reset_xystart_size
 
 - **Status:** fixed (partial — Bar-goal; other-role fills; on_goal)

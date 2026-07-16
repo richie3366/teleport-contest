@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0531 done:** `on_locate` + `makelevel` In_quest `Bar-fila`/`filb`
-  + `reset_xystart_size`. seed0373 rng-diff **5497→6811**; runner RNG
-  **6849**/35386 Scr **22**/124. Immediate miss was locate nhl shuffle
-  (not Medusa); `^V2` → quest dlevel 2 → `Bar-fila`.
-- **seed0373 next:** @6811 C `rndmonst_adj` `rn2(7)` vs JS `rn2(3)`
-  then `qt_montype` — quest monster generation after fila load.
-  Falsify: compare C `rndmonst`/`qt_montype` vs JS path for Bar.
+- **D-0532 done:** `rndmonst_adj` quest `rn2(7)` → `qt_montype` +
+  `roles[]`/`urole` `enemy1/2` fields. seed0373 rng-diff
+  **6811→9839**; runner RNG **9872**/35386 Scr **22**/124.
+- **seed0373 next:** @9839 C `attach_egg_hatch_timeout` `rnd(151)`
+  vs JS `rn2(79)` after matched egg `can_be_hatched`/`mksobj_init`.
+  Falsify: port `timeout.c` `attach_egg_hatch_timeout` from C.
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
@@ -31,7 +30,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0531; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0532; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -40,14 +39,15 @@ Objective/score live in `CURRENT.md`.
   shuffle; treat noteleport as blocking covetous (Vlad); compare `mons()`
   objects by reference in pickvampshape (use mndx); use `dlevel` in
   `traptype_rnd` (must be `level_difficulty`); stub S_TROLL m_initweap;
-  skip In_quest `*-fila`/`*-filb`; leave stale `splev_*` after map load.
+  skip In_quest `*-fila`/`*-filb`; leave stale `splev_*` after map load;
+  skip quest `rndmonst_adj`→`qt_montype`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0531
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0532
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -62,7 +62,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0531 makemaz / tower1 / Bar-loca / fila / on_locate —
+- D-0519…D-0532 makemaz / tower1 / Bar / fila / qt_montype —
   see index.
 
 ## Landmarks (≤15)
@@ -85,4 +85,4 @@ Objective/score live in `CURRENT.md`.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
   seed0373 tour: `y`→Bar-strt, `G`→tower1, `z`→Bar-loca (+on_locate),
-  `^V2`→Bar-fila; next rndmonst_adj @6811.
+  `^V2`→Bar-fila; next egg hatch timeout @9839.

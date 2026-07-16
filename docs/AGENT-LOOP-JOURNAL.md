@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 18:45 — #592 D-0532 qt_montype quest gate
+- Objective: seed0373 @6811 C `rndmonst_adj` `rn2(7)` vs JS `rn2(3)`.
+- C locus: `makemon.c` `rndmonst_adj`; `questpgr.c` `qt_montype`;
+  `role.c` `roles[]` enemy1/2.
+- Change: port `qt_montype` + quest `rn2(7)` gate; wire `enemy*`
+  onto all roles → `game.urole`.
+- Verification: seed0373 **6811→9839** (RNG **9872**, Scr 22/124);
+  green+strict; cohort **30**/30; seed0116 RNG full Scr 110/127.
+- Next: @9839 `attach_egg_hatch_timeout`; or seed5006 dosounds @8468.
+
 ## 2026-07-16 18:40 — #591 D-0531 on_locate + Bar-fila
 - Objective: seed0373 @5497 nhlib shuffle vs Medusa `rn2(5)`.
 - C locus: `quest.c` `on_locate`; `mklev.c` In_quest fill;
@@ -166,15 +176,3 @@ Use this shape:
   green+strict; cohort 6/6 PASS. seed0373 still @3289.
 - Next: fill_zoo cell filter after flip / place_lregion; or Bar-strt randline;
   or seed5006 dosounds.
-
-## 2026-07-16 17:15 — #577 D-0519 makemaz / bigrm-2 / Bar-strt
-- Objective: shared special-level `makemaz` after getbones (0116 @6374 /
-  0373 @2550).
-- C locus: `mkmaze.c` `makemaz`; `sp_lev.c` load_special / replace_terrain;
-  `dat/bigrm-2.lua` / `Bar-strt.lua`; `makemon.c` nymph sleep+invent.
-- Change: protofile `rnd(rndlevs)` + loaders; map-relative get_location;
-  nymph/jabberwock sleep + S_NYMPH invent.
-- Verification: seed0116 **6374→9351** Scr **107→110**; seed0373
-  **2550→3289**; green+strict; cohort **30/30**.
-- Next: seed0116 @9350 next special; Bar-strt randline; or seed5006
-  dosounds.
