@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0491 — seed0007 @7175 SCR_DESTROY_ARMOR / destroy_arm
+
+- **Status:** fixed
+- **Symptom:** after D-0490, first RNG miss @7175 — C `rn2(19) @ exercise`
+  then `destroy_arm` vs JS `rn2(5) @ distfleeck`. Scr **60**/302.
+- **Cause:** FOOBIE BLETCH invent letter was uncursed `SCR_DESTROY_ARMOR`.
+  JS gated it as unimplemented, so `r`/`i` consumed no turn; later movement
+  burned monster RNG where C ran `seffects`→`exercise(A_WIS)`→`destroy_arm`
+  (leather armor smoulders via `erode_obj` ERODE_BURN).
+- **C locus:** `read.c` `seffects` / `seffect_destroy_armor`; `do_wear.c`
+  `destroy_arm` / `some_armor` / `obj_erode_type`; `trap.c` `erode_obj`.
+- **Change:** wire `SCR_DESTROY_ARMOR`; `destroy_arm` + `some_armor`;
+  `erode_obj` damage/destroy envelope; export mkobj erosion helpers.
+- **Verification:** rng-diff **7175→13259**; matched RNG **~13657**/16373;
+  Scr **60**; green+strict PASS; cohort seed1500/1800/0060/0012/0004/
+  0002/0006/0013/0009/0017 PASS.
+- **Named omission:** confused `p_glow2`; cursed vibrate `adj_abon` /
+  `make_stunned`; `disintegrate_arm` / blessed choice /
+  `disintegrate_cursed_armor`; `costly_alteration` EF_PAY;
+  `inventory_resistance_check`; full `remove_worn_item` before delobj.
+- **Next:** @13259 C `eye_of_newt_buzz` rn2(3) vs JS rn2(100).
+
 ## D-0490 — seed0007 @7142 obj_resists vs dog_move rn2(1)
 
 - **Status:** fixed

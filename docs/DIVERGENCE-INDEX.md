@@ -477,6 +477,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0488 | fixed | mO doset + pickup_types | seed0007 @6414 eatcorpse; prefix→7066 picklock next |
 | D-0489 | fixed | #loot box pick_lock / picklock | seed0007 @7066→7142; Scr 60 |
 | D-0490 | fixed | #loot MENU_FULL take-out → invent gold | seed0007 @7142→7175; exercise next |
+| D-0491 | fixed | SCR_DESTROY_ARMOR / destroy_arm / erode_obj | seed0007 @7175→13259; eye_of_newt next |
 
 
 

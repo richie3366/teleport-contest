@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 14:28 — D-0491 SCR_DESTROY_ARMOR / destroy_arm
+- Objective: primary D-0491 — seed0007 @7175 exercise vs rn2(5).
+- C locus: `read.c` seffects/seffect_destroy_armor; `do_wear.c`
+  destroy_arm/some_armor; `trap.c` erode_obj.
+- Change: port uncursed destroy-armor → destroy_arm + erode_obj burn;
+  wire doread. Was: scroll unimplemented → no turn → distfleeck at
+  C's exercise index. umovement theory falsified (umov=12 at EOT).
+- Verification: rng-diff **7175→13259**; RNG ~13657/16373; Scr 60;
+  green+strict PASS; cohort 10 PASS.
+- Next: @13259 eye_of_newt_buzz (D-0492).
+
 ## 2026-07-16 14:16 — D-0490 #loot MENU_FULL take-out
 - Objective: primary D-0490 — seed0007 @7142 missing obj_resists.
 - C locus: `pickup.c` use_container/menu_loot/query_category/out_container;
