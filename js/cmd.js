@@ -702,7 +702,10 @@ export async function rhack(key) {
     }
 
     if (isMovementKey(ch)) {
-        // C ref: cmd.c set_move_cmd(dir, 0) — DOMOVE_WALK unless prefix already set
+        // C ref: cmd.c set_move_cmd(dir, 0) — clear stale travel; DOMOVE_WALK
+        if (!game.context) game.context = {};
+        game.context.travel = 0;
+        game.context.travel1 = 0;
         if (!game.domove_attempting) {
             game.domove_attempting = DOMOVE_WALK;
         }
@@ -717,13 +720,17 @@ export async function rhack(key) {
         if (!game.context) game.context = {};
         // Pending F + capital/ctrl dir: forcefight one step (not rush)
         if (game.context.forcefight) {
+            game.context.travel = 0;
+            game.context.travel1 = 0;
             await domove(DIR_DX[low], DIR_DY[low]);
             game.context.forcefight = 0;
             if (game.context.move !== 0) game.context.move = 1;
         } else {
-            // C: set_move_cmd(dir, run) — capital run=1, Ctrl-rush=3
+            // C: set_move_cmd(dir, run) — clears travel; capital run=1, Ctrl-rush=3
             // First step carries DOMOVE_RUSH; continue_run clears attempting
             // after each domove so later steps do not maybe_smudge_engr.
+            game.context.travel = 0;
+            game.context.travel1 = 0;
             if (!game.domove_attempting) {
                 game.domove_attempting = DOMOVE_RUSH;
             }

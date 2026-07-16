@@ -70,21 +70,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **D-0493** (open): @15284 is **not** bare
-`dog_move` cnt. DIAG: post-fleeck kitten `@ (22,16)` `u=(22,15)` nearby=1
-`mflee=0` burns `dochug` wanderer `rn2(4)`; C skips to `dog_move` `rn2(12)`
-(early want_move short-circuit — likely C `!nearby`/`mflee`). Peaceful-first
-reorder **falsified** (breaks @2837 C `dochug` `rn2(4)`). After force
-`!nearby`, next miss JS `obj_resists` vs C selection — invent/goal fobj.
+**Gameplay next:** seed0007 — **D-0494** (next): @15877 C `rnd(98) @
+Amulet_on` vs JS `rn2(5) @ distfleeck`. D-0493 fixed stale `travel`
+after `_` so capital `H` no longer rewrites dx/dy via findtravelpath.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Alternates:** quest early-0 (seed0361/0373); seed0108 wishlist.
-
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0492.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0493.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

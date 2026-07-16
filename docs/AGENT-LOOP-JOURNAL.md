@@ -28,6 +28,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-16 14:48 — D-0493 set_move_cmd clears travel
+- Objective: primary D-0493 — seed0007 @15284 wanderer rn2(4) vs dog_move.
+- C locus: `cmd.c` `set_move_cmd` clears `travel`/`travel1` before run.
+- Change: walk + capital/Ctrl run clear stale travel (after `_`). Was:
+  `continue_run` findtravelpath rewrote H dx/dy SE onto pet → false
+  nearby wanderer. Falsified: dog_move cnt; peaceful reorder; !nearby.
+- Verification: rng-diff **15284→15877**; RNG 15898/16373 Scr 60;
+  green+strict PASS; cohort 26/26 PASS.
+- Next: @15877 Amulet_on rnd(98) vs distfleeck (D-0494).
 ## 2026-07-16 14:32 — D-0492 eye_of_newt_buzz via cpostfx
 - Objective: primary D-0492 — seed0007 @13259 rn2(3) vs rn2(100).
 - C locus: `eat.c` done_eating → cpostfx → eye_of_newt_buzz.

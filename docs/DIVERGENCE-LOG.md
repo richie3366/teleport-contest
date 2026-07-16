@@ -4,28 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0493 — seed0007 @15284 dochug want_move vs dog_move
+## D-0493 — set_move_cmd clears travel (seed0007 @15284)
 
-- **Status:** open (diagnosed; no production patch)
+- **Status:** fixed
 - **Symptom:** after D-0492, first RNG miss @15284 — C `rn2(12) @
-  dog_move` vs JS `rn2(4)`. Scr **60**/302; matched RNG **15339**/16373.
-- **DIAG:** post-fleeck actor is tame kitten `@ (22,16)` with `u=(22,15)`,
-  `nearby=1`, `mflee=0`, `mpeaceful=1`, `is_wanderer=true` (M2_WANDER).
-  JS `dochug` want_move burns wanderer `rn2(4)` before `mpeaceful`;
-  C provenance jumps fleeck → `dog_move` selection `rn2(12)` (early
-  want_move short-circuit: `!nearby` / `mflee` / `scared` / conf / stun).
-- **Falsified:** (1) bare `dog_move`/`mfndpos` candidate cnt as the first
-  cause; (2) reordering `mpeaceful` before wanderer RNG — breaks @2837 where
-  C still emits `rn2(4) @ dochug`; (3) force JS `nearby=0` only — next
-  miss becomes JS `obj_resists` (dog_invent/dog_goal `dogfood`) vs C
-  selection `rn2(12)`.
-- **C locus:** `monmove.c` `dochug` want_move (`is_wanderer && !rn2(4)`);
-  then `dogmove.c` `dog_move` / `dog_invent` / `dog_goal`.
-- **JS locus:** `js/monmove.js` `dochug`; `js/dogmove.js`.
-- **Next:** capture why C early-short-circuits (mflee / mux-nearby /
-  pet pos) without peaceful-first; then invent/goal fobj parity.
-- **Named omission:** `distfleeck` `scared`/`onscary`/`flees_light` still
-  stubbed `scared=0` (would add monflee RNG if live).
+  dog_move` vs JS `rn2(4)` wanderer. Scr **60**/302; matched RNG
+  **15339**/16373.
+- **Cause:** leftover `context.travel=1` from earlier `_` travel. JS
+  walk/run never cleared travel like C `set_move_cmd`, so `continue_run`
+  for capital `H` recomputed `findtravelpath` and overwrote `u.dx/dy`
+  (SE instead of west). Hero drifted onto the pet → JS `nearby=1`
+  wanderer `rn2(4)` while C stayed on the west run (`!nearby` →
+  `dog_move` selection).
+- **Falsified:** dog_move cand cnt; peaceful-before-wanderer reorder;
+  force `!nearby` alone (invent/goal next).
+- **C locus:** `cmd.c` `set_move_cmd` — `travel = travel1 = 0` before
+  setting `run`.
+- **Change:** `js/cmd.js` — clear `travel`/`travel1` on walk and
+  capital/Ctrl run (and forcefight dir) paths.
+- **Verification:** rng-diff **15284→15877**; seed0007 RNG
+  **15898**/16373 Scr **60**; green+strict PASS; cohort 26/26 PASS.
+- **Named omission:** full `accept_menu_prefix` table; lookaround
+  Blind/trap/pool arms; `distfleeck` scared/onscary.
+- **Next:** @15877 C `Amulet_on` `rnd(98)` vs JS `distfleeck` `rn2(5)`.
 
 ## D-0492 — seed0007 @13259 eye_of_newt_buzz
 
