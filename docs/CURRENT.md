@@ -70,11 +70,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 restored but four near-misses remain → upstream #5.
 
 **Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373;
-Scr **20**/302. **D-0485** (open): C likely `!couldsee` → `gettrack` →
-goal=`ux0` `(37,17)` (force → prefix **2846**); JS `couldsee` true in
-lit room so goal stays at hero. Stale-mux ALLOW_U demoted (tame
-`set_apparxy`). **D-0486** ported `rogue_vision` (not this peel — dlvl1).
-Next: C capture of `couldsee(pet)` / LOS — no coord/gettrack hacks.
+Scr **20**/302. **D-0485** (open): C capture falsified `!couldsee`/
+gettrack (`sight=1`, gg=hero; spawn both `(38,18)`). Peel is **hero Y
+drift mid-`H` run**: C `(36,18)` → first cand j=0 `rn2(1)`; JS
+`(36,17)` → only j<0 (no cand RNG). Next: `lookaround` /
+`continue_run` / pet-swap during capital `H` — no coord hacks.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json

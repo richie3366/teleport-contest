@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:10 — D-0485 C capture: !couldsee falsified; hero Y drift
+- Objective: seed0007 @2832 dog_move `rn2(1)` (D-0485).
+- C locus: recorder `dog_goal`/`dog_move`; symptom `hack.c` lookaround/run.
+- Change or falsified theory: no production patch. C `sight=1`, gg=hero,
+  hero `(36,18)` first cand j=0; JS `(36,17)` only j<0. Spawn both
+  `(38,18)`. Force-gettrack was coincidence. Pivot to mid-`H` Y drift.
+- Verification: green+strict PASS; rng-diff still @2832; DIAG removed.
+- Next: `lookaround`/`continue_run`/pet-swap per-step mid-`H`.
+
 ## 2026-07-16 13:05 — D-0486 rogue_vision + D-0485 gettrack theory
 - Objective: seed0007 @2832 dog_move `rn2(1)` (D-0485).
 - C locus: `vision.c` `rogue_vision`/`vision_recalc`; `dogmove.c` `dog_goal` gettrack.

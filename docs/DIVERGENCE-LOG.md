@@ -23,35 +23,32 @@ to preserve, record it here.
 
 ## D-0485 — dog_move rn2(1) vs skipped j==0 (seed0007 @2832)
 
-- **Status:** open (gettrack/`!couldsee` theory; mux ALLOW_U demoted)
+- **Status:** open (hero Y drift mid-`H` run; gettrack/`!couldsee` falsified)
 - **Symptom:** seed0007 first RNG miss @2832 — C `rn2(1)=0 @ dog_move`
   (candidate `j==0 && !rn2(++chcnt)`) vs JS `rn2(5) @ distfleeck`.
-- **Context:** RNG in step 48 key `H`; next `Y`. Hero vacated
-  `(37,17)` (`ux0`); kitten `(38,17)`; both in lit roomno 6
-  (rooms[3] lx32–40 ly14–18); `typ=ROOM`; `utrap=0`; Blind/uswallow
-  false; `viz_pet=COULD_SEE|IN_SIGHT`; `gettrack`→`(37,17)`.
-- **Force proofs:**
-  - Skip cand `(37,17)` → prefix **2832→2838**.
-  - Force `dog_goal` gettrack even when `couldsee` → goal=`(37,17)`,
-    first cand `j==0` → prefix **2832→2846** (stronger).
-  - `mfndpos` with `mux=ux0` also drops `(37,17)` via ALLOW_U, but
-    tame `set_apparxy` always sets `mux=u.ux` — C cannot keep stale
-    mux if `set_apparxy` ran.
-- **Working theory:** C takes `!in_masters_sight` → `gettrack` →
-  `gg=(37,17)` so first neighbour hits `j==0`. JS `couldsee(pet)` is
-  true in the lit room, so goal stays at hero and `(37,17)` is kept
-  with `j<0`. Need C-state why `couldsee` is false, or another silent
-  omit that coincides with ux0. Do not ship coord/ux0/gettrack hacks.
-- **Falsified this iteration:** `Is_rogue_level` / missing
-  `rogue_vision` as the peel cause (role Rogue ≠ rogue level);
-  production mux/ux0 gates.
-- **C locus:** `dogmove.c` `dog_goal` ~611–618 / `dog_move` ~1254;
-  `vision.c` `couldsee`; `track.c` `gettrack`.
-- **Next:** C capture of `couldsee(pet)` / viz at this peel, or
-  reconstruct LOS blocker JS misses; keep mfndpos pool/onscary arms
-  as named omissions only if independently falsified.
+- **Context:** RNG in step 48 key `H` (capital run; multi-step via
+  `continue_run` inside one key); next `Y`. Pet `(38,17)` both sides;
+  lit roomno 6; `utrap=0`; Blind false. Upstairs spawn C+JS `(38,18)`.
+- **C recorder @ peel:** `sight=1` (`couldsee` true), gg=hero,
+  `mux=hero`, `appr=1` `whappr=1` `cnt=8` `nidist=5`, hero **`(36,18)`**,
+  poss[0]=`(37,16)` → j=0 → `rn2(1)`. Track would be `(37,18)` but
+  unused (`in_masters_sight`).
+- **JS @ rng 2832:** hero **`(36,17)`**, gg=hero, `nidist=4`, first
+  cand j=-2; only j<0 selections → no cand RNG → next mon `distfleeck`.
+- **Force proofs (historical):** skip `(37,17)`→2838; force-gettrack→2846
+  (coincidence — C does not take gettrack).
+- **Falsified:** `!couldsee`→gettrack; `Is_rogue_level`/`rogue_vision`
+  (dlvl1); production mux/ux0/coord gates; spawn upstairs mismatch.
+- **Working theory:** JS `lookaround` / `continue_run` / pet-swap
+  during `H` drifts hero to y=17 while C stays y=18; dog_move j-arith
+  is a symptom of wrong hero pos.
+- **C locus:** `hack.c` `lookaround`/`domove`/`continue` run; `cmd.c`
+  do_run; symptom in `dogmove.c` ~1255.
+- **Next:** per-step mid-`H` dump of `ux,uy,dx,dy` vs C; fix lookaround
+  or swap path from C — no coord/gettrack production hacks.
 - **Named omission:** `mfndpos` pool/lava/WATERWALL/onscary/garlic/
-  squeeze/`mm_aggression` arms still partial.
+  squeeze/`mm_aggression` arms still partial; lookaround Blind/trap/
+  pool/NODIAG/mention_walls deferred in `cmd.js`.
 
 ## D-0484 — dofire empty quiver continue + getobj letter ownership
 
