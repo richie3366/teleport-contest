@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:10 — #496 D-0458 botl Conf conditions
+- Objective: seed0002 screen@237 C botl `Burdened Conf` vs JS `Burdened`.
+- C locus: `botl.c` `do_statusline2` Blind…Conf…Fly after enc_stat.
+- Change: `js/display.js` `_statusLine2` — Blind/Deaf/Stun/Conf/Hallu/
+  Lev/Fly before Ride (youprop-shaped); Stone/hunger still deferred.
+- Verification: seed0002 @237 matches; first miss @237→@272; Scr
+  327→353; RNG full; green+strict; cohort 24/24.
+- Next: D-0459 screen@272 safemon `You stop. … is in the way!`.
+
 ## 2026-07-16 06:06 — #495 score + D-0457 wield SUGGEST prompt
 - Objective: mandatory full `sessions` (#495 %5); D-0457 primary.
 - C locus: `invent.c` `getobj`/`compactify`; `wield.c` `wield_ok`.

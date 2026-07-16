@@ -4,18 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0458 — seed0002 screen@237 botl Conf condition
+## D-0459 — seed0002 screen@272 safemon “in the way” pline
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @272 — C topline
+  `You stop.  Your little dog is in the way!` vs JS blank;
+  botl matches. RNG full; Scr 353/595.
+- **Cause:** TBD — `do_attack` safemon `foo` arm flees/returns true
+  but omits C `You("stop.  %s is in the way!", y_monnam)` +
+  `end_running` (D-0442 deferred fleemsg).
+- **C locus:** `uhitm.c` `do_attack` safemon stop path.
+- **Falsifier / next:** emit stop pline + `end_running` when foo.
+
+## D-0458 — seed0002 screen@237 botl Conf condition
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @237 — topline
   `Huh, What?  Where am I?` matches; C botl ends `Burdened Conf`
   vs JS `Burdened`. RNG full; Scr 327/595.
-- **Cause:** TBD — `_statusLine2` emits enc_stat + Ride only; C
-  `do_statusline2` appends Blind…Conf… after enc_stat (D-0401
-  deferred list).
-- **C locus:** `botl.c` `do_statusline2` / condition flags;
-  Confusion via `make_confused` (already sets `HConfusion`).
-- **Falsifier / next:** append ` Conf` when Confusion/HConfusion.
+- **Cause:** `_statusLine2` emitted enc_stat + Ride only; C
+  `do_statusline2` appends Blind…Conf…Hallu…Lev/Fly after
+  enc_stat (D-0401 deferred list).
+- **C locus:** `botl.c` `do_statusline2`; Confusion ≡ `HConfusion`
+  via `make_confused` / `nh_timeout`.
+- **Change:** `js/display.js` `_statusLine2` — Blind/Deaf/Stun/
+  Conf/Hallu/Lev/Fly before Ride (youprop-shaped gates).
+- **Deferred:** Stone/Slime/Strngl/Sick/hunger (before enc_stat);
+  Halluc_resistance; steed `is_flyer` in Flying macro.
+- **Verification:** seed0002 @237 matches `Burdened Conf`; first
+  miss **@237→@272**; Scr **327→353**; RNG full; green+strict;
+  cohort **24/24** (+ green 2 = prior PASS set).
+- **Next:** screen@272 safemon in-the-way pline (D-0459).
 
 ## D-0457 — seed0002 screen@229 wield getobj SUGGEST/`- ` prompt
 

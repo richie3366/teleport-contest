@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **327**/595 | RNG full; first cell @237 botl `Conf` (D-0458) |
+| seed0002 | **27158**/27158 | **353**/595 | RNG full; first cell @272 safemon in-way (D-0459) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,10 +62,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@237 — botl Conf condition** (D-0458).
-RNG **full** 27158/27158; Scr **327**/595; first cell-miss: C botl
-`… Burdened Conf` vs JS `… Burdened` (topline `Huh, What?  Where am I?`
-matches).
+**seed0002 screen@272 — safemon “in the way” pline** (D-0459).
+RNG **full** 27158/27158; Scr **353**/595; first cell-miss: C topline
+`You stop.  Your little dog is in the way!` vs JS blank (botl matches).
+D-0458 botl Conf fixed (@237).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -73,7 +73,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0457.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0458.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

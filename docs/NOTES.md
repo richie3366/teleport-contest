@@ -8,14 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#495). Scr **4636**/11405; RNG **285358**/792838.
-  seed0002 RNG **full** 27158; Scr **327**/595.
-- **Next (D-0458):** seed0002 screen@237 — C botl `Burdened Conf` vs JS
-  `Burdened` (topline matches). Wire `_statusLine2` Conf condition
-  (`botl.c` Blind…Conf… after enc_stat; D-0401 deferred list).
+  seed0002 RNG **full** 27158; Scr **353**/595 (post D-0458).
+- **Next (D-0459):** seed0002 screen@272 — C
+  `You stop.  Your little dog is in the way!` vs JS blank topline
+  (botl matches). `do_attack` safemon `foo` omits pline/`end_running`.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: append ` Conf` when `Confusion`/`HConfusion` set (after Burdened).
+  Falsify: emit C stop pline when safemon `foo` (Punished/`!rn2(7)`/…).
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -23,7 +23,8 @@ Objective/score live in `CURRENT.md`.
   without instruments (D-0454); TOOL resist ulevel; silent onscary;
   dosounds bare u.Deaf; screen@54 without drink compactify (D-0455);
   screen@221 without pickup_prinv slightload (D-0456); screen@229
-  without wield SUGGEST/`- ` (D-0457).
+  without wield SUGGEST/`- ` (D-0457); screen@237 without botl Conf
+  (D-0458).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -42,7 +43,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0457 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0458 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -51,8 +52,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0457 done (travel…wield SUGGEST prompt); screen@237 botl
-  Conf next (D-0458).
+- D-0408–D-0458 done; screen@272 safemon in-the-way next (D-0459).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

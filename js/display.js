@@ -1698,9 +1698,9 @@ const ENC_STAT = [
 
 // C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
 // depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
-// BL_CONDITION Ride when u.usteed (botl.c condtests[bl_ride]).
-// Named omissions: Knox/quest/endgame describe_level arms; full condition
-// list (Stone/Slime/hunger/Blind/…); Upolyd HD.
+// do_statusline2 conditions after enc_stat: Blind…Conf…Hallu…Lev/Fly then Ride.
+// Named omissions: Knox/quest/endgame describe_level; Stone/Slime/Strngl/
+// Sick/hunger conditions (before enc_stat); Halluc_resistance; Upolyd HD.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
@@ -1716,12 +1716,31 @@ function _statusLine2() {
     let s = `${levtag}:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
-    // C do_statusline2 cond: hunger then enc_stat then Blind… then Ride
+    // C do_statusline2: enc_stat then Blind/Deaf/Stun/Conf/Hallu/Lev/Fly/Ride
+    // (Stone…hunger before enc_stat deferred)
     const cap = near_capacity();
     if (cap > UNENCUMBERED) {
         s += ` ${ENC_STAT[cap] || ''}`;
     }
-    // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)
+    // C youprop.h Blind / Deaf / Stunned / Confusion / Hallucination
+    if (hero_Blind()) s += ' Blind';
+    if ((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf) {
+        s += ' Deaf';
+    }
+    if ((u.HStun | 0) || u.Stunned) s += ' Stun';
+    // C: Confusion ≡ HConfusion
+    if ((u.HConfusion | 0) || u.Confusion) s += ' Conf';
+    if ((u.HHallucination | 0) || u.Hallucination) s += ' Hallu';
+    // C: Levitation / Flying mutually exclusive via props; Ride is not
+    if (u.Levitation
+        || (((u.HLevitation | 0) || (u.ELevitation | 0))
+            && !(u.BLevitation | 0))) {
+        s += ' Lev';
+    }
+    if (u.Flying
+        || (((u.HFlying | 0) || (u.EFlying | 0)) && !(u.BFlying | 0))) {
+        s += ' Fly';
+    }
     if (u.usteed) s += ' Ride';
     return s;
 }
