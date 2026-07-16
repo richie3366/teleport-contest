@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0587 — ^X Status armor nudity + Teleport_control what_gives
+
+- **Status:** fixed
+- **Symptom:** seed0116 Scr **126**/127; @122 ^X page 2 — C
+  `You aren't wearing any armor.` blank before Attributes, and
+  `You have teleport control because of your ivory ring.` before luck;
+  JS omitted both → layout shift / short page.
+- **Cause:** (1) `doattributes` never reported Status nudity after
+  `weapon_insight` (`!uarm && !uarmu && …` / `wearing_armor`).
+  (2) Attributes omitted `Teleport_control` + `from_what` lacked
+  `what_gives` extrinsic worn equipment.
+- **C locus:** `insight.c` `status_enlightenment` nudity;
+  `attributes_enlightenment` Teleport_control; `attrib.c` `from_what`;
+  `artifact.c` `what_gives`.
+- **Change:** `js/invent.js` `doattributes` armor nudity + Teleport_control
+  line; `js/attrib.js` `from_what`→`what_gives`; `js/artifact.js`
+  `what_gives` wornmask match.
+- **Verification:** seed0116 Scr **126→127**/127 RNG FULL **PASS** +
+  strict; green+strict PASS; cohort **31**/31 PASS.
+- **Named omission:** Jumping/Teleportation; artifact what_gives arms;
+  full attributes catalogue; Blind/Stun Status; poly/ride/trap.
+- **Next:** leaderboard cron; or earliest remaining suite FAIL
+  (seed0361/0367 quest).
+
 ## D-0586 — dospellmenu wizard turns column (seed0116 Scr)
 
 - **Status:** fixed (partial — seed0116 residual @122 enlightenment)

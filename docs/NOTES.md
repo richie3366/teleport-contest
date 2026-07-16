@@ -7,25 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#650 score:** suite **32/44** Scr **6535**/11405 RNG
-  **359063**/792838 (45.29%); seed5006 suite-confirmed PASS.
-- **Next gameplay:** seed0116 Scr **126**/127 — sole miss @122 ^X
-  page 2: C has `You aren't wearing any armor.` + blank before
-  Attributes, and `You have teleport control because of your ivory
-  ring.` before luck. JS skips both → layout shift / short page.
-- **Hypothesis @122:** `doattributes` (^X) path omits C
-  `status_enlightenment` armor nudity after `weapon_insight`
-  (`!uarm && !uarmu && …`); Attributes omit `Teleport_control` +
-  `from_what(TELEPORT_CONTROL)`. Falsify: dump @122 after porting
-  armor line alone — if teleport still missing, second peel.
-- **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
-  D-0483 reverted serialize.
+- **#654 D-0587:** seed0116 Scr **126→127**/127 **PASS** — ^X Status
+  armor nudity + Attributes Teleport_control `from_what`→`what_gives`
+  worn ring (“because of your ivory ring”).
+- **Leaderboard gap:** local **33/44** (seed0116 added) vs judge **22**
+  after D-0480; D-0483 reverted serialize. Suite Scr/RNG aggregates
+  still #650 (+1 screen for seed0116) until next %5 full score.
+- **Gameplay next:** earliest remaining FAIL after seed0116 PASS —
+  survey suite or seed0361/0367 quest/`makemaz`; seed2200 @158 parked.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0586; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0587; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -56,7 +51,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0586 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0587 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0578: C gg via bones `gettrack`, not mfndpos cnt.
@@ -67,14 +62,14 @@ Objective/score live in `CURRENT.md`.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
+- D-0587: @122 was Status armor nudity + Teleport_control what_gives.
 - seed5006 @8468/@8473/@10953 — regen / level_tele / WAN_DEATH+debug.
-- D-0519…D-0578 makemaz/endgame/^X/setworn — index.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398/0373/**seed5006** **PASS**; #650 suite 32/44.
+- seed0006/0007/0398/0373/**seed5006**/ **seed0116** **PASS**.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -87,6 +82,6 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Empty wear/puton getobj → `[*]` (D-0584).
-- Mimic-as-boulder → `does_block` / Algorithm C edge COULD_SEE (D-0585).
-- Wizard `dospellmenu` appends `turns` / `spellknow(i)` (D-0586).
+- Empty wear/puton getobj → `[*]` (D-0584); mimic boulder → `does_block`
+  (D-0585); wizard spell `turns` (D-0586); ^X armor + Teleport_control
+  what_gives (D-0587).
