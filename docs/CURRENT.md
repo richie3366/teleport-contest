@@ -64,23 +64,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 ## Primary objective
 
 **seed0002 @26692 — pet `udist` after `dog_move` door-step** (D-0451).
-Prefix **26692**; Scr **320**/595. State capture (#486): both did 2
-fobj `obj_resists`; C then invent-scans (~20) because `udist≤1` (no
-`rn2(4)`); JS rolls `!rn2(4)` with `udist=5`. Prior turn: JS pet walked
-to DOOR(35,5); C kept pet at (34,6). Map desync: JS ROOM/VWALL vs C
-ndoor+CORR east of hero. Naive `#force` port regressed to @26426 —
-do not ship until uwep/loot gates match.
+Prefix **26692**; Scr **320**/595. DIAG (#487): mismatch turn pet
+DOOR(35,5) hero(34,7) `udist=5`; prior appr=0 move rl=26678 cnt=5
+ends chi=4→(35,5) (DOOR/D_NODOOR; no objs/traps). `#force` ×3 empty
+floor + scalpel: unknown keeps 26692; faithful empty-floor
+`ECMD_TIME` regresses **@26426** — JS pet already (31,7) udist=1 vs
+C `rn2(4)` (udist>1). Do not ship `#force` until pre-force pet pos
+matches; find silent pet drift before step 511.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C vs JS terrain (34..35,5..7) + mfndpos poss[4] / why C stays
+# Focus: pet mx/my before step 511 / why C lacks DOOR(35,5) cand
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0450;
-“missing fobj count” without pet-udist proof; invent-first at @26692.
+shipping `#force` alone; invent-first at @26692.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

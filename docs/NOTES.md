@@ -10,23 +10,23 @@ Objective/score live in `CURRENT.md`.
 - **Score:** **26/44** PASS (#485 full). Scr **4629**/11405; RNG
   **284968**/792838; speed `23+0.13/turn`. seed0002 Scr **320**/595
   prefix **26692**.
-- **Next (D-0451):** seed0002 @26692 — JS `udist=5` → `!rn2(4)`; C
-  `udist≤1` → invent `dogfood` (~20×) after 2 matched fobj
-  `obj_resists`. Prior turn: JS pet `dog_move` appr=0 walked to
-  DOOR(35,5) (5th mfndpos cand); C kept pet on (34,6) (screen `@d`).
-  Map: JS (34,6)=ROOM (35,6)=VWALL; C east-of-hero = ndoor then CORR.
-  Falsify: C terrain at (34..35,5..7) vs JS; why C aborts same
-  selection RNG / different poss[4].
+- **Next (D-0451):** seed0002 @26692 — JS pet DOOR(35,5) `udist=5`
+  → `!rn2(4)`; C `udist≤1` invent. Confirmed DIAG (#487): prior
+  `dog_move` rl=26678 appr=0 cnt=5 cands
+  `[33,5|33,7|34,5|34,7|35,5]` (DOOR 23/0 at 35,5; VWALL east);
+  chi=4 → (35,5). No objs/traps on cands. `#force` empty floor +
+  scalpel: unknown=ECMD_OK keeps prefix 26692; faithful empty-floor
+  `ECMD_TIME` regresses @26426 (JS pet (31,7) udist=1 vs C
+  `dog_goal` `rn2(4)` udist>1) — pre-force pet pos already split.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** invent `dogfood` as *first* miss at @26692 (that
-  path is after `rn2(4)`); “fewer in-radius fobj” alone (both had 2
-  fobj `obj_resists`); naive `#force`/`doforce` EXT_CMDS port (regressed
-  prefix to **26426**); SLT trunc; @25767–@4565 D-0450…D-0430 list.
+- **Don’t re-check:** invent-first @26692; fewer fobj alone; ship
+  `#force` empty-floor TIME without fixing pre-force pet pos; `#ll`
+  unknown (C NEWAUTOCOMP: 2nd `l` makes `ll`, not loot).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
-- **Parked:** D-0006; seed2200 @158 RC; `#force` full ynq/occupation
-  until loot/autounlock interaction understood.
+- **Parked:** D-0006; seed2200 @158 RC; `#force` until pet-pos before
+  step 511 understood.
 
 ## Don’t re-check (≤15)
 
@@ -67,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   (D-0449 done); treat @25767 as monmove without zap getobj/`dobuzz`
   (D-0450 done); treat @26692 as invent-first or bare “missing fobj
   count” without pet-udist/`mfndpos` proof (D-0451); re-audit SLT trunc;
-  ship naive `doforce` without proving uwep/autounlock gates.
+  ship `#force` ECMD_TIME without proving pet pos before step 511.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -83,7 +83,8 @@ Objective/score live in `CURRENT.md`.
   seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
   D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
   next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450
-  done; D-0451 pet udist after door-step `dog_move` next.
+  done; D-0451 pet udist — door-step + `#force` TIME reveals earlier
+  split.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

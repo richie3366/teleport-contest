@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 04:42 — #487 D-0451 door-step + #force TIME falsify
+- Objective: seed0002 @26692 D-0451 — why JS pet→DOOR(35,5).
+- C locus: `dogmove.c` `dog_move`/`dog_goal`; `lock.c` `doforce`;
+  `mon.c` `mfndpos`.
+- Change: none shipped. DIAG: prior appr=0 cnt=5→(35,5) D_NODOOR.
+  Faithful empty-floor `doforce` ECMD_TIME (scalpel, no box) reverted —
+  prefix 26692→**26426** (JS pet (31,7) udist=1 vs C `rn2(4)`).
+  Unknown `#force` masks earlier pet-pos split.
+- Verification: green+strict PASS; seed0002 still @26692 / Scr 320.
+- Next: pet mx/my before step 511; why C omits DOOR(35,5) cand
+  (D-0451). Do not ship `#force` yet.
+
 ## 2026-07-16 04:23 — #486 D-0451 state capture (pet udist)
 - Objective: seed0002 @26692 D-0451 primary — falsify fobj-count vs
   pet-pos.
