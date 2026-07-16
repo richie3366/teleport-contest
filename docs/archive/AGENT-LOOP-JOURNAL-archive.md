@@ -212,3 +212,13 @@
 - Verification: rng-diff **15983→16339**; RNG 16344/16373 Scr 60;
   green+strict PASS; cohort 28/28 PASS.
 - Next: @16339 distfleeck rn2(5) vs rnd(20) (D-0496).
+
+## 2026-07-16 16:52 — D-0534 mktrap WEB giant spider
+- Objective: seed0373 @9875 C `next_ident`/`newmonhp` vs JS `rnd(4)`.
+- C locus: `mklev.c` `mktrap` WEB→`makemon(PM_GIANT_SPIDER)`;
+  `sp_lev.c` `create_trap`.
+- Change: `mktrap_seen_victim` creates spider unless `nospider`;
+  wire `splev_create_trap`/`mktrap_room`; tut-1 WEB keeps nospider.
+- Verification: rng-diff **9875→11957**; RNG **12021**/35386;
+  green+strict PASS; cohort **28**/28 PASS.
+- Next: @11957 `mksobj_init` `rn2(5)` vs `rn2(4)`; or seed5006.

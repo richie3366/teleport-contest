@@ -19,6 +19,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:05 — #609 D-0549 level_tele endgame Amulet
+- Objective: peel seed0373 @30061 C `next_ident` vs JS `rn2(3)` after
+  matched `collect_coords` / mon_arrive.
+- C locus: `teleport.c` `level_tele` levTport_menu endgame
+  `mksobj(AMULET_OF_YENDOR)`; `mkobj.c` AMULET_CLASS; `invent.c`
+  `addinv_core1`.
+- Change: `js/teleport.js` grant + `addinv`/`prinv`/`uhave.amulet`;
+  `js/mkobj.js` `made_amulet`.
+- Verification: rng-diff **30061→30065**; runner RNG **30115**/35386
+  Scr 23; green+strict PASS; cohort **28**/28 PASS.
+- Next: nhlib shuffle @30065 (endgame plane load); or dosounds @8468.
+
 ## 2026-07-16 19:56 — #608 D-0548 soko3-1 / soko3-2 / soko4-2
 - Objective: peel seed0373 @29533 C nhlib `shuffle` `rn2(3)` vs JS
   `rn2(79)` after matched makemaz `rnd(2)=1`.
@@ -151,12 +163,3 @@ Use this shape:
   **330332**/792838 (41.66%), `31+0.15/turn`; seed0373
   **11957→11988** (RNG **12023**); green+strict; cohort 28/28.
 - Next: `collect_coords` @11988; or seed5006 dosounds @8468.
-## 2026-07-16 16:52 — D-0534 mktrap WEB giant spider
-- Objective: seed0373 @9875 C `next_ident`/`newmonhp` vs JS `rnd(4)`.
-- C locus: `mklev.c` `mktrap` WEB→`makemon(PM_GIANT_SPIDER)`;
-  `sp_lev.c` `create_trap`.
-- Change: `mktrap_seen_victim` creates spider unless `nospider`;
-  wire `splev_create_trap`/`mktrap_room`; tut-1 WEB keeps nospider.
-- Verification: rng-diff **9875→11957**; RNG **12021**/35386;
-  green+strict PASS; cohort **28**/28 PASS.
-- Next: @11957 `mksobj_init` `rn2(5)` vs `rn2(4)`; or seed5006.

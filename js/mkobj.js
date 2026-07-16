@@ -840,8 +840,13 @@ function mksobj_init(otmp, artif) {
         break;
     }
     case AMULET_CLASS: {
-        // C: if (rn2(10) && special) curse; else blessorcurse(10)
+        // C ref: mkobj.c mksobj_init AMULET_CLASS
         const n = otypName(otmp.otyp);
+        if (n === 'AMULET_OF_YENDOR') {
+            if (!game.context) game.context = {};
+            game.context.made_amulet = true;
+        }
+        // C: if (rn2(10) && special) curse; else blessorcurse(10)
         if (rn2(10) && (n === 'AMULET_OF_STRANGULATION' || n === 'AMULET_OF_CHANGE'
             || n === 'AMULET_OF_RESTFUL_SLEEP')) {
             curse(otmp);

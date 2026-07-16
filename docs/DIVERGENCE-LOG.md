@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0549 — level_tele endgame AMULET_OF_YENDOR grant
+
+- **Status:** fixed (partial — endgame plane `load_special`; heaven/Knox)
+- **Symptom:** seed0373 @30061 C `next_ident` `rnd(2)` vs JS `rn2(3)` after
+  matched `collect_coords` / mon_arrive (post soko4-2).
+- **Cause:** wizard `^V` `?` `print_dungeon` force_dest to endgame; C
+  `level_tele` grants `mksobj(AMULET_OF_YENDOR)` before `getbones`. JS
+  deferred that arm and hit next-level `getbones` early.
+- **C locus:** `teleport.c` `level_tele` levTport_menu endgame block;
+  `mkobj.c` `mksobj`/`mksobj_init` AMULET_CLASS; `invent.c` `addinv_core1`.
+- **Change:** `js/teleport.js` endgame grant + `addinv`/`prinv`/`uhave.amulet`;
+  `js/mkobj.js` `made_amulet` on Yendor init.
+- **Verification:** seed0373 rng-diff **30061→30065**; runner RNG
+  **30115**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS
+  (+green = 30). seed0116 RNG still full Scr 110/127.
+- **Named omission:** endgame plane `load_special` (air/fire/water/earth/
+  astral); heaven/escape; Knox; `lev_by_name`.
+- **Next:** @30065 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)` (endgame
+  special); or seed5006 `dosounds` @8468.
+
 ## D-0548 — soko3-1 / soko3-2 / soko4-2 load_special
 
 - **Status:** fixed (partial — soko2-2 / soko4-1; solidify/premap)
