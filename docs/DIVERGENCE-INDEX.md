@@ -501,6 +501,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0512 | fixed | !verbose drop getobj leave topline + parse clear/cursor | seed0398 Scr 77→83; @48 shudder next |
 | D-0513 | fixed | zapwrapup You_feel shuddering vibrations | seed0398 Scr 83→84 |
 | D-0514 | fixed | done2 Dump core + stopprint rip skip + wizard topten msg | seed0398 Scr 84→87 **PASS** |
+| D-0515 | fixed | ^V wiz_level_tele / level_tele numeric + deferred_goto | seed0116 2978→5910 Scr 9→79; seed5006 4182→8468 Scr 4→121 |
 
 
 

@@ -7,29 +7,31 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0398 PASS** after D-0513/D-0514 (focused 87/87 + cohort).
-  Suite PASS count refresh at next ÷5 (#575).
-- **Leaderboard gap:** local **29/44** (#570) vs judge **22** after D-0480;
-  D-0483 reverted serialize. Watch next cron for seed0013 restore.
-  seed0398 may lift local to 30 once suite remeasured.
-- **Gameplay next:** near-miss survey — prefer shared blockers over
-  late single-seed. Candidates: seed0361/0373 quest/`makemaz`;
-  seed2200 parked RC.
+- **D-0515:** `^V`/`level_tele` numeric unlocked shared getbones.
+  seed0116 **6034**/12562 Scr **79**/127 (@5910 `zap_dig`);
+  seed5006 **8507**/13923 Scr **121**/249 (@8468 `dosounds`).
+  seed0373 still @2549 — needs `print_dungeon` `?` menu.
+- **seed0398 PASS** in suite (#572 survey → **30/44**). Formal
+  Score rewrite at #575.
+- **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
+  D-0483 reverted serialize. Watch cron for seed0013 restore.
+- **Gameplay next:** seed0116 `zap_dig` / seed5006 `dosounds` /
+  seed0373 `print_dungeon` / quest `makemaz`. Prefer shared.
   ```bash
-  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'FAIL|PASS' | head -50
+  node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
   ```
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0514.
+  reopen D-0474…D-0515; stub-cancel `^V?` as if menu (breaks 0373).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0514
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0515
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -41,7 +43,8 @@ Objective/score live in `CURRENT.md`.
 - D-0513: `zapwrapup` must `You_feel` shudder (not defer).
 - D-0514: wizard `#quit` → `Dump core?` before disclose; stopprint
   skips Goodbye; wizard topten early-exit msg + trailing blanks.
-- GameDisplay needs `getCursor` (or use `cursorRow`) for blanks.
+- getbones `rn2(3)` gap with JS dog_move arity = unbound level change
+  (`>` / `^V`), not getbones stub (D-0068/D-0149/D-0515).
 
 ## Landmarks (≤15)
 
@@ -53,6 +56,7 @@ Objective/score live in `CURRENT.md`.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
 - #570 score: **29/44**, Scr 5520, RNG 303491 (38.28%), `27+0.12/turn`.
+  #572 survey: **30/44** (seed0398); D-0515 lifts pending #575 rewrite.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.

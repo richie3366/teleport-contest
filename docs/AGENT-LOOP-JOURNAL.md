@@ -20,6 +20,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:40 — #572 D-0515 ^V level_tele numeric
+- Objective: near-miss survey — shared getbones blockers.
+- C locus: `cmd.c` wizlevelport; `wizcmds.c` `wiz_level_tele`;
+  `teleport.c` `level_tele`; `dungeon.c` `get_level`; `allmain.c`
+  `deferred_goto` after rhack.
+- Change: bind `^V`; wizard getlin numeric → `get_level` →
+  `schedule_goto`; moveloop `deferred_goto`.
+- Verification: seed0116 **2978→5910** Scr **9→79**; seed5006
+  **4182→8468** Scr **4→121**; green+strict; cohort **28/28**.
+  seed0373 still @2549 (`print_dungeon` `?`). Suite survey **30/44**.
+- Next: seed0116 `zap_dig` / seed5006 `dosounds` / seed0373 menu.
+
+## 2026-07-16 16:35 — #571 D-0513/D-0514 seed0398 PASS
+- Objective: seed0398 @48 shudder + remaining end screens.
+- C locus: `zap.c` `zapwrapup`; `end.c` `done2` Dump core / stopprint;
+  `topten.c` wizard early-exit; `really_done` trailing raw blanks.
+- Change: `You_feel` shudder; wizard `Dump core?` ynq; skip rip on
+  stopprint; wizard topten msg; `raw_print_blanks(2)`; GameDisplay
+  `getCursor`.
+- Verification: seed0398 **87/87 PASS**; green+strict; cohort **28/28**.
+- Next: near-miss survey / LB gap; suite refresh @#575.
+
 ## 2026-07-16 16:30 — #570 score + D-0512 !verbose drop topline
 - Mandatory full `sessions` (#570÷5): **29/44**, Scr **5520**/11405,
   RNG **303491**/792838 (38.28%), `27+0.12/turn`. Δ vs #565 Scr +224.
@@ -129,47 +151,4 @@ Use this shape:
   (38.24%) speed `25+0.13/turn`
 - Next: seed0007 @150 Take-out `a tin` vs `a tin of lichen` (D-0503)
 
-
-## 2026-07-16 15:28 — D-0501 lootabc + take-out sort + gold bot()
-- Objective: primary seed0007 screen peel @116 (`#loot` take-out;
-  first cell miss was @111 lootabc letters).
-- C locus: `pickup.c` `in_or_out_menu` / `menu_loot` / `query_objlist`
-  / `out_container`; `invent.c` `sortloot` / `let_to_name`.
-- Change: `js/pickup.js` — paint a/b/c/d/e when `flags.lootabc`;
-  take-out INVORDER_SORT headings + `$`/letters; `await bot()` after
-  gold remove (was botl flag only).
-- Verification: Scr **116→126**/302; @111/@116 match; RNG full;
-  green+strict; cohort **26/26** PASS.
-- Next: @124 botl `AC:9` vs `AC:7` (D-0502).
-
-## 2026-07-16 15:21 — D-0500 botl hu_stat hunger
-- Objective: primary seed0007 screen peel @85 (Satiated botl).
-- C locus: `botl.c` `do_statusline2` `u.uhs != NOT_HUNGRY` → `hu_stat[]`;
-  `eat.c` `hu_stat`.
-- Change: `js/display.js` `_statusLine2` — emit `HU_STAT` before
-  `enc_stat` when `uhs !== NOT_HUNGRY` (field already SATIATED via D-0438).
-- Verification: Scr **85→116**/302; @85 match; RNG full; green+strict;
-  cohort **28/28** PASS.
-- Next: @116 `#loot` take-out menu (D-0501).
-
-## 2026-07-16 15:18 — D-0499 doset per-bool pline
-- Objective: primary seed0007 screen peel @38 (showexp/time botl).
-- C locus: `options.c` `optfn_boolean` one pline/bool + botl before
-  pline; topline NEED_MORE append/`more`.
-- Change: `js/options.js` `doset` — drop join-2 msgBuf; `await pline`
-  per selected bool so showexp botl paints during price_quotes More
-  before `time` applies.
-- Verification: Scr **84→85**/302; @38 match; RNG full; green+strict
-  PASS; cohort 26/26 PASS.
-- Next: @85 botl `Satiated` / D-0500.
-
-## 2026-07-16 16:35 — #571 D-0513/D-0514 seed0398 PASS
-- Objective: seed0398 @48 shudder + remaining end screens.
-- C locus: `zap.c` `zapwrapup`; `end.c` `done2` Dump core / stopprint;
-  `topten.c` wizard early-exit; `really_done` trailing raw blanks.
-- Change: `You_feel` shudder; wizard `Dump core?` ynq; skip rip on
-  stopprint; wizard topten msg; `raw_print_blanks(2)`; GameDisplay
-  `getCursor`.
-- Verification: seed0398 **87/87 PASS**; green+strict; cohort **28/28**.
-- Next: near-miss survey / LB gap; suite refresh @#575.
 

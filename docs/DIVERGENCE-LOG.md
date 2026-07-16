@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0515 — ^V wiz_level_tele / level_tele numeric → getbones
+
+- **Status:** fixed
+- **Symptom:** Shared near-misses (seed0116 @2978, seed5006 @4182,
+  seed0373 @2549) showed C `rn2(3)` @ `getbones` vs JS dog_move /
+  makelevel arity — JS never reached `mklev` after wizard level-port.
+- **Cause:** `C('v')` unbound in `rhack`; `level_tele` /
+  `deferred_goto` after rhack absent. Same lesson as D-0068/D-0149
+  (unbound command, not getbones body).
+- **C locus:** `cmd.c` wizlevelport; `wizcmds.c` `wiz_level_tele`;
+  `teleport.c` `level_tele`; `dungeon.c` `get_level`; `allmain.c`
+  `deferred_goto` after `rhack`.
+- **Change:** `js/cmd.js` key 22 → `wiz_level_tele`; `js/wizcmds.js`
+  envelope; `js/teleport.js` wizard/Teleport_control getlin numeric
+  → `get_level` → `schedule_goto`; `js/dungeon.js` `get_level`;
+  `js/allmain.js` `deferred_goto` after rhack.
+- **Verification:** seed0116 prefix **2978→5910** positional
+  **6034**/12562 Scr **9→79**/127; seed5006 **4182→8468** positional
+  **8507**/13923 Scr **4→121**/249; green+strict PASS; cohort
+  **28/28** PASS. seed0373 still @2549 — needs `print_dungeon` `?`
+  menu (early `^V?` key ownership).
+- **Named omission:** `print_dungeon`/`lev_by_name`; involuntary
+  `random_teleport_level`; heaven/escape negative; endgame dest;
+  Knox `single_level_branch`; Quest depth polish; find_hell;
+  invocation clamp; Nowhere suicide; next_to_u leash body.
+- **Next:** seed0116 `zap_dig` @5910 / seed5006 `dosounds` @8468 /
+  seed0373 `print_dungeon` / quest `makemaz`.
+
 ## D-0514 — wizard done2 Dump core + topten early-exit (seed0398 PASS)
 
 - **Status:** fixed
