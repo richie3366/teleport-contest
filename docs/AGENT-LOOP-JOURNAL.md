@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:38 — D-0488 mO doset + pickup_types
+- Objective: seed0007 @6414 C eatcorpse rn2(20) vs JS rn2(7) (D-0488).
+- C locus: `options.c` doset_simple→doset on menu_requested; `cmd.c`
+  CMD_M_PREFIX on O; `pickup.c` autopick_testobj.
+- Change: keep menu_requested for O; port doset PICK_ANY so session
+  sets pickup_types=$"?!=/ (no food). Was: O cleared m-prefix → empty
+  types → autopick jackal corpse → floorfood skipped eatcorpse.
+- Verification: rng-diff **6414→7066**; Scr **20→60**/302; green+strict
+  PASS; cohort 10 PASS.
+- Next: @7066 C picklock rn2(100) (D-0489).
+
 ## 2026-07-16 13:25 — D-0487 picklock + doopen autounlock
 - Objective: seed0007 @3219 picklock rn2(100) (D-0487).
 - C locus: `lock.c` picklock/`pick_lock`/`doopen_indir` autounlock; `autokey`.

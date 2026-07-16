@@ -21,16 +21,35 @@ to preserve, record it here.
   0006/0002/0012/0004/0030/0009 PASS.
 - **Next:** D-0485 gettrack/`!couldsee` on ordinary levels.
 
-## D-0488 — eatcorpse rn2(20) vs rn2(7) (seed0007 @6414)
+## D-0489 — picklock rn2(100) after corpse eat (seed0007 @7066)
 
 - **Status:** open
+- **Symptom:** after D-0488, first RNG miss @7066 — C `rn2(100) @ picklock`
+  vs JS `rn2(5)`. Scr **60**/302.
+- **Context:** second locked-door stretch after jackal corpse eat.
+- **C locus:** `lock.c` `picklock` / autounlock occupation resume.
+- **Next:** C vs JS door/`pick_lock` path at this step — no coord hacks.
+
+## D-0488 — eatcorpse rn2(20) vs rn2(7) (seed0007 @6414)
+
+- **Status:** fixed
 - **Symptom:** after D-0487, first RNG miss @6414 — C `rn2(20) @ eatcorpse`
-  vs JS `rn2(7)`.
-- **Context:** seed0007 Scr still **20**/302; lock peel done.
-- **C locus:** `eat.c` `eatcorpse` (likely acid/sick/`rnd` vs `rn2` arm).
-- **Next:** C vs JS `eatcorpse` call path at first corpse eat after swamp
-  unlock — no coord hacks.
-- **Named omission:** see eat map row.
+  vs JS `rn2(7)`. Scr **20**/302.
+- **Cause:** session `mO` configures `pickup_types=$"?!=/` (no food) then
+  steps onto a jackal corpse. JS cleared `menu_requested` before `O`, so
+  `doset_simple` never redirected to full `doset()`; `pickup_types` stayed
+  empty ⇒ autopick-all took the corpse into invent; `floorfood` saw an
+  empty pile and never entered `eatcorpse`'s rotting `rn2(20)`.
+- **C locus:** `options.c` `doset_simple`/`doset` (menu_requested);
+  `cmd.c` CMD_M_PREFIX on `O`; `pickup.c` `autopick_testobj`.
+- **Change:** `js/cmd.js` — keep `menu_requested` for `O` (and other
+  m-prefix cmds); `js/options.js` — `doset()` PICK_ANY + `doset_simple`
+  → `doset` when `menu_requested`; contest-ordered bool/compound pages so
+  session letters select autopickup + `pickup_types`.
+- **Verification:** rng-diff **6414→7066**; Scr **20→60**/302; green+strict
+  PASS; cohort 10 PASS. Next @7066 C `rn2(100) @ picklock`.
+- **Named omission:** full `accept_menu_prefix` table; compound getlin
+  arms beyond `pickup_types`; WC/wizard filters; help-file `?` body.
 
 ## D-0487 — picklock + doopen autounlock (seed0007 @3219)
 
