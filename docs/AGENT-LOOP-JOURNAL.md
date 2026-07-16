@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 23:28 — #640 score + familiar_level_msg (D-0577)
+- Objective: mandatory #640 full `sessions` score; seed5006 gameplay.
+- C locus: bones.c cemetery/`bones_include_name`; do.c
+  `familiar_level_msg`/`goto_level` familiar.
+- Change: persist cemetery who[]; familiar_level_msg after splev;
+  debug plname≡wizard matches across segments. False lead: rng-diff
+  seg0-only (@11026 was seg1 start).
+- Verification: suite **31/44** Scr **6473** RNG **358954** (45.27%);
+  seed5006 Scr 182→192 seg1 2777→2782; green+strict PASS; cohort PASS.
+- Next: seed5006 seg1 @2782 m_move rn2(16) vs rn2(28); or seed0116.
+
 ## 2026-07-16 23:25 — #639 death-ray self-zap / bones debug (D-0576)
 - Objective: seed5006 can_make_bones rn2(1) @10953.
 - C locus: zap.c zapyourself WAN_DEATH; cmd.c getdir→confdir;

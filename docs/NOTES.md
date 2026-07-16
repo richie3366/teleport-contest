@@ -7,24 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0576 done:** `zapyourself` WAN_DEATH + getdir `confdir`;
-  `can_make_bones` wizard ≡ `flags.debug||flags.wizard`. seed5006
-  seg0 **10953→11026 FULL**; Scr **174→182**/249; positional
-  **10974→13812**/13923.
-- **Gameplay next:** seed5006 **seg1** (seed5007) @11026
-  `randomize_gem_colors`; or seed0116 residual 114/127.
-  Prefer over parked seed2200 RC.
+- **D-0577 done:** cemetery `bonesinfo` + `bones_include_name` +
+  `familiar_level_msg`. Debug `plname`≡`wizard` matches across segments.
+  seed5006 seg1 prefix **2777→2782**; Scr **182→192**/249.
+- **Gameplay next:** seed5006 seg1 @2782 `m_move` `rn2(16)` vs JS
+  `rn2(28)`; or seed0116 residual 114/127. Prefer over parked seed2200 RC.
   ```bash
-  node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
+  node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
   ```
-- **Leaderboard gap:** local **30/44** (+seed0373 focused PASS pending
-  #640 suite) vs judge **22** after D-0480; D-0483 reverted serialize.
+- **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
+  D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0576; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0577; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -45,27 +43,28 @@ Objective/score live in `CURRENT.md`.
   `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`; stub
   cursed/confused teleport scroll `level_tele`; stub death-ray
   `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
-  `can_make_bones`.
+  `can_make_bones`; omit cemetery / `familiar_level_msg`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0576 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0577 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0576 makemaz/endgame/air_pos/^X/setworn/level_tele/death —
-  index.
+- D-0519…D-0577 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
+  familiar — index.
 - seed5006 @8468 was regen HP / missing Regeneration, not dosounds.
 - seed5006 @8473 was stubbed confused scroll `level_tele`, not rnl alone.
 - seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
+- `rng-diff.mjs` runs **seg0 only** — seed5006 “@11026 gemcolors” was
+  seg1 start; seg0 is FULL.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398 **PASS**; seed0373 focused **PASS** (D-0573).
-- #635 score: **30/44**, Scr 6401, RNG 353648 (44.61%).
+- seed0006/0007/0398/0373 **PASS**; #640 **31/44**.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 — do not add to EXT_CMD_AC.
@@ -73,3 +72,4 @@ Objective/score live in `CURRENT.md`.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
 - Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.
+- Debug `set_playmode` → `plname="wizard"`; cemetery who uses that.

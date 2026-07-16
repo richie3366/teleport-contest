@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0577 — familiar_level_msg + cemetery bonesinfo (seed5006 seg1)
+
+- **Status:** fixed (partial — formatkiller/when; Gehennom valley plines;
+  nested cemetery polish)
+- **Symptom:** seed5006 seg1 @2777 C `rn2(4)` `familiar_level_msg` vs JS
+  `rn2(7)` `do_attack` — after bones load + `losedogs`.
+- **Cause:** `savebones` omitted cemetery `bonesinfo`; `goto_level` never
+  called `familiar_level_msg`. With `playmode:debug`, `set_playmode`
+  sets `plname="wizard"` so Calamity bones `who=wizard-Tou-…` matches
+  Galahad’s `bones_include_name("wizard")`. False lead: `rng-diff`
+  only runs seg0 (FULL @11026 / `randomize_gem_colors` is seg1 start).
+- **C locus:** `bones.c` cemetery attach + `bones_include_name`;
+  `do.c` `familiar_level_msg` / `goto_level` `familiar` after mklev.
+- **Change:** persist/restore `bonesinfo`; `bones_include_name`;
+  `familiar_level_msg` after `deliver_splev_message` when familiar.
+- **Verification:** seg1 prefix **2777→2782**; seed5006 Scr **182→192**;
+  suite #640 **31/44** Scr **6473** RNG **358954**; green+strict PASS;
+  cohort seed0030/0006/0373/0398/1800 PASS.
+- **Named omission:** `formatkiller`/`yyyymmddhhmmss`; Gehennom Valley
+  arrival plines; multi-entry cemetery from loaded-then-redeath polish.
+- **Next:** seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28); or seed0116.
+
 ## D-0576 — zapyourself WAN_DEATH + getdir confdir + bones wizard≡debug
 
 - **Status:** fixed (partial — other zapyourself otyps; wizard Die?/Save

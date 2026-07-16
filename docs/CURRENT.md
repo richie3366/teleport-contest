@@ -21,38 +21,35 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#635**),
-post D-0569…D-0572. Screens **6401**/11405; RNG **353648**/792838 (44.61%).
-**30/44** PASS. Speed `31+0.15/turn` (R² 0.772). Δ vs #630: Scr **+23**,
-RNG 0, PASS unchanged (seed0373 +22 via D-0569…72; seed0116 113→114).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#640**),
+post D-0577. Screens **6473**/11405; RNG **358954**/792838 (45.27%).
+**31/44** PASS. Speed `31+0.14/turn` (R² 0.770). Δ vs #635: PASS +1
+(seed0373), Scr **+72**, RNG **+5306**; Δ vs pre-D-0577 #640: Scr +10
+(seed5006 182→192).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **30 / 44** |
-| Screens matched | **6,401 / 11,405** |
-| Positional RNG calls matched | **353,648 / 792,838** (44.61%) |
-| Speed label | `31+0.15/turn` (R² 0.772) |
+| Sessions passing | **31 / 44** |
+| Screens matched | **6,473 / 11,405** |
+| Positional RNG calls matched | **358,954 / 792,838** (45.27%) |
+| Speed label | `31+0.14/turn` (R² 0.770) |
 | Role-init throws | **0 / 44** |
 
-**PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (31):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
+seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **114**/127 | D-0563+; screen residual |
-| seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
+| seed5006 | 13814/13923 | **192**/249 | D-0577; seg1 @2782 `m_move` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
-
-Focused since #635: **seed0373 PASS** (D-0573); **seed5006** Scr
-121→182 / RNG prefix 8468→**11026** seg0 FULL (D-0574…D-0576). Suite
-aggregates refresh at #640.
 
 ## Green gate
 
@@ -69,21 +66,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-30 gap** — local PASS includes seed0398; judge at 08:55Z
-dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
-that serialize coerce. Next cron; if seed0013 restored but near-misses
-remain → upstream #5.
+**Leaderboard 22-vs-31 gap** — local PASS includes seed0398 + seed0373;
+judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
+**D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
+but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0576 (death-ray self-zap + bones wizard≡debug),
-seed5006 **seg0 FULL** 11026; next **seg1** seed5007 `randomize_gem_colors`
-@11026, or seed0116 residual (114/127). Prefer over parked seed2200 RC.
+**Gameplay next:** after D-0577 (`familiar_level_msg` + cemetery), seed5006
+seg1 prefix **2777→2782**; Scr **182→192**/249. Next seg1 @2782 `m_move`
+`rn2(16)` vs `rn2(28)`, or seed0116 residual (114/127). Prefer over parked
+seed2200 RC. Note: `rng-diff.mjs` only runs seg0 (FULL at 11026).
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
+node --input-type=module -e '/* seg1 mismatch helper — see NOTES */'
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0576.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0577.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
