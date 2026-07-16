@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 12782/27158 | **247**/595 | @12530 umovement/SLT (D-0443) |
+| seed0002 | 14147/27158 | **284**/595 | @14081 peffect_healing (D-0444) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,23 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @12530 — `umovement` / SLT phase** (D-0443). Prefix **12530**;
-Scr **247**/595. JS SLT `u_calc_moveamt` is clean (+9 only; leftover cycle
-9→18→15→12 from first Burdened @moves~236 ≡ C eot~237). Symptom remains:
-JS hero acts with umo **15** @**(41,18)**→west while C still invent-scans
-(`udist≤1`). Next: EOT/occupation interleave around goblin-corpse eat
-(C key `y` @rng~12463 has **4** EOTs).
+**seed0002 @14081 — `peffect_healing`** (D-0444). Prefix **14081**;
+Scr **284**/595. C `d(4,4)` @ `potion.c` `peffect_healing`; JS
+`rn2(5)` (`distfleeck`) — healing quaff not ported / not dispatched.
+D-0443 fixed: rottenfood non-faint no longer forces dont_start.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C 4-EOT eat step vs JS occupation/movemon between double-EOT halves
+# Focus: C peffect_healing d(4,4) vs JS drink/potion otyp path
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0442;
-treating @12530 as zap/`destroy_items`; re-checking SLT integer math.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0443;
+treating @14081 as monmove/`distfleeck` without the potion path.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

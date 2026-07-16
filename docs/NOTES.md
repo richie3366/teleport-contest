@@ -8,20 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#475 full). Scr **4556**/11405; RNG
-  **270988**/792838. seed0002 Scr **247**/595 prefix **12530**.
-- **Next (D-0443):** seed0002 @12530 — JS SLT math **falsified clean**
-  (always +9; leftover 9→18→15→12 from Burdened @~236 ≡ C eot~237). Still:
-  JS acts with umo **15** @41,18→west; C invent-scans. Falsifier: compare
-  goblin-eat step (C `y` @rng~12463, **4** EOTs) — occupation end or
-  monscan between double-EOT halves.
+  **270988**/792838. seed0002 Scr **284**/595 prefix **14081**.
+- **Next (D-0444):** seed0002 @14081 — C `d(4,4)` @ `peffect_healing`
+  vs JS `rn2(5)` (`distfleeck`). After D-0443 rottenfood→occupation.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** SLT `moveamt-=mmove/4` integer path; @12530 as
-  zap/`destroy_items` (D-0443); @12222 safemon/flee (D-0442); @11487
-  wipe_engr (D-0441); @11309 run-into-visible (D-0440); @11150 ohitmon
-  (D-0439); @10634 booze (D-0438); @10550 impaired (D-0437); @10511
-  confusion (D-0436); @8863–@4565 D-0435…D-0430.
+- **Don’t re-check:** SLT `u_calc_moveamt` math; @12530 as zap or
+  umovement leftover (D-0443 was dont_start); @12222 safemon/flee
+  (D-0442); @11487 wipe_engr (D-0441); @11309 run-into-visible
+  (D-0440); @11150 ohitmon (D-0439); @10634–@4565 D-0438…D-0430.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -53,8 +49,8 @@ Objective/score live in `CURRENT.md`.
   treat drink/? / SCR_* / door / sink / confusion / impaired / booze /
   ohitmon / run-stop / CONFUSION-timeout / safemon-move0 as monmove
   without those peffect/timeout/do_attack paths (D-0430–D-0442);
-  treat @12530 obj_resists streak as zap/`destroy_items` (D-0443);
-  re-audit SLT `u_calc_moveamt` trunc math (clean @#475).
+  treat @12530 as zap/`destroy_items` or SLT leftover math (D-0443 —
+  was rottenfood forced dont_start); re-audit SLT trunc math.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -65,8 +61,8 @@ Objective/score live in `CURRENT.md`.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
 - Travel/autodescribe/invent/throw/eat/drink/scrolls D-0408–D-0435;
   confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
-  safemon-move+flee-teleport D-0436–D-0442; umovement/SLT phase D-0443
-  (math clean; eat/EOT interleave next).
+  safemon-move+flee-teleport D-0436–D-0442; rottenfood→occupation
+  D-0443; peffect_healing D-0444 next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

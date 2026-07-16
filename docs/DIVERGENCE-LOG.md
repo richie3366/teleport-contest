@@ -4,31 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0443 — seed0002 @12530 umovement/SLT phase (not zap obj_resists)
+## D-0444 — seed0002 @14081 peffect_healing missing `d(4,4)`
 
-- **Status:** open (diagnosed; SLT math clean @#475; no code fix)
+- **Status:** open
+- **Symptom:** seed0002 first RNG miss @14081 — C `d(4,4)=8` @
+  `peffect_healing(potion.c:1122)` vs JS `rn2(5)` @ `distfleeck`.
+  Prefix 14081; Scr 284/595. After D-0443 eat occupation restored.
+- **Hypothesis:** JS `dodrink`/potion path lacks C `peffect_healing`
+  (or healing potion otyp dispatch), so quaff burns no `d(4,4)` and
+  monmove/`distfleeck` runs instead.
+- **C locus:** `potion.c` `peffect_healing` / `dopotion` healing otyps.
+- **Next:** port `peffect_healing` (+ wire otyp); compare heal HP/`d`
+  vs JS drink stub.
+- **Verification:** after D-0443; green+strict; cohort 26/26 PASS.
+
+## D-0443 — seed0002 @12530 rottenfood dont_start blocked occupation
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @12530 — C `rn2(100)` @
   `obj_resists` vs JS `rn2(5)` @ `distfleeck`. Prefix 12530; Scr 247/595.
-  Looks like a zap/`destroy_items` stack after matched `obj_resists` trio.
-- **Cause (diagnosed):** those `obj_resists` are `dog_goal`→`dogfood` on
-  **invent** (and fobj), not zap. After goblin-corpse eat, C hero stays
-  @**(41,18)** so pet `udist≤1` → invent-scan continues; JS already
-  `rhack`/`H` west to **(40,18)** because after SLT EOT `umovement===15`
-  (hero acts) while C still needs another `movemon` round (`umo<12`).
-- **#475 falsified:** broken SLT `u_calc_moveamt` / wrong leftover math.
-  DIAG over full seed0002: every SLT EOT adds **+9**; leftover cycle is
-  exact **9→18→15→12** from first Burdened (@moves~236 ≡ C eotCount~237
-  on “slowed slightly”). No weird amts. Phase lead is not trunc/`mmove`.
-- **Rejected:** zap/`destroy_items`/`polyuse` missing rolls; short `fobj`
-  chain; invent as array vs nobj (invent-scan at @12472 matched 18 items);
-  `dog_goal` early exit after APPORT; SLT integer path.
-- **C locus:** `allmain.c` `moveloop_core` / `u_calc_moveamt` /
-  occupation; `dogmove.c` `dog_goal` invent walk when `appr==0`.
-- **Next:** C goblin-eat key `y` @rng~12463 has **4** EOTs — compare JS
-  `eatfood` occupation / monscan between double-EOT halves (hero still
-  @41,18 while C invent-scans).
-- **Verification:** #475 full score 26/44; green gate PASS; rng-diff
-  still @12530; DIAG removed.
+  Looked like zap/`destroy_items` then SLT umovement phase lead.
+- **Cause:** JS `eatcorpse` rotten path always set `retcode=1`
+  (dont_start) after non-faint `rottenfood`, so `start_eating`/
+  `eatfood` occupation never ran. C only dont_starts on faint;
+  non-faint quarters `oeaten` (`consume_oeaten(…,2)`) and still eats
+  (goblin reqtime→2 → multi-turn occupation, 4 EOTs under SLT).
+  JS finished the command without occupation → early `H` west while
+  C invent-scanned with hero still @**(41,18)**.
+- **#475 falsified:** broken SLT `u_calc_moveamt` leftover math
+  (always +9; cycle 9→18→15→12 from Burdened).
+- **Rejected:** zap/`destroy_items`/`polyuse`; short `fobj`; invent
+  array vs nobj; `dog_goal` APPORT exit; SLT trunc path as root.
+- **C locus:** `eat.c` `rottenfood` / `eatcorpse` / `start_eating`.
+- **Change:** port `rottenfood` (confuse `d(2,4)`+`make_confused`,
+  blind `d(2,10)` burn, faint `nomul`); only faint → dont_start;
+  non-faint → `consume_oeaten(2)` and continue to `start_eating`.
+- **Verification:** seed0002 prefix **12530→14081**; Scr
+  **247→284**/595; green+strict; cohort **26/26** PASS.
+- **Omissions named:** `make_blinded` body; `Hear_again` afternmv;
+  foodword/body_part poly; full faint “world spins” where-clause.
+- **Next:** seed0002 @14081 C `d(4,4)` @ `peffect_healing` vs JS
+  `rn2(5)`.
 
 ## D-0442 — safemon in-the-way keeps move + dochug flee-teleport (seed0002 @12222)
 

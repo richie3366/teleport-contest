@@ -429,7 +429,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0440 | fixed | run-into-visible-hostile stop | seed0002 prefix 11309→11487; Scr 233; @11487 wipe_engr rn2(61) next |
 | D-0441 | fixed | nh_timeout CONFUSION expiry | seed0002 prefix 11487→12222; Scr 233→242; @12222 distfleeck next |
 | D-0442 | fixed | safemon keep move + dochug flee rn2(40) | seed0002 prefix 12222→12530; Scr 242→247; @12530 obj_resists next |
-| D-0443 | open | umovement/SLT phase (not zap) | seed0002 @12530; SLT math clean; next eat/EOT interleave |
+| D-0443 | fixed | rottenfood non-faint must start_eating | seed0002 prefix 12530→14081; Scr 247→284; @14081 healing next |
+| D-0444 | open | peffect_healing missing d(4,4) | seed0002 @14081; C potion heal vs JS distfleeck |
 
 
 

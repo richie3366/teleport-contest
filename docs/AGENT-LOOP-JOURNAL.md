@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:14 — #476 rottenfood→occupation (D-0443)
+- Objective: seed0002 @12530 umovement/SLT / eat EOT interleave (PRIMARY).
+- C locus: `eat.c` `rottenfood` / `eatcorpse` / `start_eating`.
+- Change: JS forced dont_start after non-faint rottenfood — C only
+  dont_starts on faint; non-faint `consume_oeaten(…,2)` then eats.
+  Ported `rottenfood` + fixed retcode so goblin meal sets occupation.
+- Verification: seed0002 prefix **12530→14081**; Scr **247→284**/595;
+  green+strict; cohort **26/26** PASS.
+- Next: seed0002 @14081 C `d(4,4)` @ `peffect_healing` vs JS `rn2(5)`.
+
 ## 2026-07-16 03:10 — #475 score cadence + D-0443 SLT math
 - Objective: mandatory full `sessions` score; D-0443 leftover hypothesis.
 - C locus: `allmain.c` `u_calc_moveamt` / `moveloop_core`; eat occupation.
@@ -160,24 +170,3 @@ Use this shape:
   RNG matched **8887**/27158; green+strict; cohort **24/24**.
 - Next: seed0002 @8609 H-rush door bump `exercise` rn2(2) vs JS
   `doopen_indir` rnl(20).
-## 2026-07-16 01:40 — #462 SCR_LIGHT litroom (D-0431)
-- Objective: seed0002 @6186 C `exercise` rn2(19) vs JS rn2(5) (PRIMARY).
-- C locus: `read.c` `seffects`/`seffect_light`/`litroom`/`set_lit`;
-  `makeknown`→`discover_object` credit_hero; `zap.c` `lightdamage`.
-- Change: JS gated SCR_LIGHT unimplemented (`return 0`); C read
-  light scroll `t` exercises WIS twice (seffects + learnscroll) then
-  fleeck. Ported seffect_light/litroom/set_lit + wire SCR_LIGHT.
-- Verification: seed0002 prefix **6186→6954**; Scr **99→126**/595;
-  RNG matched **7649**/27158; green+strict; cohort **24/24**.
-- Next: seed0002 @6954 remove-curse read (`v` / “helping you”).
-## 2026-07-16 01:30 — #461 drink getobj/? + trycall (D-0429/D-0430)
-- Objective: seed0002 @4565 pet udist invent vs !rn2(4) (PRIMARY).
-- C locus: `invent.c` getobj `?`; `potion.c` peffect_see_invisible/
-  fruit juice + dopotion trycall; `do_name.c` docall; peffect_paralysis.
-- Change: root was not dog_goal — JS `getobj_drink` cancelled on `?`,
-  so call-name keys (incl. `l`) became walk; hero east → udist=4.
-  Port display_pickinv_reply for drink `?`/`*`; fruit juice / see
-  invisible + trycall/docall; paralysis `rn1(10,25-12*bcsign)`.
-- Verification: seed0002 prefix **4565→6186**; Scr **54→99**/595;
-  RNG matched **6851**/27158; green+strict; cohort **26/26**.
-- Next: seed0002 @6186 C `exercise` vs JS `rn2(5)`.

@@ -1,3 +1,26 @@
+## 2026-07-16 01:40 — #462 SCR_LIGHT litroom (D-0431)
+- Objective: seed0002 @6186 C `exercise` rn2(19) vs JS rn2(5) (PRIMARY).
+- C locus: `read.c` `seffects`/`seffect_light`/`litroom`/`set_lit`;
+  `makeknown`→`discover_object` credit_hero; `zap.c` `lightdamage`.
+- Change: JS gated SCR_LIGHT unimplemented (`return 0`); C read
+  light scroll `t` exercises WIS twice (seffects + learnscroll) then
+  fleeck. Ported seffect_light/litroom/set_lit + wire SCR_LIGHT.
+- Verification: seed0002 prefix **6186→6954**; Scr **99→126**/595;
+  RNG matched **7649**/27158; green+strict; cohort **24/24**.
+- Next: seed0002 @6954 remove-curse read (`v` / “helping you”).
+## 2026-07-16 01:30 — #461 drink getobj/? + trycall (D-0429/D-0430)
+- Objective: seed0002 @4565 pet udist invent vs !rn2(4) (PRIMARY).
+- C locus: `invent.c` getobj `?`; `potion.c` peffect_see_invisible/
+  fruit juice + dopotion trycall; `do_name.c` docall; peffect_paralysis.
+- Change: root was not dog_goal — JS `getobj_drink` cancelled on `?`,
+  so call-name keys (incl. `l`) became walk; hero east → udist=4.
+  Port display_pickinv_reply for drink `?`/`*`; fruit juice / see
+  invisible + trycall/docall; paralysis `rn1(10,25-12*bcsign)`.
+- Verification: seed0002 prefix **4565→6186**; Scr **54→99**/595;
+  RNG matched **6851**/27158; green+strict; cohort **26/26**.
+- Next: seed0002 @6186 C `exercise` vs JS `rn2(5)`.
+
+
 ## 2026-07-15 19:43 — #453 seed0004 @288 message_menu (D-0422)
 - Objective: seed0004 @288 PRIMARY — C invent
   `o - a scroll…--More--` vs JS corner `Scrolls` heading.
