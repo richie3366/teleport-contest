@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0529 done:** `load_bar_loca` + `traptype_rnd` uses
-  `level_difficulty()` (was `dlevel` → POLY_TRAP false NO_TRAP).
-  seed0373 rng-diff **4571→5082**; runner RNG **5133**/35386 Scr 21/124.
-- **seed0373 next:** @5082 C `m_initweap` `rn2(2)` vs JS `rn2(75)`
-  (likely S_TROLL / class-T after Bar-loca monsters).
+- **D-0530 done:** `m_initweap` S_TROLL polearm kit (`rn2(2)` →
+  `rn2(4)` RANSEUR/PARTISAN/GLAIVE/SPETUM). seed0373 rng-diff
+  **5082→5497**; runner RNG **5511**/35386 Scr 21/124.
+- **seed0373 next:** @5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)`
+  (likely another special-level / getbones path after Bar-loca).
 - **seed0116 residual:** screen/cursor miss (110/127, cursors 123/127)
   after full RNG — display path, not fleeck/dog.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0529; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0530; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -37,14 +37,14 @@ Objective/score live in `CURRENT.md`.
   skip Bar-strt after randline; skip onquest firsttime nhl shuffle;
   treat noteleport as blocking covetous (Vlad); compare `mons()` objects
   by reference in pickvampshape (use mndx); use `dlevel` in
-  `traptype_rnd` (must be `level_difficulty`).
+  `traptype_rnd` (must be `level_difficulty`); stub S_TROLL m_initweap.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0529
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0530
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -59,7 +59,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0529 makemaz / tower1 / Bar-loca peels — see index.
+- D-0519…D-0530 makemaz / tower1 / Bar-loca / S_TROLL peels — see index.
 
 ## Landmarks (≤15)
 

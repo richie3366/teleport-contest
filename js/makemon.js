@@ -999,10 +999,20 @@ function m_initweap(mtmp) {
         if (!is_demon(ptr)) break;
         m_initweap_default(mtmp, ptr);
         break;
+    case 'S_TROLL':
+        // C: makemon.c m_initweap S_TROLL — 50% polearm kit
+        if (!rn2(2)) {
+            switch (rn2(4)) {
+            case 0: mongets(mtmp, otyp('RANSEUR')); break;
+            case 1: mongets(mtmp, otyp('PARTISAN')); break;
+            case 2: mongets(mtmp, otyp('GLAIVE')); break;
+            case 3: mongets(mtmp, otyp('SPETUM')); break;
+            }
+        }
+        break;
     case 'S_ANGEL':
     case 'S_KOP':
     case 'S_LIZARD':
-    case 'S_TROLL':
         // Deferred special cases (C-JS-MAP).
         break;
     default:

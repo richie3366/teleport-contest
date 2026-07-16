@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 18:28 — #589 D-0530 m_initweap S_TROLL
+- Objective: seed0373 @5082 C `m_initweap` `rn2(2)` vs JS `rn2(75)`.
+- C locus: `makemon.c` `m_initweap` `case S_TROLL`.
+- Change: port S_TROLL polearm kit; ANGEL/KOP/LIZARD still deferred.
+- Verification: rng-diff **5082→5497**; runner RNG **5511**/35386;
+  green+strict; cohort 30/30 PASS; seed0116 RNG full.
+- Next: @5497 C nhlib shuffle `rn2(2)` vs JS `rn2(5)`; or seed5006
+  `dosounds` @8468.
+
 ## 2026-07-16 18:25 — #588 D-0529 Bar-loca + traptype_rnd
 - Objective: seed0373 @4571 C nhlib shuffle vs JS u_on_rndspot.
 - C locus: `dat/Bar-loca.lua`; `mklev.c` `traptype_rnd`
@@ -158,14 +167,3 @@ Use this shape:
   **2549→2550**; Scr unchanged; green+strict; cohort **30/30**.
   seed5006 still @8468.
 - Next: quest/`makemaz` special (0373/0116) or seed5006 `dosounds`.
-
-## 2026-07-16 16:53 — #575 formal public score
-- Objective: mandatory full `sessions` (#575÷5).
-- Measured: **30/44** PASS; Scr **5895**/11405; RNG
-  **314432**/792838 (39.66%); speed `26+0.14/turn` (R² 0.79).
-- Δ vs #570: Scr +375, RNG +10941, PASS +1 (seed0398 formal).
-- Notable non-PASS: seed0116 6373/107; seed5006 8507/121;
-  seed0373 2578/20; seed2200 229/230 parked.
-- Green+strict PASS. No port code this iteration.
-- Next: shared `print_dungeon` (`^V?` / seed0373 / seed0116 @6373)
-  or seed5006 `dosounds`.

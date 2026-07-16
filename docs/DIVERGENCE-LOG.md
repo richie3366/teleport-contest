@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0530 — m_initweap S_TROLL polearm kit
+
+- **Status:** fixed (partial — S_ANGEL/S_KOP/S_LIZARD still deferred)
+- **Symptom:** seed0373 @5082 C `m_initweap` `rn2(2)` vs JS `rn2(75)`
+  after matched Bar-loca traps/monsters.
+- **Cause:** JS `m_initweap` stubbed `S_TROLL` as empty break, skipping
+  C's 50% polearm roll before the trailing `rn2(75)` offensive item.
+- **C locus:** `makemon.c` `m_initweap` `case S_TROLL` (rn2(2) →
+  rn2(4) RANSEUR/PARTISAN/GLAIVE/SPETUM).
+- **Change:** `js/makemon.js` port S_TROLL kit; leave ANGEL/KOP/LIZARD
+  deferred.
+- **Verification:** seed0373 rng-diff **5082→5497**; runner RNG
+  **5133→5511**/35386 Scr still 21/124; green+strict PASS; cohort
+  **30**/30 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** S_ANGEL / S_KOP / S_LIZARD `m_initweap` specials.
+- **Next:** @5497 C nhlib `shuffle` `rn2(2)` vs JS `rn2(5)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0529 — Bar-loca load_special + traptype_rnd level_difficulty
 
 - **Status:** fixed (partial — Bar-goal/fila/filb; next m_initweap)
