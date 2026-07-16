@@ -544,6 +544,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0556 | fixed | m_initweap S_LIZARD salamander spear/trident/stiletto | seed0373 31895→32011 RNG 32340; next rnd_defensive Sokoban rn2(4) @32011 |
 | D-0557 | fixed | sticky g.Sokoban cleared + rnd_defensive level flag | seed0373 32011→32419 RNG 32421; next collect_coords rn2(8) @32419 |
 | D-0558 | fixed | goto_level endgame resurrect Wizard + adj_lev/iswiz | seed0373 32419→32473 RNG 32473; next makewish/readobjnam @32473 |
+| D-0559 | fixed | amulet_wish + readobjnam any + Wizard appear/hot | seed0373 32473→32479 RNG 32479; next getbones @32479 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

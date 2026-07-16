@@ -272,14 +272,17 @@ async function selftouch_stair_fall(_arg) {
  * Deferred: binary NHFILE, mysterious force, quest gate, portals, endgame
  * astral `final_level` / migrating-Wizard resurrect arm, trap-door fall
  * damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE, familiar_level_msg,
- * temperature/hellish, Flying/Punished climb variants, Punished
- * `drag_down`/`ballrelease`, full `selftouch` petrify, u_collide_m full
- * limbo. Ported: In_quest `onquest`; In_endgame `newdungeon`+amulet
- * `resurrect` new-Wizard makemon.
+ * temperature_change_msg / hellish_smoke (D-0559 hot/cold); Flying/Punished
+ * climb variants, Punished `drag_down`/`ballrelease`, full `selftouch`
+ * petrify, u_collide_m full limbo. Ported: In_quest `onquest`; In_endgame
+ * `newdungeon`+amulet `resurrect` new-Wizard makemon + appear Norep.
  */
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
     if (!u?.uz) return;
+
+    // C: prev_temperature before mklev mutates level.flags.temperature
+    const prev_temperature = (game.level?.flags?.temperature | 0);
 
     let up = depth_of(newlevel) < depth_of(u.uz);
     const newdungeon = (u.uz.dnum | 0) !== (newlevel.dnum | 0);
@@ -514,6 +517,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         await onquest();
     }
 
+    // C: temperature_change_msg(prev_temperature) after special arrival
+    await temperature_change_msg(prev_temperature);
+
     // C: goto_level `if (new)` Tourist more_experienced(level_difficulty())
     // level_difficulty ≈ depth(&u.uz) outside endgame/amulet/builds_up.
     if (madeNew && game.urole?.mnum === PM_TOURIST) {
@@ -523,6 +529,33 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C: goto_level ends with pickup(1) — autopick or check_here/engr
     await pickup(1);
+}
+
+/**
+ * C ref: do.c hellish_smoke_mesg — temperature hot/cold pline (+ Gehennom smoke).
+ */
+async function hellish_smoke_mesg() {
+    const temp = game.level?.flags?.temperature | 0;
+    if (temp) {
+        await pline(`It is ${temp > 0 ? 'hot' : 'cold'} here.`);
+    }
+    // C: In_hell && temperature > 0 → smell/sense smoke — deferred for endgame
+}
+
+/**
+ * C ref: do.c temperature_change_msg — pline when level temperature changes.
+ */
+async function temperature_change_msg(prev_temperature) {
+    const temp = game.level?.flags?.temperature | 0;
+    if ((prev_temperature | 0) === temp) return;
+    if (temp) {
+        await hellish_smoke_mesg();
+    } else if (prev_temperature > 0) {
+        // C: In_hell(&u.uz0) ? "and smoke are" : "is" — endgame leaves use "is"
+        await pline('The heat is gone.');
+    } else if (prev_temperature < 0) {
+        await pline('You are out of the cold.');
+    }
 }
 
 /**

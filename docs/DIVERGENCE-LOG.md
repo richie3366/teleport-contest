@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0559 — Amulet wish + empty readobjnam `any` + Wizard appear / hot
+
+- **Status:** fixed (partial — makemon appear still caller-side in
+  `resurrect`; qualifier-only empty wish; MAXWISHTRY retry loop;
+  Gehennom smoke arm of `hellish_smoke_mesg`)
+- **Symptom:** seed0373 @32473 C `rn2(13)` `readobjnam` `any:` vs JS
+  missing after D-0558 Wizard. DIAG: `amulet_wish` never fired; empty
+  wish returned `NOTHING`; missing More for appear/hot leaked spaces
+  into getlin (`"-2"`).
+- **Cause:** (1) `allmain` omitted once-per-input Amulet wish; (2)
+  `readobjnam("")`/`null` skipped C `preparse→any` / `!bp→any`; (3)
+  `resurrect` omitted makemon appear Norep; (4) `goto_level` omitted
+  `temperature_change_msg`.
+- **C locus:** `allmain.c` amulet_wish; `zap.c` `makewish`;
+  `objnam.c` `readobjnam` `any:` / `wrpsym`; `makemon.c` appear Norep;
+  `do.c` `temperature_change_msg` / `hellish_smoke_mesg`;
+  `wizard.c` `resurrect`.
+- **Change:** `js/allmain.js` amulet_wish→`makewish`;
+  `js/readobjnam.js` empty/null→`readobjnam_any`+`mkobj`;
+  `js/wizard.js` appear Norep; `js/do.js` temperature_change_msg.
+- **Verification:** seed0373 rng-diff **32473→32479**; runner RNG
+  **32479**/35386 Scr 23/124; green+strict PASS; cohort sample PASS.
+  Full #620: **30/44**, Scr 5901, RNG 350686 (44.23%).
+- **Next:** @32479 `getbones` after `^V-2`; or seed5006 `dosounds` @8468.
+
 ## D-0558 — endgame resurrect Wizard on newdungeon+amulet
 
 - **Status:** fixed (partial — migrating-Wizard arm deferred; SPE_DIG on

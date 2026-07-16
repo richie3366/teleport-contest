@@ -20,9 +20,16 @@ Use this shape:
 - Next: …
 ```
 
-```
+## 2026-07-16 21:20 — #620 score + D-0559 Amulet wish
+- Objective: mandatory full score (#620÷5); seed0373 @32473 makewish.
+- C locus: allmain amulet_wish; objnam readobjnam any; makemon appear;
+  do temperature_change_msg; zap makewish.
+- Change: amulet_wish→makewish; empty/null→wrpsym rn2+mkobj; Wizard
+  appear Norep; hellish hot pline. (Empty-wish≠cancel.)
+- Verification: seed0373 32473→32479; green+strict PASS; #620 full
+  **30/44** Scr 5901 RNG 350686 (44.23%) `31+0.14/turn`.
+- Next: seed0373 getbones @32479 (`^V-2`); or seed5006 dosounds @8468.
 
-```text
 ## 2026-07-16 21:06 — #619 D-0558 endgame resurrect Wizard
 - Objective: seed0373 @32419 C collect_coords rn2(8) vs JS rn2(12)
 - C locus: do.c goto_level In_endgame+newdungeon+amulet→resurrect;
