@@ -21,32 +21,31 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#515 score
-cadence, post D-0478). Screens **4986**/11405; RNG **289819**/792838
-(36.55%). **27/44** PASS. Speed `25+0.13/turn`. Δ vs #510: Scr **+27**,
-RNG **+69** (D-0477…D-0478; seed0006 Scr 89→95).
+Score last measured: **2026-07-16** — full `sessions` suite (post D-0482
+seed0006 PASS). Screens **5014**/11405; RNG **289819**/792838 (36.55%).
+**28/44** PASS. Speed `24+0.14/turn`. Δ vs #515: Scr **+28**, PASS
+**27→28** (seed0006).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **27 / 44** |
-| Screens matched | **4,986 / 11,405** |
+| Sessions passing | **28 / 44** |
+| Screens matched | **5,014 / 11,405** |
 | Positional RNG calls matched | **289,819 / 792,838** (36.55%) |
-| Speed label | `25+0.13/turn` (R² 0.75) |
+| Speed label | `24+0.14/turn` (R² 0.75) |
 | Role-init throws | **0 / 44** |
 
-**PASS (27):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004, seed0002.
+seed0012, seed0004, seed0002, **seed0006**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0006 | **6736**/6736 | **110**/123 | RNG full; @110 disclose invent |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -65,30 +64,26 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 23-vs-27 gap** — local PASS seed0002/0004/0012/0030;
+**Leaderboard 23-vs-28 gap** — local PASS seed0002/0004/0012/0030 (+seed0006);
 judge fails with **14 cell misses**, full RNG (see NOTES / D-0480).
 Next cron after D-0480; if unchanged → upstream issue like #5.
 
-**Gameplay next:** seed0006 wizard water demon — RNG full; Scr
-**110**/123 after D-0481. screen@110 C invent pages (`Weapons` /
-`Gems/Stones`) vs JS attributes ynq after possessions identify yn
-(disclose invent display).
+**Gameplay next:** seed0007 rogue snake swamp — Scr **20**/302.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Alternates:** seed0007 snake swamp; quest early-0 (seed0361/0373).
+**Alternates:** quest early-0 (seed0361/0373); seed0108 wishlist.
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0481.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0482.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** + **seed0012** + **seed0004** + **seed0002** (must stay PASS) +
-strict lengths.
+**seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006**
+(must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

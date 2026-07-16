@@ -192,3 +192,13 @@
   cohort **25/25** PASS. Score **25/44**.
 - Next: seed0004 / seed0002 shared blockers.
 
+## 2026-07-16 07:04 — #506 D-0468 dobuzz DISP_BEAM
+- Objective: seed0002 @538 C DEC hbeam `q` vs JS `@` during
+  sleep-ray bounce/hit `--More--`.
+- C locus: `zap.c` `dobuzz` `tmp_at(DISP_BEAM)`/`zapdir_to_glyph`;
+  `display.c` `tmp_at`/`zapdir_to_glyph`.
+- Change: `zapdir_to_glyph` (DEC h/vbeam + zapcolors); `dobuzz`
+  paints BEAM before hit, CHANGE after bounce, END in finally.
+- Verification: @538 matches; first miss @538→@587; Scr 568→593;
+  RNG full; green+strict; cohort 24/24.
+- Next: D-0469 discoveries menu class order / `{buy}` @587.

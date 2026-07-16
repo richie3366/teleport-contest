@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Leaderboard gap (primary this session):** local **27/44** vs judge
+- **Leaderboard gap (primary this session):** local **28/44** vs judge
   **23/44** ([data.json](https://mazesofmenace.ai/leaderboard/data.json)
   `lastScored` ~2026-07-16T06:59Z). Exactly **14** cell misses:
   seed0002 **5**, seed0004 **2**, seed0012 **3**, seed0030 **4**.
@@ -19,18 +19,15 @@ Objective/score live in `CURRENT.md`.
 - **Hypothesis left:** judge private corpus or verifier ≠ public
   `frozen/ps_test_runner` + hub `/sessions/` (issue #5 class). Cannot
   reproduce the 14 misses offline.
-- **Don’t:** SO-wrap `{`/`\`` in serialize (C mixes encodings; `` ` ``
-  is pool+ROCK); invent frame-align; re-check version-banner as sole
-  cause (miss counts ≠ 8×chargen; seed0030 has 0 version screens).
-- **Just fixed (D-0481):** `makemon` `!in_mklev` → `newsym` (water
-  demon map `&` appeared). seed0006 Scr **106→110**/123.
-- **Next gameplay:** seed0006 @110 disclose invent after possessions
-  yn — C `Weapons` / `Gems/Stones` pages; JS jumps to attributes ynq.
+- **Don’t:** SO-wrap `{`/`\`` in serialize; invent frame-align; re-check
+  version-banner as sole cause.
+- **Just fixed (D-0482):** seed0006 disclose invent + enlightenment
+  night/moon + vanquished ask + overview range → **PASS** 123/123.
+- **Next gameplay:** seed0007 snake swamp Scr **20**/302.
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
-- **Parked:** D-0006; seed2200 @158 RC path (`/Users/davidbau/…` vs
-  hardcoded `/home/nethack/…`).
+- **Parked:** D-0006; seed2200 @158 RC path.
 
 ## Don’t re-check (≤15)
 
@@ -38,15 +35,17 @@ Objective/score live in `CURRENT.md`.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
 - Don’t SO-wrap `{` or `` ` `` without per-cell decgfx (D-0480 dead end).
-- D-0471…D-0481 done paths — see DIVERGENCE-INDEX.
+- D-0471…D-0482 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
 - Water-demon floor-vs-`&` was missing `makemon` `newsym` (D-0481).
+- Charged-ring `oc_uses_known` must zero `known` in `mksobj` (D-0482).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- seed0006 RNG full; screens @110 disclose invent next.
+- seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
+- Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.

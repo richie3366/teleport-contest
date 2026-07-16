@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 11:40 — D-0482 seed0006 disclose invent PASS
+- Objective: seed0006 @110 invent pages after possessions yn.
+- C locus: `end.c` disclose/really_done; `windows.c` add_menu_heading;
+  `objnam.c` ring spe; `mkobj.c` unknow_object; `insight.c` list_vanquished;
+  `dungeon.c` print_mapseen; `calendar.c` night.
+- Change: invent 'y' display + ID walk; gameover ATR_NONE headings;
+  charged-ring spe + mksobj uskn; enlightenment night/moon/attrs;
+  vanquished ask yn; overview levels range.
+- Verification: seed0006 **PASS** 123/123; green+strict; 28 cohort;
+  full suite **28/44** Scr **5014**.
+- Next: seed0007 snake swamp Scr 20/302.
+
 ## 2026-07-16 11:20 — D-0481 makemon newsym after spawn
 - Objective: seed0006 @102 JS `.` vs C `&` after water-demon unleash.
 - C locus: `makemon.c` `makemon` `!gi.in_mklev` → `newsym` (+ byyou).
@@ -160,13 +172,3 @@ Use this shape:
 - Next: D-0470 ^X Status deaf + encumbrance @590.
 
 
-## 2026-07-16 07:04 — #506 D-0468 dobuzz DISP_BEAM
-- Objective: seed0002 @538 C DEC hbeam `q` vs JS `@` during
-  sleep-ray bounce/hit `--More--`.
-- C locus: `zap.c` `dobuzz` `tmp_at(DISP_BEAM)`/`zapdir_to_glyph`;
-  `display.c` `tmp_at`/`zapdir_to_glyph`.
-- Change: `zapdir_to_glyph` (DEC h/vbeam + zapcolors); `dobuzz`
-  paints BEAM before hit, CHANGE after bounce, END in finally.
-- Verification: @538 matches; first miss @538→@587; Scr 568→593;
-  RNG full; green+strict; cohort 24/24.
-- Next: D-0469 discoveries menu class order / `{buy}` @587.

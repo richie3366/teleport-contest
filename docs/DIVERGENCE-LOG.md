@@ -4,7 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0481 — makemon !in_mklev newsym so spawned mon shows up
+## D-0482 — death disclose invent + enlightenment + vanquished ask
+
+- **Status:** fixed
+- **Symptom:** seed0006 Scr **110**/123 — after possessions yn, C showed
+  invent `(1 of 2)` / `(2 of 2)` then attributes; JS skipped to attributes yn.
+- **Cause:** `disclose` invent `'y'` deferred; missing invent ID walk;
+  gameover invent headings used ATR_INVERSE (C `add_menu_heading` clears
+  when `gameover`); charged rings lacked `+spe` and `mksobj` `oc_uses_known`
+  zeroing; enlightenment omitted night/moon/Antimagic/infra/warded/Luck;
+  `list_vanquished` skipped ask yn; overview omitted `dunlev_ureached` range.
+- **C locus:** `end.c` `really_done`/`disclose`/`container_contents`;
+  `windows.c` `add_menu_heading`; `objnam.c` RING `oc_charged` spe;
+  `mkobj.c` `unknow_object`; `insight.c` background/attributes/
+  `list_vanquished`; `dungeon.c` `print_mapseen`; `calendar.c` `night`.
+- **Change:** wire invent ID + `display_inventory` + `container_contents`;
+  gameover heading ATR_NONE; charged-ring spe + `otyp_uses_known` in
+  `mksobj`; `iflags.at_night`; enlightenment night/moon + attrs;
+  vanquished `yn_function`; overview `levels A to B`.
+- **Verification:** seed0006 **PASS** 123/123 RNG full; green+strict;
+  28/28 cohort; full suite **28/44** Scr **5014** RNG **289819**.
+- **Named omissions:** SchroedingersBox; set_uasmon FROMRACE props;
+  full resistance catalogue; builds_up overview; set_vanq_order.
+- **Next:** seed0007 snake swamp Scr 20/302.
+
+
 
 - **Status:** fixed
 - **Symptom:** seed0006 screen@102 sole cell miss — JS floor `·` vs C `&`
