@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0565 done:** TREE `#`/`g` + S_EEL in_mklev `mundetected`;
-  scoring grid keeps raw DEC `g` (not Unicode `±`).
-  seed0373 Scr **78→85**/124; RNG full. Bar-strt outdoor cells match.
-- **seed0373 next:** @73 Dlvl:12 — JS blank vs C DEC horizontal walls
-  `q` (vision/memory/seenv after later `^V`). Falsify: `newsym`/
-  `feel_location` / `update_lastseentyp` path — not TREE/eel.
+- **D-0566 done:** bigrm `light_region` wall expand + IRONBARS `|` +
+  spider/snake `hideunder` + stalker `minvis` + extractor `HI_LORD=5`.
+  seed0373 Scr **85→88**/124; RNG full. @73–75 bigrm-8 match.
+- **seed0373 next:** @78 Dlvl:6 — JS blank walls vs C (same class as
+  pre-fix bigrm-8; likely another special / light_region). Falsify:
+  which proto at dlevel 6 after `^V?` fakewiz1.
 - **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#625 formal score:** **30/44**, Scr **6355**/11405, RNG
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0565; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0566; stub-cancel `^V?` as if menu (breaks 0373);
   treat empty wish ESC as cancel (C → `any` random); skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature msg
   (More key timing for wish getlin); template `\.` in map strings;
@@ -66,18 +66,21 @@ Objective/score live in `CURRENT.md`.
   `air.lua` / `setup_waterlevel` / `movebubbles` boing `rn2(20)`;
   sticky `urole.rank=title[0]` on botl (must `rank_of`); omit
   tty_end_menu blank after `print_dungeon` prompt; emit `Dlvl:depth`
-  on quest (must `Home dunlev`); Unicode-convert DEC `g` tree in
-  scoring grid (must keep raw like `{`/`\``).
+  on quest (must `Home dunlev`); Unicode-convert DEC `g`/`|` in
+  scoring grid (must keep raw like `{`/`\``); lit bigrm interior
+  without `light_region` wall expand; skip spider/snake `hideunder`
+  after `mkobj_at`; leave stalker/black light visible; map extractor
+  `HI_LORD`→13 (must CLR_MAGENTA=5).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0565 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0566 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0565 makemaz / endgame / air / rank / menu / Home / TREE —
-  see index.
+- D-0519…D-0566 makemaz / endgame / air / rank / menu / Home / TREE /
+  bigrm light — see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -88,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 RNG **full**; Scr **85**/124 after D-0565 TREE/eel.
+- seed0373 RNG **full**; Scr **88**/124 after D-0566; next @78 Dlvl:6.

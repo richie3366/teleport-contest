@@ -371,7 +371,8 @@ def main() -> int:
             "HI_MINERAL": 7,
             "HI_ZAP": 12,
             "HI_DOMESTIC": 15,
-            "HI_LORD": 13,
+            "HI_LORD": 5,  # C color.h: HI_LORD CLR_MAGENTA
+            "HI_OVERLORD": 13,  # C color.h: HI_OVERLORD CLR_BRIGHT_MAGENTA
             "DRAGON_SILVER": 7,
         }
         # C ref: weight.h — SIZ(cwt, cnutrit, sound, msize)

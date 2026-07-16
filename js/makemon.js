@@ -1751,14 +1751,18 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     // C: switch (ptr->mlet) before invent — mimic + sleepers + spider/snake/eel.
-    // Named omissions: spider/snake hideunder after mkobj_at; orc/elf peace;
-    // unicorn align peace; bat hell speed; elemental invis.
+    // Named omissions: orc/elf peace; unicorn align peace; bat hell speed.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
     else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
-        // C: in_mklev → mkobj_at(RANDOM) then hideunder
+        // C: in_mklev → mkobj_at(RANDOM) then hideunder (mon.c hides_under arm)
         if (game.in_mklev) {
             if (mtmp.mx && mtmp.my) mkobj_at(RANDOM_CLASS, mtmp.mx, mtmp.my, true);
-            // hideunder deferred (no RNG at creation)
+            // Inline hideunder hides_under path: seeit=0 in mklev; object just placed.
+            const hx = mtmp.mx, hy = mtmp.my;
+            const typ = game.level?.at(hx, hy)?.typ ?? 0;
+            if (!IS_POOL(typ) && !IS_LAVA(typ) && objects_at(hx, hy)) {
+                mtmp.mundetected = 1;
+            }
         }
     } else if (ptr.mlet === 'S_EEL') {
         // C: makemon.c case S_EEL → hideunder(mtmp) when in_mklev.
@@ -1770,6 +1774,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
                 && !game.u?.Underwater) {
                 mtmp.mundetected = 1;
             }
+        }
+    } else if (ptr.mlet === 'S_LIGHT' || ptr.mlet === 'S_ELEMENTAL') {
+        // C: makemon.c S_LIGHT/S_ELEMENTAL — stalker & black light perminvis
+        if (ptr.mndx === pm('STALKER') || ptr.mndx === pm('BLACK_LIGHT')) {
+            mtmp.perminvis = 1;
+            mtmp.minvis = 1;
         }
     } else if (ptr.mlet === 'S_LEPRECHAUN') mtmp.msleeping = 1;
     else if (ptr.mlet === 'S_JABBERWOCK' || ptr.mlet === 'S_NYMPH') {

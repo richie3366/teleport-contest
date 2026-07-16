@@ -802,13 +802,8 @@ function load_bigrm_2() {
 `.replace(/^\n/, '');
     const { xstart, ystart } = splev_apply_centered_map(BIGRM2_MAP);
 
-    // des.region(selection.area(01,01,73,16),"lit")
-    for (let y = ystart + 1; y <= ystart + 16 && y < ROWNO; y++) {
-        for (let x = xstart + 1; x <= xstart + 73 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // des.region(selection.area(01,01,73,16),"lit") → light_region expands walls
+    light_region(xstart + 1, ystart + 1, xstart + 73, ystart + 16, true);
 
     // math.random(0,3) → nh.random(0,4) → 0+rn2(4); choice==3 → no darkness
     const choice = lua_random2(0, 3);
@@ -888,16 +883,11 @@ function load_bigrm_8() {
         lspo_replace_terrain_region(0, 0, 74, 17, IRONBARS, terrain[tidx], 100);
     }
 
-    // des.region(selection.area(01,01,73,16),"lit")
+    // des.region(selection.area(01,01,73,16),"lit") → light_region expands walls
     {
         const mx = g.splev_xstart ?? 1;
         const my = g.splev_ystart ?? 0;
-        for (let y = my + 1; y <= my + 16 && y < ROWNO; y++) {
-            for (let x = mx + 1; x <= mx + 73 && x < COLNO; x++) {
-                const loc = g.level.at(x, y);
-                if (loc) loc.lit = true;
-            }
-        }
+        light_region(mx + 1, my + 1, mx + 73, my + 16, true);
     }
 
     splev_create_stair(true);
@@ -4906,6 +4896,29 @@ function mapfrag_fromstr(str) {
 
 function mapfrag_get(mf, x, y) {
     return splev_chr2typ(mf.data[y][x]);
+}
+
+/**
+ * C ref: sp_lev.c light_region — when lighting, expand by 1 so room
+ * walls (and corner STONE→wall cells) get .lit; lava always lit.
+ * Region coords are absolute map cells (caller adds xstart/ystart).
+ */
+function light_region(x1, y1, x2, y2, lit) {
+    let litstate = lit ? 1 : 0;
+    let lowx = x1, hix = x2, lowy = y1, hiy = y2;
+    if (litstate) {
+        lowx = Math.max(lowx - 1, 1);
+        hix = Math.min(hix + 1, COLNO - 1);
+        lowy = Math.max(lowy - 1, 0);
+        hiy = Math.min(hiy + 1, ROWNO - 1);
+    }
+    for (let x = lowx; x <= hix; x++) {
+        for (let y = lowy; y <= hiy; y++) {
+            const loc = game.level?.at(x, y);
+            if (!loc) continue;
+            loc.lit = IS_LAVA(loc.typ) ? 1 : litstate;
+        }
+    }
 }
 
 // C ref: sp_lev.c sel_set_ter / set_levltyp_lit subset for map load

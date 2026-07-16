@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0566 — bigrm light_region + IRONBARS + makemon hide/minvis + HI_LORD
+
+- **Status:** fixed (partial — other bigrm-N light_region; HI_OBJ/HI_METAL
+  extractor aliases still wrong vs color.h)
+- **Symptom:** seed0373 Scr **85**/124; @73 Dlvl:12 (bigrm-8) JS blank
+  walls vs C DEC `q`, `?` vs bars `|`, visible stalker/spider/snake,
+  HI_LORD monsters bright-magenta vs magenta.
+- **Cause:** (1) `load_bigrm_*` lit interior only — C `light_region`
+  expands by 1 for walls. (2) `terrain_glyph` omitted IRONBARS; flush
+  Unicode-converted DEC `|`→`≠`. (3) spider/snake `hideunder` deferred;
+  stalker/black light never set `minvis`. (4) extractor `HI_LORD:13`
+  vs `color.h` `HI_LORD CLR_MAGENTA` (5).
+- **C locus:** `sp_lev.c` `light_region`; `display.c` `back_to_glyph`
+  IRONBARS; `makemon.c` S_SPIDER/S_SNAKE/S_ELEMENTAL; `color.h` HI_LORD.
+- **Change:** `js/mklev.js` `light_region` + bigrm-2/8; `js/display.js`
+  IRONBARS + keep raw `|`; `js/makemon.js` hideunder/minvis;
+  `extract-monsters.py` HI_LORD=5 + regenerate `monsters_data.js`.
+- **Verification:** seed0373 Scr **85→88**/124 RNG full; green+strict
+  PASS; cohort **30**/30 PASS.
+- **Named omission:** @78 Dlvl:6 blank walls; other bigrm-N; HI_OBJ/
+  HI_METAL extractor aliases.
+- **Next:** seed0373 @78 vision walls; or seed5006 `dosounds` @8468.
+
 ## D-0565 — TREE glyph + S_EEL in_mklev hideunder
 
 - **Status:** fixed (partial — arboreal STONE→tree; spider/snake

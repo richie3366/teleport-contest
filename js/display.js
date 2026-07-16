@@ -7,7 +7,7 @@ import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
 import { mcolors, mons, infravision, infravisible } from './monsters.js';
 import {
-    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, TREE,
+    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, TREE, IRONBARS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE,
@@ -1006,6 +1006,12 @@ export function terrain_glyph(loc, x, y) {
         return dec
             ? { ch: 'g', color: CLR_GREEN, dec: true }
             : { ch: '#', color: CLR_GREEN, dec: false };
+    // C ref: display.c back_to_glyph IRONBARS → S_bars; defsym.h '#'/HI_METAL;
+    // dat/symbols DECgraphics S_bars \xfc meta-| (tty SO + '|').
+    case IRONBARS:
+        return dec
+            ? { ch: '|', color: HI_METAL, dec: true }
+            : { ch: '#', color: HI_METAL, dec: false };
     // C ref: display.c back_to_glyph + defsym.h PCHAR — pool/moat/water/lava/ice.
     // Primary: '}' (pool/lava/water) / '.' (ice). DECgraphics: S_pool/S_lava/
     // S_lavawall/S_water \xe0 meta-` diamond; S_ice \xfe meta-~.
@@ -2161,8 +2167,9 @@ function _buildScreenOutput() {
         // Map — write characters to grid (DEC → Unicode for browser display).
         // Only convert glyphs that frozen screen-decode DEC_MAP equates back
         // (walls/doors/a/~). S_altar meta-{, S_pool/S_lava/S_water meta-`,
-        // and S_tree meta-g are in DEC_TO_UNICODE but NOT in DEC_MAP — keep
-        // raw so serialize_for_scoring matches C (renderCell leaves them).
+        // S_tree meta-g, and S_bars meta-| are in DEC_TO_UNICODE but NOT in
+        // DEC_MAP — keep raw so serialize_for_scoring matches C (renderCell
+        // leaves them).
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
@@ -2170,8 +2177,9 @@ function _buildScreenOutput() {
                 let ch = loc.disp_ch;
                 if (loc.disp_decgfx) {
                     const uni = DEC_TO_UNICODE[ch];
-                    // DEC_MAP: walls/doors/a/~ only — not '{', '`', or 'g'
-                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g') ch = uni;
+                    // DEC_MAP: walls/doors/a/~ only — not '{', '`', 'g', or '|'
+                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g' && ch !== '|')
+                        ch = uni;
                 }
                 const sr = y + 1;
                 // Don't clobber --More-- on row 1
