@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0438 — peffect_booze + newuhs field / uhs init (seed0002 @10634)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @10634 — C `d(3,8)` @
+  `peffect_booze(potion.c:779)` vs JS `rn2(5)` (`distfleeck`).
+  Prefix 10634; Scr 233/595.
+- **Cause:** JS `peffects` deferred `POT_BOOZE` (return 0, no useup /
+  no `d(2+uhs,8)`); also `u.uhs` never initialized (`init_uhunger`
+  omitted) so even a partial port would roll `d(2,8)` not `d(3,8)`.
+- **C locus:** `potion.c` `peffect_booze`; `eat.c` `init_uhunger` /
+  `newuhs`; `u_init.c` calls `init_uhunger`.
+- **Change:** wire `POT_BOOZE` in `peffects`; port `peffect_booze`
+  (taste pline, `make_confused(d(2+uhs,8))`, healup, hunger,
+  `exercise(A_WIS)`, cursed `multi=-rnd(15)`); `u_init` sets
+  `uhs=NOT_HUNGRY`; field-only `newuhs` from gethungry/lesshungry/
+  morehungry/fruit/booze.
+- **Verification:** seed0002 prefix **10634→11150**; Scr still
+  **233**/595; RNG matched **11598**/27158; green+strict; cohort
+  **26/26**.
+- **Omissions named:** `newuhs` hunger messages / faint / ATEMP WEAK
+  crossover / occupation `force_save_hs`; other `peffect_*`.
+- **Next:** seed0002 @11150 `ohitmon` `rnd(20)`.
+
 ## D-0437 — u_maybe_impaired / confdir on domove (seed0002 @10550)
 
 - **Status:** fixed

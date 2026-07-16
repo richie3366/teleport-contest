@@ -30,6 +30,7 @@ import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
     SLT_ENCUMBER, FROMFORM, W_ARTI, W_WEP,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION,
+    SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
 } from './const.js';
 import { adjattrib, A_STR } from './attrib.js';
 import { nomul } from './hack.js';
@@ -131,10 +132,46 @@ function Hunger() {
 }
 
 /**
+ * C ref: eat.c init_uhunger — reset hunger to Not Hungry / 900.
+ * ATEMP(A_STR) repair + encumber_msg deferred.
+ */
+export function init_uhunger() {
+    const u = game.u;
+    if (!u) return;
+    if ((u.uhs ?? NOT_HUNGRY) !== NOT_HUNGRY) {
+        if (game.flags) game.flags.botl = true;
+    }
+    u.uhunger = 900;
+    u.uhs = NOT_HUNGRY;
+}
+
+/**
+ * C ref: eat.c newuhs — recompute u.uhs from uhunger thresholds.
+ * Field update only this iteration: occupation force_save_hs, hunger
+ * messages, end_running, ATEMP WEAK crossover, faint/starve deferred.
+ * @param {boolean} _incr true when called from metabolism (message tone)
+ */
+export function newuhs(_incr) {
+    const u = game.u;
+    if (!u) return;
+    const h = u.uhunger ?? 900;
+    const newhs = (h > 1000)
+        ? SATIATED
+        : (h > 150) ? NOT_HUNGRY
+            : (h > 50) ? HUNGRY : (h > 0) ? WEAK : FAINTING;
+    if (newhs !== (u.uhs ?? NOT_HUNGRY)) {
+        if (game.flags) game.flags.botl = true;
+    }
+    u.uhs = newhs;
+    void _incr;
+}
+
+/**
  * C ref: eat.c gethungry — metabolic uhunger--, accessorytime burns, newuhs.
  * Branch envelope: ordinary diet burn via hero_form_data; odd/even
- * Regen/encumbrance/Hunger/Conflict burns.
- * Named omissions: ring/amulet accessorytime switch cases; newuhs body.
+ * Regen/encumbrance/Hunger/Conflict burns; field-only newuhs(TRUE).
+ * Named omissions: ring/amulet accessorytime switch cases; newuhs
+ * messages / faint / ATEMP.
  */
 export function gethungry() {
     if (game.u?.uinvulnerable) return;
@@ -179,16 +216,17 @@ export function gethungry() {
         }
         void accessorytime; // ring/amulet cases 0/4/8/12/16 deferred
     }
-    // newuhs(TRUE) deferred
+    newuhs(true);
 }
 
 /**
  * C ref: eat.c morehungry — nutrition loss after feats of magic / vomit.
- * newuhs body deferred (status transitions not needed for cast hunger).
+ * newuhs field update; hunger messages / faint deferred.
  */
 export function morehungry(num) {
     if (!game.u) return;
     game.u.uhunger = (game.u.uhunger ?? 900) - (num | 0);
+    newuhs(true);
 }
 
 /**
@@ -207,11 +245,13 @@ export function vomit() {
 }
 
 /**
- * C ref: eat.c lesshungry — uhunger += num; choke/fullwarn/newuhs deferred.
+ * C ref: eat.c lesshungry — uhunger += num; choke/fullwarn deferred;
+ * field-only newuhs(FALSE).
  */
 export function lesshungry(num) {
     if (!game.u) return;
     game.u.uhunger = (game.u.uhunger ?? 900) + (num | 0);
+    newuhs(false);
 }
 
 /**

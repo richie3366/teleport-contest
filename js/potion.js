@@ -1,6 +1,6 @@
 // potion.js — Quaff / #dip commands (dodrink / dodip subset).
 // C ref: potion.c dodrink, dopotion, peffects, peffect_oil,
-//         peffect_confusion, make_confused, dodip;
+//         peffect_confusion, peffect_booze, make_confused, dodip;
 //         invent.c getobj; fountain.c drinkfountain / dipfountain.
 
 import { game } from './gstate.js';
@@ -28,6 +28,7 @@ import { PM_HUMAN } from './generated/monsters_data.js';
 import { can_reach_floor } from './engrave.js';
 import { bcsign } from './rumors.js';
 import { trycall } from './do_name.js';
+import { newuhs } from './eat.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_ACID = objectNames.indexOf('POT_ACID');
@@ -230,7 +231,7 @@ async function peffect_see_invisible(otmp) {
     if (otmp.otyp === POT_FRUIT_JUICE) {
         u.uhunger = (u.uhunger || 0)
             + (otmp.odiluted ? 5 : 10) * (2 + bcsign(otmp));
-        // newuhs(FALSE) deferred
+        newuhs(false);
         return;
     }
     // POT_SEE_INVISIBLE — make_blinded(0) deferred
@@ -330,8 +331,40 @@ async function peffect_confusion(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_booze
+ * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
+ * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
+ * newuhs hunger messages / faint deferred (field update only).
+ */
+async function peffect_booze(otmp) {
+    potion_unkn++;
+    const u = game.u || (game.u = {});
+    const watered = otmp.odiluted ? 'watered down ' : '';
+    const drink = (u.Hallucination || u.HHallucination)
+        ? 'dandelion wine' : 'liquid fire';
+    await pline(`Ooph!  This tastes like ${watered}${drink}!`);
+    if (!otmp.blessed) {
+        // booze hits harder if drinking on an empty stomach
+        make_confused(
+            itimeout_incr(u.HConfusion | 0, d(2 + (u.uhs | 0), 8)),
+            false,
+        );
+    }
+    if (!otmp.odiluted) healup(1, 0, false, false);
+    u.uhunger = (u.uhunger ?? 900) + 10 * (2 + bcsign(otmp));
+    newuhs(false);
+    exercise(A_WIS, false);
+    if (otmp.cursed) {
+        await pline('You pass out.');
+        // C: gm.multi = -rnd(15); (not nomul — match direct assign)
+        game.multi = -rnd(15);
+        game.nomovemsg = 'You awake with a headache.';
+    }
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
- * paralysis / confusion; other otyps named in C-JS-MAP.
+ * paralysis / confusion / booze; other otyps named in C-JS-MAP.
  */
 async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -347,6 +380,9 @@ async function peffects(otmp) {
         return -1;
     case POT_CONFUSION:
         await peffect_confusion(otmp);
+        return -1;
+    case POT_BOOZE:
+        await peffect_booze(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

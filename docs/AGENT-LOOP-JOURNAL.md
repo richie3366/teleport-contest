@@ -19,6 +19,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 02:21 — #469 peffect_booze (D-0438)
+- Objective: seed0002 @10634 C `d(3,8)` @ `peffect_booze` vs JS
+  `rn2(5)` (`distfleeck`) (PRIMARY).
+- C locus: `potion.c` `peffect_booze`; `eat.c` `init_uhunger`/`newuhs`.
+- Change: wire POT_BOOZE; port peffect_booze (`d(2+uhs,8)`, healup,
+  hunger, exercise, cursed pass-out); init `uhs=NOT_HUNGRY`; field-only
+  `newuhs` from metabolism/nutrition.
+- Verification: seed0002 prefix **10634→11150**; Scr still **233**/595;
+  RNG matched **11598**/27158; green+strict; cohort **26/26**.
+- Next: seed0002 @11150 `ohitmon` `rnd(20)`.
+
 ## 2026-07-16 02:16 — #468 u_maybe_impaired (D-0437)
 - Objective: seed0002 @10550 C `rn2(5)` @ `distfleeck` vs JS `rn2(12)` @
   `m_move` (PRIMARY — was monmove path split after confusion).
@@ -167,15 +178,4 @@ Use this shape:
 - Change: export full `trapname`; wire tseen trap into `brief_at` / `describe_looked` / `auto_describe_text` (D-0424).
 - Verification: full suite **25/44** Scr **4350**/11405 RNG **263166**/792838; seed0004 **396**/409; green+strict; cohort 25/25.
 - Next: seed0004 @312 wall `describe_looked` ambiguous cmap.
-
-## 2026-07-16 00:26 — #454 seed0004 @297 autodescribe stairs (D-0423)
-- Objective: seed0004 @297 PRIMARY — C `staircase down` vs JS blank
-  after travel `_>` getpos.
-- C locus: `optlist.h` autodescribe default On; `getpos.c`
-  `auto_describe` → lookat cmap; `defsym.h` S_*stair explanations.
-- Change: `jsmain` default `iflags.autodescribe: true`; `getpos`
-  `auto_describe_text` stairs/ladder firstmatch.
-- Verification: seed0004 Scr **391→395**/409; @297 fixed; miss
-  @310 `dart trap`; RNG full; green+strict; cohort **25/25**.
-- Next: seed0004 @310 whatis `brief_at` / trap_description.
 
