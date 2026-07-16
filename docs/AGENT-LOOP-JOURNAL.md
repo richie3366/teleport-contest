@@ -7,7 +7,7 @@ lives in `NOTES.md` / `CURRENT.md`.
 
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. When this file exceeds ~15 entries,
-move older ones into `docs/archive/`.
+    10|move older ones into `docs/archive/`.
 
 Use this shape:
 
@@ -17,8 +17,18 @@ Use this shape:
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
-- Next: …
+    20|- Next: …
 ```
+
+## 2026-07-16 22:57 — #635 formal score refresh
+- Objective: mandatory #635 full `sessions` score (÷5 cadence).
+- C locus: n/a (score-only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **30/44**, Scr
+  **6401**/11405, RNG **353648**/792838 (44.61%), `31+0.15/turn`
+  (R² 0.772). Δ vs #630: Scr +23, RNG 0 (D-0569…D-0572), PASS same;
+  seed0116 113→114.
+- Next: seed0373 @119 Attributes; or seed5006 dosounds @8468.
 
 ## 2026-07-16 22:55 — D-0572 pluslvl uexp + endgame ^X Background
 - Objective: seed0373 @118 enlightenment Background (CURRENT primary).
@@ -124,41 +134,3 @@ Use this shape:
 - Verification: seed0373 Scr **65→78**/124 RNG full; green+strict
   PASS; cohort **28**/28 PASS.
 - Next: Bar-strt outdoor `~` glyphs; or seed5006 dosounds @8468.
-
-## 2026-07-16 21:40 — #622 D-0562 botl rank_of titles
-- Objective: seed0373 Scr 23/124 residual after D-0561 RNG full.
-- C locus: botl.c xlev_to_rank/rank_of; role.c roles[].rank[9].
-- Change: full title[9]; rank_of in botl/insight/questpgr; u_init
-  stores urole.title (was sticky title[0] → Plunderer at Xp:3).
-- Verification: seed0373 Scr **23→47**/124 RNG full; green+strict
-  PASS; cohort **30**/30 PASS.
-- Next: seed0373 @41 print_dungeon menu; or seed5006 dosounds @8468.
-
-## 2026-07-16 21:35 — #621 D-0560/61 endgame ^V-2 → air RNG full
-- Objective: seed0373 @32479 getbones after `^V-2` from Fire plane.
-- C locus: teleport.c In_endgame level_tele; dat/air.lua; mkmaze.c
-  setup_waterlevel/movebubbles/mv_bubble; do.c deliver_splev_message.
-- Change: endgame negative dest; load_air; monclass D/E/J map;
-  bubbles+movebubbles boing; splev arrival msgs.
-- Verification: seed0373 RNG **OK 35386**/35386 Scr 23/124; green+strict
-  PASS; cohort **28**/28 PASS.
-- Next: seed0373 screen residual; or seed5006 dosounds @8468.
-
-## 2026-07-16 21:20 — #620 score + D-0559 Amulet wish
-- Objective: mandatory full score (#620÷5); seed0373 @32473 makewish.
-- C locus: allmain amulet_wish; objnam readobjnam any; makemon appear;
-  do temperature_change_msg; zap makewish.
-- Change: amulet_wish→makewish; empty/null→wrpsym rn2+mkobj; Wizard
-  appear Norep; hellish hot pline. (Empty-wish≠cancel.)
-- Verification: seed0373 32473→32479; green+strict PASS; #620 full
-  **30/44** Scr 5901 RNG 350686 (44.23%) `31+0.14/turn`.
-- Next: seed0373 getbones @32479 (`^V-2`); or seed5006 dosounds @8468.
-
-## 2026-07-16 21:06 — #619 D-0558 endgame resurrect Wizard
-- Objective: seed0373 @32419 C collect_coords rn2(8) vs JS rn2(12)
-- C locus: do.c goto_level In_endgame+newdungeon+amulet→resurrect;
-  wizard.c resurrect; makemon.c adj_lev/iswiz
-- Change: js/wizard.js resurrect; do.js call; makemon Wizard adj_lev+iswiz
-- Verification: rng-diff 32419→32473; runner RNG 32473/35386;
-  green+strict PASS; cohort 28/28 PASS
-- Next: @32473 makewish/readobjnam (ESC); or dosounds @8468

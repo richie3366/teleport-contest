@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#630**),
-post D-0568. Screens **6378**/11405; RNG **353648**/792838 (44.61%).
-**30/44** PASS. Speed `31+0.15/turn` (R² 0.76). Δ vs #625: Scr +23,
-RNG 0 (D-0565…D-0568 peels between formal scores), PASS unchanged.
-*(D-0569…D-0572 after #630 — refresh Score at next %5.)*
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#635**),
+post D-0569…D-0572. Screens **6401**/11405; RNG **353648**/792838 (44.61%).
+**30/44** PASS. Speed `31+0.15/turn` (R² 0.772). Δ vs #630: Scr **+23**,
+RNG 0, PASS unchanged (seed0373 +22 via D-0569…72; seed0116 113→114).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **30 / 44** |
-| Screens matched | **6,378 / 11,405** |
+| Screens matched | **6,401 / 11,405** |
 | Positional RNG calls matched | **353,648 / 792,838** (44.61%) |
-| Speed label | `31+0.15/turn` (R² 0.76) |
+| Speed label | `31+0.15/turn` (R² 0.772) |
 | Role-init throws | **0 / 44** |
 
 **PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +45,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 12562/12562 | **113**/127 | D-0563; screen residual |
+| seed0116 | 12562/12562 | **114**/127 | D-0563+; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
 | seed0373 | 35386/35386 | **123**/124 | D-0572; next @119 Attributes |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
@@ -76,7 +75,7 @@ remain → upstream #5.
 Background), seed0373 Scr **123**/124 (was 122; RNG full). Next @119
 Attributes (wizard `MAGICENLIGHTENMENT` + status `<%d>`), or
 seed5006 `dosounds` @8468. Prefer over parked seed2200 RC / seed0116
-residual (113/127).
+residual (114/127).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0373-barbarian-quest-tour.session.json

@@ -17,10 +17,10 @@ Objective/score live in `CURRENT.md`.
   warded / fast / luck zero / can’t safely pray (398); debug-mode
   misc. Falsify: `insight.c` `attributes_enlightenment` +
   `doattributes` mode |= MAGIC.
-- **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
+- **seed0116 residual:** screen/cursor miss (114/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#630 score:** **30/44**, Scr **6378**/11405, RNG **353648**
-  (44.61%), `31+0.15/turn`. D-0569…72 after #630 — refresh at %5.
+- **#635 score:** **30/44**, Scr **6401**/11405, RNG **353648**
+  (44.61%), `31+0.15/turn`. Δ vs #630 Scr +23 (D-0569…72).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -67,7 +67,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398 **PASS**; LB gap 14 cells / 4 sessions.
-- #630 score: **30/44**, Scr 6378, RNG 353648 (44.61%).
+- #635 score: **30/44**, Scr 6401, RNG 353648 (44.61%).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 — do not add to EXT_CMD_AC.
