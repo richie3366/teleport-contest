@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0588 — Arc-strt load_special + invent discard + nartifact artif gate
+
+- **Status:** fixed
+- **Symptom:** seed0361 @3293 — C `nhlib` shuffle / `splev_initlev` vs JS
+  ordinary `rn2(79)` after `getbones` into Archeologist quest start.
+- **Cause:** (1) `makemaz`/`load_special_proto` omitted `Arc-strt`. (2) After
+  porting the map, CUSTOM_INVENT discard skipped C `mdrop_special_objs`
+  `obj_resists(0,0)` per invent item. (3) `mksobj_init` armor/weapon artif
+  used fixed `rn2(40)`/`rn2(20)` instead of `+ 10 * nartifact_exist()`
+  (Grayswandir wish → C `rn2(50)`/`rn2(30)`).
+- **C locus:** `dat/Arc-strt.lua`; `sp_lev.c` `create_monster` /
+  `mdrop_special_objs` (`steal.c`); `mkobj.c` `mksobj_init` WEAPON/ARMOR
+  artif; `artifact.c` `nartifact_exist`.
+- **Change:** `js/mklev.js` — `load_arc_strt` + dispatch; shared
+  `splev_discard_default_minvent` (also Bar-strt Pelias). `js/mkobj.js` —
+  artif gates use `nartifact_exist()`.
+- **Verification:** seed0361 prefix **3293→4247** (runner RNG
+  **3307→4323**, Scr **160→161**/366); next @4247 `m_move`. green+strict
+  PASS; cohort seed0373/0116/1500/1800/0060/0102/0700/0398/5006/0017/0077
+  PASS; seed0367 still FAIL @2040 (Pri-strt).
+- **Named omission:** Arc-loca/fila/filb/goal; Pri-*/other quest starts;
+  Carnarvon/`m_dowear`; humidity get_location for water-likers.
+- **Next:** seed0361 `m_move` @4247; or `Pri-strt` for seed0367.
+
 ## D-0587 — ^X Status armor nudity + Teleport_control what_gives
 
 - **Status:** fixed

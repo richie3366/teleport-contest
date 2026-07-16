@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#655 score:** full suite **33/44**, Scr **6547**/11405, RNG
-  **359063**/792838 (45.29%), `32+0.15/turn` (R² 0.765). Δ vs #650:
-  Scr **+12**, PASS **32→33** (seed0116), RNG unchanged.
+- **#656:** D-0588 `Arc-strt` + invent discard + `nartifact_exist` artif
+  gates. seed0361 prefix **3293→4247** (RNG **3307→4323**, Scr
+  **160→161**). Next @4247 `m_move` (monmove), not more Arc-strt.
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361/0367 quest/`makemaz` (or seed0014/0108);
-  seed2200 @158 parked.
+- **Gameplay next:** seed0361 `m_move` @4247; or seed0367 `Pri-strt`
+  (still @2040); seed0014/0108. Prefer over parked D-0006 / seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0587; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0588; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -50,7 +50,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0587 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0588 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0578: C gg via bones `gettrack`, not mfndpos cnt.
@@ -62,7 +62,8 @@ Objective/score live in `CURRENT.md`.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
 - D-0587: @122 was Status armor nudity + Teleport_control what_gives.
-- seed5006 @8468/@8473/@10953 — regen / level_tele / WAN_DEATH+debug.
+- D-0588: seed0361 @3293 was missing `Arc-strt`; then invent
+  `mdrop_special_objs` + armor/weapon `nartifact_exist` artif gate.
 
 ## Landmarks (≤15)
 
@@ -72,8 +73,6 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
-- Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
-- Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
 - Blindfold: Blindf_on + EBlinded + vision_recalc Blind (D-0579).
 - Confused read: mispronounce pline before seffects (D-0580).
@@ -84,3 +83,5 @@ Objective/score live in `CURRENT.md`.
 - Empty wear/puton getobj → `[*]` (D-0584); mimic boulder → `does_block`
   (D-0585); wizard spell `turns` (D-0586); ^X armor + Teleport_control
   what_gives (D-0587).
+- Quest start: `Arc-strt` / `Bar-strt` loaders; CUSTOM_INVENT needs
+  `mdrop_special_objs` before discard (D-0588).

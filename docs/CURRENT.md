@@ -47,8 +47,8 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 3307/53865 | 160/366 | quest / `makemaz` |
-| seed0367 | 2040/50125 | 75/324 | quest / `makemaz` |
+| seed0361 | 4323/53865 | 161/366 | post Arc-strt; next `m_move` @4247 |
+| seed0367 | 2040/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -72,11 +72,14 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** earliest remaining FAIL after D-0587 seed0116 PASS —
-seed0361/0367 quest/`makemaz`, or other suite FAILs (seed0014/0108/0360).
-Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0587.
+**Gameplay next:** after D-0588 `Arc-strt` (seed0361 **3293→4247** /
+RNG **3307→4323**), next peel is seed0361 `m_move` @4247, or seed0367
+`Pri-strt` (still @2040), or seed0014/0108. Prefer over parked D-0006 /
+seed2200 RC; do not reopen D-0474…D-0588.
 
 ```bash
+node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
+# or
 node frozen/ps_test_runner.mjs \
   sessions/seed0361-archeologist-tour.session.json
 ```

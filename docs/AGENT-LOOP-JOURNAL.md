@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 01:20 — #656 D-0588 Arc-strt + invent discard + nartifact
+- Objective: seed0361 quest start after getbones (PRIMARY).
+- C locus: `dat/Arc-strt.lua`; `sp_lev.c` create_monster /
+  `mdrop_special_objs`; `mkobj.c` mksobj_init artif + `nartifact_exist`.
+- Change: `load_arc_strt` + dispatch; `splev_discard_default_minvent`;
+  WEAPON/ARMOR artif `rn2(20|40+10*nartifact_exist())`.
+- Verification: seed0361 **3293→4247** (RNG **3307→4323** Scr
+  **160→161**); green+strict PASS; cohort 11/11 prior PASS held;
+  seed0367 still @2040.
+- Next: seed0361 `m_move` @4247; or `Pri-strt` seed0367.
+
 ## 2026-07-17 01:11 — #655 formal score refresh
 - Objective: mandatory #655 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).

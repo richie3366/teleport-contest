@@ -73,6 +73,7 @@ import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham } from './
 import { m_at } from './mon.js';
 import { enexto, rloc } from './teleport.js';
 import { clear_wormdata } from './worm.js';
+import { obj_resists } from './dogmove.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
@@ -113,6 +114,8 @@ const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const RUNESWORD = objectNames.indexOf('RUNESWORD');
 const CHAIN_MAIL = objectNames.indexOf('CHAIN_MAIL');
+const FEDORA = objectNames.indexOf('FEDORA');
+const BULLWHIP = objectNames.indexOf('BULLWHIP');
 const FOOD_RATION = objectNames.indexOf('FOOD_RATION');
 const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
@@ -616,11 +619,12 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
- * Bar-strt, Bar-loca, Bar-fila, Bar-filb, soko1-1, soko1-2, soko2-1,
- * soko3-1, soko3-2, soko4-2, tower1, fire, air.
+ * Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, soko1-1, soko1-2,
+ * soko2-1, soko3-1, soko3-2, soko4-2, tower1, fire, air.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal); tower2/3; water/earth/astral; create_maze
- * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
+ * protos (Arc-loca/fila/filb/goal, Bar-goal, Pri-*); tower2/3;
+ * water/earth/astral; create_maze fallback; check_ransacked side
+ * effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
     const g = game;
@@ -698,6 +702,10 @@ function load_special_proto(protofile) {
         load_bar_strt();
         return true;
     }
+    if (protofile === 'Arc-strt') {
+        load_arc_strt();
+        return true;
+    }
     if (protofile === 'Bar-loca') {
         load_bar_loca();
         return true;
@@ -747,6 +755,23 @@ function load_special_proto(protofile) {
         return true;
     }
     return false;
+}
+
+/**
+ * C ref: sp_lev.c create_monster — when !(has_invent & DEFAULT_INVENT):
+ * mdrop_special_objs then discard_minvent(TRUE). mdrop_special_objs always
+ * rolls obj_resists(0,0) per invent item before discard.
+ */
+function splev_discard_default_minvent(mtmp) {
+    if (!mtmp) return;
+    for (let obj = mtmp.minvent; obj; ) {
+        const next = obj.nobj;
+        obj_resists(obj, 0, 0);
+        // C: if resists || is_quest_artifact → mdrop_obj; ordinary never resists
+        // with ochance 0, so they stay for discard_minvent → obfree.
+        obj = next;
+    }
+    while (mtmp.minvent) obj_extract_self(mtmp.minvent);
 }
 
 /** Apply CENTER-aligned des.map string; sets game.splev_* origin/size. */
@@ -1062,8 +1087,8 @@ function load_bar_strt() {
             ? makemon(mons(pmIdx), mx + 10, my + 7, 0)
             : null;
         if (mtmp) {
-            // !(has_invent & DEFAULT_INVENT) → discard_minvent(TRUE)
-            while (mtmp.minvent) obj_extract_self(mtmp.minvent);
+            // !(has_invent & DEFAULT_INVENT) → mdrop_special_objs + discard_minvent
+            splev_discard_default_minvent(mtmp);
             // invent: des.object runesword/chain mail spe=5 (no coord → random)
             for (const [otyp, spe] of [[RUNESWORD, 5], [CHAIN_MAIL, 5]]) {
                 const pos = get_location_random(null);
@@ -1151,6 +1176,207 @@ function load_bar_strt() {
     // C levregion_add then fixup place_lregion oneshot (rn2(1) x2).
     place_lregion(
         mx + 62, my + 2, mx + 62, my + 2,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Arc-strt.lua via load_special — Archeologist quest start.
+ * Named omissions: Arc-loca/fila/filb/goal; spo_end_moninvent m_dowear;
+ * humidity-aware get_location for water-likers (eels use fixed moat).
+ */
+function load_arc_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const ARC_STRT_MAP = `
+............................................................................
+............................................................................
+............................................................................
+............................................................................
+....................}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}.................
+....................}-------------------------------------}.................
+....................}|..S......+.................+.......|}.................
+....................}-S---------------+----------|.......|}.................
+....................}|.|...............|.......+.|.......|}.................
+....................}|.|...............---------.---------}.................
+....................}|.S.\\.............+.................+..................
+....................}|.|...............---------.---------}.................
+....................}|.|...............|.......+.|.......|}.................
+....................}-S---------------+----------|.......|}.................
+....................}|..S......+.................+.......|}.................
+....................}-------------------------------------}.................
+....................}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}.................
+............................................................................
+............................................................................
+............................................................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(ARC_STRT_MAP);
+
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region lit/unlit (map-relative; RNG-free)
+    const arcLit = (x1, y1, x2, y2, lit) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    arcLit(0, 0, 75, 19, true);
+    arcLit(22, 6, 23, 6, false);
+    arcLit(25, 6, 30, 6, false);
+    arcLit(32, 6, 48, 6, false);
+    arcLit(50, 6, 56, 8, true);
+    arcLit(40, 8, 46, 8, false);
+    arcLit(22, 8, 22, 12, false);
+    arcLit(24, 8, 38, 12, false);
+    arcLit(48, 8, 48, 8, true);
+    arcLit(40, 10, 56, 10, true);
+    arcLit(48, 12, 48, 12, true);
+    arcLit(40, 12, 46, 12, false);
+    arcLit(50, 12, 56, 14, true);
+    arcLit(22, 14, 23, 14, false);
+    arcLit(25, 14, 30, 14, false);
+    arcLit(32, 14, 48, 14, false);
+
+    // des.stair("down", 55,07)
+    mkstairs(mx + 55, my + 7, 0, null);
+
+    // des.door — C lspo_door → sel_set_door
+    const arcDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    arcDoor(22, 7, D_CLOSED);
+    arcDoor(38, 7, D_CLOSED);
+    arcDoor(47, 8, D_LOCKED);
+    arcDoor(23, 10, D_LOCKED);
+    arcDoor(39, 10, D_LOCKED);
+    arcDoor(57, 10, D_LOCKED);
+    arcDoor(47, 12, D_LOCKED);
+    arcDoor(22, 13, D_CLOSED);
+    arcDoor(38, 13, D_CLOSED);
+    arcDoor(24, 14, D_LOCKED);
+    arcDoor(31, 14, D_CLOSED);
+    arcDoor(49, 14, D_LOCKED);
+
+    // des.monster({ id = "Lord Carnarvon", coord = {25, 10}, inventory = ... })
+    {
+        find_montype_gender('Lord Carnarvon');
+        induced_align(80);
+        const pmIdx = name_to_mon('Lord Carnarvon');
+        const mtmp = pmIdx >= 0
+            ? makemon(mons(pmIdx), mx + 25, my + 10, 0)
+            : null;
+        if (mtmp) {
+            splev_discard_default_minvent(mtmp);
+            for (const [otyp, spe] of [[FEDORA, 5], [BULLWHIP, 4]]) {
+                const pos = get_location_random(null);
+                const otmp = mksobj_at(otyp, pos.x, pos.y, true, true);
+                if (!otmp) continue;
+                otmp.spe = spe;
+                otmp.oeroded = 0;
+                otmp.oeroded2 = 0;
+                otmp.oerodeproof = 0;
+                obj_extract_self(otmp);
+                mpickobj(mtmp, otmp);
+            }
+        }
+    }
+
+    // des.object("chest", 25, 10)
+    mksobj_at(CHEST, mx + 25, my + 10, true, true);
+
+    // des.monster("student", ...)
+    for (const [rx, ry] of [
+        [26, 9], [27, 9], [28, 9],
+        [26, 10], [28, 10],
+        [26, 11], [27, 11], [28, 11],
+    ]) {
+        const { mndx, female } = find_montype_gender('student');
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // des.monster("watchman", ...)
+    for (const [rx, ry] of [[50, 6], [50, 14]]) {
+        const { mndx, female } = find_montype_gender('watchman');
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // des.monster("giant eel", ...) — fixed moat coords
+    for (const [rx, ry] of [[20, 10], [45, 4], [33, 16]]) {
+        const { mndx, female } = find_montype_gender('giant eel');
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // des.non_diggable(selection.area(00,00,75,19))
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.trap() × 6 — create_trap → mktrap(random)
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // Siege monsters — class letter + fixed coord
+    const placeClassMon = (cls, rx, ry) => {
+        induced_align(80);
+        const mlet = monclass_letter_to_mlet(cls);
+        const pm = mlet ? mkclass(mlet, G_NOGEN) : null;
+        let x = mx + rx;
+        let y = my + ry;
+        if (m_at(x, y)) {
+            const cc = { x: 0, y: 0 };
+            if (enexto(cc, x, y, pm)) {
+                x = cc.x;
+                y = cc.y;
+            }
+        }
+        makemon(pm, x, y, 0);
+    };
+    for (const [cls, rx, ry] of [
+        ['S', 60, 9], ['M', 60, 10], ['S', 60, 11], ['S', 60, 12],
+        ['M', 60, 13], ['S', 61, 10], ['S', 61, 11], ['S', 61, 12],
+        ['S', 30, 3], ['M', 20, 17], ['S', 67, 2], ['S', 10, 19],
+    ]) {
+        placeClassMon(cls, rx, ry);
+    }
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion({ region={63,06,63,06}, type="branch" })
+    place_lregion(
+        mx + 63, my + 6, mx + 63, my + 6,
         0, 0, 0, 0, LR_BRANCH, null,
     );
     fixup_special();
