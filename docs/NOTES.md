@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0562 done:** `rank_of`/`xlev_to_rank` + full `roles[].title[9]`;
-  botl/insight/questpgr. seed0373 Scr **23→47**/124; RNG still full.
-- **seed0373 next:** @screen 41 `print_dungeon` / `^V?` menu — JS
-  `t - fakewiz1: 46` vs C `s - wizard3: 41` (+ dungeon header rows).
-  Falsify: compare `print_dungeon(TRUE)` branch list vs C recording.
-- **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
+- **D-0563 done:** `print_dungeon` tty_end_menu prompt+blank row.
+  seed0373 Scr **47→65**/124; seed0116 **110→113**/127. RNG full.
+- **seed0373 next:** @screen 43 after `^V?`→Bar-strt — botl C
+  `Home 1` vs JS `Dlvl:16` (`describe_level` `In_quest`); map outdoor
+  `~` vs `·` (+ DEC vs Unicode walls). Falsify: port `describe_level`
+  quest/knox/endgame arms; re-check terrain glyphs if cells remain.
+- **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#620 formal score:** **30/44**, Scr **5901**/11405, RNG
   **350686**/792838 (44.23%), `31+0.14/turn` (R² 0.77).
@@ -28,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0562; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0563; stub-cancel `^V?` as if menu (breaks 0373);
   treat empty wish ESC as cancel (C → `any` random); skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature msg
   (More key timing for wish getlin); template `\.` in map strings;
@@ -63,16 +64,17 @@ Objective/score live in `CURRENT.md`.
   skip endgame `resurrect` Wizard on newdungeon+amulet (D-0558);
   reject all In_endgame `level_tele` (must `llimit+newlev`); skip
   `air.lua` / `setup_waterlevel` / `movebubbles` boing `rn2(20)`;
-  sticky `urole.rank=title[0]` on botl (must `rank_of`).
+  sticky `urole.rank=title[0]` on botl (must `rank_of`); omit
+  tty_end_menu blank after `print_dungeon` prompt.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0562 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0563 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0562 makemaz / endgame / air / rank — see DIVERGENCE-INDEX.
+- D-0519…D-0563 makemaz / endgame / air / rank / menu blank — see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -83,4 +85,4 @@ Objective/score live in `CURRENT.md`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 RNG **full**; Scr **47**/124 after D-0562 rank titles.
+- seed0373 RNG **full**; Scr **65**/124 after D-0563 menu blank.

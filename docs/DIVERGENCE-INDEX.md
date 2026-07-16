@@ -548,6 +548,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0560 | fixed | In_endgame level_tele negative dest llimit+newlev | seed0373 32479→32480 getbones; next air.lua |
 | D-0561 | fixed | air.lua + monclass D/E/J + setup_waterlevel/movebubbles | seed0373 RNG full 35386; Scr 23/124 residual |
 | D-0562 | fixed | botl rank_of / xlev_to_rank + roles title[9] | seed0373 Scr 23→47; next print_dungeon @41 |
+| D-0563 | fixed | print_dungeon tty_end_menu prompt blank row | seed0373 Scr 47→65; seed0116 110→113; next describe_level Home @43 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

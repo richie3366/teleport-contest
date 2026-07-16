@@ -12,6 +12,15 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-16 21:45 — #623 D-0563 print_dungeon menu blank
+- Objective: seed0373 @screen 41 print_dungeon menu pagination.
+- C locus: wintty.c tty_end_menu; dungeon.c print_dungeon end_menu.
+- Change: js/dungeon.js print_dungeon raw = prompt + blank row
+  (C prepends blank then prompt onto reversed mlist).
+- Verification: seed0373 Scr **47→65**/124 RNG full; seed0116
+  110→113; green+strict PASS; cohort **28**/28 PASS.
+- Next: seed0373 @43 describe_level Home; or seed5006 dosounds @8468.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -141,14 +150,3 @@ Use this shape:
   strict PASS.
 - Next: red dragon makemon female vs newmonhp @30209; or dosounds @8468.
 
-## 2026-07-16 20:05 — #609 D-0549 level_tele endgame Amulet
-- Objective: peel seed0373 @30061 C `next_ident` vs JS `rn2(3)` after
-  matched `collect_coords` / mon_arrive.
-- C locus: `teleport.c` `level_tele` levTport_menu endgame
-  `mksobj(AMULET_OF_YENDOR)`; `mkobj.c` AMULET_CLASS; `invent.c`
-  `addinv_core1`.
-- Change: `js/teleport.js` grant + `addinv`/`prinv`/`uhave.amulet`;
-  `js/mkobj.js` `made_amulet`.
-- Verification: rng-diff **30061→30065**; runner RNG **30115**/35386
-  Scr 23; green+strict PASS; cohort **28**/28 PASS.
-- Next: nhlib shuffle @30065 (endgame plane load); or dosounds @8468.

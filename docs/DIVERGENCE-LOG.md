@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0563 — print_dungeon tty_end_menu prompt blank row
+
+- **Status:** fixed
+- **Symptom:** seed0373 Scr **47**/124 after D-0562; first miss
+  @screen 41 — JS menu packed one row high vs C (blank after title),
+  so page1 showed `t - fakewiz1` where C still had `s - wizard3`
+  and `(1 of 3)` footer alignment drifted.
+- **Cause:** JS `print_dungeon` put the end_menu prompt into the item
+  list without the empty row C `tty_end_menu` prepends (blank then
+  prompt onto reversed mlist → display prompt, `""`, items).
+- **C locus:** `wintty.c` `tty_end_menu`; `dungeon.c` `print_dungeon`
+  `end_menu(win, "Level teleport to where:")`.
+- **Change:** `js/dungeon.js` `print_dungeon` raw starts with prompt
+  + `{ text: '' }` selectable:false.
+- **Verification:** seed0373 Scr **47→65**/124 RNG full; seed0116
+  **110→113**/127; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** bymenu=FALSE; floating branches; invocation
+  debug; quest `describe_level` Home / Bar-strt outdoor glyphs still
+  miss @43.
+- **Next:** seed0373 @43 `describe_level` `In_quest` → `Home %d`;
+  or seed5006 `dosounds` @8468.
+
 ## D-0562 — botl rank_of / xlev_to_rank titles
 
 - **Status:** fixed (partial — `rank_to_xlev` unused; achievement rank
