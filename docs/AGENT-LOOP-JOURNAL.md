@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 21:52 — #626 D-0565 TREE + eel hideunder
+- Objective: seed0373 Bar-strt outdoor glyphs after Home botl.
+- C locus: display.c back_to_glyph TREE; makemon.c S_EEL; mon.c hideunder.
+- Change: js/display.js TREE `#`/`g` + keep raw DEC `g` in scoring grid;
+  js/makemon.js S_EEL in_mklev → mundetected.
+- Verification: seed0373 Scr **78→85**/124 RNG full; green+strict
+  PASS; cohort **30**/30 PASS.
+- Next: seed0373 @73 Dlvl:12 blank walls; or seed5006 dosounds @8468.
+
 ## 2026-07-16 21:50 — #625 formal score refresh
 - Objective: mandatory #625 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).
@@ -146,16 +155,4 @@ Use this shape:
 - Verification: rng-diff **30209→30263**; runner RNG **30272**/35386;
   green+strict PASS; cohort **30**/30 PASS.
 - Next: @30263 C `next_ident` vs JS `get_location`; or dosounds @8468.
-
-## 2026-07-16 20:18 — #610 score + D-0550 fire load_special
-- Objective: mandatory #610 full `sessions` score; peel seed0373 @30065
-  endgame plane `load_special`.
-- C locus: `dat/fire.lua`; `sp_lev.c` `load_special`; `dungeon.c`
-  `level_difficulty` In_endgame; `mkmaze.c` `mkportal`/`fumaroles`.
-- Change: `js/mklev.js` `load_fire` + portal/fumaroles/lregion flip;
-  `js/hacklib.js` endgame difficulty; `js/do.js` arrival fumaroles.
-- Verification: **#610** 30/44 Scr **5901**/11405 RNG **348403**/792838
-  (43.94%) `31+0.14/turn`; seed0373 **30065→30209** RNG 30222; green+
-  strict PASS.
-- Next: red dragon makemon female vs newmonhp @30209; or dosounds @8468.
 

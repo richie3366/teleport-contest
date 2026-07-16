@@ -67,7 +67,7 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
-    In_quest, W_ARMH, P_POLEARMS, ROT_CORPSE,
+    In_quest, W_ARMH, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import {
@@ -1750,15 +1750,26 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
-    // C: switch (ptr->mlet) before invent — mimic + sleepers + spider/snake.
-    // Named omissions: eel hideunder; orc/elf peace; unicorn align peace;
-    // bat hell speed; elemental invis.
+    // C: switch (ptr->mlet) before invent — mimic + sleepers + spider/snake/eel.
+    // Named omissions: spider/snake hideunder after mkobj_at; orc/elf peace;
+    // unicorn align peace; bat hell speed; elemental invis.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
     else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
         // C: in_mklev → mkobj_at(RANDOM) then hideunder
         if (game.in_mklev) {
             if (mtmp.mx && mtmp.my) mkobj_at(RANDOM_CLASS, mtmp.mx, mtmp.my, true);
             // hideunder deferred (no RNG at creation)
+        }
+    } else if (ptr.mlet === 'S_EEL') {
+        // C: makemon.c case S_EEL → hideunder(mtmp) when in_mklev.
+        // Inline eel arm of mon.c hideunder (seeit=0 during mklev; no pline).
+        if (game.in_mklev && mtmp.mx) {
+            const hx = mtmp.mx, hy = mtmp.my;
+            const typ = game.level?.at(hx, hy)?.typ ?? 0;
+            if (IS_POOL(typ) && !Is_waterlevel(game.u?.uz)
+                && !game.u?.Underwater) {
+                mtmp.mundetected = 1;
+            }
         }
     } else if (ptr.mlet === 'S_LEPRECHAUN') mtmp.msleeping = 1;
     else if (ptr.mlet === 'S_JABBERWOCK' || ptr.mlet === 'S_NYMPH') {

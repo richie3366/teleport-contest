@@ -7,7 +7,7 @@ import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
 import { mcolors, mons, infravision, infravisible } from './monsters.js';
 import {
-    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
+    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, TREE,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE,
@@ -1000,6 +1000,12 @@ export function terrain_glyph(loc, x, y) {
     case THRONE:    return { ch: '\\', color: HI_GOLD, dec: false };
     case SINK:      return { ch: '{', color: CLR_WHITE, dec: false };
     case FOUNTAIN:  return { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
+    // C ref: display.c back_to_glyph TREE → S_tree; defsym.h PCHAR '#'/CLR_GREEN;
+    // dat/symbols DECgraphics S_tree \xe7 meta-g. Arboreal STONE→tree deferred.
+    case TREE:
+        return dec
+            ? { ch: 'g', color: CLR_GREEN, dec: true }
+            : { ch: '#', color: CLR_GREEN, dec: false };
     // C ref: display.c back_to_glyph + defsym.h PCHAR — pool/moat/water/lava/ice.
     // Primary: '}' (pool/lava/water) / '.' (ice). DECgraphics: S_pool/S_lava/
     // S_lavawall/S_water \xe0 meta-` diamond; S_ice \xfe meta-~.
@@ -1259,7 +1265,8 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
  * Does not pline / browse / map_redisplay (caller).
  */
 export function reveal_terrain_show_map(which_subset, swallowed) {
-    // C: default_sym = arboreal ? S_tree : S_stone — tree cmap deferred
+    // C: default_sym = arboreal ? S_tree : S_stone — arboreal STONE→tree deferred
+    // (TREE typ itself via terrain_glyph D-0565)
     const default_glyph = { ch: ' ', color: NO_COLOR, dec: false };
 
     for (let x = 1; x < COLNO; x++) {
@@ -2153,9 +2160,9 @@ function _buildScreenOutput() {
         }
         // Map — write characters to grid (DEC → Unicode for browser display).
         // Only convert glyphs that frozen screen-decode DEC_MAP equates back
-        // (walls/doors/floor ·). S_altar meta-{ and S_pool/S_lava/S_water
-        // meta-` are in DEC_TO_UNICODE but NOT in DEC_MAP — keep raw so
-        // serialize_for_scoring matches C SO+ch (renderCell leaves them).
+        // (walls/doors/a/~). S_altar meta-{, S_pool/S_lava/S_water meta-`,
+        // and S_tree meta-g are in DEC_TO_UNICODE but NOT in DEC_MAP — keep
+        // raw so serialize_for_scoring matches C (renderCell leaves them).
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
@@ -2163,8 +2170,8 @@ function _buildScreenOutput() {
                 let ch = loc.disp_ch;
                 if (loc.disp_decgfx) {
                     const uni = DEC_TO_UNICODE[ch];
-                    // DEC_MAP: walls/doors/a/~ only — not '{' or '`'
-                    if (uni && ch !== '{' && ch !== '`') ch = uni;
+                    // DEC_MAP: walls/doors/a/~ only — not '{', '`', or 'g'
+                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g') ch = uni;
                 }
                 const sr = y + 1;
                 // Don't clobber --More-- on row 1

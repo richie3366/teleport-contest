@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0565 — TREE glyph + S_EEL in_mklev hideunder
+
+- **Status:** fixed (partial — arboreal STONE→tree; spider/snake
+  hideunder after mkobj_at; Underwater+couldsee eel arm)
+- **Symptom:** seed0373 Scr **78**/124 after D-0564; @screen 43
+  Bar-strt outdoor — JS `;`/`?` vs C DEC water `` ` `` / tree `g`.
+- **Cause:** (1) `terrain_glyph` omitted TREE → default `?`; flush
+  also Unicode-converted DEC `g`→`±` (not in frozen DEC_MAP).
+  (2) `makemon` omitted `S_EEL` `in_mklev`→`hideunder` so eels
+  showed as `;` instead of mundetected water.
+- **C locus:** `display.c` `back_to_glyph` TREE; `defsym.h` S_tree;
+  `dat/symbols` DECgraphics `\xe7`; `makemon.c` S_EEL; `mon.c`
+  `hideunder` eel arm.
+- **Change:** `js/display.js` TREE `#`/`g` + keep raw DEC `g` in
+  scoring grid; `js/makemon.js` S_EEL in_mklev → `mundetected`.
+- **Verification:** seed0373 Scr **78→85**/124 RNG full; green+strict
+  PASS; cohort **30**/30 PASS; seed0116 still 113/127.
+- **Named omission:** next @73 Dlvl:12 blank walls vs C DEC `q`;
+  arboreal STONE; spider/snake hideunder.
+- **Next:** seed0373 @73 vision/memory walls; or seed5006 `dosounds`
+  @8468; seed0116 residual.
+
 ## D-0564 — botl describe_level Home / Knox / endgame
 
 - **Status:** fixed (partial — livelog `dflgs&2` consumers; insight
@@ -18,7 +40,7 @@ to preserve, record it here.
   `_statusLine2` uses `describe_level(1)` then `$:` gold.
 - **Verification:** seed0373 Scr **65→78**/124 RNG full; green+strict
   PASS; cohort **28**/28 PASS.
-- **Named omission:** Bar-strt outdoor `~` (DEC water) vs room floor;
+- **Named omission:** Bar-strt outdoor TREE/eel glyphs (D-0565);
   livelog addbranch; insight ^X endgame/knox prose.
 - **Next:** seed0373 Bar-strt terrain glyphs; or seed5006 `dosounds`
   @8468; seed0116 residual 113/127.
