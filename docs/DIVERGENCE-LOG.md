@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0507 — wish parse_charges + wrp class words (seed0398 @2764)
+
+- **Status:** fixed
+- **Symptom:** seed0398 first RNG miss @2764 — C `rn2(46)` at
+  `rnd_otyp_by_namedesc` during wizard wish
+  `wand of polymorph (0:30)`; JS already at `mcalcmove` `rn2(12)`
+  (wish returned null / no mksobj). Scr 0; RNG **2773**/3026.
+- **Cause:** `readobjnam` omitted `readobjnam_parse_charges` (strip
+  trailing `(R:S)`) and wrp[] `"wand of X"` → `WAND_CLASS` +
+  `actualn="polymorph"`; also skipped `rnd_otyp_by_namedesc` when
+  `oclass` was set.
+- **C locus:** `objnam.c` `readobjnam_parse_charges`;
+  postparse1 wrp[]/wrpsym[]; postparse3 `rnd_otyp_by_namedesc`;
+  wand `otmp->recharged = rechrg`.
+- **Change:** `js/readobjnam.js` — charge strip; wrp class-word
+  parse; search with oclass; set `recharged` on WAND_CLASS.
+- **Verification:** seed0398 RNG **2773→2840**/3026 (prefix
+  2764→2839); green+strict PASS; cohort seed0006/0007/1500/1800
+  PASS; full suite **29/44** Scr 5296 RNG **303302** (38.26%).
+- **Named omission:** full postparse1/2 (named/called/labeled,
+  o_ranges, glass, fruits, traps/terrain); non-wizard spe clamps;
+  amulet shape specials; wish help/retry/livelog.
+- **Next:** @2839 `distfleeck` rn2(5) vs rnd(20) after rust trap.
+
 ## D-0506 — enlightenment Sleepy / Poison_res / Stealth (seed0007 @297)
 
 - **Status:** fixed

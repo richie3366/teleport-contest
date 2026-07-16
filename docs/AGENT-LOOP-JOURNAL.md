@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:54 — #565 score + D-0507 wish charges/wrp
+- Objective: mandatory full `sessions` (#565÷5); seed0398 wish @2764
+- C: `objnam.c` `readobjnam_parse_charges` + wrp[] class words;
+  `rnd_otyp_by_namedesc` with oclass; wand `recharged`
+- Fix: `js/readobjnam.js` — strip `(R:S)` / `(N)`; `wand of X` →
+  WAND_CLASS + actualn; search when oclass set; set recharged
+- Verify: seed0398 RNG **2773→2840**/3026 (prefix 2764→2839);
+  green+strict; cohort seed0006/0007/1500/1800 PASS; suite **29/44**
+  Scr 5296 RNG **303302** (38.26%) `25+0.13/turn`
+- Next: seed0398 @2839 distfleeck rn2(5) vs rnd(20) after rust trap
+
 ## 2026-07-16 15:50 — D-0506 enlightenment Sleepy/Poison_res/Stealth
 - Objective: seed0007 @297 Final Status/Attributes missing lines
 - C: `insight.c` status_enlightenment Sleepy; attributes_enlightenment
@@ -147,21 +158,3 @@ Use this shape:
 - Verification: rng-diff **15877→15983**; RNG 15985/16373 Scr 60;
   green+strict PASS; cohort 26/26 PASS.
 - Next: @15983 dowatersnakes rn2(5) vs rn2(3) (D-0495).
-## 2026-07-16 14:48 — D-0493 set_move_cmd clears travel
-- Objective: primary D-0493 — seed0007 @15284 wanderer rn2(4) vs dog_move.
-- C locus: `cmd.c` `set_move_cmd` clears `travel`/`travel1` before run.
-- Change: walk + capital/Ctrl run clear stale travel (after `_`). Was:
-  `continue_run` findtravelpath rewrote H dx/dy SE onto pet → false
-  nearby wanderer. Falsified: dog_move cnt; peaceful reorder; !nearby.
-- Verification: rng-diff **15284→15877**; RNG 15898/16373 Scr 60;
-  green+strict PASS; cohort 26/26 PASS.
-- Next: @15877 Amulet_on rnd(98) vs distfleeck (D-0494).
-## 2026-07-16 14:45 — #550 public score + D-0493 diagnosis
-- Objective: mandatory full `sessions` score (#550); seed0007 @15284 peel.
-- C locus: `monmove.c` `dochug` want_move; `dogmove.c` `dog_move`.
-- Change: docs only. Score **28/44** Scr **5054** RNG **302184** (38.11%)
-  `25+0.13/turn`. D-0493: JS wanderer `rn2(4)` at nearby peaceful kitten;
-  C early want_move short-circuit → `dog_move` `rn2(12)`. Peaceful-first
-  falsified (@2837). Force `!nearby` → invent/goal `obj_resists` next.
-- Verification: green+strict PASS; full suite 28/44; no js/ patch.
-- Next: prove C early short-circuit (mflee/nearby); then invent/goal fobj.
