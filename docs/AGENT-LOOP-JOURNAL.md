@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 12:45 — D-0485 ux0/mux ALLOW_U omit path
+- Objective: seed0007 @2832 dog_move `rn2(1)` vs JS `distfleeck` (D-0485).
+- C locus: `mon.c` `mfndpos` ALLOW_U; `monmove.c` `set_apparxy`;
+  `dogmove.c` `dog_move` ~1255.
+- Change or falsified theory: no production patch. Omitted cell is
+  `ux0` after `H`. `mfndpos` with `mux=ux0` drops it (`cnt=7`); JS
+  already has `mux=hero` after `set_apparxy`. Do not ship ux0/coord
+  skips. Falsified pool/mon/kicked again.
+- Verification: green+strict PASS; rng-diff still @2832 after DIAG remove.
+- Next: prove C pet `mux` at `mfndpos` (capture) or other silent omit.
+
 ## 2026-07-16 10:35 — D-0485 force-skip confirms omit (37,17)
 - Objective: seed0007 @2832 dog_move `rn2(1)` vs JS `distfleeck` (D-0485).
 - C locus: `dogmove.c` `dog_move` ~1255; `mon.c` `mfndpos`.

@@ -6,30 +6,35 @@ to preserve, record it here.
 
 ## D-0485 — dog_move rn2(1) vs skipped j==0 (seed0007 @2832)
 
-- **Status:** open (diagnosed; force-skip confirmed; C gate unknown)
+- **Status:** open (diagnosed; ux0/mux gate identified; C mux TBD)
 - **Symptom:** seed0007 first RNG miss @2832 — C `rn2(1)=0 @ dog_move`
   (candidate `j==0 && !rn2(++chcnt)`) vs JS `rn2(5) @ distfleeck`.
-- **Context:** mismatch sits in the `Y` (run up-left) step after
-  downstairs/`H`; not a mid-`dog_move`-only geometry puzzle.
+- **Context:** RNG lives in session step 48 key `H` (left); next key
+  `Y`. Hero just vacated `(37,17)` (`ux0,uy0`); kitten `(38,17)`.
 - **JS state (DIAG, removed):** after matched `dog_goal` `rn2(4)=0`,
-  kitten `(38,17)`, hero/goal `(36,17)`, `appr=1`, `whappr=1`,
-  `couldsee`, `kickedloc` clear, `cnt=8` all `typ=ROOM` (DEC `~` =
-  S_room). Cands: `(37,16)` j<0 → `(37,17)` j<0 → rest whappr-blocked.
-  No mon/obj/trap at `(37,17)`; `mux/muy` = hero.
-- **Force-skip proof:** temporary silent `continue` on `(37,17)` at
-  this call extends RNG prefix **2832→2838** (next miss `obj_resists`).
-  So C truly omits that cell (mfndpos or no-RNG continue).
-- **Falsified:** JS pool typ (ROOM); JS mconf/kickedloc; couldsee
-  false; “hero still on `(37,17)` at dog_goal” (would make `udist==1`
-  and skip `rn2(4)`, but C emits `rn2(4)`); ALLOW_M balk with a JS
-  mon (fmon empty there).
-- **Working theory:** C silent-omits `(37,17)` so after `(37,16)`
-  `nidist=2`, `(37,18)` hits `j==0`/`rn2(1)`. Still unknown which
-  gate (mfndpos pool/onscary/garlic/aggression omit vs dog_move
-  continue). Do not ship coordinate skips.
-- **C locus:** `dogmove.c` `dog_move` ~1254–1257; `mon.c` `mfndpos`.
-- **Next:** prove the C omit gate (compare C terrain/mon at that cell
-  if a capture exists; else port missing `mfndpos` arms and re-check).
+  kitten `(38,17)`, hero/goal `(36,17)`, `ux0=(37,17)`, `appr=1`,
+  `whappr=1` (`moves=2`), `mux/muy=hero`, `cnt=8` all `typ=ROOM`.
+  Cands: `(37,16)` j<0 → `(37,17)` j<0 → rest whappr-blocked.
+  No mon/obj/trap/engr at `(37,17)`.
+- **Force-skip / ux0-skip proof:** silent omit of `(37,17)` (or of
+  `nx,ny==ux0,uy0`) extends RNG prefix **2832→2838** (next miss
+  `obj_resists`). After `(37,16)` `nidist=2`, `(37,18)` hits `j==0`.
+- **mfndpos ALLOW_U proof:** temporarily set pet `mux/muy=ux0` before
+  `mfndpos` → `cnt=7`, `(37,17)` absent (C `u_at||(nx,ny)==(mux,muy)`
+  without `ALLOW_U` → continue). Restoring mux restores `cnt=8`.
+- **Falsified:** JS pool typ; mconf/kickedloc; couldsee false; hero
+  still on cell at `dog_goal` (C emits `rn2(4)`); ALLOW_M balk with
+  JS mon; inventing production `ux0`/coord skips.
+- **Working theory:** C’s `mfndpos` omits via ALLOW_U because pet
+  `mux` still equals vacated `(37,17)` — but JS `set_apparxy` (dochug
+  + `m_move`) already sets tame `mux=u.ux` before `dog_move`. Either
+  C mux is stale somehow, or another silent omit coincides with ux0.
+  Do not ship coordinate / ux0 hacks.
+- **C locus:** `dogmove.c` `dog_move` ~1254–1257; `mon.c` `mfndpos`
+  ~2283–2297; `monmove.c` `set_apparxy`.
+- **Next:** prove whether C pet `mux` equals `ux0` at `mfndpos` (C
+  state capture) or find another silent gate; port missing `mfndpos`
+  pool/onscary/garlic/squeeze arms only if they falsify independently.
 - **Named omission:** `mfndpos` still lacks C pool/lava/`IS_WATERWALL`/
   onscary/garlic/squeeze/`mm_aggression` omit arms.
 
