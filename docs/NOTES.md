@@ -14,8 +14,9 @@ Objective/score live in `CURRENT.md`.
   `load_special` water/terrain + glyph path; not botl.
 - **seed0116 residual:** screen/cursor miss (113/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#620 formal score:** **30/44**, Scr **5901**/11405, RNG
-  **350686**/792838 (44.23%), `31+0.14/turn` (R² 0.77).
+- **#625 formal score:** **30/44**, Scr **6355**/11405, RNG
+  **353648**/792838 (44.61%), `31+0.14/turn` (R² 0.77).
+  Δ vs #620: Scr +454, RNG +2962 (D-0560…D-0564).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -81,7 +82,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398 **PASS** (D-0482/D-0506/D-0514).
 - LB gap: 14 cells / 4 sessions; report upstream if cron unchanged.
-- #620 score: **30/44**, Scr 5901, RNG 350686 (44.23%), `31+0.14/turn`.
+- #625 score: **30/44**, Scr 6355, RNG 353648 (44.61%), `31+0.14/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
