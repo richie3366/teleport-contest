@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 12562/12562 | **115**/127 | residual after D-0579 |
+| seed0116 | 12562/12562 | **116**/127 | residual after D-0584; @114 map |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -70,13 +70,14 @@ seed0373; judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0116 Scr **115**/127.
+**Gameplay next:** seed0116 Scr **116**/127 — first miss @114
+materialize map glyph C `` ` `` vs JS `·` at (32,13).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0583.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0584.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

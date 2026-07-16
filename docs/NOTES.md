@@ -9,34 +9,37 @@ Objective/score live in `CURRENT.md`.
 
 - **#650 score:** suite **32/44** Scr **6535**/11405 RNG
   **359063**/792838 (45.29%); seed5006 suite-confirmed PASS.
-- **Next gameplay:** seed0116 Scr 115/127.
+- **Next gameplay:** seed0116 Scr 116/127 — @114 materialize
+  map (32,13) C `` ` `` vs JS `·` (wear `[*]` fixed D-0584).
 - **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
+- **Falsifier @114:** dump screen after `You materialize…`; compare
+  terrain/glyph at map (32,13) vs C dark-stone `` ` ``.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0583; stub-cancel `^V?` as if menu; treat empty wish
-  ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
-  Norep / hot temperature; template `\.` in map strings; burn maze
-  `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
-  loaders; accept TELE on occupied mon cell; skip `were_change` /
-  stub `m_avoid_soko_push_loc`; skip Bar-strt / onquest nhl / In_quest
-  fila; use `dlevel` in `traptype_rnd`; skip egg hatch / WEB spider /
-  STATUE_TRAP / mineralize quest divide; hardcode PARTISAN; skip
-  S_HUMAN is_elf / QUANTMECH SchroedingersBox / soko* loaders /
-  LONG_WORM initworm / S_MUMMY wrapping; accept DRY on boulders; skip
-  endgame Amulet/`level_difficulty`/fire.lua/dragon hp/golems/
-  amphibious WET/salamander/Sokoban sticky/resurrect; sticky
-  `urole.rank=title[0]`; omit tty_end_menu blank; emit `Dlvl:depth` on
-  quest; Unicode-convert DEC `g`/`|`; lit bigrm without `light_region`;
-  skip hideunder; map extractor `HI_LORD`→13; skip Sokoban
-  premap/solidify/spines; Sokoban walls CLR_GRAY; Options
-  `clear_committed_status` on fullscreen; skip CORPSE article in
-  doname; `sel_set_ter(false)` force-unlit; omit wizard
-  `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`; stub
-  cursed/confused teleport scroll `level_tele`; stub death-ray
+  reopen D-0474…D-0584; use wear empty `[*?]`; stub-cancel `^V?` as
+  if menu; treat empty wish ESC as cancel; skip amulet_wish
+  once-per-input; skip Wizard appear Norep / hot temperature;
+  template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
+  on Sokoban; fill inside `load_special` loaders; accept TELE on
+  occupied mon cell; skip `were_change` / stub `m_avoid_soko_push_loc`;
+  skip Bar-strt / onquest nhl / In_quest fila; use `dlevel` in
+  `traptype_rnd`; skip egg hatch / WEB spider / STATUE_TRAP /
+  mineralize quest divide; hardcode PARTISAN; skip S_HUMAN is_elf /
+  QUANTMECH SchroedingersBox / soko* loaders / LONG_WORM initworm /
+  S_MUMMY wrapping; accept DRY on boulders; skip endgame Amulet/
+  `level_difficulty`/fire.lua/dragon hp/golems/amphibious WET/
+  salamander/Sokoban sticky/resurrect; sticky `urole.rank=title[0]`;
+  omit tty_end_menu blank; emit `Dlvl:depth` on quest; Unicode-convert
+  DEC `g`/`|`; lit bigrm without `light_region`; skip hideunder; map
+  extractor `HI_LORD`→13; skip Sokoban premap/solidify/spines; Sokoban
+  walls CLR_GRAY; Options `clear_committed_status` on fullscreen;
+  skip CORPSE article in doname; `sel_set_ter(false)` force-unlit;
+  omit wizard `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`;
+  stub cursed/confused teleport scroll `level_tele`; stub death-ray
   `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
   `can_make_bones`; omit cemetery / `familiar_level_msg`; omit bones
   `utrack` or `initrack` after `getbones`; list DOWNPLAY letters in
@@ -64,6 +67,7 @@ Objective/score live in `CURRENT.md`.
 - D-0582: @187 points was identify `more_experienced(0,10)`.
 - D-0583: @198 was leave-level gbuf mon→memory + getbones yn flush,
   not water terrain; ordinary `vision_recalc(2)` newsym loop regresses.
+- D-0584: seed0116 @14 was empty wear `[*?]` vs C `[*]`, not SUGGEST.
 
 ## Landmarks (≤15)
 
@@ -82,3 +86,4 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
+- Empty wear/puton getobj → `[*]` (D-0584).

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0584 — wear/puton empty getobj prompt `[*]` (seed0116 Scr)
+
+- **Status:** fixed
+- **Symptom:** seed0116 first Scr miss @14 — C `What do you want to
+  wear? [*]` vs JS `… [*?]`; cursor col 30 vs 31. RNG already FULL.
+- **Cause:** C `invent.c` `getobj` when suggested `buf` empty uses
+  `Strcat(qbuf, " [*]")`; JS wear/puton empty arms used `[*?]`.
+  (DOWNPLAY accessories still force the prompt via `forceprompt`.)
+- **C locus:** `invent.c` `getobj` empty-buf prompt; `do_wear.c`
+  `wear_ok`/`puton_ok` → `equip_ok`.
+- **Change:** `js/do_wear.js` `getobj_wear` / `getobj_puton` empty
+  prompt → `[*]` (match takeoff / drink / zap / …).
+- **Verification:** seed0116 Scr **115→116**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 PASS.
+- **Named omission:** shared getobj still per-caller; `?`/`*` pickinv
+  for wear; seed0116 @114 materialize map glyph `` ` `` vs `·`.
+- **Next:** seed0116 @114 post-teleport map cell (32,13).
+
 ## D-0583 — getbones yn leave-level gbuf mon→memory (seed5006 Scr)
 
 - **Status:** fixed
