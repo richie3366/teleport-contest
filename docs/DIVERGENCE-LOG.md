@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0510 — #wizgenesis create_particular (seed0398 @2960)
+
+- **Status:** fixed
+- **Symptom:** seed0398 first RNG miss @2960 — C `rn2(8)` at
+  `collect_coords` vs JS `rnl(20)` (lock). Scr 0; RNG **2960**/3026.
+- **Cause:** `#wizgenesis` present in extcmd AC data / C but missing
+  from JS `EXT_CMDS`; enter said unknown, so `jackal\n` was played as
+  move/apply keys and hit `doforce`/`rnl(20)`. C ran
+  `create_particular`→`makemon`→`enexto`→`collect_coords`.
+- **C locus:** `wizcmds.c` `wiz_genesis`; `read.c` `create_particular`/
+  `_parse`/`_creation`; `makemon.c` `makemon` + `MM_NOEXCLAM`;
+  `teleport.c` `collect_coords` (via `enexto`).
+- **Change:** `js/read.js` `create_particular` named path;
+  `js/wizcmds.js` `wiz_genesis`; `js/getline.js` EXT_CMDS entry
+  (not EXT_CMD_AC — flags lack AUTOCOMPLETE); `js/cmd.js` `^G`.
+- **Verification:** seed0398 RNG **2960→3026**/3026 (full);
+  green+strict PASS; cohort **29/29** PASS. Scr still **0**/87.
+- **Named omission:** class-letter/* random; cant_revive yn;
+  tame/peaceful/hostile/saddled/sleeping/invisible/hidden prefixes;
+  makemon in-body MM_NOMSG appear (caller pline instead).
+- **Next:** seed0398 first-cell screen peel (Scr 0/87).
+
 ## D-0509 — IMMEDIATE weffects bhit/bhito WAN_POLYMORPH (seed0398 @2852)
 
 - **Status:** fixed

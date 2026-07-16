@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Gameplay next:** seed0398 post D-0509 — RNG **2960**/3026, Scr 0.
-  First miss @2960: C `collect_coords` `rn2(8)` vs JS `rnl(20)`.
+- **Gameplay next:** seed0398 post D-0510 — RNG **3026**/3026, Scr **0**/87
+  (cursors 84/87). First-cell screen peel; RNG already full.
   Falsifier:
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
   ```
 - **Leaderboard gap:** local **29/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0509
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0510
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -37,9 +37,9 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0508 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust done.
-- D-0509: IMMEDIATE `bhit`/`bhito` poly + `learnwand`→`makeknown`
-  (shudder WIS exercise); next is teleport `collect_coords`.
+- D-0490…D-0509 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly done.
+- D-0510: `#wizgenesis` was missing from EXT_CMDS — `jackal` keys became
+  apply/`rnl(20)`; now `create_particular`→`makemon`→`collect_coords`.
 
 ## Landmarks (≤15)
 
@@ -57,3 +57,4 @@ Objective/score live in `CURRENT.md`.
 - D-0506: Sleepy + Poison_res + Stealth enlightenment → **PASS**.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
+- wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.

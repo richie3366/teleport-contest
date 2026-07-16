@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 16:17 — #568 D-0510 wizgenesis create_particular
+- Objective: seed0398 @2960 C collect_coords rn2(8) vs JS rnl(20)
+- C: `wizcmds.c` wiz_genesis → `read.c` create_particular →
+  makemon(MM_NOEXCLAM) → enexto/collect_coords
+- Fix: EXT_CMDS `#wizgenesis` + `create_particular` named path;
+  `^G` wired. Missing runner made `jackal` keys hit apply/rnl(20).
+- Verify: seed0398 RNG **2960→3026**/3026 full; Scr still 0/87;
+  green+strict PASS; cohort **29/29** PASS
+- Next: seed0398 first-cell screen peel
+
 ## 2026-07-16 16:12 — #567 D-0509 IMMEDIATE poly bhit
 - Objective: seed0398 @2852 C weffects rn2(8) vs JS rn2(5)
 - C: `zap.c` IMMEDIATE `bhit(rn1(8,6))` + `bhito` WAN_POLYMORPH;
@@ -159,13 +169,3 @@ Use this shape:
 - Verification: rng-diff **16339→16346**; seed0007 RNG **16355**/16373
   Scr 60; green+strict PASS; cohort 28/28 PASS.
 - Next: @16346 `mhitm_mgc_atk_negated` rn2(10) vs rn2(3) (D-0497).
-
-## 2026-07-16 14:55 — D-0495 dowatersnakes rn1(5,2)
-- Objective: primary D-0495 — seed0007 @15983 dryup rn2(3) vs snakes.
-- C locus: `fountain.c` `dowatersnakes` — `rn1(5,2)` then makemon
-  water moccasins; drink case 22 / dip case 23.
-- Change: port `dowatersnakes` in `js/fountain.js`; wire drink 22 + dip 23.
-  Hallucination `rndmonnam` deferred.
-- Verification: rng-diff **15983→16339**; RNG 16344/16373 Scr 60;
-  green+strict PASS; cohort 28/28 PASS.
-- Next: @16339 distfleeck rn2(5) vs rnd(20) (D-0496).

@@ -376,6 +376,16 @@ const EXT_CMDS = [
             return wiz_level_change();
         },
     },
+    {
+        // C: flags IFBURIED|WIZMODECMD (no AUTOCOMPLETE) — full name required
+        name: 'wizgenesis',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_genesis } = await import('./wizcmds.js');
+            return wiz_genesis();
+        },
+    },
 ];
 
 function wizardMode() {

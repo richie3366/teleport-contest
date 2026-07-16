@@ -202,3 +202,13 @@
 - Verification: @538 matches; first miss @538→@587; Scr 568→593;
   RNG full; green+strict; cohort 24/24.
 - Next: D-0469 discoveries menu class order / `{buy}` @587.
+
+## 2026-07-16 14:55 — D-0495 dowatersnakes rn1(5,2)
+- Objective: primary D-0495 — seed0007 @15983 dryup rn2(3) vs snakes.
+- C locus: `fountain.c` `dowatersnakes` — `rn1(5,2)` then makemon
+  water moccasins; drink case 22 / dip case 23.
+- Change: port `dowatersnakes` in `js/fountain.js`; wire drink 22 + dip 23.
+  Hallucination `rndmonnam` deferred.
+- Verification: rng-diff **15983→16339**; RNG 16344/16373 Scr 60;
+  green+strict PASS; cohort 28/28 PASS.
+- Next: @16339 distfleeck rn2(5) vs rnd(20) (D-0496).

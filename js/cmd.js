@@ -42,7 +42,7 @@ import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, dowear, doputon } from './do_wear.js';
-import { wiz_wish } from './wizcmds.js';
+import { wiz_wish, wiz_genesis } from './wizcmds.js';
 import { dowield, dowieldquiver } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
 import { x_monnam_tame } from './do_name.js';
@@ -967,6 +967,10 @@ export async function rhack(key) {
     } else if (key === 23) { // ^W — C('w') wiz_wish
         // C ref: wizcmds.c wiz_wish / cmd.c wizwish
         await wiz_wish();
+        game.context.move = 0;
+    } else if (key === 7) { // ^G — C('g') wiz_genesis
+        // C ref: wizcmds.c wiz_genesis / cmd.c wizgenesis
+        await wiz_genesis();
         game.context.move = 0;
     } else if (ch === ':') {
         // C ref: invent.c dolook / lookat
