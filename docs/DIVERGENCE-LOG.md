@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0575 — confused/cursed scroll → level_tele + random_teleport_level
+
+- **Status:** fixed (partial — heaven/escape outside endgame; Nowhere
+  yn; lev_by_name; next_to_u leash; buried ball)
+- **Symptom:** seed5006 @8473 C `rnl(5)` `level_tele` vs JS `rn2(19)`
+  exercise — after quaff confusion + read teleport scroll + empty getlin.
+- **Cause:** `seffect_teleportation` stubbed cursed/confused path
+  (named omission); `level_tele` Confusion/`*`/`involuntary` stubbed
+  shudder without `random_teleport_level`.
+- **C locus:** `read.c` `seffect_teleportation`; `teleport.c`
+  `level_tele` / `random_teleport_level`; `dungeon.c`
+  `single_level_branch`.
+- **Change:** cursed/confused → `await level_tele()` + `known`; port
+  `random_teleport_level`; Confusion/`*`/trycnt≥10/involuntary →
+  random path then `get_level`/`schedule_goto`.
+- **Verification:** seed5006 prefix **8473→10953** positional
+  **8576→10974** Scr **154→174**/249; green+strict PASS; cohort 29/29
+  PASS (incl. seed0373/0398).
+- **Named omission:** heaven/escape; Nowhere suicide yn; `lev_by_name`;
+  Quest polish; `next_to_u` leash; buried ball; debug_fuzzer.
+- **Next:** seed5006 `can_make_bones` `rn2(1)` @10953; or seed0116
+  residual.
+
 ## D-0574 — setworn oc_oprop extrinsic (ring of regeneration)
 
 - **Status:** fixed (partial — Ring_on learnring/attribs; w_blocks;

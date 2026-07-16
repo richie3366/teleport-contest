@@ -7,7 +7,7 @@ lives in `NOTES.md` / `CURRENT.md`.
 
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. When this file exceeds ~15 entries,
-    10|move older ones into `docs/archive/`.
+move older ones into `docs/archive/`.
 
 Use this shape:
 
@@ -17,8 +17,18 @@ Use this shape:
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
-    20|- Next: …
+- Next: …
 ```
+
+## 2026-07-16 23:15 — #638 confused level_tele (D-0575)
+- Objective: seed5006 level_tele rnl(5) @8473.
+- C locus: read.c seffect_teleportation; teleport.c level_tele /
+  random_teleport_level; dungeon.c single_level_branch.
+- Change: cursed/confused scroll → level_tele; port
+  random_teleport_level; Confusion/`*`/involuntary use it.
+- Verification: seed5006 8473→10953 Scr 154→174; green+strict PASS;
+  cohort 29/29 PASS.
+- Next: seed5006 can_make_bones rn2(1) @10953; or seed0116 residual.
 
 ## 2026-07-16 23:10 — #637 setworn oc_oprop (D-0574)
 - Objective: seed5006 dosounds @8468 (C rn2(400) vs JS rn2(100)).
