@@ -4,19 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
+## D-0451 — seed0002 @26692 dogfood obj_resists vs JS rn2(4)
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @26692 — C continues `obj_resists`
+  `rn2(100)` (pet food scan) vs JS `rn2(4)`. Prefix 26692; Scr 320/595.
+  Matched through sleep-wand RAY zap (D-0450).
+- **Hypothesis:** incomplete zap/sleep side effects change pet goals so
+  JS leaves the dogfood `obj_resists` loop early (`rn2(4)` ≈ `dog_goal`).
+- **C locus:** `dog.c`/`dogmove.c` dogfood/`obj_resists`; prior zap state.
+- **Next:** compare pet/invent state at mismatch; do not treat as raw
+  monmove without dogfood proof.
+
+## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @25767 — C `rn2(19)=3` @
   `exercise(attrib.c:509)` then `dobuzz` `rn2(7)` vs JS `rn2(5)=4`.
   Prefix 25767; Scr 320/595. Matched through `exerchk` + wipe_engr
-  (D-0449).
-- **Hypothesis:** after EOT wipe_engr, C enters a zap/`dobuzz` path
-  that also `exercise`s; JS takes a different action (fleeck-shaped
-  `rn2(5)`). Reconstruct caller of exercise immediately before dobuzz.
-- **C locus:** `attrib.c` `exercise`; `zap.c` `dobuzz` (+ caller).
-- **Next:** identify C exercise→dobuzz call chain; do not treat as
-  monmove without zap proof.
+  (D-0449). Session: `z` `?` `p` `l` — zap wand of sleep east.
+- **Cause:** `getobj_zap` treated `?` as cancel (`Never mind`), so the
+  wand was never selected and RAY `weffects`/`ubuzz`/`dobuzz` never ran
+  (JS fell into monmove `rn2(5)`). RAY path was also deferred after
+  exercise.
+- **C locus:** `invent.c` `getobj` `?`/`*`; `zap.c` `weffects`/`ubuzz`/
+  `dobuzz`/`zap_hit`; `muse.c` `ureflects`.
+- **Change:** zap getobj `?`/`*` → `display_pickinv_reply`; port RAY
+  `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range,
+  bounce, sleep `zhitm`/`zhitu`, shield `Reflecting`/`ureflects`).
+  Deferred: IMMEDIATE/`bhit`/`zap_dig`; spell ubuzz; `mon_reflects`;
+  fireball/gas/Hallucination; full `zap_over_floor`; setworn
+  `EReflecting` bits.
+- **Verification:** seed0002 prefix **25767→26692**; RNG matched
+  **25921→26771**; Scr 320; green+strict; cohort **24/24** PASS.
+- **Next:** seed0002 @26692 C `obj_resists` vs JS `rn2(4)` (D-0451).
 
 ## D-0449 — seed0002 @25615 `exerchk` rn2(50) vs JS wipe_engr rn2(61)
 
