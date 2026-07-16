@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0441 — nh_timeout CONFUSION expiry (seed0002 @11487)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @11487 — C `rn2(61)` @
+  `moveloop_core` wipe_engr gate vs JS `rn2(2)`. Prefix 11487;
+  Scr 233/595. Looked like invault/amulet order or skipped wipe_engr.
+- **Cause:** D-0436 set `HConfusion` TIMEOUT via `make_confused`, but
+  `nh_timeout` only handled WOUNDED_LEGS. Confusion never expired; on
+  moves%5 `exerper` kept doing `exercise(A_WIS,FALSE)` → `rn2(2)`
+  before wipe_engr. DIAG at move 270: hung=747, conf=true, cap=SLT.
+- **C locus:** `timeout.c` `nh_timeout` case CONFUSION;
+  `potion.c` `make_confused(0,TRUE)`.
+- **Change:** decrement `HConfusion` in `js/timeout.js`; on expiry
+  `set_itimeout(1)` + `make_confused(0,true)` + `stop_occupation`;
+  export async `make_confused` with talk `You_feel`; `exerper` uses
+  `HConfusion`/`HStun` like C (drop invented `u.Stunned` DEX gate).
+- **Verification:** seed0002 prefix **11487→12222**; Scr
+  **233→242**/595; green+strict; cohort **24/24** PASS.
+- **Omissions named:** other `nh_timeout` prop cases (STUNNED/BLIND/
+  HALLUC/…); luck baseluck; dialogues; `potionbreathe` confusion stub.
+- **Next:** seed0002 @12222 C `rn2(5)` @ `distfleeck` vs JS `rn2(7)`
+  @ `do_attack`.
+
 ## D-0440 — run-into-visible-hostile stop (seed0002 @11309)
 
 - **Status:** fixed

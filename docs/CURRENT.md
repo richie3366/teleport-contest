@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @11487 — moveloop wipe_engr / EOT RNG** (after D-0440
-run-stop). Prefix **11487**; Scr **233**/595. C `rn2(61)` @
-`moveloop_core` (`!rn2(40+DEX*3)` → `u_wipe_engr`) vs JS `rn2(2)`.
-Do not re-open @11309 run-into-visible (fixed).
+**seed0002 @12222 — monmove after hero attack** (after D-0441
+CONFUSION timeout). Prefix **12222**; Scr **242**/595. C
+`rn2(5)` @ `distfleeck` vs JS `rn2(7)` @ `do_attack`. Wipe_engr
+EOT and confusion expiry fixed — do not re-open @11487.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: after exerchk — invault / amulet / wipe_engr order vs extra rn2(2)
+# Focus: after matched do_attack rn2(7)+rnd(6) — mon dochug/distfleeck order
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0440.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0441.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

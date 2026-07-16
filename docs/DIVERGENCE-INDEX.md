@@ -427,6 +427,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0438 | fixed | peffect_booze + newuhs field / uhs init | seed0002 prefix 10634→11150; Scr 233; @11150 ohitmon next |
 | D-0439 | fixed | ohitmon + omon_adj on mon missile hit | seed0002 prefix 11150→11309; Scr 233; @11309 u_maybe_impaired next |
 | D-0440 | fixed | run-into-visible-hostile stop | seed0002 prefix 11309→11487; Scr 233; @11487 wipe_engr rn2(61) next |
+| D-0441 | fixed | nh_timeout CONFUSION expiry | seed0002 prefix 11487→12222; Scr 233→242; @12222 distfleeck next |
 
 
 

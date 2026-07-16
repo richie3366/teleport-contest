@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, flush_topl_more, pline } from './display.js';
+import { flush_screen, flush_topl_more, pline, You_feel } from './display.js';
 import { POTION_CLASS, COIN_CLASS, objectNames } from './objects.js';
 import { weight, obj_extract_self } from './mkobj.js';
 import { A_WIS, A_DEX, A_CON, exercise } from './attrib.js';
@@ -291,14 +291,17 @@ function itimeout_incr(old, incr) {
 /**
  * C ref: potion.c make_confused(xtime, talk)
  * Sync HConfusion TIMEOUT bits; mirror onto u.Confusion for JS gates
- * (C: Confusion ≡ HConfusion). talk=TRUE You_feel / Unaware polish
- * deferred when callers need it; nh_timeout CONFUSION expiry deferred.
+ * (C: Confusion ≡ HConfusion).
  */
-function make_confused(xtime, talk) {
+export async function make_confused(xtime, talk) {
     const u = game.u || (game.u = {});
     const old = u.HConfusion | 0;
     if (u.Unaware) talk = false;
-    void talk; // You_feel less confused — deferred (peffect uses talk=FALSE)
+    // C: if (!xtime && old) You_feel("less …") when talk
+    if (!xtime && old && talk) {
+        const hallu = !!(u.Hallucination || u.HHallucination);
+        await You_feel(`less ${hallu ? 'trippy' : 'confused'} now.`);
+    }
     if ((xtime && !old) || (!xtime && old)) {
         if (game.flags) game.flags.botl = true;
     }
@@ -324,7 +327,7 @@ async function peffect_confusion(otmp) {
     } else {
         potion_nothing++;
     }
-    make_confused(
+    await make_confused(
         itimeout_incr(u.HConfusion | 0, rn1(7, 16 - 8 * bcsign(otmp))),
         false,
     );
@@ -345,7 +348,7 @@ async function peffect_booze(otmp) {
     await pline(`Ooph!  This tastes like ${watered}${drink}!`);
     if (!otmp.blessed) {
         // booze hits harder if drinking on an empty stomach
-        make_confused(
+        await make_confused(
             itimeout_incr(u.HConfusion | 0, d(2 + (u.uhs | 0), 8)),
             false,
         );

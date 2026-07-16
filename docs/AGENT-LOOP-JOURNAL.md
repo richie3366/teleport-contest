@@ -18,6 +18,18 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-16 02:40 — #472 nh_timeout CONFUSION (D-0441)
+- Objective: seed0002 @11487 C `rn2(61)` wipe_engr vs JS `rn2(2)`.
+- C locus: `timeout.c` `nh_timeout` case CONFUSION; `potion.c`
+  `make_confused(0,TRUE)`.
+- Change: expire `HConfusion` in `js/timeout.js`; export async
+  `make_confused` with talk `You_feel`; `exerper` uses HConfusion/HStun.
+  Not wipe_engr/invault — stale Confusion → every-5 WIS abuse.
+- Verification: seed0002 prefix **11487→12222**; Scr **233→242**/595;
+  green+strict; cohort **24/24** PASS.
+- Next: seed0002 @12222 C `rn2(5)` @ `distfleeck` vs JS `rn2(7)` @
+  `do_attack`.
+
 ## 2026-07-16 02:33 — #471 run-into-visible stop (D-0440)
 - Objective: seed0002 @11309 C `rn2(5)` @ `u_maybe_impaired` vs
   JS `rn2(20)` (after matched impaired+2×confdir on capital-`L` run).
@@ -175,13 +187,3 @@ Use this shape:
   **23/23**; full suite **26**/44 Scr **4363**/11405.
 - Next: seed0002 eatcorpse / early peel.
 
-## 2026-07-16 00:50 — #457 seed0004 invent multi-page (D-0426)
-- Objective: seed0004 @330 `i` invent footer `(1 of 2)`.
-- C locus: `wintty.c` `tty_end_menu`/`process_menu_window`;
-  `invent.c` `display_pickinv`.
-- Change: `display_inventory` → `select_menu_pick_none` when
-  npages>1; `display_pickinv_reply` fullscreen `(N of M)` + Space
-  page + current-page selectors (also fixes @336 `t*`).
-- Verification: seed0004 Scr **397→403**/409; cursors full; RNG
-  full; green+strict; cohort **23/23**.
-- Next: seed0004 @354 map `%` vs floor at (11,49).
