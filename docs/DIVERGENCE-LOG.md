@@ -6,27 +6,24 @@ to preserve, record it here.
 
 ## D-0490 — seed0007 @7142 obj_resists vs dog_move rn2(1)
 
-- **Status:** open (DIAG'd; cause not yet ported)
+- **Status:** fixed
 - **Symptom:** after D-0489, first RNG miss @7142 — C `rn2(100) @
   obj_resists` vs JS `rn2(1)`. Scr **60**/302; matched RNG **7885**/16373.
-- **Aligned turn shape:** fobj LARGE_BOX + `rn2(8)` APPORT fail + **7**
-  invent `dogfood` (sword…TRIPE, stop) + **C +1 `obj_resists`** +
-  `dog_move` `rn2(1)`. JS stops after TRIPE → selection.
-- **DIAG (#546):** invent `g:TRIPE h:CARROT`; kitten `carni`; pet
-  ortho-adjacent to hero-on-box `(7,2)`; cand cells empty; Conflict
-  false (no ALLOW_U → hero cell not in `mfndpos`). Same JS invent /
-  pet/`fobj`/cands at matched `@7102` (7 invent → `rn2(1)`) vs miss
-  `@7142` (C wants +1) — only `moves` 92→93 between.
-- **Falsified:** permanent carrot-before-tripe invent order (breaks
-  earlier matched invent stops @7078/@7102/@7121); geometry-only
-  “always cand the box” (same pet@7,3 matched @7102 without +1).
-- **Probe (not shipped):** forcing one extra `dogfood` (CARROT or
-  hero-cell box) advances prefix **7142→7175**; next miss
-  `exercise` vs `rn2(7)` / `destroy_arm`.
-- **Next:** explain C-only +1 `obj_resists` after TRIPE on the
-  `moves=93` pet turn despite identical JS world — C invent letter
-  order / sack contents / cand object not visible in JS, or a
-  non-RNG state desync from the rest/`#loot` path.
+- **Cause:** second `#loot` on the unlocked large box takes contents into
+  invent (gold sorts as `$` before TRIPE). C invent dogfood scan burns
+  +1 `obj_resists` on gold then stops on TRIPE. JS `menu_loot_takeout`
+  was MENU_PARTIAL-only and `in_or_out_menu` ignored lootabc `a`, so
+  contents never left the box and invent still stopped after 7 calls.
+- **C locus:** `pickup.c` `use_container` / `menu_loot` / `query_category`
+  / `out_container`; `dogmove.c` `dog_goal` invent `dogfood`.
+- **Change:** `js/pickup.js` — MENU_FULL take-out category query (skip
+  when single class); `@` invert-all; accept lootabc `a`→take-out while
+  displaying classic `o/i/b`; `out_container`→`addinv` gold.
+- **Verification:** rng-diff **7142→7175**; RNG matched **7885→~8014**;
+  Scr **60**; green+strict PASS; cohort incl. seed0004/0012 PASS.
+- **Named omission:** autopick `A`; traditional_loot; lootabc display
+  sync when recordings disagree; full multi-item prinv More polish.
+- **Next:** @7175 C `exercise` rn2(19) vs JS rn2(5) / `destroy_arm`.
 
 ## D-0486 — vision_recalc rogue_vision (Is_rogue_level)
 

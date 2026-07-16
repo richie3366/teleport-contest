@@ -476,7 +476,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0487 | fixed | picklock + doopen autounlock | seed0007 RNG 3219→6414; eatcorpse next |
 | D-0488 | fixed | mO doset + pickup_types | seed0007 @6414 eatcorpse; prefix→7066 picklock next |
 | D-0489 | fixed | #loot box pick_lock / picklock | seed0007 @7066→7142; Scr 60 |
-| D-0490 | open | +1 obj_resists after invent TRIPE | seed0007 @7142; DIAG #546; not invent-order/geometry |
+| D-0490 | fixed | #loot MENU_FULL take-out → invent gold | seed0007 @7142→7175; exercise next |
 
 
 

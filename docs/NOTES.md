@@ -7,19 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0490:** @7142 need +1 `obj_resists` after invent stops
-  on TRIPE. JS invent `g:TRIPE h:CARROT`; kitten carni; same world at
-  matched `@7102` vs miss `@7142` (only `moves` 92→93). Extra burn is
-  **not** permanent invent reorder / not geometry-only box cand.
-  Forcing +1 dogfood → prefix 7175 (`exercise`/`destroy_arm` next).
+- **seed0007 / D-0491:** @7175 C `exercise` rn2(19) vs JS `rn2(5)` /
+  next C `destroy_arm`. Likely scroll FOOBIE BLETCH → armor smoulders
+  after #loot take-out (D-0490). Falsifier:
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
 - **Leaderboard gap:** local **28/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
-  raw RNG-index / coord / ux0 / forced-gettrack / `!couldsee` hacks;
-  ship TRIPE→scan-CARROT or hero-cell dogfood without C proof.
+  raw RNG-index / coord / ux0 hacks; ship lootabc display-only for one
+  seed (accept both `a`/`o` input; display classic `o/i/b`).
 - **Parked:** D-0006; seed2200 @158 RC path.
 
 ## Don’t re-check (≤15)
@@ -27,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0489
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0490
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -43,8 +41,9 @@ Objective/score live in `CURRENT.md`.
   reaching `doset`, empty `pickup_types` autopick-all corpse (D-0488).
 - seed0007 @7066 was **not** a second door — it was `#loot` locked
   chest box `pick_lock` (D-0489).
-- D-0490: not permanent carrot↔tripe invent order; not “always
-  dogfood hero-cell box” (matched @7102 same pet cell without +1).
+- D-0490 was **not** invent TRIPE/CARROT order or cand geometry — it
+  was missing `#loot` take-out gold (`$` before TRIPE in invent scan).
+- query_category single-class skips menu (seed0012 bag gold-only).
 
 ## Landmarks (≤15)
 
@@ -63,4 +62,5 @@ Objective/score live in `CURRENT.md`.
 - D-0488: `mO` keeps `menu_requested` for `O`; `doset` sets
   `pickup_types=$"?!=/`.
 - D-0489: `#loot` → `do_loot_cont` box `pick_lock` (chance 4*DEX+25).
+- D-0490: MENU_FULL take-out + accept lootabc `a`; invent `$` gold.
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.

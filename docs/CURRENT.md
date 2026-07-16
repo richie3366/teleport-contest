@@ -69,10 +69,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — **D-0490** (open,
-DIAG’d #546): @7142 C +1 `obj_resists` after invent stops on TRIPE;
-same JS invent/pet/`fobj` as matched `@7102`. Not invent-order /
-geometry-only. Probe +1 dogfood → prefix **7175** (`exercise` next).
+**Gameplay next:** seed0007 rogue snake swamp — **D-0491** (open): after
+D-0490 take-out, first miss @7175 C `exercise` rn2(19) vs JS rn2(5) /
+`destroy_arm` (scroll FOOBIE BLETCH → armor smoulders path).
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -81,7 +80,7 @@ node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 
 **Alternates:** quest early-0 (seed0361/0373); seed0108 wishlist.
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0489.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0490.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
