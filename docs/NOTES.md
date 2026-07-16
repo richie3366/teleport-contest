@@ -7,49 +7,49 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Gameplay next:** seed0398 post D-0512 — RNG **3026**/3026, Scr **83**/87.
-  First miss @48: C topline `You feel shuddering vibrations.` vs JS blank
-  (cursor matches). Likely poly/zap aftermath pline omission.
-  Falsifier:
-  ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
-  ```
-- **Leaderboard gap:** local **29/44** vs judge **22** after D-0480;
+- **seed0398 PASS** after D-0513/D-0514 (focused 87/87 + cohort).
+  Suite PASS count refresh at next ÷5 (#575).
+- **Leaderboard gap:** local **29/44** (#570) vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
+  seed0398 may lift local to 30 once suite remeasured.
+- **Gameplay next:** near-miss survey — prefer shared blockers over
+  late single-seed. Candidates: seed0361/0373 quest/`makemaz`;
+  seed2200 parked RC.
+  ```bash
+  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'FAIL|PASS' | head -50
+  ```
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
-  steal hero cursor for leftover getobj text in `flush_screen`.
-- **Parked:** D-0006; seed2200 @158 RC path.
+  steal hero cursor for leftover getobj text in `flush_screen`;
+  reopen D-0474…D-0514.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0512
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0514
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
 - Water-demon floor-vs-`&` was missing `makemon` `newsym` (D-0481).
 - Charged-ring `oc_uses_known` must zero `known` in `mksobj` (D-0482).
 - Empty-quiver `f` must not More-eat invent letter (D-0484).
-- seed0007 @2832 was dofire ready-More + getdir capitals (D-0485).
-- C/JS upstairs spawn both `(38,18)` for seed0007.
-- seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
-- seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
-- seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0511 RNG/botl/loot/AC/tin/erosion/enlightenment/wish/rust/poly/wizgenesis/plname done.
-- D-0512: !verbose drop leaves getobj topline until parse clear;
-  do not wipe `_pending_message` on getobj return; do not pin cursor
-  on leftover `What do you want` text at rhack.
+- seed0007 peels D-0485…D-0506 done → **PASS**.
+- D-0512: !verbose drop leaves getobj topline until parse clear.
+- D-0513: `zapwrapup` must `You_feel` shudder (not defer).
+- D-0514: wizard `#quit` → `Dump core?` before disclose; stopprint
+  skips Goodbye; wizard topten early-exit msg + trailing blanks.
+- GameDisplay needs `getCursor` (or use `cursorRow`) for blanks.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- seed0006 **PASS** after D-0482; seed0007 **PASS** after D-0506.
+- seed0006 **PASS** after D-0482; seed0007 **PASS** after D-0506;
+  seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
 - #570 score: **29/44**, Scr 5520, RNG 303491 (38.28%), `27+0.12/turn`.
@@ -57,7 +57,6 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0502: `find_ac` ARM_BONUS; Scr 126→291.
-- D-0506: Sleepy + Poison_res + Stealth enlightenment → **PASS**.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.

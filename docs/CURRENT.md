@@ -24,29 +24,31 @@ focused session.
 Score last measured: **2026-07-16** — full `sessions` suite (loop **#570**),
 post D-0512. Screens **5520**/11405; RNG **303491**/792838 (38.28%).
 **29/44** PASS. Speed `27+0.12/turn`. Δ vs #565: Scr **+224**, PASS **0**,
-RNG **+189**; seed0398 Scr 0→83 after D-0508…D-0512 peels (+6 this iter).
+RNG **+189**. **#571:** seed0398 focused+cohort **PASS** (87/87) after
+D-0513/D-0514 — suite PASS/Scr refresh at **#575**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **29 / 44** |
+| Sessions passing | **29 / 44** (#570; seed0398 focused PASS pending #575) |
 | Screens matched | **5,520 / 11,405** |
 | Positional RNG calls matched | **303,491 / 792,838** (38.28%) |
 | Speed label | `27+0.12/turn` (R² 0.68) |
 | Role-init throws | **0 / 44** |
 
-**PASS (29):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (29 @#570):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, **seed0007**.
 
+**Focused PASS since #570 (not yet in suite count):** **seed0398**.
+
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0398 | **3026**/3026 | **83**/87 | D-0512 drop topline; @48 shudder next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -67,24 +69,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 **Leaderboard 22-vs-29 gap** — local PASS includes seed0002/0004/0007/0012/0030
 (+seed0006); judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
-restored but four near-misses remain → upstream #5.
+restored but four near-misses remain → upstream #5. seed0398 local lift
+pending #575 suite refresh.
 
-**Gameplay next:** seed0398 after D-0512 — RNG **3026**/3026; Scr **83**/87.
-First miss @48: C `You feel shuddering vibrations.` vs JS blank (cursor OK).
-Do **not** reopen D-0474…D-0512.
+**Gameplay next:** near-miss survey after seed0398 PASS. Prefer shared
+blockers (quest/`makemaz` seed0361/0373) over parked seed2200 RC.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0398-wizard-wandpoly-pile.session.json
+node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'FAIL|PASS' | head -50
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0512.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0514.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
 **seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
-**seed0007** (must stay PASS) + strict lengths.
+**seed0007** + **seed0398** (must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

@@ -9,7 +9,7 @@
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (sleep + bounce + Reflecting);
 // IMMEDIATE weffects → bhit(rn1(8,6)) + bhito WAN_POLYMORPH pile
-// (obj_unpolyable / obj_shudders / poly_obj floor).
+// (obj_unpolyable / obj_shudders / poly_obj floor / zapwrapup You_feel).
 // Named omissions: zap_updown/uswallow bhitm; bhitm poly body; zap_map;
 // zap_dig; spell ubuzz; mon_reflects; fireball/gas/Hallucination
 // hdmgtype rn2; full zap_over_floor; zhitu non-sleep; shopdamage;
@@ -903,11 +903,14 @@ function zapsetup() {
     game._obj_zapped = false;
 }
 
-function zapwrapup() {
+/**
+ * C ref: zap.c zapwrapup — feedback after do_osshock set obj_zapped.
+ */
+async function zapwrapup() {
     if (game._obj_zapped) {
-        // "You feel shuddering vibrations." deferred
-        game._obj_zapped = false;
+        await You_feel('shuddering vibrations.');
     }
+    game._obj_zapped = false;
 }
 
 /**
@@ -939,7 +942,7 @@ async function weffects(obj) {
                 null, bhito, pref);
             // C may null *pobj if destroyed — wand is hero's, keep
         }
-        zapwrapup();
+        await zapwrapup();
     } else {
         // RAY — neither immediate nor directionless
         if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_LIGHTNING) {

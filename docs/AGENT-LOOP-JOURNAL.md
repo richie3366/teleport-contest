@@ -163,14 +163,13 @@ Use this shape:
   PASS; cohort 26/26 PASS.
 - Next: @85 botl `Satiated` / D-0500.
 
-## 2026-07-16 15:14 — D-0498 doset fmt + bool defaults
-- Objective: primary seed0007 screen peel (Scr 60 with full RNG).
-- C locus: `options.c` `doset`/`doset_add_menu` `%-Ns [val]`;
-  `optlist.h` On initvals; `optfn_boolean` showexp/time → botl.
-- Change: `js/options.js` format_doset_opt_line + DOSET_BOOL_DEFAULT_ON
-  + addr fixes; help 4-space indent; showexp/time set flags.botl.
-  First miss was mO menu @20 (not post-combat newsym).
-- Verification: Scr **60→84**/302; RNG full; green+strict PASS;
-  cohort 26/26 PASS.
-- Next: @38 showexp/time botl vs message order (D-0499).
+## 2026-07-16 16:35 — #571 D-0513/D-0514 seed0398 PASS
+- Objective: seed0398 @48 shudder + remaining end screens.
+- C locus: `zap.c` `zapwrapup`; `end.c` `done2` Dump core / stopprint;
+  `topten.c` wizard early-exit; `really_done` trailing raw blanks.
+- Change: `You_feel` shudder; wizard `Dump core?` ynq; skip rip on
+  stopprint; wizard topten msg; `raw_print_blanks(2)`; GameDisplay
+  `getCursor`.
+- Verification: seed0398 **87/87 PASS**; green+strict; cohort **28/28**.
+- Next: near-miss survey / LB gap; suite refresh @#575.
 

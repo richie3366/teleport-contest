@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0514 — wizard done2 Dump core + topten early-exit (seed0398 PASS)
+
+- **Status:** fixed
+- **Symptom:** seed0398 Scr **84**/87 after D-0513 — @84 C `Dump core?`
+  vs JS possessions yn; @86 C wizard score-list msg vs leftover Dump
+  core / Goodbye / wrong cursor.
+- **Cause:** `done2` omitted wizard `Dump core?` ynq; ESC→`q` never
+  set `done_stopprint`, so disclose ran; `show_death_rip` still showed
+  Goodbye when tombstone+stopprint; `topten` omitted wizard/discover
+  early-exit; trailing `raw_print("")`×2 missing; GameDisplay lacked
+  `getCursor` so blanks no-op'd.
+- **C locus:** `end.c` `done2`/`really_done`; `topten.c` wizard branch
+  + `showwin`; GameDisplay↔Terminal cursor.
+- **Change:** `js/end.js` Dump-core ynq + stopprint rip skip + blanks;
+  `js/topten.js` wizard/discover message; `js/game_display.js`
+  `getCursor` delegate.
+- **Verification:** seed0398 Scr **84→87**/87 **PASS** (RNG 3026/3026);
+  green+strict PASS; cohort **28/28** PASS.
+- **Named omission:** Dump-core `'y'` → `NH_abort`/sound_exit (stopprint
+  stub); LOGFILE/XLOGFILE; toptenwin NHW_TEXT; ParanoidQuit getlin.
+- **Next:** near-miss survey / leaderboard; suite refresh @#575.
+
+## D-0513 — zapwrapup shuddering vibrations (seed0398 @48)
+
+- **Status:** fixed
+- **Symptom:** seed0398 Scr **83**/87 — first miss @48: C
+  `You feel shuddering vibrations.` vs JS blank (cursor OK).
+- **Cause:** `zapwrapup` deferred the C `You_feel` after `do_osshock`
+  set `_obj_zapped`.
+- **C locus:** `zap.c` `zapwrapup` / `do_osshock` / `weffects` IMMEDIATE.
+- **Change:** `js/zap.js` — `await You_feel('shuddering vibrations.')`
+  in `zapwrapup`; `await` from `weffects`.
+- **Verification:** seed0398 Scr **83→84**/87 (RNG 3026/3026);
+  green+strict PASS (with D-0514 cohort).
+- **Named omission:** `create_polymon` after `poly_zapped`; shop bill
+  in `do_osshock`; `bhitm` poly body.
+- **Next:** @84 Dump core (D-0514).
+
 ## D-0512 — !verbose drop getobj leftover topline (seed0398 @28)
 - **Status:** fixed
 - **Symptom:** seed0398 Scr **77**/87 — first miss @28: C still shows
