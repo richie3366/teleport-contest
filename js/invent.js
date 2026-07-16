@@ -805,10 +805,13 @@ export async function display_inventory() {
     await flush_screen(1);
 }
 
-/** C ref: invent.c ddoinv() */
+/**
+ * C ref: invent.c ddoinv → dispinv_with_action(NULL, FALSE, NULL).
+ * PICK_ONE invent letter → itemactions (D-0467).
+ */
 export async function ddoinv() {
-    await display_inventory();
-    return 0;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(null, false, null);
 }
 
 /**

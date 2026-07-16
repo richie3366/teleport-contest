@@ -4,20 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0467 — seed0002 screen@530 invent `i` itemactions menu
+## D-0468 — seed0002 screen@538 sleep-ray bounce map glyph
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @538 — C map `q` vs JS `@`
+  at (33,8) while topline `The sleep ray bounces!  The sleep ray
+  hits you!--More--` matches; RNG full; Scr 568/595 (post D-0467).
+- **Cause:** TBD — buzz/mon display during bounce More frames.
+- **C locus:** `zap.c` `dobuzz`/`ubuzz` / display during ray.
+- **Falsifier / next:** map cell under bounce More must match C;
+  invent itemed path already closed (D-0467).
+
+## D-0467 — seed0002 screen@530 invent `i` itemactions menu
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @530 — C fullscreen
   `Do what with the spellbook of stone to flesh?` (Name/Drop/
   Adjust/Study…) vs JS still on invent `Coins` listing; RNG full;
   Scr 566/595 (post D-0466).
-- **Cause:** TBD — JS `ddoinv` only `display_inventory` dismiss;
+- **Cause:** JS `ddoinv` only `display_inventory` dismiss;
   C `dispinv_with_action` → `itemactions` (`iactions.c`) on letter.
+  Also: itemed corner menu needs blank WIN_STATUS until bot()
+  after close (`clear_committed_status` in `itemactions` only — not
+  all `display_pickinv_reply` picks; that blanked seed0004 botl).
 - **C locus:** `invent.c` `ddoinv`/`dispinv_with_action`;
   `iactions.c` `itemactions`.
-- **Falsifier / next:** selecting invent letter must open itemed
-  menu (`Do what with %s?`); Study/`itemactions_pushkeys` deferred
-  until menu shows.
+- **Change:** `js/iactions.js` `itemactions` + `dispinv_with_action`;
+  `ddoinv` → PICK_ONE invent then `itemactions`; `pager.js`
+  `ia_checkfile`; status suppress scoped to itemed.
+- **Verification:** @530–@531 match; first miss **@530→@538**;
+  Scr **566→568**; RNG full; green+strict; cohort **26/26**
+  (seed0004 held after scoping status suppress).
+- **Deferred:** `itemactions_pushkeys` / cmdq action dispatch; full
+  apply-otyp catalogue; eat `is_edible`; altar/shop pay polish.
+- **Next:** sleep-ray bounce map (D-0468).
 
 ## D-0466 — seed0002 screen@525 apply getobj compactify
 

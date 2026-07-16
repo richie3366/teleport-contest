@@ -17,21 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#500 score
-cadence, post D-0462). Screens **4868**/11405; RNG **285358**/792838.
-**26/44** PASS. Speed `23+0.13/turn`. Δ vs #495: Scr **+232**, RNG 0
-(D-0462 `money2mon` `_goldCount`; seed0002 Scr 363→559).
-Focused peel since: D-0466 @525→@530 Scr **563→566** (suite total
-unchanged until next cadence).
+Score last measured: **2026-07-16** — full `sessions` suite (#505 score
+cadence, post D-0467). Screens **4877**/11405; RNG **285359**/792838.
+**26/44** PASS. Speed `23+0.13/turn`. Δ vs #500: Scr **+9**, RNG **+1**
+(D-0467 invent itemed; seed0002 Scr 566→568).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4868 / 11,405** (42.68%) |
-| Positional RNG calls matched | **285,358 / 792,838** (35.99%) |
-| Speed label | `23+0.13/turn` (R² 0.78) |
+| Screens matched | **4877 / 11,405** (42.76%) |
+| Positional RNG calls matched | **285,359 / 792,838** (35.99%) |
+| Speed label | `23+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -44,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **566**/595 | RNG full; first cell-miss @530 invent itemed (D-0467) |
+| seed0002 | **27158**/27158 | **568**/595 | RNG full; first cell-miss @538 zap map (D-0468) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -64,10 +62,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@530 — invent `i` → itemed menu** (D-0467).
-RNG **full** 27158/27158; Scr **566**/595; first cell-miss: C
-`Do what with the spellbook of stone to flesh?` vs JS invent
-`Coins` (D-0466 apply compactify locked @525).
+**seed0002 screen@538 — sleep-ray bounce map** (D-0468).
+RNG **full** 27158/27158; Scr **568**/595; first cell-miss: C `q` vs JS
+`@` at map (33,8) during `The sleep ray bounces!` (post D-0467 itemed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,7 +72,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0466.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0467.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
