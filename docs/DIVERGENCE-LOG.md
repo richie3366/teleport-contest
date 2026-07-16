@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0546 — m_initinv S_MUMMY wrapping
+
+- **Status:** fixed (partial — S_DEMON / S_GIANT / S_WRAITH / S_LICH)
+- **Symptom:** seed0373 @25869 C `m_initinv` `rn2(7)` vs JS trailing
+  `rn2(50)`.
+- **Cause:** JS `m_initinv` lacked `case S_MUMMY`, so mummy invent fell
+  through to defensive/misc rolls where C burns `rn2(7)` then optional
+  `mongets(MUMMY_WRAPPING)`.
+- **C locus:** `makemon.c` `m_initinv` S_MUMMY (~772).
+- **Change:** `js/makemon.js` `case 'S_MUMMY': if (rn2(7)) mongets(…MUMMY_WRAPPING)`.
+- **Verification:** seed0373 rng-diff **25869→29189**; runner RNG
+  **29214**/35386 Scr 22/124; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** `m_initinv` S_DEMON / S_GIANT / S_WRAITH / S_LICH;
+  priest/monk arms; box open/disclose.
+- **Next:** @29189 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0545 — makemon MON_AT sees worm body segs
 
 - **Status:** fixed (partial — full `level.monsters[][]` for non-worm mons)

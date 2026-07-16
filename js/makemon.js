@@ -1262,8 +1262,8 @@ function rnd_misc_item(mtmp) {
     }
 }
 
-// C ref: makemon.c m_initinv — S_GNOME candle, S_QUANTMECH box, PM_SHOPKEEPER,
-//   trailing misc
+// C ref: makemon.c m_initinv — S_GNOME candle, S_MUMMY wrap, S_QUANTMECH box,
+//   PM_SHOPKEEPER, trailing misc
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -1291,6 +1291,10 @@ function m_initinv(mtmp) {
     case 'S_LEPRECHAUN':
         // C ref: makemon.c m_initinv S_LEPRECHAUN — mkmonmoney(d(level_difficulty(),30))
         mkmonmoney(mtmp, d(level_difficulty(), 30));
+        break;
+    case 'S_MUMMY':
+        // C ref: makemon.c m_initinv S_MUMMY — rn2(7) → MUMMY_WRAPPING
+        if (rn2(7)) mongets(mtmp, otyp('MUMMY_WRAPPING'));
         break;
     case 'S_QUANTMECH':
         // C ref: makemon.c m_initinv S_QUANTMECH — rare SchroedingersBox
@@ -1405,7 +1409,7 @@ function m_initinv(mtmp) {
         // elf / priest / guardian arms deferred
         break;
     default:
-        // Other m_initinv bodies (mummy, demon, giant, …) deferred
+        // Other m_initinv bodies (S_DEMON, S_GIANT, S_WRAITH, S_LICH, …) deferred
         break;
     }
 
