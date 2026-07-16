@@ -533,6 +533,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0545 | fixed | makemon MON_AT sees worm body segs | seed0373 25654→25869 RNG 25885; next m_initinv S_MUMMY @25869 |
 | D-0546 | fixed | m_initinv S_MUMMY rn2(7)+MUMMY_WRAPPING | seed0373 25869→29189 RNG 29214; next nhlib shuffle @29189 |
 | D-0547 | fixed | soko2-1 load_special + DRY boulder reject | seed0373 29189→29533 RNG 29554; next nhlib shuffle @29533 |
+| D-0548 | fixed | soko3-1 / soko3-2 / soko4-2 load_special | seed0373 29533→30061 RNG 30129; next next_ident @30061 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

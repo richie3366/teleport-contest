@@ -19,6 +19,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:56 — #608 D-0548 soko3-1 / soko3-2 / soko4-2
+- Objective: peel seed0373 @29533 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched makemaz `rnd(2)=1`.
+- C locus: `dat/soko3-1.lua`, `dat/soko3-2.lua`, `dat/soko4-2.lua`;
+  `sp_lev.c` `load_special`.
+- Change: `js/mklev.js` loaders + dispatch; soko4-2 hardfloor / PIT /
+  SCR_EARTH / branch `place_lregion`. (DIAG showed next miss was
+  `soko4-2`, not `soko3-2`, after soko3-1.)
+- Verification: rng-diff **29533→30061**; runner RNG **30129**/35386
+  Scr 22; green+strict PASS; cohort **28**/28 PASS.
+- Next: `next_ident` @30061; or dosounds @8468.
+
 ## 2026-07-16 19:52 — #607 D-0547 soko2-1 + DRY boulder
 - Objective: peel seed0373 @29189 C nhlib `shuffle` `rn2(3)` vs JS
   `rn2(79)` after matched makemaz `rnd(2)=1`.
@@ -148,13 +160,3 @@ Use this shape:
 - Verification: rng-diff **9875→11957**; RNG **12021**/35386;
   green+strict PASS; cohort **28**/28 PASS.
 - Next: @11957 `mksobj_init` `rn2(5)` vs `rn2(4)`; or seed5006.
-## 2026-07-16 16:46 — D-0533 attach_egg_hatch_timeout
-- Objective: seed0373 @9839 egg hatch `rnd(151)` vs JS `rn2(79)`.
-- C locus: `timeout.c` `attach_egg_hatch_timeout`/`stop_timer`;
-  `mkobj.c` `set_corpsenm` EGG + `mksobj` case EGG.
-- Change: port hatch roll + `stop_timer`; wire EGG through
-  `set_corpsenm`/`mksobj`. `hatch_egg` callback still deferred.
-- Verification: rng-diff **9839→9875**; RNG **10034**/35386;
-  green+strict PASS; cohort **30**/30 PASS.
-- Next: @9875 `next_ident` `rnd(2)` vs `rnd(4)`; or seed5006
-  dosounds @8468.

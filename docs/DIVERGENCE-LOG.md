@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0548 — soko3-1 / soko3-2 / soko4-2 load_special
+
+- **Status:** fixed (partial — soko2-2 / soko4-1; solidify/premap)
+- **Symptom:** seed0373 @29533 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `makemaz` `rnd(2)=1` / getbones.
+- **Cause:** `load_special_proto` omitted `soko3-1` (then after that
+  peel, `soko4-2` when `makemaz` `rnd(2)=2`). JS fell through to
+  ordinary `rn2(79)`.
+- **C locus:** `dat/soko3-1.lua`, `dat/soko3-2.lua`, `dat/soko4-2.lua`;
+  `sp_lev.c` `load_special`; `mkmaze.c` `makemaz` protofile.
+- **Change:** `js/mklev.js` `load_soko3_1` / `load_soko3_2` /
+  `load_soko4_2` + dispatch (soko4-2: hardfloor, PIT + SCR_EARTH,
+  branch `place_lregion`).
+- **Verification:** seed0373 rng-diff **29533→30061**; runner RNG
+  **30129**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30). seed0116 RNG still full Scr 110/127.
+- **Named omission:** soko2-2 / soko4-1; solidify_map /
+  premap_detect / exclusion_zones; levregion-after-flip coord fidelity.
+- **Next:** @30061 C `next_ident` `rnd(2)` vs JS `rn2(3)` after
+  matched `collect_coords`; or seed5006 `dosounds` @8468.
+
 ## D-0547 — soko2-1 load_special + DRY boulder reject
 
 - **Status:** fixed (partial — soko2-2 / soko3-* / soko4-*; solidify/premap)
