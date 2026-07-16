@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0569 — Fire plane lit clear + monster do_light_sources
+
+- **Status:** fixed (partial — Wizard appear capitalization @101; create_gas_cloud
+  region body; LS_OBJECT lights; circle_ptr range>1)
+- **Symptom:** seed0373 Scr **101**/124; @100 JS lit `·` across Fire plane vs C
+  dark + DEC room `~` / lava `` ` ``; after lit-only fix, blank vs TEMP_LIT floors.
+- **Cause:** (1) `load_fire` solidfill `BOOL_RANDOM`→`rn2(2)=1` left `.lit` on map
+  cells; JS `sel_set_ter(..., false)` was nochange (legacy), while C string
+  `lspo_map` uses `lit=FALSE`→`set_levltyp_lit` clears non-lava. (2) Fire
+  elementals/vortices `emits_light`→`new_light_source` + `do_light_sources`
+  TEMP_LIT omitted — dark ROOM in LOS stayed invisible.
+- **C locus:** `sp_lev.c` `lspo_map`/`set_levltyp_lit`; `makemon.c` emits_light;
+  `light.c` `do_light_sources`; `vision.c` lit|TEMP_LIT IN_SIGHT.
+- **Change:** `load_fire` SpLev_Map lit epilogue (lava lit, else clear);
+  `js/light.js` monster lights + `vision_recalc` TEMP_LIT; `makemon`/`goto_level`
+  hooks. Global `sel_set_ter(false)`→force-unlit rejected (broke seed0009
+  themerms).
+- **Verification:** seed0373 Scr **101→110**/124 RNG full; @100 match; green+
+  strict PASS; cohort **28**/28 PASS (incl. seed0009/0398).
+- **Named omission:** @101 `wizard of yendor` vs `Wizard of Yendor`; gas-cloud
+  region glyphs; object lights.
+- **Next:** seed0373 @101 Wizard Monnam; or seed5006 `dosounds` @8468.
+
 ## D-0568 — doname the_unique_obj + print_dungeon bot after menu
 
 - **Status:** fixed (partial — Fire-plane vision @100; CORPSE doname article

@@ -551,6 +551,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0563 | fixed | print_dungeon tty_end_menu prompt blank row | seed0373 Scr 47→65; seed0116 110→113; next describe_level Home @43 |
 | D-0564 | fixed | describe_level Home/Knox/endgame botl | seed0373 Scr 65→78; next Bar-strt ~ glyphs / dosounds @8468 |
 | D-0565 | fixed | TREE terrain_glyph + S_EEL in_mklev hideunder | seed0373 Scr 78→85; next @73 Dlvl:12 walls / dosounds @8468 |
+| D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |
 | D-0566 | fixed | bigrm light_region + IRONBARS + makemon hide/minvis + HI_LORD | seed0373 Scr 85→88; next @78 Dlvl:6 walls |

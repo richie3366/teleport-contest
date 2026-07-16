@@ -18,6 +18,7 @@ import { COIN_CLASS } from './objects.js';
 import { pline, Norep, docrt, flush_screen, flush_topl_more, newsym, mark_topline_prompt } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, vision_reset } from './vision.js';
+import { clear_light_sources, relight_monsters } from './light.js';
 import {
     stairway_at,
     stairway_find_from,
@@ -355,6 +356,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     game.ftrap = null;
     game.head_engr = null;
     game.level = null;
+    clear_light_sources();
     // C: memset updest/dndest before getlev/mklev; fixup_special re-fills.
     game.updest = { lx: 0, ly: 0, hx: 0, hy: 0, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
     game.dndest = { lx: 0, ly: 0, hx: 0, hy: 0, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
@@ -377,6 +379,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.stairs = info.stairs || null;
         game.head_engr = info.head_engr || null;
         rebuildObjectsAt(game.fobj);
+        relight_monsters();
         rest_track(info.track);
         // C: Sokoban ≡ level.flags.sokoban_rules — sync JS alias after getlev
         // (clear_level_structures only runs on mklev, not stash restore).

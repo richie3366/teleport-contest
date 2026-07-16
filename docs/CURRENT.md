@@ -71,9 +71,9 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0568 (`doname` `the_unique_obj` + `print_dungeon`
-`bot()` restore), seed0373 Scr **101**/124 (was 100; RNG full). Next @100
-Fire-plane vision (`·` lit vs C dark/cloud `` ` `` / `~`), or seed5006
+**Gameplay next:** after D-0569 (Fire lit clear + monster `do_light_sources`),
+seed0373 Scr **110**/124 (was 101; RNG full). Next @101 Wizard appear
+capitalization (`wizard of yendor` vs `Wizard of Yendor`), or seed5006
 `dosounds` @8468.
 Prefer over parked seed2200 RC / seed0116 residual (113/127).
 
@@ -83,7 +83,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0568.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0569.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

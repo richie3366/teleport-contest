@@ -8,9 +8,11 @@ import {
     D_CLOSED, D_LOCKED, D_TRAPPED,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7, SVALL,
     IS_WALL, IS_WATERWALL, ROOMOFFSET, Is_rogue_level,
+    TEMP_LIT,
 } from './const.js';
 import { newsym } from './display.js';
 import { objectNames } from './objects.js';
+import { do_light_sources } from './light.js';
 
 const COULD_SEE = 0x1;
 const IN_SIGHT = 0x2;
@@ -556,6 +558,9 @@ export function vision_recalc(control = 0) {
         }
     }
 
+    // C: do_light_sources(next_array) before IN_SIGHT from lit|TEMP_LIT
+    do_light_sources(next);
+
     // Compute IN_SIGHT from COULD_SEE + lighting (non-rogue primary path;
     // rogue_vision already ORs IN_SIGHT for room/adjacent — loop is idempotent)
     const level = game.level;
@@ -574,14 +579,15 @@ export function vision_recalc(control = 0) {
                 continue;
             }
 
-            // Lit cells
-            if (loc.lit) {
+            // Lit cells (permanent or TEMP_LIT from light sources)
+            if (loc.lit || (next[row][col] & TEMP_LIT)) {
                 if ((loc.typ === DOOR || loc.typ === SDOOR || IS_WALL(loc.typ))
                     && !viz_clear[row]?.[col]) {
                     // Walls/doors: only IN_SIGHT if adjacent cell toward hero is lit
                     const dx = Math.sign(ux - col);
                     const flev = level?.at(col + dx, row + dy);
-                    if (flev?.lit) {
+                    const ftmp = next[row + dy]?.[col + dx];
+                    if (flev?.lit || (ftmp & TEMP_LIT)) {
                         next[row][col] |= IN_SIGHT;
                     }
                 } else {
@@ -623,12 +629,12 @@ export function vision_recalc(control = 0) {
                     if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv) {
                         newsym(col, row);
                     }
-                } else if ((nv & COULD_SEE) && loc.lit) {
+                } else if ((nv & COULD_SEE) && (loc.lit || (nv & TEMP_LIT))) {
                     if ((IS_WALL(loc.typ) || loc.typ === DOOR || loc.typ === SDOOR)
                         && !viz_clear[row][col]) {
                         const dx = Math.sign(ux - col);
                         const adjLoc = game.level.at(col + dx, row + dy);
-                        if (adjLoc?.lit) {
+                        if (adjLoc?.lit || (next[row + dy]?.[col + dx] & TEMP_LIT)) {
                             next_row[col] |= IN_SIGHT;
                             const oldseenv = loc.seenv || 0;
                             const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];

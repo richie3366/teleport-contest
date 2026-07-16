@@ -38,6 +38,7 @@ import {
     WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     BOOL_RANDOM,
+    SET_LIT_RANDOM, SET_LIT_NOCHANGE,
     LVLINIT_SOLIDFILL, LVLINIT_MINES,
     In_mines,
     In_quest,
@@ -2169,7 +2170,8 @@ function load_soko4_2() {
 /**
  * C ref: dat/fire.lua via load_special — Plane of Fire.
  * Named omissions: create_gas_cloud region body (fumaroles burns coords);
- * solidify/premap; water/earth/astral planes.
+ * solidify/premap; water/earth/astral planes. Map load uses SpLev_Map lit
+ * epilogue (D-0569) so solidfill BOOL_RANDOM lit does not stick on ROOM.
  */
 function load_fire() {
     const g = game;
@@ -2318,6 +2320,21 @@ L.....LLL......................LLLLL.........L.........LLLLLLLL..............LL
         }
     }
     fixup_special();
+    // C lspo_map string form lit=FALSE → set_levltyp_lit clears solidfill
+    // BOOL_RANDOM lit on non-lava map cells (D-0569). Lava always lit.
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
+    }
 }
 
 /**
@@ -3560,7 +3577,7 @@ function nhlib_shuffle_align() {
     game.splev_align = align;
 }
 
-/** C ref: sp_lev.c lvlfill_solid */
+/** C ref: sp_lev.c lvlfill_solid → set_levltyp_lit */
 function lvlfill_solid(filling, lit) {
     const map = game.level;
     for (let x = 2; x <= X_MAZE_MAX; x++) {
@@ -3572,7 +3589,11 @@ function lvlfill_solid(filling, lit) {
             loc.horizontal = false;
             loc.roomno = 0;
             loc.edge = false;
-            if (lit) loc.lit = true;
+            // C set_levltyp_lit: always assign when lit != SET_LIT_NOCHANGE
+            let l = lit;
+            if (IS_LAVA(filling)) l = 1;
+            else if (l === SET_LIT_RANDOM) l = rn2(2);
+            loc.lit = !!l;
         }
     }
 }
@@ -4963,7 +4984,13 @@ function light_region(x1, y1, x2, y2, lit) {
     }
 }
 
-// C ref: sp_lev.c sel_set_ter / set_levltyp_lit subset for map load
+/**
+ * C ref: sp_lev.c sel_set_ter + mkmaze.c set_levltyp_lit subset.
+ * tlit truthy → lit; SET_LIT_NOCHANGE → leave; falsey (legacy map
+ * callers) → leave (themerms / sokoban light afterward). Fire plane
+ * forces unlit after map via load_fire epilogue (D-0569) — C string
+ * maps use lit=FALSE which would clear solidfill BOOL_RANDOM lit=1.
+ */
 function sel_set_ter(x, y, ter, tlit) {
     const loc = game.level.at(x, y);
     if (!loc || !isok(x, y)) return;
@@ -4972,7 +4999,12 @@ function sel_set_ter(x, y, ter, tlit) {
     loc.horizontal = false;
     loc.roomno = NO_ROOM;
     loc.edge = false;
-    if (tlit) loc.lit = true;
+    if (tlit === SET_LIT_NOCHANGE) {
+        /* keep loc.lit */
+    } else if (tlit) {
+        loc.lit = true;
+    }
+    // else: legacy false → nochange (not C lit=FALSE; see load_fire)
     if (ter === SDOOR || IS_DOOR(ter)) {
         if (ter === SDOOR) loc.doormask = D_CLOSED;
         const left = game.level.at(x - 1, y);
@@ -5708,8 +5740,8 @@ function lspo_replace_terrain_region(rx1, ry1, rx2, ry2, fromtyp, totyp, chance)
             const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
                 || loc.typ === fromtyp;
             if (match && rn2(100) < ch) {
-                // C set_levltyp_lit(..., SET_LIT_NOCHANGE) — typ only
-                sel_set_ter(x, y, totyp, false);
+                // C replace_terrain default lit=SET_LIT_NOCHANGE
+                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
             }
         }
     }
