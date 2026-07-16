@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0540 — m_initweap soldier/watchman polearm rn1
+
+- **Status:** fixed (partial — S_HUMAN elf / MS_PRIEST / ninja kits)
+- **Symptom:** seed0373 @16261 C `m_initweap` `rn2(12)` vs JS `rn2(2)`
+  after matched soldier/watchman `!rn2(3)` polearm gate.
+- **Cause:** JS hardcoded `PARTISAN` and skipped C
+  `rn1(BEC_DE_CORBIN - PARTISAN + 1, PARTISAN)` +
+  `objects[w1].oc_skill == P_POLEARMS` retry loop.
+- **C locus:** `makemon.c` `m_initweap` `PM_SOLDIER` / `PM_WATCHMAN`.
+- **Change:** `js/makemon.js` port the `rn1` + skill-filter loop;
+  import `P_POLEARMS`.
+- **Verification:** seed0373 rng-diff **16261→19071**; runner RNG
+  **19086**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30); full suite **30**/44 Scr 5900 RNG 337400.
+- **Named omission:** S_HUMAN `is_elf` / MS_PRIEST / ninja kits;
+  ANGEL/KOP/LIZARD specials.
+- **Next:** @19071 C `m_initweap` `is_elf` `rn2(2)` vs JS default
+  `rn2(75)`; or seed5006 `dosounds` @8468.
+
 ## D-0539 — bigrm-8 load_special
 
 - **Status:** fixed (partial — other bigrm-N; ensure_way_out/solidify/premap)

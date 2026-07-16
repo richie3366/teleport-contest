@@ -18,6 +18,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-16 19:20 — #600 score + D-0540 soldier polearm rn1
+- Objective: mandatory 5-iter score refresh; peel seed0373 @16261
+  C `m_initweap` `rn2(12)` vs JS `rn2(2)`.
+- C locus: `makemon.c` `m_initweap` PM_SOLDIER/PM_WATCHMAN.
+- Change: full `sessions` → CURRENT Score; port soldier/watchman
+  `rn1(PARTISAN..BEC_DE_CORBIN)` + `P_POLEARMS` filter.
+- Verification: **30/44** Scr **5900**/11405 RNG **337400**/792838
+  (42.56%) `31+0.15/turn` (R² 0.74); rng-diff **16261→19071**;
+  runner RNG **19086**; green+strict; cohort 28/28.
+- Next: m_initweap is_elf @19071; or dosounds @8468.
+
 ## 2026-07-16 19:15 — D-0539 bigrm-8 load_special
 - Objective: peel seed0373 @15574 C nhlib shuffle vs JS get_location
   after matched makemaz rnd(13)=8 / getbones.
@@ -156,13 +167,3 @@ Use this shape:
 - Verification: rng-diff **4157→4159**; runner RNG **4209**/35386
   Scr 21/124; green+strict; cohort **30**/30; seed0116 RNG full.
 - Next: Bar-loca load_special @4159; or seed5006 dosounds @8468.
-
-## 2026-07-16 18:05 — #585 formal public score
-- Objective: mandatory 5-iter score refresh (global #585).
-- C locus: n/a (score+docs only).
-- Change: full `sessions` run; rewrite CURRENT Score.
-- Verification: green+strict PASS; **30/44** PASS; Scr
-  **5898**/11405; RNG **322564**/792838 (40.68%); speed
-  `29+0.15/turn` (R² 0.76). Δ vs #580: Scr 0, RNG +892.
-- Next: seed0373 nhlib shuffle @4157; or dosounds @8468;
-  or 0116 screen residual.

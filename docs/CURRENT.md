@@ -21,11 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#595**),
-post D-0535. Screens **5900**/11405; RNG **330332**/792838 (41.66%).
-**30/44** PASS. Speed `31+0.15/turn` (R² 0.76). Δ vs #590: Scr +1,
-RNG +6480 (D-0531…D-0535 peels), PASS unchanged.
-*(D-0539 peel advances seed0373 RNG 15601→16275; formal suite refresh at #600.)*
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#600**),
+post D-0540. Screens **5900**/11405; RNG **337400**/792838 (42.56%).
+**30/44** PASS. Speed `31+0.15/turn` (R² 0.74). Δ vs #595: Scr 0,
+RNG +7068 (D-0539…D-0540 peels), PASS unchanged.
 
 ## Score
 
@@ -33,8 +32,8 @@ RNG +6480 (D-0531…D-0535 peels), PASS unchanged.
 |--------|------:|
 | Sessions passing | **30 / 44** |
 | Screens matched | **5,900 / 11,405** |
-| Positional RNG calls matched | **330,332 / 792,838** (41.66%) |
-| Speed label | `31+0.15/turn` (R² 0.76) |
+| Positional RNG calls matched | **337,400 / 792,838** (42.56%) |
+| Speed label | `31+0.15/turn` (R² 0.74) |
 | Role-init throws | **0 / 44** |
 
 **PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 16275/35386 | 22/124 | D-0539; next `m_initweap` @16261 |
+| seed0373 | 19086/35386 | 22/124 | D-0540; next `m_initweap` is_elf @19071 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -72,8 +71,8 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0539 (`bigrm-8` load_special), seed0373
-@16261 C `m_initweap` soldier polearm `rn2(12)` vs JS `rn2(2)`. Or peel
+**Gameplay next:** after D-0540 (soldier/watchman polearm `rn1`), seed0373
+@19071 C `m_initweap` `is_elf` `rn2(2)` vs JS default `rn2(75)`. Or peel
 seed5006 `dosounds` @8468. Prefer over parked seed2200 RC / seed0116
 screen residual.
 
@@ -83,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0539.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0540.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

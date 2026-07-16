@@ -525,6 +525,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0537 | fixed | mineralize In_quest goldprob/=4 gemprob/=6 | seed0373 12327→14748 RNG 14774; next rndmonst_adj @14748 |
 | D-0538 | fixed | maketrap STATUE_TRAP → mk_trap_statue | seed0373 14748→15574 RNG 15601; next nhlib shuffle @15574 |
 | D-0539 | fixed | makemaz bigrm-8 load_special | seed0373 15574→16261 RNG 16275; next m_initweap @16261 |
+| D-0540 | fixed | m_initweap soldier/watchman polearm rn1+P_POLEARMS | seed0373 16261→19071 RNG 19086; next is_elf @19071 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

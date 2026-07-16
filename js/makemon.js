@@ -63,7 +63,7 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
-    In_quest, W_ARMH,
+    In_quest, W_ARMH, P_POLEARMS,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import { mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable } from './mkobj.js';
@@ -939,8 +939,14 @@ function m_initweap(mtmp) {
             case pm('WATCHMAN'):
             case pm('SOLDIER'):
                 if (!rn2(3)) {
-                    // polearm pick — P_POLEARMS skill filter deferred → PARTISAN
-                    w1 = otyp('PARTISAN');
+                    // C: makemon.c m_initweap — rn1(BEC_DE_CORBIN-PARTISAN+1,
+                    // PARTISAN) until objects[w1].oc_skill == P_POLEARMS
+                    // (lance/mattock historically mid-range; excluded by skill)
+                    const partisan = otyp('PARTISAN');
+                    const bec = otyp('BEC_DE_CORBIN');
+                    do {
+                        w1 = rn1(bec - partisan + 1, partisan);
+                    } while ((game.objects[w1]?.oc_skill ?? 0) !== P_POLEARMS);
                     w2 = rn2(2) ? otyp('DAGGER') : otyp('KNIFE');
                 } else {
                     w1 = rn2(2) ? otyp('SPEAR') : otyp('SHORT_SWORD');
