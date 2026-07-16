@@ -12,6 +12,16 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-16 07:29 — #509 D-0471 chargen rename + role filter
+- Objective: seed0006 early RNG — missing 2nd pick_align rn2(1).
+- C locus: `role.c` genl_player_setup case 3 rename; `reset_role_filtering`
+  / `setrolefilter`; `plsel_startmenu` → `rigid_role_checks`/`pick_align`.
+- Change: `player_selection.js` — confirm `'a'` → `tty_askname` + restore
+  facets; PICK_ANY filter menu; wire `~` Set/Reset in pick_* menus.
+- Verification: rng-diff prefix **1→6574**; seed0006 RNG **2276→6578**
+  Scr **13→68**; green+strict; cohort **25/25**.
+- Next: D-0472 seed0006 @6574 `collect_coords` (teleport.c:700).
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -155,32 +165,4 @@ Use this shape:
 - Verification: seed0002 @272 matches; first miss @272→@342; Scr
   353→354; RNG full; green+strict; cohort 24/24.
 - Next: D-0460 screen@342 look_here `doname_with_price` for-sale.
-
-## 2026-07-16 06:10 — #496 D-0458 botl Conf conditions
-- Objective: seed0002 screen@237 C botl `Burdened Conf` vs JS `Burdened`.
-- C locus: `botl.c` `do_statusline2` Blind…Conf…Fly after enc_stat.
-- Change: `js/display.js` `_statusLine2` — Blind/Deaf/Stun/Conf/Hallu/
-  Lev/Fly before Ride (youprop-shaped); Stone/hunger still deferred.
-- Verification: seed0002 @237 matches; first miss @237→@272; Scr
-  327→353; RNG full; green+strict; cohort 24/24.
-- Next: D-0459 screen@272 safemon `You stop. … is in the way!`.
-
-## 2026-07-16 06:06 — #495 score + D-0457 wield SUGGEST prompt
-- Objective: mandatory full `sessions` (#495 %5); D-0457 primary.
-- C locus: `invent.c` `getobj`/`compactify`; `wield.c` `wield_ok`.
-- Change: `js/wield.js` — SUGGEST-only prompt letters, `- ` hands
-  prefix, compactify when suggested>5; DOWNPLAY still selectable.
-- Verification: full suite **26/44** Scr **4636**/11405 RNG
-  **285358**/792838; seed0002 @229→@237 Scr 326→327; green+strict;
-  cohort **26/26**.
-- Next: D-0458 screen@237 botl `Conf`.
-
-## 2026-07-16 06:02 — D-0456 pickup_prinv slightload lifting
-- Objective: seed0002 screen@221 C `You have a little trouble lifting x - a chain mail.--More--` vs JS bare `x - a chain mail.--More--`.
-- C locus: `pickup.c` `pickup_prinv` / `slightloadpfx` + `gp.pickup_encumbrance`.
-- Change: `js/pickup.js` — load pfx + verb `lifting`/`removing`; reset `pickup_encumbrance` in `pickup` / `menu_loot_*`.
-- Verification: seed0002 first miss @221→@229; Scr 325→326; RNG full; green+strict; cohort 24/24.
-- Next: D-0457 screen@229 wield getobj compactify.
-
-
 

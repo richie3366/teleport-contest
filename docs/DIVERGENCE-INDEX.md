@@ -457,7 +457,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0468 | fixed | dobuzz DISP_BEAM zapdir_to_glyph | seed0002 @538→@587; Scr 568→593 |
 | D-0469 | fixed | distant_name observe + disco {buy} quotes | seed0002 @587→@590; Scr 593→594 |
 | D-0470 | fixed | ^X Status deaf + encumbrance | seed0002 PASS Scr 595/595 |
-| D-0471 | open | seed0006 water demon early RNG | RNG 2276/6736 Scr 13/123 |
+| D-0471 | fixed | chargen rename + reset_role_filtering | seed0006 RNG 2276→6578 Scr 13→68 |
+| D-0472 | open | seed0006 collect_coords teleport | rng-diff @6574 teleport.c:700 |
 
 
 

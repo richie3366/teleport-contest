@@ -4,40 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0470 — seed0002 screen@590 ^X deaf + encumbrance
-
-- **Status:** fixed
-- **Symptom:** seed0002 first cell-miss @590 — C Status
-  `You are deaf` + `burdened; movement is slightly slowed` vs
-  JS missing deaf / `unencumbered`; RNG full; Scr 594/595
-  (post D-0469).
-- **Cause:** JS `doattributes` / final Status hardcoded
-  `unencumbered` and omitted `Deaf`; never called
-  `near_capacity()` / `hu_stat` for enlightenment Status.
-- **C locus:** `insight.c` `status_enlightenment` — `if (Deaf)
-  you_are("deaf", …)` then hunger/`hu_stat` then
-  `near_capacity()` / `enc_stat` movement phrase.
-- **Change:** `status_core_lines` — Deaf + real hunger +
-  encumbrance arms for ^X overlay and final enlightenment.
-- **Verification:** seed0002 **PASS** Scr **594→595** RNG full;
-  green+strict; cohort **24/24**.
-- **Deferred:** other status troubles (Blind/Stun/Conf/…);
-  `from_what` wizard suffixes; wizard `<%d>` weight/hunger;
-  poly/ride/trap Status arms.
-- **Next:** seed0006 water demon / seed0007 snake swamp.
-
-## D-0471 — seed0006 wizard water demon early RNG
+## D-0472 — seed0006 collect_coords (teleport) late RNG
 
 - **Status:** open
-- **Symptom:** seed0006 RNG **2276**/6736; Scr **13**/123
-  (cursors 15/123). Early break vs late seed0002 peels.
-- **Cause:** TBD — reconstruct via `rng-diff` first mismatch → C path.
+- **Symptom:** seed0006 rng-diff first mismatch @6574 —
+  C `rn2(8)=7 @ collect_coords(teleport.c:700)` vs JS `rn2(3)=1`.
+  RNG **6578**/6736; Scr **68**/123 (post D-0471).
+- **Cause:** TBD — reconstruct `collect_coords` / teleport callers.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
 
-## D-0469 — seed0002 screen@587 discoveries spear + {buy}
+## D-0471 — seed0006 chargen rename + role filter (early RNG)
+
+- **Status:** fixed
+- **Symptom:** seed0006 RNG broke at index 1 — C two `rn2(1)`
+  `@ pick_align` then gem colors; JS one `rn2(1)` then gem colors.
+  Runner RNG **2276**/6736; Scr **13**/123.
+- **Cause:** JS stubbed confirm `'a'` rename (re-confirm) so Enter
+  after ignored name keys started game as orc Wizard; skipped
+  second chargen (filter + gnome) and its `plsel_startmenu` →
+  `rigid_role_checks` → `pick_align(PICK_RIGID)` `rn2(1)`.
+  Filter `~` also omitted (no `reset_role_filtering`).
+- **C locus:** `role.c` `genl_player_setup` case 3 rename /
+  `plnamesuffix`→`askname`; `reset_role_filtering` /
+  `setrolefilter` / `clearrolefilter`; `plsel_startmenu`
+  `rigid_role_checks` → `pick_align`.
+- **Change:** `player_selection.js` — rename clears `plname` +
+  `tty_askname` + restore facets; `reset_role_filtering` PICK_ANY
+  menu; wire `~` in role/race/gend/align menus; filter label
+  Set/Reset via `gotrolefilter`.
+- **Verification:** rng-diff prefix **1→6574**; seed0006 RNG
+  **2276→6578**/6736 Scr **13→68**/123; green+strict; cohort
+  **25/25**.
+- **Deferred:** filter tty page packing vs C `(N of M)` layout;
+  `plnamesuffix` name-suffix facet parse on rename; SELECTSAVED.
+- **Next:** seed0006 @6574 `collect_coords` (teleport.c:700).
+
+## D-0470 — seed0002 screen@590 ^X deaf + encumbrance
 
 - **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @587 — C discoveries

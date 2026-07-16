@@ -21,8 +21,8 @@ Score last measured: **2026-07-16** — full `sessions` suite (#505 score
 cadence, post D-0467). Screens **4877**/11405; RNG **285359**/792838.
 **26/44** PASS. Speed `23+0.13/turn`. Δ vs #500: Scr **+9**, RNG **+1**
 (D-0467 invent itemed; seed0002 Scr 566→568).
-*(#506–#508: seed0002 Scr 568→595 PASS via D-0468…D-0470; suite total
-not remeasured — focused Δ Scr +27 / +1 PASS below.)*
+*(#506–#509: seed0002 PASS via D-0468…D-0470; seed0006 early RNG via
+D-0471 — suite totals stale until next %5.)*
 
 ## Score
 
@@ -44,7 +44,7 @@ seed0012, seed0004, **seed0002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0006 | 2276/6736 | **13**/123 | water demon — next primary |
+| seed0006 | 6578/6736 | **68**/123 | collect_coords @6574 (D-0472) |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -63,9 +63,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0006 wizard water demon** — early RNG break (D-0471 TBD).
-RNG **2276**/6736; Scr **13**/123. Prefer shared early path over
-late seed0007 peels.
+**seed0006 wizard water demon** — late RNG @6574 `collect_coords`
+(D-0472). Prefer shared teleport path over late seed0007 peels.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
@@ -74,7 +73,7 @@ node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
 
 **Alternates:** seed0007 snake swamp; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0470.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0471.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
