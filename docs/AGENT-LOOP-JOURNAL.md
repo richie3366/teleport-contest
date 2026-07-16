@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 01:03 — #653 D-0586 dospellmenu wizard turns
+- Objective: seed0116 Scr 125/127 @117 spells menu centering.
+- C locus: spell.c dospellmenu wizard turns / spellknow(i);
+  flag.h wizard≡flags.debug.
+- Change: spell.js dospellmenu appends heading `turns` (%6s) and
+  per-line spellknow when flags.wizard||flags.debug.
+- Verification: seed0116 Scr **125→126**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 (seed0106 + wizard seeds). Residual @122.
+- Next: seed0116 @122 ^X armor nudity + Teleport_control from_what.
+
 ## 2026-07-17 01:00 — #652 D-0585 does_block is_lightblocker_mappear
 - Objective: seed0116 Scr 116/127 @114 materialize map `` ` `` vs `·`.
 - C locus: vision.c does_block; monst.h is_lightblocker_mappear.

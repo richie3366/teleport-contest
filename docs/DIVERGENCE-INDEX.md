@@ -566,6 +566,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0583 | fixed | getbones yn leave-level gbuf mon→memory | seed5006 Scr 247→249 PASS; vision_off paint dirty |
 | D-0584 | fixed | wear/puton empty getobj `[*]` not `[*?]` | seed0116 Scr 115→116; next @114 map `` ` `` vs `·` |
 | D-0585 | fixed | does_block is_lightblocker_mappear | seed0116 Scr 116→125; next @117 spells / @122 insight |
+| D-0586 | fixed | dospellmenu wizard turns column | seed0116 Scr 125→126; next @122 ^X armor / Teleport_control |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

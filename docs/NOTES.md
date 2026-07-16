@@ -9,18 +9,23 @@ Objective/score live in `CURRENT.md`.
 
 - **#650 score:** suite **32/44** Scr **6535**/11405 RNG
   **359063**/792838 (45.29%); seed5006 suite-confirmed PASS.
-- **Next gameplay:** seed0116 Scr **125**/127 — @117 “Currently known
-  spells” title centering; @122 enlightenment block layout.
-  Map `` ` `` vs `·` fixed D-0585 (`is_lightblocker_mappear`).
+- **Next gameplay:** seed0116 Scr **126**/127 — sole miss @122 ^X
+  page 2: C has `You aren't wearing any armor.` + blank before
+  Attributes, and `You have teleport control because of your ivory
+  ring.` before luck. JS skips both → layout shift / short page.
+- **Hypothesis @122:** `doattributes` (^X) path omits C
+  `status_enlightenment` armor nudity after `weapon_insight`
+  (`!uarm && !uarmu && …`); Attributes omit `Teleport_control` +
+  `from_what(TELEPORT_CONTROL)`. Falsify: dump @122 after porting
+  armor line alone — if teleport still missing, second peel.
 - **Leaderboard gap:** local **32/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
-- **Falsifier @117:** dump spells menu screen; compare title col vs C.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0585; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0586; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -51,25 +56,19 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0585 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0586 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
-  familiar/utrack — index.
-- seed5006 @8468 was regen HP / missing Regeneration, not dosounds.
-- seed5006 @8473 was stubbed confused scroll `level_tele`, not rnl alone.
-- seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
-- `rng-diff.mjs` runs **seg0 only** — seed5006 “@11026 gemcolors” was
-  seg1 start; seg0 is FULL.
-- D-0578: C gg via bones `gettrack` to grave, not mfndpos cnt at (32,4).
+- `rng-diff.mjs` runs **seg0 only**.
+- D-0578: C gg via bones `gettrack`, not mfndpos cnt.
 - D-0579: first Scr miss was getobj DOWNPLAY + Blindf_on, not RNG.
 - D-0581: @185 Die?/bones yn; gold 311 needs `hidden_gold`.
 - D-0582: @187 points was identify `more_experienced(0,10)`.
-- D-0583: @198 was leave-level gbuf mon→memory + getbones yn flush,
-  not water terrain; ordinary `vision_recalc(2)` newsym loop regresses.
-- D-0584: seed0116 @14 was empty wear `[*?]` vs C `[*]`, not SUGGEST.
-- D-0585: @114 was mimic-as-boulder missing from `does_block`, not
-  terrain STONE; Bresenham through wall (33,11) left a clear-cell hole.
+- D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
+- D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
+- D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
+- D-0586: @117 was missing wizard `turns` (not title-centering alone).
+- seed5006 @8468/@8473/@10953 — regen / level_tele / WAN_DEATH+debug.
+- D-0519…D-0578 makemaz/endgame/^X/setworn — index.
 
 ## Landmarks (≤15)
 
@@ -90,3 +89,4 @@ Objective/score live in `CURRENT.md`.
   dirty `paint_gbuf_level_to_terminal` (D-0583).
 - Empty wear/puton getobj → `[*]` (D-0584).
 - Mimic-as-boulder → `does_block` / Algorithm C edge COULD_SEE (D-0585).
+- Wizard `dospellmenu` appends `turns` / `spellknow(i)` (D-0586).

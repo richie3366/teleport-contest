@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0586 — dospellmenu wizard turns column (seed0116 Scr)
+
+- **Status:** fixed (partial — seed0116 residual @122 enlightenment)
+- **Symptom:** seed0116 Scr **125**/127; @117 “Currently known spells”
+  menu — C leftward (offx smaller) with trailing `turns` / `19977`;
+  JS missing column → narrower maxcol → larger offx (looked like
+  “title centering”). RNG already FULL.
+- **Cause:** C `spell.c` `dospellmenu` when `wizard` appends
+  `"%c%6s"/turns` to the heading and `"%c%6d"/spellknow(i)` to each
+  spell line (`wizard` ≡ `flags.debug`). JS omitted that branch.
+- **C locus:** `spell.c` `dospellmenu` (wizard turns); `flag.h`
+  `#define wizard flags.debug`.
+- **Change:** `js/spell.js` `dospellmenu` — wizard heading
+  `Fail Retention  turns` (`%6s` pad) + line ` spellknow(i)` `%6d`.
+- **Verification:** seed0116 Scr **125→126**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 PASS (seed0106 priest + seed0006/0398 wizard).
+- **Named omission:** swap/sort; seed0116 @122 ^X armor nudity +
+  Teleport_control `from_what`.
+- **Next:** seed0116 @122 enlightenment; or leaderboard.
+
 ## D-0585 — does_block is_lightblocker_mappear (seed0116 Scr)
 
 - **Status:** fixed (partial — seed0116 residual @117/@122 menu layout)
