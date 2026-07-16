@@ -21,10 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (post D-0482
-seed0006 PASS). Screens **5014**/11405; RNG **289819**/792838 (36.55%).
-**28/44** PASS. Speed `24+0.14/turn`. Δ vs #515: Scr **+28**, PASS
-**27→28** (seed0006).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#535**).
+Screens **5014**/11405; RNG **289809**/792838 (36.55%).
+**28/44** PASS. Speed `24+0.13/turn`. Δ vs #530: Scr **0**, PASS **28→28**,
+RNG −10 (noise).
 
 ## Score
 
@@ -32,8 +32,8 @@ seed0006 PASS). Screens **5014**/11405; RNG **289819**/792838 (36.55%).
 |--------|------:|
 | Sessions passing | **28 / 44** |
 | Screens matched | **5,014 / 11,405** |
-| Positional RNG calls matched | **289,819 / 792,838** (36.55%) |
-| Speed label | `24+0.14/turn` (R² 0.75) |
+| Positional RNG calls matched | **289,809 / 792,838** (36.55%) |
+| Speed label | `24+0.13/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -69,9 +69,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373
-(was 2824); Scr still **20**/302. Next: dog_move `rn2(1)` vs skipped
-pet selection (mfndpos order / whappr).
+**Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373;
+Scr **20**/302. **D-0485** (open): C `rn2(1) @ dog_move` vs JS next
+`distfleeck`. JS pet (38,17)→goal (36,17) appr=1 whappr=1; picks closer
+`(37,17)` via `j<0` only. C needs `j==0` ⇒ likely silent skip/omit of
+`(37,17)` so `(37,16)` then same-dist `(37,18)` hits `rn2(1)`.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 12:15 — #535 public score + D-0485 dog_move diagnosis
+- Objective: mandatory full `sessions` score (#535); seed0007 @2832 peel.
+- C locus: `dogmove.c` `dog_move` ~1255; `mon.c` `mfndpos`.
+- Change: docs only — Score **28/44** Scr **5014** RNG **289809**
+  (36.55%) `24+0.13/turn`. D-0485 open: JS never hits `j==0` because
+  it keeps `(37,17)`; C likely skips that cell → same-dist `rn2(1)`.
+  Falsified pool-terrain skip (ROOM). No js/ patch.
+- Verification: green+strict PASS; full suite 28/44; rng-diff still 2832.
+- Next: prove C skip of `(37,17)` (silent ALLOW_M / mfndpos).
+
 ## 2026-07-16 12:10 — D-0484 dofire empty-quiver letter ownership
 - Objective: seed0007 @2824 JS `rn2(7)` do_attack vs C `mcalcmove`.
 - C locus: `dothrow.c` `dofire`; getobj/`tty_yn_function` more;

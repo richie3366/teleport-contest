@@ -7,11 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007:** D-0484 fixed dofire letter desync (RNG **2824→2832**).
-  Next miss @2832: C `rn2(1) @ dog_move` vs JS next hostile
-  `distfleeck`. Pet has whappr=1, first cands j<0 — never hits j==0
-  `rn2(++chcnt)`. Falsify: mfndpos order puts a same-dist cand before
-  a closer one, or C whappr/geometry differs.
+- **seed0007 / D-0485:** @2832 C `rn2(1) @ dog_move:1255` vs JS
+  `distfleeck`. JS state: pet (38,17), goal (36,17), appr=1, whappr=1,
+  mconf=0, kickedloc cleared, 8 ROOM mfndpos cands. Selection: (37,16)
+  then (37,17) both `j<0` — never `j==0`/`rn2(1)`. C needs `j==0` ⇒
+  omit/silent-skip (37,17) so after (37,16) nidist=2, (37,18) same-dist
+  hits `rn2(1)`. Falsified: pool terrain (typs ROOM); JS mconf; couldsee
+  false. Next: why C skips (37,17) — silent ALLOW_M balk / mfndpos
+  omission / other silent continue; compare mon occupancy.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -33,6 +36,8 @@ Objective/score live in `CURRENT.md`.
 - Water-demon floor-vs-`&` was missing `makemon` `newsym` (D-0481).
 - Charged-ring `oc_uses_known` must zero `known` in `mksobj` (D-0482).
 - Empty-quiver `f` must not More-eat invent letter (D-0484).
+- seed0007 @2832: not “whappr blocks all RNG” alone — JS never reaches
+  `j==0`; poolok omission not the (37,17) skip (typ ROOM).
 
 ## Landmarks (≤15)
 
@@ -42,3 +47,4 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
+- #535 score: **28/44**, Scr 5014, RNG 289809 (36.55%), `24+0.13/turn`.
