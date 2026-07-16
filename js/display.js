@@ -1874,9 +1874,9 @@ const HU_STAT = [
 
 /**
  * C ref: dungeon.c endgamelevelname — Astral / Elemental plane names.
- * Named omissions: callers outside botl (insight ^X) still assemble copy.
+ * Used by botl describe_level and insight background_enlightenment.
  */
-function endgamelevelname(indx) {
+export function endgamelevelname(indx) {
     switch (indx | 0) {
     case -5: return 'Astral Plane';
     case -4: return 'Plane of Water';

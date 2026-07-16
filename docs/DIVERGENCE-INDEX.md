@@ -553,6 +553,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0565 | fixed | TREE terrain_glyph + S_EEL in_mklev hideunder | seed0373 Scr 78→85; next @73 Dlvl:12 walls / dosounds @8468 |
 | D-0570 | fixed | mon_pmname + M2_PNAME article in x_monnam | seed0373 Scr 110→111; next Air map @110 |
 | D-0571 | fixed | movebubbles air_pos S_cloud glyph + AIR/CLOUD terrain_glyph | seed0373 Scr 111→122; next enlightenment @118 |
+| D-0572 | fixed | pluslvl uexp + insight endgame dungeon / wizard xp | seed0373 Scr 122→123; next @119 Attributes |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

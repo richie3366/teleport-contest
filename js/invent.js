@@ -7,6 +7,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
+    endgamelevelname,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee } from './objnam.js';
 import { yn_function } from './getline.js';
@@ -47,6 +48,10 @@ import {
     SORTLOOT_LOOT,
     SORTLOOT_INVLET,
     PICK_ONE,
+    In_endgame,
+    In_quest,
+    Is_knox_level,
+    Is_rogue_level,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
@@ -54,6 +59,7 @@ import {
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import { depth } from './hacklib.js';
+import { newuexp } from './exper.js';
 import {
     DOOR, STAIRS, FOUNTAIN, SINK, ALTAR, GRAVE, TREE, IRONBARS,
     D_NODOOR, D_ISOPEN, D_BROKEN,
@@ -1149,6 +1155,33 @@ function enlght_line_txt(start, middle, end, ps = '') {
     return buf;
 }
 
+/**
+ * C ref: insight.c background_enlightenment location clause (you_are arg).
+ * Ported: In_endgame + endgamelevelname / Elemental prefix; Is_knox;
+ * quest dunlev vs depth; Is_rogue_level annotation.
+ * Named omissions: Is_bigroom + !Blind ", a very big room".
+ * observable_depth ≡ depth (C #if0 plane remap unused).
+ */
+function background_dungeon_clause(uz = game.u?.uz) {
+    const lev = uz || { dnum: 0, dlevel: 1 };
+    if (In_endgame(lev)) {
+        const tmpbuf = endgamelevelname(depth(lev));
+        const elemental = tmpbuf.startsWith('Plane') ? 'Elemental ' : '';
+        return `in the endgame, on the ${elemental}${tmpbuf}`;
+    }
+    if (Is_knox_level(lev)) {
+        const dname = game.dungeons?.[lev.dnum | 0]?.dname || 'Fort Knox';
+        return `on the ${dname} level`;
+    }
+    let dgnbuf = game.dungeons?.[lev.dnum | 0]?.dname || 'The Dungeons of Doom';
+    if (/^The /i.test(dgnbuf)) {
+        dgnbuf = dgnbuf.charAt(0).toLowerCase() + dgnbuf.slice(1);
+    }
+    let tmpbuf = `level ${In_quest(lev) ? (lev.dlevel | 0) : depth(lev)}`;
+    if (Is_rogue_level(lev)) tmpbuf += ', a primitive area';
+    return `in ${dgnbuf}, on ${tmpbuf}`;
+}
+
 /** C youprop.h Deaf ≡ HDeaf || EDeaf || uroleplay.deaf */
 function hero_Deaf(u = game.u || {}) {
     return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
@@ -1313,7 +1346,7 @@ export async function enlightenment(mode, final = 0) {
     const raceAdj = game.urace?.adj || game.urace?.name || 'human';
     const atype = u.ualign?.type ?? A_NEUTRAL;
     const align = align_str(atype);
-    const turns = game.moves || 1;
+    const turns = game.moves | 0;
     const hand = (u.uhandedness === 1) ? 'left' : 'right';
     const allowGend = (game.urole?.allow ?? 0) & ROLE_GENDMASK;
     const innategend = female ? 1 : 0;
@@ -1359,13 +1392,15 @@ export async function enlightenment(mode, final = 0) {
         lines.push(opposed);
         lines.push(you_are(`${hand}-handed`));
 
-        let dgnbuf = game.dungeons?.[u.uz?.dnum | 0]?.dname || 'The Dungeons of Doom';
-        if (/^The /i.test(dgnbuf)) {
-            dgnbuf = dgnbuf.charAt(0).toLowerCase() + dgnbuf.slice(1);
+        // C ref: insight.c background_enlightenment — In_endgame /
+        // Is_knox / quest dunlev / rogue annotation
+        lines.push(you_are(background_dungeon_clause(u.uz)));
+        // C: moves==1 → just started; else entered N turns ago
+        if (turns === 1) {
+            lines.push(you_have('just started your adventure'));
+        } else {
+            lines.push(enlght_line_txt(You_, 'entered ', `the dungeon ${turns} turn${turns === 1 ? '' : 's'} ago`, ''));
         }
-        const dlev = depth(u.uz || { dnum: 0, dlevel: 1 });
-        lines.push(you_are(`in ${dgnbuf}, on level ${dlev}`));
-        lines.push(enlght_line_txt(You_, 'entered ', `the dungeon ${turns} turn${turns === 1 ? '' : 's'} ago`, ''));
 
         // C ref: insight.c background_enlightenment — night/moon/friday
         // between "entered" and experience (final uses iflags.at_*).
@@ -1637,7 +1672,7 @@ export async function doattributes() {
     const race = game.urace?.adj || game.urace?.name || 'human';
     const atype = u.ualign?.type ?? A_NEUTRAL;
     const align = align_str(atype);
-    const turns = game.moves || 1;
+    const turns = game.moves | 0;
     const hand = (u.uhandedness === 1 /* LEFT_HANDED */) ? 'left' : 'right';
     const gold = game._goldCount || 0;
     // C ref: insight.c background_enlightenment — gender only when
@@ -1668,7 +1703,6 @@ export async function doattributes() {
         ? `  Your wallet contains ${gold} zorkmids.`
         : '  Your wallet is empty.';
 
-    const uexp = u.uexp | 0;
     const hp = u.uhp | 0;
     const hpmax = u.uhpmax | 0;
     const pw = u.uen | 0;
@@ -1687,14 +1721,26 @@ export async function doattributes() {
         pwLine = `${pw} out of ${pwmax} ${Power}`;
     }
 
-    // C ref: insight.c background_enlightenment — dungeon line from
-    // dungeons[uz.dnum].dname + depth (quest/endgame/knox/rogue/bigroom deferred)
-    let dgnbuf = game.dungeons?.[u.uz?.dnum | 0]?.dname || 'The Dungeons of Doom';
-    if (/^The /i.test(dgnbuf)) {
-        dgnbuf = dgnbuf.charAt(0).toLowerCase() + dgnbuf.slice(1);
+    // C ref: insight.c background_enlightenment — In_endgame /
+    // Is_knox / quest dunlev / rogue (Is_bigroom deferred)
+    const dungeonLine = `  You are ${background_dungeon_clause(u.uz)}.`;
+    // C: moves==1 → "just started"; else "entered … N turn(s) ago"
+    const adventureLine = turns === 1
+        ? '  You have just started your adventure.'
+        : `  You entered the dungeon ${turns} turn${turns === 1 ? '' : 's'} ago.`;
+    // C: wizard||final → ", N more needed for/to attain level M"
+    const uexp = u.uexp | 0;
+    const ulvl = u.ulevel | 0;
+    const wizard = !!(game.flags?.wizard || game.flags?.debug);
+    let xpLine = `  You have ${uexp} experience point${uexp === 1 ? '' : 's'}`;
+    if (!Upolyd(u) && ulvl < 30 && wizard) {
+        const nxtlvl = newuexp(ulvl);
+        const delta = nxtlvl - uexp;
+        xpLine += `, ${delta} ${uexp > 0 ? 'more ' : ''}needed ${
+            ulvl < 18 ? 'to attain' : 'for'
+        } level ${ulvl + 1}`;
     }
-    const dlev = depth(u.uz || { dnum: 0, dlevel: 1 });
-    const dungeonLine = `  You are in ${dgnbuf}, on level ${dlev}.`;
+    xpLine += '.';
 
     // C ref: insight.c background_enlightenment — continuous stream; tty
     // pages at 23 content rows then "(k of n)". Moon/friday13 sit between
@@ -1708,7 +1754,7 @@ export async function doattributes() {
         opposed,
         `  You are ${hand}-handed.`,
         dungeonLine,
-        `  You entered the dungeon ${turns} turn${turns === 1 ? '' : 's'} ago.`,
+        adventureLine,
     ];
     const moon = game.flags?.moonphase;
     if (moon === FULL_MOON || moon === NEW_MOON) {
@@ -1721,7 +1767,7 @@ export async function doattributes() {
         lines.push('  Bad things can happen on Friday the 13th.');
     }
     lines.push(
-        `  You have ${uexp} experience point${uexp === 1 ? '' : 's'}.`,
+        xpLine,
         '',
         ' Basics:',
         `  You have ${hpLine}.`,

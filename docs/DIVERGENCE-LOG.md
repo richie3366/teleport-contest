@@ -4,10 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0572 — pluslvl uexp + insight endgame Background (^X)
+
+- **Status:** fixed (partial — @119 Attributes / wizard hunger `<%d>`)
+- **Symptom:** seed0373 Scr **122**/124; @118 ^X Background — C
+  “endgame, on the Elemental Plane of Air” / “just started” /
+  “5120000 experience… more needed for level 21” vs JS dname+depth /
+  “entered 1 turn ago” / “0 experience points”.
+- **Cause:** (1) `doattributes` omitted `In_endgame` + `endgamelevelname`
+  Elemental prefix and `moves==1` “just started”; wizard XP delta
+  suffix missing. (2) `pluslvl(!incr)` never set `u.uexp =
+  newuexp(ulevel)` before `++ulevel` (C `exper.c`), so `#levelchange`
+  left `uexp` at 0.
+- **C locus:** `insight.c` `background_enlightenment` In_endgame /
+  moves==1 / wizard `newuexp` delta; `dungeon.c` `endgamelevelname`;
+  `exper.c` `pluslvl`.
+- **Change:** `js/exper.js` `pluslvl` uexp; `js/invent.js`
+  `background_dungeon_clause` + adventure/wizard xp lines;
+  export `endgamelevelname` from `js/display.js`.
+- **Verification:** seed0373 Scr **122→123**/124 RNG full; @118
+  match; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** @119 Attributes (`MAGICENLIGHTENMENT` for
+  wizard ^X) + status wizard `<%d>` hunger/inv_weight; Is_bigroom;
+  full attributes_enlightenment catalogue / from_what.
+- **Next:** seed0373 @119 Attributes; or seed5006 `dosounds` @8468.
+
 ## D-0571 — movebubbles air_pos S_cloud glyph + AIR/CLOUD terrain_glyph
 
-- **Status:** fixed (partial — water cons pickup; water.lua/earth/astral;
-  enlightenment Background @118)
+- **Status:** fixed (partial — water cons pickup; water.lua/earth/astral)
 - **Symptom:** seed0373 Scr **111**/124; @110 Air gravity More — C map
   dense `#` clouds vs JS blank/`?`.
 - **Cause:** (1) C `movebubbles` assigns `air_pos` with
@@ -22,11 +46,8 @@ to preserve, record it here.
   `js/display.js` `terrain_glyph` AIR/CLOUD.
 - **Verification:** seed0373 Scr **111→122**/124 RNG full; @110–117
   match; green+strict PASS; cohort **28**/28 PASS.
-- **Named omission:** @118–119 enlightenment Background (“endgame, on
-  the Elemental Plane of Air”) / attributes score page; water bubble
-  cons; water/earth/astral loaders.
-- **Next:** seed0373 @118 enlightenment Background; or seed5006
-  `dosounds` @8468.
+- **Named omission:** water bubble cons; water/earth/astral loaders.
+- **Next:** seed0373 @118 enlightenment Background (done D-0572).
 
 ## D-0570 — mon_pmname / M2_PNAME article in x_monnam
 
