@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 05:52 — #492 D-0454 music LEATHER_DRUM
+- Objective: seed0002 @27050 D-0454 primary (`do_improvisation`).
+- C locus: `music.c` `do_play_instrument`/`do_improvisation`/
+  `awaken_*`; `zap.c` resist TOOL alev=10; `monmove.c` auditory
+  `onscary(0,0)`→`monflee`; `sounds.c` dosounds Deaf≡HDeaf.
+- Change: new `js/music.js` + apply instrument dispatch; TOOL resist
+  alev=10 (not ulevel); auditory onscary→monflee; dosounds gates on
+  HDeaf. Deferred: passtune/flute/harp/horn effects; Hero_playnotes;
+  awaken_soldiers; flees_light/mon_track_clear.
+- Verification: seed0002 RNG **27050→27158** (full); Scr still 323/595
+  (first cell @54 drink `[d-gnq]` vs `[defgnq]`); green+strict;
+  cohort **24/24**.
+- Next: D-0455 screen@54 drink getobj compactify.
+
 ## 2026-07-16 05:42 — #491 D-0453 travelcc clear
 - Objective: seed0002 @26987 D-0453 primary (dog_goal udist).
 - C locus: `hack.c` `findtravelpath` dest clear; `do.c` `goto_level` travelcc.

@@ -8,20 +8,23 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#490 full). Scr **4632**/11405; RNG
-  **285242**/792838. seed0002 Scr **323**/595 prefix **27050**.
-- **Next (D-0454):** seed0002 @27050 — C `rn2(2)` `do_improvisation`
-  vs JS `rn2(19)`. Prefix past D-0453 travelcc/hero-Y.
+  **285242**/792838. seed0002 RNG **full** 27158; Scr **323**/595.
+- **Next (D-0455):** seed0002 screen@54 — C drink getobj
+  `[d-gnq or ?*]` vs JS `[defgnq or ?*]` (`invent.c` `compactify`).
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: C music.c path after `aou` / toot; JS apply/music stub arity.
+  Falsify: compactify only on drop (D-0332) — wire into drink getobj.
 - **Don’t re-check:** invent-first @26692; ship `#force` TIME without
   lootmon getdir first; `help_dir` More accepting any key; treat @26883
   as mid-buzz mon `exercise`/`zap_hit` without hero `ureflects`→
   `makeknown` (D-0452 done); treat @26692 as bare pet mfndpos without
   `#loot`/`doforce` key accounting (D-0451 done); rewrite `dog_goal`
   follow `rn2(4)` body / skip-place for @26987 (D-0453 was travelcc);
-  treat @26987 as pet place/`m_in_out_region` without proving hero Y.
+  treat @26987 as pet place/`m_in_out_region` without proving hero Y;
+  treat @27050 as music arity without apply→`do_play_instrument`
+  (D-0454 done); TOOL `resist` alev=`ulevel` (C alev=10); stub
+  auditory `onscary(0,0)` false; `dosounds` gate only `u.Deaf`.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -66,7 +69,8 @@ Objective/score live in `CURRENT.md`.
   ECMD_TIME (D-0451 done); treat @26883 as mon mid-buzz exercise
   without hero shield `ureflects`/`makeknown` (D-0452 done); patch
   `dog_goal` `rn2(4)` / invent / skip-place for @26987 without travelcc
-  proof (D-0453 done).
+  proof (D-0453 done); music without apply instruments / TOOL resist
+  ulevel / silent onscary / dosounds bare `u.Deaf` (D-0454 done).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -84,7 +88,9 @@ Objective/score live in `CURRENT.md`.
   next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450;
   D-0451 `#loot` lootmon + help_dir quitchar More + `doforce` TIME
   done; D-0452 `ureflects` shield `makeknown` done; D-0453 travelcc
-  clear on BFS dest + `goto_level` done; @27050 music next.
+  clear on BFS dest + `goto_level` done; D-0454 music LEATHER_DRUM
+  + resist alev=10 + auditory monflee + dosounds HDeaf done;
+  screen@54 drink compactify next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

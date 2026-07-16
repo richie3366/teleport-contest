@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 27061/27158 | **323**/595 | @27050 music `do_improvisation` (D-0454) |
+| seed0002 | **27158**/27158 | **323**/595 | RNG full (D-0454); first cell @54 drink compactify (D-0455) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp (+36 RNG vs #485) |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,20 +62,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @27050 — `do_improvisation` / music** (D-0454).
-Prefix **27050**; Scr **323**/595. Past D-0453 (travelcc→hero Y→
-`dog_goal` udist). C `rn2(2)=0` @ `do_improvisation(music.c:535)` vs
-JS `rn2(19)`.
+**seed0002 screen@54 — drink getobj `compactify`** (D-0455).
+RNG **full** 27158/27158 after D-0454 music. Scr **323**/595; first
+cell-miss: C `[d-gnq or ?*]` vs JS `[defgnq or ?*]`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
-node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0453; inventing
-pet alignment without C path / mx,my,ux,uy capture.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0454 music.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

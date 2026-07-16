@@ -33,6 +33,16 @@ const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const ICE_BOX = objectNames.indexOf('ICE_BOX');
+const WOODEN_FLUTE = objectNames.indexOf('WOODEN_FLUTE');
+const MAGIC_FLUTE = objectNames.indexOf('MAGIC_FLUTE');
+const TOOLED_HORN = objectNames.indexOf('TOOLED_HORN');
+const FROST_HORN = objectNames.indexOf('FROST_HORN');
+const FIRE_HORN = objectNames.indexOf('FIRE_HORN');
+const WOODEN_HARP = objectNames.indexOf('WOODEN_HARP');
+const MAGIC_HARP = objectNames.indexOf('MAGIC_HARP');
+const BUGLE = objectNames.indexOf('BUGLE');
+const LEATHER_DRUM = objectNames.indexOf('LEATHER_DRUM');
+const DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
 
 /** C invent getobj callback ranks (hack.h). */
 const GETOBJ_EXCLUDE = -3;
@@ -271,9 +281,10 @@ async function use_stethoscope(_obj) {
 
 /**
  * C ref: apply.c doapply() — getobj + LOCK_PICK/key/STETHOSCOPE + sack/bag
- * use_container. Named omissions: nohands/capacity; retouch; do_break_wand;
- * flip_through_book; flip_coin; cream pie/jelly; whip/grapple/blindfold/
- * lenses; use_stone; use_pole/use_pick_axe; traps; oil; BoT; most tools.
+ * use_container + musical instruments (do_play_instrument). Named omissions:
+ * nohands/capacity; retouch; do_break_wand; flip_through_book; flip_coin;
+ * cream pie/jelly; whip/grapple/blindfold/lenses; use_stone; use_pole/
+ * use_pick_axe; traps; oil; BoT; most non-instrument tools.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
@@ -305,6 +316,18 @@ export async function doapply() {
     if (obj.otyp === BAG_OF_TRICKS) {
         await pline("Sorry, I don't know how to use that.");
         return false;
+    }
+
+    // C apply.c: WOODEN_FLUTE..DRUM_OF_EARTHQUAKE → do_play_instrument
+    if (obj.otyp === WOODEN_FLUTE || obj.otyp === MAGIC_FLUTE
+        || obj.otyp === TOOLED_HORN || obj.otyp === FROST_HORN
+        || obj.otyp === FIRE_HORN || obj.otyp === WOODEN_HARP
+        || obj.otyp === MAGIC_HARP || obj.otyp === BUGLE
+        || obj.otyp === LEATHER_DRUM || obj.otyp === DRUM_OF_EARTHQUAKE) {
+        const { do_play_instrument } = await import('./music.js');
+        const { ECMD_TIME } = await import('./const.js');
+        const res = await do_play_instrument(obj);
+        return res === ECMD_TIME;
     }
 
     // Other apply otyps deferred

@@ -4,15 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0454 — seed0002 @27050 do_improvisation vs JS rn2(19)
+## D-0455 — seed0002 screen@54 drink getobj compactify
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @ screen 54 — C
+  `What do you want to drink? [d-gnq or ?*]` vs JS `[defgnq or ?*]`.
+  RNG full 27158/27158 after D-0454; Scr 323/595 (non-prefix count).
+- **Cause:** TBD — C `invent.c` `compactify` when suggested>5 (drop
+  path D-0332); drink getobj may omit same call.
+- **C locus:** `invent.c` `compactify` / drink `getobj`.
+- **Falsifier / next:** wire compactify into drink getobj; recheck Scr.
+
+## D-0454 — seed0002 @27050 do_improvisation vs JS rn2(19)
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @27050 — C `rn2(2)=0` @
-  `do_improvisation(music.c:535)` vs JS `rn2(19)`. Prefix 27050;
-  Scr 323/595. Matched through D-0453 travelcc/hero-Y.
-- **Cause:** TBD — read `music.c` `do_improvisation` / toot path.
-- **C locus:** `music.c` `do_improvisation`.
-- **Falsifier / next:** C branch after apply/toot; JS music stub arity.
+  `do_improvisation(music.c:535)` vs JS `rn2(19)` (exercise). Prefix
+  27050; Scr 323/595.
+- **Cause:** instruments fell through `doapply` "don't know how"; no
+  `music.c` port. After wiring LEATHER_DRUM improvisation, follow-ons:
+  TOOL_CLASS `resist` used `ulevel` instead of C `alev=10`; auditory
+  `onscary(0,0)` stubbed false so no `monflee`; `dosounds` checked only
+  `u.Deaf` not `HDeaf` after drum `incr_itimeout`.
+- **C locus:** `music.c` `do_play_instrument`/`do_improvisation`/
+  `awaken_monsters`; `zap.c` `resist` TOOL alev=10; `monmove.c`
+  `onscary`/`monflee`; `sounds.c` `dosounds` Deaf gate.
+- **Change:** `js/music.js` + apply instrument dispatch; TOOL resist
+  alev=10; auditory onscary→monflee; dosounds Deaf≡HDeaf|EDeaf|…
+- **Deferred:** passtune/getlin/drawbridge; flute/harp/horn effects;
+  `Hero_playnotes`; `awaken_soldiers`; flees_light/`mon_track_clear`.
+- **Verification:** seed0002 RNG **27050→27158** (full); Scr still
+  **323**/595 (first cell miss @54 drink getobj `d-gnq` vs `defgnq`);
+  green+strict; cohort **24/24** (+green = 26 PASS held).
+- **Next:** seed0002 screen@54 drink getobj `compactify` (D-0455).
 
 ## D-0453 — seed0002 @26987 dog_goal udist gate vs invent obj_resists
 
