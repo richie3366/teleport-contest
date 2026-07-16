@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:42 — D-0504 add_erosion_words degrees
+- Objective: seed0007 @161 invent `very burnt +1 leather armor`
+- C: `objnam.c` `add_erosion_words` oeroded/oeroded2 + proof words
+- Fix: `js/objnam.js` full `add_erosion_words` before spe (WEAPON/ARMOR)
+- Verify: Scr **294→296**/302; RNG full; green+strict; cohort 26/26
+- Next: @293 `homemade tin of lichen` (`tin_details` tintxts)
+
 ## 2026-07-16 15:36 — D-0503 TIN known + otyp_uses_known
 - Objective: seed0007 @150 Take-out `a tin` vs `a tin of lichen`
 - C locus: `objnam.c` xname_flags TIN+known; `eat.c` tin_details;
@@ -160,13 +167,3 @@ Use this shape:
 - Verification: rng-diff **7175→13259**; RNG ~13657/16373; Scr 60;
   green+strict PASS; cohort 10 PASS.
 - Next: @13259 eye_of_newt_buzz (D-0492).
-## 2026-07-16 14:16 — D-0490 #loot MENU_FULL take-out
-- Objective: primary D-0490 — seed0007 @7142 missing obj_resists.
-- C locus: `pickup.c` use_container/menu_loot/query_category/out_container;
-  `dogmove.c` dog_goal invent dogfood.
-- Change: MENU_FULL take-out (skip single-class category); `@` invert;
-  accept lootabc `a`→take-out; gold `$` enters invent before TRIPE.
-  Was: invent stop after 7 dogfoods; C burned +1 on looted gold.
-- Verification: rng-diff **7142→7175**; Scr 60; green+strict PASS;
-  cohort seed0004/0012/0013/0006/0002 + 22 PASS held.
-- Next: @7175 exercise rn2(19) / destroy_arm (D-0491).

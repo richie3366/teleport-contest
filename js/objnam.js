@@ -56,9 +56,87 @@ function is_poisonable_obj(obj) {
     return sk >= -P_SHURIKEN && sk <= -P_BOW;
 }
 
-/** C ref: obj.h is_rustprone — iron material. */
+// C ref: objclass.h enum obj_material_types (subset for erosion naming)
+const MAT_LIQUID = 1;
+const MAT_WOOD = 8;
+const MAT_DRAGON_HIDE = 10;
+const MAT_IRON = 11;
+const MAT_COPPER = 13;
+const MAT_PLASTIC = 18;
+const MAT_GLASS = 19;
+
+/** C ref: objclass.h is_rustprone — iron material. */
 function is_rustprone_obj(obj) {
-    return (game.objects?.[obj.otyp]?.oc_material ?? 0) === 11; // IRON
+    return (game.objects?.[obj.otyp]?.oc_material ?? 0) === MAT_IRON;
+}
+
+/** C ref: mkobj.c is_flammable — local copy (objnam↔mkobj cycle). */
+function is_flammable_obj(obj) {
+    const n = objectNames[obj.otyp];
+    if (n === 'TALLOW_CANDLE' || n === 'WAX_CANDLE' || n === 'WAN_FIRE') return false;
+    const mat = game.objects?.[obj.otyp]?.oc_material ?? 0;
+    return (mat <= MAT_WOOD && mat !== MAT_LIQUID) || mat === MAT_PLASTIC;
+}
+
+/** C ref: mkobj.c is_rottable — local copy. */
+function is_rottable_obj(obj) {
+    const mat = game.objects?.[obj.otyp]?.oc_material ?? 0;
+    return (mat <= MAT_WOOD && mat !== MAT_LIQUID) || mat === MAT_DRAGON_HIDE;
+}
+
+/** C ref: objclass.h is_corrodeable — local copy. */
+function is_corrodeable_obj(obj) {
+    const mat = game.objects?.[obj.otyp]?.oc_material ?? 0;
+    return mat === MAT_COPPER || mat === MAT_IRON;
+}
+
+/** C ref: objclass.h is_crackable — glass armor only. */
+function is_crackable_obj(obj) {
+    return (game.objects?.[obj.otyp]?.oc_material ?? 0) === MAT_GLASS
+        && obj.oclass === ARMOR_CLASS;
+}
+
+/** C ref: objclass.h is_damageable. */
+function is_damageable_obj(obj) {
+    return is_rustprone_obj(obj) || is_flammable_obj(obj) || is_rottable_obj(obj)
+        || is_corrodeable_obj(obj) || is_crackable_obj(obj);
+}
+
+/**
+ * C ref: objnam.c add_erosion_words — oeroded/oeroded2 degrees + rknown proof.
+ * Returns prefix fragment (may be empty). Caller gates by oclass.
+ */
+function add_erosion_words(obj) {
+    const iscrys = objectNames[obj.otyp] === 'CRYSKNIFE';
+    // C: rknown = (iflags.override_ID == 0) ? obj->rknown : TRUE
+    const rknown = (game.iflags?.override_ID | 0) === 0 ? !!obj.rknown : true;
+    if (!is_damageable_obj(obj) && !iscrys) return '';
+
+    let s = '';
+    const er = obj.oeroded | 0;
+    if (er && !iscrys) {
+        if (er === 2) s += 'very ';
+        else if (er === 3) s += 'thoroughly ';
+        s += is_rustprone_obj(obj) ? 'rusty '
+            : is_crackable_obj(obj) ? 'cracked '
+                : 'burnt ';
+    }
+    const er2 = obj.oeroded2 | 0;
+    if (er2 && !iscrys) {
+        if (er2 === 2) s += 'very ';
+        else if (er2 === 3) s += 'thoroughly ';
+        s += is_corrodeable_obj(obj) ? 'corroded ' : 'rotted ';
+    }
+    if (rknown && obj.oerodeproof) {
+        s += iscrys ? 'fixed '
+            : is_rustprone_obj(obj) ? 'rustproof '
+                : is_corrodeable_obj(obj) ? 'corrodeproof '
+                    : is_flammable_obj(obj) ? 'fireproof '
+                        : is_crackable_obj(obj) ? 'tempered '
+                            : is_rottable_obj(obj) ? 'rotproof '
+                                : '';
+    }
+    return s;
 }
 
 // C ref: objclass.h enum obj_material_types
@@ -803,12 +881,11 @@ export function doname(obj) {
     // C: WEAPON_CLASS — re-insert stripped "poisoned " before erosion/spe
     if (oclass === WEAPON_CLASS && ispoisoned) prefix += 'poisoned ';
 
-    // C ref: objnam.c add_erosion_words — rknown + oerodeproof
-    if (obj.rknown && obj.oerodeproof) {
-        // Branch envelope: rustprone → "rustproof "; other proofs deferred
-        if (is_rustprone_obj(obj) || oclass === ARMOR_CLASS || oclass === WEAPON_CLASS) {
-            prefix += 'rustproof ';
-        }
+    // C ref: objnam.c doname_base — ARMOR falls through to WEAPON for
+    // add_erosion_words + spe; BALL/CHAIN also call add_erosion_words.
+    // Weptool-as-WEAPON_CLASS class remap deferred.
+    if (oclass === WEAPON_CLASS || oclass === ARMOR_CLASS) {
+        prefix += add_erosion_words(obj);
     }
 
     if (known && (oclass === WEAPON_CLASS || oclass === ARMOR_CLASS

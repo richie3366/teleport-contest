@@ -490,6 +490,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0501 | fixed | lootabc display + take-out INVORDER_SORT + gold bot() | seed0007 Scr 116→126; @124 AC next |
 | D-0502 | fixed | find_ac ARM_BONUS erosion (+ rings/amulet/HProt) | seed0007 Scr 126→291; @150 tin next |
 | D-0503 | fixed | TIN xname known + otyp_uses_known (egg/tin) | seed0007 Scr 291→294; @161 burnt next |
+| D-0504 | fixed | add_erosion_words oeroded degrees + proofs | seed0007 Scr 294→296; @293 homemade next |
 
 
 

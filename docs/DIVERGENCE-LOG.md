@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0504 — add_erosion_words oeroded degrees (seed0007 @161)
+
+- **Status:** fixed
+- **Symptom:** after D-0503, first cell miss @161 (Scr **294**/302) —
+  invent `very burnt +1 leather armor` (C) vs `+1 leather armor` (JS).
+  RNG full.
+- **Cause:** JS `doname` only stubbed rknown+oerodeproof as bare
+  `"rustproof "`; omitted C `add_erosion_words` oeroded/oeroded2
+  degree prefixes (`very`/`thoroughly` + burnt/rusty/cracked/
+  corroded/rotted) and full proof word table.
+- **C locus:** `objnam.c` `add_erosion_words`; `objclass.h`
+  `is_rustprone`/`is_flammable`/`is_corrodeable`/`is_crackable`/
+  `is_damageable`; `mkobj.c` `is_flammable`/`is_rottable`.
+- **Change:** `js/objnam.js` — port `add_erosion_words` (local material
+  helpers; no mkobj import cycle); call before spe for WEAPON/ARMOR.
+- **Verification:** seed0007 Scr **294→296**/302; @161 very burnt;
+  first miss @293 homemade tin; RNG full; green+strict PASS; cohort
+  **26/26** PASS.
+- **Named omission:** BALL/CHAIN + weptool-as-weapon class remap;
+  greased prefix; `tin_details` tintxts/`homemade` (cknown+spe<0).
+- **Next:** seed0007 @293 invent `homemade tin of lichen`.
+
 ## D-0503 — TIN xname known + otyp_uses_known (seed0007 @150)
 
 - **Status:** fixed

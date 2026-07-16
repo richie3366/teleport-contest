@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0504 (next):** after D-0503 TIN known, Scr **294**/302;
-  first miss @161 — invent `very burnt +1 leather armor` (C) vs
-  `+1 leather armor` (JS). `add_erosion_words` oeroded degrees missing.
+- **seed0007 / D-0505 (next):** after D-0504 erosion words, Scr **296**/302;
+  first miss @293 — invent `homemade tin of lichen` (C) vs
+  `tin of lichen` (JS). `tin_details` tintxts when `cknown && spe < 0`.
   RNG full. Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0503
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0504
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0502 RNG/botl/loot/AC path done; D-0503 tin known.
+- D-0490…D-0503 RNG/botl/loot/AC/tin-known done; D-0504 erosion words.
 
 ## Landmarks (≤15)
 
@@ -54,6 +54,6 @@ Objective/score live in `CURRENT.md`.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0502: `find_ac` ARM_BONUS; Scr 126→291.
 - D-0503: TIN `known` gate + egg/tin `otyp_uses_known`; Scr 291→294.
+- D-0504: `add_erosion_words` degrees + proofs; Scr 294→296; @293 homemade.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
-- Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).

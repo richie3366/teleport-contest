@@ -69,17 +69,18 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel @161** (D-0504 next). RNG full
-**16373**/16373; Scr **294**/302 after D-0503 TIN `known` +
-`otyp_uses_known` (was 291; @150 bare `a tin` fixed). @161 invent:
-`very burnt +1 leather armor` (C) vs bare `+1 leather armor` (JS) —
-`add_erosion_words` oeroded degrees.
+**Gameplay next:** seed0007 — **screen peel @293** (D-0505 next). RNG full
+**16373**/16373; Scr **296**/302 after D-0504 `add_erosion_words` (was
+294; @161 `very burnt` leather fixed). @293 invent:
+`an uncursed homemade tin of lichen` (C) vs bare
+`an uncursed tin of lichen` (JS) — `tin_details` tintxts when
+`cknown && spe < 0`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0503.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0504.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
