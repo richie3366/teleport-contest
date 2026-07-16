@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:45 — D-0489 #loot box pick_lock
+- Objective: seed0007 @7066 C picklock rn2(100) vs JS rn2(5) (D-0489).
+- C locus: `pickup.c` do_loot_cont; `lock.c` pick_lock/picklock box arm.
+- Change: do_loot_cont APPLY_KEY → pick_lock(container); picklock box
+  occupation (4*DEX+25). Was: #loot locked stubbed; JS skipped rn2(100).
+- Verification: rng-diff **7066→7142**; RNG **7309→7885**; Scr 60; green+
+  strict; cohort 26 PASS.
+- Next: @7142 C obj_resists rn2(100) vs JS dog_move rn2(1) (D-0490).
+
 ## 2026-07-16 13:38 — D-0488 mO doset + pickup_types
 - Objective: seed0007 @6414 C eatcorpse rn2(20) vs JS rn2(7) (D-0488).
 - C locus: `options.c` doset_simple→doset on menu_requested; `cmd.c`
@@ -156,11 +165,3 @@ Use this shape:
 - Verification: green+strict; four gap sessions PASS local+hub.
 - Next: next judge cron; else upstream #5-style report; seed0006 @102.
 
-## 2026-07-16 09:55 — D-0479 mondead unmap_object clears I
-- Objective: seed0006 @77 JS `I` vs C `#` after kitten kills unseen mon.
-- C locus: `mon.c` `mondead` → `unmap_object`; `display.c` unmap_*.
-- Change: `unmap_object`/`unmap_invisible` in `display.js`; wire into
-  `mondead` (mhitm/uhitm/trap) before `newsym`.
-- Verification: seed0006 Scr **95→106**/123 @77→@102; green+strict;
-  25 PASS cohort held.
-- Next: seed0006 @102 `.` vs `&` water-demon display (or seed0007).

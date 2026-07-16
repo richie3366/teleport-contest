@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0489:** @7066 C `rn2(100) @ picklock` vs JS `rn2(5)`
-  (after D-0488 peel 6414→7066; Scr **60**/302).
+- **seed0007 / D-0490:** @7142 C `rn2(100) @ obj_resists` vs JS `rn2(1)`
+  (after D-0489 peel 7066→7142; Scr **60**/302).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0488
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0489
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -37,6 +37,8 @@ Objective/score live in `CURRENT.md`.
   occupation (D-0487) — not a mid-run pet peel.
 - seed0007 @6414 was **not** eatcorpse acid/sick — it was `mO` not
   reaching `doset`, empty `pickup_types` autopick-all corpse (D-0488).
+- seed0007 @7066 was **not** a second door — it was `#loot` locked
+  chest box `pick_lock` (D-0489).
 
 ## Landmarks (≤15)
 
@@ -54,3 +56,4 @@ Objective/score live in `CURRENT.md`.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0488: `mO` keeps `menu_requested` for `O`; `doset` sets
   `pickup_types=$"?!=/`.
+- D-0489: `#loot` → `do_loot_cont` box `pick_lock` (chance 4*DEX+25).

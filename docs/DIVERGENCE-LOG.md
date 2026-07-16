@@ -21,14 +21,24 @@ to preserve, record it here.
   0006/0002/0012/0004/0030/0009 PASS.
 - **Next:** D-0485 gettrack/`!couldsee` on ordinary levels.
 
-## D-0489 — picklock rn2(100) after corpse eat (seed0007 @7066)
+## D-0489 — #loot locked box pick_lock / picklock (seed0007 @7066)
 
-- **Status:** open
+- **Status:** fixed
 - **Symptom:** after D-0488, first RNG miss @7066 — C `rn2(100) @ picklock`
   vs JS `rn2(5)`. Scr **60**/302.
-- **Context:** second locked-door stretch after jackal corpse eat.
-- **C locus:** `lock.c` `picklock` / autounlock occupation resume.
-- **Next:** C vs JS door/`pick_lock` path at this step — no coord hacks.
+- **Cause:** session `#l` + `y` is `#loot` on a locked floor chest. C
+  `do_loot_cont` → `pick_lock(autokey, ox, oy, cobj)` box occupation. JS
+  `use_container`/`doloot` stubbed autounlock; `picklock` cancelled when
+  `xlock.box` set — so JS never emitted the occupation `rn2(100)`.
+- **C locus:** `pickup.c` `do_loot_cont`; `lock.c` `pick_lock` underfoot box
+  + `picklock` box arm (chance `4*DEX+25` rogue pick).
+- **Change:** `js/pickup.js` `do_loot_cont` APPLY_KEY autounlock;
+  `js/lock.js` box `pick_lock`/`picklock`/`lock_action` + export `autokey`.
+- **Verification:** rng-diff **7066→7142**; RNG matched **7309→7885**;
+  Scr **60**/302; green+strict PASS; cohort 26 PASS.
+- **Named omission:** AUTOUNLOCK_UNTRAP/FORCE; interactive apply-to-box;
+  `chest_trap` on trapped unlock; magic-key disarm yn.
+- **Next:** @7142 C `obj_resists` rn2(100) vs JS `dog_move` rn2(1) (D-0490).
 
 ## D-0488 — eatcorpse rn2(20) vs rn2(7) (seed0007 @6414)
 

@@ -26,6 +26,7 @@ import {
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
     SHOPBASE,
     SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
+    AUTOUNLOCK_APPLY_KEY,
 } from './const.js';
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 import { nhgetch } from './input.js';
@@ -1124,13 +1125,14 @@ export async function use_container(obj, held = false, _more = false) {
     if (!obj) return ECMD_OK;
 
     if (obj.olocked) {
-        // C ref: pickup.c use_container — lknown vs discover-lock pline
+        // C ref: pickup.c use_container — held locked; floor #loot uses
+        // do_loot_cont autounlock instead.
         if (obj.lknown)
             await pline(`${upstart(theArt(xname(obj)))} is locked.`);
         else
             await pline(`Hmmm, ${theArt(xname(obj))} turns out to be locked.`);
         obj.lknown = 1;
-        // autounlock / pick_lock deferred
+        if (held) await pline('You must put it down to unlock.');
         return ECMD_OK;
     }
 
@@ -1195,10 +1197,48 @@ export async function use_container(obj, held = false, _more = false) {
 }
 
 /**
+ * C ref: pickup.c do_loot_cont — floor container; locked → autounlock.
+ * @param {object} cobj
+ * @returns {Promise<number>} ECMD_*
+ */
+async function do_loot_cont(cobj) {
+    if (!cobj) return ECMD_OK;
+    if (cobj.olocked) {
+        let res = ECMD_OK;
+        if (cobj.lknown)
+            await pline(`${upstart(theArt(xname(cobj)))} is locked.`);
+        else
+            await pline(`Hmmm, ${theArt(xname(cobj))} turns out to be locked.`);
+        cobj.lknown = 1;
+
+        if (!game.flags) game.flags = {};
+        const au = game.flags.autounlock ?? AUTOUNLOCK_APPLY_KEY;
+        if (au) {
+            const ox = cobj.ox | 0;
+            const oy = cobj.oy | 0;
+            if (game.u) game.u.dz = 0;
+            // C: APPLY_KEY | UNTRAP arm; UNTRAP / FORCE deferred
+            if ((au & AUTOUNLOCK_APPLY_KEY) !== 0) {
+                const { pick_lock, autokey } = await import('./lock.js');
+                const unlocktool = autokey(true);
+                if (unlocktool) {
+                    const pl = await pick_lock(unlocktool, ox, oy, cobj);
+                    if (pl) res = ECMD_TIME;
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+    return use_container(cobj);
+}
+
+/**
  * C ref: pickup.c doloot / doloot_core — loot container underfoot.
- * Branch envelope: single unlocked floor container → use_container.
- * Named omissions: capacity/nohands/Confusion reverse_loot; multi-cont
- * menu; directional lootmon/get_adjacent_loc; grave; saddle; cockatrice.
+ * Branch envelope: single floor container → do_loot_cont (locked
+ * autounlock + unlocked use_container). Named omissions: capacity /
+ * nohands / Confusion reverse_loot; multi-cont menu; directional
+ * lootmon beyond underfoot; grave; saddle; cockatrice; AUTOUNLOCK_FORCE.
  */
 export async function doloot() {
     const u = game.u;
@@ -1213,7 +1253,7 @@ export async function doloot() {
         }
     }
     if (cobj) {
-        return use_container(cobj);
+        return do_loot_cont(cobj);
     }
 
     // C: doloot_core lootmon — get_adjacent_loc when mon_beside
@@ -1228,7 +1268,7 @@ export async function doloot() {
         const underfoot = cc.x === u.ux && cc.y === u.uy;
         for (let o = objects_at(cc.x, cc.y); o; o = o.nexthere) {
             if (Is_container(o)) {
-                if (underfoot) return use_container(o);
+                if (underfoot) return do_loot_cont(o);
                 await pline('You have to be at a container to loot it.');
                 return ECMD_OK;
             }

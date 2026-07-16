@@ -475,7 +475,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0486 | fixed | vision_recalc rogue_vision for Is_rogue_level | C vision.c; not seed0007 (dlvl1) |
 | D-0487 | fixed | picklock + doopen autounlock | seed0007 RNG 3219→6414; eatcorpse next |
 | D-0488 | fixed | mO doset + pickup_types | seed0007 @6414 eatcorpse; prefix→7066 picklock next |
-| D-0489 | open | picklock rn2(100) after corpse | seed0007 @7066 after D-0488 |
+| D-0489 | fixed | #loot box pick_lock / picklock | seed0007 @7066→7142; Scr 60 |
+| D-0490 | open | obj_resists vs dog_move rn2(1) | seed0007 @7142 after D-0489 |
 
 
 
