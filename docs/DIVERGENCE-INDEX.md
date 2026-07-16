@@ -487,6 +487,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0498 | fixed | doset fmtstr + bool On defaults | seed0007 Scr 60→84; @38 botl next |
 | D-0499 | fixed | doset per-bool pline (optfn_boolean) | seed0007 Scr 84→85; @85 Satiated next |
 | D-0500 | fixed | botl hu_stat before enc_stat | seed0007 Scr 85→116; @116 loot next |
+| D-0501 | fixed | lootabc display + take-out INVORDER_SORT + gold bot() | seed0007 Scr 116→126; @124 AC next |
 
 
 

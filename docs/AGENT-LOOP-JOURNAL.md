@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:28 — D-0501 lootabc + take-out sort + gold bot()
+- Objective: primary seed0007 screen peel @116 (`#loot` take-out;
+  first cell miss was @111 lootabc letters).
+- C locus: `pickup.c` `in_or_out_menu` / `menu_loot` / `query_objlist`
+  / `out_container`; `invent.c` `sortloot` / `let_to_name`.
+- Change: `js/pickup.js` — paint a/b/c/d/e when `flags.lootabc`;
+  take-out INVORDER_SORT headings + `$`/letters; `await bot()` after
+  gold remove (was botl flag only).
+- Verification: Scr **116→126**/302; @111/@116 match; RNG full;
+  green+strict; cohort **26/26** PASS.
+- Next: @124 botl `AC:9` vs `AC:7` (D-0502).
+
 ## 2026-07-16 15:21 — D-0500 botl hu_stat hunger
 - Objective: primary seed0007 screen peel @85 (Satiated botl).
 - C locus: `botl.c` `do_statusline2` `u.uhs != NOT_HUNGRY` → `hu_stat[]`;

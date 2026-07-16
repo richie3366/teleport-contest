@@ -4,7 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0501 — lootabc display + take-out INVORDER_SORT + gold bot()
+
+- **Status:** fixed
+- **Symptom:** after D-0500, first cell miss @111 (Scr **116**/302 total) —
+  C `in_or_out_menu` shows lootabc `a/b/c/d/e` vs JS classic `o/i/b/r/s`;
+  then @116 `Take out what?` missing pack-order class headings / `$` letter
+  (Coins/Scrolls/Spellbooks/Gems). RNG full.
+- **Cause:** (1) D-0490 accepted lootabc keys but always painted classic
+  selectors despite `flags.lootabc` true after session `mO`. (2)
+  `menu_loot_takeout` walked `cobj` order with only a Coins heading —
+  C `query_objlist(INVORDER_SORT,!USE_INVLET)` uses `sortloot` +
+  `let_to_name` per class. (3) gold `out_container` set `botl` flag
+  instead of C's immediate `bot()`, so next More still showed `$:0`.
+- **C locus:** `pickup.c` `in_or_out_menu` / `menu_loot` /
+  `query_objlist` / `out_container`; `invent.c` `sortloot` /
+  `let_to_name`.
+- **Change:** `js/pickup.js` — lootabc-gated display selectors;
+  take-out `sortloot(LOOT|PACK)` + class headings + `$`/a,b,c letters;
+  `await bot()` after gold remove.
+- **Verification:** seed0007 Scr **116→126**/302; first miss @124
+  `AC:9` vs `AC:7`; RNG full; green+strict PASS; cohort **26/26** PASS
+  (+ green 2 → 28).
+- **Named omission:** put-in `query_objlist` class-heading polish;
+  autopick `A`; traditional_loot; more_containers `n`; menu_head_objsym.
+- **Next:** seed0007 @124 botl AC (armor/wear path).
+
 ## D-0500 — botl hu_stat hunger (seed0007 Scr @85)
+
 
 - **Status:** fixed
 - **Symptom:** after D-0499, first screen miss @85 — C botl
