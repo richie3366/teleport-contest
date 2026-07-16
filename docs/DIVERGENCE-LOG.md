@@ -4,16 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0474 — seed0006 mon_arrive peaceful gate
-- **Status:** open
+## D-0474 — seed0006 mon_arrive M2_STALK follow
+- **Status:** fixed
 - **Symptom:** seed0006 rng-diff first mismatch @6685 —
-  C `rn2(2)=1 @ mon_arrive(dog.c:475)` vs JS `rn2(5)=0`.
-  RNG **6686**/6736; Scr **68**/123 (post D-0473).
-- **Cause:** TBD — arriving mon JS peaceful→`rn2(5)` vs C hostile `rn2(2)`.
-- **Falsifier / next:**
-  ```bash
-  node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
-  ```
+  C `rn2(2)=1 @ mon_arrive(dog.c:475)` vs JS `rn2(5)=0` @
+  `distfleeck` (not mon_arrive). RNG **6686**/6736; Scr **68**/123.
+- **Cause:** `levl_follower` omitted `M2_STALK`, so water demon
+  (`M2_STALK|M2_HOSTILE`) never entered `mydogs`; C `mon_arrive`
+  With_you hostile `rn2(2)` never ran; JS continued into movemon
+  `distfleeck` `rn2(5)`. Notes' "peaceful rn2(5)" theory was wrong —
+  JS never called `mon_arrive_with_you`.
+- **C locus:** `mondata.c` `levl_follower`; `dog.c` `keepdogs`/
+  `relmon`/`mon_arrive`; `monflag.h` `M2_STALK`.
+- **Change:** `monsters.js` export `M2_STALK`; `dog.js`
+  `levl_follower` stalk/flee/amulet arm; `keepdogs` wiz+amulet chase;
+  `mydogs.unshift` to match C `relmon` prepend.
+- **Verification:** seed0006 RNG **6686→6736**/6736 (full); Scr
+  **68→72**/123; green+strict; cohort **25/25**.
+- **Deferred:** `mon_has_amulet` iswiz short-circuit; `is_fshk`;
+  keepdogs `mintrap`/leash/`migrate_to_level` stay_behind polish.
+- **Next:** seed0006 screen peel (RNG full) or seed0007 snake swamp.
 
 ## D-0473 — seed0006 summonmu (demon help) late RNG
 

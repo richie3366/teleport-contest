@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:46 — #512 D-0474 M2_STALK levl_follower
+- Objective: seed0006 @6685 C `rn2(2) @ mon_arrive` vs JS `rn2(5)`.
+- C locus: `mondata.c` `levl_follower`; `dog.c` `keepdogs`/`relmon`/
+  `mon_arrive`; `monflag.h` `M2_STALK`.
+- Change: JS `rn2(5)` was `distfleeck` (water demon never followed);
+  port `M2_STALK` + flee/amulet; `mydogs.unshift`; wiz+amulet chase.
+  Deferred: `mon_has_amulet` iswiz; `is_fshk`.
+- Verification: seed0006 RNG **full 6736**/6736 Scr **68→72**/123;
+  green+strict; cohort **25/25**.
+- Next: seed0006 screen peel or seed0007 snake swamp.
+
 ## 2026-07-16 07:40 — #511 D-0473 summonmu demon help
 - Objective: seed0006 @6660 C `rn2(16) @ summonmu` vs JS `rnd(21) @ mattacku`.
 - C locus: `mhitu.c` `summonmu`/`mattacku`; `minion.c` `msummon`/`ndemon`.

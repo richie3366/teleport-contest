@@ -85,6 +85,7 @@ export const M2_HOSTILE = 0x00100000;
 export const M2_PEACEFUL = 0x00200000;
 export const M2_DOMESTIC = 0x00400000;
 export const M2_WANDER = 0x00800000;
+export const M2_STALK = 0x01000000; /* monflag.h — follows across levels */
 export const M2_ROCKTHROW = 0x08000000;
 export const M2_GREEDY = 0x10000000; /* monflag.h — likes gold */
 export const M2_JEWELS = 0x20000000; /* monflag.h — likes gems */
