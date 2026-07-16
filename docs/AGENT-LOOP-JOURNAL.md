@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+```text
+## 2026-07-16 20:50 — #617 D-0556 salamander m_initweap
+- Objective: seed0373 @31895 C `m_initweap` `rn2(7)` vs JS `rn2(75)`
+- C locus: makemon.c m_initweap S_LIZARD PM_SALAMANDER (~495–499)
+- Change: js/makemon.js salamander spear/trident/stiletto kit
+- Verification: rng-diff 31895→32011; runner RNG 32340/35386;
+  green+strict PASS; cohort 28/28 PASS
+- Next: @32011 rnd_defensive_item Sokoban rn2(4) vs next_ident
+  (sticky game.Sokoban?); or dosounds @8468
+
 ## 2026-07-16 20:46 — #616 D-0555 get_location_coord retry
 - Objective: seed0373 @30743 C get_location vs JS next_ident
 - C locus: sp_lev.c get_location_coord; create_monster humidity
@@ -160,12 +170,3 @@ Use this shape:
 - Verification: rng-diff **22651→24531**; runner RNG **24545**/35386
   Scr 22/124; green+strict; cohort 28/28.
 - Next: makemon rn2(5) @24531; or dosounds @8468.
-## 2026-07-16 19:26 — #602 D-0542 m_initinv S_QUANTMECH
-- Objective: peel seed0373 @21730 C `m_initinv` `rn2(20)` vs JS
-  trailing `rn2(50)`.
-- C locus: `makemon.c` `m_initinv` S_QUANTMECH.
-- Change: `js/makemon.js` SchroedingersBox arm (`!rn2(20)` +
-  LARGE_BOX + HOUSECAT corpse / stop ROT / container / mpickobj).
-- Verification: rng-diff **21730→22651**; runner RNG **22674**/35386
-  Scr 22/124; green+strict; cohort 28/28.
-- Next: nhlib shuffle @22651; or dosounds @8468.

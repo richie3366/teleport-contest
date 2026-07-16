@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0556 — m_initweap S_LIZARD salamander weapon kit
+
+- **Status:** fixed (partial — non-salamander S_LIZARD; S_ANGEL/S_KOP still deferred)
+- **Symptom:** seed0373 @31895 C `rn2(7)` `m_initweap` vs JS `rn2(75)`
+  trailing offensive (post D-0555).
+- **Cause:** JS `m_initweap` stubbed `S_LIZARD` with no body; C salamander
+  always `mongets(rn2(7)?SPEAR:rn2(3)?TRIDENT:STILETTO)` before the shared
+  `rn2(75)` offensive roll.
+- **C locus:** `makemon.c` `m_initweap` `S_LIZARD` / `PM_SALAMANDER` (~495–499).
+- **Change:** `js/makemon.js` salamander arm with C short-circuit ternary.
+- **Verification:** seed0373 rng-diff **31895→32011**; runner RNG
+  **32340**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** other S_LIZARD; S_ANGEL / S_KOP kits.
+- **Next:** @32011 C `next_ident` after `rnd_defensive_item` case7 vs JS
+  `rn2(4)` Sokoban dig-avoid — likely sticky `game.Sokoban` on fire plane;
+  or seed5006 `dosounds` @8468.
+
 ## D-0555 — get_location_coord random double-retry
 
 - **Status:** fixed (partial — fixed coords / croom `somexy`; object/trap

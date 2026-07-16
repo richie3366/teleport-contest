@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0555 done:** `get_location_coord` random double-retry before
-  create_monster DRY fallback. seed0373 **30743→31895**; runner RNG
-  **31908**/35386.
-- **seed0373 next:** @31895 C `m_initweap` S_LIZARD salamander
-  `rn2(7)` spear/trident/stiletto vs JS `rn2(75)` `rnd_offensive_item`
-  (JS lacks salamander weapon arm).
+- **D-0556 done:** `m_initweap` S_LIZARD salamander spear/trident/stiletto.
+  seed0373 **31895→32011**; runner RNG **32340**/35386.
+- **seed0373 next:** @32011 C `next_ident` after `rnd_defensive_item`
+  case7 WAN_DIGGING vs JS `rn2(4)` Sokoban dig-avoid. Hypothesis:
+  sticky `game.Sokoban` still true on fire plane (C `Sokoban` false).
+  Falsify: clear `g.Sokoban` on endgame/non-soko load; expect C match.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#615 formal score:** **30/44**, Scr **5901**/11405, RNG
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0555; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0556; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -59,14 +59,15 @@ Objective/score live in `CURRENT.md`.
   always DRY-place fire-plane flyers/lava-likers (D-0552);
   skip S_GIANT `m_initinv` gem/`WAN_DIGGING` (D-0553);
   burn `d(m_lev,8)` for golems (D-0554);
-  single-loop WET search for amphibious before DRY (D-0555).
+  single-loop WET search for amphibious before DRY (D-0555);
+  stub S_LIZARD salamander weap (D-0556).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0555
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0556
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -78,8 +79,7 @@ Objective/score live in `CURRENT.md`.
 - D-0513: `zapwrapup` must `You_feel` shudder (not defer).
 - D-0514: wizard `#quit` → `Dump core?` before disclose.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0555 makemaz / tower / Bar / soko / endgame fire — see index.
-
+- D-0519…D-0556 makemaz / tower / Bar / soko / endgame fire — see index.
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
@@ -97,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 tour: fire plane @31895 salamander weap after D-0555.
+- seed0373 tour: fire plane @32011 sticky Sokoban? after D-0556.

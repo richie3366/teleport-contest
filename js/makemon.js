@@ -1169,8 +1169,14 @@ function m_initweap(mtmp) {
         break;
     case 'S_ANGEL':
     case 'S_KOP':
-    case 'S_LIZARD':
         // Deferred special cases (C-JS-MAP).
+        break;
+    case 'S_LIZARD':
+        // C: makemon.c m_initweap S_LIZARD — salamander weapon kit
+        if (mm === pm('SALAMANDER')) {
+            mongets(mtmp, rn2(7) ? otyp('SPEAR')
+                : rn2(3) ? otyp('TRIDENT') : otyp('STILETTO'));
+        }
         break;
     default:
         m_initweap_default(mtmp, ptr);
