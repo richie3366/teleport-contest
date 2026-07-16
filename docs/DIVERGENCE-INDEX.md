@@ -448,7 +448,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0459 | fixed | do_attack safemon “in the way” pline + end_running | seed0002 @272→@342; Scr 353→354 |
 | D-0460 | fixed | look_here doname_with_price for-sale suffix | seed0002 @342→@345; Scr 354→361 |
 | D-0461 | fixed | doname unpaid_cost + paydoname suppress_price | seed0002 @345→@359; Scr 361→363 |
-| D-0462 | open | botl `$:` after shop pay/money2mon | seed0002 first screen miss @359 |
+| D-0462 | fixed | money2mon decrements `_goldCount` for botl `$:` | seed0002 @359→@363; Scr 363→559 |
+| D-0463 | open | wear pline appearance vs type name | seed0002 first cell-miss @363 |
 
 
 

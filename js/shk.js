@@ -966,6 +966,9 @@ function findgold_invent() {
 
 /**
  * C ref: shk.c money2mon — move hero gold into mon minvent.
+ * C freeinv → freeinv_core sets disp.botl; botl uses money_cnt(invent).
+ * JS botl `$:` caches game._goldCount (addinv/drop maintain it) — decrement
+ * here so pay paints the post-payment wallet.
  * Named omissions: remove_worn_item quiver; impossible arms.
  */
 export function money2mon(mon, amount) {
@@ -985,6 +988,8 @@ export function money2mon(mon, amount) {
     if (!ygold) return 0;
     ygold.where = OBJ_MINVENT;
     add_to_minv(mon, ygold);
+    // Mirror C freeinv_core COIN botl refresh via cached wallet.
+    game._goldCount = Math.max(0, (game._goldCount || 0) - amount);
     if (game.flags) game.flags.botl = true;
     return amount;
 }

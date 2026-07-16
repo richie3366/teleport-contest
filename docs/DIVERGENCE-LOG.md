@@ -4,16 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0462 — seed0002 screen@359 botl `$:` after shop pay
+## D-0463 — seed0002 screen@363 wear pline appearance vs type
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @363 — C
+  `You are now wearing a polished silver shield.` vs JS
+  `You are now wearing a shield of reflection.`; botl `$:`
+  matches. RNG full; Scr 559/595.
+- **Cause:** TBD — wear/`Armor` naming uses type name when C still
+  shows appearance (`polished silver`).
+- **C locus:** `do_wear.c` / `objnam.c` wear pline naming.
+- **Falsifier / next:** appearance/`dknown` path for wear message.
+
+## D-0462 — seed0002 screen@359 botl `$:` after shop pay
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @359 — C botl
   `Dlvl:2 $:1175 HP:14(14) …` vs JS `$:1225` (Δ=+50);
   buy topline `You bought a polished silver shield for 50 gold
   pieces.` matches. RNG full; Scr 363/595.
-- **Cause:** TBD — `pay`/`money2mon`/`splitobj` or botl gold source.
-- **C locus:** `shk.c` `pay` / `money2mon`; botl `$` display.
-- **Falsifier / next:** deduct invent gold on pay so botl `$` matches.
+- **Cause:** `money2mon` removed invent gold (split/splice) but left
+  `game._goldCount` unchanged; JS botl `$:` reads that cache while C
+  `botl.c` uses live `money_cnt(gi.invent)`.
+- **C locus:** `shk.c` `money2mon` → `freeinv`/`freeinv_core`;
+  `botl.c` `money_cnt`.
+- **Change:** `js/shk.js` `money2mon` — decrement `_goldCount` by
+  `amount` after transfer (same cache contract as drop/`freeinv_drop`).
+  Deferred: botl live `money_cnt` instead of cache; `money2u`.
+- **Verification:** seed0002 botl `$:1175` @359; first miss
+  **@359→@363**; Scr **363→559**; RNG full; green+strict; cohort
+  **26/26**. Full suite #500: Scr **4868**/11405; **26/44** PASS.
+- **Next:** wear appearance vs type (D-0463).
 
 ## D-0461 — seed0002 screen@345 doname unpaid_cost on prinv
 

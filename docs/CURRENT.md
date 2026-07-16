@@ -17,19 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#495 score
-cadence, post D-0457). Screens **4636**/11405; RNG **285358**/792838.
-**26/44** PASS. Speed `23+0.13/turn`. Δ vs #490: Scr +4, RNG +116
-(peels #491–#495 incl. D-0457 wield SUGGEST/`- ` prompt).
+Score last measured: **2026-07-16** — full `sessions` suite (#500 score
+cadence, post D-0462). Screens **4868**/11405; RNG **285358**/792838.
+**26/44** PASS. Speed `23+0.13/turn`. Δ vs #495: Scr **+232**, RNG 0
+(D-0462 `money2mon` `_goldCount`; seed0002 Scr 363→559).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **26 / 44** |
-| Screens matched | **4636 / 11,405** (40.65%) |
+| Screens matched | **4868 / 11,405** (42.68%) |
 | Positional RNG calls matched | **285,358 / 792,838** (35.99%) |
-| Speed label | `23+0.13/turn` (R² 0.77) |
+| Speed label | `23+0.13/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **363**/595 | RNG full; first cell-miss @359 botl `$:` (D-0462) |
+| seed0002 | **27158**/27158 | **559**/595 | RNG full; first cell-miss @363 wear name (D-0463) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,10 +62,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@359 — botl `$:` after shop `pay`/`money2mon`** (D-0462).
-RNG **full** 27158/27158; Scr **363**/595; first cell-miss: C
-`Dlvl:2 $:1175 …` vs JS `$:1225` (Δ=+50 shield price; buy topline matches).
-D-0461 unpaid doname + paydoname fixed (@345→@359).
+**seed0002 screen@363 — wear pline appearance vs type** (D-0463).
+RNG **full** 27158/27158; Scr **559**/595; first cell-miss: C
+`You are now wearing a polished silver shield.` vs JS
+`You are now wearing a shield of reflection.` Botl `$:` matches
+(post D-0462).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -73,7 +74,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0461.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0462.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
