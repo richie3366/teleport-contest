@@ -21,11 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#550**).
-Screens **5054**/11405; RNG **302184**/792838 (38.11%).
-**28/44** PASS. Speed `25+0.13/turn`. Δ vs #545: Scr **0**, PASS **28→28**,
-RNG **+7454** (+0.94pp); speed label `24→25` (same suite shape; recount after
-D-0492 land).
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#555**),
+post D-0497. Screens **5054**/11405; RNG **303218**/792838 (38.24%).
+**28/44** PASS. Speed `26+0.14/turn`. Δ vs #550: Scr **0**, PASS **28→28**,
+RNG **+1034** (+0.13pp); speed label `25→26`.
 
 ## Score
 
@@ -33,8 +32,8 @@ D-0492 land).
 |--------|------:|
 | Sessions passing | **28 / 44** |
 | Screens matched | **5,054 / 11,405** |
-| Positional RNG calls matched | **302,184 / 792,838** (38.11%) |
-| Speed label | `25+0.13/turn` (R² 0.75) |
+| Positional RNG calls matched | **303,218 / 792,838** (38.24%) |
+| Speed label | `26+0.14/turn` (R² 0.74) |
 | Role-init throws | **0 / 44** |
 
 **PASS (28):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -47,7 +46,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | 16355/16373 | **60**/302 | @16346; D-0497 next (mhitm_mgc_atk_negated) |
+| seed0007 | **16373**/16373 | **60**/302 | RNG complete (D-0497); screen peel next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -70,17 +69,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **D-0497** (next): @16346 C
-`rn2(10) @ mhitm_mgc_atk_negated` vs JS `rn2(3)`. D-0496 ported
-`postmov` `hides_under`/`S_EEL` `rn2(5)`→`hideunder`; prefix
-16339→16346.
+**Gameplay next:** seed0007 — **screen peel** (D-0498 next). RNG is full
+**16373**/16373 after D-0497 `mhitm_ad_drst`; Scr still **60**/302
+(cursors 292/302). Find first screen diverge vs C — likely display /
+`newsym` / hideunder visibility after moccasin combat, not further RNG.
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0496.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0497.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

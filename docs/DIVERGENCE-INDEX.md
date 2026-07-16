@@ -483,6 +483,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0494 | fixed | Amulet_on RESTFUL_SLEEP rnd(98)/HSleepy | seed0007 @15877→15983; dowatersnakes next |
 | D-0495 | fixed | drinkfountain dowatersnakes rn1(5,2) | seed0007 @15983→16339; distfleeck next |
 | D-0496 | fixed | postmov hides_under rn2(5)/hideunder | seed0007 @16339→16346; mgc_atk next |
+| D-0497 | fixed | mhitm_ad_drst mhitu mgc gate | seed0007 RNG full 16373; screen peel next |
 
 
 

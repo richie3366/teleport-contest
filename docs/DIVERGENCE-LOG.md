@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0497 — mhitm_ad_drst mhitu poison gate (seed0007 @16346)
+
+- **Status:** fixed
+- **Symptom:** after D-0496, first RNG miss @16346 — C `rn2(10) @
+  mhitm_mgc_atk_negated` vs JS `rn2(3)` (knockback). Scr **60**/302;
+  matched prefix **16346**. DIAG: water-moccasin `AT_BITE`+`AD_DRST`.
+- **Cause:** `mhitm_adtyping_u` default-zeroed non-PHYS/ELEC, so
+  `AD_DRST` never called `mhitm_mgc_atk_negated` before
+  `mhitm_knockback`. C `mhitm_ad_drst` always rolls the MC gate
+  (`verbosely=FALSE`) then `hitmsg`; leather armor `a_can=1` makes
+  `rn2(10)=1` negate the poison arm (no `rn2(8)`), then knockback.
+- **C locus:** `uhitm.c` `mhitm_ad_drst` / `mhitm_adtyping` cases
+  `AD_DRST`/`AD_DRDX`/`AD_DRCO`; `mhitu.c` `hitmu` → adtyping.
+- **Change:** `js/mhitu.js` `mhitm_ad_drst_u` + typing cases; export
+  `AD_DRST`/`AD_DRDX`/`AD_DRCO` from `js/mhitm.js`. Poisoned body stub
+  burns `rn2(30)` when poison applies.
+- **Verification:** rng-diff **16346→16373** (full); seed0007 RNG
+  **16373**/16373 Scr **60**/302; green+strict PASS; cohort 26/26 PASS;
+  full **28/44** Scr **5054** RNG **303218**/792838.
+- **Named omission:** full `attrib.c` `poisoned()` (messages, adjattrib,
+  fatal HP/`done`); `mpoisons_subj` display string; uhitm/mhitm poison
+  branches.
+- **Next:** seed0007 screen peel (Scr 60 with full RNG).
+
 ## D-0496 — postmov hides_under rn2(5) / hideunder (seed0007 @16339)
 
 - **Status:** fixed

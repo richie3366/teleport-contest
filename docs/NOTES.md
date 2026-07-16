@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0497 (next):** @16346 C `rn2(10) @ mhitm_mgc_atk_negated`
-  vs JS `rn2(3)`. After D-0496 hideunder, prefix 16346/16373; Scr **60**/302.
+- **seed0007 / D-0498 (next):** RNG **16373**/16373 after D-0497
+  `mhitm_ad_drst`; Scr **60**/302 (cursors 292). Screen-channel peel —
+  first diverge vs C display after moccasin combat / hideunder.
   Falsifier:
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
 - **Leaderboard gap:** local **28/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch next cron for seed0013 restore.
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0496
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0497
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -44,6 +45,7 @@ Objective/score live in `CURRENT.md`.
 - D-0494 `Amulet_on` RESTFUL_SLEEP `rnd(98)` → HSleepy TIMEOUT.
 - D-0495 `dowatersnakes` `rn1(5,2)` drink case 22 / dip case 23.
 - D-0496 `postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` (moccasins).
+- D-0497 `mhitm_ad_drst` mgc gate before knockback; leather `a_can=1`.
 
 ## Landmarks (≤15)
 
@@ -53,7 +55,7 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #550 score: **28/44**, Scr 5054, RNG 302184 (38.11%), `25+0.13/turn`.
+- #555 score: **28/44**, Scr 5054, RNG 303218 (38.24%), `26+0.14/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
