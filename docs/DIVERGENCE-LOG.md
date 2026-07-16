@@ -4,17 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0463 — seed0002 screen@363 wear pline appearance vs type
+## D-0464 — seed0002 screen@454 locked chest look_here/doname
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @454 — C
+  `You see here a locked chest.` vs JS `You see here a chest.`;
+  RNG full; Scr 560/595 (post D-0463).
+- **Cause:** TBD — C `doname_base` prefixes `"locked "` when
+  `lknown && Is_box && olocked`; JS `doname` omits lock state
+  (and possibly `lknown` never set on floor chest).
+- **C locus:** `objnam.c` `doname_base` box lock/trap prefixes;
+  callers that set `lknown`.
+- **Falsifier / next:** port lock/trap doname prefixes + verify
+  `lknown`/`olocked` on the looked-at chest.
+
+## D-0463 — seed0002 screen@363 wear pline appearance vs type
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @363 — C
   `You are now wearing a polished silver shield.` vs JS
   `You are now wearing a shield of reflection.`; botl `$:`
   matches. RNG full; Scr 559/595.
-- **Cause:** TBD — wear/`Armor` naming uses type name when C still
-  shows appearance (`polished silver`).
-- **C locus:** `do_wear.c` / `objnam.c` wear pline naming.
-- **Falsifier / next:** appearance/`dknown` path for wear message.
+- **Cause:** JS `on_msg` used `objectNameStrs[otyp]` (true type
+  name) instead of C `xname`→`an`/`the` (appearance when
+  `!oc_name_known`).
+- **C locus:** `do_wear.c` `on_msg`; `objnam.c` `xname` /
+  `obj_is_pname`.
+- **Change:** `js/do_wear.js` `on_msg` — `xname(otmp)` then
+  `obj_is_pname ? the : an`; towel `around your head` stub.
+  Deferred: full `not_fully_identified` / `body_part(HEAD)` poly.
+- **Verification:** seed0002 @363 matches; first miss
+  **@363→@454**; Scr **559→560**; RNG full; green+strict; cohort
+  **26/26**.
+- **Next:** locked chest doname (D-0464).
 
 ## D-0462 — seed0002 screen@359 botl `$:` after shop pay
 

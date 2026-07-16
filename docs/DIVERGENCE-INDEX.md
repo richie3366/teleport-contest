@@ -449,7 +449,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0460 | fixed | look_here doname_with_price for-sale suffix | seed0002 @342→@345; Scr 354→361 |
 | D-0461 | fixed | doname unpaid_cost + paydoname suppress_price | seed0002 @345→@359; Scr 361→363 |
 | D-0462 | fixed | money2mon decrements `_goldCount` for botl `$:` | seed0002 @359→@363; Scr 363→559 |
-| D-0463 | open | wear pline appearance vs type name | seed0002 first cell-miss @363 |
+| D-0463 | fixed | wear `on_msg` uses `xname` not type string | seed0002 @363→@454; Scr 559→560 |
+| D-0464 | open | doname locked/unlocked box prefix | seed0002 first cell-miss @454 |
 
 
 

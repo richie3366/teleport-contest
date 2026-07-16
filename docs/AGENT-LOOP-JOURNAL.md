@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 06:34 — #501 D-0463 wear on_msg xname
+- Objective: seed0002 @363 C `polished silver shield` vs JS
+  `shield of reflection` on wear pline.
+- C locus: `do_wear.c` `on_msg`; `objnam.c` `xname`/`obj_is_pname`.
+- Change: `js/do_wear.js` `on_msg` uses `xname` + `an`/`the`
+  (was `objectNameStrs` type name).
+- Verification: @363 matches; first miss @363→@454
+  (`locked chest`); Scr 559→560; RNG full; green+strict; cohort
+  26/26.
+- Next: D-0464 doname locked-box prefix @454.
+
 ## 2026-07-16 06:30 — #500 D-0462 money2mon `_goldCount` + public score
 - Objective: mandatory #500 full `sessions` score; primary D-0462
   seed0002 botl `$:1175` vs `$:1225` after shop pay.

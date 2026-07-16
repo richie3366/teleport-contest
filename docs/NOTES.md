@@ -8,16 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#500 cadence). Scr **4868**/11405; RNG
-  **285358**/792838. seed0002 RNG **full** 27158; Scr **559**/595
-  (post D-0462).
-- **Next (D-0463):** seed0002 screen@363 — C
-  `You are now wearing a polished silver shield.` vs JS
-  `You are now wearing a shield of reflection.`
+  **285358**/792838. seed0002 RNG **full** 27158; Scr **560**/595
+  (post D-0463).
+- **Next (D-0464):** seed0002 screen@454 — C
+  `You see here a locked chest.` vs JS `You see here a chest.`
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: wear/`Armor`/`dowear` naming — appearance/`dknown` vs
-  `obj_typename` / reflection ID.
+  Falsify: `doname_base` `lknown`+`Is_box`→`"locked "` / `"unlocked "`;
+  also `otrapped`+`tknown` `"trapped "`. Ensure floor chest has
+  `lknown`/`olocked` set like C.
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -29,7 +29,8 @@ Objective/score live in `CURRENT.md`.
   (D-0458); screen@272 without safemon stop pline (D-0459);
   screen@342 without look_here `doname_with_price` (D-0460);
   screen@345 without unpaid/`paydoname` (D-0461);
-  screen@359 without `money2mon` `_goldCount` (D-0462).
+  screen@359 without `money2mon` `_goldCount` (D-0462);
+  screen@363 without `on_msg`→`xname` (D-0463).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -48,7 +49,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0462 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0463 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -57,7 +58,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0462 done; screen@363 wear appearance next (D-0463).
+- D-0408–D-0463 done; screen@454 locked chest next (D-0464).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).
