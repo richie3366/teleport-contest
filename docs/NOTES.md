@@ -7,20 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0578 fixed:** bones omitted `utrack`; `goto_level` wiped it after
-  `getbones`. Hostile kitten `gettrack` → grave → dest (30,5) → `rn2(16)`.
-  seed5006 RNG FULL; Scr 217/249 residual.
+- **D-0579 fixed:** equip getobj SUGGEST-only letters; cursed boots/gloves
+  plural; Blindf_on/off + EBlinded mirror; vision_recalc Blind clears
+  IN_SIGHT; hitmu map_invisible. seed5006 Scr **217→228**/249; first
+  miss @162 confused scroll mispronounce vs level_tele prompt.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Next gameplay:** seed5006 Scr 217/249; or seed0116 Scr 114/127.
+- **Next gameplay:** seed5006 @162 confused spellbook/scroll path; or
+  seed0116 Scr 115/127.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0578; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0579; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -42,17 +44,18 @@ Objective/score live in `CURRENT.md`.
   cursed/confused teleport scroll `level_tele`; stub death-ray
   `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
   `can_make_bones`; omit cemetery / `familiar_level_msg`; omit bones
-  `utrack` or `initrack` after `getbones`.
+  `utrack` or `initrack` after `getbones`; list DOWNPLAY letters in
+  wear/puton/takeoff prompts; skip Blindf_on / Blind vision_recalc.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0578 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0579 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0577 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
-  familiar — index.
+- D-0519…D-0578 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
+  familiar/utrack — index.
 - seed5006 @8468 was regen HP / missing Regeneration, not dosounds.
 - seed5006 @8473 was stubbed confused scroll `level_tele`, not rnl alone.
 - seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
@@ -61,6 +64,8 @@ Objective/score live in `CURRENT.md`.
 - seg1 @2780 `rn2(5)` is kitten **post-move** `distfleeck` recalc
   (dochug after `m_move`), not a second monster.
 - D-0578: C gg via bones `gettrack` to grave, not mfndpos cnt at (32,4).
+- D-0579: first Scr miss was getobj DOWNPLAY letters + Blindf_on, not
+  RNG; Blind without vision_recalc left IN_SIGHT → named hitmsg overflow.
 
 ## Landmarks (≤15)
 
@@ -77,3 +82,4 @@ Objective/score live in `CURRENT.md`.
 - Debug `set_playmode` → `plname="wizard"`; cemetery who uses that.
 - Bones `utrack` via `save_track`/`rest_track` (D-0578); no post-getbones
   `initrack`.
+- Blindfold: Blindf_on + EBlinded + vision_recalc Blind (D-0579).

@@ -25,8 +25,8 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#640**),
 post D-0577. Screens **6473**/11405; RNG **358954**/792838 (45.27%).
 **31/44** PASS. Speed `31+0.14/turn` (R² 0.770). Δ vs #635: PASS +1
 (seed0373), Scr **+72**, RNG **+5306**; Δ vs pre-D-0577 #640: Scr +10
-(seed5006 182→192). **#643 focused:** seed5006 RNG FULL Scr **217**/249
-(D-0578); suite not remeasured (iter % 5 ≠ 0).
+(seed5006 182→192). **#644 focused:** seed5006 Scr **228**/249 (D-0579);
+suite not remeasured (iter % 5 ≠ 0).
 
 ## Score
 
@@ -47,8 +47,8 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 12562/12562 | **114**/127 | D-0563+; screen residual |
-| seed5006 | **13923**/13923 | **217**/249 | D-0578 RNG FULL; Scr residual |
+| seed0116 | 12562/12562 | **115**/127 | D-0579 wear/Blind; +1 Scr |
+| seed5006 | **13923**/13923 | **228**/249 | D-0579 Scr 217→228; @162 next |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -72,15 +72,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** seed5006 Scr **217**/249 (RNG full after D-0578);
-or seed0116 Scr 114/127.
+**Gameplay next:** seed5006 Scr **228**/249 first miss @162 confused
+scroll mispronounce vs level_tele prompt; or seed0116 Scr 115/127.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0578.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0579.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

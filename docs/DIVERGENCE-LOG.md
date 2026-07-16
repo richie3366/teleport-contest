@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0579 — equip getobj SUGGEST + Blindf_on / Blind vision (seed5006 Scr)
+
+- **Status:** fixed (partial — confused scroll mispronounce @162; Die?/
+  Save-bones yn timing; other E* prop mirrors)
+- **Symptom:** seed5006 Scr **217**/249 after D-0578 RNG FULL; first miss
+  @109 puton `[mno]` vs C `[no]`; wear/takeoff DOWNPLAY letters; Blind
+  status missing; hitmsg named monster overflow → `--More--` desync.
+- **Cause:** (1) `puton_lets`/`wear_lets`/`takeoff_lets` listed
+  GETOBJ_DOWNPLAY letters in the prompt (C `equip_ok` only SUGGEST).
+  (2) `cursed()` plural used quan>1 only — C also boots/gloves/lenses.
+  (3) Blindf_on stubbed; `confer_oc_oprop` set `uprops[BLINDED]` but not
+  flat `EBlinded`; `vision_recalc` never took C Blind arm (kept IN_SIGHT).
+  (4) `hitmu` omitted `map_invisible` when `!canspotmon`.
+- **C locus:** `do_wear.c` `equip_ok`/`puton_ok`/`wear_ok`/`takeoff_ok`/
+  `cursed`/`Blindf_on`/`Blindf_off`; `vision.c` Blind `vision_recalc`;
+  `mhitu.c` `hitmu` map_invisible; `youprop.h` EBlinded.
+- **Change:** SUGGEST-only wear prompts; cursed plural; Blindf_on/off +
+  EBlinded mirror; Blind vision_recalc; hitmu map_invisible.
+- **Verification:** seed5006 Scr **217→228**/249 RNG FULL; seed0116
+  **114→115**/127; green+strict PASS; cohort 10/10 PASS (seed0373/0398/
+  0030/0009/…).
+- **Named omission:** `inaccessible_equipment` in takeoff_ok; remove_ok
+  (R) SUGGEST accessories; Punished set_bc / full toggle_blindness
+  see_monsters; other E* mirrors; seed5006 @162 confused mispronounce.
+- **Next:** seed5006 @162 confused scroll/spellbook; or seed0116 residual.
+
 ## D-0578 — bones utrack → hostile gettrack (seed5006 seg1 kitten)
 
 - **Status:** fixed

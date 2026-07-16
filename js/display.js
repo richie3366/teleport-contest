@@ -314,7 +314,12 @@ function hero_has_infravision() {
 // C ref: display.h _see_with_infrared
 export function see_with_infrared(mon) {
     if (!mon) return false;
-    if (game.u?.Blind || game.u?.ublind) return false;
+    const u = game.u || {};
+    // C: !Blind && Infravision && …
+    if (u.Blind || u.ublind
+        || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0))) {
+        return false;
+    }
     if (!hero_has_infravision()) return false;
     const ptr = mon.data || mons(mon.mnum);
     if (!infravisible(ptr)) return false;
