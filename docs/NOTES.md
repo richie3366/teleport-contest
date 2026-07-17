@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#701 D-0630:** makemon inline hideunder omitted non-pit `t_at`
-  gate → snake under food on POLY_TRAP showed `%` vs C `S`.
-  seed0361 Scr **355→362**/366. Falsifier was dump @339 + trap at
-  (29,12) ttyp=POLY_TRAP with Arc-goal traps-before-monsters.
-- **Next fail:** @354 invent doname — JS `an uncursed pick-axe` vs
-  C `a +0 pick-axe (alternate weapon; not wielded)`; tinning kit
-  charges; then discovery order @358; attrs `(1 of 2)` vs `(1 of 3)`.
+- **#702 D-0631:** `ini_inv_use_obj` used `is_missile` not C `is_weptool`
+  → Arc pick-axe never `W_SWAPWEP`; `doname` omitted weptool→WEAPON
+  remap + TOOL `oc_charged` (tinning). Scr **362→363**/366; @354 MATCH.
+- **Next fail:** @358 disco order — JS `hooded cloak` then `pair of
+  hard shoes` vs C reverse; @360 attrs `(1 of 2)` vs `(1 of 3)`;
+  @361 cursor row 21 vs 23.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0630; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0631; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -35,13 +34,15 @@ Objective/score live in `CURRENT.md`.
   skip movemon `restrap`; skip Arc firsttime; invent vision blank for
   getpos floor; check `flags.wizard` alone for C `wizard`; force
   mundetected on all S_SNAKE (python !M1_CONCEAL); omit `questarti` on
-  `game.urole`; omit non-pit trap in makemon snake hideunder.
+  `game.urole`; omit non-pit trap in makemon snake hideunder;
+  omit `is_weptool` in `ini_inv_use_obj` / weptool donameClass /
+  TINNING_KIT charged.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0630 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0631 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -52,8 +53,8 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620…29: see INDEX; D-0630: @339 was hideunder non-pit POLY_TRAP
-  (not getlev catchup / python CONCEAL).
+- D-0620…30: see INDEX; D-0631: @354 was ini_inv weptool + doname
+  charged (not invent letter / known bit).
 
 ## Landmarks (≤15)
 
@@ -72,9 +73,10 @@ Objective/score live in `CURRENT.md`.
   dirty `paint_gbuf_level_to_terminal` (D-0583).
 - Quest: Arc firsttime (D-0625); `is_pure` wizard≡debug + `%r`/`%ra`
   (D-0627); snake hideunder `hides_under` (D-0628) + non-pit trap
-  (D-0630); **questarti on urole** (D-0629); seed0361 Scr 362;
-  remaining invent/attrs next; eel `hideunder` / minliquid / I_SPECIAL
-  equip deferred; vamp shapeshift arms / `run_regions` ttl age deferred;
+  (D-0630); **questarti on urole** (D-0629); **ini_inv is_weptool +
+  doname charged/weptool** (D-0631); seed0361 Scr 363; remaining
+  disco/attrs; eel `hideunder` / minliquid / I_SPECIAL equip deferred;
+  vamp shapeshift arms / `run_regions` ttl age deferred;
   `intemple` + SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role
   firsttime deferred; getpos object glyphs / altar/ndoor/cloud deferred;
   convert_arg pronoun/plural deferred; other-role `roles[].questarti`

@@ -611,6 +611,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0628 | fixed | makemon snake hideunder needs hides_under | seed0361 Scr 331→352; next @320 Orb text |
 | D-0629 | fixed | setup_role_race installs questarti for %o | seed0361 Scr 352→355; suite Scr 6818; next remaining 11 |
 | D-0630 | fixed | makemon snake hideunder skips non-pit trap | seed0361 Scr 355→362; next invent/attrs @354 |
+| D-0631 | fixed | ini_inv is_weptool + doname charged/weptool | seed0361 Scr 362→363; next disco @358 / attrs @360 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

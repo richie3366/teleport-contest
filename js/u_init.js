@@ -979,6 +979,22 @@ function is_missile(obj) {
     return sk >= -P_BOOMERANG && sk <= -P_DART;
 }
 
+// C ref: obj.h is_weptool — TOOL with oc_skill != P_NONE (named fallback).
+function is_weptool(obj) {
+    if (!obj || obj.oclass !== TOOL_CLASS) return false;
+    const sk = game.objects?.[obj.otyp]?.oc_skill;
+    if (sk != null && sk !== P_NONE) return true;
+    const n = objectNames[obj.otyp];
+    return n === 'PICK_AXE' || n === 'GRAPPLING_HOOK' || n === 'UNICORN_HORN';
+}
+
+// C ref: obj.h bimanual — WEAPON/TOOL with oc_bimanual (oc_big).
+function bimanual(obj) {
+    if (!obj) return false;
+    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
+    return !!(game.objects?.[obj.otyp]?.oc_big);
+}
+
 function has_descr(otyp) {
     // C: OBJ_DESCR(objects[otyp]) != NULL — uses oc_descr_idx (pre-shuffle
     // for starting invent this equals otyp's own descr slot).
@@ -1082,7 +1098,8 @@ function ini_inv_use_obj(obj) {
             game.u.uarm = obj;
         }
     }
-    if (obj.oclass === WEAPON_CLASS || is_missile(obj)
+    // C: WEAPON_CLASS || is_weptool || TIN_OPENER/FLINT/ROCK
+    if (obj.oclass === WEAPON_CLASS || is_weptool(obj)
         || objectNames[obj.otyp] === 'TIN_OPENER'
         || objectNames[obj.otyp] === 'FLINT'
         || objectNames[obj.otyp] === 'ROCK') {
@@ -1091,7 +1108,7 @@ function ini_inv_use_obj(obj) {
                 obj.owornmask = (obj.owornmask || 0) | W_QUIVER;
                 game.u.uquiver = obj;
             }
-        } else if (!game.u.uwep) {
+        } else if (!game.u.uwep && (!game.u.uarms || !bimanual(obj))) {
             obj.owornmask = (obj.owornmask || 0) | W_WEP;
             game.u.uwep = obj;
         } else if (!game.u.uswapwep) {

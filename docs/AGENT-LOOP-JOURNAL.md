@@ -12,6 +12,25 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-17 13:36 — #702 D-0631 ini_inv weptool + doname charged
+- Objective: seed0361 @354 invent — uncursed pick-axe / tinning vs
+  `+0` swapwep / `(0:72)` charges.
+- C locus: `u_init.c` `ini_inv_use_obj` `is_weptool`; `objnam.c`
+  `doname_base` weptool→WEAPON + TOOL `oc_charged`.
+- Change: u_init `is_weptool` (+ bimanual/shield gate); objnam
+  donameClass remap + charged-tool/WEPTOOL name list.
+- Verification: Scr **362→363**/366; @354 MATCH; green+strict PASS;
+  cohort 31/31 PASS.
+- Next: seed0361 @358 disco order; @360/@361 attrs pages.
+
 ## 2026-07-17 13:31 — #701 D-0630 hideunder non-pit trap
 - Objective: seed0361 @339 map `%` vs `S` after Home5 getlev.
 - C locus: `mon.c` `hideunder` trap/`is_pit`; `makemon.c` S_SNAKE;
@@ -21,14 +40,6 @@ Use this shape:
 - Verification: Scr **355→362**/366 RNG full; green+strict PASS;
   cohort 33/33 PASS.
 - Next: seed0361 @354 invent doname; or Pri-strt.
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-17 13:25 — #700 score + D-0629 questarti %o
 - Objective: mandatory full `sessions` score (#700); seed0361 @320 Orb.

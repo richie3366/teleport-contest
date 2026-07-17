@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0631 — ini_inv weptool + doname charged tools (seed0361 @354)
+
+- **Status:** fixed (partial — seed0361 still 363/366)
+- **Symptom:** invent `e`/`f` — JS `an uncursed pick-axe` / `an uncursed
+  tinning kit` vs C `a +0 pick-axe (alternate weapon; not wielded)` /
+  `a tinning kit (0:72)`. RNG full.
+- **Cause:** (1) `ini_inv_use_obj` outer weapon gate used `is_missile`
+  instead of C `is_weptool`, so Arc pick-axe never got `W_SWAPWEP` after
+  bullwhip `uwep`. (2) `doname` deferred weptool→WEAPON remap (`+spe`)
+  and omitted TOOL `oc_charged` names (tinning kit / WEPTOOL chg bit).
+- **C locus:** `u_init.c` `ini_inv_use_obj`; `objnam.c` `doname_base`
+  `is_weptool ? WEAPON_CLASS`; `objects.h` TOOL/WEPTOOL chg.
+- **Change:** `js/u_init.js` — `is_weptool` + `!uarms||!bimanual` for
+  `setuwep`; `js/objnam.js` — weptool donameClass + charged-tool list.
+- **Verification:** seed0361 Scr **362→363**/366; @354 MATCH; green+strict
+  PASS; cohort **31/31** PASS.
+- **Next:** @358 disco order (cloak/shoes); @360 attrs `(1 of 2)` vs
+  `(1 of 3)`; @361 attrs cursor.
+
 ## D-0630 — makemon hideunder ignores non-pit trap (seed0361 @339)
 
 - **Status:** fixed (partial — seed0361 still 362/366)
