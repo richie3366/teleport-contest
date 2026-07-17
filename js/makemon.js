@@ -1088,6 +1088,16 @@ function m_initweap(mtmp) {
                 if (!rn2(50)) mongets(mtmp, otyp('CRYSTAL_BALL'));
             }
         } else if (
+            // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
+            // tables omit msound; only ALIGNED/HIGH_CLERIC carry MS_PRIEST
+            mm === pm('ALIGNED_CLERIC') || mm === pm('HIGH_CLERIC')
+        ) {
+            // C: makemon.c m_initweap MS_PRIEST — mksobj(MACE,FALSE,FALSE)
+            const otmp = mksobj(otyp('MACE'), false, false);
+            otmp.spe = rnd(3);
+            if (!rn2(2)) curse(otmp);
+            mpickobj(mtmp, otmp);
+        } else if (
             // C: ptr->msound == MS_GUARDIAN — tables omit msound; gate by mndx
             mm === pm('STUDENT') || mm === pm('ATTENDANT')
             || mm === pm('ABBOT') || mm === pm('ACOLYTE')
@@ -1157,7 +1167,7 @@ function m_initweap(mtmp) {
                 break;
             }
         }
-        // MS_PRIEST / quest cleric / PM_NINJA deferred (C-JS-MAP)
+        // quest_mon_represents_role(PM_CLERIC) + PM_NINJA deferred (C-JS-MAP)
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default
@@ -1502,8 +1512,18 @@ function m_initinv(mtmp) {
                 mongets(mtmp, otyp('WAN_STRIKING'));
                 break;
             }
+        } else if (
+            // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
+            ptr.mndx === pm('ALIGNED_CLERIC') || ptr.mndx === pm('HIGH_CLERIC')
+        ) {
+            // C: makemon.c m_initinv MS_PRIEST — robe/cloak, shield, gold
+            mongets(mtmp, rn2(7) ? otyp('ROBE')
+                : rn2(3) ? otyp('CLOAK_OF_PROTECTION')
+                         : otyp('CLOAK_OF_MAGIC_RESISTANCE'));
+            mongets(mtmp, otyp('SMALL_SHIELD'));
+            mkmonmoney(mtmp, rn1(10, 20));
         }
-        // elf / priest / guardian arms deferred
+        // elf / quest_mon_represents_role / guardian invent arms deferred
         break;
     default:
         // Other m_initinv bodies (S_DEMON, S_WRAITH, S_LICH, …) deferred

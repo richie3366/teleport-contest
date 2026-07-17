@@ -73,11 +73,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @12294 — D-0602 fixed `pick_room` wizard≡
-`flags.debug` (playmode:debug); prefix **12288→12294**. Next C
-`next_ident` vs JS `rn2(75)` on priest/makemon gear after shrine.
-Or seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
-D-0006 / seed2200 RC; do not reopen D-0474…D-0602 shipped.
+**Gameplay next:** seed0361 @13719 — D-0603 shipped MS_PRIEST
+`m_initweap`/`m_initinv` (mace+robe/shield/gold); prefix
+**12294→13719**, Scr **205→215**, RNG **12385→13837**. Next C
+`pri_move` vs JS `distfleeck`/`m_move` (priest movement). Or
+seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
+D-0006 / seed2200 RC; do not reopen D-0474…D-0603 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

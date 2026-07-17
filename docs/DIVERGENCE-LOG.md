@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0603 — MS_PRIEST m_initweap / m_initinv (@12294)
+
+- **Status:** fixed (partial — next `pri_move` @13719)
+- **Symptom:** seed0361 @12294 — C `next_ident` (mace) vs JS `rn2(75)`
+  at end of `m_initweap`.
+- **Cause:** `m_initweap` / `m_initinv` omitted the MS_PRIEST arms
+  (`mksobj(MACE)` + spe/curse; robe/cloak + SMALL_SHIELD + gold).
+  Aligned cleric fell through to the trailing `rn2(75)` offensive roll.
+- **C locus:** `makemon.c` `m_initweap` / `m_initinv` MS_PRIEST;
+  `monsters.h` ALIGNED_CLERIC / HIGH_CLERIC.
+- **Change:** `js/makemon.js` — gate by `ALIGNED_CLERIC`/`HIGH_CLERIC`
+  mndx (tables omit `msound`); port both arms before guardian/else.
+- **Verification:** prefix **12294→13719** Scr **205→215** RNG
+  **12385→13837**; green+strict PASS; cohort **33/33** PASS.
+- **Named omission:** `quest_mon_represents_role(PM_CLERIC)` +
+  `PM_NINJA` kits; `pri_move` / `intemple`.
+- **Next:** seed0361 @13719 `pri_move`; or Pri-strt / seed0014/0108.
+
 ## D-0602 — pick_room wizard ≡ flags.debug (@12288)
 
 - **Status:** fixed (partial — next priest/makemon @12294)

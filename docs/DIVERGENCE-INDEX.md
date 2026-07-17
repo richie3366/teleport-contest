@@ -583,6 +583,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0600 | fixed | mktemple/priestini/newepri | seed0361 12287→12288; next doorct @12288 shrine_pos |
 | D-0601 | fixed | make_niches depth + dosdoor mimic + G_GONE | niches/mimic/G_GONE; @12288 peel continued as D-0602 |
 | D-0602 | fixed | pick_room wizard≡flags.debug | seed0361 12288→12294; next priest/makemon @12294 |
+| D-0603 | fixed | MS_PRIEST m_initweap/m_initinv | seed0361 12294→13719 Scr 215; next pri_move @13719 |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |
