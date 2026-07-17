@@ -1,5 +1,15 @@
 # Agent loop journal archive
 
+## 2026-07-17 10:41 — #673 D-0603 MS_PRIEST m_initweap/m_initinv
+- Objective: seed0361 @12294 C `next_ident` vs JS `rn2(75)`.
+- C locus: `makemon.c` `m_initweap`/`m_initinv` MS_PRIEST (ALIGNED/HIGH
+  CLERIC); `monsters.h` msound.
+- Change: port mace (`mksobj`+spe/curse) + robe/cloak/shield/gold;
+  gate by mndx (tables omit msound). Leave quest_role + NINJA deferred.
+- Verification: prefix **12294→13719** Scr **215** RNG **13837**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @13719 `pri_move` vs ordinary monmove.
+
 ## 2026-07-17 10:11 — #670 formal score refresh
 - Objective: mandatory #670 full `sessions` score (÷5 cadence).
 - C locus: n/a (score-only; no port patch).

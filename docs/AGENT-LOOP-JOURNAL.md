@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:18 — #688 D-0618 Arc-fila/filb load_special
+- Objective: seed0361 @31644 C nhlib shuffle rn2(3) vs JS rn2(79).
+- C locus: `dat/Arc-filb.lua` / `Arc-fila.lua`; `sp_lev.c` lspo_room /
+  get_location_coord; `mklev.c` In_quest fil{a,b}.
+- Change: port `load_arc_fila`/`load_arc_filb` ordinary des.room +
+  croom `get_location_coord_in_room` (WET double-retry before DRY).
+- Verification: prefix **31644→34204** Scr **289**/366 RNG **34219**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @34204 Arc-goal nhl shuffle vs rn2(79); or Pri-strt.
+
 ## 2026-07-17 12:05 — #687 D-0617 tower1 candle get_location_coord
 - Objective: seed0361 @23223 C `get_location` rn2(15) vs JS `rnd(2)`.
 - C locus: `sp_lev.c` `create_object`/`get_location_coord`; `tower1.lua` chest contents.
@@ -150,14 +160,4 @@ Use this shape:
 - Verification: prefix **13719→13839** Scr **215** RNG **13889**;
   green+strict PASS; cohort **33/33** PASS.
 - Next: seed0361 @13839 `find_montype` (sp_lev); or Pri-strt.
-
-## 2026-07-17 10:41 — #673 D-0603 MS_PRIEST m_initweap/m_initinv
-- Objective: seed0361 @12294 C `next_ident` vs JS `rn2(75)`.
-- C locus: `makemon.c` `m_initweap`/`m_initinv` MS_PRIEST (ALIGNED/HIGH
-  CLERIC); `monsters.h` msound.
-- Change: port mace (`mksobj`+spe/curse) + robe/cloak/shield/gold;
-  gate by mndx (tables omit msound). Leave quest_role + NINJA deferred.
-- Verification: prefix **12294→13719** Scr **215** RNG **13837**;
-  green+strict PASS; cohort **33/33** PASS.
-- Next: seed0361 @13719 `pri_move` vs ordinary monmove.
 

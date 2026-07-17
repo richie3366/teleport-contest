@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+# Divergence log
+
+## D-0618 — Arc-fila/filb load_special (@31644)
+
+- **Status:** fixed (partial — next @34204 Arc-goal nhl shuffle vs rn2(79))
+- **Symptom:** seed0361 @31644 — C nhlib `shuffle` `rn2(3)` after matched
+  `getbones` (Home 4) vs JS `rn2(79)` (`get_location` / mineralize on empty).
+- **Cause:** `makelevel` In_quest correctly requested `Arc-filb`, but
+  `load_special_proto` had no loader; makemaz miss left stone → mineralize
+  `rn2(79)`. C loads `Arc-filb.lua` (ordinary `des.room` +
+  `des.random_corridors`). First room `des.monster("M")` → S_MUMMY (8×
+  `rn2(9)`). Also needed `get_location_coord` double-retry for WET-only
+  humidity (swimmer snakes) before DRY fallback.
+- **C locus:** `dat/Arc-filb.lua` / `Arc-fila.lua`; `sp_lev.c`
+  `lspo_room`/`build_room`/`get_location_coord`/`create_monster`;
+  `mklev.c` In_quest `*-fil{a,b}`.
+- **Change:** `js/mklev.js` — `load_arc_fila`/`load_arc_filb` +
+  `splev_ordinary_room` + croom `get_location_coord_in_room` /
+  `splev_room_{object,monster,stair,trap}`; dispatch in
+  `load_special_proto`.
+- **Verification:** prefix **31644→34204** Scr **289**/366 RNG
+  **34219**/53865; green+strict PASS; cohort **33/33** PASS.
+- **Next:** @34204 C nhlib shuffle after getbones (Arc-goal) vs JS
+  `rn2(79)`; or Pri-strt / seed0014/0108.
+
 ## D-0617 — tower1 chest candles via get_location_coord (@23223)
 
 - **Status:** fixed (partial — next @31644 nhl shuffle vs rn2(79))
