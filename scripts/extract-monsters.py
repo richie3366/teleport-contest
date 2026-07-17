@@ -80,6 +80,18 @@ M3_FLAGS = {
     "M3_DISPLACES": 0x0400,
 }
 
+MR_FLAGS = {
+    # C ref: include/monflag.h — permonst.mresists / mrconveyed
+    "MR_FIRE": 0x01,
+    "MR_COLD": 0x02,
+    "MR_SLEEP": 0x04,
+    "MR_DISINT": 0x08,
+    "MR_ELEC": 0x10,
+    "MR_POISON": 0x20,
+    "MR_ACID": 0x40,
+    "MR_STONE": 0x80,
+}
+
 M1_FLAGS = {
     # C ref: include/monflag.h — subset used by ported predicates
     "M1_FLY": 0x00000001,
@@ -314,9 +326,10 @@ def main() -> int:
             pmnames = [nams_m.group(1), nams_m.group(2), nams_m.group(3)]
         elif nam_m:
             pmnames = [None, None, nam_m.group(1)]
-        lvl, gen, flg1, flg2, flg3, diff, col, bn = (
+        lvl, gen, mr1, flg1, flg2, flg3, diff, col, bn = (
             parts[2],
             parts[3],
+            parts[6],
             parts[8],
             parts[9],
             parts[10],
@@ -424,6 +437,7 @@ def main() -> int:
             "maligntyp": int(lm.group(5)),
             "geno": eval_flags(gen, G_FLAGS),
             "difficulty": int(diff.strip()),
+            "mresists": eval_flags(mr1, MR_FLAGS),
             "mflags1": eval_flags(flg1, M1_FLAGS),
             "mflags2": eval_flags(flg2, M2_FLAGS),
             "mflags3": eval_flags(flg3, M3_FLAGS),
@@ -453,6 +467,7 @@ def main() -> int:
                     "maligntyp": 0,
                     "geno": 0x1200,  # G_NOGEN|G_UNIQ fallback
                     "difficulty": 0,
+                    "mresists": 0,
                     "mflags1": 0,
                     "mflags2": 0,
                     "mflags3": 0,
@@ -521,6 +536,11 @@ def main() -> int:
     lines.append("export const maligntyps = " + json.dumps([m["maligntyp"] for m in mons]) + ";")
     lines.append("export const genos = " + json.dumps([m["geno"] for m in mons]) + ";")
     lines.append("export const difficulties = " + json.dumps([m["difficulty"] for m in mons]) + ";")
+    lines.append(
+        "export const mresists = "
+        + json.dumps([m.get("mresists", 0) for m in mons])
+        + ";"
+    )
     lines.append("export const mflags1s = " + json.dumps([m.get("mflags1", 0) for m in mons]) + ";")
     lines.append("export const mflags2s = " + json.dumps([m["mflags2"] for m in mons]) + ";")
     lines.append("export const mflags3s = " + json.dumps([m.get("mflags3", 0) for m in mons]) + ";")

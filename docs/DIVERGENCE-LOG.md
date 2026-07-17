@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0654 — medusa empty-statue resists_ston + mresists extract (seed0367 @27126)
+
+- **Status:** fixed (partial — next @33068 after getbones)
+- **Symptom:** seed0367 first mismatch @27126 — C `rndmonst_adj` `rn2(3)`
+  vs JS `get_location_random` `rn2(75)` after matched vortex invent/saddle.
+- **Cause:** JS Medusa empty-statue fill accepted the first `makemon` from
+  `mksobj` corpsenm. C `create_object` rejects `resists_ston(was)` /
+  `poly_when_stoned` and retries with `rndmonnum()` (then `propagate` on
+  accept). `mresists` was not extracted, so the gate could not run.
+- **C locus:** `sp_lev.c` `create_object` Medusa statue arm; `monst.h`
+  `resists_ston` / `mon_resistancebits`; `mondata.c` `poly_when_stoned` /
+  `Resists_Elem`; `makemon.c` `propagate`.
+- **Change:** extract `mresists` via `extract-monsters.py`;
+  `pm_resistance` / `resists_ston` / `poly_when_stoned`; Medusa loop
+  reject+retry + `propagate` tally on accept.
+- **Verification:** seed0367 prefix **27126→33068** (runner RNG
+  **33076**/50125, Scr **170**/324); green+strict PASS; cohort **32/32**
+  prior-PASS sample.
+- **Named omission:** worn/artifact STONE_RES in `Resists_Elem`; full
+  `mongone` invent teardown; makemon-path `propagate` on ordinary births;
+  medusa-2/3/4.
+- **Next:** seed0367 @33068 C nhlib `shuffle` after matched `getbones`
+  vs JS `rn2(79)` (likely missing special / place_lregion).
+
 ## D-0653 — goodpos pool/lava swimmer·flyer (seed0367 @27121)
 
 - **Status:** fixed (partial — next @27126 after vortex invent)

@@ -25,6 +25,7 @@ Score last measured: **2026-07-17** — full `sessions` suite (loop **#725**),
 post D-0653 goodpos pool/air. Screens **6924**/11405; RNG **442068**/792838
 (55.76%). **34/44** PASS. Δ vs #720: Scr **+0**, RNG **+918**, PASS **+0**
 (seed0367 RNG 26235→27153 from D-0649…53).
+Focused #726: seed0367 RNG **27153→33076** (D-0654); suite not remeasured.
 
 ## Score
 
@@ -47,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 27153/50125 | 170/324 | @27126 rndmonst_adj vs rn2(75) |
+| seed0367 | 33076/50125 | 170/324 | @33068 nhlib shuffle vs rn2(79) |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,9 +72,9 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @27126 — C `rndmonst_adj` `rn2(3)` vs JS
-`rn2(75)` after vortex place/invent on moat (prefix **27121→27126** via
-D-0653; runner RNG **27153**). Scr **170**/324.
+**Gameplay next:** seed0367 @33068 — C nhlib `shuffle` after matched
+`getbones` vs JS `rn2(79)` (prefix **27126→33068** via D-0654; runner
+RNG **33076**). Scr **170**/324.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

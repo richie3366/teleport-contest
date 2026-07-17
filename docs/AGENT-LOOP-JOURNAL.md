@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 16:55 — #726 D-0654 medusa resists_ston + mresists
+- Objective: seed0367 @27126 C rndmonst_adj rn2(3) vs JS rn2(75).
+- C locus: sp_lev.c create_object Medusa statue arm; monst.h
+  resists_ston; mondata.c poly_when_stoned; makemon.c propagate;
+  extract-monsters.py mresists (mr1).
+- Change: extract mresists; resists_ston/poly_when_stoned; Medusa
+  empty-statue reject+rndmonnum retry + propagate on accept (D-0654).
+  Was accepting first makemon then get_location while C retried.
+- Verification: @27126→33068 (RNG 33076, Scr 170); green+strict PASS;
+  cohort 32/32 prior-PASS.
+- Next: @33068 C nhlib shuffle after getbones vs JS rn2(79).
+
 ## 2026-07-17 16:47 — #725 score + D-0653 goodpos pool air
 - Objective: mandatory full `sessions` (#725÷5) + seed0367 @27121.
 - C locus: teleport.c goodpos pool/lava/eel; mon.c m_in_air.
@@ -136,32 +148,3 @@ Use this shape:
 - Verification: seed0367 @3438→10674 (RNG 10752, Scr 170); green+strict
   PASS; cohort 34/34 prior-PASS; suite still 34/44.
 - Next: @10674 mid-morgue fill_zoo makemon vs corpse rn2(5).
-## 2026-07-17 14:58 — #713 D-0641 extract AD_SPEL + dochug castmu
-- Objective: seed0367 @3332 choose_monster_spell vs m_move.
-- C locus: mcastu.c choose_monster_spell/castmu; monmove.c dochug
-  undirected cast; monattk.h AD_CLRC/AD_SPEL; extract-monsters AD_MAP.
-- Change: fix AD_MAP (AD_CLRC=240/AD_SPEL=241/AD_RBRE/SAMU/CURS) +
-  regenerate mattks; js/mcastu.js choose+undirected castmu; dochug
-  wire before m_move (D-0641).
-- Verification: seed0367 @3332→3438 (RNG 3444, Scr 169); green+strict
-  PASS; cohort 34/34 PASS.
-- Next: seed0367 @3438 nhlib shuffle vs rn2(79).
-## 2026-07-17 14:52 — #712 D-0640 #chat MS_LEADER quest_chat
-- Objective: seed0367 @3310 nhlib shuffle vs rn2(5).
-- C locus: sounds.c domonnoise MS_LEADER; quest.c quest_chat /
-  chat_with_leader; questpgr qt_pager convert_arg.
-- Change: domonnoise leader_m_id→MS_LEADER→quest_chat; Pri
-  leader_first/assignquest texts; %s/%S/%g + plural/possessive;
-  Priest guardnum (D-0640).
-- Verification: seed0367 @3310→3332 (RNG 3365, Scr 169); green+strict
-  PASS; cohort 14/14 PASS.
-- Next: seed0367 @3332 choose_monster_spell vs m_move.
-## 2026-07-17 14:45 — #711 D-0639 teleds urooms / intemple
-- Objective: seed0367 @3282 intemple after D-0638 wiring.
-- C locus: teleport.c teleds vault_guard save/restore + spoteffects;
-  hack.c move_update / check_special_room.
-- Change: js/teleport.js — stop pre-setting u.urooms before spoteffects
-  so ^T into TEMPLE sets uentered → intemple (D-0639). D-0638 marked fixed.
-- Verification: seed0367 @3282→3310 (RNG 3347); green+strict PASS;
-  cohort 10/10 PASS.
-- Next: seed0367 @3310 nhlib shuffle vs rn2(5).

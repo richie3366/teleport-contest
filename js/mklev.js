@@ -53,6 +53,7 @@ import {
     Is_medusa_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
     MM_ASLEEP, MM_NOCOUNTBIRTH, MM_NOMSG, IS_TREE, G_GENOD,
+    G_EXTINCT, MAXMONNO,
     MKTRAP_NOSPIDERONWEB,
     MKTRAP_NOVICTIM,
     Is_firelevel,
@@ -88,11 +89,12 @@ import { obj_resists } from './dogmove.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
-    is_male, is_female, mons, G_NOGEN, monsterNames,
+    is_male, is_female, mons, G_NOGEN, G_UNIQ, monsterNames,
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
     mon_learns_traps,
+    resists_ston, poly_when_stoned,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst, oname } from './do_name.js';
@@ -1126,10 +1128,42 @@ function load_bigrm_3() {
 }
 
 /**
+ * C ref: makemon.c propagate + mbirth_limit — Medusa statue accept tally.
+ * Named omission: full makemon-path propagate on every birth.
+ */
+function medusa_statue_propagate(mndx) {
+    const g = game;
+    if (!g.mvitals) g.mvitals = [];
+    if (!g.mvitals[mndx]) g.mvitals[mndx] = { mvflags: 0, born: 0, died: 0 };
+    const ptr = mons(mndx);
+    const PM_NAZGUL = monsterNames.indexOf('PM_NAZGUL');
+    const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
+    const lim = mndx === PM_NAZGUL ? 9
+        : mndx === PM_ERINYS ? 3
+            : MAXMONNO;
+    const gone = ((g.mvitals[mndx].mvflags | 0) & G_GONE) !== 0;
+    const result = ((g.mvitals[mndx].born | 0) < lim && !gone);
+    if (ptr && (ptr.geno & G_UNIQ) !== 0
+        && mndx !== monsterNames.indexOf('PM_HIGH_CLERIC')) {
+        g.mvitals[mndx].mvflags = (g.mvitals[mndx].mvflags | 0) | G_EXTINCT;
+    }
+    // C: tally && (!ghostly || result) with tally=TRUE ghostly=FALSE → always
+    if ((g.mvitals[mndx].born | 0) < 255) {
+        g.mvitals[mndx].born = (g.mvitals[mndx].born | 0) + 1;
+    }
+    if ((g.mvitals[mndx].born | 0) >= lim
+        && ptr && (ptr.geno & G_NOGEN) === 0
+        && ((g.mvitals[mndx].mvflags | 0) & G_EXTINCT) === 0) {
+        g.mvitals[mndx].mvflags = (g.mvitals[mndx].mvflags | 0) | G_EXTINCT;
+    }
+    return result;
+}
+
+/**
  * C ref: dat/medusa-1.lua via load_special.
- * Named omissions: resists_ston/poly_when_stoned/propagate on empty
- * statues (mresists not extracted — accept first makemon); medusa-2/3/4;
- * flip_level lregion coord update (same shortcut as Bar-strt/fire).
+ * Named omissions: worn/artifact STONE_RES in resists_ston; medusa-2/3/4;
+ * flip_level lregion coord update (same shortcut as Bar-strt/fire);
+ * full mongone invent teardown beyond fmon unlink.
  */
 function load_medusa_1() {
     const g = game;
@@ -1286,20 +1320,35 @@ function load_medusa_1() {
     }
 
     // des.object({ id="statue", contents=0 }) × 7 — empty + Medusa invent fill
+    // C ref: sp_lev.c create_object Medusa special when o->corpsenm == NON_PM
     for (let i = 0; i < 7; i++) {
         const pos = get_location_random(null);
         const otmp = mksobj_at(STATUE, pos.x, pos.y, true, true);
         if (!otmp) continue;
         otmp.cobj = null;
         otmp.owt = weight(otmp);
-        // C create_object Medusa special when template corpsenm == NON_PM
         let wastyp = otmp.corpsenm;
         let was = null;
         for (let j = 0; j < 1000; j++, wastyp = rndmonnum()) {
             was = makemon(mons(wastyp), 0, 0, MM_NOCOUNTBIRTH | MM_NOMSG);
             if (!was) continue;
-            // Named omission: resists_ston / poly_when_stoned / propagate
-            break;
+            // C: !resists_ston(was) && !poly_when_stoned(&mons[wastyp])
+            if (!resists_ston(was)
+                && !poly_when_stoned(mons(wastyp), g.mvitals)) {
+                // C: propagate(wastyp, TRUE, FALSE) — MM_NOCOUNTBIRTH skipped tally
+                medusa_statue_propagate(wastyp);
+                break;
+            }
+            // C: mongone(was) — reject stone-resistant / poly-when-stoned
+            const list = g.fmon;
+            if (Array.isArray(list)) {
+                const ix = list.indexOf(was);
+                if (ix >= 0) list.splice(ix, 1);
+            }
+            was.mx = 0;
+            was.my = 0;
+            was.minvent = null;
+            was = null;
         }
         if (was) {
             set_corpsenm(otmp, wastyp);
