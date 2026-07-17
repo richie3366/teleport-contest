@@ -8,6 +8,26 @@ to preserve, record it here.
 
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0664 — self_lookat pmname / Ugender (seed0367 @154 farlook)
+
+- **Status:** fixed (partial — screen residual Scr 244/324 @155)
+- **Symptom:** seed0367 getpos farlook @154 — C
+  `human priestess called wizard` vs JS
+  `human priest called wizard`.
+- **Cause:** JS `self_lookat` / `self_lookat_brief` always used
+  male `urole.name.m` ("Priest"→priest); C uses
+  `pmname(&mons[u.umonnum], Ugender)`.
+- **C locus:** `pager.c` `self_lookat`; `you.h` `Ugender`;
+  `do_name.c` / `mondata.h` `pmname`.
+- **Change:** export `pmname`/`Ugender` from `js/do_name.js`;
+  `js/pager.js` + `js/getpos.js` self_lookat paths; `!Upolyd`
+  race-adj prefix. Steed/mhidden/Punished/utrap deferred.
+- **Verification:** seed0367 Scr **243→244**/324, prefix
+  **154→155**, RNG FULL; green+strict PASS; cohort **34**/34
+  (prior green/priest/quest PASS set).
+- **Next:** @155 C `tree` vs JS `unexplored area` (disp_ch /
+  remembered TREE glyph under Warning path).
+
 ## D-0663 — mon_warning / display_warning (seed0367 @148 map)
 
 - **Status:** fixed (partial — screen residual Scr 243/324 @154)

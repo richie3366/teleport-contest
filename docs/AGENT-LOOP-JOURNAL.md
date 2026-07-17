@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 19:10 — #737 seed0367 @154 self_lookat gender
+- Objective: seed0367 farlook @154 priestess vs priest.
+- C locus: `pager.c` `self_lookat`; `you.h` `Ugender`;
+  `do_name.c`/`mondata.h` `pmname`.
+- Change: D-0664 — export `pmname`/`Ugender`; pager+getpos
+  self_lookat use `pmname(umonnum,Ugender)` (!Upolyd race adj).
+- Verification: seed0367 Scr **243→244**/324 prefix **154→155**,
+  RNG FULL; green+strict PASS; cohort **34**/34 PASS.
+- Next: @155 C `tree` vs JS `unexplored area` (disp_ch/TREE memory).
+
 ## 2026-07-17 19:05 — #736 seed0367 @148 Pri firsttime + Warning
 - Objective: seed0367 screen peel @148 materialize More / quest on_start.
 - C locus: `dat/quest.lua` Pri `firsttime`; `display.h` `_mon_warning`;
