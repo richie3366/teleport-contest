@@ -479,10 +479,12 @@ export async function adjabil(oldlevel, newlevel) {
     // C: if (oldlevel > 0) add/lose_weapon_skill — deferred
 }
 
-/** C ref: youprop.h Fast */
+/** C ref: youprop.h Fast — HFast||EFast ≡ uprops[FAST].intrinsic||extrinsic */
 export function Fast() {
     const u = game.u || {};
-    return !!(u.HFast || u.EFast);
+    const prop = u.uprops?.[FAST];
+    return !!((u.HFast | 0) || (u.EFast | 0)
+        || (prop?.intrinsic | 0) || (prop?.extrinsic | 0));
 }
 
 /** C ref: youprop.h Searching */
@@ -491,10 +493,16 @@ export function Searching() {
     return !!(u.HSearching || u.ESearching);
 }
 
-/** C ref: youprop.h Very_fast — timeout bits or extrinsic */
+/**
+ * C ref: youprop.h Very_fast — (HFast & ~INTRINSIC) || EFast
+ * Timeout/potion bits and worn extrinsic (speed boots / blue DSM).
+ */
 export function Very_fast() {
     const u = game.u || {};
-    return !!(((u.HFast || 0) & ~INTRINSIC) || u.EFast);
+    const prop = u.uprops?.[FAST];
+    const h = (u.HFast | 0) | (prop?.intrinsic | 0);
+    const e = (u.EFast | 0) | (prop?.extrinsic | 0);
+    return !!((h & ~INTRINSIC) || e);
 }
 
 /* C ref: attrib.c innately() reason codes */

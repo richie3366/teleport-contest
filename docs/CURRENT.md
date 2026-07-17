@@ -70,10 +70,10 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 — first RNG miss @2331: C `u_calc_moveamt`
-`rn2(3)` vs JS `dosounds` `rn2(400)`. Prefix **2331** after D-0635
-(garlic_breath). Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0635.
+**Gameplay next:** seed0367 — first RNG miss @2336: C `getbones`
+`rn2(3)` then nhlib `shuffle` vs JS `rn2(79)`. Prefix **2336** after
+D-0636 (blue DSM Very_fast). Prefer over parked D-0006 / seed2200 RC;
+do not reopen D-0474…D-0636.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

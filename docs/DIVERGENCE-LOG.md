@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0636 — blue DSM dragon_armor_handling → Very_fast (seed0367 @2331)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @2331 — C `u_calc_moveamt` `rn2(3)`
+  (Very_fast) vs JS `dosounds` `rn2(400)`; Scr **166**/324. Looked like
+  missing Fast branch in `u_calc_moveamt`.
+- **Cause:** session dons blue dragon scale mail ("You speed up."); C
+  `Armor_on` → `dragon_armor_handling` sets `EFast |= W_ARM`. JS
+  `Armor_on` stubbed that helper, so `Very_fast()` stayed false and
+  skipped the EOT `rn2(3)`. Blue DSM `oc_oprop` is SHOCK_RES — FAST is
+  only via dragon handling, not `setworn`.
+- **C locus:** `do_wear.c` `dragon_armor_handling` / `Armor_on` /
+  `Armor_off`; `youprop.h` Fast/Very_fast; `allmain.c` `u_calc_moveamt`.
+- **Change:** `js/do_wear.js` `dragon_armor_handling` + wire Armor_on/off;
+  FAST/`EFast` mirror in `confer_oc_oprop`; `js/attrib.js` Fast/Very_fast
+  also read `uprops[FAST]`.
+- **Verification:** seed0367 prefix **2331→2336**; Scr **166→167**/324;
+  green+strict PASS; cohort **32**/32 PASS.
+- **Named omission:** gold `make_hallucinated`; red `see_monsters`;
+  yellow `wielding_corpse`; artifact_light begin/end burn.
+- **Next:** seed0367 @2336 C `getbones` + nhlib `shuffle` vs JS `rn2(79)`.
+
 ## D-0635 — fprefx garlic_breath monflee (seed0367 @1975)
 
 - **Status:** fixed
