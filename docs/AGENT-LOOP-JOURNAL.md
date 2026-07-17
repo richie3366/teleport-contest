@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:53 — #705 public score 34/44
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score cadence); seed0367 peel scouted only.
+- Change: refreshed CURRENT Score — **34/44** PASS; Scr **6829**/11405;
+  RNG **416960**/792838 (52.59%); speed `33+0.16/turn`. seed0361 in suite.
+  Next peel: seed0367 @1946 dog_goal one fewer `obj_resists`.
+- Verification: green+strict PASS; `node frozen/ps_test_runner.mjs sessions`.
+- Next: seed0367 dog_goal/fobj vs dogfood early-out; or seed0014/0108.
+
 ## 2026-07-17 13:50 — #704 D-0633 seed0361 ^X attrs PASS
 - Objective: seed0361 @360/@361 attrs `(1 of 2)` vs `(1 of 3)`.
 - C locus: `insight.c` attributes_enlightenment; `weapon.c` odd_skill_names;

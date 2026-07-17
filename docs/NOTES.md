@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#704 D-0633:** seed0361 ^X attrs — Hallu/Search/Reflect/Lifesaved +
-  saber `skill_name` + Grayswandir HALRES + `ublesscnt--` + gethungry
-  amulet case 8 → **PASS** 366/366.
-- **Leaderboard gap:** local **33/44** (pre-suite; seed0361 now PASS →
-  expect **34** on next full score) vs judge **22**; D-0483 await cron.
-- **Gameplay next:** seed0367 `Pri-strt`, seed0014/0108, or seed2200 RC
-  parked. Prefer over D-0006.
+- **#705 score:** full `sessions` → **34/44** PASS; Scr 6829/11405;
+  RNG 416960/792838 (52.59%); seed0361 confirmed in suite.
+- **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
+- **seed0367 @1946 hypothesis:** C `dog_goal` fobj walk still
+  `dogfood`→`obj_resists` `rn2(100)`; JS already `dog_move` mtrack
+  `rn2(1)`. One fewer in-radius floor obj (or early `dogfood` skip).
+  Falsify: dump JS `fobj` ox/oy in radius at that `dog_goal` vs C pile.
 - **Don’t:** reopen D-0474…D-0633; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
@@ -62,7 +62,8 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** **PASS**.
+- seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
+  **PASS** (suite **34/44** @#705).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
