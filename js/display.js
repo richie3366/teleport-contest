@@ -35,6 +35,8 @@ import {
     OBJ_FLOOR,
     UNENCUMBERED,
     NOT_HUNGRY,
+    WARNCOUNT,
+    def_warnsyms,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -244,6 +246,44 @@ export function sensemon(mon) {
     if (u.uswallow && mon !== u.ustuck) return false;
     if (u.Detect_monsters) return true;
     return false;
+}
+
+/**
+ * C ref: display.h _mon_warning — Warning + hostile + near + m_lev gate.
+ * Named omission: MATCH_WARN_OF_MON race-specific warn (separate path).
+ */
+export function mon_warning(mon) {
+    if (!mon) return false;
+    const u = game.u || {};
+    const Warning = !!((u.HWarning | 0) || (u.EWarning | 0) || u.Warning);
+    if (!Warning || mon.mpeaceful) return false;
+    const d = dist2(u.ux | 0, u.uy | 0, mon.mx | 0, mon.my | 0);
+    if (d >= 100) return false;
+    const warnlevel = game.context?.warnlevel ?? 1;
+    return ((mon.m_lev | 0) / 4 | 0) >= (warnlevel | 0);
+}
+
+/**
+ * C ref: display.c warning_of — m_lev/4 clamped to WARNCOUNT-1.
+ */
+export function warning_of(mon) {
+    if (!mon_warning(mon)) return 0;
+    let tmp = (mon.m_lev | 0) / 4 | 0;
+    if (tmp > WARNCOUNT - 1) tmp = WARNCOUNT - 1;
+    return tmp;
+}
+
+/**
+ * C ref: display.c display_warning — float warnsym above map (not memory).
+ * Named omissions: Hallucination rn2_on_display_rng; MATCH_WARN_OF_MON
+ * mon_to_glyph arm; worm tails (caller must not invoke).
+ */
+function display_warning(mon) {
+    if (!mon) return;
+    const wl = warning_of(mon);
+    const sym = def_warnsyms[wl] || def_warnsyms[0];
+    if (!sym) return;
+    show_glyph_cell(mon.mx, mon.my, sym.ch, sym.color, false);
 }
 
 /** C ref: display.h canspotmon — canseemon || sensemon. */
@@ -1122,7 +1162,7 @@ function glyph_is_trap_at(glyph, x, y) {
  * TER_* bits; lastseentyp vs typ → back_to_glyph; litcorr→corr hack.
  * Named omissions: visible_region_at / gascloud; keep_traps trap_to_glyph
  * restore when stripping objs; M_AP_FURNITURE lastseentyp fake; swallowed
- * ustuck mon glyph; warning glyphs; TER_FULL seenv temp already covered;
+ * ustuck mon glyph; TER_FULL seenv temp already covered;
  * arboreal default.
  */
 export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_subset) {
@@ -1659,6 +1699,11 @@ export function newsym(x, y) {
             show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
             return;
         }
+        // C: else if (mon && mon_warning(mon) && !worm_tail) display_warning
+        if (mtmp && mon_warning(mtmp)) {
+            display_warning(mtmp);
+            return;
+        }
         // C: newsym cansee — keep remembered I when !displayable mon
         if (glyph_is_invisible(loc)) {
             map_invisible(x, y);
@@ -1714,9 +1759,15 @@ export function newsym(x, y) {
     }
 
     // C: !cansee — still show sensed monsters (infrared / telepathy / detect)
+    // C order: see_it (tp_sensemon / MATCH_WARN / infrared+visible) then
+    // mon_warning, then invisible glyph, else memory.
     if (mtmp && mon_visible(mtmp) && see_with_infrared(mtmp)) {
         const mg = mon_glyph(mtmp);
         show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
+        return;
+    }
+    if (mtmp && mon_warning(mtmp)) {
+        display_warning(mtmp);
         return;
     }
 

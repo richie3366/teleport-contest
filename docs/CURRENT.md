@@ -25,6 +25,8 @@ Score last measured: **2026-07-17** — full `sessions` suite (loop **#735**).
 Screens **6959**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
 Δ vs #730: Scr **+30**, RNG **+14553**, PASS **+0** (focused #731–34
 D-0658…61: seed0367 RNG 35572→**50125 FULL**, Scr 175→**205** absorbed).
+Focused **#736** (not a score cadence): seed0367 Scr **205→243**/324
+(prefix **148→154**; D-0662/D-0663) — suite aggregates unchanged until #740.
 
 ## Score
 
@@ -47,7 +49,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **205**/324 | RNG FULL; screen peel @148 |
+| seed0367 | **50125**/50125 | **243**/324 | RNG FULL; screen peel @154 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,22 +73,19 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **205**/324
-(cursors 315/324; prefix **148**). **D-0661** cleared @76: `doname`
-W_WEP `(wielded)` for stacks/ammo/missile/non-weptool.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **243**/324
+(cursors 317/324; prefix **154**). **D-0662** Pri `QUEST_FIRSTTIME`;
+**D-0663** `mon_warning`/`display_warning` cleared @148.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
-# optional: compare first screen miss via session viewer / step dump
 ```
 
-**Next falsifier / fix:** @148 C `You materialize on a different
-level!--More--` vs JS no More → space becomes `Unknown command` and
-quest `on_start` text is missed. C: `maybe_lvltport_feedback` /
-`schedule_goto` post_msg; JS already `await pline(dfr_post_msg)` in
-`goto_level` — verify delivery path + NEED_MORE before `onquest`.
-Do not re-break D-0660/D-0661.
+**Next falsifier / fix:** @154 getpos farlook — C
+`human priestess called wizard` vs JS `human priest called wizard`
+(female pmname / `x_monnam`); @155 C `tree` vs JS `unexplored area`.
+Do not re-break D-0660…D-0663.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

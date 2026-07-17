@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 19:05 — #736 seed0367 @148 Pri firsttime + Warning
+- Objective: seed0367 screen peel @148 materialize More / quest on_start.
+- C locus: `dat/quest.lua` Pri `firsttime`; `display.h` `_mon_warning`;
+  `display.c` `display_warning`; `allmain.c` `warnlevel=1`.
+- Change: D-0662 Pri `QUEST_FIRSTTIME`; D-0663 `mon_warning`/
+  `display_warning` + `context.warnlevel=1` in `newsym`.
+- Verification: seed0367 Scr **205→243**/324 prefix **148→154**,
+  RNG FULL; green+strict PASS; cohort **32/32** PASS.
+- Next: @154 farlook `priestess` vs `priest`; @155 `tree` vs
+  `unexplored area`.
+
 ## 2026-07-17 18:56 — #735 public score cadence
 - Objective: mandatory full `sessions` score (#735÷5).
 - C locus: n/a (score refresh; primary still seed0367 @148).

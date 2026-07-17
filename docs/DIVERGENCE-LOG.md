@@ -8,6 +8,48 @@ to preserve, record it here.
 
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0663 — mon_warning / display_warning (seed0367 @148 map)
+
+- **Status:** fixed (partial — screen residual Scr 243/324 @154)
+- **Symptom:** after D-0662, seed0367 screen 148 matched
+  materialize/`--More--`/topline but failed one cell: C red `1`
+  (warning) vs JS blank at zombie (68,19).
+- **Cause:** Priest `HWarning` (role @15) + hostile nearby
+  undead; JS `newsym` never called `display_warning`;
+  `context.warnlevel` unset (C `newgame` sets 1).
+- **C locus:** `display.h` `_mon_warning`; `display.c`
+  `warning_of`/`display_warning`; `allmain.c` `newgame`
+  `warnlevel=1`.
+- **Change:** `js/display.js` — `mon_warning`/`warning_of`/
+  `display_warning` + `newsym` cansee/`!cansee` arms;
+  `js/allmain.js` — `context.warnlevel=1`. Hallu/
+  `MATCH_WARN_OF_MON` deferred.
+- **Verification:** seed0367 Scr **206→243**/324, prefix
+  **148→154**, RNG FULL; green+strict PASS; cohort **32/32**.
+- **Next:** @154 farlook `priestess` vs `priest`; @155
+  `tree` vs `unexplored area`.
+
+## D-0662 — Pri QUEST_FIRSTTIME missing (seed0367 @148 More)
+
+- **Status:** fixed (partial — warning cell then D-0663)
+- **Symptom:** seed0367 screen 148 — C
+  `You materialize…!--More--` then Pri firsttime NHW_TEXT;
+  JS materialize without `--More--` / missed quest text
+  (space → `Unknown command`).
+- **Cause:** `QUEST_FIRSTTIME` had Arc+Bar only; Pri
+  `qt_pager('firsttime')` returned after nhl shuffle with
+  no `flush_topl_more`, so materialize NEED_MORE never
+  owned the next key (same pattern as D-0625 Arc).
+- **C locus:** `dat/quest.lua` Pri `firsttime`; `quest.c`
+  `on_start` → `qt_pager`; `do.c` `goto_level`
+  `maybe_lvltport_feedback` + onquest.
+- **Change:** `js/questpgr.js` — add Pri `QUEST_FIRSTTIME`
+  from `quest.lua` (`%H`/`%l`). Other-role firsttime bodies
+  still deferred.
+- **Verification:** seed0367 firsttime screen 149 matches;
+  Scr **205→206** before D-0663; green+strict PASS.
+- **Next:** D-0663 warning glyph at same screen.
+
 ## D-0661 — doname W_WEP `(wielded)` vs hand phrasing (seed0367 @76)
 
 - **Status:** fixed (partial — screen residual Scr 205/324)
