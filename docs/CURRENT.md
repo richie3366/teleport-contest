@@ -71,9 +71,9 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @13882 — C `rn2(4)` @ `m_initinv` vs JS
-`rn2(50)` after matched makemon tail (post D-0643 morgue roomno gate).
-Prefix **10674→13882**; Scr **170**/324.
+**Gameplay next:** seed0367 @15167 — C `rn2(79)` @ `place_lregion`
+vs JS `rn2(100)` (post D-0644 `m_initinv` S_DEMON/S_WRAITH/S_LICH).
+Prefix **13882→15167**; Scr **170**/324; runner RNG **15181**.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

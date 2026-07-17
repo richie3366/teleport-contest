@@ -1512,7 +1512,7 @@ function rnd_misc_item(mtmp) {
 }
 
 // C ref: makemon.c m_initinv — S_GNOME candle, S_MUMMY wrap, S_QUANTMECH box,
-//   S_GIANT gems, PM_SHOPKEEPER, trailing misc
+//   S_GIANT gems, S_WRAITH/S_LICH/S_DEMON, PM_SHOPKEEPER, trailing misc
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -1577,6 +1577,39 @@ function m_initinv(mtmp) {
                 otmp.owt = weight(otmp);
             }
             mpickobj(mtmp, otmp);
+        }
+        break;
+    case 'S_WRAITH':
+        // C ref: makemon.c m_initinv S_WRAITH — Nazgul cursed RIN_INVISIBILITY
+        if (ptr.mndx === pm('NAZGUL')) {
+            const otmp = mksobj(otyp('RIN_INVISIBILITY'), false, false);
+            curse(otmp);
+            mpickobj(mtmp, otmp);
+        }
+        break;
+    case 'S_LICH':
+        // C ref: makemon.c m_initinv S_LICH — Master/Arch Lich gear
+        if (ptr.mndx === pm('MASTER_LICH') && !rn2(13)) {
+            mongets(mtmp, rn2(7) ? otyp('ATHAME') : otyp('WAN_NOTHING'));
+        } else if (ptr.mndx === pm('ARCH_LICH') && !rn2(3)) {
+            const otmp = mksobj(
+                rn2(3) ? otyp('ATHAME') : otyp('QUARTERSTAFF'),
+                true,
+                rn2(13) ? false : true,
+            );
+            if ((otmp.spe | 0) < 2) otmp.spe = rnd(3);
+            if (!rn2(4)) otmp.oerodeproof = 1;
+            mpickobj(mtmp, otmp);
+        }
+        break;
+    case 'S_DEMON':
+        // C ref: makemon.c m_initinv S_DEMON — ice devil spear / Asmodeus wands
+        // (moved from m_initweap: no AT_WEAP so m_initweap is not called)
+        if (ptr.mndx === pm('ICE_DEVIL') && !rn2(4)) {
+            mongets(mtmp, otyp('SPEAR'));
+        } else if (ptr.mndx === pm('ASMODEUS')) {
+            mongets(mtmp, otyp('WAN_COLD'));
+            mongets(mtmp, otyp('WAN_FIRE'));
         }
         break;
     case 'S_HUMAN':
@@ -1692,7 +1725,6 @@ function m_initinv(mtmp) {
         // elf / guardian invent arms deferred
         break;
     default:
-        // Other m_initinv bodies (S_DEMON, S_WRAITH, S_LICH, …) deferred
         break;
     }
 

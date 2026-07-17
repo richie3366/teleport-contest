@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:25 — #716 D-0644 m_initinv S_DEMON
+- Objective: seed0367 @13882 C m_initinv rn2(4) vs JS rn2(50).
+- C locus: makemon.c m_initinv S_DEMON (ice devil spear) + S_WRAITH /
+  S_LICH siblings.
+- Change: port those three m_initinv switch arms (D-0644).
+- Verification: seed0367 @13882→15167 (RNG 15181, Scr 170); green+strict
+  PASS; cohort 32/32 prior-PASS.
+- Next: seed0367 @15167 place_lregion rn2(79) vs rn2(100).
+
 ## 2026-07-17 15:20 — #715 score + D-0643 fill_zoo roomno
 - Objective: mandatory full `sessions` score (#715÷5); seed0367 @10674.
 - C locus: mkroom.c fill_zoo irregular roomno gate / mkswamp;

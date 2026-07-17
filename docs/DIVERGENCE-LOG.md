@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0644 — m_initinv S_DEMON/S_WRAITH/S_LICH (seed0367 @13882)
+
+- **Status:** fixed (partial — next @15167 place_lregion)
+- **Symptom:** seed0367 first mismatch @13882 — C `rn2(4)` @
+  `m_initinv` (makemon.c:802) vs JS `rn2(50)` (trailing defensive)
+  after matched makemon tail.
+- **Cause:** JS `m_initinv` omitted `S_DEMON` (and sibling `S_WRAITH`/
+  `S_LICH`), so ice-devil `!rn2(4)`→SPEAR never ran and control fell
+  through to `m_lev > rn2(50)`.
+- **C locus:** `makemon.c` `m_initinv` cases `S_WRAITH` / `S_LICH` /
+  `S_DEMON` (Nazgul ring; Master/Arch Lich gear; ice devil spear /
+  Asmodeus wands).
+- **Change:** `js/makemon.js` `m_initinv` — port those three switch
+  arms (RNG order for Arch Lich `mksobj` args matches clang L→R).
+- **Verification:** seed0367 prefix **13882→15167** (runner RNG
+  **13909→15181**, Scr **170**/324); green+strict PASS; cohort
+  **32/32** prior-PASS.
+- **Named omission:** S_ANGEL/S_KOP invent; @15167 `place_lregion`
+  bounds (`rn2(79)` vs `rn2(100)`).
+- **Next:** seed0367 @15167 C `place_lregion` `rn2(79)` vs JS
+  `rn2(100)`.
+
 ## D-0643 — fill_zoo rectangular roomno gate (seed0367 @10674)
 
 - **Status:** fixed (partial — next @13882 m_initinv)
