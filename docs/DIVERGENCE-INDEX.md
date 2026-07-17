@@ -633,6 +633,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0650 | fixed | goto_level quest_portal com_pager | seed0367 @26688→26691; RNG 26698; next medusa @26691 |
 | D-0651 | fixed | medusa-1 load_special | seed0367 @26691→26695; RNG 26718; next rndmonst @26695 |
 | D-0652 | fixed | align_shift oldmoves cache + moves=0 thru mklev | seed0367 @26695→27121; RNG 27146; next next_ident @27121 |
+| D-0653 | fixed | goodpos pool/lava is_swimmer·m_in_air | seed0367 @27121→27126; RNG 27153; next rndmonst_adj @27126 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

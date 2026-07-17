@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0653 — goodpos pool/lava swimmer·flyer (seed0367 @27121)
+
+- **Status:** fixed (partial — next @27126 after vortex invent)
+- **Symptom:** seed0367 first mismatch @27121 — C `next_ident` `rnd(2)`
+  vs JS `makemon_rnd_goodpos` `rn2(77)` after matched goodpos coords
+  (post-Perseus statue invent).
+- **Cause:** JS `goodpos` blanket-returned false on `IS_POOL` whenever
+  `mtmp` was set. C accepts pool/moat for `is_swimmer(mdat)` or
+  `m_in_air(mtmp)` (flyer/floater) when not waterlevel/waterwall.
+  DIAG: `(22,2)` typ=MOAT(17), `S_VORTEX` fakemon, `in_mklev`, not
+  occupied — C places vortex, JS kept searching.
+- **C locus:** `teleport.c` `goodpos` pool/lava/eel arms; `mon.c`
+  `m_in_air`; `mondata.h` `is_swimmer`/`is_flyer`/`is_floater`.
+- **Change:** port pool (`is_swimmer` / `m_in_air`), eel `rn2(13)`,
+  lava (`PM_FLOATING_EYE` avoid + `m_in_air`/`likes_lava`) in
+  `js/teleport.js` `goodpos`.
+- **Verification:** seed0367 prefix **27121→27126** (runner RNG
+  **27153**/50125, Scr **170**/324); green+strict PASS; cohort sample
+  (swimmer/water + quest PASS seeds) PASS; full suite **34/44**.
+- **Named omission:** youmonst swim/levitate pool·lava arms;
+  `passes_walls`/`may_passwall`; `is_exclusion_zone`; cling+ceiling
+  in local `m_in_air`.
+- **Next:** seed0367 @27126 C `rndmonst_adj` `rn2(3)` vs JS `rn2(75)`.
+
 ## D-0652 — align_shift oldmoves cache + moves=0 through mklev (seed0367 @26695)
 
 - **Status:** fixed (partial — next @27121 after Perseus invent)

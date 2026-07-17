@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 16:47 — #725 score + D-0653 goodpos pool air
+- Objective: mandatory full `sessions` (#725÷5) + seed0367 @27121.
+- C locus: teleport.c goodpos pool/lava/eel; mon.c m_in_air.
+- Change: port goodpos is_swimmer/m_in_air/likes_lava + eel rn2(13)
+  (D-0653). Was blanket-rejecting MOAT for S_VORTEX. Score: **34/44**;
+  Scr **6924**/11405; RNG **442068**/792838 (55.76%); `34+0.16/turn`.
+- Verification: @27121→27126 (RNG 27153, Scr 170); green+strict PASS;
+  cohort sample PASS; full suite post-fix.
+- Next: @27126 C rndmonst_adj rn2(3) vs JS rn2(75).
+
 ## 2026-07-17 16:45 — #724 D-0652 align_shift oldmoves + moves=0 mklev
 - Objective: seed0367 @26695 C rndmonst_adj rn2(3) vs JS rn2(5).
 - C locus: makemon.c align_shift (static oldmoves/Is_special);
@@ -155,13 +165,3 @@ Use this shape:
 - Verification: seed0367 @3282→3310 (RNG 3347); green+strict PASS;
   cohort 10/10 PASS.
 - Next: seed0367 @3310 nhlib shuffle vs rn2(5).
-## 2026-07-17 14:35 — #710 score 34/44 + D-0638 intemple partial
-- Objective: mandatory #710 full `sessions` score; seed0367 @3282 intemple.
-- C locus: priest.c intemple; hack.c check_special_room TEMPLE; do.c
-  goto_level check_special_room leave/arrive.
-- Change: js/priest.js intemple+helpers; hack TEMPLE dispatch; do.js
-  leave+arrive check_special_room. Falsified "missing body alone" —
-  Pri-strt has no MAGIC_PORTAL so hero rndspots outside TEMPLE.
-- Verification: suite **34/44** Scr **6918**/11405 RNG **418252**/792838
-  (52.75%) `32+0.16/turn`; green+strict PASS; seed0367 still @3282.
-- Next: Pri-strt branch/MAGIC_PORTAL so arrival enters TEMPLE.

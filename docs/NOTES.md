@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#724 D-0652:** seed0367 @26695→**27121**. Cause was `align_shift`
-  missing C `oldmoves`/`Is_special` cache (stale bigrm ash=0) plus JS
-  setting `moves=1` before starting mklev (broke tutorial refresh).
-  Next: @27121 C `next_ident` `rnd(2)` vs JS `makemon_rnd_goodpos`
-  `rn2(77)` after matched goodpos (post-statue mon place/invent).
+- **#725 D-0653:** seed0367 @27121→**27126**. Cause was `goodpos`
+  blanket-rejecting IS_POOL; C allows `is_swimmer` / `m_in_air` (vortex
+  on MOAT). Next: @27126 C `rndmonst_adj` `rn2(3)` vs JS `rn2(75)`
+  after matched place/invent.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0652; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0653; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -40,13 +39,14 @@ Objective/score live in `CURRENT.md`.
   `teleds`; skip `#chat` MS_LEADER; omit AD_SPEL/AD_CLRC / castmu;
   omit Pri-loca/MORGUE/fill_zoo roomno/m_initinv S_DEMON… retrospectives;
   invent place_lregion for @19994/@26691; invent S_ANGEL/quest_portal/
-  medusa-1; skip align_shift oldmoves / set moves=1 before mklev.
+  medusa-1; skip align_shift oldmoves / set moves=1 before mklev;
+  invent goodpos pool reject for flyers.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0652 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0653 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -54,7 +54,7 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…51: see INDEX; D-0642: @3438 was missing Pri-loca, not
+- D-0616…52: see INDEX; D-0642: @3438 was missing Pri-loca, not
   getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate;
   D-0644: @13882 was missing S_DEMON, not trailing rn2(50);
   D-0645: @15167 was eastern morgue hx 39→35, not place_lregion math;
@@ -65,14 +65,15 @@ Objective/score live in `CURRENT.md`.
   D-0650: @26688 was missing quest_portal com_pager, not broken shuffle;
   D-0651: @26691 was missing medusa-1, not place_lregion after rnd(4);
   D-0652: @26695 was align_shift cache + moves=0 thru mklev, not
-  difficulty-band invent.
+  difficulty-band invent;
+  D-0653: @27121 was goodpos pool flyer/swimmer, not next_ident itself.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#720).
+  **PASS** (suite **34/44** @#725).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -83,13 +84,14 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0652: see INDEX; Pri-loca + MORGUE +
+- Quest landmarks through D-0653: see INDEX; Pri-loca + MORGUE +
   fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35 +
   Pri-goal + minetn-2 + bigrm-3 + S_ANGEL + quest_portal + medusa-1 +
-  **align_shift oldmoves** / **moves=0 through mklev**;
+  align_shift oldmoves / moves=0 through mklev + **goodpos pool air**;
   S_KOP / Pri-fila/filb / minetn-1/3–7 / **medusa-2/3/4** deferred;
-  next @27121 post-statue goodpos/next_ident; eel hideunder /
-  I_SPECIAL deferred; SWAMP deferred; `temperature_shift` stub.
+  next @27126 rndmonst_adj vs rn2(75); eel hideunder /
+  I_SPECIAL deferred; SWAMP deferred; `temperature_shift` stub;
+  youmonst pool·lava / passes_walls in goodpos deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.
