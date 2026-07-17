@@ -54,6 +54,57 @@ ALIGN = {
     "A_LAWFUL": 1,
 }
 
+# monattk.h — attk.adtyp for PHYS/DRLI/… macros in artilist.h
+ADTYP = {
+    "PHYS": 0,   # AD_PHYS
+    "MAGM": 1,   # AD_MAGM (unused in A() attk macros today)
+    "FIRE": 2,   # AD_FIRE
+    "COLD": 3,   # AD_COLD
+    "ELEC": 6,   # AD_ELEC
+    "DRST": 7,   # AD_DRST via POIS()
+    "POIS": 7,   # alias
+    "STUN": 12,  # AD_STUN
+    "DRLI": 15,  # AD_DRLI
+    "STON": 18,  # AD_STON
+}
+
+# monflag.h M2_* used as artilist mtype for SPFX_DFLAG2
+M2 = {
+    "M2_NOPOLY": 0x00000001,
+    "M2_UNDEAD": 0x00000002,
+    "M2_WERE": 0x00000004,
+    "M2_HUMAN": 0x00000008,
+    "M2_ELF": 0x00000010,
+    "M2_ORC": 0x00000080,
+    "M2_DEMON": 0x00000100,
+    "M2_GIANT": 0x00002000,
+}
+
+
+def parse_attk(expr: str) -> tuple[int, int, int]:
+    """Parse NO_ATTK / PHYS(a,b) / DRLI(a,b) / … → (adtyp, damn, damd)."""
+    expr = strip_c_comments(expr).strip()
+    if expr == "NO_ATTK" or expr == "NO_DFNS" or expr == "NO_CARY":
+        return (0, 0, 0)
+    m = re.match(r"^(PHYS|DRLI|COLD|FIRE|ELEC|STUN|POIS)\(\s*(\d+)\s*,\s*(\d+)\s*\)$", expr)
+    if not m:
+        raise ValueError(f"unparsed attk {expr!r}")
+    return (ADTYP[m.group(1)], int(m.group(2)), int(m.group(3)))
+
+
+def parse_mtype(tok: str) -> tuple[str, int]:
+    """Return (kind, value): kind is 'num'|'m2'|'s'|'pm'."""
+    tok = strip_c_comments(tok).strip()
+    if tok == "0":
+        return ("num", 0)
+    if tok in M2:
+        return ("m2", M2[tok])
+    if tok.startswith("S_"):
+        return ("s", 0)  # value resolved at JS runtime from token
+    if tok.startswith("PM_") or tok == "NON_PM":
+        return ("pm", 0)  # value resolved at JS runtime
+    raise ValueError(f"unparsed mtype {tok!r}")
+
 
 def strip_c_comments(s: str) -> str:
     s = re.sub(r"/\*.*?\*/", "", s, flags=re.S)
@@ -198,6 +249,17 @@ def main() -> int:
         except ValueError as e:
             print("spfx fail", name, e, file=sys.stderr)
             continue
+        mtype_tok = args[4].strip()
+        try:
+            mtype_kind, mtype_val = parse_mtype(mtype_tok)
+        except ValueError as e:
+            print("mtype fail", name, e, file=sys.stderr)
+            continue
+        try:
+            attk_adtyp, attk_damn, attk_damd = parse_attk(args[5])
+        except ValueError as e:
+            print("attk fail", name, e, file=sys.stderr)
+            continue
         align_tok = args[9].strip()
         role_tok = args[10].strip()
         race_tok = args[11].strip()
@@ -215,6 +277,12 @@ def main() -> int:
                 "name": name,
                 "otypName": otyp_name,
                 "spfx": spfx,
+                "mtypeTok": mtype_tok,
+                "mtypeKind": mtype_kind,
+                "mtypeVal": mtype_val,
+                "attkAdtyp": attk_adtyp,
+                "attkDamn": attk_damn,
+                "attkDamd": attk_damd,
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
                 "raceName": race_tok,
@@ -243,7 +311,7 @@ def main() -> int:
     ):
         lines.insert(3, "export const ART_NONARTIFACT = 0;")
 
-    # Emit table; otyp/role/race resolved at runtime from name strings
+    # Emit table; otyp/role/race/S_*/PM_* mtype resolved at runtime
     lines.append("export const artilistRaw = [")
     for e in entries:
         lines.append(
@@ -251,6 +319,12 @@ def main() -> int:
             f' name: {e["name"]!r},'
             f' otypName: {e["otypName"]!r},'
             f' spfx: {e["spfx"]},'
+            f' mtypeTok: {e["mtypeTok"]!r},'
+            f' mtypeKind: {e["mtypeKind"]!r},'
+            f' mtypeVal: {e["mtypeVal"]},'
+            f' attkAdtyp: {e["attkAdtyp"]},'
+            f' attkDamn: {e["attkDamn"]},'
+            f' attkDamd: {e["attkDamd"]},'
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'
             f' raceName: {e["raceName"]!r},'

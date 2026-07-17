@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:32 — #681 D-0611 hitval spec_abon
+- Objective: seed0361 @22084 C `rnd(5)` @ `spec_abon` vs JS `rnd(20)`.
+- C locus: `artifact.c` `spec_abon`/`spec_applies`; `weapon.c` `hitval`.
+- Change: extract attk+mtype; port `spec_applies`+`spec_abon`; wire
+  `hitval` oartifact path.
+- Verification: prefix **22084→22140** Scr **225** RNG **22478**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @22140 `m_move` rn2(12) vs rn2(16); or Pri-strt.
+
 ## 2026-07-17 11:28 — #680 score + D-0610 tryescape defense
 - Objective: mandatory full `sessions` score (#680÷5); seed0361 @22042.
 - Score: **33/44** Scr **6616**/11405 RNG **377869**/792838 (47.66%)
@@ -157,11 +166,4 @@ Use this shape:
 - Verification: prefix **7973→11065** Scr **195→198**; green+strict PASS;
   cohort **31/31** PASS.
 - Next: seed0361 @11065 `dmgval` `rnd(20)` vs `rn2(5)`; or Pri-strt.
-
-## 2026-07-17 09:40 — #666 D-0597 mfndpos pool/lava (not @7973)
-- Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
-- C locus: `mon.c` `mfndpos` poolok/lavaok / `IS_WATERWALL`; `mon_allowflags` `ALLOW_WALL`.
-- Change: ported those gates + passes_walls `ALLOW_WALL`. **Falsified** as @7973 cause — mountain centaur @(71,5) open ROOM cnt=8, mtrack[0]=(72,4).
-- Verification: green+strict PASS; cohort 8/8 PASS; seed0361 still prefix 7973 Scr 195.
-- Next: remaining mfndpos rejects (onscary/garlic/squeeze/bars/gas/mm_aggression) or C map/mtrack dump.
 
