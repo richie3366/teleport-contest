@@ -596,7 +596,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0613 | fixed | artifact_hit / spec_dbon Grayswandir double | seed0361 22362→23015 Scr 268 RNG 24011; continued D-0614 |
 | D-0614 | fixed | on_start nexttime/othertime nhl shuffle | seed0361 23015→23016 Scr 271 RNG 23269; continued D-0615 |
 | D-0615 | fixed | Home distfleeck vs ^V→Dlvl:37 (diag) | superseded by D-0616 qt_pager pline |
-| D-0616 | fixed | qt_pager default→pline not NHW_TEXT | seed0361 23016→23223 Scr 271→289; next tower1 get_location |
+| D-0616 | fixed | qt_pager default→pline not NHW_TEXT | seed0361 23016→23223 Scr 271→289; continued D-0617 |
+| D-0617 | fixed | tower1 candle get_location_coord DRY | seed0361 23223→31644 Scr 289; next nhl shuffle vs rn2(79) |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

@@ -1982,6 +1982,8 @@ function load_tower1() {
         mksobj_at(CHEST, mx + rx, my + ry, true, true);
     }
     // niches[4] wax candles; niches[5] tallow candles
+    // C: contents des.object → create_object get_location_coord(DRY, random)
+    // then remove_object + add_to_container (sp_lev.c create_object).
     for (const [nidx, otyp, quanLo] of [
         [3, WAX_CANDLE, 4],
         [4, TALLOW_CANDLE, 4],
@@ -1992,11 +1994,9 @@ function load_tower1() {
         // C: SP_OBJ_CONTAINER contents → delete_contents after mkbox_cnts
         chest.cobj = null;
         const quan = quanLo + rn2(5); // math.random(4,8)
-        const sx = g.splev_xsize | 0;
-        const sy = g.splev_ysize | 0;
-        const cx = mx + rn2(sx);
-        const cy = my + rn2(sy);
-        const candle = mksobj_at(otyp, cx, cy, true, true);
+        const pos = get_location_coord_random(DRY);
+        if (pos.x < 0) continue;
+        const candle = mksobj_at(otyp, pos.x, pos.y, true, true);
         if (candle) {
             candle.quan = quan;
             candle.owt = weight(candle);

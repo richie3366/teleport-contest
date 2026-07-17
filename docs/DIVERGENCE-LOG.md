@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0617 — tower1 chest candles via get_location_coord (@23223)
+
+- **Status:** fixed (partial — next @31644 nhl shuffle vs rn2(79))
+- **Symptom:** seed0361 @23223 — C `rn2(15)` @ `get_location` vs JS
+  `rnd(2)` `next_ident` during tower1 wax/tallow candle contents.
+- **Cause:** `load_tower1` placed container candles with raw
+  `mx+rn2(sx)`/`my+rn2(sy)` then `mksobj_at`. C `create_object` uses
+  `get_location_coord(..., DRY, random)` so rejected non-DRY cells
+  retry `rn2(15)`/`rn2(11)` before `next_ident`.
+- **C locus:** `sp_lev.c` `create_object` / `get_location_coord`;
+  `dat/tower1.lua` chest `contents` wax/tallow candle.
+- **Change:** `js/mklev.js` `load_tower1` candle arm →
+  `get_location_coord_random(DRY)` before `mksobj_at`.
+- **Verification:** prefix **23223→31644** Scr **289**/366 RNG
+  **31644**/53865; green+strict PASS; cohort **31/31** PASS.
+- **Next:** @31644 C nhlib shuffle `rn2(3)` vs JS `rn2(79)` (post
+  matched getbones); or Pri-strt / seed0014/0108.
+
 ## D-0616 — qt_pager default output → deliver_by_pline (@23016)
 
-- **Status:** fixed (partial — next @23223 tower1 get_location)
+- **Status:** fixed (continued as D-0617)
 - **Symptom:** seed0361 @23016 — C `rn2(3)` @ `getbones` (Dlvl:37) vs JS
   `rn2(5)` @ `distfleeck` still on Home.
 - **Cause:** Arc `nexttime` in `quest.lua` has no `output=` (default) →

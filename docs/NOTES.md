@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#686 D-0616:** Arc `nexttime` is default lua `output` → C
-  `deliver_by_pline`. JS always used `show_text_pages`, which ate the
-  post-Home `e` key so `s` became search → `movemon`/`distfleeck`
-  `rn2(5)` before `^V`→Dlvl:37 `getbones`. Fixed: newline/long → window,
-  else pline. Prefix **23016→23223** Scr **271→289**.
-- **Next @23223:** C `get_location` `rn2(15)` @ tower1.lua vs JS `rnd(2)`.
-  Falsifier: stack at 23223 ≠ get_location/sp_lev.
+- **#687 D-0617:** tower1 wax/tallow chest contents used raw
+  `rn2(sx/sy)` then `mksobj_at`. C `create_object` →
+  `get_location_coord(DRY, random)` retries non-DRY cells. Fixed via
+  `get_location_coord_random(DRY)`. Prefix **23223→31644**.
+- **Next @31644:** C nhlib shuffle `rn2(3)` after matched getbones vs
+  JS `rn2(79)`. Falsifier: stack at 31644 ≠ nhl/build_room path.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0616; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0617; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
@@ -29,13 +28,13 @@ Objective/score live in `CURRENT.md`.
   `m_move` cnt==0 tryescape `use_defensive`; omit `hitval` `spec_abon`;
   omit mfndpos diagonal squeeze; omit `artifact_hit`/`spec_dbon` after
   dmgval; omit `on_start` nexttime/othertime after first_start; force
-  all qt_pager through NHW_TEXT.
+  all qt_pager through NHW_TEXT; raw `rn2(sx)` for tower1 candles.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0616 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0617 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -43,6 +42,7 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
+- D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 
 ## Landmarks (≤15)
 
@@ -70,7 +70,8 @@ Objective/score live in `CURRENT.md`.
   tryescape + healing `use_defensive` (D-0610)**; **`hitval`/`spec_abon`
   (D-0611)**; **`mfndpos` diagonal squeeze (D-0612)**; **`artifact_hit`/
   `spec_dbon` (D-0613)**; **`on_start` nexttime/othertime (D-0614)**;
-  **`qt_pager` pline vs NHW_TEXT (D-0616)**; `intemple` + SWAMP deferred.
+  **`qt_pager` pline vs NHW_TEXT (D-0616)**; **tower1 candle
+  `get_location_coord` (D-0617)**; `intemple` + SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
