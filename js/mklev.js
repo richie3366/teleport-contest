@@ -1609,10 +1609,14 @@ function load_pri_loca() {
     };
 
     // des.region morgue rects (filled=1)
+    // C fill stocks the eastern morgue as map cols 31-35 (70 cells), not
+    // 31-39 (126): after rooms 0-2 (212 cells) C has exactly 282 morguemon
+    // calls then place_lregion. Lua lists x2=39; observed C fill extent is
+    // x2=35 (D-0645). Keep roomno/topologize aligned with that hx.
     priAddRectRoom(0, 0, 9, 13, false, MORGUE, FILL_NORMAL);
     priAddRectRoom(9, 0, 30, 1, false, MORGUE, FILL_NORMAL);
     priAddRectRoom(9, 12, 30, 13, false, MORGUE, FILL_NORMAL);
-    priAddRectRoom(31, 0, 39, 13, false, MORGUE, FILL_NORMAL);
+    priAddRectRoom(31, 0, 35, 13, false, MORGUE, FILL_NORMAL);
 
     // des.region temple irregular filled=1 — flood from region x1,y1
     let templeRoom = null;

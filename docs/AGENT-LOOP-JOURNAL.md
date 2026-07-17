@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:35 — #717 D-0645 Pri-loca eastern morgue hx
+- Objective: seed0367 @15167 C place_lregion rn2(79) vs JS rn2(100).
+- C locus: Pri-loca.lua eastern morgue des.region; sp_lev.c
+  lspo_region/topologize; mkroom.c fill_zoo; mkmaze.c place_lregion.
+- Change: load_pri_loca eastern morgue x2 39→35 to match C fill
+  extent (282 morguemon then place_lregion) — D-0645. Falsified:
+  place_lregion clamp; drop roomno gate; link_doors_rooms on Pri-loca.
+- Verification: seed0367 @15167→15172 (RNG 15214, Scr 170); green+strict
+  PASS; cohort 34/34 prior-PASS.
+- Next: @15172 C nhlib after getbones vs JS place_lregion (Pri-fila?).
+
 ## 2026-07-17 15:25 — #716 D-0644 m_initinv S_DEMON
 - Objective: seed0367 @13882 C m_initinv rn2(4) vs JS rn2(50).
 - C locus: makemon.c m_initinv S_DEMON (ice devil spear) + S_WRAITH /

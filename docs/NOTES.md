@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#716 D-0644:** seed0367 @13882→**15167**. Cause was missing
-  `m_initinv` `S_DEMON` (ice devil `rn2(4)`→SPEAR); JS fell through to
-  trailing `rn2(50)`. Also ported `S_WRAITH`/`S_LICH`. Next: @15167 C
-  `place_lregion` `rn2(79)` vs JS `rn2(100)` (lregion bounds / call).
+- **#717 D-0645:** seed0367 @15167→**15172**. Cause was Pri-loca eastern
+  morgue fill hx: lua `x2=39` but C stocks only cols 31–35 (282
+  `morguemon` then `place_lregion`). JS `priAddRectRoom(…,35,…)`.
+  Next: @15172 C nhlib after getbones vs JS extra `place_lregion`
+  (likely missing Pri-fila / next-level load).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0644; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0645; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -43,13 +44,15 @@ Objective/score live in `CURRENT.md`.
   skip `#chat` MS_LEADER `quest_chat`; omit extract `AD_SPEL`/`AD_CLRC`;
   skip `dochug` undirected `castmu`; omit Pri-loca / MORGUE fill_zoo /
   hardfloor `Can_fall_thru`; omit fill_zoo rectangular roomno gate;
-  omit m_initinv S_DEMON/S_WRAITH/S_LICH.
+  omit m_initinv S_DEMON/S_WRAITH/S_LICH; widen eastern morgue back to
+  lua 39 without a C-cited roomno/SPACE falsifier; drop roomno gate;
+  port `link_doors_rooms` into Pri-loca without new evidence.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0644 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0645 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -57,9 +60,10 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…43: see INDEX; D-0642: @3438 was missing Pri-loca, not
+- D-0616…44: see INDEX; D-0642: @3438 was missing Pri-loca, not
   getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate;
-  D-0644: @13882 was missing S_DEMON, not trailing rn2(50).
+  D-0644: @13882 was missing S_DEMON, not trailing rn2(50);
+  D-0645: @15167 was eastern morgue hx 39→35, not place_lregion math.
 
 ## Landmarks (≤15)
 
@@ -77,11 +81,11 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0644: see INDEX; Pri-loca + MORGUE +
-  fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH; eel hideunder /
-  I_SPECIAL deferred; SWAMP / Pri-fila/filb/goal deferred; gold DSM
-  halluc / red see_monsters / arti_light deferred; mcast_spell bodies /
-  mattacku AT_MAGC deferred.
+- Quest landmarks through D-0645: see INDEX; Pri-loca + MORGUE +
+  fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35;
+  eel hideunder / I_SPECIAL deferred; SWAMP / Pri-fila/filb/goal
+  deferred; gold DSM halluc / red see_monsters / arti_light deferred;
+  mcast_spell bodies / mattacku AT_MAGC deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.

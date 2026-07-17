@@ -4,9 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0645 — Pri-loca eastern morgue fill hx (seed0367 @15167)
+
+- **Status:** fixed (partial — next @15172 post-getbones nhlib)
+- **Symptom:** seed0367 first mismatch @15167 — C `rn2(79)` @
+  `place_lregion` vs JS `rn2(100)` (`morguemon`). Both had 282
+  `morguemon` `rn2(100)` from fill start; JS continued fill on cols
+  57–60 (lua `x2=39`) while C had finished and called `place_lregion`.
+- **Cause:** `load_pri_loca` used lua `region={31,00,39,13}` as-is.
+  Observed C fill stocks only map cols 31–35 (70 cells): rooms 0–2
+  (212) + 70 = 282, then place_lregion. Extra JS cells used morgue
+  `roomno` + ROOM under the D-0643 rectangular gate.
+- **Falsified:** wrong `place_lregion` default clamp; fill-in-
+  `lspo_finalize` (C fills once in makelevel); dropping roomno gate
+  (regresses @10674); porting `link_doors_rooms` into Pri-loca
+  (regresses @14403).
+- **C locus:** `dat/Pri-loca.lua` eastern morgue `des.region`;
+  `sp_lev.c` `lspo_region`/`add_room`/`topologize`; `mkroom.c`
+  `fill_zoo`; `mkmaze.c` `place_lregion`.
+- **Change:** `js/mklev.js` `load_pri_loca` — eastern morgue
+  `priAddRectRoom(31,0,35,13,…)` so hx/roomno match C fill extent
+  (D-0645). Lua still lists `x2=39`; mechanism that leaves 36–39
+  unstocked in C (roomno/SPACE) not fully cited.
+- **Verification:** seed0367 prefix **15167→15172** (runner RNG
+  **15181→15214**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** C filter for lua cols 36–39; Pri-fila/filb/goal;
+  @15172 C nhlib after getbones vs JS extra `place_lregion`.
+- **Next:** seed0367 @15172 C nhlib/`splev_initlev` vs JS `rn2(79)`.
+
 ## D-0644 — m_initinv S_DEMON/S_WRAITH/S_LICH (seed0367 @13882)
 
-- **Status:** fixed (partial — next @15167 place_lregion)
+- **Status:** fixed (partial — superseded next by D-0645)
 - **Symptom:** seed0367 first mismatch @13882 — C `rn2(4)` @
   `m_initinv` (makemon.c:802) vs JS `rn2(50)` (trailing defensive)
   after matched makemon tail.
