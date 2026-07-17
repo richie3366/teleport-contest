@@ -23,9 +23,9 @@ focused session.
 
 Score last measured: **2026-07-17** — full `sessions` suite (loop **#735**).
 Screens **6959**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
-Δ vs #730: Scr **+30**, RNG **+14553**, PASS **+0**. Focused #736–37
-(not score cadence): seed0367 Scr **205→244**/324 (prefix **148→155**;
-D-0662…D-0664) — suite aggregates unchanged until **#740**.
+Δ vs #730: Scr **+30**, RNG **+14553**, PASS **+0**. Focused #736–38
+(not score cadence): seed0367 Scr **205→245**/324 (prefix **148→185**;
+D-0662…D-0665) — suite aggregates unchanged until **#740**.
 
 ## Score
 
@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **244**/324 | RNG FULL; screen peel @155 |
+| seed0367 | **50125**/50125 | **245**/324 | RNG FULL; screen peel @185 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -72,18 +72,16 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **244**/324
-(cursors 317/324; prefix **155**). **D-0664** `self_lookat`
-`pmname`/`Ugender` cleared @154.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **245**/324
+(cursors 317/324; prefix **185**). **D-0665** TREE `"tree"` cleared @155.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @155 getpos farlook — C `tree` vs JS
-`unexplored area` (blank `disp_ch` / remembered TREE glyph; Warning
-path). Do not re-break D-0660…D-0664.
+**Next falsifier / fix:** @185 altar DEC `{` — C color1+decgfx vs JS
+NO_COLOR/`decgfx=0` (materialize map). Do not re-break D-0660…D-0665.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

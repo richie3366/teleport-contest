@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#737:** seed0367 Scr **243→244**/324; prefix **154→155**.
-  D-0664 `self_lookat` → `pmname(umonnum,Ugender)`.
+- **#738:** seed0367 Scr **244→245**/324; prefix **155→185**.
+  D-0665 getpos/lookat TREE → `"tree"` (disp_ch was DEC `g`,
+  not blank — prior Warning/memory theory falsified).
   Suite score still #735 (**34/44**; Scr 6959 RNG 465040) until #740.
-- **Next:** @155 C `tree` vs JS `unexplored area` — getpos
-  `auto_describe_text` blank `disp_ch` → unexplored; C shows TREE
-  cmap glyph (remembered / Warning path).
-- **Falsify:** dump cursor (cx,cy) + `loc.typ`/`disp_ch`/`glyph` @155;
-  C `lookat` `glyph_is_cmap` → defsyms `S_tree` "tree"; JS
-  `newsym`/`show_glyph` memory after `display_warning`.
+- **Next:** @185 altar DEC `{` — C color1+decgfx vs JS NO_COLOR
+  (materialize map cell). Do not re-break D-0660…D-0665.
+- **Falsify:** dump `loc.typ`/altarmask/`terrain_glyph` at (50,10)
+  map ≈ tty (49,11); C `back_to_glyph` ALTAR color vs JS.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0664; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0665; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -52,13 +51,13 @@ Objective/score live in `CURRENT.md`.
   Pri-fila morgue rooms; skip vamp decide_to_shapeshift arms; skip
   special-room enter plines (D-0660); skip W_WEP `(wielded)` (D-0661);
   skip Pri firsttime (D-0662); skip `mon_warning` (D-0663);
-  skip `self_lookat` gender (D-0664).
+  skip `self_lookat` gender (D-0664); skip TREE defsym (D-0665).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0664 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0665 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -70,6 +69,7 @@ Objective/score live in `CURRENT.md`.
 - D-0662: missing Pri firsttime skips `flush_topl_more` after materialize.
 - D-0663: Priest HWarning needs `display_warning` + `warnlevel=1`.
 - D-0664: self_lookat must use `pmname`/`Ugender`, not male role name.
+- D-0665: TREE typ with non-blank `disp_ch` still needs cmap `"tree"`.
 
 ## Landmarks (≤15)
 
@@ -81,7 +81,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 244; screen peel @155 tree glyph.
+- Quest: seed0367 RNG FULL Scr 245; screen peel @185 altar glyph.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

@@ -14,7 +14,7 @@ import { flush_screen, pline, docrt } from './display.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
-    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, IS_WALL,
+    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, TREE, IS_WALL,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd,
 } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
@@ -192,8 +192,9 @@ function stair_ladder_explanation(x, y) {
  * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
  * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
  * auto_describe firstmatch after stairs/traps.
- * Named omissions: altar/ndoor/cloud/engraving special cases;
- * underwater unreconnoitered; object glyphs; Hallucination waterbody.
+ * Named omissions: altar/ndoor/cloud/engraving/iron bars/fountain
+ * special cases; underwater unreconnoitered; object glyphs;
+ * Hallucination waterbody; arboreal STONE→S_tree.
  */
 function cmap_defsym_explanation(x, y, loc) {
     if (!loc) return '';
@@ -209,6 +210,8 @@ function cmap_defsym_explanation(x, y, loc) {
     if (typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
     }
+    // C defsym.h PCHAR S_tree → "tree" (lookat default arm)
+    if (typ === TREE) return 'tree';
     if (typ === STONE) {
         // C lookat S_stone: !seenv → "unexplored"; else stone/SCORR
         if (!loc.seenv) return 'unexplored';
@@ -231,7 +234,6 @@ function cmap_defsym_explanation(x, y, loc) {
 function auto_describe_text(cx, cy) {
     const u = game.u || {};
     const terrainmode = game.iflags?.terrainmode | 0;
-
     if (
         (u.ux | 0) === cx && (u.uy | 0) === cy
         && (!terrainmode || (terrainmode & TER_MON) !== 0)

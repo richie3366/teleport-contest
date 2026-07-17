@@ -8,6 +8,23 @@ to preserve, record it here.
 
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0665 — getpos lookat TREE defsym (seed0367 @155)
+
+- **Status:** fixed (partial — screen residual Scr 245/324 @185)
+- **Symptom:** seed0367 getpos farlook @155 — C `tree` vs JS
+  `unexplored area`. Cell had TREE typ + DEC `disp_ch='g'`; blank
+  `disp_ch`/Warning hypothesis falsified.
+- **Cause:** `cmap_defsym_explanation` covered ROOM/CORR/wall/STONE/
+  waterbodies only; TREE fell through to `"unexplored area"`.
+- **C locus:** `pager.c` `lookat` cmap default →
+  `defsyms[S_tree].explanation` (`defsym.h` `"tree"`);
+  `getpos.c` `auto_describe`.
+- **Change:** `js/getpos.js` + `js/pager.js` lookat cmap — TREE →
+  `"tree"`. Iron bars/fountain/altar/ndoor/cloud still deferred.
+- **Verification:** seed0367 Scr **244→245**/324, prefix
+  **155→185**, RNG FULL; green+strict PASS; cohort **34**/34.
+- **Next:** @185 altar DEC `{` color/decgfx (C color1 vs JS NO_COLOR).
+
 ## D-0664 — self_lookat pmname / Ugender (seed0367 @154 farlook)
 
 - **Status:** fixed (partial — screen residual Scr 244/324 @155)

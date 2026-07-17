@@ -31,7 +31,7 @@ import { option_help_lines } from './options.js';
 import { dokeylist_lines, domenucontrols_lines } from './dokeylist.js';
 import { t_at, trapname } from './trap.js';
 import {
-    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE,
+    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, TREE,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
     STRAT_WAITMASK, IS_WALL, Upolyd,
 } from './const.js';
@@ -546,6 +546,8 @@ function brief_at(x, y) {
     if (loc.typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
     }
+    // C defsym.h PCHAR S_tree → "tree" (lookat default arm)
+    if (loc.typ === TREE) return 'tree';
     if (loc.typ === STONE) {
         if (!loc.seenv) return 'unexplored';
         return 'stone';
