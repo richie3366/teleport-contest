@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0635 — fprefx garlic_breath monflee (seed0367 @1975)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @1975 — C `dochug` `rn2(40)` flee-
+  teleport vs JS `rn2(5)` distfleeck; Scr **155**/324. Looked like missing
+  `mflee` on kitten.
+- **Cause:** `fprefx` omitted `CLOVE_OF_GARLIC` → `iter_mons(garlic_breath)`.
+  Eating garlic (step 61) silently `monflee(0)` nearby smelling mons before
+  movemon; JS never set `mflee`, so dochug skipped flee/courage rolls.
+- **C locus:** `eat.c` `fprefx` / `garlic_breath`; `mondata.c` `olfaction`;
+  `monmove.c` `monflee` / `dochug`.
+- **Change:** `js/monsters.js` `olfaction`; `js/eat.js` garlic arm +
+  `garlic_breath`; exported `monflee` in `js/monmove.js`; `known_hitum`
+  calls real `monflee` (was RNG-only stub).
+- **Verification:** seed0367 prefix **1975→2331**; Scr **155→166**/324;
+  green+strict PASS; cohort **32**/32 PASS.
+- **Named omission:** undead-hero `make_vomiting` on garlic; flees_light /
+  `release_hero` / `mon_track_clear` / Vrock in `monflee`; distfleeck
+  onscary→monflee still stub.
+- **Next:** seed0367 @2331 C `u_calc_moveamt` `rn2(3)` vs JS `dosounds`
+  `rn2(400)`.
+
 ## D-0634 — getobj_takeoff missing-letter continue (seed0367 @1946)
 
 - **Status:** fixed

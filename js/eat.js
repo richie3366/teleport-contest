@@ -24,8 +24,11 @@ import { singular, xname, doname } from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
     vegan, vegetarian,
-    is_rider, PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames,
+    is_rider, is_undead, olfaction,
+    PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames,
 } from './monsters.js';
+import { monflee } from './monmove.js';
+import { dist2 } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
@@ -66,6 +69,7 @@ const K_RATION = objectNames.indexOf('K_RATION');
 const C_RATION = objectNames.indexOf('C_RATION');
 const CORPSE = objectNames.indexOf('CORPSE');
 const TIN = objectNames.indexOf('TIN');
+const CLOVE_OF_GARLIC = objectNames.indexOf('CLOVE_OF_GARLIC');
 const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
 const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
 const PM_COCKATRICE = monsterNames.indexOf('PM_COCKATRICE');
@@ -628,6 +632,18 @@ export async function poison_strdmg(strloss, dmg) {
 }
 
 /**
+ * C ref: eat.c garlic_breath — nearby smelling mons flee (untimed).
+ */
+async function garlic_breath(mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = game.u || {};
+    const d2 = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
+    if (olfaction(mtmp.data) && d2 < 7) {
+        await monflee(mtmp, 0, false, false);
+    }
+}
+
+/**
  * C ref: eat.c fprefx — first-bite messages for non-rotten non-tin food.
  * Contest recorder is MACOS → APPLE "Macintosh!"; UNIX Core dumped deferred.
  * Returns false if eating should abort (egg explode etc. deferred → true).
@@ -645,6 +661,17 @@ async function fprefx(otmp) {
     if (otmp.otyp === TRIPE_RATION) {
         await pline('Yak - dog food!');
         return true;
+    }
+    // C: CLOVE_OF_GARLIC — undead vomit; else scare nearby then fall through
+    if (otmp.otyp === CLOVE_OF_GARLIC) {
+        if (is_undead(hero_form_data())) {
+            // make_vomiting(rn1(reqtime,5)) deferred for undead poly hero
+            return true;
+        }
+        for (const mtmp of game.fmon || []) {
+            await garlic_breath(mtmp);
+        }
+        // FALLTHROUGH to default delicious feedback
     }
     // Contest C build defines MACOS (recorder on macOS).
     if (otmp.otyp === APPLE && !otmp.cursed) {

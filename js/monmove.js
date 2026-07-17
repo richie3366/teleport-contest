@@ -653,6 +653,39 @@ export function set_apparxy(mtmp) {
     mtmp.muy = my;
 }
 
+/**
+ * C ref: monmove.c monflee — set mflee; optional fleetime / fleemsg.
+ * Named omissions: release_hero on ustuck; flees_light rn2(10)/verbalize /
+ * light-source pline; Vrock gas cloud; mon_track_clear; Adjmonnam
+ * immobile flinch wording.
+ */
+export async function monflee(mtmp, fleetime, first, fleemsg) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    // C: if (mtmp == u.ustuck) release_hero(mtmp) — deferred
+    if (!first || !mtmp.mflee) {
+        if (!fleetime) {
+            mtmp.mfleetim = 0;
+        } else if (!mtmp.mflee || mtmp.mfleetim) {
+            fleetime += mtmp.mfleetim | 0;
+            if (fleetime === 1) fleetime++;
+            mtmp.mfleetim = Math.min(fleetime, 127);
+        }
+        if (!mtmp.mflee && fleemsg
+            && canseemon(mtmp)
+            && M_AP_TYPE(mtmp) !== M_AP_FURNITURE
+            && M_AP_TYPE(mtmp) !== M_AP_OBJECT) {
+            if (!mtmp.mcanmove || !(mtmp.data?.mmove | 0)) {
+                await pline(`${Monnam(mtmp)} seems to flinch.`);
+            } else {
+                // flees_light arm deferred (no extra rn2(10))
+                await pline(`${Monnam(mtmp)} turns to flee.`);
+            }
+        }
+        mtmp.mflee = 1;
+    }
+    // mon_track_clear deferred
+}
+
 // C ref: monmove.c distfleeck()
 export function distfleeck(mtmp) {
     // bravegremlin roll always happens even if unused

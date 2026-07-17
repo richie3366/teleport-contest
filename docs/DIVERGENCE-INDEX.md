@@ -615,6 +615,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0632 | fixed | relobj mdrop distant_name observe (disco order) | seed0361 Scr 363→364; @358 MATCH; next attrs @360 |
 | D-0633 | fixed | ^X attrs Hallu/Search/Reflect/Life + saber + hunger | seed0361 **PASS** 366/366; suite #705 **34/44** |
 | D-0634 | fixed | getobj_takeoff missing-letter continue | seed0367 @1946→1975; Scr 75→155; key desync |
+| D-0635 | fixed | fprefx garlic_breath → monflee | seed0367 @1975→2331; Scr 155→166; dochug rn2(40) |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
