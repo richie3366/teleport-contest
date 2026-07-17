@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0629 — urole.questarti missing → empty %o (seed0361 @320)
+
+- **Status:** fixed (partial — seed0361 still 355/366)
+- **Symptom:** seed0361 screen 320 goal_first NHW_TEXT — C
+  `…presence of the Orb of Detection.` vs JS `…presence of .`
+- **Cause:** `convert_arg('%o')` calls `the(artiname(urole.questarti))`, but
+  `setup_role_race_from_rc` copied homebase/intermed/ldrnum and omitted
+  `questarti`, so `qi|0 === 0` → empty `artilistRaw[0].name`.
+- **C locus:** `questpgr.c` `convert_arg` `%o`/`%O`; `role.c` `roles[].questarti`;
+  JS `u_init.js` `setup_role_race_from_rc` vs `roles.js` Arc/Bar templates.
+- **Change:** `js/u_init.js` — install `questarti: role.questarti ?? 0`.
+- **Verification:** seed0361 Scr **352→355**/366; Orb line matches; RNG full;
+  green+strict PASS; cohort sample PASS; full suite Scr **6815→6818**/11405.
+- **Next:** seed0361 remaining 11 screens (cell attrs / later peels); or
+  Pri-strt / seed0014/0108.
+
 # Divergence log
 
 ## D-0628 — makemon spider/snake hideunder needs hides_under (seed0361 @307)

@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#695**),
-post D-0624. Screens **6698**/11405; RNG **416960**/792838 (52.59%).
-**33/44** PASS. Δ vs #690: Scr **+17**, RNG **+18589** (D-0620…24;
-seed0361 RNG now **full** 53865/53865).
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#700**),
+post D-0629. Screens **6818**/11405; RNG **416960**/792838 (52.59%).
+**33/44** PASS. Δ vs #695: Scr **+120**, RNG **+0** (D-0625…29; seed0361
+Scr 306→355).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **33 / 44** |
-| Screens matched | **6,698 / 11,405** |
+| Screens matched | **6,818 / 11,405** |
 | Positional RNG calls matched | **416,960 / 792,838** (52.59%) |
-| Speed label | `33+0.16/turn` (R² 0.799) |
+| Speed label | `33+0.16/turn` (R² 0.803) |
 | Role-init throws | **0 / 44** |
 
 **PASS (33):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | **53865**/53865 | 352/366 | Scr +21 (D-0628 python hide); @320 Orb text |
+| seed0361 | **53865**/53865 | 355/366 | Scr +3 (D-0629 %o); 11 left |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 screen peel @320 (Scr **352**/366 after
-D-0628) — quest text missing `"the Orb of Detection."`. Or seed0367
-`Pri-strt`, seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0628.
+**Gameplay next:** seed0361 screen peel (Scr **355**/366 after D-0629) —
+remaining 11 screens after Orb `%o` fix. Or seed0367 `Pri-strt`,
+seed0014/0108. Prefer over parked D-0006 / seed2200 RC; do not reopen
+D-0474…D-0629.
 
 ```bash
 node frozen/ps_test_runner.mjs \

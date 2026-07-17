@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:25 — #700 score + D-0629 questarti %o
+- Objective: mandatory full `sessions` score (#700); seed0361 @320 Orb.
+- C locus: `questpgr.c` `convert_arg` `%o`; `role.c` `questarti`;
+  `u_init.js` `setup_role_race_from_rc` omitted field.
+- Change: install `urole.questarti` from role template.
+- Verification: suite **33/44**, Scr **6818**/11405, RNG **416960**/792838
+  (52.59%), `33+0.16/turn`; seed0361 Scr **352→355**; green+strict PASS.
+- Next: seed0361 remaining 11 screens; or Pri-strt.
+
 ## 2026-07-17 13:20 — #699 D-0628 python hideunder M1_CONCEAL
 - Objective: seed0361 @307 map `%` vs `S` after locate materialize.
 - C locus: `makemon.c` S_SPIDER/S_SNAKE → `hideunder`; `mondata.h`
@@ -152,14 +161,3 @@ Use this shape:
 - Verification: prefix **23016→23223** Scr **271→289**; green+strict PASS;
   cohort **31/31** PASS.
 - Next: seed0361 @23223 tower1 `get_location` rn2(15) vs `rnd(2)`; or Pri-strt.
-
-## 2026-07-17 11:55 — #685 score + D-0615 diagnose @23016
-- Objective: mandatory ÷5 full `sessions` score; seed0361 @23016 peel.
-- Score: **33/44** Scr **6663**/11405 RNG **378984**/792838 (47.80%)
-  `33+0.16/turn` R² 0.783. Δ#680: Scr +47 RNG +1115 PASS same.
-- C locus: `bones.c` getbones; `teleport.c` level_tele; JS `distfleeck`.
-- Change: none in `js/`. Falsified Medusa/`rn2(5)` getbones theory —
-  C is `^V`→Dlvl:37 getbones; JS Home movemon after re-entry.
-- Verification: green+strict PASS; full suite recorded in CURRENT.
-- Next: post-Home turn/`--More--`/menu before second levelport; or Pri-strt.
-
