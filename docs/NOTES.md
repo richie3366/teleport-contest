@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#714 D-0642:** seed0367 @3438→**10674**. Cause was missing
-  `Pri-loca` load_special (+ MORGUE fill_zoo + hardfloor
-  `Can_fall_thru`). Next: @10674 C `next_ident` (makemon) vs JS
-  `rn2(5)` (corpse gate) mid-morgue `fill_zoo` after matched
-  `morguemon` — likely MON_AT skip / room overlap occupancy.
+- **#715 D-0643:** seed0367 @10674→**13882**. Cause was rectangular
+  `fill_zoo` stocking cells whose `roomno` was overwritten by a later
+  overlapping Pri-loca morgue `topologize` → MON_AT on the later rect.
+  Fix: roomno gate (≡ irregular arm / mkswamp). Next: @13882 C
+  `m_initinv` `rn2(4)` vs JS `rn2(50)` after matched makemon.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0642; treat @3438 as getbones arity without
-  Pri-loca; wear `[*?]`; stub `^V?`; empty wish ESC; skip
-  amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied mon;
-  skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+- **Don’t:** reopen D-0474…D-0643; wear `[*?]`; stub `^V?`; empty wish ESC;
+  skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
+  mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
   (now `rank_of`); omit bones `utrack`; skip Blindf_on / confused
   mispronounce / wizard yn / identify `more_experienced(0,10)`;
@@ -44,13 +43,13 @@ Objective/score live in `CURRENT.md`.
   Pri-strt MAGIC_PORTAL arrival; pre-set `u.urooms` in `teleds`;
   skip `#chat` MS_LEADER `quest_chat`; omit extract `AD_SPEL`/`AD_CLRC`;
   skip `dochug` undirected `castmu`; omit Pri-loca / MORGUE fill_zoo /
-  hardfloor `Can_fall_thru` for holes.
+  hardfloor `Can_fall_thru`; omit fill_zoo rectangular roomno gate.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0642 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0643 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -58,15 +57,15 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…41: see INDEX; D-0642: @3438 was missing Pri-loca, not
-  getbones arity.
+- D-0616…42: see INDEX; D-0642: @3438 was missing Pri-loca, not
+  getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#710).
+  **PASS** (suite **34/44** @#715).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -87,10 +86,10 @@ Objective/score live in `CURRENT.md`.
   **Pri-strt + Arch Priest kit** (D-0637); **intemple TEMPLE** (D-0638);
   **teleds no pre-urooms** (D-0639); **#chat MS_LEADER quest_chat**
   (D-0640); **extract AD_SPEL/CLRC + dochug castmu** (D-0641);
-  **Pri-loca + MORGUE fill_zoo** (D-0642); eel hideunder / I_SPECIAL
-  deferred; SWAMP / Pri-fila/filb/goal deferred; gold DSM halluc / red
-  see_monsters / arti_light deferred; mcast_spell bodies / mattacku
-  AT_MAGC deferred.
+  **Pri-loca + MORGUE fill_zoo** (D-0642); **fill_zoo roomno gate**
+  (D-0643); eel hideunder / I_SPECIAL deferred; SWAMP / Pri-fila/filb/
+  goal deferred; gold DSM halluc / red see_monsters / arti_light
+  deferred; mcast_spell bodies / mattacku AT_MAGC deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.

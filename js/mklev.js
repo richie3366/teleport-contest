@@ -6572,6 +6572,7 @@ function mk_zoo_thronemon(x, y) {
 /**
  * C ref: mkroom.c fill_zoo — COURT throne/courtmon/chest ported; ZOO/
  * LEPREHALL gold; MORGUE morguemon + corpse/chest/grave (D-0642);
+ * rectangular roomno gate for overlapping special rects (D-0643);
  * COCKNEST typed mon. Named omissions: BEEHIVE queen; BARRACKS/ANTHOLE
  * loot + squadmon/antholemon.
  */
@@ -6632,6 +6633,10 @@ function fill_zoo(sroom) {
                     && distmin(sx, sy, doors[sh].x, doors[sh].y) <= 1)
                     continue;
             } else if (!SPACE_POS(game.level.at(sx, sy)?.typ)
+                // After overlapping topologize (Pri-loca morgue rects share
+                // an edge), bbox cells may belong to another room's roomno.
+                // Same roomno gate as the irregular arm / mkswamp (mkroom.c).
+                || ((game.level.at(sx, sy)?.roomno | 0) !== rmno)
                 || ((sroom.doorct | 0) && doors[sh] && (
                     (sx === sroom.lx && doors[sh].x === sx - 1)
                     || (sx === sroom.hx && doors[sh].x === sx + 1)

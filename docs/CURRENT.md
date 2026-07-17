@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#710**),
-post D-0637 + intemple scaffolding. Screens **6918**/11405; RNG **418252**/792838
-(52.75%). **34/44** PASS. Δ vs #705: Scr **+89**, RNG **+1292**, PASS **+0**
-(seed0367 Scr 75→167 / RNG 2053→3329 from intervening peels).
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#715**),
+post D-0643 fill_zoo roomno gate. Screens **6919**/11405; RNG **428825**/792838
+(54.09%). **34/44** PASS. Δ vs #710: Scr **+1**, RNG **+10573**, PASS **+0**
+(seed0367 RNG 3347→13909 from D-0642/43).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **34 / 44** |
-| Screens matched | **6,918 / 11,405** |
-| Positional RNG calls matched | **418,252 / 792,838** (52.75%) |
-| Speed label | `32+0.16/turn` (R² 0.825) |
+| Screens matched | **6,919 / 11,405** |
+| Positional RNG calls matched | **428,825 / 792,838** (54.09%) |
+| Speed label | `33+0.16/turn` (R² 0.810) |
 | Role-init throws | **0 / 44** |
 
 **PASS (34):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 3347/50125 | 167/324 | @3310 nhlib shuffle post D-0639 |
+| seed0367 | 13909/50125 | 170/324 | @13882 m_initinv vs rn2(50) post D-0643 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,10 +71,9 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @10674 — MORGUE `fill_zoo` C `next_ident`
-(makemon) vs JS `rn2(5)` (corpse gate) after matched `morguemon`
-(post D-0642 Pri-loca). Prefix **3438→10674**; Scr **170**/324.
-Prefer that peel over parked D-0006 / seed2200 RC.
+**Gameplay next:** seed0367 @13882 — C `rn2(4)` @ `m_initinv` vs JS
+`rn2(50)` after matched makemon tail (post D-0643 morgue roomno gate).
+Prefix **10674→13882**; Scr **170**/324.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

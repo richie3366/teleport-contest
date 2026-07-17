@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:20 — #715 score + D-0643 fill_zoo roomno
+- Objective: mandatory full `sessions` score (#715÷5); seed0367 @10674.
+- C locus: mkroom.c fill_zoo irregular roomno gate / mkswamp;
+  Pri-loca.lua overlapping morgue des.region; mklev.c topologize.
+- Change: rectangular fill_zoo skips cells whose roomno was claimed by
+  a later overlapping topologize (D-0643). Suite score recorded.
+- Verification: seed0367 @10674→13882 (RNG 13909, Scr 170); green+strict
+  PASS; cohort 34/34; suite **34/44**, Scr 6919/11405, RNG
+  **428825**/792838 (54.09%), speed 33+0.16/turn.
+- Next: @13882 m_initinv rn2(4) vs rn2(50).
+
 ## 2026-07-17 15:10 — #714 D-0642 Pri-loca + MORGUE fill_zoo
 - Objective: seed0367 @3438 nhlib shuffle vs rn2(79) after getbones.
 - C locus: dat/Pri-loca.lua; sp_lev.c load_special/splev_initlev;

@@ -4,9 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0643 — fill_zoo rectangular roomno gate (seed0367 @10674)
+
+- **Status:** fixed (partial — next @13882 m_initinv)
+- **Symptom:** seed0367 first mismatch @10674 — C `rnd(2)` @
+  `next_ident` (makemon) vs JS `rn2(5)` (MORGUE corpse gate) after
+  matched `morguemon`.
+- **Cause:** Pri-loca has four overlapping MORGUE rects; later
+  `topologize` overwrites shared-edge `roomno`. Rectangular `fill_zoo`
+  stocked the earlier rect’s bbox including cells now owned by the
+  later room → sleeping zombie on the shared cell → later rect
+  `makemon` hit MON_AT and fell through to corpse `rn2(5)`.
+- **C locus:** `mkroom.c` `fill_zoo` irregular `roomno`/`edge` gate;
+  `mkswamp` rectangular `roomno` gate; `dat/Pri-loca.lua` overlapping
+  `des.region` morgues; `mklev.c` `topologize`.
+- **Change:** `js/mklev.js` `fill_zoo` — apply `roomno == rmno` for
+  non-irregular rooms (same foreign-roomno situation as irregular /
+  mkswamp after overlapping topologize).
+- **Verification:** seed0367 prefix **10674→13882** (runner RNG
+  **10752→13909**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS; full suite **34/44**, RNG **428825**/792838.
+- **Named omission:** BEEHIVE/BARRACKS/ANTHOLE fill arms; Pri-fila/
+  filb/goal; @13882 m_initinv peel.
+- **Next:** seed0367 @13882 C `m_initinv` `rn2(4)` vs JS `rn2(50)`.
+
 ## D-0642 — Pri-loca load_special + MORGUE fill_zoo (seed0367 @3438)
 
-- **Status:** fixed (partial — next @10674 mid-morgue fill)
+- **Status:** fixed (partial — superseded next by D-0643)
 - **Symptom:** seed0367 first mismatch @3438 — C nhlib `shuffle`
   (`rn2(3)`/`rn2(2)`) after matched `getbones` vs JS `rn2(79)`
   (`u_on_rndspot`/empty maze). Session `^V?`→`z` → Pri-loca (Home 3).
@@ -27,10 +51,9 @@ to preserve, record it here.
   **3444→10752**, Scr **169→170**/324); green+strict PASS; cohort
   **34/34** prior-PASS stayed PASS (full suite still **34/44**).
 - **Named omission:** Pri-fila/filb/goal; mid-morgue occupancy peel
-  @10674 (C `next_ident` vs JS `rn2(5)` after matched `morguemon`);
-  BEEHIVE queen / BARRACKS/ANTHOLE fill_zoo; humidity get_location;
-  flip (noflip already).
-- **Next:** seed0367 @10674 MORGUE `fill_zoo` makemon vs corpse gate.
+  @10674 (resolved D-0643); BEEHIVE queen / BARRACKS/ANTHOLE fill_zoo;
+  humidity get_location; flip (noflip already).
+- **Next:** D-0643 @10674; then @13882 m_initinv.
 
 ## D-0641 — extract AD_SPEL/CLRC + dochug undirected castmu (seed0367 @3332)
 

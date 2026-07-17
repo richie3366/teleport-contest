@@ -623,6 +623,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0640 | fixed | #chat domonnoise MS_LEADER → quest_chat + Pri texts | seed0367 @3310→3332; Scr 169; next mcastu @3332 |
 | D-0641 | fixed | extract AD_SPEL/CLRC + dochug undirected castmu | seed0367 @3332→3438; Scr 169; next nhlib @3438 |
 | D-0642 | fixed | Pri-loca load_special + MORGUE fill_zoo | seed0367 @3438→10674; Scr 170; next fill_zoo @10674 |
+| D-0643 | fixed | fill_zoo rectangular roomno gate | seed0367 @10674→13882; RNG 13909; next m_initinv @13882 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
