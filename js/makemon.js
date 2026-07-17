@@ -74,7 +74,7 @@ import {
     ROOMOFFSET, LS_MONSTER,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
     In_quest, W_ARMH, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
-    STRAT_CLOSE, STRAT_WAITFORU,
+    STRAT_CLOSE, STRAT_WAITFORU, is_pit,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import {
@@ -1968,13 +1968,19 @@ export function makemon(mdat, x, y, mmflags = 0) {
         // C: in_mklev → mkobj_at(RANDOM) then hideunder(mtmp).
         // hideunder only sets mundetected when hides_under(data) (M1_CONCEAL);
         // python is S_SNAKE but !M1_CONCEAL so stays visible (D-0628).
+        // Non-pit trap at site blocks hide (mon.c hideunder; Arc-goal traps
+        // before monsters — D-0630). pet cursed / can_hide_under_obj coins /
+        // cockatrice skip still deferred (inline; mon.js hideunder has trap).
         if (game.in_mklev) {
             if (mtmp.mx && mtmp.my) mkobj_at(RANDOM_CLASS, mtmp.mx, mtmp.my, true);
             // Inline hideunder hides_under path: seeit=0 in mklev; object just placed.
             if (hides_under(ptr)) {
                 const hx = mtmp.mx, hy = mtmp.my;
+                const t = t_at_local(hx, hy);
                 const typ = game.level?.at(hx, hy)?.typ ?? 0;
-                if (!IS_POOL(typ) && !IS_LAVA(typ) && objects_at(hx, hy)) {
+                if (!(t && !is_pit(t.ttyp))
+                    && !IS_POOL(typ) && !IS_LAVA(typ)
+                    && objects_at(hx, hy)) {
                     mtmp.mundetected = 1;
                 }
             }

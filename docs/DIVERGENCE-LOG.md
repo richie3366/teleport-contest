@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0630 — makemon hideunder ignores non-pit trap (seed0361 @339)
+
+- **Status:** fixed (partial — seed0361 still 362/366)
+- **Symptom:** seed0361 @339 Home5 getlev — map `(29,12)` JS `%`
+  (food under mundetected snake) vs C `S`. RNG full.
+- **Cause:** Arc-goal places `des.trap()` before `des.monster("S")`.
+  C `hideunder` refuses hide when `t_at` is a non-pit trap (here
+  POLY_TRAP). JS makemon inline set `mundetected=1` on any floor
+  object after `hides_under` (D-0628), skipping the trap gate.
+  `hide_monst` then skips already-hidden mons on getlev.
+- **C locus:** `mon.c` `hideunder`; `makemon.c` S_SPIDER/S_SNAKE;
+  `dat/Arc-goal.lua` trap-before-monster order.
+- **Change:** `js/makemon.js` — inline hideunder checks
+  `t_at && !is_pit(ttyp)` before setting `mundetected`.
+- **Verification:** seed0361 Scr **355→362**/366; RNG full;
+  green+strict PASS; cohort **33/33** PASS.
+- **Named omission:** inline still skips `can_hide_under_obj` coins /
+  pet cursed / cockatrice; eel arm unchanged.
+- **Next:** seed0361 @354 invent doname (pick-axe `+0` / tinning
+  charges); or Pri-strt / seed0014/0108.
+
 ## D-0629 — urole.questarti missing → empty %o (seed0361 @320)
 
 - **Status:** fixed (partial — seed0361 still 355/366)

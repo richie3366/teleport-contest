@@ -12,6 +12,16 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-17 13:31 — #701 D-0630 hideunder non-pit trap
+- Objective: seed0361 @339 map `%` vs `S` after Home5 getlev.
+- C locus: `mon.c` `hideunder` trap/`is_pit`; `makemon.c` S_SNAKE;
+  Arc-goal.lua traps before monsters.
+- Change: makemon inline hideunder skipped non-pit `t_at` (POLY_TRAP);
+  C left snake visible. Gate with `t_at && !is_pit`.
+- Verification: Scr **355→362**/366 RNG full; green+strict PASS;
+  cohort 33/33 PASS.
+- Next: seed0361 @354 invent doname; or Pri-strt.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -144,20 +154,3 @@ Use this shape:
   green+strict PASS; cohort **33/33** PASS.
 - Next: seed0361 @34204 Arc-goal nhl shuffle vs rn2(79); or Pri-strt.
 
-## 2026-07-17 12:05 — #687 D-0617 tower1 candle get_location_coord
-- Objective: seed0361 @23223 C `get_location` rn2(15) vs JS `rnd(2)`.
-- C locus: `sp_lev.c` `create_object`/`get_location_coord`; `tower1.lua` chest contents.
-- Change: `load_tower1` wax/tallow candles use `get_location_coord_random(DRY)`
-  instead of raw `rn2(sx/sy)` before `mksobj_at`.
-- Verification: prefix **23223→31644** Scr **289**/366; green+strict PASS;
-  cohort **31/31** PASS.
-- Next: seed0361 @31644 nhlib shuffle rn2(3) vs JS rn2(79); or Pri-strt.
-
-## 2026-07-17 12:05 — #686 D-0616 qt_pager pline vs NHW_TEXT
-- Objective: seed0361 @23016 Home movemon vs ^V→Dlvl:37 getbones.
-- C locus: `questpgr.c` deliver_by_pline; `quest.lua` Arc nexttime default output.
-- Change: `qt_pager` uses pline when no newline (C default); window if `\n`/long.
-  NHW_TEXT had stolen `e` → `s` search turn → distfleeck before getbones.
-- Verification: prefix **23016→23223** Scr **271→289**; green+strict PASS;
-  cohort **31/31** PASS.
-- Next: seed0361 @23223 tower1 `get_location` rn2(15) vs `rnd(2)`; or Pri-strt.

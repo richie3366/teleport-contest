@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | **53865**/53865 | 355/366 | Scr +3 (D-0629 %o); 11 left |
+| seed0361 | **53865**/53865 | 362/366 | Scr +7 (D-0630 trap hide); 4 left |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 screen peel (Scr **355**/366 after D-0629) —
-remaining 11 screens after Orb `%o` fix. Or seed0367 `Pri-strt`,
-seed0014/0108. Prefer over parked D-0006 / seed2200 RC; do not reopen
-D-0474…D-0629.
+**Gameplay next:** seed0361 screen peel (Scr **362**/366 after D-0630) —
+@354 invent doname (`+0` pick-axe / tinning charges); discovery order
+@358; attrs page count @360. Or seed0367 `Pri-strt`, seed0014/0108.
+Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0630.
 
 ```bash
 node frozen/ps_test_runner.mjs \
