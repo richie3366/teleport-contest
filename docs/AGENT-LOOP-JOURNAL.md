@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:15 — #698 D-0627 is_pure debug + %ra
+- Objective: seed0361 @182 adjust?/dialogue vs zap; badalign rank text.
+- C locus: `quest.c` `is_pure` (`wizard`≡`flags.debug`); `questpgr.c`
+  `convert_arg`/`convert_line` `%r` + `%ra`→`an()`.
+- Change: `is_pure` used `flags.wizard` (unset under playmode:debug);
+  `%r` used sticky `urole.rank` and treated `%ra` as literal → `Diggera`.
+- Verification: Scr **327→331**/366; green+strict PASS; cohort 33/33.
+- Next: seed0361 @307 map `S` vs `%`; or Pri-strt.
+
 ## 2026-07-17 13:10 — #697 D-0626 getpos cmap / waterbody
 - Objective: seed0361 @154 getpos `"unexplored area"` vs `"floor of a room"`.
 - C locus: `pager.c` `lookat` cmap/`waterbody_name`; `getpos.c` `auto_describe`.
@@ -152,14 +161,3 @@ Use this shape:
 - Verification: prefix **23015→23016** Scr **268→271** RNG **23269**;
   green+strict PASS; cohort **31/31** PASS.
 - Next: seed0361 @23016 getbones vs `rn2(5)` (Dlvl:37 special); or Pri-strt.
-
-## 2026-07-17 11:44 — #683 D-0613 artifact_hit / spec_dbon
-- Objective: seed0361 @22362 C `rn2(6)` @ `xkilled` vs JS `rn2(3)`.
-- C locus: `artifact.c` `spec_dbon`/`artifact_hit`; `uhitm.c` weapon melee.
-- Change: port `spec_dbon`+`artifact_hit`; wire after `dmgval` in `hmon`.
-  Symptom was knockback (`rn2(3)`+`rn2(6)`), not xkilled — Grayswandir
-  `max(tmp,1)` double was missing so mon survived.
-- Verification: prefix **22362→23015** Scr **225→268** RNG **24011**;
-  green+strict PASS; cohort **33/33** PASS.
-- Next: seed0361 @23015 nhlib shuffle vs `rnd(13)`; or Pri-strt.
-

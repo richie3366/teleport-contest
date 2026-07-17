@@ -7,39 +7,40 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#697 D-0626:** getpos `auto_describe_text` lacked cmap `defsyms` /
-  `waterbody_name` — ROOM floor + moat returned stub `"unexplored area"`.
-  seed0361 Scr **309→327**/366. Next fail @182 message order
-  (`adjust?` / wizard dialogue vs JS zap prompt).
-- **Hypothesis @182:** post-teleport command/`--More--` / inventory
-  adjust path diverges — not another getpos cmap miss (walls/unexplored
-  already match after D-0626). Falsify: dump C/JS screens 180–185 keys.
+- **#698 D-0627:** `is_pure` used `flags.wizard` (never set by
+  `playmode:debug`); C `wizard`≡`flags.debug`. Also `%r` was sticky
+  `urole.rank` + literal `%ra` → `Diggera` vs `a Spelunker`.
+  seed0361 Scr **327→331**/366. Next fail @307 map `S` vs `%`.
+- **Hypothesis @307:** after locate materialize, map cell differs
+  (snake/`S` vs comestible/`%`) — level content / object / mon display,
+  not quest text. Falsify: dump C/JS glyph at (58,14) + object/mon
+  chains on that level.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0626; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0627; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
-  hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
-  bones `utrack`; skip Blindf_on / confused mispronounce / wizard yn /
-  identify `more_experienced(0,10)`; `vision_recalc(2)` newsym loop;
-  D-0480 coerce; frame-align; raw RNG-index/coord hacks; force
-  doorct/THEMEROOM; invent boulder-mimic retry (D-0605); vamp-only
-  `select_newcham_form`; extract without `-DMAIL_STRUCTURES`; skip
-  minend-1 when `makemaz` picks it; map Lua `"("`→WEAPON; omit
-  `ranged_attk_available` in MMOVE_MOVED; omit `m_move` cnt==0
-  tryescape `use_defensive`; omit `hitval` `spec_abon`; omit mfndpos
-  diagonal squeeze; omit `artifact_hit`/`spec_dbon` after dmgval;
-  omit `on_start` nexttime/othertime after first_start; force all
-  qt_pager through NHW_TEXT; raw `rn2(sx)` tower1 candles; invent 15th
-  Arc-goal `des.object`; stub `on_goal`; skip bigrm-7; skip getlev
+  hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
+  (now `rank_of`); omit bones `utrack`; skip Blindf_on / confused
+  mispronounce / wizard yn / identify `more_experienced(0,10)`;
+  `vision_recalc(2)` newsym loop; D-0480 coerce; frame-align; raw
+  RNG-index/coord hacks; force doorct/THEMEROOM; invent boulder-mimic
+  retry (D-0605); vamp-only `select_newcham_form`; extract without
+  `-DMAIL_STRUCTURES`; skip minend-1 when `makemaz` picks it; map Lua
+  `"("`→WEAPON; omit `ranged_attk_available` in MMOVE_MOVED; omit
+  `m_move` cnt==0 tryescape `use_defensive`; omit `hitval` `spec_abon`;
+  omit mfndpos diagonal squeeze; omit `artifact_hit`/`spec_dbon` after
+  dmgval; omit `on_start` nexttime/othertime after first_start; force
+  all qt_pager through NHW_TEXT; raw `rn2(sx)` tower1 candles; invent
+  15th Arc-goal `des.object`; stub `on_goal`; skip bigrm-7; skip getlev
   `restrap`/hide_monst viz; skip fog `m_everyturn`/cham shapeshift;
   skip movemon `restrap`; skip Arc firsttime; invent vision blank for
-  getpos floor (was wrong — disp was `~` ROOM).
+  getpos floor; check `flags.wizard` alone for C `wizard`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0626 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0627 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -50,8 +51,8 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620…25: see INDEX; D-0626: @154 was missing cmap explanation in
-  `auto_describe_text` (not blank memory / vision after quest mklev).
+- D-0620…26: see INDEX; D-0627: @182 was `flags.wizard` miss + sticky
+  `%r`/`%ra` (not --More-- / zap path).
 
 ## Landmarks (≤15)
 
@@ -68,29 +69,12 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest start: `Arc-strt` loaders + invent discard (D-0588).
-- Special rooms: `pick_room`/`mkzoo` (D-0592); COURT fill (D-0593);
-  **`mktemple`/`priestini`/`newepri`** (D-0600); niches/mimic/G_GONE
-  (D-0601); **`pick_room` wizard≡debug** (D-0602); **MS_PRIEST gear
-  (D-0603)**; **`pri_move`/`histemple_at` (D-0604)**; **soko mimic
-  boulder no retry (D-0605)**; **`select_newcham_form` + MAIL extract
-  (D-0606)**; **`minend-1` (D-0607)**; **`(`=TOOL not WEAPON (D-0608)**;
-  **MMOVE_MOVED + `ranged_attk_available` (D-0609)**; **`m_move` cnt==0
-  tryescape + healing `use_defensive` (D-0610)**; **`hitval`/`spec_abon`
-  (D-0611)**; **`mfndpos` diagonal squeeze (D-0612)**; **`artifact_hit`/
-  `spec_dbon` (D-0613)**; **`on_start` nexttime/othertime (D-0614)**;
-  **`qt_pager` pline vs NHW_TEXT (D-0616)**; **tower1 candle
-  `get_location_coord` (D-0617)**; **`Arc-fila`/`Arc-filb` (D-0618)**;
-  **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; **`on_goal`
-  goal_first (D-0620)**; **`bigrm-7` (D-0621)**; **`hide_monst`/
-  `restrap` (D-0622)**; **fog `m_everyturn`/`create_gas_cloud` + cham
-  `decide_to_shapeshift` (D-0623)**; **movemon `restrap` (D-0624)**;
-  **Arc `QUEST_FIRSTTIME` (D-0625)**; **getpos cmap ROOM/moat
-  (D-0626)** — seed0361 Scr 327; @182 adjust/dialogue next; eel
-  `hideunder` / minliquid / I_SPECIAL equip deferred; vamp shapeshift
-  arms / `run_regions` ttl age deferred; `intemple` + SWAMP / Bar-goal /
+- Quest: Arc firsttime (D-0625); `is_pure` wizard≡debug + `%r`/`%ra`
+  (D-0627); seed0361 Scr 331; @307 map S vs % next; eel `hideunder` /
+  minliquid / I_SPECIAL equip deferred; vamp shapeshift arms /
+  `run_regions` ttl age deferred; `intemple` + SWAMP / Bar-goal /
   Pri-* / other bigrm-N / other-role firsttime deferred; getpos object
-  glyphs / altar/ndoor/cloud deferred.
+  glyphs / altar/ndoor/cloud deferred; convert_arg pronoun/plural deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.

@@ -6,6 +6,27 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0627 — is_pure wizard≡debug + convert_arg %r/%ra (seed0361 @182)
+
+- **Status:** fixed (partial — next map glyph peel @307)
+- **Symptom:** seed0361 @182 — C
+  `You are currently 10 and require 20.--More--` then `adjust?` then
+  badalign `…suitable for a Spelunker!`; JS skipped purity/adjust and
+  showed badalign / later zap prompt (keys desynced). After debug fix,
+  badalign still said `Diggera`.
+- **Cause:** (1) `is_pure` checked `flags.wizard`, but `playmode:debug`
+  sets `flags.debug` only — C `#define wizard flags.debug`. (2)
+  `convert_arg('%r')` used sticky `urole.rank` (Digger) and treated
+  `%ra` as literal suffix instead of C `an(rank)` → `a Spelunker`.
+- **C locus:** `quest.c` `is_pure` / `chat_with_leader`; `flag.h`
+  `wizard`; `questpgr.c` `convert_arg`/`convert_line`; `objnam.c` `an`.
+- **Change:** `js/quest.js` — wizard ≡ `flags.debug||flags.wizard`;
+  `js/questpgr.js` — `%r`/`%R`→`rank_of`, modifiers `%Xa`/`%XA`/`%XC`.
+- **Verification:** seed0361 Scr **327→331**/366; RNG full; green+strict
+  PASS; cohort **33/33** PASS.
+- **Next:** seed0361 @307 map cell `S` vs `%` after locate materialize;
+  or Pri-strt / seed0014/0108.
+
 ## D-0626 — getpos auto_describe missing cmap / waterbody (seed0361 @154)
 
 - **Status:** fixed (partial — next message-order peel @182)

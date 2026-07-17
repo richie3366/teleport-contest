@@ -9,7 +9,9 @@ import {
 } from './display.js';
 import { NO_COLOR } from './terminal.js';
 import { align_gname, align_gtitle, rank_of } from './roles.js';
-import { A_NEUTRAL, A_LAWFUL, A_CHAOTIC } from './const.js';
+import {
+    A_NEUTRAL, A_LAWFUL, A_CHAOTIC, MIN_QUEST_LEVEL,
+} from './const.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
@@ -18,7 +20,7 @@ import { show_text_pages } from './pager.js';
 import { mons, M2_PNAME } from './monsters.js';
 import { NON_PM, pmnames } from './generated/monsters_data.js';
 import { artilistRaw } from './generated/artifacts_data.js';
-import { the } from './objnam.js';
+import { an, the } from './objnam.js';
 
 /**
  * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.
@@ -304,7 +306,11 @@ function convert_arg(c) {
         return 'neutral';
     }
     case 'r':
-        return urole.rank?.m || urole.name?.m || '';
+        // C: rank_of(u.ulevel, Role_switch, flags.female) — not sticky urole.rank
+        return rank_of(u.ulevel | 0, urole.mnum, !!game.flags?.female);
+    case 'R':
+        // C: rank_of(MIN_QUEST_LEVEL, Role_switch, flags.female)
+        return rank_of(MIN_QUEST_LEVEL, urole.mnum, !!game.flags?.female);
     case 'o':
     case 'O': {
         // C: the(artiname(urole.questarti)); %O shortens "the Foo of Bar"
@@ -334,25 +340,35 @@ function convert_arg(c) {
     }
 }
 
-/** C ref: questpgr.c convert_line — %X substitution; %pC capitalizes %p. */
+/**
+ * C ref: questpgr.c convert_line — %X then optional modifier.
+ * Covered: %Xa → an(), %XA → An(), %XC capitalize. Pronoun/plural deferred.
+ */
 function convert_line(inLine) {
     let out = '';
     for (let i = 0; i < inLine.length; i++) {
         if (inLine[i] === '%' && i + 1 < inLine.length) {
-            let code = inLine[++i];
-            let capitalize = false;
-            if (i + 1 < inLine.length && inLine[i + 1] === 'C') {
-                capitalize = true;
-                i++;
-            }
-            // %ra = rank + 'a' literal suffix used in Arc badalign
-            if (code === 'r' && i + 1 < inLine.length && inLine[i + 1] === 'a'
-                && (i + 2 >= inLine.length || !/[A-Za-z]/.test(inLine[i + 2]))) {
-                // keep as %r then literal 'a' — handled by falling through
-            }
+            const code = inLine[++i];
             let piece = convert_arg(code);
-            if (capitalize && piece)
-                piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+            if (i + 1 < inLine.length) {
+                const mod = inLine[i + 1];
+                if (mod === 'a') {
+                    i++;
+                    piece = an(piece);
+                } else if (mod === 'A') {
+                    i++;
+                    // C: An() — capitalized article
+                    const withArt = an(piece);
+                    piece = withArt
+                        ? withArt.charAt(0).toUpperCase() + withArt.slice(1)
+                        : withArt;
+                } else if (mod === 'C') {
+                    i++;
+                    if (piece)
+                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                }
+                // %Xh/%XP/… pronoun + plural deferred
+            }
             out += piece;
         } else {
             out += inLine[i];

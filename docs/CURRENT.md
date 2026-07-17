@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 screen peel @182 (Scr **327**/366 after
-D-0626) — message order `adjust?` / quest dialogue vs zap prompt.
-Or seed0367 `Pri-strt`, seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0626.
+**Gameplay next:** seed0361 screen peel @307 (Scr **331**/366 after
+D-0627) — map glyph `S` vs `%` after locate materialize. Or seed0367
+`Pri-strt`, seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
+do not reopen D-0474…D-0627.
 
 ```bash
 node frozen/ps_test_runner.mjs \

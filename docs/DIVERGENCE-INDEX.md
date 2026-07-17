@@ -607,6 +607,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0624 | fixed | movemon_singlemon restrap pre-dochug | seed0361 RNG 53817→53865 full; Scr 306; next screen peel |
 | D-0625 | fixed | Arc QUEST_FIRSTTIME missing | seed0361 Scr 306→309; next getpos farlook @154 |
 | D-0626 | fixed | getpos auto_describe cmap / waterbody | seed0361 Scr 309→327; next @182 adjust/dialogue |
+| D-0627 | fixed | is_pure wizard≡debug + convert_arg %r/%ra | seed0361 Scr 327→331; next @307 map S vs % |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

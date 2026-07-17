@@ -179,7 +179,9 @@ async function is_pure(talk) {
     if (!u?.ualign) return 0;
     const original = u.ualignbase?.original ?? u.ualign.type ?? 0;
     const currentBase = u.ualignbase?.current ?? u.ualign.type ?? 0;
-    if (game.flags?.wizard && talk) {
+    // C: #define wizard flags.debug (flag.h) — playmode:debug sets flags.debug
+    const wizard = !!(game.flags?.debug || game.flags?.wizard);
+    if (wizard && talk) {
         if ((u.ualign.type | 0) !== (original | 0)) {
             await pline(
                 `You are currently ${align_str(u.ualign.type)} instead of ${align_str(original)}.`,
