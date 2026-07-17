@@ -7,20 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#685 D-0615:** @23016 is **not** JS Medusa/`rn2(5)` vs getbones.
-  Stack: C `getbones` `rn2(3)` for wizard `^V`→Dlvl:37 (menu `G`);
-  JS `distfleeck` `rn2(5)` still on Home after re-entry. Session:
-  Home arrive @23015 (getlev+place_lregion+on_start), UI-only keys,
-  then `G` opens Dlvl:37. Falsifier: stack at 23016 ≠ makemaz/Medusa.
-  Next: post-Home `context.move` / `--More--`/menu key ownership so
-  JS does not `movemon` before second levelport.
-- **#685 score:** 33/44 Scr 6663 RNG 378984 (47.80%) `33+0.16/turn`
-  R² 0.783. Δ#680: Scr +47 RNG +1115.
+- **#686 D-0616:** Arc `nexttime` is default lua `output` → C
+  `deliver_by_pline`. JS always used `show_text_pages`, which ate the
+  post-Home `e` key so `s` became search → `movemon`/`distfleeck`
+  `rn2(5)` before `^V`→Dlvl:37 `getbones`. Fixed: newline/long → window,
+  else pline. Prefix **23016→23223** Scr **271→289**.
+- **Next @23223:** C `get_location` `rn2(15)` @ tower1.lua vs JS `rnd(2)`.
+  Falsifier: stack at 23223 ≠ get_location/sp_lev.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0614; treat @23016 as getbones arg mismatch;
-  wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
-  Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
-  `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+- **Don’t:** reopen D-0474…D-0616; wear `[*?]`; stub `^V?`; empty wish ESC;
+  skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
+  mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
   bones `utrack`; skip Blindf_on / confused mispronounce / wizard yn /
   identify `more_experienced(0,10)`; `vision_recalc(2)` newsym loop;
@@ -31,20 +28,21 @@ Objective/score live in `CURRENT.md`.
   `"("`→WEAPON; omit `ranged_attk_available` in MMOVE_MOVED; omit
   `m_move` cnt==0 tryescape `use_defensive`; omit `hitval` `spec_abon`;
   omit mfndpos diagonal squeeze; omit `artifact_hit`/`spec_dbon` after
-  dmgval; omit `on_start` nexttime/othertime after first_start.
+  dmgval; omit `on_start` nexttime/othertime after first_start; force
+  all qt_pager through NHW_TEXT.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0614 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0616 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0603: @12294 was missing MS_PRIEST mace/invent, not rn2(75) itself.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
-- D-0615: @23016 JS stack is distfleeck/Home, not Medusa rn2(5).
+- D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
 
 ## Landmarks (≤15)
 
@@ -72,8 +70,9 @@ Objective/score live in `CURRENT.md`.
   tryescape + healing `use_defensive` (D-0610)**; **`hitval`/`spec_abon`
   (D-0611)**; **`mfndpos` diagonal squeeze (D-0612)**; **`artifact_hit`/
   `spec_dbon` (D-0613)**; **`on_start` nexttime/othertime (D-0614)**;
-  `intemple` + SWAMP deferred.
+  **`qt_pager` pline vs NHW_TEXT (D-0616)**; `intemple` + SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
 - defsym: `')'`=WEAPON, `'('`=TOOL, `'*'`=GEM.
+- Arc nexttime: no lua `output` → deliver_by_pline (not text window).

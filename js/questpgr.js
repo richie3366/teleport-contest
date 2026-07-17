@@ -4,7 +4,9 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { docrt, flush_screen, flush_topl_more, status_line_2 } from './display.js';
+import {
+    docrt, flush_screen, flush_topl_more, pline, status_line_2,
+} from './display.js';
 import { NO_COLOR } from './terminal.js';
 import { align_gname, align_gtitle, rank_of } from './roles.js';
 import { A_NEUTRAL, A_LAWFUL, A_CHAOTIC } from './const.js';
@@ -306,8 +308,16 @@ function convert_line(inLine) {
 /**
  * C ref: questpgr.c qt_pager / com_pager_core.
  * nhl_init → nhlib.lua shuffle(align) then load quest text + deliver.
- * Named omissions: common fallback; pline/menu outputs; array rn2 picks;
- * convert_line pronoun/%cC arms; synopsis putmsghistory.
+ *
+ * Delivery matches C default `output` (howtoput "default" → 0):
+ * deliver_by_pline unless text has `\n` or length >= BUFSZ-1, which
+ * promotes to deliver_by_window(NHW_TEXT). Explicit lua `output="text"`
+ * on multi-line bodies is covered by the newline rule. Arc nexttime is
+ * single-line default → pline (D-0616); wrong NHW_TEXT stole rhack keys.
+ *
+ * Named omissions: common fallback; explicit single-line output=text;
+ * menu output; array rn2 picks; convert_line pronoun/%cC arms;
+ * synopsis putmsghistory.
  */
 export async function qt_pager(msgid) {
     // C: com_pager_core → nhl_init → nhlib.lua top-level shuffle(align)
@@ -325,11 +335,15 @@ export async function qt_pager(msgid) {
     // Other msgid bodies deferred (C-JS-MAP)
     if (!raw) return;
 
-    // C: deliver_by_window(NHW_TEXT) — pending WIN_MESSAGE (materialize)
-    // more() before the text window paints.
-    await flush_topl_more();
-
     const converted = convert_line(raw);
-    const lines = converted.split('\n');
-    await show_text_pages(lines);
+    // C: BUFSZ is 256; long/default+newline → by_window
+    const useWindow = converted.includes('\n') || converted.length >= 255;
+    if (useWindow) {
+        // C: display_nhwindow flushes pending WIN_MESSAGE NEED_MORE first
+        await flush_topl_more();
+        await show_text_pages(converted.split('\n'));
+    } else {
+        // C: deliver_by_pline — pline more()s pending materialize, then text
+        await pline(converted);
+    }
 }

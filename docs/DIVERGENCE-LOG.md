@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0616 — qt_pager default output → deliver_by_pline (@23016)
+
+- **Status:** fixed (partial — next @23223 tower1 get_location)
+- **Symptom:** seed0361 @23016 — C `rn2(3)` @ `getbones` (Dlvl:37) vs JS
+  `rn2(5)` @ `distfleeck` still on Home.
+- **Cause:** Arc `nexttime` in `quest.lua` has no `output=` (default) →
+  C `deliver_by_pline`. JS `qt_pager` always used `show_text_pages`
+  (NHW_TEXT). After materialize `--More--` (^V/?/\n), the text window
+  consumed `e`; `s` became search → turn → `movemon` before second `^V`.
+- **C locus:** `questpgr.c` `com_pager_core` / `deliver_by_pline`;
+  `dat/quest.lua` Arc `nexttime`; `getline.c` `xwaitforspace`.
+- **Change:** `js/questpgr.js` `qt_pager` — default delivery: pline unless
+  text has `\n` or length ≥ 255 (C default→window promotion). Named
+  omission: explicit single-line `output=text`.
+- **Verification:** prefix **23016→23223** Scr **271→289**; green+strict
+  PASS; cohort **31/31** PASS.
+- **Next:** @23223 C `get_location` `rn2(15)` vs JS `rnd(2)`; or Pri-strt.
+
 ## D-0615 — @23016 Home distfleeck vs ^V→Dlvl:37 getbones
 
-- **Status:** diagnosed (open — no code change this iter)
+- **Status:** fixed (superseded by D-0616)
 - **Symptom:** seed0361 @23016 — C `rn2(3)` @ `getbones` vs JS
   `rn2(5)`.
 - **Falsified:** JS Medusa/`makelevel_ordinary` `rn2(5)`, or getbones
@@ -14,14 +32,11 @@ to preserve, record it here.
 - **Cause (channel):** after matched Home re-entry (getlev catchup +
   `place_lregion` + `on_start` nhl shuffle through 23015), C’s next RNG
   is wizard `^V` dungeon menu → Dlvl:37 `mklev`/`getbones`. JS stack is
-  `distfleeck`→`dochug`→`movemon` still on Home. Session keys: Home
-  arrive, UI-only `--More--`/eat/`^V` menu, then `G` → Dlvl:37.
+  `distfleeck`→`dochug`→`movemon` still on Home. Root: D-0616 qt_pager
+  NHW_TEXT key theft → search turn.
 - **C locus:** `bones.c` `getbones`; `teleport.c` `level_tele` /
   `print_dungeon`; `monmove.c` `distfleeck` (JS only).
-- **Next:** why JS spends a turn (`context.move` / `--More--` / menu
-  key ownership) before the second levelport; or Pri-strt / seed0014/0108.
-- **Verification:** #685 full score 33/44 Scr 6663 RNG 378984; green+strict
-  PASS; focused seed0361 unchanged 23269/271.
+- **Verification:** diagnosed #685; fixed as D-0616 #686.
 
 ## D-0614 — on_start nexttime/othertime nhl shuffle (@23015)
 

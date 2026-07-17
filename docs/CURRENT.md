@@ -72,12 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @23016 — D-0615 falsified “JS Medusa
-`rn2(5)` / skip getbones”. C is wizard `^V` menu → Dlvl:37 `getbones`
-(`rn2(3)`); JS is still on Home in `distfleeck`/`movemon`. Next: why JS
-takes a turn (or desyncs `--More--`/menu keys) after Home re-entry
-before the second levelport. Or seed0367 `Pri-strt`, seed0014/0108.
-Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0614.
+**Gameplay next:** seed0361 @23223 — C `get_location` `rn2(15)` @
+`tower1.lua` vs JS `rnd(2)` after D-0616 Home→Dlvl:37. Or seed0367
+`Pri-strt`, seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
+do not reopen D-0474…D-0616.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
