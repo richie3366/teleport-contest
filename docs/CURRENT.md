@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 22261/53865 | 225/366 | next @22084 spec_abon / hitum |
+| seed0361 | 23269/53865 | 271/366 | next @23016 getbones / Dlvl:37 special |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,11 +72,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @23015 — D-0613 shipped `artifact_hit`/
-`spec_dbon` (Grayswandir double; prefix **22362→23015**, Scr **268**,
-RNG **24011**). Next C nhlib `shuffle` `rn2(2)` vs JS `rnd(13)`. Or
-seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
-D-0006 / seed2200 RC; do not reopen D-0474…D-0613 shipped.
+**Gameplay next:** seed0361 @23016 — D-0614 shipped `on_start`
+nexttime/othertime (Home re-entry nhl shuffle; prefix **23015→23016**,
+Scr **271**, RNG **23269**). Next C `getbones` vs JS `rn2(5)` on
+Dlvl:37 special load (`splev_initlev`+shuffle6). Or seed0367
+`Pri-strt` (~@2053), or seed0014/0108. Prefer over parked D-0006 /
+seed2200 RC; do not reopen D-0474…D-0614 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

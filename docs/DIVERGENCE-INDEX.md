@@ -593,7 +593,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0610 | fixed | m_move cnt==0 tryescape + healing use_defensive | seed0361 22042→22084 Scr 225 RNG 22261; continued D-0611 |
 | D-0611 | fixed | hitval oartifact spec_abon / attk extract | seed0361 22084→22140 Scr 225 RNG 22478; continued D-0612 |
 | D-0612 | fixed | mfndpos diagonal bad_rock / cant_squeeze_thru | seed0361 22140→22362 Scr 225 RNG 22664; continued D-0613 |
-| D-0613 | fixed | artifact_hit / spec_dbon Grayswandir double | seed0361 22362→23015 Scr 268 RNG 24011; next nhlib shuffle @23015 |
+| D-0613 | fixed | artifact_hit / spec_dbon Grayswandir double | seed0361 22362→23015 Scr 268 RNG 24011; continued D-0614 |
+| D-0614 | fixed | on_start nexttime/othertime nhl shuffle | seed0361 23015→23016 Scr 271 RNG 23269; next getbones @23016 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

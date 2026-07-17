@@ -212,6 +212,21 @@ const QUEST_LOCATE_NEXT = {
     Arc: `Once again, you are near the entrance to %i.`,
 };
 
+/** C ref: dat/quest.lua nexttime (Arc + Bar). */
+const QUEST_NEXTTIME = {
+    Arc: `Once again, you are back at %H.`,
+    Bar: `Once again, you near %H.  You know that %l
+will be waiting.`,
+};
+
+/** C ref: dat/quest.lua othertime (Arc + Bar). */
+const QUEST_OTHERTIME = {
+    Arc: `You are back at %H.
+You have an odd feeling this may be the last time you ever come here.`,
+    Bar: `Again, and you think possibly for the last time, you approach
+%H.`,
+};
+
 /** C ref: questpgr.c ldrname */
 function ldrname() {
     const i = game.urole?.ldrnum ?? NON_PM;
@@ -305,6 +320,8 @@ export async function qt_pager(msgid) {
     else if (msgid === 'badalign') raw = QUEST_BADALIGN[code] || null;
     else if (msgid === 'locate_first') raw = QUEST_LOCATE_FIRST[code] || null;
     else if (msgid === 'locate_next') raw = QUEST_LOCATE_NEXT[code] || null;
+    else if (msgid === 'nexttime') raw = QUEST_NEXTTIME[code] || null;
+    else if (msgid === 'othertime') raw = QUEST_OTHERTIME[code] || null;
     // Other msgid bodies deferred (C-JS-MAP)
     if (!raw) return;
 

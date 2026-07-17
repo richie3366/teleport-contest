@@ -1,5 +1,25 @@
 # Agent loop journal archive
 
+## 2026-07-17 10:11 — #670 formal score refresh
+- Objective: mandatory #670 full `sessions` score (÷5 cadence).
+- C locus: n/a (score-only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **33/44**, Scr
+  **6597**/11405, RNG **368089**/792838 (46.43%), `33+0.15/turn`
+  (R² 0.778). Δ vs #665: Scr **+10**, RNG **+4165** (D-0597…D-0600),
+  PASS unchanged. Confirmed seed0361 still @12288 doorct.
+- Next: seed0361 @12288 extra door / doorct; or Pri-strt seed0367.
+
+## 2026-07-17 10:15 — #669 D-0600 mktemple (@12287)
+- Objective: seed0361 @12287 C `rn2(5) @ pick_room` vs JS `rn2(3)`.
+- C locus: `mkroom.c` `mktemple`/`shrine_pos`; `priest.c` `priestini`;
+  `makemon` `MM_EPRI`/`newepri`.
+- Change: ported `mktemple`+`shrine_pos`+`priestini`; wired TEMPLE in
+  `do_mkroom`; `newepri`+`MM_EPRI` in makemon. Stub was burning later
+  `rn2(3)` instead of `pick_room(TRUE)`.
+- Verification: prefix **12287→12288** Scr **205**; green+strict PASS;
+  cohort **31/31** PASS. Next miss: JS no doorct==1 (room2 doorct=2).
+- Next: seed0361 @12288 extra door / doorct; or Pri-strt.
 ## 2026-07-17 01:09 — #654 D-0587 ^X armor + Teleport_control
 - Objective: seed0116 Scr 126/127 @122 ^X enlightenment residual.
 - C locus: insight.c status_enlightenment nudity;

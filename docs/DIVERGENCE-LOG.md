@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0614 — on_start nexttime/othertime nhl shuffle (@23015)
+
+- **Status:** fixed (partial — next getbones @23016)
+- **Symptom:** seed0361 @23015 — C nhlib `shuffle` `rn2(2)` vs JS
+  `rnd(13)` after matched `place_lregion` on Home re-entry. First
+  `rn2(3)=0` matched by coincidence (C shuffle vs JS getbones).
+- **Cause:** JS `on_start` omitted C’s else branch: after `first_start`,
+  re-entry from other dnum or from above calls `qt_pager("nexttime")`
+  or `"othertime"` (`not_ready <= 2`), which burns nhl_init align
+  shuffle. Without it, JS jumped ahead to Dlvl:37 `makemaz`/`rnd(13)`.
+- **C locus:** `quest.c` `on_start`; `questpgr.c` `qt_pager` /
+  `com_pager_core` → `nhl_init`; `dat/quest.lua` Arc/Bar nexttime/
+  othertime.
+- **Change:** `js/quest.js` `on_start` port nexttime/othertime gate;
+  `js/questpgr.js` Arc+Bar texts + msgid dispatch.
+  Named omission: other-role nexttime/othertime bodies (shuffle still
+  burns); on_goal.
+- **Verification:** prefix **23015→23016** Scr **268→271** RNG
+  **24011→23269**; green+strict PASS; cohort **31/31** PASS.
+- **Next:** seed0361 @23016 C `getbones` vs JS `rn2(5)` (Dlvl:37
+  special `splev_initlev`+shuffle6); or Pri-strt / seed0014/0108.
+
 ## D-0613 — artifact_hit / spec_dbon Grayswandir double (@22362)
 
 - **Status:** fixed (partial — next nhlib shuffle @23015)
