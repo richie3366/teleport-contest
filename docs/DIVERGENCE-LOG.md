@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0608 — minend-1 des.object("(") → TOOL not WEAPON (@21310)
+
+- **Status:** fixed (partial — next mattacku @21974)
+- **Symptom:** seed0361 @21310 — C `rnd(1000)` @ `mkobj` vs JS `rnd(1002)`.
+- **Cause:** Prior notes assumed GEM `oclass_prob_totals` / `setgemprobs`.
+  Live diag: JS `mkobj` used `WEAPON_CLASS` (sum **1002**); C still used a
+  1000-total class. `dat/minend-1.lua` `des.object("(")` maps via
+  `defsym.h` to **TOOL_CLASS** (`'('`), not WEAPON (`')'`). JS
+  `load_minend_1` called `splev_create_object(WEAPON_CLASS)`.
+- **C locus:** `dat/minend-1.lua` `des.object("(")`; `include/defsym.h`
+  OBJCLASS TOOL `'('` / WEAPON `')'`; `mkobj.c` `mkobj`.
+- **Change:** `js/mklev.js` `load_minend_1` — two random objects use
+  `TOOL_CLASS`.
+- **Verification:** prefix **21310→21974** Scr **222→224** RNG
+  **21466→22135**; green+strict PASS; cohort 7/7 PASS.
+- **Next:** seed0361 @21974 C `rnd(4)` @ `mattacku` vs JS `rn2(5)` @
+  `distfleeck`; or Pri-strt / seed0014/0108.
+
 ## D-0607 — minend-1 load_special (@21119)
 
-- **Status:** fixed (partial — next mkobj gemprob @21310)
+- **Status:** fixed (partial — continued as D-0608)
 - **Symptom:** seed0361 @21119 — C nhlib `shuffle` / `splev_initlev` after
   matched `makemaz` `rnd(3)=1` vs JS `place_lregion` `rn2(79)`.
 - **Cause:** `makemaz` picked `minend-1` (`rndlevs=3`) but
@@ -20,8 +38,7 @@ to preserve, record it here.
   wallify/flip/fixup.
 - **Verification:** prefix **21119→21310** Scr **220→222** RNG
   **21217→21466**; green+strict PASS; cohort 7/7 PASS.
-- **Next:** seed0361 @21310 C `rnd(1000)` @ `mkobj` vs JS `rnd(1002)`
-  (GEM `oclass_prob_totals` / `setgemprobs`); or Pri-strt / seed0014/0108.
+- **Next:** (superseded by D-0608) seed0361 @21310 mkobj class total.
 
 ## D-0606 — select_newcham_form + MAIL_DAEMON extract (@18684)
 

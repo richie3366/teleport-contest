@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#677 D-0607:** `minend-1` load_special. seed0361 **21119→21310**
-  Scr 222 RNG 21466.
-  Next @21310 C `rnd(1000)` @ `mkobj` vs JS `rnd(1002)` (GEM
-  `oclass_prob_totals` / `setgemprobs`). Or Pri-strt / seed0014/0108.
+- **#678 D-0608:** minend-1 `des.object("(")` was WEAPON (sum 1002);
+  C defsym `'('`=TOOL (1000). seed0361 **21310→21974** Scr 224
+  RNG 22135.
+  Next @21974 C `rnd(4)` @ `mattacku` vs JS `rn2(5)` @ `distfleeck`.
+  Or Pri-strt / seed0014/0108.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0607 shipped; wear `[*?]`; stub `^V?`;
+- **Don’t:** reopen D-0474…D-0608 shipped; wear `[*?]`; stub `^V?`;
   empty wish ESC; skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban;
   TELE on occupied mon; skip `were_change`/`m_avoid_soko_push_loc`;
   `dlevel` in traptype_rnd; hardcode PARTISAN; skip LONG_WORM/S_MUMMY;
@@ -22,13 +23,13 @@ Objective/score live in `CURRENT.md`.
   RNG-index/coord hacks; force doorct/THEMEROOM in production;
   invent post-makemon boulder-mimic retry (D-0605); vamp-only
   `select_newcham_form`; extract without `-DMAIL_STRUCTURES`;
-  skip minend-1 when `makemaz` picks it.
+  skip minend-1 when `makemaz` picks it; map Lua `"("`→WEAPON.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0607 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0608 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
@@ -44,6 +45,8 @@ Objective/score live in `CURRENT.md`.
 - D-0605: @13839 was JS inventing boulder-mimic retry C never takes.
 - D-0606: @18684 was vamp-only newcham + extract missing MAIL_DAEMON.
 - D-0607: @21119 was missing `minend-1` loader after `makemaz` rnd(3)=1.
+- D-0608: @21310 was minend-1 `"("`→WEAPON; C TOOL (`oclass` 1000 vs 1002).
+  Not GEM `setgemprobs` / `oclass_prob_totals`.
 
 ## Landmarks (≤15)
 
@@ -66,7 +69,9 @@ Objective/score live in `CURRENT.md`.
   (D-0601); **`pick_room` wizard≡debug** (D-0602); **MS_PRIEST gear
   (D-0603)**; **`pri_move`/`histemple_at` (D-0604)**; **soko mimic
   boulder no retry (D-0605)**; **`select_newcham_form` + MAIL extract
-  (D-0606)**; **`minend-1` (D-0607)**; `intemple` + SWAMP deferred.
+  (D-0606)**; **`minend-1` (D-0607)**; **`(`=TOOL not WEAPON (D-0608)**;
+  `intemple` + SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
+- defsym: `')'`=WEAPON, `'('`=TOOL, `'*'`=GEM.

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:15 — #678 D-0608 minend-1 "(" → TOOL
+- Objective: seed0361 @21310 C `rnd(1000)` @ mkobj vs JS `rnd(1002)`.
+- C locus: `dat/minend-1.lua` `des.object("(")`; `defsym.h` TOOL `'('`.
+- Change: `load_minend_1` two random objs `WEAPON_CLASS`→`TOOL_CLASS`
+  (WEAPON sum 1002; TOOL 1000). Not GEM setgemprobs.
+- Verification: prefix **21310→21974** Scr **224** RNG **22135**;
+  green+strict PASS; cohort 7/7 PASS.
+- Next: seed0361 @21974 `mattacku` `rnd(4)` vs `distfleeck` `rn2(5)`.
+
 ## 2026-07-17 11:10 — #677 D-0607 minend-1 load_special
 - Objective: seed0361 @21119 C nhlib shuffle after makemaz vs JS place_lregion.
 - C locus: `dat/minend-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
@@ -161,11 +170,3 @@ Use this shape:
   green+strict PASS; cohort 33/33 PASS.
 - Next: seed0361 `doopen_indir` @7924; or Pri-strt seed0367.
 
-## 2026-07-17 09:15 — #663 D-0594 portal landing
-- Objective: seed0361 dosounds/nsinks @7837 (PRIMARY).
-- C locus: `mkmaze.c` `mkportal`; `mklev.c` `place_branch`; `do.c` portal arm.
-- Change: falsified nsinks=0; ported `mkportal` + `goto_level` MAGIC_PORTAL
-  land (expulsion was leaving stale ux/uy → spurious `dosearch0` rnl(7)).
-- Verification: prefix 7837→7844; RNG 7974→8126 Scr 178→180; green+strict;
-  cohort 31/31 PASS.
-- Next: seed0361 `maybe_spin_web` @7844; or Pri-strt seed0367.

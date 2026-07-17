@@ -74,12 +74,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @21310 — D-0607 shipped `minend-1`
-(prefix **21119→21310**, Scr **222**, RNG **21466**). Next C
-`rnd(1000)` @ `mkobj` vs JS `rnd(1002)` — GEM `oclass_prob_totals` /
-`setgemprobs` after mines-end gem objects. Or seed0367 `Pri-strt`
-(~@2053), or seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0607 shipped.
+**Gameplay next:** seed0361 @21974 — D-0608 shipped minend-1
+`(`→TOOL (prefix **21310→21974**, Scr **224**, RNG **22135**).
+Next C `rnd(4)` @ `mattacku` vs JS `rn2(5)` @ `distfleeck`. Or
+seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
+D-0006 / seed2200 RC; do not reopen D-0474…D-0608 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

@@ -3153,8 +3153,9 @@ function load_minend_1() {
         }
     }
 
+    // C ref: dat/minend-1.lua des.object("*") / "(" / () — defsym '('=TOOL, ')'=WEAPON
     for (let i = 0; i < 7; i++) splev_create_object(GEM_CLASS);
-    for (let i = 0; i < 2; i++) splev_create_object(WEAPON_CLASS);
+    for (let i = 0; i < 2; i++) splev_create_object(TOOL_CLASS);
     for (let i = 0; i < 3; i++) splev_create_object(null);
     for (let i = 0; i < 6; i++) splev_create_trap();
 

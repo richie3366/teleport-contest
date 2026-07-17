@@ -587,7 +587,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0604 | fixed | pri_move histemple_at + altar rn1 mill | seed0361 13719→13839 Scr 215; continued D-0605 |
 | D-0605 | fixed | soko mimic boulder retry unreachable in C | seed0361 13839→18684 Scr 215 RNG 18774; next select_newcham_form @18684 |
 | D-0606 | fixed | select_newcham_form + MAIL_DAEMON extract | seed0361 18684→21119 Scr 220 RNG 21217; next lua shuffle @21119 |
-| D-0607 | fixed | minend-1 load_special | seed0361 21119→21310 Scr 222 RNG 21466; next mkobj gemprob @21310 |
+| D-0607 | fixed | minend-1 load_special | seed0361 21119→21310 Scr 222 RNG 21466; continued D-0608 |
+| D-0608 | fixed | minend-1 "(" → TOOL not WEAPON | seed0361 21310→21974 Scr 224 RNG 22135; next mattacku @21974 |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |
