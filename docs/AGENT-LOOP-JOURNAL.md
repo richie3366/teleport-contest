@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:50 — #733 D-0660 check_special_room MORGUE More
+- Objective: seed0367 @38566 C getbones rn2(3) vs JS rnd(10).
+- C locus: hack.c check_special_room (MORGUE/… enter + rtype wake);
+  do.c goto_level.
+- Change: port special-room entrance plines so locate_next --More--
+  owns ^V2\\n before ^V4 getbones (was deferred → key theft).
+- Verification: seed0367 RNG FULL 50125 Scr 180→202; green+strict
+  PASS; cohort 34/34 prior-PASS.
+- Next: seed0367 screen peel (Scr 202/324).
+
 ## 2026-07-17 18:45 — #732 D-0659 vamp decide_to_shapeshift
 - Objective: seed0367 @35546 C rn2(4) decide_to_shapeshift vs JS rn2(12).
 - C locus: mon.c decide_to_shapeshift (vamp arms) / pickvampshape;

@@ -25,6 +25,8 @@ Score last measured: **2026-07-17** — full `sessions` suite (loop **#730**).
 Screens **6929**/11405; RNG **450487**/792838 (56.82%). **34/44** PASS.
 Δ vs #725: Scr **+5**, RNG **+8419**, PASS **+0** (focused #726–29
 D-0654…57: seed0367 RNG 27153→35572 absorbed into suite totals).
+**#733 D-0660:** seed0367 RNG **FULL 50125** Scr **202**/324 (not yet in
+suite aggregates — refresh at next %5).
 
 ## Score
 
@@ -47,7 +49,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 38592/50125 | 180/324 | @38566 getbones (D-0659 cleared shapeshift @35546) |
+| seed0367 | **50125**/50125 | **202**/324 | RNG FULL (D-0660); screen peel |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,21 +73,20 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @38566 — C `getbones` `rn2(3)` vs JS
-`rnd(10)` after matched `place_lregion`/`nhlib shuffle`.
-**D-0659** cleared @35546: vamp `decide_to_shapeshift` arms (low-hp /
-fog `pickvampshape` / vamp-form). Prefix **38566**; runner RNG
-**38592**/50125; Scr **180**/324.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **202**/324
+(cursors 312/324). **D-0660** cleared @38566: `check_special_room`
+MORGUE/… enter plines so locate_next `--More--` owns `^V2\\n` before
+`^V4` `getbones`.
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
+# optional: compare first screen miss via session viewer / step dump
 ```
 
-**Next falsifier / fix:** C `getbones` call path vs JS bones/`rnd(10)`
-(likely `getlev`/`makemon` hide). Do not re-add rect roomno gate; do
-not invent put_lregion reject; do not skip vamp shapeshift arms.
+**Next falsifier / fix:** first screen/cursor divergence after RNG-full
+path (likely quest/display/`--More--` text, not getbones). Do not
+re-break special-room enter More ownership.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

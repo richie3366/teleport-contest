@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+# Divergence log
+
+Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
+
+## D-0660 — check_special_room MORGUE enter → More owns ^V (seed0367 @38566)
+
+- **Status:** fixed (partial — screen residual Scr 202/324)
+- **Symptom:** seed0367 @38566 — C `getbones` `rn2(3)` vs JS
+  `getlev` `rnd(10)`. DIAG: JS `^V2` level-tele to Quest Home 2
+  while C still on Pri-loca Temple `--More--`, then `^V4` mklev.
+- **Cause:** `check_special_room` only handled TEMPLE/`intemple`;
+  MORGUE “uncanny feeling…” pline was deferred, so locate_next
+  NEED_MORE never forced `more()` before the next command. Session
+  keys `^V`/`2`/`\n` (meant for More) ran `level_tele`→getlev.
+- **C locus:** `hack.c` `check_special_room` MORGUE/ZOO/SWAMP/… +
+  rtype→OROOM wake loop; callers `do.c` `goto_level`.
+- **Change:** `js/hack.js` — port special-room entrance plines +
+  rtype clear / has_* / wake `!Stealth && !rn2(3)` (wake_msg text
+  deferred).
+- **Verification:** seed0367 rng-diff **FULL 50125**; runner RNG
+  **50125**/50125 Scr **180→202**/324; green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** furniture_present throne; BARRACKS
+  monstinroom abandoned arm; DELPHI oracle; room_discovered;
+  wake_msg canseemon; ACH_TOWN.
+- **Next:** seed0367 screen peel (Scr 202/324; cursors 312/324).
+
 ## D-0659 — vamp decide_to_shapeshift arms (seed0367 @35546)
 
 - **Status:** fixed (partial — next @38566 getbones)
