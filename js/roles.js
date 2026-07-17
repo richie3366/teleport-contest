@@ -29,6 +29,7 @@ import {
 import {
     ART_ORB_OF_DETECTION,
     ART_HEART_OF_AHRIMAN,
+    ART_MITRE_OF_HOLINESS,
 } from './generated/artifacts_data.js';
 import { game } from './gstate.js';
 import {
@@ -300,6 +301,11 @@ export const roles = [
         lgod: null,
         ngod: null,
         cgod: null,
+        // C role.c: homebase / intermed / ldrnum / questarti
+        homebase: 'the Great Temple',
+        intermed: 'the Temple of Nalzok',
+        ldrnum: pm('PM_ARCH_PRIEST'),
+        questarti: ART_MITRE_OF_HOLINESS,
         attrbase: [7, 7, 10, 7, 7, 7],
         attrdist: [15, 10, 30, 15, 20, 10],
         xlev: 10,

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 14:23 — #709 D-0637 Pri-strt + Arch Priest kit
+- Objective: seed0367 @2336 C nhlib shuffle vs JS rn2(79) place_lregion.
+- C locus: dat/Pri-strt.lua; makemon.c quest_mon_represents_role; role.c
+  Priest ldrnum PM_ARCH_PRIEST.
+- Change: load_pri_strt; quest_mon_represents_role + MS_PRIEST gates;
+  roles.js Priest ldrnum/homebase/intermed/questarti. Empty makemaz was
+  the getbones-adjacent symptom, not a bones-path bug.
+- Verification: prefix **2336→3282**; Scr 167; green+strict PASS;
+  cohort 34/34 prior-PASS.
+- Next: seed0367 @3282 intemple rn2(4) vs rn2(12).
+
 ## 2026-07-17 14:16 — #708 D-0636 blue DSM Very_fast
 - Objective: seed0367 @2331 C u_calc_moveamt rn2(3) vs JS dosounds rn2(400).
 - C locus: do_wear.c dragon_armor_handling/Armor_on; youprop.h Very_fast.

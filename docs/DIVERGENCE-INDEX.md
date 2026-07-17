@@ -617,6 +617,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0634 | fixed | getobj_takeoff missing-letter continue | seed0367 @1946→1975; Scr 75→155; key desync |
 | D-0635 | fixed | fprefx garlic_breath → monflee | seed0367 @1975→2331; Scr 155→166; dochug rn2(40) |
 | D-0636 | fixed | blue DSM dragon_armor_handling EFast | seed0367 @2331→2336; Scr 166→167; Very_fast rn2(3) |
+| D-0637 | fixed | Pri-strt + Arch Priest quest role kit | seed0367 @2336→3282; Scr 167; next intemple @3282 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

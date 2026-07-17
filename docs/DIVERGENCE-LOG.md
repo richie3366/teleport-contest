@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0637 — Pri-strt load_special + Arch Priest quest role kit (seed0367 @2336)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @2336 — C nhlib `shuffle` after
+  `getbones` vs JS `rn2(79)` `place_lregion`/`u_on_rndspot`; Scr **167**/324.
+- **Cause:** (1) `load_special_proto` omitted `Pri-strt`, so makemaz left an
+  empty quest start and goto_level fell to `u_on_rndspot`. (2) After the
+  loader, Arch Priest still skipped MS_PRIEST mace because
+  `quest_mon_represents_role(PM_CLERIC)` was deferred and Priest
+  `roles[].ldrnum` was unset (`NON_PM`), so the helper could not match.
+- **C locus:** `dat/Pri-strt.lua`; `sp_lev.c` `load_special` / `makemaz`;
+  `makemon.c` `quest_mon_represents_role` / MS_PRIEST `m_initweap`;
+  `role.c` Priest `PM_ARCH_PRIEST` ldrnum.
+- **Change:** `js/mklev.js` `load_pri_strt` + dispatch; `js/makemon.js`
+  `quest_mon_represents_role` + MS_PRIEST/m_initinv gates; `js/roles.js`
+  Priest `ldrnum`/`homebase`/`intermed`/`questarti`.
+- **Verification:** seed0367 prefix **2336→3282**; Scr **167**/324;
+  green+strict PASS; cohort **34**/34 prior-PASS stayed PASS.
+- **Named omission:** `intemple`; Pri-fila/filb/loca/goal; Arch Priest
+  `m_dowear`; flip lregion coord update; TEMPLE fill beyond FILL_LVFLAGS;
+  `quest_mon_represents_role(PM_MONK)` exercised only in m_initinv;
+  PM_NINJA kit; role_init leader `msound`/`mflags` patch on mons[].
+- **Next:** seed0367 @3282 C `intemple` `rn2(4)` vs JS `rn2(12)`.
+
 ## D-0636 — blue DSM dragon_armor_handling → Very_fast (seed0367 @2331)
 
 - **Status:** fixed

@@ -1054,6 +1054,19 @@ function m_initweap_default(mtmp, ptr) {
     }
 }
 
+/**
+ * C ref: makemon.c quest_mon_represents_role — human quest leader/nemesis
+ * as archetype of the hero's role. Tables omit msound; gate by urole
+ * ldrnum/neminum (set in role_init).
+ */
+function quest_mon_represents_role(ptr, role_pm) {
+    if (!ptr || ptr.mlet !== 'S_HUMAN') return false;
+    if ((game.urole?.mnum | 0) !== (role_pm | 0)) return false;
+    const mndx = ptr.mndx | 0;
+    return mndx === (game.urole?.ldrnum | 0)
+        || mndx === (game.urole?.neminum | 0);
+}
+
 // C ref: makemon.c m_initweap — ordinary-level armed-mlet envelope
 function m_initweap(mtmp) {
     const ptr = mtmp.data;
@@ -1236,8 +1249,9 @@ function m_initweap(mtmp) {
             }
         } else if (
             // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
-            // tables omit msound; only ALIGNED/HIGH_CLERIC carry MS_PRIEST
+            // tables omit msound; ALIGNED/HIGH_CLERIC + Arch Priest / nemesis
             mm === pm('ALIGNED_CLERIC') || mm === pm('HIGH_CLERIC')
+            || quest_mon_represents_role(ptr, pm('CLERIC'))
         ) {
             // C: makemon.c m_initweap MS_PRIEST — mksobj(MACE,FALSE,FALSE)
             const otmp = mksobj(otyp('MACE'), false, false);
@@ -1314,7 +1328,7 @@ function m_initweap(mtmp) {
                 break;
             }
         }
-        // quest_mon_represents_role(PM_CLERIC) + PM_NINJA deferred (C-JS-MAP)
+        // PM_NINJA + quest_mon_represents_role(PM_MONK) deferred (C-JS-MAP)
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default
@@ -1662,6 +1676,7 @@ function m_initinv(mtmp) {
         } else if (
             // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
             ptr.mndx === pm('ALIGNED_CLERIC') || ptr.mndx === pm('HIGH_CLERIC')
+            || quest_mon_represents_role(ptr, pm('CLERIC'))
         ) {
             // C: makemon.c m_initinv MS_PRIEST — robe/cloak, shield, gold
             mongets(mtmp, rn2(7) ? otyp('ROBE')
@@ -1669,8 +1684,12 @@ function m_initinv(mtmp) {
                          : otyp('CLOAK_OF_MAGIC_RESISTANCE'));
             mongets(mtmp, otyp('SMALL_SHIELD'));
             mkmonmoney(mtmp, rn1(10, 20));
+        } else if (quest_mon_represents_role(ptr, pm('MONK'))) {
+            // C: makemon.c m_initinv quest_mon_represents_role(PM_MONK)
+            mongets(mtmp, rn2(11) ? otyp('ROBE')
+                : otyp('CLOAK_OF_MAGIC_RESISTANCE'));
         }
-        // elf / quest_mon_represents_role / guardian invent arms deferred
+        // elf / guardian invent arms deferred
         break;
     default:
         // Other m_initinv bodies (S_DEMON, S_WRAITH, S_LICH, …) deferred

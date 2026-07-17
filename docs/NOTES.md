@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#708 D-0636:** seed0367 @2331 was missing blue DSM `dragon_armor_handling`
-  → `EFast` / `Very_fast` (not a broken `u_calc_moveamt` call order).
-  Prefix **2331→2336**; Scr **166→167**. Next @2336 C `getbones` then
-  nhlib `shuffle` vs JS `rn2(79)` (level-change / bones path).
+- **#709 D-0637:** seed0367 @2336 was missing `Pri-strt` load_special +
+  Priest `ldrnum` / `quest_mon_represents_role(PM_CLERIC)` for Arch Priest
+  mace kit (not a broken getbones path). Prefix **2336→3282**; Scr **167**.
+  Next @3282 C `intemple` `rn2(4)` vs JS `rn2(12)` (mcalcmove).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0636; treat @2331 as missing Fast call-site;
+- **Don’t:** reopen D-0474…D-0637; treat @2336 as getbones-only;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish;
   Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
   `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
@@ -38,13 +38,14 @@ Objective/score live in `CURRENT.md`.
   TINNING_KIT charged; omit `distant_name` in `relobj_on_death`;
   omit attrs Hallu/Search/Reflect/Lifesaved; omit `ublesscnt--`;
   omit gethungry amulet accessorytime case 8; omit garlic_breath;
-  omit blue DSM `dragon_armor_handling` / FAST `EFast` mirror.
+  omit blue DSM `dragon_armor_handling` / FAST `EFast` mirror;
+  omit Priest `ldrnum` / Arch Priest `quest_mon_represents_role`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0636 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0637 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -55,7 +56,8 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620…35: see INDEX; D-0636: @2331 was blue DSM EFast, not u_calc_moveamt stub.
+- D-0620…36: see INDEX; D-0636: @2331 was blue DSM EFast, not u_calc_moveamt;
+  D-0637: @2336 was Pri-strt + Arch Priest quest role kit, not getbones.
 
 ## Landmarks (≤15)
 
@@ -80,10 +82,11 @@ Objective/score live in `CURRENT.md`.
   (D-0632); **^X attrs Hallu/Search/Reflect/Life + saber + hunger**
   (D-0633); **getobj_takeoff continue** (D-0634); **garlic_breath**
   (D-0635); **blue DSM dragon_armor_handling / Very_fast** (D-0636);
+  **Pri-strt + Priest ldrnum + quest_mon_represents_role** (D-0637);
   eel `hideunder` / minliquid / I_SPECIAL equip deferred;
   vamp shapeshift arms / `run_regions` ttl age deferred; `intemple` +
-  SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role firsttime
-  deferred; getpos object glyphs / altar/ndoor/cloud deferred;
+  SWAMP / Bar-goal / Pri-fila/loca/goal / other bigrm-N / other-role
+  firsttime deferred; getpos object glyphs / altar/ndoor/cloud deferred;
   convert_arg pronoun/plural deferred; other-role `roles[].questarti`
   still omitted; `can_hide_under_obj` coins in makemon inline deferred;
   other SPFX intrinsics beyond HALRES deferred; gold DSM halluc /
