@@ -21,11 +21,12 @@ import {
     BLINDED,
     BLND_RES,
     TELEPORT_CONTROL,
+    SEARCHING,
     OBJ_INVENT,
 } from './const.js';
 import { pline } from './display.js';
 import { cxname } from './objnam.js';
-import { what_gives } from './artifact.js';
+import { what_gives, bare_artifactname } from './artifact.js';
 import {
     PM_ARCHEOLOGIST,
     PM_BARBARIAN,
@@ -515,6 +516,7 @@ const PROP_HFIELD = {
     [BLINDED]: 'HBlinded',
     [BLND_RES]: 'HBlnd_resist',
     [TELEPORT_CONTROL]: 'HTeleport_control',
+    [SEARCHING]: 'HSearching',
 };
 
 /**
@@ -591,10 +593,9 @@ export function is_innate(propidx) {
 
 /**
  * C ref: attrib.c from_what — wizard-mode intrinsic source suffix.
- * Ported: innate reasons + what_gives extrinsic worn equipment.
+ * Ported: innate reasons + what_gives extrinsic worn/artifact equipment.
  * Named omissions: birth blind/deaf; Very_fast potion/boots;
- * Blindfolded_only / cream; negative prop blocking; artifact bare name;
- * "pair of " strip.
+ * Blindfolded_only / cream; negative prop blocking; "pair of " strip.
  */
 export function from_what(propidx) {
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
@@ -611,8 +612,11 @@ export function from_what(propidx) {
     const extrinsic = game.u?.uprops?.[propidx]?.extrinsic | 0;
     const obj = what_gives(extrinsic);
     if (obj) {
-        // Artifact bare_artifactname deferred → ysimple_name for all.
-        return ` because of ${ysimple_name(obj)}`;
+        // C: obj->oartifact ? bare_artifactname(obj) : ysimple_name(obj)
+        const because = obj.oartifact
+            ? bare_artifactname(obj)
+            : ysimple_name(obj);
+        return ` because of ${because}`;
     }
     return '';
 }

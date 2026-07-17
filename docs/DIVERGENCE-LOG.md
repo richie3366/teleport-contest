@@ -4,9 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0633 — seed0361 ^X attrs + saber + hunger/pray timers
+
+- **Status:** fixed (seed0361 **PASS**)
+- **Symptom:** Scr **364**/366; @360 `(1 of 2)` vs `(1 of 3)`; @361 missing
+  Hallu/Search/Reflect/lifesaved lines; `weapon` vs `saber`; hunger
+  `<754>` vs `<750>`; pray `(697)` vs `(656)`. RNG full.
+- **Cause:** (1) `doattributes` MAGIC Attributes omitted
+  `Halluc_resistance` / `Searching` / `Reflecting` / `Lifesaved`;
+  `skill_name` odd skills deferred → `"weapon"`. (2) Grayswandir
+  `SPFX_HALRES` never conferred (`setuwep` skipped
+  `set_artifact_intrinsic`). (3) once-per-turn `ublesscnt--` missing.
+  (4) `gethungry` deferred even-case amulet accessorytime burn (case 8).
+- **C locus:** `insight.c` `attributes_enlightenment`; `weapon.c`
+  `odd_skill_names` / `P_NAME`; `artifact.c` `set_artifact_intrinsic`
+  / `what_gives` / `attrib.c` `from_what` `bare_artifactname`;
+  `allmain.c` moveloop `ublesscnt--`; `eat.c` `gethungry` case 8.
+- **Change:** invent attrs lines + odd `skill_name`; artifact
+  `set_artifact_intrinsic` HALRES + `what_gives` + `bare_artifactname`;
+  `setuwep` wire; `allmain` ublesscnt; `gethungry` accessory cases.
+- **Verification:** seed0361 Scr **364→366**/366 RNG FULL **PASS** +
+  strict; green+strict PASS; cohort **31**/31 PASS.
+- **Named omission:** other SPFX intrinsics; full resist catalogue;
+  Jumping/Teleportation; Blind/Stun Status.
+- **Next:** leaderboard cron; seed0367 `Pri-strt` / seed0014/0108; or
+  full `sessions` on #705 for Score (expect **34**/44 with seed0361).
+
 ## D-0632 — relobj death-drop distant_name observe (seed0361 @358)
 
-- **Status:** fixed (partial — seed0361 still 364/366)
+- **Status:** fixed (superseded — seed0361 **PASS** via D-0633)
 - **Symptom:** `\` disco Armor — JS `hooded cloak` then `pair of hard shoes`
   vs C reverse. RNG full.
 - **Cause:** `relobj_on_death` placed minvent without C `mdrop_obj`'s

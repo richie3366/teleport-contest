@@ -613,6 +613,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0630 | fixed | makemon snake hideunder skips non-pit trap | seed0361 Scr 355→362; next invent/attrs @354 |
 | D-0631 | fixed | ini_inv is_weptool + doname charged/weptool | seed0361 Scr 362→363; next disco @358 / attrs @360 |
 | D-0632 | fixed | relobj mdrop distant_name observe (disco order) | seed0361 Scr 363→364; @358 MATCH; next attrs @360 |
+| D-0633 | fixed | ^X attrs Hallu/Search/Reflect/Life + saber + hunger | seed0361 **PASS** 366/366; suite pending #705 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

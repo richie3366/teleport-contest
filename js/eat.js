@@ -17,7 +17,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { flush_topl_more, pline, You_feel } from './display.js';
 import { yn_function } from './getline.js';
-import { FOOD_CLASS, COIN_CLASS, objectNames } from './objects.js';
+import { FOOD_CLASS, COIN_CLASS, objectNames, objects } from './objects.js';
 import { weight, splitobj, objects_at, delobj } from './mkobj.js';
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import { singular, xname, doname } from './objnam.js';
@@ -29,8 +29,8 @@ import {
 import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
-    SLT_ENCUMBER, FROMFORM, W_ARTI, W_WEP,
-    HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION,
+    SLT_ENCUMBER, FROMFORM, W_ARTI, W_WEP, W_RINGL, W_RINGR,
+    HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT,
 } from './const.js';
@@ -38,6 +38,11 @@ import { adjattrib, A_STR } from './attrib.js';
 import { nomul } from './hack.js';
 import { near_capacity } from './invent.js';
 import { make_confused } from './potion.js';
+
+const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
+const MEAT_RING = objectNames.indexOf('MEAT_RING');
+const RIN_SLOW_DIGESTION = objectNames.indexOf('RIN_SLOW_DIGESTION');
+const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
 
 /**
  * C ref: gy.youmonst.data via set_uasmon / invent.c basic assign.
@@ -187,10 +192,10 @@ export function newuhs(_incr) {
 
 /**
  * C ref: eat.c gethungry — metabolic uhunger--, accessorytime burns, newuhs.
- * Branch envelope: ordinary diet burn via hero_form_data; odd/even
- * Regen/encumbrance/Hunger/Conflict burns; field-only newuhs(TRUE).
- * Named omissions: ring/amulet accessorytime switch cases; newuhs
- * messages / faint / ATEMP.
+ * Branch envelope: ordinary diet burn; odd Regen/encumb; even Hunger/
+ * Conflict + ring/amulet accessorytime cases 0/4/8/12/16.
+ * Named omissions: newuhs messages / faint / ATEMP; +0 RIN_PROTECTION
+ * dual-ring MC polish when EProtection unset; meat-ring edge cases.
  */
 export function gethungry() {
     if (game.u?.uinvulnerable) return;
@@ -222,7 +227,7 @@ export function gethungry() {
             u.uhunger = (u.uhunger ?? 900) - 1;
         }
     } else {
-        // even — Hunger / Conflict; ring+amulet switch deferred
+        // even — Hunger / Conflict + ring/amulet cases
         if (Hunger()) {
             u.uhunger = (u.uhunger ?? 900) - 1;
         }
@@ -233,7 +238,56 @@ export function gethungry() {
         if (HConf || (EConf & ~W_ARTI)) {
             u.uhunger = (u.uhunger ?? 900) - 1;
         }
-        void accessorytime; // ring/amulet cases 0/4/8/12/16 deferred
+        // C: switch (accessorytime) even cases 0/4/8/12/16
+        const uleft = u.uleft;
+        const uright = u.uright;
+        const uamul = u.uamul;
+        const objs = objects();
+        const EProt = (u.EProtection | 0)
+            || (u.uprops?.[PROTECTION]?.extrinsic | 0);
+        switch (accessorytime) {
+        case 0:
+            // Slow_digestion from non-ring source (e.g. white DSM) burns
+            if (Slow_digestion()
+                && (!uright || uright.otyp !== RIN_SLOW_DIGESTION)
+                && (!uleft || uleft.otyp !== RIN_SLOW_DIGESTION)) {
+                u.uhunger = (u.uhunger ?? 900) - 1;
+            }
+            break;
+        case 4:
+            if (uleft && uleft.otyp !== MEAT_RING
+                && ((uleft.spe | 0)
+                    || !objs?.[uleft.otyp]?.oc_charged
+                    || (uleft.otyp === RIN_PROTECTION
+                        && ((EProt & ~W_RINGL) === 0
+                            || ((EProt & ~W_RINGL) === W_RINGR
+                                && uright && uright.otyp === RIN_PROTECTION
+                                && !(uright.spe | 0)))))) {
+                u.uhunger = (u.uhunger ?? 900) - 1;
+            }
+            break;
+        case 8:
+            if (uamul && uamul.otyp !== FAKE_AMULET_OF_YENDOR) {
+                u.uhunger = (u.uhunger ?? 900) - 1;
+            }
+            break;
+        case 12:
+            if (uright && uright.otyp !== MEAT_RING
+                && ((uright.spe | 0)
+                    || !objs?.[uright.otyp]?.oc_charged
+                    || (uright.otyp === RIN_PROTECTION
+                        && (EProt & ~W_RINGR) === 0))) {
+                u.uhunger = (u.uhunger ?? 900) - 1;
+            }
+            break;
+        case 16:
+            if (u.uhave?.amulet || u.uhave_amulet) {
+                u.uhunger = (u.uhunger ?? 900) - 1;
+            }
+            break;
+        default:
+            break;
+        }
     }
     newuhs(true);
 }

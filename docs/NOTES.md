@@ -7,17 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#703 D-0632:** `relobj_on_death` omitted C `mdrop_obj` `distant_name`
-  observe → disco Armor order reversed (cloak/shoes). Scr **363→364**/366;
-  @358 MATCH.
-- **Next fail:** @360 attrs `(1 of 2)` vs `(1 of 3)` — JS missing Hallu
-  (Grayswandir), automatic searching, reflection (silver DSM), life will
-  be saved; wielding `weapon` vs `saber`; hunger `<754>` vs `<750>`;
-  pray `(697)` vs `(656)`; cursor @361 row 21 vs 23.
-- **Falsify attrs:** inspect `insight.c` `enlightenment` / `attribs` vs
-  `js/insight.js` extrinsic lines; saber via `weapon_descr` / skill.
-- **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0632; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **#704 D-0633:** seed0361 ^X attrs — Hallu/Search/Reflect/Lifesaved +
+  saber `skill_name` + Grayswandir HALRES + `ublesscnt--` + gethungry
+  amulet case 8 → **PASS** 366/366.
+- **Leaderboard gap:** local **33/44** (pre-suite; seed0361 now PASS →
+  expect **34** on next full score) vs judge **22**; D-0483 await cron.
+- **Gameplay next:** seed0367 `Pri-strt`, seed0014/0108, or seed2200 RC
+  parked. Prefer over D-0006.
+- **Don’t:** reopen D-0474…D-0633; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -39,13 +36,15 @@ Objective/score live in `CURRENT.md`.
   mundetected on all S_SNAKE (python !M1_CONCEAL); omit `questarti` on
   `game.urole`; omit non-pit trap in makemon snake hideunder;
   omit `is_weptool` in `ini_inv_use_obj` / weptool donameClass /
-  TINNING_KIT charged; omit `distant_name` in `relobj_on_death`.
+  TINNING_KIT charged; omit `distant_name` in `relobj_on_death`;
+  omit attrs Hallu/Search/Reflect/Lifesaved; omit `ublesscnt--`;
+  omit gethungry amulet accessorytime case 8.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0632 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0633 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -56,14 +55,14 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620…31: see INDEX; D-0632: @358 was death-drop distant_name observe
-  (not look_here / pile invent order).
+- D-0620…32: see INDEX; D-0633: @360/@361 was attrs catalogue + HALRES
+  + ublesscnt + amulet hunger (not page paint / cursor alone).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- seed0006/0007/0398/0373/**seed5006**/ **seed0116** **PASS**.
+- seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** **PASS**.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -78,13 +77,14 @@ Objective/score live in `CURRENT.md`.
   (D-0627); snake hideunder `hides_under` (D-0628) + non-pit trap
   (D-0630); **questarti on urole** (D-0629); **ini_inv is_weptool +
   doname charged/weptool** (D-0631); **relobj distant_name disco**
-  (D-0632); seed0361 Scr 364; remaining attrs pages; eel `hideunder` /
-  minliquid / I_SPECIAL equip deferred; vamp shapeshift arms /
-  `run_regions` ttl age deferred; `intemple` + SWAMP / Bar-goal /
-  Pri-* / other bigrm-N / other-role firsttime deferred; getpos object
-  glyphs / altar/ndoor/cloud deferred; convert_arg pronoun/plural
-  deferred; other-role `roles[].questarti` still omitted;
-  `can_hide_under_obj` coins in makemon inline deferred.
+  (D-0632); **^X attrs Hallu/Search/Reflect/Life + saber + hunger**
+  (D-0633); eel `hideunder` / minliquid / I_SPECIAL equip deferred;
+  vamp shapeshift arms / `run_regions` ttl age deferred; `intemple` +
+  SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role firsttime
+  deferred; getpos object glyphs / altar/ndoor/cloud deferred;
+  convert_arg pronoun/plural deferred; other-role `roles[].questarti`
+  still omitted; `can_hide_under_obj` coins in makemon inline deferred;
+  other SPFX intrinsics beyond HALRES deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.

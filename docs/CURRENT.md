@@ -24,13 +24,14 @@ focused session.
 Score last measured: **2026-07-17** — full `sessions` suite (loop **#700**),
 post D-0629. Screens **6818**/11405; RNG **416960**/792838 (52.59%).
 **33/44** PASS. Δ vs #695: Scr **+120**, RNG **+0** (D-0625…29; seed0361
-Scr 306→355).
+Scr 306→355). **#704** focused: seed0361 **PASS** (D-0633) — expect **34**/44
+on next full score (#705).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **33 / 44** |
+| Sessions passing | **33 / 44** (seed0361 focused PASS pending suite) |
 | Screens matched | **6,818 / 11,405** |
 | Positional RNG calls matched | **416,960 / 792,838** (52.59%) |
 | Speed label | `33+0.16/turn` (R² 0.803) |
@@ -43,11 +44,12 @@ seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116.
 
+**Focused PASS (not yet in Score row):** seed0361 (D-0633).
+
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | **53865**/53865 | 362/366 | Scr +7 (D-0630 trap hide); 4 left |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -68,22 +70,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 ## Primary objective
 
 **Leaderboard 22-vs-33 gap** — local PASS includes seed0116 + seed5006 +
-seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
-(seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
-cron; if seed0013 restored but near-misses remain → upstream #5.
+seed0398 + seed0373 + **seed0361** (focused); judge at 08:55Z dropped to
+**22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts that
+serialize coerce. Next cron; if seed0013 restored but near-misses remain
+→ upstream #5.
 
-**Gameplay next:** seed0361 screen peel (Scr **364**/366 after D-0632) —
-@360 attrs `(1 of 2)` vs `(1 of 3)`: missing Hallu/Search/Reflect/
-lifesaved + saber skill name; hunger/pray timers; cursor @361. Or
-seed0367 `Pri-strt`, seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0632.
+**Gameplay next:** seed0367 `Pri-strt`, seed0014/0108. Prefer over parked
+D-0006 / seed2200 RC; do not reopen D-0474…D-0633. Full `sessions` on
+**#705** to refresh Score (seed0361 → 34/44 expected).
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0361-archeologist-tour.session.json
+  sessions/seed0367-priest-quest-tour.session.json
 # or
 node frozen/ps_test_runner.mjs \
-  sessions/seed0367-priest-quest-tour.session.json
+  sessions/seed0014-*.session.json
 ```
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
@@ -92,7 +93,7 @@ seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
 **seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
 **seed0007** + **seed0398** (must stay PASS) + **seed0373** + **seed5006** +
-**seed0116** + strict lengths.
+**seed0116** + **seed0361** + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 
