@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0613 — artifact_hit / spec_dbon Grayswandir double (@22362)
+
+- **Status:** fixed (partial — next nhlib shuffle @23015)
+- **Symptom:** seed0361 @22362 — C `rn2(6)` @ `xkilled` vs JS `rn2(3)`.
+  JS then `rn2(6)` — knockback pattern, not inverted xkilled order.
+- **Cause:** JS `hmon` never called `artifact_hit`/`spec_dbon`. Wielded
+  Grayswandir (`damd==0`, PHYS) adds `max(tmp,1)` with no RNG, doubling
+  post-`dmgval` damage. Without it the mon survived → `mhitm_knockback`
+  burned `rn2(3)`+`rn2(6)` instead of `xkilled` treasure `rn2(6)`.
+- **C locus:** `artifact.c` `spec_dbon` / `artifact_hit` / `attacks`;
+  `uhitm.c` `hmon_hitmon_weapon_melee` (after `dmgval`, before recalc).
+- **Change:** `js/artifact.js` — `spec_dbon`, `artifact_hit`, `attacks`,
+  `is_art`; `js/uhitm.js` `hmon` wires artifact after `dmgval`.
+  Named omissions: destroy_items/ignite bodies; Mb_hit; SPFX_BEHEAD/DRLI;
+  wake_nearto; realizes_damage plines.
+- **Verification:** prefix **22362→23015** Scr **225→268** RNG
+  **22664→24011**; green+strict PASS; cohort **33/33** PASS.
+- **Next:** seed0361 @23015 C nhlib `shuffle` `rn2(2)` vs JS `rnd(13)`;
+  or Pri-strt / seed0014/0108.
+
 ## D-0612 — mfndpos diagonal bad_rock / cant_squeeze_thru (@22140)
 
 - **Status:** fixed (partial — next xkilled rn2(6) @22362)

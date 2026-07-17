@@ -36,10 +36,12 @@ import {
 import { rn2, rnd } from './rng.js';
 
 export { NROFARTIFACTS };
-export {
+import {
     ART_NONARTIFACT,
+    ART_GRIMTOOTH,
     ART_GRAYSWANDIR,
 } from './generated/artifacts_data.js';
+export { ART_NONARTIFACT, ART_GRIMTOOTH, ART_GRAYSWANDIR };
 
 // C ref: include/artifact.h — subset used by touch/wish / spec_applies
 export const SPFX_RESTR = 0x00000002;
@@ -371,6 +373,96 @@ export function spec_abon(otmp, mon) {
         return rnd(weap.attk.damn | 0);
     }
     return 0;
+}
+
+/** C gs.spec_dbon_applies — set by spec_dbon; read by artifact_hit. */
+let spec_dbon_applies = false;
+
+/** C ref: artifact.c is_art — otmp->oartifact == art index. */
+export function is_art(otmp, art) {
+    return !!(otmp && (otmp.oartifact | 0) === (art | 0));
+}
+
+/**
+ * C ref: artifact.c attacks — artifact attk.adtyp matches adtyp.
+ */
+export function attacks(adtyp, otmp) {
+    const list = artilist();
+    const weap = get_artifact(otmp);
+    return weap !== list[ART_NONARTIFACT] && (weap.attk?.adtyp | 0) === (adtyp | 0);
+}
+
+/**
+ * C ref: artifact.c spec_dbon — special damage bonus.
+ * Grimtooth always applies; else spec_applies. When applies: rnd(damd) or
+ * max(tmp,1) when damd==0 (Grayswandir / Orcrist double). Sets
+ * spec_dbon_applies for artifact_hit side-effect gates.
+ */
+export function spec_dbon(otmp, mon, tmp) {
+    const list = artilist();
+    const weap = get_artifact(otmp);
+    if (weap === list[ART_NONARTIFACT]
+        || ((weap.attk?.adtyp | 0) === AD_PHYS
+            && (weap.attk?.damn | 0) === 0
+            && (weap.attk?.damd | 0) === 0)) {
+        spec_dbon_applies = false;
+    } else if (is_art(otmp, ART_GRIMTOOTH)) {
+        spec_dbon_applies = true;
+    } else {
+        spec_dbon_applies = !!spec_applies(weap, mon);
+    }
+    if (spec_dbon_applies) {
+        const damd = weap.attk?.damd | 0;
+        return damd ? rnd(damd) : Math.max(tmp | 0, 1);
+    }
+    return 0;
+}
+
+/**
+ * C ref: artifact.c artifact_hit — add spec_dbon then elemental/special arms.
+ * Ported: damage add via spec_dbon (Grayswandir max(tmp,1) double).
+ * Named omissions: realizes_damage plines; destroy_items/ignite on
+ * FIRE/COLD/ELEC (still burn their rn2 gates); Mb_hit; SPFX_BEHEAD;
+ * SPFX_DRLI; wake_nearto; Slimed burn_away.
+ * @param {object} dmgBox mutable `{ dmg }` (C int *dmgptr)
+ * @returns {boolean} whether caller should suppress ordinary hit pline
+ */
+export function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
+    void magr;
+    if (!otmp?.oartifact || !dmgBox) return false;
+    dmgBox.dmg = (dmgBox.dmg | 0) + spec_dbon(otmp, mdef, dmgBox.dmg | 0);
+
+    // Elemental / Magicbane gates — burn C RNG order; bodies deferred.
+    if (attacks(AD_FIRE, otmp)) {
+        if (!rn2(4)) {
+            // destroy_items AD_FIRE + ignite_items deferred
+        }
+        return true;
+    }
+    if (attacks(AD_COLD, otmp)) {
+        if (!rn2(4)) {
+            // destroy_items AD_COLD deferred
+        }
+        return true;
+    }
+    if (attacks(AD_ELEC, otmp)) {
+        // wake_nearto when spec_dbon_applies deferred
+        if (!rn2(5)) {
+            // destroy_items AD_ELEC deferred
+        }
+        return true;
+    }
+    if (attacks(AD_MAGM, otmp)) {
+        return true;
+    }
+    // C: MB_MAX_DIEROLL 8 — rolls above this aren't magical
+    if (attacks(AD_STUN, otmp) && (dieroll | 0) <= 8) {
+        // Mb_hit deferred — Magicbane specials
+        return false;
+    }
+    if (!spec_dbon_applies) return false;
+    // SPFX_BEHEAD / SPFX_DRLI deferred
+    return false;
 }
 
 /**

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:44 — #683 D-0613 artifact_hit / spec_dbon
+- Objective: seed0361 @22362 C `rn2(6)` @ `xkilled` vs JS `rn2(3)`.
+- C locus: `artifact.c` `spec_dbon`/`artifact_hit`; `uhitm.c` weapon melee.
+- Change: port `spec_dbon`+`artifact_hit`; wire after `dmgval` in `hmon`.
+  Symptom was knockback (`rn2(3)`+`rn2(6)`), not xkilled — Grayswandir
+  `max(tmp,1)` double was missing so mon survived.
+- Verification: prefix **22362→23015** Scr **225→268** RNG **24011**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @23015 nhlib shuffle vs `rnd(13)`; or Pri-strt.
+
 ## 2026-07-17 11:40 — #682 D-0612 mfndpos diagonal squeeze
 - Objective: seed0361 @22140 C `rn2(12)` @ `m_move` vs JS `rn2(16)`.
 - C locus: `mon.c` `mfndpos`; `hack.c` `bad_rock`/`cant_squeeze_thru`.
@@ -154,13 +164,3 @@ Use this shape:
 - Verification: prefix **12287→12288** Scr **205**; green+strict PASS;
   cohort **31/31** PASS. Next miss: JS no doorct==1 (room2 doorct=2).
 - Next: seed0361 @12288 extra door / doorct; or Pri-strt.
-
-## 2026-07-17 10:00 — #668 D-0599 rolling boulder (@11065)
-- Objective: seed0361 @11065 C `rnd(20) @ dmgval` vs JS `rn2(5)`.
-- C locus: `trap.c` `trapeffect_rolling_boulder_trap` / `launch_obj`.
-- Change: wired ROLLING_BOULDER into `trapeffect_selector`; ported
-  `launch_obj` ROLL path (hero `dmgval`+`thitu`). Symptom was missing
-  trap effect, not dmgval body — C screen "Click! … boulder misses you."
-- Verification: prefix **11065→12287** Scr **198→205**; green+strict
-  PASS; cohort **31/31** PASS.
-- Next: seed0361 @12287 `pick_room` rn2(5) vs rn2(3); or Pri-strt.
