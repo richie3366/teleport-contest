@@ -8,6 +8,28 @@ to preserve, record it here.
 
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0661 — doname W_WEP `(wielded)` vs hand phrasing (seed0367 @76)
+
+- **Status:** fixed (partial — screen residual Scr 205/324)
+- **Symptom:** seed0367 screen prefix @76 — C
+  `d - 4 potions of holy water (wielded).…` vs JS without
+  `(wielded)`; @138 C spellbook `(wielded)` vs JS
+  `(weapon in right hand)`.
+- **Cause:** JS `doname` only appended W_WEP hand phrasing when
+  `quan===1`, and never took C’s alternate `(wielded)` arm for
+  stacks / ammo / missiles / non-weptools.
+- **C locus:** `objnam.c` `doname_base` W_WEP block
+  (`quan!=1 || (WEAPON? ammo|missile : !is_weptool)` →
+  `(wielded)`).
+- **Change:** `js/objnam.js` — port that predicate +
+  `is_missile_obj`; keep bimanual / twoweap hand strings.
+- **Verification:** seed0367 Scr **202→205**/324, prefix **76→148**,
+  RNG FULL; green+strict PASS; cohort **32/32** prior-PASS.
+- **Named omission:** `mrg_to_wielded`; AKLYS `tethered to`;
+  warn_obj / artifact_light closing-paren rewrite.
+- **Next:** seed0367 @148 — C `You materialize…!--More--` vs JS
+  no More (quest `on_start` text keys stolen → `Unknown command`).
+
 ## D-0660 — check_special_room MORGUE enter → More owns ^V (seed0367 @38566)
 
 - **Status:** fixed (partial — screen residual Scr 202/324)

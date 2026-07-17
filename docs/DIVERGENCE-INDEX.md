@@ -641,6 +641,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0658 | fixed | Pri-loca link_doors_rooms + hx=39; drop rect roomno gate | seed0367 @35535→35546; RNG 35910 Scr 171; next shapeshift |
 | D-0659 | fixed | vamp decide_to_shapeshift arms (fog/low-hp/vamp-form) | seed0367 @35546→38566; RNG 38592 Scr 180; next getbones |
 | D-0660 | fixed | check_special_room MORGUE/… enter plines + More ownership | seed0367 RNG FULL 50125; Scr 180→202; next screen peel |
+| D-0661 | fixed | doname W_WEP `(wielded)` vs hand phrasing | seed0367 Scr 202→205 prefix 76→148; next @148 materialize More |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

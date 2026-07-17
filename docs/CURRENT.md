@@ -73,10 +73,9 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **202**/324
-(cursors 312/324). **D-0660** cleared @38566: `check_special_room`
-MORGUE/… enter plines so locate_next `--More--` owns `^V2\\n` before
-`^V4` `getbones`.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **205**/324
+(cursors 315/324; prefix **148**). **D-0661** cleared @76: `doname`
+W_WEP `(wielded)` for stacks/ammo/missile/non-weptool.
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -84,9 +83,9 @@ node frozen/ps_test_runner.mjs \
 # optional: compare first screen miss via session viewer / step dump
 ```
 
-**Next falsifier / fix:** first screen/cursor divergence after RNG-full
-path (likely quest/display/`--More--` text, not getbones). Do not
-re-break special-room enter More ownership.
+**Next falsifier / fix:** @148 C `You materialize on a different
+level!--More--` vs JS no More → space becomes `Unknown command` and
+quest `on_start` text is missed. Do not re-break D-0660/D-0661.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
