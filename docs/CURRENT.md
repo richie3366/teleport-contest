@@ -72,10 +72,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 screen peel (Scr **363**/366 after D-0631) —
-@358 disco order (hooded cloak ↔ hard shoes); attrs `(1 of 2)` vs
-`(1 of 3)` @360 + cursor @361. Or seed0367 `Pri-strt`, seed0014/0108.
-Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0631.
+**Gameplay next:** seed0361 screen peel (Scr **364**/366 after D-0632) —
+@360 attrs `(1 of 2)` vs `(1 of 3)`: missing Hallu/Search/Reflect/
+lifesaved + saber skill name; hunger/pray timers; cursor @361. Or
+seed0367 `Pri-strt`, seed0014/0108. Prefer over parked D-0006 /
+seed2200 RC; do not reopen D-0474…D-0632.
 
 ```bash
 node frozen/ps_test_runner.mjs \

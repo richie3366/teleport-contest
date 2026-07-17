@@ -52,3 +52,48 @@
 - Verification: prefix **18684→21119** Scr **220** RNG **21217**;
   green+strict PASS; cohort 7/7 PASS.
 - Next: seed0361 @21119 lua `shuffle`/`splev` after `makemaz`.
+
+## rotated from AGENT-LOOP-JOURNAL.md @ 2026-07-17 13:42
+
+## 2026-07-17 12:40 — #691 D-0620 on_goal goal_first
+- Objective: seed0361 @42649 C nhl shuffle after Arc-goal place_lregion.
+- C locus: `quest.c` `on_goal`/`onquest`; `questpgr.c` `qt_pager`;
+  `dat/quest.lua` Arc `goal_first`.
+- Change: port `on_goal` (goal_first/next/alt + find_quest_artifact);
+  Arc/Bar goal texts + `%o`/`%n`; Arc/Bar `questarti`.
+- Verification: prefix **42649→46893** Scr **289→296** RNG **46893**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @46893 `bigrm-7` load_special; or Pri-strt.
+
+
+## 2026-07-17 12:30 — #690 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **33/44** Scr **6681**/11405
+  RNG **398371**/792838 (50.25%) speed `38+0.16/turn` (R² 0.797).
+  Δ vs #685: Scr +18, RNG +19387, PASS unchanged.
+- Next: seed0361 @42649 identify protofile (nhl shuffle vs rn2(79));
+  or Pri-strt / leaderboard cron.
+
+
+## 2026-07-17 12:28 — #689 D-0619 Arc-goal load_special
+- Objective: seed0361 @34204 C nhlib shuffle rn2(3) vs JS rn2(79).
+- C locus: `dat/Arc-goal.lua`; `makemon.c` MS_NEMESIS mitem/gender;
+  `sp_lev.c` create_object/oname Orb.
+- Change: port `load_arc_goal` (14× object / temple / Orb / Minion);
+  `nemgend` + `BELL_OF_OPENING` (neminum gate); fill_special TEMPLE flags.
+- Verification: prefix **34204→42649** Scr **289**/366 RNG **42658**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @42649 nhl shuffle vs rn2(79); or Pri-strt.
+
+
+## 2026-07-17 12:18 — #688 D-0618 Arc-fila/filb load_special
+- Objective: seed0361 @31644 C nhlib shuffle rn2(3) vs JS rn2(79).
+- C locus: `dat/Arc-filb.lua` / `Arc-fila.lua`; `sp_lev.c` lspo_room /
+  get_location_coord; `mklev.c` In_quest fil{a,b}.
+- Change: port `load_arc_fila`/`load_arc_filb` ordinary des.room +
+  croom `get_location_coord_in_room` (WET double-retry before DRY).
+- Verification: prefix **31644→34204** Scr **289**/366 RNG **34219**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @34204 Arc-goal nhl shuffle vs rn2(79); or Pri-strt.

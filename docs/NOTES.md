@@ -7,14 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#702 D-0631:** `ini_inv_use_obj` used `is_missile` not C `is_weptool`
-  → Arc pick-axe never `W_SWAPWEP`; `doname` omitted weptool→WEAPON
-  remap + TOOL `oc_charged` (tinning). Scr **362→363**/366; @354 MATCH.
-- **Next fail:** @358 disco order — JS `hooded cloak` then `pair of
-  hard shoes` vs C reverse; @360 attrs `(1 of 2)` vs `(1 of 3)`;
-  @361 cursor row 21 vs 23.
+- **#703 D-0632:** `relobj_on_death` omitted C `mdrop_obj` `distant_name`
+  observe → disco Armor order reversed (cloak/shoes). Scr **363→364**/366;
+  @358 MATCH.
+- **Next fail:** @360 attrs `(1 of 2)` vs `(1 of 3)` — JS missing Hallu
+  (Grayswandir), automatic searching, reflection (silver DSM), life will
+  be saved; wielding `weapon` vs `saber`; hunger `<754>` vs `<750>`;
+  pray `(697)` vs `(656)`; cursor @361 row 21 vs 23.
+- **Falsify attrs:** inspect `insight.c` `enlightenment` / `attribs` vs
+  `js/insight.js` extrinsic lines; saber via `weapon_descr` / skill.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0631; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0632; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -36,13 +39,13 @@ Objective/score live in `CURRENT.md`.
   mundetected on all S_SNAKE (python !M1_CONCEAL); omit `questarti` on
   `game.urole`; omit non-pit trap in makemon snake hideunder;
   omit `is_weptool` in `ini_inv_use_obj` / weptool donameClass /
-  TINNING_KIT charged.
+  TINNING_KIT charged; omit `distant_name` in `relobj_on_death`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0631 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0632 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -53,8 +56,8 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620…30: see INDEX; D-0631: @354 was ini_inv weptool + doname
-  charged (not invent letter / known bit).
+- D-0620…31: see INDEX; D-0632: @358 was death-drop distant_name observe
+  (not look_here / pile invent order).
 
 ## Landmarks (≤15)
 
@@ -74,13 +77,14 @@ Objective/score live in `CURRENT.md`.
 - Quest: Arc firsttime (D-0625); `is_pure` wizard≡debug + `%r`/`%ra`
   (D-0627); snake hideunder `hides_under` (D-0628) + non-pit trap
   (D-0630); **questarti on urole** (D-0629); **ini_inv is_weptool +
-  doname charged/weptool** (D-0631); seed0361 Scr 363; remaining
-  disco/attrs; eel `hideunder` / minliquid / I_SPECIAL equip deferred;
-  vamp shapeshift arms / `run_regions` ttl age deferred;
-  `intemple` + SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role
-  firsttime deferred; getpos object glyphs / altar/ndoor/cloud deferred;
-  convert_arg pronoun/plural deferred; other-role `roles[].questarti`
-  still omitted; `can_hide_under_obj` coins in makemon inline deferred.
+  doname charged/weptool** (D-0631); **relobj distant_name disco**
+  (D-0632); seed0361 Scr 364; remaining attrs pages; eel `hideunder` /
+  minliquid / I_SPECIAL equip deferred; vamp shapeshift arms /
+  `run_regions` ttl age deferred; `intemple` + SWAMP / Bar-goal /
+  Pri-* / other bigrm-N / other-role firsttime deferred; getpos object
+  glyphs / altar/ndoor/cloud deferred; convert_arg pronoun/plural
+  deferred; other-role `roles[].questarti` still omitted;
+  `can_hide_under_obj` coins in makemon inline deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.

@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0632 — relobj death-drop distant_name observe (seed0361 @358)
+
+- **Status:** fixed (partial — seed0361 still 364/366)
+- **Symptom:** `\` disco Armor — JS `hooded cloak` then `pair of hard shoes`
+  vs C reverse. RNG full.
+- **Cause:** `relobj_on_death` placed minvent without C `mdrop_obj`'s
+  `distant_name(obj, doname)` side-effect. C observes in minvent-head order
+  at drop; JS only observed later in `look_here` (reverse pile order after
+  prepend `place_object`).
+- **C locus:** `steal.c` `mdrop_obj` / `relobj`; `objnam.c` `distant_name`
+  near+cansee → `doname` → `observe_object`.
+- **Change:** `js/mkobj.js` `relobj_on_death` — `distant_name(otmp, doname)`
+  before `obj_extract_self`.
+- **Verification:** seed0361 Scr **363→364**/366; @358 MATCH; green+strict
+  PASS; cohort **31/31** PASS.
+- **Named omission:** flooreffects / vault-guard gold / pet `droppables`.
+- **Next:** @360 attrs `(1 of 2)` vs `(1 of 3)` — missing Hallu/Search/
+  Reflect/lifesaved lines + saber skill name; hunger/pray timers.
+
 ## D-0631 — ini_inv weptool + doname charged tools (seed0361 @354)
 
 - **Status:** fixed (partial — seed0361 still 363/366)

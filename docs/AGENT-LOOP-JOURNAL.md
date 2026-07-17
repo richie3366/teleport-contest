@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:42 — #703 D-0632 relobj distant_name disco
+- Objective: seed0361 @358 disco Armor cloak/shoes order reversed.
+- C locus: `steal.c` `mdrop_obj` `distant_name` before extract; `objnam.c`.
+- Change: `relobj_on_death` calls `distant_name(otmp, doname)` while still
+  MINVENT so disco follows minvent order (not reverse pile look_here).
+- Verification: Scr **363→364**/366; @358 MATCH; green+strict PASS;
+  cohort 31/31 PASS.
+- Next: seed0361 @360/@361 attrs pages (Hallu/Search/Reflect/lifesaved).
+
+
 ## 2026-07-17 13:36 — #702 D-0631 ini_inv weptool + doname charged
 - Objective: seed0361 @354 invent — uncursed pick-axe / tinning vs
   `+0` swapwep / `(0:72)` charges.
@@ -31,6 +41,7 @@ Use this shape:
   cohort 31/31 PASS.
 - Next: seed0361 @358 disco order; @360/@361 attrs pages.
 
+
 ## 2026-07-17 13:31 — #701 D-0630 hideunder non-pit trap
 - Objective: seed0361 @339 map `%` vs `S` after Home5 getlev.
 - C locus: `mon.c` `hideunder` trap/`is_pit`; `makemon.c` S_SNAKE;
@@ -41,6 +52,7 @@ Use this shape:
   cohort 33/33 PASS.
 - Next: seed0361 @354 invent doname; or Pri-strt.
 
+
 ## 2026-07-17 13:25 — #700 score + D-0629 questarti %o
 - Objective: mandatory full `sessions` score (#700); seed0361 @320 Orb.
 - C locus: `questpgr.c` `convert_arg` `%o`; `role.c` `questarti`;
@@ -49,6 +61,7 @@ Use this shape:
 - Verification: suite **33/44**, Scr **6818**/11405, RNG **416960**/792838
   (52.59%), `33+0.16/turn`; seed0361 Scr **352→355**; green+strict PASS.
 - Next: seed0361 remaining 11 screens; or Pri-strt.
+
 
 ## 2026-07-17 13:20 — #699 D-0628 python hideunder M1_CONCEAL
 - Objective: seed0361 @307 map `%` vs `S` after locate materialize.
@@ -60,6 +73,7 @@ Use this shape:
   cohort 31/31 PASS.
 - Next: seed0361 @320 Orb of Detection text; or Pri-strt.
 
+
 ## 2026-07-17 13:15 — #698 D-0627 is_pure debug + %ra
 - Objective: seed0361 @182 adjust?/dialogue vs zap; badalign rank text.
 - C locus: `quest.c` `is_pure` (`wizard`≡`flags.debug`); `questpgr.c`
@@ -68,6 +82,7 @@ Use this shape:
   `%r` used sticky `urole.rank` and treated `%ra` as literal → `Diggera`.
 - Verification: Scr **327→331**/366; green+strict PASS; cohort 33/33.
 - Next: seed0361 @307 map `S` vs `%`; or Pri-strt.
+
 
 ## 2026-07-17 13:10 — #697 D-0626 getpos cmap / waterbody
 - Objective: seed0361 @154 getpos `"unexplored area"` vs `"floor of a room"`.
@@ -78,6 +93,7 @@ Use this shape:
 - Verification: Scr **309→327**/366; green+strict PASS; cohort 33/33.
 - Next: seed0361 @182 adjust?/dialogue vs zap; or Pri-strt.
 
+
 ## 2026-07-17 13:05 — #696 D-0625 Arc QUEST_FIRSTTIME
 - Objective: seed0361 screen peel (RNG full; Scr 306).
 - C locus: `dat/quest.lua` Arc `firsttime`; `quest.c` `on_start`.
@@ -86,6 +102,7 @@ Use this shape:
 - Verification: Scr **306→309**/366 (147–153 match); green+strict PASS;
   cohort 31/31 PASS.
 - Next: seed0361 @154 getpos farlook unexplored vs floor; or Pri-strt.
+
 
 ## 2026-07-17 12:56 — #695 score + D-0624 movemon restrap
 - Objective: mandatory full `sessions` (#695÷5); seed0361 @53815 restrap.
@@ -97,6 +114,7 @@ Use this shape:
   PASS; cohort 31/31 PASS.
 - Next: seed0361 screen peel; or Pri-strt / seed0014/0108.
 
+
 ## 2026-07-17 12:55 — #694 D-0623 fog gas cloud + cham shapeshift
 - Objective: seed0361 @53773 C create_gas_cloud rn2(3) vs JS mcalcmove.
 - C locus: `monmove.c` m_everyturn_effect; `region.c` create_gas_cloud;
@@ -107,6 +125,7 @@ Use this shape:
   PASS; cohort 33/33 PASS.
 - Next: seed0361 @53815 movemon restrap rn2(3); or Pri-strt.
 
+
 ## 2026-07-17 12:45 — #693 D-0622 hide_monst → restrap
 - Objective: seed0361 @53705 C restrap rn2(3) vs JS getlev rnd(10).
 - C locus: `mon.c` `hide_monst` / `restrap` / `hideunder`; `restore.c` getlev.
@@ -116,6 +135,7 @@ Use this shape:
   PASS; cohort 33/33 PASS.
 - Next: seed0361 @53773 create_gas_cloud rn2(3); or Pri-strt.
 
+
 ## 2026-07-17 12:41 — #692 D-0621 bigrm-7 load_special
 - Objective: seed0361 @46893 C nhl shuffle after makemaz rnd(13)=7.
 - C locus: `dat/bigrm-7.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
@@ -124,44 +144,3 @@ Use this shape:
 - Verification: prefix **46893→53705** Scr **296** RNG **53734**/53865;
   green+strict PASS; cohort **33/33** PASS.
 - Next: seed0361 @53705 `restrap` vs getlev; or Pri-strt.
-
-## 2026-07-17 12:40 — #691 D-0620 on_goal goal_first
-- Objective: seed0361 @42649 C nhl shuffle after Arc-goal place_lregion.
-- C locus: `quest.c` `on_goal`/`onquest`; `questpgr.c` `qt_pager`;
-  `dat/quest.lua` Arc `goal_first`.
-- Change: port `on_goal` (goal_first/next/alt + find_quest_artifact);
-  Arc/Bar goal texts + `%o`/`%n`; Arc/Bar `questarti`.
-- Verification: prefix **42649→46893** Scr **289→296** RNG **46893**;
-  green+strict PASS; cohort **33/33** PASS.
-- Next: seed0361 @46893 `bigrm-7` load_special; or Pri-strt.
-
-## 2026-07-17 12:30 — #690 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score+docs only; no port patch).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-- Verification: green+strict PASS; full suite **33/44** Scr **6681**/11405
-  RNG **398371**/792838 (50.25%) speed `38+0.16/turn` (R² 0.797).
-  Δ vs #685: Scr +18, RNG +19387, PASS unchanged.
-- Next: seed0361 @42649 identify protofile (nhl shuffle vs rn2(79));
-  or Pri-strt / leaderboard cron.
-
-## 2026-07-17 12:28 — #689 D-0619 Arc-goal load_special
-- Objective: seed0361 @34204 C nhlib shuffle rn2(3) vs JS rn2(79).
-- C locus: `dat/Arc-goal.lua`; `makemon.c` MS_NEMESIS mitem/gender;
-  `sp_lev.c` create_object/oname Orb.
-- Change: port `load_arc_goal` (14× object / temple / Orb / Minion);
-  `nemgend` + `BELL_OF_OPENING` (neminum gate); fill_special TEMPLE flags.
-- Verification: prefix **34204→42649** Scr **289**/366 RNG **42658**;
-  green+strict PASS; cohort **31/31** PASS.
-- Next: seed0361 @42649 nhl shuffle vs rn2(79); or Pri-strt.
-
-## 2026-07-17 12:18 — #688 D-0618 Arc-fila/filb load_special
-- Objective: seed0361 @31644 C nhlib shuffle rn2(3) vs JS rn2(79).
-- C locus: `dat/Arc-filb.lua` / `Arc-fila.lua`; `sp_lev.c` lspo_room /
-  get_location_coord; `mklev.c` In_quest fil{a,b}.
-- Change: port `load_arc_fila`/`load_arc_filb` ordinary des.room +
-  croom `get_location_coord_in_room` (WET double-retry before DRY).
-- Verification: prefix **31644→34204** Scr **289**/366 RNG **34219**;
-  green+strict PASS; cohort **33/33** PASS.
-- Next: seed0361 @34204 Arc-goal nhl shuffle vs rn2(79); or Pri-strt.
-
