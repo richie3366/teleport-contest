@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#680**),
-pre D-0610 handoff. Screens **6616**/11405; RNG **377869**/792838 (47.66%).
-**33/44** PASS. Δ vs #675: Scr **+9**, RNG **+3380**, PASS unchanged.
-(D-0610 after suite: seed0361 prefix **22084**, Scr **225**, RNG **22261**.)
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#685**),
+post D-0614. Screens **6663**/11405; RNG **378984**/792838 (47.80%).
+**33/44** PASS. Δ vs #680: Scr **+47**, RNG **+1115**, PASS unchanged
+(D-0611…14 aggregate lift; no new PASS).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **33 / 44** |
-| Screens matched | **6,616 / 11,405** |
-| Positional RNG calls matched | **377,869 / 792,838** (47.66%) |
-| Speed label | `33+0.16/turn` (R² 0.779) |
+| Screens matched | **6,663 / 11,405** |
+| Positional RNG calls matched | **378,984 / 792,838** (47.80%) |
+| Speed label | `33+0.16/turn` (R² 0.783) |
 | Role-init throws | **0 / 44** |
 
 **PASS (33):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 23269/53865 | 271/366 | next @23016 getbones / Dlvl:37 special |
+| seed0361 | 23269/53865 | 271/366 | @23016 C getbones vs JS distfleeck |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,12 +72,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @23016 — D-0614 shipped `on_start`
-nexttime/othertime (Home re-entry nhl shuffle; prefix **23015→23016**,
-Scr **271**, RNG **23269**). Next C `getbones` vs JS `rn2(5)` on
-Dlvl:37 special load (`splev_initlev`+shuffle6). Or seed0367
-`Pri-strt` (~@2053), or seed0014/0108. Prefer over parked D-0006 /
-seed2200 RC; do not reopen D-0474…D-0614 shipped.
+**Gameplay next:** seed0361 @23016 — D-0615 falsified “JS Medusa
+`rn2(5)` / skip getbones”. C is wizard `^V` menu → Dlvl:37 `getbones`
+(`rn2(3)`); JS is still on Home in `distfleeck`/`movemon`. Next: why JS
+takes a turn (or desyncs `--More--`/menu keys) after Home re-entry
+before the second levelport. Or seed0367 `Pri-strt`, seed0014/0108.
+Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0614.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

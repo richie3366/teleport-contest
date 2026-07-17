@@ -4,9 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0615 — @23016 Home distfleeck vs ^V→Dlvl:37 getbones
+
+- **Status:** diagnosed (open — no code change this iter)
+- **Symptom:** seed0361 @23016 — C `rn2(3)` @ `getbones` vs JS
+  `rn2(5)`.
+- **Falsified:** JS Medusa/`makelevel_ordinary` `rn2(5)`, or getbones
+  calling `rn2(5)`, or skipped getbones into special `rnd(5)`.
+- **Cause (channel):** after matched Home re-entry (getlev catchup +
+  `place_lregion` + `on_start` nhl shuffle through 23015), C’s next RNG
+  is wizard `^V` dungeon menu → Dlvl:37 `mklev`/`getbones`. JS stack is
+  `distfleeck`→`dochug`→`movemon` still on Home. Session keys: Home
+  arrive, UI-only `--More--`/eat/`^V` menu, then `G` → Dlvl:37.
+- **C locus:** `bones.c` `getbones`; `teleport.c` `level_tele` /
+  `print_dungeon`; `monmove.c` `distfleeck` (JS only).
+- **Next:** why JS spends a turn (`context.move` / `--More--` / menu
+  key ownership) before the second levelport; or Pri-strt / seed0014/0108.
+- **Verification:** #685 full score 33/44 Scr 6663 RNG 378984; green+strict
+  PASS; focused seed0361 unchanged 23269/271.
+
 ## D-0614 — on_start nexttime/othertime nhl shuffle (@23015)
 
-- **Status:** fixed (partial — next getbones @23016)
+- **Status:** fixed (partial — next D-0615 @23016)
 - **Symptom:** seed0361 @23015 — C nhlib `shuffle` `rn2(2)` vs JS
   `rnd(13)` after matched `place_lregion` on Home re-entry. First
   `rn2(3)=0` matched by coincidence (C shuffle vs JS getbones).
@@ -23,8 +42,7 @@ to preserve, record it here.
   burns); on_goal.
 - **Verification:** prefix **23015→23016** Scr **268→271** RNG
   **24011→23269**; green+strict PASS; cohort **31/31** PASS.
-- **Next:** seed0361 @23016 C `getbones` vs JS `rn2(5)` (Dlvl:37
-  special `splev_initlev`+shuffle6); or Pri-strt / seed0014/0108.
+- **Next:** D-0615 — not getbones arg; Home `movemon` vs ^V→37.
 
 ## D-0613 — artifact_hit / spec_dbon Grayswandir double (@22362)
 
