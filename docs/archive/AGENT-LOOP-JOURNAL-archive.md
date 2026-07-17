@@ -300,3 +300,11 @@
 - Verification: seed0373 Scr 110→111 RNG full; @101 match; green+strict;
   cohort 30/30 PASS.
 - Next: @110 Air gravity map clouds; or seed5006 dosounds @8468.
+
+## 2026-07-17 11:40 — #682 D-0612 mfndpos diagonal squeeze
+- Objective: seed0361 @22140 C `rn2(12)` @ `m_move` vs JS `rn2(16)`.
+- C locus: `mon.c` `mfndpos`; `hack.c` `bad_rock`/`cant_squeeze_thru`.
+- Change: port diagonal squeeze gate — giant spider cnt 4→3.
+- Verification: prefix **22140→22362** Scr **225** RNG **22664**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @22362 `xkilled` rn2(6) vs rn2(3); or Pri-strt.

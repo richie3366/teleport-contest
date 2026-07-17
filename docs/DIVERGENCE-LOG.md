@@ -6,6 +6,26 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0626 — getpos auto_describe missing cmap / waterbody (seed0361 @154)
+
+- **Status:** fixed (partial — next message-order peel @182)
+- **Symptom:** seed0361 screen 154+ — C getpos autodescribe
+  `"floor of a room"` / `"moat"`; JS `"unexplored area"` while map
+  glyphs already matched.
+- **Cause:** `auto_describe_text` treated any non-stair/non-trap
+  displayed glyph as deferred stub `"unexplored area"`. Cells were
+  ROOM (`disp_ch='~'`) / MOAT (`disp_ch='`'`) — not blank memory.
+- **C locus:** `pager.c` `lookat` `glyph_is_cmap` → `defsyms[].explanation`
+  + `S_pool`/`S_water`/`S_lava`/`S_ice` → `waterbody_name`;
+  `getpos.c` `auto_describe` → `do_screen_description`.
+- **Change:** `js/getpos.js` — `cmap_defsym_explanation` for ROOM/CORR/
+  wall/STONE + `waterbody_name` for pool/moat/lava/ice. Object glyphs,
+  altar/ndoor/cloud/engraving still deferred.
+- **Verification:** seed0361 Scr **309→327**/366; RNG full; green+strict
+  PASS; cohort **33/33** PASS.
+- **Next:** seed0361 @182 `adjust?` / dialogue vs zap prompt; or
+  Pri-strt / seed0014/0108.
+
 ## D-0625 — Arc QUEST_FIRSTTIME missing (seed0361 Scr @147)
 
 - **Status:** fixed (partial — next getpos farlook @154)

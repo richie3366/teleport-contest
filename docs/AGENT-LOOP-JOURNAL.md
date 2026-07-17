@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:10 — #697 D-0626 getpos cmap / waterbody
+- Objective: seed0361 @154 getpos `"unexplored area"` vs `"floor of a room"`.
+- C locus: `pager.c` `lookat` cmap/`waterbody_name`; `getpos.c` `auto_describe`.
+- Change: `auto_describe_text` was stubbing all non-stair/trap glyphs;
+  cells were ROOM/`~` and MOAT/``` — not blank memory. Added
+  `cmap_defsym_explanation` + `waterbody_name`.
+- Verification: Scr **309→327**/366; green+strict PASS; cohort 33/33.
+- Next: seed0361 @182 adjust?/dialogue vs zap; or Pri-strt.
+
 ## 2026-07-17 13:05 — #696 D-0625 Arc QUEST_FIRSTTIME
 - Objective: seed0361 screen peel (RNG full; Scr 306).
 - C locus: `dat/quest.lua` Arc `firsttime`; `quest.c` `on_start`.
@@ -153,12 +162,4 @@ Use this shape:
 - Verification: prefix **22362→23015** Scr **225→268** RNG **24011**;
   green+strict PASS; cohort **33/33** PASS.
 - Next: seed0361 @23015 nhlib shuffle vs `rnd(13)`; or Pri-strt.
-
-## 2026-07-17 11:40 — #682 D-0612 mfndpos diagonal squeeze
-- Objective: seed0361 @22140 C `rn2(12)` @ `m_move` vs JS `rn2(16)`.
-- C locus: `mon.c` `mfndpos`; `hack.c` `bad_rock`/`cant_squeeze_thru`.
-- Change: port diagonal squeeze gate — giant spider cnt 4→3.
-- Verification: prefix **22140→22362** Scr **225** RNG **22664**;
-  green+strict PASS; cohort **31/31** PASS.
-- Next: seed0361 @22362 `xkilled` rn2(6) vs rn2(3); or Pri-strt.
 
