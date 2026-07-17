@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0596 — set_wear / Helmet_on fedora Archeologist luck
+
+- **Status:** fixed (partial — `Ring_on` learnring/attrib bodies;
+  `pickup(1)` after set_wear still deferred; poly_obj `set_wear(obj)`
+  callers may still be incomplete)
+- **Symptom:** seed0361 @7924 — C `rnl(20) @ doopen_indir` vs JS
+  `rn2(38)` (logged inside `rnl` with `Luck=-1`).
+- **Cause:** `moveloop_preamble` never called C `set_wear(NULL)`, so
+  starting fedora never ran `Helmet_on` → `change_luck(1)`. Taking the
+  fedora off still ran `Helmet_off` → `change_luck(-1)`, leaving
+  `uluck=-1`. Non-zero Luck made `rnl(20)` burn `rn2(37+|Luck|)`.
+- **Rejected:** broken `doopen_indir` / missing autoopen; wrong `rnl`
+  formula; friday13 false positive (flags.friday13 was false).
+- **C locus:** `do_wear.c` `set_wear` / `Helmet_on` / `Helmet_off`;
+  `allmain.c` `moveloop_preamble` `set_wear((struct obj *) 0)`.
+- **Change:** `js/do_wear.js` — export `set_wear`; `js/allmain.js` —
+  `await set_wear(null)` after `rndencode`, before `reset_justpicked`
+  / `seer_turn` (C order).
+- **Verification:** seed0361 prefix **7924→7973** (runner Scr
+  **181→195**, RNG **8215→8210**); green+strict PASS; cohort 31/31
+  PASS; full suite **33/44** Scr **6587**/11405 RNG **363924**/792838.
+  Next @7973 `m_move` `rn2(20)` vs `rn2(32)`.
+- **Named omission:** `Ring_on` body; initial `pickup(1)`;
+  `gi.initial_don` message suppress for deferred toggle_*.
+- **Next:** seed0361 `m_move` @7973; or Pri-strt seed0367.
+
 ## D-0595 — postmov maybe_spin_web + webmaker
 
 - **Status:** fixed (partial — shop `add_damage`; y_monnam/something
