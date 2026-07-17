@@ -1,6 +1,24 @@
 # Agent loop journal archive
 
 ## 2026-07-17 10:41 — #673 D-0603 MS_PRIEST m_initweap/m_initinv
+## 2026-07-17 11:32 — #681 D-0611 hitval spec_abon
+- Objective: seed0361 @22084 C `rnd(5)` @ `spec_abon` vs JS `rnd(20)`.
+- C locus: `artifact.c` `spec_abon`/`spec_applies`; `weapon.c` `hitval`.
+- Change: extract attk+mtype; port `spec_applies`+`spec_abon`; wire
+  `hitval` oartifact path.
+- Verification: prefix **22084→22140** Scr **225** RNG **22478**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @22140 `m_move` rn2(12) vs rn2(16); or Pri-strt.
+
+## 2026-07-17 11:28 — #680 score + D-0610 tryescape defense
+- Objective: mandatory full `sessions` score (#680÷5); seed0361 @22042.
+- Score: **33/44** Scr **6616**/11405 RNG **377869**/792838 (47.66%)
+  `33+0.16/turn`. Δ vs #675: Scr +9, RNG +3380.
+- C locus: `monmove.c` m_move cnt==0; `muse.c` find/use_defensive + precheck.
+- Change: tryescape defense when no moves; healing invent + milky precheck.
+- Verification: prefix **22042→22084** Scr **225** RNG **22261**;
+  green+strict PASS; cohort 20/20 PASS.
+- Next: seed0361 @22084 `spec_abon`/`hitum`; or Pri-strt.
 - Objective: seed0361 @12294 C `next_ident` vs JS `rn2(75)`.
 - C locus: `makemon.c` `m_initweap`/`m_initinv` MS_PRIEST (ALIGNED/HIGH
   CLERIC); `monsters.h` msound.

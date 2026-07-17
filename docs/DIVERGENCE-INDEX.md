@@ -604,6 +604,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0621 | fixed | bigrm-7 load_special | seed0361 46893→53705 Scr 296 RNG 53734; next restrap @53705 |
 | D-0622 | fixed | getlev hide_monst → restrap | seed0361 53705→53773 Scr 306 RNG 53807; next create_gas_cloud @53773 |
 | D-0623 | fixed | fog m_everyturn create_gas_cloud + cham decide_to_shapeshift | seed0361 53773→53815 Scr 306 RNG 53817; next movemon restrap @53815 |
+| D-0624 | fixed | movemon_singlemon restrap pre-dochug | seed0361 RNG 53817→53865 full; Scr 306; next screen peel |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

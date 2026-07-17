@@ -697,17 +697,16 @@ async function movemon_singlemon(mtmp) {
     mtmp.movement -= NORMAL_SPEED;
     if (mtmp.movement >= NORMAL_SPEED) game._somebody_can_move = true;
 
-    // C: is_hider — disguised mimics spend the turn without dochug
-    // (movemon restrap call deferred — body in hide_monst D-0622;
-    // eel hideunder / minliquid / equip I_SPECIAL deferred)
+    // C: is_hider — restrap may hide again; disguised/undetected skip dochug
+    // (eel hideunder / minliquid / equip I_SPECIAL deferred)
     if (is_hider(mtmp.data)) {
+        if (restrap(mtmp)) return false;
         const ap = M_AP_TYPE(mtmp);
         if (ap === M_AP_FURNITURE || ap === M_AP_OBJECT) return false;
         if (mtmp.mundetected) return false;
     }
 
     // C: Conflict → fightm before dochugw (always rolls resist_conflict).
-    // movemon restrap post-path still deferred.
     if (hero_conflict() && !mtmp.iswiz && m_canseeu(mtmp)) {
         const u = game.u;
         if (cansee(mtmp.mx, mtmp.my)
@@ -770,8 +769,8 @@ function has_ceiling(lev) {
 
 /**
  * C ref: mon.c restrap — unwatched hiders may hide again; True if hid.
- * Short-circuit order matches C (rn2(3) after cansee). Named omission:
- * movemon_singlemon pre-dochug call site still deferred (D-0413).
+ * Short-circuit order matches C (rn2(3) after cansee). Called from
+ * movemon_singlemon (pre-dochug) and hide_monst (getlev).
  */
 export function restrap(mtmp) {
     if (!mtmp?.data) return false;

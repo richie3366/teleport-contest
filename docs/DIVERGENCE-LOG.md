@@ -6,9 +6,26 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0624 — movemon_singlemon restrap pre-dochug (@53815)
+
+- **Status:** fixed (partial — seed0361 RNG full; screen peel remains)
+- **Symptom:** seed0361 @53815 — C `restrap` `rn2(3)` (movemon pre-dochug)
+  vs JS `rn2(6)` shapeshift / further movement.
+- **Cause:** `restrap` body existed (D-0622 `hide_monst`) but
+  `movemon_singlemon` never called it before the hider `M_AP_*` /
+  `mundetected` early returns.
+- **C locus:** `mon.c` `movemon_singlemon` `is_hider` → `restrap`.
+- **Change:** `js/mon.js` `movemon_singlemon` — call `restrap(mtmp)` and
+  return false if hid. Named omissions: eel `hideunder` + `rn2(4)` arm;
+  `minliquid`; equip `I_SPECIAL` `m_dowear`.
+- **Verification:** seed0361 RNG **53817→53865**/53865 (full) Scr
+  **306**/366; green+strict PASS; cohort **31/31** PASS; full suite
+  **33/44** Scr **6698** RNG **416960**.
+- **Next:** seed0361 screen peel; or Pri-strt / seed0014/0108.
+
 ## D-0623 — fog m_everyturn create_gas_cloud + cham decide_to_shapeshift (@53773)
 
-- **Status:** fixed (partial — next @53815 movemon restrap)
+- **Status:** fixed (partial — next was @53815 movemon restrap → D-0624)
 - **Symptom:** seed0361 @53773 — C `create_gas_cloud` `rn2(3)` (ttl) after
   matched `place_lregion` vs JS `rn2(12)` mcalcmove.
 - **Cause:** (1) `movemon_singlemon` returned early on low movement before
