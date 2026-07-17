@@ -7,15 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#734 D-0661:** `doname` W_WEP `(wielded)` for stacks/ammo/missile/
-  non-weptool. seed0367 Scr **202→205**/324; prefix **76→148**.
+- **#735 score:** suite **34/44**; Scr **6959**/11405; RNG
+  **465040**/792838 (**58.66%**). Δ#730: Scr +30, RNG +14553
+  (D-0658…61 absorbed; seed0367 RNG FULL + Scr 205).
 - **Next:** @148 C `You materialize on a different level!--More--`
   vs JS no More → space steals → `Unknown command ' '` / quest text
-  miss. Hyp: teleport/goto_level pline needs forced `more()` before
-  `on_start`/`qt_pager` (or message window already NEED_MORE).
-- **Falsify:** dump screen 148–150; check whether JS emits
-  materialize without flushing More; C `teleport.c`/`do.c` after
-  `goto_level`.
+  miss. JS `goto_level` already `await pline(dfr_post_msg)` — hyp:
+  post_msg not set on this path, or pline skips NEED_MORE after
+  `docrt`, or delivery order vs `onquest`/`qt_pager` differs from C
+  `maybe_lvltport_feedback`.
+- **Falsify:** dump screen 148–150; trace `schedule_goto` post_msg +
+  `dfr_post_msg` clear sites; C `do.c` maybe_lvltport_feedback /
+  deferred_goto vs JS.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
 - **Don’t:** reopen D-0474…D-0661; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
@@ -71,12 +74,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#730; Scr 6929 RNG 450487 / 56.82%).
+  **PASS** (suite **34/44** @#735; Scr 6959 RNG 465040 / 58.66%).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL; screen peel prefix @148 materialize More.
+- Quest: seed0367 RNG FULL Scr 205; screen peel @148 materialize More.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

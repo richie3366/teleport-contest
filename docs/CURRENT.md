@@ -21,21 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#730**).
-Screens **6929**/11405; RNG **450487**/792838 (56.82%). **34/44** PASS.
-Δ vs #725: Scr **+5**, RNG **+8419**, PASS **+0** (focused #726–29
-D-0654…57: seed0367 RNG 27153→35572 absorbed into suite totals).
-**#733 D-0660:** seed0367 RNG **FULL 50125** Scr **202**/324 (not yet in
-suite aggregates — refresh at next %5).
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#735**).
+Screens **6959**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
+Δ vs #730: Scr **+30**, RNG **+14553**, PASS **+0** (focused #731–34
+D-0658…61: seed0367 RNG 35572→**50125 FULL**, Scr 175→**205** absorbed).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **34 / 44** |
-| Screens matched | **6,929 / 11,405** |
-| Positional RNG calls matched | **450,487 / 792,838** (56.82%) |
-| Speed label | `34+0.16/turn` (R² 0.781) |
+| Screens matched | **6,959 / 11,405** |
+| Positional RNG calls matched | **465,040 / 792,838** (58.66%) |
+| Speed label | `34+0.16/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (34):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -49,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **202**/324 | RNG FULL (D-0660); screen peel |
+| seed0367 | **50125**/50125 | **205**/324 | RNG FULL; screen peel @148 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -85,7 +83,10 @@ node frozen/ps_test_runner.mjs \
 
 **Next falsifier / fix:** @148 C `You materialize on a different
 level!--More--` vs JS no More → space becomes `Unknown command` and
-quest `on_start` text is missed. Do not re-break D-0660/D-0661.
+quest `on_start` text is missed. C: `maybe_lvltport_feedback` /
+`schedule_goto` post_msg; JS already `await pline(dfr_post_msg)` in
+`goto_level` — verify delivery path + NEED_MORE before `onquest`.
+Do not re-break D-0660/D-0661.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

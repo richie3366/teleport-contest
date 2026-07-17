@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:56 — #735 public score cadence
+- Objective: mandatory full `sessions` score (#735÷5).
+- C locus: n/a (score refresh; primary still seed0367 @148).
+- Change or falsified theory: none — docs only. Noted JS already
+  `await pline(dfr_post_msg)` in goto_level; @148 still needs path
+  falsify (post_msg set? NEED_MORE after docrt? onquest order).
+- Verification: green+strict PASS; suite **34/44**; Scr **6959**/11405;
+  RNG **465040**/792838 (58.66%); speed `34+0.16/turn` (R² 0.78).
+  Δ vs #730: Scr +30, RNG +14553 (D-0658…61 absorbed).
+- Next: @148 materialize --More-- / quest on_start key ownership.
+
 ## 2026-07-17 18:55 — #734 D-0661 doname W_WEP (wielded)
 - Objective: seed0367 screen peel @76 — C potion `(wielded)` vs JS omit.
 - C locus: objnam.c doname_base W_WEP (stack/ammo/missile/non-weptool
