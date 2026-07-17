@@ -73,12 +73,13 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @12288 — after D-0600 `mktemple`, C
-`shrine_pos` `rn2(2)` vs JS still in `pick_room` `rn2(5)` because JS
-has no doorct==1 OROOM (room2 doorct=2; C accepts doorct==1). Find
-extra door (join/niche/`add_door`). Or seed0367 `Pri-strt` (~@2053),
-or seed0014/0108. Prefer over parked D-0006 / seed2200 RC; do not
-reopen D-0474…D-0600.
+**Gameplay next:** seed0361 @12288 — D-0601 FORCE: C skips rooms[1]+[4]
+as THEMEROOM and accepts rooms[2] (13×2) with doorct==1 → shrine matches
+(prefix would be **12294**). JS still all-OROOM + r2 doorct=2. Peel
+themerm `type=themed` (Default themed-fill / reservoir) so those rooms
+stay THEMEROOM after joins, and the extra join door on the temple
+candidate. Or seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer
+over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0601 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0601 — make_niches depth + dosdoor mimic + @12288 THEMEROOM peel
+
+- **Status:** fixed (partial — seed0361 still @12288; themerm rtype/doorct open)
+- **Symptom:** seed0361 @12288 — C `shrine_pos rn2(2)` vs JS still
+  `pick_room rn2(5)`. JS D:17 rooms all OROOM; no doorct==1 candidate.
+- **Cause (shipped):** `make_niches` used `dlevel` and omitted `!noteleport`
+  for ltptr (C: `depth(&u.uz)`); `makeniche` always ROCKTRAP'd holes
+  (C: `Can_fall_thru`); `dosdoor` trapped→mimic omitted `makemon`/
+  `set_mimic_sym` + G_GONE; special-room chain omitted G_GONE gates.
+- **Diagnosis (next):** FORCE at mktemple — mark rooms[1]+[4] THEMEROOM
+  and rooms[2] doorct=1 → prefix **12288→12294** (shrine/priest match).
+  THEMEROOM alone insufficient; early `!needjoining` before corridors
+  diverges @11832. So C skips r1+r4 as THEMEROOM **after** joining, and
+  r2 (13×2) has doorct==1 — themerm `type=themed` pick vs JS OROOM, plus
+  one fewer join door on the temple candidate.
+- **C locus:** `mklev.c` `make_niches`/`makeniche`/`dosdoor`/`makelevel`
+  special-room G_GONE; `themerms.lua` themed rooms; `mkroom.c` `pick_room`.
+- **Change:** `js/mklev.js` — niches depth/noteleport + Can_fall_thru;
+  dosdoor mimic; G_GONE on LEPREHALL/BEEHIVE/BARRACKS/COCKNEST.
+- **Verification:** green+strict PASS; cohort **18/18** PASS (seed0361
+  still FAIL @12288 Scr 205); seed0361 prefix unchanged **12288**.
+- **Named omission:** themerm rooms[1]/4] stay OROOM; r2 doorct=2;
+  antholemon() gate still always-true.
+- **Next:** why JS creates OROOM where C has THEMEROOM at those indices
+  (reservoir / Default themed-fill), and why r2 gets a second join door.
+
 ## D-0600 — mktemple / priestini / newepri (@12287)
 
 - **Status:** fixed (partial — pick_room succeeds only when a doorct==1

@@ -55,6 +55,7 @@ import {
     Is_airlevel,
     Is_waterlevel,
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
+    Can_fall_thru, G_GONE,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -137,6 +138,13 @@ const PM_DWARF_RULER = monsterNames.indexOf('PM_DWARF_RULER');
 const PM_GNOME_RULER = monsterNames.indexOf('PM_GNOME_RULER');
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const PM_HIGH_CLERIC = monsterNames.indexOf('PM_HIGH_CLERIC');
+const PM_LEPRECHAUN = monsterNames.indexOf('PM_LEPRECHAUN');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_SOLDIER = monsterNames.indexOf('PM_SOLDIER');
+const PM_COCKATRICE = monsterNames.indexOf('PM_COCKATRICE');
+const PM_SMALL_MIMIC = monsterNames.indexOf('PM_SMALL_MIMIC');
+const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
+const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
 const PM_BUGBEAR = monsterNames.indexOf('PM_BUGBEAR');
 const PM_HOBGOBLIN = monsterNames.indexOf('PM_HOBGOBLIN');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
@@ -4928,23 +4936,28 @@ async function makelevel_ordinary() {
         do_mkroom(SHOPBASE);
     } else if (u_depth > 4 && !rn2(6)) {
         do_mkroom(COURT);
-    } else if (u_depth > 5 && !rn2(8)) {
+    } else if (u_depth > 5 && !rn2(8)
+        && !(((g.mvitals?.[PM_LEPRECHAUN]?.mvflags ?? 0) & G_GONE))) {
         do_mkroom(LEPREHALL);
     } else if (u_depth > 6 && !rn2(7)) {
         do_mkroom(ZOO);
     } else if (u_depth > 8 && !rn2(5)) {
         do_mkroom(TEMPLE);
-    } else if (u_depth > 9 && !rn2(5)) {
+    } else if (u_depth > 9 && !rn2(5)
+        && !(((g.mvitals?.[PM_KILLER_BEE]?.mvflags ?? 0) & G_GONE))) {
         do_mkroom(BEEHIVE);
     } else if (u_depth > 11 && !rn2(6)) {
         do_mkroom(MORGUE);
     } else if (u_depth > 12 && !rn2(8)) {
+        // C: antholemon() gate — JS antholemon always truthy until typed port
         do_mkroom(ANTHOLE);
-    } else if (u_depth > 14 && !rn2(4)) {
+    } else if (u_depth > 14 && !rn2(4)
+        && !(((g.mvitals?.[PM_SOLDIER]?.mvflags ?? 0) & G_GONE))) {
         do_mkroom(BARRACKS);
     } else if (u_depth > 15 && !rn2(6)) {
         do_mkroom(SWAMP);
-    } else if (u_depth > 16 && !rn2(8)) {
+    } else if (u_depth > 16 && !rn2(8)
+        && !(((g.mvitals?.[PM_COCKATRICE]?.mvflags ?? 0) & G_GONE))) {
         do_mkroom(COCKNEST);
     }
 
@@ -7224,8 +7237,15 @@ function dosdoor(x, y, aroom, type) {
                 loc.flags = shdoor ? D_ISOPEN : D_NODOOR;
             }
             if (loc.flags & D_TRAPPED) {
-                if (level_difficulty() >= 9 && !rn2(5)) {
+                // C ref: mklev.c dosdoor — trapped door may become mimic
+                if (level_difficulty() >= 9 && !rn2(5)
+                    && !((((game.mvitals?.[PM_SMALL_MIMIC]?.mvflags ?? 0) & G_GONE))
+                        && (((game.mvitals?.[PM_LARGE_MIMIC]?.mvflags ?? 0) & G_GONE))
+                        && (((game.mvitals?.[PM_GIANT_MIMIC]?.mvflags ?? 0) & G_GONE)))) {
                     loc.flags = D_NODOOR;
+                    loc.doormask = D_NODOOR;
+                    const mtmp = makemon(mkclass('S_MIMIC', 0), x, y, 0);
+                    if (mtmp) set_mimic_sym(mtmp);
                 }
             }
         } else {
@@ -7579,7 +7599,8 @@ async function makeniche(trap_type) {
             if (trap_type) {
                 // C ref: mklev.c makeniche — Can_fall_thru gate for holes
                 let actualTrap = trap_type;
-                if (is_hole(actualTrap)) actualTrap = ROCKTRAP;
+                if (is_hole(actualTrap) && !Can_fall_thru(g.u?.uz))
+                    actualTrap = ROCKTRAP;
                 const ttmp = await maketrap(xx, yy + dy, actualTrap);
                 if (ttmp) {
                     if (actualTrap !== ROCKTRAP) ttmp.once = 1;
@@ -7620,9 +7641,11 @@ async function makeniche(trap_type) {
 
 async function make_niches() {
     const g = game;
+    // C ref: mklev.c make_niches — dep = depth(&u.uz); ltptr needs !noteleport
     let ct = rnd(Math.trunc(g.level.nroom / 2) + 1);
-    let ltptr = ((g.u?.uz?.dlevel ?? 1) > 15);
-    let vamp = ((g.u?.uz?.dlevel ?? 1) > 5 && (g.u?.uz?.dlevel ?? 1) < 25);
+    const dep = depth_of_level(g.u?.uz);
+    let ltptr = (!g.level.flags.noteleport && dep > 15);
+    let vamp = (dep > 5 && dep < 25);
     while (ct--) {
         if (ltptr && !rn2(6)) {
             ltptr = false;

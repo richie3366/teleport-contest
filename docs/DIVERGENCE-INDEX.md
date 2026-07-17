@@ -581,6 +581,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0598 | fixed | searches_for_item / mon_would_take_item | seed0361 7973→11065 Scr 195→198; next dmgval @11065 |
 | D-0599 | fixed | rolling boulder trapeffect + launch_obj | seed0361 11065→12287 Scr 198→205; next pick_room @12287 |
 | D-0600 | fixed | mktemple/priestini/newepri | seed0361 12287→12288; next doorct @12288 shrine_pos |
+| D-0601 | fixed | make_niches depth + dosdoor mimic + G_GONE | niches/mimic/G_GONE; @12288 still THEMEROOM+doorct (FORCE→12294) |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |
