@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 13:20 — #699 D-0628 python hideunder M1_CONCEAL
+- Objective: seed0361 @307 map `%` vs `S` after locate materialize.
+- C locus: `makemon.c` S_SPIDER/S_SNAKE → `hideunder`; `mondata.h`
+  `hides_under`/`M1_CONCEAL`; python lacks CONCEAL.
+- Change: JS forced `mundetected=1` for all S_SNAKE; python stayed
+  hidden under pancake. Gate on `hides_under(ptr)`.
+- Verification: Scr **331→352**/366; RNG full; green+strict PASS;
+  cohort 31/31 PASS.
+- Next: seed0361 @320 Orb of Detection text; or Pri-strt.
+
 ## 2026-07-17 13:15 — #698 D-0627 is_pure debug + %ra
 - Objective: seed0361 @182 adjust?/dialogue vs zap; badalign rank text.
 - C locus: `quest.c` `is_pure` (`wizard`≡`flags.debug`); `questpgr.c`
@@ -153,11 +163,3 @@ Use this shape:
 - Verification: green+strict PASS; full suite recorded in CURRENT.
 - Next: post-Home turn/`--More--`/menu before second levelport; or Pri-strt.
 
-## 2026-07-17 11:49 — #684 D-0614 on_start nexttime/othertime
-- Objective: seed0361 @23015 C nhlib `shuffle` `rn2(2)` vs JS `rnd(13)`.
-- C locus: `quest.c` `on_start`; `questpgr`/`nhl_init`; Arc nexttime.
-- Change: port Home re-entry nexttime/othertime → `qt_pager` nhl shuffle.
-  Matched rn2(3) was coincidental getbones, not partial shuffle.
-- Verification: prefix **23015→23016** Scr **268→271** RNG **23269**;
-  green+strict PASS; cohort **31/31** PASS.
-- Next: seed0361 @23016 getbones vs `rn2(5)` (Dlvl:37 special); or Pri-strt.

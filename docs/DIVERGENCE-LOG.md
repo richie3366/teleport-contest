@@ -6,6 +6,24 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0628 — makemon spider/snake hideunder needs hides_under (seed0361 @307)
+
+- **Status:** fixed (partial — next @320 Orb of Detection text)
+- **Symptom:** seed0361 screen 307 — after locate materialize, map
+  `(59,13)` JS `%` (pancake) vs C `S` (python). RNG already full.
+- **Cause:** `makemon` S_SPIDER/S_SNAKE arm set `mundetected=1` whenever
+  any floor object existed. C calls `hideunder`, which only hides when
+  `hides_under(data)` (`M1_CONCEAL`). **Python** is `S_SNAKE` but lacks
+  `M1_CONCEAL`, so C leaves it visible over the mkobj pancake.
+- **C locus:** `makemon.c` case `S_SPIDER`/`S_SNAKE` → `hideunder`;
+  `mon.c` `hideunder` + `mondata.h` `hides_under`; `monsters.h` python
+  flags (no `M1_CONCEAL`).
+- **Change:** `js/makemon.js` — gate inline hide on `hides_under(ptr)`.
+- **Verification:** seed0361 Scr **331→352**/366; RNG full; green+strict
+  PASS; cohort **31/31** PASS.
+- **Next:** seed0361 @320 `"the Orb of Detection."` vs truncated line;
+  or Pri-strt / seed0014/0108.
+
 ## D-0627 — is_pure wizard≡debug + convert_arg %r/%ra (seed0361 @182)
 
 - **Status:** fixed (partial — next map glyph peel @307)

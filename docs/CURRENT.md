@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | **53865**/53865 | 309/366 | Scr +3 (D-0625 Arc firsttime); @154 farlook |
+| seed0361 | **53865**/53865 | 352/366 | Scr +21 (D-0628 python hide); @320 Orb text |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 screen peel @307 (Scr **331**/366 after
-D-0627) — map glyph `S` vs `%` after locate materialize. Or seed0367
+**Gameplay next:** seed0361 screen peel @320 (Scr **352**/366 after
+D-0628) — quest text missing `"the Orb of Detection."`. Or seed0367
 `Pri-strt`, seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0627.
+do not reopen D-0474…D-0628.
 
 ```bash
 node frozen/ps_test_runner.mjs \

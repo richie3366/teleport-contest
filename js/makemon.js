@@ -59,6 +59,7 @@ import {
     humanoid,
     polyok,
     is_mplayer,
+    hides_under,
     M3_CLOSE, M3_WAITFORU,
 } from './monsters.js';
 import { big_to_little } from './mondata.js';
@@ -1964,14 +1965,18 @@ export function makemon(mdat, x, y, mmflags = 0) {
     // Named omissions: orc/elf peace; unicorn align peace; bat hell speed.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
     else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
-        // C: in_mklev → mkobj_at(RANDOM) then hideunder (mon.c hides_under arm)
+        // C: in_mklev → mkobj_at(RANDOM) then hideunder(mtmp).
+        // hideunder only sets mundetected when hides_under(data) (M1_CONCEAL);
+        // python is S_SNAKE but !M1_CONCEAL so stays visible (D-0628).
         if (game.in_mklev) {
             if (mtmp.mx && mtmp.my) mkobj_at(RANDOM_CLASS, mtmp.mx, mtmp.my, true);
             // Inline hideunder hides_under path: seeit=0 in mklev; object just placed.
-            const hx = mtmp.mx, hy = mtmp.my;
-            const typ = game.level?.at(hx, hy)?.typ ?? 0;
-            if (!IS_POOL(typ) && !IS_LAVA(typ) && objects_at(hx, hy)) {
-                mtmp.mundetected = 1;
+            if (hides_under(ptr)) {
+                const hx = mtmp.mx, hy = mtmp.my;
+                const typ = game.level?.at(hx, hy)?.typ ?? 0;
+                if (!IS_POOL(typ) && !IS_LAVA(typ) && objects_at(hx, hy)) {
+                    mtmp.mundetected = 1;
+                }
             }
         }
     } else if (ptr.mlet === 'S_EEL') {
