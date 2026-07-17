@@ -7,13 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#695 D-0624:** `movemon_singlemon` → `restrap` pre-dochug. seed0361
-  RNG **53817→53865** (full). Scr still **306**/366. Cohort 31/31.
-- **Next:** seed0361 screen peel (RNG full); or seed0367 `Pri-strt` /
-  seed0014/0108.
+- **#696 D-0625:** Arc `QUEST_FIRSTTIME` from `quest.lua`. seed0361 Scr
+  **306→309**/366 (147–153 match). Next fail @154 getpos
+  `"unexplored area"` vs `"floor of a room"`.
+- **Hypothesis @154:** after `^V`→Home1 + firsttime, controlled `^T`
+  farlook sees blank/unexplored memory where C has room floor — vision /
+  `docrt` / map memory after quest `mklev`, not another missing pager.
+  Falsify: compare `cansee`/`remembered` at getpos cursor vs C.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-  Full score #695: Scr **6698** RNG **416960** (52.59%).
-- **Don’t:** reopen D-0474…D-0624; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0625; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
@@ -32,13 +34,13 @@ Objective/score live in `CURRENT.md`.
   `des.object` (not 15); stub `on_goal`; skip bigrm-7 when
   `makemaz` picks it; skip getlev `restrap` / hide_monst viz override;
   skip fog `m_everyturn` / cham `decide_to_shapeshift`; skip movemon
-  `restrap` call.
+  `restrap` call; skip Arc firsttime body.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0624 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0625 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -49,11 +51,8 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
-- D-0620: @42649 was missing `on_goal`/`goal_first`, not post-goal special.
-- D-0621: @46893 was missing `bigrm-7` loader, not post-rndlevs mineralize.
-- D-0622: @53705 was stub `hide_monst` (no restrap), not getlev rnd(10) itself.
-- D-0623: @53773 fog everyturn / cham shapeshift; D-0624: @53815 was
-  missing movemon `restrap` call (body already D-0622).
+- D-0620…24: see INDEX; D-0625: Scr @147 was missing Arc firsttime text
+  (not materialize pline / deferred_goto order).
 
 ## Landmarks (≤15)
 
@@ -86,10 +85,12 @@ Objective/score live in `CURRENT.md`.
   **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; **`on_goal`
   goal_first (D-0620)**; **`bigrm-7` (D-0621)**; **`hide_monst`/
   `restrap` (D-0622)**; **fog `m_everyturn`/`create_gas_cloud` + cham
-  `decide_to_shapeshift` (D-0623)**; **movemon `restrap` (D-0624)** —
-  seed0361 RNG full; eel `hideunder` / minliquid / I_SPECIAL equip
-  deferred; vamp shapeshift arms / `run_regions` ttl age deferred;
-  `intemple` + SWAMP / Bar-goal / Pri-* / other bigrm-N deferred.
+  `decide_to_shapeshift` (D-0623)**; **movemon `restrap` (D-0624)**;
+  **Arc `QUEST_FIRSTTIME` (D-0625)** — seed0361 Scr 309; getpos
+  farlook memory deferred; eel `hideunder` / minliquid / I_SPECIAL
+  equip deferred; vamp shapeshift arms / `run_regions` ttl age deferred;
+  `intemple` + SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role
+  firsttime deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.

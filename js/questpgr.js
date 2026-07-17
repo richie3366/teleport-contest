@@ -166,10 +166,20 @@ export async function com_pager_legacy(statusSnap = null) {
 }
 
 /**
- * C ref: dat/quest.lua firsttime texts (Barbarian exercised by seed0373).
- * Other roles deferred — qt_pager still burns nhl_init shuffle when called.
+ * C ref: dat/quest.lua firsttime texts (Arc seed0361; Bar seed0373).
+ * Arc+Bar exercised; other roles burn nhl_init shuffle only.
  */
 const QUEST_FIRSTTIME = {
+    // C ref: dat/quest.lua Arc firsttime (output=text)
+    Arc: `You are suddenly in familiar surroundings.  The buildings in the distance
+seem to be those of your old alma mater, but something is wrong.  It feels
+as if there has been a riot recently, or %H has
+been under siege.
+
+All of the windows are boarded up, and there are objects scattered around
+the entrance.
+
+Strange forbidding shapes seem to be moving in the distance.`,
     Bar: `Warily you scan your surroundings, all of your senses alert for signs
 of possible danger.  Off in the distance, you can %x the familiar shapes
 of %H.

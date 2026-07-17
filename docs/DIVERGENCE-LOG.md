@@ -6,6 +6,25 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0625 — Arc QUEST_FIRSTTIME missing (seed0361 Scr @147)
+
+- **Status:** fixed (partial — next getpos farlook @154)
+- **Symptom:** seed0361 screen 147 — C
+  `You materialize…!--More--` then Arc firsttime NHW_TEXT; JS
+  materialize without `--More--`, then `Unknown command ' '` (space
+  stolen by rhack).
+- **Cause:** `QUEST_FIRSTTIME` had only Bar; Arc `qt_pager('firsttime')`
+  returned early (still set `first_start`), so `flush_topl_more` never
+  ran before the text window and the following space was a command.
+- **C locus:** `dat/quest.lua` Arc `firsttime`; `quest.c` `on_start` →
+  `qt_pager`; `do.c` `goto_level` `maybe_lvltport_feedback` + onquest.
+- **Change:** `js/questpgr.js` — add Arc `QUEST_FIRSTTIME` from
+  `quest.lua` (`%H` → homebase). Other-role firsttime bodies still deferred.
+- **Verification:** seed0361 Scr **306→309**/366 (147–153 match); RNG
+  full; green+strict PASS; cohort **31/31** PASS.
+- **Next:** seed0361 @154 getpos `"unexplored area"` vs `"floor of a
+  room"`; or Pri-strt / seed0014/0108.
+
 ## D-0624 — movemon_singlemon restrap pre-dochug (@53815)
 
 - **Status:** fixed (partial — seed0361 RNG full; screen peel remains)
