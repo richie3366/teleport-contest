@@ -71,10 +71,11 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @3310 — C nhlib `shuffle` vs JS `rn2(5)`
-after D-0639 (`teleds` no longer pre-sets `u.urooms`; controlled `^T`
-into TEMPLE now fires `intemple`). Prefix **3282→3310**; Scr still
-**167**/324. Prefer that peel over parked D-0006 / seed2200 RC.
+**Gameplay next:** seed0367 @3332 — C `choose_monster_spell`
+`rn2(7)` vs JS `m_move` `rn2(10)` after D-0640 (`#chat` Arch Priest
+→ `quest_chat` / Pri `leader_first`+`assignquest`). Prefix
+**3310→3332**; Scr **167→169**/324. Prefer that peel over parked
+D-0006 / seed2200 RC.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

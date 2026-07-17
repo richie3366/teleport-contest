@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0640 — #chat domonnoise MS_LEADER → quest_chat (seed0367 @3310)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @3310 — C nhlib `shuffle`
+  (`rn2(3)`/`rn2(2)`) vs JS `rn2(5)` `distfleeck` after `#chat` west
+  to Arch Priest.
+- **Cause (proved):** JS `domonnoise` only handled MS_BARK; tables omit
+  `msound`, so quest leader `#chat` was silent and later keys ran as
+  turns. C overrides `leader_m_id` → `MS_LEADER` → `quest_chat` →
+  `qt_pager(leader_first)` nhl_init shuffle, then `is_pure` yn adjust +
+  `assignquest` shuffle.
+- **C locus:** `sounds.c` `domonnoise` MS_LEADER; `quest.c` `quest_chat`
+  / `chat_with_leader`; `questpgr.c` `qt_pager` / `convert_arg`.
+- **Change:** `js/sounds.js` leader_m_id→MS_LEADER→`quest_chat`;
+  `js/quest.js` export `quest_chat`; `js/questpgr.js` Pri
+  `leader_first`/`assignquest` + `%s`/`%S`/`%g` + plural/possessive
+  mods; Priest `guardnum` on roles/`urole`.
+- **Verification:** seed0367 prefix **3310→3332** (runner RNG
+  **3347→3365**, Scr **167→169**/324); green+strict PASS; cohort 14/14
+  PASS (incl. seed0361/0373/0116/5006/0106).
+- **Named omission:** MS_PRIEST `priest_talk`; nemesis/guardian
+  `quest_chat`; other-role assignquest bodies; convert pronoun `%Xh`.
+- **Next:** seed0367 @3332 C `choose_monster_spell` vs JS `m_move`.
+
 ## D-0639 — teleds must not pre-set u.urooms before spoteffects (seed0367 @3282)
 
 - **Status:** fixed

@@ -620,6 +620,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0637 | fixed | Pri-strt + Arch Priest quest role kit | seed0367 @2336→3282; Scr 167; next intemple @3282 |
 | D-0638 | fixed | intemple + check_special_room TEMPLE | wired; real @3282 was teleds urooms (D-0639) |
 | D-0639 | fixed | teleds must not pre-set u.urooms before spoteffects | seed0367 @3282→3310; Scr 167; next @3310 shuffle |
+| D-0640 | fixed | #chat domonnoise MS_LEADER → quest_chat + Pri texts | seed0367 @3310→3332; Scr 169; next mcastu @3332 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

@@ -20,7 +20,7 @@ import { show_text_pages } from './pager.js';
 import { mons, M2_PNAME } from './monsters.js';
 import { NON_PM, pmnames } from './generated/monsters_data.js';
 import { artilistRaw } from './generated/artifacts_data.js';
-import { an, the } from './objnam.js';
+import { an, the, makeplural } from './objnam.js';
 
 /**
  * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.
@@ -196,11 +196,36 @@ Without thought, you ready your weapon, and mutter under your breath:
     "By %d, there will be blood spilt today."`,
 };
 
-/** C ref: dat/quest.lua leader_first (Arc). */
+/** C ref: dat/quest.lua leader_first (Arc + Pri). */
 const QUEST_LEADER_FIRST = {
     Arc: `"Finally you have returned, %p.  You were always
 my most promising student.  Allow me to see if you are ready for the
 most difficult task of your career."`,
+    Pri: `"Ah, %p, my %S.  You have returned to us at last.
+A great blow has befallen our order; perhaps you can help us.
+First, however, I must determine if you are prepared for this
+great challenge."`,
+};
+
+/** C ref: dat/quest.lua assignquest (Pri; Arc deferred). */
+const QUEST_ASSIGNQUEST = {
+    Pri: `"Yes, %p.  You are truly ready now.  Attend to me and I shall
+tell you of what has transpired:
+
+"At one of the Great Festivals a short time ago, %n and a legion
+of undead invaded %H.  Many %gP were killed, including
+the one carrying %o.
+
+"As a final act of vengefulness, %n desecrated the altar here.
+Without it, we could not mount a counter-attack.  Now, there are
+barely enough %gP left to keep the undead at bay.
+
+"We need you to find %i, then, from there, travel
+to %ns lair.  If you can manage to defeat %n and return
+%o here, we can then drive off the legions of
+undead that befoul the land.
+
+"Go with %d as your guide, %p."`,
 };
 
 /** C ref: dat/quest.lua badalign (Arc). */
@@ -276,14 +301,32 @@ function ldrname() {
     return pname ? nm : `the ${nm}`;
 }
 
+/** C ref: questpgr.c guardname — urole.guardnum neutral pmname. */
+function guardname() {
+    const i = game.urole?.guardnum ?? NON_PM;
+    if (i === NON_PM || i == null) return '';
+    const names = pmnames[i];
+    return names?.[2] || names?.[0] || names?.[1] || '';
+}
+
+/** C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s. */
+function s_suffix(s) {
+    if (!s) return s;
+    if (s === 'it') return 'its';
+    if (s === 'you') return 'your';
+    if (s.endsWith('s')) return `${s}'`;
+    return `${s}'s`;
+}
+
 /**
- * C ref: questpgr.c convert_arg — subset used by firsttime/goal (%x/%H/%l/%d/%o/%n).
- * Named omission: full convert_arg catalogue + %c/%g/… pronoun arms.
+ * C ref: questpgr.c convert_arg — subset used by firsttime/goal/leader/assign.
+ * Named omission: full convert_arg catalogue + %c pronoun arms.
  */
 function convert_arg(c) {
     const urole = game.urole || {};
     const u = game.u || {};
     const Blind = !!(u.Blind || u.HBlind || u.EBlind);
+    const female = !!game.flags?.female;
     switch (c) {
     case 'l':
         return ldrname();
@@ -299,6 +342,14 @@ function convert_arg(c) {
         return Blind ? 'sense' : 'see';
     case 'p':
         return game.plname || '';
+    case 's':
+        // C: flags.female ? "sister" : "brother"
+        return female ? 'sister' : 'brother';
+    case 'S':
+        // C: flags.female ? "daughter" : "son"
+        return female ? 'daughter' : 'son';
+    case 'g':
+        return guardname();
     case 'a': {
         const aOrig = u.ualignbase?.original ?? u.ualign?.type ?? A_NEUTRAL;
         if (aOrig === A_LAWFUL) return 'lawful';
@@ -307,10 +358,10 @@ function convert_arg(c) {
     }
     case 'r':
         // C: rank_of(u.ulevel, Role_switch, flags.female) — not sticky urole.rank
-        return rank_of(u.ulevel | 0, urole.mnum, !!game.flags?.female);
+        return rank_of(u.ulevel | 0, urole.mnum, female);
     case 'R':
         // C: rank_of(MIN_QUEST_LEVEL, Role_switch, flags.female)
-        return rank_of(MIN_QUEST_LEVEL, urole.mnum, !!game.flags?.female);
+        return rank_of(MIN_QUEST_LEVEL, urole.mnum, female);
     case 'o':
     case 'O': {
         // C: the(artiname(urole.questarti)); %O shortens "the Foo of Bar"
@@ -342,7 +393,8 @@ function convert_arg(c) {
 
 /**
  * C ref: questpgr.c convert_line — %X then optional modifier.
- * Covered: %Xa → an(), %XA → An(), %XC capitalize. Pronoun/plural deferred.
+ * Covered: %Xa/%XA an/An; %XC capitalize; %Xp/%XP plural; %Xs/%XS possessive.
+ * Pronoun %Xh/%Hi/… deferred.
  */
 function convert_line(inLine) {
     let out = '';
@@ -357,7 +409,6 @@ function convert_line(inLine) {
                     piece = an(piece);
                 } else if (mod === 'A') {
                     i++;
-                    // C: An() — capitalized article
                     const withArt = an(piece);
                     piece = withArt
                         ? withArt.charAt(0).toUpperCase() + withArt.slice(1)
@@ -366,8 +417,19 @@ function convert_line(inLine) {
                     i++;
                     if (piece)
                         piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                } else if (mod === 'P' || mod === 'p') {
+                    // C: 'P' capitalizes then makeplural; 'p' just plural
+                    i++;
+                    if (mod === 'P' && piece)
+                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                    piece = makeplural(piece);
+                } else if (mod === 'S' || mod === 's') {
+                    i++;
+                    if (mod === 'S' && piece)
+                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                    piece = s_suffix(piece);
                 }
-                // %Xh/%XP/… pronoun + plural deferred
+                // %Xh/%Hi/… pronoun deferred
             }
             out += piece;
         } else {
@@ -399,6 +461,7 @@ export async function qt_pager(msgid) {
     let raw = null;
     if (msgid === 'firsttime') raw = QUEST_FIRSTTIME[code] || null;
     else if (msgid === 'leader_first') raw = QUEST_LEADER_FIRST[code] || null;
+    else if (msgid === 'assignquest') raw = QUEST_ASSIGNQUEST[code] || null;
     else if (msgid === 'badalign') raw = QUEST_BADALIGN[code] || null;
     else if (msgid === 'locate_first') raw = QUEST_LOCATE_FIRST[code] || null;
     else if (msgid === 'locate_next') raw = QUEST_LOCATE_NEXT[code] || null;
