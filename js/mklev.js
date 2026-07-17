@@ -132,6 +132,7 @@ const FOOD_RATION = objectNames.indexOf('FOOD_RATION');
 const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
+const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
 const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
 const DAGGER = objectNames.indexOf('DAGGER');
@@ -666,7 +667,7 @@ function reset_xystart_size() {
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-2, tower1, fire, air, minend-1.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal, Pri-fila/filb/goal); minend-2/3; tower2/3;
+ * protos (Bar-goal, Pri-fila/filb); minend-2/3; tower2/3;
  * water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -756,6 +757,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Pri-loca') {
         load_pri_loca();
+        return true;
+    }
+    if (protofile === 'Pri-goal') {
+        load_pri_goal();
         return true;
     }
     if (protofile === 'Arc-strt') {
@@ -1550,7 +1555,7 @@ function load_pri_strt() {
  * (Temple of Nalzok). Mines init is a lit-field kludge (fg=bg=".");
  * des.map overlays the temple; morgue regions stock undead.
  * Named omissions: humidity-aware get_location; flip_level (noflip);
- * Pri-fila/filb/goal; spo_end_moninvent m_dowear.
+ * Pri-fila/filb; spo_end_moninvent m_dowear.
  */
 function load_pri_loca() {
     const g = game;
@@ -1729,6 +1734,122 @@ function load_pri_loca() {
     // des.level_flags noflip — wallify then fixup (skip flip_level_rnd)
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Pri-goal.lua via load_special — Priest quest goal (Nalzok).
+ * Mines init fg=L bg=. (filling defaults to fg=lava). Map 'x' keeps lava.
+ * Named omissions: humidity get_location beyond HOT for lava-likers;
+ * spo_end_moninvent m_dowear; Pri-fila/filb.
+ */
+function load_pri_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg="L", bg=".", lit=0, smoothed/joined/walled false
+    // C: filling defaults to fg when omitted (sp_lev.c get_table_mapchr_opt)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: LAVAPOOL, bg: ROOM, filling: LAVAPOOL,
+        lit: 0, smoothed: false, joined: false, walled: false,
+        icedpools: false,
+    });
+
+    const PRI_GOAL_MAP = `
+xxxxxx..xxxxxx...xxxxxxxxx
+xxxx......xx......xxxxxxxx
+xx.xx.............xxxxxxxx
+x....................xxxxx
+......................xxxx
+......................xxxx
+xx........................
+xxx......................x
+xxx................xxxxxxx
+xxxx.....x.xx.......xxxxxx
+xxxxx...xxxxxx....xxxxxxxx
+`.replace(/^\n/, '');
+    splev_apply_centered_map(PRI_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // local place = { {14,04}, {13,07} }; placeidx = math.random(1, #place)
+    // nh.random(1,2) → 1+rn2(2); JS 0-based index
+    const place = [[14, 4], [13, 7]];
+    const placeidx = rn2(2);
+    const [px, py] = place[placeidx];
+
+    // des.region(selection.area(00,00,25,10), "unlit")
+    for (let y = 0; y <= 10; y++) {
+        for (let x = 0; x <= 25; x++) {
+            const loc = g.level.at(mx + x, my + y);
+            if (loc) loc.lit = false;
+        }
+    }
+
+    // des.stair("up", 20,05)
+    mkstairs(mx + 20, my + 5, 1, null);
+
+    // des.object helm of brilliance → The Mitre of Holiness
+    // eroded=-1 ⇒ oerodeproof=1 (lua comment / create_object)
+    {
+        const otmp = mksobj_at(HELM_OF_BRILLIANCE, mx + px, my + py, true, false);
+        if (otmp) {
+            otmp.spe = 0;
+            bless(otmp);
+            otmp.oeroded = 0;
+            otmp.oeroded2 = 0;
+            otmp.oerodeproof = 1;
+            oname(otmp, 'The Mitre of Holiness', ONAME_LEVEL_DEF);
+        }
+    }
+
+    // des.object() × 14
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // des.trap("fire") × 4 then des.trap() × 2
+    for (let i = 0; i < 4; i++) {
+        let trycnt = 0;
+        let pos;
+        do {
+            pos = get_location_random(null);
+            const typ = g.level.at(pos.x, pos.y)?.typ;
+            if (typ !== STAIRS && typ !== LADDER) break;
+        } while (++trycnt <= 100);
+        if (trycnt > 100) continue;
+        const ttmp = maketrap(pos.x, pos.y, FIRE_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 2; i++) splev_create_trap();
+
+    // des.monster("Nalzok", place[placeidx])
+    {
+        find_montype_gender('Nalzok');
+        induced_align(80);
+        const pmIdx = name_to_mon('Nalzok');
+        if (pmIdx >= 0 && pmIdx !== NON_PM) {
+            makemon(mons(pmIdx), mx + px, my + py, 0);
+        }
+    }
+    for (let i = 0; i < 16; i++) splev_create_monster('human zombie');
+    for (let i = 0; i < 2; i++) splev_create_monster('Z');
+    for (let i = 0; i < 8; i++) splev_create_monster('wraith');
+    splev_create_monster('W');
+
+    // C load_special: wallification → flip_level_rnd → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

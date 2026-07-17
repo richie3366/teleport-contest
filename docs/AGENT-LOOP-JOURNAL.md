@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:49 — #718 D-0646 Pri-goal load_special
+- Objective: seed0367 @15172 C nhlib after getbones vs JS place_lregion.
+- C locus: dat/Pri-goal.lua; sp_lev.c load_special/splev_initlev/mkmap.
+- Change: load_pri_goal + dispatch (mines lava + map/Mitre/Nalzok) —
+  D-0646. Falsified NOTES Pri-fila guess (C init_fill proved goal).
+- Verification: @15172→17449 (RNG 17451, Scr 170); green+strict PASS;
+  cohort 34/34 prior-PASS.
+- Next: @17449 C nhlib after makemaz rnd(7)=2 (minetn-2).
+
 ## 2026-07-17 15:35 — #717 D-0645 Pri-loca eastern morgue hx
 - Objective: seed0367 @15167 C place_lregion rn2(79) vs JS rn2(100).
 - C locus: Pri-loca.lua eastern morgue des.region; sp_lev.c
@@ -164,25 +173,4 @@ Use this shape:
 - Verification: seed0361 **PASS** 366/366 + strict; green+strict PASS;
   cohort 31/31 PASS.
 - Next: full sessions on #705 (expect 34/44); seed0367 / seed0014/0108.
-
-## 2026-07-17 13:42 — #703 D-0632 relobj distant_name disco
-- Objective: seed0361 @358 disco Armor cloak/shoes order reversed.
-- C locus: `steal.c` `mdrop_obj` `distant_name` before extract; `objnam.c`.
-- Change: `relobj_on_death` calls `distant_name(otmp, doname)` while still
-  MINVENT so disco follows minvent order (not reverse pile look_here).
-- Verification: Scr **363→364**/366; @358 MATCH; green+strict PASS;
-  cohort 31/31 PASS.
-- Next: seed0361 @360/@361 attrs pages (Hallu/Search/Reflect/lifesaved).
-
-
-## 2026-07-17 13:36 — #702 D-0631 ini_inv weptool + doname charged
-- Objective: seed0361 @354 invent — uncursed pick-axe / tinning vs
-  `+0` swapwep / `(0:72)` charges.
-- C locus: `u_init.c` `ini_inv_use_obj` `is_weptool`; `objnam.c`
-  `doname_base` weptool→WEAPON + TOOL `oc_charged`.
-- Change: u_init `is_weptool` (+ bimanual/shield gate); objnam
-  donameClass remap + charged-tool/WEPTOOL name list.
-- Verification: Scr **362→363**/366; @354 MATCH; green+strict PASS;
-  cohort 31/31 PASS.
-- Next: seed0361 @358 disco order; @360/@361 attrs pages.
 

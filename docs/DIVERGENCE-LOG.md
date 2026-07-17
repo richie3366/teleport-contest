@@ -4,9 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0646 — Pri-goal load_special (seed0367 @15172)
+
+- **Status:** fixed (partial — next @17449 minetn-2)
+- **Symptom:** seed0367 first mismatch @15172 — C nhlib `shuffle`
+  (`rn2(3)`/`rn2(2)`) after matched getbones vs JS `rn2(79)`
+  (`u_on_rndspot`/`place_lregion` on empty level).
+- **Cause:** After Pri-loca arrival (`on_locate` nhl) the session
+  immediately `goto_level`s to Pri-goal. `load_special_proto` omitted
+  `Pri-goal`, so makemaz left an empty maze. C loads `Pri-goal.lua`
+  (solidfill + mines fg=L + map + Mitre/Nalzok). NOTES guessed Pri-fila;
+  C `splev_initlev`/`init_fill` proved goal, not fila.
+- **C locus:** `dat/Pri-goal.lua`; `sp_lev.c` `load_special` /
+  `splev_initlev`/`mkmap`; `mkmaze.c` `makemaz`.
+- **Change:** `js/mklev.js` `load_pri_goal` + dispatch in
+  `load_special_proto` (mines lava fill defaulting to fg; map `x`
+  preserves lava; placeidx `rn2(2)`; Mitre oerodeproof; Nalzok + undead).
+- **Verification:** seed0367 prefix **15172→17449** (runner RNG
+  **15214→17451**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** Pri-fila/filb; minetn-N; humidity beyond HOT;
+  spo_end_moninvent `m_dowear`.
+- **Next:** seed0367 @17449 C nhlib after `makemaz` `rnd(7)=2`
+  (minetn-2) vs JS `place_lregion`.
+
 ## D-0645 — Pri-loca eastern morgue fill hx (seed0367 @15167)
 
-- **Status:** fixed (partial — next @15172 post-getbones nhlib)
+- **Status:** fixed (partial — superseded next by D-0646)
 - **Symptom:** seed0367 first mismatch @15167 — C `rn2(79)` @
   `place_lregion` vs JS `rn2(100)` (`morguemon`). Both had 282
   `morguemon` `rn2(100)` from fill start; JS continued fill on cols

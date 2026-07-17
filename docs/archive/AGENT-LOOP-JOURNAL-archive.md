@@ -1,3 +1,25 @@
+## 2026-07-17 13:42 — #703 D-0632 relobj distant_name disco
+- Objective: seed0361 @358 disco Armor cloak/shoes order reversed.
+- C locus: `steal.c` `mdrop_obj` `distant_name` before extract; `objnam.c`.
+- Change: `relobj_on_death` calls `distant_name(otmp, doname)` while still
+  MINVENT so disco follows minvent order (not reverse pile look_here).
+- Verification: Scr **363→364**/366; @358 MATCH; green+strict PASS;
+  cohort 31/31 PASS.
+- Next: seed0361 @360/@361 attrs pages (Hallu/Search/Reflect/lifesaved).
+
+
+## 2026-07-17 13:36 — #702 D-0631 ini_inv weptool + doname charged
+- Objective: seed0361 @354 invent — uncursed pick-axe / tinning vs
+  `+0` swapwep / `(0:72)` charges.
+- C locus: `u_init.c` `ini_inv_use_obj` `is_weptool`; `objnam.c`
+  `doname_base` weptool→WEAPON + TOOL `oc_charged`.
+- Change: u_init `is_weptool` (+ bimanual/shield gate); objnam
+  donameClass remap + charged-tool/WEPTOOL name list.
+- Verification: Scr **362→363**/366; @354 MATCH; green+strict PASS;
+  cohort 31/31 PASS.
+- Next: seed0361 @358 disco order; @360/@361 attrs pages.
+
+
 # Agent loop journal archive
 
 ## 2026-07-17 10:41 — #673 D-0603 MS_PRIEST m_initweap/m_initinv

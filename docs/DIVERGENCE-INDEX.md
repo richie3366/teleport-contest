@@ -626,6 +626,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0643 | fixed | fill_zoo rectangular roomno gate | seed0367 @10674→13882; RNG 13909; next m_initinv @13882 |
 | D-0644 | fixed | m_initinv S_DEMON/S_WRAITH/S_LICH | seed0367 @13882→15167; RNG 15181; next place_lregion @15167 |
 | D-0645 | fixed | Pri-loca eastern morgue fill hx 35 | seed0367 @15167→15172; RNG 15214; next nhlib @15172 |
+| D-0646 | fixed | Pri-goal load_special | seed0367 @15172→17449; RNG 17451; next minetn-2 @17449 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
