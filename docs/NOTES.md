@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#671 D-0601:** niches depth/`!noteleport` + `Can_fall_thru` + dosdoor
-  mimic + special-room G_GONE. seed0361 still @12288.
-- **@12288 falsifier (FORCE):** THEMEROOM on rooms[1]+[4] **and**
-  rooms[2] doorct=1 → prefix **12288→12294**. THEMEROOM alone still
-  rn2(5) on r2; early `needjoining=false` before corridors diverges
-  @11832. Next: themerm `type=themed` so r1/r4 are THEMEROOM after
-  joins, and one fewer door on r2 (13×2). Don’t re-bludgeon pick_room.
+- **#672 D-0602:** `pick_room` now honors `flags.debug` (wizard≡debug).
+  seed0361 **12288→12294**. Next @12294 C `next_ident` vs JS `rn2(75)`
+  (priest/makemon gear after shrine/priestini).
+- **Falsified (don’t re-check):** @12288 was NOT themerm THEMEROOM /
+  r2 doorct. C D:17 rooms match JS (all OROOM defaults; r2 doorct=2);
+  C temples rooms[3]. D-0601 FORCE was a coincidence path to 12294.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0601 shipped bits; wear `[*?]`; stub `^V?`;
+- **Don’t:** reopen D-0474…D-0602 shipped; wear `[*?]`; stub `^V?`;
   empty wish ESC; skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban;
   TELE on occupied mon; skip `were_change`/`m_avoid_soko_push_loc`;
   `dlevel` in traptype_rnd; hardcode PARTISAN; skip LONG_WORM/S_MUMMY;
@@ -28,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0600 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0602 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
@@ -36,12 +35,11 @@ Objective/score live in `CURRENT.md`.
 - D-0597: pool/lava **not** @7973 cause — open ROOM cnt=8 was JS-only pos.
 - D-0598: @7973 was missing `searches_for_item` (POT_HEALING gg).
 - D-0599: @11065 was missing rolling-boulder `launch_obj`, not dmgval body.
-- D-0600: @12287 was stub TEMPLE; next doorct/THEMEROOM not shrine body.
-- D-0601: @12288 needs THEMEROOM skip + r2 doorct==1 (FORCE→12294);
-  make_niches dlevel bug not the D:17 cause (depth==dlevel).
+- D-0600: @12287 was stub TEMPLE; next was pick_room wizard, not shrine body.
+- D-0601: niches/mimic/G_GONE shipped; @12288 cause was D-0602 wizard.
+- D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
-- D-0586: @117 was missing wizard `turns` (not title-centering alone).
 
 ## Landmarks (≤15)
 
@@ -61,5 +59,6 @@ Objective/score live in `CURRENT.md`.
 - Quest start: `Arc-strt` loaders + invent discard (D-0588).
 - Special rooms: `pick_room`/`mkzoo` (D-0592); COURT fill (D-0593);
   **`mktemple`/`priestini`/`newepri`** (D-0600); niches/mimic/G_GONE
-  (D-0601); SWAMP deferred.
+  (D-0601); **`pick_room` wizard≡debug** (D-0602); SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
+- C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.

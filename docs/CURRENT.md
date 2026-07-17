@@ -48,7 +48,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 12375/53865 | 205/366 | next @12288 doorct / shrine_pos |
+| seed0361 | 12385/53865 | 205/366 | next @12294 priest/makemon |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -73,13 +73,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @12288 — D-0601 FORCE: C skips rooms[1]+[4]
-as THEMEROOM and accepts rooms[2] (13×2) with doorct==1 → shrine matches
-(prefix would be **12294**). JS still all-OROOM + r2 doorct=2. Peel
-themerm `type=themed` (Default themed-fill / reservoir) so those rooms
-stay THEMEROOM after joins, and the extra join door on the temple
-candidate. Or seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer
-over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0601 shipped.
+**Gameplay next:** seed0361 @12294 — D-0602 fixed `pick_room` wizard≡
+`flags.debug` (playmode:debug); prefix **12288→12294**. Next C
+`next_ident` vs JS `rn2(75)` on priest/makemon gear after shrine.
+Or seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
+D-0006 / seed2200 RC; do not reopen D-0474…D-0602 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

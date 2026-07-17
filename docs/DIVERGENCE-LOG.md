@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0602 — pick_room wizard ≡ flags.debug (@12288)
+
+- **Status:** fixed (partial — next priest/makemon @12294)
+- **Symptom:** seed0361 @12288 — C `shrine_pos rn2(2)` vs JS still
+  `pick_room rn2(5)`.
+- **Cause:** C `#define wizard flags.debug` (`flag.h`). Sessions use
+  `playmode:debug` → `flags.debug`. `pick_room` is
+  `doorct==1 || !rn2(5) || wizard`; with wizard set, after burning
+  `rn2(5)=3` on rooms[3] C still accepts via the wizard clause. JS only
+  checked `flags.wizard` (unset) so rejected and kept rolling.
+- **Rejected:** THEMEROOM on r1/r4 + r2 doorct==1 (D-0601 FORCE). C
+  recorder D:17 rooms match JS geometry/doorct (all OROOM defaults;
+  r2 doorct=2); C temples rooms[3] (11×6). FORCE coincidentally reached
+  12294 by skipping to a doorct==1 accept path.
+- **C locus:** `flag.h` `wizard`; `mkroom.c` `pick_room`; options
+  `playmode:debug`.
+- **Change:** `js/mklev.js` `pick_room` — accept when
+  `flags.wizard || flags.debug`.
+- **Verification:** prefix **12288→12294** Scr **205**; green+strict
+  PASS; cohort **31/31** PASS.
+- **Named omission:** `mkshop` wizard/`ep` multi-door arm still absent;
+  next @12294 C `next_ident` vs JS `rn2(75)` (priest gear path).
+- **Next:** seed0361 @12294 priest/makemon inventory; or Pri-strt.
+
 ## D-0601 — make_niches depth + dosdoor mimic + @12288 THEMEROOM peel
 
 - **Status:** fixed (partial — seed0361 still @12288; themerm rtype/doorct open)

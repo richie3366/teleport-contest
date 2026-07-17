@@ -5003,6 +5003,7 @@ async function makelevel_ordinary() {
  * C ref: mkroom.c pick_room(strict) — walk rooms from rn2(nroom), wrap at
  * nroom sentinel. Non-strict may keep downstairs with !rn2(3); doorct==1
  * or !rn2(5) or wizard accepts. Short-circuit matches C.
+ * C: `#define wizard flags.debug` (flag.h) — playmode:debug sets flags.debug.
  */
 function pick_room(strict) {
     const g = game;
@@ -5021,7 +5022,9 @@ function pick_room(strict) {
         } else if (has_upstairs(sroom) || has_dnstairs(sroom)) {
             continue;
         }
-        if ((sroom.doorct | 0) === 1 || !rn2(5) || g.flags?.wizard)
+        // C: doorct == 1 || !rn2(5) || wizard  (wizard ≡ flags.debug)
+        if ((sroom.doorct | 0) === 1 || !rn2(5)
+            || g.flags?.wizard || g.flags?.debug)
             return sroom;
     }
     return null;
