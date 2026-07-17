@@ -649,6 +649,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0666 | fixed | altar_color via altarmask (unaligned CLR_RED) | seed0367 Scr 245→258; residual warn → D-0667 |
 | D-0667 | fixed | see_monsters in teleds/docrt (stale Warning gbuf) | seed0367 Scr 258→267 prefix 185→203; next @203 level materialize |
 | D-0668 | fixed | Pri-loca map lit=FALSE clear after mines lit-field | seed0367 @203 Z→warn; 27 cells W-vs-warn remain |
+| D-0669 | fixed | tp_sensemon Unblind_telepat (amulet of ESP) | seed0367 Scr 267→291 prefix 203→209; next @209 lava |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

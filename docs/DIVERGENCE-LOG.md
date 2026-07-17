@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0669 — tp_sensemon / Unblind_telepat (seed0367 @203)
+
+- **Status:** fixed (partial — Scr 291/324; next peel @209)
+- **Symptom:** after D-0668 dark morgue, @203 C showed physical `W`/`&` and
+  blank ghost glyphs mixed with Warning digits; JS showed warn digits only
+  (27 cells).
+- **Cause:** hero wears amulet of ESP (`ETelepat`). C `tp_sensemon` shows
+  non-mindless monsters as physical glyphs out of sight; mindless zombies
+  stay on Warning digits. Ghost `S_GHOST` mlet is `' '` (blank). JS
+  `sensemon`/`newsym` omitted telepathy.
+- **C locus:** `display.h` `_tp_sensemon` / `_sensemon`; `worn.c`
+  `recalc_telepat_range`; `youprop.h` Unblind_telepat.
+- **Change:** `js/display.js` `tp_sensemon` + `sensemon` + `newsym` !cansee
+  sense path; `js/do_wear.js` `recalc_telepat_range` + `ETelepat` mirror;
+  `u_init` `unblind_telepat_range=-1`. MATCH_WARN_OF_MON deferred.
+- **Verification:** seed0367 Scr **267→291**/324, prefix **203→209**, RNG
+  FULL; green+strict PASS; cohort **32**/32 (incl. seed0009).
+- **Next:** @209 lava `` ` `` / map cells after materialize More.
+
 ## D-0668 — Pri-loca map lit=FALSE after mines lit-field (seed0367 @203)
 
 - **Status:** fixed (partial — Scr still 267/324; 27 cells W/& vs warn)

@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
-import { mcolors, mons, infravision, infravisible } from './monsters.js';
+import { mcolors, mons, infravision, infravisible, mindless } from './monsters.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, TREE, IRONBARS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -38,6 +38,8 @@ import {
     NOT_HUNGRY,
     WARNCOUNT,
     def_warnsyms,
+    TELEPAT,
+    BOLT_LIM,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -237,16 +239,64 @@ export function canseemon(mon) {
 }
 
 /**
+ * C ref: youprop.h Blind_telepat / Unblind_telepat.
+ * Blind_telepat = HTelepat || ETelepat; Unblind_telepat = ETelepat only.
+ */
+function hero_ETelepat() {
+    const u = game.u || {};
+    return (u.ETelepat | 0) || (u.uprops?.[TELEPAT]?.extrinsic | 0);
+}
+function hero_HTelepat() {
+    const u = game.u || {};
+    return (u.HTelepat | 0) || (u.uprops?.[TELEPAT]?.intrinsic | 0);
+}
+function hero_Blind_telepat() {
+    return !!(hero_HTelepat() || hero_ETelepat());
+}
+function hero_Unblind_telepat() {
+    return !!hero_ETelepat();
+}
+
+/**
+ * C ref: display.h _tp_sensemon — non-mindless + blind/intrinsic or
+ * unblind extrinsic telepathy within unblind_telepat_range (squared).
+ * Named omission: MATCH_WARN_OF_MON is a separate sensemon arm.
+ */
+export function tp_sensemon(mon) {
+    if (!mon?.mx) return false;
+    const ptr = mon.data || mons(mon.mnum);
+    if (!ptr || mindless(ptr)) return false;
+    const u = game.u || {};
+    const blind = !!(u.Blind || u.ublind
+        || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0)));
+    if (blind && hero_Blind_telepat()) return true;
+    if (hero_Unblind_telepat()) {
+        let range = u.unblind_telepat_range;
+        // C worn.c recalc_telepat_range — -1 means no ESP objects.
+        // If extrinsic is set but range was never recalculated (restore /
+        // older setworn), treat as one BOLT_LIM² source.
+        if (range == null || range < 0) {
+            range = BOLT_LIM * BOLT_LIM;
+        }
+        const d = dist2(u.ux | 0, u.uy | 0, mon.mx | 0, mon.my | 0);
+        return d <= (range | 0);
+    }
+    return false;
+}
+
+/**
  * C ref: display.h _sensemon — Detect_monsters / telepathy / warn.
- * Named omissions: tp_sensemon Blind_telepat/Unblind_telepat range,
- * MATCH_WARN_OF_MON, Underwater pool adjacency gate.
+ * Named omissions: MATCH_WARN_OF_MON; Underwater pool adjacency gate.
  */
 export function sensemon(mon) {
     if (!mon) return false;
     const u = game.u || {};
     if (u.uswallow && mon !== u.ustuck) return false;
-    if (u.Detect_monsters) return true;
-    return false;
+    if (u.Detect_monsters
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0)) {
+        return true;
+    }
+    return tp_sensemon(mon);
 }
 
 /**
@@ -1696,11 +1746,12 @@ export function newsym(x, y) {
         // C: erevealed = 1 even when covered by objects or a monster
         const epSee = engr_at(x, y);
         if (epSee) epSee.erevealed = 1;
-        if (mtmp && mon_visible(mtmp)) {
+        if (mtmp && (mon_visible(mtmp) || tp_sensemon(mtmp))) {
             // C: _map_location(x, y, FALSE) then display_monster — memory
             // keeps object under the monster so leaving sight does not
             // replace ) with remembered corridor.
             // show_mon_or_warn clears invisible memory when showing mon
+            // Named omission: MATCH_WARN_OF_MON in see_it; Detect_monsters arm.
             if (glyph_is_invisible(loc)) {
                 loc.remembered_glyph = null;
                 map_location_memory(x, y);
@@ -1784,11 +1835,22 @@ export function newsym(x, y) {
 
     // C: !cansee — still show sensed monsters (infrared / telepathy / detect)
     // C order: see_it (tp_sensemon / MATCH_WARN / infrared+visible) then
-    // mon_warning, then invisible glyph, else memory.
-    if (mtmp && mon_visible(mtmp) && see_with_infrared(mtmp)) {
+    // Detect_monsters, then mon_warning, then invisible glyph, else memory.
+    // Named omission: MATCH_WARN_OF_MON; worm tails.
+    if (mtmp && (tp_sensemon(mtmp)
+        || (mon_visible(mtmp) && see_with_infrared(mtmp)))) {
         const mg = mon_glyph(mtmp);
         show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
         return;
+    }
+    {
+        const u = game.u || {};
+        if (mtmp && (u.Detect_monsters
+            || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0))) {
+            const mg = mon_glyph(mtmp);
+            show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
+            return;
+        }
     }
     if (mtmp && mon_warning(mtmp)) {
         display_warning(mtmp);

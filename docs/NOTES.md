@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#741:** D-0668 Pri-loca map `lit=FALSE` clear after mines lit-field.
-  @203 live `Z`→warn digits; residual **27** cells C `W`/`&` vs JS warn.
-  Scr still **267**/324 prefix **203**. RNG FULL.
-- **Falsify next:** at those W cells — C `cansee`/TEMP_LIT/`nv_range` vs
-  JS `mon_warning` only. Do not globalize `sel_set_ter(false)`≡C (seed0009).
+- **#742:** D-0669 `tp_sensemon` / Unblind_telepat (amulet of ESP).
+  @203 physical W/&/ghost-blank vs warn cleared. Scr **291**/324
+  prefix **209**. RNG FULL.
+- **Falsify next:** @209 C lava `` ` `` vs JS blank — lit/TEMP_LIT /
+  terrain glyph after materialize More. Do not reopen D-0669.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0668; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0669; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -50,13 +50,14 @@ Objective/score live in `CURRENT.md`.
   skip Pri firsttime (D-0662); skip `mon_warning` (D-0663);
   skip `self_lookat` gender (D-0664); skip TREE defsym (D-0665);
   skip altar_color (D-0666); skip `see_monsters` in teleds (D-0667);
-  skip Pri-loca map lit clear (D-0668); globalize `sel_set_ter(false)`.
+  skip Pri-loca map lit clear (D-0668); skip `tp_sensemon` (D-0669);
+  globalize `sel_set_ter(false)`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0668 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0669 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -69,6 +70,8 @@ Objective/score live in `CURRENT.md`.
   so out-of-range warns clear before materialize `--More--`.
 - D-0668: global `sel_set_ter(false)`≡C clears lit → seed0009 FAIL;
   Pri-loca-only SpLev_Map clear is the safe envelope.
+- D-0669: @203 C W/blank/& vs warn is telepathy (ESP), not nv_range;
+  ghost physical glyph is `' '`; zombies mindless → still Warning.
 
 ## Landmarks (≤15)
 
@@ -80,7 +83,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 267; @203 Pri-loca 27 W-vs-warn cells.
+- Quest: seed0367 RNG FULL Scr 291; @209 lava peel next.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
