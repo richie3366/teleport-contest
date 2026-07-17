@@ -4,33 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0638 — intemple + check_special_room TEMPLE (seed0367 @3282; partial)
+## D-0639 — teleds must not pre-set u.urooms before spoteffects (seed0367 @3282)
 
-- **Status:** partial
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @3282 — C `rn2(4)` @ `intemple` vs
+  JS `rn2(12)` @ `mcalcmove` after controlled `^T` into Pri-strt TEMPLE.
+- **Cause (proved):** Session arrives via level-tele outside temple, then
+  `^T`/`teleds` into TEMPLE. JS `teleds` permanently set `u.urooms =
+  in_rooms(dest)` before `spoteffects`→`move_update`, so `urooms0`
+  already contained the temple char and `uentered` stayed empty —
+  `intemple` never ran. C only temporarily fakes `urooms` for
+  `vault_guard`, then restores before `spoteffects`.
+- **Rejected:** missing MAGIC_PORTAL / arrival `u_on_rndspot` alone
+  (portal exists in `level.traps`; @3282 is post-`^T`, not arrival);
+  missing `intemple` body (D-0638 wiring was necessary but insufficient).
+- **C locus:** `teleport.c` `teleds` vault_guard save/restore +
+  `spoteffects(TRUE)`; `hack.c` `move_update` / `check_special_room`.
+- **Change:** `js/teleport.js` — remove premature `u.urooms` assign;
+  let `spoteffects`→`move_update` detect TEMPLE entry (D-0639).
+- **Verification:** seed0367 prefix **3282→3310** (runner RNG
+  **3329→3347**, Scr **167**/324); green+strict PASS; cohort 10/10 PASS
+  (incl. seed0361/0373/0116/5006).
+- **Named omission:** vault_guard `uleftvault` temporary urooms arm;
+  Pri-strt levregion flip before `place_branch`; `mapseen_temple`.
+- **Next:** seed0367 @3310 C nhlib `shuffle` vs JS `rn2(5)`.
+
+## D-0638 — intemple + check_special_room TEMPLE (seed0367 @3282)
+
+- **Status:** fixed (prerequisite; peel completed by D-0639)
 - **Symptom:** seed0367 first mismatch @3282 — C `rn2(4)` @ `intemple` vs
   JS `rn2(12)` @ `mcalcmove`; Scr **167**/324; suite #710 **34/44**.
-- **Cause (proved):** JS never invoked `intemple` on quest arrival.
-  (1) `goto_level` omitted C's post-arrival `check_special_room(FALSE)`.
-  (2) Even after wiring, Pri-strt has no `MAGIC_PORTAL`, so portal arm
-  falls to `u_on_rndspot` and hero sits at (72,16) **outside** TEMPLE
-  (45–54,6–13) when `on_start` shuffle finishes — C then takes untended
-  `intemple`, JS goes straight to `mcalcmove`.
-- **Rejected:** missing `intemple` body alone (body now present; still
-  no entry); `temple_occupied` early-return; roomno not stamped (cells
-  in temple bounds have `roomno=3`).
-- **C locus:** `priest.c` `intemple` / `findpriest` / `temple_occupied`;
-  `hack.c` `check_special_room` TEMPLE; `do.c` `goto_level` leave/arrive
-  `check_special_room`.
-- **Change:** `js/priest.js` (new) `intemple`+helpers; `js/hack.js`
-  TEMPLE → `intemple`; `js/do.js` leave `check_special_room(true)` +
-  arrive `check_special_room(false)`.
-- **Verification:** green+strict PASS; seed0367 prefix still **3282**;
-  #710 full suite **34/44** Scr **6918** RNG **418252**.
-- **Named omission:** Pri-strt branch/`MAGIC_PORTAL` placement;
-  `mapseen_temple`; `Is_sanctum`; other special-room entry plines;
-  `forget_temple_entry` / `priest_talk`.
-- **Next:** place `MAGIC_PORTAL` (or correct arrival) so hero is in
-  TEMPLE when `check_special_room` runs after `on_start`.
+- **Cause (proved):** `goto_level` omitted C's post-arrival
+  `check_special_room(FALSE)` and TEMPLE→`intemple` dispatch. After
+  wiring, @3282 remained until D-0639 (`teleds` urooms).
+- **C locus:** `priest.c` `intemple`; `hack.c` `check_special_room`;
+  `do.c` `goto_level` leave/arrive `check_special_room`.
+- **Change:** `js/priest.js` `intemple`+helpers; `js/hack.js` TEMPLE;
+  `js/do.js` leave/arrive `check_special_room`.
+- **Verification:** green+strict; completed by D-0639 @3282→3310.
+- **Next:** D-0639.
 
 ## D-0637 — Pri-strt load_special + Arch Priest quest role kit (seed0367 @2336)
 

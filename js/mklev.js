@@ -1527,6 +1527,9 @@ function load_pri_strt() {
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
     // des.levregion({ region={05,04,05,04}, type="branch" })
+    // Place after flip at pre-flip map offsets (same Bar-strt shortcut;
+    // flip_level lregion coord update named omission — portal lands at
+    // unflipped (mx+5,my+4) which is still ROOM after both flips).
     place_lregion(
         mx + 5, my + 4, mx + 5, my + 4,
         0, 0, 0, 0, LR_BRANCH, null,

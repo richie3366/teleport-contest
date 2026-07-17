@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 14:45 — #711 D-0639 teleds urooms / intemple
+- Objective: seed0367 @3282 intemple after D-0638 wiring.
+- C locus: teleport.c teleds vault_guard save/restore + spoteffects;
+  hack.c move_update / check_special_room.
+- Change: js/teleport.js — stop pre-setting u.urooms before spoteffects
+  so ^T into TEMPLE sets uentered → intemple (D-0639). D-0638 marked fixed.
+- Verification: seed0367 @3282→3310 (RNG 3347); green+strict PASS;
+  cohort 10/10 PASS.
+- Next: seed0367 @3310 nhlib shuffle vs rn2(5).
+
 ## 2026-07-17 14:35 — #710 score 34/44 + D-0638 intemple partial
 - Objective: mandatory #710 full `sessions` score; seed0367 @3282 intemple.
 - C locus: priest.c intemple; hack.c check_special_room TEMPLE; do.c
@@ -162,15 +172,3 @@ Use this shape:
   `cmap_defsym_explanation` + `waterbody_name`.
 - Verification: Scr **309→327**/366; green+strict PASS; cohort 33/33.
 - Next: seed0361 @182 adjust?/dialogue vs zap; or Pri-strt.
-
-
-## 2026-07-17 13:05 — #696 D-0625 Arc QUEST_FIRSTTIME
-- Objective: seed0361 screen peel (RNG full; Scr 306).
-- C locus: `dat/quest.lua` Arc `firsttime`; `quest.c` `on_start`.
-- Change: add Arc body to `QUEST_FIRSTTIME` (`%H` homebase). Missing
-  text caused early return → no `flush_topl_more` → space stolen.
-- Verification: Scr **306→309**/366 (147–153 match); green+strict PASS;
-  cohort 31/31 PASS.
-- Next: seed0361 @154 getpos farlook unexplored vs floor; or Pri-strt.
-
-
