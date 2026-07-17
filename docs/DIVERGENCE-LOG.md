@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0604 — pri_move altar mill (@13719)
+
+- **Status:** fixed (partial — next find_montype/sp_lev @13839)
+- **Symptom:** seed0361 @13719 — C `rn2(3) @ pri_move` vs JS `rn2(5)`
+  (`distfleeck` on next mon).
+- **Cause:** `pri_move` was a stay-put stub; peaceful temple priests never
+  consumed `rn1(3,-1)×2` altar-mill RNG before `move_special`.
+- **C locus:** `priest.c` `pri_move` / `histemple_at`; `monmove.c` `m_move`
+  ispriest dispatch.
+- **Change:** `js/shk.js` — port `histemple_at` + `pri_move` (mill, Conflict
+  chase/`mattacku`, Invis avoid); `js/monmove.js` `await pri_move`.
+- **Verification:** prefix **13719→13839** Scr **215** RNG **13889**;
+  green+strict PASS; cohort **33/33** PASS.
+- **Named omission:** `inhistemple`/`has_shrine`; `intemple` greetings;
+  `m_break_boulder` / `m_move_aggress` in `move_special`.
+- **Next:** seed0361 @13839 C `find_montype` vs JS `rn2(26)`; or Pri-strt.
+
 ## D-0603 — MS_PRIEST m_initweap / m_initinv (@12294)
 
 - **Status:** fixed (partial — next `pri_move` @13719)

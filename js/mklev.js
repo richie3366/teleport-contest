@@ -5082,7 +5082,7 @@ function p_coaligned(priest) {
  * C ref: priest.c priestini — place aligned/high cleric beside shrine,
  * fill epri, spellbooks, optional robe curse/uncurse.
  * Named omission: sanctum Amulet arm only when on sanctum_level (wired but
- * mktemple passes sanctum=FALSE); pri_move / intemple greetings deferred.
+ * mktemple passes sanctum=FALSE); intemple greetings deferred.
  */
 function priestini(lvl, sroom, sx, sy, sanctum) {
     const primNdx = sanctum ? PM_HIGH_CLERIC : PM_ALIGNED_CLERIC;

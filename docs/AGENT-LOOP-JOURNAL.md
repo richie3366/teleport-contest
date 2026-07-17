@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 10:45 — #674 D-0604 pri_move altar mill
+- Objective: seed0361 @13719 C `rn2(3) @ pri_move` vs JS `rn2(5)`.
+- C locus: `priest.c` `pri_move` / `histemple_at`; `monmove.c` ispriest.
+- Change: port `histemple_at` + `pri_move` (rn1 mill, Conflict chase,
+  Invis avoid → `move_special`); `await pri_move` in `m_move`.
+- Verification: prefix **13719→13839** Scr **215** RNG **13889**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @13839 `find_montype` (sp_lev); or Pri-strt.
+
 ## 2026-07-17 10:41 — #673 D-0603 MS_PRIEST m_initweap/m_initinv
 - Objective: seed0361 @12294 C `next_ident` vs JS `rn2(75)`.
 - C locus: `makemon.c` `m_initweap`/`m_initinv` MS_PRIEST (ALIGNED/HIGH

@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#673 D-0603:** MS_PRIEST `m_initweap` (mace spe/curse) + `m_initinv`
-  (robe/cloak, shield, gold). seed0361 **12294→13719** Scr 215.
-  Next @13719 C `pri_move` vs JS ordinary monmove (`rn2(3)` vs `rn2(5)`).
+- **#674 D-0604:** `pri_move`/`histemple_at` + altar `rn1(3,-1)` mill.
+  seed0361 **13719→13839** Scr 215 RNG 13889.
+  Next @13839 C `find_montype` (`sp_lev.c`) vs JS `rn2(26)`.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0603 shipped; wear `[*?]`; stub `^V?`;
+- **Don’t:** reopen D-0474…D-0604 shipped; wear `[*?]`; stub `^V?`;
   empty wish ESC; skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban;
   TELE on occupied mon; skip `were_change`/`m_avoid_soko_push_loc`;
   `dlevel` in traptype_rnd; hardcode PARTISAN; skip LONG_WORM/S_MUMMY;
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0603 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0604 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
@@ -36,8 +36,7 @@ Objective/score live in `CURRENT.md`.
 - D-0601: niches/mimic/G_GONE shipped; @12288 cause was D-0602 wizard.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0603: @12294 was missing MS_PRIEST mace/invent, not rn2(75) itself.
-- D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
-- D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
+- D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 
 ## Landmarks (≤15)
 
@@ -58,6 +57,7 @@ Objective/score live in `CURRENT.md`.
 - Special rooms: `pick_room`/`mkzoo` (D-0592); COURT fill (D-0593);
   **`mktemple`/`priestini`/`newepri`** (D-0600); niches/mimic/G_GONE
   (D-0601); **`pick_room` wizard≡debug** (D-0602); **MS_PRIEST gear
-  (D-0603)**; `pri_move`/`intemple` + SWAMP deferred.
+  (D-0603)**; **`pri_move`/`histemple_at` (D-0604)**; `intemple` +
+  SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.

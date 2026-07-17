@@ -1121,7 +1121,7 @@ export async function m_move(mtmp, after) {
         let xm;
         if (mtmp.isshk) xm = await shk_move(mtmp);
         else if (mtmp.isgd) xm = await gd_move(mtmp);
-        else xm = pri_move(mtmp);
+        else xm = await pri_move(mtmp);
 
         if (xm === -2) return MMOVE_DIED;
         if (xm !== -1) {
