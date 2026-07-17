@@ -219,12 +219,12 @@ AD_MAP = {
     "AD_ENCH": 41,
     "AD_CORR": 42,
     "AD_POLY": 43,
-    "AD_TCKL": 44,
-    "AD_CURS": 45,
-    "AD_CNCL": 46,
-    "AD_RBRE": 47,
-    "AD_SAMU": 48,
-    "AD_SQUE": 49,
+    # C ref: monattk.h — sparse high codes (not contiguous after AD_POLY)
+    "AD_CLRC": 240,
+    "AD_SPEL": 241,
+    "AD_RBRE": 242,
+    "AD_SAMU": 252,
+    "AD_CURS": 253,
 }
 
 

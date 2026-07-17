@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0641 — extract AD_SPEL/CLRC + dochug undirected castmu (seed0367 @3332)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @3332 — C `rn2(7)` @
+  `choose_monster_spell(mcastu.c:111)` vs JS `rn2(10)` @ `m_move`.
+- **Cause (proved):** (1) `scripts/extract-monsters.py` `AD_MAP` omitted
+  `AD_CLRC`/`AD_SPEL` (and mis-numbered `AD_RBRE`/`AD_SAMU`/`AD_CURS`), so
+  every `AT_MAGC` spell slot extracted as `adtyp:0` and never matched
+  castmu's `AD_SPEL`/`AD_CLRC` gate. (2) JS `dochug` skipped C's
+  undirected `castmu(…, FALSE, FALSE)` before `m_move`.
+- **C locus:** `mcastu.c` `choose_monster_spell` / `castmu`;
+  `monmove.c` `dochug` PHASE THREE undirected cast; `monattk.h` sparse
+  adtyp codes.
+- **Change:** fix `AD_MAP` + regenerate `monsters_data.js`; add
+  `js/mcastu.js` (`choose_monster_spell` / undirected early-out
+  `castmu`); wire into `dochug` before `m_move`; export `AD_SPEL`/
+  `AD_CLRC`/`AD_RBRE`/`AD_SAMU`/`AD_CURS` in `const.js`.
+- **Verification:** seed0367 prefix **3332→3438** (runner RNG
+  **3365→3444**, Scr **169**/324); green+strict PASS; cohort **34/34**
+  PASS (incl. seed0361/0373/0116/5006/0106).
+- **Named omission:** `mcast_spell` effect bodies (cure/haste/
+  disappear/insects/directed attack); `cursetxt` rn2; `has_aggravatables`;
+  `mattacku` AT_MAGC → `castmu`/`buzzmu`.
+- **Next:** seed0367 @3438 C nhlib `shuffle` vs JS `rn2(79)` after
+  matching `getbones`.
+
 ## D-0640 — #chat domonnoise MS_LEADER → quest_chat (seed0367 @3310)
 
 - **Status:** fixed
