@@ -4,9 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0607 — minend-1 load_special (@21119)
+
+- **Status:** fixed (partial — next mkobj gemprob @21310)
+- **Symptom:** seed0361 @21119 — C nhlib `shuffle` / `splev_initlev` after
+  matched `makemaz` `rnd(3)=1` vs JS `place_lregion` `rn2(79)`.
+- **Cause:** `makemaz` picked `minend-1` (`rndlevs=3`) but
+  `load_special_proto` had no mines-end loader, so JS fell through while C
+  ran `dat/minend-1.lua`.
+- **C locus:** `dat/minend-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c`
+  `load_special` / `create_object` achievement / `create_monster` appear_as.
+- **Change:** `js/mklev.js` `load_minend_1` + dispatch — solidfill, centered
+  map, place shuffle, arrival irregular room, locked doors, upstair,
+  niche gems/mimics, mines_prize luckstone, random objs/traps/mons,
+  wallify/flip/fixup.
+- **Verification:** prefix **21119→21310** Scr **220→222** RNG
+  **21217→21466**; green+strict PASS; cohort 7/7 PASS.
+- **Next:** seed0361 @21310 C `rnd(1000)` @ `mkobj` vs JS `rnd(1002)`
+  (GEM `oclass_prob_totals` / `setgemprobs`); or Pri-strt / seed0014/0108.
+
 ## D-0606 — select_newcham_form + MAIL_DAEMON extract (@18684)
 
-- **Status:** fixed (partial — next special-level lua @21119)
+- **Status:** fixed (partial — continued as D-0607)
 - **Symptom:** seed0361 @18684 — C `rn2(7) @ select_newcham_form` vs JS
   `rn2(75)` (`m_initweap`); after vamp-only stub, also C `rn2(330)` vs JS
   `rn2(329)` on the humanoid/random arms.
@@ -23,8 +42,7 @@ to preserve, record it here.
 - **Verification:** prefix **18684→21119** Scr **215→220** RNG
   **18774→21217**; green+strict PASS; cohort 7/7 (1500/1800/0060/0398/
   0373/5006/0116) PASS.
-- **Next:** seed0361 @21119 C lua `shuffle` after `makemaz` vs JS
-  `place_lregion` (special level load); or Pri-strt / seed0014/0108.
+- **Next:** (superseded by D-0607) seed0361 @21119 minend-1 load.
 
 ## D-0605 — soko mimic boulder retry dead in C (@13839)
 

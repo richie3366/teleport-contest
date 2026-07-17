@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:10 — #677 D-0607 minend-1 load_special
+- Objective: seed0361 @21119 C nhlib shuffle after makemaz vs JS place_lregion.
+- C locus: `dat/minend-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
+- Change: `load_minend_1` + `load_special_proto` dispatch (map, niches,
+  mimics, mines_prize luckstone, random fill, wallify/flip/fixup).
+- Verification: prefix **21119→21310** Scr **222** RNG **21466**;
+  green+strict PASS; cohort 7/7 PASS.
+- Next: seed0361 @21310 mkobj GEM `oclass_prob_totals` 1000 vs 1002.
+
 ## 2026-07-17 11:00 — #676 D-0606 select_newcham_form + MAIL extract
 - Objective: seed0361 @18684 C `select_newcham_form` vs JS `rn2(75)`.
 - C locus: `mon.c` `select_newcham_form`/`accept_newcham_form`/`newcham`;

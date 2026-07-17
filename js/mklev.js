@@ -157,6 +157,18 @@ const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
 const RIN_LEVITATION = objectNames.indexOf('RIN_LEVITATION');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const POT_OBJECT_DETECTION = objectNames.indexOf('POT_OBJECT_DETECTION');
+const DIAMOND = objectNames.indexOf('DIAMOND');
+const EMERALD = objectNames.indexOf('EMERALD');
+const RUBY = objectNames.indexOf('RUBY');
+const AMETHYST = objectNames.indexOf('AMETHYST');
+const FLINT = objectNames.indexOf('FLINT');
+const TOUCHSTONE = objectNames.indexOf('TOUCHSTONE');
+const LOADSTONE = objectNames.indexOf('LOADSTONE');
+const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
+const WORTHLESS_VIOLET_GLASS = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
+const WORTHLESS_WHITE_GLASS = objectNames.indexOf('WORTHLESS_WHITE_GLASS');
+const WORTHLESS_GREEN_GLASS = objectNames.indexOf('WORTHLESS_GREEN_GLASS');
+const WORTHLESS_RED_GLASS = objectNames.indexOf('WORTHLESS_RED_GLASS');
 
 const XLIM = 4;
 const YLIM = 3;
@@ -644,9 +656,10 @@ function reset_xystart_size() {
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
  * Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca, soko1-1,
- * soko1-2, soko2-1, soko3-1, soko3-2, soko4-2, tower1, fire, air.
+ * soko1-2, soko2-1, soko3-1, soko3-2, soko4-2, tower1, fire, air,
+ * minend-1.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Arc-fila/filb/goal, Bar-goal, Pri-*); tower2/3;
+ * protos (Arc-fila/filb/goal, Bar-goal, Pri-*); minend-2/3; tower2/3;
  * water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -780,6 +793,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'air') {
         load_air();
+        return true;
+    }
+    if (protofile === 'minend-1') {
+        load_minend_1();
         return true;
     }
     return false;
@@ -2956,6 +2973,203 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/minend-1.lua via load_special — Mimic of the Mines.
+ * Named omissions: minend-2/3; ensure_way_out; link_doors_rooms full scan;
+ * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
+ */
+function load_minend_1() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const MINEND1_MAP = `
+------------------------------------------------------------------   ------
+|                        |.......|     |.......-...|       |.....|.       |
+|    ---------        ----.......-------...........|       ---...-S-      |
+|    |.......|        |..........................-S-      --.......|      |
+|    |......-------   ---........................|.       |.......--      |
+|    |..--........-----..........................|.       -.-..----       |
+|    --..--.-----........-.....................---        --..--          |
+|     --..--..| -----------..................---.----------..--           |
+|      |...--.|    |..S...S..............---................--            |
+|     ----..-----  ------------........--- ------------...---             |
+|     |.........--            ----------              ---...-- -----      |
+|    --.....---..--                           --------  --...---...--     |
+| ----..-..-- --..---------------------      --......--  ---........|     |
+|--....-----   --..-..................---    |........|    |.......--     |
+|.......|       --......................S..  --......--    ---..----      |
+|--.--.--        ----.................---     ------..------...--         |
+| |....S..          |...............-..|         ..S...........|          |
+--------            --------------------           ------------------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(MINEND1_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // local place = {…}; shuffle(place) — Lua 1-based; place[6] unused
+    const place = [
+        [8, 16], [13, 7], [21, 8], [41, 14], [50, 4], [50, 16], [66, 1],
+    ];
+    nhlib_shuffle(place);
+
+    // des.region arrival_room irregular ordinary lit=0
+    {
+        const dx1 = mx + 26;
+        const dy1 = my + 1;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = g.level.nroom + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+            flood_fill_rm(dx1, dy1, rmno, false, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, OROOM, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = 0;
+            }
+        }
+    }
+    // des.region(selection.area(...), "unlit") — lighting only (no grow)
+    const setUnlit = (x1, y1, x2, y2) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = false;
+            }
+        }
+    };
+    setUnlit(20, 8, 21, 8);
+    setUnlit(23, 8, 25, 8);
+
+    // des.door("locked", …) — map 'S' → SDOOR; set D_LOCKED
+    const meDoor = (rx, ry) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_LOCKED;
+        loc.flags = D_LOCKED;
+    };
+    meDoor(7, 16);
+    meDoor(22, 8);
+    meDoor(26, 8);
+    meDoor(40, 14);
+    meDoor(50, 3);
+    meDoor(51, 16);
+    meDoor(66, 2);
+
+    // des.stair("up", 36,04)
+    mkstairs(mx + 36, my + 4, 1, null);
+
+    // des.non_diggable(selection.area(00,00,74,17))
+    for (let y = my; y <= my + 17 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 74 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    const placeObj = (otyp, rx, ry, buc) => {
+        if (otyp < 0) return null;
+        const otmp = mksobj_at(otyp, mx + rx, my + ry, true, true);
+        if (!otmp) return null;
+        if (buc === 'not-cursed') uncurse(otmp);
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+        return otmp;
+    };
+    const placeMimicAs = (otyp, rx, ry) => {
+        induced_align(80);
+        const pm = mkclass('S_MIMIC', G_NOGEN);
+        let x = mx + rx;
+        let y = my + ry;
+        ({ x, y } = splev_resolve_occupied(x, y, pm));
+        const mtmp = makemon(pm, x, y, 0);
+        if (!mtmp) return null;
+        mtmp.m_ap_type = M_AP_OBJECT;
+        mtmp.mappearance = otyp;
+        return mtmp;
+    };
+
+    // niches — Lua place[7]/1..5]; place[6] empty
+    const p7 = place[6];
+    const p1 = place[0];
+    const p2 = place[1];
+    const p3 = place[2];
+    const p4 = place[3];
+    const p5 = place[4];
+    placeObj(DIAMOND, p7[0], p7[1]);
+    placeObj(EMERALD, p7[0], p7[1]);
+    placeObj(WORTHLESS_VIOLET_GLASS, p7[0], p7[1]);
+    placeMimicAs(LUCKSTONE, p7[0], p7[1]);
+    placeObj(WORTHLESS_WHITE_GLASS, p1[0], p1[1]);
+    placeObj(EMERALD, p1[0], p1[1]);
+    placeObj(AMETHYST, p1[0], p1[1]);
+    placeMimicAs(LOADSTONE, p1[0], p1[1]);
+    placeObj(DIAMOND, p2[0], p2[1]);
+    placeObj(WORTHLESS_GREEN_GLASS, p2[0], p2[1]);
+    placeObj(AMETHYST, p2[0], p2[1]);
+    placeMimicAs(FLINT, p2[0], p2[1]);
+    placeObj(WORTHLESS_WHITE_GLASS, p3[0], p3[1]);
+    placeObj(EMERALD, p3[0], p3[1]);
+    placeObj(WORTHLESS_VIOLET_GLASS, p3[0], p3[1]);
+    placeMimicAs(TOUCHSTONE, p3[0], p3[1]);
+    placeObj(WORTHLESS_RED_GLASS, p4[0], p4[1]);
+    placeObj(RUBY, p4[0], p4[1]);
+    placeObj(LOADSTONE, p4[0], p4[1]);
+    placeObj(RUBY, p5[0], p5[1]);
+    placeObj(WORTHLESS_RED_GLASS, p5[0], p5[1]);
+    {
+        const otmp = placeObj(LUCKSTONE, p5[0], p5[1], 'not-cursed');
+        // C create_object achievement on mine end → achieveo mines_prize
+        if (otmp) {
+            if (!g.context) g.context = {};
+            if (!g.context.achieveo) g.context.achieveo = {};
+            const ao = g.context.achieveo;
+            if (!ao.mines_prize_oid) {
+                ao.mines_prize_oid = otmp.o_id;
+                ao.mines_prize_otyp = otmp.otyp;
+                otmp.nomerge = 1;
+            }
+        }
+    }
+
+    for (let i = 0; i < 7; i++) splev_create_object(GEM_CLASS);
+    for (let i = 0; i < 2; i++) splev_create_object(WEAPON_CLASS);
+    for (let i = 0; i < 3; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    splev_create_monster('gnome king');
+    for (let i = 0; i < 3; i++) splev_create_monster('gnome lord');
+    for (let i = 0; i < 2; i++) splev_create_monster('gnomish wizard');
+    for (let i = 0; i < 9; i++) splev_create_monster('gnome');
+    for (let i = 0; i < 2; i++) splev_create_monster('hobbit');
+    for (let i = 0; i < 3; i++) splev_create_monster('dwarf');
+    splev_create_monster('h');
+
+    // C load_special: wallification → flip → fixup (no solidify/premap)
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

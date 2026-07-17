@@ -24,8 +24,9 @@ focused session.
 Score last measured: **2026-07-17** — full `sessions` suite (loop **#675**),
 post D-0605 (soko mimic boulder retry). Screens **6607**/11405; RNG
 **374489**/792838 (47.23%). **33/44** PASS. Δ vs #670: Scr **+10**, RNG
-**+6400**, PASS unchanged. (seed0361 later peeled D-0606 → prefix
-**21119**, Scr **220**, RNG **21217** — full-suite refresh due at #680.)
+**+6400**, PASS unchanged. (seed0361 later peeled D-0606→D-0607 →
+prefix **21310**, Scr **222**, RNG **21466** — full-suite refresh due
+at #680.)
 
 ## Score
 
@@ -48,7 +49,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 21217/53865 | 220/366 | next @21119 lua shuffle / splev |
+| seed0361 | 21466/53865 | 222/366 | next @21310 mkobj gemprob |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -73,12 +74,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @21119 — D-0606 shipped `select_newcham_form`
-+ `MAIL_DAEMON` extract (prefix **18684→21119**, Scr **220**, RNG
-**21217**). Next C lua `shuffle`/`splev_initlev` after `makemaz` vs JS
-still in `place_lregion` (special level load). Or seed0367 `Pri-strt`
+**Gameplay next:** seed0361 @21310 — D-0607 shipped `minend-1`
+(prefix **21119→21310**, Scr **222**, RNG **21466**). Next C
+`rnd(1000)` @ `mkobj` vs JS `rnd(1002)` — GEM `oclass_prob_totals` /
+`setgemprobs` after mines-end gem objects. Or seed0367 `Pri-strt`
 (~@2053), or seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0606 shipped.
+do not reopen D-0474…D-0607 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
