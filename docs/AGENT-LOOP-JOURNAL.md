@@ -18,6 +18,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 09:20 — #664 D-0595 maybe_spin_web
+- Objective: seed0361 `maybe_spin_web` @7844 (PRIMARY).
+- C locus: `monmove.c` `maybe_spin_web` / `holds_up_web` /
+  `count_webbing_walls` / `soko_allow_web`; `mondata.h` `webmaker`;
+  `trap.c` `count_traps`.
+- Change: ported spider web spin postmov (`rn2(1000)<prob`) + helpers;
+  `webmaker` in `m_harmless_trap` WEB arm.
+- Verification: prefix 7844→7924; RNG 8126→8215 Scr 180→181;
+  green+strict PASS; cohort 33/33 PASS.
+- Next: seed0361 `doopen_indir` @7924; or Pri-strt seed0367.
+
 ## 2026-07-17 09:15 — #663 D-0594 portal landing
 - Objective: seed0361 dosounds/nsinks @7837 (PRIMARY).
 - C locus: `mkmaze.c` `mkportal`; `mklev.c` `place_branch`; `do.c` portal arm.
@@ -136,22 +147,3 @@ Use this shape:
 - Verification: seed0116 Scr **115→116**/127 RNG FULL; green+strict
   PASS; cohort **30**/30 PASS.
 - Next: seed0116 @114 materialize map `` ` `` vs `·` (32,13).
-## 2026-07-17 00:46 — #650 formal score refresh
-- Objective: mandatory #650 full `sessions` score (÷5 cadence).
-- C locus: n/a (score-only; no port patch).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-- Verification: green+strict PASS; full suite **32/44**, Scr
-  **6535**/11405, RNG **359063**/792838 (45.29%), `33+0.15/turn`
-  (R² 0.755). Δ vs #645: Scr **+21**, RNG 0, PASS **31→32**
-  (D-0580…D-0583 / seed5006 PASS).
-- Next: seed0116 Scr 115/127; or leaderboard gap.
-## 2026-07-17 00:45 — #649 D-0583 getbones leave-level gbuf
-- Objective: seed5006 @198/@199 Get bones? map glyphs (CURRENT primary).
-- C locus: vision.c vision_recalc(2); bones.c getbones yn flush;
-  do.c goto_level vs flush_screen(-1) postpone.
-- Change: snapshot pre-leave viz; on Get bones? run
-  vision_off_newsym_gbuf on stashed leave-level + paint dirty gnew
-  cells to Terminal. Ordinary vision_recalc(2) still skips newsym loop.
-- Verification: seed5006 Scr **247→249**/249 RNG FULL PASS;
-  green+strict PASS; cohort **29**/29 PASS; seed0116 115/127 held.
-- Next: seed0116 Scr 115/127; or leaderboard gap / full suite score.

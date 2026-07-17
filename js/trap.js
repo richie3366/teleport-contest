@@ -25,7 +25,7 @@ import {
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
     amorphous, unsolid, is_whirly, breathless, MZ_SMALL, MZ_HUGE,
-    likes_gems, mons,
+    likes_gems, mons, webmaker,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
@@ -158,9 +158,9 @@ export const NO_TRAP_FLAGS = 0;
 /**
  * C ref: trap.c m_harmless_trap — whether mfndpos may ignore this trap.
  * Envelope: STATUE/MAGIC/VIBRATING always; BEAR_TRAP/WEB size·amorph·whirly·
- * unsolid; RUST except iron golem; PIT/HOLE clinger (non-Sokoban).
+ * unsolid·webmaker; RUST except iron golem; PIT/HOLE clinger (non-Sokoban).
  * Named omission: flyer/Sokoban `check_in_air` preamble; sleep/fire/anti-magic
- * resists; webmaker; defended().
+ * resists; defended().
  */
 export function m_harmless_trap(mtmp, ttmp) {
     if (!ttmp) return true;
@@ -177,8 +177,10 @@ export function m_harmless_trap(mtmp, ttmp) {
         }
         return false;
     case WEB:
-        if (amorphous(mdat) || is_whirly(mdat) || unsolid(mdat)) return true;
-        // webmaker deferred
+        if (amorphous(mdat) || is_whirly(mdat) || unsolid(mdat)
+            || webmaker(mdat)) {
+            return true;
+        }
         return false;
     case RUST_TRAP:
         // C: only iron golem is harmed
@@ -460,6 +462,17 @@ export function t_at(x, y) {
         if (t && t.tx === x && t.ty === y) return t;
     }
     return null;
+}
+
+/** C ref: trap.c count_traps — number of traps of type ttyp on this level. */
+export function count_traps(ttyp) {
+    let ret = 0;
+    const traps = game.level?.traps;
+    if (!traps) return 0;
+    for (const t of traps) {
+        if (t && (t.ttyp | 0) === (ttyp | 0)) ret++;
+    }
+    return ret;
 }
 
 // C ref: trap.c t_missile() — single arrow/dart/rock for a trap

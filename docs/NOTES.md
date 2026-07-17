@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#663 D-0594:** seed0361 portal landing done — prefix **7837→7844**,
-  runner RNG **7974→8126**, Scr **178→180**. Next @7844: C
-  `rn2(1000) @ maybe_spin_web` vs JS `rn2(5)`. Hypothesis: JS missing
-  spider `maybe_spin_web` gate while C rolls it — falsify by comparing
-  adjacent mon data / `mlet` at that fleeck turn.
+- **#664 D-0595:** seed0361 `maybe_spin_web` done — prefix **7844→7924**,
+  runner RNG **8126→8215**, Scr **180→181**. Next @7924: C
+  `rnl(20) @ doopen_indir` vs JS `rn2(38)`. Hypothesis: JS missing
+  lock/open success path (or wrong door state) so a different monmove
+  burns `rn2(38)` — falsify with key map at that step + door mask.
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361 `maybe_spin_web` @7844; or seed0367
+- **Gameplay next:** seed0361 `doopen_indir` @7924; or seed0367
   `Pri-strt` (~@2053); seed0014/0108. Prefer over parked D-0006 /
   seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0594; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0595; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -53,13 +53,14 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0594 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0595 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
 - D-0592: @5483 was stubbed COURT `do_mkroom`, **not** `nroom` drift.
 - D-0593: @5859 was missing COURT `fill_zoo` throne/`courtmon`/chest.
 - D-0594: @7837 was portal landing (stale ux/uy), **not** nsinks==0.
+- D-0595: @7844 was deferred `maybe_spin_web`, **not** wrong fleeck arity.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
@@ -87,3 +88,4 @@ Objective/score live in `CURRENT.md`.
 - Special rooms: `pick_room`/`mkzoo` via `do_mkroom` (D-0592).
 - COURT fill: `somexyspace`+`mk_zoo_thronemon`+`courtmon`+chest (D-0593).
 - Portal branch: `mkportal` + `goto_level` MAGIC_PORTAL land (D-0594).
+- Spider web: `postmov` `maybe_spin_web` `rn2(1000)` (D-0595).

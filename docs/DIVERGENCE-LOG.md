@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0595 — postmov maybe_spin_web + webmaker
+
+- **Status:** fixed (partial — shop `add_damage`; y_monnam/something
+  pline polish still deferred)
+- **Symptom:** seed0361 @7844 — C `rn2(1000) @ maybe_spin_web` vs JS
+  `rn2(5)` (`distfleeck` on next mon).
+- **Cause:** JS `postmov` stubbed `maybe_spin_web` entirely, so a
+  cave/giant spider that passed the C gate never burned `rn2(1000)`.
+- **C locus:** `monmove.c` `maybe_spin_web` / `holds_up_web` /
+  `count_webbing_walls` / `soko_allow_web`; `mondata.h` `webmaker`;
+  `trap.c` `count_traps`.
+- **Change:** `js/monsters.js` — `webmaker`; `js/trap.js` —
+  `count_traps` + WEB `m_harmless_trap` webmaker; `js/monmove.js` —
+  port helpers + `await maybe_spin_web` before hides_under.
+- **Verification:** seed0361 prefix **7844→7924** (runner RNG
+  **8126→8215**, Scr **180→181**); green+strict PASS; cohort 33/33 PASS.
+  Next @7924 `doopen_indir` `rnl(20)` vs JS `rn2(38)`.
+- **Named omission:** shop `add_damage` after spin; fancy pline naming.
+- **Next:** seed0361 `doopen_indir` @7924; or Pri-strt seed0367.
+
 ## D-0594 — place_branch mkportal + goto_level portal arm
 
 - **Status:** fixed (partial — debug_fuzzer `ucamefrom` mkportal dest;
