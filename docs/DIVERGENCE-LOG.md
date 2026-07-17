@@ -6,6 +6,22 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0621 — bigrm-7 load_special (@46893)
+
+- **Status:** fixed (partial — next @53705 restrap)
+- **Symptom:** seed0361 @46893 — C nhlib `shuffle` `rn2(3)` after matched
+  `makemaz` `rnd(13)=7` vs JS `rn2(79)` (empty-maze mineralize).
+- **Cause:** `load_special_proto` had loaders for `bigrm-2`/`bigrm-8` only.
+  Proto `bigrm-7` fell through → no nhl shuffle / replace_terrain RNG.
+- **C locus:** `dat/bigrm-7.lua`; `mkmaze.c` `makemaz`; `sp_lev.c`
+  `load_special` / `replace_terrain` / `flip_level_rnd`.
+- **Change:** `js/mklev.js` — `load_bigrm_7` + dispatch (map, L→{L,T,{,.}
+  replace, lit region, stairs, nondig, 15/6/28 fill, wallify+flip+fixup).
+- **Verification:** prefix **46893→53705** Scr **296**/366 RNG
+  **53734**/53865; green+strict PASS; cohort **33/33** PASS.
+- **Next:** @53705 C `restrap` `rn2(3)` vs JS `getlev` `rnd(10)`; or
+  Pri-strt / seed0014/0108.
+
 ## D-0620 — on_goal goal_first nhl shuffle (@42649)
 
 - **Status:** fixed (partial — next @46893 bigrm-7)

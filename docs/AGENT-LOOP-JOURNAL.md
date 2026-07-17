@@ -19,6 +19,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:41 — #692 D-0621 bigrm-7 load_special
+- Objective: seed0361 @46893 C nhl shuffle after makemaz rnd(13)=7.
+- C locus: `dat/bigrm-7.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
+- Change: `load_bigrm_7` + dispatch (map, L→{L,T,{,.} replace, lit,
+  stairs, nondig, 15/6/28 fill, wallify+flip+fixup).
+- Verification: prefix **46893→53705** Scr **296** RNG **53734**/53865;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @53705 `restrap` vs getlev; or Pri-strt.
+
 ## 2026-07-17 12:40 — #691 D-0620 on_goal goal_first
 - Objective: seed0361 @42649 C nhl shuffle after Arc-goal place_lregion.
 - C locus: `quest.c` `on_goal`/`onquest`; `questpgr.c` `qt_pager`;
@@ -149,13 +158,3 @@ Use this shape:
 - Verification: prefix **21310→21974** Scr **224** RNG **22135**;
   green+strict PASS; cohort 7/7 PASS.
 - Next: seed0361 @21974 `mattacku` `rnd(4)` vs `distfleeck` `rn2(5)`.
-
-## 2026-07-17 11:10 — #677 D-0607 minend-1 load_special
-- Objective: seed0361 @21119 C nhlib shuffle after makemaz vs JS place_lregion.
-- C locus: `dat/minend-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
-- Change: `load_minend_1` + `load_special_proto` dispatch (map, niches,
-  mimics, mines_prize luckstone, random fill, wallify/flip/fixup).
-- Verification: prefix **21119→21310** Scr **222** RNG **21466**;
-  green+strict PASS; cohort 7/7 PASS.
-- Next: seed0361 @21310 mkobj GEM `oclass_prob_totals` 1000 vs 1002.
-

@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 46893/53865 | 296/366 | @46893 bigrm-7 nhl shuffle (post D-0620) |
+| seed0361 | 53734/53865 | 296/366 | @53705 restrap vs getlev (post D-0621) |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @46893 — C `bigrm-7` nhl shuffle after matched
-`makemaz` `rnd(13)` vs JS `rn2(79)` (post D-0620 on_goal; Home→Dungeon
-bigroom). Or seed0367 `Pri-strt`, seed0014/0108. Prefer over parked
-D-0006 / seed2200 RC; do not reopen D-0474…D-0620.
+**Gameplay next:** seed0361 @53705 — C `restrap` `rn2(3)` during `getlev`
+vs JS still `getlev` `rnd(10)` (post D-0621 bigrm-7). Or seed0367
+`Pri-strt`, seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
+do not reopen D-0474…D-0621.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

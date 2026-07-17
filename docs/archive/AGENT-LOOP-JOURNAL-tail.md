@@ -1,3 +1,13 @@
+## 2026-07-17 11:10 — #677 D-0607 minend-1 load_special
+- Objective: seed0361 @21119 C nhlib shuffle after makemaz vs JS place_lregion.
+- C locus: `dat/minend-1.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
+- Change: `load_minend_1` + `load_special_proto` dispatch (map, niches,
+  mimics, mines_prize luckstone, random fill, wallify/flip/fixup).
+- Verification: prefix **21119→21310** Scr **222** RNG **21466**;
+  green+strict PASS; cohort 7/7 PASS.
+- Next: seed0361 @21310 mkobj GEM `oclass_prob_totals` 1000 vs 1002.
+
+
 ## 2026-07-16 20:35 — #613 D-0553 m_initinv S_GIANT
 - Objective: seed0373 @30308 S_GIANT invent vs trailing rn2(50)
 - C locus: makemon.c m_initinv case S_GIANT; mondata.h is_giant
