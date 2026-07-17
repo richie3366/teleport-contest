@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 16:20 — #722 D-0650 quest_portal com_pager
+- Objective: seed0367 @26688 C nhlib shuffle rn2(2) vs JS rnd(4).
+- C locus: do.c goto_level quest_portal arm; dungeon.c at_dgn_entrance;
+  questpgr.c com_pager; quest.lua common.quest_portal*.
+- Change: port at_dgn_entrance + com_pager(quest_portal*) in goto_level
+  else-arm (D-0650). Was missing nhl_init after arriving on Quest
+  entrance / bigrm level.
+- Verification: @26688→26691 (RNG 26698, Scr 170); green+strict PASS;
+  cohort 34/34 prior-PASS.
+- Next: @26691 medusa-1 load_special (makemaz rnd(4)=1).
+
 ## 2026-07-17 16:10 — #721 D-0649 S_ANGEL m_initweap
 - Objective: seed0367 @26229 C m_initweap rn2(3) vs JS rn2(75).
 - C locus: makemon.c m_initweap case S_ANGEL (~330–360); do_name.c oname.
@@ -143,12 +154,3 @@ Use this shape:
 - Verification: prefix **2336→3282**; Scr 167; green+strict PASS;
   cohort 34/34 prior-PASS.
 - Next: seed0367 @3282 intemple rn2(4) vs rn2(12).
-## 2026-07-17 14:16 — #708 D-0636 blue DSM Very_fast
-- Objective: seed0367 @2331 C u_calc_moveamt rn2(3) vs JS dosounds rn2(400).
-- C locus: do_wear.c dragon_armor_handling/Armor_on; youprop.h Very_fast.
-- Change: dragon_armor_handling (blue→EFast) + Armor_on/off; Fast/Very_fast
-  read uprops[FAST]; confer_oc_oprop FAST→EFast mirror. Hypothesis "missing
-  u_calc_moveamt call" falsified — Very_fast false without blue DSM EFast.
-- Verification: prefix **2331→2336**; Scr **166→167**; green+strict PASS;
-  cohort 32/32 PASS.
-- Next: seed0367 @2336 getbones / nhlib shuffle vs rn2(79).

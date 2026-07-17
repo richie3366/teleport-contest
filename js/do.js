@@ -31,8 +31,9 @@ import {
     fumaroles,
     movebubbles,
 } from './mklev.js';
-import { In_tutorial } from './dungeon.js';
+import { In_tutorial, at_dgn_entrance } from './dungeon.js';
 import { Is_waterlevel, Is_airlevel } from './const.js';
+import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
 import { m_at, mnexto, hide_monst } from './mon.js';
@@ -48,10 +49,10 @@ import {
 } from './wield.js';
 import { objectNames } from './objects.js';
 import { more_experienced, newexplevel } from './exper.js';
-import { PM_TOURIST } from './generated/monsters_data.js';
+import { PM_TOURIST, PM_ROGUE } from './generated/monsters_data.js';
 import { dismount_steed } from './steed.js';
 import { onquest } from './quest.js';
-import { In_quest, In_endgame } from './const.js';
+import { In_quest, In_endgame, In_mines, In_sokoban } from './const.js';
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
 
@@ -310,6 +311,7 @@ async function selftouch_stair_fall(_arg) {
  * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs → vision/docrt →
  * pickup(1).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
+ * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Deferred: binary NHFILE, mysterious force, quest gate seal RMPORTAL, endgame
  * astral `final_level` / migrating-Wizard resurrect arm, trap-door fall
  * damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE, Gehennom valley plines,
@@ -606,6 +608,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (familiar) await familiar_level_msg();
     // C: if (In_endgame) { … else if (newdungeon && amulet) resurrect(); }
     //     else if (In_quest) onquest();
+    //     else if (Is_knox) … else if (In_mines) … else if (In_sokoban) …;
+    //     else { rogue/bigroom ACH; quest_portal com_pager }
     if (In_endgame(u.uz)) {
         // ACH_ENDG / astral final_level deferred
         if (newdungeon && (u.uhave?.amulet || u.uhave_amulet)) {
@@ -613,6 +617,26 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         }
     } else if (In_quest(u.uz)) {
         await onquest();
+    } else if (In_mines(u.uz) || In_sokoban(u.uz)) {
+        // ACH_MINE / ACH_SOKO deferred (no RNG)
+    } else {
+        // Is_knox alarm / Is_rogue_level / Is_bigroom ACH deferred
+        // C: main dungeon quest-entrance telepathy from leader
+        if (!In_quest(u.uz0) && at_dgn_entrance('The Quest')
+            && !(u.uevent?.qcompleted || u.uevent?.qexpelled
+                || game.quest_status?.leader_is_dead)) {
+            if (!u.uevent) u.uevent = {};
+            if (!u.uevent.qcalled) {
+                u.uevent.qcalled = 1;
+                await com_pager('quest_portal');
+            } else {
+                await com_pager(
+                    game.urole?.mnum === PM_ROGUE
+                        ? 'quest_portal_demand'
+                        : 'quest_portal_again',
+                );
+            }
+        }
     }
 
     // C: temperature_change_msg(prev_temperature) after special arrival

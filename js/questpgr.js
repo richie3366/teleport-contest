@@ -446,6 +446,42 @@ function convert_line(inLine) {
     return out;
 }
 
+/** C ref: quest.lua common.quest_portal* — leader telepathy at dungeon entrance. */
+const QUEST_COMMON = {
+    quest_portal: `You receive a faint telepathic message from %l:
+Your help is urgently needed at %H!
+Look for a ...ic transporter.
+You couldn't quite make out that last message.`,
+    quest_portal_again: 'You again sense %l pleading for help.',
+    quest_portal_demand: 'You again sense %l demanding your attendance.',
+};
+
+/**
+ * C ref: questpgr.c deliver after convert_line — pline vs NHW_TEXT.
+ */
+async function deliver_quest_text(raw) {
+    if (!raw) return;
+    const converted = convert_line(raw);
+    // C: BUFSZ is 256; long/default+newline → by_window
+    const useWindow = converted.includes('\n') || converted.length >= 255;
+    if (useWindow) {
+        await flush_topl_more();
+        await show_text_pages(converted.split('\n'));
+    } else {
+        await pline(converted);
+    }
+}
+
+/**
+ * C ref: questpgr.c com_pager(msgid) → com_pager_core("common", …).
+ * nhl_init shuffle then common questtext (quest_portal*).
+ * Named omissions: other common msgids; menu output; array rn2 picks.
+ */
+export async function com_pager(msgid) {
+    nhl_nhlib_align_shuffle();
+    await deliver_quest_text(QUEST_COMMON[msgid] || null);
+}
+
 /**
  * C ref: questpgr.c qt_pager / com_pager_core.
  * nhl_init → nhlib.lua shuffle(align) then load quest text + deliver.
@@ -481,17 +517,5 @@ export async function qt_pager(msgid) {
         raw = QUEST_GOAL_ALT[code] || QUEST_GOAL_NEXT[code] || null;
     }
     // Other msgid bodies deferred (C-JS-MAP)
-    if (!raw) return;
-
-    const converted = convert_line(raw);
-    // C: BUFSZ is 256; long/default+newline → by_window
-    const useWindow = converted.includes('\n') || converted.length >= 255;
-    if (useWindow) {
-        // C: display_nhwindow flushes pending WIN_MESSAGE NEED_MORE first
-        await flush_topl_more();
-        await show_text_pages(converted.split('\n'));
-    } else {
-        // C: deliver_by_pline — pline more()s pending materialize, then text
-        await pline(converted);
-    }
+    await deliver_quest_text(raw);
 }

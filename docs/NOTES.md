@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#721 D-0649:** seed0367 @26229→**26688**. Cause was deferred
-  **S_ANGEL** `m_initweap` (fell through to `rn2(75)`). Next: @26688 C
-  nhlib `shuffle` `rn2(2)` vs JS `rnd(4)` after matched place_lregion.
+- **#722 D-0650:** seed0367 @26688→**26691**. Cause was missing
+  `goto_level` `com_pager(quest_portal*)` at Quest dungeon entrance
+  (`at_dgn_entrance`). Next: @26691 C medusa-1 `load_special` shuffle
+  vs JS `place_lregion` (no medusa proto).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0649; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0650; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -47,13 +48,14 @@ Objective/score live in `CURRENT.md`.
   port `link_doors_rooms` into Pri-loca without new evidence;
   guess Pri-fila for @15172 (was Pri-goal); skip minetn-2 / forget
   `flip_level` sbrooms after nested rooms; skip bigrm-3 / invent
-  place_lregion for @19994; invent S_ANGEL for @26229 (was stub).
+  place_lregion for @19994; invent S_ANGEL for @26229 (was stub);
+  invent quest_portal for @26688 (was missing com_pager).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0649 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0650 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -61,14 +63,15 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…48: see INDEX; D-0642: @3438 was missing Pri-loca, not
+- D-0616…49: see INDEX; D-0642: @3438 was missing Pri-loca, not
   getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate;
   D-0644: @13882 was missing S_DEMON, not trailing rn2(50);
   D-0645: @15167 was eastern morgue hx 39→35, not place_lregion math;
   D-0646: @15172 was missing Pri-goal, not Pri-fila;
   D-0647: @17449 was missing minetn-2 (+ flip sbrooms), not place_lregion;
   D-0648: @19994 was missing bigrm-3, not place_lregion;
-  D-0649: @26229 was deferred S_ANGEL kit, not trailing rn2(75).
+  D-0649: @26229 was deferred S_ANGEL kit, not trailing rn2(75);
+  D-0650: @26688 was missing quest_portal com_pager, not broken shuffle.
 
 ## Landmarks (≤15)
 
@@ -86,13 +89,11 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0649: see INDEX; Pri-loca + MORGUE +
+- Quest landmarks through D-0650: see INDEX; Pri-loca + MORGUE +
   fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35 +
-  Pri-goal + minetn-2 + bigrm-3 + S_ANGEL humanoid; S_KOP / Pri-fila/
-  filb / minetn-1/3–7 deferred; next @26688 nhlib; eel hideunder /
-  I_SPECIAL deferred; SWAMP deferred; gold DSM halluc / red
-  see_monsters / arti_light deferred; mcast_spell bodies / mattacku
-  AT_MAGC deferred.
+  Pri-goal + minetn-2 + bigrm-3 + S_ANGEL + quest_portal; S_KOP /
+  Pri-fila/filb / minetn-1/3–7 / **medusa-N** deferred; next @26691
+  medusa-1; eel hideunder / I_SPECIAL deferred; SWAMP deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.

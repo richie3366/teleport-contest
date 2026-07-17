@@ -630,6 +630,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0647 | fixed | minetn-2 load_special + flip sbrooms | seed0367 @17449→19994; RNG 19999; next bigrm-3 @19994 |
 | D-0648 | fixed | bigrm-3 load_special + mapfrag match | seed0367 @19994→26229; RNG 26235; next m_initweap @26229 |
 | D-0649 | fixed | m_initweap S_ANGEL humanoid kit | seed0367 @26229→26688; RNG 26697; next nhlib @26688 |
+| D-0650 | fixed | goto_level quest_portal com_pager | seed0367 @26688→26691; RNG 26698; next medusa @26691 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

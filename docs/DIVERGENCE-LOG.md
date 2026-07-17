@@ -4,9 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0650 — goto_level quest_portal com_pager (seed0367 @26688)
+
+- **Status:** fixed (partial — next @26691 medusa load_special)
+- **Symptom:** seed0367 first mismatch @26688 — C nhlib `shuffle`
+  `rn2(2)` vs JS `makemaz` `rnd(4)` after matched `u_on_rndspot`
+  `place_lregion` on bigrm / Quest-entrance level.
+- **Cause:** `goto_level` omitted C’s main-dungeon arm
+  `!In_quest(uz0) && at_dgn_entrance("The Quest")` →
+  `com_pager("quest_portal"|"quest_portal_again")`, which
+  `nhl_init`s and burns `shuffle(align)` before the next level’s
+  `getbones`.
+- **C locus:** `do.c` goto_level (~1918–1931); `dungeon.c`
+  `at_dgn_entrance` / `dungeon_branch`; `questpgr.c` `com_pager`;
+  `dat/quest.lua` common.quest_portal*.
+- **Change:** `js/dungeon.js` `at_dgn_entrance`/`dungeon_branch`;
+  `js/questpgr.js` `com_pager` + common portal texts; `js/do.js`
+  goto_level else-arm.
+- **Verification:** seed0367 prefix **26688→26691** (runner RNG
+  **26697→26698**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** Is_knox alarm / Is_rogue / Is_bigroom ACH;
+  other common com_pager msgids; medusa-N loaders.
+- **Next:** seed0367 @26691 C nhlib shuffle (medusa-1 load) vs JS
+  `place_lregion` (missing medusa proto).
+
 ## D-0649 — m_initweap S_ANGEL humanoid kit (seed0367 @26229)
 
-- **Status:** fixed (partial — next @26688 nhlib shuffle)
+- **Status:** fixed (partial — continued D-0650)
 - **Symptom:** seed0367 first mismatch @26229 — C `m_initweap` `rn2(3)`
   vs JS trailing `rn2(75)` after matched `newmonhp` / `makemon` sleep.
 - **Cause:** `m_initweap` stubbed `S_ANGEL`/`S_KOP` together with an
