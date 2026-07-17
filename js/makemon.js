@@ -1904,6 +1904,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
 
     // C: ptr->msound == MS_LEADER && quest_info(MS_LEADER) == mndx
     const ldr = game.urole?.ldrnum ?? NON_PM;
+    const nem = game.urole?.neminum ?? NON_PM;
     if (ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0)) {
         if (!game.quest_status) game.quest_status = {};
         game.quest_status.leader_m_id = mtmp.m_id;
@@ -1914,6 +1915,11 @@ export function makemon(mdat, x, y, mmflags = 0) {
     const femaleok = !is_male(ptr) && !is_neuter(ptr);
     if (is_female(ptr)) mtmp.female = 1;
     else if (is_male(ptr)) mtmp.female = 0;
+    // C: MS_LEADER/MS_NEMESIS gender from role_init (quest_status)
+    else if (ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0))
+        mtmp.female = game.quest_status?.ldrgend | 0;
+    else if (nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0))
+        mtmp.female = game.quest_status?.nemgend | 0;
     else mtmp.female = femaleok ? rn2(2) : 0;
 
     mtmp.mpeaceful = peace_minded(ptr) ? 1 : 0;
@@ -1992,13 +1998,15 @@ export function makemon(mdat, x, y, mmflags = 0) {
             mtmp.msleeping = 1;
     }
 
-    // C ref: makemon.c — cham / Vlad candelabrum / Wizard iswiz / newcham.
-    // Named omissions: Croesus/nemesis/pestilence mitem; first-Wizard
+    // C ref: makemon.c — cham / Vlad candelabrum / Wizard iswiz / newcham /
+    // Croesus / MS_NEMESIS bell / Pestilence. Named omissions: first-Wizard
     // SPE_DIG on earth; Protection_from_shape_changers.
     let allow_minvent_local = allow_minvent;
     let mitem = -1; // STRANGE_OBJECT
     const PM_VLAD = pm('VLAD_THE_IMPALER');
     const PM_WIZ = pm('WIZARD_OF_YENDOR');
+    const PM_CROESUS = pm('CROESUS');
+    const PM_PESTILENCE = pm('PESTILENCE');
     if (ptr.mndx === PM_VLAD) mitem = otyp('CANDELABRUM_OF_INVOCATION');
     mtmp.cham = NON_PM;
     {
@@ -2016,6 +2024,13 @@ export function makemon(mdat, x, y, mmflags = 0) {
         if (!game.context) game.context = {};
         game.context.no_of_wizards = (game.context.no_of_wizards | 0) + 1;
         // SPE_DIG when first Wizard on earth — deferred (fire/air/water first)
+    } else if (ptr.mndx === PM_CROESUS) {
+        mitem = otyp('TWO_HANDED_SWORD');
+    } else if (nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0)) {
+        // C: ptr->msound == MS_NEMESIS (tables omit msound → urole.neminum)
+        mitem = otyp('BELL_OF_OPENING');
+    } else if (ptr.mndx === PM_PESTILENCE) {
+        mitem = otyp('POT_SICKNESS');
     }
     if (mitem >= 0 && allow_minvent_local) mongets(mtmp, mitem);
 

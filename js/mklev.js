@@ -31,7 +31,7 @@ import {
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
     A_LAWFUL, A_NONE, Align2amask, Amask2align, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC,
     AM_SHRINE, MM_EPRI, N_DIRS, W_ARMC, RLOC_NOMSG,
-    FILL_LVFLAGS, STRAT_WAITFORU, NON_PM,
+    FILL_LVFLAGS, STRAT_WAITFORU, NON_PM, ONAME_LEVEL_DEF,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
     LR_TELE, LR_UPTELE, LR_DOWNTELE,
     BR_PORTAL, BR_NO_END1, BR_NO_END2,
@@ -90,7 +90,7 @@ import {
     mon_learns_traps,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
-import { christen_monst } from './do_name.js';
+import { christen_monst, oname } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { find_level } from './dungeon.js';
 import { premap_detect } from './detect.js';
@@ -127,6 +127,7 @@ const BULLWHIP = objectNames.indexOf('BULLWHIP');
 const FOOD_RATION = objectNames.indexOf('FOOD_RATION');
 const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
+const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
 const DAGGER = objectNames.indexOf('DAGGER');
@@ -656,10 +657,10 @@ function reset_xystart_size() {
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
  * Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca, Arc-fila,
- * Arc-filb, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2, soko4-2, tower1,
- * fire, air, minend-1.
+ * Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2, soko4-2,
+ * tower1, fire, air, minend-1.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Arc-goal, Bar-goal, Pri-*); minend-2/3; tower2/3;
+ * protos (Bar-goal, Pri-*); minend-2/3; tower2/3;
  * water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -765,6 +766,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Arc-filb') {
         load_arc_filb();
+        return true;
+    }
+    if (protofile === 'Arc-goal') {
+        load_arc_goal();
         return true;
     }
     if (protofile === 'tower1') {
@@ -1236,7 +1241,7 @@ function load_bar_strt() {
 
 /**
  * C ref: dat/Arc-strt.lua via load_special — Archeologist quest start.
- * Named omissions: Arc-goal; spo_end_moninvent m_dowear;
+ * Named omissions: spo_end_moninvent m_dowear;
  * humidity-aware get_location for water-likers (eels use fixed moat).
  */
 function load_arc_strt() {
@@ -1438,7 +1443,7 @@ function load_arc_strt() {
 /**
  * C ref: dat/Arc-loca.lua via load_special — Archeologist quest locate.
  * Named omissions: humidity-aware get_location; selection.grow on
- * 2-arg lit regions; Arc-goal; spo_end_moninvent m_dowear.
+ * 2-arg lit regions; spo_end_moninvent m_dowear.
  */
 function load_arc_loca() {
     const g = game;
@@ -1650,6 +1655,166 @@ function load_arc_loca() {
     for (let i = 0; i < 18; i++) splev_create_monster('S');
     splev_create_monster('M');
     for (let i = 0; i < 7; i++) splev_create_monster('human mummy');
+    splev_create_monster('M');
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Arc-goal.lua via load_special — Archeologist quest goal.
+ * Named omissions: humidity-aware get_location; spo_end_moninvent
+ * m_dowear; fill_special_room TEMPLE flag-only path beyond has_temple.
+ */
+function load_arc_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const ARC_GOAL_MAP = `
+                                                                            
+                                  ---------                                 
+                                  |..|.|..|                                 
+                       -----------|..S.S..|-----------                      
+                       |.|........|+-|.|-+|........|.|                      
+                       |.S........S..|.|..S........S.|                      
+                       |.|........|..|.|..|........|.|                      
+                    ------------------+------------------                   
+                    |..|..........|.......|..........|..|                   
+                    |..|..........+.......|..........S..|                   
+                    |..S..........|.......+..........|..|                   
+                    |..|..........|.......|..........|..|                   
+                    ------------------+------------------                   
+                       |.|........|..|.|..|........|.|                      
+                       |.S........S..|.|..S........S.|                      
+                       |.|........|+-|.|-+|........|.|                      
+                       -----------|..S.S..|-----------                      
+                                  |..|.|..|                                 
+                                  ---------                                 
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(ARC_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region lit/unlit (map-relative; RNG-free for fixed lit values)
+    const arcLit = (x1, y1, x2, y2, lit) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    arcLit(0, 0, 75, 19, true);
+    arcLit(35, 2, 36, 3, false);
+    arcLit(40, 2, 41, 3, false);
+    arcLit(24, 4, 24, 6, false);
+    arcLit(26, 4, 33, 6, true);
+    arcLit(38, 2, 38, 6, false);
+    arcLit(43, 4, 50, 6, true);
+    arcLit(52, 4, 52, 6, false);
+    arcLit(35, 5, 36, 6, false);
+    arcLit(40, 5, 41, 6, false);
+    arcLit(21, 8, 22, 11, false);
+    arcLit(24, 8, 33, 11, true);
+    arcLit(35, 8, 41, 11, false);
+    arcLit(43, 8, 52, 11, true);
+    arcLit(54, 8, 55, 11, false);
+    arcLit(24, 13, 24, 15, false);
+    arcLit(26, 13, 33, 15, false);
+    arcLit(35, 13, 36, 14, false);
+    arcLit(35, 16, 36, 17, false);
+    arcLit(38, 13, 38, 17, false);
+    arcLit(40, 13, 41, 14, false);
+    arcLit(40, 16, 41, 17, false);
+    arcLit(52, 13, 52, 15, false);
+
+    // Temple room — C lspo_region needfill FILL_LVFLAGS=2 (flags only)
+    {
+        const dx1 = mx + 43, dy1 = my + 13, dx2 = mx + 50, dy2 = my + 15;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, TEMPLE, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.needfill = FILL_LVFLAGS;
+                troom.needjoining = true;
+                topologize(troom);
+            }
+        }
+    }
+
+    // des.stair("up", 38,10)
+    mkstairs(mx + 38, my + 10, 1, null);
+
+    // des.non_diggable — C sel_set_wall_property: STWALL/TREE/IRONBARS only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.altar({ x=50,y=14,align="chaos",type="altar" }) — unattended
+    {
+        const loc = g.level.at(mx + 50, my + 14);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_CHAOTIC;
+            loc.altarmask = AM_CHAOTIC;
+        }
+    }
+
+    // des.object crystal ball → The Orb of Detection (create_object named)
+    {
+        // C: mksobj_at(..., TRUE, !named) then spe/bless then oname LEVEL_DEF
+        const otmp = mksobj_at(CRYSTAL_BALL, mx + 50, my + 14, true, false);
+        if (otmp) {
+            otmp.spe = 5;
+            bless(otmp);
+            otmp.oeroded = 0;
+            otmp.oeroded2 = 0;
+            otmp.oerodeproof = 0;
+            oname(otmp, 'The Orb of Detection', ONAME_LEVEL_DEF);
+        }
+    }
+
+    // des.object() × 14 (Arc-goal.lua lines 65–78)
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // des.trap() × 6 then fixed rolling boulder
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    {
+        const ttmp = maketrap(mx + 46, my + 14, ROLLING_BOULDER_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    // des.monster("Minion of Huhetotl", 50, 14)
+    {
+        find_montype_gender('Minion of Huhetotl');
+        induced_align(80);
+        const pmIdx = name_to_mon('Minion of Huhetotl');
+        if (pmIdx >= 0 && pmIdx !== NON_PM) {
+            makemon(mons(pmIdx), mx + 50, my + 14, 0);
+        }
+    }
+
+    // des.monster class S × 18, human mummy × 8, class M × 1
+    for (let i = 0; i < 18; i++) splev_create_monster('S');
+    for (let i = 0; i < 8; i++) splev_create_monster('human mummy');
     splev_create_monster('M');
 
     // C load_special: wallification → flip_level_rnd → fixup_special
@@ -5837,6 +6002,18 @@ function fill_special_room(croom) {
         game.level.flags.has_vault = true;
     else if (croom.rtype === ZOO)
         game.level.flags.has_zoo = true;
+    else if (croom.rtype === COURT)
+        game.level.flags.has_court = true;
+    else if (croom.rtype === MORGUE)
+        game.level.flags.has_morgue = true;
+    else if (croom.rtype === BEEHIVE)
+        game.level.flags.has_beehive = true;
+    else if (croom.rtype === BARRACKS)
+        game.level.flags.has_barracks = true;
+    else if (croom.rtype === TEMPLE)
+        game.level.flags.has_temple = true;
+    else if (croom.rtype === SWAMP)
+        game.level.flags.has_swamp = true;
 }
 
 /**

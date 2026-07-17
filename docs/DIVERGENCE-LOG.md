@@ -6,6 +6,26 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0619 — Arc-goal load_special + Minion mitem/gender (@34204)
+
+- **Status:** fixed (partial — next @42649 nhl shuffle vs rn2(79))
+- **Symptom:** seed0361 @34204 — C nhlib `shuffle` `rn2(3)` after matched
+  `getbones` (Home 5) vs JS `rn2(79)` (`get_location` / mineralize on empty).
+- **Cause:** `makelevel` In_quest requested `Arc-goal`, but
+  `load_special_proto` had no loader. Also Minion of Huhetotl needed
+  `quest_status.nemgend` (not `rn2(2)`) and `mongets(BELL_OF_OPENING)`
+  (`MS_NEMESIS` mitem; tables omit msound → `urole.neminum` gate).
+  Arc-goal has **14** random `des.object()` (not 15).
+- **C locus:** `dat/Arc-goal.lua`; `sp_lev.c` load_special / create_*;
+  `makemon.c` MS_NEMESIS gender + mitem; `artifact`/`oname` Orb.
+- **Change:** `js/mklev.js` — `load_arc_goal` + dispatch; `fill_special_room`
+  TEMPLE/`has_temple` flags; `js/makemon.js` — `nemgend`/`ldrgend` +
+  Croesus/nemesis/Pestilence mitem.
+- **Verification:** prefix **34204→42649** Scr **289**/366 RNG
+  **42658**/53865; green+strict PASS; cohort **31/31** PASS.
+- **Next:** @42649 C nhlib shuffle after place_lregion vs JS `rn2(79)`;
+  or Pri-strt / seed0014/0108.
+
 ## D-0618 — Arc-fila/filb load_special (@31644)
 
 - **Status:** fixed (partial — next @34204 Arc-goal nhl shuffle vs rn2(79))

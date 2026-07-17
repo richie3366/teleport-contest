@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#688 D-0618:** Home 4 `Arc-filb` missing → empty makemaz → mineralize
-  `rn2(79)`. Ported `Arc-fila`/`Arc-filb` ordinary rooms + croom
-  `get_location_coord` double-retry (WET swimmer snakes). Prefix
-  **31644→34204**.
-- **Next @34204:** C nhlib shuffle after getbones vs JS `rn2(79)` —
-  `Arc-goal` (`slev` at Home 5). Falsifier: stack ≠ Arc-goal load_special.
+- **#689 D-0619:** Home 5 `Arc-goal` missing → empty makemaz → mineralize
+  `rn2(79)`. Ported `load_arc_goal` + Minion `nemgend`/`BELL_OF_OPENING`.
+  Prefix **34204→42649**.
+- **Next @42649:** C nhlib shuffle after place_lregion vs JS `rn2(79)` —
+  next special after Arc-goal exit (leave Home / branch). Falsifier:
+  stack ≠ post-goal `load_special` / nhl shuffle.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0618; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0619; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
@@ -29,13 +29,14 @@ Objective/score live in `CURRENT.md`.
   omit mfndpos diagonal squeeze; omit `artifact_hit`/`spec_dbon` after
   dmgval; omit `on_start` nexttime/othertime after first_start; force
   all qt_pager through NHW_TEXT; raw `rn2(sx)` for tower1 candles;
-  single-loop WET get_location for room monsters.
+  single-loop WET get_location for room monsters; invent 15th Arc-goal
+  `des.object` (Lua has 14).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0618 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0619 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -45,6 +46,7 @@ Objective/score live in `CURRENT.md`.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
+- D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
 
 ## Landmarks (≤15)
 
@@ -74,10 +76,12 @@ Objective/score live in `CURRENT.md`.
   `spec_dbon` (D-0613)**; **`on_start` nexttime/othertime (D-0614)**;
   **`qt_pager` pline vs NHW_TEXT (D-0616)**; **tower1 candle
   `get_location_coord` (D-0617)**; **`Arc-fila`/`Arc-filb` (D-0618)**;
-  `intemple` + SWAMP deferred; Arc-goal deferred.
+  **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; `intemple` + SWAMP
+  deferred; Bar-goal / Pri-* deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
 - defsym: `')'`=WEAPON, `'('`=TOOL, `'*'`=GEM.
 - Arc nexttime: no lua `output` → deliver_by_pline (not text window).
 - Quest `des.monster("M")` → S_MUMMY (uppercase); `"m"` → S_MIMIC.
+- Arc-goal: **14** random `des.object()` (not 15).

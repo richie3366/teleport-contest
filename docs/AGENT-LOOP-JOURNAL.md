@@ -11,14 +11,23 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-17 12:28 — #689 D-0619 Arc-goal load_special
+- Objective: seed0361 @34204 C nhlib shuffle rn2(3) vs JS rn2(79).
+- C locus: `dat/Arc-goal.lua`; `makemon.c` MS_NEMESIS mitem/gender;
+  `sp_lev.c` create_object/oname Orb.
+- Change: port `load_arc_goal` (14× object / temple / Orb / Minion);
+  `nemgend` + `BELL_OF_OPENING` (neminum gate); fill_special TEMPLE flags.
+- Verification: prefix **34204→42649** Scr **289**/366 RNG **42658**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @42649 nhl shuffle vs rn2(79); or Pri-strt.
 
 ## 2026-07-17 12:18 — #688 D-0618 Arc-fila/filb load_special
 - Objective: seed0361 @31644 C nhlib shuffle rn2(3) vs JS rn2(79).
@@ -139,25 +148,4 @@ Use this shape:
 - Verification: prefix **18684→21119** Scr **220** RNG **21217**;
   green+strict PASS; cohort 7/7 PASS.
 - Next: seed0361 @21119 lua `shuffle`/`splev` after `makemaz`.
-
-## 2026-07-17 10:50 — #675 score + D-0605 soko mimic retry
-- Objective: mandatory full score (#675÷5); seed0361 @13839 find_montype
-  vs rn2(26).
-- C locus: `sp_lev.c` create_monster M_AP_OBJECT boulder (`m->x < 0`
-  after `m->x = mtmp->mx`); `soko1-1.lua` giant mimic.
-- Change: drop JS post-makemon `m_bad_boulder_spot` relocation (C gate
-  unreachable). Score: **33/44** Scr **6607**/11405 RNG **374489**/792838
-  (47.23%) `32+0.16/turn`.
-- Verification: prefix **13839→18684** Scr **215** RNG **18774**;
-  green+strict PASS; cohort **31/31**; full sessions **33/44**.
-- Next: seed0361 @18684 `select_newcham_form`; or Pri-strt.
-
-## 2026-07-17 10:45 — #674 D-0604 pri_move altar mill
-- Objective: seed0361 @13719 C `rn2(3) @ pri_move` vs JS `rn2(5)`.
-- C locus: `priest.c` `pri_move` / `histemple_at`; `monmove.c` ispriest.
-- Change: port `histemple_at` + `pri_move` (rn1 mill, Conflict chase,
-  Invis avoid → `move_special`); `await pri_move` in `m_move`.
-- Verification: prefix **13719→13839** Scr **215** RNG **13889**;
-  green+strict PASS; cohort **33/33** PASS.
-- Next: seed0361 @13839 `find_montype` (sp_lev); or Pri-strt.
 
