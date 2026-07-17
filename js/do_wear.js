@@ -698,36 +698,41 @@ function takeoff_lets() {
 
 /** C ref: invent.c getobj("take off", takeoff_ok, …) */
 async function getobj_takeoff() {
-    const lets = takeoff_lets();
-    const query = lets
-        ? `What do you want to take off? [${lets} or ?*]`
-        : 'What do you want to take off? [*]';
-    const prompt = `${query} `;
-    game._pending_message = prompt;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+    for (;;) {
+        await flush_topl_more();
+        const lets = takeoff_lets();
+        const query = lets
+            ? `What do you want to take off? [${lets} or ?*]`
+            : 'What do you want to take off? [*]';
+        const prompt = `${query} `;
+        game._pending_message = prompt;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
 
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-        if (game.flags?.verbose !== false) await pline('Never mind.');
-        return null;
+        const key = await nhgetch();
+        const ch = String.fromCharCode(key);
+        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
+            if (game.flags?.verbose !== false) await pline('Never mind.');
+            return null;
+        }
+        if (ch === '?' || ch === '*') {
+            await pline('Never mind.');
+            return null;
+        }
+        const otmp = (game.invent || []).find((o) => o.invlet === ch);
+        if (!otmp) {
+            // C invent.c getobj: You("don't have that object."); continue;
+            await pline("You don't have that object.");
+            continue;
+        }
+        if (!((otmp.owornmask || 0) & (W_ARMOR | W_ACCESSORY))) {
+            await pline('You are not wearing that.');
+            return null;
+        }
+        game._pending_message = '';
+        return otmp;
     }
-    if (ch === '?' || ch === '*') {
-        await pline('Never mind.');
-        return null;
-    }
-    const otmp = (game.invent || []).find((o) => o.invlet === ch);
-    if (!otmp) {
-        await pline("You don't have that object.");
-        return null;
-    }
-    if (!((otmp.owornmask || 0) & (W_ARMOR | W_ACCESSORY))) {
-        await pline('You are not wearing that.');
-        return null;
-    }
-    return otmp;
 }
 
 /**

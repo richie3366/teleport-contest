@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0634 — getobj_takeoff missing-letter continue (seed0367 @1946)
+
+- **Status:** fixed
+- **Symptom:** seed0367 first mismatch @1946 — C `obj_resists` vs JS
+  `dog_move` mtrack `rn2(1)`; Scr **75**/324. Looked like one fewer
+  `dog_goal` invent `dogfood`.
+- **Cause:** `getobj_takeoff` returned null on missing invent letter
+  instead of C `getobj` `continue`. Session `T` + Ctrl-W invalid letter
+  aborted take-off; later keys (`b`/`l`/`e`) desynced so JS ate garlic
+  before the pet `dog_goal` that C still ran with garlic in invent.
+- **C locus:** `invent.c` `getobj` — `You("don't have that object.");
+  continue;` (~2058–2062); `do_wear.c` `dotakeoff` → getobj takeoff.
+- **Change:** `js/do_wear.js` `getobj_takeoff` — loop + `continue` on
+  missing letter (match `getobj_wear` / `getobj_eat`).
+- **Verification:** seed0367 prefix **1946→1975**; Scr **75→155**/324;
+  green+strict PASS; cohort **32**/32 PASS.
+- **Named omission:** "not wearing that" still aborts (vs full
+  `silly_thing` / filter arms); `?`/`*` menu deferred.
+- **Next:** seed0367 @1975 `dochug` `rn2(40)` vs JS `rn2(5)`.
+
 ## D-0633 — seed0361 ^X attrs + saber + hunger/pray timers
 
 - **Status:** fixed (seed0361 **PASS**)

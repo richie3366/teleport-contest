@@ -7,16 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#705 score:** full `sessions` → **34/44** PASS; Scr 6829/11405;
-  RNG 416960/792838 (52.59%); seed0361 confirmed in suite.
+- **#706 D-0634:** seed0367 @1946 was `getobj_takeoff` abort on
+  missing letter (key desync → early garlic eat), not dog_goal fobj.
+  Prefix **1946→1975**; Scr **75→155**. Next @1975 `dochug` rn2(40).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **seed0367 @1946 hypothesis:** C `dog_goal` fobj walk still
-  `dogfood`→`obj_resists` `rn2(100)`; JS already `dog_move` mtrack
-  `rn2(1)`. One fewer in-radius floor obj (or early `dogfood` skip).
-  Falsify: dump JS `fobj` ox/oy in radius at that `dog_goal` vs C pile.
-- **Don’t:** reopen D-0474…D-0633; wear `[*?]`; stub `^V?`; empty wish ESC;
-  skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
-  mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+- **Don’t:** reopen D-0474…D-0633; treat @1946 as dog_goal fobj again;
+  wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
+  Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
+  `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
   (now `rank_of`); omit bones `utrack`; skip Blindf_on / confused
   mispronounce / wizard yn / identify `more_experienced(0,10)`;
@@ -57,6 +55,7 @@ Objective/score live in `CURRENT.md`.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
 - D-0620…32: see INDEX; D-0633: @360/@361 was attrs catalogue + HALRES
   + ublesscnt + amulet hunger (not page paint / cursor alone).
+- D-0634: @1946 was getobj_takeoff abort, not dog_goal fobj shortfall.
 
 ## Landmarks (≤15)
 
@@ -79,13 +78,14 @@ Objective/score live in `CURRENT.md`.
   (D-0630); **questarti on urole** (D-0629); **ini_inv is_weptool +
   doname charged/weptool** (D-0631); **relobj distant_name disco**
   (D-0632); **^X attrs Hallu/Search/Reflect/Life + saber + hunger**
-  (D-0633); eel `hideunder` / minliquid / I_SPECIAL equip deferred;
-  vamp shapeshift arms / `run_regions` ttl age deferred; `intemple` +
-  SWAMP / Bar-goal / Pri-* / other bigrm-N / other-role firsttime
-  deferred; getpos object glyphs / altar/ndoor/cloud deferred;
-  convert_arg pronoun/plural deferred; other-role `roles[].questarti`
-  still omitted; `can_hide_under_obj` coins in makemon inline deferred;
-  other SPFX intrinsics beyond HALRES deferred.
+  (D-0633); **getobj_takeoff continue** (D-0634); eel `hideunder` /
+  minliquid / I_SPECIAL equip deferred; vamp shapeshift arms /
+  `run_regions` ttl age deferred; `intemple` + SWAMP / Bar-goal /
+  Pri-* / other bigrm-N / other-role firsttime deferred; getpos object
+  glyphs / altar/ndoor/cloud deferred; convert_arg pronoun/plural
+  deferred; other-role `roles[].questarti` still omitted;
+  `can_hide_under_obj` coins in makemon inline deferred; other SPFX
+  intrinsics beyond HALRES deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
