@@ -8,6 +8,39 @@ to preserve, record it here.
 
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0667 — see_monsters after teleds (seed0367 @185 warn)
+
+- **Status:** fixed (partial — screen residual Scr 267/324 @203)
+- **Symptom:** after D-0666, @185 still missed one cell — JS red
+  warn `1` at (68,19) vs C blank (materialize `--More--`).
+- **Cause:** `display_warning` floats in gbuf only; `teleds` moved
+  hero out of `mdistu<100` but never refreshed mon cells, so the
+  warn glyph stayed. C calls `see_monsters()` before `vision_recalc`.
+- **C locus:** `teleport.c` `teleds` → `see_monsters`; `display.c`
+  `see_monsters` / `docrt_flags` overlay.
+- **Change:** `js/display.js` `see_monsters`; call from `teleds` and
+  `docrt`. Worm/`Sting`/`Warn_of_mon` deferred.
+- **Verification:** seed0367 Scr **258→267**/324, prefix
+  **185→203**, RNG FULL; green+strict PASS; cohort **32**/32.
+- **Next:** @203 `You materialize on a different level!` map.
+
+## D-0666 — altar_color via altarmask (seed0367 @185)
+
+- **Status:** fixed (partial — residual warn then D-0667)
+- **Symptom:** seed0367 @185 materialize map — C altar `{` CLR_RED
+  vs JS `{` NO_COLOR. (`decgfx` also differed but `diffCell` ignores
+  it for `{` — not in DEC_MAP.)
+- **Cause:** `terrain_glyph` ALTAR always used defsym CLR_GRAY
+  (tty → NO_COLOR); C `back_to_glyph` → `altar_to_glyph(altarmask)`
+  + `altar_color` (unaligned = CLR_RED; no USE_GENERAL_ALTAR_COLORS).
+- **C locus:** `display.c` `back_to_glyph` ALTAR; `display.h`
+  `altar_to_glyph` / `altar_colors`; `display.c` `altar_color`.
+- **Change:** `js/display.js` `altar_glyph_color` + ALTAR case.
+  Sanctum/aligned gray paths unchanged for existing PASS altars.
+- **Verification:** seed0367 Scr **245→258**/324 (altar cell matched);
+  green+strict PASS; cohort with D-0667.
+- **Next:** stale warn @185 → D-0667.
+
 ## D-0665 — getpos lookat TREE defsym (seed0367 @155)
 
 - **Status:** fixed (partial — screen residual Scr 245/324 @185)

@@ -12,6 +12,7 @@ import {
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, AIR, CLOUD,
     FOUNTAIN, SINK, THRONE, ALTAR, GRAVE,
+    AM_MASK, AM_CHAOTIC, AM_NEUTRAL, AM_LAWFUL, AM_SANCTUM,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     LA_DOWN,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7,
@@ -986,6 +987,26 @@ function wall_glyph(loc) {
     return { ch: g.ch, color, dec: g.dec };
 }
 
+/**
+ * C ref: display.h altar_to_glyph + display.c altarcolors / altar_color.
+ * Offset enum: unaligned, chaotic, neutral, lawful, other.
+ * No USE_GENERAL_ALTAR_COLORS in this build (aligned → CLR_GRAY).
+ */
+function altar_glyph_color(loc) {
+    const amsk = (loc?.altarmask != null ? loc.altarmask : loc?.flags) | 0;
+    let idx = 0; // altar_unaligned
+    if ((amsk & AM_SANCTUM) === AM_SANCTUM) idx = 4; // altar_other
+    else if ((amsk & AM_MASK) === AM_LAWFUL) idx = 3;
+    else if ((amsk & AM_MASK) === AM_NEUTRAL) idx = 2;
+    else if ((amsk & AM_MASK) === AM_CHAOTIC) idx = 1;
+    const altarcolors = [
+        CLR_RED, CLR_GRAY, CLR_GRAY, CLR_GRAY, CLR_BRIGHT_MAGENTA,
+    ];
+    // C: altar_color(n) → iflags.use_color ? altarcolors[n] : NO_COLOR
+    if (game.iflags?.use_color === false) return NO_COLOR;
+    return altarcolors[idx];
+}
+
 /** C ref: display.c back_to_glyph — terrain ttychar (+ DEC letter). */
 export function terrain_glyph(loc, x, y) {
     const typ = loc.typ;
@@ -1038,14 +1059,17 @@ export function terrain_glyph(loc, x, y) {
             dec: false,
         };
     }
-    // C ref: defsym.h PCHAR — furniture glyphs (display.c back_to_glyph).
-    // dat/symbols DECgraphics: S_altar \xfb meta-{ (pi); other furniture
-    // keep Primary ASCII unless listed in that symset. altar_color by
-    // altarmask deferred — defsym CLR_GRAY (tty → NO_COLOR) for now.
-    case ALTAR:
+    // C ref: display.c back_to_glyph ALTAR → altar_to_glyph(altarmask);
+    // mapglyph altar_color(offset). dat/symbols DECgraphics S_altar \xfb
+    // meta-{. Contest build has no USE_GENERAL_ALTAR_COLORS → chaotic/
+    // neutral/lawful stay CLR_GRAY (tty → NO_COLOR); unaligned CLR_RED;
+    // AM_SANCTUM altar_other CLR_BRIGHT_MAGENTA (D-0666).
+    case ALTAR: {
+        const color = altar_glyph_color(loc);
         return dec
-            ? { ch: '{', color: CLR_GRAY, dec: true }
-            : { ch: '_', color: CLR_GRAY, dec: false };
+            ? { ch: '{', color, dec: true }
+            : { ch: '_', color, dec: false };
+    }
     case GRAVE:     return { ch: '|', color: CLR_WHITE, dec: false };
     case THRONE:    return { ch: '\\', color: HI_GOLD, dec: false };
     case SINK:      return { ch: '{', color: CLR_WHITE, dec: false };
@@ -1808,6 +1832,26 @@ export function newsym(x, y) {
 // vision_recalc(0). Shutting down sight first matters: vision_reset only
 // rebuilds block maps and leaves stale IN_SIGHT, so newsym would paint/
 // remember terrain for the previous level's visible coordinates.
+/**
+ * C ref: display.c see_monsters — refresh every live mon cell (+ hero).
+ * Clears stale Warning float glyphs when mon_warning no longer applies
+ * (e.g. after teleds moves the hero out of range).
+ * Named omissions: worm see_wsegs; Warn_of_mon / Sting_effects;
+ * defer_see_monsters; MON_STILL_ARRIVING skip.
+ */
+export function see_monsters() {
+    if (game.defer_see_monsters) return;
+    const u = game.u;
+    if (u?.usteed) u.usteed.meverseen = 1;
+    if (u?.ustuck) u.ustuck.meverseen = 1;
+    for (const mon of game.fmon || []) {
+        if (!mon || (mon.mhp != null && mon.mhp <= 0)) continue;
+        if (!mon.mx) continue;
+        newsym(mon.mx, mon.my);
+    }
+    if (!u?.usteed && u?.ux) newsym(u.ux, u.uy);
+}
+
 export async function docrt() {
     if (!game.u?.ux || !game.level) return;
     // C: vision_recalc(2) — hero sees nothing during refresh
@@ -1819,7 +1863,9 @@ export async function docrt() {
             newsym(x, y);
     // C: vision_recalc(0) — see what is to be seen (+ newsym updates)
     vision_recalc(0);
-    // Named omission: see_monsters() overlay; swallowed/underwater/buried;
+    // C docrt also see_monsters() after vision — floating warns / sensed mons
+    see_monsters();
+    // Named omission: swallowed/underwater/buried;
     // docrt_flags maponly/redrawonly/nocls; disp.botlx + update_inventory.
 }
 

@@ -646,6 +646,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0663 | fixed | mon_warning / display_warning + warnlevel=1 | seed0367 Scr 206→243 prefix 148→154; next farlook gender |
 | D-0664 | fixed | self_lookat pmname(umonnum,Ugender) | seed0367 Scr 243→244 prefix 154→155; next @155 tree |
 | D-0665 | fixed | getpos/lookat TREE → defsyms "tree" | seed0367 Scr 244→245 prefix 155→185; next @185 altar glyph |
+| D-0666 | fixed | altar_color via altarmask (unaligned CLR_RED) | seed0367 Scr 245→258; residual warn → D-0667 |
+| D-0667 | fixed | see_monsters in teleds/docrt (stale Warning gbuf) | seed0367 Scr 258→267 prefix 185→203; next @203 level materialize |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
