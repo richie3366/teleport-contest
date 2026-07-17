@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0642 — Pri-loca load_special + MORGUE fill_zoo (seed0367 @3438)
+
+- **Status:** fixed (partial — next @10674 mid-morgue fill)
+- **Symptom:** seed0367 first mismatch @3438 — C nhlib `shuffle`
+  (`rn2(3)`/`rn2(2)`) after matched `getbones` vs JS `rn2(79)`
+  (`u_on_rndspot`/empty maze). Session `^V?`→`z` → Pri-loca (Home 3).
+- **Cause:** `load_special_proto` omitted `Pri-loca`, so makemaz left
+  an empty quest locate. Also needed MORGUE `fill_zoo` stocking
+  (`morguemon`/`mk_tt_object`/chest/`make_grave`) and
+  `splev_create_trap`/`Can_fall_thru` respecting `hardfloor`
+  (holes→ROCKTRAP before victim `rnd(4)`).
+- **C locus:** `dat/Pri-loca.lua`; `sp_lev.c` `load_special` /
+  `splev_initlev` mines lit-field; `mkroom.c` `fill_zoo`/`morguemon`;
+  `mkobj.c` `mk_tt_object`; `dungeon.c` `Can_fall_thru`;
+  `quest.lua` Pri `locate_first`.
+- **Change:** `js/mklev.js` `load_pri_loca` + dispatch; `morguemon` +
+  `mk_tt_object` + MORGUE `fill_zoo` arm; `Can_fall_thru` in
+  `splev_create_trap`/Pri-loca traps; `js/questpgr.js` Pri
+  locate_first/next texts.
+- **Verification:** seed0367 prefix **3438→10674** (runner RNG
+  **3444→10752**, Scr **169→170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS stayed PASS (full suite still **34/44**).
+- **Named omission:** Pri-fila/filb/goal; mid-morgue occupancy peel
+  @10674 (C `next_ident` vs JS `rn2(5)` after matched `morguemon`);
+  BEEHIVE queen / BARRACKS/ANTHOLE fill_zoo; humidity get_location;
+  flip (noflip already).
+- **Next:** seed0367 @10674 MORGUE `fill_zoo` makemon vs corpse gate.
+
 ## D-0641 — extract AD_SPEL/CLRC + dochug undirected castmu (seed0367 @3332)
 
 - **Status:** fixed

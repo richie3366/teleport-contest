@@ -7,12 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#713 D-0641:** seed0367 @3332→**3438**. Cause was extract `AD_MAP`
-  dropping `AD_SPEL`/`AD_CLRC` to 0 + missing `dochug` undirected
-  `castmu`. Next: @3438 C nhlib `shuffle` vs JS `rn2(79)` post-getbones.
+- **#714 D-0642:** seed0367 @3438→**10674**. Cause was missing
+  `Pri-loca` load_special (+ MORGUE fill_zoo + hardfloor
+  `Can_fall_thru`). Next: @10674 C `next_ident` (makemon) vs JS
+  `rn2(5)` (corpse gate) mid-morgue `fill_zoo` after matched
+  `morguemon` — likely MON_AT skip / room overlap occupancy.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0641; treat @3332 as m_move alone without
-  mattk adtyp extract; wear `[*?]`; stub `^V?`; empty wish ESC; skip
+- **Don’t:** reopen D-0474…D-0642; treat @3438 as getbones arity without
+  Pri-loca; wear `[*?]`; stub `^V?`; empty wish ESC; skip
   amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied mon;
   skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -41,13 +43,14 @@ Objective/score live in `CURRENT.md`.
   omit Priest `ldrnum` / Arch Priest kit; invent intemple without
   Pri-strt MAGIC_PORTAL arrival; pre-set `u.urooms` in `teleds`;
   skip `#chat` MS_LEADER `quest_chat`; omit extract `AD_SPEL`/`AD_CLRC`;
-  skip `dochug` undirected `castmu`.
+  skip `dochug` undirected `castmu`; omit Pri-loca / MORGUE fill_zoo /
+  hardfloor `Can_fall_thru` for holes.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0641 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0642 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -55,8 +58,8 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…40: see INDEX; D-0641: @3332 was AD_MAP + missing castmu, not
-  m_move alone.
+- D-0616…41: see INDEX; D-0642: @3438 was missing Pri-loca, not
+  getbones arity.
 
 ## Landmarks (≤15)
 
@@ -83,10 +86,11 @@ Objective/score live in `CURRENT.md`.
   (D-0635); **blue DSM dragon_armor_handling / Very_fast** (D-0636);
   **Pri-strt + Arch Priest kit** (D-0637); **intemple TEMPLE** (D-0638);
   **teleds no pre-urooms** (D-0639); **#chat MS_LEADER quest_chat**
-  (D-0640); **extract AD_SPEL/CLRC + dochug castmu** (D-0641); eel
-  hideunder / I_SPECIAL deferred; SWAMP / Pri-fila/loca/goal
-  deferred; gold DSM halluc / red see_monsters / arti_light deferred;
-  mcast_spell bodies / mattacku AT_MAGC deferred.
+  (D-0640); **extract AD_SPEL/CLRC + dochug castmu** (D-0641);
+  **Pri-loca + MORGUE fill_zoo** (D-0642); eel hideunder / I_SPECIAL
+  deferred; SWAMP / Pri-fila/filb/goal deferred; gold DSM halluc / red
+  see_monsters / arti_light deferred; mcast_spell bodies / mattacku
+  AT_MAGC deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.

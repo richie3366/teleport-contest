@@ -45,6 +45,7 @@ import {
     LVLINIT_SOLIDFILL, LVLINIT_MINES,
     In_mines,
     In_quest,
+    In_endgame,
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
@@ -95,6 +96,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engr
 import { find_level } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import { create_gas_cloud } from './region.js';
+import { ndemon } from './minion.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -141,6 +143,8 @@ const PM_DWARF_RULER = monsterNames.indexOf('PM_DWARF_RULER');
 const PM_GNOME_RULER = monsterNames.indexOf('PM_GNOME_RULER');
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const PM_HIGH_CLERIC = monsterNames.indexOf('PM_HIGH_CLERIC');
+const PM_GHOST = monsterNames.indexOf('PM_GHOST');
+const PM_WRAITH = monsterNames.indexOf('PM_WRAITH');
 const PM_LEPRECHAUN = monsterNames.indexOf('PM_LEPRECHAUN');
 const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const PM_SOLDIER = monsterNames.indexOf('PM_SOLDIER');
@@ -662,7 +666,7 @@ function reset_xystart_size() {
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-2, tower1, fire, air, minend-1.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal, Pri-fila/filb/loca/goal); minend-2/3; tower2/3;
+ * protos (Bar-goal, Pri-fila/filb/goal); minend-2/3; tower2/3;
  * water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -748,6 +752,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Pri-strt') {
         load_pri_strt();
+        return true;
+    }
+    if (protofile === 'Pri-loca') {
+        load_pri_loca();
         return true;
     }
     if (protofile === 'Arc-strt') {
@@ -1534,6 +1542,189 @@ function load_pri_strt() {
         mx + 5, my + 4, mx + 5, my + 4,
         0, 0, 0, 0, LR_BRANCH, null,
     );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Pri-loca.lua via load_special — Priest quest locate
+ * (Temple of Nalzok). Mines init is a lit-field kludge (fg=bg=".");
+ * des.map overlays the temple; morgue regions stock undead.
+ * Named omissions: humidity-aware get_location; flip_level (noflip);
+ * Pri-fila/filb/goal; spo_end_moninvent m_dowear.
+ */
+function load_pri_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " }) — lit defaults BOOL_RANDOM
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    // des.level_init mines: fg=".", bg=".", smoothed=false, joined=false,
+    // lit=1, walled=false — kludge for a lit open field (fg==bg)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ROOM, filling: ROOM,
+        lit: 1, smoothed: false, joined: false, walled: false,
+        icedpools: false,
+    });
+
+    const PRI_LOCA_MAP = `
+........................................
+........................................
+..........----------+----------.........
+..........|........|.|........|.........
+..........|........|.|........|.........
+..........|----.----.----.----|.........
+..........+...................+.........
+..........+...................+.........
+..........|----.----.----.----|.........
+..........|........|.|........|.........
+..........|........|.|........|.........
+..........----------+----------.........
+........................................
+........................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(PRI_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    const priAddRectRoom = (x1, y1, x2, y2, lit, rtype, needfill) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+        add_room(dx1, dy1, dx2, dy2, lit, rtype, true);
+        const troom = g.level.rooms[g.level.nroom - 1];
+        if (!troom) return null;
+        troom.needfill = needfill;
+        troom.needjoining = true;
+        topologize(troom);
+        return troom;
+    };
+
+    // des.region morgue rects (filled=1)
+    priAddRectRoom(0, 0, 9, 13, false, MORGUE, FILL_NORMAL);
+    priAddRectRoom(9, 0, 30, 1, false, MORGUE, FILL_NORMAL);
+    priAddRectRoom(9, 12, 30, 13, false, MORGUE, FILL_NORMAL);
+    priAddRectRoom(31, 0, 39, 13, false, MORGUE, FILL_NORMAL);
+
+    // des.region temple irregular filled=1 — flood from region x1,y1
+    let templeRoom = null;
+    {
+        const dx1 = mx + 11, dy1 = my + 3;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = g.level.nroom + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+            flood_fill_rm(dx1, dy1, rmno, true, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, TEMPLE, true);
+            templeRoom = g.level.rooms[g.level.nroom - 1];
+            if (templeRoom) {
+                templeRoom.rlit = 1;
+                templeRoom.irregular = true;
+                templeRoom.needjoining = true;
+                templeRoom.needfill = FILL_NORMAL;
+            }
+        }
+    }
+
+    // des.altar({ x=20,y=07, align="noalign", type="shrine" })
+    {
+        const ax = mx + 20, ay = my + 7;
+        const loc = g.level.at(ax, ay);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_NONE | AM_SHRINE;
+            loc.altarmask = AM_NONE | AM_SHRINE;
+        }
+        // C create_altar shrine in temple → priestini
+        if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, false);
+    }
+
+    // des.monster({ id = "aligned cleric", x=20, y=07, align="noalign", peaceful=0 })
+    {
+        // C: find_montype gender before create_monster; align=noalign skips
+        // induced_align(80) random-amask burn.
+        const { mndx, female } = find_montype_gender('aligned cleric');
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        let pos = { x: mx + 20, y: my + 7 };
+        pos = splev_resolve_occupied(pos.x, pos.y, pm);
+        const mtmp = pm ? makemon(pm, pos.x, pos.y, 0) : null;
+        if (mtmp) {
+            mtmp.female = female;
+            mtmp.mpeaceful = 0;
+            set_malign(mtmp);
+        }
+    }
+
+    // des.door locked
+    const priDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    priDoor(10, 6, D_LOCKED);
+    priDoor(10, 7, D_LOCKED);
+    priDoor(20, 2, D_LOCKED);
+    priDoor(20, 11, D_LOCKED);
+    priDoor(30, 6, D_LOCKED);
+    priDoor(30, 7, D_LOCKED);
+
+    // Stairs — up intentionally off-map (x=43); down in temple
+    mkstairs(mx + 43, my + 5, 1, null);
+    mkstairs(mx + 20, my + 6, 0, null);
+
+    // des.non_diggable(selection.area(10,02,30,13))
+    for (let y = my + 2; y <= my + 13 && y < ROWNO; y++) {
+        for (let x = mx + 10; x <= mx + 30 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object({ coord = { … } }) — RANDOM_CLASS; clear erosion
+    for (const [rx, ry] of [
+        [14, 3], [15, 3], [16, 3],
+        [14, 10], [15, 10], [16, 10], [17, 10],
+        [24, 3], [25, 3], [26, 3], [27, 3],
+        [24, 10], [25, 10], [26, 10], [27, 10],
+    ]) {
+        const otmp = mkobj_at(RANDOM_CLASS, mx + rx, my + ry, true);
+        if (!otmp) continue;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    }
+
+    // Fixed traps then two random-location traps
+    // C: des.trap({ coord }) without type → maketrap random kind
+    // Can_fall_thru respects hardfloor (Pri-loca) → holes become ROCKTRAP
+    for (const [rx, ry] of [[15, 4], [25, 4], [15, 9], [25, 9]]) {
+        let kind;
+        do { kind = traptype_rnd(); } while (kind === NO_TRAP);
+        if (is_hole(kind) && !Can_fall_thru(g.u?.uz)) kind = ROCKTRAP;
+        const ttmp = maketrap(mx + rx, my + ry, kind);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 2; i++) splev_create_trap();
+
+    // des.level_flags noflip — wallify then fixup (skip flip_level_rnd)
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
     fixup_special();
 }
 
@@ -5333,10 +5524,8 @@ function splev_create_trap() {
     do {
         kind = traptype_rnd();
     } while (kind === NO_TRAP);
-    // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP
-    const dungeon = game.dungeons?.[game.u?.uz?.dnum ?? 0];
-    const canFallThru = (game.u?.uz?.dlevel ?? 1) < (dungeon?.num_dunlevs ?? 1);
-    if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
+    // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP (hardfloor matters)
+    if (is_hole(kind) && !Can_fall_thru(game.u?.uz)) kind = ROCKTRAP;
     const trap = maketrap(pos.x, pos.y, kind);
     // C: WEB spider → SEEN → victim gate (mklev.c mktrap)
     mktrap_seen_victim(trap, {});
@@ -6328,6 +6517,41 @@ function courtmon() {
 }
 
 /**
+ * C ref: mkroom.c morguemon — undead pick for MORGUE fill_zoo.
+ * Named omission: Inhell S_DEMON arm uses dungeon hellish flag (≡ C Inhell).
+ */
+function morguemon() {
+    const i = rn2(100);
+    const hd = rn2(level_difficulty());
+    if (hd > 10 && i < 10) {
+        const uz = game.u?.uz;
+        const inHell = !!(game.dungeons?.[uz?.dnum | 0]?.flags?.hellish);
+        if (inHell || In_endgame(uz)) {
+            return mkclass('S_DEMON', 0);
+        }
+        const nd = ndemon(A_NONE);
+        if (nd !== NON_PM) return mons(nd);
+    }
+    if (hd > 8 && i > 85) return mkclass('S_VAMPIRE', 0);
+    if (i < 20) return PM_GHOST >= 0 ? mons(PM_GHOST) : null;
+    if (i < 40) return PM_WRAITH >= 0 ? mons(PM_WRAITH) : null;
+    return mkclass('S_ZOMBIE', 0);
+}
+
+/**
+ * C ref: mkobj.c mk_tt_object — CORPSE/STATUE with topten name or role pm.
+ * Empty RECORD: get_rnd_toptenentry burns rnd(10) then null → rn1 role.
+ */
+function mk_tt_object(objtype, x, y) {
+    const initialize_it = objtype !== STATUE;
+    const otmp = mksobj_at(objtype, x, y, initialize_it, false);
+    if (!otmp) return null;
+    rnd(10); // C get_rnd_toptenentry after successful open
+    set_corpsenm(otmp, rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST));
+    return otmp;
+}
+
+/**
  * C ref: mkroom.c mk_zoo_thronemon — sleeping hostile ruler + mace.
  */
 function mk_zoo_thronemon(x, y) {
@@ -6347,9 +6571,9 @@ function mk_zoo_thronemon(x, y) {
 
 /**
  * C ref: mkroom.c fill_zoo — COURT throne/courtmon/chest ported; ZOO/
- * LEPREHALL gold path; typed mons for COCKNEST. Named omissions:
- * BEEHIVE queen placement, MORGUE/BARRACKS/ANTHOLE loot + typed mons
- * (squadmon/morguemon/antholemon).
+ * LEPREHALL gold; MORGUE morguemon + corpse/chest/grave (D-0642);
+ * COCKNEST typed mon. Named omissions: BEEHIVE queen; BARRACKS/ANTHOLE
+ * loot + squadmon/antholemon.
  */
 function fill_zoo(sroom) {
     if (!sroom) return;
@@ -6428,6 +6652,8 @@ function fill_zoo(sroom) {
             } else if (type === COCKNEST) {
                 const idx = name_to_mon('cockatrice');
                 pm = idx >= 0 ? mons(idx) : null;
+            } else if (type === MORGUE) {
+                pm = morguemon();
             }
             // ZOO / default → makemon(NULL) random
             const mon = makemon(pm, sx, sy, MM_ASLEEP | MM_NOGRP);
@@ -6452,6 +6678,11 @@ function fill_zoo(sroom) {
                 if (i >= goldlim) i = 5 * level_difficulty();
                 goldlim -= i;
                 mkgold(rn1(i, 10), sx, sy);
+            } else if (type === MORGUE) {
+                if (!rn2(5)) mk_tt_object(CORPSE, sx, sy);
+                if (!rn2(10))
+                    mksobj_at(rn2(3) ? LARGE_BOX : CHEST, sx, sy, true, false);
+                if (!rn2(5)) make_grave(sx, sy, null);
             }
         }
     }
@@ -6474,6 +6705,8 @@ function fill_zoo(sroom) {
         if (game.level?.flags) game.level.flags.has_court = true;
     } else if (type === ZOO && game.level?.flags) {
         game.level.flags.has_zoo = true;
+    } else if (type === MORGUE && game.level?.flags) {
+        game.level.flags.has_morgue = true;
     }
 }
 

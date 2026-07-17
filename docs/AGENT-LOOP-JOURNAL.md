@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:10 — #714 D-0642 Pri-loca + MORGUE fill_zoo
+- Objective: seed0367 @3438 nhlib shuffle vs rn2(79) after getbones.
+- C locus: dat/Pri-loca.lua; sp_lev.c load_special/splev_initlev;
+  mkroom.c fill_zoo/morguemon; mkobj.c mk_tt_object; dungeon.c
+  Can_fall_thru; quest.lua Pri locate_first.
+- Change: load_pri_loca + dispatch; morguemon/mk_tt_object + MORGUE
+  fill_zoo; Can_fall_thru for hardfloor holes; Pri locate texts
+  (D-0642).
+- Verification: seed0367 @3438→10674 (RNG 10752, Scr 170); green+strict
+  PASS; cohort 34/34 prior-PASS; suite still 34/44.
+- Next: @10674 mid-morgue fill_zoo makemon vs corpse rn2(5).
+
 ## 2026-07-17 14:58 — #713 D-0641 extract AD_SPEL + dochug castmu
 - Objective: seed0367 @3332 choose_monster_spell vs m_move.
 - C locus: mcastu.c choose_monster_spell/castmu; monmove.c dochug

@@ -237,7 +237,7 @@ results lately can hardly be called suitable for %ra!
 back only when you have purified yourself."`,
 };
 
-/** C ref: dat/quest.lua locate_first (Bar + Arc exercised). */
+/** C ref: dat/quest.lua locate_first (Bar + Arc + Pri exercised). */
 const QUEST_LOCATE_FIRST = {
     Bar: `The scent of water comes to you in the desert breeze.  You know that
 you have located %i.`,
@@ -245,12 +245,19 @@ you have located %i.`,
 
 You have the feeling that you will soon find the entrance to
 %i.`,
+    Pri: `You stand facing a large graveyard.  The sky above is filled with clouds
+that seem to get thicker closer to the center.  You sense the presence of
+undead in larger numbers than you have ever encountered before.
+
+You remember the descriptions of %i, given to you by
+%l.  It is ahead that you will find %ns trail.`,
 };
 
-/** C ref: dat/quest.lua locate_next (Bar + Arc). */
+/** C ref: dat/quest.lua locate_next (Bar + Arc + Pri). */
 const QUEST_LOCATE_NEXT = {
     Bar: `Yet again you have a chance to infiltrate %i.`,
     Arc: `Once again, you are near the entrance to %i.`,
+    Pri: `Again, you stand before %i.`,
 };
 
 /** C ref: dat/quest.lua nexttime (Arc + Bar). */
