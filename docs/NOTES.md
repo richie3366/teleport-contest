@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#718 D-0646:** seed0367 @15172→**17449**. Cause was missing
-  **Pri-goal** (not Pri-fila): C `splev_initlev`/`init_fill` after
-  getbones. JS `load_pri_goal`. Next: @17449 C nhlib after matched
-  `makemaz` `rnd(7)=2` → **minetn-2** vs JS `place_lregion`.
+- **#719 D-0647:** seed0367 @17449→**19994**. Cause was missing
+  **minetn-2** + `flip_level` omitting nested `sbrooms`. JS now
+  `load_minetn_2` + `create_subroom`/`create_door`. Next: @19994 C
+  nhlib after `makemaz` `rnd(13)=3` → **bigrm-3** vs JS `place_lregion`.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0646; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0647; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -46,13 +46,14 @@ Objective/score live in `CURRENT.md`.
   omit m_initinv S_DEMON/S_WRAITH/S_LICH; widen eastern morgue back to
   lua 39 without a C-cited roomno/SPACE falsifier; drop roomno gate;
   port `link_doors_rooms` into Pri-loca without new evidence;
-  guess Pri-fila for @15172 (was Pri-goal).
+  guess Pri-fila for @15172 (was Pri-goal); skip minetn-2 / forget
+  `flip_level` sbrooms after nested rooms.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0646 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0647 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -60,11 +61,12 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…45: see INDEX; D-0642: @3438 was missing Pri-loca, not
+- D-0616…46: see INDEX; D-0642: @3438 was missing Pri-loca, not
   getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate;
   D-0644: @13882 was missing S_DEMON, not trailing rn2(50);
   D-0645: @15167 was eastern morgue hx 39→35, not place_lregion math;
-  D-0646: @15172 was missing Pri-goal, not Pri-fila.
+  D-0646: @15172 was missing Pri-goal, not Pri-fila;
+  D-0647: @17449 was missing minetn-2 (+ flip sbrooms), not place_lregion.
 
 ## Landmarks (≤15)
 
@@ -82,11 +84,11 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0646: see INDEX; Pri-loca + MORGUE +
+- Quest landmarks through D-0647: see INDEX; Pri-loca + MORGUE +
   fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35 +
-  Pri-goal; Pri-fila/filb deferred; minetn-N next @17449;
-  eel hideunder / I_SPECIAL deferred; SWAMP deferred;
-  gold DSM halluc / red see_monsters / arti_light deferred;
+  Pri-goal + minetn-2; Pri-fila/filb / minetn-1/3–7 deferred;
+  bigrm-3 next @19994; eel hideunder / I_SPECIAL deferred; SWAMP
+  deferred; gold DSM halluc / red see_monsters / arti_light deferred;
   mcast_spell bodies / mattacku AT_MAGC deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 15:58 — #719 D-0647 minetn-2 load_special
+- Objective: seed0367 @17449 C nhlib after makemaz rnd(7)=2 vs JS place_lregion.
+- C locus: dat/minetn-2.lua; sp_lev.c create_subroom/create_door/flip_level.
+- Change: load_minetn_2 + nested-room helpers; flip_level recurses sbrooms
+  (D-0647). Without sbrooms flip, shop stock rnd(goodpos) drifted after Y-flip.
+- Verification: @17449→19994 (RNG 19999, Scr 170); green+strict PASS;
+  cohort 32/32 prior-PASS.
+- Next: @19994 C nhlib after makemaz rnd(13)=3 (bigrm-3).
+
 ## 2026-07-17 15:49 — #718 D-0646 Pri-goal load_special
 - Objective: seed0367 @15172 C nhlib after getbones vs JS place_lregion.
 - C locus: dat/Pri-goal.lua; sp_lev.c load_special/splev_initlev/mkmap.
@@ -162,15 +171,3 @@ Use this shape:
   Next peel: seed0367 @1946 dog_goal one fewer `obj_resists`.
 - Verification: green+strict PASS; `node frozen/ps_test_runner.mjs sessions`.
 - Next: seed0367 dog_goal/fobj vs dogfood early-out; or seed0014/0108.
-
-## 2026-07-17 13:50 — #704 D-0633 seed0361 ^X attrs PASS
-- Objective: seed0361 @360/@361 attrs `(1 of 2)` vs `(1 of 3)`.
-- C locus: `insight.c` attributes_enlightenment; `weapon.c` odd_skill_names;
-  `artifact.c` set_artifact_intrinsic/what_gives; `allmain.c` ublesscnt--;
-  `eat.c` gethungry case 8.
-- Change: Hallu/Search/Reflect/Lifesaved lines + saber skill_name +
-  HALRES on wield + bare_artifactname; ublesscnt--; amulet hunger burn.
-- Verification: seed0361 **PASS** 366/366 + strict; green+strict PASS;
-  cohort 31/31 PASS.
-- Next: full sessions on #705 (expect 34/44); seed0367 / seed0014/0108.
-

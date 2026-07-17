@@ -4,7 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0647 — minetn-2 load_special + flip sbrooms (seed0367 @17449)
+
+- **Status:** fixed (partial — next @19994 bigrm-3)
+- **Symptom:** seed0367 first mismatch @17449 — C nhlib `shuffle`
+  after matched `makemaz` `rnd(7)=2` vs JS `rn2(79)` `place_lregion`.
+- **Cause:** `load_special_proto` omitted `minetn-2`, so makemaz left an
+  empty maze. C loads `minetn-2.lua` (nested town rooms / shops /
+  temple / watch). After the loader, `flip_level` must also flip nested
+  `sbrooms` (C sp_lev.c); JS only flipped top-level rooms, which broke
+  shop stock `rnd(goodpos)` after a Y-flip.
+- **C locus:** `dat/minetn-2.lua`; `sp_lev.c` `create_subroom` /
+  `create_door` / `build_room` / `flip_level`; `mkmaze.c` `makemaz`.
+- **Change:** `js/mklev.js` — `create_subroom`/`add_subroom`/
+  `create_door`/`splev_des_room`/`load_minetn_2` + dispatch; `flip_level`
+  recurses into `sbrooms`; rooms array sized for C subroom slotting.
+- **Verification:** seed0367 prefix **17449→19994** (runner RNG
+  **17451→19999**, Scr **170**/324); green+strict PASS; cohort
+  **32/32** prior-PASS.
+- **Named omission:** minetn-1/3–7; `link_doors_rooms` extras;
+  `ensure_way_out`; bigrm-3.
+- **Next:** seed0367 @19994 C nhlib after `makemaz` `rnd(13)=3`
+  (bigrm-3) vs JS `place_lregion`.
+
 ## D-0646 — Pri-goal load_special (seed0367 @15172)
+
 
 - **Status:** fixed (partial — next @17449 minetn-2)
 - **Symptom:** seed0367 first mismatch @15172 — C nhlib `shuffle`

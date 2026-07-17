@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 17451/50125 | 170/324 | @17449 minetn-2 post D-0646 Pri-goal |
+| seed0367 | 19999/50125 | 170/324 | @19994 bigrm-3 post D-0647 minetn-2 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,10 +71,10 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @17449 — C nhlib shuffle after matched
-`getbones` + `makemaz` `rnd(7)=2` (**minetn-2**) vs JS `rn2(79)`
-`place_lregion`. Prefix **15172→17449** via D-0646 Pri-goal; Scr
-**170**/324; runner RNG **17451**.
+**Gameplay next:** seed0367 @19994 — C nhlib shuffle after matched
+`getbones` + `makemaz` `rnd(13)=3` (**bigrm-3**) vs JS `rn2(79)`
+`place_lregion`. Prefix **17449→19994** via D-0647 minetn-2; Scr
+**170**/324; runner RNG **19999**.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

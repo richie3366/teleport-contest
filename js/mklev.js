@@ -23,6 +23,8 @@ import {
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
     LEPREHALL, COCKNEST, ANTHOLE,
+    FOODSHOP, TOOLSHOP, CANDLESHOP, FODDERSHOP,
+    W_NORTH, W_SOUTH, W_EAST, W_WEST, W_ANY, D_SECRET,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     IS_LAVA, IS_THRONE, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
@@ -585,7 +587,9 @@ function clear_level_structures() {
     g.head_engr = null;
     g.level = new GameMap();
     g.level.nroom = 0;
-    g.level.rooms = [];
+    g.level.nsubroom = 0;
+    // C: rooms[(MAXNROFROOMS+1)*2]; subrooms = &rooms[MAXNROFROOMS+1]
+    g.level.rooms = new Array((MAXNROFROOMS + 1) * 2);
     // C init_mapseen memset svl.lastseentyp — reuse buffer per level
     g.lastseentyp = null;
     g.made_branch = false;
@@ -665,9 +669,9 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-7,
  * bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-2, tower1, fire, air, minend-1.
+ * soko4-2, tower1, fire, air, minend-1, minetn-2.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal, Pri-fila/filb); minend-2/3; tower2/3;
+ * protos (Bar-goal, Pri-fila/filb); minetn-1/3–7; minend-2/3; tower2/3;
  * water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -833,6 +837,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minend-1') {
         load_minend_1();
+        return true;
+    }
+    if (protofile === 'minetn-2') {
+        load_minetn_2();
         return true;
     }
     return false;
@@ -3961,6 +3969,107 @@ function load_minend_1() {
 }
 
 /**
+ * C ref: dat/minetn-2.lua via load_special — Mines town "Town Square".
+ * Nested des.room + create_subroom/create_door + shops/temple/watch.
+ * Named omissions: minetn-1/3–7; link_doors_rooms extras; ensure_way_out.
+ */
+function load_minetn_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    const align = g.splev_align || ['law', 'neutral', 'chaos'];
+
+    // Outer town square: des.room x=3,y=3 center 31×15 lit
+    splev_des_room({
+        type: 'ordinary', lit: 1, x: 3, y: 3,
+        xalign: SPLEV_CENTER, yalign: SPLEV_CENTER, w: 31, h: 15,
+    }, null, (town) => {
+        splev_room_feature_fountain(town, 17, 5);
+        splev_room_feature_fountain(town, 13, 8);
+
+        const nest = (opts, doorWall, doorState, monId) => {
+            if (!percent(75)) return;
+            splev_des_room(opts, town, (r) => {
+                splev_room_door(r, doorState || 'closed', doorWall);
+                if (monId) splev_room_monster(r, monId);
+            });
+        };
+
+        nest({ type: 'ordinary', x: 2, y: 0, w: 2, h: 2 }, 'west');
+        nest({ type: 'ordinary', lit: 0, x: 5, y: 0, w: 2, h: 2 }, 'south');
+        nest({ type: 'ordinary', x: 8, y: 0, w: 2, h: 2 }, 'east');
+        nest({ type: 'ordinary', lit: 1, x: 16, y: 0, w: 2, h: 2 }, 'west');
+        nest({ type: 'ordinary', lit: 0, x: 19, y: 0, w: 2, h: 2 }, 'south');
+        nest({ type: 'ordinary', x: 22, y: 0, w: 2, h: 2 }, 'south', 'closed', 'gnome');
+        nest({ type: 'ordinary', lit: 0, x: 25, y: 0, w: 2, h: 2 }, 'east');
+        nest({ type: 'ordinary', lit: 1, x: 2, y: 5, w: 2, h: 2 }, 'north');
+        nest({ type: 'ordinary', lit: 1, x: 5, y: 5, w: 2, h: 2 }, 'south');
+        nest({ type: 'ordinary', x: 8, y: 5, w: 2, h: 2 }, 'north', 'locked', 'gnome');
+
+        splev_des_room({
+            type: 'shop', chance: 90, lit: 1, x: 2, y: 10, w: 4, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'west'));
+
+        splev_des_room({
+            type: 'tool shop', chance: 90, lit: 1, x: 23, y: 10, w: 4, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'east'));
+
+        splev_des_room({
+            type: monkfoodshop(), chance: 90, lit: 1, x: 24, y: 5, w: 3, h: 4,
+        }, town, (r) => splev_room_door(r, 'closed', 'north'));
+
+        splev_des_room({
+            type: 'candle shop', lit: 1, x: 11, y: 10, w: 4, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'east'));
+
+        nest({ type: 'ordinary', lit: 0, x: 7, y: 10, w: 3, h: 3 },
+            'north', 'locked', 'gnome');
+
+        splev_des_room({
+            type: 'temple', lit: 1, x: 19, y: 5, w: 4, h: 4,
+        }, town, (r) => {
+            splev_room_door(r, 'closed', 'north');
+            splev_room_altar_shrine(r, 2, 2, align[0]);
+            splev_room_monster(r, 'gnomish wizard');
+            splev_room_monster(r, 'gnomish wizard');
+        });
+
+        nest({ type: 'ordinary', lit: 1, x: 18, y: 10, w: 4, h: 3 },
+            'west', 'locked', 'gnome lord');
+
+        // Town Watch
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watch captain', 1);
+    });
+
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, true);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, false);
+        splev_room_trap(r);
+        splev_room_monster(r, 'gnome');
+        splev_room_monster(r, 'gnome');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_monster(r, 'dwarf');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_trap(r);
+        splev_room_monster(r, 'gnome');
+    });
+
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
  * C ref: mkmaze.c setup_waterlevel — air/water bubble grid + stone→AIR/WATER.
  * Named omission: full bubble cons / movebubbles body beyond initial paint.
  */
@@ -4513,10 +4622,9 @@ function flip_level(flp, _extras) {
         }
     }
 
-    // rooms
-    for (let i = 0; i < (game.level?.nroom | 0); i++) {
-        const sroom = game.level.rooms[i];
-        if (!sroom || sroom.hx < 0) break;
+    // rooms (+ nested sbrooms — C sp_lev.c flip_level)
+    const flipRoomBounds = (sroom) => {
+        if (!sroom || sroom.hx < 0) return;
         if (flp & 1) {
             sroom.ly = FlipY(sroom.ly);
             sroom.hy = FlipY(sroom.hy);
@@ -4531,6 +4639,13 @@ function flip_level(flp, _extras) {
                 const t = sroom.lx; sroom.lx = sroom.hx; sroom.hx = t;
             }
         }
+        for (let i = 0; i < (sroom.nsubrooms | 0); i++)
+            flipRoomBounds(sroom.sbrooms[i]);
+    };
+    for (let i = 0; i < (game.level?.nroom | 0); i++) {
+        const sroom = game.level.rooms[i];
+        if (!sroom || sroom.hx < 0) break;
+        flipRoomBounds(sroom);
     }
 
     // doors
@@ -5796,6 +5911,281 @@ function splev_room_trap(croom) {
     if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
     const trap = maketrap(pos.x, pos.y, kind);
     mktrap_seen_victim(trap, {});
+}
+
+/**
+ * C ref: sp_lev.c room_types[] get_table_roomtype_opt — subset used by minetn.
+ */
+function splev_roomtype(name, defval = OROOM) {
+    if (!name) return defval;
+    const map = {
+        ordinary: OROOM,
+        temple: TEMPLE,
+        shop: SHOPBASE,
+        'tool shop': TOOLSHOP,
+        'food shop': FOODSHOP,
+        'health food shop': FODDERSHOP,
+        'candle shop': CANDLESHOP,
+    };
+    return map[String(name).toLowerCase()] ?? defval;
+}
+
+/** C ref: nhlib.lua monkfoodshop */
+function monkfoodshop() {
+    return (game.urole?.mnum === PM_MONK) ? 'health food shop' : 'food shop';
+}
+
+/**
+ * C ref: mklev.c add_subroom — store at rooms[MAXNROFROOMS+1+nsubroom]
+ * (≡ C gs.subrooms = &svr.rooms[MAXNROFROOMS+1]).
+ */
+function add_subroom(proom, lowx, lowy, hix, hiy, lit, rtype, special) {
+    const g = game;
+    if (!g.level.rooms) g.level.rooms = [];
+    const idx = MAXNROFROOMS + 1 + (g.level.nsubroom | 0);
+    const croom = {
+        lx: lowx, ly: lowy, hx: hix, hy: hiy,
+        rtype, rlit: lit ? 1 : 0,
+        doorct: 0, fdoor: g.level.doorindex | 0,
+        irregular: false, needjoining: !special,
+        nsubrooms: 0, sbrooms: [],
+        roomnoidx: idx,
+        needfill: 0,
+    };
+    do_room_or_subroom(croom, lowx, lowy, hix, hiy, lit, rtype, special, false);
+    croom.roomnoidx = idx;
+    g.level.rooms[idx] = croom;
+    if (!proom.sbrooms) proom.sbrooms = [];
+    proom.sbrooms[proom.nsubrooms | 0] = croom;
+    proom.nsubrooms = (proom.nsubrooms | 0) + 1;
+    g.level.nsubroom = (g.level.nsubroom | 0) + 1;
+    if (idx + 1 < ((MAXNROFROOMS + 1) * 2))
+        g.level.rooms[idx + 1] = { hx: -1 };
+    return croom;
+}
+
+/**
+ * C ref: sp_lev.c create_subroom — relative x/y/w/h inside parent.
+ */
+function create_subroom(proom, x, y, w, h, rtype, rlit) {
+    const width = (proom.hx - proom.lx + 1) | 0;
+    const height = (proom.hy - proom.ly + 1) | 0;
+    if (width < 4 || height < 4) return false;
+    if (w === -1) w = rnd(width - 3);
+    if (h === -1) h = rnd(height - 3);
+    if (x === -1) x = rnd(width - w);
+    if (y === -1) y = rnd(height - h);
+    if (x === 1) x = 0;
+    if (y === 1) y = 0;
+    if ((x + w + 1) === width) x++;
+    if ((y + h + 1) === height) y++;
+    if (rtype === -1) rtype = OROOM;
+    rlit = litstate_rnd(rlit);
+    add_subroom(
+        proom,
+        proom.lx + x, proom.ly + y,
+        proom.lx + x + w - 1, proom.ly + y + h - 1,
+        rlit, rtype, false,
+    );
+    return true;
+}
+
+/**
+ * C ref: sp_lev.c create_door — wall-mask door placement in a room.
+ * Fixed state ("closed"/"locked") skips secret/mask RNG.
+ */
+function create_door(dd, broom) {
+    if (!broom || !dd) return;
+    let secret = dd.secret;
+    let mask = dd.mask;
+    let wall = dd.wall;
+    const pos = dd.pos ?? -1;
+    if (secret === -1) secret = rn2(2);
+    if (wall === -1 || wall == null) wall = W_ANY;
+    if (mask === -1) {
+        if (!secret) {
+            if (!rn2(3)) {
+                if (!rn2(5)) mask = D_ISOPEN;
+                else if (!rn2(6)) mask = D_LOCKED;
+                else mask = D_CLOSED;
+                if (mask !== D_ISOPEN && !rn2(25)) mask |= D_TRAPPED;
+            } else {
+                mask = D_NODOOR;
+            }
+        } else {
+            if (!rn2(5)) mask = D_LOCKED;
+            else mask = D_CLOSED;
+            if (!rn2(20)) mask |= D_TRAPPED;
+        }
+    }
+    let x = 0, y = 0;
+    let trycnt = 0;
+    for (; trycnt < 100; ++trycnt) {
+        const dwall = wall;
+        const dpos = pos;
+        switch (rn2(4)) {
+        case 0:
+            if (!(dwall & W_NORTH)) continue;
+            y = broom.ly - 1;
+            x = broom.lx + ((dpos === -1)
+                ? rn2(1 + broom.hx - broom.lx) : dpos);
+            if (!isok(x, y - 1)
+                || IS_OBSTRUCTED(game.level.at(x, y - 1)?.typ)) continue;
+            break;
+        case 1:
+            if (!(dwall & W_SOUTH)) continue;
+            y = broom.hy + 1;
+            x = broom.lx + ((dpos === -1)
+                ? rn2(1 + broom.hx - broom.lx) : dpos);
+            if (!isok(x, y + 1)
+                || IS_OBSTRUCTED(game.level.at(x, y + 1)?.typ)) continue;
+            break;
+        case 2:
+            if (!(dwall & W_WEST)) continue;
+            x = broom.lx - 1;
+            y = broom.ly + ((dpos === -1)
+                ? rn2(1 + broom.hy - broom.ly) : dpos);
+            if (!isok(x - 1, y)
+                || IS_OBSTRUCTED(game.level.at(x - 1, y)?.typ)) continue;
+            break;
+        case 3:
+            if (!(dwall & W_EAST)) continue;
+            x = broom.hx + 1;
+            y = broom.ly + ((dpos === -1)
+                ? rn2(1 + broom.hy - broom.ly) : dpos);
+            if (!isok(x + 1, y)
+                || IS_OBSTRUCTED(game.level.at(x + 1, y)?.typ)) continue;
+            break;
+        default:
+            break;
+        }
+        if (okdoor(x, y)) break;
+    }
+    if (trycnt >= 100) return;
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    loc.typ = secret ? SDOOR : DOOR;
+    loc.doormask = mask;
+    loc.flags = mask;
+}
+
+const DOOR_WALL = {
+    north: W_NORTH, south: W_SOUTH, east: W_EAST, west: W_WEST,
+    all: W_ANY, random: W_ANY,
+};
+const DOOR_STATE = {
+    open: D_ISOPEN, closed: D_CLOSED, locked: D_LOCKED,
+    nodoor: D_NODOOR, broken: D_BROKEN, secret: D_SECRET, random: -1,
+};
+
+/**
+ * C ref: sp_lev.c lspo_door wall-form → create_door.
+ */
+function splev_room_door(croom, state, wall) {
+    const mask = DOOR_STATE[state] ?? -1;
+    const typ = (mask === -1) ? -1 : mask;
+    create_door({
+        secret: (typ === D_SECRET) ? 1 : 0,
+        mask,
+        pos: -1,
+        wall: DOOR_WALL[wall] ?? W_ANY,
+    }, croom);
+}
+
+/**
+ * C ref: sp_lev.c build_room + lspo_room — top-level or nested.
+ * @returns {object|null} the new mkroom
+ */
+function splev_build_room(opts, parent) {
+    const g = game;
+    const chance = opts.chance ?? 100;
+    const wantType = splev_roomtype(opts.type, OROOM);
+    // C: (!chance || rn2(100) < chance) ? rtype : OROOM
+    const rtype = (!chance || rn2(100) < chance) ? wantType : OROOM;
+    const rlit = opts.lit ?? -1;
+    const x = opts.x ?? -1;
+    const y = opts.y ?? -1;
+    const w = opts.w ?? -1;
+    const h = opts.h ?? -1;
+    const xalign = opts.xalign ?? -1;
+    const yalign = opts.yalign ?? -1;
+    const needfill = opts.filled ?? 1;
+    const joined = opts.joined ?? true;
+
+    let ok = false;
+    if (parent) {
+        ok = create_subroom(parent, x, y, w, h, rtype, rlit);
+        if (ok) {
+            const aroom = g.level.rooms[
+                MAXNROFROOMS + 1 + ((g.level.nsubroom | 0) - 1)];
+            if (aroom) {
+                topologize(aroom);
+                aroom.needfill = needfill;
+                aroom.needjoining = joined;
+                aroom.rtype = rtype;
+                // C lspo_room: mark parent irregular after adding a subroom
+                parent.irregular = true;
+                return aroom;
+            }
+        }
+        return null;
+    }
+    ok = create_room(x, y, w, h, xalign, yalign, rtype, rlit);
+    if (!ok) return null;
+    const aroom = g.level.rooms[(g.level.nroom | 0) - 1];
+    if (!aroom) return null;
+    topologize(aroom);
+    aroom.needfill = needfill;
+    aroom.needjoining = joined;
+    return aroom;
+}
+
+/**
+ * C ref: sp_lev.c lspo_room — build then run contents then add_doors_to_room.
+ */
+function splev_des_room(opts, parent, contentsFn) {
+    const aroom = splev_build_room(opts, parent);
+    if (!aroom) return null;
+    if (typeof contentsFn === 'function') contentsFn(aroom);
+    add_doors_to_room(aroom);
+    return aroom;
+}
+
+/**
+ * C ref: sp_lev.c lspo_feature fountain at relative room coords.
+ */
+function splev_room_feature_fountain(croom, rx, ry) {
+    const x = croom.lx + rx;
+    const y = croom.ly + ry;
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    loc.typ = FOUNTAIN;
+    if (game.level.flags) game.level.flags.nfountains =
+        (game.level.flags.nfountains | 0) + 1;
+}
+
+/**
+ * C ref: sp_lev.c create_altar — fixed relative coords, shrine in temple.
+ */
+function splev_room_altar_shrine(croom, rx, ry, alignStr) {
+    const x = croom.lx + rx;
+    const y = croom.ly + ry;
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    loc.typ = ALTAR;
+    let amask = AM_NEUTRAL;
+    if (alignStr === 'law') amask = AM_LAWFUL;
+    else if (alignStr === 'neutral') amask = AM_NEUTRAL;
+    else if (alignStr === 'chaos') amask = AM_CHAOTIC;
+    else if (alignStr === 'noalign') amask = AM_NONE;
+    loc.altarmask = amask;
+    loc.flags = amask;
+    if ((croom.rtype | 0) === TEMPLE) {
+        priestini(game.u?.uz, croom, x, y, false);
+        loc.altarmask = (loc.altarmask | 0) | AM_SHRINE;
+        loc.flags = (loc.flags | 0) | AM_SHRINE;
+        if (game.level.flags) game.level.flags.has_temple = true;
+    }
 }
 
 /**
