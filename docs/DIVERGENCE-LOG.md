@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0651 — medusa-1 load_special (seed0367 @26691)
+
+- **Status:** fixed (partial — next @26695 rndmonst_adj weights)
+- **Symptom:** seed0367 first mismatch @26691 — C nhlib `shuffle`
+  after matched `makemaz` `rnd(4)=1` vs JS `rn2(79)` `place_lregion`.
+- **Cause:** `load_special_proto` omitted `medusa-1`, so makemaz left
+  an empty maze. C loads `medusa-1.lua` (moat map, arrival room,
+  Perseus statue + contents, empty medusa statues, Medusa/eels, flip,
+  branch/teleport lregions; `fixup_special` medusa rooms[0] statues).
+- **C locus:** `dat/medusa-1.lua`; `sp_lev.c` `load_special` /
+  `create_object` Medusa statue invent; `mkmaze.c` `fixup_special`
+  `Is_medusa_level`; `mkobj.c` STATUE book → `add_to_container`.
+- **Change:** `js/mklev.js` — `load_medusa_1` + dispatch;
+  `Is_medusa_level`; `fixup_special` medusa arm; `js/mkobj.js`
+  STATUE book into container.
+- **Verification:** seed0367 prefix **26691→26695** (runner RNG
+  **26698→26718**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS sample.
+- **Named omission:** `resists_ston`/`poly_when_stoned`/`propagate`
+  on empty statues; medusa-2/3/4; flip lregion coord update;
+  fixup stone-resist corpsenm retry.
+- **Next:** seed0367 @26695 C `rndmonst_adj` weight `rn2(3)` vs JS
+  `rn2(5)` during Perseus statue `rndmonnum` (align_shift /
+  difficulty band).
+
 ## D-0650 — goto_level quest_portal com_pager (seed0367 @26688)
 
 - **Status:** fixed (partial — next @26691 medusa load_special)

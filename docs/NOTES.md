@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#722 D-0650:** seed0367 @26688→**26691**. Cause was missing
-  `goto_level` `com_pager(quest_portal*)` at Quest dungeon entrance
-  (`at_dgn_entrance`). Next: @26691 C medusa-1 `load_special` shuffle
-  vs JS `place_lregion` (no medusa proto).
+- **#723 D-0651:** seed0367 @26691→**26695**. Cause was missing
+  `medusa-1` `load_special`. Next: @26695 C `rndmonst_adj` weight
+  `rn2(3)` vs JS `rn2(5)` on Perseus statue `rndmonnum` (likely
+  align_shift / difficulty band on medusa special).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0650; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0651; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -33,29 +33,19 @@ Objective/score live in `CURRENT.md`.
   getpos floor; check `flags.wizard` alone for C `wizard`; force
   mundetected on all S_SNAKE (python !M1_CONCEAL); omit `questarti` on
   `game.urole`; omit non-pit trap in makemon snake hideunder;
-  omit `is_weptool` in `ini_inv_use_obj` / weptool donameClass /
-  TINNING_KIT charged; omit `distant_name` in `relobj_on_death`;
-  omit attrs Hallu/Search/Reflect/Lifesaved; omit `ublesscnt--`;
-  omit gethungry amulet accessorytime case 8; omit garlic_breath;
-  omit blue DSM `dragon_armor_handling` / FAST `EFast` mirror;
-  omit Priest `ldrnum` / Arch Priest kit; invent intemple without
-  Pri-strt MAGIC_PORTAL arrival; pre-set `u.urooms` in `teleds`;
-  skip `#chat` MS_LEADER `quest_chat`; omit extract `AD_SPEL`/`AD_CLRC`;
-  skip `dochug` undirected `castmu`; omit Pri-loca / MORGUE fill_zoo /
-  hardfloor `Can_fall_thru`; omit fill_zoo rectangular roomno gate;
-  omit m_initinv S_DEMON/S_WRAITH/S_LICH; widen eastern morgue back to
-  lua 39 without a C-cited roomno/SPACE falsifier; drop roomno gate;
-  port `link_doors_rooms` into Pri-loca without new evidence;
-  guess Pri-fila for @15172 (was Pri-goal); skip minetn-2 / forget
-  `flip_level` sbrooms after nested rooms; skip bigrm-3 / invent
-  place_lregion for @19994; invent S_ANGEL for @26229 (was stub);
-  invent quest_portal for @26688 (was missing com_pager).
+  omit `is_weptool` / `distant_name` / attrs Hallu… / `ublesscnt--` /
+  gethungry case 8 / garlic_breath / blue DSM / Priest kit retrospectives;
+  invent intemple without Pri-strt MAGIC_PORTAL; pre-set `u.urooms` in
+  `teleds`; skip `#chat` MS_LEADER; omit AD_SPEL/AD_CLRC / castmu;
+  omit Pri-loca/MORGUE/fill_zoo roomno/m_initinv S_DEMON… retrospectives;
+  invent place_lregion for @19994/@26691; invent S_ANGEL/quest_portal/
+  medusa-1 (were missing loaders).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0650 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0651 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -63,7 +53,7 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…49: see INDEX; D-0642: @3438 was missing Pri-loca, not
+- D-0616…50: see INDEX; D-0642: @3438 was missing Pri-loca, not
   getbones arity; D-0643: @10674 was overlap MON_AT, not corpse gate;
   D-0644: @13882 was missing S_DEMON, not trailing rn2(50);
   D-0645: @15167 was eastern morgue hx 39→35, not place_lregion math;
@@ -71,7 +61,8 @@ Objective/score live in `CURRENT.md`.
   D-0647: @17449 was missing minetn-2 (+ flip sbrooms), not place_lregion;
   D-0648: @19994 was missing bigrm-3, not place_lregion;
   D-0649: @26229 was deferred S_ANGEL kit, not trailing rn2(75);
-  D-0650: @26688 was missing quest_portal com_pager, not broken shuffle.
+  D-0650: @26688 was missing quest_portal com_pager, not broken shuffle;
+  D-0651: @26691 was missing medusa-1, not place_lregion after rnd(4).
 
 ## Landmarks (≤15)
 
@@ -89,11 +80,12 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0650: see INDEX; Pri-loca + MORGUE +
+- Quest landmarks through D-0651: see INDEX; Pri-loca + MORGUE +
   fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35 +
-  Pri-goal + minetn-2 + bigrm-3 + S_ANGEL + quest_portal; S_KOP /
-  Pri-fila/filb / minetn-1/3–7 / **medusa-N** deferred; next @26691
-  medusa-1; eel hideunder / I_SPECIAL deferred; SWAMP deferred.
+  Pri-goal + minetn-2 + bigrm-3 + S_ANGEL + quest_portal + **medusa-1**;
+  S_KOP / Pri-fila/filb / minetn-1/3–7 / **medusa-2/3/4** deferred;
+  next @26695 rndmonst weights; eel hideunder / I_SPECIAL deferred;
+  SWAMP deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.

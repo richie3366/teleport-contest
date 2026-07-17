@@ -50,8 +50,9 @@ import {
     In_endgame,
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
+    Is_medusa_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
-    MM_ASLEEP, IS_TREE, G_GENOD,
+    MM_ASLEEP, MM_NOCOUNTBIRTH, MM_NOMSG, IS_TREE, G_GENOD,
     MKTRAP_NOSPIDERONWEB,
     MKTRAP_NOVICTIM,
     Is_firelevel,
@@ -59,6 +60,7 @@ import {
     Is_waterlevel,
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
     Can_fall_thru, G_GONE,
+    CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_NONE,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -77,10 +79,10 @@ import {
 } from './mkobj.js';
 import {
     makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham,
-    mongets, set_malign,
+    mongets, set_malign, rndmonnum,
 } from './makemon.js';
 import { m_at } from './mon.js';
-import { enexto, rloc } from './teleport.js';
+import { enexto, rloc, goodpos } from './teleport.js';
 import { clear_wormdata } from './worm.js';
 import { obj_resists } from './dogmove.js';
 import {
@@ -157,6 +159,7 @@ const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
 const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
 const PM_BUGBEAR = monsterNames.indexOf('PM_BUGBEAR');
 const PM_HOBGOBLIN = monsterNames.indexOf('PM_HOBGOBLIN');
+const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
@@ -179,6 +182,10 @@ const WORTHLESS_VIOLET_GLASS = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
 const WORTHLESS_WHITE_GLASS = objectNames.indexOf('WORTHLESS_WHITE_GLASS');
 const WORTHLESS_GREEN_GLASS = objectNames.indexOf('WORTHLESS_GREEN_GLASS');
 const WORTHLESS_RED_GLASS = objectNames.indexOf('WORTHLESS_RED_GLASS');
+const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const LEVITATION_BOOTS = objectNames.indexOf('LEVITATION_BOOTS');
+const SCIMITAR = objectNames.indexOf('SCIMITAR');
+const SACK = objectNames.indexOf('SACK');
 
 const XLIM = 4;
 const YLIM = 3;
@@ -473,6 +480,33 @@ function fixup_special() {
     if (!game.made_branch && is_branchlev()) {
         place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null);
     }
+
+    // C ref: mkmaze.c fixup_special Is_medusa_level — statues in rooms[0]
+    if (Is_medusa_level(game.u?.uz)) {
+        const croom = game.level?.rooms?.[0];
+        if (croom) {
+            for (let tryct = rnd(4); tryct; tryct--) {
+                const x = somex(croom);
+                const y = somey(croom);
+                if (goodpos(x, y, null, 0)) {
+                    let tryct2 = 0;
+                    const otmp = mk_tt_object(STATUE, x, y);
+                    // Named omission: poly_when_stoned / pm_resistance MR_STONE
+                    // retry loop (mresists not extracted) — keep first corpsenm.
+                    void tryct2;
+                    void otmp;
+                }
+            }
+            let otmp;
+            if (rn2(2))
+                otmp = mk_tt_object(STATUE, somex(croom), somey(croom));
+            else
+                otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom),
+                    CORPSTAT_NONE);
+            // Named omission: stone-resist corpsenm retry (same as above)
+            void otmp;
+        }
+    }
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
@@ -669,10 +703,10 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-2, tower1, fire, air, minend-1, minetn-2.
+ * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
  * protos (Bar-goal, Pri-fila/filb); minetn-1/3–7; minend-2/3; tower2/3;
- * water/earth/astral; create_maze fallback; check_ransacked side
+ * medusa-2/3/4; water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
@@ -745,6 +779,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-3') {
         load_bigrm_3();
+        return true;
+    }
+    if (protofile === 'medusa-1') {
+        load_medusa_1();
         return true;
     }
     if (protofile === 'bigrm-7') {
@@ -1084,6 +1122,283 @@ function load_bigrm_3() {
     // C load_special: wallification when !corrmaze; noflip → skip flip
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/medusa-1.lua via load_special.
+ * Named omissions: resists_ston/poly_when_stoned/propagate on empty
+ * statues (mresists not extracted — accept first makemon); medusa-2/3/4;
+ * flip_level lregion coord update (same shortcut as Bar-strt/fire).
+ */
+function load_medusa_1() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    // des.level_flags("mazelevel", "noteleport") — allow_flips default 3
+
+    // Exact dat/medusa-1.lua des.map (20×75)
+    const MEDUSA1_MAP = `
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+}}.}}}}}..}}}}}......}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}....}}}...}}}}}
+}...}}.....}}}}}....}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}...............}
+}....}}}}}}}}}}....}}}..}}}}}}}}}}}.......}}}}}}}}}}}}}}}}..}}.....}}}...}}
+}....}}}}}}}}.....}}}}..}}}}}}.................}}}}}}}}}}}.}}}}.....}}...}}
+}....}}}}}}}}}}}}.}}}}.}}}}}}.-----------------.}}}}}}}}}}}}}}}}}.........}
+}....}}}}}}}}}}}}}}}}}}.}}}...|...............S...}}}}}}}}}}}}}}}}}}}....}}
+}.....}.}}....}}}}}}}}}.}}....--------+--------....}}}}}}..}}}}}}}}}}}...}}
+}......}}}}..}}}}}}}}}}}}}........|.......|........}}}}}....}}}}}}}}}}}}}}}
+}.....}}}}}}}}}}}}}}}}}}}}........|.......|........}}}}}...}}}}}}}}}.}}}}}}
+}.....}}}}}}}}}}}}}}}}}}}}....--------+--------....}}}}}}.}.}}}}}}}}}}}}}}}
+}......}}}}}}}}}}}}}}}}}}}}...S...............|...}}}}}}}}}}}}}}}}}.}}}}}}}
+}.......}}}}}}}..}}}}}}}}}}}}.-----------------.}}}}}}}}}}}}}}}}}....}}}}}}
+}........}}.}}....}}}}}}}}}}}}.................}}}}}..}}}}}}}}}.......}}}}}
+}.......}}}}}}}......}}}}}}}}}}}}}}.......}}}}}}}}}.....}}}}}}...}}..}}}}}}
+}.....}}}}}}}}}}}.....}}}}}}}}}}}}}}}}}}}}}}.}}}}}}}..}}}}}}}}}}....}}}}}}}
+}}..}}}}}}}}}}}}}....}}}}}}}}}}}}}}}}}}}}}}...}}..}}}}}}}.}}.}}}}..}}}}}}}}
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+`.replace(/^\n/, '');
+    splev_apply_centered_map(MEDUSA1_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,74,19),"lit") — 2-arg light form
+    light_region(mx + 0, my + 0, mx + 74, my + 19, true);
+    // des.region(selection.area(31,07,45,07),"unlit")
+    for (let x = 31; x <= 45; x++) {
+        const loc = g.level.at(mx + x, my + 7);
+        if (loc) loc.lit = false;
+    }
+    // des.region({ region={35,09, 41,10}, lit=0, type="ordinary", arrival_room=true })
+    {
+        const dx1 = mx + 35, dy1 = my + 9, dx2 = mx + 41, dy2 = my + 10;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, OROOM, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.needjoining = true;
+                troom.needfill = 0;
+                topologize(troom);
+            }
+        }
+    }
+    // des.region(selection.area(31,12,45,12),"unlit")
+    for (let x = 31; x <= 45; x++) {
+        const loc = g.level.at(mx + x, my + 12);
+        if (loc) loc.lit = false;
+    }
+
+    // des.teleport_region — applied after flip like fire/air
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_DOWNTELE,
+        rname: null,
+        inarea: { x1: mx + 1, y1: my + 1, x2: mx + 5, y2: my + 17 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+    });
+    g.lregions.push({
+        rtype: LR_UPTELE,
+        rname: null,
+        inarea: { x1: mx + 26, y1: my + 4, x2: mx + 50, y2: my + 15 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+    });
+    // des.levregion branch with exclude Medusa's building
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: mx + 1, y1: my + 0, x2: mx + 79, y2: my + 20 },
+        delarea: { x1: mx + 30, y1: my + 6, x2: mx + 46, y2: my + 13 },
+    });
+
+    // des.stair("up", 05,14) / des.stair("down", 36,10)
+    mkstairs(mx + 5, my + 14, 1, null);
+    mkstairs(mx + 36, my + 10, 0, null);
+
+    // des.door
+    const medDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    medDoor(46, 7, D_CLOSED);
+    medDoor(38, 8, D_LOCKED);
+    medDoor(38, 11, D_LOCKED);
+    medDoor(30, 12, D_CLOSED);
+
+    // des.non_diggable(selection.area(30,06,46,13))
+    for (let y = my + 6; y <= my + 13 && y < ROWNO; y++) {
+        for (let x = mx + 30; x <= mx + 46 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.object Perseus statue + contents (SP_OBJ_CONTAINER)
+    {
+        // C: mksobj_at(STATUE, x, y, TRUE, !named) — named → artif false
+        const statue = mksobj_at(STATUE, mx + 36, my + 10, true, false);
+        if (statue) {
+            statue.spe = CORPSTAT_HISTORIC | CORPSTAT_MALE;
+            if (PM_KNIGHT >= 0) set_corpsenm(statue, PM_KNIGHT);
+            unbless(statue);
+            uncurse(statue);
+            oname(statue, 'Perseus', ONAME_LEVEL_DEF);
+            // SP_OBJ_CONTAINER → delete_contents after mksobj book chance
+            statue.cobj = null;
+            statue.owt = weight(statue);
+            const addContent = (otyp, buc, spe) => {
+                const pos = get_location_coord_random(DRY);
+                if (pos.x < 0) return;
+                const otmp = mksobj_at(otyp, pos.x, pos.y, true, true);
+                if (!otmp) return;
+                if (spe != null) otmp.spe = spe;
+                if (buc === 'cursed') curse(otmp);
+                else if (buc === 'blessed') bless(otmp);
+                else if (buc === 'uncursed') {
+                    unbless(otmp);
+                    uncurse(otmp);
+                }
+                otmp.oeroded = 0;
+                otmp.oeroded2 = 0;
+                otmp.oerodeproof = 0;
+                obj_extract_self(otmp);
+                add_to_container(statue, otmp);
+                statue.owt = weight(statue);
+            };
+            if (percent(75)) addContent(SHIELD_OF_REFLECTION, 'cursed', 0);
+            if (percent(25)) addContent(LEVITATION_BOOTS, null, 0);
+            if (percent(50)) addContent(SCIMITAR, 'blessed', 2);
+            if (percent(50)) addContent(SACK, null, null);
+        }
+    }
+
+    // des.object({ id="statue", contents=0 }) × 7 — empty + Medusa invent fill
+    for (let i = 0; i < 7; i++) {
+        const pos = get_location_random(null);
+        const otmp = mksobj_at(STATUE, pos.x, pos.y, true, true);
+        if (!otmp) continue;
+        otmp.cobj = null;
+        otmp.owt = weight(otmp);
+        // C create_object Medusa special when template corpsenm == NON_PM
+        let wastyp = otmp.corpsenm;
+        let was = null;
+        for (let j = 0; j < 1000; j++, wastyp = rndmonnum()) {
+            was = makemon(mons(wastyp), 0, 0, MM_NOCOUNTBIRTH | MM_NOMSG);
+            if (!was) continue;
+            // Named omission: resists_ston / poly_when_stoned / propagate
+            break;
+        }
+        if (was) {
+            set_corpsenm(otmp, wastyp);
+            while (was.minvent) {
+                const obj = was.minvent;
+                obj.owornmask = 0;
+                obj_extract_self(obj);
+                add_to_container(otmp, obj);
+            }
+            otmp.owt = weight(otmp);
+            const list = g.fmon;
+            if (Array.isArray(list)) {
+                const ix = list.indexOf(was);
+                if (ix >= 0) list.splice(ix, 1);
+            }
+            was.mx = 0;
+            was.my = 0;
+        }
+    }
+
+    // des.object() × 8
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+
+    // des.trap() × 5 then board traps
+    for (let i = 0; i < 5; i++) splev_create_trap();
+    {
+        const t1 = maketrap(mx + 38, my + 7, SQKY_BOARD);
+        mktrap_seen_victim(t1, {});
+        const t2 = maketrap(mx + 38, my + 12, SQKY_BOARD);
+        mktrap_seen_victim(t2, {});
+    }
+
+    // des.monster Medusa asleep at downstairs
+    {
+        find_montype_gender('Medusa');
+        induced_align(80);
+        const pmIdx = name_to_mon('Medusa');
+        if (pmIdx >= 0 && pmIdx !== NON_PM) {
+            const mtmp = makemon(mons(pmIdx), mx + 36, my + 10, 0);
+            if (mtmp) mtmp.msleeping = 1;
+        }
+    }
+    // fixed-coord aquatic / snakes
+    for (const [id, rx, ry] of [
+        ['giant eel', 11, 6], ['giant eel', 23, 13], ['giant eel', 29, 2],
+        ['jellyfish', 2, 2], ['jellyfish', 0, 8], ['jellyfish', 4, 18],
+        ['water troll', 51, 3], ['water troll', 64, 11],
+    ]) {
+        const { mndx, female } = find_montype_gender(id);
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        let x = mx + rx;
+        let y = my + ry;
+        const moved = splev_resolve_occupied(x, y, mons(mndx));
+        x = moved.x;
+        y = moved.y;
+        const mtmp = makemon(mons(mndx), x, y, 0);
+        if (mtmp) mtmp.female = female;
+    }
+    for (const [rx, ry] of [[38, 7], [38, 12]]) {
+        induced_align(80);
+        const pm = mkclass('S_SNAKE', G_NOGEN);
+        let x = mx + rx;
+        let y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        x = moved.x;
+        y = moved.y;
+        if (pm) makemon(pm, x, y, 0);
+    }
+    for (let i = 0; i < 10; i++) splev_create_monster(null);
+
+    // C load_special: wallification → flip → lregions → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else if (r.rtype === LR_BRANCH) {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    LR_BRANCH, null,
+                );
+            }
+        }
+    }
     fixup_special();
 }
 
