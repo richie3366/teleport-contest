@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0656 — getlev restore updest/dndest (seed0367 plumbing)
+
+- **Status:** fixed (partial — @35535 put_lregion reject still open)
+- **Symptom:** seed0367 still first mismatch @35535 after D-0655; also
+  in-memory getlev never restored `updest`/`dndest` (C `Sfi_dest_area`).
+- **Cause (plumbing):** `goto_level` memset dest areas then mklev/getlev;
+  C `savelev`/`getlev` persist them; JS stash omitted both so tele
+  regions from specials were lost on revisit (Pri-loca has none — zeros).
+- **Diagnosis @35535 (not fixed):** after matched getlev `rnd(10)`×284 +
+  first `place_lregion` try `rn2(79)=58`/`rn2(21)=14` → `(59,14)`, C
+  `put_lregion_here` rejects and retries (`rn2(79)=34`/`rn2(21)=14` →
+  `(35,14)` in temple → `onquest` shuffle → `intemple`). JS accepts
+  `(59,14)` (ROOM, no mon/trap/excl) → shuffle without intemple.
+  Falsified: extra place_lregion call; non-zero dndest bounds; excl
+  zones; east-morgue x2=39 fill (regresses D-0645 @15167).
+- **C locus:** `save.c`/`restore.c` dest_area; `mkmaze.c`
+  `put_lregion_here`/`bad_location`; `dungeon.c` `u_on_rndspot`.
+- **Change:** `js/do.js` stash/restore `updest`/`dndest` on leave/getlev.
+- **Verification:** seed0367 still @35535 (RNG 35572 Scr 175); green+
+  strict PASS; cohort 11/11 (incl. restore/quest PASS seeds).
+- **Named omission:** why C rejects `(59,14)` (typ/occupied/m_at);
+  exclusion_zones save/rest; `switch_terrain` after `u_on_rndspot`.
+- **Next:** dump C cell state at `(59,14)` on Pri-loca getlev return
+  (or match typ/occupied to C); then intemple path.
+
 ## D-0655 — Pri-fila/filb load_special + morgue roomtype (seed0367 @33068)
 
 - **Status:** fixed (partial — next @35535 Home 3 place_lregion)
@@ -25,8 +50,8 @@ to preserve, record it here.
   **34/34** prior-PASS.
 - **Named omission:** other-role *-fila/*-filb room scripts;
   failed-room / ensure_way_out fidelity.
-- **Next:** seed0367 @35535 C `place_lregion` after Home 3 getlev
-  vs JS nhlib `shuffle` (then C `intemple` — Pri-loca re-entry).
+- **Next:** seed0367 @35535 — C `put_lregion_here` rejects `(59,14)`
+  (see D-0656 diagnosis).
 
 ## D-0654 — medusa empty-statue resists_ston + mresists extract (seed0367 @27126)
 

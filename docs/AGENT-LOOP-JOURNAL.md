@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:15 — #728 D-0656 getlev updest/dndest + @35535 diag
+- Objective: seed0367 @35535 C place_lregion vs JS nhlib shuffle.
+- C locus: restore.c getlev dest_area; mkmaze.c put_lregion_here;
+  dungeon.c u_on_rndspot; do.c goto_level.
+- Change: stash/restore updest/dndest on leave/getlev (D-0656).
+  Diagnosis: C rejects put at (59,14) then retries (35,14)→intemple;
+  JS accepts. Falsified: second place_lregion call; non-zero dest;
+  excl; east hx=39.
+- Verification: still @35535 (RNG 35572 Scr 175); green+strict PASS;
+  cohort 11/11.
+- Next: C cell state at (59,14) on Pri-loca getlev return.
+
 ## 2026-07-17 17:55 — #727 D-0655 Pri-fila/filb load_special
 - Objective: seed0367 @33068 C nhlib shuffle after getbones vs JS rn2(79).
 - C locus: dat/Pri-fila.lua / Pri-filb.lua; sp_lev.c lspo_room/
