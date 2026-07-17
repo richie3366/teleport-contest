@@ -1438,7 +1438,7 @@ function load_arc_strt() {
 /**
  * C ref: dat/Arc-loca.lua via load_special — Archeologist quest locate.
  * Named omissions: humidity-aware get_location; selection.grow on
- * 2-arg lit regions; Arc-fila/filb/goal; spo_end_moninvent m_dowear.
+ * 2-arg lit regions; Arc-goal; spo_end_moninvent m_dowear.
  */
 function load_arc_loca() {
     const g = game;
