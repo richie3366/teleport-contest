@@ -72,17 +72,18 @@ D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **267**/324
-(cursors 317/324; prefix **203**). **D-0666** altar_color; **D-0667**
-`see_monsters` cleared @185.
+(cursors 317/324; prefix **203**). **D-0668** Pri-loca map lit clear
+turned live `Z`→warn; **27** cells remain (C `W`/`&` vs JS warn).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @203 level-teleport materialize map —
-JS shows remembered mons/floor where C is blank; C warn digits vs JS
-`Z`. Do not re-break D-0660…D-0667.
+**Next falsifier / fix:** @203 Pri-loca — C paints physical `W`/`&` on
+dark morgue cells where JS only `mon_warning` digits (nv_range /
+TEMP_LIT / sensing). Do not globalize `sel_set_ter(false)` (seed0009).
+Do not re-break D-0660…D-0668.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

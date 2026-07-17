@@ -2,11 +2,26 @@
 
 Evidence-backed history of important C↔JS divergences. Active speculation stays
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
-to preserve, record it here.
+to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-# Divergence log
+## D-0668 — Pri-loca map lit=FALSE after mines lit-field (seed0367 @203)
 
-Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
+- **Status:** fixed (partial — Scr still 267/324; 27 cells W/& vs warn)
+- **Symptom:** @203 `You materialize on a different level!` — JS showed
+  live `Z`/`&`/`W` + remembered walls where C had Warning digits + darkroom
+  `~` (Pri-loca morgue).
+- **Cause:** `des.level_init` mines `lit=1` open field; C `lspo_map` defaults
+  `lit=FALSE` → `set_levltyp_lit` clears map cells. JS `sel_set_ter(...,false)`
+  was nochange, so morgue stayed lit → full IN_SIGHT → live mon glyphs.
+- **C locus:** `dat/Pri-loca.lua`; `sp_lev.c` `lspo_map` lit default;
+  `mkmaze.c` `set_levltyp_lit`.
+- **Change:** `load_pri_loca` clears `SpLev_Map` cell `.lit` after map apply
+  (lava stays lit). Global `sel_set_ter(false)`≡C deferred — regresses
+  seed0009. Temple `flood_fill_rm` still re-lights.
+- **Verification:** @203 residual 27 cells (C `W`/`&` vs JS warn digits);
+  green+strict PASS; cohort **33**/34 (0367 only fail). RNG FULL.
+- **Next:** why C paints physical `W`/`&` on those dark cells (nv_range /
+  TEMP_LIT / sensing) while JS only `mon_warning`.
 
 ## D-0667 — see_monsters after teleds (seed0367 @185 warn)
 

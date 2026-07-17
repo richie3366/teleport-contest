@@ -2033,7 +2033,8 @@ function load_pri_strt() {
 /**
  * C ref: dat/Pri-loca.lua via load_special — Priest quest locate
  * (Temple of Nalzok). Mines init is a lit-field kludge (fg=bg=".");
- * des.map overlays the temple; morgue regions stock undead.
+ * des.map overlays with C lspo_map lit=FALSE (D-0668 clears SpLev_Map
+ * .lit); morgue regions stock undead; temple flood re-lights.
  * Named omissions: humidity-aware get_location; flip_level (noflip);
  * spo_end_moninvent m_dowear; add_doors_to_room mid-region (doors are
  * linked once via link_doors_rooms before wallify, ≡ C load_special).
@@ -2079,6 +2080,22 @@ function load_pri_loca() {
 ........................................
 `.replace(/^\n/, '');
     splev_apply_centered_map(PRI_LOCA_MAP);
+    // C lspo_map defaults lit=FALSE → set_levltyp_lit clears mines-init
+    // lit=1 on every map cell (sel_set_ter(...,false) is still nochange
+    // for other loaders; Pri-loca needs the C clear so morgue stays dark).
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
+    }
     const mx = g.splev_xstart ?? 1;
     const my = g.splev_ystart ?? 0;
 
