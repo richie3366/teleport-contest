@@ -73,12 +73,11 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @35535 — C `put_lregion_here` rejects
-`(59,14)` after matched getlev + first try (`rn2(79)=58`/`rn2(21)=14`);
-retries → `(35,14)` temple → `onquest` shuffle → `intemple`. JS accepts
-`(59,14)` (ROOM/clear) → shuffle without intemple. D-0656 restored
-`updest`/`dndest` on getlev (Pri-loca still zeros). Prefix still
-**35535**; runner RNG **35572**; Scr **175**/324.
+**Gameplay next:** seed0367 @35535 — C `put_lregion_here` TELE rejects
+`(59,14)` via **`m_at` PM_ELF_ZOMBIE** (D-0657); retries → `(35,14)`
+temple → `onquest`/`intemple`. JS accepts (D-0645 hx=35 left cols
+36–39 empty). C room[3]=(52,5)-(60,18); door-skip col 52; stocks
+53–60. Prefix still **35535**; runner RNG **35572**; Scr **175**/324.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json
@@ -86,9 +85,10 @@ node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier:** C typ / `occupied` / `m_at` at `(59,14)` on that
-Pri-loca getlev return (JS: typ=ROOM, !occ, !mon, !trap, !excl).
-Do not invent a reject; do not reopen east morgue hx=39 (D-0645).
+**Next falsifier / fix:** Pri-loca `link_doors_rooms` + eastern
+`hx=39` with fill parity through @15167 (hx=39 alone or naive
+`add_doors_to_room` regress). Then intemple path.
+Do not invent a put_lregion reject; do not reopen east hx without doors.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

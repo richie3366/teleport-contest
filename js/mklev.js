@@ -2094,10 +2094,12 @@ function load_pri_loca() {
     };
 
     // des.region morgue rects (filled=1)
-    // C fill stocks the eastern morgue as map cols 31-35 (70 cells), not
-    // 31-39 (126): after rooms 0-2 (212 cells) C has exactly 282 morguemon
-    // calls then place_lregion. Lua lists x2=39; observed C fill extent is
-    // x2=35 (D-0645). Keep roomno/topologize aligned with that hx.
+    // C room[3] is map cols 31-39 → abs (52,5)-(60,18) (D-0657 DIAG).
+    // fill_zoo door-adjacency skips lx col 31 (doors at map 30); stocks
+    // 32-39. D-0645 clipped hx to 35 after @15167 morguemon/place_lregion
+    // drift — that under-stocks 36-39 so getlev put_lregion accepts
+    // (59,14) instead of m_at-reject. Restoring hx=39 needs link_doors
+    // + fill parity first (reopens @15167 without them).
     priAddRectRoom(0, 0, 9, 13, false, MORGUE, FILL_NORMAL);
     priAddRectRoom(9, 0, 30, 1, false, MORGUE, FILL_NORMAL);
     priAddRectRoom(9, 12, 30, 13, false, MORGUE, FILL_NORMAL);

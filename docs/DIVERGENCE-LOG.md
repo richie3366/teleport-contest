@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0657 — C put_lregion (59,14) rejects via m_at (seed0367 @35535)
+
+- **Status:** diagnosed (fix pending — east morgue hx=39 + door link)
+- **Symptom:** seed0367 first mismatch @35535 — C retries `place_lregion`
+  after `(59,14)`; JS accepts → nhlib shuffle (no intemple).
+- **Cause (proved):** C TEMP DIAG on recorder `put_lregion_here`:
+  `typ=ROOM`, `bad=0`, `excl=0`, `occ=0`, `trap=-1`, but **`mon=243`
+  (PM_ELF_ZOMBIE)** → TELE `m_at` reject when `!oneshot`. JS: no mon at
+  `(59,14)` (D-0645 eastern hx=35 left cols 36–39 unstocked).
+  C `room[3]` = `(52,5)-(60,18)` (lua `x2=39`); door-adjacency skips
+  col 52; stocks cols 53–60 (112 mons, 14/col). D-0645’s “C fills only
+  31–35” reading was wrong for final state.
+- **Falsified:** typ/occupied/exclusion reject; invent put_lregion reject;
+  hx=39 alone (regresses @15167); naive `add_doors_to_room` / incomplete
+  `link_doors_rooms` (regresses @14403 into rndmonst).
+- **C locus:** `mkmaze.c` `put_lregion_here` TELE `m_at`; `mkroom.c`
+  `fill_zoo` door-adjacent skip; `sp_lev.c` `link_doors_rooms`;
+  `dat/Pri-loca.lua` eastern morgue `region={31,00,39,13}`.
+- **Change:** comment-only on `load_pri_loca` (hx stays 35 until door+fill
+  parity); docs. No production control-flow change this iteration.
+- **Verification:** seed0367 still @35535 (RNG 35572 Scr 175); green+
+  strict PASS. C re-record RNG byte-equal to canonical.
+- **Named omission:** `link_doors_rooms`/`maybe_add_door` on Pri-loca;
+  restore lua hx=39 with fill count matching C @15167.
+- **Next:** port C `link_doors_rooms` for Pri-loca + eastern hx=39 so
+  `(59,14)` has m_at; re-check @15167 then @35535 intemple path.
+
 ## D-0656 — getlev restore updest/dndest (seed0367 plumbing)
 
 - **Status:** fixed (partial — @35535 put_lregion reject still open)

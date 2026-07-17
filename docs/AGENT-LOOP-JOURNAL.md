@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:30 — #729 D-0657 C m_at at (59,14)
+- Objective: seed0367 @35535 why C put_lregion rejects (59,14).
+- C locus: mkmaze.c put_lregion_here TELE m_at; mkroom.c fill_zoo door
+  skip; sp_lev.c link_doors_rooms; Pri-loca.lua eastern region.
+- Change or falsified theory: C DIAG — mon=243 elf zombie (not
+  typ/occ/excl). C room[3] hx=39 stocks 53–60. D-0645 hx=35 gap.
+  Tried hx=39 / link_doors — regress @15167/@14403; reverted.
+- Verification: seed0367 still @35535; green+strict PASS.
+- Next: link_doors_rooms + hx=39 fill parity, then intemple.
+
 ## 2026-07-17 18:15 — #728 D-0656 getlev updest/dndest + @35535 diag
 - Objective: seed0367 @35535 C place_lregion vs JS nhlib shuffle.
 - C locus: restore.c getlev dest_area; mkmaze.c put_lregion_here;
