@@ -7,46 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#665 D-0596:** `set_wear` done — seed0361 prefix **7924→7973**, Scr
-  **181→195**. Symptom was `rnl`→`rn2(38)` from `uluck=-1` after fedora
-  takeoff without startup `Helmet_on` +1. Next @7973: C `rn2(20)` vs JS
-  `rn2(32)` @ `m_move` — hypothesis: mfndpos cnt inflated (extra neighbor
-  / missing skip) — falsify with mon at that step + allowflags.
-- **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
-  D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361 `m_move` @7973; or seed0367 `Pri-strt`
-  (~@2053); seed0014/0108. Prefer over parked D-0006 / seed2200 RC.
-- **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
-  gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
-  raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
-  walk/run after `_` travel; batch doset toggle plines (D-0499);
-  steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0596; use wear empty `[*?]`; stub-cancel `^V?` as
-  if menu; treat empty wish ESC as cancel; skip amulet_wish
-  once-per-input; skip Wizard appear Norep / hot temperature;
-  template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
-  on Sokoban; fill inside `load_special` loaders; accept TELE on
-  occupied mon cell; skip `were_change` / stub `m_avoid_soko_push_loc`;
-  skip Bar-strt / onquest nhl / In_quest fila; use `dlevel` in
-  `traptype_rnd`; skip egg hatch / WEB spider / STATUE_TRAP /
-  mineralize quest divide; hardcode PARTISAN; skip S_HUMAN is_elf /
-  QUANTMECH SchroedingersBox / soko* loaders / LONG_WORM initworm /
-  S_MUMMY wrapping; accept DRY on boulders; skip endgame Amulet/
-  `level_difficulty`/fire.lua/dragon hp/golems/amphibious WET/
-  salamander/Sokoban sticky/resurrect; sticky `urole.rank=title[0]`;
-  omit tty_end_menu blank; emit `Dlvl:depth` on quest; Unicode-convert
-  DEC `g`/`|`; lit bigrm without `light_region`; skip hideunder; map
-  extractor `HI_LORD`→13; skip Sokoban premap/solidify/spines; Sokoban
-  walls CLR_GRAY; Options `clear_committed_status` on fullscreen;
-  skip CORPSE article in doname; `sel_set_ter(false)` force-unlit;
-  omit wizard `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`;
-  stub cursed/confused teleport scroll `level_tele`; stub death-ray
-  `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
-  `can_make_bones`; omit cemetery / `familiar_level_msg`; omit bones
-  `utrack` or `initrack` after `getbones`; list DOWNPLAY letters in
-  wear/puton/takeoff prompts; skip Blindf_on / Blind vision_recalc;
-  skip confused scroll mispronounce before `seffects`; skip wizard
-  Die?/Save bones?/Get bones? yn; skip identify `more_experienced(0,10)`.
+- **#666 D-0597:** ported `mfndpos` pool/lava/waterwall + `ALLOW_WALL`
+  — **not** @7973 cause. DIAG: mountain centaur @(71,5) open ROOM
+  **cnt=8**, mtrack[0]=(72,4)→`rn2(32)`; C `rn2(20)` (cnt−j=5). Spider
+  later matches C `rn2(24)`/`rn2(20)`. Next: onscary/garlic/squeeze/
+  bars/gas/`mm_aggression`, or C map/mtrack dump (squeeze needs wall
+  flanks — absent here). Falsify: dump C `mfndpos` poss for that mon.
+- **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
+- **Gameplay next:** seed0361 @7973; or seed0367 `Pri-strt`; seed0014/0108.
+- **Don’t:** `vision_recalc(2)` newsym loop; D-0480 coerce; frame-align;
+  raw RNG-index/coord hacks; reopen D-0474…D-0597; wear `[*?]`; stub
+  `^V?` as menu; empty wish ESC cancel; skip amulet_wish once; Wizard
+  Norep; maze `rn2(2)` set_mimic_sym Sokoban; TELE on occupied mon;
+  skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+  hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
+  bones `utrack`; skip Blindf_on / confused mispronounce / wizard yn /
+  identify `more_experienced(0,10)`.
 
 ## Don’t re-check (≤15)
 
@@ -56,12 +32,8 @@ Objective/score live in `CURRENT.md`.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
-- D-0592: @5483 was stubbed COURT `do_mkroom`, **not** `nroom` drift.
-- D-0593: @5859 was missing COURT `fill_zoo` throne/`courtmon`/chest.
-- D-0594: @7837 was portal landing (stale ux/uy), **not** nsinks==0.
-- D-0595: @7844 was deferred `maybe_spin_web`, **not** wrong fleeck arity.
-- D-0596: @7924 was missing `set_wear`/`Helmet_on` fedora luck, **not**
-  broken `doopen_indir`/`rnl`.
+- D-0592–D-0596: COURT/portal/web/`set_wear` causes settled — don’t reopen.
+- D-0597: @7973 pool/lava **not** cause — open ROOM cnt=8 centaur.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
@@ -91,3 +63,4 @@ Objective/score live in `CURRENT.md`.
 - Portal branch: `mkportal` + `goto_level` MAGIC_PORTAL land (D-0594).
 - Spider web: `postmov` `maybe_spin_web` `rn2(1000)` (D-0595).
 - Startup wear: `set_wear` → `Helmet_on` fedora Archeologist luck (D-0596).
+- `mfndpos` pool/lava/waterwall + passes_walls `ALLOW_WALL` (D-0597).

@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0597 — mfndpos pool/lava/waterwall + ALLOW_WALL (not @7973)
+
+- **Status:** open (partial port; primary symptom unfixed)
+- **Symptom:** seed0361 @7973 — C `rn2(20) @ m_move:1963` vs JS
+  `rn2(32)` (track `rn2(4*(cnt-j))`).
+- **Cause (partial):** JS `mfndpos` omitted C poolok/lavaok /
+  `IS_WATERWALL` / LAVAWALL gates and `passes_walls` → `ALLOW_WALL`.
+  Ported those from `mon.c`.
+- **Rejected as @7973 root:** DIAG showed mountain centaur at (71,5)
+  Dlvl14 room 69–77×4–6 with **cnt=8** all-ROOM neighbors and empty
+  reject list after the new gates; mtrack[0]=(72,4) → `rn2(32)`. C
+  wants cnt−j=5. Giant spider later matches C `rn2(24)`/`rn2(20)`.
+  Diagonal `bad_rock` squeeze needs wall flanks — absent in this room.
+- **C locus:** `mon.c` `mfndpos` / `mon_allowflags` / `m_in_air`.
+- **Change:** `js/mon.js` — pool/lava/waterwall/LAVAWALL gates;
+  `ALLOW_WALL` on `passes_walls`; thrudoor includes `ALLOW_WALL|BUSTDOOR`.
+- **Verification:** green+strict PASS; cohort seed1500/1800/0060/0700/
+  0017/0398/0116/5006 **8/8** PASS; seed0361 prefix still **7973**,
+  Scr **195**/366, RNG **8210**/53865.
+- **Named omission:** onscary/garlic/iron bars/poison-gas/`bad_rock`
+  squeeze/`mm_aggression`/MDISP; eel `nexttry`; `may_passwall` body.
+- **Next:** seed0361 @7973 — C-side poss dump or remaining filters /
+  mtrack `j`; or seed0367 `Pri-strt`.
+
 ## D-0596 — set_wear / Helmet_on fedora Archeologist luck
 
 - **Status:** fixed (partial — `Ring_on` learnring/attrib bodies;

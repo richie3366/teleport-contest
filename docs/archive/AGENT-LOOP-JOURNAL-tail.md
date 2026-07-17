@@ -25,3 +25,10 @@
   green+strict PASS; cohort **30**/30 PASS.
 - Next: @30263 C `next_ident` vs JS `get_location`; or dosounds @8468.
 
+## 2026-07-17 00:50 — #651 D-0584 wear/puton empty `[*]`
+- Objective: seed0116 Scr 115/127 (CURRENT primary).
+- C locus: invent.c getobj empty-buf `" [*]"`; do_wear wear_ok/puton_ok.
+- Change: getobj_wear/puton empty prompt `[*?]` → `[*]`.
+- Verification: seed0116 Scr **115→116**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 PASS.
+- Next: seed0116 @114 materialize map `` ` `` vs `·` (32,13).

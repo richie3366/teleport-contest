@@ -73,9 +73,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** seed0361 `m_move` @7973 — C `rn2(20)` vs JS
-`rn2(32)` (mfndpos cnt). Or seed0367 `Pri-strt` (~@2053), or
-seed0014/0108. Prefer over parked D-0006 / seed2200 RC; do not reopen
-D-0474…D-0596.
+`rn2(32)`. **D-0597** ported `mfndpos` pool/lava/waterwall (named
+omission) but **falsified** as the cause: mountain centaur @(71,5)
+open ROOM **cnt=8**. Still need the filter that drops 3 neighbors
+(or C mtrack/`j`). Or seed0367 `Pri-strt` (~@2053), or seed0014/0108.
+Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0597.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

@@ -18,6 +18,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-17 09:40 — #666 D-0597 mfndpos pool/lava (not @7973)
+- Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
+- C locus: `mon.c` `mfndpos` poolok/lavaok / `IS_WATERWALL`; `mon_allowflags` `ALLOW_WALL`.
+- Change: ported those gates + passes_walls `ALLOW_WALL`. **Falsified** as @7973 cause — mountain centaur @(71,5) open ROOM cnt=8, mtrack[0]=(72,4).
+- Verification: green+strict PASS; cohort 8/8 PASS; seed0361 still prefix 7973 Scr 195.
+- Next: remaining mfndpos rejects (onscary/garlic/squeeze/bars/gas/mm_aggression) or C map/mtrack dump.
+
 ## 2026-07-17 09:26 — #665 score + D-0596 set_wear
 - Objective: mandatory full `sessions` score (#665÷5) + seed0361
   `doopen_indir` @7924 (PRIMARY).
@@ -152,10 +160,3 @@ Use this shape:
 - Verification: seed0116 Scr **116→125**/127 RNG FULL; green+strict PASS;
   cohort **30**/30 PASS; seed0373 PASS. Residual @117 spells / @122 insight.
 - Next: seed0116 @117 “Currently known spells” centering; or leaderboard.
-## 2026-07-17 00:50 — #651 D-0584 wear/puton empty `[*]`
-- Objective: seed0116 Scr 115/127 (CURRENT primary).
-- C locus: invent.c getobj empty-buf `" [*]"`; do_wear wear_ok/puton_ok.
-- Change: getobj_wear/puton empty prompt `[*?]` → `[*]`.
-- Verification: seed0116 Scr **115→116**/127 RNG FULL; green+strict
-  PASS; cohort **30**/30 PASS.
-- Next: seed0116 @114 materialize map `` ` `` vs `·` (32,13).
