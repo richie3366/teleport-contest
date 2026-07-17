@@ -4,9 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0606 — select_newcham_form + MAIL_DAEMON extract (@18684)
+
+- **Status:** fixed (partial — next special-level lua @21119)
+- **Symptom:** seed0361 @18684 — C `rn2(7) @ select_newcham_form` vs JS
+  `rn2(75)` (`m_initweap`); after vamp-only stub, also C `rn2(330)` vs JS
+  `rn2(329)` on the humanoid/random arms.
+- **Cause:** (1) `select_newcham_form` only handled vampshifters, so
+  doppelganger `newcham` failed and `allow_minvent` stayed true → trailing
+  `rn2(75)`. (2) `extract-monsters.py` omitted `-DMAIL_STRUCTURES`, so
+  `PM_MAIL_DAEMON` was missing and `SPECIAL_PM` was 329 vs recorder 330.
+- **C locus:** `mon.c` `select_newcham_form` / `accept_newcham_form` /
+  `newcham`; `wizard.c` `pick_nasty`; `topten.c` `tt_doppel`;
+  `include/global.h` `MAIL_STRUCTURES`; `monsters.h` mail daemon.
+- **Change:** Port doppel/sandestin/cham + random fallback +
+  `accept_newcham_form`/`polyok`/`is_mplayer`/`pick_nasty`/`tt_doppel`
+  stubs; regenerate `monsters_data.js` with `-DMAIL_STRUCTURES`.
+- **Verification:** prefix **18684→21119** Scr **215→220** RNG
+  **18774→21217**; green+strict PASS; cohort 7/7 (1500/1800/0060/0398/
+  0373/5006/0116) PASS.
+- **Next:** seed0361 @21119 C lua `shuffle` after `makemaz` vs JS
+  `place_lregion` (special level load); or Pri-strt / seed0014/0108.
+
 ## D-0605 — soko mimic boulder retry dead in C (@13839)
 
-- **Status:** fixed (partial — next `select_newcham_form` @18684)
+- **Status:** fixed (partial — continued as D-0606)
 - **Symptom:** seed0361 @13839 — C `rn2(2) @ find_montype` vs JS
   `rn2(26) @ get_location` (second soko1-1 giant-mimic path).
 - **Cause:** JS `create_mimic_as_boulder` retried `get_location` when

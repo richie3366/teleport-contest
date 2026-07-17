@@ -259,8 +259,19 @@ def main() -> int:
         print("missing", INC, file=sys.stderr)
         return 1
 
+    # MAIL_STRUCTURES (global.h) includes PM_MAIL_DAEMON in the enum; without
+    # it SPECIAL_PM/NUMMONS are off-by-one vs the contest recorder binary.
     enum_pp = subprocess.check_output(
-        ["clang", "-E", "-P", "-DMONS_ENUM", "-I", str(INC), str(INC / "monsters.h")]
+        [
+            "clang",
+            "-E",
+            "-P",
+            "-DMONS_ENUM",
+            "-DMAIL_STRUCTURES",
+            "-I",
+            str(INC),
+            str(INC / "monsters.h"),
+        ]
     ).decode()
     names = [
         tok.strip().rstrip(";")
