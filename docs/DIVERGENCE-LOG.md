@@ -6,6 +6,24 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0622 — getlev hide_monst → restrap (@53705)
+
+- **Status:** fixed (partial — next @53773 create_gas_cloud)
+- **Symptom:** seed0361 @53705 — C `restrap` `rn2(3)` during `getlev`
+  hide_monst vs JS next monster's `getlev` `rnd(10)`.
+- **Cause:** `hide_monst` gated correctly but stubbed body (no viz override /
+  `restrap` / mimic retry / `hideunder`).
+- **C locus:** `mon.c` `hide_monst` / `restrap` / `hideunder`;
+  `restore.c` `getlev` hide after `rnd(10)`.
+- **Change:** `js/mon.js` — `restrap` (C short-circuit + `set_mimic_sym` /
+  ROOM `mundetected`) + `hide_monst` viz `IN_SIGHT|COULD_SEE` clear +
+  mimic second `restrap` + `hideunder`. Named omission: `movemon_singlemon`
+  pre-dochug `restrap` call site.
+- **Verification:** prefix **53705→53773** Scr **296→306** RNG
+  **53734→53807**/53865; green+strict PASS; cohort **33/33** PASS.
+- **Next:** @53773 C `create_gas_cloud` `rn2(3)` vs JS `rn2(12)`; or
+  Pri-strt / seed0014/0108.
+
 ## D-0621 — bigrm-7 load_special (@46893)
 
 - **Status:** fixed (partial — next @53705 restrap)

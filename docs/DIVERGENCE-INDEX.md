@@ -602,6 +602,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0619 | fixed | Arc-goal load_special + Minion nemgend/BELL mitem | seed0361 34204→42649 Scr 289 RNG 42658; next nhl shuffle @42649 |
 | D-0620 | fixed | on_goal goal_first nhl shuffle | seed0361 42649→46893 Scr 296 RNG 46893; next bigrm-7 |
 | D-0621 | fixed | bigrm-7 load_special | seed0361 46893→53705 Scr 296 RNG 53734; next restrap @53705 |
+| D-0622 | fixed | getlev hide_monst → restrap | seed0361 53705→53773 Scr 306 RNG 53807; next create_gas_cloud @53773 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

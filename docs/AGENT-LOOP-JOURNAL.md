@@ -19,6 +19,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:45 — #693 D-0622 hide_monst → restrap
+- Objective: seed0361 @53705 C restrap rn2(3) vs JS getlev rnd(10).
+- C locus: `mon.c` `hide_monst` / `restrap` / `hideunder`; `restore.c` getlev.
+- Change: `js/mon.js` restrap + hide_monst viz override + mimic retry +
+  hideunder. movemon restrap call site still deferred.
+- Verification: prefix 53705→53773 Scr 306 RNG 53807/53865; green+strict
+  PASS; cohort 33/33 PASS.
+- Next: seed0361 @53773 create_gas_cloud rn2(3); or Pri-strt.
+
 ## 2026-07-17 12:41 — #692 D-0621 bigrm-7 load_special
 - Objective: seed0361 @46893 C nhl shuffle after makemaz rnd(13)=7.
 - C locus: `dat/bigrm-7.lua`; `mkmaze.c` `makemaz`; `sp_lev.c` load_special.
