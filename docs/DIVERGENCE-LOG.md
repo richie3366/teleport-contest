@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0610 — m_move cnt==0 tryescape use_defensive (@22042)
+
+- **Status:** fixed (partial — next spec_abon @22084)
+- **Symptom:** seed0361 @22042 — C `rn2(13)` @ `precheck` /
+  `d(6,4)` @ `use_defensive` vs JS `rn2(5)` @ `distfleeck`.
+- **Cause:** Healthy gnome leader (`mhp==mhpmax`) held milky
+  `POT_HEALING`. dochug `find_defensive(FALSE)` correctly refused
+  (wound gate). C reached defense via `m_move` when `mfndpos` `cnt==0`:
+  `find_defensive(TRUE)` skips the wound gate, then `use_defensive` →
+  milky `precheck` + healing `d(6+2*bcsign,4)`. JS returned
+  `MMOVE_NOMOVES` without that tryescape arm.
+- **C locus:** `monmove.c` `m_move` cnt==0; `muse.c` `find_defensive` /
+  `precheck` / `use_defensive` `MUSE_POT_HEALING`.
+- **Change:** `js/monmove.js` — cnt==0 → `find_defensive(true)` +
+  `use_defensive` → `MMOVE_DONE`; `js/muse.js` — healing invent select,
+  milky/smoky `precheck`, healing `use_defensive`; dochug awaits
+  `use_defensive`.
+- **Verification:** prefix **22042→22084** Scr **224→225** RNG
+  **22154→22261**; green+strict PASS; cohort 20/20 PASS.
+- **Next:** seed0361 @22084 C `rnd(5)` @ `spec_abon` vs JS `rnd(20)`;
+  or Pri-strt / seed0014/0108.
+
 ## D-0609 — dochug MMOVE_MOVED + ranged_attk_available (@21974)
 
 - **Status:** fixed (partial — next use_defensive @22042)

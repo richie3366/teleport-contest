@@ -589,7 +589,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0606 | fixed | select_newcham_form + MAIL_DAEMON extract | seed0361 18684→21119 Scr 220 RNG 21217; next lua shuffle @21119 |
 | D-0607 | fixed | minend-1 load_special | seed0361 21119→21310 Scr 222 RNG 21466; continued D-0608 |
 | D-0608 | fixed | minend-1 "(" → TOOL not WEAPON | seed0361 21310→21974 Scr 224 RNG 22135; continued D-0609 |
-| D-0609 | fixed | dochug MMOVE_MOVED + ranged_attk_available | seed0361 21974→22042 Scr 224 RNG 22154; next use_defensive @22042 |
+| D-0609 | fixed | dochug MMOVE_MOVED + ranged_attk_available | seed0361 21974→22042 Scr 224 RNG 22154; continued D-0610 |
+| D-0610 | fixed | m_move cnt==0 tryescape + healing use_defensive | seed0361 22042→22084 Scr 225 RNG 22261; next spec_abon @22084 |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

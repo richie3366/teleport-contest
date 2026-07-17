@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:28 — #680 score + D-0610 tryescape defense
+- Objective: mandatory full `sessions` score (#680÷5); seed0361 @22042.
+- Score: **33/44** Scr **6616**/11405 RNG **377869**/792838 (47.66%)
+  `33+0.16/turn`. Δ vs #675: Scr +9, RNG +3380.
+- C locus: `monmove.c` m_move cnt==0; `muse.c` find/use_defensive + precheck.
+- Change: tryescape defense when no moves; healing invent + milky precheck.
+- Verification: prefix **22042→22084** Scr **225** RNG **22261**;
+  green+strict PASS; cohort 20/20 PASS.
+- Next: seed0361 @22084 `spec_abon`/`hitum`; or Pri-strt.
+
 ## 2026-07-17 11:20 — #679 D-0609 MMOVE_MOVED ranged_attk
 - Objective: seed0361 @21974 C `rnd(4)` @ mattacku vs JS `rn2(5)` distfleeck.
 - C locus: `monmove.c` dochug MMOVE_MOVED; `mhitu.c` ranged_attk_available / AC_VALUE.
