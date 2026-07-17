@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0594 — place_branch mkportal + goto_level portal arm
+
+- **Status:** fixed (partial — debug_fuzzer `ucamefrom` mkportal dest;
+  seal `UTOTYPE_RMPORTAL` deltrap / remdun_mapseen still deferred)
+- **Symptom:** seed0361 @7837 — C `rn2(300) @ dosounds` vs JS `rnl(7)`
+  (`dosearch0` on adjacent SDOOR). NOTES nsinks=0 theory falsified
+  (`nsinks=1`); real issue was stale hero pos after quest expulsion.
+- **Cause:** first expulsion uses `UTOTYPE_PORTAL`, but JS skipped the
+  portal placement arm (`if (!portal) u_on_rndspot`) and `place_branch`
+  stubbed `BR_PORTAL` without `mkportal`, so no MAGIC_PORTAL existed and
+  the hero stayed at pre-goto coordinates next to a court SDOOR.
+- **C locus:** `mkmaze.c` `mkportal`; `mklev.c` `place_branch` BR_PORTAL;
+  `do.c` `goto_level` portal / missing-portal → `u_on_rndspot(0)`.
+- **Change:** `js/mklev.js` — `mkportal` + wire `place_branch` BR_PORTAL;
+  `js/do.js` — portal arm finds MAGIC_PORTAL → `seetrap`/`u_on_newpos`,
+  else `u_on_rndspot(0)`.
+- **Verification:** seed0361 prefix **7837→7844** (runner RNG
+  **7974→8126**, Scr **178→180**); green+strict PASS; cohort 31/31 PASS.
+  Next @7844 `maybe_spin_web` `rn2(1000)` vs JS `rn2(5)`.
+- **Named omission:** debug_fuzzer `ucamefrom` portal dest; seal
+  RMPORTAL deltrap / remdun_mapseen.
+- **Next:** seed0361 `maybe_spin_web` @7844; or Pri-strt seed0367.
+
 ## D-0593 — fill_zoo COURT throne / courtmon / chest
 
 - **Status:** fixed (partial — BEEHIVE queen, MORGUE/BARRACKS/ANTHOLE

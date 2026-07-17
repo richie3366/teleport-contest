@@ -7526,6 +7526,15 @@ function find_branch_room(mp) {
     return croom;
 }
 
+/**
+ * C ref: mkmaze.c mkportal — MAGIC_PORTAL trap with destination dungeon/level.
+ */
+function mkportal(x, y, todnum, todlevel) {
+    const ttmp = maketrap(x, y, MAGIC_PORTAL);
+    if (!ttmp) return;
+    ttmp.dst = { dnum: todnum | 0, dlevel: todlevel | 0 };
+}
+
 function place_branch(branchp, x = 0, y = 0) {
     const g = game;
     // C ref: mklev.c place_branch — early-out if none or already placed
@@ -7552,7 +7561,9 @@ function place_branch(branchp, x = 0, y = 0) {
     else make_stairs = brType !== BR_NO_END2;
 
     if (brType === BR_PORTAL) {
-        // mkportal deferred — still mark placed (C made_branch)
+        // C ref: mklev.c place_branch → mkportal(x,y,dest)
+        // (debug_fuzzer ucamefrom arm deferred)
+        mkportal(x, y, dest?.dnum | 0, dest?.dlevel | 0);
     } else if (make_stairs) {
         const goes_up = on_end1 ? !!branchp.end1_up : !branchp.end1_up;
         const loc = g.level?.at(x, y);

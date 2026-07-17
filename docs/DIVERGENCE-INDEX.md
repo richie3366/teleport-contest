@@ -574,6 +574,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0591 | fixed | movemon deferred_goto | seed0361 4368→5483 RNG 4516→5605 Scr 178; next pick_room |
 | D-0592 | fixed | do_mkroom pick_room/mkzoo | seed0361 5483→5859 RNG 5605→5934; next COURT fill_zoo |
 | D-0593 | fixed | fill_zoo COURT throne/courtmon/chest | seed0361 5859→7837 RNG 5934→7974; next dosounds nsinks |
+| D-0594 | fixed | place_branch mkportal + goto_level portal | seed0361 7837→7844 RNG 7974→8126 Scr 178→180; next maybe_spin_web |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |
