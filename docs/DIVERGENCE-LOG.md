@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0599 — rolling boulder trap launch_obj (@11065)
+
+- **Status:** fixed (partial — mid-roll landmine/telep/pit/`hits_bars`/
+  boulder-chain; LAUNCH_UNSEEN rumble msgs deferred)
+- **Symptom:** seed0361 @11065 — C `rnd(20) @ dmgval` vs JS `rn2(5)`
+  `distfleeck`. C screen: "Click!  You trigger a rolling boulder trap!
+  A boulder misses you."
+- **Cause:** `trapeffect_selector` omitted `ROLLING_BOULDER_TRAP`; hero
+  step fired no `launch_obj`, so boulder `dmgval`/`thitu` never ran and
+  JS fell through to the next mon's `distfleeck`.
+- **C locus:** `trap.c` `trapeffect_rolling_boulder_trap` / `launch_obj`.
+- **Change:** `js/trap.js` — hero+mon rolling-boulder trapeffect +
+  `launch_obj` ROLL path (otherside boulder, hero `dmgval`+`thitu`, mon
+  `ohitmon`/throws_rocks snatch); export `ohitmon` from `mthrowu.js`.
+- **Verification:** seed0361 prefix **11065→12287**, Scr **198→205**,
+  RNG matched **11737→12384**; green+strict PASS; cohort **31/31** PASS.
+- **Next:** seed0361 @12287 `pick_room` rn2(5) vs rn2(3); or Pri-strt.
+
 ## D-0598 — searches_for_item (POT_HEALING gg → @7973)
 
 - **Status:** fixed (partial — FOOD corpse/tin/egg; Is_container/`can_blow`;

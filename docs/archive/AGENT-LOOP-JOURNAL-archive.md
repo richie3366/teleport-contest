@@ -1,5 +1,15 @@
 # Agent loop journal archive
 
+## 2026-07-17 01:03 — #653 D-0586 dospellmenu wizard turns
+- Objective: seed0116 Scr 125/127 @117 spells menu centering.
+- C locus: spell.c dospellmenu wizard turns / spellknow(i);
+  flag.h wizard≡flags.debug.
+- Change: spell.js dospellmenu appends heading `turns` (%6s) and
+  per-line spellknow when flags.wizard||flags.debug.
+- Verification: seed0116 Scr **125→126**/127 RNG FULL; green+strict
+  PASS; cohort **30**/30 (seed0106 + wizard seeds). Residual @122.
+- Next: seed0116 @122 ^X armor nudity + Teleport_control from_what.
+
 ## 2026-07-15 12:42 — #410 public score
 - Objective: mandatory full `sessions` (#410 divisible by 5).
 - C locus: n/a (score cadence); primary remains seed0012 @58 Options.

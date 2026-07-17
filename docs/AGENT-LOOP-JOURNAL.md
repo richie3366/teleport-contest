@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 10:00 — #668 D-0599 rolling boulder (@11065)
+- Objective: seed0361 @11065 C `rnd(20) @ dmgval` vs JS `rn2(5)`.
+- C locus: `trap.c` `trapeffect_rolling_boulder_trap` / `launch_obj`.
+- Change: wired ROLLING_BOULDER into `trapeffect_selector`; ported
+  `launch_obj` ROLL path (hero `dmgval`+`thitu`). Symptom was missing
+  trap effect, not dmgval body — C screen "Click! … boulder misses you."
+- Verification: prefix **11065→12287** Scr **198→205**; green+strict
+  PASS; cohort **31/31** PASS.
+- Next: seed0361 @12287 `pick_room` rn2(5) vs rn2(3); or Pri-strt.
+
 ## 2026-07-17 09:50 — #667 D-0598 searches_for_item (@7973)
 - Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
 - C locus: `muse.c` `searches_for_item`; `monmove.c` `mon_would_take_item`.
@@ -153,12 +163,3 @@ Use this shape:
 - Verification: seed0116 Scr **126→127**/127 RNG FULL **PASS** +
   strict; green+strict PASS; cohort **31**/31 PASS.
 - Next: leaderboard cron; earliest remaining suite FAIL (quest).
-## 2026-07-17 01:03 — #653 D-0586 dospellmenu wizard turns
-- Objective: seed0116 Scr 125/127 @117 spells menu centering.
-- C locus: spell.c dospellmenu wizard turns / spellknow(i);
-  flag.h wizard≡flags.debug.
-- Change: spell.js dospellmenu appends heading `turns` (%6s) and
-  per-line spellknow when flags.wizard||flags.debug.
-- Verification: seed0116 Scr **125→126**/127 RNG FULL; green+strict
-  PASS; cohort **30**/30 (seed0106 + wizard seeds). Residual @122.
-- Next: seed0116 @122 ^X armor nudity + Teleport_control from_what.
