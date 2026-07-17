@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#681 D-0611:** @22084 was missing `hitval`→`spec_abon` (attk extract
-  omitted). Prefix **22084→22140** Scr 225 RNG 22478.
-  Next @22140 C `rn2(12)` @ `m_move` vs JS `rn2(16)`.
+- **#682 D-0612:** @22140 was missing `mfndpos` diagonal `bad_rock` +
+  `cant_squeeze_thru` (giant spider cnt 4→3). Prefix **22140→22362**
+  Scr 225 RNG 22664. Next @22362 C `rn2(6)` @ `xkilled` vs JS `rn2(3)`.
   Or Pri-strt / seed0014/0108.
 - **#680 score:** 33/44 Scr 6616 RNG 377869 (47.66%) `33+0.16/turn`
-  (pre D-0611; refresh on next ÷5).
+  (pre D-0611/12; refresh on next ÷5).
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0611 shipped; wear `[*?]`; stub `^V?`;
+- **Don’t:** reopen D-0474…D-0612 shipped; wear `[*?]`; stub `^V?`;
   empty wish ESC; skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban;
   TELE on occupied mon; skip `were_change`/`m_avoid_soko_push_loc`;
   `dlevel` in traptype_rnd; hardcode PARTISAN; skip LONG_WORM/S_MUMMY;
@@ -26,25 +26,22 @@ Objective/score live in `CURRENT.md`.
   `select_newcham_form`; extract without `-DMAIL_STRUCTURES`;
   skip minend-1 when `makemaz` picks it; map Lua `"("`→WEAPON;
   omit `ranged_attk_available` in MMOVE_MOVED; omit `m_move` cnt==0
-  tryescape `use_defensive`; omit `hitval` `spec_abon`.
+  tryescape `use_defensive`; omit `hitval` `spec_abon`; omit mfndpos
+  diagonal squeeze.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0611 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0612 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0603: @12294 was missing MS_PRIEST mace/invent, not rn2(75) itself.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
-- D-0605: @13839 was JS inventing boulder-mimic retry C never takes.
-- D-0606: @18684 was vamp-only newcham + extract missing MAIL_DAEMON.
-- D-0607: @21119 was missing `minend-1` loader after `makemaz` rnd(3)=1.
-- D-0608: @21310 was minend-1 `"("`→WEAPON; C TOOL (`oclass` 1000 vs 1002).
-- D-0609: @21974 was MMOVE_MOVED missing `ranged_attk_available`.
-- D-0610: @22042 was `m_move` cnt==0 tryescape defense, not dochug wound gate.
-- D-0611: @22084 was missing `hitval`→`spec_abon` (attk/mtype extract).
+- D-0605…D-0611: see DIVERGENCE-INDEX (boulder-mimic, newcham/MAIL,
+  minend-1, TOOL `(`, ranged_attk, tryescape, spec_abon).
+- D-0612: @22140 was mfndpos missing diagonal `bad_rock`/`cant_squeeze_thru`.
 
 ## Landmarks (≤15)
 
@@ -70,7 +67,8 @@ Objective/score live in `CURRENT.md`.
   (D-0606)**; **`minend-1` (D-0607)**; **`(`=TOOL not WEAPON (D-0608)**;
   **MMOVE_MOVED + `ranged_attk_available` (D-0609)**; **`m_move` cnt==0
   tryescape + healing `use_defensive` (D-0610)**; **`hitval`/`spec_abon`
-  (D-0611)**; `intemple` + SWAMP deferred.
+  (D-0611)**; **`mfndpos` diagonal squeeze (D-0612)**; `intemple` +
+  SWAMP deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.

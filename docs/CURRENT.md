@@ -72,11 +72,11 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @22140 — D-0611 shipped `hitval`→`spec_abon`
-+ attk/mtype extract (prefix **22084→22140**, Scr **225**, RNG **22478**).
-Next C `rn2(12)` @ `m_move` vs JS `rn2(16)`. Or seed0367 `Pri-strt`
-(~@2053), or seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0611 shipped.
+**Gameplay next:** seed0361 @22362 — D-0612 shipped `mfndpos` diagonal
+`bad_rock`/`cant_squeeze_thru` (prefix **22140→22362**, Scr **225**,
+RNG **22664**). Next C `rn2(6)` @ `xkilled` vs JS `rn2(3)`. Or
+seed0367 `Pri-strt` (~@2053), or seed0014/0108. Prefer over parked
+D-0006 / seed2200 RC; do not reopen D-0474…D-0612 shipped.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json

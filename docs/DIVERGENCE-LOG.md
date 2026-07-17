@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0612 — mfndpos diagonal bad_rock / cant_squeeze_thru (@22140)
+
+- **Status:** fixed (partial — next xkilled rn2(6) @22362)
+- **Symptom:** seed0361 @22140 — C `rn2(12)` @ `m_move` track avoid
+  vs JS `rn2(16)` (same site, different `cnt`).
+- **Cause:** JS `mfndpos` omitted C's diagonal tight-squeeze gate
+  (`bad_rock` flanks + `cant_squeeze_thru`). Giant spider at (14,9)
+  included diagonal (15,10) between wall corners → cnt=4; C cnt=3 →
+  first track hit `rn2(4*(cnt-j))` was 12 vs 16.
+- **C locus:** `mon.c` `mfndpos`; `hack.c` `bad_rock` /
+  `cant_squeeze_thru` / `may_passwall`.
+- **Change:** `js/mon.js` — port `bad_rock`/`may_passwall`/
+  `cant_squeeze_thru`; wire squeeze continue after NOTONL in `mfndpos`.
+  Named omission: `can_fog` vampshifter arm of squeeze.
+- **Verification:** prefix **22140→22362** Scr **225** RNG
+  **22478→22664**; green+strict PASS; cohort 31/31 PASS.
+- **Next:** seed0361 @22362 C `rn2(6)` @ `xkilled` vs JS `rn2(3)`;
+  or Pri-strt / seed0014/0108.
+
 ## D-0611 — hitval oartifact spec_abon (@22084)
 
 - **Status:** fixed (partial — next m_move rn2(12) @22140)

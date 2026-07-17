@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:40 — #682 D-0612 mfndpos diagonal squeeze
+- Objective: seed0361 @22140 C `rn2(12)` @ `m_move` vs JS `rn2(16)`.
+- C locus: `mon.c` `mfndpos`; `hack.c` `bad_rock`/`cant_squeeze_thru`.
+- Change: port diagonal squeeze gate — giant spider cnt 4→3.
+- Verification: prefix **22140→22362** Scr **225** RNG **22664**;
+  green+strict PASS; cohort **31/31** PASS.
+- Next: seed0361 @22362 `xkilled` rn2(6) vs rn2(3); or Pri-strt.
+
 ## 2026-07-17 11:32 — #681 D-0611 hitval spec_abon
 - Objective: seed0361 @22084 C `rnd(5)` @ `spec_abon` vs JS `rnd(20)`.
 - C locus: `artifact.c` `spec_abon`/`spec_applies`; `weapon.c` `hitval`.
@@ -156,14 +164,3 @@ Use this shape:
 - Verification: prefix **11065→12287** Scr **198→205**; green+strict
   PASS; cohort **31/31** PASS.
 - Next: seed0361 @12287 `pick_room` rn2(5) vs rn2(3); or Pri-strt.
-
-## 2026-07-17 09:50 — #667 D-0598 searches_for_item (@7973)
-- Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
-- C locus: `muse.c` `searches_for_item`; `monmove.c` `mon_would_take_item`.
-- Change: ported `searches_for_item` + wired into `mon_would_take_item`.
-  C recorder: centaur gg→POT_HEALING (70,4) at=(71,4) cnt=5; JS had chased
-  hero → (71,5) cnt=8. D-0597 pool/lava not the root.
-- Verification: prefix **7973→11065** Scr **195→198**; green+strict PASS;
-  cohort **31/31** PASS.
-- Next: seed0361 @11065 `dmgval` `rnd(20)` vs `rn2(5)`; or Pri-strt.
-
