@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 16:45 — #724 D-0652 align_shift oldmoves + moves=0 mklev
+- Objective: seed0367 @26695 C rndmonst_adj rn2(3) vs JS rn2(5).
+- C locus: makemon.c align_shift (static oldmoves/Is_special);
+  u_init.c u_init_role moves=1 after mklev; allmain.c newgame order.
+- Change: port align_shift cache + ternary align; moves=0 through
+  starting mklev; reset cache on newgame (D-0652). Was recomputing
+  medusa chaotic ash while C still had stale bigrm align 0.
+- Verification: @26695→27121 (RNG 27146, Scr 170); seed0009 PASS;
+  green+strict PASS; cohort 32/32 prior-PASS.
+- Next: @27121 C next_ident rnd(2) vs JS makemon_rnd_goodpos rn2(77).
+
 ## 2026-07-17 16:35 — #723 D-0651 medusa-1 load_special
 - Objective: seed0367 @26691 C nhlib shuffle vs JS place_lregion.
 - C locus: dat/medusa-1.lua; sp_lev.c load_special/create_object Medusa
@@ -154,13 +165,3 @@ Use this shape:
 - Verification: suite **34/44** Scr **6918**/11405 RNG **418252**/792838
   (52.75%) `32+0.16/turn`; green+strict PASS; seed0367 still @3282.
 - Next: Pri-strt branch/MAGIC_PORTAL so arrival enters TEMPLE.
-## 2026-07-17 14:23 — #709 D-0637 Pri-strt + Arch Priest kit
-- Objective: seed0367 @2336 C nhlib shuffle vs JS rn2(79) place_lregion.
-- C locus: dat/Pri-strt.lua; makemon.c quest_mon_represents_role; role.c
-  Priest ldrnum PM_ARCH_PRIEST.
-- Change: load_pri_strt; quest_mon_represents_role + MS_PRIEST gates;
-  roles.js Priest ldrnum/homebase/intermed/questarti. Empty makemaz was
-  the getbones-adjacent symptom, not a bones-path bug.
-- Verification: prefix **2336→3282**; Scr 167; green+strict PASS;
-  cohort 34/34 prior-PASS.
-- Next: seed0367 @3282 intemple rn2(4) vs rn2(12).

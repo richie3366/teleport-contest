@@ -4,9 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0652 — align_shift oldmoves cache + moves=0 through mklev (seed0367 @26695)
+
+- **Status:** fixed (partial — next @27121 after Perseus invent)
+- **Symptom:** seed0367 first mismatch @26695 — C `rndmonst_adj`
+  weight `rn2(3)` vs JS `rn2(5)` on medusa-1 Perseus `rndmonnum`.
+- **Cause:** (1) JS `align_shift` recomputed `Is_special` every call;
+  C caches `Is_special(&u.uz)` while `svm.moves` is unchanged, so
+  medusa mklev in the same turn still used the prior level (bigrm,
+  align 0) → ash=0 / G_FREQ weights. (2) JS set `moves=1` before
+  starting `mklev`, so the cache filled on Doom Dlvl:1 and broke
+  seed0009 tutorial (tut-1 needs a post-mklev refresh). C keeps
+  `moves=0` through `mklev` and sets `moves=1` in `u_init_role`.
+- **C locus:** `makemon.c` `align_shift`; `u_init.c` `u_init_role`
+  (`moves=1`); `allmain.c` `newgame` order (`mklev` before invent).
+- **Change:** port oldmoves/`lev` cache (+ ternary align, not `||`);
+  `moves=0` until `u_init_role`; `reset_align_shift_cache` on newgame.
+- **Verification:** seed0367 prefix **26695→27121** (runner RNG
+  **27146**/50125, Scr **170**/324); seed0009 full PASS; green+strict
+  PASS; cohort **32/32** prior-PASS sample.
+- **Named omission:** `temperature_shift` still stub 0; `rndmonst_adj`
+  upper/elemlevel/`Inhell` `G_NOHELL` filters; medusa-2/3/4.
+- **Next:** seed0367 @27121 C `next_ident` `rnd(2)` vs JS
+  `makemon_rnd_goodpos` `rn2(77)` after matched goodpos (post-statue
+  monster place / invent).
+
 ## D-0651 — medusa-1 load_special (seed0367 @26691)
 
-- **Status:** fixed (partial — next @26695 rndmonst_adj weights)
+- **Status:** fixed (partial — superseded next by D-0652 @27121)
 - **Symptom:** seed0367 first mismatch @26691 — C nhlib `shuffle`
   after matched `makemaz` `rnd(4)=1` vs JS `rn2(79)` `place_lregion`.
 - **Cause:** `load_special_proto` omitted `medusa-1`, so makemaz left
@@ -25,9 +50,7 @@ to preserve, record it here.
 - **Named omission:** `resists_ston`/`poly_when_stoned`/`propagate`
   on empty statues; medusa-2/3/4; flip lregion coord update;
   fixup stone-resist corpsenm retry.
-- **Next:** seed0367 @26695 C `rndmonst_adj` weight `rn2(3)` vs JS
-  `rn2(5)` during Perseus statue `rndmonnum` (align_shift /
-  difficulty band).
+- **Next:** superseded by D-0652 (@26695→27121).
 
 ## D-0650 — goto_level quest_portal com_pager (seed0367 @26688)
 
