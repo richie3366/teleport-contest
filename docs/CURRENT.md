@@ -21,19 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#665**),
-post D-0596 (`set_wear` fedora luck). Screens **6587**/11405; RNG
-**363924**/792838 (45.90%). **33/44** PASS. Δ vs #660: Scr **+17**, RNG
-**+2621**, PASS unchanged. (D-0596 seed0361 Scr 181→195; prefix 7924→7973.)
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#670**),
+post D-0597…D-0600 (mfndpos/searches/boulder/`mktemple`). Screens
+**6597**/11405; RNG **368089**/792838 (46.43%). **33/44** PASS. Δ vs
+#665: Scr **+10**, RNG **+4165**, PASS unchanged. (seed0361 still
+@12288 doorct; Scr 205.)
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **33 / 44** |
-| Screens matched | **6,587 / 11,405** |
-| Positional RNG calls matched | **363,924 / 792,838** (45.90%) |
-| Speed label | `33+0.15/turn` (R² 0.787) |
+| Screens matched | **6,597 / 11,405** |
+| Positional RNG calls matched | **368,089 / 792,838** (46.43%) |
+| Speed label | `33+0.15/turn` (R² 0.778) |
 | Role-init throws | **0 / 44** |
 
 **PASS (33):** seed8000, seed0900, seed1500, seed1800, seed0060,

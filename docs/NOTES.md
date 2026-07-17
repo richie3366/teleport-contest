@@ -7,6 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **#670 score:** **33/44** Scr **6597**/11405 RNG **368089**/792838
+  (46.43%); Δ vs #665 Scr +10 RNG +4165. Next peel unchanged.
 - **#669 D-0600:** mktemple wired; prefix **12287→12288**. Next @12288
   C `shrine_pos` rn2(2) vs JS pick_room rn2(5): JS no doorct==1 OROOM
   (room2 13×2 doorct=2; C accepts doorct==1). Extra door =
