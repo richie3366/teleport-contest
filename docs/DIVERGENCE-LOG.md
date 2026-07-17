@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0609 — dochug MMOVE_MOVED + ranged_attk_available (@21974)
+
+- **Status:** fixed (partial — next use_defensive @22042)
+- **Symptom:** seed0361 @21974 — C `rnd(4)` @ `mattacku` (`AC_VALUE`
+  with `u.uac=-4`) vs JS `rn2(5)` @ `distfleeck`.
+- **Cause:** Gnomish wizard (`mndx` 167, `AT_MAGC`) took `MMOVE_MOVED`
+  while `!nearby`. C falls through to PHASE FOUR when
+  `ranged_attk_available || AT_WEAP || find_offensive`. JS only tested
+  `is_armed || find_offensive`, so the wizard returned early and never
+  reached `mattacku`/`AC_VALUE`.
+- **C locus:** `monmove.c` `dochug` `MMOVE_MOVED`; `mhitu.c`
+  `ranged_attk_available` / `mattacku` `AC_VALUE`.
+- **Change:** `js/monmove.js` `dochug` — include
+  `ranged_attk_available(mtmp)` in the MOVED fall-through gate.
+- **Verification:** prefix **21974→22042** Scr **224** RNG
+  **22135→22154**; green+strict PASS; cohort 14/14 PASS.
+- **Next:** seed0361 @22042 C `rn2(13)` @ `precheck`/`use_defensive`
+  vs JS `distfleeck` (dochug stubs `find_defensive` as not spent);
+  or Pri-strt / seed0014/0108.
+
 ## D-0608 — minend-1 des.object("(") → TOOL not WEAPON (@21310)
 
 - **Status:** fixed (partial — next mattacku @21974)

@@ -1382,7 +1382,10 @@ export async function dochug(mtmp) {
             /* Monsters can move and then shoot on same turn;
                C: ranged_attk_available || AT_WEAP || find_offensive */
             if (nearby
-                || !(is_armed(mdat) || find_offensive(mtmp))) {
+                || !(ranged_attk_available(mtmp)
+                    || is_armed(mdat)
+                    || find_offensive(mtmp))) {
+                // C: engulfing_u → mattacku deferred
                 return 0;
             }
             // else fall through to PHASE FOUR

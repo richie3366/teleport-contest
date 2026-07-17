@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 11:20 — #679 D-0609 MMOVE_MOVED ranged_attk
+- Objective: seed0361 @21974 C `rnd(4)` @ mattacku vs JS `rn2(5)` distfleeck.
+- C locus: `monmove.c` dochug MMOVE_MOVED; `mhitu.c` ranged_attk_available / AC_VALUE.
+- Change: fall-through gate adds `ranged_attk_available` (gnomish wizard AT_MAGC).
+- Verification: prefix **21974→22042** Scr **224** RNG **22154**;
+  green+strict PASS; cohort 14/14 PASS.
+- Next: seed0361 @22042 `precheck`/`use_defensive`; or Pri-strt.
+
 ## 2026-07-17 11:15 — #678 D-0608 minend-1 "(" → TOOL
 - Objective: seed0361 @21310 C `rnd(1000)` @ mkobj vs JS `rnd(1002)`.
 - C locus: `dat/minend-1.lua` `des.object("(")`; `defsym.h` TOOL `'('`.
@@ -146,27 +154,4 @@ Use this shape:
 - Change: ported those gates + passes_walls `ALLOW_WALL`. **Falsified** as @7973 cause — mountain centaur @(71,5) open ROOM cnt=8, mtrack[0]=(72,4).
 - Verification: green+strict PASS; cohort 8/8 PASS; seed0361 still prefix 7973 Scr 195.
 - Next: remaining mfndpos rejects (onscary/garlic/squeeze/bars/gas/mm_aggression) or C map/mtrack dump.
-
-## 2026-07-17 09:26 — #665 score + D-0596 set_wear
-- Objective: mandatory full `sessions` score (#665÷5) + seed0361
-  `doopen_indir` @7924 (PRIMARY).
-- C locus: `do_wear.c` `set_wear`/`Helmet_on`; `allmain.c` preamble.
-- Change: ported `set_wear`; call from `moveloop_preamble` (fedora
-  Archeologist luck). Score: **33/44** Scr **6587**/11405 RNG
-  **363924**/792838 (45.90%) `33+0.15/turn`; Δ vs #660 Scr +17 RNG
-  +2621.
-- Verification: prefix 7924→7973; Scr 181→195; green+strict; cohort
-  31/31 PASS.
-- Next: seed0361 `m_move` @7973; or Pri-strt seed0367.
-
-## 2026-07-17 09:20 — #664 D-0595 maybe_spin_web
-- Objective: seed0361 `maybe_spin_web` @7844 (PRIMARY).
-- C locus: `monmove.c` `maybe_spin_web` / `holds_up_web` /
-  `count_webbing_walls` / `soko_allow_web`; `mondata.h` `webmaker`;
-  `trap.c` `count_traps`.
-- Change: ported spider web spin postmov (`rn2(1000)<prob`) + helpers;
-  `webmaker` in `m_harmless_trap` WEB arm.
-- Verification: prefix 7844→7924; RNG 8126→8215 Scr 180→181;
-  green+strict PASS; cohort 33/33 PASS.
-- Next: seed0361 `doopen_indir` @7924; or Pri-strt seed0367.
 
