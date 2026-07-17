@@ -1,5 +1,16 @@
 # Agent loop journal archive
 
+## 2026-07-17 01:09 — #654 D-0587 ^X armor + Teleport_control
+- Objective: seed0116 Scr 126/127 @122 ^X enlightenment residual.
+- C locus: insight.c status_enlightenment nudity;
+  attributes_enlightenment Teleport_control; attrib.c from_what;
+  artifact.c what_gives.
+- Change: invent.js doattributes armor nudity + Teleport_control;
+  attrib.js from_what→what_gives; artifact.js what_gives wornmask.
+- Verification: seed0116 Scr **126→127**/127 RNG FULL **PASS** +
+  strict; green+strict PASS; cohort **31**/31 PASS.
+- Next: leaderboard cron; earliest remaining suite FAIL (quest).
+
 ## 2026-07-17 01:03 — #653 D-0586 dospellmenu wizard turns
 - Objective: seed0116 Scr 125/127 @117 spells menu centering.
 - C locus: spell.c dospellmenu wizard turns / spellknow(i);

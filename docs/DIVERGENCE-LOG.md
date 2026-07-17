@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0600 — mktemple / priestini / newepri (@12287)
+
+- **Status:** fixed (partial — pick_room succeeds only when a doorct==1
+  OROOM exists; SWAMP/`mkswamp`; `pri_move`/`intemple` deferred)
+- **Symptom:** seed0361 @12287 — C `rn2(5) @ pick_room` vs JS `rn2(3)`.
+- **Cause:** `do_mkroom(TEMPLE)` was a stub (no RNG). C runs
+  `mktemple` → `pick_room(TRUE)` (no downstairs `rn2(3)`); JS fell
+  through to later `rn2(3)` (fill path). After wiring mktemple, first
+  `pick_room` `rn2(5)` matches; next miss @12288 C `shrine_pos` rn2(2)
+  vs JS still in `pick_room` rn2(5) — JS has **no** doorct==1 OROOM
+  (room2 doorct=2; C accepts via doorct==1, shrine_pos parity ⇒ ~13×2).
+- **C locus:** `mkroom.c` `mktemple`/`shrine_pos`/`pick_room`;
+  `priest.c` `priestini`; `makemon` `MM_EPRI`/`newepri`.
+- **Change:** `js/mklev.js` — `shrine_pos`, `mktemple`, `priestini`,
+  wire TEMPLE in `do_mkroom`; `js/makemon.js` — `newepri` + `MM_EPRI`.
+- **Verification:** prefix **12287→12288** (runner RNG **12384→12375**,
+  Scr **205**/366); green+strict PASS; cohort **31/31** PASS.
+- **Named omission:** SWAMP/`mkswamp`; sanctum high-cleric path;
+  `pri_move`/`intemple`; doorct vs C on this level (next peel).
+- **Next:** seed0361 @12288 doorct / extra door on temple candidate;
+  or Pri-strt seed0367.
+
 ## D-0599 — rolling boulder trap launch_obj (@11065)
 
 - **Status:** fixed (partial — mid-roll landmine/telep/pit/`hits_bars`/

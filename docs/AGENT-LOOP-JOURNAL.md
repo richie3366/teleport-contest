@@ -19,6 +19,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 10:15 — #669 D-0600 mktemple (@12287)
+- Objective: seed0361 @12287 C `rn2(5) @ pick_room` vs JS `rn2(3)`.
+- C locus: `mkroom.c` `mktemple`/`shrine_pos`; `priest.c` `priestini`;
+  `makemon` `MM_EPRI`/`newepri`.
+- Change: ported `mktemple`+`shrine_pos`+`priestini`; wired TEMPLE in
+  `do_mkroom`; `newepri`+`MM_EPRI` in makemon. Stub was burning later
+  `rn2(3)` instead of `pick_room(TRUE)`.
+- Verification: prefix **12287→12288** Scr **205**; green+strict PASS;
+  cohort **31/31** PASS. Next miss: JS no doorct==1 (room2 doorct=2).
+- Next: seed0361 @12288 extra door / doorct; or Pri-strt.
+
 ## 2026-07-17 10:00 — #668 D-0599 rolling boulder (@11065)
 - Objective: seed0361 @11065 C `rnd(20) @ dmgval` vs JS `rn2(5)`.
 - C locus: `trap.c` `trapeffect_rolling_boulder_trap` / `launch_obj`.
@@ -153,13 +164,3 @@ Use this shape:
   (R² 0.765). Δ vs #650: Scr **+12**, PASS **32→33** (seed0116 /
   D-0584…D-0587), RNG unchanged.
 - Next: seed0361/0367 quest/`makemaz`; or leaderboard cron.
-## 2026-07-17 01:09 — #654 D-0587 ^X armor + Teleport_control
-- Objective: seed0116 Scr 126/127 @122 ^X enlightenment residual.
-- C locus: insight.c status_enlightenment nudity;
-  attributes_enlightenment Teleport_control; attrib.c from_what;
-  artifact.c what_gives.
-- Change: invent.js doattributes armor nudity + Teleport_control;
-  attrib.js from_what→what_gives; artifact.js what_gives wornmask.
-- Verification: seed0116 Scr **126→127**/127 RNG FULL **PASS** +
-  strict; green+strict PASS; cohort **31**/31 PASS.
-- Next: leaderboard cron; earliest remaining suite FAIL (quest).

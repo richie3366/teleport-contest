@@ -29,7 +29,8 @@ import {
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP, LADDER, LA_DOWN, LA_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
-    A_LAWFUL, Align2amask, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC,
+    A_LAWFUL, A_NONE, Align2amask, Amask2align, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC,
+    AM_SHRINE, MM_EPRI, N_DIRS, W_ARMC, RLOC_NOMSG,
     FILL_LVFLAGS, STRAT_WAITFORU, NON_PM,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
     LR_TELE, LR_UPTELE, LR_DOWNTELE,
@@ -85,6 +86,7 @@ import {
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
+    mon_learns_traps,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst } from './do_name.js';
@@ -133,8 +135,11 @@ const PM_OGRE_TYRANT = monsterNames.indexOf('PM_OGRE_TYRANT');
 const PM_ELVEN_MONARCH = monsterNames.indexOf('PM_ELVEN_MONARCH');
 const PM_DWARF_RULER = monsterNames.indexOf('PM_DWARF_RULER');
 const PM_GNOME_RULER = monsterNames.indexOf('PM_GNOME_RULER');
+const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
+const PM_HIGH_CLERIC = monsterNames.indexOf('PM_HIGH_CLERIC');
 const PM_BUGBEAR = monsterNames.indexOf('PM_BUGBEAR');
 const PM_HOBGOBLIN = monsterNames.indexOf('PM_HOBGOBLIN');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
 const WAN_SECRET_DOOR_DETECTION =
@@ -5022,9 +5027,132 @@ function mkzoo(type) {
 }
 
 /**
+ * C ref: mkroom.c shrine_pos — center of room; odd width/height may nudge
+ * by rn2(2) onto an adjacent cell.
+ */
+function shrine_pos(roomno) {
+    const troom = game.level?.rooms?.[roomno - ROOMOFFSET];
+    if (!troom) return { x: 0, y: 0 };
+    let delta = (troom.hx | 0) - (troom.lx | 0);
+    let x = (troom.lx | 0) + ((delta / 2) | 0);
+    if ((delta % 2) && rn2(2)) x++;
+    delta = (troom.hy | 0) - (troom.ly | 0);
+    let y = (troom.ly | 0) + ((delta / 2) | 0);
+    if ((delta % 2) && rn2(2)) y++;
+    return { x, y };
+}
+
+/**
+ * C ref: worn.c which_armor — first minvent obj with owornmask bit.
+ * Local copy to avoid mklev↔trap cycle.
+ */
+function which_armor_local(mtmp, mask) {
+    for (let otmp = mtmp?.minvent; otmp; otmp = otmp.nobj) {
+        if ((otmp.owornmask | 0) & (mask | 0)) return otmp;
+    }
+    return null;
+}
+
+/**
+ * C ref: priest.c p_coaligned — hero align vs priest shrine align.
+ */
+function p_coaligned(priest) {
+    const shralign = priest?.mextra?.epri?.shralign;
+    const algn = shralign != null ? (shralign | 0) : (priest?.data?.maligntyp | 0);
+    return (game.u?.ualign?.type | 0) === (algn | 0);
+}
+
+/**
+ * C ref: priest.c priestini — place aligned/high cleric beside shrine,
+ * fill epri, spellbooks, optional robe curse/uncurse.
+ * Named omission: sanctum Amulet arm only when on sanctum_level (wired but
+ * mktemple passes sanctum=FALSE); pri_move / intemple greetings deferred.
+ */
+function priestini(lvl, sroom, sx, sy, sanctum) {
+    const primNdx = sanctum ? PM_HIGH_CLERIC : PM_ALIGNED_CLERIC;
+    const prim = mons(primNdx);
+    const si = rn2(N_DIRS);
+    let px = sx | 0, py = sy | 0;
+    let i;
+    for (i = 0; i < N_DIRS; i++) {
+        const di = ((i + si) % N_DIRS + N_DIRS) % N_DIRS;
+        px = (sx | 0) + xdir[di];
+        py = (sy | 0) + ydir[di];
+        // C: pm_good_location → is_ok_location(pm_to_humidity); clerics → DRY
+        if (is_ok_location(px, py, DRY)) break;
+    }
+    if (i === N_DIRS) {
+        px = sx | 0;
+        py = sy | 0;
+    }
+    const blocker = m_at(px, py);
+    if (blocker) rloc(blocker, RLOC_NOMSG);
+
+    const priest = makemon(prim, px, py, MM_EPRI);
+    if (!priest) return;
+    const epri = priest.mextra?.epri;
+    if (epri) {
+        const roomIdx = sroom.roomnoidx
+            ?? game.level.rooms.indexOf(sroom);
+        epri.shroom = ((roomIdx | 0) + ROOMOFFSET) | 0;
+        epri.shralign = Amask2align(game.level.at(sx, sy)?.altarmask | 0);
+        epri.shrpos = { x: sx | 0, y: sy | 0 };
+        epri.shrlevel = {
+            dnum: lvl?.dnum | 0,
+            dlevel: lvl?.dlevel | 0,
+        };
+    }
+    mon_learns_traps(priest, -1 /* ALL_TRAPS */);
+    priest.mpeaceful = 1;
+    priest.ispriest = 1;
+    priest.isminion = 0;
+    priest.msleeping = 0;
+    set_malign(priest);
+
+    if (sanctum && epri?.shralign === A_NONE
+        && game.sanctum_level
+        && (game.sanctum_level.dnum | 0) === (game.u?.uz?.dnum | 0)
+        && (game.sanctum_level.dlevel | 0) === (game.u?.uz?.dlevel | 0)) {
+        mongets(priest, AMULET_OF_YENDOR);
+    }
+    for (let cnt = rn1(3, 2); cnt > 0; --cnt) {
+        mpickobj(priest, mkobj(SPBOOK_no_NOVEL, false));
+    }
+    if (rn2(2)) {
+        const otmp = which_armor_local(priest, W_ARMC);
+        if (otmp) {
+            if (p_coaligned(priest)) uncurse(otmp);
+            else curse(otmp);
+        }
+    }
+}
+
+/**
+ * C ref: mkroom.c mktemple — pick_room(TRUE), ALTAR+induced_align,
+ * priestini, AM_SHRINE, has_temple.
+ */
+function mktemple() {
+    const sroom = pick_room(true);
+    if (!sroom) return;
+    sroom.rtype = TEMPLE;
+    const roomIdx = sroom.roomnoidx ?? game.level.rooms.indexOf(sroom);
+    const shrine_spot = shrine_pos((roomIdx | 0) + ROOMOFFSET);
+    const lev = game.level.at(shrine_spot.x, shrine_spot.y);
+    if (!lev) return;
+    lev.typ = ALTAR;
+    const amask = induced_align(80);
+    lev.altarmask = amask;
+    lev.flags = amask;
+    priestini(game.u?.uz, sroom, shrine_spot.x, shrine_spot.y, false);
+    lev.altarmask = (lev.altarmask | 0) | AM_SHRINE;
+    lev.flags = (lev.flags | 0) | AM_SHRINE;
+    if (game.level.flags) game.level.flags.has_temple = true;
+}
+
+/**
  * C ref: mkroom.c do_mkroom — dispatch special room makers.
  * Shop path: mkshop sets rtype/needfill; stock_room deferred to fill_special_room.
- * TEMPLE/SWAMP bodies deferred (mktemple/mkswamp) — named in C-JS-MAP.
+ * SWAMP body deferred (mkswamp) — named in C-JS-MAP.
  */
 function do_mkroom(roomtype) {
     if (roomtype >= SHOPBASE) {
@@ -5056,9 +5184,11 @@ function do_mkroom(roomtype) {
     case ANTHOLE:
         mkzoo(ANTHOLE);
         break;
-    case SWAMP:
     case TEMPLE:
-        // mkswamp / mktemple deferred — no RNG burned (C would pick_room)
+        mktemple();
+        break;
+    case SWAMP:
+        // mkswamp deferred — no RNG burned (C would pick_room)
         break;
     default:
         break;

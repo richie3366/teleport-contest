@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 11737/53865 | 198/366 | next @11065 `dmgval` rnd(20) vs rn2(5) |
+| seed0361 | 12375/53865 | 205/366 | next @12288 doorct / shrine_pos |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @12287 — C `rn2(5) @ pick_room` vs JS
-`rn2(3)` (after D-0599 rolling boulder). Or seed0367 `Pri-strt`
-(~@2053), or seed0014/0108. Prefer over parked D-0006 / seed2200 RC;
-do not reopen D-0474…D-0599.
+**Gameplay next:** seed0361 @12288 — after D-0600 `mktemple`, C
+`shrine_pos` `rn2(2)` vs JS still in `pick_room` `rn2(5)` because JS
+has no doorct==1 OROOM (room2 doorct=2; C accepts doorct==1). Find
+extra door (join/niche/`add_door`). Or seed0367 `Pri-strt` (~@2053),
+or seed0014/0108. Prefer over parked D-0006 / seed2200 RC; do not
+reopen D-0474…D-0600.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
