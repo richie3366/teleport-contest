@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0655 — Pri-fila/filb load_special + morgue roomtype (seed0367 @33068)
+
+- **Status:** fixed (partial — next @35535 Home 3 place_lregion)
+- **Symptom:** seed0367 first mismatch @33068 — C nhlib `shuffle`
+  after matched `getbones` (wizard ^V Home 1→Home 2) vs JS `rn2(79)`
+  `place_lregion` on empty level.
+- **Cause:** `makelevel` In_quest correctly requested `Pri-fila`, but
+  `load_special_proto` had no loader; makemaz miss left stone →
+  `place_lregion`. C loads `Pri-fila.lua` (ordinary + morgue
+  `des.room` + `des.random_corridors`). Also needed `splev_roomtype`
+  `"morgue"`→`MORGUE` (fill_zoo via makelevel tail).
+- **C locus:** `dat/Pri-fila.lua` / `Pri-filb.lua`; `sp_lev.c`
+  `lspo_room`/`build_room`/`room_types`; `mklev.c` In_quest `*-fil{a,b}`.
+- **Change:** `js/mklev.js` — `load_pri_fila`/`load_pri_filb` via
+  `splev_des_room`; `splev_roomtype` morgue; dispatch in
+  `load_special_proto`.
+- **Verification:** seed0367 prefix **33068→35535** (runner RNG
+  **35572**/50125, Scr **175**/324); green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** other-role *-fila/*-filb room scripts;
+  failed-room / ensure_way_out fidelity.
+- **Next:** seed0367 @35535 C `place_lregion` after Home 3 getlev
+  vs JS nhlib `shuffle` (then C `intemple` — Pri-loca re-entry).
+
 ## D-0654 — medusa empty-statue resists_ston + mresists extract (seed0367 @27126)
 
 - **Status:** fixed (partial — next @33068 after getbones)

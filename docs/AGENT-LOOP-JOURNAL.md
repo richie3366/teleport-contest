@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 17:55 — #727 D-0655 Pri-fila/filb load_special
+- Objective: seed0367 @33068 C nhlib shuffle after getbones vs JS rn2(79).
+- C locus: dat/Pri-fila.lua / Pri-filb.lua; sp_lev.c lspo_room/
+  build_room/room_types morgue; mklev.c In_quest *-fil{a,b}.
+- Change: load_pri_fila/filb via splev_des_room; splev_roomtype
+  morgue→MORGUE; dispatch (D-0655). Was empty makemaz → place_lregion.
+- Verification: @33068→35535 (RNG 35572, Scr 175); green+strict PASS;
+  cohort 34/34 prior-PASS.
+- Next: @35535 Home 3 place_lregion vs shuffle (then intemple).
+
 ## 2026-07-17 16:55 — #726 D-0654 medusa resists_ston + mresists
 - Objective: seed0367 @27126 C rndmonst_adj rn2(3) vs JS rn2(75).
 - C locus: sp_lev.c create_object Medusa statue arm; monst.h

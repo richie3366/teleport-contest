@@ -705,9 +705,10 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1.
+ * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1,
+ * Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal, Pri-fila/filb); minetn-1/3–7; minend-2/3; tower2/3;
+ * protos (Bar-goal); minetn-1/3–7; minend-2/3; tower2/3;
  * medusa-2/3/4; water/earth/astral; create_maze fallback; check_ransacked side
  * effects beyond ransacked flag; dmonsfree.
  */
@@ -809,6 +810,14 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Pri-goal') {
         load_pri_goal();
+        return true;
+    }
+    if (protofile === 'Pri-fila') {
+        load_pri_fila();
+        return true;
+    }
+    if (protofile === 'Pri-filb') {
+        load_pri_filb();
         return true;
     }
     if (protofile === 'Arc-strt') {
@@ -2026,7 +2035,7 @@ function load_pri_strt() {
  * (Temple of Nalzok). Mines init is a lit-field kludge (fg=bg=".");
  * des.map overlays the temple; morgue regions stock undead.
  * Named omissions: humidity-aware get_location; flip_level (noflip);
- * Pri-fila/filb; spo_end_moninvent m_dowear.
+ * spo_end_moninvent m_dowear.
  */
 function load_pri_loca() {
     const g = game;
@@ -6384,6 +6393,7 @@ function splev_roomtype(name, defval = OROOM) {
     const map = {
         ordinary: OROOM,
         temple: TEMPLE,
+        morgue: MORGUE,
         shop: SHOPBASE,
         'tool shop': TOOLSHOP,
         'food shop': FOODSHOP,
@@ -6901,6 +6911,111 @@ function load_arc_filb() {
         splev_room_object(r);
         splev_room_trap(r);
         splev_room_monster(r, 'S');
+    });
+
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Pri-fila.lua via load_special — quest filler above locate.
+ * Ordinary + morgue des.room + des.random_corridors. Named omissions:
+ * other-role *-fila room scripts; failed-room skip fidelity beyond
+ * create_room false; ensure_way_out / link_doors_rooms extras.
+ */
+function load_pri_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.room contents mirror Pri-fila.lua order
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_stair(r, true);
+        splev_room_object(r);
+        splev_room_monster(r, 'human zombie');
+    });
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+    });
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'human zombie');
+    });
+    splev_des_room({ type: 'morgue' }, null, (r) => {
+        splev_room_stair(r, false);
+        splev_room_object(r);
+        splev_room_trap(r);
+    });
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'wraith');
+    });
+    splev_des_room({ type: 'morgue' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+    });
+
+    // des.random_corridors → create_corridor all -1 → makecorridors
+    makecorridors();
+
+    // C load_special: wallification → flip_level_rnd(allow_flips=3) → fixup
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Pri-filb.lua via load_special — quest filler below locate.
+ * Ordinary + morgue des.room + des.random_corridors. Named omissions:
+ * other-role *-filb; failed-room / ensure_way_out.
+ */
+function load_pri_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_stair(r, true);
+        splev_room_object(r);
+        splev_room_monster(r, 'human zombie');
+        splev_room_monster(r, 'wraith');
+    });
+    splev_des_room({ type: 'morgue' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_object(r);
+    });
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'human zombie');
+        splev_room_monster(r, 'wraith');
+    });
+    splev_des_room({ type: 'morgue' }, null, (r) => {
+        splev_room_stair(r, false);
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_trap(r);
+    });
+    splev_des_room({ type: 'ordinary' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'human zombie');
+        splev_room_monster(r, 'wraith');
+    });
+    splev_des_room({ type: 'morgue' }, null, (r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
     });
 
     makecorridors();

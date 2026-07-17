@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#726 D-0654:** seed0367 @27126→**33068**. Cause was Medusa empty-statue
-  fill accepting first `makemon`; C rejects `resists_ston` /
-  `poly_when_stoned` and retries `rndmonnum`. Extracted `mresists`.
-  Next: @33068 C nhlib `shuffle` after getbones vs JS `rn2(79)`.
+- **#727 D-0655:** seed0367 @33068→**35535**. Cause was missing
+  `Pri-fila`/`Pri-filb` load_special (+ `splev_roomtype` morgue).
+  Next: @35535 Home 3 getlev — C 2nd `place_lregion` vs JS nhlib
+  `shuffle` (C then `intemple` — Pri-loca re-entry).
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0654; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0655; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r`
@@ -41,13 +41,13 @@ Objective/score live in `CURRENT.md`.
   invent place_lregion for @19994/@26691; invent S_ANGEL/quest_portal/
   medusa-1; skip align_shift oldmoves / set moves=1 before mklev;
   invent goodpos pool reject for flyers; invent accept first Medusa
-  statue makemon (resists_ston).
+  statue makemon (resists_ston); invent skip Pri-fila morgue rooms.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0654 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0655 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -55,9 +55,9 @@ Objective/score live in `CURRENT.md`.
 - D-0604: @13719 was stub `pri_move` (no altar mill), not distfleeck.
 - D-0605…D-0614: see DIVERGENCE-INDEX.
 - D-0615/16: @23016 was qt_pager window vs pline, not Medusa/getbones arg.
-- D-0616…53: see INDEX; D-0653: @27121 was goodpos pool flyer/swimmer;
-  D-0654: @27126 was Medusa resists_ston omit (looked like rndmonst_adj
-  vs get_location), not weight math.
+- D-0616…54: see INDEX; D-0653: @27121 was goodpos pool flyer/swimmer;
+  D-0654: @27126 was Medusa resists_ston omit; D-0655: @33068 was
+  missing Pri-fila (looked like nhlib vs rn2(79)).
 
 ## Landmarks (≤15)
 
@@ -75,15 +75,16 @@ Objective/score live in `CURRENT.md`.
 - Identify score: `more_experienced(0,10)` on makeknown disclose (D-0582).
 - Get bones? map: `_leave_viz_snapshot` + `vision_off_newsym_gbuf` +
   dirty `paint_gbuf_level_to_terminal` (D-0583).
-- Quest landmarks through D-0654: see INDEX; Pri-loca + MORGUE +
+- Quest landmarks through D-0655: see INDEX; Pri-loca + MORGUE +
   fill_zoo roomno + m_initinv S_DEMON/WRAITH/LICH + eastern hx 35 +
   Pri-goal + minetn-2 + bigrm-3 + S_ANGEL + quest_portal + medusa-1 +
   align_shift oldmoves / moves=0 through mklev + goodpos pool air +
-  **Medusa resists_ston + mresists extract**;
-  S_KOP / Pri-fila/filb / minetn-1/3–7 / **medusa-2/3/4** deferred;
-  next @33068 nhlib after getbones; eel hideunder / I_SPECIAL deferred;
-  SWAMP deferred; `temperature_shift` stub; worn/artifact STONE_RES
-  deferred; youmonst pool·lava / passes_walls in goodpos deferred.
+  Medusa resists_ston + mresists + **Pri-fila/filb + morgue roomtype**;
+  S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
+  next @35535 Home 3 place_lregion vs shuffle (intemple);
+  eel hideunder / I_SPECIAL deferred; SWAMP deferred;
+  `temperature_shift` stub; worn/artifact STONE_RES deferred;
+  youmonst pool·lava / passes_walls in goodpos deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
 - defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.
