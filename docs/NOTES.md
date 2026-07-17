@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#739:** seed0367 Scr **245→267**/324; prefix **185→203**.
-  D-0666 `altar_color` via altarmask (unaligned CLR_RED);
-  D-0667 `see_monsters` in `teleds`/`docrt` (stale warn `1` @185).
-  Suite score still #735 (**34/44**; Scr 6959 RNG 465040) until #740.
-- **Next:** @203 level-teleport materialize — JS remembered mons/floor
-  vs C blank; C warn digits vs JS `Z`. Do not re-break D-0660…D-0667.
-- **Falsify:** dump vision/memory/`see_monsters` order on
+- **#740 score:** full `sessions` → **34/44** PASS; Scr **7021**/11405
+  (+62 vs #735); RNG **465040**/792838 (58.66%, +0); speed
+  `33+0.16/turn` (R² 0.80). Screen Δ = seed0367 peels #736–39.
+- **Next:** seed0367 @203 level-teleport materialize — JS remembered
+  mons/floor vs C blank; C warn digits vs JS `Z`. Do not re-break
+  D-0660…D-0667.
+- **Falsify:** dump vision/memory/`see_monsters`/`docrt` order on
   `You materialize on a different level!` vs C `goto_level`/`docrt`.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
 - **Don’t:** reopen D-0474…D-0667; invent put_lregion reject; re-add
@@ -75,7 +75,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#735; Scr 6959 RNG 465040 / 58.66%).
+  **PASS** (suite **34/44** @#740; Scr 7021 RNG 465040 / 58.66%).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
