@@ -94,6 +94,7 @@ import { christen_monst, oname } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { find_level } from './dungeon.js';
 import { premap_detect } from './detect.js';
+import { create_gas_cloud } from './region.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -2920,9 +2921,8 @@ function load_soko4_2() {
 
 /**
  * C ref: dat/fire.lua via load_special — Plane of Fire.
- * Named omissions: create_gas_cloud region body (fumaroles burns coords);
- * solidify/premap; water/earth/astral planes. Map load uses SpLev_Map lit
- * epilogue (D-0569) so solidfill BOOL_RANDOM lit does not stick on ROOM.
+ * Named omissions: solidify/premap; water/earth/astral planes; Norep whoosh
+ * on fumaroles. Map load uses SpLev_Map lit epilogue (D-0569).
  */
 function load_fire() {
     const g = game;
@@ -3648,7 +3648,7 @@ function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax) {
 
 /**
  * C ref: mkmaze.c fumaroles — gas-cloud bursts on lava (arrival / moveloop).
- * Named omission: create_gas_cloud region body / Norep whoosh (coord RNG only).
+ * Named omission: Norep whoosh; clear_heros_fault.
  */
 export function fumaroles() {
     const g = game;
@@ -3668,10 +3668,8 @@ export function fumaroles() {
         const x = rn1(COLNO - 4, 3);
         const y = rn1(ROWNO - 4, 3);
         if (g.level.at(x, y)?.typ === LAVAPOOL) {
-            // C: create_gas_cloud(x, y, rn1(10, sizemin), rn1(10, 5))
-            rn1(10, sizemin);
-            rn1(10, 5);
-            // Norep whoosh deferred
+            create_gas_cloud(x, y, rn1(10, sizemin), rn1(10, 5));
+            // Norep whoosh / clear_heros_fault deferred
         }
     }
 }

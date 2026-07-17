@@ -70,6 +70,7 @@ import { m_canseeu } from './mondata.js';
 import { rloc } from './teleport.js';
 import { quest_talk, quest_stat_check } from './quest.js';
 import { stairway_at } from './mklev.js';
+import { create_gas_cloud, visible_region_at } from './region.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -84,6 +85,9 @@ const PM_STALKER = monsterNames.indexOf('PM_STALKER');
 const PM_LEPRECHAUN = monsterNames.indexOf('PM_LEPRECHAUN');
 const PM_ETTIN = monsterNames.indexOf('PM_ETTIN');
 const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
+const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
+const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
+const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
 const GEMSTONE = 20; // objclass.h
 const MINERAL = 21; // objclass.h
 const MAX_CARR_CAP = 1000;
@@ -867,6 +871,37 @@ async function maybe_spin_web(mtmp) {
 }
 
 /**
+ * C ref: monmove.c m_everyturn_effect — fog leaves size-1 vapor each visit.
+ * Named omission: polyed-hero path (is_u).
+ */
+export function m_everyturn_effect(mtmp) {
+    if (!mtmp) return;
+    const mnum = mtmp.mnum ?? mtmp.data?.mndx ?? -1;
+    if (mnum !== PM_FOG_CLOUD) return;
+    const x = mtmp.mx | 0;
+    const y = mtmp.my | 0;
+    if (!closed_door(x, y) && !visible_region_at(x, y)) {
+        create_gas_cloud(x, y, 1, 0);
+    }
+}
+
+/**
+ * C ref: monmove.c m_postmove_effect — Hezrou stench / Steam vortex vapor
+ * at pre-move cell. Called before place_monster in C.
+ */
+export function m_postmove_effect(mtmp) {
+    if (!mtmp) return;
+    const mnum = mtmp.mnum ?? mtmp.data?.mndx ?? -1;
+    const x = mtmp.mx | 0;
+    const y = mtmp.my | 0;
+    if (mnum === PM_HEZROU) {
+        create_gas_cloud(x, y, 1, 8);
+    } else if (mnum === PM_STEAM_VORTEX && !mtmp.mcan) {
+        create_gas_cloud(x, y, 1, 0);
+    }
+}
+
+/**
  * C ref: monmove.c postmov — after a successful step: traps then doors,
  * then shared OBJ_AT / mpickstuff for MOVED|DONE.
  * Branch envelope: D_CLOSED open / D_LOCKED unlock / smash doorbuster;
@@ -1269,6 +1304,9 @@ export async function m_move(mtmp, after) {
     if (nix === game.u.ux && niy === game.u.uy) {
         return MMOVE_NOTHING;
     }
+
+    // C: m_postmove_effect before place (Hezrou/Steam at old cell)
+    m_postmove_effect(mtmp);
 
     // C: place_monster + mon_track_add then postmov (mintrap on new cell)
     mtmp.mx = nix;

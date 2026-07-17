@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
-import { dochugw } from './monmove.js';
+import { dochugw, m_everyturn_effect } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL,
@@ -12,6 +12,7 @@ import {
     MSLOW, MFAST, STRAT_WAITMASK, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
     ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
+    ismnum,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
@@ -20,6 +21,7 @@ import {
     is_hider, hides_under, M1_SEE_INVIS, humanoid, regenerates,
     is_flyer, is_floater, is_clinger, is_swimmer, likes_lava,
     bigmonst, amorphous, is_whirly, noncorporeal, M1_SLITHY,
+    is_vampshifter,
 } from './monsters.js';
 import { m_harmless_trap } from './trap.js';
 import {
@@ -37,9 +39,10 @@ import { Monnam } from './do_name.js';
 import { cansee } from './vision.js';
 import { fightm } from './mhitm.js';
 import { were_change } from './were.js';
-import { set_mimic_sym } from './makemon.js';
+import { set_mimic_sym, newcham } from './makemon.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
+const NC_SHOW_MSG = 1;
 
 /** Local is_pool/is_lava — avoid mon.js ↔ hack.js cycle. */
 function mfndpos_is_pool(x, y) {
@@ -272,14 +275,35 @@ function mon_regen(mon, digest_meal) {
 }
 
 /**
+ * C ref: mon.c decide_to_shapeshift — cham once-per-turn form change.
+ * Regular shapeshifter: !mspec_used && !rn2(6) → mspec_used + newcham(NULL).
+ * Named omissions: vampshifter arms (hp/fog/door enexto / gender restore);
+ * NC_SHOW_MSG display polish.
+ */
+function decide_to_shapeshift(mon) {
+    let ptr = null;
+    let dochng = false;
+    if (!is_vampshifter(mon)) {
+        if (!mon.mspec_used && !rn2(6)) {
+            dochng = true;
+            mon.mspec_used = 3 + rn2(10);
+        }
+    }
+    // vampshifter STRAT_WAITFORU / hp / fog pickvampshape deferred
+    if (dochng) {
+        newcham(mon, ptr, NC_SHOW_MSG);
+    }
+}
+
+/**
  * C ref: mon.c m_calcdistress — once-per-turn mon timeouts / regen.
- * Named omissions: mmove==0 minliquid; decide_to_shapeshift (cham only).
+ * Named omissions: mmove==0 minliquid; vamp decide_to_shapeshift arms.
  */
 function m_calcdistress(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) < 1) return;
     // mmove==0 minliquid deferred
     mon_regen(mtmp, false);
-    // decide_to_shapeshift deferred (cham); were_change from were.c
+    if (ismnum(mtmp.cham)) decide_to_shapeshift(mtmp);
     were_change(mtmp);
     if (mtmp.mblinded && !(--mtmp.mblinded)) mtmp.mcansee = 1;
     if (mtmp.mfrozen && !(--mtmp.mfrozen)) mtmp.mcanmove = 1;
@@ -664,6 +688,10 @@ export function mfndpos(mon, data, flag) {
 // C ref: mon.c movemon_singlemon()
 async function movemon_singlemon(mtmp) {
     if (!mtmp || mtmp.mhp <= 0) return false;
+
+    // C: m_everyturn_effect before movement gate (fog vapor even if idle)
+    m_everyturn_effect(mtmp);
+
     if ((mtmp.movement | 0) < NORMAL_SPEED) return false;
 
     mtmp.movement -= NORMAL_SPEED;
@@ -679,7 +707,7 @@ async function movemon_singlemon(mtmp) {
     }
 
     // C: Conflict → fightm before dochugw (always rolls resist_conflict).
-    // m_everyturn_effect / movemon restrap post-path deferred.
+    // movemon restrap post-path still deferred.
     if (hero_conflict() && !mtmp.iswiz && m_canseeu(mtmp)) {
         const u = game.u;
         if (cansee(mtmp.mx, mtmp.my)

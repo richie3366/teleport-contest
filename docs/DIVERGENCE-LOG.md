@@ -6,6 +6,29 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0623 — fog m_everyturn create_gas_cloud + cham decide_to_shapeshift (@53773)
+
+- **Status:** fixed (partial — next @53815 movemon restrap)
+- **Symptom:** seed0361 @53773 — C `create_gas_cloud` `rn2(3)` (ttl) after
+  matched `place_lregion` vs JS `rn2(12)` mcalcmove.
+- **Cause:** (1) `movemon_singlemon` returned early on low movement before
+  C’s `m_everyturn_effect` — fog size-1 vapor never burned ttl
+  `rn1(3,4)`. (2) `m_calcdistress` omitted `decide_to_shapeshift` for
+  cham (next mismatch @53774).
+- **C locus:** `monmove.c` `m_everyturn_effect` / `m_postmove_effect`;
+  `region.c` `create_gas_cloud`; `mon.c` `decide_to_shapeshift` /
+  `movemon_singlemon` call order.
+- **Change:** new `js/region.js` `create_gas_cloud` (BFS expand + ttl);
+  `js/monmove.js` fog everyturn + Hezrou/Steam postmove; `js/mon.js`
+  everyturn before movement gate + regular cham shapeshift;
+  `fumaroles` calls real `create_gas_cloud`. Named omissions: vamp
+  shapeshift arms; `run_regions` ttl age; region glyphs/block;
+  movemon `restrap` call site.
+- **Verification:** prefix **53773→53815** Scr **306**/366 RNG
+  **53817**/53865; green+strict PASS; cohort **33/33** PASS.
+- **Next:** @53815 C movemon `restrap` `rn2(3)` vs JS `rn2(6)`; or
+  Pri-strt / seed0014/0108.
+
 ## D-0622 — getlev hide_monst → restrap (@53705)
 
 - **Status:** fixed (partial — next @53773 create_gas_cloud)

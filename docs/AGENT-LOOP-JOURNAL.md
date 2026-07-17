@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:55 — #694 D-0623 fog gas cloud + cham shapeshift
+- Objective: seed0361 @53773 C create_gas_cloud rn2(3) vs JS mcalcmove.
+- C locus: `monmove.c` m_everyturn_effect; `region.c` create_gas_cloud;
+  `mon.c` decide_to_shapeshift.
+- Change: `js/region.js` create_gas_cloud; fog everyturn before movement
+  gate; regular cham decide_to_shapeshift; fumaroles uses real cloud.
+- Verification: prefix 53773→53815 Scr 306 RNG 53817/53865; green+strict
+  PASS; cohort 33/33 PASS.
+- Next: seed0361 @53815 movemon restrap rn2(3); or Pri-strt.
+
 ## 2026-07-17 12:45 — #693 D-0622 hide_monst → restrap
 - Objective: seed0361 @53705 C restrap rn2(3) vs JS getlev rnd(10).
 - C locus: `mon.c` `hide_monst` / `restrap` / `hideunder`; `restore.c` getlev.
@@ -150,20 +160,3 @@ Use this shape:
 - Verification: prefix **22042→22084** Scr **225** RNG **22261**;
   green+strict PASS; cohort 20/20 PASS.
 - Next: seed0361 @22084 `spec_abon`/`hitum`; or Pri-strt.
-
-## 2026-07-17 11:20 — #679 D-0609 MMOVE_MOVED ranged_attk
-- Objective: seed0361 @21974 C `rnd(4)` @ mattacku vs JS `rn2(5)` distfleeck.
-- C locus: `monmove.c` dochug MMOVE_MOVED; `mhitu.c` ranged_attk_available / AC_VALUE.
-- Change: fall-through gate adds `ranged_attk_available` (gnomish wizard AT_MAGC).
-- Verification: prefix **21974→22042** Scr **224** RNG **22154**;
-  green+strict PASS; cohort 14/14 PASS.
-- Next: seed0361 @22042 `precheck`/`use_defensive`; or Pri-strt.
-
-## 2026-07-17 11:15 — #678 D-0608 minend-1 "(" → TOOL
-- Objective: seed0361 @21310 C `rnd(1000)` @ mkobj vs JS `rnd(1002)`.
-- C locus: `dat/minend-1.lua` `des.object("(")`; `defsym.h` TOOL `'('`.
-- Change: `load_minend_1` two random objs `WEAPON_CLASS`→`TOOL_CLASS`
-  (WEAPON sum 1002; TOOL 1000). Not GEM setgemprobs.
-- Verification: prefix **21310→21974** Scr **224** RNG **22135**;
-  green+strict PASS; cohort 7/7 PASS.
-- Next: seed0361 @21974 `mattacku` `rnd(4)` vs `distfleeck` `rn2(5)`.

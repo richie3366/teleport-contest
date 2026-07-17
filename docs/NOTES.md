@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#693 D-0622:** `hide_monst`→`restrap` → prefix **53705→53773** Scr
-  **306** RNG **53807**/53865. Cohort 33/33.
-- **Next @53773:** C `create_gas_cloud` `rn2(3)` (region.c) vs JS
-  `rn2(12)` (mcalcmove path). Port gas-cloud / region create on level
-  load or special. Falsifier: stack ≠ create_gas_cloud after matched
-  place_lregion.
+- **#694 D-0623:** fog `m_everyturn_effect`→`create_gas_cloud` + cham
+  `decide_to_shapeshift` → prefix **53773→53815** Scr **306** RNG
+  **53817**/53865. Cohort 33/33.
+- **Next @53815:** C `restrap` `rn2(3)` (movemon pre-dochug) vs JS
+  `rn2(6)` shapeshift. Wire `restrap` call in `movemon_singlemon`
+  (body already D-0622). Falsifier: stack ≠ restrap after EOT wipe_engr.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
   Full score last #690 (not cadence this iter).
-- **Don’t:** reopen D-0474…D-0622; wear `[*?]`; stub `^V?`; empty wish ESC;
+- **Don’t:** reopen D-0474…D-0623; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
@@ -31,14 +31,15 @@ Objective/score live in `CURRENT.md`.
   dmgval; omit `on_start` nexttime/othertime after first_start; force
   all qt_pager through NHW_TEXT; raw `rn2(sx)` for tower1 candles;
   single-loop WET get_location for room monsters; invent 15th Arc-goal
-  `des.object` (Lua has 14); stub `on_goal`; skip bigrm-7 when
-  `makemaz` picks it; skip getlev `restrap` / hide_monst viz override.
+  `des.object` (not 15); stub `on_goal`; skip bigrm-7 when
+  `makemaz` picks it; skip getlev `restrap` / hide_monst viz override;
+  skip fog `m_everyturn` / cham `decide_to_shapeshift` regular.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0622 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0623 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -52,6 +53,8 @@ Objective/score live in `CURRENT.md`.
 - D-0620: @42649 was missing `on_goal`/`goal_first`, not post-goal special.
 - D-0621: @46893 was missing `bigrm-7` loader, not post-rndlevs mineralize.
 - D-0622: @53705 was stub `hide_monst` (no restrap), not getlev rnd(10) itself.
+- D-0623: @53773 was missing fog `m_everyturn`→`create_gas_cloud`, not
+  fumaroles nmax (size-1 ttl); @53774 was deferred cham shapeshift.
 
 ## Landmarks (≤15)
 
@@ -83,12 +86,14 @@ Objective/score live in `CURRENT.md`.
   `get_location_coord` (D-0617)**; **`Arc-fila`/`Arc-filb` (D-0618)**;
   **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; **`on_goal`
   goal_first (D-0620)**; **`bigrm-7` (D-0621)**; **`hide_monst`/
-  `restrap` (D-0622)**; `intemple` + SWAMP deferred; Bar-goal / Pri-*
-  deferred; other bigrm-N deferred; movemon `restrap` call deferred.
+  `restrap` (D-0622)**; **fog `m_everyturn`/`create_gas_cloud` + cham
+  `decide_to_shapeshift` (D-0623)**; `intemple` + SWAMP deferred;
+  Bar-goal / Pri-* deferred; other bigrm-N deferred; **movemon
+  `restrap` call** next @53815; vamp shapeshift arms deferred;
+  `run_regions` ttl age deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
-- defsym: `')'`=WEAPON, `'('`=TOOL, `'*'`=GEM.
+- defsym: `')'`=WEAPON, `'('`=TOOL, `'*'`=GEM; Arc-goal **14** `des.object()`.
 - Arc nexttime: no lua `output` → deliver_by_pline (not text window).
 - Quest `des.monster("M")` → S_MUMMY (uppercase); `"m"` → S_MIMIC.
-- Arc-goal: **14** random `des.object()` (not 15).

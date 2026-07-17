@@ -47,7 +47,7 @@ seed5006, seed0116.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361 | 53807/53865 | 306/366 | @53773 create_gas_cloud (post D-0622) |
+| seed0361 | 53817/53865 | 306/366 | @53815 movemon restrap (post D-0623) |
 | seed0367 | 2053/50125 | 75/324 | quest / `Pri-strt` |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
@@ -72,10 +72,10 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce. Next
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0361 @53773 — C `create_gas_cloud` `rn2(3)`
-(region.c) after matched `place_lregion` vs JS `rn2(12)` (post D-0622
-`restrap`). Or seed0367 `Pri-strt`, seed0014/0108. Prefer over parked
-D-0006 / seed2200 RC; do not reopen D-0474…D-0622.
+**Gameplay next:** seed0361 @53815 — C `restrap` `rn2(3)` (movemon
+pre-dochug; body already D-0622) vs JS `rn2(6)` shapeshift. Or
+seed0367 `Pri-strt`, seed0014/0108. Prefer over parked D-0006 /
+seed2200 RC; do not reopen D-0474…D-0623.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
