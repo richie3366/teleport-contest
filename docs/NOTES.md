@@ -7,33 +7,31 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#666 D-0597:** ported `mfndpos` pool/lava/waterwall + `ALLOW_WALL`
-  — **not** @7973 cause. DIAG: mountain centaur @(71,5) open ROOM
-  **cnt=8**, mtrack[0]=(72,4)→`rn2(32)`; C `rn2(20)` (cnt−j=5). Spider
-  later matches C `rn2(24)`/`rn2(20)`. Next: onscary/garlic/squeeze/
-  bars/gas/`mm_aggression`, or C map/mtrack dump (squeeze needs wall
-  flanks — absent here). Falsify: dump C `mfndpos` poss for that mon.
+- **#667 D-0598:** `searches_for_item` — root of @7973. C recorder:
+  centaur @(71,4) cnt=5 gg=(70,4) POT_HEALING; JS was @(71,5) cnt=8
+  gg=hero. Prefix **7973→11065**, Scr **195→198**. Next @11065 C
+  `rnd(20) @ dmgval` vs JS `rn2(5)` (missile/hit path).
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Gameplay next:** seed0361 @7973; or seed0367 `Pri-strt`; seed0014/0108.
-- **Don’t:** `vision_recalc(2)` newsym loop; D-0480 coerce; frame-align;
-  raw RNG-index/coord hacks; reopen D-0474…D-0597; wear `[*?]`; stub
-  `^V?` as menu; empty wish ESC cancel; skip amulet_wish once; Wizard
-  Norep; maze `rn2(2)` set_mimic_sym Sokoban; TELE on occupied mon;
-  skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+- **Don’t:** reopen D-0474…D-0598 mfndpos-as-@7973; wear `[*?]`; stub
+  `^V?` as menu; empty wish ESC; skip amulet_wish; Wizard Norep; maze
+  `rn2(2)` set_mimic_sym Sokoban; TELE on occupied mon; skip
+  `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
   bones `utrack`; skip Blindf_on / confused mispronounce / wizard yn /
-  identify `more_experienced(0,10)`.
+  identify `more_experienced(0,10)`; `vision_recalc(2)` newsym loop;
+  D-0480 coerce; frame-align; raw RNG-index/coord hacks.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0596 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0597 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
 - D-0592–D-0596: COURT/portal/web/`set_wear` causes settled — don’t reopen.
-- D-0597: @7973 pool/lava **not** cause — open ROOM cnt=8 centaur.
+- D-0597: pool/lava **not** @7973 cause — open ROOM cnt=8 was JS-only pos.
+- D-0598: @7973 was missing `searches_for_item` (POT_HEALING gg), not mfndpos.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
@@ -64,3 +62,4 @@ Objective/score live in `CURRENT.md`.
 - Spider web: `postmov` `maybe_spin_web` `rn2(1000)` (D-0595).
 - Startup wear: `set_wear` → `Helmet_on` fedora Archeologist luck (D-0596).
 - `mfndpos` pool/lava/waterwall + passes_walls `ALLOW_WALL` (D-0597).
+- Intelligent loot: `searches_for_item` in `mon_would_take_item` (D-0598).

@@ -4,9 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0598 — searches_for_item (POT_HEALING gg → @7973)
+
+- **Status:** fixed (partial — FOOD corpse/tin/egg; Is_container/`can_blow`;
+  onscary underfoot gate deferred)
+- **Symptom:** seed0361 @7973 — C `rn2(20) @ m_move` vs JS `rn2(32)`.
+- **Cause:** JS `mon_would_take_item` omitted C `searches_for_item`. Mountain
+  centaur (!animal, !mindless, !likes_magic) never sought `POT_HEALING` at
+  (70,4); JS `gg` stayed on hero → nearer-path drifted mon to (71,5) cnt=8
+  vs C (71,4) against HWALL cnt=5.
+- **Evidence:** C recorder DIAG at ri=7973: mon=132 at=(71,4) cnt=5
+  gg=(70,4) poss five ROOM cells; JS DIAG had at=(71,5) cnt=8 gg=(12,7).
+- **Rejected:** mfndpos pool/lava/onscary/squeeze as @7973 root (D-0597).
+- **C locus:** `muse.c` `searches_for_item`; `monmove.c` `mon_would_take_item`.
+- **Change:** `js/muse.js` export `searches_for_item` (potion/wand/scroll/
+  amulet/tool subset); `js/monmove.js` wire + unicorn GEMSTONE gate.
+- **Verification:** seed0361 prefix **7973→11065**, Scr **195→198**, RNG
+  **8210→11737**; green+strict PASS; cohort **31/31** PASS.
+- **Named omission:** FOOD arms; containers/`can_blow`; onscary floor gate.
+- **Next:** seed0361 @11065 C `rnd(20) @ dmgval` vs JS `rn2(5)`.
+
 ## D-0597 — mfndpos pool/lava/waterwall + ALLOW_WALL (not @7973)
 
-- **Status:** open (partial port; primary symptom unfixed)
+- **Status:** fixed (partial port retained; primary symptom was D-0598)
 - **Symptom:** seed0361 @7973 — C `rn2(20) @ m_move:1963` vs JS
   `rn2(32)` (track `rn2(4*(cnt-j))`).
 - **Cause (partial):** JS `mfndpos` omitted C poolok/lavaok /

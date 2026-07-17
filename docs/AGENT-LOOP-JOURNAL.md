@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 09:50 — #667 D-0598 searches_for_item (@7973)
+- Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
+- C locus: `muse.c` `searches_for_item`; `monmove.c` `mon_would_take_item`.
+- Change: ported `searches_for_item` + wired into `mon_would_take_item`.
+  C recorder: centaur gg→POT_HEALING (70,4) at=(71,4) cnt=5; JS had chased
+  hero → (71,5) cnt=8. D-0597 pool/lava not the root.
+- Verification: prefix **7973→11065** Scr **195→198**; green+strict PASS;
+  cohort **31/31** PASS.
+- Next: seed0361 @11065 `dmgval` `rnd(20)` vs `rn2(5)`; or Pri-strt.
+
 ## 2026-07-17 09:40 — #666 D-0597 mfndpos pool/lava (not @7973)
 - Objective: seed0361 `m_move` @7973 C `rn2(20)` vs JS `rn2(32)`.
 - C locus: `mon.c` `mfndpos` poolok/lavaok / `IS_WATERWALL`; `mon_allowflags` `ALLOW_WALL`.
@@ -152,11 +162,3 @@ Use this shape:
 - Verification: seed0116 Scr **125→126**/127 RNG FULL; green+strict
   PASS; cohort **30**/30 (seed0106 + wizard seeds). Residual @122.
 - Next: seed0116 @122 ^X armor nudity + Teleport_control from_what.
-## 2026-07-17 01:00 — #652 D-0585 does_block is_lightblocker_mappear
-- Objective: seed0116 Scr 116/127 @114 materialize map `` ` `` vs `·`.
-- C locus: vision.c does_block; monst.h is_lightblocker_mappear.
-- Change: vision.js `_blocks` treats mimic-as-boulder (and door/wall/tree
-  furniture) as light blockers so Algorithm C marks the edge cell.
-- Verification: seed0116 Scr **116→125**/127 RNG FULL; green+strict PASS;
-  cohort **30**/30 PASS; seed0373 PASS. Residual @117 spells / @122 insight.
-- Next: seed0116 @117 “Currently known spells” centering; or leaderboard.

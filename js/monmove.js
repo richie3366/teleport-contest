@@ -25,7 +25,7 @@ import {
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
 import { objects_at, obj_extract_self, splitobj } from './mkobj.js';
-import { find_defensive, find_misc, use_misc, find_offensive } from './muse.js';
+import { find_defensive, find_misc, use_misc, find_offensive, searches_for_item } from './muse.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
 import {
     mintrap,
@@ -84,7 +84,8 @@ const PM_STALKER = monsterNames.indexOf('PM_STALKER');
 const PM_LEPRECHAUN = monsterNames.indexOf('PM_LEPRECHAUN');
 const PM_ETTIN = monsterNames.indexOf('PM_ETTIN');
 const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
-const MINERAL = 21; // obj.h
+const GEMSTONE = 20; // objclass.h
+const MINERAL = 21; // objclass.h
 const MAX_CARR_CAP = 1000;
 const MZ_HUMAN = 3;
 const WT_HUMAN = 1450;
@@ -218,12 +219,22 @@ function can_carry(mtmp, otmp) {
 
 /**
  * C ref: monmove.c mon_would_take_item
- * Named omission: searches_for_item; unicorn GEMSTONE; uball/uchain.
+ * Named omissions: uball/uchain; unicorn GEMSTONE material gate partial
+ * (mlet check only); FOOD searches_for_item corpse/tin/egg arms.
  */
 function mon_would_take_item(mtmp, otmp) {
     const ptr = mtmp.data;
     const pctload = Math.trunc((curr_mon_load(mtmp) * 100) / max_mon_load(mtmp));
     if (mtmp.mtame && otmp.cursed) return false;
+    // C: is_unicorn && oc_material != GEMSTONE
+    if (ptr?.mlet === 'S_UNICORN') {
+        const mat = game.objects?.[otmp.otyp]?.oc_material ?? 0;
+        if (mat !== GEMSTONE) return false;
+    }
+    if (!mindless(ptr) && !is_animal(ptr) && pctload < 75
+        && searches_for_item(mtmp, otmp)) {
+        return true;
+    }
     if (likes_gold(ptr) && otmp.otyp === GOLD_PIECE && pctload < 95) return true;
     const mat = game.objects?.[otmp.otyp]?.oc_material ?? 0;
     if (likes_gems(ptr) && otmp.oclass === GEM_CLASS
@@ -304,8 +315,8 @@ async function mpickstuff(mtmp) {
  * Returns true → caller postmov(MMOVE_DONE) for underfoot claim (mpickstuff).
  * Named omissions: in_rooms shop rn2(25); hides_under; onscary; costly_spot
  * merchandise; is_mines_prize/is_soko_prize; helpless under-monster skip
- * beyond mcanmove/msleeping/mmove; searches_for_item; can_touch_safely in
- * search loop (mpickstuff still gates).
+ * beyond mcanmove/msleeping/mmove; can_touch_safely in search loop
+ * (mpickstuff/can_carry still gates).
  */
 function m_search_items(mtmp, gg) {
     let minr = SQSRCHRADIUS;
