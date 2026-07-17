@@ -7,12 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#689 D-0619:** Home 5 `Arc-goal` missing → empty makemaz → mineralize
-  `rn2(79)`. Ported `load_arc_goal` + Minion `nemgend`/`BELL_OF_OPENING`.
-  Prefix **34204→42649**.
-- **Next @42649:** C nhlib shuffle after place_lregion vs JS `rn2(79)` —
-  next special after Arc-goal exit (leave Home / branch). Falsifier:
-  stack ≠ post-goal `load_special` / nhl shuffle.
+- **#690 score cadence:** full `sessions` → **33/44** Scr **6681**/11405
+  RNG **398371**/792838 (**50.25%**). Δ vs #685: Scr +18, RNG +19387
+  (D-0615…19). No new PASS.
+- **#689 D-0619:** Home 5 `Arc-goal` → prefix **34204→42649**.
+- **Next @42649:** C nhlib shuffle after matched `place_lregion` vs JS
+  `rn2(79)` — next special after Arc-goal (leave Home / branch). Falsifier:
+  stack ≠ post-goal `load_special` / nhl shuffle. Identify protofile
+  before porting (do not guess Bar-goal/tower2).
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
 - **Don’t:** reopen D-0474…D-0619; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied

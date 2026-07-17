@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:30 — #690 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **33/44** Scr **6681**/11405
+  RNG **398371**/792838 (50.25%) speed `38+0.16/turn` (R² 0.797).
+  Δ vs #685: Scr +18, RNG +19387, PASS unchanged.
+- Next: seed0361 @42649 identify protofile (nhl shuffle vs rn2(79));
+  or Pri-strt / leaderboard cron.
+
 ## 2026-07-17 12:28 — #689 D-0619 Arc-goal load_special
 - Objective: seed0361 @34204 C nhlib shuffle rn2(3) vs JS rn2(79).
 - C locus: `dat/Arc-goal.lua`; `makemon.c` MS_NEMESIS mitem/gender;
