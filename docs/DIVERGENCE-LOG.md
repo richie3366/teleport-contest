@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0605 — soko mimic boulder retry dead in C (@13839)
+
+- **Status:** fixed (partial — next `select_newcham_form` @18684)
+- **Symptom:** seed0361 @13839 — C `rn2(2) @ find_montype` vs JS
+  `rn2(26) @ get_location` (second soko1-1 giant-mimic path).
+- **Cause:** JS `create_mimic_as_boulder` retried `get_location` when
+  `m_bad_boulder_spot` after makemon. C gates that retry on `m->x < 0`
+  *after* `m->x = mtmp->mx` (`sp_lev.c` ~1992 then ~2041), so the retry
+  never runs; C proceeds to the next `des.monster` `find_montype`.
+- **C locus:** `sp_lev.c` `create_monster` M_AP_OBJECT boulder arm;
+  `dat/soko1-1.lua` giant mimic `appear_as = obj:boulder`.
+- **Change:** `js/mklev.js` `create_mimic_as_boulder` — drop post-makemon
+  relocation RNG; keep `m_bad_boulder_spot` helper for the C-cited gate.
+- **Verification:** prefix **13839→18684** Scr **215** RNG **18774**;
+  green+strict PASS; cohort **31/31** PASS; full sessions **33/44**.
+- **Next:** seed0361 @18684 C `select_newcham_form` vs JS `rn2(75)`;
+  or Pri-strt / seed0014/0108.
+
 ## D-0604 — pri_move altar mill (@13719)
 
-- **Status:** fixed (partial — next find_montype/sp_lev @13839)
+- **Status:** fixed (partial — next was @13839; continued as D-0605)
 - **Symptom:** seed0361 @13719 — C `rn2(3) @ pri_move` vs JS `rn2(5)`
   (`distfleeck` on next mon).
 - **Cause:** `pri_move` was a stay-put stub; peaceful temple priests never

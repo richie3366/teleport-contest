@@ -3321,7 +3321,9 @@ function add_doors_to_room(croom) {
 
 /**
  * C ref: sp_lev.c create_monster id=giant mimic appear_as=obj:boulder.
- * Random map placement; boulder-spot retries when m_bad_boulder_spot.
+ * Random map placement. C's boulder m_bad_boulder_spot retry is gated on
+ * `m->x < 0` AFTER `m->x = mtmp->mx` (sp_lev.c ~1992/2041), so the retry
+ * never runs — match that (do not invent post-makemon relocation RNG).
  */
 function create_mimic_as_boulder() {
     const { mndx, female } = find_montype_gender('giant mimic');
@@ -3342,27 +3344,6 @@ function create_mimic_as_boulder() {
     mtmp.female = female;
     mtmp.m_ap_type = M_AP_OBJECT;
     mtmp.mappearance = BOULDER;
-    // C: m->x < 0 (random) && m_bad_boulder_spot → retry get_location
-    if (m_bad_boulder_spot(mtmp.mx, mtmp.my)) {
-        let retrylimit = 10;
-        // remove from fmon occupancy at old spot by relocating
-        do {
-            pos = get_location_random(null);
-            if (game.fmon) {
-                for (const m of game.fmon) {
-                    if (m !== mtmp && m.mx === pos.x && m.my === pos.y) {
-                        const cc = { x: 0, y: 0 };
-                        if (enexto(cc, pos.x, pos.y, pm))
-                            pos = { x: cc.x, y: cc.y };
-                        break;
-                    }
-                }
-            }
-            mtmp.mx = pos.x;
-            mtmp.my = pos.y;
-        } while (m_bad_boulder_spot(mtmp.mx, mtmp.my) && --retrylimit > 0);
-        if (!retrylimit) set_mimic_sym(mtmp);
-    }
     return mtmp;
 }
 
