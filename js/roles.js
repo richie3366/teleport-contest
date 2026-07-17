@@ -26,6 +26,10 @@ import {
     NON_PM,
     monsterNames,
 } from './generated/monsters_data.js';
+import {
+    ART_ORB_OF_DETECTION,
+    ART_HEART_OF_AHRIMAN,
+} from './generated/artifacts_data.js';
 import { game } from './gstate.js';
 import {
     A_CHAOTIC, A_NEUTRAL, A_LAWFUL, A_INT, A_WIS,
@@ -80,6 +84,7 @@ export const roles = [
         homebase: 'the College of Archeology',
         intermed: 'the Tomb of the Toltec Kings',
         ldrnum: pm('PM_LORD_CARNARVON'),
+        questarti: ART_ORB_OF_DETECTION,
         xlev: 14,
         initrecord: 10,
         // C: { 11, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
@@ -117,6 +122,7 @@ export const roles = [
         homebase: 'the Camp of the Duali Tribe',
         intermed: 'the Duali Oasis',
         ldrnum: pm('PM_PELIAS'),
+        questarti: ART_HEART_OF_AHRIMAN,
         // C: { 16, 7, 7, 15, 16, 6 } / { 30, 6, 7, 20, 30, 7 }
         attrbase: [16, 7, 7, 15, 16, 6],
         attrdist: [30, 6, 7, 20, 30, 7],

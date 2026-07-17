@@ -6,6 +6,25 @@ to preserve, record it here.
 
 # Divergence log
 
+## D-0620 — on_goal goal_first nhl shuffle (@42649)
+
+- **Status:** fixed (partial — next @46893 bigrm-7)
+- **Symptom:** seed0361 @42649 — C nhlib `shuffle` `rn2(3)` after matched
+  Arc-goal `place_lregion` vs JS `rn2(79)`.
+- **Cause:** `onquest` → `Is_nemesis` stubbed `on_goal`. First Home 5
+  entry needs `qt_pager("goal_first")` → `nhl_init` align shuffle.
+  Without it JS continued into empty-maze `rn2(79)`.
+- **C locus:** `quest.c` `on_goal` / `onquest`; `questpgr.c` `qt_pager` /
+  `find_quest_artifact` / `convert_arg` `%o`/`%n`; `dat/quest.lua`
+  Arc/Bar `goal_*`.
+- **Change:** `js/quest.js` — `on_goal` + floor/minvent/buried
+  `find_quest_artifact`; `js/questpgr.js` — Arc/Bar goal texts + `%o`/`%n`;
+  `js/roles.js` — Arc/Bar `questarti`.
+- **Verification:** prefix **42649→46893** Scr **289→296** RNG
+  **46893**/53865; green+strict PASS; cohort **33/33** PASS.
+- **Next:** @46893 C `bigrm-7` nhl shuffle after `makemaz` `rnd(13)` vs
+  JS `rn2(79)`; or Pri-strt / seed0014/0108.
+
 ## D-0619 — Arc-goal load_special + Minion mitem/gender (@34204)
 
 - **Status:** fixed (partial — next @42649 nhl shuffle vs rn2(79))

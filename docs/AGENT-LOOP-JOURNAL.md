@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 12:40 — #691 D-0620 on_goal goal_first
+- Objective: seed0361 @42649 C nhl shuffle after Arc-goal place_lregion.
+- C locus: `quest.c` `on_goal`/`onquest`; `questpgr.c` `qt_pager`;
+  `dat/quest.lua` Arc `goal_first`.
+- Change: port `on_goal` (goal_first/next/alt + find_quest_artifact);
+  Arc/Bar goal texts + `%o`/`%n`; Arc/Bar `questarti`.
+- Verification: prefix **42649→46893** Scr **289→296** RNG **46893**;
+  green+strict PASS; cohort **33/33** PASS.
+- Next: seed0361 @46893 `bigrm-7` load_special; or Pri-strt.
+
 ## 2026-07-17 12:30 — #690 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs only; no port patch).
@@ -148,14 +158,4 @@ Use this shape:
 - Verification: prefix **21119→21310** Scr **222** RNG **21466**;
   green+strict PASS; cohort 7/7 PASS.
 - Next: seed0361 @21310 mkobj GEM `oclass_prob_totals` 1000 vs 1002.
-
-## 2026-07-17 11:00 — #676 D-0606 select_newcham_form + MAIL extract
-- Objective: seed0361 @18684 C `select_newcham_form` vs JS `rn2(75)`.
-- C locus: `mon.c` `select_newcham_form`/`accept_newcham_form`/`newcham`;
-  `wizard.c` `pick_nasty`; `global.h` `MAIL_STRUCTURES`.
-- Change: port doppel/sandestin/cham + random + `polyok`/`is_mplayer`;
-  `extract-monsters.py` `-DMAIL_STRUCTURES` (SPECIAL_PM 329→330).
-- Verification: prefix **18684→21119** Scr **220** RNG **21217**;
-  green+strict PASS; cohort 7/7 PASS.
-- Next: seed0361 @21119 lua `shuffle`/`splev` after `makemaz`.
 

@@ -17,6 +17,8 @@ import { nhl_nhlib_align_shuffle } from './dungeon.js';
 import { show_text_pages } from './pager.js';
 import { mons, M2_PNAME } from './monsters.js';
 import { NON_PM, pmnames } from './generated/monsters_data.js';
+import { artilistRaw } from './generated/artifacts_data.js';
+import { the } from './objnam.js';
 
 /**
  * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.
@@ -229,6 +231,28 @@ You have an odd feeling this may be the last time you ever come here.`,
 %H.`,
 };
 
+/** C ref: dat/quest.lua goal_first (Arc + Bar; output=text). */
+const QUEST_GOAL_FIRST = {
+    Arc: `A strange feeling washes over you, and you think back to things you
+learned during the many lectures of %l.
+
+You realize the feeling must be the presence of %o.`,
+    Bar: `The hairs on the nape of your neck lift as you sense an energy in the
+very air around you.  You fight down a primordial panic that seeks to
+make you turn and run.  This is surely the lair of %n.`,
+};
+
+/** C ref: dat/quest.lua goal_next (Arc + Bar). */
+const QUEST_GOAL_NEXT = {
+    Arc: `The familiar presence of %o is in the ether.`,
+    Bar: `Yet again you feel the air around you heavy with malevolent magical energy.`,
+};
+
+/** C ref: dat/quest.lua goal_alt (Arc; Bar falls back to goal_next in C). */
+const QUEST_GOAL_ALT = {
+    Arc: `You have returned to %ns lair.`,
+};
+
 /** C ref: questpgr.c ldrname */
 function ldrname() {
     const i = game.urole?.ldrnum ?? NON_PM;
@@ -241,8 +265,8 @@ function ldrname() {
 }
 
 /**
- * C ref: questpgr.c convert_arg — subset used by firsttime (%x/%H/%l/%d).
- * Named omission: full convert_arg catalogue + %c/%n/%o/… pronoun arms.
+ * C ref: questpgr.c convert_arg — subset used by firsttime/goal (%x/%H/%l/%d/%o/%n).
+ * Named omission: full convert_arg catalogue + %c/%g/… pronoun arms.
  */
 function convert_arg(c) {
     const urole = game.urole || {};
@@ -271,6 +295,28 @@ function convert_arg(c) {
     }
     case 'r':
         return urole.rank?.m || urole.name?.m || '';
+    case 'o':
+    case 'O': {
+        // C: the(artiname(urole.questarti)); %O shortens "the Foo of Bar"
+        const qi = urole.questarti | 0;
+        const raw = (artilistRaw[qi]?.name) || '';
+        let str = raw ? the(raw) : '';
+        if (c === 'O') {
+            const p = str.toLowerCase().indexOf(' of ');
+            if (p >= 0) str = str.slice(0, p);
+        }
+        return str;
+    }
+    case 'n': {
+        // C: neminame() — proper-name vs "the <name>"
+        const i = urole.neminum ?? NON_PM;
+        if (i === NON_PM || i == null) return '';
+        const ptr = mons(i);
+        const names = pmnames[i];
+        const nm = names?.[2] || names?.[0] || names?.[1] || '';
+        const pname = !!((ptr?.mflags2 ?? 0) & M2_PNAME);
+        return pname ? nm : `the ${nm}`;
+    }
     case '%':
         return '%';
     default:
@@ -317,7 +363,7 @@ function convert_line(inLine) {
  *
  * Named omissions: common fallback; explicit single-line output=text;
  * menu output; array rn2 picks; convert_line pronoun/%cC arms;
- * synopsis putmsghistory.
+ * synopsis putmsghistory; other-role goal/nexttime bodies.
  */
 export async function qt_pager(msgid) {
     // C: com_pager_core → nhl_init → nhlib.lua top-level shuffle(align)
@@ -332,6 +378,12 @@ export async function qt_pager(msgid) {
     else if (msgid === 'locate_next') raw = QUEST_LOCATE_NEXT[code] || null;
     else if (msgid === 'nexttime') raw = QUEST_NEXTTIME[code] || null;
     else if (msgid === 'othertime') raw = QUEST_OTHERTIME[code] || null;
+    else if (msgid === 'goal_first') raw = QUEST_GOAL_FIRST[code] || null;
+    else if (msgid === 'goal_next') raw = QUEST_GOAL_NEXT[code] || null;
+    else if (msgid === 'goal_alt') {
+        // C: qt_pager reverts to QT_NEXTGOAL when role lacks QT_ALTGOAL
+        raw = QUEST_GOAL_ALT[code] || QUEST_GOAL_NEXT[code] || null;
+    }
     // Other msgid bodies deferred (C-JS-MAP)
     if (!raw) return;
 

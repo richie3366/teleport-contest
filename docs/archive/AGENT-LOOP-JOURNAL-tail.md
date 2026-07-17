@@ -32,3 +32,13 @@
 - Verification: seed0116 Scr **115→116**/127 RNG FULL; green+strict
   PASS; cohort **30**/30 PASS.
 - Next: seed0116 @114 materialize map `` ` `` vs `·` (32,13).
+
+## 2026-07-17 11:00 — #676 D-0606 select_newcham_form + MAIL extract
+- Objective: seed0361 @18684 C `select_newcham_form` vs JS `rn2(75)`.
+- C locus: `mon.c` `select_newcham_form`/`accept_newcham_form`/`newcham`;
+  `wizard.c` `pick_nasty`; `global.h` `MAIL_STRUCTURES`.
+- Change: port doppel/sandestin/cham + random + `polyok`/`is_mplayer`;
+  `extract-monsters.py` `-DMAIL_STRUCTURES` (SPECIAL_PM 329→330).
+- Verification: prefix **18684→21119** Scr **220** RNG **21217**;
+  green+strict PASS; cohort 7/7 PASS.
+- Next: seed0361 @21119 lua `shuffle`/`splev` after `makemaz`.

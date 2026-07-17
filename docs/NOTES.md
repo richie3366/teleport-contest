@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#690 score cadence:** full `sessions` → **33/44** Scr **6681**/11405
-  RNG **398371**/792838 (**50.25%**). Δ vs #685: Scr +18, RNG +19387
-  (D-0615…19). No new PASS.
-- **#689 D-0619:** Home 5 `Arc-goal` → prefix **34204→42649**.
-- **Next @42649:** C nhlib shuffle after matched `place_lregion` vs JS
-  `rn2(79)` — next special after Arc-goal (leave Home / branch). Falsifier:
-  stack ≠ post-goal `load_special` / nhl shuffle. Identify protofile
-  before porting (do not guess Bar-goal/tower2).
+- **#691 D-0620:** on_goal `goal_first` → prefix **42649→46893** Scr
+  **289→296** RNG **46893**/53865. Cohort 33/33.
+- **Next @46893:** C `bigrm-7` nhl shuffle after matched `makemaz`
+  `rnd(13)` vs JS `rn2(79)`. Loaders exist for bigrm-2/8 only — port
+  `bigrm-7.lua` (do not guess other bigrm-N). Falsifier: stack ≠
+  post-rndlevs `load_special` / nhl shuffle.
 - **Leaderboard gap:** local **33/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0619; wear `[*?]`; stub `^V?`; empty wish ESC;
+  Full score last #690 (not cadence this iter).
+- **Don’t:** reopen D-0474…D-0620; wear `[*?]`; stub `^V?`; empty wish ESC;
   skip amulet_wish; Wizard Norep; maze `rn2(2)` Sokoban; TELE on occupied
   mon; skip `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
   hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank`; omit
@@ -32,13 +31,13 @@ Objective/score live in `CURRENT.md`.
   dmgval; omit `on_start` nexttime/othertime after first_start; force
   all qt_pager through NHW_TEXT; raw `rn2(sx)` for tower1 candles;
   single-loop WET get_location for room monsters; invent 15th Arc-goal
-  `des.object` (Lua has 14).
+  `des.object` (Lua has 14); stub `on_goal`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0619 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0620 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -49,6 +48,7 @@ Objective/score live in `CURRENT.md`.
 - D-0617: @23223 was candle raw rn2 vs get_location_coord, not is_ok typo.
 - D-0618: @31644 was missing Arc-filb, not themerms/ordinary branch.
 - D-0619: @34204 was missing Arc-goal (+ Minion mitem/gender), not mineralize.
+- D-0620: @42649 was missing `on_goal`/`goal_first`, not post-goal special.
 
 ## Landmarks (≤15)
 
@@ -78,8 +78,9 @@ Objective/score live in `CURRENT.md`.
   `spec_dbon` (D-0613)**; **`on_start` nexttime/othertime (D-0614)**;
   **`qt_pager` pline vs NHW_TEXT (D-0616)**; **tower1 candle
   `get_location_coord` (D-0617)**; **`Arc-fila`/`Arc-filb` (D-0618)**;
-  **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; `intemple` + SWAMP
-  deferred; Bar-goal / Pri-* deferred.
+  **`Arc-goal` + Minion bell/`nemgend` (D-0619)**; **`on_goal`
+  goal_first (D-0620)**; `intemple` + SWAMP deferred; Bar-goal / Pri-*
+  deferred; bigrm-7 deferred.
 - Rolling boulder: `launch_obj` + `trapeffect_rolling_boulder_trap` (D-0599).
 - C: `#define wizard flags.debug` — any `|| wizard` needs `flags.debug`.
 - Recorder `SPECIAL_PM=330` requires `PM_MAIL_DAEMON` in extract.
