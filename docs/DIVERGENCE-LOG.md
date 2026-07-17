@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0648 — bigrm-3 load_special (seed0367 @19994)
+
+- **Status:** fixed (partial — next @26229 m_initweap)
+- **Symptom:** seed0367 first mismatch @19994 — C nhlib `shuffle`
+  after matched `makemaz` `rnd(13)=3` vs JS `rn2(79)` `place_lregion`.
+- **Cause:** `load_special_proto` omitted `bigrm-3`, so makemaz left an
+  empty maze. C loads `bigrm-3.lua` (solidfill map, lit region,
+  percent(66) `selection.match("[.w.]")` → F/T/W/Z, stairs, fill,
+  fixed-coord monsters, noflip).
+- **C locus:** `dat/bigrm-3.lua`; `sp_lev.c` `load_special` /
+  `match_maptyps` / `mapfrag_match` / `lspo_terrain`; `mkmaze.c`
+  `makemaz`; `nhlsel.c` `l_selection_match`.
+- **Change:** `js/mklev.js` — `load_bigrm_3` + dispatch;
+  `match_maptyps` / `mapfrag_match` / `selection_match_mapfrag`.
+- **Verification:** seed0367 prefix **19994→26229** (runner RNG
+  **19999→26235**, Scr **170**/324); green+strict PASS; cohort
+  **32/32** prior-PASS. Full suite #720 post-fix: **34/44**, RNG
+  **441150**/792838 (55.64%).
+- **Named omission:** other bigrm-N; `ensure_way_out` / solidify /
+  premap.
+- **Next:** seed0367 @26229 C `m_initweap` `rn2(3)` vs JS `rn2(75)`.
+
 ## D-0647 — minetn-2 load_special + flip sbrooms (seed0367 @17449)
 
 - **Status:** fixed (partial — next @19994 bigrm-3)

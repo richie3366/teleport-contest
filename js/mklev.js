@@ -666,8 +666,8 @@ function reset_xystart_size() {
 
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
- * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-7,
- * bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
+ * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
+ * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-2, tower1, fire, air, minend-1, minetn-2.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
@@ -741,6 +741,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-2') {
         load_bigrm_2();
+        return true;
+    }
+    if (protofile === 'bigrm-3') {
+        load_bigrm_3();
         return true;
     }
     if (protofile === 'bigrm-7') {
@@ -983,6 +987,101 @@ function load_bigrm_2() {
     for (let i = 0; i < 28; i++) splev_create_monster(null);
 
     // C load_special: wallification when !corrmaze; fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-3.lua via load_special.
+ * Named omissions: ensure_way_out / solidify / premap; other bigrm-N.
+ */
+function load_bigrm_3() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-3.lua des.map (18×75)
+    const BIGRM3_MAP = [
+        '---------------------------------------------------------------------------',
+        '|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|..............---.......................................---..............|',
+        '|...............|.........................................|...............|',
+        '|.....|.|.|.|.|---|.|.|.|.|...................|.|.|.|.|.|---|.|.|.|.|.....|',
+        '|.....|--------   --------|...................|----------   --------|.....|',
+        '|.....|.|.|.|.|---|.|.|.|.|...................|.|.|.|.|.|---|.|.|.|.|.....|',
+        '|...............|.........................................|...............|',
+        '|..............---.......................................---..............|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|',
+        '---------------------------------------------------------------------------',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM3_MAP);
+
+    // des.region(selection.area(01,01,73,16),"lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 1, my + 1, mx + 73, my + 16, true);
+    }
+
+    // if percent(66) then selection.match("[.w.]") → des.terrain(sel, F|T|W|Z)
+    if (percent(66)) {
+        const sel = selection_match_mapfrag('[.w.]');
+        const terrains = [IRONBARS, TREE, WATER, LAVAWALL];
+        const choice = terrains[lua_random2(1, terrains.length) - 1];
+        selection_iterate(sel, (x, y) => sel_set_ter(x, y, choice, SET_LIT_NOCHANGE));
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // des.monster({ x, y }) — random mon at fixed map-relative coords
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        for (const [rx, ry] of [
+            [1, 1], [13, 1], [25, 1], [37, 1], [49, 1], [61, 1], [73, 1],
+            [7, 7], [13, 7], [25, 7], [37, 7], [49, 7], [61, 7], [67, 7],
+            [7, 9], [13, 9], [25, 9], [37, 9], [49, 9], [61, 9], [67, 9],
+            [1, 16], [13, 16], [25, 16], [37, 16], [49, 16], [61, 16], [73, 16],
+        ]) {
+            induced_align(80);
+            let x = mx + rx;
+            let y = my + ry;
+            const moved = splev_resolve_occupied(x, y, null);
+            x = moved.x;
+            y = moved.y;
+            makemon(null, x, y, 0);
+        }
+    }
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     fixup_special();
@@ -7450,6 +7549,43 @@ function mapfrag_fromstr(str) {
 
 function mapfrag_get(mf, x, y) {
     return splev_chr2typ(mf.data[y][x]);
+}
+
+/** C ref: sp_lev.c match_maptyps — MATCH_WALL / MAX_TYPE / INVALID_TYPE. */
+function match_maptyps(typ, levltyp) {
+    if (typ === MATCH_WALL && !IS_STWALL(levltyp)) return false;
+    if (typ < MAX_TYPE && typ !== levltyp) return false;
+    return true;
+}
+
+/** C ref: sp_lev.c mapfrag_match — odd-sized fragment centered on (x,y). */
+function mapfrag_match(mf, x, y) {
+    const cx = (mf.wid / 2) | 0;
+    const cy = (mf.hei / 2) | 0;
+    for (let rx = -cx; rx <= cx; rx++) {
+        for (let ry = -cy; ry <= cy; ry++) {
+            const mapc = mapfrag_get(mf, rx + cx, ry + cy);
+            const loc = isok(x + rx, y + ry) ? game.level.at(x + rx, y + ry) : null;
+            const levc = loc ? loc.typ : STONE;
+            if (!match_maptyps(mapc, levc)) return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * C ref: nhlsel.c l_selection_match — scan level for mapfrag centers.
+ * `[.w.]` uses INVALID_TYPE wildcards around ROOM–MATCH_WALL–ROOM.
+ */
+function selection_match_mapfrag(mapstr) {
+    const mf = mapfrag_fromstr(mapstr);
+    const sel = selection_new();
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            if (mapfrag_match(mf, x, y)) selection_setpoint(x, y, sel, 1);
+        }
+    }
+    return sel;
 }
 
 /**

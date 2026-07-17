@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 16:05 — #720 score + D-0648 bigrm-3
+- Objective: mandatory full `sessions` (#720÷5) + seed0367 @19994 bigrm-3.
+- C locus: `dat/bigrm-3.lua`; `sp_lev.c` mapfrag/match; `mkmaze.c` makemaz.
+- Change: `load_bigrm_3` + `selection_match_mapfrag` (D-0648). Score:
+  **34/44**; Scr **6924**/11405; RNG **441150**/792838 (55.64%);
+  speed `34+0.16/turn`.
+- Verification: @19994→26229 (RNG 26235, Scr 170); green+strict PASS;
+  cohort 32/32 prior-PASS; full suite post-fix.
+- Next: @26229 C `m_initweap` rn2(3) vs JS rn2(75).
+
 ## 2026-07-17 15:58 — #719 D-0647 minetn-2 load_special
 - Objective: seed0367 @17449 C nhlib after makemaz rnd(7)=2 vs JS place_lregion.
 - C locus: dat/minetn-2.lua; sp_lev.c create_subroom/create_door/flip_level.
@@ -153,21 +163,3 @@ Use this shape:
 - Verification: prefix **1975→2331**; Scr **155→166**; green+strict PASS;
   cohort 32/32 PASS.
 - Next: seed0367 @2331 u_calc_moveamt rn2(3) vs dosounds rn2(400).
-
-## 2026-07-17 14:02 — #706 D-0634 getobj_takeoff continue
-- Objective: seed0367 @1946 (looked like dog_goal one fewer obj_resists).
-- C locus: invent.c getobj missing-letter continue; do_wear.c dotakeoff.
-- Change: getobj_takeoff loops on "don't have that object" (was abort →
-  key desync / early garlic eat). Hypothesis "fobj shortfall" falsified.
-- Verification: prefix **1946→1975**; Scr **75→155**; green+strict PASS;
-  cohort 32/32 PASS.
-- Next: seed0367 @1975 dochug rn2(40) vs rn2(5).
-
-## 2026-07-17 13:53 — #705 public score 34/44
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score cadence); seed0367 peel scouted only.
-- Change: refreshed CURRENT Score — **34/44** PASS; Scr **6829**/11405;
-  RNG **416960**/792838 (52.59%); speed `33+0.16/turn`. seed0361 in suite.
-  Next peel: seed0367 @1946 dog_goal one fewer `obj_resists`.
-- Verification: green+strict PASS; `node frozen/ps_test_runner.mjs sessions`.
-- Next: seed0367 dog_goal/fobj vs dogfood early-out; or seed0014/0108.
