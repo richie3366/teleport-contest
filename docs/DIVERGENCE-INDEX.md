@@ -639,6 +639,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0656 | fixed | getlev restore updest/dndest | plumbing; @35535 put_lregion reject (59,14) still open |
 | D-0657 | fixed | C put_lregion (59,14) m_at elf zombie | diagnosed; fixed by D-0658 link_doors+hx=39 |
 | D-0658 | fixed | Pri-loca link_doors_rooms + hx=39; drop rect roomno gate | seed0367 @35535→35546; RNG 35910 Scr 171; next shapeshift |
+| D-0659 | fixed | vamp decide_to_shapeshift arms (fog/low-hp/vamp-form) | seed0367 @35546→38566; RNG 38592 Scr 180; next getbones |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

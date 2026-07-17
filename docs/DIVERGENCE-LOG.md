@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0659 — vamp decide_to_shapeshift arms (seed0367 @35546)
+
+- **Status:** fixed (partial — next @38566 getbones)
+- **Symptom:** seed0367 @35546 — C `rn2(4)` @ `decide_to_shapeshift`
+  (fog-form vamp) vs JS `rn2(12)` @ `mcalcmove`.
+- **Cause:** JS `decide_to_shapeshift` only handled regular cham
+  (`!rn2(6)`); vampshifter arms (low-hp revert `rn2(4)`, fog
+  `!rn2(4)` + `pickvampshape`, vamp-form `!rn2(6)`) were deferred,
+  so fog vampshifters burned no RNG before metabolism.
+- **C locus:** `mon.c` `decide_to_shapeshift` / `pickvampshape`;
+  caller `m_calcdistress`.
+- **Change:** `js/mon.js` — port vamp arms (STRAT_WAITFORU gate,
+  low-hp / fog / vamp-form, amorphous door `enexto`/`rloc_to`,
+  gender restore); export `pickvampshape` from `js/makemon.js`.
+- **Verification:** seed0367 prefix **35546→38566** (runner RNG
+  **35910→38592**/50125, Scr **171→180**/324); green+strict PASS;
+  cohort **34/34** prior-PASS.
+- **Named omission:** Vlad `mon_has_special` stay in `pickvampshape`;
+  `canseemon` worm_known; `mmove==0` `minliquid` in `m_calcdistress`.
+- **Next:** seed0367 @38566 C `getbones` `rn2(3)` vs JS `rnd(10)`.
+
 ## D-0658 — Pri-loca link_doors_rooms + eastern hx=39 (seed0367 @35535)
 
 - **Status:** fixed (partial — next @35546 decide_to_shapeshift)

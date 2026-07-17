@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:45 — #732 D-0659 vamp decide_to_shapeshift
+- Objective: seed0367 @35546 C rn2(4) decide_to_shapeshift vs JS rn2(12).
+- C locus: mon.c decide_to_shapeshift (vamp arms) / pickvampshape;
+  m_calcdistress.
+- Change: port vamp low-hp / fog pickvampshape / vamp-form arms +
+  door enexto/rloc_to + gender restore; export pickvampshape.
+- Verification: seed0367 @35546→38566 (RNG 38592 Scr 180); green+
+  strict PASS; cohort 34/34 prior-PASS.
+- Next: @38566 C getbones rn2(3) vs JS rnd(10).
+
 ## 2026-07-17 18:40 — #731 D-0658 Pri-loca link_doors + hx=39
 - Objective: seed0367 @35535 put_lregion m_at (eastern morgue stock).
 - C locus: sp_lev.c link_doors_rooms/maybe_add_door; mkroom.c fill_zoo

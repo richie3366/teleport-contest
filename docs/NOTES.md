@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#731 D-0658:** Pri-loca `link_doors_rooms` + eastern hx=39; dropped
-  rectangular `fill_zoo` roomno gate (D-0643) — C has none; door-edge
-  skips cover overlaps. seed0367 **@35535→@35546**; RNG **35910**.
-- **Next:** @35546 C `decide_to_shapeshift` `rn2(4)` vs JS `rn2(12)`.
+- **#732 D-0659:** vamp `decide_to_shapeshift` arms (fog `!rn2(4)` /
+  low-hp / vamp-form) + export `pickvampshape`. seed0367
+  **@35546→@38566**; RNG **38592**; Scr **180**.
+- **Next:** @38566 C `getbones` `rn2(3)` vs JS `rnd(10)`.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0657; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0659; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -44,19 +44,19 @@ Objective/score live in `CURRENT.md`.
   S_ANGEL/quest_portal/medusa-1; skip align_shift oldmoves / set
   moves=1 before mklev; invent goodpos pool reject for flyers; invent
   accept first Medusa statue makemon (resists_ston); invent skip
-  Pri-fila morgue rooms.
+  Pri-fila morgue rooms; skip vamp decide_to_shapeshift arms.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0658 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0659 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403;
   door skips + C-faithful fill (no rect roomno) required together.
-- D-0656: @35535 was put_lregion **retry**; updest restore alone N/A.
+- D-0659: regular cham-only shapeshift leaves fog vamp `rn2(4)` unmatched.
 - D-0657: reject channel is TELE **m_at**, not bad_location.
 
 ## Landmarks (≤15)
@@ -69,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: next @35546 shapeshift after put_lregion/intemple path.
+- Quest: next @38566 getbones after vamp shapeshift path.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
