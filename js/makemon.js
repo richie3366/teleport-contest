@@ -75,10 +75,11 @@ import {
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
     In_quest, W_ARMH, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
     STRAT_CLOSE, STRAT_WAITFORU, is_pit,
+    A_LAWFUL, ONAME_RANDOM, EMIN,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import {
-    mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable,
+    mksobj, mkobj, mkobj_at, weight, objects_at, curse, bless, is_crackable,
     set_corpsenm, stop_timer, add_to_container, rnd_class,
 } from './mkobj.js';
 
@@ -110,7 +111,7 @@ import {
 import { cansee } from './vision.js';
 import { newsym } from './display.js';
 import { emits_light, new_light_source } from './light.js';
-import { christen_monst } from './do_name.js';
+import { christen_monst, oname } from './do_name.js';
 import { get_shop_item } from './shknam.js';
 import {
     get_wormno, initworm, count_wsegs, place_worm_tail_randomly,
@@ -1367,6 +1368,38 @@ function m_initweap(mtmp) {
         }
         break;
     case 'S_ANGEL':
+        // C: makemon.c m_initweap S_ANGEL — humanoid minion kit
+        if (humanoid(ptr)) {
+            const typ = rn2(3) ? otyp('LONG_SWORD') : otyp('SILVER_MACE');
+            const nam = typ === otyp('LONG_SWORD') ? 'Sunsword' : 'Demonbane';
+            let otmp = mksobj(typ, false, false);
+            // maybe promote weapon to an artifact
+            {
+                const mal = mtmp.isminion
+                    ? (EMIN(mtmp)?.min_align | 0)
+                    : (ptr.maligntyp | 0);
+                if ((!rn2(20) || is_lord(ptr)) && sgn(mal) === A_LAWFUL) {
+                    otmp = oname(otmp, nam, ONAME_RANDOM);
+                }
+            }
+            bless(otmp);
+            otmp.oerodeproof = 1;
+            otmp.spe = rn2(4);
+            if (typ === otyp('SILVER_MACE')) otmp.spe += 3;
+            mpickobj(mtmp, otmp);
+
+            otmp = mksobj(
+                (!rn2(4) || is_lord(ptr))
+                    ? otyp('SHIELD_OF_REFLECTION')
+                    : otyp('LARGE_SHIELD'),
+                false,
+                false,
+            );
+            otmp.oerodeproof = 1;
+            otmp.spe = 0;
+            mpickobj(mtmp, otmp);
+        }
+        break;
     case 'S_KOP':
         // Deferred special cases (C-JS-MAP).
         break;

@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0649 — m_initweap S_ANGEL humanoid kit (seed0367 @26229)
+
+- **Status:** fixed (partial — next @26688 nhlib shuffle)
+- **Symptom:** seed0367 first mismatch @26229 — C `m_initweap` `rn2(3)`
+  vs JS trailing `rn2(75)` after matched `newmonhp` / `makemon` sleep.
+- **Cause:** `m_initweap` stubbed `S_ANGEL`/`S_KOP` together with an
+  empty break, so humanoid angels skipped C’s long-sword/silver-mace
+  + optional Sunsword/Demonbane + shield kit and fell through to the
+  shared offensive `rn2(75)` gate.
+- **C locus:** `makemon.c` `m_initweap` `case S_ANGEL` (~330–360);
+  `do_name.c` `oname`; `mkobj.c` `mksobj`/`bless`.
+- **Change:** `js/makemon.js` — port S_ANGEL humanoid kit (`rn2(3)`
+  weapon, lawful `oname` artifact gate, bless/erodeproof/`spe`,
+  reflection/large shield).
+- **Verification:** seed0367 prefix **26229→26688** (runner RNG
+  **26235→26697**, Scr **170**/324); green+strict PASS; cohort
+  **34/34** prior-PASS.
+- **Named omission:** S_KOP cream-pie / club / rubber-hose kit;
+  non-humanoid S_ANGEL path (none in C beyond the humanoid gate).
+- **Next:** seed0367 @26688 C nhlib `shuffle` `rn2(2)` vs JS `rnd(4)`.
+
 ## D-0648 — bigrm-3 load_special (seed0367 @19994)
 
 - **Status:** fixed (partial — next @26229 m_initweap)

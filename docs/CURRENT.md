@@ -71,9 +71,10 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @26229 — C `m_initweap` `rn2(3)` vs JS
-`rn2(75)` after bigrm-3 load (prefix **19994→26229** via D-0648).
-Scr **170**/324; runner RNG **26235**.
+**Gameplay next:** seed0367 @26688 — C nhlib `shuffle` `rn2(2)` vs JS
+`rnd(4)` after matched place_lregion + first shuffle (prefix
+**26229→26688** via D-0649 S_ANGEL). Scr **170**/324; runner RNG
+**26697**.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json
