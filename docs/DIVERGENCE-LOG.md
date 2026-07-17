@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0638 — intemple + check_special_room TEMPLE (seed0367 @3282; partial)
+
+- **Status:** partial
+- **Symptom:** seed0367 first mismatch @3282 — C `rn2(4)` @ `intemple` vs
+  JS `rn2(12)` @ `mcalcmove`; Scr **167**/324; suite #710 **34/44**.
+- **Cause (proved):** JS never invoked `intemple` on quest arrival.
+  (1) `goto_level` omitted C's post-arrival `check_special_room(FALSE)`.
+  (2) Even after wiring, Pri-strt has no `MAGIC_PORTAL`, so portal arm
+  falls to `u_on_rndspot` and hero sits at (72,16) **outside** TEMPLE
+  (45–54,6–13) when `on_start` shuffle finishes — C then takes untended
+  `intemple`, JS goes straight to `mcalcmove`.
+- **Rejected:** missing `intemple` body alone (body now present; still
+  no entry); `temple_occupied` early-return; roomno not stamped (cells
+  in temple bounds have `roomno=3`).
+- **C locus:** `priest.c` `intemple` / `findpriest` / `temple_occupied`;
+  `hack.c` `check_special_room` TEMPLE; `do.c` `goto_level` leave/arrive
+  `check_special_room`.
+- **Change:** `js/priest.js` (new) `intemple`+helpers; `js/hack.js`
+  TEMPLE → `intemple`; `js/do.js` leave `check_special_room(true)` +
+  arrive `check_special_room(false)`.
+- **Verification:** green+strict PASS; seed0367 prefix still **3282**;
+  #710 full suite **34/44** Scr **6918** RNG **418252**.
+- **Named omission:** Pri-strt branch/`MAGIC_PORTAL` placement;
+  `mapseen_temple`; `Is_sanctum`; other special-room entry plines;
+  `forget_temple_entry` / `priest_talk`.
+- **Next:** place `MAGIC_PORTAL` (or correct arrival) so hero is in
+  TEMPLE when `check_special_room` runs after `on_start`.
+
 ## D-0637 — Pri-strt load_special + Arch Priest quest role kit (seed0367 @2336)
 
 - **Status:** fixed

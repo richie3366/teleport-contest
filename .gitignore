@@ -3,4 +3,8 @@ node_modules/
 
 # cursor-agent port loop
 .agent-port-loop-logs/
+.agent-tmp-*
+
+# Python bytecode
+*.pyc
 

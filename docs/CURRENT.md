@@ -21,18 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#705**),
-post D-0633. Screens **6829**/11405; RNG **416960**/792838 (52.59%).
-**34/44** PASS. Δ vs #700: Scr **+11**, RNG **+0**, PASS **+1** (seed0361).
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#710**),
+post D-0637 + intemple scaffolding. Screens **6918**/11405; RNG **418252**/792838
+(52.75%). **34/44** PASS. Δ vs #705: Scr **+89**, RNG **+1292**, PASS **+0**
+(seed0367 Scr 75→167 / RNG 2053→3329 from intervening peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **34 / 44** |
-| Screens matched | **6,829 / 11,405** |
-| Positional RNG calls matched | **416,960 / 792,838** (52.59%) |
-| Speed label | `33+0.16/turn` (R² 0.799) |
+| Screens matched | **6,918 / 11,405** |
+| Positional RNG calls matched | **418,252 / 792,838** (52.75%) |
+| Speed label | `32+0.16/turn` (R² 0.825) |
 | Role-init throws | **0 / 44** |
 
 **PASS (34):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 2053/50125 | 75/324 | dog_goal @1946 (1 fewer `obj_resists`) |
+| seed0367 | 3329/50125 | 167/324 | @3282 intemple; arrival outside temple |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -70,10 +71,11 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 — first RNG miss @3282: C `intemple`
-`rn2(4)` vs JS `rn2(12)` (mcalcmove). Prefix **3282** after D-0637
-(Pri-strt + Arch Priest quest_mon_represents_role). Prefer over parked
-D-0006 / seed2200 RC; do not reopen D-0474…D-0637.
+**Gameplay next:** seed0367 @3282 — C `intemple` after `on_start` shuffle;
+JS never enters temple (no `MAGIC_PORTAL` on Pri-strt → `u_on_rndspot` at
+72,16 outside TEMPLE). `intemple` + `goto_level` `check_special_room` wired
+(D-0638 partial). Prefer fixing branch/portal placement over parked
+D-0006 / seed2200 RC.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json

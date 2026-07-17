@@ -37,7 +37,7 @@ import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
 import { m_at, mnexto, hide_monst } from './mon.js';
 import { enexto } from './teleport.js';
-import { monster_nearby, losehp, maybe_half_phys } from './hack.js';
+import { monster_nearby, losehp, maybe_half_phys, check_special_room } from './hack.js';
 import { place_object, stackobj } from './mkobj.js';
 import { doname } from './objnam.js';
 import { compactify_invlets, near_capacity } from './invent.js';
@@ -347,6 +347,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
     if (!game.iflags?.nofollowers) keepdogs(false);
+    // C: check_special_room(TRUE) on leave — move_update clears urooms so
+    // arrival re-enters temple/shop messages (intemple).
+    await check_special_room(true);
     // Snapshot sight before vision_recalc(2) clears viz — getbones yn
     // needs prior IN_SIGHT to mon→memory newsym the leave-level gbuf.
     if (game.viz_array) {
@@ -621,6 +624,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         more_experienced(depth(u.uz) | 0, 0);
         await newexplevel();
     }
+
+    // C: goto_level — room entrance messages before pickup
+    await check_special_room(false);
 
     // C: goto_level ends with pickup(1) — autopick or check_here/engr
     await pickup(1);
