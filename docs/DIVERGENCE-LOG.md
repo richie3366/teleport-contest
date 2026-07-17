@@ -4,9 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0658 — Pri-loca link_doors_rooms + eastern hx=39 (seed0367 @35535)
+
+- **Status:** fixed (partial — next @35546 decide_to_shapeshift)
+- **Symptom:** seed0367 @35535 — C put_lregion retries after `(59,14)`
+  m_at; JS accepted empty cell (D-0657).
+- **Cause:** D-0645 clipped eastern morgue `hx` to 35 (no mon at
+  abs 59). Restoring lua `hx=39` alone or with naive `add_doors_to_room`
+  burned wrong fill RNG (@15167/@14403). C `load_special` runs
+  `link_doors_rooms` before wallify so `fill_zoo` door-edge skips
+  match; rectangular C `fill_zoo` has **no** roomno gate — D-0643’s
+  gate under-filled once doors skipped edges.
+- **C locus:** `sp_lev.c` `link_doors_rooms`/`maybe_add_door`/
+  `shared_with_room`/`set_door_orientation`; `mkroom.c` `fill_zoo`
+  rectangular door-edge; `dat/Pri-loca.lua` `region={31,00,39,13}`.
+- **Change:** `js/mklev.js` — port `link_doors_rooms` (+ helpers);
+  call before wallify in `load_pri_loca`; eastern `priAddRectRoom`
+  `x2=39`; remove rectangular `roomno` gate from `fill_zoo`.
+- **Verification:** seed0367 prefix **35535→35546** (runner RNG
+  **35572→35910**/50125, Scr **175→171**/324); green+strict PASS;
+  cohort **32/32** prior-PASS.
+- **Named omission:** mid-region `add_doors_to_room` (map `+` linked
+  at finalize only); BEEHIVE/BARRACKS/ANTHOLE fill arms; @35546
+  `decide_to_shapeshift` vs JS `rn2(12)`.
+- **Next:** seed0367 @35546 C `decide_to_shapeshift` `rn2(4)`.
+
 ## D-0657 — C put_lregion (59,14) rejects via m_at (seed0367 @35535)
 
-- **Status:** diagnosed (fix pending — east morgue hx=39 + door link)
+- **Status:** fixed (via D-0658)
 - **Symptom:** seed0367 first mismatch @35535 — C retries `place_lregion`
   after `(59,14)`; JS accepts → nhlib shuffle (no intemple).
 - **Cause (proved):** C TEMP DIAG on recorder `put_lregion_here`:

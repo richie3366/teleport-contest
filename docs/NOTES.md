@@ -7,56 +7,56 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#729 D-0657:** C `put_lregion_here(59,14)` rejects via **`m_at`
-  PM_ELF_ZOMBIE** (not typ/occ/excl). C room[3]=(52,5)-(60,18); door
-  skip col 52; stocks 53–60. JS D-0645 hx=35 → no mon → accepts.
-- **Next fix:** Pri-loca `link_doors_rooms` + eastern hx=39 with fill
-  parity @15167. Don’t: hx=39 alone; blanket add_doors (→@14403).
+- **#731 D-0658:** Pri-loca `link_doors_rooms` + eastern hx=39; dropped
+  rectangular `fill_zoo` roomno gate (D-0643) — C has none; door-edge
+  skips cover overlaps. seed0367 **@35535→@35546**; RNG **35910**.
+- **Next:** @35546 C `decide_to_shapeshift` `rn2(4)` vs JS `rn2(12)`.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0656; invent put_lregion reject; wear `[*?]`;
-  stub `^V?`; empty wish ESC; skip amulet_wish; Wizard Norep; maze
-  `rn2(2)` Sokoban; TELE on occupied mon; skip `were_change`/
-  `m_avoid_soko_push_loc`; `dlevel` in traptype_rnd; hardcode PARTISAN;
-  skip LONG_WORM/S_MUMMY; sticky `urole.rank` for `%r` (now `rank_of`);
-  omit bones `utrack`; skip Blindf_on / confused mispronounce / wizard yn /
-  identify `more_experienced(0,10)`; `vision_recalc(2)` newsym loop;
-  D-0480 coerce; frame-align; raw RNG-index/coord hacks; force doorct/
-  THEMEROOM; invent boulder-mimic retry (D-0605); vamp-only
-  `select_newcham_form`; extract without `-DMAIL_STRUCTURES`; skip
-  minend-1 when `makemaz` picks it; map Lua `"("`→WEAPON; omit
-  `ranged_attk_available` in MMOVE_MOVED; omit `m_move` cnt==0 tryescape
-  `use_defensive`; omit `hitval` `spec_abon`; omit mfndpos diagonal
-  squeeze; omit `artifact_hit`/`spec_dbon` after dmgval; omit `on_start`
-  nexttime/othertime after first_start; force all qt_pager through
-  NHW_TEXT; raw `rn2(sx)` tower1 candles; invent 15th Arc-goal
-  `des.object`; stub `on_goal`; skip bigrm-7; skip getlev `restrap`/
-  hide_monst viz; skip fog `m_everyturn`/cham shapeshift; skip movemon
-  `restrap`; skip Arc firsttime; invent vision blank for getpos floor;
-  check `flags.wizard` alone for C `wizard`; force mundetected on all
-  S_SNAKE; omit `questarti` on `game.urole`; omit non-pit trap in
-  makemon snake hideunder; omit `is_weptool` / `distant_name` / attrs
-  Hallu… / `ublesscnt--` / gethungry case 8 / garlic_breath / blue DSM /
-  Priest kit retrospectives; invent intemple without Pri-strt
-  MAGIC_PORTAL; pre-set `u.urooms` in `teleds`; skip `#chat` MS_LEADER;
-  omit AD_SPEL/AD_CLRC / castmu; omit Pri-loca/MORGUE/fill_zoo roomno/
-  m_initinv S_DEMON… retrospectives; invent place_lregion for
-  @19994/@26691; invent S_ANGEL/quest_portal/medusa-1; skip align_shift
-  oldmoves / set moves=1 before mklev; invent goodpos pool reject for
-  flyers; invent accept first Medusa statue makemon (resists_ston);
-  invent skip Pri-fila morgue rooms.
+- **Don’t:** reopen D-0474…D-0657; invent put_lregion reject; re-add
+  rect roomno gate without C cite; hx=39 alone; naive add_doors;
+  wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
+  Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
+  `were_change`/`m_avoid_soko_push_loc`; `dlevel` in traptype_rnd;
+  hardcode PARTISAN; skip LONG_WORM/S_MUMMY; sticky `urole.rank` for
+  `%r` (now `rank_of`); omit bones `utrack`; skip Blindf_on / confused
+  mispronounce / wizard yn / identify `more_experienced(0,10)`;
+  `vision_recalc(2)` newsym loop; D-0480 coerce; frame-align; raw
+  RNG-index/coord hacks; force doorct/THEMEROOM; invent boulder-mimic
+  retry (D-0605); vamp-only `select_newcham_form`; extract without
+  `-DMAIL_STRUCTURES`; skip minend-1 when `makemaz` picks it; map Lua
+  `"("`→WEAPON; omit `ranged_attk_available` in MMOVE_MOVED; omit
+  `m_move` cnt==0 tryescape `use_defensive`; omit `hitval` `spec_abon`;
+  omit mfndpos diagonal squeeze; omit `artifact_hit`/`spec_dbon` after
+  dmgval; omit `on_start` nexttime/othertime after first_start; force
+  all qt_pager through NHW_TEXT; raw `rn2(sx)` tower1 candles; invent
+  15th Arc-goal `des.object`; stub `on_goal`; skip bigrm-7; skip getlev
+  `restrap`/hide_monst viz; skip fog `m_everyturn`/cham shapeshift;
+  skip movemon `restrap`; skip Arc firsttime; invent vision blank for
+  getpos floor; check `flags.wizard` alone for C `wizard`; force
+  mundetected on all S_SNAKE; omit `questarti` on `game.urole`; omit
+  non-pit trap in makemon snake hideunder; omit `is_weptool` /
+  `distant_name` / attrs Hallu… / `ublesscnt--` / gethungry case 8 /
+  garlic_breath / blue DSM / Priest kit retrospectives; invent
+  intemple without Pri-strt MAGIC_PORTAL; pre-set `u.urooms` in
+  `teleds`; skip `#chat` MS_LEADER; omit AD_SPEL/AD_CLRC / castmu;
+  omit Pri-loca/MORGUE/fill_zoo roomno/m_initinv S_DEMON…
+  retrospectives; invent place_lregion for @19994/@26691; invent
+  S_ANGEL/quest_portal/medusa-1; skip align_shift oldmoves / set
+  moves=1 before mklev; invent goodpos pool reject for flyers; invent
+  accept first Medusa statue makemon (resists_ston); invent skip
+  Pri-fila morgue rooms.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0656 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0658 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
-- D-0645: east hx=39 alone regresses @15167; C fill extent is **not**
-  31–35 final (D-0657: room hx=39, door-skip col 52).
-- D-0656: @35535 is put_lregion **retry** not a second call; updest
-  restore alone does not move the prefix (Pri-loca dest areas zero).
+- D-0658: hx=39 alone or link_doors + rect roomno gate → @14403;
+  door skips + C-faithful fill (no rect roomno) required together.
+- D-0656: @35535 was put_lregion **retry**; updest restore alone N/A.
 - D-0657: reject channel is TELE **m_at**, not bad_location.
 
 ## Landmarks (≤15)
@@ -69,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: next @35535 needs eastern morgue mon at (59,14) then intemple.
+- Quest: next @35546 shapeshift after put_lregion/intemple path.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

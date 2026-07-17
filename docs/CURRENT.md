@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | 35572/50125 | 175/324 | @35535 put_lregion m_at gap |
+| seed0367 | 35910/50125 | 171/324 | @35546 decide_to_shapeshift (D-0658 cleared @35535) |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,11 +71,11 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 @35535 — C `put_lregion_here` TELE rejects
-`(59,14)` via **`m_at` PM_ELF_ZOMBIE** (D-0657); retries → `(35,14)`
-temple → `onquest`/`intemple`. JS accepts (D-0645 hx=35 left cols
-36–39 empty). C room[3]=(52,5)-(60,18); door-skip col 52; stocks
-53–60. Prefix still **35535**; runner RNG **35572**; Scr **175**/324.
+**Gameplay next:** seed0367 @35546 — C `decide_to_shapeshift` `rn2(4)`
+vs JS `rn2(12)` after matched `create_gas_cloud`/`dosearch0`.
+**D-0658** cleared @35535 put_lregion: Pri-loca `link_doors_rooms` +
+eastern hx=39 + drop rect `fill_zoo` roomno gate. Prefix **35546**;
+runner RNG **35910**/50125; Scr **171**/324.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0367-priest-quest-tour.session.json
@@ -83,10 +83,9 @@ node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** Pri-loca `link_doors_rooms` + eastern
-`hx=39` with fill parity through @15167 (hx=39 alone or naive
-`add_doors_to_room` regress). Then intemple path.
-Do not invent a put_lregion reject; do not reopen east hx without doors.
+**Next falsifier / fix:** C `decide_to_shapeshift` / cham path vs JS
+caller that burns `rn2(12)` (likely `mcalcmove`). Do not re-add rect
+roomno gate; do not invent put_lregion reject.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

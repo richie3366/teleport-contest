@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 18:40 — #731 D-0658 Pri-loca link_doors + hx=39
+- Objective: seed0367 @35535 put_lregion m_at (eastern morgue stock).
+- C locus: sp_lev.c link_doors_rooms/maybe_add_door; mkroom.c fill_zoo
+  door-edge (no rect roomno); Pri-loca.lua region x2=39.
+- Change: port link_doors_rooms (+ helpers); load_pri_loca call before
+  wallify; eastern hx=39; drop D-0643 rect roomno gate.
+- Verification: seed0367 @35535→35546 (RNG 35910 Scr 171); green+
+  strict PASS; cohort 32/32 prior-PASS.
+- Next: @35546 decide_to_shapeshift rn2(4) vs JS rn2(12).
+
 ## 2026-07-17 18:35 — #730 public score cadence
 - Objective: mandatory full `sessions` score (#730÷5).
 - C locus: n/a (score refresh only; primary still seed0367 @35535).
