@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:30 — #772 D-0694 makeplural feet
+- Objective: seed0014 @22868 C `dog_move` `rn2(12)` vs JS `rn2(24)`.
+- C locus: `objnam.c` makeplural/one_off; DIAG dog_move mtrack.
+- Change: D-0694 — port `one_off` (`foot`→`feet`). Falsified: wrong
+  `rn2(12)` constant (already correct); any-key more (breaks 0-RNG rejects).
+- Verification: Scr **482→483**; prefix still **22868**; green+strict;
+  cohort 7/7 PASS.
+- Next: @22721 trip `--More--` key ownership → dmin/mtrack @22868.
+
 ## 2026-07-18 21:16 — #771 D-0693 thitmonst pie DEX
 - Objective: seed0014 @22582 C `thitmonst` `rnd(25)` vs JS `rn2(100)`.
 - C locus: `dothrow.c` thitmonst pie/egg; `uhitm.c` CREAM_PIE;
@@ -156,12 +165,3 @@ Use this shape:
   PASS; cohort **33**/33.
 - Next: @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
 
-## 2026-07-18 19:30 — #757 D-0680 POT_SICKNESS peffect_sickness
-- Objective: seed0014 @6294 C `exercise` `rn2(19)` vs JS `rn2(5)`.
-- C locus: `potion.c` `peffect_sickness`/`peffects`; `o_init.c`
-  `discover_object` credit_hero → `exercise(A_WIS,TRUE)`.
-- Change: D-0680 — port `peffect_sickness`; wire `POT_SICKNESS` so
-  `dopotion` `makeknown` runs (blessed path observed).
-- Verification: prefix **6294→9354**, Scr **154→221**/714; green+strict
-  PASS; cohort **35**/35.
-- Next: @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` (`study_book`).

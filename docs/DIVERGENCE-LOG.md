@@ -9,6 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0694 — makeplural one_off foot→feet (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix still 22868)
+- **Symptom:** seed0014 trip topline JS `"foots"` vs C `"feet"`; @22868 C
+  `dog_move` `rn2(12)` vs JS `rn2(24)` looked like mtrack arity.
+- **Cause:** `makeplural` lacked C `objnam.c` `one_off[]` (`foot`→`feet`).
+  DIAG: @22868 JS pet dmin=6 → mtrack `rn2(MTSZ*(k-j))=rn2(24)` while C
+  emits selection `rn2(12)` — geometry/key desync from earlier `--More--`,
+  not a wrong `rn2(12)` constant (JS already had `rn2(12)` at that site).
+- **C locus:** `objnam.c` `makeplural` / `one_off[]` / `singplur_lookup`
+  fox→foxes guard.
+- **Change:** `js/objnam.js` — port `one_off` irregulars + fox/`muskox` guard.
+- **Rejected:** patching `dog_move` `rn2(12)` (already correct); any-key
+  topline `more()` dismiss (moves prefix but breaks 437 zero-RNG More
+  rejection steps across sessions).
+- **Verification:** seed0014 Scr **482→483**/714; prefix still **22868**;
+  green+strict PASS; cohort 7/7 PASS.
+- **Named omission:** pronoun genders; already_plural ae/eaux; man→men;
+  as_is collective; mongoose/slice edges; full case-preserve polish.
+- **Next:** seed0014 @22721 trip `--More--` key ownership (C key `y` +48 RNG
+  vs JS stuck More) → dmin/mtrack @22868; or seed0108 wishlist.
+
 ## D-0693 — thitmonst pie/egg DEX rnd(25) → hmon cream pie (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 22582→22868)

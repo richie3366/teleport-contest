@@ -674,6 +674,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0691 | fixed | goto_level descend Fumbling() ≡ H\|\|E | seed0014 prefix 21242→21529 Scr 460→467; next @21529 slip_or_trip |
 | D-0692 | fixed | nh_timeout FUMBLING slip_or_trip rn2(4) | seed0014 prefix 21529→22582 Scr 467→481; next @22582 thitmonst |
 | D-0693 | fixed | thitmonst pie DEX rnd(25) + hmon cream pie | seed0014 prefix 22582→22868 Scr 481→482; next @22868 dog_move |
+| D-0694 | fixed | makeplural one_off foot→feet | seed0014 Scr 482→483; @22868 mtrack is More/key desync |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
