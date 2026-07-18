@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0685 — dowaternymph (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16624→16712)
+- **Symptom:** @16624 C `collect_coords` `rn2(8)` vs JS `rn2(3)` after
+  matching dip `rnd(30)=22`.
+- **Cause:** `dipfountain` cases 21–22 stubbed; C case 22 calls
+  `dowaternymph` → `makemon(PM_WATER_NYMPH)` → `enexto`/`collect_coords`.
+- **C locus:** `fountain.c` `dowaternymph`; callers drink case 28 /
+  looted case 27 fallthrough and dip case 22.
+- **Change:** Port `dowaternymph` (G_GONE/makemon/Blind plines/
+  `msleeping=0`/mintrap); wire dip cases 21–22 (`dowaterdemon`/
+  `dowaternymph`) and drink case 27→28. Named omissions: dip uncurse
+  17–20 / 26–29; Hallucination soundeffects.
+- **Verification:** seed0014 prefix **16624→16712**, Scr **395→401**/714,
+  positional RNG **16580→16726**/59178; green+strict PASS; cohort
+  **33**/33.
+- **Next:** @16712 C `steal` `rn2(21)` after nymph `mattacku`/`hitmu`.
+
 ## D-0684 — dogushforth / gush (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16447→16624)

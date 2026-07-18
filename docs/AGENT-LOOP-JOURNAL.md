@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:53 — #762 D-0685 dowaternymph
+- Objective: seed0014 @16624 C `collect_coords` `rn2(8)` vs JS `rn2(3)`.
+- C locus: `fountain.c` `dowaternymph`; dip case 22 / drink 27→28.
+- Change: D-0685 — port `dowaternymph`; wire dip 21–22 + drink 28.
+  Named omissions: dip uncurse 17–20 / 26–29.
+- Verification: prefix **16624→16712**, Scr **395→401**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @16712 C `steal` `rn2(21)` after nymph `mattacku`/`hitmu`.
+
 ## 2026-07-18 19:50 — #761 D-0684 dogushforth/gush
 - Objective: seed0014 @16447 C `gush` `rn2(7)` vs JS `rn2(3)`.
 - C locus: `fountain.c` `dogushforth`/`gush`; `vision.c` `do_clear_area`;
@@ -154,14 +163,4 @@ Use this shape:
 - Verification: green+strict PASS; seed0367 Scr 315/324 RNG FULL; DIAG
   removed.
 - Next: port/compare C `left_side` NW finger vs JS (D-0674).
-
-## 2026-07-18 17:45 — #747 D-0673 tower1 map lit=FALSE
-- Objective: seed0367 @278 C blank vs JS temple wall scraps.
-- C locus: `sp_lev.c` `lspo_map` lit default FALSE; `dat/tower1.lua`.
-- Change: `load_tower1` clears map-cell `.lit` after apply (D-0673;
-  ≡ Pri-loca D-0668). solidfill BOOL_RANDOM lit was kept by
-  `sel_set_ter(...,false)` nochange → over-lit vision past nv=1.
-- Verification: Scr **312→315**/324 prefix **278→283**; green+strict;
-  cohort **34**/34. RNG FULL.
-- Next: @283 materialize More — C blank vs JS `·` (26 cells).
 

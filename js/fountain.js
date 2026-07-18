@@ -6,11 +6,11 @@
 // mgkftn restore+adjattrib; fate<10 refresh; switch default/19–30
 // message+RNG arms; case 22 dowatersnakes; case 23 dowaterdemon;
 // case 26 monster_detect + browse_map; case 27 dofindgem when
-// !FOUNTAIN_IS_LOOTED; case 30 dogushforth(TRUE).
-// Deferred: dowaternymph (incl. case 27 fallthrough when looted),
-// enlightenment body, vomit cantvomit/Sick/acid poly arms, town
-// warn/angry_guards, wizard yn, FOUNTAIN_IS_WARNED force dryup,
-// Excalibur LONG_SWORD body, wash_hands, dipfountain cases 17–22/
+// !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
+// case 30 dogushforth(TRUE).
+// Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
+// town warn/angry_guards, wizard yn, FOUNTAIN_IS_WARNED force dryup,
+// Excalibur LONG_SWORD body, wash_hands, dipfountain cases 17–20/
 // 26–29; gush minliquid body; set_levltyp side effects beyond
 // typ/flags; Hallucination rndmonnam in snakes pline;
 // mongrantswish tmp_at glyph hide.
@@ -73,6 +73,7 @@ const PM_SEWER_RAT = monsterNames.indexOf('PM_SEWER_RAT');
 const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
 const PM_WATER_DEMON = monsterNames.indexOf('PM_WATER_DEMON');
 const PM_WATER_MOCCASIN = monsterNames.indexOf('PM_WATER_MOCCASIN');
+const PM_WATER_NYMPH = monsterNames.indexOf('PM_WATER_NYMPH');
 
 /** C ref: rm.h FOUNTAIN_IS_WARNED */
 function FOUNTAIN_IS_WARNED(x, y) {
@@ -416,6 +417,35 @@ async function dowaterdemon() {
 }
 
 /**
+ * C ref: fountain.c dowaternymph — makemon water nymph; wake + maybe mintrap.
+ */
+async function dowaternymph() {
+    const u = game.u || {};
+    const Blind = !!(u.Blind || u.ublind);
+    const gone = ((game.mvitals?.[PM_WATER_NYMPH]?.mvflags ?? 0) & G_GONE) !== 0;
+    let mtmp = null;
+    if (!gone) {
+        mtmp = makemon(mons(PM_WATER_NYMPH), u.ux, u.uy, MM_NOMSG);
+    }
+    // C: if (!(G_GONE) && (mtmp = makemon(...)) != 0)
+    if (!gone && mtmp) {
+        if (!Blind) {
+            await pline(`You attract ${a_monnam(mtmp)}!`);
+        } else {
+            await You_hear('a seductive voice.');
+        }
+        mtmp.msleeping = 0;
+        if (t_at(mtmp.mx, mtmp.my)) {
+            await mintrap(mtmp, NO_TRAP_FLAGS);
+        }
+    } else if (!Blind) {
+        await pline('A large bubble rises to the surface and pops.');
+    } else {
+        await You_hear('a loud pop.');
+    }
+}
+
+/**
  * C ref: mkroom.c nexttodoor — TRUE if adjacent to door/SDOOR.
  */
 function nexttodoor(sx, sy) {
@@ -659,9 +689,10 @@ export async function drinkfountain() {
                 await dofindgem();
                 break;
             }
-            // FALLTHROUGH — dowaternymph when already looted (deferred)
+            // FALLTHROUGH — dowaternymph when already looted
             /* falls through */
-        case 28: // Water Nymph — dowaternymph deferred
+        case 28: // Water Nymph
+            await dowaternymph();
             break;
         case 29: { // Scare
             await pline(`This ${hliquid('water')} gives you bad breath!`);
@@ -728,9 +759,13 @@ export async function dipfountain(obj) {
     case 18:
     case 19:
     case 20:
-    case 21:
-    case 22:
-        // Uncurse / demon / nymph — deferred
+        // Uncurse the item — deferred
+        break;
+    case 21: // Water Demon
+        await dowaterdemon();
+        break;
+    case 22: // Water Nymph
+        await dowaternymph();
         break;
     case 23: // Endless stream of snakes
         await dowatersnakes();
