@@ -654,7 +654,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0671 | fixed | intemple intone `canseemon` (not canspotmon) | seed0367 Scr 305→308 prefix 258→262; next @262 Warning floats |
 | D-0672 | fixed | moveloop once-per-input see_monsters (Warning/ESP) | seed0367 Scr 308→312 prefix 262→278; next @278 materialize map |
 | D-0673 | fixed | tower1 map lit=FALSE clear (≡ C lspo_map) | seed0367 Scr 312→315 prefix 278→283; next @283 · vs blank |
-| D-0674 | open | Pri-loca Algorithm-C NW COULD_SEE cone | seed0367 @283 darkroom falsified; vision left_side next |
+| D-0674 | fixed | does_block visible_region_at + run_regions ttl | seed0367 prefix 283→297 Scr 315→314; next @297 wall |
+| D-0675 | open | (23,14) C wall vs JS blank @297 | seed0367 after D-0674 gas-cloud vision |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

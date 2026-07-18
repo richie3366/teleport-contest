@@ -12,7 +12,18 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## YYYY-MM-DD HH:MM — <objective>
+## 2026-07-18 18:20 — #749 D-0674 gas-cloud does_block
+- Objective: seed0367 @283 C blank vs JS `·` (26 cells).
+- C locus: `vision.c` `does_block`; `region.c` `add_region`/`run_regions`;
+  `allmain.c` after `nh_timeout`.
+- Change: D-0674 — `_blocks`→`visible_region_at`; create/expire
+  `recalc_block_point`; `run_regions` ttl. Was fog on LOS (22,13),
+  not Algorithm-C. Next D-0675 @297 (23,14) wall.
+- Verification: prefix **283→297** Scr **315→314** RNG FULL;
+  green+strict PASS; cohort **32**/32.
+- Next: @297 map(23,14) C `x` vs JS blank (D-0675).
+
+## ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
@@ -146,15 +157,3 @@ Use this shape:
   RNG FULL; green+strict PASS; cohort **32/32** PASS.
 - Next: @154 farlook `priestess` vs `priest`; @155 `tree` vs
   `unexplored area`.
-
-## 2026-07-17 18:56 — #735 public score cadence
-- Objective: mandatory full `sessions` score (#735÷5).
-- C locus: n/a (score refresh; primary still seed0367 @148).
-- Change or falsified theory: none — docs only. Noted JS already
-  `await pline(dfr_post_msg)` in goto_level; @148 still needs path
-  falsify (post_msg set? NEED_MORE after docrt? onquest order).
-- Verification: green+strict PASS; suite **34/44**; Scr **6959**/11405;
-  RNG **465040**/792838 (58.66%); speed `34+0.16/turn` (R² 0.78).
-  Δ vs #730: Scr +30, RNG +14553 (D-0658…61 absorbed).
-- Next: @148 materialize --More-- / quest on_start key ownership.
-

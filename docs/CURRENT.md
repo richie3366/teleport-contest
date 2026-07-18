@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **315**/324 | RNG FULL; screen peel @283 |
+| seed0367 | **50125**/50125 | **314**/324 | RNG FULL; screen peel @297 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -72,19 +72,18 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **315**/324
-(cursors 323/324; prefix **283**). **D-0674:** darkroom/memory falsified;
-Pri-loca @283 hero (37,19) — JS Algorithm-C COULD_SEE over-marks 26-cell
-NW `·` cone past C (temple SW ~31,16).
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **314**/324
+(cursors 323/324; prefix **297**). **D-0674:** gas-cloud `does_block` +
+`run_regions` (was misread as Algorithm-C). **D-0675:** @297 map(23,14)
+C wall `x` vs JS blank (hero ~72,16).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** `js/vision.js` `left_side`/`view_from` vs C
-`vision.c` NW finger past Pri-loca SW corner. Do not re-break
-D-0660…D-0673 lit clears; don’t invent darkroom blank for lit+cansee.
+**Next falsifier / fix:** LOS / wall IN_SIGHT (23,14) from hero stand;
+region ttl / directional wall lighting. Do not re-break D-0660…D-0674.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

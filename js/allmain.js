@@ -40,6 +40,7 @@ import { ATR_INVERSE } from './terminal.js';
 import { dosounds } from './sounds.js';
 import { invault } from './vault.js';
 import { nh_timeout } from './timeout.js';
+import { run_regions } from './region.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
@@ -623,9 +624,9 @@ export async function moveloop_core() {
                 settrack();
                 g.moves = (g.moves || 1) + 1;
 
-                // once-per-turn — C: nh_timeout before regen_hp / wipe_engr
-                // (Glib / run_regions deferred)
+                // once-per-turn — C: nh_timeout then run_regions
                 await nh_timeout();
+                run_regions();
                 // C allmain.c moveloop: if (u.ublesscnt) u.ublesscnt--;
                 if (g.u.ublesscnt) g.u.ublesscnt = (g.u.ublesscnt | 0) - 1;
 

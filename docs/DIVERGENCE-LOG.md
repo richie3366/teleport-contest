@@ -4,25 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0674 — Pri-loca Algorithm-C NW cone (seed0367 @283)
+## D-0675 — (23,14) wall vs blank (seed0367 @297)
 
-- **Status:** open (diagnosis; darkroom/memory falsified)
-- **Symptom:** @283 Pri-loca return `You materialize…!--More--` — 26 cells
-  C blank vs JS `·` (diagonal west of map, tty rows 6–13).
-- **Falsified:** darkroom / waslit / hero_memory paint — at capture JS has
-  `cansee`+`lit`+ROOM on all 26; C west cone is simply tighter.
-- **Cause (working):** JS `vision.js` Algorithm-C `left_side`/`view_from`
-  marks COULD_SEE past C around Pri-loca temple SW corner (~31,16);
-  mines lit-field west of SpLev_Map then becomes IN_SIGHT. Hero (37,19),
-  nv=1. `@203` first visit left matched blank (different stand).
-- **C locus:** `vision.c` `left_side`/`right_side`/`view_from`/`q2_path`;
-  `dat/Pri-loca.lua` (mines lit=1 + map).
-- **JS locus:** `js/vision.js` `left_side` / `view_from`.
-- **Change:** none this iteration — stop before symptom alignment.
-- **Verification:** green+strict PASS; seed0367 Scr **315**/324 RNG FULL;
-  DIAG removed.
-- **Next:** port/compare C `left_side` finger past SW corner; do not
-  invent darkroom blank for lit+cansee ROOM; keep D-0668 lit envelope.
+- **Status:** open
+- **Symptom:** @297 — C DEC `x` (VWALL) vs JS blank at map (23,14);
+  hero ~ (72,16). Prefix **297**/324 after D-0674.
+- **Cause (working):** post–gas-cloud vision; wall not IN_SIGHT in JS.
+- **Next:** compare C/JS LOS from (72,16) to (23,14); region ttl /
+  directional wall lighting.
+
+## D-0674 — gas-cloud does_block + run_regions (seed0367 @283)
+
+- **Status:** fixed (partial — Scr 314/324; next @297 → D-0675)
+- **Symptom:** @283 Pri-loca return — 26 lit mines `·` vs C blank NW of
+  temple SW corner. Misdiagnosed as Algorithm-C `left_side`.
+- **Cause:** fog `create_gas_cloud` at (22,13) on Bresenham path; C
+  `does_block`/`add_region`→`block_point` opaque; JS `_blocks` omitted
+  `visible_region_at` and never rebuilt `viz_clear` after create/expire.
+- **C locus:** `vision.c` `does_block`; `region.c` `add_region`/
+  `run_regions`/`expire_gas_cloud`; `allmain.c` after `nh_timeout`.
+- **Change:** `js/vision.js` `_blocks` → `visible_region_at`;
+  `js/region.js` `recalc_block_point` on create/remove + `run_regions`
+  ttl; `js/allmain.js` call after `nh_timeout`. Named omissions:
+  inside_f damage, dissipation plines, incremental `fill_point`.
+- **Verification:** seed0367 prefix **283→297**, Scr **315→314**, RNG
+  FULL; green+strict PASS; cohort **32**/32.
+- **Next:** @297 (23,14) wall → D-0675.
 
 ## D-0673 — tower1 map lit=FALSE clear (seed0367 @278)
 

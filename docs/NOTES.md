@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#748:** D-0674 — @283 darkroom/memory **falsified**. Pri-loca return
-  materialize; hero (37,19); 26 JS `·` = COULD_SEE over-mark (Algorithm-C
-  `left_side` / temple SW corner ~31,16). C tighter west cone.
-- **Falsify next:** `vision.js` `left_side`/`view_from` NW finger vs C
-  `vision.c` around Pri-loca SW corner. Do not reopen D-0668…D-0673 lit
-  clears; don’t invent darkroom blank for lit+cansee ROOM.
+- **#749:** D-0674 closed — @283 was fog gas-cloud on LOS (22,13), not
+  Algorithm-C. `_blocks`+`run_regions`+`recalc_block_point`. Prefix
+  **283→297**; Scr 315→314. Next **D-0675** @297 map(23,14) C `x` vs blank
+  (hero ~72,16).
+- **Falsify next:** LOS / wall IN_SIGHT from (72,16) to (23,14); region
+  ttl vs C; directional wall lighting. Don’t invent darkroom blank.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0673; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0674; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -47,7 +47,7 @@ Objective/score live in `CURRENT.md`.
   moves=1 before mklev; invent goodpos pool reject for flyers; invent
   accept first Medusa statue makemon (resists_ston); invent skip
   Pri-fila morgue rooms; skip vamp decide_to_shapeshift arms;
-  skip D-0660…D-0674 retros; globalize `sel_set_ter(false)`.
+  skip D-0660…D-0675 retros; globalize `sel_set_ter(false)`.
 
 ## Don’t re-check (≤15)
 
@@ -67,8 +67,8 @@ Objective/score live in `CURRENT.md`.
 - D-0668/D-0673: global `sel_set_ter(false)`≡C clears lit → seed0009 FAIL;
   per-loader SpLev_Map / map-set lit=FALSE clear is the safe envelope
   (Pri-loca, fire, tower1).
-- D-0674: @283 · vs blank is **not** darkroom/memory — JS `cansee` true
-  on all 26; C west cone tighter (Algorithm-C).
+- D-0674: @283 · vs blank was **gas-cloud** on path (not Algorithm-C /
+  darkroom); `_blocks` must call `visible_region_at` + rebuild viz.
 - D-0669: @203 C W/blank/& vs warn is telepathy (ESP), not nv_range;
   ghost physical glyph is `' '`; zombies mindless → still Warning.
 - D-0670: Pri-goal unlit region must use `light_region` (lava stays lit);
@@ -86,7 +86,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 315; @283 → D-0674 Algorithm-C NW cone.
+- Quest: seed0367 RNG FULL Scr 314; @297 → D-0675 wall (23,14).
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
