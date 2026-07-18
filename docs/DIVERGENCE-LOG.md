@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0670 — Pri goal texts + Pri-goal lava lit + quest_portal pline (seed0367 @209)
+
+- **Status:** fixed (partial — Scr 305/324; next peel @258 intemple voice)
+- **Symptom:** @209 C `You materialize…!--More--` + lava `` ` `` + goal
+  brimstone NHW_TEXT; JS materialize without More (space → Unknown
+  command), 42 unlit lava blanks, missing `goal_first`.
+- **Cause (cluster):** (1) `QUEST_GOAL_FIRST`/`NEXTTIME`/`OTHERTIME`
+  lacked Pri → `qt_pager` burned nhl only, no `flush_topl_more`
+  (≡ D-0662). (2) `load_pri_goal` `des.region(…,"unlit")` forced
+  `lit=false` on lava; C `light_region` keeps `IS_LAVA` lit.
+  (3) `com_pager(quest_portal)` used newline→NHW_TEXT; C
+  `output="pline"` → `deliver_by_pline` line-at-a-time.
+- **C locus:** `dat/quest.lua` Pri `goal_*`/`nexttime`; `quest.c`
+  `on_goal`/`on_start`; `questpgr.c` `deliver_by_pline`; `sp_lev.c`
+  `light_region`; `dat/Pri-goal.lua`.
+- **Change:** `js/questpgr.js` Pri goal/nexttime/othertime +
+  `deliver_by_pline` for `quest_portal`; `js/mklev.js` `load_pri_goal`
+  uses `light_region(..., false)`.
+- **Verification:** seed0367 Scr **291→305**/324, prefix **209→258**,
+  RNG FULL; green+strict PASS; cohort **32**/32.
+- **Next:** @258 intemple `A nearby voice` vs JS `The priest`
+  (`canspotmon` / Monnam).
+
 ## D-0669 — tp_sensemon / Unblind_telepat (seed0367 @203)
 
 - **Status:** fixed (partial — Scr 291/324; next peel @209)

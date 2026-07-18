@@ -2290,12 +2290,8 @@ xxxxx...xxxxxx....xxxxxxxx
     const [px, py] = place[placeidx];
 
     // des.region(selection.area(00,00,25,10), "unlit")
-    for (let y = 0; y <= 10; y++) {
-        for (let x = 0; x <= 25; x++) {
-            const loc = g.level.at(mx + x, my + y);
-            if (loc) loc.lit = false;
-        }
-    }
+    // C sp_lev.c light_region: lava stays lit (IS_LAVA → lit=1).
+    light_region(mx + 0, my + 0, mx + 25, my + 10, false);
 
     // des.stair("up", 20,05)
     mkstairs(mx + 20, my + 5, 1, null);

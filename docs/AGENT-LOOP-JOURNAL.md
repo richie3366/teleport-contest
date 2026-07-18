@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 17:11 — #743 D-0670 Pri goal + lava lit + quest_portal pline
+- Objective: seed0367 @209 lava `` ` `` / missing materialize More.
+- C locus: `quest.lua` Pri goal/nexttime; `questpgr.c` deliver_by_pline;
+  `sp_lev.c` light_region; `Pri-goal.lua`.
+- Change: Pri goal/nexttime/othertime texts; `load_pri_goal`→
+  `light_region` (lava stays lit); `quest_portal` line-at-a-time pline
+  (D-0670).
+- Verification: Scr **291→305**/324 prefix **209→258**; green+strict;
+  cohort **32**/32. RNG FULL.
+- Next: @258 intemple `A nearby voice` vs `The priest`.
+
 ## 2026-07-17 19:52 — #742 D-0669 tp_sensemon Unblind_telepat
 - Objective: seed0367 @203 C W/&/ghost-blank vs JS warn digits.
 - C locus: `display.h` `_tp_sensemon`; `worn.c` `recalc_telepat_range`.

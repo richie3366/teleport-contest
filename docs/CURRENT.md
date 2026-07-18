@@ -71,17 +71,18 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **291**/324
-(cursors 314/324; prefix **209**). **D-0669** tp_sensemon cleared @203
-W/&/ghost-blank vs warn; next lava/map @209.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **305**/324
+(cursors 320/324; prefix **258**). **D-0670** cleared @209 lava + Pri
+goal/`quest_portal` More; next intemple voice @258.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @209 after materialize More — C lava `` ` ``
-(and related map) vs JS blank/gray. Do not re-break D-0660…D-0669.
+**Next falsifier / fix:** @258 — C `A nearby voice intones` vs JS
+`The priest intones` (`intemple`/`canspotmon`). Do not re-break
+D-0660…D-0670.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
