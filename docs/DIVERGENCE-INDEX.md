@@ -680,6 +680,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0697 | fixed | create_monster mines your_race rn2(3) | seed0014 prefix 32023→33278 Scr 533→538; next @33278 corpse_chance |
 | D-0698 | fixed | ohitmon kill → mondied/corpse_chance | seed0014 prefix 33278→35611 Scr 538; next @35611 distfleeck |
 | D-0699 | fixed | setworn(null,W_RINGL\|R) clears uleft/uright | seed0014 prefix 35611→36031 Scr 538; next @36031 exercise |
+| D-0700 | open | travel continue_run vs C stop before n-dopush | seed0014 @36031; AVAL/exercise-skip falsified; need C travel-stop |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

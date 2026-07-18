@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 22:47 — D-0700 travel stop before n-dopush (diagnosed)
+- Objective: seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+- C locus: `hack.c` lookaround/findtravelpath/dopush; `cmd.c` dotravel_target.
+- Falsified: AVAL/`exercise` skip; forced end_running after first travel step.
+- Evidence: after `_/>/.` JS `continue_run` (multi=80 travel=1); C `rhack(n)`
+  dopush; no adjacent boulder in JS (60,8/60,10/68,5 only).
+- Verification: green+strict PASS; prefix still 36031; no js/ change.
+- Next: C-cited travel-stop before `n` (lookaround trap/TEST_TRAV/boulder).
+
 ## 2026-07-18 22:30 — D-0699 setworn ring-slot clear
 - Objective: seed0014 @35611 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 - C locus: `worn.c` `setworn`; `steal.c` `remove_worn_item`;

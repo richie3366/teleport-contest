@@ -7,14 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#777 D-0699 done:** `setworn(null, W_RINGL|R)` clears `uleft`/`uright`
-  (steal left dangling `uright` → 2nd put-on key desync). Prefix
-  **35611→36031**, Scr **538**.
-- **Next:** seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
-  Command:
+- **#778 D-0700 diagnosed (no code):** seed0014 @36031 is **not** a missing
+  in-place `exercise()` / AVAL skip. After `_` `>` `.` travel, JS stays in
+  `continue_run` (`travel=1 multi=80`); C has stopped and `rhack('n')` →
+  `dopush` `rn2(19)`. JS never reaches `dopush` (no adjacent boulder;
+  floor boulders at 60,8 / 60,10 / 68,5).
+- **Next falsifier:** why C ends travel after the first `_/>/.` step before
+  `n`. Candidates: `lookaround` trap/liquid (JS deferred), `findtravelpath`
+  `TEST_TRAV` fail, or adjacent boulder present in C only.
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** skip setworn ring-slot clear; sticky `u.Fumbling`;
-  frame-align; DIAG; re-break D-0660…D-0699.
+- **Don’t:** AVAL/`|aexe|>=50` theory; force `end_running` after first travel
+  step without C cite; frame-align; DIAG; re-break D-0660…D-0699.
 
 ## Don’t re-check (≤15)
 
@@ -34,6 +37,7 @@ Objective/score live in `CURRENT.md`.
   next lastinvnr”.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
+- Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 
 ## Landmarks (≤15)
 
@@ -45,7 +49,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @36031 next after D-0699.
+- Quest: seed0367 **PASS**. seed0014 @36031 travel-stop before `n` push.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

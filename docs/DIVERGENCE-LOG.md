@@ -9,6 +9,29 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0700 — travel continue_run vs C stop before n-dopush (seed0014)
+
+- **Status:** open (diagnosed; no JS change)
+- **Symptom:** seed0014 @36031 — C `exercise` `rn2(19)` (`attrib.c:509`)
+  vs JS `rn2(5)` (`distfleeck`). Matched through gethungry/exerchk/wipe.
+- **Keys:** `moves` `_` `>` `.` then `n`. After `.` confirms travel dest
+  (stairs 66,11) and first step 55,9→56,10 + EOT, C has stopped travel and
+  `rhack('n')` → `dopush`/`exercise(A_STR,TRUE)`. JS `continue_run`
+  (`travel=1 multi=80 run=8`) and never reaches `dopush`.
+- **Rejected:** `|AEXE|>=AVAL` skipping `rn2(19)`; force `end_running` after
+  first travel step alone (still no adjacent boulder → still `rn2(5)`);
+  travelmap revisit on step 2 (hero 56,10 → 57,11 not visited).
+- **State note:** JS floor boulders at 60,8 / 60,10 / 68,5 only — none
+  adjacent at continue_run. C screen after `n` shows boulder-moved topline.
+- **C locus (next):** `hack.c` `lookaround` / `findtravelpath` /
+  `avoid_moving_on_trap`; `cmd.c` `dotravel_target`; `hack.c` `dopush`.
+- **JS locus:** `cmd.js` `continue_run` / `dotravel_target` / `lookaround`;
+  `hack.js` `dopush`.
+- **Named omission:** `lookaround` traps/pools; travelmap; full `TEST_TRAV`.
+- **Verification:** green+strict PASS; prefix still **36031**; no code.
+- **Next:** C-cited travel stop before `n`, then confirm adjacent boulder /
+  `dopush`.
+
 ## D-0699 — setworn(null, W_RINGL|R) clears uleft/uright (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 35611→36031)

@@ -73,10 +73,11 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @36031 C `exercise` `rn2(19)` vs JS
-`rn2(5)`. D-0699 fixed `setworn(null,W_RINGL|R)` (prefix
-35611→36031, Scr 538). Or seed0108 wishlist @2772. Prefer shared
-blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @36031 — C `exercise`/`dopush` `rn2(19)`
+after travel stops; JS still `continue_run` → `distfleeck` `rn2(5)`.
+D-0700: not AVAL/`exercise` skip. Find C travel-stop before `n`
+(lookaround trap/liquid, `TEST_TRAV`, or missing adjacent boulder).
+Or seed0108 wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
