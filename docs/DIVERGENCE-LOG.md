@@ -4,9 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0671 — intemple intone `canseemon` (seed0367 @258)
+
+- **Status:** fixed (partial — Scr 308/324; next peel @262 Warning floats)
+- **Symptom:** @258 C `A nearby voice intones:` vs JS `The priest intones:`.
+- **Cause:** JS used `canspotmon(priest)` for the intone subject; C
+  `priest.c` `intemple` uses `canseemon(priest)`. After D-0669 ESP,
+  `sensemon` made `canspotmon` true while the priest was not seen →
+  `Monnam` instead of `"A nearby voice"`. Ghost spawn still correctly
+  uses `canspotmon`.
+- **C locus:** `priest.c` `intemple` (`canseemon` ? `Monnam` : `"A nearby voice"`);
+  `display.h` `canspotmon` = `canseemon || sensemon`.
+- **Change:** `js/priest.js` intone branch → `canseemon`.
+- **Verification:** seed0367 Scr **305→308**/324, prefix **258→262**,
+  RNG FULL; green+strict PASS; cohort **34**/34.
+- **Next:** @262 Warning/`W` cell positions vs warn digits.
+
 ## D-0670 — Pri goal texts + Pri-goal lava lit + quest_portal pline (seed0367 @209)
 
-- **Status:** fixed (partial — Scr 305/324; next peel @258 intemple voice)
+- **Status:** fixed (partial — Scr 305/324; next peel @258 intemple voice → D-0671)
 - **Symptom:** @209 C `You materialize…!--More--` + lava `` ` `` + goal
   brimstone NHW_TEXT; JS materialize without More (space → Unknown
   command), 42 unlit lava blanks, missing `goal_first`.

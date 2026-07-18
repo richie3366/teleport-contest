@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 17:20 — #744 D-0671 intemple canseemon voice
+- Objective: seed0367 @258 C `A nearby voice intones` vs JS `The priest`.
+- C locus: `priest.c` `intemple` (`canseemon` ? Monnam : nearby voice).
+- Change: `js/priest.js` intone subject `canspotmon`→`canseemon`
+  (ESP alone must not Monnam; D-0671).
+- Verification: Scr **305→308**/324 prefix **258→262**; green+strict;
+  cohort **34**/34. RNG FULL.
+- Next: @262 Warning/`W` vs warn-digit cell positions.
+
 ## 2026-07-18 17:11 — #743 D-0670 Pri goal + lava lit + quest_portal pline
 - Objective: seed0367 @209 lava `` ` `` / missing materialize More.
 - C locus: `quest.lua` Pri goal/nexttime; `questpgr.c` deliver_by_pline;

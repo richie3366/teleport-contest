@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **267**/324 | RNG FULL; screen peel @203 |
+| seed0367 | **50125**/50125 | **308**/324 | RNG FULL; screen peel @262 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,18 +71,17 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **305**/324
-(cursors 320/324; prefix **258**). **D-0670** cleared @209 lava + Pri
-goal/`quest_portal` More; next intemple voice @258.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **308**/324
+(cursors 323/324; prefix **262**). **D-0671** cleared @258 intemple
+`canseemon` voice; next Warning/`W` floats @262.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @258 — C `A nearby voice intones` vs JS
-`The priest intones` (`intemple`/`canspotmon`). Do not re-break
-D-0660…D-0670.
+**Next falsifier / fix:** @262 — Warning digit / `W` cell positions
+(`mon_warning` / `display_warning`). Do not re-break D-0660…D-0671.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#743:** D-0670 Pri `goal_first`/`nexttime`/`othertime` + Pri-goal
-  `light_region` lava lit + `quest_portal` `deliver_by_pline`.
-  Scr **305**/324 prefix **258**. RNG FULL.
-- **Falsify next:** @258 intemple — C `A nearby voice intones` vs JS
-  `The priest intones` (`canspotmon`/Monnam). Do not reopen D-0670.
+- **#744:** D-0671 `intemple` intone `canseemon` (was `canspotmon`) —
+  ESP alone → `"A nearby voice"`. Scr **308**/324 prefix **262**. RNG FULL.
+- **Falsify next:** @262 Warning/`W` vs warn-digit cell positions
+  (`mon_warning` / `display_warning` / sense path). Do not reopen D-0671.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0670; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0671; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -52,13 +51,14 @@ Objective/score live in `CURRENT.md`.
   skip altar_color (D-0666); skip `see_monsters` in teleds (D-0667);
   skip Pri-loca map lit clear (D-0668); skip `tp_sensemon` (D-0669);
   skip Pri goal/`quest_portal` pline/lava lit (D-0670);
+  skip intemple `canseemon` (D-0671);
   globalize `sel_set_ter(false)`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0670 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0671 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -75,6 +75,8 @@ Objective/score live in `CURRENT.md`.
   ghost physical glyph is `' '`; zombies mindless → still Warning.
 - D-0670: Pri-goal unlit region must use `light_region` (lava stays lit);
   `quest_portal` is explicit `output=pline` (not newline→window).
+- D-0671: intemple intone subject is `canseemon`, not `canspotmon`
+  (ESP alone → `"A nearby voice"`; ghost spawn still `canspotmon`).
 
 ## Landmarks (≤15)
 
@@ -86,7 +88,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 305; @258 intemple voice peel next.
+- Quest: seed0367 RNG FULL Scr 308; @262 Warning float peel next.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
