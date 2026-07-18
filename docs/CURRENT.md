@@ -73,18 +73,18 @@ D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **315**/324
-(cursors 323/324; prefix **283**). **D-0673** cleared @278 Vlad tower1
-map lit (C lspo_map lit=FALSE); next @283 materialize More darkroom
-`·` vs blank (26 cells).
+(cursors 323/324; prefix **283**). **D-0674:** darkroom/memory falsified;
+Pri-loca @283 hero (37,19) — JS Algorithm-C COULD_SEE over-marks 26-cell
+NW `·` cone past C (temple SW ~31,16).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @283 — after `You materialize…!--More--`,
-C blank vs JS `·` (darkroom / lit / memory). Do not re-break
-D-0660…D-0673.
+**Next falsifier / fix:** `js/vision.js` `left_side`/`view_from` vs C
+`vision.c` NW finger past Pri-loca SW corner. Do not re-break
+D-0660…D-0673 lit clears; don’t invent darkroom blank for lit+cansee.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
