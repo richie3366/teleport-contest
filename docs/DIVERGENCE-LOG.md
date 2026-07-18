@@ -9,6 +9,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0706 — maybe_kick_monster / kick_monster / kickdmg (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @43553)
+- **Symptom:** seed0014 @43341 — C `gethungry` `rn2(20)` (via
+  `overexertion` in `maybe_kick_monster`) vs JS `kick_ouch` `rn2(2)`.
+  Screen: C `You kick it.` vs JS `Ouch!`.
+- **C locus:** `dokick.c` `maybe_kick_monster` → `attack_checks` /
+  `overexertion`; `kick_monster` → evade `rn2` / `kickdmg`.
+- **Cause:** JS stubbed all monster kicks to `kick_ouch` (terrain hurt).
+- **Change:** port `maybe_kick_monster`, `kick_monster`, `kickdmg`,
+  `martial()`; export `attack_checks`/`passive` from `uhitm.js`.
+  Poly AT_KICK / `maybe_mnexto` evade / `special_dmgval` / pet abuse
+  deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **43341→43553**
+  RNG **43636**/59178 Scr **575**/714; cohort 13/13 PASS (incl.
+  seed0060 kick + seed0002/0004/0007/0012/1500/1800/0398/0373/5006/
+  0116/0361/0367). Full suite **35/44** Scr **7638** RNG **507306**.
+- **Next:** seed0014 @43553 C `next_ident`/`rndmonst_adj` vs JS
+  `rn2(3)` (post-kick object/mon gen).
+
 ## D-0705 — lookaround mon_visible + attack_checks Wait invis (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @43341)

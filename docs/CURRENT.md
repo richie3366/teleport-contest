@@ -21,19 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#780**,
-pre D-0701 handoff). Screens **7619**/11405; RNG **499,061**/792838 (62.95%).
-**35/44** PASS. Δ vs #775: Scr +15, RNG +1712 (D-0700 peel; still 35 PASS).
-Post D-0705 focused seed0014 → 43371/59178 Scr 575 (prefix @43341).
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#785**,
+post D-0706). Screens **7638**/11405; RNG **507,306**/792838 (63.99%).
+**35/44** PASS. Δ vs #780: Scr +19, RNG +8245 (D-0701…D-0706 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,619 / 11,405** |
-| Positional RNG calls matched | **499,061 / 792,838** (62.95%) |
-| Speed label | `36+0.17/turn` (R² 0.791) |
+| Screens matched | **7,638 / 11,405** |
+| Positional RNG calls matched | **507,306 / 792,838** (63.99%) |
+| Speed label | `38+0.17/turn` (R² 0.783) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +46,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 35382/59178 | 553/714 | @#780 suite; post D-0705 →43371/575 @43341 |
+| seed0014 | 43636/59178 | 575/714 | @#785; prefix @43553 post D-0706 |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,16 +72,16 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @43341 — C `maybe_kick_monster`/`gethungry`
-`rn2(20)` vs JS `kick_ouch` `rn2(2)` (monster kick stub). Or seed0108
-wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @43553 — C `next_ident`/`rndmonst_adj` vs
+JS `rn2(3)` (post-kick mkobj/makemon). Or seed0108 wishlist @2772.
+Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0705.**
+**Do not re-break D-0660…D-0706.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

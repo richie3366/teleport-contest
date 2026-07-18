@@ -664,7 +664,8 @@ function passive_obj(mon, obj, mattk) {
  * Named omissions: full AD_PLYS gaze/cube / ugolemeffects / split_mon /
  * erode_armor / done_in_by stone / attk_protection detail; dokick callers.
  */
-async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destroyed) {
+/** C ref: uhitm.c passive — mon AT_NONE after hero hit (kick/melee). */
+export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destroyed) {
     if (!mon) return (maliveb ? M_ATTK_HIT : M_ATTK_MISS)
         | (mhitb ? M_ATTK_HIT : M_ATTK_MISS);
     const mhit = mhitb ? M_ATTK_HIT : M_ATTK_MISS;
@@ -1007,7 +1008,7 @@ async function stumble_onto_mimic(mtmp) {
  * Returns true when the attack attempt is consumed (no hitum).
  * Peaceful-confirm / Elbereth / warning-glyph arms deferred.
  */
-async function attack_checks(mtmp) {
+export async function attack_checks(mtmp) {
     // C: forcefight → return FALSE (allow real attack; skip Wait!)
     if (game.context?.forcefight) return false;
 

@@ -7,30 +7,28 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#784 D-0705 fixed:** seed0014 `@43308` — `lookaround` treated all
-  mons as seen (skipped `mon_visible`); invisible bugbear ended `H` run
-  so yank never got `--More--` (space → Unknown command). Also
-  `attack_checks` Wait! for `!canspotmon` (forces yank More + no melee).
-  Prefix →43341; screens match through Wait/kick prompt.
-- **New miss seed0014 @43341:** C `maybe_kick`/`gethungry` `rn2(20)` vs
-  JS `kick_ouch` `rn2(2)`. Screen: C `You kick it.` vs JS `Ouch!`.
+- **#785 D-0706 fixed:** seed0014 `@43341` — monster kick was `kick_ouch`
+  stub; C `maybe_kick_monster`→`overexertion`/`gethungry` then
+  `kick_monster`/`kickdmg`. Prefix →43553; screens still 575.
+- **New miss seed0014 @43553:** C `next_ident`/`rndmonst_adj` vs JS
+  `rn2(3)`. Post-kick object/mon generation path.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
 - **Don’t:** flush_topl_more before every parse get_count (breaks green);
-  couldsee-only BFS; re-break D-0660…D-0705.
+  couldsee-only BFS; re-break D-0660…D-0706.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0705 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0706 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0705: blue DSM / … / lookaround mon_visible + Wait invis.
+- D-0676…D-0706: blue DSM / … / lookaround / monster kick.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -43,12 +41,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#780).
+  **seed0367** **PASS** (suite **35/44** @#785).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @43341 after D-0705.
+- Quest: seed0367 **PASS**. seed0014 @43553 after D-0706.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
