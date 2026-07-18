@@ -9,6 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0688 — assigninvlet preserve + Boots_on Fumble (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 18426→18494)
+- **Symptom:** @18426 C post-`dog_move` `distfleeck` `rn2(5)` vs JS
+  `mcalcmove` `rn2(12)`. Early theory “JS skipped `dochug`” falsified.
+- **Cause:** At session `W`+`q`, C invent had `q`=fumble boots (after
+  nymph steal returned ring as letter `k`). JS `assigninvlet` always
+  reassigned from `_lastinvnr`, so returned ring became `q` and boots
+  `r`. `Wq` put on the ring (no `nomul`); C dressed boots (`nomul(-2)`
+  → `Boots_on` `rnd(20)`). Hero free-moved while C stayed put → dog
+  wall geometry → missing `rn2(++chcnt)`. After letter fix, stub
+  `Boots_on` lacked Fumble `incr_itimeout(HFumbling, rnd(20))`.
+- **C locus:** `invent.c` `assigninvlet` (keep free a-z/A-Z); `do_wear.c`
+  `Boots_on` `FUMBLE_BOOTS`.
+- **Change:** Preserve existing invlet when free (clear on conflict);
+  port Fumble boots `rnd(20)` into `HFumbling` TIMEOUT. Named omissions:
+  other `Boots_on` cases (speed/elven/water/lev); `display_used_invlets`;
+  full `nh_timeout` Fumbling tick.
+- **Verification:** seed0014 prefix **18426→18494**, Scr **445→453**/714;
+  green+strict PASS; wear cohort seed0116/seed1800/seed1500 PASS.
+- **Next:** @18494 C `exercise` `rn2(2)` vs JS `moveloop` `rn2(76)`.
+
 ## D-0687 — domonnoise MS_SEDUCE (#chat nymph, seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 17952→18426)

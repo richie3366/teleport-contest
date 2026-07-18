@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 19358/59178 | 445/714 | prefix @18426 C `distfleeck` after dog_move |
+| seed0014 | 18595/59178 | 453/714 | prefix @18494 C `exercise` rn2(2) |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @18426 — after matching `dog_move` rn2(3/4/5),
-C `distfleeck` `rn2(5)` (bravegremlin) vs JS `mcalcmove` `rn2(12)`:
-JS ended movemon early (skipped a mon’s `dochug`). Or seed0108 wishlist
-@2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @18494 C `exercise` `rn2(2)` (attrib.c:509)
+vs JS `moveloop_core` `rn2(76)`. D-0688 fixed invent-letter preserve after
+steal + `Boots_on` Fumble `rnd(20)` (prefix 18426→18494). Or seed0108
+wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0687.**
+**Do not re-break D-0660…D-0688.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

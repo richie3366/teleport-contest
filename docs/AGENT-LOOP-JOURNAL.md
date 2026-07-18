@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 20:50 — #766 D-0688 assigninvlet + Boots_on
+- Objective: seed0014 @18426 C `distfleeck` after `dog_move` vs JS
+  `mcalcmove` (theory: early movemon exit).
+- C locus: `invent.c` `assigninvlet`; `do_wear.c` `Boots_on` Fumble.
+- Change: Falsified early-movemon. Root: after nymph steal, returned
+  ring kept letter `k` in C; JS always reassigned → `q`, so `Wq` wore
+  ring not boots. Preserve free invlet; port Fumble `rnd(20)`.
+- Verification: prefix **18426→18494**, Scr **445→453**/714; green+
+  strict PASS; seed0116/1800/1500 PASS.
+- Next: @18494 C `exercise` `rn2(2)` vs JS `moveloop` `rn2(76)`.
+
 ## 2026-07-18 20:21 — #765 public score cadence
 - Objective: mandatory %5 full `sessions` score + CURRENT refresh.
 - C locus: n/a (score-only iteration).
