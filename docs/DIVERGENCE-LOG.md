@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0681 — cursed_book + study_book too_hard (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 9354→14566)
+- **Symptom:** @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` after
+  matching `study_book` `rnd(20)`.
+- **Cause:** `study_book` too_hard path stubbed `cursed_book`/`nomul`/
+  crumble `rn2(3)`; next RNG was unrelated monmove.
+- **C locus:** `spell.c` `cursed_book`/`study_book`; `wizard.c` `aggravate`.
+- **Change:** `js/spell.js` `cursed_book` (`rn2(oc_level)` cases 0–6) +
+  too_hard wire; `js/wizard.js` `aggravate`. Named omissions:
+  `confused_book`, `rndcurse` body, `In_W_tower`, `shieldeff`,
+  occupation `learn`.
+- **Verification:** seed0014 prefix **9354→14566**, Scr **221→298**/714,
+  positional RNG **9517→14628**/59178; green+strict PASS; cohort **33**/33.
+- **Next:** @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)` (dobuzz/zhitm).
+
 ## D-0680 — POT_SICKNESS peffect_sickness (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 6294→9354)
