@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:42 — #759 D-0682 zhitm wand-ray damage
+- Objective: seed0014 @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
+- C locus: `zap.c` `zhitm`/`dobuzz`/`destroy_items`/`resist`.
+- Change: D-0682 — port `zhitm` damage types; cold `destroy_items` +
+  wand `resist`; wire kill/`wakeup` in `dobuzz`.
+- Verification: prefix **14566→16304**, Scr **298→365**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)`.
+
 ## 2026-07-18 19:33 — #758 D-0681 cursed_book + aggravate
 - Objective: seed0014 @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)`.
 - C locus: `spell.c` `cursed_book`/`study_book`; `wizard.c` `aggravate`.
@@ -147,12 +156,3 @@ Use this shape:
   cohort **34**/34. RNG FULL.
 - Next: @278 materialize map — C blank vs JS temple wall scraps.
 
-## 2026-07-18 17:25 — #745 public score cadence
-- Objective: mandatory full `sessions` score (#745÷5).
-- C locus: n/a (score refresh; primary still seed0367 @262 Warning).
-- Change or falsified theory: none — docs only. Rotated journal
-  #730–#734 → `archive/AGENT-LOOP-JOURNAL-2026-07-18-rotate15.md`.
-- Verification: green+strict PASS; suite **34/44**; Scr **7062**/11405;
-  RNG **465040**/792838 (58.66%); speed `35+0.17/turn` (R² 0.78).
-  Δ vs #740: Scr **+41**, RNG +0, PASS +0 (peels #741–44 absorbed).
-- Next: seed0367 @262 Warning/`W` vs warn-digit cell positions.

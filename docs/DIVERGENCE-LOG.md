@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0682 — zhitm wand-ray damage (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 14566→16304)
+- **Symptom:** @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)` after matching
+  `dobuzz`/`zap_hit`.
+- **Cause:** `dobuzz` only applied `zhitm` for `ZT_SLEEP`; cold/fire/etc
+  hits burned no damage RNG, so later monmove `rn2(10)` diverged.
+- **C locus:** `zap.c` `zhitm`/`dobuzz`/`destroy_items`/`resist`.
+- **Change:** `js/zap.js` full `zhitm` (ZT_MAGIC_MISSILE..ZT_ACID) +
+  cold `destroy_items`/`maybe_destroy_item` + wand `resist` alev=12;
+  wire kill/`wakeup` in `dobuzz`. Named omissions: `defended`/
+  `resists_magm` body; burnarmor/ignite; fire/elec destroy bodies;
+  zhitu non-sleep; mon_reflects; death-breath disintegrate.
+- **Verification:** seed0014 prefix **14566→16304**, Scr **298→365**/714,
+  positional RNG **14628→16524**/59178; green+strict PASS; cohort
+  **33**/33.
+- **Next:** @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)`.
+
 ## D-0681 — cursed_book + study_book too_hard (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 9354→14566)
