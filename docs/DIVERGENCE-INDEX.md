@@ -652,6 +652,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0669 | fixed | tp_sensemon Unblind_telepat (amulet of ESP) | seed0367 Scr 267→291 prefix 203→209; next @209 lava |
 | D-0670 | fixed | Pri goal/nexttime + Pri-goal lava lit + quest_portal pline | seed0367 Scr 291→305 prefix 209→258; next @258 intemple voice |
 | D-0671 | fixed | intemple intone `canseemon` (not canspotmon) | seed0367 Scr 305→308 prefix 258→262; next @262 Warning floats |
+| D-0672 | fixed | moveloop once-per-input see_monsters (Warning/ESP) | seed0367 Scr 308→312 prefix 262→278; next @278 materialize map |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

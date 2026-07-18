@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#745:** full suite score refresh — **34/44**, Scr **7062**/11405,
-  RNG **465040**/792838 (58.66%). Δ vs #740 Scr **+41** (peels #741–44).
-- **Falsify next:** seed0367 @262 Warning/`W` vs warn-digit cells
-  (`mon_warning` / `display_warning` / sense path). Do not reopen D-0671.
+- **#746:** D-0672 moveloop once-per-input `see_monsters` (Warning/ESP).
+  seed0367 Scr **308→312**/324 prefix **262→278**.
+- **Falsify next:** @278 materialize — C blank vs JS temple `─┐·│─┘`
+  (6 cells). Do not reopen D-0672 / D-0660…D-0671.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0671; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0672; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -52,13 +52,14 @@ Objective/score live in `CURRENT.md`.
   skip Pri-loca map lit clear (D-0668); skip `tp_sensemon` (D-0669);
   skip Pri goal/`quest_portal` pline/lava lit (D-0670);
   skip intemple `canseemon` (D-0671);
+  skip moveloop Warning/ESP `see_monsters` (D-0672);
   globalize `sel_set_ter(false)`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0671 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0672 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -67,8 +68,8 @@ Objective/score live in `CURRENT.md`.
 - D-0665: TREE typ with non-blank `disp_ch` still needs cmap `"tree"`.
 - D-0666: altar `{` color is altarmask (unaligned→RED), not DEC alone;
   `diffCell` ignores decgfx for `{` (not in DEC_MAP).
-- D-0667: Warning floats are gbuf-only; `teleds` needs `see_monsters`
-  so out-of-range warns clear before materialize `--More--`.
+- D-0667/D-0672: Warning floats are gbuf-only; need `see_monsters` after
+  teleds **and** once-per-input when Warning/ESP (C allmain).
 - D-0668: global `sel_set_ter(false)`≡C clears lit → seed0009 FAIL;
   Pri-loca-only SpLev_Map clear is the safe envelope.
 - D-0669: @203 C W/blank/& vs warn is telepathy (ESP), not nv_range;
@@ -88,7 +89,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 308; @262 Warning float peel next.
+- Quest: seed0367 RNG FULL Scr 312; @278 materialize map peel next.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

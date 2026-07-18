@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0672 — moveloop once-per-input `see_monsters` (seed0367 @262)
+
+- **Status:** fixed (partial — Scr 312/324; next peel @278 materialize map)
+- **Symptom:** @262 C Warning digits / physical `W` vs JS stale floats (W where
+  warn digit, digits where blank, missing warns).
+- **Cause:** C `allmain.c` once-per-player-input calls `see_monsters()` when
+  `Unblind_telepat || Warning` (and `!context.mv || Blind`) so Warning/ESP
+  glyphs refresh as `mdistu` changes. JS only called `see_monsters` from
+  `teleds`/`docrt`, leaving stale gbuf floats after ordinary steps.
+- **C locus:** `allmain.c` moveloop_core once-per-input block (~454–469);
+  `display.c` `see_monsters`.
+- **Change:** `js/allmain.js` — after `find_ac`, call `see_monsters()` when
+  `!context.mv || Blind` and `ETelepat`/`HWarning`. Hallu / Warn_of_mon /
+  `any_visible_region` deferred.
+- **Verification:** seed0367 Scr **308→312**/324, prefix **262→278**, RNG
+  FULL; green+strict PASS; cohort **34**/34.
+- **Next:** @278 materialize — C blank vs JS temple wall fragments (6 cells).
+
 ## D-0671 — intemple intone `canseemon` (seed0367 @258)
 
 - **Status:** fixed (partial — Scr 308/324; next peel @262 Warning floats)

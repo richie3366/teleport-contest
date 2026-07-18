@@ -25,6 +25,7 @@ Score last measured: **2026-07-18** — full `sessions` suite (loop **#745**).
 Screens **7062**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
 Δ vs #740: Scr **+41**, RNG **+0**, PASS **+0**. Screen gain is seed0367
 peels #741–44 (Scr 267→308 @ suite) landing in aggregates.
+(#746 D-0672: seed0367 Scr 308→312 focused; suite not remeasured.)
 
 ## Score
 
@@ -47,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **308**/324 | RNG FULL; screen peel @262 |
+| seed0367 | **50125**/50125 | **312**/324 | RNG FULL; screen peel @278 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,17 +72,19 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **308**/324
-(cursors 323/324; prefix **262**). **D-0671** cleared @258 intemple
-`canseemon` voice; next Warning/`W` floats @262.
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **312**/324
+(cursors 323/324; prefix **278**). **D-0672** cleared @262 Warning/ESP
+stale floats via moveloop `see_monsters`; next @278 materialize map
+(C blank vs JS temple wall scraps).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @262 — Warning digit / `W` cell positions
-(`mon_warning` / `display_warning`). Do not re-break D-0660…D-0671.
+**Next falsifier / fix:** @278 — after `You materialize on a different
+level!`, 6 cells C blank vs JS `─┐·│─┘` (temple corner memory). Do not
+re-break D-0660…D-0672.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
