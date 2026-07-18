@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#786; prefix @49039 post D-0707 |
-| seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
+| seed0108 | 2798/16958 | 33/303 | @#789; prefix @2778 post D-0709 |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,19 +72,19 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @49039 — **D-0708:** peaceful gnome
-`mfndpos` cnt 6 vs C 5 after matching cnt=8 move `(24,11)→(23,11)`.
-JS poss all ROOM; `u=(24,9)` not on them (hero-on-cell would fix
-arity). Identify C-omitted neighbor (C-only trap/mon / earlier
-geometry split / missing mfndpos arm). Or seed0108 wishlist @2772.
-Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0108 @2778 — **D-0709** wired `#wizwish`; next
+C `dochug` `rn2(4)` vs JS `rn2(100)` (likely skipped wanderer /
+`!mcansee` arm). Or seed0014 @49039 **D-0708:** peaceful gnome
+`mfndpos` cnt 6 vs 5; C dest~(24,12); strongest omit suspect
+`(22,10)` (only new neighbor vs prior matching cnt=8). Prefer
+shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
-  sessions/seed0014-dequa-fountain-explore.session.json
+  sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0708.**
+**Do not re-break D-0660…D-0709.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

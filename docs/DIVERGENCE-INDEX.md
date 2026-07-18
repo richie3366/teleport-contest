@@ -688,7 +688,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0705 | fixed | lookaround mon_visible + attack_checks Wait invis | seed0014 prefix 43308→43341 Scr 575; next @43341 kick |
 | D-0706 | fixed | maybe_kick_monster / kick_monster / kickdmg | seed0014 prefix 43341→43553 Scr 575; next @43553 mkobj/makemon |
 | D-0707 | fixed | corpse_chance always-TRUE bigmonst/lizard/golem/… | seed0014 prefix 43553→49039 RNG 49495; next @49039 distfleeck |
-| D-0708 | open | mfndpos cnt 6 vs 5 (not distfleeck arity) | seed0014 @49039; gnome (24,11)→(23,11); hero-on-cell→5; travel/trap next |
+| D-0708 | open | mfndpos cnt 6 vs 5; C dest~(24,12); suspect (22,10) | seed0014 @49039; only new neigh vs prior cnt=8 |
+| D-0709 | fixed | EXT_CMDS `#wizwish` → wiz_wish | seed0108 2772→2778; next @2778 dochug rn2(4) |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

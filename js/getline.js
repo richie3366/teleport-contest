@@ -386,6 +386,16 @@ const EXT_CMDS = [
             return wiz_genesis();
         },
     },
+    {
+        // C: cmd.c "wizwish" IFBURIED|CMD_M_PREFIX|WIZMODECMD (no AUTOCOMPLETE)
+        name: 'wizwish',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_wish } = await import('./wizcmds.js');
+            return wiz_wish();
+        },
+    },
 ];
 
 function wizardMode() {

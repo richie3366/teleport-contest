@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0709 — #wizwish missing from EXT_CMDS (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @2778)
+- **Symptom:** seed0108 @2772 — C `rnd_otyp_by_namedesc` `rn2(16)`
+  ("magic lamp") vs JS `rn2(5)` from a non-wish path.
+- **C locus:** `cmd.c` extcmdlist `"wizwish"` → `wiz_wish` /
+  `makewish` / `readobjnam`.
+- **Cause:** `js/getline.js` `EXT_CMDS` had `levelchange`/`wizgenesis`
+  but not `wizwish` (C: IFBURIED|CMD_M_PREFIX|WIZMODECMD, no
+  AUTOCOMPLETE). `#wizwish` → unknown extcmd; following keys were
+  eaten as ordinary input.
+- **Change:** register `wizwish` → `wiz_wish` in `EXT_CMDS`.
+- **Verification:** green+strict PASS; seed0108 prefix **2772→2778**
+  (wish + makewish `rn2(100)` match); cohort 10/10 prior PASS stay
+  PASS (incl. seed0398/0373/5006/0116/0361/0367).
+- **Next:** seed0108 @2778 C `dochug` `rn2(4)` vs JS `rn2(100)`
+  (wanderer/`!mcansee` arm skipped?); or seed0014 D-0708.
+
 ## D-0708 — mfndpos cnt 6 vs 5 misread as distfleeck (seed0014)
 
 - **Status:** open (diagnosed; no faithful fix yet)
@@ -20,11 +38,14 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Falsified (#787–#788):** distfleeck arity; single-flank corners
   (@3061); squeeze on `(22,10)`; neighbor trap/obj/mon/gas in JS; one-step
   travel landing on a gnome neighbor (impossible from `(23,8)`).
+- **#789 sharpen:** C chcnt picks 5th of remaining → dest **(24,12)**
+  unless omit is `(24,12)`. Omit ∈ first five; **(22,10)** is the only
+  neighbor not already validated by prior matching cnt=8 at `(24,11)`.
+  mux=u; kickedloc clear; no JS traps near gnome.
 - **Experiment:** drop any one of the 6 → prefix **49039→49300** (does
   not identify which cell C omits).
-- **Next:** identify omitted neighbor + C predicate (C-only trap/mon on
-  one cell; earlier same-arity geometry split; missing mfndpos arm);
-  prefer C-state capture over more drop-one trials.
+- **Next:** terrain/trap split at `(22,10)` or C-state capture; or
+  seed0108 @2778.
 
 ## D-0707 — corpse_chance always-TRUE bigmonst arms (seed0014)
 

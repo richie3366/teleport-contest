@@ -7,20 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#788 D-0708:** seed0014 `@49039` peaceful gnome `mfndpos`
-  cnt **6 vs C 5**. Same gnome earlier `@48985` cnt=8 at `(24,11)`
-  matched C then moved to `(23,11)`. JS poss:
-  `(22,10)(23,10)(23,12)(24,10)(24,11)(24,12)` all ROOM; no trap/obj/
-  mon/gas; kickedloc cleared; `u=(24,9)` not on any poss. Probe: hero
-  on any of the 6 → cnt=5. Travel `@49018` `(23,8)→(24,9)` toward
-  `(69,19)` (one step cannot land on a gnome neighbor). Next: which
-  cell C omits — trap/mon only on C, or shared travel/map earlier
-  same-arity geometry split; or missing mfndpos predicate.
-  Falsifier:
-  `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** single-flank corners (@3061); flush_topl_more every
-  get_count; couldsee-only BFS alone; re-break D-0660…D-0707; blame
-  `distfleeck` arity / squeeze / gas on this miss.
+- **#789 D-0709:** seed0108 `#wizwish` wired → prefix **2772→2778**.
+  Next @2778 C `dochug` `rn2(4)` vs JS `rn2(100)` (wanderer /
+  `!mcansee` short-circuit before `m_move`?). Falsifier:
+  `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
+- **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
+  C dest~(24,12); omit suspect `(22,10)` (only new neigh vs cnt=8
+  match). Not mux/kickedloc/gas/trap in JS.
+- **Don’t:** re-break D-0660…D-0709; blame distfleeck arity on D-0708;
+  add AUTOCOMPLETE for wizwish (C has none).
 
 ## Don’t re-check (≤15)
 
@@ -51,7 +46,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @49039 mfndpos cnt (D-0708).
+- Quest: seed0367 **PASS**. seed0014 @49039 mfndpos (D-0708 open).
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
