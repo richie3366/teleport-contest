@@ -9,6 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0699 — setworn(null, W_RINGL|R) clears uleft/uright (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 35611→36031)
+- **Symptom:** seed0014 @35611 — C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+  Peaceful hobbit `mfndpos` cnt 6 vs C 5: JS hero off C's square so
+  `!ALLOW_U` skip missing. Cursor swap at P/k/r put-on (@582–585).
+- **Cause:** nymph `steal` → `setworn(null, W_RINGR)` did not clear
+  `u.uright` (JS only cleared when `mask === W_RING` both bits). JS kept
+  a stolen right ring; 2nd `doputon` auto-assigned left and treated `r`
+  as read, while C asked ring-hand (`r`) then moved. Also ported
+  accessory Glib/cursed-gloves/welded gates (named; not the @35611 root).
+- **C locus:** `worn.c` `setworn`; `steal.c` `remove_worn_item`;
+  `do_wear.c` `accessory_or_armor_on` ring gates.
+- **Change:** `js/do_wear.js` — `setworn(null)` clears `W_RINGL`/`W_RINGR`
+  independently; ring put-on Glib/gloves/welded gates; `m_avoid_kicked_loc`
+  in hostile `m_move` (D-0032 wiring).
+- **Named omission:** Adornment steal priority polish; full `gloves_simple_name`
+  / `body_part` plines; unicorn NOTONL avoid + ALLOW_MDISP in `m_move`.
+- **Verification:** seed0014 prefix **35611→36031**, Scr **538**/714
+  (positional RNG **36131**/59178); green+strict PASS; cohort **35**/35.
+- **Next:** @36031 C `exercise` `rn2(19)` vs JS `rn2(5)` (`distfleeck`).
+
 ## D-0698 — ohitmon kill → mondied / corpse_chance (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 33278→35611)

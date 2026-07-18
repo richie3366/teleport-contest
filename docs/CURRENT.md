@@ -73,9 +73,9 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @35611 C `distfleeck` `rn2(5)` vs JS
-`rn2(6)`. D-0698 fixed `ohitmon`→`mondied`/`corpse_chance` (prefix
-33278→35611, Scr 538). Or seed0108 wishlist @2772. Prefer shared
+**Gameplay next:** seed0014 @36031 C `exercise` `rn2(19)` vs JS
+`rn2(5)`. D-0699 fixed `setworn(null,W_RINGL|R)` (prefix
+35611→36031, Scr 538). Or seed0108 wishlist @2772. Prefer shared
 blockers. seed2200 @158 parked.
 
 ```bash
@@ -83,7 +83,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0698.**
+**Do not re-break D-0660…D-0699.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

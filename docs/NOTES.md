@@ -7,28 +7,28 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#776 D-0698 done:** `ohitmon` kill → `mondied`/`xkilled(NOMSG)` +
-  `corpse_chance` (was fmon-only `ohitmon_mondead`). Prefix
-  **33278→35611**, Scr **538**.
-- **Next:** seed0014 @35611 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+- **#777 D-0699 done:** `setworn(null, W_RINGL|R)` clears `uleft`/`uright`
+  (steal left dangling `uright` → 2nd put-on key desync). Prefix
+  **35611→36031**, Scr **538**.
+- **Next:** seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
   Command:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** skip ohitmon mondied/corpse_chance; sticky `u.Fumbling`;
-  any-key topline `more()`; frame-align; DIAG.
+- **Don’t:** skip setworn ring-slot clear; sticky `u.Fumbling`;
+  frame-align; DIAG; re-break D-0660…D-0699.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0698 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0699 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0698: blue DSM / … / door Fumbling() / mines your_race /
-  ohitmon mondied.
+- D-0676…D-0699: blue DSM / … / door Fumbling() / mines your_race /
+  ohitmon mondied / setworn ring clear.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -45,7 +45,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @35611 next after D-0698.
+- Quest: seed0367 **PASS**. seed0014 @36031 next after D-0699.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

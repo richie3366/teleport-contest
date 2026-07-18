@@ -14,6 +14,7 @@ import {
     mon_allowflags,
     mfndpos,
     m_at,
+    m_avoid_kicked_loc,
 } from './mon.js';
 import {
     is_wanderer, is_armed, passes_walls, nohands, verysmall,
@@ -1294,6 +1295,10 @@ export async function m_move(mtmp, after) {
         const nx = mfp.poss[i].x;
         const ny = mfp.poss[i].y;
         let skip = false;
+
+        // C ref: monmove.c m_move — skip kicked loc before chcnt rn2
+        if (m_avoid_kicked_loc(mtmp, nx, ny)) continue;
+        // Named: unicorn NOTONL avoid + ALLOW_MDISP displace gate still deferred
 
         if (appr !== 0) {
             for (let j = 0; j < jcnt; j++) {
