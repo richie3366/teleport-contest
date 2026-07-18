@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#775**,
-post D-0697). Screens **7604**/11405; RNG **497,349**/792838 (62.73%).
-**35/44** PASS. Δ vs #770: Scr +57, RNG +10897 (D-0693…D-0697 peels;
-still 35 PASS).
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#780**,
+pre D-0701 handoff). Screens **7619**/11405; RNG **499,061**/792838 (62.95%).
+**35/44** PASS. Δ vs #775: Scr +15, RNG +1712 (D-0700 peel; still 35 PASS).
+Post D-0701 focused seed0014 → 36178/59178 Scr 566 (prefix @36031).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,604 / 11,405** |
-| Positional RNG calls matched | **497,349 / 792,838** (62.73%) |
-| Speed label | `36+0.17/turn` (R² 0.798) |
+| Screens matched | **7,619 / 11,405** |
+| Positional RNG calls matched | **499,061 / 792,838** (62.95%) |
+| Speed label | `36+0.17/turn` (R² 0.791) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 33670/59178 | 538/714 | prefix @33278 C `corpse_chance` rn2(2) |
+| seed0014 | 35382/59178 | 553/714 | @#780 suite; post D-0701 →36178/566 @36031 |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,9 +73,9 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @35246 — C `mdig_tunnel` `rnd(12)` vs JS
-`rn2(8)` after D-0700 rolling-boulder rest at 56,10. (Old @36031 travel/
-dopush was missing boulder — fixed.) Or seed0108 wishlist @2772.
+**Gameplay next:** seed0014 @36031 — C `exercise` `rn2(19)` vs JS
+`rn2(5)` after D-0701 `mons_see_trap` (cleared false @35246 mdig /
+extra mfndpos trap cell). Or seed0108 wishlist @2772.
 Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
@@ -83,7 +83,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0700.**
+**Do not re-break D-0660…D-0701.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

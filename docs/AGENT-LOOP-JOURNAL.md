@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 23:15 — #780 score + D-0701 mons_see_trap
+- Objective: mandatory full score (#780÷5) + seed0014 @35246.
+- Score: **35/44** Scr **7619**/11405 RNG **499061**/792838 (62.95%)
+  `36+0.17/turn` (pre-fix suite).
+- C locus: `mondata.c` `mons_see_trap`; `trap.c` dotrap/mintrap.
+- Change: wire sight fan-out so nearby mons learn traps → mfndpos
+  skips known cells; shortsighted + unicorn NOTONL in `m_move`.
+- Verification: green+strict PASS; seed0014 prefix 35246→36031
+  (36178 RNG / 566 Scr); cohort PASS.
+- Next: seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+
 ## 2026-07-18 23:05 — D-0700 ohitmon rolling boulder re-extract
 - Objective: seed0014 @36031 travel/dopush vs continue_run.
 - C locus: `mthrowu.c` `ohitmon` (`!objgone && range==-1` re-extract).

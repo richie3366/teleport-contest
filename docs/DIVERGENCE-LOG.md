@@ -9,6 +9,33 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0701 — mons_see_trap fan-out (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @36031)
+- **Symptom:** seed0014 @35246 — C `rnd(12)` @ `mdig_tunnel` vs JS
+  `rn2(8)` still inside `m_move` chcnt loop.
+- **Rejected:** forcing dig burn / can_tunnel without C candidate parity;
+  blaming `mdig_tunnel` body (JS already had `rnd(12)`).
+- **C locus:** `mondata.c` `mons_see_trap`; callers `trap.c` `dotrap` /
+  `mintrap` before `trapeffect_selector`; `mon.c` `mfndpos` skips known
+  traps when `!(flag & ALLOW_TRAPS)`.
+- **Cause:** JS deferred `mons_see_trap`. After hero triggered rolling
+  boulder at (60,10), C peaceful humanoid @59,11 learned the type and
+  `mfndpos` skipped that cell (cnt=7→ dig). JS kept cnt=8 → extra
+  `rn2(8)` before dig.
+- **Change:** `js/trap.js` `mons_see_trap` (lit 7² / unlit dist2≤2;
+  skip animal/mindless/!haseyes/!mcansee; `m_cansee`); call from
+  `dotrap` + `mintrap`. Also `m_move` shortsighted + unicorn NOTONL
+  avoid (same C selection prologue).
+- **Verification:** seed0014 prefix **35246→36031** RNG **36178**/59178
+  Scr **566**/714; green+strict PASS; cohort (seed1500/1800/0060/0030/
+  0009/0398/5006) PASS.
+- **Named omission:** steed `mon_learns_traps`; `madeby_u` `rnl`
+  setmangry; ALLOW_MDISP displace gate in selection.
+- **Lesson:** trap memory is shared state — missing sight fan-out
+  changes later `mfndpos` counts even when dig code is correct.
+- **Next:** seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+
 ## D-0700 — ohitmon range==-1 rolling boulder keeps rolling (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @35246)
