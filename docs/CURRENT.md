@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **312**/324 | RNG FULL; screen peel @278 |
+| seed0367 | **50125**/50125 | **315**/324 | RNG FULL; screen peel @283 |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -72,19 +72,19 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **312**/324
-(cursors 323/324; prefix **278**). **D-0672** cleared @262 Warning/ESP
-stale floats via moveloop `see_monsters`; next @278 materialize map
-(C blank vs JS temple wall scraps).
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **315**/324
+(cursors 323/324; prefix **283**). **D-0673** cleared @278 Vlad tower1
+map lit (C lspo_map lit=FALSE); next @283 materialize More darkroom
+`·` vs blank (26 cells).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** @278 — after `You materialize on a different
-level!`, 6 cells C blank vs JS `─┐·│─┘` (temple corner memory). Do not
-re-break D-0660…D-0672.
+**Next falsifier / fix:** @283 — after `You materialize…!--More--`,
+C blank vs JS `·` (darkroom / lit / memory). Do not re-break
+D-0660…D-0673.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

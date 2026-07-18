@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0673 — tower1 map lit=FALSE clear (seed0367 @278)
+
+- **Status:** fixed (partial — Scr 315/324; next peel @283 materialize More)
+- **Symptom:** @278 Vlad's Tower materialize — C blank vs JS temple
+  `─┐·│─┘` (6 cells beyond night-vision).
+- **Cause:** C `lspo_map` defaults `lit=FALSE` → `set_levltyp_lit` clears
+  solidfill BOOL_RANDOM lit on every map cell. JS `sel_set_ter(...,false)`
+  is still nochange (D-0668 envelope), so when solidfill `rn2(2)` lit the
+  level, tower rooms stayed lit and vision painted past `nv_range=1`.
+- **C locus:** `sp_lev.c` `lspo_map` (`lit` default FALSE); `dat/tower1.lua`;
+  `mkmaze.c` `set_levltyp_lit`.
+- **Change:** `js/mklev.js` `load_tower1` — after map apply, clear `.lit`
+  on map cells (lava stays lit). Same envelope as Pri-loca D-0668 /
+  fire D-0569. tower2/3 deferred; do not globalize `sel_set_ter(false)`.
+- **Verification:** seed0367 Scr **312→315**/324, prefix **278→283**, RNG
+  FULL; green+strict PASS; cohort **34**/34.
+- **Next:** @283 materialize More — C blank vs JS `·` (26 cells).
+
 ## D-0672 — moveloop once-per-input `see_monsters` (seed0367 @262)
 
-- **Status:** fixed (partial — Scr 312/324; next peel @278 materialize map)
+- **Status:** fixed (partial — Scr 312/324; @278 → D-0673)
 - **Symptom:** @262 C Warning digits / physical `W` vs JS stale floats (W where
   warn digit, digits where blank, missing warns).
 - **Cause:** C `allmain.c` once-per-player-input calls `see_monsters()` when

@@ -3132,6 +3132,7 @@ function splev_map_aligned_start(wid, hei, halign) {
  * Named omissions: tower2/3; SpLev_Map fidelity beyond solidify set;
  * map_cleanup lava/pool sweep; mon_has_special Vlad gate (makemon skips
  * newcham for Vlad); full nh.is_genocided beyond mvitals G_GENOD.
+ * D-0673: map lit=FALSE clear after solidfill (≡ C lspo_map).
  */
 function load_tower1() {
     const g = game;
@@ -3174,6 +3175,17 @@ function load_tower1() {
             sel_set_ter(xx, yy, mptyp, false);
             spLevMap.add(`${xx},${yy}`);
         }
+    }
+    // C lspo_map defaults lit=FALSE → set_levltyp_lit clears solidfill
+    // BOOL_RANDOM lit on map cells (sel_set_ter(...,false) is nochange).
+    // Same envelope as Pri-loca D-0668 / fire D-0569.
+    for (const key of spLevMap) {
+        const comma = key.indexOf(',');
+        const x = Number(key.slice(0, comma));
+        const y = Number(key.slice(comma + 1));
+        const loc = g.level.at(x, y);
+        if (!loc) continue;
+        loc.lit = IS_LAVA(loc.typ) ? true : false;
     }
     const mx = xstart;
     const my = ystart;

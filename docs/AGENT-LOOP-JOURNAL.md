@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 17:45 — #747 D-0673 tower1 map lit=FALSE
+- Objective: seed0367 @278 C blank vs JS temple wall scraps.
+- C locus: `sp_lev.c` `lspo_map` lit default FALSE; `dat/tower1.lua`.
+- Change: `load_tower1` clears map-cell `.lit` after apply (D-0673;
+  ≡ Pri-loca D-0668). solidfill BOOL_RANDOM lit was kept by
+  `sel_set_ter(...,false)` nochange → over-lit vision past nv=1.
+- Verification: Scr **312→315**/324 prefix **278→283**; green+strict;
+  cohort **34**/34. RNG FULL.
+- Next: @283 materialize More — C blank vs JS `·` (26 cells).
+
 ## 2026-07-18 17:35 — #746 D-0672 moveloop see_monsters Warning/ESP
 - Objective: seed0367 @262 Warning/`W` vs warn-digit cell positions.
 - C locus: `allmain.c` once-per-input `see_monsters` when
