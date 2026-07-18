@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#770**,
-post D-0692). Screens **7547**/11405; RNG **486452**/792838 (61.36%).
-**35/44** PASS. Δ vs #765: Scr +36, RNG +3415 (D-0688…D-0692 peels;
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#775**,
+post D-0697). Screens **7604**/11405; RNG **497,349**/792838 (62.73%).
+**35/44** PASS. Δ vs #770: Scr +57, RNG +10897 (D-0693…D-0697 peels;
 still 35 PASS).
 
 ## Score
@@ -31,9 +31,9 @@ still 35 PASS).
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,547 / 11,405** |
-| Positional RNG calls matched | **486,452 / 792,838** (61.36%) |
-| Speed label | `37+0.17/turn` (R² 0.796) |
+| Screens matched | **7,604 / 11,405** |
+| Positional RNG calls matched | **497,349 / 792,838** (62.73%) |
+| Speed label | `36+0.17/turn` (R² 0.798) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 32170/59178 | 533/714 | prefix @32023 C `create_monster` rn2(3) |
+| seed0014 | 33670/59178 | 538/714 | prefix @33278 C `corpse_chance` rn2(2) |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @32023 (step ~555 `>` descend) C
-`create_monster` `rn2(3)` vs JS `rn2(79)`. D-0696 fixed door bump
-`Fumbling()` (prefix 28552→32023, Scr 515→533). Or seed0108 wishlist
-@2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @33278 C `corpse_chance` `rn2(2)` vs JS
+`rn2(5)` (`distfleeck`). D-0697 fixed mines `create_monster` your_race
+gate (prefix 32023→33278, Scr 533→538). Or seed0108 wishlist @2772.
+Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0696.**
+**Do not re-break D-0660…D-0697.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -6302,6 +6302,25 @@ function splev_resolve_occupied(x, y, pm) {
     return { x, y };
 }
 
+/** C ref: mondata.h your_race — (ptr->mflags2 & urace.selfmask) != 0 */
+function your_race(ptr) {
+    const mask = game.urace?.selfmask ?? 0;
+    return !!(ptr && mask && ((ptr.mflags2 ?? 0) & mask));
+}
+
+/**
+ * C ref: sp_lev.c create_monster — In_mines && your_race && (dwarf|gnome)
+ * && rn2(3) → clear pm (random monster placement instead).
+ */
+function splev_mines_maybe_clear_your_race(pm) {
+    if (In_mines(game.u?.uz) && pm && your_race(pm)
+        && (game.urace?.mnum === PM_DWARF || game.urace?.mnum === PM_GNOME)
+        && rn2(3)) {
+        return null;
+    }
+    return pm;
+}
+
 // C ref: sp_lev.c create_monster — sp_amask_to_amask before mkclass / makemon
 // optional peaceful (> BOOL_RANDOM) overrides after makemon (quest fills).
 function splev_create_monster(id_or_class, peaceful) {
@@ -6321,6 +6340,7 @@ function splev_create_monster(id_or_class, peaceful) {
         const mlet = monclass_letter_to_mlet(id_or_class);
         pm = mlet ? mkclass(mlet, G_NOGEN) : null;
     }
+    pm = splev_mines_maybe_clear_your_race(pm);
     // C: pm_to_humidity then get_location_coord(loc|NO_LOC_WARN); on fail |= DRY
     // get_location_coord itself retries get_location once on random miss.
     let pos;
@@ -6456,6 +6476,7 @@ function splev_room_monster(croom, id_or_class, peaceful) {
         const mlet = monclass_letter_to_mlet(id_or_class);
         pm = mlet ? mkclass(mlet, G_NOGEN) : null;
     }
+    pm = splev_mines_maybe_clear_your_race(pm);
     let pos;
     if (pm) {
         let loc = pm_to_humidity(pm);

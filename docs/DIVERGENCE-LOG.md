@@ -9,6 +9,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0697 — create_monster mines your_race rn2(3) (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 32023→33278)
+- **Symptom:** seed0014 @32023 descend — C `create_monster` `rn2(3)` vs JS
+  `get_location` `rn2(79)`.
+- **Cause:** `splev_create_monster` / `splev_room_monster` omitted C's
+  `In_mines && your_race(pm) && (Race_if(DWARF)||Race_if(GNOME)) && rn2(3)`
+  clear-pm gate (`sp_lev.c`).
+- **C locus:** `sp_lev.c` `create_monster`; `mondata.h` `your_race`.
+- **Change:** `js/mklev.js` — `your_race` + `splev_mines_maybe_clear_your_race`
+  before humidity/`get_location` in both create paths.
+- **Named omission:** hand-rolled fill `create_monster` sites still skip the
+  gate; sticky `u.Fumbling` elsewhere unchanged.
+- **Verification:** seed0014 prefix **32023→33278**, Scr **533→538**/714
+  (positional RNG **33670**/59178); green+strict PASS; cohort **33**/33;
+  full suite **35/44** Scr **7604** RNG **497349** (62.73%).
+- **Next:** @33278 C `corpse_chance` `rn2(2)` vs JS `rn2(5)`.
+
 ## D-0696 — closed-door bump Fumbling() ≡ H||E (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 28552→32023)

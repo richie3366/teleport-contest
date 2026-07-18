@@ -677,6 +677,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0694 | fixed | makeplural one_off foot→feet | seed0014 Scr 482→483; @22868 mtrack is More/key desync |
 | D-0695 | fixed | unmul empty nomovemsg ≠ default | seed0014 prefix 22868→28552 Scr 483→515; next @28552 exercise |
 | D-0696 | fixed | closed-door bump Fumbling() ≡ H\|\|E | seed0014 prefix 28552→32023 Scr 515→533; next @32023 create_monster |
+| D-0697 | fixed | create_monster mines your_race rn2(3) | seed0014 prefix 32023→33278 Scr 533→538; next @33278 corpse_chance |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
