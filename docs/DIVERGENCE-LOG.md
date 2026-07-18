@@ -10,18 +10,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Symptom:** seed0014 @49039 — C `rn2(5)` @ `distfleeck` vs JS `rn2(6)`.
 - **C locus:** `monmove.c` `m_move` `!rn2(++chcnt)` after `mfndpos`; next
   mon’s `distfleeck` `rn2(5)`.
-- **Cause (partial):** peaceful `PM_GNOME@23,11` `appr=0` — JS `mfndpos`
-  returns **6** ROOM neighbors; C processes **5** chcnt rolls then
-  `distfleeck`. Not a wrong `rn2` arity inside `distfleeck` (JS already
-  `rn2(5)` there). Mid-turn travel `u=(24,9)` → `travelcc=(69,19)`.
-- **Falsified:** single-flank no-cut-corners (breaks @3061); squeeze on
-  `(22,10)` (only one `bad_rock` flank + `cant_squeeze_thru=0`); neighbor
-  trap/obj/mon/gas at DIAG time.
-- **Experiment:** drop any one of the 6 candidates → prefix **49039→49300**
-  (does not identify which cell C omits).
-- **Next:** identify the omitted neighbor + C predicate (map typ /
-  `visible_region_at` / `onscary` / earlier divergence); or shared
-  travel/map blocker.
+- **Cause (partial):** peaceful `PM_GNOME` — JS `mfndpos` returns **6**
+  ROOM neighbors; C processes **5** chcnt rolls then `distfleeck`. Not a
+  wrong `rn2` arity inside `distfleeck`. Same gnome earlier @48985 at
+  `(24,11)` with cnt=8 matched C, then moved to `(23,11)`. At miss:
+  poss `(22,10)(23,10)(23,12)(24,10)(24,11)(24,12)`; `u=(24,9)` (travel
+  from `(23,8)` @49018); kickedloc cleared; no JS trap/obj/mon/gas on
+  neighbors. Probe: hero standing on any of the 6 → cnt=5.
+- **Falsified (#787–#788):** distfleeck arity; single-flank corners
+  (@3061); squeeze on `(22,10)`; neighbor trap/obj/mon/gas in JS; one-step
+  travel landing on a gnome neighbor (impossible from `(23,8)`).
+- **Experiment:** drop any one of the 6 → prefix **49039→49300** (does
+  not identify which cell C omits).
+- **Next:** identify omitted neighbor + C predicate (C-only trap/mon on
+  one cell; earlier same-arity geometry split; missing mfndpos arm);
+  prefer C-state capture over more drop-one trials.
 
 ## D-0707 — corpse_chance always-TRUE bigmonst arms (seed0014)
 

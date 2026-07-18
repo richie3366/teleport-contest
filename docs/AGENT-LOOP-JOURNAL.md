@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 01:10 — #788 D-0708 mfndpos cnt (diagnose)
+- Objective: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+- C locus: `monmove.c` `m_move`/`mfndpos` (peaceful gnome).
+- Falsified: squeeze/gas already out; also hero one-step travel onto
+  gnome neighbor (impossible from `(23,8)`). Mapped: same gnome
+  `@48985` cnt=8 @`(24,11)` matched →`(23,11)`; JS 6 ROOM poss;
+  `u=(24,9)`; hero-on-any-poss → cnt=5. No JS trap/mon on poss.
+- Verification: green+strict PASS; DIAG removed; no code change.
+- Next: which of 6 C omits (C-only trap/mon / earlier geometry /
+  missing mfndpos arm); or seed0108.
+
 ## 2026-07-19 00:52 — #787 D-0708 mfndpos cnt (diagnose)
 - Objective: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 - C locus: `monmove.c` `m_move`/`mfndpos` (not `distfleeck` body).
@@ -155,14 +166,3 @@ Use this shape:
 - Verification: prefix **28552→32023**, Scr **515→533**; green+strict;
   cohort **33**/33 PASS.
 - Next: @32023 C `create_monster` `rn2(3)` vs JS `rn2(79)` (descend).
-
-## 2026-07-18 21:57 — #773 D-0695 unmul empty nomovemsg
-- Objective: seed0014 trip `--More--` @22721 / @22868 mtrack desync.
-- C locus: `hack.c` `unmul`; `timeout.c` FUMBLING `nomovemsg=""`.
-- Change: D-0695 — `unmul` default only if `nomovemsg == null`; skip
-  pline on `""`. Falsified: leftover-grid noises skip; more() keep-grid
-  (regressed seed0002/0030 screens).
-- Verification: prefix **22868→28552**, Scr **483→515**; green+strict;
-  cohort PASS list intact.
-- Next: @28552 C `exercise` `rn2(2)` vs JS `rn2(19)` (door-bump step).
-

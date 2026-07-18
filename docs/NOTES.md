@@ -7,18 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#787 D-0708 diagnose:** seed0014 `@49039` is **not** a
-  `distfleeck` arity bug. C `rn2(5)` @distfleeck vs JS `rn2(6)` =
-  peaceful `PM_GNOME@23,11` `mfndpos` **cnt=6** vs C **cnt=5**
-  (`appr=0` `!rn2(++chcnt)`). Neighbors all ROOM; no trap/obj/mon/gas;
-  diagonal squeeze cannot explain (gnome `cant_squeeze_thru=0`; only one
-  flank `bad_rock` for `(22,10)`). Dropping any one of the 6 advances
-  prefix →49300 (does not identify which cell C omits). Mid-turn travel
-  `u=24,9` →`(69,19)`.
+- **#788 D-0708:** seed0014 `@49039` peaceful gnome `mfndpos`
+  cnt **6 vs C 5**. Same gnome earlier `@48985` cnt=8 at `(24,11)`
+  matched C then moved to `(23,11)`. JS poss:
+  `(22,10)(23,10)(23,12)(24,10)(24,11)(24,12)` all ROOM; no trap/obj/
+  mon/gas; kickedloc cleared; `u=(24,9)` not on any poss. Probe: hero
+  on any of the 6 → cnt=5. Travel `@49018` `(23,8)→(24,9)` toward
+  `(69,19)` (one step cannot land on a gnome neighbor). Next: which
+  cell C omits — trap/mon only on C, or shared travel/map earlier
+  same-arity geometry split; or missing mfndpos predicate.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** single-flank “no cut corners” (breaks @3061); flush_topl_more
-  before every parse get_count; couldsee-only BFS; re-break D-0660…D-0707.
+- **Don’t:** single-flank corners (@3061); flush_topl_more every
+  get_count; couldsee-only BFS alone; re-break D-0660…D-0707; blame
+  `distfleeck` arity / squeeze / gas on this miss.
 
 ## Don’t re-check (≤15)
 
