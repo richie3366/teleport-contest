@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#745**).
-Screens **7062**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
-Δ vs #740: Scr **+41**, RNG **+0**, PASS **+0**. Screen gain is seed0367
-peels #741–44 (Scr 267→308 @ suite) landing in aggregates.
-(#746 D-0672: seed0367 Scr 308→312 focused; suite not remeasured.)
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#750**).
+Screens **7068**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
+Δ vs #745: Scr **+6**, RNG **+0**, PASS **+0**. Screen gain is peels
+#746–749 (seed0367 Scr 308→314 @ suite) landing in aggregates.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **34 / 44** |
-| Screens matched | **7,062 / 11,405** |
+| Screens matched | **7,068 / 11,405** |
 | Positional RNG calls matched | **465,040 / 792,838** (58.66%) |
-| Speed label | `35+0.17/turn` (R² 0.78) |
+| Speed label | `35+0.16/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (34):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -73,17 +72,18 @@ D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **314**/324
-(cursors 323/324; prefix **297**). **D-0674:** gas-cloud `does_block` +
-`run_regions` (was misread as Algorithm-C). **D-0675:** @297 map(23,14)
-C wall `x` vs JS blank (hero ~72,16).
+(cursors 323/324; prefix **297**). **D-0675:** @297 Home 1 materialize —
+tty(22,15)=game(23,14) C DEC `x` vs JS blank. TRWALL lit but **viz=0**
+(row14 rmax=22; neighbors VWALL at 23 have viz=3).
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** LOS / wall IN_SIGHT (23,14) from hero stand;
-region ttl / directional wall lighting. Do not re-break D-0660…D-0674.
+**Next falsifier / fix:** `vision.c` `right_side` COULD_SEE for west-face
+TRWALL when parent `right_mark` / horizontal wall finger; compare C vs JS
+`right_ptrs`+`q4_path` on row 14. Do not re-break D-0660…D-0674.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

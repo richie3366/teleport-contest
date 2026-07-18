@@ -31,6 +31,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 18:35 — #750 public score + D-0675 diagnose
+- Objective: mandatory full `sessions` score (#750 % 5 == 0); seed0367 @297.
+- C locus: `vision.c` `right_side` / COULD_SEE (diagnose only).
+- Change: score refresh only — **34/44** Scr **7068**/11405 RNG
+  **465040** (58.66%) `35+0.16/turn`. Δ vs #745 Scr **+6**.
+  D-0675: game(23,14) TRWALL lit viz=0 (row14 rmax=22); not (72,16).
+- Verification: green+strict PASS; full suite recorded in CURRENT.
+- Next: `right_side` finger so TRWALL gets set_cs (D-0675).
+
 ## 2026-07-18 18:00 — #748 D-0674 Pri-loca Algorithm-C NW cone
 - Objective: seed0367 @283 C blank vs JS `·` (26 cells).
 - C locus: `vision.c` `left_side`/`view_from`; `dat/Pri-loca.lua`.

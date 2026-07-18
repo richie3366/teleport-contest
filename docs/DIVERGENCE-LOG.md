@@ -4,14 +4,17 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0675 — (23,14) wall vs blank (seed0367 @297)
+## D-0675 — (23,14) TRWALL viz gap (seed0367 @297)
 
 - **Status:** open
-- **Symptom:** @297 — C DEC `x` (VWALL) vs JS blank at map (23,14);
-  hero ~ (72,16). Prefix **297**/324 after D-0674.
-- **Cause (working):** post–gas-cloud vision; wall not IN_SIGHT in JS.
-- **Next:** compare C/JS LOS from (72,16) to (23,14); region ttl /
-  directional wall lighting.
+- **Symptom:** @297 Home 1 materialize — tty(22,15)=game **(23,14)**
+  C DEC `x` vs JS blank. Hero u=(13,2). Prefix **297**/324.
+- **Cause (working):** cell is **TRWALL** (typ 11) lit, but
+  `viz_array[14][23]=0` while (23,13)/(23,15) VWALL have viz=3.
+  Row 14 `_viz_rmax=22` — COULD_SEE stops on floor west of the wall.
+  Not gas-cloud; not wrong game-x (display uses x−1).
+- **Next:** `vision.c` `right_side` / `right_ptrs` so the west-face
+  TRWALL gets `set_cs` when the horizontal wall finger is seen.
 
 ## D-0674 — gas-cloud does_block + run_regions (seed0367 @283)
 

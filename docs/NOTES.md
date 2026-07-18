@@ -7,12 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#749:** D-0674 closed — @283 was fog gas-cloud on LOS (22,13), not
-  Algorithm-C. `_blocks`+`run_regions`+`recalc_block_point`. Prefix
-  **283→297**; Scr 315→314. Next **D-0675** @297 map(23,14) C `x` vs blank
-  (hero ~72,16).
-- **Falsify next:** LOS / wall IN_SIGHT from (72,16) to (23,14); region
-  ttl vs C; directional wall lighting. Don’t invent darkroom blank.
+- **#750:** public score refresh — **34/44** Scr **7068**/11405 RNG
+  **465040**/792838 (58.66%) `35+0.16/turn`. Δ vs #745 Scr **+6**.
+- **D-0675 (open):** seed0367 @297 Home 1 materialize. tty(22,15) =
+  game **(23,14)** C DEC `x` vs JS blank. Hero u=(13,2). Cell is
+  **TRWALL** lit, seenv=0, **viz=0**; row14 `_viz_rmax=22` (stops on
+  floor west of wall). Neighbors (23,13)/(23,15) VWALL **viz=3**.
+- **Falsify next:** `right_side` finger / `right_mark` so TRWALL at
+  col 23 gets `set_cs` like C; dump C-equivalent `right_ptrs[14][22]`.
+  Don’t invent darkroom blank; don’t reopen D-0674 gas-cloud.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
 - **Don’t:** reopen D-0474…D-0674; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
@@ -42,11 +45,9 @@ Objective/score live in `CURRENT.md`.
   intemple without Pri-strt MAGIC_PORTAL; pre-set `u.urooms` in
   `teleds`; skip `#chat` MS_LEADER; omit AD_SPEL/AD_CLRC / castmu;
   omit Pri-loca/MORGUE/fill_zoo roomno/m_initinv S_DEMON…
-  retrospectives; invent place_lregion for @19994/@26691; invent
-  S_ANGEL/quest_portal/medusa-1; skip align_shift oldmoves / set
-  moves=1 before mklev; invent goodpos pool reject for flyers; invent
-  accept first Medusa statue makemon (resists_ston); invent skip
-  Pri-fila morgue rooms; skip vamp decide_to_shapeshift arms;
+  retrospectives; invent place_lregion / S_ANGEL/medusa-1; skip
+  align_shift oldmoves; invent goodpos pool reject / Medusa statue
+  accept / Pri-fila morgue skip; skip vamp shapeshift arms;
   skip D-0660…D-0675 retros; globalize `sel_set_ter(false)`.
 
 ## Don’t re-check (≤15)
@@ -81,12 +82,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#745; Scr 7062 RNG 465040 / 58.66%).
+  **PASS** (suite **34/44** @#750; Scr 7068 RNG 465040 / 58.66%).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 314; @297 → D-0675 wall (23,14).
+- Quest: seed0367 RNG FULL Scr 314; @297 → D-0675 TRWALL viz gap.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
@@ -94,5 +95,5 @@ Objective/score live in `CURRENT.md`.
   exclusion_zones save/rest deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
-- defsym: `')'`=WEAPON, `'('`=TOOL; Arc-goal **14** `des.object()`.
-- Quest `"M"`→S_MUMMY; `"m"`→S_MIMIC. Python S_SNAKE !M1_CONCEAL.
+  defsym `')'`=WEAPON `'('`=TOOL; Arc-goal **14** `des.object()`.
+  Quest `"M"`→S_MUMMY; `"m"`→S_MIMIC. Python S_SNAKE !M1_CONCEAL.
