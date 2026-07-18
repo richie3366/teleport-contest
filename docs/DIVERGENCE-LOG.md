@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0684 — dogushforth / gush (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16447→16624)
+- **Symptom:** @16447 C `gush` `rn2(7)` vs JS `rn2(3)` after matching
+  `dipfountain` `rnd(30)=25`.
+- **Cause:** `dipfountain` case 25 (and drink case 30) stubbed
+  `dogushforth`; JS fell through to `dryup` `rn2(3)`.
+- **C locus:** `fountain.c` `dogushforth`/`gush`; `vision.c`
+  `do_clear_area`; `mkroom.c` `nexttodoor`; `trap.c` `delfloortrap`.
+- **Change:** Port `dogushforth`/`gush`/`nexttodoor`/`delfloortrap`
+  subset in `js/fountain.js`; wire dip case 24→25 fallthrough + case 25
+  and drink case 30. Named omissions: `minliquid` body; full
+  `set_levltyp` side effects; dip cases 17–22/26–29.
+- **Verification:** seed0014 prefix **16447→16624**, Scr **383→395**/714,
+  positional RNG **16580→16629**/59178; green+strict PASS; cohort
+  **33**/33.
+- **Next:** @16624 C `collect_coords` after dip `rnd(30)=22`
+  (`dowaternymph`→`makemon`).
+
 ## D-0683 — water_damage → erode_obj rust (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16304→16447)

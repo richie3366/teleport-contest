@@ -664,6 +664,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0681 | fixed | cursed_book + study_book too_hard + aggravate | seed0014 RNG prefix 9354→14566 Scr 221→298; next @14566 zhitm |
 | D-0682 | fixed | zhitm wand-ray damage + cold destroy_items/resist | seed0014 RNG prefix 14566→16304 Scr 298→365; next @16304 dipfountain |
 | D-0683 | fixed | water_damage → erode_obj(ERODE_RUST) | seed0014 RNG prefix 16304→16447 Scr 365→383; next @16447 gush/dogushforth |
+| D-0684 | fixed | dogushforth/gush do_clear_area + nexttodoor | seed0014 RNG prefix 16447→16624 Scr 383→395; next @16624 dowaternymph |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

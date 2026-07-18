@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:50 — #761 D-0684 dogushforth/gush
+- Objective: seed0014 @16447 C `gush` `rn2(7)` vs JS `rn2(3)`.
+- C locus: `fountain.c` `dogushforth`/`gush`; `vision.c` `do_clear_area`;
+  `mkroom.c` `nexttodoor`; `trap.c` `delfloortrap`.
+- Change: D-0684 — port `dogushforth`/`gush` + helpers; wire dip case 25
+  / drink case 30. Named omissions: `minliquid`; full `set_levltyp`.
+- Verification: prefix **16447→16624**, Scr **383→395**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @16624 dip `rnd(30)=22` → `dowaternymph`/`makemon`/`collect_coords`.
+
 ## 2026-07-18 19:44 — #760 score + D-0683 water_damage erode
 - Objective: mandatory full score (#760÷5); seed0014 @16304 dipfountain.
 - C locus: `trap.c` `water_damage`/`erode_obj`; `fountain.c` `dipfountain`.
@@ -154,14 +164,4 @@ Use this shape:
 - Verification: Scr **312→315**/324 prefix **278→283**; green+strict;
   cohort **34**/34. RNG FULL.
 - Next: @283 materialize More — C blank vs JS `·` (26 cells).
-
-## 2026-07-18 17:35 — #746 D-0672 moveloop see_monsters Warning/ESP
-- Objective: seed0367 @262 Warning/`W` vs warn-digit cell positions.
-- C locus: `allmain.c` once-per-input `see_monsters` when
-  Unblind_telepat/Warning (`!mv || Blind`).
-- Change: `js/allmain.js` call `see_monsters()` after `find_ac`
-  (D-0672). Stale gbuf floats were not refreshed on ordinary steps.
-- Verification: Scr **308→312**/324 prefix **262→278**; green+strict;
-  cohort **34**/34. RNG FULL.
-- Next: @278 materialize map — C blank vs JS temple wall scraps.
 

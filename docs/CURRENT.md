@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 after D-0683 `water_damage`→`erode_obj` —
-first mismatch @16447 C `gush` `rn2(7)` (`dogushforth` / `fountain.c`).
-Or seed0108 wishlist @2772 `rnd_otyp_by_namedesc`. Prefer shared blockers.
-seed2200 @158 parked.
+**Gameplay next:** seed0014 after D-0684 `dogushforth`/`gush` —
+first mismatch @16624 C `collect_coords` after dip `rnd(30)=22`
+(`dowaternymph`→`makemon`). Or seed0108 wishlist @2772
+`rnd_otyp_by_namedesc`. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0683.**
+**Do not re-break D-0660…D-0684.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
