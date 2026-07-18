@@ -9,6 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0702 — travel couldsee-prefer / seenv-detour quiet-rest (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @40196)
+- **Symptom:** seed0014 @36031 — C `exercise` `rn2(19)` (boulder push STR)
+  vs JS `rn2(5)` `distfleeck`. NOTES hypothesized exercise formula; false.
+- **Rejected:** `exercise`/`rn2(19)` wrong in JS (already correct); forcing
+  couldsee-only BFS alone (broke seed0004/0007 PASS).
+- **C locus:** `hack.c` `findtravelpath` / `test_move(TEST_TRAV)` (seen trap +
+  known liquid + tight-diag `cant_squeeze_thru`); `cmd.c` `dotravel_target`
+  quiet rest when no path (`dx=dy=0`, `ECMD_TIME`).
+- **Cause:** `_>` travel to stairs: JS BFS walked west via seenv-only long
+  detour (Chebyshev worsen). C has no TEST_TRAV path → rests; next `n`
+  pushes boulder → `exercise(A_STR)`. Hero one cell west → no boulder.
+- **Change:** `js/cmd.js` — prefer `findtravelpath_travel(couldseeOnly)`;
+  seenv-only path taken only if first step does not worsen dist, else
+  quiet-rest; `travel_avoids_cell` (seen traps/liquids); tight-diag load
+  squeeze. Accurate seenv|couldsee deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **36031→40196**
+  RNG **40407**/59178 Scr **574**/714; cohort seed0004/0007/1500/1800/
+  5006 + green PASS.
+- **Next:** seed0014 @40196 C `mintrap` `rn2(4)` vs JS `rn2(5)`.
+
 ## D-0701 — mons_see_trap fan-out (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @36031)

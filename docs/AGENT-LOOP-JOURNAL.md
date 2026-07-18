@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 23:45 — #781 D-0702 travel seenv-detour quiet-rest
+- Objective: seed0014 @36031 (NOTES said exercise rn2(19) vs rn2(5)).
+- C locus: `hack.c` findtravelpath/TEST_TRAV; `cmd.c` dotravel_target.
+- Falsified: exercise formula (already correct). Real: `_>` travel walked
+  west on seenv-only detour; C rests → `n` boulder `exercise(A_STR)`.
+- Change: prefer couldsee path; seenv-only worsen-dist → quiet-rest;
+  trap/liquid avoid + tight-diag load squeeze in BFS.
+- Verification: green+strict PASS; prefix 36031→40196 Scr 574; cohort
+  seed0004/0007 stay PASS (couldsee-only alone broke them).
+- Next: seed0014 @40196 C `mintrap` rn2(4) vs JS rn2(5).
+
 ## 2026-07-18 23:15 — #780 score + D-0701 mons_see_trap
 - Objective: mandatory full score (#780÷5) + seed0014 @35246.
 - Score: **35/44** Scr **7619**/11405 RNG **499061**/792838 (62.95%)

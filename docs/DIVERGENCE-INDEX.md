@@ -682,6 +682,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0699 | fixed | setworn(null,W_RINGL\|R) clears uleft/uright | seed0014 prefix 35611→36031 Scr 538; next @36031 exercise |
 | D-0700 | fixed | ohitmon range==-1 rolling boulder re-extract | seed0014; boulder rests 56,10; next @35246 mdig |
 | D-0701 | fixed | mons_see_trap dotrap/mintrap fan-out | seed0014 prefix 35246→36031 Scr 553→566; next @36031 exercise |
+| D-0702 | fixed | travel couldsee-prefer / seenv-detour rest | seed0014 prefix 36031→40196 Scr 566→574; next @40196 mintrap |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
