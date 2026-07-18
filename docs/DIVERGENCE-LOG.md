@@ -9,6 +9,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0692 — nh_timeout FUMBLING slip_or_trip (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 21529→22582)
+- **Symptom:** @21529 C `rn2(4)=2` @ `slip_or_trip(timeout.c:1302)` vs JS
+  `rn2(100)` (regen_hp). After D-0691 goto_level Fumbling; Scr 467/714.
+- **Cause:** `nh_timeout` had WOUNDED_LEGS/CONFUSION only. C FUMBLING
+  TIMEOUT expiry calls `slip_or_trip` then `incr_itimeout(HFumbling,rnd(20))`
+  when `Fumbling` still true (worn fumble boots E).
+- **C locus:** `timeout.c` `nh_timeout` case FUMBLING; `slip_or_trip`.
+- **Change:** `js/timeout.js` — FUMBLING TIMEOUT decrement; `slip_or_trip`
+  (floor trip / ice|FROMOUTSIDE / on_foot `rn2(4)`); `nomul(-2)`;
+  clear FROMOUTSIDE; `incr_itimeout` via `Fumbling()` + sync uprops.
+- **Verification:** seed0014 prefix **21529→22582**, Scr **467→481**/714,
+  positional RNG **22773**/59178; green+strict PASS; cohort **33**/33;
+  full suite **35**/44 (Scr 7547, RNG 486452).
+- **Named omission:** Hallu bite highc; corpse petrify; mounted
+  dismount_steed; ice hurtle/`rn2(10+DEX)`/confdir; defer_decor;
+  other nh_timeout property cases; Levitation/Flying prop helpers.
+- **Next:** @22582 C `thitmonst` `rnd(25)` vs JS `rn2(100)`.
+
 ## D-0691 — goto_level descend Fumbling() H||E (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 21242→21529)

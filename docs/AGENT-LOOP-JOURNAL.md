@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:12 — #770 score + D-0692 slip_or_trip
+- Objective: mandatory #770 full score; seed0014 @21529 slip_or_trip.
+- C locus: `timeout.c` nh_timeout FUMBLING; `slip_or_trip` rn2(4).
+- Change: D-0692 — `js/timeout.js` FUMBLING case + slip_or_trip.
+- Verification: suite **35**/44 Scr **7547**/11405 RNG **486452**/792838
+  (61.36%) `37+0.17/turn`; prefix **21529→22582** Scr **467→481**;
+  green+strict; cohort **33**/33.
+- Next: @22582 C `thitmonst` `rnd(25)` vs JS `rn2(100)`.
+
 ## 2026-07-18 21:05 — #769 D-0691 goto_level Fumbling()
 - Objective: seed0014 @21242 C `goto_level` `rnd(3)` vs JS `rn2(10)`.
 - C locus: `do.c` goto_level descend fall; `youprop.h` Fumbling.

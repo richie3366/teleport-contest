@@ -672,6 +672,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0689 | fixed | exerper Fumbling ≡ H\|\|E (youprop.h) | seed0014 RNG prefix 18494→19636 Scr 453→459; next @19636 lspo_map |
 | D-0690 | fixed | themerms Water-surrounded vault des.map | seed0014 prefix 19636→21242 Scr 459→460; next @21242 goto_level |
 | D-0691 | fixed | goto_level descend Fumbling() ≡ H\|\|E | seed0014 prefix 21242→21529 Scr 460→467; next @21529 slip_or_trip |
+| D-0692 | fixed | nh_timeout FUMBLING slip_or_trip rn2(4) | seed0014 prefix 21529→22582 Scr 467→481; next @22582 thitmonst |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

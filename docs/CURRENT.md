@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#765**,
-post D-0687). Screens **7511**/11405; RNG **483037**/792838 (60.93%).
-**35/44** PASS. Δ vs #760: Scr +60, RNG +2789 (D-0683…D-0687 peels;
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#770**,
+post D-0692). Screens **7547**/11405; RNG **486452**/792838 (61.36%).
+**35/44** PASS. Δ vs #765: Scr +36, RNG +3415 (D-0688…D-0692 peels;
 still 35 PASS).
 
 ## Score
@@ -31,9 +31,9 @@ still 35 PASS).
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,511 / 11,405** |
-| Positional RNG calls matched | **483,037 / 792,838** (60.93%) |
-| Speed label | `35+0.17/turn` (R² 0.808) |
+| Screens matched | **7,547 / 11,405** |
+| Positional RNG calls matched | **486,452 / 792,838** (61.36%) |
+| Speed label | `37+0.17/turn` (R² 0.796) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 21611/59178 | 460/714 | prefix @21242 C `goto_level` rnd(3) |
+| seed0014 | 22773/59178 | 481/714 | prefix @22582 C `thitmonst` rnd(25) |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @21529 C `slip_or_trip` `rn2(4)`
-(timeout.c:1302) vs JS `rn2(100)`. D-0691 goto_level `Fumbling()`
-(prefix 21242→21529, Scr 460→467). Or seed0108 wishlist @2772.
-Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @22582 C `thitmonst` `rnd(25)`
+(dothrow.c:2258) vs JS `rn2(100)`. D-0692 nh_timeout FUMBLING
+`slip_or_trip` (prefix 21529→22582, Scr 467→481). Or seed0108
+wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0691.**
+**Do not re-break D-0660…D-0692.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
