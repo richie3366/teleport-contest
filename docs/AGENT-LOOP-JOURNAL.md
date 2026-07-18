@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 20:17 — #764 D-0687 MS_SEDUCE #chat
+- Objective: seed0014 @17952 C `dochug` `rn2(40)` vs JS `rn2(20)`.
+- C locus: `sounds.c` `domonnoise` MS_SEDUCE; `dochat`/`dotalk`.
+- Change: D-0687 — infer `S_NYMPH`→MS_SEDUCE; port cajoles ECMD_TIME.
+  Silent msound=0 made `#chat` free; later `n` was a move while C
+  ran movemon. Named omissions: doseduce; verbalize; other MS_*.
+- Verification: prefix **17952→18426**, Scr **435→445**/714; green+strict
+  PASS; cohort **35**/35.
+- Next: @18426 C `distfleeck` `rn2(5)` vs JS `rn2(12)`.
+
 ## 2026-07-18 20:05 — #763 D-0686 steal + rloc 50-try
 - Objective: seed0014 @16712 C `steal` `rn2(21)` vs JS `rn2(3)`.
 - C locus: `uhitm.c` `mhitm_ad_sedu`; `steal.c` `steal`; `teleport.c`
@@ -154,13 +164,3 @@ Use this shape:
 - Verification: green+strict PASS; full suite recorded in CURRENT.
 - Next: `right_side` finger so TRWALL gets set_cs (D-0675).
 
-## 2026-07-18 18:20 — #749 D-0674 gas-cloud does_block
-- Objective: seed0367 @283 C blank vs JS `·` (26 cells).
-- C locus: `vision.c` `does_block`; `region.c` `add_region`/`run_regions`;
-  `allmain.c` after `nh_timeout`.
-- Change: D-0674 — `_blocks`→`visible_region_at`; create/expire
-  `recalc_block_point`; `run_regions` ttl. Was fog on LOS (22,13),
-  not Algorithm-C. Next D-0675 @297 (23,14) wall.
-- Verification: prefix **283→297** Scr **315→314** RNG FULL;
-  green+strict PASS; cohort **32**/32.
-- Next: @297 map(23,14) C `x` vs JS blank (D-0675).

@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#763:** D-0686 — `steal` AD_SITM + `rloc` 50× rnd/rn2.
-  seed0014 prefix **16712→17952**, Scr **401→435**.
-- **Next:** seed0014 @17952 C `dochug` `rn2(40)` (flee tele) vs
-  JS `rn2(20)`. Or seed0108 @2772. Local **35** vs judge **22**.
-- **Don’t:** reopen D-0474…D-0686; invent put_lregion reject; re-add
+- **#764:** D-0687 — `domonnoise` MS_SEDUCE nymph `#chat`.
+  seed0014 prefix **17952→18426**, Scr **435→445**.
+- **Next:** seed0014 @18426 C `distfleeck` `rn2(5)` vs JS `rn2(12)`
+  mcalcmove. Or seed0108 @2772. Local **35** vs judge **22**.
+- **Don’t:** reopen D-0474…D-0687; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -42,18 +42,19 @@ Objective/score live in `CURRENT.md`.
   retrospectives; invent place_lregion / S_ANGEL/medusa-1; skip
   align_shift oldmoves; invent goodpos pool reject / Medusa statue
   accept / Pri-fila morgue skip; skip vamp shapeshift arms;
-  skip D-0660…D-0686 retros; globalize `sel_set_ter(false)`;
+  skip D-0660…D-0687 retros; globalize `sel_set_ter(false)`;
   blame `right_side` for cross-level gas; call `rigid_role_checks`
   before `n<=1` chargen auto-assign; stub SCR_IDENTIFY again;
   treat SPELL/WAND as `oc_merge` without C BITS cite; stub
   POT_SICKNESS/cursed_book/zhitm-sleep/water_damage erode/
-  dogushforth/dowaternymph/steal/rloc-50 again.
+  dogushforth/dowaternymph/steal/rloc-50/MS_SEDUCE again;
+  treat missing `mflee` when `#chat` skipped ECMD_TIME.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0686 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0687 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -73,8 +74,7 @@ Objective/score live in `CURRENT.md`.
   `weapon_descr` P_NONE → oclass `"spellbook"`.
 - D-0677: chargen `rigid_role_checks` ≡ C `plsel_startmenu` only when
   opening a menu (`n>1`); `n<=1` must not `pick_align`/`pick_gend` RNG.
-- D-0678…D-0686: identify→…→dowaternymph→steal+rloc 50-try; SPELL mrg=0;
-  supply chests need `add_to_container`.
+- D-0678…D-0687: identify→…→steal+rloc→MS_SEDUCE `#chat` ECMD_TIME.
 
 ## Landmarks (≤15)
 
@@ -86,7 +86,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS** (D-0676). seed0014 @17952 dochug next.
+- Quest: seed0367 **PASS** (D-0676). seed0014 @18426 distfleeck next.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

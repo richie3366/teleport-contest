@@ -4,7 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+# Divergence log
+
+Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
+Newest entries at top.
+
+## D-0687 — domonnoise MS_SEDUCE (#chat nymph, seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 17952→18426)
+- **Symptom:** @17952 C `dochug` `rn2(40)` flee-teleport vs JS
+  `overexertion`/`gethungry` `rn2(20)`. Looked like missing `mflee`.
+- **Cause:** `#chat` + getdir found the water nymph, but `domonnoise`
+  treated omitted-table `msound` as silent (`msound===0` → ECMD_OK).
+  Chat spent no turn; later `n` became a move/`do_attack` while C
+  spent ECMD_TIME and ran movemon (fleeing nymph `rn2(40)`).
+- **C locus:** `sounds.c` `domonnoise` `MS_SEDUCE`; `monflag.h`
+  `MS_SEDUCE`; `polyself.c` `poly_gender`; `dochat`/`dotalk`.
+- **Change:** Infer `S_NYMPH` → `MS_SEDUCE`; port cajoles / comes-on /
+  `Hello, sailor.` gender/`rn2(3)` gate; return `ECMD_TIME`. Named
+  omissions: `doseduce` non-nymph SYSOPT path; real `verbalize`;
+  `is_neuter` poly_gender=2; other MS_*.
+- **Verification:** seed0014 prefix **17952→18426**, Scr **435→445**/714,
+  positional RNG **18133→19358**/59178; green+strict PASS; cohort
+  **35**/35.
+- **Next:** @18426 C `distfleeck` `rn2(5)` vs JS `rn2(12)` mcalcmove.
+
 ## D-0686 — steal + rloc 50-try (seed0014)
+
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16712→17952)
 - **Symptom:** @16712 C `steal` `rn2(21)` vs JS `rn2(3)` after matching
