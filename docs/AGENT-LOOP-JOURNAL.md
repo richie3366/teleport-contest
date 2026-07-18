@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 01:30 — #790 score + D-0710 diagnose
+- Objective: mandatory full `sessions` score (#790 % 5); peel seed0108.
+- C locus: `monmove.c` `dochug` want_move / `monnear`.
+- Change: no code fix. Score **35/44**, Scr **7654**/11405,
+  RNG **513214**/792838 (64.73%), speed `36+0.19/turn`.
+  D-0710: tame feline @2778 JS `nearby=false` (dist2=8) skips
+  wanderer `rn2(4)`; C has `nearby=true` ⇒ earlier geometry.
+- Verification: green+strict PASS; DIAG removed; suite documented.
+- Next: pre-@2778 pet/hero adjacency; or seed0014 D-0708.
+
 ## 2026-07-19 01:24 — #789 D-0709 #wizwish + D-0708 sharpen
 - Objective: CURRENT primary; pivoted seed0108 after D-0708 cell-ID stall.
 - C locus: `cmd.c` extcmdlist `wizwish` → `wiz_wish`/`makewish`.

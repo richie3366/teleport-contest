@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0710 — dochug nearby short-circuit skips wanderer rn2(4) (seed0108)
+
+- **Status:** open (diagnosed; no faithful fix this iteration)
+- **Symptom:** seed0108 @2778 — C `dochug` `rn2(4)` vs JS `rn2(100)`
+  (`obj_resists` via `dog_goal`).
+- **C locus:** `monmove.c` `dochug` want_move OR — wanderer/`!mcansee`
+  `rn2(4)` only reached when `!nearby` is false.
+- **Cause (partial):** tame S_FELINE at JS `(41,16)` vs hero `(43,18)`
+  (`mux/muy` match `u`); `dist2=8` ⇒ `monnear` false ⇒ `nearby=false`
+  short-circuits before wanderer `rn2(4)`. C emits that `rn2(4)` ⇒ C
+  `nearby=true` ⇒ earlier pet/hero geometry (or apparxy) divergence.
+  Same ISAAC draw: C `rn2(4)=0` vs JS `rn2(100)=76` (76%4==0).
+- **Falsified:** missing wanderer call site; `is_wanderer` false;
+  `mpeaceful` alone skipping (wanderer is true; `!nearby` is the skip).
+- **Named omission:** S_LEPRECHAUN `findgold` arm between minvis and
+  wanderer in JS want_move OR (not exercised here).
+- **Next:** when feline/hero adjacency first diverges; or seed0014 D-0708.
+
 ## D-0709 — #wizwish missing from EXT_CMDS (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @2778)

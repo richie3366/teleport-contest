@@ -7,21 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#789 D-0709:** seed0108 `#wizwish` wired → prefix **2772→2778**.
-  Next @2778 C `dochug` `rn2(4)` vs JS `rn2(100)` (wanderer /
-  `!mcansee` short-circuit before `m_move`?). Falsifier:
+- **#790 D-0710:** seed0108 @2778 — tame feline `dochug`: JS
+  `nearby=false` (pet `(41,16)` / hero `(43,18)` dist2=8) skips
+  wanderer `rn2(4)`; C emits it ⇒ C `nearby=true`. Not a missing
+  call site. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
+  Next: when pet/hero adjacency first diverges (pre-@2778 geometry).
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
-  C dest~(24,12); omit suspect `(22,10)` (only new neigh vs cnt=8
-  match). Not mux/kickedloc/gas/trap in JS.
-- **Don’t:** re-break D-0660…D-0709; blame distfleeck arity on D-0708;
-  add AUTOCOMPLETE for wizwish (C has none).
+  C dest~(24,12); omit suspect `(22,10)`.
+- **Don’t:** re-break D-0660…D-0709; invent nearby force; blame
+  wanderer/`is_wanderer` alone for D-0710.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0707 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0709 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -41,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#785).
+  **seed0367** **PASS** (suite **35/44** @#790).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

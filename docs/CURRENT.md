@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#785**,
-post D-0706). Screens **7638**/11405; RNG **507,306**/792838 (63.99%).
-**35/44** PASS. Δ vs #780: Scr +19, RNG +8245 (D-0701…D-0706 peels).
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#790**).
+Screens **7654**/11405; RNG **513,214**/792838 (64.73%).
+**35/44** PASS. Δ vs #785: Scr +16, RNG +5908 (D-0707…D-0709 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,638 / 11,405** |
-| Positional RNG calls matched | **507,306 / 792,838** (63.99%) |
-| Speed label | `38+0.17/turn` (R² 0.783) |
+| Screens matched | **7,654 / 11,405** |
+| Positional RNG calls matched | **513,214 / 792,838** (64.73%) |
+| Speed label | `36+0.19/turn` (R² 0.795) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,8 +46,8 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 575/714 | @#786; prefix @49039 post D-0707 |
-| seed0108 | 2798/16958 | 33/303 | @#789; prefix @2778 post D-0709 |
+| seed0014 | 49495/59178 | 575/714 | @#790; prefix @49039 D-0708 |
+| seed0108 | 2798/16958 | 33/303 | @#790; prefix @2778 **D-0710** |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,12 +72,11 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 @2778 — **D-0709** wired `#wizwish`; next
-C `dochug` `rn2(4)` vs JS `rn2(100)` (likely skipped wanderer /
-`!mcansee` arm). Or seed0014 @49039 **D-0708:** peaceful gnome
-`mfndpos` cnt 6 vs 5; C dest~(24,12); strongest omit suspect
-`(22,10)` (only new neighbor vs prior matching cnt=8). Prefer
-shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0108 @2778 — **D-0710:** tame feline `dochug`
+JS `nearby=false` (pet `(41,16)` hero `(43,18)` dist2=8) skips wanderer
+`rn2(4)`; C reaches it ⇒ C `nearby=true` (earlier geometry/apparxy).
+Or seed0014 @49039 **D-0708:** peaceful gnome `mfndpos` cnt 6 vs 5;
+omit suspect `(22,10)`. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
