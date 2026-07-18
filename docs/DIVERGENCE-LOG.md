@@ -9,6 +9,30 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0690 — Water-surrounded vault themerms map (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 19636→21242)
+- **Symptom:** @19636 C `lspo_map` `rn2(73)` @ `sp_lev.c:6154` vs JS
+  `rn2(100)` (build_room chance). After themerms reservoir
+  `rn2(1034..1036)`.
+- **Cause:** Reservoir picked Water-surrounded vault. C runs `des.map`
+  (6×6 moat; `1+rn2(COLNO-1-wid)`=`rn2(73)`, `rn2(ROWNO-hei)`=`rn2(15)`)
+  then contents (region/chests/`obj.new` escape/`des.monster`/
+  exclusion). JS had `THEMEROOM_META` row but no `THEMEROOM_MAPS`
+  entry → rectangular `create_room` + `rn2(100)`.
+- **C locus:** `themerms.lua` Water-surrounded vault; `sp_lev.c`
+  `lspo_map`/`lspo_region`/`lspo_exclusion`; `nhlobj.c` `obj.new`→
+  `readobjnam`; `nhlib.lua` shuffle/`math.random`.
+- **Change:** `js/mklev.js` — map in `THEMEROOM_MAPS`;
+  `water_vault_region` (themed irregular filled=0 joined=false);
+  contents: shuffle chest spots, `readobjnam` escape item + glass
+  unlock, chests, undead `makemon`, teleport `exclusion_zones`.
+- **Verification:** seed0014 prefix **19636→21242**, Scr **459→460**/714,
+  positional RNG **21611**/59178; green+strict PASS; cohort **35**/35.
+- **Named omission:** exclusion_zones save/rest; other complex map
+  themerms bodies already deferred.
+- **Next:** @21242 C `goto_level` `rnd(3)` vs JS `rn2(10)`.
+
 ## D-0689 — exerper Fumbling H||E (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 18494→19636)

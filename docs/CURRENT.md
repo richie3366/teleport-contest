@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 19727/59178 | 459/714 | prefix @19636 C `lspo_map` rn2(73) |
+| seed0014 | 21611/59178 | 460/714 | prefix @21242 C `goto_level` rnd(3) |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @19636 C `lspo_map` `rn2(73)` (sp_lev.c:6154)
-after themerms — level/map special load vs JS `rn2(100)`. D-0689 fixed
-`exerper` Fumbling ≡ H||E (prefix 18494→19636). Or seed0108 wishlist
-@2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @21242 C `goto_level` `rnd(3)` (do.c:1792)
+then `mon_arrive`/`collect_coords` — after mineralize; JS `rn2(10)`.
+D-0690 Water-surrounded vault themerms (prefix 19636→21242). Or
+seed0108 wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0689.**
+**Do not re-break D-0660…D-0690.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

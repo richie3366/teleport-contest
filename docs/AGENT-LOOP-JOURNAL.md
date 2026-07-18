@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:02 — #768 D-0690 Water-surrounded vault
+- Objective: seed0014 @19636 C `lspo_map` `rn2(73)` vs JS `rn2(100)`.
+- C locus: `themerms.lua` Water-surrounded vault; `sp_lev.c` `lspo_map`.
+- Change: D-0690 — wire vault into `THEMEROOM_MAPS` (was META-only →
+  create_room). Port map contents: themed region, escape-item chest
+  via `readobjnam`, undead, teleport exclusion.
+- Verification: prefix **19636→21242**, Scr **459→460**/714; green+
+  strict PASS; cohort **35**/35.
+- Next: @21242 C `goto_level` `rnd(3)` vs JS `rn2(10)`.
+
 ## 2026-07-18 20:55 — #767 D-0689 exerper Fumbling
 - Objective: seed0014 @18494 C `exercise` `rn2(2)` vs JS wipe-engr
   `rn2(76)`.
