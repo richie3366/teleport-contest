@@ -9,6 +9,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0703 — mintrap HOLE && !mindless already_seen (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @43068)
+- **Symptom:** seed0014 @40196 — C `mintrap` `rn2(4)` vs JS `rn2(5)`.
+- **Rejected:** JS `rn2(4)` gate missing (already present); blaming rust
+  trapeffect first roll.
+- **C locus:** `trap.c` `mintrap` — `already_seen = mon_knows_traps(mtmp, tt)
+  || (tt == HOLE && !mindless(mptr))` then `already_seen && rn2(4)`.
+- **Cause:** gnome stepped on HOLE with `mtrapseen==0`. C treats holes as
+  obvious for non-mindless → escape `rn2(4)`. JS only used
+  `mon_knows_traps` → skipped gate → next stream call looked like `rn2(5)`.
+- **Change:** `js/trap.js` `mintrap` — OR in `HOLE && !mindless(mptr)`.
+  Sokoban pit/hole inescapable + floor_trigger/in_air still deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **40196→43068**
+  RNG **43329**/59178 Scr **575**/714; cohort 12/12 (green +
+  seed1500/1800/0004/0007/5006/0398/0373/0116/0361/0367).
+- **Next:** seed0014 @43068 C `find_misc` `rn2(5)` vs JS `rn2(28)`.
+
 ## D-0702 — travel couldsee-prefer / seenv-detour quiet-rest (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @40196)

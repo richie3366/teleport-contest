@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 23:46 — #782 D-0703 mintrap HOLE already_seen
+- Objective: seed0014 @40196 C `mintrap` rn2(4) vs JS rn2(5).
+- C locus: `trap.c` mintrap — `already_seen = mon_knows_traps || (HOLE &&
+  !mindless)`.
+- Cause: gnome on HOLE with mtrapseen=0; JS omitted HOLE clause.
+- Change: `js/trap.js` mintrap OR-in HOLE && !mindless.
+- Verification: green+strict PASS; prefix 40196→43068 Scr 575; cohort
+  12/12 PASS.
+- Next: seed0014 @43068 C `find_misc` rn2(5) vs JS rn2(28).
+
 ## 2026-07-18 23:45 — #781 D-0702 travel seenv-detour quiet-rest
 - Objective: seed0014 @36031 (NOTES said exercise rn2(19) vs rn2(5)).
 - C locus: `hack.c` findtravelpath/TEST_TRAV; `cmd.c` dotravel_target.
@@ -152,14 +162,3 @@ Use this shape:
 - Verification: prefix **19636→21242**, Scr **459→460**/714; green+
   strict PASS; cohort **35**/35.
 - Next: @21242 C `goto_level` `rnd(3)` vs JS `rn2(10)`.
-
-## 2026-07-18 20:55 — #767 D-0689 exerper Fumbling
-- Objective: seed0014 @18494 C `exercise` `rn2(2)` vs JS wipe-engr
-  `rn2(76)`.
-- C locus: `youprop.h` `Fumbling`; `attrib.c` `exerper`.
-- Change: D-0689 — `Fumbling()` ≡ H||E||uprops; wire in `exerper`;
-  sync Boots_on timeout into uprops intrinsic. Was checking unset
-  `u.Fumbling` boolean after wear conferred extrinsic.
-- Verification: prefix **18494→19636**, Scr **453→459**/714; green+
-  strict PASS; cohort **33**/33.
-- Next: @19636 C `lspo_map` `rn2(73)` (sp_lev) vs JS `rn2(100)`.

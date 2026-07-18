@@ -2339,8 +2339,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
 /**
  * C ref: trap.c mintrap() — monster steps on a trap.
  * Early-session envelope: dart / rock / pit / sqky / hole|trapdoor /
- * magic|fire learn+effect; already_seen rn2(4) skip when mon_knows_traps.
- * Other types and escape paths partial.
+ * magic|fire learn+effect; already_seen rn2(4) skip when mon_knows_traps
+ * or HOLE && !mindless (D-0703). Other types and escape paths partial.
  */
 export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const trap = t_at(mtmp.mx, mtmp.my);
@@ -2375,11 +2375,14 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const forcetrap = (mintrapflags & FORCETRAP) !== 0;
     const forcebungle = (mintrapflags & FORCEBUNGLE) !== 0;
     const tt = trap.ttyp;
-    // C also treats HOLE && !mindless as already_seen — mindless helper deferred
-    const already_seen = mon_knows_traps(mtmp, tt);
+    const mptr = mtmp.data;
+    // C: mon_knows_traps || (HOLE && !mindless) — holes are obvious
+    const already_seen = mon_knows_traps(mtmp, tt)
+        || (tt === HOLE && !mindless(mptr));
 
     if (!forcetrap) {
-        // floor_trigger + check_in_air omitted (mons on floor)
+        // floor_trigger + check_in_air omitted (mons on floor);
+        // Sokoban pit/hole inescapable branch deferred
         if (already_seen && rn2(4) && !forcebungle) {
             return Trap_Effect_Finished;
         }
