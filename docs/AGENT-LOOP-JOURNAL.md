@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:05 — #769 D-0691 goto_level Fumbling()
+- Objective: seed0014 @21242 C `goto_level` `rnd(3)` vs JS `rn2(10)`.
+- C locus: `do.c` goto_level descend fall; `youprop.h` Fumbling.
+- Change: `js/do.js` use `Fumbling()` (H||E) not sticky `u.Fumbling`.
+- Verification: prefix **21242→21529**, Scr **460→467**; green+strict;
+  cohort **33**/33 PASS.
+- Next: @21529 C `slip_or_trip` `rn2(4)` vs JS `rn2(100)`.
+
 ## 2026-07-18 21:02 — #768 D-0690 Water-surrounded vault
 - Objective: seed0014 @19636 C `lspo_map` `rn2(73)` vs JS `rn2(100)`.
 - C locus: `themerms.lua` Water-surrounded vault; `sp_lev.c` `lspo_map`.

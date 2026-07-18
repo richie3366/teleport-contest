@@ -9,6 +9,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0691 — goto_level descend Fumbling() H||E (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 21242→21529)
+- **Symptom:** @21242 C `rnd(3)=2` @ `goto_level(do.c:1792)` vs JS
+  `rn2(10)` @ `mon_arrive`. After mineralize; Scr 460/714.
+- **Cause:** Descend fall arm tested sticky `u.Fumbling`. C
+  `Fumbling` ≡ `HFumbling || EFumbling` (youprop.h); Boots_on
+  sets HFumbling via `incr_itimeout` (D-0688) without a boolean flag.
+- **C locus:** `do.c` `goto_level` descend
+  `losehp(Maybe_Half_Phys(rnd(3)))`; `youprop.h` `Fumbling`.
+- **Change:** `js/do.js` — import `Fumbling` from `attrib.js`; use
+  `Fumbling()` in the encumber|Punished|Fumbling fall predicate.
+- **Verification:** seed0014 prefix **21242→21529**, Scr **460→467**/714,
+  positional RNG **21632**/59178; green+strict PASS; cohort **33**/33.
+- **Named omission:** sticky `u.Fumbling` still used in cmd/trap/steed/
+  mthrowu (out of this unit); Punished `drag_down`/`ballrelease`;
+  full `selftouch` petrify; trap-door `do_fall_dmg`.
+- **Next:** @21529 C `slip_or_trip` `rn2(4)` vs JS `rn2(100)`.
+
 ## D-0690 — Water-surrounded vault themerms map (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 19636→21242)

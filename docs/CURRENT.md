@@ -73,17 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @21242 C `goto_level` `rnd(3)` (do.c:1792)
-then `mon_arrive`/`collect_coords` — after mineralize; JS `rn2(10)`.
-D-0690 Water-surrounded vault themerms (prefix 19636→21242). Or
-seed0108 wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @21529 C `slip_or_trip` `rn2(4)`
+(timeout.c:1302) vs JS `rn2(100)`. D-0691 goto_level `Fumbling()`
+(prefix 21242→21529, Scr 460→467). Or seed0108 wishlist @2772.
+Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0690.**
+**Do not re-break D-0660…D-0691.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
