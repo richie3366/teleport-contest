@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0686 — steal + rloc 50-try (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16712→17952)
+- **Symptom:** @16712 C `steal` `rn2(21)` vs JS `rn2(3)` after matching
+  nymph `mattacku`/`hitmu` `d(0,0)`.
+- **Cause:** `mhitm_adtyping_u` zeroed AD_SITM/AD_SEDU; no `steal`. After
+  steal, JS `rloc` used ring `collect_coords` instead of C's 50×
+  `rnd(COLNO-1)`/`rn2(ROWNO)` + `rloc_pos_ok`.
+- **C locus:** `uhitm.c` `mhitm_ad_sedu`; `steal.c` `steal`; `teleport.c`
+  `rloc`/`rloc_pos_ok`/`tele_jump_ok`.
+- **Change:** Port `steal` (nymph weighted invent + freeinv/mpickobj);
+  wire AD_SITM/AD_SEDU → `mhitm_ad_sedu`; rewrite `rloc` to C 50-try +
+  unshuffled candy shuffle; export `tele_restrict`. Named omissions:
+  monkey cant_take; stealarm afternmv; doseduce/SSEX; shk/priest
+  `rloc_pos_ok` room lock; Wizard stair `rloc`.
+- **Verification:** seed0014 prefix **16712→17952**, Scr **401→435**/714,
+  positional RNG **16726→18133**/59178; green+strict PASS; cohort
+  **33**/33.
+- **Next:** @17952 C `dochug` `rn2(40)` (flee teleport) vs JS `rn2(20)`.
+
 ## D-0685 — dowaternymph (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16624→16712)

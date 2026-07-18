@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 20:05 — #763 D-0686 steal + rloc 50-try
+- Objective: seed0014 @16712 C `steal` `rn2(21)` vs JS `rn2(3)`.
+- C locus: `uhitm.c` `mhitm_ad_sedu`; `steal.c` `steal`; `teleport.c`
+  `rloc`/`rloc_pos_ok`.
+- Change: D-0686 — port `steal` + AD_SITM/SEDU; rewrite `rloc` to C
+  50× rnd/rn2 + candy. Named omissions: monkey cant_take; stealarm;
+  doseduce; Wizard stair rloc.
+- Verification: prefix **16712→17952**, Scr **401→435**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @17952 C `dochug` `rn2(40)` flee tele vs JS `rn2(20)`.
+
 ## 2026-07-18 19:53 — #762 D-0685 dowaternymph
 - Objective: seed0014 @16624 C `collect_coords` `rn2(8)` vs JS `rn2(3)`.
 - C locus: `fountain.c` `dowaternymph`; dip case 22 / drink 27→28.
@@ -153,14 +164,3 @@ Use this shape:
 - Verification: prefix **283→297** Scr **315→314** RNG FULL;
   green+strict PASS; cohort **32**/32.
 - Next: @297 map(23,14) C `x` vs JS blank (D-0675).
-
-## 2026-07-18 18:00 — #748 D-0674 Pri-loca Algorithm-C NW cone
-- Objective: seed0367 @283 C blank vs JS `·` (26 cells).
-- C locus: `vision.c` `left_side`/`view_from`; `dat/Pri-loca.lua`.
-- Change or falsified theory: darkroom/lit/memory **falsified** — JS
-  `cansee`+lit+ROOM on all 26; hero (37,19) Pri-loca return; over-mark
-  COULD_SEE past temple SW ~31,16. No code change (stop before shim).
-- Verification: green+strict PASS; seed0367 Scr 315/324 RNG FULL; DIAG
-  removed.
-- Next: port/compare C `left_side` NW finger vs JS (D-0674).
-
