@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 01:52 — #792 D-0711 cream pie + D-0712 #wipe
+- Objective: seed0108 @2807 use_cream_pie (CURRENT primary).
+- C locus: `apply.c` `use_cream_pie`; `do.c` `dowipe`/`wipeoff`.
+- Change: port cream-pie apply (`rnd(25)` blindinc); EXT_CMDS `#wipe`+
+  wipeoff occupation (glop-off → `make_blinded(0,TRUE)`). D-0711/12 fixed.
+- Verification: green+strict PASS; seed0108 **2807→2864**; cohort 14/14
+  prior PASS stay PASS.
+- Next: @2864 C `exercise` `rn2(2)` vs JS `rn2(7)` (#polyself); or D-0708.
+
 ## 2026-07-19 01:41 — #791 D-0710 #rub / dorub
 - Objective: seed0108 @2778 dochug nearby (CURRENT primary).
 - C locus: `apply.c` `dorub` / `wield.c` `wield_tool`; `hack.c` `nomul`.
@@ -154,14 +163,4 @@ Use this shape:
   dopush; no adjacent boulder in JS (60,8/60,10/68,5 only).
 - Verification: green+strict PASS; prefix still 36031; no js/ change.
 - Next: C-cited travel-stop before `n` (lookaround trap/TEST_TRAV/boulder).
-
-## 2026-07-18 22:30 — D-0699 setworn ring-slot clear
-- Objective: seed0014 @35611 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
-- C locus: `worn.c` `setworn`; `steal.c` `remove_worn_item`;
-  `do_wear.c` ring put-on gates.
-- Change: `setworn(null, W_RINGL|R)` clears `uleft`/`uright`; ring
-  Glib/gloves/welded gates; `m_avoid_kicked_loc` in hostile `m_move`.
-- Verification: prefix **35611→36031**, Scr **538**/714; green+strict
-  PASS; cohort **35**/35.
-- Next: @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
 

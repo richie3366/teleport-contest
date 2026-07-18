@@ -4,14 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0712 — #wipe / dowipe missing (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @2864)
+- **Symptom:** after D-0711 cream pie, `#wipe` was AC-only → unknown
+  extcmd; C `wipeoff` clears cream/`HBlinded` then monster turn.
+- **C locus:** `do.c` `dowipe` / `wipeoff`; `cmd.c` extcmdlist `"wipe"`.
+- **Change:** EXT_CMDS `#wipe`→`dowipe`; `wipeoff` occupation (−4 cream/
+  BlindedTimeout; glop-off → `make_blinded(0,TRUE)`). Named omissions:
+  `gulp_blnd_check` swallow; poly `body_part(FACE)`.
+- **Verification:** green+strict PASS; seed0108 prefix **2807→2864**;
+  cohort prior PASS stay PASS.
+- **Next:** @2864 C `exercise` `rn2(2)` vs JS `rn2(7)` (#polyself path).
+
 ## D-0711 — doapply missing use_cream_pie (seed0108)
 
-- **Status:** open
+- **Status:** fixed (partial — seed0108 still FAIL; next was wipe @2810)
 - **Symptom:** seed0108 @2807 — C `rnd(25)` @ `use_cream_pie` vs JS `rn2(5)`.
 - **C locus:** `apply.c` `doapply` → `use_cream_pie` (`rnd(25)` blindinc).
-- **Cause (partial):** after D-0710 `#rub`, wish cream pie + `a` apply reaches
-  C `use_cream_pie`; JS `doapply` still lacks that arm.
-- **Next:** port `use_cream_pie` (blindinc `rnd(25)` + sticky goop); or D-0708.
+- **Cause:** JS `doapply` lacked cream-pie arm after D-0710 `#rub` reached
+  the wish+apply sequence.
+- **Change:** port `use_cream_pie` (immerse msg; `can_blnd` cream-self;
+  `rnd(25)`→`ucreamed`+`make_blinded`; `setnotworn`/`delobj`/`obj_resists`).
+  Named omissions: `costly_alteration` COST_SPLAT; Blindfolded visor polish;
+  invent-array split wiring for quan>1.
+- **Verification:** green+strict PASS; prefix **2807→2810** (then D-0712).
+- **Next:** was `#wipe` (D-0712); now superseded.
 
 ## D-0710 — #rub missing → SE move desyncs pet nearby (seed0108)
 

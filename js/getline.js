@@ -406,6 +406,16 @@ const EXT_CMDS = [
             return dorub();
         },
     },
+    {
+        // C: cmd.c "wipe" AUTOCOMPLETE → dowipe (D-0712)
+        name: 'wipe',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dowipe } = await import('./do.js');
+            return dowipe();
+        },
+    },
 ];
 
 function wizardMode() {
