@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0680 — POT_SICKNESS peffect_sickness (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 6294→9354)
+- **Symptom:** @6294 C `exercise` `rn2(19)` (makeknown WIS after quaff)
+  vs JS `rn2(5)` (skipped drink → monmove). Screen showed blessed
+  sickness “Yecch! … mildly stale slime mold juice.”
+- **Cause:** `peffects` omitted `POT_SICKNESS`; default returned 0 so
+  `dopotion` never `makeknown`→`discover_object`→`exercise(A_WIS,TRUE)`.
+- **C locus:** `potion.c` `peffect_sickness`/`peffects`; `o_init.c`
+  `discover_object` credit_hero; `dopotion` makeknown when `!potion_unkn`.
+- **Change:** `js/potion.js` `peffect_sickness` + `POT_SICKNESS` gate.
+  Blessed path complete; uncursed attr/HP arms included; poisontell
+  wording / Fixed_abil / full `make_hallucinated` deferred.
+- **Verification:** seed0014 prefix **6294→9354**, Scr **154→221**/714,
+  positional RNG **6835→9517**/59178; green+strict PASS; cohort **35**/35.
+- **Next:** @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` (study_book).
+
 ## D-0679 — forcelock + supply-chest fill + SPBOOK non-merge (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 3199→6294)

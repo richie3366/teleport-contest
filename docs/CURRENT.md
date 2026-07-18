@@ -46,7 +46,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 6835/59178 | 154/714 | prefix @6294 `exercise` vs `rn2(5)` |
+| seed0014 | 9517/59178 | 221/714 | prefix @9354 `cursed_book` vs `rn2(5)` |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5919/12167 | 154/410 | coverage pair |
@@ -72,16 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 after D-0679 forcelock/supply — first mismatch
-@6294 C `exercise` vs JS `rn2(5)`. Or seed0108 wishlist @2772
-`rnd_otyp_by_namedesc`. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 after D-0680 sickness — first mismatch
+@9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` (`study_book`). Or
+seed0108 wishlist @2772 `rnd_otyp_by_namedesc`. Prefer shared blockers.
+seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0679.**
+**Do not re-break D-0660…D-0680.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -660,6 +660,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0677 | fixed | chargen rigid only on plsel_startmenu (n>1) | seed0014 RNG prefix 1→3113 Scr 10→34; next @3113 exercise |
 | D-0678 | fixed | SCR_IDENTIFY seffect_identify + invent identify_pack | seed0014 RNG prefix 3113→3199 Scr 34→43; next @3199 forcelock |
 | D-0679 | fixed | forcelock + supply add_to_container + SPBOOK mrg=0 | seed0014 RNG prefix 3199→6294 Scr 43→154; next @6294 exercise |
+| D-0680 | fixed | POT_SICKNESS peffect_sickness + makeknown WIS | seed0014 RNG prefix 6294→9354 Scr 154→221; next @9354 cursed_book |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

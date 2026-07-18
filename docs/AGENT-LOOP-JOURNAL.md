@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:30 — #757 D-0680 POT_SICKNESS peffect_sickness
+- Objective: seed0014 @6294 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+- C locus: `potion.c` `peffect_sickness`/`peffects`; `o_init.c`
+  `discover_object` credit_hero → `exercise(A_WIS,TRUE)`.
+- Change: D-0680 — port `peffect_sickness`; wire `POT_SICKNESS` so
+  `dopotion` `makeknown` runs (blessed path observed).
+- Verification: prefix **6294→9354**, Scr **154→221**/714; green+strict
+  PASS; cohort **35**/35.
+- Next: @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` (`study_book`).
+
 ## 2026-07-18 19:20 — #756 D-0679 forcelock + supply + SPBOOK mrg
 - Objective: seed0014 @3199 C `forcelock` `rn2(100)` vs JS `rn2(20)`.
 - C locus: `lock.c` `doforce`/`forcelock`/`breakchestlock`; `mklev.c`
@@ -158,11 +168,3 @@ Use this shape:
   cohort **32**/32. RNG FULL.
 - Next: @258 intemple `A nearby voice` vs `The priest`.
 
-## 2026-07-17 19:52 — #742 D-0669 tp_sensemon Unblind_telepat
-- Objective: seed0367 @203 C W/&/ghost-blank vs JS warn digits.
-- C locus: `display.h` `_tp_sensemon`; `worn.c` `recalc_telepat_range`.
-- Change: `tp_sensemon` + `newsym` sense path; ESP range via setworn
-  (D-0669). Ghost physical glyph is `' '`; mindless zombies stay warn.
-- Verification: Scr **267→291**/324 prefix **203→209**; green+strict;
-  cohort **32**/32. RNG FULL.
-- Next: @209 lava `` ` `` vs JS blank after materialize More.
