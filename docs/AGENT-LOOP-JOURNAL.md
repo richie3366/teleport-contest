@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:16 — #771 D-0693 thitmonst pie DEX
+- Objective: seed0014 @22582 C `thitmonst` `rnd(25)` vs JS `rn2(100)`.
+- C locus: `dothrow.c` thitmonst pie/egg; `uhitm.c` CREAM_PIE;
+  `mondata.c` can_blnd.
+- Change: D-0693 — `thitmonst` DEX gate + `hmon` cream-pie/`rn1(25,21)`.
+- Verification: prefix **22582→22868**, Scr **481→482**; positional
+  **22978**/59178; green+strict; cohort **33**/33.
+- Next: @22868 C `dog_move` `rn2(12)` vs JS `rn2(24)`.
+
 ## 2026-07-18 21:12 — #770 score + D-0692 slip_or_trip
 - Objective: mandatory #770 full score; seed0014 @21529 slip_or_trip.
 - C locus: `timeout.c` nh_timeout FUMBLING; `slip_or_trip` rn2(4).
@@ -156,14 +165,3 @@ Use this shape:
 - Verification: prefix **6294→9354**, Scr **154→221**/714; green+strict
   PASS; cohort **35**/35.
 - Next: @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)` (`study_book`).
-
-## 2026-07-18 19:20 — #756 D-0679 forcelock + supply + SPBOOK mrg
-- Objective: seed0014 @3199 C `forcelock` `rn2(100)` vs JS `rn2(20)`.
-- C locus: `lock.c` `doforce`/`forcelock`/`breakchestlock`; `mklev.c`
-  supply chest; `objects.h` SPELL BITS mrg=0.
-- Change: D-0679 — forcelock occupation; supply `add_to_container`;
-  `oc_merge_of` excludes SPBOOK/WAND.
-- Verification: prefix **3199→6294**, Scr **43→154**/714; green+strict
-  PASS; cohort **33**/33.
-- Next: @6294 C `exercise` vs JS `rn2(5)`.
-

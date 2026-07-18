@@ -9,6 +9,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0693 — thitmonst pie/egg DEX rnd(25) → hmon cream pie (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 22582→22868)
+- **Symptom:** @22582 C `rnd(25)=8` @ `thitmonst(dothrow.c:2258)` vs JS
+  `rn2(100)` (breaktest after food-only arm). After D-0692; Scr 481/714.
+- **Cause:** `thitmonst_food` rolled `rnd(20)` then only befriend/dogfood.
+  C EGG/CREAM_PIE/VENOM arm gates hit on `guaranteed_hit || ACURR(A_DEX) >
+  rnd(25)`, then `hmon` cream-pie `can_blnd` → `rn1(25,21)` blind timer.
+- **C locus:** `dothrow.c` `thitmonst` pie/egg/venom; `uhitm.c`
+  `hmon_hitmon_misc_obj` CREAM_PIE; `mondata.c` `can_blnd`.
+- **Change:** `js/dothrow.js` — `thitmonst` DEX gate + `hmon(HMON_THROWN)`.
+  `js/uhitm.js` — cream pie / blinding venom arm (`can_blnd` subset,
+  `rn1(25,21)`, `obfree`); export `hmon`.
+- **Verification:** seed0014 prefix **22582→22868**, Scr **481→482**/714,
+  positional RNG **22978**/59178; green+strict PASS; cohort **33**/33.
+- **Named omission:** weapon/gem/ball/boulder/`potionhit`; egg petrify /
+  acid venom bodies; `can_blnd` Blindfolded/ublindf/visor; splash
+  `mbodypart` polish; `throw_gold`.
+- **Next:** @22868 C `dog_move` `rn2(12)` vs JS `rn2(24)`.
+
 ## D-0692 — nh_timeout FUMBLING slip_or_trip (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 21529→22582)
