@@ -7,30 +7,30 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#772 D-0694 done:** `makeplural` lacked C `one_off[]` → `"foots"` vs
-  `"feet"`. Scr **482→483**. @22868 `rn2(12)` vs `rn2(24)` is **not** a
-  wrong constant — JS already has `rn2(12)`; DIAG showed mtrack
-  `rn2(24)` because pet dmin=6 (C stays closer). Root: earlier
-  `--More--`/key ownership @22721.
-- **Next:** seed0014 step ~508 trip More — C key `y` +48 RNG vs JS stuck
-  (same session later rejects `h`/`H` on identical trip More with 0 RNG).
-  Falsify More vs stale-topline vs dismiss_more. Command:
+- **#773 D-0695 done:** `unmul` treated `nomovemsg=""` as missing → default
+  `"You can move again."` after FUMBLING. C skips pline on empty string.
+  Prefix **22868→28552**, Scr **483→515**.
+- **Next:** seed0014 @28552 (step ~536, key `j`, screen door-bump) C
+  `exercise` `rn2(2)` vs JS `rn2(19)`. Falsify: exercise/exerchk path vs
+  earlier geometry. Command:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** any-key topline `more()` (breaks 437 zero-RNG More rejects);
-  reopen dog_move `rn2(12)`; frame-align; DIAG.
+- **Don’t:** any-key topline `more()`; leave `--More--` on grid after
+  more()-dismiss (breaks seed0002/0030 screens); reopen dog_move
+  `rn2(12)`; frame-align; DIAG.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0694 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0695 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0694: blue DSM / … / thitmonst pie / makeplural feet.
+- D-0676…D-0695: blue DSM / … / thitmonst pie / makeplural feet /
+  unmul empty nomovemsg.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -47,7 +47,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @22868 = mtrack dmin symptom.
+- Quest: seed0367 **PASS**. seed0014 @28552 next after D-0695.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

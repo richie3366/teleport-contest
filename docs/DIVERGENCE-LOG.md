@@ -9,6 +9,31 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0695 — unmul empty nomovemsg ≠ default (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 22868→28552)
+- **Symptom:** seed0014 @22868 C `dog_move` `rn2(12)` vs JS `rn2(24)` after
+  trip `--More--` @22721 (step ~508): C key `y` +48 RNG; JS stuck in
+  `more()` / key desync → pet dmin drift.
+- **Cause:** FUMBLING sets `gn.nomovemsg = ""` (`timeout.c`). C `unmul`
+  uses pointer NULL-check then `if (*gn.nomovemsg)` — empty string skips
+  pline. JS `else if (!game.nomovemsg)` treated `""` as missing and
+  substituted `"You can move again."`, forcing an extra `--More--` that
+  stole later keys.
+- **C locus:** `hack.c` `unmul`; `timeout.c` FUMBLING `nomovemsg = ""`.
+- **Change:** `js/hack.js` `unmul` — default only when `nomovemsg == null`;
+  pline only when non-empty.
+- **Rejected / parked:** any-key topline `more()`; leftover-grid noises
+  skip; `more()` keep-toplines grid leave (screen-regressed seed0002/
+  seed0030); blind skip-all `noises`.
+- **Verification:** seed0014 prefix **22868→28552**, Scr **483→515**/714
+  (positional RNG **28682**/59178); green+strict PASS; cohort PASS list
+  intact (seed0002/seed0030 stay PASS with unmul-only).
+- **Named omission:** C `more()` keep-`gt.toplines` / cury==0 leftover
+  `--More--` on tty still imperfect in JS `display.js`.
+- **Next:** seed0014 @28552 (step ~536) C `exercise` `rn2(2)` vs JS
+  `rn2(19)` after door-bump; or seed0108 wishlist.
+
 ## D-0694 — makeplural one_off foot→feet (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix still 22868)

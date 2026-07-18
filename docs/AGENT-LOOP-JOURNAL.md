@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 21:57 — #773 D-0695 unmul empty nomovemsg
+- Objective: seed0014 trip `--More--` @22721 / @22868 mtrack desync.
+- C locus: `hack.c` `unmul`; `timeout.c` FUMBLING `nomovemsg=""`.
+- Change: D-0695 — `unmul` default only if `nomovemsg == null`; skip
+  pline on `""`. Falsified: leftover-grid noises skip; more() keep-grid
+  (regressed seed0002/0030 screens).
+- Verification: prefix **22868→28552**, Scr **483→515**; green+strict;
+  cohort PASS list intact.
+- Next: @28552 C `exercise` `rn2(2)` vs JS `rn2(19)` (door-bump step).
+
 ## 2026-07-18 21:30 — #772 D-0694 makeplural feet
 - Objective: seed0014 @22868 C `dog_move` `rn2(12)` vs JS `rn2(24)`.
 - C locus: `objnam.c` makeplural/one_off; DIAG dog_move mtrack.
@@ -155,13 +165,4 @@ Use this shape:
 - Verification: prefix **14566→16304**, Scr **298→365**/714; green+strict
   PASS; cohort **33**/33.
 - Next: @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)`.
-
-## 2026-07-18 19:33 — #758 D-0681 cursed_book + aggravate
-- Objective: seed0014 @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)`.
-- C locus: `spell.c` `cursed_book`/`study_book`; `wizard.c` `aggravate`.
-- Change: D-0681 — port `cursed_book` (`rn2(oc_level)`); wire too_hard
-  nomul + `!rn2(3)` crumble; `aggravate` wake/unfreeze.
-- Verification: prefix **9354→14566**, Scr **221→298**/714; green+strict
-  PASS; cohort **33**/33.
-- Next: @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
 

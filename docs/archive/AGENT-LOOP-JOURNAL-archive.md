@@ -341,3 +341,12 @@
   RNG **465040**/792838 (58.66%); speed `34+0.16/turn` (R² 0.78).
   Δ vs #730: Scr +30, RNG +14553 (D-0658…61 absorbed).
 - Next: @148 materialize --More-- / quest on_start key ownership.
+
+## 2026-07-18 19:33 — #758 D-0681 cursed_book + aggravate
+- Objective: seed0014 @9354 C `cursed_book` `rn2(3)` vs JS `rn2(5)`.
+- C locus: `spell.c` `cursed_book`/`study_book`; `wizard.c` `aggravate`.
+- Change: D-0681 — port `cursed_book` (`rn2(oc_level)`); wire too_hard
+  nomul + `!rn2(3)` crumble; `aggravate` wake/unfreeze.
+- Verification: prefix **9354→14566**, Scr **221→298**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
