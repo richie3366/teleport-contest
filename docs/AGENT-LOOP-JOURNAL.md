@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 20:55 — #767 D-0689 exerper Fumbling
+- Objective: seed0014 @18494 C `exercise` `rn2(2)` vs JS wipe-engr
+  `rn2(76)`.
+- C locus: `youprop.h` `Fumbling`; `attrib.c` `exerper`.
+- Change: D-0689 — `Fumbling()` ≡ H||E||uprops; wire in `exerper`;
+  sync Boots_on timeout into uprops intrinsic. Was checking unset
+  `u.Fumbling` boolean after wear conferred extrinsic.
+- Verification: prefix **18494→19636**, Scr **453→459**/714; green+
+  strict PASS; cohort **33**/33.
+- Next: @19636 C `lspo_map` `rn2(73)` (sp_lev) vs JS `rn2(100)`.
+
 ## 2026-07-18 20:50 — #766 D-0688 assigninvlet + Boots_on
 - Objective: seed0014 @18426 C `distfleeck` after `dog_move` vs JS
   `mcalcmove` (theory: early movemon exit).

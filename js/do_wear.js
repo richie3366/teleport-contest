@@ -590,10 +590,17 @@ async function Boots_on() {
 
     if (o.otyp === FUMBLE_BOOTS) {
         // C: if (!oldprop && !(HFumbling & ~TIMEOUT)) incr_itimeout(&HFumbling, rnd(20));
-        if (!oldprop && !((u.HFumbling | 0) & ~TIMEOUT)) {
-            const cur = u.HFumbling | 0;
-            const next = (cur & TIMEOUT) + rnd(20);
-            u.HFumbling = (cur & ~TIMEOUT) | (next & TIMEOUT);
+        // HFumbling ≡ uprops[FUMBLING].intrinsic — keep flat + uprops in sync.
+        if (!u.uprops) u.uprops = {};
+        const prop = u.uprops[oprop] || (u.uprops[oprop] = {
+            intrinsic: 0, extrinsic: 0, blocked: 0,
+        });
+        const hCur = (u.HFumbling | 0) | (prop.intrinsic | 0);
+        if (!oldprop && !(hCur & ~TIMEOUT)) {
+            const next = (hCur & TIMEOUT) + rnd(20);
+            const hNext = (hCur & ~TIMEOUT) | (next & TIMEOUT);
+            u.HFumbling = hNext;
+            prop.intrinsic = hNext;
         }
     }
     // SPEED/ELVEN/WATER_WALKING/LEVITATION cases deferred

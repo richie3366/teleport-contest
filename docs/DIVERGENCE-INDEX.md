@@ -669,6 +669,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0686 | fixed | steal AD_SITM + rloc 50× rnd/rn2 | seed0014 RNG prefix 16712→17952 Scr 401→435; next @17952 dochug rn2(40) |
 | D-0687 | fixed | domonnoise MS_SEDUCE nymph #chat | seed0014 RNG prefix 17952→18426 Scr 435→445; next @18426 distfleeck |
 | D-0688 | fixed | assigninvlet keep letter + Boots_on Fumble rnd(20) | seed0014 RNG prefix 18426→18494 Scr 445→453; next @18494 exercise |
+| D-0689 | fixed | exerper Fumbling ≡ H\|\|E (youprop.h) | seed0014 RNG prefix 18494→19636 Scr 453→459; next @19636 lspo_map |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

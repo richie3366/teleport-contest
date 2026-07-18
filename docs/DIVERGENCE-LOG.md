@@ -9,6 +9,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0689 — exerper Fumbling H||E (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 18494→19636)
+- **Symptom:** @18494 C `exercise` `rn2(2)` @ `attrib.c:509` vs JS
+  `moveloop_core` wipe-engr `rn2(76)`. Prefix 18494 after hungry/sounds.
+- **Cause:** After wearing fumble boots (`setworn` → `uprops[FUMBLING].extrinsic`
+  + `Boots_on` `HFumbling` timeout), C `exerper` every-5 status arm calls
+  `exercise(A_DEX,FALSE)` when `Fumbling` (`HFumbling||EFumbling`). JS
+  checked sticky boolean `u.Fumbling`, never set → skipped `rn2(2)`.
+- **C locus:** `youprop.h` `Fumbling`; `attrib.c` `exerper` / `exercise`;
+  `do_wear.c` `Boots_on` / `worn.c` `setworn` oc_oprop.
+- **Change:** add `Fumbling()` helper (flat H/E + uprops); use in
+  `exerper`; sync `Boots_on` timeout into `uprops[FUMBLING].intrinsic`.
+  Named omissions: other `u.Fumbling` boolean call sites (cmd/do/trap/…);
+  full `nh_timeout` FUMBLING slip_or_trip refresh.
+- **Verification:** seed0014 prefix **18494→19636**, Scr **453→459**/714,
+  positional RNG **19727**/59178; green+strict PASS; cohort **33**/33.
+- **Next:** @19636 C `lspo_map` `rn2(73)` vs JS `rn2(100)`.
+
 ## D-0688 — assigninvlet preserve + Boots_on Fumble (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 18426→18494)
