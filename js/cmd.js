@@ -249,6 +249,7 @@ async function domove_fight_empty(x, y) {
 function lookaround() {
     const ctx = game.context;
     const u = game.u;
+    // C: Blind || run==0 → return (Blind path deferred — still gate run==0)
     if (!ctx?.run) return;
 
     let corrct = 0;
@@ -264,8 +265,13 @@ function lookaround() {
             if (!isok(x, y) || (x === u.ux && y === u.uy)) continue;
 
             const mtmp = mon_at(x, y);
-            if (mtmp) {
-                // C: skip M_AP furniture/object; mon_visible deferred → assume seen
+            // C: only stop for mon_visible (not M_AP furniture/object).
+            // Invisible hostiles must not end a run — hero walks in and
+            // attack_checks prints Wait! (D-0705 seed0014 yank More).
+            if (mtmp
+                && M_AP_TYPE(mtmp) !== M_AP_FURNITURE
+                && M_AP_TYPE(mtmp) !== M_AP_OBJECT
+                && mon_visible(mtmp)) {
                 if ((ctx.run !== 1 && !is_safemon(mtmp))
                     || (infront && !ctx.travel)) {
                     end_running();

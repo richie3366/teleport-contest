@@ -9,6 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0705 — lookaround mon_visible + attack_checks Wait invis (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @43341)
+- **Symptom:** seed0014 @43308 — C `distfleeck` `rn2(5)` vs JS `rn2(2)`
+  (`kick_ouch`/`exercise`). Screens: C yank `--More--` then Wait!; JS
+  `Unknown command ' '` then kick_ouch.
+- **Rejected:** flush_topl_more before every `parse`/`get_count` (broke
+  green — C marks NEED_MORE→NON_EMPTY on command nhgetch without More).
+- **C locus:** `hack.c` `lookaround` — stop only if `mon_visible(mtmp)`
+  (and not M_AP furniture/object); `uhitm.c` `attack_checks` — Wait!
+  when `!canspotmon` and no I-glyph (no forcefight).
+- **Cause:** JS `lookaround` assumed every mon seen → ended `H` run on
+  invisible bugbear before yank `--More--`; space became unbound command.
+  Walk-into then melee'd instead of Wait! (short concat; no yank More).
+- **Change:** `js/cmd.js` `lookaround` gate on `mon_visible` + M_AP;
+  `js/uhitm.js` `attack_checks` Wait! + `map_invisible`/`wakeup`.
+  `kick_monster` / peaceful yn / warning glyph / hides_under still deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **43308→43341**
+  RNG **43371**/59178 Scr **575**/714; cohort 12/12 PASS (incl.
+  seed0002/0004/0007/0012/1500/1800/0398/0373/5006/0116/0361/0367).
+- **Next:** seed0014 @43341 C `gethungry` @ maybe_kick vs JS `kick_ouch`.
+
 ## D-0704 — find_misc bullwhip/invis + use_misc yank (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @43308)

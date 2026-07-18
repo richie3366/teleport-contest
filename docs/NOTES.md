@@ -7,28 +7,30 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#783 D-0704 fixed:** seed0014 `@43068` — `find_misc` omitted
-  BULLWHIP `rn2(5)` + POT_INVISIBILITY; C kept invis after failed whip
-  gate → spent turn; JS entered `m_move` `rn2(28)`. Also ported
-  `use_misc` bullwhip `rn2(4)` yank. Prefix →43308.
-- **New miss seed0014 @43308:** C `distfleeck` `rn2(5)` vs JS `rn2(2)`.
+- **#784 D-0705 fixed:** seed0014 `@43308` — `lookaround` treated all
+  mons as seen (skipped `mon_visible`); invisible bugbear ended `H` run
+  so yank never got `--More--` (space → Unknown command). Also
+  `attack_checks` Wait! for `!canspotmon` (forces yank More + no melee).
+  Prefix →43341; screens match through Wait/kick prompt.
+- **New miss seed0014 @43341:** C `maybe_kick`/`gethungry` `rn2(20)` vs
+  JS `kick_ouch` `rn2(2)`. Screen: C `You kick it.` vs JS `Ouch!`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** couldsee-only BFS alone (breaks seed0004/0007); force dig;
-  frame-align; re-break D-0660…D-0704.
+- **Don’t:** flush_topl_more before every parse get_count (breaks green);
+  couldsee-only BFS; re-break D-0660…D-0705.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0704 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0705 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0704: blue DSM / … / find_misc whip+invis+yank.
+- D-0676…D-0705: blue DSM / … / lookaround mon_visible + Wait invis.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -46,7 +48,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @43308 after D-0704.
+- Quest: seed0367 **PASS**. seed0014 @43341 after D-0705.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
