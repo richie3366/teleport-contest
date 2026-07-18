@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#760**,
-post D-0683). Screens **7451**/11405; RNG **480248**/792838 (60.57%).
-**35/44** PASS. Δ vs #755: Scr +340, RNG +12983 (D-0678…D-0683 peels;
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#765**,
+post D-0687). Screens **7511**/11405; RNG **483037**/792838 (60.93%).
+**35/44** PASS. Δ vs #760: Scr +60, RNG +2789 (D-0683…D-0687 peels;
 still 35 PASS).
 
 ## Score
@@ -31,9 +31,9 @@ still 35 PASS).
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,451 / 11,405** |
-| Positional RNG calls matched | **480,248 / 792,838** (60.57%) |
-| Speed label | `37+0.17/turn` (R² 0.805) |
+| Screens matched | **7,511 / 11,405** |
+| Positional RNG calls matched | **483,037 / 792,838** (60.93%) |
+| Speed label | `35+0.17/turn` (R² 0.808) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 16726/59178 | 401/714 | prefix @16712 `steal` after nymph |
+| seed0014 | 19358/59178 | 445/714 | prefix @18426 C `distfleeck` after dog_move |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,10 +73,10 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 after D-0687 MS_SEDUCE `#chat` — first
-mismatch @18426 C `distfleeck` `rn2(5)` vs JS `rn2(12)` mcalcmove. Or
-seed0108 wishlist @2772 `rnd_otyp_by_namedesc`. Prefer shared blockers.
-seed2200 @158 parked.
+**Gameplay next:** seed0014 @18426 — after matching `dog_move` rn2(3/4/5),
+C `distfleeck` `rn2(5)` (bravegremlin) vs JS `mcalcmove` `rn2(12)`:
+JS ended movemon early (skipped a mon’s `dochug`). Or seed0108 wishlist
+@2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \

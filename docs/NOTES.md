@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#764:** D-0687 — `domonnoise` MS_SEDUCE nymph `#chat`.
-  seed0014 prefix **17952→18426**, Scr **435→445**.
-- **Next:** seed0014 @18426 C `distfleeck` `rn2(5)` vs JS `rn2(12)`
-  mcalcmove. Or seed0108 @2772. Local **35** vs judge **22**.
+- **#765:** public score — **35/44**; Scr **7511**/11405; RNG **483037**
+  (60.93%). Δ vs #760: Scr +60, RNG +2789 (D-0683…D-0687).
+- **Next:** seed0014 @18426 — after matching `dog_move` rn2(3/4/5), C
+  `distfleeck` `rn2(5)` vs JS `mcalcmove` `rn2(12)`. Hypothesis: JS
+  exited `movemon` early (skipped a mon’s `dochug`). Falsify: compare
+  which mon C runs post-pet vs JS `fmon` movement queue.
 - **Don’t:** reopen D-0474…D-0687; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
@@ -81,12 +83,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#760).
+  **seed0367** **PASS** (suite **35/44** @#765).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS** (D-0676). seed0014 @18426 distfleeck next.
+- Quest: seed0367 **PASS** (D-0676). seed0014 @18426 post-dog_move.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
