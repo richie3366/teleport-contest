@@ -72,16 +72,18 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @49039 — C `distfleeck` `rn2(5)` vs JS
-`rn2(6)` (monmove after bigmonst kill/`corpse_chance`). Or seed0108
-wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @49039 — **D-0708:** not `distfleeck`
+arity; peaceful gnome `mfndpos` cnt 6 vs C 5 (`appr=0` chcnt). Identify
+which neighbor C omits + C predicate (poison-gas / onscary / map typ /
+earlier travel). Or seed0108 wishlist @2772. Prefer shared blockers.
+seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0707.**
+**Do not re-break D-0660…D-0708.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

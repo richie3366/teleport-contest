@@ -7,16 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#786 D-0707 fixed:** seed0014 `@43553` — `corpse_chance` missing
-  always-TRUE arms (`bigmonst`/lizard/golem/mplayer/rider/isshk). C skipped
-  RNG → `make_corpse`/`mkcorpstat`/`rndmonnum`; JS burned `rn2(3)`.
-  Prefix →49039; RNG 49495; screens still 575.
-- **New miss seed0014 @49039:** C `distfleeck` `rn2(5)` vs JS `rn2(6)`
-  (monmove after kill/level-up).
+- **#787 D-0708 diagnose:** seed0014 `@49039` is **not** a
+  `distfleeck` arity bug. C `rn2(5)` @distfleeck vs JS `rn2(6)` =
+  peaceful `PM_GNOME@23,11` `mfndpos` **cnt=6** vs C **cnt=5**
+  (`appr=0` `!rn2(++chcnt)`). Neighbors all ROOM; no trap/obj/mon/gas;
+  diagonal squeeze cannot explain (gnome `cant_squeeze_thru=0`; only one
+  flank `bad_rock` for `(22,10)`). Dropping any one of the 6 advances
+  prefix →49300 (does not identify which cell C omits). Mid-turn travel
+  `u=24,9` →`(69,19)`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
-- **Don’t:** flush_topl_more before every parse get_count (breaks green);
-  couldsee-only BFS; re-break D-0660…D-0707.
+- **Don’t:** single-flank “no cut corners” (breaks @3061); flush_topl_more
+  before every parse get_count; couldsee-only BFS; re-break D-0660…D-0707.
 
 ## Don’t re-check (≤15)
 
@@ -47,7 +49,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @49039 after D-0707.
+- Quest: seed0367 **PASS**. seed0014 @49039 mfndpos cnt (D-0708).
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

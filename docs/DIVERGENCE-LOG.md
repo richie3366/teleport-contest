@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0708 — mfndpos cnt 6 vs 5 misread as distfleeck (seed0014)
+
+- **Status:** open (diagnosed; no faithful fix yet)
+- **Symptom:** seed0014 @49039 — C `rn2(5)` @ `distfleeck` vs JS `rn2(6)`.
+- **C locus:** `monmove.c` `m_move` `!rn2(++chcnt)` after `mfndpos`; next
+  mon’s `distfleeck` `rn2(5)`.
+- **Cause (partial):** peaceful `PM_GNOME@23,11` `appr=0` — JS `mfndpos`
+  returns **6** ROOM neighbors; C processes **5** chcnt rolls then
+  `distfleeck`. Not a wrong `rn2` arity inside `distfleeck` (JS already
+  `rn2(5)` there). Mid-turn travel `u=(24,9)` → `travelcc=(69,19)`.
+- **Falsified:** single-flank no-cut-corners (breaks @3061); squeeze on
+  `(22,10)` (only one `bad_rock` flank + `cant_squeeze_thru=0`); neighbor
+  trap/obj/mon/gas at DIAG time.
+- **Experiment:** drop any one of the 6 candidates → prefix **49039→49300**
+  (does not identify which cell C omits).
+- **Next:** identify the omitted neighbor + C predicate (map typ /
+  `visible_region_at` / `onscary` / earlier divergence); or shared
+  travel/map blocker.
+
 ## D-0707 — corpse_chance always-TRUE bigmonst arms (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @49039)
