@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0678 — SCR_IDENTIFY `seffect_identify` + invent identify (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 3113→3199)
+- **Symptom:** @3113 C `exercise` `rn2(19)` ×2 then `seffect_identify`
+  `rn2(5)` vs JS `rn2(5)` on a non-identify path (scroll gated out).
+- **Cause:** `doread`/`seffects` omitted `SCR_IDENTIFY`. C runs
+  `seffects` WIS exercise → `seffect_identify` (useup, learnscrolltyp
+  → `makeknown`/`exercise`, cval `rn2(5)`, `identify_pack`).
+- **C locus:** `read.c` `seffect_identify`/`seffects`; `invent.c`
+  `identify_pack`/`identify`/`not_fully_identified`; `objnam.c`
+  `not_fully_identified`.
+- **Change:** `js/read.js` `seffect_identify` + gate; `js/invent.js`
+  `not_fully_identified`/`fully_identify_obj`/`identify`/
+  `identify_pack`/`menu_identify`.
+- **Verification:** seed0014 prefix **3113→3199**, Scr **34→43**/714;
+  green+strict PASS; cohort 33/33 (incl. seed0367/0501 read).
+- **Next:** @3199 C `forcelock` vs JS other path.
+- **Deferred:** SPE_IDENTIFY cast; traditional ggetobj; discover_artifact;
+  learn_egg_type; update_inventory.
+
 ## D-0677 — chargen `rigid_role_checks` only on menu open (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 1→3113)

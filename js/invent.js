@@ -11,7 +11,7 @@ import {
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee } from './objnam.js';
 import { yn_function } from './getline.js';
-import { mergable } from './mkobj.js';
+import { mergable, is_damageable } from './mkobj.js';
 import { cansee } from './vision.js';
 import {
     WEAPON_CLASS,
@@ -42,6 +42,8 @@ import {
     OBJ_CONTAINED,
     OBJ_FLOOR,
     Has_contents,
+    Is_container,
+    Is_box,
     has_oname,
     ONAME,
     SORTLOOT_PACK,
@@ -52,6 +54,7 @@ import {
     In_quest,
     Is_knox_level,
     Is_rogue_level,
+    thats_enough_tries,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
@@ -621,6 +624,206 @@ export function observe_object(obj) {
     // FIRST_OBJECT / generic skip deferred
     obj.dknown = 1;
     discover_object(obj.otyp, false, true);
+}
+
+const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
+const EGG = objectNames.indexOf('EGG');
+const STATUE = objectNames.indexOf('STATUE');
+
+/** C ref: obj.h is_weptool — TOOL with oc_skill != P_NONE (named fallback). */
+function is_weptool_obj(obj) {
+    if (!obj || obj.oclass !== TOOL_CLASS) return false;
+    const skill = game.objects?.[obj.otyp]?.oc_skill | 0;
+    if (skill !== 0 && skill !== P_NONE) return true;
+    const n = objectNames[obj.otyp];
+    return n === 'PICK_AXE' || n === 'GRAPPLING_HOOK' || n === 'UNICORN_HORN'
+        || n === 'AKLYS' || n === 'BULLWHIP';
+}
+
+/**
+ * C ref: objnam.c not_fully_identified.
+ * Named omissions: undiscovered_artifact (always treated discovered);
+ * MAIL_STRUCTURES SCR_MAIL bknown skip when SCR_MAIL absent.
+ */
+export function not_fully_identified(otmp) {
+    if (!otmp) return false;
+    if (otmp.oclass === COIN_CLASS) return false;
+    const oc = game.objects?.[otmp.otyp];
+    const bknownOk = otmp.bknown
+        || (SCR_MAIL >= 0 && (otmp.otyp | 0) === SCR_MAIL);
+    if (!otmp.known || !otmp.dknown || !bknownOk || !oc?.oc_name_known) {
+        return true;
+    }
+    if ((!otmp.cknown && (Is_container(otmp) || (otmp.otyp | 0) === STATUE))
+        || (!otmp.lknown && Is_box(otmp))) {
+        return true;
+    }
+    // oartifact undiscovered_artifact deferred — skip artifact gate
+    if (otmp.rknown
+        || (otmp.oclass !== ARMOR_CLASS && otmp.oclass !== WEAPON_CLASS
+            && !is_weptool_obj(otmp)
+            && otmp.oclass !== BALL_CLASS)) {
+        return false;
+    }
+    // lack of rknown only matters for damageable objects
+    return is_damageable(otmp);
+}
+
+/** C ref: invent.c set_cknown_lknown */
+function set_cknown_lknown(obj) {
+    if (!obj) return;
+    if (Is_container(obj) || (obj.otyp | 0) === STATUE) {
+        obj.cknown = obj.lknown = 1;
+    } else if ((obj.otyp | 0) === objectNames.indexOf('TIN')) {
+        obj.cknown = 1;
+    }
+}
+
+/**
+ * C ref: invent.c fully_identify_obj.
+ * Named omissions: discover_artifact; learn_egg_type.
+ */
+export function fully_identify_obj(otmp) {
+    if (!otmp) return;
+    makeknown(otmp.otyp);
+    // discover_artifact deferred
+    observe_object(otmp);
+    otmp.known = otmp.bknown = otmp.rknown = 1;
+    set_cknown_lknown(otmp);
+    // learn_egg_type deferred (EGG + corpsenm)
+}
+
+/** C ref: invent.c identify — fully_identify_obj + prinv. */
+export async function identify(otmp) {
+    fully_identify_obj(otmp);
+    await prinv(null, otmp, 0);
+    return 1;
+}
+
+/** C ref: invent.c count_unidentified */
+export function count_unidentified(objchn) {
+    let unid_cnt = 0;
+    if (Array.isArray(objchn)) {
+        for (const obj of objchn) {
+            if (obj && not_fully_identified(obj)) unid_cnt++;
+        }
+        return unid_cnt;
+    }
+    for (let obj = objchn; obj; obj = obj.nobj) {
+        if (not_fully_identified(obj)) unid_cnt++;
+    }
+    return unid_cnt;
+}
+
+/**
+ * C ref: invent.c menu_identify — query_objlist USE_INVLET PICK_ANY.
+ * Envelope: invent-letter toggle menu of not_fully_identified items.
+ * Named omissions: SIGNAL_NOMENU polish; wait_synch between loops;
+ * traditional ggetobj path.
+ */
+async function menu_identify(id_limit) {
+    let first = true;
+    let tryct = 5;
+    while (id_limit > 0) {
+        const eligible = (game.invent || []).filter(not_fully_identified);
+        if (!eligible.length) {
+            await pline('That was all.');
+            break;
+        }
+        const items = eligible.map((obj) => ({
+            obj,
+            letch: obj.invlet
+                || (obj.oclass === COIN_CLASS ? '$' : '?'),
+            selected: false,
+        }));
+        const prompt = `What would you like to identify ${first ? 'first' : 'next'}?`;
+        const entries = [
+            { text: prompt, attr: ATR_INVERSE },
+            { text: '', attr: 0 },
+        ];
+        for (const it of items) {
+            const mark = it.selected ? '+' : '-';
+            entries.push({
+                text: `${it.letch} ${mark} ${doname(it.obj)}`,
+                attr: 0,
+            });
+        }
+        await paint_corner_nhw_menu(entries, '(end) ');
+        await flush_screen(1);
+        let n = 0;
+        for (;;) {
+            const key = await nhgetch();
+            if (key === 27) {
+                n = -2;
+                break;
+            }
+            if (key === 13 || key === 10 || key === 32) {
+                const chosen = items.filter((it) => it.selected);
+                n = chosen.length;
+                if (n > id_limit) n = id_limit;
+                for (let i = 0; i < n; i++, id_limit--) {
+                    await identify(chosen[i].obj);
+                }
+                break;
+            }
+            const ch = typeof key === 'number' ? String.fromCharCode(key) : key;
+            const hit = items.find((it) => it.letch === ch);
+            if (hit) {
+                hit.selected = !hit.selected;
+                // refresh marks
+                for (let ei = 2; ei < entries.length; ei++) {
+                    const it = items[ei - 2];
+                    if (!it) continue;
+                    const mark = it.selected ? '+' : '-';
+                    entries[ei] = {
+                        text: `${it.letch} ${mark} ${doname(it.obj)}`,
+                        attr: 0,
+                    };
+                }
+                await paint_corner_nhw_menu(entries, '(end) ');
+                await flush_screen(1);
+                continue;
+            }
+            // unmatched — ignore for now
+        }
+        game._menu_overlay = false;
+        await docrt();
+        await flush_screen(1);
+        if (n === -2) break;
+        if (n === 0) {
+            if (!--tryct) {
+                await pline(thats_enough_tries);
+                break;
+            }
+            await pline('Choose an item; use ESC to decline.');
+            continue;
+        }
+        first = false;
+    }
+}
+
+/**
+ * C ref: invent.c identify_pack(id_limit, learning_id).
+ * id_limit 0 = identify all unidentified invent items.
+ * Named omissions: update_inventory; MENU_TRADITIONAL ggetobj.
+ */
+export async function identify_pack(id_limit, learning_id) {
+    let unid_cnt = count_unidentified(game.invent);
+    if (!unid_cnt) {
+        await pline(
+            `You have already identified ${!learning_id ? 'all' : 'the rest'} of your possessions.`,
+        );
+    } else if (!id_limit || id_limit >= unid_cnt) {
+        for (const obj of game.invent || []) {
+            if (!obj || !not_fully_identified(obj)) continue;
+            await identify(obj);
+            if (--unid_cnt < 1) break;
+        }
+    } else {
+        // flags.menu_style == MENU_TRADITIONAL ggetobj deferred → menu
+        await menu_identify(id_limit);
+    }
+    // update_inventory deferred
 }
 
 // C: xname_flags observe + distant_name cansee (wired late to break cycles)

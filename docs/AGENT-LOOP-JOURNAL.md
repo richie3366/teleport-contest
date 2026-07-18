@@ -12,17 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## 2026-07-18 18:20 — #749 D-0674 gas-cloud does_block
-- Objective: seed0367 @283 C blank vs JS `·` (26 cells).
-- C locus: `vision.c` `does_block`; `region.c` `add_region`/`run_regions`;
-  `allmain.c` after `nh_timeout`.
-- Change: D-0674 — `_blocks`→`visible_region_at`; create/expire
-  `recalc_block_point`; `run_regions` ttl. Was fog on LOS (22,13),
-  not Algorithm-C. Next D-0675 @297 (23,14) wall.
-- Verification: prefix **283→297** Scr **315→314** RNG FULL;
-  green+strict PASS; cohort **32**/32.
-- Next: @297 map(23,14) C `x` vs JS blank (D-0675).
-
 ## ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -30,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-18 19:10 — #754 D-0678 SCR_IDENTIFY
+- Objective: seed0014 @3113 C `exercise` vs JS non-identify path.
+- C locus: `read.c` `seffect_identify`/`seffects`; `invent.c`
+  `identify_pack`/`not_fully_identified`.
+- Change: D-0678 — wire SCR_IDENTIFY; invent identify helpers.
+- Verification: prefix **3113→3199**, Scr **34→43**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @3199 C `forcelock` `rn2(100)`.
 
 ## 2026-07-18 19:05 — #753 D-0677 chargen rigid n>1 only
 - Objective: seed0014 early FAIL @1 (gem colors vs pick_align).
@@ -69,6 +67,17 @@ Use this shape:
   D-0675: game(23,14) TRWALL lit viz=0 (row14 rmax=22); not (72,16).
 - Verification: green+strict PASS; full suite recorded in CURRENT.
 - Next: `right_side` finger so TRWALL gets set_cs (D-0675).
+
+## 2026-07-18 18:20 — #749 D-0674 gas-cloud does_block
+- Objective: seed0367 @283 C blank vs JS `·` (26 cells).
+- C locus: `vision.c` `does_block`; `region.c` `add_region`/`run_regions`;
+  `allmain.c` after `nh_timeout`.
+- Change: D-0674 — `_blocks`→`visible_region_at`; create/expire
+  `recalc_block_point`; `run_regions` ttl. Was fog on LOS (22,13),
+  not Algorithm-C. Next D-0675 @297 (23,14) wall.
+- Verification: prefix **283→297** Scr **315→314** RNG FULL;
+  green+strict PASS; cohort **32**/32.
+- Next: @297 map(23,14) C `x` vs JS blank (D-0675).
 
 ## 2026-07-18 18:00 — #748 D-0674 Pri-loca Algorithm-C NW cone
 - Objective: seed0367 @283 C blank vs JS `·` (26 cells).
@@ -148,12 +157,3 @@ Use this shape:
 - Verification: @203 residual **27** cells (C W/& vs JS warn); Scr still
   267/324; green+strict PASS; cohort **33**/34. RNG FULL.
 - Next: C physical W/& on dark morgue cells vs JS mon_warning only.
-
-## 2026-07-17 19:28 — #740 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score docs only).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-- Verification: **34/44** PASS; Scr **7021**/11405 (+62 vs #735);
-  RNG **465040**/792838 (58.66%, +0); speed `33+0.16/turn` (R² 0.80);
-  green+strict PASS. seed0367 still RNG FULL Scr 267/324 @203.
-- Next: seed0367 @203 level-teleport materialize map peel.
