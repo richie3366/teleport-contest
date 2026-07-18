@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#759:** D-0682 — `zhitm` wand-ray damage + cold `destroy_items`/
-  `resist`. seed0014 prefix **14566→16304**, Scr **298→365**.
-- **Next:** seed0014 @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)`
-  (`fountain.c`). Or seed0108 wishlist @2772. Leaderboard local
-  **35** vs judge **22**.
-- **Don’t:** reopen D-0474…D-0682; invent put_lregion reject; re-add
+- **#760:** D-0683 — `water_damage` → `erode_obj(ERODE_RUST)`.
+  seed0014 prefix **16304→16447**, Scr **365→383**. Suite **35/44**
+  Scr **7451** RNG **480248** (60.57%).
+- **Next:** seed0014 @16447 C `gush` `rn2(7)` vs JS `rn2(3)`
+  (`dogushforth` / `fountain.c`). Or seed0108 wishlist @2772.
+  Leaderboard local **35** vs judge **22**.
+- **Don’t:** reopen D-0474…D-0683; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -43,17 +44,18 @@ Objective/score live in `CURRENT.md`.
   retrospectives; invent place_lregion / S_ANGEL/medusa-1; skip
   align_shift oldmoves; invent goodpos pool reject / Medusa statue
   accept / Pri-fila morgue skip; skip vamp shapeshift arms;
-  skip D-0660…D-0682 retros; globalize `sel_set_ter(false)`;
+  skip D-0660…D-0683 retros; globalize `sel_set_ter(false)`;
   blame `right_side` for cross-level gas; call `rigid_role_checks`
   before `n<=1` chargen auto-assign; stub SCR_IDENTIFY again;
   treat SPELL/WAND as `oc_merge` without C BITS cite; stub
-  POT_SICKNESS again; stub cursed_book again; stub zhitm sleep-only.
+  POT_SICKNESS again; stub cursed_book again; stub zhitm sleep-only;
+  stub water_damage erode_obj again.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0682 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0683 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -73,20 +75,20 @@ Objective/score live in `CURRENT.md`.
   `weapon_descr` P_NONE → oclass `"spellbook"`.
 - D-0677: chargen `rigid_role_checks` ≡ C `plsel_startmenu` only when
   opening a menu (`n>1`); `n<=1` must not `pick_align`/`pick_gend` RNG.
-- D-0678…D-0682: identify→forcelock→sickness→cursed_book→zhitm;
-  SPELL mrg=0; supply chests need `add_to_container`.
+- D-0678…D-0683: identify→forcelock→sickness→cursed_book→zhitm→
+  water_damage erode; SPELL mrg=0; supply chests need `add_to_container`.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#755).
+  **seed0367** **PASS** (suite **35/44** @#760).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS** (D-0676). seed0014 identify…zhitm.
+- Quest: seed0367 **PASS** (D-0676). seed0014 dip→gush next.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

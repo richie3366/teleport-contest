@@ -602,7 +602,7 @@ export async function dipfountain(obj) {
         // wash_hands deferred — ER_NOTHING (no RNG)
         er = ER_NOTHING;
     } else {
-        er = water_damage(obj, null, true);
+        er = await water_damage(obj, null, true);
     }
 
     if (er === ER_DESTROYED || (er !== ER_NOTHING && !rn2(2))) {

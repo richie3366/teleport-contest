@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0683 — water_damage → erode_obj rust (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 16304→16447)
+- **Symptom:** @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)` when
+  dipping a worn orcish helm.
+- **Cause:** `water_damage` stubbed the final `erode_obj(ERODE_RUST)`
+  arm as `ER_NOTHING`, so `dipfountain` skipped the
+  `er != ER_NOTHING && !rn2(2)` gate and fell through to `rnd(30)`.
+- **C locus:** `trap.c` `water_damage`/`erode_obj`; `fountain.c`
+  `dipfountain`.
+- **Change:** `js/trap.js` `water_damage` async →
+  `await erode_obj(obj, ostr, ERODE_RUST, EF_NONE)`; await callers
+  (`dipfountain`, rust trap, drown chain). Named omissions: grease/
+  towel/container/`splash_lit`; invent plines on scroll/book dilute.
+- **Verification:** seed0014 prefix **16304→16447**, Scr **365→383**/714,
+  positional RNG **16524→16580**/59178; green+strict PASS; cohort
+  **35**/35; full suite **35/44** Scr **7451** RNG **480248**.
+- **Next:** @16447 C `gush` `rn2(7)` (`dogushforth` case 25).
+
 ## D-0682 — zhitm wand-ray damage (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 14566→16304)

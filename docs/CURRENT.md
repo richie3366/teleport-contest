@@ -21,18 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#755**).
-Screens **7111**/11405; RNG **467265**/792838 (58.94%). **35/44** PASS.
-Δ vs #750: +1 PASS (seed0367), Scr +43, RNG +2225 (D-0677/D-0678 peels).
+Score last measured: **2026-07-18** — full `sessions` suite (loop **#760**,
+post D-0683). Screens **7451**/11405; RNG **480248**/792838 (60.57%).
+**35/44** PASS. Δ vs #755: Scr +340, RNG +12983 (D-0678…D-0683 peels;
+still 35 PASS).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,111 / 11,405** |
-| Positional RNG calls matched | **467,265 / 792,838** (58.94%) |
-| Speed label | `35+0.16/turn` (R² 0.79) |
+| Screens matched | **7,451 / 11,405** |
+| Positional RNG calls matched | **480,248 / 792,838** (60.57%) |
+| Speed label | `37+0.17/turn` (R² 0.805) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,10 +47,10 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 16524/59178 | 365/714 | prefix @16304 `dipfountain` `rn2(2)` vs `rnd(30)` |
+| seed0014 | 16580/59178 | 383/714 | prefix @16447 `gush`/`dogushforth` |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
-| seed5002 | 5919/12167 | 154/410 | coverage pair |
+| seed5002 | 5982/12167 | 154/410 | coverage pair |
 
 ## Green gate
 
@@ -72,9 +73,9 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 after D-0682 `zhitm` — first mismatch
-@16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)` (`fountain.c`). Or
-seed0108 wishlist @2772 `rnd_otyp_by_namedesc`. Prefer shared blockers.
+**Gameplay next:** seed0014 after D-0683 `water_damage`→`erode_obj` —
+first mismatch @16447 C `gush` `rn2(7)` (`dogushforth` / `fountain.c`).
+Or seed0108 wishlist @2772 `rnd_otyp_by_namedesc`. Prefer shared blockers.
 seed2200 @158 parked.
 
 ```bash
@@ -82,7 +83,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0682.**
+**Do not re-break D-0660…D-0683.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
