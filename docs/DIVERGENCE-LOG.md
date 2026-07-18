@@ -4,17 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0675 — (23,14) TRWALL viz gap (seed0367 @297)
+## D-0675 — clear_regions on mklev / goto_level (seed0367 @297)
 
-- **Status:** open
+- **Status:** fixed (partial — Scr 322/324; next @318 attributes pages)
 - **Symptom:** @297 Home 1 materialize — tty(22,15)=game **(23,14)**
-  C DEC `x` vs JS blank. Hero u=(13,2). Prefix **297**/324.
-- **Cause (working):** cell is **TRWALL** (typ 11) lit, but
-  `viz_array[14][23]=0` while (23,13)/(23,15) VWALL have viz=3.
-  Row 14 `_viz_rmax=22` — COULD_SEE stops on floor west of the wall.
-  Not gas-cloud; not wrong game-x (display uses x−1).
-- **Next:** `vision.c` `right_side` / `right_ptrs` so the west-face
-  TRWALL gets `set_cs` when the horizontal wall finger is seen.
+  C DEC `x` vs JS blank. TRWALL lit, viz=0; row14 rmax=22.
+  Neighbors VWALL viz=3. Misdiagnosed as `right_side` finger.
+- **Cause:** D-0674 made gas opaque, but JS never called C
+  `clear_regions()` from `clear_level_structures`. Fog vapor from a
+  prior level stayed in `game.regions` at (22,13) and blocked
+  Bresenham `q4_path` to the west-face TRWALL. C screen shows terrain
+  `~` there, not a live cloud.
+- **C locus:** `region.c` `clear_regions`; `mklev.c`
+  `clear_level_structures`; `save.c`/`restore.c` save/rest_regions;
+  `do.c` `goto_level`.
+- **Change:** `js/region.js` `clear_regions`; `mklev.js`
+  `clear_level_structures` call; `do.js` stash `regions` on leave +
+  restore on getlev + detach before mklev/getlev.
+- **Verification:** seed0367 prefix **297→318**, Scr **314→322**/324,
+  RNG FULL; green+strict PASS; cohort **32**/32.
+- **Next:** @318 attributes `1 of 3` vs JS `1 of 2` (enlightenment).
 
 ## D-0674 — gas-cloud does_block + run_regions (seed0367 @283)
 

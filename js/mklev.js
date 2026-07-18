@@ -101,7 +101,7 @@ import { christen_monst, oname } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { find_level } from './dungeon.js';
 import { premap_detect } from './detect.js';
-import { create_gas_cloud } from './region.js';
+import { create_gas_cloud, clear_regions } from './region.js';
 import { ndemon } from './minion.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
@@ -672,6 +672,8 @@ function clear_level_structures() {
     lf.fumaroles = false;
     lf.stormy = false;
     lf.stasis_until = 0;
+    // C: clear_regions() — gas must not survive into a freshly mklev'd map
+    clear_regions();
     init_rect();
 }
 

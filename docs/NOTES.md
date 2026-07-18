@@ -7,17 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#750:** public score refresh — **34/44** Scr **7068**/11405 RNG
-  **465040**/792838 (58.66%) `35+0.16/turn`. Δ vs #745 Scr **+6**.
-- **D-0675 (open):** seed0367 @297 Home 1 materialize. tty(22,15) =
-  game **(23,14)** C DEC `x` vs JS blank. Hero u=(13,2). Cell is
-  **TRWALL** lit, seenv=0, **viz=0**; row14 `_viz_rmax=22` (stops on
-  floor west of wall). Neighbors (23,13)/(23,15) VWALL **viz=3**.
-- **Falsify next:** `right_side` finger / `right_mark` so TRWALL at
-  col 23 gets `set_cs` like C; dump C-equivalent `right_ptrs[14][22]`.
-  Don’t invent darkroom blank; don’t reopen D-0674 gas-cloud.
+- **#751:** D-0675 fixed — stale fog across levels, not `right_side`.
+  seed0367 Scr **314→322**/324, prefix **297→318**, RNG FULL.
+- **Next peel @318:** attributes enlightenment — C `1 of 3` vs JS
+  `1 of 2`; page content C spellbook line vs JS weapon. Falsify:
+  `insight.c` / `invent.js` `enlightenment` missing BASIC section.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0674; invent put_lregion reject; re-add
+- **Don’t:** reopen D-0474…D-0675; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -48,13 +44,14 @@ Objective/score live in `CURRENT.md`.
   retrospectives; invent place_lregion / S_ANGEL/medusa-1; skip
   align_shift oldmoves; invent goodpos pool reject / Medusa statue
   accept / Pri-fila morgue skip; skip vamp shapeshift arms;
-  skip D-0660…D-0675 retros; globalize `sel_set_ter(false)`.
+  skip D-0660…D-0675 retros; globalize `sel_set_ter(false)`;
+  blame `right_side` for cross-level gas.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0674 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0675 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -68,8 +65,8 @@ Objective/score live in `CURRENT.md`.
 - D-0668/D-0673: global `sel_set_ter(false)`≡C clears lit → seed0009 FAIL;
   per-loader SpLev_Map / map-set lit=FALSE clear is the safe envelope
   (Pri-loca, fire, tower1).
-- D-0674: @283 · vs blank was **gas-cloud** on path (not Algorithm-C /
-  darkroom); `_blocks` must call `visible_region_at` + rebuild viz.
+- D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev +
+  per-level stash; without clear, prior-level fog blocks new maps.
 - D-0669: @203 C W/blank/& vs warn is telepathy (ESP), not nv_range;
   ghost physical glyph is `' '`; zombies mindless → still Warning.
 - D-0670: Pri-goal unlit region must use `light_region` (lava stays lit);
@@ -87,12 +84,12 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 RNG FULL Scr 314; @297 → D-0675 TRWALL viz gap.
+- Quest: seed0367 RNG FULL Scr 322; @318 → attributes pages (D-0676?).
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
-  exclusion_zones save/rest deferred.
+  exclusion_zones save/rest deferred; region binary save format deferred.
 - Rolling boulder: `launch_obj` + rolling-boulder trap (D-0599).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
   defsym `')'`=WEAPON `'('`=TOOL; Arc-goal **14** `des.object()`.

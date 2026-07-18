@@ -25,6 +25,7 @@ Score last measured: **2026-07-18** — full `sessions` suite (loop **#750**).
 Screens **7068**/11405; RNG **465040**/792838 (58.66%). **34/44** PASS.
 Δ vs #745: Scr **+6**, RNG **+0**, PASS **+0**. Screen gain is peels
 #746–749 (seed0367 Scr 308→314 @ suite) landing in aggregates.
+*(#751 focused seed0367 Scr 314→322 not yet in full-suite Score.)*
 
 ## Score
 
@@ -47,7 +48,7 @@ seed5006, seed0116, seed0361.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0367 | **50125**/50125 | **314**/324 | RNG FULL; screen peel @297 |
+| seed0367 | **50125**/50125 | **322**/324 | RNG FULL; peel @318 attributes |
 | seed0014 | 1435/59178 | 10/714 | early FAIL |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
@@ -71,19 +72,18 @@ seed0398 + seed0373 + seed0361; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **314**/324
-(cursors 323/324; prefix **297**). **D-0675:** @297 Home 1 materialize —
-tty(22,15)=game(23,14) C DEC `x` vs JS blank. TRWALL lit but **viz=0**
-(row14 rmax=22; neighbors VWALL at 23 have viz=3).
+**Gameplay next:** seed0367 screen peel — RNG **FULL**; Scr **322**/324
+(cursors 323/324; prefix **318**). **D-0675** done (clear_regions).
+**@318:** attributes enlightenment — C `1 of 3` vs JS `1 of 2`; page
+body C spellbook line vs JS weapon.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0367-priest-quest-tour.session.json
 ```
 
-**Next falsifier / fix:** `vision.c` `right_side` COULD_SEE for west-face
-TRWALL when parent `right_mark` / horizontal wall finger; compare C vs JS
-`right_ptrs`+`q4_path` on row 14. Do not re-break D-0660…D-0674.
+**Next falsifier / fix:** `insight.c` / `invent.js` `enlightenment`
+BASIC sections — missing page vs C. Do not re-break D-0660…D-0675.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
