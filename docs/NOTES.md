@@ -7,28 +7,29 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#785 D-0706 fixed:** seed0014 `@43341` — monster kick was `kick_ouch`
-  stub; C `maybe_kick_monster`→`overexertion`/`gethungry` then
-  `kick_monster`/`kickdmg`. Prefix →43553; screens still 575.
-- **New miss seed0014 @43553:** C `next_ident`/`rndmonst_adj` vs JS
-  `rn2(3)`. Post-kick object/mon generation path.
+- **#786 D-0707 fixed:** seed0014 `@43553` — `corpse_chance` missing
+  always-TRUE arms (`bigmonst`/lizard/golem/mplayer/rider/isshk). C skipped
+  RNG → `make_corpse`/`mkcorpstat`/`rndmonnum`; JS burned `rn2(3)`.
+  Prefix →49039; RNG 49495; screens still 575.
+- **New miss seed0014 @49039:** C `distfleeck` `rn2(5)` vs JS `rn2(6)`
+  (monmove after kill/level-up).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
 - **Don’t:** flush_topl_more before every parse get_count (breaks green);
-  couldsee-only BFS; re-break D-0660…D-0706.
+  couldsee-only BFS; re-break D-0660…D-0707.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0706 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0707 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0706: blue DSM / … / lookaround / monster kick.
+- D-0676…D-0707: blue DSM / … / lookaround / kick / corpse_chance always-TRUE.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -46,7 +47,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @43553 after D-0706.
+- Quest: seed0367 **PASS**. seed0014 @49039 after D-0707.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

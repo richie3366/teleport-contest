@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 00:30 — #786 D-0707 corpse_chance always-TRUE
+- Objective: seed0014 @43553 C `next_ident`/`rndmonst_adj` vs JS `rn2(3)`.
+- C locus: `mon.c` `corpse_chance` bigmonst/lizard/golem/mplayer/rider/isshk.
+- Change: port always-TRUE arms in `uhitm`/`mhitm`/`trap` `corpse_chance`.
+- Verification: green+strict PASS; prefix **43553→49039** RNG **49495**;
+  cohort 33/33 PASS. Scr still 575.
+- Next: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+
 ## 2026-07-19 00:22 — #785 score + D-0706 monster kick
 - Objective: mandatory full `sessions` score (#785÷5); seed0014 @43341 kick.
 - Score: **35/44** Scr **7638**/11405 RNG **507306**/792838 (63.99%)

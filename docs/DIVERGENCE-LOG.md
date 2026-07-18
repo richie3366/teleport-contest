@@ -4,10 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-# Divergence log
+## D-0707 — corpse_chance always-TRUE bigmonst arms (seed0014)
 
-Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
-Newest entries at top.
+- **Status:** fixed (partial — seed0014 still FAIL; next @49039)
+- **Symptom:** seed0014 @43553 — after xkilled treasure
+  `mkobj`/`next_ident`/`blessorcurse`, C `next_ident`+`rndmonst_adj`
+  (make_corpse via mkcorpstat CORPSTAT_INIT) vs JS `rn2(3)`.
+- **C locus:** `mon.c` `corpse_chance` —
+  `((bigmonst||lizard) && !mcloned) || golem || mplayer || rider || isshk`
+  returns TRUE with no RNG; ordinary path is `!rn2(tmp)`.
+- **Cause:** JS `corpse_chance` (uhitm/mhitm/trap) omitted always-TRUE
+  arms; bigmonst kill fell through to `rn2(3)` and skipped corpse init.
+- **Change:** port always-TRUE arms in all three `corpse_chance` copies.
+  Vlad/lich dust, swallowed boom, `LEVEL_SPECIFIC_NOCORPSE` deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **43553→49039**
+  RNG **49495**/59178 Scr **575**/714; cohort 33/33 PASS (all prior
+  PASS list incl. seed0002/0004/0007/0012/1500/1800/0398/0373/5006/
+  0116/0361/0367).
+- **Next:** seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 
 ## D-0706 — maybe_kick_monster / kick_monster / kickdmg (seed0014)
 
