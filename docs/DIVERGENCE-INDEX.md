@@ -656,6 +656,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0673 | fixed | tower1 map lit=FALSE clear (≡ C lspo_map) | seed0367 Scr 312→315 prefix 278→283; next @283 · vs blank |
 | D-0674 | fixed | does_block visible_region_at + run_regions ttl | seed0367 prefix 283→297 Scr 315→314; next @297 wall |
 | D-0675 | fixed | clear_regions on mklev + goto_level stash/rest | seed0367 Scr 314→322 prefix 297→318; next @318 attributes pages |
+| D-0676 | fixed | ^X attrs Fire/Shock/item_res/ESP/Warning + weapon_descr P_NONE + FAST worn equip | seed0367 **PASS** 324/324; suite PASS **35**/44 |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

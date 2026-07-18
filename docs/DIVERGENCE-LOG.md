@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0676 — ^X attributes Fire/Shock/ESP/Warning + weapon_descr (seed0367 @318)
+
+- **Status:** fixed — seed0367 **PASS**
+- **Symptom:** @318 attributes `(1 of 3)` vs JS `(1 of 2)`; page-2 body
+  C spellbook / fire·shock·ESP·Warning lines vs JS weapon + short attrs.
+- **Cause:** (1) `weapon_descr` P_NONE returned skill `"weapon"` instead of
+  C `def_oc_syms[oclass].name` (`"spellbook"`). (2) Missing
+  `attributes_enlightenment` arms: Fire_resistance, Shock_resistance,
+  `item_resistance_message(AD_ELEC)`, Blind_telepat, Warning — so page
+  count stayed 2. (3) `from_what(FAST)` skipped C `Very_fast` arm →
+  `what_gives` named blue DSM instead of `"worn equipment"`.
+- **C locus:** `weapon.c` `weapon_descr`; `insight.c`
+  `attributes_enlightenment` / `item_resistance_message`; `zap.c`
+  `u_adtyp_resistance_obj` / `item_what`; `attrib.c` `from_what` FAST.
+- **Change:** `js/invent.js` oclass `weapon_descr`, Fire/Shock/
+  item_res/Telepat/Warning in `doattributes`; `js/attrib.js`
+  `from_what` FAST+Very_fast + `PROP_HFIELD` FIRE_RES/WARNING.
+- **Verification:** seed0367 **PASS** RNG/Scr **50125/50125**,
+  **324/324**; green+strict PASS; cohort 10/10 (incl. seed0361/
+  0116/0373/0007).
+- **Deferred:** Cold/Sleep/Disint/Acid/… resists; other item_resistance;
+  See_invisible/Warn_of_mon/Clairvoyant; known speed-boots name.
+
 ## D-0675 — clear_regions on mklev / goto_level (seed0367 @297)
 
 - **Status:** fixed (partial — Scr 322/324; next @318 attributes pages)

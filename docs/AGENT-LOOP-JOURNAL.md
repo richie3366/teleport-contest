@@ -31,6 +31,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 18:55 — #752 D-0676 seed0367 attributes PASS
+- Objective: seed0367 @318 `(1 of 3)` vs `(1 of 2)`; spellbook vs weapon.
+- C locus: `weapon.c` `weapon_descr`; `insight.c` attrs Fire/Shock/
+  `item_resistance`/Blind_telepat/Warning; `attrib.c` `from_what` FAST.
+- Change: D-0676 — oclass `weapon_descr`; Fire/Shock/AD_ELEC item_res/
+  ESP/Warning in `doattributes`; FAST+Very_fast → worn equipment.
+- Verify: seed0367 **PASS** 324/324; green+strict; cohort 10/10.
+- Next: non-PASS survey (seed0014 / seed0108); leaderboard cron.
+
 ## 2026-07-18 18:45 — #751 D-0675 clear_regions
 - Objective: seed0367 @297 C `x` vs JS blank at (23,14) TRWALL.
 - C locus: `region.c` `clear_regions`; `mklev.c` `clear_level_structures`;

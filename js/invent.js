@@ -77,6 +77,8 @@ import {
     P_ISRESTRICTED, P_UNSKILLED, P_BASIC, P_SKILLED,
     P_EXPERT, P_MASTER, P_GRAND_MASTER,
     W_ARMOR, W_AMUL, W_RING, W_TOOL, W_SADDLE,
+    W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU,
+    W_WEP, W_ART, W_ACCESSORY,
     NEW_MOON,
     FULL_MOON,
     Upolyd,
@@ -86,6 +88,7 @@ import {
     RIGHT_SIDE,
     TELEPORT_CONTROL,
     HALLUC_RES, SEARCHING, REFLECTING, LIFESAVED,
+    FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
 } from './const.js';
 import { align_str, align_gname, u_gname, rank_of } from './roles.js';
 import {
@@ -1127,11 +1130,34 @@ function insight_skill_level_name(skill) {
 }
 
 /**
- * C ref: weapon.c weapon_descr — P_NAME(weapon_type); special cases deferred
- * (ammo, mattock, wet towel, shield of reflection).
+ * C ref: weapon.c weapon_descr — P_NAME(weapon_type); P_NONE → oclass name
+ * (def_oc_syms[].name). Named omissions: ammo/sling/bow/crossbow/flail
+ * hook/mattock specials; wet towel; shield of reflection.
  */
 function weapon_descr(obj) {
     const skill = weapon_type(obj);
+    if (skill === P_NONE && obj) {
+        // C: corpses/tin/egg/statue/boulder/towel/opener → OBJ_NAME;
+        // else def_oc_syms[oclass].name. Spellbook path is the live peel.
+        const OC_NAME = {
+            [WEAPON_CLASS]: 'weapon',
+            [ARMOR_CLASS]: 'armor',
+            [RING_CLASS]: 'ring',
+            [AMULET_CLASS]: 'amulet',
+            [TOOL_CLASS]: 'tool',
+            [FOOD_CLASS]: 'food',
+            [POTION_CLASS]: 'potion',
+            [SCROLL_CLASS]: 'scroll',
+            [SPBOOK_CLASS]: 'spellbook',
+            [WAND_CLASS]: 'wand',
+            [COIN_CLASS]: 'coin',
+            [GEM_CLASS]: 'gem',
+            [ROCK_CLASS]: 'rock',
+            [BALL_CLASS]: 'iron ball',
+            [CHAIN_CLASS]: 'chain',
+        };
+        return OC_NAME[obj.oclass] || 'weapon';
+    }
     return skill_name(skill);
 }
 
@@ -1300,6 +1326,40 @@ function hero_Poison_resistance(u = game.u || {}) {
         || u.Poison_resistance);
 }
 
+/** C ref: youprop.h Fire_resistance — H || E via flat + uprops[FIRE_RES]. */
+function hero_Fire_resistance(u = game.u || {}) {
+    const e = u.uprops?.[FIRE_RES];
+    return !!((u.HFire_resistance | 0) || (u.EFire_resistance | 0)
+        || u.Fire_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Shock_resistance — H || E via flat + uprops[SHOCK_RES]. */
+function hero_Shock_resistance(u = game.u || {}) {
+    const e = u.uprops?.[SHOCK_RES];
+    return !!((u.HShock_resistance | 0) || (u.EShock_resistance | 0)
+        || u.Shock_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C ref: youprop.h Blind_telepat — HTelepat || ETelepat
+ * (uprops[TELEPAT] mirrors).
+ */
+function hero_Blind_telepat(u = game.u || {}) {
+    const e = u.uprops?.[TELEPAT];
+    return !!((u.HTelepat | 0) || (u.ETelepat | 0)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Warning — HWarning || EWarning. */
+function hero_Warning(u = game.u || {}) {
+    const e = u.uprops?.[WARNING];
+    return !!((u.HWarning | 0) || (u.EWarning | 0)
+        || u.Warning
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /** C ref: youprop.h Halluc_resistance — H || E via uprops[HALLUC_RES]. */
 function hero_Halluc_resistance(u = game.u || {}) {
     const e = u.uprops?.[HALLUC_RES];
@@ -1336,6 +1396,96 @@ function hero_Teleport_control(u = game.u || {}) {
         || (u.uprops?.[TELEPORT_CONTROL]?.intrinsic | 0)
         || (u.uprops?.[TELEPORT_CONTROL]?.extrinsic | 0)
     );
+}
+
+/* C monattk.h — local for item_resistance_message / adtyp_to_prop */
+const AD_FIRE = 2;
+const AD_ELEC = 6;
+
+/** C ref: zap.c adtyp_to_prop — subset used by item resistance enl. */
+function adtyp_to_prop(dmgtyp) {
+    if (dmgtyp === AD_FIRE) return FIRE_RES;
+    if (dmgtyp === AD_ELEC) return SHOCK_RES;
+    return 0;
+}
+
+/**
+ * C ref: zap.c u_adtyp_resistance_obj — extrinsic armor/accessory/wep/art
+ * → 99; dwarvish cloak cold/fire 90 deferred.
+ */
+function u_adtyp_resistance_obj(dmgtyp) {
+    const prop = adtyp_to_prop(dmgtyp);
+    if (!prop) return 0;
+    const x = game.u?.uprops?.[prop]?.extrinsic | 0;
+    if (x & (W_ARMOR | W_ACCESSORY | W_WEP | W_ART)) return 99;
+    return 0;
+}
+
+/**
+ * C ref: objnam.c suit_simple_name — dragon mail/scales + mail/jacket.
+ * Local copy for item_what (do_wear.js suit_simple_name still defers dragon).
+ */
+function enl_suit_simple_name(suit) {
+    if (!suit) return 'suit';
+    const otyp = suit.otyp | 0;
+    const grayMail = objectNames.indexOf('GRAY_DRAGON_SCALE_MAIL');
+    const yellowMail = objectNames.indexOf('YELLOW_DRAGON_SCALE_MAIL');
+    const grayScales = objectNames.indexOf('GRAY_DRAGON_SCALES');
+    const yellowScales = objectNames.indexOf('YELLOW_DRAGON_SCALES');
+    if (grayMail >= 0 && otyp >= grayMail && otyp <= yellowMail) {
+        return 'dragon mail';
+    }
+    if (grayScales >= 0 && otyp >= grayScales && otyp <= yellowScales) {
+        return 'dragon scales';
+    }
+    const suitnm = objectNameStrs[otyp] || '';
+    if (suitnm.length > 5 && suitnm.endsWith(' mail')) return 'mail';
+    if (suitnm.length > 7 && suitnm.endsWith(' jacket')) return 'jacket';
+    return 'suit';
+}
+
+/**
+ * C ref: zap.c item_what — wizard suffix " by your <slot simple name>".
+ * Ported: W_ARM → suit_simple_name (dragon mail). Other slots deferred
+ * until a seed needs them (cloak/helm/…/amulet/ring/wep).
+ */
+function item_what(dmgtyp) {
+    const wizard = !!(game.flags?.wizard || game.flags?.debug);
+    if (!wizard) return '';
+    const prop = adtyp_to_prop(dmgtyp);
+    const x = game.u?.uprops?.[prop]?.extrinsic | 0;
+    if (!prop || !x) return '';
+    const u = game.u || {};
+    let what = null;
+    if (x & W_ARMC) what = 'cloak';
+    else if (x & W_ARM) what = enl_suit_simple_name(u.uarm);
+    else if (x & W_ARMU) what = 'shirt';
+    else if (x & W_ARMH) what = 'helmet';
+    else if (x & W_ARMG) what = 'gloves';
+    else if (x & W_ARMF) what = 'boots';
+    else if (x & W_ARMS) what = 'shield';
+    else if (x & (W_AMUL | W_TOOL)) {
+        const o = (x & W_AMUL) ? u.uamul : u.ublindf;
+        what = o ? (objectNameStrs[o.otyp] || 'item').toLowerCase().replace(/_/g, ' ') : null;
+    } else if (x & W_RING) what = 'ring';
+    else if (x & W_WEP) what = 'weapon';
+    return what ? ` by your ${what}` : '';
+}
+
+/**
+ * C ref: insight.c item_resistance_message — "Your items are [somewhat]
+ * protected from …" + item_what.
+ */
+function item_resistance_message_lines(adtyp, prot_message, final, o) {
+    const protection = u_adtyp_resistance_obj(adtyp);
+    if (!protection) return [];
+    const somewhat = protection < 99;
+    const mid = final
+        ? (somewhat ? 'were somewhat' : 'were')
+        : (somewhat ? 'are somewhat' : 'are');
+    return [o(enlght_line_txt(
+        'Your items ', mid, prot_message, item_what(adtyp),
+    ))];
 }
 
 /**
@@ -1995,6 +2145,22 @@ export async function doattributes() {
                 'Your alignment ', 'is', ` ${record}`, '',
             )));
         }
+        // C attributes_enlightenment Resistances — Fire before Cold/…/Shock
+        // before Poison. Cold/Sleep/Disint/Acid/Drain/Sick/Stone deferred.
+        if (hero_Fire_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'fire resistant', from_what(FIRE_RES),
+            )));
+        }
+        // item_resistance AD_FIRE deferred (no fire-extrinsic on this peel)
+        if (hero_Shock_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'shock resistant', from_what(SHOCK_RES),
+            )));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_ELEC, ' protected from electric shocks', 0, o,
+        ));
         // Resistances — poison + Halluc_resistance (other resists deferred)
         if (hero_Poison_resistance(u)) {
             lines.push(o(enlght_line_txt(
@@ -2005,6 +2171,18 @@ export async function doattributes() {
         if (hero_Halluc_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'resist', ' hallucinations', from_what(HALLUC_RES),
+            )));
+        }
+        // Vision — Blind_telepat + Warning before Searching (See_invisible /
+        // Warn_of_mon / Clairvoyant / Infravision deferred)
+        if (hero_Blind_telepat(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'telepathic', from_what(TELEPAT),
+            )));
+        }
+        if (hero_Warning(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'warned', from_what(WARNING),
             )));
         }
         // Vision — Searching (other senses deferred)
