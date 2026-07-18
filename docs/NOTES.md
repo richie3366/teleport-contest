@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#752:** D-0676 fixed — seed0367 **PASS** 324/324. Missing attrs
-  Fire/Shock/item_res/ESP/Warning + weapon_descr P_NONE + FAST
-  `from_what` worn equipment → page count 3.
-- **Next:** remaining non-PASS survey (seed0014 early / seed0108
-  wishlist). Leaderboard local **35** vs judge **22**; D-0483 await cron.
-- **Don’t:** reopen D-0474…D-0676; invent put_lregion reject; re-add
+- **#753:** D-0677 fixed — seed0014 chargen: `rigid_role_checks` only
+  when `n>1` (≡ C `plsel_startmenu`). Prefix **1→3113**, Scr **10→34**.
+- **Next:** seed0014 @3113 C `exercise(attrib.c:509)` vs JS identify
+  (`seffect_identify` / read path). Or seed0108 wishlist @2772
+  `rnd_otyp_by_namedesc`. Leaderboard local **35** vs judge **22**.
+- **Don’t:** reopen D-0474…D-0677; invent put_lregion reject; re-add
   rect roomno gate without C cite; hx=39 alone; naive add_doors;
   wear `[*?]`; stub `^V?`; empty wish ESC; skip amulet_wish; Wizard
   Norep; maze `rn2(2)` Sokoban; TELE on occupied mon; skip
@@ -43,15 +43,15 @@ Objective/score live in `CURRENT.md`.
   retrospectives; invent place_lregion / S_ANGEL/medusa-1; skip
   align_shift oldmoves; invent goodpos pool reject / Medusa statue
   accept / Pri-fila morgue skip; skip vamp shapeshift arms;
-  skip D-0660…D-0676 retros; globalize `sel_set_ter(false)`;
-  blame `right_side` for cross-level gas; skip FAST worn-equip
-  `from_what` / P_NONE oclass `weapon_descr`.
+  skip D-0660…D-0677 retros; globalize `sel_set_ter(false)`;
+  blame `right_side` for cross-level gas; call `rigid_role_checks`
+  before `n<=1` chargen auto-assign.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0676 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0677 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -69,6 +69,8 @@ Objective/score live in `CURRENT.md`.
   per-level stash; without clear, prior-level fog blocks new maps.
 - D-0676: blue DSM Fast → `from_what` "worn equipment" (not suit name);
   `weapon_descr` P_NONE → oclass `"spellbook"`.
+- D-0677: chargen `rigid_role_checks` ≡ C `plsel_startmenu` only when
+  opening a menu (`n>1`); `n<=1` must not `pick_align`/`pick_gend` RNG.
 - D-0669: @203 C W/blank/& vs warn is telepathy (ESP), not nv_range;
   ghost physical glyph is `' '`; zombies mindless → still Warning.
 
@@ -82,7 +84,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS** (D-0676).
+- Quest: seed0367 **PASS** (D-0676). seed0014 chargen unlocked (D-0677).
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

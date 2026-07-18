@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, **seed0367**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 1435/59178 | 10/714 | early FAIL |
+| seed0014 | 3301/59178 | 34/714 | D-0677 chargen; next @3113 exercise |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
 ## Green gate
@@ -71,16 +71,16 @@ seed0398 + seed0373 + seed0361 + **seed0367**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** remaining non-PASS survey — prefer shared blockers over
-late single-seed peels. Candidates: seed0014 (early FAIL), seed0108
-(wishlist/extcmd). seed2200 @158 parked (RC harness).
+**Gameplay next:** seed0014 after D-0677 chargen — first mismatch @3113
+`exercise` vs identify read path. Or seed0108 wishlist @2772
+`rnd_otyp_by_namedesc`. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
-node frozen/ps_test_runner.mjs \
+node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0676.**
+**Do not re-break D-0660…D-0677.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

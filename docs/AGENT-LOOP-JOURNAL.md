@@ -31,6 +31,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:05 — #753 D-0677 chargen rigid n>1 only
+- Objective: seed0014 early FAIL @1 (gem colors vs pick_align).
+- C locus: `role.c` `plsel_startmenu` / genl `n>1` align branch.
+- Change: D-0677 — `pick_{race,gend,align}_menu` call
+  `rigid_role_checks` only when opening a menu (`n>1`); `n<=1`
+  auto-assign skips `pick_*` RNG (Valkyrie+dwarf lawful).
+- Verify: seed0014 prefix **1→3113** Scr **10→34**; green+strict;
+  cohort 12/12 (seed0077 chargen + seed0367).
+- Next: @3113 `exercise` vs identify; or seed0108 wishlist.
+
 ## 2026-07-18 18:55 — #752 D-0676 seed0367 attributes PASS
 - Objective: seed0367 @318 `(1 of 3)` vs `(1 of 2)`; spellbook vs weapon.
 - C locus: `weapon.c` `weapon_descr`; `insight.c` attrs Fire/Shock/

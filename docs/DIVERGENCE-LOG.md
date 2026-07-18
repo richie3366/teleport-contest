@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0677 — chargen `rigid_role_checks` only on menu open (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 1→3113)
+- **Symptom:** seed0014 first RNG mismatch @1 — C `rn2(2)` gem colors vs
+  JS `rn2(1)` `pick_align` after matching `pick_gend`.
+- **Cause:** JS called `rigid_role_checks()` at the start of every
+  `pick_{race,gend,align}_menu`, including the `n<=1` auto-assign path.
+  C only calls it from `plsel_startmenu` when a menu actually opens.
+  Valkyrie+dwarf forces lawful with `n==1` → C sets align without
+  `pick_align` RNG; JS still ran `pick_align` PICK_RIGID `rn2(1)`.
+- **C locus:** `role.c` `plsel_startmenu` / `genl_player_setup` align
+  branch (`if (n > 1)` only).
+- **Change:** `js/player_selection.js` — count first; `n<=1` return
+  without rigid; `n>1` → `rigid_role_checks()` then build menu.
+- **Verification:** seed0014 RNG prefix **1→3113**, Scr **10→34**/714;
+  green+strict PASS; cohort 12/12 (incl. seed0077 chargen, seed0367).
+- **Next:** @3113 C `exercise` vs JS identify path.
+
 ## D-0676 — ^X attributes Fire/Shock/ESP/Warning + weapon_descr (seed0367 @318)
 
 - **Status:** fixed — seed0367 **PASS**
