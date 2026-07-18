@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 22:05 — #774 D-0696 door bump Fumbling()
+- Objective: seed0014 @28552 C `exercise` `rn2(2)` vs JS `rn2(19)`.
+- C locus: `hack.c` `test_move` closed_door autoopen / bump (`Fumbling`).
+- Change: D-0696 — `cmd.js` uses `Fumbling()` (H||E) for impaired + bump
+  instead of sticky `u.Fumbling` (was autoopen→`rn2(19)`).
+- Verification: prefix **28552→32023**, Scr **515→533**; green+strict;
+  cohort **33**/33 PASS.
+- Next: @32023 C `create_monster` `rn2(3)` vs JS `rn2(79)` (descend).
+
 ## 2026-07-18 21:57 — #773 D-0695 unmul empty nomovemsg
 - Objective: seed0014 trip `--More--` @22721 / @22868 mtrack desync.
 - C locus: `hack.c` `unmul`; `timeout.c` FUMBLING `nomovemsg=""`.
@@ -156,13 +165,3 @@ Use this shape:
 - Verification: prefix **16304→16447**, Scr **365→383**/714; green+strict
   PASS; cohort **35**/35.
 - Next: @16447 C `gush`/`dogushforth` `rn2(7)`.
-
-## 2026-07-18 19:42 — #759 D-0682 zhitm wand-ray damage
-- Objective: seed0014 @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
-- C locus: `zap.c` `zhitm`/`dobuzz`/`destroy_items`/`resist`.
-- Change: D-0682 — port `zhitm` damage types; cold `destroy_items` +
-  wand `resist`; wire kill/`wakeup` in `dobuzz`.
-- Verification: prefix **14566→16304**, Scr **298→365**/714; green+strict
-  PASS; cohort **33**/33.
-- Next: @16304 C `dipfountain` `rn2(2)` vs JS `rnd(30)`.
-

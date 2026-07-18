@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 28682/59178 | 515/714 | prefix @28552 C `exercise` rn2(2) |
+| seed0014 | 32170/59178 | 533/714 | prefix @32023 C `create_monster` rn2(3) |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,9 +73,9 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @28552 (step ~536 door-bump) C `exercise`
-`rn2(2)` vs JS `rn2(19)`. D-0695 fixed fumbling `unmul` empty
-`nomovemsg` (prefix 22868→28552, Scr 483→515). Or seed0108 wishlist
+**Gameplay next:** seed0014 @32023 (step ~555 `>` descend) C
+`create_monster` `rn2(3)` vs JS `rn2(79)`. D-0696 fixed door bump
+`Fumbling()` (prefix 28552→32023, Scr 515→533). Or seed0108 wishlist
 @2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
@@ -83,7 +83,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0695.**
+**Do not re-break D-0660…D-0696.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

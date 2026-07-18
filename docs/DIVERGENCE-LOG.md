@@ -9,6 +9,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0696 — closed-door bump Fumbling() ≡ H||E (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 28552→32023)
+- **Symptom:** seed0014 @28552 step ~536 key `j` — C `exercise` `rn2(2)`
+  (door bump) vs JS `rn2(19)` (autoopen open-DEX exercise). Screen C
+  `"Ouch!  You bump into a door."`
+- **Cause:** `cmd.js` closed-door autoopen/`impaired` and orthogonal bump
+  tested sticky `u.Fumbling`. C uses `Fumbling` macro (H||E). With fumble
+  boots timeout live, C skipped autoopen and bumped (`exercise(A_DEX,FALSE)`);
+  JS autoopened (`doopen_indir` → `exercise(A_DEX,TRUE)` → `rn2(19)`).
+- **C locus:** `hack.c` `test_move` closed_door autoopen / bump arms.
+- **Change:** `js/cmd.js` — use `Fumbling()` for impaired + bump predicates
+  (continues D-0691 named omission).
+- **Named omission:** sticky `u.Fumbling` still in trap/steed/mthrowu;
+  Confusion/`Stunned` macros not fully mirrored in this path.
+- **Verification:** seed0014 prefix **28552→32023**, Scr **515→533**/714
+  (positional RNG **32170**/59178); green+strict PASS; cohort **33**/33.
+- **Next:** @32023 C `create_monster` `rn2(3)` vs JS `rn2(79)` on descend.
+
 ## D-0695 — unmul empty nomovemsg ≠ default (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 22868→28552)
