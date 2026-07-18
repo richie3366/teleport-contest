@@ -7,22 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#790 D-0710:** seed0108 @2778 — tame feline `dochug`: JS
-  `nearby=false` (pet `(41,16)` / hero `(43,18)` dist2=8) skips
-  wanderer `rn2(4)`; C emits it ⇒ C `nearby=true`. Not a missing
-  call site. Falsifier:
+- **#791 D-0711:** seed0108 @2807 — C `use_cream_pie` `rnd(25)` vs JS
+  `rn2(5)`. After D-0710 `#rub`, cream-pie wish + `a` apply hits C arm;
+  JS `doapply` lacks it. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
-  Next: when pet/hero adjacency first diverges (pre-@2778 geometry).
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0709; invent nearby force; blame
-  wanderer/`is_wanderer` alone for D-0710.
+- **Don’t:** re-break D-0660…D-0710; invent nearby force for D-0710
+  (was missing `#rub`).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0709 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0710 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -36,6 +34,7 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
+- D-0710: missing `#rub` made `n` SE-move (dist2 2→8); not pet AI.
 
 ## Landmarks (≤15)
 

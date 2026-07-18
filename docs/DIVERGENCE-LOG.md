@@ -4,23 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0710 — dochug nearby short-circuit skips wanderer rn2(4) (seed0108)
+## D-0711 — doapply missing use_cream_pie (seed0108)
 
-- **Status:** open (diagnosed; no faithful fix this iteration)
+- **Status:** open
+- **Symptom:** seed0108 @2807 — C `rnd(25)` @ `use_cream_pie` vs JS `rn2(5)`.
+- **C locus:** `apply.c` `doapply` → `use_cream_pie` (`rnd(25)` blindinc).
+- **Cause (partial):** after D-0710 `#rub`, wish cream pie + `a` apply reaches
+  C `use_cream_pie`; JS `doapply` still lacks that arm.
+- **Next:** port `use_cream_pie` (blindinc `rnd(25)` + sticky goop); or D-0708.
+
+## D-0710 — #rub missing → SE move desyncs pet nearby (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @2807)
 - **Symptom:** seed0108 @2778 — C `dochug` `rn2(4)` vs JS `rn2(100)`
-  (`obj_resists` via `dog_goal`).
-- **C locus:** `monmove.c` `dochug` want_move OR — wanderer/`!mcansee`
-  `rn2(4)` only reached when `!nearby` is false.
-- **Cause (partial):** tame S_FELINE at JS `(41,16)` vs hero `(43,18)`
-  (`mux/muy` match `u`); `dist2=8` ⇒ `monnear` false ⇒ `nearby=false`
-  short-circuits before wanderer `rn2(4)`. C emits that `rn2(4)` ⇒ C
-  `nearby=true` ⇒ earlier pet/hero geometry (or apparxy) divergence.
-  Same ISAAC draw: C `rn2(4)=0` vs JS `rn2(100)=76` (76%4==0).
-- **Falsified:** missing wanderer call site; `is_wanderer` false;
-  `mpeaceful` alone skipping (wanderer is true; `!nearby` is the skip).
-- **Named omission:** S_LEPRECHAUN `findgold` arm between minvis and
-  wanderer in JS want_move OR (not exercised here).
-- **Next:** when feline/hero adjacency first diverges; or seed0014 D-0708.
+  (`obj_resists` via `dog_goal`). JS tame feline `nearby=false` (dist2=8).
+- **C locus:** `apply.c` `dorub` / `wield.c` `wield_tool`; `hack.c` `nomul`
+  `cmdq_clear(CQ_CANNED)`.
+- **Cause:** `#rub` was autocomplete-only (not in `EXT_CMDS`). After wish,
+  keys `#rub\nn` fell through; `n` was SE movement → hero stepped away from
+  pet (dist2 2→8) → `!nearby` short-circuited wanderer `rn2(4)`. C ran
+  `dorub`→`wield_tool` ("You now wield a lamp.") without moving; goblin hit
+  `nomul(0)` cleared the canned re-queue.
+- **Change:** register `#rub`→`dorub`; port `wield_tool` + `rub_ok`/`getobj_rub`
+  + cmdq re-queue; `nomul` clears `game._cmdq_canned`. Named omissions:
+  `use_stone`/`use_royal_jelly`; `djinni_from_bottle`/`begin_burn`; full
+  welded/cantwield/bimanual arms.
+- **Verification:** green+strict PASS; seed0108 prefix **2778→2807**; cohort
+  10/10 prior PASS stay PASS.
+- **Next:** seed0108 @2807 `use_cream_pie` `rnd(25)` (D-0711); or D-0708.
 
 ## D-0709 — #wizwish missing from EXT_CMDS (seed0108)
 

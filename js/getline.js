@@ -396,6 +396,16 @@ const EXT_CMDS = [
             return wiz_wish();
         },
     },
+    {
+        // C: cmd.c "rub" AUTOCOMPLETE → dorub
+        name: 'rub',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dorub } = await import('./apply.js');
+            return dorub();
+        },
+    },
 ];
 
 function wizardMode() {

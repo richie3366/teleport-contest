@@ -6,12 +6,18 @@ import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, pline } from './display.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
-    COIN_CLASS, objectNames,
+    COIN_CLASS, GEM_CLASS, FOOD_CLASS, objectNames,
 } from './objects.js';
-import { P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE } from './const.js';
+import {
+    P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE,
+    ECMD_OK, ECMD_TIME, ECMD_CANCEL, nothing_happens,
+} from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline } from './insight.js';
-import { compactify_invlets } from './invent.js';
+import { compactify_invlets, makeknown } from './invent.js';
+import { rn2, rn1 } from './rng.js';
+import { nohands } from './monsters.js';
+import { wield_tool } from './wield.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -44,6 +50,9 @@ const MAGIC_HARP = objectNames.indexOf('MAGIC_HARP');
 const BUGLE = objectNames.indexOf('BUGLE');
 const LEATHER_DRUM = objectNames.indexOf('LEATHER_DRUM');
 const DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
+const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
+const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
+const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
 
 /** C invent getobj callback ranks (hack.h). */
 const GETOBJ_EXCLUDE = -3;
@@ -342,4 +351,138 @@ export async function doapply() {
     // Other apply otyps deferred
     await pline("Sorry, I don't know how to use that.");
     return false;
+}
+
+/** C ref: apply.c rub_ok */
+function rub_ok(obj) {
+    if (!obj) return GETOBJ_EXCLUDE;
+    if (obj.otyp === OIL_LAMP || obj.otyp === MAGIC_LAMP
+        || obj.otyp === BRASS_LANTERN || is_graystone(obj)
+        || obj.otyp === LUMP_OF_ROYAL_JELLY) {
+        return GETOBJ_SUGGEST;
+    }
+    return GETOBJ_EXCLUDE;
+}
+
+function rub_suggest_lets() {
+    const lets = [];
+    for (const o of game.invent || []) {
+        if (o?.invlet && rub_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
+    }
+    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+    return lets.join('');
+}
+
+/**
+ * C ref: invent.c getobj("rub", rub_ok) — also consumes CMDQ_KEY from
+ * game._cmdq_canned when dorub re-queues after wield_tool.
+ */
+async function getobj_rub() {
+    // C getobj: cmdq_pop CMDQ_KEY before interactive prompt
+    const q = game._cmdq_canned;
+    if (q?.length) {
+        const head = q[0];
+        if (head && typeof head === 'object' && head.typ === 'key') {
+            q.shift();
+            const ch = String.fromCharCode(head.key);
+            for (const o of game.invent || []) {
+                if (o.invlet === ch && rub_ok(o) === GETOBJ_SUGGEST) return o;
+            }
+            game._cmdq_canned = [];
+            return null;
+        }
+    }
+
+    const raw = rub_suggest_lets();
+    if (!raw) {
+        await pline("You don't have anything to rub.");
+        return null;
+    }
+    for (;;) {
+        await flush_topl_more();
+        const lets = raw.length > 5 ? compactify_invlets(raw) : raw;
+        const query = `What do you want to rub? [${lets} or ?*]`;
+        const prompt = `${query} `;
+        game._pending_message = prompt;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+
+        const key = await nhgetch();
+        if (key === 27) return null;
+        const ch = String.fromCharCode(key);
+        if (ch === '?' || ch === '*') {
+            // menu listing deferred — re-prompt
+            continue;
+        }
+        for (const o of game.invent || []) {
+            if (o.invlet === ch && rub_ok(o) === GETOBJ_SUGGEST) return o;
+        }
+        await pline(`You don't have that object.`);
+    }
+}
+
+/** C ref: cmd.c cmdq_add_ec / cmdq_add_key for dorub re-queue after wield. */
+function cmdq_add_ec(fn) {
+    if (!game._cmdq_canned) game._cmdq_canned = [];
+    game._cmdq_canned.push(fn);
+}
+function cmdq_add_key(ch) {
+    if (!game._cmdq_canned) game._cmdq_canned = [];
+    const key = typeof ch === 'string' ? ch.charCodeAt(0) : ch;
+    game._cmdq_canned.push({ typ: 'key', key });
+}
+
+/**
+ * C ref: apply.c dorub — #rub lamp/stone/jelly.
+ * Named omissions: use_stone / use_royal_jelly; djinni_from_bottle / begin_burn
+ * full lamp transform; check_unpaid_usage; Blind smoke wording uses see/smell.
+ * @returns {number} ECMD_*
+ */
+export async function dorub() {
+    const youdata = game.youmonst?.data;
+    if (youdata && nohands(youdata)) {
+        await pline("You aren't able to rub anything without hands.");
+        return ECMD_OK;
+    }
+    const obj = await getobj_rub();
+    if (!obj) return ECMD_CANCEL;
+
+    if (obj.oclass === GEM_CLASS || obj.oclass === FOOD_CLASS) {
+        // use_stone / use_royal_jelly deferred
+        await pline("Sorry, I don't know how to use that.");
+        return ECMD_OK;
+    }
+
+    const u = game.u || {};
+    if (obj !== u.uwep) {
+        if (await wield_tool(obj, 'rub')) {
+            cmdq_add_ec(dorub);
+            cmdq_add_key(obj.invlet);
+            return ECMD_TIME;
+        }
+        return ECMD_OK;
+    }
+
+    // now uwep is obj
+    if (obj.otyp === MAGIC_LAMP) {
+        if ((obj.spe | 0) > 0 && !rn2(3)) {
+            // djinni_from_bottle / begin_burn / check_unpaid deferred
+            obj.otyp = OIL_LAMP;
+            obj.spe = 0;
+            obj.age = rn1(500, 1000);
+            makeknown(MAGIC_LAMP);
+        } else if (rn2(2)) {
+            const Blind = !!(u.Blind);
+            await pline(`You ${Blind ? 'smell' : 'see a puff of'} smoke.`);
+        } else {
+            await pline(nothing_happens);
+        }
+    } else if (obj.otyp === BRASS_LANTERN) {
+        await pline('Rubbing the electric lamp is not particularly rewarding.');
+        await pline('Anyway, nothing exciting happens.');
+    } else {
+        await pline(nothing_happens);
+    }
+    return ECMD_TIME;
 }
