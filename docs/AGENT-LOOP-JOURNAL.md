@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:20 — #756 D-0679 forcelock + supply + SPBOOK mrg
+- Objective: seed0014 @3199 C `forcelock` `rn2(100)` vs JS `rn2(20)`.
+- C locus: `lock.c` `doforce`/`forcelock`/`breakchestlock`; `mklev.c`
+  supply chest; `objects.h` SPELL BITS mrg=0.
+- Change: D-0679 — forcelock occupation; supply `add_to_container`;
+  `oc_merge_of` excludes SPBOOK/WAND.
+- Verification: prefix **3199→6294**, Scr **43→154**/714; green+strict
+  PASS; cohort **33**/33.
+- Next: @6294 C `exercise` vs JS `rn2(5)`.
+
 ## 2026-07-18 19:12 — #755 public score cadence
 - Objective: mandatory %5 full `sessions` score + CURRENT refresh.
 - C locus: n/a (score-only iteration).
@@ -156,13 +166,3 @@ Use this shape:
 - Verification: Scr **267→291**/324 prefix **203→209**; green+strict;
   cohort **32**/32. RNG FULL.
 - Next: @209 lava `` ` `` vs JS blank after materialize More.
-
-## 2026-07-17 19:39 — #741 D-0668 Pri-loca map lit=FALSE
-- Objective: seed0367 @203 materialize — JS live Z/memory vs C warn/`~`.
-- C locus: `dat/Pri-loca.lua`; `sp_lev.c` `lspo_map` lit=FALSE;
-  `mkmaze.c` `set_levltyp_lit`.
-- Change: `load_pri_loca` clears `SpLev_Map` `.lit` after map (D-0668).
-  Global `sel_set_ter(false)`≡C deferred (seed0009 regress).
-- Verification: @203 residual **27** cells (C W/& vs JS warn); Scr still
-  267/324; green+strict PASS; cohort **33**/34. RNG FULL.
-- Next: C physical W/& on dark morgue cells vs JS mon_warning only.

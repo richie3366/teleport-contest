@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0679 — forcelock + supply-chest fill + SPBOOK non-merge (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 3199→6294)
+- **Symptom:** @3199 C `forcelock` `rn2(100)` vs JS `rn2(20)`; after
+  occupation wired, @3202 empty-chest `delobj` `rn2(100)` vs contents
+  `rn2(3)`; then two SPE_HEALING merged → still one object.
+- **Cause (cluster):** (1) `doforce` returned ECMD_TIME without
+  `set_occupation(forcelock)` / xlock chance. (2) Oracle-side supply chest
+  burned `mksobj`/`mkobj` RNG but never `add_to_container`. (3)
+  `oc_merge_of` treated SPBOOK as mergeable; C `SPELL()` BITS mrg=0.
+- **C locus:** `lock.c` `doforce`/`forcelock`/`breakchestlock`; `mklev.c`
+  supply-chest fill; `objects.h` `SPELL`/`BITS` mrg; `invent.c` `mergable`.
+- **Change:** `js/lock.js` forcelock occupation + breakchestlock destroy/
+  unlock arms; `js/mklev.js` supply `add_to_container` + SPBOOK level-bias;
+  `js/mkobj.js` `oc_merge_of` excludes SPBOOK/WAND.
+- **Verification:** seed0014 prefix **3199→6294**, Scr **43→154**/714,
+  positional RNG **3660→6835**/59178; green+strict PASS; cohort **33**/33.
+- **Next:** @6294 C `exercise` vs JS `rn2(5)`.
+
 ## D-0678 — SCR_IDENTIFY `seffect_identify` + invent identify (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 3113→3199)
