@@ -73,18 +73,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @36031 — C `exercise`/`dopush` `rn2(19)`
-after travel stops; JS still `continue_run` → `distfleeck` `rn2(5)`.
-D-0700: not AVAL/`exercise` skip. Find C travel-stop before `n`
-(lookaround trap/liquid, `TEST_TRAV`, or missing adjacent boulder).
-Or seed0108 wishlist @2772. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @35246 — C `mdig_tunnel` `rnd(12)` vs JS
+`rn2(8)` after D-0700 rolling-boulder rest at 56,10. (Old @36031 travel/
+dopush was missing boulder — fixed.) Or seed0108 wishlist @2772.
+Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0699.**
+**Do not re-break D-0660…D-0700.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 23:05 — D-0700 ohitmon rolling boulder re-extract
+- Objective: seed0014 @36031 travel/dopush vs continue_run.
+- C locus: `mthrowu.c` `ohitmon` (`!objgone && range==-1` re-extract).
+- Change: `js/mthrowu.js` — rolling boulder continues after mon hit; rests
+  at launch2 (56,10). Root of missing adjacent boulder for travel/`n`.
+- Verification: green+strict PASS; cohort 16/16 (incl. seed0361); seed0014
+  prefix 36031→35246 (correct rest exposes earlier mdig miss).
+- Next: seed0014 @35246 C `mdig_tunnel` vs JS `rn2(8)`.
+
 ## 2026-07-18 22:47 — D-0700 travel stop before n-dopush (diagnosed)
 - Objective: seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
 - C locus: `hack.c` lookaround/findtravelpath/dopush; `cmd.c` dotravel_target.

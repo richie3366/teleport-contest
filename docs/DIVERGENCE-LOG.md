@@ -9,28 +9,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
-## D-0700 — travel continue_run vs C stop before n-dopush (seed0014)
+## D-0700 — ohitmon range==-1 rolling boulder keeps rolling (seed0014)
 
-- **Status:** open (diagnosed; no JS change)
-- **Symptom:** seed0014 @36031 — C `exercise` `rn2(19)` (`attrib.c:509`)
-  vs JS `rn2(5)` (`distfleeck`). Matched through gethungry/exerchk/wipe.
-- **Keys:** `moves` `_` `>` `.` then `n`. After `.` confirms travel dest
-  (stairs 66,11) and first step 55,9→56,10 + EOT, C has stopped travel and
-  `rhack('n')` → `dopush`/`exercise(A_STR,TRUE)`. JS `continue_run`
-  (`travel=1 multi=80 run=8`) and never reaches `dopush`.
-- **Rejected:** `|AEXE|>=AVAL` skipping `rn2(19)`; force `end_running` after
-  first travel step alone (still no adjacent boulder → still `rn2(5)`);
-  travelmap revisit on step 2 (hero 56,10 → 57,11 not visited).
-- **State note:** JS floor boulders at 60,8 / 60,10 / 68,5 only — none
-  adjacent at continue_run. C screen after `n` shows boulder-moved topline.
-- **C locus (next):** `hack.c` `lookaround` / `findtravelpath` /
-  `avoid_moving_on_trap`; `cmd.c` `dotravel_target`; `hack.c` `dopush`.
-- **JS locus:** `cmd.js` `continue_run` / `dotravel_target` / `lookaround`;
-  `hack.js` `dopush`.
-- **Named omission:** `lookaround` traps/pools; travelmap; full `TEST_TRAV`.
-- **Verification:** green+strict PASS; prefix still **36031**; no code.
-- **Next:** C-cited travel stop before `n`, then confirm adjacent boulder /
-  `dopush`.
+- **Status:** fixed (partial — seed0014 still FAIL; next @35246)
+- **Symptom:** seed0014 @36031 — C `exercise` `rn2(19)` (dopush) vs JS
+  `rn2(5)` (`distfleeck`). After `_/>/.` travel C stopped (no move) then
+  `n` pushed a boulder; JS kept `continue_run`.
+- **Cause:** Rolling-boulder trap (60,10) launch 64,10→launch2 56,10.
+  Gnome lord trigger: JS `ohitmon` always `return true` after hit, so
+  `launch_obj` stopped with boulder on the trap cell (60,10). C
+  `ohitmon` after `drop_throw` does `!objgone && range==-1` →
+  `obj_extract_self` + `return FALSE` so the boulder keeps rolling to
+  56,10. Without that adjacent boulder, JS travel BFS walked onto empty
+  56,10 and continued; C findtravelpath fails (tourist cannot TEST_TRAV
+  from/through boulder) → nomul → `n` dopush.
+- **C locus:** `mthrowu.c` `ohitmon`; `trap.c` `launch_obj`.
+- **Change:** `js/mthrowu.js` — after hit `drop_throw`, if `!objgone &&
+  range===-1`, `obj_extract_self` and return false.
+- **Named omission:** mid-roll landmine/telep/pit/`hits_bars`/
+  boulder-chain; `passive_obj` in `drop_throw`; full TEST_TRAV traps.
+- **Verification:** green+strict PASS; cohort 16/16 incl. seed0361;
+  seed0014 prefix **36031→35246** (correct rest exposes earlier miss).
+- **Next:** seed0014 @35246 C `mdig_tunnel` `rnd(12)` vs JS `rn2(8)`.
 
 ## D-0699 — setworn(null, W_RINGL|R) clears uleft/uright (seed0014)
 
