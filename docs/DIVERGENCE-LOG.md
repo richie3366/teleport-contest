@@ -9,6 +9,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0698 — ohitmon kill → mondied / corpse_chance (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 33278→35611)
+- **Symptom:** seed0014 @33278 — C `corpse_chance` `rn2(2)` after
+  `ohitmon`/`dmgval` vs JS `rn2(5)` (`distfleeck`).
+- **Cause:** `ohitmon` kill used `ohitmon_mondead` (fmon remove only) and
+  deferred C's `mon_moving`→`mondied` / else `xkilled(XKILL_NOMSG)`.
+- **C locus:** `mthrowu.c` `ohitmon`; `mon.c` `mondied` / `corpse_chance`.
+- **Change:** `js/mthrowu.js` — kill branch matches C; export `mondied`
+  from `mhitm.js` (quiet) + `monkilled` for `mdamagem`; export `xkilled`.
+- **Named omission:** poison/silver/acid/egg petrify/can_blnd/setmangry;
+  `accessible`/`is_pool` corpse gate; disintegested `monkilled` arms.
+- **Verification:** seed0014 prefix **33278→35611**, Scr **538**/714
+  (positional RNG **35777**/59178); green+strict PASS; cohort **33**/33.
+- **Next:** @35611 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+
 ## D-0697 — create_monster mines your_race rn2(3) (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; RNG prefix 32023→33278)

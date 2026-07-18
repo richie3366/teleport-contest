@@ -315,7 +315,7 @@ function xkilled_treasure_drop(mtmp, mdat, mndx, x, y) {
  * quest leader/nemesis/guardian/priest/tame special adjalign arms,
  * artifact un-create on oversized.
  */
-async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
+export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     const nomsg = (xkill_flags & XKILL_NOMSG) !== 0;
     const nocorpse = (xkill_flags & XKILL_NOCORPSE) !== 0;
     const noconduct = (xkill_flags & XKILL_NOCONDUCT) !== 0;
