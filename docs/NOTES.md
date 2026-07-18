@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#744:** D-0671 `intemple` intone `canseemon` (was `canspotmon`) —
-  ESP alone → `"A nearby voice"`. Scr **308**/324 prefix **262**. RNG FULL.
-- **Falsify next:** @262 Warning/`W` vs warn-digit cell positions
+- **#745:** full suite score refresh — **34/44**, Scr **7062**/11405,
+  RNG **465040**/792838 (58.66%). Δ vs #740 Scr **+41** (peels #741–44).
+- **Falsify next:** seed0367 @262 Warning/`W` vs warn-digit cells
   (`mon_warning` / `display_warning` / sense path). Do not reopen D-0671.
 - **Leaderboard gap:** local **34/44** vs judge **22**; D-0483 await cron.
 - **Don’t:** reopen D-0474…D-0671; invent put_lregion reject; re-add
@@ -83,7 +83,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361**
-  **PASS** (suite **34/44** @#740; Scr 7021 RNG 465040 / 58.66%).
+  **PASS** (suite **34/44** @#745; Scr 7062 RNG 465040 / 58.66%).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
