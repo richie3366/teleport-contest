@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#754:** D-0678 fixed — seed0014 `SCR_IDENTIFY` `seffect_identify` +
-  invent `identify_pack`. Prefix **3113→3199**, Scr **34→43**.
+- **#755:** Full suite score — **35/44** PASS; Scr **7111**/11405;
+  RNG **467265**/792838 (58.94%); speed `35+0.16/turn`. seed0367
+  confirmed in suite (was focused-only @#750/#752).
 - **Next:** seed0014 @3199 C `forcelock(lock.c:244)` `rn2(100)` vs JS
   `rn2(20)`. Or seed0108 wishlist @2772 `rnd_otyp_by_namedesc`.
   Leaderboard local **35** vs judge **22**.
@@ -79,7 +80,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (focused **35/44**; suite **34/44** @#750).
+  **seed0367** **PASS** (suite **35/44** @#755).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

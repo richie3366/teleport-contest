@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-18 19:12 — #755 public score cadence
+- Objective: mandatory %5 full `sessions` score + CURRENT refresh.
+- C locus: n/a (score-only iteration).
+- Change: documented suite — **35/44** PASS; Scr **7111**/11405;
+  RNG **467265**/792838 (58.94%); `35+0.16/turn` (R² 0.79).
+  seed0367 confirmed PASS in full suite (Δ vs #750 +1 PASS, +43 Scr).
+- Verification: green+strict PASS; `node frozen/ps_test_runner.mjs sessions`.
+- Next: seed0014 @3199 `forcelock` rn2(100); or seed0108 wishlist.
+
 ## 2026-07-18 19:10 — #754 D-0678 SCR_IDENTIFY
 - Objective: seed0014 @3113 C `exercise` vs JS non-identify path.
 - C locus: `read.c` `seffect_identify`/`seffects`; `invent.c`
