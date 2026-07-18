@@ -684,6 +684,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0701 | fixed | mons_see_trap dotrap/mintrap fan-out | seed0014 prefix 35246→36031 Scr 553→566; next @36031 exercise |
 | D-0702 | fixed | travel couldsee-prefer / seenv-detour rest | seed0014 prefix 36031→40196 Scr 566→574; next @40196 mintrap |
 | D-0703 | fixed | mintrap HOLE && !mindless already_seen | seed0014 prefix 40196→43068 Scr 574→575; next @43068 find_misc |
+| D-0704 | fixed | find_misc bullwhip/invis + use_misc yank | seed0014 prefix 43068→43308 Scr 575; next @43308 distfleeck |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

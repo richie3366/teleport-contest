@@ -7,27 +7,28 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#782 D-0703 fixed:** seed0014 `@40196` — gnome on HOLE; C
-  `already_seen = mon_knows_traps || (HOLE && !mindless)` → `rn2(4)`.
-  JS omitted HOLE clause → skipped gate. Prefix →43068.
-- **New miss seed0014 @43068:** C `find_misc` `rn2(5)` vs JS `rn2(28)`.
+- **#783 D-0704 fixed:** seed0014 `@43068` — `find_misc` omitted
+  BULLWHIP `rn2(5)` + POT_INVISIBILITY; C kept invis after failed whip
+  gate → spent turn; JS entered `m_move` `rn2(28)`. Also ported
+  `use_misc` bullwhip `rn2(4)` yank. Prefix →43308.
+- **New miss seed0014 @43308:** C `distfleeck` `rn2(5)` vs JS `rn2(2)`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0014-dequa-fountain-explore.session.json`
 - **Don’t:** couldsee-only BFS alone (breaks seed0004/0007); force dig;
-  frame-align; re-break D-0660…D-0703.
+  frame-align; re-break D-0660…D-0704.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0703 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0704 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0703: blue DSM / … / mintrap HOLE already_seen.
+- D-0676…D-0704: blue DSM / … / find_misc whip+invis+yank.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
   next lastinvnr”.
@@ -45,7 +46,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @43068 after D-0703.
+- Quest: seed0367 **PASS**. seed0014 @43308 after D-0704.
 - S_KOP / minetn-1/3–7 / **medusa-2/3/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   `temperature_shift` stub; worn/artifact STONE_RES deferred;

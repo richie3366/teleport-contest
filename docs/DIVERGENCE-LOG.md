@@ -9,6 +9,27 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 Proved causes and rejected theories. Index: `DIVERGENCE-INDEX.md`.
 Newest entries at top.
 
+## D-0704 — find_misc bullwhip/invis + use_misc yank (seed0014)
+
+- **Status:** fixed (partial — seed0014 still FAIL; next @43308)
+- **Symptom:** seed0014 @43068 — C `find_misc` `rn2(5)` vs JS `rn2(28)`.
+- **Rejected:** POT_GAIN_LEVEL alone (invent had no gain-level); blaming
+  bullwhip `rn2(5)` without following invent/`use_misc`.
+- **C locus:** `muse.c` `find_misc` — BULLWHIP `uwep && !rn2(5)` before
+  `MON_WEP`/adjacency; later `POT_INVISIBILITY`; `use_misc` MUSE_BULLWHIP
+  `rn2(4)` where_to (+ optional twoweap `rn2(2)`).
+- **Cause:** JS `find_misc` only had WAN/POT_SPEED. Hostile mon with
+  BULLWHIP+POT_INVISIBILITY: C burned whip `rn2(5)=3` (fail), kept
+  invis selection, `use_misc` spent the turn. JS skipped both → `m_move`
+  `rn2(28)`. Later whip `rn2(5)=0` needed `use_misc` yank `rn2(4)`.
+- **Change:** `js/muse.js` — port gain-level/invis/bullwhip in
+  `find_misc`; `use_misc` invis + bullwhip disarm (freeinv/place/dropy/
+  mpickobj); `mon_set_minvis`; fix MUSE_POT_SPEED=6 / MUSE_BULLWHIP=8.
+  Poly trap/wand/potion, bag loot, `you_aggravate` deferred.
+- **Verification:** green+strict PASS; seed0014 prefix **43068→43308**
+  RNG **43664**/59178 Scr **575**/714; cohort 20/20 PASS.
+- **Next:** seed0014 @43308 C `distfleeck` `rn2(5)` vs JS `rn2(2)`.
+
 ## D-0703 — mintrap HOLE && !mindless already_seen (seed0014)
 
 - **Status:** fixed (partial — seed0014 still FAIL; next @43068)

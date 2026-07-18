@@ -24,7 +24,7 @@ focused session.
 Score last measured: **2026-07-18** — full `sessions` suite (loop **#780**,
 pre D-0701 handoff). Screens **7619**/11405; RNG **499,061**/792838 (62.95%).
 **35/44** PASS. Δ vs #775: Scr +15, RNG +1712 (D-0700 peel; still 35 PASS).
-Post D-0703 focused seed0014 → 43329/59178 Scr 575 (prefix @43068).
+Post D-0704 focused seed0014 → 43664/59178 Scr 575 (prefix @43308).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 35382/59178 | 553/714 | @#780 suite; post D-0703 →43329/575 @43068 |
+| seed0014 | 35382/59178 | 553/714 | @#780 suite; post D-0704 →43664/575 @43308 |
 | seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
@@ -73,16 +73,16 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0014 @43068 — C `find_misc` `rn2(5)` vs JS
-`rn2(28)` after D-0703 HOLE already_seen. Or seed0108 wishlist @2772.
-Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0014 @43308 — C `distfleeck` `rn2(5)` vs JS
+`rn2(2)` after D-0704 find_misc whip/invis/yank. Or seed0108 wishlist
+@2772. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Do not re-break D-0660…D-0703.**
+**Do not re-break D-0660…D-0704.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
