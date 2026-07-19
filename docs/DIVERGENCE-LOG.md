@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0727 — `o`/doopen getdir + doforce ynq `q` + xname named
+
+- **Status:** fixed (partial — seed0108 Scr **292**/303; RNG FULL; prefix 280)
+- **Symptom:** @216 after locked `#loot` yy — C `In what direction?`; JS
+  `Unknown command 'o'.` @234 `#force` ynq def `(n)` vs C `(q)`. @235 bash
+  pline omitted `named Mjollnir` so kitten More merged wrong.
+- **C locus:** `lock.c` `doopen`/`doopen_indir` + `get_adjacent_loc`;
+  `hack.h` `ynq` → def `'q'`; `objnam.c` `xname_flags` `has_oname&&dknown`.
+- **Cause:** `o` unbound; interactive `doopen_indir(0,0)` omitted; doforce
+  used yn_function def `'n'`; `xname` skipped oname (only `doname` had it).
+- **Change:** wire `o`→`doopen`; interactive getdir/nohands; doforce def
+  `'q'`; `xname` appends ` named ONAME`. Named omissions: loot-at-feet
+  open; pit prompt; mimic; `#herecmdmenu`; wall color after ^V teleport;
+  `obj_is_pname` bare-ONAME xname arm.
+- **Verification:** green+strict PASS; seed0108 Scr **287→292** (prefix
+  **216→280**); cohort 33/33 PASS.
+- **Next:** @280 `#herecmdmenu` menu "What do you want to do?".
+
 ## D-0726 — doloot nohands + #untrap could_untrap + newman individual
 
 - **Status:** fixed (partial — seed0108 Scr **287**/303; RNG FULL; prefix 216)

@@ -11,13 +11,23 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-19 — #808 doopen + doforce ynq q + xname named (D-0727)
+- Objective: seed0108 @216 open dir / #force ynq / Mjollnir bash More.
+- C locus: `lock.c` `doopen`/`doopen_indir`; `ynq` def `q`; `objnam.c` xname.
+- Change: wire `o`→doopen getdir; doforce ynq `'q'`; xname ` named ONAME`
+  (D-0727).
+- Verification: green+strict PASS; seed0108 Scr **287→292** RNG FULL;
+  prefix **216→280**; cohort 33/33 PASS.
+- Next: @280 `#herecmdmenu` "What do you want to do?".
 
 ## 2026-07-19 — #807 doloot nohands + #untrap + newman (D-0726)
 - Objective: seed0108 @176 nohands chest / #untrap / newman wording.
@@ -141,20 +151,3 @@ Use this shape:
   (D-0710…D-0713 peels).
 - Verification: green+strict PASS; `node frozen/ps_test_runner.mjs sessions`.
 - Next: seed0108 @2881 C `obj_resists` rn2(100) vs JS rn2(12); or D-0708.
-
-## 2026-07-19 01:59 — #793 D-0713 #polyself / polymon
-- Objective: seed0108 @2864 exercise/polyself (CURRENT primary).
-- C locus: `wizcmds.c` `wiz_polyself`; `polyself.c` `polyself`/`polymon`.
-- Change: EXT_CMDS `#polyself`; new `js/polyself.js` controlled getlin→
-  polymon (exercise, sex rn2(10), mtimedone, mhmax, sliparm). D-0713 fixed.
-- Verification: green+strict PASS; seed0108 **2864→2881**; cohort 33/33 PASS.
-- Next: @2881 pet `obj_resists` short; or D-0708.
-
-## 2026-07-19 01:52 — #792 D-0711 cream pie + D-0712 #wipe
-- Objective: seed0108 @2807 use_cream_pie (CURRENT primary).
-- C locus: `apply.c` `use_cream_pie`; `do.c` `dowipe`/`wipeoff`.
-- Change: port cream-pie apply (`rnd(25)` blindinc); EXT_CMDS `#wipe`+
-  wipeoff occupation (glop-off → `make_blinded(0,TRUE)`). D-0711/12 fixed.
-- Verification: green+strict PASS; seed0108 **2807→2864**; cohort 14/14
-  prior PASS stay PASS.
-- Next: @2864 C `exercise` `rn2(2)` vs JS `rn2(7)` (#polyself); or D-0708.
