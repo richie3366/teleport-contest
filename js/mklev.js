@@ -46,7 +46,7 @@ import {
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     BOOL_RANDOM,
     SET_LIT_RANDOM, SET_LIT_NOCHANGE,
-    LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MINES,
+    LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MINES, LVLINIT_SWAMP,
     DB_NORTH, DB_SOUTH, DB_EAST, DB_WEST, DB_LAVA,
     In_mines,
     In_quest,
@@ -54,7 +54,7 @@ import {
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
     Is_medusa_level,
-    DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
+    DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, M_AP_FURNITURE, ENGRAVE,
     MM_ASLEEP, MM_NOCOUNTBIRTH, MM_NOMSG, IS_TREE, G_GENOD,
     G_EXTINCT, MAXMONNO,
     MKTRAP_NOSPIDERONWEB,
@@ -741,7 +741,7 @@ function reset_xystart_size() {
  * Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal); minetn-1/3/4/6/7; minend-3;
- * medusa-2/4; water/earth/astral; baalz/orcus/juiblex/hellfill;
+ * medusa-2/4; water/earth/astral; baalz/orcus/hellfill;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
  */
@@ -975,6 +975,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'asmodeus') {
         load_asmodeus();
+        return true;
+    }
+    if (protofile === 'juiblex') {
+        load_juiblex();
         return true;
     }
     return false;
@@ -3582,18 +3586,28 @@ function load_bar_loca() {
 }
 
 /**
- * C ref: sp_lev.c lspo_map — half-left / center / half-right xstart.
- * Forces odd xstart/ystart like C after the maze-max formula.
+ * C ref: sp_lev.c lspo_map — left/half-left/center/half-right/right xstart
+ * and top/center/bottom ystart. Forces odd xstart/ystart like C.
  */
-function splev_map_aligned_start(wid, hei, halign) {
+function splev_map_aligned_start(wid, hei, halign, valign) {
     let xstart;
-    if (halign === 'half-left')
+    if (halign === 'left')
+        xstart = 1; // splev_init_present (swamp/mines/…) → 1
+    else if (halign === 'half-left')
         xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) / 4);
     else if (halign === 'half-right')
         xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) * 3 / 4);
+    else if (halign === 'right')
+        xstart = X_MAZE_MAX - wid - 1;
     else
         xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) / 2);
-    let ystart = 2 + Math.floor((Y_MAZE_MAX - 2 - hei) / 2);
+    let ystart;
+    if (valign === 'top')
+        ystart = 3;
+    else if (valign === 'bottom')
+        ystart = Y_MAZE_MAX - hei - 1;
+    else
+        ystart = 2 + Math.floor((Y_MAZE_MAX - 2 - hei) / 2);
     if (!(xstart % 2)) xstart++;
     if (!(ystart % 2)) ystart++;
     if (ystart < 0 || ystart + hei > ROWNO) {
@@ -7648,7 +7662,61 @@ function mkmap(init_lev) {
     }
 }
 
-/** C ref: sp_lev.c splev_initlev — SOLIDFILL + MINES for minefill */
+/**
+ * C ref: sp_lev.c lvlfill_swamp — solidfill bg then relaxed blockwise maze
+ * of fg on even cells (Jamis Buck).
+ */
+function lvlfill_swamp(fg, bg, lit) {
+    lvlfill_solid(bg, lit);
+    const xmax = Math.min(X_MAZE_MAX, COLNO - 2);
+    const ymax = Math.min(Y_MAZE_MAX, ROWNO - 2);
+    for (let x = 2; x <= xmax; x += 2) {
+        for (let y = 0; y <= ymax; y += 2) {
+            let c = 0;
+            const map = game.level;
+            {
+                const loc = map.at(x, y);
+                if (loc) {
+                    loc.typ = fg;
+                    loc.flags = 0;
+                    loc.horizontal = false;
+                    loc.roomno = 0;
+                    loc.edge = false;
+                    let l = lit;
+                    if (IS_LAVA(fg)) l = 1;
+                    else if (l === SET_LIT_RANDOM) l = rn2(2);
+                    loc.lit = !!l;
+                }
+            }
+            if (map.at(x + 1, y)?.typ === bg) ++c;
+            if (map.at(x, y + 1)?.typ === bg) ++c;
+            if (map.at(x + 1, y + 1)?.typ === bg) ++c;
+            if (c === 3) {
+                let ox = x, oy = y;
+                switch (rn2(3)) {
+                case 0: ox = x + 1; oy = y; break;
+                case 1: ox = x; oy = y + 1; break;
+                case 2: ox = x + 1; oy = y + 1; break;
+                default: break;
+                }
+                const loc = map.at(ox, oy);
+                if (loc) {
+                    loc.typ = fg;
+                    loc.flags = 0;
+                    loc.horizontal = false;
+                    loc.roomno = 0;
+                    loc.edge = false;
+                    let l = lit;
+                    if (IS_LAVA(fg)) l = 1;
+                    else if (l === SET_LIT_RANDOM) l = rn2(2);
+                    loc.lit = !!l;
+                }
+            }
+        }
+    }
+}
+
+/** C ref: sp_lev.c splev_initlev — SOLIDFILL + MINES + SWAMP */
 function splev_initlev(linit) {
     switch (linit.init_style) {
     case LVLINIT_SOLIDFILL:
@@ -7663,6 +7731,10 @@ function splev_initlev(linit) {
         if (linit.lit === BOOL_RANDOM) linit.lit = rn2(2);
         if (linit.filling > -1) lvlfill_solid(linit.filling, 0);
         mkmap(linit);
+        break;
+    case LVLINIT_SWAMP:
+        if (linit.lit === BOOL_RANDOM) linit.lit = rn2(2);
+        lvlfill_swamp(linit.fg, linit.bg, linit.lit);
         break;
     default:
         break;
@@ -9413,7 +9485,7 @@ function hell_tweaks(protectedArea) {
 /**
  * C ref: dat/asmodeus.lua via load_special — Asmodeus lair (Gehennom).
  * mazegrid + half-left main map + half-right mazewalk wing + hell_tweaks.
- * Named omissions: baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz;
+ * Named omissions: baalz/orcus/hellfill/wizard1–3/fakewiz;
  * ensure_way_out; selection.bounds fidelity beyond SpLev_Map union.
  */
 function load_asmodeus() {
@@ -9652,6 +9724,280 @@ function load_asmodeus() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/juiblex.lua via load_special — Juiblex swamp lair (Gehennom).
+ * swamp init + two stair-guarantee pockets + centered lair map.
+ * Named omissions: baalz/orcus/hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * mkswamp body (region filled=2 → FILL_LVFLAGS only).
+ */
+function load_juiblex() {
+    const g = game;
+    // defsym.h PCHAR S_fountain
+    const S_FOUNTAIN = 37;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "swamp", lit = 0 })
+    // C lspo_level_init: fg defaults ROOM; bg defaults MOAT for SWAMP
+    splev_initlev({
+        init_style: LVLINIT_SWAMP,
+        fg: ROOM,
+        bg: MOAT,
+        lit: 0,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.shortsighted = true;
+    g.level.flags.temperature = 0; // "temperate"
+    // "noflip" → skip flip_level_rnd
+
+    const applyAlignedMap = (mapstr, halign, valign) => {
+        const mf = mapfrag_fromstr(mapstr);
+        const { xstart, ystart } = splev_map_aligned_start(
+            mf.wid, mf.hei, halign, valign,
+        );
+        g.splev_xstart = xstart;
+        g.splev_ystart = ystart;
+        g.splev_xsize = mf.wid;
+        g.splev_ysize = mf.hei;
+        if (!g.SpLev_Map) g.SpLev_Map = new Set();
+        for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+            for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+                const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+                if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+                sel_set_ter(xx, yy, mptyp, false);
+                g.SpLev_Map.add(`${xx},${yy}`);
+            }
+        }
+        return { mx: xstart, my: ystart, wid: mf.wid, hei: mf.hei };
+    };
+
+    // Stair-guarantee pockets — left/bottom then right/top
+    const POCKET_L = `
+xxxxxxxx
+xx...xxx
+xxx...xx
+xxxx.xxx
+xxxxxxxx
+`.replace(/^\n/, '');
+    applyAlignedMap(POCKET_L, 'left', 'bottom');
+    splev_create_boulder();
+
+    const POCKET_R = `
+xxxxxxxx
+xxxx.xxx
+xxx...xx
+xx...xxx
+xxxxxxxx
+`.replace(/^\n/, '');
+    applyAlignedMap(POCKET_R, 'right', 'top');
+    splev_create_boulder();
+
+    // Main lair — string-only des.map → center/center
+    const JUIBLEX_MAP = `
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxx
+xxx...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxx
+xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxx
+xxxxxxxxxxxxxxxxxxxxxxxx}}}xxxxxxxxxxxxxxx}}}}}xxxx
+xxxxxxxxxxxxxxxxxxxxxxx}}}}}xxxxxxxxxxxxx}.....}xxx
+xxxxxxxxxxxxxxxxxxxxxx}}...}}xxxxxxxxxxx}..P.P..}xx
+xxxxxxxxxxxxxxxxxxxxx}}..P..}}xxxxxxxxxxx}.....}xxx
+xxxxxxxxxxxxxxxxxxxxx}}.P.P.}}xxxxxxxxxxxx}...}xxxx
+xxxxxxxxxxxxxxxxxxxxx}}..P..}}xxxxxxxxxxxx}...}xxxx
+xxxxxxxxxxxxxxxxxxxxxx}}...}}xxxxxxxxxxxxxx}}}xxxxx
+xxxxxxxxxxxxxxxxxxxxxxx}}}}}xxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxx}}}xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxx
+xxx...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxx
+xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+`.replace(/^\n/, '');
+    const lair = applyAlignedMap(JUIBLEX_MAP, 'center', 'center');
+    const mx = lair.mx;
+    const my = lair.my;
+
+    // shuffle({ "j","b","P","F" })
+    const monster = ['j', 'b', 'P', 'F'];
+    nhlib_shuffle(monster);
+
+    // place selection — map-relative → absolute
+    const place = selection_new();
+    for (const [rx, ry] of [[4, 2], [46, 2], [4, 15], [46, 15]])
+        selection_setpoint(mx + rx, my + ry, place, 1);
+
+    // des.region swamp filled=2 → FILL_LVFLAGS (has_swamp only)
+    {
+        const dx1 = mx + 0, dy1 = my + 0, dx2 = mx + 50, dy2 = my + 17;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, SWAMP, true);
+            const swampRoom = g.level.rooms[g.level.nroom - 1];
+            if (swampRoom) {
+                swampRoom.rlit = 0;
+                swampRoom.needjoining = true;
+                swampRoom.needfill = FILL_LVFLAGS;
+                topologize(swampRoom);
+            }
+        }
+    }
+
+    // levregions / teleport — region_islev=1; exclude map-relative (no exclude_islev)
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_DOWNSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 11, y2: 20 },
+        delarea: { x1: mx + 0, y1: my + 0, x2: mx + 50, y2: my + 17 },
+    });
+    g.lregions.push({
+        rtype: LR_UPSTAIR,
+        rname: null,
+        inarea: { x1: 69, y1: 0, x2: 79, y2: 20 },
+        delarea: { x1: mx + 0, y1: my + 0, x2: mx + 50, y2: my + 17 },
+    });
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 11, y2: 20 },
+        delarea: { x1: mx + 0, y1: my + 0, x2: mx + 50, y2: my + 17 },
+    });
+    g.lregions.push({
+        rtype: LR_UPTELE,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 11, y2: 20 },
+        delarea: { x1: mx + 0, y1: my + 0, x2: mx + 50, y2: my + 17 },
+    });
+    g.lregions.push({
+        rtype: LR_DOWNTELE,
+        rname: null,
+        inarea: { x1: 69, y1: 0, x2: 79, y2: 20 },
+        delarea: { x1: mx + 0, y1: my + 0, x2: mx + 50, y2: my + 17 },
+    });
+
+    // fountain + 3 giant mimics as ter:fountain (place:rndcoord remove)
+    {
+        const fpt = selection_rndcoord(place, true);
+        if (fpt) {
+            const loc = g.level.at(fpt.x, fpt.y);
+            if (loc) {
+                loc.typ = FOUNTAIN;
+                if (g.level.flags)
+                    g.level.flags.nfountains = (g.level.flags.nfountains | 0) + 1;
+            }
+        }
+    }
+    const placeNamedAtAbs = (id, x, y, appearFurniture) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let xx = x, yy = y;
+        const moved = splev_resolve_occupied(xx, yy, pm);
+        xx = moved.x;
+        yy = moved.y;
+        const mtmp = makemon(pm, xx, yy, 0);
+        if (mtmp) {
+            mtmp.female = female;
+            if (appearFurniture != null) {
+                mtmp.m_ap_type = M_AP_FURNITURE;
+                mtmp.mappearance = appearFurniture;
+            }
+        }
+        return mtmp;
+    };
+    for (let i = 0; i < 3; i++) {
+        const pt = selection_rndcoord(place, true);
+        if (pt) placeNamedAtAbs('giant mimic', pt.x, pt.y, S_FOUNTAIN);
+    }
+
+    const placeNamedAt = (id, rx, ry) =>
+        placeNamedAtAbs(id, mx + rx, my + ry, null);
+
+    placeNamedAt('Juiblex', 25, 8);
+    placeNamedAt('lemure', 43, 8);
+    placeNamedAt('lemure', 44, 8);
+    placeNamedAt('lemure', 45, 8);
+
+    const placeClassAt = (oclass, rx, ry) => {
+        mkobj_at(oclass, mx + rx, my + ry, true);
+    };
+    placeClassAt(GEM_CLASS, 43, 6);
+    placeClassAt(GEM_CLASS, 45, 6);
+    placeClassAt(POTION_CLASS, 43, 9);
+    placeClassAt(POTION_CLASS, 44, 9);
+    placeClassAt(POTION_CLASS, 45, 9);
+
+    // Lua monster[] is 1-based: monster[4], monster[1], …
+    const placeClassMonAt = (cls, rx, ry) => {
+        induced_align(80);
+        const mlet = monclass_letter_to_mlet(cls);
+        const pm = mlet ? mkclass(mlet, G_NOGEN) : null;
+        let x = mx + rx, y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        makemon(pm, moved.x, moved.y, 0);
+    };
+    placeClassMonAt(monster[3], 25, 6); // monster[4]
+    placeClassMonAt(monster[0], 24, 7); // monster[1]
+    placeClassMonAt(monster[1], 26, 7);
+    placeClassMonAt(monster[2], 23, 8);
+    placeClassMonAt(monster[2], 27, 8);
+    placeClassMonAt(monster[1], 24, 9);
+    placeClassMonAt(monster[0], 26, 9);
+    placeClassMonAt(monster[3], 25, 10);
+
+    for (let i = 0; i < 4; i++) splev_create_monster('j');
+    for (let i = 0; i < 4; i++) splev_create_monster('P');
+    for (let i = 0; i < 3; i++) splev_create_monster('b');
+    for (let i = 0; i < 3; i++) splev_create_monster('F');
+    for (let i = 0; i < 2; i++) splev_create_monster('m');
+    for (let i = 0; i < 2; i++) splev_create_monster('jellyfish');
+
+    for (let i = 0; i < 3; i++) splev_create_object(POTION_CLASS);
+    for (let i = 0; i < 3; i++) splev_create_object(FOOD_CLASS);
+    splev_create_boulder();
+
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(MAGIC_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    // C load_special: wallify; noflip → skip flip; lregions; fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
     {
         const lregions = g.lregions || [];
         g.lregions = [];

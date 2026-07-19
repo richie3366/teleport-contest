@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#861:** D-0764 hell_tweaks — prefix **71832→72078**; RNG **72079**.
-- **Next @72078:** C nhlib `shuffle` after getbones vs JS `rn2(79)` —
-  fingerprint `lvlfill_swamp` → juiblex (or next Gehennom special).
-  Falsify: rng-diff first miss must leave `shuffle`/`lvlfill_swamp`.
+- **#862:** D-0765 juiblex/`lvlfill_swamp` — prefix **72078→74801**; RNG **74607**.
+- **Next @74801:** C nhlib `shuffle` after getbones vs JS `rn2(79)` then
+  `walkfrom` — fingerprint next Gehennom maze special (baalz/orcus/
+  hellfill/wizard*). Falsify: rng-diff first miss must leave shuffle/`walkfrom`.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,12 +20,13 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0764 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0765 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0764 seed0360 peels (…/asmodeus/`hell_tweaks`).
+- D-0743…D-0765 seed0360 peels (…/asmodeus/`hell_tweaks`/juiblex).
 - D-0764: `selection.fillrect` adds xstart like C get_location_coord.
+- D-0765: swamp `lvlfill_swamp`; map align left/right/top/bottom.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -38,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#860;
-  Scr 8272, RNG 75.99%; seed0360 **72078**/270 after D-0764).
+  Scr 8272, RNG 75.99%; seed0360 **74801**/267 after D-0765).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -49,13 +50,15 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  baalz/orcus/**juiblex**/hellfill/wizard*/fakewiz deferred;
+  baalz/orcus/hellfill/wizard*/fakewiz deferred;
   minend-3 / soko2-2 / other bigrm-N deferred;
-  **`juiblex`/`lvlfill_swamp` next**; `LVLINIT_ROGUE` sp_lev deferred;
+  **`baalz`/`orcus`/`hellfill`/`wizard*` next** (walkfrom @74801);
+  `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
-  **hell_tweaks** (D-0764); **asmodeus + hell helpers** (D-0763);
+  **juiblex + lvlfill_swamp** (D-0765); **hell_tweaks** (D-0764);
+  **asmodeus + hell helpers** (D-0763);
   **makeroguerooms + rogue skip0** (D-0762);
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);

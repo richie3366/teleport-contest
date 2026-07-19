@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#860; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#860; stuck @10157 D-0731 |
-| seed0360 | 72079/120639 | 270/833 | @#861; next juiblex/swamp @72078 |
+| seed0360 | 74607/120639 | 267/833 | @#862; next maze special @74801 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,15 +75,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @72078** — port next Gehennom special after
-asmodeus (`lvlfill_swamp` / juiblex fingerprint; see NOTES). Prefer over
-D-0731/D-0708 mfndpos.
-Do **not** re-break D-0660…D-0764.
+**Gameplay next:** **seed0360 @74801** — port next Gehennom maze special
+after juiblex (`walkfrom` fingerprint → baalz/orcus/hellfill/wizard*;
+see NOTES). Prefer over D-0731/D-0708 mfndpos.
+Do **not** re-break D-0660…D-0765.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @72078 C nhlib shuffle vs JS rn2(79) post-asmodeus getbones
+# @74801 C nhlib shuffle vs JS rn2(79) post-juiblex getbones → walkfrom
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +91,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0764.**
+**Do not re-break D-0660…D-0765.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

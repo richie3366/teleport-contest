@@ -745,6 +745,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0762 | fixed | makeroguerooms + makelevel rogue skip0 | seed0360 68428→68690; RNG 68434→68694; Scr 270; next post-rogue load_special @68690 |
 | D-0763 | fixed | asmodeus + hellprobs/noteleport/mlevel>49/sleep order | seed0360 68690→71832; RNG 68694→71855; Scr 270→267; next hell_tweaks @71832 |
 | D-0764 | fixed | hell_tweaks + fillrect get_location xstart | seed0360 71832→72078; RNG 71855→72079; Scr 270; next juiblex/swamp @72078 |
+| D-0765 | fixed | juiblex + lvlfill_swamp + map align L/R/T/B | seed0360 72078→74801; RNG 72079→74607; Scr 270→267; next walkfrom @74801 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

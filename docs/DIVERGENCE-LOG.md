@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0765 — juiblex + lvlfill_swamp (seed0360 @72078)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @74801)
+- **Symptom:** seed0360 @72078 — C nhlib `shuffle` `rn2(3)` then
+  `lvlfill_swamp` `rn2(3)` vs JS `rn2(79)` after matched getbones
+  (post-asmodeus/`hell_tweaks`).
+- **C locus:** `dat/juiblex.lua`; `sp_lev.c` `lvlfill_swamp` /
+  `LVLINIT_SWAMP`; `lspo_map` left/right/top/bottom align.
+- **Cause (#862):** no juiblex loader → empty maze → `place_lregion`
+  `rn2(79)`. Fingerprint: swamp fill then juiblex lair content.
+- **Change:** `js/mklev.js` — `lvlfill_swamp` + `splev_initlev` SWAMP;
+  `splev_map_aligned_start` left/right/top/bottom; `load_juiblex` +
+  dispatch; `Is_juiblex_level`. Named omissions: baalz/orcus/hellfill/
+  wizard*; mkswamp body (FILL_LVFLAGS only); ensure_way_out.
+- **Verification:** green+strict PASS; cohort **15/15** smoke; seed0360
+  prefix **72078→74801**; RNG **72079→74607**; Scr **270→267**/833.
+- **Next:** @74801 C nhlib shuffle after getbones vs JS `rn2(79)` then
+  `walkfrom` (next Gehennom maze special — baalz/orcus/hellfill/wizard*).
+
 ## D-0764 — hell_tweaks after asmodeus (seed0360 @71832)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @72078)
