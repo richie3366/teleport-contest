@@ -769,7 +769,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0786 | fixed | dokick Wounded_legs legs_in_no_shape + More | seed0360 108369→109077; suite RNG 109603 |
 | D-0787 | fixed | wiz_map ^F do_mapping exercise(A_WIS) | seed0360 109077→109454; suite RNG 110391 |
 | D-0788 | fixed | TRAVP_GUESS hero-matrix + raster pick (not displ) | seed0360 109454→110844; suite RNG 111367 |
-| D-0789 | open | seed0360 @110844 safe_teleds vs mon rn2(4) | after D-0788 travel guess |
+| D-0789 | fixed | dotele clear travelcc before tele (^T getpos) | seed0360 110844→110880; suite RNG 111566 |
+| D-0790 | open | seed0360 @110880 m_move rn2(28) vs rn2(5) | after D-0789 ^T travelcc |
 
 
 

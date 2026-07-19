@@ -4,15 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0789 — seed0360 @110844 safe_teleds vs mon rn2(4)
+## D-0790 — seed0360 @110880 m_move rn2(28) vs rn2(5)
 
-- **Status:** open (next peel after D-0788)
+- **Status:** open (next peel after D-0789)
+- **Symptom:** seed0360 @110880 — C `m_move` `rn2(28)` vs JS
+  `rn2(5)` after matched stalker/bat `rn2(3)` + track `rn2(32)`.
+- **Prior:** D-0789 dotele travelcc clear (110844→110880; suite RNG
+  111566).
+- **Next:** which mon / mfndpos cnt / appr path diverges so C keeps
+  selecting while JS exits early.
+
+## D-0789 — seed0360 @110844 dotele must clear travelcc before tele
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
 - **Symptom:** seed0360 @110844 — C `safe_teleds` `rnd(79)` vs JS
   `rn2(4)` (JS still on mon path).
-- **Prior:** D-0788 TRAVP_GUESS fixed travel site-shift
-  (109454→110844; suite RNG 111367).
-- **Next:** reconstruct C caller of `safe_teleds` at this step vs JS
-  stack; do not patch set_apparxy arity.
+- **Prior:** D-0788 TRAVP_GUESS (109454→110844; suite RNG 111367).
+- **C-state (#904):** step 676 key `^T` (playmode:debug) → getpos
+  `hjj.` → C `"Sorry..."` + `safe_teleds`. JS teleok succeeded at
+  **(32,11) ROOM** (started getpos at stale travelcc **(33,9)** =
+  failed `_` stairs; h→j→j → ROOM). C cleared travelcc in `dotele`
+  so getpos started at hero → stone → fail → random tele.
+- **C locus:** `teleport.c` `dotele` — `iflags.travelcc = 0` before
+  `tele()`; `scrolltele` clears travelcc when controlled dest lands
+  on it.
+- **Change:** `js/teleport.js` `dotele` clears `travelcc` before
+  `tele()`; `scrolltele` clears when `u_at(travelcc)` after teleds.
+- **Verification:** green+strict PASS; cohort 10/10 PASS; seed0360
+  prefix **110844→110880**, suite RNG **111367→111566**, Scr **391**.
+- **Next:** @110880 C `m_move` `rn2(28)` vs JS `rn2(5)` (D-0790).
 
 ## D-0788 — seed0360 `_` travel TRAVP_GUESS (not set_apparxy arity)
 

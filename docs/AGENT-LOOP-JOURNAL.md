@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 19:52 — #904 D-0789 dotele clear travelcc
+- Objective: seed0360 @110844 C safe_teleds rnd(79) vs JS rn2(4).
+- C locus: `teleport.c` `dotele` clears `travelcc` before `tele()`.
+- Change: `js/teleport.js` `dotele` clears stale `_` dest; `scrolltele`
+  clears when landing on travelcc. DIAG: JS ^T getpos started at
+  (33,9)→ROOM teleok; C cleared→hero→stone→Sorry+safe_teleds.
+- Verification: green+strict PASS; cohort 10/10 PASS; seed0360
+  **110844→110880**, suite RNG **111566**, Scr **391**.
+- Next: @110880 C m_move rn2(28) vs JS rn2(5) (D-0790).
+
 ## 2026-07-19 19:40 — #903 D-0788 TRAVP_GUESS hero-matrix
 - Objective: seed0360 @109454 travel site-shift after `_` to (33,9).
 - C locus: `hack.c` findtravelpath(TRAVP_GUESS) pick + noguess TRAVEL.
@@ -160,14 +170,3 @@ Use this shape:
   seed0360 prefix still @100738, Scr **292→293**, RNG 101517.
 - Next: why C first siege movemon sees hero@(9,1) (turn order after
   EOT vs `#chat`/`y`) — not mfndpos wall admit (D-0779).
-
-## 2026-07-19 16:42 — #890 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score-only; no port patch).
-- Change or falsified theory: documented suite aggregates in CURRENT.md.
-  Reflects #889 Wiz-strt throne `\\` (CLOUD match; seed0360 RNG
-  matched 104024→101517; peel still @100738).
-- Verification: green+strict PASS; full suite **37/44**, Scr **8297**/11405,
-  RNG **632144**/792838 (79.73%), speed `37+0.23/turn`. Δ vs #885:
-  Scr 0, RNG **−2507**, PASS 0.
-- Next: first bat move separating Y after FlipY (D-0779).

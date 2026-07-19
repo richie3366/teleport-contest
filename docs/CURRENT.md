@@ -50,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 111367/120639 | 390/833 | @110844 (#903 D-0788) |
+| seed0360 | 111566/120639 | 391/833 | @110880 (#904 D-0789) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3031/108275 | 13/1814 | knight coverage |
@@ -76,24 +76,24 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @110844 / D-0789** — after D-0788
-TRAVP_GUESS, peel moved past travel site-shift. Next: C `safe_teleds`
-`rnd(79)` vs JS `rn2(4)` (JS still in mon path). Stairs dest (33,9)
-sealed by SDOOR — TRAVEL fail→GUESS is expected. seed0014 suite matched
-still **50419** (prefix @50259). Parked D-0731.
+**Gameplay next:** **seed0360 @110880 / D-0790** — after D-0789
+`dotele` travelcc clear, peel past `^T` Sorry/`safe_teleds`. Next:
+C `m_move` `rn2(28)` vs JS `rn2(5)` (matched stalker/bat `rn2(3)` +
+track `rn2(32)`). seed0014 suite matched still **50419** (prefix
+@50259). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @110844: C safe_teleds vs JS mon rn2(4)
+# @110880: C m_move rn2(28) vs JS rn2(5)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
-(D-0708 still open; peel advanced with D-0784…D-0788).
+(D-0708 still open; peel advanced with D-0784…D-0789).
 
-**Do not re-break D-0660…D-0788.**
+**Do not re-break D-0660…D-0789.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
