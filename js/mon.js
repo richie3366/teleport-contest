@@ -38,6 +38,7 @@ import { enexto, rloc_to } from './teleport.js';
 import { may_dig } from './dig.js';
 import { newsym, pline, sensemon, canseemon } from './display.js';
 import { online2 } from './hacklib.js';
+import { worm_cross } from './worm.js';
 import { Monnam } from './do_name.js';
 import { cansee } from './vision.js';
 import { fightm } from './mhitm.js';
@@ -706,7 +707,7 @@ function m_in_air(mtmp) {
 // C ref: mon.c mfndpos() — neighbour scan; ALLOW_DIG rock/tree + thrudoor
 // Named omissions still: mm_aggression/MDISP;
 // eel nexttry; can_fog in cant_squeeze_thru;
-// worm_cross diagonal; peaceful shop/temple dig avoid; Inhell Elbereth;
+// peaceful shop/temple dig avoid; Inhell Elbereth;
 // passes_bars full (rust/corr/metallivorous/slithy); m_can_break_boulder.
 export function mfndpos(mon, data, flag) {
     const x = mon.mx;
@@ -796,13 +797,19 @@ export function mfndpos(mon, data, flag) {
             if (!poisongas_ok && !in_poisongas && visible_region_at(nx, ny)) {
                 continue;
             }
-            // C: first diagonal checks — NODIAG + non-broken doors
-            // (rogue door-diagonal + worm_cross deferred)
+            // C: first diagonal checks — NODIAG + non-broken doors + rogue
+            // door-cut + worm_cross consecutive segs (mon.c mfndpos)
             if (nx !== x && ny !== y) {
                 const ndm = loc.doormask || 0;
                 if (nodiag
                     || (IS_DOOR(nowtyp) && (nowdm & ~D_BROKEN))
-                    || (IS_DOOR(ntyp) && (ndm & ~D_BROKEN))) {
+                    || (IS_DOOR(ntyp) && (ndm & ~D_BROKEN))
+                    || ((IS_DOOR(nowtyp) || IS_DOOR(ntyp))
+                        && Is_rogue_level(game.u?.uz))
+                    || (m_at(x, ny) && m_at(nx, y)
+                        && worm_cross(x, y, nx, ny)
+                        && !m_at(nx, ny)
+                        && (nx !== game.u?.ux || ny !== game.u?.uy))) {
                     continue;
                 }
             }

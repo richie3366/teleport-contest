@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #817 mfndpos worm_cross + rogue door-cut (D-0733)
+- Objective: seed0399 @10157 / shared mfndpos; pivoted after C-state need.
+- C locus: `mon.c` `mfndpos` diagonal; `worm.c` `worm_cross`.
+- Change: port `worm_cross`; wire rogue door-cut + worm_cross into
+  `mfndpos`. DIAG: unicorn open 3×3 ROOM; dest=(57,11) if kept; FORCE
+  omit-pair ID exhausted (@10217 wish); gnome kickedloc clear.
+- Verification: green+strict PASS; cohort 6/6; seed0399 @10157;
+  seed0014 @49039 held.
+- Next: C-state which cells C drops (D-0731/D-0708); or coverage.
+
 ## 2026-07-19 — #816 mon_allowflags + temple SANCT (D-0732)
 - Objective: seed0399 @10157; pivoted after maze C-state DIAG.
 - C locus: `mon.c` `mon_allowflags`/`mfndpos`; `priest.c` `in_your_sanctuary`.
@@ -154,14 +164,4 @@ Use this shape:
 - Verification: green+strict PASS; seed0108 Scr **148→156** RNG FULL;
   cohort 14/14 PASS.
 - Next: seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
-
-## 2026-07-19 — #802 seed0108 #tip (D-0719)
-- Objective: seed0108 @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
-- C locus: `pickup.c` `dotip`/`tipcontainer`; `allmain.c` unmul→deferred_goto.
-- Change: `#tip` was unknown → ynq `q` leaked → phantom walks before ^V;
-  port floor `dotip` ynq + tipcontainer floor spill; register EXT_CMDS;
-  unmul→deferred_goto.
-- Verification: green+strict PASS; seed0108 RNG **FULL** 16958 Scr
-  **110→148**; cohort 33/33 PASS.
-- Next: seed0108 first screen miss @148.
 

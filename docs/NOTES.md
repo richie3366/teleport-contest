@@ -7,21 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#816:** D-0732 `mon_allowflags` + `in_your_sanctuary`/temple SANCT.
-  seed0399 still @10157 (maze; temple inert). Suite score last @#815.
+- **#817:** D-0733 `worm_cross` + rogue door-cut in `mfndpos` (inert here).
 - **D-0731 open:** black unicorn @58,12; JS **cnt=7**→`rn2(28)`; C
-  `rn2(20)`⇒cnt=5. Maze `is_maze_lev` nrooms=0 has_temple=false.
-  Cells: (57,11)(57,13)(58,11)(58,13 WEB+sack)(59,11)(59,12)(59,13
-  track); spider@57,12. Near: jelly@55,12; elf nobles@57,10/@56,11.
-  No worms. FORCE any 2 keep-track →10217 (wish).
-- **Falsify:** C-state which 2 of 6 non-track; or D-0708 @49039.
-  Don’t FORCE_EXCL / re-break D-0660…32.
+  `rn2(20)`⇒cnt=5. Open **3×3 all ROOM**; spider@57,12; WEB+sack@58,13;
+  appr=1 gg=(47,9) → dest **(57,11)** whenever kept. FORCE omit any 2 of
+  {1..5} keeping track → same @10217 wish — **cannot ID which 2**.
+  No worms; kicked N/A. Need C-state terrain/mon split.
+- **D-0708:** gnome @23,11 cnt=6; suspect (22,10) diag past TRCORNER
+  @22,11 (one bad_rock flank; small squeezes). kickedloc (0,0). Omit
+  any 1 →@49300 (no ID).
+- **Falsify:** C-state omit cells; don’t FORCE in production.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0730 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0733 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -35,14 +36,13 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…32: `#rub`/…/`max_passive_dmg` AD_ACID / unicorn NOTONL /
-  onscary/garlic/bars/gas / mon_allowflags+temple SANCT — hallu maze
-  @10157 still open which 2 cells C drops (temple inert; no worms);
-  `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred;
-  rest of PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
-  C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
-  `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
-  numeric `MS_*` vs string msound; full `passes_bars` deferred.
+- D-0710…33: hallu maze @10157 open which 2 cells C drops (FORCE ID
+  exhausted; temple/worm_cross/rogue inert); `#therecmdmenu`/next2u/far
+  deferred; full `untrap()` deferred; rest of PROPSET + float_vs_flight
+  still omitted; loot-at-feet open deferred; C `wallcolors[]` all-GRAY vs
+  recorder DEC SGR 34 still unexplained; `completelyburns`/`rots`/`rusts`
+  in mpd; dog_move `touch_petrifies`; numeric `MS_*` vs string msound;
+  full `passes_bars` deferred; peaceful dig-avoid deferred.
 
 ## Landmarks (≤15)
 
@@ -77,4 +77,5 @@ Objective/score live in `CURRENT.md`.
   **Sokoban wall blue iff DECgraphics** (D-0729);
   **max_passive_dmg AD_ACID** (D-0730);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
-  **mon_allowflags + temple SANCT** (D-0732).
+  **mon_allowflags + temple SANCT** (D-0732);
+  **mfndpos worm_cross + rogue door-cut** (D-0733).

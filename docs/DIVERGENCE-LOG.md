@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0733 — mfndpos diagonal worm_cross + rogue door-cut
+
+- **Status:** fixed (partial — seed0399/0014 mfndpos overcounts unchanged)
+- **Symptom:** named omissions in `mfndpos` first-diagonal gate; seed0399
+  still @10157 cnt7vs5; seed0014 @49039 cnt6vs5.
+- **C locus:** `mon.c` `mfndpos` diagonal arm; `worm.c` `worm_cross`.
+- **Cause:** JS skipped rogue `Is_rogue_level` door-diagonal continue and
+  `worm_cross` consecutive-seg gate (both deferred since D-0612 era).
+- **Change:** port `worm_cross` in `worm.js`; wire both arms into
+  `mfndpos` neighbour scan (match C short-circuit order).
+- **DIAG (#817):** seed0399 unicorn open 3×3 all ROOM — no worms; dest
+  with appr=1 is always (57,11) if kept; FORCE omit-pair ID exhausted
+  (all keep-(57,11) → same path @10217 wish). seed0014 gnome kickedloc
+  (0,0); (22,10) diagonal past TRCORNER with one bad_rock flank (small
+  gnome squeezes). Still need C-state which cells drop.
+- **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
+  0398 PASS; seed0399 still @10157; seed0014 still @49039.
+- **Next:** C-state omit cells for D-0731/D-0708; or coverage.
+
 ## D-0732 — mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT
 
 - **Status:** fixed (partial — seed0399 @10157 unchanged)

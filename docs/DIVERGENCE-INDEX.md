@@ -711,8 +711,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0728 | fixed | `#herecmdmenu`/`doherecmdmenu` self menu; NUL≠TIME | seed0108 Scr 292→293; cursors FULL; next wall color after ^V |
 | D-0729 | fixed | Sokoban `wall_glyph` blue only under DECgraphics | seed0108 PASS 303/303; suite 36/44 @#810; next D-0708 |
 | D-0730 | fixed | max_passive_dmg AD_ACID (+ FIRE/COLD/ELEC) | seed0399 10145→10157 RNG 10359; next @10157 m_move |
-| D-0731 | open | unicorn NOTONL+fail-tele+rloc; cnt7vs5; arms ported inert in JS | #814: onscary/garlic/bars/gas+mconf; #816: maze C-state; still @10157 |
+| D-0731 | open | unicorn NOTONL+fail-tele+rloc; cnt7vs5; arms ported inert in JS | #814–#817: open 3×3 ROOM; FORCE ID exhausted; still @10157 |
 | D-0732 | fixed | mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT | shared; seed0399 @10157 unchanged (maze nrooms=0) |
+| D-0733 | fixed | mfndpos diagonal worm_cross + rogue door-cut | shared; inert for 0399/0014 (no worms / not rogue) |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
