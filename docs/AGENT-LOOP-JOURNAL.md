@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #812 unicorn NOTONL + fail-tele (D-0731)
+- Objective: seed0399 @10157 m_move track rn2(20) vs rn2(28).
+- C locus: `mon.c` `mon_allowflags` NOTONL; `monmove.c` unicorn
+  fail-move `rn2(2)`+`rloc`; `teleport.c` `rloc_to` `mon_track_clear`.
+- Change: port those three. Falsified: NOTONL fixes this miss (mux=47,9
+  no online neigh). DIAG: black unicorn cnt=7 vs C need 5; FORCE_EXCL
+  any 2 of 7 → prefix 10217.
+- Verification: green+strict PASS; cohort prior PASS held; seed0399
+  still @10157; seed0014 @49039 held.
+- Next: which 2 mfndpos cells C drops (WEB+?); or D-0708.
+
 ## 2026-07-19 — #811 max_passive_dmg AD_ACID (D-0730)
 - Objective: CURRENT primary; pivoted seed0399 after D-0708 cell stall.
 - C locus: `mondata.c` `max_passive_dmg`; `dogmove.c` ALLOW_M balk.
@@ -154,12 +165,3 @@ Use this shape:
 - Verification: green+strict PASS; prefix still **3011**; cohort
   seed1500/1800/0060 PASS; screens 58→74 on seed0108 runner.
 - Next: @3011 C post-EOT `movemon` (umov<12 loopAgain) vs JS umov=15.
-
-## 2026-07-19 — #797 seed0108 #invoke (D-0715)
-- Objective: seed0108 @2958 distfleeck vs rn2(36) (CURRENT primary).
-- C locus: `artifact.c` `doinvoke`/`arti_invoke`; `cmd.c` `"invoke"`.
-- Change: EXT_CMDS `#invoke`→`doinvoke`; Mjollnir !inv_prop →
-  nothing_happens+ECMD_TIME; `rest_on_space` space→donull branch.
-  Falsified: force ROS=true (@2869 More regression).
-- Verification: green+strict PASS; seed0108 **2958→3011**; cohort 33/33.
-- Next: @3011 post-invoke spaces before chest wish (More vs wait).

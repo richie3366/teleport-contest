@@ -71,16 +71,17 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed0399 @10157 m_move track (D-0730 continued); or
-seed0014 @49039 mfndpos (D-0708); or coverage (seed5002 / seed0360).
-Prefer shared blockers. Do **not** re-break D-0660…D-0730.
+**Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
+(D-0731 — NOTONL/fail-tele ported, miss open); or seed0014 @49039
+mfndpos (D-0708); or coverage (seed5002 / seed0360).
+Prefer shared blockers. Do **not** re-break D-0660…D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0399-wizard-hallu-actions.session.json
 ```
 
-**Do not re-break D-0660…D-0730.**
+**Do not re-break D-0660…D-0731.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

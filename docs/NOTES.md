@@ -7,19 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#811:** D-0730 — `max_passive_dmg` AD_ACID (green mold). seed0399
-  prefix **10145→10157** RNG **10359**. Pet meleed mold when C skipped
-  via passive≥hp → `score_targ` `rnd(5)`.
-- **Next:** seed0399 @10157 `m_move` rn2(20) vs rn2(28); or D-0708
-  seed0014 @49039. Prefer shared.
-- **D-0708 sharpen (#811):** at miss, JS mfndpos=6 ROOM; C chcnt=5;
-  dest~(24,12). C screen DEC `~`=S_room at (22,10) — not pool. Key=`_`.
-  kickedloc cleared (travel). Omit any of first 5 → prefix 49300 same.
-  Still open: which cell C omits (mfndpos arm vs state).
-- **Don’t:** re-break D-0660…D-0730; invent nearby force for D-0710;
-  global `rest_on_space` (falsified @2869); treat JS `'\0'` as TIME
-  (C NUL falsy — D-0728); always-blue Sokoban walls (breaks ASCII);
-  `AD_DRDX=8` (that is `AD_ACID`).
+- **#812:** D-0731 — unicorn NOTONL + fail-tele + `rloc_to` track clear.
+  seed0399 still @10157 `rn2(28)` vs `rn2(20)`.
+- **DIAG:** black unicorn @58,12; JS mfndpos **cnt=7** j=0; C needs
+  cnt-j=5. Spider@57,12 skipped; WEB@58,13 unknown; mux=47,9 no
+  online neighbors (NOTONL inert this call).
+- **Falsifier:** FORCE_EXCL any 2 of 7 → arg=20, prefix **→10217**.
+  WEB alone →24. Still open: which 2 C omits (WEB known + ?).
+- **Next:** prove C’s 2 omitted cells (mtrapseen WEB vs other arm);
+  or D-0708 seed0014 @49039. Prefer shared.
+- **Don’t:** re-break D-0660…D-0731; invent FORCE_EXCL in production;
+  treat NOTONL as fix for this miss (no online neigh).
 
 ## Don’t re-check (≤15)
 
@@ -39,17 +37,13 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…30: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
-  / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
-  / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
-  **verbose breath tip + dobreathe uen** / **doloot nohands + #untrap +
-  newman individual** / **`o`/doopen getdir + doforce ynq `q` + xname
-  named** / **`#herecmdmenu` self menu** / **Sokoban wall DEC-gated blue**
-  / **`max_passive_dmg` AD_ACID** — `#therecmdmenu`/next2u/far deferred;
-  full `untrap()` deferred; rest of PROPSET + float_vs_flight still omitted;
-  loot-at-feet open deferred; C `wallcolors[]` all-GRAY vs recorder DEC
-  SGR 34 still unexplained; `completelyburns`/`rots`/`rusts` in mpd;
-  dog_move `touch_petrifies`; numeric `MS_*` vs string msound.
+- D-0710…31: `#rub`/…/`max_passive_dmg` AD_ACID / **unicorn NOTONL** —
+  `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred; rest of
+  PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
+  C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
+  `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
+  numeric `MS_*` vs string msound; **which 2 mfndpos cells C drops
+  @10157** (WEB+?) still open.
 
 ## Landmarks (≤15)
 
@@ -82,4 +76,5 @@ Objective/score live in `CURRENT.md`.
   **`o`/doopen + doforce `(q)` + xname named** (D-0727);
   **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME);
   **Sokoban wall blue iff DECgraphics** (D-0729);
-  **max_passive_dmg AD_ACID** (D-0730).
+  **max_passive_dmg AD_ACID** (D-0730);
+  **unicorn NOTONL + fail-tele + rloc track clear** (D-0731).

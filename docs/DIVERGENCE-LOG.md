@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
+
+- **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear
+  ported; seed0399 still @10157)
+- **Symptom:** seed0399 @10157 C `rn2(20)` vs JS `rn2(28)` at
+  `m_move` track skip (`4*(cnt-j)`).
+- **DIAG:** black unicorn @58,12 appr=1; JS `cnt=7` j=0 →28;
+  mtrack=`[59,13;0…]`; spider @57,12 skipped; WEB@58,13 unknown;
+  mux=47,9 → no neighbor `online2` (NOTONL inert here).
+- **Falsifier:** FORCE_EXCL any 2 of the 7 cells → arg=20, prefix
+  **10157→10217**. WEB alone →24 still miss.
+- **Cause (partial):** D-0233 named omission — unicorn
+  `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
+  failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
+  Remaining: which 2 cells C drops (suspect WEB known + one other).
+- **C locus:** `mon.c` `mon_allowflags` NOTONL; `monmove.c` m_move
+  unicorn else-branch; `teleport.c` `rloc_to` `mon_track_clear`.
+- **Change:** set NOTONL for unicorn when `!noteleport`; fail-move
+  teleport; clear mtrack in `rloc_to`.
+- **Verification:** green+strict PASS; cohort PASS held; seed0399
+  still @10157 (rn2(28)); seed0014 unchanged @49039.
+- **Next:** which 2 of 7 C omits (WEB mtrapseen vs other mfndpos arm);
+  or D-0708 seed0014 @49039.
+
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 
 - **Status:** fixed (partial — seed0399 still FAIL; next @10157)
