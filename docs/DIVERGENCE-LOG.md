@@ -4,26 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
+## D-0780 — lock.js getdir `'.'` = GETDIR_SELF (seed0360 Scr)
 
-- **Status:** open (cloud off-by-one fixed #889; bat Y drift remains)
+- **Status:** fixed (Scr +1; seed0360 peel unchanged @100738)
+- **Symptom:** `js/lock.js` `getdir` treated `'.'` like ESC/cancel
+  while C `cmd.c` `getdir` NHKF_GETDIR_SELF/SELF2 sets dx=dy=dz=0.
+  `getdir_cmdassist` already had SELF; `#chat`/kick/open used lock path.
+- **C locus:** `cmd.c` `getdir` (GETDIR_SELF / SELF2).
+- **Cause (#891):** incomplete port of plain `getdir` vs cmdassist.
+- **Change:** `js/lock.js` `getdir` — `'.'` → dx=dy=dz=0, return true;
+  space/ESC/CR still cancel.
+- **Verification:** green+strict PASS; cohort 1500/1800/0361/5002 PASS;
+  seed0360 Scr **292→293**, RNG still 101517 @100738.
+- **Next:** D-0779 hero-lane / first siege movemon order.
+
+## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738)
+
+- **Status:** open (throne/cloud fixed #889; getdir SELF D-0780; Y drift)
 - **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
   `rn2(5)` (then site shift). Matched prefix strings hid: after bat
   `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
   still rolls chcnt through `rn2(7)`.
-- **C locus:** `monmove.c` `m_move` :1871/:1970; `mon.c` `mfndpos`;
-  `dat/Wiz-strt.lua` + `flip_level_rnd`; `sp_lev.c` load_special epilogue.
-- **Cause (#884/#886/#887/#888/#889):** Vampire bat on Quest/Wiz-strt
-  post-FlipY. JS @100733: bat@(34,2) cnt=4, HWALL typ=2 @(33–35,3),
-  quasit@(34,1). **C @100733:** bat@(34,1) cnt=7, **all neighbors
-  ROOM typ=25**, quasit@(34,2) — C does **not** admit HWALL. Post-flip
-  spawn matches (bat@37,3 / imp@37,2; flp=1; extends≈2,0-79,20).
-  **#889:** JS `WIZ_STRT_MAP` throne `\` was template-literal `\.` →
-  `.`, shortening row5 by 1 and shifting terrain; fixed to `\\`.
-  Post-flip CLOUD(37,*) now matches C (y=1 + y=4). Peel still bat Y
-  drift in later movement. FORCE 3 HWALL was a red herring.
-- **Change (#889):** `js/mklev.js` `load_wiz_strt` map — `\\` for throne.
-- **Next:** first move separating bat Y after matching spawn/clouds.
+- **C locus:** `monmove.c` `m_move`; `mon.c` `mfndpos`; `allmain.c`
+  moveloop / EOT; `dat/Wiz-strt.lua` + FlipY; `cmd.c` getdir (D-0780).
+- **Cause (#884–#891):** Vampire bat on Wiz-strt post-FlipY. JS @100733:
+  bat@(34,2) cnt=4, quasit@(34,1). **C @100733:** bat@(34,1) cnt=7,
+  quasit@(34,2) — C neighbors ROOM (not HWALL admit). Post-flip spawn
+  matches (bat@37,3 / quasit@37,2). **#889:** throne `\\` fixed CLOUD
+  col37. **#891:** JS after arrival `'.'` EOT then `#chat`/`y` moves
+  hero (9,1)→(8,0) **before** first siege `movemon`; C still ≈(9,1)
+  → different approach lanes. Forced post-EOT `movemon` falsified
+  (green break / RNG worse).
+- **Change (#889/#891):** `WIZ_STRT_MAP` `\\`; D-0780 `getdir` SELF.
+- **Next:** C-cited reason first siege moves see hero@(9,1) (turn order
+  after EOT vs `#chat`/`y`) — not invent post-EOT movemon.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 
