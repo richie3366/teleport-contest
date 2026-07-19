@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0751 — hell temperature + temperature_shift pm_resistance (seed0360 @38557)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @41671)
+- **Symptom:** seed0360 @38557 — C `rndmonst_adj` `rn2(7)` vs JS `rn2(4)`
+  mid morgue `fill_zoo` corpse `mksobj`→`rndmonst` (after matched `rn2(2)`).
+- **C locus:** `mklev.c` / `sp_lev.c` `clear_level_structures` /
+  `lvl_init_coder` — `temperature = In_hell ? 1 : 0`; sanctum.lua has no
+  `"temperate"` override; `makemon.c` `temperature_shift` —
+  `pm_resistance(ptr, temp>0 ? MR_FIRE : MR_COLD) ? 3 : 0`.
+- **Cause (#847):** (1) JS `clear_level_structures` always set
+  `temperature=0` (C hell default is hot). Sanctum stayed temperate while
+  C was hot. (2) JS `temperature_shift` stubbed to 0 even when temp≠0.
+  First accepted weight matched (`rn2(2)`); next fire-resist candidate
+  got +3 in C → `rn2(7)` vs JS `rn2(4)`.
+- **Change:** `js/mklev.js` — hellish → `temperature=1` at clear;
+  `js/makemon.js` — real `temperature_shift` via `pm_resistance`.
+  Named omissions: asmodeus/… hell specials; place_lregion bounds @41671.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **38557→41671**; RNG **38600→41693**; Scr **207**.
+- **Next:** @41671 C `place_lregion` `rn2(26)` vs JS `rn2(23)`.
+
 ## D-0750 — sanctum.lua load_special + peace_minded is_minion (seed0360 @37668)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @38557)
@@ -23,8 +44,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   MS_LEADER/GUARDIAN/NEMESIS/ERINYS in `peace_minded`.
 - **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
   **37668→38557**; RNG **37686→38600**; Scr **207**.
-- **Next:** @38557 C `rndmonst_adj` `rn2(7)` vs JS `rn2(4)` (morgue
-  `fill_zoo`).
+- **Next:** superseded by D-0751 (@38557 temperature_shift).
 
 ## D-0749 — rnd_misc_item life-saving nonliving/vampshifter (seed0360 @35405)
 

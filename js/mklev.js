@@ -675,7 +675,8 @@ function clear_level_structures() {
     lf.has_town = false;
     lf.wizard_bones = false;
     lf.corrmaze = false;
-    lf.temperature = 0;
+    // C: mklev.c / sp_lev.c — In_hell(&u.uz) ? 1 : 0; lua "temperate"/"hot"/"cold" may override
+    lf.temperature = game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish ? 1 : 0;
     lf.rndmongen = true;
     lf.deathdrops = true;
     lf.noautosearch = false;
@@ -7581,7 +7582,7 @@ function load_castle() {
 /**
  * C ref: dat/valley.lua via load_special — Valley of the Dead (Gehennom).
  * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/hellfill
- * protos; temperature_shift beyond temperate flag.
+ * protos.
  */
 function load_valley() {
     const g = game;
@@ -7888,8 +7889,9 @@ function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
 
 /**
  * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
- * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/hellfill/
- * wizard1–3/fakewiz protos; temperature_shift.
+ * No lua temperate/hot/cold — keeps clear_level_structures hell default
+ * temperature=1 (D-0751). Named omissions: ensure_way_out; asmodeus/
+ * baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz protos.
  */
 function load_sanctum() {
     const g = game;
@@ -7907,6 +7909,7 @@ function load_sanctum() {
     g.level.flags.noteleport = true;
     g.level.flags.hardfloor = true;
     g.level.flags.nommap = true;
+    // C: sanctum.lua omits "temperate" — hell default hot remains
 
     // Pre-map non_passwall — absolute before xstart/ystart re-anchor
     // des.non_passwall(selection.area(39,00,41,00))

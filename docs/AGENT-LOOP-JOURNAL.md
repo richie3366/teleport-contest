@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:55 — #847 hell temperature + temperature_shift (D-0751)
+- Objective: seed0360 @38557 C rndmonst_adj rn2(7) vs JS rn2(4).
+- C locus: `mklev.c`/`sp_lev.c` temperature=In_hell?1:0; `makemon.c`
+  `temperature_shift` + `pm_resistance` MR_FIRE/COLD.
+- Change: clear_level_structures hellish→hot; real temperature_shift.
+  Sanctum has no lua temperate (unlike valley).
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **38557→41671**; RNG **38600→41693**; Scr 207.
+- Next: @41671 C place_lregion rn2(26) vs JS rn2(23).
+
 ## 2026-07-19 09:52 — #846 sanctum load + peace_minded is_minion (D-0750)
 - Objective: seed0360 @37668 C nhlib shuffle vs JS rn2(79).
 - C locus: `dat/sanctum.lua` via `load_special`; `makemon.c` `peace_minded` `is_minion`.
@@ -153,26 +163,3 @@ Use this shape:
   Scr 114→125/410.
 - Next: seed5002 screen peel (destroy/death topline); or D-0731/D-0708.
 
-## 2026-07-19 — #827 mattackm mlstmv + dog return onscary (D-0739)
-
-- Objective: seed5002 @11715 (C distfleeck rn2(5) vs JS rnd(20)).
-- C locus: `mhitm.c` `mattackm` `magr->mlstmv`; `dogmove.c` return gate.
-- Change: set `magr.mlstmv = moves` in `mattackm`; export `onscary` and
-  gate pet return attack `!onscary`. Root was undefined `mlstmv` always
-  allowing bat return-attack when C had `mlstmv == moves`.
-- Verification: green+strict PASS; cohort 34/34; continuous
-  **11715→11725**; Scr 108→114; positional 11895→11788.
-- Next: @11725 JS wish `rn2(181)` vs C `distfleeck` (identify wish
-  0-RNG in C); or D-0731/D-0708.
-
-## 2026-07-19 — #826 hero_seq + stethoscope seemimic (D-0738)
-
-- Objective: seed5002 @11643 (C do_attack/gethungry vs JS distfleeck).
-- C locus: `allmain.c` `hero_seq`; `apply.c` `use_stethoscope` seemimic.
-- Change: port `hero_seq = moves<<3` / `hero_seq++`; stethoscope
-  mundetected/mappearance `seemimic` + `mstatusline`. Root was stale
-  `hero_seq` making every post-first stethoscope TIME (extra movemon /
-  `--More--` ate east reveal keys).
-- Verification: green+strict PASS; cohort 34/34; continuous
-  **11643→11715**; positional **11693→11895** Scr 88→108.
-- Next: seed5002 @11715 (`rn2(5)` vs `rnd(20)`); or D-0731/D-0708.

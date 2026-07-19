@@ -731,6 +731,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0748 | fixed | mkclass_aligned Inhell via hellish (not GEHENNOM) | seed0360 31374→35405; RNG 31408→35443; Scr 204→207; next rnd_misc @35405 |
 | D-0749 | fixed | rnd_misc_item life-saving needs !nonliving && !vampshifter | seed0360 35405→37668; RNG 35443→37686; suite #845 568288/71.68%; next shuffle @37668 |
 | D-0750 | fixed | sanctum.lua load_special + peace_minded is_minion | seed0360 37668→38557; RNG 37686→38600; next rndmonst_adj @38557 |
+| D-0751 | fixed | hell temperature + temperature_shift pm_resistance | seed0360 38557→41671; RNG 38600→41693; next place_lregion @41671 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

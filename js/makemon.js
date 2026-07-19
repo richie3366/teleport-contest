@@ -41,6 +41,9 @@ import {
     montoostrong,
     likes_gold,
     monsterNames,
+    pm_resistance,
+    MR_FIRE,
+    MR_COLD,
     is_animal,
     mindless,
     is_floater,
@@ -320,13 +323,12 @@ function align_shift(ptr) {
     }
 }
 
-// C ref: makemon.c temperature_shift
+// C ref: makemon.c temperature_shift — +3 when ptr resists level hot/cold.
 function temperature_shift(ptr) {
     const temp = game.level?.flags?.temperature | 0;
     if (!temp) return 0;
-    // pm_resistance fire/cold — MR bits deferred; temperature rare on tut-1
-    void ptr;
-    return 0;
+    // C: pm_resistance(ptr, temperature > 0 ? MR_FIRE : MR_COLD)
+    return pm_resistance(ptr, temp > 0 ? MR_FIRE : MR_COLD) ? 3 : 0;
 }
 
 // C ref: makemon.c rndmonst_adj()
