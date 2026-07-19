@@ -7,14 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#870:** full suite score — **37/44**, Scr **8280**, RNG **79.35%**.
-  No port patch; primary still seed0360 @98492.
-- **#869:** D-0772 hell_tweaks `'.w.'` (was `'[.w.]'`) + extends clamps.
-  seed0360 still @98492.
-- **@98492 DIAG:** C `distfleeck` `rn2(5)` vs JS `linedup` `rn2(3)` —
-  PM_MUMAK @(55,9)→hero @(59,9); `couldsee` false; boulder @(57,9) from
-  `fill_empty_maze` @(57,13) + Y-flip. C skips that boulder `rn2` (couldsee
-  true or no `m_move`). Falsify: C-state couldsee/viz or m_move early-out.
+- **#871 / D-0773:** @98492 JS `linedup` rn2(3) — PM_MUMAK (55,9)→hero
+  (59,9); path LAVAPOOL(56,9)+BOULDER(57,9); `couldsee` false. Strip
+  boulder + `vision_recalc` → `couldsee` true (lava ≠ does_block).
+  FORCE skip rn2 → prefix **98502**, then C `getbones`+nhlib `shuffle`
+  (wizard3). Boulder birth: `fill_empty_maze` @(57,13) → flip
+  (extends ymin=2,ymax=20) → @(57,9). **C lacks that LOS boulder.**
+  Falsify next: C-state objects at (57,9) / FlipY ymin / post-gen
+  destroy; do not FORCE linedup.
+- **#870:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -34,10 +35,7 @@ Objective/score live in `CURRENT.md`.
   `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
-- D-0764: `selection.fillrect` adds xstart like C get_location_coord.
-- D-0768: wizard1 mazegrid + center map + east mazewalk + morgue door.
-- D-0602: playmode:debug → `flags.debug`; pick_room must test it.
-- Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
+- LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - Wish does **not** `makeknown` (C: otmp unidentified).
@@ -59,7 +57,7 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **hellfill/wizard3/fakewiz next**;
+  **wizard3/hellfill/fakewiz next after @98492 boulder**;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.

@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0773 — seed0360 @98492 linedup boulder vs C couldsee (diag)
+
+- **Status:** open (diagnosis — no port patch; prefix still @98492)
+- **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
+  `rn2(3)`.
+- **C locus:** `mthrowu.c` `linedup` / `couldsee`; `sp_lev.c`
+  `fill_empty_maze` + `flip_level`; wizard2 mazewalk stock.
+- **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
+  + BOULDER(57,9); `couldsee` false → boulderhandling=2 → `rn2(2+1)`.
+  Strip boulder + `vision_recalc` → `couldsee` true (LAVAPOOL is not
+  `does_block` / not `blocking_terrain`). FORCE skip rn2 → prefix
+  **98492→98502**, then C `getbones` + nhlib `shuffle` (wizard3 next).
+  Boulder birth: `fill_empty_maze` @(57,13) then Y-flip with extends
+  ymin=2,ymax=20 → @(57,9). C still in `distfleeck` ⇒ no LOS boulder
+  (or equivalent early-out without rn2). Not “skipped m_move” alone:
+  JS enters `m_move`/`lined_up` for that mumak.
+- **Change:** none (DIAG removed). Do not FORCE linedup in production.
+- **Verification:** green+strict PASS; seed0360 still **98492**/98507
+  Scr **275**/833.
+- **Next:** why C lacks boulder @(57,9) (maze1xy/SpLev_Map, FlipY
+  extends, or post-gen remove); then wizard3/hellfill.
+
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix still @98492)
@@ -20,8 +42,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `get_level_extends` xmin/xmax post-subtract clamps like C.
 - **Verification:** green+strict PASS; cohort **11/11**; seed0360 prefix
   still **98492**; RNG **98507**; Scr **275**/833.
-- **Next:** @98492 — why C skips linedup boulder `rn2` (couldsee / no
-  `m_move`); or wizard3/hellfill if next special is shuffle.
+- **Next:** superseded by D-0773 (C lacks LOS boulder).
 
 ## D-0771 — wizard2 load_special (seed0360 @86170)
 

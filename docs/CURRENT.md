@@ -75,16 +75,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @98492** — C `distfleeck` `rn2(5)` vs JS
-`linedup` boulder `rn2(3)` (PM_MUMAK LOS blocked by Y-flipped maze
-boulder; D-0772 diag). Next: why C skips that `rn2` (couldsee / no
-`m_move`). Prefer **wizard3 / hellfill** only if peel is nhlib shuffle
-after getbones. Parked D-0731/D-0708 stay diagnose-only.
+**Gameplay next:** **seed0360 @98492** — D-0773: JS `linedup` boulder
+`rn2(3)` for PM_MUMAK LOS; C skips (no LOS boulder → `couldsee`).
+Boulder from `fill_empty_maze` @(57,13)+Y-flip → @(57,9). Next: why C
+lacks that boulder; FORCE skip → @98502 then getbones+nhlib shuffle
+(**wizard3/hellfill**). Parked D-0731/D-0708 stay diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @98492 C distfleeck rn2(5) vs JS linedup rn2(3)
+# @98492 C distfleeck rn2(5) vs JS linedup rn2(3) — extra JS boulder
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -92,7 +92,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0772.**
+**Do not re-break D-0660…D-0773.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
