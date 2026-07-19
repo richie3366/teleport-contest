@@ -72,17 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 RNG **FULL** (D-0719 `#tip`); Scr **148**/303.
-Next: first screen miss after full RNG (^V materialize / tip UI / map).
-Or seed0014 @49039 **D-0708.** Prefer shared blockers. seed2200 @158
-parked. Do **not** re-break D-0660…D-0719.
+**Gameplay next:** seed0108 RNG **FULL** (D-0719); Scr **156**/303
+(D-0720/21). Next: @78 `#polyself` gnome — cloak `--More--` / map glyph /
+botl (Burdened). Or seed0014 @49039 **D-0708.** Prefer shared blockers.
+seed2200 @158 parked. Do **not** re-break D-0660…D-0721.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0719.**
+**Do not re-break D-0660…D-0721.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0721 — cream-pie make_blinded vision_recalc (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **156**/303; RNG FULL)
+- **Symptom:** @55 immerse `--More--` matched text but C map blanked pet
+  `f` / floor `o`; JS still showed live glyphs. @56+ cascade.
+- **C locus:** `potion.c` `make_blinded` → `toggle_blindness` →
+  `vision_recalc(0)`; `apply.c` `use_cream_pie` order (immerse pline
+  NEED_MORE, then blind, then second pline flushes More).
+- **Cause:** `apply.js` local `make_blinded` only flipped sticky/`botl`;
+  no Blind `vision_recalc`, so More painted pre-blind map.
+- **Change:** probe Blind like C; on sight toggle set botl +
+  `vision_recalc(0)`. Named omissions: Blind_telepat/Infravision/
+  Sting `see_monsters`; Eyes/Punished/`set_bc`; talk arms.
+- **Verification:** green+strict PASS; seed0108 Scr **149→156**;
+  cohort 14/14 PASS.
+- **Next:** seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
+
+## D-0720 — throw getdir self + throw_obj refuse (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **149**/303 then D-0721)
+- **Symptom:** @53 C `You cannot throw an object at yourself.` vs JS
+  blank topline after `t`/`o`/`.`.
+- **C locus:** `cmd.c` `getdir` NHKF_GETDIR_SELF/SELF2; `dothrow.c`
+  `throw_obj` `!dx&&!dy&&!dz` refuse → ECMD_OK.
+- **Cause:** JS `getdir`/`getdir_cmdassist` treated `.` as cancel;
+  never reached the self-throw pline.
+- **Change:** `.`/`s` → `{dx:0,dy:0}`; `throw_obj` self pline + return 0.
+  Named omissions: `throw_gold` self message; confdir on self getdir.
+- **Verification:** green+strict PASS; seed0108 Scr **148→149**;
+  cohort with D-0721.
+- **Next:** @55 cream-pie Blind map (D-0721).
+
 ## D-0719 — #tip floor ynq (seed0108 RNG full)
 
 - **Status:** fixed (partial — seed0108 Scr **148**/303; RNG FULL)

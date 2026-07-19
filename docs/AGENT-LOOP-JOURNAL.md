@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #803 seed0108 throw self + cream Blind (D-0720/21)
+- Objective: seed0108 first screen misses after RNG FULL (Scr 148).
+- C locus: `cmd.c` getdir SELF; `dothrow.c` throw_obj self refuse;
+  `potion.c` make_blinded/`toggle_blindness` vision_recalc.
+- Change: getdir `.`/`s` → self + throw_obj refuse pline (D-0720);
+  cream-pie make_blinded on sight toggle → vision_recalc(0) (D-0721).
+- Verification: green+strict PASS; seed0108 Scr **148→156** RNG FULL;
+  cohort 14/14 PASS.
+- Next: seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
+
 ## 2026-07-19 — #802 seed0108 #tip (D-0719)
 - Objective: seed0108 @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
 - C locus: `pickup.c` `dotip`/`tipcontainer`; `allmain.c` unmul→deferred_goto.
@@ -147,12 +157,4 @@ Use this shape:
 - Verification: green+strict PASS; DIAG removed; no code change.
 - Next: which of 6 C omits (C-only trap/mon / earlier geometry /
   missing mfndpos arm); or seed0108.
-
-## 2026-07-19 00:52 — #787 D-0708 mfndpos cnt (diagnose)
-- Objective: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
-- C locus: `monmove.c` `m_move`/`mfndpos` (not `distfleeck` body).
-- Falsified: distfleeck arity; single-flank corners (@3061); squeeze/gas
-  on `(22,10)`. Real: peaceful gnome `mfndpos` cnt 6 vs C 5.
-- Verification: green PASS; no code change. Drop-any →49300 experiment.
-- Next: which neighbor C omits + C predicate; or travel/map shared blocker.
 
