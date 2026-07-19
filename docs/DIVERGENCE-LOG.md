@@ -4,7 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0747 — valley.lua + Inhell hellish/G_NOHELL (seed0360 @22925)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @31374)
+- **Symptom:** seed0360 @22925 — C nhlib `shuffle` vs JS `rn2(79)` after
+  matched `getbones` (wizard `^V` into valley). After valley loader,
+  mid-corpse `rndmonst` C `rn2(30)` vs JS `rn2(31)`.
+- **C locus:** `dat/valley.lua` via `sp_lev.c` `load_special` /
+  `remove_boundary_syms`; `makemon.c` `uncommon` / `rndmonst_adj`
+  (`Inhell` + `G_NOHELL`).
+- **Cause (#843):** (1) `makemaz` requested `valley` but no loader →
+  empty → `place_lregion` `rn2(79)`. (2) After porting valley, corpse
+  `mksobj`→`rndmonst` included `G_NOHELL` winter-wolf-cub because
+  `Inhell` used `dnum===GEHENNOM` (const 5) while valley is hellish
+  `dnum=1`; `uncommon` had the same wrong gate.
+- **Change:** `js/mklev.js` — `load_valley` + `remove_boundary_syms` +
+  dispatch; `js/makemon.js` — `uncommon`/`rndmonst_adj` use dungeon
+  `flags.hellish` and skip `G_NOHELL` in hell. Named omissions:
+  hellfill/asmodeus/…; `temperature_shift`; other `GEHENNOM` dnum sites;
+  `mkclass_aligned` @31374.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **22925→31374**; RNG **22948→31408**; Scr **201→204**.
+- **Next:** @31374 C `mkclass_aligned` `rn2(2)` vs JS `rn2(9)`.
+
 ## D-0746 — castle.lua load_special (seed0360 @8708)
+
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @22925)
 - **Symptom:** seed0360 @8708 — C nhlib `shuffle` vs JS `rn2(79)` after

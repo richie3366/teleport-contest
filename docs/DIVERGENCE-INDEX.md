@@ -727,6 +727,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0744 | fixed | Boots_on SPEED_BOOTS makeknown→exercise(A_WIS) | seed0360 3006→3037; RNG 3120→3186; next lua shuffle @3037 |
 | D-0745 | fixed | oracle.lua load_special (rooms/DELPHI/statues) | seed0360 3037→8708; RNG 3186→8728; Scr 187→200; next castle @8708 |
 | D-0746 | fixed | castle.lua load_special + mazewalk/squadmon | seed0360 8708→22925; RNG 8728→22948; Scr 200→201; next valley @22925 |
+| D-0747 | fixed | valley.lua + Inhell hellish/G_NOHELL rndmonst | seed0360 22925→31374; RNG 22948→31408; Scr 201→204; next mkclass @31374 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

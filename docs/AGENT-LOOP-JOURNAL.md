@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:39 — #843 valley + Inhell G_NOHELL (D-0747)
+- Objective: seed0360 @22925 valley vs rn2(79) (CURRENT primary).
+- C locus: `dat/valley.lua` / `sp_lev.c` load_special /
+  `remove_boundary_syms`; `makemon.c` uncommon/`rndmonst_adj` Inhell.
+- Change: `load_valley` + boundary CROSSWALL→ROOM; hellish-flag
+  `uncommon` + `G_NOHELL` skip in `rndmonst_adj` (not GEHENNOM=5).
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **22925→31374**; RNG **22948→31408**; Scr **201→204**.
+- Next: @31374 C mkclass_aligned rn2(2) vs JS rn2(9).
+
 ## 2026-07-19 09:27 — #836 castle load_special (D-0746)
 - Objective: seed0360 @8708 castle vs rn2(79) (CURRENT primary).
 - C locus: `dat/castle.lua` / `sp_lev.c` load_special / `mkmaze.c` walkfrom;
@@ -172,14 +182,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 8/8; cont **5739→5904**;
   seg0 C FULL +1 JS learnwand `rn2(19)`.
 - Next: trailing learnwand exercise; or D-0731/D-0708.
-
-## 2026-07-19 — #821 use_stethoscope adjacent res TIME (D-0735)
-- Objective: seed5002 seg1 @5668 dog_goal invent vs rn2(4).
-- C locus: `apply.c` `use_stethoscope` adjacent return `res`.
-- Change: adjacent was ECMD_OK stub; `anh` spent no turn; later
-  mirror-absent `aph` leaked `h`→domove west → udist=2. Port isok/
-  m_at/empty + return `res`. Named: full mstatusline, mirror/camera.
-- Verification: green+strict PASS; cohort 6/6; seed5002 continuous
-  **5668→5739** (positional 6172→6176).
-- Next: seed5002 @5739 (mirror/camera getdir); or D-0731/D-0708.
-

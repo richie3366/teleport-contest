@@ -263,16 +263,15 @@ function next_ident() {
     return res;
 }
 
-// C ref: makemon.c uncommon()
+// C ref: makemon.c uncommon() — Inhell via dungeon hellish flag (not dnum).
 function uncommon(mndx) {
     const ptr = mons(mndx);
     if (!ptr) return true;
     if (ptr.geno & (G_NOGEN | G_UNIQ)) return true;
     // mvitals G_GONE not tracked yet
-    // Inhell → reject maligntyp > neutral; else reject G_HELL
-    if (game.u?.uz?.dnum === 1 /* Gehennom stub */) {
-        return ptr.maligntyp > 0; // A_NEUTRAL=0
-    }
+    // C: Inhell → reject maligntyp > A_NEUTRAL; else reject G_HELL
+    const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
+    if (inhell) return ptr.maligntyp > 0; // A_NEUTRAL=0
     return !!(ptr.geno & G_HELL);
 }
 
@@ -359,6 +358,9 @@ export function rndmonst_adj(minadj = 0, maxadj = 0) {
     const ulevel = game.u?.ulevel ?? 1;
     const minmlev = monmin_difficulty(zlevel) + minadj;
     const maxmlev = monmax_difficulty(zlevel, ulevel) + maxadj;
+    // C: upper / elemlevel filters — rogue uppercase + elemental planes
+    // deferred (valley is neither). Inhell = dungeon hellish flag.
+    const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
 
     let totalweight = 0;
     let selected_mndx = NON_PM;
@@ -367,6 +369,8 @@ export function rndmonst_adj(minadj = 0, maxadj = 0) {
         const ptr = mons(mndx);
         if (montooweak(mndx, minmlev) || montoostrong(mndx, maxmlev)) continue;
         if (uncommon(mndx)) continue;
+        // C: if (Inhell && (ptr->geno & G_NOHELL)) continue;
+        if (inhell && (ptr.geno & G_NOHELL)) continue;
 
         let weight_ = (ptr.geno & G_FREQ) + align_shift(ptr);
         weight_ += temperature_shift(ptr);
