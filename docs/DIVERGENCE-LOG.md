@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0796 — castmu HASTE_SELF (seed0360 apprentice MFAST leftover)
+
+- **Status:** fixed (seed0360 still FAIL @112279)
+- **Symptom:** seed0360 @112243 — C `distfleeck` vs JS EOT `mcalcmove`
+  (D-0794 leftover-apprentice paradox).
+- **C-state (#916):** JS `castmu` burned choose/fumble RNG but deferred
+  `mcast_spell` bodies. Peaceful apprentice undirected
+  `MCAST_HASTE_SELF` → C `mon_adjust_speed(+1)` → `MFAST`. Next EOT
+  `mcalcmove` uses mmove=(4×12+2)/3=16, adj=4 → can `+=24`. Pass1
+  spends once → leftover 12 → pass2 mux-at-hero fleeck @112243.
+  JS stayed `mspeed=0` → always `+=12` → apps to 0 → Neferet CLOSE
+  silent EOT at 112243.
+- **C locus:** `mcastu.c` `mcast_spell` / `MCAST_HASTE_SELF`;
+  `worn.c` `mon_adjust_speed`; `mon.c` `mcalcmove` MFAST arm.
+- **Change:** `js/mcastu.js` — `HASTE_SELF` → `mon_adjust_speed(1)`;
+  `CURE_SELF` heal `d(3,6)`. Named omission: other `mcast_spell`
+  bodies (DISAPPEAR / INSECTS / directed attacks / …).
+- **Verification:** green+strict PASS; cohort 12/12 PASS; seed0360
+  prefix **112243→112279**; focused RNG **112272→112326** Scr 391.
+- **Next:** @112279 C fleeck vs JS `rn2(3)` after matched EOT62.
+
 ## D-0795 — movemon_singlemon utotype / mon_offmap / isgd before spend
 
 - **Status:** fixed (seed0360 still FAIL @112243)
@@ -22,7 +43,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0794 — seed0360 @112243 is leftover apprentice, not Neferet CLOSE
 
-- **Status:** diagnosed (refined #914; FORCE banned)
+- **Status:** fixed via D-0796 (cause was missing HASTE_SELF, not PRE skip)
 - **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
   `mcalcmove` `rn2(12)`.
 - **C-state (#911–#913):** mux-at-hero fleeck; CLOSE FORCE coincidence
@@ -35,13 +56,15 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   fleeck + `rn2(10)` then EOT @112248. Apprentice `mcalcmove` always
   rolls `rn2(12)` (adj=0) so PRE leftover does not desync EOT RNG.
   JS EOT58–61 all apprentice PRE=0 ⇒ C must carry PRE≥12 into EOT61.
+- **C-state (#916):** resolved — C apprentice was **MFAST** from
+  undirected `HASTE_SELF` (JS deferred body); EOT `+=24` not PRE skip.
 - **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug` /
-  `set_apparxy`.
-- **Change:** docs only (DIAG removed); no FORCE.
-- **Named deferred:** C path leaving one apprentice PRE into EOT61;
-  full `gd_move`; `dmonsfree` before utotype.
-- **Verification:** green+strict PASS; focused @112243 / RNG **112272**.
-- **Next:** falsify pre-EOT61 silent pre-spend skip / missed second pass.
+  `set_apparxy`; root cause `mcastu.c` (D-0796).
+- **Change:** docs + D-0796 fix.
+- **Named deferred:** other `mcast_spell` bodies; full `gd_move`;
+  `dmonsfree` before utotype.
+- **Verification:** see D-0796; peel now @112279.
+- **Next:** @112279 after matched EOT62.
 
 ## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
 

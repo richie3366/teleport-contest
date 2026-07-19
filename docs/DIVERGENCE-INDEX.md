@@ -5,8 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0795 | fixed | movemon_singlemon early exits | utotype break + mon_offmap/isgd skip; seed0360 still @112243 |
-| D-0794 | diagnosed | seed0360 apprentice leftover mov | moves=62: EOT61 match; C needs apprentice PRE into EOT61 |
+| D-0796 | fixed | castmu HASTE_SELF / CURE_SELF | MFAST → EOT +=24 leftover; seed0360 112243→112279 |
+| D-0795 | fixed | movemon_singlemon early exits | utotype break + mon_offmap/isgd skip; idle on D-0794 |
+| D-0794 | fixed | seed0360 apprentice leftover mov | cause was missing HASTE_SELF (D-0796); peel @112279 |
 | D-0793 | fixed | makemon mux/muy zeromonst | mux/muy=0 not spawn; @112243 still Neferet CLOSE |
 | D-0792 | fixed | Wizard ldrnum + mundisplaceable | leader_m_id set; refuse leader swap; CLOSE-clear @112243 falsified |
 | D-0001 | fixed | input/messages | Missing blocking `--More--` reassigned later keys |

@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 112272/120639 | 391/833 | @112243 apprentice leftover (D-0794) |
+| seed0360 | 112326/120639 | 391/833 | @112279 after D-0796 HASTE_SELF |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -75,12 +75,11 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @112243** — D-0794 (#914): **moves=62**.
-EOT61 Neferet **+24** matches C (`rn2=2`). Pass1 (umov=12): 8 apps
-fleeck 12→0 (C too); Neferet CLOSE 24→12. Pass2: flyers through
-112242; JS CLOSE→EOT; C mux-at-hero peaceful fleeck (apprentice PRE
-into EOT61 → pass1 24→12 leftover). **D-0795** early exits idle.
-Parked D-0731.
+**Gameplay next:** **seed0360 @112279** — D-0796 (#916): `castmu`
+`HASTE_SELF` → `mon_adjust_speed` MFAST. Closes D-0794 leftover
+paradox (EOT `+=24` not bare PRE skip). Prefix **112243→112279**;
+focused RNG **112272→112326** Scr 391. Next: C fleeck vs JS `rn2(3)`
+after matched EOT62. **Do not FORCE CLOSE/movement.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -89,7 +88,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0795. Do not FORCE CLOSE/movement.**
+**Do not re-break D-0660…D-0796. Do not FORCE CLOSE/movement.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
