@@ -737,6 +737,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0754 | fixed | minetn-5.lua load_special (Grotto Town) | seed0360 41777→43248; RNG 41794→43267; suite #850 573869/72.38%; next minend-2 @43248 |
 | D-0755 | fixed | minend-2.lua load_special (Wine Cellar) | seed0360 43248→52601; RNG 43267→52639; Scr 207→238; next soko4-1 @52601 |
 | D-0756 | fixed | soko4-1.lua load_special (Sokoban entry) | seed0360 52601→53361; RNG 52639→53376; Scr 238→242; next tower2 @53361 |
+| D-0757 | fixed | tower2.lua load_special (Vlad middle) | seed0360 53361→53591; RNG 53376→53595; Scr 242→246; next tower3 @53591 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

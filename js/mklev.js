@@ -199,6 +199,17 @@ const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const LEVITATION_BOOTS = objectNames.indexOf('LEVITATION_BOOTS');
 const SCIMITAR = objectNames.indexOf('SCIMITAR');
 const SACK = objectNames.indexOf('SACK');
+const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
+const WATER_WALKING_BOOTS = objectNames.indexOf('WATER_WALKING_BOOTS');
+const CRYSTAL_PLATE_MAIL = objectNames.indexOf('CRYSTAL_PLATE_MAIL');
+const SPE_INVISIBILITY = objectNames.indexOf('SPE_INVISIBILITY');
+const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
+const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
+const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
+const SPE_CHARM_MONSTER = objectNames.indexOf('SPE_CHARM_MONSTER');
+const SPE_STONE_TO_FLESH = objectNames.indexOf('SPE_STONE_TO_FLESH');
+const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 
 const XLIM = 4;
 const YLIM = 3;
@@ -719,10 +730,10 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-1, soko4-2, tower1, fire, air, minend-1, minend-2, minetn-2, minetn-5,
- * medusa-1, oracle, castle, valley, sanctum, Pri-fila, Pri-filb.
+ * soko4-1, soko4-2, tower1, tower2, fire, air, minend-1, minend-2, minetn-2,
+ * minetn-5, medusa-1, oracle, castle, valley, sanctum, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
- * protos (Bar-goal); minetn-1/3/4/6/7; minend-3; tower2/3;
+ * protos (Bar-goal); minetn-1/3/4/6/7; minend-3; tower3;
  * medusa-2/3/4; water/earth/astral; asmodeus/baalz/orcus/juiblex/hellfill;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
@@ -869,6 +880,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'tower1') {
         load_tower1();
+        return true;
+    }
+    if (protofile === 'tower2') {
+        load_tower2();
         return true;
     }
     if (protofile === 'soko1-1') {
@@ -3172,7 +3187,7 @@ function splev_map_aligned_start(wid, hei, halign) {
 
 /**
  * C ref: dat/tower1.lua via load_special — Vlad's Tower upper stage.
- * Named omissions: tower2/3; SpLev_Map fidelity beyond solidify set;
+ * Named omissions: tower3; SpLev_Map fidelity beyond solidify set;
  * map_cleanup lava/pool sweep; mon_has_special Vlad gate (makemon skips
  * newcham for Vlad); full nh.is_genocided beyond mvitals G_GENOD.
  * D-0673: map lit=FALSE clear after solidfill (≡ C lspo_map).
@@ -3360,6 +3375,207 @@ function load_tower1() {
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
     // solidify_map — STWALL outside SpLev_Map get nondig/nonpass
+    for (let x = 0; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = g.level.at(x, y);
+            if (!loc || !IS_STWALL(loc.typ)) continue;
+            if (spLevMap.has(`${x},${y}`)) continue;
+            loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/tower2.lua via load_special — Vlad's Tower middle stage.
+ * Named omissions: tower3; SpLev_Map fidelity beyond solidify set;
+ * map_cleanup; ensure_way_out; exclusion_zones.
+ * D-0673 pattern: map lit=FALSE clear after solidfill (≡ C lspo_map).
+ */
+function load_tower2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    // C ref: dat/tower2.lua des.map — 15×11, halign half-left
+    const TOWER2_MAP = `
+  --- --- ---  
+  |.| |.| |.|  
+---S---S---S---
+|.S.........S.|
+---.------+----
+  |......|..|  
+--------.------
+|.S......+..S.|
+---S---S---S---
+  |.| |.| |.|  
+  --- --- ---  
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(TOWER2_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(mf.wid, mf.hei, 'half-left');
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    const spLevMap = new Set();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            spLevMap.add(`${xx},${yy}`);
+        }
+    }
+    // C lspo_map defaults lit=FALSE → clear solidfill BOOL_RANDOM lit
+    for (const key of spLevMap) {
+        const comma = key.indexOf(',');
+        const x = Number(key.slice(0, comma));
+        const y = Number(key.slice(comma + 1));
+        const loc = g.level.at(x, y);
+        if (!loc) continue;
+        loc.lit = IS_LAVA(loc.typ) ? true : false;
+    }
+    const mx = xstart;
+    const my = ystart;
+
+    // local place = { {03,01}, … }; shuffle(place) — Lua 1-based niches
+    const place = [
+        [3, 1], [7, 1], [11, 1], [1, 3], [13, 3],
+        [1, 7], [13, 7], [3, 9], [7, 9], [11, 9],
+    ];
+    nhlib_shuffle(place);
+
+    // des.ladder("up", 11,05)
+    {
+        const lx = mx + 11;
+        const ly = my + 5;
+        const loc = g.level.at(lx, ly);
+        if (loc) {
+            loc.typ = LADDER;
+            loc.ladder = LA_UP;
+        }
+        stairway_add(lx, ly, true, true, {
+            dnum: g.u?.uz?.dnum ?? 0,
+            dlevel: (g.u?.uz?.dlevel ?? 1) - 1,
+        });
+        if (g.level) g.level.upstair = { x: lx, y: ly };
+        spLevMap.add(`${lx},${ly}`);
+    }
+    // des.ladder("down", 03,07)
+    {
+        const lx = mx + 3;
+        const ly = my + 7;
+        const loc = g.level.at(lx, ly);
+        if (loc) {
+            loc.typ = LADDER;
+            loc.ladder = LA_DOWN;
+        }
+        stairway_add(lx, ly, false, true, {
+            dnum: g.u?.uz?.dnum ?? 0,
+            dlevel: (g.u?.uz?.dlevel ?? 1) + 1,
+        });
+        if (g.level) g.level.dnstair = { x: lx, y: ly };
+        spLevMap.add(`${lx},${ly}`);
+    }
+
+    const twDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    twDoor(10, 4, D_LOCKED);
+    twDoor(9, 7, D_LOCKED);
+
+    // des.monster("&", place[10]) / place[1] — Lua 1-based → JS [9]/[0]
+    for (const idx of [9, 0]) {
+        const [rx, ry] = place[idx];
+        induced_align(80);
+        const pm = mkclass('S_DEMON', G_NOGEN);
+        if (pm) makemon(pm, mx + rx, my + ry, 0);
+    }
+    // des.monster("hell hound pup", place[2]/place[3]); winter wolf place[4]
+    for (const [name, idx] of [
+        ['hell hound pup', 1],
+        ['hell hound pup', 2],
+        ['winter wolf', 3],
+    ]) {
+        const [rx, ry] = place[idx];
+        const { mndx, female } = find_montype_gender(name);
+        induced_align(80);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+        if (mtmp) mtmp.female = female;
+    }
+
+    // Chests with amulet contents — create_object get_location_coord(DRY)
+    // then remove_object + add_to_container (sp_lev.c create_object).
+    const placeChestAmulet = (pidx, otyp) => {
+        const [rx, ry] = place[pidx];
+        const chest = mksobj_at(CHEST, mx + rx, my + ry, true, true);
+        if (!chest) return;
+        // C: SP_OBJ_CONTAINER contents → delete_contents after mkbox_cnts
+        chest.cobj = null;
+        const pos = get_location_coord_random(DRY);
+        if (pos.x < 0) return;
+        const amulet = mksobj_at(otyp, pos.x, pos.y, true, true);
+        if (!amulet) return;
+        amulet.oeroded = 0;
+        amulet.oeroded2 = 0;
+        amulet.oerodeproof = 0;
+        obj_extract_self(amulet);
+        add_to_container(chest, amulet);
+        chest.owt = weight(chest);
+    };
+    placeChestAmulet(4, AMULET_OF_LIFE_SAVING); // place[5]
+    placeChestAmulet(5, AMULET_OF_STRANGULATION); // place[6]
+
+    const placeObj = (otyp, pidx) => {
+        const [rx, ry] = place[pidx];
+        const otmp = mksobj_at(otyp, mx + rx, my + ry, true, true);
+        if (!otmp) return;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    };
+    placeObj(WATER_WALKING_BOOTS, 6); // place[7]
+    placeObj(CRYSTAL_PLATE_MAIL, 7); // place[8]
+
+    // local spbooks = {…}; shuffle(spbooks); des.object(spbooks[1], place[9])
+    const spbooks = [
+        SPE_INVISIBILITY,
+        SPE_CONE_OF_COLD,
+        SPE_CREATE_FAMILIAR,
+        SPE_CLAIRVOYANCE,
+        SPE_CHARM_MONSTER,
+        SPE_STONE_TO_FLESH,
+        SPE_POLYMORPH,
+    ];
+    nhlib_shuffle(spbooks);
+    placeObj(spbooks[0], 8); // place[9]
+
+    // des.non_diggable(selection.area(00,00,14,10))
+    for (let y = my; y <= my + 10 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 14 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // C load_special: wallification → flip → solidify → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     for (let x = 0; x < COLNO; x++) {
         for (let y = 0; y < ROWNO; y++) {
             const loc = g.level.at(x, y);

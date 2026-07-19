@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 10:22 — #853 tower2 Vlad middle (D-0757)
+- Objective: seed0360 @53361 C tower2 niche shuffle of 10 vs JS `rn2(79)`.
+- C locus: `dat/tower2.lua` / `sp_lev.c` `load_special` / `mkmaze.c` `makemaz`.
+- Change: `load_tower2` + dispatch (solidfill map, lit=FALSE clear, niche
+  shuffle, up/down ladders, locked doors, `&`/hounds/wolf, chest amulets
+  via get_location_coord_random, boots/plate, spbook shuffle, solidify).
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **53361→53591**; RNG **53376→53595**; Scr **242→246**.
+- Next: @53591 C `tower3` (post-getbones nhlib shuffle → induced_align)
+  vs JS `rn2(79)`.
+
 ## 2026-07-19 10:18 — #852 soko4-1 Sokoban entry (D-0756)
 - Objective: seed0360 @52601 C soko4-1 (`makemaz` `rnd(2)=1`) vs JS `rn2(79)`.
 - C locus: `dat/soko4-1.lua` / `mkmaze.c` `makemaz` (`soko4` `rndlevs=2`).
@@ -156,13 +167,3 @@ Use this shape:
   **3006→3037**; RNG **3120→3186**; Scr **181→187**.
 - Next: @3037 C nhlib.lua shuffle vs JS rn2(79) after ^V/getbones.
 
-## 2026-07-19 06:47 — #832 mattackm AT_WEAP wield (D-0743)
-
-- Objective: seed0360 @2995 pet return-attack (CURRENT primary).
-- C locus: `mhitm.c` `mattackm` AT_WEAP → `mon_wield_item`; `weapon.c`.
-- Change: AT_WEAP need-weapon/`!MON_WEP` → wield; nonzero → `M_ATTK_MISS`
-  (no `rnd(20)`). Root was goblin first-wield on return attack (topline
-  "wields a crude dagger"); #831 mlstmv/onscary gate theory falsified.
-- Verification: green+strict PASS; cohort 35/35; prefix **2995→3006**;
-  RNG **3098→3120**; Scr **177→181**.
-- Next: @3006 C `exercise` `rn2(19)` vs JS `rn2(5)`; or D-0731/D-0708.

@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#850; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#850; stuck @10157 D-0731 |
-| seed0360 | 53376/120639 | 242/833 | @#852; next tower2 @53361 |
+| seed0360 | 53595/120639 | 246/833 | @#853; next tower3 @53591 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,15 +75,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @53361** after D-0756 soko4-1 —
-C `tower2` (Dlvl:35 after Vlad `tower1`; niche `shuffle` of 10) vs JS
+**Gameplay next:** **seed0360 @53591** after D-0757 tower2 —
+C `tower3` (Dlvl:36; post-getbones nhlib shuffle → `induced_align` for
+`des.monster("D")`; niches unshuffled; branch levregion) vs JS
 `rn2(79)`. Prefer over D-0731/D-0708 mfndpos. Do **not** re-break
-D-0660…D-0756.
+D-0660…D-0757.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @53361 C tower2 nhlib shuffle vs JS rn2(79)
+# @53591 C tower3 nhlib shuffle → induced_align vs JS rn2(79)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +92,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0756.**
+**Do not re-break D-0660…D-0757.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

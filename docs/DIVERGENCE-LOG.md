@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0757 — tower2.lua load_special (seed0360 @53361)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @53591)
+- **Symptom:** seed0360 @53361 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` (post-tower1 / soko4-1).
+- **C locus:** `dat/tower2.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`tower2`).
+- **Cause (#853):** JS had no `tower2` loader → empty → `place_lregion`
+  `rn2(79)`. C loads Vlad's Tower middle stage (niche shuffle of 10).
+- **Change:** `js/mklev.js` — `load_tower2` + dispatch (solidfill map,
+  lit=FALSE clear D-0673 pattern, niche shuffle, up/down ladders, locked
+  doors, S_DEMON/`hell hound pup`/`winter wolf`, chest amulets via
+  `get_location_coord_random`, water-walking boots / crystal plate, spbook
+  shuffle, wallify/flip/solidify/fixup). Named omissions: tower3;
+  soko2-2; exclusion_zones; ensure_way_out; map_cleanup.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **53361→53591**; RNG **53376→53595**; Scr **242→246**.
+- **Next:** @53591 C `tower3` (post-getbones nhlib shuffle →
+  `induced_align` for `des.monster("D")`; place niches unshuffled) vs JS
+  `rn2(79)`.
+
 ## D-0756 — soko4-1.lua load_special (seed0360 @52601)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @53361)
