@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#830**).
-Screens **8182**/11405; RNG **533,690**/792838 (67.31%).
-**37/44** PASS. Δ vs #825: Scr **+322**, RNG **+474**, PASS **+1** (seed5002
-D-0742).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#835**).
+Screens **8205**/11405; RNG **539,317**/792838 (68.02%).
+**37/44** PASS. Δ vs #830: Scr **+23**, RNG **+5,627**, PASS **0**
+(seed0360 D-0744/D-0745 prefix lift).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,182 / 11,405** |
-| Positional RNG calls matched | **533,690 / 792,838** (67.31%) |
-| Speed label | `37+0.18/turn` (R² 0.760) |
+| Screens matched | **8,205 / 11,405** |
+| Positional RNG calls matched | **539,317 / 792,838** (68.02%) |
+| Speed label | `36+0.18/turn` (R² 0.800) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,12 +47,12 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#830; prefix @49039 D-0708 |
-| seed0399 | 10389/11409 | 113/532 | @#830; stuck @10157 D-0731 |
-| seed0360 | 3098/120639 | 177/833 | early world-tour |
-| seed0383 | 2518/16915 | 45/219 | hallu |
+| seed0014 | 49495/59178 | 577/714 | @#835; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#835; stuck @10157 D-0731 |
+| seed0360 | 8728/120639 | 200/833 | @#835; next castle @8708 |
+| seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
-| seed4500 | 2997/108275 | 13/1814 | knight coverage |
+| seed4500 | 3000/108275 | 13/1814 | knight coverage |
 
 ## Green gate
 
