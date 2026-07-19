@@ -2053,32 +2053,14 @@ export function makemon(mdat, x, y, mmflags = 0) {
     game.fmon.unshift(mtmp);
 
     // C: PM_GHOST && !(MM_NONAME) → christen_monst(rndghostname())
+    // (C places this after mlet switch; no RNG for ordinary ghosts at mklev)
     if (ptr.mndx === pm('GHOST') && !(mmflags & MM_NONAME)) {
         christen_monst(mtmp, rndghostname());
     }
 
-    // C: set_malign after peaceful changes (orc/unicorn/emin deferred)
-    set_malign(mtmp);
-
-    // C: !in_mklev && byyou → newsym + set_apparxy before invent
-    // Named omission: set_apparxy here (circular monmove↔makemon; dochug
-    // calls it before combat — mux/muy init to spawn until then).
-    if (!game.in_mklev && byyou) {
-        newsym(mtmp.mx, mtmp.my);
-    }
-
-    // C: anymon && !(mmflags & MM_NOGRP) → small/large group
-    if (anymon && (mmflags & MM_NOGRP) === 0) {
-        if ((ptr.geno & G_SGROUP) && rn2(2)) {
-            m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
-        } else if (ptr.geno & G_LGROUP) {
-            if (rn2(3)) m_initlgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
-            else m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
-        }
-    }
-
-    // C: switch (ptr->mlet) before invent — mimic + sleepers + spider/snake/eel.
-    // Named omissions: orc/elf peace; unicorn align peace; bat hell speed.
+    // C: switch (ptr->mlet) BEFORE set_malign / G_SGROUP (makemon.c:1303).
+    // Cave spider is G_SGROUP — mkobj_at(RANDOM) must burn before group rn2(2)
+    // (D-0761). Named omissions: orc/elf peace; unicorn align peace; bat hell speed.
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
     else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
         // C: in_mklev → mkobj_at(RANDOM) then hideunder(mtmp).
@@ -2123,6 +2105,26 @@ export function makemon(mdat, x, y, mmflags = 0) {
         // C: if (rn2(5) && !u.uhave.amulet) msleeping = 1
         if (rn2(5) && !(game.u?.uhave?.amulet || game.u?.uhave_amulet))
             mtmp.msleeping = 1;
+    }
+
+    // C: set_malign after peaceful changes (orc/unicorn/emin deferred)
+    set_malign(mtmp);
+
+    // C: !in_mklev && byyou → newsym + set_apparxy before invent
+    // Named omission: set_apparxy here (circular monmove↔makemon; dochug
+    // calls it before combat — mux/muy init to spawn until then).
+    if (!game.in_mklev && byyou) {
+        newsym(mtmp.mx, mtmp.my);
+    }
+
+    // C: anymon && !(mmflags & MM_NOGRP) → small/large group (after mlet)
+    if (anymon && (mmflags & MM_NOGRP) === 0) {
+        if ((ptr.geno & G_SGROUP) && rn2(2)) {
+            m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+        } else if (ptr.geno & G_LGROUP) {
+            if (rn2(3)) m_initlgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+            else m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+        }
     }
 
     // C ref: makemon.c — cham / Vlad candelabrum / Wizard iswiz / newcham /

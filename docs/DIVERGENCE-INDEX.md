@@ -741,6 +741,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0758 | fixed | tower3.lua load_special (Vlad entry) | seed0360 53591→55374; RNG 53595→55383; Scr 246→261; next medusa-3 @55374 |
 | D-0759 | fixed | medusa-3.lua + mk_artifact A_NONE | seed0360 55374→60114; RNG 55383→60117; Scr 261→265; suite Scr 8270 RNG 74.51%; next bigrm-4 @60114 |
 | D-0760 | fixed | bigrm-4.lua load_special | seed0360 60114→65027; RNG 60117→65054; Scr 265; next mkobj @65027 |
+| D-0761 | fixed | makemon mlet before G_SGROUP | seed0360 65027→68428; RNG 65054→68434; Scr 265→270; next makeroguerooms @68428 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

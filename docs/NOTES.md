@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#856 D-0760 fixed:** `load_bigrm_4` (L-replace + fountains).
-  Prefix **65027**. Scr still 265 (no screen lift this peel).
-- **Next @65027:** C `mkobj` `rnd(100)` vs JS `rn2(2)` after matched
-  bigrm-4 fill. Falsifier: reconstruct C call path at index 65027.
+- **#857 D-0761 fixed:** makemon mlet switch before G_SGROUP.
+  Prefix **68428**. Scr **270** (+5).
+- **Next @68428:** C `makeroguerooms` `rn2(5)` vs JS `rn2(1)` after
+  matched getbones + makelevel. Falsifier: C `extralev.c` vs JS rogue path.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0760 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0761 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
@@ -36,6 +36,7 @@ Objective/score live in `CURRENT.md`.
 - D-0758: next miss after tower3 is **medusa-3** (not castle/hellfill).
 - D-0759: next miss after medusa-3 is **bigrm-4** (not castle/hellfill).
 - D-0760: next miss after bigrm-4 is **mkobj rnd(100)** (not castle/hellfill).
+- D-0761: next miss after cave-spider mkobj order is **makeroguerooms**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -48,7 +49,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#855;
-  Scr 8270, RNG 74.51%; seed0360 **65027**/265 after D-0760).
+  Scr 8270, RNG 74.51%; seed0360 **68428**/270 after D-0761).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -60,10 +61,11 @@ Objective/score live in `CURRENT.md`.
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
   asmodeus/baalz/orcus/juiblex/hellfill/wizard*/fakewiz deferred;
-  minend-3 / soko2-2 / other bigrm-N deferred;
+  minend-3 / soko2-2 / other bigrm-N deferred; **makeroguerooms** next;
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **tower3 Vlad entry** (D-0758);

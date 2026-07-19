@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0761 — makemon mlet switch before G_SGROUP (seed0360 @65027)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @68428)
+- **Symptom:** seed0360 @65027 — C `mkobj` `rnd(100)` vs JS `rn2(2)`
+  after matched `makemon` female `rn2(2)`.
+- **C locus:** `makemon.c` `makemon` — `switch (ptr->mlet)` (spider/snake
+  `mkobj_at`) at ~1303 before `G_SGROUP` `rn2(2)` at ~1431.
+- **Cause (#857):** JS ran `anymon`/`G_SGROUP` before the mlet switch.
+  Cave spider (`G_SGROUP`) burned group `rn2(2)` before `mkobj_at(RANDOM)`.
+- **Change:** `js/makemon.js` — move mlet switch (mimic/spider/snake/eel/
+  light/leprechaun/jabberwock/nymph) before `set_malign` and group spawn.
+  Named omissions: orc/unicorn peace in mlet; bat hell speed; full C order
+  of cham/mitem vs mlet.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **65027→68428**; RNG **65054→68434**; Scr **265→270**/833.
+- **Next:** @68428 C `makeroguerooms` `rn2(5)` vs JS `rn2(1)` (rogue level).
+
 ## D-0760 — bigrm-4.lua load_special (seed0360 @60114)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @65027)
