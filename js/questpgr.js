@@ -168,7 +168,7 @@ export async function com_pager_legacy(statusSnap = null) {
 }
 
 /**
- * C ref: dat/quest.lua firsttime texts (Arc/Bar/Pri exercised).
+ * C ref: dat/quest.lua firsttime texts (Arc/Bar/Pri/Wiz exercised).
  * Other roles burn nhl_init shuffle only until ported.
  */
 const QUEST_FIRSTTIME = {
@@ -201,6 +201,17 @@ stand open, are closed.  Strange human shapes shamble around
 outside.
 
 You realize that %l needs your assistance!`,
+    // C ref: dat/quest.lua Wiz firsttime (output=text) — seed0360 @373
+    Wiz: `You are suddenly in familiar surroundings.  You notice what appears to
+be a large, squat stone structure nearby.  Wait!  That looks like the
+tower of your former teacher, %l.
+
+However, things are not the same as when you were last here.  Mists and
+areas of unexplained darkness surround the tower.  There is movement in
+the shadows.
+
+Your teacher would never allow such unaesthetic forms to surround the
+tower...  unless something were dreadfully wrong!`,
 };
 
 /** C ref: dat/quest.lua leader_first (Arc + Pri). */
@@ -532,7 +543,8 @@ export async function com_pager(msgid) {
  *
  * Named omissions: common fallback; explicit single-line output=text;
  * menu output; array rn2 picks; convert_line pronoun/%cC arms;
- * synopsis putmsghistory; other-role goal/nexttime (non-Arc/Bar/Pri) bodies.
+ * synopsis putmsghistory; other-role goal/nexttime (non-Arc/Bar/Pri/Wiz
+ * firsttime) bodies.
  */
 export async function qt_pager(msgid) {
     // C: com_pager_core → nhl_init → nhlib.lua top-level shuffle(align)

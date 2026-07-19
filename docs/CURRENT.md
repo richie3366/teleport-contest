@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#925**,
-cadence). Screens **8623**/11405; RNG **652,181**/792838 (82.26%).
-**37/44** PASS. Δ vs #920: Scr **+98**, RNG **+7528**, PASS **0**
-(D-0800…D-0803 soak; seed0360 Scr **617**/833 @249).
-Focused #921–#924: seed0360 prefix **→249**; Scr **561→617**/833.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#930**,
+cadence + D-0808). Screens **8679**/11405; RNG **652,181**/792838 (82.26%).
+**37/44** PASS. Δ vs #925: Scr **+56** (D-0804…D-0808 soak; seed0360
+**617→673**), RNG **0**, PASS **0**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,623 / 11,405** |
+| Screens matched | **8,679 / 11,405** |
 | Positional RNG calls matched | **652,181 / 792,838** (82.26%) |
-| Speed label | `36+0.21/turn` (R² 0.796) |
+| Speed label | `36+0.21/turn` (R² 0.787) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -50,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **670**/833 | Scr residual @373 fakewiz More (D-0807) |
+| seed0360 | **120639**/120639 | **673**/833 | Scr residual @395 travel path (D-0808) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -76,18 +75,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0807 (#929):
-`sel_set_ter` IS_LAVA → lit (C `set_levltyp`). Scr
-**638→670**/833; prefix **324→373**. Next: @373 fakewiz1
-materialize C `--More--` vs JS combined heat/smoke pline.
-**Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0808 (#930):
+Wiz `firsttime` qt_pager. Scr **670→673**/833; prefix **373→395**.
+Next: @395 C `unexplored area (no travel path)` vs JS
+`unexplored area`. **Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0807. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0808. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

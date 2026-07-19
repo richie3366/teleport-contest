@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0808 — Wiz quest firsttime qt_pager (seed0360 @373)
+
+- **Status:** fixed (seed0360 Scr residual continues @395)
+- **Symptom:** seed0360 @373 ^V to Wiz Home 1 — C
+  `You materialize…!--More--` then firsttime NHW_TEXT; JS combined
+  materialize + `The heat and smoke are gone.` (no More); space →
+  `Unknown command ' '`. RNG FULL.
+- **C locus:** `dat/quest.lua` Wiz `firsttime` (`output=text`);
+  `quest.c` `on_start` → `qt_pager("firsttime")` between
+  `maybe_lvltport_feedback` and `temperature_change_msg`.
+- **Cause (#930):** `QUEST_FIRSTTIME` had Arc/Bar/Pri only; Wiz
+  burned nhl shuffle with null body, so `onquest` never forced More
+  and heat/smoke concatenated onto materialize.
+- **Change:** `js/questpgr.js` add Wiz `firsttime` from quest.lua
+  (`%l` → Neferet). Named: other-role firsttime / Wiz nexttime bodies.
+- **Verification:** green+strict PASS; cohort 12/12 PASS; full suite
+  37/44; seed0360 Scr **670→673**/833; prefix **373→395**; RNG FULL.
+- **Next:** @395 travel `unexplored area (no travel path)` vs
+  `unexplored area`.
+
 ## D-0807 — sel_set_ter IS_LAVA → lit (seed0360 @324)
 
 - **Status:** fixed (seed0360 Scr residual continues @373)

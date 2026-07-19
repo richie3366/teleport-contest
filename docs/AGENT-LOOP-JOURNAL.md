@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 00:31 — #930 D-0808 Wiz firsttime + score
+- Objective: cadence full `sessions` + seed0360 @373 materialize More.
+- C locus: `dat/quest.lua` Wiz `firsttime`; `quest.c` `on_start`.
+- Change: **D-0808** `js/questpgr.js` Wiz firsttime text. Score
+  **37/44**; Scr **8679**/11405 (**+56** vs #925); RNG **652181**
+  (82.26%, **0**); speed `36+0.21/turn`. seed0360 Scr **670→673**;
+  prefix **373→395**.
+- Verification: green+strict PASS; cohort 12/12 PASS; full suite.
+- Next: @395 `unexplored area (no travel path)` vs bare message.
+
 ## 2026-07-20 00:24 — #929 D-0807 sel_set_ter lava lit
 - Objective: seed0360 @324 C DEC lava `` ` `` vs JS blank (orcus).
 - C locus: `mkmaze.c` `set_levltyp` — `IS_LAVA(newtyp) → lit=1`
@@ -141,12 +151,3 @@ Use this shape:
   focused RNG **112272→112326**.
 - Verification: green+strict PASS; cohort 12/12 PASS; DIAG removed.
 - Next: @112279 C fleeck vs JS rn2(3) after EOT62.
-## 2026-07-19 22:20 — #915 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score+docs; peel parked at D-0794 PRE).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-  **37/44** PASS; Scr **8397**/11405 (**0**); RNG **643814**/792838
-  (81.20%, **0** vs #910); speed `35+0.21/turn` R² 0.801. seed0360
-  still **112272**/391 @112243. D-0794/D-0795 soak flat.
-- Verification: green+strict PASS; full suite exit 37/44.
-- Next: C path leaving one apprentice PRE≥12 into EOT61 (D-0794).
