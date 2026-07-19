@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0769 — m_move maybe_unhide_at (seed0360 @86029)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @86100)
+- **Symptom:** @86029 C `distfleeck` `rn2(5)` vs JS `m_move` track `rn2(20)`.
+  Provenance: first real split @86015 — C `postmov` hide `rn2(5)` vs JS
+  recalc `distfleeck` (matched `rn2(5)=0` strings hid the site mismatch).
+- **C locus:** `mon.c` `maybe_unhide_at`; `monmove.c` `m_move` after
+  `place_monster` (≈2060) before `postmov` hides_under/`S_EEL` `rn2(5)`.
+- **Cause (#866):** snake left cover (`rn2(10)=0`) but JS kept
+  `mundetected=1` at dest → `postmov` short-circuited past hide `rn2(5)`.
+  C's `maybe_unhide_at` clears when dest has no hideable obj.
+- **Change:** `js/monmove.js` — `maybe_unhide_at` + call after place.
+  Named omission: youmonst/`uundetected` path.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **86029→86100**; RNG **86118→86137**; Scr **273**/833.
+- **Next:** @86100 C track `rn2(8)` vs JS `rnd(25)` sleep-gas trap.
+
 ## D-0768 — wizard1 load_special (seed0360 @82982)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @86029)

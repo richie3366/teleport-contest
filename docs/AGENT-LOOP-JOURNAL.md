@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 12:24 — #866 maybe_unhide_at (D-0769)
+- Objective: seed0360 @86029 distfleeck rn2(5) vs JS rn2(20).
+- C locus: `mon.c` `maybe_unhide_at`; `monmove.c` `m_move` ≈2060.
+- Change: port `maybe_unhide_at` after place so postmov hide `rn2(5)`
+  runs when dest has no cover (snake left hiding). Omit youmonst path.
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **86029→86100**; RNG **86118→86137**; Scr **273**/833.
+- Next: @86100 C track `rn2(8)` vs JS `rnd(25)` sleep-gas.
+
 ## 2026-07-19 12:12 — #865 wizard1 + public score (D-0768)
 - Objective: mandatory full `sessions` score; seed0360 @82982 wizard1.
 - C locus: `dat/wizard1.lua` / `sp_lev.c` `load_special` / `create_door`.
