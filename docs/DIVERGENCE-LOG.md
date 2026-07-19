@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0809 — getpos auto_describe "(no travel path)" (seed0360 @395)
+
+- **Status:** fixed (seed0360 Scr residual continues @497)
+- **Symptom:** seed0360 @395 `_` travel getpos rush — C topline
+  `unexplored area (no travel path)`; JS bare `unexplored area`.
+  RNG FULL.
+- **C locus:** `getpos.c` `auto_describe` — when
+  `iflags.getloc_travelmode && !is_valid_travelpt(cx,cy)` append
+  `" (no travel path)"`; `hack.c` `is_valid_travelpt` →
+  `findtravelpath(TRAVP_VALID)` (no GUESS) + early S_stone/`!seenv`.
+- **Cause (#931):** JS `auto_describe_text` omitted travel/invalid
+  suffixes (map named deferred).
+- **Change:** `js/cmd.js` export `is_valid_travelpt` (STONE/`!seenv`
+  early-out + TRAVEL BFS without GUESS; restore tx/ty/dx/dy/travelcc);
+  `js/getpos.js` append suffix when `getloc_travelmode`. Named:
+  `getpos_getvalid` `"(invalid target)"`; glyph_is_cmap exact S_stone.
+- **Verification:** green+strict PASS; cohort 8/8 PASS; seed0360 Scr
+  **673→678**/833; @395–399 match; RNG FULL.
+- **Next:** @497 cloak displacement wear More — C `AC:2` vs JS `AC:-2`.
+
 ## D-0808 — Wiz quest firsttime qt_pager (seed0360 @373)
 
 - **Status:** fixed (seed0360 Scr residual continues @395)

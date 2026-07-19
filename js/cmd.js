@@ -838,6 +838,47 @@ function findtravelpath_guess() {
 }
 
 /**
+ * C ref: hack.c is_valid_travelpt — getpos auto_describe appends
+ * " (no travel path)" when getloc_travelmode && !is_valid_travelpt.
+ * TRAVP_VALID: path exists without GUESS (BFS dest→hero like TRAVEL).
+ * Restores tx/ty/dx/dy/travelcc; VALID must not clear travelcc (unlike TRAVEL).
+ * Named: travelmap visited side-effects; glyph_is_cmap S_stone via typ≈STONE.
+ */
+export function is_valid_travelpt(x, y) {
+    const u = game.u;
+    if ((u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0)) return true;
+    if (!isok(x, y)) return false;
+    const loc = game.level?.at?.(x, y);
+    // C: glyph_is_cmap && S_stone == glyph_to_cmap && !seenv → FALSE
+    if (loc && (loc.typ | 0) === STONE && !(loc.seenv | 0)) return false;
+
+    const savedTx = u.tx;
+    const savedTy = u.ty;
+    const savedDx = u.dx;
+    const savedDy = u.dy;
+    const tcc = game.iflags?.travelcc;
+    const savedTccX = tcc ? tcc.x : 0;
+    const savedTccY = tcc ? tcc.y : 0;
+    u.tx = x | 0;
+    u.ty = y | 0;
+    let ret = false;
+    try {
+        // C findtravelpath(TRAVP_VALID) — no GUESS fallback
+        ret = findtravelpath_bfs(u.tx, u.ty, u.ux, u.uy, false, false);
+    } finally {
+        u.tx = savedTx;
+        u.ty = savedTy;
+        u.dx = savedDx;
+        u.dy = savedDy;
+        if (tcc) {
+            tcc.x = savedTccX;
+            tcc.y = savedTccY;
+        }
+    }
+    return ret;
+}
+
+/**
  * C ref: cmd.c dotravel_target — travel to iflags.travelcc / u.tx,u.ty.
  * @returns {Promise<number>} ECMD_*
  */

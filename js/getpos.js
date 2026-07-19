@@ -22,6 +22,7 @@ import { distant_monnam_none, pmname, Ugender } from './do_name.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
 import { t_at, trapname } from './trap.js';
 import { waterbody_name } from './hack.js';
+import { is_valid_travelpt } from './cmd.js';
 
 export const LOOK_TRADITIONAL = 0;
 export const LOOK_QUICK = 1;
@@ -227,10 +228,11 @@ function cmap_defsym_explanation(x, y, loc) {
  * required for TER_DETECT after clear_glyph_buffer.
  *
  * Named omissions: full do_screen_description symbol table, coord_desc,
- * getpos_getvalid / travel "(no travel path)" / "(invalid target)"
- * suffixes, underwater unreconnoitered, object / special cmap arms
- * (altar/ndoor/cloud/waterbody).
+ * getpos_getvalid "(invalid target)" (no hilite callback yet), underwater
+ * unreconnoitered, object / special cmap arms (altar/ndoor/cloud/waterbody).
  * Trap: tseen `trapname` only (trapped_chest/door / Hallucination deferred).
+ * Travel: " (no travel path)" via is_valid_travelpt when getloc_travelmode
+ * (D-0809).
  */
 function auto_describe_text(cx, cy) {
     const u = game.u || {};
@@ -274,6 +276,20 @@ function auto_describe_text(cx, cy) {
 
     // Object / remaining special cmap under TER_* browse still deferred
     return 'unexplored area';
+}
+
+/**
+ * C ref: getpos.c auto_describe — firstmatch then optional suffixes:
+ * " (invalid target)" if getpos_getvalid fails; " (no travel path)" if
+ * getloc_travelmode && !is_valid_travelpt. getpos_getvalid deferred.
+ */
+function auto_describe_suffix(cx, cy) {
+    let s = '';
+    // getpos_getvalid / "(invalid target)" deferred (no hilite callback)
+    if (game.iflags?.getloc_travelmode && !is_valid_travelpt(cx, cy)) {
+        s += ' (no travel path)';
+    }
+    return s;
 }
 
 /**
@@ -354,12 +370,14 @@ export async function getpos(ccp, force, goal, describeAt) {
             msg_given = true;
         } else if (g.iflags?.autodescribe && !msg_given) {
             // C auto_describe — firstmatch via lookat / do_screen_description
+            // + travel/invalid suffixes (getpos.c)
             let brief = '';
             if (typeof describeAt === 'function' && !(g.iflags.terrainmode | 0)) {
                 // Ordinary whatis: keep caller brief_at when not terrain browse
                 brief = describeAt(cx, cy) || '';
             }
             if (!brief) brief = auto_describe_text(cx, cy);
+            if (brief) brief += auto_describe_suffix(cx, cy);
             g._pending_message = brief || '';
         }
 
