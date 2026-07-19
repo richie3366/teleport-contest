@@ -750,6 +750,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0767 | fixed | orcus + stock_room Orcus mongone invent | seed0360 76622→82982; RNG 76625→82989; Scr 273; next wizard1 @82982 |
 | D-0768 | fixed | wizard1 load_special | seed0360 82982→86029; RNG 82989→86118; Scr 273; next distfleeck @86029 |
 | D-0769 | fixed | m_move maybe_unhide_at | seed0360 86029→86100; RNG 86118→86137; Scr 273; next track vs slpgas @86100 |
+| D-0770 | fixed | m_harmless check_in_air + mfndpos poisoncloud glyph | seed0360 86100→86170; RNG 86137→86170; Scr 273; next nhlib shuffle @86170 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

@@ -7,10 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#866:** D-0769 `maybe_unhide_at` — prefix **86029→86100**; RNG **86137**.
-- **Next @86100:** C `m_move` track `rn2(8)` vs JS `rnd(25)` sleep-gas
-  (`trapeffect_slp_gas_trap`). Falsify: provenance of JS `rnd(25)` — early
-  trap vs C still in track loop.
+- **#867:** D-0770 flyer trap + poisoncloud glyph — prefix **86100→86170**;
+  RNG **86170**.
+- **Next @86170:** C nhlib `shuffle` vs JS `rn2(79)` after matched
+  `getbones` (post-wizard1). Likely missing **wizard2** / hellfill
+  `load_special`. Falsify: which special loads after wizard1 in C.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,12 +21,14 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0769 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0770 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (see D-0769 @86015).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0769 seed0360 peels (…/wizard1/maybe_unhide_at).
+- D-0743…D-0770 seed0360 peels (…/wizard1/maybe_unhide/flyer-trap).
+- D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
+  `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
 - D-0764: `selection.fillrect` adds xstart like C get_location_coord.
 - D-0765: swamp `lvlfill_swamp`; map align left/right/top/bottom.
 - D-0766: baalz corrmaze + no map-contents `reset_xystart`; bughack wallify.
@@ -44,7 +47,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#865;
-  Scr 8278, RNG 77.79%; seed0360 **86100**/273 after D-0769).
+  Scr 8278, RNG 77.79%; seed0360 **86170**/273 after D-0770).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

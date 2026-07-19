@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0770 — m_harmless_trap check_in_air + mfndpos poisoncloud (seed0360 @86100)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @86170)
+- **Symptom:** @86100 C `m_move` track `rn2(8)` vs JS `rnd(25)` sleep-gas.
+  Bat @41,9: JS `mfndpos` cnt=1 (only SLP_GAS @40,10); C still had track
+  cell @42,10 (SQKY under fog).
+- **C locus:** `trap.c` `m_harmless_trap` / `check_in_air` / `floor_trigger`;
+  `trap.c` `mintrap` in-air skip; `mon.c` `mfndpos` gas_glyph==S_poisoncloud;
+  `region.c` `make_gas_cloud` glyph.
+- **Cause (#867):** (1) JS omitted flyer `check_in_air` preamble → known
+  SQKY skipped; flyer then stepped on SLP_GAS. (2) After (1), fog/steam
+  region (damage 0 → C `S_cloud`) still blocked track cell because JS
+  treated any `visible_region_at` as poison gas.
+- **Change:** `js/trap.js` — `m_harmless_trap` floor_trigger+check_in_air
+  + sleep/fire resists; `mintrap` in-air skip; `check_in_air` floater/flyer
+  match C. `js/region.js` — tag `S_poisoncloud`/`S_cloud`; `js/mon.js` —
+  `is_poisoncloud_region` gate. Named: defended(); cmap glyph ints;
+  Sokoban pit/hole messaging in mintrap.
+- **Verification:** green+strict PASS; cohort **37/37**; seed0360 prefix
+  **86100→86170**; RNG **86137→86170**; Scr **273**/833.
+- **Next:** @86170 C nhlib `shuffle` vs JS `rn2(79)` after getbones
+  (wizard2 / hellfill).
+
 ## D-0769 — m_move maybe_unhide_at (seed0360 @86029)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @86100)

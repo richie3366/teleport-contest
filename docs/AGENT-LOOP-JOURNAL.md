@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 12:37 — #867 flyer trap + poisoncloud (D-0770)
+- Objective: seed0360 @86100 track rn2(8) vs JS sleep-gas rnd(25).
+- C locus: `trap.c` `m_harmless_trap`/`check_in_air`/`mintrap`;
+  `mon.c` `mfndpos` gas_glyph; `region.c` `make_gas_cloud`.
+- Change: flyer floor_trigger harmless + mintrap in-air skip; mfndpos
+  avoids only `S_poisoncloud` (not fog/steam). Bat regained track cell.
+- Verification: green+strict PASS; cohort **37/37**; seed0360 prefix
+  **86100→86170**; RNG **86137→86170**; Scr **273**/833.
+- Next: @86170 C nhlib `shuffle` vs JS `rn2(79)` after getbones
+  (wizard2/hellfill).
+
 ## 2026-07-19 12:24 — #866 maybe_unhide_at (D-0769)
 - Objective: seed0360 @86029 distfleeck rn2(5) vs JS rn2(20).
 - C locus: `mon.c` `maybe_unhide_at`; `monmove.c` `m_move` ≈2060.
