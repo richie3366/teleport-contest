@@ -7,19 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#810:** full score **36/44** + D-0729 seed0108 **PASS** (Scr 303/303).
-  Sokoban `wall_glyph`: CLR_BLUE only under `use_decgraphics()`; ASCII
-  ^V→soko1 needs CLR_GRAY→NO_COLOR. Falsifier: seed0108 + seed0373 both PASS.
-- **Next:** D-0708 seed0014 @49039 mfndpos; or hallu/coverage. Prefer shared.
-- **Don’t:** re-break D-0660…D-0729; invent nearby force for D-0710;
+- **#811:** D-0730 — `max_passive_dmg` AD_ACID (green mold). seed0399
+  prefix **10145→10157** RNG **10359**. Pet meleed mold when C skipped
+  via passive≥hp → `score_targ` `rnd(5)`.
+- **Next:** seed0399 @10157 `m_move` rn2(20) vs rn2(28); or D-0708
+  seed0014 @49039. Prefer shared.
+- **D-0708 sharpen (#811):** at miss, JS mfndpos=6 ROOM; C chcnt=5;
+  dest~(24,12). C screen DEC `~`=S_room at (22,10) — not pool. Key=`_`.
+  kickedloc cleared (travel). Omit any of first 5 → prefix 49300 same.
+  Still open: which cell C omits (mfndpos arm vs state).
+- **Don’t:** re-break D-0660…D-0730; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869); treat JS `'\0'` as TIME
-  (C NUL falsy — D-0728); always-blue Sokoban walls (breaks ASCII).
+  (C NUL falsy — D-0728); always-blue Sokoban walls (breaks ASCII);
+  `AD_DRDX=8` (that is `AD_ACID`).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0729 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0730 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -33,15 +39,17 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…29: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…30: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
   / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
   **verbose breath tip + dobreathe uen** / **doloot nohands + #untrap +
   newman individual** / **`o`/doopen getdir + doforce ynq `q` + xname
   named** / **`#herecmdmenu` self menu** / **Sokoban wall DEC-gated blue**
-  — `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred; rest of
-  PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
-  C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained.
+  / **`max_passive_dmg` AD_ACID** — `#therecmdmenu`/next2u/far deferred;
+  full `untrap()` deferred; rest of PROPSET + float_vs_flight still omitted;
+  loot-at-feet open deferred; C `wallcolors[]` all-GRAY vs recorder DEC
+  SGR 34 still unexplained; `completelyburns`/`rots`/`rusts` in mpd;
+  dog_move `touch_petrifies`; numeric `MS_*` vs string msound.
 
 ## Landmarks (≤15)
 
@@ -73,4 +81,5 @@ Objective/score live in `CURRENT.md`.
   **doloot nohands / `#untrap` could_untrap** (D-0726);
   **`o`/doopen + doforce `(q)` + xname named** (D-0727);
   **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME);
-  **Sokoban wall blue iff DECgraphics** (D-0729).
+  **Sokoban wall blue iff DECgraphics** (D-0729);
+  **max_passive_dmg AD_ACID** (D-0730).

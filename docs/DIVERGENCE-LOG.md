@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
+
+- **Status:** fixed (partial — seed0399 still FAIL; next @10157)
+- **Symptom:** seed0399 @10145 — C `score_targ` `rnd(5)` vs JS
+  `mattackm` `rnd(20)`. Pet little dog adjacent to green mold.
+- **C locus:** `mondata.c` `max_passive_dmg`; `dogmove.c` dog_move
+  ALLOW_M balk (`max_passive_dmg >= mhp` → continue → `pet_ranged_attk`).
+- **Cause:** JS `max_passive_dmg` only scored `AD_PHYS` then `break` on
+  any `AT_NONE`; green mold `AT_NONE`/`AD_ACID` returned 0 so the pet
+  meleed. Also `AD_DRDX` was wrongly aliased to 8 (C `AD_ACID`).
+- **Change:** port elemental arms (`AD_ACID`/`FIRE`/`COLD`/`ELEC` +
+  `AD_PHYS`) and HUGS/ENGL/TENT in multi2; fix `AD_ACID=8`,
+  `AD_DRDX=30`, `AD_DRCO=31`. Named: `completelyburns`/`rots`/`rusts`;
+  `touch_petrifies` dog_move skip; `msound` numeric MS_* compares.
+- **Verification:** green+strict PASS; seed0399 prefix **10145→10157**
+  RNG **10232→10359**/11409 Scr 113 cursors **413→433**; cohort PASS
+  held (1500/0060/1800/0108/0373/0398); seed0014 unchanged @49039.
+- **Next:** seed0399 @10157 `m_move` track rn2(20) vs rn2(28); or
+  D-0708 seed0014 @49039.
+
 ## D-0729 — Sokoban `wall_glyph` blue only under DECgraphics (seed0108 PASS)
 
 - **Status:** fixed (partial — seed0108 **PASS** Scr **303**/303 RNG FULL;
@@ -389,10 +409,12 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   unless omit is `(24,12)`. Omit ∈ first five; **(22,10)** is the only
   neighbor not already validated by prior matching cnt=8 at `(24,11)`.
   mux=u; kickedloc clear; no JS traps near gnome.
+- **#811:** C DEC screen confirms `(22,10)` is S_room (`~`); hero key `_`
+  travel (kickedloc cleared both sides). Omit any of first 5 candidates
+  → same next miss @49300. Still open which cell C drops.
 - **Experiment:** drop any one of the 6 → prefix **49039→49300** (does
   not identify which cell C omits).
-- **Next:** terrain/trap split at `(22,10)` or C-state capture; or
-  seed0108 @2778.
+- **Next:** terrain/trap/state split vs C; or seed0399 @10157 (D-0730).
 
 ## D-0707 — corpse_chance always-TRUE bigmonst arms (seed0014)
 

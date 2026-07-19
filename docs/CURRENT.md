@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367, **seed0108**.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#810; prefix @49039 D-0708 |
-| seed0399 | 10232/11409 | 113/532 | hallu actions |
+| seed0399 | 10359/11409 | 113/532 | @#811 D-0730; next @10157 |
 | seed5002 | 5980/12167 | 154/410 | coverage pair |
 
 ## Green gate
@@ -71,16 +71,16 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed0014 @49039 mfndpos (D-0708); or hallu/coverage
-blockers (seed0399 / seed5002 / seed0360). Prefer shared blockers.
-Do **not** re-break D-0660…D-0729.
+**Gameplay next:** seed0399 @10157 m_move track (D-0730 continued); or
+seed0014 @49039 mfndpos (D-0708); or coverage (seed5002 / seed0360).
+Prefer shared blockers. Do **not** re-break D-0660…D-0730.
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0014-dequa-fountain-explore.session.json
+  sessions/seed0399-wizard-hallu-actions.session.json
 ```
 
-**Do not re-break D-0660…D-0729.**
+**Do not re-break D-0660…D-0730.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #811 max_passive_dmg AD_ACID (D-0730)
+- Objective: CURRENT primary; pivoted seed0399 after D-0708 cell stall.
+- C locus: `mondata.c` `max_passive_dmg`; `dogmove.c` ALLOW_M balk.
+- Change: elemental AD_ACID/FIRE/COLD/ELEC + HUGS/ENGL/TENT multi2;
+  fix AD_ACID=8 (was wrongly AD_DRDX). Falsified D-0708: kickedloc this
+  turn; (22,10) is ROOM on C DEC screen.
+- Verification: green+strict PASS; seed0399 **10145→10157** RNG
+  **10359**/11409; cohort 6/6 prior PASS held; seed0014 unchanged.
+- Next: seed0399 @10157 m_move rn2(20) vs rn2(28); or D-0708.
+
 ## 2026-07-19 — #810 score + Sokoban wall DEC gate (D-0729)
 - Objective: mandatory full `sessions` (#810÷5) + seed0108 wall color after ^V.
 - C locus: `display.c` `wallcolors[]` / `wall_color` / Sokoban cmap walls.
