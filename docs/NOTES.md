@@ -7,6 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **#870:** full suite score — **37/44**, Scr **8280**, RNG **79.35%**.
+  No port patch; primary still seed0360 @98492.
 - **#869:** D-0772 hell_tweaks `'.w.'` (was `'[.w.]'`) + extends clamps.
   seed0360 still @98492.
 - **@98492 DIAG:** C `distfleeck` `rn2(5)` vs JS `linedup` `rn2(3)` —
@@ -45,8 +47,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#865;
-  Scr 8278, RNG 77.79%; seed0360 **98492**/275 after D-0771).
+  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#870;
+  Scr 8280, RNG 79.35%; seed0360 **98492**/275 after D-0771/72).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

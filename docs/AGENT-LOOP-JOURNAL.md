@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 13:05 — #870 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score-only; no port patch).
+- Change or falsified theory: documented suite aggregates in CURRENT.md.
+- Verification: green+strict PASS; full suite **37/44**, Scr **8280**/11405,
+  RNG **629134**/792838 (79.35%), speed `35+0.21/turn`. Δ vs #865:
+  Scr +2, RNG +12414 (D-0771/72 reflected), PASS 0. seed0360 still @98492.
+- Next: @98492 why C skips linedup boulder rn2 (couldsee / m_move).
+
 ## 2026-07-19 13:01 — #869 hell_tweaks `.w.` + @98492 linedup diag (D-0772)
 - Objective: seed0360 @98492 C distfleeck rn2(5) vs JS rn2(3).
 - C locus: `nhlib.lua` hell_tweaks `[[.w.]]`; `mthrowu.c` linedup;
@@ -157,15 +166,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort **37/37**; seed0360 prefix
   **60114→65027**; RNG **60117→65054**; Scr **265**/833.
 - Next: @65027 C `mkobj` `rnd(100)` vs JS `rn2(2)`.
-
-## 2026-07-19 10:37 — #855 medusa-3 + mk_artifact (D-0759) + score
-- Objective: mandatory full `sessions` score; seed0360 @55374 medusa-3.
-- C locus: `dat/medusa-3.lua` / `artifact.c` `mk_artifact` A_NONE.
-- Change: `load_medusa_3` + dispatch; `mk_artifact` eligible/`rn2(n)` wired
-  from `mksobj_init` artif gates (weapon+armor).
-- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
-  **55374→60114**; RNG **55383→60117**; Scr **261→265**. Full suite
-  **37/44**, Scr **8270**/11405, RNG **590719**/792838 (74.51%),
-  speed `36+0.20/turn`.
-- Next: @60114 C `bigrm-4` (`makemaz` `rnd(13)=4`) nhlib shuffle vs JS
-  `rn2(79)`.
