@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #825 public score + seed5002 @11643 reframed
+
+- Objective: mandatory full `sessions` score (iter % 5 == 0).
+- C locus: n/a (score); diagnosis `hack.c` `overexertion` / `uhitm.c`
+  `do_attack` vs JS `distfleeck` at flattened 11643.
+- Change: CURRENT Score refreshed — **36/44**, Scr 7860/11405, RNG
+  **533216**/792838 (67.25%), speed `37+0.18/turn`. Δ vs #820 RNG +5521.
+  Reframed @11643: C melee `gethungry`/`hitum` (key `l` → small mimic);
+  JS skipped `do_attack` into monmove. No js/ patch.
+- Verification: green+strict PASS; full suite recorded.
+- Next: dump why `do_attack` skipped (bump/mimic gate); or D-0731/D-0708.
+
 ## 2026-07-19 — #824 zhitu finish_losehp_done before learnwand (D-0737)
 
 - Objective: seed5002 trailing `rn2(19)` after fire zhitu @5904.

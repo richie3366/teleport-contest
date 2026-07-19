@@ -20,8 +20,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   dead. DIAG removed.
 - **Verification:** green+strict PASS; cohort 34/34; continuous
   **5904→11643**; positional **6176→11693**/12167 Scr 90→88.
-- **Next:** seed5002 @11643 `gethungry` rn2(20) vs JS rn2(5); or
-  D-0731/D-0708.
+- **Next:** seed5002 @11643 C `do_attack`/`overexertion` `rn2(20)` then
+  `hitum` vs JS `distfleeck` (attack skipped; #825); or D-0731/D-0708.
 
 ## D-0736 — use_mirror + use_camera getdir (seed5002 @5739)
 

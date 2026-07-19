@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#820**).
-Screens **7860**/11405; RNG **527,695**/792838 (66.56%).
-**36/44** PASS. Δ vs #815: Scr −66, RNG +192; seed5002 still 6172 (D-0735).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#825**).
+Screens **7860**/11405; RNG **533,216**/792838 (67.25%).
+**36/44** PASS. Δ vs #820: Scr 0, RNG **+5,521** (D-0737 seed5002 in score).
 
 ## Score
 
@@ -31,8 +31,8 @@ Screens **7860**/11405; RNG **527,695**/792838 (66.56%).
 |--------|------:|
 | Sessions passing | **36 / 44** |
 | Screens matched | **7,860 / 11,405** |
-| Positional RNG calls matched | **527,695 / 792,838** (66.56%) |
-| Speed label | `38+0.18/turn` (R² 0.776) |
+| Positional RNG calls matched | **533,216 / 792,838** (67.25%) |
+| Speed label | `37+0.18/turn` (R² 0.777) |
 | Role-init throws | **0 / 44** |
 
 **PASS (36):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,9 +46,9 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#820; prefix @49039 D-0708 |
-| seed0399 | 10389/11409 | 113/532 | @#820; stuck @10157 D-0731 |
-| seed5002 | 11693/12167 | 88/410 | @#824; D-0737; cont@11643 (gethungry) |
+| seed0014 | 49495/59178 | 577/714 | @#825; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#825; stuck @10157 D-0731 |
+| seed5002 | 11693/12167 | 88/410 | @#825; cont@11643 (do_attack skip) |
 
 ## Green gate
 
@@ -71,16 +71,16 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed5002 continuous @**11643** (after D-0737 fatal
-zhitu→`finish_losehp_done`: C `gethungry` `rn2(20)` vs JS `rn2(5)`).
-Then finish seed5002 / seed5003, or seed0399 @10157 (D-0731) /
-seed0014 @49039 (D-0708). Prefer shared blockers. Do **not** re-break
-D-0660…D-0737.
+**Gameplay next:** seed5002 continuous @**11643** — C `do_attack` →
+`overexertion`/`gethungry` `rn2(20)` then `hitum` (east into small mimic);
+JS `distfleeck` `rn2(5)` (attack path skipped). Then finish seed5002 /
+seed5003, or seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708). Prefer
+shared blockers. Do **not** re-break D-0660…D-0737.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed5002-wizard-coverage-pair.session.json
-# continuous through 11643; then gethungry rn2(20) vs rn2(5)
+# continuous through 11643; C do_attack/gethungry vs JS distfleeck
 ```
 
 **Do not re-break D-0660…D-0737.**

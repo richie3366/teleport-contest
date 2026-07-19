@@ -7,10 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#824 D-0737:** fatal `zhitu`→`finish_losehp_done` before `learnwand`.
-  seed5002 continuous **5904→11643**; RNG **6176→11693**.
-- **Falsify next:** seed5002 @11643 C `gethungry` `rn2(20)` vs JS
-  `rn2(5)`; or seed0399 @10157 / seed0014 @49039.
+- **#825 score:** **36/44**; Scr 7860/11405; RNG **533216**/792838
+  (67.25%); Δ vs #820 RNG **+5521** (D-0737 in suite). seed5002 still
+  11693/88.
+- **#824 D-0737 done:** fatal `zhitu`→`finish_losehp_done`; cont→11643.
+- **Falsify next (@11643):** not broken `gethungry` — C `do_attack` →
+  `overexertion` `rn2(20)` then `hitum`/`exercise` (seg1 step118 key `l`,
+  “You hit the small mimic”); JS `distfleeck` `rn2(5)` — attack path
+  skipped. Dump bump/mimic/`do_attack` gate before patching.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -38,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** **PASS** (suite **36/44** @#820).
+  **seed0367** / **seed0108** **PASS** (suite **36/44** @#825).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
