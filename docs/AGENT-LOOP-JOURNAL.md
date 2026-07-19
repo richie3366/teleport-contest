@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 23:45 — #924 D-0803 Sokoban cant_squeeze
+- Objective: seed0360 @231 vain-push vs `cannot pass that way.`
+- C locus: `hack.c` `test_move` / `cant_squeeze_thru` case 3.
+- Change: hero squeeze after `blocksMove`, before `moverock`; export
+  `bad_rock`/`cant_squeeze_thru` (Sokoban→3). Named: can_fog/worm_cross.
+- Verification: green+strict PASS; cohort 37/37 PASS; seed0360 Scr
+  **616→617**/833; prefix **231→249**; RNG FULL.
+- Next: @249 ^V materialize map cells.
+
 ## 2026-07-19 23:39 — #923 D-0802 lit grow minetn/minend
 - Objective: seed0360 @180 leave-Gehennom blank BROWN walls.
 - C locus: `sp_lev.c` `lspo_region` 2-arg `selection_do_grow` + lit.
@@ -157,14 +166,3 @@ Use this shape:
   `36+0.21/turn` R² 0.802. seed0360 still **112272**/391 @112243.
 - Verification: green+strict PASS; full suite exit 37/44.
 - Next: C path clearing Neferet CLOSE with mux at hero (not FORCE).
-
-## 2026-07-19 21:20 — #909 D-0793 makemon mux/muy = 0
-- Objective: seed0360 @112243 Neferet CLOSE / movement peel.
-- C locus: `makemon.c` `zeromonst` (mux/muy 0 until `set_apparxy`).
-- Change: `js/makemon.js` stop init mux/muy to spawn xy. DIAG: CLOSE
-  skip → EOT; FORCE clear+mux=hero matches ~112246; clear-only burns
-  Displacement `rn2(4)`.
-- Verification: green+strict PASS; cohort 7/7 PASS; seed0360 still
-  @112243 / RNG 112272 Scr 391.
-- Next: C path clearing Neferet CLOSE with mux at hero (not FORCE).
-

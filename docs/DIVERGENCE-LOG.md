@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0803 — test_move cant_squeeze_thru Sokoban (seed0360 @231)
+
+- **Status:** fixed (seed0360 Scr residual continues @249)
+- **Symptom:** seed0360 @231 key `u` — C `You cannot pass that way.`;
+  JS `You try to move the boulder, but in vain.`
+- **C locus:** `hack.c` `test_move` — after dest obstacles, before
+  boulder/`moverock`: `dx&&dy && bad_rock` flanks →
+  `cant_squeeze_thru` case 3 when Sokoban (hero only).
+- **Cause (#924):** hero `domove` omitted that gate; reach `moverock`
+  / `cannot_push_msg`. Early trial ran squeeze *before*
+  `IS_OBSTRUCTED` dest → false pline on silent wall bumps (@228/@230).
+- **Change:** export `bad_rock`/`cant_squeeze_thru` from `mon.js`
+  (hero Passes_walls, `inv_weight()+weight_cap()`, Sokoban→3);
+  wire into `cmd.js` `domove` after `blocksMove`, before `moverock`;
+  travel tight-diag uses same helpers. Named omissions: `can_fog`
+  bigmonst exemption; `worm_cross` hero pline.
+- **Verification:** green+strict PASS; cohort 37/37 PASS; seed0360
+  Scr **616→617**/833; prefix **231→249**; RNG FULL.
+- **Next:** @249 ^V teleport materialize map-cell miss.
+
 ## D-0802 — des.region lit grow via light_region (minetn-5 / minend-2)
 
 - **Status:** fixed (seed0360 Scr residual continues @231)

@@ -28,6 +28,7 @@ cadence). Screens **8525**/11405; RNG **644,653**/792838 (81.31%).
 Focused #921: seed0360 RNG **FULL 120639**; Scr **561**/833 (not suite).
 Focused #922: seed0360 Scr **561→589**/833; prefix **164→180** (D-0801).
 Focused #923: seed0360 Scr **589→616**/833; prefix **180→231** (D-0802).
+Focused #924: seed0360 Scr **616→617**/833; prefix **231→249** (D-0803).
 
 ## Score
 
@@ -78,18 +79,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0802 (#923):
-`des.region(sel,"lit")` wall-expand via `light_region` (minetn-5 +
-minend-2). Scr **589→616**/833; prefix **180→231**. Next: @231
-boulder push message (`cannot pass that way` vs `try to move…`).
-**Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0803 (#924):
+hero `test_move` Sokoban `cant_squeeze_thru` case 3. Scr
+**616→617**/833; prefix **231→249**. Next: @249 ^V materialize
+(same topline; map cells diverge). **Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0802. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0803. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
