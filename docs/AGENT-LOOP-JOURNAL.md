@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #820 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score-only; no port patch).
+- Change: none in `js/`. Documented Score in CURRENT.md from
+  `__RESULTS_JSON__`: **36/44** PASS; Scr **7860**/11405; RNG
+  **527695**/792838 (66.56%); speed `38+0.18/turn`. Δ vs #815:
+  Scr −66, RNG +192. seed5002 still 6172 (D-0735 open).
+- Verification: green+strict PASS; full sessions run complete.
+- Next: C-state for D-0735 (seed5002 @5668 udist); or D-0731/D-0708.
+
 ## 2026-07-19 — #819 seed5002 dog_goal invent vs rn2(4) (D-0735)
 - Objective: coverage seed5002 “@6172 themerms” — reframed.
 - C locus: `dogmove.c` `dog_goal` invent `dogfood` when `udist<=1`.

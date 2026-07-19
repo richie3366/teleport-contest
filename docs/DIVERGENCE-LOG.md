@@ -23,6 +23,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Not themerms:** absolute @6172 `themerms.lua:969` is coincidental
   positional tally, not the continuous prefix break.
 - **Next:** C-state hero/pet after step-66 `h`; or D-0731/D-0708.
+- **Score (#820):** seed5002 still RNG **6172**/12167 Scr 88/410; suite
+  36/44 held (Scr 7860, RNG 527695).
 
 ## D-0733 — mfndpos diagonal worm_cross + rogue door-cut
 
