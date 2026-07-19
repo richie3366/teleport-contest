@@ -75,15 +75,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @3006** after D-0743 wield early-return —
-C `exercise` `rn2(19)` vs JS `rn2(5)`. Prefer over D-0731/D-0708
-mfndpos (omit-cell C-state still missing). Do **not** re-break
-D-0660…D-0743.
+**Gameplay next:** **seed0360 @3037** after D-0744 SPEED_BOOTS
+makeknown/exercise — C `nhlib.lua` shuffle vs JS `rn2(79)` post-`^V`
+levelport/`getbones`. Prefer over D-0731/D-0708 mfndpos (omit-cell
+C-state still missing). Do **not** re-break D-0660…D-0744.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @3006 C exercise rn2(19) vs JS rn2(5)
+# @3037 C nhlib.lua shuffle vs JS rn2(79) after getbones
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +91,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0743.**
+**Do not re-break D-0660…D-0744.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

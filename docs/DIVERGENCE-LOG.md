@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0744 — Boots_on SPEED_BOOTS makeknown→exercise (seed0360)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @3037)
+- **Symptom:** seed0360 @3006 — C `exercise` `rn2(19)` vs JS
+  `distfleeck` `rn2(5)` after matching wipe_engr `rn2(79)`.
+- **C locus:** `do_wear.c` `Boots_on` SPEED_BOOTS → `makeknown` →
+  `discover_object(..., credit_hero)` → `exercise(A_WIS)`;
+  session step after dressing `--More--`: "You finish your dressing
+  maneuver. You feel yourself speed up."
+- **Cause (#833):** Not EOT `exerchk`/`exerper`. Delayed `P` put-on
+  speed boots: occupation ends after combat `--More--`; `unmul` →
+  `Boots_on`. JS deferred SPEED_BOOTS (only FUMBLE_BOOTS ported), so
+  skipped `makeknown`/`You_feel` and the resulting `rn2(19)`.
+- **Change:** `Boots_on` SPEED_BOOTS: `!oldprop && !(HFast & TIMEOUT)`
+  → `makeknown` + `You_feel("yourself speed up…")`. Elven/water/
+  levitation + `Boots_off` slow-down deferred.
+- **Verification:** green+strict PASS; cohort 35/35; seed0360 prefix
+  **3006→3037**; RNG **3120→3186**; Scr **181→187**.
+- **Next:** @3037 C `nhlib.lua` shuffle vs JS `rn2(79)` after
+  `^V`/`getbones`; or D-0731/D-0708.
+
 ## D-0743 — mattackm AT_WEAP mon_wield_item early return (seed0360)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @3006)

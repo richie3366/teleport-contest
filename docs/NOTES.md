@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#832 D-0743 fixed:** @2995 was AT_WEAP `mon_wield_item`→MISS (no
-  `rnd(20)`), not mlstmv/onscary/monnear. Prefix **3006**.
-- **Next @3006:** C `exercise(attrib.c:509) rn2(19)=14` vs JS `rn2(5)=1`.
-  Falsifier: which JS path emits rn2(5) at that moveloop boundary.
+- **#833 D-0744 fixed:** @3006 was SPEED_BOOTS `Boots_on` → `makeknown` →
+  `exercise(A_WIS)` after dressing `--More--`, not EOT `exerchk`.
+  Prefix **3037**.
+- **Next @3037:** after `^V` levelport + `getbones` — C `nhlib.lua`
+  shuffle vs JS `rn2(79)`. Falsifier: which JS path runs instead of
+  special-level Lua shuffle.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,13 +22,12 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0743 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0744 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743: C entered return attack; wield spends it (session topline).
-  FORCE-skip matched RNG but skipped the real wield path.
-- C `^Wscroll of identify` @seg1 141–160 was **not** a real wish.
+- D-0744: @3006 exercise was Boots_on makeknown, not exerper.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -52,6 +53,7 @@ Objective/score live in `CURRENT.md`.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
   **mattackm AT_WEAP mon_wield_item → MISS** (D-0743);
+  **SPEED_BOOTS Boots_on makeknown→exercise** (D-0744);
   **stethoscope adjacent returns `res` TIME** (D-0735);
   **mirror/camera getdir+beam/flash** (D-0736);
   **zhitu fatal → finish_losehp_done before learnwand** (D-0737);

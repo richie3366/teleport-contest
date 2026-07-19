@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 08:55 — #833 Boots_on SPEED_BOOTS (D-0744)
+- Objective: seed0360 @3006 exercise rn2(19) vs rn2(5) (CURRENT primary).
+- C locus: `do_wear.c` `Boots_on` SPEED_BOOTS → `makeknown` → `exercise`.
+- Change: port SPEED_BOOTS makeknown + You_feel; was deferred (only
+  FUMBLE_BOOTS). Not EOT exerchk — dressing finish after --More--.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **3006→3037**; RNG **3120→3186**; Scr **181→187**.
+- Next: @3037 C nhlib.lua shuffle vs JS rn2(79) after ^V/getbones.
+
 ## 2026-07-19 06:47 — #832 mattackm AT_WEAP wield (D-0743)
 
 - Objective: seed0360 @2995 pet return-attack (CURRENT primary).
