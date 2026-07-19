@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
+
+- **Status:** open (diagnosed; no production patch)
+- **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
+  `rn2(5)` (then site shift). Matched prefix strings hid: after bat
+  `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
+  still rolls chcnt through `rn2(7)`.
+- **C locus:** `monmove.c` `m_move` :1970; `mon.c` `mfndpos`;
+  `dat/Wiz-strt.lua` + `flip_level_rnd`.
+- **Cause (#884):** Vampire bat@(34,2) on Quest/Wiz-strt post-FlipY
+  (stairs 11→9). JS mfndpos rejects HWALL@(33,3)/(34,3)/(35,3) and
+  quasit@(34,1) → cnt=4. C admits ≥7 candidates (the three HWALL cells).
+  Temporary FORCE allowing those HWALL as walkable → prefix
+  **100738→100804**. Pre-flip those cells are tower `-` on the des map;
+  why C’s runtime typ is walkable (or otherwise admitted) is still open.
+- **Change:** docs only this iteration (DIAG/FORCE removed).
+- **Next:** compare C vs JS terrain at post-FlipY (33–35,3); check
+  map apply / `get_level_extends` / wallify / flip cell-swap.
+
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @100738)

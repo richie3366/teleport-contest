@@ -74,15 +74,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100738** — D-0778 closed @100397 via
-`m_move` Tengu nature teleport (`!rn2(5)`). Next: C `mfndpos` chcnt
-`rn2(6)` vs JS `rn2(5)` (appr==0 path; one fewer candidate). Parked
-D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @100738 / D-0779** — vampire bat on
+Wiz-strt: C chcnt `rn2(1)..rn2(7)`; JS mfndpos cnt=4 (skips HWALL
+@(33–35,3)+quasit). String-match hid site shift at `rn2(5)`. FORCE
+those 3 HWALL walkable → prefix **100804**. Next: why those cells
+are HWALL in JS but walkable for C (Wiz-strt map/flip/wallify).
+Parked D-0731/D-0708 diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @100738 C rn2(6) vs JS rn2(5) — m_move mfndpos chcnt
+# @100738 bat mfndpos cnt 4 vs 7 — HWALL@(33-35,3) post-FlipY
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

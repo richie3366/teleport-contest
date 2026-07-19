@@ -7,10 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#883 / D-0778:** @100397 was missing Tengu `m_move` `!rn2(5)` —
-  string match hid site shift until `rn2(5)` vs `rn2(3)`. Prefix
-  **100397→100738**, RNG **100887→104024**.
-  Next: @100738 C `mfndpos` chcnt `rn2(6)` vs JS `rn2(5)` (appr==0).
+- **#884 / D-0779:** @100738 string-match hide. Same vampire bat
+  `m_move` `!rn2(3)` then chcnt: C `rn2(1)..rn2(7)`; JS cnt=4 then
+  distfleeck `rn2(5)` coincidentally matches C’s `rn2(5)`.
+  Bat@(34,2) Wiz-strt post-FlipY; rejects HWALL@(33–35,3) + quasit@(34,1).
+  **FORCE allow those 3 HWALL → prefix 100738→100804.** C treats them
+  walkable. Map row pre-flip is `-` tower edge — find why C ≠ JS typ
+  (or why C mfndpos admits them). No raw-index / FORCE in production.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -23,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0778 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (see D-0769 @86015; D-0778).
+  same string can hide different call sites (see D-0769; D-0778; D-0779).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
@@ -59,7 +62,7 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **Wiz-loca/goal/fila/filb after @100738**; hellfill/fakewiz deferred;
+  **Wiz-loca/goal/fila/filb**; hellfill/fakewiz deferred;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
@@ -73,3 +76,5 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778).
+  Wiz-strt FlipY inferred (stairs 11→9); bat@(34,2) against post-flip
+  tower wall row.
