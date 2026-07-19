@@ -458,13 +458,23 @@ const EXT_CMDS = [
         },
     },
     {
-        // C: cmd.c "monster" IFBURIED|AUTOCOMPLETE → domonability (D-0722)
         name: 'monster',
         wiz: false,
         autocomplete: true,
+        // C: cmd.c "monster" IFBURIED|AUTOCOMPLETE → domonability (D-0722)
         run: async () => {
             const { domonability } = await import('./polyself.js');
             return domonability();
+        },
+    },
+    {
+        // C: cmd.c "herecmdmenu" IFBURIED|AUTOCOMPLETE|GENERALCMD → doherecmdmenu
+        name: 'herecmdmenu',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doherecmdmenu } = await import('./cmd.js');
+            return doherecmdmenu();
         },
     },
 ];

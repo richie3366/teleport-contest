@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0728 — `#herecmdmenu` / doherecmdmenu self menu (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **293**/303; RNG FULL; cursors FULL)
+- **Symptom:** @280 after `#herecmdmenu` — C NHW_MENU "What do you want to do?"
+  (pickup/loot/tip chest + invent/rest/search/look/cast); JS unknown extcmd.
+  First attempt returned ECMD_TIME because JS `'\0'` is truthy → turn burn →
+  getbones rn2 desync.
+- **C locus:** `cmd.c` `doherecmdmenu` / `here_cmd_menu` / `there_cmd_menu` /
+  `there_cmd_menu_self` / `there_cmd_menu_common`; `(ch && ch != '\033')`.
+- **Cause:** `#herecmdmenu` not in `EXT_CMDS`; NUL return must be ECMD_OK.
+- **Change:** wire EXT_CMDS → `doherecmdmenu`; self-path menu via
+  `select_menu_pick_one`; act_on_act queues CQ_CANNED; treat `'\0'`/`ESC` as
+  ECMD_OK. Named omissions: `#therecmdmenu`; next2u/far; K==0 travel;
+  CMDQ_KEY/DIR yn follow-ups; glyph≠hero Look-at-map.
+- **Verification:** green+strict PASS; seed0108 Scr **292→293** (cursors
+  **302→303**); RNG FULL; cohort green+0106+0116+0398+quest seeds PASS.
+- **Next:** wall color after ^V teleport; remaining 10 screens.
+
 ## D-0727 — `o`/doopen getdir + doforce ynq `q` + xname named
 
 - **Status:** fixed (partial — seed0108 Scr **292**/303; RNG FULL; prefix 280)

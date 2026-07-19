@@ -708,6 +708,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0725 | fixed | polymon verbose breath tip + dobreathe uen gate | seed0108 Scr 280→283; prefix 110→176; next @176 nohands |
 | D-0726 | fixed | doloot nohands + #untrap could_untrap + newman individual | seed0108 Scr 283→287; prefix 176→216; next @216 open dir |
 | D-0727 | fixed | `o`/doopen getdir + doforce ynq `q` + xname named | seed0108 Scr 287→292; prefix 216→280; next @280 #herecmdmenu |
+| D-0728 | fixed | `#herecmdmenu`/`doherecmdmenu` self menu; NUL≠TIME | seed0108 Scr 292→293; cursors FULL; next wall color after ^V |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

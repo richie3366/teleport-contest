@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#808 peel:** D-0727 — seed0108 Scr **292**/303 RNG FULL; prefix **280**.
-  Next: @280 `#herecmdmenu` — C menu "What do you want to do?" (ESC);
-  JS unknown extcmd. Later wall `-` color 8 vs 4 after ^V may cascade.
-  Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
+- **#809 peel:** D-0728 — seed0108 Scr **293**/303 RNG FULL; cursors FULL.
+  Next: wall color after ^V teleport (NOTES earlier cascade); remaining
+  10 screens. Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0727; invent nearby force for D-0710;
-  global `rest_on_space` (falsified @2869).
+- **Don’t:** re-break D-0660…D-0728; invent nearby force for D-0710;
+  global `rest_on_space` (falsified @2869); treat JS `'\0'` as TIME
+  (C NUL falsy — D-0728).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0727 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0728 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,13 +34,14 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…27: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…28: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
   / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
   **verbose breath tip + dobreathe uen** / **doloot nohands + #untrap +
   newman individual** / **`o`/doopen getdir + doforce ynq `q` + xname
-  named** — `#herecmdmenu` deferred; full `untrap()` deferred; rest of
-  PROPSET + float_vs_flight still omitted; loot-at-feet open deferred.
+  named** / **`#herecmdmenu` self menu** — `#therecmdmenu`/next2u/far
+  deferred; full `untrap()` deferred; rest of PROPSET + float_vs_flight
+  still omitted; loot-at-feet open deferred.
 
 ## Landmarks (≤15)
 
@@ -69,4 +70,5 @@ Objective/score live in `CURRENT.md`.
   Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723);
   **FROMFORM FLYING** (D-0724); **breath tip + dobreathe** (D-0725);
   **doloot nohands / `#untrap` could_untrap** (D-0726);
-  **`o`/doopen + doforce `(q)` + xname named** (D-0727).
+  **`o`/doopen + doforce `(q)` + xname named** (D-0727);
+  **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME).

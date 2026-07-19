@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#805; prefix @49039 D-0708 |
-| seed0108 | **16958**/16958 | **292**/303 | @#808; RNG FULL; Scr +5 D-0727 |
+| seed0108 | **16958**/16958 | **293**/303 | @#809; Scr +1 D-0728; cursors FULL |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,18 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 RNG **FULL**; Scr **292**/303 (D-0727 `o`/
-doopen + doforce ynq `q` + xname named). Next: @280 `#herecmdmenu`
-menu ("What do you want to do?"); later wall color after ^V may be
-cascade. Prefer shared blockers.
-Do **not** re-break D-0660…D-0727.
+**Gameplay next:** seed0108 RNG **FULL**; Scr **293**/303 (D-0728
+`#herecmdmenu` self menu; cursors FULL). Next: wall color after ^V
+teleport (cascade); remaining 10 screens. Prefer shared blockers.
+Do **not** re-break D-0660…D-0728.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0727.**
+**Do not re-break D-0660…D-0728.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
