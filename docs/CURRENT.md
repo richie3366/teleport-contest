@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-18** — full `sessions` suite (loop **#790**).
-Screens **7654**/11405; RNG **513,214**/792838 (64.73%).
-**35/44** PASS. Δ vs #785: Scr +16, RNG +5908 (D-0707…D-0709 peels).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#795**).
+Screens **7679**/11405; RNG **513,289**/792838 (64.74%).
+**35/44** PASS. Δ vs #790: Scr +25, RNG +75 (D-0710…D-0713 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,654 / 11,405** |
-| Positional RNG calls matched | **513,214 / 792,838** (64.73%) |
-| Speed label | `36+0.19/turn` (R² 0.795) |
+| Screens matched | **7,679 / 11,405** |
+| Positional RNG calls matched | **513,289 / 792,838** (64.74%) |
+| Speed label | `37+0.18/turn` (R² 0.786) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,8 +46,8 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 575/714 | @#790; prefix @49039 D-0708 |
-| seed0108 | 2879/16958 | 58/303 | @#792; prefix @2864 **exercise/polyself** |
+| seed0014 | 49495/59178 | 575/714 | @#795; prefix @49039 D-0708 |
+| seed0108 | 2931/16958 | 58/303 | @#795; prefix @2881 **obj_resists** |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,10 +72,10 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 @2881 — after D-0713 `#polyself`/`polymon`:
-pet `obj_resists` count short vs C (dog_goal invent/floor after sliparm
-drop). Or seed0014 @49039 **D-0708:** peaceful gnome `mfndpos` cnt 6 vs
-5; omit suspect `(22,10)`. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0108 @2881 — C `obj_resists` `rn2(100)` vs JS
+`rn2(12)` (pet invent/floor after sliparm drop / dog_goal). Or seed0014
+@49039 **D-0708:** peaceful gnome `mfndpos` cnt 6 vs 5; omit suspect
+`(22,10)`. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \

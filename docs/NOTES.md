@@ -7,9 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#793 D-0713 done:** seed0108 `#polyself`/`polymon`. Prefix
-  **2864→2881**. Next @2881: pet `obj_resists` short vs C after sliparm
-  floor drop / `#monster` still AC-only. Falsifier:
+- **#795 score:** **35/44** Scr 7679 RNG 513289 (64.74%). Δ#790
+  Scr+25 RNG+75. seed0108 suite 2931 matched; **prefix still @2881**.
+- **@2881:** C `obj_resists` `rn2(100)` vs JS `rn2(12)` (pet after
+  sliparm drop / dog_goal). Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
@@ -41,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#790).
+  **seed0367** **PASS** (suite **35/44** @#795).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
