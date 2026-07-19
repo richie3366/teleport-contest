@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:45 — #845 score + rnd_misc_item nonliving (D-0749)
+- Objective: mandatory full score (#845÷5) + seed0360 @35405 primary.
+- C locus: `muse.c` `rnd_misc_item` — `!rn2(40) && !nonliving && !vampshifter`.
+- Change: JS life-saving amulet gate now matches C (was `!rn2(40)` alone).
+- Verification: green+strict PASS; cohort 16/16; seed0360 prefix
+  **35405→37668**; RNG **35443→37686**. Full suite **37/44**; Scr **8212**;
+  RNG **568288** (71.68%); speed `39+0.20/turn`. Δ vs #835: Scr+7, RNG+28971.
+- Next: @37668 C nhlib shuffle vs JS rn2(79).
+
 ## 2026-07-19 09:42 — #844 mkclass_aligned Inhell hellish (D-0748)
 - Objective: seed0360 @31374 C mkclass_aligned rn2(2) vs JS rn2(9).
 - C locus: `makemon.c` `mkclass_aligned` — `gehennom = Inhell != 0`.

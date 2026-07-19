@@ -51,6 +51,7 @@ import {
     is_vampire,
     is_vampshifter,
     vampshifted,
+    nonliving,
     amorphous,
     unsolid,
     passes_walls,
@@ -1537,7 +1538,7 @@ function rnd_defensive_item(mtmp) {
 
 /**
  * C ref: muse.c rnd_misc_item — weak-monster misc inventory.
- * Named omissions: See_invisible gate detail; vampshifter; nonliving table.
+ * Named omissions: See_invisible on peaceful invis arm (treat as false).
  */
 function rnd_misc_item(mtmp) {
     const pm_ = mtmp.data;
@@ -1550,7 +1551,8 @@ function rnd_misc_item(mtmp) {
     if (difficulty < 6 && !rn2(30)) {
         return rn2(6) ? otyp('POT_POLYMORPH') : otyp('WAN_POLYMORPH');
     }
-    if (!rn2(40) /* && !nonliving && !vampshifter */) {
+    // C: !rn2(40) && !nonliving(pm) && !is_vampshifter(mtmp)
+    if (!rn2(40) && !nonliving(pm_) && !is_vampshifter(mtmp)) {
         return otyp('AMULET_OF_LIFE_SAVING');
     }
     switch (rn2(3)) {

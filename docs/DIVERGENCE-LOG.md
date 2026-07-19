@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0749 — rnd_misc_item life-saving nonliving/vampshifter (seed0360 @35405)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @37668)
+- **Symptom:** seed0360 @35405 — C `rn2(3)` in `rnd_misc_item` vs JS
+  `rnd(2)` (next_ident on premature amulet).
+- **C locus:** `muse.c` `rnd_misc_item` —
+  `if (!rn2(40) && !nonliving(pm) && !is_vampshifter(mtmp))`
+  return `AMULET_OF_LIFE_SAVING`; else fall through to `switch (rn2(3))`.
+- **Cause (#845):** JS returned the amulet on `!rn2(40)` alone
+  (nonliving/vampshifter gates commented out). Nonliving mon got amulet
+  + object RNG in JS while C continued to `rn2(3)`.
+- **Change:** `js/makemon.js` `rnd_misc_item` — import `nonliving`;
+  gate matches C. Named omission: See_invisible on peaceful invis arm.
+- **Verification:** green+strict PASS; cohort 16/16; seed0360 prefix
+  **35405→37668**; RNG **35443→37686**; Scr **207→207**. Full suite
+  **#845:** 37/44; Scr 8212; RNG 568288 (71.68%).
+- **Next:** @37668 C nhlib `shuffle` vs JS `rn2(79)`.
+
 ## D-0748 — mkclass_aligned Inhell hellish (seed0360 @31374)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @35405)

@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#844 D-0748 fixed:** `mkclass_aligned` `gehennom` = dungeon `hellish`
-  (≡ C `Inhell`), not `dnum===GEHENNOM`. Prefix **35405**.
-- **Next @35405:** C `rnd_misc_item` `rn2(3)` vs JS `rnd(2)` (muse.c:2672).
-  Falsifier: read C `rnd_misc_item` arm after `rn2(40)=0` and port that
-  branch order; or DIAG which switch case JS entered.
+- **#845 D-0749 fixed:** `rnd_misc_item` life-saving gate needs
+  `!nonliving(pm) && !is_vampshifter(mtmp)` after `!rn2(40)` (muse.c).
+  Prefix **37668**; suite RNG **71.68%** (568288).
+- **Next @37668:** C nhlib `shuffle` vs JS `rn2(79)` after matched
+  `getbones` (next special level post-asmodeus?). Falsifier: which
+  `makemaz`/protofile JS missed vs C loaded.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -21,12 +22,14 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0748 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0749 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0748 seed0360 peels (boots/oracle/castle/valley/mkclass Inhell).
-- D-0747: valley + Inhell `G_NOHELL`; D-0748: mkclass_aligned hellish.
+- D-0743…D-0749 seed0360 peels (boots/oracle/castle/valley/mkclass/
+  rnd_misc).
+- D-0747: valley + Inhell `G_NOHELL`; D-0748: mkclass_aligned hellish;
+  D-0749: rnd_misc_item nonliving/vampshifter.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -38,8 +41,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#835;
-  Scr 8205, RNG 68.02%; seed0360 **35405**/207 after D-0748).
+  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#845;
+  Scr 8212, RNG 71.68%; seed0360 **37668**/207 after D-0749).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -53,6 +56,7 @@ Objective/score live in `CURRENT.md`.
   hellfill/asmodeus/… deferred; `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **rnd_misc_item nonliving/vampshifter** (D-0749);
   **mkclass_aligned Inhell hellish** (D-0748);
   **valley load_special + Inhell G_NOHELL** (D-0747);
   **castle load_special + mazewalk/squadmon** (D-0746);
