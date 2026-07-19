@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0814 — wiz_map `level.traps` + show_map_spot `map_trap` (seed0360 @624)
+
+- **Status:** fixed (seed0360 Scr residual continues @632)
+- **Symptom:** seed0360 @624 after `^F` — C map shows 6 trap `^`; JS
+  floor `·`. RNG FULL. NOTES “blocked staircase” was not the first miss
+  (topline already matched after post-lookat port).
+- **C locus:** `wizcmds.c` `wiz_map` walks `gf.ftrap`; `detect.c`
+  `show_map_spot` after `magic_map_background` calls `map_trap(t,1)`
+  for tseen traps (not `newsym`); `pager.c` `do_screen_description`
+  rewrites `"staircase down"` → `"blocked staircase down"` on qstart
+  when `!ok_to_quest()`.
+- **Cause (#936):** (1) JS `maketrap` stores on `level.traps[]`;
+  `wiz_map` only walked empty `game.ftrap`. (2) JS `show_map_spot`
+  used `newsym` for tseen traps — out-of-sight `newsym` only paints
+  `remembered_glyph` just overwritten to terrain by
+  `magic_map_background`. (3) blocked-stair rewrite was missing in
+  auto_describe / lookat firstmatch (faithful; not the Scr gate).
+- **Change:** `js/wizcmds.js` trap list ≡ `premap_detect` /
+  `level.traps`; `js/detect.js` `map_trap(trap,1)`; `js/getpos.js` +
+  `js/pager.js` `maybe_blocked_staircase_down`. Named: engraving /
+  oldglyph restore in show_map_spot; notice_mon_off/on; ice_descr.
+- **Verification:** green+strict PASS; cohort **15/15** PASS;
+  seed0360 Scr **694→812**/833; prefix **624→632**; RNG FULL.
+- **Next:** @632 travel `closed door` vs `unexplored area`.
+
 ## D-0813 — TRAVP_VALID BFS + travel blank S_stone (seed0360 @539)
 
 - **Status:** fixed (seed0360 Scr residual continues @624)

@@ -465,11 +465,13 @@ export function show_map_spot(x, y, cnf) {
         magic_map_background(x, y, 1);
     }
 
-    // Non-furniture trap.tseen / engraving / oldglyph restore deferred
+    // Non-furniture: C map_trap(t,1) / map_engraving — not newsym.
+    // newsym !cansee only redraws remembered_glyph, which
+    // magic_map_background just set to terrain (D-0814).
     if (!IS_FURNITURE(lev.typ)) {
         const trap = t_at(x, y);
         if (trap && trap.tseen) {
-            newsym(x, y); // map_trap subset: redisplay via newsym
+            map_trap(trap, 1);
         }
     }
     // room_discovered deferred

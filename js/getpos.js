@@ -25,6 +25,7 @@ import { stairway_at, known_branch_stairs } from './mklev.js';
 import { t_at, trapname } from './trap.js';
 import { waterbody_name } from './hack.js';
 import { is_valid_travelpt } from './cmd.js';
+import { ok_to_quest } from './quest.js';
 
 export const LOOK_TRADITIONAL = 0;
 export const LOOK_QUICK = 1;
@@ -192,6 +193,27 @@ function stair_ladder_explanation(x, y) {
     return up ? 'staircase up' : 'staircase down';
 }
 
+/** C dungeon.h on_level — dnum+dlevel equality. */
+function on_level(a, b) {
+    return (a?.dnum | 0) === (b?.dnum | 0) && (a?.dlevel | 0) === (b?.dlevel | 0);
+}
+
+/**
+ * C ref: pager.c do_screen_description after lookat — qstart Home
+ * downstairs are "blocked staircase down" until ok_to_quest().
+ * Named: ice_descr rewrite sibling deferred (same didlook arm).
+ */
+export function maybe_blocked_staircase_down(look_buf) {
+    if (
+        look_buf === 'staircase down'
+        && on_level(game.u?.uz, game.qstart_level)
+        && !ok_to_quest()
+    ) {
+        return 'blocked staircase down';
+    }
+    return look_buf;
+}
+
 /**
  * C ref: pager.c lookat — glyph_is_nothing / cmap cmap S_darkroom →
  * "dark part of a room"; S_room → "floor of a room". display.c newsym
@@ -311,8 +333,9 @@ function auto_describe_text(cx, cy) {
     }
 
     // C lookat glyph_is_cmap stairs/ladder → defsyms explanation (firstmatch)
+    // then do_screen_description blocked-stair rewrite (D-0814)
     const stair = stair_ladder_explanation(cx, cy);
-    if (stair) return stair;
+    if (stair) return maybe_blocked_staircase_down(stair);
 
     // C lookat glyph_is_trap → trap_description (seen map_trap glyph)
     const trap = t_at(cx, cy);

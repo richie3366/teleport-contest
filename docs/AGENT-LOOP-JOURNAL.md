@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 01:15 — #936 D-0814 wiz_map traps + blocked stair
+- Objective: seed0360 @624 residual (NOTES said blocked stair).
+- C locus: `wizcmds.c` wiz_map; `detect.c` show_map_spot map_trap;
+  `pager.c` do_screen_description blocked staircase.
+- Change: **D-0814** (1) wiz_map walks `level.traps` (ftrap empty);
+  (2) show_map_spot uses `map_trap` not newsym for tseen; (3) blocked
+  staircase down when qstart !ok_to_quest. Scr **694→812**.
+- Verification: green+strict PASS; cohort 15/15 PASS; seed0360 RNG FULL.
+- Next: @632 travel `closed door` vs `unexplored area`.
+
 ## 2026-07-20 01:02 — #935 D-0813 TRAVP_VALID + travel stone
 - Objective: cadence full score + seed0360 @539 stone (no travel path).
 - C locus: `hack.c` is_valid_travelpt/findtravelpath(TRAVP_VALID);
@@ -144,11 +154,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 34/34 PASS; seed0360 Scr
   **561→589**/833; prefix **164→180**; RNG FULL.
 - Next: @180 leave-Gehennom remembered walls (map memory).
-## 2026-07-19 23:16 — #921 D-0800 Wiz-loca/fila/filb
-- Objective: seed0360 @113103 getbones → lua shuffle vs JS rn2(79).
-- C locus: `dat/Wiz-loca.lua` / `Wiz-fila.lua` / `Wiz-filb.lua`; `sp_lev.c`.
-- Change: `load_wiz_loca` + `load_wiz_fila`/`load_wiz_filb` + dispatch.
-  Named omissions: Wiz-goal; humidity get_location; m_dowear; hellfill/fakewiz.
-- Verification: green+strict PASS; cohort 20/20 PASS; seed0360 RNG
-  **FULL 120639**; Scr **519→561**/833.
-- Next: seed0360 screen residual (RNG matched); or parked 0399/0014.

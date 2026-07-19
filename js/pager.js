@@ -21,7 +21,10 @@ import {
     paint_corner_nhw_menu, dfeature_at, invent_lines,
 } from './invent.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
-import { getpos, LOOK_ONCE, LOOK_VERBOSE, room_cmap_explanation } from './getpos.js';
+import {
+    getpos, LOOK_ONCE, LOOK_VERBOSE, room_cmap_explanation,
+    maybe_blocked_staircase_down,
+} from './getpos.js';
 import { mon_at } from './uhitm.js';
 import { objects_at } from './mkobj.js';
 import { doname, an, xname, singular } from './objnam.js';
@@ -533,7 +536,10 @@ function brief_at(x, y) {
         // Named omit: trapped_chest_at / trapped_door_at; Hallucination
         return trapname(trap.ttyp, false);
     }
-    if (is_stair_spot(x, y)) return stair_cmap_explanation(x, y);
+    // C do_screen_description: lookat stairs then blocked rewrite
+    if (is_stair_spot(x, y)) {
+        return maybe_blocked_staircase_down(stair_cmap_explanation(x, y));
+    }
     const feat = dfeature_at(x, y);
     if (feat) return feat;
     const e = engr_at(x, y);
@@ -568,7 +574,8 @@ function brief_at(x, y) {
  * Ladder showsyms deferred (ASCII where ladders share '<' would add two more).
  */
 function describe_stairs_looked(x, y) {
-    const look = stair_cmap_explanation(x, y);
+    // C: lookat firstmatch, then blocked-stair rewrite before parenthetical
+    const look = maybe_blocked_staircase_down(stair_cmap_explanation(x, y));
     const up = look.endsWith(' up');
     const ordinary = up ? 'staircase up' : 'staircase down';
     const branch = up ? 'branch staircase up' : 'branch staircase down';

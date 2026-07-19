@@ -127,18 +127,21 @@ export async function wiz_map() {
     u.Confusion = 0;
     u.Hallucination = 0;
 
+    // C: for (t = gf.ftrap; t; t = t->ntrap) — JS stores traps on
+    // level.traps (maketrap); ftrap linked list is often empty (D-0814).
     const ftrap = game.ftrap;
-    if (Array.isArray(ftrap)) {
-        for (const t of ftrap) {
-            if (!t) continue;
-            t.tseen = 1;
-            map_trap(t, true);
-        }
+    const trapList = [];
+    if (Array.isArray(game.level?.traps)) {
+        trapList.push(...game.level.traps);
+    } else if (Array.isArray(ftrap)) {
+        trapList.push(...ftrap);
     } else {
-        for (let t = ftrap; t; t = t.ntrap) {
-            t.tseen = 1;
-            map_trap(t, true);
-        }
+        for (let t = ftrap; t; t = t.ntrap) trapList.push(t);
+    }
+    for (const t of trapList) {
+        if (!t) continue;
+        t.tseen = 1;
+        map_trap(t, true);
     }
     for (let ep = game.head_engr; ep; ep = ep.nxt_engr) {
         map_engraving(ep, true);
