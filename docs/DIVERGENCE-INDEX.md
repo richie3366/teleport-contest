@@ -718,6 +718,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0735 | fixed | use_stethoscope adjacent must return res TIME | seed5002 seg1 5668→5739; root was ECMD_OK stub |
 | D-0736 | fixed | use_mirror + use_camera getdir/beam/flash | seed5002 cont 5739→5904; seg0 C FULL +1 learnwand |
 | D-0737 | fixed | zhitu fatal losehp→finish_losehp_done before learnwand | seed5002 cont 5904→11643; RNG 6176→11693 |
+| D-0738 | fixed | hero_seq moveloop + stethoscope seemimic/mstatusline | seed5002 cont 11643→11715; RNG 11693→11895 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

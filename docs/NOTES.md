@@ -7,14 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#825 score:** **36/44**; Scr 7860/11405; RNG **533216**/792838
-  (67.25%); Δ vs #820 RNG **+5521** (D-0737 in suite). seed5002 still
-  11693/88.
-- **#824 D-0737 done:** fatal `zhitu`→`finish_losehp_done`; cont→11643.
-- **Falsify next (@11643):** not broken `gethungry` — C `do_attack` →
-  `overexertion` `rn2(20)` then `hitum`/`exercise` (seg1 step118 key `l`,
-  “You hit the small mimic”); JS `distfleeck` `rn2(5)` — attack path
-  skipped. Dump bump/mimic/`do_attack` gate before patching.
+- **#826 D-0738 done:** `hero_seq` moveloop + stethoscope `seemimic`/
+  `mstatusline`. seed5002 cont **11643→11715**; RNG 11693→11895 Scr 108.
+- **Falsify next (@11715):** mid seg1 step140 (after `\n`); C `rn2(5)=4`
+  vs JS `rnd(20)=20`. Dump wish/apply/combat path — not re-break D-0738.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -22,10 +18,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0737 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0738 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
-- seed5002 seg0 now FULL 5904; flattened @11643 is mid-seg1.
+- seed5002 seg0 now FULL 5904; flattened @11715 is mid-seg1.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
@@ -36,6 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - Wish does **not** `makeknown` (C: otmp unidentified); trailing exercise
   was death-noreturn hole, not wish-known (D-0737).
+- Stethoscope free/TIME needs live `hero_seq` (D-0738); don’t hardcode seq.
 
 ## Landmarks (≤15)
 
@@ -58,6 +55,7 @@ Objective/score live in `CURRENT.md`.
   **stethoscope adjacent returns `res` TIME** (D-0735);
   **mirror/camera getdir+beam/flash** (D-0736);
   **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
+  **hero_seq + stethoscope seemimic/mstatusline** (D-0738);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

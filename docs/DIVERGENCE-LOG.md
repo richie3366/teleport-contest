@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0738 — hero_seq + stethoscope seemimic (seed5002 @11643)
+
+- **Status:** fixed (partial — seed5002 still FAIL; next @11715)
+- **Symptom:** seed5002 continuous first miss @**11643** after D-0737:
+  C `do_attack`→`overexertion` `rn2(20)` (east into revealed small mimic);
+  JS `distfleeck` `rn2(5)` — attack path skipped / mid-movemon `--More--`.
+- **C locus:** `allmain.c` moveloop `hero_seq = moves<<3` / `hero_seq++`;
+  `apply.c` `use_stethoscope` mappearance→`seemimic`+`mstatusline`.
+- **Cause:** JS never advanced `hero_seq`, so every stethoscope after the
+  first same-seq use returned `ECMD_TIME` (C: free on new seq). Extra
+  movemon after south `anj` desynced keys into `--More--`, so east
+  reveal never ran; later bump hit disguised mimic → `attack_checks`
+  stumble without `overexertion`. Also omitted `seemimic` on adjacent
+  disguised mons (would have blocked hitum even after key sync).
+- **Change:** port `hero_seq` updates in `moveloop_core` + restore/
+  preamble init; port stethoscope mundetected/mappearance `seemimic`
+  + `insight.js` `mstatusline` (align/size/AC). Named: SDOOR/SCORR/
+  `its_dead`/defsyms furniture/`map_invisible`/ailment flags.
+- **Verification:** green+strict PASS; cohort 34/34; continuous
+  **11643→11715**; positional **11693→11895**/12167 Scr 88→108.
+- **Next:** seed5002 @11715 (mid wish/`rn2(5)` vs `rnd(20)`); or
+  D-0731/D-0708.
+
 ## D-0737 — zhitu fatal losehp must finish before learnwand (seed5002 @5904)
 
 - **Status:** fixed (partial — seed5002 still FAIL; next @11643)
