@@ -840,9 +840,10 @@ function findtravelpath_guess() {
 /**
  * C ref: hack.c is_valid_travelpt — getpos auto_describe appends
  * " (no travel path)" when getloc_travelmode && !is_valid_travelpt.
- * TRAVP_VALID: path exists without GUESS (BFS dest→hero like TRAVEL).
- * Restores tx/ty/dx/dy/travelcc; VALID must not clear travelcc (unlike TRAVEL).
- * Named: travelmap visited side-effects; glyph_is_cmap S_stone via typ≈STONE.
+ * TRAVP_VALID: findtravelpath swaps ends — BFS from hero toward dest
+ * (unlike TRAVP_TRAVEL which BFS dest→hero). Restores tx/ty; VALID must
+ * not clear travelcc (unlike TRAVEL success). Named: travelmap visited;
+ * glyph_is_cmap S_stone via typ≈STONE|SCORR blank showsyms.
  */
 export function is_valid_travelpt(x, y) {
     const u = game.u;
@@ -863,8 +864,9 @@ export function is_valid_travelpt(x, y) {
     u.ty = y | 0;
     let ret = false;
     try {
-        // C findtravelpath(TRAVP_VALID) — no GUESS fallback
-        ret = findtravelpath_bfs(u.tx, u.ty, u.ux, u.uy, false, false);
+        // C findtravelpath(TRAVP_VALID): start at hero, seek dest
+        // (not dest→hero — that falsely succeeds from impassable stone).
+        ret = findtravelpath_bfs(u.ux, u.uy, u.tx, u.ty, false, false);
     } finally {
         u.tx = savedTx;
         u.ty = savedTy;

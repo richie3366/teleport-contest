@@ -7,22 +7,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#934 D-0812:** ROOM darkroom lookat — seed0360 Scr **689**/833;
-  @531 fixed; prefix **539**.
-- **Hypothesis next:** @539 farlook — C `stone (no travel path)` vs JS
-  `unexplored area` (STONE `seenv` / blank glyph / auto_describe space).
-- **Falsify:** C `lookat` S_stone `!seenv`→unexplored else stone;
-  JS blank `disp_ch` currently → unexplored before cmap STONE arm.
+- **#935 D-0813:** travel blank S_stone + TRAVP_VALID — seed0360 Scr
+  **694**/833; @539 fixed; first miss **624**.
+- **Hypothesis next:** @626 farlook — C `blocked staircase down (no
+  travel path)` vs JS `staircase down (no travel path)`.
+- **Falsify:** C `pager.c` do_screen_description — after lookat, if
+  `look_buf=="staircase down"` && `on_level(uz,qstart_level)` &&
+  `!ok_to_quest()` → `"blocked staircase down"`.
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break darkroom (D-0812) / CLOUD (D-0811) / setworn find_ac (D-0810).
+  re-break travel VALID BFS (D-0813) / darkroom (D-0812); bare blank→stone
+  without travel (breaks seed0012).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0812 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0813 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0812 peels done.
+- seed5002 **PASS**; D-0743…D-0813 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -37,12 +39,13 @@ Objective/score live in `CURRENT.md`.
 - @497 AC:-2 vs AC:2 — setworn early find_ac (D-0810).
 - @523 fog/vapor vs unexplored — CLOUD lookat (D-0811).
 - @531 floor vs dark part — ROOM S_darkroom lookat (D-0812).
+- @539 unexplored vs stone — TRAVP_VALID + travel blank stone (D-0813).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#930; seed0360 Scr **689** @539 (D-0812).
+- suite **37/44** @#935; seed0360 Scr **694** @624 (D-0813).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -56,4 +59,4 @@ Objective/score live in `CURRENT.md`.
   Rogue graphics (D-0805); mazewalk ROOM (D-0806); lava lit (D-0807);
   Wiz firsttime (D-0808); travel path suffix (D-0809);
   setworn no find_ac (D-0810); CLOUD fog/vapor (D-0811);
-  ROOM darkroom lookat (D-0812).
+  ROOM darkroom lookat (D-0812); TRAVP_VALID + travel stone (D-0813).

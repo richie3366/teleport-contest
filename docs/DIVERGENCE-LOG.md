@@ -4,9 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0813 — TRAVP_VALID BFS + travel blank S_stone (seed0360 @539)
+
+- **Status:** fixed (seed0360 Scr residual continues @624)
+- **Symptom:** seed0360 @539 `_` travel getpos — C topline
+  `stone (no travel path)`; JS `unexplored area` (then bare `stone`
+  after blank→stone without VALID fix). RNG FULL.
+- **C locus:** `hack.c` `is_valid_travelpt` → `findtravelpath(TRAVP_VALID)`
+  swaps ends (BFS **hero→dest**, not dest→hero); `pager.c` `lookat`
+  case `S_stone` + seenv + STONE|SCORR → `"stone"` (blank showsyms).
+- **Cause (#935):** (1) JS `is_valid_travelpt` used TRAVEL orientation,
+  so impassable stone wrongly looked reachable (no suffix). (2) Blank
+  `disp_ch` early-out always `"unexplored area"` before cmap S_stone.
+- **Change:** `js/cmd.js` VALID BFS `findtravelpath_bfs(ux,uy,tx,ty)`;
+  `js/getpos.js` travel-mode blank + lastseentyp STONE|SCORR → `"stone"`;
+  SCORR in `cmap_defsym_explanation`. Named: full `glyph_is_unexplored`
+  vs cmap for non-travel blank (bare blank→stone breaks seed0012);
+  `blocked staircase down` when qstart `!ok_to_quest` (next @626).
+- **Verification:** green+strict PASS; cohort 12/12 + seed0012 PASS;
+  full suite 37/44; seed0360 Scr **689→694**/833; @539–541 match; RNG FULL.
+- **Next:** @624/`@626` `blocked staircase down` vs `staircase down`.
+
 ## D-0812 — lookat ROOM S_darkroom (seed0360 @531)
 
-- **Status:** fixed (seed0360 Scr residual continues @539)
+- **Status:** fixed (seed0360 Scr residual continues @624 via D-0813)
 - **Symptom:** seed0360 @531 travel auto_describe — C topline
   `dark part of a room`; JS `floor of a room`. Map · matched; RNG FULL.
 - **C locus:** `pager.c` `lookat` — `glyph_is_nothing` / cmap cmap

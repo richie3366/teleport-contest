@@ -15,7 +15,7 @@ import { cansee } from './vision.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
-    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, TREE, CLOUD, IS_WALL,
+    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd, Is_airlevel,
     Is_rogue_level,
 } from './const.js';
@@ -246,8 +246,8 @@ function cmap_defsym_explanation(x, y, loc) {
     }
     // C defsym.h PCHAR S_tree → "tree" (lookat default arm)
     if (typ === TREE) return 'tree';
-    if (typ === STONE) {
-        // C lookat S_stone: !seenv → "unexplored"; else stone/SCORR
+    // C lookat case S_stone: !seenv → "unexplored"; else if STONE|SCORR → "stone"
+    if (typ === STONE || typ === SCORR) {
         if (!loc.seenv) return 'unexplored';
         return 'stone';
     }
@@ -289,7 +289,23 @@ function auto_describe_text(cx, cy) {
 
     const loc = game.level?.at?.(cx, cy);
     const ch = loc?.disp_ch;
+    // Blank showsyms may be unexplored or S_stone (space). C lookat uses
+    // glyph_at. Under getloc_travelmode, mapped STONE/SCORR with seenv +
+    // lastseentyp is cmap S_stone → "stone" (D-0813); bare farlook still
+    // treats blank as unexplored when JS lastseentyp overmarks. Full
+    // glyph_is_unexplored vs cmap discrimination deferred.
     if (!ch || ch === ' ') {
+        const last = game.lastseentyp?.[cx]?.[cy] | 0;
+        if (
+            game.iflags?.getloc_travelmode
+            && loc
+            && (loc.typ === STONE || loc.typ === SCORR)
+            && loc.seenv
+            && (last === STONE || last === SCORR)
+        ) {
+            // C lookat case S_stone + seenv + STONE|SCORR → "stone"
+            return 'stone';
+        }
         // C lookat glyph_is_unexplored → "unexplored area"
         return 'unexplored area';
     }

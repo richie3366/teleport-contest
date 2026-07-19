@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 01:02 — #935 D-0813 TRAVP_VALID + travel stone
+- Objective: cadence full score + seed0360 @539 stone (no travel path).
+- C locus: `hack.c` is_valid_travelpt/findtravelpath(TRAVP_VALID);
+  `pager.c` lookat S_stone.
+- Change: **D-0813** VALID BFS hero→dest; travel blank+lastseentyp→stone.
+  Scr **689→694**; prefix **539→624**. Cadence **37/44** Scr **8702**.
+- Verification: green+strict PASS; cohort 12/12; seed0012 PASS; full suite.
+- Next: @626 `blocked staircase down` (qstart !ok_to_quest).
+
 ## 2026-07-20 00:53 — #934 D-0812 lookat ROOM darkroom
 - Objective: seed0360 @531 C `dark part of a room` vs JS `floor of a room`.
 - C locus: `pager.c` `lookat` S_darkroom / NOTHING; `display.c` newsym
@@ -143,12 +152,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 20/20 PASS; seed0360 RNG
   **FULL 120639**; Scr **519→561**/833.
 - Next: seed0360 screen residual (RNG matched); or parked 0399/0014.
-## 2026-07-19 23:10 — #920 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score-only handoff).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-  **37/44** PASS; Scr **8525**/11405; RNG **644653**/792838 (81.31%);
-  speed `35+0.21/turn`. Δ vs #915: Scr **+128**, RNG **+839**, PASS **0**
-  (D-0798/D-0799). seed0360 still **113111**/519 @113103.
-- Verification: green+strict PASS; full suite exit 0 with 37/44.
-- Next: seed0360 @113103 C lua shuffle after matched getbones vs JS rn2(79).

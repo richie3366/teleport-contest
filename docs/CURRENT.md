@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#930**,
-cadence + D-0808). Screens **8679**/11405; RNG **652,181**/792838 (82.26%).
-**37/44** PASS. Δ vs #925: Scr **+56** (D-0804…D-0808 soak; seed0360
-**617→673**), RNG **0**, PASS **0**. (#931 D-0809: seed0360 Scr
-**673→678** soak only — no full cadence.)
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#935**,
+cadence + D-0813). Screens **8702**/11405; RNG **652,181**/792838 (82.26%).
+**37/44** PASS. Δ vs #930: Scr **+23** (D-0809…D-0813 soak; seed0360
+**673→694**), RNG **0**, PASS **0**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,679 / 11,405** |
+| Screens matched | **8,702 / 11,405** |
 | Positional RNG calls matched | **652,181 / 792,838** (82.26%) |
-| Speed label | `36+0.21/turn` (R² 0.787) |
+| Speed label | `36+0.21/turn` (R² 0.757) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,9 +47,9 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 50419/59178 | 578/714 | prefix @50259 |
+| seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **689**/833 | Scr residual @539 stone (D-0812) |
+| seed0360 | **120639**/120639 | **694**/833 | Scr residual @624 blocked stair (D-0813) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -76,10 +75,10 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0812 (#934):
-lookat ROOM S_darkroom → `dark part of a room`. Scr **684→689**/833;
-@531 fixed. Next: @539 farlook `stone (no travel path)` vs
-`unexplored area`.
+**Gameplay next:** **seed0360 screen residual** — D-0813 (#935):
+TRAVP_VALID BFS + travel blank S_stone. Scr **689→694**/833; @539
+fixed. Next: @624/`@626` `blocked staircase down (no travel path)` vs
+`staircase down (no travel path)` (`pager.c` lookat qstart `!ok_to_quest`).
 **Do not FORCE.**
 
 ```bash
@@ -87,7 +86,7 @@ node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0812. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0813. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
