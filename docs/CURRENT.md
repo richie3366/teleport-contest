@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **826**/833 | Scr residual @719 `_` (D-0817 next) |
+| seed0360 | **120639**/120639 | **828**/833 | Scr residual @729 getpos_help (D-0818 next) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -75,18 +75,19 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0817 (#939):
-blank `S_stone` auto_describe without travelmode.
-Scr **824→826**/833; @678–679 fixed. Next: @719 C
-`Can't find dungeon feature '_'` vs JS unknown-direction
-(getpos feature matching beyond `>`/`<`). **Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0818 (#941):
+getpos feature matching (`_` → S_altar + furniture/traps).
+Scr **826→828**/833; @719/@724 fixed. Next: @729 C
+`getpos_help` NHW_MENU
+`Use 'h', 'j', 'k', 'l' to move the cursor to the desired destination.`
+vs JS stub help pline (then `show_goal_msg`). **Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0817. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0818. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

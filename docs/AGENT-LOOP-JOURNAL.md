@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 01:44 — #941 D-0818 getpos feature `_`
+- Objective: seed0360 @719 `Can't find dungeon feature '_'`.
+- C locus: `getpos.c` matching[] / feature scan (`S_altar` defsym `_`).
+- Change: `getpos.js` feature_match_tags + scan (altar/furniture/traps;
+  `#` omitted for GETPOS_AUTODESC). Scr **826→828**/833.
+- Verification: green+strict PASS; cohort 12/12; RNG FULL.
+- Next: @729 `getpos_help` NHW_MENU first line + show_goal_msg.
+
 ## 2026-07-20 01:38 — #940 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; no peel).

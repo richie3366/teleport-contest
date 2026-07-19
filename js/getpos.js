@@ -4,21 +4,23 @@
 // Branch envelope: verbose instruction pline, first-use getpos tip
 // (nhcore show_getpos_tip PICK_NONE loop), hjklyubn walk + HJKLYUBN/Ctrl-dir
 // rush (8×; '\n'==C('j') rushes — movecmd before quitchars), seenv-gated
-// '>'/'<' stairs (D-0779), autodescribe topline, force unknown-direction
-// pline, '.' → LOOK_TRADITIONAL, ESC → -1. Menu/mMoOdDxX jump/hilite/
-// valids/getloc_moveskip glyph-skip / full defsyms feature table deferred.
+// feature-char matching (stairs + furniture/traps subset; D-0779/D-0818),
+// autodescribe topline, force unknown-direction pline, '.' → LOOK_TRADITIONAL,
+// ESC → -1. Menu/mMoOdDxX jump/hilite/valids/getloc_moveskip glyph-skip /
+// engraving/drawbridge/air full showsyms table deferred.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt } from './display.js';
+import { flush_screen, pline, docrt, terrain_glyph } from './display.js';
 import { cansee } from './vision.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
     DOOR, IS_DOOR, D_NODOOR, D_ISOPEN, D_BROKEN,
-    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd, Is_airlevel,
-    Is_rogue_level,
+    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, IRONBARS,
+    FOUNTAIN, SINK, THRONE, GRAVE, ALTAR, VIBRATING_SQUARE,
+    ROGUESET, Upolyd, Is_airlevel, Is_rogue_level,
 } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
 import { distant_monnam_none, pmname, Ugender } from './do_name.js';
@@ -49,30 +51,146 @@ const CTRL_DIR = {
     14: 'n', // C('n')
 };
 
+/** C ref: display.js use_decgraphics — Primary DEC showsyms active. */
+function use_dec_syms() {
+    if ((game.currentgraphics | 0) === ROGUESET) return false;
+    return !!game.iflags?.decgraphics;
+}
+
 /**
- * C ref: getpos.c feature-char match — defsyms/showsyms for stairs/ladder
- * glyphs ('>' / '<'). Fountain/altar/trap/engraving cmap table deferred.
+ * C ref: getpos.c matching[] build — defsyms[].sym / showsyms[] for
+ * feature cmaps (walls/room/corr/door/ndoor skipped). Returns tag set;
+ * empty ⇒ C k==0 → unknown-direction.
+ * Named deferred: engraving/drawbridge/air full MAXPCHARS table.
  */
-function terrain_feature_matches(x, y, ch) {
-    const loc = game.level?.at?.(x, y);
-    if (!loc) return false;
-    // C: prefer visible/remembered; terrain fallback only when seenv.
-    // Do not treat blank disp_ch as "known" (D-0779).
+function feature_match_tags(ch) {
+    const tags = new Set();
+    const dec = use_dec_syms();
+
+    // Stairs / ladder (defsyms always '<' / '>')
+    if (ch === '>') tags.add('dnfeature');
+    if (ch === '<') tags.add('upfeature');
+
+    // Altar: defsyms '_'; DECgraphics showsyms '{'
+    if (ch === '_') tags.add('altar');
+    if (ch === '{' && dec) tags.add('altar');
+
+    // Furniture defsyms
+    if (ch === '{') {
+        tags.add('sink');
+        tags.add('fountain');
+    }
+    if (ch === '|') tags.add('grave');
+    if (ch === '\\') tags.add('throne');
+
+    // Tree / bars / cloud defsyms are '#', but NHKF_GETPOS_AUTODESC is
+    // also '#' and is handled before matching[] in C — do not claim '#'
+    // here until that toggle is ported (would steal the spkey).
+    // DEC tree showsym 'g' / bars '|' can still match when typed.
+    if (ch === 'g' && dec) tags.add('tree');
+    if (ch === '|' && dec) tags.add('bars');
+
+    // Water bodies — defsyms '}'; DEC showsyms '`'
+    if (ch === '}') {
+        tags.add('pool');
+        tags.add('lava');
+        tags.add('lavawall');
+        tags.add('water');
+    }
+    if (ch === '`' && dec) {
+        tags.add('pool');
+        tags.add('lava');
+        tags.add('lavawall');
+        tags.add('water');
+    }
+
+    // Ice: defsyms '.'; DEC '~' — '.' is pick_chars (never reaches here)
+    if (ch === '~' && dec) tags.add('ice');
+
+    // Traps: '^' matches every trap cmap; '~' also VS special below
+    if (ch === '^') tags.add('trap');
+    if (ch === '~') tags.add('trap_vs');
+
+    return tags;
+}
+
+/**
+ * C ref: getpos.c seenv back_to_glyph / stairs terrain arm.
+ * Stairs require seenv (D-0779); blank disp_ch is not "known".
+ */
+function terrain_matches_tags(loc, x, y, tags, ch) {
     const typ = loc.typ | 0;
-    if (typ !== STAIRS && typ !== LADDER) return false;
-    if (!(loc.seenv | 0)) return false;
-    const down = !!(loc.ladder & LA_DOWN);
-    if (ch === '>') return down;
-    if (ch === '<') return !down;
+    if (tags.has('altar') && typ === ALTAR) return true;
+    if (tags.has('sink') && typ === SINK) return true;
+    if (tags.has('fountain') && typ === FOUNTAIN) return true;
+    if (tags.has('grave') && typ === GRAVE) return true;
+    if (tags.has('throne') && typ === THRONE) return true;
+    if (tags.has('tree') && typ === TREE) return true;
+    if (tags.has('bars') && typ === IRONBARS) return true;
+    if (tags.has('cloud') && typ === CLOUD) return true;
+    if (tags.has('pool') && (typ === POOL || typ === MOAT)) return true;
+    if (tags.has('water') && typ === WATER) return true;
+    if (tags.has('lava') && typ === LAVAPOOL) return true;
+    if (tags.has('lavawall') && typ === LAVAWALL) return true;
+    if (tags.has('ice') && typ === ICE) return true;
+    if (tags.has('dnfeature') || tags.has('upfeature')) {
+        if (typ !== STAIRS && typ !== LADDER) return false;
+        if (!(loc.seenv | 0)) return false;
+        const down = !!(loc.ladder & LA_DOWN);
+        if (ch === '>') return down;
+        if (ch === '<') return !down;
+    }
+    if (tags.has('trap') || tags.has('trap_vs')) {
+        const t = t_at(x, y);
+        if (!t || !t.tseen) return false;
+        if (tags.has('trap')) return true;
+        if (tags.has('trap_vs') && (t.ttyp | 0) === VIBRATING_SQUARE) return true;
+    }
+    return false;
+}
+
+/** Visible cmap: disp_ch is this terrain's showsym (not a covering mon). */
+function visible_feature_match(loc, x, y, tags, ch) {
+    if ((tags.has('dnfeature') || tags.has('upfeature')) && loc.disp_ch === ch) {
+        return true;
+    }
+    if (!terrain_matches_tags(loc, x, y, tags, ch)) return false;
+    // Stairs already gated seenv inside terrain_matches_tags
+    if (tags.has('dnfeature') || tags.has('upfeature')) return true;
+    if (tags.has('trap') || tags.has('trap_vs')) {
+        const t = t_at(x, y);
+        if (!t?.tseen) return false;
+        const want = (t.ttyp | 0) === VIBRATING_SQUARE ? '~' : '^';
+        // WEB is '"' — '^' still matches via is_cmap_trap when c=='^'
+        if (tags.has('trap') && (loc.disp_ch === '^' || loc.disp_ch === '"' || loc.disp_ch === '~')) {
+            return true;
+        }
+        return loc.disp_ch === want;
+    }
+    const g = terrain_glyph(loc, x, y);
+    return loc.disp_ch === g.ch;
+}
+
+function remembered_feature_match(loc, x, y, tags, ch) {
+    const rg = loc.remembered_glyph;
+    if (!rg || rg.ch == null || rg.ch === '') return false;
+    // Approximate glyph_to_cmap(memory): terrain typ + remembered ch
+    if (terrain_matches_tags(loc, x, y, tags, ch)) {
+        if (tags.has('trap') || tags.has('trap_vs')) {
+            return rg.ch === '^' || rg.ch === '"' || rg.ch === '~';
+        }
+        const g = terrain_glyph(loc, x, y);
+        return rg.ch === g.ch;
+    }
     return false;
 }
 
 /**
- * C ref: getpos.c unknown-key feature scan — two passes from cursor:
- * pass0 past current to SE; pass1 NW corner through current.
+ * C ref: getpos.c unknown-key feature scan — matching[] then two passes
+ * from cursor (pass0 past current to SE; pass1 NW through current).
  * Returns {x,y} or null.
  */
-function find_dungeon_feature(cx, cy, ch) {
+function find_dungeon_feature(cx, cy, ch, tags) {
     for (let pass = 0; pass <= 1; pass++) {
         const loY = pass === 0 ? cy : 0;
         const hiY = pass === 0 ? ROWNO - 1 : cy;
@@ -81,11 +199,26 @@ function find_dungeon_feature(cx, cy, ch) {
             const hiX = (pass === 1 && ty === hiY) ? cx : COLNO - 1;
             for (let tx = loX; tx <= hiX; tx++) {
                 if (!isok(tx, ty)) continue;
-                // C: glyph_at cmap, then memory glyph, then seenv terrain.
-                // Subset: displayed stairs char or terrain STAIRS/LADDER.
                 const loc = game.level?.at?.(tx, ty);
-                if (loc?.disp_ch === ch) return { x: tx, y: ty };
-                if (terrain_feature_matches(tx, ty, ch)) {
+                if (!loc) continue;
+                // C: glyph_at cmap, then memory glyph, then ~ VS, then seenv
+                if (visible_feature_match(loc, tx, ty, tags, ch)) {
+                    return { x: tx, y: ty };
+                }
+                if (
+                    game.level?.flags?.hero_memory !== false
+                    && !(game.iflags?.terrainmode | 0)
+                    && remembered_feature_match(loc, tx, ty, tags, ch)
+                ) {
+                    return { x: tx, y: ty };
+                }
+                if (ch === '~') {
+                    const t = t_at(tx, ty);
+                    if (t && (t.ttyp | 0) === VIBRATING_SQUARE && t.tseen) {
+                        return { x: tx, y: ty };
+                    }
+                }
+                if ((loc.seenv | 0) && terrain_matches_tags(loc, tx, ty, tags, ch)) {
                     return { x: tx, y: ty };
                 }
             }
@@ -565,22 +698,24 @@ export async function getpos(ccp, force, goal, describeAt) {
         }
 
         // C ref: getpos.c — non-dir key may match dungeon-feature symbols
-        // (defsyms/showsyms); '>'/'<' → next stairs/ladder. Full matching[]
-        // over MAXPCHARS (fountain/altar/trap/engraving) deferred.
-        if (ch === '>' || ch === '<') {
-            const found = find_dungeon_feature(cx, cy, ch);
-            if (found) {
-                cx = found.x;
-                cy = found.y;
-                if (msg_given) {
-                    g._pending_message = '';
-                    msg_given = false;
+        // (defsyms/showsyms matching[]); scan or "Can't find…"; else unknown.
+        if (!' \r\n\x1b'.includes(ch)) {
+            const tags = feature_match_tags(ch);
+            if (tags.size > 0) {
+                const found = find_dungeon_feature(cx, cy, ch, tags);
+                if (found) {
+                    cx = found.x;
+                    cy = found.y;
+                    if (msg_given) {
+                        g._pending_message = '';
+                        msg_given = false;
+                    }
+                    continue;
                 }
+                await pline(`Can't find dungeon feature '${ch}'.`);
+                msg_given = true;
                 continue;
             }
-            await pline(`Can't find dungeon feature '${ch}'.`);
-            msg_given = true;
-            continue;
         }
 
         // C ref: getpos.c unknown key — force keeps looping; !force aborts

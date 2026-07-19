@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0818 — getpos feature matching beyond `>`/`<` (altar `_`)
+
+- **Status:** fixed (seed0360 Scr residual continues @729)
+- **Symptom:** seed0360 @719/@724 — C
+  `Can't find dungeon feature '_'.`; JS
+  `Unknown direction: '_' (use 'h', 'j', 'k', 'l' or '.')`. RNG FULL.
+- **C locus:** `getpos.c` matching[] over MAXPCHARS (defsyms/showsyms;
+  walls/room/corr/door/ndoor skipped) then two-pass scan; `_` →
+  `S_altar`.
+- **Cause (#941):** JS only wired `>`/`<` stairs into the feature path;
+  other matching keys fell through to unknown-direction.
+- **Change:** `js/getpos.js` `feature_match_tags` + expanded
+  `find_dungeon_feature` (altar/furniture/traps/water; stairs keep
+  seenv). `#` omitted (NHKF_GETPOS_AUTODESC spkey precedes matching
+  in C). Named: engraving/drawbridge/air; `#` tree/bars until
+  autodisc toggle; full integer glyph_to_cmap; `getpos_help` `?`.
+- **Verification:** green+strict PASS; cohort 12/12 PASS; seed0360
+  Scr **826→828**/833; @719/@724 match; RNG FULL.
+- **Next:** @729 `getpos_help` NHW_MENU
+  `Use 'h', 'j', 'k', 'l' to move the cursor to the desired destination.`
+
 ## D-0817 — blank S_stone auto_describe without travelmode (seed0360 @678)
 
 - **Status:** fixed (seed0360 Scr residual continues @719)
