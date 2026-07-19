@@ -1312,8 +1312,9 @@ export async function m_move(mtmp, after) {
 
     // C ref: monmove.c m_move — Tengu nature teleport before not_special.
     // !rn2(5) is evaluated for every Tengu (short-circuit after mndx).
+    // tele_restrict may pline+More when noteleport_level (D-0816).
     if ((ptr?.mndx ?? -1) === PM_TENGU && !rn2(5) && !mtmp.mcan
-        && !tele_restrict(mtmp)) {
+        && !(await tele_restrict(mtmp))) {
         // C: mhp < 7 || peaceful || rn2(2) → rloc; else mnexto
         if ((mtmp.mhp | 0) < 7 || mtmp.mpeaceful || rn2(2)) {
             rloc(mtmp, 0x02); // RLOC_MSG
@@ -1484,7 +1485,7 @@ export async function m_move(mtmp, after) {
     if (mmoved === MMOVE_NOTHING) {
         // C ref: monmove.c m_move — unicorn failed-move teleport then postmov
         if (ptr?.mlet === 'S_UNICORN' && likes_gems(ptr)
-            && rn2(2) && !tele_restrict(mtmp)) {
+            && rn2(2) && !(await tele_restrict(mtmp))) {
             if (rloc(mtmp, 0)) return MMOVE_MOVED;
         }
         return postmov(mtmp, omx, omy, MMOVE_NOTHING, can_tunnel, can_unlock, can_open);

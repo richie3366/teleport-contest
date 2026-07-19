@@ -12,6 +12,15 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+
+## 2026-07-20 01:32 — #938 D-0816 tele_restrict + wildmiss
+- Objective: seed0360 @668 tengu teleport More vs unknown-dir '7'.
+- C locus: `teleport.c` tele_restrict; `mhitu.c` wildmiss Displaced.
+- Change: **D-0816** (1) async tele_restrict canseemon pline;
+  (2) wildmiss + !foundyou skipnonmagc. Scr **818→824**; @668–677 fixed.
+- Verification: green+strict PASS; cohort 35/35 PASS; RNG FULL.
+- Next: @678 stone vs unexplored (post-^T getpos).
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -112,6 +121,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **633→638**/833; prefix **318→324**; RNG FULL.
 - Next: @324 Dlvl:40 materialize C DEC lava `` ` `` vs JS blank.
+
 ## 2026-07-20 00:05 — #927 D-0805 Rogue arrival + graphics
 - Objective: seed0360 @301 materialize `--More--` / `*:0` / `.` floors.
 - C locus: `do.c` `goto_level` Rogue pline + `assign_graphics`;
@@ -122,6 +132,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **628→633**/833; prefix **301→318**; RNG FULL.
 - Next: @318 materialize+hot C `·` vs JS `#` (3,18).
+
 ## 2026-07-19 23:56 — #926 D-0804 flip_level object piles
 - Objective: seed0360 @249 JS `%` vs C `/` after ^V Sokoban-4 materialize.
 - C locus: `sp_lev.c` `flip_level` — swap `level.objects` with terrain.
@@ -130,6 +141,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **617→628**/833; prefix **249→301**; RNG FULL.
 - Next: @301 materialize `--More--` (Dlvl:18).
+
 ## 2026-07-19 23:47 — #925 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; no peel).
@@ -139,11 +151,3 @@ Use this shape:
   `36+0.21/turn` R² 0.796. seed0360 suite Scr **617**/833 @249.
 - Verification: green+strict PASS; full suite exit 37/44.
 - Next: seed0360 @249 ^V materialize map cells (no FORCE).
-## 2026-07-19 23:45 — #924 D-0803 Sokoban cant_squeeze
-- Objective: seed0360 @231 vain-push vs `cannot pass that way.`
-- C locus: `hack.c` `test_move` / `cant_squeeze_thru` case 3.
-- Change: hero squeeze after `blocksMove`, before `moverock`; export
-  `bad_rock`/`cant_squeeze_thru` (Sokoban→3). Named: can_fog/worm_cross.
-- Verification: green+strict PASS; cohort 37/37 PASS; seed0360 Scr
-  **616→617**/833; prefix **231→249**; RNG FULL.
-- Next: @249 ^V materialize map cells.

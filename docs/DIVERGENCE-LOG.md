@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0816 — tele_restrict canseemon pline + wildmiss Displaced (seed0360 @668)
+
+- **Status:** fixed (seed0360 Scr residual continues @678)
+- **Symptom:** seed0360 @668 — C
+  `A mysterious force prevents the tengu from teleporting!--More--`;
+  JS stale getpos `Unknown direction: '7'`. RNG FULL.
+- **C locus:** `teleport.c` `tele_restrict` (`canseemon` → pline);
+  `mhitu.c` `wildmiss` Displaced arm + `mattacku` `!foundyou`.
+- **Cause (#938):** (1) JS `tele_restrict` returned the noteleport
+  gate without the canseemon pline, so no mid-turn `--More--` and
+  later keys became a count. (2) `wildmiss` was deferred, so the
+  quasit displaced-image pline never fired to flush the prior
+  NEED_MORE at the C boundary (map + subsequent screens drifted).
+- **Change:** `js/teleport.js` async `tele_restrict` + pline;
+  await at monmove/mhitu/minliquid callers; `js/mhitu.js` `wildmiss`
+  (Displaced/Invis/Underwater) + `!foundyou` → skipnonmagc.
+  Named: could_seduce SEDU smile; nolimbs lunge; set_msg_xy.
+- **Verification:** green+strict PASS; cohort **35/35** PASS;
+  seed0360 Scr **818→824**/833; @668–677 match; RNG FULL.
+- **Next:** @678 C `stone` vs JS `unexplored area` (post-`^T`).
+
 ## D-0815 — getpos door cmap + unknown-direction `visctrl` (seed0360 @632/@661)
 
 - **Status:** fixed (seed0360 Scr residual continues @668)

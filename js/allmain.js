@@ -627,7 +627,7 @@ export async function moveloop_core() {
                 // End of turn: C mcalcdistress before movement reallocation
                 // (mfrozen/mblinded/mfleetim timeouts; mon_regen)
                 if (g.were_changes != null) g.were_changes = 0;
-                mcalcdistress();
+                await mcalcdistress();
                 for (const mtmp of g.fmon || []) {
                     mtmp.movement = (mtmp.movement || 0) + mcalcmove(mtmp, true);
                 }

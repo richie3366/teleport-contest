@@ -9,12 +9,14 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM,
+    DISPLACED, IS_WATERWALL,
 } from './const.js';
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
 import { nomul } from './hack.js';
 import { rnd, d, rn2 } from './rng.js';
 import { pline, mon_visible, canspotmon, map_invisible, canseemon } from './display.js';
+import { cansee } from './vision.js';
 import { Monnam } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
 import { is_pole } from './wield.js';
@@ -23,7 +25,7 @@ import { objectNames } from './objects.js';
 import { steal } from './steal.js';
 import { rloc, tele_restrict } from './teleport.js';
 import { monflee } from './monmove.js';
-import { is_orc, is_demon, is_were, is_animal } from './monsters.js';
+import { is_orc, is_demon, is_were, is_animal, M1_SEE_INVIS } from './monsters.js';
 import { done_in_by } from './end.js';
 import { msummon, Inhell } from './minion.js';
 import { monsterNames } from './generated/monsters_data.js';
@@ -36,9 +38,32 @@ import {
 
 const PM_BALROG = monsterNames.indexOf('PM_BALROG');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 
 /** C ref: objclass.h — weapon strike modes overload oc_dir. */
 const PIERCE = 1;
+
+/** C ref: mondata.h perceives — M1_SEE_INVIS. */
+function perceives(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_SEE_INVIS);
+}
+
+/**
+ * C ref: youprop.h Displaced — HDisplaced || EDisplaced.
+ * Cloak-of-displacement extrinsic via uprops or worn cloak otyp.
+ */
+function Displaced() {
+    const u = game.u || {};
+    if (u.HDisplaced || u.uprops?.[DISPLACED]?.intrinsic) return true;
+    if (u.uprops?.[DISPLACED]?.extrinsic) return true;
+    const cloak = u.uarmc;
+    return !!(cloak && cloak.otyp === CLOAK_OF_DISPLACEMENT);
+}
+
+/** C ref: youprop.h Invis — match monmove: u.Invis flag. */
+function Invis() {
+    return !!(game.u?.Invis);
+}
 
 /** C ref: you.h m_next2u — squared dist to hero ≤ 2. */
 function m_next2u(mtmp) {
@@ -155,6 +180,74 @@ async function missmu(mtmp, nearmiss, _mattk) {
     // could_seduce pretend-friendly deferred
     const just = nearmiss && game.flags?.verbose !== false ? 'just ' : '';
     await pline(`${Monnam(mtmp)} ${just}misses!`);
+}
+
+/**
+ * C ref: mhitu.c wildmiss — attack at wrong spot (Invis / Displaced /
+ * Underwater). Named omissions: could_seduce compat arms; set_msg_xy;
+ * Some_Monnam impossible; nolimbs lunge polish (uses swings fallback).
+ */
+async function wildmiss(mtmp, mattk) {
+    const unotseen = !mtmp.mcansee || (Invis() && !perceives(mtmp.data));
+    const unotthere = Displaced();
+    const usubmerged = !!(game.u?.Underwater);
+
+    if (!unotseen && !unotthere && !usubmerged) {
+        // C: impossible(...); skip
+        return;
+    }
+    if (game.flags?.verbose === false) return;
+    if (!cansee(mtmp.mx, mtmp.my)) return;
+
+    // could_seduce deferred → compat 0 (physical miss messages only)
+    const compat = 0;
+    const Monst_name = Monnam(mtmp);
+    const inv = Invis() ? 'invisible ' : '';
+
+    if (unotseen) {
+        const aatyp = mattk?.aatyp | 0;
+        let swings = 'swings';
+        if (aatyp === AT_BITE) swings = 'snaps';
+        else if (aatyp === AT_KICK) swings = 'kicks';
+        else if (aatyp === AT_STNG || aatyp === AT_BUTT) swings = 'lunges';
+        // nolimbs → lunges deferred
+        if (compat) {
+            await pline(`${Monst_name} tries to touch you and misses!`);
+        } else {
+            switch (rn2(3)) {
+            case 0:
+                await pline(`${Monst_name} ${swings} wildly and misses!`);
+                break;
+            case 1:
+                await pline(`${Monst_name} attacks a spot beside you.`);
+                break;
+            case 2: {
+                const mux = mtmp.mux | 0;
+                const muy = mtmp.muy | 0;
+                const wall = IS_WATERWALL(game.level?.at?.(mux, muy)?.typ);
+                await pline(
+                    `${Monst_name} strikes at ${wall ? 'empty water' : 'thin air'}!`,
+                );
+                break;
+            }
+            default:
+                await pline(`${Monst_name} ${swings} wildly!`);
+                break;
+            }
+        }
+    } else if (unotthere) {
+        await pline(
+            `${Monst_name} strikes at your ${inv}displaced image and misses you!`,
+        );
+    } else if (usubmerged) {
+        if (compat) {
+            await pline(`${Monst_name} reaches towards your distorted image.`);
+        } else {
+            await pline(
+                `${Monst_name} is fooled by water reflections and misses!`,
+            );
+        }
+    }
 }
 
 /**
@@ -293,7 +386,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
                         ? 'brags about the goods some dungeon explorer provided'
                         : 'makes some remarks about how difficult theft is lately'}.`,
             );
-            if (!tele_restrict(mtmp)) rloc(mtmp, 0);
+            if (!(await tele_restrict(mtmp))) rloc(mtmp, 0);
             mhm.hitflags = M_ATTK_AGR_DONE;
             mhm.done = true;
             return;
@@ -308,7 +401,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
                 );
             }
             if (rn2(3)) {
-                if (!tele_restrict(mtmp)) rloc(mtmp, 0);
+                if (!(await tele_restrict(mtmp))) rloc(mtmp, 0);
                 mhm.hitflags = M_ATTK_AGR_DONE;
                 mhm.done = true;
             }
@@ -325,7 +418,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
     case 0:
         return;
     default:
-        if (!is_animal(mtmp.data) && !tele_restrict(mtmp)) {
+        if (!is_animal(mtmp.data) && !(await tele_restrict(mtmp))) {
             rloc(mtmp, 0);
         }
         // animal flee-with-buf pline deferred
@@ -484,6 +577,7 @@ export async function mattacku(mtmp) {
 
     const sum = new Array(NATTK).fill(M_ATTK_MISS);
     const firstfoundyou = foundyou;
+    let skipnonmagc = false;
 
     for (let i = 0; i < NATTK; i++) {
         sum[i] = M_ATTK_MISS;
@@ -496,6 +590,8 @@ export async function mattacku(mtmp) {
 
         const mattk = get_mattk(mtmp, i);
         if (mattk.aatyp === AT_NONE) continue;
+        // C: skipnonmagc — after wildmiss, remaining non-spell attacks skip
+        if (skipnonmagc && (mattk.aatyp | 0) !== 255 /* AT_MAGC */) continue;
 
         switch (mattk.aatyp) {
         case AT_CLAW:
@@ -509,8 +605,10 @@ export async function mattacku(mtmp) {
                     const j = rnd(20 + i);
                     if (tmp > j) sum[i] = await hitmu(mtmp, mattk);
                     else await missmu(mtmp, tmp === j, mattk);
+                } else {
+                    await wildmiss(mtmp, mattk);
+                    skipnonmagc = true;
                 }
-                // wildmiss deferred
             }
             break;
 
@@ -538,8 +636,10 @@ export async function mattacku(mtmp) {
                     if (tmp > j) sum[i] = await hitmu(mtmp, mattk);
                     else await missmu(mtmp, tmp === j, mattk);
                     if (mon_currwep) tmp -= hittmp;
+                } else {
+                    await wildmiss(mtmp, mattk);
+                    skipnonmagc = true;
                 }
-                // wildmiss deferred
             }
             break;
 

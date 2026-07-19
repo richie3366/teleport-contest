@@ -456,11 +456,11 @@ function decide_to_shapeshift(mon) {
 /**
  * C ref: mon.c m_calcdistress — once-per-turn mon timeouts / regen.
  */
-function m_calcdistress(mtmp) {
+async function m_calcdistress(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) < 1) return;
     // C: mmove==0 must still check liquid once/turn
     if ((mtmp.data?.mmove | 0) === 0) {
-        if (minliquid(mtmp)) return;
+        if (await minliquid(mtmp)) return;
     }
     mon_regen(mtmp, false);
     if (ismnum(mtmp.cham)) decide_to_shapeshift(mtmp);
@@ -473,9 +473,9 @@ function m_calcdistress(mtmp) {
 /**
  * C ref: mon.c mcalcdistress — iter_mons over fmon.
  */
-export function mcalcdistress() {
+export async function mcalcdistress() {
     for (const mtmp of game.fmon || []) {
-        m_calcdistress(mtmp);
+        await m_calcdistress(mtmp);
     }
 }
 
@@ -765,7 +765,7 @@ function mondead_liquid(mtmp) {
  * deal_with_overcrowding; xkilled(!mon_moving); engulfing_u drown flush;
  * fountain-only gremlin arm; pline death messages.
  */
-export function minliquid(mtmp) {
+export async function minliquid(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return 1;
     const ptr = mtmp.data;
     const mx = mtmp.mx | 0;
@@ -781,7 +781,7 @@ export function minliquid(mtmp) {
 
     if (inlava) {
         if (!is_clinger(ptr) && !likes_lava(ptr)) {
-            if (can_teleport(ptr) && !tele_restrict(mtmp)) {
+            if (can_teleport(ptr) && !(await tele_restrict(mtmp))) {
                 if (rloc(mtmp, 0)) return 0;
             }
             if (!resists_fire(mtmp)) {
@@ -804,7 +804,7 @@ export function minliquid(mtmp) {
         }
     } else if (inpool || waterwall) {
         if ((waterwall || !is_clinger(ptr)) && !cant_drown(ptr)) {
-            if (can_teleport(ptr) && !tele_restrict(mtmp)) {
+            if (can_teleport(ptr) && !(await tele_restrict(mtmp))) {
                 if (rloc(mtmp, 0)) return 0;
             }
             // C: mon_moving → mondied (corpse ok); pool corpse deferred → mondead
@@ -1069,7 +1069,7 @@ async function movemon_singlemon(mtmp) {
 
     // C: vision_recalc / clear_bypasses / clear_splitobjs deferred
     // C: minliquid before hider/Conflict/dochug — lava/pool may spend the turn
-    if (minliquid(mtmp)) return false;
+    if (await minliquid(mtmp)) return false;
 
     // C: I_SPECIAL equip re-wear deferred
     // C: is_hider — restrap may hide again; disguised/undetected skip dochug

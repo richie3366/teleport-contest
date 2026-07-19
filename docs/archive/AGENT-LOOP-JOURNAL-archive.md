@@ -496,3 +496,12 @@
   **41671→41768**; RNG **41693→41793**; Scr 207.
 - Next: @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70)
   (depth > stronghold_level).
+
+## 2026-07-19 23:45 — #924 D-0803 Sokoban cant_squeeze
+- Objective: seed0360 @231 vain-push vs `cannot pass that way.`
+- C locus: `hack.c` `test_move` / `cant_squeeze_thru` case 3.
+- Change: hero squeeze after `blocksMove`, before `moverock`; export
+  `bad_rock`/`cant_squeeze_thru` (Sokoban→3). Named: can_fog/worm_cross.
+- Verification: green+strict PASS; cohort 37/37 PASS; seed0360 Scr
+  **616→617**/833; prefix **231→249**; RNG FULL.
+- Next: @249 ^V materialize map cells.

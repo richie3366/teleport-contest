@@ -26,7 +26,7 @@ import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
     monsterNames, passes_walls, is_dlord, is_dprince,
 } from './monsters.js';
-import { newsym, pline, You_feel, see_monsters } from './display.js';
+import { newsym, pline, You_feel, see_monsters, canseemon } from './display.js';
 import { vision_recalc } from './vision.js';
 import { nomul } from './hack.js';
 import { makeknown, prinv } from './invent.js';
@@ -35,6 +35,7 @@ import { getlin } from './getline.js';
 import { get_level } from './dungeon.js';
 import { depth } from './hacklib.js';
 import { addinv } from './u_init.js';
+import { mon_nam } from './do_name.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 
 // trap.h return codes — avoid importing trap.js (cycle with trapeffect_hole)
@@ -331,13 +332,16 @@ export function noteleport_level(mon) {
 }
 
 /**
- * C ref: teleport.c tele_restrict — noteleport_level gate with optional pline.
- * Named omission: canseemon message polish (caller may suppress).
+ * C ref: teleport.c tele_restrict — noteleport_level gate; when blocked and
+ * canseemon, pline the mysterious-force message (may --More--).
  */
-export function tele_restrict(mon) {
+export async function tele_restrict(mon) {
     if (noteleport_level(mon)) {
-        // Message deferred when display imports would cycle; callers that
-        // need the pline pass RLOC_MSG / handle visibility themselves.
+        if (canseemon(mon)) {
+            await pline(
+                `A mysterious force prevents ${mon_nam(mon)} from teleporting!`,
+            );
+        }
         return true;
     }
     return false;

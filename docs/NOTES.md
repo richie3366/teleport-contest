@@ -7,25 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#937 D-0815:** getpos door cmap + unknown-dir `visctrl`.
-  seed0360 Scr **818**/833; @632–661 fixed; first miss **668**.
-- **Hypothesis next:** @668 — C tengu teleport blocked More vs JS
-  still in getpos (`Unknown direction: '7'`). Input consumed as
-  farlook key instead of post-getpos combat/teleport path.
-- **Falsify:** reconstruct which command follows travel getpos;
-  compare C `tele_restrict` / `notelete_msg` / mon rloc vs JS
-  getpos still looping on digit/'7'.
-- **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break door cmap / visctrl (D-0815); bare blank→stone without
-  travel (breaks seed0012).
+- **#938 D-0816:** `tele_restrict` canseemon pline + `wildmiss`
+  Displaced. seed0360 Scr **818→824**/833; @668–677 fixed;
+  first miss **678**.
+- **Hypothesis next:** @678 after controlled tele getpos —
+  C `stone` vs JS `unexplored area` (TRAVP/blank/`S_stone` path
+  post-teleds; may need seenv/lastseentyp like D-0813).
+- **Falsify:** compare lookat/auto_describe at cursor after
+  `^T` materialize; check blank disp vs STONE|SCORR.
+- **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen
+  queues; re-break tele_restrict/wildmiss (D-0816); bare
+  blank→stone without travel (breaks seed0012).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0815 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0816 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0815 peels done.
+- seed5002 **PASS**; D-0743…D-0816 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -33,13 +33,13 @@ Objective/score live in `CURRENT.md`.
 - Rogue graphics; mazewalk ROOM; lava lit; Wiz firsttime (D-0805…08).
 - travel path; setworn AC; CLOUD; darkroom; TRAVP stone (D-0809…13).
 - wiz_map traps + show_map_spot map_trap (D-0814); door/visctrl (D-0815).
-- Blocked-stair topline was not the @624 Scr gate (map traps were).
+- tele_restrict pline + wildmiss displaced (D-0816).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#935; seed0360 Scr **818** @668 (D-0815).
+- suite **37/44** @#935; seed0360 Scr **824** @678 (D-0816).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -51,4 +51,4 @@ Objective/score live in `CURRENT.md`.
 - `^F` wiz_map + do_mapping; show_map_spot must `map_trap` not newsym.
 - ok_to_quest (D-0798); blocked staircase lookat rewrite (D-0814).
 - TRAVP_VALID BFS hero→dest (D-0813); getpos DOOR + visctrl (D-0815).
-- CLOUD fog/vapor (D-0811); ROOM darkroom lookat (D-0812).
+- tele_restrict More mid-movemon; wildmiss triggers prior More (D-0816).
