@@ -19,6 +19,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #806 polymon breath tip + dobreathe (D-0725)
+- Objective: seed0108 remaining screens after D-0724 Fly (@110 More).
+- C locus: `polyself.c` polymon verbose tips; `dobreathe`; `cmd.c`
+  `domonability` `can_breathe`.
+- Change: breath tip after encumber; dobreathe Strangled/uen<15 (D-0725).
+- Verification: green+strict PASS; seed0108 Scr **280→283** RNG FULL;
+  prefix **110→176**; cohort 33/33 PASS.
+- Next: @176 nohands chest; or #untrap; newman "new man".
+
 ## 2026-07-19 — #805 score refresh + FROMFORM FLYING (D-0724)
 - Objective: mandatory full `sessions` score (#805÷5) + seed0108 @109 Fly.
 - C locus: `polyself.c` `set_uasmon` PROPSET(FLYING).

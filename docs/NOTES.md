@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#805 peel:** D-0724 — seed0108 Scr **280**/303 RNG FULL; suite
-  **35/44** Scr 7901 RNG 527316 (score refresh).
-  Next: remaining 23 screens after red-dragon `Fly` — rest of
-  `set_uasmon` PROPSET / `float_vs_flight`, or seed0014 @49039.
+- **#806 peel:** D-0725 — seed0108 Scr **283**/303 RNG FULL; prefix **176**.
+  Next: @176 chest — C `You have no hands!` (`pickup.c`); `#untrap`;
+  newman "new man" vs "new human". Or seed0014 @49039 D-0708.
   Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0724; invent nearby force for D-0710;
+- **Don’t:** re-break D-0660…D-0725; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0724 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0725 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -35,9 +34,10 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…24: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…25: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
-  / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** —
+  / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
+  **verbose breath tip + dobreathe uen** — getdir/ubuzz + other tips deferred;
   rest of PROPSET + float_vs_flight still omitted.
 
 ## Landmarks (≤15)
@@ -65,4 +65,4 @@ Objective/score live in `CURRENT.md`.
   (D-0717); **newman** (D-0718); **`#tip`/`dotip`** (D-0719);
   throw `.` self (D-0720); cream Blind vision (D-0721);
   Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723);
-  **FROMFORM FLYING** (D-0724). Rest of set_uasmon PROPSET deferred.
+  **FROMFORM FLYING** (D-0724); **breath tip + dobreathe** (D-0725).

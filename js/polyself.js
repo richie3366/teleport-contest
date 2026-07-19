@@ -75,8 +75,29 @@ const PM_GRAY_DRAGON = monsterNames.indexOf('PM_GRAY_DRAGON');
 const PM_URUK_HAI = monsterNames.indexOf('PM_URUK_HAI');
 const PM_ORC_CAPTAIN = monsterNames.indexOf('PM_ORC_CAPTAIN');
 
+// C ref: monattk.h AT_BREA — breath attack type
+const AT_BREA = 12;
+
 function mungspaces(s) {
     return String(s || '').trim().replace(/\s+/g, ' ');
+}
+
+/**
+ * C ref: mondata.c attacktype — any mattk slot with aatyp.
+ * Local copy to avoid makemon import cycles.
+ */
+function attacktype(ptr, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < slots.length; i++) {
+        if (slots[i]?.aatyp === aatyp) return true;
+    }
+    return false;
+}
+
+/** C ref: mondata.h can_breathe — attacktype(ptr, AT_BREA) */
+function can_breathe(ptr) {
+    return attacktype(ptr, AT_BREA);
 }
 
 /** C ref: mondata.c sliparm — whirly / small / noncorporeal */
@@ -453,12 +474,12 @@ async function break_armor() {
  * Envelope: geno abort; conduct; CON/WIS exercise; sex_change_ok rn2(10);
  * turn-into pline; rn1(500,500) mtimedone; set_uasmon; STR clamp;
  * mhmax (dragon / golem / d(mlvl,8)); break_armor; drop_weapon;
- * find_ac; newsym; botl; see_monsters; encumber_msg.
+ * find_ac; newsym; botl; see_monsters; encumber_msg; verbose breath tip.
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
  * Blind restore; egg learn; swallow expel; light sources;
  * full skinback; livelog first-poly text; break_armor horns/gloves/
  * boots/shield; drop_weapon twoweapon/in_use arms; retouch_equipment;
- * verbose #monster hint; vision_full_recalc.
+ * non-breath verbose tips; vision_full_recalc.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
@@ -569,7 +590,17 @@ export async function polymon(mntmp) {
     await encumber_msg();
     find_ac();
     find_ac(); /* C repeats */
-    // retouch_equipment / selftouch / verbose #monster deferred
+    // retouch_equipment / selftouch deferred
+    // C: polyself.c polymon — flags.verbose ability tips after encumber
+    // (breath tip forces --More-- on the encumber pline; D-0725).
+    if (flags.verbose !== false) {
+        const uptr = game.youmonst?.data;
+        if (can_breathe(uptr)) {
+            await pline('Use the command #monster to use your breath weapon.');
+        }
+        // spit/nymph/gaze/hide/web/were/gremlin/unicorn/mindflayer/
+        // shriek/vampire/sit-egg tips deferred
+    }
     return 1;
 }
 
@@ -670,14 +701,39 @@ export async function wiz_polyself() {
 }
 
 /**
+ * C ref: polyself.c dobreathe — hero breath weapon while poly'd.
+ * Envelope: Strangled refuse; u.uen < 15 energy pline.
+ * Named omissions: uen drain + getdir; ubreatheu / ubuzz BZ_U_BREATH.
+ * @returns {Promise<number>} ECMD_OK | ECMD_CANCEL | ECMD_TIME
+ */
+export async function dobreathe() {
+    const u = game.u || (game.u = {});
+    if (u.Strangled) {
+        await pline("You can't breathe.  Sorry.");
+        return ECMD_OK;
+    }
+    if ((u.uen | 0) < 15) {
+        await pline("You don't have enough energy to breathe!");
+        return ECMD_OK;
+    }
+    // C: u.uen -= 15; botl; getdir; attacktype_fordmg AT_BREA;
+    // ubreatheu / ubuzz(BZ_U_BREATH) — deferred (seed0108 hits uen < 15).
+    return ECMD_OK;
+}
+
+/**
  * C ref: cmd.c domonability — #monster special ability while poly'd.
- * Envelope: Upolyd reflexive pline; !Upolyd normal-form pline.
- * Named omissions: breathe/spit/nymph/gaze/were/hide/web/mindflayer/
- * gremlin/unicorn/shriek/vampire/steed-breath; hide+web yn_function.
+ * Envelope: can_breathe → dobreathe; Upolyd reflexive; !Upolyd normal.
+ * Named omissions: spit/nymph/gaze/were/hide/web/mindflayer/gremlin/
+ * unicorn/shriek/vampire/steed-breath; hide+web yn_function.
  * @returns {Promise<number>} ECMD_OK
  */
 export async function domonability() {
     const u = game.u || {};
+    const uptr = game.youmonst?.data;
+    if (can_breathe(uptr)) {
+        return dobreathe();
+    }
     if (Upolyd(u)) {
         await pline('Any special ability you may have is purely reflexive.');
     } else {

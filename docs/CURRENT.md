@@ -72,18 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 RNG **FULL**; Scr **280**/303 (D-0724
-FROMFORM FLYING). Next: remaining 23 screens after red-dragon `Fly` —
-rest of `set_uasmon` PROPSET / `float_vs_flight`, or seed0014 @49039
-**D-0708.** Prefer shared blockers. seed2200 @158 parked.
-Do **not** re-break D-0660…D-0724.
+**Gameplay next:** seed0108 RNG **FULL**; Scr **283**/303 (D-0725 breath
+tip + energy). Next: @176 nohands chest (`pickup.c` "You have no hands!"),
+`#untrap`, or newman "new man" wording — prefer shared blockers.
+Do **not** re-break D-0660…D-0725.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0724.**
+**Do not re-break D-0660…D-0725.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

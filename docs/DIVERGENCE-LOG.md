@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0725 — polymon verbose breath tip + dobreathe energy (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **283**/303; RNG FULL; prefix 176)
+- **Symptom:** @110 after red-dragon poly — C `--More--` on unencumbered then
+  `#monster` tip / energy pline; JS skipped tip so space desynced.
+- **C locus:** `polyself.c` `polymon` `flags.verbose` tips; `dobreathe`;
+  `cmd.c` `domonability` `can_breathe` → `dobreathe`.
+- **Cause:** verbose ability tips after `encumber_msg` omitted; `domonability`
+  always reflexive.
+- **Change:** breath tip pline; `can_breathe`/`dobreathe` Strangled + uen<15.
+  Named omissions: other tips; getdir/ubuzz; spit/gaze/… arms.
+- **Verification:** green+strict PASS; seed0108 Scr **280→283** (prefix
+  **110→176**); cohort 33/33 PASS.
+- **Next:** @176 chest — C `You have no hands!` (pickup.c); or #untrap;
+  newman "new man" vs "new human".
+
 ## D-0724 — `set_uasmon` PROPSET(FLYING) FROMFORM (seed0108 Scr)
 
 - **Status:** fixed (partial — seed0108 Scr **280**/303; RNG FULL)
