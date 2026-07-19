@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0746 — castle.lua load_special (seed0360 @8708)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @22925)
+- **Symptom:** seed0360 @8708 — C nhlib `shuffle` vs JS `rn2(79)` after
+  matched `getbones` (wizard `^V` into stronghold).
+- **C locus:** `dat/castle.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz`/`walkfrom`; `dbridge.c` `create_drawbridge`;
+  `mkroom.c` `squadmon` / `fill_zoo` BARRACKS.
+- **Cause (#836):** `makemaz` requested `castle` but `load_special_proto`
+  had no loader → empty → `place_lregion` `rn2(79)`. Port needed
+  mazegrid init, centered map (odd xstart/ystart), object/monster
+  shuffles, drawbridge, mazewalk + `fill_empty_maze`, throne/barracks
+  regions, and `squadmon`. Template-literal `\.` ate the throne `\`
+  (62-wide row) until escaped as `\\`.
+- **Change:** `js/mklev.js` — `load_castle` + dispatch; `lvlfill_maze_grid`
+  / `walkfrom` / `fill_empty_maze` / `create_drawbridge` / `squadmon`;
+  `splev_roomtype` throne→COURT, barracks→BARRACKS. Named omissions:
+  valley; passtune/drawbridge play; ANTHOLE antholemon.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **8708→22925**; RNG **8728→22948**; Scr **200→201**.
+- **Next:** @22925 C nhlib shuffle (`valley.lua`) vs JS `rn2(79)`.
+
 ## D-0745 — oracle.lua load_special (seed0360 @3037)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @8708)

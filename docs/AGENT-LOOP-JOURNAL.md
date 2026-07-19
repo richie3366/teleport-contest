@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:27 — #836 castle load_special (D-0746)
+- Objective: seed0360 @8708 castle vs rn2(79) (CURRENT primary).
+- C locus: `dat/castle.lua` / `sp_lev.c` load_special / `mkmaze.c` walkfrom;
+  `dbridge.c` create_drawbridge; `mkroom.c` squadmon.
+- Change: `load_castle` + mazegrid/mazewalk/fill_empty_maze/drawbridge;
+  throne `\\` escape; `squadmon` + barracks fill_zoo; add_doors_to_room.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **8708→22925**; RNG **8728→22948**; Scr **200→201**.
+- Next: @22925 C valley.lua vs JS rn2(79) after getbones.
+
 ## 2026-07-19 09:10 — #835 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only; no port patch).
@@ -173,12 +183,3 @@ Use this shape:
   **5668→5739** (positional 6172→6176).
 - Next: seed5002 @5739 (mirror/camera getdir); or D-0731/D-0708.
 
-## 2026-07-19 — #820 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score-only; no port patch).
-- Change: none in `js/`. Documented Score in CURRENT.md from
-  `__RESULTS_JSON__`: **36/44** PASS; Scr **7860**/11405; RNG
-  **527695**/792838 (66.56%); speed `38+0.18/turn`. Δ vs #815:
-  Scr −66, RNG +192. seed5002 still 6172 (D-0735 open).
-- Verification: green+strict PASS; full sessions run complete.
-- Next: C-state for D-0735 (seed5002 @5668 udist); or D-0731/D-0708.
