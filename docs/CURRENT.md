@@ -74,15 +74,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @86170** — C nhlib `shuffle` vs JS `rn2(79)`
-after matched `getbones` (post-wizard1). Prefer **wizard2 / hellfill**
-`load_special` over parked D-0731/D-0708 mfndpos. If next special is
-wizard2 before deep gameplay peel, take that.
+**Gameplay next:** **seed0360 @98492** — C `distfleeck` `rn2(5)` vs JS
+`rn2(3)` (post-wizard2). Prefer **wizard3 / hellfill** `load_special` if
+the next peel is nhlib shuffle after getbones. Else peel distfleeck /
+shared monmove. Parked D-0731/D-0708 stay diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @86170 C nhlib shuffle vs JS rn2(79) after getbones
+# @98492 C distfleeck rn2(5) vs JS rn2(3)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -90,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0770.**
+**Do not re-break D-0660…D-0771.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

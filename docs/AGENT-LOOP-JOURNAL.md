@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 12:45 — #868 wizard2 load_special (D-0771)
+- Objective: seed0360 @86170 C nhlib shuffle vs JS rn2(79) after getbones.
+- C locus: `dat/wizard2.lua` / `sp_lev.c` `load_special` / mazewalk.
+- Change: `load_wizard2` + dispatch (mazegrid + zoo + mazewalk + ladders
+  + hell_tweaks). Fingerprint ruled out hellfill (no hellno before walkfrom).
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **86170→98492**; RNG **86170→98507**; Scr **273→275**/833.
+- Next: @98492 C distfleeck rn2(5) vs JS rn2(3) (wizard3/hellfill if shuffle).
+
 ## 2026-07-19 12:37 — #867 flyer trap + poisoncloud (D-0770)
 - Objective: seed0360 @86100 track rn2(8) vs JS sleep-gas rnd(25).
 - C locus: `trap.c` `m_harmless_trap`/`check_in_air`/`mintrap`;

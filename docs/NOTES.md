@@ -7,11 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#867:** D-0770 flyer trap + poisoncloud glyph — prefix **86100→86170**;
-  RNG **86170**.
-- **Next @86170:** C nhlib `shuffle` vs JS `rn2(79)` after matched
-  `getbones` (post-wizard1). Likely missing **wizard2** / hellfill
-  `load_special`. Falsify: which special loads after wizard1 in C.
+- **#868:** D-0771 wizard2 — prefix **86170→98492**; RNG **98507**; Scr **275**.
+- **Next @98492:** C `distfleeck` `rn2(5)` vs JS `rn2(3)` after wizard2.
+  Prefer wizard3 / hellfill `load_special` if next mismatch is nhlib shuffle
+  after getbones. Falsify: rng-diff parent at 98492.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -21,20 +20,17 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0770 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0771 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (see D-0769 @86015).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0770 seed0360 peels (…/wizard1/maybe_unhide/flyer-trap).
+- D-0743…D-0771 seed0360 peels (…/wizard1/…/wizard2).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
   `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
+- D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0764: `selection.fillrect` adds xstart like C get_location_coord.
-- D-0765: swamp `lvlfill_swamp`; map align left/right/top/bottom.
-- D-0766: baalz corrmaze + no map-contents `reset_xystart`; bughack wallify.
-- D-0767: orcus mazegrid + hell_tweaks; Orcus invent `obj_resists`+detach.
 - D-0768: wizard1 mazegrid + center map + east mazewalk + morgue door.
-- D-0769: `m_move` `maybe_unhide_at` after place (clears mundetected).
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -47,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#865;
-  Scr 8278, RNG 77.79%; seed0360 **86170**/273 after D-0770).
+  Scr 8278, RNG 77.79%; seed0360 **98492**/275 after D-0771).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -58,15 +54,15 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **hellfill/wizard2–3/fakewiz next**;
+  **hellfill/wizard3/fakewiz next**;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
-  **wizard1** (D-0768); **orcus** (D-0767); **baalz** (D-0766);
-  **juiblex + lvlfill_swamp** (D-0765); **hell_tweaks** (D-0764);
-  **asmodeus + hell helpers** (D-0763);
+  **wizard2** (D-0771); **wizard1** (D-0768); **orcus** (D-0767);
+  **baalz** (D-0766); **juiblex + lvlfill_swamp** (D-0765);
+  **hell_tweaks** (D-0764); **asmodeus + hell helpers** (D-0763);
   **makeroguerooms + rogue skip0** (D-0762);
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);

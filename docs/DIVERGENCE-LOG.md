@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0771 — wizard2 load_special (seed0360 @86170)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @98492)
+- **Symptom:** seed0360 @86170 — C nhlib `shuffle` then `walkfrom` vs JS
+  `rn2(79)` after matched getbones (post-wizard1).
+- **C locus:** `dat/wizard2.lua`; `sp_lev.c` `load_special` / mazewalk.
+- **Cause (#868):** no wizard2 loader → empty maze → `place_lregion`
+  `rn2(79)`. Fingerprint: shuffle then immediate `walkfrom` (not hellfill
+  `hellno`/`math.random(1,#hells)` before mazewalk).
+- **Change:** `js/mklev.js` — `load_wizard2` + dispatch (mazegrid +
+  noteleport/hardfloor + center map + arrival OROOM + zoo FILL_NORMAL +
+  closed doors + east mazewalk + up/down ladders + traps/loot/amulet +
+  hell_tweaks). Named omissions: hellfill/wizard3/fakewiz; ensure_way_out;
+  arrival_room migrate flag.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **86170→98492**; RNG **86170→98507**; Scr **273→275**/833.
+- **Next:** @98492 C `distfleeck` `rn2(5)` vs JS `rn2(3)` (post-wizard2
+  gameplay; or wizard3/hellfill if next special).
+
 ## D-0770 — m_harmless_trap check_in_air + mfndpos poisoncloud (seed0360 @86100)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @86170)
