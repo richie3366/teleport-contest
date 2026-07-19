@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0783 — Gloves_on POWER + Cloak_on DISPLACEMENT makeknown (seed0360)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @101930 — C `exercise` `rn2(19)` vs JS
+  `distfleeck` `rn2(5)` after matching wipe_engr. Misread as EOT
+  `exerper` site-shift; checklist showed `multi=-1` dressing.
+- **C locus:** `do_wear.c` `Gloves_on` GAUNTLETS_OF_POWER → `makeknown`;
+  `Cloak_on` CLOAK_OF_DISPLACEMENT → `toggle_displacement` → `makeknown`
+  → `exercise(A_WIS)` via `discover_object(..., credit_hero)`.
+- **Cause (#897):** JS stubs omitted POWER/DISPLACEMENT arms. Session:
+  wish +3 gauntlets → `W`/`s` delay → unmul `Gloves_on`; then `W`/`t`
+  cloak → feel-pinpointing `--More--`. Two `rn2(19)` were split across
+  those two wears (not one exerper pair).
+- **Change:** `js/do_wear.js` — `Gloves_on` POWER(+FUMBLING); `Cloak_on`
+  PROTECTION + `toggle_displacement`; named omissions DEX/ELVEN/off.
+- **Verification:** green+strict PASS; cohort 15/15 PASS; seed0360
+  prefix **101930→104904**, RNG **105212→107246**, Scr **389→391**.
+- **Next:** @104904 C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
+
 ## D-0782 — Wiz-strt branch portal FlipY + MAGIC_PORTAL migrate (seed0360)
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)

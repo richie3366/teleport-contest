@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 18:30 — #897 D-0783 Gloves POWER + Cloak DISPLACEMENT
+- Objective: seed0360 @101930 C exercise vs JS distfleeck (site-shift).
+- C locus: `do_wear.c` `Gloves_on` GAUNTLETS_OF_POWER; `Cloak_on`
+  `toggle_displacement` CLOAK_OF_DISPLACEMENT.
+- Change: C-state — `multi=-1` dressing `afternmv=Gloves_on` then cloak
+  wear; not EOT exerper. Port makeknown arms. Prefix **101930→104904**,
+  Scr **389→391**, RNG **107246**.
+- Verification: green+strict PASS; cohort 15/15 PASS.
+- Next: @104904 C set_apparxy rn2(5) vs JS rn2(4).
+
 ## 2026-07-19 18:18 — #896 D-0782 Wiz-strt portal FlipY + migrate
 - Objective: seed0360 @101022 quasit CLOUD skip 2nd fleeck (misdiagnosis).
 - C locus: `sp_lev` flip lregion; `trap.c` `trapeffect_magic_portal`;
@@ -164,12 +174,3 @@ Use this shape:
 - Verification: green+strict PASS; focused FAIL @100738; experiment only.
 - Next: Wiz-strt terrain at post-FlipY (33–35,3) vs C (D-0779).
 
-## 2026-07-19 15:22 — #883 m_move Tengu teleport (D-0778); @100397→100738
-- Objective: seed0360 @100397 C distfleeck vs JS rn2(3).
-- C locus: `monmove.c` `m_move` Tengu `!rn2(5)` before not_special.
-- Change or falsified theory: JS omitted Tengu nature teleport; matched
-  `rn2(5)` strings hid the missing call until next mon’s fleeck vs
-  stalker `rn2(3)`. Ported Tengu rloc/mnexto + uswallow early-out.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **100397→100738**, RNG **100887→104024**, Scr **292**/833.
-- Next: @100738 mfndpos chcnt rn2(6) vs rn2(5) (m_move appr==0).

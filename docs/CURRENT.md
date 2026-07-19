@@ -76,16 +76,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @101930 / D-0782 follow-on** — #896 fixed
-Wiz-strt branch FlipY + MAGIC_PORTAL migrate (was misdiagnosed as quasit
-CLOUD). Prefix **101022→101930**, Scr **294→389**, RNG **105212**.
-Next mismatch: C `exercise` vs JS `distfleeck` (new site-shift).
+**Gameplay next:** **seed0360 @104904 / D-0783 follow-on** — #897 fixed
+Gloves_on POWER + Cloak_on DISPLACEMENT makeknown (was misread as EOT
+exerper). Prefix **101930→104904**, Scr **389→391**, RNG **107246**.
+Next mismatch: C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
 Parked D-0731/D-0708.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @101930: C exercise vs JS distfleeck
+# @104904: C set_apparxy rn2(5) vs JS rn2(4)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -93,7 +93,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0782.**
+**Do not re-break D-0660…D-0783.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
