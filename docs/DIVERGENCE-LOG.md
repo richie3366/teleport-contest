@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0737 — zhitu fatal losehp must finish before learnwand (seed5002 @5904)
+
+- **Status:** fixed (partial — seed5002 still FAIL; next @11643)
+- **Symptom:** seed5002 continuous first miss @**5904** after D-0736:
+  C seg0 ended (next call `randomize_gem_colors` seg1); JS trailing
+  `rn2(19)` from `learnwand`→`exercise(A_WIS)` after fire `zhitu`.
+- **C locus:** `zap.c` `zhitu` → `hack.c` `losehp` → `done(DIED)` noreturn;
+  `weffects` never resumes `learnwand` after fatal ray.
+- **Cause:** JS `losehp` only set `_losehp_needs_done`/`gameover` and
+  returned; `weffects` still called `learnwand`/`makeknown`/`exercise`.
+  Same contract hole as D-0255 (`thitu`) / D-0323 (`mbhitm`).
+- **Change:** `zhitu` awaits `finish_losehp_done` on fatal; `dobuzz`
+  breaks beam on `gameover`; `weffects` returns before `learnwand` when
+  dead. DIAG removed.
+- **Verification:** green+strict PASS; cohort 34/34; continuous
+  **5904→11643**; positional **6176→11693**/12167 Scr 90→88.
+- **Next:** seed5002 @11643 `gethungry` rn2(20) vs JS rn2(5); or
+  D-0731/D-0708.
+
 ## D-0736 — use_mirror + use_camera getdir (seed5002 @5739)
 
 - **Status:** fixed (partial — seed5002 still FAIL; trailing +1 then seg1)

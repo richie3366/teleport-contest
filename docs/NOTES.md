@@ -7,13 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#822 D-0736:** `use_mirror`/`use_camera` getdir ported. seed5002
-  continuous **5739→5904**; seg0 matches all **5904** C calls + **1**
-  trailing JS `rn2(19)` from `learnwand`→`discover_object`→`exercise(A_WIS)`
-  after last fire `zhitu` (C has no trailing exercise — wish-known or
-  AEXE WIS cap?).
-- **Falsify next:** why C skips learnwand exercise on final zap; or
-  seed0399 @10157 / seed0014 @49039.
+- **#824 D-0737:** fatal `zhitu`→`finish_losehp_done` before `learnwand`.
+  seed5002 continuous **5904→11643**; RNG **6176→11693**.
+- **Falsify next:** seed5002 @11643 C `gethungry` `rn2(20)` vs JS
+  `rn2(5)`; or seed0399 @10157 / seed0014 @49039.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -21,11 +18,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0736 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0737 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
-- seed5002 flattened miss @5904 is seg0+1 vs seg1 start (shift), not
-  mid-seg1 themerms.
+- seed5002 seg0 now FULL 5904; flattened @11643 is mid-seg1.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
@@ -34,8 +30,8 @@ Objective/score live in `CURRENT.md`.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…34: hallu maze @10157 need C-state; zhitu ignite / burnarmor
-  erode deferred; float_vs_flight; full `passes_bars`; peaceful dig-avoid.
+- Wish does **not** `makeknown` (C: otmp unidentified); trailing exercise
+  was death-noreturn hole, not wish-known (D-0737).
 
 ## Landmarks (≤15)
 
@@ -57,6 +53,7 @@ Objective/score live in `CURRENT.md`.
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
   **stethoscope adjacent returns `res` TIME** (D-0735);
   **mirror/camera getdir+beam/flash** (D-0736);
+  **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

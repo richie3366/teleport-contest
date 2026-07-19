@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#820; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#820; stuck @10157 D-0731 |
-| seed5002 | 6176/12167 | 90/410 | @#822; D-0736; cont@5904 (+1 learnwand) |
+| seed5002 | 11693/12167 | 88/410 | @#824; D-0737; cont@11643 (gethungry) |
 
 ## Green gate
 
@@ -71,20 +71,19 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed5002 seg0 continuous @**5904** (after D-0736
-mirror/camera: C seg0 FULL match; JS +1 trailing `learnwand`→
-`exercise(A_WIS)` `rn2(19)` vs C end at fire `zhitu` ignite). Fix that
-trailing exercise (wish-known / AEXE cap / disclose order), then seg1
-seed5003. Or seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708).
-Prefer shared blockers. Do **not** re-break D-0660…D-0736.
+**Gameplay next:** seed5002 continuous @**11643** (after D-0737 fatal
+zhitu→`finish_losehp_done`: C `gethungry` `rn2(20)` vs JS `rn2(5)`).
+Then finish seed5002 / seed5003, or seed0399 @10157 (D-0731) /
+seed0014 @49039 (D-0708). Prefer shared blockers. Do **not** re-break
+D-0660…D-0737.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed5002-wizard-coverage-pair.session.json
-# seg0: continuous through 5904 C calls; JS +1 trailing rn2(19)
+# continuous through 11643; then gethungry rn2(20) vs rn2(5)
 ```
 
-**Do not re-break D-0660…D-0736.**
+**Do not re-break D-0660…D-0737.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

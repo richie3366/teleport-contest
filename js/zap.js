@@ -57,6 +57,7 @@ import { obj_resists } from './dogmove.js';
 import { zap_dig } from './dig.js';
 import { killed } from './uhitm.js';
 import { mon_nam } from './do_name.js';
+import { finish_losehp_done } from './end.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of,
@@ -767,7 +768,11 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
             if (!game.killer) game.killer = { name: '', format: 0 };
             game.killer.format = KILLED_BY_AN;
             game.killer.name = fltxt || '';
+            // C: done(DIED) noreturn from zhitu death arm
             losehp((game.u?.uhp | 0) + 1, fltxt || 'death ray', KILLED_BY_AN);
+            if (game._losehp_needs_done || game.program_state?.gameover) {
+                await finish_losehp_done();
+            }
             return;
         }
     case ZT_LIGHTNING:
@@ -799,7 +804,12 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
     }
     if (dam) {
         const kbuf = fltxt || 'ray';
+        // C hack.c losehp → done(DIED) noreturn — must not resume weffects
+        // learnwand (D-0737; same contract as thitu/mbhitm D-0255/D-0323).
         losehp(dam, kbuf, KILLED_BY_AN);
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            await finish_losehp_done();
+        }
     }
 }
 
@@ -908,6 +918,8 @@ async function dobuzz(type, nd, sx0, sy0, dx0, dy0, sayhit, _saymiss, forcemiss)
                             dy = -dy;
                         } else {
                             await zhitu(type, nd, flash_str(fltyp), sx, sy);
+                            // C: fatal losehp never returns into dobuzz
+                            if (game.program_state?.gameover) break;
                         }
                     } else if (!Blind()) {
                         await pline(`The ${flash_str(fltyp)} whizzes by you!`);
@@ -1576,6 +1588,8 @@ async function weffects(obj) {
         }
         // SPE_* ubuzz deferred
     }
+    // C: fatal zhitu→losehp→done never resumes here for learnwand
+    if (game.program_state?.gameover) return;
     if (disclose) {
         learnwand(obj);
         if (was_unkn) {

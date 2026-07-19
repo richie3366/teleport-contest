@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #824 zhitu finish_losehp_done before learnwand (D-0737)
+
+- Objective: seed5002 trailing `rn2(19)` after fire zhitu @5904.
+- C locus: `zap.c` `zhitu` → `hack.c` `losehp` → `done(DIED)` noreturn.
+- Change: await `finish_losehp_done` in `zhitu`; skip `weffects`/`learnwand`
+  when gameover (≡ D-0255/D-0323).
+- Verification: green+strict PASS; cohort 34/34; cont **5904→11643**;
+  RNG **6176→11693**/12167.
+- Next: seed5002 @11643 gethungry rn2(20) vs rn2(5); or D-0731/D-0708.
+
 ## 2026-07-19 — #822 use_mirror + use_camera getdir (D-0736)
 
 - Objective: seed5002 @5739 mirror/camera getdir leak.
