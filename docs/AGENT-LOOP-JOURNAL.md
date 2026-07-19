@@ -12,6 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-19 10:27 — #854 tower3 Vlad entry (D-0758)
+- Objective: seed0360 @53591 C tower3 nhlib shuffle → induced_align vs JS `rn2(79)`.
+- C locus: `dat/tower3.lua` / `sp_lev.c` `load_special` / `mkmaze.c` `makemaz`.
+- Change: `load_tower3` + dispatch (solidfill map, lit=FALSE clear, unshuffled
+  niches, branch levregion pre-flip, up ladder, locked door, `D` + fixed/random
+  mons, niche loot+traps, solidify).
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **53591→55374**; RNG **53595→55383**; Scr **246→261**.
+- Next: @55374 C `medusa-3` (`makemaz` `rnd(4)=3`) nhlib shuffle / selection_rndcoord
+  vs JS `rn2(79)`.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -148,22 +159,4 @@ Use this shape:
   Scr **+23**, RNG **+5627** (D-0744/D-0745 seed0360 3098→8728).
 - Verification: green+strict PASS; full sessions run complete.
 - Next: seed0360 @8708 castle.lua vs JS rn2(79) after getbones.
-
-## 2026-07-19 09:10 — #834 oracle load_special (D-0745)
-- Objective: seed0360 @3037 nhlib shuffle vs rn2(79) (CURRENT primary).
-- C locus: `dat/oracle.lua` / `sp_lev.c` `load_special` / `mkmaze.c` `makemaz`.
-- Change: `load_oracle` + DELPHI roomtype + statue montype helpers.
-  Was missing special → place_lregion; not minend.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **3037→8708**; RNG **3186→8728**; Scr **187→200**.
-- Next: @8708 C castle.lua vs JS rn2(79) after getbones.
-
-## 2026-07-19 08:55 — #833 Boots_on SPEED_BOOTS (D-0744)
-- Objective: seed0360 @3006 exercise rn2(19) vs rn2(5) (CURRENT primary).
-- C locus: `do_wear.c` `Boots_on` SPEED_BOOTS → `makeknown` → `exercise`.
-- Change: port SPEED_BOOTS makeknown + You_feel; was deferred (only
-  FUMBLE_BOOTS). Not EOT exerchk — dressing finish after --More--.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **3006→3037**; RNG **3120→3186**; Scr **181→187**.
-- Next: @3037 C nhlib.lua shuffle vs JS rn2(79) after ^V/getbones.
 

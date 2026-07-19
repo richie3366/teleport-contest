@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0758 — tower3.lua load_special (seed0360 @53591)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @55374)
+- **Symptom:** seed0360 @53591 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` (post-tower2).
+- **C locus:** `dat/tower3.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`tower3`).
+- **Cause (#854):** JS had no `tower3` loader → empty → `place_lregion`
+  `rn2(79)`. C loads Vlad's Tower entry (unshuffled niches; branch
+  levregion; `des.monster("D")` → `induced_align`).
+- **Change:** `js/mklev.js` — `load_tower3` + dispatch (solidfill map,
+  lit=FALSE clear D-0673 pattern, unshuffled niches, branch via
+  `g.lregions` pre-flip, up ladder, locked door, S_DRAGON + fixed/random
+  mons, niche loot+random traps, wallify/flip/solidify/fixup). Named
+  omissions: medusa-2/3/4; soko2-2; exclusion_zones; ensure_way_out;
+  map_cleanup.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **53591→55374**; RNG **53595→55383**; Scr **246→261**.
+- **Next:** @55374 C `medusa-3` (`makemaz` `rnd(4)=3`; nhlib shuffle →
+  `selection_rndcoord`) vs JS `rn2(79)`.
+
 ## D-0757 — tower2.lua load_special (seed0360 @53361)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @53591)

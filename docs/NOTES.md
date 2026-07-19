@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#853 D-0757 fixed:** `load_tower2` (Vlad middle). Prefix **53591**.
-- **Next @53591:** C `tower3` (Dlvl:36; post-getbones nhlib shuffle →
-  `induced_align` for `des.monster("D")`; place niches **unshuffled**;
-  branch levregion) vs JS `rn2(79)`. Falsifier: `dat/tower3.lua`.
+- **#854 D-0758 fixed:** `load_tower3` (Vlad entry). Prefix **55374**.
+- **Next @55374:** C `medusa-3` (`makemaz` `rnd(4)=3`; post-getbones
+  nhlib shuffle → `selection_rndcoord`) vs JS `rn2(79)`.
+  Falsifier: `dat/medusa-3.lua` (only `medusa-1` ported).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,18 +20,19 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0757 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0758 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0757 seed0360 peels (boots/oracle/castle/valley/mkclass/
+- D-0743…D-0758 seed0360 peels (boots/oracle/castle/valley/mkclass/
   rnd_misc/sanctum+peace_minded/hell-temp+temperature_shift/region_islev/
-  maybe_generate/minetn-5/minend-2/soko4-1/tower2).
+  maybe_generate/minetn-5/minend-2/soko4-1/tower2/tower3).
 - D-0750: next miss after valley is **sanctum** (not asmodeus).
 - D-0754: next miss after sanctum is **minetn-5** (not hellfill/asmodeus).
 - D-0755: next miss after minetn-5 is **minend-2** (not Gehennom).
 - D-0756: next miss after soko4-1/tower1 is **tower2** (not castle).
 - D-0757: next miss after tower2 is **tower3** (not castle/hellfill).
+- D-0758: next miss after tower3 is **medusa-3** (not castle/hellfill).
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -44,7 +45,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#850;
-  Scr 8212, RNG 72.38%; seed0360 **53591**/246 after D-0757).
+  Scr 8212, RNG 72.38%; seed0360 **55374**/261 after D-0758).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -56,10 +57,11 @@ Objective/score live in `CURRENT.md`.
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
   asmodeus/baalz/orcus/juiblex/hellfill/wizard*/fakewiz deferred;
-  minend-3 / soko2-2 / **tower3** deferred;
+  minend-3 / soko2-2 deferred;
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **tower3 Vlad entry** (D-0758);
   **tower2 Vlad middle** (D-0757);
   **soko4-1 Sokoban entry** (D-0756);
   **minend-2 Wine Cellar** (D-0755);
