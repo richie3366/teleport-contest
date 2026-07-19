@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0742 — dowrite + open cmdassist + itemed throw (seed5002 PASS)
+
+- **Status:** fixed
+- **Symptom:** seed5002 RNG FULL but Scr **400**/410. @230 C
+  `What do you want to write on? [*]` vs JS `Sorry, I don't know how to
+  use that.`; @274 C `cmdassist: Invalid direction key!` vs JS
+  `Never mind.`; @280 C throw getdir vs JS invent again.
+- **C locus:** `write.c` `dowrite`/`write_ok`; `apply.c` MAGIC_MARKER;
+  `cmd.c` `get_adjacent_loc`/`getdir`/`help_dir`; `iactions.c`
+  `itemactions_pushkeys`; `dothrow.c` `dothrow`/`getobj`.
+- **Cause:** (1) MAGIC_MARKER fell through apply default; (2) open's
+  `get_adjacent_loc` used plain getdir (no cmdassist); (3) itemed `t`
+  did not queue dothrow+invlet; (4) dothrow used non-cmdassist getdir
+  and ignored CMDQ_KEY.
+- **Change:** new `js/write.js` `dowrite`; wire marker in `doapply`;
+  `get_adjacent_loc` → `getdir_cmdassist`; itemed_pushkeys (throw+…);
+  dothrow cmdassist + canned key in getobj_throw.
+- **Verification:** green+strict PASS; cohort 35/35; seed5002
+  **PASS** Scr 410/410; suite **37/44**.
+- **Next:** D-0731 / D-0708; leaderboard cron.
+
 ## D-0741 — burnarmor erode + destroy pline/potionbreathe (seed5002 Scr)
 
 - **Status:** fixed (partial — seed5002 still FAIL; Scr 400/410)

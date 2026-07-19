@@ -234,12 +234,18 @@ export async function getdir(prompt) {
     return true;
 }
 
-/** C ref: cmd.c get_adjacent_loc */
+/** C ref: cmd.c get_adjacent_loc — getdir (cmdassist) then adjacent cell. */
 async function get_adjacent_loc(prompt, emsg) {
-    if (!(await getdir(prompt))) {
+    // C: getdir(prompt) — invalid key → help_dir cmdassist then fail
+    const dir = await getdir_cmdassist(prompt);
+    if (!dir) {
         await pline('Never mind.');
         return null;
     }
+    if (!game.u) game.u = {};
+    game.u.dx = dir.dx | 0;
+    game.u.dy = dir.dy | 0;
+    game.u.dz = 0;
     const x = (game.u.ux || 0) + (game.u.dx || 0);
     const y = (game.u.uy || 0) + (game.u.dy || 0);
     if (x < 1 || x >= COLNO || y < 0 || y >= ROWNO) {

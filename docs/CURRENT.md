@@ -21,34 +21,38 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#825**).
-Screens **7860**/11405; RNG **533,216**/792838 (67.25%).
-**36/44** PASS. Δ vs #820: Scr 0, RNG **+5,521** (D-0737 seed5002 in score).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#830**).
+Screens **8182**/11405; RNG **533,690**/792838 (67.31%).
+**37/44** PASS. Δ vs #825: Scr **+322**, RNG **+474**, PASS **+1** (seed5002
+D-0742).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **36 / 44** |
-| Screens matched | **7,860 / 11,405** |
-| Positional RNG calls matched | **533,216 / 792,838** (67.25%) |
-| Speed label | `37+0.18/turn` (R² 0.777) |
+| Sessions passing | **37 / 44** |
+| Screens matched | **8,182 / 11,405** |
+| Positional RNG calls matched | **533,690 / 792,838** (67.31%) |
+| Speed label | `37+0.18/turn` (R² 0.760) |
 | Role-init throws | **0 / 44** |
 
-**PASS (36):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
-seed5006, seed0116, seed0361, seed0367, seed0108.
+seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#825; prefix @49039 D-0708 |
-| seed0399 | 10389/11409 | 113/532 | @#825; stuck @10157 D-0731 |
-| seed5002 | **12167**/12167 | **400**/410 | @#829; Scr 125→400 D-0741; @230 write |
+| seed0014 | 49495/59178 | 577/714 | @#830; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#830; stuck @10157 D-0731 |
+| seed0360 | 3098/120639 | 177/833 | early world-tour |
+| seed0383 | 2518/16915 | 45/219 | hallu |
+| seed2600 | 418/11647 | 3/38 | custom binds |
+| seed4500 | 2997/108275 | 13/1814 | knight coverage |
 
 ## Green gate
 
@@ -65,25 +69,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-36 gap** — local PASS includes seed0108 + seed0116 +
-seed5006 + seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z
-dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
-that serialize coerce. Next cron; if seed0013 restored but near-misses
-remain → upstream #5.
+**Leaderboard 22-vs-37 gap** — local PASS includes seed0108 + seed0116 +
+seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + **seed5002**;
+judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
+**D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
+but near-misses remain → upstream #5.
 
-**Gameplay next:** seed5002 **Scr 400**/410 (D-0741 destroy/death path
-done). First miss @**230**: C write-on prompt vs JS “don't know how to
-use” / read — engrave/marker path. Also cmdassist Invalid direction
-@274+. Then finish seed5002, or seed0399 @10157 (D-0731) / seed0014
-@49039 (D-0708). Prefer shared blockers. Do **not** re-break D-0660…D-0741.
+**Gameplay next:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708).
+Prefer shared blockers. Do **not** re-break D-0660…D-0742.
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed5002-wizard-coverage-pair.session.json
-# RNG FULL; Scr 400/410 — next @230 write vs read / cmdassist
+  sessions/seed0399-wizard-hallu-actions.session.json
+# @10157 mfndpos cnt7vs5 — needs C-state (D-0731)
 ```
 
-**Do not re-break D-0660…D-0741.**
+**Do not re-break D-0660…D-0742.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
@@ -91,7 +92,8 @@ seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
 **seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
 **seed0007** + **seed0398** (must stay PASS) + **seed0373** + **seed5006** +
-**seed0116** + **seed0361** + **seed0367** + **seed0108** + strict lengths.
+**seed0116** + **seed0361** + **seed0367** + **seed0108** + **seed5002** +
+strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

@@ -722,6 +722,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0739 | fixed | mattackm mlstmv + dog_move return onscary | seed5002 cont 11715→11725; next wish rn2(181) |
 | D-0740 | fixed | cmd `c` → doclose + getdir cmdassist | seed5002 RNG FULL 12167; Scr 114→125; was premature ^W wish |
 | D-0741 | fixed | burnarmor erode + destroy pline/potionbreathe | seed5002 Scr 125→400; next @230 write/cmdassist |
+| D-0742 | fixed | dowrite + open cmdassist + itemed throw | seed5002 Scr 400→410 **PASS**; suite 37/44 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

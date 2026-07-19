@@ -72,6 +72,7 @@ const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
 const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
 const LENSES = objectNames.indexOf('LENSES');
+const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_UMBER_HULK = monsterNames.indexOf('PM_UMBER_HULK');
@@ -986,7 +987,8 @@ async function use_cream_pie(obj) {
 
 /**
  * C ref: apply.c doapply() — getobj + LOCK_PICK/key/STETHOSCOPE + MIRROR/
- * CAMERA + sack/bag use_container + musical instruments + cream pie.
+ * CAMERA + sack/bag use_container + musical instruments + cream pie +
+ * MAGIC_MARKER→dowrite.
  * Named omissions: nohands/capacity; retouch; do_break_wand; flip_through_book;
  * flip_coin; jelly; whip/grapple/blindfold/lenses; use_stone; use_pole/
  * use_pick_axe; traps; oil; BoT; Medusa/nymph mirror arms; camera closeup;
@@ -1051,6 +1053,13 @@ export async function doapply() {
     // C apply.c case CREAM_PIE → use_cream_pie (D-0711)
     if (obj.otyp === CREAM_PIE) {
         const res = await use_cream_pie(obj);
+        return res === ECMD_TIME;
+    }
+
+    // C apply.c case MAGIC_MARKER → dowrite (D-0742)
+    if (obj.otyp === MAGIC_MARKER) {
+        const { dowrite } = await import('./write.js');
+        const res = await dowrite(obj);
         return res === ECMD_TIME;
     }
 
