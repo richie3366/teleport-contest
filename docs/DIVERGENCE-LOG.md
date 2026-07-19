@@ -28,7 +28,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
   `rn2(3)`.
 - **C locus:** `mthrowu.c` `linedup` / `couldsee`; `vision.c` Algorithm-C;
-  `monmove.c` `m_move`/`distfleeck`; `mkmaze.c` `get_level_extends`.
+  `monmove.c` `m_move`/`distfleeck`; `mkmaze.c` `get_level_extends`;
+  `nhlib.lua` `hell_tweaks`.
 - **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
   + BOULDER(57,9)+ROOM(58,9); `couldsee` false → boulderhandling=2 →
   `rn2(2+1)`. Mumak lacks `M2_ROCKTHROW` (correct). Strip boulder +
@@ -47,12 +48,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `couldsee` x=55..59 = [0,0,1,1,1]. Extends ymin=2,ymax=20 (mazegrid
   y0–1 STONE, y2 walls-only → -=1); FlipY(13)=9 — **falsified** “C FlipY
   ymin=0 → boulder at y=7”. Probes (removed): skip boulder rn2 via
-  couldsee-true *or* lined_up-false → **98502**. Open: C mon cell /
-  runtime `does_block` / path `blocking_terrain` vs JS.
+  couldsee-true *or* lined_up-false → **98502**.
+- **#877 C screen:** Dlvl42 step367 — warning `'1'` @(55,9), `q` @(60,10);
+  step368 clears `'1'`; **(57,9) never non-space on D42**. C reveals
+  lava `~` @(58,9)/(60,9) beside hero; JS post-flip has ROOM @(58,9) +
+  boulder @(57,9) + lava @(55–56,9) — lava geometry diverges. Falsified
+  “drop bounds2 +xstart”: C `fillsrect` also adds xstart via
+  `get_location_coord`. Open: recorder `sobj_at(BOULDER,57,9)` /
+  `couldsee(55,9)` / hell_tweaks cell pick with matched RNG.
 - **Change:** none (DIAG removed). Do not FORCE linedup in production.
 - **Verification:** green+strict PASS; seed0360 still **98492**/98507
   Scr **275**/833.
-- **Next:** C-state mumak `(mx,my)` + boulder at (57,9) at step368; then
+- **Next:** C-state boulder/couldsee/lava typ at step368; then
   wizard3/hellfill @98502.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag

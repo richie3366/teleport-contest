@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#876 / D-0773:** @98492 JS S_QUADRUPED (mumak) (55,9)→hero (59,9):
-  fleeck @98491 → linedup boulder `rn2(3)` @98492 → post-fleeck @98493
-  (moved to 55,8). C step368: fleecks + hides_under `rn2(10)` only —
-  **zero** linedup rn2(3). JS row9: lava(55–56)+ROOM boulder(57)+ROOM;
-  `couldsee` [0,0,1,1,1] for x=55..59. Extends ymin=2,ymax=20 (mazegrid
-  y0–1 STONE, y2 walls-only → -=1); FlipY(13)=9 — gen boulder stays.
-  **Probes (DIAG removed):** skip boulder rn2 (couldsee-true *or*
-  lined_up-false) → prefix **98502**. Reloc boulder off LOS → same.
-  **Hypothesis:** C `lined_up` returns without boulder rn2 — either
-  `couldsee(55,9)` true (runtime does_block/objects ≠ JS) **or** not
-  straight / `blocking_terrain` (C mumak cell ≠ (55,9) or path blocks).
-  **Falsify:** C mumak (mx,my) + sobj_at(BOULDER,57,9) at step368; or
-  prove path `blocking_terrain`. Do not FORCE linedup.
+- **#877 / D-0773:** @98492 still JS linedup `rn2(3)`. **C screen (Dlvl42
+  wizard2) step367/368:** warning `'1'` @(55,9) + visible `q` @(60,10);
+  after `.` wait the `'1'` clears; **(57,9) never non-space on D42**.
+  C step368 RNG = 16× fleeck + hides_under `rn2(10)` @98502. JS DIAG
+  (removed): fleeck@98491 S_QUADRUPED (55,9)→(59,9) → linedup boulder
+  → post (55,8). JS post-flip: ROOM+boulder @(57,9), lava @(55–56,9),
+  ROOM @(58,9); C reveals lava `~` @(58,9)/(60,9) when hero arrives —
+  **lava geometry differs**. Falsified: drop bounds2 `+xstart` (C
+  `fillsrect` also adds xstart via `get_location`). **Hypothesis:** C
+  `couldsee(55,9)` true (no LOS boulder / different lava) so lined_up
+  silent. **Falsify:** recorder C-state `sobj_at(BOULDER,57,9)` +
+  `couldsee(55,9)` + typ@(58,9) at step368; or find hell_tweaks cell
+  pick bug with matched RNG. Do not FORCE.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five

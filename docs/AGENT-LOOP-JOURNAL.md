@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 14:27 — #877 @98492 C-screen lava/warn (D-0773)
+- Objective: seed0360 @98492 why C skips linedup rn2(3).
+- C locus: `mthrowu.c` `linedup`; `nhlib.lua` hell_tweaks; session screens.
+- Change or falsified theory: no port patch. C Dlvl42: warn `'1'`@(55,9)
+  + `q`@(60,10); (57,9) never revealed; lava `~`@(58,9)/(60,9) vs JS
+  ROOM+boulder@(57,9). Falsified drop bounds2 +xstart (C fillsrect adds
+  xstart). Do not FORCE.
+- Verification: green+strict PASS; seed0360 still **98492**/275.
+- Next: recorder C-state boulder/couldsee/lava; or hell_tweaks cell pick;
+  then wizard3 @98502.
+
 ## 2026-07-19 14:16 — #876 @98492 linedup probes (D-0773)
 - Objective: seed0360 @98492 why C skips linedup rn2(3).
 - C locus: `mthrowu.c` `linedup`; `vision.c` couldsee; `mkmaze.c` extends.
