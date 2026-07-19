@@ -12,6 +12,23 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-20 01:36 — #939 D-0817 blank S_stone non-travel
+- Objective: seed0360 @678 C `stone` vs JS `unexplored area` (^T).
+- C locus: `pager.c` lookat case S_stone (+ TER_DETECT gbuf).
+- Change: **D-0817** `auto_describe_text` blank→stone via
+  seenv/lastseentyp without travelmode; TER_DETECT stays
+  unexplored. Scr **824→826**; @678–679 fixed.
+- Verification: green+strict PASS; seed0012/1500/1800/0004/
+  0060/0361 PASS; RNG FULL.
+- Next: @719 `Can't find dungeon feature '_'` (feature matching).
 
 ## 2026-07-20 01:32 — #938 D-0816 tele_restrict + wildmiss
 - Objective: seed0360 @668 tengu teleport More vs unknown-dir '7'.
@@ -20,14 +37,6 @@ Use this shape:
   (2) wildmiss + !foundyou skipnonmagc. Scr **818→824**; @668–677 fixed.
 - Verification: green+strict PASS; cohort 35/35 PASS; RNG FULL.
 - Next: @678 stone vs unexplored (post-^T getpos).
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-20 01:20 — #937 D-0815 getpos door + visctrl
 - Objective: seed0360 @632 travel `closed door` vs `unexplored area`.

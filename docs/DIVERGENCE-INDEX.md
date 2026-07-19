@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0817 | fixed | blank S_stone auto_describe without travelmode | seed0360 Scr 824→826; @678–679 stone; next @719 feature `_` |
 | D-0816 | fixed | tele_restrict canseemon pline + wildmiss Displaced | seed0360 Scr 818→824; @668 tengu More; next @678 stone |
 | D-0815 | fixed | getpos door cmap + unknown-dir visctrl | seed0360 Scr 812→818; @632 closed door; @661 ^D; next @668 |
 | D-0814 | fixed | wiz_map level.traps + show_map_spot map_trap (+ blocked stair) | seed0360 Scr 694→812; @624 ^F traps; next @632 closed door |

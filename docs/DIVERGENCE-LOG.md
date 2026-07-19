@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0817 — blank S_stone auto_describe without travelmode (seed0360 @678)
+
+- **Status:** fixed (seed0360 Scr residual continues @719)
+- **Symptom:** seed0360 @678/@679 — C topline `stone`; JS
+  `unexplored area` during `^T` getpos (not travel). RNG FULL.
+- **C locus:** `pager.c` `lookat` case `S_stone` — seenv +
+  typ STONE|SCORR → `"stone"`; `glyph_is_unexplored` →
+  `"unexplored area"`. TER_DETECT `clear_glyph_buffer` leaves
+  gbuf unexplored even when memory is stone.
+- **Cause (#939):** D-0813 gated blank→stone on
+  `getloc_travelmode` only; controlled-tele getpos shares the
+  same lookat arm and needs the same promotion.
+- **Change:** `js/getpos.js` `auto_describe_text` — blank +
+  seenv + typ/lastseentyp STONE|SCORR → `"stone"` without
+  travelmode; `TER_DETECT` blanks stay `"unexplored area"`.
+  Named: full integer glyph_is_unexplored vs cmap IDs;
+  underwater land/unknown; arboreal STONE→tree.
+- **Verification:** green+strict PASS; seed0012/1500/1800/
+  0004/0060/0361 PASS; seed0360 Scr **824→826**/833;
+  @678–679 match; RNG FULL.
+- **Next:** @719 `Can't find dungeon feature '_'` vs unknown-
+  direction (full getpos feature matching beyond `>`/`<`).
+
 ## D-0816 — tele_restrict canseemon pline + wildmiss Displaced (seed0360 @668)
 
 - **Status:** fixed (seed0360 Scr residual continues @678)

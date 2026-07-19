@@ -7,25 +7,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#938 D-0816:** `tele_restrict` canseemon pline + `wildmiss`
-  Displaced. seed0360 Scr **818→824**/833; @668–677 fixed;
-  first miss **678**.
-- **Hypothesis next:** @678 after controlled tele getpos —
-  C `stone` vs JS `unexplored area` (TRAVP/blank/`S_stone` path
-  post-teleds; may need seenv/lastseentyp like D-0813).
-- **Falsify:** compare lookat/auto_describe at cursor after
-  `^T` materialize; check blank disp vs STONE|SCORR.
+- **#939 D-0817:** blank `S_stone` auto_describe without travelmode
+  (+ TER_DETECT → unexplored). seed0360 Scr **824→826**/833;
+  @678–679 fixed; first miss **719**.
+- **Hypothesis next:** @719 `_` in getpos — C builds `matching[]`
+  over MAXPCHARS and scans; JS only wires `>`/`<` then falls through
+  to unknown-direction.
+- **Falsify:** port feature-char scan for keys that match showsyms/
+  defsyms (at least `_`); expect `Can't find dungeon feature '_'.`
+  when no match.
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen
-  queues; re-break tele_restrict/wildmiss (D-0816); bare
-  blank→stone without travel (breaks seed0012).
+  queues; re-break blank→stone TER_DETECT (seed0012); bare
+  blank→stone without lastseentyp/seenv.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0816 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0817 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0816 peels done.
+- seed5002 **PASS**; D-0743…D-0817 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -34,12 +35,13 @@ Objective/score live in `CURRENT.md`.
 - travel path; setworn AC; CLOUD; darkroom; TRAVP stone (D-0809…13).
 - wiz_map traps + show_map_spot map_trap (D-0814); door/visctrl (D-0815).
 - tele_restrict pline + wildmiss displaced (D-0816).
+- blank S_stone non-travel + TER_DETECT guard (D-0817).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#935; seed0360 Scr **824** @678 (D-0816).
+- suite **37/44** @#935; seed0360 Scr **826** @719 (D-0817).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

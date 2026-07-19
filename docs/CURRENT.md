@@ -75,17 +75,18 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0816 (#938):
-`tele_restrict` canseemon pline + `wildmiss` Displaced.
-Scr **818→824**/833; @668–677 fixed. Next: @678 C `stone`
-vs JS `unexplored area` (post-`^T` getpos). **Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0817 (#939):
+blank `S_stone` auto_describe without travelmode.
+Scr **824→826**/833; @678–679 fixed. Next: @719 C
+`Can't find dungeon feature '_'` vs JS unknown-direction
+(getpos feature matching beyond `>`/`<`). **Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0816. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0817. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

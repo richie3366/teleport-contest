@@ -338,15 +338,20 @@ function auto_describe_text(cx, cy) {
     const loc = game.level?.at?.(cx, cy);
     const ch = loc?.disp_ch;
     // Blank showsyms may be unexplored or S_stone (space). C lookat uses
-    // glyph_at. Under getloc_travelmode, mapped STONE/SCORR with seenv +
-    // lastseentyp is cmap S_stone → "stone" (D-0813); bare farlook still
-    // treats blank as unexplored when JS lastseentyp overmarks. Full
-    // glyph_is_unexplored vs cmap discrimination deferred.
+    // glyph_at: glyph_is_unexplored → "unexplored area"; cmap S_stone +
+    // seenv + typ STONE|SCORR → "stone" (pager.c). TER_DETECT after
+    // clear_glyph_buffer forces gbuf unexplored even when memory is
+    // stone (D-0390 / seed0012) — do not promote those blanks.
+    // lastseentyp gates overmarked JS seenv (D-0813); travelmode not
+    // required (^T getpos / farlook share the same lookat arm).
     if (!ch || ch === ' ') {
+        if (terrainmode & TER_DETECT) {
+            // C: gbuf unexplored after clear_glyph_buffer
+            return 'unexplored area';
+        }
         const last = game.lastseentyp?.[cx]?.[cy] | 0;
         if (
-            game.iflags?.getloc_travelmode
-            && loc
+            loc
             && (loc.typ === STONE || loc.typ === SCORR)
             && loc.seenv
             && (last === STONE || last === SCORR)
