@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0798 — goto_level quest Home `ok_to_quest` gate
+
+- **Status:** fixed (seed0360 still FAIL @112857)
+- **Symptom:** seed0360 @112279 — C `distfleeck` vs JS `getbones`
+  after wizard ^V menu pick `A` (Wiz-goal) from quest Home.
+- **C-state (#918):** Um surplus / FORCE −12 theories were symptoms.
+  C screen after `A`: "A mysterious force prevents you from
+  descending." — stays on Home 1. JS `schedule_goto`→`deferred_goto`
+  →`getbones`/`mklev` (C getbones much later @113102). Gate is
+  `on_level(uz,qstart) && !newdungeon && !ok_to_quest()`.
+- **C locus:** `do.c` `goto_level` quest-home arm; `quest.c`
+  `ok_to_quest` / `is_pure(FALSE)`.
+- **Change:** `js/quest.js` export `ok_to_quest`; `js/do.js`
+  `goto_level` early return + pline. Named deferred: Gehennom amulet
+  mysteryforce arm above this gate; got_thanks/killed_leader arms
+  already in ok_to_quest formula.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  prefix **112279→112857**; RNG **112326→112956**; Scr **504→519**.
+- **Next:** @112857 C `distfleeck` vs JS `set_apparxy` (mux-image /
+  fleeck order after shared mkmaze).
+
 ## D-0797 — acurr GAUNTLETS_OF_POWER → STR19(25)
 
 - **Status:** fixed (seed0360 still FAIL @112279)

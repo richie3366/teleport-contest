@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 23:00 — #918 D-0798 quest Home ok_to_quest gate
+- Objective: seed0360 @112279 C fleeck vs JS getbones (umov theory).
+- C locus: `do.c` `goto_level` quest-home arm; `quest.c` `ok_to_quest`.
+- Change: **D-0798** — falsified umov surplus; C mysterious-force after
+  ^V `A` (Wiz-goal) from Home; JS ported gate. Prefix **112279→112857**;
+  Scr **504→519**; RNG **112956**.
+- Verification: green+strict PASS; cohort 35/35 PASS; DIAG removed.
+- Next: @112857 C distfleeck vs JS set_apparxy (mux-image).
+
 ## 2026-07-19 22:46 — #917 D-0797 acurr GoP + umov peel
 - Objective: seed0360 @112279 C fleeck vs JS rn2(3).
 - C locus: `attrib.c` `acurr` GoP/`STR19(25)`; moveloop umovement after EOT62.

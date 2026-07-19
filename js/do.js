@@ -53,7 +53,7 @@ import { objectNames } from './objects.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { PM_TOURIST, PM_ROGUE } from './generated/monsters_data.js';
 import { dismount_steed } from './steed.js';
-import { onquest } from './quest.js';
+import { onquest, ok_to_quest } from './quest.js';
 import { In_quest, In_endgame, In_mines, In_sokoban } from './const.js';
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
@@ -316,14 +316,16 @@ async function selftouch_stair_fall(_arg) {
  * pickup(1).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
- * Deferred: binary NHFILE, mysterious force, quest gate seal RMPORTAL, endgame
- * astral `final_level` / migrating-Wizard resurrect arm, trap-door fall
- * damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE, Gehennom valley plines,
- * temperature_change_msg / hellish_smoke (D-0559 hot/cold); Flying/Punished
- * climb variants, Punished `drag_down`/`ballrelease`, full `selftouch`
- * petrify, u_collide_m full limbo. Ported: In_quest `onquest`; In_endgame
- * `newdungeon`+amulet `resurrect` new-Wizard makemon + appear Norep;
- * `familiar_level_msg` via `bones_include_name` (D-0577).
+ * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
+ * → "mysterious force prevents you from descending" (D-0798).
+ * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
+ * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
+ * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE, Gehennom valley
+ * plines, temperature_change_msg / hellish_smoke (D-0559 hot/cold);
+ * Flying/Punished climb variants, Punished `drag_down`/`ballrelease`, full
+ * `selftouch` petrify, u_collide_m full limbo. Ported: In_quest `onquest`;
+ * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
+ * Norep; `familiar_level_msg` via `bones_include_name` (D-0577).
  */
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
@@ -337,8 +339,6 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     const new_ledger = ledger_no(newlevel);
     if (new_ledger <= 0) return; // C: done(ESCAPED)
 
-    if (on_level(newlevel, u.uz)) return;
-
     // C: do.c — tutorial(TRUE/FALSE) via nhcore when crossing tutorial branch.
     if (newdungeon) {
         if (In_tutorial(newlevel)) {
@@ -350,6 +350,16 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             up = false; // C: re-enter level 1 as if starting new game
         }
     }
+
+    // C: prevent leaving quest Home deeper in-branch until ok_to_quest
+    // (leader assigned / thanks / killed_leader). Same-dungeon only.
+    // Named omission: Gehennom amulet mysteryforce arm above this gate.
+    if (on_level(u.uz, game.qstart_level) && !newdungeon && !ok_to_quest()) {
+        await pline('A mysterious force prevents you from descending.');
+        return;
+    }
+
+    if (on_level(newlevel, u.uz)) return;
 
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
     if (!game.iflags?.nofollowers) keepdogs(false);

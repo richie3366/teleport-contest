@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0797 | fixed | acurr GoP STR19(25) + Dunce | seed0360 Scr 391→504; peel still @112279 umov |
+| D-0798 | fixed | goto_level quest Home ok_to_quest gate | seed0360 112279→112857; Scr 504→519; next mux fleeck |
+| D-0797 | fixed | acurr GoP STR19(25) + Dunce | seed0360 Scr 391→504; peel was premature getbones |
 | D-0796 | fixed | castmu HASTE_SELF / CURE_SELF | MFAST → EOT +=24 leftover; seed0360 112243→112279 |
 | D-0795 | fixed | movemon_singlemon early exits | utotype break + mon_offmap/isgd skip; idle on D-0794 |
 | D-0794 | fixed | seed0360 apprentice leftover mov | cause was missing HASTE_SELF (D-0796); peel @112279 |
