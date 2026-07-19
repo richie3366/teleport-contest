@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0802 — des.region lit grow via light_region (minetn-5 / minend-2)
+
+- **Status:** fixed (seed0360 Scr residual continues @231)
+- **Symptom:** seed0360 @180 leave-Gehennom → minetn Dlvl:6 — C
+  shows full BROWN DEC room walls; JS blank on left/bottom walls
+  (seenv=0). Same class @192 minend.
+- **C locus:** `sp_lev.c` `lspo_region` 2-arg form —
+  `des.region(selection.area(...), "lit")` does `selection_do_grow(W_ANY)`
+  then `sel_set_lit` so wallification perimeter inherits `.lit`.
+- **Cause (#923):** `load_minetn_5` / `load_minend_2` used interior-only
+  `setLitArea` (explicitly skipped wall-expand). Unlit walls fail the
+  one-sided lit-wall IN_SIGHT hack → blank under hero_memory.
+- **Change:** `js/mklev.js` — those loaders call `light_region` (expand
+  when lit; no expand when unlit). Named omissions: castle / other
+  interior-only lit loops; minetn-1/3/4/6/7; minend-3.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360 Scr
+  **589→616**/833; prefix **180→231**; RNG FULL.
+- **Next:** @231 boulder push message (`cannot pass` vs `try to move…`).
+
 ## D-0801 — Valley arrival + hellish_smoke + Gehennom wall RED (seed0360 Scr)
 
 - **Status:** fixed (seed0360 Scr residual continues @180)

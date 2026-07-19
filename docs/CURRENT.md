@@ -27,6 +27,7 @@ cadence). Screens **8525**/11405; RNG **644,653**/792838 (81.31%).
 (D-0798/D-0799 peels landed in suite; seed0360 **113111**/519 @113103).
 Focused #921: seed0360 RNG **FULL 120639**; Scr **561**/833 (not suite).
 Focused #922: seed0360 Scr **561→589**/833; prefix **164→180** (D-0801).
+Focused #923: seed0360 Scr **589→616**/833; prefix **180→231** (D-0802).
 
 ## Score
 
@@ -51,7 +52,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **589**/833 | Scr residual @180 leave-Geh (#922) |
+| seed0360 | **120639**/120639 | **616**/833 | Scr residual @231 boulder (#923) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -77,10 +78,10 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0801 (#922):
-Valley arrival + hellish_smoke smell + Gehennom `wall_glyph` CLR_RED.
-Scr **561→589**/833; prefix **164→180**. Next: @180 leave-Gehennom
-remembered walls (map memory / lastseentyp), not FORCE.
+**Gameplay next:** **seed0360 screen residual** — D-0802 (#923):
+`des.region(sel,"lit")` wall-expand via `light_region` (minetn-5 +
+minend-2). Scr **589→616**/833; prefix **180→231**. Next: @231
+boulder push message (`cannot pass that way` vs `try to move…`).
 **Do not FORCE.**
 
 ```bash
@@ -88,7 +89,7 @@ node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0801. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0802. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

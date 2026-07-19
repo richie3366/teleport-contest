@@ -6464,20 +6464,14 @@ function load_minend_2() {
         if (loc) loc.typ = FOUNTAIN;
     }
 
-    const setLitArea = (x1, y1, x2, y2, lit) => {
-        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
-            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
-                const loc = g.level.at(x, y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
-    setLitArea(23, 3, 48, 6, true);
-    setLitArea(21, 6, 22, 6, true);
-    setLitArea(14, 4, 14, 4, false);
-    setLitArea(10, 5, 14, 8, false);
-    setLitArea(10, 9, 11, 9, false);
-    setLitArea(15, 8, 16, 8, false);
+    // des.region(selection.area(...), "lit"|"unlit") — C lspo_region 2-arg:
+    // lit grows W_ANY then sel_set_lit; unlit does not (D-0802).
+    light_region(mx + 23, my + 3, mx + 48, my + 6, true);
+    light_region(mx + 21, my + 6, mx + 22, my + 6, true);
+    light_region(mx + 14, my + 4, mx + 14, my + 4, false);
+    light_region(mx + 10, my + 5, mx + 14, my + 8, false);
+    light_region(mx + 10, my + 9, mx + 11, my + 9, false);
+    light_region(mx + 15, my + 8, mx + 16, my + 8, false);
 
     const meDoor = (rx, ry) => {
         const loc = g.level.at(mx + rx, my + ry);
@@ -6818,23 +6812,18 @@ function load_minetn_5() {
         if (loc) loc.typ = FOUNTAIN;
     }
 
-    // des.region lit/unlit — selection.area (no wall-expand light_region)
-    const setLitArea = (x1, y1, x2, y2, lit) => {
-        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
-            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
-                const loc = g.level.at(x, y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
-    setLitArea(0, 0, 74, 20, false);
+    // des.region(selection.area(...), "lit"|"unlit") — C lspo_region 2-arg:
+    // lit grows selection W_ANY then sel_set_lit; unlit does not grow.
+    // light_region expands the rect by 1 when lighting (same for solid areas)
+    // so wallification's perimeter walls inherit .lit (D-0802).
+    light_region(mx + 0, my + 0, mx + 74, my + 20, false);
     for (const [x1, y1, x2, y2] of [
         [9, 13, 11, 17], [8, 14, 12, 16],
         [49, 7, 51, 11], [48, 8, 52, 10],
         [64, 17, 68, 19],
         [37, 13, 39, 17], [36, 14, 40, 17],
         [59, 2, 72, 10],
-    ]) setLitArea(x1, y1, x2, y2, true);
+    ]) light_region(mx + x1, my + y1, mx + x2, my + y2, true);
 
     // Town watch + gnomes/dwarves (random place)
     for (let i = 0; i < 4; i++) splev_create_monster('watchman', 1);
