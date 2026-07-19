@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#795**).
-Screens **7679**/11405; RNG **513,289**/792838 (64.74%).
-**35/44** PASS. Δ vs #790: Scr +25, RNG +75 (D-0710…D-0713 peels).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#800**).
+Screens **7695**/11405; RNG **513,641**/792838 (64.79%).
+**35/44** PASS. Δ vs #795: Scr +16, RNG +352 (D-0714…D-0717 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,679 / 11,405** |
-| Positional RNG calls matched | **513,289 / 792,838** (64.74%) |
-| Speed label | `37+0.18/turn` (R² 0.786) |
+| Screens matched | **7,695 / 11,405** |
+| Positional RNG calls matched | **513,641 / 792,838** (64.79%) |
+| Speed label | `36+0.18/turn` (R² 0.785) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,8 +46,8 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 575/714 | @#795; prefix @49039 D-0708 |
-| seed0108 | 3283/16958 | 74/303 | @#799; prefix **3186** (D-0717 umov; newman next) |
+| seed0014 | 49495/59178 | 575/714 | @#800; prefix @49039 D-0708 |
+| seed0108 | 3283/16958 | 74/303 | @#800; prefix **3186** (D-0717; newman next) |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 

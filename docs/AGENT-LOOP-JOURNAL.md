@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #800 score (mandatory ÷5)
+- Objective: full public `sessions` score (iteration % 5 == 0).
+- Score: **35/44** Scr **7695**/11405 RNG **513641**/792838 (64.79%)
+  `36+0.18/turn` R² 0.785. Δ vs #795: Scr +16, RNG +352.
+- Notable: seed0108 3283/16958 Scr 74 (prefix 3186 held); seed0014
+  49495/575; seed2200 229/230 parked.
+- Verification: green+strict PASS; no js/ change this iteration.
+- Next: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)` (D-0717).
+
 ## 2026-07-19 — #799 seed0108 set_mon_data umov prorate (D-0717)
 - Objective: seed0108 @3011 post-invoke EOT loopAgain (CURRENT primary).
 - C locus: `mondata.c` `set_mon_data`; `polyself.c` `set_uasmon`.
@@ -144,15 +153,3 @@ Use this shape:
 - Verification: green+strict PASS; prefix 43341→43553 RNG 43636 Scr 575;
   cohort 13/13; full suite 35/44.
 - Next: seed0014 @43553 next_ident / rndmonst_adj.
-
-## 2026-07-19 00:13 — #784 D-0705 lookaround mon_visible + Wait invis
-- Objective: seed0014 @43308 C distfleeck rn2(5) vs JS kick_ouch rn2(2).
-- C locus: hack.c lookaround mon_visible; uhitm.c attack_checks Wait!.
-- Cause: JS lookaround assumed all mons seen → ended H run on invisible
-  bugbear; yank never More'd; walk-in meleed instead of Wait!.
-- Rejected: flush_topl_more before every parse get_count (broke green).
-- Change: js/cmd.js lookaround mon_visible+M_AP; js/uhitm.js Wait!.
-- Verification: green+strict PASS; prefix 43308→43341 Scr 575; cohort
-  12/12 PASS.
-- Next: seed0014 @43341 maybe_kick/gethungry vs kick_ouch stub.
-
