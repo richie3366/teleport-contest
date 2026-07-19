@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#874 / D-0773:** @98492 JS mumak (55,9)→hero (59,9): pre-fleeck
-  @98491, linedup boulder `rn2(3)` @98492, post-fleeck @98493.
-  C @98492 is `distfleeck` (fits post-fleeck after lined_up **without**
-  boulder rn2). Step 368 C has **zero** linedup rn2(3).
-  JS: boulder (57,9) ROOM, `viz_clear[9][57]=0`, couldsee(55,9) false;
-  row10 lava (55..59,10) all couldsee. Gen boulder matched (#872).
-  **Hypothesis:** C `couldsee(55,9)` true (or lined_up false without rn2)
-  → no boulder `rn2`; JS vision/object block keeps couldsee false.
-  **Falsify:** prove C `does_block`/objects at (57,9) or Algorithm-C
-  marks (55,9) via row10; do not FORCE linedup.
-- **#875:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only;
-  flat vs #870).
+- **#876 / D-0773:** @98492 JS S_QUADRUPED (mumak) (55,9)→hero (59,9):
+  fleeck @98491 → linedup boulder `rn2(3)` @98492 → post-fleeck @98493
+  (moved to 55,8). C step368: fleecks + hides_under `rn2(10)` only —
+  **zero** linedup rn2(3). JS row9: lava(55–56)+ROOM boulder(57)+ROOM;
+  `couldsee` [0,0,1,1,1] for x=55..59. Extends ymin=2,ymax=20 (mazegrid
+  y0–1 STONE, y2 walls-only → -=1); FlipY(13)=9 — gen boulder stays.
+  **Probes (DIAG removed):** skip boulder rn2 (couldsee-true *or*
+  lined_up-false) → prefix **98502**. Reloc boulder off LOS → same.
+  **Hypothesis:** C `lined_up` returns without boulder rn2 — either
+  `couldsee(55,9)` true (runtime does_block/objects ≠ JS) **or** not
+  straight / `blocking_terrain` (C mumak cell ≠ (55,9) or path blocks).
+  **Falsify:** C mumak (mx,my) + sobj_at(BOULDER,57,9) at step368; or
+  prove path `blocking_terrain`. Do not FORCE linedup.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -40,20 +41,17 @@ Objective/score live in `CURRENT.md`.
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492.
+- FlipY ymin=2 is correct for mazegrid (not the FlipY→7 theory).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- Wish does **not** `makeknown` (C: otmp unidentified).
-- Mumak **lacks** M2_ROCKTHROW (giants have it); linedup uses handling=2.
-- C step368 `.` wait: only fleeck + one hides_under `rn2(10)` @1753 —
-  not the peaceful getitems `rn2(10)` @1891.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#875;
+  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#875;
   Scr 8280, RNG 79.35%; seed0360 **98492**/275 after D-0771/72/74).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
@@ -65,13 +63,12 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **wizard3/hellfill/fakewiz after @98492**;
+  **wizard3/hellfill/fakewiz after @98502**;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
-- Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
-- C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
-  **wizard2** (D-0771); **wizard1** (D-0768); **orcus** (D-0767);
+- Mumak **lacks** M2_ROCKTHROW; linedup uses handling=2.
+- **wizard2** (D-0771); **wizard1** (D-0768); **orcus** (D-0767);
   **baalz** (D-0766); **juiblex + lvlfill_swamp** (D-0765);
   **hell_tweaks** (D-0764/D-0772 `.w.`); **asmodeus + hell helpers** (D-0763);
   **makeroguerooms + rogue skip0** (D-0762);

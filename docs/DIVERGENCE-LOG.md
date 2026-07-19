@@ -28,7 +28,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
   `rn2(3)`.
 - **C locus:** `mthrowu.c` `linedup` / `couldsee`; `vision.c` Algorithm-C;
-  `monmove.c` `m_move`/`distfleeck`.
+  `monmove.c` `m_move`/`distfleeck`; `mkmaze.c` `get_level_extends`.
 - **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
   + BOULDER(57,9)+ROOM(58,9); `couldsee` false → boulderhandling=2 →
   `rn2(2+1)`. Mumak lacks `M2_ROCKTHROW` (correct). Strip boulder +
@@ -42,16 +42,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **#874 call-path:** JS mumak fleeck @98491 → linedup rn2 @98492 →
   post-fleeck @98493. C @98492 is `distfleeck` (fits post-fleeck after
   lined_up **without** boulder rn2). C step368 `.` wait: only fleeck +
-  one hides_under `rn2(10)` @1753 — **zero** linedup rn2(3). JS viz:
-  `viz_clear[9][57]=0`, couldsee(55,9) false; row10 lava (55..59,10)
-  all couldsee. DEC screen blank at (57,9) is consistent with dark/unseen
-  (not proof C lacks boulder).
+  one hides_under `rn2(10)` @1753 — **zero** linedup rn2(3).
+- **#876:** fleeck IDs: S_QUADRUPED @98491 (55,9) → post @98493 (55,8).
+  `couldsee` x=55..59 = [0,0,1,1,1]. Extends ymin=2,ymax=20 (mazegrid
+  y0–1 STONE, y2 walls-only → -=1); FlipY(13)=9 — **falsified** “C FlipY
+  ymin=0 → boulder at y=7”. Probes (removed): skip boulder rn2 via
+  couldsee-true *or* lined_up-false → **98502**. Open: C mon cell /
+  runtime `does_block` / path `blocking_terrain` vs JS.
 - **Change:** none (DIAG removed). Do not FORCE linedup in production.
 - **Verification:** green+strict PASS; seed0360 still **98492**/98507
   Scr **275**/833.
-- **Next:** why C `couldsee(55,9)` true despite gen-matched ROOM boulder
-  (runtime `does_block`/objects, or Algorithm-C path JS misses); then
-  wizard3/hellfill.
+- **Next:** C-state mumak `(mx,my)` + boulder at (57,9) at step368; then
+  wizard3/hellfill @98502.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
 
