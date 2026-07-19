@@ -75,15 +75,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @60114** after D-0759 medusa-3 —
-C `bigrm-4` (`makemaz` `rnd(13)=4`; post-getbones nhlib shuffle) vs JS
-`rn2(79)`. Prefer over D-0731/D-0708 mfndpos.
-Do **not** re-break D-0660…D-0759.
+**Gameplay next:** **seed0360 @65027** after D-0760 bigrm-4 —
+C `mkobj` `rnd(100)` vs JS `rn2(2)` (post-bigrm fill / next special).
+Prefer over D-0731/D-0708 mfndpos.
+Do **not** re-break D-0660…D-0760.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @60114 C bigrm-4 nhlib shuffle vs JS rn2(79)
+# @65027 C mkobj rnd(100) vs JS rn2(2)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +91,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0759.**
+**Do not re-break D-0660…D-0760.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

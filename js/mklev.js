@@ -733,7 +733,7 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
- * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
+ * bigrm-4, bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
  * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, Pri-fila, Pri-filb.
@@ -813,6 +813,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-3') {
         load_bigrm_3();
+        return true;
+    }
+    if (protofile === 'bigrm-4') {
+        load_bigrm_4();
         return true;
     }
     if (protofile === 'medusa-1') {
@@ -1200,6 +1204,96 @@ function load_bigrm_3() {
             makemon(null, x, y, 0);
         }
     }
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-4.lua via load_special.
+ * Named omissions: ensure_way_out / solidify / premap; other bigrm-N.
+ */
+function load_bigrm_4() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-4.lua des.map (18×75)
+    const BIGRM4_MAP = [
+        '-----------                                                     -----------',
+        '|.........|                                                     |.........|',
+        '|.........-------------                             -------------.........|',
+        '---...................------------       ------------...................---',
+        '  --.............................---------.............................--  ',
+        '   --.................................................................--   ',
+        '    --...............................................................--    ',
+        '     --......LLLLL.......................................LLLLL......--     ',
+        '      --.....LLLLL.......................................LLLLL.....--      ',
+        '      --.....LLLLL.......................................LLLLL.....--      ',
+        '     --......LLLLL.......................................LLLLL......--     ',
+        '    --...............................................................--    ',
+        '   --.................................................................--   ',
+        '  --.............................---------.............................--  ',
+        '---...................------------       ------------...................---',
+        '|.........-------------                             -------------.........|',
+        '|.........|                                                     |.........|',
+        '-----------                                                     -----------',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM4_MAP);
+
+    // terrains = { ".", ".", ".", ".", "P", "L", "-", "T", "W", "Z" };
+    // tidx = math.random(1, #terrains); replace L unless toterr is lava
+    {
+        const terrains = [
+            ROOM, ROOM, ROOM, ROOM, POOL, LAVAPOOL, HWALL, TREE, WATER, LAVAWALL,
+        ];
+        const tidx = lua_random2(1, terrains.length) - 1;
+        const toterr = terrains[tidx];
+        if (toterr !== LAVAPOOL)
+            lspo_replace_terrain_region(0, 0, 74, 17, LAVAPOOL, toterr, 100);
+    }
+
+    // des.feature("fountain", …) — map-relative
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        for (const [rx, ry] of [[5, 2], [5, 15], [69, 2], [69, 15]]) {
+            const loc = g.level.at(mx + rx, my + ry);
+            if (loc) loc.typ = FOUNTAIN;
+        }
+    }
+
+    // des.region(selection.area(01,01,73,16),"lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 1, my + 1, mx + 73, my + 16, true);
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
 
     // C load_special: wallification when !corrmaze; noflip → skip flip
     if (!g.level.flags.corrmaze)

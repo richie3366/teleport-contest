@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0760 — bigrm-4.lua load_special (seed0360 @60114)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @65027)
+- **Symptom:** seed0360 @60114 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` + `makemaz` `rnd(13)=4`.
+- **C locus:** `dat/bigrm-4.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`bigrm` `rndlevs=13` → `bigrm-4`).
+- **Cause (#856):** JS had no `bigrm-4` loader → empty →
+  `place_lregion` `rn2(79)`. C loads solidfill map, `math.random(1,10)`
+  terrain pick, optional L→{.,P,L,-,T,W,Z} replace, four fountains,
+  lit region, stairs, 15/6/28 fill, noflip.
+- **Change:** `js/mklev.js` — `load_bigrm_4` + dispatch. Named
+  omissions: other bigrm-N; ensure_way_out / solidify / premap;
+  medusa-2/4; soko2-2.
+- **Verification:** green+strict PASS; cohort **37/37**; seed0360
+  prefix **60114→65027**; RNG **60117→65054**; Scr **265**/833.
+- **Next:** @65027 C `mkobj` `rnd(100)` vs JS `rn2(2)`.
+
 ## D-0759 — medusa-3.lua load_special + mk_artifact A_NONE (seed0360 @55374)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @60114)
