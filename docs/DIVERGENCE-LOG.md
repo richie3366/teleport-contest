@@ -6,27 +6,27 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
 
-- **Status:** open (diagnosed; epilogue aligned; no terrain fix yet)
+- **Status:** open (JS state confirmed; C typ still needed)
 - **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
   `rn2(5)` (then site shift). Matched prefix strings hid: after bat
   `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
   still rolls chcnt through `rn2(7)`.
-- **C locus:** `monmove.c` `m_move` :1970; `mon.c` `mfndpos`;
+- **C locus:** `monmove.c` `m_move` :1871/:1970; `mon.c` `mfndpos`;
   `dat/Wiz-strt.lua` + `flip_level_rnd`; `sp_lev.c` load_special epilogue.
-- **Cause (#884/#886):** Vampire bat@(34,2) on Quest/Wiz-strt post-FlipY
-  (stairs 11→9; mx=3,my=1; FlipY with miny=0,maxy=20). JS mfndpos
-  **cnt=4**: admits (33,1)/(33,2)/(35,1)/(35,2); rejects
-  **quasit@(34,1)** (`ALLOW_M`) + **HWALL@(33,3)/(34,3)/(35,3)**.
-  C chcnt `rn2(1)..rn2(7)` ⇒ cnt≥7 — admits the three HWALL cells.
-  Temporary FORCE allowing those HWALL as walkable → prefix
-  **100738→100804**. Post-flip dump: y3 x33–35 are HWALL from pre-flip
-  map row `-` (tower); bat is flyer, not `passes_walls`. Why C’s
-  runtime typ is walkable (or otherwise admitted) is still open.
-- **Change (#886):** `load_wiz_strt` now runs C load_special order
+- **Cause (#884/#886/#887):** Vampire bat@(34,2) on Quest/Wiz-strt
+  post-FlipY. Live JS DIAG @rngLen **100733**: **cnt=4**, flag=`ALLOW_U`,
+  poss (33,1)/(33,2)/(35,1)/(35,2); rejects **quasit@(34,1)** +
+  **HWALL typ=2 @(33,3)/(34,3)/(35,3)**. C provenance: @100732
+  `!rn2(3)` (:1871) then chcnt `rn2(1)..rn2(7)` (:1970) ⇒ cnt≥7.
+  FORCE 3 HWALL walkable → **100738→100804** (next diverge C :1871
+  rn2(3) vs JS rn2(4)). Bat flyer, not `passes_walls`. C runtime typ
+  (or admit rule) at those cells still open.
+- **Change (#886):** `load_wiz_strt` epilogue
   `link_doors_rooms` → `remove_boundary_syms` → `map_cleanup` before
-  wallify/flip (no prefix change; green+cohort PASS). DIAG/FORCE removed.
-- **Next:** compare C vs JS typ at post-FlipY (33–35,3) via C-state /
-  recorder; check whether wallify/flip extents leave ROOM on C.
+  wallify/flip (no prefix Δ). (#887) diagnosis only — DIAG/FORCE
+  removed; recorder rebuild for C typ incomplete (sysconf / hang).
+- **Next:** dump C `levl[33..35][3].typ` (+ bat cnt) via instrumented
+  recorder at ri≈100733.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 

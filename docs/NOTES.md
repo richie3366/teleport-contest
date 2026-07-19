@@ -7,14 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#886 / D-0779:** @100738 vampire bat@(34,2) `m_move` `!rn2(3)` then
-  chcnt: C `rn2(1)..rn2(7)`; JS **cnt=4** then distfleeck `rn2(5)`
-  (string-match hide at matched `rn2(5)`). Poss: (33,1)(33,2)(35,1)(35,2).
-  Rejects **quasit@(34,1)** (`m_at`→`ALLOW_M`) + **HWALL@(33–35,3)**.
-  FORCE 3 HWALL walkable → **100738→100804**. Post-FlipY dump (stairs
-  33,9; mx=3,my=1; FlipY maxy=20): y3 x33–35 = HWALL from map `-`.
-  Bat flyer, not wallwalk. C admits those cells → typ (or admit rule)
-  still open. Epilogue link/remove/cleanup before wallify: no prefix Δ.
+- **#887 / D-0779:** Confirmed live DIAG @rngLen **100733**:
+  `PM_VAMPIRE_BAT`@(34,2) flag=`ALLOW_U` **cnt=4** poss
+  (33,1)(33,2)(35,1)(35,2). Neigh: ROOM×5 + **quasit@(34,1)** +
+  **HWALL@(33,3)(34,3)(35,3)** (typ=2). C @100732 `!rn2(3)` then
+  chcnt `rn2(1)..rn2(7)` → cnt≥7; JS after chcnt×4 hits distfleeck
+  `rn2(5)` (string-hide). FORCE 3 HWALL → **100804** (next C
+  `m_move:1871` rn2(3) vs JS rn2(4)). Bat flyer, not `passes_walls`.
+  C must see non-obstructed typ (or other admit) at those 3 cells.
+  Recorder rebuild for C-state started (#887) but rerecord hung /
+  incomplete install — **next: dump C `levl[33..35][3].typ`**.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -35,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
-  boulder @98492. Wiz-strt now also runs cleanup (#886) — still HWALL.
+  boulder @98492. Wiz-strt cleanup (#886) — still JS HWALL @y3.
 - **Falsified D-0773 couldsee/boulder:** C **has** mumak@(55,9)+same
   row9 map (lava55–56, boulder@57+61); skips fleeck via `minliquid`.
 - **Falsified @98505=wizard3/earth:** C fingerprint is Wiz-strt cloud

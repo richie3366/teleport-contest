@@ -75,12 +75,11 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100738 / D-0779** — vampire bat@(34,2)
-Wiz-strt: JS mfndpos **cnt=4** (quasit@(34,1)+HWALL@(33–35,3)); C
-chcnt through `rn2(7)`. FORCE 3 HWALL → **100804**. Post-FlipY y3 is
-map `-` HWALL (stairs 33,9). Next: C runtime typ at those cells
-(wallify/flip/extents). Epilogue link/remove/cleanup aligned (#886).
-Parked D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @100738 / D-0779** — live DIAG (#887):
+vampire bat@(34,2) JS **cnt=4** / C chcnt `rn2(1)..rn2(7)`; rejects
+quasit@(34,1)+HWALL@(33–35,3) typ=2. FORCE→**100804**. Next: C
+`levl[33..35][3].typ` via recorder (rebuild started; rerecord needs
+sysconf). Parked D-0731/D-0708 diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
