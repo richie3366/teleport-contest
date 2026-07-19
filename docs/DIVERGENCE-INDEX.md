@@ -755,7 +755,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0772 | fixed | hell_tweaks `.w.` mapfrag + @98492 linedup diag | seed0360 still @98492; JS linedup boulder rn2(3) vs C distfleeck; next couldsee/m_move |
 | D-0773 | fixed | @98492 linedup vs C (diag) | superseded: cause was missing minliquid (D-0775) |
 | D-0774 | fixed | sp_lev map_cleanup before wallify/flip | hell loaders; seed0360 still @98492 (LOS boulder on ROOM) |
-| D-0775 | fixed | movemon minliquid lava/pool | seed0360 98492→98505; RNG 98507→98528; Scr 275; next wizard3 shuffle @98505 |
+| D-0775 | fixed | movemon minliquid lava/pool | seed0360 98492→98505; RNG 98507→98528; Scr 275; next Wiz-strt @98505 |
+| D-0776 | fixed | Wiz-strt load_special | seed0360 98505→100104; RNG 98528→100408; Scr 275→292; next traps @100104 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

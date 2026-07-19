@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 15:00 — #881 Wiz-strt (D-0776); @98505→100104
+- Objective: seed0360 @98505 nhlib shuffle vs rn2(79) after getbones.
+- C locus: `dat/Wiz-strt.lua` via `load_special`.
+- Change or falsified theory: falsified wizard3/earth; proto log at
+  rngLen 98505 is Wiz-strt. Ported `load_wiz_strt` (+ spare wizard3/earth
+  loaders). Prefix **98505→100104**, Scr **275→292**.
+- Verification: green+strict PASS; cohort 6/6; seed0360 **100104**/100408
+  Scr **292**.
+- Next: @100104 Wiz-strt traps get_location vs rnd(4).
+
 ## 2026-07-19 14:47 — #880 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only; no port patch).

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0776 — Wiz-strt load_special (seed0360 @98505)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @100104)
+- **Symptom:** seed0360 @98505 — C nhlib `shuffle` then `splev_initlev`
+  `rn2(2)` + `lspo_replace_terrain` vs JS `rn2(79)` after matched getbones.
+- **C locus:** `dat/Wiz-strt.lua`; `sp_lev.c` `load_special`.
+- **Cause (#881):** Misdiagnosed as wizard3/earth. Proto log at rngLen
+  98505 is `Wiz-strt`. No loader → empty maze → `place_lregion` `rn2(79)`.
+  Fingerprint: shuffle → solidfill BOOL_RANDOM lit → ROOM→CLOUD chance 10.
+- **Change:** `js/mklev.js` — `load_wiz_strt` + dispatch (map + cloud
+  replace + tower clear + lit/unlit + irregular room + Neferet invent +
+  apprentices/eels/siege + traps + branch). Also added `load_wizard3` /
+  `load_earth` (not exercised at this peel). Named omissions: m_dowear;
+  flip lregion remap; Wiz-loca/goal/fila/filb.
+- **Verification:** green+strict PASS; cohort 6/6; seed0360 prefix
+  **98505→100104**, RNG **98528→100408**, Scr **275→292**/833.
+- **Next:** @100104 C `get_location` vs JS `rnd(4)` mid Wiz-strt traps.
+
 ## D-0775 — movemon minliquid (seed0360 @98492)
 
 - **Status:** fixed
