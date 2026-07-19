@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #815 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (measurement only; no js/ change).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; suite **36/44**; Scr **7926**/11405;
+  RNG **527503**/792838 (66.53%); speed `37+0.18/turn` (R² 0.794).
+  Δ vs #810: Scr +0, RNG +189; seed0399 10359→10389 still @10157.
+- Next: D-0731 C-state omit @10157; or D-0708 @49039; prefer shared.
+
 ## 2026-07-19 — #814 mfndpos onscary/garlic/bars/gas (D-0731)
 - Objective: seed0399 @10157 rn2(20) vs rn2(28); port deferred mfndpos arms.
 - C locus: `mon.c` `mfndpos`; `monmove.c` `onscary`.

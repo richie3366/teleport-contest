@@ -7,17 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#814:** D-0731 seed0399 @10157 still open after mfndpos arms.
-  Black unicorn @58,12; JS **cnt=7** j=0 →`rn2(28)`; C `rn2(20)` ⇒
-  cnt=5. Prior move @10066 from (59,13) empty-track cnt=4 →(58,12).
-  Spider@57,12; WEB+sack@58,13; mux=u=(47,9); NOTONL inert; JS
-  gas/engr/regions empty; no garlic/bars/temple.
-- **Falsified (#814):** ported mfndpos `onscary`/garlic/bars/gas +
-  mconf/mcansee flags — JS state still cnt=7 @10157. Also j=2
-  mtrack rewrite → same prefix 10217 (arity-only, not proof of j).
-- **Next:** C-state terrain/mon split vs JS (RNG-free move can
-  diverge); temple/`worm_cross`; or D-0708 @49039. Prefer shared.
-- **Don’t:** FORCE_EXCL; re-break D-0660…D-0731; treat NOTONL as fix.
+- **#815 score:** suite **36/44**; Scr 7926; RNG **527503** (66.53%).
+  Δ#810: Scr 0, RNG +189. seed0399 **10389**/11409 still @10157.
+- **D-0731 open:** black unicorn @58,12; JS **cnt=7**→`rn2(28)`; C
+  `rn2(20)`⇒cnt=5. #814 ported onscary/garlic/bars/gas+mconf — inert
+  in JS state @miss. Spider@57,12; WEB+sack@58,13; mux=u=(47,9).
+- **Next:** C-state terrain/mon split vs JS; temple/`worm_cross`; or
+  D-0708 @49039. Prefer shared. Don’t FORCE_EXCL / re-break D-0660…31.
 
 ## Don’t re-check (≤15)
 
@@ -51,8 +47,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** **PASS** (suite **36/44** @#810; Scr 7926
-  RNG 527314).
+  **seed0367** / **seed0108** **PASS** (suite **36/44** @#815; Scr 7926
+  RNG 527503).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

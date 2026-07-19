@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#810**).
-Screens **7926**/11405; RNG **527,314**/792838 (66.51%).
-**36/44** PASS. Δ vs #805: Scr +25, RNG −2; seed0108 newly PASS (D-0729).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#815**).
+Screens **7926**/11405; RNG **527,503**/792838 (66.53%).
+**36/44** PASS. Δ vs #810: Scr +0, RNG +189; seed0399 10359→10389 (D-0731).
 
 ## Score
 
@@ -31,8 +31,8 @@ Screens **7926**/11405; RNG **527,314**/792838 (66.51%).
 |--------|------:|
 | Sessions passing | **36 / 44** |
 | Screens matched | **7,926 / 11,405** |
-| Positional RNG calls matched | **527,314 / 792,838** (66.51%) |
-| Speed label | `37+0.18/turn` (R² 0.779) |
+| Positional RNG calls matched | **527,503 / 792,838** (66.53%) |
+| Speed label | `37+0.18/turn` (R² 0.794) |
 | Role-init throws | **0 / 44** |
 
 **PASS (36):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -40,14 +40,14 @@ seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
-seed5006, seed0116, seed0361, seed0367, **seed0108**.
+seed5006, seed0116, seed0361, seed0367, seed0108.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#810; prefix @49039 D-0708 |
-| seed0399 | 10359/11409 | 113/532 | @#811 D-0730; next @10157 |
+| seed0014 | 49495/59178 | 577/714 | @#815; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#815; stuck @10157 D-0731 |
 | seed5002 | 5980/12167 | 154/410 | coverage pair |
 
 ## Green gate
@@ -72,7 +72,7 @@ that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
 **Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
-(D-0731 — #814: onscary/garlic/bars/gas+mconf ported, still
+(D-0731 — #814/#815: onscary/garlic/bars/gas+mconf ported, still
 cnt=7; need C-state omit); or seed0014 @49039 mfndpos (D-0708);
 or coverage. Prefer shared blockers. Do **not** re-break
 D-0660…D-0731.
