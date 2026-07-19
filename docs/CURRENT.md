@@ -75,11 +75,10 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100738 / D-0779** — C typ dump (#888)
-falsified “C admits HWALL”: C bat@(34,1) cnt=7 all ROOM; JS
-bat@(34,2) cnt=4 + HWALL@y3. Post-FlipY spawn matches; CLOUD
-(37,*) off-by-one then movement Y drift. Next: cloud/row pre-flip
-or first separating move — not mfndpos wall logic.
+**Gameplay next:** **seed0360 @100738 / D-0779** — #889 fixed Wiz-strt
+throne template escape (CLOUD(37,*) now matches C). Peel unchanged:
+JS bat@(34,2) cnt=4 vs C@(34,1) cnt=7; HWALL@y3 both; spawn matches.
+Next: first separating bat move after FlipY — not mfndpos wall admit.
 Parked D-0731/D-0708 diagnose-only.
 
 ```bash

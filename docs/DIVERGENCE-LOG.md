@@ -6,23 +6,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
 
-- **Status:** open (C typ dump done; HWALL-admit theory falsified)
+- **Status:** open (cloud off-by-one fixed #889; bat Y drift remains)
 - **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
   `rn2(5)` (then site shift). Matched prefix strings hid: after bat
   `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
   still rolls chcnt through `rn2(7)`.
 - **C locus:** `monmove.c` `m_move` :1871/:1970; `mon.c` `mfndpos`;
   `dat/Wiz-strt.lua` + `flip_level_rnd`; `sp_lev.c` load_special epilogue.
-- **Cause (#884/#886/#887/#888):** Vampire bat on Quest/Wiz-strt
+- **Cause (#884/#886/#887/#888/#889):** Vampire bat on Quest/Wiz-strt
   post-FlipY. JS @100733: bat@(34,2) cnt=4, HWALL typ=2 @(33–35,3),
   quasit@(34,1). **C @100733:** bat@(34,1) cnt=7, **all neighbors
   ROOM typ=25**, quasit@(34,2) — C does **not** admit HWALL. Post-flip
-  spawn matches (bat@37,3 / imp@37,2; flp=1; extends≈2,0-79,20);
-  CLOUD at (37,*) off-by-one (C y=1 / JS y=2); peel Y drift is later
-  movement. FORCE 3 HWALL was a red herring for wall-admit.
-- **Change (#888):** no production patch — recorder C-state capture
-  (sysconf WIZARDS=*/GREPPATH; strip CR from dat for engraving tables).
-- **Next:** pre-flip cloud/row at (37,*) or first move separating bat Y.
+  spawn matches (bat@37,3 / imp@37,2; flp=1; extends≈2,0-79,20).
+  **#889:** JS `WIZ_STRT_MAP` throne `\` was template-literal `\.` →
+  `.`, shortening row5 by 1 and shifting terrain; fixed to `\\`.
+  Post-flip CLOUD(37,*) now matches C (y=1 + y=4). Peel still bat Y
+  drift in later movement. FORCE 3 HWALL was a red herring.
+- **Change (#889):** `js/mklev.js` `load_wiz_strt` map — `\\` for throne.
+- **Next:** first move separating bat Y after matching spawn/clouds.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 

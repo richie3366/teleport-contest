@@ -7,14 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#888 / D-0779:** C-state falsifier done (recorder + WIZARDS=* +
-  CRLF-stripped dat). @100733 C bat mon=129 **(34,1) cnt=7** all
-  neighbors **ROOM typ=25**, quasit@(34,2). JS bat **(34,2) cnt=4**
-  + HWALL@(33–35,3). Post-FlipY spawn **matches** (bat@37,3
-  imp@37,2; flp=1 extends≈2,0-79,20); CLOUD at (37,*) off-by-one
-  (C y=1 / JS y=2). Positions diverge in later movement before peel.
-  **Next:** why (37,1)/(37,2) cloud/room differ post-flip, or first
-  move that separates bat Y — not mfndpos wall admit.
+- **#889 / D-0779:** Wiz-strt throne `\` was template `\.` → `.`,
+  shortening map row5 by 1 (shifted walls/clouds). Fixed `\\`.
+  Post-flip CLOUD(37,*) now matches C (y=1+4). Still @100738:
+  JS bat@(34,2) cnt=4 vs C@(34,1) cnt=7; HWALL@y3 both.
+  **Next:** first move separating bat Y after matching spawn/clouds.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -35,7 +32,8 @@ Objective/score live in `CURRENT.md`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
-  boulder @98492. Wiz-strt cleanup (#886) — still JS HWALL @y3.
+  boulder @98492. Wiz-strt cleanup (#886).
+- **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
 - **Falsified D-0773 couldsee/boulder:** C **has** mumak@(55,9)+same
   row9 map (lava55–56, boulder@57+61); skips fleeck via `minliquid`.
 - **Falsified @98505=wizard3/earth:** C fingerprint is Wiz-strt cloud
@@ -43,6 +41,7 @@ Objective/score live in `CURRENT.md`.
 - **Falsified @100104=get_location order:** C/JS both get_location then
   traptype; diverge because JS placed trap on CLOUD.
 - **Falsified D-0779 C-admits-HWALL:** C bat not on wall row; typ=ROOM.
+- **Falsified D-0779 cloud-from-flip:** cloud miss was throne `\.` row shift.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -79,4 +78,4 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778).
-  Wiz-strt FlipY flp=1; post-flip bat@37,3=imp@37,2 match C; peel Y drift.
+  Wiz-strt FlipY flp=1; throne `\\` (#889); CLOUD col37 match; peel Y drift.

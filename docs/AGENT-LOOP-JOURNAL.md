@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 16:39 — #889 Wiz-strt throne template escape (D-0779)
+- Objective: seed0360 CLOUD(37,*) off-by-one / bat Y drift @100738.
+- C locus: `dat/Wiz-strt.lua` throne `\`; JS `load_wiz_strt` map string.
+- Change: `WIZ_STRT_MAP` `\.` ate a char (row5 len 75); use `\\`.
+  Post-flip CLOUD(37,1)/(37,4) now match C. Peel still @100738 bat Y.
+- Verification: green+strict PASS; cohort seed1500/1800/0361/0367/5002
+  PASS; seed0360 prefix @100738, RNG matched 101517/120639 Scr 292.
+- Next: first move separating bat Y after FlipY (D-0779).
+
 ## 2026-07-19 16:28 — #888 seed0360 C typ dump falsifies HWALL (D-0779)
 - Objective: seed0360 @100738 C `levl` typ / bat mfndpos cnt.
 - C locus: `mon.c` `mfndpos`; `sp_lev.c` `flip_level`; Wiz-strt.
@@ -144,32 +153,3 @@ Use this shape:
 - Next: recorder C-state boulder/couldsee/lava; or hell_tweaks cell pick;
   then wizard3 @98502.
 
-## 2026-07-19 14:16 — #876 @98492 linedup probes (D-0773)
-- Objective: seed0360 @98492 why C skips linedup rn2(3).
-- C locus: `mthrowu.c` `linedup`; `vision.c` couldsee; `mkmaze.c` extends.
-- Change or falsified theory: no port patch. DIAG: mumak fleeck→linedup
-  rn2→post (55,9→55,8); extends FlipY(13)=9 correct (not ymin=0/y=7).
-  Probes: skip boulder rn2 (couldsee-true or lined_up-false) → **98502**.
-  Do not FORCE.
-- Verification: green+strict PASS; seed0360 still **98492**/275.
-- Next: C mumak pos / sobj_at(BOULDER,57,9) / blocking_terrain; then
-  wizard3 @98502.
-
-## 2026-07-19 14:04 — #875 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score-only; no port patch).
-- Change or falsified theory: documented suite aggregates in CURRENT.md.
-- Verification: green+strict PASS; full suite **37/44**, Scr **8280**/11405,
-  RNG **629134**/792838 (79.35%), speed `38+0.21/turn`. Δ vs #870:
-  Scr 0, RNG 0, PASS 0 (flat). seed0360 still @98492.
-- Next: @98492 C couldsee(55,9)/does_block vs JS vision block; then wizard3.
-## 2026-07-19 14:05 — #874 @98492 fleeck/linedup call-path (D-0773)
-- Objective: seed0360 @98492 why C skips linedup rn2(3).
-- C locus: `mthrowu.c` `linedup`; `vision.c` couldsee; `monmove.c` fleeck.
-- Change or falsified theory: no port patch. DIAG: JS mumak (55,9)
-  fleeck@98491 → linedup boulder rn2@98492 → post-fleeck; C @98492 is
-  distfleeck (fits post-fleeck after lined_up without rn2). C step368
-  has zero linedup rn2(3). viz_clear blocks at ROOM boulder (57,9);
-  row10 lava corridor couldsee. Do not FORCE.
-- Verification: green+strict PASS; seed0360 still **98492**/275.
-- Next: C couldsee(55,9)/does_block vs JS; then wizard3.
