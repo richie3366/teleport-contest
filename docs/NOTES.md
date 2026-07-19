@@ -7,13 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#815 score:** suite **36/44**; Scr 7926; RNG **527503** (66.53%).
-  Δ#810: Scr 0, RNG +189. seed0399 **10389**/11409 still @10157.
+- **#816:** D-0732 `mon_allowflags` + `in_your_sanctuary`/temple SANCT.
+  seed0399 still @10157 (maze; temple inert). Suite score last @#815.
 - **D-0731 open:** black unicorn @58,12; JS **cnt=7**→`rn2(28)`; C
-  `rn2(20)`⇒cnt=5. #814 ported onscary/garlic/bars/gas+mconf — inert
-  in JS state @miss. Spider@57,12; WEB+sack@58,13; mux=u=(47,9).
-- **Next:** C-state terrain/mon split vs JS; temple/`worm_cross`; or
-  D-0708 @49039. Prefer shared. Don’t FORCE_EXCL / re-break D-0660…31.
+  `rn2(20)`⇒cnt=5. Maze `is_maze_lev` nrooms=0 has_temple=false.
+  Cells: (57,11)(57,13)(58,11)(58,13 WEB+sack)(59,11)(59,12)(59,13
+  track); spider@57,12. Near: jelly@55,12; elf nobles@57,10/@56,11.
+  No worms. FORCE any 2 keep-track →10217 (wish).
+- **Falsify:** C-state which 2 of 6 non-track; or D-0708 @49039.
+  Don’t FORCE_EXCL / re-break D-0660…32.
 
 ## Don’t re-check (≤15)
 
@@ -33,14 +35,14 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…31: `#rub`/…/`max_passive_dmg` AD_ACID / **unicorn NOTONL** —
-  `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred; rest of
-  PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
+- D-0710…32: `#rub`/…/`max_passive_dmg` AD_ACID / unicorn NOTONL /
+  onscary/garlic/bars/gas / mon_allowflags+temple SANCT — hallu maze
+  @10157 still open which 2 cells C drops (temple inert; no worms);
+  `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred;
+  rest of PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
   C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
   `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
-  numeric `MS_*` vs string msound; **which 2 of 6 non-track mfndpos
-  cells C drops @10157** still open (WEB not required; onscary/garlic/
-  bars/gas ported but inert in JS state @miss).
+  numeric `MS_*` vs string msound; full `passes_bars` deferred.
 
 ## Landmarks (≤15)
 
@@ -74,4 +76,5 @@ Objective/score live in `CURRENT.md`.
   **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME);
   **Sokoban wall blue iff DECgraphics** (D-0729);
   **max_passive_dmg AD_ACID** (D-0730);
-  **unicorn NOTONL + fail-tele + rloc track clear** (D-0731).
+  **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
+  **mon_allowflags + temple SANCT** (D-0732).

@@ -13,7 +13,7 @@ import {
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
     ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
-    ismnum, M_POISONGAS_OK, u_at,
+    ismnum, M_POISONGAS_OK, u_at, TEMPLE,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
@@ -23,7 +23,8 @@ import {
     is_flyer, is_floater, is_clinger, is_swimmer, likes_lava,
     bigmonst, amorphous, is_whirly, noncorporeal, M1_SLITHY,
     is_vampshifter, is_male, is_female, is_neuter, likes_gems,
-    is_rider, nonliving, breathless,
+    is_rider, nonliving, breathless, is_giant, is_minion, is_human,
+    is_undead,
 } from './monsters.js';
 import { m_harmless_trap } from './trap.js';
 import {
@@ -44,6 +45,8 @@ import { engr_at } from './engrave.js';
 import { visible_region_at } from './region.js';
 import { were_change } from './were.js';
 import { set_mimic_sym, newcham, pickvampshape } from './makemon.js';
+import { in_your_sanctuary } from './priest.js';
+import { in_rooms } from './hack.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -143,6 +146,9 @@ const AXE = objectNames.indexOf('AXE');
 const BATTLE_AXE = objectNames.indexOf('BATTLE_AXE');
 const CLOVE_OF_GARLIC = objectNames.indexOf('CLOVE_OF_GARLIC');
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
+const OTYP_SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
+const OTYP_LOCK_PICK = objectNames.indexOf('LOCK_PICK');
+const OTYP_CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const PM_ANGEL = monsterNames.indexOf('PM_ANGEL');
 const PM_MINOTAUR = monsterNames.indexOf('PM_MINOTAUR');
 
@@ -621,6 +627,17 @@ export function mon_allowflags(mtmp) {
     const Conflict = hero_conflict();
     // C: can_open = !(nohands(data) || verysmall(data))
     const can_open = !(nohands(mtmp.data) || verysmall(mtmp.data));
+    // C: can_unlock = (can_open && monhaskey) || wiz || rider
+    let has_key = false;
+    for (let o = mtmp.minvent; o; o = o.nobj) {
+        if (o.otyp === OTYP_CREDIT_CARD || o.otyp === OTYP_SKELETON_KEY
+            || o.otyp === OTYP_LOCK_PICK) {
+            has_key = true;
+            break;
+        }
+    }
+    const can_unlock = (can_open && has_key) || !!mtmp.iswiz || is_rider(mtmp.data);
+    const doorbuster = is_giant(mtmp.data);
     // C: can_tunnel = tunnels && !Is_rogue_level; needspick hostiles close
     // enough prefer weapon over dig (same gate as m_move).
     let can_tunnel = tunnels(mtmp.data) && !Is_rogue_level(game.u?.uz);
@@ -640,18 +657,40 @@ export function mon_allowflags(mtmp) {
     if (Conflict && !resist_conflict(mtmp)) {
         allowflags |= ALLOW_U;
     }
+    if (mtmp.isshk) allowflags |= ALLOW_SSM;
+    if (mtmp.ispriest) allowflags |= ALLOW_SSM | ALLOW_SANCT;
     // C: passes_walls → ALLOW_ROCK|ALLOW_WALL; throws_rocks / m_can_break_boulder → ALLOW_ROCK
     // m_can_break_boulder (wielded dig tool) deferred — named in C-JS-MAP
     if (passes_walls(mtmp.data)) allowflags |= ALLOW_ROCK | ALLOW_WALL;
     if (throws_rocks(mtmp.data)) allowflags |= ALLOW_ROCK;
     if (can_tunnel) allowflags |= ALLOW_DIG;
+    if (doorbuster) allowflags |= BUSTDOOR;
     if (can_open) allowflags |= OPENDOOR;
+    if (can_unlock) allowflags |= UNLOCKDOOR;
+    // C: passes_bars → ALLOW_BARS (rust/corr/metallivorous/slithy subset deferred)
+    if (passes_walls(mtmp.data) || amorphous(mtmp.data) || is_whirly(mtmp.data)
+        || verysmall(mtmp.data)) {
+        allowflags |= ALLOW_BARS;
+        // Named: unsolid; dmgtype RUST/CORR; metallivorous; slithy&&!big;
+        // ustuck engulfer gate
+    }
+    if (is_minion(mtmp.data) || is_rider(mtmp.data)) {
+        allowflags |= ALLOW_SANCT;
+    }
     // C: unicorn && !noteleport_level → NOTONL (mfndpos skips online cells).
     // noteleport_level: level.flags.noteleport (covetous/hell-court deferred).
     if (mtmp.data?.mlet === 'S_UNICORN' && likes_gems(mtmp.data)
         && !game.level?.flags?.noteleport
         && !((game.level?.flags?.stasis_until ?? -1) >= (game.moves ?? 0))) {
         allowflags |= NOTONL;
+    }
+    if (is_human(mtmp.data) || (mtmp.data?.mndx ?? -1) === PM_MINOTAUR) {
+        allowflags |= ALLOW_SSM;
+    }
+    // C: undead (not ghost) or vampshifter → NOGARLIC
+    if ((is_undead(mtmp.data) && mtmp.data?.mlet !== 'S_GHOST')
+        || is_vampshifter(mtmp)) {
+        allowflags |= NOGARLIC;
     }
     return allowflags;
 }
@@ -665,9 +704,10 @@ function m_in_air(mtmp) {
 }
 
 // C ref: mon.c mfndpos() — neighbour scan; ALLOW_DIG rock/tree + thrudoor
-// Named omissions still: mm_aggression/MDISP/temple ALLOW_SANCT;
-// eel nexttry; ALLOW_WALL thrudoor; can_fog in cant_squeeze_thru;
-// worm_cross diagonal; peaceful shop/temple dig avoid; Inhell Elbereth.
+// Named omissions still: mm_aggression/MDISP;
+// eel nexttry; can_fog in cant_squeeze_thru;
+// worm_cross diagonal; peaceful shop/temple dig avoid; Inhell Elbereth;
+// passes_bars full (rust/corr/metallivorous/slithy); m_can_break_boulder.
 export function mfndpos(mon, data, flag) {
     const x = mon.mx;
     const y = mon.my;
@@ -802,6 +842,15 @@ export function mfndpos(mon, data, flag) {
                 // mm_aggression / ALLOW_MDISP deferred
                 if (!(flag & ALLOW_M)) continue;
                 info |= ALLOW_M;
+            } else {
+                // C: ALLOW_SANCT only prevents movement (not attack) into temple
+                if (game.level?.flags?.has_temple
+                    && in_rooms(nx, ny, TEMPLE)
+                    && !in_rooms(x, y, TEMPLE)
+                    && in_your_sanctuary(null, nx, ny)) {
+                    if (!(flag & ALLOW_SANCT)) continue;
+                    info |= ALLOW_SANCT;
+                }
             }
 
             // C: sobj_at garlic / boulder

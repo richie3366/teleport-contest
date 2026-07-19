@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0732 — mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT
+
+- **Status:** fixed (partial — seed0399 @10157 unchanged)
+- **Symptom:** named omissions in `mon_allowflags` / `mfndpos` temple arm;
+  seed0399 still rn2(28) vs rn2(20).
+- **C locus:** `mon.c` `mon_allowflags` / `mfndpos` ALLOW_SANCT;
+  `priest.c` `in_your_sanctuary`.
+- **Cause:** JS `mon_allowflags` lacked isshk/ispriest/giant BUSTDOOR/
+  unlock/minion·rider SANCT/human·minotaur SSM/NOGARLIC; `mfndpos`
+  omitted temple sanctuary continue; `in_your_sanctuary` absent.
+- **Change:** port those arms; export `in_your_sanctuary`; `findpriest`
+  accepts occupancy char or numeric shroom. Named: full `passes_bars`
+  (rust/corr/metallivorous/slithy/unsolid/ustuck); `m_can_break_boulder`;
+  `worm_cross`; peaceful dig-avoid.
+- **DIAG (#816):** seed0399 miss is maze (`is_maze_lev`, nrooms=0,
+  has_temple=false); 7 ROOM cells; spider@57,12; WEB+sack@58,13;
+  temple arm inert here — still need C-state omit of 2 cells.
+- **Verification:** green+strict PASS; cohort 6/6; seed0399 still
+  @10157; seed0014 still 49495/59178.
+- **Next:** D-0731 C-state omit @10157; or D-0708 @49039.
+
 ## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
 
 - **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear +
@@ -16,14 +37,17 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   mux=u=(47,9); NOTONL inert; JS gas/engr/regions empty; no garlic/bars.
 - **Falsifier:** FORCE_EXCL any 2 of 7 that **keep (59,13)** → arg=20,
   prefix **10157→10217**. j=2 mtrack rewrite also →10217 (arity-only).
-- **Falsified (#813–#814):** WEB required in omit pair; pair ID via
+- **Falsified (#813–#816):** WEB required in omit pair; pair ID via
   max-prefix; deferred onscary/garlic/bars/gas with current JS state
-  (still cnt=7).
+  (still cnt=7); temple ALLOW_SANCT (D-0732) — level is maze
+  `nrooms=0`/`has_temple=false`.
 - **Cause (partial):** D-0233 named omission — unicorn
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
-  Remaining: which 2 of the **6 non-track** cells C drops (temple/
-  worm_cross still deferred; or C↔JS terrain/mon split without RNG).
+  Remaining: which 2 of the **6 non-track** cells C drops
+  (`worm_cross` still deferred; or C↔JS terrain/mon split without RNG).
+- **DIAG (#816):** maze; near jelly@55,12 + elf nobles@57,10/@56,11;
+  no worms; FORCE keep-track →10217 (wish).
 - **C locus:** `mon.c` `mon_allowflags`/`mfndpos`; `monmove.c` onscary
   + m_move unicorn else-branch; `teleport.c` `rloc_to`.
 - **Change (#814):** `mfndpos` — mconf/`!mcansee` flag adjust; IRONBARS;

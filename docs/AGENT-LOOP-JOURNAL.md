@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #816 mon_allowflags + temple SANCT (D-0732)
+- Objective: seed0399 @10157; pivoted after maze C-state DIAG.
+- C locus: `mon.c` `mon_allowflags`/`mfndpos`; `priest.c` `in_your_sanctuary`.
+- Change: isshk/priest/BUSTDOOR/unlock/minion·rider/human·minotaur/
+  NOGARLIC; temple ALLOW_SANCT + `in_your_sanctuary`. Falsified: temple
+  explains @10157 (maze nrooms=0 has_temple=false; still cnt=7).
+- Verification: green+strict PASS; cohort 6/6; seed0399 @10157;
+  seed0014 49495 held.
+- Next: D-0731 C-state which 2 cells; or D-0708 @49039.
+
 ## 2026-07-19 — #815 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (measurement only; no js/ change).
@@ -154,14 +164,4 @@ Use this shape:
 - Verification: green+strict PASS; seed0108 RNG **FULL** 16958 Scr
   **110→148**; cohort 33/33 PASS.
 - Next: seed0108 first screen miss @148.
-
-## 2026-07-19 — #801 seed0108 newman (D-0718)
-- Objective: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
-- C locus: `polyself.c` `newman`/`polyman`/`change_sex`; `attrib.c`
-  `redist_attr`; `exper.c` `rndexp`.
-- Change: port newman envelope (level rn1, sex rn2(10), rndexp,
-  redist_attr, HP/EN rebuild, hunger) + polyman restore; wire gate.
-- Verification: green+strict PASS; prefix **3186→3564** RNG **3572**
-  Scr **110**; cohort 33/33 PASS.
-- Next: @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
 

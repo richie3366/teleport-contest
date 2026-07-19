@@ -72,17 +72,17 @@ that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
 **Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
-(D-0731 — #814/#815: onscary/garlic/bars/gas+mconf ported, still
-cnt=7; need C-state omit); or seed0014 @49039 mfndpos (D-0708);
+(D-0731 — #816: maze nrooms=0; D-0732 temple/allowflags inert there;
+need C-state omit); or seed0014 @49039 mfndpos (D-0708);
 or coverage. Prefer shared blockers. Do **not** re-break
-D-0660…D-0731.
+D-0660…D-0732.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0399-wizard-hallu-actions.session.json
 ```
 
-**Do not re-break D-0660…D-0731.**
+**Do not re-break D-0660…D-0732.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
