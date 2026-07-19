@@ -41,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44**
-  @#915 Scr **8397** RNG **643814**/81.20%; seed0360 **113111**/519).
+  @#920 Scr **8525** RNG **644653**/81.31%; seed0360 **113111**/519).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
