@@ -12,7 +12,10 @@ Objective/score live in `CURRENT.md`.
   (no RNG) then **2nd** `distfleeck`; C next is bat `m_move:1871`
   `!rn2(3)`. FORCE skip quasit `want_move` → prefix **101025** (bat
   `rn2(3)/1/2` match). Falsify next: C quasit `MMOVE_DIED`/`mon_offmap`
-  after move (or other df-only path) — compare postmov on CLOUD dest.
+  after move, **or** `want_move` false via `scared`/`nearby` (JS
+  `distfleeck` still stubs `scared=0`) — compare postmov on CLOUD dest.
+  Meta: see `archive/REFLECTION-2026-07-19-seed0360-peel.md` (keep peel;
+  after 2 falsify → C-state; PASS@37 is lagging).
 - **D-0780 fixed:** `lock.js` `getdir` `'.'` = SELF (was cancel).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.

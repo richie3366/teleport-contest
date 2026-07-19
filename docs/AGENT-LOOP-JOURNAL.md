@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 17:45 — human pause: strategy reflection (post-#893)
+- Objective: explain stuck feel; decide if peel strategy needs change.
+- C locus: n/a (meta). See `archive/REFLECTION-2026-07-19-seed0360-peel.md`.
+- Change or falsified theory: strategy **keep**; tactics adjust — after
+  2 falsifications require C-state / site-shift checklist; PASS flat at
+  37 is lagging (seed0360 still FAIL). Diagnose burn @98492 and @100738
+  was real; loader peels #743–#881 were healthy. #893 open: C quasit
+  df-only vs JS 2nd fleeck (not bat gate).
+- Verification: docs only; human paused loop then cleared stop latch.
+- Next: #894+ peel packet in reflection file (C quasit df-only).
+
 ## 2026-07-19 17:35 — #893 D-0779 quasit 2nd fleeck site-shift
 - Objective: seed0360 @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.
 - C locus: `monmove.c` `dochug`/`distfleeck` (2nd fleeck after `m_move`).
