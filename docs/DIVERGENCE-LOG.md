@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0713 — #polyself / polymon missing (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @2881)
+- **Symptom:** @2864 C `exercise` `rn2(2)` vs JS `rn2(7)` — `#polyself`
+  was AC-only → unknown extcmd; `gnome`/`red dragon` keys desynced.
+- **C locus:** `wizcmds.c` `wiz_polyself`; `polyself.c` `polyself`/
+  `polymon`/`set_uasmon`/`break_armor`.
+- **Change:** EXT_CMDS `#polyself`→`wiz_polyself`; new `js/polyself.js`
+  controlled getlin→`polymon` (CON/WIS exercise, sex `rn2(10)`,
+  `rn1(500,500)`, dragon/`d(mlvl,8)` mhmax, sliparm/breakarm shed,
+  minimal `set_uasmon`). Named omissions: `newman`; random pick; were/
+  vamp/dragon-merge; FROMFORM props; `drop_weapon`; `#monster`; golemhp;
+  livelog first-poly.
+- **Verification:** green+strict PASS; seed0108 prefix **2864→2881**;
+  cohort 33/33 prior PASS stay PASS.
+- **Next:** @2881 pet `obj_resists` short vs C (dog_goal after poly).
+
 ## D-0712 — #wipe / dowipe missing (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @2864)

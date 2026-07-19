@@ -350,3 +350,12 @@
 - Verification: prefix **9354→14566**, Scr **221→298**/714; green+strict
   PASS; cohort **33**/33.
 - Next: @14566 C `zhitm` `d(6,6)` vs JS `rn2(10)`.
+
+## 2026-07-18 22:47 — D-0700 travel stop before n-dopush (diagnosed)
+- Objective: seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+- C locus: `hack.c` lookaround/findtravelpath/dopush; `cmd.c` dotravel_target.
+- Falsified: AVAL/`exercise` skip; forced end_running after first travel step.
+- Evidence: after `_/>/.` JS `continue_run` (multi=80 travel=1); C `rhack(n)`
+  dopush; no adjacent boulder in JS (60,8/60,10/68,5 only).
+- Verification: green+strict PASS; prefix still 36031; no js/ change.
+- Next: C-cited travel-stop before `n` (lookaround trap/TEST_TRAV/boulder).

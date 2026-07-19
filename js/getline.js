@@ -416,6 +416,16 @@ const EXT_CMDS = [
             return dowipe();
         },
     },
+    {
+        // C: cmd.c "polyself" IFBURIED|AUTOCOMPLETE|WIZMODECMD → wiz_polyself
+        name: 'polyself',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_polyself } = await import('./polyself.js');
+            return wiz_polyself();
+        },
+    },
 ];
 
 function wizardMode() {

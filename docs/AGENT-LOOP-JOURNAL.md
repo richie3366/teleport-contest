@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 01:59 — #793 D-0713 #polyself / polymon
+- Objective: seed0108 @2864 exercise/polyself (CURRENT primary).
+- C locus: `wizcmds.c` `wiz_polyself`; `polyself.c` `polyself`/`polymon`.
+- Change: EXT_CMDS `#polyself`; new `js/polyself.js` controlled getlin→
+  polymon (exercise, sex rn2(10), mtimedone, mhmax, sliparm). D-0713 fixed.
+- Verification: green+strict PASS; seed0108 **2864→2881**; cohort 33/33 PASS.
+- Next: @2881 pet `obj_resists` short; or D-0708.
+
 ## 2026-07-19 01:52 — #792 D-0711 cream pie + D-0712 #wipe
 - Objective: seed0108 @2807 use_cream_pie (CURRENT primary).
 - C locus: `apply.c` `use_cream_pie`; `do.c` `dowipe`/`wipeoff`.
@@ -154,13 +162,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 16/16 (incl. seed0361); seed0014
   prefix 36031→35246 (correct rest exposes earlier mdig miss).
 - Next: seed0014 @35246 C `mdig_tunnel` vs JS `rn2(8)`.
-
-## 2026-07-18 22:47 — D-0700 travel stop before n-dopush (diagnosed)
-- Objective: seed0014 @36031 C `exercise` `rn2(19)` vs JS `rn2(5)`.
-- C locus: `hack.c` lookaround/findtravelpath/dopush; `cmd.c` dotravel_target.
-- Falsified: AVAL/`exercise` skip; forced end_running after first travel step.
-- Evidence: after `_/>/.` JS `continue_run` (multi=80 travel=1); C `rhack(n)`
-  dopush; no adjacent boulder in JS (60,8/60,10/68,5 only).
-- Verification: green+strict PASS; prefix still 36031; no js/ change.
-- Next: C-cited travel-stop before `n` (lookaround trap/TEST_TRAV/boulder).
 
