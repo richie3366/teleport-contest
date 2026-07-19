@@ -20,14 +20,27 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `l`: C/JS both **7×** `rn2(10)` peace + **1×** castmu; JS still runs
   **8** apprentice dochugs → all apprentices `mov=0` at 112194; C must
   keep one apprentice with `mov≥12`. Hero `Displaced`.
-- **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug`
-  (CLOSE early-out still correct for Neferet).
+- **C-state (#912):** RNG identical through 112243 (incl. all step-706
+  calls). At 112242→112243 C has **two consecutive `distfleeck`** with
+  **no `set_apparxy` RNG** between them → next actor already has
+  `u_at(mux,muy)` (`monmove.c` `set_apparxy` early return). Neferet
+  still `mux=0,0` + CLOSE → cannot be that actor. After step 706 JS:
+  Neferet entered with `mov=24` (EOT 704 `mcalcmove` last roll
+  `rn2(12)=2<3`), spent `24→12`, `somebody=true`, hero `umov=12` →
+  break (no second `movemon`, no EOT); apprentices all `mov=0` but
+  several already `mux` at hero. Step 732 inherits that leftover
+  Neferet turn. Paradox: matched 8 apprentice spends yet C needs one
+  with `mov≥12` at 732 — not explained by CLOSE clear.
+- **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug` /
+  `set_apparxy` (`u_at(mux,muy)` early return).
 - **Change:** docs only — DIAG removed.
-- **Named deferred:** which apprentice idles on C during step 706;
-  why JS gives that mon a turn; do not FORCE CLOSE/movement.
+- **Named deferred:** which apprentice keeps `mov≥12` on C after step
+  706 despite matched peaceful RNG; do not FORCE CLOSE/movement;
+  `dmonsfree` still deferred (fmon living count matched at EOT 704).
 - **Verification:** green+strict PASS; focused still @112243 /
   RNG **112272** Scr **391** (no production patch).
-- **Next:** find the extra JS apprentice spend in step 706 vs C.
+- **Next:** resolve leftover-mov paradox (silent spend / order /
+  hero-umov EOT gate) without FORCE.
 
 ## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
 

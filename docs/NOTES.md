@@ -7,19 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#911 D-0794:** @112243 is **leftover apprentice**, not Neferet CLOSE.
-- Step 732 `.`: after bats, JS Neferet CLOSE skip → EOT `mcalcmove`.
-  C next is peaceful `distfleeck`/`m_move` `rn2(10)`.
-- **Falsified:** FORCE Neferet CLOSE+mux=hero matching was signature
-  coincidence (any peaceful fleeck). Suppress Neferet + boost first
-  apprentice (`mov=12`, mux already @hero) → mismatch **112247**,
-  RNG matched **112279**.
-- Step 706 `l`: both sides 7× peace `rn2(10)` + 1× castmu; JS still
-  **8** apprentice dochugs → all `mov=0` @112194; C keeps one with
-  `mov≥12`. Neferet mmove=15 (can be 24); apprentices mmove=12.
-- Session `#chat` → SELF (never cleared CLOSE). Hero Displaced.
-- **Next:** which apprentice idles on C in step 706 / why JS spends
-  that mon; not FORCE CLOSE or mov.
+- **#912 D-0794:** @112243 actor has **mux already at hero**
+  (`set_apparxy` `u_at` early-return — consecutive `distfleeck`, no
+  Displacement RNG). Neferet `mux=0,0`+CLOSE cannot be it.
+- Step 706 RNG **bit-identical** to C; JS **8** apprentice spends →
+  all `mov=0`; Neferet `24→12`; hero `umov=12` → no EOT; leftovers
+  carry into step 732 `.` (Neferet acts after bats → EOT).
+- **Paradox:** C still needs one apprentice with `mov≥12` at 732
+  despite matched 8 peaceful spends. Not FORCE CLOSE/mov.
+- **Falsify next:** silent path that skips one apprentice spend on C
+  (or refunds mov) while keeping fleeck/cast RNG; or hero-umov /
+  somebody gate that EOTs on C when JS does not (but step 706 has
+  **no** `mcalcmove` on C either).
 - **Don’t:** FORCE clear CLOSE; boost movement; leave DIAG.
 
 ## Don’t re-check (≤15)
@@ -35,7 +34,8 @@ Objective/score live in `CURRENT.md`.
 - Wizard had no `ldrnum` → no `leader_m_id` (D-0792).
 - Clearing Neferet CLOSE at thr≤112000 regresses (#908).
 - `makemon` mux≠spawn (D-0793); FlipY moves `mx/my` not `mux/muy` (C).
-- FORCE Neferet CLOSE @112243 is coincidence (D-0794).
+- FORCE Neferet CLOSE @112243 is coincidence (D-0794); mux-at-hero
+  fleeck signature confirms apprentice leftover (#912).
 
 ## Landmarks (≤15)
 
@@ -55,4 +55,5 @@ Objective/score live in `CURRENT.md`.
 - **wizard2** (D-0771); **Wiz-strt** FlipY (D-0776/D-0782);
   **m_move mux-image** (D-0790); **WAITMASK** (D-0791);
   **Wizard ldrnum** (D-0792); **makemon mux=0** (D-0793);
-  **apprentice leftover** (D-0794). `special_obj_hits_leader` deferred.
+  **apprentice leftover + mux-at-hero fleeck** (D-0794).
+  `special_obj_hits_leader` deferred.

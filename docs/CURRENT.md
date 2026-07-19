@@ -76,10 +76,11 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0360 @112243** — D-0794: leftover **apprentice**
-`mov≥12` after step 706, not Neferet CLOSE. FORCE Neferet CLOSE was
-peaceful-signature coincidence; boost apprentice → @112247 / RNG
-**112279**. Find why JS spends one extra apprentice in step 706.
-Parked D-0731.
+with mux already at hero (`set_apparxy` `u_at` early-return; consecutive
+`distfleeck`). Step 706 RNG bit-identical yet JS spends all 8
+apprentices (`mov=0`) while C needs one with `mov≥12` at step 732.
+Neferet CLOSE+`mux=0` is not the next actor. Find the silent mov
+budget divergence after step 706. Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \

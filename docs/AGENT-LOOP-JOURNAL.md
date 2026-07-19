@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 21:53 — #912 D-0794 mux-at-hero fleeck signature
+- Objective: seed0360 @112243 leftover apprentice after step 706.
+- C locus: `monmove.c` `set_apparxy` (`u_at(mux,muy)` early return);
+  `mon.c` `movemon` / EOT `mcalcmove`.
+- Change or falsified theory: **Docs only.** C @112243 is consecutive
+  `distfleeck` with no `set_apparxy` RNG → mux already at hero.
+  Neferet `mux=0`+CLOSE cannot be that actor. Step 706 RNG identical;
+  JS 8 apprentice spends → `mov=0`; Neferet `24→12`; `umov=12` skips
+  EOT. Paradox: C still needs leftover apprentice mov. DIAG out.
+- Verification: green+strict PASS; focused @112243 / RNG 112272 Scr 391.
+- Next: silent mov-budget divergence after step 706 (no FORCE).
+
 ## 2026-07-19 21:37 — #911 D-0794 apprentice leftover (not Neferet CLOSE)
 - Objective: seed0360 @112243 Neferet CLOSE / movement peel.
 - C locus: `mon.c` movemon/mcalcmove; `monmove.c` dochug (CLOSE OK).
