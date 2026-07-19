@@ -519,7 +519,8 @@ export function mkclass_aligned(mletClass, spc = 0, atyp = A_NONE) {
     init_mongen_order();
     const nums = new Array(SPECIAL_PM + 1).fill(0);
     const maxmlev = level_difficulty() >> 1;
-    const gehennom = (game.u?.uz?.dnum === GEHENNOM);
+    // C: gehennom = Inhell != 0 — dungeon hellish flag, not dnum===GEHENNOM
+    const gehennom = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
     const zero_freq_for_entire_class = (mclass_maxf[mletClass] ?? 0) === 0;
 
     let first;

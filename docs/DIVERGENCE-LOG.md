@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0748 — mkclass_aligned Inhell hellish (seed0360 @31374)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @35405)
+- **Symptom:** seed0360 @31374 — C `mkclass_aligned` `rn2(2)` vs JS still
+  in `rn2(9)` candidate loop (after matched valley/D-0747 prefix).
+- **C locus:** `makemon.c` `mkclass_aligned` — `gehennom = Inhell != 0`
+  (`In_hell` / dungeon `hellish`).
+- **Cause (#844):** JS used `dnum === GEHENNOM` (const 5). Valley is
+  hellish `dnum=1`, so JS applied `G_HELL` reject while C applied
+  `G_NOHELL` — C accepted a hell-only montoostrong candidate (`rn2(2)`)
+  that JS skipped (continued `rn2(9)`). Same Inhell gap as D-0747
+  `uncommon`/`rndmonst_adj`.
+- **Change:** `js/makemon.js` `mkclass_aligned` — `gehennom` from dungeon
+  `flags.hellish`. Named omissions: `pick_nasty` still `GEHENNOM` dnum;
+  other makemon `GEHENNOM` sites; `temperature_shift`.
+- **Verification:** green+strict PASS; cohort **37/37**; seed0360 prefix
+  **31374→35405**; RNG **31408→35443**; Scr **204→207**.
+- **Next:** @35405 C `rnd_misc_item` `rn2(3)` vs JS `rnd(2)`.
+
 ## D-0747 — valley.lua + Inhell hellish/G_NOHELL (seed0360 @22925)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @31374)

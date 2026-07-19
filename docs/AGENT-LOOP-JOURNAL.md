@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:42 — #844 mkclass_aligned Inhell hellish (D-0748)
+- Objective: seed0360 @31374 C mkclass_aligned rn2(2) vs JS rn2(9).
+- C locus: `makemon.c` `mkclass_aligned` — `gehennom = Inhell != 0`.
+- Change: `gehennom` from dungeon `flags.hellish` (not `dnum===GEHENNOM`);
+  valley hellish dnum=1 so C/JS hell-mask now agree.
+- Verification: green+strict PASS; cohort 37/37; seed0360 prefix
+  **31374→35405**; RNG **31408→35443**; Scr **204→207**.
+- Next: @35405 C rnd_misc_item rn2(3) vs JS rnd(2).
+
 ## 2026-07-19 09:39 — #843 valley + Inhell G_NOHELL (D-0747)
 - Objective: seed0360 @22925 valley vs rn2(79) (CURRENT primary).
 - C locus: `dat/valley.lua` / `sp_lev.c` load_special /
@@ -149,36 +158,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 34/34; continuous
   **11643→11715**; positional **11693→11895** Scr 88→108.
 - Next: seed5002 @11715 (`rn2(5)` vs `rnd(20)`); or D-0731/D-0708.
-
-## 2026-07-19 — #825 public score + seed5002 @11643 reframed
-
-- Objective: mandatory full `sessions` score (iter % 5 == 0).
-- C locus: n/a (score); diagnosis `hack.c` `overexertion` / `uhitm.c`
-  `do_attack` vs JS `distfleeck` at flattened 11643.
-- Change: CURRENT Score refreshed — **36/44**, Scr 7860/11405, RNG
-  **533216**/792838 (67.25%), speed `37+0.18/turn`. Δ vs #820 RNG +5521.
-  Reframed @11643: C melee `gethungry`/`hitum` (key `l` → small mimic);
-  JS skipped `do_attack` into monmove. No js/ patch.
-- Verification: green+strict PASS; full suite recorded.
-- Next: dump why `do_attack` skipped (bump/mimic gate); or D-0731/D-0708.
-
-## 2026-07-19 — #824 zhitu finish_losehp_done before learnwand (D-0737)
-
-- Objective: seed5002 trailing `rn2(19)` after fire zhitu @5904.
-- C locus: `zap.c` `zhitu` → `hack.c` `losehp` → `done(DIED)` noreturn.
-- Change: await `finish_losehp_done` in `zhitu`; skip `weffects`/`learnwand`
-  when gameover (≡ D-0255/D-0323).
-- Verification: green+strict PASS; cohort 34/34; cont **5904→11643**;
-  RNG **6176→11693**/12167.
-- Next: seed5002 @11643 gethungry rn2(20) vs rn2(5); or D-0731/D-0708.
-
-## 2026-07-19 — #822 use_mirror + use_camera getdir (D-0736)
-
-- Objective: seed5002 @5739 mirror/camera getdir leak.
-- C locus: `apply.c` `use_mirror`/`use_camera`; `bhit` INVIS_BEAM;
-  `flash_hits_mon`.
-- Change: port mirror (getdir/cursed/beam/flee) + camera (getdir/charge/
-  flash blind+flee); wire `doapply`.
-- Verification: green+strict PASS; cohort 8/8; cont **5739→5904**;
-  seg0 C FULL +1 JS learnwand `rn2(19)`.
-- Next: trailing learnwand exercise; or D-0731/D-0708.
