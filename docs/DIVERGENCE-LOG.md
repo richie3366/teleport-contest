@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0767 — orcus + Orcus stock_room mongone (seed0360 @76622)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @82982)
+- **Symptom:** seed0360 @76622 — C nhlib `shuffle` then `walkfrom` vs JS
+  `rn2(79)` after matched getbones (post-baalz).
+- **C locus:** `dat/orcus.lua`; `shknam.c` `stock_room` Orcus `mongone`;
+  `steal.c` `mdrop_special_objs` `obj_resists(0,0)`.
+- **Cause (#864):** no orcus loader → empty maze → `place_lregion` `rn2(79)`.
+  After loader, missing Orcus shopkeeper `mongone` skipped invent
+  `obj_resists` rolls (@82152).
+- **Change:** `js/mklev.js` — `load_orcus` + dispatch (mazegrid + map +
+  mazewalk + hell_tweaks + ghost-town content); `js/shknam.js` —
+  `stock_room` Orcus invent `obj_resists` + detach. Named omissions:
+  hellfill/wizard1–3/fakewiz; full `shkgone`/`mdrop_obj`; ensure_way_out.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **76622→82982**; RNG **76625→82989**; Scr **273**/833.
+- **Next:** @82982 C nhlib shuffle / `wizard1.lua` vs JS `rn2(79)`.
+
 ## D-0766 — baalz + baalz_fixup (seed0360 @74801)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @76622)

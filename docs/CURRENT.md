@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#860; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#860; stuck @10157 D-0731 |
-| seed0360 | 76625/120639 | 273/833 | @#863; next orcus @76622 |
+| seed0360 | 82989/120639 | 273/833 | @#864; next wizard1 @82982 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,15 +75,14 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @76622** — port **orcus** (C `orcus.lua:107`
-marker/lamp + `rn2(45)` get_location after stocked mazewalk; see NOTES).
+**Gameplay next:** **seed0360 @82982** — port **wizard1** (C
+`wizard1.lua:38` after nhlib shuffle / getbones; see NOTES).
 Prefer over D-0731/D-0708 mfndpos.
-Do **not** re-break D-0660…D-0766.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @76622 C nhlib shuffle vs JS rn2(79) post-baalz getbones → orcus
+# @82982 C nhlib shuffle vs JS rn2(79) post-orcus getbones → wizard1
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0766.**
+**Do not re-break D-0660…D-0767.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

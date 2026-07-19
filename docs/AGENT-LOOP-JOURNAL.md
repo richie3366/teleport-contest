@@ -11,13 +11,24 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-19 12:05 — #864 orcus + Orcus mongone (D-0767)
+- Objective: seed0360 @76622 C nhlib shuffle / walkfrom vs JS rn2(79).
+- C locus: `dat/orcus.lua`; `shknam.c` stock_room Orcus mongone;
+  `steal.c` mdrop_special_objs obj_resists.
+- Change: `load_orcus` + dispatch; `stock_room` Orcus invent obj_resists
+  + detach. Omit hellfill/wizard*/fakewiz; full shkgone.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **76622→82982**; RNG **76625→82989**; Scr **273**/833.
+- Next: @82982 C nhlib shuffle / wizard1.lua vs JS rn2(79).
 
 ## 2026-07-19 11:56 — #863 baalz / baalz_fixup (D-0766)
 - Objective: seed0360 @74801 C nhlib shuffle / walkfrom vs JS rn2(79).
@@ -159,13 +170,3 @@ Use this shape:
   Scr **8212**/11405; RNG **573869**/792838 (72.38%); speed `37+0.20/turn`.
 - Next: @43248 C minend-2 (`rnd(3)=2`) vs JS `rn2(79)`.
 
-## 2026-07-19 10:00 — #849 maybe_generate stronghold rate (D-0753)
-- Objective: seed0360 @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70).
-- C locus: `allmain.c` `maybe_generate_rnd_mon` udemigod?25 :
-  depth>stronghold?50 : 70.
-- Change: `js/allmain.js` port full rate ternary via `depth()` +
-  `game.stronghold_level` + `uevent.udemigod` (was always 70).
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **41768→41777**; RNG **41793→41794**; Scr 207.
-- Next: @41777 C nhlib.lua shuffle rn2(3) vs JS rn2(79)
-  (post getbones/makemaz; C splev_initlev).

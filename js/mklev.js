@@ -114,6 +114,8 @@ import { readobjnam } from './readobjnam.js';
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
+const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
+const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const KELP_FROND = objectNames.indexOf('KELP_FROND');
 const SCR_TELEPORTATION = objectNames.indexOf('SCR_TELEPORTATION');
 const BELL = objectNames.indexOf('BELL');
@@ -861,10 +863,10 @@ function reset_xystart_size() {
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
  * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
- * juiblex, baalz, Pri-fila, Pri-filb.
+ * juiblex, baalz, orcus, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal); minetn-1/3/4/6/7; minend-3;
- * medusa-2/4; water/earth/astral; orcus/hellfill/wizard1-3/fakewiz;
+ * medusa-2/4; water/earth/astral; hellfill/wizard1-3/fakewiz;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
  */
@@ -1106,6 +1108,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'baalz') {
         load_baalz();
+        return true;
+    }
+    if (protofile === 'orcus') {
+        load_orcus();
         return true;
     }
     return false;
@@ -9522,7 +9528,7 @@ function load_valley() {
 /**
  * C ref: dat/nhlib.lua hell_tweaks — random lava pools / river / boulder
  * walls / iron bars on Gehennom specials. Named omissions: none in body;
- * callers beyond asmodeus still deferred.
+ * callers beyond asmodeus/orcus still deferred (hellfill/wizard*).
  */
 function hell_tweaks(protectedArea) {
     const liquid = LAVAPOOL;
@@ -9612,7 +9618,7 @@ function hell_tweaks(protectedArea) {
 /**
  * C ref: dat/asmodeus.lua via load_special — Asmodeus lair (Gehennom).
  * mazegrid + half-left main map + half-right mazewalk wing + hell_tweaks.
- * Named omissions: orcus/hellfill/wizard1–3/fakewiz;
+ * Named omissions: hellfill/wizard1–3/fakewiz;
  * ensure_way_out; selection.bounds fidelity beyond SpLev_Map union.
  */
 function load_asmodeus() {
@@ -9881,7 +9887,7 @@ function load_asmodeus() {
 /**
  * C ref: dat/juiblex.lua via load_special — Juiblex swamp lair (Gehennom).
  * swamp init + two stair-guarantee pockets + centered lair map.
- * Named omissions: orcus/hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * Named omissions: hellfill/wizard1–3/fakewiz; ensure_way_out;
  * mkswamp body (region filled=2 → FILL_LVFLAGS only).
  */
 function load_juiblex() {
@@ -10155,7 +10161,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 /**
  * C ref: dat/baalz.lua via load_special — Baalzebub beetle lair (Gehennom).
  * solidfill + corrmaze + right/center map + west mazewalk (stocked);
- * baalz_fixup via fixup_special. Named omissions: orcus/hellfill/
+ * baalz_fixup via fixup_special. Named omissions: hellfill/
  * wizard1–3/fakewiz; ensure_way_out; map_cleanup.
  */
 function load_baalz() {
@@ -10339,6 +10345,284 @@ function load_baalz() {
 }
 
 /**
+ * C ref: dat/orcus.lua via load_special — Orcus ghost town (Gehennom).
+ * mazegrid + right/center map + west mazewalk (stocked) + hell_tweaks.
+ * Named omissions: hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * full mongone/shkgone beyond stock_room invent+detach (D-0767).
+ */
+function load_orcus() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style="mazegrid", bg="-" })
+    splev_initlev({
+        init_style: LVLINIT_MAZEGRID,
+        bg: HWALL,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.shortsighted = true;
+
+    // C orcus.lua: selection.match("-") → fillrect bounds2 (before map).
+    const tmpbounds = selection_match_mapfrag('-');
+    const bx = g.splev_xstart | 0;
+    const by = g.splev_ystart | 0;
+    const bounds2 = selection_fillrect(
+        tmpbounds.lx + bx,
+        (tmpbounds.ly + 1) + by,
+        (tmpbounds.hx - 2) + bx,
+        (tmpbounds.hy - 1) + by,
+    );
+
+    const ORCUS_MAP = `
+.|....|....|....|..............|....|........
+.|....|....|....|..............|....|........
+.|....|....|....|--...-+-------|.............
+.|....|....|....|..............+.............
+.|.........|....|..............|....|........
+.--+-...-+----+--....-------...--------.-+---
+.....................|.....|.................
+.....................|.....|.................
+.--+----....-+---....|.....|...----------+---
+.|....|....|....|....---+---...|......|......
+.|.........|....|..............|......|......
+.----...---------.....-----....+......|......
+.|........................|....|......|......
+.----------+-...--+--|....|....----------+---
+.|....|..............|....+....|.............
+.|....+.......|......|....|....|.............
+.|....|.......|......|....|....|.............
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(ORCUS_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'right', 'center',
+    );
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    const orcus1 = selection_new();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+            selection_setpoint(xx, yy, orcus1, 1);
+        }
+    }
+    const mx = xstart;
+    const my = ystart;
+
+    // des.mazewalk(00,06,"west") — stocked default true
+    splev_mazewalk(0, 6, W_WEST, true);
+
+    // des.region(selection.area(01,00,44,16),"unlit") — light only
+    for (let ry = 0; ry <= 16; ry++) {
+        for (let rx = 1; rx <= 44; rx++) {
+            const loc = g.level.at(mx + rx, my + ry);
+            if (loc) loc.lit = false;
+        }
+    }
+
+    mkstairs(mx + 33, my + 15, 0, null);
+
+    const boulderCoords = [
+        [19, 2], [20, 2], [21, 2], [36, 2], [36, 3],
+        [6, 4], [5, 5], [6, 5], [7, 5], [39, 5],
+        [8, 8], [9, 8], [10, 8], [11, 8],
+        [6, 10], [5, 11], [6, 11], [7, 11], [21, 11], [21, 12],
+        [13, 13], [14, 13], [15, 13], [14, 14],
+    ];
+    for (const [rx, ry] of boulderCoords)
+        mksobj_at(BOULDER, mx + rx, my + ry, true, true);
+
+    const orcusDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    orcusDoor(23, 2, D_CLOSED);
+    orcusDoor(31, 3, D_ISOPEN);
+    orcusDoor(3, 5, D_NODOOR);
+    orcusDoor(9, 5, D_CLOSED);
+    orcusDoor(14, 5, D_CLOSED);
+    orcusDoor(41, 5, D_CLOSED);
+    orcusDoor(3, 8, D_ISOPEN);
+    orcusDoor(13, 8, D_NODOOR);
+    orcusDoor(41, 8, D_ISOPEN);
+    orcusDoor(24, 9, D_CLOSED);
+    orcusDoor(31, 11, D_CLOSED);
+    orcusDoor(11, 13, D_ISOPEN);
+    orcusDoor(18, 13, D_CLOSED);
+    orcusDoor(41, 13, D_CLOSED);
+    orcusDoor(26, 14, D_ISOPEN);
+    orcusDoor(6, 15, D_CLOSED);
+
+    // des.altar type=sanctum without TEMPLE room → plain AM_NONE (create_altar)
+    {
+        const loc = g.level.at(mx + 24, my + 7);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_NONE;
+            loc.altarmask = AM_NONE;
+        }
+    }
+
+    const addRectRoom = (x1, y1, x2, y2, lit, rtype) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+        add_room(dx1, dy1, dx2, dy2, lit, rtype, true);
+        const troom = g.level.rooms[g.level.nroom - 1];
+        if (!troom) return null;
+        troom.rlit = lit ? 1 : 0;
+        troom.needfill = FILL_NORMAL;
+        troom.needjoining = true;
+        topologize(troom);
+        add_doors_to_room(troom);
+        return troom;
+    };
+    // des.region morgue / shops filled=1
+    addRectRoom(22, 12, 25, 16, false, MORGUE);
+    addRectRoom(32, 9, 37, 12, true, SHOPBASE);
+    addRectRoom(12, 0, 15, 4, true, SHOPBASE);
+
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    placeTrapRnd(SPIKED_PIT);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    for (let i = 0; i < 10; i++) splev_create_object(null);
+
+    // math.random(0,1) → lua_random2 → rn2(2) before create_object loc
+    {
+        const otyp = lua_random2(0, 1) === 1 ? MAGIC_MARKER : MAGIC_LAMP;
+        const pos = get_location_random(null);
+        if (pos.x >= 0)
+            mksobj_at(otyp, pos.x, pos.y, true, true);
+    }
+
+    const placeNamedAt = (id, rx, ry) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let x = mx + rx;
+        let y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        const mtmp = makemon(pm, moved.x, moved.y, 0);
+        if (mtmp) mtmp.female = female;
+        return mtmp;
+    };
+    placeNamedAt('Orcus', 33, 15);
+    placeNamedAt('human zombie', 32, 15);
+    placeNamedAt('shade', 32, 14);
+    placeNamedAt('shade', 32, 16);
+    placeNamedAt('vampire', 35, 16);
+    placeNamedAt('vampire', 35, 14);
+    placeNamedAt('vampire lord', 36, 14);
+    placeNamedAt('vampire lord', 36, 15);
+
+    // Random-place named companions (des.monster("skeleton") etc.)
+    const placeNamedRnd = (id) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let loc = pm ? pm_to_humidity(pm) : DRY;
+        let pos = get_location_coord_random(loc | NO_LOC_WARN);
+        if (pos.x < 0) {
+            loc |= DRY;
+            pos = get_location_coord_random(loc);
+        }
+        pos = splev_resolve_occupied(pos.x, pos.y, pm);
+        const mtmp = makemon(pm, pos.x, pos.y, 0);
+        if (mtmp) mtmp.female = female;
+        return mtmp;
+    };
+    for (let i = 0; i < 5; i++) placeNamedRnd('skeleton');
+    for (let i = 0; i < 4; i++) placeNamedRnd('shade');
+    for (let i = 0; i < 3; i++) placeNamedRnd('giant zombie');
+    for (let i = 0; i < 3; i++) placeNamedRnd('ettin zombie');
+    for (let i = 0; i < 3; i++) placeNamedRnd('human zombie');
+    for (let i = 0; i < 3; i++) placeNamedRnd('vampire');
+    for (let i = 0; i < 2; i++) placeNamedRnd('vampire lord');
+    for (let i = 0; i < 5; i++) splev_create_monster(null);
+
+    // C lspo_map contents end → reset_xystart_size (keep SpLev_Map)
+    g.splev_xstart = 1;
+    g.splev_ystart = 0;
+    g.splev_xsize = COLNO - 1;
+    g.splev_ysize = ROWNO;
+
+    // levregions / teleport — region_islev=1 + exclude_islev=1 (absolute)
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_UPSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 12, y2: 20 },
+        delarea: { x1: 20, y1: 1, x2: 70, y2: 20 },
+    });
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 12, y2: 20 },
+        delarea: { x1: 20, y1: 1, x2: 70, y2: 20 },
+    });
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 12, y2: 20 },
+        delarea: { x1: 20, y1: 1, x2: 70, y2: 20 },
+    });
+
+    // protected = bounds2:negate() | orcus1; hell_tweaks(protected)
+    const protectedSel = selection_or(selection_not(bounds2), orcus1);
+    hell_tweaks(protectedSel);
+
+    // C load_special: wallify → flip → lregions → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
  * C ref: priest.c mk_roamer — aligned cleric/angel with emin (sanctum horde).
  * Local to avoid mklev↔priest cycle. Named: reset_hostility deferred.
  */
@@ -10364,7 +10648,7 @@ function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
 /**
  * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
  * No lua temperate/hot/cold — keeps clear_level_structures hell default
- * temperature=1 (D-0751). Named omissions: ensure_way_out; orcus/
+ * temperature=1 (D-0751). Named omissions: ensure_way_out;
  * hellfill/wizard1–3/fakewiz protos.
  */
 function load_sanctum() {

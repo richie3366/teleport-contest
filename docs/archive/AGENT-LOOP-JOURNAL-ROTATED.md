@@ -37,3 +37,13 @@
 - Next: which of 6 C omits (C-only trap/mon / earlier geometry /
   missing mfndpos arm); or seed0108.
 
+## 2026-07-19 10:00 — #849 maybe_generate stronghold rate (D-0753)
+- Objective: seed0360 @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70).
+- C locus: `allmain.c` `maybe_generate_rnd_mon` udemigod?25 :
+  depth>stronghold?50 : 70.
+- Change: `js/allmain.js` port full rate ternary via `depth()` +
+  `game.stronghold_level` + `uevent.udemigod` (was always 70).
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **41768→41777**; RNG **41793→41794**; Scr 207.
+- Next: @41777 C nhlib.lua shuffle rn2(3) vs JS rn2(79)
+  (post getbones/makemaz; C splev_initlev).

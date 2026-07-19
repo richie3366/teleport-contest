@@ -747,6 +747,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0764 | fixed | hell_tweaks + fillrect get_location xstart | seed0360 71832→72078; RNG 71855→72079; Scr 270; next juiblex/swamp @72078 |
 | D-0765 | fixed | juiblex + lvlfill_swamp + map align L/R/T/B | seed0360 72078→74801; RNG 72079→74607; Scr 270→267; next walkfrom @74801 |
 | D-0766 | fixed | baalz + baalz_fixup + bughack wallify | seed0360 74801→76622; RNG 74803→76625; Scr 273; next orcus @76622 |
+| D-0767 | fixed | orcus + stock_room Orcus mongone invent | seed0360 76622→82982; RNG 76625→82989; Scr 273; next wizard1 @82982 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
