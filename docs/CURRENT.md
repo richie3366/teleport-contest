@@ -75,15 +75,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @41671** after D-0751 hell temperature —
-C `place_lregion` `rn2(26)` vs JS `rn2(23)`.
+**Gameplay next:** **seed0360 @41768** after D-0752 sanctum region_islev —
+C `maybe_generate_rnd_mon` `rn2(50)` vs JS `rn2(70)`
+(`depth(&u.uz) > depth(&stronghold_level)`).
 Prefer over D-0731/D-0708 mfndpos (omit-cell C-state still missing).
-Do **not** re-break D-0660…D-0751.
+Do **not** re-break D-0660…D-0752.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @41671 C place_lregion rn2(26) vs JS rn2(23)
+# @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +92,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0751.**
+**Do not re-break D-0660…D-0752.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

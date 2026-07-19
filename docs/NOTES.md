@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#847 D-0751 fixed:** hell `clear_level_structures` temperature +
-  `temperature_shift` `pm_resistance`. Prefix **41671**.
-- **Next @41671:** C `place_lregion` `rn2(26)` vs JS `rn2(23)` after
-  matched morgue fill_zoo epilogue. Falsifier: sanctum lregion / map
-  extent (x/y span) off by 3 on one axis.
+- **#848 D-0752 fixed:** sanctum `teleport_region` `region_islev=1` must
+  stay absolute (C `levregion_add` skips `get_location`). Prefix **41768**.
+- **Next @41768:** C `maybe_generate_rnd_mon` `rn2(50)` vs JS `rn2(70)`.
+  Falsifier: JS `depth(u.uz) > depth(stronghold_level)` false on sanctum
+  (C true → 50 branch). Check `stronghold_level` / dungeon depth wiring.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0751 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0752 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#845;
-  Scr 8212, RNG 71.68%; seed0360 **41671**/207 after D-0751).
+  **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#845;
+  Scr 8212, RNG 71.68%; seed0360 **41768**/207 after D-0752).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -55,6 +55,7 @@ Objective/score live in `CURRENT.md`.
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **sanctum region_islev absolute tele** (D-0752);
   **hell temp + temperature_shift** (D-0751);
   **sanctum load + peace_minded is_minion** (D-0750);
   **rnd_misc_item nonliving/vampshifter** (D-0749);

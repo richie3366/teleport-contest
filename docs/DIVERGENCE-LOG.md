@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0752 — sanctum teleport_region region_islev absolute (seed0360 @41671)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @41768)
+- **Symptom:** seed0360 @41671 — C `place_lregion` `rn2(26)` vs JS `rn2(23)`
+  after matched morgue `fill_zoo` epilogue (both `rn2(18)` for y).
+- **C locus:** `dat/sanctum.lua` `des.teleport_region({ region={54,1,79,18},
+  region_islev=1, dir="down" })`; `sp_lev.c` `levregion_add` — when
+  `in_islev`, skip `get_location` (no xstart/ystart offset).
+- **Cause (#848):** JS `load_sanctum` stored `mx+54`…`mx+79`. Centered map
+  has `xstart=3` → lx=57,hx clamped 79 → span 23; C keeps absolute 54..79 → 26.
+- **Change:** `js/mklev.js` `load_sanctum` — absolute `{54,1,79,18}` for
+  region_islev tele. Named omissions: asmodeus/… hell specials; flip_level
+  lregion coord update; stronghold-depth gate in `maybe_generate_rnd_mon`.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **41671→41768**; RNG **41693→41793**; Scr **207**.
+- **Next:** @41768 C `maybe_generate_rnd_mon` `rn2(50)` vs JS `rn2(70)`
+  (`depth(&u.uz) > depth(&stronghold_level)`).
+
 ## D-0751 — hell temperature + temperature_shift pm_resistance (seed0360 @38557)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @41671)

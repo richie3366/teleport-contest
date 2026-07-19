@@ -12,6 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-19 09:58 — #848 sanctum region_islev absolute (D-0752)
+- Objective: seed0360 @41671 C place_lregion rn2(26) vs JS rn2(23).
+- C locus: `dat/sanctum.lua` teleport_region region_islev=1;
+  `sp_lev.c` `levregion_add` skips get_location when in_islev.
+- Change: `load_sanctum` tele inarea absolute {54,1,79,18} (not mx+).
+  Root was map-relative offset with xstart=3 → span 23 vs C 26.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **41671→41768**; RNG **41693→41793**; Scr 207.
+- Next: @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70)
+  (depth > stronghold_level).
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -151,15 +162,4 @@ Use this shape:
   Root was missing plines so You die flushed botl before hits `--More--`.
 - Verification: green+strict PASS; cohort 34/34; RNG FULL; Scr **125→400**.
 - Next: seed5002 @230 write-vs-read / cmdassist; or D-0731/D-0708.
-
-## 2026-07-19 — #828 cmd `c` → doclose (D-0740)
-
-- Objective: seed5002 @11737 (JS wish rn2(181) vs C distfleeck).
-- C locus: `cmd.c` `'c'`→`doclose`; `lock.c` `doclose`/`getdir`.
-- Change: port `doclose` (getdir_cmdassist + close envelope); bind `c`.
-  Root was missing close command — key desync → premature `wiz_wish`
-  (C identify string was never a real wish).
-- Verification: green+strict PASS; cohort 34/34; RNG **FULL 12167**;
-  Scr 114→125/410.
-- Next: seed5002 screen peel (destroy/death topline); or D-0731/D-0708.
 

@@ -8119,11 +8119,13 @@ function load_sanctum() {
 
     // Stair up + teleport arrival region (apply after flip)
     mkstairs(mx + 63, my + 15, 1, null);
+    // des.teleport_region({ region={54,1,79,18}, region_islev=1, dir="down" })
+    // C levregion_add: in_islev skips get_location — absolute level coords.
     g.lregions = g.lregions || [];
     g.lregions.push({
         rtype: LR_DOWNTELE,
         rname: null,
-        inarea: { x1: mx + 54, y1: my + 1, x2: mx + 79, y2: my + 18 },
+        inarea: { x1: 54, y1: 1, x2: 79, y2: 18 },
         delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
     });
 
