@@ -48,9 +48,9 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 50419/59178 | 578/714 | prefix @50419 |
+| seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 109603/120639 | 391/833 | @109077 (#900 D-0786) |
+| seed0360 | 110391/120639 | 390/833 | @109454 (#901 D-0787) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3031/108275 | 13/1814 | knight coverage |
@@ -76,24 +76,24 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @109077 / D-0786 follow-on** — #900 fixed
-`dokick` `Wounded_legs` → `legs_in_no_shape` + `--More--` (was kicking again
-after D-0785 set wounded; C refused). Prefix **108369→109077**. Next: C
-`exercise` `rn2(19)` vs JS `rn2(4)` @109077 (key `^F`). seed0014 still
-**50419**. Parked D-0731.
+**Gameplay next:** **seed0360 @109454 / D-0787 follow-on** — #901 ported
+`wiz_map`/`^F` → `do_mapping`/`exercise(A_WIS)` (was Unknown command).
+Prefix **109077→109454**; suite matched **110391**. Next: C
+`set_apparxy` `rn2(5)` vs JS `rn2(4)` @109454 (displ/gotu). seed0014
+suite matched still **50419** (prefix @50259). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @109077: C exercise rn2(19) vs JS rn2(4)
+# @109454: C set_apparxy rn2(5) vs JS rn2(4)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50419
-(D-0708 still open; peel advanced with D-0784/D-0785/D-0786).
+**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
+(D-0708 still open; peel advanced with D-0784…D-0787).
 
-**Do not re-break D-0660…D-0786.**
+**Do not re-break D-0660…D-0787.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

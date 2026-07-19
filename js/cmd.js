@@ -45,7 +45,7 @@ import { doopen, doopen_indir, doclose } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, dowear, doputon } from './do_wear.js';
-import { wiz_wish, wiz_genesis, wiz_level_tele } from './wizcmds.js';
+import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd } from './teleport.js';
 import { dowield, dowieldquiver } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
@@ -1305,6 +1305,10 @@ export async function rhack(key) {
     } else if (key === 7) { // ^G — C('g') wiz_genesis
         // C ref: wizcmds.c wiz_genesis / cmd.c wizgenesis
         await wiz_genesis();
+        game.context.move = 0;
+    } else if (key === 6) { // ^F — C('f') wiz_map
+        // C ref: wizcmds.c wiz_map / cmd.c wizmap — ECMD_OK, no turn
+        await wiz_map();
         game.context.move = 0;
     } else if (ch === ':') {
         // C ref: invent.c dolook / lookat

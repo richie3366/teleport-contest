@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0787 — wiz_map ^F → do_mapping exercise(A_WIS)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @109077 — C `exercise` `rn2(19)` vs JS `rn2(4)`.
+  Matched strings hid site-shift: JS stack was `set_apparxy` gotu
+  `notthere` while C was still on wizard `^F`.
+- **C-state:** session step 624 key `^F`; C RNG `rn2(19)=2 @ exercise`
+  from `wiz_map`→`do_mapping`.
+- **C locus:** `wizcmds.c` `wiz_map`; `detect.c` `do_mapping`;
+  `cmd.c` `C('f')` wizmap; `display.c` `map_trap`/`map_engraving`.
+- **Cause (#901):** JS unbound `^F` → Unknown command (move=0); C maps
+  level + `exercise(A_WIS,TRUE)`.
+- **Change:** `wiz_map` in `wizcmds.js` (trap tseen+map, engr map,
+  clear conf/hallu around `do_mapping`); `rhack` key 6; `#wizmap` in
+  `getline.js`; export `map_engraving`. Named: notice_mon_off/on;
+  unavailcmd ecname wording; full engraving_to_glyph.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  **109077→109454**, suite RNG **110391**, Scr **390**; seed0014 suite
+  matched still **50419** (prefix @50259).
+- **Next:** @109454 C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
+
 ## D-0786 — dokick Wounded_legs legs_in_no_shape + --More--
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)

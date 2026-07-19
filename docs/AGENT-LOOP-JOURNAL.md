@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 19:10 — #901 D-0787 wiz_map ^F
+- Objective: seed0360 @109077 C exercise rn2(19) vs JS rn2(4).
+- C locus: `wizcmds.c` `wiz_map`; `detect.c` `do_mapping`; cmd `C('f')`.
+- Change: unbound `^F` was Unknown command; port `wiz_map` + key 6 +
+  `#wizmap` + `map_engraving`. Prefix **109077→109454**.
+- Verification: green+strict PASS; cohort 35/35; seed0360 suite RNG
+  **110391** Scr **390**; seed0014 suite matched **50419**.
+- Next: @109454 C set_apparxy rn2(5) vs JS rn2(4).
+
 ## 2026-07-19 19:05 — #900 score + D-0786 dokick Wounded_legs
 - Objective: cadence full `sessions`; seed0360 @108369 (misread as
   set_apparxy rn2(4) vs rn2(2)).
@@ -161,12 +170,3 @@ Use this shape:
   off-by-one then movement Y drift to peel. No production patch.
 - Verification: green+strict PASS; seed0360 still @100738; DIAG gone.
 - Next: cloud/row (37,*) pre-flip or first separating bat move (D-0779).
-
-## 2026-07-19 16:10 — #887 seed0360 bat mfndpos DIAG confirm (D-0779)
-- Objective: seed0360 @100738 C vs JS vampire bat mfndpos cnt / terrain.
-- C locus: `monmove.c:1871/:1970` `m_move`; `mon.c` `mfndpos`; Wiz-strt.
-- Change or falsified theory: no production patch. Live JS DIAG @100733
-  confirms cnt=4, HWALL typ=2 @(33–35,3), quasit@(34,1); C chcnt through
-  rn2(7); FORCE→100804. Recorder rebuild for C typ incomplete.
-- Verification: green+strict PASS; seed0360 still @100738; DIAG/FORCE gone.
-- Next: C `levl[33..35][3].typ` via working recorder (D-0779).

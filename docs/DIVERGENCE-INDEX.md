@@ -767,6 +767,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0784 | fixed | dotravel seenv\|\|couldsee (drop couldsee-only prefer) | seed0360 104904→108368; RNG 109279; seed0014→50259 |
 | D-0785 | fixed | kick_ouch/dumb set_wounded_legs ATEMP(DEX)-- | seed0360 108368→108369; RNG 109615 |
 | D-0786 | fixed | dokick Wounded_legs legs_in_no_shape + More | seed0360 108369→109077; suite RNG 109603 |
+| D-0787 | fixed | wiz_map ^F do_mapping exercise(A_WIS) | seed0360 109077→109454; suite RNG 110391 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
