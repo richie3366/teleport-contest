@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0741 — burnarmor erode + destroy pline/potionbreathe (seed5002 Scr)
+
+- **Status:** fixed (partial — seed5002 still FAIL; Scr 400/410)
+- **Symptom:** seed5002 RNG FULL but Scr stuck **125**/410. At fire-bounce
+  `--More--`, C kept HP:12 and later showed cloak smoulder / potion boil /
+  invis vapor / oil explode / You die; JS jumped to HP:0 + early You die
+  (skipped destroy messages; `finish_losehp_done` flushed botl before the
+  deferred hits `--More--`).
+- **C locus:** `trap.c` `burnarmor`/`erode_obj`; `zap.c` `maybe_destroy_item`
+  / `destroy_items`; `potion.c` `potionbreathe` POT_INVISIBILITY.
+- **Cause:** JS `burnarmor_zhitu` and `maybe_destroy_item` omitted erode
+  plines and destroy/`potionbreathe` plines, so zhitu reached fatal
+  `finish_losehp_done` while the hits message was still NEED_MORE.
+- **Change:** port `burnarmor` worn-slot `erode_obj` (async); async
+  `maybe_destroy_item` destroy pline + `potionbreathe` (invis flash) +
+  mid-destroy `finish_losehp_done`; zhitu early-return after fatal destroy;
+  remove local burnarmor stub.
+- **Verification:** green+strict PASS; cohort 34/34; RNG FULL; Scr
+  **125→400**/410.
+- **Next:** seed5002 @230 write-vs-read / cmdassist direction (10 screens);
+  or D-0731/D-0708.
+
 ## D-0740 — cmd `c` → doclose (seed5002 @11737 wish desync)
 
 - **Status:** fixed (partial — seed5002 still FAIL screens; RNG FULL)

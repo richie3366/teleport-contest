@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#828 D-0740 done:** `c` → `doclose` + getdir cmdassist. seed5002 RNG
-  **FULL 12167**; Scr 114→125. Wish@11737 was key desync (C ate `c` as
-  close/getdir; JS Unknown→later premature `^W` wish).
-- **Falsify next (Scr):** seed5002 display — C cloak/potion destroy
-  messages vs JS early `You die...` (RNG already matches). Compare
-  destroy_items / death pline order + `--More--`.
+- **#829 D-0741 done:** burnarmor erode + destroy pline/`potionbreathe`.
+  seed5002 Scr **125→400**/410; RNG still FULL.
+- **Falsify next (Scr @230):** C `What do you want to write on?` vs JS
+  `Sorry, I don't know how to use that.` / read prompt — engrave/marker
+  vs apply path. Also cmdassist Invalid direction @274+.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -20,10 +19,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0740 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0741 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
-- seed5002 RNG FULL; Scr still FAIL — not a wish/readobjnam bug.
+- seed5002 RNG FULL; Scr near-miss is write/cmdassist — not destroy/death.
 - C `^Wscroll of identify` @seg1 141–160 was **not** a real wish (keys
   eaten by `--More--` / confused input after Die?).
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -60,6 +59,7 @@ Objective/score live in `CURRENT.md`.
   **hero_seq + stethoscope seemimic/mstatusline** (D-0738);
   **mattackm mlstmv + dog_move return onscary** (D-0739);
   **`c` → doclose getdir** (D-0740);
+  **burnarmor erode + destroy pline/potionbreathe** (D-0741);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

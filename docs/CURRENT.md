@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#825; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#825; stuck @10157 D-0731 |
-| seed5002 | **12167**/12167 | **125**/410 | @#828; RNG FULL (D-0740); Scr next |
+| seed5002 | **12167**/12167 | **400**/410 | @#829; Scr 125→400 D-0741; @230 write |
 
 ## Green gate
 
@@ -71,18 +71,19 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed5002 **RNG FULL 12167** (D-0740 `doclose`); Scr
-**125**/410 — display peel (destroy_items / death topline vs C). Then
-finish seed5002 screens, or seed0399 @10157 (D-0731) / seed0014 @49039
-(D-0708). Prefer shared blockers. Do **not** re-break D-0660…D-0740.
+**Gameplay next:** seed5002 **Scr 400**/410 (D-0741 destroy/death path
+done). First miss @**230**: C write-on prompt vs JS “don't know how to
+use” / read — engrave/marker path. Also cmdassist Invalid direction
+@274+. Then finish seed5002, or seed0399 @10157 (D-0731) / seed0014
+@49039 (D-0708). Prefer shared blockers. Do **not** re-break D-0660…D-0741.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed5002-wizard-coverage-pair.session.json
-# RNG FULL; Scr 125/410 — next display diverge
+# RNG FULL; Scr 400/410 — next @230 write vs read / cmdassist
 ```
 
-**Do not re-break D-0660…D-0740.**
+**Do not re-break D-0660…D-0741.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
