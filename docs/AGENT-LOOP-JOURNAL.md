@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 11:56 — #863 baalz / baalz_fixup (D-0766)
+- Objective: seed0360 @74801 C nhlib shuffle / walkfrom vs JS rn2(79).
+- C locus: `dat/baalz.lua`; `mkmaze.c` `baalz_fixup` / bughack wallify;
+  `sp_lev.c` corrmaze; map without contents keeps xstart.
+- Change: `load_baalz` + dispatch; `baalz_fixup` + `Is_baal_level`;
+  bughack in `wall_cleanup`/`fix_wall_spines`. Omit orcus/hellfill/wizard*.
+- Verification: green+strict PASS; cohort 18/18; seed0360 prefix
+  **74801→76622**; RNG **74803→76625**; Scr **273**/833.
+- Next: @76622 C nhlib shuffle / walkfrom → **orcus** (`orcus.lua:107`).
+
 ## 2026-07-19 11:48 — #862 juiblex / lvlfill_swamp (D-0765)
 - Objective: seed0360 @72078 C nhlib shuffle / lvlfill_swamp vs JS rn2(79).
 - C locus: `dat/juiblex.lua`; `sp_lev.c` `lvlfill_swamp` / LVLINIT_SWAMP;
@@ -159,14 +169,3 @@ Use this shape:
   **41768→41777**; RNG **41793→41794**; Scr 207.
 - Next: @41777 C nhlib.lua shuffle rn2(3) vs JS rn2(79)
   (post getbones/makemaz; C splev_initlev).
-
-## 2026-07-19 09:58 — #848 sanctum region_islev absolute (D-0752)
-- Objective: seed0360 @41671 C place_lregion rn2(26) vs JS rn2(23).
-- C locus: `dat/sanctum.lua` teleport_region region_islev=1;
-  `sp_lev.c` `levregion_add` skips get_location when in_islev.
-- Change: `load_sanctum` tele inarea absolute {54,1,79,18} (not mx+).
-  Root was map-relative offset with xstart=3 → span 23 vs C 26.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **41671→41768**; RNG **41693→41793**; Scr 207.
-- Next: @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70)
-  (depth > stronghold_level).

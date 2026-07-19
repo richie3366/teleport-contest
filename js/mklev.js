@@ -54,6 +54,8 @@ import {
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
     Is_medusa_level,
+    Is_baal_level,
+    RLOC_ERR,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, M_AP_FURNITURE, ENGRAVE,
     MM_ASLEEP, MM_NOCOUNTBIRTH, MM_NOMSG, IS_TREE, G_GENOD,
     G_EXTINCT, MAXMONNO,
@@ -503,6 +505,123 @@ export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
                 return;
 }
 
+/** C ref: decl.c gb.bughack — preserve baalz insect legs during wallify. */
+function bughack_state() {
+    const g = game;
+    if (!g.bughack) {
+        g.bughack = {
+            inarea: { x1: COLNO, y1: ROWNO, x2: 0, y2: 0 },
+            delarea: { x1: COLNO, y1: ROWNO, x2: 0, y2: 0 },
+        };
+    }
+    return g.bughack;
+}
+
+/**
+ * C ref: mkmaze.c baalz_fixup — selective wallify of Baalzebub beetle
+ * lair; pools mark leg joints; iron-bar eyes clear diggable in front.
+ */
+function baalz_fixup() {
+    const g = game;
+    const map = g.level;
+    if (!map) return;
+    const bh = bughack_state();
+    let lastx = 0;
+    let x = 0;
+    const midy = (ROWNO / 2) | 0;
+    for (lastx = x = 0; x < COLNO; ++x) {
+        const loc = map.at(x, midy);
+        if (loc && ((loc.wall_info || 0) & W_NONDIGGABLE) !== 0) {
+            if (!lastx) bh.inarea.x1 = x + 1;
+            lastx = x;
+        }
+    }
+    bh.inarea.x2 = ((lastx > bh.inarea.x1) ? lastx : x) - 1;
+    x = bh.inarea.x1;
+    let lasty = 0;
+    let y = 0;
+    for (lasty = y = 0; y < ROWNO; ++y) {
+        const loc = map.at(x, y);
+        if (loc && ((loc.wall_info || 0) & W_NONDIGGABLE) !== 0) {
+            if (!lasty) bh.inarea.y1 = y + 1;
+            lasty = y;
+        }
+    }
+    bh.inarea.y2 = ((lasty > bh.inarea.y1) ? lasty : y) - 1;
+    for (x = bh.inarea.x1; x <= bh.inarea.x2; ++x) {
+        for (y = bh.inarea.y1; y <= bh.inarea.y2; ++y) {
+            const loc = map.at(x, y);
+            if (!loc) continue;
+            if (loc.typ === POOL) {
+                loc.typ = HWALL;
+                if (bh.delarea.x1 === COLNO) {
+                    bh.delarea.x1 = x;
+                    bh.delarea.y1 = y;
+                } else {
+                    bh.delarea.x2 = x;
+                    bh.delarea.y2 = y;
+                }
+            } else if (loc.typ === IRONBARS) {
+                if (isok(x - 1, y)
+                    && ((map.at(x - 1, y)?.wall_info || 0) & W_NONDIGGABLE) !== 0) {
+                    const a = map.at(x - 1, y);
+                    if (a) a.wall_info = (a.wall_info || 0) & ~W_NONDIGGABLE;
+                    if (isok(x - 2, y)) {
+                        const b = map.at(x - 2, y);
+                        if (b) b.wall_info = (b.wall_info || 0) & ~W_NONDIGGABLE;
+                    }
+                } else if (isok(x + 1, y)
+                    && ((map.at(x + 1, y)?.wall_info || 0) & W_NONDIGGABLE) !== 0) {
+                    const a = map.at(x + 1, y);
+                    if (a) a.wall_info = (a.wall_info || 0) & ~W_NONDIGGABLE;
+                    if (isok(x + 2, y)) {
+                        const b = map.at(x + 2, y);
+                        if (b) b.wall_info = (b.wall_info || 0) & ~W_NONDIGGABLE;
+                    }
+                }
+            }
+        }
+    }
+    wallification(
+        Math.max(bh.inarea.x1 - 2, 1),
+        Math.max(bh.inarea.y1 - 2, 0),
+        Math.min(bh.inarea.x2 + 2, COLNO - 1),
+        Math.min(bh.inarea.y2 + 2, ROWNO - 1),
+    );
+    x = bh.delarea.x1;
+    y = bh.delarea.y1;
+    {
+        const loc = map.at(x, y);
+        const below = map.at(x, y + 1);
+        if (loc && isok(x, y)
+            && (loc.typ === TLWALL || loc.typ === TRWALL)
+            && isok(x, y + 1) && below?.typ === TUWALL) {
+            loc.typ = (loc.typ === TLWALL) ? BRCORNER : BLCORNER;
+            below.typ = HWALL;
+            const mtmp = m_at(x, y);
+            if (mtmp) rloc(mtmp, RLOC_ERR | RLOC_NOMSG);
+        }
+    }
+    x = bh.delarea.x2;
+    y = bh.delarea.y2;
+    {
+        const loc = map.at(x, y);
+        const above = map.at(x, y - 1);
+        if (loc && isok(x, y)
+            && (loc.typ === TLWALL || loc.typ === TRWALL)
+            && isok(x, y - 1) && above?.typ === TDWALL) {
+            loc.typ = (loc.typ === TLWALL) ? TRCORNER : TLCORNER;
+            above.typ = HWALL;
+            const mtmp = m_at(x, y);
+            if (mtmp) rloc(mtmp, RLOC_ERR | RLOC_NOMSG);
+        }
+    }
+    bh.inarea.x1 = bh.delarea.x1 = COLNO;
+    bh.inarea.y1 = bh.delarea.y1 = ROWNO;
+    bh.inarea.x2 = bh.delarea.x2 = 0;
+    bh.inarea.y2 = bh.delarea.y2 = 0;
+}
+
 // C ref: mkmaze.c fixup_special — post-special-level branch/lregion placement
 function fixup_special() {
     // lev_region[] from level compiler deferred (minefill has none / noflip)
@@ -537,6 +656,10 @@ function fixup_special() {
             void otmp;
         }
     }
+
+    // C ref: mkmaze.c fixup_special on_level(baalzebub_level) → baalz_fixup
+    if (Is_baal_level(game.u?.uz))
+        baalz_fixup();
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
@@ -738,10 +861,10 @@ function reset_xystart_size() {
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
  * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
- * Pri-fila, Pri-filb.
+ * juiblex, baalz, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal); minetn-1/3/4/6/7; minend-3;
- * medusa-2/4; water/earth/astral; baalz/orcus/hellfill;
+ * medusa-2/4; water/earth/astral; orcus/hellfill/wizard1-3/fakewiz;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
  */
@@ -979,6 +1102,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'juiblex') {
         load_juiblex();
+        return true;
+    }
+    if (protofile === 'baalz') {
+        load_baalz();
         return true;
     }
     return false;
@@ -9485,7 +9612,7 @@ function hell_tweaks(protectedArea) {
 /**
  * C ref: dat/asmodeus.lua via load_special — Asmodeus lair (Gehennom).
  * mazegrid + half-left main map + half-right mazewalk wing + hell_tweaks.
- * Named omissions: baalz/orcus/hellfill/wizard1–3/fakewiz;
+ * Named omissions: orcus/hellfill/wizard1–3/fakewiz;
  * ensure_way_out; selection.bounds fidelity beyond SpLev_Map union.
  */
 function load_asmodeus() {
@@ -9754,7 +9881,7 @@ function load_asmodeus() {
 /**
  * C ref: dat/juiblex.lua via load_special — Juiblex swamp lair (Gehennom).
  * swamp init + two stair-guarantee pockets + centered lair map.
- * Named omissions: baalz/orcus/hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * Named omissions: orcus/hellfill/wizard1–3/fakewiz; ensure_way_out;
  * mkswamp body (region filled=2 → FILL_LVFLAGS only).
  */
 function load_juiblex() {
@@ -10026,6 +10153,192 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 }
 
 /**
+ * C ref: dat/baalz.lua via load_special — Baalzebub beetle lair (Gehennom).
+ * solidfill + corrmaze + right/center map + west mazewalk (stocked);
+ * baalz_fixup via fixup_special. Named omissions: orcus/hellfill/
+ * wizard1–3/fakewiz; ensure_way_out; map_cleanup.
+ */
+function load_baalz() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " ", lit = 0 })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "corrmaze") — after init; skips full
+    // wallify; mazewalk carves CORR; baalz_fixup does selective wallify.
+    g.level.flags.corrmaze = true;
+
+    // Fake pools mark leg joints; iron bars are eyes (baalz_fixup).
+    const BAALZ_MAP = `
+-------------------------------------------------
+|                   ----               ----      
+|          ----     |     -----------  |         
+| ------      |  ---------|.........|--P         
+| F....|  -------|...........--------------      
+---....|--|..................S............|----  
++...--....S..----------------|............S...|  
+---....|--|..................|............|----  
+| F....|  -------|...........-----S--------      
+| ------      |  ---------|.........|--P         
+|          ----     |     -----------  |         
+|                   ----               ----      
+-------------------------------------------------
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(BAALZ_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'right', 'center',
+    );
+    // C lspo_map without contents: keep xstart/ysize for later map-relative
+    // mazewalk / stair / door / get_location (no reset_xystart_size).
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+        }
+    }
+    const mx = xstart;
+    const my = ystart;
+
+    // levregions / teleport — region_islev=1 + exclude_islev=1 (absolute)
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_UPSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 15, y2: 20 },
+        delarea: { x1: 15, y1: 1, x2: 70, y2: 16 },
+    });
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 15, y2: 20 },
+        delarea: { x1: 15, y1: 1, x2: 70, y2: 16 },
+    });
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 15, y2: 20 },
+        delarea: { x1: 15, y1: 1, x2: 70, y2: 16 },
+    });
+
+    // des.non_diggable(selection.area(00,00,47,12)) — map-relative
+    for (let ry = 0; ry <= 12; ry++) {
+        for (let rx = 0; rx <= 47; rx++) {
+            const loc = g.level.at(mx + rx, my + ry);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.mazewalk(00,06,"west") — stocked default true
+    splev_mazewalk(0, 6, W_WEST, true);
+
+    mkstairs(mx + 44, my + 6, 0, null);
+    {
+        const loc = g.level.at(mx + 0, my + 6);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    const placeNamedAt = (id, rx, ry) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let x = mx + rx;
+        let y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        const mtmp = makemon(pm, moved.x, moved.y, 0);
+        if (mtmp) mtmp.female = female;
+        return mtmp;
+    };
+    placeNamedAt('Baalzebub', 35, 6);
+
+    const placeClassObj = (oclass) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        mkobj_at(oclass, pos.x, pos.y, true);
+    };
+    placeClassObj(ARMOR_CLASS);
+    placeClassObj(ARMOR_CLASS);
+    placeClassObj(WEAPON_CLASS);
+    placeClassObj(WEAPON_CLASS);
+    placeClassObj(GEM_CLASS);
+    placeClassObj(POTION_CLASS);
+    placeClassObj(POTION_CLASS);
+    placeClassObj(SCROLL_CLASS);
+    placeClassObj(SCROLL_CLASS);
+    placeClassObj(SCROLL_CLASS);
+
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    placeTrapRnd(SPIKED_PIT);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    placeNamedAt('ghost', 37, 7);
+    placeNamedAt('horned devil', 32, 5);
+    placeNamedAt('barbed devil', 38, 7);
+    splev_create_monster('L');
+    splev_create_monster('V');
+    splev_create_monster('V');
+    splev_create_monster('V');
+
+    // C load_special: !corrmaze wallify skipped; flip → lregions → fixup
+    // (baalz_fixup from fixup_special)
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
  * C ref: priest.c mk_roamer — aligned cleric/angel with emin (sanctum horde).
  * Local to avoid mklev↔priest cycle. Named: reset_hostility deferred.
  */
@@ -10051,8 +10364,8 @@ function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
 /**
  * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
  * No lua temperate/hot/cold — keeps clear_level_structures hell default
- * temperature=1 (D-0751). Named omissions: ensure_way_out; baalz/
- * orcus/juiblex/hellfill/wizard1–3/fakewiz protos.
+ * temperature=1 (D-0751). Named omissions: ensure_way_out; orcus/
+ * hellfill/wizard1–3/fakewiz protos.
  */
 function load_sanctum() {
     const g = game;
@@ -13969,8 +14282,15 @@ function extend_spine(locale, wall_there, dx, dy) {
 function wall_cleanup(x1, y1, x2, y2) {
     const map = game.level;
     if (!map) return;
+    const bh = bughack_state();
     for (let x = x1; x <= x2; x++)
         for (let y = y1; y <= y2; y++) {
+            // C: skip interior of baalz insect (gb.bughack.inarea)
+            if (within_bounded_area(
+                x, y,
+                bh.inarea.x1, bh.inarea.y1, bh.inarea.x2, bh.inarea.y2,
+            ))
+                continue;
             const loc = map.at(x, y);
             const typ = loc?.typ ?? STONE;
             if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
@@ -13987,15 +14307,22 @@ function fix_wall_spines(x1, y1, x2, y2) {
         VWALL, TLWALL, TRWALL, CROSSWALL];
     const map = game.level;
     if (!map) return;
+    const bh = bughack_state();
     for (let x = x1; x <= x2; x++)
         for (let y = y1; y <= y2; y++) {
             const loc = map.at(x, y);
             const typ = loc?.typ ?? STONE;
             if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
+            // C: inside baalz inarea use iswall (not iswall_or_stone)
+            const inBug = within_bounded_area(
+                x, y,
+                bh.inarea.x1, bh.inarea.y1, bh.inarea.x2, bh.inarea.y2,
+            );
+            const locFn = inBug ? isWallTile : isWallOrStone;
             const locale = [
-                [isWallOrStone(x-1,y-1), isWallOrStone(x-1,y), isWallOrStone(x-1,y+1)],
-                [isWallOrStone(x,y-1), 0, isWallOrStone(x,y+1)],
-                [isWallOrStone(x+1,y-1), isWallOrStone(x+1,y), isWallOrStone(x+1,y+1)],
+                [locFn(x-1,y-1), locFn(x-1,y), locFn(x-1,y+1)],
+                [locFn(x,y-1), 0, locFn(x,y+1)],
+                [locFn(x+1,y-1), locFn(x+1,y), locFn(x+1,y+1)],
             ];
             const bits = (extend_spine(locale, isWallTile(x,y-1), 0, -1) << 3)
                 | (extend_spine(locale, isWallTile(x,y+1), 0, 1) << 2)

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0766 — baalz + baalz_fixup (seed0360 @74801)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @76622)
+- **Symptom:** seed0360 @74801 — C nhlib `shuffle` then `walkfrom` vs JS
+  `rn2(79)` after matched getbones (post-juiblex).
+- **C locus:** `dat/baalz.lua`; `mkmaze.c` `baalz_fixup` / `wall_cleanup`
+  bughack; `sp_lev.c` corrmaze skips full wallify; map without contents
+  keeps xstart (no `reset_xystart_size`).
+- **Cause (#863):** no baalz loader → empty maze → `place_lregion` `rn2(79)`.
+  Fingerprint: stocked mazewalk then `get_location` `rn2(49)` +
+  `rndghostname` (not orcus `rn2(45)` / `orcus.lua:107`).
+- **Change:** `js/mklev.js` — `load_baalz` + dispatch; `baalz_fixup` +
+  `Is_baal_level`; bughack skip/spine in `wall_cleanup`/`fix_wall_spines`.
+  Named omissions: orcus/hellfill/wizard*/fakewiz; ensure_way_out.
+- **Verification:** green+strict PASS; cohort **18/18**; seed0360 prefix
+  **74801→76622**; RNG **74803→76625**; Scr **273**/833.
+- **Next:** @76622 C nhlib shuffle / `walkfrom` → **orcus** (`orcus.lua:107`).
+
 ## D-0765 — juiblex + lvlfill_swamp (seed0360 @72078)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @74801)

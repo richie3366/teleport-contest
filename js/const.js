@@ -2967,3 +2967,10 @@ export function Is_juiblex_level(uz) {
         && (uz ?? g?.u?.uz)?.dnum === g.juiblex_level.dnum
         && (uz ?? g?.u?.uz)?.dlevel === g.juiblex_level.dlevel;
 }
+/** C ref: dungeon.h Is_baal_level — on_level(&baalzebub_level). */
+export function Is_baal_level(uz) {
+    const g = game;
+    return g?.baalzebub_level
+        && (uz ?? g?.u?.uz)?.dnum === g.baalzebub_level.dnum
+        && (uz ?? g?.u?.uz)?.dlevel === g.baalzebub_level.dlevel;
+}

@@ -485,3 +485,14 @@
   Scr −66, RNG +192. seed5002 still 6172 (D-0735 open).
 - Verification: green+strict PASS; full sessions run complete.
 - Next: C-state for D-0735 (seed5002 @5668 udist); or D-0731/D-0708.
+
+## 2026-07-19 09:58 — #848 sanctum region_islev absolute (D-0752)
+- Objective: seed0360 @41671 C place_lregion rn2(26) vs JS rn2(23).
+- C locus: `dat/sanctum.lua` teleport_region region_islev=1;
+  `sp_lev.c` `levregion_add` skips get_location when in_islev.
+- Change: `load_sanctum` tele inarea absolute {54,1,79,18} (not mx+).
+  Root was map-relative offset with xstart=3 → span 23 vs C 26.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **41671→41768**; RNG **41693→41793**; Scr 207.
+- Next: @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70)
+  (depth > stronghold_level).
