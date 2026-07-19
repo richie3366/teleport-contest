@@ -42,7 +42,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   (auto_describe space → `"unexplored area"` still).
 - **Verification:** green+strict PASS; cohort **35/35** PASS;
   seed0360 Scr **684→689**/833; prefix **531→539**.
-- **Next:** @539 `stone (no travel path)` vs `unexplored area`.
+- **Next:** @539 fixed in D-0813; residual @624 blocked staircase.
 
 ## D-0811 — lookat CLOUD fog/vapor (seed0360 @523)
 
