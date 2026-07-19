@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0714 — polymon drop_weapon(1) missing (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @2958)
+- **Symptom:** @2881 C `obj_resists` `rn2(100)` vs JS `rn2(12)` —
+  two fewer floor `dogfood`/`obj_resists` after `#polyself`→red dragon.
+- **C locus:** `polyself.c` `polymon` → `drop_weapon(1)` after
+  `break_armor`; `cantwield` ≡ `nohands||verysmall`.
+- **Cause:** JS `polymon` deferred `drop_weapon`; red dragon kept
+  wielded magic lamp. C message "drop your tool!" places lamp on
+  `fobj` → pet `dog_goal` scans it. Session later: kitten picks up lamp.
+- **Change:** port `drop_weapon(alone)` (canletgo → uwepgone/setuwep →
+  `dropx`; alone-message via TOOL→"tool"). Named omissions: twoweapon
+  dual-drop detail; `in_use` defer; `could_twoweap` untwoweapon;
+  `break_armor` horns/gloves/boots/shield still deferred.
+- **Verification:** green+strict PASS; seed0108 prefix **2881→2958**;
+  cohort 33/33 prior PASS stay PASS. Suite matched RNG 2931→3029.
+- **Next:** @2958 C `distfleeck` `rn2(5)` vs JS `rn2(36)` (post-Mjollnir
+  wish).
+
 ## D-0713 — #polyself / polymon missing (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @2881)

@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#795 score:** **35/44** Scr 7679 RNG 513289 (64.74%). Δ#790
-  Scr+25 RNG+75. seed0108 suite 2931 matched; **prefix still @2881**.
-- **@2881:** C `obj_resists` `rn2(100)` vs JS `rn2(12)` (pet after
-  sliparm drop / dog_goal). Falsifier:
+- **#796 peel:** D-0714 `drop_weapon(1)` — seed0108 **2881→2958**.
+  Suite RNG 2931→3029. Next @2958 C `distfleeck` `rn2(5)` vs JS
+  `rn2(36)` (post-Mjollnir). Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0713; invent nearby force for D-0710
+- **Don’t:** re-break D-0660…D-0714; invent nearby force for D-0710
   (was missing `#rub`).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0713 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0714 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -35,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710/11/12/13: missing `#rub` / cream / `#wipe` / `#polyself` — not pet AI.
+- D-0710…14: `#rub`/cream/`#wipe`/`#polyself`/`drop_weapon` — not pet AI.
 
 ## Landmarks (≤15)
 
@@ -57,3 +56,4 @@ Objective/score live in `CURRENT.md`.
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
   defsym `')'`=WEAPON `'('`=TOOL; Arc-goal **14** `des.object()`.
   Boots `oc_delay`=2; FUMBLE `Boots_on` → `incr_itimeout(HFumbling,rnd(20))`.
+  `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.

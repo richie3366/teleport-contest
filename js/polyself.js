@@ -12,7 +12,8 @@ import { name_to_mon } from './mondata.js';
 import { exercise, A_STR, A_CON, A_WIS } from './attrib.js';
 import { find_ac } from './u_init.js';
 import { setworn } from './do_wear.js';
-import { dropx } from './do.js';
+import { dropx, canletgo } from './do.js';
+import { setuwep, setuswapwep } from './wield.js';
 import { races } from './roles.js';
 import {
     mons,
@@ -31,6 +32,8 @@ import {
     humanoid,
     is_whirly,
     noncorporeal,
+    nohands,
+    verysmall,
     MZ_SMALL,
 } from './monsters.js';
 import {
@@ -58,6 +61,7 @@ import {
     PM_GNOME,
     monsterNames,
 } from './generated/monsters_data.js';
+import { TOOL_CLASS, objects } from './objects.js';
 
 const PM_GRAY_DRAGON = monsterNames.indexOf('PM_GRAY_DRAGON');
 const PM_URUK_HAI = monsterNames.indexOf('PM_URUK_HAI');
@@ -134,6 +138,77 @@ function copyAttrBundle(src) {
 }
 
 /**
+ * C ref: mondata.h cantwield — nohands || verysmall.
+ * @param {object|null|undefined} ptr
+ */
+function cantwield(ptr) {
+    return nohands(ptr) || verysmall(ptr);
+}
+
+/**
+ * C ref: weapon.c weapon_descr subset for drop_weapon alone-message.
+ * TOOL_CLASS → "tool" (magic lamp); else "weapon".
+ * @param {object} obj
+ */
+function poly_weapon_descr(obj) {
+    if (!obj) return 'weapon';
+    if ((obj.oclass | 0) === TOOL_CLASS) return 'tool';
+    const od = objects()?.[obj.otyp | 0];
+    const nm = String(od?.oc_name || od?.name || '').toLowerCase();
+    if (nm.includes('sword') || nm.includes('saber')) return 'sword';
+    return 'weapon';
+}
+
+/**
+ * C ref: polyself.c drop_weapon(alone) — cantwield forms must drop uwep.
+ * Named omissions: twoweapon dual-drop detail; in_use defer; could_twoweap
+ * untwoweapon arm; update_inventory side effects; Heart-of-Ahriman note.
+ * @param {number} alone
+ */
+async function drop_weapon(alone) {
+    const u = game.u || {};
+    if (!u.uwep) return;
+    const uptr = game.youmonst?.data;
+    // C: if (!alone || cantwield(youmonst.data))
+    if (alone && !cantwield(uptr)) {
+        // could_twoweap untwoweapon deferred
+        return;
+    }
+    const candropwep = await canletgo(u.uwep, '');
+    let candropswapwep = true;
+    if (u.twoweap && u.uswapwep) {
+        candropswapwep = await canletgo(u.uswapwep, '');
+    } else if (u.twoweap) {
+        candropswapwep = false;
+    }
+    if (alone) {
+        const what = (candropwep && candropswapwep) ? 'drop' : 'release';
+        let which = poly_weapon_descr(u.uwep);
+        if (u.twoweap && u.uswapwep) {
+            const whichtoo = poly_weapon_descr(u.uswapwep);
+            if (which !== whichtoo) which = 'weapon';
+        }
+        if ((u.uwep.quan || 1) !== 1 || u.twoweap) {
+            // makeplural deferred — quan>1 uncommon for wielded tools
+            if (!which.endsWith('s')) which += 's';
+        }
+        // C: the_your[!!strncmp(which,"corpse",6)] — "tool" → "your"
+        const your = which.startsWith('corpse') ? 'the' : 'your';
+        await pline(`You find you must ${what} ${your} ${which}!`);
+    }
+    if (u.twoweap && u.uswapwep) {
+        const otmp = u.uswapwep;
+        setuswapwep(null);
+        if (!otmp.in_use && candropswapwep) dropx(otmp);
+    }
+    {
+        const otmp = u.uwep;
+        setuwep(null);
+        if (!otmp.in_use && candropwep) dropx(otmp);
+    }
+}
+
+/**
  * C ref: polyself.c break_armor — sliparm / breakarm gear shedding.
  * Named omissions: mummy wrapping / alchemy smock / horns / gloves /
  * boots / shield / racial_exception; donning cancel; end_burn DSM.
@@ -200,8 +275,9 @@ async function break_armor() {
  * turn-into pline; rn1(500,500) mtimedone; set_uasmon; STR clamp;
  * mhmax (dragon / golem / d(mlvl,8)); break_armor; find_ac; newsym.
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
- * Blind restore; egg learn; swallow expel; light sources; drop_weapon;
- * full skinback; livelog first-poly text.
+ * Blind restore; egg learn; swallow expel; light sources;
+ * full skinback; livelog first-poly text; break_armor horns/gloves/
+ * boots/shield; drop_weapon twoweapon/in_use arms.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
@@ -295,7 +371,8 @@ export async function polymon(mntmp) {
     }
 
     await break_armor();
-    // drop_weapon deferred (gnome/dragon humanoid-or-cantwield paths unused here)
+    // C: drop_weapon(1) — cantwield (dragon/nohands) must drop uwep
+    await drop_weapon(1);
     find_ac();
     newsym(u.ux, u.uy);
     flags.botl = true;

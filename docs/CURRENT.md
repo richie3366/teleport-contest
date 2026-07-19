@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#795; prefix @49039 D-0708 |
-| seed0108 | 2931/16958 | 58/303 | @#795; prefix @2881 **obj_resists** |
+| seed0108 | 3029/16958 | 58/303 | @#796; prefix @2958 **distfleeck** |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,17 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 @2881 — C `obj_resists` `rn2(100)` vs JS
-`rn2(12)` (pet invent/floor after sliparm drop / dog_goal). Or seed0014
-@49039 **D-0708:** peaceful gnome `mfndpos` cnt 6 vs 5; omit suspect
-`(22,10)`. Prefer shared blockers. seed2200 @158 parked.
+**Gameplay next:** seed0108 @2958 — C `distfleeck` `rn2(5)` vs JS
+`rn2(36)` (post-Mjollnir wish / pet invent after D-0714 drop_weapon).
+Or seed0014 @49039 **D-0708:** peaceful gnome `mfndpos` cnt 6 vs 5;
+omit suspect `(22,10)`. Prefer shared blockers. seed2200 @158 parked.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0713.**
+**Do not re-break D-0660…D-0714.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
