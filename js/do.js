@@ -17,7 +17,7 @@ import {
 } from './const.js';
 import { seetrap } from './trap.js';
 import { COIN_CLASS } from './objects.js';
-import { pline, Norep, docrt, flush_screen, flush_topl_more, newsym, mark_topline_prompt } from './display.js';
+import { pline, Norep, docrt, flush_screen, flush_topl_more, newsym, mark_topline_prompt, assign_graphics, check_gold_symbol } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, vision_reset } from './vision.js';
 import { clear_light_sources, relight_monsters } from './light.js';
@@ -54,7 +54,7 @@ import { more_experienced, newexplevel } from './exper.js';
 import { PM_TOURIST, PM_ROGUE } from './generated/monsters_data.js';
 import { dismount_steed } from './steed.js';
 import { onquest, ok_to_quest } from './quest.js';
-import { In_quest, In_endgame, In_mines, In_sokoban } from './const.js';
+import { In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level, PRIMARYSET, ROGUESET } from './const.js';
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
 import { olfaction } from './monsters.js';
@@ -428,6 +428,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         };
     }
 
+    // C: do.c goto_level — Rogue↔Primary showsyms before u.uz reassignment
+    if (Is_rogue_level(newlevel) || Is_rogue_level(u.uz)) {
+        assign_graphics(Is_rogue_level(newlevel) ? ROGUESET : PRIMARYSET);
+    }
+    check_gold_symbol();
+
     assign_level(u.uz0 || (u.uz0 = { dnum: 0, dlevel: 0 }), u.uz);
     assign_level(u.uz, newlevel);
     if (!u.utolev) u.utolev = { dnum: 0, dlevel: 0 };
@@ -690,7 +696,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     } else if (In_mines(u.uz) || In_sokoban(u.uz)) {
         // ACH_MINE / ACH_SOKO deferred (no RNG)
     } else {
-        // Is_knox alarm / Is_rogue_level / Is_bigroom ACH deferred
+        // C: new && Is_rogue_level → primitive-world pline (forces --More--
+        // after dfr_post_msg materialize). Is_knox alarm / Is_bigroom ACH
+        // deferred.
+        if (madeNew && Is_rogue_level(u.uz)) {
+            await pline('You enter what seems to be an older, more primitive world.');
+        }
         // C: main dungeon quest-entrance telepathy from leader
         if (!In_quest(u.uz0) && at_dgn_entrance('The Quest')
             && !(u.uevent?.qcompleted || u.uevent?.qexpelled

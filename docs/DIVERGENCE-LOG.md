@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0805 — Rogue level arrival pline + assign_graphics (seed0360 @301)
+
+- **Status:** fixed (seed0360 Scr residual continues @318)
+- **Symptom:** seed0360 @301 ^V to Dlvl:18 Rogue level — C
+  `You materialize…!--More--` + botl `*:0` + ASCII `.` floors +
+  NO_COLOR `@`; JS materialize without More, `$:0`, DEC `·`, white `@`.
+- **C locus:** `do.c` `goto_level` — `assign_graphics(ROGUESET)` +
+  `check_gold_symbol`; `new && Is_rogue_level` → primitive-world
+  pline (chains after materialize → `--More--`); `symbols.c`
+  `assign_graphics` / `init_rogue_symbols` (gold=`*`, nocolor=1);
+  `display.c` `reset_glyphmap` Rogue nocolor strip.
+- **Cause (#927):** Rogue arrival + graphics deferred; materialize
+  alone never forced More; Primary DEC stayed active on Rogue.
+- **Change:** `js/do.js` — Rogue↔Primary `assign_graphics` before
+  `u.uz` reassignment; first-visit primitive pline. `js/display.js`
+  — `assign_graphics`/`check_gold_symbol`; `use_decgraphics` off on
+  ROGUESET; botl goldsym; `show_glyph_cell` nocolor strip. Named:
+  RogueIBM color sets; full showsyms (stairs `%`); Is_knox /
+  Is_bigroom ACH.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  Scr **628→633**/833; prefix **301→318**; RNG FULL.
+- **Next:** @318 materialize+hot map cell C `·` vs JS `#` (3,18).
+
 ## D-0804 — flip_level preserves object pile order (seed0360 @249)
 
 - **Status:** fixed (seed0360 Scr residual continues @301)

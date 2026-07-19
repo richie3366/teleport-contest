@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 00:05 — #927 D-0805 Rogue arrival + graphics
+- Objective: seed0360 @301 materialize `--More--` / `*:0` / `.` floors.
+- C locus: `do.c` `goto_level` Rogue pline + `assign_graphics`;
+  `symbols.c` / `display.c` Rogue nocolor.
+- Change: `js/do.js` + `js/display.js` — ROGUESET swap, gold `*`,
+  DEC off, nocolor strip, first-visit primitive pline. Named:
+  RogueIBM / full showsyms / knox / bigroom.
+- Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
+  **628→633**/833; prefix **301→318**; RNG FULL.
+- Next: @318 materialize+hot C `·` vs JS `#` (3,18).
+
 ## 2026-07-19 23:56 — #926 D-0804 flip_level object piles
 - Objective: seed0360 @249 JS `%` vs C `/` after ^V Sokoban-4 materialize.
 - C locus: `sp_lev.c` `flip_level` — swap `level.objects` with terrain.
@@ -142,26 +153,3 @@ Use this shape:
   skip / Neferet mcalcmove-slot theories weakened.
 - Verification: green+strict PASS; focused still @112243 / RNG 112272.
 - Next: C path leaving one apprentice PRE≥12 into EOT61.
-
-## 2026-07-19 22:06 — #913 D-0795 movemon early exits + D-0794 budgets
-- Objective: seed0360 @112243 leftover apprentice mov paradox.
-- C locus: `mon.c` `movemon_singlemon` (utotype/mon_offmap/isgd);
-  `mcalcmove` Neferet mmove=15.
-- Change: **D-0795** port early exits + iter break. Refined D-0794:
-  JS EOT704 Neferet +24 / apprentices +12; step706 umov=12 leaves
-  Neferet@12. C needs Neferet@0 + apprentice PRE leftover. Peel
-  unchanged @112243.
-- Verification: green+strict PASS; cohort 6/6 PASS; focused RNG 112272.
-- Next: falsify pre-EOT704 silent apprentice skip / Neferet mcalcmove slot.
-
-## 2026-07-19 21:53 — #912 D-0794 mux-at-hero fleeck signature
-- Objective: seed0360 @112243 leftover apprentice after step 706.
-- C locus: `monmove.c` `set_apparxy` (`u_at(mux,muy)` early return);
-  `mon.c` `movemon` / EOT `mcalcmove`.
-- Change or falsified theory: **Docs only.** C @112243 is consecutive
-  `distfleeck` with no `set_apparxy` RNG → mux already at hero.
-  Neferet `mux=0`+CLOSE cannot be that actor. Step 706 RNG identical;
-  JS 8 apprentice spends → `mov=0`; Neferet `24→12`; `umov=12` skips
-  EOT. Paradox: C still needs leftover apprentice mov. DIAG out.
-- Verification: green+strict PASS; focused @112243 / RNG 112272 Scr 391.
-- Next: silent mov-budget divergence after step 706 (no FORCE).
