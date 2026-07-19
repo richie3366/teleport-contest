@@ -4,43 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0795 — movemon_singlemon utotype / mon_offmap / isgd before spend
+
+- **Status:** fixed (seed0360 still FAIL @112243)
+- **Symptom:** seed0360 @112243 — leftover apprentice mov paradox (D-0794).
+- **C-state (#913):** JS `movemon_singlemon` omitted C’s pre-spend gates:
+  `u.utotype` → clear somebody + stop `iter_mons_safe`; parked `isgd` at
+  `<0,0>`; `mon_offmap` before `m_everyturn_effect` / NORMAL_SPEED spend.
+  Those skips can leave leftover `movement` into the next EOT `mcalcmove`
+  (`+=`), which is required for an apprentice to enter a turn at 24.
+- **C locus:** `mon.c` `movemon_singlemon` / `movemon` (`iter_mons_safe`).
+- **Change:** `js/mon.js` — match early-exit order; `movemon` breaks on
+  utotype return. Named omission: full vault `gd_move` body.
+- **Verification:** green+strict PASS; cohort 6/6 PASS; seed0360 still
+  @112243 / RNG **112272** Scr **391** (gates idle on this path).
+- **Next:** find which pre-EOT704 apprentice spend C skips (or Neferet
+  mcalcmove slot) — D-0794.
+
 ## D-0794 — seed0360 @112243 is leftover apprentice, not Neferet CLOSE
 
-- **Status:** diagnosed (no code; FORCE banned)
+- **Status:** diagnosed (refined #913; FORCE banned)
 - **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
   `mcalcmove` `rn2(12)`.
-- **C-state (#911):** Step 732 `.` rest. After bat fleecks, JS Neferet
-  `@26,14` (`STRAT_CLOSE`, `mux=0,0`) spends then early-out → EOT.
-  Prior FORCE clear Neferet CLOSE+mux=hero matched ~112246 only because
-  peaceful `fleeck`/`m_move` signatures match any peaceful actor.
-  **Falsifier:** suppress Neferet + boost first apprentice (`mov=12`,
-  mux already hero from step 706) → mismatch moves to **112247**,
-  matched RNG **112279**. So C’s next actor is a leftover **apprentice**,
-  not Neferet. Session never cleared CLOSE (`#chat` → SELF). Step 706
-  `l`: C/JS both **7×** `rn2(10)` peace + **1×** castmu; JS still runs
-  **8** apprentice dochugs → all apprentices `mov=0` at 112194; C must
-  keep one apprentice with `mov≥12`. Hero `Displaced`.
-- **C-state (#912):** RNG identical through 112243 (incl. all step-706
-  calls). At 112242→112243 C has **two consecutive `distfleeck`** with
-  **no `set_apparxy` RNG** between them → next actor already has
-  `u_at(mux,muy)` (`monmove.c` `set_apparxy` early return). Neferet
-  still `mux=0,0` + CLOSE → cannot be that actor. After step 706 JS:
-  Neferet entered with `mov=24` (EOT 704 `mcalcmove` last roll
-  `rn2(12)=2<3`), spent `24→12`, `somebody=true`, hero `umov=12` →
-  break (no second `movemon`, no EOT); apprentices all `mov=0` but
-  several already `mux` at hero. Step 732 inherits that leftover
-  Neferet turn. Paradox: matched 8 apprentice spends yet C needs one
-  with `mov≥12` at 732 — not explained by CLOSE clear.
+- **C-state (#911–#912):** mux-at-hero fleeck; Neferet CLOSE coincidence
+  falsified; step706 fleeck RNG identical.
+- **C-state (#913):** JS DIAG (removed): EOT704 PRE all mov=0; Neferet
+  mmove=15 → +24 (`rn2=2<3`); apprentices +12. Step706 umov=12 → one
+  pass → Neferet@12, apprentices@0, bats@12. No mon RNG until 732.
+  Therefore C after 706 must differ in **entry** budgets: Neferet@0 +
+  one apprentice@≥12 (apprentice needs PRE leftover at EOT704; mmove=12
+  alone cannot yield 24). D-0795 early exits did not move the peel.
 - **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug` /
-  `set_apparxy` (`u_at(mux,muy)` early return).
-- **Change:** docs only — DIAG removed.
-- **Named deferred:** which apprentice keeps `mov≥12` on C after step
-  706 despite matched peaceful RNG; do not FORCE CLOSE/movement;
-  `dmonsfree` still deferred (fmon living count matched at EOT 704).
-- **Verification:** green+strict PASS; focused still @112243 /
-  RNG **112272** Scr **391** (no production patch).
-- **Next:** resolve leftover-mov paradox (silent spend / order /
-  hero-umov EOT gate) without FORCE.
+  `set_apparxy`.
+- **Change:** docs + D-0795 structural port; no FORCE.
+- **Named deferred:** which apprentice keeps PRE leftover on C before
+  EOT704; Neferet mcalcmove roll/slot; full `gd_move`.
+- **Verification:** green+strict PASS; focused @112243 / RNG **112272**.
+- **Next:** falsify pre-EOT704 silent skip / Neferet allotment.
 
 ## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
 

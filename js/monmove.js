@@ -115,7 +115,7 @@ const AT_GAZE = 15;
 const AT_MAGC = 255;
 
 /** C ref: monst.h mon_offmap — mstate != MON_FLOOR */
-function mon_offmap(mon) {
+export function mon_offmap(mon) {
     return ((mon?.mstate | 0) !== MON_FLOOR);
 }
 

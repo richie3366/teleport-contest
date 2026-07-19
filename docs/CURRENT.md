@@ -76,11 +76,11 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0360 @112243** — D-0794: leftover **apprentice**
-with mux already at hero (`set_apparxy` `u_at` early-return; consecutive
-`distfleeck`). Step 706 RNG bit-identical yet JS spends all 8
-apprentices (`mov=0`) while C needs one with `mov≥12` at step 732.
-Neferet CLOSE+`mux=0` is not the next actor. Find the silent mov
-budget divergence after step 706. Parked D-0731.
+(mux-at-hero fleeck) vs JS Neferet CLOSE→EOT. JS EOT704→Neferet **+24**,
+apprentices **+12**; step706 one pass (umov=12) leaves Neferet@12.
+C needs Neferet@0 + one apprentice@≥12 ⇒ PRE leftover / mcalcmove slot.
+**D-0795:** ported `movemon_singlemon` utotype/`mon_offmap`/isgd skips
+(did not move peel). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -89,7 +89,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0793. Do not FORCE CLOSE/movement.**
+**Do not re-break D-0660…D-0795. Do not FORCE CLOSE/movement.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
