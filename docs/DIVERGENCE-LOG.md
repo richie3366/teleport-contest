@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0753 — maybe_generate_rnd_mon udemigod/stronghold rate (seed0360 @41768)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @41777)
+- **Symptom:** seed0360 @41768 — C `rn2(50)` @ `maybe_generate_rnd_mon`
+  vs JS `rn2(70)`.
+- **C locus:** `allmain.c` `maybe_generate_rnd_mon` —
+  `!rn2(udemigod ? 25 : (depth(&u.uz) > depth(&stronghold_level)) ? 50 : 70)`.
+- **Cause (#849):** JS always used `rn2(70)`. On sanctum,
+  `depth(u.uz) > depth(stronghold_level)` is true → C uses 50.
+- **Change:** `js/allmain.js` — port full rate ternary via `depth()` +
+  `game.stronghold_level` + `uevent.udemigod`.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **41768→41777**; RNG **41793→41794**; Scr **207**.
+- **Next:** @41777 C `nhlib.lua` shuffle `rn2(3)` vs JS `rn2(79)` after
+  matched `getbones`+`makemaz`; C then `splev_initlev`.
+
 ## D-0752 — sanctum teleport_region region_islev absolute (seed0360 @41671)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @41768)
