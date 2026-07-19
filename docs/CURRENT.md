@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#815; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#815; stuck @10157 D-0731 |
-| seed5002 | 5980/12167 | 154/410 | coverage pair |
+| seed5002 | 6172/12167 | 88/410 | @#818; D-0734; next themerms @6172 |
 
 ## Green gate
 
@@ -71,18 +71,18 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
-(D-0731 — #817: open 3×3 ROOM; FORCE omit-pair ID exhausted; D-0733
-worm_cross/rogue inert; need C-state); or seed0014 @49039 (D-0708);
-or coverage. Prefer shared blockers. Do **not** re-break
-D-0660…D-0733.
+**Gameplay next:** seed5002 @6172 themerms (D-0734 advanced
+5980→6172; seg0 FULL); or seed0399 @10157 black unicorn `mfndpos`
+cnt 7 vs 5 (D-0731 — FORCE omit-pair ID exhausted; need C-state);
+or seed0014 @49039 (D-0708). Prefer shared blockers. Do **not**
+re-break D-0660…D-0734.
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0399-wizard-hallu-actions.session.json
+  sessions/seed5002-wizard-coverage-pair.session.json
 ```
 
-**Do not re-break D-0660…D-0733.**
+**Do not re-break D-0660…D-0734.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

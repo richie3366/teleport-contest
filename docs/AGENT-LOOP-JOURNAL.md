@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #818 zhitu non-sleep + destroy_items AD_FIRE (D-0734)
+- Objective: coverage seed5002 @5886 (pivoted from D-0731 C-state stall).
+- C locus: `zap.c` `zhitu`/`destroy_items`/`maybe_destroy_item`; `dobuzz`.
+- Change: port `zhitu` FIRE/COLD/MISSILE/LIGHTNING; hero invent
+  `destroy_items` AD_FIRE; burnarmor stub; ignite gate (empty body).
+- Verification: green+strict PASS; cohort 6/6; seed5002 RNG
+  **5980→6172** (seg0 FULL); seed0399/0014 held.
+- Next: seed5002 @6172 themerms; or D-0731/D-0708 C-state.
+
 ## 2026-07-19 — #817 mfndpos worm_cross + rogue door-cut (D-0733)
 - Objective: seed0399 @10157 / shared mfndpos; pivoted after C-state need.
 - C locus: `mon.c` `mfndpos` diagonal; `worm.c` `worm_cross`.
@@ -154,14 +163,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0108 Scr **156→187** RNG FULL;
   prefix **78→109**; cohort 33/33 PASS.
 - Next: @109 red-dragon poly botl `Fly` (set_uasmon FROMFORM FLYING).
-
-## 2026-07-19 — #803 seed0108 throw self + cream Blind (D-0720/21)
-- Objective: seed0108 first screen misses after RNG FULL (Scr 148).
-- C locus: `cmd.c` getdir SELF; `dothrow.c` throw_obj self refuse;
-  `potion.c` make_blinded/`toggle_blindness` vision_recalc.
-- Change: getdir `.`/`s` → self + throw_obj refuse pline (D-0720);
-  cream-pie make_blinded on sight toggle → vision_recalc(0) (D-0721).
-- Verification: green+strict PASS; seed0108 Scr **148→156** RNG FULL;
-  cohort 14/14 PASS.
-- Next: seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
-

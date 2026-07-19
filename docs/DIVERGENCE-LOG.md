@@ -44,6 +44,30 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   @10157; seed0014 still 49495/59178.
 - **Next:** D-0731 C-state omit @10157; or D-0708 @49039.
 
+## D-0734 — zhitu non-sleep + hero destroy_items AD_FIRE (seed5002)
+
+- **Status:** fixed (partial — seed5002 still FAIL; next @6172 themerms)
+- **Symptom:** seed5002 @5886 — C `d(6,6)` @ `zhitu` ZT_FIRE vs JS
+  `rn2(19)` (zhitu non-sleep deferred; beam continued without damage).
+- **C locus:** `zap.c` `zhitu` / `destroy_items` / `maybe_destroy_item`;
+  `trap.c` `burnarmor`; `dobuzz` hero-hit arm.
+- **Cause:** JS `dobuzz` only called `zhitu_sleep`; fire/cold/missile/
+  lightning hero hits skipped `d(nd,6)` + invent destruction.
+- **Change:** port `zhitu` for MISSILE/FIRE/COLD/SLEEP/LIGHTNING (+ death
+  stub); wire into `dobuzz`; hero `destroy_items` walks `game.invent`;
+  `maybe_destroy_item` AD_FIRE potion/scroll/spbook (`rnd(6)` + `rn2(3)`
+  + `losehp`/`exercise`); burnarmor rn2(5) stub; ignite_items gate with
+  empty body.
+- **Named omissions:** burnarmor erode_obj worn slots; ignite_items body;
+  potionbreathe; inventory_resistance_check; ugolemeffects /
+  burn_away_slime; death-breath disintegrate; poison/acid; destroy_items
+  elec body; destroy pline polish.
+- **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
+  0398 PASS; seed5002 RNG **5980→6172**/12167 (seg0 FULL through ignite
+  gate); Scr 154→88 (death/seg1 realign); seed0399 @10157 /
+  seed0014 @49039 held.
+- **Next:** seed5002 @6172 themerms.lua; or D-0731/D-0708 C-state.
+
 ## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
 
 - **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear +
