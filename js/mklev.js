@@ -24,7 +24,7 @@ import {
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
     LEPREHALL, COCKNEST, ANTHOLE,
     FOODSHOP, TOOLSHOP, CANDLESHOP, FODDERSHOP,
-    W_NORTH, W_SOUTH, W_EAST, W_WEST, W_ANY, D_SECRET,
+    W_NORTH, W_SOUTH, W_EAST, W_WEST, W_ANY, W_RANDOM, D_SECRET,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     IS_LAVA, IS_THRONE, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
@@ -9321,11 +9321,100 @@ function load_valley() {
 }
 
 /**
+ * C ref: dat/nhlib.lua hell_tweaks — random lava pools / river / boulder
+ * walls / iron bars on Gehennom specials. Named omissions: none in body;
+ * callers beyond asmodeus still deferred.
+ */
+function hell_tweaks(protectedArea) {
+    const liquid = LAVAPOOL;
+    const ground = ROOM;
+    const nProt = selection_numpoints(protectedArea);
+    const prot = selection_not(protectedArea);
+    const uDepth = depth_of_level(game.u?.uz) | 0;
+
+    // random pools
+    if (percent(20 + uDepth)) {
+        let pools = selection_new();
+        // math.random(u.depth) → 1+rn2(depth)
+        const maxpools = 5 + (1 + rn2(uDepth));
+        for (let i = 0; i < maxpools; i++)
+            selection_set_random(pools);
+        pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'west'));
+        pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'north'));
+        pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'random'));
+        pools = selection_and(pools, prot);
+
+        if (percent(80)) {
+            const poolground = selection_and(selection_grow(selection_clone(pools), 'all'), prot);
+            // math.random(1,8)*10
+            const pval = (1 + rn2(8)) * 10;
+            const groundSel = selection_filter_percent(poolground, pval);
+            selection_iterate(groundSel, (x, y) => sel_set_ter(x, y, ground, SET_LIT_NOCHANGE));
+        }
+        selection_iterate(pools, (x, y) => sel_set_ter(x, y, liquid, SET_LIT_NOCHANGE));
+    }
+
+    // river
+    if (percent(50)) {
+        let allrivers = selection_new();
+        // Lua `/` float: ((COLNO*ROWNO)-n_prot)/12
+        const reqpts = ((COLNO * ROWNO) - nProt) / 12;
+        let rpts = 0;
+        let rivertries = 0;
+        do {
+            const floor = selection_match_mapfrag('.');
+            const a = selection_rndcoord(floor, false);
+            const b = selection_rndcoord(floor, false);
+            const lavariver = selection_new();
+            if (a && b)
+                selection_do_randline(a.x, a.y, b.x, b.y, 10, 12, lavariver);
+            let river = lavariver;
+            if (percent(50)) river = selection_grow(river, 'north');
+            if (percent(50)) river = selection_grow(river, 'west');
+            allrivers = selection_or(allrivers, river);
+            allrivers = selection_and(allrivers, prot);
+            rpts = selection_numpoints(allrivers);
+            rivertries++;
+        } while (rpts <= reqpts && rivertries <= 7);
+
+        if (percent(60)) {
+            const prc = 10 * (1 + rn2(6));
+            let riverbanks = selection_grow(allrivers, 'all');
+            riverbanks = selection_and(riverbanks, prot);
+            const bankGround = selection_filter_percent(riverbanks, prc);
+            selection_iterate(bankGround, (x, y) => sel_set_ter(x, y, ground, SET_LIT_NOCHANGE));
+        }
+        selection_iterate(allrivers, (x, y) => sel_set_ter(x, y, liquid, SET_LIT_NOCHANGE));
+    }
+
+    // replacing some walls with boulders
+    if (percent(20)) {
+        const amount = 3 * (1 + rn2(8));
+        const horiz = selection_filter_percent(selection_match_mapfrag('[.w.]'), amount);
+        const vert = selection_filter_percent(selection_match_mapfrag('.\nw\n.'), amount);
+        let bwalls = selection_and(selection_or(horiz, vert), prot);
+        selection_iterate(bwalls, (x, y) => {
+            sel_set_ter(x, y, ground, SET_LIT_NOCHANGE);
+            mksobj_at(BOULDER, x, y, true, true);
+        });
+    }
+
+    // replacing some walls with iron bars
+    if (percent(20)) {
+        const amount = 3 * (1 + rn2(8));
+        const horiz = selection_filter_percent(selection_match_mapfrag('[.w.]'), amount);
+        const vert = selection_filter_percent(selection_match_mapfrag('.\nw\n.'), amount);
+        let fwalls = selection_or(horiz, vert);
+        fwalls = selection_and(selection_and(selection_grow(fwalls, 'all'), selection_match_mapfrag('w')), prot);
+        selection_iterate(fwalls, (x, y) => sel_set_ter(x, y, IRONBARS, SET_LIT_NOCHANGE));
+    }
+}
+
+/**
  * C ref: dat/asmodeus.lua via load_special — Asmodeus lair (Gehennom).
- * mazegrid + half-left main map + half-right mazewalk wing.
- * Named omissions: nhlib `hell_tweaks` (lava pools/river/boulders/bars);
- * baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz; ensure_way_out;
- * selection.bounds fidelity beyond SpLev_Map union.
+ * mazegrid + half-left main map + half-right mazewalk wing + hell_tweaks.
+ * Named omissions: baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz;
+ * ensure_way_out; selection.bounds fidelity beyond SpLev_Map union.
  */
 function load_asmodeus() {
     const g = game;
@@ -9339,6 +9428,18 @@ function load_asmodeus() {
     if (!g.level.flags) g.level.flags = {};
     g.level.flags.is_maze_lev = true;
 
+    // C asmodeus.lua: selection.match("-") → fillrect bounds2 (before maps).
+    // nhlsel fillrect runs coords through get_location_coord (adds xstart/ystart).
+    const tmpbounds = selection_match_mapfrag('-');
+    const bx = g.splev_xstart | 0;
+    const by = g.splev_ystart | 0;
+    const bounds2 = selection_fillrect(
+        tmpbounds.lx + bx,
+        (tmpbounds.ly + 1) + by,
+        (tmpbounds.hx - 2) + bx,
+        (tmpbounds.hy - 1) + by,
+    );
+
     const applyAlignedMap = (mapstr, halign) => {
         const mf = mapfrag_fromstr(mapstr);
         const { xstart, ystart } = splev_map_aligned_start(mf.wid, mf.hei, halign);
@@ -9347,15 +9448,17 @@ function load_asmodeus() {
         g.splev_xsize = mf.wid;
         g.splev_ysize = mf.hei;
         if (!g.SpLev_Map) g.SpLev_Map = new Set();
+        const sel = selection_new();
         for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
             for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
                 const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
                 if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
                 sel_set_ter(xx, yy, mptyp, false);
                 g.SpLev_Map.add(`${xx},${yy}`);
+                selection_setpoint(xx, yy, sel, 1);
             }
         }
-        return { mx: xstart, my: ystart, wid: mf.wid, hei: mf.hei };
+        return { sel, mx: xstart, my: ystart, wid: mf.wid, hei: mf.hei };
     };
 
     // First part — half-left 21×12
@@ -9469,6 +9572,12 @@ function load_asmodeus() {
     splev_create_monster('V');
     splev_create_monster('V');
 
+    // C lspo_map contents end → reset_xystart_size (keep SpLev_Map)
+    g.splev_xstart = 1;
+    g.splev_ystart = 0;
+    g.splev_xsize = COLNO - 1;
+    g.splev_ysize = ROWNO;
+
     // levregions / teleport — region_islev=1 + exclude_islev=1 (absolute)
     g.lregions = g.lregions || [];
     g.lregions.push({
@@ -9526,7 +9635,18 @@ function load_asmodeus() {
     placeTrapRnd(FIRE_TRAP);
     placeTrapRnd(MAGIC_TRAP);
 
-    // hell_tweaks(protected) — named omission (RNG after mazewalk wing)
+    // C lspo_map contents end → reset_xystart_size (79×21; keep SpLev_Map)
+    g.splev_xstart = 1;
+    g.splev_ystart = 0;
+    g.splev_xsize = COLNO - 1;
+    g.splev_ysize = ROWNO;
+
+    // protected = bounds2:negate() | asmo1 | asmo2; hell_tweaks(protected)
+    const protectedSel = selection_or(
+        selection_or(selection_not(bounds2), asmo1.sel),
+        asmo2.sel,
+    );
+    hell_tweaks(protectedSel);
 
     // C load_special: wallify → flip → lregions → fixup
     if (!g.level.flags.corrmaze)
@@ -11694,6 +11814,112 @@ function selection_and(sela, selb) {
         }
     }
     return selr;
+}
+
+/** C ref: selvar.c selection_clone — shallow copy of set-backed selection. */
+function selection_clone(sel) {
+    const out = selection_new();
+    if (!sel?.pts?.size) return out;
+    for (const key of sel.pts) {
+        const comma = key.indexOf(',');
+        selection_setpoint(Number(key.slice(0, comma)), Number(key.slice(comma + 1)), out, 1);
+    }
+    return out;
+}
+
+/** C ref: nhlsel.c l_selection_or / __bor — union. */
+function selection_or(sela, selb) {
+    const selr = selection_clone(sela);
+    if (!selb?.pts?.size) return selr;
+    selection_iterate(selb, (x, y) => selection_setpoint(x, y, selr, 1));
+    return selr;
+}
+
+/**
+ * C ref: selvar.c selection_not / nhlsel l_selection_not — invert every
+ * COLNO×ROWNO cell (clone first; does not mutate input).
+ */
+function selection_not(sel) {
+    const out = selection_new();
+    for (let x = 0; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            if (!selection_getpoint(x, y, sel))
+                selection_setpoint(x, y, out, 1);
+        }
+    }
+    return out;
+}
+
+/** C ref: nhlsel.c l_selection_numpoints. */
+function selection_numpoints(sel) {
+    return sel?.pts?.size | 0;
+}
+
+/** C ref: sp_lev.c random_wdir — one of N/S/E/W via rn2(4). */
+function random_wdir() {
+    const wdirs = [W_NORTH, W_SOUTH, W_EAST, W_WEST];
+    return wdirs[rn2(4)];
+}
+
+/**
+ * C ref: selvar.c selection_do_grow — expand selection by dir mask.
+ * Mutates ov in place (caller clones first for Lua grow semantics).
+ */
+function selection_do_grow(ov, dir) {
+    if (!ov) return;
+    let d = dir | 0;
+    if (d === W_RANDOM) d = random_wdir();
+    const tmp = selection_new();
+    const lx = Math.max(0, (ov.lx | 0) - 1);
+    const ly = Math.max(0, (ov.ly | 0) - 1);
+    const hx = Math.min(COLNO - 1, (ov.hx | 0) + 1);
+    const hy = Math.min(ROWNO - 1, (ov.hy | 0) + 1);
+    for (let x = lx; x <= hx; x++) {
+        for (let y = ly; y <= hy; y++) {
+            if (((d & W_WEST) && selection_getpoint(x + 1, y, ov))
+                || (((d & (W_WEST | W_NORTH)) === (W_WEST | W_NORTH))
+                    && selection_getpoint(x + 1, y + 1, ov))
+                || ((d & W_NORTH) && selection_getpoint(x, y + 1, ov))
+                || (((d & (W_NORTH | W_EAST)) === (W_NORTH | W_EAST))
+                    && selection_getpoint(x - 1, y + 1, ov))
+                || ((d & W_EAST) && selection_getpoint(x - 1, y, ov))
+                || (((d & (W_EAST | W_SOUTH)) === (W_EAST | W_SOUTH))
+                    && selection_getpoint(x - 1, y - 1, ov))
+                || ((d & W_SOUTH) && selection_getpoint(x, y - 1, ov))
+                || (((d & (W_SOUTH | W_WEST)) === (W_SOUTH | W_WEST))
+                    && selection_getpoint(x + 1, y - 1, ov))) {
+                selection_setpoint(x, y, tmp, 1);
+            }
+        }
+    }
+    selection_iterate(tmp, (x, y) => selection_setpoint(x, y, ov, 1));
+}
+
+/** C ref: nhlsel.c l_selection_grow — clone then selection_do_grow. */
+function selection_grow(sel, dirName) {
+    const dirMap = {
+        all: W_ANY,
+        random: W_RANDOM,
+        north: W_NORTH,
+        west: W_WEST,
+        east: W_EAST,
+        south: W_SOUTH,
+    };
+    const dir = dirMap[dirName ?? 'all'] ?? W_ANY;
+    const out = selection_clone(sel);
+    selection_do_grow(out, dir);
+    return out;
+}
+
+/**
+ * C ref: nhlsel.c l_selection_setpoint argc≤1 — random ANY_LOC via
+ * get_location_coord (SP_COORD_PACK_RANDOM), then setpoint.
+ */
+function selection_set_random(sel) {
+    const target = sel || selection_new();
+    const pos = get_location_random(null, ANY_LOC);
+    if (pos.x >= 0) selection_setpoint(pos.x, pos.y, target, 1);
+    return target;
 }
 
 // C ref: selvar.c selection_do_randline — recursive midpoint displace

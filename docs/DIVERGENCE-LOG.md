@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0764 — hell_tweaks after asmodeus (seed0360 @71832)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @72078)
+- **Symptom:** seed0360 @71832 — C nhlib `percent` `rn2(100)` vs JS
+  flip `rn2(2)` after matched asmodeus mktrap.
+- **C locus:** `dat/nhlib.lua` `hell_tweaks`; `dat/asmodeus.lua`
+  `selection.match("-")` → `fillrect` → `protected` → `hell_tweaks`;
+  `nhlsel.c` fillrect `get_location_coord`; selvar grow/or/not/set.
+- **Cause (#861):** (1) `hell_tweaks` omitted after asmo2 wing. (2) After
+  body port: `selection.fillrect` must add `xstart`/`ystart` like C
+  `get_location_coord` — bare absolute bounds made prot 3 cells fat and
+  `filter_percent` overran into river RNG.
+- **Change:** `js/mklev.js` — `hell_tweaks` + selection or/not/grow/clone/
+  set-random; `load_asmodeus` bounds2 via xstart-adjusted fillrect +
+  protected | maps; reset_xystart keep SpLev_Map after maps.
+- **Verification:** green+strict PASS; cohort **37/37**; seed0360 prefix
+  **71832→72078**; RNG **71855→72079**; Scr **270**/833.
+- **Next:** @72078 C nhlib shuffle after getbones vs JS `rn2(79)`
+  (next Gehennom special — juiblex/`lvlfill_swamp`).
+
 ## D-0763 — asmodeus load_special + hell helpers (seed0360 @68690)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @71832)
