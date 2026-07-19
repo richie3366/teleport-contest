@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0799 — set_apparxy `can_fog` for vampshifter Displacement image
+
+- **Status:** fixed (seed0360 still FAIL @113103)
+- **Symptom:** seed0360 @112857 — C `distfleeck` `rn2(5)` vs JS
+  `set_apparxy` extra `rn2(3)` after matched Displacement rolls.
+- **C-state (#919):** Cloak Displacement; vampshifter bat (`cham`=
+  PM_VAMPIRE) at (24,14); first image candidate was locked door
+  `(ux-1,uy)`. C `can_fog` allows closed_door images; JS stubbed
+  `can_fog→false` → loop continued.
+- **C locus:** `monmove.c` `can_fog` / `set_apparxy` closed_door arm.
+- **Change:** `js/monmove.js` — real `can_fog` (`is_vampshifter` +
+  fog not G_GENOD + !Protection_from_shape_changers). Named omission:
+  `stuff_prevents_passage` invent scan (same deferral as `can_ooze`).
+- **Verification:** green+strict PASS; cohort 37/37 PASS; seed0360
+  prefix **112857→113103**; RNG **112956→113111**; Scr **519**.
+- **Next:** @113103 C lua `shuffle` after matched `getbones` vs JS
+  `rn2(79)` (post-bones level path).
+
 ## D-0798 — goto_level quest Home `ok_to_quest` gate
 
 - **Status:** fixed (seed0360 still FAIL @112857)

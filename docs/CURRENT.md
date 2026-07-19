@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 112956/120639 | 519/833 | @112857 set_apparxy vs fleeck (D-0798) |
+| seed0360 | 113111/120639 | 519/833 | @113103 getbones→lua (D-0799) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -75,10 +75,10 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @112857** — D-0798 (#918): `goto_level`
-quest-Home `ok_to_quest` gate (blocked premature Wiz-goal getbones).
-Prefix **112279→112857**; Scr **504→519**; RNG **112956**. Next: C
-`distfleeck` vs JS `set_apparxy` after matched mkmaze (mux-at-hero).
+**Gameplay next:** **seed0360 @113103** — D-0799 (#919): `set_apparxy`
+`can_fog` for vampshifter Displacement (locked-door image). Prefix
+**112857→113103**; Scr **519**; RNG **113111**. Next: after matched
+`getbones`, C lua `shuffle` vs JS `rn2(79)`.
 **Do not FORCE.**
 
 ```bash
@@ -88,7 +88,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0798. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0799. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
