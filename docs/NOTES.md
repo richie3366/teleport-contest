@@ -17,7 +17,8 @@ Objective/score live in `CURRENT.md`.
   → no boulder `rn2`; JS vision/object block keeps couldsee false.
   **Falsify:** prove C `does_block`/objects at (57,9) or Algorithm-C
   marks (55,9) via row10; do not FORCE linedup.
-- **#870:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only).
+- **#875:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only;
+  flat vs #870).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -52,7 +53,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#870;
+  **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#875;
   Scr 8280, RNG 79.35%; seed0360 **98492**/275 after D-0771/72/74).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
