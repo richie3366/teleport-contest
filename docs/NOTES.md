@@ -7,20 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#796 peel:** D-0714 `drop_weapon(1)` — seed0108 **2881→2958**.
-  Suite RNG 2931→3029. Next @2958 C `distfleeck` `rn2(5)` vs JS
-  `rn2(36)` (post-Mjollnir). Falsifier:
+- **#797 peel:** D-0715 `#invoke` — seed0108 **2958→3011**. Suite RNG
+  3029→3112. Next @3011: after Mjollnir invoke, session keys `p␠␠#wizwish`
+  — C attributes full turns to both spaces (EOT then more fleeck) before
+  chest `rn2(36)`; JS starts chest early. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
+- **Falsified:** forcing `flags.rest_on_space=true` → regresses @2869
+  (spaces that were `--More--` become `donull`). Don’t re-try global ROS.
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0714; invent nearby force for D-0710
-  (was missing `#rub`).
+- **Don’t:** re-break D-0660…D-0715; invent nearby force for D-0710.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0714 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0715 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,7 +36,8 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…14: `#rub`/cream/`#wipe`/`#polyself`/`drop_weapon` — not pet AI.
+- D-0710…15: `#rub`/cream/`#wipe`/`#polyself`/`drop_weapon`/`#invoke` —
+  not pet AI. Mjollnir `inv_prop==0` → nothing_happens+ECMD_TIME only.
 
 ## Landmarks (≤15)
 
@@ -57,3 +60,4 @@ Objective/score live in `CURRENT.md`.
   defsym `')'`=WEAPON `'('`=TOOL; Arc-goal **14** `des.object()`.
   Boots `oc_delay`=2; FUMBLE `Boots_on` → `incr_itimeout(HFumbling,rnd(20))`.
   `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.
+  `#invoke` AC+EXT_CMDS; arti_invoke !inv_prop path only (D-0715).

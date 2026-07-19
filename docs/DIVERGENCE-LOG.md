@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0715 — #invoke missing (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @3011)
+- **Symptom:** @2958 C `distfleeck` `rn2(5)` vs JS `rn2(36)` —
+  JS already in `#wizwish chest` `rnd_otyp_by_namedesc` while C still on
+  post-Mjollnir monster turn.
+- **C locus:** `cmd.c` `"invoke"` → `doinvoke`; `artifact.c` `invoke_ok` /
+  `arti_invoke`. Mjollnir `inv_prop==0` → `pline(nothing_happens)` +
+  `ECMD_TIME`.
+- **Cause:** `#invoke` was AC-only (EXT_CMD_AC) without EXT_CMDS runner →
+  "unknown extended command"; keys `p␠␠`/`#wizwish chest` desynced.
+- **Change:** EXT_CMDS `#invoke`→`doinvoke`; `invoke_ok`/`getobj_invoke`;
+  `arti_invoke` !inv_prop/crystal-ball stub → nothing_happens+ECMD_TIME;
+  `rhack` `<space>`→`donull` when `flags.rest_on_space`. Named omissions:
+  inv_prop specials (taming/healing/portal/…); property-toggle arm;
+  artilist `inv_prop` not in `artifacts_data`; `use_crystal_ball`.
+- **Falsified:** forcing `rest_on_space=true` regresses @2869 (More spaces
+  become waits).
+- **Verification:** green+strict PASS; seed0108 prefix **2958→3011**;
+  suite matched RNG 3029→3112; cohort 33/33 prior PASS stay PASS.
+- **Next:** @3011 post-invoke spaces as C turns before chest wish —
+  More vs wait peel (not global ROS).
+
 ## D-0714 — polymon drop_weapon(1) missing (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @2958)

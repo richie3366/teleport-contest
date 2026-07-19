@@ -397,6 +397,16 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c "invoke" IFBURIED|AUTOCOMPLETE → doinvoke (D-0715)
+        name: 'invoke',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doinvoke } = await import('./artifact.js');
+            return doinvoke();
+        },
+    },
+    {
         // C: cmd.c "rub" AUTOCOMPLETE → dorub
         name: 'rub',
         wiz: false,
@@ -406,6 +416,7 @@ const EXT_CMDS = [
             return dorub();
         },
     },
+
     {
         // C: cmd.c "wipe" AUTOCOMPLETE → dowipe (D-0712)
         name: 'wipe',

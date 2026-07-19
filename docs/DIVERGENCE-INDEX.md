@@ -695,6 +695,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0712 | fixed | EXT_CMDS `#wipe`/dowipe + wipeoff occupation | seed0108 2807→2864; next @2864 exercise/polyself |
 | D-0713 | fixed | EXT_CMDS `#polyself`/polymon controlled+mhmax | seed0108 2864→2881; next @2881 dog obj_resists |
 | D-0714 | fixed | polymon `drop_weapon(1)` cantwield → dropx | seed0108 2881→2958; next @2958 distfleeck |
+| D-0715 | fixed | EXT_CMDS `#invoke`/doinvoke !inv_prop nothing_happens | seed0108 2958→3011; next @3011 space/More before chest |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
