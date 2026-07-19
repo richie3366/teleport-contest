@@ -456,4 +456,11 @@
   cohort 33/33 PASS. Scr still 575.
 - Next: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 
-
+## 2026-07-19 — #818 zhitu non-sleep + destroy_items AD_FIRE (D-0734)
+- Objective: coverage seed5002 @5886 (pivoted from D-0731 C-state stall).
+- C locus: `zap.c` `zhitu`/`destroy_items`/`maybe_destroy_item`; `dobuzz`.
+- Change: port `zhitu` FIRE/COLD/MISSILE/LIGHTNING; hero invent
+  `destroy_items` AD_FIRE; burnarmor stub; ignite gate (empty body).
+- Verification: green+strict PASS; cohort 6/6; seed5002 RNG
+  **5980→6172** (seg0 FULL); seed0399/0014 held.
+- Next: seed5002 @6172 themerms; or D-0731/D-0708 C-state.

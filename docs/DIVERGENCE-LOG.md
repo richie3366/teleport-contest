@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0745 — oracle.lua load_special (seed0360 @3037)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @8708)
+- **Symptom:** seed0360 @3037 — C nhlib `shuffle` vs JS `rn2(79)` after
+  matched `getbones` (wizard `^V`).
+- **C locus:** `dat/oracle.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz`; `build_room` chance; statue `montype="C"` →
+  `mkclass(..., G_NOGEN|G_IGNORE)`; nested `type="delphi"`.
+- **Cause (#834):** `makemaz` requested `oracle` (rndlevs=0) but
+  `load_special_proto` had no loader → empty level → `place_lregion`
+  `rn2(79)`. NOTES “nhlib vs rn2(79)” was right channel; destination
+  was oracle (not minend). C: rooms + 8 historic centaur statues +
+  Delphi/Oracle + ordinary rooms + `random_corridors` + noflip.
+- **Change:** `js/mklev.js` — `load_oracle` + dispatch; `splev_roomtype`
+  delphi→DELPHI; `splev_room_statue_montype` /
+  `splev_room_monster_at`. Named omissions: oracle verbalize;
+  ensure_way_out; castle/valley/other missing protos.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360
+  prefix **3037→8708**; RNG **3186→8728**; Scr **187→200**.
+- **Next:** @8708 C nhlib shuffle (castle.lua) vs JS `rn2(79)`.
+
 ## D-0744 — Boots_on SPEED_BOOTS makeknown→exercise (seed0360)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @3037)

@@ -725,6 +725,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0742 | fixed | dowrite + open cmdassist + itemed throw | seed5002 Scr 400→410 **PASS**; suite 37/44 |
 | D-0743 | fixed | mattackm AT_WEAP mon_wield_item → M_ATTK_MISS | seed0360 2995→3006; RNG 3098→3120; next exercise @3006 |
 | D-0744 | fixed | Boots_on SPEED_BOOTS makeknown→exercise(A_WIS) | seed0360 3006→3037; RNG 3120→3186; next lua shuffle @3037 |
+| D-0745 | fixed | oracle.lua load_special (rooms/DELPHI/statues) | seed0360 3037→8708; RNG 3186→8728; Scr 187→200; next castle @8708 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

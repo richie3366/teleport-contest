@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:10 — #834 oracle load_special (D-0745)
+- Objective: seed0360 @3037 nhlib shuffle vs rn2(79) (CURRENT primary).
+- C locus: `dat/oracle.lua` / `sp_lev.c` `load_special` / `mkmaze.c` `makemaz`.
+- Change: `load_oracle` + DELPHI roomtype + statue montype helpers.
+  Was missing special → place_lregion; not minend.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **3037→8708**; RNG **3186→8728**; Scr **187→200**.
+- Next: @8708 C castle.lua vs JS rn2(79) after getbones.
+
 ## 2026-07-19 08:55 — #833 Boots_on SPEED_BOOTS (D-0744)
 - Objective: seed0360 @3006 exercise rn2(19) vs rn2(5) (CURRENT primary).
 - C locus: `do_wear.c` `Boots_on` SPEED_BOOTS → `makeknown` → `exercise`.
@@ -172,13 +181,4 @@ Use this shape:
   5668–5684; JS udist=2 after `h`. Same family D-0429/D-0451.
 - Verification: green+strict PASS; no js/ change; seed5002 still FAIL.
 - Next: C-state hero/pet after step-66 `h`; or D-0731/D-0708.
-
-## 2026-07-19 — #818 zhitu non-sleep + destroy_items AD_FIRE (D-0734)
-- Objective: coverage seed5002 @5886 (pivoted from D-0731 C-state stall).
-- C locus: `zap.c` `zhitu`/`destroy_items`/`maybe_destroy_item`; `dobuzz`.
-- Change: port `zhitu` FIRE/COLD/MISSILE/LIGHTNING; hero invent
-  `destroy_items` AD_FIRE; burnarmor stub; ignite gate (empty body).
-- Verification: green+strict PASS; cohort 6/6; seed5002 RNG
-  **5980→6172** (seg0 FULL); seed0399/0014 held.
-- Next: seed5002 @6172 themerms; or D-0731/D-0708 C-state.
 

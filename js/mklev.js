@@ -20,7 +20,7 @@ import {
     D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED, D_BROKEN,
     In_V_tower, Is_oracle_level, BURN, OBJ_CONTAINED, OBJ_FREE,
     OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED, NO_ROOM,
-    SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
+    SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE, DELPHI,
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
     LEPREHALL, COCKNEST, ANTHOLE,
     FOODSHOP, TOOLSHOP, CANDLESHOP, FODDERSHOP,
@@ -89,7 +89,7 @@ import { obj_resists } from './dogmove.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
-    is_male, is_female, mons, G_NOGEN, G_UNIQ, monsterNames,
+    is_male, is_female, mons, G_NOGEN, G_UNIQ, G_IGNORE, monsterNames,
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
@@ -708,7 +708,7 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1,
+ * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1, oracle,
  * Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
  * protos (Bar-goal); minetn-1/3–7; minend-2/3; tower2/3;
@@ -897,6 +897,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minetn-2') {
         load_minetn_2();
+        return true;
+    }
+    if (protofile === 'oracle') {
+        load_oracle();
         return true;
     }
     return false;
@@ -6547,6 +6551,7 @@ function splev_roomtype(name, defval = OROOM) {
         ordinary: OROOM,
         temple: TEMPLE,
         morgue: MORGUE,
+        delphi: DELPHI,
         shop: SHOPBASE,
         'tool shop': TOOLSHOP,
         'food shop': FOODSHOP,
@@ -6831,6 +6836,125 @@ function splev_ordinary_room(contentsFn) {
     if (typeof contentsFn === 'function') contentsFn(aroom);
     add_doors_to_room(aroom);
     return true;
+}
+
+/**
+ * C ref: sp_lev.c create_object — statue at fixed room-relative coords
+ * with montype class letter + historic (oracle.lua).
+ * Order: mkclass(G_NOGEN|G_IGNORE) → mksobj_at → spe → set_corpsenm.
+ */
+function splev_room_statue_montype(croom, rx, ry, montypeLetter, historic) {
+    const x = croom.lx + rx;
+    const y = croom.ly + ry;
+    const mlet = monclass_letter_to_mlet(montypeLetter);
+    const pm = mlet ? mkclass(mlet, G_NOGEN | G_IGNORE) : null;
+    const otmp = mksobj_at(STATUE, x, y, true, true);
+    if (!otmp) return null;
+    let lflags = 0;
+    if (historic) lflags |= CORPSTAT_HISTORIC;
+    otmp.spe = lflags;
+    if (pm && (pm.mndx | 0) >= 0) set_corpsenm(otmp, pm.mndx | 0);
+    return otmp;
+}
+
+/**
+ * C ref: sp_lev.c create_monster at fixed room-relative coords
+ * (des.monster("Oracle", 1, 1)).
+ */
+function splev_room_monster_at(croom, id_or_class, rx, ry) {
+    let pm = null;
+    let female = 0;
+    const isClass = typeof id_or_class === 'string' && id_or_class.length === 1;
+    if (!isClass && typeof id_or_class === 'string') {
+        const r = find_montype_gender(id_or_class);
+        female = r.female;
+        if (r.mndx !== NON_PM && r.mndx >= 0) pm = mons(r.mndx);
+    }
+    induced_align(80);
+    if (isClass) {
+        const mlet = monclass_letter_to_mlet(id_or_class);
+        pm = mlet ? mkclass(mlet, G_NOGEN) : null;
+    }
+    pm = splev_mines_maybe_clear_your_race(pm);
+    let x = croom.lx + rx;
+    let y = croom.ly + ry;
+    ({ x, y } = splev_resolve_occupied(x, y, pm));
+    if (croom && !inside_room(croom, x, y)) return;
+    const mtmp = makemon(pm, x, y, 0);
+    if (mtmp && typeof id_or_class === 'string' && id_or_class.length > 1)
+        mtmp.female = female;
+    return mtmp;
+}
+
+/**
+ * C ref: dat/oracle.lua via load_special — Delphic Oracle level.
+ * Named omissions: oracle verbalize / consultation; ensure_way_out.
+ */
+function load_oracle() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_flags("noflip") — allow_flips=0
+    splev_des_room({
+        type: 'ordinary', lit: 1, x: 3, y: 3,
+        xalign: SPLEV_CENTER, yalign: SPLEV_CENTER, w: 11, h: 9,
+    }, null, (outer) => {
+        const statues = [
+            [0, 0], [0, 8], [10, 0], [10, 8],
+            [5, 1], [5, 7], [2, 4], [8, 4],
+        ];
+        for (const [rx, ry] of statues)
+            splev_room_statue_montype(outer, rx, ry, 'C', true);
+
+        splev_des_room({
+            type: 'delphi', lit: 1, x: 4, y: 3, w: 3, h: 3,
+        }, outer, (delphi) => {
+            splev_room_feature_fountain(delphi, 0, 1);
+            splev_room_feature_fountain(delphi, 1, 0);
+            splev_room_feature_fountain(delphi, 1, 2);
+            splev_room_feature_fountain(delphi, 2, 1);
+            splev_room_monster_at(delphi, 'Oracle', 1, 1);
+            splev_room_door(delphi, 'nodoor', 'all');
+        });
+
+        splev_room_monster(outer);
+        splev_room_monster(outer);
+    });
+
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, true);
+        splev_room_object(r);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, false);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r);
+        splev_room_monster(r);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_monster(r);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r);
+    });
+
+    // des.random_corridors → makecorridors
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // noflip — skip flip_level_rnd
+    fixup_special();
 }
 
 /**
