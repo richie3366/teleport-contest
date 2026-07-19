@@ -447,6 +447,16 @@ const EXT_CMDS = [
             return wiz_polyself();
         },
     },
+    {
+        // C: cmd.c "monster" IFBURIED|AUTOCOMPLETE → domonability (D-0722)
+        name: 'monster',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { domonability } = await import('./polyself.js');
+            return domonability();
+        },
+    },
 ];
 
 function wizardMode() {

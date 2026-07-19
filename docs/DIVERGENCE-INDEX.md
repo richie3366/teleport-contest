@@ -702,6 +702,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0719 | fixed | EXT_CMDS `#tip`/`dotip` floor ynq; unmul→deferred_goto | seed0108 RNG FULL 16958; Scr 110→148 |
 | D-0720 | fixed | throw getdir `.`/`s` self + throw_obj refuse pline | seed0108 Scr 148→149; next cream Blind map |
 | D-0721 | fixed | cream-pie make_blinded → vision_recalc on toggle | seed0108 Scr 149→156; next @78 polyself gnome |
+| D-0722 | fixed | polymon gnome + Upolyd botl/glyph/weight_cap | seed0108 Scr 156→186; prefix 78→88 |
+| D-0723 | fixed | EXT_CMDS `#monster`/domonability reflexive | seed0108 Scr 186→187; prefix 88→109; next @109 Fly |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

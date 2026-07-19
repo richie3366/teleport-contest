@@ -5,7 +5,9 @@ import { game } from './gstate.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
-import { mcolors, mons, infravision, infravisible, mindless } from './monsters.js';
+import {
+    mcolors, mons, pmnames, infravision, infravisible, mindless,
+} from './monsters.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, TREE, IRONBARS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -40,6 +42,9 @@ import {
     def_warnsyms,
     TELEPAT,
     BOLT_LIM,
+    Upolyd,
+    MALE,
+    FEMALE,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -479,11 +484,23 @@ function mimic_object_appearance_glyph(mtmp) {
     });
 }
 
-/** C ref: display.h maybe_display_usteed / ridden_mon_to_glyph — mlet+mcolor. */
+/**
+ * C ref: display.h hero_glyph / maybe_display_usteed.
+ * (Upolyd || !showrace) → u.umonnum else urace.mnum; mlet+mcolor.
+ * Named omissions: Hallucination random; gender glyph variants.
+ */
 function hero_display_glyph() {
     const steed = game.u?.usteed;
     if (steed && mon_visible(steed)) return mon_glyph(steed);
-    return { ch: '@', color: CLR_WHITE };
+    const u = game.u;
+    const flags = game.flags || {};
+    const mnum = (Upolyd(u) || !flags.showrace)
+        ? (u?.umonnum | 0)
+        : (game.urace?.mnum | 0);
+    const ptr = mons(mnum);
+    const ch = MLET_CH[ptr?.mlet] || '@';
+    const color = (mnum >= 0) ? (mcolors[mnum] ?? CLR_GRAY) : CLR_WHITE;
+    return { ch, color };
 }
 
 // C ref: display.h covers_objects
@@ -1990,6 +2007,34 @@ function render_map_row(y) {
     return output;
 }
 
+/**
+ * C ref: botl.c do_statusline1 Upolyd title — pmname with word caps.
+ * @param {number} mndx
+ * @param {number} gender MALE|FEMALE
+ */
+function _polyd_rank_title(mndx, gender) {
+    const names = pmnames[mndx | 0];
+    let mbot = 'monster';
+    if (names) {
+        // C do_name.c pmname — fall back to NEUTRAL when sexed slot empty
+        let g = gender | 0;
+        if (g < MALE || g >= 3 || !names[g]) g = 2; // NEUTRAL
+        mbot = names[g] || names[2] || names[MALE] || names[FEMALE] || mbot;
+    }
+    // C: capitalize each word when poly'd
+    let out = '';
+    for (let k = 0; k < mbot.length; k++) {
+        const ch = mbot[k];
+        if ((k === 0 || mbot[k - 1] === ' ')
+            && ch >= 'a' && ch <= 'z') {
+            out += String.fromCharCode(ch.charCodeAt(0) - 32);
+        } else {
+            out += ch;
+        }
+    }
+    return out;
+}
+
 // ── Status lines ──
 function _statusLine1() {
     const u = game.u;
@@ -1999,12 +2044,19 @@ function _statusLine1() {
     if (name.length && name.charCodeAt(0) >= 97 && name.charCodeAt(0) <= 122) {
         name = String.fromCharCode(name.charCodeAt(0) - 32) + name.slice(1);
     }
-    // C ref: botl.c rank() → rank_of(u.ulevel, Role_switch, flags.female)
-    const roleTitle = rank_of(
-        u.ulevel | 0,
-        game.urole?.mnum,
-        !!(game.flags?.female),
-    );
+    // C: Upolyd → pmname(umonnum, Ugender); else rank()
+    // Ugender ≡ (Upolyd ? u.mfemale : flags.female)
+    let roleTitle;
+    if (Upolyd(u)) {
+        const g = u.mfemale ? FEMALE : MALE;
+        roleTitle = _polyd_rank_title(u.umonnum | 0, g);
+    } else {
+        roleTitle = rank_of(
+            u.ulevel | 0,
+            game.urole?.mnum,
+            !!(game.flags?.female),
+        );
+    }
     const title = `${name} the ${roleTitle}`;
     // C ref: botl.c do_statusline1 — get_strength_str + ACURR order
     const stats = u.acurr?.a
@@ -2092,23 +2144,30 @@ export function describe_level(dflgs = 1) {
 }
 
 // C ref: botl.c do_statusline2 — describe_level(dloc,1) then `$:` gold;
-// Xp:/T: gated by flags.showexp / flags.time; hunger then enc_stat then
-// Blind…Conf…Hallu…Lev/Fly then Ride.
+// Upolyd → mh/mhmax + HD:mlevel (no Xp); else Xp:/T: via showexp/time;
+// hunger then enc_stat then Blind…Conf…Hallu…Lev/Fly then Ride.
 // Named omissions: Stone/Slime/Strngl/Sick (before hunger);
-// Halluc_resistance; Upolyd HD.
+// Halluc_resistance; AC %-2d pad polish.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
     const flags = game.flags || {};
-    // C botl.c get_blstats: hp < 0 → 0 for display when bot() runs
-    let hp = u.uhp | 0;
+    const polyd = Upolyd(u);
+    // C botl.c: Upolyd ? mh/mhmax : uhp/uhpmax; hp < 0 → 0
+    let hp = polyd ? (u.mh | 0) : (u.uhp | 0);
     if (hp < 0) hp = 0;
     if (hp > 9999) hp = 9999;
-    let hpmax = u.uhpmax | 0;
+    let hpmax = polyd ? (u.mhmax | 0) : (u.uhpmax | 0);
     if (hpmax > 9999) hpmax = 9999;
     // C: describe_level(dloc, 1) includes trailing space; gold via eos
-    let s = `${describe_level(1)}$:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
-    if (flags.showexp) s += `/${u.uexp || 0}`;
+    let s = `${describe_level(1)}$:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10}`;
+    if (polyd) {
+        const mdat = mons(u.umonnum | 0);
+        s += ` HD:${mdat?.mlevel | 0}`;
+    } else {
+        s += ` Xp:${u.ulevel || 1}`;
+        if (flags.showexp) s += `/${u.uexp || 0}`;
+    }
     if (flags.time) s += ` T:${game.moves || 1}`;
     // C do_statusline2: u.uhs != NOT_HUNGRY → hu_stat before enc_stat
     const uhs = u.uhs ?? NOT_HUNGRY;

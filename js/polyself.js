@@ -359,6 +359,8 @@ async function drop_weapon(alone) {
 
 /**
  * C ref: polyself.c break_armor — sliparm / breakarm gear shedding.
+ * setworn(..., {skip_find_ac}) matches C worn.c (no find_ac); polymon
+ * calls find_ac after encumber_msg so --More-- keeps cached AC.
  * Named omissions: mummy wrapping / alchemy smock / horns / gloves /
  * boots / shield / racial_exception; donning cancel; end_burn DSM.
  */
@@ -366,33 +368,34 @@ async function break_armor() {
     const u = game.u || {};
     const uptr = game.youmonst?.data;
     if (!uptr) return;
+    const noAc = { skip_find_ac: true };
 
     if (breakarm(uptr)) {
         const otmp = u.uarm;
         if (otmp) {
             await pline('You break out of your armor!');
             exercise(A_STR, false);
-            setworn(null, W_ARM);
+            setworn(null, W_ARM, noAc);
             // useup deferred — drop to floor like sliparm dropp
             dropx(otmp);
         }
         const cloak = u.uarmc;
         if (cloak) {
             await pline('The clasp on your cloak breaks open!');
-            setworn(null, W_ARMC);
+            setworn(null, W_ARMC, noAc);
             dropx(cloak);
         }
         if (u.uarmu) {
             const shirt = u.uarmu;
             await pline('Your shirt rips to shreds!');
-            setworn(null, W_ARMU);
+            setworn(null, W_ARMU, noAc);
             dropx(shirt);
         }
     } else if (sliparm(uptr)) {
         const otmp = u.uarm;
         if (otmp) {
             await pline('Your armor falls around you!');
-            setworn(null, W_ARM);
+            setworn(null, W_ARM, noAc);
             dropx(otmp);
         }
         const cloak = u.uarmc;
@@ -402,7 +405,7 @@ async function break_armor() {
             } else {
                 await pline('You shrink out of your cloak!');
             }
-            setworn(null, W_ARMC);
+            setworn(null, W_ARMC, noAc);
             dropx(cloak);
         }
         if (u.uarmu) {
@@ -412,7 +415,7 @@ async function break_armor() {
             } else {
                 await pline('You become much too small for your shirt!');
             }
-            setworn(null, W_ARMU);
+            setworn(null, W_ARMU, noAc);
             dropx(shirt);
         }
     }
@@ -422,11 +425,13 @@ async function break_armor() {
  * C ref: polyself.c polymon — become mntmp.
  * Envelope: geno abort; conduct; CON/WIS exercise; sex_change_ok rn2(10);
  * turn-into pline; rn1(500,500) mtimedone; set_uasmon; STR clamp;
- * mhmax (dragon / golem / d(mlvl,8)); break_armor; find_ac; newsym.
+ * mhmax (dragon / golem / d(mlvl,8)); break_armor; drop_weapon;
+ * find_ac; newsym; botl; see_monsters; encumber_msg.
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
  * Blind restore; egg learn; swallow expel; light sources;
  * full skinback; livelog first-poly text; break_armor horns/gloves/
- * boots/shield; drop_weapon twoweapon/in_use arms.
+ * boots/shield; drop_weapon twoweapon/in_use arms; retouch_equipment;
+ * verbose #monster hint; vision_full_recalc.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
@@ -522,9 +527,22 @@ export async function polymon(mntmp) {
     await break_armor();
     // C: drop_weapon(1) — cantwield (dragon/nohands) must drop uwep
     await drop_weapon(1);
-    find_ac();
-    newsym(u.ux, u.uy);
+    // hideunder / Blind / egg / swallow / steed arms deferred
+    newsym(u.ux, u.uy); /* Change symbol */
+    // spoteffects / Passes_walls / amorphous / webmaker deferred
+    // C: find_ac() before encumber_msg; tty more() paints *cached* botl
+    // from the prior bot() (AC still stale at 9 after Cloak_off/setworn).
+    // JS flush before encumber more would bot post-find_ac AC:10 and
+    // poison that cache — defer find_ac until after encumber_msg so the
+    // More capture matches C (AC:9) then next screen gets AC:10.
     flags.botl = true;
+    if (game.disp) game.disp.botl = true;
+    // vision_full_recalc deferred
+    see_monsters();
+    await encumber_msg();
+    find_ac();
+    find_ac(); /* C repeats */
+    // retouch_equipment / selftouch / verbose #monster deferred
     return 1;
 }
 
@@ -621,5 +639,22 @@ export async function wiz_polyself() {
         return ECMD_OK;
     }
     await polyself(POLY_CONTROLLED);
+    return ECMD_OK;
+}
+
+/**
+ * C ref: cmd.c domonability — #monster special ability while poly'd.
+ * Envelope: Upolyd reflexive pline; !Upolyd normal-form pline.
+ * Named omissions: breathe/spit/nymph/gaze/were/hide/web/mindflayer/
+ * gremlin/unicorn/shriek/vampire/steed-breath; hide+web yn_function.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function domonability() {
+    const u = game.u || {};
+    if (Upolyd(u)) {
+        await pline('Any special ability you may have is purely reflexive.');
+    } else {
+        await pline("You don't have a special ability in your normal form!");
+    }
     return ECMD_OK;
 }

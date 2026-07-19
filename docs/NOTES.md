@@ -7,19 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#803 peel:** D-0720/21 — seed0108 Scr **156**/303 RNG FULL.
-  Next: @78 `#polyself` gnome cloak `--More--` / glyph / botl Burdened.
+- **#804 peel:** D-0722/23 — seed0108 Scr **187**/303 RNG FULL; prefix 109.
+  Next: @109 `#polyself` red dragon — botl `Fly` via `set_uasmon`
+  PROPSET(FLYING) FROMFORM (`polyself.c` ~100).
   Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0721; invent nearby force for D-0710;
+- **Don’t:** re-break D-0660…D-0723; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0721 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0723 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -33,10 +34,10 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…21: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
-  / `set_mon_data` umov / **`newman`** / **`#tip`** / throw self getdir /
-  cream `make_blinded`→`vision_recalc` — missing `#tip` was @3564 getbones
-  symptom (keystream leak → phantom walks).
+- D-0710…23: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+  / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
+  / **Upolyd botl+glyph+weight** / **`#monster`** — missing `#monster` was
+  @88 after gnome More; next Fly FROMFORM.
 
 ## Landmarks (≤15)
 
@@ -61,4 +62,6 @@ Objective/score live in `CURRENT.md`.
   `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.
   `#invoke` AC+EXT_CMDS; Blind ≡ props (D-0716); `set_mon_data` umov
   (D-0717); **newman** (D-0718); **`#tip`/`dotip`** (D-0719);
-  throw `.` self (D-0720); cream Blind vision (D-0721).
+  throw `.` self (D-0720); cream Blind vision (D-0721);
+  Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723).
+  `set_uasmon` FROMFORM FLYING still omitted (next @109).

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0723 — EXT_CMDS `#monster` / domonability reflexive (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **187**/303; RNG FULL; prefix 109)
+- **Symptom:** @88 `#monster` → C reflexive pline vs JS unknown extcmd.
+- **C locus:** `cmd.c` `domonability` Upolyd arm.
+- **Cause:** `#monster` missing from `EXT_CMDS`.
+- **Change:** `domonability` Upolyd / !Upolyd plines; wire EXT_CMDS.
+  Named omissions: breathe/spit/gaze/were/hide/web/… ability arms.
+- **Verification:** green+strict PASS; seed0108 Scr **186→187**; prefix
+  **88→109**; cohort 33/33 PASS.
+- **Next:** @109 red-dragon poly — botl `Fly` via `set_uasmon` PROPSET
+  FLYING (FROMFORM).
+
+## D-0722 — polymon gnome display + Upolyd botl/glyph/weight (seed0108 Scr)
+
+- **Status:** fixed (partial — then D-0723; Scr **156→186**)
+- **Symptom:** @78 `#polyself` gnome: C `--More--` + glyph `G` +
+  “the Gnome” + HP:8 HD:1 Burdened; JS human `@`/Evoker/Xp, no More.
+- **C locus:** `polyself.c` `polymon`/`break_armor`/`set_uasmon`;
+  `botl.c` do_statusline*; `display.h` `hero_glyph`; `hack.c`
+  `weight_cap` Upolyd cwt; `worn.c` setworn (no find_ac).
+- **Cause:** `polymon` omitted `encumber_msg`; hero glyph hard `@`;
+  botl ignored Upolyd mh/HD/pmname; `weight_cap` ignored poly cwt;
+  `setworn` always `find_ac` poisoned More’s cached AC (C shows AC:9).
+- **Change:** Upolyd botl + `hero_glyph`; Upolyd `weight_cap`;
+  `polymon`→`encumber_msg`; `setworn` `skip_find_ac` for break_armor;
+  defer `find_ac` until after encumber More (tty cache ≡C capture).
+- **Verification:** green+strict PASS; Scr **156→186**; prefix **78→88**.
+- **Next:** `#monster` (D-0723).
+
 ## D-0721 — cream-pie make_blinded vision_recalc (seed0108 Scr)
 
 - **Status:** fixed (partial — seed0108 Scr **156**/303; RNG FULL)
