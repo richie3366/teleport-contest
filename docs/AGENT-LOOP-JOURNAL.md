@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 19:25 — #902 D-0788 travel site-shift (not set_apparxy)
+- Objective: seed0360 @109454 C set_apparxy rn2(5) vs JS rn2(4).
+- C locus: `cmd.c` dotravel/getpos; `hack.c` findtravelpath; symptom `set_apparxy`.
+- Falsified: bare displ/gotu arity; CLOUD-reject in set_apparxy (→105228).
+  DIAG: `_` getpos 625→668 `,` confirms (33,9) from (3,19); JS travel
+  (3,19)→(4,18)→(5,18) then site-shifted displ accept.
+- Verification: green+strict PASS; no js/ change; peel still @109454.
+- Next: second travel step from (4,18) vs C (D-0788).
+
 ## 2026-07-19 19:10 — #901 D-0787 wiz_map ^F
 - Objective: seed0360 @109077 C exercise rn2(19) vs JS rn2(4).
 - C locus: `wizcmds.c` `wiz_map`; `detect.c` `do_mapping`; cmd `C('f')`.
@@ -161,12 +170,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort seed1500/1800/0361/0367/5002
   PASS; seed0360 prefix @100738, RNG matched 101517/120639 Scr 292.
 - Next: first move separating bat Y after FlipY (D-0779).
-
-## 2026-07-19 16:28 — #888 seed0360 C typ dump falsifies HWALL (D-0779)
-- Objective: seed0360 @100738 C `levl` typ / bat mfndpos cnt.
-- C locus: `mon.c` `mfndpos`; `sp_lev.c` `flip_level`; Wiz-strt.
-- Change or falsified theory: C@100733 bat@(34,1) cnt=7 all ROOM
-  typ=25 (not HWALL admit). Post-flip spawn matches JS; CLOUD(37,*)
-  off-by-one then movement Y drift to peel. No production patch.
-- Verification: green+strict PASS; seed0360 still @100738; DIAG gone.
-- Next: cloud/row (37,*) pre-flip or first separating bat move (D-0779).

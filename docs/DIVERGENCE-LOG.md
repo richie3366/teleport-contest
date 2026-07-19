@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0788 — seed0360 @109454 set_apparxy site-shift during `_` travel
+
+- **Status:** open (diagnosis; no code change)
+- **Symptom:** seed0360 @109454 — C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
+  Matched prior `rn2(5)` hid site-shift: JS accepted displ try1 then
+  next-mon `gotu` `rn2(4)` while C still in displ loop.
+- **Rejected:** bare Displacement arity (displ=2 `rn2(5)` vs gotu
+  `rn2(4)`) as the root — JS `set_apparxy` already matches C; CLOUD-reject
+  experiment in the displace loop regressed matched prefix to **105228**.
+- **C-state / JS DIAG (#902):** step 625 `_` opens travel `getpos`; keys
+  through 668 `,` stay in getpos (including swallowed `^T`/`4`/`7`);
+  confirm dest **(33,9)** with hero still **(3,19)** on CLOUD. Travel
+  path JS: `(3,19)→NE(4,18)→E(5,18)`; at peel u=(5,18) accepts cand
+  CLOUD `(5,19)` (`couldsee`+`accessible`). RNG matches through first
+  travel step + monsters → C likely also at `(4,18)` after step 1;
+  second step / mid-travel u likely diverges (C may be on `(5,19)`).
+- **C locus:** `cmd.c` `dotravel`/`getpos`; `hack.c` `findtravelpath`
+  / `test_move(TEST_TRAV)`; symptom `monmove.c` `set_apparxy`.
+- **Next:** falsify second travel step from `(4,18)` toward `(33,9)`
+  (BFS tie-break / seenv overmark on Quest home CLOUD); not another
+  `set_apparxy` arity patch.
+
 ## D-0787 — wiz_map ^F → do_mapping exercise(A_WIS)
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)

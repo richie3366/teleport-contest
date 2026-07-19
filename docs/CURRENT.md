@@ -76,24 +76,25 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @109454 / D-0787 follow-on** — #901 ported
-`wiz_map`/`^F` → `do_mapping`/`exercise(A_WIS)` (was Unknown command).
-Prefix **109077→109454**; suite matched **110391**. Next: C
-`set_apparxy` `rn2(5)` vs JS `rn2(4)` @109454 (displ/gotu). seed0014
-suite matched still **50419** (prefix @50259). Parked D-0731.
+**Gameplay next:** **seed0360 @109454 / D-0788** — #902 falsified bare
+`set_apparxy` displ vs gotu arity. Cause is `_` travel getpos
+(step 625→668 `,`) confirm **(33,9)** from **(3,19)**; JS path
+`(3,19)→(4,18)→(5,18)` then site-shifted displ accept. Next: C vs JS
+**second travel step** from `(4,18)` (BFS/seenv on Quest CLOUD).
+seed0014 suite matched still **50419** (prefix @50259). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @109454: C set_apparxy rn2(5) vs JS rn2(4)
+# @109454: travel path site-shift (not set_apparxy arity)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
-(D-0708 still open; peel advanced with D-0784…D-0787).
+(D-0708 still open; peel advanced with D-0784…D-0788).
 
-**Do not re-break D-0660…D-0787.**
+**Do not re-break D-0660…D-0788.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
