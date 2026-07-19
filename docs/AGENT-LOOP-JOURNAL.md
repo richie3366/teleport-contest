@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 01:51 — #942 D-0819 getpos_help `?`
+- Objective: seed0360 @729 getpos_help NHW_MENU + show_goal_msg.
+- C locus: `getpos.c` `getpos_help` / help key → `show_goal_msg`.
+- Change: `getpos.js` `getpos_help` via `show_nhw_menu_text`;
+  `?` sets `show_goal_msg`. Scr **828→830**/833.
+- Verification: green+strict PASS; cohort 13/13; RNG FULL.
+- Next: @780 materialize `--More--` (level-tele `z`).
+
 ## 2026-07-20 01:44 — #941 D-0818 getpos feature `_`
 - Objective: seed0360 @719 `Can't find dungeon feature '_'`.
 - C locus: `getpos.c` matching[] / feature scan (`S_altar` defsym `_`).

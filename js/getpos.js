@@ -1,11 +1,12 @@
 // getpos.js — Cursor-position selection (partial).
-// C ref: getpos.c getpos / auto_describe / hack.c handle_tip(TIP_GETPOS).
+// C ref: getpos.c getpos / getpos_help / auto_describe / hack.c handle_tip.
 //
 // Branch envelope: verbose instruction pline, first-use getpos tip
 // (nhcore show_getpos_tip PICK_NONE loop), hjklyubn walk + HJKLYUBN/Ctrl-dir
 // rush (8×; '\n'==C('j') rushes — movecmd before quitchars), seenv-gated
 // feature-char matching (stairs + furniture/traps subset; D-0779/D-0818),
-// autodescribe topline, force unknown-direction pline, '.' → LOOK_TRADITIONAL,
+// `?` → getpos_help NHW_MENU + show_goal_msg (D-0819), autodescribe
+// topline, force unknown-direction pline, '.' → LOOK_TRADITIONAL,
 // ESC → -1. Menu/mMoOdDxX jump/hilite/valids/getloc_moveskip glyph-skip /
 // engraving/drawbridge/air full showsyms table deferred.
 
@@ -14,7 +15,15 @@ import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, terrain_glyph } from './display.js';
 import { cansee } from './vision.js';
 import {
-    COLNO, ROWNO, isok, TER_MON, TER_DETECT,
+    COLNO, ROWNO, isok, TER_MON, TER_OBJ, TER_MAP, TER_DETECT,
+    GLOC_MONS, GLOC_OBJS, GLOC_DOOR, GLOC_EXPLORE, GLOC_INTERESTING,
+    NHKF_GETPOS_SELF, NHKF_GETPOS_PICK, NHKF_GETPOS_AUTODESC,
+    NHKF_GETPOS_MON_NEXT, NHKF_GETPOS_MON_PREV,
+    NHKF_GETPOS_OBJ_NEXT, NHKF_GETPOS_OBJ_PREV,
+    NHKF_GETPOS_DOOR_NEXT, NHKF_GETPOS_DOOR_PREV,
+    NHKF_GETPOS_UNEX_NEXT, NHKF_GETPOS_UNEX_PREV,
+    NHKF_GETPOS_INTERESTING_NEXT, NHKF_GETPOS_INTERESTING_PREV,
+    NHKF_GETPOS_MOVESKIP, NHKF_GETPOS_MENU, NHKF_GETPOS_LIMITVIEW,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
     DOOR, IS_DOOR, D_NODOOR, D_ISOPEN, D_BROKEN,
@@ -527,6 +536,169 @@ function auto_describe_suffix(cx, cy) {
     return s;
 }
 
+// C ref: cmd.c spkeys_binds defaults (!num_pad) for getpos help text.
+const GETPOS_SPKEY_DEFAULT = {
+    [NHKF_GETPOS_SELF]: '@'.charCodeAt(0),
+    [NHKF_GETPOS_PICK]: '.'.charCodeAt(0),
+    [NHKF_GETPOS_AUTODESC]: '#'.charCodeAt(0),
+    [NHKF_GETPOS_MON_NEXT]: 'm'.charCodeAt(0),
+    [NHKF_GETPOS_MON_PREV]: 'M'.charCodeAt(0),
+    [NHKF_GETPOS_OBJ_NEXT]: 'o'.charCodeAt(0),
+    [NHKF_GETPOS_OBJ_PREV]: 'O'.charCodeAt(0),
+    [NHKF_GETPOS_DOOR_NEXT]: 'd'.charCodeAt(0),
+    [NHKF_GETPOS_DOOR_PREV]: 'D'.charCodeAt(0),
+    [NHKF_GETPOS_UNEX_NEXT]: 'x'.charCodeAt(0),
+    [NHKF_GETPOS_UNEX_PREV]: 'X'.charCodeAt(0),
+    [NHKF_GETPOS_INTERESTING_NEXT]: 'a'.charCodeAt(0),
+    [NHKF_GETPOS_INTERESTING_PREV]: 'A'.charCodeAt(0),
+    [NHKF_GETPOS_MOVESKIP]: '*'.charCodeAt(0),
+    [NHKF_GETPOS_MENU]: '!'.charCodeAt(0),
+    [NHKF_GETPOS_LIMITVIEW]: '"'.charCodeAt(0),
+};
+
+/** C ref: getpos.c gloc_descr[][4] — index 2 used when !getloc_usemenu. */
+const GLOC_DESCR = [
+    ['any monsters', 'monster', 'next/previous monster', 'monsters'],
+    ['any items', 'item', 'next/previous object', 'objects'],
+    ['any doors', 'door', 'next/previous door or doorway', 'doors or doorways'],
+    ['any unexplored areas', 'unexplored area', 'unexplored location',
+        'locations next to unexplored locations'],
+    ['anything interesting', 'interesting thing', 'anything interesting',
+        'anything interesting'],
+    ['any valid locations', 'valid location', 'valid location',
+        'valid locations'],
+];
+
+const GLOC_FILTERTXT = ['', ' in view', ' in this area'];
+
+function getpos_spkey(nhkf) {
+    const sp = game.Cmd?.spkeys;
+    const v = sp?.[nhkf];
+    if (v != null && v !== 0) return v & 0xff;
+    return GETPOS_SPKEY_DEFAULT[nhkf] & 0xff;
+}
+
+/**
+ * C ref: getpos.c getpos_help_keyxhelp — one putstr line for m/M style jumps.
+ */
+function getpos_help_keyxhelp(lines, k1, k2, gloc) {
+    const usemenu = !!(game.iflags?.getloc_usemenu);
+    const filter = game.iflags?.getloc_filter | 0;
+    let move_cursor_to = 'move the cursor to ';
+    let filtertxt = GLOC_FILTERTXT[filter] || '';
+    if (gloc === GLOC_EXPLORE) {
+        move_cursor_to = 'move the cursor next to an ';
+        if (usemenu) {
+            filtertxt = String(filtertxt).replace('this area', 'area');
+        }
+    }
+    const descr = GLOC_DESCR[gloc]?.[2 + (usemenu ? 1 : 0)] || '';
+    lines.push(
+        `Use '${visctrl(k1)}'/'${visctrl(k2)}' to ${
+            usemenu ? 'get a menu of ' : move_cursor_to
+        }${descr}${filtertxt}.`,
+    );
+}
+
+/**
+ * C ref: getpos.c getpos_help — NHW_MENU putstr + display_nhwindow(TRUE).
+ * Default !num_pad move/run/rush keys (hjklyubn / HJKL / G,g). Named:
+ * cmd_from_func custom binds; getpos_getvalid/hilite lines; whatis pick
+ * variants when goal === what_is_a_location.
+ */
+async function getpos_help(force, goal) {
+    const fastmovemode = ['8 units at a time', 'skipping same glyphs'];
+    const moveskip = !!(game.iflags?.getloc_moveskip);
+    const terrainmode = game.iflags?.terrainmode | 0;
+    const lines = [];
+
+    // C: cmd_from_func(do_move_{west,south,north,east}) → h,j,k,l
+    lines.push(
+        `Use 'h', 'j', 'k', 'l' to move the cursor to ${goal || 'desired location'}.`,
+    );
+    // C: do_run_* → H,J,K,L
+    lines.push(
+        `Use 'H', 'J', 'K', 'L' to fast-move the cursor, ${fastmovemode[moveskip ? 1 : 0]}.`,
+    );
+    // C: do_run / do_rush → 'G' / 'g'
+    lines.push("(or prefix normal move with 'G' or 'g' to fast-move)");
+    lines.push("Or enter a background symbol (ex. '<').");
+    lines.push(
+        `Use '${visctrl(getpos_spkey(NHKF_GETPOS_SELF))}' to move the cursor on yourself.`,
+    );
+
+    if (!terrainmode || (terrainmode & TER_MON) !== 0) {
+        getpos_help_keyxhelp(
+            lines,
+            getpos_spkey(NHKF_GETPOS_MON_NEXT),
+            getpos_spkey(NHKF_GETPOS_MON_PREV),
+            GLOC_MONS,
+        );
+    }
+    // C: if (goal && !strcmp(goal, "a monster")) goto skip_non_mons;
+    if (!(goal && goal === 'a monster')) {
+        if (!terrainmode || (terrainmode & TER_OBJ) !== 0) {
+            getpos_help_keyxhelp(
+                lines,
+                getpos_spkey(NHKF_GETPOS_OBJ_NEXT),
+                getpos_spkey(NHKF_GETPOS_OBJ_PREV),
+                GLOC_OBJS,
+            );
+        }
+        if (!terrainmode || (terrainmode & TER_MAP) !== 0) {
+            getpos_help_keyxhelp(
+                lines,
+                getpos_spkey(NHKF_GETPOS_DOOR_NEXT),
+                getpos_spkey(NHKF_GETPOS_DOOR_PREV),
+                GLOC_DOOR,
+            );
+            getpos_help_keyxhelp(
+                lines,
+                getpos_spkey(NHKF_GETPOS_UNEX_NEXT),
+                getpos_spkey(NHKF_GETPOS_UNEX_PREV),
+                GLOC_EXPLORE,
+            );
+            getpos_help_keyxhelp(
+                lines,
+                getpos_spkey(NHKF_GETPOS_INTERESTING_NEXT),
+                getpos_spkey(NHKF_GETPOS_INTERESTING_PREV),
+                GLOC_INTERESTING,
+            );
+        }
+        lines.push(
+            `Use '${visctrl(getpos_spkey(NHKF_GETPOS_MOVESKIP))}' to change fast-move mode to ${
+                fastmovemode[moveskip ? 0 : 1]
+            }.`,
+        );
+        if (!terrainmode || (terrainmode & TER_DETECT) === 0) {
+            lines.push(
+                `Use '${visctrl(getpos_spkey(NHKF_GETPOS_MENU))}' to toggle menu listing for possible targets.`,
+            );
+            lines.push(
+                `Use '${visctrl(getpos_spkey(NHKF_GETPOS_LIMITVIEW))}' to change the mode of limiting possible targets.`,
+            );
+        }
+        if (!terrainmode) {
+            // getpos_getvalid / getpos_hilitefunc lines deferred
+            lines.push(
+                `Use '${visctrl(getpos_spkey(NHKF_GETPOS_AUTODESC))}' to toggle automatic description.`,
+            );
+            // C doing_what_is only when goal == what_is_a_location; travel uses '.'
+            lines.push(
+                `Type a '${visctrl(getpos_spkey(NHKF_GETPOS_PICK))}' when you are at the right place.`,
+            );
+        }
+    }
+    if (!force) {
+        lines.push("Type Space or Escape when you're done.");
+    }
+    lines.push('');
+
+    // C: display_nhwindow(tmpwin, TRUE) → process_text_window + dmore
+    const { show_nhw_menu_text } = await import('./pager.js');
+    await show_nhw_menu_text(lines);
+}
+
 /**
  * C ref: nhcore.lua show_getpos_tip → nhlua.c nhl_text (NHW_MENU +
  * select_menu PICK_NONE) → wintty H2344 corner offx. Not NHW_TEXT
@@ -692,7 +864,9 @@ export async function getpos(ccp, force, goal, describeAt) {
         }
 
         if (ch === '?') {
-            await pline('Move the cursor with hjklyubn; . selects; ESC cancels.');
+            // C: NHKF_GETPOS_HELP → getpos_help; getpos_refresh; show_goal_msg
+            await getpos_help(!!force, goal || 'desired location');
+            show_goal_msg = true;
             msg_given = true;
             continue;
         }

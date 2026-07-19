@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0819 — getpos_help NHW_MENU on `?` (+ show_goal_msg)
+
+- **Status:** fixed (seed0360 Scr residual continues @780)
+- **Symptom:** seed0360 @729 — C corner NHW_MENU
+  `Use 'h', 'j', 'k', 'l' to move the cursor to the desired destination.`
+  then @730 `Move cursor to the desired destination:`; JS stub pline
+  and no goal-msg refresh. RNG FULL.
+- **C locus:** `getpos.c` `getpos_help` (NHW_MENU putstr +
+  `display_nhwindow(TRUE)`) then `show_goal_msg = TRUE`.
+- **Cause (#942):** `?` only emitted a one-line stub; never painted
+  help or re-prompted the travel goal.
+- **Change:** `js/getpos.js` `getpos_help` / `getpos_help_keyxhelp`
+  via `show_nhw_menu_text`; `?` sets `show_goal_msg`. Named:
+  `cmd_from_func` custom binds; getpos_getvalid/hilite; whatis
+  multi-pick lines; mMoOdDxX jump bodies.
+- **Verification:** green+strict PASS; cohort 13/13 PASS (ex-0360);
+  seed0360 Scr **828→830**/833; @729/@730 match; RNG FULL.
+- **Next:** @780 `You materialize on a different level!--More--`
+  (level-tele `z` → schedule_goto / deferred pline More).
+
 ## D-0818 — getpos feature matching beyond `>`/`<` (altar `_`)
 
 - **Status:** fixed (seed0360 Scr residual continues @729)

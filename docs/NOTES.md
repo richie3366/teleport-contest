@@ -7,26 +7,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#941 D-0818:** getpos feature matching beyond `>`/`<`
-  (`_` → S_altar). seed0360 Scr **826→828**/833;
-  @719/@724 fixed; first miss **729**.
-- **Hypothesis next:** @729 `?` → C `getpos_help` NHW_MENU
-  (`Use 'h', 'j', 'k', 'l' to move the cursor to the desired
-  destination.`) then `show_goal_msg`; JS stub pline + no
-  goal-msg refresh (cursor stuck).
-- **Falsify:** port `getpos_help` first line / menu paint +
-  `show_goal_msg` after `?`; expect @729–730 match.
+- **#942 D-0819:** getpos_help NHW_MENU on `?` + show_goal_msg.
+  seed0360 Scr **828→830**/833; @729/@730 fixed; first miss **780**.
+- **Hypothesis next:** @780 level-tele `z` → C
+  `You materialize on a different level!--More--` then wisps;
+  JS materialize without More so space → `Unknown command ' '`.
+- **Falsify:** ensure schedule_goto / deferred materialize pline
+  takes `--More--` when a follow-on message awaits; expect
+  @780–781 match.
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen
-  queues; claim `#` as feature key (GETPOS_AUTODESC spkey);
-  re-break D-0817 blank→stone TER_DETECT.
+  queues; re-break D-0818/D-0819 getpos help/feature.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0818 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0819 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0818 peels done.
+- seed5002 **PASS**; D-0743…D-0819 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -37,12 +35,13 @@ Objective/score live in `CURRENT.md`.
 - tele_restrict pline + wildmiss displaced (D-0816).
 - blank S_stone non-travel + TER_DETECT guard (D-0817).
 - feature matching `_`/furniture/traps; `#` not feature (D-0818).
+- getpos_help NHW_MENU + show_goal_msg (D-0819).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#940 Scr **8834**/11405; seed0360 **828**/833 @729.
+- suite **37/44** @#940 Scr **8834**/11405; seed0360 **830**/833 @780.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
