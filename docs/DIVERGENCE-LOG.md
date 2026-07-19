@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0739 — mattackm mlstmv + dog_move return onscary (seed5002 @11715)
+
+- **Status:** fixed (partial — seed5002 still FAIL; next @11725)
+- **Symptom:** seed5002 continuous first miss @**11715**/flat **11703**
+  after D-0738: C `distfleeck` `rn2(5)` vs JS `mattackm` `rnd(20)` —
+  pet return attack after kitten hit giant bat.
+- **C locus:** `mhitm.c` `mattackm` `magr->mlstmv = svm.moves`;
+  `dogmove.c` return-attack gate `mlstmv` / `!onscary` / `monnear`.
+- **Cause:** JS never set `magr.mlstmv` in `mattackm`, so defender
+  `mlstmv` stayed `undefined` and `!== moves` always passed; bat had
+  already attacked this turn in C (`mlstmv == moves`) so return attack
+  was skipped. Also omitted `!onscary` between `mlstmv` and `monnear`.
+- **Change:** set `magr.mlstmv = game.moves` in `mattackm`; export
+  `onscary` and gate dog_move return attack like C. DIAG removed.
+- **Verification:** green+strict PASS; cohort 34/34; continuous
+  **11715→11725**; positional **11895→11788**/12167 Scr 108→114
+  (prefix advanced; positional total can drop after new divergence).
+- **Next:** @11725 JS `makewish`/`readobjnam` `rn2(181)` vs C
+  `distfleeck` (C identify-wish steps 141–198 are 0-RNG).
+
 ## D-0738 — hero_seq + stethoscope seemimic (seed5002 @11643)
 
 - **Status:** fixed (partial — seed5002 still FAIL; next @11715)

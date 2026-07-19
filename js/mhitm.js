@@ -484,6 +484,9 @@ export async function mattackm(magr, mdef) {
     _mm_vis = ((cansee(magr.mx, magr.my) && canspotmon(magr))
         || (cansee(mdef.mx, mdef.my) && canspotmon(mdef)));
 
+    // C ref: mhitm.c mattackm — out-of-sequence attack still counts as move
+    magr.mlstmv = game.moves | 0;
+
     let struck = 0;
     const res = new Array(NATTK).fill(M_ATTK_MISS);
 

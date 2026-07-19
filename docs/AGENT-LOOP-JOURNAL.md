@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #827 mattackm mlstmv + dog return onscary (D-0739)
+
+- Objective: seed5002 @11715 (C distfleeck rn2(5) vs JS rnd(20)).
+- C locus: `mhitm.c` `mattackm` `magr->mlstmv`; `dogmove.c` return gate.
+- Change: set `magr.mlstmv = moves` in `mattackm`; export `onscary` and
+  gate pet return attack `!onscary`. Root was undefined `mlstmv` always
+  allowing bat return-attack when C had `mlstmv == moves`.
+- Verification: green+strict PASS; cohort 34/34; continuous
+  **11715→11725**; Scr 108→114; positional 11895→11788.
+- Next: @11725 JS wish `rn2(181)` vs C `distfleeck` (identify wish
+  0-RNG in C); or D-0731/D-0708.
+
 ## 2026-07-19 — #826 hero_seq + stethoscope seemimic (D-0738)
 
 - Objective: seed5002 @11643 (C do_attack/gethungry vs JS distfleeck).
@@ -132,42 +144,3 @@ Use this shape:
   Δ vs #810: Scr +0, RNG +189; seed0399 10359→10389 still @10157.
 - Next: D-0731 C-state omit @10157; or D-0708 @49039; prefer shared.
 
-## 2026-07-19 — #814 mfndpos onscary/garlic/bars/gas (D-0731)
-- Objective: seed0399 @10157 rn2(20) vs rn2(28); port deferred mfndpos arms.
-- C locus: `mon.c` `mfndpos`; `monmove.c` `onscary`.
-- Change: mconf/`!mcansee` flags; IRONBARS; poison-gas; onscary (scare/
-  Elbereth/altar-vamp); garlic. Falsified: these arms drop cnt in JS
-  state @miss (still 7); j=2 mtrack → same 10217 arity-only.
-- Verification: green+strict PASS; cohort 6/6; seed0399 still @10157
-  (positional 10389); seed0014 @49039 held.
-- Next: C-state omit of 2 cells; temple/`worm_cross`; or D-0708.
-
-## 2026-07-19 — #813 seed0399 mfndpos pair sharpen (D-0731)
-- Objective: seed0399 @10157 rn2(20) vs rn2(28); identify C’s 2 omits.
-- C locus: `mon.c` `mfndpos` (deferred onscary/gas/worm_cross/bars).
-- Change: none (DIAG/PROBE only; reverted). Falsified: WEB required in
-  the omit pair; pair ID via max-prefix (all keep-track pairs →10217).
-  Track cell (59,13) must stay for arity rn2. Omit ∈6 non-track.
-- Verification: green+strict PASS; seed0399 still @10157; no js/ diff.
-- Next: C-state / deferred mfndpos arms; or D-0708 @49039.
-
-## 2026-07-19 — #812 unicorn NOTONL + fail-tele (D-0731)
-- Objective: seed0399 @10157 m_move track rn2(20) vs rn2(28).
-- C locus: `mon.c` `mon_allowflags` NOTONL; `monmove.c` unicorn
-  fail-move `rn2(2)`+`rloc`; `teleport.c` `rloc_to` `mon_track_clear`.
-- Change: port those three. Falsified: NOTONL fixes this miss (mux=47,9
-  no online neigh). DIAG: black unicorn cnt=7 vs C need 5; FORCE_EXCL
-  any 2 of 7 → prefix 10217.
-- Verification: green+strict PASS; cohort prior PASS held; seed0399
-  still @10157; seed0014 @49039 held.
-- Next: which 2 mfndpos cells C drops (WEB+?); or D-0708.
-
-## 2026-07-19 — #811 max_passive_dmg AD_ACID (D-0730)
-- Objective: CURRENT primary; pivoted seed0399 after D-0708 cell stall.
-- C locus: `mondata.c` `max_passive_dmg`; `dogmove.c` ALLOW_M balk.
-- Change: elemental AD_ACID/FIRE/COLD/ELEC + HUGS/ENGL/TENT multi2;
-  fix AD_ACID=8 (was wrongly AD_DRDX). Falsified D-0708: kickedloc this
-  turn; (22,10) is ROOM on C DEC screen.
-- Verification: green+strict PASS; seed0399 **10145→10157** RNG
-  **10359**/11409; cohort 6/6 prior PASS held; seed0014 unchanged.
-- Next: seed0399 @10157 m_move rn2(20) vs rn2(28); or D-0708.

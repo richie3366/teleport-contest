@@ -7,10 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#826 D-0738 done:** `hero_seq` moveloop + stethoscope `seemimic`/
-  `mstatusline`. seed5002 cont **11643→11715**; RNG 11693→11895 Scr 108.
-- **Falsify next (@11715):** mid seg1 step140 (after `\n`); C `rn2(5)=4`
-  vs JS `rnd(20)=20`. Dump wish/apply/combat path — not re-break D-0738.
+- **#827 D-0739 done:** `mattackm` sets `magr.mlstmv`; dog_move return
+  attack also gates `!onscary`. seed5002 cont **11715→11725**; Scr 108→114.
+- **Falsify next (@11725):** after EOT, JS `wiz_wish`→`readobjnam`
+  `rn2(181)` vs C `distfleeck` (C `^Wscroll of identify` steps 141–198
+  have **0** RNG). Dump makewish/readobjnam vs C named-scroll path.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -18,10 +19,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0738 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0739 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
-- seed5002 seg0 now FULL 5904; flattened @11715 is mid-seg1.
+- seed5002 seg0 now FULL 5904; flattened @11725 is mid-seg1 step199.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
@@ -33,6 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Wish does **not** `makeknown` (C: otmp unidentified); trailing exercise
   was death-noreturn hole, not wish-known (D-0737).
 - Stethoscope free/TIME needs live `hero_seq` (D-0738); don’t hardcode seq.
+- `mattackm` **must** set `magr.mlstmv = moves` (D-0739); undefined ≠ C 0.
 
 ## Landmarks (≤15)
 
@@ -56,6 +58,7 @@ Objective/score live in `CURRENT.md`.
   **mirror/camera getdir+beam/flash** (D-0736);
   **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
   **hero_seq + stethoscope seemimic/mstatusline** (D-0738);
+  **mattackm mlstmv + dog_move return onscary** (D-0739);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#825; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#825; stuck @10157 D-0731 |
-| seed5002 | 11895/12167 | 108/410 | @#826; cont@11715 (D-0738) |
+| seed5002 | 11788/12167 | 114/410 | @#827; cont@11725 (D-0739) |
 
 ## Green gate
 
@@ -71,18 +71,20 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed5002 continuous @**11715** — mid seg1 step140
-(after `\n`); C `rn2(5)=4` vs JS `rnd(20)=20`. Then finish seed5002 /
-seed5003, or seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708). Prefer
-shared blockers. Do **not** re-break D-0660…D-0738.
+**Gameplay next:** seed5002 continuous @**11725** — after D-0739 EOT,
+JS `makewish`/`readobjnam` `rn2(181)` while C already finished
+`^Wscroll of identify` (0 RNG on steps 141–198) and is in `ms` movemon
+`distfleeck`. Then finish seed5002 / seed5003, or seed0399 @10157
+(D-0731) / seed0014 @49039 (D-0708). Prefer shared blockers. Do **not**
+re-break D-0660…D-0739.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed5002-wizard-coverage-pair.session.json
-# continuous through 11715; C rn2(5) vs JS rnd(20)
+# continuous through 11725; C distfleeck vs JS wish rn2(181)
 ```
 
-**Do not re-break D-0660…D-0738.**
+**Do not re-break D-0660…D-0739.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
