@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 101517/120639 | 293/833 | @100738 bat Y drift (D-0779) |
+| seed0360 | 101695/120639 | 294/833 | @101022 m_move (D-0779) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3038/108275 | 13/1814 | knight coverage |
@@ -75,16 +75,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100738 / D-0779** — spawn/clouds match
-(#889). #891 fixed `lock.js` `getdir` `'.'`=SELF (D-0780; Scr
-292→293). Peel: JS bat@(34,2) cnt=4 vs C@(34,1) cnt=7. Hypothesis:
-JS first siege `movemon` sees hero after `#chat`/`y` (9,1)→(8,0);
-C still ≈(9,1). Do not invent post-EOT `movemon`. Parked D-0731/D-0708.
+**Gameplay next:** **seed0360 @101022 / D-0779** — #892 `getpos` stairs
+match requires `seenv` (was blank `disp_ch` → unseen `>` to stairs;
+C: `>` miss then `\n`=C('j') rush to (8,8) travel). Prefix
+**100738→101022**, Scr **293→294**, RNG **101695**. Next: @101022
+C `m_move:1871` `rn2(3)` vs JS `rn2(5)`. Parked D-0731/D-0708.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @100738 bat Y drift — C(34,1) vs JS(34,2); wall@y3 both
+# @101022 m_move !rn2(3) vs rn2(5)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

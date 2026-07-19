@@ -759,7 +759,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0776 | fixed | Wiz-strt load_special | seed0360 98505→100104; RNG 98528→100408; Scr 275→292; next traps @100104 |
 | D-0777 | fixed | maketrap IS_AIR/CLOUD reject | seed0360 100104→100397; RNG 100408→100887; Scr 292; next distfleeck @100397 |
 | D-0778 | fixed | m_move Tengu nature teleport | seed0360 100397→100738; RNG 100887→104024; Scr 292; next mfndpos chcnt @100738 |
-| D-0779 | open | Wiz-strt bat Y drift (hero lane after EOT) | seed0360 @100738 Scr 293; JS mux after #chat/y (8,0) vs C~(9,1) |
+| D-0779 | open | getpos `>` unseen stairs via blank disp_ch; travel dest | seed0360 100738→101022 Scr 294; next @101022 m_move !rn2(3) |
 | D-0780 | fixed | lock.js getdir `'.'` = GETDIR_SELF | seed0360 Scr 292→293; #chat/kick/open path; peel unchanged |
 
 

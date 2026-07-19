@@ -7,12 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#891 / D-0779:** After Wiz-strt arrival `'.'` EOT, JS `#chat`/`y`
-  moves hero (9,1)→(8,0) **before** first siege `movemon`; C cursor
-  still ≈(9,1) so quasit/bat approach lanes differ (JS bat stays y=2;
-  C bat y=1 → peel cnt). Spawn/clouds match after #889 `\\`.
-  **Falsify:** C first siege `m_move` @~100381 with hero still (9,1)
-  vs JS mux after `y`. Do **not** invent post-EOT `movemon`.
+- **#892 / D-0779:** `getpos` `>` must not match unseen stairs (C
+  `seenv` gate). Was jumping to (33,9) then `\\n`=C('j') rush →(33,17);
+  C: `>` miss → `\\n` rush →(8,8) travel. Prefix **100738→101022**,
+  Scr **294**. Next: @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.
 - **D-0780 fixed:** `lock.js` `getdir` `'.'` = SELF (was cancel).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
@@ -36,9 +34,9 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **Falsified D-0779 C-admits-HWALL / cloud-from-flip / post-EOT movemon:**
-  C bat ROOM neighbors; cloud miss was throne `\.`; forced post-EOT
-  `movemon` / umov=0 while-continue broke green / worsened RNG.
+- **Falsified D-0779:** C-admits-HWALL; post-EOT movemon; C hero@(9,1)
+  at first siege movemon (both move on `y`); quitchars-before-`\\n`
+  (C binds `C('j')` rush before quitchars).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -50,7 +48,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#890;
-  Scr 8297, RNG **632144**/79.73%; seed0360 **100738**/101517/**293** D-0779).
+  Scr 8297, RNG **632144**/79.73%; seed0360 **101022**/101695/**294** D-0779).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -74,5 +72,6 @@ Objective/score live in `CURRENT.md`.
   **bigrm-4 L-replace+fountains** (D-0760);
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
-  **Tengu m_move teleport** (D-0778); **getdir lock SELF** (D-0780).
-  Wiz-strt FlipY flp=1; throne `\\`; CLOUD col37 match; peel hero-lane.
+  **Tengu m_move teleport** (D-0778); **getdir lock SELF** (D-0780);
+  **getpos seenv stairs** (D-0779 #892).
+  Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

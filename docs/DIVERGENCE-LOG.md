@@ -18,26 +18,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   seed0360 Scr **292→293**, RNG still 101517 @100738.
 - **Next:** D-0779 hero-lane / first siege movemon order.
 
-## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738)
+## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738→101022)
 
-- **Status:** open (throne/cloud fixed #889; getdir SELF D-0780; Y drift)
-- **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
-  `rn2(5)` (then site shift). Matched prefix strings hid: after bat
-  `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
-  still rolls chcnt through `rn2(7)`.
-- **C locus:** `monmove.c` `m_move`; `mon.c` `mfndpos`; `allmain.c`
-  moveloop / EOT; `dat/Wiz-strt.lua` + FlipY; `cmd.c` getdir (D-0780).
-- **Cause (#884–#891):** Vampire bat on Wiz-strt post-FlipY. JS @100733:
-  bat@(34,2) cnt=4, quasit@(34,1). **C @100733:** bat@(34,1) cnt=7,
-  quasit@(34,2) — C neighbors ROOM (not HWALL admit). Post-flip spawn
-  matches (bat@37,3 / quasit@37,2). **#889:** throne `\\` fixed CLOUD
-  col37. **#891:** JS after arrival `'.'` EOT then `#chat`/`y` moves
-  hero (9,1)→(8,0) **before** first siege `movemon`; C still ≈(9,1)
-  → different approach lanes. Forced post-EOT `movemon` falsified
-  (green break / RNG worse).
-- **Change (#889/#891):** `WIZ_STRT_MAP` `\\`; D-0780 `getdir` SELF.
-- **Next:** C-cited reason first siege moves see hero@(9,1) (turn order
-  after EOT vs `#chat`/`y`) — not invent post-EOT movemon.
+- **Status:** open (getpos seenv gate #892; peel moved)
+- **Symptom:** seed0360 — was @100738 bat cnt 4 vs C 7; now @101022
+  C `m_move` `!rn2(3)` vs JS `rn2(5)`.
+- **C locus:** `getpos.c` feature terrain needs `seenv`; `cmd.c`
+  `C('j')=='\n'` rush before quitchars; `monmove.c` `m_move`.
+- **Cause (#884–#892):** Unseen downstairs matched via blank `disp_ch`
+  truthy → travel `_`/`>` jumped to stairs (33,9) then `\n` rushed to
+  (33,17). C: `>` finds nothing (no seenv) → `\n` rushes to (8,8) →
+  travel destination (8,8). Siege bat Y drifted from wrong hero mux.
+  Falsified: post-EOT movemon; HWALL admit; C hero still @(9,1) at first
+  siege movemon (C also moves on `y` first).
+- **Change (#892):** `getpos.js` `terrain_feature_matches` requires
+  `seenv` (D-0779). Keep movecmd/`\n` rush before space/CR quitchars.
+- **Verification:** prefix **100738→101022**, Scr **293→294**, RNG
+  matched **101517→101695**; green+cohort PASS.
+- **Next:** @101022 C bat/stalker `!rn2(3)` vs JS site shift.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 
