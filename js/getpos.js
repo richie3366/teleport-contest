@@ -11,11 +11,13 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
+import { cansee } from './vision.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, TREE, CLOUD, IS_WALL,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd, Is_airlevel,
+    Is_rogue_level,
 } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
 import { distant_monnam_none, pmname, Ugender } from './do_name.js';
@@ -191,6 +193,31 @@ function stair_ladder_explanation(x, y) {
 }
 
 /**
+ * C ref: pager.c lookat — glyph_is_nothing / cmap cmap S_darkroom →
+ * "dark part of a room"; S_room → "floor of a room". display.c newsym
+ * out-of-sight converts remembered S_room → DARKROOMSYM when
+ * !waslit || (flags.dark_room && iflags.use_color); Rogue !waslit →
+ * S_stone. Named: GLYPH_NOTHING blank when !dark_room (auto_describe
+ * still maps bare space → "unexplored area").
+ */
+export function room_cmap_explanation(x, y, loc) {
+    if (!loc) return 'dark part of a room';
+    // Visible room floor is always back_to_glyph S_room.
+    if (cansee(x, y)) return 'floor of a room';
+    // C newsym Rogue branch: !waslit S_room → S_stone
+    if (Is_rogue_level(game.u?.uz)) {
+        if (!loc.waslit) return loc.seenv ? 'stone' : 'unexplored';
+        return 'floor of a room';
+    }
+    const darkRoomColor = game.flags?.dark_room !== false
+        && game.flags?.color !== false
+        && game.iflags?.use_color !== false;
+    // C: !waslit || (dark_room && use_color) → S_darkroom (or NOTHING)
+    if (!loc.waslit || darkRoomColor) return 'dark part of a room';
+    return 'floor of a room';
+}
+
+/**
  * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
  * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
  * auto_describe firstmatch after stairs/traps.
@@ -213,7 +240,7 @@ function cmap_defsym_explanation(x, y, loc) {
     }
     // C lookat cmap default → defsyms[symidx].explanation
     if (IS_WALL(typ)) return 'wall';
-    if (typ === ROOM) return 'floor of a room';
+    if (typ === ROOM) return room_cmap_explanation(x, y, loc);
     if (typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
     }

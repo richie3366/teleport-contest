@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0812 — lookat ROOM S_darkroom (seed0360 @531)
+
+- **Status:** fixed (seed0360 Scr residual continues @539)
+- **Symptom:** seed0360 @531 travel auto_describe — C topline
+  `dark part of a room`; JS `floor of a room`. Map · matched; RNG FULL.
+- **C locus:** `pager.c` `lookat` — `glyph_is_nothing` / cmap cmap
+  `S_darkroom` → `"dark part of a room"`; `S_room` → `"floor of a room"`.
+  `display.c` `newsym` out-of-sight: remembered `S_room` → `DARKROOMSYM`
+  when `!waslit || (flags.dark_room && iflags.use_color)`.
+- **Cause (#934):** JS `cmap_defsym_explanation` / `brief_at` always
+  mapped `typ===ROOM` → `"floor of a room"` without vision/darkroom.
+- **Change:** `js/getpos.js` `room_cmap_explanation` (+ export);
+  `js/pager.js` `brief_at` / `describe_looked` use it. Named: Rogue
+  `!waslit` → `S_stone`; blank `GLYPH_NOTHING` when `!dark_room`
+  (auto_describe space → `"unexplored area"` still).
+- **Verification:** green+strict PASS; cohort **35/35** PASS;
+  seed0360 Scr **684→689**/833; prefix **531→539**.
+- **Next:** @539 `stone (no travel path)` vs `unexplored area`.
+
 ## D-0811 — lookat CLOUD fog/vapor (seed0360 @523)
 
 - **Status:** fixed (seed0360 Scr residual continues @531)

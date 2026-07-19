@@ -7,22 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#933 D-0811:** lookat CLOUD fog/vapor — seed0360 Scr **684**/833;
-  @523 fixed; prefix **531**.
-- **Hypothesis next:** @531 farlook — C `dark part of a room` vs JS
-  `floor of a room` (S_darkroom / `!lit` / seenv / glyph_is_cmap).
-- **Falsify:** C `lookat` darkroom vs ROOM; JS `brief_at` /
-  `cmap_defsym_explanation` for unlit or darkroom glyph.
+- **#934 D-0812:** ROOM darkroom lookat — seed0360 Scr **689**/833;
+  @531 fixed; prefix **539**.
+- **Hypothesis next:** @539 farlook — C `stone (no travel path)` vs JS
+  `unexplored area` (STONE `seenv` / blank glyph / auto_describe space).
+- **Falsify:** C `lookat` S_stone `!seenv`→unexplored else stone;
+  JS blank `disp_ch` currently → unexplored before cmap STONE arm.
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break CLOUD lookat (D-0811) or setworn find_ac (D-0810).
+  re-break darkroom (D-0812) / CLOUD (D-0811) / setworn find_ac (D-0810).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0811 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0812 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0811 peels done.
+- seed5002 **PASS**; D-0743…D-0812 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -36,12 +36,13 @@ Objective/score live in `CURRENT.md`.
 - @395 bare unexplored — travel path suffix (D-0809).
 - @497 AC:-2 vs AC:2 — setworn early find_ac (D-0810).
 - @523 fog/vapor vs unexplored — CLOUD lookat (D-0811).
+- @531 floor vs dark part — ROOM S_darkroom lookat (D-0812).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#930; seed0360 Scr **684** @531 (D-0811).
+- suite **37/44** @#930; seed0360 Scr **689** @539 (D-0812).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -54,4 +55,5 @@ Objective/score live in `CURRENT.md`.
   lit grow (D-0802); squeeze (D-0803); flip objects (D-0804);
   Rogue graphics (D-0805); mazewalk ROOM (D-0806); lava lit (D-0807);
   Wiz firsttime (D-0808); travel path suffix (D-0809);
-  setworn no find_ac (D-0810); CLOUD fog/vapor lookat (D-0811).
+  setworn no find_ac (D-0810); CLOUD fog/vapor (D-0811);
+  ROOM darkroom lookat (D-0812).

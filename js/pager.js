@@ -21,7 +21,7 @@ import {
     paint_corner_nhw_menu, dfeature_at, invent_lines,
 } from './invent.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
-import { getpos, LOOK_ONCE, LOOK_VERBOSE } from './getpos.js';
+import { getpos, LOOK_ONCE, LOOK_VERBOSE, room_cmap_explanation } from './getpos.js';
 import { mon_at } from './uhitm.js';
 import { objects_at } from './mkobj.js';
 import { doname, an, xname, singular } from './objnam.js';
@@ -546,7 +546,8 @@ function brief_at(x, y) {
     if (loc.typ === CLOUD) {
         return Is_airlevel(game.u?.uz) ? 'cloudy area' : 'fog/vapor cloud';
     }
-    if (loc.typ === ROOM) return 'floor of a room';
+    // C lookat: displayed S_room vs S_darkroom / NOTHING (D-0812)
+    if (loc.typ === ROOM) return room_cmap_explanation(x, y, loc);
     if (loc.typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
     }
@@ -656,7 +657,8 @@ function describe_looked(x, y) {
     // C: when lookat fills firstmatch, found = 1 for checkfile (even if
     // the cmap symbol matched multiple defsyms).
     if (loc?.typ === ROOM) {
-        const look = 'floor of a room';
+        // C lookat firstmatch: S_room vs S_darkroom (room_cmap_explanation)
+        const look = room_cmap_explanation(x, y, loc);
         // C encglyph of DECgraphics S_room is SO+'~'+SI → middle dot ·
         // (frozen serialize has no decgfx; paint Unicode like map glyphs).
         const ch = '\u00b7';
