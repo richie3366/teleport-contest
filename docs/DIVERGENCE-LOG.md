@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0717 — `set_mon_data` hero umovement prorate (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @3186)
+- **Symptom:** @3011 C `distfleeck` `rn2(5)` vs JS chest `rn2(36)`. Post-
+  `#invoke` EOT: C `umov<12` loopAgain; JS `umov=15` → early wish.
+- **C locus:** `mondata.c` `set_mon_data`; `polyself.c` `set_uasmon`.
+- **Cause:** Wizard→gnome (mmove 12→6) must prorate leftover `u.umovement`
+  (`12*6/12=6`); gnome→dragon (faster) keeps 6. JS `set_uasmon` only set
+  `youmonst.data`, so umov stayed 12 → k-turn ended 18 → invoke leftover 6
+  → EOT 15 (no loopAgain). C invoke leftover 0 → EOT 9 → loopAgain.
+- **Change:** export `set_mon_data` in `mondata.js` (hero `u.umovement` +
+  mon `movement`); `set_uasmon` calls it; `were.js` shares it. Named
+  omissions: FROMFORM PROPSET; `#monster`/`dobreathe`; `newman` body.
+- **Verification:** green+strict PASS; seed0108 prefix **3011→3186** RNG
+  **3283**; cohort 33/33 prior PASSes + seed0398/0373/5006/0116/0361/0367.
+- **Next:** @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
+
 ## D-0716 — wipe `make_blinded` sticky Blind (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @3011)

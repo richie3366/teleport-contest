@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #799 seed0108 set_mon_data umov prorate (D-0717)
+- Objective: seed0108 @3011 post-invoke EOT loopAgain (CURRENT primary).
+- C locus: `mondata.c` `set_mon_data`; `polyself.c` `set_uasmon`.
+- Change: hero `u.umovement` prorate when new form slower (wizard→gnome→6
+  kept through dragon); `set_uasmon` + shared `were.js` path.
+- Verification: green+strict PASS; prefix **3011→3186** RNG **3283**;
+  cohort prior PASSes held.
+- Next: @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
+
 ## 2026-07-19 — #798 seed0108 wipe Blind sticky (D-0716)
 - Objective: seed0108 @3011 after `#invoke` spaces (CURRENT primary).
 - C locus: `potion.c` `make_blinded`/`toggle_blindness`; `youprop.h` Blind;

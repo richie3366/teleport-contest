@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#795; prefix @49039 D-0708 |
-| seed0108 | 3112/16958 | 74/303 | @#798; prefix still @3011 (D-0716 More; umov) |
+| seed0108 | 3283/16958 | 74/303 | @#799; prefix **3186** (D-0717 umov; newman next) |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,19 +72,18 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 @3011 — D-0716 restored post-`#invoke`
-`--More--` (sticky Blind after wipe). Still: C EOT then another `movemon`
-(`distfleeck`); JS EOT leaves `umov=15` (mmove 9) → no loopAgain → wish.
-Peel slow-form `u_calc_moveamt` / move-points after invoke EOT. Do **not**
-force `rest_on_space`. Or seed0014 @49039 **D-0708.** Prefer shared
-blockers. seed2200 @158 parked.
+**Gameplay next:** seed0108 @3186 — D-0717 `set_mon_data` prorated
+hero `umovement` on slower poly (wizard→gnome→6 kept through dragon).
+Prefix **3011→3186**. Next: C `newman` `rn2(10)` vs JS `rn2(6)`
+(rehumanize). Or seed0014 @49039 **D-0708.** Prefer shared blockers.
+seed2200 @158 parked. Do **not** re-break D-0660…D-0717.
 
 ```bash
 node scripts/rng-diff.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0716.**
+**Do not re-break D-0660…D-0717.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

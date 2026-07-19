@@ -697,6 +697,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0714 | fixed | polymon `drop_weapon(1)` cantwield → dropx | seed0108 2881→2958; next @2958 distfleeck |
 | D-0715 | fixed | EXT_CMDS `#invoke`/doinvoke !inv_prop nothing_happens | seed0108 2958→3011; next @3011 space/More before chest |
 | D-0716 | fixed | wipe `make_blinded` sticky Blind + vision_recalc | seed0108 More restored; still @3011 EOT umov loopAgain |
+| D-0717 | fixed | `set_mon_data` prorate hero `u.umovement` on slower poly | seed0108 3011→3186; next @3186 newman |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#798 peel:** D-0716 wipe Blind sticky — More restored after `#invoke`,
-  but seed0108 still **@3011**. C EOT then another `movemon` (`distfleeck`);
-  JS EOT `umov=15` (mmove 9) → no loopAgain → spaces/#wizwish early.
-  Falsifier: `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
-- **Falsified:** global `rest_on_space=true` (@2869 More→donull). Don’t re-try.
+- **#799 peel:** D-0717 `set_mon_data` umovement prorate — seed0108
+  **3011→3186**. Next @3186 C `newman` `rn2(10)` vs JS `rn2(6)`
+  (rehumanize after dragon). Falsifier:
+  `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0716; invent nearby force for D-0710.
+- **Don’t:** re-break D-0660…D-0717; invent nearby force for D-0710;
+  global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0716 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0717 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,8 +34,9 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…16: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
-  — not pet AI. `#invoke` spaces are More when sighted; next is umov LA.
+- D-0710…17: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+  / `set_mon_data` umov prorate — not pet AI. Wizard→gnome→dragon leaves
+  umov=6 in C; without prorate JS kept 12 → invoke leftover 6 vs 0.
 
 ## Landmarks (≤15)
 
@@ -58,5 +59,5 @@ Objective/score live in `CURRENT.md`.
   defsym `')'`=WEAPON `'('`=TOOL; Arc-goal **14** `des.object()`.
   Boots `oc_delay`=2; FUMBLE `Boots_on` → `incr_itimeout(HFumbling,rnd(20))`.
   `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.
-  `#invoke` AC+EXT_CMDS; Blind ≡ props not sticky (D-0716); red dragon
-  mmove=9 → EOT can loopAgain when `umov<12`.
+  `#invoke` AC+EXT_CMDS; Blind ≡ props (D-0716); `set_mon_data` hero
+  umov path (D-0717); red dragon mmove=9; gnome mmove=6.

@@ -8,7 +8,7 @@ import { newsym } from './display.js';
 import { getlin } from './getline.js';
 import { an } from './objnam.js';
 import { pmname } from './do_name.js';
-import { name_to_mon } from './mondata.js';
+import { name_to_mon, set_mon_data } from './mondata.js';
 import { exercise, A_STR, A_CON, A_WIS } from './attrib.js';
 import { find_ac } from './u_init.js';
 import { setworn } from './do_wear.js';
@@ -116,7 +116,8 @@ function uasmon_maxStr() {
 }
 
 /**
- * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum].
+ * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
+ * via set_mon_data (prorates u.umovement when new form is slower).
  * Named omissions: FROMFORM resistance PROPSET catalogue; vamp cham;
  * polysense; light-source bookkeeping.
  */
@@ -125,7 +126,8 @@ export function set_uasmon() {
     const mndx = u.umonnum | 0;
     const mdat = mons(mndx);
     if (!game.youmonst) game.youmonst = {};
-    game.youmonst.data = mdat;
+    // C: set_mon_data(&gy.youmonst, mdat) — umovement prorate on slowdown
+    set_mon_data(game.youmonst, mdat);
     game.youmonst.mnum = mndx;
     game.youmonst.m_id = 1;
     // Protection_from_shape_changers / vampire cham deferred
