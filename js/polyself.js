@@ -3,18 +3,21 @@
 
 import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
-import { pline } from './display.js';
-import { newsym } from './display.js';
+import { pline, newsym, see_monsters } from './display.js';
 import { getlin } from './getline.js';
 import { an } from './objnam.js';
 import { pmname } from './do_name.js';
 import { name_to_mon, set_mon_data } from './mondata.js';
-import { exercise, A_STR, A_CON, A_WIS } from './attrib.js';
+import {
+    exercise, A_STR, A_CON, A_WIS, adjabil, redist_attr, newhp,
+} from './attrib.js';
+import { newpw, rndexp, setuhpmax } from './exper.js';
 import { find_ac } from './u_init.js';
 import { setworn } from './do_wear.js';
 import { dropx, canletgo } from './do.js';
 import { setuwep, setuswapwep } from './wield.js';
 import { races } from './roles.js';
+import { encumber_msg } from './invent.js';
 import {
     mons,
     polyok,
@@ -52,6 +55,7 @@ import {
     W_ARMC,
     W_ARMU,
     In_endgame,
+    MAXULEV,
 } from './const.js';
 import {
     PM_HUMAN,
@@ -137,6 +141,149 @@ export function set_uasmon() {
 
 function copyAttrBundle(src) {
     return { a: [...(src?.a || [0, 0, 0, 0, 0, 0])] };
+}
+
+/** C hack.c rounddiv — trunc with round-half-up on abs values. */
+function rounddiv(x, y) {
+    if (!y) return 0;
+    let divsgn = 1;
+    let yy = y;
+    let xx = x;
+    if (yy < 0) { divsgn = -divsgn; yy = -yy; }
+    if (xx < 0) { divsgn = -divsgn; xx = -xx; }
+    let r = Math.trunc(xx / yy);
+    const m = xx % yy;
+    if (2 * m >= yy) r++;
+    return divsgn * r;
+}
+
+/**
+ * C ref: polyself.c poly_gender — 0/1 ≡ flags.female, 2=none.
+ */
+function poly_gender() {
+    const ptr = game.youmonst?.data;
+    if (is_neuter(ptr) || !humanoid(ptr)) return 2;
+    return game.flags?.female ? 1 : 0;
+}
+
+/**
+ * C ref: polyself.c change_sex — flip flags.female / mfemale.
+ * Named omissions: pl_character rename; amorous-demon set_uasmon.
+ */
+function change_sex() {
+    const u = game.u || (game.u = {});
+    const flags = game.flags || (game.flags = {});
+    const ptr = game.youmonst?.data;
+    if (!Upolyd(u)
+        || (!is_male(ptr) && !is_female(ptr) && !is_neuter(ptr))) {
+        flags.female = !flags.female;
+    }
+    if (Upolyd(u)) u.mfemale = !u.mfemale;
+    if (!Upolyd(u)) u.umonnum = u.umonster | 0;
+    // PM_AMOROUS_DEMON arm deferred
+}
+
+/**
+ * C ref: polyself.c polyman — revert to original race form after newman.
+ * Envelope: restore macurr/mamax; clear mh/mtimedone; set_uasmon; find_ac;
+ * newsym; pline; see_monsters.
+ * Named omissions: skinback; ugenocided; stick/mimic/twoweapon; Blind
+ * restore; strangling; pool spoteffects; retouch_equipment/selftouch.
+ */
+async function polyman(fmt, arg) {
+    const u = game.u || (game.u = {});
+    const flags = game.flags || (game.flags = {});
+    if (Upolyd(u)) {
+        u.acurr = copyAttrBundle(u.macurr);
+        u.amax = copyAttrBundle(u.mamax);
+        u.umonnum = u.umonster | 0;
+        flags.female = !!u.mfemale;
+    }
+    set_uasmon();
+    u.mh = 0;
+    u.mhmax = 0;
+    u.mtimedone = 0;
+    // skinback deferred
+    u.uundetected = 0;
+    find_ac();
+    newsym(u.ux, u.uy);
+    // C urgent_pline(fmt, arg) — fmt has one %s
+    await pline(String(fmt).replace('%s', arg));
+    see_monsters();
+}
+
+/**
+ * C ref: polyself.c newman — fail-to-poly / force-human: level±2, sex
+ * rn2(10), rndexp, redist_attr, HP/EN rebuild, hunger rn1(500,500),
+ * then polyman.
+ * Named omissions: Sick/Stoned clear; Slimed residual; death/lifesave;
+ * livelog; retouch_equipment/selftouch; Polymorph_control uhp clamp.
+ */
+async function newman() {
+    const u = game.u || (game.u = {});
+    const flags = game.flags || (game.flags = {});
+    const oldlvl = u.ulevel | 0;
+    let newlvl = oldlvl + rn1(5, -2); // rn2(5)+(-2)
+    if (newlvl > 127 || newlvl < 1) {
+        // dead: unsuccessful polymorph — deferred; keep old level
+        await pline("Your new form doesn't seem healthy enough to survive.");
+        return;
+    }
+    if (newlvl > MAXULEV) newlvl = MAXULEV;
+    if (newlvl < oldlvl) u.ulevelmax = (u.ulevelmax | 0) - (oldlvl - newlvl);
+    if ((u.ulevelmax | 0) < newlvl) u.ulevelmax = newlvl;
+    u.ulevel = newlvl;
+
+    // oldgend unused until livelog; still match C call order
+    void poly_gender();
+    if (game.sex_change_ok && !rn2(10)) change_sex();
+
+    await adjabil(oldlvl, u.ulevel | 0);
+    u.uexp = rndexp(false);
+    redist_attr();
+
+    // New hit points (C newman hpmax rebuild)
+    if (!u.uhpinc) u.uhpinc = [];
+    let hpmax = u.uhpmax | 0;
+    for (let i = 0; i < oldlvl; i++) hpmax -= (u.uhpinc[i] | 0);
+    hpmax = rounddiv(hpmax * rn1(4, 8), 10);
+    for (let i = 0; (u.ulevel = i) < newlvl; i++) hpmax += newhp();
+    if (hpmax < (u.ulevel | 0)) hpmax = u.ulevel | 0;
+    const oldHpmax = u.uhpmax | 0;
+    u.uhp = rounddiv((u.uhp | 0) * hpmax, oldHpmax || 1);
+    setuhpmax(hpmax, true);
+
+    // Spell power
+    if (!u.ueninc) u.ueninc = [];
+    let enmax = u.uenmax | 0;
+    for (let i = 0; i < oldlvl; i++) enmax -= (u.ueninc[i] | 0);
+    enmax = rounddiv(enmax * rn1(4, 8), 10);
+    for (let i = 0; (u.ulevel = i) < newlvl; i++) enmax += newpw();
+    if (enmax < (u.ulevel | 0)) enmax = u.ulevel | 0;
+    const oldEnmax = (u.uenmax | 0) < 1 ? 1 : (u.uenmax | 0);
+    u.uen = rounddiv((u.uen | 0) * enmax, oldEnmax);
+    u.uenmax = enmax;
+
+    u.uhunger = rn1(500, 500);
+    // Sick/Stoned clear deferred (no-op when unset)
+
+    if ((u.uhp | 0) <= 0) {
+        // Poly_control clamp / done(DIED) deferred — keep 1 hp
+        u.uhp = 1;
+    }
+
+    const female = Upolyd(u) ? !!u.mfemale : !!flags.female;
+    const race = game.urace || {};
+    // C: urace.individual.f/m else noun — JS races lack individual{}; use noun
+    const newform = race.noun || race.adj || 'human';
+    void female; // gendered individual.* deferred
+    await polyman('You feel like a new %s!', newform);
+
+    // Slimed residual / livelog deferred
+    flags.botl = true;
+    see_monsters();
+    await encumber_msg();
+    // retouch_equipment(2) / selftouch deferred
 }
 
 /**
@@ -382,8 +529,8 @@ export async function polymon(mntmp) {
 }
 
 /**
- * C ref: polyself.c polyself — POLY_CONTROLLED getlin → polymon envelope.
- * Named omissions: Unchanging; system-shock !Poly_control path; newman;
+ * C ref: polyself.c polyself — POLY_CONTROLLED getlin → polymon/newman.
+ * Named omissions: Unchanging (handled); system-shock !Poly_control path;
  * random rn1(SPECIAL_PM) pick; were/vamp/dragon-merge; placeholder orc/elf/
  * giant substitutes; mkclass_poly; wizard rehumanize own-role; light sources.
  * @param {number} [psflags=POLY_NOFLAGS]
@@ -455,10 +602,10 @@ export async function polyself(psflags = 0) {
             && ((ptr?.mflags2 | 0) & yourRaceBit) !== 0;
         // C: !polyok || (!forcecontrol && !rn2(5)) || your_race → newman()
         if (!polyok(ptr) || (!forcecontrol && !rn2(5)) || isYourRace) {
-            // newman() deferred
-            return;
+            await newman();
+        } else {
+            await polymon(mntmp);
         }
-        await polymon(mntmp);
     } finally {
         game.sex_change_ok = (game.sex_change_ok | 0) - 1;
     }

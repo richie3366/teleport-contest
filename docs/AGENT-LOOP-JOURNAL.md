@@ -12,6 +12,16 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-19 — #801 seed0108 newman (D-0718)
+- Objective: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
+- C locus: `polyself.c` `newman`/`polyman`/`change_sex`; `attrib.c`
+  `redist_attr`; `exper.c` `rndexp`.
+- Change: port newman envelope (level rn1, sex rn2(10), rndexp,
+  redist_attr, HP/EN rebuild, hunger) + polyman restore; wire gate.
+- Verification: green+strict PASS; prefix **3186→3564** RNG **3572**
+  Scr **110**; cohort 33/33 PASS.
+- Next: @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
+
 ## ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -144,12 +154,3 @@ Use this shape:
   cohort 33/33 PASS. Scr still 575.
 - Next: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 
-## 2026-07-19 00:22 — #785 score + D-0706 monster kick
-- Objective: mandatory full `sessions` score (#785÷5); seed0014 @43341 kick.
-- Score: **35/44** Scr **7638**/11405 RNG **507306**/792838 (63.99%)
-  `38+0.17/turn` R² 0.783. Δ vs #780: Scr +19, RNG +8245.
-- C locus: dokick.c maybe_kick_monster / kick_monster / kickdmg.
-- Change: port monster-kick path; export attack_checks/passive; martial().
-- Verification: green+strict PASS; prefix 43341→43553 RNG 43636 Scr 575;
-  cohort 13/13; full suite 35/44.
-- Next: seed0014 @43553 next_ident / rndmonst_adj.

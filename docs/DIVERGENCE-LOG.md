@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0718 — newman after #polyself human (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @3564)
+- **Symptom:** @3186 C `newman` `rn2(10)` vs JS `distfleeck`/`dog_invent`
+  `rn2(6)`. `#polyself`→`human` while dragon-poly'd.
+- **C locus:** `polyself.c` `newman` / `polyman` / `change_sex`;
+  `attrib.c` `redist_attr`; `exper.c` `rndexp`.
+- **Cause:** JS took the newman gate (`!polyok` / `your_race`) but returned
+  without the body, so monsters resumed while C rolled level `rn1(5,-2)`,
+  sex `rn2(10)`, `rndexp`, `redist_attr`, HP/EN rebuild, hunger.
+- **Change:** port `newman` envelope + `polyman` restore + `change_sex`;
+  export `redist_attr` / `rndexp` / `setuhpmax`. Named omissions:
+  Sick/Stoned/Slimed clear; death/lifesave; livelog; `retouch_equipment`;
+  `urace.individual.*`; skinback; wizard own-role `rehumanize`.
+- **Verification:** green+strict PASS; seed0108 prefix **3186→3564** RNG
+  **3283→3572** Scr **74→110**; cohort 33/33 PASS.
+- **Next:** @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
+
 ## D-0717 — `set_mon_data` hero umovement prorate (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @3186)

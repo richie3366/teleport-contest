@@ -359,3 +359,13 @@
   dopush; no adjacent boulder in JS (60,8/60,10/68,5 only).
 - Verification: green+strict PASS; prefix still 36031; no js/ change.
 - Next: C-cited travel-stop before `n` (lookaround trap/TEST_TRAV/boulder).
+
+## 2026-07-19 00:22 — #785 score + D-0706 monster kick
+- Objective: mandatory full `sessions` score (#785÷5); seed0014 @43341 kick.
+- Score: **35/44** Scr **7638**/11405 RNG **507306**/792838 (63.99%)
+  `38+0.17/turn` R² 0.783. Δ vs #780: Scr +19, RNG +8245.
+- C locus: dokick.c maybe_kick_monster / kick_monster / kickdmg.
+- Change: port monster-kick path; export attack_checks/passive; martial().
+- Verification: green+strict PASS; prefix 43341→43553 RNG 43636 Scr 575;
+  cohort 13/13; full suite 35/44.
+- Next: seed0014 @43553 next_ident / rndmonst_adj.
