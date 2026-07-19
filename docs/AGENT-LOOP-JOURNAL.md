@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 14:45 — #879 minliquid (D-0775); @98492→98505
+- Objective: seed0360 @98492 why C skips linedup rn2(3).
+- C locus: `mon.c` `minliquid` / `movemon_singlemon`.
+- Change or falsified theory: ported `minliquid` (lava+pool+eel).
+  Recorder: C has mumak@(55,9) on LAVAPOOL, same row9 map as JS;
+  C spends movement then dies in minliquid (no dochug). Falsified
+  couldsee/missing-boulder/DEC-lava@61. Do not FORCE linedup.
+- Verification: green+strict PASS; cohort 35/35; seed0360
+  **98505**/98528 Scr **275**.
+- Next: wizard3 @98505 nhlib shuffle after getbones; then hellfill.
+
 ## 2026-07-19 14:40 — #878 @98492 DEC `~`≠lava; river matched (D-0773)
 - Objective: seed0360 @98492 why C skips linedup rn2(3).
 - C locus: `mthrowu.c` `linedup`; `nhlib.lua` hell_tweaks; `display.c` DEC.

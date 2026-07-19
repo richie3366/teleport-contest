@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0775 — movemon minliquid (seed0360 @98492)
+
+- **Status:** fixed
+- **Symptom:** seed0360 @98492 — C `distfleeck` vs JS mumak `linedup`
+  `rn2(3)` (boulder path).
+- **C locus:** `mon.c` `minliquid` / `minliquid_core`;
+  `movemon_singlemon` (after movement debit, before dochug).
+- **Cause (#879):** Recorder proved C **has** PM_MUMAK @(55,9) on
+  LAVAPOOL with mov=12 and the same row9 map as JS (lava@55–56,
+  ROOM+boulder@57+61). C never fleecks that mumak: `minliquid` kills
+  non-lava-likers without `dochug`. JS omitted `minliquid`, so the
+  mumak ran `lined_up`→boulder `rn2(3)`. Falsified D-0773 couldsee /
+  missing-boulder / FlipY / DEC-lava@61 theories.
+- **Change:** `js/mon.js` — `minliquid` (lava + pool/waterwall + eel
+  out-of-water); call from `movemon_singlemon` and mmove==0
+  `m_calcdistress`. Named omissions: gremlin `split_mon`, iron-golem
+  rust, fountain arm, steed air gate, `fire_damage_chain` /
+  `water_damage_chain`, `deal_with_overcrowding`, `xkilled` when
+  `!mon_moving`, death plines.
+- **Verification:** green+strict PASS; cohort 35/35; seed0360 prefix
+  **98492→98505**, RNG **98507→98528**, Scr **275**/833.
+- **Next:** @98505 wizard3 nhlib `shuffle` after matched `getbones`.
+
+## D-0773 — seed0360 @98492 linedup vs C (superseded by D-0775)
+
+- **Status:** fixed (cause = missing `minliquid`; see D-0775)
+- **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
+  `rn2(3)`.
+- **Resolution (#879):** Not couldsee/boulder absence. C mumak on lava
+  dies in `minliquid` before `dochug`. Closed via D-0775.
+
 ## D-0774 — sp_lev map_cleanup before wallify/flip (hell specials)
 
 - **Status:** fixed (partial — seed0360 still @98492)
@@ -22,51 +53,10 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Next:** D-0773 — why C skips linedup rn2 despite gen-matched ROOM
   boulder (couldsee / see-around / skip lined_up).
 
-## D-0773 — seed0360 @98492 linedup boulder vs C couldsee (diag)
+## D-0773 (diag archive) — see short fixed entry above D-0774
 
-- **Status:** open (diagnosis — no port patch; prefix still @98492)
-- **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
-  `rn2(3)`.
-- **C locus:** `mthrowu.c` `linedup` / `couldsee`; `vision.c` Algorithm-C;
-  `monmove.c` `m_move`/`distfleeck`; `mkmaze.c` `get_level_extends`;
-  `nhlib.lua` `hell_tweaks`.
-- **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
-  + BOULDER(57,9)+ROOM(58,9); `couldsee` false → boulderhandling=2 →
-  `rn2(2+1)`. Mumak lacks `M2_ROCKTHROW` (correct). Strip boulder +
-  `vision_recalc` → `couldsee` true. FORCE skip rn2 → **98492→98502**,
-  then C `getbones` + nhlib `shuffle` (wizard3).
-- **Falsified (#872):** “C never placed that LOS boulder.” C session RNG:
-  maze1xy `rn2(75)=54`/`rn2(17)=10` → (57,13) + `next_ident` @86737;
-  `flip_level_rnd` `rn2(2)=1,0` → flp=1 @90542. Gen+flip match JS.
-- **Falsified (#873):** map_cleanup clears LOS boulder — preflip TRACK57
-  is ROOM; only lava boulders stripped (D-0774).
-- **#874 call-path:** JS mumak fleeck @98491 → linedup rn2 @98492 →
-  post-fleeck @98493. C @98492 is `distfleeck` (fits post-fleeck after
-  lined_up **without** boulder rn2). C step368 `.` wait: only fleeck +
-  one hides_under `rn2(10)` @1753 — **zero** linedup rn2(3).
-- **#876:** fleeck IDs: S_QUADRUPED @98491 (55,9) → post @98493 (55,8).
-  `couldsee` x=55..59 = [0,0,1,1,1]. Extends ymin=2,ymax=20 (mazegrid
-  y0–1 STONE, y2 walls-only → -=1); FlipY(13)=9 — **falsified** “C FlipY
-  ymin=0 → boulder at y=7”. Probes (removed): skip boulder rn2 via
-  couldsee-true *or* lined_up-false → **98502**.
-- **#877 C screen:** Dlvl42 step367 — warning `'1'` @(55,9), `q` @(60,10);
-  step368 clears `'1'`; **(57,9) never non-space on D42**. Misread DEC
-  `~` beside hero as lava (see #878).
-- **#878 glyph + river:** Falsified “lava flanks @(58,9)/(60,9)”: under
-  DECgraphics `~` is S_room (meta-~); lava/pool/water is meta-``. JS@98492
-  DIAG (removed): mumak(55,9) on LAVA, path LAVA(56)/ROOM+boulder(57)/ROOM
-  → couldsee false → `rn2(3)`. Wizard2 hell_tweaks: pools skip; river
-  floor=682; rndcoord idx 11/461/54/603 → endpoints (3,15)/(53,19) then
-  (8,11)/(69,12); lava@y13 x=55,56 (matches JS). Falsified hell_tweaks
-  randline +xstart (C `l_selection_rndcoord` returns relative; get_location
-  restores — net identity; adding xstart broke prefix →71986). C shows
-  lava meta-`` @(61,9) vs JS ROOM+boulder @(61,9). Open: why C skips
-  linedup rn2 — recorder `sobj_at(BOULDER,57,9)` / `couldsee(55,9)`.
-- **Change:** none (DIAG removed). Do not FORCE linedup in production.
-- **Verification:** green+strict PASS; seed0360 still **98492**/98507
-  Scr **275**/833.
-- **Next:** C-state boulder/couldsee at step368; note typ@(61,9); then
-  wizard3/hellfill @98502.
+Diagnosis peel #871–#878 archived in journal; root cause D-0775
+`minliquid`. Do not reopen couldsee/boulder theories for @98492.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
 

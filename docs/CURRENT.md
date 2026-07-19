@@ -74,17 +74,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @98492** — D-0773 (#878): JS mumak
-(55,9)→hero linedup boulder `rn2(3)`; C skips (couldsee?). Falsified
-“lava @58/60” (DEC `~`=ROOM). Wizard2 river endpoints match C; lava@55–56.
-C visible lava@`(61,9)` vs JS boulder. Next: recorder
-`sobj_at(BOULDER,57,9)`/`couldsee(55,9)`. Skip-rn2→**98502**. Do not
-FORCE. Parked D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @98505** — D-0775 closed @98492 via
+`minliquid` (mumak on LAVAPOOL). Next: C `getbones` matched; nhlib
+`shuffle` `rn2(3)` vs JS `rn2(79)` (wizard3 load). Parked D-0731/D-0708
+diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @98492 C distfleeck vs JS linedup rn2(3) — C mon pos / does_block
+# @98505 C nhlib shuffle vs JS rn2(79) — wizard3
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -92,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0774.**
+**Do not re-break D-0660…D-0775.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
