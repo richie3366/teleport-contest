@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 18:45 — #898 D-0784 dotravel seenv||couldsee
+- Objective: seed0360 @104904 C set_apparxy rn2(5) vs JS rn2(4).
+- C locus: `hack.c` `findtravelpath` seenv||couldsee; `cmd.c` `dotravel_target`.
+- Change: C-state u 3,5 vs JS 4,5 — D-0702 couldsee-only prefer stepped SE
+  on Quest CLOUD; use C seenv||couldsee + worsen quiet-rest. Prefix
+  **104904→108368**, RNG **109279**; seed0014 **→50259**.
+- Verification: green+strict PASS; cohort PASS (incl. 0004/0007/5002).
+- Next: @108368 C moveloop_core rn2(76) vs JS rn2(79).
+
 ## 2026-07-19 18:30 — #897 D-0783 Gloves POWER + Cloak DISPLACEMENT
 - Objective: seed0360 @101930 C exercise vs JS distfleeck (site-shift).
 - C locus: `do_wear.c` `Gloves_on` GAUNTLETS_OF_POWER; `Cloak_on`
@@ -162,15 +171,4 @@ Use this shape:
   RNG **634651**/792838 (80.05%), speed `35+0.21/turn`. Δ vs #880:
   Scr +17, RNG +5496, PASS 0. seed0360 still @100738 (D-0779).
 - Next: Wiz-strt post-FlipY terrain @(33–35,3) vs C (D-0779).
-
-## 2026-07-19 15:35 — #884 seed0360 @100738 bat mfndpos HWALL (D-0779)
-- Objective: @100738 C rn2(6) vs JS rn2(5) m_move chcnt.
-- C locus: `monmove.c:1970` / `mon.c` `mfndpos`; Wiz-strt post-FlipY.
-- Change or falsified theory: Not a generic chcnt off-by-one. Vampire
-  bat@(34,2) JS cnt=4 vs C≥7; rejects HWALL@(33–35,3)+quasit@(34,1).
-  Matched `rn2(5)` was JS distfleeck vs C still in chcnt. FORCE-open
-  those 3 walls → prefix **100738→100804**. No production patch;
-  next is why C sees walkable terrain there.
-- Verification: green+strict PASS; focused FAIL @100738; experiment only.
-- Next: Wiz-strt terrain at post-FlipY (33–35,3) vs C (D-0779).
 

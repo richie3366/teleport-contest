@@ -764,6 +764,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0781 | fixed | dochug/postmov mon_offmap gates | plumbing for portal migrate |
 | D-0782 | fixed | Wiz-strt branch FlipY + MAGIC_PORTAL migrate | seed0360 101022→101930; Scr 294→389; RNG 105212 |
 | D-0783 | fixed | Gloves_on POWER + Cloak_on DISPLACEMENT makeknown | seed0360 101930→104904; Scr 389→391; RNG 107246 |
+| D-0784 | fixed | dotravel seenv\|\|couldsee (drop couldsee-only prefer) | seed0360 104904→108368; RNG 109279; seed0014→50259 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

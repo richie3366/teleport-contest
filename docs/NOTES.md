@@ -7,25 +7,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#897 / D-0783:** seed0360 peel **101930→104904**. C-state: not EOT
-  exerper — `multi=-1` dressing; `afternmv=Gloves_on` GAUNTLETS_OF_POWER
-  then Cloak DISPLACEMENT. Two `rn2(19)` = two wears. Next @104904:
-  C `set_apparxy` `rn2(5)` vs JS `rn2(4)` — site-shift checklist first.
-- **Falsified:** @101930 as EOT exerper after wipe; quasit CLOUD as
-  D-0782 cause (was wraith MAGIC_PORTAL).
+- **#898 / D-0784:** seed0360 peel **104904→108368**. Misread as
+  `set_apparxy` displ-loop; C-state u=(3,5) vs JS (4,5). Cause:
+  `dotravel_target` preferred couldsee-only BFS (D-0702) → SE step on
+  Quest CLOUD where seenv||couldsee walks S. Next @108368: C
+  `moveloop_core` `rn2(76)` vs JS `rn2(79)`.
+- **Falsifier:** `findtravelpath_travel(false)` at (3,4)→(3,8) returns
+  dx=0,dy=1; `(true)` returns dx=1,dy=1.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
-- **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
-  (suspect (22,10) diagonal past TRCORNER); omit any 1 →@49300.
+- **D-0708:** seed0014 prefix now **50259** (was 49039) after D-0784;
+  still open mfndpos.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0783 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0784 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (D-0769; D-0778; D-0779→0783).
+  same string can hide different call sites (D-0769; D-0778; D-0779→0784).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
@@ -35,8 +36,9 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **#896/#897:** siege peels — portal FlipY then wear makeknown; not
-  quasit CLOUD / not EOT exerper after wipe.
+- **#896–#898:** siege peels — portal FlipY, wear makeknown, travel
+  seenv||couldsee; not quasit CLOUD / not EOT exerper / not set_apparxy
+  displ loop as first cause @104904.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -48,12 +50,12 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#895;
-  seed0360 **104904**/107246/**391** after D-0783 — Score refresh @#900).
+  seed0360 **108368**/109279/**391** after D-0784 — Score refresh @#900).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
-- Quest: seed0367 **PASS**. seed0014 @49039 mfndpos (D-0708 open).
+- Quest: seed0367 **PASS**. seed0014 @50259 mfndpos (D-0708 open).
 - S_KOP / minetn-1/3/4/6/7 / **medusa-2/4** deferred;
   eel hideunder / I_SPECIAL deferred; SWAMP deferred;
   worn/artifact STONE_RES deferred;
@@ -75,5 +77,6 @@ Objective/score live in `CURRENT.md`.
   **maketrap AIR** (D-0777); **Tengu m_move teleport** (D-0778);
   **getdir lock SELF** (D-0780); **getpos seenv stairs** (D-0779);
   **mon_offmap dochug/postmov** (D-0781); **MAGIC_PORTAL migrate** (D-0782);
-  **Gloves POWER + Cloak DISPLACEMENT** (D-0783).
+  **Gloves POWER + Cloak DISPLACEMENT** (D-0783);
+  **dotravel seenv||couldsee** (D-0784).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

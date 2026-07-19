@@ -818,16 +818,13 @@ async function dotravel_target() {
     u.tx = tcc.x;
     u.ty = tcc.y;
 
-    // C: always domove(); findtravelpath inside may leave dx=dy=0 (rest).
-    // Prefer a couldsee-reachable path. If only a seenv-only detour exists
-    // (JS seenv overmark), quiet-rest like C when TEST_TRAV finds nothing
-    // (D-0702).
+    // C ref: hack.c findtravelpath — seenv || (!Blind && couldsee), then
+    // domove. D-0702: JS seenv can overmark and yield a Chebyshev-worsening
+    // detour where C has no TEST_TRAV path → quiet-rest (dx=dy=0).
+    // Do NOT prefer couldsee-only first: that skipped seenv CLOUD cells on
+    // Quest and stepped SE while C walked S (D-0784 / seed0360 @104904).
     let stepped = false;
-    if (findtravelpath_travel(true) || findtravelpath_guess()) {
-        await domove(u.dx || 0, u.dy || 0);
-        stepped = true;
-    } else if (findtravelpath_travel(false)) {
-        // seenv-only path — take it only if first step does not worsen dist
+    if (findtravelpath_travel(false) || findtravelpath_guess()) {
         const nx = (u.ux | 0) + (u.dx | 0);
         const ny = (u.uy | 0) + (u.dy | 0);
         const before = Math.max(

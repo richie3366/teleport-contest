@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0784 — dotravel_target seenv||couldsee (not couldsee-only prefer)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @104904 — C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
+  Matched prior `rn2(5)` hid site-shift from hero position.
+- **C-state:** C u=(3,5) vs JS u=(4,5) on Quest; same displ RNG → different
+  candidates. Travel dest (3,8) CLOUD (not stairs (33,9)).
+- **Falsifier:** at (3,4)→(3,8): `findtravelpath_travel(false)` → S
+  `(0,1)`; `(true)` → SE `(1,1)` (CLOUD (3,7)/(3,8) lack couldsee but have
+  seenv).
+- **C locus:** `hack.c` `findtravelpath` — `seenv || (!Blind && couldsee)`;
+  `cmd.c` `dotravel_target`.
+- **Cause (#898):** D-0702 preferred couldsee-only BFS first; Quest CLOUD
+  seenv path walks S while couldsee-only detours SE.
+- **Change:** `js/cmd.js` `dotravel_target` — use C seenv||couldsee; keep
+  Chebyshev-worsen quiet-rest (D-0702). Named: accurate seenv/couldsee on
+  CLOUD; full TEST_TRAV; travelmap.
+- **Verification:** green+strict PASS; cohort PASS (0004/0007/1500/1800/
+  5006/0108/0361/0367/0373/0398/5002); seed0360 **104904→108368**, RNG
+  **109279**, Scr **391**; seed0014 prefix **49039→50259**.
+- **Next:** @108368 C `moveloop_core` `rn2(76)` vs JS `rn2(79)`.
+
 ## D-0783 — Gloves_on POWER + Cloak_on DISPLACEMENT makeknown (seed0360)
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
