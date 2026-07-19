@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#893 / D-0779:** @101022 is **site shift**, not bat-gate wrong N.
-  After wraith 2nd fleeck, JS **quasit** @(33,2) `m_move`→CLOUD (32,2)
-  (no RNG) then **2nd** `distfleeck`; C next is bat `m_move:1871`
-  `!rn2(3)`. FORCE skip quasit `want_move` → prefix **101025** (bat
-  `rn2(3)/1/2` match). Falsify next: C quasit `MMOVE_DIED`/`mon_offmap`
-  after move, **or** `want_move` false via `scared`/`nearby` (JS
-  `distfleeck` still stubs `scared=0`) — compare postmov on CLOUD dest.
-  Meta: see `archive/REFLECTION-2026-07-19-seed0360-peel.md` (keep peel;
-  after 2 falsify → C-state; PASS@37 is lagging).
+- **#894 / D-0779:** @101022 site-shift. DIAG: quasit @(33,2) ROOM,
+  hero@(7,6), `nearby=0`/`want_move=true`, silent `m_move`→CLOUD (32,2)
+  (trap=none, regs=[]), then 2nd fleeck. FORCE skip `want_move` →
+  **101025** only. FORCE DIED-after-CLOUD (skip 2nd fleeck, keep dest)
+  → **101228**, Scr **387**, RNG **101949**. C **moves** then skips
+  2nd fleeck (DIED/`mon_offmap`) — not df-only. D-0781 added offmap
+  gates; nothing sets `mstate` on CLOUD step. Falsify next: C-state
+  postmov after CLOUD (`m_in_out_region` still omitted before place).
+- **D-0781 fixed:** `dochug`/`postmov` `mon_offmap` (peel unchanged).
 - **D-0780 fixed:** `lock.js` `getdir` `'.'` = SELF (was cancel).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0778 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0781 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (see D-0769; D-0778; D-0779).
@@ -39,9 +39,9 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **Falsified D-0779:** C-admits-HWALL; post-EOT movemon; C hero@(9,1)
-  at first siege movemon; quitchars-before-`\\n`; **bat rn2(3) itself**
-  (JS bat gate OK — extra quasit 2nd fleeck shifts index).
+- **Falsified D-0779:** C-admits-HWALL; post-EOT movemon; C hero@(9,1);
+  quitchars-before-`\\n`; bat rn2(3) itself; **want_move-false / df-only**
+  (FORCE DIED-after-CLOUD ≫ skip want_move); scared stub not the gate.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -78,5 +78,6 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778); **getdir lock SELF** (D-0780);
-  **getpos seenv stairs** (D-0779 #892); siege quasit 2nd fleeck (#893).
+  **getpos seenv stairs** (D-0779); **mon_offmap dochug/postmov** (D-0781);
+  siege quasit CLOUD then skip 2nd fleeck (#894).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

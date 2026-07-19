@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0781 — dochug/postmov mon_offmap gates (seed0360 plumbing)
+
+- **Status:** fixed (partial — seed0360 peel unchanged @101022)
+- **Symptom:** JS `dochug` always ran 2nd `distfleeck` after `m_move`
+  unless `MMOVE_DIED`; C returns early when `mon_offmap(mtmp)` before
+  that recalc. `postmov` also lacked the post-`mintrap` offmap →
+  `MMOVE_DONE` branch.
+- **C locus:** `monmove.c` `dochug` / `postmov`; `monst.h` `mon_offmap`.
+- **Cause (#894):** omitted `mstate != MON_FLOOR` checks. `migrate_to_level`
+  already sets `MON_MIGRATING`.
+- **Change:** `js/monmove.js` — `mon_offmap` helper; `dochug` after
+  `m_move`; `postmov` after `mintrap` (with Trap_Killed/Moved).
+- **Verification:** green+strict PASS; cohort 6/6 PASS; seed0360 still
+  @101022 (no setter on CLOUD step — see D-0779).
+- **Next:** D-0779 C-state for what kills/offmaps quasit after CLOUD.
+
 ## D-0780 — lock.js getdir `'.'` = GETDIR_SELF (seed0360 Scr)
 
 - **Status:** fixed (Scr +1; seed0360 peel unchanged @100738)
@@ -20,26 +36,27 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738→101022)
 
-- **Status:** open (#892 getpos; #893 site-shift diagnosed, no code fix)
+- **Status:** open (#892 getpos; #893–#894 site-shift; mon_offmap plumbing D-0781)
 - **Symptom:** seed0360 @101022 — C `m_move:1871` `rn2(3)=0` (bat appr
   gate) vs JS `rn2(5)` (`distfleeck` bravegremlin).
 - **C locus:** `getpos.c` `seenv`; `monmove.c` `dochug`/`m_move`/
   `distfleeck` (2nd fleeck after `m_move` unless DIED/offmap).
 - **Cause (#884–#892):** Unseen downstairs via blank `disp_ch` → wrong
   travel dest; fixed with `seenv` gate. Prefix **100738→101022**.
-- **#893 diagnosis:** Matched `rn2(5)` strings hid site shift. After
-  wraith 2nd fleeck, JS **quasit** @(33,2) does silent `m_move`→CLOUD
-  (32,2) then **2nd** `distfleeck` @101021; C’s next call is bat
-  `!rn2(3)`. FORCE skip quasit `want_move` → prefix **101022→101025**
-  with bat `rn2(3)/rn2(1)/rn2(2)` match. C path for that quasit is
-  df-only (no 2nd fleeck): suspect `m_move`→`MMOVE_DIED`/`mon_offmap`
-  after move (or other early return) — not bat-gate logic itself.
-  `distfleeck` scared/onscary/flees_light still stub (`scared=0`).
-- **Change:** none this iteration (DIAG removed).
-- **Verification:** green+strict PASS (unchanged); focused still
-  @101022; FORCE falsifier only.
-- **Next:** C-faithful reason quasit turn skips 2nd `distfleeck`
-  (postmov/trap/region/offmap on CLOUD dest, or early dochug return).
+- **#893–#894 diagnosis:** Matched `rn2(5)` strings hid site shift.
+  After wraith 2nd fleeck, JS **quasit** @(33,2) ROOM does silent
+  `m_move`→CLOUD (32,2) (no trap/gas region) then **2nd** `distfleeck`.
+  DIAG: hero@(7,6), `nearby=0`, `want_move=true` (not scared stub).
+  FORCE skip `want_move` → prefix **101025** only. FORCE treat as
+  DIED after CLOUD step (skip 2nd fleeck, keep dest) → prefix
+  **101228**, Scr **294→387**, RNG matched **101695→101949**. So C
+  **does move** then skips 2nd fleeck via DIED/`mon_offmap` — not
+  df-only `want_move`. D-0781 added offmap gates; nothing sets
+  `mstate` on this CLOUD step yet.
+- **Change:** none on peel cause this iteration (D-0781 plumbing only).
+- **Verification:** green+strict PASS; focused still @101022.
+- **Next:** C-state / recorder dump of quasit after CLOUD step
+  (postmov/mintrap/mstate); `m_in_out_region` still omitted before place.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 
