@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 20:25 — #906 D-0790 mux-image m_move_aggress
+- Objective: seed0360 @110880; port C post-select no-place.
+- C locus: `monmove.c` `m_move` post-select + `m_move_aggress`.
+- Change: track `chi`; `ALLOW_U`→mux; `nix==mux`→`m_move_aggress`
+  (empty Displacement image → DONE). @110612 was aftermath of earlier
+  mux-image walks JS placed.
+- Verification: green+strict PASS; cohort 13/13 PASS; seed0360
+  **110880→112243**, focused RNG **112272**, Scr **391**.
+- Next: @112243 C distfleeck rn2(5) vs JS rn2(12).
+
 ## 2026-07-19 20:05 — #905 score + D-0790 root (no place)
 - Objective: mandatory full `sessions` score; peel D-0790 @110880.
 - C locus: `monmove.c` `m_move` post-select (place refused).
@@ -158,12 +168,3 @@ Use this shape:
 - Verification: green+strict PASS; focused still @101022.
 - Next: C-faithful df-only quasit path (`MMOVE_DIED`/`mon_offmap`?).
 
-## 2026-07-19 17:20 — #892 getpos seenv stairs (D-0779)
-- Objective: seed0360 @100738 bat Y drift / wrong travel dest.
-- C locus: `getpos.c` terrain feature `seenv`; `cmd.c` `C('j')` rush.
-- Change: `js/getpos.js` `terrain_feature_matches` requires `seenv`
-  (blank `disp_ch` is not known). Falsified: C hero@(9,1) at first
-  siege movemon; quitchars-before-`\n` (C binds rush first).
-- Verification: green+strict PASS; cohort 10/10 PASS; seed0360 prefix
-  **100738→101022**, Scr **293→294**, RNG matched **101517→101695**.
-- Next: @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.

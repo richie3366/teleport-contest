@@ -7,40 +7,31 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#905 score:** 37/44; Scr **8397**; RNG **643108** (81.11%); speed
-  `36+0.21/turn`. Δ vs #900: Scr 0, RNG +1961.
-- **D-0790 root (not the rn2(28) site):** bat@12,18 @110612 appr=0
-  (`rn2(3)=0`) selects poss[1]=**11,18** (hero@11,19 mux=11,19,
-  chiInfo NOTONL only). JS places+track_add; **C does not place**.
-  Later JS@11,18 one track hit rn2(32); C still@12,18 two hits
-  rn2(32)+rn2(28) @110880.
-- **Falsifier:** FORCE `return MMOVE_DONE` after that selection →
-  prefix **110880→112243**. Next: which C gate after select refuses
-  place (no extra RNG): `m_move_aggress` / ALLOW_MDISP / `m_in_out_region`
-  / itsstuck / … JS missing chi+ALLOW_U redirect+aggress mux-match.
-- **Don’t:** seed-shaped no-place; re-break D-0789 travelcc.
+- **#906 D-0790:** `m_move` post-select — step onto Displacement `mux`
+  (`ALLOW_U|NOTONL`) → `m_move_aggress` empty image → `MMOVE_DONE`.
+  seed0360 prefix **110880→112243**, focused RNG **112272**, Scr **391**.
+- **Next @112243:** C `distfleeck` `rn2(5)` vs JS `rn2(12)`.
+  Falsifier: `node scripts/rng-diff.mjs sessions/seed0360-wizard-world-tour.session.json`
+- **Don’t:** seed-shaped no-place; re-break D-0790 mux aggress; leave
+  DIAG/throw in `monmove.js`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0789 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0790 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (D-0769…D-0790).
-- seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
+- seed5002 **PASS**; D-0743…D-0789 peels done.
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
   `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
-- D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
-  boulder @98492. Wiz-strt cleanup (#886).
-- **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **#896–#904:** siege peels through dotele travelcc clear (D-0789).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
+- #905 FORCE no-place @110612 was aftermath of earlier mux-image miss.
 
 ## Landmarks (≤15)
 
@@ -48,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#905;
-  seed0360 **110880**/111566/**391**).
+  seed0360 focused **112272**/391 @#906).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -81,5 +72,6 @@ Objective/score live in `CURRENT.md`.
   **dokick Wounded_legs legs_in_no_shape** (D-0786);
   **wiz_map ^F do_mapping** (D-0787);
   **TRAVP_GUESS hero-matrix** (D-0788);
-  **dotele clear travelcc** (D-0789).
+  **dotele clear travelcc** (D-0789);
+  **m_move mux-image aggress** (D-0790).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

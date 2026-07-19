@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 111566/120639 | 391/833 | @110880 (#905 D-0790) |
+| seed0360 | 112272/120639 | 391/833 | @112243 (#906 D-0790) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -75,24 +75,21 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @110880 / D-0790** — symptom is track
-`rn2(28)` vs `rn2(5)`, but root is earlier: bat@12,18 appr=0 selects
-11,18 then **C does not place** (JS does). FORCE no-place → prefix
-**110880→112243**. Find C post-select early-return (aggress / MDISP /
-`m_in_out_region` / …). Parked D-0731.
+**Gameplay next:** **seed0360 @112243** — after D-0790 Displacement
+mux→`m_move_aggress` (prefix 110880→112243; focused RNG 112272).
+C `distfleeck` `rn2(5)` vs JS `rn2(12)`. Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @110612 bat appr=0 chose 11,18 — C must not place (D-0790)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
-(D-0708 still open; peel advanced with D-0784…D-0789).
+**Do not re-break D-0660…D-0790.**
 
-**Do not re-break D-0660…D-0789.**
+**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
+(D-0708 still open).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
