@@ -7,13 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#818:** D-0734 `zhitu` non-sleep + hero `destroy_items` AD_FIRE.
-  seed5002 **5980→6172**; seg0 FULL. Next @6172 themerms.lua.
+- **#819 D-0735:** seed5002 seg1 @**5668** — C invent `obj_resists` vs
+  JS `rn2(4)`. Not themerms (positional 6172 is coincidence). FORCE
+  invent dogfood matches 5668–5684. JS pet(41,18) hero(40,17) udist=2.
+  Need C-state after step-66 `h` (move fail vs pet geometry).
 - **D-0731 open:** black unicorn @58,12; JS **cnt=7**→`rn2(28)`; C
-  `rn2(20)`⇒cnt=5. Open **3×3 all ROOM**; FORCE omit-pair ID exhausted.
-  Need C-state terrain/mon split. Do not FORCE in production.
+  `rn2(20)`⇒cnt=5. FORCE omit-pair ID exhausted. Need C-state.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300 (no ID).
-- **Falsify:** C-state omit cells; or peel seed5002 themerms @6172.
+- **Falsify:** C-state hero/pet after seed5002 seg1 `h` @5668; or
+  D-0731 omit cells.
 
 ## Don’t re-check (≤15)
 
@@ -22,25 +24,20 @@ Objective/score live in `CURRENT.md`.
 - Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0734 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
+- seed5002 “@6172 themerms” is positional tally — seg1 prefix break is
+  @5668 dog_goal (D-0735). Do not peel themerms until invent udist fixed.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
-- D-0665…D-0668/D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
+- D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
 - D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
-- D-0676…D-0707: blue DSM / … / lookaround / kick / corpse_chance always-TRUE.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
-- `assigninvlet` **preserves** free a-z/A-Z (steal→return); don’t “always
-  next lastinvnr”.
+- `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
-- Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…34: hallu maze @10157 need C-state which 2 cells; `#therecmdmenu`/
-  next2u/far deferred; full `untrap()` deferred; rest of PROPSET +
-  float_vs_flight still omitted; loot-at-feet open deferred; C
-  `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
-  `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
-  numeric `MS_*` vs string msound; full `passes_bars` deferred;
-  peaceful dig-avoid deferred; zhitu ignite_items body / burnarmor
-  erode slots / potionbreathe / death-disintegrate deferred.
+- D-0710…34: hallu maze @10157 need C-state; zhitu ignite body / burnarmor
+  erode / potionbreathe / death-disintegrate deferred; float_vs_flight;
+  `completelyburns`/`rots`/`rusts`; dog_move `touch_petrifies`; MS_* vs
+  string msound; full `passes_bars`; peaceful dig-avoid deferred.
 
 ## Landmarks (≤15)
 
@@ -77,4 +74,5 @@ Objective/score live in `CURRENT.md`.
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);
-  **zhitu non-sleep + hero destroy_items AD_FIRE** (D-0734).
+  **zhitu non-sleep + hero destroy_items AD_FIRE** (D-0734);
+  **seed5002 dog_goal invent vs rn2(4)** (D-0735 open).

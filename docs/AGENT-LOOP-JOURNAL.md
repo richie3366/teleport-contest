@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #819 seed5002 dog_goal invent vs rn2(4) (D-0735)
+- Objective: coverage seed5002 “@6172 themerms” — reframed.
+- C locus: `dogmove.c` `dog_goal` invent `dogfood` when `udist<=1`.
+- Change: none (DIAG only). Positional 6172 ≠ continuous break; seg1
+  @5668 C invent `obj_resists` vs JS `rn2(4)`. FORCE invent matches
+  5668–5684; JS udist=2 after `h`. Same family D-0429/D-0451.
+- Verification: green+strict PASS; no js/ change; seed5002 still FAIL.
+- Next: C-state hero/pet after step-66 `h`; or D-0731/D-0708.
+
 ## 2026-07-19 — #818 zhitu non-sleep + destroy_items AD_FIRE (D-0734)
 - Objective: coverage seed5002 @5886 (pivoted from D-0731 C-state stall).
 - C locus: `zap.c` `zhitu`/`destroy_items`/`maybe_destroy_item`; `dobuzz`.
@@ -143,23 +152,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0108 Scr **280→283** RNG FULL;
   prefix **110→176**; cohort 33/33 PASS.
 - Next: @176 nohands chest; or #untrap; newman "new man".
-
-## 2026-07-19 — #805 score refresh + FROMFORM FLYING (D-0724)
-- Objective: mandatory full `sessions` score (#805÷5) + seed0108 @109 Fly.
-- C locus: `polyself.c` `set_uasmon` PROPSET(FLYING).
-- Change: `propset_fromform(FLYING,…)` on uprops + HFlying (D-0724).
-- Verification: green+strict PASS; seed0108 Scr **187→280** RNG FULL;
-  cohort PASS; full suite **35/44** Scr **7901**/11405 RNG **527316**/792838
-  (66.51%; Δ vs #800 Scr +206 RNG +13675).
-- Next: seed0108 remaining 23 screens / rest PROPSET; or D-0708.
-
-## 2026-07-19 — #804 seed0108 Upolyd display + #monster (D-0722/23)
-- Objective: seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
-- C locus: `polyself.c` polymon/break_armor; `botl.c`; `display.h`
-  hero_glyph; `hack.c` weight_cap Upolyd; `cmd.c` domonability.
-- Change: Upolyd botl/glyph/weight_cap; polymon encumber_msg;
-  setworn skip_find_ac + defer find_ac past More (D-0722);
-  EXT_CMDS `#monster`/domonability reflexive (D-0723).
-- Verification: green+strict PASS; seed0108 Scr **156→187** RNG FULL;
-  prefix **78→109**; cohort 33/33 PASS.
-- Next: @109 red-dragon poly botl `Fly` (set_uasmon FROMFORM FLYING).

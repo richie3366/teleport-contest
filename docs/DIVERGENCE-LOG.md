@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0735 — seed5002 seg1 dog_goal invent vs rn2(4) (udist)
+
+- **Status:** open (diagnosed; needs C-state)
+- **Symptom:** seed5002 pair RNG **6172**/12167 is positional (seg0 FULL
+  5904 + accidental later matches). Seg1 continuous first miss @**5668**:
+  C `rn2(100)` `obj_resists` ×18 vs JS `rn2(4)` follow-path.
+- **C locus:** `dogmove.c` `dog_goal` invent `dogfood` when `udist<=1`
+  skips `!rn2(4)`; same family as D-0429/D-0451.
+- **DIAG (#819):** after wishes, pet `(41,18)` hero `(40,17)` → JS
+  `udist=2` → rolls `rn2(4)`. FORCE invent `dogfood` (simulate
+  `udist<=1`) matches C `obj_resists` **5668–5684** (17 invent items);
+  one more C resist @5685 then `dog_move` approach. Pet `enexto` candy
+  shuffle sizes match C (`rn2(8/16/17)`). Do **not** FORCE udist in
+  production.
+- **Hypothesis:** C has `udist<=1` at that `dog_goal` (hero `h` failed,
+  or pet/hero geometry differs). Falsify with C-state after key `h`.
+- **Not themerms:** absolute @6172 `themerms.lua:969` is coincidental
+  positional tally, not the continuous prefix break.
+- **Next:** C-state hero/pet after step-66 `h`; or D-0731/D-0708.
+
 ## D-0733 — mfndpos diagonal worm_cross + rogue door-cut
 
 - **Status:** fixed (partial — seed0399/0014 mfndpos overcounts unchanged)
