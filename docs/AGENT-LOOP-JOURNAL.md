@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 10:18 — #852 soko4-1 Sokoban entry (D-0756)
+- Objective: seed0360 @52601 C soko4-1 (`makemaz` `rnd(2)=1`) vs JS `rn2(79)`.
+- C locus: `dat/soko4-1.lua` / `mkmaze.c` `makemaz` (`soko4` `rndlevs=2`).
+- Change: `load_soko4_1` + dispatch; branch via `g.lregions` pre-flip
+  (post-flip pre-flip coords → oneshot `rn2(1)` retries).
+- Verification: green+strict PASS; cohort **37/37**; seed0360 prefix
+  **52601→53361**; RNG **52639→53376**; Scr **238→242**.
+- Next: @53361 C `tower2` (Dlvl:35 niche shuffle of 10) vs JS `rn2(79)`.
+
 ## 2026-07-19 10:10 — #851 minend-2 Wine Cellar (D-0755)
 - Objective: seed0360 @43248 C minend-2 (`makemaz` `rnd(3)=2`) vs JS `rn2(79)`.
 - C locus: `dat/minend-2.lua` / `mkmaze.c` `makemaz` (`minend` `rndlevs=3`).

@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0756 — soko4-1.lua load_special (seed0360 @52601)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @53361)
+- **Symptom:** seed0360 @52601 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` + `makemaz` `rnd(2)=1`.
+- **C locus:** `dat/soko4-1.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`soko4` `rndlevs=2` → `soko4-1`).
+- **Cause (#852):** JS had no `soko4-1` loader → empty → `place_lregion`
+  `rn2(79)`. First patch placed branch after flip with pre-flip coords
+  → oneshot `bad_location` retries (`rn2(1)`); fixed by storing branch
+  in `g.lregions` so `flip_level` updates inarea before `place_lregion`.
+- **Change:** `js/mklev.js` — `load_soko4_1` + dispatch (solidfill map,
+  upstair, lit/nondiggable, boulders, PIT + rolling boulder, SCR_EARTH,
+  random objs, wallify/flip/solidify/branch/fixup/premap). Named
+  omissions: soko2-2; tower2/3; exclusion_zones; ensure_way_out.
+- **Verification:** green+strict PASS; cohort **37/37**; seed0360 prefix
+  **52601→53361**; RNG **52639→53376**; Scr **238→242**.
+- **Next:** @53361 C `tower2` (Dlvl:35 after Vlad tower1; niche shuffle
+  of 10) vs JS `rn2(79)`.
+
 ## D-0755 — minend-2.lua load_special (seed0360 @43248)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @52601)
