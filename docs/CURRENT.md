@@ -76,15 +76,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0360 @98492** — D-0773: JS `linedup` boulder
-`rn2(3)` for PM_MUMAK LOS; C skips (no LOS boulder → `couldsee`).
-Boulder from `fill_empty_maze` @(57,13)+Y-flip → @(57,9). Next: why C
-lacks that boulder; FORCE skip → @98502 then getbones+nhlib shuffle
-(**wizard3/hellfill**). Parked D-0731/D-0708 stay diagnose-only.
+`rn2(3)` for PM_MUMAK LOS; C still `distfleeck`. **#872 falsified**
+“C never placed boulder”: C maze1xy+(57,13)+flp=1 match JS. Next:
+post-gen/gameplay why C avoids linedup rn2 (couldsee / blocking_terrain
+/ skip `lined_up`); FORCE→@98502 getbones+shuffle (**wizard3**).
+Parked D-0731/D-0708 stay diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @98492 C distfleeck rn2(5) vs JS linedup rn2(3) — extra JS boulder
+# @98492 C distfleeck rn2(5) vs JS linedup rn2(3) — gen boulder matched
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

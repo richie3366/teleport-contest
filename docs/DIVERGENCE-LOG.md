@@ -12,19 +12,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **C locus:** `mthrowu.c` `linedup` / `couldsee`; `sp_lev.c`
   `fill_empty_maze` + `flip_level`; wizard2 mazewalk stock.
 - **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
-  + BOULDER(57,9); `couldsee` false → boulderhandling=2 → `rn2(2+1)`.
-  Strip boulder + `vision_recalc` → `couldsee` true (LAVAPOOL is not
-  `does_block` / not `blocking_terrain`). FORCE skip rn2 → prefix
-  **98492→98502**, then C `getbones` + nhlib `shuffle` (wizard3 next).
-  Boulder birth: `fill_empty_maze` @(57,13) then Y-flip with extends
-  ymin=2,ymax=20 → @(57,9). C still in `distfleeck` ⇒ no LOS boulder
-  (or equivalent early-out without rn2). Not “skipped m_move” alone:
-  JS enters `m_move`/`lined_up` for that mumak.
+  + BOULDER(57,9)+ROOM(58,9); `couldsee` false → boulderhandling=2 →
+  `rn2(2+1)`. Mumak lacks `M2_ROCKTHROW` (correct). Strip boulder +
+  `vision_recalc` → `couldsee` true. FORCE skip rn2 → **98492→98502**,
+  then C `getbones` + nhlib `shuffle` (wizard3).
+- **Falsified (#872):** “C never placed that LOS boulder.” C session RNG:
+  maze1xy `rn2(75)=54`/`rn2(17)=10` → (57,13) + `next_ident` @86737;
+  `flip_level_rnd` `rn2(2)=1,0` → flp=1 @90542 (same FlipY(13)=9 with
+  mazegrid extends ymin=2,ymax=20). Hell boulder-wall `percent(20)` false
+  @90540. Gen placement+flip match JS; “C lacks boulder at birth” is
+  wrong.
 - **Change:** none (DIAG removed). Do not FORCE linedup in production.
 - **Verification:** green+strict PASS; seed0360 still **98492**/98507
   Scr **275**/833.
-- **Next:** why C lacks boulder @(57,9) (maze1xy/SpLev_Map, FlipY
-  extends, or post-gen remove); then wizard3/hellfill.
+- **Next:** post-gen / gameplay why C still avoids linedup rn2 (couldsee
+  true, `blocking_terrain` early-out, or mumak never reaches `lined_up`);
+  then wizard3/hellfill.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
 

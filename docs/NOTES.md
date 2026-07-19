@@ -7,14 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#871 / D-0773:** @98492 JS `linedup` rn2(3) — PM_MUMAK (55,9)→hero
-  (59,9); path LAVAPOOL(56,9)+BOULDER(57,9); `couldsee` false. Strip
-  boulder + `vision_recalc` → `couldsee` true (lava ≠ does_block).
-  FORCE skip rn2 → prefix **98502**, then C `getbones`+nhlib `shuffle`
-  (wizard3). Boulder birth: `fill_empty_maze` @(57,13) → flip
-  (extends ymin=2,ymax=20) → @(57,9). **C lacks that LOS boulder.**
-  Falsify next: C-state objects at (57,9) / FlipY ymin / post-gen
-  destroy; do not FORCE linedup.
+- **#872 / D-0773:** @98492 JS `linedup` rn2(3) — PM_MUMAK (55,9)→hero
+  (59,9); path LAVAPOOL(56,9)+BOULDER(57,9)+ROOM(58,9). Mumak is **not**
+  `throws_rocks` (correct → boulderhandling=2).
+  **Falsified (#872):** “C never placed LOS boulder.” C `fill_empty_maze`
+  maze1xy rn2(75)=54/rn2(17)=10 → (57,13) + next_ident @86737; flip
+  `rn2(2)=1,0` → flp=1 @90542 — same as JS FlipY(13)=9 with ymin=2,ymax=20.
+  Hell boulder-walls percent(20) false (@90540).
+  **Next:** why C still `distfleeck` (couldsee true / blocking_terrain
+  early-out / mumak never reaches `lined_up`) despite gen-matched boulder.
+  Check post-flip zoo/gameplay destroy; compare C screen glyphs; do not
+  FORCE linedup.
 - **#870:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
@@ -39,6 +42,7 @@ Objective/score live in `CURRENT.md`.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - Wish does **not** `makeknown` (C: otmp unidentified).
+- Mumak **lacks** M2_ROCKTHROW (giants have it); linedup uses handling=2.
 
 ## Landmarks (≤15)
 
@@ -57,7 +61,7 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **wizard3/hellfill/fakewiz next after @98492 boulder**;
+  **wizard3/hellfill/fakewiz after @98492**;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 13:36 — #872 @98492 gen boulder matched (D-0773)
+- Objective: seed0360 @98492 why C skips linedup rn2(3).
+- C locus: `sp_lev.c` `fill_empty_maze`/`flip_level_rnd`; `mthrowu.c` `linedup`.
+- Change or falsified theory: no port patch. Falsified “C never placed
+  LOS boulder”: C maze1xy (57,13) @86737 + flp=1 @90542 match JS.
+  Hell boulder-walls percent false. Mumak not throws_rocks (ok).
+- Verification: green+strict PASS; seed0360 still **98492**/275.
+- Next: post-gen/gameplay couldsee vs blocking_terrain vs skip lined_up;
+  then wizard3.
+
 ## 2026-07-19 13:20 — #871 @98492 linedup boulder (D-0773 diag)
 - Objective: seed0360 @98492 C distfleeck rn2(5) vs JS linedup rn2(3).
 - C locus: `mthrowu.c` `linedup`; `sp_lev.c` `fill_empty_maze`/`flip_level`.
