@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0807 — sel_set_ter IS_LAVA → lit (seed0360 @324)
+
+- **Status:** fixed (seed0360 Scr residual continues @373)
+- **Symptom:** seed0360 @324 ^V materialize on orcus (Dlvl:40 /
+  Gehennom dlevel 15) — sole cell C DEC lava `` ` `` (red) vs JS blank
+  at map (7,9). Terrain was LAVAPOOL; `seenv=0`, `lit=false`,
+  `viz=COULD_SEE` only (not IN_SIGHT). RNG FULL.
+- **C locus:** `mkmaze.c` `set_levltyp` — `IS_LAVA(newtyp) → lit=1`
+  always (before `set_levltyp_lit`); `set_levltyp_lit` with
+  `SET_LIT_NOCHANGE` keeps that lit. `hell_tweaks` / `des.terrain`
+  place lava via this path after orcus region unlit.
+- **Cause (#929):** JS `sel_set_ter(..., SET_LIT_NOCHANGE)` kept
+  pre-hell_tweaks unlit on new lava; dark non-adjacent COULD_SEE
+  cells never got IN_SIGHT / seenv / glyph.
+- **Change:** `js/mklev.js` `sel_set_ter` — `IS_LAVA(ter) → lit=true`
+  (C set_levltyp). Orcus region unlit loop → `sel_set_lit` semantics
+  (lava stays lit). Named: other inline `loc.lit=false` region loops
+  still force-clear (pre-hell_tweaks callers OK).
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  Scr **638→670**/833; prefix **324→373**; RNG FULL.
+- **Next:** @373 fakewiz1 materialize C `--More--` vs JS combined
+  "heat and smoke are gone" (no More); cursor topline vs map.
+
 ## D-0806 — splev_mazewalk 3-arg ftyp=ROOM (seed0360 @318)
 
 - **Status:** fixed (seed0360 Scr residual continues @324)

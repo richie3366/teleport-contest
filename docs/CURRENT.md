@@ -50,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **638**/833 | Scr residual @324 lava `` ` `` vs blank (#928) |
+| seed0360 | **120639**/120639 | **670**/833 | Scr residual @373 fakewiz More (D-0807) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -76,17 +76,18 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0806 (#928):
-`splev_mazewalk` 3-arg ftyp=ROOM (not corrmaze→CORR). Scr
-**633→638**/833; prefix **318→324**. Next: @324 materialize
-Dlvl:40 C DEC lava `` ` `` vs JS blank (7,9). **Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0807 (#929):
+`sel_set_ter` IS_LAVA → lit (C `set_levltyp`). Scr
+**638→670**/833; prefix **324→373**. Next: @373 fakewiz1
+materialize C `--More--` vs JS combined heat/smoke pline.
+**Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0806. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0807. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

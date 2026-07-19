@@ -7,22 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#928 D-0806:** baalz mazewalk ROOM — seed0360 Scr **638**/833;
-  prefix **318→324**.
-- **Hypothesis next:** @324 materialize (Dlvl:40) — sole cell
-  C DEC lava `` ` `` (red) vs JS blank at map (7,9). Same topline.
-- **Falsify:** terrain/glyph at that cell after goto_level /
-  hell lava / LAVAPOOL paint / seenv / cansee.
+- **#929 D-0807:** sel_set_ter lava lit — seed0360 Scr **670**/833;
+  prefix **324→373**.
+- **Hypothesis next:** @373 fakewiz1 materialize — C
+  `You materialize…!--More--` vs JS combined materialize +
+  `The heat and smoke are gone.` (no More); cursor topline vs map.
+- **Falsify:** leaving Gehennom / `u.uinhell` / hellish smoke clear
+  pline order vs `--More--` ownership of space.
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break mazewalk ftyp=ROOM (D-0806).
+  re-break mazewalk ROOM (D-0806) or lava lit (D-0807).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0806 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0807 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; D-0743…D-0806 peels done.
+- seed5002 **PASS**; D-0743…D-0807 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -31,12 +32,13 @@ Objective/score live in `CURRENT.md`.
 - @249 `%` vs `/` — flip fobj rebuild inverted piles (D-0804).
 - @301 More/`*:0`/`.` — Rogue pline + assign_graphics (D-0805).
 - @318 `#` vs `·` — mazewalk ftyp ROOM not corrmaze CORR (D-0806).
+- @324 lava blank — sel_set_ter IS_LAVA lit (D-0807).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **37/44** @#925; seed0360 Scr **638** @324 (D-0806).
+- suite **37/44** @#925; seed0360 Scr **670** @373 (D-0807).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -47,4 +49,4 @@ Objective/score live in `CURRENT.md`.
 - Wiz-strt FlipY (D-0782); mux-image (D-0790); ok_to_quest (D-0798);
   can_fog (D-0799); Wiz-loca (D-0800); Valley/smoke (D-0801);
   lit grow (D-0802); squeeze (D-0803); flip objects (D-0804);
-  Rogue graphics (D-0805); mazewalk ROOM (D-0806).
+  Rogue graphics (D-0805); mazewalk ROOM (D-0806); lava lit (D-0807).

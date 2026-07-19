@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0807 | fixed | sel_set_ter IS_LAVA → lit (C set_levltyp) | seed0360 Scr 638→670; prefix 324→373; next @373 fakewiz More |
 | D-0806 | fixed | splev_mazewalk 3-arg ftyp=ROOM (not corrmaze→CORR) | seed0360 Scr 633→638; prefix 318→324; next @324 lava |
 | D-0805 | fixed | Rogue assign_graphics + first-visit primitive pline | seed0360 Scr 628→633; prefix 301→318; next @318 · vs # |
 | D-0804 | fixed | flip_level swap _objects_at with terrain (not fobj rebuild) | seed0360 Scr 617→628; prefix 249→301; next @301 materialize More |

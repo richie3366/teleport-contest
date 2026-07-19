@@ -11226,11 +11226,12 @@ function load_orcus() {
     // des.mazewalk(00,06,"west") — stocked default true
     splev_mazewalk(0, 6, W_WEST, true);
 
-    // des.region(selection.area(01,00,44,16),"unlit") — light only
+    // des.region(selection.area(01,00,44,16),"unlit") — C sel_set_lit:
+    // lava stays lit (IS_LAVA || lit). hell_tweaks lava comes after.
     for (let ry = 0; ry <= 16; ry++) {
         for (let rx = 1; rx <= 44; rx++) {
             const loc = g.level.at(mx + rx, my + ry);
-            if (loc) loc.lit = false;
+            if (loc) loc.lit = IS_LAVA(loc.typ) ? true : false;
         }
     }
 
@@ -14096,11 +14097,12 @@ function light_region(x1, y1, x2, y2, lit) {
 }
 
 /**
- * C ref: sp_lev.c sel_set_ter + mkmaze.c set_levltyp_lit subset.
- * tlit truthy → lit; SET_LIT_NOCHANGE → leave; falsey (legacy map
- * callers) → leave (themerms / sokoban light afterward). Fire plane
- * forces unlit after map via load_fire epilogue (D-0569) — C string
- * maps use lit=FALSE which would clear solidfill BOOL_RANDOM lit=1.
+ * C ref: sp_lev.c sel_set_ter + mkmaze.c set_levltyp / set_levltyp_lit.
+ * C set_levltyp: IS_LAVA(newtyp) → lit=1 always (even before lit arg).
+ * set_levltyp_lit: lit!=NOCHANGE then IS_LAVA forces lit=1 again.
+ * tlit truthy → lit; SET_LIT_NOCHANGE → leave (except lava); falsey
+ * (legacy map callers) → leave. Fire plane forces unlit after map via
+ * load_fire epilogue (D-0569).
  */
 function sel_set_ter(x, y, ter, tlit) {
     const loc = game.level.at(x, y);
@@ -14110,7 +14112,11 @@ function sel_set_ter(x, y, ter, tlit) {
     loc.horizontal = false;
     loc.roomno = NO_ROOM;
     loc.edge = false;
-    if (tlit === SET_LIT_NOCHANGE) {
+    // C mkmaze.c set_levltyp: IS_LAVA(newtyp) → lit=1 (hell_tweaks /
+    // des.terrain with SET_LIT_NOCHANGE still leave lava lit).
+    if (IS_LAVA(ter)) {
+        loc.lit = true;
+    } else if (tlit === SET_LIT_NOCHANGE) {
         /* keep loc.lit */
     } else if (tlit) {
         loc.lit = true;

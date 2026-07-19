@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 00:24 — #929 D-0807 sel_set_ter lava lit
+- Objective: seed0360 @324 C DEC lava `` ` `` vs JS blank (orcus).
+- C locus: `mkmaze.c` `set_levltyp` — `IS_LAVA(newtyp) → lit=1`
+  (hell_tweaks / des.terrain keep lit under SET_LIT_NOCHANGE).
+- Change: `js/mklev.js` `sel_set_ter` force lit on IS_LAVA; orcus
+  region unlit → sel_set_lit (lava stays lit). Named: other inline
+  `loc.lit=false` loops.
+- Verification: green+strict PASS; cohort 35/35 PASS; seed0360
+  Scr **638→670**/833; prefix **324→373**; RNG FULL.
+- Next: @373 fakewiz1 materialize C `--More--` vs JS heat/smoke.
+
 ## 2026-07-20 00:16 — #928 D-0806 mazewalk ftyp ROOM
 - Objective: seed0360 @318 C `·` vs JS `#` on baalz materialize+hot.
 - C locus: `sp_lev.c` `lspo_mazewalk` — 3-arg form ftyp=ROOM;
@@ -29,7 +40,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **633→638**/833; prefix **318→324**; RNG FULL.
 - Next: @324 Dlvl:40 materialize C DEC lava `` ` `` vs JS blank.
-
 ## 2026-07-20 00:05 — #927 D-0805 Rogue arrival + graphics
 - Objective: seed0360 @301 materialize `--More--` / `*:0` / `.` floors.
 - C locus: `do.c` `goto_level` Rogue pline + `assign_graphics`;
@@ -40,7 +50,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **628→633**/833; prefix **301→318**; RNG FULL.
 - Next: @318 materialize+hot C `·` vs JS `#` (3,18).
-
 ## 2026-07-19 23:56 — #926 D-0804 flip_level object piles
 - Objective: seed0360 @249 JS `%` vs C `/` after ^V Sokoban-4 materialize.
 - C locus: `sp_lev.c` `flip_level` — swap `level.objects` with terrain.
@@ -49,7 +58,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **617→628**/833; prefix **249→301**; RNG FULL.
 - Next: @301 materialize `--More--` (Dlvl:18).
-
 ## 2026-07-19 23:47 — #925 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; no peel).
@@ -59,7 +67,6 @@ Use this shape:
   `36+0.21/turn` R² 0.796. seed0360 suite Scr **617**/833 @249.
 - Verification: green+strict PASS; full suite exit 37/44.
 - Next: seed0360 @249 ^V materialize map cells (no FORCE).
-
 ## 2026-07-19 23:45 — #924 D-0803 Sokoban cant_squeeze
 - Objective: seed0360 @231 vain-push vs `cannot pass that way.`
 - C locus: `hack.c` `test_move` / `cant_squeeze_thru` case 3.
@@ -68,7 +75,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 37/37 PASS; seed0360 Scr
   **616→617**/833; prefix **231→249**; RNG FULL.
 - Next: @249 ^V materialize map cells.
-
 ## 2026-07-19 23:39 — #923 D-0802 lit grow minetn/minend
 - Objective: seed0360 @180 leave-Gehennom blank BROWN walls.
 - C locus: `sp_lev.c` `lspo_region` 2-arg `selection_do_grow` + lit.
@@ -77,7 +83,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
   **589→616**/833; prefix **180→231**; RNG FULL.
 - Next: @231 boulder push message divergence.
-
 ## 2026-07-19 23:26 — #922 D-0801 Valley/smoke/Geh wall
 - Objective: seed0360 screen residual @164 missing `--More--`.
 - C locus: `do.c` goto_level Valley + hellish_smoke_mesg; `display.h`
@@ -87,7 +92,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 34/34 PASS; seed0360 Scr
   **561→589**/833; prefix **164→180**; RNG FULL.
 - Next: @180 leave-Gehennom remembered walls (map memory).
-
 ## 2026-07-19 23:16 — #921 D-0800 Wiz-loca/fila/filb
 - Objective: seed0360 @113103 getbones → lua shuffle vs JS rn2(79).
 - C locus: `dat/Wiz-loca.lua` / `Wiz-fila.lua` / `Wiz-filb.lua`; `sp_lev.c`.
@@ -96,7 +100,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 20/20 PASS; seed0360 RNG
   **FULL 120639**; Scr **519→561**/833.
 - Next: seed0360 screen residual (RNG matched); or parked 0399/0014.
-
 ## 2026-07-19 23:10 — #920 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only handoff).
@@ -106,7 +109,6 @@ Use this shape:
   (D-0798/D-0799). seed0360 still **113111**/519 @113103.
 - Verification: green+strict PASS; full suite exit 0 with 37/44.
 - Next: seed0360 @113103 C lua shuffle after matched getbones vs JS rn2(79).
-
 ## 2026-07-19 23:08 — #919 D-0799 set_apparxy can_fog
 - Objective: seed0360 @112857 C distfleeck vs JS set_apparxy.
 - C locus: `monmove.c` `can_fog` / `set_apparxy` closed_door arm.
@@ -115,7 +117,6 @@ Use this shape:
   RNG **113111**; Scr **519**.
 - Verification: green+strict PASS; cohort 37/37 PASS; DIAG removed.
 - Next: @113103 C lua shuffle after matched getbones vs JS rn2(79).
-
 ## 2026-07-19 23:00 — #918 D-0798 quest Home ok_to_quest gate
 - Objective: seed0360 @112279 C fleeck vs JS getbones (umov theory).
 - C locus: `do.c` `goto_level` quest-home arm; `quest.c` `ok_to_quest`.
@@ -124,7 +125,6 @@ Use this shape:
   Scr **504→519**; RNG **112956**.
 - Verification: green+strict PASS; cohort 35/35 PASS; DIAG removed.
 - Next: @112857 C distfleeck vs JS set_apparxy (mux-image).
-
 ## 2026-07-19 22:46 — #917 D-0797 acurr GoP + umov peel
 - Objective: seed0360 @112279 C fleeck vs JS rn2(3).
 - C locus: `attrib.c` `acurr` GoP/`STR19(25)`; moveloop umovement after EOT62.
@@ -133,7 +133,6 @@ Use this shape:
   FORCE −12/MOD →112574. Scr **391→504**; peel still @112279.
 - Verification: green+strict PASS; cohort 9/9 PASS; DIAG removed.
 - Next: C path leaving `umovement<12` after EOT62 (surplus +12).
-
 ## 2026-07-19 22:30 — #916 D-0796 castmu HASTE_SELF
 - Objective: seed0360 @112243 apprentice leftover (D-0794).
 - C locus: `mcastu.c` `MCAST_HASTE_SELF` → `mon_adjust_speed`; `mcalcmove` MFAST.
@@ -142,7 +141,6 @@ Use this shape:
   focused RNG **112272→112326**.
 - Verification: green+strict PASS; cohort 12/12 PASS; DIAG removed.
 - Next: @112279 C fleeck vs JS rn2(3) after EOT62.
-
 ## 2026-07-19 22:20 — #915 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; peel parked at D-0794 PRE).
@@ -152,14 +150,3 @@ Use this shape:
   still **112272**/391 @112243. D-0794/D-0795 soak flat.
 - Verification: green+strict PASS; full suite exit 37/44.
 - Next: C path leaving one apprentice PRE≥12 into EOT61 (D-0794).
-
-## 2026-07-19 22:18 — #914 D-0794 moves=62 apprentice PRE
-- Objective: seed0360 @112243 leftover apprentice mov paradox.
-- C locus: `mon.c` `mcalcmove`/`movemon`; `monmove.c` `dochug`/`set_apparxy`.
-- Change or falsified theory: **Docs only** (DIAG out). Peel is
-  **moves=62**. EOT61 Neferet +24 matches C. Pass1 fleecks all 8 apps
-  on C and JS. C @112243 = mux-at-hero peaceful after flyer pass2 —
-  needs apprentice PRE into EOT61 (rn2 stream unaffected). Mid-pass
-  skip / Neferet mcalcmove-slot theories weakened.
-- Verification: green+strict PASS; focused still @112243 / RNG 112272.
-- Next: C path leaving one apprentice PRE≥12 into EOT61.
