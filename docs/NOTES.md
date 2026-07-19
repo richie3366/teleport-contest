@@ -7,22 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#913 D-0794/D-0795:** @112243 after matched bat fleecks, C
-  `distfleeck` (mux-at-hero apprentice) vs JS Neferet CLOSE spend→EOT.
-- **JS state (DIAG, removed):** EOT 704 PRE all mov=0; POST Neferet
-  mmove=15 → **+24** (last `rn2(12)=2<3`); 8 apprentices **+12**.
-  Step 706 umov=12 → one movemon pass: apprentices 12→0; Neferet
-  24→12; bats 24→12 leftover. Carries to 732 (no mon RNG 707–731).
-- **Paradox resolved to entry budgets:** C after 706 must have
-  **Neferet mov=0** and **one apprentice mov≥12** (same bat leftovers).
-  Apprentice +24 needs **PRE leftover at EOT 704** (mmove=12 never
-  alone yields 24). Neferet +12 needs her mcalcmove roll **≥3** (or
-  different mmove/mspeed).
-- **Falsify next:** C skip of one apprentice spend before EOT 704
-  (silent: frozen/`mon_offmap`/`utotype` stop) while fleeck RNG still
-  matches; and/or Neferet’s mcalcmove slot. D-0795 ports utotype/
-  mon_offmap/isgd skips — did not move @112243.
-- **Don’t:** FORCE CLOSE/mov; leave DIAG.
+- **#914 D-0794:** peel is **moves=62** (not “704”). EOT61 RNG matches
+  C (Neferet last `rn2(12)=2` → **+24**). Pass1 umov=12: all 8 apps
+  fleeck (C also 16 `distfleeck` in app region) 12→0; Neferet CLOSE
+  24→12; flyer leftovers. Pass2 umov=0: flyers fleeck through **112242**;
+  JS Neferet CLOSE silent → EOT `mcalcmove` @112243. C @112243:
+  `distfleeck` + peaceful `rn2(10)` (mux-at-hero) → one more mon → EOT
+  @112248.
+- **Hypothesis:** C enters moves=62 with **one apprentice PRE=12** at
+  EOT61 (`+=12` → 24). Pass1 24→12 leftover; Pass2 fleecks after bats.
+  Apprentice `mcalcmove` always calls `rn2(12)` even when adj=0 — PRE
+  does **not** shift the EOT rn2 stream. JS EOT58–61 all app PRE=0.
+- **Falsify next:** find C path that leaves one apprentice mov≥12 into
+  EOT61 (pre-spend skip with silent JS twin, or earlier 24→12 + missed
+  second pass). Don’t FORCE CLOSE/mov.
+- **Don’t:** FORCE CLOSE/mov; leave DIAG; re-clear CLOSE ≤112000.
 
 ## Don’t re-check (≤15)
 
@@ -39,6 +38,7 @@ Objective/score live in `CURRENT.md`.
 - `makemon` mux≠spawn (D-0793); FlipY moves `mx/my` not `mux/muy` (C).
 - FORCE Neferet CLOSE @112243 is coincidence (D-0794).
 - Step 706 fleeck-identical ≠ identical mov budgets (silent CLOSE spends).
+- C pass1 moves=62 fleecks all 8 apprentices (not a mid-pass skip).
 
 ## Landmarks (≤15)
 
@@ -58,5 +58,5 @@ Objective/score live in `CURRENT.md`.
 - **wizard2** (D-0771); **Wiz-strt** FlipY (D-0776/D-0782);
   **m_move mux-image** (D-0790); **WAITMASK** (D-0791);
   **Wizard ldrnum** (D-0792); **makemon mux=0** (D-0793);
-  **apprentice leftover** (D-0794); **movemon early exits** (D-0795).
+  **apprentice PRE @EOT61** (D-0794); **movemon early exits** (D-0795).
   `special_obj_hits_leader` deferred.

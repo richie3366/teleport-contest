@@ -75,12 +75,12 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @112243** — D-0794: leftover **apprentice**
-(mux-at-hero fleeck) vs JS Neferet CLOSE→EOT. JS EOT704→Neferet **+24**,
-apprentices **+12**; step706 one pass (umov=12) leaves Neferet@12.
-C needs Neferet@0 + one apprentice@≥12 ⇒ PRE leftover / mcalcmove slot.
-**D-0795:** ported `movemon_singlemon` utotype/`mon_offmap`/isgd skips
-(did not move peel). Parked D-0731.
+**Gameplay next:** **seed0360 @112243** — D-0794 (#914): **moves=62**.
+EOT61 Neferet **+24** matches C (`rn2=2`). Pass1 (umov=12): 8 apps
+fleeck 12→0 (C too); Neferet CLOSE 24→12. Pass2: flyers through
+112242; JS CLOSE→EOT; C mux-at-hero peaceful fleeck (apprentice PRE
+into EOT61 → pass1 24→12 leftover). **D-0795** early exits idle.
+Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \

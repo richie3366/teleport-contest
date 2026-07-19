@@ -18,29 +18,30 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   utotype return. Named omission: full vault `gd_move` body.
 - **Verification:** green+strict PASS; cohort 6/6 PASS; seed0360 still
   @112243 / RNG **112272** Scr **391** (gates idle on this path).
-- **Next:** find which pre-EOT704 apprentice spend C skips (or Neferet
-  mcalcmove slot) — D-0794.
+- **Next:** D-0794 — apprentice PRE into EOT61.
 
 ## D-0794 — seed0360 @112243 is leftover apprentice, not Neferet CLOSE
 
-- **Status:** diagnosed (refined #913; FORCE banned)
+- **Status:** diagnosed (refined #914; FORCE banned)
 - **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
   `mcalcmove` `rn2(12)`.
-- **C-state (#911–#912):** mux-at-hero fleeck; Neferet CLOSE coincidence
-  falsified; step706 fleeck RNG identical.
-- **C-state (#913):** JS DIAG (removed): EOT704 PRE all mov=0; Neferet
-  mmove=15 → +24 (`rn2=2<3`); apprentices +12. Step706 umov=12 → one
-  pass → Neferet@12, apprentices@0, bats@12. No mon RNG until 732.
-  Therefore C after 706 must differ in **entry** budgets: Neferet@0 +
-  one apprentice@≥12 (apprentice needs PRE leftover at EOT704; mmove=12
-  alone cannot yield 24). D-0795 early exits did not move the peel.
+- **C-state (#911–#913):** mux-at-hero fleeck; CLOSE FORCE coincidence
+  falsified; D-0795 early exits idle.
+- **C-state (#914):** peel is **moves=62**. EOT61 mcalcmove stream
+  matches C (26× `rn2(12)`; Neferet last `=2` → +24). Pass1 umov=12:
+  C and JS both fleeck all 8 apprentices (16 `distfleeck`); Neferet
+  CLOSE 24→12; flyer leftovers. Pass2: matched flyer fleeck through
+  112242; JS CLOSE silent → EOT; C continues peaceful mux-at-hero
+  fleeck + `rn2(10)` then EOT @112248. Apprentice `mcalcmove` always
+  rolls `rn2(12)` (adj=0) so PRE leftover does not desync EOT RNG.
+  JS EOT58–61 all apprentice PRE=0 ⇒ C must carry PRE≥12 into EOT61.
 - **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug` /
   `set_apparxy`.
-- **Change:** docs + D-0795 structural port; no FORCE.
-- **Named deferred:** which apprentice keeps PRE leftover on C before
-  EOT704; Neferet mcalcmove roll/slot; full `gd_move`.
+- **Change:** docs only (DIAG removed); no FORCE.
+- **Named deferred:** C path leaving one apprentice PRE into EOT61;
+  full `gd_move`; `dmonsfree` before utotype.
 - **Verification:** green+strict PASS; focused @112243 / RNG **112272**.
-- **Next:** falsify pre-EOT704 silent skip / Neferet allotment.
+- **Next:** falsify pre-EOT61 silent pre-spend skip / missed second pass.
 
 ## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
 
