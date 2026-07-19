@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0794 — seed0360 @112243 is leftover apprentice, not Neferet CLOSE
+
+- **Status:** diagnosed (no code; FORCE banned)
+- **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
+  `mcalcmove` `rn2(12)`.
+- **C-state (#911):** Step 732 `.` rest. After bat fleecks, JS Neferet
+  `@26,14` (`STRAT_CLOSE`, `mux=0,0`) spends then early-out → EOT.
+  Prior FORCE clear Neferet CLOSE+mux=hero matched ~112246 only because
+  peaceful `fleeck`/`m_move` signatures match any peaceful actor.
+  **Falsifier:** suppress Neferet + boost first apprentice (`mov=12`,
+  mux already hero from step 706) → mismatch moves to **112247**,
+  matched RNG **112279**. So C’s next actor is a leftover **apprentice**,
+  not Neferet. Session never cleared CLOSE (`#chat` → SELF). Step 706
+  `l`: C/JS both **7×** `rn2(10)` peace + **1×** castmu; JS still runs
+  **8** apprentice dochugs → all apprentices `mov=0` at 112194; C must
+  keep one apprentice with `mov≥12`. Hero `Displaced`.
+- **C locus:** `mon.c` `movemon` / `mcalcmove`; `monmove.c` `dochug`
+  (CLOSE early-out still correct for Neferet).
+- **Change:** docs only — DIAG removed.
+- **Named deferred:** which apprentice idles on C during step 706;
+  why JS gives that mon a turn; do not FORCE CLOSE/movement.
+- **Verification:** green+strict PASS; focused still @112243 /
+  RNG **112272** Scr **391** (no production patch).
+- **Next:** find the extra JS apprentice spend in step 706 vs C.
+
 ## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
 
 - **Status:** fixed (seed0360 still FAIL @112243)

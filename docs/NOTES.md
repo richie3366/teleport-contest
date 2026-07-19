@@ -7,18 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#909 D-0793:** `makemon` `mux`/`muy` = 0 (`zeromonst`); was spawn xy.
-- **@112243 DIAG (keep):** after bat fleeck, Neferet@26,14 spends +
-  `STRAT_CLOSE` skip → EOT `mcalcmove` `rn2(12)`. C: peaceful fleeck
-  `rn2(5)` + `m_move` `rn2(10)` then 2nd fleeck then EOT.
-- **FORCE (removed):** clear CLOSE @112243 + set `mux,muy=hero` →
-  matches through C’s `rn2(5)`/`rn2(10)`/`rn2(1)`/`rn2(2)` (~112246).
-  Clear alone inserts Displacement `set_apparxy` `rn2(4)` (stale mux).
-  Early CLOSE clear (thr≤112100) still regresses.
-- **Next:** C path that clears Neferet CLOSE *and* leaves `mux` at hero
-  before 112243 (not FORCE). She was born @99733; only one spend by
-  112243 (quest level idle). `#chat` SELF; no session “Really attack”.
-- **Don’t:** FORCE clear; re-break D-0790…D-0793; leave DIAG.
+- **#911 D-0794:** @112243 is **leftover apprentice**, not Neferet CLOSE.
+- Step 732 `.`: after bats, JS Neferet CLOSE skip → EOT `mcalcmove`.
+  C next is peaceful `distfleeck`/`m_move` `rn2(10)`.
+- **Falsified:** FORCE Neferet CLOSE+mux=hero matching was signature
+  coincidence (any peaceful fleeck). Suppress Neferet + boost first
+  apprentice (`mov=12`, mux already @hero) → mismatch **112247**,
+  RNG matched **112279**.
+- Step 706 `l`: both sides 7× peace `rn2(10)` + 1× castmu; JS still
+  **8** apprentice dochugs → all `mov=0` @112194; C keeps one with
+  `mov≥12`. Neferet mmove=15 (can be 24); apprentices mmove=12.
+- Session `#chat` → SELF (never cleared CLOSE). Hero Displaced.
+- **Next:** which apprentice idles on C in step 706 / why JS spends
+  that mon; not FORCE CLOSE or mov.
+- **Don’t:** FORCE clear CLOSE; boost movement; leave DIAG.
 
 ## Don’t re-check (≤15)
 
@@ -33,6 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Wizard had no `ldrnum` → no `leader_m_id` (D-0792).
 - Clearing Neferet CLOSE at thr≤112000 regresses (#908).
 - `makemon` mux≠spawn (D-0793); FlipY moves `mx/my` not `mux/muy` (C).
+- FORCE Neferet CLOSE @112243 is coincidence (D-0794).
 
 ## Landmarks (≤15)
 
@@ -51,5 +54,5 @@ Objective/score live in `CURRENT.md`.
 - Mumak **lacks** M2_ROCKTHROW; linedup uses handling=2.
 - **wizard2** (D-0771); **Wiz-strt** FlipY (D-0776/D-0782);
   **m_move mux-image** (D-0790); **WAITMASK** (D-0791);
-  **Wizard ldrnum** (D-0792); **makemon mux=0** (D-0793).
-  **`special_obj_hits_leader` deferred; attack_checks peaceful yn deferred.**
+  **Wizard ldrnum** (D-0792); **makemon mux=0** (D-0793);
+  **apprentice leftover** (D-0794). `special_obj_hits_leader` deferred.
