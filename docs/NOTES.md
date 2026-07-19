@@ -7,20 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#804 peel:** D-0722/23 — seed0108 Scr **187**/303 RNG FULL; prefix 109.
-  Next: @109 `#polyself` red dragon — botl `Fly` via `set_uasmon`
-  PROPSET(FLYING) FROMFORM (`polyself.c` ~100).
+- **#805 peel:** D-0724 — seed0108 Scr **280**/303 RNG FULL; suite
+  **35/44** Scr 7901 RNG 527316 (score refresh).
+  Next: remaining 23 screens after red-dragon `Fly` — rest of
+  `set_uasmon` PROPSET / `float_vs_flight`, or seed0014 @49039.
   Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0723; invent nearby force for D-0710;
+- **Don’t:** re-break D-0660…D-0724; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0723 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0724 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,17 +35,17 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…23: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…24: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
-  / **Upolyd botl+glyph+weight** / **`#monster`** — missing `#monster` was
-  @88 after gnome More; next Fly FROMFORM.
+  / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** —
+  rest of PROPSET + float_vs_flight still omitted.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#800; Scr 7695 RNG 513641).
+  **seed0367** **PASS** (suite **35/44** @#805; Scr 7901 RNG 527316).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -63,5 +64,5 @@ Objective/score live in `CURRENT.md`.
   `#invoke` AC+EXT_CMDS; Blind ≡ props (D-0716); `set_mon_data` umov
   (D-0717); **newman** (D-0718); **`#tip`/`dotip`** (D-0719);
   throw `.` self (D-0720); cream Blind vision (D-0721);
-  Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723).
-  `set_uasmon` FROMFORM FLYING still omitted (next @109).
+  Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723);
+  **FROMFORM FLYING** (D-0724). Rest of set_uasmon PROPSET deferred.

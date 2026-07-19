@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#800**).
-Screens **7695**/11405; RNG **513,641**/792838 (64.79%).
-**35/44** PASS. Δ vs #795: Scr +16, RNG +352 (D-0714…D-0717 peels).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#805**).
+Screens **7901**/11405; RNG **527,316**/792838 (66.51%).
+**35/44** PASS. Δ vs #800: Scr +206, RNG +13,675 (D-0719…D-0724 peels).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **35 / 44** |
-| Screens matched | **7,695 / 11,405** |
-| Positional RNG calls matched | **513,641 / 792,838** (64.79%) |
-| Speed label | `36+0.18/turn` (R² 0.785) |
+| Screens matched | **7,901 / 11,405** |
+| Positional RNG calls matched | **527,316 / 792,838** (66.51%) |
+| Speed label | `37+0.18/turn` (R² 0.777) |
 | Role-init throws | **0 / 44** |
 
 **PASS (35):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,8 +46,8 @@ seed5006, seed0116, seed0361, seed0367.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 575/714 | @#800; prefix @49039 D-0708 |
-| seed0108 | **16958**/16958 | **148**/303 | @#802; RNG FULL (D-0719); Scr next |
+| seed0014 | 49495/59178 | 575/714 | @#805; prefix @49039 D-0708 |
+| seed0108 | **16958**/16958 | **280**/303 | @#805; RNG FULL; Scr +93 D-0724 |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,18 +72,18 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 RNG **FULL** (D-0719); Scr **187**/303
-(D-0722/23). Next: @109 `#polyself` red dragon — botl `Fly` via
-`set_uasmon` PROPSET(FLYING) FROMFORM. Or seed0014 @49039 **D-0708.**
-Prefer shared blockers. seed2200 @158 parked.
-Do **not** re-break D-0660…D-0723.
+**Gameplay next:** seed0108 RNG **FULL**; Scr **280**/303 (D-0724
+FROMFORM FLYING). Next: remaining 23 screens after red-dragon `Fly` —
+rest of `set_uasmon` PROPSET / `float_vs_flight`, or seed0014 @49039
+**D-0708.** Prefer shared blockers. seed2200 @158 parked.
+Do **not** re-break D-0660…D-0724.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0723.**
+**Do not re-break D-0660…D-0724.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

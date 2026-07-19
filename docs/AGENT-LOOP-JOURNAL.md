@@ -19,6 +19,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #805 score refresh + FROMFORM FLYING (D-0724)
+- Objective: mandatory full `sessions` score (#805÷5) + seed0108 @109 Fly.
+- C locus: `polyself.c` `set_uasmon` PROPSET(FLYING).
+- Change: `propset_fromform(FLYING,…)` on uprops + HFlying (D-0724).
+- Verification: green+strict PASS; seed0108 Scr **187→280** RNG FULL;
+  cohort PASS; full suite **35/44** Scr **7901**/11405 RNG **527316**/792838
+  (66.51%; Δ vs #800 Scr +206 RNG +13675).
+- Next: seed0108 remaining 23 screens / rest PROPSET; or D-0708.
+
 ## 2026-07-19 — #804 seed0108 Upolyd display + #monster (D-0722/23)
 - Objective: seed0108 @78 `#polyself` gnome cloak More / glyph / botl.
 - C locus: `polyself.c` polymon/break_armor; `botl.c`; `display.h`

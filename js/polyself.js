@@ -37,6 +37,8 @@ import {
     noncorporeal,
     nohands,
     verysmall,
+    is_flyer,
+    is_floater,
     MZ_SMALL,
 } from './monsters.js';
 import {
@@ -56,6 +58,8 @@ import {
     W_ARMU,
     In_endgame,
     MAXULEV,
+    FROMFORM,
+    FLYING,
 } from './const.js';
 import {
     PM_HUMAN,
@@ -120,10 +124,29 @@ function uasmon_maxStr() {
 }
 
 /**
+ * C ref: polyself.c set_uasmon PROPSET — toggle FROMFORM on uprops + H*.
+ * Mirrors C `u.uprops[PropIndx].intrinsic |= / &= ~FROMFORM`.
+ */
+function propset_fromform(propIdx, hField, on) {
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[propIdx]) {
+        u.uprops[propIdx] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    }
+    if (on) {
+        u.uprops[propIdx].intrinsic = (u.uprops[propIdx].intrinsic | 0) | FROMFORM;
+        u[hField] = (u[hField] | 0) | FROMFORM;
+    } else {
+        u.uprops[propIdx].intrinsic = (u.uprops[propIdx].intrinsic | 0) & ~FROMFORM;
+        u[hField] = (u[hField] | 0) & ~FROMFORM;
+    }
+}
+
+/**
  * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
  * via set_mon_data (prorates u.umovement when new form is slower).
- * Named omissions: FROMFORM resistance PROPSET catalogue; vamp cham;
- * polysense; light-source bookkeeping.
+ * Named omissions: resistance/movement PROPSET beyond FLYING; vamp cham;
+ * float_vs_flight; polysense; light-source bookkeeping.
  */
 export function set_uasmon() {
     const u = game.u || (game.u = {});
@@ -137,6 +160,10 @@ export function set_uasmon() {
     // Protection_from_shape_changers / vampire cham deferred
     if (game.youmonst.cham == null) game.youmonst.cham = NON_PM;
     u.mcham = game.youmonst.cham;
+
+    // C: PROPSET(FLYING, is_flyer(mdat) && !is_floater(mdat)) — D-0724
+    // floating eye is flyer+floater; suppress Flying under Levitation.
+    propset_fromform(FLYING, 'HFlying', is_flyer(mdat) && !is_floater(mdat));
 }
 
 function copyAttrBundle(src) {

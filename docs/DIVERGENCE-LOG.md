@@ -4,6 +4,19 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0724 — `set_uasmon` PROPSET(FLYING) FROMFORM (seed0108 Scr)
+
+- **Status:** fixed (partial — seed0108 Scr **280**/303; RNG FULL)
+- **Symptom:** @109 `#polyself` red dragon — C botl shows `Fly`; JS omitted.
+- **C locus:** `polyself.c` `set_uasmon` PROPSET(FLYING,
+  `is_flyer(mdat) && !is_floater(mdat)`).
+- **Cause:** `set_uasmon` only wired `set_mon_data`; no FROMFORM PROPSET.
+- **Change:** `propset_fromform(FLYING, 'HFlying', …)` syncs uprops + H*.
+  Named omissions: rest of PROPSET catalogue; `float_vs_flight`; polysense.
+- **Verification:** green+strict PASS; seed0108 Scr **187→280**; cohort
+  poly seeds PASS; full suite #805 **35/44** Scr 7901 RNG 527316.
+- **Next:** remaining 23 seed0108 screens; or seed0014 @49039 D-0708.
+
 ## D-0723 — EXT_CMDS `#monster` / domonability reflexive (seed0108 Scr)
 
 - **Status:** fixed (partial — seed0108 Scr **187**/303; RNG FULL; prefix 109)
