@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#805; prefix @49039 D-0708 |
-| seed0108 | **16958**/16958 | **280**/303 | @#805; RNG FULL; Scr +93 D-0724 |
+| seed0108 | **16958**/16958 | **287**/303 | @#807; RNG FULL; Scr +4 D-0726 |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,17 +72,18 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 RNG **FULL**; Scr **283**/303 (D-0725 breath
-tip + energy). Next: @176 nohands chest (`pickup.c` "You have no hands!"),
-`#untrap`, or newman "new man" wording — prefer shared blockers.
-Do **not** re-break D-0660…D-0725.
+**Gameplay next:** seed0108 RNG **FULL**; Scr **287**/303 (D-0726 nohands
+loot + `#untrap` + newman). Next: @216 after locked `#loot` `yy` —
+C `In what direction?` (autounlock/open); doforce ynq def `(q)`; or
+`#herecmdmenu`. Prefer shared blockers.
+Do **not** re-break D-0660…D-0726.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0725.**
+**Do not re-break D-0660…D-0726.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

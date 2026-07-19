@@ -322,9 +322,13 @@ async function newman() {
 
     const female = Upolyd(u) ? !!u.mfemale : !!flags.female;
     const race = game.urace || {};
-    // C: urace.individual.f/m else noun — JS races lack individual{}; use noun
-    const newform = race.noun || race.adj || 'human';
-    void female; // gendered individual.* deferred
+    // C: ((Upolyd ? u.mfemale : flags.female) && urace.individual.f)
+    //    ? individual.f : individual.m ? individual.m : urace.noun
+    const newform = (female && race.individual?.f)
+        ? race.individual.f
+        : (race.individual?.m)
+            ? race.individual.m
+            : (race.noun || race.adj || 'human');
     await polyman('You feel like a new %s!', newform);
 
     // Slimed residual / livelog deferred

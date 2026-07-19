@@ -36,6 +36,8 @@ import { oclass_to_sym } from './options.js';
 import { objectNames, COIN_CLASS } from './objects.js';
 import { ATR_INVERSE } from './terminal.js';
 import { addtobill, costly_spot } from './shk.js';
+import { nohands } from './monsters.js';
+import { welded } from './wield.js';
 
 /* C ref: pickup.c static load-prefix strings for pickup_prinv / lift_object */
 const slightloadpfx = 'You have a little trouble';
@@ -1326,9 +1328,44 @@ async function menu_loot_putin(container) {
 }
 
 /**
+ * C ref: engrave.c freehand — free hand for loot/tip gates.
+ */
+function freehand() {
+    const u = game.u || {};
+    const uwep = u.uwep;
+    // C: (!uwep || !welded(uwep) || (!bimanual(uwep) && (!uarms || !uarms->cursed)))
+    if (!uwep || !welded(uwep)) return true;
+    const bimanual = !!(game.objects?.[uwep.otyp]?.oc_big);
+    if (!bimanual && (!u.uarms || !u.uarms.cursed)) return true;
+    return false;
+}
+
+/** C ref: mondata.c body_part(HAND) — poly table deferred → "hand". */
+function body_part_hand() {
+    return 'hand';
+}
+
+/**
+ * C ref: pickup.c u_handsy — nohands / freehand gate for containers.
+ * @returns {Promise<boolean>}
+ */
+async function u_handsy() {
+    if (nohands(game.youmonst?.data)) {
+        // C: You("have no hands!"); /* not body_part(HAND) */
+        await pline('You have no hands!');
+        return false;
+    }
+    if (!freehand()) {
+        await pline(`You have no free ${body_part_hand()}.`);
+        return false;
+    }
+    return true;
+}
+
+/**
  * C ref: pickup.c use_container — held/floor container loot.
- * Branch envelope: unlocked; in_or_out_menu (lootabc a/b/c); ':' look;
- * 'o'/'a' menu_loot take-out (MENU_FULL category); 'i'/'b' put-in; 'q' abort.
+ * Branch envelope: u_handsy; unlocked; in_or_out_menu (lootabc a/b/c);
+ * ':' look; 'o'/'a' menu_loot take-out; 'i'/'b' put-in; 'q' abort.
  * Named omissions: chest trap; BoT; stash/both/reversed; traditional_loot;
  * autopick 'A'; more_containers 'n'.
  *
@@ -1338,6 +1375,9 @@ async function menu_loot_putin(container) {
  */
 export async function use_container(obj, held = false, _more = false) {
     if (!obj) return ECMD_OK;
+
+    // C: if (!u_handsy()) return ECMD_OK;
+    if (!(await u_handsy())) return ECMD_OK;
 
     if (obj.olocked) {
         // C ref: pickup.c use_container — held locked; floor #loot uses
@@ -1450,14 +1490,29 @@ async function do_loot_cont(cobj) {
 
 /**
  * C ref: pickup.c doloot / doloot_core — loot container underfoot.
- * Branch envelope: single floor container → do_loot_cont (locked
- * autounlock + unlocked use_container). Named omissions: capacity /
- * nohands / Confusion reverse_loot; multi-cont menu; directional
- * lootmon beyond underfoot; grave; saddle; cockatrice; AUTOUNLOCK_FORCE.
+ * Branch envelope: capacity; nohands; single floor container →
+ * do_loot_cont (locked autounlock + unlocked use_container).
+ * Named omissions: capacity pline path; Confusion reverse_loot;
+ * multi-cont menu; directional lootmon beyond underfoot; grave;
+ * saddle; cockatrice; AUTOUNLOCK_FORCE.
  */
 export async function doloot() {
     const u = game.u;
     if (!u) return ECMD_OK;
+
+    // C: check_capacity(NULL) then nohands → "You have no hands!"
+    if (check_capacity(null)) {
+        await pline(
+            game._check_capacity_msg
+            || "You can't do that while carrying so much stuff.",
+        );
+        game._check_capacity_msg = null;
+        return ECMD_OK;
+    }
+    if (nohands(game.youmonst?.data)) {
+        await pline('You have no hands!');
+        return ECMD_OK;
+    }
 
     let cobj = null;
     for (let o = objects_at(u.ux, u.uy); o; o = o.nexthere) {

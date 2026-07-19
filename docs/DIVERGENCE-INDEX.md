@@ -706,6 +706,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0723 | fixed | EXT_CMDS `#monster`/domonability reflexive | seed0108 Scr 186→187; prefix 88→109; next @109 Fly |
 | D-0724 | fixed | `set_uasmon` PROPSET(FLYING) FROMFORM | seed0108 Scr 187→280; rest PROPSET deferred |
 | D-0725 | fixed | polymon verbose breath tip + dobreathe uen gate | seed0108 Scr 280→283; prefix 110→176; next @176 nohands |
+| D-0726 | fixed | doloot nohands + #untrap could_untrap + newman individual | seed0108 Scr 283→287; prefix 176→216; next @216 open dir |
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |

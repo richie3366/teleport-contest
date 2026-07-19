@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0726 — doloot nohands + #untrap could_untrap + newman individual
+
+- **Status:** fixed (partial — seed0108 Scr **287**/303; RNG FULL; prefix 216)
+- **Symptom:** @176 `#loot` as red dragon — C `You have no hands!`; JS
+  opened loot menu. @191 `#untrap` unknown. @207 newman `new human` vs
+  `new man`.
+- **C locus:** `pickup.c` `doloot`/`u_handsy`; `trap.c` `could_untrap`/
+  `dountrap`; `polyself.c` `newman` + `role.c` `urace.individual`.
+- **Cause:** nohands gate omitted; `#untrap` not in EXT_CMDS; newman used
+  `race.noun` instead of `individual.m` (`"man"`).
+- **Change:** `doloot` capacity+nohands; `use_container`→`u_handsy`;
+  `could_untrap`/`dountrap` + EXT_CMDS; human `individual` + newman form.
+  Named omissions: Confusion reverse_loot; full `untrap()`; sticks/ustuck
+  wording; doforce ynq def `q`; autounlock open-dir after locked `#loot`.
+- **Verification:** green+strict PASS; seed0108 Scr **283→287** (prefix
+  **176→216**); cohort 33/33 PASS.
+- **Next:** @216 after locked `#loot` yy — C `In what direction?` (open);
+  doforce ynq `(q)`; `#herecmdmenu`.
+
 ## D-0725 — polymon verbose breath tip + dobreathe energy (seed0108 Scr)
 
 - **Status:** fixed (partial — seed0108 Scr **283**/303; RNG FULL; prefix 176)

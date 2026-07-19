@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#806 peel:** D-0725 — seed0108 Scr **283**/303 RNG FULL; prefix **176**.
-  Next: @176 chest — C `You have no hands!` (`pickup.c`); `#untrap`;
-  newman "new man" vs "new human". Or seed0014 @49039 D-0708.
+- **#807 peel:** D-0726 — seed0108 Scr **287**/303 RNG FULL; prefix **216**.
+  Next: @216 after locked `#loot` `yy` — C `In what direction?` (open /
+  autounlock kick?); doforce ynq def `(q)` vs JS `(n)`; `#herecmdmenu`.
   Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0725; invent nearby force for D-0710;
+- **Don’t:** re-break D-0660…D-0726; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0725 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0726 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,11 +34,12 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…25: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…26: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
   / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
-  **verbose breath tip + dobreathe uen** — getdir/ubuzz + other tips deferred;
-  rest of PROPSET + float_vs_flight still omitted.
+  **verbose breath tip + dobreathe uen** / **doloot nohands + #untrap +
+  newman individual** — getdir/ubuzz + other tips deferred; full `untrap()`
+  deferred; rest of PROPSET + float_vs_flight still omitted.
 
 ## Landmarks (≤15)
 
@@ -62,7 +63,8 @@ Objective/score live in `CURRENT.md`.
   Boots `oc_delay`=2; FUMBLE `Boots_on` → `incr_itimeout(HFumbling,rnd(20))`.
   `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.
   `#invoke` AC+EXT_CMDS; Blind ≡ props (D-0716); `set_mon_data` umov
-  (D-0717); **newman** (D-0718); **`#tip`/`dotip`** (D-0719);
+  (D-0717); **newman individual.m** (D-0726); **`#tip`/`dotip`** (D-0719);
   throw `.` self (D-0720); cream Blind vision (D-0721);
   Upolyd botl/glyph/weight (D-0722); `#monster` (D-0723);
-  **FROMFORM FLYING** (D-0724); **breath tip + dobreathe** (D-0725).
+  **FROMFORM FLYING** (D-0724); **breath tip + dobreathe** (D-0725);
+  **doloot nohands / `#untrap` could_untrap** (D-0726).

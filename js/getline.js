@@ -367,6 +367,16 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'untrap',
+        wiz: false,
+        autocomplete: true,
+        // C ref: trap.c dountrap — #untrap disarm
+        run: async () => {
+            const { dountrap } = await import('./trap.js');
+            return dountrap();
+        },
+    },
+    {
         name: 'tip',
         wiz: false,
         autocomplete: true,
