@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0792 | fixed | Wizard ldrnum + mundisplaceable | leader_m_id set; refuse leader swap; CLOSE-clear @112243 falsified |
 | D-0001 | fixed | input/messages | Missing blocking `--More--` reassigned later keys |
 | D-0002 | fixed | object generation | Vault gold must merge rather than allocate again |
 | D-0003 | fixed | startup/eat | Tutorial answer and cookie rumor key ownership |
@@ -772,6 +773,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0789 | fixed | dotele clear travelcc before tele (^T getpos) | seed0360 110844→110880; suite RNG 111566 |
 | D-0790 | fixed | m_move post-select mux-image → m_move_aggress DONE | seed0360 110880→112243; focused RNG 112272 |
 | D-0791 | fixed | attack_checks WAITMASK + is_safemon canspotmon + wake G_UNIQ | seed0360 still @112243; Neferet CLOSE next |
+| D-0792 | fixed | Wizard ldrnum + mundisplaceable | leader_m_id; refuse leader swap; CLOSE-clear @112243 falsified |
 
 
 

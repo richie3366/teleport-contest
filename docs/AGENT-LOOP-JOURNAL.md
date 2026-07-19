@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 21:10 — #908 D-0792 Wizard ldrnum + mundisplaceable
+- Objective: seed0360 @112243 Neferet CLOSE peel.
+- C locus: `role.c` Wizard quest fields; `monst.h` `mundisplaceable`;
+  `hack.c` `domove_swap_with_pet`.
+- Change: Wizard `ldrnum`/`guardnum`/`homebase`/`questarti`; refuse
+  leader/Oracle/priest/shk/gd swap. **Falsified:** clearing Neferet
+  CLOSE at any thr≤112000 regresses prefix (thr=-1 best @112243).
+- Verification: green+strict PASS; cohort 7/7 PASS; seed0360 still
+  @112243 / RNG 112272 Scr 391.
+- Next: @112243 movement leftover / second movemon pass (not CLOSE).
+
 ## 2026-07-19 21:00 — #907 D-0791 WAITMASK disturb + Neferet CLOSE diag
 - Objective: seed0360 @112243 C distfleeck rn2(5) vs JS rn2(12).
 - C locus: `uhitm.c` `attack_checks` first line; `display.h` `_is_safemon`;
@@ -150,24 +161,3 @@ Use this shape:
 - Verification: green+strict PASS; full suite exit 37/44.
 - Next: D-0779 C-state after quasit CLOUD (`m_in_out_region` / offmap
   setter) — do not implement without falsifier.
-
-## 2026-07-19 18:05 — #894 D-0779/D-0781 quasit CLOUD skip fleeck
-- Objective: seed0360 @101022 quasit 2nd fleeck vs bat `!rn2(3)`.
-- C locus: `monmove.c` `dochug`/`postmov` `mon_offmap`; CLOUD step.
-- Change: D-0781 `mon_offmap` in `dochug`/`postmov`. Falsified:
-  df-only/`want_move` false (FORCE →101025 only). FORCE DIED-after-
-  CLOUD → **101228**/Scr387 — C moves then skips 2nd fleeck; no
-  trap/gas at dest; offmap setter still missing.
-- Verification: green+strict PASS; cohort 6/6 PASS; peel still @101022.
-- Next: C-state postmov after CLOUD (`m_in_out_region` omitted).
-
-## 2026-07-19 17:45 — human pause: strategy reflection (post-#893)
-- Objective: explain stuck feel; decide if peel strategy needs change.
-- C locus: n/a (meta). See `archive/REFLECTION-2026-07-19-seed0360-peel.md`.
-- Change or falsified theory: strategy **keep**; tactics adjust — after
-  2 falsifications require C-state / site-shift checklist; PASS flat at
-  37 is lagging (seed0360 still FAIL). Diagnose burn @98492 and @100738
-  was real; loader peels #743–#881 were healthy. #893 open: C quasit
-  df-only vs JS 2nd fleeck (not bat gate).
-- Verification: docs only; human paused loop then cleared stop latch.
-- Next: #894+ peel packet in reflection file (C quasit df-only).

@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0792 — Wizard ldrnum + mundisplaceable (Neferet CLOSE peel)
+
+- **Status:** fixed (seed0360 still FAIL; CLOSE-clear hypothesis falsified)
+- **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
+  `mcalcmove` `rn2(12)`. Prior theory: Neferet `STRAT_CLOSE` no-op.
+- **C-state (#908):** Wizard `roles.js` omitted `ldrnum`/`guardnum`/
+  `homebase`/`questarti` → `urole.ldrnum === NON_PM` → `makemon` never
+  set `leader_m_id`. JS `domove` swapped with Neferet (C
+  `mundisplaceable` refuses leader/Oracle/priest/shk/gd). Session
+  `#chat` never hit her (blank/SELF). **Falsifier:** force-clearing
+  leader `WAITMASK` at any RNG threshold ≤112000 *regresses* prefix
+  (thr=-1 best at 112243). Clearing CLOSE is not the @112243 fix.
+- **C locus:** `role.c` Wizard `PM_NEFERET_THE_GREEN` + quest fields;
+  `monst.h` `mundisplaceable`; `hack.c` `domove_swap_with_pet`.
+- **Change:** `js/roles.js` Wizard quest fields; `js/uhitm.js`
+  `mundisplaceable`; `js/cmd.js` refuse swap + stop pline.
+- **Named deferred:** other roles still missing quest fields; swap
+  `goodpos`/trap-on-dest; `special_obj_hits_leader`; peaceful yn.
+- **Verification:** green+strict PASS; cohort 7/7 PASS (excl. 0360);
+  seed0360 still @112243 / RNG **112272** Scr **391**.
+- **Next:** @112243 — why JS EOT `mcalcmove` while C has another
+  peaceful fleeck (movement leftover / second `movemon` pass), not
+  Neferet CLOSE clear.
+
 ## D-0791 — attack_checks WAITMASK + is_safemon canspotmon + wake G_UNIQ
 
 - **Status:** fixed (seed0360 still FAIL; prerequisite / faithfulness)

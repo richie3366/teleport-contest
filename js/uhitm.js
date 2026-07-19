@@ -53,6 +53,7 @@ const AT_BOOM = 14; // monattk.h — explode on death
 const NATTK_CC = 6;
 const FIGURINE = objectNames.indexOf('FIGURINE');
 const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
+const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
 
 // C ref: monattk.h damage types used by passive / passive_obj
 const AD_MAGM = 1;
@@ -149,6 +150,20 @@ export function is_safemon(mon) {
     if (!canspotmon(mon)) return false;
     if (game.u?.Confusion || game.u?.Hallucination || game.u?.Stunned) return false;
     return true;
+}
+
+/**
+ * C ref: monst.h mundisplaceable — priests/shks/guards/Oracle/quest leader
+ * refuse peaceful place-swaps.
+ */
+export function mundisplaceable(mon) {
+    if (!mon) return false;
+    if (mon.ispriest || mon.isshk || mon.isgd) return true;
+    const mndx = mon.mnum ?? mon.data?.mndx;
+    if (PM_ORACLE >= 0 && mndx === PM_ORACLE) return true;
+    const lid = game.quest_status?.leader_m_id;
+    if (lid != null && (mon.m_id | 0) === (lid | 0)) return true;
+    return false;
 }
 
 function m_at(x, y) {
