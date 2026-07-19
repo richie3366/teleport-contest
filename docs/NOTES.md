@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#850 D-0754 fixed:** `load_minetn_5` (Grotto Town). NOTES “next Gehennom
-  special after sanctum” falsified — C `makemaz` `rnd(7)=5` → **minetn-5**.
-  Prefix **43248**. Suite #850: **37/44**, Scr 8212, RNG **573869** (72.38%).
-- **Next @43248:** C `minend-2` (`makemaz` `rnd(3)=2`) vs JS `rn2(79)`.
-  Falsifier: which minend variant C loads after minetn-5 leave.
+- **#851 D-0755 fixed:** `load_minend_2` (Gnome King's Wine Cellar).
+  Prefix **52601**. Engravings use degrade-default (`nowipeout=0`) — setting
+  `nowipeout=1` skipped C `wipe_engr_at` `rn2(26)`.
+- **Next @52601:** C `soko4-1` (`makemaz` `rnd(2)=1`, Sokoban entry) vs JS
+  `rn2(79)`. Falsifier: which soko4 variant C loads after mines end leave.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -21,15 +21,16 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0754 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0755 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0754 seed0360 peels (boots/oracle/castle/valley/mkclass/
+- D-0743…D-0755 seed0360 peels (boots/oracle/castle/valley/mkclass/
   rnd_misc/sanctum+peace_minded/hell-temp+temperature_shift/region_islev/
-  maybe_generate/minetn-5).
+  maybe_generate/minetn-5/minend-2).
 - D-0750: next miss after valley is **sanctum** (not asmodeus).
 - D-0754: next miss after sanctum is **minetn-5** (not hellfill/asmodeus).
+- D-0755: next miss after minetn-5 is **minend-2** (not Gehennom).
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -42,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **  seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#850;
-  Scr 8212, RNG 72.38%; seed0360 **43248**/207 after D-0754).
+  Scr 8212, RNG 72.38%; seed0360 **52601**/238 after D-0755).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -54,9 +55,10 @@ Objective/score live in `CURRENT.md`.
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
   asmodeus/baalz/orcus/juiblex/hellfill/wizard*/fakewiz deferred;
-  minend-2/3 deferred; `pick_nasty` GEHENNOM dnum deferred.
+  minend-3 / **soko4-1**/soko2-2 deferred; `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **minend-2 Wine Cellar** (D-0755);
   **minetn-5 Grotto Town** (D-0754);
   **maybe_generate stronghold depth rate** (D-0753);
   **sanctum region_islev absolute tele** (D-0752);

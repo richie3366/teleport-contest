@@ -182,6 +182,7 @@ const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
 const RIN_LEVITATION = objectNames.indexOf('RIN_LEVITATION');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const POT_OBJECT_DETECTION = objectNames.indexOf('POT_OBJECT_DETECTION');
+const POT_BOOZE = objectNames.indexOf('POT_BOOZE');
 const DIAMOND = objectNames.indexOf('DIAMOND');
 const EMERALD = objectNames.indexOf('EMERALD');
 const RUBY = objectNames.indexOf('RUBY');
@@ -718,10 +719,10 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-2, tower1, fire, air, minend-1, minetn-2, minetn-5, medusa-1, oracle, castle,
- * valley, sanctum, Pri-fila, Pri-filb.
+ * soko4-2, tower1, fire, air, minend-1, minend-2, minetn-2, minetn-5, medusa-1,
+ * oracle, castle, valley, sanctum, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal); minetn-1/3/4/6/7; minend-2/3; tower2/3;
+ * protos (Bar-goal); minetn-1/3/4/6/7; minend-3; tower2/3;
  * medusa-2/3/4; water/earth/astral; asmodeus/baalz/orcus/juiblex/hellfill;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
@@ -904,6 +905,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minend-1') {
         load_minend_1();
+        return true;
+    }
+    if (protofile === 'minend-2') {
+        load_minend_2();
         return true;
     }
     if (protofile === 'minetn-2') {
@@ -4306,7 +4311,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 /**
  * C ref: dat/minend-1.lua via load_special — Mimic of the Mines.
- * Named omissions: minend-2/3; ensure_way_out; link_doors_rooms full scan;
+ * Named omissions: minend-3; ensure_way_out; link_doors_rooms full scan;
  * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
  */
 function load_minend_1() {
@@ -4499,6 +4504,255 @@ function load_minend_1() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/minend-2.lua via load_special — Gnome King's Wine Cellar.
+ * Solidfill + centered map + percent terrain + region_islev tele + prize.
+ * Named omissions: minend-3; ensure_way_out; link_doors_rooms full scan;
+ * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
+ */
+function load_minend_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const MINEND2_MAP = `
+---------------------------------------------------------------------------
+|...................................................|                     |
+|.|---------S--.--|...|--------------------------|..|                     |
+|.||---|   |.||-| |...|..........................|..|                     |
+|.||...| |-|.|.|---...|.............................|                ..   |
+|.||...|-|.....|....|-|..........................|..|.               ..   |
+|.||.....|-S|..|....|............................|..|..                   |
+|.||--|..|..|..|-|..|----------------------------|..|-.                   |
+|.|   |..|..|....|..................................|...                  |
+|.|   |..|..|----|..-----------------------------|..|....                 |
+|.|---|..|--|.......|----------------------------|..|.....                |
+|...........|----.--|......................|     |..|.......              |
+|-----------|...|.| |------------------|.|.|-----|..|.....|..             |
+|-----------|.{.|.|--------------------|.|..........|.....|....           |
+|...............|.S......................|-------------..-----...         |
+|.--------------|.|--------------------|.|.........................       |
+|.................|                    |.....................|........    |
+---------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    const { xstart: mx, ystart: my } = splev_apply_centered_map(MINEND2_MAP);
+
+    const setTer = (rx, ry, typ) => {
+        sel_set_ter(mx + rx, my + ry, typ, SET_LIT_NOCHANGE);
+    };
+    const setArea = (x1, y1, x2, y2, typ) => {
+        for (let y = y1; y <= y2; y++)
+            for (let x = x1; x <= x2; x++)
+                setTer(x, y, typ);
+    };
+
+    // percent terrain variants (C nhlib percent → rn2(100))
+    if (percent(50)) {
+        setTer(55, 14, HWALL);
+        setTer(56, 14, HWALL);
+        setTer(61, 15, VWALL);
+        setTer(52, 5, SDOOR);
+        {
+            const loc = g.level.at(mx + 52, my + 5);
+            if (loc) {
+                if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+                loc.doormask = D_LOCKED;
+                loc.flags = D_LOCKED;
+            }
+        }
+    }
+    if (percent(50)) {
+        setTer(18, 1, VWALL);
+        setArea(7, 12, 8, 13, ROOM);
+    }
+    if (percent(50)) {
+        setTer(49, 4, VWALL);
+        setTer(21, 5, ROOM);
+    }
+    if (percent(50)) {
+        if (percent(50)) setTer(22, 1, VWALL);
+        else {
+            setTer(50, 7, HWALL);
+            setTer(51, 7, HWALL);
+        }
+    }
+
+    // des.teleport_region({ region={23,03,48,16}, region_islev=1 }) — absolute
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: 23, y1: 3, x2: 48, y2: 16 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+    });
+
+    // des.feature("fountain", {14,13})
+    {
+        const loc = g.level.at(mx + 14, my + 13);
+        if (loc) loc.typ = FOUNTAIN;
+    }
+
+    const setLitArea = (x1, y1, x2, y2, lit) => {
+        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
+            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    setLitArea(23, 3, 48, 6, true);
+    setLitArea(21, 6, 22, 6, true);
+    setLitArea(14, 4, 14, 4, false);
+    setLitArea(10, 5, 14, 8, false);
+    setLitArea(10, 9, 11, 9, false);
+    setLitArea(15, 8, 16, 8, false);
+
+    const meDoor = (rx, ry) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_LOCKED;
+        loc.flags = D_LOCKED;
+    };
+    meDoor(12, 2);
+    meDoor(11, 6);
+
+    mkstairs(mx + 36, my + 4, 1, null);
+
+    const markNondig = (x1, y1, x2, y2) => {
+        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
+            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                    loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+                }
+            }
+        }
+    };
+    markNondig(0, 0, 52, 17);
+    markNondig(53, 0, 74, 0);
+    markNondig(53, 17, 74, 17);
+    markNondig(74, 1, 74, 16);
+    markNondig(53, 7, 55, 7);
+    markNondig(53, 14, 61, 14);
+
+    // C lspo_engraving: degrade default TRUE → nowipeout = !wipeout = false
+    const engr = (rx, ry, text) => {
+        const ep = make_engr_at(mx + rx, my + ry, text, null, 0, ENGRAVE);
+        if (ep) ep.nowipeout = 0;
+    };
+    engr(12, 3, "You are now entering the Gnome King's wine cellar.");
+    engr(12, 4, 'Trespassers will be persecuted!');
+
+    const placeObj = (otyp, rx, ry, buc) => {
+        if (otyp < 0) return null;
+        const otmp = mksobj_at(otyp, mx + rx, my + ry, true, true);
+        if (!otmp) return null;
+        if (buc === 'not-cursed') uncurse(otmp);
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+        return otmp;
+    };
+    const placeClass = (oclass, rx, ry) => {
+        mkobj_at(oclass, mx + rx, my + ry, true);
+    };
+
+    // Wine cellar potions
+    placeObj(POT_BOOZE, 10, 7);
+    placeObj(POT_BOOZE, 10, 7);
+    placeClass(POTION_CLASS, 10, 7);
+    placeObj(POT_BOOZE, 10, 8);
+    placeObj(POT_BOOZE, 10, 8);
+    placeClass(POTION_CLASS, 10, 8);
+    placeObj(POT_BOOZE, 10, 9);
+    placeObj(POT_BOOZE, 10, 9);
+    placeObj(POT_OBJECT_DETECTION, 10, 9);
+
+    // Treasure chamber
+    placeObj(DIAMOND, 69, 4);
+    placeClass(GEM_CLASS, 69, 4);
+    placeObj(DIAMOND, 69, 4);
+    placeClass(GEM_CLASS, 69, 4);
+    placeObj(EMERALD, 70, 4);
+    placeClass(GEM_CLASS, 70, 4);
+    placeObj(EMERALD, 70, 4);
+    placeClass(GEM_CLASS, 70, 4);
+    placeObj(EMERALD, 69, 5);
+    placeClass(GEM_CLASS, 69, 5);
+    placeObj(RUBY, 69, 5);
+    placeClass(GEM_CLASS, 69, 5);
+    placeObj(RUBY, 70, 5);
+    placeObj(AMETHYST, 70, 5);
+    placeClass(GEM_CLASS, 70, 5);
+    placeObj(AMETHYST, 70, 5);
+    {
+        const otmp = placeObj(LUCKSTONE, 70, 5, 'not-cursed');
+        if (otmp) {
+            if (!g.context) g.context = {};
+            if (!g.context.achieveo) g.context.achieveo = {};
+            const ao = g.context.achieveo;
+            if (!ao.mines_prize_oid) {
+                ao.mines_prize_oid = otmp.o_id;
+                ao.mines_prize_otyp = otmp.otyp;
+                otmp.nomerge = 1;
+            }
+        }
+    }
+
+    // Scattered gems / tools / random + traps
+    for (let i = 0; i < 7; i++) splev_create_object(GEM_CLASS);
+    for (let i = 0; i < 2; i++) splev_create_object(TOOL_CLASS);
+    for (let i = 0; i < 3; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    splev_create_monster('gnome king');
+    for (let i = 0; i < 3; i++) splev_create_monster('gnome lord');
+    for (let i = 0; i < 2; i++) splev_create_monster('gnomish wizard');
+    for (let i = 0; i < 9; i++) splev_create_monster('gnome');
+    for (let i = 0; i < 2; i++) splev_create_monster('hobbit');
+    for (let i = 0; i < 3; i++) splev_create_monster('dwarf');
+    splev_create_monster('h');
+
+    // C load_special: wallification → flip → lregions → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
     fixup_special();
 }
 

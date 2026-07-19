@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0755 — minend-2.lua load_special (seed0360 @43248)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @52601)
+- **Symptom:** seed0360 @43248 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` + `makemaz` `rnd(3)=2`.
+- **C locus:** `dat/minend-2.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`minend` `rndlevs=3` → `minend-2`).
+- **Cause (#851):** JS had no `minend-2` loader → empty → `place_lregion`
+  `rn2(79)`. C loads Gnome King's Wine Cellar.
+- **Change:** `js/mklev.js` — `load_minend_2` + dispatch (solidfill map,
+  percent terrain variants, `region_islev` tele `{23,3,48,16}`, fountain,
+  lit/unlit regions, locked doors, upstair, nondiggable, wine-cellar
+  engravings (`degrade` default → `nowipeout=0`) + potions, treasure
+  gems + mines_prize luckstone, random objs/traps/mons, wallify/flip/
+  lregions/fixup). Named omissions: minend-3; soko4-1/soko2-2;
+  hellfill/asmodeus/….
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **43248→52601**; RNG **43267→52639**; Scr **207→238**.
+- **Next:** @52601 C `soko4-1` (`makemaz` `rnd(2)=1`) vs JS `rn2(79)`.
+
 ## D-0754 — minetn-5.lua load_special (seed0360 @41777)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @43248)

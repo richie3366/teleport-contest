@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#850; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#850; stuck @10157 D-0731 |
-| seed0360 | 43267/120639 | 207/833 | @#850; next minend-2 @43248 |
+| seed0360 | 52639/120639 | 238/833 | @#851; next soko4-1 @52601 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,14 +75,14 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @43248** after D-0754 minetn-5 —
-C `minend-2` (`makemaz` `rnd(3)=2`) vs JS `rn2(79)`. Prefer over
-D-0731/D-0708 mfndpos. Do **not** re-break D-0660…D-0754.
+**Gameplay next:** **seed0360 @52601** after D-0755 minend-2 —
+C `soko4-1` (`makemaz` `rnd(2)=1`, Sokoban entry) vs JS `rn2(79)`.
+Prefer over D-0731/D-0708 mfndpos. Do **not** re-break D-0660…D-0755.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @43248 C minend-2 nhlib shuffle vs JS rn2(79)
+# @52601 C soko4-1 nhlib shuffle vs JS rn2(79)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -90,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0754.**
+**Do not re-break D-0660…D-0755.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
