@@ -715,7 +715,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0732 | fixed | mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT | shared; seed0399 @10157 unchanged (maze nrooms=0) |
 | D-0733 | fixed | mfndpos diagonal worm_cross + rogue door-cut | shared; inert for 0399/0014 (no worms / not rogue) |
 | D-0734 | fixed | zhitu non-sleep + hero destroy_items AD_FIRE | seed5002 5980→6172; seg0 FULL; next themerms @6172 |
-| D-0735 | open | seed5002 seg1 dog_goal invent vs rn2(4) (udist) | #820 score: still 6172; need C-state after `h` |
+| D-0735 | fixed | use_stethoscope adjacent must return res TIME | seed5002 seg1 5668→5739; root was ECMD_OK stub |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

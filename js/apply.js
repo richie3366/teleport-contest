@@ -12,10 +12,11 @@ import {
 import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, nothing_happens,
-    FACE, TIMEOUT, OBJ_FREE,
+    FACE, TIMEOUT, OBJ_FREE, isok, SDOOR, SCORR,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline } from './insight.js';
+import { m_at } from './mon.js';
 import { compactify_invlets, makeknown } from './invent.js';
 import { rn2, rn1, rnd } from './rng.js';
 import { nohands, haseyes } from './monsters.js';
@@ -275,8 +276,9 @@ async function getdir_self_ok(prompt) {
 
 /**
  * C ref: apply.c use_stethoscope — one free use per hero_seq; '.' → ustatusline.
- * Branch envelope: self (dx=dy=0) only. Deferred: swallow/steed/dz/cursed
- * heartbeat rn2(2), adjacent mstatusline/SDOOR/SCORR, confdir, Deaf/nohands.
+ * Adjacent: isok / m_at / empty → "hear nothing special", return res (D-0735).
+ * Deferred: swallow/steed/dz/cursed heartbeat rn2(2), full mstatusline,
+ * SDOOR/SCORR reveal, its_dead, confdir, Deaf/nohands/freehand gates.
  * @returns {number} 1 = ECMD_TIME, 0 = ECMD_OK, -1 = ECMD_CANCEL
  */
 async function use_stethoscope(_obj) {
@@ -286,7 +288,8 @@ async function use_stethoscope(_obj) {
     if (!game.context) game.context = {};
     if (game.hero_seq == null) game.hero_seq = (game.moves || 1) << 3;
     const seq = game.hero_seq;
-    const tookTime = seq === (game.context.stethoscope_seq ?? 0) ? 1 : 0;
+    // C: res = (hero_seq == stethoscope_seq) ? ECMD_TIME : ECMD_OK
+    const res = seq === (game.context.stethoscope_seq ?? 0) ? ECMD_TIME : ECMD_OK;
     game.context.stethoscope_seq = seq;
 
     // confdir deferred (not Confused at starter)
@@ -294,11 +297,42 @@ async function use_stethoscope(_obj) {
     const dy = game.u.dy | 0;
     if (!dx && !dy) {
         await ustatusline();
-        return tookTime;
+        return res;
     }
-    // Adjacent monster / terrain stethoscope deferred
-    await pline("You hear a faint typing noise.");
-    return 0; // ECMD_OK — match C isok-fail path rather than invent TIME
+
+    // C: rx = u.ux + u.dx; ry = u.uy + u.dy
+    const rx = (game.u.ux | 0) + dx;
+    const ry = (game.u.uy | 0) + dy;
+    if (!isok(rx, ry)) {
+        // C: You_hear("a faint typing noise."); return ECMD_OK
+        await pline("You hear a faint typing noise.");
+        return ECMD_OK;
+    }
+
+    // C: m_at(rx,ry) → mstatusline(mtmp); return res
+    // Named omission: full mstatusline body (tame/hungry/apport wizard info,
+    // worm segments, mimic reveal, ailment flags). Still spend `res` so
+    // hero_seq TIME matches C (D-0735: anh must movemon before mirror).
+    const mtmp = m_at(rx, ry);
+    if (mtmp) {
+        const nm = mtmp.data?.mname || 'monster';
+        const tame = mtmp.mtame ? ', tame' : (mtmp.mpeaceful ? ', peaceful' : '');
+        await pline(`Status of ${nm}${tame}:  Level ${mtmp.m_lev | 0}  `
+            + `HP ${mtmp.mhp | 0}(${mtmp.mhpmax | 0}).`);
+        return res;
+    }
+
+    // C: SDOOR/SCORR reveal + its_dead deferred → "hear nothing special"
+    const lev = game.level?.at(rx, ry);
+    if (lev && (lev.typ === SDOOR || lev.typ === SCORR)) {
+        // Named omission: hollow_str reveal + cvt_sdoor / unblock_point
+        await pline('You hear nothing special.');
+        return res;
+    }
+
+    // C: if (!its_dead(...)) You("hear nothing special."); return res
+    await pline('You hear nothing special.');
+    return res;
 }
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky). */

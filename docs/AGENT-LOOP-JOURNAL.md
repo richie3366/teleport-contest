@@ -11,14 +11,23 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-19 — #821 use_stethoscope adjacent res TIME (D-0735)
+- Objective: seed5002 seg1 @5668 dog_goal invent vs rn2(4).
+- C locus: `apply.c` `use_stethoscope` adjacent return `res`.
+- Change: adjacent was ECMD_OK stub; `anh` spent no turn; later
+  mirror-absent `aph` leaked `h`→domove west → udist=2. Port isok/
+  m_at/empty + return `res`. Named: full mstatusline, mirror/camera.
+- Verification: green+strict PASS; cohort 6/6; seed5002 continuous
+  **5668→5739** (positional 6172→6176).
+- Next: seed5002 @5739 (mirror/camera getdir); or D-0731/D-0708.
 
 ## 2026-07-19 — #820 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
@@ -143,22 +152,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0108 Scr **287→292** RNG FULL;
   prefix **216→280**; cohort 33/33 PASS.
 - Next: @280 `#herecmdmenu` "What do you want to do?".
-
-## 2026-07-19 — #807 doloot nohands + #untrap + newman (D-0726)
-- Objective: seed0108 @176 nohands chest / #untrap / newman wording.
-- C locus: `pickup.c` `doloot`/`u_handsy`; `trap.c` `could_untrap`;
-  `polyself.c` `newman` + `role.c` `individual`.
-- Change: nohands loot gate; EXT_CMDS `#untrap`; human `individual.m`
-  → "new man" (D-0726).
-- Verification: green+strict PASS; seed0108 Scr **283→287** RNG FULL;
-  prefix **176→216**; cohort 33/33 PASS.
-- Next: @216 locked `#loot` yy → C `In what direction?`; doforce ynq `(q)`.
-
-## 2026-07-19 — #806 polymon breath tip + dobreathe (D-0725)
-- Objective: seed0108 remaining screens after D-0724 Fly (@110 More).
-- C locus: `polyself.c` polymon verbose tips; `dobreathe`; `cmd.c`
-  `domonability` `can_breathe`.
-- Change: breath tip after encumber; dobreathe Strangled/uen<15 (D-0725).
-- Verification: green+strict PASS; seed0108 Scr **280→283** RNG FULL;
-  prefix **110→176**; cohort 33/33 PASS.
-- Next: @176 nohands chest; or #untrap; newman "new man".

@@ -4,27 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0735 — seed5002 seg1 dog_goal invent vs rn2(4) (udist)
+## D-0735 — use_stethoscope adjacent must return res TIME
 
-- **Status:** open (diagnosed; needs C-state)
-- **Symptom:** seed5002 pair RNG **6172**/12167 is positional (seg0 FULL
-  5904 + accidental later matches). Seg1 continuous first miss @**5668**:
-  C `rn2(100)` `obj_resists` ×18 vs JS `rn2(4)` follow-path.
-- **C locus:** `dogmove.c` `dog_goal` invent `dogfood` when `udist<=1`
-  skips `!rn2(4)`; same family as D-0429/D-0451.
-- **DIAG (#819):** after wishes, pet `(41,18)` hero `(40,17)` → JS
-  `udist=2` → rolls `rn2(4)`. FORCE invent `dogfood` (simulate
-  `udist<=1`) matches C `obj_resists` **5668–5684** (17 invent items);
-  one more C resist @5685 then `dog_move` approach. Pet `enexto` candy
-  shuffle sizes match C (`rn2(8/16/17)`). Do **not** FORCE udist in
-  production.
-- **Hypothesis:** C has `udist<=1` at that `dog_goal` (hero `h` failed,
-  or pet/hero geometry differs). Falsify with C-state after key `h`.
-- **Not themerms:** absolute @6172 `themerms.lua:969` is coincidental
-  positional tally, not the continuous prefix break.
-- **Next:** C-state hero/pet after step-66 `h`; or D-0731/D-0708.
-- **Score (#820):** seed5002 still RNG **6172**/12167 Scr 88/410; suite
-  36/44 held (Scr 7860, RNG 527695).
+- **Status:** fixed (partial — seed5002 still FAIL; next @5739)
+- **Symptom:** seed5002 seg1 continuous first miss @**5668**: C invent
+  `obj_resists` vs JS `rn2(4)` follow-path (looked like dog_goal udist).
+- **C locus:** `apply.c` `use_stethoscope` adjacent arm returns `res`
+  (ECMD_TIME on 2nd+ use same `hero_seq`); empty cell → "hear nothing
+  special."
+- **Cause (#821):** JS adjacent stub always returned ECMD_OK after
+  "faint typing noise." Session `anh` (2nd stethoscope west) spent no
+  turn; later `aph` (mirror not ported) leaked `h` into `domove` → hero
+  `(40,17)` pet `(41,18)` `udist=2` → `rn2(4)` instead of invent.
+- **Change:** port adjacent `isok` / `m_at` (minimal status pline) /
+  empty → "hear nothing special"; always return `res`. Named: full
+  `mstatusline`, SDOOR/SCORR reveal, `its_dead`, `use_mirror`/`use_camera`.
+- **Verification:** green+strict PASS; cohort 6/6; seed5002 continuous
+  **5668→5739** (positional 6172→6176 Scr 88→90).
+- **Next:** seed5002 @5739 (gethungry vs fleeck — likely mirror/camera
+  getdir leak or later stethoscope); or D-0731/D-0708.
 
 ## D-0733 — mfndpos diagonal worm_cross + rogue door-cut
 

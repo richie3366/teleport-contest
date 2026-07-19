@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | @#820; prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | @#820; stuck @10157 D-0731 |
-| seed5002 | 6172/12167 | 88/410 | @#820; D-0735 seg1 @5668 invent/udist |
+| seed5002 | 6176/12167 | 90/410 | @#821; D-0735 fixed; next @5739 |
 
 ## Green gate
 
@@ -71,19 +71,19 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** seed5002 seg1 @**5668** `dog_goal` invent vs `rn2(4)`
-(**D-0735** — not themerms; positional 6172 is coincidence). Same family
-as D-0429/D-0451: JS `udist=2` after `h` vs C invent `obj_resists`.
-Need C-state after that move. Or seed0399 @10157 (D-0731) / seed0014
-@49039 (D-0708). Prefer shared blockers. Do **not** re-break D-0660…D-0734.
+**Gameplay next:** seed5002 seg1 @**5739** (after D-0735: adjacent
+stethoscope now returns `res` TIME; continuous 5668→5739). Suspect
+missing `use_mirror`/`use_camera` getdir leak, or later apply. Or
+seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708). Prefer shared
+blockers. Do **not** re-break D-0660…D-0735.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed5002-wizard-coverage-pair.session.json
-# seg1 continuous: node -e '… runSegment(seg1) …' — first miss @5668
+# seg1 continuous: first miss @5739
 ```
 
-**Do not re-break D-0660…D-0734.**
+**Do not re-break D-0660…D-0735.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
