@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 00:45 — #932 D-0810 setworn no find_ac
+- Objective: seed0360 @497 C `AC:2` vs JS `AC:-2` displacement More.
+- C locus: `worn.c` `setworn`; `do_wear.c` `Cloak_on`; delay-0 unmul.
+- Change: **D-0810** `setworn`/`Cloak_on` never early `find_ac`;
+  GUARDING amulet explicit `makeknown`+`find_ac`. Scr **678→679**;
+  prefix **497→523**.
+- Verification: green+strict PASS; cohort **35/35** PASS.
+- Next: @523 farlook fog/vapor `~` vs unexplored `·`.
+
 ## 2026-07-20 00:36 — D-0809 travel "(no travel path)"
 - Objective: seed0360 @395 C `unexplored area (no travel path)` vs bare.
 - C locus: `getpos.c` `auto_describe` + `hack.c` `is_valid_travelpt`.
@@ -142,11 +151,3 @@ Use this shape:
   Scr **504→519**; RNG **112956**.
 - Verification: green+strict PASS; cohort 35/35 PASS; DIAG removed.
 - Next: @112857 C distfleeck vs JS set_apparxy (mux-image).
-## 2026-07-19 22:46 — #917 D-0797 acurr GoP + umov peel
-- Objective: seed0360 @112279 C fleeck vs JS rn2(3).
-- C locus: `attrib.c` `acurr` GoP/`STR19(25)`; moveloop umovement after EOT62.
-- Change: **D-0797** `js/attrib.js` GoP + Dunce. Falsified same-site
-  fleeck theory — JS `getbones` after early hero (`umov=12` vs C `<12`).
-  FORCE −12/MOD →112574. Scr **391→504**; peel still @112279.
-- Verification: green+strict PASS; cohort 9/9 PASS; DIAG removed.
-- Next: C path leaving `umovement<12` after EOT62 (surplus +12).

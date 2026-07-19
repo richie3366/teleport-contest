@@ -76,9 +76,9 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0809 (#931):
-getpos travel `"(no travel path)"`. Scr **673→678**/833; @395 fixed.
-Next: @497 cloak displacement wear More — C `AC:2` vs JS `AC:-2`.
+**Gameplay next:** **seed0360 screen residual** — D-0810 (#932):
+setworn/Cloak_on no early `find_ac`. Scr **678→679**/833; @497 AC
+fixed. Next: @523 farlook `fog/vapor cloud` + `~` vs unexplored/`·`.
 **Do not FORCE.**
 
 ```bash
@@ -86,7 +86,7 @@ node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0809. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0810. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

@@ -370,12 +370,15 @@ async function dragon_armor_handling(otmp, puton, _on_purpose = true) {
 
 /**
  * C ref: worn.c setworn — slot pointer + owornmask + oc_oprop extrinsic.
+ * Does **not** call find_ac (C worn.c); allmain once-per-input and a few
+ * explicit callers (Ring_on protection, Amulet_on guarding) update uac.
+ * opts.skip_find_ac retained as a no-op for D-0722 polyself callers.
  * @param {object|null} obj
  * @param {number} mask
  */
 export function setworn(obj, mask, opts = null) {
     const u = game.u || (game.u = {});
-    const skipFindAc = !!(opts && opts.skip_find_ac);
+    void opts; // skip_find_ac no-op — setworn never find_ac (D-0810)
     const clearOne = (slot, bit) => {
         if (!(mask & bit)) return;
         const old = u[slot];
@@ -401,8 +404,7 @@ export function setworn(obj, mask, opts = null) {
         if (mask & W_RINGR) clearOne('uright', W_RINGR);
         clearOne('uamul', W_AMUL);
         clearOne('ublindf', W_TOOL);
-        // C worn.c setworn does not call find_ac — callers do
-        if (!skipFindAc) find_ac();
+        // C worn.c setworn — no find_ac (D-0810 / D-0722)
         recalc_telepat_range();
         return;
     }
@@ -466,7 +468,8 @@ export function setworn(obj, mask, opts = null) {
         u.ublindf = obj;
     }
     if (slotBit) confer_oc_oprop(obj, slotBit, true);
-    if (!skipFindAc) find_ac();
+    // C worn.c setworn — no find_ac (D-0810); delay-0 Cloak_on More
+    // must paint stale u.uac until allmain find_ac.
     // C worn.c setworn — recalc_telepat_range after prop updates
     recalc_telepat_range();
 }
@@ -618,8 +621,9 @@ async function Cloak_on() {
         await toggle_displacement(o, oldprop, true);
     }
     // ELVEN / MUMMY / INVIS / OILSKIN / ALCHEMY deferred
+    // C Cloak_on: known=1 for status-line AC; no find_ac here (D-0810).
+    // Delay-0 displacement You_feel --More-- must show pre-cloak uac.
     if (!o.known) o.known = 1;
-    find_ac();
     return 0;
 }
 async function Shield_on() {
@@ -1225,10 +1229,12 @@ async function Amulet_on(amul) {
         || otyp === FAKE_AMULET_OF_YENDOR
         || otyp === AMULET_OF_YENDOR
         || otyp === AMULET_OF_UNCHANGING
-        || otyp === AMULET_OF_GUARDING
     ) {
-        // Guarding would makeknown+find_ac in C; find_ac already via setworn
         // change/strangle/flying/breathing side-effect bodies deferred
+    } else if (otyp === AMULET_OF_GUARDING) {
+        // C Amulet_on: makeknown + find_ac (setworn does not find_ac; D-0810)
+        makeknown(AMULET_OF_GUARDING);
+        find_ac();
     }
     // C: if (!on_msg_done) on_msg(uamul);
     if (!on_msg_done) await on_msg(amul);

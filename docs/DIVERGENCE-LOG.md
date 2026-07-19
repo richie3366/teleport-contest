@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0810 — setworn/Cloak_on no find_ac (seed0360 @497 AC)
+
+- **Status:** fixed (seed0360 Scr residual continues @523)
+- **Symptom:** seed0360 @497 `W` cloak of displacement — C botl
+  `AC:2` on displacement You_feel `--More--`; JS `AC:-2`. RNG FULL.
+  C @498 already `AC:-2` after next allmain `find_ac`.
+- **C locus:** `worn.c` `setworn` (no `find_ac`); `do_wear.c`
+  `Cloak_on` (no `find_ac`); `objects.h` cloak `oc_delay=0` →
+  `setworn` then immediate `unmul`→`Cloak_on`; `allmain.c`
+  once-per-input `find_ac`.
+- **Cause (#932):** JS `setworn` always called `find_ac`, so delay-0
+  cloak More painted post-cloak `u.uac`. C keeps stale `uac` through
+  that More (ARM_BONUS applied only at next once-per-input `find_ac`).
+- **Change:** `js/do_wear.js` — `setworn` never `find_ac` (opts
+  `skip_find_ac` no-op); `Cloak_on` drop `find_ac`; `Amulet_on`
+  GUARDING `makeknown`+`find_ac` (C explicit; was papered by setworn).
+  Named: other `*_on` still call `find_ac` (C often does not).
+- **Verification:** green+strict PASS; cohort **35/35** PASS;
+  seed0360 Scr **678→679**/833; prefix **497→523**; RNG FULL.
+- **Next:** @523 farlook `fog/vapor cloud` + `~` vs `unexplored`/`·`.
+
 ## D-0809 — getpos auto_describe "(no travel path)" (seed0360 @395)
 
 - **Status:** fixed (seed0360 Scr residual continues @497)
