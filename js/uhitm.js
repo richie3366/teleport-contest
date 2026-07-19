@@ -140,13 +140,13 @@ function hmon_hit_verb(obj) {
     return 'hit';
 }
 
-// C ref: display.h _is_safemon — tame/peaceful, spotted, not conf/hallu/stun
+// C ref: display.h _is_safemon — peaceful + canspotmon + !conf/hallu/stun
 export function is_safemon(mon) {
     if (!mon) return false;
     // flags.safe_dog defaults true
     if (game.flags?.safe_dog === false) return false;
-    if (!mon.mpeaceful && !mon.mtame) return false;
-    // canspotmon stub: adjacent pets are spotable
+    if (!mon.mpeaceful) return false;
+    if (!canspotmon(mon)) return false;
     if (game.u?.Confusion || game.u?.Hallucination || game.u?.Stunned) return false;
     return true;
 }
@@ -1016,6 +1016,11 @@ async function stumble_onto_mimic(mtmp) {
  * Peaceful-confirm / Elbereth / warning-glyph arms deferred.
  */
 export async function attack_checks(mtmp) {
+    // C: if you're close enough to attack, alert any waiting monster
+    // (clears STRAT_CLOSE|WAITFORU even when the attack is later aborted —
+    // kick / cancelled peaceful confirm / Wait! all disturb meditation).
+    if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
+
     // C: forcefight → return FALSE (allow real attack; skip Wait!)
     if (game.context?.forcefight) return false;
 

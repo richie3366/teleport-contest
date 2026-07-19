@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 21:00 — #907 D-0791 WAITMASK disturb + Neferet CLOSE diag
+- Objective: seed0360 @112243 C distfleeck rn2(5) vs JS rn2(12).
+- C locus: `uhitm.c` `attack_checks` first line; `display.h` `_is_safemon`;
+  `mon.c` `wake_nearto_core` G_UNIQ; `dothrow.c` STRAT_WAITMASK.
+- Change: clear WAITMASK at `attack_checks` start; `is_safemon` needs
+  `canspotmon`; wake_nearby skip G_UNIQ; dothrow `~0x07`→STRAT_WAITMASK.
+  Diag: mismatch is Neferet `STRAT_CLOSE` no-op → EOT `mcalcmove`; C
+  peaceful `rn2(10)` = Neferet without CLOSE. #chat never cleared her
+  (SELF/NOMON). `special_obj_hits_leader` still deferred.
+- Verification: green+strict PASS; cohort 7/7 PASS; seed0360 still
+  @112243 / RNG 112272 Scr 391.
+- Next: find C path that cleared Neferet CLOSE (kick/attack/throw
+  leader-catch); then mux/`set_apparxy` after she moves.
+
 ## 2026-07-19 20:25 — #906 D-0790 mux-image m_move_aggress
 - Objective: seed0360 @110880; port C post-select no-place.
 - C locus: `monmove.c` `m_move` post-select + `m_move_aggress`.
@@ -157,14 +171,3 @@ Use this shape:
   df-only vs JS 2nd fleeck (not bat gate).
 - Verification: docs only; human paused loop then cleared stop latch.
 - Next: #894+ peel packet in reflection file (C quasit df-only).
-
-## 2026-07-19 17:35 — #893 D-0779 quasit 2nd fleeck site-shift
-- Objective: seed0360 @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.
-- C locus: `monmove.c` `dochug`/`distfleeck` (2nd fleeck after `m_move`).
-- Change: none. DIAG showed JS **quasit** @(33,2) silent move→CLOUD
-  + 2nd fleeck @101021 while C expects bat `!rn2(3)`. FORCE skip
-  quasit `want_move` → prefix **101025** (bat gate matches). Falsified:
-  bat-gate `rn2(3)` itself wrong.
-- Verification: green+strict PASS; focused still @101022.
-- Next: C-faithful df-only quasit path (`MMOVE_DIED`/`mon_offmap`?).
-

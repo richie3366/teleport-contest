@@ -7,23 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#906 D-0790:** `m_move` post-select — step onto Displacement `mux`
-  (`ALLOW_U|NOTONL`) → `m_move_aggress` empty image → `MMOVE_DONE`.
-  seed0360 prefix **110880→112243**, focused RNG **112272**, Scr **391**.
-- **Next @112243:** C `distfleeck` `rn2(5)` vs JS `rn2(12)`.
-  Falsifier: `node scripts/rng-diff.mjs sessions/seed0360-wizard-world-tour.session.json`
-- **Don’t:** seed-shaped no-place; re-break D-0790 mux aggress; leave
-  DIAG/throw in `monmove.js`.
+- **#907 D-0791:** WAITMASK disturb fixes shipped; seed0360 still @112243.
+- **@112243 root:** Neferet `@26,14` has `STRAT_CLOSE` + `mov=12` → dochug
+  no-op → EOT `mcalcmove` `rn2(12)`. C does peaceful `distfleeck`/`rn2(10)`
+  (Neferet without CLOSE). #chat never cleared her (SELF / NOMON).
+- **Falsifier:** after CLOSE clear path ports, `rng-diff` seed0360 prefix
+  advances past 112243 (watch `set_apparxy` `rn2(4)` if mux stale).
+- **Don’t:** force-clear CLOSE without C path; re-break D-0790; leave DIAG.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0790 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0791 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (D-0769…D-0790).
-- seed5002 **PASS**; D-0743…D-0789 peels done.
+- seed5002 **PASS**; D-0743…D-0790 peels done.
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
   `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
@@ -32,6 +32,7 @@ Objective/score live in `CURRENT.md`.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - #905 FORCE no-place @110612 was aftermath of earlier mux-image miss.
+- wake_nearby must skip G_UNIQ (D-0791); dothrow was `~0x07` not WAITMASK.
 
 ## Landmarks (≤15)
 
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#905;
-  seed0360 focused **112272**/391 @#906).
+  seed0360 focused **112272**/391 @#907).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -73,5 +74,7 @@ Objective/score live in `CURRENT.md`.
   **wiz_map ^F do_mapping** (D-0787);
   **TRAVP_GUESS hero-matrix** (D-0788);
   **dotele clear travelcc** (D-0789);
-  **m_move mux-image aggress** (D-0790).
+  **m_move mux-image aggress** (D-0790);
+  **attack_checks WAITMASK + is_safemon canspotmon** (D-0791).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).
+  **`special_obj_hits_leader` (throw artifact at leader) deferred.**

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0791 — attack_checks WAITMASK + is_safemon canspotmon + wake G_UNIQ
+
+- **Status:** fixed (seed0360 still FAIL; prerequisite / faithfulness)
+- **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
+  `mcalcmove` `rn2(12)`.
+- **C-state (#907):** After matched bat fleeck, JS Neferet `@26,14`
+  still has `STRAT_CLOSE` + `mov=12` → dochug early-out (no RNG) → EOT
+  `mcalcmove`. C does peaceful `rn2(10)` (Neferet without CLOSE).
+  Session `#chat` never reached WAITMASK clear (SELF / NOMON).
+- **C locus:** `uhitm.c` `attack_checks` first line clears
+  `STRAT_WAITMASK`; `display.h` `_is_safemon` requires `canspotmon`;
+  `mon.c` `wake_nearto_core` skips `G_UNIQ`; `dothrow.c` uses
+  `STRAT_WAITMASK` (not low bits).
+- **Change:** `js/uhitm.js` — WAITMASK clear at `attack_checks` start;
+  `is_safemon` + `canspotmon`. `js/timeout.js` / `js/lock.js` —
+  wake_nearby skip G_UNIQ. `js/dothrow.js` — `~0x07` → `STRAT_WAITMASK`.
+- **Named deferred:** `special_obj_hits_leader` (throw unique/quest
+  artifact at leader catches + clears WAITMASK).
+- **Verification:** green+strict PASS; cohort 7/7 PASS; seed0360 still
+  @112243 / focused RNG **112272** Scr **391**.
+- **Next:** port C’s Neferet CLOSE-clear path; watch post-clear
+  `set_apparxy` `rn2(4)` if mux stale under Displacement.
+
 ## D-0790 — seed0360 m_move post-select Displacement mux → aggress
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)

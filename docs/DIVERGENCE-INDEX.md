@@ -771,6 +771,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0788 | fixed | TRAVP_GUESS hero-matrix + raster pick (not displ) | seed0360 109454→110844; suite RNG 111367 |
 | D-0789 | fixed | dotele clear travelcc before tele (^T getpos) | seed0360 110844→110880; suite RNG 111566 |
 | D-0790 | fixed | m_move post-select mux-image → m_move_aggress DONE | seed0360 110880→112243; focused RNG 112272 |
+| D-0791 | fixed | attack_checks WAITMASK + is_safemon canspotmon + wake G_UNIQ | seed0360 still @112243; Neferet CLOSE next |
 
 
 
