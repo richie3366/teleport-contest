@@ -50,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **617**/833 | Scr residual @249 ^V (#924) |
+| seed0360 | **120639**/120639 | **628**/833 | Scr residual @301 materialize More (#926) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -76,18 +76,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0803 (#924):
-hero `test_move` Sokoban `cant_squeeze_thru` case 3. Scr
-**616→617**/833; prefix **231→249**. Suite #925 confirms Scr **617**.
-Next: @249 ^V materialize (same topline; map cells diverge).
-**Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0804 (#926):
+`flip_level` must swap `_objects_at` with terrain (not rebuild from
+`fobj`). Scr **617→628**/833; prefix **249→301**. Next: @301
+materialize `--More--` (Dlvl:18). **Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0803. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0804. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

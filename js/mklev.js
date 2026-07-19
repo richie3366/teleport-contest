@@ -7491,8 +7491,10 @@ function flip_level_rnd(flp, extras) {
 /**
  * C ref: sp_lev.c flip_level — transpose terrain / traps / objs / mons /
  * rooms / doors / stairs / engravings in the extends bbox.
- * Named omissions: lregions deferred beyond inarea/delarea flip; drawbridge
- * flip helpers, vault-guard extras, worm segs, exclusion zones, ball/chain.
+ * Ported: ox/oy + buried coords; swap `_objects_at` with terrain cells
+ * (D-0804; preserves nexthere — never rebuild from fobj). Named omissions:
+ * drawbridge flip helpers, vault-guard extras, worm segs, exclusion zones,
+ * ball/chain, level.monsters[][] grid swap, flip_visuals(extras).
  */
 function flip_level(flp, _extras) {
     if ((flp & 3) === 0) return;
@@ -7561,31 +7563,19 @@ function flip_level(flp, _extras) {
         }
     }
 
-    // objects on fobj — update coords then rebuild _objects_at
+    // C: flip object ox/oy; pile heads stay on nexthere and move with
+    // level.objects[][] during the terrain swap below (do NOT rebuild
+    // from fobj — that inverts pile tops vs place_object order).
     for (let otmp = game.fobj; otmp; otmp = otmp.nobj) {
         if (!inFlipArea(otmp.ox, otmp.oy)) continue;
         if (flp & 1) otmp.oy = FlipY(otmp.oy);
         if (flp & 2) otmp.ox = FlipX(otmp.ox);
     }
-    if (game._objects_at) {
-        const next = new Map();
-        for (let otmp = game.fobj; otmp; otmp = otmp.nobj) {
-            if (otmp.where !== undefined && otmp.where !== 1 /* OBJ_FLOOR */
-                && otmp.where !== OBJ_FREE) {
-                // still re-index floor objs by ox,oy
-            }
-            const key = `${otmp.ox},${otmp.oy}`;
-            otmp.nexthere = next.get(key) || null;
-            next.set(key, otmp);
-        }
-        // Rebuild properly preserving nexthere stacking order from fobj scan
-        // (above inverted order). Redo: clear and place via scan per cell.
-        game._objects_at = new Map();
-        for (let otmp = game.fobj; otmp; otmp = otmp.nobj) {
-            const key = `${otmp.ox | 0},${otmp.oy | 0}`;
-            otmp.nexthere = game._objects_at.get(key) || null;
-            game._objects_at.set(key, otmp);
-        }
+    // C: buriedobjlist — coords only (no level.objects index)
+    for (let otmp = game.level?.buriedobjlist; otmp; otmp = otmp.nobj) {
+        if (!inFlipArea(otmp.ox, otmp.oy)) continue;
+        if (flp & 1) otmp.oy = FlipY(otmp.oy);
+        if (flp & 2) otmp.ox = FlipX(otmp.ox);
     }
 
     // monsters
@@ -7667,7 +7657,18 @@ function flip_level(flp, _extras) {
         if (flp & 2) d.x = FlipX(d.x);
     }
 
-    // terrain cell swap
+    // terrain cell swap (+ level.objects / _objects_at pile heads — C)
+    const swapObjectsAt = (x1, y1, x2, y2) => {
+        if (!game._objects_at) return;
+        const ka = `${x1},${y1}`;
+        const kb = `${x2},${y2}`;
+        const oa = game._objects_at.has(ka) ? game._objects_at.get(ka) : undefined;
+        const ob = game._objects_at.has(kb) ? game._objects_at.get(kb) : undefined;
+        if (ob !== undefined) game._objects_at.set(ka, ob);
+        else game._objects_at.delete(ka);
+        if (oa !== undefined) game._objects_at.set(kb, oa);
+        else game._objects_at.delete(kb);
+    };
     if (flp & 1) {
         for (let x = minx; x <= maxx; x++) {
             for (let y = miny; y < (miny + Math.floor((maxy - miny + 1) / 2)); y++) {
@@ -7678,6 +7679,8 @@ function flip_level(flp, _extras) {
                 const tmp = { ...a };
                 Object.assign(a, b);
                 Object.assign(b, tmp);
+                // C: swap svl.level.objects[x][y] ↔ [x][ny]
+                swapObjectsAt(x, y, x, ny);
             }
         }
     }
@@ -7691,6 +7694,8 @@ function flip_level(flp, _extras) {
                 const tmp = { ...a };
                 Object.assign(a, b);
                 Object.assign(b, tmp);
+                // C: swap svl.level.objects[x][y] ↔ [nx][y]
+                swapObjectsAt(x, y, nx, y);
             }
         }
     }

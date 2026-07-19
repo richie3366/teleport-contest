@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 23:56 — #926 D-0804 flip_level object piles
+- Objective: seed0360 @249 JS `%` vs C `/` after ^V Sokoban-4 materialize.
+- C locus: `sp_lev.c` `flip_level` — swap `level.objects` with terrain.
+- Change: `js/mklev.js` — stop fobj nexthere rebuild; swap `_objects_at`
+  with cell flip; buried coord flip. Named: monsters[][] / drawbridge.
+- Verification: green+strict PASS; cohort 35/35 PASS; seed0360 Scr
+  **617→628**/833; prefix **249→301**; RNG FULL.
+- Next: @301 materialize `--More--` (Dlvl:18).
+
 ## 2026-07-19 23:47 — #925 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; no peel).
@@ -156,13 +165,3 @@ Use this shape:
   EOT. Paradox: C still needs leftover apprentice mov. DIAG out.
 - Verification: green+strict PASS; focused @112243 / RNG 112272 Scr 391.
 - Next: silent mov-budget divergence after step 706 (no FORCE).
-
-## 2026-07-19 21:37 — #911 D-0794 apprentice leftover (not Neferet CLOSE)
-- Objective: seed0360 @112243 Neferet CLOSE / movement peel.
-- C locus: `mon.c` movemon/mcalcmove; `monmove.c` dochug (CLOSE OK).
-- Change or falsified theory: **Falsified** “clear Neferet CLOSE @112243”.
-  FORCE match was peaceful fleeck signature coincidence. Suppress Neferet
-  + boost apprentice → mismatch **112247** / matched **112279**. Step 706:
-  JS 8 apprentice dochugs vs C keeping one `mov≥12`. Docs only (DIAG out).
-- Verification: green+strict PASS; focused still @112243 / RNG 112272 Scr 391.
-- Next: which apprentice idles on C in step 706 / why JS spends that mon.

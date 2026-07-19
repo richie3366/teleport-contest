@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0804 — flip_level preserves object pile order (seed0360 @249)
+
+- **Status:** fixed (seed0360 Scr residual continues @301)
+- **Symptom:** seed0360 @249 ^V materialize on Sokoban-4 — sole cell
+  miss: JS `%` (tripe) vs C `/` (wand of locking) at map (40,8). Same
+  topline `You materialize on a different level!`. RNG FULL.
+- **C locus:** `sp_lev.c` `flip_level` — update `ox`/`oy`, then swap
+  `svl.level.objects[x][y]` with terrain cells (nexthere intact).
+- **Cause (#926):** first visit to soko4 via ^V; JS rebuilt `_objects_at`
+  from `fobj` (newest→oldest walk) after coord flip, inverting pile
+  tops vs `place_object` (WAN newer in fobj but TRIPE became head).
+- **Change:** `js/mklev.js` `flip_level` — drop fobj nexthere rebuild;
+  swap `_objects_at` keys with terrain; flip buried coords. Named:
+  `level.monsters[][]` swap; drawbridge/worm/exclusion/ball.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360 Scr
+  **617→628**/833; prefix **249→301**; RNG FULL; pile WAN→TRIPE.
+- **Next:** @301 materialize `--More--` / dark-room / botl `$` vs `*`.
+
 ## D-0803 — test_move cant_squeeze_thru Sokoban (seed0360 @231)
 
 - **Status:** fixed (seed0360 Scr residual continues @249)
