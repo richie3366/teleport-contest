@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#868:** D-0771 wizard2 — prefix **86170→98492**; RNG **98507**; Scr **275**.
-- **Next @98492:** C `distfleeck` `rn2(5)` vs JS `rn2(3)` after wizard2.
-  Prefer wizard3 / hellfill `load_special` if next mismatch is nhlib shuffle
-  after getbones. Falsify: rng-diff parent at 98492.
+- **#869:** D-0772 hell_tweaks `'.w.'` (was `'[.w.]'`) + extends clamps.
+  seed0360 still @98492.
+- **@98492 DIAG:** C `distfleeck` `rn2(5)` vs JS `linedup` `rn2(3)` —
+  PM_MUMAK @(55,9)→hero @(59,9); `couldsee` false; boulder @(57,9) from
+  `fill_empty_maze` @(57,13) + Y-flip. C skips that boulder `rn2` (couldsee
+  true or no `m_move`). Falsify: C-state couldsee/viz or m_move early-out.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,15 +22,16 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0771 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0772 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (see D-0769 @86015).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0771 seed0360 peels (…/wizard1/…/wizard2).
+- D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
   `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
+- D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0764: `selection.fillrect` adds xstart like C get_location_coord.
 - D-0768: wizard1 mazegrid + center map + east mazewalk + morgue door.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
@@ -62,7 +65,7 @@ Objective/score live in `CURRENT.md`.
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
   **wizard2** (D-0771); **wizard1** (D-0768); **orcus** (D-0767);
   **baalz** (D-0766); **juiblex + lvlfill_swamp** (D-0765);
-  **hell_tweaks** (D-0764); **asmodeus + hell helpers** (D-0763);
+  **hell_tweaks** (D-0764/D-0772 `.w.`); **asmodeus + hell helpers** (D-0763);
   **makeroguerooms + rogue skip0** (D-0762);
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);

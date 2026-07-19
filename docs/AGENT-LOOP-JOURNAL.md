@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 13:01 — #869 hell_tweaks `.w.` + @98492 linedup diag (D-0772)
+- Objective: seed0360 @98492 C distfleeck rn2(5) vs JS rn2(3).
+- C locus: `nhlib.lua` hell_tweaks `[[.w.]]`; `mthrowu.c` linedup;
+  `mkmaze.c` get_level_extends.
+- Change: hell_tweaks match `'.w.'` (not `'[.w.]'`); extends xmin/xmax
+  clamps. DIAG: JS linedup boulder rn2 for mumak LOS; C still fleeck.
+- Verification: green+strict PASS; cohort **11/11**; prefix still **98492**.
+- Next: @98492 why C skips linedup boulder rn2 (couldsee / m_move).
+
 ## 2026-07-19 12:45 — #868 wizard2 load_special (D-0771)
 - Objective: seed0360 @86170 C nhlib shuffle vs JS rn2(79) after getbones.
 - C locus: `dat/wizard2.lua` / `sp_lev.c` `load_special` / mazewalk.

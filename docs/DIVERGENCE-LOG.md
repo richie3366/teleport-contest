@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix still @98492)
+- **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `rn2(3)`.
+- **C locus:** `dat/nhlib.lua` `hell_tweaks` `selection.match([[.w.]])`;
+  `mthrowu.c` `linedup` boulder path; `mkmaze.c` `get_level_extends`.
+- **Cause (#869):** (1) JS `hell_tweaks` used `'[.w.]'` (5-char INVALID_TYPE
+  wildcards) instead of C `[[.w.]]` → `'.w.'`. (2) @98492 DIAG: JS `linedup`
+  for PM_MUMAK @(55,9)→hero @(59,9) — `couldsee` false, boulder @(57,9)
+  (`fill_empty_maze` @(57,13) then Y-flip) → `rn2(2+1)`; C still in
+  `distfleeck` (couldsee true or skipped `m_move`). Pattern fix alone did
+  not move prefix (this seed’s boulder wall `percent(20)` likely false).
+- **Change:** `js/mklev.js` — `hell_tweaks` boulder/bars match `'.w.'`;
+  `get_level_extends` xmin/xmax post-subtract clamps like C.
+- **Verification:** green+strict PASS; cohort **11/11**; seed0360 prefix
+  still **98492**; RNG **98507**; Scr **275**/833.
+- **Next:** @98492 — why C skips linedup boulder `rn2` (couldsee / no
+  `m_move`); or wizard3/hellfill if next special is shuffle.
+
 ## D-0771 — wizard2 load_special (seed0360 @86170)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @98492)

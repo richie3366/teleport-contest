@@ -9536,8 +9536,9 @@ function load_valley() {
 
 /**
  * C ref: dat/nhlib.lua hell_tweaks — random lava pools / river / boulder
- * walls / iron bars on Gehennom specials. Named omissions: none in body;
- * callers beyond asmodeus/orcus/wizard1–2 still deferred (hellfill/wizard3).
+ * walls / iron bars on Gehennom specials. Boulder/bars match `'.w.'`
+ * (D-0772). Named omissions: callers beyond asmodeus/orcus/wizard1–2
+ * still deferred (hellfill/wizard3); map_cleanup after flip.
  */
 function hell_tweaks(protectedArea) {
     const liquid = LAVAPOOL;
@@ -9602,9 +9603,11 @@ function hell_tweaks(protectedArea) {
     }
 
     // replacing some walls with boulders
+    // C nhlib.lua: selection.match([[.w.]]) is three chars ".w." — NOT
+    // "[.w.]" (brackets → INVALID_TYPE wildcards; bigrm-3 uses those).
     if (percent(20)) {
         const amount = 3 * (1 + rn2(8));
-        const horiz = selection_filter_percent(selection_match_mapfrag('[.w.]'), amount);
+        const horiz = selection_filter_percent(selection_match_mapfrag('.w.'), amount);
         const vert = selection_filter_percent(selection_match_mapfrag('.\nw\n.'), amount);
         let bwalls = selection_and(selection_or(horiz, vert), prot);
         selection_iterate(bwalls, (x, y) => {
@@ -9616,7 +9619,7 @@ function hell_tweaks(protectedArea) {
     // replacing some walls with iron bars
     if (percent(20)) {
         const amount = 3 * (1 + rn2(8));
-        const horiz = selection_filter_percent(selection_match_mapfrag('[.w.]'), amount);
+        const horiz = selection_filter_percent(selection_match_mapfrag('.w.'), amount);
         const vert = selection_filter_percent(selection_match_mapfrag('.\nw\n.'), amount);
         let fwalls = selection_or(horiz, vert);
         fwalls = selection_and(selection_and(selection_grow(fwalls, 'all'), selection_match_mapfrag('w')), prot);
@@ -15643,6 +15646,7 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
 // ============================================================
 
 function get_level_extends() {
+    // C ref: mkmaze.c get_level_extends — post-subtract xmin/xmax clamps.
     const map = game.level;
     let xmin = 0, xmax = COLNO - 1, ymin = 0, ymax = ROWNO - 1;
     let found = false, nonwall = false;
@@ -15653,6 +15657,7 @@ function get_level_extends() {
         }
     }
     xmin -= (nonwall || !game.level?.flags?.is_maze_lev) ? 2 : 1;
+    if (xmin < 0) xmin = 0;
     found = false; nonwall = false;
     for (xmax = COLNO - 1; !found && xmax >= 0; xmax--) {
         for (let y = 0; y <= ROWNO - 1; y++) {
@@ -15661,6 +15666,7 @@ function get_level_extends() {
         }
     }
     xmax += (nonwall || !game.level?.flags?.is_maze_lev) ? 2 : 1;
+    if (xmax >= COLNO) xmax = COLNO - 1;
     found = false; nonwall = false;
     for (ymin = 0; !found && ymin <= ROWNO - 1; ymin++) {
         for (let x = xmin; x <= xmax; x++) {
