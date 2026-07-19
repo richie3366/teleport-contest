@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #822 use_mirror + use_camera getdir (D-0736)
+
+- Objective: seed5002 @5739 mirror/camera getdir leak.
+- C locus: `apply.c` `use_mirror`/`use_camera`; `bhit` INVIS_BEAM;
+  `flash_hits_mon`.
+- Change: port mirror (getdir/cursed/beam/flee) + camera (getdir/charge/
+  flash blind+flee); wire `doapply`.
+- Verification: green+strict PASS; cohort 8/8; cont **5739→5904**;
+  seg0 C FULL +1 JS learnwand `rn2(19)`.
+- Next: trailing learnwand exercise; or D-0731/D-0708.
+
 ## 2026-07-19 — #821 use_stethoscope adjacent res TIME (D-0735)
 - Objective: seed5002 seg1 @5668 dog_goal invent vs rn2(4).
 - C locus: `apply.c` `use_stethoscope` adjacent return `res`.
@@ -126,30 +137,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0399 **10145→10157** RNG
   **10359**/11409; cohort 6/6 prior PASS held; seed0014 unchanged.
 - Next: seed0399 @10157 m_move rn2(20) vs rn2(28); or D-0708.
-
-## 2026-07-19 — #810 score + Sokoban wall DEC gate (D-0729)
-- Objective: mandatory full `sessions` (#810÷5) + seed0108 wall color after ^V.
-- C locus: `display.c` `wallcolors[]` / `wall_color` / Sokoban cmap walls.
-- Change: `wall_glyph` Sokoban `CLR_BLUE` only when `use_decgraphics()`;
-  ASCII ^V→soko1 stays GRAY→NO_COLOR (D-0729).
-- Verification: green+strict PASS; seed0108 **PASS** 303/303; seed0373
-  PASS; cohort 34/34; full suite **36**/44 Scr **7926** RNG **527314**.
-- Next: D-0708 seed0014 @49039; or hallu/coverage.
-
-## 2026-07-19 — #809 #herecmdmenu self menu (D-0728)
-- Objective: seed0108 @280 `#herecmdmenu` "What do you want to do?".
-- C locus: `cmd.c` `doherecmdmenu` / `here_cmd_menu` / `there_cmd_menu_self`.
-- Change: EXT_CMDS → self NHW_MENU + CQ_CANNED act_on_act; treat JS `'\0'`
-  as ECMD_OK like C NUL (D-0728).
-- Verification: green+strict PASS; seed0108 Scr **292→293** RNG FULL;
-  cursors FULL; cohort green+0106+0116+0398+quest PASS.
-- Next: wall color after ^V; remaining 10 seed0108 screens.
-
-## 2026-07-19 — #808 doopen + doforce ynq q + xname named (D-0727)
-- Objective: seed0108 @216 open dir / #force ynq / Mjollnir bash More.
-- C locus: `lock.c` `doopen`/`doopen_indir`; `ynq` def `q`; `objnam.c` xname.
-- Change: wire `o`→doopen getdir; doforce ynq `'q'`; xname ` named ONAME`
-  (D-0727).
-- Verification: green+strict PASS; seed0108 Scr **287→292** RNG FULL;
-  prefix **216→280**; cohort 33/33 PASS.
-- Next: @280 `#herecmdmenu` "What do you want to do?".

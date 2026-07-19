@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0736 — use_mirror + use_camera getdir (seed5002 @5739)
+
+- **Status:** fixed (partial — seed5002 still FAIL; trailing +1 then seg1)
+- **Symptom:** seed5002 continuous first miss @**5739** after D-0735:
+  `aph` mirror apply leaked `h` into `domove` (no getdir).
+- **C locus:** `apply.c` `use_mirror` / `use_camera`; `zap.c` `bhit`
+  INVIS_BEAM; `uhitm.c` `flash_hits_mon`.
+- **Cause:** JS `doapply` printed "Sorry…" for MIRROR/CAMERA without
+  consuming direction keys.
+- **Change:** port `use_mirror` (getdir, cursed `rn2(2)`, self-look,
+  INVIS_BEAM walk, flee `rn2(5)`/`monflee d(2,4)`) and `use_camera`
+  (getdir, charge, cursed/self `zapyourself`, FLASHED_LIGHT +
+  `flash_hits_mon` blind/`rn2(4)` flee subset). Named: Medusa
+  `mon_reflects`/kill; nymph steal+rloc; full `howmonseen`;
+  `see_monster_closeup`; flash mimic/gremlin.
+- **Verification:** green+strict PASS; cohort 8/8; continuous
+  **5739→5904**; seg0 matches all **5904** C calls; JS +1 trailing
+  `rn2(19)` from `learnwand`→`exercise(A_WIS)` after final fire zhitu.
+- **Next:** drop trailing learnwand exercise (wish-known / AEXE); then
+  seed5002 seg1 (seed5003); or D-0731/D-0708.
+
 ## D-0735 — use_stethoscope adjacent must return res TIME
 
 - **Status:** fixed (partial — seed5002 still FAIL; next @5739)

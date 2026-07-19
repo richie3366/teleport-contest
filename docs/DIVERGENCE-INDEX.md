@@ -716,6 +716,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0733 | fixed | mfndpos diagonal worm_cross + rogue door-cut | shared; inert for 0399/0014 (no worms / not rogue) |
 | D-0734 | fixed | zhitu non-sleep + hero destroy_items AD_FIRE | seed5002 5980→6172; seg0 FULL; next themerms @6172 |
 | D-0735 | fixed | use_stethoscope adjacent must return res TIME | seed5002 seg1 5668→5739; root was ECMD_OK stub |
+| D-0736 | fixed | use_mirror + use_camera getdir/beam/flash | seed5002 cont 5739→5904; seg0 C FULL +1 learnwand |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
