@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @100738)
+- **Symptom:** seed0360 @100397 — C `distfleeck` `rn2(5)` vs JS `rn2(3)`
+  (`m_move` stalker/bat/light). Matched strings hid site shift: C burned
+  Tengu `!rn2(5)` while JS lacked that call, so later `distfleeck` values
+  aligned coincidentally until `rn2(5)` vs `rn2(3)`.
+- **C locus:** `monmove.c` `m_move` (`ptr == &mons[PM_TENGU] && !rn2(5)`).
+- **Cause (#883):** JS `m_move` omitted Tengu nature teleport before
+  `not_special` (and uswallow early-out).
+- **Change:** `js/monmove.js` — Tengu `!rn2(5)` + `!mcan` +
+  `!tele_restrict` → `rloc`/`mnexto` + `postmov(MMOVE_MOVED)`; uswallow
+  early `MMOVE_MOVED` matching C `not_special`.
+- **Verification:** green+strict PASS; cohort 35/35; seed0360 prefix
+  **100397→100738**, RNG **100887→104024**, Scr **292**/833.
+- **Next:** @100738 C `mfndpos` chcnt `rn2(6)` vs JS `rn2(5)` (`m_move`
+  appr==0 path — cnt mismatch).
+
 ## D-0777 — maketrap IS_AIR/CLOUD reject (seed0360 @100104)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @100397)

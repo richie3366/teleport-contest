@@ -48,7 +48,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 577/714 | prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 100887/120639 | 292/833 | @100397 distfleeck (D-0777) |
+| seed0360 | 104024/120639 | 292/833 | @100738 mfndpos chcnt (D-0778) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3038/108275 | 13/1814 | knight coverage |
@@ -74,14 +74,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100397** — D-0777 closed @100104 via
-`maketrap` IS_AIR/CLOUD reject (Wiz-strt traps). Next: C `distfleeck`
-vs JS `rn2(3)` in `m_move`. Parked D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @100738** — D-0778 closed @100397 via
+`m_move` Tengu nature teleport (`!rn2(5)`). Next: C `mfndpos` chcnt
+`rn2(6)` vs JS `rn2(5)` (appr==0 path; one fewer candidate). Parked
+D-0731/D-0708 diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @100397 C distfleeck vs JS rn2(3) — m_move
+# @100738 C rn2(6) vs JS rn2(5) — m_move mfndpos chcnt
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -89,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0777.**
+**Do not re-break D-0660…D-0778.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

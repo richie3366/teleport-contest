@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 15:22 — #883 m_move Tengu teleport (D-0778); @100397→100738
+- Objective: seed0360 @100397 C distfleeck vs JS rn2(3).
+- C locus: `monmove.c` `m_move` Tengu `!rn2(5)` before not_special.
+- Change or falsified theory: JS omitted Tengu nature teleport; matched
+  `rn2(5)` strings hid the missing call until next mon’s fleeck vs
+  stalker `rn2(3)`. Ported Tengu rloc/mnexto + uswallow early-out.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **100397→100738**, RNG **100887→104024**, Scr **292**/833.
+- Next: @100738 mfndpos chcnt rn2(6) vs rn2(5) (m_move appr==0).
+
 ## 2026-07-19 15:17 — #882 maketrap AIR/CLOUD (D-0777); @100104→100397
 - Objective: seed0360 @100104 C get_location vs JS rnd(4) mid Wiz-strt traps.
 - C locus: `trap.c` `maketrap` (`IS_AIR && typ != MAGIC_PORTAL`).

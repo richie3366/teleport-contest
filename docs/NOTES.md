@@ -7,9 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#882 / D-0777:** @100104 was `maketrap` placing PIT on CLOUD; C
-  `IS_AIR` reject → no victim `rnd(4)`. Prefix **100104→100397**.
-  Next: @100397 C `distfleeck` vs JS `rn2(3)` (`m_move`).
+- **#883 / D-0778:** @100397 was missing Tengu `m_move` `!rn2(5)` —
+  string match hid site shift until `rn2(5)` vs `rn2(3)`. Prefix
+  **100397→100738**, RNG **100887→104024**.
+  Next: @100738 C `mfndpos` chcnt `rn2(6)` vs JS `rn2(5)` (appr==0).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -19,10 +20,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0777 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0778 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (see D-0769 @86015).
+  same string can hide different call sites (see D-0769 @86015; D-0778).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
@@ -47,7 +48,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#880;
-  Scr 8280, RNG **629155**/79.35%; seed0360 **100397**/292 after D-0777).
+  Scr 8280, RNG **629155**/79.35%; seed0360 **100738**/292 after D-0778).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -58,7 +59,7 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  **Wiz-loca/goal/fila/filb after @100397**; hellfill/fakewiz deferred;
+  **Wiz-loca/goal/fila/filb after @100738**; hellfill/fakewiz deferred;
   minend-3 / soko2-2 / other bigrm-N deferred;
   `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
@@ -70,4 +71,5 @@ Objective/score live in `CURRENT.md`.
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);
   **medusa-3 + mk_artifact A_NONE** (D-0759);
-  **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777).
+  **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
+  **Tengu m_move teleport** (D-0778).
