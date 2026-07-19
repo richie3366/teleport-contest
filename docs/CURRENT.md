@@ -21,10 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#905**,
-cadence). Screens **8397**/11405; RNG **643,108**/792838 (81.11%).
-**37/44** PASS. Δ vs #900: Scr **0**, RNG **+1,961**, PASS **0** (peels
-D-0786…D-0789 landed in suite totals; seed0360 suite RNG still **111566**).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#910**,
+cadence). Screens **8397**/11405; RNG **643,814**/792838 (81.20%).
+**37/44** PASS. Δ vs #905: Scr **0**, RNG **+706**, PASS **0** (D-0790…
+D-0793 soak; seed0360 suite RNG **112272** @112243).
 
 ## Score
 
@@ -32,8 +32,8 @@ D-0786…D-0789 landed in suite totals; seed0360 suite RNG still **111566**).
 |--------|------:|
 | Sessions passing | **37 / 44** |
 | Screens matched | **8,397 / 11,405** |
-| Positional RNG calls matched | **643,108 / 792,838** (81.11%) |
-| Speed label | `36+0.21/turn` (R² 0.801) |
+| Positional RNG calls matched | **643,814 / 792,838** (81.20%) |
+| Speed label | `36+0.21/turn` (R² 0.802) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -49,7 +49,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 112272/120639 | 391/833 | @112243 Neferet CLOSE (#907) |
+| seed0360 | 112272/120639 | 391/833 | @112243 Neferet CLOSE (#910) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
