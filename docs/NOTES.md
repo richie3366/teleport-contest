@@ -52,8 +52,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#890;
-  Scr 8297, RNG **632144**/79.73%; seed0360 **101022**/101695/**294** D-0779).
+  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#895;
+  Scr 8300, RNG **632321**/79.75%; seed0360 **101022**/101695/**294** D-0779).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

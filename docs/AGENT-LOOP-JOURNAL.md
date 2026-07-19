@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 18:10 — #895 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs only).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+  **37/44** PASS; Scr **8300**/11405 (+3 vs #890); RNG **632321**/792838
+  (79.75%, +177); speed `36+0.21/turn`. seed0014 49501/578; seed0360
+  still @101022 / 101695 / 294; seed4500 3031.
+- Verification: green+strict PASS; full suite exit 37/44.
+- Next: D-0779 C-state after quasit CLOUD (`m_in_out_region` / offmap
+  setter) — do not implement without falsifier.
+
 ## 2026-07-19 18:05 — #894 D-0779/D-0781 quasit CLOUD skip fleeck
 - Objective: seed0360 @101022 quasit 2nd fleeck vs bat `!rn2(3)`.
 - C locus: `monmove.c` `dochug`/`postmov` `mon_offmap`; CLOUD step.
