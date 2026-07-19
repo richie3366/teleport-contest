@@ -74,12 +74,12 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @98492** — D-0773 (#877): C Dlvl42 screen
-shows warning `'1'` @(55,9) + `q` @(60,10); JS mumak linedup boulder
-`rn2(3)` from (55,9). C (57,9) never revealed; C lava flanks @(58,9)/
-(60,9) vs JS ROOM+boulder @(57,9). Skip-rn2 → **98502**. Next: C-state
-boulder/couldsee/lava typ via recorder, or hell_tweaks cell divergence.
-Do not FORCE. Parked D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @98492** — D-0773 (#878): JS mumak
+(55,9)→hero linedup boulder `rn2(3)`; C skips (couldsee?). Falsified
+“lava @58/60” (DEC `~`=ROOM). Wizard2 river endpoints match C; lava@55–56.
+C visible lava@`(61,9)` vs JS boulder. Next: recorder
+`sobj_at(BOULDER,57,9)`/`couldsee(55,9)`. Skip-rn2→**98502**. Do not
+FORCE. Parked D-0731/D-0708 diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \

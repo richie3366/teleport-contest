@@ -7,19 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#877 / D-0773:** @98492 still JS linedup `rn2(3)`. **C screen (Dlvl42
-  wizard2) step367/368:** warning `'1'` @(55,9) + visible `q` @(60,10);
-  after `.` wait the `'1'` clears; **(57,9) never non-space on D42**.
-  C step368 RNG = 16× fleeck + hides_under `rn2(10)` @98502. JS DIAG
-  (removed): fleeck@98491 S_QUADRUPED (55,9)→(59,9) → linedup boulder
-  → post (55,8). JS post-flip: ROOM+boulder @(57,9), lava @(55–56,9),
-  ROOM @(58,9); C reveals lava `~` @(58,9)/(60,9) when hero arrives —
-  **lava geometry differs**. Falsified: drop bounds2 `+xstart` (C
-  `fillsrect` also adds xstart via `get_location`). **Hypothesis:** C
-  `couldsee(55,9)` true (no LOS boulder / different lava) so lined_up
-  silent. **Falsify:** recorder C-state `sobj_at(BOULDER,57,9)` +
-  `couldsee(55,9)` + typ@(58,9) at step368; or find hell_tweaks cell
-  pick bug with matched RNG. Do not FORCE.
+- **#878 / D-0773:** @98492 JS linedup `rn2(3)` (mumak 55,9→hero 59,9;
+  path LAVA/LAVA/ROOM+boulder/ROOM; couldsee false). **Falsified #877
+  “lava @58/60”:** DEC `~` = S_room (meta-~), lava = meta-``. JS/C
+  wizard2 river floor=682; endpoints match C rndcoord 11/461/54/603;
+  lava@55–56. Falsified randline +xstart (rndcoord relative→get_location
+  net id). C shows lava meta-`` @(61,9) vs JS ROOM+boulder. **Hypothesis:**
+  C `couldsee(55,9)` true (no LOS boulder @57) despite gen-matched
+  maze1xy. **Falsify:** recorder `sobj_at(BOULDER,57,9)` + `couldsee(55,9)`
+  + typ@(61,9) at step368. Do not FORCE.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -41,6 +37,9 @@ Objective/score live in `CURRENT.md`.
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492.
+- DEC `~` ≠ lava (S_room/ice); lava/pool/water = meta-``.
+- hell_tweaks randline: do **not** add xstart to rndcoord abs (C
+  rndcoord returns relative; get_location restores).
 - FlipY ymin=2 is correct for mazegrid (not the FlipY→7 theory).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.

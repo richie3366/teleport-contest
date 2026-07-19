@@ -50,16 +50,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   ymin=0 → boulder at y=7”. Probes (removed): skip boulder rn2 via
   couldsee-true *or* lined_up-false → **98502**.
 - **#877 C screen:** Dlvl42 step367 — warning `'1'` @(55,9), `q` @(60,10);
-  step368 clears `'1'`; **(57,9) never non-space on D42**. C reveals
-  lava `~` @(58,9)/(60,9) beside hero; JS post-flip has ROOM @(58,9) +
-  boulder @(57,9) + lava @(55–56,9) — lava geometry diverges. Falsified
-  “drop bounds2 +xstart”: C `fillsrect` also adds xstart via
-  `get_location_coord`. Open: recorder `sobj_at(BOULDER,57,9)` /
-  `couldsee(55,9)` / hell_tweaks cell pick with matched RNG.
+  step368 clears `'1'`; **(57,9) never non-space on D42**. Misread DEC
+  `~` beside hero as lava (see #878).
+- **#878 glyph + river:** Falsified “lava flanks @(58,9)/(60,9)”: under
+  DECgraphics `~` is S_room (meta-~); lava/pool/water is meta-``. JS@98492
+  DIAG (removed): mumak(55,9) on LAVA, path LAVA(56)/ROOM+boulder(57)/ROOM
+  → couldsee false → `rn2(3)`. Wizard2 hell_tweaks: pools skip; river
+  floor=682; rndcoord idx 11/461/54/603 → endpoints (3,15)/(53,19) then
+  (8,11)/(69,12); lava@y13 x=55,56 (matches JS). Falsified hell_tweaks
+  randline +xstart (C `l_selection_rndcoord` returns relative; get_location
+  restores — net identity; adding xstart broke prefix →71986). C shows
+  lava meta-`` @(61,9) vs JS ROOM+boulder @(61,9). Open: why C skips
+  linedup rn2 — recorder `sobj_at(BOULDER,57,9)` / `couldsee(55,9)`.
 - **Change:** none (DIAG removed). Do not FORCE linedup in production.
 - **Verification:** green+strict PASS; seed0360 still **98492**/98507
   Scr **275**/833.
-- **Next:** C-state boulder/couldsee/lava typ at step368; then
+- **Next:** C-state boulder/couldsee at step368; note typ@(61,9); then
   wizard3/hellfill @98502.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag

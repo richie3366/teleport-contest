@@ -19,6 +19,19 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 14:40 — #878 @98492 DEC `~`≠lava; river matched (D-0773)
+- Objective: seed0360 @98492 why C skips linedup rn2(3).
+- C locus: `mthrowu.c` `linedup`; `nhlib.lua` hell_tweaks; `display.c` DEC.
+- Change or falsified theory: no port patch. Falsified #877 “lava flanks
+  @(58,9)/(60,9)”: DECgraphics `~` = S_room (or ice), lava is meta-``.
+  JS@98492: mumak(55,9) LAVA→hero(59,9); path LAVA/LAVA/ROOM+boulder/ROOM;
+  couldsee false → rn2(3). Wizard2 hell_tweaks: pools skip; river floor=682
+  endpoints match C rndcoord idx 11/461/54/603 → lava@55–56. Falsified
+  randline +xstart (C rndcoord returns relative; net identity). Do not FORCE.
+- Verification: green+strict PASS; seed0360 still **98492**/275.
+- Next: recorder C `sobj_at(BOULDER,57,9)`/`couldsee(55,9)`; C visible
+  lava@`(61,9)` vs JS ROOM+boulder; then wizard3 @98502.
+
 ## 2026-07-19 14:27 — #877 @98492 C-screen lava/warn (D-0773)
 - Objective: seed0360 @98492 why C skips linedup rn2(3).
 - C locus: `mthrowu.c` `linedup`; `nhlib.lua` hell_tweaks; session screens.
@@ -143,21 +156,3 @@ Use this shape:
   speed `36+0.20/turn` (R² 0.822). Δ vs #860: Scr **+6**, RNG **+14,263**.
 - Next: @86029 C `distfleeck`/`m_move` vs JS `rn2(20)` (post-wizard1
   gameplay); or wizard2 if next special.
-## 2026-07-19 12:05 — #864 orcus + Orcus mongone (D-0767)
-- Objective: seed0360 @76622 C nhlib shuffle / walkfrom vs JS rn2(79).
-- C locus: `dat/orcus.lua`; `shknam.c` stock_room Orcus mongone;
-  `steal.c` mdrop_special_objs obj_resists.
-- Change: `load_orcus` + dispatch; `stock_room` Orcus invent obj_resists
-  + detach. Omit hellfill/wizard*/fakewiz; full shkgone.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **76622→82982**; RNG **76625→82989**; Scr **273**/833.
-- Next: @82982 C nhlib shuffle / wizard1.lua vs JS rn2(79).
-## 2026-07-19 11:56 — #863 baalz / baalz_fixup (D-0766)
-- Objective: seed0360 @74801 C nhlib shuffle / walkfrom vs JS rn2(79).
-- C locus: `dat/baalz.lua`; `mkmaze.c` `baalz_fixup` / bughack wallify;
-  `sp_lev.c` corrmaze; map without contents keeps xstart.
-- Change: `load_baalz` + dispatch; `baalz_fixup` + `Is_baal_level`;
-  bughack in `wall_cleanup`/`fix_wall_spines`. Omit orcus/hellfill/wizard*.
-- Verification: green+strict PASS; cohort 18/18; seed0360 prefix
-  **74801→76622**; RNG **74803→76625**; Scr **273**/833.
-- Next: @76622 C nhlib shuffle / walkfrom → **orcus** (`orcus.lua:107`).
