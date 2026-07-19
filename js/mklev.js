@@ -7642,6 +7642,35 @@ function mkmap_flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
     if (sy > bounds.max_ry) bounds.max_ry = sy;
 }
 
+/**
+ * C ref: sp_lev.c map_cleanup — after lua/special content, before
+ * wallification/flip: strip boulders from lava/pool cells.
+ * Named omissions: deltrap on liquid; del_engr; undestroyable_trap.
+ */
+function map_cleanup() {
+    const g = game;
+    for (let x = 0; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = g.level?.at?.(x, y);
+            if (!loc) continue;
+            const typ = loc.typ | 0;
+            if (!IS_LAVA(typ) && !IS_POOL(typ)) continue;
+            // C: while sobj_at(BOULDER) → obj_extract_self + obfree
+            for (;;) {
+                let otmp = null;
+                for (let o = objects_at(x, y); o; o = o.nexthere) {
+                    if (o.otyp === BOULDER) { otmp = o; break; }
+                }
+                if (!otmp) break;
+                obj_extract_self(otmp);
+                otmp.where = OBJ_FREE;
+                otmp.nexthere = null;
+                otmp.nobj = null;
+            }
+        }
+    }
+}
+
 function join_map_cleanup() {
     const g = game;
     for (let x = 1; x < COLNO; x++) {
@@ -9538,7 +9567,7 @@ function load_valley() {
  * C ref: dat/nhlib.lua hell_tweaks — random lava pools / river / boulder
  * walls / iron bars on Gehennom specials. Boulder/bars match `'.w.'`
  * (D-0772). Named omissions: callers beyond asmodeus/orcus/wizard1–2
- * still deferred (hellfill/wizard3); map_cleanup after flip.
+ * still deferred (hellfill/wizard3); deltrap/del_engr in map_cleanup.
  */
 function hell_tweaks(protectedArea) {
     const liquid = LAVAPOOL;
@@ -9865,7 +9894,8 @@ function load_asmodeus() {
     );
     hell_tweaks(protectedSel);
 
-    // C load_special: wallify → flip → lregions → fixup
+    // C load_special: map_cleanup → wallify → flip
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -10603,7 +10633,8 @@ function load_orcus() {
     const protectedSel = selection_or(selection_not(bounds2), orcus1);
     hell_tweaks(protectedSel);
 
-    // C load_special: wallify → flip → lregions → fixup
+    // C load_special: map_cleanup → wallify → flip
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -10908,7 +10939,8 @@ function load_wizard1() {
     const protectedSel = selection_or(selection_not(bounds2), wiz1);
     hell_tweaks(protectedSel);
 
-    // C load_special: wallify → flip → lregions → fixup
+    // C load_special: map_cleanup → wallify → flip
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -11176,7 +11208,8 @@ function load_wizard2() {
     const protectedSel = selection_or(selection_not(bounds2), wiz2);
     hell_tweaks(protectedSel);
 
-    // C load_special: wallify → flip → lregions → fixup
+    // C load_special: map_cleanup → wallify → flip → lregions → fixup
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);

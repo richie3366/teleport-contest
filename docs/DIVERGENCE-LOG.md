@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0774 — sp_lev map_cleanup before wallify/flip (hell specials)
+
+- **Status:** fixed (partial — seed0360 still @98492)
+- **Symptom:** seed0360 @98492 still JS linedup rn2(3); preflip JS had
+  boulders on lava at (15,9)/(17,9) that C `map_cleanup` would strip.
+- **C locus:** `sp_lev.c` `map_cleanup` (before wallification/flip in
+  `load_special` / `lspo_finalize_level`).
+- **Cause (#873):** JS hell loaders called wallify→flip without
+  `map_cleanup`. LOS mumak boulder @(57,13) is ROOM (not lava) so this
+  alone does not clear @98492 linedup rn2; still required C semantics.
+- **Change:** `js/mklev.js` — `map_cleanup` (boulder extract on
+  IS_LAVA/IS_POOL); call before wallify/flip in asmodeus/orcus/wizard1/2.
+  Named omissions: deltrap/del_engr; other specials without hell_tweaks.
+- **Verification:** green+strict PASS; cohort 10/10; seed0360 still
+  **98492**/98507 Scr **275**/833.
+- **Next:** D-0773 — why C skips linedup rn2 despite gen-matched ROOM
+  boulder (couldsee / see-around / skip lined_up).
+
 ## D-0773 — seed0360 @98492 linedup boulder vs C couldsee (diag)
 
 - **Status:** open (diagnosis — no port patch; prefix still @98492)
