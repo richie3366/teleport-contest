@@ -7,36 +7,32 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#908 D-0792:** Wizard `ldrnum`+`mundisplaceable` shipped; seed0360
-  still @112243.
-- **Falsified:** clearing Neferet `STRAT_CLOSE` (any thr≤112000) regresses
-  prefix; thr=-1 best. @112243 is not “clear CLOSE then fleeck”.
-- **@112243 next:** JS hits EOT `mcalcmove` `rn2(12)` while C still has
-  peaceful `distfleeck`/`rn2(10)`. Neferet still CLOSE-skips (correct vs
-  early-clear). Suspect leftover `movement` / second `movemon` pass —
-  dump fmon `movement` budgets at mismatch.
-- **Don’t:** force-clear CLOSE; re-break D-0790/D-0791; leave DIAG.
+- **#909 D-0793:** `makemon` `mux`/`muy` = 0 (`zeromonst`); was spawn xy.
+- **@112243 DIAG (keep):** after bat fleeck, Neferet@26,14 spends +
+  `STRAT_CLOSE` skip → EOT `mcalcmove` `rn2(12)`. C: peaceful fleeck
+  `rn2(5)` + `m_move` `rn2(10)` then 2nd fleeck then EOT.
+- **FORCE (removed):** clear CLOSE @112243 + set `mux,muy=hero` →
+  matches through C’s `rn2(5)`/`rn2(10)`/`rn2(1)`/`rn2(2)` (~112246).
+  Clear alone inserts Displacement `set_apparxy` `rn2(4)` (stale mux).
+  Early CLOSE clear (thr≤112100) still regresses.
+- **Next:** C path that clears Neferet CLOSE *and* leaves `mux` at hero
+  before 112243 (not FORCE). She was born @99733; only one spend by
+  112243 (quest level idle). `#chat` SELF; no session “Really attack”.
+- **Don’t:** FORCE clear; re-break D-0790…D-0793; leave DIAG.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0792 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0793 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (D-0769…D-0790).
+- `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS**; D-0743…D-0790 peels done.
-- D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
-  `S_poisoncloud` (damage>0), not fog/steam `S_cloud`.
-- D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
-- D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
-- LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
-- `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
-- Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- #905 FORCE no-place @110612 was aftermath of earlier mux-image miss.
+- D-0770: flyers ignore floor_trigger traps; mfndpos poisoncloud only.
 - wake_nearby must skip G_UNIQ (D-0791); dothrow was `~0x07` not WAITMASK.
-- Wizard had no `ldrnum` → no `leader_m_id` (D-0792); other roles still
-  missing quest fields.
+- Wizard had no `ldrnum` → no `leader_m_id` (D-0792).
+- Clearing Neferet CLOSE at thr≤112000 regresses (#908).
+- `makemon` mux≠spawn (D-0793); FlipY moves `mx/my` not `mux/muy` (C).
 
 ## Landmarks (≤15)
 
@@ -44,42 +40,16 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#905;
-  seed0360 focused **112272**/391 @#908).
+  seed0360 focused **112272**/391 @#909).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Bones `utrack` via `save_track`/`rest_track` (D-0578).
 - Quest: seed0367 **PASS**. seed0014 @50259 mfndpos (D-0708 open).
-- S_KOP / minetn-1/3/4/6/7 / **medusa-2/4** deferred;
-  eel hideunder / I_SPECIAL deferred; SWAMP deferred;
-  worn/artifact STONE_RES deferred;
-  youmonst pool·lava / passes_walls in goodpos deferred;
-  exclusion_zones save/rest deferred; region binary save format deferred;
-  **Wiz-loca/goal/fila/filb**; hellfill/fakewiz deferred;
-  minend-3 / soko2-2 / other bigrm-N deferred;
-  `LVLINIT_ROGUE` sp_lev deferred;
-  `pick_nasty` GEHENNOM dnum deferred.
+- S_KOP / minetn / **medusa-2/4** / eel hideunder deferred;
+  **Wiz-loca/goal**; hellfill deferred; `LVLINIT_ROGUE` deferred.
 - Mumak **lacks** M2_ROCKTHROW; linedup uses handling=2.
-- **wizard2** (D-0771); **wizard1** (D-0768); **orcus** (D-0767);
-  **baalz** (D-0766); **juiblex + lvlfill_swamp** (D-0765);
-  **hell_tweaks** (D-0764/D-0772 `.w.`); **asmodeus + hell helpers** (D-0763);
-  **makeroguerooms + rogue skip0** (D-0762);
-  **makemon mlet before G_SGROUP** (D-0761);
-  **bigrm-4 L-replace+fountains** (D-0760);
-  **medusa-3 + mk_artifact A_NONE** (D-0759);
-  **minliquid** (D-0775); **Wiz-strt** (D-0776/D-0782 branch FlipY);
-  **maketrap AIR** (D-0777); **Tengu m_move teleport** (D-0778);
-  **getdir lock SELF** (D-0780); **getpos seenv stairs** (D-0779);
-  **mon_offmap dochug/postmov** (D-0781); **MAGIC_PORTAL migrate** (D-0782);
-  **Gloves POWER + Cloak DISPLACEMENT** (D-0783);
-  **dotravel seenv||couldsee** (D-0784);
-  **kick set_wounded_legs** (D-0785);
-  **dokick Wounded_legs legs_in_no_shape** (D-0786);
-  **wiz_map ^F do_mapping** (D-0787);
-  **TRAVP_GUESS hero-matrix** (D-0788);
-  **dotele clear travelcc** (D-0789);
-  **m_move mux-image aggress** (D-0790);
-  **attack_checks WAITMASK + is_safemon canspotmon** (D-0791);
-  **Wizard ldrnum + mundisplaceable** (D-0792).
-  Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).
-  **`special_obj_hits_leader` deferred; other roles’ quest fields deferred.**
+- **wizard2** (D-0771); **Wiz-strt** FlipY (D-0776/D-0782);
+  **m_move mux-image** (D-0790); **WAITMASK** (D-0791);
+  **Wizard ldrnum** (D-0792); **makemon mux=0** (D-0793).
+  **`special_obj_hits_leader` deferred; attack_checks peaceful yn deferred.**

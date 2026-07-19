@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0793 — makemon mux/muy zeromonst (Neferet set_apparxy prep)
+
+- **Status:** fixed (seed0360 still FAIL @112243)
+- **Symptom:** seed0360 @112243 — C `distfleeck` `rn2(5)` vs JS
+  `mcalcmove` `rn2(12)`.
+- **C-state (#909):** After matched bat fleeck, JS Neferet@26,14
+  (`STRAT_CLOSE`) spends movement then WAITMASK early-out → EOT.
+  C continues with peaceful fleeck + `m_move` `rn2(10)`. FORCE clear
+  CLOSE at mismatch + `mux,muy=hero` matches through ~112246; clear
+  alone burns Displacement `set_apparxy` `rn2(4)` because JS had set
+  `mux/muy` to spawn xy (FlipY moves `mx/my` only → stale mux).
+  Early CLOSE clear still regresses. Born n=99733; one spend by 112243.
+- **C locus:** `makemon.c` `*mtmp = cg.zeromonst` — mux/muy stay 0
+  until `set_apparxy`.
+- **Change:** `js/makemon.js` init `mux`/`muy` to 0 (not spawn x,y).
+- **Named deferred:** C path that clears Neferet CLOSE with mux at
+  hero before 112243; `special_obj_hits_leader`; attack_checks
+  peaceful yn; flip does not remap mux (matches C).
+- **Verification:** green+strict PASS; cohort 7/7 PASS; seed0360
+  still @112243 / RNG **112272** Scr **391**.
+- **Next:** find faithful CLOSE-clear path (not FORCE).
+
 ## D-0792 — Wizard ldrnum + mundisplaceable (Neferet CLOSE peel)
 
 - **Status:** fixed (seed0360 still FAIL; CLOSE-clear hypothesis falsified)

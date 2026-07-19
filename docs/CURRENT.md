@@ -75,11 +75,10 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @112243** — C peaceful `distfleeck`/
-`rn2(10)` vs JS EOT `mcalcmove` `rn2(12)`. D-0792: Wizard `ldrnum` +
-`mundisplaceable` (leader_m_id). **Falsified:** clearing Neferet
-`STRAT_CLOSE` regresses prefix. Next: movement leftover / second
-`movemon` pass (not CLOSE clear). Parked D-0731.
+**Gameplay next:** **seed0360 @112243** — Neferet `STRAT_CLOSE` skip →
+EOT `mcalcmove`; C peaceful fleeck/`m_move` `rn2(10)`. D-0793: `makemon`
+`mux`/`muy`=0. DIAG: clear CLOSE + `mux=hero` matches ~112246; need C
+clear path (not FORCE). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -88,7 +87,7 @@ node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0792.**
+**Do not re-break D-0660…D-0793.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
