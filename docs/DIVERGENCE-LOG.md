@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0759 — medusa-3.lua load_special + mk_artifact A_NONE (seed0360 @55374)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @60114)
+- **Symptom:** seed0360 @55374 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` (post-tower3). Mid-load @58020
+  C `mk_artifact` `rn2(1)` vs JS stub skip → `rn2(100)`.
+- **C locus:** `dat/medusa-3.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`rnd(4)=3`); `artifact.c` `mk_artifact`
+  (A_NONE from `mksobj_init` artif gate).
+- **Cause (#855):** (1) JS had no `medusa-3` loader → empty →
+  `place_lregion` `rn2(79)`. (2) `mksobj_init` artif gate called a
+  no-op stub instead of `mk_artifact` eligible/`rn2(n)`.
+- **Change:** `js/mklev.js` — `load_medusa_3` + dispatch (solidfill map,
+  place `selection_rndcoord`×3, arrival_room `litstate_rnd(-1)`,
+  Perseus+contents, empty statues, rust/board traps, Medusa+eels+
+  nymphs+30 ravens, tele/stair-up lregions). `js/artifact.js` —
+  `mk_artifact` A_NONE path; `js/mkobj.js` wires both artif gates.
+  Named omissions: medusa-2/4; by_align gift path; gift_value/gen_spe
+  extractor fields; permapoisoned; bigrm-4.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360
+  prefix **55374→60114**; RNG **55383→60117**; Scr **261→265**.
+  Full suite #855: **37/44**, Scr **8270**, RNG **590719** (74.51%).
+- **Next:** @60114 C `bigrm-4` (`makemaz` `rnd(13)=4`; nhlib shuffle)
+  vs JS `rn2(79)`.
+
 ## D-0758 — tower3.lua load_special (seed0360 @53591)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @55374)

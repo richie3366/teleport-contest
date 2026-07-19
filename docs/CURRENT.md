@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#850**,
-post D-0754). Screens **8212**/11405; RNG **573,869**/792838 (72.38%).
-**37/44** PASS. Δ vs #845: Scr **0**, RNG **+5,581**, PASS **0**
-(seed0360 D-0750…D-0754 prefix lift; suite RNG 568k→574k).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#855**,
+post D-0759). Screens **8270**/11405; RNG **590,719**/792838 (74.51%).
+**37/44** PASS. Δ vs #850: Scr **+58**, RNG **+16,850**, PASS **0**
+(seed0360 D-0758…D-0759 prefix lift; suite RNG 574k→591k).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,212 / 11,405** |
-| Positional RNG calls matched | **573,869 / 792,838** (72.38%) |
-| Speed label | `37+0.20/turn` (R² 0.807) |
+| Screens matched | **8,270 / 11,405** |
+| Positional RNG calls matched | **590,719 / 792,838** (74.51%) |
+| Speed label | `36+0.20/turn` (R² 0.830) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,9 +47,9 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#850; prefix @49039 D-0708 |
-| seed0399 | 10389/11409 | 113/532 | @#850; stuck @10157 D-0731 |
-| seed0360 | 55383/120639 | 261/833 | @#854; next medusa-3 @55374 |
+| seed0014 | 49495/59178 | 577/714 | @#855; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#855; stuck @10157 D-0731 |
+| seed0360 | 60117/120639 | 265/833 | @#855; next bigrm-4 @60114 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,15 +75,15 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @55374** after D-0758 tower3 —
-C `medusa-3` (`makemaz` `rnd(4)=3`; post-getbones nhlib shuffle →
-`selection_rndcoord`) vs JS `rn2(79)`. Prefer over D-0731/D-0708 mfndpos.
-Do **not** re-break D-0660…D-0758.
+**Gameplay next:** **seed0360 @60114** after D-0759 medusa-3 —
+C `bigrm-4` (`makemaz` `rnd(13)=4`; post-getbones nhlib shuffle) vs JS
+`rn2(79)`. Prefer over D-0731/D-0708 mfndpos.
+Do **not** re-break D-0660…D-0759.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @55374 C medusa-3 nhlib shuffle → selection_rndcoord vs JS rn2(79)
+# @60114 C bigrm-4 nhlib shuffle vs JS rn2(79)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -91,7 +91,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0758.**
+**Do not re-break D-0660…D-0759.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
