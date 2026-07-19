@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #813 seed0399 mfndpos pair sharpen (D-0731)
+- Objective: seed0399 @10157 rn2(20) vs rn2(28); identify C’s 2 omits.
+- C locus: `mon.c` `mfndpos` (deferred onscary/gas/worm_cross/bars).
+- Change: none (DIAG/PROBE only; reverted). Falsified: WEB required in
+  the omit pair; pair ID via max-prefix (all keep-track pairs →10217).
+  Track cell (59,13) must stay for arity rn2. Omit ∈6 non-track.
+- Verification: green+strict PASS; seed0399 still @10157; no js/ diff.
+- Next: C-state / deferred mfndpos arms; or D-0708 @49039.
+
 ## 2026-07-19 — #812 unicorn NOTONL + fail-tele (D-0731)
 - Objective: seed0399 @10157 m_move track rn2(20) vs rn2(28).
 - C locus: `mon.c` `mon_allowflags` NOTONL; `monmove.c` unicorn
@@ -155,13 +164,3 @@ Use this shape:
   cohort prior PASSes held.
 - Next: @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
 
-## 2026-07-19 — #798 seed0108 wipe Blind sticky (D-0716)
-- Objective: seed0108 @3011 after `#invoke` spaces (CURRENT primary).
-- C locus: `potion.c` `make_blinded`/`toggle_blindness`; `youprop.h` Blind;
-  `do.c` `wipeoff`.
-- Change: Blind/`hero_Blind`/`vision_recalc` ≡ props not sticky;
-  wipe `make_blinded` syncs `u.Blind` + `vision_recalc(0)` on toggle.
-  Falsified: global `rest_on_space` (already). More restored; umov still short.
-- Verification: green+strict PASS; prefix still **3011**; cohort
-  seed1500/1800/0060 PASS; screens 58→74 on seed0108 runner.
-- Next: @3011 C post-EOT `movemon` (umov<12 loopAgain) vs JS umov=15.

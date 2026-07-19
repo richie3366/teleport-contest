@@ -7,17 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#812:** D-0731 — unicorn NOTONL + fail-tele + `rloc_to` track clear.
-  seed0399 still @10157 `rn2(28)` vs `rn2(20)`.
-- **DIAG:** black unicorn @58,12; JS mfndpos **cnt=7** j=0; C needs
-  cnt-j=5. Spider@57,12 skipped; WEB@58,13 unknown; mux=47,9 no
-  online neighbors (NOTONL inert this call).
-- **Falsifier:** FORCE_EXCL any 2 of 7 → arg=20, prefix **→10217**.
-  WEB alone →24. Still open: which 2 C omits (WEB known + ?).
-- **Next:** prove C’s 2 omitted cells (mtrapseen WEB vs other arm);
-  or D-0708 seed0014 @49039. Prefer shared.
-- **Don’t:** re-break D-0660…D-0731; invent FORCE_EXCL in production;
-  treat NOTONL as fix for this miss (no online neigh).
+- **#813:** D-0731 seed0399 @10157 — sharpened, still open.
+  Black unicorn @58,12; JS mfndpos **cnt=7** j=0 →`rn2(28)`; C
+  `rn2(20)` ⇒ cnt=5. Spider@57,12 skipped (only mfndpos skip).
+  Cells: (57,11)(57,13)(58,11)(58,13 WEB tseen=0)(59,11)(59,12)
+  **(59,13 track — must stay)**; mtrapseen=0; mux=u=(47,9);
+  NOTONL inert; gas/engr/regions empty in JS.
+- **Falsified (#813):** (a) WEB must be one of the 2 omits — any
+  2-of-7 that **keeps (59,13)** → prefix **→10217** same next miss
+  (`rnd_otyp` @10217). (b) Pair ID via max-prefix — all such pairs
+  equal. Exclude track → arity never fires (JS skips rn2(20)).
+- **Next:** C-state which 2 of the 6 non-track cells drop (deferred
+  mfndpos arms: onscary/poison-gas/worm_cross/iron bars/garlic/
+  temple); or D-0708 seed0014 @49039. Prefer shared.
+- **Don’t:** FORCE_EXCL in production; re-break D-0660…D-0731;
+  treat NOTONL as fix for this miss.
 
 ## Don’t re-check (≤15)
 
@@ -42,8 +46,8 @@ Objective/score live in `CURRENT.md`.
   PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
   C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
   `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
-  numeric `MS_*` vs string msound; **which 2 mfndpos cells C drops
-  @10157** (WEB+?) still open.
+  numeric `MS_*` vs string msound; **which 2 of 6 non-track mfndpos
+  cells C drops @10157** still open (WEB not required).
 
 ## Landmarks (≤15)
 

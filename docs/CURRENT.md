@@ -72,8 +72,8 @@ that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
 **Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
-(D-0731 — NOTONL/fail-tele ported, miss open); or seed0014 @49039
-mfndpos (D-0708); or coverage (seed5002 / seed0360).
+(D-0731 — #813: keep-track any2→10217; omit ∈6 non-track; deferred
+mfndpos arms); or seed0014 @49039 mfndpos (D-0708); or coverage.
 Prefer shared blockers. Do **not** re-break D-0660…D-0731.
 
 ```bash

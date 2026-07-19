@@ -7,26 +7,32 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
 
 - **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear
-  ported; seed0399 still @10157)
+  ported; seed0399 still @10157; #813 sharpened)
 - **Symptom:** seed0399 @10157 C `rn2(20)` vs JS `rn2(28)` at
   `m_move` track skip (`4*(cnt-j)`).
 - **DIAG:** black unicorn @58,12 appr=1; JS `cnt=7` j=0 →28;
-  mtrack=`[59,13;0…]`; spider @57,12 skipped; WEB@58,13 unknown;
-  mux=47,9 → no neighbor `online2` (NOTONL inert here).
-- **Falsifier:** FORCE_EXCL any 2 of the 7 cells → arg=20, prefix
-  **10157→10217**. WEB alone →24 still miss.
+  mtrack=`[59,13;0…]`; spider @57,12 only mfndpos skip; WEB@58,13
+  tseen=0 mtrapseen=0; mux=u=(47,9) → no neighbor `online2`
+  (NOTONL inert); JS gas/engr/regions empty.
+  Poss: (57,11)(57,13)(58,11)(58,13 WEB)(59,11)(59,12)(**59,13 track**).
+- **Falsifier:** FORCE_EXCL any 2 of 7 that **keep (59,13)** → arg=20,
+  prefix **10157→10217** (same next miss `rnd_otyp` @10217). WEB alone
+  →24. Excluding track → JS never emits rn2(20).
+- **Falsified (#813):** WEB need not be one of the 2 omits; pair ID
+  via max-prefix fails (all keep-track pairs equal through 10217).
 - **Cause (partial):** D-0233 named omission — unicorn
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
-  Remaining: which 2 cells C drops (suspect WEB known + one other).
-- **C locus:** `mon.c` `mon_allowflags` NOTONL; `monmove.c` m_move
-  unicorn else-branch; `teleport.c` `rloc_to` `mon_track_clear`.
+  Remaining: which 2 of the **6 non-track** cells C drops (deferred
+  mfndpos: onscary/poison-gas/worm_cross/iron bars/garlic/temple).
+- **C locus:** `mon.c` `mon_allowflags` NOTONL + `mfndpos`; `monmove.c`
+  m_move unicorn else-branch; `teleport.c` `rloc_to` `mon_track_clear`.
 - **Change:** set NOTONL for unicorn when `!noteleport`; fail-move
   teleport; clear mtrack in `rloc_to`.
 - **Verification:** green+strict PASS; cohort PASS held; seed0399
   still @10157 (rn2(28)); seed0014 unchanged @49039.
-- **Next:** which 2 of 7 C omits (WEB mtrapseen vs other mfndpos arm);
-  or D-0708 seed0014 @49039.
+- **Next:** C-state which 2 of 6 non-track cells; port deferred mfndpos
+  arms; or D-0708 seed0014 @49039.
 
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 
