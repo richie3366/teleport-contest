@@ -369,3 +369,12 @@
 - Verification: green+strict PASS; prefix 43341→43553 RNG 43636 Scr 575;
   cohort 13/13; full suite 35/44.
 - Next: seed0014 @43553 next_ident / rndmonst_adj.
+## 2026-07-19 00:30 — #786 D-0707 corpse_chance always-TRUE
+- Objective: seed0014 @43553 C `next_ident`/`rndmonst_adj` vs JS `rn2(3)`.
+- C locus: `mon.c` `corpse_chance` bigmonst/lizard/golem/mplayer/rider/isshk.
+- Change: port always-TRUE arms in `uhitm`/`mhitm`/`trap` `corpse_chance`.
+- Verification: green+strict PASS; prefix **43553→49039** RNG **49495**;
+  cohort 33/33 PASS. Scr still 575.
+- Next: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
+
+

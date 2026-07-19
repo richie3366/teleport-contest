@@ -367,6 +367,16 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'tip',
+        wiz: false,
+        autocomplete: true,
+        // C ref: pickup.c dotip — #tip floor/invent container
+        run: async () => {
+            const { dotip } = await import('./pickup.js');
+            return dotip();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,

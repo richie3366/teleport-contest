@@ -12,6 +12,24 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-19 — #802 seed0108 #tip (D-0719)
+- Objective: seed0108 @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
+- C locus: `pickup.c` `dotip`/`tipcontainer`; `allmain.c` unmul→deferred_goto.
+- Change: `#tip` was unknown → ynq `q` leaked → phantom walks before ^V;
+  port floor `dotip` ynq + tipcontainer floor spill; register EXT_CMDS;
+  unmul→deferred_goto.
+- Verification: green+strict PASS; seed0108 RNG **FULL** 16958 Scr
+  **110→148**; cohort 33/33 PASS.
+- Next: seed0108 first screen miss @148.
+
 ## 2026-07-19 — #801 seed0108 newman (D-0718)
 - Objective: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
 - C locus: `polyself.c` `newman`/`polyman`/`change_sex`; `attrib.c`
@@ -21,14 +39,6 @@ Use this shape:
 - Verification: green+strict PASS; prefix **3186→3564** RNG **3572**
   Scr **110**; cohort 33/33 PASS.
 - Next: @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
-
-## ## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-19 — #800 score (mandatory ÷5)
 - Objective: full public `sessions` score (iteration % 5 == 0).
@@ -145,12 +155,4 @@ Use this shape:
   on `(22,10)`. Real: peaceful gnome `mfndpos` cnt 6 vs C 5.
 - Verification: green PASS; no code change. Drop-any →49300 experiment.
 - Next: which neighbor C omits + C predicate; or travel/map shared blocker.
-
-## 2026-07-19 00:30 — #786 D-0707 corpse_chance always-TRUE
-- Objective: seed0014 @43553 C `next_ident`/`rndmonst_adj` vs JS `rn2(3)`.
-- C locus: `mon.c` `corpse_chance` bigmonst/lizard/golem/mplayer/rider/isshk.
-- Change: port always-TRUE arms in `uhitm`/`mhitm`/`trap` `corpse_chance`.
-- Verification: green+strict PASS; prefix **43553→49039** RNG **49495**;
-  cohort 33/33 PASS. Scr still 575.
-- Next: seed0014 @49039 C `distfleeck` `rn2(5)` vs JS `rn2(6)`.
 

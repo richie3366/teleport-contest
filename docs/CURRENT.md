@@ -47,7 +47,7 @@ seed5006, seed0116, seed0361, seed0367.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49495/59178 | 575/714 | @#800; prefix @49039 D-0708 |
-| seed0108 | 3572/16958 | 110/303 | @#801; prefix **3564** (D-0718; getbones next) |
+| seed0108 | **16958**/16958 | **148**/303 | @#802; RNG FULL (D-0719); Scr next |
 | seed0399 | 10232/11409 | 113/532 | hallu actions |
 | seed5002 | 5982/12167 | 154/410 | coverage pair |
 
@@ -72,18 +72,17 @@ seed0398 + seed0373 + seed0361 + seed0367; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** seed0108 @3564 — D-0718 `newman` after `#polyself`
-human (dragon→newman). Prefix **3186→3564**, RNG **3572**, Scr **110**.
-Next: C `getbones` `rn2(3)` vs JS `rn2(5)`. Or seed0014 @49039 **D-0708.**
-Prefer shared blockers. seed2200 @158 parked. Do **not** re-break
-D-0660…D-0718.
+**Gameplay next:** seed0108 RNG **FULL** (D-0719 `#tip`); Scr **148**/303.
+Next: first screen miss after full RNG (^V materialize / tip UI / map).
+Or seed0014 @49039 **D-0708.** Prefer shared blockers. seed2200 @158
+parked. Do **not** re-break D-0660…D-0719.
 
 ```bash
-node scripts/rng-diff.mjs \
+node frozen/ps_test_runner.mjs \
   sessions/seed0108-wizard-extcmd-wishlist.session.json
 ```
 
-**Do not re-break D-0660…D-0718.**
+**Do not re-break D-0660…D-0719.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

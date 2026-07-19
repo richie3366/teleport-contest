@@ -5,6 +5,7 @@
 import { game } from './gstate.js';
 import {
     objects_at, obj_extract_self, splitobj, weight, add_to_container,
+    place_object,
 } from './mkobj.js';
 import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu, sortloot,
@@ -16,11 +17,11 @@ import { addinv } from './u_init.js';
 import { an, doname, xname, cxname, the as theArt } from './objnam.js';
 import { can_reach_floor } from './engrave.js';
 import {
-    ECMD_OK, ECMD_TIME, OBJ_FLOOR, OBJ_INVENT, is_pit,
+    ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, is_pit,
     STONE, ICE, DRAWBRIDGE_UP,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL,
     LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE,
-    Has_contents,
+    Has_contents, Is_container,
     SORTLOOT_PACK, SORTLOOT_LOOT,
     ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
@@ -1458,7 +1459,6 @@ export async function doloot() {
     const u = game.u;
     if (!u) return ECMD_OK;
 
-    const { Is_container } = await import('./const.js');
     let cobj = null;
     for (let o = objects_at(u.ux, u.uy); o; o = o.nexthere) {
         if (Is_container(o)) {
@@ -1505,4 +1505,145 @@ function mon_beside(x, y) {
         }
     }
     return false;
+}
+
+/**
+ * C ref: hack.c check_capacity — near_capacity >= EXT_ENCUMBER blocks.
+ * @param {string|null} [str]
+ * @returns {boolean} true when overloaded (C returns 1)
+ */
+function check_capacity(str) {
+    if (near_capacity() >= EXT_ENCUMBER) {
+        // caller may await pline; sync path uses fire-and-forget via game
+        game._check_capacity_msg = str
+            || "You can't do that while carrying so much stuff.";
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: pickup.c able_to_loot — tip/loot reachability gates.
+ * Named omissions: usteed rider_cant_reach; Underwater tip carve-out;
+ * freehand for looting; body_part(HAND) wording.
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} looting true=loot, false=tip
+ */
+async function able_to_loot(x, y, looting) {
+    const verb = looting ? 'loot' : 'tip';
+    const t = t_at(x, y);
+    if (!can_reach_floor(!!(t && is_pit(t.ttyp)))) {
+        await pline(`You can't reach the floor.`);
+        return false;
+    }
+    if ((is_pool(x, y) && looting) || is_lava(x, y)) {
+        await pline(
+            `You cannot ${verb} things that are deep in the ${
+                is_lava(x, y) ? 'lava' : 'water'
+            }.`,
+        );
+        return false;
+    }
+    try {
+        const md = await import('./mondata.js');
+        if (md.nolimbs?.(game.youmonst?.data)) {
+            await pline(`Without limbs, you cannot ${verb} anything.`);
+            return false;
+        }
+    } catch {
+        /* mondata optional */
+    }
+    return true;
+}
+
+/**
+ * C ref: pickup.c tipcontainer — empty box onto floor (no target bag).
+ * Named omissions: tipcontainer_gettarget menu; bag-of-holding explode;
+ * ice-box thaw; shop billing; altar/highdrop; cursed mbag item-gone;
+ * horn/bag-of-tricks tipcontainer_checks arms.
+ * @param {object} box
+ */
+async function tipcontainer(box) {
+    if (!box) return;
+    const ox = (box.ox | 0) || (game.u?.ux | 0);
+    const oy = (box.oy | 0) || (game.u?.uy | 0);
+    // C tipcontainer_checks: discover lock, refuse locked/empty
+    if (!box.lknown) box.lknown = 1;
+    if (box.olocked) {
+        await pline(`${upstart(thesimpleoname(box))} is locked.`);
+        return;
+    }
+    if (!Has_contents(box)) {
+        box.cknown = 1;
+        await pline(`${upstart(thesimpleoname(box))} is empty.`);
+        return;
+    }
+    box.cknown = 1;
+    const multi = !!(box.cobj?.nobj);
+    await pline(`${multi ? 'Objects spill' : 'An object spills'} out:`);
+    let next = box.cobj;
+    while (next) {
+        const otmp = next;
+        next = otmp.nobj;
+        obj_extract_self(otmp);
+        place_object(otmp, ox, oy);
+        await pline(`${doname(otmp)}.`);
+    }
+    box.cobj = null;
+    if (typeof box.owt === 'number') box.owt = weight(box);
+    newsym(ox, oy);
+}
+
+/**
+ * C ref: pickup.c dotip — #tip empty container onto floor.
+ * Ported: single floor-container ynq (def q) → tipcontainer / ECMD_OK.
+ * Named omissions: multi-box choose_tip_container_menu; m-prefix invent
+ * skip; getobj invent tip; candle/oil/grease/food/venom spill; tiphat;
+ * tipcontainer_gettarget destination menu.
+ * @returns {Promise<number>} ECMD_*
+ */
+export async function dotip() {
+    const u = game.u;
+    if (!u) return ECMD_OK;
+
+    const ccx = u.ux | 0;
+    const ccy = u.uy | 0;
+    let boxes = 0;
+    for (let o = objects_at(ccx, ccy); o; o = o.nexthere) {
+        if (Is_container(o)) boxes++;
+    }
+
+    // C: floor first unless menu_requested (m-prefix) skips to invent
+    if (boxes > 0 && !game.iflags?.menu_requested) {
+        const overloaded = check_capacity(
+            `You can't tip ${boxes > 1 ? 'one' : 'it'} while carrying so much.`,
+        );
+        if (overloaded) {
+            await pline(game._check_capacity_msg);
+            game._check_capacity_msg = null;
+        } else if (await able_to_loot(ccx, ccy, false)) {
+            if (boxes > 1) {
+                // choose_tip_container_menu deferred → invent getobj path
+            } else {
+                for (let cobj = objects_at(ccx, ccy); cobj; cobj = cobj.nexthere) {
+                    if (!Is_container(cobj)) continue;
+                    const { yn_function } = await import('./getline.js');
+                    const c = await yn_function(
+                        `There is ${doname(cobj)} here, tip it?`,
+                        'ynq',
+                        'q',
+                    );
+                    if (c === 'q') return ECMD_OK;
+                    if (c === 'n') continue;
+                    await tipcontainer(cobj);
+                    return ECMD_TIME;
+                }
+            }
+        }
+    }
+
+    // getobj("tip") invent path deferred
+    await pline('Tip what?');
+    return ECMD_CANCEL;
 }

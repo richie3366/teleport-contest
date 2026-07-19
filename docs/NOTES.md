@@ -7,20 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#801 peel:** D-0718 `newman` — seed0108 **3186→3564** RNG **3572**
-  Scr **110**. Next @3564 C `getbones` `rn2(3)` vs JS `rn2(5)` (post-
-  `#polyself human` / descend?). Falsifier:
-  `node scripts/rng-diff.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
+- **#802 peel:** D-0719 `#tip` — seed0108 RNG **FULL** 16958 Scr **148**.
+  Next: first screen miss after full RNG (likely ^V/materialize / tip UI).
+  Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
 - **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
   C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0718; invent nearby force for D-0710;
+- **Don’t:** re-break D-0660…D-0719; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0718 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0719 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,9 +33,9 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…18: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
-  / `set_mon_data` umov / **`newman`** — not pet AI. Wizard `#polyself human`
-  while dragon → newman (not silent return).
+- D-0710…19: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+  / `set_mon_data` umov / **`newman`** / **`#tip`** — missing `#tip` was
+  @3564 getbones symptom (keystream leak → phantom walks).
 
 ## Landmarks (≤15)
 
@@ -60,4 +59,4 @@ Objective/score live in `CURRENT.md`.
   Boots `oc_delay`=2; FUMBLE `Boots_on` → `incr_itimeout(HFumbling,rnd(20))`.
   `cantwield` ≡ nohands||verysmall; polymon always `drop_weapon(1)`.
   `#invoke` AC+EXT_CMDS; Blind ≡ props (D-0716); `set_mon_data` umov
-  (D-0717); **newman** level/sex/rndexp/redist (D-0718).
+  (D-0717); **newman** (D-0718); **`#tip`/`dotip`** (D-0719).

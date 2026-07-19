@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0719 — #tip floor ynq (seed0108 RNG full)
+
+- **Status:** fixed (partial — seed0108 Scr **148**/303; RNG FULL)
+- **Symptom:** @3564 C `getbones` `rn2(3)` vs JS `rn2(5)` `distfleeck`.
+  After `#force` lock, C `#tip` ynq consumed `q`; JS treated `#tip` as
+  unknown → `q`/`y` leaked → phantom SE walks before `^V`/`getbones`.
+- **C locus:** `pickup.c` `dotip` / `tipcontainer` / `able_to_loot`;
+  `allmain.c` `unmul`→`deferred_goto`.
+- **Cause:** `#tip` missing from `EXT_CMDS`; keystream desync after force.
+- **Change:** port `dotip` single floor-container ynq (def `q`) + basic
+  floor `tipcontainer`; register `#tip`; `unmul`→`deferred_goto` like C.
+  Named omissions: tipcontainer_gettarget menu; multi-box tip menu;
+  getobj invent tip; candle/oil/grease spill; tiphat; mbag/ice-box arms.
+- **Verification:** green+strict PASS; seed0108 RNG **FULL** 16958 Scr
+  **110→148**; cohort 33/33 PASS.
+- **Next:** seed0108 screen miss @148 (display after ^V / tip UI).
+
 ## D-0718 — newman after #polyself human (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @3564)
