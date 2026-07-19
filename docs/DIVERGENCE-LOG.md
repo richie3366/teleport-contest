@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0820 — Wiz locate_first qt_pager (seed0360 @780)
+
+- **Status:** fixed (seed0360 Scr residual continues @828)
+- **Symptom:** seed0360 @780 — C
+  `You materialize on a different level!--More--` then @781
+  `Wisps of fog swirl nearby.  You feel that the Dark One's lair is close.`;
+  JS materialize without More; space → `Unknown command ' '`. RNG FULL.
+- **C locus:** `dat/quest.lua` Wiz `locate_first`; `quest.c` `on_locate`
+  → `qt_pager("locate_first")` after `maybe_lvltport_feedback`
+  (forces `--More--` on materialize when follow-on pline awaits).
+- **Cause (#943):** `QUEST_LOCATE_FIRST` had Arc/Bar/Pri only; Wiz
+  burned nhl shuffle with null body, so locate pline never ran and
+  materialize NEED_MORE never entered `more()`.
+- **Change:** `js/questpgr.js` add Wiz `locate_first` / `locate_next`
+  from quest.lua (`%ns` → Dark One's). Named: other-role locate bodies.
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  Scr **830→832**/833; @780/@781 match; RNG FULL.
+- **Next:** @828 ^X Attributes — missing Displacement cloak line
+  (+ speed-boots "your speed boots" vs "worn equipment").
+
 ## D-0819 — getpos_help NHW_MENU on `?` (+ show_goal_msg)
 
 - **Status:** fixed (seed0360 Scr residual continues @780)

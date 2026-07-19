@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 01:57 — #943 D-0820 Wiz locate_first
+- Objective: seed0360 @780 materialize `--More--` / wisps locate.
+- C locus: `dat/quest.lua` Wiz `locate_first`; `quest.c` `on_locate`.
+- Change: `questpgr.js` Wiz locate_first/next. Scr **830→832**/833.
+- Verification: green+strict PASS; cohort 35/35; RNG FULL.
+- Next: @828 ^X Attributes missing Displacement cloak line.
+
 ## 2026-07-20 01:51 — #942 D-0819 getpos_help `?`
 - Objective: seed0360 @729 getpos_help NHW_MENU + show_goal_msg.
 - C locus: `getpos.c` `getpos_help` / help key → `show_goal_msg`.

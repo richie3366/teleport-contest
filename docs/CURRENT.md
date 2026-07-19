@@ -75,19 +75,19 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 screen residual** — D-0819 (#942):
-`getpos_help` NHW_MENU on `?` + `show_goal_msg`.
-Scr **828→830**/833; @729/@730 fixed. Next: @780 C
-`You materialize on a different level!--More--`
-(level-tele `z` → schedule_goto deferred pline) then wisps;
-JS skips More → space becomes `Unknown command`. **Do not FORCE.**
+**Gameplay next:** **seed0360 screen residual** — D-0820 (#943):
+Wiz `locate_first` qt_pager. Scr **830→832**/833; @780/@781
+fixed (materialize More + wisps). Next: @828 ^X Attributes —
+C `You are displaced because of your cloak of displacement.`
+missing in JS enlightenment (then speed-boots wording).
+**Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
-**Do not re-break D-0660…D-0819. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0820. Do not FORCE CLOSE/movement/umov.**
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).

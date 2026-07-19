@@ -255,7 +255,7 @@ results lately can hardly be called suitable for %ra!
 back only when you have purified yourself."`,
 };
 
-/** C ref: dat/quest.lua locate_first (Bar + Arc + Pri exercised). */
+/** C ref: dat/quest.lua locate_first (Bar + Arc + Pri + Wiz exercised). */
 const QUEST_LOCATE_FIRST = {
     Bar: `The scent of water comes to you in the desert breeze.  You know that
 you have located %i.`,
@@ -269,13 +269,17 @@ undead in larger numbers than you have ever encountered before.
 
 You remember the descriptions of %i, given to you by
 %l.  It is ahead that you will find %ns trail.`,
+    // C ref: dat/quest.lua Wiz locate_first (default pline) — seed0360 @780
+    Wiz: `Wisps of fog swirl nearby.  You feel that %ns lair is close.`,
 };
 
-/** C ref: dat/quest.lua locate_next (Bar + Arc + Pri). */
+/** C ref: dat/quest.lua locate_next (Bar + Arc + Pri + Wiz). */
 const QUEST_LOCATE_NEXT = {
     Bar: `Yet again you have a chance to infiltrate %i.`,
     Arc: `Once again, you are near the entrance to %i.`,
     Pri: `Again, you stand before %i.`,
+    // C ref: dat/quest.lua Wiz locate_next
+    Wiz: `You believe that you may once again invade %i.`,
 };
 
 /** C ref: dat/quest.lua nexttime (Arc + Bar + Pri). */
@@ -543,8 +547,8 @@ export async function com_pager(msgid) {
  *
  * Named omissions: common fallback; explicit single-line output=text;
  * menu output; array rn2 picks; convert_line pronoun/%cC arms;
- * synopsis putmsghistory; other-role goal/nexttime (non-Arc/Bar/Pri/Wiz
- * firsttime) bodies.
+ * synopsis putmsghistory; other-role goal/nexttime/locate (non-Arc/Bar/Pri/Wiz
+ * firsttime+locate) bodies.
  */
 export async function qt_pager(msgid) {
     // C: com_pager_core → nhl_init → nhlib.lua top-level shuffle(align)

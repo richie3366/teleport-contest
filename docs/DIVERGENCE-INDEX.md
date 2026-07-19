@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0820 | fixed | Wiz locate_first/next qt_pager (quest.lua) | seed0360 Scr 830→832; @780/@781; next @828 Attributes displaced |
 | D-0819 | fixed | getpos_help NHW_MENU + show_goal_msg on `?` | seed0360 Scr 828→830; @729/@730; next @780 materialize More |
 | D-0818 | fixed | getpos feature matching altar `_` (+ furniture/traps) | seed0360 Scr 826→828; @719/@724; next @729 getpos_help |
 | D-0817 | fixed | blank S_stone auto_describe without travelmode | seed0360 Scr 824→826; @678–679 stone; next @719 feature `_` |
