@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0797 — acurr GAUNTLETS_OF_POWER → STR19(25)
+
+- **Status:** fixed (seed0360 still FAIL @112279)
+- **Symptom:** seed0360 @112279 — C `distfleeck` vs JS `getbones`
+  `rn2(3)` (premature hero turn / level change after EOT62).
+- **C-state (#917):** Falsified “fleeck `rn2(5)` vs JS `rn2(3)` in
+  same mon path”. JS stack at mismatch is `getbones`←`mklev`←
+  `deferred_goto` after rhack; C still in movemon. After matched EOT62
+  (`u_calc` Very_fast `rn2(3)=0`), JS `umovement=12` → hero; C continues
+  mons (`umovement<12`). FORCE start−12 or MOD wtcap at that `u_calc`
+  extends prefix **112279→112574** (same class of miss next EOT).
+  Separately: worn GoP left `acurr(A_STR)` at raw 9 — C forces
+  `STR19(25)`.
+- **C locus:** `attrib.c` `acurr` STR arm (`uarmg` GoP / `STR19(25)`).
+- **Change:** `js/attrib.js` `acurr` — GoP → `STR19(25)`; Dunce cap
+  INT/WIS → 6. Named deferred: nymph CHA floor; Ogresmasher CON.
+- **Verification:** green+strict PASS; cohort 9/9 PASS; seed0360 still
+  @112279 / RNG **112326**; Scr **391→504**.
+- **Next:** why JS EOT62 leaves `umovement≥12` while C stays `<12`
+  (surplus umovement / enter-tick 12 vs 0) — not FORCE.
+
 ## D-0796 — castmu HASTE_SELF (seed0360 apprentice MFAST leftover)
 
 - **Status:** fixed (seed0360 still FAIL @112279)
