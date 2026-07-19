@@ -18,26 +18,23 @@ node frozen/ps_test_runner.mjs sessions
 ```
 
 Update **this Score section** with: pass count, screen/RNG aggregates, speed
-label, PASS list, notable non-PASS. Do not invent suite totals from a single
+label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#920**,
-cadence). Screens **8525**/11405; RNG **644,653**/792838 (81.31%).
-**37/44** PASS. Δ vs #915: Scr **+128**, RNG **+839**, PASS **0**
-(D-0798/D-0799 peels landed in suite; seed0360 **113111**/519 @113103).
-Focused #921: seed0360 RNG **FULL 120639**; Scr **561**/833 (not suite).
-Focused #922: seed0360 Scr **561→589**/833; prefix **164→180** (D-0801).
-Focused #923: seed0360 Scr **589→616**/833; prefix **180→231** (D-0802).
-Focused #924: seed0360 Scr **616→617**/833; prefix **231→249** (D-0803).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#925**,
+cadence). Screens **8623**/11405; RNG **652,181**/792838 (82.26%).
+**37/44** PASS. Δ vs #920: Scr **+98**, RNG **+7528**, PASS **0**
+(D-0800…D-0803 soak; seed0360 Scr **617**/833 @249).
+Focused #921–#924: seed0360 prefix **→249**; Scr **561→617**/833.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,525 / 11,405** |
-| Positional RNG calls matched | **644,653 / 792,838** (81.31%) |
-| Speed label | `35+0.21/turn` (R² 0.809) |
+| Screens matched | **8,623 / 11,405** |
+| Positional RNG calls matched | **652,181 / 792,838** (82.26%) |
+| Speed label | `36+0.21/turn` (R² 0.796) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -53,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | **120639**/120639 | **616**/833 | Scr residual @231 boulder (#923) |
+| seed0360 | **120639**/120639 | **617**/833 | Scr residual @249 ^V (#924) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
@@ -81,8 +78,9 @@ but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0360 screen residual** — D-0803 (#924):
 hero `test_move` Sokoban `cant_squeeze_thru` case 3. Scr
-**616→617**/833; prefix **231→249**. Next: @249 ^V materialize
-(same topline; map cells diverge). **Do not FORCE.**
+**616→617**/833; prefix **231→249**. Suite #925 confirms Scr **617**.
+Next: @249 ^V materialize (same topline; map cells diverge).
+**Do not FORCE.**
 
 ```bash
 node frozen/ps_test_runner.mjs \

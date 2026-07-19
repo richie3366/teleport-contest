@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#924 D-0803:** hero `test_move` tight-diag `cant_squeeze_thru`
-  (Sokoban case 3). seed0360 prefix **231→249**; Scr **616→617**/833.
+- **#925 score cadence:** suite Scr **8623**/11405 (+98 vs #920);
+  RNG **652181**/792838 (82.26%, +7528); PASS **37/44**.
+- **Gameplay still:** seed0360 Scr **617**/833 @249 (D-0803 soak).
 - **Hypothesis next:** @249 ^V teleport materialize — same topline,
   map cells differ (likely lit/seenv or dest level paint).
 - **Falsify:** decode first-miss cells @249 vs C after `goto_level`.
@@ -43,7 +44,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44**
-  @#920 Scr **8525** RNG **644653**/81.31%; seed0360 Scr **617** @#924).
+  @#925 Scr **8623** RNG **652181**/82.26%; seed0360 Scr **617** @249).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

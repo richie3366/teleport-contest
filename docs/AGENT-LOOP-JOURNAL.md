@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 23:47 — #925 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs; no peel).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+  **37/44** PASS; Scr **8623**/11405 (**+98** vs #920); RNG
+  **652181**/792838 (82.26%, **+7528** = D-0800…D-0803 soak); speed
+  `36+0.21/turn` R² 0.796. seed0360 suite Scr **617**/833 @249.
+- Verification: green+strict PASS; full suite exit 37/44.
+- Next: seed0360 @249 ^V materialize map cells (no FORCE).
+
 ## 2026-07-19 23:45 — #924 D-0803 Sokoban cant_squeeze
 - Objective: seed0360 @231 vain-push vs `cannot pass that way.`
 - C locus: `hack.c` `test_move` / `cant_squeeze_thru` case 3.
@@ -156,13 +166,3 @@ Use this shape:
   JS 8 apprentice dochugs vs C keeping one `mov≥12`. Docs only (DIAG out).
 - Verification: green+strict PASS; focused still @112243 / RNG 112272 Scr 391.
 - Next: which apprentice idles on C in step 706 / why JS spends that mon.
-
-## 2026-07-19 21:22 — #910 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score+docs; no peel — FORCE CLOSE banned).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-  **37/44** PASS; Scr **8397**/11405 (0); RNG **643814**/792838
-  (81.20%, **+706** vs #905 = D-0790…D-0793 suite soak); speed
-  `36+0.21/turn` R² 0.802. seed0360 still **112272**/391 @112243.
-- Verification: green+strict PASS; full suite exit 37/44.
-- Next: C path clearing Neferet CLOSE with mux at hero (not FORCE).
