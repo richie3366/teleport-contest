@@ -33,7 +33,8 @@ import {
     LADDER, LA_DOWN, LA_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
     A_LAWFUL, A_NONE, Align2amask, Amask2align, AM_NONE, AM_LAWFUL, AM_NEUTRAL,
-    AM_CHAOTIC, AM_SHRINE, MM_EPRI, N_DIRS, W_ARMC, RLOC_NOMSG,
+    AM_CHAOTIC, AM_SHRINE, AM_SANCTUM, MM_EPRI, MM_EMIN, MM_ADJACENTOK,
+    N_DIRS, W_ARMC, RLOC_NOMSG,
     FILL_LVFLAGS, STRAT_WAITFORU, NON_PM, ONAME_LEVEL_DEF,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
     LR_TELE, LR_UPTELE, LR_DOWNTELE,
@@ -717,11 +718,12 @@ function reset_xystart_size() {
  * bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-2, tower1, fire, air, minend-1, minetn-2, medusa-1, oracle, castle,
- * valley, Pri-fila, Pri-filb.
+ * valley, sanctum, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
  * protos (Bar-goal); minetn-1/3–7; minend-2/3; tower2/3;
- * medusa-2/3/4; water/earth/astral; create_maze fallback; check_ransacked side
- * effects beyond ransacked flag; dmonsfree.
+ * medusa-2/3/4; water/earth/astral; asmodeus/baalz/orcus/juiblex/hellfill;
+ * create_maze fallback; check_ransacked side effects beyond ransacked flag;
+ * dmonsfree.
  */
 async function makemaz(s) {
     const g = game;
@@ -917,6 +919,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'valley') {
         load_valley();
+        return true;
+    }
+    if (protofile === 'sanctum') {
+        load_sanctum();
         return true;
     }
     return false;
@@ -7574,8 +7580,8 @@ function load_castle() {
 
 /**
  * C ref: dat/valley.lua via load_special — Valley of the Dead (Gehennom).
- * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/sanctum
- * /hellfill protos; temperature_shift beyond temperate flag.
+ * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/hellfill
+ * protos; temperature_shift beyond temperate flag.
  */
 function load_valley() {
     const g = game;
@@ -7827,6 +7833,299 @@ function load_valley() {
     // C load_special: link_doors → remove_boundary → wallify → flip → fixup
     link_doors_rooms();
     remove_boundary_syms();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: priest.c mk_roamer — aligned cleric/angel with emin (sanctum horde).
+ * Local to avoid mklev↔priest cycle. Named: reset_hostility deferred.
+ */
+function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
+    if (m_at(x, y)) rloc(m_at(x, y), RLOC_NOMSG);
+    const roamer = makemon(ptr, x, y, MM_ADJACENTOK | MM_EMIN | MM_NOMSG);
+    if (!roamer) return null;
+    const emin = roamer.mextra?.emin;
+    if (emin) {
+        emin.min_align = alignment | 0;
+        emin.renegade = ((game.u?.ualign?.type | 0) === (alignment | 0)
+            && !peaceful);
+    }
+    roamer.ispriest = 0;
+    roamer.isminion = 1;
+    mon_learns_traps(roamer, -1 /* ALL_TRAPS */);
+    roamer.mpeaceful = peaceful ? 1 : 0;
+    roamer.msleeping = 0;
+    set_malign(roamer);
+    return roamer;
+}
+
+/**
+ * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
+ * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/hellfill/
+ * wizard1–3/fakewiz protos; temperature_shift.
+ */
+function load_sanctum() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+    g.level.flags.nommap = true;
+
+    // Pre-map non_passwall — absolute before xstart/ystart re-anchor
+    // des.non_passwall(selection.area(39,00,41,00))
+    for (let x = 39; x <= 41 && x < COLNO; x++) {
+        const loc = g.level.at(x, 0);
+        if (!loc) continue;
+        if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+            loc.wall_info = (loc.wall_info || 0) | W_NONPASSWALL;
+    }
+
+    const SANCTUM_MAP = `
+----------------------------------------------------------------------------
+|             --------------                                               |
+|             |............|             -------                           |
+|       -------............-----         |.....|                           |
+|       |......................|        --.....|            ---------      |
+|    ----......................---------|......----         |.......|      |
+|    |........---------..........|......+.........|     ------+---..|      |
+|  ---........|.......|..........--S----|.........|     |........|..|      |
+|  |..........|.......|.............|   |.........-------..----------      |
+|  |..........|.......|..........----   |..........|....|..|......|        |
+|  |..........|.......|..........|      --.......----+---S---S--..|        |
+|  |..........---------..........|       |.......|.............|..|        |
+|  ---...........................|       -----+-------S---------S---       |
+|    |...........................|          |...| |......|    |....|--     |
+|    ----.....................----          |...---....---  ---......|     |
+|       |.....................|             |..........|    |.....----     |
+|       -------...........-----             --...-------    |.....|        |
+|             |...........|                  |...|          |.....|        |
+|             -------------                  -----          -------        |
+----------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    const { xstart: mx, ystart: my } = splev_apply_centered_map(SANCTUM_MAP);
+
+    // des.region temple filled=2 + secret door on random wall
+    let templeRoom = null;
+    {
+        const dx1 = mx + 15, dy1 = my + 7, dx2 = mx + 21, dy2 = my + 10;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, TEMPLE, true);
+            templeRoom = g.level.rooms[g.level.nroom - 1];
+            if (templeRoom) {
+                templeRoom.rlit = 1;
+                templeRoom.needfill = FILL_LVFLAGS;
+                templeRoom.needjoining = true;
+                topologize(templeRoom);
+                add_doors_to_room(templeRoom);
+                // contents: des.door({ wall = "random", state = "secret" })
+                splev_room_door(templeRoom, 'secret', 'random');
+            }
+        }
+        // light temple rectangle
+        for (let y = dy1; y <= dy2 && y < ROWNO; y++) {
+            for (let x = dx1; x <= dx2 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = 1;
+            }
+        }
+    }
+
+    // des.altar({ x=18, y=08, align="noalign", type="sanctum" })
+    {
+        const ax = mx + 18, ay = my + 8;
+        const loc = g.level.at(ax, ay);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_NONE | AM_SHRINE | AM_SANCTUM;
+            loc.altarmask = AM_NONE | AM_SHRINE | AM_SANCTUM;
+        }
+        // C create_altar shrine==2 → priestini(..., sanctum=TRUE)
+        if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, true);
+        if (g.level.flags) g.level.flags.has_temple = true;
+    }
+
+    // des.region morgue filled=1 irregular
+    {
+        const dx1 = mx + 41, dy1 = my + 6;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = g.level.nroom + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+            // C: lit=0 → litstate_rnd returns 0 without RNG
+            flood_fill_rm(dx1, dy1, rmno, false, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, MORGUE, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = FILL_NORMAL;
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // des.non_diggable(selection.area(00,00,75,19))
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.non_passwall(selection.area(37,00,39,19))
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx + 37; x <= mx + 39 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.wall_info = (loc.wall_info || 0) | W_NONPASSWALL;
+        }
+    }
+
+    // des.door — map '+' / override state
+    const sanctDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    sanctDoor(40, 6, D_CLOSED);
+    sanctDoor(62, 6, D_LOCKED);
+    sanctDoor(46, 12, D_CLOSED);
+    sanctDoor(53, 10, D_CLOSED);
+
+    // Surround the temple with fire + random traps
+    const placeTrapAt = (kind, rx, ry) => {
+        const ttmp = maketrap(mx + rx, my + ry, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    for (let rx = 13; rx <= 23; rx++) placeTrapAt(FIRE_TRAP, rx, 5);
+    for (let rx = 13; rx <= 23; rx++) placeTrapAt(FIRE_TRAP, rx, 12);
+    for (let ry = 6; ry <= 11; ry++) placeTrapAt(FIRE_TRAP, 13, ry);
+    for (let ry = 6; ry <= 11; ry++) placeTrapAt(FIRE_TRAP, 23, ry);
+    placeTrapRnd(SPIKED_PIT);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    // Objects
+    for (let i = 0; i < 4; i++) splev_create_object(ARMOR_CLASS);
+    for (let i = 0; i < 2; i++) splev_create_object(WEAPON_CLASS);
+    splev_create_object(GEM_CLASS);
+    for (let i = 0; i < 4; i++) splev_create_object(POTION_CLASS);
+    for (let i = 0; i < 5; i++) splev_create_object(SCROLL_CLASS);
+
+    // Monsters — named with coords (random amask) then noalign clerics
+    const placeNamed = (id, rx, ry, peaceful) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        // C: no align → AM_SPLEV_RANDOM → induced_align(80)
+        induced_align(80);
+        let x = mx + rx, y = my + ry;
+        if (pm) {
+            // humidity path omitted for these dry demons
+        }
+        if (m_at(x, y)) {
+            const cc = { x: 0, y: 0 };
+            if (enexto(cc, x, y, pm)) { x = cc.x; y = cc.y; }
+        }
+        const mtmp = makemon(pm, x, y, 0);
+        if (!mtmp) return;
+        mtmp.female = female;
+        if (peaceful != null && peaceful > BOOL_RANDOM)
+            mtmp.mpeaceful = peaceful;
+        set_malign(mtmp);
+    };
+    const placeNoalignCleric = (rx, ry) => {
+        // C: align=noalign → amask=AM_NONE (no induced_align); mk_roamer
+        const { mndx, female } = find_montype_gender('aligned cleric');
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        let x = mx + rx, y = my + ry;
+        if (m_at(x, y)) {
+            const cc = { x: 0, y: 0 };
+            if (enexto(cc, x, y, pm)) { x = cc.x; y = cc.y; }
+        }
+        const mtmp = mk_roamer_splev(pm, A_NONE, x, y, false);
+        if (mtmp) mtmp.female = female;
+    };
+
+    placeNamed('horned devil', 14, 12, 0);
+    placeNamed('barbed devil', 18, 8, 0);
+    placeNamed('erinys', 10, 4, 0);
+    placeNamed('marilith', 7, 9, 0);
+    placeNamed('nalfeshnee', 27, 8, 0);
+    for (const [rx, ry] of [
+        [20, 3], [15, 4], [11, 5], [11, 7], [11, 9], [11, 12],
+        [15, 13], [17, 13], [21, 13],
+    ]) placeNoalignCleric(rx, ry);
+
+    for (let i = 0; i < 2; i++) splev_create_monster('L');
+    for (let i = 0; i < 3; i++) splev_create_monster('V');
+
+    // Stair up + teleport arrival region (apply after flip)
+    mkstairs(mx + 63, my + 15, 1, null);
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_DOWNTELE,
+        rname: null,
+        inarea: { x1: mx + 54, y1: my + 1, x2: mx + 79, y2: my + 18 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+    });
+
+    // C load_special: link_doors → wallify → flip → lregions → fixup
+    link_doors_rooms();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);

@@ -22,6 +22,7 @@ import {
     mons,
     always_hostile,
     always_peaceful,
+    is_minion,
     is_male,
     is_female,
     is_neuter,
@@ -934,14 +935,17 @@ function race_hostile(ptr) {
 export function peace_minded(ptr) {
     if (always_peaceful(ptr)) return true;
     if (always_hostile(ptr)) return false;
-    // MS_LEADER/GUARDIAN/NEMESIS, ERINYS, is_minion, amulet arms — deferred
+    // Named omissions: MS_LEADER/GUARDIAN/NEMESIS msound; ERINYS abuse.
     if (race_peaceful(ptr)) return true;
     if (race_hostile(ptr)) return false;
     const mal = ptr.maligntyp;
     const ual = game.u?.ualign?.type ?? 0;
     const sgn = (x) => (x < 0 ? -1 : x > 0 ? 1 : 0);
     if (sgn(mal) !== sgn(ual)) return false;
+    // C: mal < A_NEUTRAL && uhave.amulet
     if (mal < 0 && game.u?.uhave?.amulet) return false;
+    // C: is_minion → record>=0 (no rn2); High Cleric is M2_MINION (D-0750)
+    if (is_minion(ptr)) return (game.u?.ualign?.record ?? 0) >= 0;
     const record = game.u?.ualign?.record ?? 0;
     const recClamp = record < -15 ? -15 : record;
     return !!rn2(16 + recClamp) && !!rn2(2 + Math.abs(mal));

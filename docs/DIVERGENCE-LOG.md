@@ -4,9 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0750 — sanctum.lua load_special + peace_minded is_minion (seed0360 @37668)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @38557)
+- **Symptom:** seed0360 @37668 — C nhlib `shuffle` vs JS `rn2(79)` after
+  matched `getbones` (wizard `^V` into sanctum). After loader, High Cleric
+  `peace_minded` burned `rn2(16)` in JS while C skipped to mace `next_ident`.
+- **C locus:** `dat/sanctum.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz`; `makemon.c` `peace_minded` —
+  `if (is_minion(ptr)) return u.ualign.record >= 0`.
+- **Cause (#846):** (1) `makemaz` requested `sanctum` but no loader → empty
+  → `place_lregion` `rn2(79)`. NOTES “post-asmodeus” falsified — chrono next
+  miss after valley is sanctum. (2) High Cleric is `M2_MINION`; JS
+  `peace_minded` deferred that arm and fell through to co-align `rn2(16)`.
+- **Change:** `js/mklev.js` — `load_sanctum` + dispatch + local
+  `mk_roamer_splev`; `js/makemon.js` — `peace_minded` `is_minion` gate.
+  Named omissions: asmodeus/baalz/orcus/juiblex/hellfill/wizard*/fakewiz;
+  MS_LEADER/GUARDIAN/NEMESIS/ERINYS in `peace_minded`.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **37668→38557**; RNG **37686→38600**; Scr **207**.
+- **Next:** @38557 C `rndmonst_adj` `rn2(7)` vs JS `rn2(4)` (morgue
+  `fill_zoo`).
+
 ## D-0749 — rnd_misc_item life-saving nonliving/vampshifter (seed0360 @35405)
 
-- **Status:** fixed (partial — seed0360 still FAIL; prefix @37668)
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @37668 → D-0750)
 - **Symptom:** seed0360 @35405 — C `rn2(3)` in `rnd_misc_item` vs JS
   `rnd(2)` (next_ident on premature amulet).
 - **C locus:** `muse.c` `rnd_misc_item` —

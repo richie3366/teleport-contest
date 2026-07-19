@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 09:52 — #846 sanctum load + peace_minded is_minion (D-0750)
+- Objective: seed0360 @37668 C nhlib shuffle vs JS rn2(79).
+- C locus: `dat/sanctum.lua` via `load_special`; `makemon.c` `peace_minded` `is_minion`.
+- Change: `load_sanctum` + dispatch; `peace_minded` minion → `record>=0` (no rn2).
+  Falsified “post-asmodeus” — next miss after valley is sanctum.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **37668→38557**; RNG **37686→38600**; Scr 207.
+- Next: @38557 C rndmonst_adj rn2(7) vs JS rn2(4) (morgue fill_zoo).
+
 ## 2026-07-19 09:45 — #845 score + rnd_misc_item nonliving (D-0749)
 - Objective: mandatory full score (#845÷5) + seed0360 @35405 primary.
 - C locus: `muse.c` `rnd_misc_item` — `!rn2(40) && !nonliving && !vampshifter`.
