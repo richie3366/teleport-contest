@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0811 — lookat CLOUD fog/vapor (seed0360 @523)
+
+- **Status:** fixed (seed0360 Scr residual continues @531)
+- **Symptom:** seed0360 @523 farlook — C topline `fog/vapor cloud`;
+  JS `unexplored area`. Map `#` matched (DEC floor `~`≡`·`); RNG FULL.
+- **C locus:** `pager.c` `lookat` case `S_cloud` —
+  `Is_airlevel` ? `"cloudy area"` : `"fog/vapor cloud"`.
+- **Cause (#933):** `getpos` `cmap_defsym_explanation` / `pager`
+  `brief_at` omitted CLOUD; fallthrough → `"unexplored area"`.
+- **Change:** `js/getpos.js` + `js/pager.js` — CLOUD arm with
+  `Is_airlevel`. Named: gas-region glyph overlay on non-CLOUD typ;
+  `describe_looked` CLOUD confirm path.
+- **Verification:** green+strict PASS; cohort **35/35** PASS;
+  seed0360 Scr **679→684**/833; prefix **523→531**.
+- **Next:** @531 `dark part of a room` vs `floor of a room`
+  (S_darkroom / lit / seenv).
+
 ## D-0810 — setworn/Cloak_on no find_ac (seed0360 @497 AC)
 
 - **Status:** fixed (seed0360 Scr residual continues @523)

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0811 | fixed | lookat/auto_describe CLOUD fog/vapor | seed0360 Scr 679→684; @523 fixed; next @531 darkroom |
 | D-0810 | fixed | setworn/Cloak_on no find_ac (delay-0 More) | seed0360 Scr 678→679; @497 AC; next @523 fog |
 | D-0809 | fixed | getpos auto_describe "(no travel path)" | seed0360 Scr 673→678; @395 fixed; next @497 AC |
 | D-0808 | fixed | Wiz quest firsttime qt_pager (quest.lua) | seed0360 Scr 670→673; prefix 373→395; next @395 travel path |

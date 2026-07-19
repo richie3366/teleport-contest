@@ -14,8 +14,8 @@ import { flush_screen, pline, docrt } from './display.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
-    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, TREE, IS_WALL,
-    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd,
+    STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, TREE, CLOUD, IS_WALL,
+    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd, Is_airlevel,
 } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
 import { distant_monnam_none, pmname, Ugender } from './do_name.js';
@@ -194,9 +194,10 @@ function stair_ladder_explanation(x, y) {
  * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
  * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
  * auto_describe firstmatch after stairs/traps.
- * Named omissions: altar/ndoor/cloud/engraving/iron bars/fountain
+ * Named omissions: altar/ndoor/engraving/iron bars/fountain
  * special cases; underwater unreconnoitered; object glyphs;
- * Hallucination waterbody; arboreal STONE→S_tree.
+ * Hallucination waterbody; arboreal STONE→S_tree; gas-cloud
+ * region glyph overlay on non-CLOUD typ (lookat uses glyph_at).
  */
 function cmap_defsym_explanation(x, y, loc) {
     if (!loc) return '';
@@ -205,6 +206,10 @@ function cmap_defsym_explanation(x, y, loc) {
     if (typ === POOL || typ === MOAT || typ === WATER
         || typ === LAVAPOOL || typ === LAVAWALL || typ === ICE) {
         return waterbody_name(x, y);
+    }
+    // C lookat case S_cloud (pager.c) — air plane vs ordinary fog/vapor
+    if (typ === CLOUD) {
+        return Is_airlevel(game.u?.uz) ? 'cloudy area' : 'fog/vapor cloud';
     }
     // C lookat cmap default → defsyms[symidx].explanation
     if (IS_WALL(typ)) return 'wall';
@@ -229,10 +234,10 @@ function cmap_defsym_explanation(x, y, loc) {
  *
  * Named omissions: full do_screen_description symbol table, coord_desc,
  * getpos_getvalid "(invalid target)" (no hilite callback yet), underwater
- * unreconnoitered, object / special cmap arms (altar/ndoor/cloud/waterbody).
- * Trap: tseen `trapname` only (trapped_chest/door / Hallucination deferred).
- * Travel: " (no travel path)" via is_valid_travelpt when getloc_travelmode
- * (D-0809).
+ * unreconnoitered, object / special cmap arms (altar/ndoor; cloud typ
+ * covered D-0811). Trap: tseen `trapname` only (trapped_chest/door /
+ * Hallucination deferred). Travel: " (no travel path)" via
+ * is_valid_travelpt when getloc_travelmode (D-0809).
  */
 function auto_describe_text(cx, cy) {
     const u = game.u || {};

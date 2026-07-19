@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 00:48 — #933 D-0811 lookat CLOUD fog/vapor
+- Objective: seed0360 @523 C `fog/vapor cloud` vs JS `unexplored area`.
+- C locus: `pager.c` `lookat` case `S_cloud` (+ `Is_airlevel`).
+- Change: **D-0811** `getpos`/`pager` CLOUD → fog/vapor / cloudy area.
+  Scr **679→684**; prefix **523→531**.
+- Verification: green+strict PASS; cohort **35/35** PASS.
+- Next: @531 `dark part of a room` vs `floor of a room`.
+
 ## 2026-07-20 00:45 — #932 D-0810 setworn no find_ac
 - Objective: seed0360 @497 C `AC:2` vs JS `AC:-2` displacement More.
 - C locus: `worn.c` `setworn`; `do_wear.c` `Cloak_on`; delay-0 unmul.
@@ -135,19 +143,3 @@ Use this shape:
   (D-0798/D-0799). seed0360 still **113111**/519 @113103.
 - Verification: green+strict PASS; full suite exit 0 with 37/44.
 - Next: seed0360 @113103 C lua shuffle after matched getbones vs JS rn2(79).
-## 2026-07-19 23:08 — #919 D-0799 set_apparxy can_fog
-- Objective: seed0360 @112857 C distfleeck vs JS set_apparxy.
-- C locus: `monmove.c` `can_fog` / `set_apparxy` closed_door arm.
-- Change: **D-0799** — vampshifter bat Displacement image on locked
-  door needs `can_fog`; JS stub was false. Prefix **112857→113103**;
-  RNG **113111**; Scr **519**.
-- Verification: green+strict PASS; cohort 37/37 PASS; DIAG removed.
-- Next: @113103 C lua shuffle after matched getbones vs JS rn2(79).
-## 2026-07-19 23:00 — #918 D-0798 quest Home ok_to_quest gate
-- Objective: seed0360 @112279 C fleeck vs JS getbones (umov theory).
-- C locus: `do.c` `goto_level` quest-home arm; `quest.c` `ok_to_quest`.
-- Change: **D-0798** — falsified umov surplus; C mysterious-force after
-  ^V `A` (Wiz-goal) from Home; JS ported gate. Prefix **112279→112857**;
-  Scr **504→519**; RNG **112956**.
-- Verification: green+strict PASS; cohort 35/35 PASS; DIAG removed.
-- Next: @112857 C distfleeck vs JS set_apparxy (mux-image).

@@ -31,9 +31,9 @@ import { option_help_lines } from './options.js';
 import { dokeylist_lines, domenucontrols_lines } from './dokeylist.js';
 import { t_at, trapname } from './trap.js';
 import {
-    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, TREE,
+    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, TREE, CLOUD,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
-    STRAT_WAITMASK, IS_WALL, Upolyd,
+    STRAT_WAITMASK, IS_WALL, Upolyd, Is_airlevel,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR, DEC_TO_UNICODE } from './terminal.js';
 import { DAT_TEXT } from './generated/dat_text.js';
@@ -542,6 +542,10 @@ function brief_at(x, y) {
     if (!loc) return 'dark part of a room';
     // C lookat glyph_is_cmap → defsyms[].explanation
     if (IS_WALL(loc.typ)) return 'wall';
+    // C lookat case S_cloud — Is_airlevel ? "cloudy area" : "fog/vapor cloud"
+    if (loc.typ === CLOUD) {
+        return Is_airlevel(game.u?.uz) ? 'cloudy area' : 'fog/vapor cloud';
+    }
     if (loc.typ === ROOM) return 'floor of a room';
     if (loc.typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
