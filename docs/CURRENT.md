@@ -72,9 +72,10 @@ that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
 **Gameplay next:** seed0399 @10157 black unicorn `mfndpos` cnt 7 vs 5
-(D-0731 — #813: keep-track any2→10217; omit ∈6 non-track; deferred
-mfndpos arms); or seed0014 @49039 mfndpos (D-0708); or coverage.
-Prefer shared blockers. Do **not** re-break D-0660…D-0731.
+(D-0731 — #814: onscary/garlic/bars/gas+mconf ported, still
+cnt=7; need C-state omit); or seed0014 @49039 mfndpos (D-0708);
+or coverage. Prefer shared blockers. Do **not** re-break
+D-0660…D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \

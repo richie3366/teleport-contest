@@ -66,3 +66,21 @@ Older crumbs moved during mandatory #650 formal score refresh.
   (R² 0.772). Δ vs #630: Scr +23, RNG 0 (D-0569…D-0572), PASS same;
   seed0116 113→114.
 - Next: seed0373 @119 Attributes; or seed5006 dosounds @8468.
+
+## 2026-07-19 — #799 seed0108 set_mon_data umov prorate (D-0717)
+- Objective: seed0108 @3011 post-invoke EOT loopAgain (CURRENT primary).
+- C locus: `mondata.c` `set_mon_data`; `polyself.c` `set_uasmon`.
+- Change: hero `u.umovement` prorate when new form slower (wizard→gnome→6
+  kept through dragon); `set_uasmon` + shared `were.js` path.
+- Verification: green+strict PASS; prefix **3011→3186** RNG **3283**;
+  cohort prior PASSes held.
+- Next: @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
+
+## 2026-07-19 — #800 score (mandatory ÷5)
+- Objective: full public `sessions` score (iteration % 5 == 0).
+- Score: **35/44** Scr **7695**/11405 RNG **513641**/792838 (64.79%)
+  `36+0.18/turn` R² 0.785. Δ vs #795: Scr +16, RNG +352.
+- Notable: seed0108 3283/16958 Scr 74 (prefix 3186 held); seed0014
+  49495/575; seed2200 229/230 parked.
+- Verification: green+strict PASS; no js/ change this iteration.
+- Next: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)` (D-0717).

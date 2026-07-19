@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 — #814 mfndpos onscary/garlic/bars/gas (D-0731)
+- Objective: seed0399 @10157 rn2(20) vs rn2(28); port deferred mfndpos arms.
+- C locus: `mon.c` `mfndpos`; `monmove.c` `onscary`.
+- Change: mconf/`!mcansee` flags; IRONBARS; poison-gas; onscary (scare/
+  Elbereth/altar-vamp); garlic. Falsified: these arms drop cnt in JS
+  state @miss (still 7); j=2 mtrack → same 10217 arity-only.
+- Verification: green+strict PASS; cohort 6/6; seed0399 still @10157
+  (positional 10389); seed0014 @49039 held.
+- Next: C-state omit of 2 cells; temple/`worm_cross`; or D-0708.
+
 ## 2026-07-19 — #813 seed0399 mfndpos pair sharpen (D-0731)
 - Objective: seed0399 @10157 rn2(20) vs rn2(28); identify C’s 2 omits.
 - C locus: `mon.c` `mfndpos` (deferred onscary/gas/worm_cross/bars).
@@ -145,22 +155,4 @@ Use this shape:
 - Verification: green+strict PASS; prefix **3186→3564** RNG **3572**
   Scr **110**; cohort 33/33 PASS.
 - Next: @3564 C `getbones` `rn2(3)` vs JS `rn2(5)`.
-
-## 2026-07-19 — #800 score (mandatory ÷5)
-- Objective: full public `sessions` score (iteration % 5 == 0).
-- Score: **35/44** Scr **7695**/11405 RNG **513641**/792838 (64.79%)
-  `36+0.18/turn` R² 0.785. Δ vs #795: Scr +16, RNG +352.
-- Notable: seed0108 3283/16958 Scr 74 (prefix 3186 held); seed0014
-  49495/575; seed2200 229/230 parked.
-- Verification: green+strict PASS; no js/ change this iteration.
-- Next: seed0108 @3186 C `newman` `rn2(10)` vs JS `rn2(6)` (D-0717).
-
-## 2026-07-19 — #799 seed0108 set_mon_data umov prorate (D-0717)
-- Objective: seed0108 @3011 post-invoke EOT loopAgain (CURRENT primary).
-- C locus: `mondata.c` `set_mon_data`; `polyself.c` `set_uasmon`.
-- Change: hero `u.umovement` prorate when new form slower (wizard→gnome→6
-  kept through dragon); `set_uasmon` + shared `were.js` path.
-- Verification: green+strict PASS; prefix **3011→3186** RNG **3283**;
-  cohort prior PASSes held.
-- Next: @3186 C `newman` `rn2(10)` vs JS `rn2(6)`.
 

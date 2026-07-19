@@ -7,21 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#813:** D-0731 seed0399 @10157 — sharpened, still open.
-  Black unicorn @58,12; JS mfndpos **cnt=7** j=0 →`rn2(28)`; C
-  `rn2(20)` ⇒ cnt=5. Spider@57,12 skipped (only mfndpos skip).
-  Cells: (57,11)(57,13)(58,11)(58,13 WEB tseen=0)(59,11)(59,12)
-  **(59,13 track — must stay)**; mtrapseen=0; mux=u=(47,9);
-  NOTONL inert; gas/engr/regions empty in JS.
-- **Falsified (#813):** (a) WEB must be one of the 2 omits — any
-  2-of-7 that **keeps (59,13)** → prefix **→10217** same next miss
-  (`rnd_otyp` @10217). (b) Pair ID via max-prefix — all such pairs
-  equal. Exclude track → arity never fires (JS skips rn2(20)).
-- **Next:** C-state which 2 of the 6 non-track cells drop (deferred
-  mfndpos arms: onscary/poison-gas/worm_cross/iron bars/garlic/
-  temple); or D-0708 seed0014 @49039. Prefer shared.
-- **Don’t:** FORCE_EXCL in production; re-break D-0660…D-0731;
-  treat NOTONL as fix for this miss.
+- **#814:** D-0731 seed0399 @10157 still open after mfndpos arms.
+  Black unicorn @58,12; JS **cnt=7** j=0 →`rn2(28)`; C `rn2(20)` ⇒
+  cnt=5. Prior move @10066 from (59,13) empty-track cnt=4 →(58,12).
+  Spider@57,12; WEB+sack@58,13; mux=u=(47,9); NOTONL inert; JS
+  gas/engr/regions empty; no garlic/bars/temple.
+- **Falsified (#814):** ported mfndpos `onscary`/garlic/bars/gas +
+  mconf/mcansee flags — JS state still cnt=7 @10157. Also j=2
+  mtrack rewrite → same prefix 10217 (arity-only, not proof of j).
+- **Next:** C-state terrain/mon split vs JS (RNG-free move can
+  diverge); temple/`worm_cross`; or D-0708 @49039. Prefer shared.
+- **Don’t:** FORCE_EXCL; re-break D-0660…D-0731; treat NOTONL as fix.
 
 ## Don’t re-check (≤15)
 
@@ -47,7 +43,8 @@ Objective/score live in `CURRENT.md`.
   C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained;
   `completelyburns`/`rots`/`rusts` in mpd; dog_move `touch_petrifies`;
   numeric `MS_*` vs string msound; **which 2 of 6 non-track mfndpos
-  cells C drops @10157** still open (WEB not required).
+  cells C drops @10157** still open (WEB not required; onscary/garlic/
+  bars/gas ported but inert in JS state @miss).
 
 ## Landmarks (≤15)
 
