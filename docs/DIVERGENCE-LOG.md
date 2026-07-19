@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0785 — kick_ouch/kick_dumb set_wounded_legs (ATEMP DEX)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @108368 — C `moveloop_core` `rn2(76)` vs JS
+  `rn2(79)` at wipe_engr (`40 + ACURR(A_DEX)*3`).
+- **C-state:** session step 547 `"Ouch!  That hurts!"` — status Dx:13→12,
+  St:25 (POWER gloves). C `kick_ouch` `!rn2(3)` → `set_wounded_legs` →
+  `ATEMP(A_DEX)--`. JS DIAG: acurr=13, atemp=0, wounded=false, uarmg POWER+3.
+- **C locus:** `dokick.c` `kick_ouch` / `kick_dumb`; `do.c` `set_wounded_legs`.
+- **Cause (#899):** JS burned `rnd(5)` but deferred the wounded-legs body.
+- **Change:** `js/dokick.js` call exported `set_wounded_legs` from
+  `js/trap.js` (already used by bear trap). Named: Blind feel / wake /
+  drawbridge / air hurtle / kickstr polish still deferred.
+- **Verification:** green+strict PASS; cohort 35/35 (incl. seed0060 kick);
+  seed0360 **108368→108369**, RNG **109279→109615**, Scr **391**; seed0014
+  prefix still **50259**.
+- **Next:** @108369 C `set_apparxy` `rn2(4)` vs JS `rn2(2)`.
+
 ## D-0784 — dotravel_target seenv||couldsee (not couldsee-only prefer)
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)

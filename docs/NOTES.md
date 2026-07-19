@@ -7,26 +7,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#898 / D-0784:** seed0360 peel **104904→108368**. Misread as
-  `set_apparxy` displ-loop; C-state u=(3,5) vs JS (4,5). Cause:
-  `dotravel_target` preferred couldsee-only BFS (D-0702) → SE step on
-  Quest CLOUD where seenv||couldsee walks S. Next @108368: C
-  `moveloop_core` `rn2(76)` vs JS `rn2(79)`.
-- **Falsifier:** `findtravelpath_travel(false)` at (3,4)→(3,8) returns
-  dx=0,dy=1; `(true)` returns dx=1,dy=1.
+- **#899 / D-0785:** seed0360 peel **108368→108369**. Misread as bare
+  DEX/gauntlet adj; C-state step547 Ouch → Dx12 via `set_wounded_legs`.
+  Cause: `kick_ouch` burned `rnd(5)` without ATEMP(DEX)--. Next @108369:
+  C `set_apparxy` `rn2(4)` vs JS `rn2(2)`.
+- **Falsifier:** after kick_ouch `!rn2(3)`, `acurr(A_DEX)` drops by 1 and
+  wipe_engr uses `rn2(76)` not `rn2(79)`.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
-- **D-0708:** seed0014 prefix now **50259** (was 49039) after D-0784;
-  still open mfndpos.
+- **D-0708:** seed0014 prefix still **50259** after D-0785; open mfndpos.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0784 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0785 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (D-0769; D-0778; D-0779→0784).
+  same string can hide different call sites (D-0769; D-0778; D-0779→0785).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
@@ -36,9 +34,9 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **#896–#898:** siege peels — portal FlipY, wear makeknown, travel
-  seenv||couldsee; not quasit CLOUD / not EOT exerper / not set_apparxy
-  displ loop as first cause @104904.
+- **#896–#899:** siege peels — portal FlipY, wear makeknown, travel
+  seenv||couldsee, kick wounded-legs; not wipe_engr N as first cause
+  without ACURR(DEX)/ATEMP dump.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -50,7 +48,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#895;
-  seed0360 **108368**/109279/**391** after D-0784 — Score refresh @#900).
+  seed0360 **108369**/109615/**391** after D-0785 — Score refresh @#900).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -78,5 +76,6 @@ Objective/score live in `CURRENT.md`.
   **getdir lock SELF** (D-0780); **getpos seenv stairs** (D-0779);
   **mon_offmap dochug/postmov** (D-0781); **MAGIC_PORTAL migrate** (D-0782);
   **Gloves POWER + Cloak DISPLACEMENT** (D-0783);
-  **dotravel seenv||couldsee** (D-0784).
+  **dotravel seenv||couldsee** (D-0784);
+  **kick set_wounded_legs** (D-0785).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

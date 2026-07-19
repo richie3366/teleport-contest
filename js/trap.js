@@ -1238,7 +1238,7 @@ function reset_utrap(_msg) {
  * then encumber_msg (carrcap drops via WT_WOUNDEDLEG_REDUCT).
  * Named omission: steed-leg messaging is caller's job.
  */
-async function set_wounded_legs(side, timex) {
+export async function set_wounded_legs(side, timex) {
     const u = game.u || (game.u = {});
     if (game.flags) game.flags.botl = true;
     if (game.disp) game.disp.botl = true;

@@ -76,24 +76,25 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @108368 / D-0784 follow-on** — #898 fixed
-`dotravel_target` to use C `seenv||couldsee` (drop couldsee-only prefer
-that stepped SE on Quest CLOUD). Prefix **104904→108368**, RNG
-**107246→109279**, Scr **391**. Next: C `moveloop_core` `rn2(76)` vs
-JS `rn2(79)`. seed0014 side-peel **49039→50259**. Parked D-0731.
+**Gameplay next:** **seed0360 @108369 / D-0785 follow-on** — #899 fixed
+`kick_ouch`/`kick_dumb` to call `set_wounded_legs` (was RNG-only stub;
+ATEMP(DEX)-- missing → wipe_engr `rn2(79)` vs C `rn2(76)`). Prefix
+**108368→108369**, RNG **109279→109615**, Scr **391**. Next: C
+`set_apparxy` `rn2(4)` vs JS `rn2(2)`. seed0014 still **50259**.
+Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @108368: C moveloop_core rn2(76) vs JS rn2(79)
+# @108369: C set_apparxy rn2(4) vs JS rn2(2)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
-(D-0708 still open; peel advanced with D-0784).
+(D-0708 still open; peel advanced with D-0784/D-0785).
 
-**Do not re-break D-0660…D-0784.**
+**Do not re-break D-0660…D-0785.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

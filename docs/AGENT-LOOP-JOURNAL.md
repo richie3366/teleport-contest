@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 18:50 — #899 D-0785 kick set_wounded_legs
+- Objective: seed0360 @108368 C moveloop wipe_engr rn2(76) vs JS rn2(79).
+- C locus: `dokick.c` `kick_ouch`/`kick_dumb`; `do.c` `set_wounded_legs`.
+- Change: Ouch step Dx13→12 — JS burned rnd(5) without ATEMP(DEX)--.
+  Wire exported `set_wounded_legs`. Prefix **108368→108369**, RNG
+  **109615**; seed0014 still **50259**.
+- Verification: green+strict PASS; cohort 35/35 (incl. 0060 kick).
+- Next: @108369 C set_apparxy rn2(4) vs JS rn2(2).
+
 ## 2026-07-19 18:45 — #898 D-0784 dotravel seenv||couldsee
 - Objective: seed0360 @104904 C set_apparxy rn2(5) vs JS rn2(4).
 - C locus: `hack.c` `findtravelpath` seenv||couldsee; `cmd.c` `dotravel_target`.
@@ -161,14 +170,4 @@ Use this shape:
   Aligned Wiz-strt epilogue (link/remove/cleanup); no prefix Δ.
 - Verification: green+strict PASS; cohort 5/5; seed0360 still @100738.
 - Next: C runtime typ at post-FlipY (33–35,3) (D-0779).
-
-## 2026-07-19 15:38 — #885 public score cadence
-- Objective: mandatory full `sessions` score (iteration % 5 == 0).
-- C locus: n/a (score-only; no port patch).
-- Change or falsified theory: documented suite aggregates in CURRENT.md.
-  Reflects D-0776…D-0778 gains since #880.
-- Verification: green+strict PASS; full suite **37/44**, Scr **8297**/11405,
-  RNG **634651**/792838 (80.05%), speed `35+0.21/turn`. Δ vs #880:
-  Scr +17, RNG +5496, PASS 0. seed0360 still @100738 (D-0779).
-- Next: Wiz-strt post-FlipY terrain @(33–35,3) vs C (D-0779).
 
