@@ -50,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 110391/120639 | 390/833 | @109454 (#901 D-0787) |
+| seed0360 | 111367/120639 | 390/833 | @110844 (#903 D-0788) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3031/108275 | 13/1814 | knight coverage |
@@ -76,17 +76,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @109454 / D-0788** — #902 falsified bare
-`set_apparxy` displ vs gotu arity. Cause is `_` travel getpos
-(step 625→668 `,`) confirm **(33,9)** from **(3,19)**; JS path
-`(3,19)→(4,18)→(5,18)` then site-shifted displ accept. Next: C vs JS
-**second travel step** from `(4,18)` (BFS/seenv on Quest CLOUD).
-seed0014 suite matched still **50419** (prefix @50259). Parked D-0731.
+**Gameplay next:** **seed0360 @110844 / D-0789** — after D-0788
+TRAVP_GUESS, peel moved past travel site-shift. Next: C `safe_teleds`
+`rnd(79)` vs JS `rn2(4)` (JS still in mon path). Stairs dest (33,9)
+sealed by SDOOR — TRAVEL fail→GUESS is expected. seed0014 suite matched
+still **50419** (prefix @50259). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @109454: travel path site-shift (not set_apparxy arity)
+# @110844: C safe_teleds vs JS mon rn2(4)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

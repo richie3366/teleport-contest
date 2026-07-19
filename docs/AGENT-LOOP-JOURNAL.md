@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 19:40 — #903 D-0788 TRAVP_GUESS hero-matrix
+- Objective: seed0360 @109454 travel site-shift after `_` to (33,9).
+- C locus: `hack.c` findtravelpath(TRAVP_GUESS) pick + noguess TRAVEL.
+- Change: `cmd.js` guess = hero couldsee BFS matrix + raster
+  distmin/dist2/ctrav pick, then TRAVEL BFS. Stairs alcove SDOOR is why
+  TRAVEL fails (expected).
+- Verification: green+strict PASS; cohort 7/7 + 0108/0361/0367 PASS;
+  seed0014 still 50419; seed0360 **109454→110844**, RNG **111367**.
+- Next: @110844 C safe_teleds rnd(79) vs JS rn2(4) (D-0789).
+
 ## 2026-07-19 19:25 — #902 D-0788 travel site-shift (not set_apparxy)
 - Objective: seed0360 @109454 C set_apparxy rn2(5) vs JS rn2(4).
 - C locus: `cmd.c` dotravel/getpos; `hack.c` findtravelpath; symptom `set_apparxy`.
@@ -161,12 +171,3 @@ Use this shape:
   RNG **632144**/792838 (79.73%), speed `37+0.23/turn`. Δ vs #885:
   Scr 0, RNG **−2507**, PASS 0.
 - Next: first bat move separating Y after FlipY (D-0779).
-
-## 2026-07-19 16:39 — #889 Wiz-strt throne template escape (D-0779)
-- Objective: seed0360 CLOUD(37,*) off-by-one / bat Y drift @100738.
-- C locus: `dat/Wiz-strt.lua` throne `\`; JS `load_wiz_strt` map string.
-- Change: `WIZ_STRT_MAP` `\.` ate a char (row5 len 75); use `\\`.
-  Post-flip CLOUD(37,1)/(37,4) now match C. Peel still @100738 bat Y.
-- Verification: green+strict PASS; cohort seed1500/1800/0361/0367/5002
-  PASS; seed0360 prefix @100738, RNG matched 101517/120639 Scr 292.
-- Next: first move separating bat Y after FlipY (D-0779).

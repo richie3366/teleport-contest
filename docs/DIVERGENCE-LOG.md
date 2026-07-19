@@ -4,27 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0788 — seed0360 @109454 set_apparxy site-shift during `_` travel
+## D-0789 — seed0360 @110844 safe_teleds vs mon rn2(4)
 
-- **Status:** open (diagnosis; no code change)
+- **Status:** open (next peel after D-0788)
+- **Symptom:** seed0360 @110844 — C `safe_teleds` `rnd(79)` vs JS
+  `rn2(4)` (JS still on mon path).
+- **Prior:** D-0788 TRAVP_GUESS fixed travel site-shift
+  (109454→110844; suite RNG 111367).
+- **Next:** reconstruct C caller of `safe_teleds` at this step vs JS
+  stack; do not patch set_apparxy arity.
+
+## D-0788 — seed0360 `_` travel TRAVP_GUESS (not set_apparxy arity)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
 - **Symptom:** seed0360 @109454 — C `set_apparxy` `rn2(5)` vs JS `rn2(4)`.
-  Matched prior `rn2(5)` hid site-shift: JS accepted displ try1 then
-  next-mon `gotu` `rn2(4)` while C still in displ loop.
-- **Rejected:** bare Displacement arity (displ=2 `rn2(5)` vs gotu
-  `rn2(4)`) as the root — JS `set_apparxy` already matches C; CLOUD-reject
-  experiment in the displace loop regressed matched prefix to **105228**.
-- **C-state / JS DIAG (#902):** step 625 `_` opens travel `getpos`; keys
-  through 668 `,` stay in getpos (including swallowed `^T`/`4`/`7`);
-  confirm dest **(33,9)** with hero still **(3,19)** on CLOUD. Travel
-  path JS: `(3,19)→NE(4,18)→E(5,18)`; at peel u=(5,18) accepts cand
-  CLOUD `(5,19)` (`couldsee`+`accessible`). RNG matches through first
-  travel step + monsters → C likely also at `(4,18)` after step 1;
-  second step / mid-travel u likely diverges (C may be on `(5,19)`).
-- **C locus:** `cmd.c` `dotravel`/`getpos`; `hack.c` `findtravelpath`
-  / `test_move(TEST_TRAV)`; symptom `monmove.c` `set_apparxy`.
-- **Next:** falsify second travel step from `(4,18)` toward `(33,9)`
-  (BFS tie-break / seenv overmark on Quest home CLOUD); not another
-  `set_apparxy` arity patch.
+  Matched prior `rn2(5)` hid site-shift after wrong travel steps.
+- **Rejected:** bare Displacement arity; CLOUD-reject in displ loop
+  (→105228).
+- **C-state (#902–#903):** `_` getpos confirms dest **(33,9)** STAIRS
+  from **(3,19)** CLOUD. TRAVP_TRAVEL BFS visits only stairs+(34,9) —
+  alcove sealed by **SDOOR (34,10)**; C also falls through to GUESS.
+- **Cause (#903):** JS `findtravelpath_guess` was a greedy global
+  couldsee pick, not C’s hero-rooted couldsee travel matrix + raster
+  closest-to-dest pick then TRAVP_TRAVEL.
+- **C locus:** `hack.c` `findtravelpath(TRAVP_GUESS)` pick loop +
+  `goto noguess`; `cmd.c` `dotravel`/`dotravel_target`.
+- **Change:** `js/cmd.js` `findtravelpath_guess` — BFS from hero with
+  couldsee gate, raster pick `distmin`/`dist2`/`ctrav`, then
+  `findtravelpath_bfs` as TRAVEL. Named: travelmap visited stop;
+  full door/boulder delay re-queue; Chebyshev-worsen quiet-rest.
+- **Verification:** green+strict PASS; cohort seed1500/1800/0060/0004/
+  0009/0398/5002/0108/0361/0367 PASS; seed0014 suite matched still
+  **50419**. seed0360 prefix **109454→110844**, suite RNG
+  **110391→111367**, Scr **390**.
+- **Next:** @110844 C `safe_teleds` `rnd(79)` vs JS `rn2(4)`.
 
 ## D-0787 — wiz_map ^F → do_mapping exercise(A_WIS)
 

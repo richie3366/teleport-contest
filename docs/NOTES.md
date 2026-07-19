@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#902 / D-0788:** seed0360 @109454 is **not** bare `set_apparxy`
-  arity. `_` travel getpos (step 625→668 `,`) confirms **(33,9)** from
-  hero **(3,19)** CLOUD; JS travel `(3,19)→(4,18)→(5,18)` then accepts
-  displ cand CLOUD `(5,19)` while C still loops (`rn2(5)` vs JS `rn2(4)`
-  gotu site-shift).
-- **Falsifier:** second travel step from `(4,18)` must match C (likely
-  not E→`(5,18)` if C ends on `(5,19)`); or C `couldsee(5,19)` false
-  with same u — then cite vision, not displ arity.
-- **Don’t:** CLOUD-reject in `set_apparxy` (regressed to **105228**).
+- **#903 / D-0788 fixed:** TRAVP_GUESS now hero-matrix + raster pick.
+  seed0360 peel **109454→110844**. Stairs dest (33,9) sealed by SDOOR
+  (34,10) — TRAVEL BFS correctly fails; GUESS was the bug.
+- **Next @110844:** C `safe_teleds` `rnd(79)` vs JS `rn2(4)` (site-shift;
+  JS still in mon RNG while C teleports).
+- **Falsifier:** who calls `safe_teleds` on C at this step (trap? mon
+  weapon? levelport?) vs JS stack at matched prefix end.
+- **Don’t:** CLOUD-reject in `set_apparxy`; re-break D-0788 guess.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; Pair ID exhausted.
 - **D-0708:** seed0014 prefix @50259; suite matched **50419**; open mfndpos.
 
@@ -23,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0787 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0788 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
   same string can hide different call sites (D-0769…D-0788).
@@ -36,9 +35,7 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **#896–#902:** siege peels — portal FlipY, wear makeknown, travel
-  seenv||couldsee, kick wounded-legs + dokick gate, wiz_map ^F,
-  **travel getpos site-shift (not set_apparxy arity)**.
+- **#896–#903:** siege peels through TRAVP_GUESS hero-matrix (D-0788).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -49,7 +46,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#900;
-  seed0360 still **109454**/110391/**390** after D-0788 diag).
+  seed0360 **110844**/111367/**390** after D-0788).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -81,5 +78,5 @@ Objective/score live in `CURRENT.md`.
   **kick set_wounded_legs** (D-0785);
   **dokick Wounded_legs legs_in_no_shape** (D-0786);
   **wiz_map ^F do_mapping** (D-0787);
-  **`_` travel getpos→path @109454** (D-0788 open).
+  **TRAVP_GUESS hero-matrix** (D-0788).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).
