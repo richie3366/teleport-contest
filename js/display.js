@@ -1058,14 +1058,16 @@ function wall_glyph(loc) {
     const g = tab[idx] || tab[S_STONE];
     if (idx === S_STONE) return g;
     // C ref: display.h cmap_walls_to_glyph + display.c wallcolors[] /
-    // reset_glyphmap wall_color(...). Source wallcolors[] are all
-    // CLR_GRAY (tty → NO_COLOR). Recorder observably emits SGR 34
-    // (CLR_BLUE) for Sokoban walls under symset:DECgraphics (D-0567 /
-    // seed0373) but ASCII Sokoban (^V→soko1, seed0108) records
-    // NO_COLOR walls — keep blue only when DECgraphics is on.
+    // reset_glyphmap wall_color(...). Source wallcolors[] default
+    // CLR_GRAY; intended table (comment): main GRAY, mines BROWN,
+    // gehennom RED, knox GRAY, sokoban BRIGHT_BLUE. Recorder matches
+    // mines BROWN (D-0283), Gehennom RED (D-0801), Sokoban blue only
+    // under DECgraphics (D-0729).
     let color = CLR_GRAY;
-    if (In_mines(game.u?.uz)) color = CLR_BROWN;
-    else if (In_sokoban(game.u?.uz) && use_decgraphics()) color = CLR_BLUE;
+    const uz = game.u?.uz;
+    if (In_mines(uz)) color = CLR_BROWN;
+    else if (game.dungeons?.[uz?.dnum | 0]?.flags?.hellish) color = CLR_RED;
+    else if (In_sokoban(uz) && use_decgraphics()) color = CLR_BLUE;
     return { ch: g.ch, color, dec: g.dec };
 }
 

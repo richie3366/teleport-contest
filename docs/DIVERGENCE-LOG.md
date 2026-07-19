@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0801 — Valley arrival + hellish_smoke + Gehennom wall RED (seed0360 Scr)
+
+- **Status:** fixed (seed0360 Scr residual continues @180)
+- **Symptom:** seed0360 first screen miss @164 — C
+  `You materialize…!--More--` then Valley/odor/groans; JS omitted
+  `--More--` → spaces became `Unknown command`. After Valley fix,
+  @173 materialize+hot without smoke `--More--`; then Gehennom walls
+  NO_COLOR vs C CLR_RED.
+- **C locus:** `do.c` `goto_level` Valley arm + `hellish_smoke_mesg` /
+  `temperature_change_msg`; `display.h` `cmap_walls_to_glyph` +
+  `display.c` `wall_color(gehennom_walls)` (intended CLR_RED).
+- **Cause (#922):** Valley plines deferred → no chained `more()`;
+  smoke arm stubbed; `wall_glyph` lacked In_hell RED (D-0283 left
+  Gehennom deferred).
+- **Change:** `js/do.js` — Valley arrival plines + `gehennom_entered`;
+  hellish_smoke smell/sense via `olfaction`; heat/smoke gone wording.
+  `js/display.js` — `wall_glyph` CLR_RED when dungeon hellish.
+  Named omissions: ACH_HELL; MICRO `display_nhwindow`; knox walls.
+- **Verification:** green+strict PASS; cohort 34/34 PASS; seed0360
+  Scr **561→589**/833; prefix **164→180**; RNG FULL.
+- **Next:** @180 leave-Gehennom remembered walls (map memory).
+
 ## D-0800 — Wiz-loca + Wiz-fila/filb load_special (seed0360 RNG FULL)
 
 - **Status:** fixed (seed0360 RNG full; Scr residual 561/833)
