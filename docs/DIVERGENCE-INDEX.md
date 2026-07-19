@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0806 | fixed | splev_mazewalk 3-arg ftyp=ROOM (not corrmaze→CORR) | seed0360 Scr 633→638; prefix 318→324; next @324 lava |
 | D-0805 | fixed | Rogue assign_graphics + first-visit primitive pline | seed0360 Scr 628→633; prefix 301→318; next @318 · vs # |
 | D-0804 | fixed | flip_level swap _objects_at with terrain (not fobj rebuild) | seed0360 Scr 617→628; prefix 249→301; next @301 materialize More |
 | D-0803 | fixed | test_move cant_squeeze_thru Sokoban case 3 | seed0360 Scr 616→617; prefix 231→249; next @249 materialize map |

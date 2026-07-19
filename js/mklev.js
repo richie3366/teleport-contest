@@ -8817,13 +8817,19 @@ function fill_empty_maze() {
 
 /**
  * C ref: sp_lev.c lspo_mazewalk — step in dir, force odd parity, walkfrom, maybe stock.
+ * 3-arg form (x,y,dir) keeps ftyp=ROOM; table form may pass typ. Only when
+ * ftyp<1 does C substitute corrmaze?CORR:ROOM. Named: table-form typ/stocked
+ * args still optional here (callers use positional ROOM default).
  */
-function splev_mazewalk(rx, ry, dir, stocked = true) {
+function splev_mazewalk(rx, ry, dir, stocked = true, typ = ROOM) {
     const mx = game.splev_xstart ?? 1;
     const my = game.splev_ystart ?? 0;
     let x = mx + rx;
     let y = my + ry;
-    let ftyp = game.level?.flags?.corrmaze ? CORR : ROOM;
+    // C: coordxy ftyp = ROOM; argc==3 never overrides; typ<1 → corrmaze
+    let ftyp = typ;
+    if (ftyp < 1)
+        ftyp = game.level?.flags?.corrmaze ? CORR : ROOM;
     if (dir === W_NORTH) y--;
     else if (dir === W_SOUTH) y++;
     else if (dir === W_EAST) x++;
@@ -10978,8 +10984,9 @@ function load_baalz() {
     });
     if (!g.level.flags) g.level.flags = {};
     g.level.flags.is_maze_lev = true;
-    // des.level_flags("mazelevel", "corrmaze") — after init; skips full
-    // wallify; mazewalk carves CORR; baalz_fixup does selective wallify.
+    // des.level_flags("mazelevel", "corrmaze") — corrmaze skips full
+    // wallify (sp_lev load_special); 3-arg mazewalk still carves ROOM
+    // (C lspo_mazewalk ftyp defaults ROOM). baalz_fixup selective wallify.
     g.level.flags.corrmaze = true;
 
     // Fake pools mark leg joints; iron bars are eyes (baalz_fixup).

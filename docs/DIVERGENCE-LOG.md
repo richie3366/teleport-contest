@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0806 — splev_mazewalk 3-arg ftyp=ROOM (seed0360 @318)
+
+- **Status:** fixed (seed0360 Scr residual continues @324)
+- **Symptom:** seed0360 @318 ^V materialize+hot on baalz (Dlvl:33) —
+  sole cell C DEC `·` vs JS `#` at map (3,18). RNG FULL.
+- **C locus:** `sp_lev.c` `lspo_mazewalk` — `coordxy ftyp = ROOM`;
+  3-arg `(x,y,dir)` never overrides; only `ftyp < 1` substitutes
+  `corrmaze ? CORR : ROOM`. `baalz.lua` `des.mazewalk(00,06,"west")`
+  is 3-arg → ROOM floors; `corrmaze` only skips full wallify.
+- **Cause (#928):** JS `splev_mazewalk` used `corrmaze ? CORR : ROOM`,
+  so baalz west maze painted `#` while C carved ROOM (`·`). Same
+  walkfrom RNG/topology — screen-only divergence.
+- **Change:** `js/mklev.js` `splev_mazewalk` — default typ=ROOM;
+  `typ < 1` → corrmaze substitute (C). Named: table-form typ/stocked
+  optional args (callers still positional).
+- **Verification:** green+strict PASS; cohort 35/35 PASS; seed0360
+  Scr **633→638**/833; prefix **318→324**; RNG FULL.
+- **Next:** @324 materialize Dlvl:40 C DEC lava `` ` `` vs JS blank.
+
 ## D-0805 — Rogue level arrival pline + assign_graphics (seed0360 @301)
 
 - **Status:** fixed (seed0360 Scr residual continues @318)
