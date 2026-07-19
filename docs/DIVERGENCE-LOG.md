@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0743 — seed0360 pet return-attack skip after rn2(4)
+
+- **Status:** open (diagnosed; needs C-state which gate fails)
+- **Symptom:** seed0360 @2995 — C `distfleeck` `rn2(5)` vs JS
+  `mattackm` `rnd(20)` after matching `dog_move` return-gate `rn2(4)=1`.
+- **DIAG (#831):** kitten@55,13 vs goblin@54,13 moves=3; JS
+  `mlstmv` unset on goblin, `onscary=false`, `monnear=true` → enters
+  return `mattackm`. Goblin never spent movement this turn (`mcalcmove`
+  mmove=9 often yields 0). No engraving/objs at pet cell. Knockback
+  `rn2(6)=4` → no hurtle (C same). FORCE skip return body after the
+  shared `rn2(4)` → prefix **2995→3006** (matches through end-of-turn
+  `mcalcmove`/`dosounds`/`gethungry`/moveloop key).
+- **C locus:** `dogmove.c` return-attack gate after `mattackm`;
+  `mhitm.c` `magr->mlstmv`; `monmove.c` `onscary`/`monnear`.
+- **Hypothesis:** C fails `mlstmv != moves` or `!onscary` or `monnear`
+  after the shared `rn2(4)`; JS state shows all three pass. Same class
+  as D-0739 but defender never `mattackm`'d this turn in JS.
+- **Falsifier:** C-state dump of goblin `mlstmv` / onscary / positions
+  at dog_move:1158; or prove a missing `mlstmv` setter on a C path that
+  ran before the pet hit.
+- **Next:** C-state for the failing gate; do not FORCE-skip in
+  production. D-0731/D-0708 still need omit-cell C-state.
+
 ## D-0742 — dowrite + open cmdassist + itemed throw (seed5002 PASS)
 
 - **Status:** fixed

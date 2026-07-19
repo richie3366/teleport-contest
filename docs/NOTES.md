@@ -7,11 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#830 D-0742 done:** `dowrite` + marker apply; open `getdir_cmdassist`;
-  itemed throw pushkeys; dothrow cmdassist + CMDQ_KEY. seed5002 **PASS**.
-- **Suite 37/44** @#830 (Scr 8182; RNG 533690).
-- **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
-- **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
+- **#831 D-0743:** seed0360 @2995 — after pet hit goblin, C skips return
+  attack post-`rn2(4)=1`; JS enters (`mlstmv` unset, !scary, monnear).
+  Goblin never moved this turn (mcalcmove 0). FORCE skip →**3006**.
+  Falsifier: C-state which of mlstmv/onscary/monnear fails.
+- **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
+  still need one more omit. Pair ID exhausted.
+- **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
+  (suspect (22,10) diagonal past TRCORNER); omit any 1 →@49300.
 
 ## Don’t re-check (≤15)
 
@@ -21,17 +24,14 @@ Objective/score live in `CURRENT.md`.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- C `^Wscroll of identify` @seg1 141–160 was **not** a real wish (keys
-  eaten by `--More--` / confused input after Die?).
-- D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
-- D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
-- D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
+- D-0739 mlstmv+onscary return gate is ported; seed0360 still skips in C
+  for a reason JS state does not show (D-0743).
+- C `^Wscroll of identify` @seg1 141–160 was **not** a real wish.
+- D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
-- `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- Wish does **not** `makeknown` (C: otmp unidentified); trailing exercise
-  was death-noreturn hole, not wish-known (D-0737).
+- Wish does **not** `makeknown` (C: otmp unidentified).
 
 ## Landmarks (≤15)
 
@@ -59,6 +59,7 @@ Objective/score live in `CURRENT.md`.
   **`c` → doclose getdir** (D-0740);
   **burnarmor erode + destroy pline/potionbreathe** (D-0741);
   **dowrite + open cmdassist + itemed throw** (D-0742);
+  **seed0360 return-attack skip after rn2(4)** (D-0743);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

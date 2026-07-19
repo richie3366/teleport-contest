@@ -75,14 +75,21 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708).
-Prefer shared blockers. Do **not** re-break D-0660…D-0742.
+**Gameplay next:** **seed0360 @2995 (D-0743)** pet return-attack — C
+skips after shared `rn2(4)=1`; JS `mattackm` `rnd(20)`. FORCE skip →
+**3006**. Prefer over D-0731/D-0708 mfndpos (omit-cell C-state still
+missing). Do **not** re-break D-0660…D-0742.
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0399-wizard-hallu-actions.session.json
-# @10157 mfndpos cnt7vs5 — needs C-state (D-0731)
+  sessions/seed0360-wizard-world-tour.session.json
+# @2995 C distfleeck rn2(5) vs JS rnd(20) — D-0743
+node scripts/rng-diff.mjs \
+  sessions/seed0360-wizard-world-tour.session.json
 ```
+
+**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
+— need C-state which mfndpos cells drop.
 
 **Do not re-break D-0660…D-0742.**
 
