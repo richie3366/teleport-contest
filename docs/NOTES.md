@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#831 D-0743:** seed0360 @2995 — after pet hit goblin, C skips return
-  attack post-`rn2(4)=1`; JS enters (`mlstmv` unset, !scary, monnear).
-  Goblin never moved this turn (mcalcmove 0). FORCE skip →**3006**.
-  Falsifier: C-state which of mlstmv/onscary/monnear fails.
+- **#832 D-0743 fixed:** @2995 was AT_WEAP `mon_wield_item`→MISS (no
+  `rnd(20)`), not mlstmv/onscary/monnear. Prefix **3006**.
+- **Next @3006:** C `exercise(attrib.c:509) rn2(19)=14` vs JS `rn2(5)=1`.
+  Falsifier: which JS path emits rn2(5) at that moveloop boundary.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -20,12 +20,12 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0742 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0743 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0739 mlstmv+onscary return gate is ported; seed0360 still skips in C
-  for a reason JS state does not show (D-0743).
+- D-0743: C entered return attack; wield spends it (session topline).
+  FORCE-skip matched RNG but skipped the real wield path.
 - C `^Wscroll of identify` @seg1 141–160 was **not** a real wish.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
@@ -51,6 +51,7 @@ Objective/score live in `CURRENT.md`.
   exclusion_zones save/rest deferred; region binary save format deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **mattackm AT_WEAP mon_wield_item → MISS** (D-0743);
   **stethoscope adjacent returns `res` TIME** (D-0735);
   **mirror/camera getdir+beam/flash** (D-0736);
   **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
@@ -59,7 +60,6 @@ Objective/score live in `CURRENT.md`.
   **`c` → doclose getdir** (D-0740);
   **burnarmor erode + destroy pline/potionbreathe** (D-0741);
   **dowrite + open cmdassist + itemed throw** (D-0742);
-  **seed0360 return-attack skip after rn2(4)** (D-0743);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

@@ -4,28 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0743 — seed0360 pet return-attack skip after rn2(4)
+## D-0743 — mattackm AT_WEAP mon_wield_item early return (seed0360)
 
-- **Status:** open (diagnosed; needs C-state which gate fails)
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @3006)
 - **Symptom:** seed0360 @2995 — C `distfleeck` `rn2(5)` vs JS
   `mattackm` `rnd(20)` after matching `dog_move` return-gate `rn2(4)=1`.
-- **DIAG (#831):** kitten@55,13 vs goblin@54,13 moves=3; JS
-  `mlstmv` unset on goblin, `onscary=false`, `monnear=true` → enters
-  return `mattackm`. Goblin never spent movement this turn (`mcalcmove`
-  mmove=9 often yields 0). No engraving/objs at pet cell. Knockback
-  `rn2(6)=4` → no hurtle (C same). FORCE skip return body after the
-  shared `rn2(4)` → prefix **2995→3006** (matches through end-of-turn
-  `mcalcmove`/`dosounds`/`gethungry`/moveloop key).
-- **C locus:** `dogmove.c` return-attack gate after `mattackm`;
-  `mhitm.c` `magr->mlstmv`; `monmove.c` `onscary`/`monnear`.
-- **Hypothesis:** C fails `mlstmv != moves` or `!onscary` or `monnear`
-  after the shared `rn2(4)`; JS state shows all three pass. Same class
-  as D-0739 but defender never `mattackm`'d this turn in JS.
-- **Falsifier:** C-state dump of goblin `mlstmv` / onscary / positions
-  at dog_move:1158; or prove a missing `mlstmv` setter on a C path that
-  ran before the pet hit.
-- **Next:** C-state for the failing gate; do not FORCE-skip in
-  production. D-0731/D-0708 still need omit-cell C-state.
+- **C locus:** `mhitm.c` `mattackm` AT_WEAP → `mon_wield_item`;
+  `weapon.c` `mon_wield_item` returns 1 after first wield.
+- **Cause (#832):** C **did** enter the return attack. Goblin
+  `weapon_check`/unwielded dagger → `mon_wield_item` pline + return 1 →
+  `mattackm` returns `M_ATTK_MISS` **without** `rnd(20)`. Session
+  topline: "The kitten bites the goblin.  The goblin wields a crude
+  dagger!". JS lumped AT_WEAP with bite and rolled `rnd(20)`. #831
+  FORCE-skip matched RNG only by skipping the wield path entirely
+  (wrong gate theory: mlstmv/onscary/monnear).
+- **Change:** `mattackm` AT_WEAP: need-weapon/`!MON_WEP` →
+  `NEED_HTH_WEAPON` + `mon_wield_item`; nonzero → `M_ATTK_MISS`; else
+  `hitval` then fall through to melee roll. `thrwmm`/`possibly_unwield`/
+  `mswingsm` deferred.
+- **Verification:** green+strict PASS; cohort 35/35; seed0360 prefix
+  **2995→3006**; RNG **3098→3120**; Scr **177→181**.
+- **Next:** @3006 C `exercise` `rn2(19)` vs JS `rn2(5)`; or
+  D-0731/D-0708.
 
 ## D-0742 — dowrite + open cmdassist + itemed throw (seed5002 PASS)
 
