@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 20:05 — #905 score + D-0790 root (no place)
+- Objective: mandatory full `sessions` score; peel D-0790 @110880.
+- C locus: `monmove.c` `m_move` post-select (place refused).
+- Change: docs only — DIAG removed. Root: bat@12,18 @110612 appr=0
+  selects 11,18; JS places, C does not → later rn2(28) vs rn2(5).
+  FORCE no-place → prefix 110880→112243.
+- Verification: green+strict PASS; full suite **37/44** Scr **8397**
+  RNG **643108** (81.11%) `36+0.21/turn`.
+- Next: port C post-select no-place gate (chi/ALLOW_U/aggress/MDISP).
+
 ## 2026-07-19 19:52 — #904 D-0789 dotele clear travelcc
 - Objective: seed0360 @110844 C safe_teleds rnd(79) vs JS rn2(4).
 - C locus: `teleport.c` `dotele` clears `travelcc` before `tele()`.
@@ -157,16 +167,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 10/10 PASS; seed0360 prefix
   **100738→101022**, Scr **293→294**, RNG matched **101517→101695**.
 - Next: @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.
-
-## 2026-07-19 17:04 — #891 getdir SELF + Wiz-strt hero lane (D-0779/D-0780)
-- Objective: seed0360 @100738 bat Y drift after FlipY.
-- C locus: `cmd.c` `getdir` NHKF_GETDIR_SELF; `monmove.c` first siege moves.
-- Change: `js/lock.js` `getdir` — `'.'` is SELF (dx=dy=0), not cancel
-  (D-0780). Falsified post-EOT forced `movemon` / umov=0 while-continue
-  (breaks green). Diagnosed: after Wiz-strt `'.'` EOT, JS `#chat`/`y`
-  moves hero (9,1)→(8,0) before first siege `movemon`; C still @ (9,1)
-  so quasit/bat approach lanes differ (JS bat y=2 vs C y=1).
-- Verification: green+strict PASS; cohort 1500/1800/0361/5002 PASS;
-  seed0360 prefix still @100738, Scr **292→293**, RNG 101517.
-- Next: why C first siege movemon sees hero@(9,1) (turn order after
-  EOT vs `#chat`/`y`) — not mfndpos wall admit (D-0779).

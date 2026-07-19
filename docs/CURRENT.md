@@ -21,11 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#900**,
-cadence + D-0786). Screens **8397**/11405; RNG **641,147**/792838 (80.87%).
-**37/44** PASS. Δ vs #895: Scr **+97**, RNG **+8,826**, PASS **0**. seed0360
-prefix **108369→109077** (D-0786); suite RNG matched 109615→109603 (prefix
-win, later coincidental match loss).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#905**,
+cadence). Screens **8397**/11405; RNG **643,108**/792838 (81.11%).
+**37/44** PASS. Δ vs #900: Scr **0**, RNG **+1,961**, PASS **0** (peels
+D-0786…D-0789 landed in suite totals; seed0360 suite RNG still **111566**).
 
 ## Score
 
@@ -33,8 +32,8 @@ win, later coincidental match loss).
 |--------|------:|
 | Sessions passing | **37 / 44** |
 | Screens matched | **8,397 / 11,405** |
-| Positional RNG calls matched | **641,147 / 792,838** (80.87%) |
-| Speed label | `36+0.20/turn` (R² 0.800) |
+| Positional RNG calls matched | **643,108 / 792,838** (81.11%) |
+| Speed label | `36+0.21/turn` (R² 0.801) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -50,10 +49,10 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 578/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 111566/120639 | 391/833 | @110880 (#904 D-0789) |
+| seed0360 | 111566/120639 | 391/833 | @110880 (#905 D-0790) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
-| seed4500 | 3031/108275 | 13/1814 | knight coverage |
+| seed4500 | 3029/108275 | 13/1814 | knight coverage |
 
 ## Green gate
 
@@ -76,16 +75,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @110880 / D-0790** — after D-0789
-`dotele` travelcc clear, peel past `^T` Sorry/`safe_teleds`. Next:
-C `m_move` `rn2(28)` vs JS `rn2(5)` (matched stalker/bat `rn2(3)` +
-track `rn2(32)`). seed0014 suite matched still **50419** (prefix
-@50259). Parked D-0731.
+**Gameplay next:** **seed0360 @110880 / D-0790** — symptom is track
+`rn2(28)` vs `rn2(5)`, but root is earlier: bat@12,18 appr=0 selects
+11,18 then **C does not place** (JS does). FORCE no-place → prefix
+**110880→112243**. Find C post-select early-return (aggress / MDISP /
+`m_in_out_region` / …). Parked D-0731.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @110880: C m_move rn2(28) vs JS rn2(5)
+# @110612 bat appr=0 chose 11,18 — C must not place (D-0790)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

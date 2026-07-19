@@ -6,13 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0790 — seed0360 @110880 m_move rn2(28) vs rn2(5)
 
-- **Status:** open (next peel after D-0789)
+- **Status:** open (root moved earlier than mismatch site)
 - **Symptom:** seed0360 @110880 — C `m_move` `rn2(28)` vs JS
   `rn2(5)` after matched stalker/bat `rn2(3)` + track `rn2(32)`.
 - **Prior:** D-0789 dotele travelcc clear (110844→110880; suite RNG
   111566).
-- **Next:** which mon / mfndpos cnt / appr path diverges so C keeps
-  selecting while JS exits early.
+- **C-state (#905):** @110612 bat@12,18 appr=0 (`rn2(3)=0`) selects
+  poss[1]=11,18 (hero/mux@11,19; chiInfo NOTONL only; ROOM; no mon).
+  JS `place`+`mon_track_add`; C **does not place** (no extra RNG).
+  @110879 JS bat@11,18 track=[12,18;13,18;…] one track hit; C still
+  @12,18 track=[13,18;13,19;…] → rn2(32)+rn2(28).
+- **Falsifier:** FORCE `MMOVE_DONE` without place after that selection
+  → matched prefix **110880→112243**.
+- **Next:** port C post-select gate that refuses place (chi / ALLOW_U
+  redirect / `nix==mux`→`m_move_aggress` / ALLOW_MDISP / `m_in_out_region`
+  / itsstuck). JS still omits chi + aggress mux-match + MDISP skip.
 
 ## D-0789 — seed0360 @110844 dotele must clear travelcc before tele
 
