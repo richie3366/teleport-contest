@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0729 — Sokoban `wall_glyph` blue only under DECgraphics (seed0108 PASS)
+
+- **Status:** fixed (partial — seed0108 **PASS** Scr **303**/303 RNG FULL;
+  suite **36**/44 @#810)
+- **Symptom:** after `^V` level-teleport menu `B`→soko1, 181 color-only wall
+  misses: JS `CLR_BLUE` (SGR 34) vs C ASCII `NO_COLOR` (decoder color 8).
+  Glyphs/cursors matched; topline identical.
+- **C locus:** `display.c` `wallcolors[]` / `wall_color` /
+  `cmap_walls_to_glyph` Sokoban; `display.h` branch wall glyphs.
+- **Cause:** D-0567 painted Sokoban walls always `CLR_BLUE` to match DEC
+  recorder SGR 34 (seed0373). ASCII sessions (seed0108 rc without
+  `symset:DECgraphics`) record gray/NO_COLOR walls — C source
+  `wallcolors[]` is all `CLR_GRAY`.
+- **Change:** `wall_glyph` Sokoban → `CLR_BLUE` only when
+  `use_decgraphics()`; else `CLR_GRAY`→tty `NO_COLOR`. Mines BROWN kept
+  (D-0283). Named omission: why DEC recorder emits SGR 34 while source
+  `wallcolors[sokoban]` is GRAY (gehennom/knox still deferred).
+- **Verification:** green+strict PASS; seed0108 Scr **293→303**; seed0373
+  still PASS; cohort 34/34; full `sessions` **36**/44 Scr **7926**.
+- **Next:** D-0708 seed0014 @49039; or hallu/coverage blockers.
+
 ## D-0728 — `#herecmdmenu` / doherecmdmenu self menu (seed0108 Scr)
 
 - **Status:** fixed (partial — seed0108 Scr **293**/303; RNG FULL; cursors FULL)

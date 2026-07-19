@@ -1041,14 +1041,14 @@ function wall_glyph(loc) {
     const g = tab[idx] || tab[S_STONE];
     if (idx === S_STONE) return g;
     // C ref: display.h cmap_walls_to_glyph + display.c wallcolors[] /
-    // reset_glyphmap wall_color(...). Default wallcolors[] are all
-    // CLR_GRAY (tty → NO_COLOR). Intended branch colors (commented
-    // beside wallcolors init): mines CLR_BROWN; gehennom CLR_RED;
-    // knox CLR_GRAY; sokoban CLR_BRIGHT_BLUE. Recorder emits SGR 34
-    // (CLR_BLUE) for Sokoban walls — match that observable.
+    // reset_glyphmap wall_color(...). Source wallcolors[] are all
+    // CLR_GRAY (tty → NO_COLOR). Recorder observably emits SGR 34
+    // (CLR_BLUE) for Sokoban walls under symset:DECgraphics (D-0567 /
+    // seed0373) but ASCII Sokoban (^V→soko1, seed0108) records
+    // NO_COLOR walls — keep blue only when DECgraphics is on.
     let color = CLR_GRAY;
     if (In_mines(game.u?.uz)) color = CLR_BROWN;
-    else if (In_sokoban(game.u?.uz)) color = CLR_BLUE;
+    else if (In_sokoban(game.u?.uz) && use_decgraphics()) color = CLR_BLUE;
     return { ch: g.ch, color, dec: g.dec };
 }
 

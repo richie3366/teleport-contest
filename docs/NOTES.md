@@ -7,20 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#809 peel:** D-0728 — seed0108 Scr **293**/303 RNG FULL; cursors FULL.
-  Next: wall color after ^V teleport (NOTES earlier cascade); remaining
-  10 screens. Falsifier: `node frozen/ps_test_runner.mjs sessions/seed0108-wizard-extcmd-wishlist.session.json`
-- **D-0708 parked sharpen:** seed0014 @49039 mfndpos cnt 6 vs 5;
-  C dest~(24,12); omit suspect `(22,10)`.
-- **Don’t:** re-break D-0660…D-0728; invent nearby force for D-0710;
+- **#810:** full score **36/44** + D-0729 seed0108 **PASS** (Scr 303/303).
+  Sokoban `wall_glyph`: CLR_BLUE only under `use_decgraphics()`; ASCII
+  ^V→soko1 needs CLR_GRAY→NO_COLOR. Falsifier: seed0108 + seed0373 both PASS.
+- **Next:** D-0708 seed0014 @49039 mfndpos; or hallu/coverage. Prefer shared.
+- **Don’t:** re-break D-0660…D-0729; invent nearby force for D-0710;
   global `rest_on_space` (falsified @2869); treat JS `'\0'` as TIME
-  (C NUL falsy — D-0728).
+  (C NUL falsy — D-0728); always-blue Sokoban walls (breaks ASCII).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0728 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0729 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
@@ -34,21 +33,23 @@ Objective/score live in `CURRENT.md`.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Water vault is `des.map` (wid=6→`rn2(73)`), not rectangular create_room.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
-- D-0710…28: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
+- D-0710…29: `#rub`/cream/`#wipe` Blind/`#polyself`/`drop_weapon`/`#invoke`
   / `set_mon_data` umov / **newman** / **`#tip`** / throw self / cream Blind
   / **Upolyd botl+glyph+weight** / **`#monster`** / **FROMFORM FLYING** /
   **verbose breath tip + dobreathe uen** / **doloot nohands + #untrap +
   newman individual** / **`o`/doopen getdir + doforce ynq `q` + xname
-  named** / **`#herecmdmenu` self menu** — `#therecmdmenu`/next2u/far
-  deferred; full `untrap()` deferred; rest of PROPSET + float_vs_flight
-  still omitted; loot-at-feet open deferred.
+  named** / **`#herecmdmenu` self menu** / **Sokoban wall DEC-gated blue**
+  — `#therecmdmenu`/next2u/far deferred; full `untrap()` deferred; rest of
+  PROPSET + float_vs_flight still omitted; loot-at-feet open deferred;
+  C `wallcolors[]` all-GRAY vs recorder DEC SGR 34 still unexplained.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** **PASS** (suite **35/44** @#805; Scr 7901 RNG 527316).
+  **seed0367** / **seed0108** **PASS** (suite **36/44** @#810; Scr 7926
+  RNG 527314).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -71,4 +72,5 @@ Objective/score live in `CURRENT.md`.
   **FROMFORM FLYING** (D-0724); **breath tip + dobreathe** (D-0725);
   **doloot nohands / `#untrap` could_untrap** (D-0726);
   **`o`/doopen + doforce `(q)` + xname named** (D-0727);
-  **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME).
+  **`#herecmdmenu` self** (D-0728; JS `'\0'` ≠ C TIME);
+  **Sokoban wall blue iff DECgraphics** (D-0729).
