@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-19** — full `sessions` suite (loop **#855**,
-post D-0759). Screens **8270**/11405; RNG **590,719**/792838 (74.51%).
-**37/44** PASS. Δ vs #850: Scr **+58**, RNG **+16,850**, PASS **0**
-(seed0360 D-0758…D-0759 prefix lift; suite RNG 574k→591k).
+Score last measured: **2026-07-19** — full `sessions` suite (loop **#860**,
+cadence). Screens **8272**/11405; RNG **602,457**/792838 (75.99%).
+**37/44** PASS. Δ vs #855: Scr **+2**, RNG **+11,738**, PASS **0**
+(suite now reflects D-0760…D-0763 peels; seed0360 still @71832).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **37 / 44** |
-| Screens matched | **8,270 / 11,405** |
-| Positional RNG calls matched | **590,719 / 792,838** (74.51%) |
-| Speed label | `36+0.20/turn` (R² 0.830) |
+| Screens matched | **8,272 / 11,405** |
+| Positional RNG calls matched | **602,457 / 792,838** (75.99%) |
+| Speed label | `36+0.20/turn` (R² 0.825) |
 | Role-init throws | **0 / 44** |
 
 **PASS (37):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,9 +47,9 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 49495/59178 | 577/714 | @#855; prefix @49039 D-0708 |
-| seed0399 | 10389/11409 | 113/532 | @#855; stuck @10157 D-0731 |
-| seed0360 | 60117/120639 | 265/833 | @#855; next bigrm-4 @60114 |
+| seed0014 | 49495/59178 | 577/714 | @#860; prefix @49039 D-0708 |
+| seed0399 | 10389/11409 | 113/532 | @#860; stuck @10157 D-0731 |
+| seed0360 | 71855/120639 | 267/833 | @#860; next hell_tweaks @71832 |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3013/108275 | 13/1814 | knight coverage |
@@ -75,14 +75,14 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @71832** after D-0763 asmodeus —
-C `hell_tweaks` `percent` vs JS flip/`rn2(2)`. Prefer over D-0731/D-0708
-mfndpos. Do **not** re-break D-0660…D-0763.
+**Gameplay next:** **seed0360 @71832** — port `dat/nhlib.lua` `hell_tweaks`
+(see NOTES). Prefer over D-0731/D-0708 mfndpos.
+Do **not** re-break D-0660…D-0763.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @71832 C hell_tweaks percent vs JS rn2(2)
+# @71832 C hell_tweaks percent vs JS flip rn2(2)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

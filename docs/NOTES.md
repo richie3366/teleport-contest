@@ -7,10 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#859 D-0763 fixed:** asmodeus load_special + shared hell helpers.
-  Prefix **71832**. Scr **267**. RNG matched **71855**.
-- **Next @71832:** C `hell_tweaks` `percent` (nhlib) vs JS flip `rn2(2)`
-  after asmodeus mazewalk fill. Port `dat/nhlib.lua` `hell_tweaks`.
+- **#860 score:** 37/44; Scr **8272**/11405; RNG **602,457** (75.99%).
+- **Next @71832:** port `dat/nhlib.lua` `hell_tweaks` after asmodeus.
+  Falsify: rng-diff first miss must leave `percent`/`hell_tweaks` parents.
+- **hell_tweaks packet (from #860 probe, reverted):**
+  1. C `lspo_map` contents end → `reset_xystart_size()` (79×21), **not**
+     asmo2 33×5. Do **not** call JS `reset_xystart_size()` (clears SpLev_Map).
+  2. Before maps: `match("-")` → `fillrect(lx,ly+1,hx-2,hy-1)` = bounds2.
+  3. `protected = bounds2:negate() | asmo1 | asmo2` (map return sels).
+  4. Pools path can match through ~71905 (`percent` + `rn2(27)` + get_location
+     + filter_percent). River: C `selection_rndcoord` on ~692 ROOM cells.
+  5. Need: `selection_or`/`not`/`grow`/`set` random ANY_LOC; `percent` already OK.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -37,8 +44,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
-  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#855;
-  Scr 8270, RNG 74.51%; seed0360 **71832**/267 after D-0763).
+  **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#860;
+  Scr 8272, RNG 75.99%; seed0360 **71832**/267 after D-0763).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 11:27 — #860 public score cadence
+- Objective: mandatory full `sessions` score (#860 % 5 == 0).
+- C locus: n/a (score docs); probed `dat/nhlib.lua` `hell_tweaks` (reverted).
+- Change: refreshed CURRENT Score from `__RESULTS_JSON__`. hell_tweaks
+  probe findings → NOTES (reset_xystart 79×21; bounds2; pools~71905).
+- Verification: green+strict PASS; suite **37/44**; Scr **8272**/11405;
+  RNG **602457**/792838 (75.99%); speed `36+0.20/turn` (R² 0.825).
+- Next: @71832 port `hell_tweaks` per NOTES packet.
+
 ## 2026-07-19 11:10 — #859 asmodeus + hell helpers (D-0763)
 - Objective: seed0360 @68690 C nhlib shuffle vs JS `rn2(79)` post-rogue.
 - C locus: `dat/asmodeus.lua`; `makemon.c` newmonhp/sleep; `teleport.c`
