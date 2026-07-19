@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 19:05 — #900 score + D-0786 dokick Wounded_legs
+- Objective: cadence full `sessions`; seed0360 @108369 (misread as
+  set_apparxy rn2(4) vs rn2(2)).
+- C locus: `dokick.c` `dokick` Wounded_legs; `do.c` `legs_in_no_shape`.
+- Change: after D-0785, next `^D` must refuse + `--More--`; JS kicked
+  again. Port gate + `flush_topl_more`. Prefix **108369→109077**.
+- Verification: green+strict PASS; 0060/1500/1800 PASS; full **37/44**
+  Scr **8397** RNG **641147** (80.87%); seed0014 **50419**.
+- Next: @109077 C exercise rn2(19) vs JS rn2(4) (key `^F`).
+
 ## 2026-07-19 18:50 — #899 D-0785 kick set_wounded_legs
 - Objective: seed0360 @108368 C moveloop wipe_engr rn2(76) vs JS rn2(79).
 - C locus: `dokick.c` `kick_ouch`/`kick_dumb`; `do.c` `set_wounded_legs`.
@@ -27,7 +37,7 @@ Use this shape:
   Wire exported `set_wounded_legs`. Prefix **108368→108369**, RNG
   **109615**; seed0014 still **50259**.
 - Verification: green+strict PASS; cohort 35/35 (incl. 0060 kick).
-- Next: @108369 C set_apparxy rn2(4) vs JS rn2(2).
+- Next: @108369 → D-0786 (not bare set_apparxy).
 
 ## 2026-07-19 18:45 — #898 D-0784 dotravel seenv||couldsee
 - Objective: seed0360 @104904 C set_apparxy rn2(5) vs JS rn2(4).
@@ -160,14 +170,3 @@ Use this shape:
   rn2(7); FORCE→100804. Recorder rebuild for C typ incomplete.
 - Verification: green+strict PASS; seed0360 still @100738; DIAG/FORCE gone.
 - Next: C `levl[33..35][3].typ` via working recorder (D-0779).
-
-## 2026-07-19 15:55 — #886 seed0360 @100738 bat HWALL diagnose (D-0779)
-- Objective: seed0360 @100738 vampire bat mfndpos cnt vs C chcnt.
-- C locus: `monmove.c:1970` / `mon.c` `mfndpos`; `sp_lev.c` load_special;
-  `dat/Wiz-strt.lua` FlipY.
-- Change or falsified theory: refined — cnt=4 = quasit@(34,1)+3×HWALL
-  @(33–35,3); FORCE→100804; post-FlipY dump confirms HWALL from map `-`.
-  Aligned Wiz-strt epilogue (link/remove/cleanup); no prefix Δ.
-- Verification: green+strict PASS; cohort 5/5; seed0360 still @100738.
-- Next: C runtime typ at post-FlipY (33–35,3) (D-0779).
-

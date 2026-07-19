@@ -1264,6 +1264,25 @@ export async function set_wounded_legs(side, timex) {
  * how: 0 ordinary (nh_timeout), 1 dismount, 2 petrify limbs.
  * Named omissions: steed-leg suppress path polish beyond usteed check.
  */
+/**
+ * C ref: do.c legs_in_no_shape — refuse kick/jump/ride with wounded legs.
+ * Steed-by_steed Monnam path deferred (kick uses by_steed=false).
+ */
+export async function legs_in_no_shape(for_what, by_steed) {
+    const u = game.u || {};
+    if (by_steed && u.usteed) {
+        await pline(`${Monnam(u.usteed)} is in no shape for ${for_what}.`);
+        return;
+    }
+    const wl = (u.EWounded_legs | 0) & BOTH_SIDES;
+    let bp = body_part(LEG);
+    if (wl === BOTH_SIDES) bp = makeplural(bp);
+    const side = (wl === LEFT_SIDE) ? 'left '
+        : (wl === RIGHT_SIDE) ? 'right ' : '';
+    const verb = (wl === BOTH_SIDES) ? 'are' : 'is';
+    await pline(`Your ${side}${bp} ${verb} in no shape for ${for_what}.`);
+}
+
 export async function heal_legs(how) {
     const u = game.u || (game.u = {});
     const wounded = !!(u.Wounded_legs

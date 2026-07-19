@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0786 — dokick Wounded_legs legs_in_no_shape + --More--
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @108369 — C `set_apparxy` `rn2(4)` vs JS `rn2(2)`.
+  Matched strings hid site-shift: JS stack was `kick_ouch`→`exercise`
+  `rn2(2)` (extra kick after D-0785 set wounded).
+- **C-state:** step 548 `"Your right leg is in no shape for kicking.--More--"`
+  after Ouch wounded; next `^D` refuses before `getdir`.
+- **C locus:** `dokick.c` `dokick` `Wounded_legs` → `legs_in_no_shape`;
+  `do.c` `legs_in_no_shape`; `display_nhwindow(WIN_MESSAGE,TRUE)`.
+- **Cause (#900):** JS omitted wounded gate; proceeded to getdir+kick while
+  C owned keys with `--More--`.
+- **Change:** export `legs_in_no_shape` from `trap.js`; `dokick` checks
+  wounded before encumbrance/utrap; `flush_topl_more` on no_kick. Named:
+  poly/steed/lizard/uinwater/boulder no_kick; steed `by_steed` Monnam.
+- **Verification:** green+strict PASS; seed0060/1500/1800 PASS; seed0360
+  **108369→109077**, suite RNG **109603**, Scr **391**; full #900
+  **37/44** Scr **8397** RNG **641147**; seed0014 still **50419**.
+- **Next:** @109077 C `exercise` `rn2(19)` vs JS `rn2(4)` (key `^F`).
+
 ## D-0785 — kick_ouch/kick_dumb set_wounded_legs (ATEMP DEX)
 
 - **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
@@ -20,7 +40,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification:** green+strict PASS; cohort 35/35 (incl. seed0060 kick);
   seed0360 **108368→108369**, RNG **109279→109615**, Scr **391**; seed0014
   prefix still **50259**.
-- **Next:** @108369 C `set_apparxy` `rn2(4)` vs JS `rn2(2)`.
+- **Next:** @108369 → D-0786 (not bare set_apparxy arity).
 
 ## D-0784 — dotravel_target seenv||couldsee (not couldsee-only prefer)
 
