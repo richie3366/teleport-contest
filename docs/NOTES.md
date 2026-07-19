@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#827 D-0739 done:** `mattackm` sets `magr.mlstmv`; dog_move return
-  attack also gates `!onscary`. seed5002 cont **11715→11725**; Scr 108→114.
-- **Falsify next (@11725):** after EOT, JS `wiz_wish`→`readobjnam`
-  `rn2(181)` vs C `distfleeck` (C `^Wscroll of identify` steps 141–198
-  have **0** RNG). Dump makewish/readobjnam vs C named-scroll path.
+- **#828 D-0740 done:** `c` → `doclose` + getdir cmdassist. seed5002 RNG
+  **FULL 12167**; Scr 114→125. Wish@11737 was key desync (C ate `c` as
+  close/getdir; JS Unknown→later premature `^W` wish).
+- **Falsify next (Scr):** seed5002 display — C cloak/potion destroy
+  messages vs JS early `You die...` (RNG already matches). Compare
+  destroy_items / death pline order + `--More--`.
 - **D-0731 open:** black unicorn cnt7vs5; FORCE omit-pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; omit any 1 →@49300.
 
@@ -19,22 +20,21 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0739 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0740 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
-- seed5002 seg0 now FULL 5904; flattened @11725 is mid-seg1 step199.
+- seed5002 RNG FULL; Scr still FAIL — not a wish/readobjnam bug.
+- C `^Wscroll of identify` @seg1 141–160 was **not** a real wish (keys
+  eaten by `--More--` / confused input after Die?).
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it (≡C wizard).
 - D-0658: hx=39 alone or link_doors + rect roomno gate → @14403.
 - D-0665…D-0673: TREE cmap; altar `{`; Warning floats; lit clear.
-- D-0674/D-0675: gas `does_block` needs `clear_regions` on mklev.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - `Fumbling()` ≡ H||E||uprops[FUMBLING]; not a sticky boolean.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - Wish does **not** `makeknown` (C: otmp unidentified); trailing exercise
   was death-noreturn hole, not wish-known (D-0737).
-- Stethoscope free/TIME needs live `hero_seq` (D-0738); don’t hardcode seq.
-- `mattackm` **must** set `magr.mlstmv = moves` (D-0739); undefined ≠ C 0.
 
 ## Landmarks (≤15)
 
@@ -59,6 +59,7 @@ Objective/score live in `CURRENT.md`.
   **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
   **hero_seq + stethoscope seemimic/mstatusline** (D-0738);
   **mattackm mlstmv + dog_move return onscary** (D-0739);
+  **`c` → doclose getdir** (D-0740);
   **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
   **mon_allowflags + temple SANCT** (D-0732);
   **mfndpos worm_cross + rogue door-cut** (D-0733);

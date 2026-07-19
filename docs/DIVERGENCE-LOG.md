@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0740 — cmd `c` → doclose (seed5002 @11737 wish desync)
+
+- **Status:** fixed (partial — seed5002 still FAIL screens; RNG FULL)
+- **Symptom:** seed5002 continuous first miss @**11737**: C `distfleeck`
+  `rn2(5)` vs JS `readobjnam` `rn2(181)`. NOTES guessed identify-wish RNG;
+  C steps 141–198 are 0-RNG because `^Wscroll of identify` was eaten by
+  `--More--` / confused input — not a wish. Root was earlier: at seg1
+  step99 key `c`, C `doclose`→`getdir` ("In what direction?") while JS
+  `Unknown command 'c'`, desyncing keys into premature `wiz_wish`.
+- **C locus:** `cmd.c` `'c'` → `doclose`; `lock.c` `doclose` / `getdir`.
+- **Cause:** JS never bound `c` to `doclose`.
+- **Change:** port `doclose` (getdir_cmdassist + door close envelope);
+  wire `c` in `rhack`. Named: stumble_on_door_mimic, Blind feel,
+  Confusion TIME, portcullis, Some_Monnam obstructed polish.
+- **Verification:** green+strict PASS; cohort 34/34; continuous RNG
+  **FULL 12167/12167**; Scr **114→125**/410.
+- **Next:** seed5002 screen peel (destroy_items/death topline vs C); or
+  D-0731/D-0708.
+
 ## D-0739 — mattackm mlstmv + dog_move return onscary (seed5002 @11715)
 
 - **Status:** fixed (partial — seed5002 still FAIL; next @11725)
