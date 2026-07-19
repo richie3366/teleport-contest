@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 18:18 — #896 D-0782 Wiz-strt portal FlipY + migrate
+- Objective: seed0360 @101022 quasit CLOUD skip 2nd fleeck (misdiagnosis).
+- C locus: `sp_lev` flip lregion; `trap.c` `trapeffect_magic_portal`;
+  `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL.
+- Change: C-state falsifier — wraith @(66,13) trap=17 vs JS none/wrong Y.
+  Store LR_BRANCH pre-flip; MAGIC_PORTAL → MIGR_PORTAL. Prefix
+  **101022→101930**, Scr **294→389**, RNG **105212**.
+- Verification: green+strict PASS; cohort 15/15 PASS.
+- Next: @101930 C exercise vs JS distfleeck (site-shift).
+
 ## 2026-07-19 18:10 — #895 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs only).
@@ -163,14 +173,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 35/35; seed0360 prefix
   **100397→100738**, RNG **100887→104024**, Scr **292**/833.
 - Next: @100738 mfndpos chcnt rn2(6) vs rn2(5) (m_move appr==0).
-
-## 2026-07-19 15:17 — #882 maketrap AIR/CLOUD (D-0777); @100104→100397
-- Objective: seed0360 @100104 C get_location vs JS rnd(4) mid Wiz-strt traps.
-- C locus: `trap.c` `maketrap` (`IS_AIR && typ != MAGIC_PORTAL`).
-- Change or falsified theory: CLOUD is SPACE_POS so DRY get_location can
-  pick it; C rejects non-portal traps → no victim rnd(4). Ported terrain
-  gates + `splev_create_trap` stairs/`get_location_coord` parity.
-- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
-  **100104→100397**, RNG **100408→100887**, Scr **292**/833.
-- Next: @100397 distfleeck vs rn2(3) (m_move).
-

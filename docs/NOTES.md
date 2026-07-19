@@ -7,16 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#894 / D-0779:** @101022 site-shift. DIAG: quasit @(33,2) ROOM,
-  hero@(7,6), `nearby=0`/`want_move=true`, silent `m_move`→CLOUD (32,2)
-  (trap=none, regs=[]), then 2nd fleeck. FORCE skip `want_move` →
-  **101025** only. FORCE DIED-after-CLOUD (skip 2nd fleeck, keep dest)
-  → **101228**, Scr **387**, RNG **101949**. C **moves** then skips
-  2nd fleeck (DIED/`mon_offmap`) — not df-only. D-0781 added offmap
-  gates; nothing sets `mstate` on CLOUD step. Falsify next: C-state
-  postmov after CLOUD (`m_in_out_region` still omitted before place).
-- **D-0781 fixed:** `dochug`/`postmov` `mon_offmap` (peel unchanged).
-- **D-0780 fixed:** `lock.js` `getdir` `'.'` = SELF (was cancel).
+- **#896 / D-0782:** seed0360 peel **101022→101930**. C-state proved
+  cause was **wraith** on `MAGIC_PORTAL` (not quasit CLOUD). Wiz-strt
+  branch was post-flip unflipped coords → portal (66,7) vs C (66,13);
+  `mlevel_tele_trap` lacked MAGIC_PORTAL. Fixed both. Next @101930:
+  C `exercise` vs JS `distfleeck` — site-shift checklist before coding.
+- **Falsified:** quasit CLOUD DIED/offmap; df-only want_move; m_in_out_region
+  as skip-fleeck cause (MMOVE_DONE still runs 2nd fleeck).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -26,10 +23,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0781 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0782 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only —
-  same string can hide different call sites (see D-0769; D-0778; D-0779).
+  same string can hide different call sites (D-0769; D-0778; D-0779→0782).
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
 - D-0743…D-0772 seed0360 peels (…/wizard2/hell_tweaks `.w.`).
 - D-0770: flyers ignore floor_trigger traps; mfndpos avoids only
@@ -39,9 +36,7 @@ Objective/score live in `CURRENT.md`.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
-- **Falsified D-0779:** C-admits-HWALL; post-EOT movemon; C hero@(9,1);
-  quitchars-before-`\\n`; bat rn2(3) itself; **want_move-false / df-only**
-  (FORCE DIED-after-CLOUD ≫ skip want_move); scared stub not the gate.
+- **#896:** siege skip-fleeck was wraith→MAGIC_PORTAL migrate, not quasit.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -53,7 +48,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#895;
-  Scr 8300, RNG **632321**/79.75%; seed0360 **101022**/101695/**294** D-0779).
+  seed0360 **101930**/105212/**389** after D-0782 — Score refresh @#900).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -76,8 +71,8 @@ Objective/score live in `CURRENT.md`.
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);
   **medusa-3 + mk_artifact A_NONE** (D-0759);
-  **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
-  **Tengu m_move teleport** (D-0778); **getdir lock SELF** (D-0780);
-  **getpos seenv stairs** (D-0779); **mon_offmap dochug/postmov** (D-0781);
-  siege quasit CLOUD then skip 2nd fleeck (#894).
+  **minliquid** (D-0775); **Wiz-strt** (D-0776/D-0782 branch FlipY);
+  **maketrap AIR** (D-0777); **Tengu m_move teleport** (D-0778);
+  **getdir lock SELF** (D-0780); **getpos seenv stairs** (D-0779);
+  **mon_offmap dochug/postmov** (D-0781); **MAGIC_PORTAL migrate** (D-0782).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

@@ -108,3 +108,13 @@
 - Verification: prefix **2336→3282**; Scr 167; green+strict PASS;
   cohort 34/34 prior-PASS.
 - Next: seed0367 @3282 intemple rn2(4) vs rn2(12).
+## 2026-07-19 15:17 — #882 maketrap AIR/CLOUD (D-0777); @100104→100397
+- Objective: seed0360 @100104 C get_location vs JS rnd(4) mid Wiz-strt traps.
+- C locus: `trap.c` `maketrap` (`IS_AIR && typ != MAGIC_PORTAL`).
+- Change or falsified theory: CLOUD is SPACE_POS so DRY get_location can
+  pick it; C rejects non-portal traps → no victim rnd(4). Ported terrain
+  gates + `splev_create_trap` stairs/`get_location_coord` parity.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **100104→100397**, RNG **100408→100887**, Scr **292**/833.
+- Next: @100397 distfleeck vs rn2(3) (m_move).
+

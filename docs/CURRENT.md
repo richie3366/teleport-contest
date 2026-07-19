@@ -24,7 +24,8 @@ focused session.
 Score last measured: **2026-07-19** — full `sessions` suite (loop **#895**,
 cadence). Screens **8300**/11405; RNG **632,321**/792838 (79.75%).
 **37/44** PASS. Δ vs #890: Scr **+3**, RNG **+177** (seed0014
-49501/578; seed4500 3031), PASS **0**. Prefix seed0360 still @101022.
+49501/578; seed4500 3031), PASS **0**. Prefix seed0360 still @101022
+(pre-D-0782; #896 advanced peel — refresh Score at #900).
 
 ## Score
 
@@ -49,7 +50,7 @@ seed5006, seed0116, seed0361, seed0367, seed0108, **seed5002**.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 49501/59178 | 578/714 | prefix @49039 D-0708 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0360 | 101695/120639 | 294/833 | @101022 m_move (D-0779) |
+| seed0360 | 105212/120639 | 389/833 | @101930 (#896 D-0782) |
 | seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3031/108275 | 13/1814 | knight coverage |
@@ -75,17 +76,16 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @101022 / D-0779** — #894: C **moves**
-quasit onto CLOUD then skips 2nd `distfleeck` (FORCE DIED-after →
-prefix **101228** / Scr **387**); not df-only `want_move` (→101025).
-DIAG: @(33,2)→(32,2) CLOUD, trap/gas none, `nearby=0`. D-0781
-`mon_offmap` gates live; need C-state setter after CLOUD step.
+**Gameplay next:** **seed0360 @101930 / D-0782 follow-on** — #896 fixed
+Wiz-strt branch FlipY + MAGIC_PORTAL migrate (was misdiagnosed as quasit
+CLOUD). Prefix **101022→101930**, Scr **294→389**, RNG **105212**.
+Next mismatch: C `exercise` vs JS `distfleeck` (new site-shift).
 Parked D-0731/D-0708.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @101022: JS quasit 2nd distfleeck vs C bat m_move !rn2(3)
+# @101930: C exercise vs JS distfleeck
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
@@ -93,7 +93,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708)
 — need C-state which mfndpos cells drop.
 
-**Do not re-break D-0660…D-0778.**
+**Do not re-break D-0660…D-0782.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

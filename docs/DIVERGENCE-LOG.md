@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0782 — Wiz-strt branch portal FlipY + MAGIC_PORTAL migrate (seed0360)
+
+- **Status:** fixed (partial — seed0360 still FAIL; peel advanced)
+- **Symptom:** seed0360 @101022 — C `m_move` bat `rn2(3)` vs JS
+  `distfleeck` `rn2(5)`. Matched strings hid site-shift: prior mon was
+  **wraith** stepping on `MAGIC_PORTAL`, not quasit on CLOUD.
+- **C locus:** `sp_lev.c` flip_level lregion remap; `trap.c`
+  `trapeffect_magic_portal` → `mlevel_tele_trap`; `teleport.c`
+  `mlevel_tele_trap` MAGIC_PORTAL → `MIGR_PORTAL`.
+- **Cause (#896):** (1) `load_wiz_strt` placed branch `place_lregion`
+  **after** `flip_level_rnd` with pre-flip coords → portal at (66,7)
+  vs C (66,13). (2) JS `trapeffect_selector` lacked MAGIC_PORTAL;
+  `mlevel_tele_trap` deferred portal arm → mintrap no-op.
+- **C-state falsifier:** recorder DIAG — C `PRE_MINTRAP` wraith
+  @(66,13) `trap=17`; JS same dest `trap=-1` then after fix `t17` at
+  (66,7) until lregion remap.
+- **Change:** `js/mklev.js` store LR_BRANCH pre-flip + place after
+  flip (wizard3 pattern); `js/teleport.js` MAGIC_PORTAL migrate;
+  `js/trap.js` selector → `trapeffect_level_telep`.
+- **Verification:** green+strict PASS; cohort 15/15 PASS; seed0360
+  prefix **101022→101930**, RNG **101695→105212**, Scr **294→389**.
+- **Next:** @101930 C `exercise` vs JS `distfleeck` (new site-shift).
+
 ## D-0781 — dochug/postmov mon_offmap gates (seed0360 plumbing)
 
 - **Status:** fixed (partial — seed0360 peel unchanged @101022)
@@ -36,7 +59,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738→101022)
 
-- **Status:** open (#892 getpos; #893–#894 site-shift; mon_offmap plumbing D-0781)
+- **Status:** superseded peel cause by D-0782 (wraith MAGIC_PORTAL; #896)
 - **Symptom:** seed0360 @101022 — C `m_move:1871` `rn2(3)=0` (bat appr
   gate) vs JS `rn2(5)` (`distfleeck` bravegremlin).
 - **C locus:** `getpos.c` `seenv`; `monmove.c` `dochug`/`m_move`/

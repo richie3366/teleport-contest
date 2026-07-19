@@ -759,9 +759,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0776 | fixed | Wiz-strt load_special | seed0360 98505→100104; RNG 98528→100408; Scr 275→292; next traps @100104 |
 | D-0777 | fixed | maketrap IS_AIR/CLOUD reject | seed0360 100104→100397; RNG 100408→100887; Scr 292; next distfleeck @100397 |
 | D-0778 | fixed | m_move Tengu nature teleport | seed0360 100397→100738; RNG 100887→104024; Scr 292; next mfndpos chcnt @100738 |
-| D-0779 | open | getpos seenv + siege quasit CLOUD then skip 2nd fleeck | seed0360 @101022; FORCE DIED-after-CLOUD →101228; need C-state |
+| D-0779 | fixed | getpos seenv (peel cause superseded by D-0782) | seed0360 100738→101022 then D-0782 |
 | D-0780 | fixed | lock.js getdir `'.'` = GETDIR_SELF | seed0360 Scr 292→293; #chat/kick/open path; peel unchanged |
-| D-0781 | fixed | dochug/postmov mon_offmap gates | plumbing; peel still @101022 (no CLOUD setter) |
+| D-0781 | fixed | dochug/postmov mon_offmap gates | plumbing for portal migrate |
+| D-0782 | fixed | Wiz-strt branch FlipY + MAGIC_PORTAL migrate | seed0360 101022→101930; Scr 294→389; RNG 105212 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
