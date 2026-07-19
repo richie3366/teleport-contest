@@ -16,6 +16,7 @@ import {
     COLNO, ROWNO, isok, TER_MON, TER_DETECT,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
+    DOOR, IS_DOOR, D_NODOOR, D_ISOPEN, D_BROKEN,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, Upolyd, Is_airlevel,
     Is_rogue_level,
 } from './const.js';
@@ -26,6 +27,7 @@ import { t_at, trapname } from './trap.js';
 import { waterbody_name } from './hack.js';
 import { is_valid_travelpt } from './cmd.js';
 import { ok_to_quest } from './quest.js';
+import { visctrl } from './dokeylist.js';
 
 export const LOOK_TRADITIONAL = 0;
 export const LOOK_QUICK = 1;
@@ -240,11 +242,33 @@ export function room_cmap_explanation(x, y, loc) {
 }
 
 /**
+ * C ref: pager.c lookat glyph_is_cmap doors — S_ndoor special +
+ * defsyms S_vodoor/S_hodoor/S_vcdoor/S_hcdoor explanations; invent.c
+ * dfeature_at doormask switch (same strings). Named: drawbridge
+ * portcullis override (`is_drawbridge_wall`); D_TRAPPED exact-mask
+ * quirks beyond invent/default closed.
+ */
+function door_cmap_explanation(loc) {
+    // C invent.c dfeature_at / lookat S_ndoor + defsyms door explanations
+    switch (loc.doormask ?? D_NODOOR) {
+    case D_NODOOR:
+        return 'doorway';
+    case D_ISOPEN:
+        return 'open door';
+    case D_BROKEN:
+        return 'broken door';
+    default:
+        // D_CLOSED / D_LOCKED (+ optional D_TRAPPED) → "closed door"
+        return 'closed door';
+    }
+}
+
+/**
  * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
  * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
  * auto_describe firstmatch after stairs/traps.
- * Named omissions: altar/ndoor/engraving/iron bars/fountain
- * special cases; underwater unreconnoitered; object glyphs;
+ * Named omissions: altar/engraving/iron bars/fountain special cases;
+ * drawbridge portcullis; underwater unreconnoitered; object glyphs;
  * Hallucination waterbody; arboreal STONE→S_tree; gas-cloud
  * region glyph overlay on non-CLOUD typ (lookat uses glyph_at).
  */
@@ -260,6 +284,8 @@ function cmap_defsym_explanation(x, y, loc) {
     if (typ === CLOUD) {
         return Is_airlevel(game.u?.uz) ? 'cloudy area' : 'fog/vapor cloud';
     }
+    // C lookat cmap doors (S_ndoor / S_*odoor / S_*cdoor) via defsyms
+    if (IS_DOOR(typ) || typ === DOOR) return door_cmap_explanation(loc);
     // C lookat cmap default → defsyms[symidx].explanation
     if (IS_WALL(typ)) return 'wall';
     if (typ === ROOM) return room_cmap_explanation(x, y, loc);
@@ -283,8 +309,8 @@ function cmap_defsym_explanation(x, y, loc) {
  *
  * Named omissions: full do_screen_description symbol table, coord_desc,
  * getpos_getvalid "(invalid target)" (no hilite callback yet), underwater
- * unreconnoitered, object / special cmap arms (altar/ndoor; cloud typ
- * covered D-0811). Trap: tseen `trapname` only (trapped_chest/door /
+ * unreconnoitered, object / special cmap arms (altar; doors D-0815;
+ * cloud typ D-0811). Trap: tseen `trapname` only (trapped_chest/door /
  * Hallucination deferred). Travel: " (no travel path)" via
  * is_valid_travelpt when getloc_travelmode (D-0809).
  */
@@ -553,10 +579,11 @@ export async function getpos(ccp, force, goal, describeAt) {
         }
 
         // C ref: getpos.c unknown key — force keeps looping; !force aborts
+        // C: pline("Unknown direction: '%s' (%s).", visctrl((char) c), note);
         const note = force
             ? "use 'h', 'j', 'k', 'l' or '.'"
             : 'aborted';
-        await pline(`Unknown direction: '${ch}' (${note}).`);
+        await pline(`Unknown direction: '${visctrl(key)}' (${note}).`);
         msg_given = true;
         if (force) continue;
         ccp.x = -1;

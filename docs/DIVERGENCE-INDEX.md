@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0815 | fixed | getpos door cmap + unknown-dir visctrl | seed0360 Scr 812→818; @632 closed door; @661 ^D; next @668 |
 | D-0814 | fixed | wiz_map level.traps + show_map_spot map_trap (+ blocked stair) | seed0360 Scr 694→812; @624 ^F traps; next @632 closed door |
 | D-0813 | fixed | TRAVP_VALID BFS + travel blank S_stone | seed0360 Scr 689→694; @539 fixed; next @624 (D-0814) |
 | D-0812 | fixed | lookat ROOM S_darkroom vs S_room | seed0360 Scr 684→689; @531 fixed; next @539 stone |

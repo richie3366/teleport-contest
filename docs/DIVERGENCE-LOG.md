@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0815 — getpos door cmap + unknown-direction `visctrl` (seed0360 @632/@661)
+
+- **Status:** fixed (seed0360 Scr residual continues @668)
+- **Symptom:** seed0360 @632 travel auto_describe — C
+  `closed door (no travel path)`; JS `unexplored area (no travel
+  path)`. @661 C `Unknown direction: '^D'…`; JS raw `'\u0004'`.
+  RNG FULL.
+- **C locus:** `pager.c` `lookat` cmap doors → defsyms
+  S_ndoor/S_*odoor/S_*cdoor explanations (same strings as
+  `invent.c` `dfeature_at` doormask switch); `getpos.c` unknown
+  key `pline(..., visctrl((char)c), ...)`.
+- **Cause (#937):** (1) JS `cmap_defsym_explanation` omitted DOOR —
+  displayed `+` fell through to `"unexplored area"`. (2) unknown-
+  direction pline interpolated raw `fromCharCode` instead of
+  `visctrl`.
+- **Change:** `js/getpos.js` `door_cmap_explanation` + DOOR arm;
+  import `visctrl` from `dokeylist.js` for unknown-direction.
+  Named: drawbridge portcullis; full defsyms furniture table;
+  force-note `cmd_from_func` visctrl of move keys.
+- **Verification:** green+strict PASS; cohort 15/15 PASS; seed0360
+  Scr **812→818**/833; @632–661 match; RNG FULL.
+- **Next:** @668 `A mysterious force prevents the tengu from
+  teleporting!--More--` vs `Unknown direction: '7'…`.
+
 ## D-0814 — wiz_map `level.traps` + show_map_spot `map_trap` (seed0360 @624)
 
 - **Status:** fixed (seed0360 Scr residual continues @632)
