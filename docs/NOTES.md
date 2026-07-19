@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#892 / D-0779:** `getpos` `>` must not match unseen stairs (C
-  `seenv` gate). Was jumping to (33,9) then `\\n`=C('j') rush →(33,17);
-  C: `>` miss → `\\n` rush →(8,8) travel. Prefix **100738→101022**,
-  Scr **294**. Next: @101022 C `m_move:1871` `rn2(3)` vs JS `rn2(5)`.
+- **#893 / D-0779:** @101022 is **site shift**, not bat-gate wrong N.
+  After wraith 2nd fleeck, JS **quasit** @(33,2) `m_move`→CLOUD (32,2)
+  (no RNG) then **2nd** `distfleeck`; C next is bat `m_move:1871`
+  `!rn2(3)`. FORCE skip quasit `want_move` → prefix **101025** (bat
+  `rn2(3)/1/2` match). Falsify next: C quasit `MMOVE_DIED`/`mon_offmap`
+  after move (or other df-only path) — compare postmov on CLOUD dest.
 - **D-0780 fixed:** `lock.js` `getdir` `'.'` = SELF (was cancel).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
@@ -35,8 +37,8 @@ Objective/score live in `CURRENT.md`.
   boulder @98492. Wiz-strt cleanup (#886).
 - **#889:** Wiz-strt map throne must be `\\` in template (not `\.`).
 - **Falsified D-0779:** C-admits-HWALL; post-EOT movemon; C hero@(9,1)
-  at first siege movemon (both move on `y`); quitchars-before-`\\n`
-  (C binds `C('j')` rush before quitchars).
+  at first siege movemon; quitchars-before-`\\n`; **bat rn2(3) itself**
+  (JS bat gate OK — extra quasit 2nd fleeck shifts index).
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
@@ -73,5 +75,5 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778); **getdir lock SELF** (D-0780);
-  **getpos seenv stairs** (D-0779 #892).
+  **getpos seenv stairs** (D-0779 #892); siege quasit 2nd fleeck (#893).
   Wiz-strt FlipY flp=1; throne `\\`; travel `_`/`>`/`\\n`→(8,8).

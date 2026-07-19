@@ -75,16 +75,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @101022 / D-0779** — #892 `getpos` stairs
-match requires `seenv` (was blank `disp_ch` → unseen `>` to stairs;
-C: `>` miss then `\n`=C('j') rush to (8,8) travel). Prefix
-**100738→101022**, Scr **293→294**, RNG **101695**. Next: @101022
-C `m_move:1871` `rn2(3)` vs JS `rn2(5)`. Parked D-0731/D-0708.
+**Gameplay next:** **seed0360 @101022 / D-0779** — #893: not a bat
+`rn2(3)` bug. JS **quasit** @(33,2) silent `m_move`→CLOUD (32,2) +
+**2nd** `distfleeck` shifts the stream; C’s next is bat `!rn2(3)`.
+FORCE skip quasit `want_move` → prefix **101025** (bat gate matches).
+Next: why C’s quasit turn is df-only (no 2nd fleeck) — suspect
+`MMOVE_DIED`/`mon_offmap` after move. Parked D-0731/D-0708.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @101022 m_move !rn2(3) vs rn2(5)
+# @101022: JS quasit 2nd distfleeck vs C bat m_move !rn2(3)
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```

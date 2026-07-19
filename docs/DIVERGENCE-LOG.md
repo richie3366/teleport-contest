@@ -20,22 +20,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat Y drift (seed0360 @100738→101022)
 
-- **Status:** open (getpos seenv gate #892; peel moved)
-- **Symptom:** seed0360 — was @100738 bat cnt 4 vs C 7; now @101022
-  C `m_move` `!rn2(3)` vs JS `rn2(5)`.
-- **C locus:** `getpos.c` feature terrain needs `seenv`; `cmd.c`
-  `C('j')=='\n'` rush before quitchars; `monmove.c` `m_move`.
-- **Cause (#884–#892):** Unseen downstairs matched via blank `disp_ch`
-  truthy → travel `_`/`>` jumped to stairs (33,9) then `\n` rushed to
-  (33,17). C: `>` finds nothing (no seenv) → `\n` rushes to (8,8) →
-  travel destination (8,8). Siege bat Y drifted from wrong hero mux.
-  Falsified: post-EOT movemon; HWALL admit; C hero still @(9,1) at first
-  siege movemon (C also moves on `y` first).
-- **Change (#892):** `getpos.js` `terrain_feature_matches` requires
-  `seenv` (D-0779). Keep movecmd/`\n` rush before space/CR quitchars.
-- **Verification:** prefix **100738→101022**, Scr **293→294**, RNG
-  matched **101517→101695**; green+cohort PASS.
-- **Next:** @101022 C bat/stalker `!rn2(3)` vs JS site shift.
+- **Status:** open (#892 getpos; #893 site-shift diagnosed, no code fix)
+- **Symptom:** seed0360 @101022 — C `m_move:1871` `rn2(3)=0` (bat appr
+  gate) vs JS `rn2(5)` (`distfleeck` bravegremlin).
+- **C locus:** `getpos.c` `seenv`; `monmove.c` `dochug`/`m_move`/
+  `distfleeck` (2nd fleeck after `m_move` unless DIED/offmap).
+- **Cause (#884–#892):** Unseen downstairs via blank `disp_ch` → wrong
+  travel dest; fixed with `seenv` gate. Prefix **100738→101022**.
+- **#893 diagnosis:** Matched `rn2(5)` strings hid site shift. After
+  wraith 2nd fleeck, JS **quasit** @(33,2) does silent `m_move`→CLOUD
+  (32,2) then **2nd** `distfleeck` @101021; C’s next call is bat
+  `!rn2(3)`. FORCE skip quasit `want_move` → prefix **101022→101025**
+  with bat `rn2(3)/rn2(1)/rn2(2)` match. C path for that quasit is
+  df-only (no 2nd fleeck): suspect `m_move`→`MMOVE_DIED`/`mon_offmap`
+  after move (or other early return) — not bat-gate logic itself.
+  `distfleeck` scared/onscary/flees_light still stub (`scared=0`).
+- **Change:** none this iteration (DIAG removed).
+- **Verification:** green+strict PASS (unchanged); focused still
+  @101022; FORCE falsifier only.
+- **Next:** C-faithful reason quasit turn skips 2nd `distfleeck`
+  (postmov/trap/region/offmap on CLOUD dest, or early dochug return).
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 
