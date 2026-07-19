@@ -7,15 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#873 / D-0773+74:** @98492 JS `linedup` rn2(3) — PM_MUMAK (55,9)
-  on LAVA → hero (59,9); path lava(56,9)+BOULDER(57,9 ROOM)+ROOM.
-  **Falsified (#873):** map_cleanup clears LOS boulder — preflip TRACK57
-  is ROOM (t25); only lava boulders were (15,9)/(17,9). D-0774 shipped
-  anyway (C load_special order).
-  **Next:** why C still `distfleeck` (couldsee true via see-around row10
-  lava corridor / mumak never `lined_up` / C lacks ROOM boulder). Do not
-  FORCE linedup. Compare C screen glyphs at (57,9); vision Algorithm-C
-  around boulder.
+- **#874 / D-0773:** @98492 JS mumak (55,9)→hero (59,9): pre-fleeck
+  @98491, linedup boulder `rn2(3)` @98492, post-fleeck @98493.
+  C @98492 is `distfleeck` (fits post-fleeck after lined_up **without**
+  boulder rn2). Step 368 C has **zero** linedup rn2(3).
+  JS: boulder (57,9) ROOM, `viz_clear[9][57]=0`, couldsee(55,9) false;
+  row10 lava (55..59,10) all couldsee. Gen boulder matched (#872).
+  **Hypothesis:** C `couldsee(55,9)` true (or lined_up false without rn2)
+  → no boulder `rn2`; JS vision/object block keeps couldsee false.
+  **Falsify:** prove C `does_block`/objects at (57,9) or Algorithm-C
+  marks (55,9) via row10; do not FORCE linedup.
 - **#870:** suite **37/44**, Scr **8280**, RNG **79.35%** (score-only).
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
@@ -43,6 +44,8 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
 - Wish does **not** `makeknown` (C: otmp unidentified).
 - Mumak **lacks** M2_ROCKTHROW (giants have it); linedup uses handling=2.
+- C step368 `.` wait: only fleeck + one hides_under `rn2(10)` @1753 —
+  not the peaceful getitems `rn2(10)` @1891.
 
 ## Landmarks (≤15)
 

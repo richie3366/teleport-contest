@@ -27,8 +27,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Status:** open (diagnosis — no port patch; prefix still @98492)
 - **Symptom:** seed0360 @98492 — C `distfleeck` `rn2(5)` vs JS `linedup`
   `rn2(3)`.
-- **C locus:** `mthrowu.c` `linedup` / `couldsee`; `sp_lev.c`
-  `fill_empty_maze` + `flip_level`; wizard2 mazewalk stock.
+- **C locus:** `mthrowu.c` `linedup` / `couldsee`; `vision.c` Algorithm-C;
+  `monmove.c` `m_move`/`distfleeck`.
 - **Cause (#871):** JS PM_MUMAK @(55,9)→hero @(59,9): path LAVAPOOL(56,9)
   + BOULDER(57,9)+ROOM(58,9); `couldsee` false → boulderhandling=2 →
   `rn2(2+1)`. Mumak lacks `M2_ROCKTHROW` (correct). Strip boulder +
@@ -36,16 +36,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   then C `getbones` + nhlib `shuffle` (wizard3).
 - **Falsified (#872):** “C never placed that LOS boulder.” C session RNG:
   maze1xy `rn2(75)=54`/`rn2(17)=10` → (57,13) + `next_ident` @86737;
-  `flip_level_rnd` `rn2(2)=1,0` → flp=1 @90542 (same FlipY(13)=9 with
-  mazegrid extends ymin=2,ymax=20). Hell boulder-wall `percent(20)` false
-  @90540. Gen placement+flip match JS; “C lacks boulder at birth” is
-  wrong.
+  `flip_level_rnd` `rn2(2)=1,0` → flp=1 @90542. Gen+flip match JS.
+- **Falsified (#873):** map_cleanup clears LOS boulder — preflip TRACK57
+  is ROOM; only lava boulders stripped (D-0774).
+- **#874 call-path:** JS mumak fleeck @98491 → linedup rn2 @98492 →
+  post-fleeck @98493. C @98492 is `distfleeck` (fits post-fleeck after
+  lined_up **without** boulder rn2). C step368 `.` wait: only fleeck +
+  one hides_under `rn2(10)` @1753 — **zero** linedup rn2(3). JS viz:
+  `viz_clear[9][57]=0`, couldsee(55,9) false; row10 lava (55..59,10)
+  all couldsee. DEC screen blank at (57,9) is consistent with dark/unseen
+  (not proof C lacks boulder).
 - **Change:** none (DIAG removed). Do not FORCE linedup in production.
 - **Verification:** green+strict PASS; seed0360 still **98492**/98507
   Scr **275**/833.
-- **Next:** post-gen / gameplay why C still avoids linedup rn2 (couldsee
-  true, `blocking_terrain` early-out, or mumak never reaches `lined_up`);
-  then wizard3/hellfill.
+- **Next:** why C `couldsee(55,9)` true despite gen-matched ROOM boulder
+  (runtime `does_block`/objects, or Algorithm-C path JS misses); then
+  wizard3/hellfill.
 
 ## D-0772 — hell_tweaks `.w.` mapfrag + seed0360 @98492 linedup diag
 

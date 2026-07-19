@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 14:05 — #874 @98492 fleeck/linedup call-path (D-0773)
+- Objective: seed0360 @98492 why C skips linedup rn2(3).
+- C locus: `mthrowu.c` `linedup`; `vision.c` couldsee; `monmove.c` fleeck.
+- Change or falsified theory: no port patch. DIAG: JS mumak (55,9)
+  fleeck@98491 → linedup boulder rn2@98492 → post-fleeck; C @98492 is
+  distfleeck (fits post-fleeck after lined_up without rn2). C step368
+  has zero linedup rn2(3). viz_clear blocks at ROOM boulder (57,9);
+  row10 lava corridor couldsee. Do not FORCE.
+- Verification: green+strict PASS; seed0360 still **98492**/275.
+- Next: C couldsee(55,9)/does_block vs JS; then wizard3.
+
 ## 2026-07-19 13:50 — #873 map_cleanup (D-0774); @98492 still open
 - Objective: seed0360 @98492 why C skips linedup rn2(3).
 - C locus: `sp_lev.c` `map_cleanup`; `mthrowu.c` `linedup`.

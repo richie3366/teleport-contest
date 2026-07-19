@@ -753,7 +753,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0770 | fixed | m_harmless check_in_air + mfndpos poisoncloud glyph | seed0360 86100→86170; RNG 86137→86170; Scr 273; next nhlib shuffle @86170 |
 | D-0771 | fixed | wizard2 load_special | seed0360 86170→98492; RNG 86170→98507; Scr 273→275; next distfleeck @98492 |
 | D-0772 | fixed | hell_tweaks `.w.` mapfrag + @98492 linedup diag | seed0360 still @98492; JS linedup boulder rn2(3) vs C distfleeck; next couldsee/m_move |
-| D-0773 | open | @98492 linedup boulder vs C couldsee | gen+flip match; map_cleanup (D-0774) not LOS; next couldsee/see-around |
+| D-0773 | open | @98492 linedup boulder vs C couldsee | #874: JS fleeck→linedup rn2→post-fleeck; C fleeck@98492 fits no boulder rn2; next C couldsee/does_block |
 | D-0774 | fixed | sp_lev map_cleanup before wallify/flip | hell loaders; seed0360 still @98492 (LOS boulder on ROOM) |
 
 

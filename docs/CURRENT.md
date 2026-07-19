@@ -75,16 +75,18 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @98492** — D-0773: JS `linedup` boulder
-`rn2(3)` for PM_MUMAK LOS; C still `distfleeck`. **#872** gen+flip match;
-**#873 / D-0774** `map_cleanup` (lava boulders only — LOS boulder on ROOM).
-Next: C couldsee / see-around vs skip `lined_up`. Do not FORCE linedup.
+**Gameplay next:** **seed0360 @98492** — D-0773: JS mumak (55,9) pre-fleeck
+@98491 → linedup boulder `rn2(3)` @98492 → post-fleeck; C @98492 is
+`distfleeck` (fits post-fleeck after lined_up **without** boulder rn2).
+Boulder (57,9) ROOM blocks JS `couldsee(55,9)`; row10 lava corridor is
+couldsee. Gen matched (#872); map_cleanup does not strip (#873/D-0774).
+Next: why C `couldsee(55,9)` / skip boulder rn2. Do not FORCE linedup.
 Parked D-0731/D-0708 stay diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @98492 C distfleeck rn2(5) vs JS linedup rn2(3) — map_cleanup done
+# @98492 C distfleeck vs JS linedup rn2(3) — couldsee/vision next
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
