@@ -6,22 +6,27 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
 
-- **Status:** open (diagnosed; no production patch)
+- **Status:** open (diagnosed; epilogue aligned; no terrain fix yet)
 - **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
   `rn2(5)` (then site shift). Matched prefix strings hid: after bat
   `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
   still rolls chcnt through `rn2(7)`.
 - **C locus:** `monmove.c` `m_move` :1970; `mon.c` `mfndpos`;
-  `dat/Wiz-strt.lua` + `flip_level_rnd`.
-- **Cause (#884):** Vampire bat@(34,2) on Quest/Wiz-strt post-FlipY
-  (stairs 11→9). JS mfndpos rejects HWALL@(33,3)/(34,3)/(35,3) and
-  quasit@(34,1) → cnt=4. C admits ≥7 candidates (the three HWALL cells).
+  `dat/Wiz-strt.lua` + `flip_level_rnd`; `sp_lev.c` load_special epilogue.
+- **Cause (#884/#886):** Vampire bat@(34,2) on Quest/Wiz-strt post-FlipY
+  (stairs 11→9; mx=3,my=1; FlipY with miny=0,maxy=20). JS mfndpos
+  **cnt=4**: admits (33,1)/(33,2)/(35,1)/(35,2); rejects
+  **quasit@(34,1)** (`ALLOW_M`) + **HWALL@(33,3)/(34,3)/(35,3)**.
+  C chcnt `rn2(1)..rn2(7)` ⇒ cnt≥7 — admits the three HWALL cells.
   Temporary FORCE allowing those HWALL as walkable → prefix
-  **100738→100804**. Pre-flip those cells are tower `-` on the des map;
-  why C’s runtime typ is walkable (or otherwise admitted) is still open.
-- **Change:** docs only this iteration (DIAG/FORCE removed).
-- **Next:** compare C vs JS terrain at post-FlipY (33–35,3); check
-  map apply / `get_level_extends` / wallify / flip cell-swap.
+  **100738→100804**. Post-flip dump: y3 x33–35 are HWALL from pre-flip
+  map row `-` (tower); bat is flyer, not `passes_walls`. Why C’s
+  runtime typ is walkable (or otherwise admitted) is still open.
+- **Change (#886):** `load_wiz_strt` now runs C load_special order
+  `link_doors_rooms` → `remove_boundary_syms` → `map_cleanup` before
+  wallify/flip (no prefix change; green+cohort PASS). DIAG/FORCE removed.
+- **Next:** compare C vs JS typ at post-FlipY (33–35,3) via C-state /
+  recorder; check whether wallify/flip extents leave ROOM on C.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 

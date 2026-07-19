@@ -2459,7 +2459,9 @@ function load_bar_strt() {
 /**
  * C ref: dat/Wiz-strt.lua via load_special — Wizard quest start (Neferet).
  * solidfill + cloud replace_terrain + tower clear + leader invent.
- * Named omissions: spo_end_moninvent m_dowear; flip_level lregion remap;
+ * Named omissions: spo_end_moninvent m_dowear; flip_level lregion remap
+ * still shortcut via post-flip place_lregion; count_level_features /
+ * level_finalize_topology / fill_special_room / makemap_prepost deferred;
  * Wiz-loca/goal/fila/filb deferred.
  */
 function load_wiz_strt() {
@@ -2652,6 +2654,11 @@ function load_wiz_strt() {
     placeClassAt('W', 67, 2, 0);
     placeClassAt('B', 10, 19, 0);
 
+    // C load_special epilogue: link_doors_rooms → remove_boundary_syms →
+    // map_cleanup → wallification → flip_level_rnd → fixup_special
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);

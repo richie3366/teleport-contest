@@ -759,7 +759,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0776 | fixed | Wiz-strt load_special | seed0360 98505→100104; RNG 98528→100408; Scr 275→292; next traps @100104 |
 | D-0777 | fixed | maketrap IS_AIR/CLOUD reject | seed0360 100104→100397; RNG 100408→100887; Scr 292; next distfleeck @100397 |
 | D-0778 | fixed | m_move Tengu nature teleport | seed0360 100397→100738; RNG 100887→104024; Scr 292; next mfndpos chcnt @100738 |
-| D-0779 | open | Wiz-strt bat mfndpos HWALL vs C walkable | seed0360 @100738; FORCE 3 HWALL →100804; terrain/flip next |
+| D-0779 | open | Wiz-strt bat mfndpos HWALL vs C walkable | seed0360 @100738; cnt=4=quasit+3HWALL; FORCE→100804; epilogue aligned; C typ next |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

@@ -7,13 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#884 / D-0779:** @100738 string-match hide. Same vampire bat
-  `m_move` `!rn2(3)` then chcnt: C `rn2(1)..rn2(7)`; JS cnt=4 then
-  distfleeck `rn2(5)` coincidentally matches C’s `rn2(5)`.
-  Bat@(34,2) Wiz-strt post-FlipY; rejects HWALL@(33–35,3) + quasit@(34,1).
-  **FORCE allow those 3 HWALL → prefix 100738→100804.** C treats them
-  walkable. Map row pre-flip is `-` tower edge — find why C ≠ JS typ
-  (or why C mfndpos admits them). No raw-index / FORCE in production.
+- **#886 / D-0779:** @100738 vampire bat@(34,2) `m_move` `!rn2(3)` then
+  chcnt: C `rn2(1)..rn2(7)`; JS **cnt=4** then distfleeck `rn2(5)`
+  (string-match hide at matched `rn2(5)`). Poss: (33,1)(33,2)(35,1)(35,2).
+  Rejects **quasit@(34,1)** (`m_at`→`ALLOW_M`) + **HWALL@(33–35,3)**.
+  FORCE 3 HWALL walkable → **100738→100804**. Post-FlipY dump (stairs
+  33,9; mx=3,my=1; FlipY maxy=20): y3 x33–35 = HWALL from map `-`.
+  Bat flyer, not wallwalk. C admits those cells → typ (or admit rule)
+  still open. Epilogue link/remove/cleanup before wallify: no prefix Δ.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -34,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - D-0771: wizard2 = shuffle→walkfrom (not hellfill hellno before mazewalk).
 - D-0772: nhlib `[[.w.]]` ≠ `'[.w.]'`; bigrm-3 brackets intentional.
 - D-0774: map_cleanup before wallify/flip; does **not** strip ROOM LOS
-  boulder @98492.
+  boulder @98492. Wiz-strt now also runs cleanup (#886) — still HWALL.
 - **Falsified D-0773 couldsee/boulder:** C **has** mumak@(55,9)+same
   row9 map (lava55–56, boulder@57+61); skips fleeck via `minliquid`.
 - **Falsified @98505=wizard3/earth:** C fingerprint is Wiz-strt cloud
@@ -76,5 +77,4 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778).
-  Wiz-strt FlipY inferred (stairs 11→9); bat@(34,2) against post-flip
-  tower wall row.
+  Wiz-strt FlipY (stairs 11→9); bat@(34,2) vs post-flip tower HWALL row y3.
