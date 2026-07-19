@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0716 — wipe `make_blinded` sticky Blind (seed0108)
+
+- **Status:** fixed (partial — seed0108 still FAIL; next @3011)
+- **Symptom:** @3011 C `distfleeck` `rn2(5)` vs JS chest `rn2(36)`. After
+  `#invoke` spaces: C `--More--` mid-combat; JS raced to `#wizwish`.
+- **C locus:** `potion.c` `make_blinded` / `toggle_blindness`; `youprop.h`
+  `Blind` ≡ `(HBlinded||EBlinded)&&!BBlinded`; `do.c` `wipeoff`.
+- **Cause:** D-0712 `wipeoff`→`make_blinded(0)` probed sight via helpers that
+  trusted sticky `u.Blind`, so clearing `HBlinded` never cleared the mirror;
+  `vision_recalc` stayed Blind → `gv.vis` false → no combat pline/`--More--`
+  → spaces fell through to rhack / wish.
+- **Change:** prop-based `Blind()` / `hero_Blind` / `vision_recalc` Blind test;
+  wipe `make_blinded` syncs sticky + `vision_recalc(0)` on toggle (C
+  `toggle_blindness` subset). Named omissions: Eyes probe; Punished `set_bc`;
+  Hallu talk; Sting/`learn_unseen_invent`; full sticky audit elsewhere.
+- **Verification:** green+strict PASS; seed0108 still prefix **3011**; More now
+  fires post-invoke (`Nothing happens.  The kitten misses…`); cohort
+  seed1500/1800/0060 PASS.
+- **Next:** @3011 C continues `movemon` after EOT (`umov<12` loopAgain) while
+  JS EOT leaves `umov=15` then wish — peel slow-form `u_calc_moveamt` cycle
+  (not global `rest_on_space`).
+
 ## D-0715 — #invoke missing (seed0108)
 
 - **Status:** fixed (partial — seed0108 still FAIL; next @3011)

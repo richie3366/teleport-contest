@@ -267,8 +267,7 @@ export function tp_sensemon(mon) {
     const ptr = mon.data || mons(mon.mnum);
     if (!ptr || mindless(ptr)) return false;
     const u = game.u || {};
-    const blind = !!(u.Blind || u.ublind
-        || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0)));
+    const blind = hero_Blind();
     if (blind && hero_Blind_telepat()) return true;
     if (hero_Unblind_telepat()) {
         let range = u.unblind_telepat_range;
@@ -407,8 +406,7 @@ export function see_with_infrared(mon) {
     if (!mon) return false;
     const u = game.u || {};
     // C: !Blind && Infravision && …
-    if (u.Blind || u.ublind
-        || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0))) {
+    if (hero_Blind()) {
         return false;
     }
     if (!hero_has_infravision()) return false;
@@ -1606,7 +1604,9 @@ export function magic_map_background(x, y, show) {
 /** C youprop.h Blind / Invis / Invisible / See_invisible for canspotself. */
 function hero_Blind() {
     const u = game.u || {};
-    if (u.Blind || u.ublind) return true;
+    // C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky)
+    if (u.uroleplay?.blind) return true;
+    if (u.ublind) return true; // rare mirror; prefer props below
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 function hero_Invis() {
@@ -2716,6 +2716,7 @@ export async function pline(msg) {
     const skip = _win_stop;
     const notdied = !String(msg).startsWith('You die');
     const line = String(msg);
+
 
     if ((_toplin === TOPLINE_NEED_MORE || skip)
         && _toplines.length + 3 + line.length < CO - 8

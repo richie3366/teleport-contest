@@ -300,10 +300,10 @@ async function use_stethoscope(_obj) {
     return 0; // ECMD_OK — match C isok-fail path rather than invent TIME
 }
 
-/** C youprop.h Blind — (H||E) && !B; also sticky u.Blind. */
+/** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky). */
 function Blind() {
     const u = game.u || {};
-    if (u.Blind || u.ublind) return true;
+    if (u.uroleplay?.blind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
