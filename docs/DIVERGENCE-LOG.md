@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0768 — wizard1 load_special (seed0360 @82982)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @86029)
+- **Symptom:** seed0360 @82982 — C nhlib `shuffle` then `wizard1.lua:38`
+  `math.random` / `create_door` vs JS `rn2(79)` after matched getbones
+  (post-orcus).
+- **C locus:** `dat/wizard1.lua`; `sp_lev.c` `create_door` / `load_special`.
+- **Cause (#865):** no wizard1 loader → empty maze → `place_lregion`
+  `rn2(79)`.
+- **Change:** `js/mklev.js` — `load_wizard1` + dispatch (mazegrid +
+  noteleport/hardfloor + center map + morgue FILL_LVFLAGS + secret door
+  on S/W/E via `lua_random2` + arrival OROOM + east mazewalk + ladder
+  down + Book of the Dead + hell_tweaks). Named omissions:
+  hellfill/wizard2–3/fakewiz; ensure_way_out; arrival_room migrate flag.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **82982→86029**; RNG **82989→86118**; Scr **273**/833. Full suite
+  **37/44**; Scr **8278**/11405; RNG **616720**/792838 (77.79%).
+- **Next:** @86029 C `distfleeck`/`m_move` vs JS `rn2(20)`.
+
 ## D-0767 — orcus + Orcus stock_room mongone (seed0360 @76622)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @82982)

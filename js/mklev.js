@@ -137,6 +137,7 @@ const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const POT_GAIN_LEVEL = objectNames.indexOf('POT_GAIN_LEVEL');
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const MACE = objectNames.indexOf('MACE');
@@ -1112,6 +1113,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'orcus') {
         load_orcus();
+        return true;
+    }
+    if (protofile === 'wizard1') {
+        load_wizard1();
         return true;
     }
     return false;
@@ -9528,7 +9533,7 @@ function load_valley() {
 /**
  * C ref: dat/nhlib.lua hell_tweaks — random lava pools / river / boulder
  * walls / iron bars on Gehennom specials. Named omissions: none in body;
- * callers beyond asmodeus/orcus still deferred (hellfill/wizard*).
+ * callers beyond asmodeus/orcus/wizard1 still deferred (hellfill/wizard2–3).
  */
 function hell_tweaks(protectedArea) {
     const liquid = LAVAPOOL;
@@ -10347,7 +10352,7 @@ function load_baalz() {
 /**
  * C ref: dat/orcus.lua via load_special — Orcus ghost town (Gehennom).
  * mazegrid + right/center map + west mazewalk (stocked) + hell_tweaks.
- * Named omissions: hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * Named omissions: hellfill/wizard2–3/fakewiz; ensure_way_out;
  * full mongone/shkgone beyond stock_room invent+detach (D-0767).
  */
 function load_orcus() {
@@ -10589,6 +10594,311 @@ function load_orcus() {
 
     // protected = bounds2:negate() | orcus1; hell_tweaks(protected)
     const protectedSel = selection_or(selection_not(bounds2), orcus1);
+    hell_tweaks(protectedSel);
+
+    // C load_special: wallify → flip → lregions → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/wizard1.lua via load_special — top (real) Wizard's Tower.
+ * mazegrid + center map + east mazewalk + morgue secret door + hell_tweaks.
+ * Named omissions: hellfill/wizard2–3/fakewiz; ensure_way_out;
+ * arrival_room special migrate flag beyond ordinary OROOM.
+ */
+function load_wizard1() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style="mazegrid", bg="-" })
+    splev_initlev({
+        init_style: LVLINIT_MAZEGRID,
+        bg: HWALL,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    // C wizard1.lua: selection.match("-") → fillrect bounds2 (before map).
+    const tmpbounds = selection_match_mapfrag('-');
+    const bx = g.splev_xstart | 0;
+    const by = g.splev_ystart | 0;
+    const bounds2 = selection_fillrect(
+        tmpbounds.lx + bx,
+        (tmpbounds.ly + 1) + by,
+        (tmpbounds.hx - 2) + bx,
+        (tmpbounds.hy - 1) + by,
+    );
+
+    const WIZ1_MAP = `
+----------------------------x
+|.......|..|.........|.....|x
+|.......S..|.}}}}}}}.|.....|x
+|..--S--|..|.}}---}}.|---S-|x
+|..|....|..|.}--.--}.|..|..|x
+|..|....|..|.}|...|}.|..|..|x
+|..--------|.}--.--}.|..|..|x
+|..|.......|.}}---}}.|..|..|x
+|..S.......|.}}}}}}}.|..|..|x
+|..|.......|.........|..|..|x
+|..|.......|-----------S-S-|x
+|..|.......S...............|x
+----------------------------x
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(WIZ1_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'center', 'center',
+    );
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    const wiz1 = selection_new();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+            selection_setpoint(xx, yy, wiz1, 1);
+        }
+    }
+    const mx = xstart;
+    const my = ystart;
+
+    // levregions — region_islev=1; exclude map-relative (exclude_islev default 0)
+    g.lregions = g.lregions || [];
+    const exclStairs = {
+        x1: mx + 0, y1: my + 0, x2: mx + 28, y2: my + 12,
+    };
+    const exclTele = {
+        x1: mx + 0, y1: my + 0, x2: mx + 27, y2: my + 12,
+    };
+    g.lregions.push({
+        rtype: LR_UPSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 79, y2: 20 },
+        delarea: { ...exclStairs },
+    });
+    g.lregions.push({
+        rtype: LR_DOWNSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 79, y2: 20 },
+        delarea: { ...exclStairs },
+    });
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 79, y2: 20 },
+        delarea: { ...exclStairs },
+    });
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 79, y2: 20 },
+        delarea: { ...exclTele },
+    });
+
+    // des.region morgue filled=2 + secret door on S/W/E
+    {
+        const dx1 = mx + 12, dy1 = my + 1, dx2 = mx + 20, dy2 = my + 9;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, MORGUE, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.needfill = FILL_LVFLAGS;
+                troom.needjoining = true;
+                topologize(troom);
+                add_doors_to_room(troom);
+                // math.random(1,#sdwall) → 1+rn2(3); walls south/west/east
+                const sdwall = ['south', 'west', 'east'];
+                const wall = sdwall[lua_random2(1, 3) - 1];
+                splev_room_door(troom, 'secret', wall);
+            }
+        }
+        for (let ry = dy1; ry <= dy2; ry++) {
+            for (let rx = dx1; rx <= dx2; rx++) {
+                const loc = g.level.at(rx, ry);
+                if (loc) loc.lit = false;
+            }
+        }
+    }
+
+    // des.region ordinary arrival_room
+    {
+        const dx1 = mx + 1, dy1 = my + 1, dx2 = mx + 10, dy2 = my + 11;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, OROOM, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.needjoining = true;
+                troom.needfill = 0;
+                topologize(troom);
+            }
+        }
+        for (let ry = dy1; ry <= dy2; ry++) {
+            for (let rx = dx1; rx <= dx2; rx++) {
+                const loc = g.level.at(rx, ry);
+                if (loc) loc.lit = false;
+            }
+        }
+    }
+
+    // des.mazewalk(28,05,"east") — stocked default true
+    splev_mazewalk(28, 5, W_EAST, true);
+
+    // des.ladder("down", 06,05)
+    {
+        const lx = mx + 6;
+        const ly = my + 5;
+        const loc = g.level.at(lx, ly);
+        if (loc) {
+            loc.typ = LADDER;
+            loc.ladder = LA_DOWN;
+        }
+        stairway_add(lx, ly, false, true, {
+            dnum: g.u?.uz?.dnum ?? 0,
+            dlevel: (g.u?.uz?.dlevel ?? 1) + 1,
+        });
+        if (g.level) g.level.dnstair = { x: lx, y: ly };
+    }
+
+    const markWallProp = (x1, y1, x2, y2, prop) => {
+        for (let ry = y1; ry <= y2; ry++) {
+            for (let rx = x1; rx <= x2; rx++) {
+                const loc = g.level.at(mx + rx, my + ry);
+                if (!loc) continue;
+                if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                    loc.wall_info = (loc.wall_info || 0) | prop;
+            }
+        }
+    };
+    // Non diggable / non passwall — walls inside moat stay diggable
+    markWallProp(0, 0, 11, 12, W_NONDIGGABLE);
+    markWallProp(11, 0, 21, 0, W_NONDIGGABLE);
+    markWallProp(11, 10, 27, 12, W_NONDIGGABLE);
+    markWallProp(21, 0, 27, 10, W_NONDIGGABLE);
+    markWallProp(0, 0, 11, 12, W_NONPASSWALL);
+    markWallProp(11, 0, 21, 0, W_NONPASSWALL);
+    markWallProp(11, 10, 27, 12, W_NONPASSWALL);
+    markWallProp(21, 0, 27, 10, W_NONPASSWALL);
+
+    const placeNamedAt = (id, rx, ry, asleep) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let x = mx + rx;
+        let y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        const mtmp = makemon(pm, moved.x, moved.y, 0);
+        if (mtmp) {
+            mtmp.female = female;
+            if (asleep) mtmp.msleeping = 1;
+        }
+        return mtmp;
+    };
+
+    // The wizard and his guards
+    placeNamedAt('Wizard of Yendor', 16, 5, true);
+    placeNamedAt('hell hound', 15, 5, false);
+    placeNamedAt('vampire lord', 17, 5, false);
+
+    // The local treasure
+    if (SPE_BOOK_OF_THE_DEAD >= 0)
+        mksobj_at(SPE_BOOK_OF_THE_DEAD, mx + 16, my + 5, true, true);
+
+    // Surrounding terror
+    placeNamedAt('kraken', 14, 2, false);
+    placeNamedAt('giant eel', 17, 2, false);
+    placeNamedAt('kraken', 13, 4, false);
+    placeNamedAt('giant eel', 13, 6, false);
+    placeNamedAt('kraken', 19, 4, false);
+    placeNamedAt('giant eel', 19, 6, false);
+    placeNamedAt('kraken', 15, 8, false);
+    placeNamedAt('giant eel', 17, 8, false);
+    placeNamedAt('piranha', 15, 2, false);
+    placeNamedAt('piranha', 19, 8, false);
+
+    // Random monsters
+    splev_create_monster('D');
+    splev_create_monster('H');
+    splev_create_monster('&');
+    splev_create_monster('&');
+    splev_create_monster('&');
+    splev_create_monster('&');
+
+    // And to make things a little harder.
+    const placeTrapAt = (kind, rx, ry) => {
+        const ttmp = maketrap(mx + rx, my + ry, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    placeTrapAt(SQKY_BOARD, 16, 4);
+    placeTrapAt(SQKY_BOARD, 16, 6);
+    placeTrapAt(SQKY_BOARD, 15, 5);
+    placeTrapAt(SQKY_BOARD, 17, 5);
+    placeTrapRnd(SPIKED_PIT);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(MAGIC_TRAP);
+
+    // Some random loot.
+    if (RUBY >= 0) {
+        const pos = get_location_random(null);
+        if (pos.x >= 0) mksobj_at(RUBY, pos.x, pos.y, true, true);
+    }
+    splev_create_object(POTION_CLASS);
+    splev_create_object(POTION_CLASS);
+    splev_create_object(SCROLL_CLASS);
+    splev_create_object(SCROLL_CLASS);
+    splev_create_object(SPBOOK_CLASS);
+    splev_create_object(SPBOOK_CLASS);
+    splev_create_object(SPBOOK_CLASS);
+
+    // C lspo_map contents end → reset_xystart_size (keep SpLev_Map)
+    g.splev_xstart = 1;
+    g.splev_ystart = 0;
+    g.splev_xsize = COLNO - 1;
+    g.splev_ysize = ROWNO;
+
+    // protected = bounds2:negate() | wiz1; hell_tweaks(protected)
+    const protectedSel = selection_or(selection_not(bounds2), wiz1);
     hell_tweaks(protectedSel);
 
     // C load_special: wallify → flip → lregions → fixup
