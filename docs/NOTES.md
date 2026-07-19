@@ -7,16 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#887 / D-0779:** Confirmed live DIAG @rngLen **100733**:
-  `PM_VAMPIRE_BAT`@(34,2) flag=`ALLOW_U` **cnt=4** poss
-  (33,1)(33,2)(35,1)(35,2). Neigh: ROOM×5 + **quasit@(34,1)** +
-  **HWALL@(33,3)(34,3)(35,3)** (typ=2). C @100732 `!rn2(3)` then
-  chcnt `rn2(1)..rn2(7)` → cnt≥7; JS after chcnt×4 hits distfleeck
-  `rn2(5)` (string-hide). FORCE 3 HWALL → **100804** (next C
-  `m_move:1871` rn2(3) vs JS rn2(4)). Bat flyer, not `passes_walls`.
-  C must see non-obstructed typ (or other admit) at those 3 cells.
-  Recorder rebuild for C-state started (#887) but rerecord hung /
-  incomplete install — **next: dump C `levl[33..35][3].typ`**.
+- **#888 / D-0779:** C-state falsifier done (recorder + WIZARDS=* +
+  CRLF-stripped dat). @100733 C bat mon=129 **(34,1) cnt=7** all
+  neighbors **ROOM typ=25**, quasit@(34,2). JS bat **(34,2) cnt=4**
+  + HWALL@(33–35,3). Post-FlipY spawn **matches** (bat@37,3
+  imp@37,2; flp=1 extends≈2,0-79,20); CLOUD at (37,*) off-by-one
+  (C y=1 / JS y=2). Positions diverge in later movement before peel.
+  **Next:** why (37,1)/(37,2) cloud/room differ post-flip, or first
+  move that separates bat Y — not mfndpos wall admit.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -44,9 +42,11 @@ Objective/score live in `CURRENT.md`.
   replace; proto log confirms.
 - **Falsified @100104=get_location order:** C/JS both get_location then
   traptype; diverge because JS placed trap on CLOUD.
+- **Falsified D-0779 C-admits-HWALL:** C bat not on wall row; typ=ROOM.
 - LAVAPOOL is not `blocking_terrain` / not `does_block` (only LAVAWALL).
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
 - Session: `steps[i].key = moves[i-1]`; screen key for index `i` is `moves[i]`.
+- Recorder rebuild: strip CR from `dat/*`; `WIZARDS=*`; GREPPATH=/usr/bin/grep.
 
 ## Landmarks (≤15)
 
@@ -79,4 +79,4 @@ Objective/score live in `CURRENT.md`.
   **medusa-3 + mk_artifact A_NONE** (D-0759);
   **minliquid** (D-0775); **Wiz-strt** (D-0776); **maketrap AIR** (D-0777);
   **Tengu m_move teleport** (D-0778).
-  Wiz-strt FlipY (stairs 11→9); bat@(34,2) vs post-flip tower HWALL row y3.
+  Wiz-strt FlipY flp=1; post-flip bat@37,3=imp@37,2 match C; peel Y drift.

@@ -6,27 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0779 — Wiz-strt vampire bat mfndpos HWALL (seed0360 @100738)
 
-- **Status:** open (JS state confirmed; C typ still needed)
+- **Status:** open (C typ dump done; HWALL-admit theory falsified)
 - **Symptom:** seed0360 @100738 — C `m_move` chcnt `rn2(6)` vs JS
   `rn2(5)` (then site shift). Matched prefix strings hid: after bat
   `!rn2(3)` JS finishes cnt=4 and hits `distfleeck` `rn2(5)` while C
   still rolls chcnt through `rn2(7)`.
 - **C locus:** `monmove.c` `m_move` :1871/:1970; `mon.c` `mfndpos`;
   `dat/Wiz-strt.lua` + `flip_level_rnd`; `sp_lev.c` load_special epilogue.
-- **Cause (#884/#886/#887):** Vampire bat@(34,2) on Quest/Wiz-strt
-  post-FlipY. Live JS DIAG @rngLen **100733**: **cnt=4**, flag=`ALLOW_U`,
-  poss (33,1)/(33,2)/(35,1)/(35,2); rejects **quasit@(34,1)** +
-  **HWALL typ=2 @(33,3)/(34,3)/(35,3)**. C provenance: @100732
-  `!rn2(3)` (:1871) then chcnt `rn2(1)..rn2(7)` (:1970) ⇒ cnt≥7.
-  FORCE 3 HWALL walkable → **100738→100804** (next diverge C :1871
-  rn2(3) vs JS rn2(4)). Bat flyer, not `passes_walls`. C runtime typ
-  (or admit rule) at those cells still open.
-- **Change (#886):** `load_wiz_strt` epilogue
-  `link_doors_rooms` → `remove_boundary_syms` → `map_cleanup` before
-  wallify/flip (no prefix Δ). (#887) diagnosis only — DIAG/FORCE
-  removed; recorder rebuild for C typ incomplete (sysconf / hang).
-- **Next:** dump C `levl[33..35][3].typ` (+ bat cnt) via instrumented
-  recorder at ri≈100733.
+- **Cause (#884/#886/#887/#888):** Vampire bat on Quest/Wiz-strt
+  post-FlipY. JS @100733: bat@(34,2) cnt=4, HWALL typ=2 @(33–35,3),
+  quasit@(34,1). **C @100733:** bat@(34,1) cnt=7, **all neighbors
+  ROOM typ=25**, quasit@(34,2) — C does **not** admit HWALL. Post-flip
+  spawn matches (bat@37,3 / imp@37,2; flp=1; extends≈2,0-79,20);
+  CLOUD at (37,*) off-by-one (C y=1 / JS y=2); peel Y drift is later
+  movement. FORCE 3 HWALL was a red herring for wall-admit.
+- **Change (#888):** no production patch — recorder C-state capture
+  (sysconf WIZARDS=*/GREPPATH; strip CR from dat for engraving tables).
+- **Next:** pre-flip cloud/row at (37,*) or first move separating bat Y.
 
 ## D-0778 — m_move Tengu nature teleport (seed0360 @100397)
 

@@ -75,16 +75,17 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0360 @100738 / D-0779** — live DIAG (#887):
-vampire bat@(34,2) JS **cnt=4** / C chcnt `rn2(1)..rn2(7)`; rejects
-quasit@(34,1)+HWALL@(33–35,3) typ=2. FORCE→**100804**. Next: C
-`levl[33..35][3].typ` via recorder (rebuild started; rerecord needs
-sysconf). Parked D-0731/D-0708 diagnose-only.
+**Gameplay next:** **seed0360 @100738 / D-0779** — C typ dump (#888)
+falsified “C admits HWALL”: C bat@(34,1) cnt=7 all ROOM; JS
+bat@(34,2) cnt=4 + HWALL@y3. Post-FlipY spawn matches; CLOUD
+(37,*) off-by-one then movement Y drift. Next: cloud/row pre-flip
+or first separating move — not mfndpos wall logic.
+Parked D-0731/D-0708 diagnose-only.
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0360-wizard-world-tour.session.json
-# @100738 bat mfndpos cnt 4 vs 7 — HWALL@(33-35,3) post-FlipY
+# @100738 bat Y drift — C(34,1) vs JS(34,2); wall@y3 both
 node scripts/rng-diff.mjs \
   sessions/seed0360-wizard-world-tour.session.json
 ```
