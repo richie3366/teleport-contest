@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-19 15:17 — #882 maketrap AIR/CLOUD (D-0777); @100104→100397
+- Objective: seed0360 @100104 C get_location vs JS rnd(4) mid Wiz-strt traps.
+- C locus: `trap.c` `maketrap` (`IS_AIR && typ != MAGIC_PORTAL`).
+- Change or falsified theory: CLOUD is SPACE_POS so DRY get_location can
+  pick it; C rejects non-portal traps → no victim rnd(4). Ported terrain
+  gates + `splev_create_trap` stairs/`get_location_coord` parity.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **100104→100397**, RNG **100408→100887**, Scr **292**/833.
+- Next: @100397 distfleeck vs rn2(3) (m_move).
+
 ## 2026-07-19 15:00 — #881 Wiz-strt (D-0776); @98505→100104
 - Objective: seed0360 @98505 nhlib shuffle vs rn2(79) after getbones.
 - C locus: `dat/Wiz-strt.lua` via `load_special`.

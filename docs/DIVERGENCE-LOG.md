@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0777 — maketrap IS_AIR/CLOUD reject (seed0360 @100104)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @100397)
+- **Symptom:** seed0360 @100104 — C `get_location` `rn2(76)` vs JS
+  `rnd(4)` mid Wiz-strt `des.trap()` loop after matched `traptype_rnd`
+  (HOLE→PIT).
+- **C locus:** `trap.c` `maketrap` (`IS_AIR && typ != MAGIC_PORTAL`);
+  `sp_lev.c` `create_trap`; `mklev.c` `mktrap` victim gate.
+- **Cause (#882):** Wiz-strt clouds are `SPACE_POS` so `get_location(DRY)`
+  can pick them; C `maketrap` rejects non-portal traps on AIR/CLOUD →
+  null → `kind=NO_TRAP` → skips victim `rnd(4)`. JS placed the PIT and
+  burned `rnd(4)`.
+- **Change:** `js/trap.js` `maketrap` — CAN_OVERWRITE / pool / furniture /
+  AIR/CLOUD / undestroyable gates (omit Knox `single_level_branch`).
+  `js/mklev.js` `splev_create_trap` — `get_location_coord` + stairs retry
+  matching `create_trap`.
+- **Verification:** green+strict PASS; cohort 35/35; seed0360 prefix
+  **100104→100397**, RNG **100408→100887**, Scr **292**/833.
+- **Next:** @100397 C `distfleeck` vs JS `rn2(3)` (m_move).
+
 ## D-0776 — Wiz-strt load_special (seed0360 @98505)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @100104)

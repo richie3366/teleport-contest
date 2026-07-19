@@ -8790,7 +8790,20 @@ function splev_create_stair(up) {
 // C ref: sp_lev.c create_trap → mktrap(random) — retry until kind != NO_TRAP
 // Default spider_on_web=true → no MKTRAP_NOSPIDERONWEB (giant spider on WEB).
 function splev_create_trap() {
-    const pos = get_location_random(null);
+    // C create_trap: get_location_coord(DRY) with stairs/ladder retry
+    let pos = { x: -1, y: -1 };
+    let trycnt = 0;
+    do {
+        pos = get_location_coord_random(DRY);
+        const typ = game.level.at(pos.x, pos.y)?.typ;
+        if (typ !== STAIRS && typ !== LADDER) break;
+    } while (++trycnt <= 100);
+    if (trycnt > 100) return;
+    // C mktrap: pool/lava early return before traptype (DRY usually avoids)
+    {
+        const typ = game.level.at(pos.x, pos.y)?.typ;
+        if (typ != null && (IS_POOL(typ) || IS_LAVA(typ))) return;
+    }
     let kind;
     do {
         kind = traptype_rnd();
@@ -8798,7 +8811,8 @@ function splev_create_trap() {
     // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP (hardfloor matters)
     if (is_hole(kind) && !Can_fall_thru(game.u?.uz)) kind = ROCKTRAP;
     const trap = maketrap(pos.x, pos.y, kind);
-    // C: WEB spider → SEEN → victim gate (mklev.c mktrap)
+    // C: WEB spider → SEEN → victim gate; null maketrap (e.g. CLOUD/IS_AIR)
+    // → kind NO_TRAP, skip victim rnd(4) (D-0777)
     mktrap_seen_victim(trap, {});
 }
 
