@@ -101,6 +101,7 @@ import {
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst, oname } from './do_name.js';
+import { makeroguerooms, makerogueghost } from './extralev.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { find_level } from './dungeon.js';
 import { premap_detect } from './detect.js';
@@ -10011,21 +10012,26 @@ async function makelevel_ordinary() {
         // Would makemaz("") — deferred; continue ordinary for now
     }
 
-    // Regular level generation
-    // C ref: mklev.c:382-388 — load themerms.lua for themed rooms
-    // nhlib.lua shuffle when loading themerms.lua (first level of branch)
-    const dnum = g.u?.uz?.dnum ?? 0;
-    if (!g._luathemes_loaded) g._luathemes_loaded = {};
-    if (!g._luathemes_loaded[dnum]) {
-        const themedAlign = ['law', 'neutral', 'chaos'];
-        for (let i = themedAlign.length; i > 1; i--) {
-            const j = rn2(i);
-            [themedAlign[i - 1], themedAlign[j]] = [themedAlign[j], themedAlign[i - 1]];
-        }
-        g._luathemes_loaded[dnum] = true;
-    }
+    const isRogue = Is_rogue_level(g.u?.uz);
 
-    await makerooms();
+    // C ref: mklev.c:1294-1299 — rogue → makeroguerooms+ghost; else makerooms
+    if (isRogue) {
+        makeroguerooms();
+        makerogueghost();
+    } else {
+        // C ref: mklev.c:382-388 — themerms.lua shuffle (first level of branch)
+        const dnum = g.u?.uz?.dnum ?? 0;
+        if (!g._luathemes_loaded) g._luathemes_loaded = {};
+        if (!g._luathemes_loaded[dnum]) {
+            const themedAlign = ['law', 'neutral', 'chaos'];
+            for (let i = themedAlign.length; i > 1; i--) {
+                const j = rn2(i);
+                [themedAlign[i - 1], themedAlign[j]] = [themedAlign[j], themedAlign[i - 1]];
+            }
+            g._luathemes_loaded[dnum] = true;
+        }
+        await makerooms();
+    }
 
     if (g.level.nroom <= 0) return;
     sort_rooms();
@@ -10034,79 +10040,83 @@ async function makelevel_ordinary() {
     // Branch check
     const branchp = is_branchlev();
 
-    makecorridors();
-    await make_niches();
+    // C: Is_rogue_level → goto skip0 (no corridors/niches/vault/specials)
+    if (!isRogue) {
+        makecorridors();
+        await make_niches();
 
-    // C ref: mklev.c do_vault() — secret treasure vault
-    // Outer rnd_rect() is only a null-check; create_vault() calls rnd_rect
-    // again inside create_room (up to trycnt 100). Do not stub that loop.
-    if (g.vault_x !== -1) {
-        const vw = { v: 1 }, vh = { v: 1 };
-        const vx = { v: g.vault_x }, vy = { v: g.vault_y };
-        const fill_vault = async () => {
-            add_room(vx.v, vy.v, vx.v + vw.v, vy.v + vh.v, true, VAULT, false);
-            g.level.flags.has_vault = true;
-            const vaultRoom = g.level.rooms[g.level.nroom - 1];
-            if (vaultRoom) vaultRoom.needfill = FILL_NORMAL;
-            fill_special_room(vaultRoom);
-            mk_knox_portal(vx.v + vw.v, vy.v + vh.v);
-            // C: if (!noteleport && !rn2(3)) makevtele();
-            if (!g.level.flags.noteleport && !rn2(3))
-                await makeniche(TELEP_TRAP);
-        };
-        if (check_room(vx, vw, vy, vh, true)) {
-            await fill_vault();
-        } else if (rnd_rect() && create_vault()) {
-            // C: gv.vault_x/y = rooms[nroom].lx/ly; re-check then fill or hx=-1
-            g.vault_x = g.level.rooms[g.level.nroom]?.lx ?? -1;
-            g.vault_y = g.level.rooms[g.level.nroom]?.ly ?? -1;
-            vx.v = g.vault_x;
-            vy.v = g.vault_y;
+        // C ref: mklev.c do_vault() — secret treasure vault
+        // Outer rnd_rect() is only a null-check; create_vault() calls rnd_rect
+        // again inside create_room (up to trycnt 100). Do not stub that loop.
+        if (g.vault_x !== -1) {
+            const vw = { v: 1 }, vh = { v: 1 };
+            const vx = { v: g.vault_x }, vy = { v: g.vault_y };
+            const fill_vault = async () => {
+                add_room(vx.v, vy.v, vx.v + vw.v, vy.v + vh.v, true, VAULT, false);
+                g.level.flags.has_vault = true;
+                const vaultRoom = g.level.rooms[g.level.nroom - 1];
+                if (vaultRoom) vaultRoom.needfill = FILL_NORMAL;
+                fill_special_room(vaultRoom);
+                mk_knox_portal(vx.v + vw.v, vy.v + vh.v);
+                // C: if (!noteleport && !rn2(3)) makevtele();
+                if (!g.level.flags.noteleport && !rn2(3))
+                    await makeniche(TELEP_TRAP);
+            };
             if (check_room(vx, vw, vy, vh, true)) {
                 await fill_vault();
-            } else if (g.level.rooms[g.level.nroom]) {
-                g.level.rooms[g.level.nroom].hx = -1;
+            } else if (rnd_rect() && create_vault()) {
+                // C: gv.vault_x/y = rooms[nroom].lx/ly; re-check then fill or hx=-1
+                g.vault_x = g.level.rooms[g.level.nroom]?.lx ?? -1;
+                g.vault_y = g.level.rooms[g.level.nroom]?.ly ?? -1;
+                vx.v = g.vault_x;
+                vy.v = g.vault_y;
+                if (check_room(vx, vw, vy, vh, true)) {
+                    await fill_vault();
+                } else if (g.level.rooms[g.level.nroom]) {
+                    g.level.rooms[g.level.nroom].hx = -1;
+                }
             }
+        }
+
+        // C ref: mklev.c:1344-1375 — up to one special room by depth
+        const u_depth = depth_of_level(g.u?.uz);
+        const medusaDepth = depth_of_level(g.medusa_level) || 999;
+        let room_threshold = branchp ? 4 : 3;
+        // Vault creation bumps room_threshold in C when filled
+        if (g.level.flags.has_vault) room_threshold++;
+
+        if (u_depth > 1 && u_depth < medusaDepth
+            && g.level.nroom >= room_threshold && rn2(u_depth) < 3) {
+            do_mkroom(SHOPBASE);
+        } else if (u_depth > 4 && !rn2(6)) {
+            do_mkroom(COURT);
+        } else if (u_depth > 5 && !rn2(8)
+            && !(((g.mvitals?.[PM_LEPRECHAUN]?.mvflags ?? 0) & G_GONE))) {
+            do_mkroom(LEPREHALL);
+        } else if (u_depth > 6 && !rn2(7)) {
+            do_mkroom(ZOO);
+        } else if (u_depth > 8 && !rn2(5)) {
+            do_mkroom(TEMPLE);
+        } else if (u_depth > 9 && !rn2(5)
+            && !(((g.mvitals?.[PM_KILLER_BEE]?.mvflags ?? 0) & G_GONE))) {
+            do_mkroom(BEEHIVE);
+        } else if (u_depth > 11 && !rn2(6)) {
+            do_mkroom(MORGUE);
+        } else if (u_depth > 12 && !rn2(8)) {
+            // C: antholemon() gate — JS antholemon always truthy until typed port
+            do_mkroom(ANTHOLE);
+        } else if (u_depth > 14 && !rn2(4)
+            && !(((g.mvitals?.[PM_SOLDIER]?.mvflags ?? 0) & G_GONE))) {
+            do_mkroom(BARRACKS);
+        } else if (u_depth > 15 && !rn2(6)) {
+            do_mkroom(SWAMP);
+        } else if (u_depth > 16 && !rn2(8)
+            && !(((g.mvitals?.[PM_COCKATRICE]?.mvflags ?? 0) & G_GONE))) {
+            do_mkroom(COCKNEST);
         }
     }
 
-    // C ref: mklev.c:1344-1375 — up to one special room by depth
-    const u_depth = depth_of_level(g.u?.uz);
-    const medusaDepth = depth_of_level(g.medusa_level) || 999;
-    let room_threshold = branchp ? 4 : 3;
-    // Vault creation bumps room_threshold in C when filled
-    if (g.level.flags.has_vault) room_threshold++;
-
-    if (u_depth > 1 && u_depth < medusaDepth
-        && g.level.nroom >= room_threshold && rn2(u_depth) < 3) {
-        do_mkroom(SHOPBASE);
-    } else if (u_depth > 4 && !rn2(6)) {
-        do_mkroom(COURT);
-    } else if (u_depth > 5 && !rn2(8)
-        && !(((g.mvitals?.[PM_LEPRECHAUN]?.mvflags ?? 0) & G_GONE))) {
-        do_mkroom(LEPREHALL);
-    } else if (u_depth > 6 && !rn2(7)) {
-        do_mkroom(ZOO);
-    } else if (u_depth > 8 && !rn2(5)) {
-        do_mkroom(TEMPLE);
-    } else if (u_depth > 9 && !rn2(5)
-        && !(((g.mvitals?.[PM_KILLER_BEE]?.mvflags ?? 0) & G_GONE))) {
-        do_mkroom(BEEHIVE);
-    } else if (u_depth > 11 && !rn2(6)) {
-        do_mkroom(MORGUE);
-    } else if (u_depth > 12 && !rn2(8)) {
-        // C: antholemon() gate — JS antholemon always truthy until typed port
-        do_mkroom(ANTHOLE);
-    } else if (u_depth > 14 && !rn2(4)
-        && !(((g.mvitals?.[PM_SOLDIER]?.mvflags ?? 0) & G_GONE))) {
-        do_mkroom(BARRACKS);
-    } else if (u_depth > 15 && !rn2(6)) {
-        do_mkroom(SWAMP);
-    } else if (u_depth > 16 && !rn2(8)
-        && !(((g.mvitals?.[PM_COCKATRICE]?.mvflags ?? 0) & G_GONE))) {
-        do_mkroom(COCKNEST);
-    }
-
+    // skip0:
     // Place dungeon branch
     // C ref: mklev.c:1378-1387 — prevstairs + Dlvl1 branch stairs traversed
     const prevstairs = g.stairs;
@@ -12312,7 +12322,7 @@ function create_vault() {
 }
 
 // C ref: mklev.c add_room()
-function add_room(lowx, lowy, hix, hiy, lit, rtype, special) {
+export function add_room(lowx, lowy, hix, hiy, lit, rtype, special) {
     const g = game;
     const croom = {
         lx: lowx, ly: lowy, hx: hix, hy: hiy,
@@ -12639,7 +12649,7 @@ function dosdoor(x, y, aroom, type) {
     add_door(x, y, aroom);
 }
 
-function dodoor(x, y, aroom) {
+export function dodoor(x, y, aroom) {
     dosdoor(x, y, aroom, maybe_sdoor(8) ? SDOOR : DOOR);
 }
 
@@ -12764,8 +12774,8 @@ function makecorridors() {
 // Room helper functions
 // ============================================================
 
-function somex(croom) { return rn1(croom.hx - croom.lx + 1, croom.lx); }
-function somey(croom) { return rn1(croom.hy - croom.ly + 1, croom.ly); }
+export function somex(croom) { return rn1(croom.hx - croom.lx + 1, croom.lx); }
+export function somey(croom) { return rn1(croom.hy - croom.ly + 1, croom.ly); }
 
 // C ref: mkroom.c inside_room()
 function inside_room(croom, x, y) {

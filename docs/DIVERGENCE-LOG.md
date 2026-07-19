@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0762 — makeroguerooms + makelevel rogue skip0 (seed0360 @68428)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @68690)
+- **Symptom:** seed0360 @68428 — C `makeroguerooms` `rn2(5)` vs JS `rn2(1)`
+  after matched getbones + makelevel Medusa `rn2(5)`.
+- **C locus:** `extralev.c` `makeroguerooms` / `makerogueghost` / `miniwalk` /
+  `roguecorr` / `corr`; `mklev.c` `makelevel` Is_rogue → rooms+ghost then
+  `goto skip0` (no corridors/niches/vault/specials).
+- **Cause (#858):** JS `makelevel_ordinary` always called `makerooms()`;
+  no `extralev` port. Rogue level burned ordinary-room RNG (`rn2(1)`).
+- **Change:** new `js/extralev.js` (full graph + ghost loot); `do_name.js`
+  `roguename`; `mklev.js` rogue branch + skip0; export `add_room`/`dodoor`/
+  `somex`/`somey`. Named omissions: `LVLINIT_ROGUE` sp_lev path;
+  `ROGUEOPTS` env name; `impossible()` wall checks.
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **68428→68690**; RNG **68434→68694**; Scr **270**/833.
+- **Next:** @68690 C nhlib shuffle after getbones vs JS `rn2(79)`
+  (post-rogue special `load_special`).
+
 ## D-0761 — makemon mlet switch before G_SGROUP (seed0360 @65027)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @68428)

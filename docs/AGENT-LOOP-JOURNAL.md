@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 10:55 — #858 makeroguerooms + rogue skip0 (D-0762)
+- Objective: seed0360 @68428 C `makeroguerooms` `rn2(5)` vs JS `rn2(1)`.
+- C locus: `extralev.c` makeroguerooms/ghost/miniwalk/roguecorr; `mklev.c`
+  Is_rogue → skip0.
+- Change: new `js/extralev.js`; `roguename`; makelevel_ordinary rogue
+  branch + skip corridors/niches/vault/specials.
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **68428→68690**; RNG **68434→68694**; Scr **270**/833.
+- Next: @68690 C nhlib shuffle after getbones vs JS `rn2(79)`.
+
 ## 2026-07-19 10:47 — #857 makemon mlet before G_SGROUP (D-0761)
 - Objective: seed0360 @65027 C `mkobj` `rnd(100)` vs JS `rn2(2)`.
 - C locus: `makemon.c` `makemon` mlet switch (~1303) before G_SGROUP (~1431).
