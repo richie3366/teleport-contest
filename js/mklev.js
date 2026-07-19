@@ -737,10 +737,11 @@ function reset_xystart_size() {
  * bigrm-4, bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
- * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, Pri-fila, Pri-filb.
+ * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
+ * Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal); minetn-1/3/4/6/7; minend-3;
- * medusa-2/4; water/earth/astral; asmodeus/baalz/orcus/juiblex/hellfill;
+ * medusa-2/4; water/earth/astral; baalz/orcus/juiblex/hellfill;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
  */
@@ -970,6 +971,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'sanctum') {
         load_sanctum();
+        return true;
+    }
+    if (protofile === 'asmodeus') {
+        load_asmodeus();
         return true;
     }
     return false;
@@ -9316,6 +9321,245 @@ function load_valley() {
 }
 
 /**
+ * C ref: dat/asmodeus.lua via load_special — Asmodeus lair (Gehennom).
+ * mazegrid + half-left main map + half-right mazewalk wing.
+ * Named omissions: nhlib `hell_tweaks` (lava pools/river/boulders/bars);
+ * baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz; ensure_way_out;
+ * selection.bounds fidelity beyond SpLev_Map union.
+ */
+function load_asmodeus() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style="mazegrid", bg="-" })
+    splev_initlev({
+        init_style: LVLINIT_MAZEGRID,
+        bg: HWALL,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const applyAlignedMap = (mapstr, halign) => {
+        const mf = mapfrag_fromstr(mapstr);
+        const { xstart, ystart } = splev_map_aligned_start(mf.wid, mf.hei, halign);
+        g.splev_xstart = xstart;
+        g.splev_ystart = ystart;
+        g.splev_xsize = mf.wid;
+        g.splev_ysize = mf.hei;
+        if (!g.SpLev_Map) g.SpLev_Map = new Set();
+        for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+            for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+                const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+                if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+                sel_set_ter(xx, yy, mptyp, false);
+                g.SpLev_Map.add(`${xx},${yy}`);
+            }
+        }
+        return { mx: xstart, my: ystart, wid: mf.wid, hei: mf.hei };
+    };
+
+    // First part — half-left 21×12
+    const ASMO1_MAP = `
+---------------------
+|.............|.....|
+|.............S.....|
+|---+------------...|
+|.....|.........|-+--
+|..---|.........|....
+|..|..S.........|....
+|..|..|.........|....
+|..|..|.........|-+--
+|..|..-----------...|
+|..S..........|.....|
+---------------------
+`.replace(/^\n/, '');
+    const asmo1 = applyAlignedMap(ASMO1_MAP, 'half-left');
+    const mx1 = asmo1.mx;
+    const my1 = asmo1.my;
+
+    const asmoDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx1 + rx, my1 + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    asmoDoor(4, 3, D_CLOSED);
+    asmoDoor(18, 4, D_LOCKED);
+    asmoDoor(18, 8, D_CLOSED);
+
+    mkstairs(mx1 + 13, my1 + 7, 0, null);
+
+    // des.non_diggable(selection.area(00,00,20,11))
+    for (let ry = 0; ry <= 11; ry++) {
+        for (let rx = 0; rx <= 20; rx++) {
+            const loc = g.level.at(mx1 + rx, my1 + ry);
+            if (loc) loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+    // des.region(selection.area(01,01,20,10),"unlit")
+    for (let ry = 1; ry <= 10; ry++) {
+        for (let rx = 1; rx <= 20; rx++) {
+            const loc = g.level.at(mx1 + rx, my1 + ry);
+            if (loc) loc.lit = false;
+        }
+    }
+
+    const placeNamedAt = (id, rx, ry) => {
+        const { mndx, female } = find_montype_gender(id);
+        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        induced_align(80);
+        let x = mx1 + rx;
+        let y = my1 + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        x = moved.x;
+        y = moved.y;
+        const mtmp = makemon(pm, x, y, 0);
+        if (mtmp) mtmp.female = female;
+        return mtmp;
+    };
+
+    // des.monster("Asmodeus",12,07) — WAN_COLD/WAN_FIRE via m_initinv
+    placeNamedAt('Asmodeus', 12, 7);
+
+    const clearErosion = (otmp) => {
+        if (!otmp) return;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    };
+    const placeClassObj = (oclass) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        clearErosion(mkobj_at(oclass, pos.x, pos.y, true));
+    };
+    placeClassObj(ARMOR_CLASS);
+    placeClassObj(ARMOR_CLASS);
+    placeClassObj(WEAPON_CLASS);
+    placeClassObj(WEAPON_CLASS);
+    placeClassObj(GEM_CLASS);
+    placeClassObj(POTION_CLASS);
+    placeClassObj(POTION_CLASS);
+    placeClassObj(SCROLL_CLASS);
+    placeClassObj(SCROLL_CLASS);
+    placeClassObj(SCROLL_CLASS);
+
+    const placeTrapAt = (kind, rx, ry) => {
+        const ttmp = maketrap(mx1 + rx, my1 + ry, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    const placeTrapRnd = (kind) => {
+        const pos = get_location_random(null);
+        if (pos.x < 0) return;
+        const ttmp = maketrap(pos.x, pos.y, kind);
+        mktrap_seen_victim(ttmp, {});
+    };
+    placeTrapAt(SPIKED_PIT, 5, 2);
+    placeTrapAt(FIRE_TRAP, 8, 6);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    placeNamedAt('ghost', 11, 7);
+    placeNamedAt('horned devil', 10, 5);
+    splev_create_monster('L');
+    splev_create_monster('V');
+    splev_create_monster('V');
+    splev_create_monster('V');
+
+    // levregions / teleport — region_islev=1 + exclude_islev=1 (absolute)
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_UPSTAIR,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 6, y2: 20 },
+        delarea: { x1: 6, y1: 1, x2: 70, y2: 16 },
+    });
+    g.lregions.push({
+        rtype: LR_BRANCH,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 6, y2: 20 },
+        delarea: { x1: 6, y1: 1, x2: 70, y2: 16 },
+    });
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: 1, y1: 0, x2: 6, y2: 20 },
+        delarea: { x1: 6, y1: 1, x2: 70, y2: 16 },
+    });
+
+    // Second part — half-right wing + mazewalk
+    const ASMO2_MAP = `
+---------------------------------
+................................|
+................................+
+................................|
+---------------------------------
+`.replace(/^\n/, '');
+    const asmo2 = applyAlignedMap(ASMO2_MAP, 'half-right');
+    const mx2 = asmo2.mx;
+    const my2 = asmo2.my;
+
+    // des.mazewalk(32,02,"east") — stocked default true
+    splev_mazewalk(32, 2, W_EAST, true);
+
+    for (let ry = 0; ry <= 4; ry++) {
+        for (let rx = 0; rx <= 32; rx++) {
+            const loc = g.level.at(mx2 + rx, my2 + ry);
+            if (loc) loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+    {
+        const loc = g.level.at(mx2 + 32, my2 + 2);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_CLOSED;
+            loc.flags = D_CLOSED;
+        }
+    }
+    splev_create_monster('&');
+    splev_create_monster('&');
+    splev_create_monster('&');
+    placeTrapRnd(ANTI_MAGIC);
+    placeTrapRnd(FIRE_TRAP);
+    placeTrapRnd(MAGIC_TRAP);
+
+    // hell_tweaks(protected) — named omission (RNG after mazewalk wing)
+
+    // C load_special: wallify → flip → lregions → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else {
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    r.rtype, null,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
  * C ref: priest.c mk_roamer — aligned cleric/angel with emin (sanctum horde).
  * Local to avoid mklev↔priest cycle. Named: reset_hostility deferred.
  */
@@ -9341,8 +9585,8 @@ function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
 /**
  * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
  * No lua temperate/hot/cold — keeps clear_level_structures hell default
- * temperature=1 (D-0751). Named omissions: ensure_way_out; asmodeus/
- * baalz/orcus/juiblex/hellfill/wizard1–3/fakewiz protos.
+ * temperature=1 (D-0751). Named omissions: ensure_way_out; baalz/
+ * orcus/juiblex/hellfill/wizard1–3/fakewiz protos.
  */
 function load_sanctum() {
     const g = game;

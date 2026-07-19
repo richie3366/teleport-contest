@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 11:10 — #859 asmodeus + hell helpers (D-0763)
+- Objective: seed0360 @68690 C nhlib shuffle vs JS `rn2(79)` post-rogue.
+- C locus: `dat/asmodeus.lua`; `makemon.c` newmonhp/sleep; `teleport.c`
+  noteleport hell court; `mkobj.c` hellprobs.
+- Change: `load_asmodeus`; mlevel>49 HP; hell-court noteleport; hellprobs;
+  ndemon sleep before G_SGROUP. Omit `hell_tweaks`.
+- Verification: green+strict PASS; cohort **35/35**; seed0360 prefix
+  **68690→71832**; RNG **68694→71855**; Scr **270→267**.
+- Next: @71832 C `hell_tweaks` percent vs JS flip `rn2(2)`.
+
 ## 2026-07-19 10:55 — #858 makeroguerooms + rogue skip0 (D-0762)
 - Objective: seed0360 @68428 C `makeroguerooms` `rn2(5)` vs JS `rn2(1)`.
 - C locus: `extralev.c` makeroguerooms/ghost/miniwalk/roguecorr; `mklev.c`

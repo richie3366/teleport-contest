@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0763 — asmodeus load_special + hell helpers (seed0360 @68690)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @71832)
+- **Symptom:** seed0360 @68690 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched getbones (post-rogue). Fingerprint: Asmodeus
+  wands + get_location 21×12 → `dat/asmodeus.lua`.
+- **C locus:** `dat/asmodeus.lua` / `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz`; `makemon.c` `newmonhp` mlevel>49 + ndemon
+  sleep before `G_SGROUP`; `teleport.c` `noteleport_level` hell court;
+  `mkobj.c` `hellprobs`.
+- **Cause (#859):** (1) no asmodeus loader → empty → `place_lregion`
+  `rn2(79)`. (2) After loader: Asmodeus burned `d(50,8)` — JS omitted
+  `mlevel>49` fixed HP. (3) Vampiric `rnd_defensive_item` tele retry —
+  hell-court `noteleport_level` deferred. (4) `mkobj` RANDOM always
+  `mkobjprobs` not `hellprobs`. (5) `G_SGROUP` `rn2(2)` before ndemon
+  sleep `rn2(5)`.
+- **Change:** `js/mklev.js` `load_asmodeus` + dispatch; `js/makemon.js`
+  `newmonhp` mlevel>49 + sleep before group; `js/teleport.js`
+  hell-court `noteleport_level`; `js/mkobj.js` hellprobs/rogueprobs.
+  Named omission: `hell_tweaks` (next @71832); baalz/orcus/….
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **68690→71832**; RNG **68694→71855**; Scr **270→267**/833.
+- **Next:** @71832 C `hell_tweaks` `percent` vs JS flip `rn2(2)`.
+
 ## D-0762 — makeroguerooms + makelevel rogue skip0 (seed0360 @68428)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @68690)

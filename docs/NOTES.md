@@ -7,11 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#858 D-0762 fixed:** `makeroguerooms` + makelevel rogue skip0.
-  Prefix **68690**. Scr **270**.
-- **Next @68690:** C nhlib shuffle after getbones vs JS `rn2(79)`
-  (post-rogue special `load_special`). Falsifier: identify proto via
-  C parent / dungeon after rogue.
+- **#859 D-0763 fixed:** asmodeus load_special + shared hell helpers.
+  Prefix **71832**. Scr **267**. RNG matched **71855**.
+- **Next @71832:** C `hell_tweaks` `percent` (nhlib) vs JS flip `rn2(2)`
+  after asmodeus mazewalk fill. Port `dat/nhlib.lua` `hell_tweaks`.
 - **D-0731:** unicorn @58,12 cnt=7; WEB@58,13; FORCE WEB-know →cnt=6
   still need one more omit. Pair ID exhausted.
 - **D-0708:** gnome @23,11 cnt=6; chcnt implies C drops one of first-five
@@ -21,15 +20,12 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0762 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0763 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**; matches `rn2(N)=M` strings only.
 - seed5002 **PASS** (write/cmdassist/itemed throw — D-0742).
-- D-0743…D-0762 seed0360 peels (boots/oracle/castle/valley/mkclass/
-  rnd_misc/sanctum+peace_minded/hell-temp+temperature_shift/region_islev/
-  maybe_generate/minetn-5/minend-2/soko4-1/tower2/tower3/medusa-3+mk_artifact/
-  bigrm-4/makemon-mlet/makeroguerooms).
-- D-0762: next miss after makeroguerooms is **post-rogue load_special**.
+- D-0743…D-0763 seed0360 peels (…/makeroguerooms/asmodeus+hell helpers).
+- D-0763: next miss after asmodeus body is **`hell_tweaks`**.
 - D-0602: playmode:debug → `flags.debug`; pick_room must test it.
 - Pets lack `ALLOW_U` without Conflict; hero square skipped when !mconf.
 - `assigninvlet` **preserves** free a-z/A-Z; don’t “always next lastinvnr”.
@@ -42,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - seed0006/0007/0398/0373/**seed5006**/ **seed0116** / **seed0361** /
   **seed0367** / **seed0108** / **seed5002** **PASS** (suite **37/44** @#855;
-  Scr 8270, RNG 74.51%; seed0360 **68690**/270 after D-0762).
+  Scr 8270, RNG 74.51%; seed0360 **71832**/267 after D-0763).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -53,41 +49,15 @@ Objective/score live in `CURRENT.md`.
   worn/artifact STONE_RES deferred;
   youmonst pool·lava / passes_walls in goodpos deferred;
   exclusion_zones save/rest deferred; region binary save format deferred;
-  asmodeus/baalz/orcus/juiblex/hellfill/wizard*/fakewiz deferred;
+  baalz/orcus/juiblex/hellfill/wizard*/fakewiz deferred;
   minend-3 / soko2-2 / other bigrm-N deferred;
-  **post-rogue load_special** next; `LVLINIT_ROGUE` sp_lev deferred;
+  **`hell_tweaks`** next; `LVLINIT_ROGUE` sp_lev deferred;
   `pick_nasty` GEHENNOM dnum deferred.
 - Rolling boulder: `launch_obj` + `ohitmon` + `mons_see_trap` (D-0700/01).
 - C: `#define wizard flags.debug`. SPECIAL_PM=330 needs MAIL_DAEMON.
+  **asmodeus + hell-court noteleport + hellprobs + mlevel>49 + ndemon
+  sleep before G_SGROUP** (D-0763);
   **makeroguerooms + rogue skip0** (D-0762);
   **makemon mlet before G_SGROUP** (D-0761);
   **bigrm-4 L-replace+fountains** (D-0760);
-  **medusa-3 + mk_artifact A_NONE** (D-0759);
-  **tower3 Vlad entry** (D-0758);
-  **tower2 Vlad middle** (D-0757);
-  **soko4-1 Sokoban entry** (D-0756);
-  **minend-2 Wine Cellar** (D-0755);
-  **minetn-5 Grotto Town** (D-0754);
-  **maybe_generate stronghold depth rate** (D-0753);
-  **sanctum region_islev absolute tele** (D-0752);
-  **hell temp + temperature_shift** (D-0751);
-  **sanctum load + peace_minded is_minion** (D-0750);
-  **rnd_misc_item nonliving/vampshifter** (D-0749);
-  **mkclass_aligned Inhell hellish** (D-0748);
-  **valley load_special + Inhell G_NOHELL** (D-0747);
-  **castle load_special + mazewalk/squadmon** (D-0746);
-  **oracle load_special** (D-0745);
-  **SPEED_BOOTS Boots_on makeknown→exercise** (D-0744);
-  **mattackm AT_WEAP mon_wield_item → MISS** (D-0743);
-  **stethoscope adjacent returns `res` TIME** (D-0735);
-  **mirror/camera getdir+beam/flash** (D-0736);
-  **zhitu fatal → finish_losehp_done before learnwand** (D-0737);
-  **hero_seq + stethoscope seemimic/mstatusline** (D-0738);
-  **mattackm mlstmv + dog_move return onscary** (D-0739);
-  **`c` → doclose getdir** (D-0740);
-  **burnarmor erode + destroy pline/potionbreathe** (D-0741);
-  **dowrite + open cmdassist + itemed throw** (D-0742);
-  **unicorn NOTONL + fail-tele + rloc track clear** (D-0731);
-  **mon_allowflags + temple SANCT** (D-0732);
-  **mfndpos worm_cross + rogue door-cut** (D-0733);
-  **zhitu non-sleep + hero destroy_items AD_FIRE** (D-0734).
+  **medusa-3 + mk_artifact A_NONE** (D-0759).
