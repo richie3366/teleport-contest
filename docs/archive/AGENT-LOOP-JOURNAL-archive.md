@@ -1,3 +1,14 @@
+## 2026-07-19 06:07 — #829 burnarmor/destroy pline (D-0741)
+
+- Objective: seed5002 Scr after RNG FULL (destroy/death topline).
+- C locus: `trap.c` `burnarmor`/`erode_obj`; `zap.c` `maybe_destroy_item`;
+  `potion.c` `potionbreathe` POT_INVIS.
+- Change: async burnarmor worn erode; destroy pline + potionbreathe +
+  mid-destroy finish_losehp_done; zhitu early-return on fatal destroy.
+  Root was missing plines so You die flushed botl before hits `--More--`.
+- Verification: green+strict PASS; cohort 34/34; RNG FULL; Scr **125→400**.
+- Next: seed5002 @230 write-vs-read / cmdassist; or D-0731/D-0708.
+
 # Agent loop journal archive
 
 ## 2026-07-19 — #814 mfndpos onscary/garlic/bars/gas (D-0731)

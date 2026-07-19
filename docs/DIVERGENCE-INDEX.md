@@ -734,6 +734,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0751 | fixed | hell temperature + temperature_shift pm_resistance | seed0360 38557→41671; RNG 38600→41693; next place_lregion @41671 |
 | D-0752 | fixed | sanctum teleport_region region_islev absolute | seed0360 41671→41768; RNG 41693→41793; next maybe_generate_rnd_mon @41768 |
 | D-0753 | fixed | maybe_generate_rnd_mon udemigod/stronghold rate | seed0360 41768→41777; RNG 41793→41794; next lua shuffle @41777 |
+| D-0754 | fixed | minetn-5.lua load_special (Grotto Town) | seed0360 41777→43248; RNG 41794→43267; suite #850 573869/72.38%; next minend-2 @43248 |
 
 
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |

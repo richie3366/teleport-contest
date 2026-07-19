@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 10:06 — #850 minetn-5 + public score (D-0754)
+- Objective: #850 full `sessions` score + seed0360 @41777 nhlib shuffle.
+- C locus: `dat/minetn-5.lua` / `mkmaze.c` `makemaz` (`rnd(7)=5` → minetn-5).
+- Change: `load_minetn_5` + dispatch. Falsified “next Gehennom special”
+  after sanctum — C goes to Mine Town-5.
+- Verification: green+strict PASS; cohort 35/35; seed0360 prefix
+  **41777→43248**; RNG **41794→43267**; Scr 207. Full suite **37/44**;
+  Scr **8212**/11405; RNG **573869**/792838 (72.38%); speed `37+0.20/turn`.
+- Next: @43248 C minend-2 (`rnd(3)=2`) vs JS `rn2(79)`.
+
 ## 2026-07-19 10:00 — #849 maybe_generate stronghold rate (D-0753)
 - Objective: seed0360 @41768 C maybe_generate_rnd_mon rn2(50) vs JS rn2(70).
 - C locus: `allmain.c` `maybe_generate_rnd_mon` udemigod?25 :
@@ -162,15 +172,4 @@ Use this shape:
   Scr **8182**/11405; RNG **533690**/792838 (67.31%).
 - Next: seed0399 @10157 (D-0731) / seed0014 @49039 (D-0708); or
   leaderboard 22-vs-37 gap.
-
-## 2026-07-19 06:07 — #829 burnarmor/destroy pline (D-0741)
-
-- Objective: seed5002 Scr after RNG FULL (destroy/death topline).
-- C locus: `trap.c` `burnarmor`/`erode_obj`; `zap.c` `maybe_destroy_item`;
-  `potion.c` `potionbreathe` POT_INVIS.
-- Change: async burnarmor worn erode; destroy pline + potionbreathe +
-  mid-destroy finish_losehp_done; zhitu early-return on fatal destroy.
-  Root was missing plines so You die flushed botl before hits `--More--`.
-- Verification: green+strict PASS; cohort 34/34; RNG FULL; Scr **125→400**.
-- Next: seed5002 @230 write-vs-read / cmdassist; or D-0731/D-0708.
 

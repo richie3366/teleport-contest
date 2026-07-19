@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0754 — minetn-5.lua load_special (seed0360 @41777)
+
+- **Status:** fixed (partial — seed0360 still FAIL; prefix @43248)
+- **Symptom:** seed0360 @41777 — C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` + `makemaz` `rnd(7)=5`.
+- **C locus:** `dat/minetn-5.lua` via `sp_lev.c` `load_special` /
+  `mkmaze.c` `makemaz` (`minetn` `rndlevs=7` → `minetn-5`).
+- **Cause (#850):** NOTES guessed next Gehennom special (asmodeus/hellfill)
+  after sanctum. C teleports to Mine Town variant 5; JS had no
+  `minetn-5` loader → empty → `place_lregion` `rn2(79)`.
+- **Change:** `js/mklev.js` — `load_minetn_5` + dispatch (solidfill map,
+  percent terrain, shops/temple/watch, historic gnome-king statue,
+  wallify/flip/fixup). Named omissions: minetn-1/3/4/6/7; minend-2/3;
+  hellfill/asmodeus/….
+- **Verification:** green+strict PASS; cohort **35/35**; seed0360 prefix
+  **41777→43248**; RNG **41794→43267**; Scr **207**. Full suite **#850:**
+  37/44; Scr 8212; RNG **573869** (72.38%).
+- **Next:** @43248 C `minend-2` (`makemaz` `rnd(3)=2`) vs JS `rn2(79)`.
+
 ## D-0753 — maybe_generate_rnd_mon udemigod/stronghold rate (seed0360 @41768)
 
 - **Status:** fixed (partial — seed0360 still FAIL; prefix @41777)
