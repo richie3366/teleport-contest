@@ -865,9 +865,10 @@ function reset_xystart_size() {
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
  * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
- * juiblex, baalz, orcus, wizard1–3, Wiz-strt, Pri-fila, Pri-filb.
+ * juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca, Wiz-fila,
+ * Wiz-filb, Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
- * protos (Bar-goal; Wiz-loca/goal/fila/filb); minetn-1/3/4/6/7; minend-3;
+ * protos (Bar-goal; Wiz-goal); minetn-1/3/4/6/7; minend-3;
  * medusa-2/4; water/astral; hellfill/fakewiz;
  * create_maze fallback; check_ransacked side effects beyond ransacked flag;
  * dmonsfree.
@@ -970,6 +971,18 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Wiz-strt') {
         load_wiz_strt();
+        return true;
+    }
+    if (protofile === 'Wiz-loca') {
+        load_wiz_loca();
+        return true;
+    }
+    if (protofile === 'Wiz-fila') {
+        load_wiz_fila();
+        return true;
+    }
+    if (protofile === 'Wiz-filb') {
+        load_wiz_filb();
         return true;
     }
     if (protofile === 'Pri-strt') {
@@ -2461,7 +2474,7 @@ function load_bar_strt() {
  * solidfill + cloud replace_terrain + tower clear + leader invent.
  * Named omissions: spo_end_moninvent m_dowear; count_level_features /
  * level_finalize_topology / fill_special_room / makemap_prepost deferred;
- * Wiz-loca/goal/fila/filb deferred.
+ * Wiz-goal/fila/filb deferred.
  * Branch levregion stored pre-flip (D-0782) so FlipY remaps MAGIC_PORTAL.
  */
 function load_wiz_strt() {
@@ -2685,6 +2698,294 @@ function load_wiz_strt() {
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Wiz-loca.lua via load_special — Wizard quest locate
+ * (Guarded Tower / moat). solidfill + cloud/moat replace_terrain +
+ * irregular rooms with secret doors + locked doors + traps/monsters.
+ * Named omissions: humidity-aware get_location; spo_end_moninvent
+ * m_dowear; Wiz-goal.
+ */
+function load_wiz_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const WIZ_LOCA_MAP = `
+.............        .......................................................
+..............       .............}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}.......
+..............      ..............}.................................}.......
+..............      ..............}.-------------------------------.}.......
+...............     .........C....}.|.............................|.}.......
+...............    ..........C....}.|.---------------------------.|.}.......
+...............    .........CCC...}.|.|.........................|.|.}.......
+................   ....C....CCC...}.|.|.-----------------------.|.|.}.......
+.......C..C.....  .....C....CCC...}.|.|.|......+.......+......|.|.|.}.......
+.............C..CC.....C....CCC...}.|.|.|......|-------|......|.|.|.}.......
+................   ....C....CCC...}.|.|.|......|.......|......|.|.|.}.......
+......C..C.....    ....C....CCC...}.|.|.|......|-------|......|.|.|.}.......
+............C..     ...C....CCC...}.|.|.|......+.......+......|.|.|.}.......
+........C......    ....C....CCC...}.|.|.-----------------------.|.|.}.......
+....C......C...     ........CCC...}.|.|.........................|.|.}.......
+......C..C....      .........C....}.|.---------------------------.|.}.......
+..............      .........C....}.|.............................|.}.......
+.............       ..............}.-------------------------------.}.......
+.............        .............}.................................}.......
+.............        .............}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}.......
+.............        .......................................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(WIZ_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.replace_terrain — map-relative regions (ROOM/MOAT/CLOUD)
+    lspo_replace_terrain_region(0, 0, 30, 20, ROOM, CLOUD, 15);
+    lspo_replace_terrain_region(68, 0, 75, 20, ROOM, MOAT, 25);
+    lspo_replace_terrain_region(34, 1, 68, 19, MOAT, ROOM, 2);
+
+    // des.region(selection.area(00,00,75,20), "lit")
+    for (let y = my; y <= my + 20 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    const wizLocaAddIrregular = (x1, y1, lit, wallsOrRandom) => {
+        const dx1 = mx + x1, dy1 = my + y1;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+        const bounds = {
+            min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+        };
+        const rmno = g.level.nroom + ROOMOFFSET;
+        if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+        flood_fill_rm(dx1, dy1, rmno, lit, true, bounds);
+        add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+            false, OROOM, true);
+        const troom = g.level.rooms[g.level.nroom - 1];
+        if (!troom) return null;
+        troom.rlit = lit ? 1 : 0;
+        troom.irregular = true;
+        troom.needjoining = true;
+        troom.needfill = 0;
+        add_doors_to_room(troom);
+        // contents: des.door({ state="secret", wall=... })
+        if (wallsOrRandom === 'random') {
+            splev_room_door(troom, 'secret', 'random');
+        } else if (Array.isArray(wallsOrRandom)) {
+            const wall = wallsOrRandom[lua_random2(1, wallsOrRandom.length) - 1];
+            splev_room_door(troom, 'secret', wall);
+        }
+        return troom;
+    };
+
+    // irregular ordinary regions (lua order) + secret doors
+    wizLocaAddIrregular(37, 4, false, 'random');
+    wizLocaAddIrregular(39, 6, false, 'random');
+    wizLocaAddIrregular(41, 8, true, ['north', 'south', 'west']);
+    wizLocaAddIrregular(56, 8, true, ['north', 'south', 'east']);
+
+    // des.region unlit corridor strips (lighting only)
+    const unlitRect = (x1, y1, x2, y2) => {
+        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
+            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = false;
+            }
+        }
+    };
+    unlitRect(48, 8, 54, 8);
+    unlitRect(48, 12, 54, 12);
+
+    wizLocaAddIrregular(48, 10, false, 'random');
+
+    // des.door("locked", …)
+    const wizDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    wizDoor(55, 8, D_LOCKED);
+    wizDoor(55, 12, D_LOCKED);
+    wizDoor(47, 8, D_LOCKED);
+    wizDoor(47, 12, D_LOCKED);
+
+    // des.terrain({03,17}, ".") then stairs
+    sel_set_ter(mx + 3, my + 17, ROOM, SET_LIT_NOCHANGE);
+    mkstairs(mx + 3, my + 17, 1, null);
+    mkstairs(mx + 48, my + 10, 0, null);
+
+    // des.non_diggable(selection.area(00,00,75,20))
+    for (let y = my; y <= my + 20 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // Fixed traps then random-location traps
+    const placeTrap = (ttyp, rx, ry) => {
+        const ttmp = maketrap(mx + rx, my + ry, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    };
+    const placeTrapRnd = (ttyp) => {
+        const pos = get_location_random(null);
+        const ttmp = maketrap(pos.x, pos.y, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    };
+    for (const [rx, ry] of [
+        [24, 2], [7, 10], [23, 5], [26, 19], [72, 2], [72, 12],
+    ]) placeTrap(SPIKED_PIT, rx, ry);
+    for (const [rx, ry] of [
+        [45, 16], [65, 13], [55, 6], [39, 11], [57, 9],
+    ]) placeTrap(ROCKTRAP, rx, ry);
+    placeTrapRnd(MAGIC_TRAP);
+    placeTrapRnd(STATUE_TRAP);
+    placeTrapRnd(STATUE_TRAP);
+    placeTrapRnd(POLY_TRAP);
+    placeTrap(ANTI_MAGIC, 53, 10);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(SLP_GAS_TRAP);
+    placeTrapRnd(DART_TRAP);
+    placeTrapRnd(DART_TRAP);
+    placeTrapRnd(DART_TRAP);
+
+    // des.monster — class B ×12, class i ×8, vampire bat ×7, class i ×1
+    for (let i = 0; i < 12; i++) splev_create_monster('B', 0);
+    for (let i = 0; i < 7; i++) splev_create_monster('i', 0);
+    for (let i = 0; i < 7; i++) splev_create_monster('vampire bat');
+    splev_create_monster('i', 0);
+
+    // C load_special: link_doors_rooms → remove_boundary_syms →
+    // map_cleanup → wallification → flip_level_rnd → fixup
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Wiz-fila.lua via load_special — quest filler above locate.
+ * Ordinary des.room + imp/vampire-bat stock + des.random_corridors.
+ * Named omissions: Wiz-goal; failed-room / ensure_way_out.
+ */
+function load_wiz_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, true);
+        splev_room_object(r);
+        splev_room_monster(r, 'i', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'i', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'vampire bat');
+        splev_room_monster(r, 'vampire bat');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, false);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'i', 0);
+        splev_room_monster(r, 'vampire bat');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'i', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'vampire bat');
+    });
+
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Wiz-filb.lua via load_special — quest filler below locate.
+ * Ordinary des.room + xorn/imp/vampire-bat stock + des.random_corridors.
+ * Named omissions: Wiz-goal; failed-room / ensure_way_out.
+ */
+function load_wiz_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, true);
+        splev_room_object(r);
+        splev_room_monster(r, 'X', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'i', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_object(r);
+        splev_room_monster(r, 'X', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, false);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'i', 0);
+        splev_room_monster(r, 'vampire bat');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'i', 0);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_object(r);
+        splev_room_trap(r);
+        splev_room_monster(r, 'vampire bat');
+    });
+
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

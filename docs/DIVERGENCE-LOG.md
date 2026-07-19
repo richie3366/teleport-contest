@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0800 — Wiz-loca + Wiz-fila/filb load_special (seed0360 RNG FULL)
+
+- **Status:** fixed (seed0360 RNG full; Scr residual 561/833)
+- **Symptom:** seed0360 @113103 — C nhlib `shuffle` then `splev_initlev`
+  + `lspo_replace_terrain` vs JS `place_lregion` `rn2(79)` after matched
+  `getbones`.
+- **C locus:** `dat/Wiz-loca.lua` / `Wiz-fila.lua` / `Wiz-filb.lua`;
+  `sp_lev.c` `load_special`.
+- **Cause (#921):** no Wiz-loca loader → empty maze → `rn2(79)`.
+  Fingerprint: shuffle → solidfill lit BOOL_RANDOM → ROOM→CLOUD chance 15.
+  After loca: @114855 room-style `build_room`/`litstate_rnd` → missing
+  Wiz-fila/filb.
+- **Change:** `js/mklev.js` — `load_wiz_loca` (map + replace_terrain +
+  irregular secret doors + traps/mons) + `load_wiz_fila`/`load_wiz_filb`
+  (ordinary `des.room` fillers) + `load_special_proto` dispatch.
+  Named omissions: Wiz-goal; humidity-aware get_location; m_dowear;
+  failed-room / ensure_way_out; hellfill/fakewiz.
+- **Verification:** green+strict PASS; cohort 20/20 PASS; seed0360
+  RNG **113111→120639 FULL**; Scr **519→561**/833.
+- **Next:** screen residual (RNG matched); or parked seed0399/seed0014.
+
 ## D-0799 — set_apparxy `can_fog` for vampshifter Displacement image
 
 - **Status:** fixed (seed0360 still FAIL @113103)

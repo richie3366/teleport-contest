@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-19 23:16 — #921 D-0800 Wiz-loca/fila/filb
+- Objective: seed0360 @113103 getbones → lua shuffle vs JS rn2(79).
+- C locus: `dat/Wiz-loca.lua` / `Wiz-fila.lua` / `Wiz-filb.lua`; `sp_lev.c`.
+- Change: `load_wiz_loca` + `load_wiz_fila`/`load_wiz_filb` + dispatch.
+  Named omissions: Wiz-goal; humidity get_location; m_dowear; hellfill/fakewiz.
+- Verification: green+strict PASS; cohort 20/20 PASS; seed0360 RNG
+  **FULL 120639**; Scr **519→561**/833.
+- Next: seed0360 screen residual (RNG matched); or parked 0399/0014.
+
 ## 2026-07-19 23:10 — #920 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only handoff).
@@ -164,14 +173,3 @@ Use this shape:
   @112243 / RNG 112272 Scr 391.
 - Next: find C path that cleared Neferet CLOSE (kick/attack/throw
   leader-catch); then mux/`set_apparxy` after she moves.
-
-## 2026-07-19 20:25 — #906 D-0790 mux-image m_move_aggress
-- Objective: seed0360 @110880; port C post-select no-place.
-- C locus: `monmove.c` `m_move` post-select + `m_move_aggress`.
-- Change: track `chi`; `ALLOW_U`→mux; `nix==mux`→`m_move_aggress`
-  (empty Displacement image → DONE). @110612 was aftermath of earlier
-  mux-image walks JS placed.
-- Verification: green+strict PASS; cohort 13/13 PASS; seed0360
-  **110880→112243**, focused RNG **112272**, Scr **391**.
-- Next: @112243 C distfleeck rn2(5) vs JS rn2(12).
-
