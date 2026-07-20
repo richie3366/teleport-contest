@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0891 | fixed | maketrap HOLE unhideable_trap tseen | seed0014 Scr **645→676**; @600 closed; next @624 bash |
 | D-0890 | fixed | launch_obj DISP_FLASH + pline dirty vision_recalc | seed0014 Scr **644→645**; @560 closed; next @600 `^` |
 | D-0889 | fixed | hack domove_swap peaceful x_monnam adj | seed0014 Scr **641→644**; next @560 trap map |
 | D-0888 | fixed | uhitm cream pie The(xname) + An(singular) | seed0014 Scr **640→641**; next @558 peaceful swap |

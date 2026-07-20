@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0891 — maketrap HOLE unhideable_trap tseen
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @600 — empty toplines; map cell display (68,16)
+  JS floor `·` vs C trap `^` (CLR_BROWN). Game (69,15) after stairs fall.
+- **C locus:** `trap.h` `unhideable_trap(ttyp)` ≡ `(ttyp)==HOLE`;
+  `trap.c` `maketrap` — `ttmp->tseen = unhideable_trap(typ)`.
+- **Cause:** JS `maketrap` always set `tseen = false`, so HOLE stayed
+  hidden under floor glyph despite being in LOS after `goto_level`/`docrt`.
+- **Change:** export `unhideable_trap` from `const.js`; `maketrap` sets
+  `tseen = unhideable_trap(typ)`. Named omit: bones.c reaffirm;
+  shop hole damage / pit conjoined / overwrite-terrain polish.
+- **Verify:** green+strict PASS; cohort 13/13 PASS; seed0014 Scr
+  **645→676**/714 (RNG FULL). @600 matches (`^` brown).
+- **Next:** @624 C `You begin bashing monsters with your bare hands.
+  You miss it.--More--` vs JS `You miss it.  It hits!`.
+
 ## D-0890 — launch_obj DISP_FLASH + pline dirty vision_recalc
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

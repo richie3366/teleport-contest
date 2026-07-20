@@ -48,7 +48,7 @@ import {
     ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES, SLEEP_RES,
     STONE_RES, FAILEDUNTRAP,
     NO_TRAP, TRAPNUM, WT_ELF,
-    is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
+    is_hole, is_pit, unhideable_trap, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     IS_ROOM, IS_WALL, IS_AIR, IS_FURNITURE, SDOOR, STAIRS, LADDER, DRAWBRIDGE_UP,
     MAGIC_PORTAL, LEVEL_TELEP, Is_waterlevel, Is_airlevel,
     D_CLOSED, D_LOCKED, D_BROKEN,
@@ -533,7 +533,8 @@ export function maketrap(x, y, typ) {
     ttmp.dst = { dnum: -1, dlevel: -1 };
     ttmp.madeby_u = 0;
     ttmp.once = 0;
-    ttmp.tseen = false;
+    // C: ttmp->tseen = unhideable_trap(typ);  (HOLE always seen)
+    ttmp.tseen = unhideable_trap(typ);
     ttmp.ttyp = typ;
 
     switch (typ) {

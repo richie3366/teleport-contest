@@ -72,9 +72,10 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 Scr 645/714** — RNG closed (D-0877);
-D-0881…D-0890. First miss @600 — empty topline; map cell
-JS `·` vs C `^` (trap glyph, color brown) at display (68,16).
+**Gameplay next:** **seed0014 Scr 676/714** — RNG closed (D-0877);
+D-0881…D-0891. First miss @624 — topline JS `You miss it.  It hits!`
+vs C `You begin bashing monsters with your bare hands.  You miss
+it.--More--`.
 Focused:
 
 ```bash
@@ -84,12 +85,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0890. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0891. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0890 (searches_for_item … launch_obj FLASH + pline vision).
+D-0861…D-0891 (searches_for_item … maketrap HOLE unhideable_trap).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -109,7 +110,8 @@ omit rloc post-place appear/close-by (D-0886);
 omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887);
 capitalize-only cream pie splash (need `The(xname)` D-0888);
 omit peaceful adj / frighten verb on safemon swap (D-0889);
-omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty `vision_recalc` (D-0890).
+omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty `vision_recalc` (D-0890);
+force `maketrap` HOLE `tseen=false` (need `unhideable_trap` D-0891).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

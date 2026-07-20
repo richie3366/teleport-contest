@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 20:40 — #1042 D-0891 maketrap HOLE unhideable_trap
+- Objective: seed0014 @600 trap `^` vs floor `·` (68,16).
+- C locus: `trap.h` `unhideable_trap`; `trap.c` `maketrap` tseen init.
+- Change: `unhideable_trap` + `maketrap` `tseen = unhideable_trap(typ)`
+  (HOLE always seen).
+- Verification: green+strict PASS; cohort 13/13; seed0014 Scr **645→676**.
+- Next: @624 bare-hands bash topline vs plain miss/hit.
+
 ## 2026-07-20 20:32 — #1041 D-0890 launch_obj FLASH + pline vision
 - Objective: seed0014 @560 trap-trigger map (boulder + LOS).
 - C locus: `trap.c` `launch_obj` tmp_at DISP_FLASH; `pline.c` dirty
@@ -171,14 +179,4 @@ Use this shape:
 - Verification: green+strict PASS; seed0014 **52043→58462**; cohort
   38/38 PASS.
 - Next: @58462 C `watch_on_duty` rn2(3) vs JS rn2(10); leaderboard cron.
-
-## 2026-07-20 18:15 — #1026 D-0874 trapeffect_landmine
-- Objective: seed0014 @50259 C `rnd(16)` landmine vs JS `rn2(5)`.
-- C locus: `trap.c` `trapeffect_landmine` / `blow_up_landmine`; mon
-  `rn2(cwt+1) < WT_ELF/2` early return (this peel underweight).
-- Change: wire LANDMINE in selector; port landmine + partial blow_up
-  (omit scatter/fill_pit/drawbridge/iron-shoes which_armor).
-- Verification: green+strict PASS; seed0014 **50259→52043**; cohort
-  20/20 PASS.
-- Next: @52043 C nhlib.lua shuffle rn2(3) vs JS rn2(79); leaderboard cron.
 
