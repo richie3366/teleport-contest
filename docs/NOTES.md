@@ -7,17 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @10581:** after D-0865 dig/may_dig, first miss C `mintrap`
-  `rn2(40)` vs JS `rn2(20)`. Faithful peel — not FORCE.
-- Falsifier: C `trap.c` `mintrap` ~3751 trap-type arity; preceding
-  distfleeck rn2(5) pair matched.
+- **seed0399 @10697:** after D-0866 web catch, first miss C `tmiss`
+  `rn2(3)` vs JS `rn2(100)`. Faithful peel — not FORCE.
+- Falsifier: C `dothrow.c` `tmiss` ~1964; preceding thitmonst rnd(20)
+  matched.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0865 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0866 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0865 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0866 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
@@ -39,14 +39,15 @@ Objective/score live in `CURRENT.md`.
   key desync (`t` throw), not gethungry arity.
 - Do not “always rn2” in `obj_resists` for Bell/Book/Amulet/Candelabrum.
 - Do not read only `wall_info` for W_NONDIGGABLE — OR `flags` (D-0865).
-- Shop/temple dig avoid alone did not fix @10382 (walls roomno=0).
+- Do not stub WEB in trapeffect_selector default — mon must set
+  `mtrapped` (D-0866).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **39/44** @#1010 Scr **9064**/11405 RNG **666535**/792838
-  (84.07%); speed `32+0.25/turn`; next full score @#1015.
+- suite **39/44** @#1015 Scr **9337**/11405 RNG **667341**/792838
+  (84.17%); speed `32+0.23/turn`; next full score @#1020.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -68,3 +69,5 @@ Objective/score live in `CURRENT.md`.
   skip rn2; seed0399 **10309→10382** Scr 407→409.
 - **D-0865 #1014:** `may_dig`/`may_passwall` OR `flags|wall_info`;
   mfndpos peaceful shop/temple dig avoid; seed0399 **10382→10581**.
+- **D-0866 #1015:** `trapeffect_web` mon mtrapped; seed0399
+  **10581→10697** Scr **409→429**.

@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 17:09 — #1015 score + D-0866 trapeffect_web
+- Objective: mandatory full score @#1015; seed0399 @10581
+  C mintrap rn2(40) vs JS rn2(20).
+- C locus: `trap.c` `trapeffect_web` / `mu_maybe_destroy_web`;
+  selector WEB case. Symptom was missing mon `mtrapped` on WEB.
+- Change: port mon web catch/tear + destroy/flow; wire selector.
+  Score: **39/44** Scr **9337**/11405 RNG **667341**/792838
+  (84.17%); speed `32+0.23/turn`. Δ vs #1010 Scr+273 RNG+806.
+- Verification: green+strict PASS; prefix **10581→10697** Scr
+  **409→429**; cohort 10/10; full sessions post-fix.
+- Next: seed0399 @10697 C `tmiss` rn2(3) vs JS rn2(100).
 
 ## 2026-07-20 17:05 — D-0865 may_dig flags|wall_info
 - Objective: seed0399 @10382 C `mdig_tunnel` rnd(12) vs JS rn2(6).
@@ -166,13 +177,3 @@ Use this shape:
 - Change: invent_lines + display_pickinv_reply call obj_glyph per item.
 - Verification: Scr **211**/219 RNG FULL; green+strict PASS; cohort 10/10.
 - Next: @210 map after +/ESC (soldier Hallu); wear plines still deferred.
-
-## 2026-07-20 14:45 — #1000 public score cadence
-- Objective: mandatory 5-iter full `sessions` score refresh.
-- C locus: n/a (docs only; no JS peel).
-- Change: measured **38/44** PASS; Scr **9011**/11405 (+13 vs #995 =
-  seed0383 196→209 from D-0852…D-0855); RNG **666643**/792838 (flat);
-  speed `32+0.23/turn`. seed0383 still 209/219 RNG FULL; first miss
-  past @199. Rotated journal #985–#990 → archive.
-- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
-- Next: seed0383 Scr @209+ (Hallu map / deferred wear plines).

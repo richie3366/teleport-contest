@@ -21,20 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1010**).
-Screens **9064**/11405; RNG **666,535**/792838 (84.07%). **39/44** PASS.
-Δ vs #1005: Scr **+43**, RNG **−108**, PASS **0** (seed0399 D-0861
-Scr 113→156; first miss now @10217 namedesc). Speed `32+0.25/turn`
-(R² 0.846). Next full refresh due at loop **#1015**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1015**,
+post D-0866). Screens **9337**/11405; RNG **667,341**/792838 (84.17%).
+**39/44** PASS. Δ vs #1010: Scr **+273**, RNG **+806**, PASS **0**
+(seed0399 D-0861…D-0866 Scr 156→429; prefix @10697 tmiss). Speed
+`32+0.23/turn` (R² 0.82). Next full refresh due at loop **#1020**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **39 / 44** |
-| Screens matched | **9,064 / 11,405** |
-| Positional RNG calls matched | **666,535 / 792,838** (84.07%) |
-| Speed label | `32+0.25/turn` (R² 0.846) |
+| Screens matched | **9,337 / 11,405** |
+| Positional RNG calls matched | **667,341 / 792,838** (84.17%) |
+| Speed label | `32+0.23/turn` (R² 0.82) |
 | Role-init throws | **0 / 44** |
 
 **PASS (39):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -50,9 +50,9 @@ seed0360, seed0383.
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
-| seed0399 | 10293/11409 | **156**/532 | @10217 namedesc rn2(31)vs(181) |
+| seed0399 | 11133/11409 | **429**/532 | @10697 tmiss rn2(3)vs(100) |
 | seed2600 | 418/11647 | 3/38 | custom binds |
-| seed4500 | 3076/108275 | 19/1814 | knight coverage |
+| seed4500 | 3042/108275 | 19/1814 | knight coverage |
 
 ## Green gate
 
@@ -75,10 +75,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 @10581** — D-0865 closed @10382
-(`may_dig` honors `flags|wall_info` W_NONDIGGABLE; mfndpos peaceful
-shop/temple dig avoid). Next: C `mintrap` `rn2(40)` vs JS `rn2(20)`.
-Alt: seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0399 @10697** — D-0866 closed @10581
+(`trapeffect_web` mon `mtrapped`). Next: C `tmiss` `rn2(3)` vs JS
+`rn2(100)` (throw path). Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -87,7 +86,7 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0865. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0866. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -122,6 +121,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not drop hold_another_object encumber_msg after prinv (D-0863).**
 **Do not drop obj_resists invocation/rider early-return (D-0864).**
 **Do not drop D-0865 may_dig `flags|wall_info` OR / peaceful shop dig avoid.
+**Do not drop D-0866 trapeffect_web mon mtrapped / mu_maybe_destroy_web.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

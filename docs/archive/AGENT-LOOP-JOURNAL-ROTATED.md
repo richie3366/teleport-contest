@@ -1,3 +1,13 @@
+## 2026-07-20 14:45 — #1000 public score cadence
+- Objective: mandatory 5-iter full `sessions` score refresh.
+- C locus: n/a (docs only; no JS peel).
+- Change: measured **38/44** PASS; Scr **9011**/11405 (+13 vs #995 =
+  seed0383 196→209 from D-0852…D-0855); RNG **666643**/792838 (flat);
+  speed `32+0.23/turn`. seed0383 still 209/219 RNG FULL; first miss
+  past @199. Rotated journal #985–#990 → archive.
+- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
+- Next: seed0383 Scr @209+ (Hallu map / deferred wear plines).
+
 ## 2026-07-17 00:15 — #644 D-0579 equip SUGGEST + Blindf_on / Blind vision
 - Objective: seed5006 Scr residual 217/249 (CURRENT primary).
 - C locus: do_wear.c equip_ok/cursed/Blindf_on; vision.c Blind vision_recalc;

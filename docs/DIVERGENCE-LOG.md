@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0866 — trapeffect_web mon mtrapped + mu_maybe_destroy_web
+
+- **Status:** fixed
+- **Observed:** seed0399 @10581 — C `mintrap` `rn2(40)` (already-trapped
+  escape); JS `m_move` track `rn2(20)` (`4*(cnt-j)`). Mon @ (58,13) on
+  WEB (`ttyp` 18) with `mtrapped=false` in JS.
+- **Rejected:** arity bug in mintrap escape — JS already had `rn2(40)`
+  on the mtrapped arm; the mon never entered that arm.
+- **C locus:** `trap.c` `trapeffect_web` (~2106–2276),
+  `mu_maybe_destroy_web` (~972); `trapeffect_selector` WEB case;
+  `mintrap` already-trapped `rn2(40)` (~3751).
+- **Cause:** JS `trapeffect_selector` defaulted WEB → Finished with no
+  `mtrapped`, so later `m_move` treated the mon as free and burned track
+  RNG while C called escape `rn2(40)`.
+- **Change:** port mon `trapeffect_web` (catch / tear-web species /
+  giant·dragon·worm) + `mu_maybe_destroy_web`; wire WEB in selector.
+  Hero/steed/strength-tim named omitted.
+- **Verification:** green+strict PASS; seed0399 prefix **10581→10697**
+  Scr **409→429**; cohort 10/10; full suite **39/44** Scr **9337**/11405
+  RNG **667341**/792838 (84.17%).
+- **Next:** seed0399 @10697 C `tmiss` `rn2(3)` vs JS `rn2(100)`.
+
 ## D-0865 — may_dig wall_info|flags + peaceful shop/temple dig avoid
 
 - **Status:** fixed
