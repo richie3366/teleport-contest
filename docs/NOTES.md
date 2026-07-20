@@ -7,14 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1006 D-0860:** `monflee` → `mon_track_clear` (C fidelity). seed0399
-  still @10157 — unicorn `mflee=0` so clear inert.
-- **D-0731 DIAG (#1006):** unicorn @58,12 appr=1 flag=NOTONL|ALLOW_U;
-  cnt=7 j=0 mtrack=[59,13;0…]; (57,12) MON_AT mhp34 (not empty!);
-  poss=7 open ROOM + WEB@58,13. C rn2(20) ⇒ cnt−j=5. FORCE any
-  keep-track 2-omit →10217; WEB not unique. Need C-state which pair.
-- Falsifier: C-state dump of unicorn mfndpos poss[] at @10157.
-- After arity: `rnd_otyp_by_namedesc` rn2(31) vs rn2(181).
+- **D-0731 @10157:** unicorn @58,12 cnt=7 j=0 mtrack=[59,13]; mux=u
+  (47,9); flag=NOTONL|ALLOW_U; 7×ROOM; (57,12) spider mhp34; WEB+sack
+  @58,13 (ALLOW_TRAPS); no engr/online. C rn2(20) ⇒ cnt−j=5.
+- **#1007 falsified:** FORCE→namedesc@10217 is **not** a clean next
+  peel — FORCE desyncs keys so JS may wish `identify` (rn2(181)=
+  180+1) while C’s tag is rn2(31). Do not chase namedesc via FORCE.
+- Falsifier: C recorder DIAG of unicorn `mfndpos` poss[] at (58,12)
+  (ensure install `sysconf` present). Alt: D-0708 seed0014.
+- Do not FORCE-omit without C-state pair ID.
 
 ## Don't re-check (≤15)
 
@@ -38,6 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not expect missing hungry line @213 — hunger was present (D-0858).
 - Do not re-FORCE WEB-unique omit for D-0731 (#1004: any keep-track pair OK).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
+- Do not trust FORCE→namedesc@10217 as next faithful peel (#1007).
 
 ## Landmarks (≤15)
 
@@ -57,4 +59,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
-- **D-0731 #1006:** unicorn cnt7; (57,12) occupied; need C-state pair.
+- **D-0731 #1007:** JS state full; need C poss[] dump (recorder DIAG).

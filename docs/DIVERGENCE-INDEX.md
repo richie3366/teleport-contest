@@ -780,7 +780,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0728 | fixed | `#herecmdmenu`/`doherecmdmenu` self menu; NUL≠TIME | seed0108 Scr 292→293; cursors FULL; next wall color after ^V |
 | D-0729 | fixed | Sokoban `wall_glyph` blue only under DECgraphics | seed0108 PASS 303/303; suite 36/44 @#810; next D-0708 |
 | D-0730 | fixed | max_passive_dmg AD_ACID (+ FIRE/COLD/ELEC) | seed0399 10145→10157 RNG 10359; next @10157 m_move |
-| D-0731 | open | unicorn mfndpos cnt7vs5; FORCE any keep-track pair→10217 | #1006: (57,12) MON_AT; D-0860 inert; need C-state which 2 cells; next namedesc |
+| D-0731 | open | unicorn mfndpos cnt7vs5; FORCE→namedesc contaminated | #1007: need C poss[] DIAG; not namedesc via FORCE |
 | D-0732 | fixed | mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT | shared; seed0399 @10157 unchanged (maze nrooms=0) |
 | D-0733 | fixed | mfndpos diagonal worm_cross + rogue door-cut | shared; inert for 0399/0014 (no worms / not rogue) |
 | D-0734 | fixed | zhitu non-sleep + hero destroy_items AD_FIRE | seed5002 5980→6172; seg0 FULL; next themerms @6172 |

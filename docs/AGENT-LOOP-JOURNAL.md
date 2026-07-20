@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 15:51 — #1007 D-0731 DIAG; falsify FORCE→namedesc
+- Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
+- C locus: mon.c mfndpos; monmove.c m_move track skip.
+- Change: none shipped. DIAG reconfirmed unicorn @58,12 cnt=7
+  ROOM×7 spider@57,12 WEB+sack@58,13; no engr/online. Falsified
+  FORCE→namedesc@10217 as next peel (key desync; JS identify
+  rn2(181) vs C rn2(31) not comparable).
+- Verification: green+strict PASS; seed0399 still @10157;
+  no js/ production change.
+- Next: C recorder poss[] DIAG (sysconf in install); or D-0708;
+  score @#1010.
+
 ## 2026-07-20 15:36 — #1006 monflee mon_track_clear (D-0860)
 - Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
 - C locus: monmove.c monflee always mon_track_clear; callers music/uhitm/fountain.

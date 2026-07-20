@@ -2599,16 +2599,21 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
   poss=(57,11)(57,13)(58,11)(58,13 WEB)(59,11)(59,12)(59,13 track).
   **FORCE:** any 2-of-7 omit that **keeps (59,13)** → arg=20, prefix
   **10157→10217** (WEB **not** uniquely required — corrects #814 note).
-  Next miss @10217 C `rnd_otyp_by_namedesc` `rn2(31)` vs JS `rn2(181)`.
-- **DIAG (#1006):** reconfirmed cnt=7 j=0; (57,12) is MON_AT (mhp34), not
-  empty; D-0860 monflee `mon_track_clear` inert (`mflee=0`).
-- **Falsifier:** FORCE_EXCL any 2 of 7 that **keep (59,13)** → arg=20,
-  prefix **10157→10217**. j=2 mtrack rewrite also →10217 (arity-only).
+- **DIAG (#1006):** reconfirmed cnt=7 j=0; (57,12) is MON_AT (mhp34);
+  D-0860 monflee `mon_track_clear` inert (`mflee=0`).
+- **DIAG (#1007):** full neigh dump — typ ROOM×8; spider@57,12;
+  WEB ttyp18 + SACK@58,13 info=ALLOW_TRAPS; no engr; no online2(mux);
+  mux=u. **Falsified:** treating FORCE→`rnd_otyp_by_namedesc`@10217
+  as the next faithful peel — FORCE desyncs input keys so JS may
+  wish `identify` (`rn2(181)`=180+1) while C’s log shows `rn2(31)`.
+- **Falsifier:** C recorder `fprintf` of unicorn `mfndpos` poss[] when
+  `mx,my==(58,12)` (install must have `sysconf`); compare omit pair.
 - **Falsified (#813–#816):** WEB required in omit pair; pair ID via
   max-prefix; deferred onscary/garlic/bars/gas with current JS state
   (still cnt=7); temple ALLOW_SANCT (D-0732) — level is maze
   `nrooms=0`/`has_temple=false`.
 - **Falsified (#1006):** monflee track-clear as @10157 root (unicorn not fleeing).
+- **Falsified (#1007):** namedesc-via-FORCE as next objective.
 - **Cause (partial):** D-0233 named omission — unicorn
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
@@ -2622,7 +2627,7 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 - **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
   0398 PASS; seed0399 still @10157 (rn2(28); positional 10389/11409);
   seed0014 unchanged @49039.
-- **Next:** C-state which 2 cells; or D-0708; namedesc after arity.
+- **Next:** C recorder poss[] DIAG; or D-0708; do not FORCE-chase namedesc.
 
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 
