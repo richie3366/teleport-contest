@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0856 — partial: invent Hallu obj_to_glyph display RNG
+
+- **Status:** partial (seed0383 Scr **209→211**; RNG FULL; first cell miss @210)
+- **Symptom / context:** After D-0855, screens matched through invent Amulets
+  (207). First miss @208: soldier Hallu glyph `w` vs C `@` after `i`/ESC.
+  Core RNG FULL — display stream desync. C invent `display_pickinv` burns
+  `obj_to_glyph(otmp, rn2_on_display_rng)` per item; JS omitted it.
+- **Cause:** Missing Hallu invent-menu display-RNG burns before `docrt`.
+- **Fix:** `js/invent.js` `invent_lines` + `display_pickinv_reply` call
+  `obj_glyph(otmp)` (≡ C `obj_to_glyph`) when adding each invent row.
+- **Verification:** seed0383 Scr **211**/219 RNG FULL; green+strict PASS;
+  cohort 10/10.
+- **Next:** first miss @210 map after `+` spell menu ESC (soldier Hallu
+  again); wear/invis plines still deferred.
+
 ## D-0855 — partial: m_dowear_type nambuf Hallu mon_nam
 
 - **Status:** partial (seed0383 Scr **201→209**; RNG FULL; first cell miss past @199)

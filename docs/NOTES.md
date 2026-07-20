@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1000 score:** suite **38/44** Scr **9011**/11405 RNG **666643**/792838
-  (Δ vs #995: Scr +13, RNG 0). seed0383 still **209**/219 RNG FULL.
-- **#999 D-0855:** LCP 555 caller = `m_dowear_type` nambuf
-  (`See_invisible?Monnam:mon_nam`) from soldier `movemon_singlemon`
-  I_SPECIAL — Scr **201→209**. Wear/invis plines still deferred.
-- **Hypothesis:** remaining @209+ is Hallu map / later wear plines /
-  other display. Falsifier: focused seed0383 firstFail cell + dim LCP.
-- Do not re-check fleeck→monflee for this gap (D-0854).
+- **#1001 D-0856:** invent `obj_glyph` Hallu burns — Scr **209→211**.
+  First miss now **@210** (map after `+`/ESC; soldier Hallu again).
+- **Hypothesis:** spell-menu dismiss / post-`+` path desyncs display RNG
+  (C may corner-`docorner` vs JS always-`docrt`, or missing burn in
+  `dospellmenu`). Falsifier: focused seed0383 cell @210 + compare
+  C 208↔210 soldier glyph stability.
+- Wear/invis plines in `m_dowear_type` still deferred (may matter later).
+- Do not re-check fleeck→monflee (D-0854) or invent omit-obj_glyph.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0853 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0855 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -39,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#1000 Scr **9011**/11405 RNG **666643**/792838;
-  seed0383 RNG **FULL**; Scr **209**/219 after D-0855.
+  seed0383 RNG **FULL**; Scr **211**/219 after D-0856.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -52,4 +52,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0853 #997:** dochug Hallu idle newsym; LCP 555.
 - **D-0855 #999:** m_dowear_type nambuf Monnam; Scr 209.
-- Step 198 Barney pickup; 202 basement-cat wield (later Monnam).
+- **D-0856 #1001:** invent Hallu obj_glyph; Scr 211; @210 after +.

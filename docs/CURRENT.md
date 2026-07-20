@@ -76,9 +76,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 209/219** — after D-0855 nambuf
-Monnam (Scr +8). First cell miss past former @199. Wear/invis plines
-in `m_dowear_type` still deferred. Focused:
+**Gameplay next:** **seed0383 Scr 211/219** — after D-0856 invent
+Hallu `obj_to_glyph` (Scr +2). First cell miss @210 after `+` spell
+ESC. Wear/invis plines still deferred. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -88,7 +88,7 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
 seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0855. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0856. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -109,6 +109,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not remove D-0853 dochug Hallu idle newsym (#997 LCP+2).**
 **Do not expect distfleeck→monflee to fix LCP 555 (D-0854 falsified).**
 **Do not drop D-0855 m_dowear_type nambuf Monnam/mon_nam.**
+**Do not drop D-0856 invent `obj_glyph` Hallu burns.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

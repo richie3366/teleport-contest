@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 14:55 — #1001 invent Hallu obj_to_glyph (D-0856)
+- Objective: seed0383 Scr 209/219; first miss past @199.
+- C locus: invent.c display_pickinv obj_to_glyph(otmp, rn2_on_display_rng).
+- Diagnosis: @208 soldier Hallu after i/ESC; core RNG FULL; invent menus
+  omitted Hallu display burns. Post-fix map through spell menu OK.
+- Change: invent_lines + display_pickinv_reply call obj_glyph per item.
+- Verification: Scr **211**/219 RNG FULL; green+strict PASS; cohort 10/10.
+- Next: @210 map after +/ESC (soldier Hallu); wear plines still deferred.
+
 ## 2026-07-20 14:45 — #1000 public score cadence
 - Objective: mandatory 5-iter full `sessions` score refresh.
 - C locus: n/a (docs only; no JS peel).

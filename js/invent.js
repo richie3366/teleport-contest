@@ -2,12 +2,13 @@
 // C ref: invent.c display_inventory / ddoinv / let_to_name / doorganize;
 //        o_init.c dodiscovered / discover_object;
 //        insight.c enlightenment (BASICENLIGHTENMENT subset).
+// D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
-    endgamelevelname,
+    endgamelevelname, obj_glyph,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee } from './objnam.js';
 import { yn_function } from './getline.js';
@@ -858,6 +859,9 @@ export function invent_lines() {
         for (const otmp of items) {
             // C ref: invent.c sortloot_item — observe_object before naming
             if (!game.u?.Blind) observe_object(otmp);
+            // C: display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
+            // before add_menu (Hallu burns display RNG even on tty menus).
+            obj_glyph(otmp);
             lines.push({ text: xprname(otmp), attr: 0 });
         }
     }
@@ -930,6 +934,9 @@ export async function display_pickinv_reply(lets) {
         entries.push({ text: CLASS_NAMES[oclass] || 'Items', attr: ATR_INVERSE });
         for (const otmp of items) {
             if (!game.u?.Blind) observe_object(otmp);
+            // C: invent.c display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
+            // then map_glyphinfo + add_menu (Hallu display-RNG burn).
+            obj_glyph(otmp);
             const letch = otmp.invlet || '?';
             byLet.set(letch, otmp);
             entries.push({ text: xprname(otmp), attr: 0 });
