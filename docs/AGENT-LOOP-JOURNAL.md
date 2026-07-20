@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 01:53 — #1085 public score cadence
+- Objective: mandatory full `sessions` score (@#1085 % 5 == 0).
+- C locus: n/a (score-only; no JS port change).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+  Stable vs @#1080: **42/44**, Scr **10398**/11405, RNG
+  **773047**/792838 (**97.50%**), speed `30+0.24/turn`.
+  Non-PASS unchanged: seed2200 229/230; seed4500 @88377
+  88484/108275 Scr 808/1814 (D-0928).
+- Verification: green+strict PASS; full suite run complete.
+- Next: D-0928 C path for FlipX sum80 ∧ ystart=2 together;
+  cadence @#1090.
+
 ## 2026-07-21 01:48 — #1084 D-0928 C downstairs proves (−1,+1)
 - Objective: seed4500 medusa-3 hero place (D-0928).
 - C locus: `sp_lev.c` `flip_level`/`get_level_extends`/`lspo_map`;
@@ -187,14 +199,3 @@ Use this shape:
 - Verification: prefix **61689→61698** RNG **61837** Scr **654**;
   green+strict PASS; cohort 15/15 PASS.
 - Next: @61698 C nhlib.lua shuffle `rn2(3)` vs JS `rn2(79)`.
-
-## 2026-07-20 00:05 — #1070 D-0919 FAST TIMEOUT + score
-- Objective: cadence score + seed4500 @61462 C distfleeck rn2(5) vs
-  JS rn2(1000) (prayer_done rnz early).
-- C locus: `timeout.c` `nh_timeout` `case FAST`; `youprop.h` Very_fast.
-- Change: decrement HFast TIMEOUT; You_feel slow-down when !Very_fast.
-  Root: sticky Very_fast → free umove → skip post-descend EOT → early #pray.
-- Verification: full suite **42/44** Scr **10233**/11405 RNG **94.13%**;
-  prefix **61462→61689** RNG **61766** Scr **643**; green+strict;
-  cohort 15/15.
-- Next: @61689 C `fix_worst_trouble` rnd(5) vs JS rn2(1000).

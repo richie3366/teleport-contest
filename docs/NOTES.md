@@ -48,8 +48,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1080 Scr **10398**/11405 RNG **773047**/792838
-  (97.50%); next cadence @#1085.
+- suite **42/44** @#1085 Scr **10398**/11405 RNG **773047**/792838
+  (97.50%); next cadence @**#1090**.
 - **D-0928 #1084:** C `>`**(31,17)** vs JS `(32,16)` — proves
   whole-map (−1,+1), not lregion-only. FORCE ystart=2 alone fails.
 - **D-0928 #1083:** C `<`(44,5) + `@`(42,7); JS default stair
