@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0924 | fixed | splitobj no invent[] splice (D-0923 over-splice) | seed0002 PASS restored; suite **42/44** Scr **10349**; next @86672 breamm |
+| D-0925 | fixed | breamm/breamu + mattacku AT_BREA + dobuzz fire-pool | seed4500 **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck |
+| D-0924 | fixed | splitobj no invent[] splice (D-0923 over-splice) | seed0002 PASS restored; suite **42/44** Scr **10349**; next was @86672 breamm |
 | D-0923 | fixed | touchfood freeinv+addinv_nomerge (partly-eaten invent) | seed4500 **82793→86672** RNG **86798** Scr **759**; invent[] splice later undone D-0924 |
 | D-0922 | fixed | wakeup was_sleeping → wake_nearto (growl radius) | seed4500 **82788→82793** RNG **86800** Scr **755**; next @82793 steal invent |
 | D-0921 | fixed | makemaz load_special minetn-4 College Town | seed4500 **61698→82788** RNG **83013** Scr **747**; next @82788 distfleeck |

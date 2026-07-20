@@ -8,16 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @86672 — C `breamm` `rn2(3)` vs JS
-  `rn2(5)` (after D-0924 splice undo).
+- **Gameplay next:** seed4500 @87218 — C `distfleeck` `rn2(5)` vs JS
+  `rn2(8)` (after D-0925 breamm; C next is linedup/`m_move` shuffle).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0924 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0925 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `breamm`/`breamu` / `mattacku` AT_BREA / fire-pool
+  `zap_over_floor` steam (D-0925); mon-mon AT_BREA deferred.
 - Do not re-add `splitobj` invent[] splice (D-0924); touchfood
   freeinv+`addinv_nomerge` is the invent-slot path.
 - Do not omit `touchfood` freeinv+`addinv_nomerge` / invent `splitobj`
@@ -37,25 +39,25 @@ Objective/score live in `CURRENT.md`.
   (D-0916).
 - Do not omit `goto_level` Punished `unplacebc`/`placebc` (D-0915).
 - Do not stub `mk_knox_portal` place under wizard/debug (D-0914).
-- Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1075 Scr **10349**/11405 RNG **771361**/792838
   (97.29%); next cadence @#1080.
+- **D-0925 #1076:** breamm/AT_BREA + dobuzz fire-pool; seed4500
+  **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck.
 - **D-0924 #1075:** undo splitobj invent[] splice; seed0002 PASS
-  restored; seed4500 still @86672 breamm.
+  restored; seed4500 was @86672 breamm.
 - **D-0923 #1074:** touchfood freeinv+addinv_nomerge; seed4500
-  **82793→86672** RNG **86798** Scr **759**; invent[] splice later
-  reverted (D-0924).
+  **82793→86672** RNG **86798** Scr **759**.
 - **D-0922 #1073:** wakeup wake_nearto; seed4500 **82788→82793**
-  RNG **86800** Scr **755**; next was steal invent weight.
+  RNG **86800** Scr **755**.
 - **D-0921 #1072:** minetn-4 College Town; seed4500
   **61698→82788** RNG **83013** Scr **747**.
 - **D-0920 #1071:** TROUBLE_HIT fix_worst_trouble; seed4500
   **61689→61698** RNG **61837** Scr **654**.
-- **D-0919 #1070:** FAST TIMEOUT; seed4500 **61462→61689** RNG **61766**
-  Scr **643**.
+- **D-0919 #1070:** FAST TIMEOUT; seed4500 **61462→61689** RNG
+  **61766** Scr **643**.
 - **D-0918 #1069:** drag_down/ballrelease via uball; seed4500
   **55990→61462** RNG **61496** Scr **622**.
 - **D-0917 #1068:** fill_ordinary_room subroom recurse; seed4500
@@ -64,10 +66,7 @@ Objective/score live in `CURRENT.md`.
   **52803→54329** RNG **54647** Scr **613**.
 - **D-0915 #1066:** goto_level unplacebc/placebc; seed4500
   **52643→52803** RNG **52925** Scr **611**.
-- **#1065 score:** seed4500 was @52643; shk/`onlineu` = stranded ball.
 - **D-0914 #1064:** mk_knox_portal place under wizard; seed4500
   **50844→52643** RNG **52967** Scr **608**.
 - **D-0913 #1063:** `x`/doswapweapon + setworn twoweap clear;
   seed4500 **50338→50844** RNG **50936** Scr **594**.
-- **D-0912 #1062:** `#turn`/`doturn`; seed4500 **50290→50338**
-  RNG **50401** Scr **594**.

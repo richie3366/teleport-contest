@@ -23,8 +23,8 @@ focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1075** (42/44,
 Scr **10349**/11405, RNG **97.29%**) after D-0924. Next cadence @**#1080**.
-#1075 D-0924: undo `splitobj` invent[] splice (seed0002 regression from
-D-0923); seed4500 still @86672 `breamm`.
+#1076 D-0925: `breamm`/`breamu` + AT_BREA; seed4500 **86672→87218**
+RNG **87347** Scr **759**.
 
 ## Score
 
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 86798/108275 | 759/1814 | knight; @86672 breamm |
+| seed4500 | 87347/108275 | 759/1814 | knight; @87218 distfleeck |
 
 ## Green gate
 
@@ -71,15 +71,15 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @86672 — C `breamm` `rn2(3)` vs JS
-  `rn2(5)` (after D-0924 splice undo). Focused:
+**Gameplay next:** **seed4500** @87218 — C `distfleeck` `rn2(5)` vs JS
+  `rn2(8)` (after D-0925 breamm). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0924. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0925. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0924 (Hallu dochug … no splitobj invent[] splice).
+**Keep:** D-0845…D-0925 (Hallu dochug … breamm/AT_BREA).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -92,7 +92,8 @@ learn occupation/SCR_PUNISHMENT/drag_ball/#turn/`x`/knox portal/
 unplacebc/Nesting/fill_ordinary_room/drag_down/FAST TIMEOUT/
 TROUBLE_HIT/minetn-4 book shop/wakeup wake_nearto/touchfood
 addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
-(D-0924).
+(D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
+(D-0925).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

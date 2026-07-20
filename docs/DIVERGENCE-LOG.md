@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0925 — breamm / breamu + AT_BREA (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @87218
+  distfleeck; mon-mon AT_BREA deferred; zap_over_floor ice/fountain/
+  WEB/POOL→PIT deferred; Hallu breathwep; neg-type monkilled)
+- **Session:** seed4500-knight-coverage @86672
+- **Symptom:** C `rn2(3) @ breamm` then `dobuzz`/`zap_over_floor`
+  steam; JS `rn2(5)` — skipped fire breath after distfleeck.
+- **Cause:** `mattacku` had no `AT_BREA` arm; `breamm`/`breamu` absent
+  (named omit since D-0900 spit). Fire breath needs `dobuzz` trail
+  `zap_over_floor` pool→`create_gas_cloud(rnd(5))` + `zhitm` ZT_FIRE
+  `burnarmor`.
+- **C locus:** `mthrowu.c` `breamm`/`breamu`; `mhitu.c` `AT_BREA` →
+  `breamu` when `range2`; `zap.c` `dobuzz`/`zap_over_floor` ZT_FIRE
+  pool; `mondata.c` `get_atkdam_type`/`cvt_adtyp_to_mseenres`.
+- **Fix:** port `breamm`/`breamu`; wire `mattacku` AT_BREA; export
+  `dobuzz` with fire-pool/gas trail; `zhitm` fire `burnarmor`;
+  helpers `get_atkdam_type`/`cvt_adtyp_to_mseenres`/`BZ_M_BREATH`.
+- **Verification:** prefix **86672→87218** RNG **87347** Scr **759**;
+  green+strict PASS; cohort seed0002/0014/0060/0102/0700/1150/
+  1500/1800 PASS (7/7 after door-absorb restore).
+- **Next:** @87218 C `distfleeck` `rn2(5)` vs JS `rn2(8)`.
+
 ## D-0924 — splitobj must not invent[]-splice (seed0002)
 
 - **Status:** fixed (D-0923 over-splice; touchfood invent path kept)
