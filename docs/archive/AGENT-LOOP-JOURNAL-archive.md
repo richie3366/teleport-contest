@@ -629,3 +629,13 @@
 - Next: @558 C `You swap places with the peaceful gnome.` vs JS bare
   `… with the gnome.`.
 
+## 2026-07-20 21:10 — #1048 D-0897/D-0898 seed2600 PASS
+- Objective: seed2600 BIND=`v:inventory` / remaining screens.
+- C locus: `options.c` `parsebindings`/`txt2key`; `cmd.c` bind overlay;
+  `u_init.c` `ini_inv_use_obj` → `setworn` armor.
+- Change: BIND→`Cmd.binds`+rhack inventory (D-0897); armor `setworn`
+  confers Antimagic (D-0898). Named omit: full cmdbinds; SYMBOLS=;
+  weapon setuwep path; other bind targets.
+- Verification: green+strict PASS; cohort 12/12; seed2600 **PASS**;
+  suite **42/44** Scr **9609**/11405 RNG **687602**/792838 (86.73%).
+- Next: seed4500 knight coverage; leaderboard cron; cadence @#1050.

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 23:18 — #1063 D-0913 `x`/doswapweapon
+- Objective: seed4500 @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`
+- C locus: `cmd.c` `'x'`→`doswapweapon`; `worn.c` `setworn` twoweap clear
+- Change: wire `rhack` `'x'`; `setuwep`/`setuswapwep` clear twoweap;
+  ready_weapon are/can_no_longer. Named omit: cantwield ridiculous; #swap.
+- Verification: prefix **50338→50844** RNG **50936** Scr **594**;
+  green+strict PASS; cohort 5/5 PASS (seed4500 still FAIL later).
+- Next: @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`.
+
 ## 2026-07-20 23:03 — #1062 D-0912 #turn / doturn
 - Objective: seed4500 @50290 C `exercise` `rn2(19)` vs JS `mcalcmove`
 - C locus: `pray.c` `doturn` / `maybe_turn_mon_iter`; `cmd.c` `"turn"`
@@ -176,15 +185,3 @@ Use this shape:
   **2869→8491** Scr **19→264**.
 - Next: seed4500 @8491 `next_ident` vs `rn2(12)`; leaderboard cron;
   cadence @#1050.
-
-## 2026-07-20 21:10 — #1048 D-0897/D-0898 seed2600 PASS
-- Objective: seed2600 BIND=`v:inventory` / remaining screens.
-- C locus: `options.c` `parsebindings`/`txt2key`; `cmd.c` bind overlay;
-  `u_init.c` `ini_inv_use_obj` → `setworn` armor.
-- Change: BIND→`Cmd.binds`+rhack inventory (D-0897); armor `setworn`
-  confers Antimagic (D-0898). Named omit: full cmdbinds; SYMBOLS=;
-  weapon setuwep path; other bind targets.
-- Verification: green+strict PASS; cohort 12/12; seed2600 **PASS**;
-  suite **42/44** Scr **9609**/11405 RNG **687602**/792838 (86.73%).
-- Next: seed4500 knight coverage; leaderboard cron; cadence @#1050.
-

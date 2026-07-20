@@ -8,16 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @50338 C `distfleeck` `rn2(5)` vs JS
-  `rn2(3)` (after D-0912 `#turn`). Falsifier:
+- **Gameplay next:** seed4500 @50844 C `mkshop` `rnd(100)` vs JS
+  `rn2(7)` (after D-0913 `x`/doswapweapon). Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0912 closed @50290 (prefix 50290→50338).
+- D-0913 closed @50338 (prefix 50338→50844).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0912 done.
 - Do not omit `#turn`/`doturn` chant+exercise (D-0912).
+- Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
 - Do not re-zero `ox`/`oy` in `obj_extract_self` (D-0911; C keeps them).
 - Do not stub ordinary-food `doeat` rotten / omit `Hear_again` (D-0911).
 - Do not omit `HDeaf` TIMEOUT decrement in `nh_timeout` (D-0911).
@@ -36,8 +37,10 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1060 Scr **10089**/11405 RNG **734803**/792838
   (92.68%); next cadence @#1065.
+- **D-0913 #1063:** `x`/doswapweapon + setworn twoweap clear;
+  seed4500 **50338→50844** RNG **50936** Scr **594**; next @50844 mkshop.
 - **D-0912 #1062:** `#turn`/`doturn`; seed4500 **50290→50338**
-  RNG **50401** Scr **594**; next @50338 distfleeck.
+  RNG **50401** Scr **594**.
 - **D-0911 #1061:** extract ox/oy + rottenfood + HDeaf; seed4500
   **50111→50290** RNG **50469** Scr **499→596**; next was @50290.
 - **D-0910 #1060:** regen_pw; seed4500 **50054→50111**
@@ -59,4 +62,3 @@ Objective/score live in `CURRENT.md`.
   Scr **284→294**.
 - **D-0901 #1051:** Pillars terr shuffle; seed4500 **8925→9974** Scr **284**.
 - **D-0900 #1050:** spitmm/spitmu; seed4500 **8491→8925** Scr **264→284**.
-- **D-0899 #1049:** `#jump` dojump; seed4500 **2869→8491** Scr **19→264**.

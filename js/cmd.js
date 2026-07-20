@@ -49,7 +49,7 @@ import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, dowear, doputon } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd } from './teleport.js';
-import { dowield, dowieldquiver } from './wield.js';
+import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
 import { x_monnam, type_is_pname, Monnam } from './do_name.js';
 import { an, doname } from './objnam.js';
@@ -1296,6 +1296,11 @@ export async function rhack(key) {
         const tookTime = await dowield();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'x') {
+        // C ref: wield.c doswapweapon / cmd.c 'x' "swap"
+        const swapRes = await doswapweapon();
+        game.context.move = swapRes ? 1 : 0;
+        if (swapRes) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'S') {
         // C ref: save.c dosave / cmd.c — #save (GENERALCMD, ECMD_OK)
         await dosave();

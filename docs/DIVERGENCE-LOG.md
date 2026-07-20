@@ -4,7 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0913 — cmd `x` → doswapweapon + setworn twoweap clear (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; cantwield
+  ridiculous pline; full setworn twoweap arms; #swap synonym deferred)
+- **Session:** seed4500-knight-coverage @50338
+- **Symptom:** after matched `dotwoweapon` `rnd(20)`, C `distfleeck`
+  `rn2(5)`; JS `getbones` `rn2(3)` via early `wiz_level_tele`.
+- **Cause:** `doswapweapon` existed (D-0069) but `rhack` never bound
+  `'x'`; post-`#twoweapon` swap keys were no-ops so the session reached
+  `^V` early. Separately, `setuwep`/`setuswapwep` omitted C `setworn`
+  clearing of `u.twoweap` when changing W_WEP/W_SWAPWEP.
+- **C locus:** `cmd.c` `'x'` → `doswapweapon`; `wield.c` `doswapweapon`/
+  `ready_weapon`; `worn.c` `setworn` twoweap clear.
+- **Fix:** wire `ch === 'x'` → `doswapweapon`; clear twoweap in
+  `setuwep`/`setuswapwep`; match C `can_twoweapon` gate + ready_weapon
+  are/can_no_longer message.
+- **Verification:** seed4500 prefix **50338→50844** RNG **50936**
+  Scr **594**; green+strict PASS; cohort seed0107/1500/1800/0103/0104
+  PASS.
+- **Next:** @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`.
+
 ## D-0912 — #turn / doturn chant + exercise(A_WIS) (seed4500)
+
 
 - **Status:** fixed (partial — seed4500 still FAIL later; known_spell
   SPE_TURN_UNDEAD / spelleffects non-Knight/Cleric fallback; Hallu
