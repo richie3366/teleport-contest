@@ -609,8 +609,8 @@ async function gulpmu(mtmp, mattk) {
         }
 
         // C: display_nhwindow(WIN_MESSAGE,FALSE) before vision_recalc deferred
-        // (D-0841/D-0843: flush matches thru ice-vortex Hallu; post-expel
-        // see_monsters Hallu map still display-RNG skews @172 → bat Monnam).
+        // (D-0841/D-0843/D-0846: flush OK thru ice-vortex Hallu; @173 mons
+        // match after rloc_to newsym; 4 Hallu objs still skew — keep parked).
         vision_recalc(2);
         u.uswallow = 1;
         let tim_tmp;

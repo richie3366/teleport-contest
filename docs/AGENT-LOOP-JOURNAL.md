@@ -18,7 +18,16 @@ Use this shape:
 - Change or falsified theory: …
 - Verification: …
 - Next: …
-```## 2026-07-20 10:05 — #977 see_traps glyph_is_trap (D-0845)
+```## 2026-07-20 10:22 — #978 rloc_to newsym (D-0846)
+- Objective: seed0383 @173 post-expel Hallu display-RNG before flush.
+- C locus: teleport.c rloc_to_core newsym(old)+newsym(new); display.h covers_objects.
+- Change: `rloc_to` remove+newsym(old)/place/newsym(new); covers_objects
+  ≡ is_pool&&!Underwater. With flush: @173 mons match, 4 ROOM objs remain.
+- Verification: seed0383 Scr 174 RNG FULL (no flush); green+strict PASS;
+  cohort 5/5 PASS.
+- Next: 4 Hallu see_objects ROOM burns after matching see_monsters; flush.
+
+## 2026-07-20 10:05 — #977 see_traps glyph_is_trap (D-0845)
 - Objective: seed0383 @172 post-expel Hallu display-RNG before flush.
 - C locus: display.c see_traps glyph_is_trap(_glyph_at); teleport.c rloc_to newsym.
 - Change: `see_traps` only newsym when disp_ch is trap glyph. Falsified

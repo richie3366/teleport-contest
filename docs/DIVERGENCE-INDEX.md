@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0846 | fixed | rloc_to newsym(old+new) + covers_objects | @173 mons OK w/ flush; 4 objs; Scr 174 w/o flush |
 | D-0845 | fixed | see_traps only when glyph_is_trap | C fidelity; @172 burn still open |
 | D-0844 | fixed | map_object Hallu statue memory random_obj | C fidelity; @172 still −1 display burn |
 | D-0843 | fixed | HI_METAL mcolors + swallow DEC o/s scoring | Scr 148→176; flush still @172 post-expel Hallu |

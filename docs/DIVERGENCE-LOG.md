@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
+
+- **Status:** fixed (rloc_to / covers_objects); @173 Hallu objs + flush still open
+- **Symptom / context:** seed0383 post-expel Hallu map — with gulpmu
+  `flush_topl_more`, first miss @173: JS short 1 display-RNG burn before
+  once-per-input `see_*` (probe +1 → all mons match; 4 ROOM objs remain).
+  Expelled More @172 still shows stomach (pline More before `expels`).
+- **Cause:** JS `rloc_to` omitted C `rloc_to_core` `newsym(oldx,oldy)` +
+  `newsym(x,y)` after `mnexto` moves the engulfer. Also `covers_objects`
+  lacked C `is_pool && !Underwater` / `IS_POOL` (POOL..DRAWBRIDGE_UP).
+- **Fix:** `teleport.js` `rloc_to` matches C remove+newsym(old), place,
+  newsym(new). `display.js` `covers_objects` ≡ `display.h`.
+- **Note:** Without flush, unscored Scr 176→174 (extra Hallu newsyms on
+  stomach-mismatch frames) — expected; with flush, @173 mons match, 4
+  objs remain, RNG still cascades at bat Monnam until objs fixed.
+  Prior “blanket rloc_to → Scr−2” falsification was without flush.
+- **Verification:** seed0383 RNG FULL Scr **174**/219 (no flush); green+
+  strict PASS; cohort 5/5 PASS. Flush probe: firstMiss 173, mapdiffs 4
+  (all objs).
+- **Next:** find remaining 4 Hallu `see_objects` burns (stream after
+  `see_monsters` still skews ROOM objs only); then gulpmu flush.
+
 ## D-0845 — fixed: see_traps only when glyph_is_trap (gbuf)
 
 - **Status:** fixed (see_traps); @172 post-expel Hallu still open

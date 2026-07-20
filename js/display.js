@@ -14,6 +14,7 @@ import {
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, AIR, CLOUD,
+    IS_POOL,
     FOUNTAIN, SINK, THRONE, ALTAR, GRAVE,
     AM_MASK, AM_CHAOTIC, AM_NEUTRAL, AM_LAWFUL, AM_SANCTUM,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
@@ -514,12 +515,15 @@ function hero_display_glyph() {
     return { ch, color };
 }
 
-// C ref: display.h covers_objects
+// C ref: display.h covers_objects — is_pool && !Underwater, or lava.
 function covers_objects(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc) return false;
-    const t = loc.typ;
-    return t === POOL || t === MOAT || t === WATER || t === LAVAPOOL || t === LAVAWALL;
+    const t = loc.typ | 0;
+    if (t === LAVAPOOL || t === LAVAWALL) return true;
+    // C: is_pool ≡ IS_POOL (POOL..DRAWBRIDGE_UP)
+    if (IS_POOL(t) && !(game.u?.Underwater | 0)) return true;
+    return false;
 }
 
 // C ref: display.h covers_traps — same as covers_objects
