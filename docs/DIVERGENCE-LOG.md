@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
+
+- **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
+  prerequisite is Dlvl-24 hero place)
+- **Session:** seed4500-knight-coverage @88377
+- **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
+  (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
+  `aligned=false` from `(47,10)→(42,6)` `d=(-5,-4)` — no boulder
+  `rn2`. C breathes (aligned geometry).
+- **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
+  FORCE mux; shortsighted-only peel without place proof.
+- **Cause (prerequisite):** hero already off C before F-prefix window.
+  C screen @ ~82500+ stays **`(39,5)`→`(39,4)` Blind**; JS at
+  **`(42,6)`/`(42,5)`** from ~82600. C RNG ~82419 `place_lregion`
+  then ~82426+ `collect_coords` (teleport place after water/kelp
+  gen). Matched `m_move` `rn2(1)..rn2(8)` with `appr=0`/`cnt=8` can
+  share args while picking different cells.
+- **C locus:** `teleport.c` `collect_coords` / place after
+  `mkmaze.c` `place_lregion`; arrival `u_on_newpos` / `teleds`.
+- **Next:** falsify landing — compare JS `u` vs C `@` right after
+  `collect_coords` ~82426; port place/candidate set from C.
+- **Verification:** green+strict PASS (no JS production change);
+  rng-diff still @88377.
+
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @88377

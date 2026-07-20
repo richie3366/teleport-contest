@@ -27,6 +27,8 @@ Scr **10349**/11405, RNG **97.29%**) after D-0924. Next cadence @**#1080**.
 RNG **87347** Scr **759**. #1077 D-0926: `mhitm_ad_blnd` mhitu;
 seed4500 **87218→87803** RNG **88082** Scr **794**. #1078 D-0927:
 rhack F-prefix reject; seed4500 **87803→88377** RNG **88484** Scr **808**.
+#1079 D-0928: @88377 linedup falsified — JS breath not aligned; hero
+land C@(39,5) vs JS@(42,6) after ~82426 `collect_coords`.
 
 ## Score
 
@@ -50,7 +52,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 88484/108275 | 808/1814 | knight; @88377 linedup |
+| seed4500 | 88484/108275 | 808/1814 | knight; @88377; land @~82426 |
 
 ## Green gate
 
@@ -73,13 +75,15 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @88377 — C `linedup` `rn2(2)` vs JS
-  `rn2(5)` (after D-0927 F-prefix). Focused:
+**Gameplay next:** **seed4500** Dlvl-24 hero place — C `@` **(39,5)**
+  vs JS **(42,6)** after ~82426 `collect_coords` (D-0928; @88377
+  linedup was a geometry miss). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
+(and compare JS `u.ux,u.uy` to C screen `@` just after place).
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0927. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
@@ -96,7 +100,8 @@ TROUBLE_HIT/minetn-4 book shop/wakeup wake_nearto/touchfood
 addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
 (D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
-silent-clear F-prefix then still run `#`/non-move (D-0927).
+silent-clear F-prefix then still run `#`/non-move (D-0927);
+FORCE linedup/mux/coords for @88377 (D-0928 — fix place first).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

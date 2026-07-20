@@ -8,9 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @88377 — C `linedup` `rn2(2)` vs JS
-  `rn2(5)` (after D-0927 F-prefix; post-wield carrots turn).
-  Falsifier:
+- **Gameplay next (D-0928):** seed4500 Dlvl-24 hero land — C `@`
+  **(39,5)** vs JS **(42,6)** after ~82426 `collect_coords` (post
+  `place_lregion` / water_has_kelp). @88377 linedup was a miss:
+  JS breath `(47,10)→(42,6)` not collinear; C already at `(39,4)`.
+  Falsifier: dump JS `u` vs C screen `@` immediately after place;
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -18,6 +20,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0927 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not FORCE linedup/mux/@88377 coords — place first (D-0928).
 - Do not silent-clear F-prefix then still run `#`/non-move (D-0927);
   nested g/G after F / full CMD_gGF table deferred.
 - Do not treat @87803 `rn2(20)` as distfleeck — it was gethungry
@@ -39,15 +42,15 @@ Objective/score live in `CURRENT.md`.
 - Do not omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky (D-0919).
 - Do not omit `goto_level` stair-fall `drag_down`/`ballrelease` (D-0918);
   gate with `uball` (≡C `Punished`), not sticky `u.Punished`.
-- Do not omit `fill_ordinary_room` nsubrooms recursion before needfill
-  (D-0917).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1075 Scr **10349**/11405 RNG **771361**/792838
   (97.29%); next cadence @#1080.
+- **D-0928 #1079:** @88377 linedup falsified; hero land C(39,5) vs
+  JS(42,6) ~82426 `collect_coords`; still prefix **88377**.
 - **D-0927 #1078:** rhack F-prefix reject; seed4500 **87803→88377**
-  RNG **88484** Scr **808**; next @88377 linedup.
+  RNG **88484** Scr **808**; next was @88377 linedup.
 - **D-0926 #1077:** mhitm_ad_blnd mhitu; seed4500 **87218→87803**
   RNG **88082** Scr **794**.
 - **D-0925 #1076:** breamm/AT_BREA + dobuzz fire-pool; seed4500
@@ -72,5 +75,3 @@ Objective/score live in `CURRENT.md`.
   **52803→54329** RNG **54647** Scr **613**.
 - **D-0915 #1066:** goto_level unplacebc/placebc; seed4500
   **52643→52803** RNG **52925** Scr **611**.
-- **D-0914 #1064:** mk_knox_portal place under wizard; seed4500
-  **50844→52643** RNG **52967** Scr **608**.
