@@ -19,6 +19,7 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
 ## 2026-07-20 17:09 — #1015 score + D-0866 trapeffect_web
 - Objective: mandatory full score @#1015; seed0399 @10581
   C mintrap rn2(40) vs JS rn2(20).
