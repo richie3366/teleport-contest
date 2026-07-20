@@ -167,6 +167,8 @@ const PM_GHOST = monsterNames.indexOf('PM_GHOST');
 const PM_WRAITH = monsterNames.indexOf('PM_WRAITH');
 const PM_LEPRECHAUN = monsterNames.indexOf('PM_LEPRECHAUN');
 const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
+const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 const PM_SOLDIER = monsterNames.indexOf('PM_SOLDIER');
 const PM_SERGEANT = monsterNames.indexOf('PM_SERGEANT');
 const PM_LIEUTENANT = monsterNames.indexOf('PM_LIEUTENANT');
@@ -14008,8 +14010,9 @@ function mk_zoo_thronemon(x, y) {
  * LEPREHALL gold; MORGUE morguemon + corpse/chest/grave (D-0642);
  * BARRACKS squadmon + chest loot (D-0746); rectangular fill matches C
  * (no roomno gate; D-0643 gate removed once link_doors_rooms door-edge
- * skips cover Pri-loca overlaps — D-0658); COCKNEST typed mon.
- * Named omissions: BEEHIVE queen; ANTHOLE antholemon.
+ * skips cover Pri-loca overlaps — D-0658); COCKNEST typed mon;
+ * BEEHIVE queen/killer + royal jelly (D-0903).
+ * Named omissions: ANTHOLE antholemon + food arm; COCKNEST statue loot.
  */
 function fill_zoo(sroom) {
     if (!sroom) return;
@@ -14049,6 +14052,19 @@ function fill_zoo(sroom) {
         mk_zoo_thronemon(tx, ty);
         break;
     }
+    case BEEHIVE:
+        // C: center cell gets queen; irregular may relocate via somexyspace
+        tx = sroom.lx + Math.trunc((sroom.hx - sroom.lx + 1) / 2);
+        ty = sroom.ly + Math.trunc((sroom.hy - sroom.ly + 1) / 2);
+        if (sroom.irregular) {
+            const cloc = game.level.at(tx, ty);
+            if (!cloc || (cloc.roomno | 0) !== rmno || cloc.edge) {
+                somexyspace(sroom, mm);
+                tx = mm.x;
+                ty = mm.y;
+            }
+        }
+        break;
     case ZOO:
     case LEPREHALL:
         goldlim = 500 * level_difficulty();
@@ -14092,6 +14108,11 @@ function fill_zoo(sroom) {
                 pm = idx >= 0 ? mons(idx) : null;
             } else if (type === MORGUE) {
                 pm = morguemon();
+            } else if (type === BEEHIVE) {
+                // C: center → queen bee; others → killer bee (no rndmonst)
+                const bee = (sx === tx && sy === ty)
+                    ? PM_QUEEN_BEE : PM_KILLER_BEE;
+                pm = bee >= 0 ? mons(bee) : null;
             }
             // ZOO / default → makemon(NULL) random
             const mon = makemon(pm, sx, sy, MM_ASLEEP | MM_NOGRP);
@@ -14124,6 +14145,9 @@ function fill_zoo(sroom) {
             } else if (type === BARRACKS) {
                 if (!rn2(20))
                     mksobj_at(rn2(3) ? LARGE_BOX : CHEST, sx, sy, true, false);
+            } else if (type === BEEHIVE) {
+                if (!rn2(3))
+                    mksobj_at(LUMP_OF_ROYAL_JELLY, sx, sy, true, false);
             }
         }
     }
@@ -14148,6 +14172,8 @@ function fill_zoo(sroom) {
         game.level.flags.has_zoo = true;
     } else if (type === MORGUE && game.level?.flags) {
         game.level.flags.has_morgue = true;
+    } else if (type === BEEHIVE && game.level?.flags) {
+        game.level.flags.has_beehive = true;
     }
 }
 

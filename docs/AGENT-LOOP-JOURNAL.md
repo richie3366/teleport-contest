@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:39 — #1053 D-0903 fill_zoo BEEHIVE
+- Objective: seed4500 @14216 C `next_ident` vs JS `rn2(3)` after
+  matched `fill_ordinary_room` `rn2(5)`.
+- C locus: `mkroom.c` `fill_zoo` BEEHIVE center queen/killer + jelly.
+- Change: typed `PM_QUEEN_BEE`/`PM_KILLER_BEE` + center +
+  `LUMP_OF_ROYAL_JELLY` `rn2(3)` (was `makemon(NULL)`/`rndmonst`).
+  Named omit: ANTHOLE antholemon+food; COCKNEST statue loot.
+- Verification: seed4500 prefix **14216→18153** Scr **294→302** RNG
+  **14271→18215**; green+strict PASS; cohort 11/11 PASS.
+- Next: @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)` after
+  getbones + nhlib shuffle; cadence @#1055.
+
 ## 2026-07-20 21:33 — #1052 D-0902 shkveg / mkveggy_at
 - Objective: seed4500 @9974 C `shkveg` `rnd(860)` vs JS FOOD `rnd(1000)`.
 - C locus: `shknam.c` `veggy_item`/`shkveg`/`mkveggy_at`/`mkshobj_at`;
@@ -156,13 +168,3 @@ Use this shape:
   **640→641**/714 (RNG FULL); @505 matches.
 - Next: @558 C `You swap places with the peaceful gnome.` vs JS bare
   `… with the gnome.`.
-
-## 2026-07-20 20:05 — #1038 D-0887 could_seduce hitmm/missmm
-- Objective: seed0014 @457 nymph smiles/engagingly vs JS hits (SSEX).
-- C locus: `mhitu.c` `could_seduce`; `mhitm.c` `hitmm`/`missmm`;
-  `mhitu.c` `hitmsg`/`missmu`/`wildmiss`.
-- Change: port `could_seduce` + wire mon-vs-mon smile/pretend and
-  mhitu seduce hit/miss/wildmiss arms (pet fight @457–458).
-- Verification: green+strict PASS; cohort 15/15 PASS; seed0014 Scr
-  **638→640**/714 (RNG FULL).
-- Next: @505 C `The cream pie splashes…` vs JS `Cream pie…`.

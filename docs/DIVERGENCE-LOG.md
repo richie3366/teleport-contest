@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0903 — fill_zoo BEEHIVE queen/killer + royal jelly (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; ANTHOLE
+  antholemon+food / COCKNEST statue loot still deferred)
+- **Session:** seed4500-knight-coverage @14216
+- **Symptom:** after matched `fill_ordinary_room` `rn2(5)`, C
+  `next_ident` (typed bee `m_id`); JS `rn2(3)` via `rndmonst` from
+  `makemon(NULL)`.
+- **Cause:** `fill_zoo` omitted BEEHIVE arm — no center queen /
+  killer bees / `LUMP_OF_ROYAL_JELLY` `rn2(3)`, so hive cells used
+  random `makemon(NULL)`.
+- **C locus:** `mkroom.c` `fill_zoo` BEEHIVE pre-loop center + mon
+  ternary + jelly case.
+- **Fix:** port center `(lx+w/2,ly+h/2)` (+ irregular `somexyspace`),
+  `PM_QUEEN_BEE` / `PM_KILLER_BEE`, jelly `mksobj_at`, `has_beehive`.
+  Named omit: ANTHOLE `antholemon`+food; COCKNEST statue loot.
+- **Verification:** seed4500 prefix **14216→18153** Scr **294→302**
+  RNG **14271→18215**; green+strict PASS; cohort 11/11 PASS.
+- **Next:** seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)`
+  after matched getbones + nhlib shuffle; leaderboard cron; cadence
+  @#1055.
+
 ## D-0902 — shkveg / mkveggy_at health-food stock (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Izchak /
