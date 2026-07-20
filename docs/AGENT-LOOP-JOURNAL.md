@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 16:20 — #1010 full public score refresh
+- Objective: mandatory score cadence (iteration % 5 == 0).
+- C locus: n/a (docs-only).
+- Change: full `sessions` — **39/44** PASS; Scr **9064**/11405
+  (+43 vs #1005); RNG **666535**/792838 (84.07%, −108); speed
+  `32+0.25/turn` (R² 0.846). seed0399 Scr 156 @10217 namedesc.
+- Verification: green+strict PASS; suite exit 0.
+- Next: seed0399 @10217 `rnd_otyp_by_namedesc` C rn2(31) vs JS
+  rn2(181); or D-0708; score @#1015.
+
 ## 2026-07-20 16:14 — #1009 D-0861 Is_container; D-0731 closed
 - Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731 mon drift).
 - C locus: muse.c searches_for_item TOOL Is_container.
@@ -147,27 +157,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0383 Scr 201 RNG FULL; LCP 555.
 - Next: identify C caller of Monnam×7 post-2nd-fleeck (pline/state dump).
 
-## 2026-07-20 14:10 — #997 dochug Hallu idle newsym (D-0853)
-- Objective: seed0383 dim-seq from mismatch idx 398 → @195/@198.
-- C locus: monmove.c dochug switch Hallu newsym on NOTHING/DONE/NOMOVES
-  after 2nd distfleeck (≈931); C call 17281 ~drn2(383).
-- Diagnosis: first cell miss was **@198** (levtport @195 already OK).
-  Abs LCP 553 = missing idle Hallu mon_glyph between fleeck rn2(5)s;
-  #977/@172 Scr−2 was a different window — re-port does not regress.
-- Change: `dochug` Hallu `newsym(mx,my)` for NOMOVES/NOTHING/DONE.
-- Verification: LCP **553→555**; firstFail **198→199**; Scr **201**
-  RNG FULL; cursors 218; green+strict PASS; cohort 8/8.
-- Next: LCP 555 C Monnam(430) vs JS mon(383); screen @199+.
-
-## 2026-07-20 13:55 — #996 gulpmu flush+vision_off together (D-0852)
-- Objective: seed0383 @195; JS vs C `~drn2` inventory gulp→@195.
-- C locus: mhitu.c gulpmu `display_nhwindow` + `vision_recalc(2)`.
-- Diagnosis: pre-gulp dims≡C; first mismatch missing 8×~drn2(5) at bat
-  engulfs (core 11051); JS then double once-per-input `swallowed(0)`
-  (16×383 vs C 8) because More did not consume `l`/`space`. Flush or
-  warns alone ±8; together match C.
-- Change: `gulpmu` `await flush_topl_more()` + Hallu
-  `vision_off_newsym_gbuf({useLiveViz:true})` before `vision_recalc(2)`.
-- Verification: Scr **201**/219 RNG FULL; gulp dims match→~16749;
-  green+strict PASS; cohort 8/8.
-- Next: dim-seq from mismatch idx 398 → @195.
