@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 13:41 — #995 public score cadence
+- Objective: mandatory 5-iter full `sessions` score refresh.
+- C locus: n/a (docs only; post-#993/#994 no JS peel).
+- Change: measured **38/44** PASS; Scr **8998**/11405 (+2 vs #990 =
+  seed0383 194→196); RNG **666643**/792838 (+61 = seed0399
+  10340→10401); speed `35+0.24/turn`. seed0383 still 196/219 RNG FULL
+  @195 Hallu; warn 38 vs C 45 open.
+- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
+- Next: JS vs C `~drn2` inventory gulp→@195; flush parked (D-0841).
+
 ## 2026-07-20 13:40 — #994 gulpmu warn-only×8 falsified (D-0852)
 - Objective: seed0383 @195; C DISP gulp→expel falsifier + warn burns.
 - C locus: mhitu.c gulpmu `vision_recalc(2)` / display.c display_warning.

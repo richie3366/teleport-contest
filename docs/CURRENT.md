@@ -21,20 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#990**).
-Screens **8996**/11405; RNG **666,582**/792838 (84.08%). **38/44** PASS.
-Δ vs #985: Scr **+10**, RNG **0**, PASS **0**. Speed `32+0.23/turn`.
-*(Scr +10 = seed0383 184→194 from #986–#989 peels D-0849…D-0851;
-RNG flat; seed0383 still RNG FULL / Scr 194 @195 Hallu.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#995**).
+Screens **8998**/11405; RNG **666,643**/792838 (84.08%). **38/44** PASS.
+Δ vs #990: Scr **+2**, RNG **+61**, PASS **0**. Speed `35+0.24/turn`.
+*(Scr +2 = seed0383 194→196 from #991–#994 D-0852 peels; RNG +61 =
+seed0399 10340→10401; seed0383 still RNG FULL / Scr 196 @195 Hallu.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,996 / 11,405** |
-| Positional RNG calls matched | **666,582 / 792,838** (84.08%) |
-| Speed label | `32+0.23/turn` (R² 0.827) |
+| Screens matched | **8,998 / 11,405** |
+| Positional RNG calls matched | **666,643 / 792,838** (84.08%) |
+| Speed label | `35+0.24/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,10 +48,10 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **194**/219 | RNG FULL; Scr +10 vs #985; miss @195 Hallu |
+| seed0383 | **16915**/16915 | **196**/219 | RNG FULL; Scr +2 vs #990; miss @195 Hallu |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
-| seed0399 | 10340/11409 | 113/532 | flat vs #985; stuck ~@10157 D-0731 |
+| seed0399 | 10401/11409 | 113/532 | RNG +61 vs #990; stuck ~@10157 D-0731 |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3076/108275 | 19/1814 | knight coverage |
 
