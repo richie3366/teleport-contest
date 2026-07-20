@@ -569,9 +569,9 @@ async function expels(mtmp, mdat, message) {
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
  * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
  * drain_en; make_blinded; Half_physical polish;
- * display_nhwindow(WIN_MESSAGE) before swallowed (D-0840 rejected naive
- * flush_topl_more — RNG @11524); swallowed cls/bot polish;
- * u_on_newpos when engulfer moves while digesting (D-0826 postmov).
+ * display_nhwindow(WIN_MESSAGE) before swallowed (D-0841: flush_topl_more
+ * steals hjkl-reject keys — RNG @11524); swallowed cls/bot polish;
+ * DECgfx swallow glyphs; u_on_newpos while digesting (D-0826 postmov).
  */
 async function gulpmu(mtmp, mattk) {
     const u = game.u || (game.u = {});
@@ -608,6 +608,9 @@ async function gulpmu(mtmp, mattk) {
             u.utraptype = 0;
         }
 
+        // C: display_nhwindow(WIN_MESSAGE,FALSE) before vision_recalc deferred
+        // (D-0841: flush_topl_more matches toplines 141-174 but steals space
+        // where C more() first rejects hjkl — RNG @11524). See NOTES.
         vision_recalc(2);
         u.uswallow = 1;
         let tim_tmp;

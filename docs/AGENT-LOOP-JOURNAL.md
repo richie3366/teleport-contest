@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 09:06 — #972 seed0383 gulpmu More falsified (D-0841)
+- Objective: seed0383 frame 141 engulfs-alone More (pre-stomach).
+- C locus: mhitu.c gulpmu display_nhwindow(WIN_MESSAGE,FALSE).
+- Change or falsified theory: flush_topl_more before swallowed —
+  toplines 141–174 match; DECgfx cells still miss; RNG @11524.
+  Cause: C More @171/@173 rejects k/l then space; JS takes space
+  first. Reverted; RNG FULL Scr 148 restored.
+- Verification: green+strict PASS; seed0383 RNG FULL Scr 148/219.
+- Next: More hjkl-reject ownership before gulpmu flush; DECgfx swallow.
+
 ## 2026-07-20 08:47 — #971 seed0383 distant_name + hitmsg again (D-0840)
 - Objective: seed0383 screen peel Scr 146 (RNG FULL).
 - C locus: mon.c mpickstuff distant_name; mhitu.c hitmsg again.

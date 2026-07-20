@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0841 — rejected: gulpmu flush_topl_more (display_nhwindow)
+
+- **Status:** rejected (do not re-apply blindly)
+- **Symptom:** seed0383 frame 141 — C `The ice vortex engulfs you!--More--`
+  (pre-stomach map) vs JS engulfs+freeze on stomach map.
+- **Attempt (#972):** `await flush_topl_more()` in `gulpmu` before
+  `vision_recalc` / `uswallow` / `swallowed(1)` — matches C
+  `mhitu.c` `display_nhwindow(WIN_MESSAGE,FALSE)` order.
+- **Result:** toplines **141–174** match (incl. first expel); Scr
+  cells still miss DECgfx swallow (`o/x/s` vs ASCII). Core RNG
+  regresses **@11524** (`getbones` vs combat).
+- **Cause:** C session steps 171/173 show `--More--` with keys `k`/`l`
+  — `more()`/`xwaitforspace` **rejects** hjkl then space dismisses.
+  JS flush makes `more()` consume **space first** (hjkl already used
+  as commands) → keystream shift → display-RNG −8 by bat engulf →
+  wrong hallu Monnam (`pit fiend` vs `spotted jelly`) → More
+  boundary merge on second expel → getbones desync.
+- **Verification:** green+strict PASS after revert; seed0383 RNG
+  FULL **16915**, Scr **148**/219 restored.
+- **Next:** find which earlier NEED_MORE should own hjkl-reject
+  before gulpmu More; or DECgfx swallow glyphs (safe cell peel).
+
 ## D-0840 — fixed: mpickstuff distant_name + hitmsg again
 
 - **Status:** fixed

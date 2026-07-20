@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#971:** D-0840 — seed0383 Scr **146→148** (RNG FULL kept).
-  `mpickstuff` `distant_name` + `hitmsg` `" again"`.
-- **Next:** frame 141 — C `The ice vortex engulfs you!--More--`
-  (map still pre-stomach) vs JS engulfs+freeze append.
-- **Hypothesis:** C `gulpmu` `display_nhwindow(WIN_MESSAGE,FALSE)`
-  forces More before `swallowed(1)` / AD_COLD pline.
-- **Falsify:** engulfs alone on More with old map; then freezes.
-- **Don't:** naive `flush_topl_more` — broke RNG @11524 (#971).
-- **Also open:** DECgfx swallow `o/x/s` vs ASCII `-|-`;
-  trap hallu glyphs; `potionbreathe`; HALLUC expiry; AD_FIRE hero.
+- **#972:** D-0841 **rejected** — `gulpmu` `flush_topl_more` before
+  `swallowed` fixes frames 141–174 toplines but RNG @11524.
+- **Why:** C More steps 171/173 read `k`/`l` (rejected) then space;
+  JS flush makes More take space first (hjkl already commands).
+- **Falsify next:** which earlier NEED_MORE must reject hjkl so
+  gulpmu More sees the same reject+space pair as C.
+- **Don't:** re-apply gulpmu `flush_topl_more` alone (D-0840/41).
+- **Also open:** DECgfx swallow `o/x/s` (frame 142 cell); trap hallu;
+  `potionbreathe`; HALLUC expiry; AD_FIRE hero.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +31,7 @@ Objective/score live in `CURRENT.md`.
   formula / early return.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
-- gulpmu `flush_topl_more` alone → RNG @11524 (don't retry blind).
+- gulpmu `flush_topl_more` alone → RNG @11524 (D-0841; don't retry).
 
 ## Landmarks (≤15)
 
@@ -56,3 +55,4 @@ Objective/score live in `CURRENT.md`.
 - unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
 - `initedog` must `set_malign` after tame (D-0839).
 - `mpickstuff` must `distant_name` (D-0840); hitmsg consecutive again.
+- C More can record rejected hjkl then space (seed0383 @171/@173).

@@ -75,12 +75,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 screens** — D-0840 closed (`mpickstuff`
-`distant_name` + `hitmsg` again); RNG **FULL 16915**/16915; Scr
-**148**/219 (was 146). Next @141: C engulfs `--More--` alone vs JS
-engulf+freeze append; C `display_nhwindow(WIN_MESSAGE,FALSE)` in
-`gulpmu` — naive `flush_topl_more` broke RNG @11524 (do not re-apply
-blindly). Also DECgfx swallow glyphs. Focused:
+**Gameplay next:** **seed0383 screens** — D-0841 rejected
+(`gulpmu` `flush_topl_more` ≡ C `display_nhwindow`: toplines 141–174
+OK but steals hjkl-reject keys → RNG @11524). RNG **FULL**; Scr
+**148**/219. Next: align More key ownership (C @171/@173 rejects
+`k`/`l` then space) so gulpmu More can land; also DECgfx swallow
+glyphs (`o/x/s`). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -92,7 +92,8 @@ node frozen/ps_test_runner.mjs \
 
 **Do not re-break D-0660…D-0840. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more without C-faithful More timing.**
+**Do not re-apply gulpmu flush_topl_more (D-0841) without fixing
+hjkl-reject key ownership at earlier More prompts.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
