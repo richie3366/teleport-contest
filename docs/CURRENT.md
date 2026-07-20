@@ -75,13 +75,13 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @172 Hallu objs** — D-0847: capture is
-**moves=11** `see_objects` (not post-expel). JS `+?=\[` vs C `)+[[`
-from Hallu otyps on slime/towel/shock/tinning; display stream
-unlogged so core RNG FULL can hide desync (JS **142** disp burns
-before that pass). Flush → Scr **175** but same @172 glyphs. **Next:**
-display-RNG skew since Hallu/wizintrinsic before moves=11 see_objects.
-Without flush Scr **174**. Focused:
+**Gameplay next:** **seed0383 @172 Hallu objs** — D-0847: @172 =
+moves=11 free `see_objects` after ice-vortex `expels` @moves=10.
+C `)/15 +/11 [/2 [/2` vs JS `+/3 ?/15 =/1 [/6`. **+N before
+see_objects falsified** (#983); skew is earlier in post-`unstuck`
+`docrt`/`mnexto` free window (display stream). Do not retry docrt
+cls/swallowed reorder without nonblocking message flush. Flush still
+parked. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -100,6 +100,8 @@ Hallu objs (D-0841/D-0843/D-0846/D-0847).**
 **Do not revert rloc_to newsym (D-0846) — required for flush path.**
 **Do not “fix” objs with raw +N display burns before see_objects
 (D-0847 falsified).**
+**Do not reorder docrt/swallowed cls+bot without C-like nonblocking
+WIN_MESSAGE flush (#983 → RNG 11527).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

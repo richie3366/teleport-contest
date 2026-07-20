@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 11:28 — #983 seed0383 display-stream timeline (D-0847)
+- Objective: display-RNG skew before moves=11 see_objects @172.
+- C locus: display.c swallowed/see_objects; mhitu.c gulpmu/expels;
+  mon.c unstuck→docrt; wizcmds.c wiz_intrinsic docrt.
+- Falsified: +N before see_objects (any dim) cannot hit C `)+[[`;
+  naive docrt/swallowed cls+bot reorder → RNG 11527 (reverted).
+  Timeline: Hallu@8 swallowed → 8×swallowed → ice expels@10 → free
+  see_objects@11. No production JS retained.
+- Verification: green+strict PASS; seed0383 Scr 174 RNG FULL.
+- Next: burn-site inventory post-unstuck docrt/mnexto before see_mon@11.
+
 ## 2026-07-20 11:12 — #982 seed0383 @172 = moves=11 Hallu (D-0847)
 - Objective: why @172 4 Hallu ROOM objs skew (thought post-expel).
 - C locus: display.c see_objects/newsym; rnd.c rn2_on_display_rng.
