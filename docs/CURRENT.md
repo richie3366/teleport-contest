@@ -24,6 +24,7 @@ focused session.
 Score last measured: **2026-07-20** — full `sessions` suite (loop **#955**).
 Screens **8938**/11405; RNG **660,431**/792838 (83.30%). **38/44** PASS.
 Δ vs #950: Scr **+0**, RNG **+38**, PASS **0**. Speed `36+0.21/turn`.
+*(#959 D-0832 advanced seed0383 prefix; suite not remeasured — next on %5.)*
 
 ## Score
 
@@ -46,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 10762/16915 | **142**/219 | still @10374 gnome skip (D-0830 next) |
+| seed0383 | 10821/16915 | **141**/219 | prefix **10608** after D-0832 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
@@ -74,11 +75,8 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10374** — after EE fleeck×2, C vortex
-fleeck×1 + `mattacku`; JS gnome fleeck×2 (10373 value coincidental).
-**#954 falsified** post-swallow `mcalcmove`/MSLOW/minliquid (gnome
-still +12, typ=ROOM). Next: C pre-fleeck state gate (`mcanmove` /
-sleep / dead) JS lacks — needs C-state or missing freeze/sleep path.
+**Gameplay next:** **seed0383 @10608** — C `gethungry` `rn2(20)` vs JS
+`rn2(5)` (D-0832 closed @10374 via `m_dowear`/`check_gear`/`I_SPECIAL`).
 Focused:
 
 ```bash
@@ -91,7 +89,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0828. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0832. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

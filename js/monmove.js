@@ -79,6 +79,7 @@ import { rloc, tele_restrict } from './teleport.js';
 import { quest_talk, quest_stat_check } from './quest.js';
 import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at } from './region.js';
+import { check_gear_next_turn } from './worn.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -302,8 +303,8 @@ function could_reach_item(mon, nx, ny) {
 /**
  * C ref: mon.c mpickstuff — pick one wanted floor object underfoot.
  * Named omissions: shopkeeper inhishop; in_rooms shop rn2(25); is_mines_prize/
- * is_soko_prize; nymph/corpse specials; check_gear_next_turn; distant_name
- * side-effects (doname stand-in).
+ * is_soko_prize; nymph/corpse specials; distant_name side-effects
+ * (doname stand-in).
  */
 async function mpickstuff(mtmp) {
     if (mtmp.isshk) return false;
@@ -332,7 +333,8 @@ async function mpickstuff(mtmp) {
         }
         obj_extract_self(otmp3);
         mpickobj(mtmp, otmp3);
-        // check_gear_next_turn deferred
+        // C: mon.c mpickstuff — check_gear_next_turn after pickup
+        check_gear_next_turn(mtmp);
         newsym(mtmp.mx, mtmp.my);
         return true;
     }

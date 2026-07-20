@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0832 — fixed: makemon m_dowear + mpickstuff check_gear + I_SPECIAL arm
+
+- **Status:** fixed
+- **Symptom:** seed0383 @10374 — JS gnome fleeck×2 after EE; C skips gnome
+  → vortex fleeck + `mattacku` (hero already swallowed by ice vortex).
+- **Cause:** JS never armed monster armor — `makemon` omitted `m_dowear(TRUE)`,
+  `mpickstuff` omitted `check_gear_next_turn`, `movemon_singlemon` omitted
+  `I_SPECIAL`→`m_dowear` spend. C gnome wore `LEVITATION_BOOTS` (and/or later
+  re-equip freeze) so mid-pass order differed.
+- **Fix:** new `js/worn.js` (`which_armor`, `m_dowear`, `m_dowear_type`,
+  `update_mon_extrinsics`, `check_gear_next_turn`, `maybe_m_dowear_special`);
+  wire `makemon` after `m_initinv`, `mpickstuff` after pickup,
+  `movemon_singlemon` after `minliquid`. Named omissions: !creation wear
+  plines; artifact_light burn; full `mon_adjust_speed` adjust≠0; dogmove
+  `check_gear_next_turn`; youmonst `which_armor`.
+- **Verification:** green+strict PASS; cohort 22/22 PASS; seed0383 prefix
+  **10374→10608** (RNG matched 10762→10821; Scr 142→141). Next @10608
+  C `gethungry` `rn2(20)` vs JS `rn2(5)`.
+
+## D-0831 — rejected: JS pre-fleeck mcanmove/msleeping/WAITMASK/I_SPECIAL (@10374)
+
+
+- **Status:** rejected (JS-visible flags not the @10374 cause)
+- **Symptom:** seed0383 @10374 — JS EE(156) fleeck×2 then gnome(165)
+  fleeck×2; C EE fleeck×2 then vortex(108) fleeck×1 + `mattacku`/`gulpmu`.
+- **Hypothesis:** C skips gnome via `!mcanmove` / `msleeping` / WAITMASK
+  (or DEAD) after movement spend.
+- **Falsifier (#956):** at EE act `n=10371`: `uswallow=1` **ustuck=108**
+  (ice vortex, not EE); fmon `156→165→108`; gnome `mov=12 can=1 frz=0
+  sleep=0 strat=0 ispec=0 hp=3` with invent `LEVITATION_BOOTS`+`DAGGER`
+  unworn. Fleeck attribution: 10371–72=156, 10373–74=165. JS gates that
+  would silent-skip are all clear — C must differ or a missing equip path
+  (`m_dowear`/`check_gear`/`I_SPECIAL`) set flags JS never sets.
+- **Next:** port `makemon` `m_dowear(TRUE)` + `mpickstuff`
+  `check_gear_next_turn` + `movemon_singlemon` `I_SPECIAL` arm (named
+  omissions); or C-state dump of gnome `misc_worn_check`/`mfrozen`.
+
 ## D-0830 — rejected: post-swallow mcalcmove / MSLOW / minliquid (@10374)
 
 - **Status:** rejected (not the @10374 cause)
