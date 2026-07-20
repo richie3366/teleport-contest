@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0918 | fixed | goto_level drag_down/ballrelease via uball | seed4500 **55990→61462** RNG **61496** Scr **622**; next @61462 distfleeck |
 | D-0917 | fixed | fill_ordinary_room nsubrooms before needfill | seed4500 **54329→55990** RNG **57748** Scr **613**; next @55990 drag_down |
 | D-0916 | fixed | themerms Nesting nested + lspo_door rnddoor | seed4500 **52803→54329** RNG **54647** Scr **613**; next @54329 somex |
 | D-0915 | fixed | goto_level Punished unplacebc/placebc | seed4500 **52643→52803** RNG **52925** Scr **611**; next @52803 themerms |

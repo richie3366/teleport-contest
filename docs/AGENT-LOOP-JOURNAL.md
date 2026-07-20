@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 23:57 — #1069 D-0918 drag_down / ballrelease
+- Objective: seed4500 @55990 C `drag_down` rn2(2) vs JS rn2(50).
+- C locus: `ball.c` `drag_down`/`ballrelease`/`litter`; `do.c`
+  `goto_level` descend; `youprop.h` Punished≡(uball!=0).
+- Change: port drag_down/ballrelease/litter; wire stair-fall when
+  `u.uball` (not sticky `u.Punished`). Named omit: litter hitfloor/
+  yname/Soundeffect; ballfall.
+- Verification: prefix **55990→61462** RNG **61496** Scr **622**;
+  green+strict PASS; cohort 13/13 PASS + strict lengths.
+- Next: @61462 C `distfleeck` rn2(5) vs JS rn2(1000); cadence @#1070.
+
 ## 2026-07-20 23:51 — #1068 D-0917 fill_ordinary_room subroom recursion
 - Objective: seed4500 @54329 C somex rn2(2) vs JS rn2(12).
 - C locus: `mklev.c` `fill_ordinary_room` nsubrooms loop before needfill.
@@ -161,29 +172,3 @@ Use this shape:
   **32538→49776** Scr **308→459** RNG **49921**/108275.
 - Next: @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`; leaderboard
   cron; cadence @#1060.
-
-## 2026-07-20 21:53 — #1055 score + D-0905 Erinys peace_minded
-- Objective: cadence full `sessions` @#1055; seed4500 @28249
-  C `makemon` sleep `rn2(5)` vs JS `rn2(26)`.
-- C locus: `makemon.c` `peace_minded` PM_ERINYS → `!u.ualign.abuse`.
-- Change: port Erinys arm (was falling through to co-align
-  `rn2(16+record)`). Named omit: MS_LEADER/GUARDIAN/NEMESIS msound.
-  Score @#1055: **42/44** Scr **9898**/11405 RNG **717155**/792838
-  (90.45%) `33+0.23/turn`.
-- Verification: green+strict PASS; cohort 12/12; seed4500 prefix
-  **28249→32538** Scr **302→308** RNG **28364→32592**.
-- Next: @32538 nhlib shuffle rn2(3) vs rn2(79); leaderboard cron;
-  cadence @#1060.
-
-## 2026-07-20 21:50 — #1054 D-0904 level_tele find_hell
-- Objective: seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)`
-  after matched getbones + nhlib shuffle.
-- C locus: `teleport.c` `level_tele` past-main arm; `dungeon.c`
-  `find_hell`.
-- Change: ^V “30” was clamping to castle via `get_level`; port
-  `find_hell`→valley when past last main depth. Named omit:
-  Quest/mines/sanctum deepest clamp; invoked gate.
-- Verification: seed4500 prefix **18153→28249** Scr **302** RNG
-  **18215→28364**; green+strict PASS; cohort 12/12 PASS.
-- Next: @28249 C `makemon` `rn2(5)` vs JS `rn2(26)`; leaderboard cron;
-  cadence @#1055.

@@ -59,7 +59,7 @@ import { In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level, PRIMARYSET,
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
 import { olfaction } from './monsters.js';
-import { placebc, unplacebc } from './ball.js';
+import { placebc, unplacebc, drag_down, ballrelease } from './ball.js';
 
 function Blind() {
     const u = game.u || {};
@@ -335,8 +335,9 @@ async function selftouch_stair_fall(_arg) {
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
  * ACH_HELL / MICRO display_nhwindow after Valley odor;
- * Flying/Punished climb variants, Punished `drag_down`/`ballrelease`, full
- * `selftouch` petrify, u_collide_m full limbo. Ported: In_quest `onquest`;
+ * Flying/Punished climb variants, full `selftouch` petrify,
+ * u_collide_m full limbo. Ported: Punished `drag_down`/`ballrelease`
+ * on stair fall (D-0918); In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
  * Gehennom Valley arrival plines + `gehennom_entered` (D-0801);
@@ -606,16 +607,18 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 }
             } else if (
                 near_capacity() > UNENCUMBERED
-                || u.Punished
+                // C: youprop.h Punished ≡ (uball != 0) — not sticky u.Punished
+                || u.uball
                 // C: youprop.h Fumbling ≡ HFumbling || EFumbling (not sticky bool)
                 || Fumbling()
             ) {
                 await pline(atLadder
                     ? 'You fall down the ladder.'
                     : 'You fall down the stairs.');
-                if (u.Punished) {
+                if (u.uball) {
                     // C: drag_down(); if (!welded(uball)) ballrelease(FALSE);
-                    // ball.c not ported — named omission (no RNG when unbound).
+                    await drag_down();
+                    if (!welded(u.uball)) await ballrelease(false);
                 }
                 if (u.usteed) {
                     await dismount_steed(DISMOUNT_FELL);

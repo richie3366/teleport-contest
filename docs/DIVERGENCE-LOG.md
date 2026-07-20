@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0918 — goto_level Punished drag_down / ballrelease (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @61462
+  `distfleeck`; litter `hitfloor`/yname/`Soundeffect`; `ballfall` deferred)
+- **Session:** seed4500-knight-coverage @55990
+- **Symptom:** after matched Nesting fill/mineralize, C `drag_down`
+  `rn2(2)` vs JS `rn2(50)`.
+- **Cause:** stair-fall omitted `drag_down`/`ballrelease`; gate used sticky
+  `u.Punished` instead of C `Punished ≡ (uball != 0)`.
+- **C locus:** `ball.c` `drag_down` / `ballrelease` / `litter`;
+  `do.c` `goto_level` descend Punished arm; `youprop.h` `Punished`.
+- **Fix:** port `drag_down`/`ballrelease`/`litter` in `js/ball.js`; wire
+  from `goto_level` when `u.uball`.
+- **Verification:** prefix **55990→61462** RNG **61496** Scr **622**;
+  green+strict PASS; cohort 13/13 PASS + strict lengths.
+- **Next:** @61462 C `distfleeck` `rn2(5)` vs JS `rn2(1000)`.
+
 ## D-0917 — fill_ordinary_room subroom recursion (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Fake Delphi /
