@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0842 — fixed: DECgraphics swallow glyphs + flush cause revision
+
+- **Status:** fixed (glyphs); flush still parked
+- **Symptom:** seed0383 stomach cells ASCII `/-\\|` vs C `/o\\x@x\\s/`;
+  gulpmu `flush_topl_more` still RNG-breaks @11524.
+- **Cause (glyphs):** `dat/symbols` DECgraphics remaps only
+  `S_sw_tc/ml/mr/bc` to meta-o / meta-x / meta-x / meta-s; corners stay
+  Primary `/` `\\`. JS `swallowed` always painted Primary + `decgfx=false`.
+- **Fix:** `display.js` `swallow_sym` — under `use_decgraphics()`, tc/ml/mr/bc
+  use `{o,x,x,s}` with `decgfx=true`.
+- **Flush re-test (#973):** with glyphs+flush, frames **141–174** match
+  (engulfs More on map, freeze on stomach). Bat stomach @174 Hallu
+  **patchwork colors diverge** (display RNG, not logged in core) →
+  @175 Monnam `pit fiend` vs `spotted jelly` + early expel merge →
+  getbones @11524. D-0841 hjkl-reject theory **wrong**:
+  `steps[i].key = moves[i-1]` (prior command, not reject-at-More).
+- **Verification:** DECgfx-only: seed0383 RNG FULL Scr **148**/219;
+  green+strict PASS; cohort 10/10 PASS. Flush reverted.
+- **Next:** find Hallu display-RNG burn skew before bat `swallowed(1)`.
+
 ## D-0841 — rejected: gulpmu flush_topl_more (display_nhwindow)
 
 - **Status:** rejected (do not re-apply blindly)
@@ -23,8 +43,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   boundary merge on second expel → getbones desync.
 - **Verification:** green+strict PASS after revert; seed0383 RNG
   FULL **16915**, Scr **148**/219 restored.
-- **Next:** find which earlier NEED_MORE should own hjkl-reject
-  before gulpmu More; or DECgfx swallow glyphs (safe cell peel).
+- **Next:** DECgfx swallow (D-0842); flush blocked by display-RNG
+  patchwork (not hjkl-reject — see D-0842).
 
 ## D-0840 — fixed: mpickstuff distant_name + hitmsg again
 

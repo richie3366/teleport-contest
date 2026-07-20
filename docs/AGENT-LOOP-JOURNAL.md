@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 09:16 — #973 seed0383 DECgfx swallow (D-0842)
+- Objective: seed0383 stomach cells + revise gulpmu flush blocker.
+- C locus: dat/symbols DECgraphics S_sw_tc/ml/mr/bc; display.c swallowed.
+- Change or falsified theory: swallow_sym DEC o/x/x/s+decgfx. Flush
+  re-test: 141–174 OK; bat Hallu patchwork display-RNG diverges
+  (hjkl-reject falsified — steps[i].key=moves[i-1]). Flush reverted.
+- Verification: seed0383 RNG FULL Scr 148; green+strict; cohort 10/10.
+- Next: Hallu display-RNG burn skew before bat swallowed(1); then flush.
+
 ## 2026-07-20 09:06 — #972 seed0383 gulpmu More falsified (D-0841)
 - Objective: seed0383 frame 141 engulfs-alone More (pre-stomach).
 - C locus: mhitu.c gulpmu display_nhwindow(WIN_MESSAGE,FALSE).

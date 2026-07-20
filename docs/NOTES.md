@@ -7,23 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#972:** D-0841 **rejected** — `gulpmu` `flush_topl_more` before
-  `swallowed` fixes frames 141–174 toplines but RNG @11524.
-- **Why:** C More steps 171/173 read `k`/`l` (rejected) then space;
-  JS flush makes More take space first (hjkl already commands).
-- **Falsify next:** which earlier NEED_MORE must reject hjkl so
-  gulpmu More sees the same reject+space pair as C.
-- **Don't:** re-apply gulpmu `flush_topl_more` alone (D-0840/41).
-- **Also open:** DECgfx swallow `o/x/s` (frame 142 cell); trap hallu;
-  `potionbreathe`; HALLUC expiry; AD_FIRE hero.
+- **#973:** D-0842 DECgfx swallow (`dat/symbols` S_sw_tc/ml/mr/bc →
+  o/x/x/s + SO). Scr still **148** (first miss @141 engulfs More).
+- **Flush blocker (revised):** D-0841 hjkl-reject was wrong —
+  `steps[i].key = moves[i-1]`. With flush+DECgfx: frames 141–174
+  match; bat stomach Hallu **patchwork colors** diverge @174 →
+  Monnam pit-fiend vs spotted-jelly @175 → early expel → getbones
+  @11524.
+- **Falsify next:** which Hallu display burn between ice-vortex
+  hallu-on and bat `swallowed(1)` skews (count `swallowed(0)` /
+  `see_*` / rndmonnam burns).
+- **Don't:** re-apply gulpmu `flush_topl_more` alone.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0840 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0842 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0840 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0842 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
   getmattk / Monnam / unstuck / initedog malign — closed; see journal.
@@ -31,7 +33,8 @@ Objective/score live in `CURRENT.md`.
   formula / early return.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
-- gulpmu `flush_topl_more` alone → RNG @11524 (D-0841; don't retry).
+- gulpmu flush alone → display-RNG @bat stomach (D-0841/42; don't retry).
+- `steps[i].key = moves[i-1]` (not key-at-More).
 
 ## Landmarks (≤15)
 
@@ -55,4 +58,4 @@ Objective/score live in `CURRENT.md`.
 - unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
 - `initedog` must `set_malign` after tame (D-0839).
 - `mpickstuff` must `distant_name` (D-0840); hitmsg consecutive again.
-- C More can record rejected hjkl then space (seed0383 @171/@173).
+- DEC swallow: `/o\ x@x \s/` (D-0842); Primary `/-\ |@| \-/`.

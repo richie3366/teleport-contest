@@ -2039,14 +2039,39 @@ export function newsym(x, y) {
 let _swallow_lastx = 0;
 let _swallow_lasty = 0;
 
-/** C defsym.h S_sw_* characters (Primary). */
-const SWALLOW_CH = {
-    tl: '/', tc: '-', tr: '\\',
-    ml: '|', mr: '|',
-    bl: '\\', bc: '-', br: '/',
-};
+/**
+ * C defsym.h S_sw_* Primary ASCII, plus dat/symbols DECgraphics overrides
+ * for S_sw_tc/ml/mr/bc only (meta-o / meta-x / meta-x / meta-s). Corners
+ * stay '/' '\\' (no DEC remap).
+ */
+function swallow_sym(part) {
+    // Primary (defsym.h): / - \ | | \ - /
+    const ascii = {
+        tl: { ch: '/', dec: false },
+        tc: { ch: '-', dec: false },
+        tr: { ch: '\\', dec: false },
+        ml: { ch: '|', dec: false },
+        mr: { ch: '|', dec: false },
+        bl: { ch: '\\', dec: false },
+        bc: { ch: '-', dec: false },
+        br: { ch: '/', dec: false },
+    };
+    if (!use_decgraphics()) return ascii[part];
+    // DECgraphics: only tc/ml/mr/bc (symbols start: DECgraphics)
+    const dec = {
+        tl: { ch: '/', dec: false },
+        tc: { ch: 'o', dec: true },
+        tr: { ch: '\\', dec: false },
+        ml: { ch: 'x', dec: true },
+        mr: { ch: 'x', dec: true },
+        bl: { ch: '\\', dec: false },
+        bc: { ch: 's', dec: true },
+        br: { ch: '/', dec: false },
+    };
+    return dec[part];
+}
 
-function swallow_cell(x, y, ch, swallowerMnum) {
+function swallow_cell(x, y, part, swallowerMnum) {
     // C: swallow_to_glyph → what_mon(mnum, rn2_on_display_rng) under Hallu
     let mnum = swallowerMnum;
     if (game.u?.Hallucination) {
@@ -2055,7 +2080,8 @@ function swallow_cell(x, y, ch, swallowerMnum) {
     const color = (mnum != null && mnum >= 0)
         ? (mcolors[mnum] ?? CLR_GREEN)
         : CLR_GREEN;
-    show_glyph_cell(x, y, ch, color, false);
+    const g = swallow_sym(part);
+    show_glyph_cell(x, y, g.ch, color, g.dec);
 }
 
 export function swallowed(first = 0) {
@@ -2091,20 +2117,20 @@ export function swallowed(first = 0) {
     const rght_ok = isok(ux + 1, uy);
 
     if (isok(ux, uy - 1)) {
-        if (left_ok) swallow_cell(ux - 1, uy - 1, SWALLOW_CH.tl, swallower);
-        swallow_cell(ux, uy - 1, SWALLOW_CH.tc, swallower);
-        if (rght_ok) swallow_cell(ux + 1, uy - 1, SWALLOW_CH.tr, swallower);
+        if (left_ok) swallow_cell(ux - 1, uy - 1, 'tl', swallower);
+        swallow_cell(ux, uy - 1, 'tc', swallower);
+        if (rght_ok) swallow_cell(ux + 1, uy - 1, 'tr', swallower);
     }
-    if (left_ok) swallow_cell(ux - 1, uy, SWALLOW_CH.ml, swallower);
+    if (left_ok) swallow_cell(ux - 1, uy, 'ml', swallower);
     {
         const hg = hero_display_glyph();
         show_glyph_cell(ux, uy, hg.ch, hg.color, false);
     }
-    if (rght_ok) swallow_cell(ux + 1, uy, SWALLOW_CH.mr, swallower);
+    if (rght_ok) swallow_cell(ux + 1, uy, 'mr', swallower);
     if (isok(ux, uy + 1)) {
-        if (left_ok) swallow_cell(ux - 1, uy + 1, SWALLOW_CH.bl, swallower);
-        swallow_cell(ux, uy + 1, SWALLOW_CH.bc, swallower);
-        if (rght_ok) swallow_cell(ux + 1, uy + 1, SWALLOW_CH.br, swallower);
+        if (left_ok) swallow_cell(ux - 1, uy + 1, 'bl', swallower);
+        swallow_cell(ux, uy + 1, 'bc', swallower);
+        if (rght_ok) swallow_cell(ux + 1, uy + 1, 'br', swallower);
     }
     _swallow_lastx = ux;
     _swallow_lasty = uy;

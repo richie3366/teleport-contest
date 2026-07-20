@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0841 | rejected | gulpmu flush_topl_more ≡ display_nhwindow | toplines 141–174 OK; steals hjkl-reject keys; RNG @11524 |
+| D-0842 | fixed | DECgfx swallow S_sw_tc/ml/mr/bc | o/x/x/s+SO; flush still display-RNG @bat; Scr 148 |
+| D-0841 | rejected | gulpmu flush_topl_more ≡ display_nhwindow | toplines 141–174 OK; cause revised in D-0842 (not hjkl) |
 | D-0840 | fixed | mpickstuff distant_name + hitmsg again | seed0383 Scr 146→148; RNG FULL; green+cohort OK |
 | D-0839 | fixed | initedog set_malign after tame | seed0383 RNG FULL 16915; Scr 146/219; green+cohort OK |
 | D-0838 | fixed | unstuck docrt + docrt memory Hallu | seed0383 prefix 11524→13689; green+cohort OK |
