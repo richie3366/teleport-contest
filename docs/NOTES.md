@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 @52043** (D-0874 landmine closed @50259). C `nhlib.lua`
-  shuffle `rn2(3)` vs JS `rn2(79)` after getbones/makemaz — path split.
-  Falsifier: focused seed0014 + rng-diff @52043.
+- **seed0014 @58462** (D-0875 minetn-3 closed @52043). C
+  `watch_on_duty` `rn2(3)` vs JS `rn2(10)` (monmove). Falsifier:
+  focused seed0014 + rng-diff @58462.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- D-0708 mfndpos @49039 superseded (prefix past; not the @50259 cause).
+- D-0708 mfndpos @49039 superseded (prefix past).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0874 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0875 done.
 - Do not re-FORCE WEB/mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone @10157 (#1006: !mflee).
 - Do not drop makesingular `as_is` / hold_another_object encumber_msg.
@@ -31,21 +31,22 @@ Objective/score live in `CURRENT.md`.
 - Do not drop unique `!nn && uses_known` → `known=0` (D-0872).
 - Do not keep makemon rn2 gender after `des.monster()` (D-0873 overwrite).
 - Do not omit LANDMINE in trapeffect_selector (D-0874).
+- Do not omit minetn-3 load_special (D-0875).
 - gulpmu flush+vision_off pair required (#996); alone falsified.
 
 ## Landmarks (≤15)
 
 - suite **39/44** @#1020 Scr **9433**/11405 RNG **667614**/792838
-  (84.21%); next full score @#1025. Local: seed0399 **PASS**.
+  (84.21%); next full score @#1030 (missed #1025). Local: seed0399 PASS.
+- **D-0875 #1027:** minetn-3 Alley Town; seed0014 **52043→58462**.
 - **D-0874 #1026:** landmine weight gate; seed0014 **50259→52043**.
 - **D-0873 #1023:** create_monster female overwrite; seed0399 **PASS**.
-- **D-0872 #1022:** unique known leak; Scr **530→531**.
 - STAIRS yellow via `known_branch_stairs`; cursor=(ux−1, uy+1).
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
-- Quest seed0367 **PASS**; seed0014 next @52043 nhlib shuffle.
+- Quest seed0367 **PASS**; seed0014 next @58462 watch_on_duty.
 - `#wizintrinsic` → `make_hallucinated` (D-0835).
-- **D-0848:** `-DMAIL_STRUCTURES` → NUM_OBJECTS=481; SCR_MAIL=364.
+- **D-0848:** `-DMAIL_STRUCTURES`; NUM_OBJECTS=481; SCR_MAIL=364.
 - **D-0858:** doattributes Hallu+Antimagic; seed0383 PASS.
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.

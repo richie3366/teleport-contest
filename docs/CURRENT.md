@@ -23,9 +23,9 @@ focused session.
 
 Score last measured: **2026-07-20** — full `sessions` suite (loop **#1020**,
 post D-0870). Screens **9433**/11405; RNG **667,614**/792838 (84.21%).
-**39/44** PASS then. **Since:** D-0871…D-0874 — seed0399 **PASS**;
-seed0014 prefix **50259→52043** (local 40/44; suite aggregates refresh
-at **#1030** — missed #1025 cadence).
+**39/44** PASS then. **Since:** D-0871…D-0875 — seed0399 **PASS**;
+seed0014 prefix **50259→52043→58462** (local 40/44; suite aggregates
+refresh at **#1030** — missed #1025 cadence).
 
 ## Score
 
@@ -49,7 +49,7 @@ seed0360, seed0383, seed0399.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 52043/59178 | 580/714 | prefix @52043 (was 50259) |
+| seed0014 | 58462/59178 | 607/714 | prefix @58462 (was 52043) |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
 
@@ -74,9 +74,9 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 @52043** — post-bones/`makemaz` path:
-C `nhlib.lua` shuffle `rn2(3)` vs JS `rn2(79)` (D-0874 closed landmine
-@50259). Focused:
+**Gameplay next:** **seed0014 @58462** — C `watch_on_duty` `rn2(3)`
+vs JS `rn2(10)` (D-0875 closed minetn-3 @52043; was nhlib shuffle vs
+ordinary `rn2(79)`). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -85,16 +85,17 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0874. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0875. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0874 (searches_for_item … landmine weight gate).
+D-0861…D-0875 (searches_for_item … minetn-3 Alley Town).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
-vision_recalc in goto_level (D-0851); omit LANDMINE selector (D-0874).
+vision_recalc in goto_level (D-0851); omit LANDMINE selector (D-0874);
+omit minetn-3 load_special (D-0875).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

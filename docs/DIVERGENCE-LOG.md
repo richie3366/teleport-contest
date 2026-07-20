@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0875 — makemaz load_special minetn-3 (seed0014 @52043)
+
+- **Status:** fixed (partial — seed0014 still FAIL; peel advanced)
+- **Symptom:** seed0014 @52043 — C `rn2(3)` nhlib.lua shuffle vs JS
+  `rn2(79)` after matching `getbones`/`makemaz` `rnd(7)=3`.
+- **C locus:** `dat/minetn-3.lua` via `mkmaze.c` `makemaz` →
+  `sp_lev.c` `load_special`; nhlib top-level `shuffle(align)`.
+- **Cause:** `load_special_proto` omitted `minetn-3` (Alley Town), so
+  JS left the level empty and ordinary room gen emitted `rn2(79)`.
+  C loaded minetn-3 which starts with align shuffle `rn2(3)`.
+- **Change:** port `load_minetn_3` (nested town rooms / chance shops /
+  temple / watch / corridors / flip) + dispatch; map `wand shop` →
+  `WANDSHOP`. Named omit: minetn-1/4/6/7; link_doors extras.
+- **Verification:** green+strict PASS; seed0014 **52043→58462**;
+  cohort 38/38 PASS (incl. 0360/0361/0367/0399/0013/5006).
+- **Next:** @58462 C `watch_on_duty` `rn2(3)` vs JS `rn2(10)`.
+
 ## D-0874 — trapeffect_landmine mon weight gate (seed0014 @50259)
 
 - **Status:** fixed (partial — seed0014 still FAIL; peel advanced)
