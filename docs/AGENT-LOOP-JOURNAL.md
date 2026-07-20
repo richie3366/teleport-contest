@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 22:05 — #1056 D-0906 hellfill + create_maze
+- Objective: seed4500 @32538 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`
+  after matched getbones (hellfill.lua / create_maze).
+- C locus: `dat/hellfill.lua`; `mkmaze.c` `create_maze`; `sp_lev.c`
+  `LVLINIT_MAZE`/`lspo_gold`; `mklev.c` mktrap Inhell FIRE bias.
+- Change: port `create_maze`+`LVLINIT_MAZE`; `load_hellfill` 7 styles +
+  populatemaze (ROCK_CLASS, gold `rnd(200)`, Inhell traps, LLL→Z).
+  Named omit: rnd_hell_prefab; Invocation_lev VS; makemaz(""); fakewiz.
+- Verification: green+strict PASS; cohort 10/10; seed4500 prefix
+  **32538→49776** Scr **308→459** RNG **49921**/108275.
+- Next: @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`; leaderboard
+  cron; cadence @#1060.
+
 ## 2026-07-20 21:53 — #1055 score + D-0905 Erinys peace_minded
 - Objective: cadence full `sessions` @#1055; seed4500 @28249
   C `makemon` sleep `rn2(5)` vs JS `rn2(26)`.
@@ -166,13 +179,3 @@ Use this shape:
   (HOLE always seen).
 - Verification: green+strict PASS; cohort 13/13; seed0014 Scr **645→676**.
 - Next: @624 bare-hands bash topline vs plain miss/hit.
-
-## 2026-07-20 20:32 — #1041 D-0890 launch_obj FLASH + pline vision
-- Objective: seed0014 @560 trap-trigger map (boulder + LOS).
-- C locus: `trap.c` `launch_obj` tmp_at DISP_FLASH; `pline.c` dirty
-  `vision_recalc` before flush.
-- Change: FLASH roll loop + delaycnt=2; pline runs vision_recalc when
-  `vision_full_recalc` (boulder extract unblock).
-- Verification: green+strict PASS; cohort 6/6; seed0014 Scr **644→645**.
-- Next: @600 JS `·` vs C `^` trap glyph (68,16).
-

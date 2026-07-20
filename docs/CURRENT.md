@@ -21,9 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1055**,
-D-0905 Erinys peace_minded). Screens **9898**/11405; RNG **717,155**/792838
-(90.45%). **42/44** PASS. Next cadence @**#1060**.
+Score last measured: **2026-07-20** — full `sessions` @**#1055** (42/44,
+Scr **9898**/11405, RNG **90.45%**). Next cadence @**#1060**. #1056
+D-0906 hellfill: seed4500 Scr **308→459** prefix **32538→49776**.
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 32592/108275 | 308/1814 | knight coverage; next @32538 hellfill shuffle |
+| seed4500 | 49921/108275 | 459/1814 | knight coverage; next @49776 mcalcmove |
 
 ## Green gate
 
@@ -71,9 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @32538 (C nhlib `shuffle` `rn2(3)` vs JS
-`rn2(79)` after matched getbones — hellfill.lua / create_maze path).
-Focused:
+**Gameplay next:** **seed4500** @49776 (C `mcalcmove` `rn2(12)` vs JS
+`rnd(20)` after matched makewish/study_book). Focused:
 
 ```bash
 node scripts/rng-diff.mjs \
@@ -85,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0905. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0906. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0905 (searches_for_item … Erinys peace_minded).
+D-0861…D-0906 (searches_for_item … hellfill/create_maze).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -124,7 +123,8 @@ omit Pillars `shuffle(terr)` / 2×2 terrain (D-0901);
 omit `shkveg`/`mkveggy_at` / HEALTHY_TIN (D-0902);
 omit fill_zoo BEEHIVE queen/killer + royal jelly (D-0903);
 omit `level_tele` past-main `find_hell` (D-0904);
-omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905).
+omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905);
+omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

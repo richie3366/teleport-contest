@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0906 — hellfill load_special + create_maze / LVLINIT_MAZE (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; rnd_hell_prefab
+  styles 2/4/6; Invocation_lev vibrating square; makemaz("") fallback;
+  fakewiz still deferred)
+- **Session:** seed4500-knight-coverage @32538
+- **Symptom:** after matched getbones `rn2(3)`, C nhlib shuffle `rn2(3)`
+  then hellfill `hellno`/`create_maze`; JS `rn2(79)` (no hellfill).
+- **Cause:** `load_special_proto` omitted `hellfill`; `splev_initlev`
+  omitted `LVLINIT_MAZE`/`create_maze`; populatemaze used forced
+  BOULDER + `mkgold(0)` + no Inhell fire-trap bias.
+- **C locus:** `dat/hellfill.lua`; `mkmaze.c` `create_maze`/`maze0xy`;
+  `sp_lev.c` `LVLINIT_MAZE` / `lspo_gold`; `mklev.c` `mktrap` Inhell
+  FIRE_TRAP bias + `traptype_rnd` FIRE allow.
+- **Fix:** port `create_maze` (+ maze0xy/remove_deadends); wire
+  `LVLINIT_MAZE`; `load_hellfill` 7 styles + populatemaze (ROCK_CLASS
+  backtick, gold `rnd(200)`, Inhell trap bias); style-5 LLL→Z percent.
+  Named omit: rnd_hell_prefab; Invocation_lev VS; makemaz("") fallback;
+  fakewiz; style-4 horiz F-floor replace fidelity.
+- **Verification:** seed4500 prefix **32538→49776** Scr **308→459**
+  RNG **32592→49921**; green+strict PASS; cohort 10/10 PASS.
+- **Next:** @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`; leaderboard
+  cron; cadence @#1060.
+
 ## D-0905 — peace_minded PM_ERINYS !ualign.abuse (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; MS_LEADER/

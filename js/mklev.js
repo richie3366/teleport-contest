@@ -46,7 +46,9 @@ import {
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     BOOL_RANDOM,
     SET_LIT_RANDOM, SET_LIT_NOCHANGE,
-    LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MINES, LVLINIT_SWAMP,
+    LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MAZE, LVLINIT_MINES,
+    LVLINIT_SWAMP,
+    ACCESSIBLE,
     DB_NORTH, DB_SOUTH, DB_EAST, DB_WEST, DB_LAVA,
     In_mines,
     In_quest,
@@ -71,7 +73,7 @@ import {
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
     FOOD_CLASS, SCROLL_CLASS, POTION_CLASS, TOOL_CLASS, GEM_CLASS,
-    SPBOOK_CLASS, WAND_CLASS, AMULET_CLASS,
+    SPBOOK_CLASS, WAND_CLASS, AMULET_CLASS, ROCK_CLASS,
     objectNames,
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
@@ -880,12 +882,12 @@ function reset_xystart_size() {
  * tower3, fire, air, minend-1, minend-2, minetn-2, minetn-3, minetn-5,
  * medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus, juiblex,
  * baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb,
- * Pri-fila, Pri-filb.
+ * Pri-fila, Pri-filb, hellfill.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal; Wiz-goal); minetn-1/4/6/7; minend-3;
- * medusa-2/4; water/astral; hellfill/fakewiz;
- * create_maze fallback; check_ransacked side effects beyond ransacked flag;
- * dmonsfree.
+ * medusa-2/4; water/astral; fakewiz;
+ * create_maze makemaz("") fallback; hellfill rnd_hell_prefab;
+ * check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
     const g = game;
@@ -1173,6 +1175,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'wizard3') {
         load_wizard3();
+        return true;
+    }
+    if (protofile === 'hellfill') {
+        load_hellfill();
         return true;
     }
     return false;
@@ -8962,7 +8968,7 @@ function lvlfill_swamp(fg, bg, lit) {
     }
 }
 
-/** C ref: sp_lev.c splev_initlev — SOLIDFILL + MINES + SWAMP */
+/** C ref: sp_lev.c splev_initlev — SOLIDFILL + MAZEGRID + MAZE + MINES + SWAMP */
 function splev_initlev(linit) {
     switch (linit.init_style) {
     case LVLINIT_SOLIDFILL:
@@ -8972,6 +8978,14 @@ function splev_initlev(linit) {
     case LVLINIT_MAZEGRID:
         // C: lvlfill_maze_grid(2, 0, x_maze_max, y_maze_max, bg)
         lvlfill_maze_grid(2, 0, X_MAZE_MAX, Y_MAZE_MAX, linit.bg);
+        break;
+    case LVLINIT_MAZE:
+        // C: create_maze(corrwid, wallthick, rm_deadends)
+        create_maze(
+            linit.corrwid != null ? linit.corrwid : -1,
+            linit.wallthick != null ? linit.wallthick : -1,
+            !!linit.rm_deadends,
+        );
         break;
     case LVLINIT_MINES:
         if (linit.lit === BOOL_RANDOM) linit.lit = rn2(2);
@@ -9005,6 +9019,13 @@ function lvlfill_maze_grid(x1, y1, x2, y2, filling) {
 }
 
 /** C ref: mkmaze.c okay — two mz_move steps land on STONE inside maze bounds. */
+function maze_x_max() {
+    return game.x_maze_max != null ? (game.x_maze_max | 0) : X_MAZE_MAX;
+}
+function maze_y_max() {
+    return game.y_maze_max != null ? (game.y_maze_max | 0) : Y_MAZE_MAX;
+}
+
 function maze_okay(x, y, dir) {
     let xx = x, yy = y;
     const step = (d) => {
@@ -9015,7 +9036,7 @@ function maze_okay(x, y, dir) {
     };
     step(dir);
     step(dir);
-    if (xx < 3 || yy < 3 || xx > X_MAZE_MAX || yy > Y_MAZE_MAX) return false;
+    if (xx < 3 || yy < 3 || xx > maze_x_max() || yy > maze_y_max()) return false;
     return game.level.at(xx, yy)?.typ === STONE;
 }
 
@@ -9052,6 +9073,157 @@ function walkfrom(x, y, typ) {
         else if (dir === 2) y++;
         else if (dir === 3) x--;
         walkfrom(x, y, typ);
+    }
+}
+
+/** C ref: mkmaze.c maze0xy — random odd start inside current maze bounds. */
+function maze0xy() {
+    return {
+        x: 3 + 2 * rn2((maze_x_max() >> 1) - 1),
+        y: 3 + 2 * rn2((maze_y_max() >> 1) - 1),
+    };
+}
+
+/** C ref: mkmaze.c maze_inbounds */
+function maze_inbounds(x, y) {
+    return x >= 2 && y >= 2
+        && x < maze_x_max() && y < maze_y_max()
+        && isok(x, y);
+}
+
+/** C ref: mkmaze.c mz_move — N=0 E=1 S=2 W=3 */
+function mz_move_xy(pos, dir) {
+    if (dir === 0) pos.y--;
+    else if (dir === 1) pos.x++;
+    else if (dir === 2) pos.y++;
+    else if (dir === 3) pos.x--;
+}
+
+/**
+ * C ref: mkmaze.c maze_remove_deadends — open odd cells with ≥3 blocked dirs.
+ */
+function maze_remove_deadends(typ) {
+    const map = game.level;
+    for (let x = 2; x < maze_x_max(); x++) {
+        for (let y = 2; y < maze_y_max(); y++) {
+            const loc = map.at(x, y);
+            if (!loc || !ACCESSIBLE(loc.typ) || !(x % 2) || !(y % 2)) continue;
+            const dirok = [];
+            let idx2 = 0;
+            for (let dir = 0; dir < 4; dir++) {
+                const d1 = { x, y };
+                mz_move_xy(d1, dir);
+                if (!maze_inbounds(d1.x, d1.y)) {
+                    idx2++;
+                    continue;
+                }
+                const d2 = { x, y };
+                mz_move_xy(d2, dir);
+                mz_move_xy(d2, dir);
+                if (!maze_inbounds(d2.x, d2.y)) {
+                    idx2++;
+                    continue;
+                }
+                const loc1 = map.at(d1.x, d1.y);
+                const loc2 = map.at(d2.x, d2.y);
+                if (loc1 && loc2 && !ACCESSIBLE(loc1.typ) && ACCESSIBLE(loc2.typ)) {
+                    dirok.push(dir);
+                    idx2++;
+                }
+            }
+            if (idx2 >= 3 && dirok.length > 0) {
+                const dir = dirok[rn2(dirok.length)];
+                const d = { x, y };
+                mz_move_xy(d, dir);
+                const wall = map.at(d.x, d.y);
+                if (wall) wall.typ = typ;
+            }
+        }
+    }
+}
+
+/**
+ * C ref: mkmaze.c create_maze — scaled corridor maze via walkfrom.
+ * corrwid/wallthick -1 → rnd; rmdeadends opens cul-de-sacs.
+ */
+function create_maze(corrwid, wallthick, rmdeadends) {
+    const g = game;
+    const map = g.level;
+    const tmp_xmax = maze_x_max();
+    const tmp_ymax = maze_y_max();
+
+    if (corrwid === -1) corrwid = rnd(4);
+    if (wallthick === -1) wallthick = rnd(4) - corrwid;
+    if (wallthick < 1) wallthick = 1;
+    else if (wallthick > 5) wallthick = 5;
+    if (corrwid < 1) corrwid = 1;
+    else if (corrwid > 5) corrwid = 5;
+
+    const scale = corrwid + wallthick;
+    const rdx = (tmp_xmax / scale) | 0;
+    const rdy = (tmp_ymax / scale) | 0;
+
+    if (g.level?.flags?.corrmaze) {
+        for (let x = 2; x < (rdx * 2); x++) {
+            for (let y = 2; y < (rdy * 2); y++) {
+                const loc = map.at(x, y);
+                if (loc) loc.typ = STONE;
+            }
+        }
+    } else {
+        for (let x = 2; x <= (rdx * 2); x++) {
+            for (let y = 2; y <= (rdy * 2); y++) {
+                const loc = map.at(x, y);
+                if (loc) loc.typ = ((x % 2) && (y % 2)) ? STONE : HWALL;
+            }
+        }
+    }
+
+    g.x_maze_max = rdx * 2;
+    g.y_maze_max = rdy * 2;
+
+    const mm = maze0xy();
+    walkfrom(mm.x | 0, mm.y | 0, 0);
+
+    if (rmdeadends)
+        maze_remove_deadends(g.level?.flags?.corrmaze ? CORR : ROOM);
+
+    g.x_maze_max = tmp_xmax;
+    g.y_maze_max = tmp_ymax;
+
+    if (scale > 2) {
+        const tmpmap = Array.from({ length: COLNO }, () => new Array(ROWNO));
+        for (let x = 1; x < tmp_xmax; x++) {
+            for (let y = 1; y < tmp_ymax; y++) {
+                tmpmap[x][y] = map.at(x, y)?.typ;
+            }
+        }
+        let rx = 2;
+        let x = 2;
+        while (rx < tmp_xmax) {
+            const mx = (x % 2)
+                ? corrwid
+                : (x === 2 || x === rdx * 2) ? 1 : wallthick;
+            let ry = 2;
+            let y = 2;
+            while (ry < tmp_ymax) {
+                const my = (y % 2)
+                    ? corrwid
+                    : (y === 2 || y === rdy * 2) ? 1 : wallthick;
+                for (let dx = 0; dx < mx; dx++) {
+                    for (let dy = 0; dy < my; dy++) {
+                        if (rx + dx >= tmp_xmax || ry + dy >= tmp_ymax)
+                            break;
+                        const loc = map.at(rx + dx, ry + dy);
+                        if (loc) loc.typ = tmpmap[x][y];
+                    }
+                }
+                ry += my;
+                y++;
+            }
+            rx += mx;
+            x++;
+        }
     }
 }
 
@@ -9466,9 +9638,15 @@ function splev_create_trap() {
         if (typ != null && (IS_POOL(typ) || IS_LAVA(typ))) return;
     }
     let kind;
-    do {
-        kind = traptype_rnd();
-    } while (kind === NO_TRAP);
+    // C mktrap: Inhell && !rn2(5) → FIRE_TRAP bias before traptype_rnd
+    const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
+    if (inhell && !rn2(5)) {
+        kind = FIRE_TRAP;
+    } else {
+        do {
+            kind = traptype_rnd();
+        } while (kind === NO_TRAP);
+    }
     // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP (hardfloor matters)
     if (is_hole(kind) && !Can_fall_thru(game.u?.uz)) kind = ROCKTRAP;
     const trap = maketrap(pos.x, pos.y, kind);
@@ -12982,6 +13160,323 @@ function load_sanctum() {
         }
     }
     fixup_special();
+}
+
+/**
+ * C ref: dat/hellfill.lua via load_special — Gehennom filler levels.
+ * hellno = math.random(1,#hells) → 7 styles; stairs; populatemaze.
+ * Named omissions: rnd_hell_prefab (styles 2/4/6 percent arms);
+ * Invocation_lev vibrating square (always down stair);
+ * hellobjects/hellmonsters (defined but unused in Lua).
+ */
+function load_hellfill() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // hellfill.lua:431 — math.random(1, #hells) → 1+rn2(7)
+    const hellno = lua_random2(1, 7);
+    hellfill_run_style(hellno);
+
+    splev_create_stair(true);
+    // C: if u.invocation_level then trap else down stair — Invocation_lev
+    // deferred (always place down stair).
+    splev_create_stair(false);
+
+    hellfill_populatemaze();
+
+    if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/** C ref: hellfill.lua populatemaze — stock objects/monsters/gold/traps. */
+function hellfill_populatemaze() {
+    // math.random(8)+11 → (1+rn2(8))+11
+    for (let i = 0, n = lua_random2(1, 8) + 11; i < n; i++) {
+        if (percent(50)) splev_create_object(GEM_CLASS);
+        else splev_create_object(null);
+    }
+    for (let i = 0, n = lua_random2(1, 10) + 2; i < n; i++)
+        splev_create_object(ROCK_CLASS); // des.object("`") → ROCK_CLASS
+    for (let i = 0, n = lua_random2(1, 3); i < n; i++)
+        splev_create_monster('minotaur', 0);
+    for (let i = 0, n = lua_random2(1, 5) + 7; i < n; i++)
+        splev_create_monster(null, 0);
+    for (let i = 0, n = lua_random2(1, 6) + 7; i < n; i++) {
+        // C lspo_gold: get_location DRY; amount<0 → rnd(200); mkgold(amount)
+        const pos = get_location_coord_random(DRY);
+        const amt = rnd(200);
+        mkgold(amt, pos.x, pos.y);
+    }
+    for (let i = 0, n = lua_random2(1, 6) + 7; i < n; i++)
+        splev_create_trap();
+}
+
+function hellfill_set_mazelevel_noflip() {
+    const g = game;
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+}
+
+/** Full-map replace_terrain (no region) — C lspo_replace_terrain whole level. */
+function hellfill_replace_terrain_all(fromtyp, totyp, chance = 100) {
+    const ch = chance == null ? 100 : chance;
+    for (let x = 1; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = game.level.at(x, y);
+            if (!loc) continue;
+            const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
+                || loc.typ === fromtyp;
+            if (match && rn2(100) < ch)
+                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
+        }
+    }
+}
+
+function hellfill_run_style(hellno) {
+    switch (hellno | 0) {
+    case 1:
+        hellfill_style_mines_lava();
+        break;
+    case 2:
+        hellfill_style_mazegrid_tweaks();
+        break;
+    case 3:
+        hellfill_style_maze_wt1();
+        break;
+    case 4:
+        hellfill_style_maze_wall_replace();
+        break;
+    case 5:
+        hellfill_style_maze_thick();
+        break;
+    case 6:
+        hellfill_style_cold_maze();
+        break;
+    case 7:
+        hellfill_style_open_cavern();
+        break;
+    default:
+        hellfill_style_maze_wt1();
+        break;
+    }
+}
+
+/** hellfill.lua hells[1] — mines style with lava. */
+function hellfill_style_mines_lava() {
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        lit: 0, smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+    hellfill_replace_terrain_all(STONE, LAVAPOOL, 100);
+    hellfill_replace_terrain_all(ROOM, LAVAPOOL, 5);
+    // mapfragment "w" → MATCH_WALL
+    hellfill_replace_terrain_all(MATCH_WALL, LAVAPOOL, 20);
+    hellfill_replace_terrain_all(MATCH_WALL, ROOM, 15);
+}
+
+/**
+ * hellfill.lua hells[2] — mazegrid + mazewalk + hell_tweaks.
+ * Named omit: rnd_hell_prefab on percent(25).
+ */
+function hellfill_style_mazegrid_tweaks() {
+    const g = game;
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MAZEGRID,
+        bg: HWALL,
+    });
+    // des.mazewalk({ coord={01,10}, dir="east", stocked=false })
+    splev_mazewalk(1, 10, W_EAST, false);
+    const tmpbounds = selection_match_mapfrag('-');
+    const bx = g.splev_xstart | 0;
+    const by = g.splev_ystart | 0;
+    const protectedArea = selection_not(selection_fillrect(
+        tmpbounds.lx + bx,
+        (tmpbounds.ly + 1) + by,
+        (tmpbounds.hx - 2) + bx,
+        (tmpbounds.hy - 1) + by,
+    ));
+    hell_tweaks(protectedArea);
+    // percent(25) rnd_hell_prefab — named omission (still burn percent RNG)
+    if (percent(25)) {
+        /* rnd_hell_prefab deferred */
+    }
+}
+
+/** hellfill.lua hells[3] — maze wallthick=1, random corrwid. */
+function hellfill_style_maze_wt1() {
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MAZE,
+        corrwid: -1,
+        wallthick: 1,
+        rm_deadends: false,
+    });
+}
+
+/**
+ * hellfill.lua hells[4] — maze + iron bars / lava wall replace.
+ * Named omit: horiz iron-bar floor replace; rnd_hell_prefab.
+ */
+function hellfill_style_maze_wall_replace() {
+    const cwid = lua_random2(1, 4); // math.random(4)
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MAZE,
+        corrwid: cwid,
+        wallthick: 1,
+        rm_deadends: false,
+    });
+    const outside = selection_match_mapfrag(' ');
+    const wallterrain = [IRONBARS, LAVAPOOL];
+    nhlib_shuffle(wallterrain);
+    hellfill_replace_terrain_all(MATCH_WALL, wallterrain[0], 100);
+    if (cwid === 1) {
+        if (wallterrain[0] === IRONBARS && percent(80)) {
+            // replace some horizontal iron bars — named omission envelope
+            const chance = 25 * lua_random2(1, 4);
+            void chance;
+        } else if (percent(25)) {
+            /* rnd_hell_prefab deferred */
+        }
+    }
+    selection_iterate(outside, (x, y) => sel_set_ter(x, y, STONE, SET_LIT_NOCHANGE));
+}
+
+/** hellfill.lua hells[5] — thick walls, optional lava walls. */
+function hellfill_style_maze_thick() {
+    const wwid = 1 + lua_random2(1, 2); // 1+math.random(2)
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MAZE,
+        corrwid: lua_random2(1, 2),
+        wallthick: wwid,
+        rm_deadends: false,
+    });
+    if (percent(50)) {
+        const outside = selection_match_mapfrag(' ');
+        hellfill_replace_terrain_all(MATCH_WALL, LAVAPOOL, 100);
+        selection_iterate(outside, (x, y) => sel_set_ter(x, y, STONE, SET_LIT_NOCHANGE));
+        if (wwid === 3 && percent(40)) {
+            // selection.match("LLL\nLLL\nLLL"); terrain(sel:percentage(...), "Z")
+            const sel = selection_match_mapfrag('LLL\nLLL\nLLL');
+            const pct = 30 * lua_random2(1, 4); // math.random(4)
+            const picked = selection_filter_percent(sel, pct);
+            selection_iterate(picked, (x, y) =>
+                sel_set_ter(x, y, LAVAWALL, SET_LIT_NOCHANGE));
+        }
+    }
+}
+
+/**
+ * hellfill.lua hells[6] — cold maze with ice/water.
+ * Named omit: ice grow/filter fidelity; rnd_hell_prefab.
+ */
+function hellfill_style_cold_maze() {
+    const cwid = lua_random2(1, 4);
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    if (game.level.flags) game.level.flags.temperature = -1; // cold
+    splev_initlev({
+        init_style: LVLINIT_MAZE,
+        corrwid: cwid,
+        wallthick: 1,
+        rm_deadends: false,
+    });
+    const outside = selection_match_mapfrag(' ');
+    // icey ≈ negate:percentage(10):grow:filter_mapchar(".")
+    let icey = selection_filter_percent(selection_not(selection_new()), 10);
+    icey = selection_grow(icey, 'all');
+    icey = selection_and(icey, selection_match_mapfrag('.'));
+    selection_iterate(icey, (x, y) => sel_set_ter(x, y, ICE, SET_LIT_NOCHANGE));
+    if (cwid > 1) {
+        selection_iterate(
+            selection_filter_percent(icey, 1),
+            (x, y) => sel_set_ter(x, y, WATER, SET_LIT_NOCHANGE),
+        );
+    }
+    selection_iterate(
+        selection_filter_percent(icey, 5),
+        (x, y) => sel_set_ter(x, y, POOL, SET_LIT_NOCHANGE),
+    );
+    if (percent(25))
+        hellfill_replace_terrain_all(MATCH_WALL, WATER, 100);
+    if (cwid === 1 && percent(25)) {
+        /* rnd_hell_prefab(true) deferred */
+    }
+    selection_iterate(outside, (x, y) => sel_set_ter(x, y, STONE, SET_LIT_NOCHANGE));
+}
+
+/** hellfill.lua hells[7] — open cavern mines. */
+function hellfill_style_open_cavern() {
+    const wter = percent(50) ? STONE : LAVAPOOL;
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: 0,
+    });
+    hellfill_set_mazelevel_noflip();
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: wter, filling: ROOM,
+        lit: 0, smoothed: true, joined: true, walled: false,
+        icedpools: false,
+    });
+    let sel = selection_match_mapfrag('.');
+    sel = selection_grow(sel, 'all');
+    selection_iterate(sel, (x, y) => {
+        const loc = game.level.at(x, y);
+        if (loc) {
+            loc.typ = ROOM;
+            loc.lit = false;
+        }
+    });
+    // selection.rect(0,0,78,20) border
+    for (let x = 0; x <= 78; x++) {
+        for (const y of [0, 20]) {
+            if (isok(x, y)) sel_set_ter(x, y, wter, 0);
+        }
+    }
+    for (let y = 0; y <= 20; y++) {
+        for (const x of [0, 78]) {
+            if (isok(x, y)) sel_set_ter(x, y, wter, 0);
+        }
+    }
+    wallify_map(0, 0, COLNO - 1, ROWNO - 1);
 }
 
 /**
@@ -16810,8 +17305,10 @@ function traptype_rnd(mktrapflags = 0) {
     case STATUE_TRAP: case POLY_TRAP:
         if (lvl < 8) kind = NO_TRAP; break;
     case FIRE_TRAP:
-        // C: if (!Inhell) — quest/main never hell here
-        kind = NO_TRAP; break;
+        // C: if (!Inhell) kind = NO_TRAP — allow fire traps in Gehennom
+        if (!game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)
+            kind = NO_TRAP;
+        break;
     case TELEP_TRAP:
         if (game.level?.flags?.noteleport) kind = NO_TRAP; break;
     case HOLE:
