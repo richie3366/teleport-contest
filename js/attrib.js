@@ -139,7 +139,6 @@ export function get_strength_str() {
 }
 
 // C ref: attrib.c exercise()
-// Named omissions: encumber_msg after STR/CON when moves>0.
 export function exercise(i, inc_or_dec) {
     if (i === A_INT || i === A_CHA) return;
     const u = game.u;
@@ -376,7 +375,7 @@ export async function poisoned(reason, typ, pkiller, fatal, thrown_weapon) {
 
 /**
  * C ref: attrib.c adjattrib() — mutate ABASE/AMAX; You_feel when msgflg <= 0.
- * Fixed_abil / Dunce cap / verbose "already" messages / encumber deferred.
+ * Fixed_abil / Dunce cap / verbose "already" messages deferred.
  * @param {number} ndx
  * @param {number} incr
  * @param {number|boolean} [msgflg=1] positive => silent; <=0 => You_feel
@@ -411,10 +410,18 @@ export async function adjattrib(ndx, incr, msgflg = 1) {
     if (game.u.aexe?.a) game.u.aexe.a[ndx] = 0;
     if (!game.flags) game.flags = {};
     game.flags.botl = true;
+    if (game.disp) game.disp.botl = true;
     if ((msgflg | 0) <= 0) {
         const { You_feel } = await import('./display.js');
         const very = (incr > 1 || incr < -1) ? 'very ' : '';
         await You_feel(`${very}${attrstr}!`);
+    }
+    // C: if (program_state.in_moveloop && (ndx == A_STR || ndx == A_CON))
+    //        encumber_msg();
+    if (game.program_state?.in_moveloop
+        && ((ndx | 0) === A_STR || (ndx | 0) === A_CON)) {
+        const { encumber_msg } = await import('./invent.js');
+        await encumber_msg();
     }
     return true;
 }

@@ -75,9 +75,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 Scr 522/532** — D-0869 closed @11152
-(`poisoned`/`poisontell`; RNG **FULL 11409**). Next: trailing screen
-parity after poison msgs. Alt: seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0399 Scr 525/532** — D-0870 closed poison
+trailing @518–520 (`adjattrib` in_moveloop `encumber_msg`). Next:
+first miss **@113** puton prinv missing `--More--` (cascade @114–117);
+also @300 `a`/`the` silver bell; @483 Hallu dwarf lord/lady. Alt:
+seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -86,54 +88,21 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0869. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0870. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
-**Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
-without the post-distfleeck order (D-0845 @172 Scr−2; D-0853 is the
-C-ordered port — keep it).**
-**Do not revert rloc_to newsym (D-0846) — required for flush path.**
-**Do not drop `-DMAIL_STRUCTURES` from `extract-objects.py` (D-0848).**
-**Do not “fix” objs with raw +N display burns (D-0847 falsified).**
-**Do not reorder docrt/swallowed cls+bot without C-like nonblocking
-WIN_MESSAGE flush (#983 → RNG 11527).**
-**Do not stub `hliquid` as identity (D-0849).**
-**Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
-**Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
-**Do not skip `select_menu_pick_one` redraw on picks (Scr−2; #988/#989);
-use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
-**Do not add Hallu `vision_off` in gulpmu alone (#993 Scr 174).**
-**Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
-**Do not remove gulpmu flush+vision_off pair (#996 Scr+5).**
-**Do not remove D-0853 dochug Hallu idle newsym (#997 LCP+2).**
-**Do not expect distfleeck→monflee to fix LCP 555 (D-0854 falsified).**
-**Do not drop D-0855 m_dowear_type nambuf Monnam/mon_nam.**
-**Do not drop D-0856 invent `obj_glyph` Hallu burns.**
-**Do not always-docrt corner NHW_MENU dismiss (D-0857; Scr−6).**
-**Do not drop doattributes Hallu Status / Antimagic Attributes (D-0858).**
-**Do not FORCE-omit mfndpos cells for D-0731 (#1008: cause is mon drift).**
-**Do not re-check WEB-unique omit (#1004: any keep-track pair →10217).**
-**Do not expect monflee mon_track_clear alone to fix @10157 (D-0860).**
-**Do not chase namedesc via FORCE arity (#1007: key desync).**
-**Do not re-check mfndpos ROOM/trap/online as @10157 omit (#1008).**
-**Do not drop D-0861 searches_for_item Is_container.**
-**Do not drop makesingular `as_is` boots/gloves/gauntlets (D-0862).**
-**Do not drop hold_another_object encumber_msg after prinv (D-0863).**
-**Do not drop obj_resists invocation/rider early-return (D-0864).**
-**Do not drop D-0865 may_dig `flags|wall_info` OR / peaceful shop dig avoid.
-**Do not drop D-0866 trapeffect_web mon mtrapped / mu_maybe_destroy_web.
-**Do not drop D-0867 thitmonst tmiss else / food-fail maybe_wakeup.
-**Do not drop D-0868 done Lifesaved makeknown/savelife/useup amulet.
-**Do not stub mhitu AD_DRST `poisoned` as rn2(30)-only (D-0869).**
+**Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
+D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
+D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
+D-0861…D-0870 (searches_for_item … adjattrib encumber).
+**Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
+mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
+raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
+vision_recalc in goto_level (D-0851).
 
-**Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
-seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
-seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** + **seed0012** + **seed0004** + **seed0002** + **seed0006** +
-**seed0007** + **seed0398** (must stay PASS) + **seed0373** + **seed5006** +
-**seed0116** + **seed0361** + **seed0367** + **seed0108** + **seed5002** +
-**seed0360** + strict lengths.
+**Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
+1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
+0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/
+0373/5006/0116/0361/0367/0108/5002/0360 + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

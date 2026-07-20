@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0870 — adjattrib in_moveloop STR/CON encumber_msg
+
+- **Status:** fixed
+- **Observed:** seed0399 Scr 522/532 after D-0869 — first poison
+  trailing miss @518: C `"sting was poisoned!--More--"` vs JS
+  `"poisoned!  You feel weaker!--More--"`. Botl already St:8/Burdened.
+- **C locus:** `attrib.c` `adjattrib` (~196–197)
+  `program_state.in_moveloop && (A_STR||A_CON) → encumber_msg()`;
+  `allmain.c` `moveloop_preamble` sets `in_moveloop=1`; `poisoned`
+  then `poisontell` after adjattrib.
+- **Cause:** JS `adjattrib` omitted the in-moveloop encumber call
+  (named deferral from D-0449), so `poisontell` combined onto the
+  poison pline before load forced `--More--`. C runs encumber between
+  poison and weaker, forcing poison-only `--More--`.
+- **Change:** set `program_state.in_moveloop=1` at end of
+  `moveloop_preamble`; `adjattrib` awaits `encumber_msg` for STR/CON
+  when in_moveloop. Named omit: Fixed_abil / Dunce verbose arms.
+- **Verification:** green+strict PASS; seed0399 Scr **522→525**
+  (poison @518–520 closed); RNG FULL; cohort 37/37.
+- **Next:** seed0399 first miss @113 puton prinv missing `--More--`;
+  also @300 `a` vs `the` silver bell; @483 Hallu dwarf lord/lady.
+
 ## D-0869 — attrib.c poisoned + poisontell (mhitu AD_DRST)
 
 - **Status:** fixed
