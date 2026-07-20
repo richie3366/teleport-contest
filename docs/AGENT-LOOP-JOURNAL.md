@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:01 — #1030 public score cadence
+- Objective: mandatory full `sessions` score refresh (iter % 5 == 0).
+- C locus: n/a (docs-only cadence).
+- Change or falsified theory: no port change; suite stable post D-0877.
+- Verification: green+strict PASS; full suite **40/44** Scr **9480**/11405
+  RNG **676373**/792838 (85.31%); speed `31+0.23/turn` (R² 0.834).
+  Non-PASS: seed0014 Scr 620/714 (RNG FULL); seed2200 229/230;
+  seed2600; seed4500.
+- Next: seed0014 first screen miss @620; next cadence @#1035.
+
 ## 2026-07-20 19:00 — #1029 D-0877 dipfountain bath
 - Objective: seed0014 @59074 C `exercise` `rn2(2)` vs JS `rn2(3)`.
 - C locus: `fountain.c` dipfountain case 28; `steal.c` `somegold`;

@@ -36,8 +36,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **40/44** @#1029 Scr **9480**/11405 RNG **676373**/792838
-  (85.31%); next cadence @#1030.
+- suite **40/44** @#1030 Scr **9480**/11405 RNG **676373**/792838
+  (85.31%); next cadence @#1035.
 - **D-0877 #1029:** dipfountain bath+somegold; seed0014 RNG **FULL**.
 - **D-0876 #1028:** watch_on_duty + has_town/in_town; **58462→59074**.
 - **D-0875 #1027:** minetn-3 Alley Town; seed0014 **52043→58462**.
