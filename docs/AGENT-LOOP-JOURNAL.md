@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 09:40 — #975 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (measurement only; no port peel).
+- Change or falsified theory: none. Suite **38/44**; Scr **8978**/11405
+  (+30 vs #970 from D-0840…D-0843); RNG **666600**/792838 flat;
+  speed `32+0.23/turn`. seed0383 still Scr 176 / flush parked @172.
+- Verification: green+strict PASS; full `sessions` `__RESULTS_JSON__`.
+- Next: post-expel `docrt`/`see_monsters` Hallu display-RNG @172; then flush.
+
 ## 2026-07-20 09:35 — #974 seed0383 HI_METAL + DEC o/s (D-0843)
 - Objective: Hallu display-RNG / swallow patchwork before gulpmu flush.
 - C locus: color.h HI_METAL≡CLR_CYAN; dat/symbols S_sw_tc/bc; display.c swallowed.

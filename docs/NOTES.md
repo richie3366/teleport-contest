@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#974:** D-0843 HI_METAL mcolors (CLR_CYAN) + swallow DEC `o`/`s`
-  scoring form. Scr **176**/219 RNG FULL (was 148).
-- **Flush blocker (revised):** with flush+D-0843, ice-vortex Hallu
-  (141–164) matches; first miss **@172** post-expel Hallu map
-  (`unstuck`→`docrt`→`see_monsters` display-RNG burn skew) → bat
-  Monnam pit-fiend vs spotted-jelly → getbones @11524.
+- **#975 score:** suite **38/44** Scr **8978**/11405 RNG **666600**/792838
+  (Δ vs #970 Scr **+30** from D-0840…D-0843 soak; RNG/PASS flat).
+- **Flush blocker:** with flush+D-0843, ice-vortex Hallu OK; first miss
+  **@172** post-expel Hallu map (`unstuck`→`docrt`→`see_monsters`
+  display-RNG) → bat Monnam pit-fiend vs spotted-jelly → getbones @11524.
 - **Falsify next:** count Hallu `mon_glyph`/`obj_glyph`/`display_warning`
   burns in post-expel `docrt`/`see_*` vs C (order / visible set).
 - **Don't:** re-apply gulpmu `flush_topl_more` until @172 fixed.
@@ -39,8 +38,8 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#970 Scr **8948**/11405 RNG **666600**/792838;
-  seed0383 RNG **FULL**; Scr **176**/219 (gulpmu More @141 next).
+- suite **38/44** @#975 Scr **8978**/11405 RNG **666600**/792838;
+  seed0383 RNG **FULL**; Scr **176**/219 (post-expel Hallu @172 next).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
