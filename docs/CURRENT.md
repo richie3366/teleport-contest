@@ -22,8 +22,8 @@ label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-20** — full `sessions` @**#1055** (42/44,
-Scr **9898**/11405, RNG **90.45%**). Next cadence @**#1060**. #1058
-D-0908 SCR_PUNISHMENT: seed4500 Scr **481→499** prefix **49915→50034**.
+Scr **9898**/11405, RNG **90.45%**). Next cadence @**#1060**. #1059
+D-0909 drag_ball: seed4500 prefix **50034→50054** RNG **50167→50220**.
 
 ## Score
 
@@ -71,8 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @50034 (C `mattacku` `rnd(20)` vs JS
-`rn2(20)` after matched punish ball/chain). Focused:
+**Gameplay next:** **seed4500** @50054 (C `regen_pw` `rn1`/`rn2(2)` —
+  deferred in `allmain` after matched punish drag). Focused:
 
 ```bash
 node scripts/rng-diff.mjs \
@@ -84,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0908. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0909. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0908 (searches_for_item … SCR_PUNISHMENT punish/placebc).
+D-0861…D-0909 (searches_for_item … Punished drag_ball/move_bc).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -126,7 +126,8 @@ omit `level_tele` past-main `find_hell` (D-0904);
 omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905);
 omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906);
 omit `set_occupation(learn)` / learn `makeknown` credit_hero (D-0907);
-omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908).
+omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908);
+omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

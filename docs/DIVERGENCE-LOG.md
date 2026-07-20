@@ -4,11 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0909 — Punished drag_ball / move_bc / cause_delay nomul(-2)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Blind move_bc
+  felt/glyph; jerked-back hmon/miss body; ballrelease / ballfall /
+  drop_ball / litter / unpunish / set_bc still deferred)
+- **Session:** seed4500-knight-coverage @50034
+- **Symptom:** after matched punish+placebc, C `mattacku` `rnd(20)`; JS
+  `rn2(20)` from `m_move` mtrack (want_move because `!nearby`).
+- **Cause:** DIAG: newt at (40,13) vs hero (42,13) while C hero at
+  (40,14) with stretched `0:@`. `domove` omitted `drag_ball` /
+  `move_bc` / `cause_delay`→`nomul(-2)`, so punished movement drifted
+  without RNG until adjacency failed.
+- **C locus:** `ball.c` `drag_ball`/`move_bc`/`bc_order`; `hack.c`
+  `domove` Punished arms.
+- **Fix:** port sighted `move_bc` + `drag_ball`; wire into `domove`
+  before occupy + `move_bc(0)` after + `nomul(-2)` on drag delay.
+- **Verification:** seed4500 prefix **50034→50054** RNG **50167→50220**
+  Scr **499**; green+strict PASS; cohort 6/6 PASS.
+- **Next:** @50054 C `regen_pw` `rn2(2)` (deferred in allmain); cadence
+  @#1060.
+
 ## D-0908 — SCR_PUNISHMENT punish / placebc / setworn ball+chain
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Blind set_bc;
   placebc flooreffects; angrygods HEAVY_IRON_BALL reuse; unpunish /
-  drag_ball / ballrelease still deferred)
+  ballrelease still deferred; drag_ball → D-0909)
 - **Session:** seed4500-knight-coverage @49915
 - **Symptom:** after matched exercise, C `mkobj` `rnd(1000)` (CHAIN then
   BALL `oc_prob` 1000); JS another `rn2(19)` (scroll rejected as
@@ -23,8 +44,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   SCR_PUNISHMENT in `doread`.
 - **Verification:** seed4500 prefix **49915→50034** Scr **481→499**
   RNG **50071→50167**; green+strict PASS; cohort 4/4 PASS.
-- **Next:** @50034 C `mattacku` `rnd(20)` vs JS `rn2(20)`; leaderboard
-  cron; cadence @#1060.
+- **Next:** @50034 was mattacku symptom — root cause D-0909 drag_ball;
+  cadence @#1060.
 
 ## D-0907 — study_book set_occupation(learn) + makeknown credit_hero
 

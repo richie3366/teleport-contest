@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 22:36 — D-0909 Punished drag_ball/move_bc
+- Objective: seed4500 @50034 C mattacku rnd(20) vs JS rn2(20)
+- C locus: ball.c drag_ball/move_bc; hack.c domove Punished arms
+- Change: symptom was adjacency drift after punish — port drag_ball +
+  sighted move_bc; wire cause_delay→nomul(-2) in domove
+- Verification: prefix 50034→50054 RNG 50167→50220 Scr 499;
+  green+strict PASS; cohort 6/6 PASS
+- Next: @50054 regen_pw rn2(2); cadence @#1060
+
 ## 2026-07-20 22:25 — D-0908 SCR_PUNISHMENT punish/placebc
 - Objective: seed4500 @49915 C mkobj rnd(1000) vs JS rn2(19)
 - C locus: read.c seffect_punishment/punish; ball.c placebc; worn setworn
