@@ -7,6 +7,22 @@
 - Verification: green+strict PASS; cohort **35/35** PASS.
 - Next: @523 farlook fog/vapor `~` vs unexplored `·`.
 
+## 2026-07-20 00:53 — #934 D-0812 lookat ROOM darkroom
+- Objective: seed0360 @531 C `dark part of a room` vs JS `floor of a room`.
+- C locus: `pager.c` `lookat` S_darkroom / NOTHING; `display.c` newsym
+  !cansee S_room→DARKROOMSYM when !waslit||(dark_room&&use_color).
+- Change: **D-0812** `room_cmap_explanation` in getpos (+ pager brief_at /
+  describe_looked). Scr **684→689**; prefix **531→539**.
+- Verification: green+strict PASS; cohort **35/35** PASS.
+- Next: @539 `stone (no travel path)` vs `unexplored area`.
+
+## 2026-07-20 00:48 — #933 D-0811 lookat CLOUD fog/vapor
+- Objective: seed0360 @523 C `fog/vapor cloud` vs JS `unexplored area`.
+- C locus: `pager.c` `lookat` case `S_cloud` (+ `Is_airlevel`).
+- Change: **D-0811** `getpos`/`pager` CLOUD → fog/vapor / cloudy area.
+  Scr **679→684**; prefix **523→531**.
+- Verification: green+strict PASS; cohort **35/35** PASS.
+- Next: @531 `dark part of a room` vs `floor of a room`.
 
 ## 2026-07-20 00:36 — D-0809 travel "(no travel path)"
 - Objective: seed0360 @395 C `unexplored area (no travel path)` vs bare.

@@ -520,7 +520,7 @@ async function expels(mtmp, mdat, message) {
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
  * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
  * drain_en; make_blinded; swallowed() map polish; Half_physical polish;
- * u_on_newpos when engulfer moves while digesting.
+ * u_on_newpos when engulfer moves while digesting (D-0826 postmov).
  */
 async function gulpmu(mtmp, mattk) {
     const u = game.u || (game.u = {});

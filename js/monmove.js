@@ -77,7 +77,7 @@ import { acurrstr } from './attrib.js';
 import { m_canseeu } from './mondata.js';
 import { rloc, tele_restrict } from './teleport.js';
 import { quest_talk, quest_stat_check } from './quest.js';
-import { stairway_at } from './mklev.js';
+import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at } from './region.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
@@ -997,9 +997,10 @@ export function m_postmove_effect(mtmp) {
  * Branch envelope: D_CLOSED open / D_LOCKED unlock / smash doorbuster;
  * amorphous squeeze message; mb_trapped; mpickstuff one-object pickup;
  * hides_under / S_EEL rn2(5) → hideunder (D-0496); maybe_spin_web (D-0595).
- * Named omissions: vampshift fog; iron bars; engulfing_u; shop add_damage;
+ * Named omissions: vampshift fog; iron bars; shop add_damage;
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
- * hideunder You_see; check_gear_next_turn. (shk/gd/priest via shk.js D-0205)
+ * hideunder You_see; check_gear_next_turn; swallowed() display polish.
+ * (shk/gd/priest via shk.js D-0205)
  */
 async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
     if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved;
@@ -1091,7 +1092,6 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
             // shop add_damage deferred
         }
     }
-    // IRONBARS / engulfing_u deferred
 
     // C: possibly dig — can_tunnel && may_dig → mdig_tunnel (burns rnd(12)
     // even on open floor).
@@ -1100,7 +1100,18 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
         return MMOVE_DIED;
     }
 
-    if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
+    // C ref: monmove.c postmov — engulfer relocates hero while digesting
+    // (also in hack.c domove). swallowed(0) display polish deferred.
+    if (engulfing_u(mtmp) && (mtmp.mx !== omx || mtmp.my !== omy)) {
+        const u = game.u || (game.u = {});
+        u.ux0 = u.ux;
+        u.uy0 = u.uy;
+        u_on_newpos(mtmp.mx, mtmp.my);
+        // C: u_on_newpos skips see_nearby_objects while uswallow
+    } else if (mtmp.mx) {
+        newsym(mtmp.mx, mtmp.my);
+    }
+    // IRONBARS deferred
     } // end MMOVE_MOVED
 
     // C: shared MOVED|DONE floor pickup

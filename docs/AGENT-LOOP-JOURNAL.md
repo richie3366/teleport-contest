@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 03:13 — #949 D-0826 postmov engulfer u_on_newpos
+- Objective: seed0383 @10374 post-swallow fleeck vs engulfer mattacku.
+- C locus: `monmove.c` postmov `engulfing_u`→`u_on_newpos`.
+- Change: port that arm. Falsified as @10374 cause (in-place attack).
+  Refined: C skips PM_GNOME dochug; JS double-fleecks (fmon/skip next).
+- Verification: prefix still **10374**; green+strict PASS; cohort 7/7.
+- Next: which gnome dies / why C skips gnome at 46,2.
+
 ## 2026-07-20 02:51 — #948 D-0825 mattacku AT_ENGL + gulpmu
 - Objective: seed0383 @10281 C `rnd(20)` mattacku vs JS `rn2(12)`.
 - C locus: `mhitu.c` AT_ENGL/`gulpmu`; `monmove.c` engulfing_u→mattacku.
@@ -143,19 +151,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 12/12; seed0012 PASS; full suite.
 - Next: @626 `blocked staircase down` (qstart !ok_to_quest).
 
-## 2026-07-20 00:53 — #934 D-0812 lookat ROOM darkroom
-- Objective: seed0360 @531 C `dark part of a room` vs JS `floor of a room`.
-- C locus: `pager.c` `lookat` S_darkroom / NOTHING; `display.c` newsym
-  !cansee S_room→DARKROOMSYM when !waslit||(dark_room&&use_color).
-- Change: **D-0812** `room_cmap_explanation` in getpos (+ pager brief_at /
-  describe_looked). Scr **684→689**; prefix **531→539**.
-- Verification: green+strict PASS; cohort **35/35** PASS.
-- Next: @539 `stone (no travel path)` vs `unexplored area`.
-
-## 2026-07-20 00:48 — #933 D-0811 lookat CLOUD fog/vapor
-- Objective: seed0360 @523 C `fog/vapor cloud` vs JS `unexplored area`.
-- C locus: `pager.c` `lookat` case `S_cloud` (+ `Is_airlevel`).
-- Change: **D-0811** `getpos`/`pager` CLOUD → fog/vapor / cloudy area.
-  Scr **679→684**; prefix **523→531**.
-- Verification: green+strict PASS; cohort **35/35** PASS.
-- Next: @531 `dark part of a room` vs `floor of a room`.

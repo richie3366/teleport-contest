@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0826 — postmov engulfing_u → u_on_newpos (seed0383 @10374)
+
+- **Status:** fixed (partial — @10374 still open; u_on_newpos not the fleeck cause)
+- **Symptom:** seed0383 after D-0825: C engulfer `mattacku` @10374 vs JS
+  two extra `distfleeck` (PM_GNOME before ice vortex).
+- **C locus:** `monmove.c` `postmov` — when `engulfing_u` and engulfer
+  relocated, `u_on_newpos(mx,my)` + `swallowed(0)`.
+- **Cause (#949):** JS `postmov` deferred that arm (named omission after
+  D-0825). Ported. Did **not** move @10374: engulfer attacks in place
+  (`want_move=0`); mismatch is C skipping PM_GNOME dochug while JS runs
+  it (both allot `movement=12` via same `mcalcmove` roll at fmon idx 16).
+- **Change:** `js/monmove.js` `postmov` — `engulfing_u` relocate →
+  `u_on_newpos`; else `newsym`. Named: `swallowed(0)` display; iron bars.
+- **Verification:** seed0383 still prefix **10374**; green+strict PASS;
+  cohort 7/7 (1500/1800/0060/0102/0700/0360/0398).
+- **Next:** why C skips gnome dochug — fmon order (two gnomes created;
+  JS `mhitm` kills first @27,4 → survivors `156,165,108`) vs C skip gate.
+
+
 ## D-0825 — mattacku AT_ENGL + gulpmu (seed0383 @10281)
 
 - **Status:** fixed (partial — next @10374 post-swallow fleeck order)

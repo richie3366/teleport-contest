@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0826 | fixed | postmov engulfing_u → u_on_newpos | C arm ported; seed0383 still @10374 (gnome fleeck); next gnome skip |
 | D-0825 | fixed | mattacku AT_ENGL + gulpmu (+ engulfing_u dochug) | seed0383 prefix 10281→10374 Scr 141→142; next @10374 fleeck order |
 | D-0824 | fixed | monmove could_reach_item + mfndpos may_passwall | seed0383 prefix 10024→10281; closed by D-0825 |
 | D-0823 | fixed | dog_goal could_reach_item pool/lava/boulder | seed0383 prefix 9709→10024; closed by D-0824 |
