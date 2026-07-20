@@ -10,7 +10,7 @@ import {
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
-    MIM_REVEAL, engulfing_u, OBJ_FREE,
+    MIM_REVEAL, engulfing_u, OBJ_FREE, MON_DETACH,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -265,15 +265,13 @@ async function corpse_chance(mon) {
 }
 
 // C ref: mon.c mondead → m_detach(due_to_death) → relobj(mtmp, 1, FALSE)
+// Dead mons stay on fmon until dmonsfree (mon.c) — do not splice here.
 function mondead(mtmp) {
     mtmp.mhp = 0;
     const mx = mtmp.mx, my = mtmp.my;
     // C: after cham/were restore — mvitals[monsndx].died++
     record_mvitals_died(mtmp.mnum ?? mtmp.data?.mndx);
-    if (game.fmon) {
-        const i = game.fmon.indexOf(mtmp);
-        if (i >= 0) game.fmon.splice(i, 1);
-    }
+    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
     // Keep mx/my for drop coords (C mon_leaving_level).
     relobj_on_death(mtmp);
     // C mon.c mondead: glyph_is_invisible → unmap_object

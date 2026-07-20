@@ -60,7 +60,7 @@ import {
     CORPSTAT_NONE, MM_NOCOUNTBIRTH, MM_NOMSG,
     ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE,
-    HVY_ENCUMBER, ECMD_OK,
+    HVY_ENCUMBER, ECMD_OK, MON_DETACH,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -649,10 +649,8 @@ function mondead(mtmp) {
         });
         if ((slot.died | 0) < 255) slot.died = (slot.died | 0) + 1;
     }
-    if (game.fmon) {
-        const i = game.fmon.indexOf(mtmp);
-        if (i >= 0) game.fmon.splice(i, 1);
-    }
+    // C: m_detach — stay on fmon until dmonsfree
+    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
     relobj_on_death(mtmp);
     // C mon.c mondead: glyph_is_invisible → unmap_object
     if (mx > 0 && glyph_is_invisible(game.level?.at?.(mx, my))) {

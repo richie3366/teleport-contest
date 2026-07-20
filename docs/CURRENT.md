@@ -74,10 +74,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10374** — after D-0827 `mattacku`
-uswallow-only-`ustuck` (not the fleeck cause): C skips PM_GNOME dochug
-while JS double-fleecks then ice-vortex `mattacku`. EOT fmon order and
-`mcalcmove` rolls match (`156,165,108`). Next: mid-pass skip gate.
+**Gameplay next:** **seed0383 @10374** — after D-0828 `dmonsfree`
+(not the fleeck cause): C engulfer `mattacku` (`AC_VALUE` rnd) while JS
+gnome fleeck×2 then vortex. JS fmon has EE→gnome@46,2→vortex; C likely
+vortex before that gnome. Next: earlier makemon/reorder desync.
 Focused:
 
 ```bash
@@ -90,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0827. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0828. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0828 — mondead keep-on-fmon + dmonsfree (seed0383 @10374)
+
+- **Status:** fixed (partial — @10374 still open; not the fleeck cause)
+- **Symptom:** seed0383 @10374 — C engulfer `mattacku` (`AC_VALUE` /
+  `rnd(2)` when uac<0) vs JS gnome `distfleeck`×2.
+- **C locus:** `mon.c` `m_detach` — leave dead on `fmon` with
+  `MON_DETACH`; `dmonsfree` at end of `movemon` before `utotype`.
+- **Cause (#952):** JS `mondead` (mhitm/uhitm/trap/liquid) immediately
+  `fmon.splice`’d. Ported deferred purge. DIAG: at EE act, live list is
+  already `…156,165@46,2,108…` with no dead between — so this is not the
+  @10374 order desync. Falsified mid-pass waitmask skip (gnome acts).
+- **Change:** no splice in mondead paths; `MON_DETACH`; `dmonsfree()` in
+  `movemon`; `m_at` skips `mhp≤0`. Named: `purge_monsters` count check;
+  mongone/shk immediate-unlink paths still partial.
+- **Verification:** prefix still **10374**; Scr **142**/219; green+strict
+  PASS; cohort 7/7.
+- **Next:** why C has vortex before gnome@46,2 (makemon/reorder earlier).
+
 ## D-0827 — mattacku uswallow only-ustuck early-out (seed0383 @10374)
 
 - **Status:** fixed (partial — @10374 still open; not the gnome fleeck cause)

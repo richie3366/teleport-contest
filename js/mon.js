@@ -13,7 +13,7 @@ import {
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
     ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
-    ismnum, M_POISONGAS_OK, u_at, TEMPLE, MON_FLOOR, MON_MIGRATING,
+    ismnum, M_POISONGAS_OK, u_at, TEMPLE, MON_FLOOR, MON_MIGRATING, MON_DETACH,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
@@ -618,12 +618,14 @@ export function wakeup(mtmp, via_attack) {
 export function m_at(x, y) {
     // C: level.monsters[][] — worm segs via place_worm_seg; heads on fmon.
     // Steed is remove_monster'd while mounted.
+    // Dead mons stay on fmon until dmonsfree but are off the map grid (C).
     const seg = game._level_monsters?.get(`${x},${y}`);
-    if (seg) return seg;
+    if (seg && (seg.mhp | 0) > 0) return seg;
     const list = game.fmon || [];
     const steed = game.u?.usteed;
     for (const m of list) {
         if (m === steed) continue;
+        if ((m.mhp | 0) <= 0) continue; // DEADMONSTER — not on map
         if (m.mx === x && m.my === y) return m;
     }
     return null;
@@ -751,10 +753,8 @@ function mondead_liquid(mtmp) {
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     record_mvitals_died(mtmp.mnum ?? mtmp.data?.mndx);
-    if (game.fmon) {
-        const i = game.fmon.indexOf(mtmp);
-        if (i >= 0) game.fmon.splice(i, 1);
-    }
+    // C: m_detach — stay on fmon until dmonsfree
+    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
     if (mx > 0) newsym(mx, my);
 }
 
@@ -1054,6 +1054,7 @@ async function movemon_singlemon(mtmp) {
         return false;
     }
 
+    // C: DEADMONSTER — stay on fmon until dmonsfree (D-0828)
     if (!mtmp || mtmp.mhp <= 0) return false;
 
     // C: mon_offmap before m_everyturn / movement spend
@@ -1096,6 +1097,22 @@ async function movemon_singlemon(mtmp) {
     return false;
 }
 
+/**
+ * C ref: mon.c dmonsfree — remove DEADMONSTER from fmon after movemon.
+ * Vault guards (isgd) at <0,0> are retained until corridor teardown.
+ */
+export function dmonsfree() {
+    const list = game.fmon;
+    if (!list || !list.length) return;
+    let w = 0;
+    for (let r = 0; r < list.length; r++) {
+        const m = list[r];
+        if ((m.mhp | 0) <= 0 && !m.isgd) continue;
+        list[w++] = m;
+    }
+    list.length = w;
+}
+
 // C ref: mon.c movemon()
 export async function movemon() {
     game._somebody_can_move = false;
@@ -1107,10 +1124,12 @@ export async function movemon() {
         // C: movemon_singlemon true → break (utotype)
         if (await movemon_singlemon(mtmp)) break;
     }
+    // C: dmonsfree after last mon, before utotype deferred_goto
+    dmonsfree();
     // C: after last mon — if (u.utotype) deferred_goto(); somebody_can_move=FALSE
     // Lazy import avoids mon.js ↔ do.js cycle (do.js imports m_at/mnexto).
     // Named omissions: any_light_source vision_full_recalc; clear_bypasses;
-    // clear_splitobjs; dmonsfree before the utotype check.
+    // clear_splitobjs.
     if (game.u?.utotype) {
         const { deferred_goto } = await import('./do.js');
         await deferred_goto();

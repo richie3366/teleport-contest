@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0828 | fixed | mondead keep-on-fmon + dmonsfree | C m_detach/dmonsfree; seed0383 still @10374; green+cohort OK |
 | D-0827 | fixed | mattacku uswallow-only-ustuck early-out | C arm ported; seed0383 still @10374; RNG matched 10724→10762 |
 | D-0826 | fixed | postmov engulfing_u → u_on_newpos | C arm ported; seed0383 still @10374 (gnome fleeck); next gnome skip |
 | D-0825 | fixed | mattacku AT_ENGL + gulpmu (+ engulfing_u dochug) | seed0383 prefix 10281→10374 Scr 141→142; next @10374 fleeck order |
