@@ -10,8 +10,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   prerequisite is medusa-3 hero place; #1080 falsified
   place/`collect_coords` RNG mismatch; #1081 falsified C `@(39,5)`;
   #1082 falsified “ystart formula alone differs for hei=20”;
-  #1083 falsified FlipX `minx=1` alone as a shippable fix —
-  also confirmed C geometry via upstair)
+  #1083 falsified FlipX `minx=1` alone; #1084 confirmed whole-map
+  (−1,+1) via downstairs + falsified FORCE `ystart=2` alone)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -22,10 +22,11 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   place_lregion/`collect_coords` shuffle arg mismatch (#1080 —
   C/JS match through 82k–83k); C land `@(39,5)` (#1081 — that was
   a later walk misread; arrival `@`/`cursor` is **(42,7)**);
-  ystart off for 76×20 map (#1082 — both get ystart=1);
-  FlipX minx=1 alone (#1082 land y; #1083 — FORCE minx=1 at
-  flip shifts terrain too, desyncs post-flip RNG, stair becomes
-  JS`(44,4)` while C is `(44,5)`).
+  ystart *formula text* alone differs for hei=20 (#1082 — both
+  compute 1; C *effective* origin still +1);
+  FlipX minx=1 alone (#1083 — FORCE → stair JS`(44,4)` vs C`(44,5)`,
+  post-flip RNG desync);
+  FORCE ystart=2 alone (#1084 — prefix→78606; flip rn2 becomes 0).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
   Arrival is wizard `^V` from Dlvl:6 → 24 (`UTOTYPE_NONE` →
   `u_on_rndspot` / `dndest`). Same place `rn2(6)×3` @L=82419–82424
@@ -33,21 +34,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `u_on_newpos(43,6)` with
   `dndest={lx:40,ly:3,hx:45,hy:8,…}` after FlipX (`flp=2`,
   extends minx=2..maxx=79, `xstart=3,ystart=1`,
-  pre-flip `[36..41]×[3..8]`). #1083 C screen: `@`(42,7) and
-  upstair `<`(44,5); C UPSTAIR place `rn2(8)×rn2(7)` try2 ⇒
-  post-flip UPSTAIR `[38..45]×[3..9]` (FlipX sum **80** ∧ ly=3).
-  Same (−1,+1) origin shift as hero ⇒ need
-  `dndest[39..44]×[4..9]` from **one** flip-extends/ystart path
-  (not FORCE minx). JS col2 all STONE at flip (no nonwall@x=2).
+  pre-flip `[36..41]×[3..8]`). #1083–#1084 C screen: `@`(42,7),
+  `<`(44,5), downstairs `>`**(31,17)** vs JS `(32,16)` — whole
+  post-flip map (−1,+1). Same place fail/success ⇒ C geometry ≡
+  JS+(−1,+1). Need FlipX sum **80** ∧ effective **ystart=2** from
+  one faithful path. JS col2 all STONE at flip (no nonwall@x=2).
 - **C locus:** `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
-  `flip_level` / `get_level_extends` / `load_special` epilogue;
-  `mkmaze.c` `place_lregion` → `u_on_newpos`.
+  `flip_level` / `get_level_extends` / `lspo_map` / `load_special`
+  epilogue; `mkmaze.c` `place_lregion` → `u_on_newpos`.
 - **Partial:** #1082 wired medusa-3 `link_doors_rooms` /
   `remove_boundary_syms` / `map_cleanup` before wallify (C
   `load_special`); land/prefix unchanged.
-- **Next:** C path where flip extends give FlipX(minx+maxx)=80
-  **and** lregion ly+1 together (ystart=2 ∨ equivalent); do not
-  FORCE minx alone.
+- **Next:** C path for FlipX sum80 ∧ ystart=2 together (not FORCE
+  either alone); do not re-check formula-text ystart=1 as complete.
 - **Verification:** green+strict PASS; rng-diff still @88377.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)

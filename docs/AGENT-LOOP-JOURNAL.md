@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 01:48 — #1084 D-0928 C downstairs proves (−1,+1)
+- Objective: seed4500 medusa-3 hero place (D-0928).
+- C locus: `sp_lev.c` `flip_level`/`get_level_extends`/`lspo_map`;
+  `dat/medusa-3.lua`; `mkmaze.c` `place_lregion`.
+- Falsified: FORCE `ystart=2` alone (prefix→78606; flips to 0).
+  Evidence: C `>`**(31,17)** vs JS `(32,16)` + `<`(44,5)/`@`(42,7)
+  — whole post-flip map (−1,+1). Same place rn2 fail/success ⇒
+  C geometry ≡ JS+(−1,+1). Needs FlipX sum80 ∧ effective ystart=2
+  without early RNG break. No production JS change.
+- Verification: green+strict PASS; rng-diff still @88377.
+- Next: C path for ystart=2 ∧ minx=1 together; cadence @#1085.
+
 ## 2026-07-21 01:40 — #1083 D-0928 C stair confirms (−1,+1)
 - Objective: seed4500 medusa-3 hero place (D-0928).
 - C locus: `sp_lev.c` `flip_level`/`get_level_extends`;
@@ -186,14 +198,3 @@ Use this shape:
   prefix **61462→61689** RNG **61766** Scr **643**; green+strict;
   cohort 15/15.
 - Next: @61689 C `fix_worst_trouble` rnd(5) vs JS rn2(1000).
-
-## 2026-07-20 23:57 — #1069 D-0918 drag_down / ballrelease
-- Objective: seed4500 @55990 C `drag_down` rn2(2) vs JS rn2(50).
-- C locus: `ball.c` `drag_down`/`ballrelease`/`litter`; `do.c`
-  `goto_level` descend; `youprop.h` Punished≡(uball!=0).
-- Change: port drag_down/ballrelease/litter; wire stair-fall when
-  `u.uball` (not sticky `u.Punished`). Named omit: litter hitfloor/
-  yname/Soundeffect; ballfall.
-- Verification: prefix **55990→61462** RNG **61496** Scr **622**;
-  green+strict PASS; cohort 13/13 PASS + strict lengths.
-- Next: @61462 C `distfleeck` rn2(5) vs JS rn2(1000); cadence @#1070.

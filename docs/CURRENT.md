@@ -73,11 +73,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
-Place `rn2(6)×3` matches; JS `(43,6)` / stair `(45,4)` /
-`dndest[40..45]×[3..8]` (FlipX sum **81**, ystart=1). C `@`(42,7)
-+ `<`(44,5) ⇒ FlipX sum **80** ∧ ly+1 (`[39..44]×[4..9]`).
-#1083: FORCE minx=1 alone → stair `(44,4)` + post-flip RNG
-desync — need one C path for both deltas. Focused:
+Whole post-flip map is JS+(−1,+1): C `>`**(31,17)** / `<`(44,5) /
+`@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`. Place `rn2`
+fail/success match ⇒ geometry offset. Need FlipX sum **80** ∧
+effective **ystart=2** together (FORCE either alone desyncs).
+Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
