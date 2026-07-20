@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0893 — setgemprobs ledger_no level-dependent gem probs
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @631 look_here pile — C `a black gem` vs JS
+  `an orange gem` (AGATE). RNG FULL matched.
+- **C locus:** `o_init.c` `setgemprobs(dlev)` — when `dlev` set,
+  `lev = min(ledger_no(dlev), maxledgerno())`; zeroes first
+  `(9 - lev/3)` gems then reweights through `LAST_REAL_GEM`.
+  `oinit()` → `setgemprobs(&u.uz)` each `makelevel`.
+- **Cause:** JS `setgemprobs` forced `lev = 0` even when `dlev` was
+  passed (`ledger_no not wired yet`). Mines minefill `mkobj(GEM_CLASS)`
+  used DoD-surface gem weights → same `rnd(total)` mapped to AGATE
+  while C produced a black gem; one-call RNG stayed synced.
+- **Change:** port `ledger_no` + `maxledgerno` into `setgemprobs` and
+  use real `lev`. Named omit: none in this helper.
+- **Verify:** green+strict PASS; cohort 17/17 PASS; seed0014 Scr
+  **678→712**/714 (RNG FULL). @631 matches.
+- **Next:** @712 C watchman yell after fountain gold-loss vs JS
+  fountain dries up (`watch_on_duty` / dipfountain).
+
 ## D-0892 — do_attack gu.unweapon begin-bashing pline
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

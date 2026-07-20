@@ -7,15 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 Scr 678/714** — RNG FULL; D-0892 closed @624 bare-hands
-  bash. First miss @631 — C `a black gem` vs JS `an orange gem`
-  (lookat / pile). Falsifier: focused seed0014.
+- **seed0014 Scr 712/714** — RNG FULL; D-0893 closed @631 gem color
+  (`setgemprobs` ledger_no). First miss @712 — C watchman yell after
+  fountain gold-loss vs JS fountain dries up. Falsifier: focused
+  seed0014.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0892 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0893 done.
+- Do not force `setgemprobs` lev=0 when dlev set (D-0893).
 - Do not omit `do_attack` `gu.unweapon` begin-bashing (D-0892).
 - Do not force `tseen=false` on HOLE in `maketrap` (D-0891).
 - Do not omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty vision (D-0890).
@@ -28,12 +30,13 @@ Objective/score live in `CURRENT.md`.
 - Do not leave steal `(on … hand)` / skip nymph `She stole` (D-0884).
 - Do not `rloc(..., 0)` on seduce steal flee (D-0885 RLOC_MSG).
 - Do not reorder `merged` ID reconcile before coin `bknown=0` (D-0882).
-- Do not omit dipfountain case 28 bath/`somegold` (D-0877).
 
 ## Landmarks (≤15)
 
 - suite **40/44** @#1040 Scr **9504**/11405 RNG **676373**/792838
   (85.31%); next cadence @#1045.
+- **D-0893 #1044:** setgemprobs ledger_no; Scr **678→712**;
+  @631 closed; next @712 watchman vs dry fountain.
 - **D-0892 #1043:** do_attack unweapon bash; Scr **676→678**;
   @624 closed; next @631 black vs orange gem.
 - **D-0891 #1042:** maketrap HOLE `unhideable_trap` tseen; Scr **645→676**.
@@ -47,7 +50,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0883 #1036:** armoroff no find_ac; Scr **633→634**.
 - **D-0882 #1035:** merged coin `bknown=0` before ID reconcile;
   restored seed0007 PASS (D-0879 order bug).
-- **D-0881 #1034:** short_oname dip yn; Scr **624→633**.
 - **D-0877 #1029:** dipfountain bath+somegold; seed0014 RNG **FULL**.
 - STAIRS yellow via `known_branch_stairs`; cursor=(ux−1, uy+1).
-- Session: `more()` space/CR/ESC; jsmain `\r`→LF.

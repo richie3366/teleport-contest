@@ -690,9 +690,8 @@ export function u_on_upstairs() {
 }
 
 // oinit — C ref: o_init.c oinit() → setgemprobs(&u.uz)
-// ledger_no for DoD dlvl1 is 1; setgemprobs zeroes first (9 - lev/3) gems.
+// setgemprobs uses ledger_no(u.uz) to zero first (9 - lev/3) gems.
 function oinit() {
-    // Approximate ledger_no: depth within dungeon bookkeeping ≈ dlevel when dnum==0
     setgemprobs(game.u?.uz || null);
 }
 
