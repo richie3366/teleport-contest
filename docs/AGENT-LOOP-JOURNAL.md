@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 10:57 — #981 seed0383 Hallu see_objects burn map (D-0847)
+- Objective: post-expel @172 4 Hallu ROOM objs after matching mons.
+- C locus: display.c see_objects/newsym; mhitu.c expels/unstuck→docrt.
+- Falsified: +N×462 (N=0..40) before see_objects; skip kelp(23,13)
+  newsym; moves=11 timing. Measured: expel moves=12; see_obj leads
+  with rn2(5) yellow-light warn on !cansee kelp then 4×462; JS
+  `+?=\[` vs C `)+[[`. No production JS change (DIAG reverted).
+- Verification: green+strict PASS; seed0383 Scr 174 (no flush).
+- Next: C vs JS Hallu-burning fobj set (YL TEMP_LIT / docrt 4×462).
+
 ## 2026-07-20 10:45 — #980 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (measurement only; no port peel).

@@ -7,23 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#979:** With gulpmu flush: firstMiss **@172** (0-based; NOTES “@173”
-  was 1-based), Scr **175**, RNG cascades. Exactly **4** Hallu obj cells:
-  slime mold (22,3) / tinning kit (25,3) / shock shield (33,6) / towel
-  (58,16). Frames 160–171 match.
-- **Paradox (D-0847):** at moves=11 post-expel, `see_monsters` burns
-  22×NUMMONS + 1×WARN (no underfoot objs); map mons match C. Then
-  `see_objects` burns exactly 4×462 in fobj order — glyphs still all
-  wrong. Dummy +N×462 before those burns never hits C’s `)+[[`.
-- **Falsified:** simple stream offset before see_objects; mon-underfoot
-  at that frame; fobj cansee set ≠ those 4; NUM_OBJECTS/FIRST_OBJECT
-  mismatch (ARROW=18 CORPSE=265 STATUE=475 ≡ C).
-- **Next:** display-RNG between expelled-More → expels/unstuck/docrt/
-  mnexto and once-per-input see_* (double see_monsters?); or
-  `Sting_effects`/`Warn_of_mon` after mon loop (named omit — pline path
-  unlikely display-RNG). Don’t flush until objs fixed.
-- **Falsifier:** instrument display burns from More-return through
-  see_objects; compare count/moduli to C path.
+- **#981:** Post-expel Hallu objs (D-0847). Expel at **moves=12**, once-per-
+  input see_* at **moves=13** (prior “moves=11” was wrong). With gulpmu
+  flush: firstMiss **@172**, Scr **175**, ndiff **4** only (mons match).
+- **Burn map (flush on):** docrt 47 (42×383 + 4×462 + 1×5); mnexto 1×383;
+  gap→see_mon 2; see_mon 23 (22×383 + 1×5); see_obj **5** (1×5 + 4×462).
+- **see_objects:** first burn is `rn2(5)` at kelp **(23,13)** — yellow
+  light (PM 118), `!cansee`, `covers_objects` (typ pool), `mon_warning`
+  → `display_warning`. Then 4 ROOM tops: slime/towel/shock/tinning.
+  JS @172 chars `+?=\[` vs C `)+[[` (towel class OK, color wrong).
+- **Falsified:** +N×462 before see_objects for N=0..40 never yields
+  `)+[[`; skipping (23,13) newsym also fails (still wrong 4). So not a
+  simple pre-see_objects stream offset.
+- **Next:** why C’s see_objects Hallu burns differ despite matching mons —
+  compare C vs JS which fobj tops take Hallu obj path (vision/TEMP_LIT
+  from yellow-light emitter; extra 462s); or docrt’s 4×462 cell set.
+  Don’t flush until objs fixed.
 
 ## Don't re-check (≤15)
 
@@ -35,20 +34,17 @@ Objective/score live in `CURRENT.md`.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
   getmattk / Monnam / unstuck / initedog malign — closed; see journal.
-- **#969:** @13689 was pet `malign` (+3 vs −9), not peace_minded
-  formula / early return.
+- **#969:** @13689 was pet `malign` (+3 vs −9), not peace_minded.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - gulpmu flush alone → display-RNG (D-0841/43; don't retry until objs).
 - `steps[i].key = moves[i-1]` (not key-at-More).
 - HI_METAL≡CLR_CYAN (6) not gray — extractor was wrong (D-0843).
-- Gas region at (68,3) not in post-expel FOV — not @173 cause.
-- Skipping Warning Hallu burn worsens @173 — warn burn is correct.
-- **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2; rloc_to without
-  flush → Scr−2 (re-evaluated: needed with flush for mons).
-- Expelled More @171 is still **stomach** (pline before `expels`).
-- **#979:** +N dummy before see_objects @moves=11 does not recover C
-  obj glyphs; underfoot@see_mon empty that frame.
+- Gas region (68,3) not @173; Warning Hallu burn is correct.
+- **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2; rloc_to needed w/ flush.
+- Expelled More @171 still **stomach** (pline before `expels`).
+- **#979–#981:** +N before see_objects / underfoot / NUM_OBJECTS dims /
+  skip kelp(23,13) newsym — all falsified for `)+[[`.
 
 ## Landmarks (≤15)
 
@@ -65,13 +61,9 @@ Objective/score live in `CURRENT.md`.
 - Mumak **lacks** M2_ROCKTHROW; linedup handling=2.
 - Traps live on `level.traps[]` (maketrap); `ftrap` often empty.
 - `^F` wiz_map + do_mapping; show_map_spot must `map_trap` not newsym.
-- ok_to_quest (D-0798); blocked staircase lookat rewrite (D-0814).
-- TRAVP_VALID BFS hero→dest (D-0813); getpos DOOR + visctrl (D-0815).
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
-- `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
-- unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
-- `initedog` must `set_malign` after tame (D-0839).
-- `mpickstuff` must `distant_name` (D-0840); hitmsg consecutive again.
-- DEC swallow: `/o\ x@x \s/` keep SO-form o/s (D-0842/43); Primary `/-\ |@| \-/`.
-- Hallu statue: display = mon+gender; memory = separate random_obj (D-0844).
-- `see_traps` only if shown glyph is trap (D-0845); `rloc_to` newsym (D-0846).
+- `#wizintrinsic` → `make_hallucinated` (D-0835); unstuck→`docrt` (D-0838).
+- `initedog`→`set_malign` (D-0839); `mpickstuff`→`distant_name` (D-0840).
+- DEC swallow SO-form o/s (D-0842/43); Hallu statue memory burn (D-0844).
+- `see_traps` glyph_is_trap (D-0845); `rloc_to` newsym (D-0846).
+- Post-expel see_obj: kelp+YL warn burn before 4 ROOM Hallu objs.

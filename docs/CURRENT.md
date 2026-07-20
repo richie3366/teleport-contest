@@ -76,11 +76,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0383 post-expel Hallu objs** — D-0847: with
-flush, firstMiss **@172**, Scr **175**; 4 ROOM objs (slime/tinning/
-shock shield/towel). `see_monsters` stream OK (mons match); `see_objects`
-exactly 4×462 still wrong; dummy +N shift falsified. **Next:** display
-RNG on expelled-More → `expels`/`docrt`/`mnexto` before once-per-input
-`see_*`. Without flush Scr **174**. Focused:
+flush, firstMiss **@172**, Scr **175**; JS `+?=\[` vs C `)+[[`.
+Expel moves=12 / see_* moves=13. see_obj burns **1×5** (kelp+YL
+`mon_warning` at !cansee) then 4×462; +N=0..40 and skip-kelp
+falsified. **Next:** C vs JS which fobj tops Hallu-burn (vision /
+YL TEMP_LIT / docrt’s 4×462 set). Without flush Scr **174**. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \

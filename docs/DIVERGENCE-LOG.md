@@ -9,29 +9,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Status:** open (diagnosis only; no JS production change)
 - **Symptom / context:** With gulpmu `flush_topl_more` (C
   `display_nhwindow`), seed0383 firstMiss **@172** (0-based), Scr
-  **175**/219, RNG cascades. Exactly 4 mapdiffs — Hallu object class
-  symbols at slime mold (22,3), tinning kit (25,3), shock shield
-  (33,6), towel (58,16). Frames 160–171 match. Without flush Scr 174.
-- **Measured (JS):** At moves=11 post-expel, `see_monsters` burns
-  22×`NUMMONS` + 1×`(WARNCOUNT-1)` with **no** mon-underfoot objects;
-  painted mon cells match C. Then `see_objects` burns exactly four
-  `rn2(NUM_OBJECTS-FIRST_OBJECT)` in fobj order (those 4 ROOM tops;
-  kelp covered). `NUM_OBJECTS`/`FIRST_OBJECT` ≡ C (ARROW=18,
-  CORPSE=265, STATUE=475). Dummy +N×462 before those burns never
-  produces C’s `)+[[` set.
-- **Falsified:** (1) simple display-stream offset immediately before
-  `see_objects`; (2) mon-underfoot memory burns at that frame;
-  (3) wrong cansee set / extra fobj tops; (4) object-table dimension
-  mismatch.
-- **Still open:** display-RNG on path expelled-More → `expels` /
-  `unstuck`/`docrt`/`mnexto`/`rloc_to` before once-per-input `see_*`
-  (possible double `see_monsters`); `Sting_effects`/`Warn_of_mon` after
-  mon loop still omitted (pline-only — unlikely display-RNG).
-- **Verification:** green+strict PASS; cohort 5/5 PASS; seed0383 Scr
-  174 (no flush) / 175 (flush probe, reverted). Suite #980: **38/44**,
-  Scr **8976**/11405 (−2 vs #975 from this no-flush baseline), RNG flat.
-- **Next:** instrument display burns from More-return through
-  `see_objects`; then flush once objs match.
+  **175**/219. Exactly 4 mapdiffs — Hallu objs at slime (22,3),
+  tinning (25,3), shock shield (33,6), towel (58,16): JS `+?=\[`
+  vs C `)+[[`. Without flush Scr 174. Mons match at @172 w/ flush.
+- **Measured (#981):** Expel at **moves=12**; once-per-input see_* at
+  **moves=13**. Display burns: docrt 47 (42×383 + 4×462 + 1×5);
+  mnexto 1×383; gap 2; see_mon 23 (22×383 + 1×5); see_obj **5**
+  (1×5 + 4×462). The leading see_obj `rn2(5)` is kelp **(23,13)**
+  under yellow light: `!cansee`, `covers_objects`, `mon_warning` →
+  `display_warning`. Then four ROOM `rn2(462)` in fobj order.
+- **Falsified:** (1) +N×462 before see_objects for N=0..40 never
+  yields `)+[[`; (2) skip (23,13) newsym; (3) underfoot@see_mon;
+  (4) NUM_OBJECTS/FIRST_OBJECT mismatch; (5) “moves=11” timing.
+- **Still open:** C vs JS which see_objects tops take Hallu obj path
+  (vision/TEMP_LIT from YL emitter; docrt’s 4×462 cell set); not a
+  simple pre-see_objects offset. `Sting_effects`/`Warn_of_mon` after
+  mon loop still omitted (pline-only).
+- **Verification:** green+strict PASS; seed0383 Scr 174 (no flush) /
+  175 (flush probe, reverted). Suite #980 unchanged.
+- **Next:** diff C/JS Hallu-burning fobj set at see_objects; then flush.
 
 ## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
 
