@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0871 — muse MUSE_POT_SPEED mquaffmsg + mon_adjust_speed give_msg
+
+- **Status:** fixed
+- **Observed:** seed0399 Scr 525/532 — @113 C
+  `"o - an octagonal amulet (being worn).--More--"` vs JS same
+  without `--More--`; space then became Unknown command; cascade
+  @114–117 missed werewolf drink/speed screens.
+- **C locus:** `muse.c` `use_misc` `MUSE_POT_SPEED` (~2488–2497)
+  `mquaffmsg` → `mon_adjust_speed` → `m_useup`; `worn.c`
+  `mon_adjust_speed` (~541–562) give_msg pline when seen.
+- **Cause:** JS `MUSE_POT_SPEED` skipped `mquaffmsg` and
+  `mon_adjust_speed` omitted give_msg plines, so amulet `NEED_MORE`
+  never flushed via drink pline before the next command `nhgetch`.
+- **Change:** await `mquaffmsg` + `m_useup` on POT_SPEED; make
+  `mon_adjust_speed` async with C give_msg/`learnwand`; await from
+  `use_misc` and `castmu` (async). Named omit: poly muse arms.
+- **Verification:** green+strict PASS; seed0399 Scr **525→530**
+  (cursors FULL); RNG FULL; cohort 7/7 PASS (+0399 530/532).
+- **Next:** seed0399 @300 `a`/`the` silver bell; @483 Hallu
+  dwarf lord/lady.
+
 ## D-0870 — adjattrib in_moveloop STR/CON encumber_msg
 
 - **Status:** fixed

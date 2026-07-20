@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 17:45 — #1021 D-0871 MUSE_POT_SPEED mquaffmsg
+- Objective: seed0399 @113 puton prinv missing `--More--`.
+- C locus: `muse.c` `use_misc` MUSE_POT_SPEED; `worn.c` `mon_adjust_speed`.
+- Change: await `mquaffmsg` before speed adjust; async give_msg pline
+  + `learnwand`; `castmu` awaits `mon_adjust_speed`.
+- Verification: green+strict PASS; seed0399 Scr **525→530** (RNG/cursors
+  FULL); cohort 7/7 PASS.
+- Next: @300 `a`/`the` silver bell; @483 Hallu dwarf lord/lady.
+
 ## 2026-07-20 17:36 — #1020 full public score refresh
 - Objective: mandatory score cadence (iteration % 5 == 0).
 - C locus: n/a (docs-only).
