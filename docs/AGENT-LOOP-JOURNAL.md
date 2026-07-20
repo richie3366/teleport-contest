@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 14:25 — #998 LCP 555 fleeck monflee falsified (D-0854)
+- Objective: seed0383 LCP 555 C Monnam(430) vs JS mon(383) @199.
+- C locus: probed; not distfleeck→monflee (monmove.c:564 would burn
+  core rnd before Monnam).
+- Falsified: after core 16751 (2nd fleeck post m_move rn2(24)) C emits
+  7×rndmonnam with zero core before next fleeck; site tag is stale
+  last-core. JS next display = postmov mon_glyph@16754. No JS change.
+- Verification: green+strict PASS; seed0383 Scr 201 RNG FULL; LCP 555.
+- Next: identify C caller of Monnam×7 post-2nd-fleeck (pline/state dump).
+
 ## 2026-07-20 14:10 — #997 dochug Hallu idle newsym (D-0853)
 - Objective: seed0383 dim-seq from mismatch idx 398 → @195/@198.
 - C locus: monmove.c dochug switch Hallu newsym on NOTHING/DONE/NOMOVES
@@ -166,26 +176,4 @@ Use this shape:
   **8986**/11405 (+10) RNG **666582**/792838 (−18 seed0399); seed0383
   Scr **184**/219 RNG FULL.
 - Next: seed0383 first miss @184; flush still parked.
-
-## 2026-07-20 11:42 — #984 seed0383 free-window burn inventory (D-0847)
-- Objective: C vs JS display burns post-unstuck docrt/mnexto before @172.
-- C locus: display.c docrt/newsym/see_*; mhitu.c expels/unstuck; vision.c
-  vision_recalc; teleport.c rloc_to.
-- Change or falsified theory: DIAG inventory only (reverted). JS free
-  window: docrt 21×383+4×462, see_mon 21×383+1×5, mnexto+post 2×383,
-  once-in 22×383+1×5+4×462. Engulfer on hero skips mon_glyph. No gas
-  region on burn cells. Need C ~drn2 dim diff — not +N at see_objects.
-- Verification: green+strict PASS; seed0383 Scr 174 RNG FULL.
-- Next: record C with NETHACK_RNGLOG_DISP=1; diff ~drn2 vs JS inventory.
-
-## 2026-07-20 11:28 — #983 seed0383 display-stream timeline (D-0847)
-- Objective: display-RNG skew before moves=11 see_objects @172.
-- C locus: display.c swallowed/see_objects; mhitu.c gulpmu/expels;
-  mon.c unstuck→docrt; wizcmds.c wiz_intrinsic docrt.
-- Falsified: +N before see_objects (any dim) cannot hit C `)+[[`;
-  naive docrt/swallowed cls+bot reorder → RNG 11527 (reverted).
-  Timeline: Hallu@8 swallowed → 8×swallowed → ice expels@10 → free
-  see_objects@11. No production JS retained.
-- Verification: green+strict PASS; seed0383 Scr 174 RNG FULL.
-- Next: burn-site inventory post-unstuck docrt/mnexto before see_mon@11.
 

@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0853 | partial | dochug Hallu newsym NOTHING/DONE/NOMOVES | LCP 553→555; first cell miss 198→199; Scr still 201; next Monnam@555 |
+| D-0854 | rejected | LCP 555 = fleeck→monflee Monnam | Falsified: 7×Monnam post-2nd fleeck, no monflee core; next C caller |
+| D-0853 | partial | dochug Hallu newsym NOTHING/DONE/NOMOVES | LCP 553→555; first cell miss 198→199; Scr still 201; @199 open |
 | D-0852 | partial | seed0383 Hallu levtport / gulp DISP | #996 flush+vision_off Scr→201; #997 dochug Hallu newsym (D-0853); @199 open |
 | D-0851 | fixed | goto_level no post-docrt vision_recalc(0) | C fidelity; seed0383 @195 Hallu still open; green+cohort OK |
 | D-0850 | fixed | xkilled tame `x_monnam(...,"poor",...)` | seed0383 Scr 193→194; @178 poor titan; green+cohort OK |

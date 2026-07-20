@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0854 — rejected: LCP 555 fleeck→monflee Monnam
+
+- **Status:** rejected (falsified)
+- **Symptom / context:** After D-0853, abs dim LCP **555**: C `~drn2(430)`
+  vs JS `mon_glyph(383)`. C log tags site `distfleeck` (stale last-core
+  context). Hypothesis: `distfleeck`→`monflee`→`Monnam` under Hallu.
+- **Falsifier:** Between JS/C core idx **16751** (`rn2(5)` fleeck after
+  `m_move` `rn2(24)`) and **16752** (next fleeck) C emits **7×**
+  `rndmonnam` (`430`/`430+2`/`430+7640`) with **zero** core calls. Real
+  `monflee` from fleeck always burns `rnd(rn2(7)?10:100)` first — absent
+  here. Core stream remains FULL (16915). JS next display burn is
+  `postmov` `mon_glyph` at core **16754**. Screen first cell miss **@199**
+  (Hallu map glyphs) follows this skew. Step 198 = Barney pickup; 202 =
+  basement-cat wield (later Monnam).
+- **Cause:** Not fleeck→monflee. Unknown C path after dochug 2nd fleeck
+  that calls `Monnam` ×7 without core RNG (end-of-dochug `cuss`/`quest_talk`
+  unlikely ×7; `wake_msg`/`meat*` are pre-2nd-fleeck).
+- **Fix:** none (no JS change).
+- **Verification:** green+strict PASS; seed0383 Scr **201** RNG FULL;
+  dim LCP still **555**.
+- **Next:** name the C caller of the 7×Monnam block (pline/state dump at
+  core 16751, or C message log for that window); then port that path.
+  `distfleeck` onscary/`monflee` and `disturb` `wake_msg` remain open
+  omissions but are not this gap.
+
 ## D-0853 — partial: dochug Hallu newsym on NOTHING/DONE/NOMOVES
 
 - **Status:** partial (dim LCP 553→555; first cell miss 198→199; Scr still 201)
@@ -23,8 +48,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification:** seed0383 RNG FULL; Scr **201**/219; cursors
   217→218; cell firstFail 198→199; dim LCP 553→555; warn still 46
   vs C 45; green+strict PASS; cohort 8/8.
-- **Next:** abs LCP 555 — C `~drn2(430)` Monnam fleeck vs JS
-  `mon_glyph(383)`; remaining Monnam/463/7640 gap to @199+.
+- **Next:** abs LCP 555 Monnam gap — fleeck→monflee falsified in D-0854;
+  remaining unknown Monnam×7 caller to @199+.
 
 ## D-0852 — partial: seed0383 Hallu vision_recalc(2) warn burns
 

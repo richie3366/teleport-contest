@@ -76,12 +76,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 201/219** — first cell miss now
-**@199** (levtport @195–@198 match after D-0852/D-0853). D-0853 #997:
-`dochug` Hallu `newsym` on NOTHING/DONE/NOMOVES after 2nd
-`distfleeck` (C monmove.c≈931); dim LCP 553→555; closed C call
-17281 `~drn2(383)`. Next: abs LCP 555 — C fleeck `Monnam`
-`~drn2(430)` vs JS `mon_glyph(383)`.
+**Gameplay next:** **seed0383 Scr 201/219** — first cell miss **@199**.
+Dim LCP **555** after D-0853. **D-0854 #998 falsified** fleeck→monflee
+Monnam: C burns **7×** rndmonnam after core fleeck **16751** with
+**no** monflee `rnd`; JS jumps to postmov `mon_glyph`. Next: name the
+C caller of that Monnam×7 block (not `distfleeck` site tags — stale).
 Focused:
 
 ```bash
@@ -111,6 +110,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
 **Do not remove gulpmu flush+vision_off pair (#996 Scr+5).**
 **Do not remove D-0853 dochug Hallu idle newsym (#997 LCP+2).**
+**Do not expect distfleeck→monflee to fix LCP 555 (D-0854 falsified).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
