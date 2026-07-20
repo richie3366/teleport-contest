@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 18:52 — #1028 D-0876 watch_on_duty
+- Objective: seed0014 @58462 C `watch_on_duty` `rn2(3)` vs JS `rn2(10)`.
+- C locus: `monmove.c` `watch_on_duty`/`dochug`; `hack.c` `in_town`;
+  `mkmaze.c` `fixup_special` `has_town`.
+- Change: port `is_watch`+`watch_on_duty`+`in_town`+`picking_lock`; set
+  `has_town` for town specials. Named omit mon_yells/angry_guards/
+  is_digging/watch_dig/mind_blast body.
+- Verification: green+strict PASS; seed0014 **58462→59074**; cohort
+  38/38 PASS.
+- Next: @59074 C `exercise` `rn2(2)` vs JS `rn2(3)` after dipfountain;
+  leaderboard cron.
+
 ## 2026-07-20 18:45 — #1027 D-0875 minetn-3 Alley Town
 - Objective: seed0014 @52043 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`.
 - C locus: `dat/minetn-3.lua` via `makemaz`/`load_special`; nhlib

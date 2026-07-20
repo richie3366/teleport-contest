@@ -664,6 +664,18 @@ function fixup_special() {
     // C ref: mkmaze.c fixup_special on_level(baalzebub_level) → baalz_fixup
     if (Is_baal_level(game.u?.uz))
         baalz_fixup();
+
+    // C ref: mkmaze.c fixup_special — Is_special && sp->flags.town → has_town
+    {
+        const uz = game.u?.uz;
+        const sp = (game.sp_levchn || []).find(s0 =>
+            (s0.dlevel?.dnum | 0) === (uz?.dnum | 0)
+            && (s0.dlevel?.dlevel | 0) === (uz?.dlevel | 0));
+        if (sp && sp.flags?.town) {
+            if (!game.level.flags) game.level.flags = {};
+            game.level.flags.has_town = true;
+        }
+    }
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback

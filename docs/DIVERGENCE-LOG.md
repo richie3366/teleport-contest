@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0876 — watch_on_duty + has_town/in_town (seed0014 @58462)
+
+- **Status:** fixed (partial — seed0014 still FAIL; peel advanced)
+- **Symptom:** seed0014 @58462 — C `rn2(3)` @ `watch_on_duty` vs JS
+  `rn2(10)` (m_move getitems/hides_under; watch path omitted).
+- **C locus:** `monmove.c` `watch_on_duty` / `dochug` `is_watch` arm;
+  `hack.c` `in_town`; `mkmaze.c` `fixup_special` `has_town`.
+- **Cause:** JS `dochug` skipped watch duty; `has_town` never set for
+  Mine Town specials, so even a stub would miss the `!rn2(3)` gate.
+- **Change:** port `is_watch`/`watch_on_duty` + `in_town` +
+  `picking_lock` export; set `has_town` in `fixup_special` when
+  `sp.flags.town`. Named omit: `mon_yells`/`angry_guards`,
+  `is_digging`/`watch_dig`, `mind_blast` body.
+- **Verification:** green+strict PASS; seed0014 **58462→59074**;
+  cohort 38/38 PASS.
+- **Next:** @59074 C `exercise` `rn2(2)` vs JS `rn2(3)` after
+  dipfountain.
+
 ## D-0875 — makemaz load_special minetn-3 (seed0014 @52043)
 
 - **Status:** fixed (partial — seed0014 still FAIL; peel advanced)

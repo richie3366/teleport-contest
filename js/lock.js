@@ -119,6 +119,23 @@ function is_magic_key(_mon, _obj) {
 }
 
 /**
+ * C ref: lock.c picking_lock — occupation is picklock; fills door cell.
+ * @param {{ x: number, y: number }} out
+ * @returns {boolean}
+ */
+export function picking_lock(out) {
+    if (game.occupation === picklock) {
+        const u = game.u || {};
+        out.x = (u.ux | 0) + (u.dx | 0);
+        out.y = (u.uy | 0) + (u.dy | 0);
+        return true;
+    }
+    out.x = 0;
+    out.y = 0;
+    return false;
+}
+
+/**
  * C ref: lock.c picklock — occupation callback; rn2(100) vs xlock.chance.
  * Door + floor-box paths. Deferred: magic-key trap disarm yn, b_trapped
  * door destroy, chest_trap on trapped box unlock.
