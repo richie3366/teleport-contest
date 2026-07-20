@@ -7,26 +7,33 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is Dlvl-24 hero place)
+  prerequisite is Dlvl-24 hero place; #1080 also falsified
+  place/`collect_coords` RNG mismatch)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
   `aligned=false` from `(47,10)→(42,6)` `d=(-5,-4)` — no boulder
   `rn2`. C breathes (aligned geometry).
 - **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
-  FORCE mux; shortsighted-only peel without place proof.
+  FORCE mux; shortsighted-only peel without place proof;
+  place_lregion/`collect_coords` shuffle arg mismatch (#1080 —
+  C/JS match through 82k–83k).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
-  C screen @ ~82500+ stays **`(39,5)`→`(39,4)` Blind**; JS at
-  **`(42,6)`/`(42,5)`** from ~82600. C RNG ~82419 `place_lregion`
-  then ~82426+ `collect_coords` (teleport place after water/kelp
-  gen). Matched `m_move` `rn2(1)..rn2(8)` with `appr=0`/`cnt=8` can
-  share args while picking different cells.
-- **C locus:** `teleport.c` `collect_coords` / place after
-  `mkmaze.c` `place_lregion`; arrival `u_on_newpos` / `teleds`.
-- **Next:** falsify landing — compare JS `u` vs C `@` right after
-  `collect_coords` ~82426; port place/candidate set from C.
-- **Verification:** green+strict PASS (no JS production change);
-  rng-diff still @88377.
+  C screen @ ~82500+ stays **`(39,5)`→`(39,4)` Blind**; JS later
+  seen at **`(42,6)`/`(42,5)`**. #1080 DIAG: JS
+  `u_on_newpos(43,6)` at L=82425 with
+  `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,nly:-1,nhx:82,nhy:-1}`
+  (third `rn2(6)` try offsets +3,+3). Same place RNG + different
+  abs ⇒ suspect C vs JS levregion/`dndest` origin (or C `@`
+  reconfirm).
+- **C locus:** `mkmaze.c` `place_lregion` / `put_lregion_here` →
+  `u_on_newpos`; levregion/`dndest` from level load; later
+  `collect_coords` is post-place (matched), not the land picker.
+- **Next:** dump C `dndest`/levregion for Dlvl-24 arrival vs JS;
+  reconfirm C `@` from screen; port region bounds if wrong.
+- **Verification:** green+strict PASS; full `sessions` @#1080
+  **42/44** Scr **10398**/11405 RNG **97.50%**; rng-diff still
+  @88377.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

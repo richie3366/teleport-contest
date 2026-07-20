@@ -21,23 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1075** (42/44,
-Scr **10349**/11405, RNG **97.29%**) after D-0924. Next cadence @**#1080**.
-#1076 D-0925: `breamm`/`breamu` + AT_BREA; seed4500 **86672→87218**
-RNG **87347** Scr **759**. #1077 D-0926: `mhitm_ad_blnd` mhitu;
-seed4500 **87218→87803** RNG **88082** Scr **794**. #1078 D-0927:
-rhack F-prefix reject; seed4500 **87803→88377** RNG **88484** Scr **808**.
-#1079 D-0928: @88377 linedup falsified — JS breath not aligned; hero
-land C@(39,5) vs JS@(42,6) after ~82426 `collect_coords`.
+Score last measured: **2026-07-21** — full `sessions` @**#1080** (42/44,
+Scr **10398**/11405, RNG **97.50%**). Next cadence @**#1085**.
+#1076–#1079 peels lifted Scr/RNG vs @#1075 (10349 / 97.29%) without
+changing PASS count. #1080 also DIAG'd Dlvl-24 place: JS
+`u_on_newpos(43,6)` + `dndest[40..45]×[3..8]`; place RNG matched.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,349 / 11,405** |
-| Positional RNG calls matched | **771,361 / 792,838** (97.29%) |
-| Speed label | `32+0.24/turn` (R² 0.85) |
+| Screens matched | **10,398 / 11,405** |
+| Positional RNG calls matched | **773,047 / 792,838** (97.50%) |
+| Speed label | `31+0.26/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -75,11 +72,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** Dlvl-24 hero place — C `@` **(39,5)**
-  vs JS **(42,6)** after ~82426 `collect_coords` (D-0928; @88377
-  linedup was a geometry miss). Focused:
+**Gameplay next:** **seed4500** Dlvl-24 hero place (D-0928). Place
+`rn2(6)×6` + early `collect_coords` RNG **match**; JS lands
+`u_on_newpos(43,6)` with `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,…}`.
+C `@` reported **(39,5)** — next falsify C `dndest`/levregion origin
+(same offsets ⇒ different abs) vs post-place move. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-(and compare JS `u.ux,u.uy` to C screen `@` just after place).
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
