@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0905 — peace_minded PM_ERINYS !ualign.abuse (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; MS_LEADER/
+  GUARDIAN/NEMESIS msound arms still deferred)
+- **Session:** seed4500-knight-coverage @28249
+- **Symptom:** after matched valley `newmonhp` `d(10,8)`, C
+  `makemon` sleep `rn2(5)` (ndemon); JS `rn2(26)` via
+  `peace_minded` co-align `rn2(16+record)`.
+- **Cause:** `peace_minded` omitted C `PM_ERINYS` → `!u.ualign.abuse`
+  (no RNG); lawful knight + Erinys mal=10 fell through to
+  `rn2(16+10)`.
+- **C locus:** `makemon.c` `peace_minded` Erinys arm (before
+  race_peaceful).
+- **Fix:** port that arm. Named omit: MS_LEADER/GUARDIAN/NEMESIS
+  msound (tables omit msound).
+- **Verification:** seed4500 prefix **28249→32538** Scr **302→308**
+  RNG **28364→32592**; green+strict PASS; cohort 12/12 PASS; full
+  suite **42/44** Scr **9898** RNG **90.45%**.
+- **Next:** @32538 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`;
+  leaderboard cron; cadence @#1060.
+
 ## D-0904 — level_tele past-main-dungeon find_hell (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Quest/mines/

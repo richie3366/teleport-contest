@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:53 — #1055 score + D-0905 Erinys peace_minded
+- Objective: cadence full `sessions` @#1055; seed4500 @28249
+  C `makemon` sleep `rn2(5)` vs JS `rn2(26)`.
+- C locus: `makemon.c` `peace_minded` PM_ERINYS → `!u.ualign.abuse`.
+- Change: port Erinys arm (was falling through to co-align
+  `rn2(16+record)`). Named omit: MS_LEADER/GUARDIAN/NEMESIS msound.
+  Score @#1055: **42/44** Scr **9898**/11405 RNG **717155**/792838
+  (90.45%) `33+0.23/turn`.
+- Verification: green+strict PASS; cohort 12/12; seed4500 prefix
+  **28249→32538** Scr **302→308** RNG **28364→32592**.
+- Next: @32538 nhlib shuffle rn2(3) vs rn2(79); leaderboard cron;
+  cadence @#1060.
+
 ## 2026-07-20 21:50 — #1054 D-0904 level_tele find_hell
 - Objective: seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)`
   after matched getbones + nhlib shuffle.
@@ -163,21 +176,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; seed0014 Scr **644→645**.
 - Next: @600 JS `·` vs C `^` trap glyph (68,16).
 
-## 2026-07-20 20:16 — #1040 score + D-0889 peaceful swap x_monnam
-- Objective: cadence full `sessions` + seed0014 @558 peaceful gnome.
-- C locus: `hack.c` `domove_swap_with_pet` `x_monnam(...,"peaceful")`.
-- Change: swap pline uses full `x_monnam` article/adj/frighten; export
-  `type_is_pname`. Score @#1040: **40/44** Scr **9504**/11405 RNG
-  **676373**/792838 (85.31%) `32+0.23/turn`.
-- Verification: green+strict PASS; cohort 9/9; seed0014 Scr **641→644**.
-- Next: @560 trap-trigger map/glyph (topline already matches).
-
-## 2026-07-20 20:10 — #1039 D-0888 cream pie The(xname)
-- Objective: seed0014 @505 `The cream pie splashes…` vs JS `Cream pie…`.
-- C locus: `uhitm.c` hmon CREAM_PIE `The(xname)` / `An(singular)`.
-- Change: export `The`/`An` from `objnam.js`; wire cream-pie splash
-  (was capitalize-only `xname`).
-- Verification: green+strict PASS; cohort 7/7 PASS; seed0014 Scr
-  **640→641**/714 (RNG FULL); @505 matches.
-- Next: @558 C `You swap places with the peaceful gnome.` vs JS bare
-  `… with the gnome.`.

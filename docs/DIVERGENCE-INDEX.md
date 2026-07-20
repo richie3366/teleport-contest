@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0905 | fixed | peace_minded PM_ERINYS !abuse | seed4500 **28249→32538** Scr **308**; next @32538 hellfill |
 | D-0904 | fixed | level_tele find_hell past main | seed4500 **18153→28249** Scr **302**; next @28249 makemon |
 | D-0903 | fixed | fill_zoo BEEHIVE queen/killer+jelly | seed4500 **14216→18153** Scr **302**; next @18153 splev_initlev |
 | D-0902 | fixed | shkveg/mkveggy_at HEALTHY_TIN | seed4500 **9974→14216** Scr **294**; next @14216 fill_ordinary |
