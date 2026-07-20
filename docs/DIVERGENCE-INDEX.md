@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0843 | fixed | HI_METAL mcolors + swallow DEC o/s scoring | Scr 148→176; flush still @172 post-expel Hallu |
 | D-0842 | fixed | DECgfx swallow S_sw_tc/ml/mr/bc | o/x/x/s+SO; flush still display-RNG @bat; Scr 148 |
 | D-0841 | rejected | gulpmu flush_topl_more ≡ display_nhwindow | toplines 141–174 OK; cause revised in D-0842 (not hjkl) |
 | D-0840 | fixed | mpickstuff distant_name + hitmsg again | seed0383 Scr 146→148; RNG FULL; green+cohort OK |

@@ -381,23 +381,24 @@ def main() -> int:
             "CLR_BRIGHT_MAGENTA": 13,
             "CLR_BRIGHT_CYAN": 14,
             "CLR_WHITE": 15,
-            "HI_OBJ": 7,
-            "HI_METAL": 7,
-            "HI_COPPER": 3,
-            "HI_SILVER": 7,
-            "HI_GOLD": 11,
-            "HI_LEATHER": 3,
-            "HI_CLOTH": 3,
-            "HI_ORGANIC": 3,
-            "HI_WOOD": 3,
-            "HI_PAPER": 15,
-            "HI_GLASS": 6,
-            "HI_MINERAL": 7,
-            "HI_ZAP": 12,
-            "HI_DOMESTIC": 15,
-            "HI_LORD": 5,  # C color.h: HI_LORD CLR_MAGENTA
-            "HI_OVERLORD": 13,  # C color.h: HI_OVERLORD CLR_BRIGHT_MAGENTA
-            "DRAGON_SILVER": 7,
+            # C ref: color.h HI_* / DRAGON_SILVER (must match js/const.js)
+            "HI_OBJ": 5,            # CLR_MAGENTA
+            "HI_METAL": 6,          # CLR_CYAN (was 7 — swallow Hallu patchwork)
+            "HI_COPPER": 11,        # CLR_YELLOW
+            "HI_SILVER": 7,         # CLR_GRAY
+            "HI_GOLD": 11,          # CLR_YELLOW
+            "HI_LEATHER": 3,        # CLR_BROWN
+            "HI_CLOTH": 3,          # CLR_BROWN
+            "HI_ORGANIC": 3,        # CLR_BROWN
+            "HI_WOOD": 3,           # CLR_BROWN
+            "HI_PAPER": 15,         # CLR_WHITE
+            "HI_GLASS": 14,         # CLR_BRIGHT_CYAN
+            "HI_MINERAL": 7,        # CLR_GRAY
+            "HI_ZAP": 12,           # CLR_BRIGHT_BLUE
+            "HI_DOMESTIC": 15,      # CLR_WHITE
+            "HI_LORD": 5,           # CLR_MAGENTA
+            "HI_OVERLORD": 13,      # CLR_BRIGHT_MAGENTA
+            "DRAGON_SILVER": 14,    # CLR_BRIGHT_CYAN
         }
         # C ref: weight.h — SIZ(cwt, cnutrit, sound, msize)
         wt_map = {

@@ -47,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **148**/219 | RNG FULL; Scr 148 (D-0840); gulpmu More next |
+| seed0383 | **16915**/16915 | **176**/219 | RNG FULL; Scr 176 (D-0843); gulpmu More @141 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10358/11409 | 113/532 | stuck @10157 D-0731 |
@@ -75,13 +75,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 gulpmu More** — D-0842 DECgfx swallow
-glyphs done (`S_sw_tc/ml/mr/bc` meta-o/x/x/s). D-0841 flush still
-parked: toplines 141–174 OK then **Hallu bat-stomach display-RNG
-patchwork diverges** → wrong Monnam / early expel → getbones
-@11524. (`steps[i].key=moves[i-1]` — not hjkl-reject.) RNG **FULL**;
-Scr **148**/219. Next: find display-RNG burn skew before bat
-`swallowed(1)` so flush can land. Focused:
+**Gameplay next:** **seed0383 gulpmu More** — D-0843 HI_METAL mcolors
++ swallow DEC `o`/`s` scoring (Scr **176**/219). D-0842 glyphs done.
+D-0841 flush still parked: with flush+D-0843, ice-vortex Hallu OK then
+**post-expel Hallu map @172** (`see_monsters` display-RNG) → wrong
+Monnam / early expel → getbones @11524. Next: fix post-expel Hallu
+burns so flush can land. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -91,10 +90,10 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0842. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0843. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more without fixing display-RNG
-skew (D-0841/D-0842).**
+**Do not re-apply gulpmu flush_topl_more without fixing @172
+display-RNG skew (D-0841/D-0843).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

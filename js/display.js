@@ -2682,10 +2682,9 @@ function _buildScreenOutput() {
         }
         // Map — write characters to grid (DEC → Unicode for browser display).
         // Only convert glyphs that frozen screen-decode DEC_MAP equates back
-        // (walls/doors/a/~). S_altar meta-{, S_pool/S_lava/S_water meta-`,
-        // S_tree meta-g, and S_bars meta-| are in DEC_TO_UNICODE but NOT in
-        // DEC_MAP — keep raw so serialize_for_scoring matches C (renderCell
-        // leaves them).
+        // (walls/doors/a/~). Leave SO-form letters that renderCell keeps raw:
+        // S_altar '{', S_pool/lava/water '`', S_tree 'g', S_bars '|',
+        // S_sw_tc 'o', S_sw_bc 's'.
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
@@ -2693,8 +2692,12 @@ function _buildScreenOutput() {
                 let ch = loc.disp_ch;
                 if (loc.disp_decgfx) {
                     const uni = DEC_TO_UNICODE[ch];
-                    // DEC_MAP: walls/doors/a/~ only — not '{', '`', 'g', or '|'
-                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g' && ch !== '|')
+                    // DEC_MAP: walls/doors/a/~ only. Keep raw chars that
+                    // renderCell leaves unchanged so scoring matches C's
+                    // SO+letter form: '{','`','g','|' plus swallow S_sw_tc/bc
+                    // 'o'/'s' (dat/symbols DECgraphics; D-0842/D-0843).
+                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g'
+                        && ch !== '|' && ch !== 'o' && ch !== 's')
                         ch = uni;
                 }
                 const sr = y + 1;
@@ -2803,7 +2806,8 @@ export function paint_gbuf_level_to_terminal(level) {
             const attr = loc.disp_attr ?? 0;
             if (loc.disp_decgfx && ch && ch !== ' ') {
                 const uni = DEC_TO_UNICODE[ch];
-                if (uni && ch !== '{' && ch !== '`' && ch !== 'g' && ch !== '|')
+                if (uni && ch !== '{' && ch !== '`' && ch !== 'g'
+                    && ch !== '|' && ch !== 'o' && ch !== 's')
                     ch = uni;
             }
             display.setCell(x - 1, sr, ch || ' ', color, attr);

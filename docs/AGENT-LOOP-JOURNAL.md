@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 09:35 — #974 seed0383 HI_METAL + DEC o/s (D-0843)
+- Objective: Hallu display-RNG / swallow patchwork before gulpmu flush.
+- C locus: color.h HI_METAL≡CLR_CYAN; dat/symbols S_sw_tc/bc; display.c swallowed.
+- Change: extractor HI_METAL 7→6 (+ HI_* aliases); DEC→Unicode keep o/s;
+  flush re-test → miss moves to @172 post-expel see_monsters (reverted).
+- Verification: seed0383 Scr **176**/219 RNG FULL; green+strict; cohort 12/12.
+- Next: post-expel docrt/see_monsters Hallu burn skew @172; then flush.
+
 ## 2026-07-20 09:16 — #973 seed0383 DECgfx swallow (D-0842)
 - Objective: seed0383 stomach cells + revise gulpmu flush blocker.
 - C locus: dat/symbols DECgraphics S_sw_tc/ml/mr/bc; display.c swallowed.

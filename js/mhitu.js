@@ -569,8 +569,8 @@ async function expels(mtmp, mdat, message) {
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
  * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
  * drain_en; make_blinded; Half_physical polish;
- * display_nhwindow(WIN_MESSAGE) before swallowed (D-0841/D-0842: flush
- * matches 141–174 then display-RNG patchwork stomach desync @bat);
+ * display_nhwindow(WIN_MESSAGE) before swallowed (D-0841/D-0843: flush
+ * OK thru ice-vortex Hallu; post-expel see_monsters Hallu map skew @172);
  * swallowed cls/bot polish; u_on_newpos while digesting (D-0826 postmov).
  */
 async function gulpmu(mtmp, mattk) {
@@ -609,9 +609,8 @@ async function gulpmu(mtmp, mattk) {
         }
 
         // C: display_nhwindow(WIN_MESSAGE,FALSE) before vision_recalc deferred
-        // (D-0841/D-0842: flush matches toplines 141-174 then bat stomach
-        // Hallu patchwork display-RNG diverges → wrong Monnam / early expel
-        // → getbones @11524). steps[i].key=moves[i-1] — not hjkl-reject.
+        // (D-0841/D-0843: flush matches thru ice-vortex Hallu; post-expel
+        // see_monsters Hallu map still display-RNG skews @172 → bat Monnam).
         vision_recalc(2);
         u.uswallow = 1;
         let tim_tmp;

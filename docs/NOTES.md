@@ -7,25 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#973:** D-0842 DECgfx swallow (`dat/symbols` S_sw_tc/ml/mr/bc →
-  o/x/x/s + SO). Scr still **148** (first miss @141 engulfs More).
-- **Flush blocker (revised):** D-0841 hjkl-reject was wrong —
-  `steps[i].key = moves[i-1]`. With flush+DECgfx: frames 141–174
-  match; bat stomach Hallu **patchwork colors** diverge @174 →
-  Monnam pit-fiend vs spotted-jelly @175 → early expel → getbones
-  @11524.
-- **Falsify next:** which Hallu display burn between ice-vortex
-  hallu-on and bat `swallowed(1)` skews (count `swallowed(0)` /
-  `see_*` / rndmonnam burns).
-- **Don't:** re-apply gulpmu `flush_topl_more` alone.
+- **#974:** D-0843 HI_METAL mcolors (CLR_CYAN) + swallow DEC `o`/`s`
+  scoring form. Scr **176**/219 RNG FULL (was 148).
+- **Flush blocker (revised):** with flush+D-0843, ice-vortex Hallu
+  (141–164) matches; first miss **@172** post-expel Hallu map
+  (`unstuck`→`docrt`→`see_monsters` display-RNG burn skew) → bat
+  Monnam pit-fiend vs spotted-jelly → getbones @11524.
+- **Falsify next:** count Hallu `mon_glyph`/`obj_glyph`/`display_warning`
+  burns in post-expel `docrt`/`see_*` vs C (order / visible set).
+- **Don't:** re-apply gulpmu `flush_topl_more` until @172 fixed.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0842 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0843 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0842 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0843 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
   getmattk / Monnam / unstuck / initedog malign — closed; see journal.
@@ -33,15 +31,16 @@ Objective/score live in `CURRENT.md`.
   formula / early return.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
-- gulpmu flush alone → display-RNG @bat stomach (D-0841/42; don't retry).
+- gulpmu flush alone → display-RNG (D-0841/43; don't retry until @172).
 - `steps[i].key = moves[i-1]` (not key-at-More).
+- HI_METAL≡CLR_CYAN (6) not gray — extractor was wrong (D-0843).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#970 Scr **8948**/11405 RNG **666600**/792838;
-  seed0383 RNG **FULL**; Scr **148**/219 (gulpmu More next).
+  seed0383 RNG **FULL**; Scr **176**/219 (gulpmu More @141 next).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -58,4 +57,4 @@ Objective/score live in `CURRENT.md`.
 - unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
 - `initedog` must `set_malign` after tame (D-0839).
 - `mpickstuff` must `distant_name` (D-0840); hitmsg consecutive again.
-- DEC swallow: `/o\ x@x \s/` (D-0842); Primary `/-\ |@| \-/`.
+- DEC swallow: `/o\ x@x \s/` keep SO-form o/s (D-0842/43); Primary `/-\ |@| \-/`.

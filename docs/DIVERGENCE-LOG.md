@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0843 — fixed: HI_METAL mcolors + swallow DEC o/s scoring form
+
+- **Status:** fixed (colors/glyphs); gulpmu flush still parked
+- **Symptom:** seed0383 Hallu swallow patchwork — C bl `\` cyan vs JS
+  NO_COLOR; with flush, ice-vortex Hallu cells wrong then bat Monnam
+  `pit fiend` vs `spotted jelly`. Also DECgfx `o`/`s` scored as Unicode
+  ⎺/⎽ vs C SO+letter.
+- **Cause:** (1) `scripts/extract-monsters.py` mapped `HI_METAL`→7
+  (CLR_GRAY) but C `color.h` `HI_METAL`≡`CLR_CYAN` (6); iron golem et al.
+  wrong in `mcolors[]`, then `tty_map_color` gray→NO_COLOR. (2) flush_screen
+  DEC→Unicode converted swallow `o`/`s` though `DEC_MAP`/`renderCell` keep
+  them as raw SO-form letters.
+- **Fix:** extractor HI_* aliases aligned to `color.h` / `js/const.js`;
+  regenerate `monsters_data.js`; exclude `o`/`s` from DEC→Unicode like
+  `{`,`\``,'g','|'.
+- **Flush re-test:** with flush+fix, frames thru ice-vortex Hallu (164)
+  match; first miss **@172** post-expel Hallu map (`see_monsters` display
+  RNG). Flush reverted (RNG @11524). Scr **176**/219 RNG FULL without flush.
+- **Verification:** green+strict PASS; cohort 12/12 PASS (seed0383 non-PASS).
+- **Next:** post-expel `docrt`/`see_monsters` Hallu burn skew @172; then flush.
+
+
 ## D-0842 — fixed: DECgraphics swallow glyphs + flush cause revision
 
 - **Status:** fixed (glyphs); flush still parked
