@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 07:34 — #965 public score cadence
+- Objective: mandatory full `sessions` score (iter % 5 == 0).
+- C locus: n/a (score+docs); diagnosed seed0383 @11400 only.
+- Change: no JS patch. Documented suite **38/44** Scr **8946**/11405
+  RNG **661122**/792838 (83.39%); Δ vs #960 Scr +9 RNG +632.
+  @11400: C `AC_VALUE`→`rnd(2)` (hack.h neg AC) then `rnd(20)` hit;
+  JS matches AC roll then fleeck `rn2(5)` — left mattacku w/o hit.
+- Verification: green+strict PASS; full `sessions` 38/44.
+- Next: seed0383 @11400 dump range2/aatyp/find_offensive after AC_VALUE.
+
 ## 2026-07-20 07:30 — #964 seed0383 abuse_dog / xkilled luck (D-0836)
 - Objective: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).
 - C locus: dog.c abuse_dog; sounds.c yelp/growl; uhitm.c hmon_hitmon_pet;

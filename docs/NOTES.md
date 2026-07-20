@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#964:** D-0836 closed @11372 (`abuse_dog` + `yelp`/`growl` +
-  `xkilled` peaceful/tame `change_luck(-1)` with `rn2(2)`).
-  seed0383 prefix **11400**; RNG matched **11437**/16915 Scr **144**/219.
-- **Next @11400:** C `mattacku` `rnd(20)` vs JS `rn2(5)` (after matched
-  `rnd(2)` at mhitu:709). Hypothesis: hero-side attack continues into
-  hit roll; JS fleeck/m_move path instead.
-- **Falsify:** dump C vs JS attacker/ustuck/engulf state at 11400;
-  compare mattacku call after fleeck vs JS monmove.
-- **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0836.
-- **Open (not this peel):** `potionbreathe` POT_CONFUSION/BOOZE still stubs
-  `u.Confusion += rnd(5)` without `make_confused`/`HConfusion` timeout;
-  `nh_timeout` HALLUC expiry still deferred; dokick `abuse_dog` still stub.
+- **#965:** score cadence only (no peel). Suite **38/44** Scr **8946**/11405
+  RNG **661122**/792838 (83.39%); Δ vs #960 Scr **+9** RNG **+632**.
+- **Next @11400:** C after fleeck enters `mattacku`: `AC_VALUE`→`rnd(2)`
+  (hack.h: negative AC) then HTH/WEAP `rnd(20)` @mhitu:806. JS matches
+  `AC_VALUE` rnd then emits fleeck `rn2(5)` — left mattacku without hit roll.
+- **Hypothesis:** post-AC early-out or skipped aatyp (`find_offensive` spend,
+  `range2`, missing AT_TENT/HUGS, AT_WEAP wield-break) then next mon fleeck.
+- **Falsify:** dump JS `range2`/`foundyou`/`mattk.aatyp`/`find_offensive`
+  result immediately after AC_VALUE when log length≈11399; compare C attacker.
+- **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0836; treat line 709
+  as mystery — it is `AC_VALUE` macro site.
+- **Open (not this peel):** `potionbreathe` POT_CONFUSION/BOOZE stubs;
+  `nh_timeout` HALLUC expiry; dokick `abuse_dog` still stub.
 
 ## Don't re-check (≤15)
 
@@ -39,6 +40,8 @@ Objective/score live in `CURRENT.md`.
   Hallucination → exerper WIS `rn2(2)`.
 - **#964:** mtame intimacy @11372 — falsified; was missing `hmon_hitmon_pet`
   → `abuse_dog` / `yelp` (then xkilled luck `rn2(2)`).
+- **#965:** `mattacku:709` rnd(2) is `AC_VALUE` negative-AC macro — not a
+  separate mystery call.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 
@@ -46,7 +49,7 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#960 Scr **8937**/11405 RNG **660490**/792838;
+- suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
   seed0383 prefix **11400** Scr **144**/219 (D-0836).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
@@ -62,3 +65,4 @@ Objective/score live in `CURRENT.md`.
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
 - `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
 - `hmon_hitmon_pet` → `abuse_dog`/`yelp`/`growl`; xkilled tame luck (D-0836).
+- `AC_VALUE(neg)` → `-rnd(-AC)` at mattacku AC site (hack.h).
