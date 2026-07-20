@@ -1,3 +1,13 @@
+## 2026-07-20 00:45 — #932 D-0810 setworn no find_ac
+- Objective: seed0360 @497 C `AC:2` vs JS `AC:-2` displacement More.
+- C locus: `worn.c` `setworn`; `do_wear.c` `Cloak_on`; delay-0 unmul.
+- Change: **D-0810** `setworn`/`Cloak_on` never early `find_ac`;
+  GUARDING amulet explicit `makeknown`+`find_ac`. Scr **678→679**;
+  prefix **497→523**.
+- Verification: green+strict PASS; cohort **35/35** PASS.
+- Next: @523 farlook fog/vapor `~` vs unexplored `·`.
+
+
 ## 2026-07-20 00:36 — D-0809 travel "(no travel path)"
 - Objective: seed0360 @395 C `unexplored area (no travel path)` vs bare.
 - C locus: `getpos.c` `auto_describe` + `hack.c` `is_valid_travelpt`.

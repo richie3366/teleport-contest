@@ -21,7 +21,7 @@ import {
     is_wanderer, is_armed, passes_walls, nohands, verysmall,
     monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, M1_NOTAKE, tunnels, needspick,
     can_track, likes_gold, likes_gems, likes_objs, likes_magic,
-    throws_rocks, mindless, is_animal, strongmonst, is_mercenary,
+    throws_rocks, is_swimmer, likes_lava, mindless, is_animal, strongmonst, is_mercenary,
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter,
 } from './monsters.js';
@@ -283,8 +283,19 @@ function mon_would_consume_item(_mtmp, _otmp) {
     return false;
 }
 
-/** C ref: dogmove.c could_reach_item — flyer/swimmer/boulder omitted. */
-function could_reach_item(_mtmp, _x, _y) {
+/**
+ * C ref: dogmove.c could_reach_item — pool/lava/boulder gates.
+ * Flyer-only arms N/A in C (D-0823 / D-0824).
+ */
+function could_reach_item(mon, nx, ny) {
+    const ptr = mon?.data;
+    if (is_pool(nx, ny) && !is_swimmer(ptr)) return false;
+    if (is_lava(nx, ny) && !likes_lava(ptr)) return false;
+    if (BOULDER >= 0) {
+        for (let obj = objects_at(nx, ny); obj; obj = obj.nexthere) {
+            if ((obj.otyp | 0) === BOULDER && !throws_rocks(ptr)) return false;
+        }
+    }
     return true;
 }
 

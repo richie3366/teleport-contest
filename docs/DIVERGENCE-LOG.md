@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0824 — monmove could_reach_item + mfndpos may_passwall (seed0383 @10024)
+
+- **Status:** fixed (partial — next @10281 mattacku)
+- **Symptom:** seed0383 after D-0823: C `rn2(16)` vs JS `rn2(20)` at
+  `m_move` mtrack `rn2(4*(cnt-j))`. Prefix 10024; Scr 141/219.
+- **C locus:** `dogmove.c` `could_reach_item` (also used from
+  `monmove.c` `m_search_items`/`mpickstuff`); `hack.c` `may_passwall`
+  in `mon.c` `mfndpos` ALLOW_WALL gate.
+- **Cause (#947):** (1) JS `monmove.js` still stubbed `could_reach_item`
+  always-true after D-0823 dog_goal port — hostiles treated pool/lava/
+  boulder floor objs as reachable → wrong getitems/loot early-outs and
+  mon path desync, observed as earth-elemental `mfndpos` cnt 5 vs C 4
+  (`rn2(20)` vs `rn2(16)`). (2) `mfndpos` obstructed gate had
+  `may_passwall` stubbed `false` despite helper existing.
+- **Change:** real `could_reach_item` in `js/monmove.js`; wire
+  `may_passwall(nx,ny)` in `js/mon.js` `mfndpos`.
+- **Verification:** seed0383 prefix **10024→10281**; RNG matched
+  **10527→10883**/16915; Scr still **141**/219; green+strict PASS;
+  cohort 7/7 (1500/1800/0060/0102/0700/0360/0398).
+- **Next:** @10281 C `rnd(20)` @ `mattacku` vs JS `rn2(12)`.
+
 ## D-0823 — dog_goal could_reach_item pool/lava/boulder (seed0383 @9709)
 
 - **Status:** fixed (partial — next @10024 `m_move` mtrack)

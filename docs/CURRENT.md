@@ -46,7 +46,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 10097/16915 | **141**/219 | D-0822 bigrm-12; next @9709 obj_resists |
+| seed0383 | 10883/16915 | **141**/219 | D-0824; next @10281 mattacku rnd(20) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
@@ -74,9 +74,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10024** — after D-0823
-`could_reach_item`, first mismatch is C `m_move` mtrack
-`rn2(4*(cnt-j))=rn2(16)` vs JS `rn2(20)`. Focused:
+**Gameplay next:** **seed0383 @10281** — after D-0824
+`could_reach_item`/`may_passwall`, first mismatch is C `mattacku`
+`rnd(20)` vs JS `rn2(12)`. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -88,7 +88,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0823. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0824. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

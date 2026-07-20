@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 02:35 — #947 D-0824 monmove could_reach + may_passwall
+- Objective: seed0383 @10024 m_move mtrack rn2(16) vs rn2(20).
+- C locus: `dogmove.c` `could_reach_item`; `hack.c` `may_passwall` via
+  `mon.c` `mfndpos`.
+- Change: **D-0824** real `could_reach_item` in `monmove.js` + wire
+  `may_passwall` in `mfndpos`. Prefix **10024→10281**.
+- Verification: green+strict PASS; cohort 7/7; Scr still 141/219.
+- Next: @10281 `mattacku` `rnd(20)` vs `rn2(12)`.
+
 ## 2026-07-20 02:15 — #946 D-0823 could_reach_item
 - Objective: seed0383 @9709 obj_resists vs rn2(8) peel.
 - C locus: `dogmove.c` `could_reach_item` / `dog_goal` APPORT gate.
@@ -142,13 +151,3 @@ Use this shape:
   Scr **679→684**; prefix **523→531**.
 - Verification: green+strict PASS; cohort **35/35** PASS.
 - Next: @531 `dark part of a room` vs `floor of a room`.
-
-## 2026-07-20 00:45 — #932 D-0810 setworn no find_ac
-- Objective: seed0360 @497 C `AC:2` vs JS `AC:-2` displacement More.
-- C locus: `worn.c` `setworn`; `do_wear.c` `Cloak_on`; delay-0 unmul.
-- Change: **D-0810** `setworn`/`Cloak_on` never early `find_ac`;
-  GUARDING amulet explicit `makeknown`+`find_ac`. Scr **678→679**;
-  prefix **497→523**.
-- Verification: green+strict PASS; cohort **35/35** PASS.
-- Next: @523 farlook fog/vapor `~` vs unexplored `·`.
-

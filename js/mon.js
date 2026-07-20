@@ -897,7 +897,7 @@ export function mfndpos(mon, data, flag) {
             const ntyp = loc.typ;
             // C: obstructed unless ALLOW_WALL passwall or diggable rock/tree
             if (IS_OBSTRUCTED(ntyp)
-                && !((flag & ALLOW_WALL) && false /* may_passwall deferred */)
+                && !((flag & ALLOW_WALL) && may_passwall(nx, ny))
                 && !((IS_TREE(ntyp) ? treeok : rockok) && may_dig(nx, ny))) {
                 continue;
             }
