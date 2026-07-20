@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 23:38 — #1065 public score cadence
+- Objective: mandatory full `sessions` @#1065; diagnose seed4500 @52643.
+- C locus: `shk.c` `shk_move` satdoor/`onlineu` → `move_special` mill.
+- Change: no port patch. Score refresh. DIAG: JS shk@home(65,6)
+  hero(65,17) `onlineu` → `appr=0` `rn2(1)`; C next `distfleeck`
+  ⇒ C `!onlineu` (hero-path desync; do not FORCE shk). Same class as
+  D-0376 polarity flip.
+- Verification: suite **42/44** Scr **10198**/11405 RNG
+  **737530**/792838 (93.02%) `33+0.25/turn`; green+strict PASS;
+  seed4500 still prefix **52643** RNG **52967** Scr **608**.
+- Next: find when JS hero left C's line vs shk; leaderboard cron;
+  cadence @#1070.
+
 ## 2026-07-20 23:32 — #1064 D-0914 mk_knox_portal place (wizard)
 - Objective: seed4500 @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`
 - C locus: `mklev.c` `mk_knox_portal`; `dungeon.c` `insert_branch`
@@ -31,7 +44,6 @@ Use this shape:
 - Verification: prefix **50844→52643** RNG **52967** Scr **608**;
   green+strict PASS; cohort 10/10 PASS.
 - Next: @52643 C `distfleeck` `rn2(5)` vs JS `rn2(1)`.
-
 ## 2026-07-20 23:18 — #1063 D-0913 `x`/doswapweapon
 - Objective: seed4500 @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`
 - C locus: `cmd.c` `'x'`→`doswapweapon`; `worn.c` `setworn` twoweap clear
@@ -40,7 +52,6 @@ Use this shape:
 - Verification: prefix **50338→50844** RNG **50936** Scr **594**;
   green+strict PASS; cohort 5/5 PASS (seed4500 still FAIL later).
 - Next: @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`.
-
 ## 2026-07-20 23:03 — #1062 D-0912 #turn / doturn
 - Objective: seed4500 @50290 C `exercise` `rn2(19)` vs JS `mcalcmove`
 - C locus: `pray.c` `doturn` / `maybe_turn_mon_iter`; `cmd.c` `"turn"`
@@ -50,7 +61,6 @@ Use this shape:
 - Verification: prefix **50290→50338** RNG **50401** Scr **594**;
   green+strict PASS; cohort 6/6 PASS.
 - Next: @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`.
-
 ## 2026-07-20 22:56 — #1061 D-0911 extract ox/oy + rotten + HDeaf
 - Objective: seed4500 @50111 C `next_ident`/`doeat` vs JS `mcalcmove`
 - C locus: `mkobj.c` `obj_extract_self`; `eat.c` `rottenfood`/`Hear_again`;
@@ -61,7 +71,6 @@ Use this shape:
 - Verification: prefix **50111→50290** RNG **50469** Scr **499→596**;
   green+strict PASS; cohort 6/6 PASS
 - Next: @50290 exercise rn2(19); leaderboard cron; cadence @#1065
-
 ## 2026-07-20 22:45 — #1060 score + D-0910 regen_pw
 - Objective: cadence full `sessions` + seed4500 @50054 regen_pw
 - C locus: `allmain.c` `regen_pw` + moveloop once-per-turn call
@@ -71,7 +80,6 @@ Use this shape:
   green+strict PASS; cohort 6/6; suite **42/44** Scr **10089**/11405
   RNG **734803**/792838 (92.68%) `31+0.23/turn`
 - Next: @50111 next_ident rnd(2); cadence @#1065
-
 ## 2026-07-20 22:36 — D-0909 Punished drag_ball/move_bc
 - Objective: seed4500 @50034 C mattacku rnd(20) vs JS rn2(20)
 - C locus: ball.c drag_ball/move_bc; hack.c domove Punished arms
@@ -80,7 +88,6 @@ Use this shape:
 - Verification: prefix 50034→50054 RNG 50167→50220 Scr 499;
   green+strict PASS; cohort 6/6 PASS
 - Next: @50054 regen_pw rn2(2); cadence @#1060
-
 ## 2026-07-20 22:25 — D-0908 SCR_PUNISHMENT punish/placebc
 - Objective: seed4500 @49915 C mkobj rnd(1000) vs JS rn2(19)
 - C locus: read.c seffect_punishment/punish; ball.c placebc; worn setworn
@@ -89,7 +96,6 @@ Use this shape:
 - Verification: prefix 49915→50034 Scr 481→499 RNG 50071→50167;
   green+strict PASS; cohort 4/4 PASS
 - Next: @50034 mattacku rnd(20) vs rn2(20); cadence @#1060
-
 ## 2026-07-20 22:20 — #1057 D-0907 study learn + makeknown
 - Objective: seed4500 @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`
   after matched study_book.
@@ -102,7 +108,6 @@ Use this shape:
   RNG **49921→50071**; green+strict PASS; cohort 4/4 PASS.
 - Next: @49915 C `mkobj` `rnd(1000)` vs JS `rn2(19)`; leaderboard
   cron; cadence @#1060.
-
 ## 2026-07-20 22:05 — #1056 D-0906 hellfill + create_maze
 - Objective: seed4500 @32538 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`
   after matched getbones (hellfill.lua / create_maze).
@@ -115,7 +120,6 @@ Use this shape:
   **32538→49776** Scr **308→459** RNG **49921**/108275.
 - Next: @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`; leaderboard
   cron; cadence @#1060.
-
 ## 2026-07-20 21:53 — #1055 score + D-0905 Erinys peace_minded
 - Objective: cadence full `sessions` @#1055; seed4500 @28249
   C `makemon` sleep `rn2(5)` vs JS `rn2(26)`.
@@ -128,7 +132,6 @@ Use this shape:
   **28249→32538** Scr **302→308** RNG **28364→32592**.
 - Next: @32538 nhlib shuffle rn2(3) vs rn2(79); leaderboard cron;
   cadence @#1060.
-
 ## 2026-07-20 21:50 — #1054 D-0904 level_tele find_hell
 - Objective: seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)`
   after matched getbones + nhlib shuffle.
@@ -141,7 +144,6 @@ Use this shape:
   **18215→28364**; green+strict PASS; cohort 12/12 PASS.
 - Next: @28249 C `makemon` `rn2(5)` vs JS `rn2(26)`; leaderboard cron;
   cadence @#1055.
-
 ## 2026-07-20 21:39 — #1053 D-0903 fill_zoo BEEHIVE
 - Objective: seed4500 @14216 C `next_ident` vs JS `rn2(3)` after
   matched `fill_ordinary_room` `rn2(5)`.
@@ -153,7 +155,6 @@ Use this shape:
   **14271→18215**; green+strict PASS; cohort 11/11 PASS.
 - Next: @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)` after
   getbones + nhlib shuffle; cadence @#1055.
-
 ## 2026-07-20 21:33 — #1052 D-0902 shkveg / mkveggy_at
 - Objective: seed4500 @9974 C `shkveg` `rnd(860)` vs JS FOOD `rnd(1000)`.
 - C locus: `shknam.c` `veggy_item`/`shkveg`/`mkveggy_at`/`mkshobj_at`;
@@ -165,7 +166,6 @@ Use this shape:
   **10113→14271**; green+strict; cohort 11/11 PASS.
 - Next: seed4500 @14216 next_ident vs rn2(3); leaderboard cron;
   cadence @#1055.
-
 ## 2026-07-20 21:28 — #1051 D-0901 Pillars terr shuffle
 - Objective: seed4500 @8925 nhlib shuffle rn2(7) vs JS rn2(5).
 - C locus: `themerms.lua` Pillars; `nhlib.lua` shuffle; `sp_lev.c`
@@ -175,14 +175,3 @@ Use this shape:
 - Verification: seed4500 prefix **8925→9974** Scr **284**; green+strict;
   cohort 11/11 PASS.
 - Next: seed4500 @9974 shkveg rnd(860); leaderboard cron; cadence @#1055.
-
-## 2026-07-20 21:25 — #1050 D-0900 spitmm + score cadence
-- Objective: mandatory full `sessions` score @#1050; seed4500 @8491.
-- C locus: `mthrowu.c` `spitmm`/`spitmu`/`m_lined_up`; `mhitu.c` AT_SPIT.
-- Change: port spit venom path + wire `mattacku`; score refresh.
-  Named omit: mon-mon `mattackm` AT_SPIT; breamm/breamu.
-- Verification: full suite **42/44** Scr **9874**/11405 RNG
-  **694676**/792838 (87.62%) `32+0.24/turn`; seed4500 prefix
-  **8491→8925** Scr **264→284**; green+strict; cohort 7/7.
-- Next: seed4500 @8925 nhlib shuffle; leaderboard cron; cadence @#1055.
-

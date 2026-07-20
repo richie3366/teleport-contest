@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` @**#1060** (42/44,
-Scr **10089**/11405, RNG **92.68%**). Next cadence @**#1065**. #1060
-D-0910 regen_pw: seed4500 prefix **50054→50111** RNG **50220→50240**.
+Score last measured: **2026-07-20** — full `sessions` @**#1065** (42/44,
+Scr **10198**/11405, RNG **93.02%**). Next cadence @**#1070**. #1065
+diag seed4500 @52643: shk satdoor/`onlineu` mill vs hero-path desync.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,089 / 11,405** |
-| Positional RNG calls matched | **734,803 / 792,838** (92.68%) |
-| Speed label | `31+0.23/turn` (R² 0.84) |
+| Screens matched | **10,198 / 11,405** |
+| Positional RNG calls matched | **737,530 / 792,838** (93.02%) |
+| Speed label | `33+0.25/turn` (R² 0.82) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 50469/108275 | 596/1814 | knight coverage; next @50290 exercise |
+| seed4500 | 52967/108275 | 608/1814 | knight; @52643 shk/`onlineu` |
 
 ## Green gate
 
@@ -70,14 +70,17 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @52643 (C `distfleeck` `rn2(5)` vs
-  JS `rn2(1)` — after D-0914 `mk_knox_portal` place). Focused:
+**Gameplay next:** **seed4500** @52643 — JS `shk_move` satdoor mill
+  `move_special` `rn2(1)` (shk home (65,6), hero (65,17) `onlineu`);
+  C next is `distfleeck` ⇒ C `!onlineu` (hero-path desync; D-0376
+  class — **do not FORCE shk/`onlineu`**). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0914. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
+**Do not FORCE shk satdoor/`onlineu` (hero-path first; D-0376).**
 **Keep:** D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;

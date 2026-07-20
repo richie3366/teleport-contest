@@ -8,15 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @52643 C `distfleeck` `rn2(5)` vs JS
-  `rn2(1)` (after D-0914 mk_knox place). Falsifier:
+- **Gameplay next:** seed4500 @52643 — JS shk@home(65,6) hero(65,17)
+  `onlineu` → satdoor `appr=0` → `move_special` `rn2(1)`; C next
+  `distfleeck` ⇒ C `!onlineu`. Find when JS hero left C's line
+  (screen/cursor before peel). **Do not** FORCE shk/`onlineu`.
+  Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0914 closed @52643 (prefix 50844→52643).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0913 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0914 done.
+- Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
 - Do not stub `mk_knox_portal` place under wizard/debug (D-0914).
 - Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
 - Do not omit `#turn`/`doturn` chant+exercise (D-0912).
@@ -30,14 +33,14 @@ Objective/score live in `CURRENT.md`.
   (D-0907).
 - Do not omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
 - Do not omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905).
-- Do not omit `level_tele` past-main `find_hell` (D-0904).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1060 Scr **10089**/11405 RNG **734803**/792838
-  (92.68%); next cadence @#1065.
+- suite **42/44** @#1065 Scr **10198**/11405 RNG **737530**/792838
+  (93.02%); next cadence @#1070.
+- **#1065 score:** seed4500 still @52643; shk/`onlineu` hero-path.
 - **D-0914 #1064:** mk_knox_portal place under wizard; seed4500
-  **50844→52643** RNG **52967** Scr **608**; next @52643 distfleeck.
+  **50844→52643** RNG **52967** Scr **608**.
 - **D-0913 #1063:** `x`/doswapweapon + setworn twoweap clear;
   seed4500 **50338→50844** RNG **50936** Scr **594**.
 - **D-0912 #1062:** `#turn`/`doturn`; seed4500 **50290→50338**
@@ -61,4 +64,3 @@ Objective/score live in `CURRENT.md`.
   Scr **294→302**.
 - **D-0902 #1052:** shkveg/mkveggy_at; seed4500 **9974→14216**
   Scr **284→294**.
-- **D-0901 #1051:** Pillars terr shuffle; seed4500 **8925→9974** Scr **284**.
