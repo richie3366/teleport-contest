@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 10:45 — #980 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (measurement only; no port peel).
+- Change or falsified theory: none. Suite **38/44**; Scr **8976**/11405
+  (−2 vs #975; seed0383 176→174 after D-0846 no-flush); RNG
+  **666600**/792838 flat; speed `32+0.23/turn`. D-0847 still open.
+- Verification: green+strict PASS; full `sessions` `__RESULTS_JSON__`.
+- Next: display-RNG expelled-More → expels/docrt/mnexto before see_*
+  (D-0847); then gulpmu flush.
+
 ## 2026-07-20 10:41 — #979 seed0383 @172 Hallu objs (D-0847)
 - Objective: why 4 Hallu see_objects ROOM burns skew after matching mons.
 - C locus: display.c see_monsters/see_objects; allmain once-per-input Hallu.
@@ -112,61 +122,3 @@ Use this shape:
   `31+0.23/turn`. Notable non-PASS unchanged (seed0383 Scr 146/219
   RNG FULL; seed2200 229/230; seed0014/0399/2600/4500).
 - Next: seed0383 screen peel (RNG matched).
-
-## 2026-07-20 08:35 — #969 seed0383 initedog set_malign (D-0839)
-- Objective: seed0383 @13689 C peace_minded rn2(1) vs JS rn2(4).
-- C locus: dog.c initedog → set_malign after mpeaceful=1.
-- Change: JS initedog called set_malign + mavenge=0 + domestic
-  minimumtame (was keeping renegade malign=+3 on starting pet).
-- Verification: seed0383 RNG FULL 16915; Scr 146/219; green+strict;
-  cohort 36/36 PASS.
-- Next: seed0383 screen peel (RNG matched).
-
-## 2026-07-20 08:26 — #968 seed0383 unstuck docrt Hallu (D-0838)
-- Objective: seed0383 @11524 C getbones vs JS combat (post-expel hallu).
-- C locus: mon.c unstuck→docrt; display.c docrt memory show_glyph;
-  mhitu.c gulpmu swallowed(1).
-- Change: unstuck awaits docrt (not vision_recalc(1)); docrt memory
-  paints remembered glyphs (no Hallu newsym); gulpmu swallowed(1).
-- Verification: green+strict PASS; cohort 36/36 PASS; prefix
-  **11524→13689** (RNG 11527→13695; Scr 144).
-- Next: seed0383 @13689 C peace_minded rn2(1) vs JS rn2(4) (D-0839).
-## 2026-07-20 08:20 — #967 seed0383 Monnam hallu / swallowed (D-0838)
-- Objective: seed0383 @11524 C getbones vs JS combat (More/key from hallu).
-- C locus: do_name.c rndmonnam; display.c swallowed/swallow_to_glyph;
-  potion.c make_hallucinated; allmain.c Hallu see_*/swallowed(0).
-- Change: display ISAAC + bogusmon/rndmonnam/Monnam; mon/obj_glyph hallu;
-  swallowed+docrt/newsym; allmain Hallu refresh. First 3 names match.
-- Verification: green+strict PASS; cohort 5/5 PASS; still @11524 Scr 144.
-- Next: post-expel Hallu see_* burns → 4th name black pudding; then getbones.
-## 2026-07-20 07:42 — #966 seed0383 getmattk mspec + cold (D-0837)
-- Objective: seed0383 @11400 C mattacku rnd(20) vs JS fleeck.
-- C locus: mhitu.c getmattk mspec_used subst; uhitm.c mhitm_ad_cold;
-  zap.c destroy_items.
-- Change: ice vortex mspec_used kept AT_ENGL in JS; port getmattk→TUCH,
-  mhitm_ad_cold_u, export/call destroy_items (D-0837).
-- Verification: green+strict PASS; cohort 36/36 PASS; prefix
-  **11400→11524** (RNG matched 11437→11527; Scr 144).
-- Next: seed0383 @11524 C getbones rn2(3) vs JS rn2(20).
-
-## 2026-07-20 07:34 — #965 public score cadence
-- Objective: mandatory full `sessions` score (iter % 5 == 0).
-- C locus: n/a (score+docs); diagnosed seed0383 @11400 only.
-- Change: no JS patch. Documented suite **38/44** Scr **8946**/11405
-  RNG **661122**/792838 (83.39%); Δ vs #960 Scr +9 RNG +632.
-  @11400: C `AC_VALUE`→`rnd(2)` (hack.h neg AC) then `rnd(20)` hit;
-  JS matches AC roll then fleeck `rn2(5)` — left mattacku w/o hit.
-- Verification: green+strict PASS; full `sessions` 38/44.
-- Next: seed0383 @11400 dump range2/aatyp/find_offensive after AC_VALUE.
-
-## 2026-07-20 07:30 — #964 seed0383 abuse_dog / xkilled luck (D-0836)
-- Objective: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).
-- C locus: dog.c abuse_dog; sounds.c yelp/growl; uhitm.c hmon_hitmon_pet;
-  mon.c xkilled cleanup change_luck.
-- Change: port abuse_dog + yelp/growl (Hallu h_sounds); wire hmon pet
-  path; xkilled peaceful/tame luck rn2(2) + tame adjalign(-15).
-  mtame-intimacy hyp falsified — missing hmon_hitmon_pet.
-- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
-  **11372→11400** (RNG matched 11423→11437; Scr 144).
-- Next: seed0383 @11400 C mattacku rnd(20) vs JS rn2(5).
-

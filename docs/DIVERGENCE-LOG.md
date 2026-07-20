@@ -28,7 +28,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   (possible double `see_monsters`); `Sting_effects`/`Warn_of_mon` after
   mon loop still omitted (pline-only — unlikely display-RNG).
 - **Verification:** green+strict PASS; cohort 5/5 PASS; seed0383 Scr
-  174 (no flush) / 175 (flush probe, reverted).
+  174 (no flush) / 175 (flush probe, reverted). Suite #980: **38/44**,
+  Scr **8976**/11405 (−2 vs #975 from this no-flush baseline), RNG flat.
 - **Next:** instrument display burns from More-return through
   `see_objects`; then flush once objs match.
 

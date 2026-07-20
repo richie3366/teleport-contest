@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#975**).
-Screens **8978**/11405; RNG **666,600**/792838 (84.08%). **38/44** PASS.
-Δ vs #970: Scr **+30**, RNG **0**, PASS **0**. Speed `32+0.23/turn`.
-*(Δ soaks D-0840…D-0843: seed0383 Scr 146→176; RNG still FULL.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#980**).
+Screens **8976**/11405; RNG **666,600**/792838 (84.08%). **38/44** PASS.
+Δ vs #975: Scr **−2**, RNG **0**, PASS **0**. Speed `32+0.23/turn`.
+*(Scr −2 = seed0383 176→174 after D-0846 no-flush; RNG still FULL.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,978 / 11,405** |
+| Screens matched | **8,976 / 11,405** |
 | Positional RNG calls matched | **666,600 / 792,838** (84.08%) |
-| Speed label | `32+0.23/turn` (R² 0.842) |
+| Speed label | `32+0.23/turn` (R² 0.839) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
