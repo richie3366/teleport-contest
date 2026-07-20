@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0915 — goto_level Punished unplacebc/placebc (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Blind glyph /
+  maybe_unhide_at / waterlevel swallow / obj_delivery deferred)
+- **Session:** seed4500-knight-coverage @52643
+- **Symptom:** C `distfleeck` `rn2(5)` vs JS `move_special` `rn2(1)`
+  (shk satdoor mill). Screens: after `_`/`>`/`.` travel, C @ map~(33,5)
+  T+3; JS stuck one step NW with T+2 and false `cause_delay`.
+- **Cause:** JS `goto_level` omitted C `Punished` `unplacebc` before
+  savelev and `placebc` after arrival. `placebc` no-ops when
+  `uchain.where != OBJ_FREE`, so ball&chain stayed on the old floor
+  coords → `distmin(ball)>2` → full `drag_ball` + `nomul(-2)` aborted
+  travel → hero not where C expected → shk `onlineu` polarity flip
+  (D-0376 class; not a shk FORCE).
+- **Rejected:** FORCE shk/`onlineu`; travel Chebyshev heuristic alone;
+  inventing mill gates.
+- **C locus:** `do.c` `goto_level`; `ball.c` `unplacebc`/`placebc`.
+- **Fix:** port `unplacebc`; call `unplacebc`/`placebc` around level
+  change when `uball` set.
+- **Verification:** prefix **52643→52803** RNG **52925** Scr **611**;
+  green+strict PASS; cohort 10/10 PASS.
+- **Next:** @52803 C `themerms`/`nhlib` `rn2(5)` vs JS `rn2(1000)`.
+
 ## D-0914 — mk_knox_portal place under wizard/debug (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; non-wizard

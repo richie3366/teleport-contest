@@ -8,18 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @52643 — JS shk@home(65,6) hero(65,17)
-  `onlineu` → satdoor `appr=0` → `move_special` `rn2(1)`; C next
-  `distfleeck` ⇒ C `!onlineu`. Find when JS hero left C's line
-  (screen/cursor before peel). **Do not** FORCE shk/`onlineu`.
+- **Gameplay next:** seed4500 @52803 — C `themerms.lua`/`nhlib`
+  `rn2(5)=3` vs JS `rn2(1000)=718` (create_room / theme path).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0914 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0915 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `goto_level` Punished `unplacebc`/`placebc` (D-0915).
 - Do not stub `mk_knox_portal` place under wizard/debug (D-0914).
 - Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
 - Do not omit `#turn`/`doturn` chant+exercise (D-0912).
@@ -32,13 +31,14 @@ Objective/score live in `CURRENT.md`.
 - Do not omit `set_occupation(learn)` / learn `makeknown` credit_hero
   (D-0907).
 - Do not omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
-- Do not omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1065 Scr **10198**/11405 RNG **737530**/792838
   (93.02%); next cadence @#1070.
-- **#1065 score:** seed4500 still @52643; shk/`onlineu` hero-path.
+- **D-0915 #1066:** goto_level unplacebc/placebc; seed4500
+  **52643→52803** RNG **52925** Scr **611**.
+- **#1065 score:** seed4500 was @52643; shk/`onlineu` = stranded ball.
 - **D-0914 #1064:** mk_knox_portal place under wizard; seed4500
   **50844→52643** RNG **52967** Scr **608**.
 - **D-0913 #1063:** `x`/doswapweapon + setworn twoweap clear;
@@ -46,7 +46,7 @@ Objective/score live in `CURRENT.md`.
 - **D-0912 #1062:** `#turn`/`doturn`; seed4500 **50290→50338**
   RNG **50401** Scr **594**.
 - **D-0911 #1061:** extract ox/oy + rottenfood + HDeaf; seed4500
-  **50111→50290** RNG **50469** Scr **499→596**.
+  **50111→50290** Scr **499→596** RNG **50469**.
 - **D-0910 #1060:** regen_pw; seed4500 **50054→50111**
   RNG **50220→50240** Scr **499**.
 - **D-0909 #1059:** drag_ball/move_bc; seed4500 **50034→50054**
@@ -62,5 +62,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0904 #1054:** find_hell; seed4500 **18153→28249** Scr **302**.
 - **D-0903 #1053:** fill_zoo BEEHIVE; seed4500 **14216→18153**
   Scr **294→302**.
-- **D-0902 #1052:** shkveg/mkveggy_at; seed4500 **9974→14216**
-  Scr **284→294**.

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 23:45 — #1066 D-0915 goto_level unplacebc/placebc
+- Objective: seed4500 @52643 C distfleeck rn2(5) vs JS move_special rn2(1).
+- C locus: `do.c` `goto_level`; `ball.c` `unplacebc`/`placebc`.
+- Change: Punished `unplacebc` before savelev + `placebc` after arrival.
+  Stranded ball caused false drag `cause_delay` aborting travel → shk
+  `onlineu` polarity (not a shk FORCE). Named omit: Blind glyph;
+  maybe_unhide_at; waterlevel swallow; obj_delivery.
+- Verification: prefix **52643→52803** RNG **52925** Scr **611**;
+  green+strict PASS; cohort 10/10 PASS.
+- Next: @52803 themerms/nhlib rn2(5) vs rn2(1000); cadence @#1070.
+
 ## 2026-07-20 23:38 — #1065 public score cadence
 - Objective: mandatory full `sessions` @#1065; diagnose seed4500 @52643.
 - C locus: `shk.c` `shk_move` satdoor/`onlineu` → `move_special` mill.
@@ -166,12 +177,3 @@ Use this shape:
   **10113→14271**; green+strict; cohort 11/11 PASS.
 - Next: seed4500 @14216 next_ident vs rn2(3); leaderboard cron;
   cadence @#1055.
-## 2026-07-20 21:28 — #1051 D-0901 Pillars terr shuffle
-- Objective: seed4500 @8925 nhlib shuffle rn2(7) vs JS rn2(5).
-- C locus: `themerms.lua` Pillars; `nhlib.lua` shuffle; `sp_lev.c`
-  `lspo_terrain`/`create_room`.
-- Change: port Pillars contents — shuffle 7-char terr + 2×2 terrain
-  blocks. Named omit: Random-feature center; nested room bodies.
-- Verification: seed4500 prefix **8925→9974** Scr **284**; green+strict;
-  cohort 11/11 PASS.
-- Next: seed4500 @9974 shkveg rnd(860); leaderboard cron; cadence @#1055.

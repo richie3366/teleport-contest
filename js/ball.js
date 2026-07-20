@@ -67,6 +67,7 @@ function is_chain_rock(x, y) {
 /**
  * C ref: ball.c placebc → placebc_core.
  * Places uball (if not carried) and uchain under the hero.
+ * Named omissions: flooreffects rust; bcrestriction / breadcrumbs.
  */
 export function placebc() {
     const u = game.u || {};
@@ -86,6 +87,34 @@ export function placebc() {
     }
     place_object(uchain, u.ux | 0, u.uy | 0);
     newsym(u.ux | 0, u.uy | 0);
+}
+
+/**
+ * C ref: ball.c unplacebc → unplacebc_core.
+ * Extract ball&chain from the floor before leaving a level (goto_level).
+ * Named omissions: Blind glyph restore; maybe_unhide_at; waterlevel swallow.
+ */
+export function unplacebc() {
+    const u = game.u || {};
+    const uball = u.uball;
+    const uchain = u.uchain;
+    if (!uball || !uchain) return;
+
+    // C: swallowed → leave bc placed (except waterlevel arm deferred)
+    if (u.uswallow | 0) return;
+
+    if (!carried(uball)) {
+        const bx = uball.ox | 0;
+        const by = uball.oy | 0;
+        obj_extract_self(uball);
+        // Blind bglyph / maybe_unhide_at deferred
+        newsym(bx, by);
+    }
+    const cx = uchain.ox | 0;
+    const cy = uchain.oy | 0;
+    obj_extract_self(uchain);
+    newsym(cx, cy);
+    u.bc_felt = 0;
 }
 
 /**

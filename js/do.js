@@ -1,5 +1,6 @@
 // do.js — miscellaneous hero actions from do.c.
-// C ref: do.c — donull, dodown, doup, goto_level (ordinary stairs subset),
+// C ref: do.c — donull, dodown, doup, goto_level (ordinary stairs subset;
+//         Punished unplacebc/placebc D-0915),
 //         cmd_safety_prevention, dodrop/drop/dropx/dropy/dropz,
 //         canletgo.
 
@@ -58,6 +59,7 @@ import { In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level, PRIMARYSET,
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
 import { olfaction } from './monsters.js';
+import { placebc, unplacebc } from './ball.js';
 
 function Blind() {
     const u = game.u || {};
@@ -380,6 +382,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C: check_special_room(TRUE) on leave — move_update clears urooms so
     // arrival re-enters temple/shop messages (intemple).
     await check_special_room(true);
+    // C: do.c goto_level — Punished unplacebc before savelev so ball&chain
+    // are not left on the departing floor (D-0915).
+    // C: Punished ≡ (uball != 0)
+    if (u.uball || u.Punished) unplacebc();
     // Snapshot sight before vision_recalc(2) clears viz — getbones yn
     // needs prior IN_SIGHT to mon→memory newsym the leave-level gbuf.
     if (game.viz_array) {
@@ -639,6 +645,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     game.at_ladder = false;
     u.dz = 0;
+
+    // C: do.c goto_level — Punished placebc after hero arrival, before
+    // losedogs (D-0915). Without this, uchain.where stays non-FREE and
+    // placebc is a no-op → ball stranded → false drag_ball cause_delay.
+    if (u.uball || u.Punished) placebc();
 
     losedogs();
 
