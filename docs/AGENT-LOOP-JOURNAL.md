@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:20 — #988 seed0383 @195 Hallu / D-0851
+- Objective: seed0383 @195 Hallu map after materialize.
+- C locus: do.c goto_level (docrt only); wintty erase_menu_or_text→docrt;
+  display.c see_monsters/objects under Hallu.
+- Change: drop post-docrt `vision_recalc(0)` in `goto_level` (not in C).
+  Falsified as @195 cause (0 display burns). Mapped ~45 display-rng burns
+  on levtport menu-dismiss `docrt` of old Dlvl:12 before new-level paint.
+  Global skip of menu-pick docrt → Scr 194→192 (reverted).
+- Verification: seed0383 Scr **194** RNG FULL; green+strict PASS;
+  cohort 8/8 PASS.
+- Next: menu-dismiss display-rng burn set vs C; flush parked.
+
 ## 2026-07-20 12:05 — #987 seed0383 xkilled poor titan (D-0850)
 - Objective: seed0383 @178 `You kill the poor titan`.
 - C locus: mon.c `xkilled` tame → `x_monnam(..., "poor", ...)`;

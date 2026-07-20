@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0851 — fixed: goto_level drop post-docrt vision_recalc
+
+- **Status:** fixed (C fidelity); seed0383 @195 still open.
+- **Symptom / context:** seed0383 Scr 194/219 RNG FULL; @195 materialize
+  Hallu map cells wrong (`@` color 1 vs 15; `*` vs `[`). Message/cursor OK.
+- **Diagnosis:** display-rng after levtport menu: `@194`→menu-dismiss
+  `docrt` burns ~45 on old Dlvl:12, then new-level `docrt` +4, then
+  once-per-input Hallu see +3. Core RNG FULL. Extra `goto_level`
+  `vision_recalc(0)` after `docrt` is **not** in C `do.c` and burned 0
+  here — not the @195 cause. Skipping menu-pick `docrt` globally
+  regresses Scr (194→192).
+- **Fix:** remove post-`docrt` `vision_recalc(0)` from `js/do.js`
+  `goto_level` (C: only inside `docrt`).
+- **Verification:** seed0383 Scr **194** RNG FULL; green+strict PASS;
+  cohort 8/8 PASS (incl. seed0360/0373/0398).
+- **Next:** falsify menu-dismiss display-rng burn set vs C
+  `erase_menu_or_text`→`docrt`; flush parked.
+
 ## D-0850 — fixed: xkilled tame x_monnam "poor"
 
 - **Status:** fixed

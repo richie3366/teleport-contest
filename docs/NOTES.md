@@ -7,21 +7,27 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#987 / D-0850:** seed0383 @178 was bare `mon_nam` on tame kill.
-  C `mon.c:xkilled` → `x_monnam(..., "poor", ...)` when `mtame`.
-  Ported `x_monnam` + wired msg arm → Scr **193→194**; @178 matches.
-- **Next content:** @195 Hallu map after `materialize on a different
-  level`. Flush still parked @141–174 (D-0841).
-- Do not re-apply gulpmu flush without remaining-screen plan.
+- **#988 / D-0851:** removed extra `goto_level` `vision_recalc(0)` after
+  `docrt` (C only recalcs inside `docrt`). Scr still **194**; not @195 cause
+  (extra pass burned 0 display-rng in measure).
+- **@195 Hallu map hypothesis:** between levtport menu @194 and materialize
+  `docrt`, `select_menu_pick_one` → `docrt()` burns **~45** display-rng on
+  the **old** Dlvl:12 map (`20×383` vision + `20×383` see_mon + `4×463` obj
+  + `1×5` warn). C `erase_menu_or_text` also `docrt()` — count may still
+  differ (which mons/objs newsym). Then new-level `docrt` +4, once-per-input
+  Hallu see +3 → @195. Core RNG FULL; glyphs `@`/color + `*` vs `[`.
+- **Falsifier:** instrument C `~drn2` (patch 005) across menu dismiss→
+  materialize, or count JS burns per caller on dismiss vs visible set.
+- Do not skip menu-pick `docrt` globally (Scr 194→192; other menus).
+- Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0850 done.
-- Runner `Screen N/M` = total matches, not prefix length. "@184" after
-  D-0848 was matched-count; first cell miss index stayed flush @141.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0846 peels done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0851 done.
+- Runner `Screen N/M` = total matches, not prefix length.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0850 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
   getmattk / Monnam / unstuck / initedog malign — closed; see journal.
@@ -37,13 +43,14 @@ Objective/score live in `CURRENT.md`.
 - **#979–#984:** +N / underfoot / NUM_OBJECTS-as-dim-hack / skip kelp /
   post-expel-as-@172 / flush-as-glyph / docrt cls / region-over-Hallu —
   falsified; real cause was missing SCR_MAIL (D-0848).
+- Extra post-`docrt` `vision_recalc(0)` was not @195 cause (0 burns).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#985 Scr **8986**/11405 RNG **666582**/792838;
-  seed0383 RNG **FULL**; Scr **194**/219 after D-0850.
+  seed0383 RNG **FULL**; Scr **194**/219 after D-0850/51.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -62,3 +69,4 @@ Objective/score live in `CURRENT.md`.
   Hallu random_object dim 463; SCR_MAIL=364.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
+- **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
