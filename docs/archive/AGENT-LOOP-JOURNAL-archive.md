@@ -1,5 +1,16 @@
-## 2026-07-20 00:45 — #932 D-0810 setworn no find_ac
-- Objective: seed0360 @497 C `AC:2` vs JS `AC:-2` displacement More.
+# Agent loop journal archive
+
+## 2026-07-20 07:05 — #962 seed0383 fog vapor TTL (D-0834)
+- Objective: seed0383 @10646 C fleeck rn2(5) vs JS rn2(3).
+- C locus: region.c inside_gas_cloud / run_regions / add_region;
+  monmove.c m_everyturn_effect.
+- Change: track mons in gas regions; fog ttl+=5 in run_regions; wire
+  m_in_out_region (want_move/minvis hyp falsified — was expired vapor recreate).
+- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10646→10843** (Scr 142; cursors 172→181).
+- Next: seed0383 @10843 C exercise rn2(2) vs JS wipe_engr rn2(82).
+
+
 - C locus: `worn.c` `setworn`; `do_wear.c` `Cloak_on`; delay-0 unmul.
 - Change: **D-0810** `setworn`/`Cloak_on` never early `find_ac`;
   GUARDING amulet explicit `makeknown`+`find_ac`. Scr **678→679**;

@@ -18,7 +18,15 @@ Use this shape:
 - Change or falsified theory: …
 - Verification: …
 - Next: …
-```
+```## 2026-07-20 10:05 — #977 see_traps glyph_is_trap (D-0845)
+- Objective: seed0383 @172 post-expel Hallu display-RNG before flush.
+- C locus: display.c see_traps glyph_is_trap(_glyph_at); teleport.c rloc_to newsym.
+- Change: `see_traps` only newsym when disp_ch is trap glyph. Falsified
+  dochug NOTHING/DONE Hallu newsym and rloc_to/2nd-expel +1 (Scr→174).
+- Verification: seed0383 Scr 176 RNG FULL; green+strict PASS; cohort 5/5.
+- Next: reconstruct C burn between expelled More and see_monsters (not
+  blanket rloc_to); then 4 objs; flush.
+
 ## 2026-07-20 09:57 — #976 map_object Hallu statue memory (D-0844)
 - Objective: seed0383 @172 post-expel Hallu display-RNG before flush.
 - C locus: display.c map_object Hallu+STATUE memory random_obj_to_glyph.
@@ -151,13 +159,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
   **10843→11372** (RNG matched 11054→11423; Scr 142→144).
 - Next: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).
-
-## 2026-07-20 07:05 — #962 seed0383 fog vapor TTL (D-0834)
-- Objective: seed0383 @10646 C fleeck rn2(5) vs JS rn2(3).
-- C locus: region.c inside_gas_cloud / run_regions / add_region;
-  monmove.c m_everyturn_effect.
-- Change: track mons in gas regions; fog ttl+=5 in run_regions; wire
-  m_in_out_region (want_move/minvis hyp falsified — was expired vapor recreate).
-- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
-  **10646→10843** (Scr 142; cursors 172→181).
-- Next: seed0383 @10843 C exercise rn2(2) vs JS wipe_engr rn2(82).

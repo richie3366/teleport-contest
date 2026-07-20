@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0845 — fixed: see_traps only when glyph_is_trap (gbuf)
+
+- **Status:** fixed (see_traps); @172 post-expel Hallu still open
+- **Symptom / context:** seed0383 @172 — hunting −1 display burn before
+  once-per-input Hallu `see_*`. JS `see_traps` newsym'd every tseen trap;
+  C only when `glyph_is_trap(_glyph_at)`.
+- **Cause:** After `see_monsters`/`see_objects`, mon/obj cells no longer
+  show trap glyphs; C skips them. JS re-newsym'd → extra Hallu
+  `mon_to_glyph` burns when a mon stood on a trap.
+- **Fix:** `see_traps` matches C — compare `disp_ch` to `trap_glyph` before
+  `newsym`; dedupe level.traps/`ftrap`.
+- **Falsified (@172):** (1) `dochug` Hallu newsym on MMOVE_NOTHING/DONE
+  → Scr 176→174; (2) `rloc_to`/`expels` engulfer `newsym(new)` or
+  post-2nd-expel +1 dummy before `see_monsters` → Scr 174 (cursors↑).
+  Dummy +1 every Hallu input → 165. First-expel-only +1 → no Scr change.
+- **Verification:** seed0383 Scr still **176**/219 RNG FULL; green+strict
+  PASS; cohort 5/5 PASS (1500/1800/0060/0360/5002).
+- **Next:** missing burn still in post-expel `docrt`/`mnexto`/`postmov`
+  (not blanket rloc_to newsym); then 4 Hallu objs; then gulpmu flush.
+
 ## D-0844 — fixed: map_object Hallu statue memory random_obj burns
 
 - **Status:** fixed (statue memory); @172 post-expel Hallu still open

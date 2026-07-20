@@ -2198,19 +2198,31 @@ export function see_objects() {
 }
 
 /**
- * C ref: display.c see_traps — newsym cells whose shown glyph is a trap.
- * JS: redraw every tseen trap (same envelope when Hallu redraws).
+ * C ref: display.c see_traps — newsym only when gbuf glyph_is_trap.
+ * Under Hallu, mon/obj already redrawn by see_monsters/see_objects; C skips
+ * those cells so we must not re-newsym them (extra mon_to_glyph burns).
  */
 export function see_traps() {
+    const seen = new Set();
+    function maybe_redraw(trap) {
+        if (!trap?.tseen) return;
+        const x = trap.tx | 0;
+        const y = trap.ty | 0;
+        const key = `${x},${y}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        const loc = game.level?.at(x, y);
+        if (!loc) return;
+        const tg = trap_glyph(trap);
+        // C: if (glyph_is_trap(_glyph_at(tx,ty))) newsym(...)
+        if (loc.disp_ch !== tg.ch) return;
+        newsym(x, y);
+    }
     const traps = game.level?.traps;
     if (Array.isArray(traps)) {
-        for (const trap of traps) {
-            if (trap?.tseen) newsym(trap.tx | 0, trap.ty | 0);
-        }
+        for (const trap of traps) maybe_redraw(trap);
     }
-    for (let trap = game.ftrap; trap; trap = trap.ntrap) {
-        if (trap?.tseen) newsym(trap.tx | 0, trap.ty | 0);
-    }
+    for (let trap = game.ftrap; trap; trap = trap.ntrap) maybe_redraw(trap);
 }
 
 /**
