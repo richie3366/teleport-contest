@@ -7,23 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#983:** seed0383 @172 Hallu objs (D-0847). Timeline reconstructed:
-  Hallu-on @moves=8 while ice-vortex swallowed → 8×`swallowed()` redraws
-  (make_hallu + wiz `docrt` + 4 once-per-input @moves=8 including 3
-  unknown spaces + `h`, then `j`@9 / `k`@10) → gulpmu `expels` @moves=10
-  (`unstuck`→`docrt` see_monsters) → free @moves=11 once-per-input
-  `see_objects` paints 4 cansee ROOM tops. C cells `)/15 +/11 [/2 [/2`;
-  JS `+/3 ?/15 =/1 [/6` (otyps 397/124/176/344). Display stream ~142
-  burns before those 4×462.
-- **Falsified (#983):** +N before `see_objects` (dims 383/462/2/5/430 /
-  rndmonnam-shaped); cannot reach C glyphs — N=1..2 changes chars but
-  wrong; N≥3 Scr↓. So not a simple shortfall at the see_objects gate.
-  Naive `docrt`/`swallowed(1)` cls+bot reorder → core RNG 11527 (cls
-  `more()` / message-flush load-bearing) — do not retry without
-  nonblocking WIN_MESSAGE flush ≡ C `cls`.
-- **Next:** compare C vs JS display-burn *sites* in free window after
-  ice `unstuck`→`docrt`→`mnexto`/`rloc_to` before moves=11 `see_monsters`
-  (extra or wrong-dim burns). Then flush.
+- **#984:** seed0383 @172 Hallu objs (D-0847). JS display-RNG inventory
+  (DIAG reverted): stream matches through swallowed (@171 stomach). Free
+  window after ice `unstuck`→`docrt` @moves=10, hero=(27,5):
+  - `docrt` v0: **21×383 + 4×462** spatial cansee (objs 22,3 / 25,3 /
+    33,6 / 58,16)
+  - `docrt` see_mon: **21×383 + 1×5** fmon order (warn @22,13)
+  - `mnexto` rloc: **1×383** @26,4 (engulfer; no Hallu burn while on
+    hero cell — `u_at` path)
+  - post-expel monmove: **1×383** @53,16 (was 54,17 in v0)
+  - once-in @11 see_mon: **22×383 + 1×5**; see_obj: **4×462** fobj
+    order → otyps 397/124/176/344 (`+?=[` stream)
+- **Falsifier next:** C `NETHACK_RNGLOG` + `NETHACK_RNGLOG_DISP=1`
+  `~drn2` dim sequence for the same window vs JS inventory above.
+  Diff first mismatched dim/count — not +N at see_objects.
+- Engulfer on hero during docrt: C/JS both skip mon_glyph (u_at).
 
 ## Don't re-check (≤15)
 
@@ -47,6 +45,8 @@ Objective/score live in `CURRENT.md`.
 - **#979–#983:** +N before see_objects / underfoot / NUM_OBJECTS /
   skip kelp / post-expel as @172 / flush-as-@172-glyph / docrt cls
   reorder — falsified. @172 = moves=11 see_objects; stream skew earlier.
+- **#984:** region-over-Hallu on free-window burn cells — none present;
+  +N at see_obj already falsified (need C ~drn2 dim diff).
 
 ## Landmarks (≤15)
 

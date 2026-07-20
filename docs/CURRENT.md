@@ -77,11 +77,12 @@ Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0383 @172 Hallu objs** — D-0847: @172 =
 moves=11 free `see_objects` after ice-vortex `expels` @moves=10.
-C `)/15 +/11 [/2 [/2` vs JS `+/3 ?/15 =/1 [/6`. **+N before
-see_objects falsified** (#983); skew is earlier in post-`unstuck`
-`docrt`/`mnexto` free window (display stream). Do not retry docrt
-cls/swallowed reorder without nonblocking message flush. Flush still
-parked. Focused:
+C `)/15 +/11 [/2 [/2` vs JS `+/3 ?/15 =/1 [/6`. JS burn inventory
+(#984): after ice `docrt` = 21×383+4×462 then see_mon 21×383+1×5
+then mnexto+post 2×383 then once-in 22×383+1×5 + 4×462. **Next:
+C `~drn2` dim sequence for that window** (`NETHACK_RNGLOG_DISP=1`).
+Do not retry +N at see_objects or docrt cls reorder. Flush parked.
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \

@@ -11,28 +11,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   (flush → **175**). Exactly 4 mapdiffs — Hallu objs at slime (22,3),
   tinning (25,3), shock (33,6), towel (58,16): JS `+?=\[` vs C `)+[[`.
   C decode: `)/15 +/11 [/2 [/2`. Towel: same class `[`, color 6 vs 2.
-- **Measured (#982–#983):** Capture **@172 is moves=11** free map (not
-  post-expel). Timeline: Hallu-on @moves=8 while ice-vortex swallowed
-  → 8×`swallowed()` (make_hallu + wiz `docrt` + once-per-input) →
-  gulpmu `expels` @moves=10 (`unstuck`→`docrt`) → moves=11
-  `see_objects` paints 4 cansee+!covers ROOM tops (fobj order
-  slime→towel→shock→tinning). JS Hallu otyps **397/124/176/344**.
-  Core RNG FULL; `rn2_on_display_rng` unlogged; ~**142** display burns
-  before those 4×462.
-- **Falsified:** (1) +N×462 before see_objects; (2) skip kelp newsym;
-  (3) underfoot@see_mon; (4) NUM_OBJECTS dims; (5) post-expel
-  see_obj/docrt as @172 cause; (6) wrong fobj membership at moves=11;
-  (7) flush as @172 glyph fix; (8) +N of dims 383/2/5/430 / rndmonnam
-  before see_objects — cannot hit C glyphs; (9) naive docrt/
-  swallowed(1) cls+bot reorder → core RNG **11527** (JS `cls` more()
-  / message flush load-bearing vs C nonblocking WIN_MESSAGE).
-- **Still open:** display-RNG site/order skew in free window after ice
-  `unstuck`→`docrt`→`mnexto`/`rloc_to` before moves=11 `see_monsters`.
-  Then gulpmu flush.
-- **Verification:** green+strict PASS; seed0383 Scr 174 RNG FULL
-  (no flush); no production JS retained.
-- **Next:** C vs JS burn inventory in post-expel free window (not
-  gate +N at see_objects).
+- **Measured (#982–#984):** Capture **@172 is moves=11** free map.
+  Timeline: Hallu@8 swallowed → 8×`swallowed()` → ice `expels`@10
+  (`unstuck`→`docrt`) → moves=11 `see_objects` 4 ROOM tops (fobj
+  slime→towel→shock→tinning). JS otyps **397/124/176/344**. Core RNG
+  FULL; ~**142** display burns before those 4×462.
+- **JS free-window inventory (#984, DIAG reverted):** hero=(27,5);
+  engulfer on hero during docrt → no mon_glyph (`u_at`). Then:
+  `docrt` v0 **21×383+4×462** (objs 22,3/25,3/33,6/58,16 all cansee);
+  see_mon **21×383+1×5** (warn @22,13); mnexto **1×383** @26,4;
+  post monmove **1×383** @53,16; once-in see_mon **22×383+1×5**;
+  see_obj **4×462**. No visible gas region on those burn cells.
+- **Falsified:** (1)–(9) as prior (+N gates / cls reorder / post-expel
+  as @172 / flush-as-glyph); (10) region-over-Hallu on free-window
+  burn cells (none present at expel).
+- **Still open:** C vs JS **dim/count** in that free window — capture
+  C `~drn2` via `NETHACK_RNGLOG`+`NETHACK_RNGLOG_DISP=1`. Then flush.
+- **Verification:** green+strict PASS; seed0383 Scr 174 RNG FULL;
+  no production JS retained.
+- **Next:** C `~drn2` dim sequence vs JS inventory above.
 
 ## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
 
