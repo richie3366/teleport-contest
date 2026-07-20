@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:25 — #1050 D-0900 spitmm + score cadence
+- Objective: mandatory full `sessions` score @#1050; seed4500 @8491.
+- C locus: `mthrowu.c` `spitmm`/`spitmu`/`m_lined_up`; `mhitu.c` AT_SPIT.
+- Change: port spit venom path + wire `mattacku`; score refresh.
+  Named omit: mon-mon `mattackm` AT_SPIT; breamm/breamu.
+- Verification: full suite **42/44** Scr **9874**/11405 RNG
+  **694676**/792838 (87.62%) `32+0.24/turn`; seed4500 prefix
+  **8491→8925** Scr **264→284**; green+strict; cohort 7/7.
+- Next: seed4500 @8925 nhlib shuffle; leaderboard cron; cadence @#1055.
+
 ## 2026-07-20 21:20 — #1049 D-0899 #jump dojump/jump
 - Objective: seed4500 knight coverage (prefix 2869 mfndpos arity).
 - C locus: `apply.c` `dojump`/`jump`/`is_valid_jump_pos`/`check_jump`;
@@ -155,13 +165,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
   **633→636**/714 (RNG FULL).
 - Next: @424 fountain “dries up!” missing `--More--`.
-
-## 2026-07-20 19:40 — #1035 score + D-0882 merged coin bknown
-- Objective: mandatory public score @#1035; restore seed0007 regression.
-- C locus: `invent.c` `merged` — coin `bknown=0` before ID reconcile.
-- Change: reorder `addinv` merge to match C (D-0882). First cadence
-  measure was 39/44 (D-0879 order bug); after fix **40/44**.
-- Verification: green+strict PASS; seed0007 PASS; seed0014 Scr 633/714;
-  full suite Scr **9493**/11405 RNG **676373**/792838 (85.31%);
-  speed `32+0.23/turn`.
-- Next: seed0014 @415 take-off botl AC:10 vs AC:14; nymph @416–417.

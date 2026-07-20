@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @8491 C `rnd(2) @ next_ident` vs JS
-  `rn2(12)`. Falsifier: `node scripts/rng-diff.mjs
+- **Gameplay next:** seed4500 @8925 C `nhlib.lua` shuffle `rn2(7)` vs
+  JS `rn2(5)`. Falsifier: `node scripts/rng-diff.mjs
   sessions/seed4500-knight-coverage.session.json`
-- D-0899 `#jump` closed early path (prefix 2869→8491 Scr 19→264).
+- D-0900 spitmm closed @8491 (prefix 8491→8925 Scr 264→284).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0899 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0900 done.
+- Do not omit `spitmm`/`spitmu` / `m_lined_up` (D-0900).
 - Do not omit `#jump` / `dojump` / getpos_getvalid (D-0899).
 - Do not omit `BIND=` parsebindings / skip armor `setworn` in
   `ini_inv_use_obj` (D-0897/D-0898).
@@ -30,12 +31,12 @@ Objective/score live in `CURRENT.md`.
 - Do not omit peaceful adj / frighten verb on safemon swap (D-0889).
 - Do not capitalize-only cream pie splash (need `The(xname)` D-0888).
 - Do not omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887).
-- Do not `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1048 Scr **9609**/11405 RNG **687602**/792838
-  (86.73%); next cadence @#1050.
+- suite **42/44** @#1050 Scr **9874**/11405 RNG **694676**/792838
+  (87.62%); next cadence @#1055.
+- **D-0900 #1050:** spitmm/spitmu; seed4500 **8491→8925** Scr **264→284**.
 - **D-0899 #1049:** `#jump` dojump; seed4500 **2869→8491** Scr **19→264**.
 - **D-0898 #1048:** ini_inv armor `setworn`; seed2600 Scr **37→38** PASS.
 - **D-0897 #1048:** BIND=`v:inventory`; seed2600 Scr **35→37**.
@@ -51,4 +52,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0889 #1040:** swap `x_monnam` peaceful adj; Scr **641→644**.
 - **D-0888 #1039:** cream pie `The(xname)`; Scr **640→641**.
 - **D-0887 #1038:** could_seduce hitmm/missmm; Scr **638→640**.
-- **D-0886 #1037:** dochug flee `RLOC_MSG` + rloc appear; Scr **636→638**.

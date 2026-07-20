@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0900 | fixed | spitmm/spitmu + m_lined_up | seed4500 **8491→8925** Scr **264→284**; next @8925 nhlib shuffle |
 | D-0899 | fixed | #jump dojump/jump + getpos_getvalid | seed4500 **2869→8491** Scr **19→264**; next @8491 next_ident |
 | D-0898 | fixed | ini_inv_use_obj armor setworn | seed2600 Scr **37→38** **PASS**; suite **42/44** |
 | D-0897 | fixed | BIND= parsebindings + rhack inventory | seed2600 Scr **35→37**; next Antimagic setworn |

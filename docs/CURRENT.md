@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1048**,
-D-0897/D-0898). Screens **9609**/11405; RNG **687,602**/792838 (86.73%).
-**42/44** PASS. Next cadence @**#1050**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1050**,
+D-0900 spitmm). Screens **9874**/11405; RNG **694,676**/792838 (87.62%).
+**42/44** PASS. Next cadence @**#1055**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **9,609 / 11,405** |
-| Positional RNG calls matched | **687,602 / 792,838** (86.73%) |
-| Speed label | `32+0.23/turn` (R² 0.837) |
+| Screens matched | **9,874 / 11,405** |
+| Positional RNG calls matched | **694,676 / 792,838** (87.62%) |
+| Speed label | `32+0.24/turn` (R² 0.845) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 8491/108275 | 264/1814 | knight coverage; next @8491 next_ident |
+| seed4500 | 10113/108275 | 284/1814 | knight coverage; next @8925 nhlib shuffle |
 
 ## Green gate
 
@@ -71,8 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @8491 (C `next_ident` vs JS `rn2(12)`).
-D-0899 `#jump` closed early path. Focused:
+**Gameplay next:** **seed4500** @8925 (C `nhlib.lua` shuffle `rn2(7)` vs
+JS `rn2(5)` after D-0900 spit). Focused:
 
 ```bash
 node scripts/rng-diff.mjs \
@@ -84,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0899. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0900. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0899 (searches_for_item … `#jump` dojump + getpos_getvalid).
+D-0861…D-0900 (searches_for_item … spitmm/spitmu).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -117,7 +117,8 @@ skip town warn / dry fountain on first town `dryup` (D-0894);
 skip Temple of the gods fill / discard themes `splev_align` (D-0895);
 omit `bigrm-9` load_special (D-0896);
 omit `BIND=` parsebindings / skip `setworn` in `ini_inv_use_obj` armor
-(D-0897/D-0898); omit `#jump`/`dojump` / getpos_getvalid (D-0899).
+(D-0897/D-0898); omit `#jump`/`dojump` / getpos_getvalid (D-0899);
+omit `spitmm`/`spitmu` / `m_lined_up` (D-0900).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

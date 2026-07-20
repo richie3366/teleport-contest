@@ -57,3 +57,13 @@
   **41768→41777**; RNG **41793→41794**; Scr 207.
 - Next: @41777 C nhlib.lua shuffle rn2(3) vs JS rn2(79)
   (post getbones/makemaz; C splev_initlev).
+
+## 2026-07-20 19:40 — #1035 score + D-0882 merged coin bknown
+- Objective: mandatory public score @#1035; restore seed0007 regression.
+- C locus: `invent.c` `merged` — coin `bknown=0` before ID reconcile.
+- Change: reorder `addinv` merge to match C (D-0882). First cadence
+  measure was 39/44 (D-0879 order bug); after fix **40/44**.
+- Verification: green+strict PASS; seed0007 PASS; seed0014 Scr 633/714;
+  full suite Scr **9493**/11405 RNG **676373**/792838 (85.31%);
+  speed `32+0.23/turn`.
+- Next: seed0014 @415 take-off botl AC:10 vs AC:14; nymph @416–417.

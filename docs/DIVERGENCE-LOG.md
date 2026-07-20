@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0900 — spitmm / spitmu + m_lined_up (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; mon-mon spit deferred)
+- **Session:** seed4500-knight-coverage @8491
+- **Symptom:** C `rnd(2) @ next_ident` then `rn2(5) @ spitmm`; JS
+  `rn2(12)` (next mcalcmove) — skipped venom spit after distfleeck.
+- **Cause:** `mattacku` had no `AT_SPIT` arm; `spitmm`/`spitmu` absent.
+- **C locus:** `mthrowu.c` `spitmm`/`spitmu`/`m_lined_up`; `mhitu.c`
+  `AT_SPIT` → `spitmu` when `range2`.
+- **Fix:** port `spitmm` (mksobj venom + `rn2(BOLT_LIM-distmin)` throw/
+  discard) + `spitmu`; refactor `lined_up` via `m_lined_up`; wire
+  `mattacku` `AT_SPIT`. Named omit: `mattackm` AT_SPIT (import cycle);
+  `breamm`/`breamu`; Soundeffect on cancelled spit.
+- **Verification:** seed4500 prefix **8491→8925** Scr **264→284**;
+  green+strict PASS; cohort 7/7 PASS (4500 still FAIL later); full
+  suite **42/44** Scr **9874**/11405 RNG **694676**/792838 (87.62%).
+- **Next:** seed4500 @8925 nhlib.lua shuffle `rn2(7)` vs JS `rn2(5)`;
+  leaderboard cron; cadence @#1055.
+
 ## D-0899 — #jump dojump / jump + getpos_getvalid (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later)
