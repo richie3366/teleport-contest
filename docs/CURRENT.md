@@ -75,10 +75,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 Scr 530/532** — D-0871 closed @113–117
-(`MUSE_POT_SPEED` `mquaffmsg` + `mon_adjust_speed` give_msg). Next:
-**@300** `a` vs `the` silver bell; **@483** Hallu dwarf lord/lady.
-Alt: seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0399 Scr 531/532** — D-0872 closed @300
+(`xname_flags` unique `known=0` → `a silver bell`). Next: **@483**
+Hallu `dwarf lord` vs `dwarf lady` (display-rng / `rndmonnam` gender
+or real `mtmp.female`). Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -87,12 +87,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0871. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0872. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0871 (searches_for_item … MUSE_POT_SPEED mquaffmsg).
+D-0861…D-0872 (searches_for_item … unique known leak / silver bell).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt

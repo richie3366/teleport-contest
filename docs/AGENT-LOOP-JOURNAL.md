@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 17:52 — #1022 D-0872 unique known leak (silver bell)
+- Objective: seed0399 @300 `a` vs `the` silver bell.
+- C locus: `objnam.c` `xname_flags` `!nn && oc_uses_known && oc_unique`.
+- Change: `clear_unique_known_leak` in `xname`/`doname`; uses_known
+  heuristic for Bell/Candelabrum/Amulet/Book (+ Bell charged).
+- Verification: green+strict PASS; seed0399 Scr **530→531**; cohort
+  7/7 PASS (0399 still 531/532).
+- Next: @483 Hallu dwarf lord/lady (display-rng gender?).
+
 ## 2026-07-20 17:45 — #1021 D-0871 MUSE_POT_SPEED mquaffmsg
 - Objective: seed0399 @113 puton prinv missing `--More--`.
 - C locus: `muse.c` `use_misc` MUSE_POT_SPEED; `worn.c` `mon_adjust_speed`.

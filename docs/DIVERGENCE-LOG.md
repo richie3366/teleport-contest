@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0872 — xname_flags unique known leak (a silver bell)
+
+- **Status:** fixed
+- **Observed:** seed0399 Scr 530/532 — @300 C `w - a silver bell.` vs
+  JS `w - the silver bell.` (RNG/cursors FULL).
+- **C locus:** `objnam.c` `xname_flags` (~625–626)
+  `!nn && oc_uses_known && oc_unique → obj->known = 0` so
+  `the_unique_obj` / `doname_base` article cannot leak uniqueness.
+- **Cause:** JS `doname`/`xname` omitted that clear; generated objects
+  table lacks `oc_uses_known`, so `mksobj` also started Bell with
+  `known=1` (`otyp_uses_known` false). Wish `prinv` then used `"the "`.
+- **Change:** `clear_unique_known_leak` in `xname`/`doname`; extend
+  `uses_known_otyp` (+ charged Bell) for Bell/Candelabrum/Amulet/Book.
+  Named omit: full `oc_uses_known` extractor bit.
+- **Verification:** green+strict PASS; seed0399 Scr **530→531**;
+  cohort wish/Hallu (0108/0360/0383/1500/1800) PASS.
+- **Next:** seed0399 @483 Hallu dwarf lord/lady.
+
 ## D-0871 — muse MUSE_POT_SPEED mquaffmsg + mon_adjust_speed give_msg
 
 - **Status:** fixed

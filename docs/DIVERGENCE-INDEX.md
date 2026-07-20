@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0872 | fixed | objnam xname unique !nn uses_known → known=0 | seed0399 Scr **530→531**; @300 a silver bell |
 | D-0871 | fixed | muse MUSE_POT_SPEED mquaffmsg + mon_adjust give_msg | seed0399 Scr **525→530**; @113–117 More |
 | D-0870 | fixed | adjattrib in_moveloop STR/CON encumber_msg | seed0399 Scr **522→525**; poison--More-- before weaker |
 | D-0869 | fixed | attrib poisoned/poisontell mhitu AD_DRST | seed0399 RNG **FULL 11409**; Scr 502→522 |
