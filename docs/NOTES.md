@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 Scr 640/714** — RNG FULL; D-0887 closed @457–458 nymph
-  smile/pretend via `could_seduce` hitmm/missmm. Next: @505 C
-  `The cream pie splashes…` vs JS `Cream pie…` (thrown pie article).
+- **seed0014 Scr 641/714** — RNG FULL; D-0888 closed @505 cream pie
+  `The(xname)`. First miss @558 C `You swap places with the peaceful
+  gnome.` vs JS `… with the gnome.` (peaceful adj missing).
   Falsifier: focused seed0014.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0887 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0888 done.
+- Do not capitalize-only cream pie splash (need `The(xname)` D-0888).
 - Do not omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887).
 - Do not `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886).
 - Do not omit rloc post-place appear/close-by (D-0886).
@@ -29,12 +30,12 @@ Objective/score live in `CURRENT.md`.
 - Do not skip invent merge known/bknown/rknown compare (D-0879).
 - Do not paint yn prompts unwrapped / `setCursor(len,0)` (D-0880).
 - Do not use raw `doname` for `#dip` fountain yn (D-0881 short_oname).
-- Do not omit `watch_on_duty` / `has_town` (D-0876).
 
 ## Landmarks (≤15)
 
 - suite **40/44** @#1035 Scr **9493**/11405 RNG **676373**/792838
   (85.31%); next cadence @#1040.
+- **D-0888 #1039:** cream pie `The(xname)`; Scr **640→641**.
 - **D-0887 #1038:** could_seduce hitmm/missmm; Scr **638→640**.
 - **D-0886 #1037:** dochug flee `RLOC_MSG` + rloc appear; Scr **636→638**.
 - **D-0885 #1036:** rloc RLOC_MSG vanish; Scr **635→636**.
@@ -49,4 +50,3 @@ Objective/score live in `CURRENT.md`.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - `#wizintrinsic` → `make_hallucinated` (D-0835).
 - **D-0848:** `-DMAIL_STRUCTURES`; NUM_OBJECTS=481; SCR_MAIL=364.
-- **D-0858:** doattributes Hallu+Antimagic; seed0383 PASS.

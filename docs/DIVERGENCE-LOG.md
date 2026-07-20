@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0888 — cream pie splash The(xname) / An(singular)
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @505 — C `The cream pie splashes over the
+  kobold's face!` vs JS `Cream pie splashes…` (missing definite article).
+- **C locus:** `uhitm.c` `hmon_hitmon_misc_obj` CREAM_PIE arm —
+  `what = The(xname(obj))`; `!thrown && quan>1` → `An(singular)`.
+- **Cause:** JS capitalized `xname` instead of calling `The()`.
+- **Change:** export `The`/`An` from `objnam.js`; use in `uhitm.js`
+  cream-pie splash. Named omit: `mbodypart(FACE)` (hardcoded face).
+- **Verify:** green+strict PASS; cohort 7/7 PASS (seed0014 FAIL);
+  seed0014 Scr **640→641**/714 (RNG FULL). @505 matches.
+- **Next:** @558 C `You swap places with the peaceful gnome.` vs JS
+  `… with the gnome.`.
+
 ## D-0887 — could_seduce hitmm/missmm + mhitu hitmsg arms
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

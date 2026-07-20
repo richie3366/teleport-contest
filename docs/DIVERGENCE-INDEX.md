@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0888 | fixed | uhitm cream pie The(xname) + An(singular) | seed0014 Scr **640→641**; next @558 peaceful swap |
 | D-0887 | fixed | could_seduce hitmm/missmm + mhitu hitmsg | seed0014 Scr **638→640**; next @505 cream pie The |
 | D-0886 | fixed | rloc appear + dochug flee RLOC_MSG | seed0014 Scr **636→638**; next @457 SSEX |
 | D-0885 | fixed | teleport rloc RLOC_MSG vanish | seed0014 Scr **635→636**; @424 More via D-0886 |

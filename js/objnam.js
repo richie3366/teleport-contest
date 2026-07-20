@@ -815,6 +815,12 @@ export function the(str) {
     return str;
 }
 
+/** C ref: objnam.c The — the() with leading capital. */
+export function The(str) {
+    const t = the(str);
+    return t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
+}
+
 /**
  * C ref: objnam.c singular — temporarily force quan=1 for naming.
  */
@@ -1045,6 +1051,12 @@ function just_an(str) {
 export function an(str) {
     if (!str) return 'an []';
     return just_an(str) + str;
+}
+
+/** C ref: objnam.c An — an() with leading capital. */
+export function An(str) {
+    const t = an(str);
+    return t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
 }
 
 /**

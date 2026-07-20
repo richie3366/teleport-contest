@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 20:10 — #1039 D-0888 cream pie The(xname)
+- Objective: seed0014 @505 `The cream pie splashes…` vs JS `Cream pie…`.
+- C locus: `uhitm.c` hmon CREAM_PIE `The(xname)` / `An(singular)`.
+- Change: export `The`/`An` from `objnam.js`; wire cream-pie splash
+  (was capitalize-only `xname`).
+- Verification: green+strict PASS; cohort 7/7 PASS; seed0014 Scr
+  **640→641**/714 (RNG FULL); @505 matches.
+- Next: @558 C `You swap places with the peaceful gnome.` vs JS bare
+  `… with the gnome.`.
+
 ## 2026-07-20 20:05 — #1038 D-0887 could_seduce hitmm/missmm
 - Objective: seed0014 @457 nymph smiles/engagingly vs JS hits (SSEX).
 - C locus: `mhitu.c` `could_seduce`; `mhitm.c` `hitmm`/`missmm`;

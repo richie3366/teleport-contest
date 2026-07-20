@@ -46,7 +46,7 @@ import { experience, more_experienced, newexplevel } from './exper.js';
 import { mon_explodes } from './explode.js';
 import { mon_nam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
 import { artifact_hit, youmonst } from './artifact.js';
-import { xname, vtense } from './objnam.js';
+import { xname, vtense, The, An, singular } from './objnam.js';
 import { abuse_dog } from './dog.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
@@ -516,9 +516,14 @@ async function hmon(mon, obj, thrown, _dieroll) {
                     `The venom blinds ${mon_nam(mon)}${mon.mcansee ? '' : ' further'}!`,
                 );
             } else {
+                // C ref: uhitm.c hmon_hitmon_misc_obj CREAM_PIE — The(xname);
+                // !thrown && quan>1 → An(singular). FACE via mbodypart deferred
+                // (hardcoded "face" matches ordinary mbodypart FACE).
                 let whom = mon_nam(mon);
-                let what = xname(obj);
-                if (what) what = what.charAt(0).toUpperCase() + what.slice(1);
+                let what = The(xname(obj));
+                if (!thrown && (obj.quan | 0) > 1) {
+                    what = An(singular(obj, xname));
+                }
                 if (haseyes(mon.data) && (mon.mnum | 0) !== PM_FLOATING_EYE) {
                     whom = `${s_suffix(whom)} face`;
                 }
