@@ -75,12 +75,13 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 post-expel Hallu objs** — D-0847: with
-flush, firstMiss **@172**, Scr **175**; JS `+?=\[` vs C `)+[[`.
-Expel moves=12 / see_* moves=13. see_obj burns **1×5** (kelp+YL
-`mon_warning` at !cansee) then 4×462; +N=0..40 and skip-kelp
-falsified. **Next:** C vs JS which fobj tops Hallu-burn (vision /
-YL TEMP_LIT / docrt’s 4×462 set). Without flush Scr **174**. Focused:
+**Gameplay next:** **seed0383 @172 Hallu objs** — D-0847: capture is
+**moves=11** `see_objects` (not post-expel). JS `+?=\[` vs C `)+[[`
+from Hallu otyps on slime/towel/shock/tinning; display stream
+unlogged so core RNG FULL can hide desync (JS **142** disp burns
+before that pass). Flush → Scr **175** but same @172 glyphs. **Next:**
+display-RNG skew since Hallu/wizintrinsic before moves=11 see_objects.
+Without flush Scr **174**. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \

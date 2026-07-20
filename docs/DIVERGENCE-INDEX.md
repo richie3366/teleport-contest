@@ -5,7 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0847 | open | seed0383 @172 Hallu see_objects 4 ROOM objs | see_obj 1×5 kelp+YL then 4×462; +N=0..40 falsified; Scr 175 w/ flush |
+| D-0847 | open | seed0383 @172 Hallu see_objects 4 ROOM objs | @172=moves=11 see_obj (not post-expel); display-RNG desync; Scr 175 w/ flush |
 | D-0846 | fixed | rloc_to newsym(old+new) + covers_objects | @173 mons OK w/ flush; 4 objs; Scr 174 w/o flush |
 | D-0845 | fixed | see_traps only when glyph_is_trap | C fidelity; @172 burn still open |
 | D-0844 | fixed | map_object Hallu statue memory random_obj | C fidelity; @172 still −1 display burn |

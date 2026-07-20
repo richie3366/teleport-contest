@@ -7,27 +7,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0847 — open: seed0383 @172 Hallu see_objects 4 ROOM objs
 
 - **Status:** open (diagnosis only; no JS production change)
-- **Symptom / context:** With gulpmu `flush_topl_more` (C
-  `display_nhwindow`), seed0383 firstMiss **@172** (0-based), Scr
-  **175**/219. Exactly 4 mapdiffs — Hallu objs at slime (22,3),
-  tinning (25,3), shock shield (33,6), towel (58,16): JS `+?=\[`
-  vs C `)+[[`. Without flush Scr 174. Mons match at @172 w/ flush.
-- **Measured (#981):** Expel at **moves=12**; once-per-input see_* at
-  **moves=13**. Display burns: docrt 47 (42×383 + 4×462 + 1×5);
-  mnexto 1×383; gap 2; see_mon 23 (22×383 + 1×5); see_obj **5**
-  (1×5 + 4×462). The leading see_obj `rn2(5)` is kelp **(23,13)**
-  under yellow light: `!cansee`, `covers_objects`, `mon_warning` →
-  `display_warning`. Then four ROOM `rn2(462)` in fobj order.
-- **Falsified:** (1) +N×462 before see_objects for N=0..40 never
-  yields `)+[[`; (2) skip (23,13) newsym; (3) underfoot@see_mon;
-  (4) NUM_OBJECTS/FIRST_OBJECT mismatch; (5) “moves=11” timing.
-- **Still open:** C vs JS which see_objects tops take Hallu obj path
-  (vision/TEMP_LIT from YL emitter; docrt’s 4×462 cell set); not a
-  simple pre-see_objects offset. `Sting_effects`/`Warn_of_mon` after
-  mon loop still omitted (pline-only).
-- **Verification:** green+strict PASS; seed0383 Scr 174 (no flush) /
-  175 (flush probe, reverted). Suite #980 unchanged.
-- **Next:** diff C/JS Hallu-burning fobj set at see_objects; then flush.
+- **Symptom / context:** seed0383 firstMiss **@172**, Scr **174**/219
+  (flush → **175**). Exactly 4 mapdiffs — Hallu objs at slime (22,3),
+  tinning (25,3), shock (33,6), towel (58,16): JS `+?=\[` vs C `)+[[`.
+  Towel: same class `[`, color 6 vs 2.
+- **Measured (#982):** Capture **@172 is moves=11** (not post-expel).
+  Glyphs from once-per-input `see_objects`: exactly 4 cansee+!covers
+  ROOM tops, fobj order slime→towel→shock→tinning. JS Hallu otyps
+  **397/124/176/344** → `+/3 ?/15 =/1 [/6`. Flush does not change
+  those @172 glyphs. Post-expel docrt/see_* (moves 12+) run **after**
+  @172. Core RNG FULL: `rn2_on_display_rng` is **unlogged**; JS has
+  **142** display burns before moves=11 see_objects (+4 in the pass).
+- **Falsified:** (1) +N×462 before see_objects; (2) skip kelp newsym;
+  (3) underfoot@see_mon; (4) NUM_OBJECTS dims; (5) post-expel
+  see_obj/docrt as @172 cause; (6) wrong fobj membership at moves=11;
+  (7) flush as @172 glyph fix.
+- **Still open:** display-RNG call-count/order skew **before** moves=11
+  see_objects (Hallu/wizintrinsic window). Then gulpmu flush.
+- **Verification:** green+strict PASS; seed0383 Scr 174 RNG FULL
+  (no flush); flush probe Scr 175 same @172 chars (reverted).
+- **Next:** reconstruct C vs JS display-stream path since Hallu on.
 
 ## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
 

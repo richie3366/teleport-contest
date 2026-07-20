@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 11:12 — #982 seed0383 @172 = moves=11 Hallu (D-0847)
+- Objective: why @172 4 Hallu ROOM objs skew (thought post-expel).
+- C locus: display.c see_objects/newsym; rnd.c rn2_on_display_rng.
+- Falsified: post-expel see_obj/docrt as @172 cause; flush as glyph
+  fix; wrong fobj set. @172 is moves=11 see_objects (otyps
+  397/124/176/344 → `+?=[`); display RNG unlogged (142 burns before);
+  core RNG FULL can hide Hallu desync. No production JS change.
+- Verification: green+strict PASS; seed0383 Scr 174 RNG FULL.
+- Next: display-RNG skew since Hallu/wizintrinsic before moves=11.
+
 ## 2026-07-20 10:57 — #981 seed0383 Hallu see_objects burn map (D-0847)
 - Objective: post-expel @172 4 Hallu ROOM objs after matching mons.
 - C locus: display.c see_objects/newsym; mhitu.c expels/unstuck→docrt.
