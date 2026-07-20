@@ -74,10 +74,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 @10157** (D-0731 mfndpos) — #1004: open
-ROOM 3×3 unicorn cnt7vs5; FORCE any keep-track 2-omit→10217; need
-**C-state which 2 cells** (WEB not unique). D-0859 noteleport_level
-wired (inert here). Alt: seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0399 @10157** (D-0731 mfndpos) — #1006: unicorn
+@58,12 cnt7 j=0; (57,12) MON_AT; D-0860 monflee track-clear inert
+(!mflee). FORCE any keep-track 2-omit→10217; need **C-state which 2
+cells**. Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -113,6 +113,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not drop doattributes Hallu Status / Antimagic Attributes (D-0858).**
 **Do not FORCE-omit mfndpos cells for D-0731 without C-state pair ID.**
 **Do not re-check WEB-unique omit (#1004: any keep-track pair →10217).**
+**Do not expect monflee mon_track_clear alone to fix @10157 (D-0860).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

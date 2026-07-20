@@ -498,6 +498,23 @@ export function mon_track_add(mtmp, x, y) {
     mtmp.mtrack[0] = { x, y };
 }
 
+/** C ref: monmove.c mon_track_clear — zero mtrack (flee / rloc / whistle). */
+export function mon_track_clear(mtmp) {
+    if (!mtmp) return;
+    if (!mtmp.mtrack) {
+        mtmp.mtrack = [
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+        ];
+        return;
+    }
+    for (let j = 0; j < MTSZ; j++) {
+        mtmp.mtrack[j] = { x: 0, y: 0 };
+    }
+}
+
 /** C ref: invent.c money_cnt — sum COIN_CLASS quan. */
 function money_cnt(invent) {
     let sum = 0;
@@ -698,8 +715,7 @@ export function set_apparxy(mtmp) {
 /**
  * C ref: monmove.c monflee — set mflee; optional fleetime / fleemsg.
  * Named omissions: release_hero on ustuck; flees_light rn2(10)/verbalize /
- * light-source pline; Vrock gas cloud; mon_track_clear; Adjmonnam
- * immobile flinch wording.
+ * light-source pline; Vrock gas cloud; Adjmonnam immobile flinch wording.
  */
 export async function monflee(mtmp, fleetime, first, fleemsg) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
@@ -723,9 +739,11 @@ export async function monflee(mtmp, fleetime, first, fleemsg) {
                 await pline(`${Monnam(mtmp)} turns to flee.`);
             }
         }
+        // Vrock gas cloud deferred (create_gas_cloud + mspec_used)
         mtmp.mflee = 1;
     }
-    // mon_track_clear deferred
+    // C: ignore recently-stepped spaces when made to flee (always)
+    mon_track_clear(mtmp);
 }
 
 // C ref: monmove.c distfleeck()

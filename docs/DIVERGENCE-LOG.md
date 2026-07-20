@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0860 — monflee always mon_track_clear
+
+- **Status:** fixed (C fidelity; seed0399 @10157 unchanged)
+- **Symptom / context:** `monflee` omitted C’s trailing `mon_track_clear`
+  (ignore recently-stepped spaces when made to flee). Named omission in
+  monmove/music/uhitm/fountain flee paths.
+- **C locus:** `monmove.c` `monflee` (always clears, even when already fleeing).
+- **Change:** export `mon_track_clear`; call from `monflee`; music local
+  monflee; uhitm safemon → `monflee(rnd(6))`; fountain scare clears mtrack.
+- **Verification:** green+strict PASS; cohort 1500/1800/0383/0398/0108/0013
+  PASS; seed0399 still @10157 (unicorn `mflee=0` at miss — clear inert).
+- **DIAG (#1006):** unicorn @58,12 cnt=7 j=0 mtrack=[59,13]; (57,12) MON_AT
+  mhp34; 7 open ROOM; still need C-state which 2 cells.
+- **Next:** D-0731 C-state pair; or namedesc after arity.
+
 ## D-0859 — unicorn noteleport_level for NOTONL / flee-teleport
 
 - **Status:** fixed (C fidelity; seed0399 @10157 unchanged)
@@ -2585,12 +2600,15 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
   **FORCE:** any 2-of-7 omit that **keeps (59,13)** → arg=20, prefix
   **10157→10217** (WEB **not** uniquely required — corrects #814 note).
   Next miss @10217 C `rnd_otyp_by_namedesc` `rn2(31)` vs JS `rn2(181)`.
+- **DIAG (#1006):** reconfirmed cnt=7 j=0; (57,12) is MON_AT (mhp34), not
+  empty; D-0860 monflee `mon_track_clear` inert (`mflee=0`).
 - **Falsifier:** FORCE_EXCL any 2 of 7 that **keep (59,13)** → arg=20,
   prefix **10157→10217**. j=2 mtrack rewrite also →10217 (arity-only).
 - **Falsified (#813–#816):** WEB required in omit pair; pair ID via
   max-prefix; deferred onscary/garlic/bars/gas with current JS state
   (still cnt=7); temple ALLOW_SANCT (D-0732) — level is maze
   `nrooms=0`/`has_temple=false`.
+- **Falsified (#1006):** monflee track-clear as @10157 root (unicorn not fleeing).
 - **Cause (partial):** D-0233 named omission — unicorn
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
