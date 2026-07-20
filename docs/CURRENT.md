@@ -78,10 +78,11 @@ Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0383 Scr 196/219** — @195 Hallu map still
 open. D-0852 partial: Hallu `vision_off_newsym_gbuf({useLiveViz})`
-at `docrt` + `goto_level` leave restores C `vision_recalc(2)` warn
-burns (menu docrt 1→10×5; Scr 194→196). C cluster0 still 19×5;
-non-Hallu gated (full ctrl=2 loop / non-Hallu vision_off falsified).
-Flush parked @141–174.
+at `docrt` + `goto_level` leave (menu docrt 1→10×5; Scr 194→196).
+Session warn still **38 vs C 45**. **#993:** gulpmu Hallu vision_off
+falsified (Scr 174 / core 11527) — do not retry. Next: C ~drn2
+gulp→expel vs `display_nhwindow` timing (D-0841). Flush parked
+@141–174.
 Focused:
 
 ```bash
@@ -107,6 +108,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
 **Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
 **Do not skip `select_menu_pick_one` `docrt` on picks (Scr−2; #988/#989).**
+**Do not add Hallu `vision_off` in gulpmu (Scr 174 / core break; #993).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

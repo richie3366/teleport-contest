@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#992 D-0852 partial:** Hallu `vision_off_newsym_gbuf({useLiveViz})`
-  at `docrt` + `goto_level` leave. Menu docrt warn 1→10×5; Scr
-  **194→196**. C still 19×5 in cluster0 — remaining gap / @195 open.
-- **Hypothesis:** remaining 9 warns or post-gen stream still skew
-  @195 Hallu glyphs. Falsifier: C vs JS ~drn2 after both burns.
+- **#993 D-0852:** gulpmu Hallu `vision_off` falsified (Scr 174 /
+  core 11527). Remaining session warn **38 vs C 45**; cluster0 still
+  short of C **19×5**. @195 open.
+- **Hypothesis:** C gulp→expel display-rng timing differs (maybe
+  `display_nhwindow` before `vision_recalc(2)`, D-0841) — not a bare
+  vision_off at gulpmu. Falsifier: C `NETHACK_RNGLOG_DISP` gulp window.
 - Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
@@ -19,28 +20,20 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0851 done.
-- Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0850 peels done.
-- EOT fmon `156,165,108` mcalcmove signature matches (#951).
-- **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
-  getmattk / Monnam / unstuck / initedog malign — closed; see journal.
-- **#969:** @13689 was pet `malign` (+3 vs −9), not peace_minded.
-- D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
-- FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - gulpmu flush alone → display-RNG (D-0841/43; don't retry until objs).
-- `steps[i].key = moves[i-1]` (not key-at-More).
-- HI_METAL≡CLR_CYAN (6) not gray — extractor was wrong (D-0843).
-- Gas region (68,3) not @173; Warning Hallu burn is correct.
-- **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2; rloc_to needed w/ flush.
-- Expelled More @171 still **stomach** (pline before `expels`).
-- **#979–#984:** +N / underfoot / NUM_OBJECTS-as-dim-hack / skip kelp /
-  post-expel-as-@172 / flush-as-glyph / docrt cls / region-over-Hallu —
-  falsified; real cause was missing SCR_MAIL (D-0848).
-- Extra post-`docrt` `vision_recalc(0)` was not @195 cause (0 burns).
-- Skip menu-dismiss `docrt` (fullscreen) not @195 cause (Scr−2).
+- **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2.
+- **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
+  falsified; cause was SCR_MAIL (D-0848).
+- Extra post-`docrt` `vision_recalc(0)` not @195 cause (0 burns).
+- Skip menu-dismiss `docrt` not @195 cause (Scr−2).
 - **#991:** HWarning missing is NOT the warn-burn gap (HW set).
-- **#992:** global `vision_recalc(2)` update loop → Scr 174; non-Hallu
-  vision_off → seed0002/0012/0013-restore regress.
+- **#992:** global ctrl=2 loop → Scr 174; non-Hallu vision_off regress.
+- **#993:** gulpmu Hallu vision_off → Scr 174; burn-only → core 11527;
+  memory-restore still Scr 174 — do not retry.
+- HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
+- seed5002/0360 **PASS**; D-0743…D-0850 peels done.
+- Runner `Screen N/M` = total matches, not prefix length.
+- Expelled More @171 still **stomach** (pline before `expels`).
 
 ## Landmarks (≤15)
 
@@ -67,5 +60,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
-- **D-0852:** Hallu vision_off at docrt+goto leave; stale snap must
-  not override live viz; non-Hallu gated.
+- **D-0852:** Hallu vision_off at docrt+goto leave only; gulpmu site
+  falsified (#993).

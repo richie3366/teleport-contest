@@ -20,9 +20,15 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   loop regresses PASS cohort memory/waslit.
 - **Verification:** seed0383 Scr **196** RNG FULL; green+strict PASS;
   cohort seed0002/0012/0013-restore/0360/0398 PASS.
-- **Next:** remaining warn gap / @195 Hallu cells; flush parked @141–174.
+- **#993 inventory:** after D-0852, session warn **38 vs C 45**. Menu
+  docrt + goto_leave each burn **9×5** when viz live; early Hallu
+  `docrt` can see empty viz (cells=0) after gulpmu `vision_recalc(2)`.
 - **Falsified:** global `vision_recalc(2)` update loop (Scr 174);
-  non-Hallu vision_off (cohort −screens).
+  non-Hallu vision_off (cohort −screens); **gulpmu Hallu vision_off**
+  (session warn→45 but Scr 196→174; burn-only→core 11527; memory
+  restore still Scr 174) — do not retry.
+- **Next:** C ~drn2 gulp→expel window; `display_nhwindow` before
+  gulpmu vr(2) (D-0841) may own timing; @195 still open.
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 
