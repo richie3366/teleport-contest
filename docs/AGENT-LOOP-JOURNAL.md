@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 07:30 — #964 seed0383 abuse_dog / xkilled luck (D-0836)
+- Objective: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).
+- C locus: dog.c abuse_dog; sounds.c yelp/growl; uhitm.c hmon_hitmon_pet;
+  mon.c xkilled cleanup change_luck.
+- Change: port abuse_dog + yelp/growl (Hallu h_sounds); wire hmon pet
+  path; xkilled peaceful/tame luck rn2(2) + tame adjalign(-15).
+  mtame-intimacy hyp falsified — missing hmon_hitmon_pet.
+- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **11372→11400** (RNG matched 11423→11437; Scr 144).
+- Next: seed0383 @11400 C mattacku rnd(20) vs JS rn2(5).
+
 ## 2026-07-20 07:20 — #963 seed0383 wizintrinsic hallu (D-0835)
 - Objective: seed0383 @10843 C exercise rn2(2) vs JS wipe rn2(82).
 - C locus: wizcmds.c wiz_intrinsic; potion.c make_hallucinated;

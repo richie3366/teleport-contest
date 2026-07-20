@@ -75,9 +75,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @11372** — after D-0835 `#wizintrinsic` /
-`make_hallucinated`, prefix past 10843; next C `abuse_dog` `rn2(9)` vs
-JS `rn2(6)` (pet abuse after matched hitum). Focused:
+**Gameplay next:** **seed0383 @11400** — after D-0836 `abuse_dog` /
+`yelp` + xkilled tame luck, prefix past 11372; next C `mattacku`
+`rnd(20)` vs JS `rn2(5)` (after matched fleeck + `rnd(2)`). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -89,7 +89,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0835. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0836. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

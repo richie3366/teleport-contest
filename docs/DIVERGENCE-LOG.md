@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0836 — fixed: hmon_hitmon_pet abuse_dog + xkilled tame luck
+
+- **Status:** fixed
+- **Symptom:** seed0383 @11372 — after matched hitum/`exercise`/`dmgval`,
+  C `abuse_dog` `rn2(9)` then `yelp` `rn2(35)`; JS jumped to xkilled
+  treasure `rn2(6)`.
+- **Cause:** `hmon` applied damage then `killed` without C's
+  `hmon_hitmon_pet` → `abuse_dog` (mtame-- / `rn2(mtame)` → `yelp`/
+  `growl`). Hallu path needs `ROLL_FROM(h_sounds)` (35). Immediate
+  follow-on: `xkilled` cleanup `(peaceful && !rn2(2)) || mtame` →
+  `change_luck(-1)` was deferred (comment said would burn RNG).
+- **Fix:** `js/dog.js` `abuse_dog`; `js/sounds.js` `yelp`/`growl` +
+  `H_SOUNDS` + `S_FELINE`→`MS_MEW`; wire in `js/uhitm.js` `hmon` after
+  damage; `xkilled` luck before experience + tame `adjalign(-15)`.
+  `vtense(null,…)` singular (objnam). Named omissions: `m_unleash`
+  body; `wake_nearto`; dokick/zap/trap/hack `abuse_dog` callers;
+  human-murder/unicorn luck; quest adjalign arms.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383
+  prefix **11372→11400** (RNG matched 11423→11437; Scr 144).
+  Next @11400 C `mattacku` `rnd(20)` vs JS `rn2(5)`.
+
 ## D-0835 — fixed: #wizintrinsic + make_hallucinated
 
 - **Status:** fixed
