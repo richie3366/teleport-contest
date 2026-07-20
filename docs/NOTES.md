@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **39/44** @#1015 Scr **9337**/11405 RNG **667341**/792838
-  (84.17%); next full score @#1020.
+- suite **39/44** @#1020 Scr **9433**/11405 RNG **667614**/792838
+  (84.21%); next full score @#1025.
 - **D-0870 #1019:** adjattrib encumber; seed0399 Scr **522→525**.
 - **D-0869 #1018:** poisoned; seed0399 RNG **FULL**; Scr **502→522**.
 - STAIRS yellow via `known_branch_stairs`; cursor=(ux−1, uy+1).
