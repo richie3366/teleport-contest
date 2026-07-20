@@ -8,13 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 Dlvl-24 hero land. Place
-  `rn2(6)×6` + `collect_coords` RNG **match** through 82k–83k.
-  JS `u_on_newpos(43,6)` @L=82425 with
-  `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,nly:-1,…}` (third try
-  offsets +3,+3). C `@` still reported **(39,5)** — falsify C
-  levregion/`dndest` origin (same rn2 ⇒ different abs) or
-  reconfirm C `@` from screen/cursor. Do not chase shuffle mismatch.
+- **Gameplay next (D-0928):** seed4500 medusa-3 hero land. Place
+  `rn2(6)×3` matches C @L=82419–82424. JS `u_on_newpos(43,6)` with
+  `dndest[40..45]×[3..8]` after FlipX (`flp=2`, extends minx=2..79,
+  xstart=3,ystart=1). C session `@`/`cursor` **(42,7)** (wizmap) —
+  inferred C `dndest[39..44]×[4..9]`. Next: C `ystart` /
+  `get_level_extends` at medusa-3 `flip_level` (not Force coords).
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -25,6 +24,8 @@ Objective/score live in `CURRENT.md`.
 - Do not FORCE linedup/mux/@88377 coords — place first (D-0928).
 - Do not treat place/`collect_coords` RNG mismatch as cause — they
   match; look at `dndest` bounds / post-place geometry (D-0928 #1080).
+- Do not treat C land as (39,5) — arrival `@`/`cursor` is **(42,7)**
+  (D-0928 #1081).
 - Do not silent-clear F-prefix then still run `#`/non-move (D-0927);
   nested g/G after F / full CMD_gGF table deferred.
 - Do not treat @87803 `rn2(20)` as distfleeck — it was gethungry
@@ -43,16 +44,15 @@ Objective/score live in `CURRENT.md`.
   minetn-1/6/7 still deferred.
 - Do not omit `pleased` TROUBLE_HIT `fix_worst_trouble` / `rnd(5)`
   (D-0920); other TROUBLE_* still deferred.
-- Do not omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky (D-0919).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1080 Scr **10398**/11405 RNG **773047**/792838
   (97.50%); next cadence @#1085.
-- **D-0928 #1080:** place RNG OK; JS land `(43,6)` dndest
-  `[40..45]×[3..8]`; next C dndest/`@` falsify; prefix **88377**.
-- **D-0928 #1079:** @88377 linedup falsified; hero land C(39,5) vs
-  JS(42,6) ~82426 `collect_coords`; still prefix **88377**.
+- **D-0928 #1081:** C `@` **(42,7)** (not 39,5); JS `(43,6)`
+  `dndest[40..45]×[3..8]` FlipX minx=2; infer C `[39..44]×[4..9]`.
+- **D-0928 #1080:** place RNG OK; JS land `(43,6)`; next was C `@`
+  reconfirm; prefix **88377**.
 - **D-0927 #1078:** rhack F-prefix reject; seed4500 **87803→88377**
   RNG **88484** Scr **808**; next was @88377 linedup.
 - **D-0926 #1077:** mhitm_ad_blnd mhitu; seed4500 **87218→87803**
@@ -75,5 +75,3 @@ Objective/score live in `CURRENT.md`.
   **55990→61462** RNG **61496** Scr **622**.
 - **D-0917 #1068:** fill_ordinary_room subroom recurse; seed4500
   **54329→55990** RNG **57748** Scr **613**.
-- **D-0916 #1067:** Nesting nested + lspo_door rnddoor; seed4500
-  **52803→54329** RNG **54647** Scr **613**.

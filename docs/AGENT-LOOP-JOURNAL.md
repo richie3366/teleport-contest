@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 01:15 — #1081 D-0928 C @ reconfirm (42,7)
+- Objective: seed4500 Dlvl-24 / medusa-3 hero place (D-0928).
+- C locus: `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
+  `flip_level`/`get_level_extends`; `mkmaze.c` `place_lregion`.
+- Falsified: C land `@(39,5)`. Session `@`/`cursor` **(42,7)**
+  (wizmap); JS DIAG `u_on_newpos(43,6)` `dndest[40..45]×[3..8]`
+  after FlipX `flp=2` extends minx=2..79, xstart=3,ystart=1;
+  place `rn2(6)×3` matches @L=82419–82424. Infer C
+  `dndest[39..44]×[4..9]`. No production JS change.
+- Verification: green+strict PASS; rng-diff still @88377.
+- Next: C `ystart` / `get_level_extends` at medusa-3 flip;
+  cadence @#1085.
+
 ## 2026-07-21 01:05 — #1080 cadence + D-0928 place DIAG
 - Objective: mandatory full `sessions` score; refine Dlvl-24 land.
 - C locus: `mkmaze.c` `place_lregion`/`put_lregion_here` →
@@ -169,16 +182,4 @@ Use this shape:
 - Verification: prefix **54329→55990** RNG **57748** Scr **613**;
   green+strict PASS; cohort 13/13 PASS + strict lengths.
 - Next: @55990 C `drag_down` rn2(2) vs JS rn2(50); cadence @#1070.
-
-## 2026-07-20 23:50 — #1067 D-0916 Nesting nested + lspo_door rnddoor
-- Objective: seed4500 @52803 C themerms/nhlib rn2(5) vs JS rn2(1000).
-- C locus: `themerms.lua` Nesting contents; `nhlib.lua` math.random;
-  `sp_lev.c` create_subroom / lspo_door / rnddoor / create_door.
-- Change: `themeroom_nesting_contents` mid+inner subrooms/doors;
-  `splev_room_door` burns rnddoor() when state=random (mask stays -1).
-  Named omit: Fake Delphi/Huge/Mausoleum/Twin nested; Random-feature
-  center terrain.
-- Verification: prefix **52803→54329** RNG **54647** Scr **613**;
-  green+strict PASS; cohort 13/13 PASS + strict lengths.
-- Next: @54329 C somex rn2(2) vs JS rn2(12); cadence @#1070.
 

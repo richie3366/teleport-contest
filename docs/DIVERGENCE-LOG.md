@@ -7,8 +7,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is Dlvl-24 hero place; #1080 also falsified
-  place/`collect_coords` RNG mismatch)
+  prerequisite is medusa-3 hero place; #1080 falsified
+  place/`collect_coords` RNG mismatch; #1081 falsified C `@(39,5)`)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -17,23 +17,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
   FORCE mux; shortsighted-only peel without place proof;
   place_lregion/`collect_coords` shuffle arg mismatch (#1080 —
-  C/JS match through 82k–83k).
+  C/JS match through 82k–83k); C land `@(39,5)` (#1081 — that was
+  a later walk misread; arrival `@`/`cursor` is **(42,7)**).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
-  C screen @ ~82500+ stays **`(39,5)`→`(39,4)` Blind**; JS later
-  seen at **`(42,6)`/`(42,5)`**. #1080 DIAG: JS
-  `u_on_newpos(43,6)` at L=82425 with
-  `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,nly:-1,nhx:82,nhy:-1}`
-  (third `rn2(6)` try offsets +3,+3). Same place RNG + different
-  abs ⇒ suspect C vs JS levregion/`dndest` origin (or C `@`
-  reconfirm).
-- **C locus:** `mkmaze.c` `place_lregion` / `put_lregion_here` →
-  `u_on_newpos`; levregion/`dndest` from level load; later
-  `collect_coords` is post-place (matched), not the land picker.
-- **Next:** dump C `dndest`/levregion for Dlvl-24 arrival vs JS;
-  reconfirm C `@` from screen; port region bounds if wrong.
-- **Verification:** green+strict PASS; full `sessions` @#1080
-  **42/44** Scr **10398**/11405 RNG **97.50%**; rng-diff still
-  @88377.
+  #1081: same place `rn2(6)×3` @L=82419–82424; JS
+  `u_on_newpos(43,6)` with
+  `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,…}` after FlipX (`flp=2`,
+  `get_level_extends` minx=2..maxx=79, `xstart=3,ystart=1`,
+  pre-flip tele `[36..41]×[3..8]` from `medusa-3` `{33,02,38,07}`).
+  C arrival **`(42,7)`** (wizmap) ⇒ inferred C
+  `dndest[39..44]×[4..9]` (same +3,+3). Not explained by FlipX
+  minx=1 alone (would keep ly=3 → land y=6).
+- **C locus:** `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
+  `flip_level` / `get_level_extends`; `mkmaze.c` `place_lregion` →
+  `u_on_newpos`.
+- **Next:** C `ystart` + `get_level_extends` at medusa-3
+  `flip_level` vs JS; fix remap/origin if wrong.
+- **Verification:** green+strict PASS; suite score unchanged this
+  iter (no production JS); rng-diff still @88377.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

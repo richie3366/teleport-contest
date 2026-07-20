@@ -72,11 +72,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** Dlvl-24 hero place (D-0928). Place
-`rn2(6)×6` + early `collect_coords` RNG **match**; JS lands
-`u_on_newpos(43,6)` with `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,…}`.
-C `@` reported **(39,5)** — next falsify C `dndest`/levregion origin
-(same offsets ⇒ different abs) vs post-place move. Focused:
+**Gameplay next:** **seed4500** medusa-3 hero place (D-0928). Place
+`rn2(6)×3` matches C; JS `u_on_newpos(43,6)` /
+`dndest[40..45]×[3..8]` (FlipX `flp=2`, extends minx=2). C session
+`@`/`cursor` **(42,7)** — infer C `dndest[39..44]×[4..9]`. Next: C
+`ystart` / `get_level_extends` at `flip_level` (medusa-3). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
