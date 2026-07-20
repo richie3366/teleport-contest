@@ -19,6 +19,19 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 13:55 — #996 gulpmu flush+vision_off together (D-0852)
+- Objective: seed0383 @195; JS vs C `~drn2` inventory gulp→@195.
+- C locus: mhitu.c gulpmu `display_nhwindow` + `vision_recalc(2)`.
+- Diagnosis: pre-gulp dims≡C; first mismatch missing 8×~drn2(5) at bat
+  engulfs (core 11051); JS then double once-per-input `swallowed(0)`
+  (16×383 vs C 8) because More did not consume `l`/`space`. Flush or
+  warns alone ±8; together match C.
+- Change: `gulpmu` `await flush_topl_more()` + Hallu
+  `vision_off_newsym_gbuf({useLiveViz:true})` before `vision_recalc(2)`.
+- Verification: Scr **201**/219 RNG FULL; gulp dims match→~16749;
+  green+strict PASS; cohort 8/8.
+- Next: dim-seq from mismatch idx 398 → @195.
+
 ## 2026-07-20 13:41 — #995 public score cadence
 - Objective: mandatory 5-iter full `sessions` score refresh.
 - C locus: n/a (docs only; post-#993/#994 no JS peel).

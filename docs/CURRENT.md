@@ -76,15 +76,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 196/219** — @195 Hallu map still
-open. D-0852 partial: Hallu `vision_off_newsym_gbuf({useLiveViz})`
-at `docrt` + `goto_level` leave (menu docrt 1→10×5; Scr 194→196).
-Session warn still **38 vs C 45**. **#993–#994:** gulpmu Hallu
-`vision_off` and warn-only×8 (skip `u_at`) both Scr **174** — do not
-retry alone. C ice-gulp DISP: Monnam then **8×~drn2(5)** before
-swallowed. Next: full JS vs C `~drn2` inventory gulp→@195 (compensating
-dims) and/or `display_nhwindow`+warns together (D-0841). Flush parked
-@141–174.
+**Gameplay next:** **seed0383 Scr 201/219** — @195 Hallu map still
+open. D-0852 #996: gulpmu `flush_topl_more` + Hallu `vision_off`
+together (C `display_nhwindow` + `vision_recalc(2)`); Scr 196→201;
+gulp `~drn2` dims match through ~core16749; warn 46 vs C 45. Do not
+retry flush/warn/vision_off alone. Next: dim-seq from first mismatch
+idx 398 → @195 (Monnam/463/levtport window).
 Focused:
 
 ```bash
@@ -97,8 +94,7 @@ seed0014 @50259 (D-0708 still open).
 
 **Do not re-break D-0660…D-0851. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more without fixing remaining
-seed0383 screens (D-0841/D-0843/D-0846).**
+**Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as glyph “fix”
 (D-0845 falsified — Scr regresses).**
 **Do not revert rloc_to newsym (D-0846) — required for flush path.**
@@ -110,8 +106,9 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
 **Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
 **Do not skip `select_menu_pick_one` `docrt` on picks (Scr−2; #988/#989).**
-**Do not add Hallu `vision_off` in gulpmu (Scr 174 / core break; #993).**
+**Do not add Hallu `vision_off` in gulpmu alone (#993 Scr 174).**
 **Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
+**Do not remove gulpmu flush+vision_off pair (#996 Scr+5).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

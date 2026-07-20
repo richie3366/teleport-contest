@@ -7,21 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#994 D-0852:** C ice-gulp DISP: Monnam `~drn2(430)+~(2)` then
-  **8×~drn2(5)** then `rnd` uswldtim then swallowed. JS burn-only×8
-  (skip `u_at` engulfer) → core FULL but Scr **196→174**, breaks @195.
-  Do not add gulp warns alone. Baseline @195 matches without them.
-- **Hypothesis:** JS has other display-rng advances that net-align @195
-  despite warn 38 vs C 45; OR need `display_nhwindow` More + warns
-  together. Falsifier: JS vs C `~drn2` inventory gulp→@195 (all dims).
-- Flush still parked @141–174 (D-0841).
+- **#996 D-0852:** gulpmu `flush_topl_more` + Hallu `vision_off` together
+  → Scr **196→201**, RNG FULL. Gulp `~drn2` dims match C through
+  ~core16749 (first mismatch idx 398). warn **46 vs C 45** (+1).
+- **Hypothesis:** @195 still wrong from later Monnam/463/levtport
+  display-rng gap (JS 593 vs C 624 total; −31 after gulp aligned).
+  Falsifier: dim-seq from mismatch idx 398 → @195 window.
+- Do not retry flush alone / warn alone / gulpmu vision_off alone.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0851 done.
-- gulpmu flush alone → display-RNG (D-0841/43; don't retry until objs).
 - **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2.
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
   falsified; cause was SCR_MAIL (D-0848).
@@ -29,10 +27,9 @@ Objective/score live in `CURRENT.md`.
 - Skip menu-dismiss `docrt` not @195 cause (Scr−2).
 - **#991:** HWarning missing is NOT the warn-burn gap (HW set).
 - **#992:** global ctrl=2 loop → Scr 174; non-Hallu vision_off regress.
-- **#993:** gulpmu Hallu vision_off → Scr 174; burn-only → core 11527 —
-  do not retry.
-- **#994:** gulpmu warn-only×8 (skip u_at) → Scr 174 / @195 break —
-  do not retry alone.
+- **#993:** gulpmu Hallu vision_off alone → Scr 174 — do not retry.
+- **#994:** gulpmu warn-only×8 alone → Scr 174 — do not retry.
+- **#996:** flush+warns together is the C order; works Scr+5.
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
 - seed5002/0360 **PASS**; D-0743…D-0850 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
@@ -42,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#995 Scr **8998**/11405 RNG **666643**/792838;
-  seed0383 RNG **FULL**; Scr **196**/219 after D-0852 Hallu vision_off.
+  seed0383 RNG **FULL**; Scr **201**/219 after #996 gulpmu flush+warns.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -62,5 +59,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
-- **D-0852:** Hallu vision_off at docrt+goto leave only; gulpmu
-  vision_off + warn-only×8 falsified (#993/#994 Scr174).
+- **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together;
+  pre-gulp dims≡C; bat-engulf @core11051 (not ice @141).

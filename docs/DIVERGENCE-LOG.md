@@ -6,7 +6,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0852 — partial: seed0383 Hallu vision_recalc(2) warn burns
 
-- **Status:** partial (Scr 194→196; @195 still open)
+- **Status:** partial (Scr 194→196→**201**; @195 still open)
 - **Symptom / context:** seed0383 Scr 194/219 RNG FULL. First content
   miss @195 Hallu map. C ~drn2 @195 window **70** with **19×5** warn;
   JS menu docrt had **1×5** (session warn 16 vs C 45).
@@ -14,27 +14,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   getbones/getpos paint). That loop newsyms prior IN_SIGHT/COULD_SEE
   while `!cansee`, so Hallu `mon_warning` → `display_warning` →
   `rn2(5)`. Menu `docrt` + `goto_level` leave each miss ~9 burns.
-- **Fix:** `vision_off_newsym_gbuf({ useLiveViz: true })` under Hallu
-  in `docrt` and `goto_level` leave (before `vision_recalc(2)`). Bones
-  skips a second burn via `_leave_viz_burned`. Non-Hallu gated — full
-  loop regresses PASS cohort memory/waslit.
-- **Verification:** seed0383 Scr **196** RNG FULL; green+strict PASS;
-  cohort seed0002/0012/0013-restore/0360/0398 PASS.
-- **#993 inventory:** after D-0852, session warn **38 vs C 45**. Menu
-  docrt + goto_leave each burn **9×5** when viz live; early Hallu
-  `docrt` can see empty viz (cells=0) after gulpmu `vision_recalc(2)`.
-- **Falsified:** global `vision_recalc(2)` update loop (Scr 174);
-  non-Hallu vision_off (cohort −screens); **gulpmu Hallu vision_off**
-  (session warn→45 but Scr 196→174; burn-only→core 11527; memory
-  restore still Scr 174) — do not retry.
-- **#994 C DISP falsifier:** ice-gulp window =
-  Monnam `~drn2(430)+~drn2(2)` → **8×~drn2(5)** → `rnd` uswldtim →
-  swallowed `~drn2(383)`. JS warn-only×8 skipping `u_at` (engulfer on
-  hero cell) keeps core **FULL** but Scr **196→174** and breaks @195
-  (baseline @195 matched without gulp warns). Do not add gulp warns
-  alone — need compensating display-rng inventory gulp→@195 and/or
-  `display_nhwindow` More with warns (D-0841).
-- **Next:** JS vs C full `~drn2` dims gulp→@195; flush parked.
+- **Fix (docrt/goto):** `vision_off_newsym_gbuf({ useLiveViz: true })`
+  under Hallu in `docrt` and `goto_level` leave. Bones skips a second
+  burn via `_leave_viz_burned`. Non-Hallu gated.
+- **#996 gulpmu (bat engulfs under Hallu, core 11051):** JS vs C
+  `~drn2` inventory — pre-gulp dims identical; first mismatch was
+  missing **8×~drn2(5)** then JS double `swallowed(0)` at once-per-input
+  (16×383 vs C 8×383) because `l`/`space` were not consumed by More.
+  Flush alone (D-0841) or warns alone (#993/#994) each ±8 desync;
+  **together** match C `display_nhwindow` + `vision_recalc(2)`.
+- **Fix (gulpmu):** `await flush_topl_more()` then Hallu
+  `vision_off_newsym_gbuf({ useLiveViz: true })` before `vision_recalc(2)`.
+- **Verification:** seed0383 Scr **201**/219 RNG FULL; gulp→~core16749
+  dim-seq matches (first mismatch idx 398); warn 46 vs C 45; green+strict
+  PASS; cohort 8/8 (seed0002/0012/0060/0360/0373/0398/1500/1800).
+- **Falsified (do not retry alone):** global ctrl=2 loop; non-Hallu
+  vision_off; gulpmu vision_off alone; gulpmu warn-only×8 alone; flush
+  alone (D-0841).
+- **Next:** remaining dim gap after ~16749 (Monnam/463/@195 map);
+  warn +1; flush toplines polish if still open.
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 
