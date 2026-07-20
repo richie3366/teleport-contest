@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS
-  `rn2(4)` after matched getbones + nhlib shuffle. Falsifier:
+- **Gameplay next:** seed4500 @28249 C `makemon` `rn2(5)` vs JS
+  `rn2(26)` after matched valley gen prefix. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0903 fill_zoo BEEHIVE closed @18153 (prefix 14216→18153 Scr 294→302).
+- D-0904 find_hell closed @18153 (prefix 18153→28249 Scr 302).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0903 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0904 done.
+- Do not omit `level_tele` past-main `find_hell` (D-0904).
 - Do not omit fill_zoo BEEHIVE queen/killer + royal jelly (D-0903).
 - Do not omit `shkveg`/`mkveggy_at` / HEALTHY_TIN (D-0902).
 - Do not omit Pillars `shuffle(terr)` / 2×2 `des.terrain` (D-0901).
@@ -30,12 +31,12 @@ Objective/score live in `CURRENT.md`.
 - Do not force `setgemprobs` lev=0 when dlev set (D-0893).
 - Do not force `tseen=false` on HOLE in `maketrap` (D-0891).
 - Do not omit launch_obj `tmp_at(DISP_FLASH)` / pline vision (D-0890).
-- Do not omit peaceful adj / frighten verb on safemon swap (D-0889).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1050 Scr **9874**/11405 RNG **694676**/792838
   (87.62%); next cadence @#1055.
+- **D-0904 #1054:** find_hell; seed4500 **18153→28249** Scr **302**.
 - **D-0903 #1053:** fill_zoo BEEHIVE; seed4500 **14216→18153**
   Scr **294→302**.
 - **D-0902 #1052:** shkveg/mkveggy_at; seed4500 **9974→14216**
@@ -53,4 +54,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0893 #1044:** setgemprobs ledger_no; Scr **678→712**.
 - **D-0892 #1043:** do_attack unweapon bash; Scr **676→678**.
 - **D-0891 #1042:** maketrap HOLE `unhideable_trap` tseen; Scr **645→676**.
-- **D-0890 #1041:** launch_obj FLASH + pline vision_recalc; Scr **644→645**.

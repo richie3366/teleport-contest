@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:50 — #1054 D-0904 level_tele find_hell
+- Objective: seed4500 @18153 C `splev_initlev` `rn2(2)` vs JS `rn2(4)`
+  after matched getbones + nhlib shuffle.
+- C locus: `teleport.c` `level_tele` past-main arm; `dungeon.c`
+  `find_hell`.
+- Change: ^V “30” was clamping to castle via `get_level`; port
+  `find_hell`→valley when past last main depth. Named omit:
+  Quest/mines/sanctum deepest clamp; invoked gate.
+- Verification: seed4500 prefix **18153→28249** Scr **302** RNG
+  **18215→28364**; green+strict PASS; cohort 12/12 PASS.
+- Next: @28249 C `makemon` `rn2(5)` vs JS `rn2(26)`; leaderboard cron;
+  cadence @#1055.
+
 ## 2026-07-20 21:39 — #1053 D-0903 fill_zoo BEEHIVE
 - Objective: seed4500 @14216 C `next_ident` vs JS `rn2(3)` after
   matched `fill_ordinary_room` `rn2(5)`.

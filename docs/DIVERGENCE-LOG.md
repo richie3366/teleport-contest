@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0904 — level_tele past-main-dungeon find_hell (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Quest/mines/
+  sanctum deepest clamp + invoked gate still deferred)
+- **Session:** seed4500-knight-coverage @18153
+- **Symptom:** after matched getbones + nhlib align shuffle, C
+  `splev_initlev` `rn2(2)` (valley solidfill lit); JS `rn2(4)` via
+  castle `nhlib_shuffle(object)`.
+- **Cause:** wizard `^V` “30” — C `level_tele` past last main depth
+  calls `find_hell`→valley; JS `get_level` clamped to castle.
+- **C locus:** `teleport.c` `level_tele` medusa-dnum + past-end arm;
+  `dungeon.c` `find_hell`.
+- **Fix:** port `find_hell` + that arm before `get_level`. Named omit:
+  Quest/mines/sanctum deepest clamp; invoked last-Gehennom gate.
+- **Verification:** seed4500 prefix **18153→28249** Scr **302** RNG
+  **18215→28364**; green+strict PASS; cohort 12/12 PASS.
+- **Next:** @28249 C `makemon` `rn2(5)` vs JS `rn2(26)`; leaderboard
+  cron; cadence @#1055.
+
 ## D-0903 — fill_zoo BEEHIVE queen/killer + royal jelly (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; ANTHOLE

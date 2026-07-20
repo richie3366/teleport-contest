@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 10113/108275 | 284/1814 | knight coverage; next @8925 nhlib shuffle |
+| seed4500 | 28364/108275 | 302/1814 | knight coverage; next @28249 makemon |
 
 ## Green gate
 
@@ -71,8 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @18153 (C `splev_initlev` `rn2(2)` after
-matched getbones + nhlib shuffle vs JS `rn2(4)` — reconstruct C path).
+**Gameplay next:** **seed4500** @28249 (C `makemon` `rn2(5)` vs JS
+`rn2(26)` after matched valley load via find_hell — reconstruct C path).
 Focused:
 
 ```bash
@@ -85,12 +85,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0903. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0904. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0903 (searches_for_item … fill_zoo BEEHIVE).
+D-0861…D-0904 (searches_for_item … level_tele find_hell).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -122,7 +122,8 @@ omit `BIND=` parsebindings / skip `setworn` in `ini_inv_use_obj` armor
 omit `spitmm`/`spitmu` / `m_lined_up` (D-0900);
 omit Pillars `shuffle(terr)` / 2×2 terrain (D-0901);
 omit `shkveg`/`mkveggy_at` / HEALTHY_TIN (D-0902);
-omit fill_zoo BEEHIVE queen/killer + royal jelly (D-0903).
+omit fill_zoo BEEHIVE queen/killer + royal jelly (D-0903);
+omit `level_tele` past-main `find_hell` (D-0904).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
