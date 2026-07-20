@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0911 — obj_extract_self ox/oy + doeat rottenfood + HDeaf timeout
+
+- **Status:** fixed (partial — seed4500 still FAIL later; TIN / multi-turn
+  non-corpse eat; make_deaf talk; Blinded/… timeout cases still deferred)
+- **Session:** seed4500-knight-coverage @50111
+- **Symptom:** after matched regen_pw, C `next_ident`/`doeat`/`rottenfood`;
+  JS `mcalcmove` — extra EOT because `multi=-1` from false ball drag.
+- **Cause:** `obj_extract_self` zeroed `ox`/`oy` unlike C `remove_object`,
+  so after `move_bc(1)` `uball` sat at (0,0); `drag_ball` always took the
+  drag path → `cause_delay`/`nomul(-2)` → skipped eat input. Separately,
+  `doeat` stubbed ordinary rotten food; `nh_timeout` omitted DEAF decrement
+  so `dosounds` stayed gated after `incr_itimeout(HDeaf)`.
+- **C locus:** `mkobj.c` `obj_extract_self`/`remove_object`; `eat.c`
+  `doeat`/`rottenfood`/`Hear_again`; `timeout.c` DEAF case; `potion.c`
+  `make_deaf`.
+- **Fix:** preserve ox/oy on extract; wire `rottenfood`+`consume_oeaten`+
+  `Hear_again` afternmv; decrement `HDeaf` TIMEOUT in `nh_timeout`.
+- **Verification:** seed4500 prefix **50111→50290** RNG **50240→50469**
+  Scr **499→596**; green+strict PASS; cohort 6/6 PASS.
+- **Next:** @50290 C `exercise` `rn2(19)` vs JS `mcalcmove` `rn2(12)`.
+
 ## D-0910 — allmain regen_pw once-per-turn Pw recover
 
 - **Status:** fixed (partial — Teleportation / Polymorph once-per-turn

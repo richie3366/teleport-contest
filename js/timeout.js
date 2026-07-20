@@ -151,9 +151,10 @@ function incr_itimeout_HFumbling(incr) {
  * expiry run property-specific handlers.
  * Envelope: WOUNDED_LEGS → heal_legs(0) + stop_occupation;
  * CONFUSION → set_itimeout(1) + make_confused(0,TRUE) + stop_occupation;
- * FUMBLING → slip_or_trip + nomul(-2) + incr_itimeout rnd(20) (D-0692).
+ * FUMBLING → slip_or_trip + nomul(-2) + incr_itimeout rnd(20) (D-0692);
+ * DEAF → make_deaf(0) on expiry (D-0911; talk if !Unaware deferred).
  * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues; FAST/
- * STUNNED/BLINDED/DEAF/INVIS/SEE_INVIS/HALLUC/SLEEPY/LEVITATION/… cases;
+ * STUNNED/BLINDED/INVIS/SEE_INVIS/HALLUC/SLEEPY/LEVITATION/… cases;
  * Glib; ublesscnt (in allmain); mtimedone; usptime; ugallop; delayed
  * killers; uinvulnerable early return polish; defer_decor; full ice/
  * mount slip_or_trip arms.
@@ -189,6 +190,24 @@ export async function nh_timeout() {
             if (!(u.HConfusion | 0) && !(u.Confusion | 0)) {
                 await stop_occupation();
             }
+        }
+    }
+
+    // C case DEAF — timeout.c:752; make_deaf(0,TRUE) talk suppressed if Unaware
+    const hd = u.HDeaf | 0;
+    if (hd & TIMEOUT) {
+        const next = hd - 1;
+        u.HDeaf = next;
+        if (!(next & TIMEOUT)) {
+            // C: set_itimeout(&HDeaf, 1L); make_deaf(0L, TRUE);
+            // (TIMEOUT already 0 from --; set 1 so make_deaf old!=0 for botl)
+            u.HDeaf = ((u.HDeaf | 0) & ~TIMEOUT) | 1;
+            // make_deaf(0): clear TIMEOUT; Unaware → no "hear again" pline
+            u.HDeaf = (u.HDeaf | 0) & ~TIMEOUT;
+            if (game.disp) game.disp.botl = true;
+            if (game.flags) game.flags.botl = true;
+            const stillDeaf = !!(u.EDeaf || u.uroleplay?.deaf || u.Deaf);
+            if (!stillDeaf) await stop_occupation();
         }
     }
 

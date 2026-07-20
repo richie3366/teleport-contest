@@ -1409,8 +1409,8 @@ export function obj_extract_self(obj) {
     obj.nobj = null;
     obj.nexthere = null;
     obj.where = OBJ_FREE;
-    obj.ox = 0;
-    obj.oy = 0;
+    // C remove_object / extract_nobj: do NOT clear ox/oy — drag_ball and
+    // move_bc read uball->ox after pickup (D-0911). place_object overwrites.
 }
 
 /**

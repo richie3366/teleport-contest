@@ -844,6 +844,21 @@ async function start_eating(otmp, already_partly_eaten) {
 }
 
 /**
+ * C ref: eat.c Hear_again — afternmv after fainting/rotten-food knock-out.
+ * Chance of deafness clearing while out.
+ */
+function Hear_again() {
+    // C: if (!rn2(2)) { make_deaf(0L, FALSE); disp.botl = TRUE; }
+    if (!rn2(2)) {
+        const u = game.u || (game.u = {});
+        u.HDeaf = (u.HDeaf | 0) & ~TIMEOUT;
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+    }
+    return 0;
+}
+
+/**
  * C ref: eat.c rottenfood — first bite of rotten food.
  * @returns {number} 1 if fainted (dont_start), else 0
  */
@@ -872,7 +887,7 @@ async function rottenfood(obj) {
         nomul(-duration);
         game.multi_reason = 'unconscious from rotten food';
         game.nomovemsg = 'You are conscious again.';
-        // Hear_again afternmv deferred
+        game.afternmv = Hear_again;
         return 1;
     }
     return 0;
@@ -1023,7 +1038,8 @@ async function eatcorpse(otmp) {
 
 /**
  * C ref: eat.c doeat() — food-class path for reqtime==1 and CORPSE.
- * TIN, multi-turn non-corpse occupation, rotten ordinary food still deferred.
+ * TIN / multi-turn non-corpse occupation still deferred; ordinary rotten
+ * food via rottenfood + Hear_again (D-0911).
  * @returns {number} 0 = no turn (ECMD_OK), 1 = took time
  */
 export async function doeat() {
@@ -1094,11 +1110,12 @@ export async function doeat() {
                 || (!nonrotting_food(otmp.otyp)
                     && (moves - age) > (otmp.blessed ? 50 : 30)
                     && (otmp.orotten || !rn2(7))))) {
-            await pline('That food is not implemented yet.');
-            game.context.victual = {};
-            return 0;
-        }
-        if (!already_partly_eaten) {
+            if (await rottenfood(otmp)) {
+                otmp.orotten = true;
+                dont_start = true;
+            }
+            consume_oeaten(otmp, 1); /* oeaten >>= 1 */
+        } else if (!already_partly_eaten) {
             if (!(await fprefx(otmp))) {
                 game.context.victual = {};
                 return 1;

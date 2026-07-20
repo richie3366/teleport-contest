@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 50240/108275 | 499/1814 | knight coverage; next @50111 next_ident |
+| seed4500 | 50469/108275 | 596/1814 | knight coverage; next @50290 exercise |
 
 ## Green gate
 
@@ -71,8 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @50111 (C `next_ident` `rnd(2)` vs
-  JS `rn2(12)` — likely eat/mkobj after matched regen_pw). Focused:
+**Gameplay next:** **seed4500** @50290 (C `exercise` `rn2(19)` vs
+  JS `mcalcmove` `rn2(12)` — after D-0911 extract/rotten/HDeaf). Focused:
 
 ```bash
 node scripts/rng-diff.mjs \
@@ -84,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0910. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0911. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0909 (searches_for_item … Punished drag_ball/move_bc).
+D-0861…D-0911 (searches_for_item … extract ox/oy / rottenfood / HDeaf).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -128,7 +128,9 @@ omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906);
 omit `set_occupation(learn)` / learn `makeknown` credit_hero (D-0907);
 omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908);
 omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909);
-omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910).
+omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910);
+re-zero `ox`/`oy` in `obj_extract_self` / stub ordinary rotten /
+omit `HDeaf` TIMEOUT in `nh_timeout` (D-0911).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
