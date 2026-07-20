@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0912 — #turn / doturn chant + exercise(A_WIS) (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; known_spell
+  SPE_TURN_UNDEAD / spelleffects non-Knight/Cleric fallback; Hallu
+  `halu_gname` pantheon RNG; resist TELL pline polish still deferred)
+- **Session:** seed4500-knight-coverage @50290
+- **Symptom:** after matched wipe_engr `rn2(67)`, C `exercise` `rn2(19)`
+  from `#turn`; JS skipped to EOT `mcalcmove` `rn2(12)`.
+- **Cause:** `#turn` listed in autocomplete but not in runnable
+  `EXT_CMDS`; `doturn` / `maybe_turn_mon_iter` absent from `pray.js`.
+- **C locus:** `pray.c` `doturn` / `maybe_turn_mon_iter`; `attrib.c`
+  `exercise`; `cmd.c` extcmd `"turn"`.
+- **Fix:** port Knight/Cleric `doturn` (chant pline, `exercise(A_WIS)`,
+  undead/demon iter + `nomul`); wire `#turn` in `getline.js` EXT_CMDS.
+- **Verification:** seed4500 prefix **50290→50338** RNG **50401**
+  Scr **594**; green+strict PASS; cohort 6/6 PASS.
+- **Next:** @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`.
+
 ## D-0911 — obj_extract_self ox/oy + doeat rottenfood + HDeaf timeout
 
 - **Status:** fixed (partial — seed4500 still FAIL later; TIN / multi-turn

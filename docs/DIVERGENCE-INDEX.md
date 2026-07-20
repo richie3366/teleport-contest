@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0912 | fixed | #turn / doturn chant + exercise(A_WIS) | seed4500 **50290→50338** RNG **50401** Scr **594**; next @50338 distfleeck |
 | D-0911 | fixed | extract ox/oy + rottenfood + HDeaf timeout | seed4500 **50111→50290** Scr **499→596** RNG **50469**; next @50290 exercise |
 | D-0910 | fixed | allmain regen_pw once-per-turn rn1 | seed4500 **50054→50111** RNG **50220→50240**; next @50111 next_ident |
 | D-0909 | fixed | Punished drag_ball/move_bc/nomul(-2) | seed4500 **50034→50054** RNG **50167→50220**; next @50054 regen_pw |
