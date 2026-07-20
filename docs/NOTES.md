@@ -8,16 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @54329 — C `somex`/`somey` `rn2(2)`/
-  `rn2(5)` vs JS `rn2(12)` after matched `fill_ordinary_room`.
+- **Gameplay next:** seed4500 @55990 — C `drag_down` `rn2(2)` vs
+  JS `rn2(50)` after matched Nesting fill/mineralize.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0916 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0917 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `fill_ordinary_room` nsubrooms recursion before needfill
+  (D-0917).
 - Do not omit Nesting nested create_subroom/door / lspo_door `rnddoor`
   (D-0916).
 - Do not omit `goto_level` Punished `unplacebc`/`placebc` (D-0915).
@@ -30,13 +32,13 @@ Objective/score live in `CURRENT.md`.
 - Do not omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910).
 - Do not omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909).
 - Do not omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908).
-- Do not omit `set_occupation(learn)` / learn `makeknown` credit_hero
-  (D-0907).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1065 Scr **10198**/11405 RNG **737530**/792838
   (93.02%); next cadence @#1070.
+- **D-0917 #1068:** fill_ordinary_room subroom recurse; seed4500
+  **54329→55990** RNG **57748** Scr **613**.
 - **D-0916 #1067:** Nesting nested + lspo_door rnddoor; seed4500
   **52803→54329** RNG **54647** Scr **613**.
 - **D-0915 #1066:** goto_level unplacebc/placebc; seed4500
@@ -62,4 +64,3 @@ Objective/score live in `CURRENT.md`.
   Scr **308→459**.
 - **D-0905 #1055:** Erinys peace_minded; seed4500 **28249→32538**
   Scr **302→308**.
-- **D-0904 #1054:** find_hell; seed4500 **18153→28249** Scr **302**.

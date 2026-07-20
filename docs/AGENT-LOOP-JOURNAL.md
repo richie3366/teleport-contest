@@ -12,6 +12,23 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-20 23:51 — #1068 D-0917 fill_ordinary_room subroom recursion
+- Objective: seed4500 @54329 C somex rn2(2) vs JS rn2(12).
+- C locus: `mklev.c` `fill_ordinary_room` nsubrooms loop before needfill.
+- Change: recurse `fill_ordinary_room(subroom, false)` then needfill gate
+  (Nesting mid/inner fill before outer). Named omit: Fake Delphi/Huge/
+  Mausoleum/Twin nested bodies; `u.uhave.amulet` arm of sleeping-mon gate.
+- Verification: prefix **54329→55990** RNG **57748** Scr **613**;
+  green+strict PASS; cohort 13/13 PASS + strict lengths.
+- Next: @55990 C `drag_down` rn2(2) vs JS rn2(50); cadence @#1070.
 
 ## 2026-07-20 23:50 — #1067 D-0916 Nesting nested + lspo_door rnddoor
 - Objective: seed4500 @52803 C themerms/nhlib rn2(5) vs JS rn2(1000).
@@ -24,14 +41,6 @@ Use this shape:
 - Verification: prefix **52803→54329** RNG **54647** Scr **613**;
   green+strict PASS; cohort 13/13 PASS + strict lengths.
 - Next: @54329 C somex rn2(2) vs JS rn2(12); cadence @#1070.
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-20 23:45 — #1066 D-0915 goto_level unplacebc/placebc
 - Objective: seed4500 @52643 C distfleeck rn2(5) vs JS move_special rn2(1).

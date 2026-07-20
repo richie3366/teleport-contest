@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0917 — fill_ordinary_room subroom recursion (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Fake Delphi /
+  Huge / Mausoleum / Twin nested bodies still deferred; sleeping-mon
+  `u.uhave.amulet` short-circuit still omitted)
+- **Session:** seed4500-knight-coverage @54329
+- **Symptom:** after matched `fill_ordinary_room` `rn2(5)`/`rn2(3)`,
+  C `somex` `rn2(2)` / `somey` `rn2(5)` vs JS `rn2(12)`/`rn2(12)`.
+- **Cause:** Nesting mid/inner rooms exist (D-0916) but JS
+  `fill_ordinary_room` returned on `needfill` before recursing
+  `nsubrooms`, so outer Nesting (width 12) filled first instead of
+  deepest nested (2×5).
+- **C locus:** `mklev.c` `fill_ordinary_room` — rtype gate, then
+  `for (nsubrooms) fill_ordinary_room(subroom, FALSE)`, then
+  `needfill != FILL_NORMAL` return.
+- **Fix:** same order in `js/mklev.js` `fill_ordinary_room`.
+- **Verification:** prefix **54329→55990** RNG **57748** Scr **613**;
+  green+strict PASS; cohort 13/13 PASS + strict lengths.
+- **Next:** @55990 C `drag_down` `rn2(2)` vs JS `rn2(50)`.
+
 ## D-0916 — themerms Nesting nested + lspo_door rnddoor (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Fake Delphi /

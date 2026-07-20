@@ -22,8 +22,8 @@ label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-20** — full `sessions` @**#1065** (42/44,
-Scr **10198**/11405, RNG **93.02%**). Next cadence @**#1070**. #1067
-D-0916: seed4500 **52803→54329** (Nesting nested + lspo_door rnddoor).
+Scr **10198**/11405, RNG **93.02%**). Next cadence @**#1070**. #1068
+D-0917: seed4500 **54329→55990** (`fill_ordinary_room` subroom recurse).
 
 ## Score
 
@@ -70,21 +70,19 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @54329 — C `somex`/`somey` `rn2(2)`/
-  `rn2(5)` vs JS `rn2(12)` after matched `fill_ordinary_room`. Focused:
+**Gameplay next:** **seed4500** @55990 — C `drag_down` `rn2(2)` vs
+  JS `rn2(50)` after matched Nesting fill/mineralize. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0916. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0917. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not FORCE shk satdoor/`onlineu` (hero-path first; D-0376).**
-**Keep:** D-0916 Nesting nested + lspo_door rnddoor;
-  D-0915 goto_level unplacebc/placebc;
-  D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
+**Keep:** D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0916 (searches_for_item … Nesting nested + rnddoor).
+D-0861…D-0917 (searches_for_item … fill_ordinary_room subrooms).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -127,7 +125,8 @@ leave `x` unbound / skip `setworn`-style twoweap clear on setuwep/swap
 stub `mk_knox_portal` place under wizard/debug after deferral `rn2(3)`
 (D-0914);
 omit `goto_level` Punished `unplacebc`/`placebc` (D-0915);
-omit Nesting nested create_subroom/door / lspo_door `rnddoor` (D-0916).
+omit Nesting nested create_subroom/door / lspo_door `rnddoor` (D-0916);
+omit `fill_ordinary_room` nsubrooms recursion before needfill (D-0917).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -17551,7 +17551,14 @@ function mkgrave_room(croom) {
 
 async function fill_ordinary_room(croom, bonus_items) {
     const g = game;
+    // C ref: mklev.c fill_ordinary_room — rtype gate, then subrooms before
+    // needfill (outer unfilled must not block filled nested rooms).
     if (!croom || (croom.rtype !== OROOM && croom.rtype !== THEMEROOM)) return;
+    for (let xi = 0; xi < (croom.nsubrooms | 0); ++xi) {
+        const subroom = croom.sbrooms?.[xi];
+        if (!subroom) return; // C: impossible("…Null subroom")
+        await fill_ordinary_room(subroom, false);
+    }
     if (croom.needfill !== FILL_NORMAL) return;
 
     const pos = { x: 0, y: 0 };
