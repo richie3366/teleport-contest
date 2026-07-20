@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0895 — themerms Temple of the gods fill + themes align store
+
+- **Status:** fixed (partial — seed2600 still FAIL later)
+- **Session:** seed2600-wizard-custom-binds @395
+- **Symptom:** C `somex` `rn2(8)` after themeroom_fill reservoir; JS skipped
+  fill → `rn2(4)` then next-room `rn2(1000+)`.
+- **Cause:** reservoir pick = 10th eligible fill = **Temple of the gods**;
+  JS had no body. Also themes nhlib shuffle burned RNG but discarded result
+  (needed for `align[1..3]`).
+- **C locus:** `themerms.lua` Temple contents; `sp_lev.c` `create_altar` /
+  `get_free_room_loc` (DRY then ROOM retry — ALTAR is SPACE_POS so can burn
+  an extra somexy).
+- **Fix:** `themeroom_fill_temple_of_the_gods` + register; store
+  `game.splev_align` on first themes load per branch.
+- **Named omission:** other fills (Ice/Cloud/Boulder/Spider/Trap/Garden/
+  Buried treasure/Massacre/Statuary/Light source); garden/dig postprocess;
+  BIND= parsing (seed2600 later).
+- **Verification:** seed2600 RNG **395→2917** Scr **3→23**; green+strict
+  PASS; cohort seed1500/1800/0014/0200/0030 PASS.
+- **Next:** seed2600 @2917 nhlib shuffle on special-level load / BIND.
+
 ## D-0894 — dryup town first-use watchman warn
 
 - **Status:** fixed

@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, **seed0014**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed2600 | 418/11647 | 3/38 | custom binds |
+| seed2600 | 2929/11647 | 23/38 | Temple fill done; next @2917 |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
 
 ## Green gate
@@ -71,9 +71,9 @@ seed0360 + seed0399 + **seed0014**; judge at 08:55Z dropped to **22** after
 D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed2600** custom binds / **seed4500** knight coverage
-(shared gaps). seed0014 closed (D-0894 dryup town warn → **PASS**).
-Focused (pick one):
+**Gameplay next:** **seed2600** continue (@2917 nhlib special-level
+shuffle / later BIND) / **seed4500** knight coverage. Temple fill closed
+(D-0895 → RNG **395→2917**, Scr **3→23**). Focused (pick one):
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -85,12 +85,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0894. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0895. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0894 (searches_for_item … dryup town warn).
+D-0861…D-0895 (searches_for_item … Temple fill).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -114,7 +114,8 @@ omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty `vision_recalc` (D-0890);
 force `maketrap` HOLE `tseen=false` (need `unhideable_trap` D-0891);
 omit `do_attack` `gu.unweapon` begin-bashing (D-0892);
 force `setgemprobs` lev=0 when dlev set (D-0893);
-skip town warn / dry fountain on first town `dryup` (D-0894).
+skip town warn / dry fountain on first town `dryup` (D-0894);
+skip Temple of the gods fill / discard themes `splev_align` (D-0895).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

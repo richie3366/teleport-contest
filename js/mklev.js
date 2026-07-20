@@ -13312,7 +13312,8 @@ async function makelevel_ordinary() {
         makeroguerooms();
         makerogueghost();
     } else {
-        // C ref: mklev.c:382-388 — themerms.lua shuffle (first level of branch)
+        // C ref: mklev.c:382-388 — themerms.lua loads nhlib → shuffle(align)
+        // once per branch (first level). Keep result for Temple fill etc.
         const dnum = g.u?.uz?.dnum ?? 0;
         if (!g._luathemes_loaded) g._luathemes_loaded = {};
         if (!g._luathemes_loaded[dnum]) {
@@ -13321,6 +13322,7 @@ async function makelevel_ordinary() {
                 const j = rn2(i);
                 [themedAlign[i - 1], themedAlign[j]] = [themedAlign[j], themedAlign[i - 1]];
             }
+            g.splev_align = themedAlign;
             g._luathemes_loaded[dnum] = true;
         }
         await makerooms();
@@ -14927,6 +14929,36 @@ function create_mimic_as_chest(croom) {
     return mtmp;
 }
 
+/**
+ * C ref: themerms.lua "Temple of the gods" + sp_lev.c create_altar /
+ * get_free_room_loc — three unattended altars (type="altar", shrine=0)
+ * with shuffled nhlib align[1..3]. Room is THEMEROOM not TEMPLE → no priest.
+ */
+function themeroom_fill_temple_of_the_gods(croom) {
+    const align = game.splev_align || ['law', 'neutral', 'chaos'];
+    const alignStrToAmask = (s) => {
+        if (s === 'law') return AM_LAWFUL;
+        if (s === 'neutral') return AM_NEUTRAL;
+        if (s === 'chaos') return AM_CHAOTIC;
+        if (s === 'noalign') return AM_NONE;
+        return AM_NEUTRAL;
+    };
+    // Lua align[1], align[2], align[3] → JS indices 0..2
+    for (let i = 0; i < 3; i++) {
+        const pos = get_free_room_loc(croom);
+        if (pos.x < 0 || pos.y < 0) continue;
+        const loc = game.level.at(pos.x, pos.y);
+        if (!loc) continue;
+        // C set_levltyp(x,y,ALTAR): CAN_OVERWRITE except LADDER/STAIRS
+        if (loc.typ === LADDER || loc.typ === STAIRS) continue;
+        loc.typ = ALTAR;
+        const amask = alignStrToAmask(align[i]);
+        loc.altarmask = amask;
+        loc.flags = amask;
+        // shrine=0 and !TEMPLE → create_altar returns after mask; no priestini
+    }
+}
+
 // C ref: themerms.lua "Storeroom" contents
 function themeroom_fill_storeroom(croom) {
     const roomSel = selection_from_mkroom(croom);
@@ -15133,6 +15165,7 @@ const THEMEROOM_FILL_BODIES = {
     'Teleportation hub': themeroom_fill_teleport_hub,
     'Storeroom': themeroom_fill_storeroom,
     'Buried zombies': themeroom_fill_buried_zombies,
+    'Temple of the gods': themeroom_fill_temple_of_the_gods,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -15151,7 +15184,8 @@ function themeroom_fill(croom) {
     croom._themeroom_fill = pick.name;
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
-    // Named omission: other fill contents (Ice/Trap room/Garden/Temple/…)
+    // Named omission: other fill contents (Ice/Cloud/Boulder/Spider/Trap/
+    // Garden/Buried treasure/Massacre/Statuary/Light source/…)
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path
