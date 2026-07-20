@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @49915 C `mkobj` `rnd(1000)` vs JS
-  `rn2(19)` after matched learn/makeknown study. Falsifier:
+- **Gameplay next:** seed4500 @50034 C `mattacku` `rnd(20)` vs JS
+  `rn2(20)` after matched punish ball/chain. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0907 study learn/makeknown closed @49776 (prefix 49776→49915 Scr 481).
+- D-0908 SCR_PUNISHMENT closed @49915 (prefix 49915→50034 Scr 499).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0907 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0908 done.
+- Do not omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908).
 - Do not omit `set_occupation(learn)` / learn `makeknown` credit_hero
   (D-0907).
 - Do not omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
@@ -31,12 +32,13 @@ Objective/score live in `CURRENT.md`.
   `ini_inv_use_obj` (D-0897/D-0898).
 - Do not omit `bigrm-9` load_special (D-0896).
 - Do not skip Temple of the gods / discard themes `splev_align` (D-0895).
-- Do not skip town warn / dry fountain on first town `dryup` (D-0894).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1055 Scr **9898**/11405 RNG **717155**/792838
   (90.45%); next cadence @#1060.
+- **D-0908 #1058:** SCR_PUNISHMENT punish/placebc; seed4500
+  **49915→50034** Scr **481→499** RNG **50071→50167**.
 - **D-0907 #1057:** study learn+makeknown; seed4500 **49776→49915**
   Scr **459→481**.
 - **D-0906 #1056:** hellfill+create_maze; seed4500 **32538→49776**
@@ -57,4 +59,3 @@ Objective/score live in `CURRENT.md`.
   Scr **23→35**.
 - **D-0895 #1046:** Temple of the gods fill; seed2600 **395→2917**
   Scr **3→23**.
-- **D-0894 #1045:** dryup town warn + watchman yell; seed0014 **PASS**.

@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0908 — SCR_PUNISHMENT punish / placebc / setworn ball+chain
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Blind set_bc;
+  placebc flooreffects; angrygods HEAVY_IRON_BALL reuse; unpunish /
+  drag_ball / ballrelease still deferred)
+- **Session:** seed4500-knight-coverage @49915
+- **Symptom:** after matched exercise, C `mkobj` `rnd(1000)` (CHAIN then
+  BALL `oc_prob` 1000); JS another `rn2(19)` (scroll rejected as
+  unimplemented).
+- **Cause:** `doread`/`seffects` omitted `SCR_PUNISHMENT` → `punish` →
+  `mkobj(CHAIN/BALL)` + `setworn` + `placebc`. Screen: "You are being
+  punished for your misbehavior!"
+- **C locus:** `read.c` `seffect_punishment`/`punish`; `ball.c`
+  `placebc`; `worn.c` `setworn` W_BALL/W_CHAIN.
+- **Fix:** port `seffect_punishment`/`punish`; `js/ball.js` `placebc`;
+  `setworn` W_BALL/CHAIN; `mksobj` `where=OBJ_FREE`; allowlist
+  SCR_PUNISHMENT in `doread`.
+- **Verification:** seed4500 prefix **49915→50034** Scr **481→499**
+  RNG **50071→50167**; green+strict PASS; cohort 4/4 PASS.
+- **Next:** @50034 C `mattacku` `rnd(20)` vs JS `rn2(20)`; leaderboard
+  cron; cadence @#1060.
+
 ## D-0907 — study_book set_occupation(learn) + makeknown credit_hero
 
 - **Status:** fixed (partial — seed4500 still FAIL later; learn lenses
