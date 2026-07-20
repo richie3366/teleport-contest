@@ -4,9 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0853 — partial: dochug Hallu newsym on NOTHING/DONE/NOMOVES
+
+- **Status:** partial (dim LCP 553→555; first cell miss 198→199; Scr still 201)
+- **Symptom / context:** After D-0852 #996, JS↔C `~drn2` matched through
+  bat-relative idx 398 / abs 553. First miss was screen **198** (not
+  stale @195): Hallu mon/obj glyphs. At mismatch C had extra
+  `~drn2(383)` after fleeck `rn2(5)` then moveloop see_mon/see_obj;
+  JS jumped to see_obj one mon-burn early.
+- **Cause:** JS `dochug` omitted C `monmove.c` switch Hallu
+  `newsym(mx,my)` on `MMOVE_NOMOVES|NOTHING|DONE` after the 2nd
+  `distfleeck` recalc. That burn is C call 17281 between fleeck
+  `rn2(5)`s. (#977/@172 Scr−2 falsification was a different window
+  before gulpmu flush+vision_off; re-port here does not regress.)
+- **Fix:** After 2nd `distfleeck`, if status is NOMOVES/NOTHING/DONE
+  and Hallu, `newsym(mtmp.mx, mtmp.my)`. Vault-guard `isgd` vanish
+  still deferred.
+- **Verification:** seed0383 RNG FULL; Scr **201**/219; cursors
+  217→218; cell firstFail 198→199; dim LCP 553→555; warn still 46
+  vs C 45; green+strict PASS; cohort 8/8.
+- **Next:** abs LCP 555 — C `~drn2(430)` Monnam fleeck vs JS
+  `mon_glyph(383)`; remaining Monnam/463/7640 gap to @199+.
+
 ## D-0852 — partial: seed0383 Hallu vision_recalc(2) warn burns
 
-- **Status:** partial (Scr 194→196→**201**; @195 still open)
+- **Status:** partial (Scr 194→196→**201**; first cell miss now @199 via D-0853)
 - **Symptom / context:** seed0383 Scr 194/219 RNG FULL. First content
   miss @195 Hallu map. C ~drn2 @195 window **70** with **19×5** warn;
   JS menu docrt had **1×5** (session warn 16 vs C 45).
@@ -31,8 +53,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Falsified (do not retry alone):** global ctrl=2 loop; non-Hallu
   vision_off; gulpmu vision_off alone; gulpmu warn-only×8 alone; flush
   alone (D-0841).
-- **Next:** remaining dim gap after ~16749 (Monnam/463/@195 map);
-  warn +1; flush toplines polish if still open.
+- **Next:** remaining dim gap after ~16749 addressed in part by D-0853
+  (dochug Hallu newsym); next Monnam fleeck @ LCP 555 / screen @199.
+- **#997:** see D-0853.
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 

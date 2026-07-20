@@ -7,20 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#996 D-0852:** gulpmu `flush_topl_more` + Hallu `vision_off` together
-  → Scr **196→201**, RNG FULL. Gulp `~drn2` dims match C through
-  ~core16749 (first mismatch idx 398). warn **46 vs C 45** (+1).
-- **Hypothesis:** @195 still wrong from later Monnam/463/levtport
-  display-rng gap (JS 593 vs C 624 total; −31 after gulp aligned).
-  Falsifier: dim-seq from mismatch idx 398 → @195 window.
-- Do not retry flush alone / warn alone / gulpmu vision_off alone.
+- **#997 D-0853:** `dochug` Hallu `newsym` on NOTHING/DONE/NOMOVES after
+  2nd `distfleeck` → dim LCP **553→555**, first cell miss **198→199**,
+  Scr still **201**, RNG FULL. Closed C call 17281 `~drn2(383)`.
+- **Hypothesis:** next gap abs 555 — C fleeck `Monnam` `~drn2(430)` vs
+  JS `mon_glyph(383)` (extra idle Hallu newsym or missing flee pline).
+  Falsifier: caller at JS burn 555 + C line @17308 window.
+- Do not retry gulpmu flush/warn/vision_off alone (D-0852).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0851 done.
-- **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0852 done.
+- **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
+  D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
   falsified; cause was SCR_MAIL (D-0848).
 - Extra post-`docrt` `vision_recalc(0)` not @195 cause (0 burns).
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#995 Scr **8998**/11405 RNG **666643**/792838;
-  seed0383 RNG **FULL**; Scr **201**/219 after #996 gulpmu flush+warns.
+  seed0383 RNG **FULL**; Scr **201**/219; first cell miss **@199**.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -59,5 +60,6 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
-- **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together;
-  pre-gulp dims≡C; bat-engulf @core11051 (not ice @141).
+- **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
+- **D-0853 #997:** dochug Hallu newsym NOTHING/DONE/NOMOVES; LCP 555;
+  next C Monnam fleeck vs JS mon @555.

@@ -76,12 +76,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 201/219** — @195 Hallu map still
-open. D-0852 #996: gulpmu `flush_topl_more` + Hallu `vision_off`
-together (C `display_nhwindow` + `vision_recalc(2)`); Scr 196→201;
-gulp `~drn2` dims match through ~core16749; warn 46 vs C 45. Do not
-retry flush/warn/vision_off alone. Next: dim-seq from first mismatch
-idx 398 → @195 (Monnam/463/levtport window).
+**Gameplay next:** **seed0383 Scr 201/219** — first cell miss now
+**@199** (levtport @195–@198 match after D-0852/D-0853). D-0853 #997:
+`dochug` Hallu `newsym` on NOTHING/DONE/NOMOVES after 2nd
+`distfleeck` (C monmove.c≈931); dim LCP 553→555; closed C call
+17281 `~drn2(383)`. Next: abs LCP 555 — C fleeck `Monnam`
+`~drn2(430)` vs JS `mon_glyph(383)`.
 Focused:
 
 ```bash
@@ -92,11 +92,12 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
 seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0851. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0852. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
-**Do not restore dochug NOTHING/DONE Hallu newsym as glyph “fix”
-(D-0845 falsified — Scr regresses).**
+**Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
+without the post-distfleeck order (D-0845 @172 Scr−2; D-0853 is the
+C-ordered port — keep it).**
 **Do not revert rloc_to newsym (D-0846) — required for flush path.**
 **Do not drop `-DMAIL_STRUCTURES` from `extract-objects.py` (D-0848).**
 **Do not “fix” objs with raw +N display burns (D-0847 falsified).**
@@ -109,6 +110,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not add Hallu `vision_off` in gulpmu alone (#993 Scr 174).**
 **Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
 **Do not remove gulpmu flush+vision_off pair (#996 Scr+5).**
+**Do not remove D-0853 dochug Hallu idle newsym (#997 LCP+2).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
