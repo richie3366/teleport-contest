@@ -611,6 +611,9 @@ async function gulpmu(mtmp, mattk) {
         // C: display_nhwindow(WIN_MESSAGE,FALSE) before vision_recalc deferred
         // (D-0841/D-0843/D-0846: flush OK thru ice-vortex Hallu; @173 mons
         // match after rloc_to newsym; 4 Hallu objs still skew — keep parked).
+        // D-0852 #994: C ice-gulp burns 8×~drn2(5) here; JS burn-only×8
+        // (skip u_at) keeps core FULL but Scr 196→174 / breaks @195 — do not
+        // retry without fixing compensating display-rng elsewhere + More.
         vision_recalc(2);
         u.uswallow = 1;
         let tim_tmp;

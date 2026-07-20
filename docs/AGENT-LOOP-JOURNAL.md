@@ -19,6 +19,18 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 13:40 — #994 gulpmu warn-only×8 falsified (D-0852)
+- Objective: seed0383 @195; C DISP gulp→expel falsifier + warn burns.
+- C locus: mhitu.c gulpmu `vision_recalc(2)` / display.c display_warning.
+- Diagnosis: C ice-gulp DISP = Monnam `~drn2(430)+~(2)` then **8×~drn2(5)**
+  then uswldtim then swallowed. JS burn-only×9 included `u_at` engulfer
+  (core 11527); skip hero cell → ×8 core FULL but Scr **196→174** and
+  breaks @195 (baseline @195 matched without gulp warns).
+- Falsified: gulpmu warn-only burns alone — do not retry; need full
+  `~drn2` inventory gulp→@195 and/or display_nhwindow+warns together.
+- Verification: green+strict PASS; seed0383 Scr **196** RNG FULL (revert).
+- Next: JS vs C display-rng dims gulp→@195; flush parked.
+
 ## 2026-07-20 13:27 — #993 gulpmu Hallu vision_off falsified (D-0852)
 - Objective: seed0383 @195; close remaining warn gap after D-0852.
 - C locus: mhitu.c gulpmu `vision_recalc(2)`; display.c display_warning.

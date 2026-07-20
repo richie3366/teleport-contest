@@ -27,8 +27,14 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   non-Hallu vision_off (cohort −screens); **gulpmu Hallu vision_off**
   (session warn→45 but Scr 196→174; burn-only→core 11527; memory
   restore still Scr 174) — do not retry.
-- **Next:** C ~drn2 gulp→expel window; `display_nhwindow` before
-  gulpmu vr(2) (D-0841) may own timing; @195 still open.
+- **#994 C DISP falsifier:** ice-gulp window =
+  Monnam `~drn2(430)+~drn2(2)` → **8×~drn2(5)** → `rnd` uswldtim →
+  swallowed `~drn2(383)`. JS warn-only×8 skipping `u_at` (engulfer on
+  hero cell) keeps core **FULL** but Scr **196→174** and breaks @195
+  (baseline @195 matched without gulp warns). Do not add gulp warns
+  alone — need compensating display-rng inventory gulp→@195 and/or
+  `display_nhwindow` More with warns (D-0841).
+- **Next:** JS vs C full `~drn2` dims gulp→@195; flush parked.
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 

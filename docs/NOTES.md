@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#993 D-0852:** gulpmu Hallu `vision_off` falsified (Scr 174 /
-  core 11527). Remaining session warn **38 vs C 45**; cluster0 still
-  short of C **19×5**. @195 open.
-- **Hypothesis:** C gulp→expel display-rng timing differs (maybe
-  `display_nhwindow` before `vision_recalc(2)`, D-0841) — not a bare
-  vision_off at gulpmu. Falsifier: C `NETHACK_RNGLOG_DISP` gulp window.
+- **#994 D-0852:** C ice-gulp DISP: Monnam `~drn2(430)+~(2)` then
+  **8×~drn2(5)** then `rnd` uswldtim then swallowed. JS burn-only×8
+  (skip `u_at` engulfer) → core FULL but Scr **196→174**, breaks @195.
+  Do not add gulp warns alone. Baseline @195 matches without them.
+- **Hypothesis:** JS has other display-rng advances that net-align @195
+  despite warn 38 vs C 45; OR need `display_nhwindow` More + warns
+  together. Falsifier: JS vs C `~drn2` inventory gulp→@195 (all dims).
 - Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
@@ -28,12 +29,13 @@ Objective/score live in `CURRENT.md`.
 - Skip menu-dismiss `docrt` not @195 cause (Scr−2).
 - **#991:** HWarning missing is NOT the warn-burn gap (HW set).
 - **#992:** global ctrl=2 loop → Scr 174; non-Hallu vision_off regress.
-- **#993:** gulpmu Hallu vision_off → Scr 174; burn-only → core 11527;
-  memory-restore still Scr 174 — do not retry.
+- **#993:** gulpmu Hallu vision_off → Scr 174; burn-only → core 11527 —
+  do not retry.
+- **#994:** gulpmu warn-only×8 (skip u_at) → Scr 174 / @195 break —
+  do not retry alone.
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
 - seed5002/0360 **PASS**; D-0743…D-0850 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- Expelled More @171 still **stomach** (pline before `expels`).
 
 ## Landmarks (≤15)
 
@@ -60,5 +62,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
-- **D-0852:** Hallu vision_off at docrt+goto leave only; gulpmu site
-  falsified (#993).
+- **D-0852:** Hallu vision_off at docrt+goto leave only; gulpmu
+  vision_off + warn-only×8 falsified (#993/#994 Scr174).

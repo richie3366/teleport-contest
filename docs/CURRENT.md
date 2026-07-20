@@ -79,9 +79,11 @@ Next cron; if seed0013 restored but near-misses remain → upstream #5.
 **Gameplay next:** **seed0383 Scr 196/219** — @195 Hallu map still
 open. D-0852 partial: Hallu `vision_off_newsym_gbuf({useLiveViz})`
 at `docrt` + `goto_level` leave (menu docrt 1→10×5; Scr 194→196).
-Session warn still **38 vs C 45**. **#993:** gulpmu Hallu vision_off
-falsified (Scr 174 / core 11527) — do not retry. Next: C ~drn2
-gulp→expel vs `display_nhwindow` timing (D-0841). Flush parked
+Session warn still **38 vs C 45**. **#993–#994:** gulpmu Hallu
+`vision_off` and warn-only×8 (skip `u_at`) both Scr **174** — do not
+retry alone. C ice-gulp DISP: Monnam then **8×~drn2(5)** before
+swallowed. Next: full JS vs C `~drn2` inventory gulp→@195 (compensating
+dims) and/or `display_nhwindow`+warns together (D-0841). Flush parked
 @141–174.
 Focused:
 
@@ -109,6 +111,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
 **Do not skip `select_menu_pick_one` `docrt` on picks (Scr−2; #988/#989).**
 **Do not add Hallu `vision_off` in gulpmu (Scr 174 / core break; #993).**
+**Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
