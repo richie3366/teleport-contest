@@ -76,11 +76,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 194/219** — @195 Hallu map (3 cells:
-Hallu `@` color + two `*`≠`[`). C ~drn2 (#991): @195 window **70**
-with **19×5** warn; JS session warn **16** vs C **45** (HWarning OK).
-Next: menu-dismiss `docrt` `display_warning` path vs C (vision +
-`see_monsters` on warn-only mons). Flush parked @141–174.
+**Gameplay next:** **seed0383 Scr 196/219** — @195 Hallu map still
+open. D-0852 partial: Hallu `vision_off_newsym_gbuf({useLiveViz})`
+at `docrt` + `goto_level` leave restores C `vision_recalc(2)` warn
+burns (menu docrt 1→10×5; Scr 194→196). C cluster0 still 19×5;
+non-Hallu gated (full ctrl=2 loop / non-Hallu vision_off falsified).
+Flush parked @141–174.
 Focused:
 
 ```bash

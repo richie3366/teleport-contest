@@ -7,14 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#991:** C `NETHACK_RNGLOG_DISP=1` rerecord for seed0383 done.
-  @195 C window = **70** ~drn2: pre-gen **63** (**19×5** + 4×463 +
-  40×383) + post-gen **7** (3×383+4×463). Session: C **45×5** vs JS
-  **16×5**; total disp 624 vs 572. `HWarning` OK (not missing).
-- **Hypothesis:** menu-dismiss `docrt` under-burns `display_warning`
-  (C 19×5 vs JS ~1×5) → display stream skew → @195 Hallu glyphs wrong.
-  Falsifier: at that `docrt`, count JS `mon_warning && !mon_visible`
-  fmon + `display_warning` Hallu calls vs C 19.
+- **#992 D-0852 partial:** Hallu `vision_off_newsym_gbuf({useLiveViz})`
+  at `docrt` + `goto_level` leave. Menu docrt warn 1→10×5; Scr
+  **194→196**. C still 19×5 in cluster0 — remaining gap / @195 open.
+- **Hypothesis:** remaining 9 warns or post-gen stream still skew
+  @195 Hallu glyphs. Falsifier: C vs JS ~drn2 after both burns.
 - Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
@@ -42,13 +39,15 @@ Objective/score live in `CURRENT.md`.
 - Extra post-`docrt` `vision_recalc(0)` was not @195 cause (0 burns).
 - Skip menu-dismiss `docrt` (fullscreen) not @195 cause (Scr−2).
 - **#991:** HWarning missing is NOT the warn-burn gap (HW set).
+- **#992:** global `vision_recalc(2)` update loop → Scr 174; non-Hallu
+  vision_off → seed0002/0012/0013-restore regress.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#990 Scr **8996**/11405 RNG **666582**/792838;
-  seed0383 RNG **FULL**; Scr **194**/219 after D-0850/51.
+  seed0383 RNG **FULL**; Scr **196**/219 after D-0852 Hallu vision_off.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -68,4 +67,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
-- **D-0852:** C @195 19×warn; JS session warn 16 vs C 45.
+- **D-0852:** Hallu vision_off at docrt+goto leave; stale snap must
+  not override live viz; non-Hallu gated.

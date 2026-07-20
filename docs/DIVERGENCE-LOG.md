@@ -4,27 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0852 — open: seed0383 @195 Hallu after levtport (burn inventory)
+## D-0852 — partial: seed0383 Hallu vision_recalc(2) warn burns
 
-- **Status:** open (C ~drn2 falsifier done #991; no JS patch)
+- **Status:** partial (Scr 194→196; @195 still open)
 - **Symptom / context:** seed0383 Scr 194/219 RNG FULL. First content
-  miss @195: Hallu `@` color 1≠15; objs `*`≠`[`. Message/cursor OK.
-- **C `NETHACK_RNGLOG_DISP=1` rerecord (#991):** session-total
-  ~drn2 **624** = 447×383 + 81×463 + **45×5** + 26×430 + 19×2 + …
-  JS session-total **572** = 454×383 + 65×463 + **16×5** (−52; warn
-  −29; obj −16; mon +7). `HWarning` is set (FROMEXPER); not the gap.
-- **C @195 window (menu `c` → materialize):** **70** ~drn2 —
-  cluster0 (before 4939 core level-gen): **63** =
-  **19×5** + 4×463 + 40×383; cluster1 (after): **7** =
-  3×383 + 4×463. JS end cluster also **7** but values differ (stream
-  already skewed). C @196 once-per-input = **3** = 1×383+2×463.
-- **Prior JS (#989):** menu docrt measured **45** with only **1×5**
-  warn — matches shortfall vs C's **19×5** in cluster0 (−18 warns).
-- **Falsified:** skip menu `docrt`; post-docrt `vision_recalc(0)`.
-- **Next:** why JS `display_warning` Hallu burns 16 vs C 45 —
-  especially menu-dismiss `docrt` warn path (vision+`see_monsters`
-  on `mon_warning && !mon_visible`). Dump fmon warn-only set at
-  that `docrt`. Flush still parked @141–174.
+  miss @195 Hallu map. C ~drn2 @195 window **70** with **19×5** warn;
+  JS menu docrt had **1×5** (session warn 16 vs C 45).
+- **Cause:** JS `vision_recalc(2)` skips C's main update loop (D-0583
+  getbones/getpos paint). That loop newsyms prior IN_SIGHT/COULD_SEE
+  while `!cansee`, so Hallu `mon_warning` → `display_warning` →
+  `rn2(5)`. Menu `docrt` + `goto_level` leave each miss ~9 burns.
+- **Fix:** `vision_off_newsym_gbuf({ useLiveViz: true })` under Hallu
+  in `docrt` and `goto_level` leave (before `vision_recalc(2)`). Bones
+  skips a second burn via `_leave_viz_burned`. Non-Hallu gated — full
+  loop regresses PASS cohort memory/waslit.
+- **Verification:** seed0383 Scr **196** RNG FULL; green+strict PASS;
+  cohort seed0002/0012/0013-restore/0360/0398 PASS.
+- **Next:** remaining warn gap / @195 Hallu cells; flush parked @141–174.
+- **Falsified:** global `vision_recalc(2)` update loop (Scr 174);
+  non-Hallu vision_off (cohort −screens).
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 

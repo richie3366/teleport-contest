@@ -19,6 +19,18 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 13:15 — #992 D-0852 Hallu vision_recalc(2) warn burns
+- Objective: seed0383 @195 Hallu; restore missing display_warning burns.
+- C locus: vision.c `vision_recalc(2)` update loop; display.c
+  `display_warning` / `docrt`; do.c `goto_level` leave.
+- Change: Hallu-only `vision_off_newsym_gbuf({useLiveViz:true})` in
+  `docrt` + `goto_level` leave; bones `_leave_viz_burned` skip.
+  Falsified: global ctrl=2 loop (Scr 174); non-Hallu vision_off
+  (cohort −screens). Stale `_leave_viz_snapshot` must not override
+  live viz.
+- Verification: seed0383 Scr **196** RNG FULL; green+strict PASS;
+  cohort seed0002/0012/0013-restore/0360/0398 PASS.
+- Next: remaining cluster0 warn gap / @195 cells; flush parked.
 
 ## 2026-07-20 12:51 — #991 seed0383 C ~drn2 falsifier (D-0852)
 - Objective: C display-RNG inventory for seed0383 levtport→@195.
@@ -164,12 +176,3 @@ Use this shape:
 - Verification: seed0383 Scr 174 RNG FULL (no flush); green+strict PASS;
   cohort 5/5 PASS.
 - Next: 4 Hallu see_objects ROOM burns after matching see_monsters; flush.
-
-## 2026-07-20 10:05 — #977 see_traps glyph_is_trap (D-0845)
-- Objective: seed0383 @172 post-expel Hallu display-RNG before flush.
-- C locus: display.c see_traps glyph_is_trap(_glyph_at); teleport.c rloc_to newsym.
-- Change: `see_traps` only newsym when disp_ch is trap glyph. Falsified
-  dochug NOTHING/DONE Hallu newsym and rloc_to/2nd-expel +1 (Scr→174).
-- Verification: seed0383 Scr 176 RNG FULL; green+strict PASS; cohort 5/5.
-- Next: reconstruct C burn between expelled More and see_monsters (not
-  blanket rloc_to); then 4 objs; flush.
