@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0868 | fixed | done Lifesaved makeknown→exercise + savelife | seed0399 **10729→11152**; Scr 442→502; medallion |
 | D-0867 | fixed | thitmonst tmiss else + food-fail wakeup | seed0399 **10697→10729**; Scr 429→442; armor throw |
 | D-0866 | fixed | trapeffect_web mon mtrapped + mu_maybe_destroy_web | seed0399 **10581→10697**; Scr 409→429 |
 | D-0865 | fixed | may_dig wall_info\|flags + peaceful dig avoid | seed0399 **10382→10581**; Scr 409; maze W_NONDIGGABLE |

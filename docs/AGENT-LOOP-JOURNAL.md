@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 17:22 — #1017 D-0868 done Lifesaved
+- Objective: seed0399 @10729 C exercise rn2(19) vs JS distfleeck rn2(5).
+- C locus: end.c done Lifesaved; makeknown→discover_object→exercise.
+- Change: port Lifesaved arm (messages, makeknown, useup amulet,
+  adjattrib CON−1, savelife). Not a mid-hit exercise/order bug.
+- Verification: green+strict PASS; prefix **10729→11152** Scr
+  **442→502**; cohort 10/10.
+- Next: seed0399 @11152 C poisoned d(2,2) attrib-loss arm.
+
 ## 2026-07-20 17:16 — #1016 D-0867 thitmonst tmiss
 - Objective: seed0399 @10697 C `tmiss` rn2(3) vs JS rn2(100).
 - C locus: `dothrow.c` `tmiss` / `thitmonst` else; armor throw of
@@ -159,15 +168,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 0383/0398/1500/1800 PASS;
   seed0399 still @10157.
 - Next: C-state which 2 mfndpos cells; or D-0708; score @#1005.
-
-## 2026-07-20 15:10 — #1003 doattributes Hallu+Antimagic (D-0858)
-- Objective: seed0383 Scr 217/219; first miss @213 Ctrl-X attrs.
-- C locus: insight.c status_enlightenment Hallucination;
-  attributes_enlightenment Antimagic before Fire.
-- Diagnosis: Status missing hallucinating; Attributes missing
-  magic-protected (GDSM); hungry already present → (1 of 2)≠(1 of 3).
-- Change: invent.js status_core_lines + doattributes Antimagic/from_what.
-- Verification: seed0383 **PASS** 219/219 RNG FULL strict; green+strict;
-  cohort 38/38.
-- Next: seed0399 @10157 (D-0731) or seed0014 @50259; score @#1005.
-

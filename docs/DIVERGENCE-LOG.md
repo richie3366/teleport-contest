@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0868 — done Lifesaved makeknown→exercise + savelife
+
+- **Status:** fixed
+- **Observed:** seed0399 @10729 — C `exercise` `rn2(19)` (via
+  `makeknown(AMULET_OF_LIFE_SAVING)`); JS `distfleeck` `rn2(5)`.
+  Screen: "You die... But wait... Your medallion begins to glow!"
+- **Rejected:** missing mid-combat `exercise` after knockback — poison
+  roll `rn2(8)=1` skips `poisoned`; knockback fails; death path owns
+  the burn.
+- **C locus:** `end.c` `done` Lifesaved (~1081–1103); `o_init.c`
+  `discover_object` credit_hero → `exercise(A_WIS)`; `savelife` /
+  `invent.c` `useup`.
+- **Cause:** JS `done` deferred the Lifesaved arm, so death fell through
+  to wizard `Die?` / `really_done` without `makeknown` RNG.
+- **Change:** port Lifesaved messages + `makeknown` + `You_feel` +
+  crumple + `useup` amulet + `adjattrib(A_CON,-1)` + `savelife`.
+  Named omit: livelog / formatkiller / CHOKING vomit polish.
+- **Verification:** green+strict PASS; seed0399 prefix **10729→11152**
+  Scr **442→502**; cohort 10/10 (incl. seed5006/0383/0006).
+- **Next:** seed0399 @11152 C `poisoned` `d(2,2)` vs JS stub.
+
 ## D-0867 — thitmonst tmiss else + food-fail maybe_wakeup
 
 - **Status:** fixed
