@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0869 — attrib.c poisoned + poisontell (mhitu AD_DRST)
+
+- **Status:** fixed
+- **Observed:** seed0399 @11152 — C `poisoned` `d(2,2)=3` (attrib-loss,
+  i=rn2(30)=5); JS stub burned only `rn2(30)` then knockback `rn2(3)`.
+- **C locus:** `attrib.c` `poisoned` / `poisontell`; `uhitm.c`
+  `mhitm_ad_drst` mhitu → `poisoned(buf, ptmp, pmname(...), 30, FALSE)`.
+- **Cause:** JS `mhitm_ad_drst_u` omitted the post-`rn2(fatal)` arms.
+- **Change:** port `poisoned` (resist / rn2 gate / instant-kill /
+  HP `rn1`/`rnd` / attrib `d(2,2)` + `adjattrib`/`poisontell`) +
+  `mpoisons_subj` reason string; wire mhitu AD_DRST/DRDX/DRCO.
+  Named omit: name_to_mon G_UNIQ/`the()`; Half_gas_damage; trap/throw
+  callers still stubbed.
+- **Verification:** green+strict PASS; seed0399 RNG **FULL 11409**;
+  Scr **502→522**; cohort 37/37 (incl. seed0030/0383/0006/5006).
+- **Next:** seed0399 Scr 522/532 (trailing display); alt seed0014
+  @50259 (D-0708).
+
 ## D-0868 — done Lifesaved makeknown→exercise + savelife
 
 - **Status:** fixed

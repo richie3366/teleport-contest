@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @11152:** after D-0868 Lifesaved, C `poisoned` `d(2,2)`
-  (attrib-loss, i=5) vs JS stub that only burns `rn2(30)` then knockback.
-- Falsifier: C `attrib.c` `poisoned` ~362–398 after `rn2(30)=5`.
+- **seed0399 Scr 522/532:** RNG FULL after D-0869; 10 trailing screens.
+  Falsifier: screen-diff vs C after poison/poisontell messages.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0868 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0869 done.
 - Do not re-FORCE WEB/mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone @10157 (#1006: !mflee).
 - Do not drop makesingular `as_is` / hold_another_object encumber_msg.
@@ -23,18 +22,17 @@ Objective/score live in `CURRENT.md`.
 - Do not read only `wall_info` for W_NONDIGGABLE — OR `flags` (D-0865).
 - Do not stub WEB trapeffect — mon must set `mtrapped` (D-0866).
 - Do not skip `tmiss` on thitmonst else (D-0867).
-- Do not re-defer Lifesaved in `done` — makeknown→exercise is @10729
-  (D-0868); not a distfleeck order bug.
+- Do not re-defer Lifesaved in `done` (D-0868).
+- Do not stub mhitu `poisoned` as rn2(30)-only (D-0869).
 - gulpmu flush+vision_off pair required (#996); alone falsified.
 - Do not drop D-0853 dochug Hallu idle newsym / D-0857 corner dismiss.
-- Extra post-`docrt` `vision_recalc(0)` not @195 cause.
 - fleeck→monflee Monnam LCP 555 falsified (D-0854).
 
 ## Landmarks (≤15)
 
 - suite **39/44** @#1015 Scr **9337**/11405 RNG **667341**/792838
   (84.17%); next full score @#1020.
-- **D-0868 #1017:** Lifesaved; seed0399 **10729→11152** Scr **442→502**.
+- **D-0869 #1018:** poisoned; seed0399 RNG **FULL**; Scr **502→522**.
 - STAIRS yellow via `known_branch_stairs`; cursor=(ux−1, uy+1).
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 17:30 — #1018 D-0869 poisoned/poisontell
+- Objective: seed0399 @11152 C poisoned d(2,2) vs JS rn2(30)-only stub.
+- C locus: attrib.c poisoned/poisontell; uhitm mhitm_ad_drst → poisoned.
+- Change: port poisoned arms + poisontell; wire mhitu AD_DRST/DRDX/DRCO
+  with mpoisons_subj reason. Not a knockback order bug.
+- Verification: green+strict PASS; seed0399 RNG **FULL 11409**; Scr
+  **502→522**; cohort 37/37.
+- Next: seed0399 Scr 522/532 trailing screens; alt seed0014 @50259.
+
 ## 2026-07-20 17:22 — #1017 D-0868 done Lifesaved
 - Objective: seed0399 @10729 C exercise rn2(19) vs JS distfleeck rn2(5).
 - C locus: end.c done Lifesaved; makeknown→discover_object→exercise.

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0869 | fixed | attrib poisoned/poisontell mhitu AD_DRST | seed0399 RNG **FULL 11409**; Scr 502→522 |
 | D-0868 | fixed | done Lifesaved makeknown→exercise + savelife | seed0399 **10729→11152**; Scr 442→502; medallion |
 | D-0867 | fixed | thitmonst tmiss else + food-fail wakeup | seed0399 **10697→10729**; Scr 429→442; armor throw |
 | D-0866 | fixed | trapeffect_web mon mtrapped + mu_maybe_destroy_web | seed0399 **10581→10697**; Scr 409→429 |

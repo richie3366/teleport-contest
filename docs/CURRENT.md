@@ -75,10 +75,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 @11152** — D-0868 closed @10729
-(Lifesaved `makeknown`→`exercise`). Next: C `poisoned` `d(2,2)`
-attrib-loss arm vs JS stub after `rn2(30)` (mhitu AD_DRST). Alt:
-seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0399 Scr 522/532** — D-0869 closed @11152
+(`poisoned`/`poisontell`; RNG **FULL 11409**). Next: trailing screen
+parity after poison msgs. Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -87,7 +86,7 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0868. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0869. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -125,6 +124,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not drop D-0866 trapeffect_web mon mtrapped / mu_maybe_destroy_web.
 **Do not drop D-0867 thitmonst tmiss else / food-fail maybe_wakeup.
 **Do not drop D-0868 done Lifesaved makeknown/savelife/useup amulet.
+**Do not stub mhitu AD_DRST `poisoned` as rn2(30)-only (D-0869).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
