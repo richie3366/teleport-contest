@@ -4,6 +4,50 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0885 — rloc RLOC_MSG vanish pline
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @417 — C `She stole….  The water nymph vanishes!`
+  vs JS stole without vanish (after D-0884 She shorten).
+- **C locus:** `teleport.c` `rloc_to_core` — `RLOC_MSG` + `canspotmon`
+  + `!(couldsee(dest)||sensemon)` → `"%s vanishes!"`; `uhitm.c`
+  `mhitm_ad_sedu` post-steal `rloc(magr, RLOC_MSG)`.
+- **Cause:** JS `rloc` ignored flags; mhitu passed `0`.
+- **Change:** async `rloc` vanish preface; mhitu/monmove Tengu await
+  `RLOC_MSG`. Named omit: telemsg reappear / appearmsg / ustuck.
+- **Verify:** green+strict PASS; cohort 8/8; seed0014 Scr **635→636**.
+- **Next:** @424 fountain spray missing `--More--`.
+
+## D-0884 — steal worn_item_removal on→from + nymph She
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @416 C `(from right hand)` vs JS `(on right
+  hand)`; @417 C `She stole` vs JS `The water nymph stole`.
+- **C locus:** `steal.c` `worn_item_removal` — `strsubst` `on`→`from`
+  for left/right hand; `steal` — `last_msg==PLNMSG_MON_TAKES_OFF_ITEM`
+  && `S_NYMPH` → `named++` → `"She stole"`.
+- **Cause:** JS omitted both massages.
+- **Change:** port on→from + alternate-weapon strip; set
+  `iflags.last_msg`; nymph named++ before stole pline.
+- **Verify:** green+strict PASS; cohort 8/8; seed0014 Scr **634→635**
+  (@416); @417 needs D-0885 vanish.
+- **Next:** RLOC_MSG vanish (D-0885).
+
+## D-0883 — armoroff delay-0 no find_ac
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @415 take-off +3 shield — topline match; botl
+  C `AC:10` vs JS `AC:14`.
+- **C locus:** `do_wear.c` `armoroff` delay-0 — `*_off` + `off_msg`
+  only (no `find_ac`); `allmain.c` once-per-input `find_ac`.
+- **Cause:** JS `armoroff` called `find_ac()` after `off_msg`, painting
+  post-shield AC on the take-off boundary (≡D-0810 stale-botl).
+- **Change:** drop `find_ac` from delay-0 `armoroff`. Named omit:
+  other `*_on` still call `find_ac` (C often does not).
+- **Verify:** green+strict PASS; wear cohort PASS; seed0014 Scr
+  **633→634**.
+- **Next:** @416 nymph `(from right hand)` (D-0884).
+
 ## D-0882 — invent.c merged coin bknown wipe before ID reconcile
 
 - **Status:** fixed

@@ -16,7 +16,7 @@ import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU,
     W_AMUL, W_RING, W_TOOL, W_RINGL, W_RINGR,
     LEFT_RING, RIGHT_RING, ADORNED, LOST_STOLEN,
-    LARGEST_INT,
+    LARGEST_INT, PLNMSG_MON_TAKES_OFF_ITEM,
 } from './const.js';
 import {
     COIN_CLASS, ARMOR_CLASS, TOOL_CLASS, AMULET_CLASS, RING_CLASS,
@@ -97,7 +97,19 @@ async function worn_item_removal(mon, obj) {
     else if (objbuf.startsWith('an ')) objbuf = `your ${objbuf.slice(3)}`;
     else if (objbuf.startsWith('a ')) objbuf = `your ${objbuf.slice(2)}`;
     objbuf = objbuf.replace(' (being worn)', '');
+    objbuf = objbuf.replace(' (alternate weapon; not wielded)', '');
+    // C: convert "ring (on left/right hand)" → "(from … hand)"
+    const onHand = objbuf.indexOf(' (on ');
+    if (onHand >= 0) {
+        const after = objbuf.slice(onHand + 5); // after " (on "
+        if (after.startsWith('left ') || after.startsWith('right ')) {
+            objbuf = `${objbuf.slice(0, onHand + 2)}from${objbuf.slice(onHand + 4)}`;
+        }
+    }
     await pline(`${Some_Monnam(mon)} ${verb} ${objbuf}.`);
+    // C: iflags.last_msg = PLNMSG_MON_TAKES_OFF_ITEM
+    if (!game.iflags) game.iflags = {};
+    game.iflags.last_msg = PLNMSG_MON_TAKES_OFF_ITEM;
     remove_worn_item_steal(obj);
 }
 
@@ -309,6 +321,11 @@ export async function steal(mtmp, objnambuf) {
     }
 
     freeinv(otmp);
+    // C: after worn_item_removal, nymph shortens stole-msg to "She"
+    if ((game.iflags?.last_msg | 0) === PLNMSG_MON_TAKES_OFF_ITEM
+        && mtmp.data?.mlet === 'S_NYMPH') {
+        named++;
+    }
     await pline(`${named ? 'She' : Monnambuf} stole ${doname(otmp)}.`);
     await encumber_msg();
     otmp.how_lost = LOST_STOLEN;

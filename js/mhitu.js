@@ -9,7 +9,7 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM,
-    DISPLACED, IS_WATERWALL,
+    DISPLACED, IS_WATERWALL, RLOC_MSG,
 } from './const.js';
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
@@ -793,7 +793,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
                         ? 'brags about the goods some dungeon explorer provided'
                         : 'makes some remarks about how difficult theft is lately'}.`,
             );
-            if (!(await tele_restrict(mtmp))) rloc(mtmp, 0);
+            if (!(await tele_restrict(mtmp))) await rloc(mtmp, RLOC_MSG);
             mhm.hitflags = M_ATTK_AGR_DONE;
             mhm.done = true;
             return;
@@ -808,7 +808,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
                 );
             }
             if (rn2(3)) {
-                if (!(await tele_restrict(mtmp))) rloc(mtmp, 0);
+                if (!(await tele_restrict(mtmp))) await rloc(mtmp, RLOC_MSG);
                 mhm.hitflags = M_ATTK_AGR_DONE;
                 mhm.done = true;
             }
@@ -826,7 +826,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
         return;
     default:
         if (!is_animal(mtmp.data) && !(await tele_restrict(mtmp))) {
-            rloc(mtmp, 0);
+            await rloc(mtmp, RLOC_MSG);
         }
         // animal flee-with-buf pline deferred
         await monflee(mtmp, 0, false, false);

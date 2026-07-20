@@ -1386,7 +1386,7 @@ export async function m_move(mtmp, after) {
         && !(await tele_restrict(mtmp))) {
         // C: mhp < 7 || peaceful || rn2(2) → rloc; else mnexto
         if ((mtmp.mhp | 0) < 7 || mtmp.mpeaceful || rn2(2)) {
-            rloc(mtmp, 0x02); // RLOC_MSG
+            await rloc(mtmp, 0x02); // RLOC_MSG
         } else {
             mnexto(mtmp, 0x02);
         }
