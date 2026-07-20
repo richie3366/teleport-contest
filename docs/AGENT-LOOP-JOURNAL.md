@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 04:40 — #960 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs); focused peek seed0383 @10608.
+- Change: refreshed CURRENT Score; refined @10608 hyp — C
+  `overexertion`/`gethungry` after wipe_engr vs JS `rn2(5)`.
+- Verification: green+strict PASS; suite **38/44** Scr **8937**/11405
+  RNG **660490**/792838 (83.31%); speed `37+0.22/turn`. Δ vs #955:
+  Scr −1 / RNG +59 (= D-0832 seed0383).
+- Next: seed0383 @10608 — dump Confusion/Stunned vs C melee path.
+
 ## 2026-07-20 04:35 — #959 D-0832 m_dowear / check_gear / I_SPECIAL
 - Objective: seed0383 @10374 — port missing monster equip cluster.
 - C locus: `worn.c` m_dowear; `makemon.c` m_dowear(TRUE); `mon.c`

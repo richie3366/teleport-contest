@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#955**).
-Screens **8938**/11405; RNG **660,431**/792838 (83.30%). **38/44** PASS.
-Δ vs #950: Scr **+0**, RNG **+38**, PASS **0**. Speed `36+0.21/turn`.
-*(#959 D-0832 advanced seed0383 prefix; suite not remeasured — next on %5.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#960**).
+Screens **8937**/11405; RNG **660,490**/792838 (83.31%). **38/44** PASS.
+Δ vs #955: Scr **−1**, RNG **+59**, PASS **0**. Speed `37+0.22/turn`.
+*(Δ matches D-0832 seed0383 Scr 142→141 / RNG +59; no new PASS.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,938 / 11,405** |
-| Positional RNG calls matched | **660,431 / 792,838** (83.30%) |
-| Speed label | `36+0.21/turn` (R² 0.769) |
+| Screens matched | **8,937 / 11,405** |
+| Positional RNG calls matched | **660,490 / 792,838** (83.31%) |
+| Speed label | `37+0.22/turn` (R² 0.768) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 10821/16915 | **141**/219 | prefix **10608** after D-0832 |
+| seed0383 | 10821/16915 | **141**/219 | prefix **10608** — C melee `gethungry` vs JS `rn2(5)` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
@@ -75,8 +75,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10608** — C `gethungry` `rn2(20)` vs JS
-`rn2(5)` (D-0832 closed @10374 via `m_dowear`/`check_gear`/`I_SPECIAL`).
+**Gameplay next:** **seed0383 @10608** — after matched
+`regen_hp`/`gethungry`/`wipe_engr` `rn2(82)`, C
+`overexertion`→`gethungry` `rn2(20)` (then `exercise`/`hitum`); JS
+`rn2(5)` (likely Confusion `u_maybe_impaired` or non-attack path).
 Focused:
 
 ```bash

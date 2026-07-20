@@ -7,14 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#959 / D-0832:** seed0383 prefix **10374→10608** — ported `makemon`
-  `m_dowear(TRUE)` + `mpickstuff` `check_gear_next_turn` +
-  `movemon_singlemon` I_SPECIAL→`m_dowear` (`js/worn.js`).
-- **Next @10608:** C `gethungry` `rn2(20)=12` vs JS `rn2(5)=2` after
-  matched `regen_hp`/`gethungry`/`moveloop_core`. Hypothesis: extra mon
-  turn / hungrier path / wrong accessorytime arm after equip cluster.
-- **Falsify:** reconstruct C call at 10608 (eat.c:3191 site) vs JS
-  `gethungry` branch; expect prefix past 10608 or named missing burn.
+- **#960 score:** suite **38/44** Scr **8937**/11405 RNG **660490**/792838
+  (83.31%); Δ vs #955 Scr **−1** RNG **+59** (= D-0832 seed0383).
+- **Next @10608:** after matched wipe_engr `rn2(82)` (DEX→82), C
+  `overexertion`→`gethungry` `rn2(20)=12` then `exercise`/`hitum`; JS
+  `rn2(5)=2`. Hypothesis: JS Confusion `u_maybe_impaired` (or non-attack
+  path) while C melee-attacks; not a metabolic `gethungry` bug.
+- **Falsify:** at n=10608 dump JS Confusion/Stunned + whether `do_attack`
+  / `domove` runs; expect C-matching attack → prefix past 10608, or name
+  why Confusion/action differs.
 - **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0832.
 
 ## Don't re-check (≤15)
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#955 Scr **8938**/11405 RNG **660431**/792838;
+- suite **38/44** @#960 Scr **8937**/11405 RNG **660490**/792838;
   seed0383 prefix **10608** Scr **141**/219 RNG 10821 (D-0832).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
