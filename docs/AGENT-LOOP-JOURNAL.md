@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 08:47 — #971 seed0383 distant_name + hitmsg again (D-0840)
+- Objective: seed0383 screen peel Scr 146 (RNG FULL).
+- C locus: mon.c mpickstuff distant_name; mhitu.c hitmsg again.
+- Change: mpickstuff uses distant_name(otmp,doname); hitmsg tracks
+  hitmsg_mid/prev for consecutive same-aatyp " again". Rejected
+  gulpmu flush_topl_more (RNG @11524).
+- Verification: seed0383 Scr **148**/219 RNG FULL; green+strict;
+  cohort 36/36 PASS.
+- Next: gulpmu display_nhwindow More @141 (careful); DECgfx swallow.
+
 ## 2026-07-20 08:37 — #970 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs; no port patch).

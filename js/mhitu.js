@@ -176,7 +176,9 @@ async function mswings(mtmp, otemp, bash) {
 }
 
 /**
- * C ref: mhitu.c hitmsg — aatyp verb; seduce / again deferred.
+ * C ref: mhitu.c hitmsg — aatyp verb + consecutive-same-aatyp " again".
+ * Named omissions: could_seduce smile/talk arm; AT_TENT s_suffix; AT_EXPL/BOOM;
+ * thick_skinned kick punct ".".
  */
 async function hitmsg(mtmp, mattk) {
     let verb = 'hits';
@@ -188,15 +190,29 @@ async function hitmsg(mtmp, mattk) {
     case AT_TUCH: verb = 'touches you'; break;
     default: verb = 'hits'; break;
     }
-    await pline(`${Monnam(mtmp)} ${verb}!`);
+    // C: mattk == gh.hitmsg_prev + 1 && same aatyp → " again"
+    const prev = game.hitmsg_prev;
+    const again = (
+        (mtmp.m_id | 0) === (game.hitmsg_mid | 0)
+        && prev
+        && mattk._slot
+        && prev._slot
+        && (mattk._indx | 0) === ((prev._indx | 0) + 1)
+        && (mattk.aatyp | 0) === (prev.aatyp | 0)
+    ) ? ' again' : '';
+    await pline(`${Monnam(mtmp)} ${verb}${again}!`);
+    game.hitmsg_mid = mtmp.m_id | 0;
+    game.hitmsg_prev = mattk;
 }
 
 /**
  * C ref: mhitu.c missmu — map_invisible when unseen; "just " on near-miss
  * when flags.verbose. Named omission: could_seduce pretend-friendly arm;
- * stop_occupation; gh.hitmsg_mid / hitmsg_prev clear.
+ * stop_occupation.
  */
 async function missmu(mtmp, nearmiss, _mattk) {
+    game.hitmsg_mid = 0;
+    game.hitmsg_prev = null;
     if (!canspotmon(mtmp)) map_invisible(mtmp.mx, mtmp.my);
     // could_seduce pretend-friendly deferred
     const just = nearmiss && game.flags?.verbose !== false ? 'just ' : '';
@@ -553,6 +569,8 @@ async function expels(mtmp, mdat, message) {
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
  * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
  * drain_en; make_blinded; Half_physical polish;
+ * display_nhwindow(WIN_MESSAGE) before swallowed (D-0840 rejected naive
+ * flush_topl_more — RNG @11524); swallowed cls/bot polish;
  * u_on_newpos when engulfer moves while digesting (D-0826 postmov).
  */
 async function gulpmu(mtmp, mattk) {
@@ -604,6 +622,7 @@ async function gulpmu(mtmp, mattk) {
         }
         u.uswldtim = (tim_tmp < 2) ? 2 : tim_tmp;
         // C: swallowed(1) — stomach map; Hallu burns what_mon per cell
+        // (C cls/bot inside swallowed; JS clears disp in swallowed(first))
         swallowed(1);
         if (!flaming(mtmp.data)) {
             /* snuff_lit invent deferred */

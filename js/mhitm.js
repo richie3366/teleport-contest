@@ -135,6 +135,10 @@ export function get_mattk(magr, i) {
         adtyp: a.adtyp | 0,
         damn: a.damn | 0,
         damd: a.damd | 0,
+        // C getmattk returns &mptr->mattk[indx] when unsubstitued — hitmsg
+        // uses pointer+1 for "again" (D-0840).
+        _slot: a,
+        _indx: i,
     };
 
     // C: holders/engulfers with mspec_used cannot re-hold; switch to simpler attack
@@ -156,6 +160,8 @@ export function get_mattk(magr, i) {
             attk.damn = 0;
             attk.damd = 0;
         }
+        // C: alt_attk_buf — not &mattk[indx]; "again" pointer+1 must fail
+        attk._slot = null;
     }
 
     return attk;

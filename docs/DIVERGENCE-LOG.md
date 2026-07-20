@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0840 — fixed: mpickstuff distant_name + hitmsg again
+
+- **Status:** fixed
+- **Symptom:** seed0383 screen peel after RNG FULL — frame 139 C
+  `The gnome is killed!  The genetic engineer picks up a potion.--More--`
+  vs JS kill-only More; frame 140 C `hits again` vs JS `hits`.
+- **Cause:** (1) `mpickstuff` used plain `doname` → observe →
+  `a potion of healing` (too long to append after kill; forces early
+  More). C `mon.c` uses `distant_name(otmp, doname)` → far `!dknown`
+  `"a potion"`. (2) `hitmsg` omitted consecutive-same-aatyp `" again"`
+  (`gh.hitmsg_mid` / `hitmsg_prev+1`).
+- **Fix:** `monmove.js` `mpickstuff` → `distant_name`; `mhitu.js`
+  `hitmsg`/`missmu` track `hitmsg_mid`/`hitmsg_prev`; `get_mattk`
+  keeps `_slot`/`_indx` for consecutive check.
+- **Rejected:** `gulpmu` `flush_topl_more` for C
+  `display_nhwindow(WIN_MESSAGE,FALSE)` — restored Scr but broke RNG
+  @11524 (getbones vs combat); park for careful re-port.
+- **Verification:** seed0383 Scr **148**/219 (was 146), RNG FULL;
+  green+strict PASS; cohort 36/36 PASS.
+- **Next:** gulpmu WIN_MESSAGE More before stomach (without RNG
+  desync); DECgfx swallow glyphs (`o/x/s` vs ASCII).
+
 ## D-0839 — fixed: initedog set_malign (seed0383 full RNG)
 
 - **Status:** fixed

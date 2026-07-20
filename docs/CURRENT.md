@@ -47,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **146**/219 | RNG FULL (D-0839); screen peel next |
+| seed0383 | **16915**/16915 | **148**/219 | RNG FULL; Scr 148 (D-0840); gulpmu More next |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10358/11409 | 113/532 | stuck @10157 D-0731 |
@@ -75,8 +75,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 screens** — D-0839 closed (`initedog`
-`set_malign`); RNG **FULL 16915**/16915; Scr **146**/219. Focused:
+**Gameplay next:** **seed0383 screens** — D-0840 closed (`mpickstuff`
+`distant_name` + `hitmsg` again); RNG **FULL 16915**/16915; Scr
+**148**/219 (was 146). Next @141: C engulfs `--More--` alone vs JS
+engulf+freeze append; C `display_nhwindow(WIN_MESSAGE,FALSE)` in
+`gulpmu` — naive `flush_topl_more` broke RNG @11524 (do not re-apply
+blindly). Also DECgfx swallow glyphs. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -86,8 +90,9 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0839. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0840. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
+**Do not re-apply gulpmu flush_topl_more without C-faithful More timing.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

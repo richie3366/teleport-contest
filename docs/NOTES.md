@@ -7,40 +7,39 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#970:** public score cadence — suite **38/44**; Scr **8948**/11405
-  (+2); RNG **666600**/792838 (84.08%, +5478 vs #965). Soaks
-  D-0837…D-0839. No port patch.
-- **Next:** seed0383 **screen** peel (RNG FULL 16915; Scr **146**/219;
-  cursors 205/219). First cell/cursor miss after matched PRNG.
-- **Hypothesis:** post-pet-kill / later Hallu map cells or status
-  differ while core RNG stays locked.
-- **Falsify:** first mismatched screen frame cells/cursor vs C
-  capture; cite display/docrt/newsym path.
-- **Don't:** FORCE peace/malign; re-break D-0838/D-0839.
-- **Open:** trap hallu glyphs; `potionbreathe`; HALLUC expiry; AD_FIRE
-  hero; peace_minded MS_LEADER/GUARDIAN/NEMESIS/ERINYS.
+- **#971:** D-0840 — seed0383 Scr **146→148** (RNG FULL kept).
+  `mpickstuff` `distant_name` + `hitmsg` `" again"`.
+- **Next:** frame 141 — C `The ice vortex engulfs you!--More--`
+  (map still pre-stomach) vs JS engulfs+freeze append.
+- **Hypothesis:** C `gulpmu` `display_nhwindow(WIN_MESSAGE,FALSE)`
+  forces More before `swallowed(1)` / AD_COLD pline.
+- **Falsify:** engulfs alone on More with old map; then freezes.
+- **Don't:** naive `flush_topl_more` — broke RNG @11524 (#971).
+- **Also open:** DECgfx swallow `o/x/s` vs ASCII `-|-`;
+  trap hallu glyphs; `potionbreathe`; HALLUC expiry; AD_FIRE hero.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0839 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0840 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0839 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0840 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
-- **#953–#968:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
-  getmattk / Monnam / unstuck docrt — closed; see journal.
+- **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
+  getmattk / Monnam / unstuck / initedog malign — closed; see journal.
 - **#969:** @13689 was pet `malign` (+3 vs −9), not peace_minded
   formula / early return.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
+- gulpmu `flush_topl_more` alone → RNG @11524 (don't retry blind).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#970 Scr **8948**/11405 RNG **666600**/792838;
-  seed0383 RNG **FULL**; Scr **146**/219 (screen peel next).
+  seed0383 RNG **FULL**; Scr **148**/219 (gulpmu More next).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -56,3 +55,4 @@ Objective/score live in `CURRENT.md`.
 - `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
 - unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
 - `initedog` must `set_malign` after tame (D-0839).
+- `mpickstuff` must `distant_name` (D-0840); hitmsg consecutive again.
