@@ -46,7 +46,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 10724/16915 | **142**/219 | still @10374 fleeck; RNG −159 vs #945 |
+| seed0383 | 10762/16915 | **142**/219 | still @10374 gnome skip; RNG +38 vs #950 via D-0827 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
@@ -74,10 +74,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10374** — after D-0826 `postmov`
-`u_on_newpos` (not the fleeck cause): C skips PM_GNOME dochug while JS
-double-fleecks then ice-vortex `mattacku`. Both allot movement 12.
-Likely fmon order (which of two gnomes died) or C skip gate. Focused:
+**Gameplay next:** **seed0383 @10374** — after D-0827 `mattacku`
+uswallow-only-`ustuck` (not the fleeck cause): C skips PM_GNOME dochug
+while JS double-fleecks then ice-vortex `mattacku`. EOT fmon order and
+`mcalcmove` rolls match (`156,165,108`). Next: mid-pass skip gate.
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -89,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0826. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0827. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

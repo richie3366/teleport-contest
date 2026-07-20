@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0827 — mattacku uswallow only-ustuck early-out (seed0383 @10374)
+
+- **Status:** fixed (partial — @10374 still open; not the gnome fleeck cause)
+- **Symptom:** seed0383 @10374 — C engulfer `mattacku` vs JS gnome
+  `distfleeck`×2. DIAG: fmon at EOT is `156,165,108` with matching
+  `mcalcmove` speed rolls; C still skips gnome dochug.
+- **C locus:** `mhitu.c` `mattacku` — `if (u.uswallow) { if (mtmp !=
+  u.ustuck) return 0; … range2=0; foundyou=1; }` before steed/AC.
+- **Cause (#951):** JS `mattacku` omitted that swallow gate (non-engulfers
+  could enter the attack loop while swallowed). Ported. Does **not** move
+  @10374 (mismatch is pre-`mattacku` fleeck order). Matched RNG
+  **10724→10762**/16915 (spurious post-mismatch attacks trimmed).
+- **Change:** `js/mhitu.js` `mattacku` — uswallow → only `u.ustuck`; pin
+  mux/muy; `uinvulnerable` return; force `range2`/`foundyou`. Named:
+  Underwater non-swimmer early-out.
+- **Verification:** prefix still **10374**; Scr **142**/219; green+strict
+  PASS; cohort 7/7.
+- **Next:** why C skips PM_GNOME dochug despite identical EOT allotment
+  (mid-pass kill / waitmask / minliquid — not fmon order at mcalcmove).
+
 ## D-0826 — postmov engulfing_u → u_on_newpos (seed0383 @10374)
 
 - **Status:** fixed (partial — @10374 still open; u_on_newpos not the fleeck cause)

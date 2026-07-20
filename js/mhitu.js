@@ -857,9 +857,18 @@ export async function mattacku(mtmp) {
 
     const u = game.u || {};
 
-    // C: mhitu.c — while mounted, orcs (1/2) / others (1/4) may hit the steed
-    // instead; steed never attacks the rider.
-    if (u.usteed) {
+    // C: mhitu.c — while swallowed, only u.ustuck may attack; pin mux/muy.
+    // Underwater non-swimmer early-out deferred.
+    if (u.uswallow | 0) {
+        if (mtmp !== u.ustuck) return 0;
+        mtmp.mux = u.ux;
+        mtmp.muy = u.uy;
+        if (u.uinvulnerable) return 0;
+        range2 = false;
+        foundyou = true;
+    } else if (u.usteed) {
+        // C: mhitu.c — while mounted, orcs (1/2) / others (1/4) may hit the steed
+        // instead; steed never attacks the rider.
         if (mtmp === u.usteed) return 0;
         if (!rn2(is_orc(mtmp.data) ? 2 : 4) && m_next2u(mtmp)) {
             let i = await mattackm(mtmp, u.usteed);
