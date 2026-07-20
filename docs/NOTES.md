@@ -7,18 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#988 / D-0851:** removed extra `goto_level` `vision_recalc(0)` after
-  `docrt` (C only recalcs inside `docrt`). Scr still **194**; not @195 cause
-  (extra pass burned 0 display-rng in measure).
-- **@195 Hallu map hypothesis:** between levtport menu @194 and materialize
-  `docrt`, `select_menu_pick_one` → `docrt()` burns **~45** display-rng on
-  the **old** Dlvl:12 map (`20×383` vision + `20×383` see_mon + `4×463` obj
-  + `1×5` warn). C `erase_menu_or_text` also `docrt()` — count may still
-  differ (which mons/objs newsym). Then new-level `docrt` +4, once-per-input
-  Hallu see +3 → @195. Core RNG FULL; glyphs `@`/color + `*` vs `[`.
-- **Falsifier:** instrument C `~drn2` (patch 005) across menu dismiss→
-  materialize, or count JS burns per caller on dismiss vs visible set.
-- Do not skip menu-pick `docrt` globally (Scr 194→192; other menus).
+- **#989:** seed0383 @195 still Scr **194**/219 RNG FULL. Three cell
+  misses only: map (68,5) Hallu `@` color 1≠15; (68,6)+(69,7) `*`≠`[`.
+  Those cells = the sole cansee mon + two cansee objs at materialize.
+- **Measured display-rng (levtport → @195):**
+  - menu-dismiss `docrt` Dlvl:12: **45** =
+    `20×383` vision + `20×383` see_mon + `4×463` obj + `1×5` warn
+  - `goto_level` `docrt` Dlvl:8: **4** = `2×383` + `2×463` (IN_SIGHT 65)
+  - once-per-input Hallu: **3** = `1×383` + `2×463` (paints the 3 miss cells)
+- **Falsified:** skip fullscreen menu-dismiss `docrt` → Scr 194→192
+  (C `erase_menu_or_text` offx=0/offy=0 also `docrt`; burns required).
+- **Falsifier next:** C `NETHACK_RNGLOG_DISP=1` / `~drn2` inventory for
+  the same three windows (menu docrt / goto docrt / per-input). If C
+  menu≠45 or goto≠4, find which newsym set differs; if counts match,
+  order/composition of the 45.
 - Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
@@ -44,6 +46,7 @@ Objective/score live in `CURRENT.md`.
   post-expel-as-@172 / flush-as-glyph / docrt cls / region-over-Hallu —
   falsified; real cause was missing SCR_MAIL (D-0848).
 - Extra post-`docrt` `vision_recalc(0)` was not @195 cause (0 burns).
+- Skip menu-dismiss `docrt` (fullscreen) not @195 cause (Scr−2).
 
 ## Landmarks (≤15)
 

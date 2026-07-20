@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0852 | open | seed0383 @195 Hallu levtport burn inventory | menu 45 / goto 4 / per-input 3; skip menu docrt falsified; need C ~drn2 |
 | D-0851 | fixed | goto_level no post-docrt vision_recalc(0) | C fidelity; seed0383 @195 Hallu still open; green+cohort OK |
 | D-0850 | fixed | xkilled tame `x_monnam(...,"poor",...)` | seed0383 Scr 193→194; @178 poor titan; green+cohort OK |
 | D-0849 | fixed | do_name `hliquid` Hallu liquids + display-rng | seed0383 Scr 184→193; @187 purified water; green+cohort OK |

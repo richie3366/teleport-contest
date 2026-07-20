@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:45 — #989 seed0383 @195 display-rng inventory
+- Objective: seed0383 @195 Hallu map after levtport materialize.
+- C locus: wintty erase_menu_or_text→docrt; display.c docrt /
+  see_monsters/objects; do.c goto_level.
+- Change: diagnosis only. Confirmed menu-dismiss burns **45**
+  (20×383 vision + 20×383 see_mon + 4×463 + 1×5); goto **4**;
+  per-input **3** = the three miss cells. Falsified skip fullscreen
+  menu `docrt` (Scr 194→192). No JS patch kept.
+- Verification: seed0383 Scr **194** RNG FULL; green PASS; DIAG removed.
+- Next: C `~drn2` for those three windows; flush parked.
+
 ## 2026-07-20 12:20 — #988 seed0383 @195 Hallu / D-0851
 - Objective: seed0383 @195 Hallu map after materialize.
 - C locus: do.c goto_level (docrt only); wintty erase_menu_or_text→docrt;

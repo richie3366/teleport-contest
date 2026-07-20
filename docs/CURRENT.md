@@ -76,11 +76,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 194/219** — @195 Hallu map after
-materialize. D-0851 removed post-`docrt` `vision_recalc(0)` (C fidelity;
-0 display burns; Scr unchanged). Next: compare display-rng burn set on
-levtport menu dismiss `docrt` (old Dlvl:12) vs C `erase_menu_or_text`.
-Flush still parked @141–174. Focused:
+**Gameplay next:** **seed0383 Scr 194/219** — @195 Hallu map (3 cells:
+Hallu `@` color + two `*`≠`[`). JS burn inventory measured (#989):
+menu-dismiss docrt **45** (20+20×383, 4×463, 1×5); goto docrt **4**;
+per-input **3** (paints the miss cells). Skip menu docrt falsified
+(Scr−2). Next: C `~drn2` same three windows. Flush parked @141–174.
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -104,7 +105,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not stub `hliquid` as identity (D-0849).**
 **Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
 **Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
-**Do not skip `select_menu_pick_one` `docrt` on all picks (Scr−2).**
+**Do not skip `select_menu_pick_one` `docrt` on picks (Scr−2; #988/#989).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

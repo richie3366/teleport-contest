@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0852 — open: seed0383 @195 Hallu after levtport (burn inventory)
+
+- **Status:** open (diagnosed; no JS patch)
+- **Symptom / context:** seed0383 Scr 194/219 RNG FULL. First content
+  miss @195 (0-based index 195): three map cells only — Hallu `@` at
+  (68,5) color 1≠15; objs at (68,6)/(69,7) `*`≠`[`. Message/cursor OK.
+- **Measured (#989):** display-rng windows levtport→@195:
+  - menu-dismiss `docrt` (Dlvl:12): **45** =
+    20×383 vision + 20×383 see_monsters + 4×463 obj + 1×5 warn
+  - `goto_level` `docrt` (Dlvl:8): **4** = 2×383 + 2×463 (IN_SIGHT 65;
+    one cansee mon at the `@` miss cell)
+  - once-per-input Hallu see_*: **3** = 1×383 + 2×463 (exactly the
+    miss cells)
+- **Falsified:** skip fullscreen `select_menu_pick_one` `docrt` →
+  Scr 194→192 (C `erase_menu_or_text` offx=0/offy=0 also calls `docrt`).
+  Post-docrt `vision_recalc(0)` already falsified (D-0851).
+- **Next:** C `NETHACK_RNGLOG_DISP=1` / `~drn2` for the same three
+  windows; if counts match, compare which cells newsym.
+
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 
 - **Status:** fixed (C fidelity); seed0383 @195 still open.
