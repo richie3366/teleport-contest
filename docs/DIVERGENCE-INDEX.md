@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0910 | fixed | allmain regen_pw once-per-turn rn1 | seed4500 **50054→50111** RNG **50220→50240**; next @50111 next_ident |
 | D-0909 | fixed | Punished drag_ball/move_bc/nomul(-2) | seed4500 **50034→50054** RNG **50167→50220**; next @50054 regen_pw |
 | D-0908 | fixed | SCR_PUNISHMENT punish/placebc | seed4500 **49915→50034** Scr **481→499**; next was mattacku→D-0909 |
 | D-0907 | fixed | study_book set_occupation(learn) + makeknown | seed4500 **49776→49915** Scr **459→481**; next @49915 mkobj |

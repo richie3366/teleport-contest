@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0910 — allmain regen_pw once-per-turn Pw recover
+
+- **Status:** fixed (partial — Teleportation / Polymorph once-per-turn
+  arms after regen_pw still deferred; seed4500 still FAIL later)
+- **Session:** seed4500-knight-coverage @50054
+- **Symptom:** after matched punish drag, C `regen_pw` `rn2(2)` via
+  `rn1(upper,1)`; JS skipped to `dosounds` `rn2(200)`.
+- **Cause:** moveloop omitted `regen_pw(mvl_wtcap)` after `regen_hp`.
+- **C locus:** `allmain.c` `regen_pw` + once-per-turn call site.
+- **Fix:** port `regen_pw` (encumbrance/period/`Energy_regeneration`
+  gate, `EMagical_breathing` upper+2, `rn1`, botl, interrupt_multi);
+  call every EOT like C.
+- **Verification:** seed4500 prefix **50054→50111** RNG **50220→50240**
+  Scr **499**; green+strict PASS; cohort 6/6 PASS; full suite **42/44**.
+- **Next:** @50111 C `next_ident` `rnd(2)` vs JS `rn2(12)`.
+
 ## D-0909 — Punished drag_ball / move_bc / cause_delay nomul(-2)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Blind move_bc

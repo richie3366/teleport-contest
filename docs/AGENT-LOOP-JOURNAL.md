@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 22:45 — #1060 score + D-0910 regen_pw
+- Objective: cadence full `sessions` + seed4500 @50054 regen_pw
+- C locus: `allmain.c` `regen_pw` + moveloop once-per-turn call
+- Change: port regen_pw (period/Energy_regeneration/EMagical_breathing
+  + rn1); wire after regen_hp. Named omit: Teleport/Poly EOT arms.
+- Verification: prefix **50054→50111** RNG **50220→50240** Scr **499**;
+  green+strict PASS; cohort 6/6; suite **42/44** Scr **10089**/11405
+  RNG **734803**/792838 (92.68%) `31+0.23/turn`
+- Next: @50111 next_ident rnd(2); cadence @#1065
+
 ## 2026-07-20 22:36 — D-0909 Punished drag_ball/move_bc
 - Objective: seed4500 @50034 C mattacku rnd(20) vs JS rn2(20)
 - C locus: ball.c drag_ball/move_bc; hack.c domove Punished arms
@@ -178,14 +188,4 @@ Use this shape:
   Scr **3→23** (runner 2929/23).
 - Next: seed2600 @2917 nhlib shuffle on special-level load; BIND later;
   seed4500; leaderboard cron; cadence @#1050.
-
-## 2026-07-20 20:54 — #1045 score + D-0894 dryup town warn
-- Objective: cadence full `sessions` + seed0014 @712 watchman vs dryup.
-- C locus: `fountain.c` `dryup` / `watchman_warn_fountain`.
-- Change: town first-use SET_FOUNTAIN_WARNED + watchman yell + return
-  without drying (D-0894). Named omit: angry_guards; Deaf shake; wizard yn.
-- Verification: green+strict PASS; cohort 35/35; seed0014 **PASS 714/714**;
-  full suite **41/44** Scr **9574**/11405 RNG **676373**/792838 (85.31%)
-  `33+0.23/turn`.
-- Next: leaderboard cron; seed2600/4500 coverage; seed2200 parked @158.
 

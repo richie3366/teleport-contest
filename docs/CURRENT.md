@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` @**#1055** (42/44,
-Scr **9898**/11405, RNG **90.45%**). Next cadence @**#1060**. #1059
-D-0909 drag_ball: seed4500 prefix **50034→50054** RNG **50167→50220**.
+Score last measured: **2026-07-20** — full `sessions` @**#1060** (42/44,
+Scr **10089**/11405, RNG **92.68%**). Next cadence @**#1065**. #1060
+D-0910 regen_pw: seed4500 prefix **50054→50111** RNG **50220→50240**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **9,898 / 11,405** |
-| Positional RNG calls matched | **717,155 / 792,838** (90.45%) |
-| Speed label | `33+0.23/turn` (R² 0.818) |
+| Screens matched | **10,089 / 11,405** |
+| Positional RNG calls matched | **734,803 / 792,838** (92.68%) |
+| Speed label | `31+0.23/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 50167/108275 | 499/1814 | knight coverage; next @50034 mattacku |
+| seed4500 | 50240/108275 | 499/1814 | knight coverage; next @50111 next_ident |
 
 ## Green gate
 
@@ -71,8 +71,8 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** @50054 (C `regen_pw` `rn1`/`rn2(2)` —
-  deferred in `allmain` after matched punish drag). Focused:
+**Gameplay next:** **seed4500** @50111 (C `next_ident` `rnd(2)` vs
+  JS `rn2(12)` — likely eat/mkobj after matched regen_pw). Focused:
 
 ```bash
 node scripts/rng-diff.mjs \
@@ -84,7 +84,7 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0909. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0910. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
@@ -127,7 +127,8 @@ omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905);
 omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906);
 omit `set_occupation(learn)` / learn `makeknown` credit_hero (D-0907);
 omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908);
-omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909).
+omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909);
+omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
