@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 00:48 — #1077 D-0926 mhitm_ad_blnd mhitu
+- Objective: seed4500 @87218 C `distfleeck` `rn2(5)` vs JS `rn2(8)`.
+- C locus: `uhitm.c` `mhitm_ad_blnd` (youmonst); `mondata.c`
+  `can_blnd` AT_CLAW; `potion.c` `make_blinded`.
+- Change: port mhitu `mhitm_ad_blnd_u` + wire `AD_BLND`. Root: omitted
+  raven claw blind → no `It` hitmsgs → extra `--More--` → key ahead
+  → premature minotaur `collect_coords` (not a distfleeck bug).
+- Verification: prefix **87218→87803** RNG **88082** Scr **794**;
+  green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800
+  PASS (7/7).
+- Next: @87803 C `distfleeck` `rn2(5)` vs JS `rn2(20)`; cadence @#1080.
+
 ## 2026-07-21 00:37 — #1076 D-0925 breamm / AT_BREA
 - Objective: seed4500 @86672 C `breamm` `rn2(3)` vs JS `rn2(5)`.
 - C locus: `mthrowu.c` `breamm`/`breamu`; `mhitu.c` AT_BREA;
@@ -179,14 +191,3 @@ Use this shape:
 - Verification: prefix **50338→50844** RNG **50936** Scr **594**;
   green+strict PASS; cohort 5/5 PASS (seed4500 still FAIL later).
 - Next: @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`.
-
-## 2026-07-20 23:03 — #1062 D-0912 #turn / doturn
-- Objective: seed4500 @50290 C `exercise` `rn2(19)` vs JS `mcalcmove`
-- C locus: `pray.c` `doturn` / `maybe_turn_mon_iter`; `cmd.c` `"turn"`
-- Change: port Knight/Cleric `#turn` (chant + `exercise(A_WIS)` + undead
-  iter + `nomul`); wire EXT_CMDS. Named omit: SPE_TURN_UNDEAD fallback;
-  Hallu `halu_gname` RNG; resist TELL pline.
-- Verification: prefix **50290→50338** RNG **50401** Scr **594**;
-  green+strict PASS; cohort 6/6 PASS.
-- Next: @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`.
-

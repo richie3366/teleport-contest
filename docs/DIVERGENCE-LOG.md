@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0926 — mhitm_ad_blnd mhitu (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @87803
+  distfleeck; Eyes vision_clears; full can_blnd ublindf/visor;
+  uhitm/mhitm AD_BLND arms deferred)
+- **Session:** seed4500-knight-coverage @87218
+- **Symptom:** C `rn2(5) @ distfleeck` vs JS `rn2(8) @ collect_coords`
+  (premature `#wizgenesis` minotaur). DIAG: JS topline
+  `The raven bites!…--More--` while C used `It bites!` after
+  `The raven blinds you!`.
+- **Cause:** `mhitm_adtyping_u` omitted `AD_BLND` → no
+  `mhitm_ad_blnd` / `make_blinded`. Hero stayed sighted; longer
+  `The raven …` hitmsgs forced extra `--More--`, eating future
+  keys (ahead by ~2 @86371) so JS reached minotaur genesis while
+  C was still in raven combat / sea moves.
+- **C locus:** `uhitm.c` `mhitm_ad_blnd` (mdef==youmonst);
+  `mondata.c` `can_blnd` AT_CLAW; `potion.c` `make_blinded`.
+- **Fix:** port mhitu `mhitm_ad_blnd_u` + `can_blnd_u` AT_CLAW +
+  `make_blinded`/`BlindedTimeout`; wire `AD_BLND` in
+  `mhitm_adtyping_u`.
+- **Verification:** prefix **87218→87803** RNG **88082** Scr
+  **794**; green+strict PASS; cohort 0002/0014/0060/0102/0700/
+  1150/1800 PASS (7/7).
+- **Next:** @87803 C `distfleeck` `rn2(5)` vs JS `rn2(20)`.
+
 ## D-0925 — breamm / breamu + AT_BREA (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @87218

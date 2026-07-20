@@ -8,16 +8,20 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @87218 — C `distfleeck` `rn2(5)` vs JS
-  `rn2(8)` (after D-0925 breamm; C next is linedup/`m_move` shuffle).
+- **Gameplay next:** seed4500 @87803 — C `distfleeck` `rn2(5)` vs JS
+  `rn2(20)` (after D-0926 raven blind; post-minotaur genesis).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0925 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0926 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `mhitm_ad_blnd` mhitu / raven AT_CLAW blind (D-0926);
+  Eyes vision_clears / full can_blnd ublindf / uhitm arm deferred.
+- Do not treat @87218 `rn2(8)` as distfleeck — it was premature
+  genesis from key/`--More--` desync (D-0926).
 - Do not omit `breamm`/`breamu` / `mattacku` AT_BREA / fire-pool
   `zap_over_floor` steam (D-0925); mon-mon AT_BREA deferred.
 - Do not re-add `splitobj` invent[] splice (D-0924); touchfood
@@ -37,15 +41,15 @@ Objective/score live in `CURRENT.md`.
   (D-0917).
 - Do not omit Nesting nested create_subroom/door / lspo_door `rnddoor`
   (D-0916).
-- Do not omit `goto_level` Punished `unplacebc`/`placebc` (D-0915).
-- Do not stub `mk_knox_portal` place under wizard/debug (D-0914).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1075 Scr **10349**/11405 RNG **771361**/792838
   (97.29%); next cadence @#1080.
+- **D-0926 #1077:** mhitm_ad_blnd mhitu; seed4500 **87218→87803**
+  RNG **88082** Scr **794**; next @87803 distfleeck.
 - **D-0925 #1076:** breamm/AT_BREA + dobuzz fire-pool; seed4500
-  **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck.
+  **86672→87218** RNG **87347** Scr **759**.
 - **D-0924 #1075:** undo splitobj invent[] splice; seed0002 PASS
   restored; seed4500 was @86672 breamm.
 - **D-0923 #1074:** touchfood freeinv+addinv_nomerge; seed4500
