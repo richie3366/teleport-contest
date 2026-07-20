@@ -8,7 +8,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
   prerequisite is medusa-3 hero place; #1080 falsified
-  place/`collect_coords` RNG mismatch; #1081 falsified C `@(39,5)`)
+  place/`collect_coords` RNG mismatch; #1081 falsified C `@(39,5)`;
+  #1082 falsified “ystart formula alone differs for hei=20”)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -18,23 +19,29 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   FORCE mux; shortsighted-only peel without place proof;
   place_lregion/`collect_coords` shuffle arg mismatch (#1080 —
   C/JS match through 82k–83k); C land `@(39,5)` (#1081 — that was
-  a later walk misread; arrival `@`/`cursor` is **(42,7)**).
+  a later walk misread; arrival `@`/`cursor` is **(42,7)**);
+  ystart off for 76×20 map (#1082 — both get ystart=1);
+  FlipX minx=1 alone (#1082 — would land `(42,6)` not `(42,7)`).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
-  #1081: same place `rn2(6)×3` @L=82419–82424; JS
+  Arrival is wizard `^V` from Dlvl:6 → 24 (`UTOTYPE_NONE` →
+  `u_on_rndspot` / `dndest`). Same place `rn2(6)×3` @L=82419–82424
+  (tries `(+5,+3)` `(+3,+5)` fail → `(+3,+3)`). JS
   `u_on_newpos(43,6)` with
-  `dndest={lx:40,ly:3,hx:45,hy:8,nlx:82,…}` after FlipX (`flp=2`,
-  `get_level_extends` minx=2..maxx=79, `xstart=3,ystart=1`,
-  pre-flip tele `[36..41]×[3..8]` from `medusa-3` `{33,02,38,07}`).
-  C arrival **`(42,7)`** (wizmap) ⇒ inferred C
-  `dndest[39..44]×[4..9]` (same +3,+3). Not explained by FlipX
-  minx=1 alone (would keep ly=3 → land y=6).
+  `dndest={lx:40,ly:3,hx:45,hy:8,…}` after FlipX (`flp=2`,
+  extends minx=2..maxx=79,miny=0..maxy=20, `xstart=3,ystart=1`,
+  pre-flip `[36..41]×[3..8]`). ROOM cells in that dndest include
+  both `(43,6)` and `(42,7)`. C cursor **`(42,7)`** ⇒ need
+  `dndest[39..44]×[4..9]` (ystart=2 ∧ FlipX minx=1).
 - **C locus:** `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
-  `flip_level` / `get_level_extends`; `mkmaze.c` `place_lregion` →
-  `u_on_newpos`.
-- **Next:** C `ystart` + `get_level_extends` at medusa-3
-  `flip_level` vs JS; fix remap/origin if wrong.
-- **Verification:** green+strict PASS; suite score unchanged this
-  iter (no production JS); rng-diff still @88377.
+  `flip_level` / `get_level_extends` / `load_special` epilogue;
+  `mkmaze.c` `place_lregion` → `u_on_newpos`.
+- **Partial:** #1082 wired medusa-3 `link_doors_rooms` /
+  `remove_boundary_syms` / `map_cleanup` before wallify (C
+  `load_special`); land/prefix unchanged.
+- **Next:** reconstruct C path that yields minx=1 **and** ly=4
+  at flip (or non-`u_collide_m` post-place move); do not FORCE.
+- **Verification:** green+strict PASS; cohort 0002/0014/1800 PASS;
+  rng-diff still @88377; suite score unchanged.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

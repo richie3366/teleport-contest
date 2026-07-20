@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 01:30 — #1082 D-0928 flip extends + medusa epilogue
+- Objective: seed4500 medusa-3 hero place (D-0928).
+- C locus: `sp_lev.c` `flip_level`/`get_level_extends`/`load_special`;
+  `mkmaze.c` `place_lregion`; `dat/medusa-3.lua`.
+- Falsified: ystart formula differs for hei=20 (JS=C=1);
+  FlipX minx=1 alone (→ land y=6). Confirmed ^V6→24,
+  `flp=2` extends 2..79×0..20, pre-flip tele `[36..41]×[3..8]`,
+  tries fail/fail/(43,6); C needs `[39..44]×[4..9]`.
+  Change: medusa-3 `link_doors_rooms`/`remove_boundary_syms`/
+  `map_cleanup` before wallify (C epilogue).
+- Verification: green+strict PASS; cohort 0002/0014/1800 PASS;
+  rng-diff still @88377.
+- Next: C path for minx=1 ∧ ly=4; cadence @#1085.
+
 ## 2026-07-21 01:15 — #1081 D-0928 C @ reconfirm (42,7)
 - Objective: seed4500 Dlvl-24 / medusa-3 hero place (D-0928).
 - C locus: `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
@@ -172,14 +186,3 @@ Use this shape:
 - Verification: prefix **55990→61462** RNG **61496** Scr **622**;
   green+strict PASS; cohort 13/13 PASS + strict lengths.
 - Next: @61462 C `distfleeck` rn2(5) vs JS rn2(1000); cadence @#1070.
-
-## 2026-07-20 23:51 — #1068 D-0917 fill_ordinary_room subroom recursion
-- Objective: seed4500 @54329 C somex rn2(2) vs JS rn2(12).
-- C locus: `mklev.c` `fill_ordinary_room` nsubrooms loop before needfill.
-- Change: recurse `fill_ordinary_room(subroom, false)` then needfill gate
-  (Nesting mid/inner fill before outer). Named omit: Fake Delphi/Huge/
-  Mausoleum/Twin nested bodies; `u.uhave.amulet` arm of sleeping-mon gate.
-- Verification: prefix **54329→55990** RNG **57748** Scr **613**;
-  green+strict PASS; cohort 13/13 PASS + strict lengths.
-- Next: @55990 C `drag_down` rn2(2) vs JS rn2(50); cadence @#1070.
-

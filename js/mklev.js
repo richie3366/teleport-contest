@@ -1894,8 +1894,8 @@ function load_medusa_1() {
 /**
  * C ref: dat/medusa-3.lua via load_special — raven-tree Medusa variant.
  * Named omissions: worn/artifact STONE_RES in resists_ston; medusa-2/4;
- * flip_level lregion coord update; ensure_way_out / solidify / map_cleanup;
- * full mongone invent teardown beyond fmon unlink.
+ * ensure_way_out / solidify; full mongone invent teardown beyond fmon unlink.
+ * D-0928: flip updates lregions; land still JS@(43,6) vs C@(42,7).
  */
 function load_medusa_3() {
     const g = game;
@@ -2116,7 +2116,11 @@ function load_medusa_3() {
     }
     for (let i = 0; i < 30; i++) splev_create_monster('raven', 0);
 
-    // C load_special: wallification → flip → lregions → fixup
+    // C load_special: link_doors_rooms → remove_boundary_syms → map_cleanup
+    // → wallification → flip → fixup (tele copied from flipped lregions)
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -8084,7 +8088,6 @@ function flip_level(flp, _extras) {
             }
         }
     }
-
     // rooms (+ nested sbrooms — C sp_lev.c flip_level)
     const flipRoomBounds = (sroom) => {
         if (!sroom || sroom.hx < 0) return;

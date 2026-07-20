@@ -72,11 +72,13 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** medusa-3 hero place (D-0928). Place
-`rn2(6)×3` matches C; JS `u_on_newpos(43,6)` /
-`dndest[40..45]×[3..8]` (FlipX `flp=2`, extends minx=2). C session
-`@`/`cursor` **(42,7)** — infer C `dndest[39..44]×[4..9]`. Next: C
-`ystart` / `get_level_extends` at `flip_level` (medusa-3). Focused:
+**Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
+Place `rn2(6)×3` matches; JS `(43,6)` /
+`dndest[40..45]×[3..8]` (FlipX `flp=2`, extends minx=2..79,
+ystart=1). C cursor **(42,7)** ⇒ need `[39..44]×[4..9]`
+(ystart=2 ∧ minx=1). #1082 falsified ystart-formula-alone;
+medusa-3 epilogue now matches C link/boundary/map_cleanup.
+Next: C path for minx=1 **and** ly=4. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
