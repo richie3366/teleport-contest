@@ -6,7 +6,8 @@
 // launch_obj / trapeffect_sqky_board /
 // trapeffect_bear_trap / trapeffect_hole / trapeffect_magic_trap /
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
-// trapeffect_web / mu_maybe_destroy_web,
+// trapeffect_web / trapeffect_landmine / blow_up_landmine /
+// mu_maybe_destroy_web,
 // make_corpse ordinary path via thitm death.
 
 import { game } from './gstate.js';
@@ -23,7 +24,8 @@ import { newsym, pline, mon_visible, see_with_infrared, You_feel, unmap_object, 
 import { doname, an, the, xname, makeplural, vtense } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
 import { dist2, distmin, m_at } from './mon.js';
-import { cansee, couldsee, m_cansee } from './vision.js';
+import { cansee, couldsee, m_cansee, recalc_block_point } from './vision.js';
+import { del_engr_at } from './engrave.js';
 import {
     G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
     is_flyer, is_floater, is_clinger,
@@ -35,17 +37,17 @@ import {
     nohands, extra_nasty, acidic,
 } from './monsters.js';
 import {
-    DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
+    DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE, RECURSIVETRAP,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
     PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, FIRE_TRAP, SLP_GAS_TRAP,
     TELEP_TRAP, ROLLING_BOULDER_TRAP,
     BEAR_TRAP, WEB, RUST_TRAP, VIBRATING_SQUARE, LANDMINE,
     ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES, SLEEP_RES,
     STONE_RES, FAILEDUNTRAP,
-    NO_TRAP, TRAPNUM,
+    NO_TRAP, TRAPNUM, WT_ELF,
     is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     IS_ROOM, IS_WALL, IS_AIR, IS_FURNITURE, SDOOR, STAIRS, LADDER, DRAWBRIDGE_UP,
-    MAGIC_PORTAL, LEVEL_TELEP,
+    MAGIC_PORTAL, LEVEL_TELEP, Is_waterlevel, Is_airlevel,
     D_CLOSED, D_LOCKED, D_BROKEN,
     ER_NOTHING, ER_GREASED, ER_DAMAGED, ER_DESTROYED,
     ERODE_BURN, ERODE_RUST, ERODE_ROT, ERODE_CORRODE, ERODE_CRACK, ERODE_NONE,
@@ -2580,7 +2582,154 @@ async function trapeffect_web(mtmp, trap, trflags) {
     return mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished;
 }
 
-// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole/magic/fire/slp/telep/bear/rust/web
+/**
+ * C ref: trap.c blow_up_landmine — shared hero/mon landmine detonation.
+ * Named omissions: scatter(MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS);
+ * drawbridge destroy; fillholetyp/liquid_flow; fill_pit; maybe_dunk_boulders;
+ * spot_checks.
+ */
+function blow_up_landmine(trap) {
+    if (!trap) return;
+    const x = trap.tx | 0;
+    const y = trap.ty | 0;
+    const lev = game.level?.locations?.[x]?.[y];
+    // scatter deferred — object blast RNG named omission
+    del_engr_at(x, y);
+    wake_nearto(x, y, 400);
+    if (lev && IS_DOOR(lev.typ)) lev.doormask = D_BROKEN;
+    // drawbridge destroy deferred
+    let t = t_at(x, y);
+    if (t) {
+        if (Is_waterlevel(game.u?.uz) || Is_airlevel(game.u?.uz)) {
+            deltrap(t);
+        } else {
+            // fillholetyp → liquid_flow deferred; ordinary → PIT
+            t.ttyp = PIT;
+            t.madeby_u = false;
+            seetrap(t);
+        }
+    }
+    // fill_pit / maybe_dunk_boulders / spot_checks deferred
+    recalc_block_point(x, y);
+}
+
+/**
+ * C ref: trap.c trapeffect_landmine — hero + monster.
+ * Monster: rnd(16) damage, iron-shoes quarter, weight gate rn2(cwt+1)
+ * vs WT_ELF/2, m_in_air rn2(3), blow_up, thitm, recursive mintrap.
+ * Hero: Lev/Fly discovery arms + wounded legs + losehp + recursive dotrap.
+ * Named omissions: which_armor iron shoes; steedintrap / keep_saddle;
+ * scatter via blow_up; fill_pit; unconscious awaken polish.
+ */
+async function trapeffect_landmine(mtmp, trap, trflags) {
+    let damage = rnd(16);
+    /* iron shoes protect against much of the damage from the explosion */
+    if (wearing_iron_shoes(mtmp)) {
+        damage = ((damage + 3) / 4) | 0;
+    }
+
+    if (is_youmonst(mtmp)) {
+        const u = game.u || {};
+        const already_seen = !!trap.tseen;
+        const forcetrap = ((trflags & FORCETRAP) !== 0
+            || (trflags & FAILEDUNTRAP) !== 0);
+        const forcebungle = (trflags & FORCEBUNGLE) !== 0;
+        const a_your = ['a', 'your'];
+
+        if ((u.Levitation || u.Flying) && !forcetrap) {
+            if (!already_seen && rn2(3)) return Trap_Effect_Finished;
+            feeltrap(trap);
+            await pline(
+                `${already_seen ? 'There is' : 'You discover'} `
+                + `${trap.madeby_u ? 'the trigger of your mine' : 'a trigger'}`
+                + ` in a pile of soil below you.`,
+            );
+            if (already_seen && rn2(3)) return Trap_Effect_Finished;
+            await pline(
+                `KAABLAMM!!!  ${forcebungle
+                    ? 'Your inept attempt sets'
+                    : 'The air currents set'} `
+                + `${already_seen
+                    ? `${a_your[trap.madeby_u ? 1 : 0]} land mine`
+                    : 'it'} off!`,
+            );
+        } else {
+            // recursive_mine / steedintrap deferred
+            feeltrap(trap);
+            await pline(
+                `KAABLAMM!!!  You triggered ${a_your[trap.madeby_u ? 1 : 0]}`
+                + ` land mine!`,
+            );
+            await set_wounded_legs(LEFT_SIDE, rn1(35, 41));
+            await set_wounded_legs(RIGHT_SIDE, rn1(35, 41));
+            exercise(A_DEX, false);
+        }
+        trap.ttyp = PIT;
+        trap.madeby_u = false;
+        await losehp(maybe_half_phys(damage), 'land mine', KILLED_BY_AN);
+        blow_up_landmine(trap);
+        newsym(u.ux, u.uy);
+        const pit = t_at(u.ux, u.uy);
+        if (pit) await dotrap(pit, RECURSIVETRAP);
+        // fill_pit deferred
+        return Trap_Effect_Finished;
+    }
+
+    // Monster branch
+    let trapkilled = false;
+    const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+    const a_your = ['a', 'your'];
+    /* heavier monsters are more likely to set off a land mine */
+    const MINE_TRIGGER_WT = (WT_ELF / 2) | 0;
+    if (rn2((mtmp.data?.cwt | 0) + 1) < MINE_TRIGGER_WT) {
+        return Trap_Effect_Finished;
+    }
+    if (m_in_air(mtmp)) {
+        const already_seen = !!trap.tseen;
+        if (in_sight && !already_seen) {
+            await pline(
+                `A trigger appears in a pile of soil below ${mon_nam(mtmp)}.`,
+            );
+            seetrap(trap);
+        }
+        if (rn2(3)) return Trap_Effect_Finished;
+        if (in_sight) {
+            newsym(mtmp.mx, mtmp.my);
+            await pline(
+                `The air currents set ${already_seen ? 'a land mine' : 'it'} off!`,
+            );
+        }
+    } else if (in_sight) {
+        newsym(mtmp.mx, mtmp.my);
+        const boom = Deaf() ? '' : 'KAABLAMM!!!  ';
+        await pline(
+            `${boom}${Monnam(mtmp)} triggers ${a_your[trap.madeby_u ? 1 : 0]}`
+            + ` land mine!`,
+        );
+    }
+    if (!in_sight && !Deaf()) {
+        await pline('Kaablamm!  You hear an explosion in the distance!');
+    }
+    // C captures tx/ty before blow_up for fill_pit (deferred)
+    blow_up_landmine(trap);
+    /* explosion might have destroyed a drawbridge; don't dish out more
+       damage if monster is already dead */
+    if ((mtmp.mhp | 0) <= 0
+        || await thitm(0, mtmp, null, damage, false)) {
+        trapkilled = true;
+    } else {
+        if (await mintrap(mtmp, trflags | FORCETRAP) === Trap_Killed_Mon) {
+            trapkilled = true;
+        }
+    }
+    // fill_pit deferred — thitm may have already destroyed the trap
+    if ((mtmp.mhp | 0) <= 0) trapkilled = true;
+    // unconscious awaken deferred
+    return trapkilled ? Trap_Killed_Mon
+        : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
+}
+
+// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole/magic/fire/slp/telep/bear/rust/web/landmine
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -2596,6 +2745,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_sqky_board(mtmp, trap, trflags);
     case BEAR_TRAP:
         return trapeffect_bear_trap(mtmp, trap, trflags);
+    case LANDMINE:
+        return trapeffect_landmine(mtmp, trap, trflags);
     case HOLE:
     case TRAPDOOR:
         return trapeffect_hole(mtmp, trap, trflags);
@@ -2616,7 +2767,7 @@ async function trapeffect_selector(mtmp, trap, trflags) {
     case WEB:
         return trapeffect_web(mtmp, trap, trflags);
     default:
-        // Named omission: arrow/anti-magic/landmine/… trap effects
+        // Named omission: arrow/anti-magic/… trap effects
         return Trap_Effect_Finished;
     }
 }

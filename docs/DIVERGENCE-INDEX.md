@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0874 | fixed | trapeffect_landmine + blow_up_landmine (mon weight) | seed0014 **50259→52043**; scatter/fill_pit deferred |
 | D-0873 | fixed | sp_lev create_monster female overwrite after makemon | seed0399 **PASS** Scr 531→532; dwarf lord |
 | D-0872 | fixed | objnam xname unique !nn uses_known → known=0 | seed0399 Scr **530→531**; @300 a silver bell |
 | D-0871 | fixed | muse MUSE_POT_SPEED mquaffmsg + mon_adjust give_msg | seed0399 Scr **525→530**; @113–117 More |

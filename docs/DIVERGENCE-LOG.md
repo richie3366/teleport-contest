@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0874 — trapeffect_landmine mon weight gate (seed0014 @50259)
+
+- **Status:** fixed (partial — seed0014 still FAIL; peel advanced)
+- **Symptom:** seed0014 @50259 — C `rnd(16)` @ `trapeffect_landmine`
+  vs JS `rn2(5)` (selector fell through; LANDMINE omitted).
+- **C locus:** `trap.c` `trapeffect_landmine` (`rnd(16)` then mon
+  `rn2(cwt+1) < WT_ELF/2` early return); `blow_up_landmine`.
+- **Cause:** `trapeffect_selector` default omitted LANDMINE. This peel
+  was underweight mon → damage RNG + weight gate only (no scatter).
+  Prior D-0708 mfndpos @49039 was superseded; @50259 is landmine.
+- **Change:** port `trapeffect_landmine` + partial `blow_up_landmine`
+  (wake/del_engr/door/PIT/`recalc_block_point`). Named omit: `scatter`,
+  fill_pit, drawbridge, `which_armor` iron shoes, steedintrap,
+  unconscious awaken.
+- **Verification:** green+strict PASS; seed0014 **50259→52043**;
+  cohort 20/20 PASS (incl. 0013/0030/0399/0383/0108/5006).
+- **Next:** @52043 C `nhlib.lua` shuffle `rn2(3)` vs JS `rn2(79)`
+  (post-bones/makemaz path split).
+
 ## D-0873 — sp_lev create_monster female overwrite
 
 - **Status:** fixed
