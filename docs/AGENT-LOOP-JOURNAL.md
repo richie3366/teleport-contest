@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:20 — #1049 D-0899 #jump dojump/jump
+- Objective: seed4500 knight coverage (prefix 2869 mfndpos arity).
+- C locus: `apply.c` `dojump`/`jump`/`is_valid_jump_pos`/`check_jump`;
+  `dothrow.c` `walk_path`; `getpos.c` getvalid.
+- Change: port physical `#jump` + knight chess dist; walk_path;
+  getpos_getvalid `(invalid target)`. Named omit: SPE_JUMPING;
+  hurtle_step; S_goodpos hilite glyphs; steed/trap-escape.
+- Verification: green+strict PASS; cohort 7/7; seed4500 prefix
+  **2869→8491** Scr **19→264**.
+- Next: seed4500 @8491 `next_ident` vs `rn2(12)`; leaderboard cron;
+  cadence @#1050.
+
 ## 2026-07-20 21:10 — #1048 D-0897/D-0898 seed2600 PASS
 - Objective: seed2600 BIND=`v:inventory` / remaining screens.
 - C locus: `options.c` `parsebindings`/`txt2key`; `cmd.c` bind overlay;
@@ -153,16 +165,3 @@ Use this shape:
   full suite Scr **9493**/11405 RNG **676373**/792838 (85.31%);
   speed `32+0.23/turn`.
 - Next: seed0014 @415 take-off botl AC:10 vs AC:14; nymph @416–417.
-
-## 2026-07-20 19:35 — #1034 D-0881 short_oname dip yn
-- Objective: seed0014 @388 C `Dip a -4 orcish helm` vs JS cursed thoroughly rusty.
-- C locus: `objnam.c` `short_oname`; `potion.c` `dodip` formats via
-  `short_oname(doname, thesimpleoname, QBUFSZ-sizeof getobj dip)`.
-- Change: port `short_oname` (+simpleonames/thesimpleoname); `dodip`
-  uses it. Thoroughly rusty tips past lenlimit→strip BUC/erosion for
-  display only. Named omit: other short_oname callers; pair_of them;
-  pool/sink dip prompts.
-- Verification: green+strict PASS; cohort 11/12 (seed0007 pre-existing
-  FAIL); seed0014 Scr **624→633** (RNG FULL); @388/@393 fixed.
-- Next: @415 botl AC:10 vs AC:14 after take-off shield; nymph steal
-  wording @416–417.

@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 3039/108275 | 19/1814 | knight coverage |
+| seed4500 | 8491/108275 | 264/1814 | knight coverage; next @8491 next_ident |
 
 ## Green gate
 
@@ -71,22 +71,25 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 serialize coerce. Next cron; if seed0013 restored but near-misses remain
 → upstream #5.
 
-**Gameplay next:** **seed4500** knight coverage. seed2600 closed
-(D-0897 BIND + D-0898 ini_inv `setworn`). Focused:
+**Gameplay next:** **seed4500** @8491 (C `next_ident` vs JS `rn2(12)`).
+D-0899 `#jump` closed early path. Focused:
 
 ```bash
+node scripts/rng-diff.mjs \
+  sessions/seed4500-knight-coverage.session.json
+# or
 node frozen/ps_test_runner.mjs \
   sessions/seed4500-knight-coverage.session.json
 ```
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0898. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0899. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0898 (searches_for_item … BIND + ini_inv setworn).
+D-0861…D-0899 (searches_for_item … `#jump` dojump + getpos_getvalid).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -114,7 +117,7 @@ skip town warn / dry fountain on first town `dryup` (D-0894);
 skip Temple of the gods fill / discard themes `splev_align` (D-0895);
 omit `bigrm-9` load_special (D-0896);
 omit `BIND=` parsebindings / skip `setworn` in `ini_inv_use_obj` armor
-(D-0897/D-0898).
+(D-0897/D-0898); omit `#jump`/`dojump` / getpos_getvalid (D-0899).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

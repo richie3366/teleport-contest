@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0899 — #jump dojump / jump + getpos_getvalid (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later)
+- **Session:** seed4500-knight-coverage @#jump (prefix was 2869)
+- **Symptom:** JS `#jump: unknown extended command.`; C
+  `Where do you want to jump?` → getpos → failed jump. Hero path
+  desynced → mfndpos `rn2(32)` vs C `rn2(28)` @2869.
+- **Cause:** `jump` was autocomplete-only; no EXT_CMDS runner /
+  `dojump`/`jump` body. getpos lacked `getpos_getvalid` → no
+  `(invalid target)` suffix.
+- **C locus:** `apply.c` `dojump`/`jump`/`is_valid_jump_pos`/
+  `check_jump`/`get_valid_jump_position`; `dothrow.c` `walk_path`;
+  `getpos.c` `getpos_sethilite`/`getpos_getvalid`.
+- **Fix:** port physical jump + knight chess `distu==5`; `walk_path`;
+  wire `#jump`; getvalid for autodescribe. Named omit: SPE_JUMPING;
+  steed/trap-escape/hurtle_step body; S_goodpos hilite glyphs.
+- **Verification:** seed4500 prefix **2869→8491** Scr **19→264**;
+  green+strict PASS; cohort 7/7 (0103/0104/1500/1800/0060/2600/5006).
+- **Next:** seed4500 @8491 `next_ident` vs `rn2(12)`; leaderboard
+  cron; cadence @#1050.
+
 ## D-0898 — ini_inv_use_obj armor setworn (seed2600 ^X)
 
 - **Status:** fixed
