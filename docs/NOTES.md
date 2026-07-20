@@ -7,20 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0731 @10157:** #1008 C poss[] DIAG — C cnt=5 because MON_AT:
-  elf noble 268@(58,11) mhp49, elf 268@(57,12) mhp26, spider 96@(57,13)
-  mhp34. Unicorn@58,12 + mon58@(55,12) match. JS: spider@(57,12),
-  elves@(57,10)/(56,11) → empty (58,11)+(57,13) → cnt=7. RNG matched
-  through 10156 (silent appr=1 nearer drift).
-- Falsifier next: first RNG index where elf/spider coords diverge vs C
-  (recorder dump by mhp). Alt: D-0708 seed0014.
-- Do not FORCE-omit without C-state pair ID (already have C state).
+- **seed0399 @10217:** after D-0861, first miss `rnd_otyp_by_namedesc`
+  C `rn2(31)` vs JS `rn2(181)`. Faithful path (not FORCE) — #1007 only
+  falsified chasing this via FORCE key desync.
+- Falsifier: C caller/context at @10217 (wish vs identify vs other);
+  compare `objnam.c` namedesc table size / filter vs JS.
+- Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0860 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0861 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -36,10 +34,9 @@ Objective/score live in `CURRENT.md`.
 - C `~drn2` site tags inherit last **core** caller (stale for display).
 - Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
 - Do not expect missing hungry line @213 — hunger was present (D-0858).
-- Do not re-FORCE WEB-unique omit for D-0731 (#1004: any keep-track pair OK).
+- Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
-- Do not trust FORCE→namedesc@10217 as next faithful peel (#1007).
-- Do not re-check mfndpos ROOM/trap/online omit for @10157 (#1008: MON_AT).
+- Do not chase namedesc via FORCE (#1007); peel @10217 faithfully now.
 
 ## Landmarks (≤15)
 
@@ -59,5 +56,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
-- **D-0731 #1008:** C poss[] = MON_AT; Darwin sysconf GDBPATH/WIZARDS=*
-  needed for recorder rerecord.
+- **D-0861 #1009:** `searches_for_item` Is_container; seed0399 @10217.

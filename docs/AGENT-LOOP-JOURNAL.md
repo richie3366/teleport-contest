@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 16:14 — #1009 D-0861 Is_container; D-0731 closed
+- Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731 mon drift).
+- C locus: muse.c searches_for_item TOOL Is_container.
+- Change: port Is_container / Is_mbag / !olocked in js/muse.js.
+  First diverge @n=10109: C gg=sack(58,13) vs JS tripe(54,11).
+- Verification: green+strict PASS; seed0399 **10157→10217** Scr
+  **113→156**; cohort 1500/1800/0060/0108/0373/0398/0383/0102/0700 PASS.
+- Next: seed0399 @10217 rnd_otyp_by_namedesc rn2(31)vs rn2(181);
+  or D-0708; score @#1010.
+
 ## 2026-07-20 16:05 — #1008 D-0731 C poss[] DIAG; mon drift
 - Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
 - C locus: mon.c mfndpos (recorder DIAG); mon positions.
@@ -161,26 +171,3 @@ Use this shape:
 - Verification: Scr **201**/219 RNG FULL; gulp dims match→~16749;
   green+strict PASS; cohort 8/8.
 - Next: dim-seq from mismatch idx 398 → @195.
-
-## 2026-07-20 13:41 — #995 public score cadence
-- Objective: mandatory 5-iter full `sessions` score refresh.
-- C locus: n/a (docs only; post-#993/#994 no JS peel).
-- Change: measured **38/44** PASS; Scr **8998**/11405 (+2 vs #990 =
-  seed0383 194→196); RNG **666643**/792838 (+61 = seed0399
-  10340→10401); speed `35+0.24/turn`. seed0383 still 196/219 RNG FULL
-  @195 Hallu; warn 38 vs C 45 open.
-- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
-- Next: JS vs C `~drn2` inventory gulp→@195; flush parked (D-0841).
-
-## 2026-07-20 13:40 — #994 gulpmu warn-only×8 falsified (D-0852)
-- Objective: seed0383 @195; C DISP gulp→expel falsifier + warn burns.
-- C locus: mhitu.c gulpmu `vision_recalc(2)` / display.c display_warning.
-- Diagnosis: C ice-gulp DISP = Monnam `~drn2(430)+~(2)` then **8×~drn2(5)**
-  then uswldtim then swallowed. JS burn-only×9 included `u_at` engulfer
-  (core 11527); skip hero cell → ×8 core FULL but Scr **196→174** and
-  breaks @195 (baseline @195 matched without gulp warns).
-- Falsified: gulpmu warn-only burns alone — do not retry; need full
-  `~drn2` inventory gulp→@195 and/or display_nhwindow+warns together.
-- Verification: green+strict PASS; seed0383 Scr **196** RNG FULL (revert).
-- Next: JS vs C display-rng dims gulp→@195; flush parked.
-

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0861 | fixed | searches_for_item Is_container | seed0399 **10157→10217**; Scr 113→156; elf sack goal |
 | D-0860 | fixed | monflee always mon_track_clear | C fidelity; seed0399 @10157 inert (unicorn !mflee) |
 | D-0859 | fixed | unicorn noteleport_level for NOTONL/flee-tele | C fidelity; seed0399 @10157 unchanged (maze !noteleport) |
 | D-0858 | fixed | doattributes Hallu + Antimagic attrs | seed0383 **PASS** 219/219; suite PASS→39 local |
@@ -780,7 +781,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0728 | fixed | `#herecmdmenu`/`doherecmdmenu` self menu; NUL≠TIME | seed0108 Scr 292→293; cursors FULL; next wall color after ^V |
 | D-0729 | fixed | Sokoban `wall_glyph` blue only under DECgraphics | seed0108 PASS 303/303; suite 36/44 @#810; next D-0708 |
 | D-0730 | fixed | max_passive_dmg AD_ACID (+ FIRE/COLD/ELEC) | seed0399 10145→10157 RNG 10359; next @10157 m_move |
-| D-0731 | open | unicorn mfndpos cnt7vs5; C MON_AT elves+spider | #1008: JS mons drifted; find silent appr peel |
+| D-0731 | fixed | unicorn mfndpos cnt7vs5 via mon drift | closed by D-0861 Is_container; next @10217 namedesc |
 | D-0732 | fixed | mon_allowflags + in_your_sanctuary / temple ALLOW_SANCT | shared; seed0399 @10157 unchanged (maze nrooms=0) |
 | D-0733 | fixed | mfndpos diagonal worm_cross + rogue door-cut | shared; inert for 0399/0014 (no worms / not rogue) |
 | D-0734 | fixed | zhitu non-sleep + hero destroy_items AD_FIRE | seed5002 5980→6172; seg0 FULL; next themerms @6172 |

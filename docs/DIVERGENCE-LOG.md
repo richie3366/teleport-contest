@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0861 — searches_for_item Is_container (seed0399 elf sack goal)
+
+- **Status:** fixed
+- **Symptom:** seed0399 unicorn `mfndpos` cnt7vs5 @10157 — elves/spider
+  drifted NW while RNG still matched (silent appr=1).
+- **DIAG (#1009):** first coord diverge @ n=10109 — same starts, different
+  dests. `m_move` gg C=(58,13) sack vs JS=(54,11) tripe. C `SEARCH_HIT`
+  upgrades to sack; JS `mon_would_take_item` reject sack (`take=0`).
+- **C locus:** `muse.c` `searches_for_item` TOOL_CLASS —
+  `Is_container && !(Is_mbag && cursed) && !olocked`.
+- **Cause:** JS deferred that arm; elf noble never targets unlocked SACK,
+  so approach goal differs → silent position drift → wrong MON_AT at
+  unicorn `mfndpos`.
+- **Change:** port Is_container / Is_mbag / !olocked in `js/muse.js`
+  `searches_for_item`. Named: FOOD corpse/tin/egg; can_blow on horns.
+- **Verification:** green+strict PASS; seed0399 prefix **10157→10217**
+  Scr **113→156**/532; cohort 1500/1800/0060/0108/0373/0398/0383/0102/0700
+  PASS. Next @10217 `rnd_otyp_by_namedesc` rn2(31) vs rn2(181).
+- **Closes:** D-0731 remaining drift.
+
 ## D-0860 — monflee always mon_track_clear
 
 - **Status:** fixed (C fidelity; seed0399 @10157 unchanged)
@@ -2586,9 +2606,7 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 
 ## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
 
-- **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear +
-  mfndpos onscary/garlic/bars/gas/mconf ported; **#1004** noteleport_level
-  wired D-0859; **#1008 C poss[] DIAG:** omit = MON_AT drift, not ROOM)
+- **Status:** fixed (closed by D-0861 — mon drift from missing Is_container)
 - **Symptom:** seed0399 @10157 C `rn2(20)` vs JS `rn2(28)` at
   `m_move` track skip (`4*(cnt-j)`).
 - **DIAG (#814):** black unicorn @58,12 appr=1; JS `cnt=7` j=0 →28;
@@ -2614,6 +2632,9 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
   (58,11)+(57,13) → cnt=7. RNG still matched through 10156 (silent
   appr=1 nearer drift). Darwin recorder: fix install `sysconf`
   GDBPATH/GREPPATH + `WIZARDS=*`.
+- **DIAG (#1009):** first silent diverge @n=10109 — same from-coords,
+  different dests because `m_search_items` gg: C→sack(58,13) vs
+  JS→tripe(54,11). JS `searches_for_item` omitted Is_container → D-0861.
 - **Falsifier (done #1008):** C recorder poss[] at (58,12).
 - **Falsified (#813–#816):** WEB required in omit pair; pair ID via
   max-prefix; deferred onscary/garlic/bars/gas with current JS state
@@ -2623,22 +2644,16 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 - **Falsified (#1007):** namedesc-via-FORCE as next objective.
 - **Falsified (#1008):** mfndpos ROOM/trap/online omit of 2 cells —
   C drops via MON_AT; JS mons drifted.
-- **Cause (partial):** D-0233 named omission — unicorn
-  `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
-  failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
-  Remaining: **silent position drift** of PM_ELF_NOBLE×2 +
-  PM_GIANT_SPIDER before @10157 (same class as D-0708).
+- **Cause (partial then closed):** early NOTONL/fail-tele/`rloc_to`
+  ports; remaining drift closed by D-0861 `Is_container`.
 - **C locus:** `mon.c` `mon_allowflags`/`mfndpos`; `monmove.c` onscary
-  + m_move unicorn else-branch; `teleport.c` `rloc_to`.
+  + m_move unicorn else-branch; `teleport.c` `rloc_to`; root goal via
+  `muse.c` `searches_for_item`.
 - **Change (#814):** `mfndpos` — mconf/`!mcansee` flag adjust; IRONBARS;
   poison-gas via `visible_region_at`; `onscary` (scare scroll +
   Elbereth + altar-vamp); garlic/`NOGARLIC`.
-- **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
-  0398 PASS; seed0399 still @10157 (rn2(28); positional 10389/11409);
-  seed0014 unchanged @49039.
-- **Next:** find first silent position drift of elf nobles / spider
-  (binary-search mon coords vs C before @10157); or D-0708; do not
-  FORCE-omit mfndpos cells.
+- **Verification:** see D-0861; seed0399 past @10157 to @10217.
+- **Next:** seed0399 @10217 namedesc; or D-0708.
 
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 
