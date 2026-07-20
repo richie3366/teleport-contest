@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0878 | fixed | lock chest_shatter_msg Blind+singular + PAPER/GLASS/WOOD mats | seed0014 Scr **620→621**; next @212 compare-items |
 | D-0877 | fixed | dipfountain bath case 28 + steal somegold | seed0014 RNG **FULL 59178**; Scr 620/714; case 29 deferred |
 | D-0876 | fixed | monmove watch_on_duty + has_town/in_town | seed0014 **58462→59074**; mon_yells/dig deferred |
 | D-0875 | fixed | makemaz load_special minetn-3 Alley Town | seed0014 **52043→58462**; wand shop + watch_on_duty next |

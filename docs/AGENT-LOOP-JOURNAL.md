@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:06 — #1031 D-0878 chest_shatter_msg
+- Objective: seed0014 first screen miss (Scr 620/714; miss was @47 not prefix).
+- C locus: `lock.c` `chest_shatter_msg` Blind+`singular` + material switch.
+- Change: Blind save/restore for `singular(xname)`; fix PAPER=5/GLASS=19/
+  WOOD=8 (were 1/11/13). Named omit potionbreathe / Blind hear-see.
+- Verification: green+strict PASS; cohort 38/38 PASS; seed0014 Scr
+  **620→621** (RNG FULL).
+- Next: seed0014 screen@212 compare-items More vs invent line.
+
 ## 2026-07-20 19:01 — #1030 public score cadence
 - Objective: mandatory full `sessions` score refresh (iter % 5 == 0).
 - C locus: n/a (docs-only cadence).

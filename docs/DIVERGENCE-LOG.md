@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0878 — lock.c chest_shatter_msg Blind+singular + material enums
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 screen@47 — C `A spellbook is torn to shreds!` vs JS
+  `A white spellbook is destroyed!` after chest destroy `--More--`.
+- **C locus:** `lock.c` `chest_shatter_msg` (Blind props + `singular(xname)` +
+  `objects[].oc_material` switch; `An(thing)`).
+- **Cause:** JS used wrong material constants (`PAPER=1`/`GLASS=11`/`WOOD=13`
+  vs `objclass.h` PAPER=5, GLASS=19, WOOD=8) so SPE_HEALING (mat 5) fell to
+  default "is destroyed"; and named via live `xname` (observe → "white …")
+  instead of Blind-gated `singular`.
+- **Change:** port Blind save/restore + `singular`; fix mat enums; `An`-style
+  capitalize. Named omit: potionbreathe; Blind hear-vs-see potion shatter.
+- **Verify:** green+strict PASS; cohort 38/38 PASS; seed0014 Scr **620→621**
+  (RNG FULL); first miss now @212 compare-items More.
+- **Next:** seed0014 screen@212 `You learn more about your items…`.
+
 ## D-0877 — dipfountain bath case 28 + somegold (seed0014 @59074)
 
 - **Status:** fixed (partial — seed0014 still FAIL on screens)
