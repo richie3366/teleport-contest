@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1035**,
-cadence). Screens **9493**/11405; RNG **676,373**/792838 (85.31%).
-**40/44** PASS. Next cadence @**#1040**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1040**,
+cadence). Screens **9504**/11405; RNG **676,373**/792838 (85.31%).
+**40/44** PASS. Next cadence @**#1045**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **40 / 44** |
-| Screens matched | **9,493 / 11,405** |
+| Screens matched | **9,504 / 11,405** |
 | Positional RNG calls matched | **676,373 / 792,838** (85.31%) |
-| Speed label | `32+0.23/turn` (R² 0.833) |
+| Speed label | `32+0.23/turn` (R² 0.836) |
 | Role-init throws | **0 / 44** |
 
 **PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0014 | **59178**/59178 | **633**/714 | RNG FULL; next @415 take-off AC botl |
+| seed0014 | **59178**/59178 | **644**/714 | RNG FULL; next @560 trap map |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
@@ -72,10 +72,10 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 Scr 641/714** — RNG closed (D-0877);
-D-0881…D-0888 take-off AC + nymph + flee-rloc + could_seduce +
-cream pie `The(xname)`. First miss @558 C `You swap places with
-the peaceful gnome.` vs JS bare `… with the gnome.`.
+**Gameplay next:** **seed0014 Scr 644/714** — RNG closed (D-0877);
+D-0881…D-0889 (peaceful swap `x_monnam`). First miss @560 —
+topline matches (`You stumble.  Click!  The gnome lord triggers
+something.--More--`); map/glyph diverge (trap trigger display).
 Focused:
 
 ```bash
@@ -85,12 +85,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0888. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0889. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0888 (searches_for_item … cream pie The).
+D-0861…D-0889 (searches_for_item … peaceful swap x_monnam).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -108,7 +108,8 @@ pass `rloc(..., 0)` from seduce steal flee (D-0885);
 pass `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886);
 omit rloc post-place appear/close-by (D-0886);
 omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887);
-capitalize-only cream pie splash (need `The(xname)` D-0888).
+capitalize-only cream pie splash (need `The(xname)` D-0888);
+omit peaceful adj / frighten verb on safemon swap (D-0889).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

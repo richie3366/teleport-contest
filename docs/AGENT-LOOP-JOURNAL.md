@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 20:16 — #1040 score + D-0889 peaceful swap x_monnam
+- Objective: cadence full `sessions` + seed0014 @558 peaceful gnome.
+- C locus: `hack.c` `domove_swap_with_pet` `x_monnam(...,"peaceful")`.
+- Change: swap pline uses full `x_monnam` article/adj/frighten; export
+  `type_is_pname`. Score @#1040: **40/44** Scr **9504**/11405 RNG
+  **676373**/792838 (85.31%) `32+0.23/turn`.
+- Verification: green+strict PASS; cohort 9/9; seed0014 Scr **641→644**.
+- Next: @560 trap-trigger map/glyph (topline already matches).
+
 ## 2026-07-20 20:10 — #1039 D-0888 cream pie The(xname)
 - Objective: seed0014 @505 `The cream pie splashes…` vs JS `Cream pie…`.
 - C locus: `uhitm.c` hmon CREAM_PIE `The(xname)` / `An(singular)`.

@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0889 — domove_swap_with_pet peaceful x_monnam adjective
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @558 — C `You swap places with the peaceful
+  gnome.` vs JS `… with the gnome.` (missing peaceful adj; also @572
+  dwarf / @677 gnome).
+- **C locus:** `hack.c` `domove_swap_with_pet` —
+  `You("%s %s.", mpeaceful ? "swap places with" : "frighten",
+  x_monnam(..., (mpeaceful && !mtame) ? "peaceful" : 0, ...))`.
+- **Cause:** JS used `x_monnam_tame` without the peaceful adjective /
+  frighten verb / ARTICLE selection from C.
+- **Change:** `cmd.js` swap pline calls `x_monnam` with C article /
+  adjective / SUPPRESS_SADDLE; export `type_is_pname`. Named omit:
+  pit/boulder/NODIAG refuse arms still thin vs C.
+- **Verify:** green+strict PASS; cohort 9/9 PASS; seed0014 Scr
+  **641→644**/714 (RNG FULL). @558/@572/@677 match.
+- **Next:** @560 topline matches (`You stumble.  Click!  The gnome
+  lord triggers something.--More--`); map/glyph diverge.
+
 ## D-0888 — cream pie splash The(xname) / An(singular)
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
