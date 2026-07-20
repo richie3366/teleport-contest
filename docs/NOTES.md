@@ -7,16 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1003 D-0858:** seed0383 **PASS** — Status Hallu + Antimagic attrs.
-  Hungry was already present; miss was `(1 of 2)` vs `(1 of 3)`.
-- **Next gameplay:** seed0399 @10157 (D-0731) or seed0014 @50259 (D-0708).
-- Wear/invis plines in `m_dowear_type` still deferred (not needed for 0383).
+- **#1004 D-0859:** wired `noteleport_level` for unicorn NOTONL / flee-tele
+  (C fidelity). seed0399 still @10157 — maze `!noteleport`, mux=u.
+- **D-0731 hypothesis:** C drops 2 of 7 open ROOM neighbors (spider already
+  excludes (57,12)). FORCE any keep-track 2-omit →10217; WEB **not** unique.
+  Need C-state which pair (terrain/mon/trap split). Next after arity:
+  `rnd_otyp_by_namedesc` rn2(31) vs rn2(181).
+- Falsifier: C-state dump of unicorn mfndpos poss[] at @10157.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0858 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0859 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -32,6 +35,7 @@ Objective/score live in `CURRENT.md`.
 - C `~drn2` site tags inherit last **core** caller (stale for display).
 - Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
 - Do not expect missing hungry line @213 — hunger was present (D-0858).
+- Do not re-FORCE WEB-unique omit for D-0731 (#1004: any keep-track pair OK).
 
 ## Landmarks (≤15)
 
@@ -51,3 +55,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
+- **D-0731 #1004:** unicorn @58,12 cnt7; FORCE→10217 then namedesc.

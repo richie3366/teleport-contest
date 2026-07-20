@@ -4,6 +4,19 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0859 — unicorn noteleport_level for NOTONL / flee-teleport
+
+- **Status:** fixed (C fidelity; seed0399 @10157 unchanged)
+- **Symptom / context:** D-0731 DIAG: unicorn `mon_allowflags` NOTONL and
+  `m_move`/`dochug` flee-teleport used partial `level.flags.noteleport` +
+  stasis, not full `noteleport_level` (hell-court / covetous).
+- **C locus:** `teleport.c` `noteleport_level`; callers in `mon.c`
+  `mon_allowflags`, `monmove.c` `m_move` avoid + `dochug` mflee tele.
+- **Change:** `js/mon.js` / `js/monmove.js` call `noteleport_level(mtmp)`.
+- **Verification:** green+strict PASS; cohort seed0383/0398/1500/1800 PASS;
+  seed0399 still @10157 (maze `!noteleport`, mux=u → NOTONL inert).
+- **Next:** D-0731 C-state which 2 of 7 mfndpos cells.
+
 ## D-0858 — fixed: doattributes Hallucination + Antimagic
 
 - **Status:** fixed (seed0383 Scr **217→219** / **PASS**; RNG FULL)
@@ -2559,13 +2572,19 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 ## D-0731 — unicorn NOTONL + fail-teleport; seed0399 mfndpos cnt open
 
 - **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear +
-  mfndpos onscary/garlic/bars/gas/mconf ported; seed0399 still @10157)
+  mfndpos onscary/garlic/bars/gas/mconf ported; **#1004** noteleport_level
+  wired D-0859; seed0399 still @10157)
 - **Symptom:** seed0399 @10157 C `rn2(20)` vs JS `rn2(28)` at
   `m_move` track skip (`4*(cnt-j)`).
 - **DIAG (#814):** black unicorn @58,12 appr=1; JS `cnt=7` j=0 →28;
   prior silent move @10066 from (59,13) empty-track cnt=4 →(58,12);
   mtrack=`[59,13;0…]`; spider @57,12; WEB+sack@58,13 tseen=0;
   mux=u=(47,9); NOTONL inert; JS gas/engr/regions empty; no garlic/bars.
+- **DIAG (#1004):** open 3×3 all ROOM; flag=NOTONL|ALLOW_U; mtrapseen=0;
+  poss=(57,11)(57,13)(58,11)(58,13 WEB)(59,11)(59,12)(59,13 track).
+  **FORCE:** any 2-of-7 omit that **keeps (59,13)** → arg=20, prefix
+  **10157→10217** (WEB **not** uniquely required — corrects #814 note).
+  Next miss @10217 C `rnd_otyp_by_namedesc` `rn2(31)` vs JS `rn2(181)`.
 - **Falsifier:** FORCE_EXCL any 2 of 7 that **keep (59,13)** → arg=20,
   prefix **10157→10217**. j=2 mtrack rewrite also →10217 (arity-only).
 - **Falsified (#813–#816):** WEB required in omit pair; pair ID via
@@ -2576,9 +2595,7 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
   Remaining: which 2 of the **6 non-track** cells C drops
-  (`worm_cross` still deferred; or C↔JS terrain/mon split without RNG).
-- **DIAG (#816):** maze; near jelly@55,12 + elf nobles@57,10/@56,11;
-  no worms; FORCE keep-track →10217 (wish).
+  (terrain/trap/mon split vs C; same class as D-0708).
 - **C locus:** `mon.c` `mon_allowflags`/`mfndpos`; `monmove.c` onscary
   + m_move unicorn else-branch; `teleport.c` `rloc_to`.
 - **Change (#814):** `mfndpos` — mconf/`!mcansee` flag adjust; IRONBARS;
@@ -2587,7 +2604,7 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 - **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
   0398 PASS; seed0399 still @10157 (rn2(28); positional 10389/11409);
   seed0014 unchanged @49039.
-- **Next:** C-state which 2 cells; temple/`worm_cross`; or D-0708.
+- **Next:** C-state which 2 cells; or D-0708; namedesc after arity.
 
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 

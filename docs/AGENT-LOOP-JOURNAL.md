@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 15:25 — #1004 unicorn noteleport_level + D-0731 DIAG
+- Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
+- C locus: teleport.c noteleport_level; mon.c mon_allowflags;
+  monmove.c m_move avoid / dochug mflee tele.
+- Diagnosis: unicorn @58,12 open ROOM; spider excludes 1; FORCE any
+  keep-track 2-omit →10217 (WEB not unique); next namedesc rn2(31)
+  vs rn2(181). No JS-visible reason for which 2 C drops.
+- Change: D-0859 wire noteleport_level (C fidelity; inert on maze).
+- Verification: green+strict PASS; cohort 0383/0398/1500/1800 PASS;
+  seed0399 still @10157.
+- Next: C-state which 2 mfndpos cells; or D-0708; score @#1005.
+
 ## 2026-07-20 15:10 — #1003 doattributes Hallu+Antimagic (D-0858)
 - Objective: seed0383 Scr 217/219; first miss @213 Ctrl-X attrs.
 - C locus: insight.c status_enlightenment Hallucination;

@@ -75,7 +75,7 @@ import { lined_up, m_has_launcher_and_ammo } from './mthrowu.js';
 import { is_pole } from './wield.js';
 import { acurrstr } from './attrib.js';
 import { m_canseeu } from './mondata.js';
-import { rloc, tele_restrict } from './teleport.js';
+import { rloc, tele_restrict, noteleport_level } from './teleport.js';
 import { quest_talk, quest_stat_check } from './quest.js';
 import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
@@ -1435,10 +1435,9 @@ export async function m_move(mtmp, after) {
         appr = 0;
     }
     // C: unicorn noteleport — avoid NOTONL squares when any alt exists
-    // (noteleport_level: level.flags.noteleport; hell-court deferred)
     let avoid = false;
     if (ptr?.mlet === 'S_UNICORN' && likes_gems(ptr)
-        && !!game.level?.flags?.noteleport) {
+        && noteleport_level(mtmp)) {
         for (let i = 0; i < cnt; i++) {
             if (!(mfp.info[i] & NOTONL)) { avoid = true; break; }
         }
@@ -1606,8 +1605,7 @@ export async function dochug(mtmp) {
     // — teleport costs a turn. rn2(40) always runs when mflee is set.
     if (mtmp.mflee && !rn2(40) && can_teleport(mtmp.data)
         && !mtmp.iswiz
-        && !(game.level?.flags?.noteleport
-            || ((game.level?.flags?.stasis_until ?? -1) >= (game.moves ?? 0)))) {
+        && !noteleport_level(mtmp)) {
         if (rloc(mtmp, 0)) {
             // leppie_stash deferred
             return 0;
