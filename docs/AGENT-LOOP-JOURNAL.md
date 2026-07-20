@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 16:40 — D-0863 hold_another_object encumber_msg
+- Objective: seed0399 @10269 C gethungry rn2(20) vs JS rnd(20).
+- C locus: `invent.c` `hold_another_object` → `encumber_msg` after prinv.
+- Change: call encumber_msg after stay-in-invent prinv. Symptom was
+  key desync: missing --More-- let `#wizintrinsic` run → `t` threw.
+- Verification: green+strict PASS; prefix **10269→10309** Scr **392→407**;
+  cohort 37/37 PASS.
+- Next: seed0399 @10309 C `dog_move` rn2(1) vs JS rn2(100).
+
 ## 2026-07-20 16:30 — D-0862 makesingular / gold / SCR_MAIL
 - Objective: seed0399 @10217 `rnd_otyp_by_namedesc` rn2(31) vs rn2(181).
 - C locus: `objnam.c` `makesingular`/`readobjnam` gold; `mkobj.c`

@@ -2933,7 +2933,11 @@ export async function dolook() {
 
 /**
  * C ref: invent.c hold_another_object — wish/pickup into invent.
- * Fumbling / encumbrance-drop / autoquiver / fatal-corpse paths deferred.
+ * Branch envelope: Blind observe; artifact touch; addinv + prinv;
+ * encumber_msg after stay-in-invent (D-0863 — triggers --More-- via
+ * pline NEED_MORE before makewish ublesscnt).
+ * Named omissions: Fumbling/encumbrance-drop/autoquiver/fatal-corpse;
+ * update_inventory / perm_invent redraw.
  */
 export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
     const { addinv } = await import('./u_init.js');
@@ -2971,6 +2975,9 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
         // C: prinv(hold_msg, obj, oquan) — oquan before merge
         await prinv(hold_msg || null, held, oquan);
     }
+    // C: update_inventory(); encumber_msg(); — invent redraw deferred;
+    // encumber_msg pline flushes prior prinv --More-- (xwaitforspace).
+    await encumber_msg();
     return held;
 }
 

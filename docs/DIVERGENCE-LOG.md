@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0863 — hold_another_object encumber_msg after prinv (seed0399 @10269)
+
+- **Status:** fixed
+- **Symptom:** seed0399 @10269 — C `gethungry` `rn2(20)` (melee
+  `overexertion` after `h`) vs JS `rnd(20)` `@ thitmonst` (throw).
+- **DIAG:** after matched makewish `ublesscnt` `rn2(100)`, JS stack was
+  `dothrow`→`thitmonst`. Session steps 398–412: spellbook prinv shows
+  `--More--`; keys `#wizintrinsic` typed while More is up; C ignores
+  them (`xwaitforspace`); `\n` dismisses; then `h` melee. JS finished
+  wish without More → `#wizintrinsic` ran as commands → `t` threw.
+- **C locus:** `invent.c` `hold_another_object` success arm —
+  `prinv` then `update_inventory` then `encumber_msg()`; encumber
+  `pline` sees `TOPLINE_NEED_MORE` → `more()` before new text.
+- **Cause:** JS `hold_another_object` returned after `prinv` without
+  `encumber_msg`, so makewish burned `ublesscnt` on the wish Enter and
+  never blocked on More that absorbs the following `#wizintrinsic`.
+- **Change:** call `encumber_msg()` after stay-in-invent `prinv` in
+  `js/invent.js`. Named: fumbling/drop/autoquiver/`update_inventory`.
+- **Verification:** green+strict PASS; seed0399 prefix **10269→10309**
+  Scr **392→407**/532; cohort 37/37 PASS (incl. 0360/5006/0398/0383).
+- **Next:** seed0399 @10309 C `dog_move` `rn2(1)` vs JS `rn2(100)`.
+
 ## D-0862 — makesingular + gold wish + SCR_MAIL blessorcurse (seed0399 @10217)
 
 - **Status:** fixed

@@ -7,17 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @10269:** after D-0862 wish cluster, first miss C
-  `gethungry` `rn2(20)` vs JS `rnd(20)`. Faithful peel — not FORCE.
-- Falsifier: C `eat.c` `gethungry` site + callers vs JS `eat.js`;
-  confirm arity (`rn2` vs `rnd`) and preceding move/wish state.
+- **seed0399 @10309:** after D-0863 wish More/key sync, first miss C
+  `dog_move` `rn2(1)` vs JS `rn2(100)`. Faithful peel — not FORCE.
+- Falsifier: C `dogmove.c` around dog_move:1255 vs JS `dogmove.js`;
+  preceding pet inventory / obj_resists chain still matched.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0862 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0863 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -28,16 +28,15 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0862 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0863 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- C `~drn2` site tags inherit last **core** caller (stale for display).
-- Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
-- Do not expect missing hungry line @213 — hunger was present (D-0858).
 - Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
 - Do not chase namedesc via FORCE (#1007); D-0862 closed @10217.
 - Do not drop makesingular `as_is` (boots/gloves/gauntlets) — #1011
   regression seed0360/5006.
+- Do not drop hold_another_object encumber_msg — #1012 @10269 was
+  key desync (`t` throw), not gethungry arity.
 
 ## Landmarks (≤15)
 
@@ -60,3 +59,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0861 #1009:** `searches_for_item` Is_container; seed0399 @10217.
 - **D-0862 #1011:** makesingular+as_is; gold wish; SCR_MAIL skip
   blessorcurse; seed0399 **10217→10269** Scr 156→392.
+- **D-0863 #1012:** hold_another_object encumber_msg; seed0399
+  **10269→10309** Scr 392→407.

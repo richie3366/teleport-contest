@@ -75,10 +75,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 @10269** — D-0862 closed @10217 namedesc
-(`makesingular`+as_is, gold wish, SCR_MAIL skip blessorcurse). Next:
-C `gethungry` `rn2(20)` vs JS `rnd(20)`. Alt: seed0014 @50259 (D-0708).
-Focused:
+**Gameplay next:** **seed0399 @10309** — D-0863 closed @10269
+(`hold_another_object` `encumber_msg` after prinv → `--More--` absorbs
+`#wizintrinsic`). Next: C `dog_move` `rn2(1)` vs JS `rn2(100)`.
+Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -87,7 +87,7 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0862. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0863. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -119,6 +119,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not re-check mfndpos ROOM/trap/online as @10157 omit (#1008).**
 **Do not drop D-0861 searches_for_item Is_container.**
 **Do not drop makesingular `as_is` boots/gloves/gauntlets (D-0862).**
+**Do not drop hold_another_object encumber_msg after prinv (D-0863).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
