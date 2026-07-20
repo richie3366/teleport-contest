@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 04:24 — #955 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score+docs; no peel).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+  **38/44** PASS; Scr **8938**/11405 (**+0** vs #950); RNG
+  **660431**/792838 (83.30%, **+38** = D-0827 soak); speed
+  `36+0.21/turn` R² 0.769. seed0383 still @10374 Scr 142.
+- Verification: green+strict PASS; full suite exit 38/44.
+- Next: seed0383 C-state `mcanmove`/`msleeping`/DEAD for gnome@46,2.
+
 ## 2026-07-20 04:22 — #954 D-0830 falsify mcalcmove/MSLOW/minliquid
 - Objective: seed0383 @10374 — why C skips gnome before vortex mattacku.
 - C locus: `mon.c` movemon_singlemon / `allmain.c` mcalcmove; `monmove.c` dochug.
