@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:22 — #1033 D-0880 yn_function hard-wrap
+- Objective: seed0014 screen@383 yn cursor `[1,1]` vs JS `[80,0]`.
+- C locus: `topl.c` `tty_yn_function` → `show_topl`/`topl_putsym`
+  hard-wrap at CO-1 (SUPPRESS_HISTORY path).
+- Change: `yn_function` paints via `topl_wrap_echo`; cursor at wrap
+  end; restore unwrapped prompt on toplines after flush.
+- Verification: green+strict PASS; cohort 12/12 PASS; seed0014 Scr
+  **623→624** (RNG FULL); @383 fixed; first miss @388 post-rust xname.
+- Next: seed0014 @388 C short helm name vs JS still rusty/cursed.
+
 ## 2026-07-20 19:13 — #1032 D-0879 addinv compare-learn
 - Objective: seed0014 screen@212 compare-items More vs invent line.
 - C locus: `invent.c` `merged`/`addinv` known/bknown/rknown + invent pline.
@@ -159,13 +169,3 @@ Use this shape:
 - Verification: green+strict PASS; prefix **10729→11152** Scr
   **442→502**; cohort 10/10.
 - Next: seed0399 @11152 C poisoned d(2,2) attrib-loss arm.
-
-## 2026-07-20 17:16 — #1016 D-0867 thitmonst tmiss
-- Objective: seed0399 @10697 C `tmiss` rn2(3) vs JS rn2(100).
-- C locus: `dothrow.c` `tmiss` / `thitmonst` else; armor throw of
-  gray dragon scale mail at soldier ant.
-- Change: port `tmiss` + food-fail `tmiss(FALSE)` + else `tmiss(TRUE)`.
-  Cause was silent miss → `breaktest`/`obj_resists`.
-- Verification: green+strict PASS; prefix **10697→10729** Scr
-  **429→442**; cohort 16/16 (throw seeds incl.).
-- Next: seed0399 @10729 C `exercise` rn2(19) vs JS `distfleeck` rn2(5).

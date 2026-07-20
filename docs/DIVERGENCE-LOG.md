@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0880 — yn_function show_topl hard-wrap cursor
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 screen@383 — cells match on
+  `Dip a cursed very rusty -4 orcish helm … [yn] (n) `; C cursor
+  `[1,1,1]` vs JS `[80,0,1]`.
+- **C locus:** `win/tty/topl.c` `tty_yn_function` →
+  `custompline(SUPPRESS_HISTORY)` → `tty_putstr` `show_topl` →
+  `addtopl`/`putsyms`/`topl_putsym` hard-wrap at `CO-1` (not
+  `update_topl` word-wrap). 80-char prompt puts trailing space on
+  row 1; cursor ends at `(1,1)`.
+- **Cause:** JS `yn_function` painted the unwrapped prompt and
+  `setCursor(prompt.length, 0)`.
+- **Change:** reuse `topl_wrap_echo` for paint + cursor; restore
+  unwrapped prompt on `_toplines` after flush for parse clear.
+  Named omit: post-answer `Sprintf(gt.toplines, prompt+key)`;
+  `#` digit yn_number arm; getobj callers that set cursor without
+  wrap.
+- **Verify:** green+strict PASS; cohort 12/12 PASS; seed0014 Scr
+  **623→624** (RNG FULL); @383 fixed; first miss now @388.
+- **Next:** @388 C `Dip a -4 orcish helm…` vs JS still
+  `cursed thoroughly rusty` after “rusts completely”.
+
 ## D-0879 — invent.c addinv merged compare-learn pline
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
