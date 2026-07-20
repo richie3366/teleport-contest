@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0916 — themerms Nesting nested + lspo_door rnddoor (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Fake Delphi /
+  Huge / Mausoleum / Twin nested bodies + Random-feature center
+  terrain still deferred)
+- **Session:** seed4500-knight-coverage @52803
+- **Symptom:** after matched Nesting outer `create_room` rnd(3)/rnd(3),
+  C `nhlib` `math.random` `rn2(5)` (themerms.lua:349–350 wid/hei) vs
+  JS `rn2(1000)` (next themerooms pick).
+- **Cause:** Nesting outer size/create_room ported (D-0226) but nested
+  mid/inner `create_subroom` + doors deferred. Also `splev_room_door`
+  skipped C `lspo_door`’s leading `rnddoor()` when state=random
+  (mask stays -1; typ only for secret).
+- **C locus:** `dat/themerms.lua` Nesting rooms contents; `dat/nhlib.lua`
+  `math.random`; `sp_lev.c` `create_subroom`/`lspo_door`/`rnddoor`/
+  `create_door`.
+- **Fix:** `themeroom_nesting_contents` — wid/hei via `lua_random2`,
+  mid + optional innermost `splev_des_room`, random doors; `splev_room_door`
+  burns `rnddoor()` when msk==-1 before `create_door`.
+- **Verification:** prefix **52803→54329** RNG **54647** Scr **613**;
+  green+strict PASS; cohort 13/13 PASS + strict lengths.
+- **Next:** @54329 C `somex` `rn2(2)` vs JS `rn2(12)` after
+  `fill_ordinary_room`.
+
 ## D-0915 — goto_level Punished unplacebc/placebc (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Blind glyph /

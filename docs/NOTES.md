@@ -8,16 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @52803 — C `themerms.lua`/`nhlib`
-  `rn2(5)=3` vs JS `rn2(1000)=718` (create_room / theme path).
+- **Gameplay next:** seed4500 @54329 — C `somex`/`somey` `rn2(2)`/
+  `rn2(5)` vs JS `rn2(12)` after matched `fill_ordinary_room`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0915 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0916 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit Nesting nested create_subroom/door / lspo_door `rnddoor`
+  (D-0916).
 - Do not omit `goto_level` Punished `unplacebc`/`placebc` (D-0915).
 - Do not stub `mk_knox_portal` place under wizard/debug (D-0914).
 - Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
@@ -30,12 +32,13 @@ Objective/score live in `CURRENT.md`.
 - Do not omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908).
 - Do not omit `set_occupation(learn)` / learn `makeknown` credit_hero
   (D-0907).
-- Do not omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1065 Scr **10198**/11405 RNG **737530**/792838
   (93.02%); next cadence @#1070.
+- **D-0916 #1067:** Nesting nested + lspo_door rnddoor; seed4500
+  **52803→54329** RNG **54647** Scr **613**.
 - **D-0915 #1066:** goto_level unplacebc/placebc; seed4500
   **52643→52803** RNG **52925** Scr **611**.
 - **#1065 score:** seed4500 was @52643; shk/`onlineu` = stranded ball.
@@ -60,5 +63,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0905 #1055:** Erinys peace_minded; seed4500 **28249→32538**
   Scr **302→308**.
 - **D-0904 #1054:** find_hell; seed4500 **18153→28249** Scr **302**.
-- **D-0903 #1053:** fill_zoo BEEHIVE; seed4500 **14216→18153**
-  Scr **294→302**.

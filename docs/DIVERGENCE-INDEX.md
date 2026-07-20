@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0916 | fixed | themerms Nesting nested + lspo_door rnddoor | seed4500 **52803→54329** RNG **54647** Scr **613**; next @54329 somex |
 | D-0915 | fixed | goto_level Punished unplacebc/placebc | seed4500 **52643→52803** RNG **52925** Scr **611**; next @52803 themerms |
 | D-0914 | fixed | mk_knox_portal place under wizard/debug | seed4500 **50844→52643** RNG **52967** Scr **608**; next @52643 distfleeck |
 | D-0913 | fixed | cmd `x` → doswapweapon + setworn twoweap clear | seed4500 **50338→50844** RNG **50936** Scr **594**; next @50844 mkshop |

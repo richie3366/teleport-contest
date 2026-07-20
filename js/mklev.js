@@ -9976,13 +9976,16 @@ const DOOR_STATE = {
 
 /**
  * C ref: sp_lev.c lspo_door wall-form → create_door.
+ * Random state burns rnddoor() for typ/secret only; mask stays -1 so
+ * create_door still rolls its mask branch (C tmpd.mask = msk).
  */
 function splev_room_door(croom, state, wall) {
-    const mask = DOOR_STATE[state] ?? -1;
-    const typ = (mask === -1) ? -1 : mask;
+    const msk = DOOR_STATE[state] ?? -1;
+    // C: typ = (msk == -1) ? rnddoor() : (coordxy) msk;
+    const typ = (msk === -1) ? rnddoor() : msk;
     create_door({
         secret: (typ === D_SECRET) ? 1 : 0,
-        mask,
+        mask: msk,
         pos: -1,
         wall: DOOR_WALL[wall] ?? W_ANY,
     }, croom);
@@ -15560,6 +15563,42 @@ function create_mimic_as_chest(croom) {
 }
 
 /**
+ * C ref: themerms.lua "Nesting rooms" contents after outer des.room —
+ * mid create_subroom sized via math.random(floor(rm.w/2), rm.w-2) (nhlib
+ * → lo+rn2(hi-lo+1)); optional innermost ordinary + random doors.
+ */
+function themeroom_nesting_contents(croom) {
+    // C l_push_mkroom_table: width/height = 1+(hx-lx)/(hy-ly)
+    const rmWidth = 1 + (croom.hx - croom.lx);
+    const rmHeight = 1 + (croom.hy - croom.ly);
+    // math.random(math.floor(rm.width/2), rm.width-2)
+    const wid = lua_random2(Math.floor(rmWidth / 2), rmWidth - 2);
+    const hei = lua_random2(Math.floor(rmHeight / 2), rmHeight - 2);
+    const mid = splev_des_room(
+        { type: 'ordinary', w: wid, h: hei, filled: 1 },
+        croom,
+        (midRoom) => {
+            // C: if percent(90) then des.room({ ordinary, filled=1, ...doors })
+            if (percent(90)) {
+                splev_des_room(
+                    { type: 'ordinary', filled: 1 },
+                    midRoom,
+                    (inner) => {
+                        splev_room_door(inner, 'random', 'all');
+                        if (percent(15))
+                            splev_room_door(inner, 'random', 'all');
+                    },
+                );
+            }
+            splev_room_door(midRoom, 'random', 'all');
+            if (percent(15))
+                splev_room_door(midRoom, 'random', 'all');
+        },
+    );
+    if (!mid && game.in_mk_themerooms) game.themeroom_failed = true;
+}
+
+/**
  * C ref: themerms.lua "Pillars" contents + sp_lev.c lspo_terrain /
  * nhlib.lua shuffle — 7-char terr Fisher–Yates then 2×2 pillar blocks
  * at room-relative (x*4+2, y*4+2) for x,y in 0..(width/4)-1 (Lua float).
@@ -16204,10 +16243,10 @@ async function themerooms_generate(difficulty) {
             do_themed_fill = true;
         }
         // Named omission: Room-in-room nested create_subroom/door; Fake Delphi /
-        // Huge / Nesting / Mausoleum / Twin nested bodies; Random-feature
-        // center terrain. Pillars terrain done (D-0901). Water vault
-        // map+contents done (D-0690). Blocked center map+replace_terrain
-        // done (D-0243).
+        // Huge / Mausoleum / Twin nested bodies; Random-feature center
+        // terrain. Nesting nested body done (D-0916). Pillars terrain
+        // done (D-0901). Water vault map+contents done (D-0690). Blocked
+        // center map+replace_terrain done (D-0243).
 
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (after contents arg RNG such as Nesting rn2(4) size rolls)
@@ -16224,7 +16263,12 @@ async function themerooms_generate(difficulty) {
                 if (do_themed_fill) themeroom_fill(aroom);
                 // C themerms.lua Pillars contents after des.room/build_room
                 if (pick.name === 'Pillars') themeroom_pillars_contents(aroom);
-                // Nesting rooms nested contents deferred (create_subroom/door)
+                // C themerms.lua Nesting rooms nested create_subroom/door
+                if (pick.name === 'Nesting rooms') {
+                    themeroom_nesting_contents(aroom);
+                    // C lspo_room: add_doors_to_room after contents
+                    add_doors_to_room(aroom);
+                }
             }
         } else if (g.in_mk_themerooms) {
             g.themeroom_failed = true;
