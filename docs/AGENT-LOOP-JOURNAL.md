@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 16:30 — D-0862 makesingular / gold / SCR_MAIL
+- Objective: seed0399 @10217 `rnd_otyp_by_namedesc` rn2(31) vs rn2(181).
+- C locus: `objnam.c` `makesingular`/`readobjnam` gold; `mkobj.c`
+  SCROLL `!= SCR_MAIL` blessorcurse.
+- Change: port makesingular (+as_is); gold early-return; wizard quan;
+  SCR_MAIL skip blessorcurse. as_is required (boots/gloves).
+- Verification: green+strict PASS; prefix **10217→10269** Scr **156→392**;
+  seed0360/5006/0398/5002/0108/0383 PASS.
+- Next: seed0399 @10269 C `gethungry` rn2(20) vs JS rnd(20).
+
 ## 2026-07-20 16:20 — #1010 full public score refresh
 - Objective: mandatory score cadence (iteration % 5 == 0).
 - C locus: n/a (docs-only).

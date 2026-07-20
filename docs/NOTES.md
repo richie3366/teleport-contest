@@ -7,18 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @10217:** after D-0861, first miss `rnd_otyp_by_namedesc`
-  C `rn2(31)` vs JS `rn2(181)`. Faithful path (not FORCE) — #1007 only
-  falsified chasing this via FORCE key desync.
-- Falsifier: C caller/context at @10217 (wish vs identify vs other);
-  compare `objnam.c` namedesc table size / filter vs JS.
+- **seed0399 @10269:** after D-0862 wish cluster, first miss C
+  `gethungry` `rn2(20)` vs JS `rnd(20)`. Faithful peel — not FORCE.
+- Falsifier: C `eat.c` `gethungry` site + callers vs JS `eat.js`;
+  confirm arity (`rn2` vs `rnd`) and preceding move/wish state.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0861 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0862 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -29,14 +28,16 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0858 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0862 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - C `~drn2` site tags inherit last **core** caller (stale for display).
 - Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
 - Do not expect missing hungry line @213 — hunger was present (D-0858).
 - Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
-- Do not chase namedesc via FORCE (#1007); peel @10217 faithfully now.
+- Do not chase namedesc via FORCE (#1007); D-0862 closed @10217.
+- Do not drop makesingular `as_is` (boots/gloves/gauntlets) — #1011
+  regression seed0360/5006.
 
 ## Landmarks (≤15)
 
@@ -57,3 +58,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
 - **D-0861 #1009:** `searches_for_item` Is_container; seed0399 @10217.
+- **D-0862 #1011:** makesingular+as_is; gold wish; SCR_MAIL skip
+  blessorcurse; seed0399 **10217→10269** Scr 156→392.

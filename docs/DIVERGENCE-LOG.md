@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0862 — makesingular + gold wish + SCR_MAIL blessorcurse (seed0399 @10217)
+
+- **Status:** fixed
+- **Symptom:** seed0399 @10217 — C `rnd_otyp_by_namedesc` `rn2(31)`
+  ("blessed 20 daggers" → dagger) vs JS `rn2(181)` (desynced onto
+  identify wish after failed plural match).
+- **C locus:** `objnam.c` `makesingular` / `readobjnam` (tricks/clothes
+  exceptions + as_is boots/gloves/…); gold `mksobj(GOLD_PIECE, FALSE)`
+  early return; `mkobj.c` `mksobj_init` SCROLL `otyp != SCR_MAIL`
+  before `blessorcurse` (`MAIL_STRUCTURES`).
+- **Cause:** JS never singularized wish bp → "daggers" matched n=0 →
+  wish fail → later identify namedesc landed at C’s dagger index.
+  Follow-ons: missing gold special case (`rn2(1001)` desync); SCR_MAIL
+  still ran `blessorcurse(4)`. First as_is-less makesingular mangled
+  "speed boots"/"leather gloves" (seed0360/5006 regression).
+- **Change:** port `makesingular` (+as_is/special_subjs) in `objnam.js`;
+  call from `readobjnam`; gold early-return; wizard `oc_merge` quan;
+  SCR_MAIL skip blessorcurse in `mkobj.js`. Deferred: non-wizard quan
+  `rnd(6)`/candle/ammo arms; full badman/craft edges.
+- **Verification:** green+strict PASS; seed0399 prefix **10217→10269**
+  Scr **156→392**/532; seed0360/5006/0398/5002/0108/0383 PASS.
+- **Next:** seed0399 @10269 C `gethungry` `rn2(20)` vs JS `rnd(20)`.
+
 ## D-0861 — searches_for_item Is_container (seed0399 elf sack goal)
 
 - **Status:** fixed
