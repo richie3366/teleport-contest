@@ -7,22 +7,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#947 D-0824:** seed0383 @10024 was monmove stub `could_reach_item`
-  (always-true) after D-0823 dog_goal port + `mfndpos` `may_passwall`
-  stub. Ported → prefix **10024→10281**; Scr still **141**/219.
-- **Hypothesis next:** @10281 C `mattacku` `rnd(20)` vs JS `rn2(12)` —
-  wrong attack roll / to-hit path (mhitu).
-- **Falsify:** rng-diff @10281 + read C `mattacku` around mhitu.c:848.
+- **#948 D-0825:** seed0383 @10281 was missing `mattacku` AT_ENGL /
+  `gulpmu` (C `rnd(20)` vs JS `rn2(12)`). Ported → prefix **10281→10374**;
+  Scr **141→142**/219.
+- **Hypothesis next:** @10374 C engulfer second `mattacku` while JS still
+  fleecks — two extra `distfleeck` before engulfer’s next dochug (movemon
+  eligibility / order after swallow). Not missing AT_ENGL (want=0, nearby,
+  engulfing_u true on eng#1 @rl≈10376).
+- **Falsify:** compare which mons pass `movement >= NORMAL_SPEED` after
+  post-gulp `mcalcmove`; check `u_on_newpos` when engulfer relocates while
+  digesting (`monmove.c` postmov).
 - **Don't:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break D-0822…D-0824; stub `could_reach_item` true again.
+  re-break D-0822…D-0825; stub AT_ENGL again.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0824 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0825 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0824 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0825 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -38,12 +42,13 @@ Objective/score live in `CURRENT.md`.
 - Displaced enl + known speed-boots from_what (D-0821).
 - bigrm-12 hexagon load_special (D-0822).
 - dog_goal + monmove could_reach_item; mfndpos may_passwall (D-0823/24).
+- AT_ENGL/gulpmu first swallow + dochug engulfing_u→mattacku (D-0825).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#945 Scr **8937**/11405; seed0383 Scr **141**/219.
+- suite **38/44** @#945 Scr **8937**/11405; seed0383 Scr **142**/219.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

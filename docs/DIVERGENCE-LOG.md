@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0825 — mattacku AT_ENGL + gulpmu (seed0383 @10281)
+
+- **Status:** fixed (partial — next @10374 post-swallow fleeck order)
+- **Symptom:** seed0383 after D-0824: C `rnd(20)` @ `mattacku` vs JS
+  `rn2(12)`. Prefix 10281; Scr 141/219. Next C calls `gulpmu` `d(1,6)` /
+  `rnd(12)` / `rn2(2)` (ice vortex AD_COLD).
+- **C locus:** `mhitu.c` `mattacku` AT_ENGL; `gulpmu`; `monmove.c`
+  dochug MMOVE_MOVED `engulfing_u`→`mattacku`.
+- **Cause (#948):** JS `mattacku` lacked AT_ENGL (fell through default);
+  no `gulpmu`. Also dochug deferred `engulfing_u`→`mattacku` after move.
+- **Change:** `js/mhitu.js` — AT_ENGL hit/`missmu` + partial `gulpmu`
+  (place/ustuck/uswldtim; AD_COLD/FIRE/ELEC/PHYS/DGST/ACID arms;
+  `expels`/`unstuck`); `js/monmove.js` — wire engulfing attack after
+  MMOVE_MOVED. Named: snuff_lit; steed DISMOUNT_ENGULFED; `u_on_newpos`
+  while digesting; `getmattk` mspec_used subst; diseasemu/drain_en/
+  make_blinded polish.
+- **Verification:** seed0383 prefix **10281→10374**; Scr **141→142**/219;
+  RNG matched still **10883**/16915 (reorder after); green+strict PASS;
+  cohort 7/7 (1500/1800/0060/0102/0700/0360/0398).
+- **Next:** @10374 C second engulfer `mattacku` vs JS extra `distfleeck`
+  (two fleecks before engulfer dochug; want=0/nearby/engulfing on eng#1).
+
 ## D-0824 — monmove could_reach_item + mfndpos may_passwall (seed0383 @10024)
 
 - **Status:** fixed (partial — next @10281 mattacku)

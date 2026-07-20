@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0824 | fixed | monmove could_reach_item + mfndpos may_passwall | seed0383 prefix 10024→10281; next @10281 mattacku rnd(20) |
+| D-0825 | fixed | mattacku AT_ENGL + gulpmu (+ engulfing_u dochug) | seed0383 prefix 10281→10374 Scr 141→142; next @10374 fleeck order |
+| D-0824 | fixed | monmove could_reach_item + mfndpos may_passwall | seed0383 prefix 10024→10281; closed by D-0825 |
 | D-0823 | fixed | dog_goal could_reach_item pool/lava/boulder | seed0383 prefix 9709→10024; closed by D-0824 |
 | D-0822 | fixed | bigrm-12 load_special (hexagon pool/lava) | seed0383 prefix 2493→9709 Scr 45→141; suite Scr+96 RNG+7585; next @9709 closed by D-0823 |
 | D-0821 | fixed | Attributes Displaced + known speed-boots from_what | seed0360 **PASS** 833/833; suite 38/44; next seed0383 |

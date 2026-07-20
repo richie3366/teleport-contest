@@ -3,7 +3,7 @@
 //         uhitm.c mhitm_ad_phys (mhitu bare / weapon subset).
 
 import { game } from './gstate.js';
-import { monnear } from './mon.js';
+import { monnear, mnexto } from './mon.js';
 import {
     Is_rogue_level, NEED_WEAPON, NEED_HTH_WEAPON, NATTK,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
@@ -13,11 +13,11 @@ import {
 } from './const.js';
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
-import { nomul } from './hack.js';
+import { nomul, stop_occupation, maybe_half_phys } from './hack.js';
 import { rnd, d, rn2 } from './rng.js';
-import { pline, mon_visible, canspotmon, map_invisible, canseemon } from './display.js';
-import { cansee } from './vision.js';
-import { Monnam } from './do_name.js';
+import { pline, mon_visible, canspotmon, map_invisible, canseemon, newsym } from './display.js';
+import { cansee, vision_recalc } from './vision.js';
+import { Monnam, mon_nam } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
 import { is_pole } from './wield.js';
 import { xname } from './objnam.js';
@@ -25,20 +25,37 @@ import { objectNames } from './objects.js';
 import { steal } from './steal.js';
 import { rloc, tele_restrict } from './teleport.js';
 import { monflee } from './monmove.js';
-import { is_orc, is_demon, is_were, is_animal, M1_SEE_INVIS } from './monsters.js';
+import {
+    is_orc, is_demon, is_were, is_animal, is_whirly, amorphous, unsolid,
+    MZ_HUGE, M1_SEE_INVIS,
+} from './monsters.js';
 import { done_in_by } from './end.js';
 import { msummon, Inhell } from './minion.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { A_STR, A_DEX, A_CON } from './attrib.js';
+import { A_STR, A_DEX, A_CON, acurr } from './attrib.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
-    AD_PHYS, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_SITM, AD_SEDU, AD_SSEX,
+    AT_ENGL,
+    AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
+    AD_SITM, AD_SEDU, AD_SSEX,
 } from './mhitm.js';
 
 const PM_BALROG = monsterNames.indexOf('PM_BALROG');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
+const PM_FIRE_VORTEX = monsterNames.indexOf('PM_FIRE_VORTEX');
+const PM_FLAMING_SPHERE = monsterNames.indexOf('PM_FLAMING_SPHERE');
+const PM_FIRE_ELEMENTAL = monsterNames.indexOf('PM_FIRE_ELEMENTAL');
+const PM_SALAMANDER = monsterNames.indexOf('PM_SALAMANDER');
 const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
+
+/** C ref: monattk.h — engulf damage types used by gulpmu. */
+const AD_BLND = 11;
+const AD_DREN = 16;
+const AD_DGST = 26;
+const AD_WRAP = 28;
+const AD_DISE = 33;
 
 /** C ref: objclass.h — weapon strike modes overload oc_dir. */
 const PIERCE = 1;
@@ -365,6 +382,313 @@ function dmgtype(ptr, adtyp) {
     return false;
 }
 
+
+/**
+ * C ref: mondata.h digests — AT_ENGL + AD_DGST (purple worm / trapper).
+ */
+function digests(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.aatyp | 0) === AT_ENGL && (a.adtyp | 0) === AD_DGST) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.h enfolds — AT_ENGL + AD_WRAP (trapper / lurker).
+ */
+function enfolds(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.aatyp | 0) === AT_ENGL && (a.adtyp | 0) === AD_WRAP) return true;
+    }
+    return false;
+}
+
+/** C ref: mondata.h flaming — fire vortex / sphere / elemental / salamander. */
+function flaming(ptr) {
+    if (!ptr) return false;
+    const n = ptr.mndx ?? -1;
+    return n === PM_FIRE_VORTEX || n === PM_FLAMING_SPHERE
+        || n === PM_FIRE_ELEMENTAL || n === PM_SALAMANDER;
+}
+
+/**
+ * C ref: mhitm.c engulf_target — size + whirly + trap gates (hero as mdef).
+ * Named omissions: rock/door/tree/ironbars Passes_walls placement checks.
+ */
+function engulf_target(magr, mdefIsHero) {
+    const u = game.u || {};
+    const magrDat = magr?.data;
+    const mdefDat = mdefIsHero ? (game.youmonst?.data) : null;
+    const mdefSize = mdefDat?.msize | 0;
+    if (mdefSize >= MZ_HUGE) return false;
+    if ((magrDat?.msize | 0) < mdefSize && !is_whirly(magrDat)) return false;
+    if (magr?.mtrapped) return false;
+    if (mdefIsHero && (u.utrap | 0)) return false;
+    return true;
+}
+
+/**
+ * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
+ * Named omission: pline feedback when grab passes through.
+ */
+function failed_grab(_magr, mattk) {
+    const youdat = game.youmonst?.data;
+    if (!(unsolid(youdat) || game.notonhead)
+        || !((mattk.aatyp | 0) === 7 /* AT_HUGS */
+            || (mattk.adtyp | 0) === AD_WRAP
+            || (mattk.adtyp | 0) === 19 /* AD_STCK */
+            || (mattk.adtyp | 0) === AD_DGST)) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: mon.c set_ustuck — bind / clear hero grabber; clears swallow on null.
+ */
+function set_ustuck(mtmp) {
+    const u = game.u || (game.u = {});
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    u.ustuck = mtmp || null;
+    if (!u.ustuck) {
+        u.uswallow = 0;
+        u.uswldtim = 0;
+    }
+}
+
+/**
+ * C ref: mon.c unstuck — release grabber; set mspec_used rnd(2) for re-engulf.
+ * Punished placebc / docrt deferred.
+ */
+function unstuck(mtmp) {
+    const u = game.u || {};
+    if (u.ustuck !== mtmp) return;
+    const ptr = mtmp.data;
+    const swallowed = !!(u.uswallow | 0);
+    set_ustuck(null);
+    if (swallowed) {
+        game.mswallower = null;
+        u.ux = mtmp.mx;
+        u.uy = mtmp.my;
+        vision_recalc(1);
+    }
+    if (!(mtmp.mspec_used | 0)
+        && (dmgtype(ptr, 19 /* AD_STCK */)
+            || (ptr?.mattk || []).some((a) => (a.aatyp | 0) === AT_ENGL)
+            || (ptr?.mattk || []).some((a) => (a.aatyp | 0) === 7 /* AT_HUGS */))) {
+        mtmp.mspec_used = rnd(2);
+    }
+}
+
+/**
+ * C ref: mhitu.c expels — unstuck + mnexto; spoteffects / um_dist deferred.
+ */
+async function expels(mtmp, mdat, message) {
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    if (message) {
+        if (digests(mdat)) {
+            await pline('You get regurgitated!');
+        } else if (enfolds(mdat)) {
+            await pline(`${Monnam(mtmp)} unfolds and you are released!`);
+        } else {
+            let blast = '';
+            if (is_whirly(mdat)) {
+                const attk = (mdat.mattk || []).find((a) => (a.aatyp | 0) === AT_ENGL);
+                if ((attk?.adtyp | 0) === AD_ELEC) blast = ' in a shower of sparks';
+                else if ((attk?.adtyp | 0) === AD_COLD) blast = ' in a blast of frost';
+            } else {
+                blast = ' with a squelch';
+            }
+            await pline(`You get expelled from ${mon_nam(mtmp)}${blast}!`);
+        }
+    }
+    unstuck(mtmp);
+    mnexto(mtmp, 0);
+    newsym(game.u.ux, game.u.uy);
+}
+
+/**
+ * C ref: mhitu.c gulpmu — swallow hero or damage while swallowed.
+ * Envelope: first swallow place+ustuck+uswldtim; AD_PHYS/COLD/FIRE/ELEC/DGST/
+ * ACID arms; mdamageu; expel on timer.
+ * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
+ * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
+ * drain_en; make_blinded; swallowed() map polish; Half_physical polish;
+ * u_on_newpos when engulfer moves while digesting.
+ */
+async function gulpmu(mtmp, mattk) {
+    const u = game.u || (game.u = {});
+    let tmp = d(mattk.damn | 0, mattk.damd | 0);
+    let physical_damage = false;
+
+    if (!(u.uswallow | 0)) {
+        if (!engulf_target(mtmp, true)) return M_ATTK_MISS;
+        if (failed_grab(mtmp, mattk)) return M_ATTK_MISS;
+
+        mtmp.mtrapped = 0;
+        mtmp.mx = u.ux | 0;
+        mtmp.my = u.uy | 0;
+        set_ustuck(mtmp);
+        newsym(mtmp.mx, mtmp.my);
+
+        if (u.usteed) {
+            const verb = is_animal(mtmp.data) ? 'lunges'
+                : is_whirly(mtmp.data) ? 'whirls'
+                    : unsolid(mtmp.data) ? 'flows'
+                        : amorphous(mtmp.data) ? 'oozes' : 'surges';
+            await pline(`${Monnam(mtmp)} ${verb} forward and plucks you off your steed!`);
+            u.usteed = null;
+        } else {
+            const how = digests(mtmp.data) ? 'swallows you whole'
+                : enfolds(mtmp.data) ? 'folds itself around you'
+                    : 'engulfs you';
+            await pline(`${Monnam(mtmp)} ${how}!`);
+        }
+        await stop_occupation();
+        if (u.utrap) {
+            await pline(`You are released from the ${(u.utraptype | 0) === 7 ? 'web' : 'trap'}!`);
+            u.utrap = 0;
+            u.utraptype = 0;
+        }
+
+        vision_recalc(2);
+        u.uswallow = 1;
+        let tim_tmp;
+        if ((mattk.adtyp | 0) === AD_DGST) {
+            tim_tmp = (acurr(A_CON) | 0) + 10 - (u.uac | 0) + rn2(20);
+            if (tim_tmp < 0) tim_tmp = 0;
+            tim_tmp = Math.trunc(tim_tmp / ((mtmp.m_lev | 0) || 1));
+            tim_tmp += 3;
+        } else {
+            // C: rnd((int) mtmp->m_lev + 10 / 2) → rnd(m_lev + 5)
+            tim_tmp = rnd((mtmp.m_lev | 0) + Math.trunc(10 / 2));
+        }
+        u.uswldtim = (tim_tmp < 2) ? 2 : tim_tmp;
+        if (!flaming(mtmp.data)) {
+            /* snuff_lit invent deferred */
+        }
+    }
+
+    if (mtmp !== u.ustuck) return M_ATTK_MISS;
+    if ((u.uswldtim | 0) > 0) u.uswldtim = (u.uswldtim | 0) - 1;
+
+    const Cold_resistance = !!(u.Cold_resistance || u.HCold_resistance
+        || u.ECold_resistance);
+    const Fire_resistance = !!(u.Fire_resistance || u.HFire_resistance
+        || u.EFire_resistance);
+    const Shock_resistance = !!(u.Shock_resistance || u.HShock_resistance
+        || u.EShock_resistance);
+    const Acid_resistance = !!(u.Acid_resistance || u.HAcid_resistance
+        || u.EAcid_resistance);
+
+    switch (mattk.adtyp | 0) {
+    case AD_DGST:
+        physical_damage = true;
+        if (u.uswldtim === 0) {
+            await pline(`${Monnam(mtmp)} totally digests you!`);
+            tmp = u.uhp | 0;
+        } else {
+            const adv = (u.uswldtim === 2) ? ' thoroughly'
+                : (u.uswldtim === 1) ? ' utterly' : '';
+            await pline(`${Monnam(mtmp)}${adv} digests you!`);
+        }
+        break;
+    case AD_PHYS:
+        physical_damage = true;
+        if ((mtmp.data?.mndx ?? -1) === PM_FOG_CLOUD) {
+            await pline('You are laden with moisture and can barely breathe!');
+        } else {
+            await pline(`You are ${enfolds(mtmp.data) ? 'being squashed' : 'pummeled with debris'}!`);
+        }
+        break;
+    case AD_ACID:
+        if (Acid_resistance) {
+            await pline('You are covered with a seemingly harmless goo.');
+            tmp = 0;
+        } else {
+            await pline('You are covered in slime!  It burns!');
+        }
+        break;
+    case AD_BLND:
+        tmp = 0;
+        break;
+    case AD_ELEC:
+        if (!(mtmp.mcan | 0) && rn2(2)) {
+            await pline('The air around you crackles with electricity.');
+            if (Shock_resistance) {
+                await pline('You seem unhurt.');
+                tmp = 0;
+            }
+        } else {
+            tmp = 0;
+        }
+        break;
+    case AD_COLD:
+        if (!(mtmp.mcan | 0) && rn2(2)) {
+            if (Cold_resistance) {
+                await pline('You feel mildly chilly.');
+                tmp = 0;
+            } else {
+                await pline('You are freezing to death!');
+            }
+        } else {
+            tmp = 0;
+        }
+        break;
+    case AD_FIRE:
+        if (!(mtmp.mcan | 0) && rn2(2)) {
+            if (Fire_resistance) {
+                await pline('You feel mildly hot.');
+                tmp = 0;
+            } else {
+                await pline('You are burning to a crisp!');
+            }
+        } else {
+            tmp = 0;
+        }
+        break;
+    case AD_DISE:
+    case AD_DREN:
+        tmp = 0;
+        break;
+    default:
+        physical_damage = true;
+        tmp = 0;
+        break;
+    }
+
+    if (physical_damage) {
+        if ((u.uac | 0) < 0) {
+            tmp -= rnd(-(u.uac | 0));
+            if (tmp < 0) tmp = 1;
+        }
+        tmp = maybe_half_phys(tmp);
+    }
+
+    game.mswallower = mtmp;
+    await mdamageu(mtmp, tmp);
+    game.mswallower = null;
+    if (tmp) await stop_occupation();
+
+    if (!(u.uswallow | 0)) {
+        /* life-saving already expelled */
+    } else if (!(u.uswldtim | 0)
+        || ((game.youmonst?.data?.msize | 0) >= MZ_HUGE)) {
+        const how = digests(mtmp.data) ? 'regurgitated'
+            : enfolds(mtmp.data) ? 'released' : 'expelled';
+        await pline(`You get ${how}!`);
+        await expels(mtmp, mtmp.data, false);
+    }
+    return M_ATTK_HIT;
+}
+
+
 /**
  * C ref: uhitm.c mhitm_ad_sedu — mhitu (monster→you) arm only.
  * Named omissions: uhitm steal_it; mhitm minvent steal; SYSOPT_SEDUCE
@@ -501,8 +825,8 @@ async function hitmu(mtmp, mattk) {
 }
 
 /**
- * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit.
- * Breath/spit/gulp/gaze/expl/hugs/magic/swallow/undetected deferred.
+ * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit;
+ * AT_ENGL gulpmu. Breath/spit/gaze/expl/hugs/magic deferred.
  * Returns 1 if monster died, else 0.
  */
 /**
@@ -590,7 +914,8 @@ export async function mattacku(mtmp) {
 
         const mattk = get_mattk(mtmp, i);
         if (mattk.aatyp === AT_NONE) continue;
-        // C: skipnonmagc — after wildmiss, remaining non-spell attacks skip
+        // C: uswallow skips non-ENGL; skipnonmagc skips non-MAGC
+        if ((u.uswallow | 0) && (mattk.aatyp | 0) !== AT_ENGL) continue;
         if (skipnonmagc && (mattk.aatyp | 0) !== 255 /* AT_MAGC */) continue;
 
         switch (mattk.aatyp) {
@@ -608,6 +933,28 @@ export async function mattacku(mtmp) {
                 } else {
                     await wildmiss(mtmp, mattk);
                     skipnonmagc = true;
+                }
+            }
+            break;
+
+        case AT_ENGL:
+            // C: mhitu.c AT_ENGL — rnd(20+i) then gulpmu / missmu
+            if (!range2) {
+                if (foundyou) {
+                    let j = 0;
+                    if ((u.uswallow | 0)
+                        || (!(mtmp.mspec_used | 0)
+                            && tmp > (j = rnd(20 + i)))) {
+                        sum[i] = await gulpmu(mtmp, mattk);
+                    } else {
+                        await missmu(mtmp, tmp === j, mattk);
+                    }
+                } else if (digests(mtmp.data)) {
+                    await pline(`${Monnam(mtmp)} gulps some air!`);
+                } else if (youseeit) {
+                    await pline(`${Monnam(mtmp)} lunges forward and recoils!`);
+                } else {
+                    await pline(`You hear a ${is_whirly(mtmp.data) ? 'rushing noise' : 'splat'} nearby.`);
                 }
             }
             break;

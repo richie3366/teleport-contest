@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 02:51 — #948 D-0825 mattacku AT_ENGL + gulpmu
+- Objective: seed0383 @10281 C `rnd(20)` mattacku vs JS `rn2(12)`.
+- C locus: `mhitu.c` AT_ENGL/`gulpmu`; `monmove.c` engulfing_u→mattacku.
+- Change: port AT_ENGL + partial gulpmu; wire dochug engulfing attack.
+- Verification: prefix **10281→10374**; Scr **142**/219; green+strict;
+  cohort 7/7.
+- Next: @10374 post-swallow fleeck order (2 extra fleecks before engulfer).
+
 ## 2026-07-20 02:35 — #947 D-0824 monmove could_reach + may_passwall
 - Objective: seed0383 @10024 m_move mtrack rn2(16) vs rn2(20).
 - C locus: `dogmove.c` `could_reach_item`; `hack.c` `may_passwall` via

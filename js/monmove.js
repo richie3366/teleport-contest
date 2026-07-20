@@ -1618,6 +1618,7 @@ export async function dochug(mtmp) {
     set_apparxy(mtmp);
     let { inrange, nearby, scared } = distfleeck(mtmp);
 
+
     // C: find_defensive / find_misc before movement phase
     if (find_defensive(mtmp, false)) {
         if ((await use_defensive(mtmp)) !== 0) return 1;
@@ -1695,7 +1696,10 @@ export async function dochug(mtmp) {
                 || !(ranged_attk_available(mtmp)
                     || is_armed(mdat)
                     || find_offensive(mtmp))) {
-                // C: engulfing_u → mattacku deferred
+                // C: digesting engulfer can move and still attack same turn
+                if (engulfing_u(mtmp)) {
+                    return (await mattacku(mtmp)) ? 1 : 0;
+                }
                 return 0;
             }
             // else fall through to PHASE FOUR
