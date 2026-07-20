@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:05 — #987 seed0383 xkilled poor titan (D-0850)
+- Objective: seed0383 @178 `You kill the poor titan`.
+- C locus: mon.c `xkilled` tame → `x_monnam(..., "poor", ...)`;
+  do_name.c `x_monnam` adjective/ARTICLE.
+- Change: export `x_monnam`; `mon_nam`→`x_monnam`; wire `xkilled` msg
+  arm (wasinside/canspotmon/`mtame`).
+- Verification: seed0383 Scr **193→194** RNG FULL; green+strict PASS;
+  cohort 36/36 PASS.
+- Next: @195 Hallu map after materialize; flush parked.
+
 ## 2026-07-20 12:00 — #986 seed0383 hliquid (D-0849)
 - Objective: seed0383 Scr 184 — diagnose first content miss after D-0848.
 - C locus: do_name.c `hliquid` / `hliquids[]`; pager.c `waterbody_name`.

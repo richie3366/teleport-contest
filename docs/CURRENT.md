@@ -76,11 +76,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 193/219** after D-0849 `hliquid`
-(@187 `purified water` + display-rng). Flush still parked @141–174.
-Next content: **@178 `poor titan`** — C `xkilled` tame →
-`x_monnam(..., "poor", ...)`; JS bare `mon_nam`. Then @195 Hallu map
-after level materialize. Focused:
+**Gameplay next:** **seed0383 Scr 194/219** after D-0850 `xkilled`
+tame `x_monnam(..., "poor", ...)` (@178). Flush still parked @141–174.
+Next content: **@195 Hallu map** after level materialize. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -90,7 +88,7 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
 seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0849. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0850. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more without fixing remaining
 seed0383 screens (D-0841/D-0843/D-0846).**
@@ -102,6 +100,7 @@ seed0383 screens (D-0841/D-0843/D-0846).**
 **Do not reorder docrt/swallowed cls+bot without C-like nonblocking
 WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not stub `hliquid` as identity (D-0849).**
+**Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

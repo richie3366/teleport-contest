@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0850 — fixed: xkilled tame x_monnam "poor"
+
+- **Status:** fixed
+- **Symptom / context:** seed0383 Scr 193/219 RNG FULL after D-0849.
+  Expected @178 `You kill the poor titan!`; JS emitted bare
+  `You kill the titan!` (matched-count still counted flush misses).
+- **Cause:** `js/uhitm.js` `xkilled` always used `mon_nam`; C
+  `mon.c:xkilled` uses `x_monnam(mtmp, namedpet?ARTICLE_NONE:ARTICLE_THE,
+  "poor", …)` when `mtame`.
+- **Fix:** export `x_monnam` (adjective/ARTICLE/hallu/isshk/given-name
+  subset) from `js/do_name.js`; `mon_nam` → `x_monnam`; wire `xkilled`
+  wasinside/canspotmon/`mtame` msg arm. Priest/minion/mappear/invis
+  adj/`is_mplayer` rank/`AUGMENT_IT` still deferred.
+- **Verification:** seed0383 Scr **193→194** RNG FULL; green+strict
+  PASS; cohort 36/36 PASS.
+- **Next:** @195 Hallu map after materialize; flush still parked.
+
 ## D-0849 — fixed: do_name hliquid Hallu liquids
 
 - **Status:** fixed

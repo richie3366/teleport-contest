@@ -7,20 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#986 / D-0849:** seed0383 @187 was stub `hliquid` (identity). C
-  `do_name.c:hliquid` → `rn2_on_display_rng` over `hliquids[]` (+pref).
-  Ported → Scr **184→193**; @187/@188 match; display-rng re-aligned.
-- **Next content:** @178 `You kill the poor titan` — C `xkilled` tame
-  arm uses `x_monnam(..., "poor", ...)`; JS still bare `mon_nam`.
-  Then @195 Hallu map after `materialize on a different level`.
-- Flush still parked @141–174 (D-0841). Do not re-apply gulpmu flush
-  without remaining-screen plan.
+- **#987 / D-0850:** seed0383 @178 was bare `mon_nam` on tame kill.
+  C `mon.c:xkilled` → `x_monnam(..., "poor", ...)` when `mtame`.
+  Ported `x_monnam` + wired msg arm → Scr **193→194**; @178 matches.
+- **Next content:** @195 Hallu map after `materialize on a different
+  level`. Flush still parked @141–174 (D-0841).
+- Do not re-apply gulpmu flush without remaining-screen plan.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0849 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0850 done.
 - Runner `Screen N/M` = total matches, not prefix length. "@184" after
   D-0848 was matched-count; first cell miss index stayed flush @141.
 - seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0846 peels done.
@@ -45,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#985 Scr **8986**/11405 RNG **666582**/792838;
-  seed0383 RNG **FULL**; Scr **193**/219 after D-0849.
+  seed0383 RNG **FULL**; Scr **194**/219 after D-0850.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -63,3 +61,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0848:** objects extract `-DMAIL_STRUCTURES` → NUM_OBJECTS=481 /
   Hallu random_object dim 463; SCR_MAIL=364.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
+- **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.

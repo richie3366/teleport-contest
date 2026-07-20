@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0850 | fixed | xkilled tame `x_monnam(...,"poor",...)` | seed0383 Scr 193→194; @178 poor titan; green+cohort OK |
 | D-0849 | fixed | do_name `hliquid` Hallu liquids + display-rng | seed0383 Scr 184→193; @187 purified water; green+cohort OK |
 | D-0848 | fixed | extract-objects `-DMAIL_STRUCTURES` / SCR_MAIL | NUM_OBJECTS 481; Hallu rn2(463); seed0383 Scr 174→184 |
 | D-0847 | closed | seed0383 @172 Hallu see_objects dim 462≠463 | Cause = missing SCR_MAIL (D-0848); next miss @184 |
