@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:28 — #1051 D-0901 Pillars terr shuffle
+- Objective: seed4500 @8925 nhlib shuffle rn2(7) vs JS rn2(5).
+- C locus: `themerms.lua` Pillars; `nhlib.lua` shuffle; `sp_lev.c`
+  `lspo_terrain`/`create_room`.
+- Change: port Pillars contents — shuffle 7-char terr + 2×2 terrain
+  blocks. Named omit: Random-feature center; nested room bodies.
+- Verification: seed4500 prefix **8925→9974** Scr **284**; green+strict;
+  cohort 11/11 PASS.
+- Next: seed4500 @9974 shkveg rnd(860); leaderboard cron; cadence @#1055.
+
 ## 2026-07-20 21:25 — #1050 D-0900 spitmm + score cadence
 - Objective: mandatory full `sessions` score @#1050; seed4500 @8491.
 - C locus: `mthrowu.c` `spitmm`/`spitmu`/`m_lined_up`; `mhitu.c` AT_SPIT.
@@ -155,13 +165,3 @@ Use this shape:
   **636→638**/714 (RNG FULL).
 - Next: @457 C nymph smiles/engagingly vs JS hits (SSEX).
 
-## 2026-07-20 19:45 — #1036 D-0883…D-0885 take-off AC + nymph flee
-- Objective: seed0014 @415 botl AC after shield take-off; @416–417 steal.
-- C locus: `do_wear.c` `armoroff` (no find_ac); `steal.c`
-  `worn_item_removal`/`steal` named++; `teleport.c` RLOC_MSG vanish;
-  `uhitm.c` `mhitm_ad_sedu` `rloc(..., RLOC_MSG)`.
-- Change: drop delay-0 armoroff find_ac; on→from + She stole; async
-  rloc vanish + mhitu/monmove await RLOC_MSG.
-- Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
-  **633→636**/714 (RNG FULL).
-- Next: @424 fountain “dries up!” missing `--More--`.

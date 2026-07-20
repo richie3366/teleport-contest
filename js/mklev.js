@@ -15007,6 +15007,36 @@ function create_mimic_as_chest(croom) {
 }
 
 /**
+ * C ref: themerms.lua "Pillars" contents + sp_lev.c lspo_terrain /
+ * nhlib.lua shuffle — 7-char terr Fisher–Yates then 2×2 pillar blocks
+ * at room-relative (x*4+2, y*4+2) for x,y in 0..(width/4)-1 (Lua float).
+ * lit=-2 → SET_LIT_NOCHANGE (lava still forced lit in sel_set_ter).
+ */
+function themeroom_pillars_contents(croom) {
+    // C: local terr = { "-", "-", "-", "-", "L", "P", "T" }; shuffle(terr)
+    const terr = [HWALL, HWALL, HWALL, HWALL, LAVAPOOL, POOL, TREE];
+    nhlib_shuffle(terr);
+    const typ = terr[0];
+    // C l_push_mkroom_table: width = 1+(hx-lx), height = 1+(hy-ly)
+    const width = 1 + (croom.hx - croom.lx);
+    const height = 1 + (croom.hy - croom.ly);
+    // Lua: for x = 0, (rm.width / 4) - 1 do  (float upper bound)
+    for (let x = 0; x <= (width / 4) - 1; x++) {
+        for (let y = 0; y <= (height / 4) - 1; y++) {
+            const rx = x * 4 + 2;
+            const ry = y * 4 + 2;
+            for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) {
+                const ax = croom.lx + rx + dx;
+                const ay = croom.ly + ry + dy;
+                if (!isok(ax, ay)) continue;
+                // C get_location_coord + sel_set_ter → set_levltyp_lit
+                sel_set_ter(ax, ay, typ, SET_LIT_NOCHANGE);
+            }
+        }
+    }
+}
+
+/**
  * C ref: themerms.lua "Temple of the gods" + sp_lev.c create_altar /
  * get_free_room_loc — three unattended altars (type="altar", shrine=0)
  * with shuffled nhlib align[1..3]. Room is THEMEROOM not TEMPLE → no priest.
@@ -15584,7 +15614,7 @@ async function themerooms_generate(difficulty) {
             room_h = rn2(5) + 8;
             needfill = FILL_NORMAL;
         } else if (pick.name === 'Pillars') {
-            // C ref: themerms.lua:402 — themed 10×10; pillar terrain deferred
+            // C ref: themerms.lua:402 — themed 10×10; contents shuffle+terrain
             rtype = THEMEROOM;
             room_w = 10;
             room_h = 10;
@@ -15621,9 +15651,10 @@ async function themerooms_generate(difficulty) {
             do_themed_fill = true;
         }
         // Named omission: Room-in-room nested create_subroom/door; Fake Delphi /
-        // Huge / Nesting / Mausoleum / Twin nested bodies; Pillars terrain;
-        // Random-feature center terrain. Water vault map+contents done (D-0690).
-        // Blocked center map+replace_terrain done (D-0243).
+        // Huge / Nesting / Mausoleum / Twin nested bodies; Random-feature
+        // center terrain. Pillars terrain done (D-0901). Water vault
+        // map+contents done (D-0690). Blocked center map+replace_terrain
+        // done (D-0243).
 
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (after contents arg RNG such as Nesting rn2(4) size rolls)
@@ -15638,6 +15669,8 @@ async function themerooms_generate(difficulty) {
                 aroom.needfill = needfill;
                 // C lspo_room: contents(themeroom_fill) after build_room
                 if (do_themed_fill) themeroom_fill(aroom);
+                // C themerms.lua Pillars contents after des.room/build_room
+                if (pick.name === 'Pillars') themeroom_pillars_contents(aroom);
                 // Nesting rooms nested contents deferred (create_subroom/door)
             }
         } else if (g.in_mk_themerooms) {

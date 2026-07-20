@@ -1,3 +1,13 @@
+## 2026-07-20 19:45 — #1036 D-0883…D-0885 take-off AC + nymph flee
+- Objective: seed0014 @415 botl AC after shield take-off; @416–417 steal.
+- C locus: `do_wear.c` `armoroff` (no find_ac); `steal.c`
+  `worn_item_removal`/`steal` named++; `teleport.c` RLOC_MSG vanish;
+  `uhitm.c` `mhitm_ad_sedu` `rloc(..., RLOC_MSG)`.
+- Change: drop delay-0 armoroff find_ac; on→from + She stole; async
+  rloc vanish + mhitu/monmove await RLOC_MSG.
+- Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
+  **633→636**/714 (RNG FULL).
+- Next: @424 fountain “dries up!” missing `--More--`.
 ## 2026-07-20 14:45 — #1000 public score cadence
 - Objective: mandatory 5-iter full `sessions` score refresh.
 - C locus: n/a (docs only; no JS peel).

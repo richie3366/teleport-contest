@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0901 — themerms Pillars terr shuffle + 2×2 terrain (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Random-feature
+  center terrain / nested room bodies still deferred)
+- **Session:** seed4500-knight-coverage @8925
+- **Symptom:** C `rn2(7)` nhlib shuffle after matched `create_room`
+  rnd(5)/rnd(3)/rnd(3); JS `rn2(5)` then `rn2(1000+)` — skipped Pillars
+  contents.
+- **Cause:** `themerooms_generate` built Pillars 10×10 room but omitted
+  Lua contents `shuffle({"-","-","-","-","L","P","T"})` + 2×2
+  `des.terrain` pillars.
+- **C locus:** `dat/themerms.lua` Pillars; `dat/nhlib.lua` `shuffle`;
+  `sp_lev.c` `lspo_terrain` / `create_room`.
+- **Fix:** port `themeroom_pillars_contents` — Fisher–Yates 7-char terr
+  via `nhlib_shuffle`, place 2×2 blocks at room-relative `(x*4+2,y*4+2)`
+  with `SET_LIT_NOCHANGE`. Named omit: Random-feature center terrain;
+  Nesting/Mausoleum/Fake Delphi/Huge/Twin nested bodies.
+- **Verification:** seed4500 prefix **8925→9974** Scr **284** (flat);
+  green+strict PASS; cohort 11/11 PASS.
+- **Next:** seed4500 @9974 C `shkveg` `rnd(860)` vs JS FOOD stand-in
+  `rnd(1000)`; leaderboard cron; cadence @#1055.
+
 ## D-0900 — spitmm / spitmu + m_lined_up (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; mon-mon spit deferred)
