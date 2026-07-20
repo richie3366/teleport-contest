@@ -560,3 +560,13 @@
 - Verification: green+strict PASS; cohort 12/12 PASS; full suite.
 - Next: @395 `unexplored area (no travel path)` vs bare message.
 
+
+## 2026-07-20 07:20 — #963 seed0383 wizintrinsic hallu (D-0835)
+- Objective: seed0383 @10843 C exercise rn2(2) vs JS wipe rn2(82).
+- C locus: wizcmds.c wiz_intrinsic; potion.c make_hallucinated;
+  attrib.c exerper Hallucination → exercise(A_WIS,FALSE).
+- Change: port make_hallucinated + #wizintrinsic menu (HALLUC arm);
+  wire EXT_CMDS. Site-shift/fog hyp falsified — missing timed Hallu.
+- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10843→11372** (RNG matched 11054→11423; Scr 142→144).
+- Next: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).

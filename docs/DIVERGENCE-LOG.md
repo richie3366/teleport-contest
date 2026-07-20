@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0847 — open: seed0383 @172 Hallu see_objects 4 ROOM objs
+
+- **Status:** open (diagnosis only; no JS production change)
+- **Symptom / context:** With gulpmu `flush_topl_more` (C
+  `display_nhwindow`), seed0383 firstMiss **@172** (0-based), Scr
+  **175**/219, RNG cascades. Exactly 4 mapdiffs — Hallu object class
+  symbols at slime mold (22,3), tinning kit (25,3), shock shield
+  (33,6), towel (58,16). Frames 160–171 match. Without flush Scr 174.
+- **Measured (JS):** At moves=11 post-expel, `see_monsters` burns
+  22×`NUMMONS` + 1×`(WARNCOUNT-1)` with **no** mon-underfoot objects;
+  painted mon cells match C. Then `see_objects` burns exactly four
+  `rn2(NUM_OBJECTS-FIRST_OBJECT)` in fobj order (those 4 ROOM tops;
+  kelp covered). `NUM_OBJECTS`/`FIRST_OBJECT` ≡ C (ARROW=18,
+  CORPSE=265, STATUE=475). Dummy +N×462 before those burns never
+  produces C’s `)+[[` set.
+- **Falsified:** (1) simple display-stream offset immediately before
+  `see_objects`; (2) mon-underfoot memory burns at that frame;
+  (3) wrong cansee set / extra fobj tops; (4) object-table dimension
+  mismatch.
+- **Still open:** display-RNG on path expelled-More → `expels` /
+  `unstuck`/`docrt`/`mnexto`/`rloc_to` before once-per-input `see_*`
+  (possible double `see_monsters`); `Sting_effects`/`Warn_of_mon` after
+  mon loop still omitted (pline-only — unlikely display-RNG).
+- **Verification:** green+strict PASS; cohort 5/5 PASS; seed0383 Scr
+  174 (no flush) / 175 (flush probe, reverted).
+- **Next:** instrument display burns from More-return through
+  `see_objects`; then flush once objs match.
+
 ## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
 
 - **Status:** fixed (rloc_to / covers_objects); @173 Hallu objs + flush still open

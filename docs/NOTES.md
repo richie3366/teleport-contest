@@ -7,17 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#978:** D-0846 `rloc_to` newsym(old)+newsym(new) + `covers_objects`
-  ≡ C. With flush: @173 **mons match**, **4 ROOM objs** remain.
-  Without flush: Scr **174** (expected; was 176).
-- **@173 objs:** only 4 `cansee && !covers` floor objs burn Hallu in
-  `see_objects` (slime mold / towel / shock shield / tinning kit); all
-  wrong. Kelp in POOL is covered (no burn). `see_monsters` stream OK
-  (mons match); paradox: objs still skew after that — dig
-  mon-underfoot memory burns / fmon order next.
-- **Don't:** re-apply gulpmu `flush_topl_more` until 4 objs fixed;
-  don't restore dochug NOTHING/DONE Hallu newsym; don't revert rloc_to
-  newsym (needed for flush path).
+- **#979:** With gulpmu flush: firstMiss **@172** (0-based; NOTES “@173”
+  was 1-based), Scr **175**, RNG cascades. Exactly **4** Hallu obj cells:
+  slime mold (22,3) / tinning kit (25,3) / shock shield (33,6) / towel
+  (58,16). Frames 160–171 match.
+- **Paradox (D-0847):** at moves=11 post-expel, `see_monsters` burns
+  22×NUMMONS + 1×WARN (no underfoot objs); map mons match C. Then
+  `see_objects` burns exactly 4×462 in fobj order — glyphs still all
+  wrong. Dummy +N×462 before those burns never hits C’s `)+[[`.
+- **Falsified:** simple stream offset before see_objects; mon-underfoot
+  at that frame; fobj cansee set ≠ those 4; NUM_OBJECTS/FIRST_OBJECT
+  mismatch (ARROW=18 CORPSE=265 STATUE=475 ≡ C).
+- **Next:** display-RNG between expelled-More → expels/unstuck/docrt/
+  mnexto and once-per-input see_* (double see_monsters?); or
+  `Sting_effects`/`Warn_of_mon` after mon loop (named omit — pline path
+  unlikely display-RNG). Don’t flush until objs fixed.
+- **Falsifier:** instrument display burns from More-return through
+  see_objects; compare count/moduli to C path.
 
 ## Don't re-check (≤15)
 
@@ -40,14 +46,16 @@ Objective/score live in `CURRENT.md`.
 - Skipping Warning Hallu burn worsens @173 — warn burn is correct.
 - **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2; rloc_to without
   flush → Scr−2 (re-evaluated: needed with flush for mons).
-- Expelled More @172 is still **stomach** (pline before `expels`).
+- Expelled More @171 is still **stomach** (pline before `expels`).
+- **#979:** +N dummy before see_objects @moves=11 does not recover C
+  obj glyphs; underfoot@see_mon empty that frame.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#975 Scr **8978**/11405 RNG **666600**/792838;
-  seed0383 RNG **FULL**; Scr **174**/219 (post-expel Hallu objs next).
+  seed0383 RNG **FULL**; Scr **174**/219 w/o flush; **175** w/ flush.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

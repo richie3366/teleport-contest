@@ -18,7 +18,18 @@ Use this shape:
 - Change or falsified theory: …
 - Verification: …
 - Next: …
-```## 2026-07-20 10:22 — #978 rloc_to newsym (D-0846)
+```
+
+## 2026-07-20 10:41 — #979 seed0383 @172 Hallu objs (D-0847)
+- Objective: why 4 Hallu see_objects ROOM burns skew after matching mons.
+- C locus: display.c see_monsters/see_objects; allmain once-per-input Hallu.
+- Falsified: underfoot@see_mon; simple +N before see_objects; NUM_OBJECTS
+  dims. With flush: firstMiss @172 Scr 175; 4 objs; mons match; exactly
+  4×462 burns still wrong. Flush left parked.
+- Verification: green+strict PASS; cohort 5/5; seed0383 Scr 174 (no flush).
+- Next: display-RNG expelled-More → expels/docrt/mnexto before see_*.
+
+## 2026-07-20 10:22 — #978 rloc_to newsym (D-0846)
 - Objective: seed0383 @173 post-expel Hallu display-RNG before flush.
 - C locus: teleport.c rloc_to_core newsym(old)+newsym(new); display.h covers_objects.
 - Change: `rloc_to` remove+newsym(old)/place/newsym(new); covers_objects
@@ -159,12 +170,3 @@ Use this shape:
   **11372→11400** (RNG matched 11423→11437; Scr 144).
 - Next: seed0383 @11400 C mattacku rnd(20) vs JS rn2(5).
 
-## 2026-07-20 07:20 — #963 seed0383 wizintrinsic hallu (D-0835)
-- Objective: seed0383 @10843 C exercise rn2(2) vs JS wipe rn2(82).
-- C locus: wizcmds.c wiz_intrinsic; potion.c make_hallucinated;
-  attrib.c exerper Hallucination → exercise(A_WIS,FALSE).
-- Change: port make_hallucinated + #wizintrinsic menu (HALLUC arm);
-  wire EXT_CMDS. Site-shift/fog hyp falsified — missing timed Hallu.
-- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
-  **10843→11372** (RNG matched 11054→11423; Scr 142→144).
-- Next: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).

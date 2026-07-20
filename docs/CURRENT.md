@@ -47,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **174**/219 | RNG FULL; Scr 174 (D-0846 rloc_to); flush parked @173 objs |
+| seed0383 | **16915**/16915 | **174**/219 | RNG FULL; Scr 174 w/o flush; flush→175 @172 4 objs (D-0847) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10358/11409 | 113/532 | stuck @10157 D-0731 |
@@ -75,11 +75,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 gulpmu More** — D-0846 `rloc_to` newsym
-+ `covers_objects` done. With flush: @173 **mons match**, **4 ROOM
-objs** remain (see_objects Hallu). Without flush Scr **174**. **Next:**
-why those 4 obj burns diverge after matching `see_monsters`; then flush.
-Focused:
+**Gameplay next:** **seed0383 post-expel Hallu objs** — D-0847: with
+flush, firstMiss **@172**, Scr **175**; 4 ROOM objs (slime/tinning/
+shock shield/towel). `see_monsters` stream OK (mons match); `see_objects`
+exactly 4×462 still wrong; dummy +N shift falsified. **Next:** display
+RNG on expelled-More → `expels`/`docrt`/`mnexto` before once-per-input
+`see_*`. Without flush Scr **174**. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -91,11 +92,13 @@ node frozen/ps_test_runner.mjs \
 
 **Do not re-break D-0660…D-0846. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more without fixing @173
-Hallu objs (D-0841/D-0843/D-0846).**
-**Do not restore dochug NOTHING/DONE Hallu newsym as @173 “fix”
+**Do not re-apply gulpmu flush_topl_more without fixing @172
+Hallu objs (D-0841/D-0843/D-0846/D-0847).**
+**Do not restore dochug NOTHING/DONE Hallu newsym as @172 “fix”
 (D-0845 falsified — Scr regresses).**
 **Do not revert rloc_to newsym (D-0846) — required for flush path.**
+**Do not “fix” objs with raw +N display burns before see_objects
+(D-0847 falsified).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
