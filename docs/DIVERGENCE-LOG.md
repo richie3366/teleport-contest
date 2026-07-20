@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0864 — obj_resists invocation items skip rn2 (seed0399 @10309)
+
+- **Status:** fixed
+- **Symptom:** seed0399 @10309 — C `dog_move` `rn2(1)` vs JS `rn2(100)`
+  after matched invent `dogfood`/`obj_resists` chain.
+- **DIAG:** `dog_goal` invent scan called `dogfood`→`obj_resists` per
+  invent item; invent included `BELL_OF_OPENING`. JS emitted one extra
+  `rn2(100)` vs C before candidate `rn2(++chcnt)`.
+- **C locus:** `zap.c` `obj_resists` — Amulet / Book of the Dead /
+  Candelabrum / Bell / Rider corpse return `TRUE` with **no** `rn2(100)`;
+  `dog.c` `dogfood` also short-circuits `is_quest_artifact` before
+  `obj_resists`.
+- **Cause:** JS `obj_resists` always rolled `rn2(100)` (comment claimed
+  invocation items “omitted for early dlvl”).
+- **Change:** port invocation/rider early-return in `js/dogmove.js`
+  `obj_resists`; add `is_quest_artifact` before `obj_resists` in
+  `dogfood`. Rider corpse arm via `is_rider`.
+- **Verification:** green+strict PASS; seed0399 prefix **10309→10382**
+  Scr **407→409**/532; cohort 37/37 PASS.
+- **Next:** seed0399 @10382 C `mdig_tunnel` `rnd(12)` vs JS `rn2(6)`.
+
 ## D-0863 — hold_another_object encumber_msg after prinv (seed0399 @10269)
 
 - **Status:** fixed
