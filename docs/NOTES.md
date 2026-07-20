@@ -41,8 +41,8 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#1000 Scr **9011**/11405 RNG **666643**/792838;
-  seed0383 local **PASS** after D-0858 (+2 Scr → **39**/44 pending #1005).
+- suite **39/44** @#1005 Scr **9021**/11405 RNG **666643**/792838
+  (84.08%); speed `33+0.23/turn`; next full score @#1010.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

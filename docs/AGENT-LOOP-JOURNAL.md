@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 15:28 — #1005 full public score refresh
+- Objective: mandatory score (iteration % 5 == 0).
+- C locus: n/a (docs-only score cadence).
+- Change: full `sessions` → **39/44** PASS; Scr **9021**/11405;
+  RNG **666643**/792838 (84.08%); speed `33+0.23/turn` (R² 0.825).
+  Δ vs #1000: Scr +10, RNG 0, PASS +1 (seed0383). Non-PASS unchanged
+  (0014/0399/2200/2600/4500).
+- Verification: green+strict PASS; full suite `__RESULTS_JSON__`.
+- Next: seed0399 @10157 needs C-state which 2 mfndpos cells (D-0731);
+  or D-0708; next score @#1010.
+
 ## 2026-07-20 15:25 — #1004 unicorn noteleport_level + D-0731 DIAG
 - Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
 - C locus: teleport.c noteleport_level; mon.c mon_allowflags;

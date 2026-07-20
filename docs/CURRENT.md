@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1000**),
-plus focused seed0383 **PASS** after D-0858 (#1003; Scr +2).
-Screens **9013**/11405 (est.); RNG **666,643**/792838 (84.08%). **39/44** PASS.
-Δ vs #1000: Scr **+2**, RNG **0**, PASS **+1** (seed0383). Speed pending #1005.
-*(Full-suite refresh due at loop #1005.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1005**).
+Screens **9021**/11405; RNG **666,643**/792838 (84.08%). **39/44** PASS.
+Δ vs #1000: Scr **+10**, RNG **0**, PASS **+1** (seed0383). Speed
+`33+0.23/turn` (R² 0.825). Next full refresh due at loop **#1010**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **39 / 44** |
-| Screens matched | **9,013 / 11,405** (est. +2 vs #1000) |
+| Screens matched | **9,021 / 11,405** |
 | Positional RNG calls matched | **666,643 / 792,838** (84.08%) |
-| Speed label | `32+0.23/turn` (R² 0.84) — refresh #1005 |
+| Speed label | `33+0.23/turn` (R² 0.825) |
 | Role-init throws | **0 / 44** |
 
 **PASS (39):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -43,7 +42,7 @@ seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, **seed0383**.
+seed0360, seed0383.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
