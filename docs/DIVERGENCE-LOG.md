@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0902 — shkveg / mkveggy_at health-food stock (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; Izchak /
+  wizard SHOPTYPE / veggy_item obj-path still deferred)
+- **Session:** seed4500-knight-coverage @9974
+- **Symptom:** C `rnd(860)=527 @ shkveg`; JS `rnd(1000)` via
+  `mkobj_at(FOOD_CLASS)` stand-in for `VEGETARIAN_CLASS`.
+- **Cause:** `mkshobj_at` omitted `shkveg`/`mkveggy_at`; health-food
+  store used ordinary food-class mkobj (prob total 1000 ≠ veggy 860).
+- **C locus:** `shknam.c` `veggy_item` / `shkveg` / `mkveggy_at` /
+  `mkshobj_at`; `eat.c` `set_tin_variety(HEALTHY_TIN)`.
+- **Fix:** type-only `veggy_item` (VEGGY/EGG + TIN/CORPSE via lichen
+  stand-in), weighted `shkveg` `rnd(maxprob)`, `mkveggy_at` →
+  `mksobj_at` + HEALTHY_TIN follow-up. Named omit: Izchak minetown
+  light-shk; wizard SHOPTYPE; veggy_item actual-obj tin/corpse path.
+- **Verification:** seed4500 prefix **9974→14216** Scr **284→294**
+  RNG **10113→14271**; green+strict PASS; cohort 11/11 PASS
+  (incl. seed0116 shop / seed0030).
+- **Next:** seed4500 @14216 C `next_ident` vs JS `rn2(3)` after
+  matched `fill_ordinary_room` `rn2(5)`; leaderboard cron; cadence
+  @#1055.
+
 ## D-0901 — themerms Pillars terr shuffle + 2×2 terrain (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; Random-feature

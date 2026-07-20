@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @9974 C `shkveg` `rnd(860)` vs JS
-  `mkobj_at(FOOD_CLASS)` `rnd(1000)`. Falsifier:
+- **Gameplay next:** seed4500 @14216 C `next_ident` after matched
+  `fill_ordinary_room` `rn2(5)` vs JS `rn2(3)`. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0901 Pillars closed @8925 (prefix 8925→9974 Scr still 284).
+- D-0902 shkveg closed @9974 (prefix 9974→14216 Scr 284→294).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0901 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0902 done.
+- Do not omit `shkveg`/`mkveggy_at` / HEALTHY_TIN (D-0902).
 - Do not omit Pillars `shuffle(terr)` / 2×2 `des.terrain` (D-0901).
 - Do not omit `spitmm`/`spitmu` / `m_lined_up` (D-0900).
 - Do not omit `#jump` / `dojump` / getpos_getvalid (D-0899).
@@ -30,12 +31,13 @@ Objective/score live in `CURRENT.md`.
 - Do not omit launch_obj `tmp_at(DISP_FLASH)` / pline vision (D-0890).
 - Do not omit peaceful adj / frighten verb on safemon swap (D-0889).
 - Do not capitalize-only cream pie splash (need `The(xname)` D-0888).
-- Do not omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1050 Scr **9874**/11405 RNG **694676**/792838
   (87.62%); next cadence @#1055.
+- **D-0902 #1052:** shkveg/mkveggy_at; seed4500 **9974→14216**
+  Scr **284→294**.
 - **D-0901 #1051:** Pillars terr shuffle; seed4500 **8925→9974** Scr **284**.
 - **D-0900 #1050:** spitmm/spitmu; seed4500 **8491→8925** Scr **264→284**.
 - **D-0899 #1049:** `#jump` dojump; seed4500 **2869→8491** Scr **19→264**.
@@ -51,4 +53,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0891 #1042:** maketrap HOLE `unhideable_trap` tseen; Scr **645→676**.
 - **D-0890 #1041:** launch_obj FLASH + pline vision_recalc; Scr **644→645**.
 - **D-0889 #1040:** swap `x_monnam` peaceful adj; Scr **641→644**.
-- **D-0888 #1039:** cream pie `The(xname)`; Scr **640→641**.

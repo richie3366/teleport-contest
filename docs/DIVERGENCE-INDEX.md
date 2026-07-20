@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0902 | fixed | shkveg/mkveggy_at HEALTHY_TIN | seed4500 **9974→14216** Scr **294**; next @14216 fill_ordinary |
 | D-0901 | fixed | themerms Pillars terr shuffle | seed4500 **8925→9974** Scr **284**; next @9974 shkveg |
 | D-0900 | fixed | spitmm/spitmu + m_lined_up | seed4500 **8491→8925** Scr **264→284**; next @8925 nhlib shuffle |
 | D-0899 | fixed | #jump dojump/jump + getpos_getvalid | seed4500 **2869→8491** Scr **19→264**; next @8491 next_ident |

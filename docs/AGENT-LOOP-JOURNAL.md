@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 21:33 — #1052 D-0902 shkveg / mkveggy_at
+- Objective: seed4500 @9974 C `shkveg` `rnd(860)` vs JS FOOD `rnd(1000)`.
+- C locus: `shknam.c` `veggy_item`/`shkveg`/`mkveggy_at`/`mkshobj_at`;
+  `eat.c` `set_tin_variety(HEALTHY_TIN)`.
+- Change: port type-only veggy pick + HEALTHY_TIN follow-up; wire
+  `VEGETARIAN_CLASS` in `mkshobj_at`. Named omit: Izchak; wizard
+  SHOPTYPE; veggy_item obj-path.
+- Verification: seed4500 prefix **9974→14216** Scr **284→294** RNG
+  **10113→14271**; green+strict; cohort 11/11 PASS.
+- Next: seed4500 @14216 next_ident vs rn2(3); leaderboard cron;
+  cadence @#1055.
+
 ## 2026-07-20 21:28 — #1051 D-0901 Pillars terr shuffle
 - Objective: seed4500 @8925 nhlib shuffle rn2(7) vs JS rn2(5).
 - C locus: `themerms.lua` Pillars; `nhlib.lua` shuffle; `sp_lev.c`
@@ -154,14 +166,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 15/15 PASS; seed0014 Scr
   **638→640**/714 (RNG FULL).
 - Next: @505 C `The cream pie splashes…` vs JS `Cream pie…`.
-
-## 2026-07-20 19:53 — #1037 D-0886 rloc appear + flee RLOC_MSG
-- Objective: seed0014 @424 fountain dryup missing `--More--`.
-- C locus: `monmove.c` `dochug` flee `rloc(RLOC_MSG)`; `teleport.c`
-  `rloc_to_core` post-place appear/close-by.
-- Change: await `rloc(mtmp, RLOC_MSG)` in flee-teleport; port appear
-  pline after `rloc_to` (nymph appear forces more on fountain topline).
-- Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
-  **636→638**/714 (RNG FULL).
-- Next: @457 C nymph smiles/engagingly vs JS hits (SSEX).
-
