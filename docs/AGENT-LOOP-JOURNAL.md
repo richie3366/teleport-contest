@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:39 — #990 public score cadence
+- Objective: mandatory 5-iter full `sessions` score refresh.
+- C locus: n/a (docs only).
+- Change: measured **38/44** PASS; Scr **8996**/11405 (+10 vs #985);
+  RNG **666582**/792838 (flat); speed `32+0.23/turn`. seed0383 still
+  194/219 RNG FULL @195 Hallu.
+- Verification: green gate + strict PASS; full suite `__RESULTS_JSON__`.
+- Next: seed0383 C `~drn2` for menu/goto/per-input display windows.
+
 ## 2026-07-20 12:45 — #989 seed0383 @195 display-rng inventory
 - Objective: seed0383 @195 Hallu map after levtport materialize.
 - C locus: wintty erase_menu_or_text→docrt; display.c docrt /

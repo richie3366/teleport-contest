@@ -52,7 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#985 Scr **8986**/11405 RNG **666582**/792838;
+- suite **38/44** @#990 Scr **8996**/11405 RNG **666582**/792838;
   seed0383 RNG **FULL**; Scr **194**/219 after D-0850/51.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
