@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0867 — thitmonst tmiss else + food-fail maybe_wakeup
+
+- **Status:** fixed
+- **Observed:** seed0399 @10697 — C `tmiss` `rn2(3)`; JS `obj_resists`
+  `rn2(100)` via `breaktest` after silent thitmonst miss. Screen:
+  "The gray dragon scale mail misses the soldier ant."
+- **Rejected:** weapon to-hit tmp as the immediate cause — thrown object
+  is ARMOR_CLASS, so C takes the final `else` → `tmiss(..., TRUE)`.
+- **C locus:** `dothrow.c` `tmiss` (~1951–1967), `thitmonst` food-fail
+  `tmiss(FALSE)` + else `tmiss(TRUE)` (~2272 / ~2300); `zap.c` `miss`.
+- **Cause:** JS `thitmonst` returned false without `tmiss`, so `throwit`
+  fell through to `breaktest`/`obj_resists` while C burned wakeup
+  `!rn2(3)`.
+- **Change:** port `tmiss` (xname for mshot_xname; quan≈is_plural
+  otense); food-fail `tmiss(FALSE)`; else `tmiss(TRUE)`. Weapon/gem
+  hit-vs-miss still deferred (falls through to else → always-miss).
+- **Verification:** green+strict PASS; seed0399 prefix **10697→10729**
+  Scr **429→442**; cohort 16/16 (incl. seed1800/0101 throw).
+- **Next:** seed0399 @10729 C `exercise` `rn2(19)` vs JS `distfleeck`
+  `rn2(5)` (death amulet glow window).
+
 ## D-0866 — trapeffect_web mon mtrapped + mu_maybe_destroy_web
 
 - **Status:** fixed

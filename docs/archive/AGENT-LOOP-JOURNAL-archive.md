@@ -592,4 +592,20 @@
 - Verification: green+strict PASS; seed0383 Scr **196** RNG FULL (revert).
 - Next: JS vs C display-rng dims gulp→@195; flush parked.
 
+## 2026-07-20 15:05 — #1002 corner menu dismiss≠docrt (D-0857)
+- Objective: seed0383 Scr 211/219; first miss @210 after +/ESC.
+- C locus: wintty.c erase_menu_or_text — offx==0 docrt; else docorner.
+- Diagnosis: invent fullscreen docrt OK; spell corner always-docrt
+  burned Hallu RNG before once-per-input see_monsters → mon r≠e.
+- Change: invent.js dismiss_nhw_menu; spell/invent/options wired.
+- Verification: Scr **217**/219 RNG FULL; @210 e; green+strict; 15/15.
+- Next: @213 Ctrl-X attributes (hungry line / page shift).
 
+## 2026-07-20 14:55 — #1001 invent Hallu obj_to_glyph (D-0856)
+- Objective: seed0383 Scr 209/219; first miss past @199.
+- C locus: invent.c display_pickinv obj_to_glyph(otmp, rn2_on_display_rng).
+- Diagnosis: @208 soldier Hallu after i/ESC; core RNG FULL; invent menus
+  omitted Hallu display burns. Post-fix map through spell menu OK.
+- Change: invent_lines + display_pickinv_reply call obj_glyph per item.
+- Verification: Scr **211**/219 RNG FULL; green+strict PASS; cohort 10/10.
+- Next: @210 map after +/ESC (soldier Hallu); wear plines still deferred.

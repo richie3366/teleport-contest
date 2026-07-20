@@ -7,17 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @10697:** after D-0866 web catch, first miss C `tmiss`
-  `rn2(3)` vs JS `rn2(100)`. Faithful peel — not FORCE.
-- Falsifier: C `dothrow.c` `tmiss` ~1964; preceding thitmonst rnd(20)
-  matched.
+- **seed0399 @10729:** after D-0867 tmiss, C `exercise` `rn2(19)` vs JS
+  `distfleeck` `rn2(5)`. Screen: "You die... Your medallion begins to
+  glow!". Faithful peel — not FORCE.
+- Falsifier: C `attrib.c` `exercise` ~509 after knockback match @10728.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0866 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0867 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0866 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0867 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
@@ -41,6 +41,8 @@ Objective/score live in `CURRENT.md`.
 - Do not read only `wall_info` for W_NONDIGGABLE — OR `flags` (D-0865).
 - Do not stub WEB in trapeffect_selector default — mon must set
   `mtrapped` (D-0866).
+- Do not skip `tmiss` on thitmonst else — armor throw needs `rn2(3)`
+  (D-0867); weapon hit-vs-miss still deferred.
 
 ## Landmarks (≤15)
 
@@ -60,14 +62,6 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
-- **D-0861 #1009:** `searches_for_item` Is_container; seed0399 @10217.
-- **D-0862 #1011:** makesingular+as_is; gold wish; SCR_MAIL skip
-  blessorcurse; seed0399 **10217→10269** Scr 156→392.
-- **D-0863 #1012:** hold_another_object encumber_msg; seed0399
-  **10269→10309** Scr 392→407.
-- **D-0864 #1013:** `obj_resists` Bell/Book/Amulet/Candelabrum/Rider
-  skip rn2; seed0399 **10309→10382** Scr 407→409.
-- **D-0865 #1014:** `may_dig`/`may_passwall` OR `flags|wall_info`;
-  mfndpos peaceful shop/temple dig avoid; seed0399 **10382→10581**.
-- **D-0866 #1015:** `trapeffect_web` mon mtrapped; seed0399
-  **10581→10697** Scr **409→429**.
+- **D-0861…D-0866:** seed0399 peels to @10697 Scr 429 (web mtrapped).
+- **D-0867 #1016:** `tmiss` else + food-fail; seed0399 **10697→10729**
+  Scr **429→442**; gray dragon scale mail miss.
