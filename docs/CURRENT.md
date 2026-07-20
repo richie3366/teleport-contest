@@ -25,7 +25,8 @@ Score last measured: **2026-07-21** — full `sessions` @**#1075** (42/44,
 Scr **10349**/11405, RNG **97.29%**) after D-0924. Next cadence @**#1080**.
 #1076 D-0925: `breamm`/`breamu` + AT_BREA; seed4500 **86672→87218**
 RNG **87347** Scr **759**. #1077 D-0926: `mhitm_ad_blnd` mhitu;
-seed4500 **87218→87803** RNG **88082** Scr **794**.
+seed4500 **87218→87803** RNG **88082** Scr **794**. #1078 D-0927:
+rhack F-prefix reject; seed4500 **87803→88377** RNG **88484** Scr **808**.
 
 ## Score
 
@@ -49,7 +50,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 87347/108275 | 759/1814 | knight; @87218 distfleeck |
+| seed4500 | 88484/108275 | 808/1814 | knight; @88377 linedup |
 
 ## Green gate
 
@@ -72,15 +73,15 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @87803 — C `distfleeck` `rn2(5)` vs JS
-  `rn2(20)` (after D-0926 raven blind). Focused:
+**Gameplay next:** **seed4500** @88377 — C `linedup` `rn2(2)` vs JS
+  `rn2(5)` (after D-0927 F-prefix). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0926. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0927. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0926 (Hallu dochug … mhitm_ad_blnd).
+**Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -94,7 +95,8 @@ unplacebc/Nesting/fill_ordinary_room/drag_down/FAST TIMEOUT/
 TROUBLE_HIT/minetn-4 book shop/wakeup wake_nearto/touchfood
 addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
-(D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926).
+(D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
+silent-clear F-prefix then still run `#`/non-move (D-0927).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

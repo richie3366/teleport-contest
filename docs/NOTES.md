@@ -8,20 +8,22 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @87803 — C `distfleeck` `rn2(5)` vs JS
-  `rn2(20)` (after D-0926 raven blind; post-minotaur genesis).
+- **Gameplay next:** seed4500 @88377 — C `linedup` `rn2(2)` vs JS
+  `rn2(5)` (after D-0927 F-prefix; post-wield carrots turn).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0926 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0927 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not silent-clear F-prefix then still run `#`/non-move (D-0927);
+  nested g/G after F / full CMD_gGF table deferred.
+- Do not treat @87803 `rn2(20)` as distfleeck — it was gethungry
+  from mis-parsed `h` walk after F+# (D-0927).
 - Do not omit `mhitm_ad_blnd` mhitu / raven AT_CLAW blind (D-0926);
   Eyes vision_clears / full can_blnd ublindf / uhitm arm deferred.
-- Do not treat @87218 `rn2(8)` as distfleeck — it was premature
-  genesis from key/`--More--` desync (D-0926).
 - Do not omit `breamm`/`breamu` / `mattacku` AT_BREA / fire-pool
   `zap_over_floor` steam (D-0925); mon-mon AT_BREA deferred.
 - Do not re-add `splitobj` invent[] splice (D-0924); touchfood
@@ -39,15 +41,15 @@ Objective/score live in `CURRENT.md`.
   gate with `uball` (≡C `Punished`), not sticky `u.Punished`.
 - Do not omit `fill_ordinary_room` nsubrooms recursion before needfill
   (D-0917).
-- Do not omit Nesting nested create_subroom/door / lspo_door `rnddoor`
-  (D-0916).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1075 Scr **10349**/11405 RNG **771361**/792838
   (97.29%); next cadence @#1080.
+- **D-0927 #1078:** rhack F-prefix reject; seed4500 **87803→88377**
+  RNG **88484** Scr **808**; next @88377 linedup.
 - **D-0926 #1077:** mhitm_ad_blnd mhitu; seed4500 **87218→87803**
-  RNG **88082** Scr **794**; next @87803 distfleeck.
+  RNG **88082** Scr **794**.
 - **D-0925 #1076:** breamm/AT_BREA + dobuzz fire-pool; seed4500
   **86672→87218** RNG **87347** Scr **759**.
 - **D-0924 #1075:** undo splitobj invent[] splice; seed0002 PASS
@@ -72,5 +74,3 @@ Objective/score live in `CURRENT.md`.
   **52643→52803** RNG **52925** Scr **611**.
 - **D-0914 #1064:** mk_knox_portal place under wizard; seed4500
   **50844→52643** RNG **52967** Scr **608**.
-- **D-0913 #1063:** `x`/doswapweapon + setworn twoweap clear;
-  seed4500 **50338→50844** RNG **50936** Scr **594**.

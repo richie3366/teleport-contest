@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @88377
+  `linedup`; nested g/G PREFIXCMD after F; full CMD_gGF table deferred)
+- **Session:** seed4500-knight-coverage @87803
+- **Symptom:** C `rn2(5) @ distfleeck` vs JS `rn2(20) @ gethungry`
+  (`do_attack`→`overexertion`). Session keys after `#wizgenesis`
+  minotaur: `F` `#` … then `w`/`h` wield carrots; C monsters move.
+- **Cause:** JS silently cleared `forcefight` on non-movement and still
+  ran the command. C `rhack` with `prefix_seen=do_fight` + `#`
+  (lacks `CMD_gGF_PREFIX`) prints
+  `The 'F' prefix should be followed by a movement command.` and
+  **does not** call `doextcmd` (`ECMD_FAIL` + `reset_cmd_vars`). JS
+  entered `#` then mis-consumed later keys so `h` became walk/attack
+  instead of wield letter.
+- **C locus:** `cmd.c` `rhack` / `do_fight` (PREFIXCMD).
+- **Fix:** when `forcefight` and next key is not F/m/movement/run/rush,
+  pline the C message, reset prefix state, **return without executing**.
+- **Verification:** prefix **87803→88377** RNG **88484** Scr **808**;
+  green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800
+  PASS (7/7).
+- **Next:** @88377 C `linedup` `rn2(2)` vs JS `rn2(5)`.
+
 ## D-0926 — mhitm_ad_blnd mhitu (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @87803

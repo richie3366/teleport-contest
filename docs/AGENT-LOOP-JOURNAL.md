@@ -12,6 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 00:53 — #1078 D-0927 rhack F-prefix reject
+- Objective: seed4500 @87803 C `distfleeck` `rn2(5)` vs JS `rn2(20)`.
+- C locus: `cmd.c` `rhack` / `do_fight` (PREFIXCMD + CMD_gGF_PREFIX).
+- Change: F-prefix + non-movement must pline and **not** execute the
+  next command (was silent-clear then still run `#` → key desync so
+  `h` walked/attacked instead of wield letter). Root not distfleeck.
+- Verification: prefix **87803→88377** RNG **88484** Scr **808**;
+  green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800
+  PASS (7/7).
+- Next: @88377 C `linedup` `rn2(2)` vs JS `rn2(5)`; cadence @#1080.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -171,23 +182,3 @@ Use this shape:
 - Next: find when JS hero left C's line vs shk; leaderboard cron;
   cadence @#1070.
 
-## 2026-07-20 23:32 — #1064 D-0914 mk_knox_portal place (wizard)
-- Objective: seed4500 @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`
-- C locus: `mklev.c` `mk_knox_portal`; `dungeon.c` `insert_branch`
-- Change: under `playmode:debug`/`wizard`, C still burns `rn2(3)` but
-  does not defer — depth-eligible vaults assign Ludios `end1` +
-  `place_branch`. JS stub burned RNG then left portal floating, so
-  later vaults re-burned `rn2(3)` and shifted shop gate. Named omit:
-  non-debug deferral already matched; portal dest polish.
-- Verification: prefix **50844→52643** RNG **52967** Scr **608**;
-  green+strict PASS; cohort 10/10 PASS.
-- Next: @52643 C `distfleeck` `rn2(5)` vs JS `rn2(1)`.
-
-## 2026-07-20 23:18 — #1063 D-0913 `x`/doswapweapon
-- Objective: seed4500 @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`
-- C locus: `cmd.c` `'x'`→`doswapweapon`; `worn.c` `setworn` twoweap clear
-- Change: wire `rhack` `'x'`; `setuwep`/`setuswapwep` clear twoweap;
-  ready_weapon are/can_no_longer. Named omit: cantwield ridiculous; #swap.
-- Verification: prefix **50338→50844** RNG **50936** Scr **594**;
-  green+strict PASS; cohort 5/5 PASS (seed4500 still FAIL later).
-- Next: @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`.
