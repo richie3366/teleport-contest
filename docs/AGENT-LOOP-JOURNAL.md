@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:51 — #991 seed0383 C ~drn2 falsifier (D-0852)
+- Objective: C display-RNG inventory for seed0383 levtport→@195.
+- C locus: display.c `display_warning` / `docrt` / `see_monsters`;
+  rnd.c `rn2_on_display_rng(WARNCOUNT-1)`.
+- Change: diagnosis only. Rerecorded with `NETHACK_RNGLOG_DISP=1`.
+  C @195 = **70** (~drn2): pre-gen **19×5**+4×463+40×383; post-gen
+  **7**. Session warn **45** vs JS **16** (`HWarning` set — not gap).
+  Cluster1 counts match; values skew from missing warn burns.
+- Verification: green+strict PASS; seed0383 Scr **194** RNG FULL;
+  no JS patch.
+- Next: menu-dismiss `docrt` warn-only `display_warning` path vs C.
+
 ## 2026-07-20 12:39 — #990 public score cadence
 - Objective: mandatory 5-iter full `sessions` score refresh.
 - C locus: n/a (docs only).
@@ -161,13 +173,3 @@ Use this shape:
 - Verification: seed0383 Scr 176 RNG FULL; green+strict PASS; cohort 5/5.
 - Next: reconstruct C burn between expelled More and see_monsters (not
   blanket rloc_to); then 4 objs; flush.
-
-## 2026-07-20 09:57 — #976 map_object Hallu statue memory (D-0844)
-- Objective: seed0383 @172 post-expel Hallu display-RNG before flush.
-- C locus: display.c map_object Hallu+STATUE memory random_obj_to_glyph.
-- Change: `map_object` — statue display vs memory burns; diagnosed @172
-  as −1 display burn before once-per-input Hallu see_* (mons align with
-  +1 dummy; 4 objs remain). Statue fix does not move Scr 176.
-- Verification: seed0383 Scr 176 RNG FULL; green+strict PASS; cohort 6/6.
-- Next: missing burn in post-expel docrt/mnexto/postmov; then 4 objs; flush.
-

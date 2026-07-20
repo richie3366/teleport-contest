@@ -77,10 +77,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0383 Scr 194/219** — @195 Hallu map (3 cells:
-Hallu `@` color + two `*`≠`[`). JS burn inventory measured (#989):
-menu-dismiss docrt **45** (20+20×383, 4×463, 1×5); goto docrt **4**;
-per-input **3** (paints the miss cells). Skip menu docrt falsified
-(Scr−2). Next: C `~drn2` same three windows. Flush parked @141–174.
+Hallu `@` color + two `*`≠`[`). C ~drn2 (#991): @195 window **70**
+with **19×5** warn; JS session warn **16** vs C **45** (HWarning OK).
+Next: menu-dismiss `docrt` `display_warning` path vs C (vision +
+`see_monsters` on warn-only mons). Flush parked @141–174.
 Focused:
 
 ```bash

@@ -7,20 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#989:** seed0383 @195 still Scr **194**/219 RNG FULL. Three cell
-  misses only: map (68,5) Hallu `@` color 1≠15; (68,6)+(69,7) `*`≠`[`.
-  Those cells = the sole cansee mon + two cansee objs at materialize.
-- **Measured display-rng (levtport → @195):**
-  - menu-dismiss `docrt` Dlvl:12: **45** =
-    `20×383` vision + `20×383` see_mon + `4×463` obj + `1×5` warn
-  - `goto_level` `docrt` Dlvl:8: **4** = `2×383` + `2×463` (IN_SIGHT 65)
-  - once-per-input Hallu: **3** = `1×383` + `2×463` (paints the 3 miss cells)
-- **Falsified:** skip fullscreen menu-dismiss `docrt` → Scr 194→192
-  (C `erase_menu_or_text` offx=0/offy=0 also `docrt`; burns required).
-- **Falsifier next:** C `NETHACK_RNGLOG_DISP=1` / `~drn2` inventory for
-  the same three windows (menu docrt / goto docrt / per-input). If C
-  menu≠45 or goto≠4, find which newsym set differs; if counts match,
-  order/composition of the 45.
+- **#991:** C `NETHACK_RNGLOG_DISP=1` rerecord for seed0383 done.
+  @195 C window = **70** ~drn2: pre-gen **63** (**19×5** + 4×463 +
+  40×383) + post-gen **7** (3×383+4×463). Session: C **45×5** vs JS
+  **16×5**; total disp 624 vs 572. `HWarning` OK (not missing).
+- **Hypothesis:** menu-dismiss `docrt` under-burns `display_warning`
+  (C 19×5 vs JS ~1×5) → display stream skew → @195 Hallu glyphs wrong.
+  Falsifier: at that `docrt`, count JS `mon_warning && !mon_visible`
+  fmon + `display_warning` Hallu calls vs C 19.
 - Flush still parked @141–174 (D-0841).
 
 ## Don't re-check (≤15)
@@ -47,6 +41,7 @@ Objective/score live in `CURRENT.md`.
   falsified; real cause was missing SCR_MAIL (D-0848).
 - Extra post-`docrt` `vision_recalc(0)` was not @195 cause (0 burns).
 - Skip menu-dismiss `docrt` (fullscreen) not @195 cause (Scr−2).
+- **#991:** HWarning missing is NOT the warn-burn gap (HW set).
 
 ## Landmarks (≤15)
 
@@ -73,3 +68,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.
 - **D-0850:** `xkilled` tame → `x_monnam(..., "poor", ...)`.
 - **D-0851:** `goto_level` no post-docrt `vision_recalc(0)`.
+- **D-0852:** C @195 19×warn; JS session warn 16 vs C 45.

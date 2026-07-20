@@ -6,22 +6,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0852 — open: seed0383 @195 Hallu after levtport (burn inventory)
 
-- **Status:** open (diagnosed; no JS patch)
+- **Status:** open (C ~drn2 falsifier done #991; no JS patch)
 - **Symptom / context:** seed0383 Scr 194/219 RNG FULL. First content
-  miss @195 (0-based index 195): three map cells only — Hallu `@` at
-  (68,5) color 1≠15; objs at (68,6)/(69,7) `*`≠`[`. Message/cursor OK.
-- **Measured (#989):** display-rng windows levtport→@195:
-  - menu-dismiss `docrt` (Dlvl:12): **45** =
-    20×383 vision + 20×383 see_monsters + 4×463 obj + 1×5 warn
-  - `goto_level` `docrt` (Dlvl:8): **4** = 2×383 + 2×463 (IN_SIGHT 65;
-    one cansee mon at the `@` miss cell)
-  - once-per-input Hallu see_*: **3** = 1×383 + 2×463 (exactly the
-    miss cells)
-- **Falsified:** skip fullscreen `select_menu_pick_one` `docrt` →
-  Scr 194→192 (C `erase_menu_or_text` offx=0/offy=0 also calls `docrt`).
-  Post-docrt `vision_recalc(0)` already falsified (D-0851).
-- **Next:** C `NETHACK_RNGLOG_DISP=1` / `~drn2` for the same three
-  windows; if counts match, compare which cells newsym.
+  miss @195: Hallu `@` color 1≠15; objs `*`≠`[`. Message/cursor OK.
+- **C `NETHACK_RNGLOG_DISP=1` rerecord (#991):** session-total
+  ~drn2 **624** = 447×383 + 81×463 + **45×5** + 26×430 + 19×2 + …
+  JS session-total **572** = 454×383 + 65×463 + **16×5** (−52; warn
+  −29; obj −16; mon +7). `HWarning` is set (FROMEXPER); not the gap.
+- **C @195 window (menu `c` → materialize):** **70** ~drn2 —
+  cluster0 (before 4939 core level-gen): **63** =
+  **19×5** + 4×463 + 40×383; cluster1 (after): **7** =
+  3×383 + 4×463. JS end cluster also **7** but values differ (stream
+  already skewed). C @196 once-per-input = **3** = 1×383+2×463.
+- **Prior JS (#989):** menu docrt measured **45** with only **1×5**
+  warn — matches shortfall vs C's **19×5** in cluster0 (−18 warns).
+- **Falsified:** skip menu `docrt`; post-docrt `vision_recalc(0)`.
+- **Next:** why JS `display_warning` Hallu burns 16 vs C 45 —
+  especially menu-dismiss `docrt` warn path (vision+`see_monsters`
+  on `mon_warning && !mon_visible`). Dump fmon warn-only set at
+  that `docrt`. Flush still parked @141–174.
 
 ## D-0851 — fixed: goto_level drop post-docrt vision_recalc
 
