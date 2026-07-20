@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0855 — partial: m_dowear_type nambuf Hallu mon_nam
+
+- **Status:** partial (seed0383 Scr **201→209**; RNG FULL; first cell miss past @199)
+- **Symptom / context:** After D-0853/D-0854, abs dim LCP **555**: C
+  `~drn2(430)` ×7 between gnome 2nd fleeck and soldier 1st fleeck; JS
+  jumped to next fleeck. Site tags said `distfleeck` (stale).
+- **Cause:** C `movemon_singlemon` I_SPECIAL → `m_dowear` → each
+  `m_dowear_type` copies `See_invisible ? Monnam : mon_nam` into
+  `nambuf` **before** wear/early-return (`worn.c`). Under Hallu that is
+  `rndmonnam` (430). JS had deferred that entry burn (wear plines still
+  deferred). Backtrace: `rndmonnam` ← `x_monnam` ← `mon_nam` ←
+  `m_dowear_type` ← `m_dowear` ← `movemon_singlemon`.
+- **Fix:** `js/worn.js` `m_dowear_type`: after `mfrozen` gate, evaluate
+  `See_invisible ? Monnam(mon) : mon_nam(mon)` for nambuf (invis pline
+  use still deferred).
+- **Verification:** seed0383 Scr **209**/219 RNG FULL; green+strict
+  PASS; cohort 8/8.
+- **Next:** remaining Scr gap @209+; wear/invis plines when `sawmon`
+  still deferred (may matter when visible re-equip).
+
 ## D-0854 — rejected: LCP 555 fleeck→monflee Monnam
 
 - **Status:** rejected (falsified)

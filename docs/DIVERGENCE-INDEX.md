@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0854 | rejected | LCP 555 = fleeck→monflee Monnam | Falsified: 7×Monnam post-2nd fleeck, no monflee core; next C caller |
+| D-0855 | partial | m_dowear_type nambuf Monnam/mon_nam | LCP 555 named: movemon I_SPECIAL m_dowear; Scr 201→209; @? open |
+| D-0854 | rejected | LCP 555 = fleeck→monflee Monnam | Falsified; true caller = m_dowear_type (D-0855) |
 | D-0853 | partial | dochug Hallu newsym NOTHING/DONE/NOMOVES | LCP 553→555; first cell miss 198→199; Scr still 201; @199 open |
 | D-0852 | partial | seed0383 Hallu levtport / gulp DISP | #996 flush+vision_off Scr→201; #997 dochug Hallu newsym (D-0853); @199 open |
 | D-0851 | fixed | goto_level no post-docrt vision_recalc(0) | C fidelity; seed0383 @195 Hallu still open; green+cohort OK |

@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#998 D-0854:** LCP 555 fleeck→monflee Monnam **falsified**. After
-  core **16751** (2nd fleeck post `m_move` rn2(24)) C burns **7×**
-  rndmonnam with **no** core; monflee would burn `rnd(rn2(7)?10:100)`.
-  JS next burn = postmov mon_glyph@16754. Scr still **201**, @199 open.
-- **Hypothesis:** unknown C path after dochug 2nd fleeck calls Monnam×7
-  without core (not monflee; not disturb wake_msg order). Falsifier:
-  C pline/state dump or message log at core 16751 window.
-- Do not wire distfleeck→monflee hoping to fix LCP 555 (wrong locus).
+- **#999 D-0855:** LCP 555 caller **named** = `m_dowear_type` nambuf
+  (`See_invisible?Monnam:mon_nam`) from soldier `movemon_singlemon`
+  I_SPECIAL after gnome fleeck — not fleeck/monflee. Ported entry burn;
+  Scr **201→209**. Wear/invis plines still deferred.
+- **Hypothesis:** remaining @209+ is Hallu map / later wear plines /
+  other display. Falsifier: focused seed0383 firstFail cell + dim LCP.
+- Do not re-check fleeck→monflee for this gap (D-0854).
 
 ## Don't re-check (≤15)
 
@@ -39,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#995 Scr **8998**/11405 RNG **666643**/792838;
-  seed0383 RNG **FULL**; Scr **201**/219; first cell miss **@199**.
+  seed0383 RNG **FULL**; Scr **209**/219 after D-0855.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -51,5 +50,5 @@ Objective/score live in `CURRENT.md`.
   Hallu random_object dim 463; SCR_MAIL=364.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0853 #997:** dochug Hallu idle newsym; LCP 555.
-- **D-0854 #998:** LCP 555 ≠ fleeck monflee; 7×Monnam no-core gap.
+- **D-0855 #999:** m_dowear_type nambuf Monnam; Scr 209.
 - Step 198 Barney pickup; 202 basement-cat wield (later Monnam).
