@@ -8,16 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @82788 — C `distfleeck` `rn2(5)` vs
-  JS `rn2(50)` after matched minetn-4 load.
+- **Gameplay next:** seed4500 @82793 — C `steal` `rn2(23)` vs JS
+  `rn2(22)` (weighted invent off-by-one after wake_nearto).
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0921 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0922 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `wakeup` was_sleeping `wake_nearto(mlevel*18)` (D-0922);
+  wake_msg / growl pline from wakeup still deferred.
 - Do not omit `minetn-4` load_special / `book shop`→BOOKSHOP (D-0921);
   minetn-1/6/7 still deferred.
 - Do not omit `pleased` TROUBLE_HIT `fix_worst_trouble` / `rnd(5)`
@@ -34,14 +36,15 @@ Objective/score live in `CURRENT.md`.
 - Do not leave `x` unbound / skip setworn twoweap clear (D-0913).
 - Do not omit `#turn`/`doturn` chant+exercise (D-0912).
 - Do not re-zero `ox`/`oy` in `obj_extract_self` (D-0911; C keeps them).
-- Do not stub ordinary-food `doeat` rotten / omit `Hear_again` (D-0911).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1070 Scr **10233**/11405 RNG **746329**/792838
   (94.13%); next cadence @#1075.
+- **D-0922 #1073:** wakeup wake_nearto; seed4500 **82788→82793**
+  RNG **86800** Scr **755**; next @82793 steal invent weight.
 - **D-0921 #1072:** minetn-4 College Town; seed4500
-  **61698→82788** RNG **83013** Scr **747**; next @82788 distfleeck.
+  **61698→82788** RNG **83013** Scr **747**.
 - **D-0920 #1071:** TROUBLE_HIT fix_worst_trouble; seed4500
   **61689→61698** RNG **61837** Scr **654**.
 - **D-0919 #1070:** FAST TIMEOUT; seed4500 **61462→61689** RNG **61766**
@@ -65,5 +68,3 @@ Objective/score live in `CURRENT.md`.
   **50111→50290** Scr **499→596** RNG **50469**.
 - **D-0910 #1060:** regen_pw; seed4500 **50054→50111**
   RNG **50220→50240** Scr **499**.
-- **D-0909 #1059:** drag_ball/move_bc; seed4500 **50034→50054**
-  RNG **50167→50220** Scr **499**.

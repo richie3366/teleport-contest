@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0922 | fixed | wakeup was_sleeping → wake_nearto (growl radius) | seed4500 **82788→82793** RNG **86800** Scr **755**; next @82793 steal invent |
 | D-0921 | fixed | makemaz load_special minetn-4 College Town | seed4500 **61698→82788** RNG **83013** Scr **747**; next @82788 distfleeck |
 | D-0920 | fixed | pleased fix_worst_trouble TROUBLE_HIT rnd(5) | seed4500 **61689→61698** RNG **61837** Scr **654**; next @61698 nhlib shuffle |
 | D-0919 | fixed | nh_timeout FAST TIMEOUT / Very_fast expiry | seed4500 **61462→61689** RNG **61766** Scr **643**; next @61689 fix_worst_trouble |

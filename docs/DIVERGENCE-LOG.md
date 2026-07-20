@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0922 — wakeup was_sleeping → growl wake_nearto (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @82793
+  `steal` invent weight; wake_msg / growl pline from wakeup deferred)
+- **Session:** seed4500-knight-coverage @82788
+- **Symptom:** after matched post-`m_move` `distfleeck` `rn2(5)`, C next
+  `distfleeck` `rn2(5)` vs JS `rn2(50)` (`disturb` nymph gate).
+- **Cause:** hitting a sleeping wood nymph deferred C `wakeup` →
+  `growl` → `wake_nearto(mx,my,mlevel*18)`, so a nearby sleeping water
+  nymph stayed asleep and later burned `disturb` `rn2(50)`. C's screen
+  at the step ("wood nymph screams! water nymph wakes up") and zero
+  `rn2(50)` in the C step confirmed wake-via-growl, not disturb.
+- **C locus:** `mon.c` `wakeup` (was_sleeping → `growl`); `sounds.c`
+  `growl` → `wake_nearto(..., mlevel*18)`; `mon.c` `wake_nearto_core`.
+- **Fix:** `wakeup` captures `was_sleeping` and calls `wake_nearto`
+  with `mlevel*18`; `growl`/`yelp` also call `wake_nearto` (×18/×12).
+  Named omit: wake_msg plines; growl verb pline from wakeup path.
+- **Verification:** prefix **82788→82793** RNG **83013→86800** Scr
+  **747→755**; green+strict PASS; cohort 15/15 PASS.
+- **Next:** @82793 C `steal` `rn2(23)` vs JS `rn2(22)` (invent weight).
+
 ## D-0921 — makemaz load_special minetn-4 College Town (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @82788
