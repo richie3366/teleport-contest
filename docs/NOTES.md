@@ -7,27 +7,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#965:** score cadence only (no peel). Suite **38/44** Scr **8946**/11405
-  RNG **661122**/792838 (83.39%); Δ vs #960 Scr **+9** RNG **+632**.
-- **Next @11400:** C after fleeck enters `mattacku`: `AC_VALUE`→`rnd(2)`
-  (hack.h: negative AC) then HTH/WEAP `rnd(20)` @mhitu:806. JS matches
-  `AC_VALUE` rnd then emits fleeck `rn2(5)` — left mattacku without hit roll.
-- **Hypothesis:** post-AC early-out or skipped aatyp (`find_offensive` spend,
-  `range2`, missing AT_TENT/HUGS, AT_WEAP wield-break) then next mon fleeck.
-- **Falsify:** dump JS `range2`/`foundyou`/`mattk.aatyp`/`find_offensive`
-  result immediately after AC_VALUE when log length≈11399; compare C attacker.
-- **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0836; treat line 709
-  as mystery — it is `AC_VALUE` macro site.
+- **#966:** D-0837 closed @11400. seed0383 prefix **11524**; Scr still 144;
+  RNG matched **11527**.
+- **Next @11524:** C `getbones` `rn2(3)`; JS `rn2(20)` — likely C death/
+  bones after cold damage vs JS still in moveloop.
+- **Hypothesis:** hero HP / destroy_items potion shatter / AC-reduced
+  damage diverged enough that C dies and enters bones while JS lives.
+- **Falsify:** dump `u.uhp` / invent potion count / gameover after the
+  ice-vortex cold hit (log≈11520); compare C death vs JS continue.
+- **Don't:** FORCE death/bones; leave DIAG; re-break D-0822…D-0837.
 - **Open (not this peel):** `potionbreathe` POT_CONFUSION/BOOZE stubs;
-  `nh_timeout` HALLUC expiry; dokick `abuse_dog` still stub.
+  `nh_timeout` HALLUC expiry; dokick `abuse_dog` still stub; AD_FIRE
+  hero `mhitm_ad_fire`; other getmattk subst arms.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0836 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0837 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0836 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0837 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953:** spawn order / unshift timestamps 165 vs 108 — not @10374.
 - **#954:** post-swallow mcalcmove +12 / MSLOW / minliquid ROOM — not cause.
@@ -42,6 +41,8 @@ Objective/score live in `CURRENT.md`.
   → `abuse_dog` / `yelp` (then xkilled luck `rn2(2)`).
 - **#965:** `mattacku:709` rnd(2) is `AC_VALUE` negative-AC macro — not a
   separate mystery call.
+- **#966:** @11400 fleeck was ice vortex `mspec_used` without getmattk
+  subst (kept AT_ENGL) — not missing AT_TENT/find_offensive.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 
@@ -50,7 +51,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
-  seed0383 prefix **11400** Scr **144**/219 (D-0836).
+  seed0383 prefix **11524** Scr **144**/219 (D-0837).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -65,4 +66,5 @@ Objective/score live in `CURRENT.md`.
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
 - `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
 - `hmon_hitmon_pet` → `abuse_dog`/`yelp`/`growl`; xkilled tame luck (D-0836).
-- `AC_VALUE(neg)` → `-rnd(-AC)` at mattacku AC site (hack.h).
+- `getmattk` mspec_used → AT_TUCH/CLAW; `mhitm_ad_cold` + destroy_items
+  (D-0837).

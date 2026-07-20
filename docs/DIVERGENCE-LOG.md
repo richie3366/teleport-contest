@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0837 — fixed: getmattk mspec_used subst + mhitm_ad_cold
+
+- **Status:** fixed
+- **Symptom:** seed0383 @11400 — after matched `AC_VALUE` `rnd(2)`, C
+  `mattacku` HTH `rnd(20)` then `hitmu`/`mhitm_ad_cold`; JS fleeck
+  `rn2(5)`.
+- **Cause:** ice vortex (`mspec_used=1`, `AT_ENGL`/`AD_COLD`) — C
+  `getmattk` substitutes to `AT_TUCH` when `mspec_used`; JS kept
+  `AT_ENGL` and short-circuited the engulf hit roll. Follow-on: no
+  `mhitm_ad_cold` hero arm / `destroy_items` call.
+- **Fix:** `js/mhitm.js` `get_mattk` mspec_used→TUCH/CLAW arm; `js/mhitu.js`
+  `mhitm_ad_cold_u` + `mhitm_adtyping_u` AD_COLD; export/call
+  `destroy_items` from `zap.js`. Named omissions: other getmattk subst
+  (SSEX/DISE/DREN/WEAP/lich/home-elem); AD_FIRE hero arm; monstseesu;
+  destroy_items potionbreathe/were deferrals.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383
+  prefix **11400→11524** (RNG matched 11437→11527; Scr 144).
+  Next @11524 C `getbones` `rn2(3)` vs JS `rn2(20)`.
+
 ## D-0836 — fixed: hmon_hitmon_pet abuse_dog + xkilled tame luck
 
 - **Status:** fixed

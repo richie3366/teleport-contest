@@ -13,6 +13,7 @@ import {
 } from './const.js';
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
+import { destroy_items } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys } from './hack.js';
 import { rnd, d, rn2 } from './rng.js';
 import { pline, mon_visible, canspotmon, map_invisible, canseemon, newsym } from './display.js';
@@ -331,6 +332,32 @@ async function mhitm_ad_elec_u(mtmp, mattk, mhm) {
         if ((mtmp.m_lev | 0) > rn2(20)) {
             // destroy_items(&youmonst, AD_ELEC, orig_dmg) body deferred
             void orig_dmg;
+        }
+    } else {
+        mhm.damage = 0;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_cold mhitu branch (mdef == youmonst).
+ * destroy_items when m_lev > rn2(20); monstseesu / monstunseesu deferred.
+ */
+async function mhitm_ad_cold_u(mtmp, mattk, mhm) {
+    const orig_dmg = mhm.damage;
+    await hitmsg(mtmp, mattk);
+    if (!(await mhitm_mgc_atk_negated(mtmp, null, true))) {
+        await pline("You're covered in frost!");
+        const u = game.u || {};
+        const Cold_resistance = !!(u.Cold_resistance || u.HCold_resistance
+            || u.ECold_resistance);
+        if (Cold_resistance) {
+            await pline("The frost doesn't seem cold!");
+            mhm.damage = 0;
+        }
+        // C: if ((int) magr->m_lev > rn2(20)) destroy_items(&youmonst, AD_COLD, …)
+        if ((mtmp.m_lev | 0) > rn2(20)) {
+            const you = game.youmonst || { _youmonst: true };
+            mhm.damage += await destroy_items(you, AD_COLD, orig_dmg);
         }
     } else {
         mhm.damage = 0;
@@ -764,6 +791,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_ELEC:
         await mhitm_ad_elec_u(mtmp, mattk, mhm);
+        break;
+    case AD_COLD:
+        await mhitm_ad_cold_u(mtmp, mattk, mhm);
         break;
     case AD_DRST:
     case AD_DRDX:

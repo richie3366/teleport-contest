@@ -48,7 +48,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 11437/16915 | **144**/219 | prefix **11400** — C mattacku rnd(20) vs JS rn2(5) |
+| seed0383 | 11527/16915 | **144**/219 | prefix **11524** — C getbones vs JS continue |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10358/11409 | 113/532 | stuck @10157 D-0731 |
@@ -76,10 +76,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @11400** — after D-0836, prefix past 11372;
-C `AC_VALUE` `rnd(2)` matches then `mattacku` `rnd(20)` hit roll; JS
-same AC roll then fleeck `rn2(5)` (left mattacku without HTH/WEAP hit).
-Focused:
+**Gameplay next:** **seed0383 @11524** — after D-0837, prefix past
+11400 ice-vortex mspec touch/cold; C `getbones` `rn2(3)` vs JS
+`rn2(20)` (likely death/bones vs continued play). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -91,7 +90,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0836. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0837. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
