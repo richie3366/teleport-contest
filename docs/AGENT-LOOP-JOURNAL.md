@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:13 — #1032 D-0879 addinv compare-learn
+- Objective: seed0014 screen@212 compare-items More vs invent line.
+- C locus: `invent.c` `merged`/`addinv` known/bknown/rknown + invent pline.
+- Change: async `addinv` via `mkobj.mergable`; port ID-dim reconcile +
+  `You learn more about your items by comparing them.` Named omit:
+  quiver-prefer; worn-slot; oname; globby; `#adjust` invent_merged msg.
+- Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
+  **621→623** (RNG FULL); @212 fixed; first miss @383 yn cursor.
+- Next: seed0014 @383 yn prompt cursor `[1,1]` vs JS `[80,0]`.
+
 ## 2026-07-20 19:06 — #1031 D-0878 chest_shatter_msg
 - Objective: seed0014 first screen miss (Scr 620/714; miss was @47 not prefix).
 - C locus: `lock.c` `chest_shatter_msg` Blind+`singular` + material switch.
@@ -159,15 +169,3 @@ Use this shape:
 - Verification: green+strict PASS; prefix **10697→10729** Scr
   **429→442**; cohort 16/16 (throw seeds incl.).
 - Next: seed0399 @10729 C `exercise` rn2(19) vs JS `distfleeck` rn2(5).
-
-## 2026-07-20 17:09 — #1015 score + D-0866 trapeffect_web
-- Objective: mandatory full score @#1015; seed0399 @10581
-  C mintrap rn2(40) vs JS rn2(20).
-- C locus: `trap.c` `trapeffect_web` / `mu_maybe_destroy_web`;
-  selector WEB case. Symptom was missing mon `mtrapped` on WEB.
-- Change: port mon web catch/tear + destroy/flow; wire selector.
-  Score: **39/44** Scr **9337**/11405 RNG **667341**/792838
-  (84.17%); speed `32+0.23/turn`. Δ vs #1010 Scr+273 RNG+806.
-- Verification: green+strict PASS; prefix **10581→10697** Scr
-  **409→429**; cohort 10/10; full sessions post-fix.
-- Next: seed0399 @10697 C `tmiss` rn2(3) vs JS rn2(100).

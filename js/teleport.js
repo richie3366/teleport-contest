@@ -937,7 +937,7 @@ export async function level_tele() {
                     if (!(u.uhave?.amulet || u.uhave_amulet)) {
                         const amu = mksobj(AMULET_OF_YENDOR, true, false);
                         if (amu) {
-                            const held = addinv(amu);
+                            const held = await addinv(amu);
                             if (!u.uhave) u.uhave = {};
                             u.uhave.amulet = 1;
                             u.uhave_amulet = 1;

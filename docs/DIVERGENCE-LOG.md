@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0879 — invent.c addinv merged compare-learn pline
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 screen@212 — C `You learn more about your items by
+  comparing them.--More--` vs JS invent `d - an uncursed food ration…`.
+- **C locus:** `invent.c` `merged` (known/bknown/rknown reconcile + invent
+  compare pline when `how_lost != LOST_THROWN`); `addinv` calls `merged`.
+- **Cause:** JS `addinv` inlined quan merge without ID-dim reconcile / pline;
+  local `mergable` also required matching `known` (C allows differ when
+  !Blind/!Hallu).
+- **Change:** async `addinv` uses `mkobj.mergable`; port known/bknown/rknown
+  discovery + compare pline. Named omit: quiver-prefer merge; worn-slot;
+  oname; globby; `#adjust` `invent_merged` compare msg.
+- **Verify:** green+strict PASS; cohort 8/8 PASS; seed0014 Scr **621→623**
+  (RNG FULL); contiguous prefix through @212; first miss now @383 yn cursor.
+- **Next:** seed0014 screen@383 yn prompt cursor `[1,1]` vs JS `[80,0]`.
+
 ## D-0878 — lock.c chest_shatter_msg Blind+singular + material enums
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

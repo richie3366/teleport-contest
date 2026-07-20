@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0879 | fixed | invent addinv merged known/bknown/rknown + compare pline | seed0014 Scr **621→623**; next @383 yn cursor |
 | D-0878 | fixed | lock chest_shatter_msg Blind+singular + PAPER/GLASS/WOOD mats | seed0014 Scr **620→621**; next @212 compare-items |
 | D-0877 | fixed | dipfountain bath case 28 + steal somegold | seed0014 RNG **FULL 59178**; Scr 620/714; case 29 deferred |
 | D-0876 | fixed | monmove watch_on_duty + has_town/in_town | seed0014 **58462→59074**; mon_yells/dig deferred |
