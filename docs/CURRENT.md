@@ -73,12 +73,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
-Place `rn2(6)×3` matches; JS `(43,6)` /
-`dndest[40..45]×[3..8]` (FlipX `flp=2`, extends minx=2..79,
-ystart=1). C cursor **(42,7)** ⇒ need `[39..44]×[4..9]`
-(ystart=2 ∧ minx=1). #1082 falsified ystart-formula-alone;
-medusa-3 epilogue now matches C link/boundary/map_cleanup.
-Next: C path for minx=1 **and** ly=4. Focused:
+Place `rn2(6)×3` matches; JS `(43,6)` / stair `(45,4)` /
+`dndest[40..45]×[3..8]` (FlipX sum **81**, ystart=1). C `@`(42,7)
++ `<`(44,5) ⇒ FlipX sum **80** ∧ ly+1 (`[39..44]×[4..9]`).
+#1083: FORCE minx=1 alone → stair `(44,4)` + post-flip RNG
+desync — need one C path for both deltas. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.

@@ -8,14 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 ^V24 medusa-3 land. Place
-  `rn2(6)×3` @L=82419–24 same offsets; JS `(43,6)` /
-  `dndest[40..45]×[3..8]` after FlipX `flp=2` extends
-  `minx=2..79,miny=0..20`, `xstart=3,ystart=1`, pre-flip
-  `[36..41]×[3..8]`. C cursor **(42,7)** ⇒ need
-  `dndest[39..44]×[4..9]` (ystart=2 ∧ FlipX minx=1). Falsified:
-  JS ystart formula alone (hei=20 → 1). Next: find C path that
-  yields minx=1 **and** ly=4 (or prove post-place move).
+- **Gameplay next (D-0928):** seed4500 ^V24 medusa-3 land. JS
+  FlipX `flp=2` extends minx=2..79 (sum **81**), ystart=1 →
+  `dndest[40..45]×[3..8]`, land `(43,6)`, upstair `(45,4)`.
+  C `@`(42,7) + `<`(44,5) ⇒ post-flip UPSTAIR `[38..45]×[3..9]`
+  and DOWNTELE `[39..44]×[4..9]` (FlipX sum **80** ∧ ly+1).
+  Same (−1,+1) on stair and hero. Falsify: FORCE minx=1 alone
+  (stair `(44,4)`, post-flip RNG desync). Next: one C path for
+  both deltas at flip. JS col2 STONE at flip.
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -28,8 +28,9 @@ Objective/score live in `CURRENT.md`.
   match; look at `dndest` bounds / post-place geometry (D-0928 #1080).
 - Do not treat C land as (39,5) — arrival `@`/`cursor` is **(42,7)**
   (D-0928 #1081).
-- Do not expect minx=1 alone → C land (42,7); that yields (42,6)
-  with ly=3 (D-0928 #1082). Need ly=4 too.
+- Do not expect minx=1 alone → C land (42,7); y=6 and terrain desync
+  (D-0928 #1082/#1083). Need FlipX sum80 ∧ ly+1 together.
+- Do not expect JS ystart formula alone to differ for hei=20 (both 1).
 - Do not silent-clear F-prefix then still run `#`/non-move (D-0927);
   nested g/G after F / full CMD_gGF table deferred.
 - Do not treat @87803 `rn2(20)` as distfleeck — it was gethungry
@@ -47,11 +48,11 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1080 Scr **10398**/11405 RNG **773047**/792838
   (97.50%); next cadence @#1085.
+- **D-0928 #1083:** C `<`(44,5) + `@`(42,7); JS default stair
+  `(45,4)` land `(43,6)` — same (−1,+1). FORCE minx=1 → stair
+  `(44,4)` + place RNG desync. col2 STONE.
 - **D-0928 #1082:** ^V6→24; JS flip `flp=2` extends 2..79×0..20,
-  ystart=1 confirmed; ROOM cells in dndest include (42,7)+(43,6);
-  tries (45,6)(43,8) fail → (43,6); C needs `[39..44]×[4..9]`.
-  Added medusa-3 `link_doors`/`remove_boundary`/`map_cleanup`
-  epilogue (no score move).
+  ystart=1; medusa-3 link/boundary/map_cleanup epilogue.
 - **D-0928 #1081:** C `@` **(42,7)** (not 39,5); JS `(43,6)`.
 - **D-0928 #1080:** place RNG OK; prefix **88377**.
 - **D-0927 #1078:** rhack F-prefix reject; **87803→88377**.

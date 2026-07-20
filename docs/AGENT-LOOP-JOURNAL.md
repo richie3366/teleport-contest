@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 01:40 — #1083 D-0928 C stair confirms (−1,+1)
+- Objective: seed4500 medusa-3 hero place (D-0928).
+- C locus: `sp_lev.c` `flip_level`/`get_level_extends`;
+  `mkmaze.c` `place_lregion`; `dat/medusa-3.lua`.
+- Falsified: FORCE FlipX minx=1 alone (stair→`(44,4)`, post-flip
+  RNG desync). Evidence: C `<`(44,5)+`@`(42,7) vs JS `(45,4)`+
+  `(43,6)` — same (−1,+1); need FlipX sum80 ∧ ly+1 together.
+  JS col2 STONE at flip. No production JS change.
+- Verification: green+strict PASS; rng-diff still @88377.
+- Next: C path for both deltas at one flip; cadence @#1085.
+
 ## 2026-07-21 01:30 — #1082 D-0928 flip extends + medusa epilogue
 - Objective: seed4500 medusa-3 hero place (D-0928).
 - C locus: `sp_lev.c` `flip_level`/`get_level_extends`/`load_special`;
