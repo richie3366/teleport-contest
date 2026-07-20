@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0849 — fixed: do_name hliquid Hallu liquids
+
+- **Status:** fixed
+- **Symptom / context:** seed0383 Scr 184/219 RNG FULL after D-0848.
+  Contiguous flush misses still @141–174 (parked). First post-match
+  content miss @187: C `pool of purified water` vs JS `pool of water`;
+  @188+ Hallu map glyphs then skewed (missing display-rng burn).
+- **Cause:** `js/hack.js` / `fountain.js` stubbed `hliquid` as identity;
+  C `do_name.c:hliquid` burns `rn2_on_display_rng` over `hliquids[]`
+  (+ liquidpref as last choice) when `Hallucination && !gameover`.
+- **Fix:** port `hliquids[]` + `hliquid` in `js/do_name.js`; wire
+  `waterbody_name` / fountain callers. `hcolor` still deferred.
+- **Verification:** seed0383 Scr **184→193** RNG FULL; @187/@188 match;
+  green+strict PASS; cohort 36/36 PASS.
+- **Next:** @178 `poor titan` (xkilled tame `x_monnam`); @195 Hallu
+  map after materialize; flush still parked.
+
 ## D-0848 — fixed: extract-objects MAIL_STRUCTURES / SCR_MAIL
 
 - **Status:** fixed

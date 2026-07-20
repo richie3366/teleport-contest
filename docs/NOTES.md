@@ -7,23 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#985 / D-0848:** C `NETHACK_RNGLOG_DISP=1` rerecord of seed0383 showed
-  free-window @172 = **66×383 + 8×463 + 2×5** — same *counts* as JS
-  inventory (#984) but JS used **462** (`NUM_OBJECTS−FIRST_OBJECT` w/o
-  `SCR_MAIL`). Root: `extract-objects.py` lacked `-DMAIL_STRUCTURES`
-  (monsters extractor already had it since D-0606). Fixed → `NUM_OBJECTS`
-  480→481, Hallu `rn2(463)`. seed0383 Scr **174→184**; suite Scr **+10**.
-- **Next:** first miss now **@184** (RNG still FULL). Capture screen
-  diffs @184; flush still parked. Do not drop MAIL_STRUCTURES.
-- seed0399 RNG **−18** after D-0848 (otyp shift after SCR_MAIL); still
-  non-PASS @~10157.
+- **#986 / D-0849:** seed0383 @187 was stub `hliquid` (identity). C
+  `do_name.c:hliquid` → `rn2_on_display_rng` over `hliquids[]` (+pref).
+  Ported → Scr **184→193**; @187/@188 match; display-rng re-aligned.
+- **Next content:** @178 `You kill the poor titan` — C `xkilled` tame
+  arm uses `x_monnam(..., "poor", ...)`; JS still bare `mon_nam`.
+  Then @195 Hallu map after `materialize on a different level`.
+- Flush still parked @141–174 (D-0841). Do not re-apply gulpmu flush
+  without remaining-screen plan.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0848 done.
-- Runner `Screen N/M` = total matches, not prefix length.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0849 done.
+- Runner `Screen N/M` = total matches, not prefix length. "@184" after
+  D-0848 was matched-count; first cell miss index stayed flush @141.
 - seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0846 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953–#970:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
@@ -46,7 +45,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#985 Scr **8986**/11405 RNG **666582**/792838;
-  seed0383 RNG **FULL**; Scr **184**/219.
+  seed0383 RNG **FULL**; Scr **193**/219 after D-0849.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -63,3 +62,4 @@ Objective/score live in `CURRENT.md`.
 - `see_traps` glyph_is_trap (D-0845); `rloc_to` newsym (D-0846).
 - **D-0848:** objects extract `-DMAIL_STRUCTURES` → NUM_OBJECTS=481 /
   Hallu random_object dim 463; SCR_MAIL=364.
+- **D-0849:** `hliquid` / `hliquids[]` via display-rng; `hcolor` deferred.

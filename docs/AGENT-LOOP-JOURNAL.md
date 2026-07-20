@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 12:00 — #986 seed0383 hliquid (D-0849)
+- Objective: seed0383 Scr 184 — diagnose first content miss after D-0848.
+- C locus: do_name.c `hliquid` / `hliquids[]`; pager.c `waterbody_name`.
+- Change: stub `hliquid` → real table + `rn2_on_display_rng`; wire
+  hack `waterbody_name` + fountain. @187 was matched-count confusion;
+  first content miss was purified water / display-rng skew.
+- Verification: seed0383 Scr **184→193** RNG FULL; green+strict PASS;
+  cohort 36/36 PASS.
+- Next: @178 xkilled tame `poor` x_monnam; @195 Hallu map; flush parked.
+
 ## 2026-07-20 11:51 — #985 score + MAIL_STRUCTURES objects (D-0848)
 - Objective: mandatory full `sessions` score; seed0383 C ~drn2 dim falsifier.
 - C locus: display.h `random_object`; objects.h `SCR_MAIL`/`MAIL_STRUCTURES`;

@@ -79,6 +79,34 @@ export function rndmonnam(codeOut = null) {
     return pmname(name, g === 0 ? MALE : FEMALE);
 }
 
+// C ref: do_name.c hliquids[] — Hallu substitutes for hliquid().
+const HLIQUIDS = [
+    'yoghurt', 'oobleck', 'clotted blood', 'diluted water', 'purified water',
+    'instant coffee', 'tea', 'herbal infusion', 'liquid rainbow',
+    'creamy foam', 'mulled wine', 'bouillon', 'nectar', 'grog', 'flubber',
+    'ketchup', 'slow light', 'oil', 'vinaigrette', 'liquid crystal', 'honey',
+    'caramel sauce', 'ink', 'aqueous humour', 'milk substitute',
+    'fruit juice', 'glowing lava', 'gastric acid', 'mineral water',
+    'cough syrup', 'quicksilver', 'sweet vitriol', 'grey goo', 'pink slime',
+    'cosmic latte', 'bone oil', 'custard', 'lard', 'vinegar', 'creosote',
+];
+
+/**
+ * C ref: do_name.c hliquid — Hallu → rn2_on_display_rng over hliquids[]
+ * (+ liquidpref as last choice when non-empty). gameover skips Hallu arm.
+ */
+export function hliquid(liquidpref) {
+    const hallucinate = Hallucination() && !game.program_state?.gameover;
+    const pref = liquidpref == null ? '' : String(liquidpref);
+    if (hallucinate || !pref) {
+        let count = HLIQUIDS.length;
+        if (pref) count += 1;
+        const indx = rn2_on_display_rng(count);
+        if (indx >= 0 && indx < HLIQUIDS.length) return HLIQUIDS[indx];
+    }
+    return pref;
+}
+
 /** C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s. */
 function s_suffix(s) {
     const buf = String(s ?? '');
