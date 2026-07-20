@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 00:30 — #1075 cadence + D-0924 splitobj invent splice
+- Objective: mandatory full score @#1075; seed0002 regressed 42→41.
+- C locus: `mkobj.c` `splitobj` (nobj only); invent letters via
+  `eat.c` `touchfood` freeinv+`addinv_nomerge`.
+- Change: remove D-0923 invent[] splice from `splitobj`. Root:
+  premature invent[] insert → duplicate invlets → extra pet
+  `obj_resists`. Keep touchfood invent re-slot + FOOD oeaten mergable.
+- Verification: suite **42/44** Scr **10349**/11405 RNG **97.29%**
+  (`32+0.24/turn`); seed0002 FULL PASS; seed4500 still @86672
+  `breamm`; green+strict PASS.
+- Next: @86672 C `breamm` `rn2(3)` vs JS `rn2(5)`; cadence @#1080.
+
 ## 2026-07-21 00:26 — #1074 D-0923 touchfood invent slot
 - Objective: seed4500 @82793 C `steal` `rn2(23)` vs JS `rn2(22)`.
 - C locus: `eat.c` `touchfood` freeinv+`addinv_nomerge`; `mkobj.c`

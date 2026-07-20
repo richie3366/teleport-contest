@@ -21,18 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` @**#1070** (42/44,
-Scr **10233**/11405, RNG **94.13%**) after D-0919. Next cadence @**#1075**.
-#1070 D-0919: seed4500 **61462→61689** (`nh_timeout` FAST TIMEOUT).
+Score last measured: **2026-07-21** — full `sessions` @**#1075** (42/44,
+Scr **10349**/11405, RNG **97.29%**) after D-0924. Next cadence @**#1080**.
+#1075 D-0924: undo `splitobj` invent[] splice (seed0002 regression from
+D-0923); seed4500 still @86672 `breamm`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,233 / 11,405** |
-| Positional RNG calls matched | **746,329 / 792,838** (94.13%) |
-| Speed label | `32+0.24/turn` (R² 0.84) |
+| Screens matched | **10,349 / 11,405** |
+| Positional RNG calls matched | **771,361 / 792,838** (97.29%) |
+| Speed label | `32+0.24/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 86800/108275 | 755/1814 | knight; @82793 steal invent |
+| seed4500 | 86798/108275 | 759/1814 | knight; @86672 breamm |
 
 ## Green gate
 
@@ -71,14 +72,14 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** @86672 — C `breamm` `rn2(3)` vs JS
-  `rn2(5)` (after D-0923 touchfood invent). Focused:
+  `rn2(5)` (after D-0924 splice undo). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0923. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0924. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0923 (Hallu dochug … touchfood invent slot).
+**Keep:** D-0845…D-0924 (Hallu dochug … no splitobj invent[] splice).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -90,7 +91,8 @@ dryup/Temple themes/bigrm-9/BIND=/setworn armor/#jump/spitmm…hellfill/
 learn occupation/SCR_PUNISHMENT/drag_ball/#turn/`x`/knox portal/
 unplacebc/Nesting/fill_ordinary_room/drag_down/FAST TIMEOUT/
 TROUBLE_HIT/minetn-4 book shop/wakeup wake_nearto/touchfood
-addinv_nomerge (D-0874…D-0923).
+addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
+(D-0924).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
