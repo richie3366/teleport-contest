@@ -16,6 +16,11 @@ OUT = ROOT / "js/generated/objects_data.js"
 TMP = Path("/tmp/nhobj")
 TMP.mkdir(parents=True, exist_ok=True)
 
+# MAIL_STRUCTURES (global.h / unixconf) includes SCR_MAIL in objects.h; without
+# it NUM_OBJECTS / FIRST_OBJECT-relative Hallu dims are off-by-one vs the
+# contest recorder (D-0848; matches extract-monsters.py D-0606).
+CLANG_OBJ = ["-DMAIL_STRUCTURES"]
+
 
 def main() -> int:
     if not INC.is_dir():
@@ -23,7 +28,7 @@ def main() -> int:
         return 1
 
     enum_pp = subprocess.check_output(
-        ["clang", "-E", "-P", "-DOBJECTS_ENUM", "-I", str(INC), str(INC / "objects.h")]
+        ["clang", "-E", "-P", "-DOBJECTS_ENUM", *CLANG_OBJ, "-I", str(INC), str(INC / "objects.h")]
     )
     enum_names = [
         tok.strip().rstrip(";")
@@ -114,7 +119,8 @@ int main(void) {
 """
     )
     r = subprocess.run(
-        ["clang", "-std=c11", "-I", str(INC), "-Wno-everything", "-o", str(TMP / "print_objects"), str(dump_c)],
+        ["clang", "-std=c11", *CLANG_OBJ, "-I", str(INC), "-Wno-everything",
+         "-o", str(TMP / "print_objects"), str(dump_c)],
         capture_output=True,
         text=True,
     )
@@ -136,6 +142,7 @@ enum objects_nums {
 int main(void) {
   #define P(x) printf(#x "=%d\n", (int)(x))
   P(NUM_OBJECTS); P(FIRST_OBJECT); P(LAST_GENERIC);
+  P(SCR_MAIL); P(SCR_BLANK_PAPER);
   P(TURQUOISE); P(AQUAMARINE); P(FLUORITE); P(SAPPHIRE); P(DIAMOND); P(EMERALD);
   P(WAN_NOTHING); P(POT_WATER); P(HELMET); P(HELM_OF_TELEPATHY);
   P(LEATHER_GLOVES); P(GAUNTLETS_OF_DEXTERITY);
@@ -147,7 +154,8 @@ int main(void) {
 """
     )
     r = subprocess.run(
-        ["clang", "-std=c11", "-I", str(INC), "-Wno-everything", "-o", str(TMP / "print_enums"), str(enums_c)],
+        ["clang", "-std=c11", *CLANG_OBJ, "-I", str(INC), "-Wno-everything",
+         "-o", str(TMP / "print_enums"), str(enums_c)],
         capture_output=True,
         text=True,
     )
@@ -197,7 +205,7 @@ int main(void) {
 """
     )
     r = subprocess.run(
-        ["clang", "-std=c11", "-I", str(INC), "-Wno-everything",
+        ["clang", "-std=c11", *CLANG_OBJ, "-I", str(INC), "-Wno-everything",
          "-o", str(TMP / "print_descr"), str(descr_c)],
         capture_output=True,
         text=True,

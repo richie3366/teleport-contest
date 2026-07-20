@@ -7,27 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#984:** seed0383 @172 Hallu objs (D-0847). JS display-RNG inventory
-  (DIAG reverted): stream matches through swallowed (@171 stomach). Free
-  window after ice `unstuck`→`docrt` @moves=10, hero=(27,5):
-  - `docrt` v0: **21×383 + 4×462** spatial cansee (objs 22,3 / 25,3 /
-    33,6 / 58,16)
-  - `docrt` see_mon: **21×383 + 1×5** fmon order (warn @22,13)
-  - `mnexto` rloc: **1×383** @26,4 (engulfer; no Hallu burn while on
-    hero cell — `u_at` path)
-  - post-expel monmove: **1×383** @53,16 (was 54,17 in v0)
-  - once-in @11 see_mon: **22×383 + 1×5**; see_obj: **4×462** fobj
-    order → otyps 397/124/176/344 (`+?=[` stream)
-- **Falsifier next:** C `NETHACK_RNGLOG` + `NETHACK_RNGLOG_DISP=1`
-  `~drn2` dim sequence for the same window vs JS inventory above.
-  Diff first mismatched dim/count — not +N at see_objects.
-- Engulfer on hero during docrt: C/JS both skip mon_glyph (u_at).
+- **#985 / D-0848:** C `NETHACK_RNGLOG_DISP=1` rerecord of seed0383 showed
+  free-window @172 = **66×383 + 8×463 + 2×5** — same *counts* as JS
+  inventory (#984) but JS used **462** (`NUM_OBJECTS−FIRST_OBJECT` w/o
+  `SCR_MAIL`). Root: `extract-objects.py` lacked `-DMAIL_STRUCTURES`
+  (monsters extractor already had it since D-0606). Fixed → `NUM_OBJECTS`
+  480→481, Hallu `rn2(463)`. seed0383 Scr **174→184**; suite Scr **+10**.
+- **Next:** first miss now **@184** (RNG still FULL). Capture screen
+  diffs @184; flush still parked. Do not drop MAIL_STRUCTURES.
+- seed0399 RNG **−18** after D-0848 (otyp shift after SCR_MAIL); still
+  non-PASS @~10157.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0846 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0848 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0846 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
@@ -42,18 +37,16 @@ Objective/score live in `CURRENT.md`.
 - Gas region (68,3) not @173; Warning Hallu burn is correct.
 - **#977:** dochug NOTHING/DONE Hallu newsym → Scr−2; rloc_to needed w/ flush.
 - Expelled More @171 still **stomach** (pline before `expels`).
-- **#979–#983:** +N before see_objects / underfoot / NUM_OBJECTS /
-  skip kelp / post-expel as @172 / flush-as-@172-glyph / docrt cls
-  reorder — falsified. @172 = moves=11 see_objects; stream skew earlier.
-- **#984:** region-over-Hallu on free-window burn cells — none present;
-  +N at see_obj already falsified (need C ~drn2 dim diff).
+- **#979–#984:** +N / underfoot / NUM_OBJECTS-as-dim-hack / skip kelp /
+  post-expel-as-@172 / flush-as-glyph / docrt cls / region-over-Hallu —
+  falsified; real cause was missing SCR_MAIL (D-0848).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#980 Scr **8976**/11405 RNG **666600**/792838;
-  seed0383 RNG **FULL**; Scr **174**/219 w/o flush; **175** w/ flush.
+- suite **38/44** @#985 Scr **8986**/11405 RNG **666582**/792838;
+  seed0383 RNG **FULL**; Scr **184**/219.
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -68,4 +61,5 @@ Objective/score live in `CURRENT.md`.
 - `initedog`→`set_malign` (D-0839); `mpickstuff`→`distant_name` (D-0840).
 - DEC swallow SO-form o/s (D-0842/43); Hallu statue memory burn (D-0844).
 - `see_traps` glyph_is_trap (D-0845); `rloc_to` newsym (D-0846).
-- @172 = moves=11 free Hallu see_objects after ice-vortex expel @10.
+- **D-0848:** objects extract `-DMAIL_STRUCTURES` → NUM_OBJECTS=481 /
+  Hallu random_object dim 463; SCR_MAIL=364.

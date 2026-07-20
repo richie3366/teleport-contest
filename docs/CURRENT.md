@@ -21,19 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#980**).
-Screens **8976**/11405; RNG **666,600**/792838 (84.08%). **38/44** PASS.
-Δ vs #975: Scr **−2**, RNG **0**, PASS **0**. Speed `32+0.23/turn`.
-*(Scr −2 = seed0383 176→174 after D-0846 no-flush; RNG still FULL.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#985**).
+Screens **8986**/11405; RNG **666,582**/792838 (84.08%). **38/44** PASS.
+Δ vs #980: Scr **+10**, RNG **−18**, PASS **0**. Speed `33+0.23/turn`.
+*(Scr +10 = seed0383 174→184 after D-0848 `MAIL_STRUCTURES`/`SCR_MAIL`;
+RNG −18 = seed0399 10358→10340.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,976 / 11,405** |
-| Positional RNG calls matched | **666,600 / 792,838** (84.08%) |
-| Speed label | `32+0.23/turn` (R² 0.839) |
+| Screens matched | **8,986 / 11,405** |
+| Positional RNG calls matched | **666,582 / 792,838** (84.08%) |
+| Speed label | `33+0.23/turn` (R² 0.830) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,10 +48,10 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **174**/219 | RNG FULL; Scr 174 w/o flush; flush→175 @172 4 objs (D-0847) |
+| seed0383 | **16915**/16915 | **184**/219 | RNG FULL; Scr +10 (D-0848); miss @184 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
-| seed0399 | 10358/11409 | 113/532 | stuck @10157 D-0731 |
+| seed0399 | 10340/11409 | 113/532 | −18 vs #980; stuck ~@10157 D-0731 |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3076/108275 | 19/1814 | knight coverage |
 
@@ -75,32 +76,28 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @172 Hallu objs** — D-0847: @172 =
-moves=11 free `see_objects` after ice-vortex `expels` @moves=10.
-C `)/15 +/11 [/2 [/2` vs JS `+/3 ?/15 =/1 [/6`. JS burn inventory
-(#984): after ice `docrt` = 21×383+4×462 then see_mon 21×383+1×5
-then mnexto+post 2×383 then once-in 22×383+1×5 + 4×462. **Next:
-C `~drn2` dim sequence for that window** (`NETHACK_RNGLOG_DISP=1`).
-Do not retry +N at see_objects or docrt cls reorder. Flush parked.
-Focused:
+**Gameplay next:** **seed0383 @184** after D-0848 (`NUM_OBJECTS` 480→481 /
+Hallu `rn2(463)`). @172 Hallu objs fixed by matching C
+`MAIL_STRUCTURES`/`SCR_MAIL`. Remaining Scr 184/219 — diagnose first
+miss @184 (flush still parked). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
   sessions/seed0383-wizard-hallucinate.session.json
 ```
 
-**Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
-(D-0708 still open).
+**Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
+seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0846. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0848. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
-**Do not re-apply gulpmu flush_topl_more without fixing @172
-Hallu objs (D-0841/D-0843/D-0846/D-0847).**
-**Do not restore dochug NOTHING/DONE Hallu newsym as @172 “fix”
+**Do not re-apply gulpmu flush_topl_more without fixing remaining
+seed0383 screens (D-0841/D-0843/D-0846).**
+**Do not restore dochug NOTHING/DONE Hallu newsym as glyph “fix”
 (D-0845 falsified — Scr regresses).**
 **Do not revert rloc_to newsym (D-0846) — required for flush path.**
-**Do not “fix” objs with raw +N display burns before see_objects
-(D-0847 falsified).**
+**Do not drop `-DMAIL_STRUCTURES` from `extract-objects.py` (D-0848).**
+**Do not “fix” objs with raw +N display burns (D-0847 falsified).**
 **Do not reorder docrt/swallowed cls+bot without C-like nonblocking
 WIN_MESSAGE flush (#983 → RNG 11527).**
 

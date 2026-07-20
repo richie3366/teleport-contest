@@ -4,32 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0847 — open: seed0383 @172 Hallu see_objects 4 ROOM objs
+## D-0848 — fixed: extract-objects MAIL_STRUCTURES / SCR_MAIL
 
-- **Status:** open (diagnosis; no production JS this iter)
+- **Status:** fixed
+- **Symptom / context:** seed0383 @172 Hallu ROOM objs wrong glyphs
+  (JS `+?=\[` vs C `)+[[`); core RNG FULL. C `~drn2` free-window @172
+  = **66×383 + 8×463 + 2×5**; JS inventory matched counts but used
+  **462** (`NUM_OBJECTS−FIRST_OBJECT`).
+- **Cause:** `scripts/extract-objects.py` omitted `-DMAIL_STRUCTURES`,
+  so `SCR_MAIL` was absent and `NUM_OBJECTS` was **480** (C/recorder
+  **481**). `random_object` Hallu dim was off-by-one. Monsters
+  extractor already passed `-DMAIL_STRUCTURES` (D-0606).
+- **Fix:** add `-DMAIL_STRUCTURES` to all clang invocations in
+  `extract-objects.py`; regenerate `js/generated/objects_data.js`
+  (`NUM_OBJECTS=481`, `SCR_MAIL=364`, Hallu dim **463**).
+- **Verification:** seed0383 Scr **174→184** RNG FULL; green+strict
+  PASS; cohort 36/36 PASS; full suite **38/44** Scr **8986**/11405
+  (+10) RNG **666582**/792838 (−18 from seed0399 otyp shift).
+- **Next:** seed0383 first miss **@184**; flush still parked.
+  D-0847 closed as cause identified here.
+
+## D-0847 — closed: seed0383 @172 Hallu see_objects dim 462≠463
+
+- **Status:** closed (cause = D-0848)
 - **Symptom / context:** seed0383 firstMiss **@172**, Scr **174**/219
   (flush → **175**). Exactly 4 mapdiffs — Hallu objs at slime (22,3),
   tinning (25,3), shock (33,6), towel (58,16): JS `+?=\[` vs C `)+[[`.
-  C decode: `)/15 +/11 [/2 [/2`. Towel: same class `[`, color 6 vs 2.
-- **Measured (#982–#984):** Capture **@172 is moves=11** free map.
-  Timeline: Hallu@8 swallowed → 8×`swallowed()` → ice `expels`@10
-  (`unstuck`→`docrt`) → moves=11 `see_objects` 4 ROOM tops (fobj
-  slime→towel→shock→tinning). JS otyps **397/124/176/344**. Core RNG
-  FULL; ~**142** display burns before those 4×462.
-- **JS free-window inventory (#984, DIAG reverted):** hero=(27,5);
-  engulfer on hero during docrt → no mon_glyph (`u_at`). Then:
-  `docrt` v0 **21×383+4×462** (objs 22,3/25,3/33,6/58,16 all cansee);
-  see_mon **21×383+1×5** (warn @22,13); mnexto **1×383** @26,4;
-  post monmove **1×383** @53,16; once-in see_mon **22×383+1×5**;
-  see_obj **4×462**. No visible gas region on those burn cells.
-- **Falsified:** (1)–(9) as prior (+N gates / cls reorder / post-expel
-  as @172 / flush-as-glyph); (10) region-over-Hallu on free-window
-  burn cells (none present at expel).
-- **Still open:** C vs JS **dim/count** in that free window — capture
-  C `~drn2` via `NETHACK_RNGLOG`+`NETHACK_RNGLOG_DISP=1`. Then flush.
-- **Verification:** green+strict PASS; seed0383 Scr 174 RNG FULL;
-  no production JS retained.
-- **Next:** C `~drn2` dim sequence vs JS inventory above.
+- **Measured (#982–#984):** @172 = moves=11 free `see_objects`. JS
+  free-window burn inventory matched C **counts** (66×383+8×obj+2×5)
+  but obj dim was **462** not **463**.
+- **Falsified:** +N gates / cls reorder / post-expel-as-@172 /
+  flush-as-glyph / region-over-Hallu on burn cells.
+- **Resolution:** C `NETHACK_RNGLOG_DISP=1` rerecord → dim **463**;
+  root cause fixed in D-0848 (`MAIL_STRUCTURES`/`SCR_MAIL`).
+- **Verification:** see D-0848; remaining miss @184.
 
 ## D-0846 — fixed: rloc_to newsym(old)+newsym(new); covers_objects
 
