@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0896 — bigrm-9 load_special (seed2600 @2917)
+
+- **Status:** fixed (partial — seed2600 still FAIL screens)
+- **Session:** seed2600-wizard-custom-binds @2917
+- **Symptom:** after matched `getbones` + `makemaz rnd(13)=9`, C
+  `nhlib.lua` shuffle `rn2(3)` then `splev_initlev`; JS `rn2(79)`.
+- **Cause:** `makemaz` picked `bigrm-9`; `load_special_proto` lacked
+  that loader → fell through (no nhl shuffle / map RNG).
+- **C locus:** `dat/bigrm-9.lua` via `mkmaze.c` `makemaz` →
+  `sp_lev.c` `load_special`; `nhlib.lua` shuffle; solidfill + eye map
+  (`}`/`L`/`.`) + unlit + 3 pupil `light_region` rings + stairs +
+  nondiggable + 15/6/28 obj/trap/mon; noflip.
+- **Change:** `js/mklev.js` — `load_bigrm_9` + dispatch.
+- **Named omission:** ensure_way_out / solidify / premap; other
+  bigrm-N; BIND= parsing (seed2600 remaining Scr 35/38).
+- **Verification:** seed2600 RNG **2917→FULL 11647** Scr **23→35**;
+  green+strict PASS; cohort 6/6; full suite **41/44** Scr
+  **9606**/11405 RNG **687602**/792838 (86.73%).
+- **Next:** seed2600 BIND=`v:inventory` / remaining 3 screens;
+  seed4500 knight coverage.
+
 ## D-0895 — themerms Temple of the gods fill + themes align store
 
 - **Status:** fixed (partial — seed2600 still FAIL later)

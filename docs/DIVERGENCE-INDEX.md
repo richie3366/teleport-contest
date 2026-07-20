@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0896 | fixed | bigrm-9 load_special | seed2600 RNG **FULL 11647** Scr **23→35**; next BIND= |
 | D-0895 | fixed | themerms Temple of the gods fill | seed2600 **395→2917** Scr **3→23**; next @2917 nhlib shuffle |
 | D-0894 | fixed | dryup town warn + watchman_warn_fountain | seed0014 **PASS 714/714**; suite **41/44** |
 | D-0893 | fixed | setgemprobs ledger_no gem oc_prob | seed0014 Scr **678→712**; @631 closed; next @712 watch |

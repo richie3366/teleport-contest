@@ -872,12 +872,13 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
- * bigrm-4, bigrm-7, bigrm-8, bigrm-12, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
- * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
- * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
- * minetn-3, minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
- * juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca, Wiz-fila,
- * Wiz-filb, Pri-fila, Pri-filb.
+ * bigrm-4, bigrm-7, bigrm-8, bigrm-9, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
+ * Bar-filb, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
+ * soko1-2, soko2-1, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
+ * tower3, fire, air, minend-1, minend-2, minetn-2, minetn-3, minetn-5,
+ * medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus, juiblex,
+ * baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb,
+ * Pri-fila, Pri-filb.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal; Wiz-goal); minetn-1/4/6/7; minend-3;
  * medusa-2/4; water/astral; hellfill/fakewiz;
@@ -974,6 +975,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-8') {
         load_bigrm_8();
+        return true;
+    }
+    if (protofile === 'bigrm-9') {
+        load_bigrm_9();
         return true;
     }
     if (protofile === 'bigrm-12') {
@@ -2279,6 +2284,78 @@ function load_bigrm_8() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-9.lua via load_special — water/lava "eye" bigroom.
+ * Named omissions: ensure_way_out / solidify / premap; other bigrm-N.
+ */
+function load_bigrm_9() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-9.lua des.map (19×74)
+    const BIGRM9_MAP = [
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}................}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}................................}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}............................................}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}......................................................}}}}}}}}}}',
+        '}}}}}}}............................................................}}}}}}}',
+        '}}}}}.......................LLLLLLLLLLLLLLLLLL.......................}}}}}',
+        '}}}....................LLLLLLLLLLLLLLLLLLLLLLLLLLL.....................}}}',
+        '}....................LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................}',
+        '}....................LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................}',
+        '}....................LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................}',
+        '}}}....................LLLLLLLLLLLLLLLLLLLLLLLLLLL.....................}}}',
+        '}}}}}.......................LLLLLLLLLLLLLLLLLL.......................}}}}}',
+        '}}}}}}}............................................................}}}}}}}',
+        '}}}}}}}}}}......................................................}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}............................................}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}................................}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}................}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+    ].join('\n');
+    const { xstart: mx, ystart: my } = splev_apply_centered_map(BIGRM9_MAP);
+
+    // Unlit, except 3 mapgrids around the "pupil"
+    // des.region(selection.area(00,00,73,18),"unlit");
+    light_region(mx + 0, my + 0, mx + 73, my + 18, false);
+    // des.region(selection.area(26,04,47,14),"lit");
+    light_region(mx + 26, my + 4, mx + 47, my + 14, true);
+    // des.region(selection.area(21,05,51,13),"lit");
+    light_region(mx + 21, my + 5, mx + 51, my + 13, true);
+    // des.region(selection.area(19,06,54,12),"lit");
+    light_region(mx + 19, my + 6, mx + 54, my + 12, true);
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
     fixup_special();
 }
 
