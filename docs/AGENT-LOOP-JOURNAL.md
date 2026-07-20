@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 08:35 — #969 seed0383 initedog set_malign (D-0839)
+- Objective: seed0383 @13689 C peace_minded rn2(1) vs JS rn2(4).
+- C locus: dog.c initedog → set_malign after mpeaceful=1.
+- Change: JS initedog called set_malign + mavenge=0 + domestic
+  minimumtame (was keeping renegade malign=+3 on starting pet).
+- Verification: seed0383 RNG FULL 16915; Scr 146/219; green+strict;
+  cohort 36/36 PASS.
+- Next: seed0383 screen peel (RNG matched).
+
 ## 2026-07-20 08:26 — #968 seed0383 unstuck docrt Hallu (D-0838)
 - Objective: seed0383 @11524 C getbones vs JS combat (post-expel hallu).
 - C locus: mon.c unstuck→docrt; display.c docrt memory show_glyph;

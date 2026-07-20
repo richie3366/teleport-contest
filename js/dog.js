@@ -4,7 +4,7 @@
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import { makemon, set_malign } from './makemon.js';
-import { mons, NON_PM, is_human, regenerates, M2_STALK } from './monsters.js';
+import { mons, NON_PM, is_human, regenerates, M2_STALK, is_domestic } from './monsters.js';
 import { MM_EDOG, NO_MINVENT, STRAT_WAITFORU } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
 import {
@@ -45,8 +45,12 @@ function initedog(mtmp, everything) {
     if (!mtmp.edog) mtmp.edog = {};
     const edogp = mtmp.edog;
     const minhungry = (game.moves ?? 1) + 1000;
-    mtmp.mtame = Math.max(10, mtmp.mtame || 0);
+    // C: is_domestic → minimumtame 10 else 5
+    const minimumtame = is_domestic(mtmp.data) ? 10 : 5;
+    mtmp.mtame = Math.max(minimumtame, mtmp.mtame || 0);
     mtmp.mpeaceful = 1;
+    mtmp.mavenge = 0;
+    set_malign(mtmp); // C: recalc alignment now that it's tamed
     if (everything) {
         mtmp.mleashed = 0;
         mtmp.meating = 0;

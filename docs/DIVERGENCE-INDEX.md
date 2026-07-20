@@ -5,7 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0839 | open | seed0383 @13689 peace_minded | C rn2(1) vs JS rn2(4) after getbones peel |
+| D-0839 | fixed | initedog set_malign after tame | seed0383 RNG FULL 16915; Scr 146/219; green+cohort OK |
 | D-0838 | fixed | unstuck docrt + docrt memory Hallu | seed0383 prefix 11524→13689; green+cohort OK |
 | D-0837 | fixed | getmattk mspec_used + mhitm_ad_cold | seed0383 prefix 11400→11524; green+cohort OK |
 | D-0836 | fixed | abuse_dog + yelp/growl + xkilled luck | seed0383 prefix 11372→11400 Scr 144; green+cohort OK |

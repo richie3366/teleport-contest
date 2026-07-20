@@ -7,15 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#968:** D-0838 closed — unstuck→`docrt` + docrt memory glyphs.
-  seed0383 prefix **11524→13689** (past getbones). Scr still 144.
-- **Next @13689 (D-0839):** C `peace_minded` `rn2(1)` (record −15 →
-  `rn2(16-15)`) vs JS `rn2(4)` after matched `newmonhp`.
-- **Hypothesis:** JS `ualign.record` ≠ −15 at that makemon, or early
-  `peace_minded` return (race/always_*/msound) skips the chance arm.
-- **Falsify:** dump `ualign.record` / `maligntyp` / early returns on
-  that spawn; match C `rn2(1)` then second `rn2(2+|mal|)`.
-- **Don't:** FORCE peace; re-break D-0838 unstuck/docrt memory.
+- **#969:** D-0839 closed — `initedog` missing `set_malign` after
+  `mpeaceful=1`. Pet kill left JS record −12 (`rn2(4)`) vs C ≤−15
+  (`rn2(1)`). seed0383 RNG **FULL 16915**; Scr **146**/219.
+- **Next:** seed0383 **screen** peel (RNG matched). Hallu/display
+  glyph or cursor vs C after full PRNG parity.
+- **Hypothesis:** post-pet-kill / later Hallu map cells or status
+  differ while core RNG stays locked.
+- **Falsify:** first mismatched screen frame cells/cursor vs C
+  capture; cite display/docrt/newsym path.
+- **Don't:** FORCE peace/malign; re-break D-0838/D-0839.
 - **Open:** trap hallu glyphs; `potionbreathe`; HALLUC expiry; AD_FIRE
   hero; peace_minded MS_LEADER/GUARDIAN/NEMESIS/ERINYS.
 
@@ -23,14 +24,14 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0838 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0839 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0838 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0839 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
-- **#953–#967:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
-  getmattk / Monnam hallu onset — closed; see journal.
-- **#968:** @11524 was missing unstuck `docrt` (not see_* count alone);
-  docrt memory must not `newsym` under Hallu.
+- **#953–#968:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
+  getmattk / Monnam / unstuck docrt — closed; see journal.
+- **#969:** @13689 was pet `malign` (+3 vs −9), not peace_minded
+  formula / early return.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
-  seed0383 prefix **13689** Scr **144**/219 (D-0839 open).
+  seed0383 RNG **FULL**; Scr **146**/219 (screen peel open).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -53,5 +54,5 @@ Objective/score live in `CURRENT.md`.
 - TRAVP_VALID BFS hero→dest (D-0813); getpos DOOR + visctrl (D-0815).
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
 - `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
-- unstuck swallow → `docrt` (not mere `vision_recalc(1)`); docrt memory
-  = remembered glyphs (D-0838).
+- unstuck swallow → `docrt`; docrt memory = remembered glyphs (D-0838).
+- `initedog` must `set_malign` after tame (D-0839).

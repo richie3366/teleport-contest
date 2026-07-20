@@ -4,18 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0839 — open: seed0383 @13689 peace_minded
+## D-0839 — fixed: initedog set_malign (seed0383 full RNG)
 
-- **Status:** open
-- **Symptom:** seed0383 prefix **13689** — after matched `newmonhp`
-  `d(11,8)`, C `peace_minded` `rn2(1)` (ualign.record −15 →
-  `rn2(16-15)`); JS `rn2(4)`.
-- **Hypothesis:** JS `ualign.record` or early `peace_minded` return
-  (race/always_*/msound) differs so the co-aligned chance arm never
-  sees `rn2(1)`; or a prior alignment mutation was skipped.
-- **Do not:** FORCE peace; re-break D-0838 unstuck/docrt.
-- **Verification pending:** dump `ualign.record`/`maligntyp`/early
-  returns at that makemon; green+cohort after any fix.
+- **Status:** fixed
+- **Symptom:** seed0383 @13689 — after matched `newmonhp` `d(11,8)`,
+  C `peace_minded` `rn2(1)` vs JS `rn2(4)`.
+- **Cause:** JS `initedog` forced `mpeaceful=1` but never called
+  `set_malign` (C `dog.c` does). Starting pet kept makemon-time
+  renegade `malign=+3` (coaligned `!mpeaceful`); C recalculated to
+  peaceful `malign=-9`. Pet kill: C `adjalign(-15)+(-9)` → record≤−15
+  → `rn2(1)`; JS `adjalign(-15)+(+3)` → record −12 → `rn2(4)`.
+- **Fix:** `js/dog.js` `initedog` — `mavenge=0`, domestic
+  `minimumtame`, `set_malign(mtmp)` after peaceful.
+- **Verification:** seed0383 RNG **FULL 16915**/16915 (Scr 146/219);
+  green+strict PASS; cohort 36/36 PASS.
+- **Next:** seed0383 screen peel (RNG matched; Scr 146/219).
 
 ## D-0838 — fixed: unstuck→docrt + docrt memory (Hallu display RNG)
 
