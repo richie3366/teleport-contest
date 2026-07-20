@@ -92,6 +92,7 @@ import {
     TELEPORT_CONTROL,
     HALLUC_RES, SEARCHING, REFLECTING, LIFESAVED,
     FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
+    DISPLACED,
 } from './const.js';
 import { align_str, align_gname, u_gname, rank_of } from './roles.js';
 import {
@@ -1603,6 +1604,19 @@ function hero_Stealth(u = game.u || {}) {
 }
 
 /**
+ * C ref: youprop.h Displaced — HDisplaced || EDisplaced
+ * (uprops[DISPLACED].intrinsic || .extrinsic).
+ */
+function hero_Displaced(u = game.u || {}) {
+    return !!(
+        (u.HDisplaced | 0)
+        || (u.EDisplaced | 0)
+        || (u.uprops?.[DISPLACED]?.intrinsic | 0)
+        || (u.uprops?.[DISPLACED]?.extrinsic | 0)
+    );
+}
+
+/**
  * C ref: youprop.h Teleport_control —
  * HTeleport_control || ETeleport_control (uprops + flat mirrors).
  */
@@ -2409,7 +2423,13 @@ export async function doattributes() {
                 'You ', 'have ', 'automatic searching', from_what(SEARCHING),
             )));
         }
-        // Appearance — Stealth (blocked-Stealth arm deferred)
+        // Appearance — Displaced before Stealth (insight.c); Aggravate/
+        // Conflict deferred. Blocked-Stealth arm deferred.
+        if (hero_Displaced(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'displaced', from_what(DISPLACED),
+            )));
+        }
         if (hero_Stealth(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'stealthy', from_what(STEALTH),

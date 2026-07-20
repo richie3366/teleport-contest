@@ -28,6 +28,7 @@ import {
     FUMBLING,
     TIMEOUT,
     OBJ_INVENT,
+    W_ARMF,
 } from './const.js';
 import { objectNames } from './objects.js';
 import { pline } from './display.js';
@@ -665,42 +666,62 @@ export function is_innate(propidx) {
 
 /**
  * C ref: attrib.c from_what — wizard-mode intrinsic source suffix.
- * Ported: innate reasons; FAST+Very_fast worn-equipment arm; what_gives
- * extrinsic worn/artifact equipment.
+ * Ported: innate reasons; FAST+Very_fast known speed-boots / worn-
+ * equipment arms; what_gives extrinsic worn/artifact; " pair of " strip.
  * Named omissions: birth blind/deaf; Blindfolded_only / cream;
- * negative prop blocking; "pair of " strip; known speed-boots name.
+ * negative prop blocking; strangulation trim.
  */
 export function from_what(propidx) {
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
     if (!wizard || propidx < 0) return '';
+    let buf = '';
     const innateness = is_innate(propidx);
     if (innateness === FROM_ROLE_REASON || innateness === FROM_RACE_REASON) {
-        return ' innately';
-    }
-    if (innateness === FROM_INTR) return ' intrinsically';
-    if (innateness === FROM_EXP) return ' because of your experience';
-    if (innateness === FROM_LYCN) return ' due to your lycanthropy';
-    if (innateness === FROM_FORM_REASON) return ' from your creature form';
-    // C attrib.c: propidx == FAST && Very_fast — before what_gives.
-    // Blue DSM sets EFast|W_ARM → "worn equipment" (not ysimple_name suit).
-    if (propidx === FAST && Very_fast()) {
+        buf = ' innately';
+    } else if (innateness === FROM_INTR) {
+        buf = ' intrinsically';
+    } else if (innateness === FROM_EXP) {
+        buf = ' because of your experience';
+    } else if (innateness === FROM_LYCN) {
+        buf = ' due to your lycanthropy';
+    } else if (innateness === FROM_FORM_REASON) {
+        buf = ' from your creature form';
+    } else if (propidx === FAST && Very_fast()) {
+        // C attrib.c: propidx == FAST && Very_fast — before what_gives.
+        // Known speed boots (W_ARMF + dknown + oc_name_known) →
+        // ysimple_name(uarmf); blue DSM EFast|W_ARM → "worn equipment".
         const u = game.u || {};
         const h = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
         const e = (u.EFast | 0) | (u.uprops?.[FAST]?.extrinsic | 0);
-        if ((h & TIMEOUT) !== 0) return ' because of a potion or spell';
-        // known speed boots → ysimple_name(uarmf) deferred (needs dknown)
-        if (e) return ' because of worn equipment';
-        return ' because of something';
+        if ((h & TIMEOUT) !== 0) {
+            buf = ' because of a potion or spell';
+        } else if (
+            (e & W_ARMF) !== 0
+            && u.uarmf?.dknown
+            && game.objects?.[u.uarmf.otyp]?.oc_name_known
+        ) {
+            buf = ` because of ${ysimple_name(u.uarmf)}`;
+        } else if (e) {
+            buf = ' because of worn equipment';
+        } else {
+            buf = ' because of something';
+        }
+    } else {
+        // C: wizard && (obj = what_gives(&u.uprops[propidx].extrinsic))
+        const extrinsic = game.u?.uprops?.[propidx]?.extrinsic | 0;
+        const obj = what_gives(extrinsic);
+        if (obj) {
+            // C: obj->oartifact ? bare_artifactname(obj) : ysimple_name(obj)
+            const because = obj.oartifact
+                ? bare_artifactname(obj)
+                : ysimple_name(obj);
+            buf = ` because of ${because}`;
+        }
     }
-    // C: wizard && (obj = what_gives(&u.uprops[propidx].extrinsic))
-    const extrinsic = game.u?.uprops?.[propidx]?.extrinsic | 0;
-    const obj = what_gives(extrinsic);
-    if (obj) {
-        // C: obj->oartifact ? bare_artifactname(obj) : ysimple_name(obj)
-        const because = obj.oartifact
-            ? bare_artifactname(obj)
-            : ysimple_name(obj);
-        return ` because of ${because}`;
+    // C: strstri(buf, " pair of ") → collapse to single space
+    const pair = buf.indexOf(' pair of ');
+    if (pair >= 0) {
+        buf = `${buf.slice(0, pair)} ${buf.slice(pair + ' pair of '.length)}`;
     }
-    return '';
+    return buf;
 }

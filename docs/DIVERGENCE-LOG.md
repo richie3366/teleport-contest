@@ -4,9 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0821 — Attributes Displaced + known speed-boots from_what (seed0360 @828)
+
+- **Status:** fixed (seed0360 **PASS**)
+- **Symptom:** seed0360 @828 ^X Attributes — C
+  `You are displaced because of your cloak of displacement.` then
+  `You are very fast because of your speed boots.`; JS omitted
+  Displaced line and printed `because of worn equipment` for Fast.
+  RNG FULL; Scr 832/833.
+- **C locus:** `insight.c` `attributes_enlightenment` Appearance
+  `if (Displaced) you_are("displaced", from_what(DISPLACED))`;
+  `attrib.c` `from_what` FAST+Very_fast known `uarmf` arm +
+  `" pair of "` strip; `what_gives` for cloak extrinsic.
+- **Cause (#944):** JS `attributes_enlightenment` never emitted
+  Displaced; `from_what(FAST)` stubbed known boots as
+  `"worn equipment"` (named omission on D-0676).
+- **Change:** `js/invent.js` `hero_Displaced` + Displaced before
+  Stealth; `js/attrib.js` `from_what` known W_ARMF+dknown+
+  `oc_name_known` → `ysimple_name(uarmf)` + pair-of strip.
+  Named: Aggravate/Conflict; Jumping/Teleportation; birth/blind
+  from_what arms; Blind/Stun Status.
+- **Verification:** seed0360 Scr **832→833**/833 **PASS**; full
+  suite **38/44** Scr **8841**/11405; green+strict+cohort PASS.
+- **Next:** seed0383 hallu (unparked); seed0014/0399 still parked.
+
 ## D-0820 — Wiz locate_first qt_pager (seed0360 @780)
 
-- **Status:** fixed (seed0360 Scr residual continues @828)
+- **Status:** fixed (residual @828 closed by D-0821)
 - **Symptom:** seed0360 @780 — C
   `You materialize on a different level!--More--` then @781
   `Wisps of fog swirl nearby.  You feel that the Dark One's lair is close.`;
