@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0894 — dryup town first-use watchman warn
+
+- **Status:** fixed
+- **Symptom:** seed0014 @712 — C watchman yell after fountain gold-loss
+  vs JS `The fountain dries up!` (RNG already FULL).
+- **C locus:** `fountain.c` `dryup` — when `isyou && in_town &&
+  !FOUNTAIN_IS_WARNED`: `SET_FOUNTAIN_WARNED`, iterate
+  `watchman_warn_fountain` (`is_watch` + `couldsee` + peaceful →
+  `Amonnam` yell + `verbalize("Hey, stop using that fountain!")`),
+  else trickle pline; **return without drying**. Real dryup later
+  when already warned; then `angry_guards`.
+- **Cause:** JS `dryup` skipped the town warn arm and always dried
+  when `!rn2(3) || FOUNTAIN_IS_WARNED`.
+- **Change:** port town warn + `watchman_warn_fountain` (!Deaf path)
+  + `get_iter_mons`. Named omit: `angry_guards` after real dryup;
+  Deaf shake/wave; wizard yn; cloud-glyph dryup skip.
+- **Verify:** green+strict PASS; cohort 35/35; seed0014 **PASS
+  714/714**; full suite **41/44** Scr **9574**/11405.
+- **Next:** leaderboard cron; seed2600/4500 coverage.
+
 ## D-0893 — setgemprobs ledger_no level-dependent gem probs
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
@@ -22,7 +42,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verify:** green+strict PASS; cohort 17/17 PASS; seed0014 Scr
   **678→712**/714 (RNG FULL). @631 matches.
 - **Next:** @712 C watchman yell after fountain gold-loss vs JS
-  fountain dries up (`watch_on_duty` / dipfountain).
+  fountain dries up — closed by D-0894.
 
 ## D-0892 — do_attack gu.unweapon begin-bashing pline
 

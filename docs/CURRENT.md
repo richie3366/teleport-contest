@@ -21,32 +21,31 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1040**,
-cadence). Screens **9504**/11405; RNG **676,373**/792838 (85.31%).
-**40/44** PASS. Next cadence @**#1045**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1045**,
+cadence + D-0894). Screens **9574**/11405; RNG **676,373**/792838 (85.31%).
+**41/44** PASS. Next cadence @**#1050**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **40 / 44** |
-| Screens matched | **9,504 / 11,405** |
+| Sessions passing | **41 / 44** |
+| Screens matched | **9,574 / 11,405** |
 | Positional RNG calls matched | **676,373 / 792,838** (85.31%) |
-| Speed label | `32+0.23/turn` (R² 0.836) |
+| Speed label | `33+0.23/turn` (R² 0.828) |
 | Role-init throws | **0 / 44** |
 
-**PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (41):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0383, seed0399.
+seed0360, seed0383, seed0399, **seed0014**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0014 | **59178**/59178 | **644**/714 | RNG FULL; next @560 trap map |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
@@ -68,28 +67,30 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **Leaderboard 22-vs-38 gap** — local PASS includes seed0108 + seed0116 +
 seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + seed5002 +
-seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
-(seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
+seed0360 + seed0399 + **seed0014**; judge at 08:55Z dropped to **22** after
+D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 Scr 712/714** — RNG closed (D-0877);
-D-0881…D-0893. First miss @712 — C watchman yell after fountain
-gold-loss vs JS fountain dries up.
-Focused:
+**Gameplay next:** **seed2600** custom binds / **seed4500** knight coverage
+(shared gaps). seed0014 closed (D-0894 dryup town warn → **PASS**).
+Focused (pick one):
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0014-dequa-fountain-explore.session.json
+  sessions/seed2600-wizard-custom-binds.session.json
+# or
+node frozen/ps_test_runner.mjs \
+  sessions/seed4500-knight-coverage.session.json
 ```
 
-**Parked gameplay:** none beyond D-0006 / seed2200 @158.
+**Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0893. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0894. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0893 (searches_for_item … setgemprobs ledger_no).
+D-0861…D-0894 (searches_for_item … dryup town warn).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -112,7 +113,8 @@ omit peaceful adj / frighten verb on safemon swap (D-0889);
 omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty `vision_recalc` (D-0890);
 force `maketrap` HOLE `tseen=false` (need `unhideable_trap` D-0891);
 omit `do_attack` `gu.unweapon` begin-bashing (D-0892);
-force `setgemprobs` lev=0 when dlev set (D-0893).
+force `setgemprobs` lev=0 when dlev set (D-0893);
+skip town warn / dry fountain on first town `dryup` (D-0894).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

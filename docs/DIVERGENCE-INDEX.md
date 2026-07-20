@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0894 | fixed | dryup town warn + watchman_warn_fountain | seed0014 **PASS 714/714**; suite **41/44** |
 | D-0893 | fixed | setgemprobs ledger_no gem oc_prob | seed0014 Scr **678→712**; @631 closed; next @712 watch |
 | D-0892 | fixed | do_attack gu.unweapon begin-bashing | seed0014 Scr **676→678**; @624 closed; next @631 gem |
 | D-0891 | fixed | maketrap HOLE unhideable_trap tseen | seed0014 Scr **645→676**; @600 closed; next @624 bash |
