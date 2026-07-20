@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0838 — open: Monnam hallu / display RNG (seed0383 @11524)
+
+- **Status:** open (partial port)
+- **Symptom:** seed0383 @11524 — C `getbones` `rn2(3)` (wizard `^V`→
+  oracle); JS combat `rn2(20)`.
+- **Cause chain:** JS burns extra combat RNG because key `b` is a move
+  while C discarded it during `--More--`. More splits from hallu name
+  lengths / display-stream position.
+- **Partial fix (#967):**
+  - Display ISAAC + `rn2_on_display_rng`; `bogusmon` extract; `rndmonnam`
+    / `Monnam` hallu; `mon_glyph`/`obj_glyph` hallu (CORPSE 2nd burn);
+    `display_warning` hallu `rn2(WARNCOUNT-1)`.
+  - Hallu onset is **uswallow** (ice vortex): C `make_hallucinated` →
+    `swallowed(0)` not `see_*`. Port `swallowed` + `docrt`/`newsym`
+    swallow early-outs; allmain Hallu `see_*` + `swallowed(0)` per input.
+  - First 3 hit names match C: `acid blog`, `giant beetle`, `monkey`.
+- **Still open:** after expel, 4th Monnam `hobbit` vs C `black pudding`
+  — post-expel Hallu `see_*` burn count / visible set. Then More/key
+  sync through `^V` getbones.
+- **Verification:** green+strict PASS; cohort seed1500/1800/0060/0102/
+  seed0360 PASS; seed0383 still prefix **11524** Scr 144.
+
 ## D-0837 — fixed: getmattk mspec_used subst + mhitm_ad_cold
 
 - **Status:** fixed

@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 08:20 — #967 seed0383 Monnam hallu / swallowed (D-0838)
+- Objective: seed0383 @11524 C getbones vs JS combat (More/key from hallu).
+- C locus: do_name.c rndmonnam; display.c swallowed/swallow_to_glyph;
+  potion.c make_hallucinated; allmain.c Hallu see_*/swallowed(0).
+- Change: display ISAAC + bogusmon/rndmonnam/Monnam; mon/obj_glyph hallu;
+  swallowed+docrt/newsym; allmain Hallu refresh. First 3 names match.
+- Verification: green+strict PASS; cohort 5/5 PASS; still @11524 Scr 144.
+- Next: post-expel Hallu see_* burns → 4th name black pudding; then getbones.
 ## 2026-07-20 07:42 — #966 seed0383 getmattk mspec + cold (D-0837)
 - Objective: seed0383 @11400 C mattacku rnd(20) vs JS fleeck.
 - C locus: mhitu.c getmattk mspec_used subst; uhitm.c mhitm_ad_cold;

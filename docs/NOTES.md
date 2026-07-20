@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#966:** D-0837 closed @11400. seed0383 prefix **11524**; Scr still 144;
-  RNG matched **11527**.
-- **Next @11524:** C `getbones` `rn2(3)`; JS `rn2(20)` — likely C death/
-  bones after cold damage vs JS still in moveloop.
-- **Hypothesis:** hero HP / destroy_items potion shatter / AC-reduced
-  damage diverged enough that C dies and enters bones while JS lives.
-- **Falsify:** dump `u.uhp` / invent potion count / gameover after the
-  ice-vortex cold hit (log≈11520); compare C death vs JS continue.
+- **#967:** D-0838 partial — display ISAAC + Monnam hallu + swallowed/
+  allmain Hallu refresh. seed0383 still **@11524** (C getbones vs JS
+  combat). First 3 hallu hit names match C (`acid blog`, `giant beetle`,
+  `monkey`); 4th diverges (`hobbit` vs `black pudding`) after expel.
+- **Cause:** post-expel Hallu `see_*` display burns differ (cansee / mon
+  set) → wrong later names → More/key desync → extra combat before `^V`.
+- **Hypothesis:** after ice-vortex expel, JS `see_monsters`/`see_objects`
+  under Hallu burn a different count than C (viz restore / visible set).
+- **Falsify:** dump disp burns + visible mon/obj counts on first
+  post-expel allmain Hallu refresh; match C black pudding as 4th Monnam.
 - **Don't:** FORCE death/bones; leave DIAG; re-break D-0822…D-0837.
-- **Open (not this peel):** `potionbreathe` POT_CONFUSION/BOOZE stubs;
-  `nh_timeout` HALLUC expiry; dokick `abuse_dog` still stub; AD_FIRE
-  hero `mhitm_ad_fire`; other getmattk subst arms.
+- **Open:** gulpmu `swallowed(1)` on first engulfs; trap hallu glyphs;
+  `potionbreathe`; HALLUC expiry; AD_FIRE hero.
 
 ## Don't re-check (≤15)
 
@@ -28,21 +29,10 @@ Objective/score live in `CURRENT.md`.
 - Runner `Screen N/M` = total matches, not prefix length.
 - seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0837 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
-- **#953:** spawn order / unshift timestamps 165 vs 108 — not @10374.
-- **#954:** post-swallow mcalcmove +12 / MSLOW / minliquid ROOM — not cause.
-- **#956:** JS mcanmove/sleep/WAITMASK/I_SPECIAL clear at EE act — not cause;
-  closed by D-0832 (missing equip path).
-- **#961:** Confusion `u_maybe_impaired` @10608 — falsified; was swallow.
-- **#962:** want_move/minvis `rn2(3)` @10646 — falsified; was fog
-  `create_gas_cloud` after vapor TTL expired (no `inside_gas_cloud` refresh).
-- **#963:** mon site-shift @10843 — falsified; was missing `#wizintrinsic`
-  Hallucination → exerper WIS `rn2(2)`.
-- **#964:** mtame intimacy @11372 — falsified; was missing `hmon_hitmon_pet`
-  → `abuse_dog` / `yelp` (then xkilled luck `rn2(2)`).
-- **#965:** `mattacku:709` rnd(2) is `AC_VALUE` negative-AC macro — not a
-  separate mystery call.
-- **#966:** @11400 fleeck was ice vortex `mspec_used` without getmattk
-  subst (kept AT_ENGL) — not missing AT_TENT/find_offensive.
+- **#953–#966:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
+  getmattk mspec — closed or falsified; see journal.
+- **#967:** @11524 is wizard `^V` getbones, not ice-vortex death;
+  hallu onset is **uswallow** (not dark cansee) — C `swallowed(0)`.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 
@@ -51,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
-  seed0383 prefix **11524** Scr **144**/219 (D-0837).
+  seed0383 prefix **11524** Scr **144**/219 (D-0838 open).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -68,3 +58,5 @@ Objective/score live in `CURRENT.md`.
 - `hmon_hitmon_pet` → `abuse_dog`/`yelp`/`growl`; xkilled tame luck (D-0836).
 - `getmattk` mspec_used → AT_TUCH/CLAW; `mhitm_ad_cold` + destroy_items
   (D-0837).
+- Display ISAAC + `rndmonnam`/`Monnam` hallu; `swallowed` what_mon;
+  allmain Hallu `see_*`+`swallowed(0)` (D-0838 partial).

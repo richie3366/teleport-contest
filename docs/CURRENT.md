@@ -76,9 +76,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @11524** — after D-0837, prefix past
-11400 ice-vortex mspec touch/cold; C `getbones` `rn2(3)` vs JS
-`rn2(20)` (likely death/bones vs continued play). Focused:
+**Gameplay next:** **seed0383 @11524** — D-0838 partial: first 3 hallu
+hit names match C (`acid blog`…); still desync after expel (4th name).
+C `getbones` `rn2(3)` vs JS `rn2(20)`. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -91,6 +91,7 @@ node scripts/rng-diff.mjs \
 (D-0708 still open).
 
 **Do not re-break D-0660…D-0837. Do not FORCE CLOSE/movement/umov.**
+**Do not FORCE death/bones for @11524.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

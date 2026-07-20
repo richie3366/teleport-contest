@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0838 | open | Monnam hallu + swallowed/allmain | first 3 names OK; still @11524 after expel burn desync |
 | D-0837 | fixed | getmattk mspec_used + mhitm_ad_cold | seed0383 prefix 11400→11524; green+cohort OK |
 | D-0836 | fixed | abuse_dog + yelp/growl + xkilled luck | seed0383 prefix 11372→11400 Scr 144; green+cohort OK |
 | D-0835 | fixed | wiz_intrinsic + make_hallucinated | seed0383 prefix 10843→11372 Scr 142→144; green+cohort OK |
