@@ -1,3 +1,10 @@
+## 2026-07-20 00:36 — D-0809 travel "(no travel path)"
+- Objective: seed0360 @395 C `unexplored area (no travel path)` vs bare.
+- C locus: `getpos.c` `auto_describe` + `hack.c` `is_valid_travelpt`.
+- Change: export `is_valid_travelpt`; getpos appends suffix in travel mode.
+- Verification: green+strict PASS; cohort 8/8; seed0360 Scr **673→678**/833.
+- Next: @497 C `AC:2` vs JS `AC:-2` on cloak-of-displacement wear More.
+
 ## 2026-07-19 06:07 — #829 burnarmor/destroy pline (D-0741)
 
 - Objective: seed5002 Scr after RNG FULL (destroy/death topline).

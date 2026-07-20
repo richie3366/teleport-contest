@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0822 | fixed | bigrm-12 load_special (hexagon pool/lava) | seed0383 prefix 2493→9709 Scr 45→141; suite Scr+96 RNG+7585; next @9709 obj_resists |
+| D-0823 | fixed | dog_goal could_reach_item pool/lava/boulder | seed0383 prefix 9709→10024; next @10024 m_move rn2(16) vs rn2(20) |
+| D-0822 | fixed | bigrm-12 load_special (hexagon pool/lava) | seed0383 prefix 2493→9709 Scr 45→141; suite Scr+96 RNG+7585; next @9709 closed by D-0823 |
 | D-0821 | fixed | Attributes Displaced + known speed-boots from_what | seed0360 **PASS** 833/833; suite 38/44; next seed0383 |
 | D-0820 | fixed | Wiz locate_first/next qt_pager (quest.lua) | seed0360 Scr 830→832; @780/@781; next @828 Attributes displaced |
 | D-0819 | fixed | getpos_help NHW_MENU + show_goal_msg on `?` | seed0360 Scr 828→830; @729/@730; next @780 materialize More |

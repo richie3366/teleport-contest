@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0823 — dog_goal could_reach_item pool/lava/boulder (seed0383 @9709)
+
+- **Status:** fixed (partial — next @10024 `m_move` mtrack)
+- **Symptom:** seed0383 after D-0822: C consecutive `obj_resists`
+  `rn2(100)` vs JS `rn2(8)` at first `dog_goal` APPORT check.
+  Prefix 9709; Scr 141/219.
+- **C locus:** `dogmove.c` `could_reach_item` + `dog_goal` fobj scan
+  before `edog->apport > rn2(8)`.
+- **Cause (#946):** JS `could_reach_item` stubbed always-true; after
+  bigrm-12 pool/lava, C skips unreachable floor objs (no APPORT
+  `rn2(8)`) while JS entered the branch early.
+- **Change:** `js/dogmove.js` — real `could_reach_item` (`is_pool`/
+  `is_swimmer`, `is_lava`/`likes_lava`, boulder/`throws_rocks`).
+  Named: `monmove.js` still stubs the same helper; flyer-only arms N/A
+  in C.
+- **Verification:** seed0383 prefix **9709→10024**; RNG matched
+  **10097→10527**/16915; Scr still **141**/219; green+strict PASS;
+  cohort 10/10 (incl. seed1800/0360/0398).
+- **Next:** @10024 C `rn2(16)` vs JS `rn2(20)` `m_move` mtrack
+  `rn2(4*(cnt-j))` (cnt/j desync).
+
 ## D-0822 — bigrm-12 load_special (seed0383 @2493)
 
 - **Status:** fixed (partial — next @9709 `obj_resists`)

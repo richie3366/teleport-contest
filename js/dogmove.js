@@ -27,12 +27,14 @@ import {
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, COIN_CLASS, objectNames } from './objects.js';
 import {
     monsterNames, mons, carnivorous, herbivorous, vegan, acidic, poisonous,
+    is_swimmer, likes_lava, throws_rocks,
     PM_LICHEN, MZ_TINY, MZ_SMALL, MZ_MEDIUM, MZ_LARGE, MZ_HUGE,
 } from './monsters.js';
 import { m_cansee, couldsee, cansee, do_clear_area } from './vision.js';
 import { Monnam, noit_Monnam } from './do_name.js';
 import { gettrack } from './track.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
+import { is_pool, is_lava } from './hack.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -48,6 +50,7 @@ const MEAT_STICK = objectNames.indexOf('MEAT_STICK');
 const ENORMOUS_MEATBALL = objectNames.indexOf('ENORMOUS_MEATBALL');
 const APPLE = objectNames.indexOf('APPLE');
 const CARROT = objectNames.indexOf('CARROT');
+const BOULDER = objectNames.indexOf('BOULDER');
 const BANANA = objectNames.indexOf('BANANA');
 const EGG = objectNames.indexOf('EGG');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -162,8 +165,20 @@ export function dogfood(mon, obj) {
 // Goal state for current dog_move (C: gg.gtyp/gx/gy)
 const gg = { gtyp: UNDEF, gx: 0, gy: 0 };
 
-function could_reach_item(_mtmp, _x, _y) {
-    return true; // flyer/swimmer/boulder edge cases omitted
+/**
+ * C ref: dogmove.c could_reach_item — pool/lava/boulder gates.
+ * Flyer-only reach deferred (C has no flyer special here).
+ */
+function could_reach_item(mon, nx, ny) {
+    const ptr = mon?.data ?? mons(mon?.mnum);
+    if (is_pool(nx, ny) && !is_swimmer(ptr)) return false;
+    if (is_lava(nx, ny) && !likes_lava(ptr)) return false;
+    if (BOULDER >= 0) {
+        for (let obj = objects_at(nx, ny); obj; obj = obj.nexthere) {
+            if ((obj.otyp | 0) === BOULDER && !throws_rocks(ptr)) return false;
+        }
+    }
+    return true;
 }
 
 function isok(x, y) {

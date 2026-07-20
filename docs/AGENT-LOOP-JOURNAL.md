@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 02:15 — #946 D-0823 could_reach_item
+- Objective: seed0383 @9709 obj_resists vs rn2(8) peel.
+- C locus: `dogmove.c` `could_reach_item` / `dog_goal` APPORT gate.
+- Change: **D-0823** real pool/lava/boulder reach check in
+  `js/dogmove.js` (was always-true stub). Prefix **9709→10024**.
+- Verification: green+strict PASS; cohort 10/10; Scr still 141/219.
+- Next: @10024 `m_move` mtrack `rn2(16)` vs `rn2(20)`.
+
 ## 2026-07-20 02:09 — #945 score + D-0822 bigrm-12
 - Objective: cadence full `sessions` + seed0383 first RNG peel.
 - C locus: `dat/bigrm-12.lua`; `mkmaze.c` `makemaz`; `sp_lev.c`
@@ -143,11 +151,4 @@ Use this shape:
   prefix **497→523**.
 - Verification: green+strict PASS; cohort **35/35** PASS.
 - Next: @523 farlook fog/vapor `~` vs unexplored `·`.
-
-## 2026-07-20 00:36 — D-0809 travel "(no travel path)"
-- Objective: seed0360 @395 C `unexplored area (no travel path)` vs bare.
-- C locus: `getpos.c` `auto_describe` + `hack.c` `is_valid_travelpt`.
-- Change: export `is_valid_travelpt`; getpos appends suffix in travel mode.
-- Verification: green+strict PASS; cohort 8/8; seed0360 Scr **673→678**/833.
-- Next: @497 C `AC:2` vs JS `AC:-2` on cloak-of-displacement wear More.
 

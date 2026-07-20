@@ -7,24 +7,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#945 D-0822:** seed0383 `makemaz` `rnd(13)=12` → missing
-  `bigrm-12` load_special. Ported → prefix **2493→9709**; Scr
-  **45→141**/219; suite Scr **+96** RNG **+7585** (still **38/44**).
-- **Hypothesis next:** @9709 C second consecutive `obj_resists`
-  `rn2(100)` vs JS `rn2(8)` (after matched first resist @9708 /
-  distfleeck/dochug). Missing destroy/resist inventory arm?
-- **Falsify:** rng-diff @9709 + re-read `zap.c` `obj_resists` callers
-  around that path before patching.
+- **#946 D-0823:** seed0383 @9709 was `dog_goal` APPORT `rn2(8)`
+  because JS `could_reach_item` ignored pool/lava after bigrm-12.
+  Ported → prefix **9709→10024**; Scr still **141**/219.
+- **Hypothesis next:** @10024 C `m_move` mtrack `rn2(4*(cnt-j))=rn2(16)`
+  vs JS `rn2(20)` — mfndpos `cnt` or mtrack `j` desync (one extra
+  candidate or one fewer track hit in JS).
+- **Falsify:** rng-diff @10024 + dump `cnt`/`j`/`mtrack` at that
+  `m_move` backtrack skip (C monmove.c:1963).
 - **Don’t:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break D-0821…D-0822 / other bigrm loaders.
+  re-break D-0822/D-0823; stub `could_reach_item` true again.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0822 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0823 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0822 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0823 peels done.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -39,6 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Wiz locate_first/next qt_pager (D-0820).
 - Displaced enl + known speed-boots from_what (D-0821).
 - bigrm-12 hexagon load_special (D-0822).
+- dog_goal could_reach_item pool/lava/boulder (D-0823).
 
 ## Landmarks (≤15)
 

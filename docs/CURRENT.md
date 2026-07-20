@@ -74,9 +74,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @9709** — after D-0822 `bigrm-12`, first
-mismatch is C consecutive `obj_resists` `rn2(100)` vs JS `rn2(8)`.
-Focused:
+**Gameplay next:** **seed0383 @10024** — after D-0823
+`could_reach_item`, first mismatch is C `m_move` mtrack
+`rn2(4*(cnt-j))=rn2(16)` vs JS `rn2(20)`. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -88,7 +88,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0822. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0823. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
