@@ -75,12 +75,12 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 gulpmu More** — D-0843 HI_METAL mcolors
-+ swallow DEC `o`/`s` scoring (Scr **176**/219). D-0842 glyphs done.
-D-0841 flush still parked: with flush+D-0843, ice-vortex Hallu OK then
-**post-expel Hallu map @172** (`see_monsters` display-RNG) → wrong
-Monnam / early expel → getbones @11524. Next: fix post-expel Hallu
-burns so flush can land. Focused:
+**Gameplay next:** **seed0383 gulpmu More** — D-0844 statue Hallu
+memory burns (C fidelity; Scr still 176). D-0843 HI_METAL + DEC o/s
+done. **@172:** JS short **1 display-RNG burn** before once-per-input
+Hallu `see_*` (probe +1 → mons match; 4 objs remain). Find that burn
+in post-expel `docrt`/`mnexto`/`postmov`, then objs; then flush.
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -90,7 +90,7 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0843. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0844. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more without fixing @172
 display-RNG skew (D-0841/D-0843).**

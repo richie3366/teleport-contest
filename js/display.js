@@ -667,7 +667,7 @@ function distu(x, y) {
 /**
  * C ref: display.c map_object — if glyph would be generic and hero cansee
  * within neardist, observe_object then recompute as specific (per-otyp color).
- * Named omissions: Hallucination statue random_obj; pile-top glyph flags.
+ * Named omissions: pile-top glyph flags.
  */
 function map_object_observe_near(obj, x, y) {
     if (!obj || game.u?.Hallucination) return;
@@ -675,6 +675,55 @@ function map_object_observe_near(obj, x, y) {
     if (!cansee(x, y)) return;
     const { neardist } = object_neardist();
     if (distu(x, y) <= neardist) observe_object(obj);
+}
+
+/**
+ * C ref: display.c map_object — obj_to_glyph then hero_memory store.
+ * Under Hallu, STATUE *display* is statue_to_glyph (mon+gender) but
+ * *memory* is a separate random_obj_to_glyph (extra display-RNG burns).
+ */
+function map_object(obj, show) {
+    if (!obj) return;
+    const x = obj.ox | 0;
+    const y = obj.oy | 0;
+    const loc = game.level?.at(x, y);
+    map_object_observe_near(obj, x, y);
+    const og = obj_glyph(obj);
+    const attr = obj_map_attr(obj);
+    const pile = obj_is_piletop(obj);
+    if (game.level?.flags?.hero_memory && loc) {
+        // C: Hallu+STATUE → levl glyph = random_obj_to_glyph (not display glyph)
+        if (game.u?.Hallucination && obj.otyp === STATUE_OTYP) {
+            const otyp = rn2_on_display_rng(NUM_OBJECTS - FIRST_OBJECT)
+                + FIRST_OBJECT;
+            let mem;
+            if (otyp === CORPSE_OTYP) {
+                const mnum = rn2_on_display_rng(NUMMONS);
+                const ptr = mons(mnum);
+                mem = {
+                    ch: MLET_CH[ptr?.mlet] || '%',
+                    color: mcolors[mnum] ?? NO_COLOR,
+                    decgfx: false,
+                    objpile: pile,
+                };
+            } else {
+                const def = game.objects?.[otyp];
+                const oclass = def?.oc_class ?? ILLOBJ_CLASS;
+                mem = {
+                    ch: DEF_OC_SYM[oclass] || ']',
+                    color: def?.oc_color ?? NO_COLOR,
+                    decgfx: false,
+                    objpile: pile,
+                };
+            }
+            loc.remembered_glyph = mem;
+        } else {
+            loc.remembered_glyph = {
+                ch: og.ch, color: og.color, decgfx: !!og.dec, objpile: pile,
+            };
+        }
+    }
+    if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec, attr);
 }
 
 /**
@@ -1794,18 +1843,8 @@ export function map_location(x, y, show) {
     let g = null;
     const obj = objects_at(x, y);
     if (obj && !covers_objects(x, y)) {
-        // C: map_object(obj, show) — may observe_object when near
-        map_object_observe_near(obj, x, y);
-        const og = obj_glyph(obj);
-        const attr = obj_map_attr(obj);
-        const pile = obj_is_piletop(obj);
-        g = { ch: og.ch, color: og.color, decgfx: !!og.dec, objpile: pile };
-        if (mem) {
-            loc.remembered_glyph = {
-                ch: g.ch, color: g.color, decgfx: g.decgfx, objpile: pile,
-            };
-        }
-        if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx, attr);
+        // C: map_object(obj, show) — Hallu statue memory burns extra
+        map_object(obj, show);
         update_lastseentyp(x, y);
         return;
     }
@@ -1922,20 +1961,10 @@ export function newsym(x, y) {
             return;
         }
         // C ref: display.c _map_location — vobj_at before trap/engraving/bg
-        // C: map_object(obj, show) — nearby generic → observe_object
+        // C: map_object(obj, show) — Hallu statue memory burns extra
         const obj = objects_at(x, y);
         if (obj && !covers_objects(x, y)) {
-            map_object_observe_near(obj, x, y);
-            const og = obj_glyph(obj);
-            const attr = obj_map_attr(obj);
-            const pile = obj_is_piletop(obj);
-            show_glyph_cell(x, y, og.ch, og.color, og.dec, attr);
-            if (game.level?.flags?.hero_memory) {
-                loc.remembered_glyph = {
-                    ch: og.ch, color: og.color, decgfx: og.dec, objpile: pile,
-                };
-            }
-            // C _map_location always updates lastseentyp after mapping
+            map_object(obj, true);
             update_lastseentyp(x, y);
             return;
         }

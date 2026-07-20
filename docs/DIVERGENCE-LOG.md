@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0844 — fixed: map_object Hallu statue memory random_obj burns
+
+- **Status:** fixed (statue memory); @172 post-expel Hallu still open
+- **Symptom / context:** seed0383 @172 post-expel Hallu map — display
+  RNG short by 1 before once-per-input `see_*` (probe: +1 dummy → mon
+  glyphs match, 4 obj cells remain). Named omission while hunting that
+  burn: C `map_object` under Hallu+STATUE stores memory via a *second*
+  `random_obj_to_glyph` after display `statue_to_glyph`.
+- **Cause:** JS `map_location`/`newsym` stored the display statue glyph
+  into `remembered_glyph` without the extra memory burns.
+- **Fix:** `map_object(obj, show)` matches C — Hallu statue memory
+  burns `random_object` (+ corpse mon) separately from display.
+- **Verification:** seed0383 Scr still **176**/219 RNG FULL (no statue
+  in @172 window); green+strict PASS; cohort 6/6 PASS.
+- **Next:** find the missing display-RNG burn in post-expel
+  `docrt`/`mnexto`/`postmov` (71→118); then remaining 4 Hallu objs.
+
 ## D-0843 — fixed: HI_METAL mcolors + swallow DEC o/s scoring form
 
 - **Status:** fixed (colors/glyphs); gulpmu flush still parked
