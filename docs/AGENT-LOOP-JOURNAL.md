@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:53 — #1037 D-0886 rloc appear + flee RLOC_MSG
+- Objective: seed0014 @424 fountain dryup missing `--More--`.
+- C locus: `monmove.c` `dochug` flee `rloc(RLOC_MSG)`; `teleport.c`
+  `rloc_to_core` post-place appear/close-by.
+- Change: await `rloc(mtmp, RLOC_MSG)` in flee-teleport; port appear
+  pline after `rloc_to` (nymph appear forces more on fountain topline).
+- Verification: green+strict PASS; cohort 8/8 PASS; seed0014 Scr
+  **636→638**/714 (RNG FULL).
+- Next: @457 C nymph smiles/engagingly vs JS hits (SSEX).
+
 ## 2026-07-20 19:45 — #1036 D-0883…D-0885 take-off AC + nymph flee
 - Objective: seed0014 @415 botl AC after shield take-off; @416–417 steal.
 - C locus: `do_wear.c` `armoroff` (no find_ac); `steal.c`

@@ -7,16 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 Scr 636/714** — RNG FULL; D-0883…D-0885 closed @415–417
-  take-off AC + nymph from-hand / She stole / vanishes. Next: @424
-  fountain spray — C `--More--` after “dries up!” vs JS no More.
+- **seed0014 Scr 638/714** — RNG FULL; D-0886 closed @424 fountain
+  More via flee-rloc appear. Next: @457 C `smiles … engagingly` /
+  pretends friendly vs JS hits/misses (SSEX / mhitm).
   Falsifier: focused seed0014.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0885 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0886 done.
+- Do not `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886).
+- Do not omit rloc post-place appear/close-by (D-0886).
 - Do not call `find_ac` from delay-0 `armoroff` (D-0883).
 - Do not leave steal `(on … hand)` / skip nymph `She stole` (D-0884).
 - Do not `rloc(..., 0)` on seduce steal flee (D-0885 RLOC_MSG).
@@ -28,13 +30,12 @@ Objective/score live in `CURRENT.md`.
 - Do not use raw `doname` for `#dip` fountain yn (D-0881 short_oname).
 - Do not omit `watch_on_duty` / `has_town` (D-0876).
 - Do not omit minetn-3 load_special (D-0875).
-- Do not omit LANDMINE in trapeffect_selector (D-0874).
-- Do not stub mhitu `poisoned` as rn2(30)-only (D-0869).
 
 ## Landmarks (≤15)
 
 - suite **40/44** @#1035 Scr **9493**/11405 RNG **676373**/792838
   (85.31%); next cadence @#1040.
+- **D-0886 #1037:** dochug flee `RLOC_MSG` + rloc appear; Scr **636→638**.
 - **D-0885 #1036:** rloc RLOC_MSG vanish; Scr **635→636**.
 - **D-0884 #1036:** steal on→from + nymph She; Scr **634→635**.
 - **D-0883 #1036:** armoroff no find_ac; Scr **633→634**.

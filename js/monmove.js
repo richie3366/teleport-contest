@@ -41,7 +41,7 @@ import {
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
     STAIRS, LADDER, IRONBARS, WEB,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
-    MON_FLOOR, NORMAL_SPEED, G_GENOD,
+    MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
 import { is_pool, is_lava, in_town, stop_occupation, noattacks } from './hack.js';
 import {
@@ -1386,9 +1386,9 @@ export async function m_move(mtmp, after) {
         && !(await tele_restrict(mtmp))) {
         // C: mhp < 7 || peaceful || rn2(2) → rloc; else mnexto
         if ((mtmp.mhp | 0) < 7 || mtmp.mpeaceful || rn2(2)) {
-            await rloc(mtmp, 0x02); // RLOC_MSG
+            await rloc(mtmp, RLOC_MSG);
         } else {
-            mnexto(mtmp, 0x02);
+            mnexto(mtmp, RLOC_MSG);
         }
         return postmov(mtmp, omx, omy, MMOVE_MOVED, can_tunnel, can_unlock, can_open);
     }
@@ -1655,10 +1655,12 @@ export async function dochug(mtmp) {
 
     // C: mflee && !rn2(40) && can_teleport && !iswiz && !noteleport_level
     // — teleport costs a turn. rn2(40) always runs when mflee is set.
+    // C: rloc(mtmp, RLOC_MSG) — appear pline may --More-- pending topline
+    // (D-0886). Must await; flags 0 dropped the post-place message.
     if (mtmp.mflee && !rn2(40) && can_teleport(mtmp.data)
         && !mtmp.iswiz
         && !noteleport_level(mtmp)) {
-        if (rloc(mtmp, 0)) {
+        if (await rloc(mtmp, RLOC_MSG)) {
             // leppie_stash deferred
             return 0;
         }

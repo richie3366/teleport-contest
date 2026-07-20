@@ -72,9 +72,10 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 Scr 636/714** — RNG closed (D-0877);
-D-0881…D-0885 take-off AC + nymph steal/vanish. First miss @424
-fountain spray — C `--More--` after dries-up vs JS no More. Focused:
+**Gameplay next:** **seed0014 Scr 638/714** — RNG closed (D-0877);
+D-0881…D-0886 take-off AC + nymph steal/vanish + flee-rloc appear
+More. First miss @457 C nymph smiles/engagingly vs JS hits (SSEX).
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -83,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0885. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0886. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0885 (searches_for_item … rloc RLOC_MSG vanish).
+D-0861…D-0886 (searches_for_item … rloc appear + flee RLOC_MSG).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -102,7 +103,9 @@ omit `short_oname` on `#dip` fountain yn (D-0881);
 reorder merged ID reconcile before coin `bknown=0` (D-0882);
 call `find_ac` from delay-0 `armoroff` (D-0883);
 leave steal ring `(on … hand)` / skip nymph `She stole` (D-0884);
-pass `rloc(..., 0)` from seduce steal flee (D-0885).
+pass `rloc(..., 0)` from seduce steal flee (D-0885);
+pass `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886);
+omit rloc post-place appear/close-by (D-0886).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

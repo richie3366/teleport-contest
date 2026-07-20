@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0886 — rloc appear pline + dochug flee RLOC_MSG
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @424 — C `Water sprays….  The fountain dries
+  up!--More--` vs JS same text without `--More--` (space → Unknown
+  command); RNG already FULL through gush/dryup/`dochug`/`rloc`.
+- **C locus:** `monmove.c` `dochug` flee-teleport `rloc(mtmp, RLOC_MSG)`;
+  `teleport.c` `rloc_to_core` post-place `"%s appears close by!"`.
+- **Cause:** JS `dochug` called `rloc(mtmp, 0)` without await (no
+  appearmsg/`RLOC_MSG`); async `rloc` omitted post-place appear, so the
+  nymph appear pline never forced `more()` on the pending fountain
+  topline.
+- **Change:** `await rloc(mtmp, RLOC_MSG)` in flee-teleport; port
+  appear/arrives + next-to/close-by after `rloc_to`. Named omit:
+  telemsg "vanishes and reappears"; ustuck-together; leppie_stash.
+- **Verify:** green+strict PASS; cohort 8/8; seed0014 Scr **636→638**.
+- **Next:** @457 C nymph smiles/engagingly vs JS hits (SSEX).
+
 ## D-0885 — rloc RLOC_MSG vanish pline
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
