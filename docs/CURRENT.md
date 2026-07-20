@@ -23,34 +23,32 @@ focused session.
 
 Score last measured: **2026-07-20** — full `sessions` suite (loop **#1020**,
 post D-0870). Screens **9433**/11405; RNG **667,614**/792838 (84.21%).
-**39/44** PASS. Δ vs #1015: Scr **+96**, RNG **+273**, PASS **0**
-(seed0399 D-0867…D-0870 Scr 429→525; RNG FULL). Speed
-`32+0.24/turn` (R² 0.841). Next full refresh due at loop **#1025**.
+**39/44** PASS then. **Since:** D-0871…D-0873 — seed0399 **PASS**
+(local 40/44; suite aggregates refresh at **#1025**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **39 / 44** |
-| Screens matched | **9,433 / 11,405** |
+| Sessions passing | **40 / 44** (local; full suite @#1020 was 39) |
+| Screens matched | **9,433 / 11,405** (#1020; +seed0399 final miss closed) |
 | Positional RNG calls matched | **667,614 / 792,838** (84.21%) |
 | Speed label | `32+0.24/turn` (R² 0.841) |
 | Role-init throws | **0 / 44** |
 
-**PASS (39):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0383.
+seed0360, seed0383, seed0399.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
-| seed0399 | 11409/11409 | **525**/532 | @113 puton prinv missing More |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
 
@@ -71,28 +69,26 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **Leaderboard 22-vs-38 gap** — local PASS includes seed0108 + seed0116 +
 seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + seed5002 +
-seed0360; judge at 08:55Z dropped to **22** after D-0480
+seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 Scr 531/532** — D-0872 closed @300
-(`xname_flags` unique `known=0` → `a silver bell`). Next: **@483**
-Hallu `dwarf lord` vs `dwarf lady` (display-rng / `rndmonnam` gender
-or real `mtmp.female`). Alt: seed0014 @50259 (D-0708). Focused:
+**Gameplay next:** **seed0014 @50259** (D-0708 mfndpos / open peel).
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0399-wizard-hallu-actions.session.json
+  sessions/seed0014-dequa-fountain-explore.session.json
 ```
 
-**Parked gameplay:** seed0014 @50259 (D-0708 still open).
+**Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0872. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0873. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0872 (searches_for_item … unique known leak / silver bell).
+D-0861…D-0873 (searches_for_item … create_monster female overwrite).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt

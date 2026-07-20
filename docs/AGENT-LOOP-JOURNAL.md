@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 18:05 — #1023 D-0873 create_monster female overwrite
+- Objective: seed0399 @483 dwarf lord vs lady (Hallu theory falsified).
+- C locus: `sp_lev.c` `create_monster` `mtmp->female = m->female` after
+  makemon; `des.monster()` keeps female=0.
+- Change: always overwrite female in `splev_create_monster` /
+  room variants; `makemon` MM_MALE/MM_FEMALE.
+- Verification: green+strict PASS; seed0399 **PASS** 532/532; cohort
+  15/15.
+- Next: seed0014 @50259 (D-0708); leaderboard cron.
+
 ## 2026-07-20 17:52 — #1022 D-0872 unique known leak (silver bell)
 - Objective: seed0399 @300 `a` vs `the` silver bell.
 - C locus: `objnam.c` `xname_flags` `!nn && oc_uses_known && oc_unique`.

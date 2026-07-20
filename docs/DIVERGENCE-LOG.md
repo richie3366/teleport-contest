@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0873 — sp_lev create_monster female overwrite
+
+- **Status:** fixed
+- **Observed:** seed0399 Scr 531/532 — @483 C `The dwarf lord picks up…`
+  vs JS `dwarf lady` (RNG/cursors FULL; Hallu off on both).
+- **C locus:** `sp_lev.c` `create_monster` `mtmp->female = m->female`
+  after `makemon` (~2125). Lua `des.monster()` leaves
+  `tmpmons.female` at 0 (`BOOL_RANDOM` → 0); makemon still burns
+  `rn2(2)` then is overwritten. Named ids use find_montype gender.
+- **Cause:** JS `splev_create_monster` / room variants only set female
+  for named string ids; null/class kept makemon’s random gender.
+- **Change:** always assign female after makemon (named → find_montype
+  gender; else 0). Also port `MM_MALE`/`MM_FEMALE` in `makemon`.
+  Named omit: table-arg `female=true` / explicit BOOL paths beyond
+  named-id + default-0.
+- **Verification:** green+strict PASS; seed0399 **PASS** Scr **532/532**;
+  cohort 15/15 (incl. 0360/0383/0398/1500/1800).
+- **Next:** seed0014 @50259 (D-0708); leaderboard 22-vs-38 cron.
+
 ## D-0872 — xname_flags unique known leak (a silver bell)
 
 - **Status:** fixed
