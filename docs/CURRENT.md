@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#945**,
-D-0822 bigrm-12). Screens **8937**/11405; RNG **659,766**/792838
-(83.22%). **38/44** PASS. Δ vs #944: Scr **+96**, RNG **+7585**, PASS **0**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#950**).
+Screens **8938**/11405; RNG **660,393**/792838 (83.29%). **38/44** PASS.
+Δ vs #945: Scr **+1**, RNG **+627**, PASS **0**. Speed `36+0.22/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,937 / 11,405** |
-| Positional RNG calls matched | **659,766 / 792,838** (83.22%) |
-| Speed label | `37+0.22/turn` (R² 0.778) |
+| Screens matched | **8,938 / 11,405** |
+| Positional RNG calls matched | **660,393 / 792,838** (83.29%) |
+| Speed label | `36+0.22/turn` (R² 0.774) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 10883/16915 | **142**/219 | D-0825; next @10374 post-swallow fleeck order |
+| seed0383 | 10724/16915 | **142**/219 | still @10374 fleeck; RNG −159 vs #945 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
