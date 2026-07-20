@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 07:20 — #963 seed0383 wizintrinsic hallu (D-0835)
+- Objective: seed0383 @10843 C exercise rn2(2) vs JS wipe rn2(82).
+- C locus: wizcmds.c wiz_intrinsic; potion.c make_hallucinated;
+  attrib.c exerper Hallucination → exercise(A_WIS,FALSE).
+- Change: port make_hallucinated + #wizintrinsic menu (HALLUC arm);
+  wire EXT_CMDS. Site-shift/fog hyp falsified — missing timed Hallu.
+- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10843→11372** (RNG matched 11054→11423; Scr 142→144).
+- Next: seed0383 @11372 C abuse_dog rn2(9) vs JS rn2(6).
+
 ## 2026-07-20 07:05 — #962 seed0383 fog vapor TTL (D-0834)
 - Objective: seed0383 @10646 C fleeck rn2(5) vs JS rn2(3).
 - C locus: region.c inside_gas_cloud / run_regions / add_region;

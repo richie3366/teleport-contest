@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0835 — fixed: #wizintrinsic + make_hallucinated
+
+- **Status:** fixed
+- **Symptom:** seed0383 @10843 — after matched hunger `exercise` `rn2(19)`,
+  C `exercise` `rn2(2)` (WIS abuse) then wipe `rn2(82)`; JS jumps to wipe.
+- **Cause:** session `#wizintrinsic` + `h` sets timed Hallucination (status
+  line Hallu from step 164). JS had `wizintrinsic` only in autocomplete AC
+  (unknown extcmd) and no `make_hallucinated`, so `exerper` status arm never
+  fired. Site-shift/fog hyp falsified — both sides already past movemon into
+  EOT; missing status was hallu.
+- **Fix:** `js/potion.js` `make_hallucinated`; `js/wizcmds.js` `wiz_intrinsic`
+  (propertynames menu + HALLUC arm); wire `js/getline.js` EXT_CMDS; export
+  `select_menu_pick_any`. Named omissions: make_blinded/deaf/sick/… special
+  arms; menu count prefix; nh_timeout HALLUC expiry; see_* polish.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10843→11372** (RNG matched 11054→11423; Scr 142→144; cursors 181→186).
+  Next @11372 C `abuse_dog` `rn2(9)` vs JS `rn2(6)`.
+
 ## D-0834 — fixed: fog vapor TTL refresh + region mon tracking
 
 - **Status:** fixed
