@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0877 — dipfountain bath case 28 + somegold (seed0014 @59074)
+
+- **Status:** fixed (partial — seed0014 still FAIL on screens)
+- **Symptom:** seed0014 @59074 — C `rn2(2)` @ `exercise(attrib.c:509)`
+  after `dipfountain` `rnd(30)=28` vs JS `rn2(3)` (`dryup`).
+- **C locus:** `fountain.c` `dipfountain` case 28; `steal.c` `somegold`;
+  `attrib.c` `exercise` abuse arm `-rn2(2)`.
+- **Cause:** JS deferred cases 26–29, so after fate 28 it skipped the
+  bath/gold/`exercise(A_WIS,FALSE)` path and went straight to `dryup`.
+- **Change:** port `somegold`; `dipfountain` cases 26–27 plines + case 28
+  money_cnt/somegold/coin loss/`CLEAR_FOUNTAIN_LOOTED`/`exercise(A_WIS,FALSE)`.
+  Named omit: case 29 mkgold; Excalibur; wash_hands; uncurse 17–20;
+  body_part poly forms.
+- **Verification:** green+strict PASS; seed0014 RNG **59074→FULL 59178**,
+  Scr **619→620**; cohort 38/38 prior PASS + seed0399 PASS (39/40 w/
+  seed0014 screen FAIL). Full suite **40/44**.
+- **Next:** seed0014 Scr **620/714** (RNG closed) — first screen peel.
+
 ## D-0876 — watch_on_duty + has_town/in_town (seed0014 @58462)
 
 - **Status:** fixed (partial — seed0014 still FAIL; peel advanced)

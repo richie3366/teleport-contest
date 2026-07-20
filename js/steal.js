@@ -1,20 +1,22 @@
 // steal.js — Monster theft from hero inventory (partial).
-// C ref: steal.c steal / worn_item_removal / inv_cnt.
+// C ref: steal.c steal / worn_item_removal / inv_cnt / somegold.
 //
 // Branch envelope (this peel): nymph AD_SITM/AD_SEDU via mhitm_ad_sedu —
-// weighted invent pick, worn accessory clear, non-delay armor, freeinv+mpickobj.
+// weighted invent pick, worn accessory clear, non-delay armor, freeinv+mpickobj;
+// somegold proportional gold (dipfountain bath / stealgold).
 // Named omissions: monkey_business cant_take / ROLL_FROM how[]; stealarm
 // afternmv; Punished/uchain/buried-ball nothing_to_steal; Adornment ring
 // priority when gloves absent; leash; shop subfrombill; petrify corpse;
 // full armor_simple_name / Some_Monnam / yname polish; stop_donning.
 
 import { game } from './gstate.js';
-import { rn2 } from './rng.js';
+import { rn2, rn1 } from './rng.js';
 import {
     W_ARMOR, W_ACCESSORY, W_WEAPONS,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU,
     W_AMUL, W_RING, W_TOOL, W_RINGL, W_RINGR,
     LEFT_RING, RIGHT_RING, ADORNED, LOST_STOLEN,
+    LARGEST_INT,
 } from './const.js';
 import {
     COIN_CLASS, ARMOR_CLASS, TOOL_CLASS, AMULET_CLASS, RING_CLASS,
@@ -43,6 +45,30 @@ export function inv_cnt(inclgold) {
         n++;
     }
     return n;
+}
+
+/**
+ * C ref: steal.c somegold — proportional subset of gold (fits in int).
+ * Used by dipfountain bath (fountain.c) and leprechaun stealgold.
+ */
+export function somegold(lmoney) {
+    let igold = lmoney >= LARGEST_INT ? LARGEST_INT : (lmoney | 0);
+    if (igold < 50) {
+        ; /* all gold */
+    } else if (igold < 100) {
+        igold = rn1(igold - 25 + 1, 25);
+    } else if (igold < 500) {
+        igold = rn1(igold - 50 + 1, 50);
+    } else if (igold < 1000) {
+        igold = rn1(igold - 100 + 1, 100);
+    } else if (igold < 5000) {
+        igold = rn1(igold - 500 + 1, 500);
+    } else if (igold < 10000) {
+        igold = rn1(igold - 1000 + 1, 1000);
+    } else {
+        igold = rn1(igold - 5000 + 1, 5000);
+    }
+    return igold;
 }
 
 /** C Adornment ≡ u.uprops[ADORNED].extrinsic */

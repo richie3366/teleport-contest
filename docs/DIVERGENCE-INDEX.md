@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0877 | fixed | dipfountain bath case 28 + steal somegold | seed0014 RNG **FULL 59178**; Scr 620/714; case 29 deferred |
 | D-0876 | fixed | monmove watch_on_duty + has_town/in_town | seed0014 **58462→59074**; mon_yells/dig deferred |
 | D-0875 | fixed | makemaz load_special minetn-3 Alley Town | seed0014 **52043→58462**; wand shop + watch_on_duty next |
 | D-0874 | fixed | trapeffect_landmine + blow_up_landmine (mon weight) | seed0014 **50259→52043**; scatter/fill_pit deferred |

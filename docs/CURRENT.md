@@ -21,20 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1020**,
-post D-0870). Screens **9433**/11405; RNG **667,614**/792838 (84.21%).
-**39/44** PASS then. **Since:** D-0871…D-0876 — seed0399 **PASS**;
-seed0014 prefix **50259→52043→58462→59074** (local 40/44; suite aggregates
-refresh at **#1030** — missed #1025 cadence).
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1029**,
+post D-0877). Screens **9480**/11405; RNG **676,373**/792838 (85.31%).
+**40/44** PASS. Next cadence @**#1030**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **40 / 44** (local; full suite @#1020 was 39) |
-| Screens matched | **9,433 / 11,405** (#1020; +seed0399 final miss closed) |
-| Positional RNG calls matched | **667,614 / 792,838** (84.21%) |
-| Speed label | `32+0.24/turn` (R² 0.841) |
+| Sessions passing | **40 / 44** |
+| Screens matched | **9,480 / 11,405** |
+| Positional RNG calls matched | **676,373 / 792,838** (85.31%) |
+| Speed label | `32+0.23/turn` (R² 0.835) |
 | Role-init throws | **0 / 44** |
 
 **PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,8 +46,8 @@ seed0360, seed0383, seed0399.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
+| seed0014 | **59178**/59178 | **620**/714 | RNG FULL; screen peel next |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0014 | 59074/59178 | 619/714 | prefix @59074 (was 58462) |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
 
@@ -74,9 +72,8 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 @59074** — C `exercise` `rn2(2)`
-@attrib.c:509 after dipfountain vs JS `rn2(3)` (D-0876 closed
-watch_on_duty @58462). Focused:
+**Gameplay next:** **seed0014 Scr 620/714** — RNG closed (D-0877
+dipfountain bath/`somegold`). First screen miss peel. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -85,17 +82,18 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0876. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0877. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0876 (searches_for_item … watch_on_duty/has_town).
+D-0861…D-0877 (searches_for_item … dipfountain bath/somegold).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
 vision_recalc in goto_level (D-0851); omit LANDMINE selector (D-0874);
-omit minetn-3 load_special (D-0875); omit watch_on_duty/has_town (D-0876).
+omit minetn-3 load_special (D-0875); omit watch_on_duty/has_town (D-0876);
+omit dipfountain case 28 bath/somegold (D-0877).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
