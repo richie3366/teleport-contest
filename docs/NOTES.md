@@ -7,29 +7,31 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#960 score:** suite **38/44** Scr **8937**/11405 RNG **660490**/792838
-  (83.31%); Δ vs #955 Scr **−1** RNG **+59** (= D-0832 seed0383).
-- **Next @10608:** after matched wipe_engr `rn2(82)` (DEX→82), C
-  `overexertion`→`gethungry` `rn2(20)=12` then `exercise`/`hitum`; JS
-  `rn2(5)=2`. Hypothesis: JS Confusion `u_maybe_impaired` (or non-attack
-  path) while C melee-attacks; not a metabolic `gethungry` bug.
-- **Falsify:** at n=10608 dump JS Confusion/Stunned + whether `do_attack`
-  / `domove` runs; expect C-matching attack → prefix past 10608, or name
-  why Confusion/action differs.
-- **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0832.
+- **#961:** D-0833 closed @10608 (swallowed `domove` + `engulfing_u`).
+  seed0383 prefix **10646**; RNG matched **11398**/16915 Scr **142**/219.
+- **Next @10646:** C `distfleeck` `rn2(5)=0` vs JS `rn2(3)=1` after three
+  matched fleeck `rn2(5)`. Hypothesis: extra/missing mon act or want_move
+  branch (minvis `rn2(3)` / wanderer `rn2(4)` / `!mcansee`) vs C still in
+  fleeck chain.
+- **Falsify:** stack at n=10646 + which mon; expect C fleeck×N then
+  `mattacku` `rnd(2)` @10649.
+- **Don't:** FORCE skip; leave DIAG; re-break D-0822…D-0833.
+- **Open (not this peel):** `potionbreathe` POT_CONFUSION/BOOZE still stubs
+  `u.Confusion += rnd(5)` without `make_confused`/`HConfusion` timeout.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0832 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0833 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0832 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0833 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
 - **#953:** spawn order / unshift timestamps 165 vs 108 — not @10374.
 - **#954:** post-swallow mcalcmove +12 / MSLOW / minliquid ROOM — not cause.
 - **#956:** JS mcanmove/sleep/WAITMASK/I_SPECIAL clear at EE act — not cause;
   closed by D-0832 (missing equip path).
+- **#961:** Confusion `u_maybe_impaired` @10608 — falsified; was swallow.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
@@ -41,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#960 Scr **8937**/11405 RNG **660490**/792838;
-  seed0383 prefix **10608** Scr **141**/219 RNG 10821 (D-0832).
+  seed0383 prefix **10646** Scr **142**/219 RNG 11398 (D-0833).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).

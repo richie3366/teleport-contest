@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0833 — fixed: domove swallowed attack + attack_checks engulfing_u
+
+- **Status:** fixed
+- **Symptom:** seed0383 @10608 — after matched wipe_engr `rn2(82)`, C
+  `overexertion`→`gethungry` `rn2(20)` then `exercise`/`hitum`; JS
+  `distfleeck` `rn2(5)` (falsified Confusion hyp).
+- **Cause:** hero `uswallow` with ice-vortex `ustuck`; JS `domove` omitted
+  C's swallowed arm (zero dx/dy, `u_on_newpos` onto engulfer, attack) and
+  walked west into empty space. After porting that arm, `attack_checks`
+  still aborted via Wait! because it lacked C's `engulfing_u(mtmp)` early
+  return before `!canspotmon`.
+- **Fix:** `js/cmd.js` `domove` swallowed path; `js/uhitm.js`
+  `attack_checks` `engulfing_u` gate. Named omissions: carrying_too_much /
+  air_turbulence / slippery_ice / water_turbulence / escape_from_sticky;
+  attack_checks warning-glyph / hides_under polish.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10608→10646** (RNG matched 10821→11398; Scr 141→142). Next @10646
+  C `distfleeck` `rn2(5)` vs JS `rn2(3)`.
+
 ## D-0832 — fixed: makemon m_dowear + mpickstuff check_gear + I_SPECIAL arm
 
 - **Status:** fixed

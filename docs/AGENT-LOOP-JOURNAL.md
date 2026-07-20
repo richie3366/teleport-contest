@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 06:48 — #961 seed0383 swallowed melee (D-0833)
+- Objective: seed0383 @10608 C overexertion vs JS rn2(5).
+- C locus: hack.c domove_core uswallow; uhitm.c attack_checks engulfing_u.
+- Change: port swallowed `domove` + `engulfing_u` early-out (Confusion hyp
+  falsified — was walk-while-swallowed → fleeck).
+- Verification: green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10608→10646** (RNG matched 10821→11398; Scr 141→142).
+- Next: seed0383 @10646 C distfleeck rn2(5) vs JS rn2(3).
+
 ## 2026-07-20 04:40 — #960 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score+docs); focused peek seed0383 @10608.
