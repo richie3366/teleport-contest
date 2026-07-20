@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0921 — makemaz load_special minetn-4 College Town (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @82788
+  `distfleeck`; minetn-1/6/7 deferred)
+- **Session:** seed4500-knight-coverage @61698
+- **Symptom:** after matched `getbones`/`makemaz` `rnd(7)=4`, C nhlib
+  shuffle `rn2(3)` vs JS `rn2(79)`.
+- **Cause:** `load_special_proto` omitted `minetn-4` (College Town), so
+  JS left the level empty and ordinary room gen emitted `rn2(79)`.
+  C loaded minetn-4 which starts with align shuffle `rn2(3)`.
+- **C locus:** `dat/minetn-4.lua` via `mkmaze.c` `makemaz` →
+  `sp_lev.c` `load_special`; nhlib top-level `shuffle(align)`.
+- **Fix:** port `load_minetn_4` (nested town rooms / book+candle+tool
+  shops / temple / watch / corridors / flip) + dispatch; map
+  `book shop` → `BOOKSHOP`. Named omit: minetn-1/6/7; link_doors extras.
+- **Verification:** prefix **61698→82788** RNG **83013** Scr **747**;
+  green+strict PASS; cohort 15/15 PASS (incl. seed0014/0360 mines).
+- **Next:** @82788 C `distfleeck` `rn2(5)` vs JS `rn2(50)`.
+
 ## D-0920 — pleased fix_worst_trouble TROUBLE_HIT (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @61698 nhlib

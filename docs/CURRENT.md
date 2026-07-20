@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 61837/108275 | 654/1814 | knight; @61698 nhlib shuffle |
+| seed4500 | 83013/108275 | 747/1814 | knight; @82788 distfleeck |
 
 ## Green gate
 
@@ -70,13 +70,13 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @61698 — C nhlib.lua shuffle `rn2(3)`
-  vs JS `rn2(79)` after matched `makemaz`/`getbones`. Focused:
+**Gameplay next:** **seed4500** @82788 — C `distfleeck` `rn2(5)` vs
+  JS `rn2(50)` after matched minetn-4. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0920. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0921. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not FORCE shk satdoor/`onlineu` (hero-path first; D-0376).**
 **Keep:** D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
@@ -87,7 +87,8 @@ D-0861…D-0920 (searches_for_item … TROUBLE_HIT).
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
 vision_recalc in goto_level (D-0851); omit LANDMINE selector (D-0874);
-omit minetn-3 load_special (D-0875); omit watch_on_duty/has_town (D-0876);
+omit minetn-3 load_special (D-0875); omit minetn-4/`book shop` (D-0921);
+omit watch_on_duty/has_town (D-0876);
 omit dipfountain case 28 bath/somegold (D-0877);
 omit chest_shatter Blind/`singular`/PAPER=5 (D-0878);
 omit addinv known/bknown/rknown compare pline (D-0879);

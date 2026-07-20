@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 00:12 — #1072 D-0921 minetn-4 College Town
+- Objective: seed4500 @61698 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`
+  after matched `getbones`/`makemaz` `rnd(7)=4`.
+- C locus: `dat/minetn-4.lua` via `makemaz`/`load_special`; nhlib
+  `shuffle(align)`.
+- Change: port `load_minetn_4` + dispatch; `book shop`→`BOOKSHOP`.
+  Root: omitted College Town → empty level → `rn2(79)`.
+  Named omit: minetn-1/6/7.
+- Verification: prefix **61698→82788** RNG **83013** Scr **747**;
+  green+strict PASS; cohort 15/15 PASS.
+- Next: @82788 C `distfleeck` `rn2(5)` vs JS `rn2(50)`.
+
 ## 2026-07-21 00:09 — #1071 D-0920 TROUBLE_HIT fix_worst_trouble
 - Objective: seed4500 @61689 C `fix_worst_trouble` `rnd(5)` vs
   JS `rn2(1000)` after matched `pleased` `rnl(2)`.
@@ -170,15 +182,3 @@ Use this shape:
   green+strict PASS; cohort 4/4 PASS
 - Next: @50034 mattacku rnd(20) vs rn2(20); cadence @#1060
 
-## 2026-07-20 22:20 — #1057 D-0907 study learn + makeknown
-- Objective: seed4500 @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`
-  after matched study_book.
-- C locus: `spell.c` `study_book`/`learn`; `o_init.c` `makeknown`.
-- Change: `set_occupation(learn)` so Very_fast leftover umovement
-  cannot start a second `doread` before EOT; learn finish uses
-  `makeknown` (credit_hero WIS exercise). Named omit: lenses /
-  confused_book / deadbook / novel / dull / check_unpaid.
-- Verification: seed4500 prefix **49776→49915** Scr **459→481**
-  RNG **49921→50071**; green+strict PASS; cohort 4/4 PASS.
-- Next: @49915 C `mkobj` `rnd(1000)` vs JS `rn2(19)`; leaderboard
-  cron; cadence @#1060.
