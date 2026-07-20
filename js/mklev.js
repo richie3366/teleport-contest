@@ -861,7 +861,7 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
- * bigrm-4, bigrm-7, bigrm-8, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
+ * bigrm-4, bigrm-7, bigrm-8, bigrm-12, Bar-strt, Bar-loca, Bar-fila, Bar-filb, Arc-strt, Arc-loca,
  * Arc-fila, Arc-filb, Arc-goal, soko1-1, soko1-2, soko2-1, soko3-1, soko3-2,
  * soko4-1, soko4-2, tower1, tower2, tower3, fire, air, minend-1, minend-2, minetn-2,
  * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
@@ -963,6 +963,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-8') {
         load_bigrm_8();
+        return true;
+    }
+    if (protofile === 'bigrm-12') {
+        load_bigrm_12();
         return true;
     }
     if (protofile === 'Bar-strt') {
@@ -2260,6 +2264,107 @@ function load_bigrm_8() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-12.lua via load_special — two hexagons (pool/lava).
+ * Named omissions: ensure_way_out / solidify / premap; other bigrm-N.
+ */
+function load_bigrm_12() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflipy") → allow_flips &= ~1 → 2
+    const allowFlips = 2;
+
+    // Exact dat/bigrm-12.lua des.map (19×75)
+    const BIGRM12_MAP = [
+        '                                                                           ',
+        '         .......................           .......................         ',
+        '        .........................         .........................        ',
+        '       ...........................       ...........................       ',
+        '      .............................     .............................      ',
+        '     ........PPPPPPPPPPPPPPP........   ........LLLLLLLLLLLLLLL........     ',
+        '    ........PPPPPPPPPPPPPPPPP........ ........LLLLLLLLLLLLLLLLL........    ',
+        '   ........PPPWWWWWWWWWWWWWPPP...............LLLZZZZZZZZZZZZZLLL........   ',
+        '  ........PPPWWWWWWWWWWWWWWWPPP.............LLLZZZZZZZZZZZZZZZLLL........  ',
+        ' ........PPPWWWWWWWWWWWWWWWWWPPP...........LLLZZZZZZZZZZZZZZZZZLLL........ ',
+        '  ........PPPWWWWWWWWWWWWWWWPPP.............LLLZZZZZZZZZZZZZZZLLL........  ',
+        '   ........PPPWWWWWWWWWWWWWPPP...............LLLZZZZZZZZZZZZZLLL........   ',
+        '    ........PPPPPPPPPPPPPPPPP........ ........LLLLLLLLLLLLLLLLL........    ',
+        '     ........PPPPPPPPPPPPPPP........   ........LLLLLLLLLLLLLLL........     ',
+        '      .............................     .............................      ',
+        '       ...........................       ...........................       ',
+        '        .........................         .........................        ',
+        '         .......................           .......................         ',
+        '                                                                           ',
+    ].join('\n');
+    const { xstart: mx, ystart: my } = splev_apply_centered_map(BIGRM12_MAP);
+
+    // maybe replace lavawalls/waterwalls with stone walls
+    if (percent(20)) {
+        if (percent(50))
+            lspo_replace_terrain_region(0, 0, 74, 18, WATER, HWALL, 100);
+        if (percent(50))
+            lspo_replace_terrain_region(0, 0, 74, 18, LAVAWALL, HWALL, 100);
+    }
+
+    // maybe replace pools with floor and then possibly walls with pools
+    if (percent(25)) {
+        lspo_replace_terrain_region(0, 0, 74, 18, POOL, ROOM, 100);
+        if (percent(75))
+            lspo_replace_terrain_region(0, 0, 74, 18, WATER, POOL, 100);
+    }
+    if (percent(25)) {
+        lspo_replace_terrain_region(0, 0, 74, 18, LAVAPOOL, ROOM, 100);
+        if (percent(75))
+            lspo_replace_terrain_region(0, 0, 74, 18, LAVAWALL, LAVAPOOL, 100);
+    }
+
+    // maybe make both sides have the same terrain
+    if (percent(20)) {
+        if (percent(50)) {
+            lspo_replace_terrain_region(0, 0, 74, 18, POOL, LAVAPOOL, 100);
+            lspo_replace_terrain_region(0, 0, 74, 18, WATER, LAVAWALL, 100);
+        } else {
+            lspo_replace_terrain_region(0, 0, 74, 18, LAVAPOOL, POOL, 100);
+            lspo_replace_terrain_region(0, 0, 74, 18, LAVAWALL, WATER, 100);
+        }
+    }
+
+    // des.region(selection.area(00,00,75,19),"lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.wallify() — map-relative defaults (xstart-1 .. xstart+xsize+1)
+    wallify_map(mx - 1, my - 1, mx + 75 + 1, my + 19 + 1);
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification → flip_level_rnd(noflipy→2) → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(allowFlips, false);
     fixup_special();
 }
 

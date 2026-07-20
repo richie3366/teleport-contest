@@ -505,3 +505,14 @@
 - Verification: green+strict PASS; cohort 37/37 PASS; seed0360 Scr
   **616→617**/833; prefix **231→249**; RNG FULL.
 - Next: @249 ^V materialize map cells.
+
+## 2026-07-20 00:31 — #930 D-0808 Wiz firsttime + score
+- Objective: cadence full `sessions` + seed0360 @373 materialize More.
+- C locus: `dat/quest.lua` Wiz `firsttime`; `quest.c` `on_start`.
+- Change: **D-0808** `js/questpgr.js` Wiz firsttime text. Score
+  **37/44**; Scr **8679**/11405 (**+56** vs #925); RNG **652181**
+  (82.26%, **0**); speed `36+0.21/turn`. seed0360 Scr **670→673**;
+  prefix **373→395**.
+- Verification: green+strict PASS; cohort 12/12 PASS; full suite.
+- Next: @395 `unexplored area (no travel path)` vs bare message.
+

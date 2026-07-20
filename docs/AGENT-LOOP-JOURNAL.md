@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 02:09 — #945 score + D-0822 bigrm-12
+- Objective: cadence full `sessions` + seed0383 first RNG peel.
+- C locus: `dat/bigrm-12.lua`; `mkmaze.c` `makemaz`; `sp_lev.c`
+  `load_special` / `noflipy`.
+- Change: **D-0822** `js/mklev.js` `load_bigrm_12` + dispatch.
+  Score **38/44**; Scr **8937**/11405 (**+96**); RNG **659766**
+  (83.22%, **+7585**); speed `37+0.22/turn`. seed0383 Scr
+  **45→141**; prefix **2493→9709**.
+- Verification: green+strict PASS; full suite; cohort PASS.
+- Next: @9709 `obj_resists` rn2(100) vs JS rn2(8).
+
 ## 2026-07-20 02:05 — #944 D-0821 Displaced + speed boots
 - Objective: seed0360 @828 ^X Attributes Displacement / Fast cause.
 - C locus: `insight.c` Displaced; `attrib.c` from_what FAST/uarmf.
@@ -140,12 +151,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 8/8; seed0360 Scr **673→678**/833.
 - Next: @497 C `AC:2` vs JS `AC:-2` on cloak-of-displacement wear More.
 
-## 2026-07-20 00:31 — #930 D-0808 Wiz firsttime + score
-- Objective: cadence full `sessions` + seed0360 @373 materialize More.
-- C locus: `dat/quest.lua` Wiz `firsttime`; `quest.c` `on_start`.
-- Change: **D-0808** `js/questpgr.js` Wiz firsttime text. Score
-  **37/44**; Scr **8679**/11405 (**+56** vs #925); RNG **652181**
-  (82.26%, **0**); speed `36+0.21/turn`. seed0360 Scr **670→673**;
-  prefix **373→395**.
-- Verification: green+strict PASS; cohort 12/12 PASS; full suite.
-- Next: @395 `unexplored area (no travel path)` vs bare message.

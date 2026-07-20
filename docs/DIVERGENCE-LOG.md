@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0822 — bigrm-12 load_special (seed0383 @2493)
+
+- **Status:** fixed (partial — next @9709 `obj_resists`)
+- **Symptom:** seed0383 first RNG mismatch after `makemaz`
+  `rnd(13)=12`: C `nhlib.lua` `shuffle` `rn2(3)` vs JS `rn2(79)`.
+  Scr 45/219; RNG 2512/16915.
+- **C locus:** `dat/bigrm-12.lua` via `mkmaze.c` `makemaz` →
+  `sp_lev.c` `load_special`; `nhlib.lua` shuffle/percent;
+  `noflipy` → `allow_flips &= ~1`.
+- **Cause (#945):** `load_special_proto` lacked `bigrm-12`;
+  fell through → no nhl shuffle / hexagon replace RNG.
+- **Change:** `js/mklev.js` — `load_bigrm_12` + dispatch (map,
+  percent W/Z→wall, P/L→floor / W/Z→pool/lava, both-sides unify,
+  lit/`wallify`/stairs/obj/trap/mon, `flip_level_rnd(2)`).
+  Named: other bigrm-N; ensure_way_out / solidify / premap.
+- **Verification:** seed0383 prefix **2493→9709**; Scr **45→141**/219;
+  RNG **2512→10097**/16915; full suite **38/44** Scr **8937**/11405
+  RNG **659766**/792838 (83.22%); green+strict PASS.
+- **Next:** @9709 C consecutive `obj_resists` `rn2(100)` vs JS `rn2(8)`.
+
 ## D-0821 — Attributes Displaced + known speed-boots from_what (seed0360 @828)
 
 - **Status:** fixed (seed0360 **PASS**)

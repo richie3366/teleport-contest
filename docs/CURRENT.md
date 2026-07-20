@@ -21,19 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#944**,
-seed0360 PASS milestone). Screens **8841**/11405; RNG **652,181**/792838
-(82.26%). **38/44** PASS. Δ vs #940: Scr **+7** (seed0360 830→833),
-RNG **0**, PASS **+1** (seed0360).
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#945**,
+D-0822 bigrm-12). Screens **8937**/11405; RNG **659,766**/792838
+(83.22%). **38/44** PASS. Δ vs #944: Scr **+96**, RNG **+7585**, PASS **0**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **38 / 44** |
-| Screens matched | **8,841 / 11,405** |
-| Positional RNG calls matched | **652,181 / 792,838** (82.26%) |
-| Speed label | `36+0.22/turn` (R² 0.766) |
+| Screens matched | **8,937 / 11,405** |
+| Positional RNG calls matched | **659,766 / 792,838** (83.22%) |
+| Speed label | `37+0.22/turn` (R² 0.778) |
 | Role-init throws | **0 / 44** |
 
 **PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -42,15 +41,15 @@ seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-**seed0360**.
+seed0360.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
+| seed0383 | 10097/16915 | **141**/219 | D-0822 bigrm-12; next @9709 obj_resists |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
-| seed0383 | 2512/16915 | 45/219 | hallu |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3029/108275 | 13/1814 | knight coverage |
 
@@ -71,22 +70,25 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **Leaderboard 22-vs-38 gap** — local PASS includes seed0108 + seed0116 +
 seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + seed5002 +
-**seed0360**; judge at 08:55Z dropped to **22** after D-0480
+seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 hallu** — first unparked non-PASS peel
-after seed0360 **PASS** (D-0821). Focused:
+**Gameplay next:** **seed0383 @9709** — after D-0822 `bigrm-12`, first
+mismatch is C consecutive `obj_resists` `rn2(100)` vs JS `rn2(8)`.
+Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
+  sessions/seed0383-wizard-hallucinate.session.json
+node scripts/rng-diff.mjs \
   sessions/seed0383-wizard-hallucinate.session.json
 ```
 
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0821. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0822. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
