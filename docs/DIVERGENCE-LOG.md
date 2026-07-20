@@ -2588,7 +2588,7 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 
 - **Status:** open (partial — NOTONL/fail-tele/`rloc_to` track clear +
   mfndpos onscary/garlic/bars/gas/mconf ported; **#1004** noteleport_level
-  wired D-0859; seed0399 still @10157)
+  wired D-0859; **#1008 C poss[] DIAG:** omit = MON_AT drift, not ROOM)
 - **Symptom:** seed0399 @10157 C `rn2(20)` vs JS `rn2(28)` at
   `m_move` track skip (`4*(cnt-j)`).
 - **DIAG (#814):** black unicorn @58,12 appr=1; JS `cnt=7` j=0 →28;
@@ -2606,19 +2606,28 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
   mux=u. **Falsified:** treating FORCE→`rnd_otyp_by_namedesc`@10217
   as the next faithful peel — FORCE desyncs input keys so JS may
   wish `identify` (`rn2(181)`=180+1) while C’s log shows `rn2(31)`.
-- **Falsifier:** C recorder `fprintf` of unicorn `mfndpos` poss[] when
-  `mx,my==(58,12)` (install must have `sysconf`); compare omit pair.
+- **DIAG (#1008 C recorder):** unicorn @58,12 **cnt=5** poss=
+  (57,11)(58,13 WEB)(59,11)(59,12)(59,13); mtrack=(59,13).
+  Neigh MON_AT: elf noble 268@(58,11) mhp49, elf noble 268@(57,12)
+  mhp26, giant spider 96@(57,13) mhp34. Unicorn+mon58@(55,12) match JS.
+  **JS at same call:** spider@(57,12), elves@(57,10)/(56,11) — empty
+  (58,11)+(57,13) → cnt=7. RNG still matched through 10156 (silent
+  appr=1 nearer drift). Darwin recorder: fix install `sysconf`
+  GDBPATH/GREPPATH + `WIZARDS=*`.
+- **Falsifier (done #1008):** C recorder poss[] at (58,12).
 - **Falsified (#813–#816):** WEB required in omit pair; pair ID via
   max-prefix; deferred onscary/garlic/bars/gas with current JS state
   (still cnt=7); temple ALLOW_SANCT (D-0732) — level is maze
   `nrooms=0`/`has_temple=false`.
 - **Falsified (#1006):** monflee track-clear as @10157 root (unicorn not fleeing).
 - **Falsified (#1007):** namedesc-via-FORCE as next objective.
+- **Falsified (#1008):** mfndpos ROOM/trap/online omit of 2 cells —
+  C drops via MON_AT; JS mons drifted.
 - **Cause (partial):** D-0233 named omission — unicorn
   `mon_allowflags` lacked `NOTONL`; `m_move` omitted unicorn
   failed-move `rn2(2)`+`rloc`; `rloc_to` omitted `mon_track_clear`.
-  Remaining: which 2 of the **6 non-track** cells C drops
-  (terrain/trap/mon split vs C; same class as D-0708).
+  Remaining: **silent position drift** of PM_ELF_NOBLE×2 +
+  PM_GIANT_SPIDER before @10157 (same class as D-0708).
 - **C locus:** `mon.c` `mon_allowflags`/`mfndpos`; `monmove.c` onscary
   + m_move unicorn else-branch; `teleport.c` `rloc_to`.
 - **Change (#814):** `mfndpos` — mconf/`!mcansee` flag adjust; IRONBARS;
@@ -2627,7 +2636,9 @@ Diagnosis peel #871–#878 archived in journal; root cause D-0775
 - **Verification:** green+strict PASS; cohort 1500/1800/0060/0108/0373/
   0398 PASS; seed0399 still @10157 (rn2(28); positional 10389/11409);
   seed0014 unchanged @49039.
-- **Next:** C recorder poss[] DIAG; or D-0708; do not FORCE-chase namedesc.
+- **Next:** find first silent position drift of elf nobles / spider
+  (binary-search mon coords vs C before @10157); or D-0708; do not
+  FORCE-omit mfndpos cells.
 
 ## D-0730 — max_passive_dmg AD_ACID (seed0399 pet vs green mold)
 

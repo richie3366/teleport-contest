@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 16:05 — #1008 D-0731 C poss[] DIAG; mon drift
+- Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
+- C locus: mon.c mfndpos (recorder DIAG); mon positions.
+- Change: none in scored js/. Fixed Darwin install sysconf
+  (GDBPATH/GREPPATH comment + WIZARDS=*) for recorder rerecord.
+  C DIAG: unicorn cnt=5; MON_AT elf×2 + spider; JS elves/spider
+  drifted NW while unicorn matched. Falsified ROOM/trap/online omit.
+- Verification: green+strict PASS; seed0399 still @10157; C rerecord
+  RNG bit-equal to canonical (11409).
+- Next: first silent coord diverge of PM_ELF_NOBLE / PM_GIANT_SPIDER;
+  or D-0708; score @#1010.
+
 ## 2026-07-20 15:51 — #1007 D-0731 DIAG; falsify FORCE→namedesc
 - Objective: seed0399 @10157 mfndpos cnt7vs5 (D-0731).
 - C locus: mon.c mfndpos; monmove.c m_move track skip.

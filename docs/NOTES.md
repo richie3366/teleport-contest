@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0731 @10157:** unicorn @58,12 cnt=7 j=0 mtrack=[59,13]; mux=u
-  (47,9); flag=NOTONL|ALLOW_U; 7×ROOM; (57,12) spider mhp34; WEB+sack
-  @58,13 (ALLOW_TRAPS); no engr/online. C rn2(20) ⇒ cnt−j=5.
-- **#1007 falsified:** FORCE→namedesc@10217 is **not** a clean next
-  peel — FORCE desyncs keys so JS may wish `identify` (rn2(181)=
-  180+1) while C’s tag is rn2(31). Do not chase namedesc via FORCE.
-- Falsifier: C recorder DIAG of unicorn `mfndpos` poss[] at (58,12)
-  (ensure install `sysconf` present). Alt: D-0708 seed0014.
-- Do not FORCE-omit without C-state pair ID.
+- **D-0731 @10157:** #1008 C poss[] DIAG — C cnt=5 because MON_AT:
+  elf noble 268@(58,11) mhp49, elf 268@(57,12) mhp26, spider 96@(57,13)
+  mhp34. Unicorn@58,12 + mon58@(55,12) match. JS: spider@(57,12),
+  elves@(57,10)/(56,11) → empty (58,11)+(57,13) → cnt=7. RNG matched
+  through 10156 (silent appr=1 nearer drift).
+- Falsifier next: first RNG index where elf/spider coords diverge vs C
+  (recorder dump by mhp). Alt: D-0708 seed0014.
+- Do not FORCE-omit without C-state pair ID (already have C state).
 
 ## Don't re-check (≤15)
 
@@ -40,6 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not re-FORCE WEB-unique omit for D-0731 (#1004: any keep-track pair OK).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
 - Do not trust FORCE→namedesc@10217 as next faithful peel (#1007).
+- Do not re-check mfndpos ROOM/trap/online omit for @10157 (#1008: MON_AT).
 
 ## Landmarks (≤15)
 
@@ -59,4 +59,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
 - **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
 - **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.
-- **D-0731 #1007:** JS state full; need C poss[] dump (recorder DIAG).
+- **D-0731 #1008:** C poss[] = MON_AT; Darwin sysconf GDBPATH/WIZARDS=*
+  needed for recorder rerecord.
