@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 00:09 — #1071 D-0920 TROUBLE_HIT fix_worst_trouble
+- Objective: seed4500 @61689 C `fix_worst_trouble` `rnd(5)` vs
+  JS `rn2(1000)` after matched `pleased` `rnl(2)`.
+- C locus: `pray.c` `critically_low_hp` / `in_trouble` /
+  `fix_worst_trouble` TROUBLE_HIT / `pleased` action switch.
+- Change: port critically_low_hp + TROUBLE_HIT detect/fix; wire
+  pleased `min(action,5)` cases. Root: stubbed in_trouble→0 skipped
+  HIT `rnd(5)` uhpmax boost.
+- Verification: prefix **61689→61698** RNG **61837** Scr **654**;
+  green+strict PASS; cohort 15/15 PASS.
+- Next: @61698 C nhlib.lua shuffle `rn2(3)` vs JS `rn2(79)`.
+
 ## 2026-07-20 00:05 — #1070 D-0919 FAST TIMEOUT + score
 - Objective: cadence score + seed4500 @61462 C distfleeck rn2(5) vs
   JS rn2(1000) (prayer_done rnz early).
@@ -169,17 +181,4 @@ Use this shape:
 - Verification: seed4500 prefix **49776→49915** Scr **459→481**
   RNG **49921→50071**; green+strict PASS; cohort 4/4 PASS.
 - Next: @49915 C `mkobj` `rnd(1000)` vs JS `rn2(19)`; leaderboard
-  cron; cadence @#1060.
-
-## 2026-07-20 22:05 — #1056 D-0906 hellfill + create_maze
-- Objective: seed4500 @32538 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`
-  after matched getbones (hellfill.lua / create_maze).
-- C locus: `dat/hellfill.lua`; `mkmaze.c` `create_maze`; `sp_lev.c`
-  `LVLINIT_MAZE`/`lspo_gold`; `mklev.c` mktrap Inhell FIRE bias.
-- Change: port `create_maze`+`LVLINIT_MAZE`; `load_hellfill` 7 styles +
-  populatemaze (ROCK_CLASS, gold `rnd(200)`, Inhell traps, LLL→Z).
-  Named omit: rnd_hell_prefab; Invocation_lev VS; makemaz(""); fakewiz.
-- Verification: green+strict PASS; cohort 10/10; seed4500 prefix
-  **32538→49776** Scr **308→459** RNG **49921**/108275.
-- Next: @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`; leaderboard
   cron; cadence @#1060.

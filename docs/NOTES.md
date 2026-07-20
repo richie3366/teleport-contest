@@ -8,16 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @61689 — C `fix_worst_trouble` `rnd(5)`
-  vs JS `rn2(1000)` after matched `pleased`.
+- **Gameplay next:** seed4500 @61698 — C nhlib.lua shuffle `rn2(3)`
+  vs JS `rn2(79)` after matched `makemaz`/`getbones`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0919 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0920 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `pleased` TROUBLE_HIT `fix_worst_trouble` / `rnd(5)`
+  (D-0920); other TROUBLE_* still deferred.
 - Do not omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky (D-0919).
 - Do not omit `goto_level` stair-fall `drag_down`/`ballrelease` (D-0918);
   gate with `uball` (≡C `Punished`), not sticky `u.Punished`.
@@ -32,14 +34,15 @@ Objective/score live in `CURRENT.md`.
 - Do not re-zero `ox`/`oy` in `obj_extract_self` (D-0911; C keeps them).
 - Do not stub ordinary-food `doeat` rotten / omit `Hear_again` (D-0911).
 - Do not omit `HDeaf` TIMEOUT decrement in `nh_timeout` (D-0911).
-- Do not omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1070 Scr **10233**/11405 RNG **746329**/792838
   (94.13%); next cadence @#1075.
+- **D-0920 #1071:** TROUBLE_HIT fix_worst_trouble; seed4500
+  **61689→61698** RNG **61837** Scr **654**; next @61698 nhlib shuffle.
 - **D-0919 #1070:** FAST TIMEOUT; seed4500 **61462→61689** RNG **61766**
-  Scr **643**; next @61689 fix_worst_trouble.
+  Scr **643**.
 - **D-0918 #1069:** drag_down/ballrelease via uball; seed4500
   **55990→61462** RNG **61496** Scr **622**.
 - **D-0917 #1068:** fill_ordinary_room subroom recurse; seed4500
@@ -63,5 +66,3 @@ Objective/score live in `CURRENT.md`.
   RNG **50167→50220** Scr **499**.
 - **D-0908 #1058:** SCR_PUNISHMENT punish/placebc; seed4500
   **49915→50034** Scr **481→499** RNG **50071→50167**.
-- **D-0907 #1057:** study learn+makeknown; seed4500 **49776→49915**
-  Scr **459→481**.

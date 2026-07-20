@@ -5,23 +5,23 @@
 //
 // Branch envelope: ParanoidPray yn confirm (default on) + wizard Force
 // (D-0517) + #pray ublesscnt-too-soon (p_type 0) → angrygods; p_type 3 →
-// pleased You_feel + action rn1 + ublesscnt rnz(350) (gift/trouble bodies
-// deferred); #offer not-on-altar; Knight/Cleric #turn chant + exercise +
-// undead iter + nomul.
-// Named omissions: full in_trouble/fix_worst_trouble; ParanoidConfirm "yes";
-// angrygods cases 4+; pleased pat_on_head gifts / crown / give_spell;
-// p_type -2/-1/1/2 outcome bodies beyond water_prayer scan;
-// pray_revive; floorfood sacrifice; known_spell SPE_TURN_UNDEAD /
-// spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
-// other livelog paths; poly silent/headless can_chant; Fixed_abil/Dunce
-// adjattrib; Unaware You_feel dream prefix.
+// pleased You_feel + action rn1 + TROUBLE_HIT fix_worst_trouble (D-0920)
+// + ublesscnt rnz(350); #offer not-on-altar; Knight/Cleric #turn chant +
+// exercise + undead iter + nomul.
+// Named omissions: other in_trouble majors/minors; other fix_worst_trouble
+// cases; ParanoidConfirm "yes"; angrygods cases 4+; pleased pat_on_head
+// gifts / crown / give_spell; p_type -2/-1/1/2 outcome bodies beyond
+// water_prayer scan; pray_revive; floorfood sacrifice; known_spell
+// SPE_TURN_UNDEAD / spelleffects fallback for non-Knight/Cleric; resist
+// TELL pline polish; other livelog paths; poly silent/headless can_chant;
+// Fixed_abil/Dunce adjattrib; Unaware You_feel dream prefix.
 
 import { game } from './gstate.js';
-import { rn2, rn1, rnl, rnz } from './rng.js';
+import { rn2, rn1, rnl, rnz, rnd } from './rng.js';
 import { pline, verbalize, You_feel } from './display.js';
 import { nomul } from './hack.js';
 import { A_WIS, change_luck, adjattrib, adjalign, exercise } from './attrib.js';
-import { align_gname } from './roles.js';
+import { align_gname, xlev_to_rank } from './roles.js';
 import { objects_at } from './mkobj.js';
 import { yn_function } from './getline.js';
 import { livelog_printf } from './pline.js';
@@ -31,6 +31,7 @@ import { monflee } from './monmove.js';
 import { set_malign } from './makemon.js';
 import { killed } from './uhitm.js';
 import { aggravate } from './wizard.js';
+import { setuhpmax } from './exper.js';
 import {
     is_undead as mon_is_undead,
     is_demon as mon_is_demon,
@@ -43,7 +44,7 @@ import {
 import {
     IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, A_NONE, A_LAWFUL, A_NEUTRAL,
     A_CHAOTIC, GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY, LL_CONDUCT,
-    LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL,
+    LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd,
 } from './const.js';
 import { POT_WATER, POTION_CLASS } from './objects.js';
 
@@ -51,6 +52,8 @@ const MOLOCH = 'Moloch';
 
 const STRIDENT = 4; // pray.c
 const DEVOUT = 14; // pray.c
+// C: pray.c TROUBLE_* (priority via in_trouble order, not magnitude)
+const TROUBLE_HIT = 7;
 // C: pray.c godvoices[]
 const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
 
@@ -96,12 +99,88 @@ function a_align(x, y) {
 }
 
 /**
+ * C ref: pray.c critically_low_hp — hp ≤ 5 or hp*divisor ≤ maxhp.
+ * @param {boolean} only_if_injured
+ */
+function critically_low_hp(only_if_injured) {
+    const u = game.u || {};
+    const polyd = Upolyd(u);
+    let curhp = polyd ? (u.mh | 0) : (u.uhp | 0);
+    let maxhp = polyd ? (u.mhmax | 0) : (u.uhpmax | 0);
+    if (only_if_injured && !(curhp < maxhp)) return false;
+    const hplim = 15 * (u.ulevel | 0);
+    if (maxhp > hplim) maxhp = hplim;
+    let divisor;
+    switch (xlev_to_rank(u.ulevel | 0)) {
+    case 0:
+    case 1:
+        divisor = 5;
+        break;
+    case 2:
+    case 3:
+        divisor = 6;
+        break;
+    case 4:
+    case 5:
+        divisor = 7;
+        break;
+    case 6:
+    case 7:
+        divisor = 8;
+        break;
+    default:
+        divisor = 9;
+        break;
+    }
+    return curhp <= 5 || curhp * divisor <= maxhp;
+}
+
+/**
  * C ref: pray.c in_trouble — major/minor trouble ranking.
- * Stub: return 0 (no trouble). With ublesscnt=300, any trouble still
- * yields p_type 0 ("too soon"); poly/undead overrides are separate.
+ * Ported: TROUBLE_HIT via critically_low_hp (D-0920).
+ * Named omissions: Stoned/Slimed/Strangled/Lava/Sick/Starving/Region
+ * and all later major/minor arms (lycanthrope…hallucination).
  */
 function in_trouble() {
+    const u = game.u || {};
+    // Majors above HIT deferred — when those flags are unset, HIT matches C.
+    const unchanging = !!(u.Unchanging || u.HUnchanging);
+    if ((!Upolyd(u) || unchanging) && critically_low_hp(false)) {
+        return TROUBLE_HIT;
+    }
     return 0;
+}
+
+/**
+ * C ref: pray.c fix_worst_trouble — divine repair of one trouble code.
+ * Ported: TROUBLE_HIT (You_feel + rnd(5) uhpmax boost + full heal).
+ * Named omissions: all other TROUBLE_* cases.
+ */
+async function fix_worst_trouble(trouble) {
+    const u = game.u || (game.u = {});
+    if (!game.flags) game.flags = {};
+    switch (trouble) {
+    case TROUBLE_HIT: {
+        // C: You_feel("much better.");
+        await You_feel('much better.');
+        let maxhp;
+        if (Upolyd(u)) {
+            maxhp = (u.mhmax | 0) + rnd(5);
+            setuhpmax(Math.max(maxhp, 5 + 1), false);
+            u.mh = u.mhmax;
+        }
+        maxhp = u.uhpmax | 0;
+        if (maxhp < (u.ulevel | 0) * 5 + 11) {
+            maxhp += rnd(5);
+        }
+        setuhpmax(Math.max(maxhp, 5 + 1), true);
+        u.uhp = u.uhpmax;
+        game.flags.botl = true;
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 /** Local stubs — full mondata predicates deferred (C-JS-MAP). */
@@ -337,14 +416,15 @@ async function gods_upset(g_align) {
 /**
  * C ref: pray.c pleased — successful prayer favor.
  * Branch envelope: You_feel align msg; off-altar/low-record adjalign;
- * action rn1 + STRIDENT clamp; ublesscnt rnz(350) (+udemigod kick).
- * Named omissions: fix_worst_trouble / in_trouble body; pat_on_head
+ * action rn1 + STRIDENT clamp; fix_worst_trouble switch (HIT D-0920);
+ * ublesscnt rnz(350) (+udemigod kick).
+ * Named omissions: other in_trouble/fix_worst_trouble cases; pat_on_head
  * gift switch (repair/uncurse/spellbook/intrinsic/crown/give_spell);
  * moves>100000 ublesscnt incr; on_altar wrong-god early return polish.
  */
 async function pleased(g_align) {
     const u = game.u || (game.u = {});
-    const trouble = in_trouble();
+    let trouble = in_trouble();
     let pat_on_head = 0;
 
     const record = u.ualign?.record | 0;
@@ -378,8 +458,32 @@ async function pleased(g_align) {
             const rec = u.ualign?.record | 0;
             action = (rec > 0 || !rnl(2)) ? 1 : 0;
         }
-        // fix_worst_trouble / in_trouble loops deferred (trouble stub 0)
-        void action;
+
+        // C: switch (min(action, 5)) — fix_worst_trouble / in_trouble loops
+        let tryct = 0;
+        switch (Math.min(action, 5)) {
+        case 5:
+            pat_on_head = 1;
+            // FALLTHROUGH
+        case 4:
+            do {
+                await fix_worst_trouble(trouble);
+            } while ((trouble = in_trouble()) !== 0);
+            break;
+        case 3:
+            await fix_worst_trouble(trouble);
+            // FALLTHROUGH
+        case 2:
+            while ((trouble = in_trouble()) > 0 && (++tryct < 10)) {
+                await fix_worst_trouble(trouble);
+            }
+            break;
+        case 1:
+            if (trouble > 0) await fix_worst_trouble(trouble);
+            break;
+        case 0:
+            break;
+        }
     }
 
     // pat_on_head gift switch deferred

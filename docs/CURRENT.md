@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 61766/108275 | 643/1814 | knight; @61689 fix_worst_trouble |
+| seed4500 | 61837/108275 | 654/1814 | knight; @61698 nhlib shuffle |
 
 ## Green gate
 
@@ -70,19 +70,19 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @61689 — C `fix_worst_trouble` `rnd(5)`
-  vs JS `rn2(1000)` after matched `pleased`. Focused:
+**Gameplay next:** **seed4500** @61698 — C nhlib.lua shuffle `rn2(3)`
+  vs JS `rn2(79)` after matched `makemaz`/`getbones`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0919. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0920. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not FORCE shk satdoor/`onlineu` (hero-path first; D-0376).**
 **Keep:** D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0919 (searches_for_item … FAST TIMEOUT).
+D-0861…D-0920 (searches_for_item … TROUBLE_HIT).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -126,8 +126,8 @@ omit Nesting nested create_subroom/door / lspo_door `rnddoor` (D-0916);
 omit `fill_ordinary_room` nsubrooms recursion before needfill (D-0917);
 omit stair-fall `drag_down`/`ballrelease` / gate with sticky
 `u.Punished` instead of `uball` (D-0918);
-omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky after potion
-expiry (D-0919).
+omit FAST TIMEOUT sticky Very_fast (D-0919); omit TROUBLE_HIT
+`fix_worst_trouble`/`rnd(5)` (D-0920; other TROUBLE_*/gifts deferred).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

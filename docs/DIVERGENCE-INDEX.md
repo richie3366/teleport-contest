@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0920 | fixed | pleased fix_worst_trouble TROUBLE_HIT rnd(5) | seed4500 **61689→61698** RNG **61837** Scr **654**; next @61698 nhlib shuffle |
 | D-0919 | fixed | nh_timeout FAST TIMEOUT / Very_fast expiry | seed4500 **61462→61689** RNG **61766** Scr **643**; next @61689 fix_worst_trouble |
 | D-0918 | fixed | goto_level drag_down/ballrelease via uball | seed4500 **55990→61462** RNG **61496** Scr **622**; next @61462 distfleeck |
 | D-0917 | fixed | fill_ordinary_room nsubrooms before needfill | seed4500 **54329→55990** RNG **57748** Scr **613**; next @55990 drag_down |

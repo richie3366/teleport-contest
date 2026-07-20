@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0920 — pleased fix_worst_trouble TROUBLE_HIT (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @61698 nhlib
+  shuffle; other TROUBLE_* / pat_on_head gifts deferred)
+- **Session:** seed4500-knight-coverage @61689
+- **Symptom:** C `fix_worst_trouble` `rnd(5)` vs JS `rn2(1000)`
+  (`pleased` `rnz(350)` after matched `rnl(2)`).
+- **Cause:** `in_trouble` stubbed to 0 and pleased skipped the action
+  `fix_worst_trouble` switch, so TROUBLE_HIT's `rnd(5)` uhpmax boost
+  never ran.
+- **C locus:** `pray.c` `critically_low_hp` / `in_trouble` /
+  `fix_worst_trouble` (TROUBLE_HIT) / `pleased` action switch.
+- **Fix:** port `critically_low_hp` + TROUBLE_HIT in `in_trouble` /
+  `fix_worst_trouble`; wire pleased `min(action,5)` cases.
+- **Verification:** prefix **61689→61698** RNG **61837** Scr **654**;
+  green+strict PASS; cohort 15/15 PASS (incl. seed0017 altar pray).
+- **Next:** @61698 C nhlib.lua shuffle `rn2(3)` vs JS `rn2(79)`.
+
 ## D-0919 — nh_timeout FAST TIMEOUT / Very_fast expiry (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @61689
