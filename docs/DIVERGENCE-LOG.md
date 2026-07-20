@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0898 — ini_inv_use_obj armor setworn (seed2600 ^X)
+
+- **Status:** fixed
+- **Session:** seed2600-wizard-custom-binds @33 (after D-0897)
+- **Symptom:** Attributes page — C `You are magic-protected because of
+  your cloak of magic resistance.` then `You are warded.`; JS only
+  `You are warded.` (RNG FULL; Scr 37/38).
+- **Cause:** `ini_inv_use_obj` assigned `u.uarmc` / owornmask manually
+  without `setworn`, so cloak MR never conferred `oc_oprop` Antimagic
+  extrinsic; `magic_negation` still saw armor MC → warded alone.
+- **C locus:** `u_init.c` `ini_inv_use_obj` → `setworn(obj, W_ARMC)`
+  (and other armor slots); `worn.c` `setworn` → `oc_oprop`.
+- **Fix:** armor arms call `setworn` like C. Named omit: weapon still
+  manual uwep/uswapwep/uquiver; shield bimanual/`set_twoweap` gate.
+- **Verification:** seed2600 **PASS** Scr **37→38**/38; green+strict;
+  cohort 12/12; full suite **42/44** Scr **9609**/11405.
+- **Next:** seed4500 knight coverage; leaderboard cron; cadence @#1050.
+
+## D-0897 — BIND= parsebindings (seed2600 v:inventory)
+
+- **Status:** fixed (partial until D-0898)
+- **Session:** seed2600-wizard-custom-binds @7
+- **Symptom:** C inventory overlay on `v`; JS `Unknown command 'v'.`
+  (and space → unknown); Scr 35/38 after bigrm-9.
+- **Cause:** `parseNethackrc` ignored `BIND=` / `BINDINGS=`; default
+  `v` is chronicle (unported) → unknown pline.
+- **C locus:** `cfgfiles.c` `cnf_line_BINDINGS`; `options.c`
+  `parsebindings` / `txt2key`; `cmd.c` `bind_key` / `cmdbind_get`.
+- **Fix:** parse BIND lines into `Cmd.binds`; rhack dispatches
+  `inventory` → `ddoinv`. Named omit: full defaults cmdbinds table;
+  other bind targets; mouse/menu aliases; CMD_PARAM; SYMBOLS=.
+- **Verification:** seed2600 Scr **35→37**/38; green+strict PASS.
+- **Next:** @33 Antimagic from_what (D-0898).
+
 ## D-0896 — bigrm-9 load_special (seed2600 @2917)
 
 - **Status:** fixed (partial — seed2600 still FAIL screens)

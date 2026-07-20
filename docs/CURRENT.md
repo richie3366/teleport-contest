@@ -21,33 +21,32 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1047**,
-D-0896). Screens **9606**/11405; RNG **687,602**/792838 (86.73%).
-**41/44** PASS. Next cadence @**#1050**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1048**,
+D-0897/D-0898). Screens **9609**/11405; RNG **687,602**/792838 (86.73%).
+**42/44** PASS. Next cadence @**#1050**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **41 / 44** |
-| Screens matched | **9,606 / 11,405** |
+| Sessions passing | **42 / 44** |
+| Screens matched | **9,609 / 11,405** |
 | Positional RNG calls matched | **687,602 / 792,838** (86.73%) |
-| Speed label | `32+0.23/turn` (R² 0.835) |
+| Speed label | `32+0.23/turn` (R² 0.837) |
 | Role-init throws | **0 / 44** |
 
-**PASS (41):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0383, seed0399, **seed0014**.
+seed0360, seed0383, seed0399, seed0014, **seed2600**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed2600 | **11647**/11647 | **35**/38 | bigrm-9 done; next BIND= |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
 
 ## Green gate
@@ -67,30 +66,27 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **Leaderboard 22-vs-38 gap** — local PASS includes seed0108 + seed0116 +
 seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + seed5002 +
-seed0360 + seed0399 + **seed0014**; judge at 08:55Z dropped to **22** after
-D-0480 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
-Next cron; if seed0013 restored but near-misses remain → upstream #5.
+seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
+**22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts that
+serialize coerce. Next cron; if seed0013 restored but near-misses remain
+→ upstream #5.
 
-**Gameplay next:** **seed2600** BIND=`v:inventory` (RNG FULL; Scr 35/38) /
-**seed4500** knight coverage. bigrm-9 closed (D-0896 → RNG **FULL**,
-Scr **23→35**). Focused (pick one):
+**Gameplay next:** **seed4500** knight coverage. seed2600 closed
+(D-0897 BIND + D-0898 ini_inv `setworn`). Focused:
 
 ```bash
-node frozen/ps_test_runner.mjs \
-  sessions/seed2600-wizard-custom-binds.session.json
-# or
 node frozen/ps_test_runner.mjs \
   sessions/seed4500-knight-coverage.session.json
 ```
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0896. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0898. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0896 (searches_for_item … bigrm-9).
+D-0861…D-0898 (searches_for_item … BIND + ini_inv setworn).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -116,7 +112,9 @@ omit `do_attack` `gu.unweapon` begin-bashing (D-0892);
 force `setgemprobs` lev=0 when dlev set (D-0893);
 skip town warn / dry fountain on first town `dryup` (D-0894);
 skip Temple of the gods fill / discard themes `splev_align` (D-0895);
-omit `bigrm-9` load_special (D-0896).
+omit `bigrm-9` load_special (D-0896);
+omit `BIND=` parsebindings / skip `setworn` in `ini_inv_use_obj` armor
+(D-0897/D-0898).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -5,6 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0898 | fixed | ini_inv_use_obj armor setworn | seed2600 Scr **37→38** **PASS**; suite **42/44** |
+| D-0897 | fixed | BIND= parsebindings + rhack inventory | seed2600 Scr **35→37**; next Antimagic setworn |
 | D-0896 | fixed | bigrm-9 load_special | seed2600 RNG **FULL 11647** Scr **23→35**; next BIND= |
 | D-0895 | fixed | themerms Temple of the gods fill | seed2600 **395→2917** Scr **3→23**; next @2917 nhlib shuffle |
 | D-0894 | fixed | dryup town warn + watchman_warn_fountain | seed0014 **PASS 714/714**; suite **41/44** |
