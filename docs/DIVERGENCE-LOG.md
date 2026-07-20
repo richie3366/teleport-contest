@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0881 — dodip short_oname getobj-budget strip
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 screen@388 — C `Dip a -4 orcish helm (being worn)…`
+  vs JS `Dip a cursed thoroughly rusty -4 orcish helm…` after
+  “rusts completely!” (RNG still FULL).
+- **C locus:** `objnam.c` `short_oname`; `potion.c` `dodip` builds `obuf`
+  once via `short_oname(obj, doname, thesimpleoname, QBUFSZ - sizeof
+  getobj-dip suffix)` and reuses it for fountain yn.
+- **Cause:** JS `dodip` used raw `doname`. When “very rusty” →
+  “thoroughly rusty” (+6) exceeds the getobj name budget (lenlimit 50),
+  C temporarily clears `bknown`/`oeroded*` for formatting only.
+- **Change:** port `short_oname` + `simpleonames`/`thesimpleoname`;
+  wire into `dodip`. Named omit: other `short_oname`/`safe_qbuf`
+  callers; `pair_of`→them; sink/pool dip prompts.
+- **Verify:** green+strict PASS; cohort 11/12 (seed0007 pre-existing);
+  seed0014 Scr **624→633** (RNG FULL); @388/@393 fixed.
+- **Next:** @415 botl AC 10 vs 14 after take-off +3 shield; nymph
+  steal “from/on right hand” @416–417.
+
 ## D-0880 — yn_function show_topl hard-wrap cursor
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

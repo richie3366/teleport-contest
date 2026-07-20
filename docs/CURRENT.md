@@ -72,9 +72,10 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0014 Scr 624/714** — RNG closed (D-0877);
-D-0880 yn hard-wrap @383. First miss @388 post-rust dip xname
-(C `Dip a -4 orcish helm…` vs JS `cursed thoroughly rusty`). Focused:
+**Gameplay next:** **seed0014 Scr 633/714** — RNG closed (D-0877);
+D-0881 short_oname @388. First miss @415 take-off +3 shield — topline
+ok, botl **AC:10** (C) vs **AC:14** (JS). Then nymph steal wording
+@416–417. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -83,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0880. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0881. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0880 (searches_for_item … yn_function hard-wrap).
+D-0861…D-0881 (searches_for_item … short_oname dip yn).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -97,7 +98,8 @@ omit minetn-3 load_special (D-0875); omit watch_on_duty/has_town (D-0876);
 omit dipfountain case 28 bath/somegold (D-0877);
 omit chest_shatter Blind/`singular`/PAPER=5 (D-0878);
 omit addinv known/bknown/rknown compare pline (D-0879);
-omit yn_function `topl_wrap_echo` hard-wrap (D-0880).
+omit yn_function `topl_wrap_echo` hard-wrap (D-0880);
+omit `short_oname` on `#dip` fountain yn (D-0881).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
