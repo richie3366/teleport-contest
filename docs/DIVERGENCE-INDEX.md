@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0907 | fixed | study_book set_occupation(learn) + makeknown | seed4500 **49776→49915** Scr **459→481**; next @49915 mkobj |
 | D-0906 | fixed | hellfill + create_maze / LVLINIT_MAZE | seed4500 **32538→49776** Scr **459**; next @49776 mcalcmove |
 | D-0905 | fixed | peace_minded PM_ERINYS !abuse | seed4500 **28249→32538** Scr **308**; next @32538 hellfill |
 | D-0904 | fixed | level_tele find_hell past main | seed4500 **18153→28249** Scr **302**; next @28249 makemon |

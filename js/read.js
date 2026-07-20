@@ -12,8 +12,8 @@
 // SPBOOK_CLASS → study_book (already-known refresh yn) + create_particular
 // named-monster path for #wizgenesis.
 // Named omissions: fortune/shirt/credit-card/marker/coin/orb/candy/Braille
-// Blind gates; study_book occupation/learn / novel / cursed_book; other
-// seffect_*; SCR_IDENTIFY SPE_IDENTIFY cast; menu_identify traditional
+// Blind gates; study_book novel / dull sleep (occupation learn D-0907);
+// other seffect_*; SCR_IDENTIFY SPE_IDENTIFY cast; menu_identify traditional
 // ggetobj; discover_artifact / learn_egg_type in fully_identify_obj;
 // SCR_DESTROY_ARMOR confused erodeproof / cursed vibrate+stun /
 // blessed getobj choice / disintegrate_cursed_armor; nommap/Hallucination/

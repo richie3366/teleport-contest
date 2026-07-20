@@ -8,15 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @49776 C `mcalcmove` `rn2(12)` vs JS
-  `rnd(20)` after matched makewish/study_book. Falsifier:
+- **Gameplay next:** seed4500 @49915 C `mkobj` `rnd(1000)` vs JS
+  `rn2(19)` after matched learn/makeknown study. Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
-- D-0906 hellfill/create_maze closed @32538 (prefix 32538→49776 Scr 459).
+- D-0907 study learn/makeknown closed @49776 (prefix 49776→49915 Scr 481).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0906 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0907 done.
+- Do not omit `set_occupation(learn)` / learn `makeknown` credit_hero
+  (D-0907).
 - Do not omit hellfill/`create_maze`/`LVLINIT_MAZE` (D-0906).
 - Do not omit `peace_minded` `PM_ERINYS` `!ualign.abuse` (D-0905).
 - Do not omit `level_tele` past-main `find_hell` (D-0904).
@@ -30,12 +32,13 @@ Objective/score live in `CURRENT.md`.
 - Do not omit `bigrm-9` load_special (D-0896).
 - Do not skip Temple of the gods / discard themes `splev_align` (D-0895).
 - Do not skip town warn / dry fountain on first town `dryup` (D-0894).
-- Do not force `setgemprobs` lev=0 when dlev set (D-0893).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1055 Scr **9898**/11405 RNG **717155**/792838
   (90.45%); next cadence @#1060.
+- **D-0907 #1057:** study learn+makeknown; seed4500 **49776→49915**
+  Scr **459→481**.
 - **D-0906 #1056:** hellfill+create_maze; seed4500 **32538→49776**
   Scr **308→459**.
 - **D-0905 #1055:** Erinys peace_minded; seed4500 **28249→32538**
@@ -55,4 +58,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0895 #1046:** Temple of the gods fill; seed2600 **395→2917**
   Scr **3→23**.
 - **D-0894 #1045:** dryup town warn + watchman yell; seed0014 **PASS**.
-- **D-0893 #1044:** setgemprobs ledger_no; Scr **678→712**.

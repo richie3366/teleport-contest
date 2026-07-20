@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0907 — study_book set_occupation(learn) + makeknown credit_hero
+
+- **Status:** fixed (partial — seed4500 still FAIL later; learn lenses
+  rn2(2) / confused_book / deadbook / novel / dull sleep / check_unpaid
+  still deferred)
+- **Session:** seed4500-knight-coverage @49776
+- **Symptom:** after matched `study_book` `rnd(20)`, C `mcalcmove`
+  `rn2(12)`; JS second `study_book` `rnd(20)` (book `k`) before EOT.
+- **Cause:** `study_book` omitted `set_occupation(learn)`. With
+  `umovement=24` (Very_fast), leftover hero actions ran another `doread`
+  before EOT `mcalcmove`. Secondary: `learn` finish used
+  `discover_object(..., credit_hero=false)` so missed `makeknown`'s
+  WIS `exercise`.
+- **C locus:** `spell.c` `study_book` → `set_occupation(learn)`;
+  `learn` delay++ / finish; `o_init.c` `makeknown`/`discover_object`
+  credit_hero.
+- **Fix:** port `learn` occupation + wire `set_occupation(learn,
+  "studying", 0)`; continue same-book branch; finish via `makeknown`.
+  Named omit: lenses faster-read; confused_book body; deadbook;
+  faded-blank polish; check_unpaid; novel/dull.
+- **Verification:** seed4500 prefix **49776→49915** Scr **459→481**
+  RNG **49921→50071**; green+strict PASS; cohort 4/4 PASS.
+- **Next:** @49915 C `mkobj` `rnd(1000)` vs JS `rn2(19)`; leaderboard
+  cron; cadence @#1060.
+
 ## D-0906 — hellfill load_special + create_maze / LVLINIT_MAZE (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; rnd_hell_prefab

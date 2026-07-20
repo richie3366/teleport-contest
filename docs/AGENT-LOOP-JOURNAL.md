@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 22:20 — #1057 D-0907 study learn + makeknown
+- Objective: seed4500 @49776 C `mcalcmove` `rn2(12)` vs JS `rnd(20)`
+  after matched study_book.
+- C locus: `spell.c` `study_book`/`learn`; `o_init.c` `makeknown`.
+- Change: `set_occupation(learn)` so Very_fast leftover umovement
+  cannot start a second `doread` before EOT; learn finish uses
+  `makeknown` (credit_hero WIS exercise). Named omit: lenses /
+  confused_book / deadbook / novel / dull / check_unpaid.
+- Verification: seed4500 prefix **49776→49915** Scr **459→481**
+  RNG **49921→50071**; green+strict PASS; cohort 4/4 PASS.
+- Next: @49915 C `mkobj` `rnd(1000)` vs JS `rn2(19)`; leaderboard
+  cron; cadence @#1060.
+
 ## 2026-07-20 22:05 — #1056 D-0906 hellfill + create_maze
 - Objective: seed4500 @32538 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`
   after matched getbones (hellfill.lua / create_maze).
@@ -172,10 +185,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 17/17; seed0014 Scr **676→678**.
 - Next: @631 C `a black gem` vs JS `an orange gem`.
 
-## 2026-07-20 20:40 — #1042 D-0891 maketrap HOLE unhideable_trap
-- Objective: seed0014 @600 trap `^` vs floor `·` (68,16).
-- C locus: `trap.h` `unhideable_trap`; `trap.c` `maketrap` tseen init.
-- Change: `unhideable_trap` + `maketrap` `tseen = unhideable_trap(typ)`
-  (HOLE always seen).
-- Verification: green+strict PASS; cohort 13/13; seed0014 Scr **645→676**.
-- Next: @624 bare-hands bash topline vs plain miss/hit.
