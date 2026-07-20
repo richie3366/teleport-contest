@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0865 — may_dig wall_info|flags + peaceful shop/temple dig avoid
+
+- **Status:** fixed
+- **Observed:** seed0399 @10382 — C `rnd(12)` @ `mdig_tunnel`; JS
+  `rn2(6)` (extra mfndpos chcnt). Peaceful umber hulk @ (45,4) on maze
+  Dlvl12: JS cnt=8 (3 HWALL + 5 ROOM); C cnt=5.
+- **Rejected:** shop/temple dig avoid alone — wall `roomno=0`, not in
+  shop/temple. Still ported from C (inert here).
+- **C locus:** `hack.c` `may_dig` / `may_passwall` (`wall_info` aliases
+  `flags`); `mon.c` `mfndpos` peaceful dig-avoid; `dig.c` `mdig_tunnel`.
+- **Cause:** JS stores `W_NONDIGGABLE` on `loc.flags` while WM_MASK
+  orientation lives on `loc.wall_info`. `may_dig` read only `wall_info`,
+  so nondiggable maze walls looked diggable → extra dig targets →
+  extra `!appr` `rn2(++chcnt)` before postmov dig.
+- **Change:** `rm_wall_info` OR in `dig.js` `may_dig` / `mdig_tunnel` /
+  `zap_dig`; same OR in `mon.js` `may_passwall`; port mfndpos intelligent
+  peaceful shop/temple dig avoid.
+- **Verification:** green+strict PASS; seed0399 prefix **10382→10581**
+  Scr 409; cohort 10/10 PASS (incl. seed0030 dig, seed0383, seed0360).
+- **Next:** seed0399 @10581 C `mintrap` `rn2(40)` vs JS `rn2(20)`.
+- **Named omission:** unify `flags`/`wall_info` at write sites in mklev
+  (readers OR for now); full `wall_info` alias.
+
 ## D-0864 — obj_resists invocation items skip rn2 (seed0399 @10309)
 
 - **Status:** fixed

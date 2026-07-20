@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0865 | fixed | may_dig wall_info\|flags + peaceful dig avoid | seed0399 **10382→10581**; Scr 409; maze W_NONDIGGABLE |
 | D-0864 | fixed | obj_resists invocation items skip rn2 | seed0399 **10309→10382**; Scr 407→409; Bell no rn2 |
 | D-0863 | fixed | hold_another_object encumber_msg after prinv | seed0399 **10269→10309**; Scr 392→407; More absorbs #wizintrinsic |
 | D-0862 | fixed | makesingular+as_is / gold wish / SCR_MAIL | seed0399 **10217→10269**; Scr 156→392 |

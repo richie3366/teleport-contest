@@ -7,17 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0399 @10382:** after D-0864 Bell `obj_resists` skip, first miss C
-  `mdig_tunnel` `rnd(12)` vs JS `rn2(6)`. Faithful peel — not FORCE.
-- Falsifier: C `dig.c` `mdig_tunnel` ~1418 vs JS dig path; preceding
-  `m_move` rn2(3..5) matched.
+- **seed0399 @10581:** after D-0865 dig/may_dig, first miss C `mintrap`
+  `rn2(40)` vs JS `rn2(20)`. Faithful peel — not FORCE.
+- Falsifier: C `trap.c` `mintrap` ~3751 trap-type arity; preceding
+  distfleeck rn2(5) pair matched.
 - Alt: D-0708 seed0014 @50259.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0864 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0865 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0864 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0865 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Do not re-FORCE WEB-unique omit / mfndpos omit for D-0731 (closed D-0861).
 - Do not expect mon_track_clear alone to fix @10157 (#1006: !mflee).
@@ -38,6 +38,8 @@ Objective/score live in `CURRENT.md`.
 - Do not drop hold_another_object encumber_msg — #1012 @10269 was
   key desync (`t` throw), not gethungry arity.
 - Do not “always rn2” in `obj_resists` for Bell/Book/Amulet/Candelabrum.
+- Do not read only `wall_info` for W_NONDIGGABLE — OR `flags` (D-0865).
+- Shop/temple dig avoid alone did not fix @10382 (walls roomno=0).
 
 ## Landmarks (≤15)
 
@@ -64,3 +66,5 @@ Objective/score live in `CURRENT.md`.
   **10269→10309** Scr 392→407.
 - **D-0864 #1013:** `obj_resists` Bell/Book/Amulet/Candelabrum/Rider
   skip rn2; seed0399 **10309→10382** Scr 407→409.
+- **D-0865 #1014:** `may_dig`/`may_passwall` OR `flags|wall_info`;
+  mfndpos peaceful shop/temple dig avoid; seed0399 **10382→10581**.

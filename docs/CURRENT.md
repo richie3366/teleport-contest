@@ -75,9 +75,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0399 @10382** — D-0864 closed @10309
-(`obj_resists` invocation items skip `rn2`; wished Bell). Next: C
-`mdig_tunnel` `rnd(12)` vs JS `rn2(6)`.
+**Gameplay next:** **seed0399 @10581** — D-0865 closed @10382
+(`may_dig` honors `flags|wall_info` W_NONDIGGABLE; mfndpos peaceful
+shop/temple dig avoid). Next: C `mintrap` `rn2(40)` vs JS `rn2(20)`.
 Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
@@ -87,7 +87,7 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0864. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0865. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -121,6 +121,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not drop makesingular `as_is` boots/gloves/gauntlets (D-0862).**
 **Do not drop hold_another_object encumber_msg after prinv (D-0863).**
 **Do not drop obj_resists invocation/rider early-return (D-0864).**
+**Do not drop D-0865 may_dig `flags|wall_info` OR / peaceful shop dig avoid.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

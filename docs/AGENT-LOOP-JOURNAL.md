@@ -12,6 +12,25 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-20 17:05 — D-0865 may_dig flags|wall_info
+- Objective: seed0399 @10382 C `mdig_tunnel` rnd(12) vs JS rn2(6).
+- C locus: `hack.c` `may_dig` (`wall_info`≡`flags`); `mon.c` `mfndpos`
+  peaceful shop/temple dig avoid; symptom was extra diggable HWALL.
+- Change: `rm_wall_info` OR in dig.js + may_passwall; port mfndpos
+  intelligent peaceful dig avoid. Root: W_NONDIGGABLE on `flags`,
+  WM_MASK on `wall_info`.
+- Verification: green+strict PASS; prefix **10382→10581** Scr 409;
+  cohort 10/10 PASS.
+- Next: seed0399 @10581 C `mintrap` rn2(40) vs JS rn2(20).
+
 ## 2026-07-20 16:50 — D-0864 obj_resists invocation skip rn2
 - Objective: seed0399 @10309 C dog_move rn2(1) vs JS rn2(100).
 - C locus: `zap.c` `obj_resists` Bell/Book/Amulet/Candelabrum/Rider
@@ -21,14 +40,6 @@ Use this shape:
 - Verification: green+strict PASS; prefix **10309→10382** Scr **407→409**;
   cohort 37/37 PASS.
 - Next: seed0399 @10382 C `mdig_tunnel` rnd(12) vs JS rn2(6).
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-20 16:40 — D-0863 hold_another_object encumber_msg
 - Objective: seed0399 @10269 C gethungry rn2(20) vs JS rnd(20).
