@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0923 — touchfood freeinv+addinv_nomerge (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @86672
+  `breamm`; sellobj_state invent-full dropy / COST_BITE deferred)
+- **Session:** seed4500-knight-coverage @82793
+- **Symptom:** C `steal` `rn2(23)` vs JS `rn2(22)` — invent weight
+  off by one after matched `hitmu`/`d(0,0)`.
+- **Cause:** C invent had a separate partly-eaten apple (`m`) from
+  rotten `doeat`→`touchfood`; JS `touchfood` split via `splitobj` but
+  omitted C `freeinv`+`addinv_nomerge`, and invent `splitobj` did not
+  splice the child into `game.invent[]`, so the bitten piece never
+  counted in steal's weighted pick.
+- **C locus:** `eat.c` `touchfood` (carried → `freeinv` /
+  `addinv_nomerge`); `mkobj.c` `splitobj` invent chain insert;
+  `invent.c` `mergable` FOOD `oeaten`/`orotten`.
+- **Fix:** async `touchfood` freeinv+`addinv_nomerge` (+ invent-full
+  `dropy`); `splitobj` invent[] splice; `mergable` oeaten/orotten;
+  export `addinv_nomerge`.
+- **Verification:** prefix **82793→86672** RNG **86798** Scr **759**;
+  green+strict PASS; eat cohort seed1800/0014/1500/0360 PASS.
+- **Next:** @86672 C `breamm` `rn2(3)` vs JS `rn2(5)`.
+
 ## D-0922 — wakeup was_sleeping → growl wake_nearto (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @82793

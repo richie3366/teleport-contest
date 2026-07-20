@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 00:26 — #1074 D-0923 touchfood invent slot
+- Objective: seed4500 @82793 C `steal` `rn2(23)` vs JS `rn2(22)`.
+- C locus: `eat.c` `touchfood` freeinv+`addinv_nomerge`; `mkobj.c`
+  `splitobj` invent insert; `invent.c` `mergable` oeaten/orotten.
+- Change: port touchfood invent re-slot + invent splitobj splice +
+  mergable FOOD oeaten. Root: partly-eaten apple missing from invent[].
+  Named omit: sellobj_state invent-full dropy; COST_BITE.
+- Verification: prefix **82793→86672** RNG **86798** Scr **759**;
+  green+strict PASS; eat cohort 4/4 PASS.
+- Next: @86672 C `breamm` `rn2(3)` vs JS `rn2(5)`.
+
 ## 2026-07-21 00:18 — #1073 D-0922 wakeup wake_nearto
 - Objective: seed4500 @82788 C `distfleeck` `rn2(5)` vs JS `rn2(50)`.
 - C locus: `mon.c` `wakeup` → `growl`; `sounds.c` `growl` →
