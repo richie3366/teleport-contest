@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1030**,
-cadence). Screens **9480**/11405; RNG **676,373**/792838 (85.31%).
-**40/44** PASS. Next cadence @**#1035**.
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1035**,
+cadence). Screens **9493**/11405; RNG **676,373**/792838 (85.31%).
+**40/44** PASS. Next cadence @**#1040**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **40 / 44** |
-| Screens matched | **9,480 / 11,405** |
+| Screens matched | **9,493 / 11,405** |
 | Positional RNG calls matched | **676,373 / 792,838** (85.31%) |
-| Speed label | `31+0.23/turn` (R² 0.834) |
+| Speed label | `32+0.23/turn` (R² 0.833) |
 | Role-init throws | **0 / 44** |
 
 **PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0014 | **59178**/59178 | **623**/714 | RNG FULL; next screen@383 yn cursor |
+| seed0014 | **59178**/59178 | **633**/714 | RNG FULL; next @415 take-off AC botl |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed2600 | 418/11647 | 3/38 | custom binds |
 | seed4500 | 3039/108275 | 19/1814 | knight coverage |
@@ -73,9 +73,9 @@ seed0360 + **seed0399**; judge at 08:55Z dropped to **22** after D-0480
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed0014 Scr 633/714** — RNG closed (D-0877);
-D-0881 short_oname @388. First miss @415 take-off +3 shield — topline
-ok, botl **AC:10** (C) vs **AC:14** (JS). Then nymph steal wording
-@416–417. Focused:
+D-0881 short_oname @388. **D-0882** restores seed0007 (merged coin order).
+First miss @415 take-off +3 shield — topline ok, botl **AC:10** (C) vs
+**AC:14** (JS). Then nymph steal wording @416–417. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -84,12 +84,12 @@ node frozen/ps_test_runner.mjs \
 
 **Parked gameplay:** none beyond D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0881. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0882. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Keep:** D-0845/0853 dochug Hallu order; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off pair;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0881 (searches_for_item … short_oname dip yn).
+D-0861…D-0882 (searches_for_item … merged coin order).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -99,7 +99,8 @@ omit dipfountain case 28 bath/somegold (D-0877);
 omit chest_shatter Blind/`singular`/PAPER=5 (D-0878);
 omit addinv known/bknown/rknown compare pline (D-0879);
 omit yn_function `topl_wrap_echo` hard-wrap (D-0880);
-omit `short_oname` on `#dip` fountain yn (D-0881).
+omit `short_oname` on `#dip` fountain yn (D-0881);
+reorder merged ID reconcile before coin `bknown=0` (D-0882).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

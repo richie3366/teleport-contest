@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0882 | fixed | invent merged coin bknown=0 before ID reconcile | seed0007 **PASS** restored; D-0879 order bug |
 | D-0881 | fixed | objnam/potion short_oname dip yn budget strip | seed0014 Scr **624→633**; next @415 take-off botl AC |
 | D-0880 | fixed | getline yn_function show_topl hard-wrap cursor | seed0014 Scr **623→624**; next @388 post-rust dip xname |
 | D-0879 | fixed | invent addinv merged known/bknown/rknown + compare pline | seed0014 Scr **621→623**; next @383 yn cursor |

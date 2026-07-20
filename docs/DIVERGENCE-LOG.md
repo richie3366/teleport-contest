@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0882 — invent.c merged coin bknown wipe before ID reconcile
+
+- **Status:** fixed
+- **Symptom:** After D-0879, seed0007 regressed FAIL (RNG 15726/16373,
+  Scr 280/302). Cadence #1035 first measured **39/44**.
+- **C locus:** `invent.c` `merged` — age/quan/weight, then
+  `COIN_CLASS` → `bknown = 0`, **then** known/bknown/rknown reconcile
+  + compare-learn pline.
+- **Cause:** D-0879 `addinv` reconciled ID dims **before** the coin
+  `bknown=0` wipe. Gold merge with invent `bknown=1` vs floor `bknown=0`
+  spuriously set `discovered` and printed compare-learn `--More--`,
+  desyncing seed0007 keys.
+- **Change:** reorder to match C; keep `otmp.where === OBJ_INVENT` gate.
+  Named omit: still deferred quiver-prefer / worn-slot / oname / globby;
+  `addinv_core0` clear `how_lost` before merge.
+- **Verify:** green+strict PASS; seed0007 **PASS**; seed0014 Scr still
+  **633**/714; full suite **40/44** Scr **9493**/11405.
+- **Next:** seed0014 @415 take-off botl AC 10 vs 14.
+
 ## D-0881 — dodip short_oname getobj-budget strip
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)

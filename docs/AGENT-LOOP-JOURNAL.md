@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 19:37 — #1035 cadence + D-0882 merged coin order
+- Objective: mandatory public score @#1035; restore seed0007 regression.
+- C locus: `invent.c` `merged` — coin `bknown=0` before ID reconcile.
+- Change: reorder `addinv` merge to match C (D-0882). First cadence
+  measure was 39/44 (D-0879 order bug); after fix **40/44**.
+- Verification: green+strict PASS; seed0007 PASS; seed0014 Scr 633/714;
+  full suite Scr **9493**/11405 RNG **676373**/792838 (85.31%);
+  speed `32+0.23/turn`.
+- Next: seed0014 @415 take-off botl AC:10 vs AC:14; nymph @416–417.
+
 ## 2026-07-20 19:35 — #1034 D-0881 short_oname dip yn
 - Objective: seed0014 @388 C `Dip a -4 orcish helm` vs JS cursed thoroughly rusty.
 - C locus: `objnam.c` `short_oname`; `potion.c` `dodip` formats via

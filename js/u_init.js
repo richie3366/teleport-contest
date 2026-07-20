@@ -887,20 +887,9 @@ export async function addinv(obj) {
     if (!game.invent) game.invent = [];
     for (const otmp of game.invent) {
         if (!mergable(otmp, obj)) continue;
-        // C invent.c merged — identification dims reconcile when they differ
-        let discovered = false;
-        if ((obj.known | 0) !== (otmp.known | 0)) {
-            otmp.known = 1;
-            discovered = true;
-        }
-        if ((obj.rknown | 0) !== (otmp.rknown | 0)) {
-            otmp.rknown = 1;
-            if (otmp.oerodeproof) discovered = true;
-        }
-        if ((obj.bknown | 0) !== (otmp.bknown | 0)) {
-            otmp.bknown = 1;
-            if (game.urole?.mnum !== PM_CLERIC) discovered = true;
-        }
+        // C invent.c merged(): age/quan/weight (+ coin bknown wipe) BEFORE
+        // known/bknown/rknown reconcile — gold bknown=0 must precede the
+        // bknown discovery check or COIN merges spuriously pline.
         if (!obj.lamplit && !obj.globby) {
             const oq = otmp.quan || 1;
             const nq = obj.quan || 1;
@@ -915,6 +904,20 @@ export async function addinv(obj) {
         } else {
             otmp.owt = weight(otmp);
         }
+        // C invent.c merged — identification dims reconcile when they differ
+        let discovered = false;
+        if ((obj.known | 0) !== (otmp.known | 0)) {
+            otmp.known = 1;
+            discovered = true;
+        }
+        if ((obj.rknown | 0) !== (otmp.rknown | 0)) {
+            otmp.rknown = 1;
+            if (otmp.oerodeproof) discovered = true;
+        }
+        if ((obj.bknown | 0) !== (otmp.bknown | 0)) {
+            otmp.bknown = 1;
+            if (game.urole?.mnum !== PM_CLERIC) discovered = true;
+        }
         // C: addinv_core0 added: → pickup_prev = 1
         otmp.pickup_prev = 1;
         if (otmp.oclass === COIN_CLASS || objectNames[otmp.otyp] === 'GOLD_PIECE') {
@@ -924,6 +927,7 @@ export async function addinv(obj) {
         const objLost = obj.how_lost ?? 0;
         const otmpLost = otmp.how_lost ?? 0;
         if (discovered
+            && (otmp.where === OBJ_INVENT)
             && objLost !== LOST_THROWN
             && otmpLost !== LOST_THROWN) {
             const { pline } = await import('./display.js');

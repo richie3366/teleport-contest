@@ -16,7 +16,8 @@ Objective/score live in `CURRENT.md`.
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0881 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0882 done.
+- Do not reorder `merged` ID reconcile before coin `bknown=0` (D-0882).
 - Do not omit dipfountain case 28 bath/`somegold` (D-0877).
 - Do not use PAPER=1/GLASS=11/WOOD=13 in shatter (D-0878).
 - Do not skip invent merge known/bknown/rknown compare (D-0879).
@@ -29,12 +30,13 @@ Objective/score live in `CURRENT.md`.
 - Do not skip `tmiss` on thitmonst else (D-0867).
 - Do not re-FORCE WEB/mfndpos omit (D-0861).
 - Do not expect mon_track_clear alone (#1006: !mflee).
-- gulpmu flush+vision_off pair required (#996); alone falsified.
 
 ## Landmarks (≤15)
 
-- suite **40/44** @#1030 Scr **9480**/11405 RNG **676373**/792838
-  (85.31%); next cadence @#1035.
+- suite **40/44** @#1035 Scr **9493**/11405 RNG **676373**/792838
+  (85.31%); next cadence @#1040.
+- **D-0882 #1035:** merged coin `bknown=0` before ID reconcile;
+  restored seed0007 PASS (D-0879 order bug).
 - **D-0881 #1034:** short_oname dip yn; Scr **624→633**.
 - **D-0880 #1033:** yn_function show_topl hard-wrap; Scr **623→624**.
 - **D-0879 #1032:** addinv merged compare-learn; Scr **621→623**.
@@ -48,5 +50,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0848:** `-DMAIL_STRUCTURES`; NUM_OBJECTS=481; SCR_MAIL=364.
 - **D-0858:** doattributes Hallu+Antimagic; seed0383 PASS.
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
-- Capital `H` = multi-step run; clear travel in `set_move_cmd`.
-- D-0486: `rogue_vision` on `Is_rogue_level` only.
