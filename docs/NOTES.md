@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#969:** D-0839 closed — `initedog` missing `set_malign` after
-  `mpeaceful=1`. Pet kill left JS record −12 (`rn2(4)`) vs C ≤−15
-  (`rn2(1)`). seed0383 RNG **FULL 16915**; Scr **146**/219.
-- **Next:** seed0383 **screen** peel (RNG matched). Hallu/display
-  glyph or cursor vs C after full PRNG parity.
+- **#970:** public score cadence — suite **38/44**; Scr **8948**/11405
+  (+2); RNG **666600**/792838 (84.08%, +5478 vs #965). Soaks
+  D-0837…D-0839. No port patch.
+- **Next:** seed0383 **screen** peel (RNG FULL 16915; Scr **146**/219;
+  cursors 205/219). First cell/cursor miss after matched PRNG.
 - **Hypothesis:** post-pet-kill / later Hallu map cells or status
   differ while core RNG stays locked.
 - **Falsify:** first mismatched screen frame cells/cursor vs C
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
-- suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
-  seed0383 RNG **FULL**; Scr **146**/219 (screen peel open).
+- suite **38/44** @#970 Scr **8948**/11405 RNG **666600**/792838;
+  seed0383 RNG **FULL**; Scr **146**/219 (screen peel next).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
