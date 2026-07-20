@@ -20,7 +20,10 @@ import {
 } from './mkobj.js';
 import { find_mac, make_corpse } from './mhitm.js';
 import { mon_explodes } from './explode.js';
-import { newsym, pline, mon_visible, see_with_infrared, You_feel, unmap_object, glyph_is_invisible } from './display.js';
+import {
+    newsym, pline, mon_visible, see_with_infrared, You_feel, unmap_object,
+    glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph,
+} from './display.js';
 import { doname, an, the, xname, makeplural, vtense } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
 import { dist2, distmin, m_at } from './mon.js';
@@ -62,6 +65,7 @@ import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_WEP, W_SWAPWEP,
     CORPSTAT_NONE, MM_NOCOUNTBIRTH, MM_NOMSG,
     ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at,
+    DISP_FLASH, DISP_END,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE,
     HVY_ENCUMBER, ECMD_OK, MON_DETACH,
 } from './const.js';
@@ -1054,12 +1058,13 @@ function sobj_at(otyp, x, y) {
 
 /**
  * C ref: trap.c launch_obj — roll/fly ammo from (x1,y1) toward (x2,y2).
- * Envelope: find otyp (BOULDER also tries otherside); extract/split; ROLL
- * path with hero dmgval+thitu and mon ohitmon/throws_rocks snatch; stop on
+ * Envelope: find otyp (BOULDER also tries otherside); extract/split;
+ * DISP_FLASH tmp_at + nh_delay_output while cansee (D-0890); ROLL path
+ * with hero dmgval+thitu and mon ohitmon/throws_rocks snatch; stop on
  * obstructed/tree/door; place at rest. Named omissions: LAUNCH_UNSEEN
- * bowling msgs; display-rng tmp_at flash; dig context clear; launch_drop_spot
- * bones; mid-roll landmine/telep/pit flooreffects; iron bars hits_bars;
- * boulder-on-boulder chain; ship_object down_gate; wake_nearto polish.
+ * bowling msgs; dig context clear; launch_drop_spot bones; mid-roll
+ * landmine/telep/pit flooreffects; iron bars hits_bars; boulder-on-boulder
+ * chain; ship_object down_gate; wake_nearto polish; curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
  */
 async function launch_obj(otyp, x1, y1, x2, y2, style) {
@@ -1087,11 +1092,17 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
     }
     newsym(x1, y1);
 
+    // C: ROLL|LAUNCH_KNOWN → otrapped; ROLL|LAUNCH_UNSEEN rumble deferred
+    let delaycnt = 1;
     if ((style & (ROLL | LAUNCH_KNOWN)) === (ROLL | LAUNCH_KNOWN)) {
         singleobj.otrapped = 1;
         style &= ~LAUNCH_KNOWN;
     }
-    // LAUNCH_UNSEEN rumble msgs deferred
+    if ((style & LAUNCH_UNSEEN) !== 0) {
+        // rumble / bowling msgs deferred
+        style &= ~LAUNCH_UNSEEN;
+    }
+    if ((style & ROLL) !== 0) delaycnt = 2;
 
     let dist = distmin(x1, y1, x2, y2);
     let x = x1;
@@ -1105,61 +1116,81 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
     let xRest = x2;
     let yRest = y2;
 
-    while (dist-- > 0 && !used_up) {
-        if (!isok(game.bhitpos.x + dx, game.bhitpos.y + dy)) {
-            xRest = x;
-            yRest = y;
-            break;
-        }
-        x = (game.bhitpos.x += dx);
-        y = (game.bhitpos.y += dy);
+    // C: tmp_at(DISP_FLASH, obj_to_glyph(...)); tmp_at(x,y) then roll loop
+    // with delay when cansee — flash still visible if ohitmon pline → more().
+    tmp_at(DISP_FLASH, obj_glyph(singleobj));
+    tmp_at(x, y);
 
-        const mtmp = m_at(x, y);
-        if (mtmp) {
-            if (otyp === BOULDER && throws_rocks(mtmp.data) && rn2(3)) {
-                if (cansee(x, y)) {
-                    await pline(`${Monnam(mtmp)} snatches the boulder.`);
-                }
-                singleobj.otrapped = 0;
-                mpickobj(mtmp, singleobj);
-                used_up = true;
-                break;
+    try {
+        while (dist-- > 0 && !used_up) {
+            // C: tmp_at at current, delay, then advance, then hit checks
+            tmp_at(x, y);
+            if (cansee(x, y)) {
+                let tmp = delaycnt;
+                while (tmp-- > 0) await nh_delay_output();
             }
-            if (await ohitmon(mtmp, singleobj, style === ROLL ? -1 : dist, false)) {
-                used_up = true;
-                break;
-            }
-        } else if (u_at(x, y)) {
-            let dam = dmgval(singleobj, game.youmonst || null);
-            if (game.multi) nomul(0);
-            const box = { obj: singleobj };
-            if (await thitu(9 + (singleobj.spe | 0), maybe_half_phys(dam), box, null)) {
-                await stop_occupation();
-            }
-            if (box.obj) singleobj = box.obj;
-            else {
-                used_up = true;
-                break;
-            }
-        }
 
-        // Mid-roll trap interactions (landmine/telep/pit) deferred
-        if (dist > 0 && isok(x + dx, y + dy)) {
-            const typ = game.level?.at?.(x + dx, y + dy)?.typ ?? 0;
-            if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {
+            if (!isok(game.bhitpos.x + dx, game.bhitpos.y + dy)) {
                 xRest = x;
                 yRest = y;
                 break;
             }
-            if (IS_DOOR(typ)) {
-                const loc = game.level.at(x + dx, y + dy);
-                const dm = loc?.doormask ?? loc?.flags ?? 0;
-                if ((dm & (D_CLOSED | D_LOCKED)) !== 0) {
-                    // C: boulder crashes through closed door — continue
-                    if (loc) loc.doormask = D_BROKEN;
+            x = (game.bhitpos.x += dx);
+            y = (game.bhitpos.y += dy);
+
+            const mtmp = m_at(x, y);
+            if (mtmp) {
+                if (otyp === BOULDER && throws_rocks(mtmp.data) && rn2(3)) {
+                    if (cansee(x, y)) {
+                        await pline(`${Monnam(mtmp)} snatches the boulder.`);
+                    }
+                    singleobj.otrapped = 0;
+                    mpickobj(mtmp, singleobj);
+                    used_up = true;
+                    break;
+                }
+                if (await ohitmon(
+                    mtmp, singleobj, (style & ROLL) !== 0 ? -1 : dist, false,
+                )) {
+                    used_up = true;
+                    break;
+                }
+            } else if (u_at(x, y)) {
+                const dam = dmgval(singleobj, game.youmonst || null);
+                if (game.multi) nomul(0);
+                const box = { obj: singleobj };
+                if (await thitu(
+                    9 + (singleobj.spe | 0), maybe_half_phys(dam), box, null,
+                )) {
+                    await stop_occupation();
+                }
+                if (box.obj) singleobj = box.obj;
+                else {
+                    used_up = true;
+                    break;
+                }
+            }
+
+            // Mid-roll trap interactions (landmine/telep/pit) deferred
+            if (dist > 0 && isok(x + dx, y + dy)) {
+                const typ = game.level?.at?.(x + dx, y + dy)?.typ ?? 0;
+                if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {
+                    xRest = x;
+                    yRest = y;
+                    break;
+                }
+                if (IS_DOOR(typ)) {
+                    const loc = game.level.at(x + dx, y + dy);
+                    const dm = loc?.doormask ?? loc?.flags ?? 0;
+                    if ((dm & (D_CLOSED | D_LOCKED)) !== 0) {
+                        // C: boulder crashes through closed door — continue
+                        if (loc) loc.doormask = D_BROKEN;
+                    }
                 }
             }
         }
+    } finally {
+        tmp_at(DISP_END, 0);
     }
 
     if (!used_up) {

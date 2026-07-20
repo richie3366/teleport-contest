@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0890 — launch_obj DISP_FLASH + pline dirty vision_recalc
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @560 — topline matched (`You stumble.  Click!
+  The gnome lord triggers something.--More--`); map missing mid-roll
+  boulder `` ` `` and newly unblocked LOS floors/walls SW of launch.
+- **C locus:** `trap.c` `launch_obj` — `tmp_at(DISP_FLASH, obj_to_glyph)`
+  + `nh_delay_output` while `cansee` before advance/ohitmon; `pline.c`
+  `vpline` — `if (vision_full_recalc) vision_recalc(0)` before
+  `flush_screen` (boulder extract sets dirty via `recalc_block_point`).
+- **Cause:** JS `launch_obj` omitted FLASH animation (ohitmon's hit pline
+  `--More--` left no boulder glyph); JS `pline` skipped dirty
+  `vision_recalc`, so LOS opened by extracting the blocking boulder was
+  not newsyem'd until a later message.
+- **Change:** `trap.js` `launch_obj` — C-order FLASH tmp_at + delaycnt=2
+  ROLL loop; `display.js` `pline` — vision_recalc when dirty before flush.
+  Named omit: LAUNCH_UNSEEN bowling msgs; mid-roll landmine/telep/pit;
+  hits_bars; curs_on_u; launch_drop_spot bones.
+- **Verify:** green+strict PASS; cohort 6/6 PASS (seed0014 FAIL);
+  seed0014 Scr **644→645**/714 (RNG FULL). @560 matches.
+- **Next:** @600 empty topline; JS `·` vs C `^` trap glyph @ (68,16).
+
 ## D-0889 — domove_swap_with_pet peaceful x_monnam adjective
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
