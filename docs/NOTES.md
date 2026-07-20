@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 Scr 676/714** — RNG FULL; D-0891 closed @600 HOLE `^`
-  (`maketrap` unhideable_trap). First miss @624 — topline JS
-  `You miss it.  It hits!` vs C `You begin bashing monsters with your
-  bare hands.  You miss it.--More--`. Falsifier: focused seed0014.
+- **seed0014 Scr 678/714** — RNG FULL; D-0892 closed @624 bare-hands
+  bash. First miss @631 — C `a black gem` vs JS `an orange gem`
+  (lookat / pile). Falsifier: focused seed0014.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0891 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0892 done.
+- Do not omit `do_attack` `gu.unweapon` begin-bashing (D-0892).
 - Do not force `tseen=false` on HOLE in `maketrap` (D-0891).
 - Do not omit launch_obj `tmp_at(DISP_FLASH)` / pline dirty vision (D-0890).
 - Do not omit peaceful adj / frighten verb on safemon swap (D-0889).
@@ -29,14 +29,14 @@ Objective/score live in `CURRENT.md`.
 - Do not `rloc(..., 0)` on seduce steal flee (D-0885 RLOC_MSG).
 - Do not reorder `merged` ID reconcile before coin `bknown=0` (D-0882).
 - Do not omit dipfountain case 28 bath/`somegold` (D-0877).
-- Do not use PAPER=1/GLASS=11/WOOD=13 in shatter (D-0878).
 
 ## Landmarks (≤15)
 
 - suite **40/44** @#1040 Scr **9504**/11405 RNG **676373**/792838
   (85.31%); next cadence @#1045.
-- **D-0891 #1042:** maketrap HOLE `unhideable_trap` tseen; Scr **645→676**;
-  @600 closed; next @624 bare-hands bash topline.
+- **D-0892 #1043:** do_attack unweapon bash; Scr **676→678**;
+  @624 closed; next @631 black vs orange gem.
+- **D-0891 #1042:** maketrap HOLE `unhideable_trap` tseen; Scr **645→676**.
 - **D-0890 #1041:** launch_obj FLASH + pline vision_recalc; Scr **644→645**.
 - **D-0889 #1040:** swap `x_monnam` peaceful adj; Scr **641→644**.
 - **D-0888 #1039:** cream pie `The(xname)`; Scr **640→641**.

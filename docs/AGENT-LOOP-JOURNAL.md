@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 20:45 — #1043 D-0892 do_attack unweapon bash
+- Objective: seed0014 @624 bare-hands begin-bashing topline.
+- C locus: `uhitm.c` `do_attack` `gu.unweapon` verbose pline.
+- Change: clear `game.gu.unweapon` + emit bash/strike bare|gloved msg.
+- Verification: green+strict PASS; cohort 17/17; seed0014 Scr **676→678**.
+- Next: @631 C `a black gem` vs JS `an orange gem`.
+
 ## 2026-07-20 20:40 — #1042 D-0891 maketrap HOLE unhideable_trap
 - Objective: seed0014 @600 trap `^` vs floor `·` (68,16).
 - C locus: `trap.h` `unhideable_trap`; `trap.c` `maketrap` tseen init.
@@ -169,14 +176,3 @@ Use this shape:
   38/38 PASS.
 - Next: @59074 C `exercise` `rn2(2)` vs JS `rn2(3)` after dipfountain;
   leaderboard cron.
-
-## 2026-07-20 18:45 — #1027 D-0875 minetn-3 Alley Town
-- Objective: seed0014 @52043 C nhlib shuffle `rn2(3)` vs JS `rn2(79)`.
-- C locus: `dat/minetn-3.lua` via `makemaz`/`load_special`; nhlib
-  `shuffle(align)`.
-- Change: port `load_minetn_3` + dispatch; `wand shop`→`WANDSHOP`.
-  Named omit: minetn-1/4/6/7.
-- Verification: green+strict PASS; seed0014 **52043→58462**; cohort
-  38/38 PASS.
-- Next: @58462 C `watch_on_duty` rn2(3) vs JS rn2(10); leaderboard cron.
-

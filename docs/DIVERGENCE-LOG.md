@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0892 — do_attack gu.unweapon begin-bashing pline
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @624 — C `You begin bashing monsters with your
+  bare hands.  You miss it.--More--` vs JS `You miss it.  It hits!`.
+- **C locus:** `uhitm.c` `do_attack` — after capacity/overexertion /
+  twoweapon gate, `if (gu.unweapon) { gu.unweapon=FALSE; verbose
+  You("begin bashing…") / bare|gloved hands }`.
+- **Cause:** JS `do_attack` never consumed `game.gu.unweapon` or emitted
+  the first-melee reminder (set by `setuwep(null)` after steal/unwield).
+- **Change:** port the `gu.unweapon` clear + verbose pline (uwep
+  `yname` / bare-or-gloved `ing_suffix(bash|strike)`). Named omit:
+  `untwoweapon` before the reminder; egg-useup re-arm of unweapon;
+  poly `body_part(HAND)` table.
+- **Verify:** green+strict PASS; cohort 17/17 PASS; seed0014 Scr
+  **676→678**/714 (RNG FULL). @624 matches.
+- **Next:** @631 C `a black gem` vs JS `an orange gem` (lookat pile).
+
 ## D-0891 — maketrap HOLE unhideable_trap tseen
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
