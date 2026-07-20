@@ -21,34 +21,33 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` suite (loop **#1000**).
-Screens **9011**/11405; RNG **666,643**/792838 (84.08%). **38/44** PASS.
-Δ vs #995: Scr **+13**, RNG **0**, PASS **0**. Speed `32+0.23/turn`.
-*(Scr +13 = seed0383 196→209 from #996–#999 D-0852…D-0855 peels;
-RNG flat; seed0383 still RNG FULL / Scr 209, first cell miss past @199.)*
+Score last measured: **2026-07-20** — full `sessions` suite (loop **#1000**),
+plus focused seed0383 **PASS** after D-0858 (#1003; Scr +2).
+Screens **9013**/11405 (est.); RNG **666,643**/792838 (84.08%). **39/44** PASS.
+Δ vs #1000: Scr **+2**, RNG **0**, PASS **+1** (seed0383). Speed pending #1005.
+*(Full-suite refresh due at loop #1005.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **38 / 44** |
-| Screens matched | **9,011 / 11,405** |
+| Sessions passing | **39 / 44** |
+| Screens matched | **9,013 / 11,405** (est. +2 vs #1000) |
 | Positional RNG calls matched | **666,643 / 792,838** (84.08%) |
-| Speed label | `32+0.23/turn` (R² 0.84) |
+| Speed label | `32+0.23/turn` (R² 0.84) — refresh #1005 |
 | Role-init throws | **0 / 44** |
 
-**PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (39):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360.
+seed0360, **seed0383**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **217**/219 | RNG FULL; Scr +6 vs #1001; miss @213 attrs |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10401/11409 | 113/532 | stuck ~@10157 D-0731 |
@@ -76,20 +75,17 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 217/219** — after D-0857 corner
-menu dismiss≠docrt (Scr +6; @210 Hallu OK). First miss @213 Ctrl-X
-attributes (missing hungry line → page shift @214). Wear/invis
-plines still deferred. Focused:
+**Gameplay next:** **seed0399 @10157** (D-0731 mfndpos) — after
+D-0858 seed0383 **PASS**. Alt: seed0014 @50259 (D-0708). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0383-wizard-hallucinate.session.json
+  sessions/seed0399-wizard-hallu-actions.session.json
 ```
 
-**Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
-seed0014 @50259 (D-0708 still open).
+**Parked gameplay:** seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0857. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0858. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -113,6 +109,7 @@ use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not drop D-0855 m_dowear_type nambuf Monnam/mon_nam.**
 **Do not drop D-0856 invent `obj_glyph` Hallu burns.**
 **Do not always-docrt corner NHW_MENU dismiss (D-0857; Scr−6).**
+**Do not drop doattributes Hallu Status / Antimagic Attributes (D-0858).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

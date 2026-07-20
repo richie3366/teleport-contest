@@ -7,19 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1002 D-0857:** corner menu dismiss = docorner (no Hallu `docrt`
-  burns). Scr **211→217**. @210 soldier `e` matches after `+/ESC`.
-- **Hypothesis:** @213 Ctrl-X attributes miss = missing enlightenment
-  hungry/uhs line → page `(2 of N)` vs C `(3 of N)` + @214 shift.
-  Falsifier: focused seed0383 @213 r23 + compare C attrs line list.
-- Wear/invis plines in `m_dowear_type` still deferred.
-- Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
+- **#1003 D-0858:** seed0383 **PASS** — Status Hallu + Antimagic attrs.
+  Hungry was already present; miss was `(1 of 2)` vs `(1 of 3)`.
+- **Next gameplay:** seed0399 @10157 (D-0731) or seed0014 @50259 (D-0708).
+- Wear/invis plines in `m_dowear_type` still deferred (not needed for 0383).
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0856 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0858 done.
 - **#977/@172:** dochug NOTHING/DONE Hallu newsym Scr−2 — superseded by
   D-0853 at @198 window (no Scr regression after #996).
 - **#979–#984:** +N / underfoot / dim-hack / kelp / flush-as-glyph —
@@ -30,16 +27,18 @@ Objective/score live in `CURRENT.md`.
 - **#991–#994:** gulpmu warn/vision_off alone falsified; #996 pair OK.
 - **#998:** fleeck→monflee Monnam at LCP 555 falsified (D-0854).
 - HI_METAL≡CLR_CYAN (6); Warning Hallu burn correct; EOT fmon ok.
-- seed5002/0360 **PASS**; D-0743…D-0856 peels done.
+- seed5002/0360 **PASS**; D-0743…D-0858 peels done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - C `~drn2` site tags inherit last **core** caller (stale for display).
+- Do not re-check invent omit-obj_glyph or always-docrt on corner menus.
+- Do not expect missing hungry line @213 — hunger was present (D-0858).
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#1000 Scr **9011**/11405 RNG **666643**/792838;
-  seed0383 RNG **FULL**; Scr **217**/219 after D-0857.
+  seed0383 local **PASS** after D-0858 (+2 Scr → **39**/44 pending #1005).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -50,5 +49,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0848:** objects extract `-DMAIL_STRUCTURES` → NUM_OBJECTS=481 /
   Hallu random_object dim 463; SCR_MAIL=364.
 - **D-0852 #996:** gulpmu flush_topl_more + Hallu vision_off together.
-- **D-0856 #1001:** invent Hallu obj_glyph; Scr 211.
-- **D-0857 #1002:** corner dismiss≠docrt; Scr 217; @213 attrs.
+- **D-0857 #1002:** corner dismiss≠docrt; Scr 217.
+- **D-0858 #1003:** doattributes Hallu+Antimagic; seed0383 PASS.

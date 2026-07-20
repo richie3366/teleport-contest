@@ -4,9 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0857 — partial: corner NHW_MENU dismiss = docorner not docrt
+## D-0858 — fixed: doattributes Hallucination + Antimagic
 
-- **Status:** partial (seed0383 Scr **211→217**; RNG FULL; first cell miss @213)
+- **Status:** fixed (seed0383 Scr **217→219** / **PASS**; RNG FULL)
+- **Symptom / context:** After D-0857, first miss @213: `(1 of 2)` vs C
+  `(1 of 3)`. Page 2 Status omitted `You are hallucinating.` and Attributes
+  omitted `You are magic-protected because of your gray dragon scale mail.`
+  (hungry line was already present — NOTES hypothesis wrong).
+- **Cause:** `status_core_lines` lacked Hallucination; `doattributes`
+  MAGIC Attributes skipped Antimagic before Fire (final `enlightenment`
+  path already had Antimagic).
+- **Fix:** `invent.js` — `hero_Hallucination` in `status_core_lines`;
+  `hero_Antimagic` + `from_what(ANTIMAGIC)` before Fire in `doattributes`.
+- **Verification:** seed0383 **PASS** 219/219 RNG FULL strict; green+strict;
+  cohort 38/38.
+- **Next:** seed0399 @10157 / seed0014 @50259; suite score refresh at #1005.
+
+## D-0857 — fixed: corner NHW_MENU dismiss = docorner not docrt
+
+- **Status:** fixed (seed0383 Scr **211→217**; RNG FULL; first cell miss @213
+  closed by D-0858)
 - **Symptom / context:** After D-0856, first miss @210: Hallu soldier `r`
   vs C `e` after `+`/ESC. Invent `i` was fullscreen (`offx==0` → C
   `docrt`); spell menu is corner (`offx!=0` → C `docorner` gbuf reprint).

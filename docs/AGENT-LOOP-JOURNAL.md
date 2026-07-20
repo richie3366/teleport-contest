@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 15:10 — #1003 doattributes Hallu+Antimagic (D-0858)
+- Objective: seed0383 Scr 217/219; first miss @213 Ctrl-X attrs.
+- C locus: insight.c status_enlightenment Hallucination;
+  attributes_enlightenment Antimagic before Fire.
+- Diagnosis: Status missing hallucinating; Attributes missing
+  magic-protected (GDSM); hungry already present → (1 of 2)≠(1 of 3).
+- Change: invent.js status_core_lines + doattributes Antimagic/from_what.
+- Verification: seed0383 **PASS** 219/219 RNG FULL strict; green+strict;
+  cohort 38/38.
+- Next: seed0399 @10157 (D-0731) or seed0014 @50259; score @#1005.
+
 ## 2026-07-20 15:05 — #1002 corner menu dismiss≠docrt (D-0857)
 - Objective: seed0383 Scr 211/219; first miss @210 after +/ESC.
 - C locus: wintty.c erase_menu_or_text — offx==0 docrt; else docorner.

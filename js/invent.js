@@ -93,7 +93,7 @@ import {
     TELEPORT_CONTROL,
     HALLUC_RES, SEARCHING, REFLECTING, LIFESAVED,
     FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
-    DISPLACED,
+    DISPLACED, ANTIMAGIC,
 } from './const.js';
 import { align_str, align_gname, u_gname, rank_of } from './roles.js';
 import {
@@ -1603,6 +1603,22 @@ function hero_Halluc_resistance(u = game.u || {}) {
         || (u.HHalluc_resistance | 0) || (u.EHalluc_resistance | 0));
 }
 
+/**
+ * C ref: youprop.h Hallucination — HHallucination && !Halluc_resistance
+ * (flat u.Hallucination mirror accepted). Local copy — do_name imports us.
+ */
+function hero_Hallucination(u = game.u || {}) {
+    if (u.Hallucination) return true;
+    return !!((u.HHallucination | 0) && !hero_Halluc_resistance(u));
+}
+
+/** C ref: youprop.h Antimagic — H || E via flat + uprops[ANTIMAGIC]. */
+function hero_Antimagic(u = game.u || {}) {
+    const e = u.uprops?.[ANTIMAGIC];
+    return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /** C ref: youprop.h Reflecting — H || E via uprops[REFLECTING]. */
 function hero_Reflecting(u = game.u || {}) {
     const e = u.uprops?.[REFLECTING];
@@ -1738,8 +1754,8 @@ function item_resistance_message_lines(adtyp, prot_message, final, o) {
 }
 
 /**
- * C ref: insight.c status_enlightenment — Deaf + Sleepy + hunger +
- * encumbrance subset (poly/ride/other troubles/weapon deferred to callers).
+ * C ref: insight.c status_enlightenment — Hallucination + Deaf + Sleepy +
+ * hunger + encumbrance subset (poly/ride/other troubles/weapon deferred).
  * Overlay (^X) lines need one extra leading space vs enlght_line.
  * @param {number} final
  * @param {{ overlay?: boolean, magic?: boolean }} opts
@@ -1756,6 +1772,9 @@ function status_core_lines(final = 0, opts = {}) {
         return overlay ? ` ${line}` : line;
     };
     const out = [];
+    // C: after Confusion — if (Hallucination) you_are("hallucinating", "");
+    // Stoned/Slimed/Strangled/Sick/Vomiting/Stunned/Confusion/Blind/… deferred.
+    if (hero_Hallucination()) out.push(wrap('hallucinating'));
     // C: if (Deaf) you_are("deaf", from_what(DEAF)); from_what wizard-only
     if (hero_Deaf()) out.push(wrap('deaf'));
     // C: if (Sleepy) if (magic || cause_known(SLEEPY))
@@ -2394,8 +2413,14 @@ export async function doattributes() {
                 'Your alignment ', 'is', ` ${record}`, '',
             )));
         }
-        // C attributes_enlightenment Resistances — Fire before Cold/…/Shock
-        // before Poison. Cold/Sleep/Disint/Acid/Drain/Sick/Stone deferred.
+        // C attributes_enlightenment Resistances — Antimagic before Fire/
+        // Cold/…/Shock/Poison. Invulnerable + Cold/Sleep/Disint/Acid/
+        // Drain/Sick/Stone deferred.
+        if (hero_Antimagic(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'magic-protected', from_what(ANTIMAGIC),
+            )));
+        }
         if (hero_Fire_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'fire resistant', from_what(FIRE_RES),
