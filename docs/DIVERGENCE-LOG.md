@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0857 — partial: corner NHW_MENU dismiss = docorner not docrt
+
+- **Status:** partial (seed0383 Scr **211→217**; RNG FULL; first cell miss @213)
+- **Symptom / context:** After D-0856, first miss @210: Hallu soldier `r`
+  vs C `e` after `+`/ESC. Invent `i` was fullscreen (`offx==0` → C
+  `docrt`); spell menu is corner (`offx!=0` → C `docorner` gbuf reprint).
+  JS always `docrt` on dismiss → extra Hallu display-RNG burns before
+  once-per-input `see_monsters`, desyncing the post-menu map.
+- **Cause:** `erase_menu_or_text` corner path omitted; always-docrt.
+- **Fix:** `invent.js` `dismiss_nhw_menu` — fullscreen/`!geom` → `docrt`;
+  corner → clear overlay + `flush_screen` from gbuf only. Wired from
+  `spell.js` `dospellmenu`, invent pickinv, `select_menu_pick_one`.
+- **Verification:** seed0383 Scr **217**/219 RNG FULL; @210 mon `e`
+  matches; green+strict PASS; cohort 15/15.
+- **Next:** @213–@214 Ctrl-X attributes (missing hungry line / page
+  shift); wear/invis plines still deferred.
+
 ## D-0856 — partial: invent Hallu obj_to_glyph display RNG
 
 - **Status:** partial (seed0383 Scr **209→211**; RNG FULL; first cell miss @210)

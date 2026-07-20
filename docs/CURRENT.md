@@ -48,7 +48,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | **16915**/16915 | **209**/219 | RNG FULL; Scr +13 vs #995; miss past @199 |
+| seed0383 | **16915**/16915 | **217**/219 | RNG FULL; Scr +6 vs #1001; miss @213 attrs |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10401/11409 | 113/532 | stuck ~@10157 D-0731 |
@@ -76,9 +76,10 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 Scr 211/219** — after D-0856 invent
-Hallu `obj_to_glyph` (Scr +2). First cell miss @210 after `+` spell
-ESC. Wear/invis plines still deferred. Focused:
+**Gameplay next:** **seed0383 Scr 217/219** — after D-0857 corner
+menu dismiss≠docrt (Scr +6; @210 Hallu OK). First miss @213 Ctrl-X
+attributes (missing hungry line → page shift @214). Wear/invis
+plines still deferred. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -88,7 +89,7 @@ node frozen/ps_test_runner.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731; mild −18 from D-0848) /
 seed0014 @50259 (D-0708 still open).
 
-**Do not re-break D-0660…D-0856. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0857. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not re-apply gulpmu flush_topl_more alone (D-0841; #996 pair OK).**
 **Do not restore dochug NOTHING/DONE Hallu newsym as a raw glyph hack
@@ -102,7 +103,8 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not stub `hliquid` as identity (D-0849).**
 **Do not drop tame `xkilled` `x_monnam(..., "poor", ...)` (D-0850).**
 **Do not re-add post-`docrt` `vision_recalc(0)` in `goto_level` (D-0851).**
-**Do not skip `select_menu_pick_one` `docrt` on picks (Scr−2; #988/#989).**
+**Do not skip `select_menu_pick_one` redraw on picks (Scr−2; #988/#989);
+use `dismiss_nhw_menu` (fullscreen docrt / corner gbuf-flush) — D-0857.**
 **Do not add Hallu `vision_off` in gulpmu alone (#993 Scr 174).**
 **Do not add gulpmu warn-only `~drn2(5)` burns alone (#994 Scr 174).**
 **Do not remove gulpmu flush+vision_off pair (#996 Scr+5).**
@@ -110,6 +112,7 @@ WIN_MESSAGE flush (#983 → RNG 11527).**
 **Do not expect distfleeck→monflee to fix LCP 555 (D-0854 falsified).**
 **Do not drop D-0855 m_dowear_type nambuf Monnam/mon_nam.**
 **Do not drop D-0856 invent `obj_glyph` Hallu burns.**
+**Do not always-docrt corner NHW_MENU dismiss (D-0857; Scr−6).**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 15:05 — #1002 corner menu dismiss≠docrt (D-0857)
+- Objective: seed0383 Scr 211/219; first miss @210 after +/ESC.
+- C locus: wintty.c erase_menu_or_text — offx==0 docrt; else docorner.
+- Diagnosis: invent fullscreen docrt OK; spell corner always-docrt
+  burned Hallu RNG before once-per-input see_monsters → mon r≠e.
+- Change: invent.js dismiss_nhw_menu; spell/invent/options wired.
+- Verification: Scr **217**/219 RNG FULL; @210 e; green+strict; 15/15.
+- Next: @213 Ctrl-X attributes (hungry line / page shift).
+
 ## 2026-07-20 14:55 — #1001 invent Hallu obj_to_glyph (D-0856)
 - Objective: seed0383 Scr 209/219; first miss past @199.
 - C locus: invent.c display_pickinv obj_to_glyph(otmp, rn2_on_display_rng).

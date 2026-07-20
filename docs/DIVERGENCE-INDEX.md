@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0856 | partial | invent display_pickinv Hallu obj_to_glyph | Scr 209→211; i/ESC map OK; @210 after + still open |
+| D-0857 | partial | corner NHW_MENU dismiss docorner≠docrt | Scr 211→217; @210 Hallu OK; @213 attrs open |
+| D-0856 | partial | invent display_pickinv Hallu obj_to_glyph | Scr 209→211; i/ESC map OK; superseded @210 by D-0857 |
 | D-0855 | partial | m_dowear_type nambuf Monnam/mon_nam | LCP 555 named: movemon I_SPECIAL m_dowear; Scr 201→209; @? open |
 | D-0854 | rejected | LCP 555 = fleeck→monflee Monnam | Falsified; true caller = m_dowear_type (D-0855) |
 | D-0853 | partial | dochug Hallu newsym NOTHING/DONE/NOMOVES | LCP 553→555; first cell miss 198→199; Scr still 201; @199 open |

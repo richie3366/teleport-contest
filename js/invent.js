@@ -559,6 +559,25 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
 }
 
 /**
+ * C ref: wintty.c erase_menu_or_text / tty_dismiss_nhwindow(NHW_MENU).
+ * Fullscreen (offx==0): docrt()+flush (Hallu see_monsters burns inside
+ * docrt). Corner (offx!=0): docorner ≡ reprint gbuf only — no newsym /
+ * display-RNG burns; once-per-input Hallu see_monsters refreshes next.
+ */
+export async function dismiss_nhw_menu() {
+    const g = game._tty_menu_geom;
+    game._menu_overlay = false;
+    game._tty_menu_geom = null;
+    // Missing geom (paint_overlay fullscreen without geom) → treat as
+    // offx==0 (C fullscreen erase_menu_or_text → docrt).
+    if (!g || g.offx === 0) {
+        await docrt();
+    }
+    // Corner: skip docrt; flush_screen rebuilds the terminal from gbuf.
+    await flush_screen(1);
+}
+
+/**
  * C ref: wintty.c tty_end_menu + process_menu_window select_menu(PICK_NONE).
  * entries already include prompt/blank/items (as after tty_end_menu).
  * Pages at lmax = rows-1 (23); ESC/Return dismiss; Space next page or done.
@@ -974,6 +993,7 @@ export async function display_pickinv_reply(lets) {
                 withStatus: false,
                 cursor: [morestr.length + 1, page.length],
             });
+            game._tty_menu_geom = { offx: 0, endRow: page.length };
         } else {
             await paint_corner_nhw_menu(entries, morestr);
         }
@@ -981,9 +1001,7 @@ export async function display_pickinv_reply(lets) {
         const key = await nhgetch();
 
         if (key === 27) {
-            game._menu_overlay = false;
-            await docrt();
-            await flush_screen(1);
+            await dismiss_nhw_menu();
             return '\x1b';
         }
         // C: Space → next page, or finish (no pick) on last page
@@ -992,15 +1010,11 @@ export async function display_pickinv_reply(lets) {
                 curr_page++;
                 continue;
             }
-            game._menu_overlay = false;
-            await docrt();
-            await flush_screen(1);
+            await dismiss_nhw_menu();
             return null;
         }
         if (key === 13 || key === 10) {
-            game._menu_overlay = false;
-            await docrt();
-            await flush_screen(1);
+            await dismiss_nhw_menu();
             return null;
         }
         const ch = String.fromCharCode(key);
@@ -1011,15 +1025,11 @@ export async function display_pickinv_reply(lets) {
                 return t.length >= 3 && t[1] === ' ' && t[0] === ch;
             });
             if (onPage && byLet.has(ch)) {
-                game._menu_overlay = false;
-                await docrt();
-                await flush_screen(1);
+                await dismiss_nhw_menu();
                 return ch;
             }
         } else if (byLet.has(ch)) {
-            game._menu_overlay = false;
-            await docrt();
-            await flush_screen(1);
+            await dismiss_nhw_menu();
             return ch;
         }
         // invalid / other-page letter → re-prompt same page
@@ -1074,9 +1084,9 @@ export async function display_inventory() {
     }
     await flush_screen(1);
     await nhgetch(); // dismiss (Esc / space)
-    clear_overlay();
-    await docrt();
-    await flush_screen(1);
+    // Fullscreen invent sets no corner geom — dismiss → docrt (C).
+    if (fullscreen) game._tty_menu_geom = { offx: 0, endRow: menuItems.length };
+    await dismiss_nhw_menu();
 }
 
 /**
