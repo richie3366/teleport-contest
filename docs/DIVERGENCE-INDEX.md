@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0887 | fixed | could_seduce hitmm/missmm + mhitu hitmsg | seed0014 Scr **638→640**; next @505 cream pie The |
 | D-0886 | fixed | rloc appear + dochug flee RLOC_MSG | seed0014 Scr **636→638**; next @457 SSEX |
 | D-0885 | fixed | teleport rloc RLOC_MSG vanish | seed0014 Scr **635→636**; @424 More via D-0886 |
 | D-0884 | fixed | steal worn_item_removal on→from + nymph She | seed0014 Scr **634→635**; @417 vanish D-0885 |

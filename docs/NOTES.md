@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0014 Scr 638/714** — RNG FULL; D-0886 closed @424 fountain
-  More via flee-rloc appear. Next: @457 C `smiles … engagingly` /
-  pretends friendly vs JS hits/misses (SSEX / mhitm).
+- **seed0014 Scr 640/714** — RNG FULL; D-0887 closed @457–458 nymph
+  smile/pretend via `could_seduce` hitmm/missmm. Next: @505 C
+  `The cream pie splashes…` vs JS `Cream pie…` (thrown pie article).
   Falsifier: focused seed0014.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0886 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0887 done.
+- Do not omit `could_seduce` in hitmm/missmm/hitmsg/missmu (D-0887).
 - Do not `rloc(..., 0)` / skip await on dochug flee-teleport (D-0886).
 - Do not omit rloc post-place appear/close-by (D-0886).
 - Do not call `find_ac` from delay-0 `armoroff` (D-0883).
@@ -29,12 +30,12 @@ Objective/score live in `CURRENT.md`.
 - Do not paint yn prompts unwrapped / `setCursor(len,0)` (D-0880).
 - Do not use raw `doname` for `#dip` fountain yn (D-0881 short_oname).
 - Do not omit `watch_on_duty` / `has_town` (D-0876).
-- Do not omit minetn-3 load_special (D-0875).
 
 ## Landmarks (≤15)
 
 - suite **40/44** @#1035 Scr **9493**/11405 RNG **676373**/792838
   (85.31%); next cadence @#1040.
+- **D-0887 #1038:** could_seduce hitmm/missmm; Scr **638→640**.
 - **D-0886 #1037:** dochug flee `RLOC_MSG` + rloc appear; Scr **636→638**.
 - **D-0885 #1036:** rloc RLOC_MSG vanish; Scr **635→636**.
 - **D-0884 #1036:** steal on→from + nymph She; Scr **634→635**.
@@ -49,4 +50,3 @@ Objective/score live in `CURRENT.md`.
 - `#wizintrinsic` → `make_hallucinated` (D-0835).
 - **D-0848:** `-DMAIL_STRUCTURES`; NUM_OBJECTS=481; SCR_MAIL=364.
 - **D-0858:** doattributes Hallu+Antimagic; seed0383 PASS.
-- Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).

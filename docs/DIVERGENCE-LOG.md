@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0887 — could_seduce hitmm/missmm + mhitu hitmsg arms
+
+- **Status:** fixed (partial — seed0014 still FAIL on later screens)
+- **Symptom:** seed0014 @457 — C `The water nymph smiles at the little
+  dog engagingly.--More--` / @458 `pretends to be friendly to the
+  little dog` vs JS `hits` / `misses` (pet vs nymph mattackm).
+- **C locus:** `mhitu.c` `could_seduce`; `mhitm.c` `hitmm`/`missmm`;
+  `mhitu.c` `hitmsg`/`missmu`/`wildmiss`.
+- **Cause:** JS `hitmm`/`missmm` (and mhitu hitmsg/missmu) omitted the
+  `could_seduce` smile/talk/pretend arms; nymph AD_SITM/AD_SEDU used
+  plain hits/misses.
+- **Change:** port `could_seduce` (+`mon_nam_too` self arm) in
+  `mhitm.js`; wire hitmm/missmm; export into mhitu hitmsg/missmu/
+  wildmiss. Named omit: shade_miss; AT_TENT/HUGS/silver sear;
+  doseduce; Hallu pronoun.
+- **Verify:** green+strict PASS; cohort 15/15 PASS; seed0014 Scr
+  **638→640**/714 (RNG FULL). First miss @505 cream pie `The `.
+- **Next:** @505 C `The cream pie splashes…` vs JS bare `Cream pie…`.
+
 ## D-0886 — rloc appear pline + dochug flee RLOC_MSG
 
 - **Status:** fixed (partial — seed0014 still FAIL on later screens)
