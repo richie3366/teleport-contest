@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0830 | rejected | post-swallow mcalcmove/MSLOW/minliquid | same +12/ROOM; not @10374; next mcanmove/sleep C-state |
 | D-0829 | rejected | makemon 165/108 fmon creation order | same spawn+mcalcmove; not @10374; C skips gnome dochug |
 | D-0828 | fixed | mondead keep-on-fmon + dmonsfree | C m_detach/dmonsfree; seed0383 still @10374; green+cohort OK |
 | D-0827 | fixed | mattacku uswallow-only-ustuck early-out | C arm ported; seed0383 still @10374; RNG matched 10724→10762 |

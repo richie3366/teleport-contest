@@ -74,11 +74,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10374** — hero swallowed by ice-vortex;
-after EE fleeck×2, C vortex `mattacku` (`AC_VALUE`/`rnd(2)`); JS
-gnome@46,2 fleeck×2 then vortex. **#953 falsified** makemon
-creation/reorder (same spawn + `mcalcmove` +12). Next: why C skips
-gnome `dochug` with no RNG (pre-dochug gate / C-state).
+**Gameplay next:** **seed0383 @10374** — after EE fleeck×2, C vortex
+fleeck×1 + `mattacku`; JS gnome fleeck×2 (10373 value coincidental).
+**#954 falsified** post-swallow `mcalcmove`/MSLOW/minliquid (gnome
+still +12, typ=ROOM). Next: C pre-fleeck state gate (`mcanmove` /
+sleep / dead) JS lacks — needs C-state or missing freeze/sleep path.
 Focused:
 
 ```bash

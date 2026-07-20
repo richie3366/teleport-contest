@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 04:22 — #954 D-0830 falsify mcalcmove/MSLOW/minliquid
+- Objective: seed0383 @10374 — why C skips gnome before vortex mattacku.
+- C locus: `mon.c` movemon_singlemon / `allmain.c` mcalcmove; `monmove.c` dochug.
+- Change: none (DIAG removed). Falsified post-swallow allotment:
+  same 35×rn2(12); gnome +12 spd=0 typ=ROOM; 10373 match coincidental
+  (JS gnome fleeck vs C vortex fleeck). Refined: C pre-fleeck state gate.
+- Verification: green+strict PASS; seed0383 still @10374 Scr 142.
+- Next: C-state mcanmove/msleeping/DEAD for gnome@46,2 after EE.
+
 ## 2026-07-20 04:11 — #953 falsify makemon 165/108 order
 - Objective: seed0383 @10374 — EE→gnome vs EE→vortex fleeck order.
 - C locus: `makemon.c` fmon head-insert; `mon.c` movemon_singlemon.

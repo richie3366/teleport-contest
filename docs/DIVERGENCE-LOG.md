@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0830 — rejected: post-swallow mcalcmove / MSLOW / minliquid (@10374)
+
+- **Status:** rejected (not the @10374 cause)
+- **Symptom:** seed0383 @10374 — after EE fleeck×2, C vortex
+  fleeck×1 + `mattacku` vs JS gnome@46,2 fleeck×2. Matched
+  `rn2(5)=4` at 10373 is coincidental (different monsters).
+- **Hypothesis:** C gnome lacks movement (MSLOW / bad `mcalcmove`
+  slot / minliquid spend) so vortex acts next.
+- **Falsifier (#954):** post-swallow EOT has 35×`rn2(12)` matching C;
+  gnome slot `rn2(12)=5` → +12 with `mspeed=0` (MSLOW would yield 0);
+  typ=ROOM; stacks show EE then gnome then vortex on JS. C still
+  skips gnome with no fleeck.
+- **Next:** pre-fleeck `!mcanmove` / `msleeping` / WAITMASK / DEAD
+  after movement spend (or C-state dump of those flags).
+
 ## D-0829 — rejected: makemon gnome/vortex creation order (@10374)
 
 - **Status:** rejected (not the @10374 cause)
