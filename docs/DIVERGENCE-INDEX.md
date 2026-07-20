@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0914 | fixed | mk_knox_portal place under wizard/debug | seed4500 **50844→52643** RNG **52967** Scr **608**; next @52643 distfleeck |
 | D-0913 | fixed | cmd `x` → doswapweapon + setworn twoweap clear | seed4500 **50338→50844** RNG **50936** Scr **594**; next @50844 mkshop |
 | D-0912 | fixed | #turn / doturn chant + exercise(A_WIS) | seed4500 **50290→50338** RNG **50401** Scr **594**; next @50338 distfleeck |
 | D-0911 | fixed | extract ox/oy + rottenfood + HDeaf timeout | seed4500 **50111→50290** Scr **499→596** RNG **50469**; next @50290 exercise |

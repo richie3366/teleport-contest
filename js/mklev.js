@@ -107,7 +107,9 @@ import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst, oname } from './do_name.js';
 import { makeroguerooms, makerogueghost } from './extralev.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
-import { find_level } from './dungeon.js';
+import {
+    find_level, dungeon_branch, at_dgn_entrance, insert_branch,
+} from './dungeon.js';
 import { premap_detect } from './detect.js';
 import { create_gas_cloud, clear_regions } from './region.js';
 import { ndemon } from './minion.js';
@@ -14673,24 +14675,54 @@ function fill_zoo(sroom) {
 }
 
 /**
- * C ref: mklev.c mk_knox_portal() — usually defers; burns rn2(3).
+ * C ref: mklev.c mk_knox_portal — float Fort Ludios portal onto a vault
+ * level. Burns rn2(3) when not already placed and not Is_branchlev.
+ * With wizard/debug (`flags.debug`), the deferral roll does not early-return
+ * so depth-eligible levels assign end1 and place_branch (D-0914).
  */
-function mk_knox_portal(_x, _y) {
+function mk_knox_portal(x, y) {
     const g = game;
+    let br;
+    try {
+        br = dungeon_branch('Fort Ludios');
+    } catch {
+        return; // C panics; soft-skip if data missing
+    }
     const knox = g.knox_level;
-    const br = (g.branches || []).find(b =>
-        knox && b.end2
-        && b.end2.dnum === knox.dnum
-        && b.end2.dlevel === knox.dlevel);
-    if (!br) return; // C panics; soft-skip if data missing
-    // C: if (on_level(knox, end1)) source=end2; else source=end1
-    // end1 is sentinel (dnum==n_dgns), so source = end1
-    if (is_branchlev()) return;
-    const source = br.end1;
-    // Already set or 2/3 chance of deferring until a later level
-    if (source.dnum < g.n_dgns || (rn2(3) && !g.flags?.debug))
+    // C: wizard ≡ flags.debug (flag.h)
+    const wizard = !!(g.flags?.debug || g.flags?.wizard);
+
+    let source;
+    if (knox && br.end1
+        && (br.end1.dnum | 0) === (knox.dnum | 0)
+        && (br.end1.dlevel | 0) === (knox.dlevel | 0)) {
+        source = br.end2;
+    } else {
+        /* disallow Knox branch on a level with one branch already */
+        if (is_branchlev()) return;
+        source = br.end1;
+    }
+    if (!source) return;
+
+    /* Already set or 2/3 chance of deferring until a later level. */
+    if ((source.dnum | 0) < (g.n_dgns | 0) || (rn2(3) && !wizard))
         return;
-    // Placement only when deep in main dungeon — not reached on Tourist dlvl1
+
+    const uz = g.u?.uz;
+    const oracle = g.oracle_level;
+    const u_depth = depth_of_level(uz);
+    if (!(uz && oracle
+        && (uz.dnum | 0) === (oracle.dnum | 0)
+        && !at_dgn_entrance('The Quest')
+        && u_depth > 10
+        && u_depth < depth_of_level(g.medusa_level)))
+        return;
+
+    /* Adjust source to be current level and re-insert branch. */
+    source.dnum = uz.dnum | 0;
+    source.dlevel = uz.dlevel | 0;
+    insert_branch(br, true);
+    place_branch(br, x, y);
 }
 
 // C ref: mklev.c makerooms()

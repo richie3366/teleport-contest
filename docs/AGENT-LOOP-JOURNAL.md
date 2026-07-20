@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-20 23:32 — #1064 D-0914 mk_knox_portal place (wizard)
+- Objective: seed4500 @50844 C `mkshop` `rnd(100)` vs JS `rn2(7)`
+- C locus: `mklev.c` `mk_knox_portal`; `dungeon.c` `insert_branch`
+- Change: under `playmode:debug`/`wizard`, C still burns `rn2(3)` but
+  does not defer — depth-eligible vaults assign Ludios `end1` +
+  `place_branch`. JS stub burned RNG then left portal floating, so
+  later vaults re-burned `rn2(3)` and shifted shop gate. Named omit:
+  non-debug deferral already matched; portal dest polish.
+- Verification: prefix **50844→52643** RNG **52967** Scr **608**;
+  green+strict PASS; cohort 10/10 PASS.
+- Next: @52643 C `distfleeck` `rn2(5)` vs JS `rn2(1)`.
+
 ## 2026-07-20 23:18 — #1063 D-0913 `x`/doswapweapon
 - Objective: seed4500 @50338 C `distfleeck` `rn2(5)` vs JS `rn2(3)`
 - C locus: `cmd.c` `'x'`→`doswapweapon`; `worn.c` `setworn` twoweap clear
@@ -174,14 +186,3 @@ Use this shape:
   **8491→8925** Scr **264→284**; green+strict; cohort 7/7.
 - Next: seed4500 @8925 nhlib shuffle; leaderboard cron; cadence @#1055.
 
-## 2026-07-20 21:20 — #1049 D-0899 #jump dojump/jump
-- Objective: seed4500 knight coverage (prefix 2869 mfndpos arity).
-- C locus: `apply.c` `dojump`/`jump`/`is_valid_jump_pos`/`check_jump`;
-  `dothrow.c` `walk_path`; `getpos.c` getvalid.
-- Change: port physical `#jump` + knight chess dist; walk_path;
-  getpos_getvalid `(invalid target)`. Named omit: SPE_JUMPING;
-  hurtle_step; S_goodpos hilite glyphs; steed/trap-escape.
-- Verification: green+strict PASS; cohort 7/7; seed4500 prefix
-  **2869→8491** Scr **19→264**.
-- Next: seed4500 @8491 `next_ident` vs `rn2(12)`; leaderboard cron;
-  cadence @#1050.

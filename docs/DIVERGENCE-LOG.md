@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0914 — mk_knox_portal place under wizard/debug (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later; non-wizard
+  deferral path already matched; portal dest / insert_branch polish
+  deferred)
+- **Session:** seed4500-knight-coverage @50844
+- **Symptom:** after matched vault gold + next_ident, C `makevtele`
+  then `mkshop` `rnd(100)`; JS burned extra `rn2(3)` in
+  `mk_knox_portal` then `makevtele` ran (value 0) → makeniche
+  `rn2(7)` vs C shop pick.
+- **Cause:** seed4500 uses `playmode:debug`. C `wizard` still evaluates
+  `rn2(3)` but `(rn2(3) && !wizard)` is false, so depth-eligible vaults
+  assign Ludios `end1` and `place_branch`. JS stub returned after the
+  roll without placing, leaving the portal floating so later non-branch
+  vaults re-burned `rn2(3)` and shifted the shop gate.
+- **C locus:** `mklev.c` `mk_knox_portal`; `dungeon.c` `insert_branch` /
+  `dungeon_branch` / `at_dgn_entrance`.
+- **Fix:** port placement body (depth/quest-entrance gates, mutate
+  `end1`, `insert_branch`, `place_branch`); export `insert_branch`.
+- **Verification:** seed4500 prefix **50844→52643** RNG **52967**
+  Scr **608**; green+strict PASS; cohort 10/10 PASS.
+- **Next:** @52643 C `distfleeck` `rn2(5)` vs JS `rn2(1)`.
+
 ## D-0913 — cmd `x` → doswapweapon + setworn twoweap clear (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later; cantwield
