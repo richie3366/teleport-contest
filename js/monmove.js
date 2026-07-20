@@ -78,7 +78,7 @@ import { m_canseeu } from './mondata.js';
 import { rloc, tele_restrict } from './teleport.js';
 import { quest_talk, quest_stat_check } from './quest.js';
 import { stairway_at, u_on_newpos } from './mklev.js';
-import { create_gas_cloud, visible_region_at } from './region.js';
+import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
 import { check_gear_next_turn } from './worn.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
@@ -1252,14 +1252,6 @@ async function m_move_aggress(mtmp, x, y) {
     return MMOVE_DONE;
 }
 
-/**
- * C ref: region.c m_in_out_region — can_enter/leave callbacks.
- * Named: always allow until region callbacks are ported (gas clouds have none).
- */
-function m_in_out_region(_mon, _x, _y) {
-    return true;
-}
-
 // C ref: monmove.c m_move() — pets → postmov(dog_move); else approach / track path
 export async function m_move(mtmp, after) {
     // ptr / can_* set after mintrap (C: mintrap can change mtmp->data;
@@ -1630,7 +1622,6 @@ export async function dochug(mtmp) {
 
     set_apparxy(mtmp);
     let { inrange, nearby, scared } = distfleeck(mtmp);
-
 
     // C: find_defensive / find_misc before movement phase
     if (find_defensive(mtmp, false)) {

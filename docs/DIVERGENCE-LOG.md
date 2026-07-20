@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0834 — fixed: fog vapor TTL refresh + region mon tracking
+
+- **Status:** fixed
+- **Symptom:** seed0383 @10646 — after three matched fleeck `rn2(5)`, C
+  continues `distfleeck` then `mattacku`; JS `rn2(3)` via `rn1` in
+  `create_gas_cloud`.
+- **Cause:** fog m_id=154 @68,3 (`mov=0`) ran `m_everyturn_effect` with
+  `visible_region_at` empty. C's `inside_gas_cloud` bumps vapor `ttl += 5`
+  when a fog is on the region's mon list (`run_regions`), so C skips recreate.
+  JS never tracked `reg.monsters` / never ran that callback → vapor expired
+  → extra `rn1(3,4)`.
+- **Fix:** `js/region.js` — `add_region` m_at scan into `monsters[]`;
+  `run_regions` fog TTL refresh; export `m_in_out_region`. Wire
+  `js/monmove.js` to real `m_in_out_region`. Named omissions: dam>0
+  inside_f damage/plines; can_enter/leave callbacks; `update_monster_region`
+  on teleport; attach_2_m/u.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383 prefix
+  **10646→10843** (Scr still 142; cursors 172→181). Next @10843 C
+  `exercise` `rn2(2)` vs JS `wipe_engr` `rn2(82)`.
+
 ## D-0833 — fixed: domove swallowed attack + attack_checks engulfing_u
 
 - **Status:** fixed

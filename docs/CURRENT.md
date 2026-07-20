@@ -47,7 +47,7 @@ seed0360.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0383 | 11398/16915 | **142**/219 | prefix **10646** — C fleeck rn2(5) vs JS rn2(3) |
+| seed0383 | 11054/16915 | **142**/219 | prefix **10843** — C exercise rn2(2) vs JS wipe_engr |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0014 | 50419/59178 | 580/714 | prefix @50259 |
 | seed0399 | 10389/11409 | 113/532 | stuck @10157 D-0731 |
@@ -75,9 +75,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10646** — after D-0833 swallowed melee
-(`overexertion`/`hitum`), prefix past 10608; next C `distfleeck`
-`rn2(5)` vs JS `rn2(3)` (likely extra want_move branch). Focused:
+**Gameplay next:** **seed0383 @10843** — after D-0834 fog vapor TTL
+refresh, prefix past 10646; next C `exercise` `rn2(2)` vs JS
+`wipe_engr` `rn2(82)` (hero metabolism vs mon dochug site-shift). Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -89,7 +89,7 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0833. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0834. Do not FORCE CLOSE/movement/umov.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
