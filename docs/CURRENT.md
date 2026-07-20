@@ -74,10 +74,11 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @10374** — after D-0828 `dmonsfree`
-(not the fleeck cause): C engulfer `mattacku` (`AC_VALUE` rnd) while JS
-gnome fleeck×2 then vortex. JS fmon has EE→gnome@46,2→vortex; C likely
-vortex before that gnome. Next: earlier makemon/reorder desync.
+**Gameplay next:** **seed0383 @10374** — hero swallowed by ice-vortex;
+after EE fleeck×2, C vortex `mattacku` (`AC_VALUE`/`rnd(2)`); JS
+gnome@46,2 fleeck×2 then vortex. **#953 falsified** makemon
+creation/reorder (same spawn + `mcalcmove` +12). Next: why C skips
+gnome `dochug` with no RNG (pre-dochug gate / C-state).
 Focused:
 
 ```bash

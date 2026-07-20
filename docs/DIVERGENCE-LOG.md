@@ -4,6 +4,20 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0829 — rejected: makemon gnome/vortex creation order (@10374)
+
+- **Status:** rejected (not the @10374 cause)
+- **Symptom:** seed0383 @10374 — after EE fleeck×2, C vortex
+  `mattacku` vs JS gnome@46,2 fleeck×2.
+- **Hypothesis:** C fmon has ice-vortex before gnome due to earlier
+  makemon/unshift order desync.
+- **Falsifier (#953):** DIAG spawn timestamps match C RNG annotations
+  (vortex@6186, gnome2@6404, EE@6635); head order EE→gnome→vortex.
+  EOT `mcalcmove` same list slot gives gnome `+12`. Gnome hp=3/3
+  (spawn HP; never damaged). Live fmon still EE→gnome→vortex when EE
+  acts. Creation/reorder is not why C skips the gnome.
+- **Next:** pre-`dochug` skip gate (no RNG) or C-state at the pass.
+
 ## D-0828 — mondead keep-on-fmon + dmonsfree (seed0383 @10374)
 
 - **Status:** fixed (partial — @10374 still open; not the fleeck cause)

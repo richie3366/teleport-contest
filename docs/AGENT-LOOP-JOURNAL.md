@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 04:11 — #953 falsify makemon 165/108 order
+- Objective: seed0383 @10374 — EE→gnome vs EE→vortex fleeck order.
+- C locus: `makemon.c` fmon head-insert; `mon.c` movemon_singlemon.
+- Change: none (DIAG only, removed). Falsified creation/reorder desync:
+  same spawn RNG + EOT mcalcmove gnome +12; hp 3/3. Refined: C skips
+  gnome dochug with no RNG before vortex mattacku.
+- Verification: green+strict PASS; seed0383 still @10374 Scr 142.
+- Next: pre-dochug skip gate for gnome@46,2 (or C-state dump).
+
 ## 2026-07-20 04:05 — #952 D-0828 dmonsfree / mondead keep-fmon
 - Objective: seed0383 @10374 — mid-pass gnome skip vs fleeck order.
 - C locus: `mon.c` `m_detach` + `dmonsfree`.

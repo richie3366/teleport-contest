@@ -7,25 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#952 D-0828:** `mondead` no longer splices `fmon`; `dmonsfree` at
-  end of `movemon` (C `m_detach` / `dmonsfree`). Correct fidelity;
-  does **not** move seed0383 @10374 (no dead mon between EE and vortex
-  in the live list at mismatch).
-- **Falsified (#952):** mid-pass waitmask/`!mcanmove`/minliquid skip —
-  JS gnome@46,2 acts with mcanmove=1 strat=0 mov=12; fleeck×2.
-- **Falsified:** dead-mon-between-EE-vortex as @10374 cause (fmon at
-  EE act: …156,165@46,2,108… all hp>0).
-- **Confirmed:** C `rnd(2)` @10374 is `AC_VALUE(u.uac)` inside
-  engulfer `mattacku` (uac≈−2), not a separate roll. After EE fleeck×2,
-  C’s next call is vortex `mattacku`; JS gnome fleeck×2 then vortex.
-- **Hypothesis next:** C `fmon` order has ice-vortex **before**
-  gnome@46,2 (EE → vortex `mattacku` → later gnome fleeck). JS has
-  gnome before vortex. Find earlier creation/reorder desync
-  (makemon unshift order / prior kill placement).
-- **Falsify:** DIAG makemon/unshift timestamps for 165 vs 108; or C
-  state capture of nmon links at the pass.
-- **Don't:** FORCE CLOSE/mov/umov; leave DIAG; invent screen queues;
-  re-break D-0822…D-0828; stub AT_ENGL again.
+- **#953:** seed0383 @10374 — hero swallowed by ice-vortex (108);
+  uac=−2. After EE(156) fleeck×2, C does vortex fleeck×1 + `mattacku`
+  (`AC_VALUE`/`rnd(2)`); JS gnome(165)@46,2 fleeck×2 then vortex.
+- **Falsified (#953):** makemon creation/reorder desync for 165 vs 108.
+  Same spawn RNG (vortex@6186, gnome2@6404, EE@6635); head-insert
+  order EE→gnome@47,2→vortex in both. EOT `mcalcmove` same slot: gnome
+  `+12` (base mmove 6). Gnome hp=3/3 never damaged (not a near-kill).
+- **Confirmed:** live fmon still EE→gnome@46,2→vortex when EE acts;
+  gnome can=1 strat=0 sleep=0 typ=ROOM; `uswallow` early `m_move`
+  return already ported. C must skip gnome’s `dochug` with **no RNG**
+  between EE’s 2nd fleeck and vortex’s 1st.
+- **Hypothesis next:** pre-`dochug` skip gate C hits, JS misses —
+  `minliquid` / `helpless` / `mcanmove` / hider / `fightm` / covetous
+  early-out — or C-state shows gnome absent/dead despite matched
+  `mcalcmove` count (membership≠order).
+- **Falsify:** DIAG `movemon_singlemon` return path for mndx 165 at
+  rng≈10373; or C nmon dump at that pass.
+- **Don't:** FORCE CLOSE/mov; leave DIAG; re-break D-0822…D-0828;
+  assume fmon creation-order flip.
 
 ## Don't re-check (≤15)
 
@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0828 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0828 peels done.
-- EOT fmon `156,165,108` mcalcmove signature matches (#951) — not the
-  mid-pass order proof for vortex vs gnome.
+- EOT fmon `156,165,108` mcalcmove signature matches (#951).
+- **#953:** spawn order / unshift timestamps 165 vs 108 — not @10374.
 - D-0770 flyers / poisoncloud; WAITMASK; Wizard ldrnum; makemon mux=0.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 - HASTE_SELF (D-0796); ok_to_quest (D-0798); can_fog (D-0799).
