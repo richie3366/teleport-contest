@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-20** — full `sessions` @**#1065** (42/44,
-Scr **10198**/11405, RNG **93.02%**). Next cadence @**#1070**. #1069
-D-0918: seed4500 **55990→61462** (`drag_down`/`ballrelease`).
+Score last measured: **2026-07-20** — full `sessions` @**#1070** (42/44,
+Scr **10233**/11405, RNG **94.13%**) after D-0919. Next cadence @**#1075**.
+#1070 D-0919: seed4500 **61462→61689** (`nh_timeout` FAST TIMEOUT).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,198 / 11,405** |
-| Positional RNG calls matched | **737,530 / 792,838** (93.02%) |
-| Speed label | `33+0.25/turn` (R² 0.82) |
+| Screens matched | **10,233 / 11,405** |
+| Positional RNG calls matched | **746,329 / 792,838** (94.13%) |
+| Speed label | `32+0.24/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 52967/108275 | 608/1814 | knight; @52643 shk/`onlineu` |
+| seed4500 | 61766/108275 | 643/1814 | knight; @61689 fix_worst_trouble |
 
 ## Green gate
 
@@ -70,19 +70,19 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @61462 — C `distfleeck` `rn2(5)` vs
-  JS `rn2(1000)` after matched `drag_down`. Focused:
+**Gameplay next:** **seed4500** @61689 — C `fix_worst_trouble` `rnd(5)`
+  vs JS `rn2(1000)` after matched `pleased`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0918. Do not FORCE CLOSE/movement/umov.**
+**Do not re-break D-0660…D-0919. Do not FORCE CLOSE/movement/umov.**
 **Do not FORCE peace_minded / ualign / pet malign.**
 **Do not FORCE shk satdoor/`onlineu` (hero-path first; D-0376).**
 **Keep:** D-0845/0853 dochug Hallu; D-0846 rloc_to newsym;
 D-0848 `-DMAIL_STRUCTURES`; D-0852 gulpmu flush+vision_off;
 D-0857 corner dismiss; D-0858 doattributes Hallu/Antimagic;
-D-0861…D-0918 (searches_for_item … drag_down/ballrelease).
+D-0861…D-0919 (searches_for_item … FAST TIMEOUT).
 **Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
 mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
 raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
@@ -115,9 +115,6 @@ omit `spitmm`…`hellfill`/`LVLINIT_MAZE` (D-0900…D-0906);
 omit `set_occupation(learn)` / learn `makeknown` credit_hero (D-0907);
 omit `SCR_PUNISHMENT` / `punish` / `placebc` (D-0908);
 omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909);
-omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910);
-re-zero `ox`/`oy` in `obj_extract_self` / stub ordinary rotten /
-omit `HDeaf` TIMEOUT in `nh_timeout` (D-0911);
 omit `#turn`/`doturn` chant+`exercise(A_WIS)`/`maybe_turn_mon_iter`
 (D-0912);
 leave `x` unbound / skip `setworn`-style twoweap clear on setuwep/swap
@@ -128,7 +125,9 @@ omit `goto_level` Punished `unplacebc`/`placebc` (D-0915);
 omit Nesting nested create_subroom/door / lspo_door `rnddoor` (D-0916);
 omit `fill_ordinary_room` nsubrooms recursion before needfill (D-0917);
 omit stair-fall `drag_down`/`ballrelease` / gate with sticky
-`u.Punished` instead of `uball` (D-0918).
+`u.Punished` instead of `uball` (D-0918);
+omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky after potion
+expiry (D-0919).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

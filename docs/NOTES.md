@@ -8,16 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next:** seed4500 @61462 — C `distfleeck` `rn2(5)` vs
-  JS `rn2(1000)` after matched `drag_down`.
+- **Gameplay next:** seed4500 @61689 — C `fix_worst_trouble` `rnd(5)`
+  vs JS `rn2(1000)` after matched `pleased`.
   Falsifier:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0918 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0919 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
+- Do not omit `nh_timeout` FAST TIMEOUT / leave Very_fast sticky (D-0919).
 - Do not omit `goto_level` stair-fall `drag_down`/`ballrelease` (D-0918);
   gate with `uball` (≡C `Punished`), not sticky `u.Punished`.
 - Do not omit `fill_ordinary_room` nsubrooms recursion before needfill
@@ -32,12 +33,13 @@ Objective/score live in `CURRENT.md`.
 - Do not stub ordinary-food `doeat` rotten / omit `Hear_again` (D-0911).
 - Do not omit `HDeaf` TIMEOUT decrement in `nh_timeout` (D-0911).
 - Do not omit once-per-turn `regen_pw` / `rn1` Pw recover (D-0910).
-- Do not omit Punished `drag_ball`/`move_bc`/`cause_delay` (D-0909).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1065 Scr **10198**/11405 RNG **737530**/792838
-  (93.02%); next cadence @#1070.
+- suite **42/44** @#1070 Scr **10233**/11405 RNG **746329**/792838
+  (94.13%); next cadence @#1075.
+- **D-0919 #1070:** FAST TIMEOUT; seed4500 **61462→61689** RNG **61766**
+  Scr **643**; next @61689 fix_worst_trouble.
 - **D-0918 #1069:** drag_down/ballrelease via uball; seed4500
   **55990→61462** RNG **61496** Scr **622**.
 - **D-0917 #1068:** fill_ordinary_room subroom recurse; seed4500
@@ -63,5 +65,3 @@ Objective/score live in `CURRENT.md`.
   **49915→50034** Scr **481→499** RNG **50071→50167**.
 - **D-0907 #1057:** study learn+makeknown; seed4500 **49776→49915**
   Scr **459→481**.
-- **D-0906 #1056:** hellfill+create_maze; seed4500 **32538→49776**
-  Scr **308→459**.

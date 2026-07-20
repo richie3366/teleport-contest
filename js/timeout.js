@@ -2,13 +2,13 @@
 // C ref: timeout.c nh_timeout — once-per-turn intrinsic TIMEOUT decrement.
 
 import { game } from './gstate.js';
-import { TIMEOUT, FROMOUTSIDE, FUMBLING, FOOT, ICE, STRAT_WAITMASK } from './const.js';
+import { TIMEOUT, FROMOUTSIDE, FUMBLING, FAST, FOOT, ICE, STRAT_WAITMASK } from './const.js';
 import { heal_legs } from './trap.js';
 import { stop_occupation, nomul, is_pool } from './hack.js';
 import { run_timers, objects_at } from './mkobj.js';
 import { make_confused } from './potion.js';
-import { Fumbling } from './attrib.js';
-import { pline } from './display.js';
+import { Fumbling, Fast, Very_fast } from './attrib.js';
+import { pline, You_feel } from './display.js';
 import { inv_weight } from './invent.js';
 import { doname, makeplural } from './objnam.js';
 import { rn2, rnd } from './rng.js';
@@ -135,6 +135,17 @@ function set_HFumbling(val) {
     prop.intrinsic = u.HFumbling;
 }
 
+/** Sync flat HFast with uprops[FAST].intrinsic. */
+function set_HFast(val) {
+    const u = game.u || (game.u = {});
+    u.HFast = val | 0;
+    if (!u.uprops) u.uprops = {};
+    const prop = u.uprops[FAST] || (u.uprops[FAST] = {
+        intrinsic: 0, extrinsic: 0, blocked: 0,
+    });
+    prop.intrinsic = u.HFast;
+}
+
 /**
  * C ref: potion.c incr_itimeout — add to TIMEOUT field only.
  */
@@ -153,7 +164,8 @@ function incr_itimeout_HFumbling(incr) {
  * CONFUSION → set_itimeout(1) + make_confused(0,TRUE) + stop_occupation;
  * FUMBLING → slip_or_trip + nomul(-2) + incr_itimeout rnd(20) (D-0692);
  * DEAF → make_deaf(0) on expiry (D-0911; talk if !Unaware deferred).
- * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues; FAST/
+ * FAST → timeout decrement + slow-down You_feel when !Very_fast (D-0919).
+ * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues;
  * STUNNED/BLINDED/INVIS/SEE_INVIS/HALLUC/SLEEPY/LEVITATION/… cases;
  * Glib; ublesscnt (in allmain); mtimedone; usptime; ugallop; delayed
  * killers; uinvulnerable early return polish; defer_decor; full ice/
@@ -237,6 +249,19 @@ export async function nh_timeout() {
                 incr_itimeout_HFumbling(rnd(20));
             }
             // defer_decor deferred
+        }
+    }
+
+    // C case FAST — timeout.c:725; timed FAST is Very_fast until TIMEOUT ends
+    const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
+    if (hfast & TIMEOUT) {
+        const next = hfast - 1;
+        set_HFast(next);
+        if (!(next & TIMEOUT)) {
+            // C: if (!Very_fast) You_feel("yourself slow down%s.", Fast ? " a bit" : "");
+            if (!Very_fast()) {
+                await You_feel(`yourself slow down${Fast() ? ' a bit' : ''}.`);
+            }
         }
     }
 

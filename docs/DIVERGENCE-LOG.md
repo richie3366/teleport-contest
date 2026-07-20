@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0919 — nh_timeout FAST TIMEOUT / Very_fast expiry (seed4500)
+
+- **Status:** fixed (partial — seed4500 still FAIL later @61689
+  `fix_worst_trouble`; STUNNED/BLIND/HALLUC/SLEEPY/… timeouts deferred)
+- **Session:** seed4500-knight-coverage @61462
+- **Symptom:** C `distfleeck` `rn2(5)` vs JS `rn2(1000)` (`prayer_done`
+  `rnz(250)` one EOT early after descend).
+- **Cause:** timed FAST TIMEOUT never decremented in `nh_timeout`, so
+  `Very_fast` stayed true after potion expiry. Next `u_calc_moveamt`
+  took the Very_fast `rn2(3)!=0` free-move arm (C used Fast-only line
+  131), leaving `umovement=24` → post-descend time-pass skipped EOT →
+  `#pray` one turn early → `prayer_done` `rnz` before C `distfleeck`.
+- **C locus:** `timeout.c` `nh_timeout` `case FAST`; `youprop.h`
+  `Very_fast` / `Fast`; `allmain.c` `u_calc_moveamt`.
+- **Fix:** decrement `HFast` TIMEOUT in `js/timeout.js` `nh_timeout`;
+  on expiry `You_feel` slow-down when `!Very_fast()`.
+- **Verification:** prefix **61462→61689** RNG **61766** Scr **643**;
+  green+strict PASS; cohort 15/15 PASS; full suite 42/44.
+- **Next:** @61689 C `fix_worst_trouble` `rnd(5)` vs JS `rn2(1000)`.
+
 ## D-0918 — goto_level Punished drag_down / ballrelease (seed4500)
 
 - **Status:** fixed (partial — seed4500 still FAIL later @61462
