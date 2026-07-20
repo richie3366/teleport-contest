@@ -2158,6 +2158,28 @@ export function see_traps() {
     }
 }
 
+/**
+ * C ref: display.c docrt — paint hero memory (lev->glyph) without live
+ * mon_to_glyph / obj_to_glyph. Using newsym here under Hallu would burn
+ * display RNG for sensed monsters while cansee is false (D-0838).
+ */
+function show_memory_glyph(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    const mem = loc.remembered_glyph;
+    if (mem) {
+        const floorObj = objects_at(x, y);
+        const livePile = !!(floorObj && !covers_objects(x, y)
+            && obj_is_piletop(floorObj));
+        const attr = (livePile || mem.objpile)
+            ? obj_map_attr(floorObj, !livePile)
+            : 0;
+        show_glyph_cell(x, y, mem.ch, mem.color, !!mem.decgfx, attr);
+    } else {
+        show_glyph_cell(x, y, ' ', NO_COLOR, false);
+    }
+}
+
 export async function docrt() {
     if (!game.u?.ux || !game.level) return;
     // C docrt_flags: if uswallow → swallowed(1); skip map vision path
@@ -2169,10 +2191,10 @@ export async function docrt() {
     // C: vision_recalc(2) — hero sees nothing during refresh
     vision_recalc(2);
     await cls();
-    // C: show_glyph(x,y, lev->glyph) for all cells (memory; cansee false)
+    // C: show_glyph(x,y, lev->glyph) for all cells (memory; no Hallu RNG)
     for (let y = 0; y < ROWNO; y++)
         for (let x = 1; x < COLNO; x++)
-            newsym(x, y);
+            show_memory_glyph(x, y);
     // C: vision_recalc(0) — see what is to be seen (+ newsym updates)
     vision_recalc(0);
     // C docrt also see_monsters() after vision — floating warns / sensed mons

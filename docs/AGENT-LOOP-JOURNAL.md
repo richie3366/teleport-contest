@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-20 08:26 — #968 seed0383 unstuck docrt Hallu (D-0838)
+- Objective: seed0383 @11524 C getbones vs JS combat (post-expel hallu).
+- C locus: mon.c unstuck→docrt; display.c docrt memory show_glyph;
+  mhitu.c gulpmu swallowed(1).
+- Change: unstuck awaits docrt (not vision_recalc(1)); docrt memory
+  paints remembered glyphs (no Hallu newsym); gulpmu swallowed(1).
+- Verification: green+strict PASS; cohort 36/36 PASS; prefix
+  **11524→13689** (RNG 11527→13695; Scr 144).
+- Next: seed0383 @13689 C peace_minded rn2(1) vs JS rn2(4) (D-0839).
 ## 2026-07-20 08:20 — #967 seed0383 Monnam hallu / swallowed (D-0838)
 - Objective: seed0383 @11524 C getbones vs JS combat (More/key from hallu).
 - C locus: do_name.c rndmonnam; display.c swallowed/swallow_to_glyph;

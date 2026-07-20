@@ -4,27 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0838 — open: Monnam hallu / display RNG (seed0383 @11524)
+## D-0839 — open: seed0383 @13689 peace_minded
 
-- **Status:** open (partial port)
-- **Symptom:** seed0383 @11524 — C `getbones` `rn2(3)` (wizard `^V`→
-  oracle); JS combat `rn2(20)`.
-- **Cause chain:** JS burns extra combat RNG because key `b` is a move
-  while C discarded it during `--More--`. More splits from hallu name
-  lengths / display-stream position.
-- **Partial fix (#967):**
-  - Display ISAAC + `rn2_on_display_rng`; `bogusmon` extract; `rndmonnam`
-    / `Monnam` hallu; `mon_glyph`/`obj_glyph` hallu (CORPSE 2nd burn);
-    `display_warning` hallu `rn2(WARNCOUNT-1)`.
-  - Hallu onset is **uswallow** (ice vortex): C `make_hallucinated` →
-    `swallowed(0)` not `see_*`. Port `swallowed` + `docrt`/`newsym`
-    swallow early-outs; allmain Hallu `see_*` + `swallowed(0)` per input.
-  - First 3 hit names match C: `acid blog`, `giant beetle`, `monkey`.
-- **Still open:** after expel, 4th Monnam `hobbit` vs C `black pudding`
-  — post-expel Hallu `see_*` burn count / visible set. Then More/key
-  sync through `^V` getbones.
-- **Verification:** green+strict PASS; cohort seed1500/1800/0060/0102/
-  seed0360 PASS; seed0383 still prefix **11524** Scr 144.
+- **Status:** open
+- **Symptom:** seed0383 prefix **13689** — after matched `newmonhp`
+  `d(11,8)`, C `peace_minded` `rn2(1)` (ualign.record −15 →
+  `rn2(16-15)`); JS `rn2(4)`.
+- **Hypothesis:** JS `ualign.record` or early `peace_minded` return
+  (race/always_*/msound) differs so the co-aligned chance arm never
+  sees `rn2(1)`; or a prior alignment mutation was skipped.
+- **Do not:** FORCE peace; re-break D-0838 unstuck/docrt.
+- **Verification pending:** dump `ualign.record`/`maligntyp`/early
+  returns at that makemon; green+cohort after any fix.
+
+## D-0838 — fixed: unstuck→docrt + docrt memory (Hallu display RNG)
+
+- **Status:** fixed
+- **Symptom:** seed0383 @11524 — C `getbones` `rn2(3)` vs JS combat
+  `rn2(20)` after hallu More/key desync (4th Monnam `hobbit` vs
+  `black pudding`).
+- **Cause:** C `unstuck` on swallow exit does `vision_full_recalc=1;
+  docrt()` (Hallu burns via `vision_recalc(0)` + `see_monsters`).
+  JS only `vision_recalc(1)`. Also JS `docrt` memory phase used
+  `newsym` (Hallu RNG on sensed mons while `cansee` false) instead
+  of C `show_glyph(lev->glyph)`.
+- **Fix:** `mhitu.js` async `unstuck` → `await docrt()`; `gulpmu`
+  first-engulf `swallowed(1)`; `display.js` `show_memory_glyph` for
+  docrt memory loop.
+- **Verification:** green+strict PASS; cohort 36/36 PASS; seed0383
+  prefix **11524→13689** (RNG matched 11527→13695; Scr 144).
+  Next @13689 C `peace_minded` `rn2(1)` vs JS `rn2(4)` (D-0839).
 
 ## D-0837 — fixed: getmattk mspec_used subst + mhitm_ad_cold
 

@@ -16,7 +16,10 @@ import { find_offensive, use_offensive } from './muse.js';
 import { destroy_items } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys } from './hack.js';
 import { rnd, d, rn2 } from './rng.js';
-import { pline, mon_visible, canspotmon, map_invisible, canseemon, newsym } from './display.js';
+import {
+    pline, mon_visible, canspotmon, map_invisible, canseemon, newsym, docrt,
+    swallowed,
+} from './display.js';
 import { cansee, vision_recalc } from './vision.js';
 import { Monnam, mon_nam } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
@@ -490,19 +493,22 @@ function set_ustuck(mtmp) {
 
 /**
  * C ref: mon.c unstuck — release grabber; set mspec_used rnd(2) for re-engulf.
- * Punished placebc / docrt deferred.
+ * Swallowed exit: vision_full_recalc + docrt (Hallu display RNG; D-0838).
+ * Named omissions: Punished placebc.
  */
-function unstuck(mtmp) {
+async function unstuck(mtmp) {
     const u = game.u || {};
     if (u.ustuck !== mtmp) return;
     const ptr = mtmp.data;
-    const swallowed = !!(u.uswallow | 0);
+    const was_swallowed = !!(u.uswallow | 0);
     set_ustuck(null);
-    if (swallowed) {
+    if (was_swallowed) {
         game.mswallower = null;
         u.ux = mtmp.mx;
         u.uy = mtmp.my;
-        vision_recalc(1);
+        // C: gv.vision_full_recalc = 1; docrt();
+        game.vision_full_recalc = 1;
+        await docrt();
     }
     if (!(mtmp.mspec_used | 0)
         && (dmgtype(ptr, 19 /* AD_STCK */)
@@ -535,7 +541,7 @@ async function expels(mtmp, mdat, message) {
             await pline(`You get expelled from ${mon_nam(mtmp)}${blast}!`);
         }
     }
-    unstuck(mtmp);
+    await unstuck(mtmp);
     mnexto(mtmp, 0);
     newsym(game.u.ux, game.u.uy);
 }
@@ -546,7 +552,7 @@ async function expels(mtmp, mdat, message) {
  * ACID arms; mdamageu; expel on timer.
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
  * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
- * drain_en; make_blinded; swallowed() map polish; Half_physical polish;
+ * drain_en; make_blinded; Half_physical polish;
  * u_on_newpos when engulfer moves while digesting (D-0826 postmov).
  */
 async function gulpmu(mtmp, mattk) {
@@ -597,6 +603,8 @@ async function gulpmu(mtmp, mattk) {
             tim_tmp = rnd((mtmp.m_lev | 0) + Math.trunc(10 / 2));
         }
         u.uswldtim = (tim_tmp < 2) ? 2 : tim_tmp;
+        // C: swallowed(1) — stomach map; Hallu burns what_mon per cell
+        swallowed(1);
         if (!flaming(mtmp.data)) {
             /* snuff_lit invent deferred */
         }

@@ -7,32 +7,30 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#967:** D-0838 partial — display ISAAC + Monnam hallu + swallowed/
-  allmain Hallu refresh. seed0383 still **@11524** (C getbones vs JS
-  combat). First 3 hallu hit names match C (`acid blog`, `giant beetle`,
-  `monkey`); 4th diverges (`hobbit` vs `black pudding`) after expel.
-- **Cause:** post-expel Hallu `see_*` display burns differ (cansee / mon
-  set) → wrong later names → More/key desync → extra combat before `^V`.
-- **Hypothesis:** after ice-vortex expel, JS `see_monsters`/`see_objects`
-  under Hallu burn a different count than C (viz restore / visible set).
-- **Falsify:** dump disp burns + visible mon/obj counts on first
-  post-expel allmain Hallu refresh; match C black pudding as 4th Monnam.
-- **Don't:** FORCE death/bones; leave DIAG; re-break D-0822…D-0837.
-- **Open:** gulpmu `swallowed(1)` on first engulfs; trap hallu glyphs;
-  `potionbreathe`; HALLUC expiry; AD_FIRE hero.
+- **#968:** D-0838 closed — unstuck→`docrt` + docrt memory glyphs.
+  seed0383 prefix **11524→13689** (past getbones). Scr still 144.
+- **Next @13689 (D-0839):** C `peace_minded` `rn2(1)` (record −15 →
+  `rn2(16-15)`) vs JS `rn2(4)` after matched `newmonhp`.
+- **Hypothesis:** JS `ualign.record` ≠ −15 at that makemon, or early
+  `peace_minded` return (race/always_*/msound) skips the chance arm.
+- **Falsify:** dump `ualign.record` / `maligntyp` / early returns on
+  that spawn; match C `rn2(1)` then second `rn2(2+|mal|)`.
+- **Don't:** FORCE peace; re-break D-0838 unstuck/docrt memory.
+- **Open:** trap hallu glyphs; `potionbreathe`; HALLUC expiry; AD_FIRE
+  hero; peace_minded MS_LEADER/GUARDIAN/NEMESIS/ERINYS.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0837 done.
+- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0838 done.
 - Runner `Screen N/M` = total matches, not prefix length.
-- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0837 peels done.
+- seed5002 **PASS**; seed0360 **PASS**; D-0743…D-0838 peels done.
 - EOT fmon `156,165,108` mcalcmove signature matches (#951).
-- **#953–#966:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
-  getmattk mspec — closed or falsified; see journal.
-- **#967:** @11524 is wizard `^V` getbones, not ice-vortex death;
-  hallu onset is **uswallow** (not dark cansee) — C `swallowed(0)`.
+- **#953–#967:** spawn/mcalcmove/Confusion/fog/wizintrinsic/abuse_dog/
+  getmattk / Monnam hallu onset — closed; see journal.
+- **#968:** @11524 was missing unstuck `docrt` (not see_* count alone);
+  docrt memory must not `newsym` under Hallu.
 - D-0770 flyers / poisoncloud; WAITMASK mid-pass (#952); Wizard ldrnum.
 - FlipY mx/my only; FORCE Neferet CLOSE coincidence (D-0794).
 
@@ -41,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF; cursor=(ux−1, uy+1).
 - suite **38/44** @#965 Scr **8946**/11405 RNG **661122**/792838;
-  seed0383 prefix **11524** Scr **144**/219 (D-0838 open).
+  seed0383 prefix **13689** Scr **144**/219 (D-0839 open).
 - Capital `H` = multi-step run; clear travel in `set_move_cmd`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
@@ -55,8 +53,5 @@ Objective/score live in `CURRENT.md`.
 - TRAVP_VALID BFS hero→dest (D-0813); getpos DOOR + visctrl (D-0815).
 - Fog vapor: `reg.monsters` + `inside_gas_cloud` ttl+5 (D-0834).
 - `#wizintrinsic` → `make_hallucinated` (D-0835); hallu exerper WIS.
-- `hmon_hitmon_pet` → `abuse_dog`/`yelp`/`growl`; xkilled tame luck (D-0836).
-- `getmattk` mspec_used → AT_TUCH/CLAW; `mhitm_ad_cold` + destroy_items
-  (D-0837).
-- Display ISAAC + `rndmonnam`/`Monnam` hallu; `swallowed` what_mon;
-  allmain Hallu `see_*`+`swallowed(0)` (D-0838 partial).
+- unstuck swallow → `docrt` (not mere `vision_recalc(1)`); docrt memory
+  = remembered glyphs (D-0838).

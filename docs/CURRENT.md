@@ -76,9 +76,9 @@ seed0360; judge at 08:55Z dropped to **22** after D-0480
 (seed0013-rogue 59→58). **D-0483** reverts that serialize coerce.
 Next cron; if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed0383 @11524** — D-0838 partial: first 3 hallu
-hit names match C (`acid blog`…); still desync after expel (4th name).
-C `getbones` `rn2(3)` vs JS `rn2(20)`. Focused:
+**Gameplay next:** **seed0383 @13689** — D-0838 closed (unstuck→`docrt`
++ docrt memory glyphs; prefix 11524→13689 past getbones). **D-0839:**
+C `peace_minded` `rn2(1)` vs JS `rn2(4)`. Focused:
 
 ```bash
 node frozen/ps_test_runner.mjs \
@@ -90,8 +90,8 @@ node scripts/rng-diff.mjs \
 **Parked gameplay:** seed0399 @10157 (D-0731) / seed0014 @50259
 (D-0708 still open).
 
-**Do not re-break D-0660…D-0837. Do not FORCE CLOSE/movement/umov.**
-**Do not FORCE death/bones for @11524.**
+**Do not re-break D-0660…D-0838. Do not FORCE CLOSE/movement/umov.**
+**Do not FORCE peace_minded / ualign for @13689.**
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
