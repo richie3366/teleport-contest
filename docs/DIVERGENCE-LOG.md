@@ -7,17 +7,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is medusa-3 hero place; #1080 falsified
-  place/`collect_coords` RNG mismatch; #1081 falsified C `@(39,5)`;
-  #1082 falsified “ystart formula alone differs for hei=20”;
-  #1083 falsified FlipX `minx=1` alone; #1084 confirmed whole-map
-  (−1,+1) via downstairs + falsified FORCE `ystart=2` alone
-  (clamp 2+20>ROWNO → 0); #1086 falsified literal ystart=2 +
-  ysize=19 — C `get_location` uses **rn2(20)** so ysize stays 20;
-  #1087 falsified **Y+1 as map delta** — C arrival cursor `[42,7]`
-  is tty (map **(42,6)**); JS `u_on_newpos(43,6)`; screen `>` y=17
-  ≡ map y=16. Land gap is **X-only**. FORCE FlipX minx=1 → stair
-  `(31,16)` but place RNG desync @82419)
+  prerequisite is medusa-3 hero place; #1080–#1087 as below; **#1088**
+  measured C kelp=940 and probed sum80 modes)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -25,36 +16,32 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `rn2`. C breathes (aligned geometry).
 - **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
   FORCE mux; shortsighted-only peel without place proof;
-  place_lregion/`collect_coords` shuffle arg mismatch (#1080 —
-  C/JS match through 82k–83k); C land `@(39,5)` (#1081 — that was
-  a later walk misread; arrival cursor **[42,7]** = map **(42,6)**);
-  ystart *formula text* alone differs for hei=20 (#1082 — both
-  compute 1);
-  FlipX minx=1 alone (#1083/#1087 — FORCE → stair `(31,16)` but
-  place RNG desync @82419);
-  FORCE ystart=2 alone (#1084 — clamp→0; prefix→78606; flip→0);
-  FORCE ystart=2 + shrink ysize→19 (#1086 — C still `rn2(20)`);
-  whole-map Y+1 (#1087 — tty/map mixup; downstairs map y=16 both).
+  place_lregion/`collect_coords` shuffle arg mismatch (#1080);
+  C land `@(39,5)` (#1081 — arrival cursor **[42,7]** = map **(42,6)**);
+  ystart formula alone (#1082); FlipX minx=1 alone (#1083/#1087 —
+  stair `(31,16)` but place desync @82419); FORCE ystart=2 (#1084);
+  ystart=2+ysize=19 (#1086 — C `rn2(20)`); whole-map Y+1 (#1087);
+  **#1088:** FORCE maxx78/minx1 (kelpW **940→959**, still @82419);
+  split FlipX coords-sum80/terrain-sum81 (@80989 upstairs place);
+  permanent STONE-clear of preflip col78 (land `(42,6)` then @83695).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
-  Arrival is wizard `^V` from Dlvl:6 → 24 (`UTOTYPE_NONE` →
-  `u_on_rndspot` / `dndest`). Same place `rn2(6)×3` @L=82419–82424
-  (tries `(+5,+3)` `(+3,+5)` fail → `(+3,+3)`). JS
-  `u_on_newpos(43,6)` with
-  `dndest={lx:40,ly:3,hx:45,hy:8,…}` after FlipX (`flp=2`,
-  extends minx=2..maxx=79 **sum81**, first=3 last=78 col2 STONE,
-  `xstart=3,ystart=1`, pre-flip dnstair `(49,16)` → `(32,16)`).
-  C map land **(42,6)** needs `dndest.lx=39` (FlipX sum80) without
-  breaking place terrain validity.
-- **C locus:** `dat/medusa-3.lua` `teleport_region`; `sp_lev.c`
-  `flip_level` / `get_level_extends` / `lspo_map` / `load_special`
-  epilogue; `mkmaze.c` `place_lregion` → `u_on_newpos`.
-- **Partial:** #1082 wired medusa-3 `link_doors_rooms` /
-  `remove_boundary_syms` / `map_cleanup` before wallify; #1087
-  `flip_level` stairs/`dnstair` ungated like C + `get_level_extends`
-  scan bounds `xmin<=COLNO`/`ymin<=ROWNO` (land/prefix unchanged).
-- **Next:** C-cited FlipX sum80 (or equivalent `dndest.lx=39`) that
-  keeps place RNG through 82424. Do not re-FORCE minx=1 / ystart=2.
-- **Verification:** green+strict PASS; cohort 7/7; rng-diff @88377.
+  Arrival `^V` Dlvl:6→24 → `u_on_rndspot`/`dndest`. Same place
+  `rn2(6)×3` @82419–82424. JS `u_on_newpos(43,6)` /
+  `dndest[40..45]×[3..8]` after FlipX sum81 (first=3 last=78,
+  minx=2 maxx=79, dnstair 49→32). C screen `>`**(31,16)** `@`(42,6)
+  need sum80; C `water_has_kelp` count before place is **940** (=JS
+  sum81 kelpW). stone78 DIAG (clear col78→extends maxx=78) gets
+  land+kelp right then loses edge water for later turns (@83695).
+- **C locus:** `dat/medusa-3.lua`; `sp_lev.c` `flip_level` /
+  `get_level_extends` / `lspo_map`; `mkmaze.c` `place_lregion`;
+  `mklev.c` `mineralize`/`water_has_kelp`.
+- **Partial:** #1082 medusa-3 epilogue; #1087 stairs ungated +
+  extends scan bounds (prefix still @88377).
+- **Next:** C-cited reason `get_level_extends` last=77 (sum80) at
+  flip while mineralize still sees 940 kelp cells and edge water
+  remains for post-place play. Do not re-FORCE minx1/maxx78/stone78.
+- **Verification:** green+strict PASS; rng-diff @88377 (no production
+  JS this peel).
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 
