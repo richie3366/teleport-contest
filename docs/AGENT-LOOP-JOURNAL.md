@@ -12,6 +12,15 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 11:16 — #1135 score + getpos S_ss1 '0'; screen peel
+- Objective: cadence full `sessions`; seed4500 @136 feature `'0'`.
+- C locus: `getpos.c` matching[] / `defsym.h` `S_ss1` `'0'`.
+- Change: suite RNG closed 100% after #1134; `feature_match_tags('0')`
+  → ss1 so Can't find… (was Unknown direction). Scr **947→949**.
+- Verification: green+strict PASS; suite **42/44** Scr **10539**/11405
+  RNG **792838**/792838 (100%) `29+0.25/turn`.
+- Next: @**231** statue vs floor `(invalid target)`; cadence @#1140.
+
 ## 2026-07-21 11:10 — #1134 Kni-goal load_special; RNG complete
 - Objective: seed4500 @107646 C nhlib shuffle rn2(3) vs JS rn2(79).
 - C locus: `dat/Kni-goal.lua`; `sp_lev.c` `load_special`; `mkmaze.c` `makemaz`.
@@ -147,13 +156,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; prefix **106536→106540**
   (runner RNG **106559** Scr **937**).
 - Next: @**106540** C fleeck rn2(5) vs JS rn2(25); cadence @#1125.
-
-## 2026-07-21 08:19 — #1121 set_uasmon MR_* + getmattk lich cold
-- Objective: seed4500 @106531 C hitmu d(2,6) vs JS d(3,6).
-- C locus: `polyself.c` `set_uasmon` resist_from_form; `mhitu.c` `getmattk` lich cold→PHYS.
-- Change: brown-mold poly omitted COLD_RES FROMFORM; master lich stayed 3d6.
-  Port MR_* PROPSETs + getmattk cold-resist arm (mdef null=hero).
-- Verification: green+strict PASS; cohort 6/6; prefix **106531→106536**
-  (runner RNG **106546** Scr **937**).
-- Next: @**106536** C `choose_monster_spell` rn2(23) vs JS rn2(5); cadence @#1125.
 

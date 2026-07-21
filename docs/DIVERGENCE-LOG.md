@@ -6,9 +6,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1134)
+- **Status:** partial (#1080–#1135)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **947**/1814)
+  Scr **949**/1814)
+- **Hypothesis (#1135):** @136 C `Can't find dungeon feature '0'.` vs JS
+  `Unknown direction: '0'` — JS `feature_match_tags` omitted `S_ss1`
+  (`defsym.h` PCHAR `'0'`), so matching `k==0` took the unknown-dir arm.
+- **Fix (#1135):** `js/getpos.js` `feature_match_tags('0')` → `ss1` tag
+  (scan finds none → Can't find…). Other ss/beam/expl glyphs deferred.
+- **Verification (#1135):** green+strict PASS; suite **42/44** Scr
+  **10539**/11405 RNG **792838**/792838 (**100%**) `29+0.25/turn`;
+  focused Scr **947→949**. Next: @**231** C statue plains centaur
+  `(invalid target)` vs JS floor of a room.
 - **Hypothesis (#1134):** @107646 C `nhlib.lua` shuffle `rn2(3)` vs JS
   `rn2(79)` after matched `getbones` — JS had no `Kni-goal` loader so
   `makemaz` left the level empty and ordinary gen burned `rn2(79)`.

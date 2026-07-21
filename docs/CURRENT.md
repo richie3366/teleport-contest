@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1130** (42/44,
-Scr **10531**/11405, RNG **99.90%**). Next cadence @**#1135**.
-vs @#1125: Scr **10529→10531**, RNG **791421→792061** (#1129–#1130;
-seed4500 **107335→107498** Scr **941**). Focused #1134 seed4500
-**RNG complete 108275**/108275 Scr **941→947** (`Kni-goal` loader).
+Score last measured: **2026-07-21** — full `sessions` @**#1135** (42/44,
+Scr **10539**/11405, RNG **100%**). Next cadence @**#1140**.
+vs @#1130: Scr **10531→10539**, RNG **792061→792838** (100%; #1134 Kni-goal
+closed seed4500 RNG; #1135 getpos `S_ss1` `'0'` Scr **947→949**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,531 / 11,405** |
-| Positional RNG calls matched | **792,061 / 792,838** (99.90%) |
-| Speed label | `30+0.25/turn` (R² 0.867) |
+| Screens matched | **10,539 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** (100%) |
+| Speed label | `29+0.25/turn` (R² 0.870) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -49,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 947/1814 | knight; RNG done; screen peel next |
+| seed4500 | **108275**/108275 | 949/1814 | knight; RNG done; screen peel |
 
 ## Green gate
 
@@ -72,21 +71,22 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** RNG **complete** (**108275**/108275;
-D-0928 #1134). Was @107646 missing `Kni-goal` → ordinary `rn2(79)`.
-Shipped `load_kni_goal` from `dat/Kni-goal.lua`. Scr **941→947**.
-Next: screen peel (first miss ~step 136 getpos `0` feature vs unknown
-direction; goal-region map/msg). Focused:
+**Gameplay next:** **seed4500** screen peel (RNG **complete**
+**108275**/108275). **D-0928 #1135:** getpos `'0'` → `S_ss1` matching →
+`Can't find dungeon feature '0.'` (was Unknown direction). Scr
+**947→949**; first miss now **@231** C `a statue of a plains centaur
+(invalid target)` vs JS `floor of a room (invalid target)`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1134 (bat MFAST … Kni-goal).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1135 (bat MFAST … getpos S_ss1).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@136≠unknown-dir for `'0'` — missing `S_ss1` matching (#1135);
 @107646≠ordinary rn2(79) — missing `Kni-goal` (#1134);
 @107645≠missing getbones — Die? `notdied` short-circuit (#1133);
 @107645≠always-clear You-die (#1132 partial); @107470≠rn2(3) site —

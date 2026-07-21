@@ -143,6 +143,11 @@ function feature_match_tags(ch) {
     if (ch === '^') tags.add('trap');
     if (ch === '~') tags.add('trap_vs');
 
+    // Zap/effect cmaps still enter matching[] (walls/room/corr/door skipped).
+    // S_ss1 defsym '0' — rarely on map → "Can't find dungeon feature '0'."
+    // (D-0928 #1135 seed4500 @136). Other ss/beam/expl glyphs still deferred.
+    if (ch === '0') tags.add('ss1');
+
     return tags;
 }
 

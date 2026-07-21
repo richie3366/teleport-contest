@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG **complete** 108275/108275
-  after #1134 `Kni-goal`. Scr **947**/1814 — screen peel (first miss
-  ~step 136 getpos `0` feature vs unknown direction). Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **949**/1814.
+  First miss **@231** C statue plains centaur `(invalid target)` vs JS
+  floor of a room. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,17 +30,17 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @104705 as fleeck rn2(4)/fmon-order alone — was missing
   S_BAT Inhell MFAST; don’t FORCE bat@46 +12 (#1118–#1119).
-- Do not treat @106304 fleeck vs lined_up as root — was missing
-  covetous `tactics` + fire-trap `destroy_items` (#1120).
-- Do not treat @107645 as missing `getbones` — #1132/#1133 Die?
-  `notdied` short-circuit / WIN_STOP.
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
+- Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
+  matching (#1135).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1130 Scr **10531**/11405 RNG **792061**/792838
-  (99.90%); speed `30+0.25/turn`; next cadence @**#1135**.
+- suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
+  (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
+- **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**; next @**231**
+  statue vs floor `(invalid target)`.
 - **D-0928 #1134:** `Kni-goal` load_special; was @**107646**;
   RNG **complete 108275**/108275 Scr **947**.
 - **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**;
@@ -61,4 +61,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1122:** AT_MAGC castmu; was @**106536**.
 - **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**.
 - **D-0928 #1120:** tactics + fire destroy_items; was @**106304**.
-- **D-0928 #1119:** S_BAT Inhell MFAST; was @**104705**.

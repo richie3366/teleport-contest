@@ -681,3 +681,13 @@
 - Verification: prefix **103071→103155** (runner RNG **103264** Scr
   **928**); green+strict PASS; cohort 5/5 (1500/1800/0013/0361/0373).
 - Next: @**103155** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
+
+## 2026-07-21 08:19 — #1121 set_uasmon MR_* + getmattk lich cold
+- Objective: seed4500 @106531 C hitmu d(2,6) vs JS d(3,6).
+- C locus: `polyself.c` `set_uasmon` resist_from_form; `mhitu.c` `getmattk` lich cold→PHYS.
+- Change: brown-mold poly omitted COLD_RES FROMFORM; master lich stayed 3d6.
+  Port MR_* PROPSETs + getmattk cold-resist arm (mdef null=hero).
+- Verification: green+strict PASS; cohort 6/6; prefix **106531→106536**
+  (runner RNG **106546** Scr **937**).
+- Next: @**106536** C `choose_monster_spell` rn2(23) vs JS rn2(5); cadence @#1125.
+
