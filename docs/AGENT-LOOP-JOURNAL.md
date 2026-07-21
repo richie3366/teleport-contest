@@ -21,6 +21,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 21:16 — LB out of agent scope
+
+- Objective: human — stop loop peels / polls for public leaderboard.
+- C locus: n/a (docs policy).
+- Change: CURRENT primary = hold local **44**/44; NOTES drop LB/cron
+  active; do not chase `data.json` / hub CDN drift in-loop.
+- Verification: n/a.
+- Next: green + suite cadence; optional c-js-map / D-0006 with C proof.
+
 ## 2026-07-21 19:31 — #1202 LB poll pre-cron
 
 - Objective: leaderboard gap — primary await cron D-0930…D-0934.

@@ -20,7 +20,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   contest-recorder absolute path (D-0934). Do not extend carve-out.
 - **Verification:** seed2200 Scr **230**/230 RNG full; green+strict
   PASS; full `sessions` @**#1200** **44**/44 Scr **11405**/11405.
-- **Next:** LB cron D-0930…D-0934 PASS lift.
+- **Next:** hold suite; public LB out of agent scope.
 
 ## D-0933 — NHW_TEXT paint ≤cols−1 (process_text_window)
 

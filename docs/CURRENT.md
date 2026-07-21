@@ -58,12 +58,13 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard gap** — live LB still @2026-07-21T16:41Z **31**/44
-public (pts **11351**/11405; `data.json` @17:07Z; polled
-**17:31Z** @#1202). Local suite **44**/44 @**#1200**; gap cohort
-**13**/13 reconfirmed @**#1201** (full RNG+Scr). Await next cron
-for D-0930…**D-0934** PASS lift (next expected ~**18:41Z**). Do
-not peel public while awaiting.
+**Local suite clean (44/44 @#1200).** Hold green gate + full suite.
+Do **not** chase public leaderboard / cron / `data.json` / hub CDN
+session drift — out of agent scope (human/maintainer).
+
+When peeling: named omissions in one `docs/c-js-map/*.md` section, or
+parked D-0006 only with reproducible C state. Prefer shared C-faithful
+ports that keep suite PASS; no invent ALIGN/FORCE/seed gates.
 
 **Parked:** D-0006 only.
 
@@ -79,7 +80,8 @@ shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
 alone (#1192); older in D-0928/NOTES; skip painting map spaces in
 flush (breaks S_air); strip leading bold pads in serialize;
 assume judge elides RC path (falsified D-0933); extend §1.2 carve-out
-beyond the recorder configfile string.
+beyond the recorder configfile string; peel “for leaderboard” without
+a local FAIL.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

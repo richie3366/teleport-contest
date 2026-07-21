@@ -7,12 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- LB still **31**/44 @16:41Z (pts **11351**/11405; `data.json`
-  @17:07Z; polled **17:31Z**). Local **44**/44; gap **13**/13
-  PASS @#1201 (D-0930…D-0934). Next cron ~**18:41Z**.
-- Falsifier: next cron `data.json` `public.passing` ≥44 (or name
-  residual fail session). Held-out lead 4/44 pts 4293 — post-lift
-  only; no speculative peel while awaiting.
+- Local suite **44**/44 @**#1200** (Scr **11405**/11405 RNG **100%**).
+- Public leaderboard / cron / hub CDN session drift: **out of scope**
+  (human). Do not poll `data.json` or peel “for LB.”
+- Falsifier when peeling: focused session + green + cohort still PASS.
 
 ## Don't re-check (≤15)
 
@@ -33,14 +31,13 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1770 as Norep/parse-clear alone (#1192).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
+- Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - Suite @**#1200**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (seed2200 suite-confirmed D-0934).
-- Live LB richie3366 **31**/44 pts **11351**/11405 @16:41Z;
-  held-out **4**/44 pts **4293** (agentic lead); polled 17:31Z.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
 - **D-0933 #1199:** NHW_TEXT paint ≤cols−1.
 - **D-0932 #1198:** serialize leading bold spaces.
