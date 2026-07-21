@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101373**. #1104 landed
-  `nolimbs` ring put-on + `doread` `check_capacity` (symptom looked
-  like `rnd_otyp_by_namedesc` vs `rn2(5)`). Prefix **100699→101373**.
-  Next: C `d(2,6) @ passiveum` vs JS `rnd(21)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101391**. #1105 landed
+  `passiveum` + `mhitm_ad_ston` mhitu (prefix **101373→101391**;
+  runner RNG **101579**). Next: C `rn2(5) @ distfleeck` vs JS
+  `rn2(61)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -32,22 +32,24 @@ Objective/score live in `CURRENT.md`.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
 - Do not treat @100699 `rn2(46)` vs `rn2(5)` as namedesc — was
   `nolimbs` put-on + capacity (`#1104`).
-- Do not omit `polyself` system-shock/`rn1` or prompt drink with
-  zero potions (GETOBJ_NOFLAGS) (#1103).
+- Do not omit `passiveum` after `hitmu` damage — brown-mold poly
+  AD_COLD (`#1105`); @101378 rn2(3) match was knockback coinciding
+  with missing `mhitm_ad_ston`.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1100 Scr **10516**/11405 RNG **785042**/792838
-  (99.02%); speed `31+0.25/turn`; next cadence @**#1105**.
+- suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
+  (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
+- **D-0928 #1105:** passiveum + mhitm_ad_ston; prefix **101391**;
+  RNG **101579** Scr **924**/1814.
 - **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;
-  prefix **101373**; RNG **101373** Scr **926**/1814.
+  was @**101373**.
 - **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
   empty-getobj; was @**100699**.
 - **D-0928 #1102:** goodpos youmonst u_at; was @**100475**.
 - **D-0928 #1101:** water_damage early arms; was @**100421**.
 - **D-0928 #1100:** check_caitiff; was @**100395**.
-- **D-0928 #1099:** adj_erinys infra; was @**95154**; FORCE→100395.
-- **D-0928 #1098…#1092:** Blind/wish / wait / dobuzz / I-glyph / flip
+- **D-0928 #1099…#1092:** Blind/wish / wait / dobuzz / I-glyph / flip
   (see DIVERGENCE-INDEX).
 - **D-0927…D-0921:** F-prefix / blnd / breamm / invent / wakeup /
   minetn-4 (see DIVERGENCE-INDEX).

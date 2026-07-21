@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1100** (42/44,
-Scr **10516**/11405, RNG **99.02%**). Next cadence @**#1105**.
-vs @#1095: Scr **10397→10516**, RNG **774444→785042** (#1096–#1100 peels;
-`check_caitiff` @#1100).
+Score last measured: **2026-07-21** — full `sessions` @**#1105** (42/44,
+Scr **10514**/11405, RNG **99.16%**). Next cadence @**#1110**.
+vs @#1100: Scr **10516→10514**, RNG **785042→786142** (#1101–#1105 peels;
+`passiveum`/`mhitm_ad_ston` @#1105).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,516 / 11,405** |
-| Positional RNG calls matched | **785,042 / 792,838** (99.02%) |
-| Speed label | `31+0.25/turn` (R² 0.859) |
+| Screens matched | **10,514 / 11,405** |
+| Positional RNG calls matched | **786,142 / 792,838** (99.16%) |
+| Speed label | `32+0.25/turn` (R² 0.853) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 100477/108275 | 926/1814 | knight; @**100421** `distfleeck` |
+| seed4500 | 101579/108275 | 924/1814 | knight; @**101391** `distfleeck` |
 
 ## Green gate
 
@@ -71,11 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**101373** (D-0928). **#1104:**
-`accessory_or_armor_on` ring `nolimbs` cannot-stick + `doread`
-`check_capacity` (symptom was `rn2(46)` namedesc vs JS `rn2(5)`
-from an extra wear turn). Prefix **100699→101373**. Next:
-`passiveum` `d(2,6)` vs JS `rnd(21)`. Focused:
+**Gameplay next:** **seed4500** @**101391** (D-0928). **#1105:**
+`hitmu`→`passiveum` (brown-mold AD_COLD) + `mhitm_ad_ston` mhitu
+(hitmsg/`!rn2(3)`). Prefix **101373→101391** (runner RNG
+**101579**). Next: `distfleeck` `rn2(5)` vs JS `rn2(61)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -116,8 +115,10 @@ luck `rn2(20)` (D-0928 #1101); reject `goodpos` `u_at` for
 random pick or `zapyourself` WAN_POLYMORPH / `dozap` nohands /
 drink empty-getobj short-circuit (D-0928 #1103); omit ring
 `nolimbs` cannot-stick or `doread` `check_capacity` (D-0928
-#1104); treat @95154 as wish/extra_healing regress;
-treat @100699 as namedesc-only.
+#1104); omit `passiveum` after `hitmu` damage or
+`mhitm_ad_ston` mhitu `!rn2(3)` (D-0928 #1105); treat @95154
+as wish/extra_healing regress; treat @100699 as namedesc-only;
+treat @101378 rn2(3) match as knockback/ston coincidence.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

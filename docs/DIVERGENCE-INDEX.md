@@ -5,7 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0928 | partial | #1104 nolimbs ring put-on + doread check_capacity (was misread as namedesc) | seed4500 @**101373**; RNG **101373** Scr **926** |
+| D-0928 | partial | #1105 hitmu→passiveum + mhitm_ad_ston mhitu | seed4500 @**101391**; RNG **101579** Scr **924** |
 | D-0927 | fixed | rhack F-prefix reject non-movement (no execute) | seed4500 **87803→88377** RNG **88484** Scr **808**; next D-0928 place |
 | D-0926 | fixed | mhitm_ad_blnd mhitu (raven AT_CLAW) + make_blinded | seed4500 **87218→87803** RNG **88082** Scr **794**; next @87803 distfleeck |
 | D-0925 | fixed | breamm/breamu + mattacku AT_BREA + dobuzz fire-pool | seed4500 **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck |

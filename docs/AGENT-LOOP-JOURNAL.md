@@ -12,6 +12,18 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 04:39 — #1105 score + passiveum + mhitm_ad_ston
+- Objective: cadence full `sessions`; seed4500 @101373 C `passiveum`
+  `d(2,6)` vs JS `rnd(21)` (D-0928).
+- C locus: `mhitu.c` `passiveum`/`assess_dmg`/`hitmu`; `uhitm.c`
+  `mhitm_ad_ston` mhitu arm.
+- Change: `mhitu.js` `passiveum`+`assess_dmg` after damage; `hitmu`
+  Upolyd mh gate; `mhitm_ad_ston_u` hitmsg+`!rn2(3)`.
+- Verification: prefix **101373→101391** (runner RNG **101579**);
+  Scr **924**; green+strict PASS; cohort 7/7; suite **42/44** Scr
+  **10514** RNG **786142** (99.16%).
+- Next: @**101391** `distfleeck` `rn2(5)` vs JS `rn2(61)`.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -167,23 +179,3 @@ Use this shape:
 - Verification: n/a (docs-only).
 - Next: loop agents follow playbook §7 on geometry peels.
 
-## 2026-07-21 02:50 — #1092 D-0928 C flip dump falsifies last=77
-- Objective: seed4500 medusa-3 place / @88377 (D-0928).
-- C locus: `sp_lev.c` `flip_level` / `Flip_coord` / `place_lregion`.
-- Change: temp C recorder dump — medusa-3 flip **sum81**, stair
-  **(32,16)**, place rect**(40,3)-(45,8)** tries≡JS land**(43,6)**;
-  last=77/sum80 dead. Restored `Flip_coord` inFlipArea+x; removed
-  invented SpLev_Map flip. Recorder DIAG reverted.
-- Verification: green+strict PASS; cohort 7/7; rng-diff still @88377.
-- Next: linedup geometry with matched place; cadence @#1095.
-
-## 2026-07-21 02:43 — #1091 D-0928 flip extras + stone78@83695 track
-- Objective: seed4500 medusa-3 hero place (D-0928).
-- C locus: `sp_lev.c` `flip_level` (mgoal/EPRI/ESHK/doors/
-  `level.monsters[][]`); `monmove.c` `m_move:1963`.
-- Change: port Flip_coord(mgoal)+priest/shk + ungated door flip +
-  `_level_monsters` swap. DIAG: stone78@83695 = track
-  `rn2(4*(cnt-j))` JS cnt=8 vs C7 (j=0), mon@(44,13) u@(41,6) —
-  not chcnt; baseline still @88377 (no last=77).
-- Verification: green+strict PASS; cohort 7/7; rng-diff @88377.
-- Next: C-cited last=77 without FORCE; cadence @#1095.

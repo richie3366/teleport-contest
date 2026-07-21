@@ -6,8 +6,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1103; **#1104** nolimbs put-on / doread capacity)
-- **Session:** seed4500-knight-coverage (prefix @**101373**)
+- **Status:** partial (#1080–#1104; **#1105** passiveum + mhitm_ad_ston)
+- **Session:** seed4500-knight-coverage (prefix @**101391**)
+- **Symptom (@101373):** C `d(2,6) @ passiveum` vs JS `rnd(21)` —
+  brown-mold poly after wand-poly; mon hit dealt damage so C ran
+  hero AT_NONE counterattack; JS `hitmu` skipped `passiveum`.
+- **Cause (#1105):** missing `passiveum`/`assess_dmg`; also missing
+  `mhitm_ad_ston` mhitu (next hit’s `rn2(3)` was falsely “matched”
+  by knockback’s `rn2(3)`).
+- **Fix (#1105):** `mhitu.js` `passiveum` (AD_COLD heal/`rn2(2)` +
+  other arms) after `mdamageu` when `mhm.damage`; `hitmu` Upolyd
+  `mh` gate; `mhitm_ad_ston_u` hitmsg + `!rn2(3)` hiss/`do_stone_u`
+  stub. Prefix **101373→101391** (runner matched RNG **101579**).
+  Named omit: `split_mon`/`golemeffects`/`mon_reflects`/
+  `paralyze_monst`/`erode_armor`/`acid_damage`/`drain_item` bodies;
+  `make_stoned` killer string; attk_protection stone detail.
+- **Next (@101391):** C `rn2(5) @ distfleeck` vs JS `rn2(61)`.
 - **Symptom (@100699):** C `rn2(46) @ rnd_otyp_by_namedesc` vs JS
   `rn2(5)` — looked like wish namedesc; JS still emitted `rn2(46)`
   14 calls later (one extra monster turn).
@@ -23,7 +37,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `near_capacity()>=EXT_ENCUMBER` → pline + return 0. Prefix
   **100699→101373**. Named omit: poly `body_part(FINGER)` wording;
   `query_menu` ring hand; exported shared `check_capacity` helper.
-- **Next (@101373):** C `d(2,6) @ passiveum` vs JS `rnd(21)`.
 - **Symptom (@100475):** C `rn2(20) @ polyself` vs JS `rn2(5)`.
 - **Cause (#1103):** after `#wizwish` wand of polymorph, `zq.` self
   → C `zapyourself` → `polyself(POLY_NOFLAGS)` system-shock
