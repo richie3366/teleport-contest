@@ -6,9 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1145)
+- **Status:** partial (#1080–#1146)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1001**/1814)
+  Scr **1120**/1814)
+- **Hypothesis (#1146):** @630 C wizard `#enhance` shows
+  `Advance skills without practice? [yn] (n)` then speedy PICK_ONE
+  with practice columns vs JS non-wizard PICK_NONE skills menu —
+  `enhance_weapon_skill` deferred wizard `y_n` / `can_advance` /
+  `skill_advance`.
+- **Fix (#1146):** `weapon.js` — wizard `yn_function`, `can_advance`/
+  `could_advance`/`peaked_skill`/`slots_required`/`skill_advance`,
+  wizard `%-12s %5d(%4d)` columns, speedy PICK_ONE loop, `bot()` after
+  fullscreen dismiss. `add_weapon_skill`/`lose_weapon_skill` /
+  `use_skill` may-advance deferred.
+- **Verification (#1146):** green+strict PASS; cohort 5/5
+  (0106/0383/0399/1500/1800); Scr **1001→1120**; prefix **@630→@707**.
+  Next: @**707** C `#name` `What do you want to name? [a-km or ?*]`
+  vs JS `[?]`.
 - **Hypothesis (#1145):** @614 C `#overview` lists DoD Level 25 +
   Gehennom Level 40 vs JS only current Level 1 + `(end)` — JS
   `show_overview(why=0)` filtered to current level; C

@@ -72,21 +72,23 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1145:** `interest_mapseen` +
-`#overview` furthest-reached (DoD 25 / Gehennom 40). Scr
-**1000→1001**; prefix **@614→@630**. Next @**630** C wizard
-`#enhance` `Advance skills without practice?` vs JS skills menu
-(`weapon.c` `enhance_weapon_skill`). Focused:
+**108275**/108275). **D-0928 #1146:** wizard `#enhance` y_n +
+speedy `skill_advance` / practice columns. Scr **1001→1120**;
+prefix **@630→@707**. Next @**707** C `#name`
+`What do you want to name? [a-km or ?*]` vs JS `[?]`
+(getobj invent letters). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1145 (bat MFAST … interest_mapseen).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1146 (bat MFAST … enhance y_n).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@630≠non-wizard skills menu — missing wizard `#enhance` y_n/speedy
+(#1146);
 @614≠current-only overview — missing `interest_mapseen` (#1145);
 @559≠letter-only PICK_ANY — missing `MENU_SELECT_ALL` `.` (#1144);
 @541≠unknown extcmd — missing `wiz_identify`/`override_ID` wizid
