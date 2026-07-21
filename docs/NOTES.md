@@ -8,12 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1438** — poly zap More: C botl
-  `Brown Mold` vs JS `Knight` (topline match). @1439 C load More vs
-  JS armor-drop More. Focused:
+- **Primary (D-0928):** seed4500 @**1441** — map C DEC `~` vs JS `e`
+  (r10,c37); poly More @1438–@1440 fixed. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `polyself`/`break_armor` botl before `more` on first poly
-  pline; JS defers `bot`/`newsym` until after More.
+  Falsify: dump C/JS glyph+obj at that cell after poly turns T:222.
 
 ## Don't re-check (≤15)
 
@@ -50,13 +48,18 @@ Objective/score live in `CURRENT.md`.
   `dountrap`→`untrap`→`getdir` (#1175).
 - Do not treat @1347 `$` as `feature_match_tags`/`S_goodpos` scan —
   default `$` is `NHKF_GETPOS_SHOWVALID` before matching (#1176).
+- Do not treat @1438 poly More Knight botl as deferred bot after More
+  — `set_uasmon` must `float_vs_flight`→botl; @1439 load vs gloves
+  was missing `dropz`→`encumber_msg` (#1177).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1175 Scr **11170**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.26/turn`; next cadence @**#1180**.
+- **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; prefix
+  **@1438→@1441**; Scr **1583→1586**; next map `~` vs `e`.
 - **D-0928 #1176:** getpos SHOWVALID `$`; prefix **@1347→@1438**;
-  Scr **1580→1583**; next poly botl Mold vs Knight @More.
+  Scr **1580→1583**.
 - **D-0928 #1175:** `untrap`→`getdir(NULL)`; prefix **@1344→@1347**;
   Scr **1579→1580**.
 - **D-0928 #1174:** getpos furniture cmap (fountain…bars); prefix

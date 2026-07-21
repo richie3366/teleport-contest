@@ -717,7 +717,7 @@ async function drop_uswapwep() {
         await pline(`Your ${left_hand} spasms and drops ${xname(obj)}!`);
     }
     const { dropx } = await import('./do.js');
-    dropx(obj);
+    await dropx(obj);
 }
 
 /**

@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1176)
+- **Status:** partial (#1080–#1177)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1583**/1814)
+  Scr **1586**/1814)
+- **Hypothesis (#1177):** @1438 — poly More topline match but C botl
+  `Brown Mold`/HP:6/HD/Overloaded/Blind vs JS `Knight`. NOTES guessed
+  deferred bot after More; C `set_uasmon`→`float_vs_flight` sets
+  `disp.botl` so `pline`→`flush_screen`→`bot` paints mold before
+  armor-falls More. @1439 C load More vs JS gloves: C `dropz` calls
+  `encumber_msg` mid-`break_armor` after armor `dropp`.
+- **Fix (#1177):** `polyself.js` `float_vs_flight` + call from
+  `set_uasmon`; `do.js` async `dropz`→`await encumber_msg`; await
+  `dropx`/`dropy` callers.
+- **Verification (#1177):** green+strict PASS; cohort 6/6 (1500/1800/
+  0108/0009/0012/0360); focused prefix **@1438→@1441**; Scr
+  **1583→1586**. Next: @**1441** map C DEC `~` vs JS `e`.
 - **Hypothesis (#1176):** @1347 — getpos `$` C stays targeting vs JS
   `Unknown direction: '$'`. NOTES guessed `S_goodpos` matching; C
   binds `$` as `NHKF_GETPOS_SHOWVALID` **before** matching[]

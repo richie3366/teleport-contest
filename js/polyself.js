@@ -22,6 +22,7 @@ import { races } from './roles.js';
 import { encumber_msg } from './invent.js';
 import { losehp, nomul } from './hack.js';
 import { finish_losehp_done, done } from './end.js';
+import { steed_vs_stealth } from './steed.js';
 import {
     mons,
     polyok,
@@ -94,6 +95,8 @@ import {
     ismnum,
     POLYMORPH_CONTROL,
     UNCHANGING,
+    I_SPECIAL,
+    TT_PIT,
 } from './const.js';
 import {
     PM_HUMAN,
@@ -231,12 +234,38 @@ function propset_fromform(propIdx, hField, on) {
 }
 
 /**
+ * C ref: polyself.c float_vs_flight — Levitation overrides Flying; trapped
+ * floor blocks both; always sets disp.botl (polymon armor-More paints
+ * new form via pline→flush_screen→bot before break_armor returns).
+ */
+export function float_vs_flight() {
+    const u = game.u || (game.u = {});
+    const stuckInFloor = !!(u.utrap && (u.utraptype | 0) !== TT_PIT);
+    const hLev = (u.HLevitation | 0) || (u.ELevitation | 0);
+    const hFly = (u.HFlying | 0) || (u.EFlying | 0);
+    if (hLev || (hFly && stuckInFloor)) {
+        u.BFlying = (u.BFlying | 0) | I_SPECIAL;
+    } else {
+        u.BFlying = (u.BFlying | 0) & ~I_SPECIAL;
+    }
+    if (hLev && stuckInFloor) {
+        u.BLevitation = (u.BLevitation | 0) | I_SPECIAL;
+    } else {
+        u.BLevitation = (u.BLevitation | 0) & ~I_SPECIAL;
+    }
+    steed_vs_stealth();
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    if (game.disp) game.disp.botl = true;
+}
+
+/**
  * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
  * via set_mon_data (prorates u.umovement when new form is slower).
  * Named omissions: DRAIN_RES (uwep-suppressed resists_drli); ANTIMAGIC;
  * SICK_RES fungus/ghoul; STUNNED/HALLUC_RES/SEE_INVIS/TELEPAT/INFRAVISION/
  * INVIS/TELEPORT/TELEPORT_CONTROL/LEVITATION/SWIMMING/PASSES_WALLS/
- * REGENERATION/REFLECTING/BLND_RES; vamp cham; float_vs_flight; polysense;
+ * REGENERATION/REFLECTING/BLND_RES; vamp cham; polysense;
  * light-source bookkeeping.
  */
 export function set_uasmon() {
@@ -270,6 +299,9 @@ export function set_uasmon() {
     // so Monnam → "It"; long "The cockatrice …" lines were forcing
     // mid-turn --More-- that ate #version (D-0928 #1109).
     propset_fromform(BLINDED, 'HBlinded', !haseyes(mdat));
+
+    // C: if (!program_state.restoring) float_vs_flight();
+    if (!game.program_state?.restoring) float_vs_flight();
 }
 
 function copyAttrBundle(src) {
@@ -513,12 +545,12 @@ async function drop_weapon(alone) {
     if (u.twoweap && u.uswapwep) {
         const otmp = u.uswapwep;
         setuswapwep(null);
-        if (!otmp.in_use && candropswapwep) dropx(otmp);
+        if (!otmp.in_use && candropswapwep) await dropx(otmp);
     }
     {
         const otmp = u.uwep;
         setuwep(null);
-        if (!otmp.in_use && candropwep) dropx(otmp);
+        if (!otmp.in_use && candropwep) await dropx(otmp);
     }
 }
 
@@ -543,26 +575,27 @@ async function break_armor() {
             exercise(A_STR, false);
             setworn(null, W_ARM, noAc);
             // useup deferred — drop to floor like sliparm dropp
-            dropx(otmp);
+            await dropx(otmp);
         }
         const cloak = u.uarmc;
         if (cloak) {
             await pline('The clasp on your cloak breaks open!');
             setworn(null, W_ARMC, noAc);
-            dropx(cloak);
+            await dropx(cloak);
         }
         if (u.uarmu) {
             const shirt = u.uarmu;
             await pline('Your shirt rips to shreds!');
             setworn(null, W_ARMU, noAc);
-            dropx(shirt);
+            await dropx(shirt);
         }
     } else if (sliparm(uptr)) {
         const otmp = u.uarm;
         if (otmp) {
             await pline('Your armor falls around you!');
             setworn(null, W_ARM, noAc);
-            dropx(otmp);
+            // C dropp→dropx→dropz→encumber_msg mid-break_armor (before gloves)
+            await dropx(otmp);
         }
         const cloak = u.uarmc;
         if (cloak) {
@@ -572,7 +605,7 @@ async function break_armor() {
                 await pline('You shrink out of your cloak!');
             }
             setworn(null, W_ARMC, noAc);
-            dropx(cloak);
+            await dropx(cloak);
         }
         if (u.uarmu) {
             const shirt = u.uarmu;
@@ -582,7 +615,7 @@ async function break_armor() {
                 await pline('You become much too small for your shirt!');
             }
             setworn(null, W_ARMU, noAc);
-            dropx(shirt);
+            await dropx(shirt);
         }
     }
     // C: has_horns helm pierce / drop — deferred (named omit)
@@ -595,20 +628,20 @@ async function break_armor() {
             await pline(`You drop your gloves${u.uwep ? ' and weapon' : ''}!`);
             await drop_weapon(0);
             Gloves_off();
-            dropx(gloves);
+            await dropx(gloves);
         }
         const shield = u.uarms;
         if (shield) {
             await pline('You can no longer hold your shield!');
             Shield_off();
-            dropx(shield);
+            await dropx(shield);
         }
         const helm = u.uarmh;
         if (helm) {
             // C: helm_simple_name + surface() — "helm" / "ground" stand-in
             await pline('Your helm falls to the ground!');
             Helmet_off();
-            dropx(helm);
+            await dropx(helm);
         }
     }
 
@@ -624,7 +657,7 @@ async function break_armor() {
                 await pline(`Your boots ${how} off your feet!`);
             }
             Boots_off();
-            dropx(boots);
+            await dropx(boots);
         }
     }
     // C: ublindf without has_head — deferred

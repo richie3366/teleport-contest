@@ -743,9 +743,9 @@ export async function punish(sobj) {
     if (amorphous(youdat) || is_whirly(youdat) || unsolid(youdat)) {
         if (!reuse_ball) {
             await pline('A ball and chain appears, then falls away.');
-            dropy(mkobj(BALL_CLASS, true));
+            await dropy(mkobj(BALL_CLASS, true));
         } else {
-            dropy(reuse_ball);
+            await dropy(reuse_ball);
         }
         return;
     }
