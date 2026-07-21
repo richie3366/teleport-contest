@@ -12,6 +12,15 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 11:10 — #1134 Kni-goal load_special; RNG complete
+- Objective: seed4500 @107646 C nhlib shuffle rn2(3) vs JS rn2(79).
+- C locus: `dat/Kni-goal.lua`; `sp_lev.c` `load_special`; `mkmaze.c` `makemaz`.
+- Change: no Kni-goal loader → empty maze → ordinary `rn2(79)`. Port
+  `load_kni_goal` (map + Mirror + stock + Ixoth/quasits/jellies) + dispatch.
+- Verification: green+strict PASS; cohort 12/12; rng-diff **108275**/108275;
+  runner Scr **941→947**.
+- Next: seed4500 screen peel (RNG done); cadence @#1135.
+
 ## 2026-07-21 11:01 — #1133 You-die notdied short-circuit; @107646
 - Objective: seed4500 @107645 C getbones missing (keystream).
 - C locus: `topl.c` `update_topl` notdied short-circuit; yn Die?.
@@ -147,15 +156,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; prefix **106531→106536**
   (runner RNG **106546** Scr **937**).
 - Next: @**106536** C `choose_monster_spell` rn2(23) vs JS rn2(5); cadence @#1125.
-
-## 2026-07-21 08:12 — #1120 score + tactics + fire destroy_items
-- Objective: cadence full `sessions`; seed4500 @106304 fleeck vs lined_up.
-- C locus: `wizard.c` `tactics`/`strategy`; `monmove.c` `dochug`;
-  `trap.c` `trapeffect_fire_trap` → `destroy_items`.
-- Change: covetous `tactics` STRAT_NONE before fleeck; fire-trap
-  `destroy_items(AD_FIRE)` after burnarmor (dynamic import).
-- Verification: green+strict PASS; cohort 6/6; prefix **106304→106531**
-  (runner RNG **106540** Scr **937**); suite **42/44** Scr **10527**
-  RNG **791103** (99.78%).
-- Next: @**106531** C `hitmu` `d(2,6)` vs JS `d(3,6)`; cadence @#1125.
 

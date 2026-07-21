@@ -6,8 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1133)
-- **Session:** seed4500-knight-coverage (prefix @**107646**)
+- **Status:** partial (#1080–#1134)
+- **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
+  Scr **947**/1814)
+- **Hypothesis (#1134):** @107646 C `nhlib.lua` shuffle `rn2(3)` vs JS
+  `rn2(79)` after matched `getbones` — JS had no `Kni-goal` loader so
+  `makemaz` left the level empty and ordinary gen burned `rn2(79)`.
+  Session step message (“gaping hole…swamps”) + object/trap fingerprint
+  proved Knight quest goal.
+- **Fix (#1134):** `js/mklev.js` `load_kni_goal` from `dat/Kni-goal.lua`
+  (solidfill+map, Mirror of Merlin, fixed/random objects+traps, Ixoth +
+  16 quasits + class i/j + ochre jelly) + `load_special_proto` dispatch.
+  Named omissions: `Kni-strt`/`loca`/`fila`/`filb`.
+- **Verification (#1134):** green+strict PASS; cohort 12/12; rng-diff
+  **108275**/108275; runner Scr **941→947**. Next: screen peel (RNG
+  done).
 - **Hypothesis (#1133 C dump):** @107645 missing `getbones` was keystream —
   #1132 always-cleared WIN_STOP on `"You die"`, so yn `more()` ate Die?
   answer. C dump @107446: room check short-circuits before

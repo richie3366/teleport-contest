@@ -8,11 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**107646** C `nhlib.lua`
-  shuffle `rn2(3)` vs JS `rn2(79)` (after getbones matched).
-  #1133 C dump: WIN_STOP+no-room `"You die"` leaves `notdied=1`
-  (short-circuit); #1132 always-clear was wrong. Focused:
-  `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
+- **Gameplay next (D-0928):** seed4500 RNG **complete** 108275/108275
+  after #1134 `Kni-goal`. Scr **947**/1814 — screen peel (first miss
+  ~step 136 getpos `0` feature vs unknown direction). Focused:
+  `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
@@ -35,13 +34,15 @@ Objective/score live in `CURRENT.md`.
   covetous `tactics` + fire-trap `destroy_items` (#1120).
 - Do not treat @107645 as missing `getbones` — #1132/#1133 Die?
   `notdied` short-circuit / WIN_STOP.
-- Do not always-clear WIN_STOP on `"You die"` — C short-circuits
-  `notdied` when no append room (#1133).
+- Do not treat @107646 `rn2(79)` as ordinary fill root — missing
+  `Kni-goal` loader (#1134).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1130 Scr **10531**/11405 RNG **792061**/792838
   (99.90%); speed `30+0.25/turn`; next cadence @**#1135**.
+- **D-0928 #1134:** `Kni-goal` load_special; was @**107646**;
+  RNG **complete 108275**/108275 Scr **947**.
 - **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**;
   prefix **107645→107646**; runner RNG **107651** Scr **941**.
 - **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP;
@@ -61,4 +62,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**.
 - **D-0928 #1120:** tactics + fire destroy_items; was @**106304**.
 - **D-0928 #1119:** S_BAT Inhell MFAST; was @**104705**.
-- **D-0928 #1118:** @104705 early shapeshift; bat MFAST omit (→#1119).
