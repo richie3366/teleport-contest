@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **949**/1814.
-  First miss **@231** C statue plains centaur `(invalid target)` vs JS
-  floor of a room. Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **950**/1814.
+  First combined miss **@195** jump cursor (cells OK); first cell
+  **@237** C `Set fruit to what?` vs JS `Options`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -34,25 +34,21 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
   matching (#1135).
+- Do not treat @231 statue as cmap floor — missing object arm (#1136).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
   (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
-- **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**; next @**231**
-  statue vs floor `(invalid target)`.
-- **D-0928 #1134:** `Kni-goal` load_special; was @**107646**;
-  RNG **complete 108275**/108275 Scr **947**.
-- **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**;
-  prefix **107645→107646**; runner RNG **107651** Scr **941**.
-- **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP;
-  still @**107645** (always-clear wrong → #1133).
-- **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**;
-  prefix **107470→107645**; runner RNG **107645** Scr **939**.
-- **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**;
-  prefix **107304→107470**; runner RNG **107498** Scr **941**.
-- **D-0928 #1129:** nasty + SUMMON_MONS; was @**106852**;
-  prefix **106852→107304**.
+- **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match;
+  next @**195** jump curs / @**237** fruit.
+- **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**.
+- **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
+- **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**.
+- **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP.
+- **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**.
+- **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**.
+- **D-0928 #1129:** nasty + SUMMON_MONS; was @**106852**.
 - **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**.
 - **D-0928 #1127:** pickup notake gate; C also double incapable.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**.
@@ -60,4 +56,3 @@ Objective/score live in `CURRENT.md`.
   was #1124.
 - **D-0928 #1122:** AT_MAGC castmu; was @**106536**.
 - **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**.
-- **D-0928 #1120:** tactics + fire destroy_items; was @**106304**.

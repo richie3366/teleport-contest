@@ -12,6 +12,14 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 11:24 — #1136 getpos look_at_object auto_describe
+- Objective: seed4500 @231 statue vs floor `(invalid target)`.
+- C locus: `pager.c` `lookat`/`look_at_object`; `getpos.c` `auto_describe`.
+- Change: `auto_describe_text` deferred objects → ROOM cmap. Port shown
+  floor via `look_shown_at` + `distant_name`/`doname` (`TER_OBJ`).
+- Verification: green+strict PASS; cohort 6/6; Scr **949→950**; @231 match.
+- Next: @**195** jump cursor (cells OK); @**237** `Set fruit to what?`.
+
 ## 2026-07-21 11:16 — #1135 score + getpos S_ss1 '0'; screen peel
 - Objective: cadence full `sessions`; seed4500 @136 feature `'0'`.
 - C locus: `getpos.c` matching[] / `defsym.h` `S_ss1` `'0'`.

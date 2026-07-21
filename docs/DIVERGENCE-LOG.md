@@ -6,9 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1135)
+- **Status:** partial (#1080–#1136)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **949**/1814)
+  Scr **950**/1814)
+- **Hypothesis (#1136):** @231 C `a statue of a plains centaur
+  (invalid target)` vs JS `floor of a room (invalid target)` —
+  `auto_describe_text` deferred objects and fell through to ROOM cmap.
+- **Fix (#1136):** `js/getpos.js` `auto_describe_text` — C `lookat`
+  `glyph_is_object` → `look_at_object`: `look_shown_at` + `distant_name`
+  / `doname` before trap/cmap (`TER_OBJ` gate). Named: fakeobj /
+  `doname_with_price` / `doname_vague_quan` / buried-embedded suffixes.
+- **Verification (#1136):** green+strict PASS; cohort 6/6 (0360/0004/
+  0012/1500); focused Scr **949→950**; @231 matches. Next combined
+  miss **@195** jump cursor (cells OK); first cell **@237** C
+  `Set fruit to what?` vs JS `Options`.
 - **Hypothesis (#1135):** @136 C `Can't find dungeon feature '0'.` vs JS
   `Unknown direction: '0'` — JS `feature_match_tags` omitted `S_ss1`
   (`defsym.h` PCHAR `'0'`), so matching `k==0` took the unknown-dir arm.

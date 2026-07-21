@@ -13,8 +13,9 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, terrain_glyph } from './display.js';
+import { flush_screen, pline, docrt, terrain_glyph, look_shown_at } from './display.js';
 import { cansee } from './vision.js';
+import { distant_name, doname } from './objnam.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_OBJ, TER_MAP, TER_DETECT,
     GLOC_MONS, GLOC_OBJS, GLOC_DOOR, GLOC_EXPLORE, GLOC_INTERESTING,
@@ -478,11 +479,14 @@ function cmap_defsym_explanation(x, y, loc) {
  * required for TER_DETECT after clear_glyph_buffer.
  *
  * Named omissions: full do_screen_description symbol table, coord_desc,
- * underwater unreconnoitered, object / special cmap arms (altar; doors D-0815;
- * cloud typ D-0811). Trap: tseen `trapname` only (trapped_chest/door /
- * Hallucination deferred). Travel: " (no travel path)" via
- * is_valid_travelpt when getloc_travelmode (D-0809). getpos_getvalid
- * "(invalid target)" live (D-0899); S_goodpos hilite glyphs deferred.
+ * underwater unreconnoitered, special cmap arms (altar; doors D-0815;
+ * cloud typ D-0811). Object: shown floor via look_shown_at + distant_name
+ * doname (D-0928 #1136); object_from_map fakeobj, doname_with_price /
+ * doname_vague_quan, buried/embedded suffixes deferred. Trap: tseen
+ * `trapname` only (trapped_chest/door / Hallucination deferred). Travel:
+ * " (no travel path)" via is_valid_travelpt when getloc_travelmode
+ * (D-0809). getpos_getvalid "(invalid target)" live (D-0899); S_goodpos
+ * hilite glyphs deferred.
  */
 function auto_describe_text(cx, cy) {
     const u = game.u || {};
@@ -502,6 +506,16 @@ function auto_describe_text(cx, cy) {
         // only describe when the mon glyph is actually shown (or no TER_DETECT).
         if (!(terrainmode & TER_DETECT) || (ch && ch !== ' ')) {
             return look_at_monster_brief(mtmp);
+        }
+    }
+
+    // C lookat glyph_is_object → look_at_object (before trap/cmap)
+    if (!terrainmode || (terrainmode & TER_OBJ) !== 0) {
+        const shown = look_shown_at(cx, cy);
+        if (shown?.kind === 'obj' && shown.obj) {
+            // C: distant_name(otmp, dknown ? doname_with_price : doname_vague_quan)
+            // Named: with_price / vague_quan / fakeobj / location suffixes
+            return distant_name(shown.obj, doname);
         }
     }
 
@@ -546,7 +560,7 @@ function auto_describe_text(cx, cy) {
     const cmap = cmap_defsym_explanation(cx, cy, loc);
     if (cmap) return cmap;
 
-    // Object / remaining special cmap under TER_* browse still deferred
+    // Remaining special cmap under TER_* browse still deferred
     return 'unexplored area';
 }
 
