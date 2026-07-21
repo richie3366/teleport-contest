@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 14:49 — #1165 public score + Blind ice diagnosis
+
+- Objective: cadence full `sessions` @#1165; diagnose seed4500 @1048.
+- C locus: `display.c` `feel_location` / Blind memory vs `map_object`
+  (Punished chain + corpse); ICE typ still suspected under C `~~`.
+- Change: docs only — Score **42**/44 Scr **11024**/11405 RNG
+  **100%** `30+0.25/turn`; @1048 = 2 cells C ice vs JS `:`/`_`.
+- Verification: green+strict PASS; focused seed4500 **1434**/1814.
+- Next: C dump typ/glyph at map `(42,6)`/`(43,6)`, or port
+  `feel_location` / ice persistence (D-0928).
+
 ## 2026-07-21 14:42 — #1164 makemon_appear_msg wizgenesis
 
 - Objective: seed4500 @1034 invent `appears close by` vs C path.

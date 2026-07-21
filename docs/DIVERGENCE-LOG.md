@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1164)
+- **Status:** partial (#1080–#1165)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
   Scr **1434**/1814)
+- **Hypothesis (#1165):** @1048 — only 2 map cells miss: screen
+  `(41,6)`/`(42,6)` (= map `(42,6)`/`(43,6)`). C DEC ice `~~`
+  (NO_COLOR) vs JS lizard corpse `:` + iron chain `_`. JS `typ` is
+  ROOM with remembered_glyph from `map_object` (move_bc / newsym);
+  neighbor C `~` vs JS `·` still match via DEC_MAP. Likely missing
+  `feel_location` / ICE typ under Punished Blind memory — not
+  generic floor glyphs.
+- **Change (#1165):** cadence score only (no port fix). Full
+  `sessions` **42**/44 Scr **11024**/11405 RNG **100%**.
+- **Verification (#1165):** green+strict PASS; focused seed4500
+  Scr **1434**/1814 held. Next: C dump `levl` typ/glyph at those
+  coords, or port `feel_location` / ice persistence.
 - **Hypothesis (#1164):** @978/@1034 — NOTES claimed C empty vs JS
   invent `A minotaur appears close by.` Dropping invent emptied
   @978 where C shows `A red dragon appears next to you.` Root:

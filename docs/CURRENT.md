@@ -19,19 +19,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1160** (42/44,
-Scr **11013**/11405, RNG **100%**) after D-0928 lastseentyp savelev/getlev.
-vs @#1156: Scr **10979→11013** (seed4500 **1412→1423**); speed
-`32+0.26/turn`. Next cadence @**#1165**.
+Score last measured: **2026-07-21** — full `sessions` @**#1165** (42/44,
+Scr **11024**/11405, RNG **100%**) cadence refresh; seed4500 still
+**1434**/1814 after #1161–#1164 (+11 Scr vs @#1160). Speed
+`30+0.25/turn`. Next cadence @**#1170**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **11,013 / 11,405** |
+| Screens matched | **11,024 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `32+0.26/turn` (R² 0.852) |
+| Speed label | `30+0.25/turn` (R² 0.857) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1434/1814 | knight; RNG done; @1048 Blind `~~` |
+| seed4500 | **108275**/108275 | 1434/1814 | knight; RNG done; @1048 Blind ice |
 
 ## Green gate
 
@@ -63,10 +63,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1048** — Blind map cells `(41,7)`/`(42,7)` C `~~` vs
-JS `:_` (toplines match: hissing gas / fire hits). RNG
-**108275**/108275; Scr **1434**/1814; prefix **@1034→@1048** after
-`makemon_appear_msg`. Focused:
+**seed4500 @1048** — Blind map screen cols `(41,6)`/`(42,6)` (= map
+`(42,6)`/`(43,6)`): C DEC ice `~~` (NO_COLOR) vs JS lizard `:` + chain
+`_`. Toplines match. Only **2** cell misses at first diverge. JS `typ`
+is ROOM with remembered corpse/chain; surrounding C `~` vs JS `·` still
+visually equal via DEC_MAP. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -77,7 +78,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1164; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1165; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -87,10 +88,10 @@ zap_over_floor hissing-gas Norep + hit The (#1162);
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
 omit mfind0/wizwhere/break_armor/carrying_too_much. Recent rejects:
-@1034≠C-empty — was invent caller pline + missing makemon appear
-(req x,y → “next to you”) (#1164); @1001≠generic moat — was missing
-`Is_medusa_level` `"shallow sea"` (#1163); @997≠fire-order root —
-`zap_over_floor` Norep + The (#1162); older in D-0928/NOTES.
+@1048≠generic Blind floor — JS remembers lizard+chain on ROOM while C
+shows ice memory (#1165); @1034≠C-empty — invent caller pline + missing
+makemon appear (#1164); @1001≠generic moat — Medusa `"shallow sea"`
+(#1163); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
