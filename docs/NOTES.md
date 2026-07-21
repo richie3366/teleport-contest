@@ -8,12 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**941** `#overview` — JS extra
-  Level-1 `A fountain.` + Mines `Level 5:` (C omits both; C Level 1
-  is annotation-only). Focused:
+- **Primary (D-0928):** seed4500 @**985** wood nymph — JS
+  `disarms your +1 lance` vs C `wakes up!--More--`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: dump `print_mapseen` / `interest_mapseen` / feat.n_fountains
-  for ledger 1 and Mines 5 vs C (prefer temp C dump).
+  Falsify: dump C `hitmu`/`mhitm_ad_sedu`/`steal` sleep/msleeping vs
+  JS (prefer temp C dump at mhitu/steal locus).
 
 ## Don't re-check (≤15)
 
@@ -28,24 +27,22 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
-- Do not treat @832 stair “level 1” as dig-depth — was
-  `stairs_description` using `tolev.dlevel` not `depth` (#1154).
-- Do not treat @831 staircase getpos as root — was deferred
-  `maybe_wail` after iron-ball `losehp` (#1153).
-- Do not treat @814 floor vs `<` as display offset — was `mkstairs`
-  missing end-of-dungeon no-op on minefill up (#1152).
+- Do not treat @941 overview Level-1 fountain / Mines 5 as interest_filter
+  alone — was missing `lastseentyp` savelev/getlev (#1160).
+- Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
+  missing Punished climb `great_effort` pline (#1159).
+- Do not treat @902 `` ` ``/bright-blue as pool/`~` — was `S_engroom`
+  after `#wizmap`; `show_map_spot` must `map_engraving` (#1158).
 - Do not treat @893 overview Level 25 alone as interest_mapseen filter
   — missing leave `recalc_mapseen`, `show_map_spot`→`room_discovered`,
   `recbranch_mapseen`, shop_string (#1157).
-- Do not treat @902 `` ` ``/bright-blue as pool/`~` — was `S_engroom`
-  after `#wizmap`; `show_map_spot` must `map_engraving` (#1158).
-- Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
-  missing Punished climb `great_effort` pline (#1159).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1156 Scr **10979**/11405 RNG **792838**/792838
-  (**100%**); speed `33+0.26/turn`; next cadence @**#1160**.
+- suite **42/44** @#1160 Scr **11013**/11405 RNG **792838**/792838
+  (**100%**); speed `32+0.26/turn`; next cadence @**#1165**.
+- **D-0928 #1160:** savelev/getlev `lastseentyp`; Scr **1412→1423**;
+  @941 OK; next @985 nymph disarm vs wake.
 - **D-0928 #1159:** `goto_level` Punished climb great_effort; Scr
   **1409→1412**; @929 OK; next @941 overview extras.
 - **D-0928 #1158:** `show_map_spot` engraving remapping; Scr
@@ -73,5 +70,3 @@ Objective/score live in `CURRENT.md`.
   **1120→1141**; prefix **@707→@751**.
 - **D-0928 #1146:** wizard `#enhance` y_n/speedy; Scr **1001→1120**;
   prefix **@630→@707**.
-- **D-0928 #1145:** `interest_mapseen` `#overview`; Scr **1000→1001**;
-  prefix **@614→@630**.

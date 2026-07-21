@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1159)
+- **Status:** partial (#1080–#1160)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1412**/1814)
+  Scr **1423**/1814)
+- **Hypothesis (#1160):** @941 `#overview` JS Level-1 `A fountain.` +
+  Mines `Level 5:` fountain vs C annotation-only L1 and Mines starts
+  at Level 12 — in-memory `savelev`/`getlev` omitted `lastseentyp`,
+  so return visits left prior-level lastseentyp live and leave-time
+  `recalc_mapseen` polluted `mapseen.feat`.
+- **Fix (#1160):** `do.js` `goto_level` stash/restore `lastseentyp`
+  (≡C `save.c`/`restore.c` Sfo/Sfi_schar). Altar-god / builds_up /
+  endgame-first still deferred.
+- **Verification (#1160):** green+strict PASS; cohort 40/40; full
+  `sessions` **42/44** Scr **11013**/11405; seed4500 Scr
+  **1412→1423**; prefix **@941→@985**. Next: @**985** wood nymph
+  disarm vs wake.
 - **Hypothesis (#1159):** @929 C `With great effort, you climb up the
   stairs.--More--` vs JS ordinary climb then Dlvl:6 staircase-down —
   JS `goto_level` deferred Punished climb (`great_effort =

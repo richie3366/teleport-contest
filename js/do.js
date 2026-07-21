@@ -464,6 +464,14 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             lx: d?.lx | 0, ly: d?.ly | 0, hx: d?.hx | 0, hy: d?.hy | 0,
             nlx: d?.nlx | 0, nly: d?.nly | 0, nhx: d?.nhx | 0, nhy: d?.nhy | 0,
         });
+        // C save.c savelev — Sfo_schar lastseentyp[COLNO][ROWNO] with the
+        // level (after savelevl). Without this, getlev left the prior
+        // level's lastseentyp live and leave-time recalc_mapseen polluted
+        // mapseen.feat (extra overview fountains).
+        const snapLastseen = (lst) => {
+            if (!lst) return null;
+            return lst.map((row) => (row ? Array.from(row) : null));
+        };
         game.level_info[old_ledger] = {
             flags: (prev.flags | 0) | VISITED | LFILE_EXISTS,
             omoves: game.moves | 0,
@@ -478,6 +486,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             regions: game.regions || [],
             updest: snapDest(game.updest),
             dndest: snapDest(game.dndest),
+            lastseentyp: snapLastseen(game.lastseentyp),
         };
     }
 
@@ -555,6 +564,14 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.regions = info.regions || [];
         if (info.updest) game.updest = { ...info.updest };
         if (info.dndest) game.dndest = { ...info.dndest };
+        // C restore.c getlev — Sfi_schar lastseentyp after rest_levl
+        if (info.lastseentyp) {
+            game.lastseentyp = info.lastseentyp.map(
+                (row) => (row ? Array.from(row) : null),
+            );
+        } else {
+            game.lastseentyp = null;
+        }
         rebuildObjectsAt(game.fobj);
         relight_monsters();
         rest_track(info.track);

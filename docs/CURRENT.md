@@ -19,19 +19,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1156** (42/44,
-Scr **10979**/11405, RNG **100%**). Next cadence @**#1160**.
-vs @#1155: PASS **38→42** (D-0929 look_here-only overlay leftover);
-Scr **10974→10979**. Speed `33+0.26/turn`.
+Score last measured: **2026-07-21** — full `sessions` @**#1160** (42/44,
+Scr **11013**/11405, RNG **100%**) after D-0928 lastseentyp savelev/getlev.
+vs @#1156: Scr **10979→11013** (seed4500 **1412→1423**); speed
+`32+0.26/turn`. Next cadence @**#1165**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,979 / 11,405** |
+| Screens matched | **11,013 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `33+0.26/turn` (R² 0.849) |
+| Speed label | `32+0.26/turn` (R² 0.852) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1409/1814 | knight; RNG done; @929 climb |
+| seed4500 | **108275**/108275 | 1423/1814 | knight; RNG done; @985 nymph |
 
 ## Green gate
 
@@ -63,11 +63,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @941** `#overview` — JS prints Level-1 `A fountain.` and
-Mines `Level 5:` (+ fountain) that C omits (C Level 1 is
-`"starting level"` annotation only; Mines starts at Level 12)
-(RNG **108275**/108275; Scr **1412**/1814; prefix **@929→@941**).
-Focused:
+**seed4500 @985** wood nymph — JS `disarms your +1 lance` vs C
+`wakes up!--More--` (RNG **108275**/108275; Scr **1423**/1814;
+prefix **@941→@985**). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -78,15 +76,16 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1159; teleds placebc (#1151);
-D-0929 look_here-only `keep_message_leftover` (not blanket corner).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1160; teleds placebc (#1151);
+D-0929 look_here-only `keep_message_leftover` (not blanket corner);
+lastseentyp savelev/getlev (#1160).
 **Do not:** blanket corner restore; FORCE mfndpos/WEB; raw RNG
 gates; invent splice; omit breamm/blnd/F-prefix; FORCE linedup/flip;
 inediate FOOD reject; omit mfind0/wizwhere/break_armor/
-carrying_too_much. Recent rejects: @929≠More/keystream — was
-Punished climb `great_effort` (#1159); @902≠pool/`~` — was
-`S_engroom` after `#wizmap` (#1158); @893≠interest_filter alone
-(#1157); older in D-0928/NOTES.
+carrying_too_much. Recent rejects: @941≠interest alone — was
+lastseentyp pollution across getlev (#1160); @929≠More/keystream —
+was Punished climb `great_effort` (#1159); @902≠pool/`~` — was
+`S_engroom` after `#wizmap` (#1158); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
