@@ -20,9 +20,10 @@
 // unmap_invisible / Blind feel; Hallucination/cls
 // map_trap wait; activate_statue_trap; artifact SPFX_SEARCH;
 // warnreveal body (mfind0 via_warning wired);
-// map_trap/map_engraving restore after furniture; unconstrain
-// underwater-buried-swallow; notice_mon_off/on; findone
-// flash_glyph / mimic / hider / invis / chest-trap detect;
+// map_trap + map_engraving after furniture (D-0928 #1158); oldglyph
+// trap/object restore deferred; unconstrain underwater-buried-swallow;
+// notice_mon_off/on; findone flash_glyph / mimic / hider / invis /
+// chest-trap detect;
 // trapped-door dummytrap; FOUND_FLASH_COUNT==0 tmp_at path;
 // reveal_terrain region/gascloud / trap keep restore /
 // M_AP_FURNITURE; wiz_map_levltyp / wiz_levltyp_legend;
@@ -35,13 +36,14 @@ import { game } from './gstate.js';
 import { rnl, rn2 } from './rng.js';
 import {
     newsym, pline, magic_map_background, terrain_glyph, obj_glyph,
-    show_glyph_cell, map_trap, canspotmon, sensemon, map_invisible,
-    glyph_is_invisible, warning_of, You_feel,
+    show_glyph_cell, map_trap, map_engraving, canspotmon, sensemon,
+    map_invisible, glyph_is_invisible, warning_of, You_feel,
 } from './display.js';
 import { vision_recalc, couldsee, recalc_block_point } from './vision.js';
 import { an } from './objnam.js';
 import { A_WIS, exercise } from './attrib.js';
 import { t_at } from './trap.js';
+import { engr_at } from './engrave.js';
 import { cmd_safety_prevention } from './do.js';
 import { m_at, seemimic } from './mon.js';
 import { is_hider, hides_under } from './monsters.js';
@@ -500,7 +502,7 @@ export function premap_detect() {
 
 /**
  * C ref: detect.c show_map_spot — magic mapping / clairvoyance cell update.
- * Confusion path rolls rn2(7) skip; furniture trap/engraving restore deferred.
+ * Confusion path rolls rn2(7) skip; oldglyph trap/object restore deferred.
  */
 export function show_map_spot(x, y, cnf) {
     if (cnf && rn2(7)) return;
@@ -522,13 +524,19 @@ export function show_map_spot(x, y, cnf) {
         magic_map_background(x, y, 1);
     }
 
-    // Non-furniture: C map_trap(t,1) / map_engraving — not newsym.
-    // newsym !cansee only redraws remembered_glyph, which
-    // magic_map_background just set to terrain (D-0814).
+    // C: !IS_FURNITURE → tseen trap else engraving (even !erevealed)
+    // else oldglyph trap/object restore. newsym alone would keep floor
+    // when erevealed is still clear (D-0814 / D-0928 #1158).
     if (!IS_FURNITURE(lev.typ)) {
         const trap = t_at(x, y);
         if (trap && trap.tseen) {
             map_trap(trap, 1);
+        } else {
+            const ep = engr_at(x, y);
+            if (ep && !cnf) {
+                map_engraving(ep, 1);
+            }
+            // else glyph_is_trap/object(oldglyph) restore deferred
         }
     }
     // C: possibly update #overview when mapping a room cell

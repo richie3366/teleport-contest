@@ -20,6 +20,17 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 14:04 — #1158 D-0928 show_map_spot engraving
+
+- Objective: seed4500 @902 map `` ` `` vs `·` after `#wizmap`.
+- C locus: `detect.c` `show_map_spot` — `map_engraving` when
+  `!IS_FURNITURE` and no tseen trap (`S_engroom`).
+- Change: `detect.js` `show_map_spot` remaps `engr_at` via
+  `map_engraving` after trap branch (wine-cellar engroom).
+- Verification: green+strict PASS; cohort 14/14; Scr **1390→1409**;
+  prefix **@902→@929**.
+- Next: seed4500 @929 climb-stairs `--More--` vs JS Dlvl:6 (D-0928).
+
 ## 2026-07-21 13:55 — #1157 D-0928 mapseen overview shops/branches
 
 - Objective: seed4500 @893 `#overview` Level 3 vs 25.

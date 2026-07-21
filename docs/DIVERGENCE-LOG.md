@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1157)
+- **Status:** partial (#1080–#1158)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1390**/1814)
+  Scr **1409**/1814)
+- **Hypothesis (#1158):** @902 C bright-blue `` ` `` vs JS floor `·`
+  after `#wizmap` — not pool/`~`; `S_engroom` wine-cellar engravings
+  at (62,6)/(62,7). JS `show_map_spot` remapped traps only; C also
+  `map_engraving(ep,1)` when `!IS_FURNITURE` and no tseen trap, so
+  `do_mapping`/`newsym` did not leave floor over unrevealed engroom.
+- **Fix (#1158):** `detect.js` `show_map_spot` — `engr_at` →
+  `map_engraving` after furniture/trap branch. oldglyph trap/object
+  restore still deferred.
+- **Verification (#1158):** green+strict PASS; cohort 14/14; Scr
+  **1390→1409**; prefix **@902→@929**. Next: @**929** C
+  `With great effort, you climb up the stairs.--More--` vs JS
+  already on Dlvl:6 staircase-down topline.
 - **Hypothesis (#1157):** @893 C `#overview` Level 3 (general store +
   fountain) + Level 4 (many fountains + Mines stairs) vs JS only
   Level 25 — JS never (1) `recalc_mapseen` before leave, (2)
