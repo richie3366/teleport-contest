@@ -3120,16 +3120,19 @@ export async function pline(msg) {
 
     // Capture skip before more(); C still paints the new line with the
     // pre-more skip flag even if ESC sets WIN_STOP during more().
-    // C update_topl: local `skip`; "You die" clears WIN_STOP then
-    // sets skip=FALSE so redotoplin still runs (D-0928 #1132).
+    // C update_topl: `notdied` starts TRUE; only assigned inside the
+    // short-circuiting append predicate. "You die" clears WIN_STOP iff
+    // that assignment ran (room check passed). Under WIN_STOP + no room,
+    // notdied stays 1 → WIN_STOP kept → yn skips more() (D-0928 #1133).
     let skip = _win_stop;
-    const notdied = !String(msg).startsWith('You die');
+    let notdied = 1;
     const line = String(msg);
 
-
+    const n0 = line.length;
+    // C: (NEED_MORE || skip) && cury==0 && room && (notdied=strncmp)!=0
     if ((_toplin === TOPLINE_NEED_MORE || skip)
-        && _toplines.length + 3 + line.length < CO - 8
-        && notdied) {
+        && n0 + _toplines.length + 3 < CO - 8
+        && ((notdied = line.startsWith('You die') ? 0 : 1) !== 0)) {
         _toplines = _toplines ? `${_toplines}  ${line}` : line;
         if (!skip) game._pending_message = _toplines;
         // C: gp.prevmsg = line (new text only, not the concatenated topline)
@@ -3143,9 +3146,9 @@ export async function pline(msg) {
     // C ref: topl.c update_topl — replace spaces with `\n` while n0 >= CO
     let formatted = line;
     {
-        let n0 = formatted.length;
+        let wrapN0 = formatted.length;
         let tl = 0;
-        while (n0 >= CO) {
+        while (wrapN0 >= CO) {
             const otl = tl;
             let i = tl + CO - 1;
             for (; i !== otl; --i) {
@@ -3157,7 +3160,7 @@ export async function pline(msg) {
             }
             formatted = `${formatted.slice(0, i)}\n${formatted.slice(i + 1)}`;
             tl = i + 1;
-            n0 = formatted.length - tl;
+            wrapN0 = formatted.length - tl;
         }
     }
 

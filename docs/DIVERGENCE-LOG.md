@@ -6,18 +6,30 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1132)
-- **Session:** seed4500-knight-coverage (prefix @**107645**)
+- **Status:** partial (#1080–#1133)
+- **Session:** seed4500-knight-coverage (prefix @**107646**)
+- **Hypothesis (#1133 C dump):** @107645 missing `getbones` was keystream —
+  #1132 always-cleared WIN_STOP on `"You die"`, so yn `more()` ate Die?
+  answer. C dump @107446: room check short-circuits before
+  `strncmp("You die")` → `notdied` stays 1 → WIN_STOP kept → yn skips
+  more → ESC/n answers Die?.
+- **Fix (#1133):** `pline`/`update_topl` match C `notdied` short-circuit
+  (assign only inside append predicate). Keep yn clear-WIN_STOP after
+  flush (#1132).
+- **Verification (#1133):** green+strict PASS; cohort 6/6; prefix
+  **107645→107646** (runner RNG **107651** Scr **941**). Next:
+  @**107646** C `nhlib.lua` shuffle `rn2(3)` vs JS `rn2(79)`.
 - **Hypothesis (#1132):** @107645 C `getbones` `rn2(3)` vs JS missing
   is **not** a missing `getbones` body — JS never reaches mklev.
   After matched wipe `rn2(64)`, `unmul` plines survived with
   NEED_MORE holding `"The xan pricks your right leg!"` (len 30);
-  30+3+42 ≥ CO−8 → `more()` eats `^V ? \n` (invalid until `\n`).
+  30+3+42 ≥ CO−8 → `more()` eats `^V ? \n`.
   Earlier Die? region: ESC used for `hitmsg` more@107426 while C
   answers Die? with ESC.
 - **Fix (#1132):** C-faithful `update_topl` — `"You die"` clears
   WIN_STOP then `skip=FALSE` so redotoplin runs; `yn_function`
   clears WIN_STOP after `flush_topl_more`. Prefix unchanged.
+  (**#1133:** always-clear was wrong under WIN_STOP+no room.)
 - **Verification (#1132):** green+strict PASS; cohort 6/6; still
   @**107645**. Next: align NEED_MORE / Die? keystream so unmul
   does not steal ^V.

@@ -24,9 +24,8 @@ focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1130** (42/44,
 Scr **10531**/11405, RNG **99.90%**). Next cadence @**#1135**.
 vs @#1125: Scr **10529→10531**, RNG **791421→792061** (#1129–#1130;
-seed4500 **107335→107498** Scr **941**). Focused #1131–#1132 seed4500
-still **107645** RNG **107645** Scr **939** (getbones blocked by
-`unmul` more keystream).
+seed4500 **107335→107498** Scr **941**). Focused #1133 seed4500
+**107645→107646** RNG **107651** Scr **941** (`notdied` short-circuit).
 
 ## Score
 
@@ -50,7 +49,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 107645/108275 | 939/1814 | knight; @**107645** JS early end — `unmul` `more()` ate `^V` |
+| seed4500 | 107651/108275 | 941/1814 | knight; @**107646** lua shuffle rn2(3) vs rn2(79) |
 
 ## Green gate
 
@@ -73,14 +72,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**107645** (D-0928). Symptom still
-C `getbones` `rn2(3)` vs JS missing. #1132: cause is **keystream** —
-`unmul` pline survived → `more()` eats `^V ? \n` while NEED_MORE holds
-`"The xan pricks your right leg!"` (30+3+42≥CO−8). Shipped C-faithful
-`update_topl` You-die `skip=FALSE` + `yn_function` clear WIN_STOP;
-prefix unchanged. Next: **C dump** NEED_MORE/topline/WIN_STOP at
-`hitmsg` more@107426 vs `unmul` (playbook §7) before another topline
-shim — C Die? ESC leaves SP for ^V.
+**Gameplay next:** **seed4500** @**107646** (D-0928). #1133 C dump at
+Die?@107446: under WIN_STOP + no append room, C never assigns
+`notdied` from `"You die"` → WIN_STOP kept → yn skips more. #1132
+always-clear was wrong. Shipped C-faithful `notdied` short-circuit;
+prefix **107645→107646** (getbones matched). Next: C
+`nhlib.lua` shuffle `rn2(3)` vs JS `rn2(79)`.
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -88,15 +85,16 @@ Focused:
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1132 (bat MFAST … topl WIN_STOP).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1133 (bat MFAST … notdied SC).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
-@107645≠missing getbones site alone — `unmul` more ate ^V (#1132);
-@107470≠rn2(3) site — missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove
-(#1130); @106852≠omit nasty (#1129); @106838≠rn2(32) (#1127–8);
-@106540≠fleeck alone (#1123–4); @106304≠fleeck (#1120); @104705≠fleeck
-(#1118–9); older rejects in D-0928 / NOTES.
+@107645≠missing getbones — Die? `notdied` short-circuit (#1133);
+@107645≠always-clear You-die (#1132 partial); @107470≠rn2(3) site —
+missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove (#1130);
+@106852≠omit nasty (#1129); @106838≠rn2(32) (#1127–8);
+@106540≠fleeck alone (#1123–4); @106304≠fleeck (#1120);
+@104705≠fleeck (#1118–9); older rejects in D-0928 / NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
