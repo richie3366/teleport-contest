@@ -74,11 +74,12 @@ if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
 **X-only** land/stairs. C kelp count **940** (=JS sum81); C needs
-FlipX **sum80** for `>`(31,16) / `@(42,6)`. #1088: FORCE maxx78/minx1
-→ kelpW **959**, place desync @82419; coords-only FlipX @80989;
-DIAG stone78 (preflip col78→STONE, extends sum80) → land `(42,6)`
-dndest`[39..44]` then @**83695**. Find C-cited last=77 at flip that
-keeps edge water for later turns. Focused:
+FlipX **sum80** for `>`(31,16) / `@(42,6)`. #1089: exclude78 /
+stone78_restore (sum80 **with** postflip w78) land OK then
+**@82639** — worse than stone78 **@83695**. So @83695 is **not**
+missing col78 water (restore regresses). Preflip col78 = 20×MOAT,
+mons/objs/traps **0**. Next: C-cited last=77 / stone78@83695
+`m_move` rn2(28) vs rn2(32). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -101,8 +102,8 @@ addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
 (D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
 silent-clear F-prefix then still run `#`/non-move (D-0927);
-FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear for @88377
-(D-0928 — C-cited last=77 ∧ kelp940 ∧ keep edge water).
+FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
+restore-w78 for @88377 (D-0928 — C-cited last=77; @83695 ≠ w78).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

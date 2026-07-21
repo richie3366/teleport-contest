@@ -7,8 +7,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is medusa-3 hero place; #1080–#1087 as below; **#1088**
-  measured C kelp=940 and probed sum80 modes)
+  prerequisite is medusa-3 hero place; #1080–#1088 as below; **#1089**
+  falsified “keep/restore col78 water with sum80”)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -23,23 +23,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   ystart=2+ysize=19 (#1086 — C `rn2(20)`); whole-map Y+1 (#1087);
   **#1088:** FORCE maxx78/minx1 (kelpW **940→959**, still @82419);
   split FlipX coords-sum80/terrain-sum81 (@80989 upstairs place);
-  permanent STONE-clear of preflip col78 (land `(42,6)` then @83695).
+  permanent STONE-clear of preflip col78 (land `(42,6)` then @83695);
+  **#1089:** exclude78 (`minx=3,maxx=77`, keep w78) and
+  stone78_restore (clear→flip sum80→restore MOAT@78) both land
+  `(42,6)`/kelp940/w78=20 then desync **@82639** — worse than
+  stone78@83695. So @83695 is **not** missing col78 water.
+  Preflip col78 = 20×MOAT; mons/objs/traps on col78 = **0**.
 - **Cause (prerequisite):** hero already off C before F-prefix window.
   Arrival `^V` Dlvl:6→24 → `u_on_rndspot`/`dndest`. Same place
   `rn2(6)×3` @82419–82424. JS `u_on_newpos(43,6)` /
   `dndest[40..45]×[3..8]` after FlipX sum81 (first=3 last=78,
   minx=2 maxx=79, dnstair 49→32). C screen `>`**(31,16)** `@`(42,6)
   need sum80; C `water_has_kelp` count before place is **940** (=JS
-  sum81 kelpW). stone78 DIAG (clear col78→extends maxx=78) gets
-  land+kelp right then loses edge water for later turns (@83695).
+  sum81 kelpW). Best sum80 DIAG remains stone78 (postflip last=77,
+  w78=0) through place then @83695 `m_move` rn2(28) vs rn2(32).
 - **C locus:** `dat/medusa-3.lua`; `sp_lev.c` `flip_level` /
   `get_level_extends` / `lspo_map`; `mkmaze.c` `place_lregion`;
-  `mklev.c` `mineralize`/`water_has_kelp`.
+  `mklev.c` `mineralize`/`water_has_kelp`; `monmove.c` `m_move`.
 - **Partial:** #1082 medusa-3 epilogue; #1087 stairs ungated +
   extends scan bounds (prefix still @88377).
-- **Next:** C-cited reason `get_level_extends` last=77 (sum80) at
-  flip while mineralize still sees 940 kelp cells and edge water
-  remains for post-place play. Do not re-FORCE minx1/maxx78/stone78.
+- **Next:** C-cited `get_level_extends` last=77 (sum80) without
+  FORCE clear; then stone78@83695 track/`mfndpos` (not w78 restore).
+  Do not re-FORCE minx1/maxx78/stone78/exclude78/restore-w78.
 - **Verification:** green+strict PASS; rng-diff @88377 (no production
   JS this peel).
 
