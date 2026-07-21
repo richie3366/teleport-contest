@@ -21,6 +21,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:59 — #1240 cadence + D-0970 toggle_stealth
+
+- Objective: mandatory cadence full `sessions` (@#1240 % 5 == 0);
+  map-driven wear debt — `toggle_stealth` after D-0966 Ring_on.
+- C locus: `do_wear.c` `toggle_stealth` + Ring/Boots/Cloak on/off;
+  `worn.c` STEALTH extrinsic mirror.
+- Change: `toggle_stealth`; wire RIN_STEALTH + ELVEN cloak/boots
+  on+off; Cloak_off displacement off; `EStealth` in `confer_oc_oprop`
+  (D-0970). Deferred: sink-fall; Boots_off SPEED/water/lev; music
+  `do_earthquake`/`do_pit`.
+- Verification: green+strict PASS; wear/steed cohort 20/20 PASS; full
+  `sessions` **44**/44 Scr **11405**/11405 RNG **100%** speed
+  `31+0.26/turn`.
+- Next: music `do_earthquake`/`do_pit` altar desecrate; sink-fall;
+  lavawall / AD_COLD/ELEC explode. Cadence @**#1245**.
+
 ## 2026-07-22 00:55 — #1239 D-0969 angrygods 4–8 + rndcurse
 
 - Objective: map-driven prayer/absent — angrygods cases 4–8 after
@@ -217,18 +233,3 @@ Use this shape:
   Suite fortress held (no full cadence; next @#1225).
 - Next: Ring_gone / float_up / rescham / choke; dig bridge/altar/
   shopdig/grave; ice melt / burn_floor_objects.
-
-## 2026-07-21 23:45 — #1223 D-0954 furniture_handled + HOLE goto_level
-
-- Objective: map-driven — dig `furniture_handled` fountain/sink +
-  HOLE hero `goto_level` + mon migrate.
-- C locus: `dig.c` `furniture_handled` / `digactualhole` HOLE /
-  `dighole` liquid gate; `fountain.c` `dogushforth`/`dryup`/`breaksink`.
-- Change: export fountain helpers; `furniture_handled` + HOLE fall /
-  mon `teleport_pet` migrate in `dig.js` (D-0954). Deferred:
-  destroy_drawbridge body; desecrate_altar; shopdig; impact_drop;
-  unturn/hero_breaks/ABON; Ring_gone cluster.
-- Verification: green+strict; dig/shared cohort 16/16 PASS.
-  Suite fortress held (no full cadence; next @#1225).
-- Next: `unturn_dead` invent revive / `hero_breaks` / worn ABON;
-  Ring_gone / float_up / rescham / choke.

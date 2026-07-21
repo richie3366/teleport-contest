@@ -7,19 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1235** (Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`). Cadence reconfirm next @**#1240**.
+- Local suite **44**/44 @**#1240** (Scr **11405**/11405 RNG **100%**
+  speed `31+0.26/turn`). Cadence reconfirm next @**#1245**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0969** angrygods 4–8 + `gods_angry`/`rndcurse` +
-  cursed_book default wire.
-- **Next cluster:** music `do_earthquake` altar desecrate; toggle_stealth /
+- Latest port: **D-0970** `toggle_stealth` + ELVEN on/off + `EStealth`.
+- **Next cluster:** music `do_earthquake`/`do_pit` altar desecrate;
   sink-fall; lavawall spines / burn feedback; AD_COLD/ELEC explode.
-- Cadence full `sessions` next @**#1240**.
+- Cadence full `sessions` next @**#1245**.
 
 ## Don't re-check (≤15)
 
@@ -42,14 +41,16 @@ Objective/score live in `CURRENT.md`.
   conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
   revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
   Ring_on/float_down (D-0966), bury/unearth/obj_ice (D-0967), explode
-  AD_FIRE combat (D-0968), or angrygods 4–8/`rndcurse` (D-0969).
+  AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969), or
+  `toggle_stealth` (D-0970).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 
 ## Landmarks (≤15)
 
-- Suite @**#1235**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`.
+- Suite @**#1240**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `31+0.26/turn`.
+- **D-0970:** `toggle_stealth` + ELVEN cloak/boots + `EStealth` mirror.
 - **D-0969:** angrygods 4–8 + gods_angry/rndcurse + cursed_book.
 - **D-0968:** explode AD_FIRE mon/hero + explosionmask + mon_explodes.
 - **D-0967:** bury_objs/unearth_objs/obj_ice_effects + melt/freeze wire.
@@ -62,5 +63,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0960:** mkcavearea / mkcavepos / rm_waslit earth dig.
 - **D-0959:** destroy_drawbridge + dig furniture/dighole wires.
 - **D-0958:** shopdig warn/snatch.
-- **D-0957:** dig_up_grave + dighole IS_GRAVE.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

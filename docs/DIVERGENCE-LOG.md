@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0970 — toggle_stealth + EStealth mirror
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named wear/eat debt — `Ring_on`/`Ring_off` RIN_STEALTH
+  and ELVEN cloak/boots on/off deferred `toggle_stealth`; `setworn`
+  did not mirror STEALTH into flat `EStealth` (Stealth readers).
+- **Cause:** prior envelope stopped after Ring_on learnring/float_down
+  (D-0966); Cloak_off/Boots_off were clear-slot stubs.
+- **Fix:** port `toggle_stealth` (discover + quiet/noisy msgs; steed
+  “and …” off-msg); wire Ring_on/off, Cloak_on/off ELVEN + displacement
+  off, Boots_on/off ELVEN; `confer_oc_oprop` STEALTH→`EStealth`
+  (D-0970). Deferred: sink-fall death polish; Boots_off SPEED/water/
+  levitation; cloak mummy/invis/alchemy; music `do_earthquake`.
+- **Verification:** green+strict PASS; wear/steed/shared cohort 20/20
+  PASS (incl. seed0116/0103/0104/0004/0360). Cadence full `sessions`
+  **44**/44 @#1240 Scr **11405**/11405 RNG **100%** speed `31+0.26/turn`.
+- **Files:** `js/do_wear.js`, `js/polyself.js` (`await Boots_off`),
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0969 — angrygods cases 4–8 + rndcurse
 
 - **Status:** fixed (map-driven map/absent retirement)
