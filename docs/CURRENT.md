@@ -72,22 +72,23 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1150:** `doname` FOOD `oeaten` →
-`partly eaten ` (+ `greased ` prefix order). Scr **1146→1147**;
-@**753** OK. Next @**789** C `Things that are here:` iron
-chain/ball + `--More--` vs JS map-only after stairs look.
-Focused:
+**108275**/108275). **D-0928 #1151:** `teleds` Punished
+`unplacebc`/`placebc` + overlay keep getpos `staircase up`.
+Scr **1147→1366**; @**789** OK. Next @**814** C floor `·` vs
+JS stair `<` on map. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1150 (bat MFAST … doname
-`oeaten`/`greased`).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1151 (bat MFAST … teleds
+placebc / overlay topline).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@789≠stairs look alone — missing `teleds` placebc + overlay keep
+getpos topline (#1151);
 @753≠bare apple alone — missing `doname` FOOD `oeaten` (#1150);
 @787≠Punished alone — also bare `ansimpleoname` ball (#1149);
 @751≠blank alone — was clearing getobj prompt on delayed takeoff

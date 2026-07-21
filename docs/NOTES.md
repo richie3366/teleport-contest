@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1147**/1814;
-  first miss **@789**. C `Things that are here:` + iron chain/ball
-  + `--More--` vs JS map-only (stairs look / `look_here`?). Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1366**/1814;
+  first miss **@814**. C floor `·` vs JS stair `<` at map (40,16).
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,21 +30,23 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
+- Do not treat @789 map-only after ^T stairs — missing `teleds`
+  placebc + overlay keep getpos topline (#1151).
 - Do not treat @753 bare invent apple — missing `doname` FOOD
   `oeaten` → `partly eaten ` (#1150).
 - Do not treat @787 missing Punished alone — also
   `simpleonames` must bare-BALL (no `very `; #1149).
-- Do not treat @751 blank alone — was clearing getobj on delayed
-  `armoroff` (#1148); leave `gt.toplines` like `getobj_drop`.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1150 Scr **10737**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1155**.
+- **D-0928 #1151:** teleds placebc + overlay topline; Scr
+  **1147→1366**; @789 OK; next @814 stair glyph.
 - **D-0928 #1150:** doname FOOD `oeaten`/`greased`; Scr
-  **1146→1147**; @753 OK; next @789 look_here More.
-- **D-0928 #1149:** self_lookat Punished + bare `ansimpleoname`
-  ball; Scr **1142→1146**; @787 OK.
+  **1146→1147**; @753 OK.
+- **D-0928 #1149:** self_lookat Punished + bare ball; Scr
+  **1142→1146**; @787 OK.
 - **D-0928 #1148:** `getobj_takeoff` yn leave toplines; Scr
   **1141→1142**; prefix **@751→@787**.
 - **D-0928 #1147:** `#name` getobj `name_ok`/`do_oname`; Scr
@@ -65,4 +67,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1139:** hideunder You_see + statue simpleonames; Scr
   **966→969**.
 - **D-0928 #1138:** doset fruit getlin + menu `>` page; Scr **954→966**.
-- **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**.

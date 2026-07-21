@@ -6,9 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1150)
+- **Status:** partial (#1080–#1151)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1147**/1814)
+  Scr **1366**/1814)
+- **Hypothesis (#1151):** @789 C `Things that are here:` iron chain/ball
+  `--More--` vs JS map-only — `teleds` omitted Punished
+  `unplacebc`/`placebc` (ball stayed at old cell; `check_here`
+  empty); overlay `show_nhw_menu_text` also cleared getpos
+  `_pending_message` (`staircase up`) that C leaves left of offx.
+- **Fix (#1151):** `teleport.js` `teleds` ball_active/unplacebc/
+  drag_ball/placebc; `pager.js` overlay keeps/restores pending
+  topline across dismiss `docrt`. Swallow/fill_pit/vault_guard/
+  true docorner-only dismiss deferred.
+- **Verification (#1151):** green+strict PASS; cohort 7/7
+  (seed2200 parked 229/230); Scr **1147→1366**; prefix
+  **@789→@814**. Next: @**814** C floor `·` vs JS stair `<`.
 - **Hypothesis (#1150):** @753 C invent `m - an uncursed partly eaten
   apple` vs JS bare `apple` — `doname_base` FOOD_CLASS never appended
   `partly eaten ` when `obj->oeaten` (also missing `greased ` before

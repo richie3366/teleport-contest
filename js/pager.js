@@ -284,7 +284,10 @@ export async function show_nhw_menu_text(lines) {
     const maxrow = lines.length;
     if (maxrow >= rows || game.flags?.menu_overlay === false) offx = 0;
 
-    game._pending_message = '';
+    // C look_here: display_nhwindow(WIN_MESSAGE, FALSE) sets toplin EMPTY
+    // without wiping glyphs — getpos autodescribe ("staircase up") stays
+    // left of overlay offx. Fullscreen menus still clear the topline.
+    if (offx === 0) game._pending_message = '';
     game._menu_overlay = false;
     await flush_screen(1);
 
@@ -338,7 +341,12 @@ export async function show_nhw_menu_text(lines) {
     }
 
     game._menu_overlay = false;
+    // C erase_menu_or_text: offx==0 → docrt; else docorner. JS still
+    // docrt() for Hallu see_monsters burns (cohort RNG), but restores
+    // WIN_MESSAGE leftovers that C leaves left of offx.
+    const savedTopl = offx !== 0 ? (game._pending_message || '') : '';
     await docrt();
+    if (savedTopl) game._pending_message = savedTopl;
     await flush_screen(1);
 }
 

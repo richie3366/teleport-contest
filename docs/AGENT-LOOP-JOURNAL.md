@@ -20,6 +20,17 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:16 — #1151 teleds placebc + overlay topline
+- Objective: seed4500 @789 C `Things that are here:` chain/ball
+  `--More--` vs JS map-only after ^T stairs.
+- C locus: `teleport.c` `teleds` unplacebc/placebc; `wintty.c`
+  `display_nhwindow(WIN_MESSAGE,FALSE)` leaves getpos glyphs.
+- Change: `teleport.js` teleds Punished ball/chain place; `pager.js`
+  overlay keeps/restores `_pending_message` across dismiss.
+- Verification: green+strict PASS; cohort 7/7; Scr **1147→1366**;
+  prefix **@789→@814**.
+- Next: @**814** C floor `·` vs JS stair `<` on map.
+
 ## 2026-07-21 13:07 — #1150 score + doname FOOD oeaten
 - Objective: cadence full `sessions`; seed4500 @753 invent
   `partly eaten apple`.
@@ -158,12 +169,4 @@ Use this shape:
   clear `gnew` on full rebuild; pre-loop dirty flush (later iters full).
 - Verification: green+strict PASS; cohort 6/6; Scr **950→954**; @195 match.
 - Next: @**237** `Set fruit to what?` vs Options.
-
-## 2026-07-21 11:24 — #1136 getpos look_at_object auto_describe
-- Objective: seed4500 @231 statue vs floor `(invalid target)`.
-- C locus: `pager.c` `lookat`/`look_at_object`; `getpos.c` `auto_describe`.
-- Change: `auto_describe_text` deferred objects → ROOM cmap. Port shown
-  floor via `look_shown_at` + `distant_name`/`doname` (`TER_OBJ`).
-- Verification: green+strict PASS; cohort 6/6; Scr **949→950**; @231 match.
-- Next: @**195** jump cursor (cells OK); @**237** `Set fruit to what?`.
 
