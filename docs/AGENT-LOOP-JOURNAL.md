@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:09 — #1229 D-0959 destroy_drawbridge
+
+- Objective: map-driven — retire dig `destroy_drawbridge` under fortress.
+- C locus: `dbridge.c` `is_drawbridge_wall`/`find_drawbridge`/
+  `get_wall_for_db`/`destroy_drawbridge`; callers `dig.c`
+  `furniture_handled`/`dighole`.
+- Change: new `js/dbridge.js` terrain+message+wake+trap/engr+vision;
+  wire dig furniture + dighole (D-0959). Deferred: crush/entity;
+  revive_nasty; iron-chain scatter; desecrate_altar; impact_drop;
+  mkcavearea; conjoined_pits; autodig; boulder-fill.
+- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1230).
+- Next: desecrate_altar / impact_drop / mkcavearea / conjoined_pits.
+
 ## 2026-07-22 00:06 — #1228 D-0958 shopdig
 
 - Objective: map-driven — retire dig `shopdig` warn/snatch under fortress.
@@ -215,16 +229,3 @@ Use this shape:
 - Verification: full sessions **44**/44 Scr **11405**/11405 RNG
   **100%** speed `31+0.29/turn`; green+strict; kick/shop cohort 12/12.
 - Next: explode/apply `pay_for_damage` / `is_digging`. Cadence @#1220.
-
-## 2026-07-21 22:55 — #1214 D-0946 eatspecial PAPER/potion/ring
-
-- Objective: map-driven — retire `eatspecial` PAPER/potion/ring/amulet
-  + leash/trident/flint/`uwepgone`/`unpunish`.
-- C locus: `eat.c` `eatspecial`/`eataccessory`/`bounded_increase`;
-  `wield.c` uwepgone*; `read.c` `unpunish`; `apply.c` `o_unleash`.
-- Change: port remaining `eatspecial` body + `eataccessory`; wire
-  helpers (D-0946). Deferred: vault_gd; Ring_gone sink; float_up;
-  rescham; choke(strangle); set_mimic_blocking.
-- Verification: green+strict PASS; eat/role cohort 12/12.
-- Next: dig `pay_for_damage` sites / pickaxe `is_digging`. Cadence
-  @#1215.

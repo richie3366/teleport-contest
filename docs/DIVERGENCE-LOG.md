@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0959 — destroy_drawbridge dig furniture/dighole
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** digging a drawbridge platform or portcullis wall skipped
+  C `find_drawbridge`/`destroy_drawbridge` (terrain collapse, moat/
+  lava/ice, wake, vision) — furniture arm returned TRUE without
+  destroy; `dighole` omitted the drawbridge branch.
+- **Cause:** named constitutional debt (`debt.md` dig.js) —
+  destroy_drawbridge deferred after D-0958.
+- **C locus:** `dbridge.c` `is_drawbridge_wall`/`find_drawbridge`/
+  `get_wall_for_db`/`destroy_drawbridge`; callers `dig.c`
+  `furniture_handled`/`dighole`.
+- **JS:** new `dbridge.js` terrain+message+wake+trap/engr+vision body;
+  wire dig furniture + dighole (D-0959). Deferred: set_entity/
+  do_entity crush; revive_nasty; iron-chain `scatter` rn2 loop;
+  flooreffects (boulder → delobj in liquid); desecrate_altar;
+  impact_drop; mkcavearea; conjoined_pits; autodig; boulder-fill.
+- **Verify:** green+strict; dig/shared cohort 16/16 PASS.
+
 ## D-0958 — shopdig dig warn / pack snatch
 
 - **Status:** fixed (map-driven debt retirement)

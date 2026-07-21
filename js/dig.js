@@ -3,11 +3,12 @@
 //        dig_check / fillholetyp / digactualhole / liquid_flow /
 //        dig_typ / pick_can_reach / is_digging / holetime / dig /
 //        digcheck_fail_message / use_pick_axe / use_pick_axe2 / dighole /
-//        furniture_handled / dig_up_grave; zap.c fracture_rock /
-//        break_statue; trap.c fill_pit; apply.c maybe_dunk_boulders;
-//        hack.c may_dig. (D-0941 watch_dig; D-0950 break-wand dig;
-//        D-0951 pickaxe dig; D-0954 furniture_handled + HOLE goto_level;
-//        D-0957 dig_up_grave)
+//        furniture_handled / dig_up_grave; dbridge.c destroy_drawbridge;
+//        zap.c fracture_rock / break_statue; trap.c fill_pit;
+//        apply.c maybe_dunk_boulders; hack.c may_dig.
+//        (D-0941 watch_dig; D-0950 break-wand dig; D-0951 pickaxe dig;
+//        D-0954 furniture_handled + HOLE goto_level; D-0957 dig_up_grave;
+//        D-0959 destroy_drawbridge)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -56,6 +57,9 @@ import { count_wsegs } from './worm.js';
 import {
     dogushforth, dryup, breaksink, SET_FOUNTAIN_WARNED,
 } from './fountain.js';
+import {
+    find_drawbridge, is_drawbridge_wall, destroy_drawbridge,
+} from './dbridge.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
     IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
@@ -233,9 +237,9 @@ function ledger_no(lev) {
 /**
  * C ref: dig.c furniture_handled — dig destroys fountain/sink/drawbridge
  * instead of creating a pit/hole.
- * Envelope (D-0954): fountain dogushforth+SET_WARNED+dryup; breaksink.
- * Named omit: find_drawbridge / destroy_drawbridge body (DRAWBRIDGE_DOWN
- * / wall still returns TRUE without destroy to skip maketrap).
+ * Envelope (D-0954/D-0959): fountain dogushforth+SET_WARNED+dryup;
+ * breaksink; DRAWBRIDGE_DOWN / drawbridge wall → find+destroy.
+ * Named omit: destroy crush/entity + iron-chain scatter (dbridge.js).
  * @returns {Promise<boolean>}
  */
 async function furniture_handled(x, y, madeby_u) {
@@ -251,8 +255,10 @@ async function furniture_handled(x, y, madeby_u) {
         await breaksink(x, y);
         return true;
     }
-    if (lev.typ === DRAWBRIDGE_DOWN) {
-        // find_drawbridge / destroy_drawbridge deferred — skip maketrap
+    if (lev.typ === DRAWBRIDGE_DOWN || is_drawbridge_wall(x, y) >= 0) {
+        const xy = { x: x | 0, y: y | 0 };
+        find_drawbridge(xy);
+        await destroy_drawbridge(xy.x, xy.y);
         return true;
     }
     return false;
@@ -373,7 +379,7 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
  * wake_nearby; HOLE hero fall goto_level + shopdig(1) pack snatch; mon
  * teleport_pet migrate.
  * Named omit: desecrate_altar; impact_drop; switch_terrain;
- * buried_ball_to_punishment; make_angry_shk; destroy_drawbridge.
+ * buried_ball_to_punishment; make_angry_shk.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
     const lev = game.level?.at(x, y);
@@ -1300,11 +1306,11 @@ export async function dig_up_grave(cc) {
 
 /**
  * C ref: dig.c dighole — create PIT/HOLE under hero (pickaxe down path).
- * Branch envelope: dig_check hard fails; pool/lava splash; IS_GRAVE →
- * digactualhole(PIT)+dig_up_grave (D-0957); fillholetyp liquid;
- * digactualhole PIT/HOLE.
- * Named omit: magical traps explode; boulder fill; destroy_drawbridge;
- * spot_checks; by_magic traps.
+ * Branch envelope: dig_check hard fails; pool/lava splash; drawbridge
+ * destroy (D-0959); IS_GRAVE → digactualhole(PIT)+dig_up_grave (D-0957);
+ * fillholetyp liquid; digactualhole PIT/HOLE.
+ * Named omit: magical traps explode; boulder fill; spot_checks;
+ * by_magic traps.
  */
 export async function dighole(pit_only, _by_magic, cc) {
     const u = game.u || {};
@@ -1348,7 +1354,17 @@ export async function dighole(pit_only, _by_magic, cc) {
         await pline('The altar is too hard to break apart.');
         return false;
     }
-    // drawbridge / boulder fill deferred
+    if (old_typ === DRAWBRIDGE_DOWN || is_drawbridge_wall(dig_x, dig_y) >= 0) {
+        if (pit_only) {
+            await pline('The drawbridge seems too hard to dig through.');
+            return false;
+        }
+        const xy = { x: dig_x | 0, y: dig_y | 0 };
+        find_drawbridge(xy);
+        await destroy_drawbridge(xy.x, xy.y);
+        return true;
+    }
+    // boulder fill deferred
     if (IS_GRAVE(old_typ)) {
         await digactualhole(dig_x, dig_y, game.youmonst, PIT);
         await dig_up_grave(cc);
