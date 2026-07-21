@@ -6,25 +6,29 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1116; **#1116** break_armor nohands shed)
-- **Session:** seed4500-knight-coverage (prefix @**104241**)
-- **Symptom (@104241):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`
-  (`overexertion`→`gethungry`) — extra hero turn after matched EOT.
-- **Cause (#1116 DIAG):** brown-mold poly; C Fast `u_calc` `rn2(3)=0`
-  (allmain.c:131) with `mmove=0` leaves C `umovement<NORMAL_SPEED`
-  (mons continue) while JS ends at 12 (hero attacks). Rejected:
-  Very_fast (C provenance is Fast branch); FORCE VF/`umov=0` only
-  symptom-matches. Glove/helm shed fixes C messages but both stay
-  OVERLOADED — not the umov delta alone.
+- **Status:** partial (#1080–#1117; **#1117** carrying_too_much)
+- **Session:** seed4500-knight-coverage (prefix @**104705**)
+- **Symptom (@104241 was):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`
+  (`overexertion`→`gethungry`).
+- **Cause (#1117 C dump):** both C and JS `u_calc` Fast `rn2(3)=0`
+  leave `umovement=12` / `wtcap=OVERLOADED` / `mmove=0` (theory that
+  C stayed `<12` falsified). Next `l` east: C `carrying_too_much`
+  collapses under load (no attack RNG) then next turn fleecks; JS
+  omitted the check and `do_attack`→`overexertion`.
+- **Fix (#1117):** `hack.js` `carrying_too_much` + `cmd.js` `domove`
+  call before swallow/attack (C `domove_core`). Named omit: still
+  air_turbulence / slippery_ice / water_turbulence /
+  escape_from_sticky; invent `iw` off-by-1 vs C (both OVERLOADED).
+- **Verification:** green+strict PASS; cohort 5/5; prefix
+  **104241→104705** (runner RNG **104797** Scr **936**).
+- **Next (@104705):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
 - **Fix (#1116):** `polyself.js` `break_armor` — C `nohands`/`verysmall`
   gloves (+`drop_weapon(0)`), shield, helm; boots for nohands/
   verysmall/slithy/centaur. Export `Helmet_off`/`Gloves_off`/
   `Boots_off`/`Shield_off`. Named omit: horns/flimsy-helm pierce;
   `ublindf` !has_head; `surface()`→"ground"; racial_exception.
-- **Verification:** green+strict PASS; cohort 4/4 PASS; prefix still
-  **104241** (runner path unchanged at fleeck).
-- **Next (@104241):** C-state `umovement`/`mvl_wtcap` at that
-  `u_calc` (why C after `<12` with Fast+roll0+mmove0+OVERLOADED).
+- **Verification (#1116):** green+strict PASS; cohort 4/4; prefix
+  still **104241**.
 - **Symptom (@104217 was):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
 - **Cause (#1115):** C `s` finds unseen mon via `mfind0` →
   `exercise(A_WIS,TRUE)` (“You feel an unseen monster!”). JS `mfind0`
