@@ -73,13 +73,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
-Whole post-flip map is JS+(−1,+1): C `>`**(31,17)** / `<`(44,5) /
-`@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`. JS DIAG: my=1,
-flp=2, FlipX **sum81** (minx=2), stair `(49,16)`→`(32,16)`.
-**#1086:** C `get_location` **rn2(20)** ⇒ ysize=20; literal
-ystart=2 (+shrink/clamp) falsified — gen-time ystart matches JS
-(=1). X still needs FlipX sum80 (minx=1); Y+1 needs non-ystart
-cause. Focused:
+**X-only:** C map `@`(42,6) / `>`(31,16) / `<`(44,4) vs JS `(43,6)` /
+`(32,16)` / `(45,4)`. #1087 falsified Y+1 (C cursor `[42,7]` is tty =
+map y+1). JS flip first=3 last=78 col2 STONE **sum81** flp=2.
+FORCE minx=1 → stair `(31,16)` but place RNG desync @82419. Need
+C-cited FlipX sum80 (or `dndest.lx=39`) that keeps place validity.
+Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -102,7 +101,8 @@ addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
 (D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
 silent-clear F-prefix then still run `#`/non-move (D-0927);
-FORCE linedup/mux/coords for @88377 (D-0928 — fix place first).
+FORCE linedup/mux/coords/minx=1 for @88377 (D-0928 — place-safe
+FlipX sum80 first).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

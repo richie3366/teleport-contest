@@ -7990,18 +7990,17 @@ function flip_level(flp, _extras) {
         game.SpLev_Map = next;
     }
 
-    // stairs
+    // stairs — C flip_level does not gate on inFlipArea (unlike traps/objs)
     for (let stway = game.stairs; stway; stway = stway.next) {
-        if ((flp & 1) && inFlipArea(stway.sx, stway.sy))
-            stway.sy = FlipY(stway.sy);
-        if ((flp & 2) && inFlipArea(stway.sx, stway.sy))
-            stway.sx = FlipX(stway.sx);
+        if (flp & 1) stway.sy = FlipY(stway.sy);
+        if (flp & 2) stway.sx = FlipX(stway.sx);
     }
-    if (game.level?.upstair && inFlipArea(game.level.upstair.x, game.level.upstair.y)) {
+    // JS mirrors of upstair/dnstair (C only has gs.stairs) — same ungated flip
+    if (game.level?.upstair) {
         if (flp & 1) game.level.upstair.y = FlipY(game.level.upstair.y);
         if (flp & 2) game.level.upstair.x = FlipX(game.level.upstair.x);
     }
-    if (game.level?.dnstair && inFlipArea(game.level.dnstair.x, game.level.dnstair.y)) {
+    if (game.level?.dnstair) {
         if (flp & 1) game.level.dnstair.y = FlipY(game.level.dnstair.y);
         if (flp & 2) game.level.dnstair.x = FlipX(game.level.dnstair.x);
     }
@@ -17931,11 +17930,13 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
 // ============================================================
 
 function get_level_extends() {
-    // C ref: mkmaze.c get_level_extends — post-subtract xmin/xmax clamps.
+    // C ref: mkmaze.c get_level_extends — scan bounds match C
+    // (`xmin <= COLNO`, `ymin <= ROWNO`); OOB reads as STONE. Post-subtract
+    // clamps xmin/xmax only (ymin/ymax may be outside until flip_level).
     const map = game.level;
     let xmin = 0, xmax = COLNO - 1, ymin = 0, ymax = ROWNO - 1;
     let found = false, nonwall = false;
-    for (xmin = 0; !found && xmin <= COLNO - 1; xmin++) {
+    for (xmin = 0; !found && xmin <= COLNO; xmin++) {
         for (let y = 0; y <= ROWNO - 1; y++) {
             const typ = map.at(xmin, y)?.typ ?? STONE;
             if (typ !== STONE) { found = true; if (!IS_WALL(typ)) nonwall = true; }
@@ -17953,7 +17954,7 @@ function get_level_extends() {
     xmax += (nonwall || !game.level?.flags?.is_maze_lev) ? 2 : 1;
     if (xmax >= COLNO) xmax = COLNO - 1;
     found = false; nonwall = false;
-    for (ymin = 0; !found && ymin <= ROWNO - 1; ymin++) {
+    for (ymin = 0; !found && ymin <= ROWNO; ymin++) {
         for (let x = xmin; x <= xmax; x++) {
             const typ = map.at(x, ymin)?.typ ?? STONE;
             if (typ !== STONE) { found = true; if (!IS_WALL(typ)) nonwall = true; }
