@@ -20,6 +20,15 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:33 — #1144 select_menu_pick_any MENU_SELECT_ALL
+- Objective: seed4500 @559 `#wizintrinsic` `.` all-page `+` vs only a/r.
+- C locus: `wintty.c` `process_menu_window` MENU_SELECT_ALL/PAGE.
+- Change: `options.js` `select_menu_pick_any` SELECT_ALL/PAGE,
+  UNSELECT/INVERT, `>`/`</`/`^`/`|`; ESC clears selections.
+- Verification: green+strict; cohort 4/4; Scr **999→1000**; prefix
+  **@559→@614**.
+- Next: @**614** C `#overview` dungeon text vs JS corner `(end)`.
+
 ## 2026-07-21 12:30 — #1143 wizidentify Debug Identify unid_cnt==0
 - Objective: seed4500 @541 `#wizidentify` unknown vs C Debug Identify.
 - C locus: `wizcmds.c` `wiz_identify`; `invent.c` `display_pickinv` wizid
@@ -149,14 +158,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; prefix
   **107470→107645** (runner RNG **107645** Scr **939**).
 - Next: @**107645** C `getbones` rn2(3) vs JS missing; cadence @#1135.
-
-## 2026-07-21 10:14 — #1130 score + vamp dochng mndx; @107470 legs
-- Objective: cadence full `sessions`; seed4500 @107304 mcalcmove vs d(4,8).
-- C locus: `mon.c` `decide_to_shapeshift`/`newcham` (`ptr != mon->data`).
-- Change: `mons()` fresh-object made fog→fog always `dochng`; compare
-  `mndx` in `decide_to_shapeshift` + `newcham`. Suite **42/44** Scr
-  **10531**/11405 RNG **792061**/792838 (99.90%) `30+0.25/turn`.
-- Verification: green+strict PASS; cohort 7/7; prefix **107304→107470**
-  (runner RNG **107498** Scr **941**).
-- Next: @**107470** C `mhitm_ad_legs` rn2(2) vs JS rn2(3); cadence @#1135.
 

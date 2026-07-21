@@ -22,6 +22,16 @@ import {
     AUTOUNLOCK_APPLY_KEY,
     AUTOUNLOCK_KICK,
     AUTOUNLOCK_FORCE,
+    MENU_SELECT_ALL,
+    MENU_UNSELECT_ALL,
+    MENU_INVERT_ALL,
+    MENU_SELECT_PAGE,
+    MENU_UNSELECT_PAGE,
+    MENU_INVERT_PAGE,
+    MENU_NEXT_PAGE,
+    MENU_PREVIOUS_PAGE,
+    MENU_FIRST_PAGE,
+    MENU_LAST_PAGE,
 } from './const.js';
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -1033,7 +1043,9 @@ async function doset_simple_menu() {
 
 /**
  * C ref: wintty.c process_menu_window PICK_ANY — letter toggles stay on
- * the menu; space → next page or finish on last; Enter/CR finish; ESC cancel.
+ * the menu; space → next page or finish on last; Enter/CR finish; ESC cancel;
+ * MENU_SELECT_ALL/PAGE / UNSELECT_* / INVERT_* (D-0928). Named omissions:
+ * count-prefix digits; MENU_SEARCH; menuitem_invert_test SKIPINVERT.
  * Returns selected selectable items (may be empty).
  */
 export async function select_menu_pick_any(rawItems) {
@@ -1078,6 +1090,10 @@ export async function select_menu_pick_any(rawItems) {
             await flush_screen(1);
             const key = await nhgetch();
             if (key === 27) {
+                // C: ESC deselects all then cancel
+                for (const it of items) {
+                    if (it.selectable) it.selected = false;
+                }
                 game._menu_overlay = false;
                 await docrt();
                 await flush_screen(1);
@@ -1101,6 +1117,61 @@ export async function select_menu_pick_any(rawItems) {
                 return items.filter((it) => it.selectable && it.selected);
             }
             const ch = String.fromCharCode(key);
+            // C: wintty.c MENU_NEXT/PREV/FIRST/LAST_PAGE (space handled above)
+            if (ch === MENU_NEXT_PAGE) {
+                if (currPage < npages - 1) currPage++;
+                continue;
+            }
+            if (ch === MENU_PREVIOUS_PAGE) {
+                if (currPage > 0) currPage--;
+                continue;
+            }
+            if (ch === MENU_FIRST_PAGE) {
+                currPage = 0;
+                continue;
+            }
+            if (ch === MENU_LAST_PAGE) {
+                currPage = npages - 1;
+                continue;
+            }
+            // C: MENU_SELECT_PAGE / UNSELECT_PAGE / INVERT_PAGE
+            if (ch === MENU_SELECT_PAGE) {
+                for (const it of page) {
+                    if (it.selectable) it.selected = true;
+                }
+                continue;
+            }
+            if (ch === MENU_UNSELECT_PAGE) {
+                for (const it of page) {
+                    if (it.selectable) it.selected = false;
+                }
+                continue;
+            }
+            if (ch === MENU_INVERT_PAGE) {
+                for (const it of page) {
+                    if (it.selectable) it.selected = !it.selected;
+                }
+                continue;
+            }
+            // C: MENU_SELECT_ALL / UNSELECT_ALL / INVERT_ALL
+            if (ch === MENU_SELECT_ALL) {
+                for (const it of items) {
+                    if (it.selectable) it.selected = true;
+                }
+                continue;
+            }
+            if (ch === MENU_UNSELECT_ALL) {
+                for (const it of items) {
+                    if (it.selectable) it.selected = false;
+                }
+                continue;
+            }
+            if (ch === MENU_INVERT_ALL) {
+                for (const it of items) {
+                    if (it.selectable) it.selected = !it.selected;
+                }
+                continue;
+            }
             const hit = page.find((it) => it.selectable && it.selector === ch);
             if (hit) {
                 hit.selected = !hit.selected;

@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **999**/1814;
-  prefix **@559**. C `#wizintrinsic` after `a`/`r` shows all page-1
-  items `+` before `.` vs JS only `a`/`r` (`wizcmds.c` /
-  `select_menu` PICK_ANY).
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1000**/1814;
+  prefix **@614**. C `#overview` shows dungeon summary text
+  ("Level 25:", Gehennom…) vs JS corner menu `(end)`
+  (`dungeon.c` `dooverview` / `show_overview`).
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -32,6 +32,8 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
+- Do not treat @559 only-a/r marks as menu geometry — missing
+  `MENU_SELECT_ALL` `.` in `select_menu_pick_any` (#1144).
 - Do not treat @541 unknown extcmd as menu geometry — missing
   `wiz_identify` / `override_ID` wizid (`#1143`).
 - Do not treat @521 disco polearm More as map/cursor — was single-page
@@ -41,6 +43,8 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1140 Scr **10560**/11405 RNG **792838**/792838
   (**100%**); speed `31+0.26/turn`; next cadence @**#1145**.
+- **D-0928 #1144:** `select_menu_pick_any` MENU_SELECT_ALL/PAGE;
+  Scr **999→1000**; prefix **@559→@614**.
 - **D-0928 #1143:** `#wizidentify`/`wiz_identify` + wizid
   `unid_cnt==0`; Scr **998→999**; prefix **@541→@559**.
 - **D-0928 #1142:** `dodiscovered` `show_text_pages` + VENOM_CLASS;
@@ -58,4 +62,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**.
 - **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP.
 - **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**.
-- **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**.

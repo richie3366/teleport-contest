@@ -72,21 +72,21 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1143:** `#wizidentify` → `wiz_identify`
-+ `display_inventory` wizid `unid_cnt==0` Debug Identify menu.
-Scr **998→999**; prefix **@541→@559**. Next @**559** C
-`#wizintrinsic` after `a`/`r` shows all page-1 `+` before `.` vs JS
-only `a`/`r`. Focused:
+**108275**/108275). **D-0928 #1144:** `select_menu_pick_any`
+`MENU_SELECT_ALL` (`.`) / PAGE / UNSELECT / INVERT + page nav.
+Scr **999→1000**; prefix **@559→@614**. Next @**614** C `#overview`
+dungeon text vs JS corner `(end)`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1143 (bat MFAST … wizidentify).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1144 (bat MFAST … SELECT_ALL).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@559≠letter-only PICK_ANY — missing `MENU_SELECT_ALL` `.` (#1144);
 @541≠unknown extcmd — missing `wiz_identify`/`override_ID` wizid
 (`#1143`); @521≠single-page disco pad — need NHW_TEXT page-at-a-time (#1142);
 @517≠display of attached chain — `check_here` must skip `uchain` (#1141);

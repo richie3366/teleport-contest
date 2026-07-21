@@ -6,9 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1143)
+- **Status:** partial (#1080–#1144)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **999**/1814)
+  Scr **1000**/1814)
+- **Hypothesis (#1144):** @559 C `#wizintrinsic` after `a`/`r` then `.`
+  shows all page-1 items `+` vs JS only `a`/`r` — JS
+  `select_menu_pick_any` ignored `MENU_SELECT_ALL` (`.`) /
+  `MENU_SELECT_PAGE` (`,`) / UNSELECT / INVERT (C `wintty.c`
+  `process_menu_window` PICK_ANY).
+- **Fix (#1144):** `options.js` `select_menu_pick_any` — SELECT_ALL/
+  PAGE, UNSELECT_*, INVERT_*, `>`/`</`/`^`/`|` page nav; ESC clears
+  selections.
+- **Verification (#1144):** green+strict PASS; cohort 4/4 (0383/0399/
+  1500/0108); Scr **999→1000**; prefix **@559→@614**. Next: @**614**
+  C `#overview` dungeon text vs JS corner `(end)`.
 - **Hypothesis (#1143):** @541 C Debug Identify corner menu vs JS
   `#wizidentify: unknown extended command` — JS lacked `wiz_identify`
   / `EXT_CMDS` wiring; C sets `iflags.override_ID` then
