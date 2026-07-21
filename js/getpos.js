@@ -467,10 +467,11 @@ function door_cmap_explanation(loc) {
  * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
  * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
  * auto_describe firstmatch after stairs/traps.
- * Named omissions: altar/engraving/iron bars/fountain special cases;
- * drawbridge portcullis; underwater unreconnoitered; object glyphs;
- * Hallucination waterbody; arboreal STONE→S_tree; gas-cloud
- * region glyph overlay on non-CLOUD typ (lookat uses glyph_at).
+ * Named omissions: S_altar special (`align_str` / AM_SANCTUM "high ");
+ * engraving; drawbridge portcullis; underwater unreconnoitered; object
+ * glyphs; Hallucination waterbody; arboreal STONE→S_tree; gas-cloud
+ * region glyph overlay on non-CLOUD typ (lookat uses glyph_at); AIR /
+ * drawbridge lowered/raised defsyms.
  */
 function cmap_defsym_explanation(x, y, loc) {
     if (!loc) return '';
@@ -492,6 +493,12 @@ function cmap_defsym_explanation(x, y, loc) {
     if (typ === CORR) {
         return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
     }
+    // C defsym.h PCHAR — furniture default arm (S_fountain..S_bars / tree)
+    if (typ === FOUNTAIN) return 'fountain';
+    if (typ === SINK) return 'sink';
+    if (typ === THRONE) return 'opulent throne'; // PCHAR2 explanation
+    if (typ === GRAVE) return 'grave';
+    if (typ === IRONBARS) return 'iron bars';
     // C defsym.h PCHAR S_tree → "tree" (lookat default arm)
     if (typ === TREE) return 'tree';
     // C lookat case S_stone: !seenv → "unexplored"; else if STONE|SCORR → "stone"

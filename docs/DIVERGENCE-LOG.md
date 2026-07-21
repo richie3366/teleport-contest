@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1173)
+- **Status:** partial (#1080–#1174)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1576**/1814)
+  Scr **1579**/1814)
+- **Hypothesis (#1174):** @1322 — getpos auto_describe C `fountain`
+  vs JS `unexplored area`. `cmap_defsym_explanation` omitted
+  FOUNTAIN/SINK/THRONE/GRAVE/IRONBARS; non-blank `{` fell through
+  to default `"unexplored area"` (C lookat cmap default →
+  `defsyms[S_fountain].explanation`).
+- **Fix (#1174):** `getpos.js` `cmap_defsym_explanation` — furniture
+  default arm (fountain/sink/opulent throne/grave/iron bars). S_altar
+  align/high special still deferred.
+- **Verification (#1174):** green+strict PASS; cohort 6/6 (0012/0014/
+  0360/0361+green); focused prefix **@1322→@1344**; Scr **1576→1579**.
+  Next: @**1344** `#untrap` C `In what direction?` vs JS blank
+  (`dountrap` omits `untrap`→`getdir`).
 - **Hypothesis (#1173):** @1291 — look_here “Things that are here”
   map bleed (C blank/3×3 vs JS full room walls). Misread as corner
   menu/docorner. After `^V`50 land on **sanctum** (Dlvl:48), JS

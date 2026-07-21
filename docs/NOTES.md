@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1322** — getpos `fountain` vs JS
-  `unexplored area` (Dlvl:3 after sanctum). Focused:
+- **Primary (D-0928):** seed4500 @**1344** — `#untrap` C `In what
+  direction?` vs JS blank. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `do_name`/`getpos` terrain name vs JS lastseentyp / glyph.
+  Falsify: C `dountrap`→`untrap`→`getdir(NULL)`; JS `dountrap` stops
+  after `could_untrap` (full `untrap` deferred).
 
 ## Don't re-check (≤15)
 
@@ -19,7 +20,6 @@ Objective/score live in `CURRENT.md`.
 - Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0927 done.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
 - Do not FORCE linedup/FlipX/stair-screen coords — C place matched (#1092).
-- Do not silent-clear F-prefix then still run `#` (D-0927).
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
@@ -43,11 +43,15 @@ Objective/score live in `CURRENT.md`.
   BOOL_RANDOM lit left on map (`lspo_map` lit=FALSE clear; #1173).
   Do not blanket-fix `sel_set_ter(false)`→unlit yet (tut-1 border
   walls regress until vision wall-hack matches C).
+- Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph —
+  was missing furniture in `cmap_defsym_explanation` (#1174).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1170 Scr **11111**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1175**.
+- **D-0928 #1174:** getpos furniture cmap (fountain…bars); prefix
+  **@1322→@1344**; Scr **1576→1579**.
 - **D-0928 #1173:** sanctum map lit=FALSE clear after `splev_apply`;
   prefix **@1291→@1322**; Scr **1529→1576**.
 - **D-0928 #1172:** overview dismiss `dismiss_nhw_menu` (no corner
@@ -72,7 +76,5 @@ Objective/score live in `CURRENT.md`.
   Scr **1427→1431**; @997–@1000 OK; next @1001 shallow sea vs moat.
 - **D-0928 #1161:** wakeup `wake_msg` + growl; Scr **1423→1427**;
   @985–@996 OK; next @997 hissing gas vs fire order.
-- **D-0928 #1160:** savelev/getlev `lastseentyp`; Scr **1412→1423**;
-  @941 OK; next @985 nymph disarm vs wake.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.

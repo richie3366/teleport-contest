@@ -31,6 +31,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 16:09 — #1174 getpos cmap furniture fountain
+
+- Objective: seed4500 @1322 getpos C `fountain` vs JS `unexplored area`.
+- C locus: `pager.c` `lookat` cmap default → `defsyms[S_fountain].explanation`.
+- Change: `getpos.js` `cmap_defsym_explanation` fountain/sink/opulent
+  throne/grave/iron bars; S_altar align/high deferred (D-0928 #1174).
+- Verification: green+strict PASS; cohort 6/6; Scr **1576→1579**;
+  prefix **@1322→@1344**.
+- Next: @**1344** `#untrap` C `In what direction?` vs JS blank
+  (`dountrap` omits `untrap`→`getdir`).
+
 ## 2026-07-21 16:05 — #1173 sanctum lspo_map lit=FALSE clear
 
 - Objective: seed4500 @1291 look_here map C blank/3×3 vs JS walls.
@@ -164,29 +175,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 36/36; Scr **1427→1431**;
   prefix **@997→@1001**.
 - Next: @**1001** C `shallow sea` vs JS `moat` (`waterbody_name`).
-
-## 2026-07-21 14:25 — #1161 wakeup wake_msg + growl
-
-- Objective: seed4500 @985 JS nymph disarm vs C wakes up.
-- C locus: `mon.c` `wake_msg`/`wakeup`; `sounds.c` `growl` →
-  `wake_nearto` wake_msg.
-- Change: async `wake_msg` before clear sleep; `was_sleeping` →
-  dynamic-import `growl`; sounds `wake_nearto` awaits wake_msg
-  (D-0928 #1161).
-- Verification: green+strict PASS; cohort 36/36; Scr **1423→1427**;
-  prefix **@985→@997**.
-- Next: @**997** C `You hear hissing gas` vs JS fire-blast order.
-
-## 2026-07-21 14:16 — #1160 score + lastseentyp savelev/getlev
-
-- Objective: cadence full `sessions` + seed4500 @941 `#overview`
-  extra Level-1 / Mines-5 fountains.
-- C locus: `save.c`/`restore.c` Sfo/Sfi_schar `lastseentyp` with
-  savelev/getlev; JS in-memory stash had omitted it.
-- Change: `do.js` `goto_level` clone lastseentyp into `level_info`
-  and restore on getlev (D-0928 #1160).
-- Verification: green+strict PASS; cohort PASS; full `sessions`
-  **42/44** Scr **11013**/11405 RNG **100%**; seed4500
-  **1412→1423**; @941 OK.
-- Next: seed4500 @985 wood nymph disarm vs wake (D-0928).
 
