@@ -27,7 +27,7 @@ import {
 } from './getpos.js';
 import { mon_at } from './uhitm.js';
 import { objects_at } from './mkobj.js';
-import { doname, an, xname, singular } from './objnam.js';
+import { doname, an, xname, singular, ansimpleoname } from './objnam.js';
 import { distant_monnam_none, pmname, Ugender } from './do_name.js';
 import { engr_at } from './engrave.js';
 import { option_help_lines } from './options.js';
@@ -198,7 +198,10 @@ function look_getpos_cmode() {
     return GPCOORDS_MAP;
 }
 
-/** C ref: pager.c self_lookat — race adj + pmname(umonnum,Ugender) + called plname. */
+/**
+ * C ref: pager.c self_lookat — race adj + pmname(umonnum,Ugender) + called
+ * plname + Punished ", chained to %s". Steed / mhidden / utrap deferred.
+ */
 function self_lookat() {
     const u = game.u || {};
     // C: race only when !Upolyd; Sprintf(race, "%s ", urace.adj)
@@ -212,8 +215,14 @@ function self_lookat() {
     const plname = game.plname || 'hero';
     const invis =
         u.Invis && (u.senseself || !u.Blind) ? 'invisible ' : '';
-    // Steed / mhidden / Punished / utrap arms deferred
-    return `${invis}${race}${form} called ${plname}`;
+    let buf = `${invis}${race}${form} called ${plname}`;
+    // C: if (Punished) … uball ? ansimpleoname(uball) : "nothing?"
+    // C: Punished ≡ (uball != 0)
+    if (u.uball) {
+        buf += `, chained to ${ansimpleoname(u.uball)}`;
+    }
+    // Steed / mhidden / utrap arms deferred
+    return buf;
 }
 
 /**

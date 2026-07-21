@@ -6,9 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1148)
+- **Status:** partial (#1080–#1149)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1142**/1814)
+  Scr **1146**/1814)
+- **Hypothesis (#1149):** @787 C `human knight called wizard, chained to
+  a heavy iron ball` vs JS missing Punished suffix; after adding
+  suffix, JS said `very heavy` because `simpleonames`→`pretty_base`
+  used live `owt` while C `minimal_xname` bareobj has owt=0.
+- **Fix (#1149):** `pager.js`/`getpos.js` `self_lookat` Punished
+  `, chained to ` + `ansimpleoname(uball)`; `objnam.js` `simpleonames`
+  BALL → bare `heavy iron ball` (xname/doname still apply `very `).
+  Steed/mhidden/utrap still deferred.
+- **Verification (#1149):** green+strict PASS; cohort 7/7; Scr
+  **1142→1146**; @787 OK. Next: @**753** invent `partly eaten apple`
+  vs bare `apple` (`doname`/`oeaten`).
 - **Hypothesis (#1148):** @751 C still shows takeoff `[cdef or ?*]` after
   selecting `e` (delayed shield `armoroff`, no immediate `off_msg`) while
   JS blanked `_pending_message` on getobj success — C leaves

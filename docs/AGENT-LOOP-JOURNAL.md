@@ -20,6 +20,16 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:05 — #1149 self_lookat Punished + bare ball
+- Objective: seed4500 @787 C `…chained to a heavy iron ball` vs JS.
+- C locus: `pager.c` `self_lookat` Punished; `objnam.c`
+  `minimal_xname` bareobj owt=0 → `ansimpleoname` never `very `.
+- Change: `pager.js`/`getpos.js` Punished suffix; `objnam.js`
+  `simpleonames` BALL → `heavy iron ball` (xname/doname keep `very `).
+- Verification: green+strict PASS; cohort 7/7; Scr **1142→1146**;
+  @787 OK.
+- Next: @**753** invent `partly eaten apple` vs bare `apple`.
+
 ## 2026-07-21 13:00 — #1148 getobj_takeoff yn leave toplines
 - Objective: seed4500 @751 C takeoff prompt after `e` vs JS blank.
 - C locus: `invent.c` getobj → `yn_function` leaves `gt.toplines`;
@@ -154,11 +164,3 @@ Use this shape:
   RNG **792838**/792838 (100%) `29+0.25/turn`.
 - Next: @**231** statue vs floor `(invalid target)`; cadence @#1140.
 
-## 2026-07-21 11:10 — #1134 Kni-goal load_special; RNG complete
-- Objective: seed4500 @107646 C nhlib shuffle rn2(3) vs JS rn2(79).
-- C locus: `dat/Kni-goal.lua`; `sp_lev.c` `load_special`; `mkmaze.c` `makemaz`.
-- Change: no Kni-goal loader → empty maze → ordinary `rn2(79)`. Port
-  `load_kni_goal` (map + Mirror + stock + Ixoth/quasits/jellies) + dispatch.
-- Verification: green+strict PASS; cohort 12/12; rng-diff **108275**/108275;
-  runner Scr **941→947**.
-- Next: seed4500 screen peel (RNG done); cadence @#1135.

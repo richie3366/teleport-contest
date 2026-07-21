@@ -1184,7 +1184,9 @@ export function obj_is_pname(obj) {
 /**
  * C ref: objnam.c simpleonames ← minimal_xname — type appearance without
  * quan/BUC. Statue/figurine corpsenm suppressed (C bareobj.corpsenm=NON_PM).
- * Named omissions: sack→bag family aliases.
+ * C bareobj = zeroobj (owt 0) → BALL_CLASS never gets "very " via this path
+ * (xname/doname of the live object still apply punish weight).
+ * Named omissions: sack→bag family aliases; full bareobj field subset.
  */
 export function simpleonames(obj) {
     if (!obj) return 'object';
@@ -1192,6 +1194,8 @@ export function simpleonames(obj) {
     const n = objectNames[obj.otyp];
     if (n === 'STATUE') return 'statue';
     if (n === 'FIGURINE') return 'figurine';
+    // C minimal_xname bareobj.owt stays 0 → never "very heavy iron ball"
+    if (obj.oclass === BALL_CLASS) return 'heavy iron ball';
     return pretty_base(obj);
 }
 
