@@ -1,19 +1,21 @@
 // explode.js — Explosion effects (partial).
 // C ref: explode.c mon_explodes / explode / explosionmask;
 //        zap.c destroy_items / resist / zap_over_floor
-//        (D-0949 shopdamage → pay_for_damage; D-0968 AD_FIRE combat).
+//        (D-0949 shopdamage → pay_for_damage; D-0968 AD_FIRE;
+//         D-0971 AD_COLD/ELEC combat).
 //
-// Branch envelope: AT_BOOM AD_PHYS / AD_FIRE → MON_EXPLODE;
-// WAND_CLASS / BURNING_OIL / SCROLL / TRAP_EXPLODE olet preamble;
-// adtyp from type; explosionmask Fire_resistance / resists_fire;
-// 3x3 zap_over_floor + shop pay; PHYS + AD_FIRE mon/hero damage
-// (destroy_items, burnarmor, resist, cold×2 vs fire, Half_phys,
-//  exercise A_STR, xkilled/monkilled); wake_nearto.
-// Named omissions: AD_COLD/ELEC/… mon/hero combat; hallu rndmonnam;
-// sparkle/shield glyphs; ugolemeffects/golemeffects; Invulnerable;
-// burn_away_slime; ignite_items body; grabbing/engulf double-damage;
-// wake_nearto beyond msleeping; Role_switch damu only for known role pm;
-// non-FIRE AT_BOOM spheres (cold/elec/…).
+// Branch envelope: AT_BOOM AD_PHYS / AD_FIRE / AD_COLD / AD_ELEC
+// → MON_EXPLODE; WAND_CLASS / BURNING_OIL / SCROLL / TRAP_EXPLODE
+// olet preamble; adtyp from type; explosionmask Fire/Cold/Shock
+// resistance + resists_*; 3x3 zap_over_floor + shop pay; PHYS +
+// FIRE/COLD/ELEC mon/hero damage (destroy_items, burnarmor FIRE,
+// resist, cold×2↔fire, Half_phys PHYS/ACID, exercise A_STR,
+// xkilled/monkilled); wake_nearto.
+// Named omissions: AD_MAGM/DISN/DRST/ACID mon/hero combat + masks;
+// hallu rndmonnam; sparkle/shield glyphs; ugolemeffects/golemeffects;
+// Invulnerable; burn_away_slime; ignite_items body; grabbing/engulf
+// double-damage; wake_nearto beyond msleeping; Role_switch damu only
+// for known role pm; non-PHYS/FIRE/COLD/ELEC AT_BOOM.
 
 import { game } from './gstate.js';
 import { d, rn2 } from './rng.js';
@@ -25,10 +27,11 @@ import { maybe_half_phys } from './hack.js';
 import { exercise, A_STR } from './attrib.js';
 import {
     isok, u_at, PHYS_EXPL_TYPE, MON_EXPLODE, EXPL_NOXIOUS, EXPL_FIERY,
+    EXPL_FROSTY, EXPL_MAGICAL,
     STRAT_WAITMASK, KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX,
     BURNING_OIL, TRAP_EXPLODE, XKILL_GIVEMSG, XKILL_NOCORPSE, BURNING, DIED,
 } from './const.js';
-import { pmnames, G_UNIQ, MR_FIRE, MR_COLD } from './monsters.js';
+import { pmnames, G_UNIQ, MR_FIRE, MR_COLD, MR_ELEC } from './monsters.js';
 import {
     PM_CLERIC, PM_MONK, PM_WIZARD, PM_HEALER, PM_KNIGHT, monsterNames,
 } from './generated/monsters_data.js';
@@ -79,13 +82,21 @@ function pmname_mon(mon) {
     return String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
 }
 
-/** C ref: youprop.h Fire_resistance */
+/** C ref: youprop.h Fire_resistance / Cold_resistance / Shock_resistance */
 function Fire_resistance() {
     const u = game.u || {};
     return !!(u.Fire_resistance || u.HFire_resistance || u.EFire_resistance);
 }
+function Cold_resistance() {
+    const u = game.u || {};
+    return !!(u.Cold_resistance || u.HCold_resistance || u.ECold_resistance);
+}
+function Shock_resistance() {
+    const u = game.u || {};
+    return !!(u.Shock_resistance || u.HShock_resistance || u.EShock_resistance);
+}
 
-/** C ref: monst.h resists_fire / resists_cold */
+/** C ref: monst.h resists_fire / resists_cold / resists_elec */
 function mon_resists_bit(mon, mrBit) {
     if (!mon) return false;
     const bits = (mon.data?.mresists | 0)
@@ -95,6 +106,7 @@ function mon_resists_bit(mon, mrBit) {
 }
 function resists_fire(mon) { return mon_resists_bit(mon, MR_FIRE); }
 function resists_cold(mon) { return mon_resists_bit(mon, MR_COLD); }
+function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
 
 /** C ref: mondata.c completelyburns — paper/straw golem. */
 function completelyburns(data) {
@@ -124,8 +136,8 @@ function ignite_items(_objchn) {
 }
 
 /**
- * C ref: explode.c explosionmask — PHYS none; FIRE → Fire_resistance /
- * resists_fire. Other adtyps named omit (no shield).
+ * C ref: explode.c explosionmask — PHYS none; FIRE/COLD/ELEC hero + mon
+ * resist shields. MAGM/DISN/DRST/ACID named omit (no shield).
  */
 function explosionmask(m, adtyp, olet) {
     void olet;
@@ -136,6 +148,10 @@ function explosionmask(m, adtyp, olet) {
             return EXPL_NONE;
         case AD_FIRE:
             return Fire_resistance() ? EXPL_HERO : EXPL_NONE;
+        case AD_COLD:
+            return Cold_resistance() ? EXPL_HERO : EXPL_NONE;
+        case AD_ELEC:
+            return Shock_resistance() ? EXPL_HERO : EXPL_NONE;
         default:
             return EXPL_NONE;
         }
@@ -145,6 +161,10 @@ function explosionmask(m, adtyp, olet) {
         return EXPL_NONE;
     case AD_FIRE:
         return resists_fire(m) ? EXPL_MON : EXPL_NONE;
+    case AD_COLD:
+        return resists_cold(m) ? EXPL_MON : EXPL_NONE;
+    case AD_ELEC:
+        return resists_elec(m) ? EXPL_MON : EXPL_NONE;
     default:
         return EXPL_NONE;
     }
@@ -153,6 +173,8 @@ function explosionmask(m, adtyp, olet) {
 /** C ref: explode.c adtyp_to_expltype */
 function adtyp_to_expltype(adtyp) {
     if (adtyp === AD_FIRE) return EXPL_FIERY;
+    if (adtyp === AD_COLD) return EXPL_FROSTY;
+    if (adtyp === AD_ELEC) return EXPL_MAGICAL;
     return EXPL_NOXIOUS; // AD_PHYS / gas spore
 }
 
@@ -177,9 +199,10 @@ function Role_if(pm) {
 }
 
 /**
- * C ref: explode.c explode — PHYS + AD_FIRE mon/hero combat (D-0968) +
- * WAND/SCROLL/OIL/TRAP olet → zap_over_floor + pay_for_damage (D-0949).
- * Visual beam / shield sparkle deferred; other adtyp combat deferred.
+ * C ref: explode.c explode — PHYS + AD_FIRE (D-0968) + AD_COLD/ELEC
+ * mon/hero combat (D-0971) + WAND/SCROLL/OIL/TRAP olet →
+ * zap_over_floor + pay_for_damage (D-0949). Visual beam / shield
+ * sparkle deferred; MAGM/DISN/DRST/ACID combat deferred.
  */
 export async function explode(x, y, typeIn, dam, olet, _expltype) {
     void _expltype;
@@ -280,7 +303,9 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
 
     const inside_engulfer = !!(game.u?.uswallow && type >= 0);
     const { zap_over_floor, destroy_items } = await import('./zap.js');
-    const combat_ok = adtyp === AD_PHYS || adtyp === AD_FIRE;
+    // C applies combat for all adtyps; envelope still gates MAGM/DISN/…
+    const combat_ok = adtyp === AD_PHYS || adtyp === AD_FIRE
+        || adtyp === AD_COLD || adtyp === AD_ELEC;
 
     if (dam) {
         for (let i = 0; i < 3; i++) {
@@ -431,7 +456,8 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
 
 /**
  * C ref: explode.c mon_explodes — roll boom damage, kill if live, explode.
- * Branch envelope: AD_PHYS + AD_FIRE. Other AT_BOOM adtyps deferred.
+ * Branch envelope: AD_PHYS + AD_FIRE + AD_COLD + AD_ELEC. Other AT_BOOM
+ * adtyps (MAGM/DISN/…) deferred.
  */
 export async function mon_explodes(mon, mattk) {
     let dmg;
@@ -447,11 +473,11 @@ export async function mon_explodes(mon, mattk) {
     const ad = mattk.adtyp | 0;
     if (ad === AD_PHYS) {
         type = PHYS_EXPL_TYPE;
-    } else if (ad === AD_FIRE) {
+    } else if (ad === AD_FIRE || ad === AD_COLD || ad === AD_ELEC) {
         // C: type = -((adtyp - 1) + 20) for AD_MAGM..AD_SPC2
         type = -((ad - 1) + 20);
     } else {
-        // Non-PHYS / non-FIRE AT_BOOM deferred
+        // Non-PHYS / non-FIRE/COLD/ELEC AT_BOOM deferred
         return;
     }
 

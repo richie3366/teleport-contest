@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0971 | fixed | `explode` AD_COLD/ELEC mon/hero + Cold/Shock mask + `mon_explodes` COLD/ELEC | map-driven debt; green+zap cohort 20/20 |
 | D-0970 | fixed | `toggle_stealth` + ELVEN on/off + `EStealth` mirror | map-driven debt; green+wear cohort 20/20; cadence 44/44 @#1240 |
 | D-0969 | fixed | `angrygods` 4–8 + `gods_angry`/`rndcurse` + cursed_book wire | map-driven; green+pray/spell cohort 20/20 |
 | D-0968 | fixed | `explode` AD_FIRE mon/hero + `explosionmask` + `mon_explodes` AD_FIRE | map-driven debt; green+zap cohort 20/20 |

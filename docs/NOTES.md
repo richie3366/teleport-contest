@@ -15,9 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0970** `toggle_stealth` + ELVEN on/off + `EStealth`.
-- **Next cluster:** music `do_earthquake`/`do_pit` altar desecrate;
-  sink-fall; lavawall spines / burn feedback; AD_COLD/ELEC explode.
+- Latest port: **D-0971** `explode` AD_COLD/ELEC + Cold/Shock mask +
+  `mon_explodes` COLD/ELEC.
+- **Next cluster:** music `do_earthquake`/`do_pit`; sink-fall death;
+  lavawall spines / burn feedback; MAGM/DISN/DRST/ACID explode.
 - Cadence full `sessions` next @**#1245**.
 
 ## Don't re-check (≤15)
@@ -41,8 +42,8 @@ Objective/score live in `CURRENT.md`.
   conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
   revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
   Ring_on/float_down (D-0966), bury/unearth/obj_ice (D-0967), explode
-  AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969), or
-  `toggle_stealth` (D-0970).
+  AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969),
+  `toggle_stealth` (D-0970), or AD_COLD/ELEC explode (D-0971).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 
@@ -50,6 +51,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1240**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn`.
+- **D-0971:** `explode` AD_COLD/ELEC + Cold/Shock mask + mon_explodes.
 - **D-0970:** `toggle_stealth` + ELVEN cloak/boots + `EStealth` mirror.
 - **D-0969:** angrygods 4–8 + gods_angry/rndcurse + cursed_book.
 - **D-0968:** explode AD_FIRE mon/hero + explosionmask + mon_explodes.
@@ -61,6 +63,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0962:** conjoined_pits / autodig quiet / boulder-fill.
 - **D-0961:** impact_drop / down_gate / drop_to / add_to_migration.
 - **D-0960:** mkcavearea / mkcavepos / rm_waslit earth dig.
-- **D-0959:** destroy_drawbridge + dig furniture/dighole wires.
-- **D-0958:** shopdig warn/snatch.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

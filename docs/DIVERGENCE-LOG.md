@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0971 — explode AD_COLD/ELEC mon/hero combat
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap debt — after D-0968, `explode` / `mon_explodes`
+  still gated combat to PHYS+FIRE; Cold/Shock `explosionmask` and
+  freezing/shocking sphere AT_BOOM were named omit.
+- **Cause:** intentional envelope after fireball combat; debt row kept
+  AD_COLD/ELEC as next cluster.
+- **Fix:** `explosionmask` Cold_resistance/`resists_cold` +
+  Shock_resistance/`resists_elec`; open `combat_ok` to AD_COLD/ELEC
+  (destroy_items + resist + fire×2 vs cold already present); 
+  `mon_explodes` type `-((ad-1)+20)` for COLD/ELEC; `adtyp_to_expltype`
+  FROSTY/MAGICAL (D-0971). Deferred: MAGM/DISN/DRST/ACID boom combat
+  + masks; golem/ignite/slime; Invulnerable; grabbing/engulf double;
+  sparkle glyphs; hallu; lavawall spines.
+- **Verification:** green+strict PASS; zap/wizard/shared cohort 20/20
+  PASS (incl. seed2200/0360/0006/0398/5002/0016/0030).
+- **Files:** `js/explode.js`, `js/zap.js` (omit note),
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0970 — toggle_stealth + EStealth mirror
 
 - **Status:** fixed (map-driven debt retirement)
