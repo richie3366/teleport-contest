@@ -2,21 +2,24 @@
 // C ref: pray.c — can_pray, dopray, prayer_done, gods_upset, angrygods,
 // water_prayer, on_altar / a_align helpers; dosacrifice (#offer); #turn
 // (doturn / maybe_turn_mon_iter, D-0912); desecrate_altar / god_zaps_you /
-// fry_by_god (D-0963).
+// fry_by_god (D-0963); angrygods cases 4–8 + gods_angry (D-0969).
 //
 // Branch envelope: ParanoidPray yn confirm (default on) + wizard Force
 // (D-0517) + #pray ublesscnt-too-soon (p_type 0) → angrygods; p_type 3 →
 // pleased You_feel + action rn1 + TROUBLE_HIT fix_worst_trouble (D-0920)
 // + ublesscnt rnz(350); #offer not-on-altar; Knight/Cleric #turn chant +
-// exercise + undead iter + nomul; digactualhole altar → desecrate_altar.
+// exercise + undead iter + nomul; digactualhole altar → desecrate_altar;
+// angrygods 0–8 + default zap (punish/attrcurse/rndcurse/summon_minion/
+// god_zaps_you).
 // Named omissions: other in_trouble majors/minors; other fix_worst_trouble
-// cases; ParanoidConfirm "yes"; angrygods cases 4–8 (curse/minion/zap wire);
-// pleased pat_on_head gifts / crown / give_spell; p_type -2/-1/1/2 outcome
-// bodies beyond water_prayer scan; pray_revive; floorfood sacrifice;
-// known_spell SPE_TURN_UNDEAD / spelleffects fallback for non-Knight/Cleric;
-// resist TELL pline polish; other livelog paths; poly silent/headless
-// can_chant; Fixed_abil/Dunce adjattrib; Unaware You_feel dream prefix;
-// music.c desecrate_altar caller; SetVoice pitch; ureflects non-shield slots.
+// cases; ParanoidConfirm "yes"; pleased pat_on_head gifts / crown /
+// give_spell; p_type -2/-1/1/2 outcome bodies beyond water_prayer scan;
+// pray_revive; floorfood sacrifice; known_spell SPE_TURN_UNDEAD /
+// spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
+// other livelog paths; poly silent/headless can_chant; Fixed_abil/Dunce
+// adjattrib; Unaware You_feel dream prefix; music.c do_earthquake altar
+// desecrate_altar; SetVoice pitch; ureflects non-shield slots; shieldeff;
+// poly mlet "creature" vs mortal.
 
 import { game } from './gstate.js';
 import { rn2, rn1, rnl, rnz, rnd } from './rng.js';
@@ -40,6 +43,9 @@ import { mon_nam, Monnam } from './do_name.js';
 import { disintegrate_arm } from './do_wear.js';
 import { summon_minion } from './minion.js';
 import { makeknown } from './invent.js';
+import { punish } from './read.js';
+import { attrcurse, rndcurse } from './sit.js';
+import { An } from './objnam.js';
 import { objectNames, POT_WATER, POTION_CLASS } from './objects.js';
 import {
     is_undead as mon_is_undead,
@@ -87,6 +93,22 @@ function Blind() {
 
 function Hallucination() {
     return !!(game.u?.Hallucination);
+}
+
+/** C youprop.h Antimagic. */
+function Antimagic() {
+    const u = game.u || {};
+    return !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+}
+
+/** C: Punished ≡ uball != 0. */
+function Punished() {
+    return !!(game.u?.uball);
+}
+
+/** C ref: potion.c hcolor — Hallucination synonym deferred. */
+function hcolor(colorword) {
+    return colorword || 'odd';
 }
 
 /** C: pray.c on_altar */
@@ -441,7 +463,6 @@ async function fry_by_god(resp_god, via_disintegration) {
  * fry; armor strip via disintegrate_arm; Disint bask + godvoice; astral/
  * sanctum 3× summon_minion.
  * Named omissions: shieldeff flash; SetVoice; ureflects non-shield;
- * angrygods cases that call this still deferred.
  * @param {number} resp_god
  */
 export async function god_zaps_you(resp_god) {
@@ -558,9 +579,18 @@ export async function desecrate_altar(highaltar, altaralign) {
 }
 
 /**
- * C ref: pray.c angrygods — cases 0–3 + ublesscnt rnz(300) tail.
- * Cases 4+ (curse/minion/zap) named omitted — god_zaps_you available
- * for dig desecrate_altar (D-0963) but not yet wired into this switch.
+ * C ref: pray.c gods_angry — deity voice before curse/punish/zap arms.
+ * @param {number} g_align
+ */
+async function gods_angry(g_align) {
+    await godvoice(g_align, 'Thou hast angered me.');
+}
+
+/**
+ * C ref: pray.c angrygods — cases 0–8 + default god_zaps_you + ublesscnt
+ * rnz(300) tail (D-0969).
+ * Named omissions: SetVoice pitch; poly mlet "creature"; shieldeff on
+ * Antimagic glow path.
  */
 async function angrygods(resp_god) {
     const u = game.u || (game.u = {});
@@ -606,11 +636,38 @@ async function angrygods(resp_god) {
         losexp_divine();
         break;
     }
+    case 6:
+        if (!Punished()) {
+            await gods_angry(resp_god);
+            await punish(null);
+            break;
+        }
+        // FALLTHROUGH — already punished → curse path
+    case 4:
+    case 5:
+        await gods_angry(resp_god);
+        if (!Blind() && !Antimagic()) {
+            await pline(`${An(hcolor('black'))} glow surrounds you.`);
+        }
+        // C: if (rn2(2) || !attrcurse()) rndcurse();
+        if (rn2(2) || !(await attrcurse())) {
+            await rndcurse();
+        }
+        break;
+    case 7:
+    case 8: {
+        await godvoice(resp_god, null);
+        // SetVoice deferred
+        const scorn = on_altar()
+            && a_align(u.ux | 0, u.uy | 0) !== resp_god;
+        await verbalize(`Thou durst ${scorn ? 'scorn' : 'call upon'} me?`);
+        await pline(`"Then die, ${mortal}!"`);
+        await summon_minion(resp_god, false);
+        break;
+    }
     default:
-        // Cases 4+ deferred — still apply pray-timer below (may desync if hit)
-        await pline(
-            `You feel that ${align_gname(game.urole, resp_god)} is angry.`,
-        );
+        await gods_angry(resp_god);
+        await god_zaps_you(resp_god);
         break;
     }
 

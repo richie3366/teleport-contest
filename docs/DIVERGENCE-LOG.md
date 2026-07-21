@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0969 — angrygods cases 4–8 + rndcurse
+
+- **Status:** fixed (map-driven map/absent retirement)
+- **Symptom:** named prayer omission — `angrygods` only handled cases
+  0–3; cases 4–8 / default fell through to a stub pline. `rndcurse`
+  absent; `cursed_book` default only printed the malignant-aura line.
+- **Cause:** prior envelope stopped after displeased/relearn arms;
+  `god_zaps_you` existed for dig `desecrate_altar` (D-0963) but was not
+  wired into the angrygods switch.
+- **Fix:** `gods_angry`; cases 4–5 curse glow + `attrcurse`/`rndcurse`;
+  case 6 `punish` with fallthrough when already Punished; cases 7–8
+  scorn/call-upon + `summon_minion`; default `god_zaps_you`. Port
+  `sit.c` `rndcurse` (Magicbane / Antimagic / Half_spell_damage /
+  invent / SPFX_INTEL / steed saddle) and wire `cursed_book` default
+  (D-0969). Deferred: music `do_earthquake` altar desecrate; SetVoice;
+  shieldeff; poly "creature"; update_inventory redraw; hcolor hallu.
+- **Verification:** green+strict PASS; pray/spell/shared cohort 20/20
+  PASS (incl. seed0017/0501/0106/2200/0360).
+- **Files:** `js/pray.js`, `js/sit.js`, `js/spell.js`, `js/mkobj.js`
+  (`unbless`), `docs/c-js-map/absent.md`, `docs/c-js-map/turns.md`.
+
 ## D-0968 — explode AD_FIRE mon/hero combat
 
 - **Status:** fixed (map-driven debt retirement)

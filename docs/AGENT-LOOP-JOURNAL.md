@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:55 — #1239 D-0969 angrygods 4–8 + rndcurse
+
+- Objective: map-driven prayer/absent — angrygods cases 4–8 after
+  D-0963 god_zaps_you existed but switch still stubbed.
+- C locus: `pray.c` angrygods / gods_angry; `sit.c` rndcurse;
+  `spell.c` cursed_book default.
+- Change: gods_angry; cases 4–5 attrcurse/rndcurse; case 6 punish
+  fallthrough; 7–8 summon_minion; default god_zaps_you; port rndcurse
+  + cursed_book wire; mkobj unbless (D-0969). Music earthquake altar
+  desecrate still deferred.
+- Verification: green+strict PASS; pray/spell cohort 20/20 PASS
+  (seed0017/0501/0106/2200/0360).
+- Next: music do_earthquake altar desecrate; toggle_stealth /
+  sink-fall; lavawall / AD_COLD/ELEC explode; cadence @#1240.
+
 ## 2026-07-22 00:50 — #1238 D-0968 explode AD_FIRE combat
 
 - Objective: map-driven zap debt — explode AD_FIRE mon/hero combat
@@ -217,21 +232,3 @@ Use this shape:
   Suite fortress held (no full cadence; next @#1225).
 - Next: `unturn_dead` invent revive / `hero_breaks` / worn ABON;
   Ring_gone / float_up / rescham / choke.
-
-## 2026-07-21 23:41 — #1222 D-0953 pool-lava + vault_gd_watching
-
-- Objective: map-driven — `floorfood` pool/lava reach gate +
-  `vault_gd_watching(GD_EATGOLD)` + gd_move witness verbalize.
-- C locus: `eat.c` `floorfood` / `eatspecial`; `vault.c`
-  `vault_gd_watching` / `gd_move` witness.
-- Change: skipfloor Wwalking/clinger/(Flying&&!Breathless) in
-  `eat.js`; export `vault_gd_watching` + consume/destroy pline in
-  `vault.js`; wire coin eatspecial (D-0953). Deferred: dig
-  furniture_handled / HOLE goto_level; unturn/hero_breaks/ABON;
-  Ring_gone/float_up/rescham/choke.
-- Verification: green+strict; eat/vault/pool cohort 14/14 PASS
-  (incl. seed0012 vault escort, seed0009 swimmer, seed1800 eat).
-  Suite fortress held (no full cadence; next @#1225).
-- Next: dig `furniture_handled` / HOLE `goto_level`; unturn/
-  hero_breaks / worn ABON; Ring_gone cluster.
-

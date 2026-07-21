@@ -314,6 +314,12 @@ export function bless(otmp) {
     otmp.cursed = false;
 }
 
+/** C ref: mkobj.c unbless — clear blessed only. */
+export function unbless(otmp) {
+    if (!otmp) return;
+    otmp.blessed = false;
+}
+
 /**
  * C ref: mkobj.c uncurse — clear cursed; bag weight / luck / figurine /
  * lamplit adjust deferred beyond BAG_OF_HOLDING owt.
