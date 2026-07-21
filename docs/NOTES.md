@@ -8,18 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1220** (Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`). Fortress held; #1222 map port D-0953.
+  speed `30+0.27/turn`). Fortress held; #1223 map port D-0954.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0953** floorfood pool/lava reach +
-  `vault_gd_watching` + gd_move witness verbalize.
-- **Next cluster:** dig `furniture_handled` / HOLE `goto_level`;
-  unturn_dead invent revive / hero_breaks; cancel worn ABON polish;
-  Ring_gone / float_up / rescham / choke(strangle).
+- Latest port: **D-0954** dig `furniture_handled` fountain/sink +
+  HOLE hero `goto_level` + mon migrate.
+- **Next cluster:** `unturn_dead` invent revive / `hero_breaks`;
+  cancel worn ABON; Ring_gone / float_up / rescham / choke;
+  dig destroy_drawbridge / shopdig / impact_drop / grave.
 - Cadence full `sessions` next @**#1225**.
 
 ## Don't re-check (≤15)
@@ -39,15 +39,15 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN / multi-turn rations (D-0935) … pickaxe dig
-  (D-0951), break-wand bhit/cancel (D-0952), or pool-lava/
-  `vault_gd_watching` (D-0953).
+- Do not re-stub TIN / multi-turn rations (D-0935) … pool-lava/
+  `vault_gd_watching` (D-0953) or furniture/HOLE dig (D-0954).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1220**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.27/turn`.
+- **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
 - **D-0953:** floorfood pool/lava reach + `vault_gd_watching`.
 - **D-0952:** break-wand bhitm/cancel/zapyourself + WAN_LIGHT litroom.
 - **D-0951:** pickaxe dig occupation / use_pick_axe / is_digging.
@@ -59,6 +59,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0945:** were* `set_ulycn` + mimic `eatmdone` + `attrcurse`.
 - **D-0944:** `mconveys` extract + `corpse_intrinsic`/`givit`.
 - **D-0943:** `cpostfx` specials + AD_STUN/AD_HALU hallu.
-- **D-0942:** `pay_for_damage`/`getcad`/`hot_pursuit` + wires.
-- **D-0941:** `add_damage`/`watch_dig`/`angry_guards` + still_chewing.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0954 — dig furniture_handled + HOLE goto_level
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** digging fountain/sink skipped C destroy path; HOLE under
+  hero never fell via `goto_level`; mon on HOLE never migrated.
+- **Cause:** named constitutional debt (`debt.md` after D-0953) —
+  `furniture_handled` / HOLE fall deferred in `digactualhole`/`dighole`.
+- **C locus:** `dig.c` `furniture_handled` / `digactualhole` HOLE arm /
+  `dighole` liquid `furniture_handled` gate; `fountain.c`
+  `dogushforth`/`dryup`/`breaksink`.
+- **JS:** export `dogushforth`/`SET_FOUNTAIN_WARNED`; `furniture_handled`
+  fountain/sink (+ DRAWBRIDGE_DOWN skip); HOLE hero fall
+  `goto_level`+`spoteffects`; mon `teleport_pet`/`migrate_to_level`;
+  PIT `wake_nearby`+unearthed `pickup`. Deferred: destroy_drawbridge
+  body; desecrate_altar; shopdig; impact_drop; switch_terrain;
+  make_angry_shk; mkcavearea/grave/autodig.
+- **Verify:** green+strict; dig/shared cohort 16/16 PASS.
+
 ## D-0953 — floorfood pool/lava reach + vault_gd_watching
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,9 +35,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `gd_move` witness verbalize.
 - **JS:** `eat.js` reach helpers + skipfloor; `vault.js`
   `vault_gd_watching` + gd_move consume/destroy pline; wire eatspecial.
-  Deferred: dig `furniture_handled` / HOLE `goto_level`; `unturn_dead`
-  invent revive; `hero_breaks` non-boulder; cancel worn ABON polish;
-  Ring_gone / float_up / rescham / choke(strangle).
+  Deferred: dig destroy_drawbridge / shopdig / impact_drop;
+  `unturn_dead` invent revive; `hero_breaks` non-boulder; cancel worn
+  ABON polish; Ring_gone / float_up / rescham / choke(strangle).
 - **Verify:** green+strict; eat/vault/pool cohort 14/14 PASS.
 
 ## D-0952 — break-wand strike/cancel/poly/tele/undead bhit + litroom

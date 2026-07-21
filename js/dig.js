@@ -2,11 +2,11 @@
 // C ref: dig.c mdig_tunnel / zap_dig / draft_message / watch_dig /
 //        dig_check / fillholetyp / digactualhole / liquid_flow /
 //        dig_typ / pick_can_reach / is_digging / holetime / dig /
-//        digcheck_fail_message / use_pick_axe / use_pick_axe2 / dighole;
-//        zap.c fracture_rock / break_statue;
+//        digcheck_fail_message / use_pick_axe / use_pick_axe2 / dighole /
+//        furniture_handled; zap.c fracture_rock / break_statue;
 //        trap.c fill_pit; apply.c maybe_dunk_boulders;
 //        hack.c may_dig. (D-0941 watch_dig; D-0950 break-wand dig;
-//        D-0951 pickaxe dig occupation)
+//        D-0951 pickaxe dig; D-0954 furniture_handled + HOLE goto_level)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -27,7 +27,7 @@ import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS, GEM_CLASS } from './objects.js';
 import { CLR_WHITE } from './terminal.js';
 import {
-    is_watch, is_flyer, is_floater,
+    is_watch, is_flyer, is_floater, grounded, MZ_HUGE,
 } from './monsters.js';
 import { PM_DWARF, PM_ELF, PM_RANGER } from './generated/monsters_data.js';
 import { m_canseeu } from './mondata.js';
@@ -43,14 +43,22 @@ import { set_occupation, can_reach_floor } from './engrave.js';
 import { wield_tool, welded } from './wield.js';
 import { Fumbling, adjalign, acurr, A_STR } from './attrib.js';
 import { dbon } from './weapon.js';
+import { depth } from './hacklib.js';
+import { get_level } from './dungeon.js';
+import { align_str } from './roles.js';
+import { count_wsegs } from './worm.js';
+import {
+    dogushforth, dryup, breaksink, SET_FOUNTAIN_WARNED,
+} from './fountain.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
-    IS_THRONE, IS_ALTAR, IS_ROOM,
+    IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE,
+    Amask2align, AM_MASK, A_NONE,
     W_NONDIGGABLE, SDOOR, SCORR, CORR, ROOM, DOOR, TREE, STONE,
     D_NODOOR, D_BROKEN, D_TRAPPED, D_CLOSED, D_LOCKED,
     SHOPBASE, SHOP_DOOR_COST, SHOP_PIT_COST, TT_PIT, TT_WEB, isok,
     Is_earthlevel, Is_airlevel, Is_waterlevel, Is_juiblex_level,
-    Can_dig_down, DISP_BEAM, DISP_END,
+    Can_dig_down, Is_stronghold, Is_botlevel, DISP_BEAM, DISP_END,
     DIGCHECK_PASSED, DIGCHECK_PASSED_PITONLY, DIGCHECK_PASSED_DESTROY_TRAP,
     DIGCHECK_FAILED,
     DIGCHECK_FAIL_ONLADDER, DIGCHECK_FAIL_ONSTAIRS,
@@ -65,6 +73,7 @@ import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, NO_PART,
+    TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
 } from './const.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -205,6 +214,42 @@ function surface(x, y) {
     return 'ground';
 }
 
+/** C: dungeon.c ledger_no — local copy (avoid dig↔do cycle). */
+function ledger_no(lev) {
+    const dnum = lev?.dnum | 0;
+    const dlevel = lev?.dlevel | 0;
+    const dun = game.dungeons?.[dnum];
+    return ((dun?.ledger_start | 0) + dlevel) | 0;
+}
+
+/**
+ * C ref: dig.c furniture_handled — dig destroys fountain/sink/drawbridge
+ * instead of creating a pit/hole.
+ * Envelope (D-0954): fountain dogushforth+SET_WARNED+dryup; breaksink.
+ * Named omit: find_drawbridge / destroy_drawbridge body (DRAWBRIDGE_DOWN
+ * / wall still returns TRUE without destroy to skip maketrap).
+ * @returns {Promise<boolean>}
+ */
+async function furniture_handled(x, y, madeby_u) {
+    const lev = game.level?.at(x, y);
+    if (!lev) return false;
+    if (IS_FOUNTAIN(lev.typ)) {
+        await dogushforth(false);
+        SET_FOUNTAIN_WARNED(x, y); // force dryup
+        await dryup(x, y, madeby_u);
+        return true;
+    }
+    if (IS_SINK(lev.typ)) {
+        await breaksink(x, y);
+        return true;
+    }
+    if (lev.typ === DRAWBRIDGE_DOWN) {
+        // find_drawbridge / destroy_drawbridge deferred — skip maketrap
+        return true;
+    }
+    return false;
+}
+
 /**
  * C ref: dig.c dig_check — may a digger create PIT/HOLE here?
  * @param {object|null} madeby BY_YOU / monster / BY_OBJECT(null)
@@ -315,12 +360,11 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
 
 /**
  * C ref: dig.c digactualhole — create PIT or HOLE trap + side effects.
- * Branch envelope (D-0950): maketrap; BY_OBJECT/cansee messages; shop
- * add_damage / pay ruin; PIT at_u set_utrap; adjacent mon mintrap.
- * Named omit: furniture_handled (fountain/sink/drawbridge); altar
- * desecrate; HOLE hero fall goto_level / shopdig / impact_drop;
- * mon teleport_pet migrate; switch_terrain; pickup unearthed;
- * wake_nearby.
+ * Branch envelope (D-0950/D-0954): furniture_handled; maketrap; furniture
+ * fall msg; shop add_damage / pay ruin; PIT at_u set_utrap + wake_nearby;
+ * HOLE hero fall goto_level + pay/shopdig gate; mon teleport_pet migrate.
+ * Named omit: desecrate_altar; impact_drop; shopdig body; switch_terrain;
+ * buried_ball_to_punishment; make_angry_shk; destroy_drawbridge.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
     const lev = game.level?.at(x, y);
@@ -331,19 +375,43 @@ export async function digactualhole(x, y, madeby, ttyp) {
     const heros_fault = madeby_u || madeby_obj;
     const atHero = u_at(x, y);
     let wont_fall = !!(u.Levitation || u.Flying);
+    const mtmp0 = m_at(x, y);
 
-    // furniture_handled deferred — fountain/sink/drawbridge dig skip
+    if (atHero && u.utrap) {
+        if ((u.utraptype | 0) === TT_BURIEDBALL) {
+            // buried_ball_to_punishment deferred
+        } else if ((u.utraptype | 0) === TT_INFLOOR) {
+            reset_utrap(false);
+        }
+    }
+
+    if (await furniture_handled(x, y, madeby_u)) return;
 
     if (ttyp !== PIT && !Can_dig_down(u.uz) && !lev.candig) {
         ttyp = PIT;
     }
 
     const old_typ = lev.typ;
-    const surface_type = surface(x, y);
+    let furniture = '';
+    let surface_type;
+    let old_aligntyp = A_NONE;
+    if (IS_FURNITURE(lev.typ)) {
+        surface_type = (IS_ROOM(lev.typ) && !Is_earthlevel(u.uz))
+            ? 'floor' : 'ground';
+        if (IS_ALTAR(lev.typ)) {
+            old_aligntyp = Amask2align((lev.altarmask | 0) & AM_MASK);
+            furniture = `${align_str(old_aligntyp)} `;
+        }
+        furniture += surface(x, y);
+    } else {
+        surface_type = surface(x, y);
+    }
     const shopdoor = IS_DOOR(lev.typ) && !!in_rooms(x, y, SHOPBASE);
+    const oldobjs = objects_at(x, y);
 
     const ttmp = maketrap(x, y, ttyp);
     if (!ttmp) return;
+    const newobjs = objects_at(x, y);
     ttmp.madeby_u = heros_fault;
     ttmp.tseen = 0;
     if (cansee(x, y)) seetrap(ttmp);
@@ -370,6 +438,11 @@ export async function digactualhole(x, y, madeby, ttyp) {
             await pline(`${An(tname)} appears in the ${surface_type}.`);
         }
     }
+    if (IS_FURNITURE(old_typ) && cansee(x, y)) {
+        await pline(`The ${furniture} falls into the ${tname}!`);
+    }
+    // desecrate_altar deferred when heros_fault && IS_ALTAR(old_typ)
+    void old_aligntyp;
 
     if (ttyp === PIT) {
         if (shopdoor && heros_fault) {
@@ -379,17 +452,23 @@ export async function digactualhole(x, y, madeby, ttyp) {
             const { add_damage } = await import('./shk.js');
             add_damage(x, y, heros_fault ? SHOP_PIT_COST : 0);
         }
+        if (madeby_u) wake_nearby(false);
+        // switch_terrain deferred
+        if (u.Levitation || u.Flying) wont_fall = true;
+
         if (atHero) {
-            if (u.Levitation || u.Flying) wont_fall = true;
             if (!wont_fall) {
                 set_utrap(rn1(4, 2), TT_PIT);
                 if (game.vision) game.vision.full_recalc = 1;
             } else {
                 reset_utrap(true);
             }
-            // pickup unearthed deferred
+            if (oldobjs !== newobjs) {
+                const { pickup } = await import('./pickup.js');
+                await pickup(1);
+            }
         } else {
-            const mtmp = m_at(x, y);
+            const mtmp = mtmp0 || m_at(x, y);
             if (mtmp) {
                 if (is_flyer(mtmp.data) || is_floater(mtmp.data)) {
                     if (canseemon(mtmp)) {
@@ -405,19 +484,88 @@ export async function digactualhole(x, y, madeby, ttyp) {
             }
         }
     } else {
-        // HOLE — hero fall / mon migrate named omit; shop door ruin
-        if (shopdoor && heros_fault) {
-            const { pay_for_damage } = await import('./shk.js');
-            await pay_for_damage('ruin', false);
-        }
-        if (atHero && (u.ustuck || wont_fall || u.Levitation || u.Flying)) {
-            // impact_drop / pickup deferred
-        } else if (atHero) {
-            // goto_level fall deferred — HOLE remains under hero
+        // HOLE
+        if (atHero) {
+            // switch_terrain deferred
+            if (u.Levitation || u.Flying) wont_fall = true;
+            // next_to_u leash gate — always true without leash wiring
+            if (!u.ustuck && !wont_fall) {
+                // leashed pet jerk deferred (next_to_u always true)
+            }
+
+            if (u.ustuck || wont_fall) {
+                // impact_drop deferred
+                if (oldobjs !== newobjs) {
+                    const { pickup } = await import('./pickup.js');
+                    await pickup(1);
+                }
+                if (shopdoor && heros_fault) {
+                    const { pay_for_damage } = await import('./shk.js');
+                    await pay_for_damage('ruin', false);
+                }
+            } else {
+                if (u.ushops && heros_fault) {
+                    // shopdig(1) deferred — shk pack snatch
+                } else {
+                    const { pay_for_damage } = await import('./shk.js');
+                    await pay_for_damage('dig into', true);
+                }
+                await pline('You fall through...');
+                const newlevel = {
+                    dnum: u.uz?.dnum | 0,
+                    dlevel: (u.uz?.dlevel | 0) + 1,
+                };
+                const { goto_level } = await import('./do.js');
+                await goto_level(newlevel, false, true, false);
+                const { spoteffects } = await import('./pickup.js');
+                await spoteffects(false);
+            }
         } else {
-            const mtmp = m_at(x, y);
+            if (shopdoor && heros_fault) {
+                const { pay_for_damage } = await import('./shk.js');
+                await pay_for_damage('ruin', false);
+            }
+            // impact_drop deferred
+            const mtmp = mtmp0 || m_at(x, y);
             if (mtmp) {
-                // teleport_pet / migrate_to_level deferred
+                if (!grounded(mtmp.data)
+                    || (mtmp.wormno && count_wsegs(mtmp) > 5)
+                    || (mtmp.data?.msize | 0) >= MZ_HUGE) {
+                    newsym(x, y);
+                    return;
+                }
+                if (mtmp === u.ustuck) {
+                    newsym(x, y);
+                    return;
+                }
+                const { teleport_pet, migrate_to_level } = await import(
+                    './teleport.js',
+                );
+                if (teleport_pet(mtmp, false)) {
+                    const tolevel = { dnum: 0, dlevel: 1 };
+                    if (Is_stronghold(u.uz)) {
+                        const v = game.valley_level;
+                        if (v) {
+                            tolevel.dnum = v.dnum | 0;
+                            tolevel.dlevel = v.dlevel | 0;
+                        } else {
+                            newsym(x, y);
+                            return;
+                        }
+                    } else if (Is_botlevel(u.uz)) {
+                        if (canseemon(mtmp)) {
+                            await pline(`${Monnam(mtmp)} avoids the trap.`);
+                        }
+                        newsym(x, y);
+                        return;
+                    } else {
+                        get_level(tolevel, depth(u.uz) + 1);
+                    }
+                    // make_angry_shk deferred when mtmp.isshk
+                    migrate_to_level(
+                        mtmp, ledger_no(tolevel), MIGR_RANDOM, null,
+                    );
+                }
             }
         }
     }
@@ -1038,8 +1186,8 @@ export function break_statue(obj) {
  * C ref: dig.c dighole — create PIT/HOLE under hero (pickaxe down path).
  * Branch envelope: dig_check hard fails; pool/lava splash; fillholetyp
  * liquid; digactualhole PIT/HOLE.
- * Named omit: magical traps explode; drawbridge; boulder fill; grave;
- * throne/altar messages; furniture_handled; spot_checks; by_magic traps.
+ * Named omit: magical traps explode; boulder fill; grave dig_up;
+ * throne/altar messages; destroy_drawbridge; spot_checks; by_magic traps.
  */
 export async function dighole(pit_only, _by_magic, cc) {
     const u = game.u || {};
@@ -1088,12 +1236,13 @@ export async function dighole(pit_only, _by_magic, cc) {
     const typ = fillholetyp(dig_x, dig_y, false);
     lev.flags = 0;
     if (typ !== ROOM) {
-        // furniture_handled deferred
-        lev.typ = typ;
-        await liquid_flow(
-            dig_x, dig_y, typ, ttmp,
-            'As you dig, the hole fills with %s!',
-        );
+        if (!(await furniture_handled(dig_x, dig_y, true))) {
+            lev.typ = typ;
+            await liquid_flow(
+                dig_x, dig_y, typ, ttmp,
+                'As you dig, the hole fills with %s!',
+            );
+        }
         return true;
     }
     ttmp = t_at(dig_x, dig_y);
