@@ -9,13 +9,15 @@ import {
     newsym, see_monsters, urgent_pline,
 } from './display.js';
 import { yn_function } from './getline.js';
-import { an, doname, the, xname, xprname, vtense } from './objnam.js';
+import { an, doname, the, xname, xprname, vtense, otyp_is_charged } from './objnam.js';
 import { find_ac } from './u_init.js';
-import { change_luck, Fast, Very_fast } from './attrib.js';
+import {
+    A_STR, A_CON, A_CHA, acurr, extremeattr, change_luck, Fast, Very_fast,
+} from './attrib.js';
 import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object } from './artifact.js';
-import { welded } from './wield.js';
-import { makeknown } from './invent.js';
+import { welded, setuwep, setuswapwep, setuqwep } from './wield.js';
+import { makeknown, observe_object } from './invent.js';
 import { obj_resists } from './dogmove.js';
 import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
@@ -26,7 +28,7 @@ import {
     TIMEOUT, BLINDED, FAST, TELEPAT, WORN_BOOTS, WORN_CLOAK, WORN_GLOVES,
     DISPLACED, INVIS, SEE_INVIS, LEVITATION, PROT_FROM_SHAPE_CHANGERS,
     DRAIN_RES, SICK_RES, INFRAVISION, STONE_RES, SLOW_DIGESTION, FREE_ACTION,
-    BOLT_LIM, LEFT_HANDED, GLIB,
+    BOLT_LIM, LEFT_HANDED, GLIB, FROMOUTSIDE,
 } from './const.js';
 import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
@@ -40,7 +42,7 @@ import {
 import { erode_obj } from './trap.js';
 import { rn2, rnd } from './rng.js';
 import { vision_recalc, set_mimic_blocking } from './vision.js';
-import { restartcham } from './mon.js';
+import { restartcham, rescham } from './mon.js';
 
 const FEDORA = objectNames.indexOf('FEDORA');
 const MEAT_RING = objectNames.indexOf('MEAT_RING');
@@ -83,6 +85,7 @@ const RIN_SEE_INVISIBLE = objectNames.indexOf('RIN_SEE_INVISIBLE');
 const RIN_INVISIBILITY = objectNames.indexOf('RIN_INVISIBILITY');
 const RIN_LEVITATION = objectNames.indexOf('RIN_LEVITATION');
 const RIN_WARNING = objectNames.indexOf('RIN_WARNING');
+const RIN_STEALTH = objectNames.indexOf('RIN_STEALTH');
 const RIN_GAIN_STRENGTH = objectNames.indexOf('RIN_GAIN_STRENGTH');
 const RIN_GAIN_CONSTITUTION = objectNames.indexOf('RIN_GAIN_CONSTITUTION');
 const RIN_ADORNMENT = objectNames.indexOf('RIN_ADORNMENT');
@@ -755,8 +758,7 @@ async function Shirt_on() {
  * C ref: do_wear.c set_wear — side-effects of already-worn gear.
  * Called from moveloop_preamble (!resuming) after ini_inv slots are set;
  * also poly_obj path when a worn item transforms (obj != null).
- * Named omissions: Ring_on learnring/attrib/float bodies; gi.initial_don
- * only used by C toggle_stealth/displacement (Ring_on/cloak still deferred);
+ * Named omissions: toggle_stealth/displacement (gi.initial_don);
  * Blindf_on Punished set_bc; Amulet_on exotic bodies beyond RESTFUL_SLEEP.
  * @param {object|null} [obj=null] Null → all worn slots; else that object only.
  */
@@ -769,7 +771,12 @@ export async function set_wear(obj = null) {
     if ((all ? u.ublindf : obj === u.ublindf) && u.ublindf) {
         await Blindf_on(u.ublindf);
     }
-    // Ring_on(uright/uleft) deferred — learnring / attrib / stealth messages
+    if ((all ? u.uright : obj === u.uright) && u.uright) {
+        await Ring_on(u.uright);
+    }
+    if ((all ? u.uleft : obj === u.uleft) && u.uleft) {
+        await Ring_on(u.uleft);
+    }
     if ((all ? u.uamul : obj === u.uamul) && u.uamul) {
         await Amulet_on(u.uamul);
     }
@@ -1429,9 +1436,14 @@ async function accessory_or_armor_on(obj) {
 
     // Accessory
     if (ring) {
+        // C: Ring_on expects ring already worn as uleft/uright
         setworn(obj, mask);
-        // Ring_on learnring / attrib deltas deferred; oc_oprop via setworn
-        await on_msg(obj);
+        await Ring_on(obj);
+        // C: is_worn — levitation at sink may have removed the ring
+        if ((obj.owornmask | 0) & (W_ARMOR | W_RING | W_AMUL | W_TOOL
+            | W_WEAPONS /* | W_SADDLE */)) {
+            await on_msg(obj);
+        }
     } else if (amulet) {
         await Amulet_on(obj);
     } else if (eyewear) {
@@ -1545,15 +1557,144 @@ function Protection_from_shape_changers_dw() {
         || (u.uprops?.[PROT_FROM_SHAPE_CHANGERS]?.extrinsic | 0));
 }
 
+/** C youprop.h Levitation — (H||E) && !B. */
+function Levitation_dw() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+
+/**
+ * C ref: do_wear.c learnring — discover type / known enchantment when seen.
+ * Named omit: update_inventory (perm invent redraw).
+ */
+function learnring(ring, observed) {
+    if (!ring) return;
+    const ringtype = ring.otyp | 0;
+    const oc = game.objects?.[ringtype];
+    if (observed) {
+        if (oc?.oc_name_known) observe_object(ring);
+        else if (ring.dknown) makeknown(ringtype);
+    }
+    if (ring.dknown && oc?.oc_name_known) {
+        if (otyp_is_charged(ringtype) || oc.oc_charged) ring.known = 1;
+        // update_inventory deferred
+    }
+}
+
+/**
+ * C ref: do_wear.c adjust_attrib — ABON delta; learnring when ACURR changes
+ * or attribute is not at extreme.
+ */
+function adjust_attrib(obj, which, val) {
+    const u = game.u || (game.u = {});
+    if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+    if (!u.abon.a) u.abon.a = [0, 0, 0, 0, 0, 0];
+    const old_attrib = acurr(which);
+    u.abon.a[which] = (u.abon.a[which] | 0) + (val | 0);
+    const observable = old_attrib !== acurr(which);
+    if (observable || !extremeattr(which)) learnring(obj, observable);
+    if (game.flags) game.flags.botl = true;
+    if (game.disp) game.disp.botl = true;
+}
+
+/**
+ * C ref: do_wear.c Ring_on — side effects after setworn into a ring slot.
+ * Branch envelope: unwield if needed; SEE_INVIS/INVIS/LEVITATION messages +
+ * float_up/spoteffects; adjust_attrib STR/CON/CHA; accuracy/damage;
+ * PROTECTION learnring+find_ac; PfSC rescham; WARNING see_monsters.
+ * Named omissions: toggle_stealth (RIN_STEALTH); sink-fall death polish.
+ */
+export async function Ring_on(obj) {
+    if (!obj) return;
+    const u = game.u || (game.u = {});
+    const oprop = game.objects?.[obj.otyp]?.oc_oprop | 0;
+    let oldprop = u.uprops?.[oprop]?.extrinsic | 0;
+    // make sure ring isn't wielded
+    if (obj === u.uwep) setuwep(null);
+    else if (obj === u.uswapwep) setuswapwep(null);
+    else if (obj === u.uquiver) setuqwep(null);
+
+    if ((oldprop & W_RING) !== W_RING) oldprop &= ~W_RING;
+
+    const otyp = obj.otyp | 0;
+    switch (otyp) {
+    case RIN_STEALTH:
+        // toggle_stealth deferred
+        break;
+    case RIN_WARNING:
+        see_monsters();
+        break;
+    case RIN_SEE_INVISIBLE:
+        set_mimic_blocking();
+        see_monsters();
+        if (Invis_dw() && !oldprop && !(u.HSee_invisible | 0) && !Blind_dw()) {
+            newsym(u.ux | 0, u.uy | 0);
+            await pline('Suddenly you are transparent, but there!');
+            learnring(obj, true);
+        }
+        break;
+    case RIN_INVISIBILITY:
+        if (!oldprop && !(u.HInvis | 0) && !(u.BInvis | 0) && !Blind_dw()) {
+            learnring(obj, true);
+            newsym(u.ux | 0, u.uy | 0);
+            const { self_invis_message } = await import('./trap.js');
+            await self_invis_message();
+        }
+        break;
+    case RIN_LEVITATION:
+        if (!oldprop && !(u.HLevitation | 0)
+            && !((u.BLevitation | 0) & FROMOUTSIDE)) {
+            const { float_up } = await import('./trap.js');
+            await float_up();
+            learnring(obj, true);
+            if (Levitation_dw()) {
+                const { spoteffects } = await import('./pickup.js');
+                await spoteffects(false);
+            }
+        } else {
+            const { float_vs_flight } = await import('./polyself.js');
+            float_vs_flight();
+        }
+        break;
+    case RIN_GAIN_STRENGTH:
+        adjust_attrib(obj, A_STR, obj.spe | 0);
+        break;
+    case RIN_GAIN_CONSTITUTION:
+        adjust_attrib(obj, A_CON, obj.spe | 0);
+        break;
+    case RIN_ADORNMENT:
+        adjust_attrib(obj, A_CHA, obj.spe | 0);
+        break;
+    case RIN_INCREASE_ACCURACY:
+        u.uhitinc = (u.uhitinc | 0) + (obj.spe | 0);
+        break;
+    case RIN_INCREASE_DAMAGE:
+        u.udaminc = (u.udaminc | 0) + (obj.spe | 0);
+        break;
+    case RIN_PROTECTION_FROM_SHAPE_CHAN:
+        rescham();
+        break;
+    case RIN_PROTECTION: {
+        const observable = (obj.spe | 0) !== 0;
+        learnring(obj, observable);
+        if (obj.spe) find_ac();
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 /**
  * C ref: do_wear.c Ring_off_or_gone — clear ring slot + otyp side effects.
  * Branch envelope: setworn clear; SEE_INVIS/INVIS messages + set_mimic_blocking;
- * LEVITATION float_vs_flight (float_down deferred); accuracy/damage;
- * PROTECTION find_ac; PfSC restartcham; WARNING see_monsters.
- * Named omissions: toggle_stealth; learnring polish; adjust_attrib STR/CON/CHA;
- * float_down body; sink-fall death from Ring_gone callers beyond setworn.
+ * LEVITATION float_down; accuracy/damage; PROTECTION find_ac; PfSC restartcham;
+ * WARNING see_monsters; adjust_attrib STR/CON/CHA; learnring.
+ * Named omissions: toggle_stealth; sink-fall death beyond Ring_gone callers.
  * @param {object} obj
- * @param {boolean} gone TRUE → destroy/eat path (same clear as setworn null)
+ * @param {boolean} gone TRUE → destroy/eat path (setnotworn ≡ clear slots)
  */
 export async function Ring_off_or_gone(obj, gone) {
     if (!obj) return;
@@ -1575,6 +1716,9 @@ export async function Ring_off_or_gone(obj, gone) {
 
     const otyp = obj.otyp | 0;
     switch (otyp) {
+    case RIN_STEALTH:
+        // toggle_stealth deferred
+        break;
     case RIN_WARNING:
         see_monsters();
         break;
@@ -1586,7 +1730,7 @@ export async function Ring_off_or_gone(obj, gone) {
         if (Invisible_dw() && !Blind_dw()) {
             newsym(u.ux | 0, u.uy | 0);
             await pline('Suddenly you cannot see yourself.');
-            // learnring deferred
+            learnring(obj, true);
         }
         break;
     case RIN_INVISIBILITY:
@@ -1595,30 +1739,42 @@ export async function Ring_off_or_gone(obj, gone) {
             await pline(
                 `Your body seems to unfade${See_invisible_dw() ? ' completely' : '..'}.`,
             );
+            learnring(obj, true);
         }
         break;
-    case RIN_LEVITATION: {
-        // float_down deferred — float_vs_flight covers trapped/fly block
-        const { float_vs_flight } = await import('./polyself.js');
-        float_vs_flight();
+    case RIN_LEVITATION:
+        if (!((u.BLevitation | 0) & FROMOUTSIDE)) {
+            const { float_down } = await import('./trap.js');
+            await float_down(0, 0);
+            if (!Levitation_dw()) learnring(obj, true);
+        } else {
+            const { float_vs_flight } = await import('./polyself.js');
+            float_vs_flight();
+        }
         break;
-    }
     case RIN_INCREASE_ACCURACY:
         u.uhitinc = (u.uhitinc | 0) - (obj.spe | 0);
         break;
     case RIN_INCREASE_DAMAGE:
         u.udaminc = (u.udaminc | 0) - (obj.spe | 0);
         break;
-    case RIN_PROTECTION:
+    case RIN_PROTECTION: {
+        const observable = (obj.spe | 0) !== 0;
+        learnring(obj, observable);
         if (obj.spe) find_ac();
         break;
+    }
     case RIN_PROTECTION_FROM_SHAPE_CHAN:
         if (!Protection_from_shape_changers_dw()) restartcham();
         break;
     case RIN_GAIN_STRENGTH:
+        adjust_attrib(obj, A_STR, -(obj.spe | 0));
+        break;
     case RIN_GAIN_CONSTITUTION:
+        adjust_attrib(obj, A_CON, -(obj.spe | 0));
+        break;
     case RIN_ADORNMENT:
-        // adjust_attrib deferred
+        adjust_attrib(obj, A_CHA, -(obj.spe | 0));
         break;
     default:
         break;

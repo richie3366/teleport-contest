@@ -12,6 +12,20 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-22 00:40 — #1236 D-0966 Ring_on/float_down
+
+- Objective: map-driven wear debt — float_down / learnring /
+  adjust_attrib / Ring_on/off polish.
+- C locus: `do_wear.c` learnring/adjust_attrib/Ring_on/Ring_off_or_gone;
+  `trap.c` float_down; `attrib.c` extremeattr; `steed.c` dismount.
+- Change: extremeattr; Ring_on + learnring/adjust_attrib; full
+  Ring_off_or_gone; float_down; steed → float_down(0,W_SADDLE)
+  (D-0966). Deferred: toggle_stealth; Punished ball; sink-fall.
+- Verification: green+strict PASS; wear/steed cohort 20/20 PASS.
+  Suite fortress held (no full cadence; next @#1240).
+- Next: bury_objs/unearth_objs/obj_ice_effects; explode AD_FIRE;
+  angrygods 4–8. Cadence @**#1240**.
+
 ## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
@@ -208,32 +222,3 @@ Use this shape:
 - Next: dig `furniture_handled` / HOLE `goto_level`; unturn/
   hero_breaks / worn ABON; Ring_gone cluster.
 
-## 2026-07-21 23:36 — #1221 D-0952 break-wand adjacent bhit
-
-- Objective: map-driven — strike/cancel/poly/tele/undead adjacent
-  `bhitm`/`bhitpile`/`zapyourself` + `WAN_LIGHT` `litroom`.
-- C locus: `apply.c` `do_break_wand`; `zap.c` `bhitm`/`bhito`/
-  `zapyourself`/`cancel_item`/`cancel_monst`; `teleport.c`
-  `u_teleport_mon`/`rloco`; `read.c` `litroom`.
-- Change: cancel helpers + `bhitm` subset + zapyourself/bhito arms in
-  `zap.js`; adjacent loop + litroom in `apply.js`; thin tele/rloco;
-  export `litroom` (D-0952). Deferred: unturn invent revive;
-  hero_breaks; worn ABON cancel; flash_hits WAN_LIGHT bhitm.
-- Verification: green+strict; wizard/shared cohort 14/14 PASS.
-  Suite fortress held (no full cadence; next @#1225).
-- Next: pool-lava / `vault_gd_watching` / furniture_handled /
-  HOLE `goto_level`.
-
-## 2026-07-21 23:30 — #1220 cadence score refresh
-
-- Objective: mandatory cadence full `sessions` (@#1220 % 5 == 0);
-  refresh `CURRENT.md` Score. Map-driven port deferred (next: break-
-  wand `bhitm` cluster needs `zap.c` `bhitm` — explode-only stub
-  insufficient).
-- Change: docs only — Score **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn` (R² 0.872). Green+strict PASS preflight.
-  Restored missing #1219 journal crumb into live file; rotated
-  #1210–#1206 to archive.
-- Verification: green+strict; full `sessions` 44/44.
-- Next: break-wand strike/cancel/poly/tele/undead `bhitm`/`bhitpile`/
-  `zapyourself`; pool-lava / `vault_gd_watching`. Cadence @#1225.

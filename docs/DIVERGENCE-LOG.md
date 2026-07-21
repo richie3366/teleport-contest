@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0966 — Ring_on/off learnring/adjust_attrib + float_down
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named wear/eat debt — `Ring_on`/`Ring_off_or_gone` skipped
+  `learnring`/`adjust_attrib`; levitation remove used only
+  `float_vs_flight`; dismount inlined `pickup` instead of `float_down`.
+- **Cause:** prior envelope left those as named omit (`debt.md` /
+  `do_wear` / `steed`).
+- **Fix:** `extremeattr` in `attrib.js`; `learnring`/`adjust_attrib`/
+  `Ring_on` + full `Ring_off_or_gone` in `do_wear.js`; `float_down` in
+  `trap.js`; steed dismount → `float_down(0, W_SADDLE)` (D-0966).
+  Deferred: `toggle_stealth`; Punished ball drag; ustuck release
+  wording; Sokoban `selftouch`; sink-fall death; `update_inventory`.
+- **Verification:** green+strict PASS; wear/steed/shared cohort 20/20
+  PASS (incl. seed0116 wear-shop, seed0103/0104 ride, seed0004 pony).
+- **Files:** `js/do_wear.js`, `js/trap.js`, `js/attrib.js`, `js/steed.js`,
+  `docs/c-js-map/debt.md`.
+
 ## D-0965 — ice melt / burn_floor_objects / fireball
 
 - **Status:** fixed (map-driven debt retirement)

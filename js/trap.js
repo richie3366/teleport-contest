@@ -64,6 +64,7 @@ import {
     LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG,
     HEAD, ARM,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_WEP, W_SWAPWEP,
+    W_SADDLE, I_SPECIAL,
     CORPSTAT_NONE, MM_NOCOUNTBIRTH, MM_NOMSG,
     ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at,
     DISP_FLASH, DISP_END,
@@ -1431,6 +1432,171 @@ export async function float_up() {
     const { float_vs_flight } = await import('./polyself.js');
     float_vs_flight();
     await encumber_msg();
+}
+
+/**
+ * C ref: trap.c float_down — stop levitating; land / pool / trap / pickup.
+ * Branch envelope: H/E mask clear; still-Levitation early out; BLevitation
+ * trapped feedback + float_vs_flight; Flying regain; uswallow; pool drown /
+ * lava_effects; come-down msgs (incl. W_SADDLE skip); encumber_msg; dotrap;
+ * pickup when still on level.
+ * Named omissions: Punished ball drag to pit/pool; ustuck release wording
+ * (sticks/digests); selftouch/dismount Sokoban fell; surface() exact;
+ * Underwater vision; assign_level trapdoor skip via dnum/dlevel compare.
+ * @param {number} hmask clear from HLevitation
+ * @param {number} emask clear from ELevitation (W_SADDLE skips come-down msgs)
+ * @returns {Promise<number>} 0 still levitating/blocked; 1 came down
+ */
+export async function float_down(hmask, emask) {
+    const u = game.u || (game.u = {});
+    let trap = null;
+    let no_msg = false;
+
+    u.HLevitation = (u.HLevitation | 0) & ~(hmask | 0);
+    u.ELevitation = (u.ELevitation | 0) & ~(emask | 0);
+    if (Levitation_fd()) return 0;
+
+    if (u.BLevitation | 0) {
+        const trapped = (u.BLevitation | 0) === I_SPECIAL;
+        const { float_vs_flight } = await import('./polyself.js');
+        float_vs_flight();
+        if (trapped && (u.utrap | 0)) {
+            const typ = u.utraptype | 0;
+            const where = typ === TT_BEARTRAP ? "trap's jaws"
+                : typ === TT_WEB ? 'web'
+                    : typ === TT_BURIEDBALL ? 'chain'
+                        : typ === TT_LAVA ? 'lava'
+                            : 'ground';
+            await pline(`You are no longer trying to float up from the ${where}.`);
+        }
+        await encumber_msg();
+        return 0;
+    }
+
+    if (game.disp) game.disp.botl = true;
+    if (game.flags) game.flags.botl = true;
+    nomul(0);
+
+    if (u.BFlying | 0) {
+        const { float_vs_flight } = await import('./polyself.js');
+        float_vs_flight();
+        if (Flying_fu()) {
+            await pline('You have stopped levitating and are now flying.');
+            await encumber_msg();
+            return 1;
+        }
+    }
+    if (u.uswallow) {
+        // digests() deferred — "swallowed" vs "engulfed" via is_animal
+        const stuck = u.ustuck;
+        const how = (stuck && is_animal(stuck.data)) ? 'swallowed' : 'engulfed';
+        await pline(`You float down, but you are still ${how}.`);
+        await encumber_msg();
+        return 1;
+    }
+
+    // Punished ball→pit/pool relocate deferred
+
+    if (!Flying_fu()) {
+        if (!u.uswallow && u.ustuck) {
+            // sticks()/mon_nam release msgs deferred — clear hold
+            u.ustuck = null;
+        }
+        if (is_pool(u.ux | 0, u.uy | 0) && !Wwalking_fd()
+            && !Swimming_fd() && !u.uinwater) {
+            no_msg = !!(await drown());
+        }
+        if (is_lava(u.ux | 0, u.uy | 0) && !game.iflags?.in_lava_effects) {
+            await lava_effects();
+            no_msg = true;
+        }
+    }
+
+    if (!trap) {
+        trap = t_at(u.ux | 0, u.uy | 0);
+        if (Is_airlevel(u.uz)) {
+            await pline('You begin to tumble in place.');
+        } else if (Is_waterlevel(u.uz) && !no_msg) {
+            await You_feel('heavier.');
+        } else if (!u.uinwater && !no_msg) {
+            if (!((emask | 0) & W_SADDLE)) {
+                const Sokoban = !!(game.level?.flags?.sokoban_rules
+                    || game.level?.flags?.sokoban || game.Sokoban);
+                if (Sokoban && trap) {
+                    if (Hallucination()) {
+                        await pline("Bummer!  You've crashed.");
+                    } else {
+                        await pline('You fall over.');
+                    }
+                    await losehp(rnd(2), 'dangerous winds', KILLED_BY);
+                    if (u.usteed) {
+                        const { dismount_steed } = await import('./steed.js');
+                        const { DISMOUNT_FELL } = await import('./const.js');
+                        await dismount_steed(DISMOUNT_FELL);
+                    }
+                    // selftouch deferred
+                } else if (u.usteed && (is_floater(u.usteed.data)
+                    || is_flyer(u.usteed.data))) {
+                    await pline('You settle more firmly in the saddle.');
+                } else if (Hallucination()) {
+                    await pline(
+                        `Bummer!  You've ${is_pool(u.ux | 0, u.uy | 0) ? 'splashed down' : 'hit the ground'}.`,
+                    );
+                } else {
+                    const surf = surface_fd(u.ux | 0, u.uy | 0);
+                    await pline(`You float gently to the ${surf}.`);
+                }
+            }
+        }
+    }
+
+    await encumber_msg();
+
+    const cur_dnum = u.uz?.dnum;
+    const cur_dlevel = u.uz?.dlevel;
+    if (trap) {
+        const ttyp = trap.ttyp | 0;
+        let run_dotrap = false;
+        if (ttyp === STATUE_TRAP) {
+            run_dotrap = false;
+        } else if (ttyp === HOLE || ttyp === TRAPDOOR) {
+            if (Can_fall_thru(u.uz) && !u.ustuck) run_dotrap = true;
+        } else {
+            run_dotrap = true;
+        }
+        if (run_dotrap && !(u.utrap | 0)) {
+            await dotrap(trap, NO_TRAP_FLAGS);
+        }
+    }
+    if (!Is_airlevel(u.uz) && !Is_waterlevel(u.uz) && !u.uswallow
+        && u.uz?.dnum === cur_dnum && u.uz?.dlevel === cur_dlevel) {
+        const { pickup } = await import('./pickup.js');
+        await pickup(1);
+    }
+    return 1;
+}
+
+/** Levitation for float_down (youprop.h). */
+function Levitation_fd() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+function Wwalking_fd() {
+    const u = game.u || {};
+    if (Is_waterlevel(u.uz)) return false;
+    return !!(u.Wwalking || (u.HWwalking | 0) || (u.EWwalking | 0));
+}
+function Swimming_fd() {
+    const u = game.u || {};
+    return !!(u.Swimming || (u.HSwimming | 0) || (u.ESwimming | 0));
+}
+function surface_fd(x, y) {
+    const loc = game.level?.at(x, y);
+    const typ = loc?.typ ?? 0;
+    if (IS_ROOM(typ) && !Is_airlevel(game.u?.uz)) return 'floor';
+    return 'ground';
 }
 
 /**

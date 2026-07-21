@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0965** ice melt / `burn_floor_objects` / fireball
-  + TIMER_LEVEL `MELT_ICE_AWAY` + `zap_over_floor` FIRE/COLD arms.
-- **Next cluster:** float_down / learnring / adjust_attrib Ring_off;
-  bury_objs / obj_ice_effects; explode AD_FIRE combat; angrygods 4–8.
+- Latest port: **D-0966** Ring_on/off learnring/adjust_attrib +
+  float_down + steed `float_down(0,W_SADDLE)`.
+- **Next cluster:** bury_objs / unearth_objs / obj_ice_effects;
+  explode AD_FIRE combat; angrygods 4–8 / music desecrate; toggle_stealth.
 - Cadence full `sessions` next @**#1240**.
 
 ## Don't re-check (≤15)
@@ -40,7 +40,8 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … impact_drop (D-0961),
   conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
-  revive container/cant_revive (D-0964), or ice/burn/fireball (D-0965).
+  revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
+  or Ring_on/float_down (D-0966).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 
@@ -48,6 +49,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1235**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.27/turn`.
+- **D-0966:** Ring_on/off learnring/adjust_attrib + float_down.
 - **D-0965:** ice melt / burn_floor_objects / fireball / MELT_ICE_AWAY.
 - **D-0964:** revive container/buried / cant_revive / zombie_can_dig.
 - **D-0963:** desecrate_altar / god_zaps_you / fry_by_god dig wire.
