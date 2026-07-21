@@ -21,8 +21,8 @@
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath;
 // Fixed_abil Popeye Olive/Bluto;
-// eatspecial PAPER/potion/ring/amulet/leash/trident/flint/uwepgone/
-// unpunish/vault_gd;
+// vault_gd_watching(GD_EATGOLD); Ring_gone sink-fall / float_up /
+// rescham / choke(strangle) / set_mimic_blocking / perceives polish;
 // livelog conduct; cprefx revive_corpse after rider death; cprefx
 // polymon stone-golem failure polish.
 
@@ -32,7 +32,8 @@ import { flush_topl_more, pline, You_feel, newsym, see_monsters, more } from './
 import { yn_function } from './getline.js';
 import {
     FOOD_CLASS, COIN_CLASS, WEAPON_CLASS, BALL_CLASS, CHAIN_CLASS,
-    objectNames, objects,
+    SCROLL_CLASS, POTION_CLASS, RING_CLASS, AMULET_CLASS,
+    objectNames, objects, objectDescrs,
 } from './objects.js';
 import {
     weight, splitobj, objects_at, delobj, stackobj,
@@ -61,7 +62,7 @@ import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
     SLT_ENCUMBER, EXT_ENCUMBER, FROMFORM, W_ARTI, W_WEP, W_RINGL, W_RINGR,
-    W_ARMOR, W_TOOL, W_AMUL, W_SADDLE,
+    W_ARMOR, W_TOOL, W_AMUL, W_SADDLE, W_BALL, W_CHAIN,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
@@ -72,14 +73,15 @@ import {
     INTRINSIC, POLY_NOFLAGS, DISPLACED,
     FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, POISON_RES,
     ACID_RES, STONE_RES, TELEPAT, TELEPORT, TELEPORT_CONTROL, LAST_PROP,
+    SEE_INVIS, INVIS, PROT_FROM_SHAPE_CHANGERS, LEVITATION, SLEEPY,
     M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
-    A_STR, A_DEX, A_CHA, A_WIS, A_INT,
+    A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
 import { nomul, losehp, still_chewing } from './hack.js';
-import { near_capacity, observe_object } from './invent.js';
+import { near_capacity, observe_object, makeknown } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
     make_stunned, make_hallucinated,
@@ -91,13 +93,16 @@ import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
 import { t_at, deltrap, reset_utrap, b_trapped, self_invis_message } from './trap.js';
 import { done, delayed_killer } from './end.js';
-import { polymon, polyself } from './polyself.js';
+import { polymon, polyself, rehumanize, change_sex } from './polyself.js';
 import { costly_alteration, costly_spot } from './shk.js';
-import { wield_tool } from './wield.js';
+import {
+    wield_tool, uwepgone, uswapwepgone, uqwepgone,
+} from './wield.js';
 import { pluslvl } from './exper.js';
-import { toggle_displacement } from './do_wear.js';
+import { toggle_displacement, setworn } from './do_wear.js';
 import { attrcurse } from './sit.js';
 import { dismount_steed } from './steed.js';
+import { unpunish } from './read.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -109,6 +114,30 @@ const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ORANGE_OTYP = objectNames.indexOf('ORANGE');
+const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
+const LEASH = objectNames.indexOf('LEASH');
+const TRIDENT = objectNames.indexOf('TRIDENT');
+const FLINT = objectNames.indexOf('FLINT');
+const RIN_SEE_INVISIBLE = objectNames.indexOf('RIN_SEE_INVISIBLE');
+const RIN_INVISIBILITY = objectNames.indexOf('RIN_INVISIBILITY');
+const RIN_PROTECTION_FROM_SHAPE_CHAN =
+    objectNames.indexOf('RIN_PROTECTION_FROM_SHAPE_CHAN');
+const RIN_LEVITATION = objectNames.indexOf('RIN_LEVITATION');
+const RIN_ADORNMENT = objectNames.indexOf('RIN_ADORNMENT');
+const RIN_GAIN_STRENGTH = objectNames.indexOf('RIN_GAIN_STRENGTH');
+const RIN_GAIN_CONSTITUTION = objectNames.indexOf('RIN_GAIN_CONSTITUTION');
+const RIN_INCREASE_ACCURACY = objectNames.indexOf('RIN_INCREASE_ACCURACY');
+const RIN_INCREASE_DAMAGE = objectNames.indexOf('RIN_INCREASE_DAMAGE');
+const RIN_FREE_ACTION = objectNames.indexOf('RIN_FREE_ACTION');
+const RIN_SUSTAIN_ABILITY = objectNames.indexOf('RIN_SUSTAIN_ABILITY');
+const AMULET_OF_GUARDING = objectNames.indexOf('AMULET_OF_GUARDING');
+const AMULET_OF_CHANGE = objectNames.indexOf('AMULET_OF_CHANGE');
+const AMULET_OF_UNCHANGING = objectNames.indexOf('AMULET_OF_UNCHANGING');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
+const AMULET_OF_RESTFUL_SLEEP = objectNames.indexOf('AMULET_OF_RESTFUL_SLEEP');
+const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
+const AMULET_OF_FLYING = objectNames.indexOf('AMULET_OF_FLYING');
+const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 
 /**
  * C ref: gy.youmonst.data via set_uasmon / invent.c basic assign.
@@ -1895,10 +1924,320 @@ function useupf(otmp, numused) {
 }
 
 /**
- * C ref: eat.c eatspecial — finish non-food meal: lesshungry + useup.
- * Named omissions: PAPER messages; dopotion; eataccessory; leash;
- * trident/flint; uwepgone/uqwepgone/uswapwepgone; unpunish ball/chain;
- * vault_gd_watching(GD_EATGOLD).
+ * C ref: o_init.c objdescr_is — OBJ_DESCR(objects[otyp]) vs descr.
+ */
+function objdescr_is(obj, descr) {
+    if (!obj) return false;
+    const oc = game.objects?.[obj.otyp];
+    if (!oc) return false;
+    const dn = objectDescrs[oc.oc_descr_idx ?? obj.otyp];
+    return dn != null && dn === descr;
+}
+
+/** C util.h sgn — sign of n as -1/0/1. */
+function sgn(n) {
+    n |= 0;
+    return n < 0 ? -1 : n > 0 ? 1 : 0;
+}
+
+/**
+ * C ref: apply.c o_unleash — clear leashmon on destroy/steal.
+ * Named omissions: update_inventory.
+ */
+function o_unleash(otmp) {
+    if (!otmp) return;
+    const lid = otmp.leashmon | 0;
+    if (lid) {
+        for (let mtmp = game.fmon; mtmp; mtmp = mtmp.nmon) {
+            if ((mtmp.m_id | 0) === lid) {
+                mtmp.mleashed = 0;
+                break;
+            }
+        }
+    }
+    otmp.leashmon = 0;
+}
+
+/**
+ * C ref: do_wear.c Ring_gone subset — clear worn ring slot before eat.
+ * Named omissions: Ring_off_or_gone sink-fall / full messages.
+ */
+function Ring_gone_subset(obj) {
+    const u = game.u || {};
+    if (obj === u.uleft) setworn(null, W_RINGL);
+    else if (obj === u.uright) setworn(null, W_RINGR);
+}
+
+/** Ensure uprops[prop] exists; return intrinsic bits. */
+function prop_intrinsic(prop) {
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[prop]) u.uprops[prop] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    return u.uprops[prop].intrinsic | 0;
+}
+
+/** Set uprops[prop].intrinsic (and common H* mirrors). */
+function set_prop_intrinsic(prop, bits) {
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[prop]) u.uprops[prop] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    u.uprops[prop].intrinsic = bits | 0;
+    // Mirror flats used elsewhere in the port
+    if (prop === SEE_INVIS) u.HSee_invisible = bits | 0;
+    else if (prop === INVIS) u.HInvis = bits | 0;
+    else if (prop === SLEEP_RES) u.HSleep_resistance = bits | 0;
+    else if (prop === PROTECTION) u.HProtection = bits | 0;
+    else if (prop === SLEEPY) u.HSleepy = bits | 0;
+    else if (prop === LEVITATION) u.HLevitation = bits | 0;
+    else if (prop === PROT_FROM_SHAPE_CHANGERS) {
+        u.HProtection_from_shape_changers = bits | 0;
+    }
+}
+
+/**
+ * C ref: eat.c bounded_increase — combat intrinsic growth caps.
+ */
+function bounded_increase(old, inc, typ) {
+    const u = game.u || {};
+    old |= 0;
+    inc |= 0;
+    typ |= 0;
+    if (u.uright && (u.uright.otyp | 0) === typ && typ !== RIN_PROTECTION) {
+        old -= u.uright.spe | 0;
+    }
+    if (u.uleft && (u.uleft.otyp | 0) === typ && typ !== RIN_PROTECTION) {
+        old -= u.uleft.spe | 0;
+    }
+    let absold = Math.abs(old);
+    let absinc = Math.abs(inc);
+    const sgnold = sgn(old);
+    const sgninc = sgn(inc);
+
+    if (absinc === 0 || sgnold !== sgninc || absold + absinc < 10) {
+        // use inc as-is
+    } else if (absold + absinc < 20) {
+        absinc = rnd(absinc);
+        if (absold + absinc < 10) absinc = 10 - absold;
+        inc = sgninc * absinc;
+    } else if (absold + absinc < 40) {
+        absinc = rn2(absinc) ? 1 : 0;
+        if (absold + absinc < 20) absinc = rnd(20 - absold);
+        inc = sgninc * absinc;
+    } else {
+        inc = 0;
+    }
+    if (u.uright && (u.uright.otyp | 0) === typ && typ !== RIN_PROTECTION) {
+        old += u.uright.spe | 0;
+    }
+    if (u.uleft && (u.uleft.otyp | 0) === typ && typ !== RIN_PROTECTION) {
+        old += u.uleft.spe | 0;
+    }
+    return (old + inc) | 0;
+}
+
+/**
+ * C ref: eat.c accessory_has_effect — digest magic pline.
+ */
+async function accessory_has_effect(otmp) {
+    const kind = otmp.oclass === RING_CLASS ? 'ring' : 'amulet';
+    await pline(`Magic spreads through your body as you digest the ${kind}.`);
+}
+
+/**
+ * C ref: eat.c eataccessory — ring/amulet digest effects.
+ * Branch envelope: Ring_gone subset; observe+known; rn2(3/5) switch
+ * (default oc_oprop FROMOUTSIDE + see-invis/invis/levitation arms;
+ * adorn/gain-str/con/increase/protection/free-action; amulet change/
+ * unchanging/restful; sustain/life/fly/reflect no-ops).
+ * Named omissions: full Ring_gone sink death; float_up; rescham;
+ * set_mimic_blocking; perceives/See_invisible polish; choke(strangle).
+ */
+async function eataccessory(otmp) {
+    const u = game.u || (game.u = {});
+    const typ = otmp.otyp | 0;
+    const oc = game.objects?.[typ] || {};
+    const prop = oc.oc_oprop | 0;
+    let oldprop = prop_intrinsic(prop);
+
+    if (otmp === u.uleft || otmp === u.uright) {
+        Ring_gone_subset(otmp);
+        if ((u.uhp | 0) <= 0) return; // died from sink fall (if Ring_gone ports it)
+    }
+    observe_object(otmp);
+    otmp.known = 1;
+
+    const chance = otmp.oclass === RING_CLASS ? 3 : 5;
+    if (rn2(chance)) return;
+
+    switch (typ) {
+    default: {
+        if (!prop) break;
+        if (!(prop_intrinsic(prop) & FROMOUTSIDE)) {
+            await accessory_has_effect(otmp);
+        }
+        set_prop_intrinsic(prop, prop_intrinsic(prop) | FROMOUTSIDE);
+
+        switch (typ) {
+        case RIN_SEE_INVISIBLE: {
+            // set_mimic_blocking deferred
+            see_monsters();
+            const blind = !!(u.Blind || ((u.HBlinded | 0) & TIMEOUT)
+                || (u.EBlinded | 0) || u.uroleplay?.blind);
+            const invis = !!(prop_intrinsic(INVIS)
+                || (u.EInvis | 0) || (u.BInvis | 0) || u.Invis);
+            if (invis && !oldprop && !(u.ESee_invisible | 0)
+                /* perceives deferred */ && !blind) {
+                newsym(u.ux | 0, u.uy | 0);
+                await pline('Suddenly you can see yourself.');
+                makeknown(typ);
+            }
+            break;
+        }
+        case RIN_INVISIBILITY: {
+            const blind = !!(u.Blind || ((u.HBlinded | 0) & TIMEOUT)
+                || (u.EBlinded | 0) || u.uroleplay?.blind);
+            const seeInv = !!(prop_intrinsic(SEE_INVIS)
+                || (u.ESee_invisible | 0) || u.See_invisible);
+            if (!oldprop && !(u.EInvis | 0) && !(u.BInvis | 0)
+                && !seeInv && !blind) {
+                newsym(u.ux | 0, u.uy | 0);
+                const hallu = !!(u.Hallucination
+                    || ((u.HHallucination | 0) & TIMEOUT));
+                await pline(
+                    `Your body takes on a ${hallu ? 'normal' : 'strange'} transparency...`,
+                );
+                makeknown(typ);
+            }
+            break;
+        }
+        case RIN_PROTECTION_FROM_SHAPE_CHAN:
+            // rescham deferred
+            break;
+        case RIN_LEVITATION: {
+            // undo the intrinsic |= FROMOUTSIDE done above
+            set_prop_intrinsic(LEVITATION, oldprop);
+            const levit = !!(prop_intrinsic(LEVITATION)
+                || (u.ELevitation | 0) || u.Levitation);
+            if (!levit) {
+                // float_up deferred
+                incr_itimeout_prop(u, 'HLevitation', d(10, 20));
+                if (!u.uprops) u.uprops = {};
+                if (!u.uprops[LEVITATION]) {
+                    u.uprops[LEVITATION] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+                }
+                u.uprops[LEVITATION].intrinsic = u.HLevitation | 0;
+                makeknown(typ);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    case RIN_ADORNMENT:
+        await accessory_has_effect(otmp);
+        if (await adjattrib(A_CHA, otmp.spe | 0, -1)) makeknown(typ);
+        break;
+    case RIN_GAIN_STRENGTH:
+        await accessory_has_effect(otmp);
+        if (await adjattrib(A_STR, otmp.spe | 0, -1)) makeknown(typ);
+        break;
+    case RIN_GAIN_CONSTITUTION:
+        await accessory_has_effect(otmp);
+        if (await adjattrib(A_CON, otmp.spe | 0, -1)) makeknown(typ);
+        break;
+    case RIN_INCREASE_ACCURACY:
+        await accessory_has_effect(otmp);
+        u.uhitinc = bounded_increase(u.uhitinc | 0, otmp.spe | 0,
+            RIN_INCREASE_ACCURACY);
+        break;
+    case RIN_INCREASE_DAMAGE:
+        await accessory_has_effect(otmp);
+        u.udaminc = bounded_increase(u.udaminc | 0, otmp.spe | 0,
+            RIN_INCREASE_DAMAGE);
+        break;
+    case RIN_PROTECTION:
+    case AMULET_OF_GUARDING:
+        await accessory_has_effect(otmp);
+        set_prop_intrinsic(PROTECTION,
+            prop_intrinsic(PROTECTION) | FROMOUTSIDE);
+        u.HProtection = prop_intrinsic(PROTECTION);
+        {
+            const bump = typ === RIN_PROTECTION ? (otmp.spe | 0) : 2;
+            u.ublessed = bounded_increase(u.ublessed | 0, bump, typ);
+        }
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        break;
+    case RIN_FREE_ACTION: {
+        if (!(prop_intrinsic(SLEEP_RES) & FROMOUTSIDE)
+            && !((u.HSleep_resistance | 0) & FROMOUTSIDE)) {
+            await accessory_has_effect(otmp);
+        }
+        const sleepRes = !!(prop_intrinsic(SLEEP_RES)
+            || (u.HSleep_resistance | 0) || (u.ESleep_resistance | 0)
+            || u.Sleep_resistance);
+        if (!sleepRes) await You_feel('wide awake.');
+        u.HSleep_resistance = (u.HSleep_resistance | 0) | FROMOUTSIDE;
+        set_prop_intrinsic(SLEEP_RES,
+            prop_intrinsic(SLEEP_RES) | FROMOUTSIDE);
+        break;
+    }
+    case AMULET_OF_CHANGE:
+        await accessory_has_effect(otmp);
+        makeknown(typ);
+        change_sex();
+        {
+            const female = !!(game.flags?.female);
+            await pline(`You are suddenly very ${female ? 'feminine' : 'masculine'}!`);
+        }
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        break;
+    case AMULET_OF_UNCHANGING:
+        if (!u.Unchanging && !((u.HUnchanging | 0) & FROMOUTSIDE)
+            && Upolyd(u)) {
+            await accessory_has_effect(otmp);
+            makeknown(typ);
+            await rehumanize();
+        }
+        break;
+    case AMULET_OF_STRANGULATION:
+        // choke(otmp) deferred — no permanent effect in C either beyond choke
+        break;
+    case AMULET_OF_RESTFUL_SLEEP: {
+        const newnap = rnd(100);
+        const oldnap = (u.HSleepy | 0) & TIMEOUT;
+        if (!((u.HSleepy | 0) & FROMOUTSIDE)
+            && !(prop_intrinsic(SLEEPY) & FROMOUTSIDE)) {
+            await accessory_has_effect(otmp);
+        }
+        u.HSleepy = (u.HSleepy | 0) | FROMOUTSIDE;
+        set_prop_intrinsic(SLEEPY, prop_intrinsic(SLEEPY) | FROMOUTSIDE);
+        if (newnap < oldnap || oldnap === 0) {
+            u.HSleepy = ((u.HSleepy | 0) & ~TIMEOUT) | newnap;
+            set_prop_intrinsic(SLEEPY, u.HSleepy | 0);
+        }
+        break;
+    }
+    case RIN_SUSTAIN_ABILITY:
+    case AMULET_OF_LIFE_SAVING:
+    case AMULET_OF_FLYING:
+    case AMULET_OF_REFLECTION:
+        break;
+    }
+}
+
+/**
+ * C ref: eat.c eatspecial — finish non-food meal: lesshungry + side
+ * effects + useup.
+ * Branch envelope: coin useupall/useupf; PAPER messages; dopotion;
+ * eataccessory; leash o_unleash; trident/flint exercise; uwep/uqwep/
+ * uswapwep gone; unpunish ball/chain; carried useup else useupf.
+ * Named omissions: vault_gd_watching(GD_EATGOLD); SCR_MAIL ifdef;
+ * artifact_light in uwepgone; Ring_gone/float_up/rescham/choke polish
+ * inside eataccessory.
  */
 async function eatspecial() {
     const otmp = game.context?.victual?.piece;
@@ -1913,11 +2252,61 @@ async function eatspecial() {
     if (otmp.oclass === COIN_CLASS) {
         if (carried(otmp)) useupall(otmp);
         else useupf(otmp, otmp.quan || 1);
+        // vault_gd_watching(GD_EATGOLD) deferred
         return;
     }
-    // PAPER / POTION / RING / AMULET / LEASH / TRIDENT / FLINT deferred
-    if (carried(otmp)) useup(otmp);
-    else useupf(otmp, 1);
+
+    const material = game.objects?.[otmp.otyp]?.oc_material ?? 0;
+    if (material === MAT_PAPER) {
+        // SCR_MAIL ifdef MAIL_STRUCTURES deferred
+        if ((otmp.otyp | 0) === SCR_SCARE_MONSTER) {
+            await pline(`Yuck${otmp.blessed ? '!' : '.'}`);
+        } else if (otmp.oclass === SCROLL_CLASS
+            && objdescr_is(otmp, 'YUM YUM')) {
+            await pline(`Yum${otmp.blessed ? '!' : '.'}`);
+        } else {
+            await pline('Needs salt...');
+        }
+    }
+
+    if (otmp.oclass === POTION_CLASS) {
+        otmp.quan = (otmp.quan || 1) + 1; // dopotion() does a useup()
+        const { dopotion } = await import('./potion.js');
+        await dopotion(otmp);
+    } else if (otmp.oclass === RING_CLASS || otmp.oclass === AMULET_CLASS) {
+        await eataccessory(otmp);
+    } else if ((otmp.otyp | 0) === LEASH && (otmp.leashmon | 0)) {
+        o_unleash(otmp);
+    }
+
+    if ((otmp.otyp | 0) === TRIDENT && !otmp.cursed) {
+        const hallu = !!(game.u?.Hallucination
+            || ((game.u?.HHallucination | 0) & TIMEOUT));
+        await pline(hallu
+            ? 'Four out of five dentists agree.'
+            : 'That was pure chewing satisfaction!');
+        exercise(A_WIS, true);
+    }
+    if ((otmp.otyp | 0) === FLINT && !otmp.cursed) {
+        await pline('Yabba-dabba delicious!');
+        exercise(A_CON, true);
+    }
+
+    const u = game.u || {};
+    if (otmp === u.uwep && (otmp.quan || 1) === 1) uwepgone();
+    if (otmp === u.uquiver && (otmp.quan || 1) === 1) uqwepgone();
+    if (otmp === u.uswapwep && (otmp.quan || 1) === 1) uswapwepgone();
+
+    if (otmp === u.uball) {
+        unpunish();
+    }
+    if (otmp === u.uchain) {
+        unpunish(); // but no useup()
+    } else if (carried(otmp)) {
+        useup(otmp);
+    } else {
+        useupf(otmp, 1);
+    }
 }
 
 /**

@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0946 — `eatspecial` PAPER / potion / ring / amulet cluster
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** non-food finish skipped PAPER messages, potion quaff,
+  ring/amulet digest effects, leash clear, trident/flint exercise,
+  weapon-slot clear, and ball/chain unpunish before useup.
+- **Cause:** named constitutional debt (`debt.md` eat after D-0945).
+- **C locus:** `eat.c` `eatspecial` / `eataccessory` / `accessory_has_effect`
+  / `bounded_increase`; `wield.c` `uwepgone`/`uswapwepgone`/`uqwepgone`;
+  `read.c` `unpunish`; `apply.c` `o_unleash`.
+- **JS:** `eat.js` full `eatspecial` + `eataccessory`; `wield.js`
+  uwepgone trio; `read.js` `unpunish`; `polyself.js` export `change_sex`.
+  Deferred: `vault_gd_watching`; full `Ring_gone` sink; `float_up`;
+  `rescham`; `choke`(strangle); `set_mimic_blocking`; SCR_MAIL ifdef.
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0945 — `cpostfx` were* / mimic gold / `attrcurse`
 
 - **Status:** fixed (map-driven debt retirement)
@@ -15,7 +31,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **JS:** `were.js` `set_ulycn` → `set_uasmon`; `sit.js` `attrcurse`;
   `eat.js` were*/mimic/`attrcurse` wired in `cpostfx` (D-0945).
   Deferred: `retouch_equipment`; `set_mimic_blocking`; `curs_on_u`;
-  livelog / `eatmupdate`; eatspecial PAPER/potion/ring+.
+  livelog / `eatmupdate`; eatspecial PAPER/potion/ring+ — retired D-0946.
 - **Verify:** green+strict; eat/role cohort 12/12 PASS.
 
 ## D-0944 — `mconveys` + `corpse_intrinsic` / `givit`

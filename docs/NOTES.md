@@ -13,11 +13,11 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0945** `cpostfx` were*/mimic/`attrcurse` + `set_ulycn`/
-  `eatmdone`. Falsifier: green + eat/role cohort PASS.
-- Next cluster: eatspecial PAPER/potion/ring/amulet (+ leash/trident/
-  flint/uwepgone); dokick/explode/apply dig `pay_for_damage` sites;
-  pickaxe `is_digging`; other `debt.md` row.
+- Latest: **D-0946** `eatspecial` PAPER/potion/`eataccessory` +
+  leash/trident/flint/`uwepgone`/`unpunish`. Falsifier: green +
+  eat/role cohort PASS.
+- Next cluster: dig `pay_for_damage` sites (dokick/explode/apply);
+  pickaxe `is_digging`; pool-lava reach; other `debt.md` row.
 - Cadence full `sessions` next @**#1215**.
 
 ## Don't re-check (≤15)
@@ -44,14 +44,15 @@ Objective/score live in `CURRENT.md`.
   `b_trapped`/`make_stunned` (D-0938), `cprefx` (D-0939),
   tin shop/`use_tin_opener` (D-0940), shop/`watch_dig` (D-0941),
   `pay_for_damage`/`hot_pursuit` (D-0942), `cpostfx` specials
-  (D-0943), `corpse_intrinsic`/`givit`/`mconveys` (D-0944), or
-  were*/mimic/`attrcurse` (D-0945).
+  (D-0943), `corpse_intrinsic`/`givit`/`mconveys` (D-0944),
+  were*/mimic/`attrcurse` (D-0945), or eatspecial PAPER+ (D-0946).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1210**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn`.
+- **D-0946:** `eatspecial` PAPER/potion/`eataccessory`/leash/flint.
 - **D-0945:** were* `set_ulycn` + mimic `eatmdone` + `attrcurse`.
 - **D-0944:** `mconveys` extract + `corpse_intrinsic`/`givit`.
 - **D-0943:** `cpostfx` specials + AD_STUN/AD_HALU hallu.
@@ -65,4 +66,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0935:** TIN open/consume + multi-turn `eatfood` rations.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
 - **D-0933 #1199:** NHW_TEXT paint ≤cols−1.
-- **D-0932 #1198:** serialize leading bold spaces.

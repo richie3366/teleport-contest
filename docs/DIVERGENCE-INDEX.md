@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0946 | fixed | `eatspecial` PAPER/potion/ring/amulet + leash/trident/flint/uwepgone/unpunish | map-driven debt; green+eat cohort 12/12 |
 | D-0945 | fixed | `cpostfx` were*/mimic/`attrcurse` + `set_ulycn`/`eatmdone` | map-driven debt; green+eat cohort 12/12 |
 | D-0944 | fixed | `mconveys` + `corpse_intrinsic`/`givit` | map-driven debt; green+eat cohort 12/12 |
 | D-0943 | fixed | `cpostfx` specials + AD_STUN/AD_HALU hallu | map-driven debt; green+eat cohort 12/12 |
