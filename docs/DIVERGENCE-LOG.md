@@ -6,9 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1137)
+- **Status:** partial (#1080–#1138)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **954**/1814)
+  Scr **966**/1814)
+- **Hypothesis (#1138):** @237 C `Set fruit to what?` vs JS `Options` —
+  `doset_simple_menu` deferred Comp getlin for `fruit` (`hasHandler`
+  false); C `Sprintf`+`getlin` then `parseoptions`/`optfn_fruit`.
+  Secondary: `>` did not advance multipage Options (`MENU_NEXT_PAGE`).
+- **Fix (#1138):** `doset_compound_via_getlin` + `optfn_fruit_set`/
+  `fruitadd` subset; `give_opt_msg=false` in `doset_simple`;
+  `select_menu_pick_one` `>`/`<`/`^`/`|` page keys (space-on-last
+  still cancels; `>` on last does not). Named: other Comp parseoptions
+  arms; fruitadd bones/`rnd(127)`/`name_to_mon` candied arms;
+  PICK_ANY page keys.
+- **Verification (#1138):** green+strict PASS; cohort 6/6; Scr
+  **954→966**; @237–242 fruit getlin match. Next: seed4500 screen peel.
 - **Hypothesis (#1137):** @195 jump getpos cursor C `[38,16]` vs JS hero
   `[36,14]` (cells OK) — JS `flush_screen(1)` always curs(hero); C
   `getpos` does `curs` then `flush_screen(0)`, which reprints

@@ -20,6 +20,15 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 11:55 — #1138 doset fruit getlin + menu page keys
+- Objective: seed4500 @237 `Set fruit to what?` vs Options.
+- C locus: `options.c` doset_simple_menu Comp getlin/`optfn_fruit`;
+  `wintty.c` MENU_NEXT_PAGE `>` (space finishes last; `>` does not).
+- Change: `doset_compound_via_getlin` + fruitadd subset; pick_one
+  `>`/`<`/`^`/`|`; `give_opt_msg=false` in doset_simple.
+- Verification: green+strict PASS; cohort 6/6; Scr **954→966**.
+- Next: seed4500 screen peel (Scr **966**/1814).
+
 ## 2026-07-21 11:40 — #1137 getpos flush_screen(0) last-glyph curs
 - Objective: seed4500 @195 jump cursor (cells OK).
 - C locus: `getpos.c` curs+`flush_screen(0)`; `getpos_sethilite`
@@ -162,14 +171,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; prefix **106540→106838**
   (runner RNG **106858** Scr **939**).
 - Next: @**106838** C `m_move` `rn2(20)` vs JS `rn2(32)`; cadence @#1125.
-
-## 2026-07-21 08:58 — #1123 castmu PSI_BOLT→mdamageu/rehumanize
-- Objective: seed4500 @106540 C fleeck rn2(5) vs JS rn2(25).
-- C locus: `mcastu.c` `mcast_psi_bolt`/`mdamageu`; `polyself.c` `rehumanize`.
-- Change: burn+apply PSI_BOLT/OPEN_WOUNDS; `mdamageu`→`rehumanize`;
-  Unchanging+mh<1→`done(DIED)`. Still @106540: JS wears wished
-  amulet of unchanging (savelife keeps Upolyd); force-ignore
-  Unchanging → **106540→106838**. Courage hyp falsified.
-- Verification: green+strict PASS; cohort 4/4; prefix still **106540**.
-- Next: Put-on / invent-letter for amulet of unchanging vs C.
-

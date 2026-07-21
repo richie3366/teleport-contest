@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **954**/1814.
-  First cell **@237** C `Set fruit to what?` vs JS `Options`. Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **966**/1814.
+  Fruit getlin @237–242 match (#1138). Continue screen peel. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -33,15 +33,15 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
   matching (#1135).
-- Do not treat @195 jump curs as wrong hero setCursor — missing
-  `flush_screen(0)` last-glyph after getvalid force-newsyms (#1137).
+- Do not treat @237 fruit as Options-only — missing Comp getlin (#1138).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
   (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
+- **D-0928 #1138:** doset fruit getlin + menu `>` page; Scr **954→966**.
 - **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**;
-  @195 match; next @**237** fruit.
+  @195 match; was next @**237** fruit.
 - **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match.
 - **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**.
 - **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
@@ -55,4 +55,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
   was #1124.
-- **D-0928 #1122:** AT_MAGC castmu; was @**106536**.

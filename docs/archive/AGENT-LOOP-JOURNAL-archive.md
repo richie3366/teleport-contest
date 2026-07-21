@@ -1,3 +1,13 @@
+## 2026-07-21 08:58 — #1123 castmu PSI_BOLT→mdamageu/rehumanize
+- Objective: seed4500 @106540 C fleeck rn2(5) vs JS rn2(25).
+- C locus: `mcastu.c` `mcast_psi_bolt`/`mdamageu`; `polyself.c` `rehumanize`.
+- Change: burn+apply PSI_BOLT/OPEN_WOUNDS; `mdamageu`→`rehumanize`;
+  Unchanging+mh<1→`done(DIED)`. Still @106540: JS wears wished
+  amulet of unchanging (savelife keeps Upolyd); force-ignore
+  Unchanging → **106540→106838**. Courage hyp falsified.
+- Verification: green+strict PASS; cohort 4/4; prefix still **106540**.
+- Next: Put-on / invent-letter for amulet of unchanging vs C.
+
 # Agent loop journal archive
 
 ## 2026-07-20 07:05 — #962 seed0383 fog vapor TTL (D-0834)

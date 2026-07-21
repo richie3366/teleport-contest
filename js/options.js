@@ -32,8 +32,14 @@ import {
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
     FOOD_CLASS, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, WAND_CLASS,
     COIN_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
+    objectNameStrs, objects,
 } from './objects.js';
 import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
+import { getlin } from './getline.js';
+import { makesingular } from './objnam.js';
+
+/** C ref: global.h PL_FSIZ — fruit name buffer. */
+const PL_FSIZ = 32;
 
 /** C ref: decl.c disclosure_options — invent/attribs/vanq/geno/conduct/overview */
 const DISCLOSURE_OPTIONS = 'iavgco';
@@ -559,6 +565,180 @@ async function handler_pickup_types() {
     game.flags.pickup_types = next;
 }
 
+/** C ref: hacklib.c mungspaces — trim ends, compress internal spaces. */
+function mungspaces(s) {
+    return String(s || '').trim().replace(/\s+/g, ' ');
+}
+
+/**
+ * C ref: bones.c sanitize_name — non-printable → '.'; 8-bit strip deferred
+ * (tty eight_bit_input always on for this port).
+ */
+function sanitize_name(namebuf) {
+    let out = '';
+    for (let i = 0; i < namebuf.length; i++) {
+        const c = namebuf.charCodeAt(i) & 0x7f;
+        if (c < 0x20 || c === 0x7f) out += '.';
+        else out += String.fromCharCode(c);
+    }
+    return out;
+}
+
+/**
+ * C ref: options.c fruit_from_name — find by fname; optionally count chain.
+ * @returns {{ fruit: object|null, count: number, highest: number }}
+ */
+function fruit_from_name(fname, countOnly) {
+    let highest = 0;
+    let count = 0;
+    let found = null;
+    for (let f = game.ffruit; f; f = f.nextf) {
+        count++;
+        if (f.fid > highest) highest = f.fid;
+        if (!found && fname != null && f.fname === fname) found = f;
+    }
+    if (countOnly) return { fruit: found, count, highest };
+    return { fruit: found, count, highest };
+}
+
+/**
+ * C ref: options.c fruitadd — user-specified pl_fruit path (doset getlin).
+ * Named omissions: bones/orc non-user path; rnd(127) overflow fallback;
+ * name_to_mon corpse/egg/tin-of arms (candied via food-name collision only).
+ * @param {string} str  current pl_fruit value (C passes svp.pl_fruit pointer)
+ * @param {object|null} replaceFruit
+ */
+function fruitadd(str, replaceFruit) {
+    // C user_specified path: str aliases pl_fruit after optfn_fruit nmcpy
+    let altname = '';
+    let f;
+
+    let nam = makesingular(String(str || ''));
+    if (nam.length > PL_FSIZ - 1) nam = nam.slice(0, PL_FSIZ - 1);
+    game.pl_fruit = nam;
+
+    let globpfx = 0;
+    if (nam.startsWith('small ') || nam.startsWith('large ')) globpfx = 6;
+    else if (nam.startsWith('medium ')) globpfx = 7;
+    else if (nam.startsWith('very large ')) globpfx = 11;
+
+    let found = false;
+    let numeric = false;
+    const bases = game.bases || [];
+    const objs = objects();
+    const start = bases[FOOD_CLASS] || 0;
+    for (let i = start; objs && i < objs.length && objs[i]?.oc_class === FOOD_CLASS; i++) {
+        const on = objectNameStrs[i] || '';
+        if (on === nam || (globpfx > 0 && on === nam.slice(globpfx))) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        let j = 0;
+        while (j < nam.length && nam[j] >= '0' && nam[j] <= '9') j++;
+        if (j === nam.length || /\s/.test(nam[j] || '')) numeric = true;
+    }
+    if (found || numeric
+        || nam.startsWith('cursed ')
+        || nam.startsWith('uncursed ')
+        || nam.startsWith('blessed ')
+        || nam.startsWith('partly eaten ')
+        || nam === 'empty tin'
+        || nam === 'glob'
+        || (globpfx > 0 && nam.slice(globpfx) === 'glob')) {
+        const buf = nam;
+        game.pl_fruit = ('candied ' + buf).slice(0, PL_FSIZ - 1);
+    }
+    altname = '';
+    if (!game.flags) game.flags = {};
+    game.flags.made_fruit = false;
+    if (replaceFruit) {
+        f = replaceFruit;
+        f.fname = String(game.pl_fruit).slice(0, PL_FSIZ - 1);
+        if (!game.context) game.context = {};
+        game.context.current_fruit = f.fid;
+        return f.fid;
+    }
+
+    const look = altname || game.pl_fruit;
+    const { fruit: existing, highest } = fruit_from_name(look, false);
+    if (existing) {
+        if (!game.context) game.context = {};
+        game.context.current_fruit = existing.fid;
+        return existing.fid;
+    }
+    if (highest >= 127) {
+        // C: return rnd(127) — deferred; keep current_fruit
+        return game.context?.current_fruit || 1;
+    }
+    f = {
+        fname: String(look).slice(0, PL_FSIZ - 1),
+        fid: highest + 1,
+        nextf: game.ffruit || null,
+    };
+    game.ffruit = f;
+    if (!game.context) game.context = {};
+    game.context.current_fruit = f.fid;
+    return f.fid;
+}
+
+/**
+ * C ref: options.c optfn_fruit do_set (!opt_initial) after doset getlin.
+ * give_opt_msg is false inside doset_simple so no "Fruit is now" pline.
+ */
+function optfn_fruit_set(op) {
+    let s = mungspaces(op);
+    if (!s) s = 'slime mold';
+    s = sanitize_name(s);
+    if (!s) s = 'slime mold';
+    if (s.length > PL_FSIZ - 1) s = s.slice(0, PL_FSIZ - 1);
+
+    // C: fruit_from_name count gate when !made_fruit / fnum>=100
+    const { fruit: exists, count: fnum } = fruit_from_name(s, true);
+    let forig = null;
+    if (!exists) {
+        if (!game.flags?.made_fruit) {
+            forig = fruit_from_name(
+                game.pl_fruit || 'slime mold', false,
+            ).fruit;
+        }
+        if (!forig && fnum >= 100) {
+            // C: config_error_add fruitful — silent ok return
+            return;
+        }
+    }
+    game.pl_fruit = s;
+    fruitadd(game.pl_fruit, forig);
+    // C: if (give_opt_msg) pline("Fruit is now \"%s\".", …) —
+    // doset_simple keeps give_opt_msg false.
+}
+
+/**
+ * C ref: options.c doset_simple_menu compound arm — getlin + parseoptions.
+ * Handlers (hasHandler) call optfn do_handler; else "Set %s to what?".
+ */
+async function doset_compound_via_getlin(opt) {
+    const name = opt.name;
+    if (opt.hasHandler) {
+        if (name === 'pickup_types') {
+            await handler_pickup_types();
+        }
+        // Other hasHandler compounds deferred (number_pad/symset/…).
+        return;
+    }
+    const abuf = await getlin(`Set ${name} to what?`);
+    if (abuf === '\x1b' || (abuf && abuf.charCodeAt(0) === 0x1b)) {
+        // C: ESC still counts as pickedone — caller returns 1
+        return;
+    }
+    // C: parseoptions("%s:%s") — fruit via optfn_fruit; other Comp deferred
+    if (name === 'fruit') {
+        optfn_fruit_set(abuf);
+    }
+    // Named omission: remaining Comp/Othr getlin → parseoptions arms
+}
+
 function pickup_types_display() {
     const ocl = String(game.flags?.pickup_types || '');
     return ocl || 'all';
@@ -675,6 +855,8 @@ function format_simple_opt_line(opt, nameWidth) {
  * C ref: wintty.c tty_end_menu letter assign + process_menu_window PICK_ONE.
  * Per-page 'a'..'z' for items without a fixed selector; space → next page
  * or cancel on last; Return/ESC cancel; letter → that item.
+ * C wintty.c: '>' MENU_NEXT_PAGE, '<' MENU_PREVIOUS_PAGE, '^' first, '|' last
+ * (space alone finishes on last page; '>' does not).
  * Pre-assigned `selector` on selectable items is kept (print_dungeon
  * continuous a..z/A.. letters).
  * @returns {Promise<{kind:'pick'|'cancel', item?:object}>}
@@ -727,7 +909,8 @@ export async function select_menu_pick_one(rawItems) {
         const wasFullscreen = game._tty_menu_geom?.offx === 0;
         await dismiss_nhw_menu();
         const ch = String.fromCharCode(key);
-        const hit = (key !== 27 && key !== 13 && key !== 10 && key !== 32)
+        const hit = (key !== 27 && key !== 13 && key !== 10 && key !== 32
+            && ch !== '>' && ch !== '<' && ch !== '^' && ch !== '|')
             ? page.find((it) => it.selectable && it.selector === ch)
             : null;
         if (hit && wasFullscreen) {
@@ -739,12 +922,30 @@ export async function select_menu_pick_one(rawItems) {
         if (key === 27 || key === 13 || key === 10) {
             return { kind: 'cancel' };
         }
-        if (key === 32) {
+        // C: ' ' / MENU_NEXT_PAGE ('>') — advance; space on last finishes
+        if (key === 32 || ch === '>') {
             if (currPage < npages - 1) {
                 currPage++;
                 continue;
             }
-            return { kind: 'cancel' };
+            if (key === 32) {
+                // space on last page cancels PICK_ONE (no pick)
+                return { kind: 'cancel' };
+            }
+            // '>' on last page: stay (nhbell); re-prompt
+            continue;
+        }
+        if (ch === '<') {
+            if (currPage > 0) currPage--;
+            continue;
+        }
+        if (ch === '^') {
+            currPage = 0;
+            continue;
+        }
+        if (ch === '|') {
+            currPage = npages - 1;
+            continue;
         }
         if (hit) return { kind: 'pick', item: hit };
         // invalid → re-prompt same page (C nhbell)
@@ -814,12 +1015,18 @@ async function doset_simple_menu() {
             simple_bool_toggle(opt);
             return 1;
         }
-        if (opt?.name === 'pickup_types' && opt.hasHandler) {
-            await handler_pickup_types();
-            return 1;
+        // C: compound/othr — has_handler → optfn(do_handler); else getlin
+        if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr' || opt?.name) {
+            if (opt?.name === 'pickup_types' && opt.hasHandler) {
+                await handler_pickup_types();
+                return 1;
+            }
+            if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') {
+                await doset_compound_via_getlin(opt);
+                return 1;
+            }
         }
-        // Other compound/othr handlers deferred — still count as a pick so
-        // C loops (getlin/ESC still returns pickedone).
+        // Unknown row — still count as a pick (C loops)
         return 1;
     }
 }
@@ -1260,8 +1467,8 @@ export async function doset() {
 
 /**
  * C ref: options.c doset_simple — loop doset_simple_menu until no pick.
- * Named omissions: fruit/number_pad/autounlock/symset/status handlers;
- * help descr lines under simple_options_help.
+ * Named omissions: number_pad/autounlock/symset/status handlers;
+ * help descr lines under simple_options_help; fruitadd bones path.
  */
 export async function doset_simple() {
     if (!game.flags) game.flags = {};
@@ -1271,10 +1478,17 @@ export async function doset_simple() {
         game.iflags.menu_requested = false;
         return doset();
     }
-    do {
-        const picked = await doset_simple_menu();
-        if (picked <= 0) break;
-    } while (true);
+    // C: give_opt_msg = FALSE around the pick loop (no "Fruit is now")
+    const prevGive = game.give_opt_msg;
+    game.give_opt_msg = false;
+    try {
+        do {
+            const picked = await doset_simple_menu();
+            if (picked <= 0) break;
+        } while (true);
+    } finally {
+        game.give_opt_msg = prevGive !== undefined ? prevGive : true;
+    }
     return ECMD_OK;
 }
 
