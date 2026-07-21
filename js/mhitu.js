@@ -45,10 +45,11 @@ import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm,
     could_seduce,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
-    AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_BOOM,
+    AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_BOOM, AT_MAGC,
     AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
     AD_SITM, AD_SEDU, AD_SSEX,
 } from './mhitm.js';
+import { castmu, buzzmu } from './mcastu.js';
 
 /** C ref: monattk.h — passiveum damage types beyond mhitm export set. */
 const AD_STUN = 12;
@@ -1418,7 +1419,7 @@ export async function mattacku(mtmp) {
         if (mattk.aatyp === AT_NONE) continue;
         // C: uswallow skips non-ENGL; skipnonmagc skips non-MAGC
         if ((u.uswallow | 0) && (mattk.aatyp | 0) !== AT_ENGL) continue;
-        if (skipnonmagc && (mattk.aatyp | 0) !== 255 /* AT_MAGC */) continue;
+        if (skipnonmagc && (mattk.aatyp | 0) !== AT_MAGC) continue;
 
         switch (mattk.aatyp) {
         case AT_CLAW:
@@ -1502,6 +1503,12 @@ export async function mattacku(mtmp) {
             // C ref: mhitu.c AT_SPIT — spitmu when range2 (takes care of
             // displacement via mux/muy lined_up).
             if (range2) sum[i] = await spitmu(mtmp, mattk);
+            break;
+
+        case AT_MAGC:
+            // C ref: mhitu.c AT_MAGC — buzzmu when range2 else castmu
+            if (range2) sum[i] = await buzzmu(mtmp, mattk);
+            else sum[i] = await castmu(mtmp, mattk, true, foundyou);
             break;
 
         default:

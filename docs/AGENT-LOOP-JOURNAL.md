@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 08:28 — #1122 mattacku AT_MAGC→castmu
+- Objective: seed4500 @106536 C choose_monster_spell rn2(23) vs JS rn2(5).
+- C locus: `mhitu.c` `mattacku` AT_MAGC → `castmu`; `mcastu.c` dmg dice.
+- Change: JS omitted AT_MAGC (default no-op). Wired castmu/buzzmu;
+  burn `d((ml/2)+1,6)` before deferred mcast_spell.
+- Verification: green+strict PASS; cohort 6/6; prefix **106536→106540**
+  (runner RNG **106559** Scr **937**).
+- Next: @**106540** C fleeck rn2(5) vs JS rn2(25); cadence @#1125.
+
 ## 2026-07-21 08:19 — #1121 set_uasmon MR_* + getmattk lich cold
 - Objective: seed4500 @106531 C hitmu d(2,6) vs JS d(3,6).
 - C locus: `polyself.c` `set_uasmon` resist_from_form; `mhitu.c` `getmattk` lich cold→PHYS.

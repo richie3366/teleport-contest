@@ -204,11 +204,23 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
         return M_ATTK_MISS;
     }
 
+    // C ref: mcastu.c castmu — damage dice before mcast_spell (even when
+    // spell bodies deferred). foundyou + damd → d((ml/2)+damn, damd);
+    // else d((ml/2)+1, 6). Half_spell_damage deferred.
+    let dmg = 0;
+    if (foundyou) {
+        const damn = mattk?.damn | 0;
+        const damd = mattk?.damd | 0;
+        if (damd) dmg = d(Math.trunc(ml / 2) + damn, damd);
+        else dmg = d(Math.trunc(ml / 2) + 1, 6);
+    }
+
     // C ref: mcastu.c mcast_spell — undirected bodies used by peaceful
     // quest guardians (dochug cast-before-move). Directed attack spells
     // and remaining undirected (DISAPPEAR / INSECTS / AGGRAVATION / …)
-    // still deferred.
+    // still deferred; dmg already burned above for SPEL/CLRC.
     if (adtyp === AD_SPEL || adtyp === AD_CLRC) {
+        void dmg; // C: mcast_spell consumes; dmg zeroed after
         switch (spellnum) {
         case MCAST_HASTE_SELF:
             // C: mon_adjust_speed(mtmp, 1, NULL) — permspeed/mspeed MFAST
@@ -230,6 +242,21 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
     }
 
     return M_ATTK_HIT;
+}
+
+/**
+ * C ref: mcastu.c buzzmu — ranged AT_MAGC. AD_SPEL/CLRC fail BZ_VALID_ADTYP
+ * (no RNG). Real zap path (lined_up rn2(3) + buzz) deferred.
+ */
+export async function buzzmu(mtmp, mattk) {
+    const adtyp = mattk?.adtyp | 0;
+    // C: BZ_VALID_ADTYP — AD_MAGM..AD_SPC2; SPEL/CLRC are outside
+    const AD_MAGM = 1;
+    const AD_SPC2 = 10; // approximate upper; SPEL/CLRC (240+) miss this
+    if (adtyp < AD_MAGM || adtyp > AD_SPC2) return M_ATTK_MISS;
+    // Named omission: mcan/m_seenres cursetxt; lined_up rn2(3)+buzz
+    void mtmp;
+    return M_ATTK_MISS;
 }
 
 export { AD_SPEL, AD_CLRC, is_undirected_spell, choose_monster_spell };

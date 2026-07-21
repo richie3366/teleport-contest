@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106536**. #1121:
-  `set_uasmon` MR_* FROMFORM + `getmattk` lich cold→PHYS; prefix
-  **106531→106536**. Next: C `choose_monster_spell` `rn2(23)` vs
-  JS `rn2(5)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**106540**. #1122:
+  `mattacku` AT_MAGC→`castmu` + castmu dmg dice; prefix
+  **106536→106540**. Next: C `distfleeck` `rn2(5)` vs JS `rn2(25)`
+  (courage / Upolyd conceal hyp). Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -23,7 +23,6 @@ Objective/score live in `CURRENT.md`.
 - Do not silent-clear F-prefix then still run `#` (D-0927).
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
-- Do not omit Count:N `.` timed_occupation / Blind feel (#1096).
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not treat @104217 as wrong `exercise` modulus — was stub `mfind0`
@@ -36,11 +35,15 @@ Objective/score live in `CURRENT.md`.
   covetous `tactics` + fire-trap `destroy_items` (#1120).
 - Do not treat @106531 as wrong base mattk dice — was missing poly
   `COLD_RES` FROMFORM + `getmattk` lich cold→PHYS (#1121).
+- Do not treat @106536 as wrong `m_lev`/spell list — was missing
+  `mattacku` AT_MAGC→`castmu` (#1122).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1120 Scr **10527**/11405 RNG **791103**/792838
   (99.78%); speed `30+0.24/turn`; next cadence @**#1125**.
+- **D-0928 #1122:** AT_MAGC castmu; was @**106536**; prefix
+  **106536→106540**; runner RNG **106559** Scr **937**.
 - **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**;
   prefix **106531→106536**; runner RNG **106546** Scr **937**.
 - **D-0928 #1120:** tactics + fire destroy_items; was @**106304**.

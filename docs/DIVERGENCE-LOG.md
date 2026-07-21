@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1121; **#1121** set_uasmon MR_* + getmattk lich cold)
-- **Session:** seed4500-knight-coverage (prefix @**106536**)
+- **Status:** partial (#1080–#1122; **#1122** mattacku AT_MAGC→castmu)
+- **Session:** seed4500-knight-coverage (prefix @**106540**)
+- **Cause (#1122 DIAG):** @106536 C `choose_monster_spell` `rn2(23)` vs
+  JS `rn2(5)` — JS `mattacku` omitted `AT_MAGC` → `castmu` (fell through
+  `default`). After touch+passiveum, C burned lich `rn2(m_lev)` /
+  fumble / `d((ml/2)+1,6)`; JS skipped to later fleeck/`rn2(25)`.
+- **Fix (#1122):** `mhitu.js` `AT_MAGC` → `castmu(…,TRUE,foundyou)` /
+  `buzzmu` when range2; `mcastu.js` burn castmu damage dice before
+  deferred `mcast_spell`; stub `buzzmu` (SPEL/CLRC fail BZ_VALID).
+- **Verification (#1122):** green+strict PASS; cohort 6/6; prefix
+  **106536→106540** (runner RNG **106559** Scr **937**).
+- **Next:** @**106540** C `distfleeck` `rn2(5)` vs JS `rn2(25)`
+  (courage / Upolyd concealment hyp).
 - **Cause (#1121 DIAG):** @106531 C `hitmu` `d(2,6)` vs JS `d(3,6)` —
   master lich AT_TUCH AD_COLD 3d6. Hero poly brown mold (`mresists`
   has MR_COLD) but JS `set_uasmon` omitted `PROPSET(COLD_RES,
@@ -19,7 +30,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `mattacku`/`mattackm` pass mdef.
 - **Verification (#1121):** green+strict PASS; cohort 6/6; prefix
   **106531→106536** (runner RNG **106546** Scr **937**).
-- **Next:** @**106536** C `choose_monster_spell` `rn2(23)` vs JS `rn2(5)`.
 - **Cause (#1120 DIAG):** @106304 C `tactics` rn2(5) vs JS `m_lined_up`
   — `dochug` omitted covetous `tactics()` before `distfleeck`. After
   port, @106316 still fleeck vs lined_up: JS fleeck ate C
