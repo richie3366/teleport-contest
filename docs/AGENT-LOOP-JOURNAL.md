@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 03:37 — #1096 Count:N . wait + Blind feel
+- Objective: seed4500 @89775 early `#pray` cmd/key desync (D-0928).
+- C locus: `cmd.c` `parse`/`set_occupation`/`timed_occupation` +
+  `donull` f_text "waiting"; `invent.c` `look_here` Blind arm.
+- Change: `rhack` sets `multi=count-1`; `.`/`rest_on_space` →
+  `set_occupation(donull,"waiting",multi)`; Blind feel pline/verb
+  in `look_here`.
+- Verification: prefix **89775→90492**; RNG **90604** Scr **815**;
+  green+strict PASS; cohort 7/7.
+- Next: @90492 post-tiger-kill feel `--More--` key sync (JS `e`
+  vs C `distfleeck`).
+
 ## 2026-07-21 03:28 — #1095 public score + @89775 early #pray
 - Objective: mandatory full `sessions` score (@#1095 % 5 == 0);
   peel seed4500 @89775 gethungry.

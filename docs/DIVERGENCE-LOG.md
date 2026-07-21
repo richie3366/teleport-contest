@@ -6,44 +6,39 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1094 place/I/dobuzz; **#1095** early `#pray`)
-- **Session:** seed4500-knight-coverage (prefix still @89775)
-- **Symptom (@89775):** C `rn2(20) @ gethungry` vs JS `rn2(67)`
-  (`wipe_engr` / `40+DEX*3`).
-- **Cause (#1095):** not a `gethungry` logic bug. JS `dopray` @**89766**
-  with `p_type=3` → `uinvulnerable` → early-return skips accessorytime
-  `rn2(20)`. C at that index is Count:20 wait on Dlvl:1 Blind (post
-  ^V-teleport / feel-floor); C’s next `#pray` is @**90510** (screen:
-  counting gold / finish — no shimmer). Prior JS doprays
-  @8690/61356/61518 matched C pray screens.
-- **Rejected (#1095):** missing EOT `gethungry`; wrong accessorytime;
-  clearing `uinvulnerable` to force `rn2(20)` while mid-wrong `#pray`.
-- **Symptom (was @88399):** C `rn2(2) @ corpse_chance` vs JS `rn2(6)`
-  after matched `zhitm`/`burnarmor` (mon breath kill on buzz).
-- **Cause (#1094):** `dobuzz` used `killed`/`xkilled` for all dead
-  targets. C `type < 0` → `monkilled`→`mondied`→`corpse_chance` only;
-  `xkilled` burns treasure `!rn2(6)` before corpse. JS burned that
-  extra `rn2(6)`.
-- **C locus:** `zap.c` `dobuzz` (`type < 0` → `monkilled(..., AD_RBRE)`);
-  `mon.c` `monkilled` / `mondied` / `corpse_chance`; next `pray.c`
-  `dopray` / cmd path before early `#pray`.
-- **Fix (#1094):** export `monkilled`; `dobuzz` `type < 0` →
-  `monkilled(flash, AD_RBRE)` else `killed`.
+- **Status:** partial (#1080–#1095; **#1096** Count:N `.` wait + Blind feel)
+- **Session:** seed4500-knight-coverage (prefix @**90492**)
+- **Symptom (was @89775):** C `rn2(20) @ gethungry` vs JS `rn2(67)`.
+  JS raced keystream to early `#pray` @89766 during C’s Count:20 wait.
+- **Cause (#1096):** (1) `parse` never set `multi = count-1`; counted
+  `.` ran once (no `set_occupation(donull,"waiting",multi)` /
+  `timed_occupation`). (2) `look_here` omitted Blind feel pline →
+  skipped `--More--` after ^V→Dlvl1. Combined: waits burned ~7 RNG
+  not ~55; keys raced to `#pray`.
+- **Fix (#1096):** `rhack` parse sets `multi`; `.`/`rest_on_space` →
+  `set_occupation(donull,'waiting',multi)`; `look_here` Blind feel
+  verb/menu + floor pline (`invent.c`).
+- **Next (@90492):** C `distfleeck` vs JS `rn2(20)` — post-tiger-kill
+  Blind feel `--More--` key sync (space leaked to rhack; JS on `e`
+  while C still on post-feel `h`). Do not treat as wait regression.
+- **Cause (#1095):** not `gethungry`; early JS `dopray` @89766
+  `p_type=3`→`uinvulnerable` (symptom of #1096 key race).
+- **Rejected (#1095/#1096):** clear invuln to paper over early `#pray`;
+  FORCE Count via raw RNG index; invent engrave static import cycle.
+- **Symptom (was @88399):** C `rn2(2) @ corpse_chance` vs JS `rn2(6)`.
+- **Cause (#1094):** `dobuzz` `type < 0` must use `monkilled` not
+  `xkilled` (treasure `rn2(6)`).
+- **Fix (#1094):** export `monkilled`; dobuzz mon-breath → `monkilled`.
 - **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
-  `domove_fight_empty` (stay); JS stepped → linedup break.
-- **Rejected (keep):** linedup boulder bug; FORCE mux/coords;
-  place_lregion / FlipX last=77/sum80 (#1092 C dump — place≡JS);
-  avoid_running_into_trap alone; FORCE corpse_chance tmp; treat
-  @88399 as wrong `tmp` formula (was kill-path credit).
-- **Next:** cmd/key desync before @89766 early `#pray` (post
-  ^V→Dlvl1 / feel-floor / Count:20).
-- **Verification (#1095):** suite **42/44** Scr **10397** RNG
-  **774444**/792838 (97.68%); green+strict PASS; no production JS.
-- **Verification (#1094):** prefix **88399→89775**; RNG **89881**
-  Scr **807**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+  `domove_fight_empty`.
+- **Rejected (keep):** FORCE linedup/mux/place/FlipX last=77 (#1092).
+- **Verification (#1096):** prefix **89775→90492**; RNG **90604**
+  Scr **815**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.
-- **Verification (#1093):** prefix **88377→88399**; RNG **89887**
-  Scr **806**/1814.
+- **Verification (#1095):** suite **42/44** Scr **10397** RNG
+  **774444**/792838 (97.68%).
+- **Verification (#1094):** prefix **88399→89775**; RNG **89881**
+  Scr **807**.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

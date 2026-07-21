@@ -1110,6 +1110,11 @@ export async function rhack(key) {
             game.context.move = 0;
             return;
         }
+        // C: gm.multi = gc.command_count; if (gm.multi) gm.multi--;
+        // Counted `.` / `s` use this with set_occupation (f_text).
+        game.multi = game.context.command_count | 0;
+        if (game.multi) game.multi--;
+        game.cmd_key = key;
     }
 
     // C ref: cmd.c rhack — clear nopick each command; menu_requested kept
@@ -1262,11 +1267,20 @@ export async function rhack(key) {
         // C: do NOT clear kickedloc after dokick — pets avoid it this turn
     } else if (ch === ' ' && game.flags?.rest_on_space) {
         // C ref: cmd.c update_rest_on_space — <space> → donull when option On
+        // C: f_text "waiting" + multi → timed_occupation(donull)
+        if ((game.multi | 0) > 0 && !game.occupation) {
+            set_occupation(donull, 'waiting', game.multi);
+        }
         const tookTime = await donull();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === '.') {
         // C ref: do.c donull / cmd.c — wait; timed non-kick clears kickedloc
+        // C rhack: f_text "waiting" && multi → set_occupation(donull,…)
+        // so Count:N . runs N turns via timed_occupation (D-0928 #1096).
+        if ((game.multi | 0) > 0 && !game.occupation) {
+            set_occupation(donull, 'waiting', game.multi);
+        }
         const tookTime = await donull();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
@@ -1293,10 +1307,8 @@ export async function rhack(key) {
     } else if (ch === 's') {
         // C ref: detect.c dosearch + cmd.c set_occupation(f_text "searching")
         // parse already set multi = count-1; counted Ns → timed occupation.
-        const n = game.context?.command_count || 0;
         if (game.context) game.context.command_count = 0;
-        if (n > 1) {
-            game.multi = n - 1;
+        if ((game.multi | 0) > 0) {
             if (game.context) game.context.mv = 0;
             // C: if (f_text && !occupation && multi) set_occupation(dosearch,…)
             if (!game.occupation) set_occupation(dosearch, 'searching', game.multi);
