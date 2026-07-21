@@ -21,18 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1095** (42/44,
-Scr **10397**/11405, RNG **97.68%**). Next cadence @**#1100**.
-vs @#1090: Scr −1, RNG **773047→774444** (seed4500 peels #1091–#1094).
+Score last measured: **2026-07-21** — full `sessions` @**#1100** (42/44,
+Scr **10516**/11405, RNG **99.02%**). Next cadence @**#1105**.
+vs @#1095: Scr **10397→10516**, RNG **774444→785042** (#1096–#1100 peels;
+`check_caitiff` @#1100).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,397 / 11,405** |
-| Positional RNG calls matched | **774,444 / 792,838** (97.68%) |
-| Speed label | `33+0.26/turn` (R² 0.817) |
+| Screens matched | **10,516 / 11,405** |
+| Positional RNG calls matched | **785,042 / 792,838** (99.02%) |
+| Speed label | `31+0.25/turn` (R² 0.859) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 89881/108275 | 807/1814 | knight; @89775 early `#pray` |
+| seed4500 | 100479/108275 | 926/1814 | knight; @**100395** `gush` |
 
 ## Green gate
 
@@ -70,11 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**95154** (D-0928). **#1099:**
-`adj_erinys` + `setmangry`/`ohitmon`→`adjalign` + live `adj_lev`.
-Erinys HD needs `ualign.abuse==2` (FORCE→prefix **100395**); natural
-abuse still **0**. Next: find missing peaceful→hostile anger path
-(two `adjalign(-1)` or one `-2`) before Erinys. Focused:
+**Gameplay next:** **seed4500** @**100395** (D-0928). **#1100:**
+`check_caitiff` in `find_roll_to_hit` + `kickdmg` → abuse path →
+prefix **95154→100395** (matches FORCE abuse=2 canary). Next: `gush`
+`rn2(3)` vs JS `rn2(20)` — fountain locus. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -108,6 +108,7 @@ or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
 (D-0928 #1097); omit `peffect_extra_healing` / BLINDED
 `nh_timeout` / `learn_unseen_invent` on sight (D-0928 #1098);
 FORCE `ualign.abuse` / omit `adj_erinys` (D-0928 #1099);
+omit `check_caitiff` from `find_roll_to_hit` (D-0928 #1100);
 treat @95154 as wish/extra_healing regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/

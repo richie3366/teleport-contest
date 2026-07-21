@@ -6,23 +6,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1098; **#1099** adj_erinys infra)
-- **Session:** seed4500-knight-coverage (prefix @**95154**)
-- **Symptom (@95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` —
+- **Status:** partial (#1080–#1099; **#1100** check_caitiff)
+- **Session:** seed4500-knight-coverage (prefix @**100395**)
+- **Symptom (@100395):** C `rn2(3) @ gush` vs JS `rn2(20)`.
+- **Cause (#1100):** `find_roll_to_hit` omitted `check_caitiff` →
+  lawful knight never `adjalign(-1)` on helpless/fleeing attacks →
+  `ualign.abuse` stayed 0 → Erinys HD wrong (`d(10,8)` vs `d(13,8)`).
+- **Fix (#1100):** `uhitm.js` `check_caitiff` + call from
+  `find_roll_to_hit` (`!attk_count++`); `dokick.js` `kickdmg` wires
+  same. Prefix **95154→100395** (matches prior FORCE abuse=2 canary).
+- **Next (@100395):** fountain `gush` locus (`rn2(3)` vs `rn2(20)`).
+- **Symptom (was @95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` —
   Erinys. C needs `ualign.abuse==2` → `adj_erinys` mlevel 9 →
   `adj_lev` 13; JS abuse stayed 0 (mlevel 7 → adj_lev 10). FORCE
   abuse=2 confirms prefix **95154→100395** (next gush).
 - **Cause (#1099):** `adj_erinys` omitted; `adjalign` did not call it;
   `setmangry` decremented record without `adjalign` (no abuse);
   `ohitmon` omitted `setmangry`; `adj_lev` read `mons()` snapshot
-  not live table. Still: JS never converts peaceful→hostile via
-  `setmangry` (abuse remains 0) — missing anger path TBD.
+  not live table. Still: abuse stayed 0 until `check_caitiff` (#1100).
 - **Fix (#1099):** `monsters.js` `adj_erinys`/`reset_erinys`;
   `attrib.js` wire; `mon.js` `setmangry`→`adjalign`; `mthrowu.js`
   ohitmon setmangry; `makemon.js` `adj_lev` live mlevel; `u_init`
   `abuse:0`; `allmain` reset_erinys.
-- **Next (@95154):** find path that yields `ualign.abuse==2` before
-  Erinys spawn (two `adjalign(-1)` / one `-2`); not FORCE.
 - **Symptom (was @90543):** C `d(4,8) @ peffect_extra_healing` vs JS
   `rn2(12)` after wish; then missing third `exercise` (WIS makeknown).
 - **Cause (#1098):** (1) `peffects` omitted `POT_EXTRA_HEALING` /
