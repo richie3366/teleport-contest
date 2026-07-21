@@ -72,21 +72,23 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1153:** `maybe_wail` after low-HP
-`losehp` (iron-ball `drag_down` + stair-fall `finish_maybe_wail`).
-Scr **1386→1388**; @**831** OK. Next @**832** C `There is a
-staircase up to level 5 here.` vs JS `… level 1`. Focused:
+**108275**/108275). **D-0928 #1154:** `stairs_description` uses
+`depth(&tolev)` (quest/knox → `dunlev`). Scr **1388→1389**;
+@**832** OK. Next @**893** `#overview` C `Level 3:` (shop+fountain)
+vs JS `Level 25:`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1153 (bat MFAST … maybe_wail
-CwnAnnwn).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1154 (bat MFAST … stairs
+`depth`).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@832≠wrong dig-depth alone — was `tolev.dlevel` not `depth`
+(#1154);
 @831≠staircase getpos alone — missing `maybe_wail` after ball
 `losehp` (#1153);
 @814≠display offset — missing `mkstairs` end-of-dungeon no-op

@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1153)
+- **Status:** partial (#1080–#1154)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1388**/1814)
+  Scr **1389**/1814)
+- **Hypothesis (#1154):** @832 C `staircase up to level 5` vs JS
+  `level 1` — `stairs_description` used branch-relative
+  `tolev.dlevel` instead of C `depth(&tolev)` (quest/knox →
+  `dunlev`).
+- **Fix (#1154):** `mklev.js` `stairs_description` specialdepth +
+  `depth_of_level` / `dunlev`. Elemental Planes amulet string still
+  deferred.
+- **Verification (#1154):** green+strict PASS; cohort 14/14; Scr
+  **1388→1389**; prefix **@832→@893**. Next: @**893** `#overview`
+  C `Level 3:` (shop+fountain) vs JS `Level 25:`.
 - **Hypothesis (#1153):** @831 C `You hear the howling of the
   CwnAnnwn...--More--` vs JS staircase getpos — `losehp` deferred
   `maybe_wail`; iron-ball `drag_down` smack dropped HP below 10%.

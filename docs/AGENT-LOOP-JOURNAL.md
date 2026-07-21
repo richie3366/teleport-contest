@@ -20,6 +20,14 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:37 — #1154 stairs_description depth
+- Objective: seed4500 @832 stair “level 5” vs JS “level 1”.
+- C locus: `stairs.c` `stairs_description` (`depth` / `dunlev`).
+- Change: `mklev.js` use `depth_of_level` unless quest/knox.
+- Verification: green+strict PASS; cohort 14/14; Scr **1388→1389**;
+  prefix **@832→@893**.
+- Next: @**893** `#overview` Level 3 (shop+fountain) vs Level 25.
+
 ## 2026-07-21 13:32 — #1153 maybe_wail CwnAnnwn
 - Objective: seed4500 @831 CwnAnnwn `--More--` vs JS staircase getpos.
 - C locus: `hack.c` `maybe_wail` / `losehp` (uhp*10 < uhpmax).
@@ -161,13 +169,4 @@ Use this shape:
   docs **42/44** Scr **10560**/11405 RNG **100%** `31+0.26/turn`.
 - Verification: green+strict; cohort 6/6; seed4500 Scr **969→970**.
 - Next: @**517**/@**518** BALL `very ` + `(chained to you)` / chain look.
-
-## 2026-07-21 12:05 — #1139 hideunder You_see + statue simpleonames
-- Objective: seed4500 @292 shimmering --More-- vs finish-prayer append.
-- C locus: `mon.c` hideunder You_see; `objnam.c` minimal_xname corpsenm=NON_PM;
-  `mondata.c` locomotion.
-- Change: hideunder You_see + locomotion/y_monnam/ansimpleoname; simpleonames
-  statue/figurine bare type (not "of a …").
-- Verification: green+strict PASS; cohort 6/6; Scr **966→969**.
-- Next: @**372** `scrolls labeled KIRJE` vs `scroll labeled KIRJEs`.
 

@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1388**/1814;
-  first miss **@832**. C `There is a staircase up to level 5 here.`
-  vs JS `… level 1 here.` Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1389**/1814;
+  first miss **@893**. C `#overview` `Level 3:` + shop/fountain vs
+  JS `Level 25:`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,17 +30,19 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
-- Do not treat @814 floor vs `<` as display offset — was `mkstairs`
-  missing end-of-dungeon no-op on minefill up (#1152).
+- Do not treat @832 stair “level 1” as dig-depth — was
+  `stairs_description` using `tolev.dlevel` not `depth` (#1154).
 - Do not treat @831 staircase getpos as root — was deferred
   `maybe_wail` after iron-ball `losehp` (#1153).
-- Do not treat @789 map-only after ^T stairs — missing `teleds`
-  placebc + overlay keep getpos topline (#1151).
+- Do not treat @814 floor vs `<` as display offset — was `mkstairs`
+  missing end-of-dungeon no-op on minefill up (#1152).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1150 Scr **10737**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1155**.
+- **D-0928 #1154:** `stairs_description` depth/dunlev; Scr
+  **1388→1389**; @832 OK; next @893 `#overview` Level 3 vs 25.
 - **D-0928 #1153:** `maybe_wail` + `finish_maybe_wail`; Scr
   **1386→1388**; @831 OK; next @832 stair depth 5 vs 1.
 - **D-0928 #1152:** `mkstairs` dunlev-end no-op; Scr **1366→1386**;
@@ -67,4 +69,3 @@ Objective/score live in `CURRENT.md`.
   Scr **995→998**; prefix **@521→@541**.
 - **D-0928 #1141:** BALL `very `/`(chained to you)` + check_here skip
   uchain; Scr **970→995**; prefix **@517→@521**.
-- **D-0928 #1140:** makeplural `singplur_compound`; Scr **969→970**.
