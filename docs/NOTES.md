@@ -8,8 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **995**/1814;
-  prefix **@521**. C discoveries weapon list `--More--` vs JS map.
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **998**/1814;
+  prefix **@541**. C `#wizidentify` Debug Identify menu vs JS unknown
+  extcmd (`wizcmds.c` / invent Debug Identify).
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -34,13 +35,15 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @372 `KIRJEs` as xname typo — missing `singplur_compound`
   (#1140).
-- Do not treat @517 iron-chain look as display bug — was `check_here`
-  counting `uchain` (#1141).
+- Do not treat @521 disco polearm More as map/cursor — was single-page
+  pad; need NHW_TEXT pages + VENOM append (#1142).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1140 Scr **10560**/11405 RNG **792838**/792838
   (**100%**); speed `31+0.26/turn`; next cadence @**#1145**.
+- **D-0928 #1142:** `dodiscovered` `show_text_pages` + VENOM_CLASS;
+  Scr **995→998**; prefix **@521→@541**.
 - **D-0928 #1141:** BALL `very `/`(chained to you)` + check_here skip
   uchain; Scr **970→995**; prefix **@517→@521**.
 - **D-0928 #1140:** makeplural `singplur_compound`; Scr **969→970**.
@@ -56,4 +59,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**.
 - **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**.
 - **D-0928 #1129:** nasty + SUMMON_MONS; was @**106852**.
-- **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**.

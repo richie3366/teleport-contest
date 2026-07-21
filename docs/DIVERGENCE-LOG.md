@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1141)
+- **Status:** partial (#1080–#1142)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **995**/1814)
+  Scr **998**/1814)
+- **Hypothesis (#1142):** @521 C discoveries polearm continuation
+  `--More--` vs JS map — JS `dodiscovered` padded one fake page and
+  awaited a single key; C `tty_putstr(NHW_TEXT)` pages at `rows-1`
+  via `display_nhwindow`/`dmore`. Page 3 also needs `VENOM_CLASS`
+  appended when absent from `inv_order`.
+- **Fix (#1142):** `dodiscovered` → `show_text_pages` (attr-aware);
+  append `VENOM_CLASS`; `CLASS_NAMES` Venoms.
+- **Verification (#1142):** green+strict PASS; cohort 8/8; Scr
+  **995→998**; prefix **@521→@541**. Next: @**541** C `#wizidentify`
+  Debug Identify menu vs JS unknown extcmd.
 - **Hypothesis (#1141):** @517 JS `You see here an iron chain` vs C
   blank — `check_here` counted `uchain` (C skips). @518 C
   `very heavy iron ball (chained to you)` vs JS `heavy iron ball` —

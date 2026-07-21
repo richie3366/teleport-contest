@@ -20,6 +20,15 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:22 — #1142 dodiscovered NHW_TEXT pages + VENOM
+- Objective: seed4500 @521 discoveries polearm `--More--` vs JS map.
+- C locus: `o_init.c` `dodiscovered`; `wintty.c` NHW_TEXT putstr page-at-a-time;
+  VENOM_CLASS append to `inv_order`.
+- Change: `dodiscovered` → `show_text_pages` (attr-aware); append Venoms.
+- Verification: green+strict; cohort 8/8; Scr **995→998**; prefix
+  **@521→@541**.
+- Next: @**541** C `#wizidentify` Debug Identify vs JS unknown extcmd.
+
 ## 2026-07-21 12:14 — #1141 BALL very/chained + check_here uchain
 - Objective: seed4500 @517/@518 iron ball/chain look + doname.
 - C locus: `objnam.c` xname BALL / doname_base BALL|CHAIN;
@@ -101,14 +110,6 @@ Use this shape:
   (RNG **107651** Scr **941**).
 - Next: @**107646** nhlib.lua shuffle rn2(3) vs rn2(79); cadence @#1135.
 
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
-
 ## 2026-07-21 10:52 — process: C dump for keystream/more too
 - Objective: extend §7 C-dump guidance beyond geometry.
 - C locus: n/a (docs); live peel still @107645 NEED_MORE/unmul.
@@ -147,3 +148,4 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; prefix **107304→107470**
   (runner RNG **107498** Scr **941**).
 - Next: @**107470** C `mhitm_ad_legs` rn2(2) vs JS rn2(3); cadence @#1135.
+
