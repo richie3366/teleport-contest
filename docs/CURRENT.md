@@ -70,14 +70,14 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
-**X-only** land/stairs. C kelp **940** (=JS sum81); need FlipX
-**sum80** for `>`(31,16) / `@(42,6)`. #1089 exclude78/restore
-@82639. #1091: stone78@83695 = `m_move:1963` track avoid
-`rn2(32)` vs C `rn2(28)` — JS mfndpos **cnt=8** vs C **7** (j=0),
-mon@(44,13) u@(41,6). Ported C `flip_level` mgoal/EPRI/ESHK,
-ungated doors, `_level_monsters` swap — baseline still **@88377**.
-Next: C-cited last=77 (no FORCE clear/exclude/restore). Focused:
+**Gameplay next:** **seed4500** @88377 linedup (D-0928). **#1092:**
+C-instrumented `flip_level` falsifies last=77/sum80 — medusa-3
+**minx=2 maxx=79 sum81** flp=2; stair (49,16)→(**32,16**); place
+rect **(40,3)-(45,8)** tries (45,6)/(43,8)/(43,6) ≡ JS (lands
+**43,6**). Screen `>`@31 / map cursor(42,6) ≠ FlipX delta. Restored
+C `Flip_coord` inFlipArea+x gate; dropped invented SpLev_Map flip.
+Next: linedup geometry with matched place (post-place ux / mon
+line). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -101,7 +101,8 @@ addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
 silent-clear F-prefix then still run `#`/non-move (D-0927);
 FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
-restore-w78 for @88377 (D-0928 — C-cited last=77; @83695=track cnt).
+restore-w78 / last=77 for @88377 (D-0928 #1092 — C flip already
+sum81; place≡JS (43,6); @83695=track cnt).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -6,52 +6,33 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
-- **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is medusa-3 hero place; #1080–#1089 as below; **#1091**
-  stone78@83695 = track/mfndpos cnt, not chcnt; flip extras ported)
+- **Status:** open (#1080–#1091 as below; **#1092** falsifies
+  last=77 / FlipX sum80 via C recorder dumps)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
-  (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
-  `aligned=false` from `(47,10)→(42,6)` `d=(-5,-4)` — no boulder
-  `rn2`. C breathes (aligned geometry).
+  (next monster). Earlier DIAG assumed C hero `@(42,6)` /
+  `>`(31,16) from screen decode.
 - **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
-  FORCE mux; shortsighted-only peel without place proof;
-  place_lregion/`collect_coords` shuffle arg mismatch (#1080);
-  C land `@(39,5)` (#1081 — arrival cursor **[42,7]** = map **(42,6)**);
-  ystart formula alone (#1082); FlipX minx=1 alone (#1083/#1087 —
-  stair `(31,16)` but place desync @82419); FORCE ystart=2 (#1084);
-  ystart=2+ysize=19 (#1086 — C `rn2(20)`); whole-map Y+1 (#1087);
-  **#1088:** FORCE maxx78/minx1 (kelpW **940→959**, still @82419);
-  split FlipX coords-sum80/terrain-sum81 (@80989 upstairs place);
-  permanent STONE-clear of preflip col78 (land `(42,6)` then @83695);
-  **#1089:** exclude78 (`minx=3,maxx=77`, keep w78) and
-  stone78_restore (clear→flip sum80→restore MOAT@78) both land
-  `(42,6)`/kelp940/w78=20 then desync **@82639** — worse than
-  stone78@83695. So @83695 is **not** missing col78 water.
-  Preflip col78 = 20×MOAT; mons/objs/traps on col78 = **0**.
-- **#1091:** under stone78 DIAG, first miss @83695 is
-  `m_move:1963` track avoid `rn2(4*(cnt-j))` — JS **cnt=8** vs
-  C **rn2(28)⇒cnt-j=7** (j=0), mon@(44,13)→(43,14), u@(41,6).
-  Ported C `flip_level` `Flip_coord(mgoal)` + EPRI/ESHK + ungated
-  door flip + `_level_monsters` grid swap; production prefix
-  still **@88377** (does not create last=77).
-- **Cause (prerequisite):** hero already off C before F-prefix window.
-  Arrival `^V` Dlvl:6→24 → `u_on_rndspot`/`dndest`. Same place
-  `rn2(6)×3` @82419–82424. JS `u_on_newpos(43,6)` /
-  `dndest[40..45]×[3..8]` after FlipX sum81 (first=3 last=78,
-  minx=2 maxx=79, dnstair 49→32). C screen `>`**(31,16)** `@`(42,6)
-  need sum80; C `water_has_kelp` count before place is **940** (=JS
-  sum81 kelpW). Best sum80 DIAG remains stone78 (postflip last=77,
-  w78=0) through place then @83695 track/mfndpos.
-- **C locus:** `dat/medusa-3.lua`; `sp_lev.c` `flip_level` /
-  `get_level_extends` / `lspo_map`; `mkmaze.c` `place_lregion`;
-  `mklev.c` `mineralize`/`water_has_kelp`; `monmove.c` `m_move`.
-- **Partial:** #1082 medusa-3 epilogue; #1087 stairs ungated +
-  extends scan bounds; #1091 mgoal/doors/`_level_monsters` (prefix
-  still @88377).
-- **Next:** C-cited `get_level_extends` last=77 (sum80) without
-  FORCE clear; then revisit @83695 mfndpos under correct geom.
-  Do not re-FORCE minx1/maxx78/stone78/exclude78/restore-w78.
+  FORCE mux; place_lregion shuffle (#1080); C land `@(39,5)` (#1081);
+  ystart alone (#1082–#1086); Y+1 (#1087); FORCE minx1/maxx78 /
+  stone78 / exclude78 / restore-w78 (#1088–#1089); **#1092 last=77 /
+  FlipX sum80** — C `flip_level` after clamps dumps
+  **minx=2 maxx=79 sum81** flp=2; stair (49,16)→(**32,16**) typ=STAIRS;
+  `place_lregion` rect **(40,3)-(45,8)** nl=(82,-1); tries
+  (45,6)/(43,8)/(43,6) — identical to JS (JS lands **43,6**).
+  Screen `>`@31 is not stairway x. Kelp=940 is flip-invariant.
+- **#1091:** stone78@83695 track `rn2(4*(cnt-j))` cnt8vs7; ported
+  mgoal/EPRI/ESHK + `_level_monsters` swap (prefix still @88377).
+- **#1092 change:** restore C `Flip_coord` `cc.x && inFlipArea` gate
+  (doors/mgoal/extras); stop inventing SpLev_Map flip (C leaves it).
+- **Cause (open):** @88377 linedup still fails with matched flip/
+  place. Revisit monster/hero geometry at breath; possible post-place
+  ux drift vs session cursor(42,6).
+- **C locus:** `sp_lev.c` `flip_level` / `Flip_coord`; `mkmaze.c`
+  `place_lregion` / `put_lregion_here`; `mthrowu.c` `linedup`.
+- **Partial:** #1082 epilogue; #1087 stairs ungated + extends bounds;
+  #1091 mgoal/mons-grid; #1092 Flip_coord gate + sum80 falsified.
+- **Next:** linedup path with place≡(43,6); do not re-chase last=77.
 - **Verification:** green+strict PASS; cohort 7/7; rng-diff @88377.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
