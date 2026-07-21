@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:56 — #1215 cadence score + D-0947 kick_door shop/watch
+
+- Objective: cadence full `sessions` @#1215 + map-driven
+  `kick_door` shop/`pay_for_damage` + town watch.
+- C locus: `dokick.c` `kick_door`/`watchman_thief_arrest`/
+  `watchman_door_damage`; `shk.c` `add_damage`/`pay_for_damage`.
+- Change: wire shopdoor `in_rooms` + bill + town arrest/warn (D-0947).
+  Deferred: Blind feel_location; mon_yells polish; explode/apply/
+  dig-occupation pay sites; pickaxe `is_digging`.
+- Verification: full sessions **44**/44 Scr **11405**/11405 RNG
+  **100%** speed `31+0.29/turn`; green+strict; kick/shop cohort 12/12.
+- Next: explode/apply `pay_for_damage` / `is_digging`. Cadence @#1220.
+
 ## 2026-07-21 22:55 — #1214 D-0946 eatspecial PAPER/potion/ring
 
 - Objective: map-driven — retire `eatspecial` PAPER/potion/ring/amulet

@@ -8,8 +8,10 @@ import { rn2, rnd, rnl } from './rng.js';
 import {
     acurr, acurrstr, A_DEX, A_STR, A_CON, exercise, Fumbling,
 } from './attrib.js';
-import { pline, newsym, canspotmon, map_invisible, flush_topl_more } from './display.js';
-import { vision_recalc, recalc_block_point } from './vision.js';
+import {
+    pline, newsym, canspotmon, map_invisible, flush_topl_more, verbalize,
+} from './display.js';
+import { vision_recalc, recalc_block_point, couldsee } from './vision.js';
 import { getdir } from './lock.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
 import { objects_at } from './mkobj.js';
@@ -17,24 +19,26 @@ import {
     mon_at, attack_checks, passive, killed, check_caitiff,
 } from './uhitm.js';
 import { AT_KICK } from './mhitm.js';
-import { overexertion, losehp, maybe_half_phys } from './hack.js';
+import {
+    overexertion, losehp, maybe_half_phys, in_rooms, in_town,
+} from './hack.js';
 import { set_wounded_legs, legs_in_no_shape, b_trapped } from './trap.js';
 import { setmangry, seemimic } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
 import {
     verysmall, bigmonst, thick_skinned, nohands, haseyes,
-    is_flyer, is_floater, can_teleport, M1_SLITHY,
+    is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import {
     COLNO, ROWNO,
     SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL,
-    D_ISOPEN, D_BROKEN, D_NODOOR, D_TRAPPED, LA_DOWN, SLT_ENCUMBER,
+    D_ISOPEN, D_BROKEN, D_NODOOR, D_TRAPPED, D_WARNED, LA_DOWN, SLT_ENCUMBER,
     IS_DOOR, IS_STWALL, IS_POOL, IS_THRONE, IS_FOUNTAIN, IS_SINK, IS_GRAVE,
     IS_TREE, KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE, P_MARTIAL_ARTS,
-    RIGHT_SIDE, TIMEOUT, FOOT,
+    RIGHT_SIDE, TIMEOUT, FOOT, SHOPBASE, SHOP_DOOR_COST,
 } from './const.js';
 
 const PM_SASQUATCH = monsterNames.indexOf('PM_SASQUATCH');
@@ -104,10 +108,71 @@ async function kick_ouch(x, y, kickobjnam = '') {
 }
 
 /**
+ * C ref: mon.c get_iter_mons — first living on-map mon where bfunc is true.
+ */
+async function get_iter_mons(bfunc) {
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if ((mtmp.mx | 0) <= 0) continue;
+        if (await bfunc(mtmp)) return mtmp;
+    }
+    return null;
+}
+
+/**
+ * C ref: mon.c get_iter_mons_xy — first living mon where bfunc(mtmp,x,y).
+ */
+async function get_iter_mons_xy(bfunc, x, y) {
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if ((mtmp.mx | 0) <= 0) continue;
+        if (await bfunc(mtmp, x, y)) return mtmp;
+    }
+    return null;
+}
+
+/**
+ * C ref: dokick.c watchman_thief_arrest — peaceful watch who can see hero
+ * yells and angry_guards. Named omit: mon_yells SetVoice/Deaf arms
+ * (verbalize like dig.js watch_dig).
+ */
+async function watchman_thief_arrest(mtmp) {
+    if (is_watch(mtmp?.data) && couldsee(mtmp.mx, mtmp.my) && mtmp.mpeaceful) {
+        await verbalize("Halt, thief!  You're under arrest!");
+        const { angry_guards } = await import('./mon.js');
+        await angry_guards(false);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: dokick.c watchman_door_damage — warn once (D_WARNED) then arrest.
+ * Named omit: mon_yells SetVoice/Deaf arms.
+ */
+async function watchman_door_damage(mtmp, x, y) {
+    if (!(is_watch(mtmp?.data) && mtmp.mpeaceful
+        && couldsee(mtmp.mx, mtmp.my))) {
+        return false;
+    }
+    const loc = game.level?.at(x, y);
+    if ((loc?.looted | 0) & D_WARNED) {
+        await verbalize("Halt, vandal!  You're under arrest!");
+        const { angry_guards } = await import('./mon.js');
+        await angry_guards(false);
+    } else {
+        await verbalize('Hey, stop damaging that door!');
+        if (loc) loc.looted = (loc.looted | 0) | D_WARNED;
+    }
+    return true;
+}
+
+/**
  * C ref: dokick.c kick_door — open/broken/nodoor → kick_dumb; else
  * CLOSED/LOCKED bust attempt (exercise DEX, rnl(35) vs avrg_attrib).
- * Shop damage / town watchman / b_trapped body / Blind feel_location
- * deferred (named in C-JS-MAP).
+ * Shop in_rooms + add_damage/pay_for_damage + town watch wired (D-0947).
+ * Named omit: Blind feel_location; mon_yells SetVoice/Deaf polish;
+ * giant doorbuster poly completeness.
  */
 async function kick_door(x, y, avrg_attrib) {
     const loc = game.level?.at(x, y);
@@ -133,8 +198,8 @@ async function kick_door(x, y, avrg_attrib) {
     // C: rnl(35) < avrg_attrib + (!martial() ? 0 : ACURR(A_DEX))
     const chance = avrg_attrib + (!martial() ? 0 : acurr(A_DEX));
     if (doorbuster || rnl(35) < chance) {
-        // shopdoor / in_rooms(SHOPBASE) deferred → treat as non-shop
-        const shopdoor = false;
+        // C: shopdoor = *in_rooms(x, y, SHOPBASE)
+        const shopdoor = !!in_rooms(x, y, SHOPBASE);
         if (mask & D_TRAPPED) {
             if (game.flags?.verbose !== false) {
                 await pline('You kick the door.');
@@ -163,14 +228,21 @@ async function kick_door(x, y, avrg_attrib) {
             recalc_block_point(x, y);
             vision_recalc(1);
         }
-        // add_damage / pay_for_damage / watchman_thief_arrest deferred
+        if (shopdoor) {
+            const { add_damage, pay_for_damage } = await import('./shk.js');
+            add_damage(x, y, SHOP_DOOR_COST);
+            await pay_for_damage('break', false);
+        }
+        if (in_town(x, y)) await get_iter_mons(watchman_thief_arrest);
     } else {
         // Blind feel_location deferred
         exercise(A_STR, true);
         // C: (Deaf || !rn2(3)) ? "Thwack" : "Whammm"
         const thud = (game.u?.Deaf || !rn2(3)) ? 'Thwack' : 'Whammm';
         await pline(`${thud}!!`);
-        // in_town watchman_door_damage deferred
+        if (in_town(x, y)) {
+            await get_iter_mons_xy(watchman_door_damage, x, y);
+        }
     }
 }
 

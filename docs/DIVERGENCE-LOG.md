@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0947 — `kick_door` shop damage + town watch
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** broken shop doors never billed; town watch never warned
+  or arrested on kick open / failed kick.
+- **Cause:** named constitutional debt (`debt.md` after D-0946) —
+  `kick_door` treated all doors as non-shop and deferred watch helpers.
+- **C locus:** `dokick.c` `kick_door` / `watchman_thief_arrest` /
+  `watchman_door_damage`; `shk.c` `add_damage` / `pay_for_damage`.
+- **JS:** `dokick.js` `in_rooms(SHOPBASE)` shopdoor; `add_damage` +
+  `pay_for_damage("break")`; town `get_iter_mons`/`_xy` watch helpers.
+  Deferred: Blind `feel_location`; `mon_yells` SetVoice/Deaf polish;
+  explode/apply/`dig` occupation other `pay_for_damage`; pickaxe
+  `is_digging`.
+- **Verify:** full `sessions` @#1215 **44**/44 Scr **11405** RNG
+  **100%**; green+strict; kick/shop cohort 12/12 PASS.
+
 ## D-0946 — `eatspecial` PAPER / potion / ring / amulet cluster
 
 - **Status:** fixed (map-driven debt retirement)

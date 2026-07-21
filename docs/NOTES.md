@@ -7,18 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1210** (Scr **11405**/11405 RNG **100%**).
+- Local suite **44**/44 @**#1215** (Scr **11405**/11405 RNG **100%**).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0946** `eatspecial` PAPER/potion/`eataccessory` +
-  leash/trident/flint/`uwepgone`/`unpunish`. Falsifier: green +
-  eat/role cohort PASS.
-- Next cluster: dig `pay_for_damage` sites (dokick/explode/apply);
-  pickaxe `is_digging`; pool-lava reach; other `debt.md` row.
-- Cadence full `sessions` next @**#1215**.
+- Latest: **D-0947** `kick_door` shop `add_damage`/`pay_for_damage` +
+  town `watchman_thief_arrest`/`watchman_door_damage`. Falsifier:
+  green + kick/shop cohort PASS.
+- Next cluster: explode/apply `pay_for_damage`; pickaxe `is_digging`;
+  pool-lava reach; other `debt.md` row.
+- Cadence full `sessions` next @**#1220**.
 
 ## Don't re-check (≤15)
 
@@ -45,13 +45,15 @@ Objective/score live in `CURRENT.md`.
   tin shop/`use_tin_opener` (D-0940), shop/`watch_dig` (D-0941),
   `pay_for_damage`/`hot_pursuit` (D-0942), `cpostfx` specials
   (D-0943), `corpse_intrinsic`/`givit`/`mconveys` (D-0944),
-  were*/mimic/`attrcurse` (D-0945), or eatspecial PAPER+ (D-0946).
+  were*/mimic/`attrcurse` (D-0945), eatspecial PAPER+ (D-0946),
+  or kick_door shop/watch (D-0947).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
-- Suite @**#1210**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn`.
+- Suite @**#1215**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `31+0.29/turn`.
+- **D-0947:** `kick_door` shop damage + town watch arrest/warn.
 - **D-0946:** `eatspecial` PAPER/potion/`eataccessory`/leash/flint.
 - **D-0945:** were* `set_ulycn` + mimic `eatmdone` + `attrcurse`.
 - **D-0944:** `mconveys` extract + `corpse_intrinsic`/`givit`.
@@ -65,4 +67,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0936:** `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold.
 - **D-0935:** TIN open/consume + multi-turn `eatfood` rations.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
-- **D-0933 #1199:** NHW_TEXT paint ≤cols−1.
