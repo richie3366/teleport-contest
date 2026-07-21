@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101616**. #1107 landed
-  eel `hideunder` (prefix **101608→101616**; runner RNG **101621**
-  Scr **926**). Next: C `rn2(5) @ distfleeck` vs JS `rnd(20)`
-  `@ mattacku` — JS already attacking. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101641**. #1108 landed
+  eel `mfndpos` nexttry (prefix **101616→101641**; runner RNG
+  **101731** Scr **924**). Next: C `rn2(3) @ nhlib.lua shuffle`
+  vs JS `rn2(61)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,17 +30,17 @@ Objective/score live in `CURRENT.md`.
 - Do not omit peffect_extra_healing / BLINDED nh_timeout /
   learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @101391 `distfleeck` vs `rn2(61)` as fleeck arity —
-  was missing `u_rooted` → early `#wizwish` (#1106).
-- Do not omit `movemon_singlemon` S_EEL `!rn2(4)` → `hideunder`
-  (#1107); @101608 rn2(4) vs rn2(40) was that omit.
+- Do not treat @101616 fleeck vs mattacku as fleeck arity — was missing
+  eel `mfndpos` nexttry → skipped postmov hide (#1108).
+- Do not omit `mfndpos` eel nexttry when stranded on land (#1108).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
   (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
-- **D-0928 #1107:** eel hideunder; prefix **101616**; RNG **101621**
-  Scr **926**.
+- **D-0928 #1108:** eel mfndpos nexttry; prefix **101641**; RNG
+  **101731** Scr **924**.
+- **D-0928 #1107:** eel hideunder; was @**101616**.
 - **D-0928 #1106:** `u_rooted`; was @**101608**.
 - **D-0928 #1105:** passiveum + mhitm_ad_ston; was @**101391**.
 - **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;

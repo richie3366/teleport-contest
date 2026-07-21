@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 102013/108275 | 924/1814 | knight; @**101608** `movemon_singlemon` |
+| seed4500 | 101731/108275 | 924/1814 | knight; @**101641** nhlib shuffle |
 
 ## Green gate
 
@@ -71,10 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**101616** (D-0928). **#1107:**
-`movemon_singlemon` S_EEL `hideunder` (`!rn2(4)` gated). Prefix
-**101608→101616** (runner RNG **101621** Scr **926**). Next:
-C `rn2(5) @ distfleeck` vs JS `rnd(20) @ mattacku`. Focused:
+**Gameplay next:** **seed4500** @**101641** (D-0928). **#1108:**
+`mfndpos` S_EEL `nexttry` (land crawl when no water nbr). Prefix
+**101616→101641** (runner RNG **101731** Scr **924**). Next:
+C `rn2(3) @ nhlib.lua shuffle` vs JS `rn2(61)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -118,11 +118,14 @@ drink empty-getobj short-circuit (D-0928 #1103); omit ring
 #1104); omit `passiveum` after `hitmu` damage or
 `mhitm_ad_ston` mhitu `!rn2(3)` (D-0928 #1105); omit `u_rooted`
 for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
-S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); treat @95154
+S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); omit `mfndpos` eel
+`nexttry` land crawl (D-0928 #1108); treat @95154
 as wish/extra_healing regress; treat @100699 as namedesc-only;
 treat @101378 rn2(3) match as knockback/ston coincidence;
 treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish);
-treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel).
+treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel);
+treat @101616 fleeck vs `mattacku` as missing eel `mfndpos`
+nexttry (was early attack).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1106; **#1107** eel `hideunder`)
-- **Session:** seed4500-knight-coverage (prefix @**101616**)
+- **Status:** partial (#1080–#1107; **#1108** eel `mfndpos` nexttry)
+- **Session:** seed4500-knight-coverage (prefix @**101641**)
+- **Symptom (@101616):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`
+  `@ mattacku` — looked like early attack; arity-matched earlier.
+- **Cause (#1108):** land eel on CORR: JS `mfndpos` omitted C
+  `nexttry` (`!cnt && wantpool && !is_pool` → clear `wantpool`,
+  rescan). `cnt=0` → `MMOVE_NOMOVES` skipped `postmov` hide
+  `rn2(5)` (C @101612); JS 2nd `distfleeck` filled that slot and
+  raced into cockatrice `mattacku`.
+- **Fix (#1108):** `mon.js` `mfndpos` retry loop matching C
+  (poolok computed once; only `wantpool` cleared). Prefix
+  **101616→101641** (runner RNG **101731** Scr **924**).
+- **Next (@101641):** C `rn2(3) @ nhlib.lua shuffle` vs JS
+  `rn2(61)` (namedesc / wish-ish).
 - **Symptom (@101608):** C `rn2(4) @ movemon_singlemon` vs JS
   `rn2(40) @ dochug`.
 - **Cause (#1107):** missing `S_EEL` pre-dochug re-hide arm

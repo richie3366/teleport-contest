@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 05:04 — #1108 mfndpos eel nexttry
+- Objective: seed4500 @101616 C `distfleeck` vs JS `mattacku` (masked).
+- C locus: `mon.c` `mfndpos` nexttry — land eel clears `wantpool`.
+- Change: `mon.js` `mfndpos` retry when `!cnt && wantpool && !is_pool`.
+  Real split was @101612 C `postmov` hide vs JS 2nd fleeck (`cnt=0`).
+- Verification: prefix **101616→101641** (runner RNG **101731** Scr
+  **924**); green+strict PASS; cohort 12/12.
+- Next: @**101641** C `rn2(3) @ nhlib.lua shuffle` vs JS `rn2(61)`.
+
 ## 2026-07-21 04:52 — #1107 movemon_singlemon S_EEL hideunder
 - Objective: seed4500 @101608 C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`.
 - C locus: `mon.c` `movemon_singlemon` eel arm → `hideunder`.
