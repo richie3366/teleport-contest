@@ -72,9 +72,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** music `do_earthquake`/`do_pit`; sink-fall death
-polish; lavawall spines / burn feedback plines; MAGM/DISN/DRST/ACID
-explode mon/hero combat.
+**Next cluster:** sink-fall death polish; lavawall spines / burn
+feedback plines; MAGM/DISN/DRST/ACID explode mon/hero combat;
+flute/harp/horn music bodies.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -86,17 +86,17 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0971. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0972. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
 **D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
-**D-0955**…**D-0971** (revive/Ring_gone/grave/shopdig/bridge/
+**D-0955**…**D-0972** (revive/Ring_gone/grave/shopdig/bridge/
 mkcavearea/impact_drop/conjoined/`desecrate_altar`/revive container/
 ice melt/`burn_floor_objects`/fireball / Ring_on/`float_down` /
 bury/unearth/`obj_ice_effects` / explode AD_FIRE combat /
-angrygods 4–8/`rndcurse` / `toggle_stealth` / explode AD_COLD/ELEC —
-do not re-stub).
+angrygods 4–8/`rndcurse` / `toggle_stealth` / explode AD_COLD/ELEC /
+music `do_earthquake`/`do_pit` — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
@@ -104,7 +104,8 @@ alone (#1192); older in D-0928/NOTES; skip painting map spaces in
 flush (breaks S_air); strip leading bold pads in serialize;
 assume judge elides RC path (falsified D-0933); extend §1.2 carve-out
 beyond the recorder configfile string; peel “for leaderboard” without
-a local FAIL.
+a local FAIL; push shared `maketrap` PIT morph without full suite
+(keep in music `do_pit`, D-0972).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

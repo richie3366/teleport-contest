@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0972 — music do_earthquake / do_pit / DRUM_OF_EARTHQUAKE
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named music omission — `DRUM_OF_EARTHQUAKE` improvisation
+  stubbed after leather-drum awaken; `do_earthquake`/`do_pit` absent;
+  altar quake → `desecrate_altar` still listed in dig/absent debt.
+- **Cause:** prior music envelope stopped at LEATHER_DRUM (D-0454);
+  earthquake body deferred with flute/harp/horn.
+- **Fix:** port `generic_lvl_desc`, `do_pit` (maketrap PIT + boulder thin
+  flooreffects + liquid_flow + mon/hero fall/jostle), `do_earthquake`
+  (force radius, wake/ceiling-hider, furniture→pit switch incl. altar
+  `desecrate_altar`, SCORR/SDOOR reveal, door collapse/`add_damage`),
+  wire `DRUM_OF_EARTHQUAKE` charge+quake+`awaken_monsters(ROWNO*COLNO)`+
+  `makeknown` (D-0972). PIT IS_ROOM→ROOM morph lives in `do_pit` (shared
+  `maketrap` left unchanged after seed cohort risk). Deferred: passtune/
+  drawbridge; flute/harp/horn; selftouch petrify; full flooreffects;
+  maketrap shop-hole/drawbridge-up/wall morph; `Hero_playnotes`;
+  `awaken_soldiers`; Is_sanctum wording.
+- **Verification:** green+strict PASS; apply/music/shared cohort **36**/36
+  PASS (incl. seed0002 drummer, seed0015 pit, seed2200/0360/0030).
+  seed0009 Scr 72/73 FAIL reproduces on clean HEAD — not this change.
+- **Files:** `js/music.js`, `docs/c-js-map/turns.md`, `debt.md`,
+  `absent.md`.
+
 ## D-0971 — explode AD_COLD/ELEC mon/hero combat
 
 - **Status:** fixed (map-driven debt retirement)
