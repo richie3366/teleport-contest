@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1183)
+- **Status:** partial (#1080–#1184)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1732**/1814)
+  Scr **1783**/1814)
+- **Hypothesis (#1184):** @1658 — map C `/` vs JS `#` (misread as
+  open door). Poly brown mold Blind search; C `dosearch0` calls
+  `feel_location` on neighbors when Blind, mapping floor
+  `WAN_OPENING` at (25,9). JS deferred that arm; sticky `u.Blind`
+  also missed FROMFORM `HBlinded`.
+- **Fix (#1184):** `detect.js` `dosearch0` — prop Blind; Blind/
+  `visible_region_at` → `feel_location`; SDOOR → `feel_location`;
+  SCORR → `feel_newsym`; `!Blind` → `unmap_invisible`.
+- **Verification (#1184):** green+strict PASS; cohort 9/9 (incl.
+  seed0060 search); focused Scr **1732→1783**; first miss
+  **@1658→@1674** (carry stuff vs eat that).
+- **Do not:** treat @1658 `/` as open-door glyph — it was felt wand.
 - **Hypothesis (#1183):** @1650 — C `#wizwhere` footer ` --More--`
   (leading blank, cursor col9) vs JS `--More--` (col8). C
   `print_dungeon` always `create_nhwindow(NHW_MENU)` + putstr +

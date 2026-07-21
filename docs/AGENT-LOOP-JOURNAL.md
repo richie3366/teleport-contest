@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:15 — #1184 dosearch0 Blind feel_location
+
+- Objective: seed4500 @1658 C `/` vs JS `#` (misread as open door).
+- C locus: `detect.c` `dosearch0` — Blind/`visible_region_at` →
+  `feel_location`; SDOOR/SCORR feel; `unmap_invisible`.
+- Change: `detect.js` prop Blind + feel arms (D-0928 #1184); felt
+  `WAN_OPENING` at (25,9).
+- Verification: green+strict PASS; cohort 9/9; Scr **1732→1783**;
+  first miss **@1658→@1674**.
+- Next: @**1674** C carry-so-much-stuff vs JS eat-that.
+
 ## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
 
 - Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.
@@ -180,15 +191,3 @@ Use this shape:
 - Verification: green+strict PASS; full `sessions` 42/44.
 - Next: seed4500 @**1151** `#wizintrinsic` Blind TIMEOUT JS `[23]`
   vs C `[119]` (D-0928).
-
-## 2026-07-21 15:30 — #1169 Blind feel_location iron chain
-
-- Objective: seed4500 @1098 Blind feel map `_` vs floor (misread altar).
-- C locus: `display.c` `feel_location` / Blind `newsym` u_at.
-- Change: `display.js` `feel_location`+`feel_newsym`+`set_seenv`;
-  Blind newsym calls feel then display_self. `_` color 6 = chain
-  (D-0928 #1169).
-- Verification: green+strict PASS; cohort 5/5; Scr **1419→1521**;
-  prefix **@1098→@1151**.
-- Next: @**1151** `#wizintrinsic` Blind TIMEOUT JS `[23]` vs C `[119]`.
-
