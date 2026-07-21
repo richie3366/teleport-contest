@@ -2815,9 +2815,10 @@ export function serialize_terminal_grid(display) {
 
 /**
  * C-comparable tty serialize — like Terminal.serialize(), but leading
- * spaces that carry visible attrs (inverse/underline) are emitted so
- * decode preserves them. Frozen Terminal.serialize() cursor-forwards
- * past all leading spaces and drops those attrs (D-0129 spell heading).
+ * spaces that carry attrs (inverse/underline/bold) are emitted so decode
+ * preserves them. Frozen Terminal.serialize() cursor-forwards past all
+ * leading spaces and drops those attrs (D-0129 spell heading; D-0932
+ * topten_print_bold leading pads).
  *
  * D-0293: S_altar stays raw `{` in the grid (frozen DEC_MAP omits it) so
  * decodeScreen matches C whether the recorder emitted SO+`{` or bare `{`.
@@ -2877,11 +2878,13 @@ export function serialize_for_scoring(term) {
             if (term.grid[r][c].ch !== ' ') { lastCol = c; break; }
         }
         if (lastCol < 0) { if (r < lastRow) out += '\n'; continue; }
-        // Start at first non-space OR space with visible attr (inv/uline)
+        // Start at first non-space OR space with attr (inv/bold/uline).
+        // Bold is invisible on blanks but contest tty still records it
+        // (topten_print_bold `\x1b[1m  1…`; D-0932). Inv/uline: D-0129.
         let firstCol = 0;
         for (let c = 0; c <= lastCol; c++) {
             const cell = term.grid[r][c];
-            if (cell.ch !== ' ' || (cell.attr & 0x5)) {
+            if (cell.ch !== ' ' || (cell.attr & 0x7)) {
                 firstCol = c;
                 break;
             }

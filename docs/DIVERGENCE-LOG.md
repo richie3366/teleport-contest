@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0932 — serialize leading bold spaces (topten_print_bold)
+
+- **Status:** fixed (#1198)
+- **Symptom:** seed0030 strict SGR `sp_C8_J8_aC2_aJ0` ×14 (7 screens):
+  C `\x1b[1m  1…` vs JS `  \x1b[1m1…` on topten own-rank lines.
+- **Cause:** `render_topten_lines` already paints leading pads with
+  `ATR_BOLD`, but `serialize_for_scoring` firstCol skip only kept
+  inv/uline (`attr&0x5`), so bold-only leading spaces were re-emitted
+  as plain ` ` before SGR bold — decode lost bold on cols 0–1.
+- **C locus:** `topten.c` `topten_print_bold` → `raw_print_bold` /
+  `putstr(..., ATR_BOLD, x)`; bold covers the whole string incl.
+  rank `padStart` spaces (`"  1"`).
+- **Change:** firstCol keep mask `attr&0x7` (inv|bold|uline). Mid-row
+  CUF and D-0930 gray coerce still use `&0x5` (bold spaces may CUF).
+- **Verification:** green+strict PASS; seed0030 strict space **0**;
+  seed0373 still 0; gap cohort 13/13 + strict sample.
+- **Next:** await LB cron PASS lift.
+
 ## D-0931 — flush paints S_air spaces; mid-row space CUF >4
 
 - **Status:** fixed (#1197)
@@ -24,8 +42,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification:** green+strict PASS; seed0373 strict space miss
   **0** (was 154 `sp_C6_J8`); wire L2 matches C CUF; gap cohort 12/12
   + shared 6/6; seed0013/4500/0007 PASS; seed0030 bold-bleed residual
-  (14× `aC2_aJ0`) deferred.
-- **Next:** await LB cron; optional seed0030 bold-space serialize.
+  (14× `aC2_aJ0`) closed in D-0932.
+- **Next:** D-0932; await LB cron.
 
 ## D-0930 — serialize space+attr0+CLR_GRAY → NO_COLOR (judge SGR)
 
@@ -49,8 +67,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   0006/0009/1500/1800/0060/0102/0700/1150 PASS; seed0007 j37→0;
   seed0360/0399 strict-clean; seed2200 still 229/230 parked.
 - **Named omissions:** seed0373 cyan blank spaces closed in D-0931;
-  seed0030 bold attr bleed on spaces (visual-invisible) still deferred.
-- **Next:** D-0931; await judge cron PASS lift.
+  seed0030 bold leading pads closed in D-0932.
+- **Next:** await judge cron PASS lift.
 
 ## D-0929 — #1151 overlay `_pending_message` restore regresses suite
 

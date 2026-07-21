@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 19:02 — #1198 serialize leading bold spaces
+
+- Objective: leaderboard gap — seed0030 strict `aC2_aJ0` after D-0931.
+- C locus: `topten.c` `topten_print_bold` → `raw_print_bold` /
+  `putstr(..., ATR_BOLD, …)`; bold covers rank pad `"  1"`.
+- Change: `serialize_for_scoring` firstCol keep `attr&0x7`
+  (inv|bold|uline) so leading bold pads emit under SGR (D-0932).
+- Verification: green+strict PASS; seed0030 strict space **0**;
+  seed0373 still 0; gap cohort 13/13.
+- Next: await LB cron PASS lift.
+
 ## 2026-07-21 18:56 — #1197 S_air flush + mid-row space CUF
 
 - Objective: leaderboard gap — seed0373 strict `sp_C6_J8` after D-0930.
@@ -185,14 +196,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 9/9; Scr **1732→1783**;
   first miss **@1658→@1674**.
 - Next: @**1674** C carry-so-much-stuff vs JS eat-that.
-
-## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
-
-- Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.
-- C locus: `dungeon.c` `print_dungeon` `NHW_MENU` putstr;
-  `wintty.c` `dmore` offset 2 (not NHW_TEXT offset 1).
-- Change: `dungeon.js` `print_dungeon(FALSE)` → `show_nhw_menu_text`
-  (D-0928 #1183).
-- Verification: green+strict PASS; cohort 7/7; Scr **1724→1732**;
-  first miss **@1650→@1658**.
-- Next: @**1658** map open-door `/` vs wall `#`.

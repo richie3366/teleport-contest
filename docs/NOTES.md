@@ -7,11 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Leaderboard live **32**/44 @14:49Z vs local **43**/44. D-0930 +
-  D-0931 (AIR flush + mid-row space CUF) shipped — await cron PASS lift.
+- Leaderboard live **32**/44 @14:49Z vs local **43**/44. D-0930…
+  D-0932 shipped — await cron PASS lift.
 - Falsifier: next `data.json` public.passing / gap-session screens.
-- Residual strict SGR: seed0030 bold-bleed on spaces (14× `aC2_aJ0`)
-  — not D-0931 scope.
 
 ## Don't re-check (≤15)
 
@@ -20,7 +18,7 @@ Objective/score live in `CURRENT.md`.
   space+attr0+CLR_GRAY only.
 - Don't skip painting `disp_ch===' '` in flush — breaks S_air (D-0931).
 - Don't emit mid-row space runs >4 as literal spaces when contest CUFs
-  (D-0931); keep inv/uline spaces (D-0129).
+  (D-0931); keep inv/uline spaces (D-0129); leading bold pads (D-0932).
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
 - Do not FORCE linedup/FlipX/stair-screen coords — C place matched (#1092).
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
@@ -38,6 +36,8 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.26/turn`; sole miss seed2200 229/230 parked.
 - Live LB richie3366 **32**/44 public pts **11259**/11405
   lastScored 2026-07-21T14:49Z; seed0013 PASS on judge.
+- **D-0932 #1198:** serialize leading bold spaces; seed0030
+  `aC2_aJ0` **14→0**.
 - **D-0931 #1197:** flush paints S_air; serialize mid-row space CUF >4;
   seed0373 strict `sp_C6_J8` **154→0**.
 - **D-0930 #1196:** serialize space+attr0+CLR_GRAY → NO_COLOR;
