@@ -34,8 +34,8 @@
 // destroy_items elec body; ugolemeffects; burn_away_slime;
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
-// flash_hits WAN_LIGHT bhitm; trap_ice_effects; lavawall→wall
-// fix_wall_spines polish; burn feedback plines.
+// flash_hits WAN_LIGHT bhitm; trap_ice_effects;
+// Underwater/utrap lava arms.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -56,7 +56,8 @@ import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import { hold_another_object, makeknown, encumber_msg } from './invent.js';
-import { doname, xname, vtense, The, an } from './objnam.js';
+import { doname, xname, distant_name, vtense, The, an, An } from './objnam.js';
+import { fix_wall_spines } from './mklev.js';
 import {
     A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise,
 } from './attrib.js';
@@ -128,7 +129,7 @@ import {
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
     OMONST, has_oname, ONAME,
     WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
-    TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY,
+    TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
 } from './const.js';
 import { hero_breaks, breaks } from './dothrow.js';
 
@@ -367,7 +368,7 @@ async function You(rest) {
 }
 
 /** C ref: dbridge.c / rm.h is_ice — ICE or drawbridge-under DB_ICE. */
-function is_ice(x, y) {
+export function is_ice(x, y) {
     if (!isok(x, y)) return false;
     const lev = game.level?.at?.(x, y);
     if (!lev) return false;
@@ -385,9 +386,9 @@ function is_moat(x, y) {
 /**
  * C ref: zap.c burn_floor_objects — burn scrolls/spellbooks/slime glob
  * on floor; return count destroyed. ignite_items still stub (D-0965).
- * Named omit: give_feedback pline arm (zap_over_floor uses FALSE + smoke).
+ * give_feedback pline arm (D-0975); zap_over_floor still uses FALSE + smoke.
  */
-export function burn_floor_objects(x, y, give_feedback, u_caused) {
+export async function burn_floor_objects(x, y, give_feedback, u_caused) {
     let cnt = 0;
     let obj = objects_at(x, y);
     while (obj) {
@@ -407,6 +408,17 @@ export function burn_floor_objects(x, y, give_feedback, u_caused) {
                 if (!rn2(3)) delquan++;
             }
             if (delquan) {
+                // C: save name before potential delobj()
+                let buf1 = '';
+                let buf2 = '';
+                if (give_feedback) {
+                    const saveQuan = obj.quan;
+                    obj.quan = 1;
+                    buf1 = u_at(x, y) ? xname(obj) : distant_name(obj, xname);
+                    obj.quan = 2;
+                    buf2 = u_at(x, y) ? xname(obj) : distant_name(obj, xname);
+                    obj.quan = saveQuan;
+                }
                 if (u_caused) {
                     useupf(obj, delquan);
                 } else if (delquan < scrquan) {
@@ -416,7 +428,13 @@ export function burn_floor_objects(x, y, give_feedback, u_caused) {
                     delobj(obj);
                 }
                 cnt += delquan;
-                void give_feedback; // C pline feedback deferred (smoke path)
+                if (give_feedback) {
+                    if (delquan > 1) {
+                        await pline(`${delquan} ${buf2} burn.`);
+                    } else {
+                        await pline(`${An(buf1)} burns.`);
+                    }
+                }
             }
         }
         obj = obj2;
@@ -500,9 +518,9 @@ export async function melt_ice_away(where) {
  * Envelope (D-0948/D-0965/D-0967): ZT_FIRE WEB/ice melt/pool evaporate+PIT/
  * fountain dryup; ZT_COLD freeze pool/lava + bury_objs + ice firm-up +
  * obj_ice_effects; ZT_POISON_GAS cloud; ZT_LIGHTNING/ZT_ACID IRONBARS;
- * SDOOR; closed_door shop; fire burn_floor_objects; ignoremon wakeup.
- * Named omit: lavawall→wall spines; Underwater/utrap lava arms; dotrap
- * polish.
+ * SDOOR; closed_door shop; fire burn_floor_objects; ignoremon wakeup;
+ * lavawall→wall + fix_wall_spines (D-0975).
+ * Named omit: Underwater/utrap lava arms; dotrap polish.
  */
 /**
  * C ref: zap.c zap_over_floor — also called from explode.c explode.
@@ -615,7 +633,13 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
                         const dn = isok(x, y + 1)
                             && IS_WALL(game.level?.at?.(x, y + 1)?.typ);
                         loc.typ = (up || dn) ? VWALL : HWALL;
-                        // fix_wall_spines deferred
+                        // C: fix_wall_spines(max(0,x-1)..min(COLNO-1,x+1), …)
+                        fix_wall_spines(
+                            Math.max(0, x - 1),
+                            Math.max(0, y - 1),
+                            Math.min(COLNO - 1, x + 1),
+                            Math.min(ROWNO - 1, y + 1),
+                        );
                     } else {
                         loc.typ = lava ? ROOM : ICE;
                     }
@@ -811,7 +835,7 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
 
     // C: OBJ_AT + ZT_FIRE → burn_floor_objects; smoke if couldsee
     if (objects_at(x, y) && damgtype === ZT_FIRE) {
-        if (burn_floor_objects(x, y, false, (type | 0) > 0)
+        if (await burn_floor_objects(x, y, false, (type | 0) > 0)
             && couldsee(x, y)) {
             newsym(x, y);
             await You(`${!Blind() ? 'see a puff' : 'smell a whiff'} of smoke.`);

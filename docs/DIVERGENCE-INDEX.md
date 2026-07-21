@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0975 | fixed | lavawall `fix_wall_spines` + `burn_floor_objects` give_feedback + fire-trap wire | map-driven; green+zap/trap cohort 24/24; cadence 43/44 @#1245 (seed0009 pre-existing) |
 | D-0974 | fixed | music flute/harp/horn + BUGLE `awaken_soldiers` + FIRE/FROST `ubuzz`/`zapyourself` | map-driven; green+apply cohort 35/36 (seed0009 pre-existing Scr FAIL) |
 | D-0973 | fixed | `explode` AD_MAGM/DISN/DRST/ACID mon/hero + masks + `mon_explodes` MAGM..SPC2 | map-driven debt; green+zap cohort 24/24 |
 | D-0972 | fixed | music `do_earthquake`/`do_pit` + `DRUM_OF_EARTHQUAKE` | map-driven; green+apply cohort 36/36 (seed0009 pre-existing Scr FAIL on HEAD) |

@@ -2454,8 +2454,7 @@ export async function burnarmor(victim) {
  * C ref: trap.c trapeffect_fire_trap — monster branch (hero → dofiretrap).
  * Envelope: d(2,4); resists_fire shield; else thitm / rn2(num+1) mhpmax;
  * golem alt HP; burnarmor || rn2(3) → destroy_items(AD_FIRE) + HP.
- * Named omissions: ignite_items/burn_floor_objects/melt_ice; surface();
- * shieldeff.
+ * Named omissions: ignite_items; surface(); shieldeff.
  */
 async function trapeffect_fire_trap(mtmp, trap, _trflags) {
     if (is_youmonst(mtmp)) {
@@ -2523,7 +2522,16 @@ async function trapeffect_fire_trap(mtmp, trap, _trflags) {
             trapkilled = true;
         }
     }
-    // burn_floor_objects / melt_ice deferred
+    // C: burn_floor_objects(tx,ty,see_it,FALSE); smell if !see_it && near
+    {
+        const { burn_floor_objects, melt_ice, is_ice } = await import('./zap.js');
+        if (await burn_floor_objects(tx, ty, see_it, false)
+            && !see_it
+            && dist2(game.u?.ux | 0, game.u?.uy | 0, tx, ty) <= 3 * 3) {
+            await pline('You smell smoke.');
+        }
+        if (is_ice(tx, ty)) await melt_ice(tx, ty, null);
+    }
     if ((mtmp.mhp | 0) <= 0) trapkilled = true;
     if (see_it && t_at(tx, ty)) seetrap(t_at(tx, ty));
 
@@ -2621,10 +2629,11 @@ export async function self_invis_message() {
  * ordinary second d(2,4)+uhpmax rn2; losehp; burnarmor||rn2(3).
  * Named omissions: box/carried; shieldeff/monstseesu; Upolyd golem alts;
  * minuhpmax/setuhpmax/losexp; destroy_items/ignite_items bodies;
- * burn_floor_objects/melt_ice/burn_away_slime; surface().
+ * burn_away_slime; surface().
  */
 async function dofiretrap(box) {
     const u = game.u || (game.u = {});
+    const see_it = !Blind();
     const orig_dmg = d(2, 4);
     let num = orig_dmg;
 
@@ -2661,6 +2670,14 @@ async function dofiretrap(box) {
         const { destroy_items } = await import('./zap.js');
         await destroy_items(you, AD_FIRE, orig_dmg);
         // ignite_items deferred
+    }
+    // C: !box && burn_floor_objects(ux,uy,see_it,TRUE); smell if !see_it
+    if (!box) {
+        const { burn_floor_objects, melt_ice, is_ice } = await import('./zap.js');
+        if (await burn_floor_objects(u.ux, u.uy, see_it, true) && !see_it) {
+            await pline('You smell paper burning.');
+        }
+        if (is_ice(u.ux, u.uy)) await melt_ice(u.ux, u.uy, null);
     }
 }
 

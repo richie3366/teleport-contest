@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0975 — lavawall fix_wall_spines + burn_floor feedback
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap/trap omission after D-0974 — lavawall freeze
+  set VWALL/HWALL without `fix_wall_spines`; `burn_floor_objects`
+  ignored `give_feedback`; fire traps deferred floor-burn/melt_ice.
+- **Cause:** D-0965 ported burn count + smoke path but left feedback
+  plines and lavawall spine polish deferred; trap fire arms stopped at
+  armor/destroy_items.
+- **Fix:** export `fix_wall_spines` from `mklev.js`; call from
+  `zap_over_floor` ZT_COLD lavawall solidify with C bounds; async
+  `burn_floor_objects` give_feedback (`An`/`distant_name` plines);
+  wire `dofiretrap`/`trapeffect_fire_trap` burn_floor + smell +
+  `melt_ice`. Deferred: ignite_items; burn_away_slime; surface();
+  Underwater/utrap lava arms; box fire contents.
+- **Verification:** green+strict PASS; zap/trap/shared cohort
+  **24**/24 PASS. Cadence @#1245: **43**/44 (seed0009 Scr 72/73
+  pre-existing on HEAD).
+- **Files:** `js/zap.js`, `js/trap.js`, `js/mklev.js`,
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0974 — music flute/harp/horn + BUGLE awaken_soldiers
 
 - **Status:** fixed (map-driven debt retirement)

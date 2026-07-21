@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1240** (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn`). Cadence reconfirm next @**#1245**.
+- Local suite **43**/44 @**#1245** (Scr **11404**/11405 RNG **100%**
+  speed `31+0.26/turn`). Next cadence @**#1250**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
+  LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0974** music flute/harp/horn + BUGLE
-  `awaken_soldiers` + FIRE/FROST `ubuzz`/`zapyourself`.
-- **Next cluster:** sink-fall death polish; lavawall spines / burn
-  feedback plines; passtune/drawbridge music.
-- Note: seed0009 Scr 72/73 FAIL on clean HEAD (pre-existing); do not
-  chase as recent-port regression.
-- Cadence full `sessions` next @**#1245**.
+- Latest port: **D-0975** lavawall `fix_wall_spines` +
+  `burn_floor_objects` give_feedback + fire-trap wire.
+- **Next cluster:** sink-fall death (`dosinkfall`); passtune/
+  drawbridge music; ignite_items / burn_away_slime.
+- seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
+  as recent-port regression.
 
 ## Don't re-check (≤15)
 
@@ -47,18 +46,21 @@ Objective/score live in `CURRENT.md`.
   AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969),
   `toggle_stealth` (D-0970), AD_COLD/ELEC explode (D-0971),
   `do_earthquake`/`do_pit` (D-0972), MAGM/DISN/DRST/ACID explode
-  (D-0973), or flute/harp/horn/`awaken_soldiers` (D-0974).
+  (D-0973), flute/harp/horn/`awaken_soldiers` (D-0974), or lavawall
+  spines / burn feedback (D-0975).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
 - Wooden flute/harp: always burn `rn2(DEX)` even when stun/conf
   cleared `do_spec` (C `&=`, not JS `&&`).
+- Do not chase seed0009 Scr 72/73 without C-cited shared cause.
 
 ## Landmarks (≤15)
 
-- Suite @**#1240**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn`.
+- Suite @**#1245**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `31+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0975:** lavawall spines + burn_floor feedback + fire-trap wire.
 - **D-0974:** flute/harp/horn + BUGLE soldiers + FIRE/FROST ubuzz.
 - **D-0973:** explode AD_MAGM/DISN/DRST/ACID + masks + mon_explodes.
 - **D-0972:** music `do_earthquake`/`do_pit` + drum of earthquake.
@@ -71,5 +73,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0965:** ice melt / burn_floor_objects / fireball / MELT_ICE_AWAY.
 - **D-0964:** revive container/buried / cant_revive / zombie_can_dig.
 - **D-0963:** desecrate_altar / god_zaps_you / fry_by_god dig wire.
-- **D-0962:** conjoined_pits / autodig quiet / boulder-fill.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
