@@ -21,9 +21,9 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1175** (42/44,
 Scr **11170**/11405, RNG **100%**) cadence. Speed `30+0.26/turn`.
-Next cadence @**#1180**. #1177 poly `float_vs_flight` botl + `dropz`
-`encumber_msg`; focused Scr **1583→1586**, prefix **@1438→@1441**
-(suite score unchanged until #1180).
+Next cadence @**#1180**. #1178 polymon `vision_full_recalc`; focused
+Scr **1586→1716**, prefix **@1441→@1464** (suite score unchanged
+until #1180).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1586/1814 | knight; @1441 map `~` vs `e` |
+| seed4500 | **108275**/108275 | 1716/1814 | knight; @1464 botl T:229 vs T:231 |
 
 ## Green gate
 
@@ -64,8 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1441** — map cell C DEC `~` vs JS `e` (poly More botl +
-load packing fixed @1438–@1440). Focused:
+**seed4500 @1464** — botl C T:**231** vs JS T:**229** (poly Blind map
+fixed @1441). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -92,40 +92,23 @@ sanctum `lspo_map` lit=FALSE clear after map (#1173);
 getpos `cmap_defsym_explanation` furniture fountain…bars (#1174);
 `dountrap`→`untrap`→`getdir(NULL)` (#1175);
 getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
-`set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177).
+`set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177);
+`polymon` `vision_full_recalc=1` before `see_monsters` (#1178).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
-omit mfind0/wizwhere/break_armor/carrying_too_much; treat @1048 as
-ICE typ / feel_location-only (was unmap_object); invent pushweapon
-second prinv (C only setuswapwep — second prinv is doswapweapon);
-treat @1092 `[30]` as menu-format bug (was missing TIMEOUT `--`);
-treat @1098 `_` color 6 as altar (iron **chain** / missing
-`feel_location`); treat @1151 Blind `[23]` as cream-only (was
-stale-uprops incr + missing uinvulnerable freeze); treat @1252 as
-DEC-vs-Primary room (was overview forced `docrt`); treat @1291 as
-look_here corner paint (was sanctum solidfill BOOL_RANDOM lit bleed
-— `lspo_map` lit=FALSE clear); treat @1322 as lastseentyp/glyph
-(was missing furniture in `cmap_defsym_explanation`); treat @1344 as
-topline/`WIN_STOP` (was missing `untrap`→`getdir`); treat @1347 `$`
-as `feature_match_tags`/`S_goodpos` scan (was missing SHOWVALID spkey
-— matching never sees `$` under default bind); treat @1438 poly More
-botl Knight as deferred `bot` after More (was missing
-`float_vs_flight` botl from `set_uasmon`; @1439 load vs gloves was
-missing `dropz`→`encumber_msg`).
-Recent rejects: @1438≠bot-after-More — `float_vs_flight` (#1177);
-@1439≠gloves-before-load — `dropz` encumber (#1177);
-@1347≠S_goodpos matching — SHOWVALID `$` (#1176);
-@1344≠blank topline — `#untrap` getdir (#1175);
-@1322≠lastseentyp — furniture cmap (#1174);
-@1291≠look_here corner — sanctum map left lit from solidfill
-(#1173); @1252≠DEC room — overview corner must not `docrt`
-(#1172); @1151≠cream-only — wiz `make_blinded` + prayer
-`u.uinvulnerable` nh_timeout (#1171); @1098≠altar — Punished chain +
-Blind feel (#1169); @1092≠Sprintf pad — prior `#wizintrinsic` set
-INVULNERABLE TIMEOUT=30; C `nh_timeout` loop cleared it (#1168);
-@1053≠missing prinv — deferred pushweapon (#1167); @1048≠ICE typ —
-unmap_object (#1166); older in D-0928/NOTES.
+omit mfind0/wizwhere/break_armor/carrying_too_much; invent pushweapon
+second prinv; treat @1441 map `e` vs DEC `~` as feel/newsym-only
+(was missing `polymon` `vision_full_recalc` after FROMFORM Blind);
+treat @1438 poly botl as deferred bot (was `float_vs_flight`);
+@1439 load vs gloves as glove order (was `dropz` encumber);
+@1347 `$` as S_goodpos (was SHOWVALID); @1344 blank as WIN_STOP
+(was `untrap` getdir). Older rejects in D-0928/NOTES.
+Recent rejects: @1441≠feel — vision_full_recalc (#1178);
+@1438≠bot-after-More — float_vs_flight (#1177);
+@1439≠gloves-before-load — dropz encumber (#1177);
+@1347≠S_goodpos — SHOWVALID (#1176); @1344≠WIN_STOP — getdir
+(#1175); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

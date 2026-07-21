@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1177)
+- **Status:** partial (#1080–#1178)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1586**/1814)
+  Scr **1716**/1814)
+- **Hypothesis (#1178):** @1441 — sole cell C DEC floor `~` vs JS
+  floating-eye `e` at map (38,9). After mold poly, `HBlinded|=FROMFORM`
+  but `cansee` still true (stale IN_SIGHT); `remembered_glyph` already
+  floor. C `polymon` sets `gv.vision_full_recalc=1` before
+  `see_monsters`; JS had left it deferred.
+- **Fix (#1178):** `polyself.js` `polymon` —
+  `game.vision_full_recalc = 1` before `see_monsters` (allmain/pline
+  Blind `vision_recalc` remaps old IN_SIGHT).
+- **Verification (#1178):** green+strict PASS; cohort 6/6
+  (1500/1800/0108/0009/0012/0360); focused prefix **@1441→@1464**;
+  Scr **1586→1716**. Next: @**1464** botl T:**229** vs C T:**231**.
+- **Do not:** treat @1441 as missing feel_location/newsym on the eye
+  alone — root was deferred `vision_full_recalc` after FROMFORM Blind.
 - **Hypothesis (#1177):** @1438 — poly More topline match but C botl
   `Brown Mold`/HP:6/HD/Overloaded/Blind vs JS `Knight`. NOTES guessed
   deferred bot after More; C `set_uasmon`→`float_vs_flight` sets

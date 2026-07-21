@@ -12,16 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## 2026-07-21 15:20 — #1168 nh_timeout generic uprops TIMEOUT
-
-- Objective: seed4500 @1092 `#wizintrinsic` invulnerable `[30]` vs C bare.
-- C locus: `timeout.c` `nh_timeout` — for all `u.uprops` TIMEOUT `--`.
-- Change: `timeout.js` decrement remaining uprops TIMEOUT after
-  dedicated arms; sync TIMEOUT_FLAT; expiry switch deferred (D-0928 #1168).
-- Verification: green+strict PASS; cohort 38/38; Scr **1417→1419**;
-  prefix **@1092→@1098**.
-- Next: @**1098** Blind feel-floor map C altar `_` vs JS floor `·`.
-
 ## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
@@ -30,6 +20,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-21 16:37 — #1178 polymon vision_full_recalc
+
+- Objective: seed4500 @1441 map C DEC `~` vs JS floating-eye `e`.
+- C locus: `polyself.c` `polymon` `gv.vision_full_recalc=1` before
+  `see_monsters` (FROMFORM Blind).
+- Change: `polyself.js` `polymon` set `vision_full_recalc` (D-0928
+  #1178).
+- Verification: green+strict PASS; cohort 6/6; Scr **1586→1716**;
+  prefix **@1441→@1464**.
+- Next: @**1464** botl T:**229** vs C T:**231**.
 
 ## 2026-07-21 16:28 — #1177 float_vs_flight + dropz encumber
 

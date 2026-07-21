@@ -673,7 +673,7 @@ async function break_armor() {
  * Blind restore; egg learn; swallow expel; light sources;
  * full skinback; livelog first-poly text; break_armor horns /
  * flimsy-helm pierce / ublindf; drop_weapon twoweapon/in_use arms;
- * retouch_equipment; non-breath verbose tips; vision_full_recalc.
+ * retouch_equipment; non-breath verbose tips.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
@@ -779,7 +779,10 @@ export async function polymon(mntmp) {
     // More capture matches C (AC:9) then next screen gets AC:10.
     flags.botl = true;
     if (game.disp) game.disp.botl = true;
-    // vision_full_recalc deferred
+    // C: gv.vision_full_recalc = 1 before see_monsters — eyeless
+    // FROMFORM Blind must clear stale IN_SIGHT (floating-eye glyph)
+    // on the next allmain/pline vision_recalc (D-0928).
+    game.vision_full_recalc = 1;
     see_monsters();
     await encumber_msg();
     find_ac();

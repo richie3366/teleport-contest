@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1441** — map C DEC `~` vs JS `e`
-  (r10,c37); poly More @1438–@1440 fixed. Focused:
+- **Primary (D-0928):** seed4500 @**1464** — botl T:**229** vs C T:**231**
+  (map `~` vs `e` @1441 fixed). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: dump C/JS glyph+obj at that cell after poly turns T:222.
+  Falsify: dump C/JS `moves`/`hero_seq`/occupation around T:229–231
+  after mold Blind (guard footsteps More).
 
 ## Don't re-check (≤15)
 
@@ -20,28 +21,10 @@ Objective/score live in `CURRENT.md`.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
 - Do not FORCE linedup/FlipX/stair-screen coords — C place matched (#1092).
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
-- Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
-- Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
-- Do not invent create_particular appear pline from mtmp.mx/my —
-  C appear is makemon !MM_NOMSG; next2u uses **requested** (x,y)
-  (wizgenesis u.ux,u.uy → always “next to you”) (#1164).
-- Do not treat @1092 `[30]` as menu pad/Sprintf — prior `#wizintrinsic`
-  set INVULNERABLE TIMEOUT; C generic `nh_timeout` `--` cleared it
-  (#1168); menu format already matched C.
-- Do not treat @1098 `_` color 6 as altar — `CLR_CYAN` iron **chain**
-  (Punished); was missing Blind `feel_location` (#1169).
-- Do not treat @1151 Blind `[23]` as cream-only — was
-  `incr_prop_timeout` from stale uprops + missing `u.uinvulnerable`
-  nh_timeout freeze (#1171).
-- Do not treat @1252 DEC-vs-Primary room row — sole miss was gbuf `"`
-  vs `docrt`/`see_monsters` `s` after `#overview` (#1172).
 - Do not treat @1291 look_here corner paint — was sanctum solidfill
-  BOOL_RANDOM lit left on map (`lspo_map` lit=FALSE clear; #1173).
-  Do not blanket-fix `sel_set_ter(false)`→unlit yet (tut-1 border
-  walls regress until vision wall-hack matches C).
+  BOOL_RANDOM lit (`lspo_map` lit=FALSE clear; #1173).
 - Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph
   — was missing furniture in `cmap_defsym_explanation` (#1174).
 - Do not treat @1344 blank topline as WIN_STOP/More — was missing
@@ -51,13 +34,19 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1438 poly More Knight botl as deferred bot after More
   — `set_uasmon` must `float_vs_flight`→botl; @1439 load vs gloves
   was missing `dropz`→`encumber_msg` (#1177).
+- Do not treat @1441 map `e` vs DEC `~` as feel_location/newsym-only
+  — mold FROMFORM Blind left stale IN_SIGHT; missing `polymon`
+  `vision_full_recalc=1` (#1178).
+- Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1175 Scr **11170**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.26/turn`; next cadence @**#1180**.
+- **D-0928 #1178:** polymon `vision_full_recalc`; prefix
+  **@1441→@1464**; Scr **1586→1716**; next botl T:229 vs T:231.
 - **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; prefix
-  **@1438→@1441**; Scr **1583→1586**; next map `~` vs `e`.
+  **@1438→@1441**; Scr **1583→1586**.
 - **D-0928 #1176:** getpos SHOWVALID `$`; prefix **@1347→@1438**;
   Scr **1580→1583**.
 - **D-0928 #1175:** `untrap`→`getdir(NULL)`; prefix **@1344→@1347**;
@@ -68,11 +57,5 @@ Objective/score live in `CURRENT.md`.
   prefix **@1291→@1322**; Scr **1529→1576**.
 - **D-0928 #1172:** overview dismiss `dismiss_nhw_menu` (no corner
   docrt); prefix **@1252→@1291**; Scr **1525→1529**.
-- **D-0928 #1171:** wiz Blind `make_blinded` + `u.uinvulnerable`
-  nh_timeout freeze; prefix **@1151→@1252**; Scr **1521→1525**.
-- **D-0928 #1169:** Blind `feel_location` + newsym u_at; maps chain;
-  prefix **@1098→@1151**; Scr **1419→1521**.
-- **D-0928 #1168:** `nh_timeout` generic remaining uprops TIMEOUT `--`;
-  prefix **@1092→@1098**; Scr **1417→1419**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.
