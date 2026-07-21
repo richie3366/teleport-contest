@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 23:05 — #1217 D-0949 explode pay + do_break_wand
+
+- Objective: map-driven — `explode` `zap_over_floor`/`pay_for_damage`
+  + `do_break_wand` explode-type / inert envelope.
+- C locus: `explode.c` `explode`; `apply.c` `do_break_wand`/
+  `broken_wand_explode`; `zap.c` `zap_over_floor`.
+- Change: olet/adtyp preamble + floor shop bill in `explode.js`;
+  export `zap_over_floor`; `doapply` → break-wand (D-0949). Deferred:
+  non-PHYS mon/hero dmg; dig/create adjacent pay; pickaxe dig;
+  pool-lava/`vault_gd_watching`.
+- Verification: green+strict; wizard/zap/shop cohort 12/12 PASS.
+  Suite fortress held (no full cadence; next @#1220).
+- Next: break-wand dig pay / pickaxe `dig`/`is_digging` / pool-lava.
+
 ## 2026-07-21 22:59 — #1216 D-0948 zap_over_floor shop door/bars
 
 - Objective: map-driven — retire `zap_over_floor` closed-door/SDOOR/

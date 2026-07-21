@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0949 — `explode` shop pay + `do_break_wand` explode-types
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** explosions never billed shop door/bars damage; apply on
+  wand said "Sorry" instead of breaking (C `do_break_wand`).
+- **Cause:** named constitutional debt (`debt.md` after D-0948) —
+  `explode` omitted `zap_over_floor`/`pay_for_damage`; `do_break_wand`
+  absent from `doapply`.
+- **C locus:** `explode.c` `explode` (shopdamage + pay strings);
+  `apply.c` `do_break_wand` / `broken_wand_explode` / `discard_broken_wand`;
+  `zap.c` `zap_over_floor` (export).
+- **JS:** `explode.js` olet preamble + adtyp + floor shop bill; `zap.js`
+  export `zap_over_floor`; `apply.js` break-wand explode/inert envelope
+  wired from `doapply`. Deferred: non-PHYS mon/hero damage; dig/create/
+  strike/cancel/poly/tele/undead adjacent arms + dig `pay_for_damage`;
+  pickaxe `dig`/`is_digging`; pool-lava/`vault_gd_watching`.
+- **Verify:** green+strict; wizard/zap/shop cohort 12/12 PASS.
+
 ## D-0948 — `zap_over_floor` shop door/bars + `dobuzz` pay_for_damage
 
 - **Status:** fixed (map-driven debt retirement)

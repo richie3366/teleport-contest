@@ -257,7 +257,11 @@ function flash_str(fltyp) {
  * Named omit: WEB burn, ice melt, fountain steam, POOL→ROOM+maketrap PIT,
  * cold freeze, burn_floor_objects.
  */
-async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodingWand) {
+/**
+ * C ref: zap.c zap_over_floor — also called from explode.c explode.
+ * shopdamage is `{ v: boolean }` out-param (C `boolean *`).
+ */
+export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodingWand) {
     if ((type | 0) === -1) return -1000; // PHYS_EXPL_TYPE
     const loc = game.level?.at?.(x, y);
     if (!loc) return 0;
