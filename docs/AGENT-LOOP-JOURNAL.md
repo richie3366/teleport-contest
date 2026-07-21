@@ -20,6 +20,15 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:32 — #1153 maybe_wail CwnAnnwn
+- Objective: seed4500 @831 CwnAnnwn `--More--` vs JS staircase getpos.
+- C locus: `hack.c` `maybe_wail` / `losehp` (uhp*10 < uhpmax).
+- Change: `hack.js` `maybe_wail` + `finish_maybe_wail`; `ball.js`
+  `drag_down` + `do.js` stair-fall await finish. Soundeffect deferred.
+- Verification: green+strict PASS; cohort 14/14; Scr **1386→1388**;
+  prefix **@831→@832**.
+- Next: @**832** C stair up to level **5** vs JS **1**.
+
 ## 2026-07-21 13:26 — #1152 mkstairs dunlev-end no-op
 - Objective: seed4500 @814 C floor vs JS stair `<` on Mines map.
 - C locus: `mklev.c` `mkstairs` — no stairs off dungeon ends

@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1386**/1814;
-  first miss **@831**. C `You hear the howling of the CwnAnnwn...--More--`
-  vs JS staircase getpos topline. Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1388**/1814;
+  first miss **@832**. C `There is a staircase up to level 5 here.`
+  vs JS `… level 1 here.` Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -32,15 +32,17 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @814 floor vs `<` as display offset — was `mkstairs`
   missing end-of-dungeon no-op on minefill up (#1152).
+- Do not treat @831 staircase getpos as root — was deferred
+  `maybe_wail` after iron-ball `losehp` (#1153).
 - Do not treat @789 map-only after ^T stairs — missing `teleds`
   placebc + overlay keep getpos topline (#1151).
-- Do not treat @753 bare invent apple — missing `doname` FOOD
-  `oeaten` → `partly eaten ` (#1150).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1150 Scr **10737**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1155**.
+- **D-0928 #1153:** `maybe_wail` + `finish_maybe_wail`; Scr
+  **1386→1388**; @831 OK; next @832 stair depth 5 vs 1.
 - **D-0928 #1152:** `mkstairs` dunlev-end no-op; Scr **1366→1386**;
   @814 OK; next @831 CwnAnnwn.
 - **D-0928 #1151:** teleds placebc + overlay topline; Scr
@@ -66,5 +68,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1141:** BALL `very `/`(chained to you)` + check_here skip
   uchain; Scr **970→995**; prefix **@517→@521**.
 - **D-0928 #1140:** makeplural `singplur_compound`; Scr **969→970**.
-- **D-0928 #1139:** hideunder You_see + statue simpleonames; Scr
-  **966→969**.

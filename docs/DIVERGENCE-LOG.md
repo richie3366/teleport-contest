@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1152)
+- **Status:** partial (#1080–#1153)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1386**/1814)
+  Scr **1388**/1814)
+- **Hypothesis (#1153):** @831 C `You hear the howling of the
+  CwnAnnwn...--More--` vs JS staircase getpos — `losehp` deferred
+  `maybe_wail`; iron-ball `drag_down` smack dropped HP below 10%.
+- **Fix (#1153):** `hack.js` `maybe_wail` + `_needs_maybe_wail` /
+  `finish_maybe_wail`; `ball.js` `drag_down` + `do.js` stair-fall
+  await finish. Soundeffect deferred; other losehp callers still need
+  `finish_maybe_wail` when low-HP path is live.
+- **Verification (#1153):** green+strict PASS; cohort 14/14; Scr
+  **1386→1388**; prefix **@831→@832**. Next: @**832** C staircase up
+  to level **5** vs JS level **1**.
 - **Hypothesis (#1152):** @814 C floor `·` vs JS stair `<` at map
   (40,16) after Mines fall — `minefill` `des.stair("up")` →
   `mkstairs` lacked C’s end-of-dungeon no-op (`dunlev==1` for up),

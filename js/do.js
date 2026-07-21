@@ -40,7 +40,10 @@ import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
 import { m_at, mnexto, hide_monst } from './mon.js';
 import { enexto } from './teleport.js';
-import { monster_nearby, losehp, maybe_half_phys, check_special_room } from './hack.js';
+import {
+    monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
+    check_special_room,
+} from './hack.js';
 import { place_object, stackobj } from './mkobj.js';
 import { doname } from './objnam.js';
 import { compactify_invlets, near_capacity, learn_unseen_invent } from './invent.js';
@@ -624,6 +627,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                     await dismount_steed(DISMOUNT_FELL);
                 } else {
                     // C: losehp(Maybe_Half_Phys(rnd(3)), …, KILLED_BY)
+                    // → maybe_wail (You_hear --More--)
                     losehp(
                         maybe_half_phys(rnd(3)),
                         atLadder
@@ -631,6 +635,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                             : 'tumbling down a flight of stairs',
                         KILLED_BY,
                     );
+                    await finish_maybe_wail();
                 }
                 // C: selftouch("Falling, you") — cockatrice corpse petrify
                 // deferred (no-op unless uwep corpse + touch_petrifies wired).

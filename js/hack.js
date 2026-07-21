@@ -14,6 +14,9 @@ import {
     xdir, ydir, N_DIRS,
     DIR_W, DIR_N, DIR_E, DIR_S, DIR_NW, DIR_NE, DIR_SE, DIR_SW,
     OVERLOADED, SLT_ENCUMBER, Is_airlevel,
+    TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
+    SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
+    INTRINSIC, UNCHANGING,
 } from './const.js';
 import { pline, Norep, newsym, canspotmon, map_invisible } from './display.js';
 import { gethungry } from './eat.js';
@@ -26,7 +29,9 @@ import { xname } from './objnam.js';
 import { A_STR, A_CON, exercise } from './attrib.js';
 import { rn2 } from './rng.js';
 import { midnight } from './calendar.js';
-import { PM_GRID_BUG } from './generated/monsters_data.js';
+import {
+    PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE,
+} from './generated/monsters_data.js';
 import { hliquid } from './do_name.js';
 import { near_capacity } from './invent.js';
 
@@ -452,12 +457,63 @@ export async function unmul(msg_override) {
     if (typeof f === 'function') await f();
 }
 
+/** C ref: youprop.h Unchanging — H || E via flat + uprops. */
+function Unchanging(u = game.u || {}) {
+    const e = u.uprops?.[UNCHANGING];
+    return !!((u.Unchanging || u.HUnchanging || u.EUnchanging)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C ref: hack.c maybe_wail — low-HP warning (≤50 turns between msgs).
+ * Soundeffect deferred (no RNG). Wizard/Elf/Valkyrie power-count arm
+ * uses u.uprops[].intrinsic & INTRINSIC.
+ */
+async function maybe_wail() {
+    const moves = game.moves | 0;
+    if (moves <= ((game.wailmsg | 0) + 50)) return;
+    game.wailmsg = moves;
+
+    const u = game.u || {};
+    const roleM = game.urole?.mnum | 0;
+    const raceM = game.urace?.mnum | 0;
+    if (roleM === PM_WIZARD || raceM === PM_ELF || roleM === PM_VALKYRIE) {
+        const who = (roleM === PM_WIZARD || roleM === PM_VALKYRIE)
+            ? (game.urole?.name?.m || 'Wizard')
+            : 'Elf';
+        if ((u.uhp | 0) === 1) {
+            await pline(`${who} is about to die.`);
+        } else {
+            const powers = [
+                TELEPORT, SEE_INVIS, POISON_RES, COLD_RES,
+                SHOCK_RES, FIRE_RES, SLEEP_RES, DISINT_RES,
+                TELEPORT_CONTROL, STEALTH, FAST, INVIS,
+            ];
+            let powercnt = 0;
+            for (const p of powers) {
+                if (((u.uprops?.[p]?.intrinsic | 0) & INTRINSIC) !== 0) {
+                    ++powercnt;
+                }
+            }
+            await pline(powercnt >= 4
+                ? `${who}, all your powers will be lost...`
+                : `${who}, your life force is running out.`);
+        }
+    } else {
+        // C: Soundeffect(se_wailing_of_the_banshee, 75) deferred
+        await You_hear((u.uhp | 0) === 1
+            ? 'the wailing of the Banshee...'
+            : 'the howling of the CwnAnnwn...');
+    }
+}
+
 /**
  * C ref: hack.c losehp() — subtract HP (or mh when Upolyd).
  * Fatal: set killer + gameover + `_losehp_needs_done` so callers must not
  * continue (C `done(DIED)` is noreturn). Callers in async paths await
- * `finish_losehp_done` from end.js; showdamage / maybe_wail / rehumanize
- * deferred.
+ * `finish_losehp_done` from end.js; showdamage / rehumanize deferred.
+ * Low-HP `maybe_wail` sets `_needs_maybe_wail` — callers must
+ * `await finish_maybe_wail()` (C blocks inside losehp on You_hear).
  */
 export function losehp(n, knam, k_format = KILLED_BY) {
     const u = game.u || (game.u = {});
@@ -483,6 +539,8 @@ export function losehp(n, knam, k_format = KILLED_BY) {
             if (!game.killer) game.killer = { name: '', format: 0 };
             game.killer.name = knam || '';
             game.killer.format = k_format;
+        } else if (n > 0 && (u.mh | 0) * 10 < (u.mhmax | 0) && Unchanging(u)) {
+            game._needs_maybe_wail = true;
         }
         return;
     }
@@ -501,8 +559,19 @@ export function losehp(n, knam, k_format = KILLED_BY) {
         if (!game.killer) game.killer = { name: '', format: 0 };
         game.killer.name = knam || '';
         game.killer.format = k_format;
+    } else if (n > 0 && (u.uhp | 0) * 10 < (u.uhpmax | 0)) {
+        game._needs_maybe_wail = true;
     }
-    // else if (n > 0 && u.uhp * 10 < u.uhpmax) maybe_wail() — deferred
+}
+
+/**
+ * C ref: hack.c losehp → maybe_wail (You_hear / pline may `--More--`).
+ * Call after losehp when `_needs_maybe_wail` may be set.
+ */
+export async function finish_maybe_wail() {
+    if (!game._needs_maybe_wail) return;
+    game._needs_maybe_wail = false;
+    await maybe_wail();
 }
 
 /** C: IS_SHOP(x) — rooms[x].rtype >= SHOPBASE */

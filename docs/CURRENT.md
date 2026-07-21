@@ -72,21 +72,23 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1152:** `mkstairs` no-op on dungeon
-ends (minefill `des.stair("up")` on Mines L1). Scr **1366→1386**;
-@**814** OK. Next @**831** C `You hear the howling of the
-CwnAnnwn...--More--` vs JS staircase getpos. Focused:
+**108275**/108275). **D-0928 #1153:** `maybe_wail` after low-HP
+`losehp` (iron-ball `drag_down` + stair-fall `finish_maybe_wail`).
+Scr **1386→1388**; @**831** OK. Next @**832** C `There is a
+staircase up to level 5 here.` vs JS `… level 1`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1152 (bat MFAST … mkstairs
-dunlev-end no-op).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1153 (bat MFAST … maybe_wail
+CwnAnnwn).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@831≠staircase getpos alone — missing `maybe_wail` after ball
+`losehp` (#1153);
 @814≠display offset — missing `mkstairs` end-of-dungeon no-op
 (#1152);
 @789≠stairs look alone — missing `teleds` placebc + overlay keep
