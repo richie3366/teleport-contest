@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 04:35 — #1104 nolimbs ring put-on + doread check_capacity
+- Objective: seed4500 @100699 C `rn2(46) @ rnd_otyp_by_namedesc` vs
+  JS `rn2(5)` (D-0928) — misread; JS namedesc ran 14 calls late.
+- C locus: `do_wear.c` `accessory_or_armor_on` `nolimbs`; `read.c`
+  `doread` → `check_capacity`; `mondata.h` `nolimbs`.
+- Change: `monsters.js` `nolimbs`/`M1_NOLIMBS`; ring cannot-stick
+  before Right/Left yn; `doread` EXT_ENCUMBER → pline + ECMD_OK.
+- Verification: prefix **100699→101373**; RNG **101373** Scr **926**;
+  green+strict PASS; cohort 1500/1800/0108/5002/5006/0014/2600 **7/7**.
+- Next: @**101373** `passiveum` `d(2,6)` vs `rnd(21)`; cadence @#1105.
+
 ## 2026-07-21 04:30 — #1103 polyself NOFLAGS + zap poly + drink empty-getobj
 - Objective: seed4500 @100475 C `polyself` `rn2(20)` vs JS `rn2(5)`
   (D-0928).
@@ -176,16 +187,3 @@ Use this shape:
   not chcnt; baseline still @88377 (no last=77).
 - Verification: green+strict PASS; cohort 7/7; rng-diff @88377.
 - Next: C-cited last=77 without FORCE; cadence @#1095.
-
-## 2026-07-21 02:35 — #1090 public score cadence
-- Objective: mandatory full `sessions` score (@#1090 % 5 == 0).
-- C locus: n/a (score-only; no JS port change).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-  Stable vs @#1085: **42/44**, Scr **10398**/11405, RNG
-  **773047**/792838 (**97.50%**), speed `31+0.25/turn`.
-  Non-PASS unchanged: seed2200 229/230; seed4500 @88377
-  88484/108275 Scr 808/1814 (D-0928).
-- Verification: green+strict PASS; full suite run complete.
-- Next: D-0928 C-cited last=77 / stone78@83695 `m_move` rn2(28)
-  vs rn2(32); cadence @#1095.
-

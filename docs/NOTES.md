@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**100699**. #1103 landed
-  `polyself` natural path + `zapyourself` WAN_POLYMORPH + `dozap`
-  `nohands` + drink empty-getobj. Prefix **100475→100699**.
-  Next: post-wish `rnd_otyp_by_namedesc` vs JS `rn2(5)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101373**. #1104 landed
+  `nolimbs` ring put-on + `doread` `check_capacity` (symptom looked
+  like `rnd_otyp_by_namedesc` vs `rn2(5)`). Prefix **100699→101373**.
+  Next: C `d(2,6) @ passiveum` vs JS `rnd(21)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,9 +30,8 @@ Objective/score live in `CURRENT.md`.
 - Do not omit peffect_extra_healing / BLINDED nh_timeout /
   learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not burn luck `rn2(20)` on Waterproof_container / splash_lit /
-  grease / towel before those arms (#1101).
-- Do not reject `goodpos` `u_at` when `mtmp===youmonst` (#1102).
+- Do not treat @100699 `rn2(46)` vs `rn2(5)` as namedesc — was
+  `nolimbs` put-on + capacity (`#1104`).
 - Do not omit `polyself` system-shock/`rn1` or prompt drink with
   zero potions (GETOBJ_NOFLAGS) (#1103).
 
@@ -40,8 +39,10 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1100 Scr **10516**/11405 RNG **785042**/792838
   (99.02%); speed `31+0.25/turn`; next cadence @**#1105**.
+- **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;
+  prefix **101373**; RNG **101373** Scr **926**/1814.
 - **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
-  empty-getobj; prefix **100699**; RNG **100862** Scr **926**/1814.
+  empty-getobj; was @**100699**.
 - **D-0928 #1102:** goodpos youmonst u_at; was @**100475**.
 - **D-0928 #1101:** water_damage early arms; was @**100421**.
 - **D-0928 #1100:** check_caitiff; was @**100395**.

@@ -134,6 +134,8 @@ export const M1_HIDE = 0x00000100; /* monflag.h — mimics, blends with ceiling 
 export const M1_BREATHLESS = 0x00000400; /* monflag.h — doesn't need to breathe */
 export const M1_NOTAKE = 0x00000800; /* monflag.h — cannot pick up objects */
 export const M1_NOHANDS = 0x00002000;
+export const M1_NOFEET = 0x00004000; /* monflag.h — no feet/legs to kick/wear boots */
+export const M1_NOLIMBS = 0x00006000; /* monflag.h — M1_NOHANDS|M1_NOFEET */
 export const M1_HUMANOID = 0x00020000; /* monflag.h — humanoid head/arms/torso */
 export const M1_SLITHY = 0x00080000; /* monflag.h — has serpent body */
 export const M1_UNSOLID = 0x00100000; /* monflag.h — no solid/liquid body */
@@ -278,6 +280,11 @@ export function thick_skinned(ptr) {
 // C ref: mondata.h nohands()
 export function nohands(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_NOHANDS);
+}
+
+/** C ref: mondata.h nolimbs — (mflags1 & M1_NOLIMBS) == M1_NOLIMBS */
+export function nolimbs(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_NOLIMBS) === M1_NOLIMBS;
 }
 
 /** C ref: mondata.h is_hider — M1_HIDE (mimics appear as something else). */

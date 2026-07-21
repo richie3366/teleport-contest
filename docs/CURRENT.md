@@ -71,12 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**100699** (D-0928). **#1103:**
-`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + random
-`rn1(SPECIAL_PM)` + `zapyourself` WAN_POLYMORPH + `dozap`
-`nohands` + drink `getobj` empty short-circuit. Prefix
-**100475→100699**. Next: post-wish `rnd_otyp_by_namedesc`
-vs JS `rn2(5)`. Focused:
+**Gameplay next:** **seed4500** @**101373** (D-0928). **#1104:**
+`accessory_or_armor_on` ring `nolimbs` cannot-stick + `doread`
+`check_capacity` (symptom was `rn2(46)` namedesc vs JS `rn2(5)`
+from an extra wear turn). Prefix **100699→101373**. Next:
+`passiveum` `d(2,6)` vs JS `rnd(21)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -115,8 +114,10 @@ omit `water_damage` Waterproof/splash_lit/grease/towel before
 luck `rn2(20)` (D-0928 #1101); reject `goodpos` `u_at` for
 `youmonst` (D-0928 #1102); omit `polyself` system-shock/
 random pick or `zapyourself` WAN_POLYMORPH / `dozap` nohands /
-drink empty-getobj short-circuit (D-0928 #1103); treat @95154
-as wish/extra_healing regress.
+drink empty-getobj short-circuit (D-0928 #1103); omit ring
+`nolimbs` cannot-stick or `doread` `check_capacity` (D-0928
+#1104); treat @95154 as wish/extra_healing regress;
+treat @100699 as namedesc-only.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

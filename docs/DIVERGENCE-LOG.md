@@ -6,8 +6,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1102; **#1103** polyself NOFLAGS / zap)
-- **Session:** seed4500-knight-coverage (prefix @**100699**)
+- **Status:** partial (#1080–#1103; **#1104** nolimbs put-on / doread capacity)
+- **Session:** seed4500-knight-coverage (prefix @**101373**)
+- **Symptom (@100699):** C `rn2(46) @ rnd_otyp_by_namedesc` vs JS
+  `rn2(5)` — looked like wish namedesc; JS still emitted `rn2(46)`
+  14 calls later (one extra monster turn).
+- **Cause (#1104):** brown-mold poly after wand-poly; `#wizwish`
+  ring of polymorph control then `P`/`r`/`r`/`#wizwish` wand.
+  C `accessory_or_armor_on` `nolimbs` → cannot-stick `ECMD_OK` then
+  `doread` `check_capacity` → overloaded `ECMD_OK`. JS omitted
+  `nolimbs` → Right/Left yn ate next `r` as Right → wore ring
+  `ECMD_TIME` (14 RNG); without capacity gate the follow-on `r`
+  would have desynced getobj on `#`.
+- **Fix (#1104):** `monsters.js` `nolimbs`/`M1_NOLIMBS`;
+  `do_wear.js` ring gate before hand choice; `read.js` `doread`
+  `near_capacity()>=EXT_ENCUMBER` → pline + return 0. Prefix
+  **100699→101373**. Named omit: poly `body_part(FINGER)` wording;
+  `query_menu` ring hand; exported shared `check_capacity` helper.
+- **Next (@101373):** C `d(2,6) @ passiveum` vs JS `rnd(21)`.
 - **Symptom (@100475):** C `rn2(20) @ polyself` vs JS `rn2(5)`.
 - **Cause (#1103):** after `#wizwish` wand of polymorph, `zq.` self
   → C `zapyourself` → `polyself(POLY_NOFLAGS)` system-shock
@@ -21,8 +37,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `potion.js` drink empty-getobj short-circuit. Prefix
   **100475→100699**. Named omit: were/vamp/dragon-merge;
   controllable_poly getlin; light-source bookkeeping;
-  `peffect_polymorph`; check_capacity.
-- **Next (@100699):** C `rnd_otyp_by_namedesc` vs JS `rn2(5)`.
+  `peffect_polymorph`.
 - **Cause (#1102):** wizard `^T` → `scrolltele` getpos picked hero
   cell on FOUNTAIN; C `goodpos(x,y,&youmonst,0)` allows `u_at` when
   `mtmp==youmonst`; JS rejected all `u_at` → `teleok` false →
