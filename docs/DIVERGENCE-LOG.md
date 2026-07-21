@@ -33,9 +33,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1167)
+- **Status:** partial (#1080–#1168)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1417**/1814)
+  Scr **1419**/1814)
+- **Hypothesis (#1168):** @1092 — JS `#wizintrinsic` showed
+  `invulnerable [30]` vs C bare. Menu Sprintf already matched C;
+  earlier session `#wizintrinsic` `a`/`r` set INVULNERABLE+FAST
+  TIMEOUT=30 (@577). C `nh_timeout` decrements **all**
+  `u.uprops[].intrinsic` TIMEOUT each turn so INVULNERABLE was 0
+  by @1092; JS only decremented dedicated flats (WOUNDED_LEGS/
+  CONFUSION/BLINDED/DEAF/FUMBLING/FAST) — INVULNERABLE stuck at 30.
+- **Fix (#1168):** `timeout.js` `nh_timeout` — after dedicated arms,
+  loop `1..LAST_PROP` skipping those props and `--` remaining
+  uprops TIMEOUT (sync TIMEOUT_FLAT mirrors); expiry switch cases
+  for those props still deferred (silent clear). `u.uinvulnerable`
+  early return still deferred.
+- **Verification (#1168):** green+strict PASS; cohort 38/38; focused
+  seed4500 prefix **@1092→@1098**; Scr **1417→1419**. Next: @**1098**
+  Blind feel-floor map cell C altar `_` vs JS floor `·` (r13,c38).
 - **Hypothesis (#1167):** @1053 — C carrots
   `(alternate weapons; not wielded)` after Sword wield vs JS bites.
   Prior @1042 wielded carrots with `OPTIONS=pushweapon`; C pushed

@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1092** — `#wizintrinsic` shows
-  TIMEOUT `[30]` on invulnerable; C omits it. Focused:
+- **Primary (D-0928):** seed4500 @**1098** — Blind feel-floor map cell
+  C altar `_` vs JS floor `·` (r13,c38). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `wiz_intrinsic` / menu formatting vs JS timeout suffix.
+  Falsify: C `feel_location` / `newsym` / lastseentyp after kill vs JS.
 
 ## Don't re-check (≤15)
 
@@ -35,13 +35,16 @@ Objective/score live in `CURRENT.md`.
   `unmap_object`→`map_location` + fight_empty I-only unmap (#1166).
 - Do not invent pushweapon second prinv — C only `setuswapwep`;
   carrots alt line is `doswapweapon` after prior push (#1167).
-- Do not treat @1053 bites-only as missing ready_weapon prinv —
-  was deferred `flags.pushweapon` (#1167).
+- Do not treat @1092 `[30]` as menu pad/Sprintf — prior `#wizintrinsic`
+  set INVULNERABLE TIMEOUT; C generic `nh_timeout` `--` cleared it
+  (#1168); menu format already matched C.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1165 Scr **11024**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1170**.
+- **D-0928 #1168:** `nh_timeout` generic remaining uprops TIMEOUT `--`;
+  prefix **@1092→@1098**; Scr **1417→1419**.
 - **D-0928 #1167:** `flags.pushweapon` → `setuswapwep(oldwep)` in
   `dowield`/`wield_tool`; prefix **@1053→@1092**; Scr **1413→1417**.
 - **D-0928 #1166:** unmap_object `map_background` + fight_empty
