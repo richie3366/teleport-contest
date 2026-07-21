@@ -8,12 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**997** — C `You hear hissing gas`
-  vs JS fire-blast hits-you order after matched wake/growl/steal.
-  Focused:
+- **Primary (D-0928):** seed4500 @**1001** — C `shallow sea` vs JS
+  `moat`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `create_gas_cloud` / poison-gas region vs zap fire order
-  at cited locus (prefer temp C dump).
+  Falsify: C `pager.c` `waterbody_name` MOAT → `Is_medusa_level`
+  `"shallow sea"` (also juiblex swamp / samurai pond).
 
 ## Don't re-check (≤15)
 
@@ -28,23 +27,23 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @997 hissing vs fire-hits-you as buzz reorder — was
+  missing `zap_over_floor` Norep + hit `The` article (#1162).
+- Do not treat @985 disarm vs wake as mhitu/steal root — was deferred
+  `wake_msg` + growl pline (#1161).
 - Do not treat @941 overview Level-1 fountain / Mines 5 as interest_filter
   alone — was missing `lastseentyp` savelev/getlev (#1160).
 - Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
   missing Punished climb `great_effort` (#1159).
 - Do not treat @902 `` ` ``/bright-blue as pool/`~` — was `S_engroom`
   after `#wizmap`; `show_map_spot` must `map_engraving` (#1158).
-- Do not treat @985 disarm vs wake as mhitu/steal root — was deferred
-  `wake_msg` + growl pline; steal was same-turn after missing More
-  (#1161).
-- Do not treat @893 overview Level 25 alone as interest_mapseen filter
-  — missing leave `recalc_mapseen`, `show_map_spot`→`room_discovered`,
-  `recbranch_mapseen`, shop_string (#1157).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1160 Scr **11013**/11405 RNG **792838**/792838
   (**100%**); speed `32+0.26/turn`; next cadence @**#1165**.
+- **D-0928 #1162:** zap_over_floor hissing-gas Norep + hit The;
+  Scr **1427→1431**; @997–@1000 OK; next @1001 shallow sea vs moat.
 - **D-0928 #1161:** wakeup `wake_msg` + growl; Scr **1423→1427**;
   @985–@996 OK; next @997 hissing gas vs fire order.
 - **D-0928 #1160:** savelev/getlev `lastseentyp`; Scr **1412→1423**;
@@ -72,5 +71,3 @@ Objective/score live in `CURRENT.md`.
   **1142→1146**; @787 OK.
 - **D-0928 #1148:** `getobj_takeoff` yn leave toplines; Scr
   **1141→1142**; prefix **@751→@787**.
-- **D-0928 #1147:** `#name` getobj `name_ok`/`do_oname`; Scr
-  **1120→1141**; prefix **@707→@751**.

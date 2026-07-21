@@ -12,6 +12,26 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — #NNNN short title
+
+- Objective: …
+- C locus: …
+- Change: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-21 14:32 — #1162 zap_over_floor hissing-gas Norep
+
+- Objective: seed4500 @997 C hissing gas vs JS fire-blast hits-you.
+- C locus: `zap.c` `zap_over_floor` ZT_FIRE/is_pool → `Norep`;
+  `hit` via objnam `The`.
+- Change: async fire-pool Norep (+ Deaf/waterlevel/MOAT see_it);
+  `hit_zap` uses objnam `The`; await from `dobuzz` (D-0928 #1162).
+- Verification: green+strict PASS; cohort 36/36; Scr **1427→1431**;
+  prefix **@997→@1001**.
+- Next: @**1001** C `shallow sea` vs JS `moat` (`waterbody_name`).
+
 ## 2026-07-21 14:25 — #1161 wakeup wake_msg + growl
 
 - Objective: seed4500 @985 JS nymph disarm vs C wakes up.

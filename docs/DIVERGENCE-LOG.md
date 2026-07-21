@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1161)
+- **Status:** partial (#1080–#1162)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1427**/1814)
+  Scr **1431**/1814)
+- **Hypothesis (#1162):** @997 C `You hear hissing gas` + `The blast
+  of fire hits it!--More--` vs JS fire-hits-it then hits-you without
+  hissing — `zap_over_floor` ZT_FIRE/is_pool created the steam cloud
+  but omitted C `Norep("You hear hissing gas.")`; local `The` only
+  capitalized so hit_zap said `Blast of fire` not `The blast of fire`.
+- **Fix (#1162):** async `zap_over_floor` fire-pool Norep (+ Deaf /
+  waterlevel / see_it MOAT arms); `hit_zap` uses objnam `The`; await
+  from `dobuzz`. POOL→ROOM+PIT evaporate still deferred.
+- **Verification (#1162):** green+strict PASS; cohort 36/36; seed4500
+  Scr **1427→1431**; prefix **@997→@1001**. Next: @**1001** C
+  `shallow sea` vs JS `moat` (`waterbody_name` Medusa).
 - **Hypothesis (#1161):** @985 JS `disarms your +1 lance` vs C
   `wakes up!--More--` — `wakeup` deferred `wake_msg`, so no mid-hit
   More; movemon then ran `mhitm_ad_sedu`/`steal` on the same screen.
