@@ -903,7 +903,8 @@ export function invent_lines() {
         lines.push({ text: CLASS_NAMES[oclass] || 'Items', attr: headingAttr });
         for (const otmp of items) {
             // C ref: invent.c sortloot_item — observe_object before naming
-            if (!game.u?.Blind) observe_object(otmp);
+            // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
+            if (!Blind()) observe_object(otmp);
             // C: display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
             // before add_menu (Hallu burns display RNG even on tty menus).
             obj_glyph(otmp);
@@ -978,7 +979,8 @@ export async function display_pickinv_reply(lets) {
         if (!items.length) continue;
         entries.push({ text: CLASS_NAMES[oclass] || 'Items', attr: ATR_INVERSE });
         for (const otmp of items) {
-            if (!game.u?.Blind) observe_object(otmp);
+            // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
+            if (!Blind()) observe_object(otmp);
             // C: invent.c display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
             // then map_glyphinfo + add_menu (Hallu display-RNG burn).
             obj_glyph(otmp);

@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:25 — #1186 doapply nohands + invent Blind
+
+- Objective: seed4500 @1679 tools-current-form; then @1681 invent
+  typed ring/wand under Blind mold.
+- C locus: `apply.c` `doapply` nohands+`check_capacity` before getobj;
+  `invent.c` sortloot_item `!Blind` observe (prop Blind).
+- Change: `apply.js` gates; `invent.js` `invent_lines`/
+  `display_pickinv_reply` use `Blind()` not sticky `u.Blind`.
+- Verification: green+strict PASS; cohort 6/6; Scr **1784→1793**;
+  first miss **@1679→@1689**.
+- Next: @1689 getpos vs JS `Unknown direction: '^R'`.
+
 ## 2026-07-21 17:17 — #1185 doeat check_capacity + score
 
 - Objective: cadence full `sessions` @#1185; seed4500 @1674 carry vs eat.

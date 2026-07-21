@@ -8,11 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1679** — C tools-current-form vs
-  JS apply getobj prompt. Focused:
+- **Primary (D-0928):** seed4500 @**1689** — C getpos
+  `Move cursor to a monster, object or location:` vs JS
+  `Unknown direction: '^R' (use 'h', 'j', 'k', 'l' or '.')`.
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `doapply` `nohands` before getobj; also `check_capacity`
-  after that (§7).
+  Falsify: C `getpos` accepts `^R` redraw; JS may be in `getdir`
+  (§7 dump keystream / cmd at locus).
 
 ## Don't re-check (≤15)
 
@@ -23,6 +25,9 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1679 apply as getobj — `doapply` nohands+capacity (#1186).
+- Do not treat @1681 invent typed ring/wand as doname-only —
+  invent_lines sticky Blind observe (#1186; #1180 was xname/doname).
 - Do not treat @1674 carry vs eat as `is_edible`/FOOD-only —
   `doeat` `check_capacity` (#1185).
 - Do not treat @1658 `/` vs `#` as open door — Blind `dosearch0`
@@ -33,17 +38,14 @@ Objective/score live in `CURRENT.md`.
   — was Blind `dopay` `canspotmon` seensk stub (#1182).
 - Do not treat @1573 challenges More r11 vs r20 as leftover WIN_MESSAGE
   — was empty `show_achievements` + missing `record_achievement` (#1181).
-- Do not treat @1501 `an engagement ring` as wish `dknown`/readobjnam
-  — prop Blind (D-0716; #1180).
-- Do not treat @1464 T:229 vs T:231 as missed `moves++` — timebot (#1179).
-- Do not treat @1441 map `e` vs DEC `~` as feel/newsym-only —
-  polymon `vision_full_recalc` (#1178).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1185 Scr **11374**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.26/turn`; next cadence @**#1190**.
+- **D-0928 #1186:** `doapply` nohands+capacity + invent prop Blind;
+  prefix **@1679→@1689**; Scr **1784→1793**.
 - **D-0928 #1185:** `doeat` `check_capacity`; prefix **@1674→@1679**;
   Scr **1783→1784**; suite Scr **11373→11374**.
 - **D-0928 #1184:** `dosearch0` Blind `feel_location`; prefix
@@ -60,7 +62,5 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**.
 - **D-0928 #1178:** polymon `vision_full_recalc`; prefix **@1441→@1464**.
 - **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; **@1438→@1441**.
-- **D-0928 #1176:** getpos SHOWVALID `$`; **@1347→@1438**.
-- **D-0928 #1175:** `untrap`→`getdir(NULL)`; **@1344→@1347**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

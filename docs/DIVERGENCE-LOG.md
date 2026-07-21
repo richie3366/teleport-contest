@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1185)
+- **Status:** partial (#1080–#1186)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1784**/1814)
+  Scr **1793**/1814)
+- **Hypothesis (#1186):** @1679 — C tools-current-form vs JS apply
+  getobj; then @1681 invent `a ring`/`a wand` vs typed names.
+- **Fix (#1186):** `apply.js` `doapply` — `nohands` + EXT_ENCUMBER
+  `check_capacity` before getobj (`apply.c`); `invent.js`
+  `invent_lines`/`display_pickinv_reply` — prop `Blind()` not sticky
+  `u.Blind` before `observe_object` (`invent.c` sortloot_item).
+- **Verification (#1186):** green+strict PASS; cohort 6/6; focused
+  Scr **1784→1793**; first miss **@1679→@1689** (getpos vs `^R`
+  unknown direction).
+- **Do not:** sticky Blind for invent observe; skip capacity after
+  nohands.
 - **Hypothesis (#1185):** @1674 — C
   `You can't do that while carrying so much stuff.` vs JS
   `You cannot eat that!`. Overloaded poly mold; C `doeat` calls
