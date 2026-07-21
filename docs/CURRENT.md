@@ -71,11 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**100421** (D-0928). **#1101:**
-`water_damage` early arms (`Waterproof_container` / splash_lit /
-grease / towel) before luck `rn2(20)` — gush onto floor CHEST.
-Prefix **100395→100421**. Next: `distfleeck` `rn2(5)` vs JS
-`rnd(79)`. Focused:
+**Gameplay next:** **seed4500** @**100475** (D-0928). **#1102:**
+`goodpos` must allow `u_at` when `mtmp===youmonst` (wizard `^T`
+getpos self on FOUNTAIN) — was falling through to `safe_teleds`
+`rnd(79)`. Prefix **100421→100475**. Next: `polyself` `rn2(20)`
+vs JS `rn2(5)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -111,7 +111,8 @@ or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
 FORCE `ualign.abuse` / omit `adj_erinys` (D-0928 #1099);
 omit `check_caitiff` from `find_roll_to_hit` (D-0928 #1100);
 omit `water_damage` Waterproof/splash_lit/grease/towel before
-luck `rn2(20)` (D-0928 #1101); treat @95154 as wish/extra_healing
+luck `rn2(20)` (D-0928 #1101); reject `goodpos` `u_at` for
+`youmonst` (D-0928 #1102); treat @95154 as wish/extra_healing
 regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/

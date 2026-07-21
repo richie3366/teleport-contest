@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1100; **#1101** water_damage early arms)
-- **Session:** seed4500-knight-coverage (prefix @**100421**)
-- **Symptom (@100395):** C `rn2(3) @ gush` vs JS `rn2(20)`.
+- **Status:** partial (#1080–#1101; **#1102** goodpos youmonst self-cell)
+- **Session:** seed4500-knight-coverage (prefix @**100475**)
+- **Symptom (@100421):** C `rn2(5) @ distfleeck` vs JS `rnd(79)`.
+- **Cause (#1102):** wizard `^T` → `scrolltele` getpos picked hero
+  cell on FOUNTAIN; C `goodpos(x,y,&youmonst,0)` allows `u_at` when
+  `mtmp==youmonst`; JS rejected all `u_at` → `teleok` false →
+  `Sorry...` → `safe_teleds` `rnd(79)` while C `teleds` self (no RNG)
+  then monsters `distfleeck`.
+- **Fix (#1102):** `teleport.js` `goodpos` `u_at` exception for
+  youmonst / swallowed ustuck / usteed. Prefix **100421→100475**.
+  Named omit: youmonst swim/levitate pool·lava; teleok trap
+  vibrating/pit-fly; tele_jump_ok/in_out_region in teleok.
+- **Next (@100475):** C `polyself` `rn2(20)` vs JS `rn2(5)`.
 - **Cause (#1101):** `dogushforth`/`gush` created a POOL on a ROOM
   cell with floor `CHEST`; C `water_damage` hits
   `Waterproof_container` → `ER_DAMAGED` with **no** luck `rn2(20)`.
@@ -18,7 +28,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `const.js` `Waterproof_container`; minimal `wet_a_towel`. Prefix
   **100395→100421**. Named omit: invent plines; pot_acid boom;
   waterproof makeknown; brass-lantern dunk; SPE_NOVEL blank.
-- **Next (@100421):** C `distfleeck` `rn2(5)` vs JS `rnd(79)`.
 - **Cause (#1100):** `find_roll_to_hit` omitted `check_caitiff` →
   lawful knight never `adjalign(-1)` on helpless/fleeing attacks →
   `ualign.abuse` stayed 0 → Erinys HD wrong (`d(10,8)` vs `d(13,8)`).
