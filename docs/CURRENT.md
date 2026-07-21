@@ -78,9 +78,9 @@ C `getbones` `rn2(3)` vs JS missing. #1132: cause is **keystream** —
 `unmul` pline survived → `more()` eats `^V ? \n` while NEED_MORE holds
 `"The xan pricks your right leg!"` (30+3+42≥CO−8). Shipped C-faithful
 `update_topl` You-die `skip=FALSE` + `yn_function` clear WIN_STOP;
-prefix unchanged. Next: why JS has that NEED_MORE at unmul when C's
-1794 shows survived with SP still available for ^V menu (`hitmsg`
-more@107426 vs C Die? ESC?).
+prefix unchanged. Next: **C dump** NEED_MORE/topline/WIN_STOP at
+`hitmsg` more@107426 vs `unmul` (playbook §7) before another topline
+shim — C Die? ESC leaves SP for ^V.
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 

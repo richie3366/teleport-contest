@@ -148,9 +148,10 @@ reading entire 5,000-line C files unless control flow truly requires it.
    monster data, and current input prompt.
 4. If evidence disproves the hypothesis, update `NOTES.md` immediately.
 5. Temporary instrumentation is allowed locally but must be removable by
-   searching for a distinctive marker. For geometry / flip / land / extends
-   hypotheses, prefer a **temp C dump at the cited locus** over JS `FORCE`
-   or screen-decoded coords (see `GROK-PLAYBOOK.md` §7; D-0928 #1092).
+   searching for a distinctive marker. Prefer a **temp C dump at the cited
+   locus** over JS `FORCE` / screen decode / another topline shim when stuck
+   on geometry **or** keystream/`more`/`NEED_MORE` (see `GROK-PLAYBOOK.md`
+   §7; D-0928 #1092, #1127, #1132).
 
 ### D. Implement
 

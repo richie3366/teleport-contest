@@ -20,6 +20,14 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 10:52 — process: C dump for keystream/more too
+- Objective: extend §7 C-dump guidance beyond geometry.
+- C locus: n/a (docs); live peel still @107645 NEED_MORE/unmul.
+- Change: playbook §7 table + §9; runbook §C.5; agent-notes;
+  CURRENT/NOTES next-falsify = C dump at hitmsg@107426 vs unmul.
+- Verification: n/a (docs-only).
+- Next: loop peels dump C more-state before another WIN_STOP shim.
+
 ## 2026-07-21 10:47 — #1132 unmul more ate ^V; @107645
 - Objective: seed4500 @107645 C getbones rn2(3) vs JS missing.
 - C locus: `topl.c` update_topl You-die/WIN_STOP; `tty_yn_function`;

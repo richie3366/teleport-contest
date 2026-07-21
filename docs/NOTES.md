@@ -12,8 +12,9 @@ Objective/score live in `CURRENT.md`.
   `getbones`. #1132: `unmul` survived pline → `more()` eats `^V ? \n`
   (NEED_MORE holds `"The xan pricks your right leg!"`, 30+3+42≥CO−8).
   Shipped: `update_topl` You-die `skip=FALSE`; `yn` clear WIN_STOP.
-  Next falsify: why NEED_MORE at unmul / `hitmsg` more@107426 vs C
-  Die? ESC — C 1794 has survived+SP before ^V.
+  Next falsify: **C dump** NEED_MORE/topline/WIN_STOP at `hitmsg`
+  more@107426 vs `unmul` (vs JS) — why NEED_MORE still set when C
+  Die? ESC leaves SP for ^V. Do not another WIN_STOP peel first.
   Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 

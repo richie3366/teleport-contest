@@ -29,8 +29,9 @@ archive, divergence, c-js-map).
 After any diagnosis that burned a long wrong path, add 3–5 lines to
 `docs/NOTES.md` **before** the next peel. Once resolved, move the evidence to
 `DIVERGENCE-LOG.md` + index row and remove stale detail from Notes. Prefer
-falsifying against **key/RNG maps** early; for geometry / flip / land, prefer a
-**temp C dump at the cited locus** over screens or JS `FORCE` (playbook §7).
+falsifying against **key/RNG maps** early; for geometry / flip / land **or**
+keystream / `more` / `NEED_MORE`, prefer a **temp C dump at the cited locus**
+over screens, JS `FORCE`, or another topline shim (playbook §7).
 
 ## Self-reflect
 
