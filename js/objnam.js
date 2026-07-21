@@ -1149,12 +1149,34 @@ export function obj_is_pname(obj) {
 }
 
 /**
- * C ref: objnam.c simpleonames — type appearance without quan/BUC (minimal_xname
- * subset). Named omissions: sack→bag family aliases; makeplural quan≠1 polish.
+ * C ref: objnam.c simpleonames ← minimal_xname — type appearance without
+ * quan/BUC. Statue/figurine corpsenm suppressed (C bareobj.corpsenm=NON_PM).
+ * Named omissions: sack→bag family aliases; makeplural quan≠1 polish.
  */
 export function simpleonames(obj) {
     if (!obj) return 'object';
+    // C minimal_xname: if (otyp != BOULDER) bareobj.corpsenm = NON_PM
+    const n = objectNames[obj.otyp];
+    if (n === 'STATUE') return 'statue';
+    if (n === 'FIGURINE') return 'figurine';
     return pretty_base(obj);
+}
+
+/**
+ * C ref: objnam.c ansimpleoname — an()/the() + simpleonames.
+ * Unique named items → "the …"; quan==1 → an(); else bare plural.
+ * Named: FAKE_AMULET→AMULET unique remap deferred (uses otyp as-is).
+ */
+export function ansimpleoname(obj) {
+    if (!obj) return 'an object';
+    const name = simpleonames(obj);
+    const ocl = objects()?.[obj.otyp];
+    const actual = objectNameStrs[obj.otyp];
+    if (ocl?.oc_unique && actual && name === actual) {
+        return the(name);
+    }
+    if ((obj.quan | 0) === 1) return an(name);
+    return name;
 }
 
 /**

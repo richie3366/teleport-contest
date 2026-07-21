@@ -6,9 +6,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1138)
+- **Status:** partial (#1080–#1139)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **966**/1814)
+  Scr **969**/1814)
+- **Hypothesis (#1139):** @292 C shimmering `--More--` alone vs JS
+  shimmering+finish-prayer — missing `hideunder` `You_see` during
+  prayer turns; cobra pline cannot append → forces More on shimmering.
+  Secondary: `ansimpleoname`/`simpleonames` kept statue corpsenm
+  ("statue of a plains centaur") so cobra+finish could not share a line.
+- **Fix (#1139):** `monmove.js` `hideunder` `You_see` + `locomotion`/
+  `y_monnam`/`ansimpleoname`; `objnam.js` `simpleonames` suppress
+  statue/figurine corpsenm (≡C `minimal_xname`); `do_name.js` `y_monnam`.
+  Named: pet cursed_object_at; cockatrice skip; youmonst hideunder;
+  set_msg_xy/PLNMSG_HIDE_UNDER; mon.js parallel hideunder You_see.
+- **Verification (#1139):** green+strict PASS; cohort 6/6; Scr
+  **966→969**; @292–294 prayer match. Next: @**372**
+  `3 scrolls labeled KIRJE` vs `3 scroll labeled KIRJEs`.
 - **Hypothesis (#1138):** @237 C `Set fruit to what?` vs JS `Options` —
   `doset_simple_menu` deferred Comp getlin for `fruit` (`hasHandler`
   false); C `Sprintf`+`getlin` then `parseoptions`/`optfn_fruit`.

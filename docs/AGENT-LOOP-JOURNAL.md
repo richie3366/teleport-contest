@@ -20,6 +20,15 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:05 — #1139 hideunder You_see + statue simpleonames
+- Objective: seed4500 @292 shimmering --More-- vs finish-prayer append.
+- C locus: `mon.c` hideunder You_see; `objnam.c` minimal_xname corpsenm=NON_PM;
+  `mondata.c` locomotion.
+- Change: hideunder You_see + locomotion/y_monnam/ansimpleoname; simpleonames
+  statue/figurine bare type (not "of a …").
+- Verification: green+strict PASS; cohort 6/6; Scr **966→969**.
+- Next: @**372** `scrolls labeled KIRJE` vs `scroll labeled KIRJEs`.
+
 ## 2026-07-21 11:55 — #1138 doset fruit getlin + menu page keys
 - Objective: seed4500 @237 `Set fruit to what?` vs Options.
 - C locus: `options.c` doset_simple_menu Comp getlin/`optfn_fruit`;
@@ -151,23 +160,3 @@ Use this shape:
   fires; prefix unchanged — suspect double `pickup(1)` @106194.
 - Verification: green+strict PASS; cohort 4/4; prefix still **106838**.
 - Next: falsify double-pickup More vs C single incapable; cadence @#1130.
-
-## 2026-07-21 09:07 — #1125 score cadence + @106838 hypothesis
-- Objective: mandatory full `sessions` @#1125; sharpen seed4500 peel.
-- C locus: `monmove.c:1963` `rn2(4*(cnt-j))` (track skip in `m_move`).
-- Change: no `js/` patch. Score **42/44** Scr **10529**/11405 RNG
-  **791421**/792838 (99.82%) speed `31+0.25/turn`. @106838 is same
-  site — C arg 20 vs JS 32 ⇒ cnt−j 5 vs 8 (mfndpos/`mtrack`), not a
-  missing literal rn2(32).
-- Verification: green+strict PASS; full sessions documented in CURRENT.
-- Next: dump C/JS `cnt`/`j`/`mtrack` at track-skip; cadence @#1130.
-
-## 2026-07-21 09:03 — #1124 dowear verysmall/nohands
-- Objective: seed4500 @106540 Unchanging wear vs C (invent-letter hyp).
-- C locus: `do_wear.c` `dowear` verysmall/nohands → "Don't even bother."
-- Change: C wish letter `t` then `W` while brown-mold rejects Wear;
-  `t`/`z` become throw/zap. JS deferred the gate → put on Unchanging.
-  Port early reject; invent-letter theory falsified.
-- Verification: green+strict PASS; cohort 6/6; prefix **106540→106838**
-  (runner RNG **106858** Scr **939**).
-- Next: @**106838** C `m_move` `rn2(20)` vs JS `rn2(32)`; cadence @#1125.

@@ -8,8 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **966**/1814.
-  Fruit getlin @237–242 match (#1138). Continue screen peel. Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **969**/1814.
+  Next @**372** `3 scrolls labeled KIRJE` vs `3 scroll labeled KIRJEs`
+  (makeplural / labeled scroll). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -33,15 +34,17 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
   matching (#1135).
-- Do not treat @237 fruit as Options-only — missing Comp getlin (#1138).
+- Do not treat @292 shimmering+finish as More-flush alone — missing
+  cobra `You_see` hideunder (#1139).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
   (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
+- **D-0928 #1139:** hideunder You_see + statue simpleonames; Scr
+  **966→969**; @292–294 prayer match; next @**372** scroll plural.
 - **D-0928 #1138:** doset fruit getlin + menu `>` page; Scr **954→966**.
-- **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**;
-  @195 match; was next @**237** fruit.
+- **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**.
 - **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match.
 - **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**.
 - **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
@@ -53,5 +56,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**.
 - **D-0928 #1127:** pickup notake gate; C also double incapable.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**.
-- **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
-  was #1124.

@@ -72,19 +72,21 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1138:** `doset_simple` Comp fruit
-`getlin("Set fruit to what?")` + `optfn_fruit`/`fruitadd`; menu
-`>`/`<`/`^`/`|` pages. Scr **954→966**. Focused:
+**108275**/108275). **D-0928 #1139:** `hideunder` `You_see` +
+`simpleonames` statue (≡C `minimal_xname`); prayer shimmering More
+matches. Scr **966→969**. Next @**372** wish invent
+`scrolls labeled KIRJE` vs `scroll labeled KIRJEs`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1138 (bat MFAST … fruit getlin).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1139 (bat MFAST … hideunder You_see).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@292≠finish-prayer append alone — missing cobra You_see (#1139);
 @237≠Options alone — missing Comp getlin for fruit (#1138);
 @195≠hero curs alone — missing flush_screen(0) last-glyph (#1137);
 @231≠cmap-only — missing object arm in auto_describe (#1136);
