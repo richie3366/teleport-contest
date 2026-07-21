@@ -141,6 +141,13 @@ Stop patching the symptom. Reconstruct the C call path; inspect state/input
 boundaries; port a tighter prerequisite; or park in the divergence log and
 return to `CURRENT.md` primary. Do not spin on the same theory.
 
+**Geometry / special-level / land / flip:** if screens, cursor, or JS `FORCE`
+imply a C geometry delta (extends, stairs, `dndest`, flip sum), **instrument C
+once at the cited locus** and compare dumps to JS before another FORCE peel.
+Session screens and tty cursor are easy to misread as map coords (D-0928 #1087
+Y+1; #1092 FlipX sum80 — C flip/place already matched JS). Temp recorder only;
+revert after falsify/confirm. Prefer this over stacking JS FORCE experiments.
+
 ---
 
 ## 8. Durable memory (your context dies)
@@ -165,6 +172,7 @@ in the journal for human/auditor review.
 - Ship confident partials — name every deferral in the map section.
 - Over-edit — one iteration ≈ one semantic unit.
 - Confuse observation with rule — trace coords are evidence, not JS control flow.
+- Infer C geometry from screens/`FORCE` success — dump C at the locus (§7).
 - Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
 - Prefer **delete wrong JS + re-port from C** over stacking shims.
 - Reach for Node `fs` because “the judge is Node” — **Rule #2**; Chrome must load it too.
