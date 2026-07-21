@@ -24,8 +24,9 @@ focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1130** (42/44,
 Scr **10531**/11405, RNG **99.90%**). Next cadence @**#1135**.
 vs @#1125: Scr **10529→10531**, RNG **791421→792061** (#1129–#1130;
-seed4500 **107335→107498** Scr **941**). Focused #1131 seed4500
-**107470→107645** RNG **107645** Scr **939** (AD_LEGS; suite not re-run).
+seed4500 **107335→107498** Scr **941**). Focused #1131–#1132 seed4500
+still **107645** RNG **107645** Scr **939** (getbones blocked by
+`unmul` more keystream).
 
 ## Score
 
@@ -49,7 +50,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 107645/108275 | 939/1814 | knight; @**107645** C `getbones` `rn2(3)` vs JS missing |
+| seed4500 | 107645/108275 | 939/1814 | knight; @**107645** JS early end — `unmul` `more()` ate `^V` |
 
 ## Green gate
 
@@ -72,10 +73,14 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**107645** (D-0928). Symptom
-C `getbones` `rn2(3)` vs JS missing after AD_LEGS peel; JS emits
-exactly 107645 (session ends early vs C bones). #1131 ported
-`mhitm_ad_legs` mhitu; prefix **107470→107645**.
+**Gameplay next:** **seed4500** @**107645** (D-0928). Symptom still
+C `getbones` `rn2(3)` vs JS missing. #1132: cause is **keystream** —
+`unmul` pline survived → `more()` eats `^V ? \n` while NEED_MORE holds
+`"The xan pricks your right leg!"` (30+3+42≥CO−8). Shipped C-faithful
+`update_topl` You-die `skip=FALSE` + `yn_function` clear WIN_STOP;
+prefix unchanged. Next: why JS has that NEED_MORE at unmul when C's
+1794 shows survived with SP still available for ^V menu (`hitmsg`
+more@107426 vs C Die? ESC?).
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -83,10 +88,11 @@ Focused:
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1131 (bat MFAST … AD_LEGS).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1132 (bat MFAST … topl WIN_STOP).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@107645≠missing getbones site alone — `unmul` more ate ^V (#1132);
 @107470≠rn2(3) site — missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove
 (#1130); @106852≠omit nasty (#1129); @106838≠rn2(32) (#1127–8);
 @106540≠fleeck alone (#1123–4); @106304≠fleeck (#1120); @104705≠fleeck

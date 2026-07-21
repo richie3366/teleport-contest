@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 10:47 — #1132 unmul more ate ^V; @107645
+- Objective: seed4500 @107645 C getbones rn2(3) vs JS missing.
+- C locus: `topl.c` update_topl You-die/WIN_STOP; `tty_yn_function`;
+  symptom `unmul`→pline→more.
+- Change: diagnosed keystream — NEED_MORE `"xan pricks…"` makes
+  survived pline call more() eating `^V ? \n`. Ported C You-die
+  `skip=FALSE` after clear WIN_STOP + yn clear WIN_STOP after flush.
+  Prefix unchanged (still @107645).
+- Verification: green+strict PASS; cohort 6/6.
+- Next: Die?/hitmsg more@107426 vs C ESC→yn; clear NEED_MORE before
+  unmul; cadence @#1135.
+
 ## 2026-07-21 10:24 — #1131 mhitm_ad_legs mhitu; @107645 getbones
 - Objective: seed4500 @107470 C `mhitm_ad_legs` rn2(2) vs JS rn2(3).
 - C locus: `uhitm.c` `mhitm_ad_legs` (mhitu arm); `mhitm_adtyping`.
@@ -156,10 +168,3 @@ Use this shape:
   (runner RNG **104797** Scr **936**).
 - Next: @**104705** C fleeck rn2(5) vs JS rn2(4); cadence @#1120.
 
-## 2026-07-21 07:05 — #1116 break_armor nohands shed
-- Objective: seed4500 @104241 C fleeck vs JS rn2(20).
-- C locus: `polyself.c` `break_armor` nohands/verysmall gloves/helm/boots.
-- Change: port glove (+drop_weapon)/shield/helm/boots shed; DIAG showed
-  JS overexertion vs C fleeck — fungus Fast roll0 leaves JS umov=12.
-- Verification: green+strict PASS; cohort 4/4; prefix still **104241**.
-- Next: C-state umovement/wtcap at that u_calc; cadence @#1120.

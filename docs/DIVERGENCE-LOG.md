@@ -6,8 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1131)
+- **Status:** partial (#1080–#1132)
 - **Session:** seed4500-knight-coverage (prefix @**107645**)
+- **Hypothesis (#1132):** @107645 C `getbones` `rn2(3)` vs JS missing
+  is **not** a missing `getbones` body — JS never reaches mklev.
+  After matched wipe `rn2(64)`, `unmul` plines survived with
+  NEED_MORE holding `"The xan pricks your right leg!"` (len 30);
+  30+3+42 ≥ CO−8 → `more()` eats `^V ? \n` (invalid until `\n`).
+  Earlier Die? region: ESC used for `hitmsg` more@107426 while C
+  answers Die? with ESC.
+- **Fix (#1132):** C-faithful `update_topl` — `"You die"` clears
+  WIN_STOP then `skip=FALSE` so redotoplin runs; `yn_function`
+  clears WIN_STOP after `flush_topl_more`. Prefix unchanged.
+- **Verification (#1132):** green+strict PASS; cohort 6/6; still
+  @**107645**. Next: align NEED_MORE / Die? keystream so unmul
+  does not steal ^V.
 - **Hypothesis (#1131):** @107470 C `mhitm_ad_legs` `rn2(2)` vs JS
   `rn2(3)` after matched fleeck/`mattacku`/`hitmu` `d(1,4)`. JS
   `mhitm_adtyping_u` had no `AD_LEGS` case (default zeroed damage) so

@@ -8,9 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**107645** C `getbones`
-  `rn2(3)` vs JS missing (JS emits 107645 — ends early). #1131
-  `mhitm_ad_legs` mhitu; prefix **107470→107645**.
+- **Gameplay next (D-0928):** seed4500 @**107645** still missing
+  `getbones`. #1132: `unmul` survived pline → `more()` eats `^V ? \n`
+  (NEED_MORE holds `"The xan pricks your right leg!"`, 30+3+42≥CO−8).
+  Shipped: `update_topl` You-die `skip=FALSE`; `yn` clear WIN_STOP.
+  Next falsify: why NEED_MORE at unmul / `hitmsg` more@107426 vs C
+  Die? ESC — C 1794 has survived+SP before ^V.
   Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -37,11 +40,15 @@ Objective/score live in `CURRENT.md`.
   C `W` while nohands → Don't even bother; JS deferred (#1123–#1124).
 - Do not treat @107470 as wrong `rn2(3)` site — was missing
   `mhitm_ad_legs` mhitu (#1131).
+- Do not treat @107645 as missing `getbones` body — `unmul` more
+  ate ^V keystream (#1132).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1130 Scr **10531**/11405 RNG **792061**/792838
   (99.90%); speed `30+0.25/turn`; next cadence @**#1135**.
+- **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP;
+  still @**107645**.
 - **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**;
   prefix **107470→107645**; runner RNG **107645** Scr **939**.
 - **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**;
@@ -59,4 +66,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1119:** S_BAT Inhell MFAST; was @**104705**.
 - **D-0928 #1118:** @104705 early shapeshift; bat MFAST omit (→#1119).
 - **D-0928 #1117:** carrying_too_much; was @**104241**.
-- **D-0928 #1116:** break_armor nohands shed; was @**104241**.
