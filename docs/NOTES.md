@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1252** — map glyph DEC room vs
-  Primary (`"~~~~` / `s` vs `│····s····│`). Focused:
+- **Primary (D-0928):** seed4500 @**1291** — look_here
+  `Things that are here:` map bleed (C blank vs JS walls under
+  corner menu). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C glyph/memory at cited cell vs JS `newsym`/`map_location`.
+  Falsify: C `look_here`/NHW_MENU geometry vs JS corner paint/docorner.
 
 ## Don't re-check (≤15)
 
@@ -37,11 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1151 Blind `[23]` as cream-only — was
   `incr_prop_timeout` from stale uprops + missing `u.uinvulnerable`
   nh_timeout freeze (#1171).
+- Do not treat @1252 DEC-vs-Primary room row — sole miss was gbuf `"`
+  vs `docrt`/`see_monsters` `s` after `#overview` (#1172).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1170 Scr **11111**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1175**.
+- **D-0928 #1172:** overview dismiss `dismiss_nhw_menu` (no corner
+  docrt); prefix **@1252→@1291**; Scr **1525→1529**.
 - **D-0928 #1171:** wiz Blind `make_blinded` + `u.uinvulnerable`
   nh_timeout freeze; prefix **@1151→@1252**; Scr **1521→1525**.
 - **D-0928 #1169:** Blind `feel_location` + newsym u_at; maps chain;

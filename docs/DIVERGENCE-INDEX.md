@@ -6,7 +6,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | ID | Status | Area | Short result |
 |---|---|---|---|
 | D-0929 | fixed | look_here-only `keep_message_leftover` (not all corner) | suite **42/44**; Scr **10979**; seed4500 Scr **1389** held |
-| D-0928 | partial | #1171 wiz Blind make_blinded + uinvulnerable freeze | seed4500 prefix **@1151→@1252**; Scr **1521→1525**; next map glyph @1252 |
+| D-0928 | partial | #1172 overview dismiss dismiss_nhw_menu (no corner docrt) | seed4500 prefix **@1252→@1291**; Scr **1525→1529**; next look_here @1291 |
 | D-0927 | fixed | rhack F-prefix reject non-movement (no execute) | seed4500 **87803→88377** RNG **88484** Scr **808**; next D-0928 place |
 | D-0926 | fixed | mhitm_ad_blnd mhitu (raven AT_CLAW) + make_blinded | seed4500 **87218→87803** RNG **88082** Scr **794**; next @87803 distfleeck |
 | D-0925 | fixed | breamm/breamu + mattacku AT_BREA + dobuzz fire-pool | seed4500 **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck |

@@ -33,9 +33,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1171)
+- **Status:** partial (#1080–#1172)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1525**/1814)
+  Scr **1529**/1814)
+- **Hypothesis (#1172):** @1252 — map cell C `"` vs JS `s` (misread as
+  DEC-vs-Primary room row; visual DEC/`·` translate matched). After
+  `#overview` ESC, C `destroy_nhwindow` → `erase_menu_or_text` corner
+  `docorner` (gbuf only); JS `show_overview` always `docrt()`+flush,
+  so `see_monsters`/newsym overwrote gbuf `"`.
+- **Fix (#1172):** `dungeon.js` `show_overview` dismiss via
+  `dismiss_nhw_menu` (corner gbuf-flush; fullscreen still docrt).
+- **Verification (#1172):** green+strict PASS; cohort 14/14; focused
+  seed4500 prefix **@1252→@1291**; Scr **1525→1529**. Next: @**1291**
+  look_here `Things that are here` map bleed (C blank vs JS walls).
 - **Hypothesis (#1171):** @1151 — `#wizintrinsic` menu `blinded [23]` vs
   C `[119]`. Two stacked causes: (1) Blind branch used
   `incr_prop_timeout` from stale `uprops[BLINDED]=0` (raven/cream set
