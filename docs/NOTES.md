@@ -8,12 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1712** — `#quit` yn `n` C clears
-  topline vs JS keeps `Really quit without saving? [yn] (n)`.
-  Focused:
+- **Primary (D-0928):** seed4500 @**1761** — C brown mold +
+  `Something casts a spell at you!` vs JS `You return to human form!`
+  (botl Mold vs Knight). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `done`/`paranoid_quit`/`yn_function` clear WIN_MESSAGE
-  after `n` vs JS leftover pline. Do not re-break mMoOdDxX (#1189).
+  Falsify: C `polyself`/`rehumanize`/`mhitu` cast timing vs JS early
+  return-to-human. Do not re-break done2 cancel clear (#1190).
 
 ## Don't re-check (≤15)
 
@@ -24,6 +24,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1712 quit leftover as parse-only clear — `done2` cancel
+  `clear_nhwindow(WIN_MESSAGE)` (#1190).
 - Do not treat @1698 open door as feature-char matching — doors skipped
   in matching[]; need mMoOdDxX `gather_locs` (#1189).
 - Do not treat @1691 stone/corridor as typ-CORR win — blank S_stone
@@ -36,15 +38,14 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1679 apply as getobj — `doapply` nohands+capacity (#1186).
 - Do not treat @1681 invent typed ring/wand as doname-only —
   invent_lines sticky Blind observe (#1186; #1180 was xname/doname).
-- Do not treat @1674 carry vs eat as `is_edible`/FOOD-only —
-  `doeat` `check_capacity` (#1185).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
-- suite **42/44** Scr **11375**/11405 (seed4500 +1 @#1187; last full
-  @#1185 RNG **100%**); focused seed4500 Scr **1798** @#1189;
-  speed `30+0.26/turn`; next cadence @**#1190**.
+- suite **42/44** Scr **11389**/11405 @#1190 RNG **100%**;
+  speed `30+0.25/turn`; next cadence @**#1195**.
+- **D-0928 #1190:** `done2` cancel `clear_nhwindow_message`;
+  prefix **@1712→@1761**; Scr **1798→1799**; suite Scr **11388→11389**.
 - **D-0928 #1189:** mMoOdDxX `gather_locs` + DOOR_PREV `D`;
   prefix **@1698→@1712**; Scr **1796→1798**.
 - **D-0928 #1188:** blank S_stone before typ CORR (`brief_at`/
@@ -55,7 +56,7 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1186:** `doapply` nohands+capacity + invent prop Blind;
   prefix **@1679→@1689**; Scr **1784→1793**.
 - **D-0928 #1185:** `doeat` `check_capacity`; prefix **@1674→@1679**;
-  Scr **1783→1784**; suite Scr **11373→11374**.
+  Scr **1783→1784**.
 - **D-0928 #1184:** `dosearch0` Blind `feel_location`; prefix
   **@1658→@1674**; Scr **1732→1783**.
 - **D-0928 #1183:** `#wizwhere` → `show_nhw_menu_text` (NHW_MENU);
@@ -63,9 +64,6 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1182:** `dopay` Blind/`canspotmon`/`You_cant("see...")`;
   prefix **@1625→@1650**; Scr **1723→1724**.
 - **D-0928 #1181:** `show_achievements` + `record_achievement`;
-  ACH_RNK/HELL/MINE/TOWN/SHOP/TMPL; prefix **@1573→@1625**;
-  Scr **1722→1723**.
-- **D-0928 #1180:** prop Blind in `doname`/`xname`; prefix
-  **@1501→@1573**; Scr **1720→1722**.
+  ACH_RNK/HELL/MINE/TOWN/SHOP/TMPL; prefix **@1573→@1625**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

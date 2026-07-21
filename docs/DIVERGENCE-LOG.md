@@ -33,9 +33,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1189)
+- **Status:** partial (#1080–#1190)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1798**/1814)
+  Scr **1799**/1814)
+- **Hypothesis (#1190):** @1712 — `#quit` yn `n` C clears topline vs
+  JS keeps `Really quit without saving? [yn] (n)`. C `done2` cancel
+  arm calls `clear_nhwindow(WIN_MESSAGE)`; JS returned without clear.
+- **Fix (#1190):** `end.js` `done2` — on `!ok`, `clear_nhwindow_message()`
+  (`end.c` done2 cancel).
+- **Verification (#1190):** green+strict PASS; full `sessions` **42**/44
+  Scr **11389**/11405 RNG **100%**; focused Scr **1798→1799**; first
+  miss **@1712→@1761** (C brown-mold + spell-at-you vs JS rehumanize).
+- **Do not:** leave yn prompt after quit-cancel; FORCE poly duration.
 - **Hypothesis (#1189):** @1698 — getpos `D` (DOOR_PREV) C
   `open door` + cursor (63,7) vs JS blank/stale. JS lacked
   `mMoOdDxX` / `gather_locs` — `D` fell through to unknown-direction.

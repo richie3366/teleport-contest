@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:51 — #1190 done2 cancel clear + score
+
+- Objective: cadence full `sessions` @#1190; seed4500 @1712 `#quit`
+  yn `n` leftover prompt vs C clear.
+- C locus: `end.c` `done2` cancel → `clear_nhwindow(WIN_MESSAGE)`.
+- Change: `end.js` `done2` — `clear_nhwindow_message()` on `!ok`
+  (D-0928 #1190).
+- Verification: green+strict PASS; full suite **42**/44 Scr
+  **11389**/11405 RNG **100%** speed `30+0.25/turn`; focused Scr
+  **1798→1799**; first miss **@1712→@1761**.
+- Next: @**1761** C brown-mold + spell-at-you vs JS rehumanize.
+
 ## 2026-07-21 17:45 — #1189 getpos mMoOdDxX gather_locs
 
 - Objective: seed4500 @1698 C `open door` + cursor (63,7) vs JS blank.
@@ -180,15 +192,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1580→1583**;
   prefix **@1347→@1438**.
 - Next: @**1438** poly More botl C `Brown Mold` vs JS `Knight`.
-
-## 2026-07-21 16:15 — #1175 untrap getdir + score cadence
-
-- Objective: cadence full `sessions` @#1175; seed4500 @1344 `#untrap`
-  blank vs C `In what direction?`.
-- C locus: `trap.c` `dountrap`→`untrap`→`getdir((char*)0)`.
-- Change: `trap.js` `untrap` usual getdir + `dountrap` wiring;
-  floor/box/door disarm deferred (D-0928 #1175).
-- Verification: green+strict PASS; cohort 3/3; Scr **1579→1580**;
-  prefix **@1344→@1347**. Full suite **42**/44 Scr **11170**/11405
-  RNG **100%** speed `30+0.26/turn`.
-- Next: @**1347** getpos `$` → `S_goodpos` `feature_match_tags`.
