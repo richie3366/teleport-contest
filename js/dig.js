@@ -368,10 +368,11 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
 
 /**
  * C ref: dig.c digactualhole — create PIT or HOLE trap + side effects.
- * Branch envelope (D-0950/D-0954): furniture_handled; maketrap; furniture
- * fall msg; shop add_damage / pay ruin; PIT at_u set_utrap + wake_nearby;
- * HOLE hero fall goto_level + pay/shopdig gate; mon teleport_pet migrate.
- * Named omit: desecrate_altar; impact_drop; shopdig body; switch_terrain;
+ * Branch envelope (D-0950/D-0954/D-0958): furniture_handled; maketrap;
+ * furniture fall msg; shop add_damage / pay ruin; PIT at_u set_utrap +
+ * wake_nearby; HOLE hero fall goto_level + shopdig(1) pack snatch; mon
+ * teleport_pet migrate.
+ * Named omit: desecrate_altar; impact_drop; switch_terrain;
  * buried_ball_to_punishment; make_angry_shk; destroy_drawbridge.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
@@ -513,7 +514,8 @@ export async function digactualhole(x, y, madeby, ttyp) {
                 }
             } else {
                 if (u.ushops && heros_fault) {
-                    // shopdig(1) deferred — shk pack snatch
+                    const { shopdig } = await import('./shk.js');
+                    await shopdig(1); // shk might snatch pack
                 } else {
                     const { pay_for_damage } = await import('./shk.js');
                     await pay_for_damage('dig into', true);
@@ -1738,7 +1740,7 @@ export async function use_pick_axe(obj) {
  * C ref: dig.c use_pick_axe2 — act on u.dx/dy/dz; set dig occupation.
  * Named omit: autodig quiet; Underwater; swallowed attack polish;
  * conjoined pits; uteetering/uescaped_shaft; axe down trap-only;
- * shopdig on start downward; cant_reach_floor messaging polish.
+ * shopdig(0) on start downward; cant_reach_floor messaging polish.
  */
 export async function use_pick_axe2(obj) {
     const u = game.u || {};
@@ -1882,8 +1884,8 @@ export async function use_pick_axe2(obj) {
             digging.effort = 0;
             await pline(`You start ${verbing} downward.`);
             if (u.ushops) {
-                // shopdig deferred
-                const { add_damage } = await import('./shk.js');
+                const { shopdig, add_damage } = await import('./shk.js');
+                await shopdig(0);
                 add_damage(u.ux | 0, u.uy | 0, SHOP_PIT_COST);
             }
         } else {

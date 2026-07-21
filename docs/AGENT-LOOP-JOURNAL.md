@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:06 — #1228 D-0958 shopdig
+
+- Objective: map-driven — retire dig `shopdig` warn/snatch under fortress.
+- C locus: `shk.c` `shopdig`; callers `dig.c` `digactualhole` /
+  `use_pick_axe` downward start.
+- Change: port `shopdig(0/1)` (verbalize/knight/mnexto/pack snatch);
+  wire dig hole fall + start-downward (D-0958). Deferred:
+  destroy_drawbridge / desecrate_altar / impact_drop / mkcavearea /
+  conjoined_pits / autodig / boulder-fill; SetVoice; nolimbs #if0.
+- Verification: green+strict PASS; dig/shop cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1230).
+- Next: destroy_drawbridge / desecrate_altar / impact_drop /
+  mkcavearea / conjoined_pits.
+
 ## 2026-07-22 00:05 — #1227 D-0957 dig_up_grave
 
 - Objective: map-driven — retire dig `dig_up_grave` + `dighole`
@@ -214,14 +228,3 @@ Use this shape:
 - Verification: green+strict PASS; eat/role cohort 12/12.
 - Next: dig `pay_for_damage` sites / pickaxe `is_digging`. Cadence
   @#1215.
-
-## 2026-07-21 22:47 — #1213 D-0945 cpostfx were/mimic/attrcurse
-
-- Objective: map-driven — retire remaining `cpostfx` were*/mimic/`attrcurse`.
-- C locus: `eat.c` `cpostfx`/`eatmdone`; `were.c` `set_ulycn`; `sit.c` `attrcurse`.
-- Change: port `set_ulycn`/`attrcurse`/`eatmdone`; wire were*/mimic/
-  disenchanter in `cpostfx` (D-0945). Deferred: `retouch_equipment`,
-  `set_mimic_blocking`, eatspecial PAPER+.
-- Verification: green+strict PASS; eat/role cohort 12/12.
-- Next: eatspecial PAPER/potion/ring; dig `pay_for_damage` sites /
-  pickaxe `is_digging`. Cadence @#1215.

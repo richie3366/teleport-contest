@@ -71,10 +71,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** dig destroy_drawbridge / desecrate_altar / shopdig /
-impact_drop / mkcavearea / conjoined_pits; revive container/buried
-polish; ice melt / `burn_floor_objects` / fireball; float_down /
-learnring / adjust_attrib Ring_off polish.
+**Next cluster:** destroy_drawbridge / desecrate_altar / impact_drop /
+mkcavearea / conjoined_pits; revive container/buried polish; ice melt /
+`burn_floor_objects` / fireball; float_down / learnring / adjust_attrib
+Ring_off polish.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -111,7 +111,8 @@ do not re-stub);
 do not re-stub);
 **D-0956** (`Ring_gone`/`float_up`/`rescham`/`choke`/`set_mimic_blocking`
 — do not re-stub);
-**D-0957** (`dig_up_grave` + `dighole` IS_GRAVE — do not re-stub).
+**D-0957** (`dig_up_grave` + `dighole` IS_GRAVE — do not re-stub);
+**D-0958** (`shopdig` dig warn/snatch — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

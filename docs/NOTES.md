@@ -8,18 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1225** (Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn`). Fortress held @#1227 (green+dig cohort).
+  speed `32+0.26/turn`). Fortress held @#1228 (green+dig/shop cohort).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0957** `dig_up_grave` + `dighole` IS_GRAVE.
-- **Next cluster:** destroy_drawbridge / desecrate_altar / shopdig /
-  impact_drop / mkcavearea / conjoined_pits; revive container/buried
-  polish; ice melt / burn_floor_objects / fireball; Ring_off
-  float_down/learnring/adjust_attrib polish.
+- Latest port: **D-0958** `shopdig` warn/snatch.
+- **Next cluster:** destroy_drawbridge / desecrate_altar / impact_drop /
+  mkcavearea / conjoined_pits; revive container/buried polish; ice melt
+  / burn_floor_objects / fireball; Ring_off float_down/learnring/
+  adjust_attrib polish.
 - Cadence full `sessions` next @**#1230**.
 
 ## Don't re-check (≤15)
@@ -41,13 +41,14 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954), unturn/hero_breaks/ABON
   (D-0955), Ring_gone/float_up/rescham/choke/set_mimic_blocking
-  (D-0956), or dig_up_grave (D-0957).
+  (D-0956), dig_up_grave (D-0957), or shopdig (D-0958).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1225**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `32+0.26/turn`.
+- **D-0958:** shopdig warn/snatch.
 - **D-0957:** dig_up_grave + dighole IS_GRAVE.
 - **D-0956:** Ring_gone/float_up/rescham/choke/set_mimic_blocking.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
@@ -59,5 +60,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0949:** `explode` shop pay + `do_break_wand` explode-types.
 - **D-0948:** `zap_over_floor` shop door/bars + `dobuzz` pay.
 - **D-0947:** `kick_door` shop damage + town watch arrest/warn.
-- **D-0946:** `eatspecial` PAPER/potion/`eataccessory`/leash/flint.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

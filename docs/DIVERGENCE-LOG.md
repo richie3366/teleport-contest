@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0958 — shopdig dig warn / pack snatch
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** digging a hole in a shop skipped C shopkeeper warn
+  (`shopdig(0)`) and fall-through pack snatch (`shopdig(1)`).
+- **Cause:** named constitutional debt (`debt.md` dig.js) — `shopdig`
+  deferred after D-0957.
+- **C locus:** `shk.c` `shopdig`; callers `dig.c` `digactualhole` /
+  `use_pick_axe` downward start.
+- **JS:** port `shopdig` in `shk.js`; wire dig hole-fall + start-downward
+  (D-0958). Deferred: destroy_drawbridge; desecrate_altar; impact_drop;
+  mkcavearea; conjoined_pits; autodig; boulder-fill; SetVoice; nolimbs
+  `#if0` curse/rile early-return.
+- **Verify:** green+strict; dig/shop cohort 16/16 PASS.
+
 ## D-0957 — dig_up_grave + dighole IS_GRAVE
 
 - **Status:** fixed (map-driven debt retirement)
