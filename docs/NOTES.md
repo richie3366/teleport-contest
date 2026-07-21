@@ -8,7 +8,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-43 gap — await cron; D-0483 serialize revert.
-  Cadence @#1195 reconfirm suite Scr after seed4500 PASS.
+  Suite **43**/44 Scr **11404**/11405 confirmed @#1195.
 - **Parked:** D-0006 / seed2200 @158 RC harness.
 
 ## Don't re-check (≤15)
@@ -38,8 +38,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **42→43**/44 (seed4500 focused PASS @#1194); Scr **11389→11391**
-  pending cadence @**#1195**; RNG **100%**; speed `30+0.25/turn`.
+- suite **43**/44 Scr **11404**/11405 RNG **100%** @**#1195**;
+  speed `31+0.26/turn`; sole miss seed2200 229/230 parked.
 - **D-0928 #1194:** ^X `!strcmpi(rank,role)` + Punished/legs/Jump/
   umortality + `weight` `eaten_stat`; seed4500 **PASS** Scr **1814**.
 - **D-0928 #1193:** Kni `goal_first`/`goal_next`; prefix

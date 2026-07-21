@@ -33,9 +33,13 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1194); seed4500 **PASS** @#1194
+- **Status:** partial (#1080–#1194); seed4500 **PASS** @#1194;
+  suite confirmed @#1195
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
   Scr **1814**/1814 **PASS**)
+- **Suite (#1195):** full `sessions` **43**/44 Scr **11404**/11405
+  RNG **792838**/792838 (100%); speed `31+0.26/turn`; sole non-PASS
+  seed2200 229/230 (parked RC).
 - **Hypothesis (#1194):** @1808 — ^X attributes C
   `You are a Knight, level 15 male human.` + `(1 of 3)` vs JS
   `… a level 15 male human Knight.` + `(1 of 2)`. Missing

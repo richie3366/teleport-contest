@@ -19,20 +19,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1190** (42/44,
-Scr **11389**/11405, RNG **100%**) + `done2` cancel
-`clear_nhwindow(WIN_MESSAGE)`. Speed `30+0.25/turn`. Next cadence
-@**#1195**. #1194 seed4500 focused **PASS** Scr **1812→1814** (suite
-would be **43**/44 / Scr **11391** pending cadence).
+Score last measured: **2026-07-21** — full `sessions` @**#1195** (**43**/44,
+Scr **11404**/11405, RNG **100%**). seed4500 suite-confirmed
+**PASS** Scr **1814**/1814. Speed `31+0.26/turn`. Next cadence
+@**#1200**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** (seed4500 focused PASS @#1194; suite confirm @#1195) |
-| Screens matched | **11,391 / 11,405** (prior suite +2 @1808–1809) |
+| Sessions passing | **43 / 44** |
+| Screens matched | **11,404 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.25/turn` (R² 0.87) |
+| Speed label | `31+0.26/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -63,10 +62,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-43 gap** — local **43**/44 (seed4500 PASS
-@#1194; D-0929 restored seed0006/0007/0009/0360). Judge **22** after
-D-0480; D-0483 serialize revert. Next cron → upstream #5 if seed0013
-restored. Cadence @**#1195** reconfirm suite Scr.
+**Leaderboard 22-vs-43 gap** — local **43**/44 suite-confirmed @#1195
+(D-0929 restored seed0006/0007/0009/0360; seed4500 **PASS** @#1194).
+Judge **22** after D-0480; D-0483 serialize revert. Next cron →
+upstream #5 if seed0013 restored.
 
 **Parked:** D-0006 / seed2200 @158.
 

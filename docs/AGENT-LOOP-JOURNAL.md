@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 18:36 — #1195 public score cadence
+
+- Objective: cadence full `sessions` (iteration % 5 == 0).
+- C locus: n/a (score-only; no port patch).
+- Change: docs only — CURRENT Score + NOTES + D-0928 suite confirm.
+- Verification: green+strict PASS; full suite **43**/44 Scr
+  **11404**/11405 RNG **792838**/792838 (100%); speed
+  `31+0.26/turn`; seed4500 **PASS** Scr **1814**/1814; seed2200
+  sole miss 229/230 parked.
+- Next: leaderboard 22-vs-43 gap; next cadence @**#1200**.
+
 ## 2026-07-21 18:35 — #1194 ^X rank==role + eaten_stat
 
 - Objective: seed4500 @1808 C `Knight, level 15 male human` +
@@ -183,15 +194,3 @@ Use this shape:
   first miss **@1573→@1625**.
 - Next: @**1625** C `You can't see...` vs JS Kabalebo pay.
 
-## 2026-07-21 16:50 — #1180 score + prop Blind doname
-
-- Objective: cadence full `sessions` @#1180; seed4500 @1501 wish
-  `a ring` vs `engagement ring` (Blind mold).
-- C locus: `objnam.c` `xname_flags`/`doname` `!Blind`→`observe_object`;
-  `youprop.h` Blind ≡ props (not sticky `u.Blind`).
-- Change: `objnam.js` prop Blind for `xname`/`doname` observe
-  (D-0928 #1180). Suite score: **42**/44 Scr **11312**/11405 RNG
-  **100%** speed `30+0.25/turn`.
-- Verification: green+strict PASS; cohort 6/6; Scr **1720→1722**;
-  first miss **@1501→@1573**.
-- Next: @**1573** Voluntary challenges leftover `--More--`.
