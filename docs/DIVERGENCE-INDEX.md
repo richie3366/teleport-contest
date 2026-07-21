@@ -5,7 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0928 | partial | #1093 fight_empty remembered I (Blind rush); #1092 place≡(43,6) | seed4500 **88377→88399** RNG **89887** Scr **806**; next @88399 corpse_chance |
+| D-0928 | partial | #1094 dobuzz type<0 monkilled (not xkilled); #1093 I-rush | seed4500 **88399→89775** RNG **89881** Scr **807**; next @89775 gethungry |
 | D-0927 | fixed | rhack F-prefix reject non-movement (no execute) | seed4500 **87803→88377** RNG **88484** Scr **808**; next D-0928 place |
 | D-0926 | fixed | mhitm_ad_blnd mhitu (raven AT_CLAW) + make_blinded | seed4500 **87218→87803** RNG **88082** Scr **794**; next @87803 distfleeck |
 | D-0925 | fixed | breamm/breamu + mattacku AT_BREA + dobuzz fire-pool | seed4500 **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck |

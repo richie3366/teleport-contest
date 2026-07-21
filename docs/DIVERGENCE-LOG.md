@@ -6,28 +6,30 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1092 place/flip; **#1093** fight_empty I)
-- **Session:** seed4500-knight-coverage (was @88377; now @88399)
-- **Symptom (was):** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`.
-  C hero/mux **(42,5)** vs red dragon **(47,10)** diagonal; JS had
-  walked to **(42,6)** so not collinear.
-- **Cause (#1093):** After matched place (**43,6**) and walk to
-  **(42,5)**, keys `e` (non-edible shield) then `\n` (Ctrl-j rush S).
-  Dest **(42,6)** had remembered invisible glyph, no `m_at`. C
-  `domove_fight_empty` wastes the turn (stay); JS omitted the I-arm
-  and stepped south → linedup geometry break.
-- **C locus:** `hack.c` `domove_fight_empty` / `domove_core`
-  (`glyph_is_invisible && !m_at && !nopick`); callers via rush.
-- **Fix:** JS `domove` calls `domove_fight_empty` for remembered `I`
-  (not only forcefight); clear I via `unmap_object`+`newsym`.
+- **Status:** partial (#1080–#1093 place/I; **#1094** dobuzz mon-kill)
+- **Session:** seed4500-knight-coverage (was @88399; now @89775)
+- **Symptom (was @88399):** C `rn2(2) @ corpse_chance` vs JS `rn2(6)`
+  after matched `zhitm`/`burnarmor` (mon breath kill on buzz).
+- **Cause (#1094):** `dobuzz` used `killed`/`xkilled` for all dead
+  targets. C `type < 0` → `monkilled`→`mondied`→`corpse_chance` only;
+  `xkilled` burns treasure `!rn2(6)` before corpse. JS burned that
+  extra `rn2(6)`.
+- **C locus:** `zap.c` `dobuzz` (`type < 0` → `monkilled(..., AD_RBRE)`);
+  `mon.c` `monkilled` / `mondied` / `corpse_chance`.
+- **Fix:** export `monkilled`; `dobuzz` `type < 0` →
+  `monkilled(flash, AD_RBRE)` else `killed`.
+- **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
+  `domove_fight_empty` (stay); JS stepped → linedup break.
 - **Rejected (keep):** linedup boulder bug; FORCE mux/coords;
   place_lregion / FlipX last=77/sum80 (#1092 C dump — place≡JS);
-  avoid_running_into_trap alone (no trap at dest); eat flush as
-  south-move fix; umovement after `u_calc_moveamt`.
-- **Next:** @88399 C `rn2(2) @ corpse_chance` vs JS `rn2(6)`.
-- **Verification:** prefix **88377→88399**; RNG **88484→89887**
-  Scr **806**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+  avoid_running_into_trap alone; FORCE corpse_chance tmp; treat
+  @88399 as wrong `tmp` formula (was kill-path credit).
+- **Next:** @89775 C `rn2(20) @ gethungry` vs JS `rn2(67)`.
+- **Verification (#1094):** prefix **88399→89775**; RNG **89881**
+  Scr **807**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.
+- **Verification (#1093):** prefix **88377→88399**; RNG **89887**
+  Scr **806**/1814.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

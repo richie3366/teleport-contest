@@ -28,8 +28,8 @@
 // erode_armor; death-breath disintegrate_arm; potionbreathe invis flash
 // (D-0741); inventory_resistance_check; destroy_items elec body;
 // ugolemeffects; burn_away_slime; spell_damage_bonus / Knight questart
-// double; Rider/Death specials; type<0 mon death → monkilled (uses
-// killed for now).
+// double; Rider/Death specials; disintegrate_mon; fire completelyburns
+// XKILL_NOCORPSE; mon_reflects.
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -53,7 +53,7 @@ import {
     MR_POISON, MR_ACID,
 } from './monsters.js';
 import { m_at, wakeup } from './mon.js';
-import { find_mac } from './mhitm.js';
+import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig } from './dig.js';
@@ -77,7 +77,7 @@ import {
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, DISP_BEAM, DISP_CHANGE, DISP_END,
     OBJ_FLOOR, Has_contents, ZAPPED_WAND, NOTELL, STRAT_WAITMASK,
-    POOL, Is_waterlevel,
+    POOL, Is_waterlevel, AD_RBRE,
 } from './const.js';
 
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
@@ -891,9 +891,10 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
 /**
  * C ref: zap.c dobuzz — wand/spell/breath ray + DISP_BEAM + zhitm/zhitu.
  * Envelope: type<0 newsym; rn1(7,7) range; zap_over_floor trail (gas
- * deferred until after hit/reflect); mon/hero zap_hit. Named omit:
- * fireball; mon_reflects; shopdamage; map_invisible; Hallu hdmgtype;
- * type<0 monkilled (uses killed); steed redirect.
+ * deferred until after hit/reflect); mon/hero zap_hit; type<0 dead →
+ * monkilled(…, AD_RBRE) else xkilled/killed. Named omit: fireball;
+ * mon_reflects; shopdamage; map_invisible; Hallu hdmgtype;
+ * disintegrate_mon; fire completelyburns XKILL_NOCORPSE; steed redirect.
  */
 export async function dobuzz(
     type, nd, sx0, sy0, dx0, dy0, sayhit, _saymiss, forcemiss,
@@ -973,11 +974,19 @@ export async function dobuzz(
                         const tmp = await zhitm(mon, type, nd, ootmp);
 
                         if (tmp === MAGIC_COOKIE) {
-                            // disintegrate_mon deferred → kill
+                            // C disintegrate_mon: type<0 monkilled(-AD_RBRE)
+                            // else xkilled(NOMSG|NOCORPSE) — deferred → kill
                             await killed(mon);
                         } else if ((mon.mhp | 0) < 1) {
-                            // C type<0 → monkilled; killed stands in
-                            await killed(mon);
+                            // C: type < 0 → monkilled(mon, flash, AD_RBRE);
+                            // else xkilled (hero credit + treasure rn2(6)).
+                            if ((type | 0) < 0) {
+                                await monkilled(
+                                    mon, flash_str(fltyp), AD_RBRE,
+                                );
+                            } else {
+                                await killed(mon);
+                            }
                         } else {
                             if (!ootmp.otmp) {
                                 if (sayhit || canseemon(mon)) {

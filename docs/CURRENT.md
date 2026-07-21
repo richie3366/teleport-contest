@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 89887/108275 | 806/1814 | knight; @88399 `corpse_chance`; was I-rush |
+| seed4500 | 89881/108275 | 807/1814 | knight; @89775 `gethungry`; was mon-kill |
 
 ## Green gate
 
@@ -70,11 +70,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @88399 `corpse_chance` (D-0928).
-**#1093:** Blind Ctrl-j rush onto remembered `'I'` — C
-`domove_fight_empty` wastes turn (hero stays); JS walked south and
-broke linedup. Ported I-glyph arm + `unmap_object`/`newsym`. Prefix
-**88377→88399**; RNG **88484→89887**. Place/flip still ≡ (#1092).
+**Gameplay next:** **seed4500** @89775 `gethungry` (D-0928).
+**#1094:** mon breath kill on `dobuzz` — C `type < 0` →
+`monkilled`→`mondied`→`corpse_chance`; JS used `xkilled` (treasure
+`rn2(6)`). Ported `type < 0` → `monkilled(..., AD_RBRE)`. Prefix
+**88399→89775**; RNG **89881** Scr **807**. Next: C `gethungry`
+`rn2(20)` vs JS already at `moveloop` `rn2(67)`.
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -100,7 +101,8 @@ addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 silent-clear F-prefix then still run `#`/non-move (D-0927);
 FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
 restore-w78 / last=77 (D-0928 #1092); omit remembered-`I`
-`domove_fight_empty` on rush (D-0928 #1093).
+`domove_fight_empty` on rush (D-0928 #1093); use `xkilled` for
+`dobuzz` `type < 0` mon death (D-0928 #1094).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
