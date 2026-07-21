@@ -1,6 +1,7 @@
 // monsters.js — Monster table accessors.
 // C ref: monst.c / permonst.h / monflag.h / mondata.h
 
+import { game } from './gstate.js';
 import {
     NUMMONS,
     LOW_PM,
@@ -182,6 +183,68 @@ export function mons(mndx) {
         mattk: mattks[mndx],
         name: monsterNames[mndx],
     };
+}
+
+// C ref: monattk.h — used by adj_erinys attack upgrades
+const AT_WEAP = 254;
+const AT_MAGC = 255;
+const AD_DRST = 7;
+const AD_SPEL = 241;
+
+const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
+/** monsters.h erinys baseline — JS reuses module across games */
+const ERINYS_BASE = PM_ERINYS >= 0 ? {
+    mlevel: mlevels[PM_ERINYS],
+    difficulty: difficulties[PM_ERINYS],
+    mflags1: mflags1s[PM_ERINYS],
+    mattk: mattks[PM_ERINYS].map((a) => ({ ...a })),
+} : null;
+
+/** C ref: mon.c — reset mons[PM_ERINYS] before newgame (C process start). */
+export function reset_erinys() {
+    if (PM_ERINYS < 0 || !ERINYS_BASE) return;
+    mlevels[PM_ERINYS] = ERINYS_BASE.mlevel;
+    difficulties[PM_ERINYS] = ERINYS_BASE.difficulty;
+    mflags1s[PM_ERINYS] = ERINYS_BASE.mflags1;
+    const dst = mattks[PM_ERINYS];
+    for (let i = 0; i < ERINYS_BASE.mattk.length; i++) {
+        Object.assign(dst[i], ERINYS_BASE.mattk[i]);
+    }
+}
+
+/**
+ * C ref: mon.c adj_erinys — scale erinys with alignment abuse.
+ * Mutates generated mons[] arrays (same as C mons[PM_ERINYS]).
+ * Flags/attacks use the `abuse` arg; mlevel/difficulty use u.ualign.abuse.
+ */
+export function adj_erinys(abuse) {
+    if (PM_ERINYS < 0) return;
+    const ab = abuse >>> 0;
+    if (ab > 5) mflags1s[PM_ERINYS] |= M1_SEE_INVIS;
+    if (ab > 10) mflags1s[PM_ERINYS] |= M1_AMPHIBIOUS;
+    if (ab > 15) mflags1s[PM_ERINYS] |= M1_FLY;
+    if (ab > 20) mattks[PM_ERINYS][0].damn = 3;
+    if (ab > 25) mflags1s[PM_ERINYS] |= M1_REGEN;
+    if (ab > 30) mflags1s[PM_ERINYS] |= M1_TPORT_CNTRL;
+    if (ab > 35) {
+        const a1 = mattks[PM_ERINYS][1];
+        a1.aatyp = AT_WEAP;
+        a1.adtyp = AD_DRST;
+        a1.damn = 3;
+        a1.damd = 4;
+    }
+    if (ab > 40) mflags1s[PM_ERINYS] |= M1_TPORT;
+    if (ab > 50) {
+        const a2 = mattks[PM_ERINYS][2];
+        a2.aatyp = AT_MAGC;
+        a2.adtyp = AD_SPEL;
+        a2.damn = 3;
+        a2.damd = 4;
+    }
+    // C: min(7 + u.ualign.abuse, 50) / min(10 + abuse/3, 25)
+    const uabuse = (game.u?.ualign?.abuse | 0);
+    mlevels[PM_ERINYS] = Math.min(7 + uabuse, 50);
+    difficulties[PM_ERINYS] = Math.min(10 + Math.trunc(uabuse / 3), 25);
 }
 
 // C ref: mondata.h infravision / infravisible

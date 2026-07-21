@@ -70,11 +70,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**95154** (D-0928). **#1098:**
-`peffect_extra_healing` + `nh_timeout` BLINDED + `learn_unseen_invent`
-via `healup`→`make_blinded`. Prefix **90543→95154**; RNG
-**95188**/108275 Scr **903**/1814. Next: @95154 C `newmonhp`
-`d(13,8)` vs JS `d(10,8)` (makemon HD). Focused:
+**Gameplay next:** **seed4500** @**95154** (D-0928). **#1099:**
+`adj_erinys` + `setmangry`/`ohitmon`→`adjalign` + live `adj_lev`.
+Erinys HD needs `ualign.abuse==2` (FORCE→prefix **100395**); natural
+abuse still **0**. Next: find missing peaceful→hostile anger path
+(two `adjalign(-1)` or one `-2`) before Erinys. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -107,6 +107,7 @@ or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
 / `hitmu` always-`stop_occupation` / wiz BLINDED Timeout pline
 (D-0928 #1097); omit `peffect_extra_healing` / BLINDED
 `nh_timeout` / `learn_unseen_invent` on sight (D-0928 #1098);
+FORCE `ualign.abuse` / omit `adj_erinys` (D-0928 #1099);
 treat @95154 as wish/extra_healing regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/

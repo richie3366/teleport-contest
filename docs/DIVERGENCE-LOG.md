@@ -6,8 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1097; **#1098** extra_healing/Blind/learn)
+- **Status:** partial (#1080–#1098; **#1099** adj_erinys infra)
 - **Session:** seed4500-knight-coverage (prefix @**95154**)
+- **Symptom (@95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` —
+  Erinys. C needs `ualign.abuse==2` → `adj_erinys` mlevel 9 →
+  `adj_lev` 13; JS abuse stayed 0 (mlevel 7 → adj_lev 10). FORCE
+  abuse=2 confirms prefix **95154→100395** (next gush).
+- **Cause (#1099):** `adj_erinys` omitted; `adjalign` did not call it;
+  `setmangry` decremented record without `adjalign` (no abuse);
+  `ohitmon` omitted `setmangry`; `adj_lev` read `mons()` snapshot
+  not live table. Still: JS never converts peaceful→hostile via
+  `setmangry` (abuse remains 0) — missing anger path TBD.
+- **Fix (#1099):** `monsters.js` `adj_erinys`/`reset_erinys`;
+  `attrib.js` wire; `mon.js` `setmangry`→`adjalign`; `mthrowu.js`
+  ohitmon setmangry; `makemon.js` `adj_lev` live mlevel; `u_init`
+  `abuse:0`; `allmain` reset_erinys.
+- **Next (@95154):** find path that yields `ualign.abuse==2` before
+  Erinys spawn (two `adjalign(-1)` / one `-2`); not FORCE.
 - **Symptom (was @90543):** C `d(4,8) @ peffect_extra_healing` vs JS
   `rn2(12)` after wish; then missing third `exercise` (WIS makeknown).
 - **Cause (#1098):** (1) `peffects` omitted `POT_EXTRA_HEALING` /
@@ -19,7 +34,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1098):** `potion.js` `peffect_extra_healing` + async
   `healup`→`make_blinded`; `timeout.js` BLINDED case; `invent.js`
   `learn_unseen_invent` + hold `observe_object` via `Blind()`.
-- **Next (@95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` (makemon).
 - **Symptom (was @90492):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
   Post-tiger-kill keys desynced (JS More late / space→Unknown).
 - **Cause (#1097):** (1) `goto_level` omitted `print_level_annotation`
@@ -54,6 +68,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
   `domove_fight_empty`.
 - **Rejected (keep):** FORCE linedup/mux/place/FlipX last=77 (#1092).
+- **Verification (#1099):** still @**95154** (abuse=0); FORCE abuse=2
+  → **100395**; green+strict PASS; cohort 0002/0014/0060/0102/0700/
+  1150/1800 **7/7**.
 - **Verification (#1098):** prefix **90543→95154**; RNG **95188**
   Scr **903**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.

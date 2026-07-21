@@ -46,10 +46,11 @@ import { engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change } from './were.js';
 import { set_mimic_sym, newcham, pickvampshape } from './makemon.js';
-import { in_your_sanctuary } from './priest.js';
+import { in_your_sanctuary, p_coaligned } from './priest.js';
 import { in_rooms, is_pool, is_lava } from './hack.js';
 import { inv_weight, weight_cap } from './invent.js';
 import { maybe_m_dowear_special } from './worn.js';
+import { adjalign } from './attrib.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -564,9 +565,10 @@ export function seemimic(mtmp) {
 
 /**
  * C ref: mon.c setmangry — peaceful → hostile on attack.
- * Branch envelope: core mpeaceful clear + humanoid/shk/gd pline + adjalign(-1).
- * Named omissions: Elbereth hypocrite/rnd(5)/del_engr; priest adjalign
- * coalign; growl; quest guardian / peacefuls_respond bodies.
+ * Branch envelope: core mpeaceful clear + humanoid/shk/gd pline +
+ * adjalign (priest coalign / -1) so ualign.abuse→adj_erinys runs.
+ * Named omissions: Elbereth hypocrite/rnd(5)/del_engr; growl;
+ * quest guardian / peacefuls_respond bodies.
  */
 export function setmangry(mtmp, via_attack) {
     if (!mtmp) return;
@@ -576,13 +578,10 @@ export function setmangry(mtmp, via_attack) {
     if (!mtmp.mpeaceful) return;
     if (mtmp.mtame) return;
     mtmp.mpeaceful = 0;
-    const u = game.u || (game.u = {});
-    if (!u.ualign) u.ualign = { record: 0, type: 0 };
     if (mtmp.ispriest) {
-        // p_coaligned adjalign ± deferred → -1 like non-priest
-        u.ualign.record = (u.ualign.record | 0) - 1;
+        adjalign(p_coaligned(mtmp) ? -5 : 2);
     } else {
-        u.ualign.record = (u.ualign.record | 0) - 1;
+        adjalign(-1); /* attacking peaceful monsters is bad */
     }
     if (humanoid(mtmp.data) || mtmp.isshk || mtmp.isgd) {
         // couldsee gate: still pline when visible-ish (canspot deferred)
