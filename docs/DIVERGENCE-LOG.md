@@ -6,9 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1144)
+- **Status:** partial (#1080–#1145)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1000**/1814)
+  Scr **1001**/1814)
+- **Hypothesis (#1145):** @614 C `#overview` lists DoD Level 25 +
+  Gehennom Level 40 vs JS only current Level 1 + `(end)` — JS
+  `show_overview(why=0)` filtered to current level; C
+  `traverse_mapseenchn` uses `interest_mapseen` (furthest
+  `dunlev_ureached`, OF_INTEREST, annotations).
+- **Fix (#1145):** `dungeon.js` `interest_mapseen` + wire into
+  `show_overview`; skip Planes when not `In_endgame`. Endgame-first
+  order / branch lines / shop_string / altar-god deferred.
+- **Verification (#1145):** green+strict PASS; cohort 6/6; full
+  **42/44** Scr **10591**/11405 RNG **100%**; Scr **1000→1001**;
+  prefix **@614→@630**. Next: @**630** C wizard `#enhance`
+  `Advance skills without practice?` vs JS skills menu.
 - **Hypothesis (#1144):** @559 C `#wizintrinsic` after `a`/`r` then `.`
   shows all page-1 items `+` vs JS only `a`/`r` — JS
   `select_menu_pick_any` ignored `MENU_SELECT_ALL` (`.`) /

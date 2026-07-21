@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1000**/1814;
-  prefix **@614**. C `#overview` shows dungeon summary text
-  ("Level 25:", Gehennom…) vs JS corner menu `(end)`
-  (`dungeon.c` `dooverview` / `show_overview`).
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1001**/1814;
+  prefix **@630**. C wizard `#enhance` prompts
+  `Advance skills without practice? [yn] (n)` vs JS skills menu
+  (`weapon.c` `enhance_weapon_skill` wizard y_n).
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -32,17 +32,19 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
+- Do not treat @614 current-only overview as menu paint — missing
+  `interest_mapseen` furthest-reached (#1145).
 - Do not treat @559 only-a/r marks as menu geometry — missing
   `MENU_SELECT_ALL` `.` in `select_menu_pick_any` (#1144).
 - Do not treat @541 unknown extcmd as menu geometry — missing
   `wiz_identify` / `override_ID` wizid (`#1143`).
-- Do not treat @521 disco polearm More as map/cursor — was single-page
-  pad; need NHW_TEXT pages + VENOM append (#1142).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1140 Scr **10560**/11405 RNG **792838**/792838
-  (**100%**); speed `31+0.26/turn`; next cadence @**#1145**.
+- suite **42/44** @#1145 Scr **10591**/11405 RNG **792838**/792838
+  (**100%**); speed `30+0.25/turn`; next cadence @**#1150**.
+- **D-0928 #1145:** `interest_mapseen` `#overview`; Scr **1000→1001**;
+  prefix **@614→@630**.
 - **D-0928 #1144:** `select_menu_pick_any` MENU_SELECT_ALL/PAGE;
   Scr **999→1000**; prefix **@559→@614**.
 - **D-0928 #1143:** `#wizidentify`/`wiz_identify` + wizid
@@ -61,4 +63,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
 - **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**.
 - **D-0928 #1132:** unmul more ate ^V; You-die skip + yn WIN_STOP.
-- **D-0928 #1131:** mhitm_ad_legs mhitu; was @**107470**.

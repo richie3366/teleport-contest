@@ -20,6 +20,19 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:40 — #1145 score + interest_mapseen overview
+- Objective: cadence full `sessions`; seed4500 @614 `#overview`
+  DoD25/Gehennom40 vs JS current-only `(end)`.
+- C locus: `dungeon.c` `interest_mapseen` / `traverse_mapseenchn` /
+  `show_overview`.
+- Change: ported `interest_mapseen`; `#overview` lists furthest-reached
+  (+ OF_INTEREST / annotations); endgame-first order deferred.
+- Verification: green+strict; cohort 6/6 (0106/0383/0399/1500+green);
+  full **42/44** Scr **10591**/11405 RNG **100%**; seed4500 Scr
+  **1000→1001**; prefix **@614→@630**.
+- Next: @**630** C wizard `#enhance` `Advance skills without practice?`
+  vs JS skills menu.
+
 ## 2026-07-21 12:33 — #1144 select_menu_pick_any MENU_SELECT_ALL
 - Objective: seed4500 @559 `#wizintrinsic` `.` all-page `+` vs only a/r.
 - C locus: `wintty.c` `process_menu_window` MENU_SELECT_ALL/PAGE.
@@ -137,25 +150,3 @@ Use this shape:
   CURRENT/NOTES next-falsify = C dump at hitmsg@107426 vs unmul.
 - Verification: n/a (docs-only).
 - Next: loop peels dump C more-state before another WIN_STOP shim.
-
-## 2026-07-21 10:47 — #1132 unmul more ate ^V; @107645
-- Objective: seed4500 @107645 C getbones rn2(3) vs JS missing.
-- C locus: `topl.c` update_topl You-die/WIN_STOP; `tty_yn_function`;
-  symptom `unmul`→pline→more.
-- Change: diagnosed keystream — NEED_MORE `"xan pricks…"` makes
-  survived pline call more() eating `^V ? \n`. Ported C You-die
-  `skip=FALSE` after clear WIN_STOP + yn clear WIN_STOP after flush.
-  Prefix unchanged (still @107645).
-- Verification: green+strict PASS; cohort 6/6.
-- Next: Die?/hitmsg more@107426 vs C ESC→yn; clear NEED_MORE before
-  unmul; cadence @#1135.
-
-## 2026-07-21 10:24 — #1131 mhitm_ad_legs mhitu; @107645 getbones
-- Objective: seed4500 @107470 C `mhitm_ad_legs` rn2(2) vs JS rn2(3).
-- C locus: `uhitm.c` `mhitm_ad_legs` (mhitu arm); `mhitm_adtyping`.
-- Change: ported `mhitm_ad_legs_u` + wired `AD_LEGS` in
-  `mhitm_adtyping_u` (was default-zero → later rn2(3)).
-- Verification: green+strict PASS; cohort 6/6; prefix
-  **107470→107645** (runner RNG **107645** Scr **939**).
-- Next: @**107645** C `getbones` rn2(3) vs JS missing; cadence @#1135.
-
