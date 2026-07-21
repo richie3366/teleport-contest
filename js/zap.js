@@ -81,9 +81,10 @@ import { mon_nam, Monnam, christen_monst, hliquid } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
-    NO_TRAP_FLAGS,
+    NO_TRAP_FLAGS, ignite_items,
 } from './trap.js';
 import { potionbreathe, make_stunned } from './potion.js';
+import { burn_away_slime } from './timeout.js';
 import { create_gas_cloud } from './region.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
@@ -439,7 +440,7 @@ export async function burn_floor_objects(x, y, give_feedback, u_caused) {
         }
         obj = obj2;
     }
-    ignite_items(objects_at(x, y));
+    await ignite_items(objects_at(x, y));
     return cnt;
 }
 
@@ -1202,11 +1203,6 @@ export async function destroy_items(mon, dmgtyp, dmg_in) {
     return dmg_out;
 }
 
-/** C ref: zap.c ignite_items — body deferred (RNG gate still called). */
-function ignite_items(_objchn) {
-    // oil lamp / candle ignition deferred
-}
-
 /**
  * C ref: zap.c resist — alev by oclass; if resisted halve damage; apply
  * remaining damage and kill when fatal.
@@ -1279,7 +1275,7 @@ async function zhitm(mon, type, nd, ootmp) {
         if (await burnarmor(mon)) {
             if (!rn2(3)) {
                 tmp += await destroy_items(mon, AD_FIRE, orig_dmg);
-                ignite_items(mon.minvent);
+                await ignite_items(mon.minvent);
             }
         }
         break;
@@ -1364,8 +1360,8 @@ async function zhitm(mon, type, nd, ootmp) {
  * C ref: zap.c zhitu — hero hit by ray (wand/spell/breath).
  * Envelope: ZT_MAGIC_MISSILE..ZT_LIGHTNING damage + ZT_FIRE burnarmor/
  * destroy_items/ignite gate + ZT_COLD/ELEC destroy_items + losehp.
- * Named omissions: shieldeff/monstunseesu/ugolemeffects; burn_away_slime;
- * death/disintegrate arms; poison/acid; ignite_items body; killer buzzer
+ * Named omissions: shieldeff/monstunseesu/ugolemeffects;
+ * death/disintegrate arms; poison/acid; killer buzzer
  * verb polish.
  */
 async function zhitu(type, nd, fltxt, _sx, _sy) {
@@ -1390,7 +1386,7 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
         } else {
             dam = orig_dam;
         }
-        // burn_away_slime deferred
+        await burn_away_slime();
         if (await burnarmor(game.youmonst || { _youmonst: true })) {
             if (!rn2(3)) {
                 await destroy_items(
@@ -1399,7 +1395,7 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
                     orig_dam,
                 );
             }
-            if (!rn2(3)) ignite_items(game.invent);
+            if (!rn2(3)) await ignite_items(game.invent);
         }
         break;
     case ZT_COLD:
@@ -2838,10 +2834,10 @@ export async function zapyourself(obj, ordinary) {
             await pline("You've set yourself afire!");
             damage = orig_dmg;
         }
-        // burn_away_slime deferred
+        await burn_away_slime();
         await burnarmor(game.youmonst || { _youmonst: true });
         await destroy_items(game.youmonst || { _youmonst: true }, AD_FIRE, orig_dmg);
-        ignite_items(game.invent);
+        await ignite_items(game.invent);
         break;
     }
 

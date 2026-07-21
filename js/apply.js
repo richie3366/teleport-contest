@@ -15,7 +15,7 @@ import {
 import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, nothing_happens, nothing_seems_to_happen,
-    FACE, TIMEOUT, BLINDED, OBJ_FREE, isok, SDOOR, SCORR,
+    FACE, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
     COLNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     ACCESSIBLE, IS_STWALL, IS_DOOR, TELEDS_NO_FLAGS, INTRINSIC,
@@ -83,6 +83,8 @@ const DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
 const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
 const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
+const CANDELABRUM_OF_INVOCATION =
+    objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
@@ -1827,4 +1829,61 @@ export async function jump(magic) {
     game.nomovemsg = '';
     morehungry(rnd(25));
     return ECMD_TIME;
+}
+
+/**
+ * C ref: apply.c catch_lit — fire-damage ignition of light sources.
+ * Named omissions: shop check_unpaid / SetVoice verbalize / bill_dummy;
+ * set_msg_xy floor msg cursor.
+ * @returns {Promise<boolean>}
+ */
+export async function catch_lit(obj) {
+    if (!obj || obj.lamplit) return false;
+    const {
+        ignitable, age_is_relative, get_obj_location, begin_burn,
+    } = await import('./timeout.js');
+    if (!ignitable(obj)) return false;
+    const loc = get_obj_location(obj, 0);
+    if (!loc) return false;
+
+    const t = obj.otyp | 0;
+    if (((t === MAGIC_LAMP || t === CANDELABRUM_OF_INVOCATION)
+            && (obj.spe | 0) === 0)
+        || (age_is_relative(obj) && (obj.age | 0) === 0)
+        || t === BRASS_LANTERN) {
+        return false;
+    }
+    if (t === CANDELABRUM_OF_INVOCATION && obj.cursed) return false;
+    if ((t === OIL_LAMP || t === MAGIC_LAMP) && obj.cursed && !rn2(2)) {
+        return false;
+    }
+
+    const u = game.u || {};
+    const Blind = !!((u.HBlind | 0) || (u.EBlind | 0) || u.Blind
+        || ((u.HBlinded | 0) & TIMEOUT) || (u.EBlinded | 0));
+    const invent = obj.where === OBJ_INVENT
+        || (game.invent || []).includes(obj);
+    if (invent || cansee(loc.x, loc.y)) {
+        // set_msg_xy deferred
+        const nm = invent
+            ? (() => {
+                const s = `your ${xname(obj)}`;
+                return s.charAt(0).toUpperCase() + s.slice(1);
+            })()
+            : (() => {
+                const s = xname(obj);
+                return s.charAt(0).toUpperCase() + s.slice(1);
+            })();
+        const verb = Blind ? 'feel' : 'catch';
+        const tensed = ((obj.quan | 0) !== 1)
+            ? verb
+            : (/[sxz]$/.test(verb) || /(?:ch|sh)$/.test(verb)
+                ? `${verb}es`
+                : `${verb}s`);
+        await pline(`${nm} ${tensed} ${Blind ? 'warm.' : 'light!'}`);
+    }
+    if (t === POT_OIL) makeknown(obj.otyp);
+    // shop unpaid bill deferred (check_unpaid / verbalize / bill_dummy)
+    begin_burn(obj, false);
+    return true;
 }

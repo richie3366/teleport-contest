@@ -37,14 +37,16 @@ import { otyp_uses_known, distant_name, doname } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
-    MELT_ICE_AWAY, HATCH_EGG, MAX_EGG_HATCH_TIME,
+    MELT_ICE_AWAY, HATCH_EGG, BURN_OBJECT, MAX_EGG_HATCH_TIME,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, OBJ_MINVENT, OBJ_CONTAINED, OBJ_MIGRATING,
     G_GONE,
     LOST_NONE, LOST_EXPLODING,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
+    LS_OBJECT,
 } from './const.js';
 import { recalc_block_point } from './vision.js';
+import { del_light_source } from './light.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -585,7 +587,8 @@ export function obj_stop_timers(obj) {
 
 /**
  * C ref: timeout.c stop_timer — remove one (action,obj) timer; return
- * remaining turns (timeout − moves), or 0 if none. cleanup_burn deferred.
+ * remaining turns (timeout − moves), or 0 if none. BURN_OBJECT runs
+ * cleanup_burn (restore age, del LS_OBJECT, clear lamplit).
  */
 export function stop_timer(action, obj) {
     if (!obj) return 0;
@@ -599,7 +602,14 @@ export function stop_timer(action, obj) {
             if (prev) prev.next = next;
             else g._timer_base = next;
             obj.timed = Math.max(0, (obj.timed | 0) - 1);
-            return (curr.timeout | 0) - moves;
+            const expire = curr.timeout | 0;
+            // C: timeout_funcs[BURN_OBJECT].cleanup = cleanup_burn
+            if (action === BURN_OBJECT && obj.lamplit) {
+                del_light_source(LS_OBJECT, obj);
+                obj.age = (obj.age | 0) + (expire - moves);
+                obj.lamplit = 0;
+            }
+            return expire - moves;
         }
         prev = curr;
         curr = next;
@@ -734,7 +744,8 @@ async function rot_corpse(obj) {
  * C ref: timeout.c run_timers — fire due timers at start of list.
  * Called from nh_timeout after intrinsic TIMEOUT handling.
  * Envelope: ROT_CORPSE; ROT_ORGANIC (dig.c); TIMER_LEVEL MELT_ICE_AWAY
- * (D-0965/D-0967). Named omit: REVIVE_MON / ZOMBIFY_MON / BURN / hatch.
+ * (D-0965/D-0967); BURN_OBJECT (D-0978). Named omit: REVIVE_MON /
+ * ZOMBIFY_MON / hatch.
  */
 export async function run_timers() {
     const g = timer_base();
@@ -754,8 +765,11 @@ export async function run_timers() {
             && (curr.kind | 0) === TIMER_LEVEL) {
             const { melt_ice_away } = await import('./zap.js');
             await melt_ice_away(curr.a_long | 0);
+        } else if (curr.action === BURN_OBJECT && curr.obj) {
+            const { burn_object } = await import('./timeout.js');
+            await burn_object(curr.obj, curr.timeout | 0);
         }
-        // REVIVE_MON / ZOMBIFY_MON / BURN_OBJECT / … deferred — entry dropped
+        // REVIVE_MON / ZOMBIFY_MON / hatch deferred — entry dropped
     }
 }
 

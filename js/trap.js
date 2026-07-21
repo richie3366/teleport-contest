@@ -72,6 +72,7 @@ import {
     HVY_ENCUMBER, ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
+    OBJ_FLOOR,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -2451,10 +2452,33 @@ export async function burnarmor(victim) {
 }
 
 /**
+ * C ref: trap.c ignite_items — catch_lit on exposed invent/floor/minvent.
+ * Hero invent may be an array; floor uses nexthere; minvent uses nobj.
+ */
+export async function ignite_items(objchn) {
+    if (!objchn) return;
+    const { catch_lit } = await import('./apply.js');
+    if (Array.isArray(objchn)) {
+        for (const obj of [...objchn]) {
+            if (obj && !obj.lamplit && !obj.in_use) await catch_lit(obj);
+        }
+        return;
+    }
+    const bynexthere = objchn.where === OBJ_FLOOR;
+    let obj = objchn;
+    while (obj) {
+        const nextobj = obj.nobj;
+        const next = bynexthere ? obj.nexthere : nextobj;
+        if (!obj.lamplit && !obj.in_use) await catch_lit(obj);
+        obj = next;
+    }
+}
+
+/**
  * C ref: trap.c trapeffect_fire_trap — monster branch (hero → dofiretrap).
  * Envelope: d(2,4); resists_fire shield; else thitm / rn2(num+1) mhpmax;
- * golem alt HP; burnarmor || rn2(3) → destroy_items(AD_FIRE) + HP.
- * Named omissions: ignite_items; surface(); shieldeff.
+ * golem alt HP; burnarmor || rn2(3) → destroy_items(AD_FIRE) + ignite + HP.
+ * Named omissions: surface(); shieldeff.
  */
 async function trapeffect_fire_trap(mtmp, trap, _trflags) {
     if (is_youmonst(mtmp)) {
@@ -2513,7 +2537,7 @@ async function trapeffect_fire_trap(mtmp, trap, _trflags) {
     if ((await burnarmor(mtmp)) || rn2(3)) {
         const { destroy_items } = await import('./zap.js');
         const xtradmg = await destroy_items(mtmp, AD_FIRE, orig_dmg);
-        // ignite_items deferred
+        await ignite_items(mtmp.minvent);
         if ((mtmp.mhp | 0) > 0) {
             mtmp.mhp = (mtmp.mhp | 0) - (xtradmg | 0);
         }
@@ -2626,10 +2650,10 @@ export async function self_invis_message() {
 /**
  * C ref: trap.c dofiretrap — null-box floor path.
  * Envelope: d(2,4); Underwater boil; tower pline; Fire_resistance rn2(2);
- * ordinary second d(2,4)+uhpmax rn2; losehp; burnarmor||rn2(3).
+ * ordinary second d(2,4)+uhpmax rn2; losehp; burnarmor||rn2(3) →
+ * destroy_items + ignite_items; burn_away_slime; burn_floor.
  * Named omissions: box/carried; shieldeff/monstseesu; Upolyd golem alts;
- * minuhpmax/setuhpmax/losexp; destroy_items/ignite_items bodies;
- * burn_away_slime; surface().
+ * minuhpmax/setuhpmax/losexp; surface().
  */
 async function dofiretrap(box) {
     const u = game.u || (game.u = {});
@@ -2664,12 +2688,16 @@ async function dofiretrap(box) {
     }
     if (!num) await pline('You are uninjured.');
     else losehp(num, TOWER_OF_FLAME, KILLED_BY_AN);
+    {
+        const { burn_away_slime } = await import('./timeout.js');
+        await burn_away_slime();
+    }
     const you = game.youmonst || { _youmonst: true };
     if ((await burnarmor(you)) || rn2(3)) {
         // Dynamic import avoids trap↔zap cycle.
         const { destroy_items } = await import('./zap.js');
         await destroy_items(you, AD_FIRE, orig_dmg);
-        // ignite_items deferred
+        await ignite_items(game.invent);
     }
     // C: !box && burn_floor_objects(ux,uy,see_it,TRUE); smell if !see_it
     if (!box) {

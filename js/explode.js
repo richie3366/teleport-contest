@@ -13,8 +13,8 @@
 // burnarmor FIRE, resist, cold×2↔fire, Half_phys PHYS/ACID,
 // exercise A_STR, xkilled/monkilled); wake_nearto.
 // Named omissions: hallu rndmonnam; sparkle/shield glyphs;
-// ugolemeffects/golemeffects; Invulnerable; burn_away_slime;
-// ignite_items body; grabbing/engulf double-damage; wake_nearto
+// ugolemeffects/golemeffects; Invulnerable;
+// grabbing/engulf double-damage; wake_nearto
 // beyond msleeping; Role_switch damu only for known role pm;
 // resists_magm worn/artifact ANTIMAGIC scan; engulfer_explosion_msg.
 
@@ -182,11 +182,6 @@ function resist(mtmp, oclass, damage, tell) {
     else if (dlev < 1) dlev = 1;
     const mr = mtmp.data?.mr | 0;
     return rn2(100 + alev - dlev) < mr;
-}
-
-/** C ref: zap.c ignite_items — body deferred (no RNG). */
-function ignite_items(_objchn) {
-    // oil lamp / candle ignition deferred
 }
 
 /**
@@ -425,9 +420,9 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
 
                 const itemdmg = await destroy_items(mtmp, adtyp, dam);
                 if (adtyp === AD_FIRE) {
-                    const { burnarmor } = await import('./trap.js');
+                    const { burnarmor, ignite_items } = await import('./trap.js');
                     await burnarmor(mtmp);
-                    ignite_items(mtmp.minvent);
+                    await ignite_items(mtmp.minvent);
                 }
 
                 if ((explmask[i][j] & EXPL_MON) !== 0) {
@@ -479,14 +474,18 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
             && (type < 0 || olet !== SCROLL_CLASS)) {
             await pline(`You are caught in the ${str}!`);
         }
-        // burn_away_slime / Invulnerable deferred
+        // Invulnerable deferred
+        if (adtyp === AD_FIRE) {
+            const { burn_away_slime } = await import('./timeout.js');
+            await burn_away_slime();
+        }
         if (adtyp === AD_PHYS || adtyp === AD_ACID) {
             damu = maybe_half_phys(damu);
         }
         if (adtyp === AD_FIRE) {
-            const { burnarmor } = await import('./trap.js');
+            const { burnarmor, ignite_items } = await import('./trap.js');
             await burnarmor(you);
-            ignite_items(game.invent);
+            await ignite_items(game.invent);
         }
         await destroy_items(you, adtyp, dam);
         // ugolemeffects deferred

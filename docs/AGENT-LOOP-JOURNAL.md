@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 01:58 — #1248 D-0978 ignite/burn/slime
+
+**Objective:** map-driven — retire ignite_items / burn_away_slime
+(+ catch_lit / begin_burn) from CURRENT next cluster / debt.
+**Changed:** port `timeout.c` burn_away_slime/begin_burn/end_burn/
+burn_object + helpers; `apply.c` catch_lit; `trap.c` ignite_items;
+LS_OBJECT lights; BURN_OBJECT run_timers/cleanup; wire zap/explode/
+fire-trap (D-0978). Docs: CURRENT/NOTES/debt/turns/divergence/journal.
+**Verified:** green+strict PASS; zap/trap/lamp cohort **25**/26
+(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
+**Next:** release_hold WAN_OPENING / flash_hits.
+**Blocked:** none.
+
 ## 2026-07-22 01:47 — #1247 D-0977 passtune/drawbridge
 
 **Objective:** map-driven — retire passtune / open+close drawbridge
@@ -224,17 +237,3 @@ pre-existing Scr 72/73). Rule #2: no fs.
   next @#1235).
 - Next: revive container/buried; ice melt / burn_floor_objects /
   fireball; Ring_off polish. Cadence @#1235.
-
-## 2026-07-22 00:22 — #1232 D-0962 conjoined/autodig/boulder
-
-- Objective: map-driven — retire dig `conjoined_pits` + autodig quiet
-  + `dighole` boulder-fill under fortress.
-- C locus: `trap.c` `conjoined_pits`/`delfloortrap`; `cmd.c`
-  `xytodir`; `dig.c` `pick_can_reach`/`use_pick_axe2`/`dighole`.
-- Change: port helpers; wire pit reach/debris join/autodig quiet;
-  boulder settle-or-KADOOM (retval false) (D-0962). Deferred:
-  desecrate_altar/`god_zaps_you`; magical-trap explode; zap_dig
-  pitdig; clear_conjoined_pits callers.
-- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
-  Suite fortress held (no full cadence; next @#1235).
-- Next: desecrate_altar/`god_zaps_you`. Cadence @#1235.

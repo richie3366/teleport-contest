@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0978 — ignite_items / catch_lit / begin_burn / burn_away_slime
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — fire paths called stub `ignite_items`
+  (no lamp/candle light) and deferred `burn_away_slime`; `begin_burn` /
+  `catch_lit` / `BURN_OBJECT` / LS_OBJECT lights absent.
+- **Cause:** ignite body never ported after destroy_items / burn_floor
+  (D-0741/D-0965/D-0975); light.js was LS_MONSTER-only.
+- **Fix:** port `burn_away_slime`, `begin_burn`/`end_burn`/`burn_object`,
+  helpers (`ignitable`/`Is_candle`/`artifact_light`/candle radii);
+  `catch_lit` (apply); `ignite_items` (trap) with invent-array +
+  nobj/nexthere; LS_OBJECT in `new`/`del`/`do_light_sources`;
+  `stop_timer` cleanup_burn + `run_timers` BURN_OBJECT; wire zap/
+  explode/fire-trap call sites. Deferred: shop check_unpaid/
+  verbalize/bill_dummy in catch_lit; circle_ptr exact light rings;
+  update_inventory redraw; release_hold / flash_hits WAN_OPENING.
+- **Verification:** green+strict PASS; zap/trap/lamp cohort **25**/26
+  (seed0009 Scr 72/73 pre-existing on HEAD).
+- **Files:** `js/timeout.js`, `js/apply.js`, `js/trap.js`, `js/zap.js`,
+  `js/explode.js`, `js/light.js`, `js/mkobj.js`, `docs/c-js-map/debt.md`,
+  `docs/c-js-map/turns.md`.
+
 ## D-0977 — passtune + open/close_drawbridge
 
 - **Status:** fixed (map-driven debt retirement)

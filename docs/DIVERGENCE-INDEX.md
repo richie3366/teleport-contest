@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0978 | fixed | `ignite_items`/`catch_lit`/`begin_burn`/`burn_away_slime` + LS_OBJECT/BURN_OBJECT | map-driven; green+zap/trap cohort 25/26 (seed0009 pre-existing) |
 | D-0977 | fixed | music passtune + `open_drawbridge`/`close_drawbridge` + Mastermind hints | map-driven; green+apply cohort 36/37 (seed0009 pre-existing) |
 | D-0976 | fixed | `dosinkfall` + `spoteffects` sink+Lev + `ELevitation` mirror + `stop_donning` | map-driven; green+move/wear cohort 36/37 (seed0009 pre-existing) |
 | D-0975 | fixed | lavawall `fix_wall_spines` + `burn_floor_objects` give_feedback + fire-trap wire | map-driven; green+zap/trap cohort 24/24; cadence 43/44 @#1245 (seed0009 pre-existing) |
