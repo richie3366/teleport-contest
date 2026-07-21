@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0973 — explode AD_MAGM/DISN/DRST/ACID mon/hero combat
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap debt — after D-0971, `explode` / `mon_explodes`
+  still gated combat to PHYS+FIRE+COLD+ELEC; MAGM/DISN/DRST/ACID
+  `explosionmask` and boom AT_BOOM were named omit.
+- **Cause:** intentional envelope after cold/elec combat; debt row kept
+  MAGM/DISN/DRST/ACID as next explode cluster.
+- **Fix:** `explosionmask` Antimagic/`resists_magm` (dmgtype/baby-gray/
+  AD_RBRE thin), Disint WAND nonliving/demon(/vampshifter) else
+  Disint_resistance/`resists_disint`, Poison/Acid hero+mon; open
+  `combat_ok` to AD_MAGM..AD_ACID (Half_phys ACID already present);
+  `mon_explodes` type `-((ad-1)+20)` for AD_MAGM..AD_SPC2;
+  `adtyp_to_expltype` DRST→NOXIOUS else C-default FIERY (D-0973).
+  Deferred: lavawall spines; burn feedback; engulfer boom msg; hallu/
+  sparkle/golem/ignite/Invulnerable/slime; `resists_magm` worn scan.
+- **Verification:** green+strict PASS; zap/shared cohort **24**/24 PASS
+  (incl. seed2200/0360/0006/0398/5002/0016/0030/0002).
+- **Files:** `js/explode.js`, `js/zap.js` (omit note),
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0972 — music do_earthquake / do_pit / DRUM_OF_EARTHQUAKE
 
 - **Status:** fixed (map-driven debt retirement)

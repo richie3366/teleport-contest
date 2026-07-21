@@ -15,12 +15,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0972** music `do_earthquake`/`do_pit` +
-  `DRUM_OF_EARTHQUAKE`.
+- Latest port: **D-0973** explode AD_MAGM/DISN/DRST/ACID combat +
+  masks + `mon_explodes` MAGM..SPC2.
 - **Next cluster:** sink-fall death polish; lavawall spines / burn
-  feedback; MAGM/DISN/DRST/ACID explode; flute/harp/horn music.
+  feedback; flute/harp/horn music.
 - Note: seed0009 Scr 72/73 FAIL on clean HEAD (pre-existing); do not
-  chase as D-0972 regression.
+  chase as recent-port regression.
 - Cadence full `sessions` next @**#1245**.
 
 ## Don't re-check (≤15)
@@ -45,8 +45,9 @@ Objective/score live in `CURRENT.md`.
   revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
   Ring_on/float_down (D-0966), bury/unearth/obj_ice (D-0967), explode
   AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969),
-  `toggle_stealth` (D-0970), AD_COLD/ELEC explode (D-0971), or
-  `do_earthquake`/`do_pit` (D-0972).
+  `toggle_stealth` (D-0970), AD_COLD/ELEC explode (D-0971),
+  `do_earthquake`/`do_pit` (D-0972), or MAGM/DISN/DRST/ACID explode
+  (D-0973).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -56,6 +57,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1240**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn`.
+- **D-0973:** explode AD_MAGM/DISN/DRST/ACID + masks + mon_explodes.
 - **D-0972:** music `do_earthquake`/`do_pit` + drum of earthquake.
 - **D-0971:** `explode` AD_COLD/ELEC + Cold/Shock mask + mon_explodes.
 - **D-0970:** `toggle_stealth` + ELVEN cloak/boots + `EStealth` mirror.
