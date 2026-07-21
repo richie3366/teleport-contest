@@ -21,18 +21,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1090** (42/44,
-Scr **10398**/11405, RNG **97.50%**). Next cadence @**#1095**.
-Stable vs @#1085; seed4500 #1093 prefix **88377→88399** (fight_empty I).
+Score last measured: **2026-07-21** — full `sessions` @**#1095** (42/44,
+Scr **10397**/11405, RNG **97.68%**). Next cadence @**#1100**.
+vs @#1090: Scr −1, RNG **773047→774444** (seed4500 peels #1091–#1094).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,398 / 11,405** |
-| Positional RNG calls matched | **773,047 / 792,838** (97.50%) |
-| Speed label | `31+0.25/turn` (R² 0.85) |
+| Screens matched | **10,397 / 11,405** |
+| Positional RNG calls matched | **774,444 / 792,838** (97.68%) |
+| Speed label | `33+0.26/turn` (R² 0.817) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 89881/108275 | 807/1814 | knight; @89775 `gethungry`; was mon-kill |
+| seed4500 | 89881/108275 | 807/1814 | knight; @89775 early `#pray` |
 
 ## Green gate
 
@@ -70,13 +70,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @89775 `gethungry` (D-0928).
-**#1094:** mon breath kill on `dobuzz` — C `type < 0` →
-`monkilled`→`mondied`→`corpse_chance`; JS used `xkilled` (treasure
-`rn2(6)`). Ported `type < 0` → `monkilled(..., AD_RBRE)`. Prefix
-**88399→89775**; RNG **89881** Scr **807**. Next: C `gethungry`
-`rn2(20)` vs JS already at `moveloop` `rn2(67)`.
-Focused:
+**Gameplay next:** **seed4500** @89775 (D-0928). **#1095:** not a
+`gethungry` port bug — JS `dopray` @**89766** (`p_type=3` →
+`uinvulnerable`) while C is Count:20 wait on Dlvl:1 Blind; C’s next
+`#pray` @**90510** (no shimmer). Prior doprays @8690/61356/61518
+matched. Next: cmd/key desync before @89766 (post ^V-teleport /
+feel-floor / Count:20). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -102,7 +101,9 @@ silent-clear F-prefix then still run `#`/non-move (D-0927);
 FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
 restore-w78 / last=77 (D-0928 #1092); omit remembered-`I`
 `domove_fight_empty` on rush (D-0928 #1093); use `xkilled` for
-`dobuzz` `type < 0` mon death (D-0928 #1094).
+`dobuzz` `type < 0` mon death (D-0928 #1094); “fix” gethungry
+while mid-wrong `#pray` / clear `uinvulnerable` to paper over
+early `dopray` (D-0928 #1095).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
