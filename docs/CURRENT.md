@@ -10,45 +10,48 @@ no `fs`/`path`/`url`/`node:*`, no runtime filesystem. Persist only via
 
 ## Public score cadence
 
-**Every 5 global loop iterations** (when `iteration-count % 5 == 0`), run and
-document a full public score before or as the handoff:
+**Every 5 global loop iterations** (`iteration-count % 5 == 0`), run:
 
 ```bash
 node frozen/ps_test_runner.mjs sessions
 ```
 
-Update **this Score section** with: pass count, screen/RNG aggregates, speed
-label, PASS list, and notable non-PASS. Do not invent suite totals from a single
-focused session.
+Update Score: pass count, screen/RNG aggregates, speed, PASS list,
+notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1150** (42/44,
-Scr **10737**/11405, RNG **100%**). Next cadence @**#1155**.
-vs @#1145: Scr **10591→10737** (#1146–#1150 peels; #1150 doname
-`oeaten` → seed4500 **1146→1147**). Speed `30+0.25/turn`.
+Score last measured: **2026-07-21** — full `sessions` @**#1155** (38/44,
+Scr **10974**/11405, RNG **100%**). Next cadence @**#1160**.
+vs @#1150: Scr **10737→10974** (seed4500 #1151–54) but PASS **42→38**
+— four near-misses from #1151 pager overlay topline (D-0929).
+Speed `29+0.25/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **42 / 44** |
-| Screens matched | **10,737 / 11,405** |
+| Sessions passing | **38 / 44** |
+| Screens matched | **10,974 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.25/turn` (R² 0.861) |
+| Speed label | `29+0.25/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
-**PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
-seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
+seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
+seed0012, seed0004, seed0002, seed0398, seed0373,
 seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0383, seed0399, seed0014, **seed2600**.
+seed0383, seed0399, seed0014, **seed2600**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
+| seed0006 | 6736/6736 | **121**/123 | near-miss; #1151 pager (D-0929) |
+| seed0007 | 16373/16373 | **301**/302 | near-miss; #1151 pager (D-0929) |
+| seed0009 | 3713/3713 | **72**/73 | near-miss; #1151 pager (D-0929) |
+| seed0360 | 120639/120639 | **832**/833 | near-miss; #1151 pager (D-0929) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1147/1814 | knight; RNG done; screen peel |
+| seed4500 | **108275**/108275 | 1389/1814 | knight; RNG done; @893 overview |
 
 ## Green gate
 
@@ -65,60 +68,33 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-38 gap** — local PASS includes seed0108 + seed0116 +
-seed5006 + seed0398 + seed0373 + seed0361 + seed0367 + seed5002 +
-seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
-**22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
-if seed0013 restored but near-misses remain → upstream #5.
+**Suite restore (D-0929) first** — #1151 `show_nhw_menu_text` overlay
+kept/restored `_pending_message` for *all* corner menus; breaks
+seed0006/0007/0009/0360. Revert pager→those PASS but seed4500
+**1389→1381**. Narrow to look_here/getpos leftover; keep teleds
+placebc. Focused:
+`node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json`
+(+ seed0006/0007/0360 + seed4500 Scr≥1389).
 
-**Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1154:** `stairs_description` uses
-`depth(&tolev)` (quest/knox → `dunlev`). Scr **1388→1389**;
-@**832** OK. Next @**893** `#overview` C `Level 3:` (shop+fountain)
-vs JS `Level 25:`. Focused:
+**Leaderboard 22-vs-38 gap** — local was 42 (seed0108…**seed2600**);
+now **38**/44 until D-0929. Judge **22** after D-0480; D-0483 serialize
+revert. Next cron → upstream #5 if seed0013 restored but near-misses.
+
+**After restore:** seed4500 @**893** `#overview` `Level 3:` vs
+`Level 25:` (RNG **108275**/108275; Scr **1389**/1814). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
-**Parked gameplay:** D-0006 / seed2200 @158.
+**Parked:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1154 (bat MFAST … stairs
-`depth`).
-**Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
-omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
-reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
-@832≠wrong dig-depth alone — was `tolev.dlevel` not `depth`
-(#1154);
-@831≠staircase getpos alone — missing `maybe_wail` after ball
-`losehp` (#1153);
-@814≠display offset — missing `mkstairs` end-of-dungeon no-op
-(#1152);
-@789≠stairs look alone — missing `teleds` placebc + overlay keep
-getpos topline (#1151);
-@753≠bare apple alone — missing `doname` FOOD `oeaten` (#1150);
-@787≠Punished alone — also bare `ansimpleoname` ball (#1149);
-@751≠blank alone — was clearing getobj prompt on delayed takeoff
-(#1148); @707≠`[?]` alone — missing getobj `name_ok` SUGGEST (#1147);
-@630≠non-wizard skills menu — missing wizard `#enhance` y_n/speedy
-(#1146);
-@614≠current-only overview — missing `interest_mapseen` (#1145);
-@559≠letter-only PICK_ANY — missing `MENU_SELECT_ALL` `.` (#1144);
-@541≠unknown extcmd — missing `wiz_identify`/`override_ID` wizid
-(`#1143`); @521≠single-page disco pad — need NHW_TEXT page-at-a-time (#1142);
-@517≠display of attached chain — `check_here` must skip `uchain` (#1141);
-@372≠wrong xname label — missing `singplur_compound` (#1140);
-@292≠finish-prayer append alone — missing cobra You_see (#1139);
-@237≠Options alone — missing Comp getlin for fruit (#1138);
-@195≠hero curs alone — missing flush_screen(0) last-glyph (#1137);
-@231≠cmap-only — missing object arm in auto_describe (#1136);
-@136≠unknown-dir for `'0'` — missing `S_ss1` matching (#1135);
-@107646≠ordinary rn2(79) — missing `Kni-goal` (#1134);
-@107645≠missing getbones — Die? `notdied` short-circuit (#1133);
-@107645≠always-clear You-die (#1132 partial); @107470≠rn2(3) site —
-missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove (#1130);
-@106852≠omit nasty (#1129); @106838≠rn2(32) (#1127–8);
-@106540≠fleeck alone (#1123–4); @106304≠fleeck (#1120);
-@104705≠fleeck (#1118–9); older rejects in D-0928 / NOTES.
+**Keep:** D-0845…D-0927; D-0928 #1119–#1154; teleds placebc (#1151).
+**Do not:** blanket-revert #1151 pager; FORCE mfndpos/WEB; raw RNG
+gates; invent splice; omit breamm/blnd/F-prefix; FORCE linedup/flip;
+inediate FOOD reject; omit mfind0/wizwhere/break_armor/
+carrying_too_much. Recent rejects: @832≠dig-depth (#1154 depth);
+@831≠getpos (#1153 maybe_wail); @814≠display (#1152 mkstairs);
+@789≠stairs look alone (#1151 teleds+overlay); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
@@ -129,7 +105,7 @@ missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove (#1130);
 
 | ID | Why parked |
 |----|------------|
-| **D-0006** | seed1800 pet movement — needs C state/candidate capture, not `rng-diff` alone |
+| **D-0006** | seed1800 pet movement — needs C state/candidate capture |
 | seed2200 @158 | RC/`$HOME` harness path, not a port bug |
 
 ## Pointers (open only if needed)
@@ -137,8 +113,8 @@ missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove (#1130);
 | Need | File |
 |------|------|
 | Live hypothesis / don’t-recheck | `NOTES.md` |
-| Divergence by ID | `DIVERGENCE-INDEX.md` → one `## D-NNNN` in `DIVERGENCE-LOG.md` |
-| Subsystem omissions | `C-JS-MAP.md` index → one `c-js-map/*.md` |
+| Divergence by ID | `DIVERGENCE-INDEX.md` → one `## D-NNNN` |
+| Subsystem omissions | `C-JS-MAP.md` → one `c-js-map/*.md` |
 | Latest loop crumbs | `AGENT-LOOP-JOURNAL.md` (tail only) |
 | Score/objective history | `archive/PROGRESS-HISTORY.md` |
 

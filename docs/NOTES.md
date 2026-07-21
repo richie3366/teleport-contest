@@ -8,9 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1389**/1814;
-  first miss **@893**. C `#overview` `Level 3:` + shop/fountain vs
-  JS `Level 25:`. Focused:
+- **Primary (D-0929):** #1151 `pager.js` `show_nhw_menu_text` overlay
+  `_pending_message` keep/restore regresses seed0006/0007/0009/0360.
+  Bisect: PASS @#1150 `c7170577`; FAIL @#1151 `5bc9b1ad`. Pager-only
+  revert → those four PASS but seed4500 Scr **1389→1381**. Hypothesis:
+  restore is correct for getpos/look_here leftovers, wrong for ordinary
+  corner menus. Falsify: gate restore to look_here/getpos path; expect
+  0009 PASS + seed4500 Scr≥1389.
+  `node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json`
+- **After restore (D-0928):** seed4500 @**893** `#overview` Level 3 vs
+  25. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -24,12 +31,8 @@ Objective/score live in `CURRENT.md`.
 - Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
-- Do not treat @104217 as wrong `exercise` modulus — was stub `mfind0`
-  + unwired `#wizwhere` (#1115).
-- Do not treat @104241 as Fast umov surplus / FORCE VF — was missing
-  `carrying_too_much` (#1117).
-- Do not treat @107646 `rn2(79)` as ordinary fill root — missing
-  `Kni-goal` loader (#1134).
+- Do not blanket-revert #1151 pager — restores suite but loses seed4500
+  screens (D-0929); keep teleds placebc.
 - Do not treat @832 stair “level 1” as dig-depth — was
   `stairs_description` using `tolev.dlevel` not `depth` (#1154).
 - Do not treat @831 staircase getpos as root — was deferred
@@ -39,8 +42,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1150 Scr **10737**/11405 RNG **792838**/792838
-  (**100%**); speed `30+0.25/turn`; next cadence @**#1155**.
+- suite **38/44** @#1155 Scr **10974**/11405 RNG **792838**/792838
+  (**100%**); speed `29+0.25/turn`; next cadence @**#1160**.
+- **D-0929 #1155:** #1151 pager overlay topline restore → four
+  near-miss FAILs; teleds placebc not the regressor.
 - **D-0928 #1154:** `stairs_description` depth/dunlev; Scr
   **1388→1389**; @832 OK; next @893 `#overview` Level 3 vs 25.
 - **D-0928 #1153:** `maybe_wail` + `finish_maybe_wail`; Scr
@@ -48,7 +53,7 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1152:** `mkstairs` dunlev-end no-op; Scr **1366→1386**;
   @814 OK; next @831 CwnAnnwn.
 - **D-0928 #1151:** teleds placebc + overlay topline; Scr
-  **1147→1366**; @789 OK; next @814 stair glyph.
+  **1147→1366**; @789 OK — overlay half is D-0929 regressor.
 - **D-0928 #1150:** doname FOOD `oeaten`/`greased`; Scr
   **1146→1147**; @753 OK.
 - **D-0928 #1149:** self_lookat Punished + bare ball; Scr
@@ -65,7 +70,3 @@ Objective/score live in `CURRENT.md`.
   Scr **999→1000**; prefix **@559→@614**.
 - **D-0928 #1143:** `#wizidentify`/`wiz_identify` + wizid
   `unid_cnt==0`; Scr **998→999**; prefix **@541→@559**.
-- **D-0928 #1142:** `dodiscovered` `show_text_pages` + VENOM_CLASS;
-  Scr **995→998**; prefix **@521→@541**.
-- **D-0928 #1141:** BALL `very `/`(chained to you)` + check_here skip
-  uchain; Scr **970→995**; prefix **@517→@521**.
