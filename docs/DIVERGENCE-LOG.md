@@ -7,8 +7,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 ## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
 
 - **Status:** open (falsified “linedup boulder rn2(2) vs rn2(5)” —
-  prerequisite is medusa-3 hero place; #1080–#1088 as below; **#1089**
-  falsified “keep/restore col78 water with sum80”)
+  prerequisite is medusa-3 hero place; #1080–#1089 as below; **#1091**
+  stone78@83695 = track/mfndpos cnt, not chcnt; flip extras ported)
 - **Session:** seed4500-knight-coverage @88377
 - **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
   (next monster). DIAG: red dragon `mattacku`→`breamu`→`linedup`
@@ -29,6 +29,12 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `(42,6)`/kelp940/w78=20 then desync **@82639** — worse than
   stone78@83695. So @83695 is **not** missing col78 water.
   Preflip col78 = 20×MOAT; mons/objs/traps on col78 = **0**.
+- **#1091:** under stone78 DIAG, first miss @83695 is
+  `m_move:1963` track avoid `rn2(4*(cnt-j))` — JS **cnt=8** vs
+  C **rn2(28)⇒cnt-j=7** (j=0), mon@(44,13)→(43,14), u@(41,6).
+  Ported C `flip_level` `Flip_coord(mgoal)` + EPRI/ESHK + ungated
+  door flip + `_level_monsters` grid swap; production prefix
+  still **@88377** (does not create last=77).
 - **Cause (prerequisite):** hero already off C before F-prefix window.
   Arrival `^V` Dlvl:6→24 → `u_on_rndspot`/`dndest`. Same place
   `rn2(6)×3` @82419–82424. JS `u_on_newpos(43,6)` /
@@ -36,17 +42,17 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   minx=2 maxx=79, dnstair 49→32). C screen `>`**(31,16)** `@`(42,6)
   need sum80; C `water_has_kelp` count before place is **940** (=JS
   sum81 kelpW). Best sum80 DIAG remains stone78 (postflip last=77,
-  w78=0) through place then @83695 `m_move` rn2(28) vs rn2(32).
+  w78=0) through place then @83695 track/mfndpos.
 - **C locus:** `dat/medusa-3.lua`; `sp_lev.c` `flip_level` /
   `get_level_extends` / `lspo_map`; `mkmaze.c` `place_lregion`;
   `mklev.c` `mineralize`/`water_has_kelp`; `monmove.c` `m_move`.
 - **Partial:** #1082 medusa-3 epilogue; #1087 stairs ungated +
-  extends scan bounds (prefix still @88377).
+  extends scan bounds; #1091 mgoal/doors/`_level_monsters` (prefix
+  still @88377).
 - **Next:** C-cited `get_level_extends` last=77 (sum80) without
-  FORCE clear; then stone78@83695 track/`mfndpos` (not w78 restore).
+  FORCE clear; then revisit @83695 mfndpos under correct geom.
   Do not re-FORCE minx1/maxx78/stone78/exclude78/restore-w78.
-- **Verification:** green+strict PASS; rng-diff @88377 (no production
-  JS this peel).
+- **Verification:** green+strict PASS; cohort 7/7; rng-diff @88377.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 

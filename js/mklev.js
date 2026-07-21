@@ -7959,9 +7959,11 @@ function flip_level_rnd(flp, extras) {
  * C ref: sp_lev.c flip_level — transpose terrain / traps / objs / mons /
  * rooms / doors / stairs / engravings in the extends bbox.
  * Ported: ox/oy + buried coords; swap `_objects_at` with terrain cells
- * (D-0804; preserves nexthere — never rebuild from fobj). Named omissions:
- * drawbridge flip helpers, vault-guard extras, worm segs, exclusion zones,
- * ball/chain, level.monsters[][] grid swap, flip_visuals(extras).
+ * (D-0804; preserves nexthere — never rebuild from fobj); mgoal / priest
+ * shrpos / shk shk|shd; ungated door Flip_coord; `_level_monsters` swap
+ * (C level.monsters[][]). Named omissions: drawbridge flip helpers,
+ * vault-guard extras, worm-seg helpers beyond grid swap, exclusion zones,
+ * ball/chain, flip_visuals(extras).
  */
 function flip_level(flp, _extras) {
     if ((flp & 3) === 0) return;
@@ -7974,6 +7976,12 @@ function flip_level(flp, _extras) {
     const FlipY = (y) => (maxy - y) + miny;
     const inFlipArea = (x, y) =>
         x >= minx && x <= maxx && y >= miny && y <= maxy;
+    // C ref: sp_lev.c Flip_coord
+    const Flip_coord = (cc) => {
+        if (!cc) return;
+        if (flp & 1) cc.y = FlipY(cc.y);
+        if (flp & 2) cc.x = FlipX(cc.x);
+    };
 
     // C: flip SpLev_Map bits with the terrain (needed for solidify_map)
     if (game.SpLev_Map && game.SpLev_Map.size) {
@@ -8044,12 +8052,20 @@ function flip_level(flp, _extras) {
         if (flp & 2) otmp.ox = FlipX(otmp.ox);
     }
 
-    // monsters
+    // monsters — C sp_lev.c flip_level: mx/my + mgoal (+ priest/shk extras)
     if (game.fmon) {
         for (const mtmp of game.fmon) {
             if (!mtmp || !inFlipArea(mtmp.mx, mtmp.my)) continue;
             if (flp & 1) mtmp.my = FlipY(mtmp.my);
             if (flp & 2) mtmp.mx = FlipX(mtmp.mx);
+            Flip_coord(mtmp.mgoal);
+            // C: EPRI(mtmp)->shrpos / ESHK(mtmp)->shk|shd
+            if (mtmp.ispriest && mtmp.mextra?.epri?.shrpos) {
+                Flip_coord(mtmp.mextra.epri.shrpos);
+            } else if (mtmp.isshk && mtmp.mextra?.eshk) {
+                Flip_coord(mtmp.mextra.eshk.shk);
+                Flip_coord(mtmp.mextra.eshk.shd);
+            }
         }
     }
 
@@ -8113,16 +8129,15 @@ function flip_level(flp, _extras) {
         flipRoomBounds(sroom);
     }
 
-    // doors
+    // doors — C Flip_coord ungated (unlike traps/objs)
     const doors = game.level?.doors || [];
     for (let i = 0; i < (game.level?.doorindex | doors.length | 0); i++) {
         const d = doors[i];
-        if (!d || !inFlipArea(d.x, d.y)) continue;
-        if (flp & 1) d.y = FlipY(d.y);
-        if (flp & 2) d.x = FlipX(d.x);
+        if (!d) continue;
+        Flip_coord(d);
     }
 
-    // terrain cell swap (+ level.objects / _objects_at pile heads — C)
+    // terrain cell swap (+ level.objects / monsters grid — C)
     const swapObjectsAt = (x1, y1, x2, y2) => {
         if (!game._objects_at) return;
         const ka = `${x1},${y1}`;
@@ -8133,6 +8148,18 @@ function flip_level(flp, _extras) {
         else game._objects_at.delete(ka);
         if (oa !== undefined) game._objects_at.set(kb, oa);
         else game._objects_at.delete(kb);
+    };
+    // C: swap svl.level.monsters[][] (JS: worm segs on _level_monsters)
+    const swapMonstersAt = (x1, y1, x2, y2) => {
+        if (!game._level_monsters) return;
+        const ka = `${x1},${y1}`;
+        const kb = `${x2},${y2}`;
+        const ma = game._level_monsters.has(ka) ? game._level_monsters.get(ka) : undefined;
+        const mb = game._level_monsters.has(kb) ? game._level_monsters.get(kb) : undefined;
+        if (mb !== undefined) game._level_monsters.set(ka, mb);
+        else game._level_monsters.delete(ka);
+        if (ma !== undefined) game._level_monsters.set(kb, ma);
+        else game._level_monsters.delete(kb);
     };
     if (flp & 1) {
         for (let x = minx; x <= maxx; x++) {
@@ -8146,6 +8173,7 @@ function flip_level(flp, _extras) {
                 Object.assign(b, tmp);
                 // C: swap svl.level.objects[x][y] ↔ [x][ny]
                 swapObjectsAt(x, y, x, ny);
+                swapMonstersAt(x, y, x, ny);
             }
         }
     }
@@ -8161,6 +8189,7 @@ function flip_level(flp, _extras) {
                 Object.assign(b, tmp);
                 // C: swap svl.level.objects[x][y] ↔ [nx][y]
                 swapObjectsAt(x, y, nx, y);
+                swapMonstersAt(x, y, nx, y);
             }
         }
     }

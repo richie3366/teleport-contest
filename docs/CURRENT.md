@@ -71,13 +71,13 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
-**X-only** land/stairs. C kelp count **940** (=JS sum81); C needs
-FlipX **sum80** for `>`(31,16) / `@(42,6)`. #1089: exclude78 /
-stone78_restore (sum80 **with** postflip w78) land OK then
-**@82639** — worse than stone78 **@83695**. So @83695 is **not**
-missing col78 water (restore regresses). Preflip col78 = 20×MOAT,
-mons/objs/traps **0**. Next: C-cited last=77 / stone78@83695
-`m_move` rn2(28) vs rn2(32). Focused:
+**X-only** land/stairs. C kelp **940** (=JS sum81); need FlipX
+**sum80** for `>`(31,16) / `@(42,6)`. #1089 exclude78/restore
+@82639. #1091: stone78@83695 = `m_move:1963` track avoid
+`rn2(32)` vs C `rn2(28)` — JS mfndpos **cnt=8** vs C **7** (j=0),
+mon@(44,13) u@(41,6). Ported C `flip_level` mgoal/EPRI/ESHK,
+ungated doors, `_level_monsters` swap — baseline still **@88377**.
+Next: C-cited last=77 (no FORCE clear/exclude/restore). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -101,7 +101,7 @@ addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
 (D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
 silent-clear F-prefix then still run `#`/non-move (D-0927);
 FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
-restore-w78 for @88377 (D-0928 — C-cited last=77; @83695 ≠ w78).
+restore-w78 for @88377 (D-0928 — C-cited last=77; @83695=track cnt).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

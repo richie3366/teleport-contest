@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-21 02:43 — #1091 D-0928 flip extras + stone78@83695 track
+- Objective: seed4500 medusa-3 hero place (D-0928).
+- C locus: `sp_lev.c` `flip_level` (mgoal/EPRI/ESHK/doors/
+  `level.monsters[][]`); `monmove.c` `m_move:1963`.
+- Change: port Flip_coord(mgoal)+priest/shk + ungated door flip +
+  `_level_monsters` swap. DIAG: stone78@83695 = track
+  `rn2(4*(cnt-j))` JS cnt=8 vs C7 (j=0), mon@(44,13) u@(41,6) —
+  not chcnt; baseline still @88377 (no last=77).
+- Verification: green+strict PASS; cohort 7/7; rng-diff @88377.
+- Next: C-cited last=77 without FORCE; cadence @#1095.
+
 ## 2026-07-21 02:35 — #1090 public score cadence
 - Objective: mandatory full `sessions` score (@#1090 % 5 == 0).
 - C locus: n/a (score-only; no JS port change).
