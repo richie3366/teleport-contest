@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1110** (42/44,
-Scr **10518**/11405, RNG **99.36%**). Next cadence @**#1115**.
-vs @#1105: Scr **10514→10518**, RNG **786142→787753** (#1106–#1110 peels;
-`minliquid` eel `monflee` @#1110).
+Score last measured: **2026-07-21** — full `sessions` @**#1115** (42/44,
+Scr **10516**/11405, RNG **99.49%**). Next cadence @**#1120**.
+vs @#1110: Scr **10518→10516**, RNG **787753→788815** (#1115 mfind0 +
+`#wizwhere`; seed4500 prefix **104217→104241**, runner **104252** Scr **926**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,518 / 11,405** |
-| Positional RNG calls matched | **787,753 / 792,838** (99.36%) |
-| Speed label | `29+0.25/turn` (R² 0.866) |
+| Screens matched | **10,516 / 11,405** |
+| Positional RNG calls matched | **788,815 / 792,838** (99.49%) |
+| Speed label | `31+0.24/turn` (R² 0.848) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 104364/108275 | 928/1814 | knight; @**104217** exercise |
+| seed4500 | 104252/108275 | 926/1814 | knight; @**104241** fleeck vs rn2(20) |
 
 ## Green gate
 
@@ -71,11 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**104217** (D-0928). **#1114:**
-`hitmu` mundetected “hidden under” pline — #1113 misread C `e`s as
-empty eat; they were `--More--` quitchars. Missing reveal desynced
-More vs `doeat`. Prefix **103155→104217** (runner RNG **104364**
-Scr **928**). Next: C `rn2(19) @ exercise` vs JS `rn2(5)`. Focused:
+**Gameplay next:** **seed4500** @**104241** (D-0928). **#1115:**
+`mfind0` + `#wizwhere`/`print_dungeon(FALSE)` — search find-unseen
+exercise; pager absorbs keys so leaked `s` no longer false-searches.
+Prefix **104217→104241** (runner RNG **104252** Scr **926**). Next: C
+`rn2(5) @ distfleeck` vs JS `rn2(20)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -95,11 +95,13 @@ omit caitiff·water_damage·goodpos u_at·polyself·nolimbs·passiveum·
 u_rooted·eel hide·mfndpos nexttry·Blind FROMFORM·minliquid monflee·
 cham while over-retry·ok_to_throw·mtimedone (#1093–#1112); ship
 inediate `is_edible` FOOD reject or chase getlev/`^V` / invent-food
-provenance as @103155 root (#1113–#1114 — More desync). Rejected:
+provenance as @103155 root (#1113–#1114 — More desync); omit
+`mfind0` / leave `#wizwhere` unwired (#1115). Rejected:
 @95154 wish; @100699 namedesc; @101378 ston; @101391/@101608/@101616
 fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
 @103071≠2nd cham; @103155 throw≠fleeck; @103155 getlev≠root;
-@103155 invent/floor apples≠C-missing (both have them).
+@103155 invent/floor apples≠C-missing (both have them);
+@104217≠exercise modulus (was missing mfind0 / wizwhere pager).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

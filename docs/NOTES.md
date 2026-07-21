@@ -8,10 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**104217**. #1114: hitmu
-  mundetected “hidden under” fixed More/eat key-desync
-  (**103155→104217**). Next: C `rn2(19) @ exercise` vs JS `rn2(5)`.
-  Focused:
+- **Gameplay next (D-0928):** seed4500 @**104241**. #1115: `mfind0` +
+  `#wizwhere`/`print_dungeon(FALSE)` (prefix **104217→104241**).
+  Next: C `rn2(5) @ distfleeck` vs JS `rn2(20)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,24 +29,18 @@ Objective/score live in `CURRENT.md`.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
 - Do not treat @103155 getlev/`^V` as the cause — More/eat desync (#1113).
 - Do not ship inediate `is_edible` reject for FOOD_CLASS (#1113).
-- Do not chase invent/floor apple provenance as @103155 root — both have
-  them; bug was missing hitmu hidden-under More (#1114).
+- Do not treat @104217 as wrong `exercise` modulus — was stub `mfind0`
+  + unwired `#wizwhere` leaking pager `s` (#1115).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1110 Scr **10518**/11405 RNG **787753**/792838
-  (99.36%); speed `29+0.25/turn`; next cadence @**#1115**.
-- **D-0928 #1114:** hitmu hidden-under; prefix **103155→104217**
-  (runner RNG **104364** Scr **928**); next @**104217** exercise.
+- suite **42/44** @#1115 Scr **10516**/11405 RNG **788815**/792838
+  (99.49%); speed `31+0.24/turn`; next cadence @**#1120**.
+- **D-0928 #1115:** mfind0 + wizwhere; prefix **104217→104241**
+  (runner RNG **104252** Scr **926**); next @**104241** fleeck.
+- **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.
 - **D-0928 #1113:** eat key-desync misread (More not empty eat).
 - **D-0928 #1112:** ok_to_throw + mtimedone; was @**103155**.
 - **D-0928 #1111:** select_newcham random while; was @**103071**.
 - **D-0928 #1110:** eel minliquid monflee; was @**103071**.
-- **D-0928 #1109:** Blind FROMFORM; was @**101710**.
-- **D-0928 #1108:** eel mfndpos nexttry; was @**101641**.
-- **D-0928 #1107:** eel hideunder; was @**101616**.
-- **D-0928 #1106:** `u_rooted`; was @**101608**.
-- **D-0928 #1105…#1092:** passiveum / nolimbs / polyself / goodpos /
-  water / caitiff / Blind/wish / wait / dobuzz / I-glyph / flip.
-- **D-0927…D-0921:** F-prefix / blnd / breamm / invent / wakeup /
-  minetn-4 (see DIVERGENCE-INDEX).
+- **D-0928 #1109…#1092:** Blind FROMFORM / eel / u_rooted / …

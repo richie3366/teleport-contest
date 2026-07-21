@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 06:45 — #1115 mfind0 + wizwhere (score cadence)
+- Objective: public score @#1115; seed4500 @104217 exercise peel.
+- C locus: `detect.c` `mfind0`; `dungeon.c` `print_dungeon(FALSE)`; `wizcmds.c` `wiz_where`.
+- Change: port `mfind0` (search find-unseen → exercise); wire `#wizwhere` text pages so pager `s` does not leak into rhack.
+- Verification: suite **42/44** Scr **10516**/11405 RNG **788815**/792838 (99.49%) `31+0.24/turn`; prefix **104217→104241** (runner **104252** Scr **926**); green+strict PASS; cohort 5/5.
+- Next: @**104241** C fleeck vs JS `rn2(20)`.
+
 ## 2026-07-21 06:28 — #1114 hitmu hidden-under More
 - Objective: seed4500 @103155 invent/floor food vs C empty eat.
 - C locus: `mhitu.c` `hitmu` mundetected hides_under/eel reveal.
@@ -166,15 +173,3 @@ Use this shape:
   green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800 **7/7**.
 - Next: @**100421** `distfleeck` `rn2(5)` vs `rnd(79)`; cadence @#1105.
 
-## 2026-07-21 04:09 — #1100 public score + check_caitiff
-- Objective: mandatory full `sessions` score (@#1100 % 5 == 0);
-  seed4500 @95154 Erinys abuse (D-0928).
-- C locus: `uhitm.c` `check_caitiff` / `find_roll_to_hit`;
-  `dokick.c` `kickdmg`.
-- Change: port `check_caitiff` (knight helpless/flee + samurai
-  peaceful); wire from `find_roll_to_hit` and `kickdmg`. Prefix
-  **95154→100395** (FORCE abuse=2 canary matched).
-- Verification: suite **42/44** Scr **10516**/11405 RNG **785042**
-  (99.02%); seed4500 RNG **100479** Scr **926**; green+strict PASS;
-  cohort knight/samurai/kick **9/9**.
-- Next: @**100395** `gush` `rn2(3)` vs `rn2(20)`; cadence @#1105.

@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1114; **#1114** hitmu hidden-under)
-- **Session:** seed4500-knight-coverage (prefix @**104217**)
+- **Status:** partial (#1080–#1115; **#1115** mfind0 + wizwhere)
+- **Session:** seed4500-knight-coverage (prefix @**104241**)
+- **Symptom (@104217 was):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
+- **Cause (#1115):** C `s` finds unseen mon via `mfind0` →
+  `exercise(A_WIS,TRUE)` (“You feel an unseen monster!”). JS `mfind0`
+  was a stub `return 0`. Shipping `mfind0` alone regressed: `#wizwhere`
+  had no EXT_CMDS runner / `print_dungeon(FALSE)` stub, so pager keys
+  (`s`) leaked into `rhack` as search. Prerequisite: wire `#wizwhere` →
+  `print_dungeon(FALSE)` text pages (absorb keys).
+- **Fix (#1115):** `detect.js` `mfind0` from C; `dungeon.js`
+  `print_dungeon(false)` + `wizcmds.js` `wiz_where` + `getline.js`
+  EXT_CMDS. Prefix **104217→104241** (runner RNG **104252** Scr **926**).
+- **Next (@104241):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
 - **Symptom (@103155 was):** C `rn2(5) @ distfleeck` vs JS `rnd(10)`.
 - **Cause (#1114):** #1113 misread keys — C’s post-Count:40 `e`s are
   `--More--` quitchars, not empty eat. Both have floor 11 apples
@@ -18,7 +29,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1114):** `mhitu.js` `hitmu` — C mundetected hides_under/eel
   clear + Blind/`something` + `It`→`Something` pline + `newsym`.
   Prefix **103155→104217** (runner RNG **104364** Scr **928**).
-- **Next (@104217):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
+- **Next (@104217 was):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
 - **Symptom (@103155 #1113 DIAG):** looked like getlev after mold throw.
 - **Cause (#1113 DIAG):** falsified “post-refuse ^V” as root. Matched
   through Count:40 `.`. Misread C `e` as nothing-to-eat; inediate
