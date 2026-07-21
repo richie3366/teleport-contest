@@ -71,9 +71,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster (post-cadence):** pool-lava reach; `vault_gd_watching`;
-dig `furniture_handled` / HOLE `goto_level`. Also: `unturn_dead`
-invent revive; `hero_breaks` non-boulder; cancel worn ABON polish.
+**Next cluster:** dig `furniture_handled` / HOLE `goto_level`;
+`unturn_dead` invent revive; `hero_breaks` non-boulder; cancel worn
+ABON polish. Also: Ring_gone / float_up / rescham / choke(strangle).
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -85,7 +85,7 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0952. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0953. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
@@ -101,7 +101,9 @@ do not re-stub);
 **D-0951** (`use_pick_axe`/`dig` occupation/`is_digging`/`dig_typ`/
 `holetime` — do not re-stub);
 **D-0952** (break-wand strike/cancel/poly/tele/undead `bhitm` +
-`WAN_LIGHT` litroom — do not re-stub).
+`WAN_LIGHT` litroom — do not re-stub);
+**D-0953** (floorfood pool/lava reach + `vault_gd_watching` — do not
+re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

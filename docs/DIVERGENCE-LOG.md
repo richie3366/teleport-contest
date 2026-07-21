@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0953 — floorfood pool/lava reach + vault_gd_watching
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** floorfood ignored pool/lava reach gate; eating gold never
+  marked vault-guard witness (hostile verbalize path incomplete).
+- **Cause:** named constitutional debt (`debt.md` after D-0952) —
+  pool-lava skipfloor + `vault_gd_watching` deferred.
+- **C locus:** `eat.c` `floorfood` pool/lava+(Wwalking|clinger|
+  Flying&&!Breathless); `eat.c` `eatspecial` coin →
+  `vault_gd_watching(GD_EATGOLD)`; `vault.c` `vault_gd_watching` /
+  `gd_move` witness verbalize.
+- **JS:** `eat.js` reach helpers + skipfloor; `vault.js`
+  `vault_gd_watching` + gd_move consume/destroy pline; wire eatspecial.
+  Deferred: dig `furniture_handled` / HOLE `goto_level`; `unturn_dead`
+  invent revive; `hero_breaks` non-boulder; cancel worn ABON polish;
+  Ring_gone / float_up / rescham / choke(strangle).
+- **Verify:** green+strict; eat/vault/pool cohort 14/14 PASS.
+
 ## D-0952 — break-wand strike/cancel/poly/tele/undead bhit + litroom
 
 - **Status:** fixed (map-driven debt retirement)

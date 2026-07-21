@@ -10,7 +10,7 @@
 //         invent.c getobj; attrib.c poison_strdmg / gainstr;
 //         potion.c make_vomiting / make_glib;
 //         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
-// Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
+// Named omissions: floorfood cockatrice-feel;
 // hallu AD_STUN covered D-0943; corpse_intrinsic/givit covered D-0944;
 // were*/mimic/attrcurse covered D-0945 (set_mimic_blocking /
 // retouch_equipment / display_nhwindow WIN_MAP polish / livelog /
@@ -21,10 +21,11 @@
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath;
 // Fixed_abil Popeye Olive/Bluto;
-// vault_gd_watching(GD_EATGOLD); Ring_gone sink-fall / float_up /
+// Ring_gone sink-fall / float_up /
 // rescham / choke(strangle) / set_mimic_blocking / perceives polish;
 // livelog conduct; cprefx revive_corpse after rider death; cprefx
 // polymon stone-golem failure polish.
+// D-0953: floorfood pool/lava reach + vault_gd_watching(GD_EATGOLD).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -51,6 +52,7 @@ import {
     is_rider, is_undead, olfaction, is_giant,
     can_teleport, control_teleport, telepathic,
     flesh_petrifies, slimeproof, your_race, poly_when_stoned,
+    is_clinger, breathless, is_flyer,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
 } from './monsters.js';
@@ -75,12 +77,13 @@ import {
     ACID_RES, STONE_RES, TELEPAT, TELEPORT, TELEPORT_CONTROL, LAST_PROP,
     SEE_INVIS, INVIS, PROT_FROM_SHAPE_CHANGERS, LEVITATION, SLEEPY,
     M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
+    WWALKING, MAGICAL_BREATHING, FLYING, GD_EATGOLD, Is_waterlevel,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
     A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
-import { nomul, losehp, still_chewing } from './hack.js';
+import { nomul, losehp, still_chewing, is_pool, is_lava } from './hack.js';
 import { near_capacity, observe_object, makeknown } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
@@ -103,6 +106,7 @@ import { toggle_displacement, setworn } from './do_wear.js';
 import { attrcurse } from './sit.js';
 import { dismount_steed } from './steed.js';
 import { unpunish } from './read.js';
+import { vault_gd_watching } from './vault.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -765,22 +769,74 @@ async function getobj_eat() {
 }
 
 /**
+ * C ref: dbridge.c is_pool_or_lava — drawbridge-under deferred.
+ * @param {number} x
+ * @param {number} y
+ */
+function is_pool_or_lava(x, y) {
+    return is_pool(x, y) || is_lava(x, y);
+}
+
+/** C ref: youprop.h Wwalking — (H||E) && !waterlevel. */
+function Wwalking() {
+    const u = game.u || {};
+    const prop = u.uprops?.[WWALKING];
+    const bits = (prop?.intrinsic | 0) || (prop?.extrinsic | 0)
+        || (u.HWwalking | 0) || (u.EWwalking | 0);
+    return !!(bits && !Is_waterlevel(u.uz));
+}
+
+/**
+ * C ref: youprop.h Flying — (H||E||steed-flyer) && !B.
+ * @returns {boolean}
+ */
+function Flying() {
+    const u = game.u || {};
+    if (u.Flying) return true;
+    const prop = u.uprops?.[FLYING];
+    const blocked = (u.BFlying | 0) || (prop?.blocked | 0);
+    if (u.usteed && is_flyer(u.usteed.data) && !blocked) return true;
+    return !!(((u.HFlying | 0) || (u.EFlying | 0)
+        || (prop?.intrinsic | 0) || (prop?.extrinsic | 0))
+        && !blocked);
+}
+
+/** C ref: youprop.h Breathless — magical breathing || breathless(form). */
+function Breathless() {
+    const u = game.u || {};
+    const prop = u.uprops?.[MAGICAL_BREATHING];
+    if ((prop?.intrinsic | 0) || (prop?.extrinsic | 0)
+        || (u.HMagical_breathing | 0) || (u.EMagical_breathing | 0)) {
+        return true;
+    }
+    return breathless(hero_form_data());
+}
+
+/**
  * C ref: eat.c floorfood("eat", 0) — yn floor edibles, else invent getobj.
- * Branch envelope: can_reach_floor / !usteed / !menu_requested skip to
- * invent; metallivore beartrap + IRONBARS + floor gold ynq; edible floor
+ * Branch envelope: can_reach_floor / !usteed / !menu_requested /
+ * pool-lava+(Wwalking|clinger|(Flying&&!Breathless)) skip to invent;
+ * metallivore beartrap + IRONBARS + floor gold ynq; edible floor
  * FOOD (non-coin) ynq; invent getobj_eat.
- * Named omissions: pool/lava reach gate; will_feel_cockatrice;
+ * Named omissions: will_feel_cockatrice;
  * safe_qbuf ansimpleoname fallback; getobj_else "else" wording;
  * sacrifice/tin corpsecheck arms.
  */
 async function floorfood_eat() {
     const u = game.u || {};
-    // C: iflags.menu_requested || !can_reach_floor || usteed → skipfloor
-    // pool/lava + Wwalking/clinger/Flying deferred (named omission)
-    if (!game.flags?.menu_requested && can_reach_floor(true) && !u.usteed) {
-        const ux = u.ux | 0;
-        const uy = u.uy | 0;
-        const form = hero_form_data();
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const form = hero_form_data();
+    // C: menu_requested || !can_reach_floor || usteed ||
+    //    (pool/lava && (Wwalking || clinger || (Flying && !Breathless)))
+    //    → skipfloor
+    const skip_floor = !!(game.flags?.menu_requested
+        || !can_reach_floor(true)
+        || u.usteed
+        || (is_pool_or_lava(ux, uy)
+            && (Wwalking() || is_clinger(form)
+                || (Flying() && !Breathless()))));
+    if (!skip_floor) {
         // C: feeding && metallivorous — beartrap, bars, then gold
         if (metallivorous(form)) {
             const ttmp = t_at(ux, uy);
@@ -2232,10 +2288,11 @@ async function eataccessory(otmp) {
 /**
  * C ref: eat.c eatspecial — finish non-food meal: lesshungry + side
  * effects + useup.
- * Branch envelope: coin useupall/useupf; PAPER messages; dopotion;
- * eataccessory; leash o_unleash; trident/flint exercise; uwep/uqwep/
- * uswapwep gone; unpunish ball/chain; carried useup else useupf.
- * Named omissions: vault_gd_watching(GD_EATGOLD); SCR_MAIL ifdef;
+ * Branch envelope: coin useupall/useupf + vault_gd_watching(GD_EATGOLD);
+ * PAPER messages; dopotion; eataccessory; leash o_unleash;
+ * trident/flint exercise; uwep/uqwep/uswapwep gone; unpunish ball/chain;
+ * carried useup else useupf.
+ * Named omissions: SCR_MAIL ifdef;
  * artifact_light in uwepgone; Ring_gone/float_up/rescham/choke polish
  * inside eataccessory.
  */
@@ -2252,7 +2309,7 @@ async function eatspecial() {
     if (otmp.oclass === COIN_CLASS) {
         if (carried(otmp)) useupall(otmp);
         else useupf(otmp, otmp.quan || 1);
-        // vault_gd_watching(GD_EATGOLD) deferred
+        vault_gd_watching(GD_EATGOLD);
         return;
     }
 
