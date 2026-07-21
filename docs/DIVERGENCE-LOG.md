@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1130)
-- **Session:** seed4500-knight-coverage (prefix @**107470**)
+- **Status:** partial (#1080–#1131)
+- **Session:** seed4500-knight-coverage (prefix @**107645**)
+- **Hypothesis (#1131):** @107470 C `mhitm_ad_legs` `rn2(2)` vs JS
+  `rn2(3)` after matched fleeck/`mattacku`/`hitmu` `d(1,4)`. JS
+  `mhitm_adtyping_u` had no `AD_LEGS` case (default zeroed damage) so
+  a later `rn2(3)` occupied the slot.
+- **Fix (#1131):** `mhitu.js` `mhitm_ad_legs_u` from C `uhitm.c`
+  `mhitm_ad_legs` mhitu arm (side `rn2(2)`, steed/Lev/Fly reach,
+  mcan nuzzle, boots prick/scratch, `set_wounded_legs` + `exercise`
+  STR/DEX). Named: uhitm/mhitm arms; poly `body_part`.
+- **Verification (#1131):** green+strict PASS; cohort 6/6; prefix
+  **107470→107645** (runner RNG **107645** Scr **939**). Next:
+  @**107645** C `getbones` `rn2(3)` vs JS missing (early end).
 - **Hypothesis (#1130):** @107304 C `mcalcmove` `rn2(12)` vs JS
   `d(4,8)` after matched vamp fog `pickvampshape`. DIAG: same fog
   mndx but `mons()` returns a fresh object each call so

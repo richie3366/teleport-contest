@@ -24,7 +24,8 @@ focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1130** (42/44,
 Scr **10531**/11405, RNG **99.90%**). Next cadence @**#1135**.
 vs @#1125: Scr **10529→10531**, RNG **791421→792061** (#1129–#1130;
-seed4500 **107335→107498** Scr **941**).
+seed4500 **107335→107498** Scr **941**). Focused #1131 seed4500
+**107470→107645** RNG **107645** Scr **939** (AD_LEGS; suite not re-run).
 
 ## Score
 
@@ -48,7 +49,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 107498/108275 | 941/1814 | knight; @**107470** `mhitm_ad_legs` C `rn2(2)` vs JS `rn2(3)` |
+| seed4500 | 107645/108275 | 939/1814 | knight; @**107645** C `getbones` `rn2(3)` vs JS missing |
 
 ## Green gate
 
@@ -71,10 +72,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**107470** (D-0928). Symptom
-C `mhitm_ad_legs` `rn2(2)` vs JS `rn2(3)` after matched fleeck/
-`mattacku`/`hitmu`. #1130 fixed vamp fog→fog `dochng` (mons()
-fresh-object `!==`); prefix **107304→107470**.
+**Gameplay next:** **seed4500** @**107645** (D-0928). Symptom
+C `getbones` `rn2(3)` vs JS missing after AD_LEGS peel; JS emits
+exactly 107645 (session ends early vs C bones). #1131 ported
+`mhitm_ad_legs` mhitu; prefix **107470→107645**.
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -82,53 +83,14 @@ Focused:
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject);
-D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
-#1121 set_uasmon MR_* + getmattk lich cold; #1122 AT_MAGC castmu;
-#1123 castmu PSI_BOLT mdamageu/rehumanize; #1124 dowear
-verysmall/nohands; #1127 pickup multi/!pickup/notake gate;
-#1128 STRAT_APPEARMSG + mnexto rloc_to_flag / RLOC bits;
-#1129 nasty + SUMMON_MONS; #1130 vamp dochng/newcham mndx.
-**Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
-stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
-vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
-D-0923); re-add invent[] splice (D-0924); omit breamm/AT_BREA /
-fire-pool (D-0925); omit mhitm_ad_blnd (D-0926); silent F-prefix
-(D-0927); FORCE linedup/flip coords (D-0928 #1092); omit I-glyph
-rush / xkilled dobuzz / “fix” gethungry pray / Count:N `.` /
-annotation·hitmu·wiz Blind / peffect_extra_healing / FORCE abuse /
-omit caitiff·water_damage·goodpos u_at·polyself·nolimbs·passiveum·
-u_rooted·eel hide·mfndpos nexttry·Blind FROMFORM·minliquid monflee·
-cham while over-retry·ok_to_throw·mtimedone (#1093–#1112); ship
-inediate `is_edible` FOOD reject or chase getlev/`^V` / invent-food
-provenance as @103155 root (#1113–#1114 — More desync); omit
-`mfind0` / leave `#wizwhere` unwired (#1115); omit break_armor
-nohands shed (#1116); treat @104241 as umov Fast surplus root —
-was missing `carrying_too_much` (#1117); FORCE bat@46 +12 movement
-or treat @104705 as distfleeck/want_move rn2(4) (#1118 — early EOT
-shapeshift). Rejected:
-@95154 wish; @100699 namedesc; @101378 ston; @101391/@101608/@101616
-fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
-@103071≠2nd cham; @103155 throw≠fleeck; @103155 getlev≠root;
-@103155 invent/floor apples≠C-missing (both have them);
-@104217≠exercise modulus (was missing mfind0 / wizwhere pager);
-@104241≠Very_fast / FORCE VF/umov0 / shed≠capacity root /
-u_calc umov delta (C dump after=12 too);
-@104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift);
-@104705≠fmon-order alone — was missing S_BAT Inhell MFAST (#1119);
-@106304≠fleeck/lined_up root — was missing covetous `tactics` +
-fire-trap `destroy_items` (#1120);
-@106531≠wrong hitmu dice table — was missing poly `COLD_RES`
-FROMFORM + `getmattk` lich cold→PHYS (#1121);
-@106536≠choose_monster_spell bound — was missing `mattacku`
-AT_MAGC→`castmu` (#1122);
-@106540≠courage/distfleeck alone — PSI_BOLT must `mdamageu`/
-`rehumanize`; JS Unchanging wear was missing `dowear`
-verysmall/nohands (#1123–#1124);
-@106838≠literal `rn2(32)` / mfndpos-only — keystream/`k` vs `l`;
-C also double-pickup; root was STRAT_APPEARMSG + mnexto msgs (#1127–#1128);
-@106852≠omit `nasty` — missing SUMMON_MONS→`nasty` (#1129);
-@107304≠mcalcmove — fog→fog `dochng` via `mons()` `!==` (#1130).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1131 (bat MFAST … AD_LEGS).
+**Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
+omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
+reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@107470≠rn2(3) site — missing `mhitm_ad_legs` (#1131); @107304≠mcalcmove
+(#1130); @106852≠omit nasty (#1129); @106838≠rn2(32) (#1127–8);
+@106540≠fleeck alone (#1123–4); @106304≠fleeck (#1120); @104705≠fleeck
+(#1118–9); older rejects in D-0928 / NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

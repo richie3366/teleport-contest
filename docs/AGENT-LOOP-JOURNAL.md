@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 10:24 — #1131 mhitm_ad_legs mhitu; @107645 getbones
+- Objective: seed4500 @107470 C `mhitm_ad_legs` rn2(2) vs JS rn2(3).
+- C locus: `uhitm.c` `mhitm_ad_legs` (mhitu arm); `mhitm_adtyping`.
+- Change: ported `mhitm_ad_legs_u` + wired `AD_LEGS` in
+  `mhitm_adtyping_u` (was default-zero → later rn2(3)).
+- Verification: green+strict PASS; cohort 6/6; prefix
+  **107470→107645** (runner RNG **107645** Scr **939**).
+- Next: @**107645** C `getbones` rn2(3) vs JS missing; cadence @#1135.
+
 ## 2026-07-21 10:14 — #1130 score + vamp dochng mndx; @107470 legs
 - Objective: cadence full `sessions`; seed4500 @107304 mcalcmove vs d(4,8).
 - C locus: `mon.c` `decide_to_shapeshift`/`newcham` (`ptr != mon->data`).
@@ -154,10 +163,3 @@ Use this shape:
   JS overexertion vs C fleeck — fungus Fast roll0 leaves JS umov=12.
 - Verification: green+strict PASS; cohort 4/4; prefix still **104241**.
 - Next: C-state umovement/wtcap at that u_calc; cadence @#1120.
-
-## 2026-07-21 06:45 — #1115 mfind0 + wizwhere (score cadence)
-- Objective: public score @#1115; seed4500 @104217 exercise peel.
-- C locus: `detect.c` `mfind0`; `dungeon.c` `print_dungeon(FALSE)`; `wizcmds.c` `wiz_where`.
-- Change: port `mfind0` (search find-unseen → exercise); wire `#wizwhere` text pages so pager `s` does not leak into rhack.
-- Verification: suite **42/44** Scr **10516**/11405 RNG **788815**/792838 (99.49%) `31+0.24/turn`; prefix **104217→104241** (runner **104252** Scr **926**); green+strict PASS; cohort 5/5.
-- Next: @**104241** C fleeck vs JS `rn2(20)`.
