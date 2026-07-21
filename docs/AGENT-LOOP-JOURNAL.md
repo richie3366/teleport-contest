@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
+
+- Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.
+- C locus: `dungeon.c` `print_dungeon` `NHW_MENU` putstr;
+  `wintty.c` `dmore` offset 2 (not NHW_TEXT offset 1).
+- Change: `dungeon.js` `print_dungeon(FALSE)` → `show_nhw_menu_text`
+  (D-0928 #1183).
+- Verification: green+strict PASS; cohort 7/7; Scr **1724→1732**;
+  first miss **@1650→@1658**.
+- Next: @**1658** map open-door `/` vs wall `#`.
+
 ## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
 
 - Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.

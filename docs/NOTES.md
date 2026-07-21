@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1650** — `#wizwhere` overview
-  C ` --More--` (col9) vs JS `--More--` (col8). Focused:
+- **Primary (D-0928):** seed4500 @**1658** — map C `/` (open door) vs
+  JS `#` (wall) at `#/FI#` water row. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C tty More leading-space / menu putstr (prefer dump — §7).
+  Falsify: C door open/doopen / mapseen / newsym after wizwhere (§7 dump).
 
 ## Don't re-check (≤15)
 
@@ -22,6 +22,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1650 `#wizwhere` More as NHW_TEXT `show_text_pages`
+  — C `print_dungeon` always NHW_MENU; dmore offset 2 (#1183).
 - Do not treat @1625 Kabalebo "not near enough" as shop nearness FORCE
   — was Blind `dopay` `canspotmon` seensk stub (#1182).
 - Do not treat @1573 challenges More r11 vs r20 as leftover WIN_MESSAGE
@@ -33,13 +35,14 @@ Objective/score live in `CURRENT.md`.
   polymon `vision_full_recalc` (#1178).
 - Do not treat @1438 poly botl as deferred bot — float_vs_flight (#1177).
 - Do not treat @1347 `$` as S_goodpos — SHOWVALID (#1176).
-- Do not treat @1344 blank as WIN_STOP — untrap getdir (#1175).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1180 Scr **11312**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1185**.
+- **D-0928 #1183:** `#wizwhere` → `show_nhw_menu_text` (NHW_MENU);
+  prefix **@1650→@1658**; Scr **1724→1732**.
 - **D-0928 #1182:** `dopay` Blind/`canspotmon`/`You_cant("see...")`;
   prefix **@1625→@1650**; Scr **1723→1724**.
 - **D-0928 #1181:** `show_achievements` + `record_achievement`;

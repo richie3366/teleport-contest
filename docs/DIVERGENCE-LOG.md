@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1182)
+- **Status:** partial (#1080–#1183)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1724**/1814)
+  Scr **1732**/1814)
+- **Hypothesis (#1183):** @1650 — C `#wizwhere` footer ` --More--`
+  (leading blank, cursor col9) vs JS `--More--` (col8). C
+  `print_dungeon` always `create_nhwindow(NHW_MENU)` + putstr +
+  `display_nhwindow` → `dmore` offset **2**; JS #1115 used
+  `show_text_pages` (NHW_TEXT offset **1**).
+- **Fix (#1183):** `dungeon.js` `print_dungeon(FALSE)` →
+  `show_nhw_menu_text` (same NHW_MENU path as look_here/checkfile).
+  Invocation/portal debug putstr lines still deferred.
+- **Verification (#1183):** green+strict PASS; cohort 7/7; focused
+  Scr **1724→1732**; first miss **@1650→@1658** (map `/` vs `#`).
+- **Do not:** route `#wizwhere` through NHW_TEXT `show_text_pages`.
 - **Hypothesis (#1182):** @1625 — C topline `You can't see...` vs JS
   `Kabalebo is not near enough to receive your payment.` Blind hero
   `p`ay; C `dopay` counts `canspotmon` into `seensk` and, when Blind
@@ -46,8 +57,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `canspotmon`. Multi-shk getpos / debit / robbed still deferred.
 - **Verification (#1182):** green+strict PASS; cohort 7/7
   (8000/0900/1500/1800/0060/0102/0002); focused Scr **1723→1724**;
-  first miss **@1625→@1650**. Next: @**1650** `#wizwhere` More
-  ` --More--` (leading space / cursor col) vs `--More--`.
+  first miss **@1625→@1650**.
 - **Do not:** treat @1625 as shop nearness FORCE — root was Blind
   `canspotmon` seensk stub.
 - **Hypothesis (#1181):** @1573 — Voluntary challenges `--More--` at
