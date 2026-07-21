@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 03:45 — #1097 annotation + hitmu stop + wiz Blind
+- Objective: seed4500 @90492 post-feel key desync (D-0928).
+- C locus: `dungeon.c` `print_level_annotation`; `mhitu.c` `hitmu`
+  `stop_occupation`; `hack.c` `monster_nearby`/`canspotmon`;
+  `wizcmds.c` BLINDED → `make_blinded` (no Timeout pline).
+- Change: wire annotation from `goto_level`; always stop_occupation
+  in hitmu; nearby via canspotmon; wiz BLINDED silent when Blind.
+- Verification: prefix **90492→90543**; RNG **91186** Scr **841**;
+  green+strict PASS; cohort 7/7.
+- Next: @90543 C `peffect_extra_healing` `d(4,8)` vs JS `rn2(12)`.
+
 ## 2026-07-21 03:37 — #1096 Count:N . wait + Blind feel
 - Objective: seed4500 @89775 early `#pray` cmd/key desync (D-0928).
 - C locus: `cmd.c` `parse`/`set_occupation`/`timed_occupation` +

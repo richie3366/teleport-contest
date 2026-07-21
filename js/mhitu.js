@@ -1011,7 +1011,10 @@ async function hitmu(mtmp, mattk) {
         await mdamageu(mtmp, mhm.damage);
     }
 
+    // C: hitmu always stop_occupation() after hit (even damage 0) —
+    // Blind Count:N . wait must get "You stop waiting." (D-0928)
     // passiveum deferred — human L1 has no passive
+    await stop_occupation();
     return M_ATTK_HIT;
 }
 

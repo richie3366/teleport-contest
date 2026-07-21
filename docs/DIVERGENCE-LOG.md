@@ -6,8 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1095; **#1096** Count:N `.` wait + Blind feel)
-- **Session:** seed4500-knight-coverage (prefix @**90492**)
+- **Status:** partial (#1080–#1096; **#1097** annotation/wait/wiz Blind)
+- **Session:** seed4500-knight-coverage (prefix @**90543**)
+- **Symptom (was @90492):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
+  Post-tiger-kill keys desynced (JS More late / space→Unknown).
+- **Cause (#1097):** (1) `goto_level` omitted `print_level_annotation`
+  → missing "remember … as starting level.--More--" after ^V→1.
+  (2) `hitmu` omitted always-`stop_occupation` → Blind Count:N `.`
+  never "You stop waiting" → extra hits wrap `--More--` eating
+  Count:99 / `#wizintrinsic` keys. (3) `#wizintrinsic` BLINDED used
+  generic Timeout pline (C `make_blinded` silent when already Blind).
+  Also: `monster_nearby` used `cansee` not `canspotmon`.
+- **Fix (#1097):** `dungeon.js` `print_level_annotation` from
+  `goto_level`; `mhitu.js` `hitmu` → `stop_occupation`; `hack.js`
+  `monster_nearby` → `canspotmon`; `wizcmds.js` BLINDED no Timeout
+  pline.
+- **Next (@90543):** C `d(4,8) @ peffect_extra_healing` vs JS
+  `rn2(12)` (wish path).
 - **Symptom (was @89775):** C `rn2(20) @ gethungry` vs JS `rn2(67)`.
   JS raced keystream to early `#pray` @89766 during C’s Count:20 wait.
 - **Cause (#1096):** (1) `parse` never set `multi = count-1`; counted
@@ -18,9 +33,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1096):** `rhack` parse sets `multi`; `.`/`rest_on_space` →
   `set_occupation(donull,'waiting',multi)`; `look_here` Blind feel
   verb/menu + floor pline (`invent.c`).
-- **Next (@90492):** C `distfleeck` vs JS `rn2(20)` — post-tiger-kill
-  Blind feel `--More--` key sync (space leaked to rhack; JS on `e`
-  while C still on post-feel `h`). Do not treat as wait regression.
 - **Cause (#1095):** not `gethungry`; early JS `dopray` @89766
   `p_type=3`→`uinvulnerable` (symptom of #1096 key race).
 - **Rejected (#1095/#1096):** clear invuln to paper over early `#pray`;
@@ -32,6 +44,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
   `domove_fight_empty`.
 - **Rejected (keep):** FORCE linedup/mux/place/FlipX last=77 (#1092).
+- **Verification (#1097):** prefix **90492→90543**; RNG **91186**
+  Scr **841**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+  0700/1150/1800 **7/7**.
 - **Verification (#1096):** prefix **89775→90492**; RNG **90604**
   Scr **815**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.

@@ -70,12 +70,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**90492** (D-0928). **#1096:**
-`parse` `multi=count-1` + `set_occupation(donull,"waiting")` for
-Count:N `.`; Blind `look_here` feel pline/verb. Prefix
-**89775→90492**; RNG **90604**/108275 Scr **815**/1814. Next:
-post-tiger-kill Blind feel `--More--` (space→rhack; JS `e` vs C
-`distfleeck`). Focused:
+**Gameplay next:** **seed4500** @**90543** (D-0928). **#1097:**
+`print_level_annotation` + `hitmu` `stop_occupation` +
+`monster_nearby` `canspotmon` + `#wizintrinsic` BLINDED silent.
+Prefix **90492→90543**; RNG **91186**/108275 Scr **841**/1814.
+Next: @90543 C `peffect_extra_healing` `d(4,8)` vs JS `rn2(12)`
+(wish path). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -104,8 +104,9 @@ restore-w78 / last=77 (D-0928 #1092); omit remembered-`I`
 `dobuzz` `type < 0` mon death (D-0928 #1094); “fix” gethungry
 while mid-wrong `#pray` / clear `uinvulnerable` to paper over
 early `dopray` (D-0928 #1095); omit Count:N `.` `timed_occupation`
-or Blind `look_here` feel (D-0928 #1096); treat @90492 as wait
-regression (feel More key sync).
+or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
+/ `hitmu` always-`stop_occupation` / wiz BLINDED Timeout pline
+(D-0928 #1097); treat @90543 as wait/feel/wiz regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

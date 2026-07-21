@@ -33,7 +33,7 @@ import {
     fumaroles,
     movebubbles,
 } from './mklev.js';
-import { In_tutorial, at_dgn_entrance } from './dungeon.js';
+import { In_tutorial, at_dgn_entrance, print_level_annotation } from './dungeon.js';
 import { Is_waterlevel, Is_airlevel } from './const.js';
 import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
@@ -761,6 +761,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         more_experienced(depth(u.uz) | 0, 0);
         await newexplevel();
     }
+
+    // C: print_level_annotation() before check_special_room / pickup
+    // (dungeon.c — #annotate custom → "You remember this level as …")
+    await print_level_annotation();
 
     // C: goto_level — room entrance messages before pickup
     await check_special_room(false);
