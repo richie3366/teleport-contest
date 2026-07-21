@@ -1,3 +1,22 @@
+## 2026-07-21 11:55 — #1138 doset fruit getlin + menu page keys
+- Objective: seed4500 @237 `Set fruit to what?` vs Options.
+- C locus: `options.c` doset_simple_menu Comp getlin/`optfn_fruit`;
+  `wintty.c` MENU_NEXT_PAGE `>` (space finishes last; `>` does not).
+- Change: `doset_compound_via_getlin` + fruitadd subset; pick_one
+  `>`/`<`/`^`/`|`; `give_opt_msg=false` in doset_simple.
+- Verification: green+strict PASS; cohort 6/6; Scr **954→966**.
+- Next: seed4500 screen peel (Scr **966**/1814).
+
+## 2026-07-21 11:40 — #1137 getpos flush_screen(0) last-glyph curs
+- Objective: seed4500 @195 jump cursor (cells OK).
+- C locus: `getpos.c` curs+`flush_screen(0)`; `getpos_sethilite`
+  force-newsyms; `wintty.c` print_glyph advances past map_x.
+- Change: force-newsyms on getvalid change; `flush_screen_getpos_dirty`;
+  clear `gnew` on full rebuild; pre-loop dirty flush (later iters full).
+- Verification: green+strict PASS; cohort 6/6; Scr **950→954**; @195 match.
+- Next: @**237** `Set fruit to what?` vs Options.
+
+
 ## 2026-07-20 19:45 — #1036 D-0883…D-0885 take-off AC + nymph flee
 - Objective: seed0014 @415 botl AC after shield take-off; @416–417 steal.
 - C locus: `do_wear.c` `armoroff` (no find_ac); `steal.c`

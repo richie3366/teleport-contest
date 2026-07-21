@@ -20,6 +20,16 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:26 — #1152 mkstairs dunlev-end no-op
+- Objective: seed4500 @814 C floor vs JS stair `<` on Mines map.
+- C locus: `mklev.c` `mkstairs` — no stairs off dungeon ends
+  (`dunlev==1` up / botlevel down); minefill `des.stair("up")`.
+- Change: `mklev.js` `mkstairs` early-return + `generate_stairs`
+  skip down on `Is_botlevel`. Branch via `place_branch` unchanged.
+- Verification: green+strict PASS; cohort 14/14; Scr **1366→1386**;
+  prefix **@814→@831**.
+- Next: @**831** C `You hear the howling of the CwnAnnwn...--More--`.
+
 ## 2026-07-21 13:16 — #1151 teleds placebc + overlay topline
 - Objective: seed4500 @789 C `Things that are here:` chain/ball
   `--More--` vs JS map-only after ^T stairs.
@@ -151,22 +161,4 @@ Use this shape:
   statue/figurine bare type (not "of a …").
 - Verification: green+strict PASS; cohort 6/6; Scr **966→969**.
 - Next: @**372** `scrolls labeled KIRJE` vs `scroll labeled KIRJEs`.
-
-## 2026-07-21 11:55 — #1138 doset fruit getlin + menu page keys
-- Objective: seed4500 @237 `Set fruit to what?` vs Options.
-- C locus: `options.c` doset_simple_menu Comp getlin/`optfn_fruit`;
-  `wintty.c` MENU_NEXT_PAGE `>` (space finishes last; `>` does not).
-- Change: `doset_compound_via_getlin` + fruitadd subset; pick_one
-  `>`/`<`/`^`/`|`; `give_opt_msg=false` in doset_simple.
-- Verification: green+strict PASS; cohort 6/6; Scr **954→966**.
-- Next: seed4500 screen peel (Scr **966**/1814).
-
-## 2026-07-21 11:40 — #1137 getpos flush_screen(0) last-glyph curs
-- Objective: seed4500 @195 jump cursor (cells OK).
-- C locus: `getpos.c` curs+`flush_screen(0)`; `getpos_sethilite`
-  force-newsyms; `wintty.c` print_glyph advances past map_x.
-- Change: force-newsyms on getvalid change; `flush_screen_getpos_dirty`;
-  clear `gnew` on full rebuild; pre-loop dirty flush (later iters full).
-- Verification: green+strict PASS; cohort 6/6; Scr **950→954**; @195 match.
-- Next: @**237** `Set fruit to what?` vs Options.
 

@@ -6,9 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1151)
+- **Status:** partial (#1080–#1152)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1366**/1814)
+  Scr **1386**/1814)
+- **Hypothesis (#1152):** @814 C floor `·` vs JS stair `<` at map
+  (40,16) after Mines fall — `minefill` `des.stair("up")` →
+  `mkstairs` lacked C’s end-of-dungeon no-op (`dunlev==1` for up),
+  so JS planted a bogus upstairs to `dlevel:0` at (41,15) that
+  `docrt` drew as `<`.
+- **Fix (#1152):** `mklev.js` `mkstairs` early-return when up on
+  dlevel 1 or down on `Is_botlevel`; `generate_stairs` skips the
+  down block on botlevel (C order). Branch stairs still via
+  `place_branch`/`stairway_add`. Terrain/force/`impossible` arms
+  still deferred.
+- **Verification (#1152):** green+strict PASS; cohort 14/14; Scr
+  **1366→1386**; prefix **@814→@831**. Next: @**831** C
+  `You hear the howling of the CwnAnnwn...--More--` vs JS staircase
+  getpos topline.
 - **Hypothesis (#1151):** @789 C `Things that are here:` iron chain/ball
   `--More--` vs JS map-only — `teleds` omitted Punished
   `unplacebc`/`placebc` (ball stayed at old cell; `check_here`
