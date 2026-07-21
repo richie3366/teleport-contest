@@ -6,8 +6,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1115; **#1115** mfind0 + wizwhere)
+- **Status:** partial (#1080–#1116; **#1116** break_armor nohands shed)
 - **Session:** seed4500-knight-coverage (prefix @**104241**)
+- **Symptom (@104241):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`
+  (`overexertion`→`gethungry`) — extra hero turn after matched EOT.
+- **Cause (#1116 DIAG):** brown-mold poly; C Fast `u_calc` `rn2(3)=0`
+  (allmain.c:131) with `mmove=0` leaves C `umovement<NORMAL_SPEED`
+  (mons continue) while JS ends at 12 (hero attacks). Rejected:
+  Very_fast (C provenance is Fast branch); FORCE VF/`umov=0` only
+  symptom-matches. Glove/helm shed fixes C messages but both stay
+  OVERLOADED — not the umov delta alone.
+- **Fix (#1116):** `polyself.js` `break_armor` — C `nohands`/`verysmall`
+  gloves (+`drop_weapon(0)`), shield, helm; boots for nohands/
+  verysmall/slithy/centaur. Export `Helmet_off`/`Gloves_off`/
+  `Boots_off`/`Shield_off`. Named omit: horns/flimsy-helm pierce;
+  `ublindf` !has_head; `surface()`→"ground"; racial_exception.
+- **Verification:** green+strict PASS; cohort 4/4 PASS; prefix still
+  **104241** (runner path unchanged at fleeck).
+- **Next (@104241):** C-state `umovement`/`mvl_wtcap` at that
+  `u_calc` (why C after `<12` with Fast+roll0+mmove0+OVERLOADED).
 - **Symptom (@104217 was):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
 - **Cause (#1115):** C `s` finds unseen mon via `mfind0` →
   `exercise(A_WIS,TRUE)` (“You feel an unseen monster!”). JS `mfind0`
@@ -18,7 +35,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1115):** `detect.js` `mfind0` from C; `dungeon.js`
   `print_dungeon(false)` + `wizcmds.js` `wiz_where` + `getline.js`
   EXT_CMDS. Prefix **104217→104241** (runner RNG **104252** Scr **926**).
-- **Next (@104241):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
+- **Next (@104241 was):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
 - **Symptom (@103155 was):** C `rn2(5) @ distfleeck` vs JS `rnd(10)`.
 - **Cause (#1114):** #1113 misread keys — C’s post-Count:40 `e`s are
   `--More--` quitchars, not empty eat. Both have floor 11 apples

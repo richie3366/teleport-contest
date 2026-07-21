@@ -8,10 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**104241**. #1115: `mfind0` +
-  `#wizwhere`/`print_dungeon(FALSE)` (prefix **104217→104241**).
-  Next: C `rn2(5) @ distfleeck` vs JS `rn2(20)`. Focused:
-  `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
+- **Gameplay next (D-0928):** seed4500 @**104241**. #1116: `break_armor`
+  nohands gloves/helm/shield/boots (C mold messages). Still @**104241**:
+  JS hero `overexertion`→`gethungry` `rn2(20)` vs C `distfleeck`.
+  Fungus Fast `rn2(3)=0` → JS `umov=12`; C continues mons (`umov<12`).
+  Falsify: C dump `umovement`/`mvl_wtcap` at `u_calc` after that roll.
+  Focused: `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
 
@@ -31,16 +33,18 @@ Objective/score live in `CURRENT.md`.
 - Do not ship inediate `is_edible` reject for FOOD_CLASS (#1113).
 - Do not treat @104217 as wrong `exercise` modulus — was stub `mfind0`
   + unwired `#wizwhere` leaking pager `s` (#1115).
+- Do not treat @104241 as Very_fast vs Fast — C log is allmain.c:131 Fast;
+  FORCE VF/umov0 is symptom-only; glove shed ≠ capacity tier root (#1116).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1115 Scr **10516**/11405 RNG **788815**/792838
   (99.49%); speed `31+0.24/turn`; next cadence @**#1120**.
-- **D-0928 #1115:** mfind0 + wizwhere; prefix **104217→104241**
-  (runner RNG **104252** Scr **926**); next @**104241** fleeck.
+- **D-0928 #1116:** break_armor nohands shed; still @**104241** fleeck
+  vs overexertion; next u_calc umov fungus Fast.
+- **D-0928 #1115:** mfind0 + wizwhere; prefix **104217→104241**.
 - **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.
 - **D-0928 #1113:** eat key-desync misread (More not empty eat).
 - **D-0928 #1112:** ok_to_throw + mtimedone; was @**103155**.
 - **D-0928 #1111:** select_newcham random while; was @**103071**.
-- **D-0928 #1110:** eel minliquid monflee; was @**103071**.
-- **D-0928 #1109…#1092:** Blind FROMFORM / eel / u_rooted / …
+- **D-0928 #1110…#1092:** eel / Blind FROMFORM / …

@@ -71,11 +71,13 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**104241** (D-0928). **#1115:**
-`mfind0` + `#wizwhere`/`print_dungeon(FALSE)` — search find-unseen
-exercise; pager absorbs keys so leaked `s` no longer false-searches.
-Prefix **104217→104241** (runner RNG **104252** Scr **926**). Next: C
-`rn2(5) @ distfleeck` vs JS `rn2(20)`. Focused:
+**Gameplay next:** **seed4500** @**104241** (D-0928). **#1116:**
+`break_armor` nohands/verysmall gloves·helm·shield·boots (C mold
+shed). Prefix still **104241** — JS `overexertion`/`gethungry` rn2(20)
+while C `distfleeck` (extra hero turn). Fungus `mmove=0` + Fast
+`rn2(3)=0` → JS `umovement=12`; C stays `<12`. Next: why C
+`u_calc` after that roll leaves `umovement<NORMAL_SPEED` (enter-tick
+surplus / wtcap). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -101,7 +103,9 @@ provenance as @103155 root (#1113–#1114 — More desync); omit
 fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
 @103071≠2nd cham; @103155 throw≠fleeck; @103155 getlev≠root;
 @103155 invent/floor apples≠C-missing (both have them);
-@104217≠exercise modulus (was missing mfind0 / wizwhere pager).
+@104217≠exercise modulus (was missing mfind0 / wizwhere pager);
+@104241≠Very_fast (C provenance allmain.c:131 Fast); FORCE VF/umov0
+only symptom-matches; shed gloves alone ≠ root (still OVERLOADED).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -13,7 +13,9 @@ import {
 } from './attrib.js';
 import { newpw, rndexp, setuhpmax } from './exper.js';
 import { find_ac } from './u_init.js';
-import { setworn } from './do_wear.js';
+import {
+    setworn, Helmet_off, Gloves_off, Boots_off, Shield_off,
+} from './do_wear.js';
 import { dropx, canletgo } from './do.js';
 import { setuwep, setuswapwep } from './wield.js';
 import { races } from './roles.js';
@@ -45,6 +47,7 @@ import {
     is_vampshifter,
     haseyes,
     MZ_SMALL,
+    M1_SLITHY,
 } from './monsters.js';
 import {
     POLY_CONTROLLED,
@@ -61,6 +64,10 @@ import {
     W_ARM,
     W_ARMC,
     W_ARMU,
+    W_ARMG,
+    W_ARMH,
+    W_ARMS,
+    W_ARMF,
     In_endgame,
     MAXULEV,
     FROMFORM,
@@ -147,6 +154,11 @@ function sliparm(ptr) {
 function breakarm(ptr) {
     if (sliparm(ptr)) return false;
     return !!(bigmonst(ptr) || ((ptr?.msize ?? 0) > MZ_SMALL && !humanoid(ptr)));
+}
+
+/** C ref: mondata.h slithy — M1_SLITHY */
+function slithy(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_SLITHY);
 }
 
 /**
@@ -478,8 +490,9 @@ async function drop_weapon(alone) {
  * C ref: polyself.c break_armor — sliparm / breakarm gear shedding.
  * setworn(..., {skip_find_ac}) matches C worn.c (no find_ac); polymon
  * calls find_ac after encumber_msg so --More-- keeps cached AC.
- * Named omissions: mummy wrapping / alchemy smock / horns / gloves /
- * boots / shield / racial_exception; donning cancel; end_burn DSM.
+ * Named omissions: mummy wrapping / alchemy smock / horns / flimsy-helm
+ * pierce; racial_exception; donning cancel; end_burn DSM; ublindf
+ * !has_head; surface()→"ground".
  */
 async function break_armor() {
     const u = game.u || {};
@@ -536,6 +549,49 @@ async function break_armor() {
             dropx(shirt);
         }
     }
+    // C: has_horns helm pierce / drop — deferred (named omit)
+
+    // C: nohands || verysmall → gloves, shield, helm
+    if (nohands(uptr) || verysmall(uptr)) {
+        const gloves = u.uarmg;
+        if (gloves) {
+            // C: Drop weapon along with gloves
+            await pline(`You drop your gloves${u.uwep ? ' and weapon' : ''}!`);
+            await drop_weapon(0);
+            Gloves_off();
+            dropx(gloves);
+        }
+        const shield = u.uarms;
+        if (shield) {
+            await pline('You can no longer hold your shield!');
+            Shield_off();
+            dropx(shield);
+        }
+        const helm = u.uarmh;
+        if (helm) {
+            // C: helm_simple_name + surface() — "helm" / "ground" stand-in
+            await pline('Your helm falls to the ground!');
+            Helmet_off();
+            dropx(helm);
+        }
+    }
+
+    // C: nohands || verysmall || slithy || centaur → boots
+    if (nohands(uptr) || verysmall(uptr)
+        || slithy(uptr) || uptr.mlet === 'S_CENTAUR') {
+        const boots = u.uarmf;
+        if (boots) {
+            if (is_whirly(uptr)) {
+                await pline('Your boots fall away!');
+            } else {
+                const how = verysmall(uptr) ? 'slide' : 'are pushed';
+                await pline(`Your boots ${how} off your feet!`);
+            }
+            Boots_off();
+            dropx(boots);
+        }
+    }
+    // C: ublindf without has_head — deferred
 }
 
 /**
@@ -546,9 +602,9 @@ async function break_armor() {
  * find_ac; newsym; botl; see_monsters; encumber_msg; verbose breath tip.
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
  * Blind restore; egg learn; swallow expel; light sources;
- * full skinback; livelog first-poly text; break_armor horns/gloves/
- * boots/shield; drop_weapon twoweapon/in_use arms; retouch_equipment;
- * non-breath verbose tips; vision_full_recalc.
+ * full skinback; livelog first-poly text; break_armor horns /
+ * flimsy-helm pierce / ublindf; drop_weapon twoweapon/in_use arms;
+ * retouch_equipment; non-breath verbose tips; vision_full_recalc.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
