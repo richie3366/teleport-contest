@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0936 | fixed | `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold | map-driven debt; green+eat cohort PASS |
 | D-0935 | fixed | `start_tin`/`opentin`/`consume_tin` + multi-turn rations | map-driven debt; green+eat cohort PASS |
 | D-0934 | fixed | recorder `get_configfile` default (CONSTITUTION §1.2) | suite **44**/44 @#1200; seed2200 Scr **230**/230 |
 | D-0933 | fixed | NHW_TEXT paint ≤cols−1 (`process_text_window`) | #1199; path closed by D-0934 |

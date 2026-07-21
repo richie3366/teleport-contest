@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0936 — `is_edible` poly diets + `doeat_nonfood` / floor gold
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** `is_edible` FOOD-only; non-FOOD `doeat` stubbed; floorfood
+  skipped metallivore gold yn.
+- **Cause:** named constitutional debt in `eat.js` / `debt.md`.
+- **C locus:** `eat.c` `is_edible`, `doeat_nonfood`, `eatspecial`,
+  `foodword`, `floorfood` gold arm; `objclass.h` `is_metallic` /
+  `is_organic`; `invent.c` `g_at` / `useupall` / `useupf`.
+- **Change:** port poly diet `is_edible`; `foodword` + `doeat_nonfood` +
+  core `eatspecial`; floorfood metallivore gold; export
+  `g_at`/`is_metallic`/`is_organic` from `mkobj.js`. Deferred:
+  beartrap/bars/`still_chewing`; eatspecial PAPER/potion/ring/amulet/
+  leash/uwepgone/unpunish/vault_gd; tin `costly_tin`/`use_tin_opener`;
+  full `cprefx`.
+- **Verification:** green+strict PASS; eat cohort 8/8 (1800/0016/0105/
+  0014/1500/0360).
+- **Next:** hold fortress; next `debt.md`/`absent.md` cluster.
+
 ## D-0935 — TIN `start_tin` / `opentin` / `consume_tin` + multi-turn rations
 
 - **Status:** fixed (map-driven debt retirement)

@@ -81,12 +81,12 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0935. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0936. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
-**D-0931**; **D-0932**; **D-0933**; **D-0934**; **D-0935** (TIN
-`start_tin`/`consume_tin` + multi-turn rations — do not re-stub).
+**D-0931**; **D-0932**; **D-0933**; **D-0934**; **D-0935**; **D-0936**
+(`is_edible` poly + `doeat_nonfood` — do not re-stub non-food).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

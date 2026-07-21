@@ -13,10 +13,11 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0935** TIN `start_tin`/`opentin`/`consume_tin` +
-  multi-turn rations (debt.md). Falsifier: green + eat cohort PASS.
-- Next cluster: metallivore floorfood / full `cprefx` / tin
-  `costly_tin`+`use_tin_opener` / other `debt.md` row.
+- Latest: **D-0936** `is_edible` poly diets + `doeat_nonfood` /
+  `eatspecial` / `foodword` + floorfood gold (debt.md). Falsifier:
+  green + eat cohort PASS.
+- Next cluster: metallivore beartrap/bars/`still_chewing`; full
+  `cprefx`; tin `costly_tin`+`use_tin_opener`; other `debt.md` row.
 
 ## Don't re-check (≤15)
 
@@ -37,13 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1770 as Norep/parse-clear alone (#1192).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN / multi-turn rations (D-0935).
+- Do not re-stub TIN / multi-turn rations (D-0935) or non-food eat
+  (D-0936).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1200**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (seed2200 suite-confirmed D-0934).
+- **D-0936:** `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold.
 - **D-0935:** TIN open/consume + multi-turn `eatfood` rations.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
 - **D-0933 #1199:** NHW_TEXT paint ≤cols−1.

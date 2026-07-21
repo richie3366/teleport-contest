@@ -1,31 +1,43 @@
 // eat.js — Eat command (getobj / doeat; fortune cookie + reqtime-1 food +
 //           CORPSE eatcorpse / start_eating / eatfood occupation; TIN
-//           start_tin / opentin / consume_tin).
+//           start_tin / opentin / consume_tin; metallivore non-food).
 // C ref: eat.c doeat / floorfood / touchfood / fprefx / eatcorpse /
 //         start_eating / bite / eatfood / done_eating / lesshungry /
 //         morehungry / vomit / obj_nutrition / is_edible / gethungry
 //         (metabolic uhunger-- + accessorytime Regen/encumb/Hunger/Conflict);
+//         doeat_nonfood / eatspecial / foodword;
 //         start_tin / opentin / consume_tin / tin_variety / use_up_tin;
 //         invent.c getobj; attrib.c poison_strdmg / gainstr;
 //         potion.c make_vomiting / make_glib.
-// Named omissions: floorfood metallivore bars/gold/pool-lava/cockatrice-feel;
-// full cprefx; cpostfx specials (wraith/were/nurse/stalker/…); corpse_intrinsic
-// / givit; hallu from AD_STUN/AD_HALU; tainted Sick; slime/stone; make_blinded
-// body / Hear_again afternmv / foodword poly; sellobj_state on invent-full
-// dropy; costly_alteration COST_BITE; ?/* menu; multi-turn choke/newuhs
-// messages; gethungry ring/amulet accessorytime + newuhs; losestr setuhpmax /
-// terminal-frailty full death path; vomit cantvomit/Sick/FAINTING/acid-breath;
-// tin costly_tin shop billing; otrapped b_trapped; use_tin_opener apply;
-// Fixed_abil Popeye Olive/Bluto; livelog conduct.
+// Named omissions: floorfood metallivore beartrap/bars/pool-lava/
+// cockatrice-feel; full cprefx; cpostfx specials (wraith/were/nurse/
+// stalker/…); corpse_intrinsic / givit; hallu from AD_STUN/AD_HALU;
+// tainted Sick; slime/stone; make_blinded body / Hear_again afternmv;
+// sellobj_state on invent-full dropy; costly_alteration COST_BITE;
+// ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
+// accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
+// death path; vomit cantvomit/Sick/FAINTING/acid-breath; tin costly_tin
+// shop billing; otrapped b_trapped; use_tin_opener apply; Fixed_abil
+// Popeye Olive/Bluto; eatspecial PAPER/potion/ring/amulet/leash/
+// trident/flint/uwepgone/unpunish/vault_gd; still_chewing iron bars;
+// livelog conduct.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { flush_topl_more, pline, You_feel } from './display.js';
 import { yn_function } from './getline.js';
-import { FOOD_CLASS, COIN_CLASS, objectNames, objects } from './objects.js';
-import { weight, splitobj, objects_at, delobj, stackobj } from './mkobj.js';
+import {
+    FOOD_CLASS, COIN_CLASS, WEAPON_CLASS, BALL_CLASS, CHAIN_CLASS,
+    objectNames, objects,
+} from './objects.js';
+import {
+    weight, splitobj, objects_at, delobj, stackobj,
+    g_at, is_metallic, is_organic, is_flammable, is_rustprone,
+} from './mkobj.js';
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
-import { singular, xname, doname, the, makeplural } from './objnam.js';
+import {
+    singular, xname, doname, the, makeplural, obj_is_pname,
+} from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
     vegan, vegetarian, nohands, verysmall,
@@ -38,10 +50,11 @@ import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
     SLT_ENCUMBER, EXT_ENCUMBER, FROMFORM, W_ARTI, W_WEP, W_RINGL, W_RINGR,
+    W_ARMOR, W_TOOL, W_AMUL, W_SADDLE,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
-    KILLED_BY_AN,
+    KILLED_BY_AN, Has_contents,
 } from './const.js';
 import { adjattrib, gainstr, acurr, acurrstr, A_STR, A_DEX } from './attrib.js';
 import { nomul, losehp } from './hack.js';
@@ -51,6 +64,7 @@ import { make_confused, make_vomiting, make_glib } from './potion.js';
 import { addinv_nomerge } from './u_init.js';
 import { dropy, dropx } from './do.js';
 import { type_is_pname, rndmonnam } from './do_name.js';
+import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -104,6 +118,36 @@ const PM_WIZARD_OF_YENDOR = monsterNames.indexOf('PM_WIZARD_OF_YENDOR');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_RAVEN = monsterNames.indexOf('PM_RAVEN');
 const PM_NEWT = monsterNames.indexOf('PM_NEWT');
+const PM_FIRE_ELEMENTAL = monsterNames.indexOf('PM_FIRE_ELEMENTAL');
+const PM_RUST_MONSTER = monsterNames.indexOf('PM_RUST_MONSTER');
+const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
+const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
+const EGG = objectNames.indexOf('EGG');
+
+/** C objclass.h material enum indices used by foodword / doeat_nonfood. */
+const MAT_WAX = 2;
+const MAT_PAPER = 5;
+const MAT_LEATHER = 7;
+const MAT_BONE = 9;
+const MAT_DRAGON_HIDE = 10;
+
+/**
+ * C ref: eat.c foodwords[] — index by oc_material (objclass.h order).
+ */
+const foodwords = [
+    'meal', 'liquid', 'wax', 'food', 'meat', 'paper',
+    'cloth', 'leather', 'wood', 'bone', 'scale', 'metal',
+    'metal', 'metal', 'silver', 'gold', 'platinum', 'mithril',
+    'plastic', 'glass', 'rich food', 'stone',
+];
+
+/** C ref: eat.c foodword — material word; coins → "gold". */
+function foodword(otmp) {
+    if (!otmp) return 'meal';
+    if (otmp.oclass === COIN_CLASS) return 'gold';
+    const mat = game.objects?.[otmp.otyp]?.oc_material ?? 0;
+    return foodwords[mat] ?? 'meal';
+}
 
 /**
  * C ref: eat.c tintxts[] — tin variety adjectives + nutrition / flags.
@@ -474,11 +518,37 @@ function consume_oeaten(obj, amt) {
     if ((obj.oeaten | 0) === 0) obj.oeaten = 1;
 }
 
+/**
+ * C ref: eat.c is_edible — unique protect + poly diet predicates + FOOD.
+ * Branch envelope: fire-elemental flammable; metallivore metallic
+ * (rust monster → rustprone only); ghoul corpse/egg; gel cube organic
+ * without contents; else FOOD_CLASS.
+ */
 function is_edible(obj) {
     if (!obj) return false;
-    // C: objects[obj->otyp].oc_unique → false; human → FOOD_CLASS only
     const oc = game.objects?.[obj.otyp];
     if (oc?.oc_unique) return false;
+
+    const form = hero_form_data();
+    const fmndx = form?.mndx ?? -1;
+    const umon = game.u?.umonnum ?? -1;
+
+    if (fmndx === PM_FIRE_ELEMENTAL && is_flammable(obj)) return true;
+
+    if (metallivorous(form) && is_metallic(obj)
+        && (fmndx !== PM_RUST_MONSTER || is_rustprone(obj))) {
+        return true;
+    }
+
+    if (umon === PM_GHOUL) {
+        return (obj.otyp === CORPSE && !vegan(mons(obj.corpsenm)))
+            || obj.otyp === EGG;
+    }
+
+    if (umon === PM_GELATINOUS_CUBE && is_organic(obj) && !Has_contents(obj)) {
+        return true;
+    }
+
     return obj.oclass === FOOD_CLASS;
 }
 
@@ -562,8 +632,9 @@ async function getobj_eat() {
 /**
  * C ref: eat.c floorfood("eat", 0) — yn floor edibles, else invent getobj.
  * Branch envelope: can_reach_floor / !usteed / !menu_requested skip to
- * invent; edible floor FOOD (non-coin) ynq; invent getobj_eat.
- * Named omissions: metallivore beartrap/bars/gold; pool/lava reach gate;
+ * invent; metallivore floor gold ynq; edible floor FOOD (non-coin) ynq;
+ * invent getobj_eat.
+ * Named omissions: metallivore beartrap/bars; pool/lava reach gate;
  * will_feel_cockatrice; safe_qbuf ansimpleoname fallback; getobj_else
  * "else" wording; sacrifice/tin corpsecheck arms.
  */
@@ -574,6 +645,20 @@ async function floorfood_eat() {
     if (!game.flags?.menu_requested && can_reach_floor(true) && !u.usteed) {
         const ux = u.ux | 0;
         const uy = u.uy | 0;
+        const form = hero_form_data();
+        // C: feeding && metallivorous — beartrap/bars deferred; gold arm
+        if (metallivorous(form) && (form?.mndx ?? -1) !== PM_RUST_MONSTER) {
+            const gold = g_at(ux, uy);
+            if (gold) {
+                const quan = gold.quan || 1;
+                const qbuf = quan === 1
+                    ? 'There is 1 gold piece here; eat it?'
+                    : `There are ${quan} gold pieces here; eat them?`;
+                const c = await yn_function(qbuf, 'ynq', 'n');
+                if (c === 'y') return gold;
+                if (c === 'q') return null;
+            }
+        }
         for (let otmp = objects_at(ux, uy); otmp; otmp = otmp.nexthere) {
             if (otmp.oclass === COIN_CLASS || !is_edible(otmp)) continue;
             // will_feel_cockatrice deferred
@@ -1213,6 +1298,128 @@ function use_up_tin(tin) {
 }
 
 /**
+ * C ref: invent.c useupall — remove entire invent stack (setnotworn deferred).
+ */
+function useupall(otmp) {
+    if (!otmp) return;
+    const inv = game.invent || [];
+    const idx = inv.indexOf(otmp);
+    if (idx >= 0) inv.splice(idx, 1);
+    otmp.quan = 0;
+    otmp.where = OBJ_FREE;
+}
+
+/**
+ * C ref: invent.c useupf — consume numused from floor pile (shop bill deferred).
+ */
+function useupf(otmp, numused) {
+    if (!otmp) return;
+    let victim = otmp;
+    const n = numused | 0;
+    if ((otmp.quan || 1) > n) {
+        victim = splitobj(otmp, n) || otmp;
+    }
+    delobj(victim);
+}
+
+/**
+ * C ref: eat.c eatspecial — finish non-food meal: lesshungry + useup.
+ * Named omissions: PAPER messages; dopotion; eataccessory; leash;
+ * trident/flint; uwepgone/uqwepgone/uswapwepgone; unpunish ball/chain;
+ * vault_gd_watching(GD_EATGOLD).
+ */
+async function eatspecial() {
+    const otmp = game.context?.victual?.piece;
+    if (!otmp) return;
+    const nmod = game.context.victual.nmod | 0;
+    // C: set_occupation(eatfood,…) so lesshungry choke msgs see occupation
+    set_occupation(eatfood, 'eating non-food');
+    lesshungry(nmod);
+    game.occupation = null;
+    if (game.context) game.context.victual = {};
+
+    if (otmp.oclass === COIN_CLASS) {
+        if (carried(otmp)) useupall(otmp);
+        else useupf(otmp, otmp.quan || 1);
+        return;
+    }
+    // PAPER / POTION / RING / AMULET / LEASH / TRIDENT / FLINT deferred
+    if (carried(otmp)) useup(otmp);
+    else useupf(otmp, 1);
+}
+
+/**
+ * C ref: eat.c doeat_nonfood — one-turn non-FOOD meal for poly diets.
+ * Branch envelope: nutrition from quan/weight/oc_nutrition; vegan/
+ * vegetarian conduct for leather/bone/dragon_hide/wax; cursed rottenfood;
+ * poisoned weapon; delicious pline; eatspecial.
+ * Named omissions: SCR_MAIL; livelog first-time conduct.
+ */
+async function doeat_nonfood(otmp) {
+    if (!game.context) game.context = {};
+    game.context.victual = {
+        piece: otmp,
+        o_id: otmp.o_id,
+        usedtime: 0,
+        eating: 1,
+        canchoke: (game.u?.uhs | 0) === SATIATED ? 1 : 0,
+        fullwarn: 0,
+        doreset: 0,
+        reqtime: 1,
+        nmod: 0,
+    };
+
+    let basenutrit;
+    let nodelicious = false;
+    if (otmp.oclass === COIN_CLASS) {
+        const quan = otmp.quan || 0;
+        basenutrit = quan > 200000 ? 2000 : Math.trunc(quan / 100);
+    } else if (otmp.oclass === BALL_CLASS || otmp.oclass === CHAIN_CLASS) {
+        basenutrit = weight(otmp);
+    } else {
+        basenutrit = game.objects?.[otmp.otyp]?.oc_nutrition ?? 0;
+    }
+    game.context.victual.nmod = basenutrit;
+
+    if (!game.u.uconduct) game.u.uconduct = {};
+    game.u.uconduct.food = (game.u.uconduct.food | 0) + 1;
+
+    const material = game.objects?.[otmp.otyp]?.oc_material ?? 0;
+    if (material === MAT_LEATHER || material === MAT_BONE
+        || material === MAT_DRAGON_HIDE || material === MAT_WAX) {
+        game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
+        if (material !== MAT_WAX) violated_vegetarian();
+    }
+
+    if (otmp.cursed) {
+        await rottenfood(otmp);
+        nodelicious = true;
+    } else if (material === MAT_PAPER) {
+        nodelicious = true;
+    }
+
+    if (otmp.oclass === WEAPON_CLASS && otmp.opoisoned) {
+        await pline('Ecch - that must have been poisonous!');
+        const poisRes = !!(game.u?.HPoison_resistance || game.u?.EPoison_resistance
+            || game.u?.Poison_resistance);
+        if (!poisRes) {
+            await poison_strdmg(rnd(4), rnd(15));
+        } else {
+            await pline('You seem unaffected by the poison.');
+        }
+    } else if (!nodelicious) {
+        const artSkip = obj_is_pname(otmp)
+            && ((otmp.oartifact | 0) < ART_ORB_OF_DETECTION);
+        const noun = otmp.oclass === COIN_CLASS
+            ? foodword(otmp)
+            : singular(otmp, xname);
+        await pline(`${artSkip ? '' : 'This '}${noun} is delicious!`);
+    }
+    await eatspecial();
+    return 1;
+}
+
+/**
  * C ref: eat.c eating_conducts — food/unvegan/unvegetarian counters.
  * Livelog first-time messages deferred.
  */
@@ -1530,7 +1737,7 @@ export async function doeat() {
     }
 
     if (otmp0.oclass === COIN_CLASS && !is_edible(otmp0)) {
-        await pline('You cannot eat gold.');
+        await pline('You cannot eat that!');
         return 0;
     }
     if (!is_edible(otmp0)) {
@@ -1538,10 +1745,22 @@ export async function doeat() {
         return 0;
     }
 
-    if (otmp0.oclass !== FOOD_CLASS) {
-        // doeat_nonfood deferred
-        await pline('That food is not implemented yet.');
+    // C: worn armor/tool/amulet/saddle — rings allowed
+    const worn = otmp0.owornmask | 0;
+    if (worn & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE)) {
+        await pline("You can't eat something you're wearing.");
         return 0;
+    }
+
+    // KMH — Slow digestion ring is indigestible
+    if (otmp0.otyp === RIN_SLOW_DIGESTION) {
+        await pline('This ring is indigestible!');
+        await rottenfood(otmp0);
+        return 1;
+    }
+
+    if (otmp0.oclass !== FOOD_CLASS) {
+        return doeat_nonfood(otmp0);
     }
 
     // C: tins are a special case — start_tin; conduct inside consume_tin
