@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0952 | fixed | break-wand strike/cancel/poly/tele/undead `bhitm`/`bhitpile`/`zapyourself` + `WAN_LIGHT` litroom | map-driven debt; green+wizard cohort 14/14 |
 | D-0951 | fixed | pickaxe `use_pick_axe`/`dig` occupation/`is_digging`/`dig_typ`/`holetime` | map-driven debt; green+cohort 12/12 + arch tour PASS |
 | D-0950 | fixed | `dig_check`/`digactualhole`/`fillholetyp` + break-wand dig/create pay | map-driven debt; green+wizard/dig cohort 12/12 |
 | D-0949 | fixed | `explode` `zap_over_floor`/`pay_for_damage` + `do_break_wand` explode-types | map-driven debt; green+wizard/zap cohort 12/12 |

@@ -291,7 +291,7 @@ function lightdamage(_obj, _ordinary, amt) {
  * Deferred: snuff_lit / artifact_light / Punished move_bc / gremlin hits /
  * Sunsword spot / Underwater beyond no_op gate.
  */
-async function litroom(on, obj) {
+export async function litroom(on, obj) {
     const u = game.u || {};
     const Blind = !!(u.Blind || u.ublind);
     const blessed_effect = !!(obj && obj.oclass === SCROLL_CLASS && obj.blessed);

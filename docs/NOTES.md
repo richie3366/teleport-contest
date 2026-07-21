@@ -8,18 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1220** (Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`). Cadence reconfirm; fortress held.
+  speed `30+0.27/turn`). Fortress held; #1221 map port D-0952.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0951** pickaxe dig occupation (still current).
-- **Next cluster:** break-wand strike/cancel/poly/tele/undead —
-  needs `zap.c` `bhitm` (+ `bhitpile`/`zapyourself` arms already thin);
-  do not ship explode-only early-return. Also: pool-lava;
-  `vault_gd_watching`; furniture_handled / HOLE `goto_level`.
+- Latest port: **D-0952** break-wand adjacent bhit + cancel helpers.
+- **Next cluster:** pool-lava reach; `vault_gd_watching`; dig
+  `furniture_handled` / HOLE `goto_level`; unturn_dead invent revive /
+  hero_breaks; cancel worn ABON polish.
 - Cadence full `sessions` next @**#1225**.
 
 ## Don't re-check (≤15)
@@ -39,16 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN / multi-turn rations (D-0935) … kick_door shop/watch
-  (D-0947), zap door/bars/`dobuzz` pay (D-0948), explode/break-wand
-  explode-types (D-0949), dig helpers/break-wand dig (D-0950), or
-  pickaxe dig occupation (D-0951).
+- Do not re-stub TIN / multi-turn rations (D-0935) … pickaxe dig
+  (D-0951), or break-wand bhit/cancel (D-0952).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1220**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.27/turn`.
+- **D-0952:** break-wand bhitm/cancel/zapyourself + WAN_LIGHT litroom.
 - **D-0951:** pickaxe dig occupation / use_pick_axe / is_digging.
 - **D-0950:** dig_check/digactualhole + break-wand dig/create pay.
 - **D-0949:** `explode` shop pay + `do_break_wand` explode-types.

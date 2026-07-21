@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0952 — break-wand strike/cancel/poly/tele/undead bhit + litroom
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** breaking strike/cancel/poly/tele/undead wands only exploded;
+  no adjacent `bhitm`/`bhitpile`, no self `zapyourself`, no `WAN_LIGHT`
+  `litroom`.
+- **Cause:** named constitutional debt (`debt.md` after D-0951) —
+  explode-only early return; `bhitm`/`cancel_*` absent.
+- **C locus:** `apply.c` `do_break_wand` adjacent loop; `zap.c`
+  `bhitm` / `bhito` / `zapyourself` / `cancel_item` / `cancel_monst`;
+  `teleport.c` `u_teleport_mon` / `rloco`; `read.c` `litroom`.
+- **JS:** `zap.js` cancel helpers + `bhitm` subset + zapyourself/
+  bhito arms + bhit wire; `apply.js` adjacent loop + litroom;
+  `teleport.js` thin `u_teleport_mon`/`rloco`; export `litroom`.
+  Deferred: `unturn_dead` invent revive; `hero_breaks` non-boulder;
+  worn ABON cancel polish; flash_hits on WAN_LIGHT bhitm; release_hold.
+- **Verify:** green+strict; wizard/shared cohort 14/14 PASS.
+
 ## D-0951 — pickaxe dig occupation / use_pick_axe
 
 - **Status:** fixed (map-driven debt retirement)

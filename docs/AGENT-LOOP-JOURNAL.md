@@ -21,6 +21,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 23:36 — #1221 D-0952 break-wand adjacent bhit
+
+- Objective: map-driven — strike/cancel/poly/tele/undead adjacent
+  `bhitm`/`bhitpile`/`zapyourself` + `WAN_LIGHT` `litroom`.
+- C locus: `apply.c` `do_break_wand`; `zap.c` `bhitm`/`bhito`/
+  `zapyourself`/`cancel_item`/`cancel_monst`; `teleport.c`
+  `u_teleport_mon`/`rloco`; `read.c` `litroom`.
+- Change: cancel helpers + `bhitm` subset + zapyourself/bhito arms in
+  `zap.js`; adjacent loop + litroom in `apply.js`; thin tele/rloco;
+  export `litroom` (D-0952). Deferred: unturn invent revive;
+  hero_breaks; worn ABON cancel; flash_hits WAN_LIGHT bhitm.
+- Verification: green+strict; wizard/shared cohort 14/14 PASS.
+  Suite fortress held (no full cadence; next @#1225).
+- Next: pool-lava / `vault_gd_watching` / furniture_handled /
+  HOLE `goto_level`.
+
 ## 2026-07-21 23:30 — #1220 cadence score refresh
 
 - Objective: mandatory cadence full `sessions` (@#1220 % 5 == 0);

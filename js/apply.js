@@ -1086,10 +1086,12 @@ async function broken_wand_explode(obj, dmg, expltype) {
  * costly_alteration; freeinv; zappable restore charge; explode-type
  * wands (death/lightning/fire/cold/missile); nothing-else inert wands;
  * magical explode + WAN_DIGGING adjacent dig_check/digactualhole +
- * WAN_CREATE_MONSTER makemon + dig shop pay_for_damage (D-0950).
- * Named omit: strike/cancel/poly/tele/undead adjacent bhit; WAN_LIGHT
- * litroom; release_hold WAN_OPENING; ParanoidBreakwand getlin "yes";
- * check_unpaid bill polish; ICE spot_stop_timers; HOLE goto_level.
+ * WAN_CREATE_MONSTER makemon + dig shop pay_for_damage (D-0950);
+ * strike/cancel/poly/tele/undead adjacent bhitm/bhitpile/zapyourself
+ * + WAN_LIGHT litroom (D-0952).
+ * Named omit: release_hold WAN_OPENING; ParanoidBreakwand getlin "yes";
+ * check_unpaid bill polish; ICE spot_stop_timers; HOLE goto_level;
+ * unturn_dead invent revive; hero_breaks non-boulder.
  * @returns {number} ECMD_*
  */
 async function do_break_wand(obj) {
@@ -1144,7 +1146,8 @@ async function do_break_wand(obj) {
     const u = game.u || {};
     obj.ox = u.ux | 0;
     obj.oy = u.uy | 0;
-    const dmg = (obj.spe | 0) * 4;
+    let dmg = (obj.spe | 0) * 4;
+    let affects_objects = false;
 
     switch (obj.otyp) {
     case WAN_OPENING:
@@ -1180,22 +1183,20 @@ async function do_break_wand(obj) {
         await broken_wand_explode(obj, dmg, EXPL_MAGICAL);
         return ECMD_TIME;
     case WAN_STRIKING:
+        await pline('A wall of force smashes down around you!');
+        dmg = d(1 + (obj.spe | 0), 6);
+        // FALLTHROUGH
     case WAN_CANCELLATION:
     case WAN_POLYMORPH:
     case WAN_TELEPORTATION:
     case WAN_UNDEAD_TURNING:
-        // adjacent bhitm/bhitpile / zapyourself deferred — explode + discard
-        await explode(
-            obj.ox | 0, obj.oy | 0, -(obj.otyp | 0), rnd(dmg),
-            WAND_CLASS, EXPL_MAGICAL,
-        );
-        await discard_broken_wand();
-        return ECMD_TIME;
+        affects_objects = true;
+        break;
     default:
         break;
     }
 
-    // magical explosion before specific effects (dig / create / light)
+    // magical explosion before specific effects
     await explode(
         obj.ox | 0, obj.oy | 0, -(obj.otyp | 0), rnd(dmg),
         WAND_CLASS, EXPL_MAGICAL,
@@ -1208,13 +1209,21 @@ async function do_break_wand(obj) {
     const {
         DIGCHECK_FAILED, DIGCHECK_FAIL_BOULDER, IS_WALL, IS_DOOR,
         Can_dig_down, PIT, HOLE, ROOM, ICE, N_DIRS, xdir, ydir, isok,
-        SHOPBASE, NO_MM_FLAGS,
+        SHOPBASE, NO_MM_FLAGS, NO_KILLER_PREFIX,
     } = await import('./const.js');
-    const { in_rooms } = await import('./hack.js');
+    const { in_rooms, losehp, maybe_half_phys } = await import('./hack.js');
     const { makemon } = await import('./makemon.js');
     const { pay_for_damage } = await import('./shk.js');
     const { recalc_block_point } = await import('./vision.js');
     const { t_at } = await import('./trap.js');
+    const {
+        bhitm, bhitpile, bhito, zapsetup, zapwrapup, zapyourself,
+    } = await import('./zap.js');
+    const { m_at } = await import('./mon.js');
+    const { litroom } = await import('./read.js');
+    const { finish_losehp_done } = await import('./end.js');
+
+    zapsetup();
 
     let shop_damage = false;
     let fillmsg = false;
@@ -1224,6 +1233,10 @@ async function do_break_wand(obj) {
         const x = (obj.ox | 0) + (xdir[i] | 0);
         const y = (obj.oy | 0) + (ydir[i] | 0);
         if (!isok(x, y)) continue;
+
+        if (!game._bhitpos) game._bhitpos = { x: 0, y: 0 };
+        game._bhitpos.x = x;
+        game._bhitpos.y = y;
 
         if (obj.otyp === WAN_DIGGING) {
             const dcres = dig_check(BY_OBJECT, x, y);
@@ -1266,14 +1279,38 @@ async function do_break_wand(obj) {
             makemon(null, u.ux | 0, u.uy | 0, NO_MM_FLAGS);
             continue;
         }
-        // strike/cancel/poly/tele/undead adjacent + self arms deferred
+        if (x !== (u.ux | 0) || y !== (u.uy | 0)) {
+            const mon = m_at(x, y);
+            if (mon) await bhitm(mon, obj);
+            if (affects_objects && objects_at(x, y)) {
+                await bhitpile(obj, bhito, x, y, 0);
+            }
+        } else {
+            if (affects_objects && objects_at(x, y)) {
+                await bhitpile(obj, bhito, x, y, 0);
+            }
+            const damage = await zapyourself(obj, false);
+            if (damage) {
+                const him = game.flags?.female ? 'her' : 'him';
+                const buf = `killed ${him}self by breaking a wand`;
+                losehp(maybe_half_phys(damage), buf, NO_KILLER_PREFIX);
+                if (game._losehp_needs_done || game.program_state?.gameover) {
+                    await finish_losehp_done();
+                }
+            }
+        }
     }
+
+    await zapwrapup();
 
     if (shop_damage) {
         await pay_for_damage('dig into', false);
     }
 
-    // WAN_LIGHT litroom deferred
+    if (obj.otyp === WAN_LIGHT) {
+        await litroom(true, obj);
+    }
+
     await discard_broken_wand();
     return ECMD_TIME;
 }
@@ -1282,12 +1319,13 @@ async function do_break_wand(obj) {
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
- * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create) +
+ * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create /
+ * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
  * is_pick/is_axe → use_pick_axe (D-0951).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms; camera closeup; most non-instrument
- * tools; break-wand strike/cancel/poly/tele/undead adjacent + WAN_LIGHT.
+ * tools; break-wand release_hold / unturn invent revive / hero_breaks.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
