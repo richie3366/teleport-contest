@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1179)
+- **Status:** partial (#1080–#1180)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1720**/1814)
+  Scr **1722**/1814)
+- **Hypothesis (#1180):** @1501 — wish `r - a ring.` vs
+  `r - an engagement ring.` Mold FROMFORM Blind; C `doname` leaves
+  `dknown=0` → bare `ring`. JS `doname`/`xname` gated observe on
+  sticky `game.u.Blind`, which `polymon` never sets — observe ran and
+  painted appearance `engagement ring`.
+- **Fix (#1180):** `objnam.js` prop Blind `(HBlinded||EBlinded)&&!BBlinded`
+  (D-0716) for `xname`/`doname` observe (C `objnam.c` `!Blind`).
+- **Verification (#1180):** green+strict PASS; cohort 6/6
+  (8000/0900/1500/1800/0108/0361); focused Scr **1720→1722**; first
+  miss **@1501→@1573**; suite Scr **11310→11312**. Next: @**1573**
+  Voluntary challenges corner leftover `--More--`.
 - **Hypothesis (#1179):** @1464 — footsteps `--More--` botl C T:**231**
   vs JS T:**229**. Mold multi-EOT `.` advances `moves` twice before
   `dosounds`→`You_hear`→`more`; C `allmain.c` sets `disp.time_botl`

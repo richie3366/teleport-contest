@@ -8,11 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1501** — wish `r - a ring.` vs
-  `r - an engagement ring.` (Blind mold; `timebot` fixed @1464). Focused:
+- **Primary (D-0928):** seed4500 @**1573** — Voluntary challenges corner
+  C cleared `--More--` (cursor r20) vs JS leftover `--More--` (r11).
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C/JS wish `readobjnam`/`doname`/`dknown`/Blind appearance
-  for polymorph-control ring.
+  Falsify: C more/WIN_MESSAGE state at `#challenges` / conduct menu paint
+  (prefer temp C dump over FORCE/WIN_STOP shim — playbook §7).
 
 ## Don't re-check (≤15)
 
@@ -39,14 +40,19 @@ Objective/score live in `CURRENT.md`.
   `vision_full_recalc=1` (#1178).
 - Do not treat @1464 T:229 vs T:231 as missed `moves++` / occupation
   — was missing `time_botl`+`timebot` before footsteps More (#1179).
+- Do not treat @1501 `an engagement ring` as wish `dknown`/readobjnam
+  — `doname`/`xname` used sticky `u.Blind`; FROMFORM mold Blind needs
+  prop Blind (D-0716; #1180).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1175 Scr **11170**/11405 RNG **792838**/792838
-  (**100%**); speed `30+0.26/turn`; next cadence @**#1180**.
+- suite **42/44** @#1180 Scr **11312**/11405 RNG **792838**/792838
+  (**100%**); speed `30+0.25/turn`; next cadence @**#1185**.
+- **D-0928 #1180:** prop Blind in `doname`/`xname`; prefix
+  **@1501→@1573**; Scr **1720→1722**; suite Scr **11310→11312**.
 - **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**;
-  Scr **1716→1720**; next wish `a ring` vs engagement.
+  Scr **1716→1720**.
 - **D-0928 #1178:** polymon `vision_full_recalc`; prefix
   **@1441→@1464**; Scr **1586→1716**.
 - **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; prefix

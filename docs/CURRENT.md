@@ -19,20 +19,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1175** (42/44,
-Scr **11170**/11405, RNG **100%**) cadence. Speed `30+0.26/turn`.
-Next cadence @**#1180**. #1179 `timebot`/`time_botl`; focused Scr
-**1716→1720**, prefix **@1464→@1501** (suite score unchanged
-until #1180).
+Score last measured: **2026-07-21** — full `sessions` @**#1180** (42/44,
+Scr **11312**/11405, RNG **100%**) cadence + Blind prop fix. Speed
+`30+0.25/turn`. Next cadence @**#1185**. #1180 `doname`/`xname` prop
+Blind; focused Scr **1720→1722**, first miss **@1501→@1573**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **11,170 / 11,405** |
+| Screens matched | **11,312 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.26/turn` (R² 0.85) |
+| Speed label | `30+0.25/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1720/1814 | knight; @1501 wish ring doname |
+| seed4500 | **108275**/108275 | 1722/1814 | knight; @1573 challenges More |
 
 ## Green gate
 
@@ -64,8 +63,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1501** — wish `r - a ring.` vs `r - an engagement ring.`
-(Blind mold; Time @1464 fixed). Focused:
+**seed4500 @1573** — `#challenges` / Voluntary challenges corner: C
+cleared `--More--` (cursor r20); JS leftover `--More--` (cursor r11).
+Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1179; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1180; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -94,7 +94,8 @@ getpos `cmap_defsym_explanation` furniture fountain…bars (#1174);
 getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
 `set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177);
 `polymon` `vision_full_recalc=1` before `see_monsters` (#1178);
-`time_botl` on `moves++` + `timebot` in `flush_screen` (#1179).
+`time_botl` on `moves++` + `timebot` in `flush_screen` (#1179);
+`doname`/`xname` prop Blind (not sticky `u.Blind`) (#1180).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
@@ -104,9 +105,12 @@ second prinv; treat @1441 map `e` vs DEC `~` as feel/newsym-only
 treat @1438 poly botl as deferred bot (was `float_vs_flight`);
 @1439 load vs gloves as glove order (was `dropz` encumber);
 @1347 `$` as S_goodpos (was SHOWVALID); @1344 blank as WIN_STOP
-(was `untrap` getdir); @1464 T lag as missed moves++ (was `timebot`).
+(was `untrap` getdir); @1464 T lag as missed moves++ (was `timebot`);
+@1501 `engagement ring` as wish `dknown`/readobjnam (was sticky
+`u.Blind` in `doname`/`xname` — FROMFORM mold Blind).
 Older rejects in D-0928/NOTES.
-Recent rejects: @1464≠missed moves — timebot (#1179);
+Recent rejects: @1501≠wish dknown — prop Blind (#1180);
+@1464≠missed moves — timebot (#1179);
 @1441≠feel — vision_full_recalc (#1178);
 @1438≠bot-after-More — float_vs_flight (#1177);
 @1439≠gloves-before-load — dropz encumber (#1177);
