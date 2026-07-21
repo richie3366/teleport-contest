@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 19:26 — #1200 public score 44/44
+
+- Objective: cadence full `sessions` (@#1200 % 5 == 0); confirm D-0934.
+- C locus: n/a (score refresh); keep D-0934 `get_configfile` default.
+- Change: docs only — CURRENT Score **44**/44 Scr **11405**/11405
+  RNG **792838**/792838 speed `31+0.27/turn`; NOTES/journal/D-0934.
+- Verification: green+strict PASS; full suite **44**/44.
+- Next: await LB cron D-0930…D-0934; no local non-PASS.
+
+## 2026-07-21 19:24 — D-0934 recorder get_configfile (§1.2)
+
+- Objective: human carve-out — seed2200 path otherwise impossible.
+- C locus: `cfgfiles.c` `get_configfile`; CONSTITUTION §1.2 / §5.4.
+- Change: §1.2 exception + cursor rule; `options.js` default =
+  contest-recorder absolute path (D-0934).
+- Verification: seed2200 Scr **230**/230; green+strict PASS.
+- Next: LB cron D-0930…D-0934; suite confirm @**#1200**.
+
 ## 2026-07-21 19:16 — #1199 NHW_TEXT paint cols−1
 
 - Objective: seed2200 @158 path cells without hardcoding `$HOME`.

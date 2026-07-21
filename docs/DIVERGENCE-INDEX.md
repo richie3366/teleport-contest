@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-0933 | fixed | NHW_TEXT paint ≤cols−1 (`process_text_window`) | #1199; path string still deferred; seed2200 229/230 |
+| D-0934 | fixed | recorder `get_configfile` default (CONSTITUTION §1.2) | suite **44**/44 @#1200; seed2200 Scr **230**/230 |
+| D-0933 | fixed | NHW_TEXT paint ≤cols−1 (`process_text_window`) | #1199; path closed by D-0934 |
 | D-0932 | fixed | serialize leading bold spaces (topten) | #1198; seed0030 aC2_aJ0→0; await LB |
 | D-0931 | fixed | flush S_air spaces + mid-row space CUF >4 | #1197; seed0373 sp_C6_J8→0; await LB |
 | D-0930 | fixed | serialize space+attr0+CLR_GRAY → NO_COLOR | #1196; j37→0; await LB cron 32→? |

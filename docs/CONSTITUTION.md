@@ -16,6 +16,15 @@ Category: **agentic**. No shipping a transpiled C engine.
 2. **Sessions are acceptance tests**, not specifications to memorize.
    Never hardcode public traces, screens, or RNG sequences into `js/`
    except while deleting existing `fastforward.js` chunks.
+   **Narrow exception (human 2026-07-21):** the contest recorder’s
+   absolute `get_configfile()` path string shown by `option_help`
+   (`?g`) — currently
+   `/Users/davidbau/git/mazesofmenace/teleport/maud/test/comparison/c-harness/results/.nethackrc`
+   — may be the default `configfile` in `js/options.js`. The judge does
+   not elide it (`verify-rerecord` does; D-0933), Rule #2 forbids reading
+   `$HOME`/`fs`, and no session API field supplies the path. Do **not**
+   generalize this carve-out to other recorded coordinates, screens, or
+   seed-named branches.
 3. **Held-out generalization matters.** Prefer real ports over
    seed-specific scaffolding.
 4. A session trace is an **observation**, not a missing C specification.
@@ -110,6 +119,7 @@ Category: **agentic**. No shipping a transpiled C engine.
    expected screens must not drive production control flow. They belong in
    diagnostics/docs/tests. Production comments should describe C semantics,
    not "enough for seedXXXX."
+   Exception: §1.2 recording-machine `get_configfile()` path only.
 
 ---
 

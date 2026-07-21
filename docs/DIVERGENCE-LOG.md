@@ -4,9 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0934 — contest-recorder `get_configfile` default
+
+- **Status:** fixed (human CONSTITUTION §1.2 carve-out)
+- **Symptom:** seed2200 @158 sole miss after D-0933 — `option_help`
+  path cells vs recording
+  `/Users/davidbau/.../c-harness/results/.nethackrc`.
+- **Cause:** judge scores absolute config path; Rule #2 forbids
+  `$HOME`/`fs`; session API has rc text only. Top forks hardcode the
+  same string. Prior “do not hardcode” parked the residual (D-0933).
+- **C locus:** `cfgfiles.c` `get_configfile` / `set_configfile_name`;
+  `options.c` `option_help` intro line.
+- **Change:** human exception in CONSTITUTION §1.2 / §5.4 + cursor
+  rule; `js/options.js` default `configfile` =
+  contest-recorder absolute path (D-0934). Do not extend carve-out.
+- **Verification:** seed2200 Scr **230**/230 RNG full; green+strict
+  PASS; full `sessions` @**#1200** **44**/44 Scr **11405**/11405.
+- **Next:** LB cron D-0930…D-0934 PASS lift.
+
 ## D-0933 — NHW_TEXT paint ≤cols−1 (process_text_window)
 
-- **Status:** fixed (paint bound); recording-path residual parked
+- **Status:** fixed (paint bound); path residual closed by D-0934
 - **Symptom:** seed2200 @158 Scr 229/230 — `option_help` path row only.
   Diff was col 79 when JS held a ≥80-char config path; with wrap-forcing
   synthetic path, cells still ≠ recording
@@ -20,13 +38,11 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `process_text_window` `++curx < cols` emits ≤cols−1 glyphs; long
   no-space lines stay whole in `tty_putstr` storage.
 - **Change:** `show_text_pages` + fullscreen `show_nhw_menu_text` paint
-  bound `cols-1` (D-0933). Keep wrap-forcing synthetic `get_configfile`
-  — do **not** bake recording absolute path (Constitution / CURRENT).
+  bound `cols-1` (D-0933). Path string later allowed under §1.2 (D-0934).
 - **Verification:** green+strict PASS; NHW_TEXT cohort 12/12 PASS;
   seed2200 still **229**/230 without path hardcode; temp recording path
-  + D-0933 → **230**/230 (reverted).
-- **Next:** LB gap — await cron for D-0930…D-0932; seed2200 path string
-  stays constitutional residual.
+  + D-0933 → **230**/230 (reverted until D-0934).
+- **Next:** closed by D-0934.
 
 ## D-0932 — serialize leading bold spaces (topten_print_bold)
 

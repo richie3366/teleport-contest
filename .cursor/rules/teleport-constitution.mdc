@@ -35,6 +35,11 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
 - Do **not** hardcode public session screens or RNG traces into `js/`.
 - Do **not** put public seed names, raw RNG indices, recorded coordinates, or
   trace-derived constants into production control flow.
+  **Exception (CONSTITUTION §1.2):** default `get_configfile()` may be the
+  contest recorder path
+  `/Users/davidbau/git/mazesofmenace/teleport/maud/test/comparison/c-harness/results/.nethackrc`
+  so `option_help` matches scored screens (judge does not elide; D-0933).
+  Do not extend this carve-out.
 - Do **not** call a seed-observed branch a complete port; name omissions in
   the relevant `docs/c-js-map/*.md` section.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
