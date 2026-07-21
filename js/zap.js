@@ -33,9 +33,9 @@
 // destroy_items elec body; ugolemeffects; burn_away_slime;
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
-// flash_hits WAN_LIGHT bhitm; bury_objs/unearth_objs/obj_ice_effects/
-// trap_ice_effects; lavawall→wall fix_wall_spines polish;
-// explode AD_FIRE mon/hero combat beyond zap_over_floor.
+// flash_hits WAN_LIGHT bhitm; trap_ice_effects; lavawall→wall
+// fix_wall_spines polish; explode AD_FIRE mon/hero combat beyond
+// zap_over_floor; burn feedback plines.
 // Shop door/bars destroy + dobuzz pay_for_damage: D-0948.
 // Break-wand adjacent bhit + cancel helpers: D-0952.
 // unturn_dead invent revive + hero_breaks + worn ABON: D-0955.
@@ -71,7 +71,7 @@ import { m_at, wakeup, seemimic, dead_species, normal_shape } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
-import { zap_dig, fracture_rock, break_statue } from './dig.js';
+import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
 import { killed, xkilled } from './uhitm.js';
 import { mon_nam, Monnam, christen_monst, hliquid } from './do_name.js';
 import { finish_losehp_done } from './end.js';
@@ -96,6 +96,7 @@ import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left,
+    obj_ice_effects,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -418,9 +419,9 @@ export function burn_floor_objects(x, y, give_feedback, u_caused) {
 
 /**
  * C ref: zap.c melt_ice — ICE/DB_ICE → pool/moat; stop melt timer;
- * Norep; hero spoteffects / mon minliquid. Named omit: trap/obj ice
- * effects; unearth_objs; Underwater vision; boulder_hits_pool body
- * (D-0965).
+ * obj_ice_effects + unearth_objs; Norep; hero spoteffects / mon
+ * minliquid. Named omit: trap_ice_effects; Underwater vision;
+ * boulder_hits_pool body (D-0965/D-0967).
  */
 export async function melt_ice(x, y, msg) {
     const lev = game.level?.at?.(x, y);
@@ -434,7 +435,9 @@ export async function melt_ice(x, y, msg) {
         lev.icedpool = 0;
     }
     spot_stop_timers(x, y, MELT_ICE_AWAY);
-    // trap_ice_effects / obj_ice_effects / unearth_objs deferred
+    // trap_ice_effects deferred
+    obj_ice_effects(x, y, false);
+    unearth_objs(x, y);
     if (game.u?.Underwater) {
         // vision_recalc(1) deferred
     }
@@ -486,12 +489,12 @@ export async function melt_ice_away(where) {
 
 /**
  * C ref: zap.c zap_over_floor — floor effects for buzz trail / explode.
- * Envelope (D-0948/D-0965): ZT_FIRE WEB/ice melt/pool evaporate+PIT/
- * fountain dryup; ZT_COLD freeze pool/lava + ice firm-up; ZT_POISON_GAS
- * cloud; ZT_LIGHTNING/ZT_ACID IRONBARS; SDOOR; closed_door shop; fire
- * burn_floor_objects; ignoremon wakeup.
- * Named omit: bury_objs/obj_ice_effects; lavawall→wall spines;
- * Underwater/utrap lava arms; dotrap polish.
+ * Envelope (D-0948/D-0965/D-0967): ZT_FIRE WEB/ice melt/pool evaporate+PIT/
+ * fountain dryup; ZT_COLD freeze pool/lava + bury_objs + ice firm-up +
+ * obj_ice_effects; ZT_POISON_GAS cloud; ZT_LIGHTNING/ZT_ACID IRONBARS;
+ * SDOOR; closed_door shop; fire burn_floor_objects; ignoremon wakeup.
+ * Named omit: lavawall→wall spines; Underwater/utrap lava arms; dotrap
+ * polish.
  */
 /**
  * C ref: zap.c zap_over_floor — also called from explode.c explode.
@@ -609,7 +612,7 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
                         loc.typ = lava ? ROOM : ICE;
                     }
                 }
-                // bury_objs deferred
+                await bury_objs(x, y);
                 if (see_it) {
                     if (lava) {
                         await Norep(
@@ -635,7 +638,7 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
                 }
                 if (!lava) {
                     start_melt_ice_timeout(x, y, 0);
-                    // obj_ice_effects deferred
+                    obj_ice_effects(x, y, true);
                 }
             }
         } else if (is_ice(x, y)) {

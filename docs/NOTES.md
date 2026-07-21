@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0966** Ring_on/off learnring/adjust_attrib +
-  float_down + steed `float_down(0,W_SADDLE)`.
-- **Next cluster:** bury_objs / unearth_objs / obj_ice_effects;
-  explode AD_FIRE combat; angrygods 4–8 / music desecrate; toggle_stealth.
+- Latest port: **D-0967** bury_objs/unearth_objs/obj_ice_effects +
+  melt/freeze/`liquid_flow` wire.
+- **Next cluster:** explode AD_FIRE combat; angrygods 4–8 / music
+  desecrate; toggle_stealth / sink-fall; lavawall spines.
 - Cadence full `sessions` next @**#1240**.
 
 ## Don't re-check (≤15)
@@ -41,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … impact_drop (D-0961),
   conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
   revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
-  or Ring_on/float_down (D-0966).
+  Ring_on/float_down (D-0966), or bury/unearth/obj_ice (D-0967).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 
@@ -49,6 +49,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1235**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.27/turn`.
+- **D-0967:** bury_objs/unearth_objs/obj_ice_effects + melt/freeze wire.
 - **D-0966:** Ring_on/off learnring/adjust_attrib + float_down.
 - **D-0965:** ice melt / burn_floor_objects / fireball / MELT_ICE_AWAY.
 - **D-0964:** revive container/buried / cant_revive / zombie_can_dig.
@@ -61,5 +62,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0957:** dig_up_grave + dighole IS_GRAVE.
 - **D-0956:** Ring_gone/float_up/rescham/choke/set_mimic_blocking.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
-- **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

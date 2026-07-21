@@ -36,13 +36,13 @@ import { PM_SAMURAI } from './generated/monsters_data.js';
 import { otyp_uses_known, distant_name, doname } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
-    ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
+    ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
     MELT_ICE_AWAY, HATCH_EGG, MAX_EGG_HATCH_TIME,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, OBJ_MINVENT, OBJ_CONTAINED, OBJ_MIGRATING,
     G_GONE,
     LOST_NONE, LOST_EXPLODING,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
-    Is_rogue_level,
+    Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
 } from './const.js';
 import { recalc_block_point } from './vision.js';
 
@@ -51,6 +51,7 @@ const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
 const BOOMERANG = objectNames.indexOf('BOOMERANG');
 const CORPSE = objectNames.indexOf('CORPSE');
+const ROT_ICE_ADJUSTMENT = 2; // mkobj.c — rotting on ice takes 2× as long
 const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
 const ELVEN_SHIELD = objectNames.indexOf('ELVEN_SHIELD');
 const ORCISH_SHIELD = objectNames.indexOf('ORCISH_SHIELD');
@@ -726,8 +727,8 @@ async function rot_corpse(obj) {
 /**
  * C ref: timeout.c run_timers — fire due timers at start of list.
  * Called from nh_timeout after intrinsic TIMEOUT handling.
- * Envelope: ROT_CORPSE; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away
- * (D-0965). Named omit: REVIVE_MON / ZOMBIFY_MON / BURN_OBJECT / hatch.
+ * Envelope: ROT_CORPSE; ROT_ORGANIC (dig.c); TIMER_LEVEL MELT_ICE_AWAY
+ * (D-0965/D-0967). Named omit: REVIVE_MON / ZOMBIFY_MON / BURN / hatch.
  */
 export async function run_timers() {
     const g = timer_base();
@@ -740,6 +741,9 @@ export async function run_timers() {
         }
         if (curr.action === ROT_CORPSE) {
             await rot_corpse(curr.obj);
+        } else if (curr.action === ROT_ORGANIC) {
+            const { rot_organic } = await import('./dig.js');
+            await rot_organic(curr.obj);
         } else if (curr.action === MELT_ICE_AWAY
             && (curr.kind | 0) === TIMER_LEVEL) {
             const { melt_ice_away } = await import('./zap.js');
@@ -1260,6 +1264,8 @@ export function place_object(otmp, x, y) {
     }
     // C block_point is incremental; JS rebuilds via does_block after place
     if (firstBoulder) recalc_block_point(x, y);
+    // C: if (otmp->timed) obj_timer_checks(otmp, x, y, 0);
+    if (otmp.timed) obj_timer_checks(otmp, x, y, 0);
 }
 
 /**
@@ -1390,6 +1396,93 @@ export function add_to_buried(obj) {
     game.level.buriedobjlist = obj;
 }
 
+/** C ref: dbridge.c / rm.h is_ice — ICE or drawbridge-under DB_ICE. */
+function is_ice_at(x, y) {
+    if (!isok(x, y)) return false;
+    const lev = game.level?.at?.(x, y);
+    if (!lev) return false;
+    if ((lev.typ | 0) === ICE) return true;
+    return (lev.typ | 0) === DRAWBRIDGE_UP
+        && ((lev.drawbridgemask | 0) & DB_UNDER) === DB_ICE;
+}
+
+/**
+ * C ref: mkobj.c obj_timer_checks — stretch/shrink CORPSE rot/revive timers
+ * on/off ice. force: 0 = check, <0 force off, >0 force on.
+ */
+export function obj_timer_checks(otmp, x, y, force = 0) {
+    if (!otmp) return;
+    let tleft = 0;
+    let action = ROT_CORPSE;
+    let restart_timer = false;
+    const on_floor = otmp.where === OBJ_FLOOR;
+    const buried = otmp.where === OBJ_BURIED;
+
+    if (otmp.otyp === CORPSE && (on_floor || buried) && is_ice_at(x, y)) {
+        tleft = stop_timer(action, otmp);
+        if (tleft === 0) {
+            action = REVIVE_MON;
+            tleft = stop_timer(action, otmp);
+        }
+        if (tleft !== 0) {
+            otmp.on_ice = 1;
+            tleft *= ROT_ICE_ADJUSTMENT;
+            restart_timer = true;
+            const age = (game.moves | 0) - (otmp.age | 0);
+            otmp.age = (game.moves | 0) - (age * ROT_ICE_ADJUSTMENT);
+        }
+    } else if ((force | 0) < 0
+        || (otmp.otyp === CORPSE && otmp.on_ice
+            && !((on_floor || buried) && is_ice_at(x, y)))) {
+        tleft = stop_timer(action, otmp);
+        if (tleft === 0) {
+            action = REVIVE_MON;
+            tleft = stop_timer(action, otmp);
+        }
+        if (tleft !== 0) {
+            otmp.on_ice = 0;
+            tleft = (tleft / ROT_ICE_ADJUSTMENT) | 0;
+            restart_timer = true;
+            const age = (game.moves | 0) - (otmp.age | 0);
+            otmp.age = (otmp.age | 0)
+                + (((age * (ROT_ICE_ADJUSTMENT - 1)) / ROT_ICE_ADJUSTMENT) | 0);
+        }
+    }
+    if (restart_timer) {
+        start_timer(tleft, TIMER_OBJECT, action, otmp);
+    }
+}
+
+/**
+ * C ref: mkobj.c obj_ice_effects — recheck floor (+ optional buried) timers
+ * when ice appears/vanishes at <x,y>.
+ */
+export function obj_ice_effects(x, y, do_buried) {
+    for (let otmp = objects_at(x, y); otmp; otmp = otmp.nexthere) {
+        if (otmp.timed) obj_timer_checks(otmp, x, y, 0);
+    }
+    if (do_buried) {
+        for (let otmp = game.level?.buriedobjlist; otmp; otmp = otmp.nobj) {
+            if ((otmp.ox | 0) === (x | 0) && (otmp.oy | 0) === (y | 0)) {
+                if (otmp.timed) obj_timer_checks(otmp, x, y, 0);
+            }
+        }
+    }
+}
+
+/**
+ * C ref: mkobj.c peek_at_iced_corpse_age — effective age if lifted off ice.
+ */
+export function peek_at_iced_corpse_age(otmp) {
+    if (!otmp) return 0;
+    let retval = otmp.age | 0;
+    if (otmp.otyp === CORPSE && otmp.on_ice) {
+        const age = (game.moves | 0) - (otmp.age | 0);
+        retval += (((age * (ROT_ICE_ADJUSTMENT - 1)) / ROT_ICE_ADJUSTMENT) | 0);
+    }
+    return retval;
+}
+
 /**
  * C ref: mkobj.c add_to_migration — OBJ_FREE → migrating_objs chain.
  * Named omit: maybe_reset_pick (lock context); unpaid panic (caller
@@ -1477,6 +1570,7 @@ export function obj_extract_self(obj) {
         const ox = obj.ox | 0;
         const oy = obj.oy | 0;
         const wasBoulder = obj.otyp === BOULDER;
+        const wasTimed = !!(obj.timed | 0);
         const key = `${ox},${oy}`;
         if (game._objects_at) {
             let head = game._objects_at.get(key) || null;
@@ -1503,6 +1597,12 @@ export function obj_extract_self(obj) {
         }
         // C remove_object: boulder → recalc_block_point
         if (wasBoulder) recalc_block_point(ox, oy);
+        obj.nobj = null;
+        obj.nexthere = null;
+        obj.where = OBJ_FREE;
+        // C remove_object: if (otmp->timed) obj_timer_checks(otmp, x, y, 0)
+        if (wasTimed) obj_timer_checks(obj, ox, oy, 0);
+        return;
     } else if (obj.where === OBJ_MINVENT || obj.where === 'MINVENT') {
         // C: extract_nobj(obj, &obj->ocarry->minvent); clear ocarry
         const mon = obj.ocarry;

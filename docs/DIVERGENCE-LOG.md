@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0967 — bury_objs / unearth_objs / obj_ice_effects
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap/dig debt — ice melt/freeze and `liquid_flow`
+  skipped burying floor objects, unearthing buried piles, and corpse
+  rot-timer ice stretch (`obj_timer_checks`).
+- **Cause:** prior envelope left those as named omit after D-0965.
+- **Fix:** `obj_timer_checks`/`obj_ice_effects`/`peek_at_iced_corpse_age`
+  in `mkobj.js` (place/extract wire + `ROT_ORGANIC` in `run_timers`);
+  `bury_an_obj`/`bury_objs`/`unearth_objs`/`rot_organic` in `dig.js`;
+  wire `melt_ice`, cold `zap_over_floor`, and `liquid_flow` (D-0967).
+  Deferred: shop `stolen_value` bury bill; `buried_ball_to_punishment`;
+  `trap_ice_effects`; `end_burn` full; fire/water_damage_chain on
+  liquid_flow release; lavawall spines; explode AD_FIRE combat.
+- **Verification:** green+strict PASS; dig/zap cohort 16/16 PASS.
+- **Files:** `js/mkobj.js`, `js/dig.js`, `js/zap.js`,
+  `docs/c-js-map/debt.md`.
+
 ## D-0966 — Ring_on/off learnring/adjust_attrib + float_down
 
 - **Status:** fixed (map-driven debt retirement)

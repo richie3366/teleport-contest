@@ -12,20 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## 2026-07-22 00:40 — #1236 D-0966 Ring_on/float_down
-
-- Objective: map-driven wear debt — float_down / learnring /
-  adjust_attrib / Ring_on/off polish.
-- C locus: `do_wear.c` learnring/adjust_attrib/Ring_on/Ring_off_or_gone;
-  `trap.c` float_down; `attrib.c` extremeattr; `steed.c` dismount.
-- Change: extremeattr; Ring_on + learnring/adjust_attrib; full
-  Ring_off_or_gone; float_down; steed → float_down(0,W_SADDLE)
-  (D-0966). Deferred: toggle_stealth; Punished ball; sink-fall.
-- Verification: green+strict PASS; wear/steed cohort 20/20 PASS.
-  Suite fortress held (no full cadence; next @#1240).
-- Next: bury_objs/unearth_objs/obj_ice_effects; explode AD_FIRE;
-  angrygods 4–8. Cadence @**#1240**.
-
 ## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
@@ -34,6 +20,20 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-22 00:45 — #1237 D-0967 bury/unearth/obj_ice
+
+- Objective: map-driven zap/dig debt — bury_objs / unearth_objs /
+  obj_ice_effects after D-0965 ice melt.
+- C locus: `dig.c` bury_an_obj/bury_objs/unearth_objs/rot_organic;
+  `mkobj.c` obj_timer_checks/obj_ice_effects; callers in zap.c
+  melt_ice/zap_over_floor + dig.c liquid_flow.
+- Change: obj_timer_checks + obj_ice_effects; bury/unearth/rot_organic;
+  wire melt/freeze/liquid_flow (D-0967). Deferred: shop bury bill;
+  buried_ball; trap_ice_effects; damage_chain on liquid release.
+- Verification: green+strict PASS; dig/zap cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1240).
+- Next: explode AD_FIRE; angrygods 4–8; toggle_stealth. Cadence @**#1240**.
 
 ## 2026-07-22 00:36 — #1235 cadence + D-0965 ice/burn/fireball
 
