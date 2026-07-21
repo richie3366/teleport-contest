@@ -4,6 +4,20 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0945 — `cpostfx` were* / mimic gold / `attrcurse`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** eating human-were / mimic / disenchanter corpses skipped
+  lycanthropy, gold-pile mimicry, and intrinsic stripping.
+- **Cause:** named constitutional debt (`debt.md` eat after D-0944).
+- **C locus:** `eat.c` `cpostfx` / `eatmdone`; `were.c` `set_ulycn`;
+  `sit.c` `attrcurse`.
+- **JS:** `were.js` `set_ulycn` → `set_uasmon`; `sit.js` `attrcurse`;
+  `eat.js` were*/mimic/`attrcurse` wired in `cpostfx` (D-0945).
+  Deferred: `retouch_equipment`; `set_mimic_blocking`; `curs_on_u`;
+  livelog / `eatmupdate`; eatspecial PAPER/potion/ring+.
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0944 — `mconveys` + `corpse_intrinsic` / `givit`
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,7 +31,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **JS:** `extract-monsters.py` → `mconveys[]`; `mons()` + helpers;
   `eat.js` intrinsic cluster wired in `cpostfx` check_intrinsics.
   Deferred: were* `set_ulycn`; mimic gold `eatmdone`; `attrcurse`;
-  eatspecial PAPER/potion/ring.
+  eatspecial PAPER/potion/ring — retired D-0945 (eatspecial remains).
 - **Verify:** green+strict; eat/role cohort 12/12 PASS.
 
 ## D-0943 — `cpostfx` specials + AD_STUN/AD_HALU hallu

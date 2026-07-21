@@ -11,8 +11,10 @@
 //         potion.c make_vomiting / make_glib;
 //         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
 // Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
-// were* set_ulycn; mimic gold eatmdone; disenchanter attrcurse;
 // hallu AD_STUN covered D-0943; corpse_intrinsic/givit covered D-0944;
+// were*/mimic/attrcurse covered D-0945 (set_mimic_blocking /
+// retouch_equipment / display_nhwindow WIN_MAP polish / livelog /
+// eatmupdate hallu toggle);
 // tainted Sick; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
@@ -26,7 +28,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { flush_topl_more, pline, You_feel, newsym, see_monsters } from './display.js';
+import { flush_topl_more, pline, You_feel, newsym, see_monsters, more } from './display.js';
 import { yn_function } from './getline.js';
 import {
     FOOD_CLASS, COIN_CLASS, WEAPON_CLASS, BALL_CLASS, CHAIN_CLASS,
@@ -40,6 +42,7 @@ import {
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import {
     singular, xname, doname, the, makeplural, obj_is_pname, thesimpleoname,
+    an,
 } from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
@@ -51,7 +54,7 @@ import {
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
 } from './monsters.js';
 import { same_race } from './mondata.js';
-import { were_beastie } from './were.js';
+import { were_beastie, set_ulycn } from './were.js';
 import { monflee } from './monmove.js';
 import { dist2 } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
@@ -69,6 +72,7 @@ import {
     INTRINSIC, POLY_NOFLAGS, DISPLACED,
     FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, POISON_RES,
     ACID_RES, STONE_RES, TELEPAT, TELEPORT, TELEPORT_CONTROL, LAST_PROP,
+    M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
@@ -82,7 +86,7 @@ import {
 } from './potion.js';
 import { addinv_nomerge } from './u_init.js';
 import { dropy, dropx, make_blinded } from './do.js';
-import { type_is_pname, rndmonnam } from './do_name.js';
+import { type_is_pname, rndmonnam, pmname, Ugender } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
 import { t_at, deltrap, reset_utrap, b_trapped, self_invis_message } from './trap.js';
@@ -92,6 +96,8 @@ import { costly_alteration, costly_spot } from './shk.js';
 import { wield_tool } from './wield.js';
 import { pluslvl } from './exper.js';
 import { toggle_displacement } from './do_wear.js';
+import { attrcurse } from './sit.js';
+import { dismount_steed } from './steed.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -101,6 +107,8 @@ const MEAT_RING = objectNames.indexOf('MEAT_RING');
 const RIN_SLOW_DIGESTION = objectNames.indexOf('RIN_SLOW_DIGESTION');
 const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
+const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const ORANGE_OTYP = objectNames.indexOf('ORANGE');
 
 /**
  * C ref: gy.youmonst.data via set_uasmon / invent.c basic assign.
@@ -1248,26 +1256,53 @@ function corpse_intrinsic(ptr) {
 }
 
 /**
+ * C ref: eat.c eatmdone — end gold-pile mimicry (afternmv / leak cleanup).
+ */
+function eatmdone() {
+    if (game.eatmbuf) {
+        if (game.nomovemsg === game.eatmbuf) game.nomovemsg = null;
+        game.eatmbuf = null;
+    }
+    const ym = game.youmonst;
+    if (ym && (ym.m_ap_type | 0) !== M_AP_NOTHING) {
+        ym.m_ap_type = M_AP_NOTHING;
+        ym.mappearance = 0;
+        const u = game.u || {};
+        newsym(u.ux | 0, u.uy | 0);
+    }
+    return 0;
+}
+
+/**
  * C ref: eat.c cpostfx — post-corpse effects.
- * Branch envelope (D-0943/D-0944): named specials + check_intrinsics
- * hallu/newt + corpse_intrinsic → givit / gainstr.
- * Named omissions: were* set_ulycn/retouch_equipment; mimic gold
- * eatmdone/afternmv; disenchanter attrcurse; eatmbuf cleanup;
- * display_nhwindow for mimic; livelog polyself conduct.
+ * Branch envelope (D-0943/D-0944/D-0945): named specials + check_intrinsics
+ * hallu/newt + corpse_intrinsic → givit / gainstr; were* set_ulycn;
+ * mimic gold eatmdone/afternmv; disenchanter attrcurse.
+ * Named omissions: retouch_equipment after set_ulycn; set_mimic_blocking;
+ * curs_on_u; livelog first polyself conduct; eatmupdate hallu toggle.
  */
 async function cpostfx(pm) {
+    let tmp = 0;
+    let catch_lycanthropy = NON_PM;
     let check_intrinsics = false;
     const u = game.u || (game.u = {});
     const ptr = mons(pm);
+
+    // C: prior gold-mimic eatmbuf leak cleanup
+    if (game.eatmbuf) eatmdone();
 
     switch (pm | 0) {
     case PM_WRAITH:
         await pluslvl(false);
         break;
     case PM_HUMAN_WERERAT:
+        catch_lycanthropy = PM_WERERAT;
+        break;
     case PM_HUMAN_WEREJACKAL:
+        catch_lycanthropy = PM_WEREJACKAL;
+        break;
     case PM_HUMAN_WEREWOLF:
-        // C: set_ulycn + retouch_equipment deferred
+        catch_lycanthropy = PM_WEREWOLF;
         break;
     case PM_NURSE:
         if (Upolyd(u)) u.mh = u.mhmax | 0;
@@ -1304,10 +1339,46 @@ async function cpostfx(pm) {
         await make_stunned(((u.HStun | 0) & TIMEOUT) + 30, false);
         break;
     case PM_GIANT_MIMIC:
+        tmp += 10;
+        // FALLTHROUGH
     case PM_LARGE_MIMIC:
-    case PM_SMALL_MIMIC:
-        // C: gold-pile mimic body + eatmdone deferred
+        tmp += 20;
+        // FALLTHROUGH
+    case PM_SMALL_MIMIC: {
+        tmp += 20;
+        const youdata = hero_form_data();
+        const Unchanging = !!(u.Unchanging || u.HUnchanging || u.EUnchanging);
+        if (youdata?.mlet !== 'S_MIMIC' && !Unchanging) {
+            const hallu = !!(u.Hallucination
+                || ((u.HHallucination | 0) & TIMEOUT));
+            const tempshape = hallu ? 'an orange' : 'a pile of gold';
+            if (!game.u.uconduct) game.u.uconduct = {};
+            // livelog first polyselfs deferred; still count
+            game.u.uconduct.polyselfs = (game.u.uconduct.polyselfs | 0) + 1;
+            await pline(
+                `You can't resist the temptation to mimic ${tempshape}.`,
+            );
+            if (u.usteed) await dismount_steed(DISMOUNT_FELL);
+            nomul(-tmp);
+            game.multi_reason = 'pretending to be a pile of gold';
+            const formNoun = Upolyd(u)
+                ? pmname(youdata?.mndx ?? u.umonnum, Ugender())
+                : (game.urace?.noun || 'human');
+            const again = an(formNoun);
+            game.eatmbuf = hallu
+                ? `You suddenly dread being peeled and mimic ${again} again!`
+                : `You now prefer mimicking ${again} again.`;
+            game.nomovemsg = game.eatmbuf;
+            game.afternmv = eatmdone;
+            if (!game.youmonst) game.youmonst = {};
+            game.youmonst.m_ap_type = M_AP_OBJECT;
+            game.youmonst.mappearance = hallu ? ORANGE_OTYP : GOLD_PIECE;
+            newsym(u.ux | 0, u.uy | 0);
+            // C: curs_on_u deferred; display_nhwindow(WIN_MAP,TRUE) → more()
+            await more();
+        }
         break;
+    }
     case PM_QUANTUM_MECHANIC:
         await pline('Your velocity suddenly seems very uncertain!');
         if ((u.HFast | 0) & INTRINSIC) {
@@ -1357,7 +1428,7 @@ async function cpostfx(pm) {
         break;
     }
     case PM_DISENCHANTER:
-        // C: attrcurse() deferred
+        await attrcurse();
         break;
     case PM_DEATH:
     case PM_PESTILENCE:
@@ -1398,12 +1469,17 @@ async function cpostfx(pm) {
             await eye_of_newt_buzz();
         }
         // C: corpse_intrinsic → givit / gainstr (D-0944)
-        const tmp = corpse_intrinsic(ptr);
-        if (tmp === -1) {
+        const prop = corpse_intrinsic(ptr);
+        if (prop === -1) {
             await gainstr(null, 0, true);
-        } else if (tmp > 0) {
-            await givit(tmp, ptr);
+        } else if (prop > 0) {
+            await givit(prop, ptr);
         }
+    }
+
+    if (ismnum(catch_lycanthropy)) {
+        set_ulycn(catch_lycanthropy);
+        // retouch_equipment(2) deferred
     }
 }
 
