@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 07:35 — #1118 bat@46 mcalcmove (falsify fleeck rn2(4))
+- Objective: seed4500 @104705 C fleeck rn2(5) vs JS rn2(4).
+- C locus: `mon.c` `mcalcmove` / `mcalcdistress`; `allmain.c` EOT allot.
+- Change: none shipped. DIAG: JS rn2(4)=early `decide_to_shapeshift`;
+  missing vamp-bat @46,19 2nd move (mcalcmove add 12 needs 24).
+  Leftover after getlev=0; n=140. FORCE +12 →104943 (reverted).
+- Verification: green+strict PASS; rng-diff still @104705.
+- Next: C why bat@46 mcalcmove slot is 24 (fmon order); cadence @#1120.
+
 ## 2026-07-21 07:23 — #1117 carrying_too_much
 - Objective: seed4500 @104241 C fleeck vs JS overexertion rn2(20).
 - C locus: `hack.c` `carrying_too_much` / `domove_core`.
@@ -154,16 +163,4 @@ Use this shape:
 - Verification: prefix **100699→101373**; RNG **101373** Scr **926**;
   green+strict PASS; cohort 1500/1800/0108/5002/5006/0014/2600 **7/7**.
 - Next: @**101373** `passiveum` `d(2,6)` vs `rnd(21)`; cadence @#1105.
-
-## 2026-07-21 04:30 — #1103 polyself NOFLAGS + zap poly + drink empty-getobj
-- Objective: seed4500 @100475 C `polyself` `rn2(20)` vs JS `rn2(5)`
-  (D-0928).
-- C locus: `polyself.c` `polyself`; `zap.c` `zapyourself`/`dozap`;
-  `invent.c` `getobj` empty+!PROMPT.
-- Change: system-shock + random `rn1(SPECIAL_PM)` in `polyself`;
-  `zapyourself` WAN/SPE_POLYMORPH; `dozap` `nohands` before getobj;
-  drink getobj short-circuit when no potions.
-- Verification: prefix **100475→100699**; RNG **100862** Scr **926**;
-  green+strict PASS; cohort 0002/0060/0108/1800 **4/4**.
-- Next: @**100699** `rnd_otyp_by_namedesc` vs `rn2(5)`; cadence @#1105.
 

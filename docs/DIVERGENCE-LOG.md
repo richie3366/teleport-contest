@@ -6,8 +6,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1117; **#1117** carrying_too_much)
+- **Status:** partial (#1080–#1118; **#1118** bat@46 mcalcmove)
 - **Session:** seed4500-knight-coverage (prefix @**104705**)
+- **Symptom (@104705):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
+- **Cause (#1118 DIAG):** JS `rn2(4)` is EOT `decide_to_shapeshift`
+  fog path — movemon already finished. C still has one more mon
+  move (vamp-bat @46,19 2nd pass). That bat got `mcalcmove` add
+  **12** (rn2(12)=11); needs **24**. getlev leftover=0; fmon n=140
+  matches. Lich@40,11 sits between bat@8 and bat@69 in JS fmon
+  (order suspect). FORCE +12 movement → prefix **104705→104943**
+  (not shipped).
+- **Next:** why C’s mcalcmove slot for bat@46 yields 24 (fmon order
+  dump / lich placement); do not FORCE movement.
 - **Symptom (@104241 was):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`
   (`overexertion`→`gethungry`).
 - **Cause (#1117 C dump):** both C and JS `u_calc` Fast `rn2(3)=0`
@@ -21,7 +31,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   escape_from_sticky; invent `iw` off-by-1 vs C (both OVERLOADED).
 - **Verification:** green+strict PASS; cohort 5/5; prefix
   **104241→104705** (runner RNG **104797** Scr **936**).
-- **Next (@104705):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
+- **Next (@104705 was):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
 - **Fix (#1116):** `polyself.js` `break_armor` — C `nohands`/`verysmall`
   gloves (+`drop_weapon(0)`), shield, helm; boots for nohands/
   verysmall/slithy/centaur. Export `Helmet_off`/`Gloves_off`/

@@ -71,11 +71,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**104705** (D-0928). **#1117:**
-`carrying_too_much` before attack (C mold OVERLOADED collapse).
-Prefix **104241→104705** (runner RNG **104797** Scr **936**).
-C dump falsified “umov<12 after Fast”: both end at 12 / wtcap=5.
-Next: @**104705** C `rn2(5) @ distfleeck` vs JS `rn2(4)`. Focused:
+**Gameplay next:** **seed4500** @**104705** (D-0928). **#1118:**
+falsified fleeck-vs-rn2(4) — JS `rn2(4)` is early `decide_to_shapeshift`;
+C still has one mon move. Vamp-bat @46,19 got `mcalcmove` **12** (needs
+**24**). Leftover after getlev=0; n=140. FORCE +12 → **104705→104943**
+(not shipped). Next: why that bat’s mcalcmove slot is 12 vs C 24
+(fmon order / lich@40,11 between bats?). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -98,14 +99,17 @@ inediate `is_edible` FOOD reject or chase getlev/`^V` / invent-food
 provenance as @103155 root (#1113–#1114 — More desync); omit
 `mfind0` / leave `#wizwhere` unwired (#1115); omit break_armor
 nohands shed (#1116); treat @104241 as umov Fast surplus root —
-was missing `carrying_too_much` (#1117). Rejected:
+was missing `carrying_too_much` (#1117); FORCE bat@46 +12 movement
+or treat @104705 as distfleeck/want_move rn2(4) (#1118 — early EOT
+shapeshift). Rejected:
 @95154 wish; @100699 namedesc; @101378 ston; @101391/@101608/@101616
 fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
 @103071≠2nd cham; @103155 throw≠fleeck; @103155 getlev≠root;
 @103155 invent/floor apples≠C-missing (both have them);
 @104217≠exercise modulus (was missing mfind0 / wizwhere pager);
 @104241≠Very_fast / FORCE VF/umov0 / shed≠capacity root /
-u_calc umov delta (C dump after=12 too).
+u_calc umov delta (C dump after=12 too);
+@104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

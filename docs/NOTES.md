@@ -8,9 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**104705**. #1117:
-  `carrying_too_much` before attack. Prefix **104241→104705**.
-  Next: C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
+- **Gameplay next (D-0928):** seed4500 @**104705**. #1118:
+  JS `rn2(4)` = early `decide_to_shapeshift` (fog); C still fleecks.
+  Vamp-bat @46,19 `mcalcmove` add **12** (needs **24** for 2nd pass).
+  getlev leftover=0; fmon n=140. FORCE +12 → **104705→104943** (don’t ship).
+  Next: C why that bat’s rn2 slot yields 24 (fmon order?).
   Focused: `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -33,13 +35,17 @@ Objective/score live in `CURRENT.md`.
   + unwired `#wizwhere` leaking pager `s` (#1115).
 - Do not treat @104241 as Fast umov surplus / FORCE VF — C dump
   after=12 too; root was missing `carrying_too_much` (#1117).
+- Do not treat @104705 as distfleeck/want_move rn2(4) — early
+  `decide_to_shapeshift`; don’t FORCE bat@46 +12 (#1118).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1115 Scr **10516**/11405 RNG **788815**/792838
   (99.49%); speed `31+0.24/turn`; next cadence @**#1120**.
+- **D-0928 #1118:** @104705 early shapeshift; bat@46,19 mcalcmove 12vs24;
+  FORCE +12 → **104943** (not shipped).
 - **D-0928 #1117:** carrying_too_much; prefix **104241→104705**;
-  runner RNG **104797** Scr **936**; next @**104705** fleeck vs rn2(4).
+  runner RNG **104797** Scr **936**.
 - **D-0928 #1116:** break_armor nohands shed; was @**104241**.
 - **D-0928 #1115:** mfind0 + wizwhere; was @**104217**.
 - **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.
