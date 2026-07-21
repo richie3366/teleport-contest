@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 19:30 — #1201 LB poll + gap cohort reconfirm
+
+- Objective: leaderboard gap — primary await cron D-0930…D-0934.
+- C locus: n/a (no JS change); verify only.
+- Change: docs — LB still **31**/44 @16:41Z; gap **13**/13 local
+  PASS; NOTES/CURRENT next = cron lift (~18:41Z).
+- Verification: green+strict PASS; all 13 LB-fail sessions PASS
+  (0002/0004/0007/0012/0014/0030/0360/0361/0373/0383/0399/2200/4500).
+- Next: poll `data.json` after cron; if <44 name residual; else
+  held-out (keep 4/44 lead; no speculative peel).
+
 ## 2026-07-21 19:26 — #1200 public score 44/44
 
 - Objective: cadence full `sessions` (@#1200 % 5 == 0); confirm D-0934.

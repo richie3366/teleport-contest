@@ -58,10 +58,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard gap** — live LB @2026-07-21T16:41Z **31**/44 public
-(pts **11351**/11405; lastScored pre D-0930…D-0934). Local suite
-**44**/44 confirmed @**#1200**. Await cron for D-0930…**D-0934** PASS
-lift.
+**Leaderboard gap** — live LB still @2026-07-21T16:41Z **31**/44
+public (pts **11351**/11405; `data.json` @17:07Z). Local suite
+**44**/44 @**#1200**; gap cohort **13**/13 reconfirmed @**#1201**
+(full RNG+Scr). Await next cron for D-0930…**D-0934** PASS lift
+(~2h; next expected ~18:41Z). Do not peel public while awaiting.
 
 **Parked:** D-0006 only.
 
