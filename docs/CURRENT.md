@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 103190/108275 | 928/1814 | knight; @**103071** cham form |
+| seed4500 | 104364/108275 | 928/1814 | knight; @**104217** exercise |
 
 ## Green gate
 
@@ -71,12 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**103155** (D-0928). **#1113:**
-DIAG falsified getlev/`^V` as root — after Count:40 `.`, C `e` is
-nothing-to-eat then SP + Count:20 `.` (fleeck in wait); JS
-`floorfood`/getobj on floor apples + invent carrot/apple eats those
-keys. Do not ship inediate `is_edible` lie (temp advance @104217).
-Next: invent/floor food provenance. Focused:
+**Gameplay next:** **seed4500** @**104217** (D-0928). **#1114:**
+`hitmu` mundetected “hidden under” pline — #1113 misread C `e`s as
+empty eat; they were `--More--` quitchars. Missing reveal desynced
+More vs `doeat`. Prefix **103155→104217** (runner RNG **104364**
+Scr **928**). Next: C `rn2(19) @ exercise` vs JS `rn2(5)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -95,11 +94,12 @@ annotation·hitmu·wiz Blind / peffect_extra_healing / FORCE abuse /
 omit caitiff·water_damage·goodpos u_at·polyself·nolimbs·passiveum·
 u_rooted·eel hide·mfndpos nexttry·Blind FROMFORM·minliquid monflee·
 cham while over-retry·ok_to_throw·mtimedone (#1093–#1112); ship
-inediate `is_edible` FOOD reject or chase getlev/`^V` as @103155
-root (#1113). Rejected: @95154 wish; @100699 namedesc; @101378
-ston; @101391/@101608/@101616 fleeck≠wish/eel; @101641≠`#version`;
-@101710≠m_search; @103071≠2nd cham; @103155 throw≠fleeck;
-@103155 getlev≠root (eat ate Count:20 keys).
+inediate `is_edible` FOOD reject or chase getlev/`^V` / invent-food
+provenance as @103155 root (#1113–#1114 — More desync). Rejected:
+@95154 wish; @100699 namedesc; @101378 ston; @101391/@101608/@101616
+fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
+@103071≠2nd cham; @103155 throw≠fleeck; @103155 getlev≠root;
+@103155 invent/floor apples≠C-missing (both have them).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

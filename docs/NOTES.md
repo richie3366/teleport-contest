@@ -8,13 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**103155**. #1113 DIAG:
-  not getlev — after Count:40 `.`, C `e` is nothing-to-eat (no keys)
-  then SP + Count:20 `.` (fleeck inside wait). JS floor 11 apples +
-  invent carrot/apple → floorfood/getobj eats those keys then `^V`.
-  Do **not** ship inediate `is_edible=false` (advances to 104217 but
-  contradicts C `is_edible` FOOD_CLASS). Next: invent/floor food
-  provenance vs C. Focused:
+- **Gameplay next (D-0928):** seed4500 @**104217**. #1114: hitmu
+  mundetected “hidden under” fixed More/eat key-desync
+  (**103155→104217**). Next: C `rn2(19) @ exercise` vs JS `rn2(5)`.
+  Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -31,19 +28,20 @@ Objective/score live in `CURRENT.md`.
 - Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
 - Do not omit Count:N `.` timed_occupation / Blind feel (#1096).
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @103155 getlev/`^V` as the cause — eat key-desync (#1113).
+- Do not treat @103155 getlev/`^V` as the cause — More/eat desync (#1113).
 - Do not ship inediate `is_edible` reject for FOOD_CLASS (#1113).
-- Do not re-allow mold `#throw` without `ok_to_throw` (#1112).
+- Do not chase invent/floor apple provenance as @103155 root — both have
+  them; bug was missing hitmu hidden-under More (#1114).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1110 Scr **10518**/11405 RNG **787753**/792838
   (99.36%); speed `29+0.25/turn`; next cadence @**#1115**.
-- **D-0928 #1113:** eat floorfood/getobj key desync; still @**103155**;
-  next invent/floor food vs C empty eat.
-- **D-0928 #1112:** ok_to_throw + mtimedone; still @**103155**.
-- **D-0928 #1111:** select_newcham random while; prefix **103155**;
-  RNG **103264** Scr **928**.
+- **D-0928 #1114:** hitmu hidden-under; prefix **103155→104217**
+  (runner RNG **104364** Scr **928**); next @**104217** exercise.
+- **D-0928 #1113:** eat key-desync misread (More not empty eat).
+- **D-0928 #1112:** ok_to_throw + mtimedone; was @**103155**.
+- **D-0928 #1111:** select_newcham random while; was @**103071**.
 - **D-0928 #1110:** eel minliquid monflee; was @**103071**.
 - **D-0928 #1109:** Blind FROMFORM; was @**101710**.
 - **D-0928 #1108:** eel mfndpos nexttry; was @**101641**.

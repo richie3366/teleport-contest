@@ -6,24 +6,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1112; **#1113** eat key-desync diag)
-- **Session:** seed4500-knight-coverage (prefix still @**103155**)
-- **Symptom (@103155):** C `rn2(5) @ distfleeck` vs JS `rnd(10)` —
-  looked like `wiz_level_tele`→`getlev_catchup` after mold throw refuse.
-- **Cause (#1113 DIAG):** falsified “post-refuse ^V” as the shared
-  root. Matched through Count:40 `.` (@101726 set_occupation multi=39).
-  C next keys `e` SP `e` `\n` `20` `.` — eat consumes **no** keys then
-  timed space + Count:20 wait (fleeck @103155 inside that wait). JS
-  `doeat`→`floorfood` yn on floor **11 apples** + invent getobj
-  (carrot/apple `hm`) eats SP/`e`/`\n`/`20`/`.`/… then later `^V`→
-  `getlev` `rnd(10)`. C `is_edible` still allows FOOD_CLASS for mold;
-  experiment forcing inediate `is_edible=false` advances prefix to
-  **104217** (masks invent/floor presence — **not** ship). Rejected:
-  inediate is_edible lie; getlev itself.
-- **Next (@103155):** why JS has invent carrot+apple + floor apples
-  when C’s `e` is “nothing to eat” (no getobj). Temp inediate reject
-  must not land. Named omit: check_capacity; metallivore/pool
-  floorfood; is_edible ghoul/cube/fire/metal arms vs JS FOOD-only.
+- **Status:** partial (#1080–#1114; **#1114** hitmu hidden-under)
+- **Session:** seed4500-knight-coverage (prefix @**104217**)
+- **Symptom (@103155 was):** C `rn2(5) @ distfleeck` vs JS `rnd(10)`.
+- **Cause (#1114):** #1113 misread keys — C’s post-Count:40 `e`s are
+  `--More--` quitchars, not empty eat. Both have floor 11 apples
+  (player `d`+`g` @101391). Missing `hitmu` mundetected reveal
+  (`"%s was hidden under %s!"`) meant JS never forced the gold-coins
+  More before combat; mid-pline `more()` ate an `e`, then a later `e`
+  ran `doeat`/`floorfood` and desynced keys into `^V`/`getlev`.
+- **Fix (#1114):** `mhitu.js` `hitmu` — C mundetected hides_under/eel
+  clear + Blind/`something` + `It`→`Something` pline + `newsym`.
+  Prefix **103155→104217** (runner RNG **104364** Scr **928**).
+- **Next (@104217):** C `rn2(19) @ exercise` vs JS `rn2(5)`.
+- **Symptom (@103155 #1113 DIAG):** looked like getlev after mold throw.
+- **Cause (#1113 DIAG):** falsified “post-refuse ^V” as root. Matched
+  through Count:40 `.`. Misread C `e` as nothing-to-eat; inediate
+  `is_edible=false` advances to **104217** but contradicts C — not
+  shipped. Rejected: inediate lie; getlev as root; invent/floor
+  provenance as the shared cause (both have the apples).
 - **Symptom (@103155 was #1112):** C `rn2(5) @ distfleeck` vs JS
   `rnd(20)` `@ thitmonst` — brown-mold poly threw a small shield.
 - **Cause (#1112):** JS `dothrow`/`dofire` omitted C `ok_to_throw`
