@@ -62,9 +62,36 @@ Do not optimize only one frontier. Chasing one late RNG index can perfect a
 Tourist path while most roles still throw during initialization; broad
 horizontal rewrites can create many unverified stubs.
 
+### After local public suite PASS
+
+When every public session passes locally, the frontiers above no longer
+pick work via FAIL peels. Switch to **map-driven retirement** under a
+locked suite:
+
+1. Treat 44/44 (or the current full public pass) as a **regression
+   fortress** — green gate, cohort, and cadence full `sessions` must
+   stay PASS.
+2. Choose work from named omissions / constitutional debt in one
+   `c-js-map/*.md` section (`debt.md` scenario-shaped code first, then
+   `absent.md` thin systems). Parked items stay diagnose-only until
+   their falsifier exists.
+3. Optional **private canaries:** record short local C-recorder sessions
+   on thin subsystems for held-out hardening; never memorize public
+   traces or chase public leaderboard / CDN drift in-loop.
+4. Prefer delete-wrong-JS + re-port of a shim-thick module over stacking
+   micro-fixes (Phase 2 maintainability).
+
+Operational detail for agents: `GROK-PLAYBOOK.md` §2a–2b.
+
 ### Target selection
 
-Choose the next unit in this order:
+**If the local public suite is already PASS:** do not invent FAIL peels.
+Use the map-driven order above (fortress → named debt/absent cluster →
+optional private canary). Items 1–6 below apply only when they name a
+*real* remaining scaffold, throw, or completeness gap — not as excuses
+to chase public-screen deltas.
+
+Otherwise choose the next unit in this order:
 
 1. An explicit crash/throw or fake fallback shared by many sessions.
 2. A remaining replay/scaffold path or missing frozen-contract behavior.
@@ -73,14 +100,20 @@ Choose the next unit in this order:
 5. The active deep-canary divergence.
 6. Display-only parity after RNG and input-boundary order are stable.
 
-Use the full public run periodically to identify shared blockers. Passing
-count alone is not the priority; a real C subsystem that advances many
-non-passing sessions is valuable.
+Use the full public run periodically to identify shared blockers / to
+confirm the fortress. Passing count alone is not the priority; a real C
+subsystem that retires named debt or advances non-passing sessions is
+valuable.
 
 ### Vertical slice plus branch envelope
 
-An iteration should still be small: one C function or tightly coupled cluster.
-But "small" does not mean "only the branch this seed took."
+An iteration should still be one **semantic cluster**: one C function or
+tightly coupled caller/callee family — not one map bullet, and not an
+unrelated multi-subsystem rewrite. Related deferrals in that envelope may
+retire together when they share one falsifier and verification story.
+A useful density target once the suite is green is roughly 50–300 lines of
+C-faithful JS or one small-file restart (amortizes fixed agent cost).
+But "small"/"cluster" does not mean "only the branch this seed took."
 
 For every touched function:
 
@@ -121,7 +154,10 @@ touched to `ported` or `parity`.
    rewrite unrelated work.
 3. Run the green gate **before editing**. If it already fails, diagnose that
    state or document it; do not claim the new iteration caused or fixed it.
-4. Reproduce the focused divergence with the command in `CURRENT.md`.
+4. If primary work is a FAIL peel: reproduce the focused divergence with the
+   command in `CURRENT.md`. If primary is map-driven (suite already PASS):
+   confirm the named map omission / C cluster and its falsifier (focused
+   or private canary + green + cohort) — do not invent a FAIL.
 
 ### B. Build a work packet before editing
 
@@ -129,10 +165,12 @@ Write down:
 
 - C function(s), file paths, and relevant callers;
 - corresponding JS function/module;
-- exact observed symptom and channel (throw, state, RNG, screen, cursor);
+- for FAIL peels: exact observed symptom and channel (throw, state, RNG,
+  screen, cursor); for map-driven work: the named omission / debt row and
+  the branch envelope to retire;
 - one falsifiable hypothesis;
 - expected side effects, list ordering, and RNG calls;
-- focused command, green-gate command, and cohort command;
+- focused or private-canary command, green-gate command, and cohort command;
 - deferred dependencies that would make a faithful change impossible.
 
 Read slices around functions and callers. Do not consume the context window by

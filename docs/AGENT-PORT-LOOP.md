@@ -185,7 +185,9 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 1. `agent login` (once) so `--list-models` / runs work.
 2. Checkpoint the dirty tree and confirm the green gate.
-3. Ensure `CURRENT.md` has one primary objective and a focused command.
+3. Ensure `CURRENT.md` has one primary objective and a falsifier (focused
+   FAIL command, or map-driven omission + green/cohort/canary when suite
+   is PASS).
 4. Start `./scripts/agent-port-loop.sh` in a dedicated terminal.
 5. Watch the live tee, diffs, green-gate results, journal, and per-iteration
    commits on `origin/main`.

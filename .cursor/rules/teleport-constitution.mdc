@@ -44,6 +44,13 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   the relevant `docs/c-js-map/*.md` section.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
 
+## When public suite is PASS
+
+Treat local full-suite PASS as a **regression fortress**. Work comes from
+named map omissions / debt (`docs/c-js-map/`), not invented FAIL peels or
+leaderboard chasing. One **semantic cluster** per iteration (related
+deferrals OK); denser than one-bullet peels; see `GROK-PLAYBOOK.md` §2a–2b.
+
 ## When fixing divergence
 
 1. Cite the C function (`nethack-c/upstream/src/…`).

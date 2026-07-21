@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 21:32 — map-driven post-PASS mode
+
+- Objective: human — document post-44/44 strategy (fortress + clusters).
+- C locus: n/a (docs: CURRENT/NOTES/playbook/runbook/constitution/strategy
+  + loop prompt / AGENT-PORT-LOOP; review fixed runbook target-order bug).
+- Change: primary = hold suite + retire map debt/absent in semantic
+  clusters (§2a–2b); denser iters OK; no FAIL/LB peels; Phase 2 posture.
+- Verification: n/a (docs only); hot-doc budget OK.
+- Next: pick next `debt.md`/`absent.md` cluster; empty hold-only → stop.
+
 ## 2026-07-21 21:16 — LB out of agent scope
 
 - Objective: human — stop loop peels / polls for public leaderboard.

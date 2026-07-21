@@ -55,6 +55,43 @@ before patching. Smaller docs are not a substitute for C.
 **Parked (do not code):** **D-0006** (seed1800 pet movement) until C
 state/candidate capture exists.
 
+### 2a. After local public suite PASS (map-driven mode)
+
+When `CURRENT.md` shows a clean local public suite (all sessions PASS),
+treat that score as a **regression fortress**, not a work picker.
+
+| Do | Do not |
+|----|--------|
+| Retire named omissions / debt from one `c-js-map/*.md` section | Invent FAIL peels, ALIGN/FORCE, or seed-shaped gates |
+| Prefer `debt.md` scenario-shaped code, then `absent.md` thin systems | Chase public leaderboard / cron / hub CDN drift in-loop |
+| Optional private C-recorder canaries on thin spots | Memorize or hardcode public traces |
+| Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
+
+Sessions still measure progress; they are **not** the specification.
+Held-out / summer escalation can exercise branches the public set never
+hits — map debt is the signal.
+
+### 2b. Iteration density (token vs quality)
+
+Each fresh agent pays large fixed cost (docs, C read-in, verify,
+journal). Prefer **fewer, denser** iterations once the suite is green.
+
+| Too small (waste) | Right size | Too big (quality risk) |
+|-------------------|------------|------------------------|
+| One deferred `if` alone | One C function **or** tight caller/callee cluster | “Finish potions” / half of `mon.c` |
+| Separate iters for sibling `switch` arms | Whole practical `switch` / role kit / item-class envelope | Unrelated subsystems in one commit |
+| Docs-only then code next iter | Code + map update + verify in one handoff | Multiple independent hypotheses |
+
+**Rule:** one falsifier, one C locus family, usually one JS module (or
+two that already call each other). Related map deferrals in that
+envelope may retire together. Target roughly **50–300 lines** of
+C-faithful JS or one small-file restart. If success/failure needs two
+unrelated theories, the batch is too wide — split.
+
+Amortize verification: focused → green → cohort; full `sessions` on
+cadence or shared/startup/display/RNG changes. Stop the loop on empty
+“hold green / refresh docs only” iterations.
+
 ---
 
 ## 3. What “faithful” means here
@@ -95,15 +132,18 @@ call order, struct field, or macro expansion, it is probably trace tailoring.
 Objective:        <from CURRENT.md primary>
 C locus:          nethack-c/upstream/src/<file>.c:<function>
 JS locus:         js/<file>.js:<function>
-Symptom channel:  throw | state | RNG | screen | cursor
+Symptom channel:  throw | state | RNG | screen | cursor | map-omission
 Hypothesis:       <one falsifiable sentence>
 C reads done:     <function body + N callers + 1 branch predicate>
 Branch envelope:  <covered this iteration; deferred>
 Falsifier:        <exact command + expected observation if wrong>
-Focused verify:   <runner + rng-diff if single-segment>
+Focused verify:   <runner + rng-diff if single-segment; or private canary>
 Green gate:       from CURRENT.md
 Cohort:           <distinct session sharing this code>
 ```
+
+When the suite is already PASS, prefer `Symptom channel: map-omission`
+and a named `c-js-map` row over inventing a public FAIL (§2a–2b).
 
 **Minimum C read:** function body + immediate callers + the `if` that guards the
 diverging RNG. Do not patch from `rng-diff` output alone.
@@ -173,7 +213,9 @@ in the journal for human/auditor review.
 
 - Chase late-seed metrics over shared blockers — read §2 / `CURRENT.md`.
 - Ship confident partials — name every deferral in the map section.
-- Over-edit — one iteration ≈ one semantic unit.
+- Over-edit — one iteration ≈ one semantic **cluster** (§2b), not an
+  unrelated multi-subsystem rewrite; also avoid one-bullet peels that
+  waste fixed agent cost when the suite is already PASS.
 - Confuse observation with rule — trace coords are evidence, not JS control flow.
 - Infer C geometry from screens/`FORCE` success — dump C at the locus (§7).
 - Patch topline/`WIN_STOP`/`NEED_MORE` without dumping C more-state (§7).

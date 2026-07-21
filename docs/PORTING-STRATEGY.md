@@ -319,6 +319,21 @@ Suggested phases:
     - Record *extra* local sessions with the C recorder covering
       thin spots; never memorize public traces.
 
+12. **After local public suite PASS (map-driven mode)**
+    - Treat full public PASS as a **regression fortress**, not a
+      FAIL-driven work picker.
+    - Retire named omissions / constitutional debt (`c-js-map/debt.md`
+      scenario-shaped code first, then `absent.md` thin systems).
+    - Iteration unit = one **semantic cluster** (C function or tight
+      caller/callee family; related deferrals OK), denser than
+      one-bullet peels (~50–300 LOC or small-file restart) but not an
+      unrelated multi-subsystem rewrite — one falsifier / verify story.
+    - Optional private canary bundles for thin spots; do not chase
+      public leaderboard / CDN drift in-loop.
+    - Prefer delete-wrong-JS + re-port over shim stacks (Phase 2).
+    - Operational detail: `GROK-PLAYBOOK.md` §2a–2b,
+      `PORTING-RUNBOOK.md` §3, `CONSTITUTION.md` §5 / §10 / §11.
+
 ### Session-driven prioritization
 
 Use the public set as a **coverage map**, not a checklist to overfit:

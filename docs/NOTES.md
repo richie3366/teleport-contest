@@ -8,9 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1200** (Scr **11405**/11405 RNG **100%**).
-- Public leaderboard / cron / hub CDN session drift: **out of scope**
-  (human). Do not poll `data.json` or peel “for LB.”
-- Falsifier when peeling: focused session + green + cohort still PASS.
+- Mode: **map-driven retirement** under fortress (not FAIL peels /
+  LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
+- Density: one semantic cluster (~50–300 LOC or small-file restart),
+  not one-bullet peels; empty “hold green only” iters → stop loop.
+- Public LB / cron / hub CDN: **out of scope** (human).
+- Falsifier: focused/canary + green + cohort still PASS.
 
 ## Don't re-check (≤15)
 

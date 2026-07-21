@@ -17,6 +17,7 @@ Measured objectives/scores live in **`docs/CURRENT.md`**, fixed causes in
 - Current expensive dead ends labeled “don’t re-check” (cap ~15)
 - Session landmarks still needed live (cap ~15)
 - Open questions only — not peel chronology or resolved causes
+- When suite is PASS: remind map-driven / cluster density (not FAIL peels)
 
 ## What does not
 

@@ -58,13 +58,26 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Local suite clean (44/44 @#1200).** Hold green gate + full suite.
-Do **not** chase public leaderboard / cron / `data.json` / hub CDN
-session drift — out of agent scope (human/maintainer).
+**Hold local suite (44/44 @#1200) as a regression fortress.** Green
+gate + cohort + cadence full `sessions` must stay PASS. Do **not**
+chase public leaderboard / cron / `data.json` / hub CDN session drift
+— out of agent scope (human/maintainer). Do **not** invent FAIL peels,
+ALIGN/FORCE, or seed gates when the suite is already clean.
 
-When peeling: named omissions in one `docs/c-js-map/*.md` section, or
-parked D-0006 only with reproducible C state. Prefer shared C-faithful
-ports that keep suite PASS; no invent ALIGN/FORCE/seed gates.
+**Work picker (map-driven, not FAIL-driven):** retire named omissions /
+constitutional debt from one `docs/c-js-map/*.md` section (prefer
+`debt.md` scenario-shaped code, then `absent.md` thin systems), or
+parked D-0006 only with reproducible C state. Optional: private C
+recorder canaries on thin spots (held-out hardening) — never memorize
+public traces.
+
+**Iteration density:** one **semantic cluster** per iteration (one C
+function or tight caller/callee family; related map deferrals OK),
+not one map bullet and not an unrelated multi-subsystem rewrite.
+Target ~50–300 lines of C-faithful JS or one small-file restart when
+that amortizes fixed agent overhead. One falsifier / verification
+story. Prefer delete-wrong-JS + re-port over stacking shims.
+See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 

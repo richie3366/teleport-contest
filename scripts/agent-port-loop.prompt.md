@@ -13,6 +13,9 @@ small, accurate repo notes are.
 
 **Priority:** `CURRENT.md` primary beats NOTES and parked canaries.
 **Do not implement** D-0006 until its C-state falsifier exists.
+When the local public suite is already PASS: **map-driven mode**
+(`GROK-PLAYBOOK.md` §2a–2b) — retire named `c-js-map` debt/absent in one
+semantic cluster; do not invent FAIL peels or chase leaderboard drift.
 
 **HARD — Contest Rule #2:** scored `js/` must run as plain ESM in **Node and
 Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
@@ -28,13 +31,18 @@ Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
 1. `git status --short` — shared dirty tree; never reset/checkout unrelated work.
 2. Green gate from `CURRENT.md` (seed8000 + seed0900 + strict-output-check).
 3. If green fails: journal and stop — no feature work.
-4. Reproduce the primary objective with its focused command.
+4. If primary is a FAIL peel: reproduce its focused command. If suite is
+   already PASS (map-driven): confirm the named map omission / C cluster
+   and falsifier — do not invent a FAIL.
 
 ## One bounded unit
 
-- Follow `CURRENT.md` primary. Prefer shared blockers over late single-seed peels.
+- Follow `CURRENT.md` primary. Prefer shared blockers over late single-seed
+  peels **while failures exist**. When suite is PASS: prefer `debt.md` /
+  `absent.md` clusters (denser semantic unit, §2b) under fortress gates.
 - Longer RNG prefix without a C-cited cause is **not** success.
-- One C function / tight helper cluster; name deferred branches in the map section.
+- One C function / tight helper cluster; related map deferrals OK; name
+  remaining deferred branches in the map section.
 
 Before patching: C locus + callers, JS locus, channel, falsifiable hypothesis,
 focused + green + cohort commands.

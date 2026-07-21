@@ -112,6 +112,9 @@ Category: **agentic**. No shipping a transpiled C engine.
    - verified focused, green, and cohort evidence;
    - `fastforward.js` bytes/LOC removed (now mostly empty-hook deletion).
    Do not optimize only public session pass count or one Tourist trace.
+   When the local public suite is already PASS, **map omission / debt
+   retirement under a locked suite** is the primary progress metric —
+   not inventing further public FAIL peels.
 3. Temporary RNG-consuming stubs inside a real function (matching C’s
    call sites while the body is incomplete) are allowed; wholesale
    session replay is not.
@@ -191,6 +194,10 @@ clearly marked temporary and scheduled for deletion.
 2. **Vertical slices:** one function or tight cluster per task, with
    focused, green-gate, and subsystem-cohort acceptance commands.
    Small scope does not excuse porting only an observed seed branch.
+   A cluster may retire several *related* map deferrals that share one
+   C locus family and one falsifier; it must not mix unrelated
+   subsystems. Prefer denser clusters over one-bullet peels once the
+   public suite is PASS (see runbook / playbook).
 3. **Cite C** in the change (file + function). Fixes that cannot point
    at C are suspect.
 4. **Auditor > Porter** on architecture. Porters do not redefine the
@@ -220,6 +227,11 @@ Ship Phase 1 as something a porter can regenerate: clear modules,
 generated tables, Lua scripts unchanged from upstream, constitution
 still true. Optimize for **small diffs when C changes**, not for
 maximum opacity.
+
+After public-suite PASS, keep optimizing for held-out generalization
+and Phase 2 maintainability: retire scenario-shaped debt, prefer
+subsystem restart over shim stacks, and harden thin spots with private
+C-recorder canaries — not by overfitting the public corpus.
 
 ---
 
