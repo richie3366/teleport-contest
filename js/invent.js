@@ -1063,13 +1063,52 @@ export async function display_pickinv_reply(lets) {
 }
 
 /**
+ * C ref: invent.c display_pickinv wizid branch (wizard && override_ID).
+ * Debug Identify title; unid_cnt==0 → "(all items are permanently identified
+ * already)" then select_menu PICK_ANY (no selectors → dismiss).
+ * Named omissions: unid_cnt>0 PICK_ANY ('_'/^I identify_pack, per-item
+ * identify, sortpack class headers, def_oc_syms group accel,
+ * MENU_ITEMFLAGS_SKIPINVERT); update_inventory nesting.
+ */
+async function display_pickinv_wizid() {
+    const unid_cnt = count_unidentified(game.invent);
+    let prompt = 'Debug Identify';
+    if (unid_cnt) {
+        prompt += ` -- unidentified or partially identified item${
+            unid_cnt === 1 ? '' : 's'
+        }`;
+    }
+    const entries = [{ text: prompt, attr: 0 }];
+    if (!unid_cnt) {
+        entries.push({
+            text: '(all items are permanently identified already)',
+            attr: 0,
+        });
+        await paint_corner_nhw_menu(entries, '(end) ');
+        await flush_screen(1);
+        await nhgetch();
+        await dismiss_nhw_menu();
+        return;
+    }
+    // Deferred: C PICK_ANY item menu ('_'/^I / letters). Do not invent.
+    if (game.iflags) game.iflags.override_ID = 0;
+}
+
+/**
  * C ref: invent.c display_inventory(NULL, FALSE) / display_pickinv PICK_NONE.
  * C ref: wintty.c tty_end_menu — lmax=rows-1; npages>1 → process_menu_window
  *        "(N of M)" paging (select_menu PICK_NONE). Single-page corner vs
  *        fullscreen still uses "(end) ".
  * Shows invent and waits for a dismiss key (Space advances pages).
+ * When wizard && iflags.override_ID → wizid Debug Identify path.
  */
 export async function display_inventory() {
+    const wizard = !!(game.flags?.debug || game.flags?.wizard);
+    if (wizard && (game.iflags?.override_ID | 0)) {
+        await display_pickinv_wizid();
+        return;
+    }
+
     const lines = invent_lines(); // includes trailing "(end)"
     const menuItems = lines.slice(0, -1);
     const rows = display()?.rows || 24;

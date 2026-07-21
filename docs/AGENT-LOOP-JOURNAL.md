@@ -20,6 +20,17 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:30 — #1143 wizidentify Debug Identify unid_cnt==0
+- Objective: seed4500 @541 `#wizidentify` unknown vs C Debug Identify.
+- C locus: `wizcmds.c` `wiz_identify`; `invent.c` `display_pickinv` wizid
+  (`override_ID`, `unid_cnt==0` all-identified strings).
+- Change: `wiz_identify` + EXT_CMDS `wizidentify`; `display_pickinv_wizid`
+  corner menu for `unid_cnt==0` (unid>0 PICK_ANY deferred).
+- Verification: green+strict; cohort 8/8; Scr **998→999**; prefix
+  **@541→@559**.
+- Next: @**559** C `#wizintrinsic` all page-1 `+` after `a`/`r` vs JS
+  only `a`/`r`.
+
 ## 2026-07-21 12:22 — #1142 dodiscovered NHW_TEXT pages + VENOM
 - Objective: seed4500 @521 discoveries polearm `--More--` vs JS map.
 - C locus: `o_init.c` `dodiscovered`; `wintty.c` NHW_TEXT putstr page-at-a-time;

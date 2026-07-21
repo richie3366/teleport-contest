@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1142)
+- **Status:** partial (#1080–#1143)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **998**/1814)
+  Scr **999**/1814)
+- **Hypothesis (#1143):** @541 C Debug Identify corner menu vs JS
+  `#wizidentify: unknown extended command` — JS lacked `wiz_identify`
+  / `EXT_CMDS` wiring; C sets `iflags.override_ID` then
+  `display_inventory` wizid branch (`unid_cnt==0` → all-identified
+  strings + PICK_ANY dismiss).
+- **Fix (#1143):** `wizcmds.js` `wiz_identify`; `getline.js` EXT_CMDS
+  `wizidentify`; `invent.js` `display_pickinv_wizid` for `unid_cnt==0`.
+- **Verification (#1143):** green+strict PASS; cohort 8/8; Scr
+  **998→999**; prefix **@541→@559**. Next: @**559** C `#wizintrinsic`
+  after `a`/`r` all page-1 `+` vs JS only `a`/`r`.
 - **Hypothesis (#1142):** @521 C discoveries polearm continuation
   `--More--` vs JS map — JS `dodiscovered` padded one fake page and
   awaited a single key; C `tty_putstr(NHW_TEXT)` pages at `rows-1`
