@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1160)
+- **Status:** partial (#1080–#1161)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1423**/1814)
+  Scr **1427**/1814)
+- **Hypothesis (#1161):** @985 JS `disarms your +1 lance` vs C
+  `wakes up!--More--` — `wakeup` deferred `wake_msg`, so no mid-hit
+  More; movemon then ran `mhitm_ad_sedu`/`steal` on the same screen.
+  @986 C `screams!` + water nymph `wakes up` = growl + wake_nearto
+  wake_msg (also deferred since D-0922).
+- **Fix (#1161):** `mon.js` async `wake_msg` before clear sleep;
+  `wakeup` `was_sleeping` → dynamic-import `growl`; `sounds.js`
+  `wake_nearto` awaits `wake_msg(..., false)`. Finish_meating /
+  ghod_hitsu / hot_pursuit still deferred.
+- **Verification (#1161):** green+strict PASS; cohort 36/36; seed4500
+  Scr **1423→1427**; prefix **@985→@997**. Next: @**997** C
+  `You hear hissing gas` vs JS fire-blast order.
 - **Hypothesis (#1160):** @941 `#overview` JS Level-1 `A fountain.` +
   Mines `Level 5:` fountain vs C annotation-only L1 and Mines starts
   at Level 12 — in-memory `savelev`/`getlev` omitted `lastseentyp`,

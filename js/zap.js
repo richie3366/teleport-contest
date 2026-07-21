@@ -998,7 +998,7 @@ export async function dobuzz(
                             // slept_monst deferred
                             void mon_could_move;
                             if (damgtype !== ZT_SLEEP) {
-                                wakeup(mon, (type | 0) >= 0);
+                                await wakeup(mon, (type | 0) >= 0);
                             }
                         }
                         range -= 2;
