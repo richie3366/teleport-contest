@@ -8,11 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1625** — C topline `You can't see...`
-  vs JS `Kabalebo is not near enough to receive your payment.`
-  Focused:
+- **Primary (D-0928):** seed4500 @**1650** — `#wizwhere` overview
+  C ` --More--` (col9) vs JS `--More--` (col8). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C path at pay/see boundary (prefer temp C dump — playbook §7).
+  Falsify: C tty More leading-space / menu putstr (prefer dump — §7).
 
 ## Don't re-check (≤15)
 
@@ -23,6 +22,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1625 Kabalebo "not near enough" as shop nearness FORCE
+  — was Blind `dopay` `canspotmon` seensk stub (#1182).
 - Do not treat @1573 challenges More r11 vs r20 as leftover WIN_MESSAGE
   — was empty `show_achievements` + missing `record_achievement` (#1181).
 - Do not treat @1501 `an engagement ring` as wish `dknown`/readobjnam
@@ -39,6 +40,8 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1180 Scr **11312**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1185**.
+- **D-0928 #1182:** `dopay` Blind/`canspotmon`/`You_cant("see...")`;
+  prefix **@1625→@1650**; Scr **1723→1724**.
 - **D-0928 #1181:** `show_achievements` + `record_achievement`;
   ACH_RNK/HELL/MINE/TOWN/SHOP/TMPL; prefix **@1573→@1625**;
   Scr **1722→1723**.

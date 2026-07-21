@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
+
+- Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
+- C locus: `shk.c` `dopay` — `canspotmon` seensk; Blind/`Blind_telepat`;
+  `You_cant("see...")`.
+- Change: `shk.js` `dopay` real `canspotmon` + Blind gates + see arm
+  (D-0928 #1182).
+- Verification: green+strict PASS; cohort 7/7; Scr **1723→1724**;
+  first miss **@1625→@1650**.
+- Next: @**1650** `#wizwhere` ` --More--` vs `--More--`.
+
 ## 2026-07-21 16:55 — #1181 show_achievements + record
 
 - Objective: seed4500 @1573 Voluntary challenges More r11 vs C r20.
@@ -170,23 +181,3 @@ Use this shape:
   prefix **@1098→@1151**.
 - Next: @**1151** `#wizintrinsic` Blind TIMEOUT JS `[23]` vs C `[119]`.
 
-## 2026-07-21 15:20 — #1168 nh_timeout generic uprops TIMEOUT
-
-- Objective: seed4500 @1092 `#wizintrinsic` invulnerable `[30]` vs C bare.
-- C locus: `timeout.c` `nh_timeout` — for all `u.uprops` TIMEOUT `--`.
-- Change: `timeout.js` decrement remaining uprops TIMEOUT after
-  dedicated arms; sync TIMEOUT_FLAT; expiry switch deferred (D-0928 #1168).
-- Verification: green+strict PASS; cohort 38/38; Scr **1417→1419**;
-  prefix **@1092→@1098**.
-- Next: @**1098** Blind feel-floor map C altar `_` vs JS floor `·`.
-
-## 2026-07-21 15:10 — #1167 flags.pushweapon setuswapwep
-
-- Objective: seed4500 @1053 carrots alt weapons vs JS bites.
-- C locus: `wield.c` `dowield`/`wield_tool` — `flags.pushweapon` →
-  `setuswapwep(oldwep)` after successful ready (no second prinv).
-- Change: `wield.js` implement pushweapon in `dowield`+`wield_tool`
-  (D-0928 #1167). Prior carrot wield then sword hit `doswapweapon`.
-- Verification: green+strict PASS; cohort 19/19; Scr **1413→1417**;
-  prefix **@1053→@1092**.
-- Next: @**1092** `#wizintrinsic` invulnerable `[30]` TIMEOUT vs C bare.

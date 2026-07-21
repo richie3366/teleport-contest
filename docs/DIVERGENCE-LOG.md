@@ -33,9 +33,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1181)
+- **Status:** partial (#1080–#1182)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1723**/1814)
+  Scr **1724**/1814)
+- **Hypothesis (#1182):** @1625 — C topline `You can't see...` vs JS
+  `Kabalebo is not near enough to receive your payment.` Blind hero
+  `p`ay; C `dopay` counts `canspotmon` into `seensk` and, when Blind
+  with `sk>0` and `!seensk`, `You_cant("see...")`. JS stubbed seensk
+  as live-on-map and collapsed `!seensk` to "no shopkeeper"/nearness.
+- **Fix (#1182):** `shk.js` `dopay` — real `canspotmon`; Blind/
+  `Blind_telepat` gate; `You can't see...` arm; seensk==1 finder uses
+  `canspotmon`. Multi-shk getpos / debit / robbed still deferred.
+- **Verification (#1182):** green+strict PASS; cohort 7/7
+  (8000/0900/1500/1800/0060/0102/0002); focused Scr **1723→1724**;
+  first miss **@1625→@1650**. Next: @**1650** `#wizwhere` More
+  ` --More--` (leading space / cursor col) vs `--More--`.
+- **Do not:** treat @1625 as shop nearness FORCE — root was Blind
+  `canspotmon` seensk stub.
 - **Hypothesis (#1181):** @1573 — Voluntary challenges `--More--` at
   r11 (JS) vs r20 (C). Not leftover WIN_MESSAGE: JS
   `show_achievements_lines` returned `[]` and `record_achievement`
