@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106304**. #1119:
-  S_BAT Inhell MFAST ported; prefix **104705→106304**.
-  Next: C fleeck vs JS `m_lined_up` rn2(25).
+- **Gameplay next (D-0928):** seed4500 @**106531**. #1120:
+  covetous `tactics` + fire-trap `destroy_items`; prefix
+  **106304→106531**. Next: C `hitmu` `d(2,6)` vs JS `d(3,6)`.
   Focused: `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -31,16 +31,18 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @104705 as fleeck rn2(4)/fmon-order alone — was missing
   S_BAT Inhell MFAST; don’t FORCE bat@46 +12 (#1118–#1119).
+- Do not treat @106304 fleeck vs lined_up as root — was missing
+  covetous `tactics` + fire-trap `destroy_items` (#1120).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1115 Scr **10516**/11405 RNG **788815**/792838
-  (99.49%); speed `31+0.24/turn`; next cadence @**#1120**.
-- **D-0928 #1119:** S_BAT Inhell MFAST; prefix **104705→106304**;
-  runner RNG **106354** Scr **939**.
-- **D-0928 #1118:** @104705 early shapeshift; bat@46 mcalcmove 12vs24
-  was MFAST omit (resolved #1119).
-- **D-0928 #1117:** carrying_too_much; prefix **104241→104705**.
+- suite **42/44** @#1120 Scr **10527**/11405 RNG **791103**/792838
+  (99.78%); speed `30+0.24/turn`; next cadence @**#1125**.
+- **D-0928 #1120:** tactics + fire destroy_items; prefix
+  **106304→106531**; runner RNG **106540** Scr **937**.
+- **D-0928 #1119:** S_BAT Inhell MFAST; was @**104705**.
+- **D-0928 #1118:** @104705 early shapeshift; bat MFAST omit (→#1119).
+- **D-0928 #1117:** carrying_too_much; was @**104241**.
 - **D-0928 #1116:** break_armor nohands shed; was @**104241**.
 - **D-0928 #1115:** mfind0 + wizwhere; was @**104217**.
 - **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.

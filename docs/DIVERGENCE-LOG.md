@@ -6,8 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1119; **#1119** S_BAT Inhell MFAST)
-- **Session:** seed4500-knight-coverage (prefix @**106304**)
+- **Status:** partial (#1080–#1120; **#1120** tactics + fire destroy_items)
+- **Session:** seed4500-knight-coverage (prefix @**106531**)
+- **Cause (#1120 DIAG):** @106304 C `tactics` rn2(5) vs JS `m_lined_up`
+  — `dochug` omitted covetous `tactics()` before `distfleeck`. After
+  port, @106316 still fleeck vs lined_up: JS fleeck ate C
+  `destroy_items` slot — `trapeffect_fire_trap` deferred
+  `destroy_items` after `burnarmor`. Master lich fire-trap path.
+- **Fix (#1120):** `wizard.js` `strategy`/`tactics` (STRAT_NONE harass;
+  STRAT_HEAL mavenge only; target_on / HEAL stairs body deferred);
+  `dochug` covetous gate; `is_covetous`; fire-trap + `dofiretrap`
+  call `destroy_items(AD_FIRE)` via dynamic import (trap↔zap cycle).
+- **Verification (#1120):** green+strict PASS; cohort 6/6; prefix
+  **106304→106531** (runner RNG **106540** Scr **937**); suite
+  **42/44** Scr **10527** RNG **791103** (99.78%).
+- **Next:** @**106531** C `hitmu` `d(2,6)` vs JS `d(3,6)`.
 - **Cause (#1119 C dump):** allotment fmon order matched; bat@46,19
   fi=132 had C `mspeed=MFAST` vs JS `mspeed=0`. Same `rn2(12)=11`:
   MFAST scales mmove 20→27 → always +24; normal → +12. Root: omitted
@@ -17,7 +30,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   peace; muse `mon_adjust_speed` call (cycle — inlined case 2).
 - **Verification (#1119):** green+strict PASS; cohort 5/5; prefix
   **104705→106304** (runner RNG **106354** Scr **939**).
-- **Next:** @**106304** C `distfleeck` vs JS `m_lined_up` rn2(25).
 - **Symptom (@104705 was):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
 - **Cause (#1118 DIAG):** JS `rn2(4)` is EOT `decide_to_shapeshift`
   fog path — movemon already finished. C still has one more mon

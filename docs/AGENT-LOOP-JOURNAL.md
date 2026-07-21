@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 08:12 — #1120 score + tactics + fire destroy_items
+- Objective: cadence full `sessions`; seed4500 @106304 fleeck vs lined_up.
+- C locus: `wizard.c` `tactics`/`strategy`; `monmove.c` `dochug`;
+  `trap.c` `trapeffect_fire_trap` → `destroy_items`.
+- Change: covetous `tactics` STRAT_NONE before fleeck; fire-trap
+  `destroy_items(AD_FIRE)` after burnarmor (dynamic import).
+- Verification: green+strict PASS; cohort 6/6; prefix **106304→106531**
+  (runner RNG **106540** Scr **937**); suite **42/44** Scr **10527**
+  RNG **791103** (99.78%).
+- Next: @**106531** C `hitmu` `d(2,6)` vs JS `d(3,6)`; cadence @#1125.
+
 ## 2026-07-21 07:56 — #1119 S_BAT Inhell MFAST
 - Objective: seed4500 @104705 bat@46 mcalcmove 12vs24.
 - C locus: `makemon.c` S_BAT / `Inhell` / `is_bat` → `mon_adjust_speed(...,2)`.
@@ -149,16 +160,4 @@ Use this shape:
 - Verification: prefix **101391→101608** (runner RNG **102013**);
   Scr **924**; green+strict PASS.
 - Next: @**101608** `movemon_singlemon` `rn2(4)` vs JS `rn2(40)`.
-
-## 2026-07-21 04:39 — #1105 score + passiveum + mhitm_ad_ston
-- Objective: cadence full `sessions`; seed4500 @101373 C `passiveum`
-  `d(2,6)` vs JS `rnd(21)` (D-0928).
-- C locus: `mhitu.c` `passiveum`/`assess_dmg`/`hitmu`; `uhitm.c`
-  `mhitm_ad_ston` mhitu arm.
-- Change: `mhitu.js` `passiveum`+`assess_dmg` after damage; `hitmu`
-  Upolyd mh gate; `mhitm_ad_ston_u` hitmsg+`!rn2(3)`.
-- Verification: prefix **101373→101391** (runner RNG **101579**);
-  Scr **924**; green+strict PASS; cohort 7/7; suite **42/44** Scr
-  **10514** RNG **786142** (99.16%).
-- Next: @**101391** `distfleeck` `rn2(5)` vs JS `rn2(61)`.
 

@@ -21,19 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1115** (42/44,
-Scr **10516**/11405, RNG **99.49%**). Next cadence @**#1120**.
-vs @#1110: Scr **10518→10516**, RNG **787753→788815** (#1115 mfind0 +
-`#wizwhere`; seed4500 prefix **104217→104241**, runner **104252** Scr **926**).
+Score last measured: **2026-07-21** — full `sessions` @**#1120** (42/44,
+Scr **10527**/11405, RNG **99.78%**). Next cadence @**#1125**.
+vs @#1115: Scr **10516→10527**, RNG **788815→791103** (#1120 tactics +
+fire-trap `destroy_items`; seed4500 prefix **106304→106531**, runner
+**106540** Scr **937**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,516 / 11,405** |
-| Positional RNG calls matched | **788,815 / 792,838** (99.49%) |
-| Speed label | `31+0.24/turn` (R² 0.848) |
+| Screens matched | **10,527 / 11,405** |
+| Positional RNG calls matched | **791,103 / 792,838** (99.78%) |
+| Speed label | `30+0.24/turn` (R² 0.857) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +49,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 104252/108275 | 926/1814 | knight; @**104241** fleeck vs rn2(20) |
+| seed4500 | 106540/108275 | 937/1814 | knight; @**106531** hitmu d(2,6) vs d(3,6) |
 
 ## Green gate
 
@@ -71,11 +72,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106304** (D-0928). **#1119:**
-ported `makemon` S_BAT Inhell `is_bat` → MFAST (`mon_adjust_speed` case
-2). Was @104705: C bat@46 mspeed=MFAST vs JS 0 → mcalcmove 24vs12.
-Prefix **104705→106304** (runner RNG **106354** Scr **939**). Next:
-C `distfleeck` vs JS `m_lined_up` rn2(25). Focused:
+**Gameplay next:** **seed4500** @**106531** (D-0928). **#1120:**
+(1) `dochug` covetous `tactics` STRAT_NONE harass; (2) fire-trap
+`destroy_items(AD_FIRE)` after burnarmor. Prefix **106304→106531**
+(runner RNG **106540** Scr **937**). Next: C `hitmu` `d(2,6)` vs JS
+`d(3,6)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -83,7 +84,7 @@ C `distfleeck` vs JS `m_lined_up` rn2(25). Focused:
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject);
-D-0928 #1119 S_BAT Inhell MFAST.
+D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -110,7 +111,9 @@ fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
 @104241≠Very_fast / FORCE VF/umov0 / shed≠capacity root /
 u_calc umov delta (C dump after=12 too);
 @104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift);
-@104705≠fmon-order alone — was missing S_BAT Inhell MFAST (#1119).
+@104705≠fmon-order alone — was missing S_BAT Inhell MFAST (#1119);
+@106304≠fleeck/lined_up root — was missing covetous `tactics` +
+fire-trap `destroy_items` (#1120).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
