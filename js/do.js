@@ -79,6 +79,29 @@ function Hallucination() {
     if (u.Hallucination) return true;
     return !!((u.HHallucination | 0) && !(u.Halluc_resistance | 0));
 }
+/** C ref: youprop.h Levitation — (H||E) && !B. */
+function Levitation() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+/** C ref: youprop.h Flying — (H||E) && !B; steed-flyer arm deferred. */
+function Flying() {
+    const u = game.u || {};
+    if (u.Flying) return true;
+    return !!(((u.HFlying | 0) || (u.EFlying | 0))
+        && !(u.BFlying | 0));
+}
+/**
+ * C ref: hack.c u_locomotion — Lev/Fly verbs; poly locomotion() deferred.
+ * @param {string} defWord
+ */
+function u_locomotion(defWord) {
+    if (Levitation()) return 'float';
+    if (Flying()) return 'fly';
+    return defWord;
+}
 
 /**
  * C ref: do.c familiar_level_msg — rn2(4) deja-vu / hallu variants.
@@ -341,9 +364,11 @@ async function selftouch_stair_fall(_arg) {
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
  * ACH_HELL / MICRO display_nhwindow after Valley odor;
- * Flying/Punished climb variants, full `selftouch` petrify,
- * u_collide_m full limbo. Ported: Punished `drag_down`/`ballrelease`
- * on stair fall (D-0918); In_quest `onquest`;
+ * poly `locomotion()` climb verb / steed-flyer Flying; full `selftouch`
+ * petrify; u_collide_m full limbo. Ported: Punished climb
+ * `great_effort` + Flying ladder "along" (D-0928 #1159);
+ * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
+ * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
  * Gehennom Valley arrival plines + `gehennom_entered` (D-0801);
@@ -592,11 +617,19 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 if (dnst) u_on_newpos(dnst.sx, dnst.sy);
                 else u_on_upstairs();
             }
-            // C: ordinary climb (Flying/Punished "great effort" deferred)
-            if (game.flags?.verbose !== false) {
-                await pline(atLadder
-                    ? 'You climb up the ladder.'
-                    : 'You climb up the stairs.');
+            // C: do.c goto_level — great_effort = Punished && !Levitation;
+            // pline when flags.verbose || great_effort; u_locomotion +
+            // Flying ladder " along".
+            {
+                const great_effort = !!(u.uball) && !Levitation();
+                if (game.flags?.verbose !== false || great_effort) {
+                    const along = (Flying() && atLadder) ? ' along' : '';
+                    const what = atLadder ? 'ladder' : 'stairs';
+                    await pline(
+                        `${great_effort ? 'With great effort, you' : 'You'}`
+                        + ` ${u_locomotion('climb')} up${along} the ${what}.`,
+                    );
+                }
             }
         } else {
             // C ordinary descent: find_from(uz0) else sstairs/upstairs

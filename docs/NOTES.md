@@ -8,9 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**929** C climb-stairs `--More--`
-  vs JS already Dlvl:6 staircase-down. Focused:
+- **Primary (D-0928):** seed4500 @**941** `#overview` — JS extra
+  Level-1 `A fountain.` + Mines `Level 5:` (C omits both; C Level 1
+  is annotation-only). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
+  Falsify: dump `print_mapseen` / `interest_mapseen` / feat.n_fountains
+  for ledger 1 and Mines 5 vs C (prefer temp C dump).
 
 ## Don't re-check (≤15)
 
@@ -36,11 +39,15 @@ Objective/score live in `CURRENT.md`.
   `recbranch_mapseen`, shop_string (#1157).
 - Do not treat @902 `` ` ``/bright-blue as pool/`~` — was `S_engroom`
   after `#wizmap`; `show_map_spot` must `map_engraving` (#1158).
+- Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
+  missing Punished climb `great_effort` pline (#1159).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1156 Scr **10979**/11405 RNG **792838**/792838
   (**100%**); speed `33+0.26/turn`; next cadence @**#1160**.
+- **D-0928 #1159:** `goto_level` Punished climb great_effort; Scr
+  **1409→1412**; @929 OK; next @941 overview extras.
 - **D-0928 #1158:** `show_map_spot` engraving remapping; Scr
   **1390→1409**; @902 OK; next @929 climb-stairs More.
 - **D-0928 #1157:** mapseen msrooms/shop_string/`show_map_spot`
@@ -68,5 +75,3 @@ Objective/score live in `CURRENT.md`.
   prefix **@630→@707**.
 - **D-0928 #1145:** `interest_mapseen` `#overview`; Scr **1000→1001**;
   prefix **@614→@630**.
-- **D-0928 #1144:** `select_menu_pick_any` MENU_SELECT_ALL/PAGE;
-  Scr **999→1000**; prefix **@559→@614**.

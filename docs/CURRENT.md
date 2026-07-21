@@ -63,9 +63,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @929** C `With great effort, you climb up the
-stairs.--More--` vs JS already on Dlvl:6 staircase-down topline
-(RNG **108275**/108275; Scr **1409**/1814; prefix **@902→@929**).
+**seed4500 @941** `#overview` — JS prints Level-1 `A fountain.` and
+Mines `Level 5:` (+ fountain) that C omits (C Level 1 is
+`"starting level"` annotation only; Mines starts at Level 12)
+(RNG **108275**/108275; Scr **1412**/1814; prefix **@929→@941**).
 Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -77,15 +78,15 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1158; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1159; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner).
 **Do not:** blanket corner restore; FORCE mfndpos/WEB; raw RNG
 gates; invent splice; omit breamm/blnd/F-prefix; FORCE linedup/flip;
 inediate FOOD reject; omit mfind0/wizwhere/break_armor/
-carrying_too_much. Recent rejects: @902≠pool/`~` — was
+carrying_too_much. Recent rejects: @929≠More/keystream — was
+Punished climb `great_effort` (#1159); @902≠pool/`~` — was
 `S_engroom` after `#wizmap` (#1158); @893≠interest_filter alone
-(#1157); @832≠dig-depth (#1154); @831≠getpos (#1153); @814≠display
-(#1152); older in D-0928/NOTES.
+(#1157); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

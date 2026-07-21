@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1158)
+- **Status:** partial (#1080–#1159)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1409**/1814)
+  Scr **1412**/1814)
+- **Hypothesis (#1159):** @929 C `With great effort, you climb up the
+  stairs.--More--` vs JS ordinary climb then Dlvl:6 staircase-down —
+  JS `goto_level` deferred Punished climb (`great_effort =
+  Punished && !Levitation`). Port C pline + `u_locomotion` + Flying
+  ladder " along".
+- **Fix (#1159):** `do.js` `goto_level` climb arm — `great_effort` /
+  Levitation/Flying/`u_locomotion`; poly `locomotion()` + steed-flyer
+  still deferred.
+- **Verification (#1159):** green+strict PASS; cohort 12/12; Scr
+  **1409→1412**; prefix **@929→@941**. Next: @**941** `#overview`
+  extra Level-1 fountain + Mines Level 5 (C omits both).
 - **Hypothesis (#1158):** @902 C bright-blue `` ` `` vs JS floor `·`
   after `#wizmap` — not pool/`~`; `S_engroom` wine-cellar engravings
   at (62,6)/(62,7). JS `show_map_spot` remapped traps only; C also
