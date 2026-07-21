@@ -1513,6 +1513,21 @@ export async function rhack(key) {
 }
 
 // C ref: hack.c domove — execute a movement
+/**
+ * C ref: hack.c u_rooted — youmonst.data->mmove == 0 (brown mold, etc.).
+ * Spends the turn (leave context.move); does not step. Named omissions:
+ * Is_airlevel / Is_waterlevel "in place" (Levitation alone covers flight).
+ */
+async function u_rooted() {
+    const data = game.youmonst?.data;
+    if (!data || (data.mmove | 0)) return false;
+    const u = game.u || {};
+    const lev = !!(u.Levitation || u.HLevitation || u.ELevitation);
+    await pline(`You are rooted ${lev ? 'in place' : 'to the ground'}.`);
+    nomul(0);
+    return true;
+}
+
 async function domove(dx, dy) {
     const u = game.u;
     const forcefight = !!game.context?.forcefight;
@@ -1604,6 +1619,13 @@ async function domove(dx, dy) {
         }
         // safemon displace: fall through; swap after test_move succeeds
         // (not when swallowed — engulfer is never safemon displace)
+    }
+
+    // C ref: hack.c domove_core — after attack path, before trapmove:
+    // u_rooted (mmove==0) spends the turn without stepping (D-0928 #1106).
+    if (await u_rooted()) {
+        if (game.context?.run) end_running();
+        return;
     }
 
     // C ref: hack.c domove_core — u.utrap → trapmove before test_move

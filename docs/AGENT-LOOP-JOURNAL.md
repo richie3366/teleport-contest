@@ -12,6 +12,15 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-21 04:49 — #1106 u_rooted (brown mold)
+- Objective: seed4500 @101391 C `distfleeck` `rn2(5)` vs JS `rn2(61)`.
+- C locus: `hack.c` `u_rooted` / `domove_core` (mmove==0).
+- Change: `cmd.js` `u_rooted` after attack path; spend turn, no step.
+  Symptom was early `#wizwish` after omitted rooted `k` turns.
+- Verification: prefix **101391→101608** (runner RNG **102013**);
+  Scr **924**; green+strict PASS.
+- Next: @**101608** `movemon_singlemon` `rn2(4)` vs JS `rn2(40)`.
+
 ## 2026-07-21 04:39 — #1105 score + passiveum + mhitm_ad_ston
 - Objective: cadence full `sessions`; seed4500 @101373 C `passiveum`
   `d(2,6)` vs JS `rnd(21)` (D-0928).
@@ -169,13 +178,4 @@ Use this shape:
 - Verification: prefix **88377→88399**; RNG **89887** Scr **806**;
   green+strict PASS; cohort 7/7.
 - Next: @88399 C `corpse_chance` `rn2(2)` vs JS `rn2(6)`.
-
-## 2026-07-21 03:05 — process: C dump when stuck (geometry)
-- Objective: promote D-0928 #1092 learning into durable loop guidance.
-- C locus: n/a (docs).
-- Change: `GROK-PLAYBOOK` §7 + §9; `PORTING-RUNBOOK` diagnose §C.5;
-  `agent-notes.mdc` when-to-write — prefer temp C locus dump over
-  FORCE/screen-inferred geometry after two falsifications.
-- Verification: n/a (docs-only).
-- Next: loop agents follow playbook §7 on geometry peels.
 

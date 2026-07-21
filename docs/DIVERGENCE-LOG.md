@@ -6,8 +6,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1104; **#1105** passiveum + mhitm_ad_ston)
-- **Session:** seed4500-knight-coverage (prefix @**101391**)
+- **Status:** partial (#1080–#1105; **#1106** `u_rooted`)
+- **Session:** seed4500-knight-coverage (prefix @**101608**)
+- **Symptom (@101391):** C `rn2(5) @ distfleeck` vs JS `rn2(61)`
+  (`rnd_otyp_by_namedesc` / early `#wizwish`). Looked like
+  `distfleeck`; DIAG showed JS already in wish after skipping
+  `#conduct`/`dg`/`#version`.
+- **Cause (#1106):** brown-mold poly (`mmove==0`); C `u_rooted`
+  spends the turn without stepping; JS omitted it so walk keys
+  either moved or `move=0` no-ops → keystream raced into
+  `#conduct`/`drop`/`#wizwish` while C still spent rooted `k`
+  turns. Symptom `rn2(61)` was wish namedesc, not fleeck.
+- **Fix (#1106):** `cmd.js` `u_rooted` + call from `domove` after
+  attack path / before `trapmove` (leave `context.move`). Prefix
+  **101391→101608** (runner RNG **102013**). Named omit:
+  Is_airlevel/Is_waterlevel "in place" (Levitation alone).
+- **Next (@101608):** C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`.
 - **Symptom (@101373):** C `d(2,6) @ passiveum` vs JS `rnd(21)` —
   brown-mold poly after wand-poly; mon hit dealt damage so C ran
   hero AT_NONE counterattack; JS `hitmu` skipped `passiveum`.
@@ -21,7 +35,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Named omit: `split_mon`/`golemeffects`/`mon_reflects`/
   `paralyze_monst`/`erode_armor`/`acid_damage`/`drain_item` bodies;
   `make_stoned` killer string; attk_protection stone detail.
-- **Next (@101391):** C `rn2(5) @ distfleeck` vs JS `rn2(61)`.
 - **Symptom (@100699):** C `rn2(46) @ rnd_otyp_by_namedesc` vs JS
   `rn2(5)` — looked like wish namedesc; JS still emitted `rn2(46)`
   14 calls later (one extra monster turn).

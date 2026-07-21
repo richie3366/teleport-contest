@@ -8,10 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101391**. #1105 landed
-  `passiveum` + `mhitm_ad_ston` mhitu (prefix **101373→101391**;
-  runner RNG **101579**). Next: C `rn2(5) @ distfleeck` vs JS
-  `rn2(61)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101608**. #1106 landed
+  `u_rooted` (prefix **101391→101608**; runner RNG **102013**).
+  Next: C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,8 +29,8 @@ Objective/score live in `CURRENT.md`.
 - Do not omit peffect_extra_healing / BLINDED nh_timeout /
   learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @100699 `rn2(46)` vs `rn2(5)` as namedesc — was
-  `nolimbs` put-on + capacity (`#1104`).
+- Do not treat @101391 `distfleeck` vs `rn2(61)` as fleeck arity —
+  was missing `u_rooted` → early `#wizwish` (#1106).
 - Do not omit `passiveum` after `hitmu` damage — brown-mold poly
   AD_COLD (`#1105`); @101378 rn2(3) match was knockback coinciding
   with missing `mhitm_ad_ston`.
@@ -40,8 +39,9 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
   (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
-- **D-0928 #1105:** passiveum + mhitm_ad_ston; prefix **101391**;
-  RNG **101579** Scr **924**/1814.
+- **D-0928 #1106:** `u_rooted`; prefix **101608**; RNG **102013**
+  Scr **924**/1814.
+- **D-0928 #1105:** passiveum + mhitm_ad_ston; was @**101391**.
 - **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;
   was @**101373**.
 - **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
