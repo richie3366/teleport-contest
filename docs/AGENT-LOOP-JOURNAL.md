@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 14:36 — #1163 waterbody_name Medusa shallow sea
+
+- Objective: seed4500 @1001 C `shallow sea` vs JS `moat`.
+- C locus: `pager.c` `waterbody_name` MOAT → `Is_medusa_level`
+  / juiblex / samurai-qstart / hallu; ICE; waterlevel wall.
+- Change: `hack.js` `waterbody_name` ports those arms; SURFACE_AT
+  drawbridge still deferred (D-0928 #1163).
+- Verification: green+strict PASS; cohort 36/36; Scr **1431→1433**;
+  prefix **@1001→@1034**.
+- Next: @**1034** C empty vs JS `A minotaur appears close by.`
+  (`create_particular` invents pline).
+
 ## 2026-07-21 14:32 — #1162 zap_over_floor hissing-gas Norep
 
 - Objective: seed4500 @997 C hissing gas vs JS fire-blast hits-you.

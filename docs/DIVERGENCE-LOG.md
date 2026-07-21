@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1162)
+- **Status:** partial (#1080–#1163)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1431**/1814)
+  Scr **1433**/1814)
+- **Hypothesis (#1163):** @1001 C `You avoid stepping into the shallow
+  sea.` vs JS `…the moat.` — `waterbody_name` MOAT returned plain
+  `"moat"`; C `pager.c` returns `"shallow sea"` on `Is_medusa_level`,
+  also juiblex `"swamp"` / samurai-qstart `"pond"` / hallu `"deep…"`,
+  plus ICE and waterlevel `"limitless water"`.
+- **Fix (#1163):** `hack.js` `waterbody_name` ports those MOAT/ICE/
+  waterwall arms (SURFACE_AT drawbridge still deferred).
+- **Verification (#1163):** green+strict PASS; cohort 36/36; seed4500
+  Scr **1431→1433**; prefix **@1001→@1034**. Next: @**1034** C empty
+  topline vs JS `A minotaur appears close by.` (`create_particular`
+  invents caller pline; C creation has none).
 - **Hypothesis (#1162):** @997 C `You hear hissing gas` + `The blast
   of fire hits it!--More--` vs JS fire-hits-it then hits-you without
   hissing — `zap_over_floor` ZT_FIRE/is_pool created the steam cloud

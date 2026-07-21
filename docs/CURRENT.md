@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1423/1814 | knight; RNG done; @985 nymph |
+| seed4500 | **108275**/108275 | 1433/1814 | knight; RNG done; @1034 wizgenesis |
 
 ## Green gate
 
@@ -63,9 +63,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1001** — C `shallow sea` vs JS `moat` (`waterbody_name`
-Medusa MOAT; RNG **108275**/108275; Scr **1431**/1814; prefix
-**@997→@1001** after hissing-gas Norep). Focused:
+**seed4500 @1034** — C empty topline vs JS `A minotaur appears close
+by.` after `#wizgenesis` (`create_particular_creation` invents
+caller pline; C `makemon` + `MM_NOEXCLAM` has no creation pline).
+RNG **108275**/108275; Scr **1433**/1814; prefix **@1001→@1034**
+after `waterbody_name` Medusa. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,18 +78,18 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1162; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1163; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
-zap_over_floor hissing-gas Norep + hit The (#1162).
+zap_over_floor hissing-gas Norep + hit The (#1162);
+`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel (#1163).
 **Do not:** blanket corner restore; FORCE mfndpos/WEB; raw RNG
 gates; invent splice; omit breamm/blnd/F-prefix; FORCE linedup/flip;
 inediate FOOD reject; omit mfind0/wizwhere/break_armor/
-carrying_too_much. Recent rejects: @997≠fire-order root — was
-missing `zap_over_floor` hissing-gas Norep + capitalize-only The
-(#1162); @985≠mhitu/steal — was deferred `wake_msg`/growl (#1161);
-@941≠interest alone — lastseentyp getlev (#1160); older in
-D-0928/NOTES.
+carrying_too_much. Recent rejects: @1001≠generic moat — was missing
+`Is_medusa_level` `"shallow sea"` (#1163); @997≠fire-order root —
+`zap_over_floor` Norep + The (#1162); @985≠mhitu/steal — wake_msg
+(#1161); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

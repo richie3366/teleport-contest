@@ -8,12 +8,13 @@ import {
     NO_ROOM, SHARED, SHARED_PLUS, ROOMOFFSET, SHOPBASE, COLNO, ROWNO,
     is_pit, TEMPLE, OROOM, COURT, SWAMP, MORGUE, ZOO, BEEHIVE, BARRACKS,
     LEPREHALL, COCKNEST, ANTHOLE, DELPHI,
-    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ROOM,
+    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ROOM, ICE,
     IS_WATERWALL, PARANOID_SWIM, TIP_SWIM,
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     xdir, ydir, N_DIRS,
     DIR_W, DIR_N, DIR_E, DIR_S, DIR_NW, DIR_NE, DIR_SE, DIR_SW,
-    OVERLOADED, SLT_ENCUMBER, Is_airlevel,
+    OVERLOADED, SLT_ENCUMBER, Is_airlevel, Is_waterlevel,
+    Is_medusa_level, Is_juiblex_level,
     TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
     SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
     INTRINSIC, UNCHANGING,
@@ -30,9 +31,9 @@ import { A_STR, A_CON, exercise } from './attrib.js';
 import { rn2 } from './rng.js';
 import { midnight } from './calendar.js';
 import {
-    PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE,
+    PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE, PM_SAMURAI,
 } from './generated/monsters_data.js';
-import { hliquid } from './do_name.js';
+import { hliquid, Hallucination } from './do_name.js';
 import { near_capacity } from './invent.js';
 
 /** C ref: decl.c dirs_ord — cardinals first. */
@@ -717,16 +718,39 @@ export function is_lava(x, y) {
 }
 
 /**
- * C ref: pager.c waterbody_name — pool/moat/lava/wall; medusa/juiblex/
- * samurai pond / SURFACE_AT drawbridge deferred. Hallu via hliquid (D-0849).
+ * C ref: pager.c waterbody_name — pool/moat/lava/ice/wall; medusa
+ * shallow sea / juiblex swamp / samurai qstart pond (D-0928 #1163).
+ * Named omit: SURFACE_AT drawbridge under-typ (raw typ for now).
  */
 export function waterbody_name(x, y) {
     if (!isok(x, y)) return 'drink';
+    // C: SURFACE_AT — DRAWBRIDGE_UP under deferred → raw typ
     const typ = game.level?.at(x, y)?.typ;
+    const hallucinate = Hallucination() && !game.program_state?.gameover;
     if (typ === LAVAPOOL) return `molten ${hliquid('lava')}`;
+    if (typ === ICE) {
+        if (!hallucinate) return 'ice';
+        return `frozen ${hliquid('water')}`;
+    }
     if (typ === POOL) return `pool of ${hliquid('water')}`;
-    if (typ === MOAT) return 'moat';
-    if (IS_WATERWALL(typ)) return `wall of ${hliquid('water')}`;
+    if (typ === MOAT) {
+        if (hallucinate) return `deep ${hliquid('water')}`;
+        if (Is_medusa_level(game.u?.uz)) return 'shallow sea';
+        if (Is_juiblex_level(game.u?.uz)) return 'swamp';
+        // C: Role_if(PM_SAMURAI) && Is_qstart(&u.uz)
+        const qs = game.qstart_level;
+        const uz = game.u?.uz;
+        if (game.urole?.mnum === PM_SAMURAI
+            && qs && uz
+            && uz.dnum === qs.dnum && uz.dlevel === qs.dlevel) {
+            return 'pond';
+        }
+        return 'moat';
+    }
+    if (IS_WATERWALL(typ)) {
+        if (Is_waterlevel(game.u?.uz)) return 'limitless water';
+        return `wall of ${hliquid('water')}`;
+    }
     if (typ === LAVAWALL) return `wall of ${hliquid('lava')}`;
     return 'water';
 }

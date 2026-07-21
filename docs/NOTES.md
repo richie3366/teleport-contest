@@ -8,11 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1001** — C `shallow sea` vs JS
-  `moat`. Focused:
+- **Primary (D-0928):** seed4500 @**1034** — C empty topline vs JS
+  `A minotaur appears close by.` Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `pager.c` `waterbody_name` MOAT → `Is_medusa_level`
-  `"shallow sea"` (also juiblex swamp / samurai pond).
+  Falsify: C `read.c` `create_particular_creation` has **no** appear
+  pline after `makemon(..., MM_NOEXCLAM)` — JS invents caller-side
+  `"appears close by"`; drop it (makemon announce still deferred).
 
 ## Don't re-check (≤15)
 
@@ -27,6 +28,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1001 moat as swim-tip wording — was `waterbody_name`
+  Medusa `"shallow sea"` (#1163).
 - Do not treat @997 hissing vs fire-hits-you as buzz reorder — was
   missing `zap_over_floor` Norep + hit `The` article (#1162).
 - Do not treat @985 disarm vs wake as mhitu/steal root — was deferred
@@ -35,13 +38,13 @@ Objective/score live in `CURRENT.md`.
   alone — was missing `lastseentyp` savelev/getlev (#1160).
 - Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
   missing Punished climb `great_effort` (#1159).
-- Do not treat @902 `` ` ``/bright-blue as pool/`~` — was `S_engroom`
-  after `#wizmap`; `show_map_spot` must `map_engraving` (#1158).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1160 Scr **11013**/11405 RNG **792838**/792838
   (**100%**); speed `32+0.26/turn`; next cadence @**#1165**.
+- **D-0928 #1163:** `waterbody_name` Medusa/juiblex/samurai/ICE/
+  waterlevel; Scr **1431→1433**; @1001 OK; next @1034 wizgenesis.
 - **D-0928 #1162:** zap_over_floor hissing-gas Norep + hit The;
   Scr **1427→1431**; @997–@1000 OK; next @1001 shallow sea vs moat.
 - **D-0928 #1161:** wakeup `wake_msg` + growl; Scr **1423→1427**;
@@ -69,5 +72,3 @@ Objective/score live in `CURRENT.md`.
   **1146→1147**; @753 OK.
 - **D-0928 #1149:** self_lookat Punished + bare ball; Scr
   **1142→1146**; @787 OK.
-- **D-0928 #1148:** `getobj_takeoff` yn leave toplines; Scr
-  **1141→1142**; prefix **@751→@787**.
