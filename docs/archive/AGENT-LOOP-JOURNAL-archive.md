@@ -639,3 +639,15 @@
 - Verification: green+strict PASS; cohort 12/12; seed2600 **PASS**;
   suite **42/44** Scr **9609**/11405 RNG **687602**/792838 (86.73%).
 - Next: seed4500 knight coverage; leaderboard cron; cadence @#1050.
+
+## 2026-07-21 03:37 — #1096 Count:N . wait + Blind feel
+- Objective: seed4500 @89775 early `#pray` cmd/key desync (D-0928).
+- C locus: `cmd.c` `parse`/`set_occupation`/`timed_occupation` +
+  `donull` f_text "waiting"; `invent.c` `look_here` Blind arm.
+- Change: `rhack` sets `multi=count-1`; `.`/`rest_on_space` →
+  `set_occupation(donull,"waiting",multi)`; Blind feel pline/verb
+  in `look_here`.
+- Verification: prefix **89775→90492**; RNG **90604** Scr **815**;
+  green+strict PASS; cohort 7/7.
+- Next: @90492 post-tiger-kill feel `--More--` key sync (JS `e`
+  vs C `distfleeck`).

@@ -71,10 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**103071** (D-0928). **#1110:**
-`minliquid` eel `monflee`+`mon_track_clear`. Prefix
-**101710→103071** (runner RNG **103190** Scr **928**). Next:
-C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`. Focused:
+**Gameplay next:** **seed4500** @**103155** (D-0928). **#1111:**
+`select_newcham_form` random `while` = C rogue-uppercase gate
+(was retry-any-`!validspecmon`). Prefix **103071→103155**
+(runner RNG **103264** Scr **928**). Next: C `rn2(5) @
+distfleeck` vs JS `rnd(20)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -121,16 +122,12 @@ for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
 S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); omit `mfndpos` eel
 `nexttry` land crawl (D-0928 #1108); omit `set_uasmon` BLINDED
 `!haseyes` FROMFORM (D-0928 #1109); omit minliquid eel
-`monflee`/`mon_track_clear` (D-0928 #1110); treat @95154
-as wish/extra_healing regress; treat @100699 as namedesc-only;
-treat @101378 rn2(3) match as knockback/ston coincidence;
-treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish);
-treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel);
-treat @101616 fleeck vs `mattacku` as missing eel `mfndpos`
-nexttry (was early attack); treat @101641 nhlib shuffle vs
-`rn2(61)` as missing `#version` binding (was Blind Monnam);
-treat @101710 postmov `rn2(5)` vs `rn2(8)` as track avoid
-(was missing `monflee` clear).
+`monflee`/`mon_track_clear` (D-0928 #1110); over-retry
+`select_newcham_form` random while on any `!validspecmon`
+(D-0928 #1111). Rejected misreads: @95154 wish; @100699
+namedesc; @101378 ston coincidence; @101391/@101608/
+@101616 fleeck≠wish/eel/attack; @101641 Blind≠`#version`;
+@101710 track≠m_search; @103071 cham while≠second select.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

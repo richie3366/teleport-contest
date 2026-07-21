@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1109; **#1110** minliquid eel monflee)
-- **Session:** seed4500-knight-coverage (prefix @**103071**)
+- **Status:** partial (#1080–#1110; **#1111** select_newcham random while)
+- **Session:** seed4500-knight-coverage (prefix @**103155**)
+- **Symptom (@103071):** C `rn2(3) @ select_newcham_form` vs JS
+  `rn2(330)` — looked like a second cham pick vs continued random.
+- **Cause (#1111):** JS `select_newcham_form` random arm retried while
+  `!validspecmon`; C continues that loop only when also
+  `tryct>40 && Is_rogue_level && !isupper(monsym)`. Off-rogue, one
+  `rn1` then `newcham`'s outer `accept` loop re-enters
+  `select_newcham_form` (fresh `rn2(3)` for chameleon).
+- **Fix (#1111):** `makemon.js` match C `while` + `monsym_isupper`.
+  Prefix **103071→103155** (runner RNG **103264** Scr **928**).
+  Named omit: dragon-armor ordinary; wizard mon_polycontrol;
+  `newcham` outer rogue `tryct>15` uppercase reject.
+- **Next (@103155):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
 - **Symptom (@101710):** C `rn2(5) @ postmov` vs JS `rn2(8)`
   (`m_move` track avoid `4*(cnt-j)`).
 - **Cause (#1110):** land eel `minliquid` inlined flee bits but omitted

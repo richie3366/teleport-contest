@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 05:29 — #1111 select_newcham_form random while
+- Objective: seed4500 @103071 C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
+- C locus: `mon.c` `select_newcham_form` random arm `while` (rogue uppercase gate).
+- Change: `makemon.js` match C — only continue on `!validspecmon` when
+  `tryct>40 && Is_rogue_level && !monsym_isupper`; else one `rn1` and
+  `newcham` outer accept re-enters select (fresh cham `rn2(3)`).
+- Verification: prefix **103071→103155** (runner RNG **103264** Scr
+  **928**); green+strict PASS; cohort 5/5 (1500/1800/0013/0361/0373).
+- Next: @**103155** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
+
 ## 2026-07-21 05:25 — #1110 cadence + minliquid eel monflee
 - Objective: cadence full `sessions` + seed4500 @101710 postmov vs rn2(8).
 - C locus: `mon.c` `minliquid_core` → `monflee(mtmp,2,FALSE,FALSE)`.
@@ -170,16 +180,3 @@ Use this shape:
 - Verification: prefix **90492→90543**; RNG **91186** Scr **841**;
   green+strict PASS; cohort 7/7.
 - Next: @90543 C `peffect_extra_healing` `d(4,8)` vs JS `rn2(12)`.
-
-## 2026-07-21 03:37 — #1096 Count:N . wait + Blind feel
-- Objective: seed4500 @89775 early `#pray` cmd/key desync (D-0928).
-- C locus: `cmd.c` `parse`/`set_occupation`/`timed_occupation` +
-  `donull` f_text "waiting"; `invent.c` `look_here` Blind arm.
-- Change: `rhack` sets `multi=count-1`; `.`/`rest_on_space` →
-  `set_occupation(donull,"waiting",multi)`; Blind feel pline/verb
-  in `look_here`.
-- Verification: prefix **89775→90492**; RNG **90604** Scr **815**;
-  green+strict PASS; cohort 7/7.
-- Next: @90492 post-tiger-kill feel `--More--` key sync (JS `e`
-  vs C `distfleeck`).
-
