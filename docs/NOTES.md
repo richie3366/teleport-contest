@@ -42,8 +42,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1085 Scr **10398**/11405 RNG **773047**/792838
-  (97.50%); next cadence @**#1090**.
+- suite **42/44** @#1090 Scr **10398**/11405 RNG **773047**/792838
+  (97.50%); speed `31+0.25/turn`; next cadence @**#1095**.
 - **D-0928 #1089:** exclude78/restore @82639; stone78 still best sum80
   land (@83695 rn2(28) vs rn2(32)); mons78=0.
 - **D-0928 #1088:** C kelp=940; stone78→land(42,6) then @83695;

@@ -21,11 +21,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1085** (42/44,
-Scr **10398**/11405, RNG **97.50%**). Next cadence @**#1090**.
-Stable vs @#1080; #1076–#1079 peels lifted Scr/RNG vs @#1075
-(10349 / 97.29%) without changing PASS count. seed4500 still
-@88377 (D-0928 medusa-3 (−1,+1) place).
+Score last measured: **2026-07-21** — full `sessions` @**#1090** (42/44,
+Scr **10398**/11405, RNG **97.50%**). Next cadence @**#1095**.
+Stable vs @#1085; seed4500 still @88377 (D-0928 medusa-3 place).
 
 ## Score
 
@@ -34,7 +32,7 @@ Stable vs @#1080; #1076–#1079 peels lifted Scr/RNG vs @#1075
 | Sessions passing | **42 / 44** |
 | Screens matched | **10,398 / 11,405** |
 | Positional RNG calls matched | **773,047 / 792,838** (97.50%) |
-| Speed label | `30+0.24/turn` (R² 0.85) |
+| Speed label | `31+0.25/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
