@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1175)
+- **Status:** partial (#1080–#1176)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1580**/1814)
+  Scr **1583**/1814)
+- **Hypothesis (#1176):** @1347 — getpos `$` C stays targeting vs JS
+  `Unknown direction: '$'`. NOTES guessed `S_goodpos` matching; C
+  binds `$` as `NHKF_GETPOS_SHOWVALID` **before** matching[]
+  (`cmd.c` spkeys_binds), so `$` never reaches the feature scan.
+- **Fix (#1176):** `getpos.js` — default SHOWVALID `$`, handle before
+  feature matching; `getpos_toggle_hilite_state` (bgcolors /
+  HiliteBackground / S_goodpos `tmp_at` paint still deferred).
+- **Verification (#1176):** green+strict PASS; cohort 6/6 (0360/0012/
+  1500/1800/0004/0060); focused prefix **@1347→@1438**; Scr
+  **1580→1583**. Next: @**1438** poly More botl C `Brown Mold` vs
+  JS `Knight`.
 - **Hypothesis (#1175):** @1344 — `#untrap` C `In what direction?` vs
   JS blank. `dountrap` stopped after `could_untrap`; C calls
   `untrap`→`getdir((char*)0)`.
@@ -45,7 +56,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification (#1175):** green+strict PASS; cohort 3/3
   (0106/1500/1800); focused prefix **@1344→@1347**; Scr **1579→1580**.
   Full `sessions` @#1175 cadence **42**/44 Scr **11170**/11405 RNG
-  **100%**. Next: @**1347** getpos `$` → `S_goodpos` matching.
+  **100%**. Next: @**1347** getpos `$` → SHOWVALID (not matching).
 - **Hypothesis (#1174):** @1322 — getpos auto_describe C `fountain`
   vs JS `unexplored area`. `cmap_defsym_explanation` omitted
   FOUNTAIN/SINK/THRONE/GRAVE/IRONBARS; non-blank `{` fell through

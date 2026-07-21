@@ -8,11 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1347** — getpos `$` C move-cursor
-  vs JS `Unknown direction: '$'`. `S_goodpos` defsym `$` omitted from
-  `feature_match_tags`. Focused:
+- **Primary (D-0928):** seed4500 @**1438** — poly zap More: C botl
+  `Brown Mold` vs JS `Knight` (topline match). @1439 C load More vs
+  JS armor-drop More. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `getpos.c` matching[] includes `defsyms[S_goodpos].sym=='$'`.
+  Falsify: C `polyself`/`break_armor` botl before `more` on first poly
+  pline; JS defers `bot`/`newsym` until after More.
 
 ## Don't re-check (≤15)
 
@@ -43,17 +44,21 @@ Objective/score live in `CURRENT.md`.
   BOOL_RANDOM lit left on map (`lspo_map` lit=FALSE clear; #1173).
   Do not blanket-fix `sel_set_ter(false)`→unlit yet (tut-1 border
   walls regress until vision wall-hack matches C).
-- Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph —
-  was missing furniture in `cmap_defsym_explanation` (#1174).
+- Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph
+  — was missing furniture in `cmap_defsym_explanation` (#1174).
 - Do not treat @1344 blank topline as WIN_STOP/More — was missing
   `dountrap`→`untrap`→`getdir` (#1175).
+- Do not treat @1347 `$` as `feature_match_tags`/`S_goodpos` scan —
+  default `$` is `NHKF_GETPOS_SHOWVALID` before matching (#1176).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1175 Scr **11170**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.26/turn`; next cadence @**#1180**.
+- **D-0928 #1176:** getpos SHOWVALID `$`; prefix **@1347→@1438**;
+  Scr **1580→1583**; next poly botl Mold vs Knight @More.
 - **D-0928 #1175:** `untrap`→`getdir(NULL)`; prefix **@1344→@1347**;
-  Scr **1579→1580**; next getpos `$` S_goodpos.
+  Scr **1579→1580**.
 - **D-0928 #1174:** getpos furniture cmap (fountain…bars); prefix
   **@1322→@1344**; Scr **1576→1579**.
 - **D-0928 #1173:** sanctum map lit=FALSE clear after `splev_apply`;
@@ -66,9 +71,5 @@ Objective/score live in `CURRENT.md`.
   prefix **@1098→@1151**; Scr **1419→1521**.
 - **D-0928 #1168:** `nh_timeout` generic remaining uprops TIMEOUT `--`;
   prefix **@1092→@1098**; Scr **1417→1419**.
-- **D-0928 #1167:** `flags.pushweapon` → `setuswapwep(oldwep)` in
-  `dowield`/`wield_tool`; prefix **@1053→@1092**; Scr **1413→1417**.
-- **D-0928 #1166:** unmap_object `map_background` + fight_empty
-  always-unmap; prefix **@1048→@1053**; Scr **1434→1413**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.

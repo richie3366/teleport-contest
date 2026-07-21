@@ -20,10 +20,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1175** (42/44,
-Scr **11170**/11405, RNG **100%**) cadence (+59 Scr vs @#1170 from
-#1171–#1175 peels; #1175 also `untrap`→`getdir`). Speed `30+0.26/turn`.
-Next cadence @**#1180**. Primary still seed4500; #1175 moved prefix
-**@1344→@1347** (Scr **1579→1580**).
+Scr **11170**/11405, RNG **100%**) cadence. Speed `30+0.26/turn`.
+Next cadence @**#1180**. #1176 getpos `$` SHOWVALID; focused Scr
+**1580→1583**, prefix **@1347→@1438** (suite score unchanged until
+#1180).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1580/1814 | knight; @1347 getpos `$` S_goodpos |
+| seed4500 | **108275**/108275 | 1583/1814 | knight; @1438 poly botl Knight→Mold |
 
 ## Green gate
 
@@ -64,9 +64,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1347** — getpos `$` C stays on move-cursor vs JS
-`Unknown direction: '$'` (`S_goodpos` defsym `$` missing from
-`feature_match_tags`). Focused:
+**seed4500 @1438** — poly zap More: C botl `Brown Mold` vs JS still
+`Knight` (same topline `You turn into a brown mold!…`); next keys
+also desync armor-drop vs load More (@1439). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -77,7 +77,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1174; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1176; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -91,7 +91,8 @@ wiz Blind `make_blinded` + `u.uinvulnerable` nh_timeout freeze (#1171);
 overview dismiss `dismiss_nhw_menu` not corner docrt (#1172);
 sanctum `lspo_map` lit=FALSE clear after map (#1173);
 getpos `cmap_defsym_explanation` furniture fountain…bars (#1174);
-`dountrap`→`untrap`→`getdir(NULL)` (#1175).
+`dountrap`→`untrap`→`getdir(NULL)` (#1175);
+getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
@@ -106,8 +107,11 @@ DEC-vs-Primary room (was overview forced `docrt`); treat @1291 as
 look_here corner paint (was sanctum solidfill BOOL_RANDOM lit bleed
 — `lspo_map` lit=FALSE clear); treat @1322 as lastseentyp/glyph
 (was missing furniture in `cmap_defsym_explanation`); treat @1344 as
-topline/`WIN_STOP` (was missing `untrap`→`getdir`).
-Recent rejects: @1344≠blank topline — `#untrap` getdir (#1175);
+topline/`WIN_STOP` (was missing `untrap`→`getdir`); treat @1347 `$`
+as `feature_match_tags`/`S_goodpos` scan (was missing SHOWVALID spkey
+— matching never sees `$` under default bind).
+Recent rejects: @1347≠S_goodpos matching — SHOWVALID `$` (#1176);
+@1344≠blank topline — `#untrap` getdir (#1175);
 @1322≠lastseentyp — furniture cmap (#1174);
 @1291≠look_here corner — sanctum map left lit from solidfill
 (#1173); @1252≠DEC room — overview corner must not `docrt`
