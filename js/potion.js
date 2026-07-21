@@ -391,6 +391,39 @@ function itimeout_incr(old, incr) {
 }
 
 /**
+ * C ref: potion.c make_vomiting(xtime, talk)
+ * Sync Vomiting TIMEOUT; clear-talk message only.
+ * Named omission: nh_timeout Vomiting body beyond allmain exercise flag.
+ */
+export async function make_vomiting(xtime, talk) {
+    const u = game.u || (game.u = {});
+    const old = u.Vomiting | 0;
+    if (u.Unaware) talk = false;
+    u.Vomiting = ((u.Vomiting | 0) & ~TIMEOUT) | itimeout(xtime);
+    if (game.disp) game.disp.botl = true;
+    if (game.flags) game.flags.botl = true;
+    if (!xtime && old && talk) {
+        await You_feel('much less nauseated now.');
+    }
+}
+
+/**
+ * C ref: potion.c make_glib(xtime)
+ * Set/clear Glib TIMEOUT; inventory polish deferred.
+ */
+export function make_glib(xtime) {
+    const u = game.u || (game.u = {});
+    const was = !!(u.Glib | 0);
+    const now = !!(xtime | 0);
+    if (was !== now) {
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+    }
+    u.Glib = ((u.Glib | 0) & ~TIMEOUT) | itimeout(xtime);
+    // C: if (uarmg) update_inventory() — deferred
+}
+
+/**
  * C ref: potion.c make_confused(xtime, talk)
  * Sync HConfusion TIMEOUT bits; mirror onto u.Confusion for JS gates
  * (C: Confusion ≡ HConfusion).

@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0935 — TIN `start_tin` / `opentin` / `consume_tin` + multi-turn rations
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** `doeat` stubbed TIN and `reqtime>1` non-corpse with
+  "not implemented yet" while `start_eating`/`eatfood` already existed.
+- **Cause:** named constitutional debt in `eat.js` / `debt.md`.
+- **C locus:** `eat.c` `start_tin`, `opentin`, `consume_tin`,
+  `tin_variety`, `use_up_tin`, `eating_conducts`; `attrib.c` `gainstr`;
+  `potion.c` `make_vomiting` / `make_glib`; `trap.c` `b_trapped` subset.
+- **Change:** wire `doeat` TIN → `start_tin`; port open/occupation/
+  consume envelope + tintxts nutrition; enable multi-turn rations via
+  existing `eatfood`; helpers `gainstr`/`make_vomiting`/`make_glib`.
+  Deferred: `costly_tin` shop, `use_tin_opener`, Fixed_abil Popeye
+  Olive/Bluto, b_trapped wake/stun, full `cprefx`.
+- **Verification:** green+strict PASS; eat cohort 15/15 incl.
+  seed1800/0016/0105.
+- **Next:** hold fortress; next `debt.md`/`absent.md` cluster.
+
 ## D-0934 — contest-recorder `get_configfile` default
 
 - **Status:** fixed (human CONSTITUTION §1.2 carve-out)
