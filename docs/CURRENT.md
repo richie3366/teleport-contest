@@ -19,37 +19,32 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1155** (38/44,
-Scr **10974**/11405, RNG **100%**). Next cadence @**#1160**.
-vs @#1150: Scr **10737→10974** (seed4500 #1151–54) but PASS **42→38**
-— four near-misses from #1151 pager overlay topline (D-0929).
-Speed `29+0.25/turn`.
+Score last measured: **2026-07-21** — full `sessions` @**#1156** (42/44,
+Scr **10979**/11405, RNG **100%**). Next cadence @**#1160**.
+vs @#1155: PASS **38→42** (D-0929 look_here-only overlay leftover);
+Scr **10974→10979**. Speed `33+0.26/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **38 / 44** |
-| Screens matched | **10,974 / 11,405** |
+| Sessions passing | **42 / 44** |
+| Screens matched | **10,979 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `29+0.25/turn` (R² 0.862) |
+| Speed label | `33+0.26/turn` (R² 0.849) |
 | Role-init throws | **0 / 44** |
 
-**PASS (38):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
-seed0012, seed0004, seed0002, seed0398, seed0373,
-seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0383, seed0399, seed0014, **seed2600**.
+seed0009, seed0012, seed0004, seed0002, seed0006, seed0007, seed0398,
+seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
+seed0360, seed0383, seed0399, seed0014, **seed2600**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0006 | 6736/6736 | **121**/123 | near-miss; #1151 pager (D-0929) |
-| seed0007 | 16373/16373 | **301**/302 | near-miss; #1151 pager (D-0929) |
-| seed0009 | 3713/3713 | **72**/73 | near-miss; #1151 pager (D-0929) |
-| seed0360 | 120639/120639 | **832**/833 | near-miss; #1151 pager (D-0929) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed4500 | **108275**/108275 | 1389/1814 | knight; RNG done; @893 overview |
 
@@ -68,28 +63,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Suite restore (D-0929) first** — #1151 `show_nhw_menu_text` overlay
-kept/restored `_pending_message` for *all* corner menus; breaks
-seed0006/0007/0009/0360. Revert pager→those PASS but seed4500
-**1389→1381**. Narrow to look_here/getpos leftover; keep teleds
-placebc. Focused:
-`node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json`
-(+ seed0006/0007/0360 + seed4500 Scr≥1389).
-
-**Leaderboard 22-vs-38 gap** — local was 42 (seed0108…**seed2600**);
-now **38**/44 until D-0929. Judge **22** after D-0480; D-0483 serialize
-revert. Next cron → upstream #5 if seed0013 restored but near-misses.
-
-**After restore:** seed4500 @**893** `#overview` `Level 3:` vs
-`Level 25:` (RNG **108275**/108275; Scr **1389**/1814). Focused:
+**seed4500 @893** `#overview` `Level 3:` vs `Level 25:` (RNG
+**108275**/108275; Scr **1389**/1814). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
+
+**Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
+seed0006/0007/0009/0360). Judge **22** after D-0480; D-0483 serialize
+revert. Next cron → upstream #5 if seed0013 restored.
 
 **Parked:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1154; teleds placebc (#1151).
-**Do not:** blanket-revert #1151 pager; FORCE mfndpos/WEB; raw RNG
+**Keep:** D-0845…D-0927; D-0928 #1119–#1154; teleds placebc (#1151);
+D-0929 look_here-only `keep_message_leftover` (not blanket corner).
+**Do not:** blanket corner restore; FORCE mfndpos/WEB; raw RNG
 gates; invent splice; omit breamm/blnd/F-prefix; FORCE linedup/flip;
 inediate FOOD reject; omit mfind0/wizwhere/break_armor/
 carrying_too_much. Recent rejects: @832≠dig-depth (#1154 depth);

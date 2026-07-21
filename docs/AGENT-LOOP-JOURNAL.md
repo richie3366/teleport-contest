@@ -20,6 +20,17 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:44 — #1156 D-0929 look_here overlay leftover
+
+- Objective: suite restore — narrow #1151 pager keep/restore.
+- C locus: `invent.c` `look_here` `display_nhwindow(WIN_MESSAGE,FALSE)`
+  + `wintty.c` NHW_MENU corner `tty_clear_nhwindow` no-op when EMPTY.
+- Change: `show_nhw_menu_text(..., { keep_message_leftover })` only from
+  `look_here`; other corner menus clear `_pending_message` again.
+- Verification: green+strict PASS; 0006/0007/0009/0360 PASS; seed4500
+  Scr **1389**; full `sessions` **42/44** Scr **10979**/11405 RNG 100%.
+- Next: seed4500 @893 `#overview` Level 3 vs 25 (D-0928).
+
 ## 2026-07-21 13:42 — #1155 score + D-0929 pager overlay
 - Objective: cadence full `sessions`; document suite drop.
 - C locus: `wintty.c` / `pager.js` `show_nhw_menu_text` overlay

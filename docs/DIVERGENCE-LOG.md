@@ -6,11 +6,11 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0929 — #1151 overlay `_pending_message` restore regresses suite
 
-- **Status:** open (#1155 diagnosed; fix deferred)
-- **Sessions:** seed0006 (121/123), seed0007 (301/302), seed0009
-  (72/73), seed0360 (832/833) — all RNG full; were PASS @#1150.
+- **Status:** fixed (#1156)
+- **Sessions:** seed0006/0007/0009/0360 were near-miss @#1155; PASS
+  again @#1156. seed4500 Scr **1389** held.
 - **Symptom:** Full `sessions` @#1155 **38/44** Scr **10974**/11405
-  RNG **100%** (was **42/44** @#1150). Four near-miss screen fails.
+  (was **42/44** @#1150). Four near-miss screen fails.
 - **Bisect:** PASS @ `c7170577` (#1150); FAIL @ `5bc9b1ad` (#1151)
   for all four. #1151 touched `teleport.js` teleds placebc +
   `pager.js` `show_nhw_menu_text` overlay keep/restore of
@@ -18,13 +18,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Falsifier:** pager-only revert (keep teleds) → four PASS; seed4500
   Scr **1389→1381**. teleds placebc is not the regressor; blanket
   overlay restore is.
-- **Hypothesis:** C leaves getpos/look_here WIN_MESSAGE glyphs left of
-  overlay `offx`, but ordinary corner menus should still clear/
-  not restore `_pending_message` after `docrt`. JS restores for every
-  `offx!==0` menu.
-- **Next fix:** gate keep/restore to look_here/getpos leftover path;
-  verify seed0009 PASS + seed4500 Scr≥1389 + green.
-- **Do not:** full pager revert; FORCE seed screens.
+- **Cause:** C `invent.c` `look_here` does
+  `display_nhwindow(WIN_MESSAGE,FALSE)` before the NHW_MENU so
+  corner `tty_clear_nhwindow(WIN_MESSAGE)` is a no-op (toplin already
+  EMPTY) and getpos leftovers stay left of `offx`. Ordinary corner
+  menus still clear. JS #1151 restored `_pending_message` after
+  `docrt`/`cls` for *every* corner menu.
+- **Fix (#1156):** `show_nhw_menu_text(lines, { keep_message_leftover })`
+  — only `look_here` passes the flag; other callers clear as before.
+- **Verification:** green+strict PASS; four near-miss PASS; seed4500
+  Scr **1389**; full `sessions` **42/44** Scr **10979**/11405 RNG
+  **100%**.
+- **Do not:** blanket corner restore; full pager revert.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 

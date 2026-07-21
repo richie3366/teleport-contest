@@ -264,8 +264,15 @@ function look_at_monster_buf(mtmp) {
  * putstr windows (look_here, etc.). Corner (offx≠0) paints all rows then
  * one dmore; fullscreen pages at rows-1. Both use xwaitforspace(quitchars)
  * — only space/CR/ESC advance; hjklyubn stay on the page (capture still).
+ *
+ * @param {string[]} lines
+ * @param {{ keep_message_leftover?: boolean }} [opts]
+ *   When true (look_here only): model invent.c `display_nhwindow(WIN_MESSAGE,
+ *   FALSE)` before the menu — toplin EMPTY without wipe, so NHW_MENU's
+ *   `tty_clear_nhwindow(WIN_MESSAGE)` is a no-op and getpos leftovers stay
+ *   left of offx through dismiss. Ordinary corner menus clear (D-0929).
  */
-export async function show_nhw_menu_text(lines) {
+export async function show_nhw_menu_text(lines, opts = {}) {
     const disp = game.nhDisplay;
     if (!disp) {
         await text_page_wait();
@@ -284,10 +291,11 @@ export async function show_nhw_menu_text(lines) {
     const maxrow = lines.length;
     if (maxrow >= rows || game.flags?.menu_overlay === false) offx = 0;
 
-    // C look_here: display_nhwindow(WIN_MESSAGE, FALSE) sets toplin EMPTY
-    // without wiping glyphs — getpos autodescribe ("staircase up") stays
-    // left of overlay offx. Fullscreen menus still clear the topline.
-    if (offx === 0) game._pending_message = '';
+    // Default: clear topline (C NHW_MENU corner tty_clear when toplin!=EMPTY,
+    // fullscreen always). look_here opts.keep_message_leftover skips clear
+    // for corner — prior WIN_MESSAGE FALSE left glyphs / _pending_message.
+    const keepLeftover = !!opts.keep_message_leftover && offx !== 0;
+    if (!keepLeftover) game._pending_message = '';
     game._menu_overlay = false;
     await flush_screen(1);
 
@@ -342,9 +350,10 @@ export async function show_nhw_menu_text(lines) {
 
     game._menu_overlay = false;
     // C erase_menu_or_text: offx==0 → docrt; else docorner. JS still
-    // docrt() for Hallu see_monsters burns (cohort RNG), but restores
-    // WIN_MESSAGE leftovers that C leaves left of offx.
-    const savedTopl = offx !== 0 ? (game._pending_message || '') : '';
+    // docrt() for Hallu see_monsters burns (cohort RNG); cls() wipes
+    // _pending_message, so restore only look_here leftovers C leaves
+    // left of offx (D-0929 — not every corner menu).
+    const savedTopl = keepLeftover ? (game._pending_message || '') : '';
     await docrt();
     if (savedTopl) game._pending_message = savedTopl;
     await flush_screen(1);
