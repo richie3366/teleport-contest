@@ -23,7 +23,8 @@ Score last measured: **2026-07-21** — full `sessions` @**#1190** (42/44,
 Scr **11389**/11405, RNG **100%**) + `done2` cancel
 `clear_nhwindow(WIN_MESSAGE)`. Speed `30+0.25/turn`. Next cadence
 @**#1195**. #1192 seed4500 Scr **1803→1807**, first miss
-**@1770→@1799** (swamp-exit vs heat/smoke).
+**@1770→@1799** (swamp-exit vs heat/smoke). #1193 Scr **1807→1812**,
+first miss **@1799→@1808** (^X enlightenment).
 
 ## Score
 
@@ -47,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1807/1814 | knight; @1799 swamp-exit vs heat/smoke |
+| seed4500 | **108275**/108275 | 1812/1814 | knight; @1808 ^X rank==role vs a-level+role |
 
 ## Green gate
 
@@ -64,9 +65,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1799** — C `As you exit the swamps, you see before you
-a huge, gaping hole…` vs JS `The heat and smoke are gone.--More--`
-(key `B`). Focused:
+**seed4500 @1808** — ^X attributes C `You are a Knight, level 15
+male human.` vs JS `You are a Knight, a level 15 male human Knight.`
+(+ `(1 of 3)` vs `(1 of 2)`). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -77,7 +78,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1192 (teleds placebc #1151;
+**Keep:** D-0845…D-0927; D-0928 #1119–#1193 (teleds placebc #1151;
 D-0929 look_here-only leftover; lastseentyp #1160; wakeup #1161;
 hissing-gas #1162; waterbody_name #1163; makemon_appear #1164;
 unmap/fight_empty #1166; pushweapon #1167; nh_timeout #1168;
@@ -86,9 +87,11 @@ float_vs_flight/polymon/timebot #1177–#1179; Blind doname #1180;
 achievements #1181; dopay Blind #1182; wizwhere menu #1183;
 dosearch0 Blind feel #1184; doeat capacity #1185; doapply #1186;
 getpos ^R #1187; blank S_stone #1188; mMoOdDxX #1189; done2 clear
-#1190; castmu/urgent_pline #1191; cmd_safety iflags.cmdassist #1192).
+#1190; castmu/urgent_pline #1191; cmd_safety iflags.cmdassist #1192;
+Kni goal_first #1193).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
-@1770 Norep/parse-clear alone (#1192 iflags.cmdassist); @1761
+@1799 heat/smoke-only (#1193 missing Kni goal_first); @1770
+Norep/parse-clear alone (#1192 iflags.cmdassist); @1761
 mtimedone-only (#1191 cast/PSI); @1712 parse-clear (#1190 done2);
 @1698 feature-char door (#1189 gather); @1691 typ-CORR (#1188
 S_stone); @1689 getdir (#1187 redraw); @1679 getobj-only (#1186);

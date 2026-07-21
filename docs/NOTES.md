@@ -8,13 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1799** — C
-  `As you exit the swamps, you see before you a huge, gaping hole…`
-  vs JS `The heat and smoke are gone.--More--` (key `B`).
+- **Primary (D-0928):** seed4500 @**1808** — ^X attributes
+  C `You are a Knight, level 15 male human.` vs JS
+  `You are a Knight, a level 15 male human Knight.` (+ page
+  `(1 of 3)` vs `(1 of 2)`). Falsify: `insight.c`
+  `background_enlightenment` `!strcmpi(rank,role)` → omit role +
+  `urace.noun` + no `"a "` before level; also Punished/wounded-leg
+  status line order.
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C juiblex/swamp exit pline order vs JS heat/smoke More.
-  Do not re-break cmd_safety iflags.cmdassist (#1192).
+  Do not re-break Kni goal_first (#1193).
 
 ## Don't re-check (≤15)
 
@@ -25,6 +28,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1799 as heat/smoke / lev_message order —
+  missing Kni `goal_first` (#1193); heat/smoke follows onquest.
 - Do not treat @1770 as Norep/parse-clear alone — `iflags.cmdassist`
   after Options toggle (#1192); do not read `flags.cmdassist`.
 - Do not treat @1761 as mtimedone-only / skip PSI plines —
@@ -38,14 +43,14 @@ Objective/score live in `CURRENT.md`.
 - Do not bare-promote blank→stone without last/typ STONE|SCORR gate
   (seed0012; D-0813/D-0817).
 - Do not treat @1689 `^R` as getdir Unknown — getpos `redraw_cmd` (#1187).
-- Do not use full `docrt()` for getpos `^R` refresh under Blind —
-  C is `docrtRefresh`/`redraw_map`; JS `flush_screen` (#1187).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** Scr **11389**/11405 @#1190 RNG **100%**;
   speed `30+0.25/turn`; next cadence @**#1195**.
+- **D-0928 #1193:** Kni `goal_first`/`goal_next`; prefix
+  **@1799→@1808**; Scr **1807→1812**.
 - **D-0928 #1192:** cmd_safety `iflags.cmdassist`; prefix
   **@1770→@1799**; Scr **1803→1807**.
 - **D-0928 #1191:** castmu cast+PSI/OPEN plines + `urgent_pline` +
@@ -64,7 +69,5 @@ Objective/score live in `CURRENT.md`.
   prefix **@1679→@1689**; Scr **1784→1793**.
 - **D-0928 #1185:** `doeat` `check_capacity`; prefix **@1674→@1679**;
   Scr **1783→1784**.
-- **D-0928 #1184:** `dosearch0` Blind `feel_location`; prefix
-  **@1658→@1674**; Scr **1732→1783**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

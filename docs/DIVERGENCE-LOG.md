@@ -33,9 +33,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1192)
+- **Status:** partial (#1080–#1193)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1807**/1814)
+  Scr **1812**/1814)
+- **Hypothesis (#1193):** @1799 — ^V menu pick Knight goal (`Home 5`);
+  C `goal_first` NHW_TEXT swamp-exit hole vs JS
+  `The heat and smoke are gone.--More--`. `qt_pager('goal_first')`
+  burned nhl shuffle but `QUEST_GOAL_FIRST` lacked `Kni`, so
+  `on_goal` delivered nothing and `temperature_change_msg` was first
+  More.
+- **Fix (#1193):** `questpgr.js` — add Kni `goal_first`/`goal_next`
+  from `dat/quest.lua` (`%x` → see/sense).
+- **Verification (#1193):** green+strict PASS; cohort 7/7
+  (0360/0361/0367/0373/0103/1500/1800); focused Scr **1807→1812**;
+  first miss **@1799→@1808** (^X attributes
+  `Knight, level 15 male human.` vs `Knight, a level 15 male human
+  Knight.` + (1 of 3)/(1 of 2)).
+- **Do not:** treat @1799 as heat/smoke order alone; FORCE lev_message.
 - **Hypothesis (#1192):** @1770 — after Options toggled
   `cmdassist` off, C short tip `Are you waiting to get hit?`
   via `!(*flagcounter)++` vs JS blank. JS
