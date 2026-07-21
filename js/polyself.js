@@ -43,6 +43,7 @@ import {
     is_floater,
     is_vampire,
     is_vampshifter,
+    haseyes,
     MZ_SMALL,
 } from './monsters.js';
 import {
@@ -64,6 +65,7 @@ import {
     MAXULEV,
     FROMFORM,
     FLYING,
+    BLINDED,
     KILLED_BY_AN,
     ismnum,
     POLYMORPH_CONTROL,
@@ -202,8 +204,9 @@ function propset_fromform(propIdx, hField, on) {
 /**
  * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
  * via set_mon_data (prorates u.umovement when new form is slower).
- * Named omissions: resistance/movement PROPSET beyond FLYING; vamp cham;
- * float_vs_flight; polysense; light-source bookkeeping.
+ * Named omissions: resistance/movement PROPSET beyond FLYING/BLINDED;
+ * BLND_RES; vamp cham; float_vs_flight; polysense; light-source
+ * bookkeeping.
  */
 export function set_uasmon() {
     const u = game.u || (game.u = {});
@@ -221,6 +224,10 @@ export function set_uasmon() {
     // C: PROPSET(FLYING, is_flyer(mdat) && !is_floater(mdat)) — D-0724
     // floating eye is flyer+floater; suppress Flying under Levitation.
     propset_fromform(FLYING, 'HFlying', is_flyer(mdat) && !is_floater(mdat));
+    // C: PROPSET(BLINDED, !haseyes(mdat)) — eyeless forms (molds) Blind
+    // so Monnam → "It"; long "The cockatrice …" lines were forcing
+    // mid-turn --More-- that ate #version (D-0928 #1109).
+    propset_fromform(BLINDED, 'HBlinded', !haseyes(mdat));
 }
 
 function copyAttrBundle(src) {

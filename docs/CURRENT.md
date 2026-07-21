@@ -71,10 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**101641** (D-0928). **#1108:**
-`mfndpos` S_EEL `nexttry` (land crawl when no water nbr). Prefix
-**101616→101641** (runner RNG **101731** Scr **924**). Next:
-C `rn2(3) @ nhlib.lua shuffle` vs JS `rn2(61)`. Focused:
+**Gameplay next:** **seed4500** @**101710** (D-0928). **#1109:**
+`set_uasmon` BLINDED FROMFORM (`!haseyes`). Prefix
+**101641→101710** (runner RNG **101871** Scr **928**). Next:
+C `rn2(5) @ postmov` vs JS `rn2(8)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -119,13 +119,15 @@ drink empty-getobj short-circuit (D-0928 #1103); omit ring
 `mhitm_ad_ston` mhitu `!rn2(3)` (D-0928 #1105); omit `u_rooted`
 for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
 S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); omit `mfndpos` eel
-`nexttry` land crawl (D-0928 #1108); treat @95154
+`nexttry` land crawl (D-0928 #1108); omit `set_uasmon` BLINDED
+`!haseyes` FROMFORM (D-0928 #1109); treat @95154
 as wish/extra_healing regress; treat @100699 as namedesc-only;
 treat @101378 rn2(3) match as knockback/ston coincidence;
 treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish);
 treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel);
 treat @101616 fleeck vs `mattacku` as missing eel `mfndpos`
-nexttry (was early attack).
+nexttry (was early attack); treat @101641 nhlib shuffle vs
+`rn2(61)` as missing `#version` binding (was Blind Monnam).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

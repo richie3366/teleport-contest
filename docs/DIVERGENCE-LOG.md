@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1107; **#1108** eel `mfndpos` nexttry)
-- **Session:** seed4500-knight-coverage (prefix @**101641**)
+- **Status:** partial (#1080–#1108; **#1109** set_uasmon BLINDED)
+- **Session:** seed4500-knight-coverage (prefix @**101710**)
+- **Symptom (@101641):** C `rn2(3) @ nhlib.lua shuffle` (`#version`)
+  vs JS `rn2(61)` (early `#wizwish` namedesc).
+- **Cause (#1109):** brown-mold poly omitted C `PROPSET(BLINDED,
+  !haseyes(mdat))`. Sighted `Monnam` → "The cockatrice …" overflowed
+  topline → mid-turn `--More--` ate `#version\n  \esc`; C Blind →
+  "It bites! … It touches you!" on one line (no More).
+- **Fix (#1109):** `polyself.js` `set_uasmon` `propset_fromform(BLINDED,
+  HBlinded, !haseyes)`. Prefix **101641→101710** (runner RNG
+  **101871** Scr **928**). Named omit: other PROPSET / BLND_RES /
+  float_vs_flight / polysense.
+- **Next (@101710):** C `rn2(5) @ postmov` vs JS `rn2(8)`.
 - **Symptom (@101616):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`
   `@ mattacku` — looked like early attack; arity-matched earlier.
 - **Cause (#1108):** land eel on CORR: JS `mfndpos` omitted C

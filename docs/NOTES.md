@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101641**. #1108 landed
-  eel `mfndpos` nexttry (prefix **101616→101641**; runner RNG
-  **101731** Scr **924**). Next: C `rn2(3) @ nhlib.lua shuffle`
-  vs JS `rn2(61)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101710**. #1109 landed
+  `set_uasmon` BLINDED FROMFORM (prefix **101641→101710**; runner
+  RNG **101871** Scr **928**). Next: C `rn2(5) @ postmov` vs JS
+  `rn2(8)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -30,16 +30,17 @@ Objective/score live in `CURRENT.md`.
 - Do not omit peffect_extra_healing / BLINDED nh_timeout /
   learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @101616 fleeck vs mattacku as fleeck arity — was missing
-  eel `mfndpos` nexttry → skipped postmov hide (#1108).
-- Do not omit `mfndpos` eel nexttry when stranded on land (#1108).
+- Do not treat @101641 nhlib shuffle vs rn2(61) as missing `#version`
+  binding — was Blind FROMFORM / Monnam "It" (#1109).
+- Do not omit `set_uasmon` BLINDED `!haseyes` FROMFORM (#1109).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
   (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
-- **D-0928 #1108:** eel mfndpos nexttry; prefix **101641**; RNG
-  **101731** Scr **924**.
+- **D-0928 #1109:** Blind FROMFORM; prefix **101710**; RNG **101871**
+  Scr **928**.
+- **D-0928 #1108:** eel mfndpos nexttry; was @**101641**.
 - **D-0928 #1107:** eel hideunder; was @**101616**.
 - **D-0928 #1106:** `u_rooted`; was @**101608**.
 - **D-0928 #1105:** passiveum + mhitm_ad_ston; was @**101391**.
@@ -47,10 +48,7 @@ Objective/score live in `CURRENT.md`.
   was @**101373**.
 - **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
   empty-getobj; was @**100699**.
-- **D-0928 #1102:** goodpos youmonst u_at; was @**100475**.
-- **D-0928 #1101:** water_damage early arms; was @**100421**.
-- **D-0928 #1100:** check_caitiff; was @**100395**.
-- **D-0928 #1099…#1092:** Blind/wish / wait / dobuzz / I-glyph / flip
-  (see DIVERGENCE-INDEX).
+- **D-0928 #1102…#1092:** goodpos / water / caitiff / Blind/wish /
+  wait / dobuzz / I-glyph / flip (see DIVERGENCE-INDEX).
 - **D-0927…D-0921:** F-prefix / blnd / breamm / invent / wakeup /
   minetn-4 (see DIVERGENCE-INDEX).
