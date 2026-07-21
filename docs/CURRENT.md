@@ -22,7 +22,7 @@ notable non-PASS. Do not invent suite totals from one focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1180** (42/44,
 Scr **11312**/11405, RNG **100%**) cadence + Blind prop fix. Speed
 `30+0.25/turn`. Next cadence @**#1185**. #1180 `doname`/`xname` prop
-Blind; focused Scr **1720→1722**, first miss **@1501→@1573**.
+Blind; #1181 achievements; focused Scr **1722→1723**, first miss **@1573→@1625**.
 
 ## Score
 
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1722/1814 | knight; @1573 challenges More |
+| seed4500 | **108275**/108275 | 1723/1814 | knight; @1625 pay vs see |
 
 ## Green gate
 
@@ -63,9 +63,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1573** — `#challenges` / Voluntary challenges corner: C
-cleared `--More--` (cursor r20); JS leftover `--More--` (cursor r11).
-Focused:
+**seed4500 @1625** — C topline `You can't see...` vs JS shop pay
+`Kabalebo is not near enough to receive your payment.` Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,7 +75,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1180; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1181; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -95,21 +94,26 @@ getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
 `set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177);
 `polymon` `vision_full_recalc=1` before `see_monsters` (#1178);
 `time_botl` on `moves++` + `timebot` in `flush_screen` (#1179);
-`doname`/`xname` prop Blind (not sticky `u.Blind`) (#1180).
+`doname`/`xname` prop Blind (not sticky `u.Blind`) (#1180);
+`show_achievements` + `record_achievement` ranks/HELL/MINE/TOWN
+(+SHOP/TMPL call sites) (#1181).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
 omit mfind0/wizwhere/break_armor/carrying_too_much; invent pushweapon
-second prinv; treat @1441 map `e` vs DEC `~` as feel/newsym-only
+second prinv; treat @1573 challenges More r11 as leftover WIN_MESSAGE
+(was empty `show_achievements` / missing `record_achievement`);
+treat @1501 `engagement ring` as wish `dknown`/readobjnam (was sticky
+`u.Blind` in `doname`/`xname` — FROMFORM mold Blind);
+treat @1441 map `e` vs DEC `~` as feel/newsym-only
 (was missing `polymon` `vision_full_recalc` after FROMFORM Blind);
 treat @1438 poly botl as deferred bot (was `float_vs_flight`);
 @1439 load vs gloves as glove order (was `dropz` encumber);
 @1347 `$` as S_goodpos (was SHOWVALID); @1344 blank as WIN_STOP
-(was `untrap` getdir); @1464 T lag as missed moves++ (was `timebot`);
-@1501 `engagement ring` as wish `dknown`/readobjnam (was sticky
-`u.Blind` in `doname`/`xname` — FROMFORM mold Blind).
+(was `untrap` getdir); @1464 T lag as missed moves++ (was `timebot`).
 Older rejects in D-0928/NOTES.
-Recent rejects: @1501≠wish dknown — prop Blind (#1180);
+Recent rejects: @1573≠leftover More — show_achievements (#1181);
+@1501≠wish dknown — prop Blind (#1180);
 @1464≠missed moves — timebot (#1179);
 @1441≠feel — vision_full_recalc (#1178);
 @1438≠bot-after-More — float_vs_flight (#1177);

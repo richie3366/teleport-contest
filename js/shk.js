@@ -102,10 +102,7 @@ function pacify_shk(shkp, clear_surcharge) {
     }
 }
 
-/** C ref: insight/achieve record_achievement — ACH_SHOP stub (mapseen deferred). */
-function record_achievement(_ach) {
-    // full uachieved / livelog deferred
-}
+import { record_achievement } from './insight.js';
 
 /**
  * C ref: shk.c shop_keeper — rooms[rmno-ROOMOFFSET].resident with eshk.

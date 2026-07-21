@@ -33,9 +33,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1180)
+- **Status:** partial (#1080–#1181)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1722**/1814)
+  Scr **1723**/1814)
+- **Hypothesis (#1181):** @1573 — Voluntary challenges `--More--` at
+  r11 (JS) vs r20 (C). Not leftover WIN_MESSAGE: JS
+  `show_achievements_lines` returned `[]` and `record_achievement`
+  was stubbed, so Achievements ranks/HELL/MINE/TOWN were missing and
+  corner More sat mid-menu.
+- **Fix (#1181):** `insight.js` `record_achievement`/`count_achievements`/
+  `remove_achievement`/`achieve_rank`/`show_achievements_lines`;
+  wire ACH_RNK in `exper.js` `pluslvl`, ACH_HELL/MINE/SOKO in `do.js`
+  `goto_level`, ACH_TOWN in `hack.js` `check_special_room`, real
+  import from `shk.js`/`priest.js`. `roles.js` `rank_to_xlev`.
+  SoundAchievement/livelog/`ACH_ENDG`/`ACH_ASTR`/`ACH_BGRM` deferred.
+- **Verification (#1181):** green+strict PASS; cohort 6/6
+  (1500/1800/0108/0009/0012/0360); focused Scr **1722→1723**; first
+  miss **@1573→@1625**; `uachieved` `[23,24,25,26,2,15,16]`.
+  Next: @**1625** C `You can't see...` vs JS Kabalebo pay.
+- **Do not:** treat @1573 as leftover More/WIN_STOP — root was empty
+  achievements + missing record call sites.
 - **Hypothesis (#1180):** @1501 — wish `r - a ring.` vs
   `r - an engagement ring.` Mold FROMFORM Blind; C `doname` leaves
   `dknown=0` → bare `ring`. JS `doname`/`xname` gated observe on

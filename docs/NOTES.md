@@ -8,12 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1573** — Voluntary challenges corner
-  C cleared `--More--` (cursor r20) vs JS leftover `--More--` (r11).
+- **Primary (D-0928):** seed4500 @**1625** — C topline `You can't see...`
+  vs JS `Kabalebo is not near enough to receive your payment.`
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C more/WIN_MESSAGE state at `#challenges` / conduct menu paint
-  (prefer temp C dump over FORCE/WIN_STOP shim — playbook §7).
+  Falsify: C path at pay/see boundary (prefer temp C dump — playbook §7).
 
 ## Don't re-check (≤15)
 
@@ -24,46 +23,31 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
-- Do not treat @1291 look_here corner paint — was sanctum solidfill
-  BOOL_RANDOM lit (`lspo_map` lit=FALSE clear; #1173).
-- Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph
-  — was missing furniture in `cmap_defsym_explanation` (#1174).
-- Do not treat @1344 blank topline as WIN_STOP/More — was missing
-  `dountrap`→`untrap`→`getdir` (#1175).
-- Do not treat @1347 `$` as `feature_match_tags`/`S_goodpos` scan —
-  default `$` is `NHKF_GETPOS_SHOWVALID` before matching (#1176).
-- Do not treat @1438 poly More Knight botl as deferred bot after More
-  — `set_uasmon` must `float_vs_flight`→botl; @1439 load vs gloves
-  was missing `dropz`→`encumber_msg` (#1177).
-- Do not treat @1441 map `e` vs DEC `~` as feel_location/newsym-only
-  — mold FROMFORM Blind left stale IN_SIGHT; missing `polymon`
-  `vision_full_recalc=1` (#1178).
-- Do not treat @1464 T:229 vs T:231 as missed `moves++` / occupation
-  — was missing `time_botl`+`timebot` before footsteps More (#1179).
+- Do not treat @1573 challenges More r11 vs r20 as leftover WIN_MESSAGE
+  — was empty `show_achievements` + missing `record_achievement` (#1181).
 - Do not treat @1501 `an engagement ring` as wish `dknown`/readobjnam
-  — `doname`/`xname` used sticky `u.Blind`; FROMFORM mold Blind needs
-  prop Blind (D-0716; #1180).
+  — prop Blind (D-0716; #1180).
+- Do not treat @1464 T:229 vs T:231 as missed `moves++` — timebot (#1179).
+- Do not treat @1441 map `e` vs DEC `~` as feel/newsym-only —
+  polymon `vision_full_recalc` (#1178).
+- Do not treat @1438 poly botl as deferred bot — float_vs_flight (#1177).
+- Do not treat @1347 `$` as S_goodpos — SHOWVALID (#1176).
+- Do not treat @1344 blank as WIN_STOP — untrap getdir (#1175).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1180 Scr **11312**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1185**.
+- **D-0928 #1181:** `show_achievements` + `record_achievement`;
+  ACH_RNK/HELL/MINE/TOWN/SHOP/TMPL; prefix **@1573→@1625**;
+  Scr **1722→1723**.
 - **D-0928 #1180:** prop Blind in `doname`/`xname`; prefix
-  **@1501→@1573**; Scr **1720→1722**; suite Scr **11310→11312**.
-- **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**;
-  Scr **1716→1720**.
-- **D-0928 #1178:** polymon `vision_full_recalc`; prefix
-  **@1441→@1464**; Scr **1586→1716**.
-- **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; prefix
-  **@1438→@1441**; Scr **1583→1586**.
-- **D-0928 #1176:** getpos SHOWVALID `$`; prefix **@1347→@1438**;
-  Scr **1580→1583**.
-- **D-0928 #1175:** `untrap`→`getdir(NULL)`; prefix **@1344→@1347**;
-  Scr **1579→1580**.
-- **D-0928 #1174:** getpos furniture cmap (fountain…bars); prefix
-  **@1322→@1344**; Scr **1576→1579**.
-- **D-0928 #1173:** sanctum map lit=FALSE clear after `splev_apply`;
-  prefix **@1291→@1322**; Scr **1529→1576**.
+  **@1501→@1573**; Scr **1720→1722**.
+- **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**.
+- **D-0928 #1178:** polymon `vision_full_recalc`; prefix **@1441→@1464**.
+- **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; **@1438→@1441**.
+- **D-0928 #1176:** getpos SHOWVALID `$`; **@1347→@1438**.
+- **D-0928 #1175:** `untrap`→`getdir(NULL)`; **@1344→@1347**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
-  **38→42**; seed4500 Scr **1389** held; four near-misses PASS.
+  **38→42**.
