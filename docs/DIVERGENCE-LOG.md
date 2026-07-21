@@ -33,9 +33,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1174)
+- **Status:** partial (#1080–#1175)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1579**/1814)
+  Scr **1580**/1814)
+- **Hypothesis (#1175):** @1344 — `#untrap` C `In what direction?` vs
+  JS blank. `dountrap` stopped after `could_untrap`; C calls
+  `untrap`→`getdir((char*)0)`.
+- **Fix (#1175):** `trap.js` `untrap` usual-case `getdir(null)` +
+  `dountrap`→`untrap`; !isok / non-door no-tseen “know of no traps”;
+  floor/box/door disarm arms deferred.
+- **Verification (#1175):** green+strict PASS; cohort 3/3
+  (0106/1500/1800); focused prefix **@1344→@1347**; Scr **1579→1580**.
+  Full `sessions` @#1175 cadence **42**/44 Scr **11170**/11405 RNG
+  **100%**. Next: @**1347** getpos `$` → `S_goodpos` matching.
 - **Hypothesis (#1174):** @1322 — getpos auto_describe C `fountain`
   vs JS `unexplored area`. `cmap_defsym_explanation` omitted
   FOUNTAIN/SINK/THRONE/GRAVE/IRONBARS; non-blank `{` fell through

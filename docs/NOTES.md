@@ -8,11 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1344** — `#untrap` C `In what
-  direction?` vs JS blank. Focused:
+- **Primary (D-0928):** seed4500 @**1347** — getpos `$` C move-cursor
+  vs JS `Unknown direction: '$'`. `S_goodpos` defsym `$` omitted from
+  `feature_match_tags`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `dountrap`→`untrap`→`getdir(NULL)`; JS `dountrap` stops
-  after `could_untrap` (full `untrap` deferred).
+  Falsify: C `getpos.c` matching[] includes `defsyms[S_goodpos].sym=='$'`.
 
 ## Don't re-check (≤15)
 
@@ -45,11 +45,15 @@ Objective/score live in `CURRENT.md`.
   walls regress until vision wall-hack matches C).
 - Do not treat @1322 getpos `unexplored area` as lastseentyp/glyph —
   was missing furniture in `cmap_defsym_explanation` (#1174).
+- Do not treat @1344 blank topline as WIN_STOP/More — was missing
+  `dountrap`→`untrap`→`getdir` (#1175).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1170 Scr **11111**/11405 RNG **792838**/792838
-  (**100%**); speed `30+0.25/turn`; next cadence @**#1175**.
+- suite **42/44** @#1175 Scr **11170**/11405 RNG **792838**/792838
+  (**100%**); speed `30+0.26/turn`; next cadence @**#1180**.
+- **D-0928 #1175:** `untrap`→`getdir(NULL)`; prefix **@1344→@1347**;
+  Scr **1579→1580**; next getpos `$` S_goodpos.
 - **D-0928 #1174:** getpos furniture cmap (fountain…bars); prefix
   **@1322→@1344**; Scr **1576→1579**.
 - **D-0928 #1173:** sanctum map lit=FALSE clear after `splev_apply`;
@@ -66,15 +70,5 @@ Objective/score live in `CURRENT.md`.
   `dowield`/`wield_tool`; prefix **@1053→@1092**; Scr **1413→1417**.
 - **D-0928 #1166:** unmap_object `map_background` + fight_empty
   always-unmap; prefix **@1048→@1053**; Scr **1434→1413**.
-- **D-0928 #1165:** score cadence Scr **11024**; @1048 diagnosed.
-- **D-0928 #1164:** drop invent create_particular appear; add
-  `makemon_appear_msg` (req x,y next2u + MM_NOEXCLAM); Scr
-  **1433→1434**; prefix **@1034→@1048**.
-- **D-0928 #1163:** `waterbody_name` Medusa/juiblex/samurai/ICE/
-  waterlevel; Scr **1431→1433**; @1001 OK; next @1034 wizgenesis.
-- **D-0928 #1162:** zap_over_floor hissing-gas Norep + hit The;
-  Scr **1427→1431**; @997–@1000 OK; next @1001 shallow sea vs moat.
-- **D-0928 #1161:** wakeup `wake_msg` + growl; Scr **1423→1427**;
-  @985–@996 OK; next @997 hissing gas vs fire order.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.
