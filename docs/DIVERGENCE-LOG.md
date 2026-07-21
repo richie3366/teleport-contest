@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1146)
+- **Status:** partial (#1080–#1147)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1120**/1814)
+  Scr **1141**/1814)
+- **Hypothesis (#1147):** @707 C `#name` invent getobj shows
+  `What do you want to name? [a-km or ?*]` vs JS stub `[?]` —
+  `docallcmd` case `i` never called `getobj("name", name_ok)`.
+- **Fix (#1147):** `do_name.js` — `name_ok` / `getobj_name` (SUGGEST
+  letters + compactify>5 + `?`/`*` pickinv) + `do_oname` getlin/`oname`.
+  `artifact_name` slip / wipeout_text / literate deferred; call/floor/
+  disco/monster branches still stubs.
+- **Verification (#1147):** green+strict PASS; cohort 8/8 (incl.
+  seed0102 name-cancel); Scr **1120→1141**; prefix **@707→@751**.
+  Next: @**751** C `take off? [cdef or ?*]` vs JS blank.
 - **Hypothesis (#1146):** @630 C wizard `#enhance` shows
   `Advance skills without practice? [yn] (n)` then speedy PICK_ONE
   with practice columns vs JS non-wizard PICK_NONE skills menu —

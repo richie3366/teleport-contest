@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1120**/1814;
-  prefix **@707**. C `#name` `What do you want to name? [a-km or ?*]`
-  vs JS `[?]` (getobj letter set / invent filter).
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **1141**/1814;
+  prefix **@751**. C `What do you want to take off? [cdef or ?*]`
+  vs JS blank (`getobj_takeoff` / worn letter set).
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -31,17 +31,18 @@ Objective/score live in `CURRENT.md`.
   `carrying_too_much` (#1117).
 - Do not treat @107646 `rn2(79)` as ordinary fill root — missing
   `Kni-goal` loader (#1134).
+- Do not treat @707 `[?]` alone — missing getobj `name_ok` (#1147).
 - Do not treat @630 skills-menu alone — missing wizard `#enhance` y_n
   + speedy/`skill_advance` (#1146).
 - Do not treat @614 current-only overview as menu paint — missing
   `interest_mapseen` furthest-reached (#1145).
-- Do not treat @559 only-a/r marks as menu geometry — missing
-  `MENU_SELECT_ALL` `.` in `select_menu_pick_any` (#1144).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1145 Scr **10591**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1150**.
+- **D-0928 #1147:** `#name` getobj `name_ok`/`do_oname`; Scr
+  **1120→1141**; prefix **@707→@751**.
 - **D-0928 #1146:** wizard `#enhance` y_n/speedy; Scr **1001→1120**;
   prefix **@630→@707**.
 - **D-0928 #1145:** `interest_mapseen` `#overview`; Scr **1000→1001**;
@@ -62,4 +63,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1136:** getpos look_at_object; Scr **949→950**.
 - **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**.
 - **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
-- **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**.

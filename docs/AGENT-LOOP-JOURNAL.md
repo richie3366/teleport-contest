@@ -20,6 +20,16 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:55 — #1147 docallcmd getobj name_ok + do_oname
+- Objective: seed4500 @707 C `#name` `[a-km or ?*]` vs JS `[?]`.
+- C locus: `do_name.c` `name_ok` / `docallcmd` case `i` /
+  `do_oname`; `invent.c` `getobj`.
+- Change: `do_name.js` — replace invent stub with `getobj_name`
+  (SUGGEST+compactify, `?`/`*`) + `do_oname` getlin/`oname`.
+- Verification: green+strict PASS; cohort 8/8 (0102/0106/0383/0399/
+  1500/1800+green); Scr **1120→1141**; prefix **@707→@751**.
+- Next: @**751** C `take off? [cdef or ?*]` vs JS blank.
+
 ## 2026-07-21 12:48 — #1146 enhance_weapon_skill wizard y_n/speedy
 - Objective: seed4500 @630 C wizard `#enhance` y_n vs JS skills menu.
 - C locus: `weapon.c` `enhance_weapon_skill` / `can_advance` /
