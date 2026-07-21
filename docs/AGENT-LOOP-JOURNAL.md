@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 18:35 — #1194 ^X rank==role + eaten_stat
+
+- Objective: seed4500 @1808 C `Knight, level 15 male human` +
+  `(1 of 3)` vs JS `a level … Knight` + `(1 of 2)`.
+- C locus: `insight.c` `background_enlightenment` `!strcmpi(rank,role)`;
+  status Punished/Wounded_legs; attributes Jumping/umortality;
+  `mkobj.c`/`eat.c` `weight`→`eaten_stat`.
+- Change: `invent.js` role/rank clause + status/attr lines;
+  `mkobj.js` FOOD/CORPSE `oeaten` `eaten_stat` (D-0928 #1194).
+- Verification: green+strict PASS; cohort 10/10; seed4500 **PASS**
+  Scr **1812→1814**.
+- Next: leaderboard gap; cadence @**#1195** suite Scr reconfirm.
+
 ## 2026-07-21 18:20 — #1193 Kni goal_first / goal_next
 
 - Objective: seed4500 @1799 C swamp-exit hole NHW_TEXT vs JS heat/smoke.

@@ -7,17 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1808** — ^X attributes
-  C `You are a Knight, level 15 male human.` vs JS
-  `You are a Knight, a level 15 male human Knight.` (+ page
-  `(1 of 3)` vs `(1 of 2)`). Falsify: `insight.c`
-  `background_enlightenment` `!strcmpi(rank,role)` → omit role +
-  `urace.noun` + no `"a "` before level; also Punished/wounded-leg
-  status line order.
-  Focused:
-  `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Do not re-break Kni goal_first (#1193).
+- Leaderboard 22-vs-43 gap — await cron; D-0483 serialize revert.
+  Cadence @#1195 reconfirm suite Scr after seed4500 PASS.
+- **Parked:** D-0006 / seed2200 @158 RC harness.
 
 ## Don't re-check (≤15)
 
@@ -28,6 +20,10 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit without levy-proof
+  callers — wiped "very heavy" (#1194).
+- Do not treat @1808 as page-count shim — rank==role + Punished/
+  Wounded_legs / Jumping / umortality + `eaten_stat` (#1194).
 - Do not treat @1799 as heat/smoke / lev_message order —
   missing Kni `goal_first` (#1193); heat/smoke follows onquest.
 - Do not treat @1770 as Norep/parse-clear alone — `iflags.cmdassist`
@@ -38,17 +34,14 @@ Objective/score live in `CURRENT.md`.
   `clear_nhwindow(WIN_MESSAGE)` (#1190).
 - Do not treat @1698 open door as feature-char matching — doors skipped
   in matching[]; need mMoOdDxX `gather_locs` (#1189).
-- Do not treat @1691 stone/corridor as typ-CORR win — blank S_stone
-  glyph + lastseentyp STONE before typ (#1188; C lookat fallthrough).
-- Do not bare-promote blank→stone without last/typ STONE|SCORR gate
-  (seed0012; D-0813/D-0817).
-- Do not treat @1689 `^R` as getdir Unknown — getpos `redraw_cmd` (#1187).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
-- suite **42/44** Scr **11389**/11405 @#1190 RNG **100%**;
-  speed `30+0.25/turn`; next cadence @**#1195**.
+- suite **42→43**/44 (seed4500 focused PASS @#1194); Scr **11389→11391**
+  pending cadence @**#1195**; RNG **100%**; speed `30+0.25/turn`.
+- **D-0928 #1194:** ^X `!strcmpi(rank,role)` + Punished/legs/Jump/
+  umortality + `weight` `eaten_stat`; seed4500 **PASS** Scr **1814**.
 - **D-0928 #1193:** Kni `goal_first`/`goal_next`; prefix
   **@1799→@1808**; Scr **1807→1812**.
 - **D-0928 #1192:** cmd_safety `iflags.cmdassist`; prefix
@@ -65,9 +58,5 @@ Objective/score live in `CURRENT.md`.
   Scr **1794→1796**.
 - **D-0928 #1187:** getpos `redraw_cmd(^R)` + `getpos_refresh`;
   prefix **@1689→@1691**; Scr **1793→1794**.
-- **D-0928 #1186:** `doapply` nohands+capacity + invent prop Blind;
-  prefix **@1679→@1689**; Scr **1784→1793**.
-- **D-0928 #1185:** `doeat` `check_capacity`; prefix **@1674→@1679**;
-  Scr **1783→1784**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

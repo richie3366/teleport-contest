@@ -33,9 +33,24 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1193)
+- **Status:** partial (#1080–#1194); seed4500 **PASS** @#1194
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1812**/1814)
+  Scr **1814**/1814 **PASS**)
+- **Hypothesis (#1194):** @1808 — ^X attributes C
+  `You are a Knight, level 15 male human.` + `(1 of 3)` vs JS
+  `… a level 15 male human Knight.` + `(1 of 2)`. Missing
+  `!strcmpi(rank,role)` branch plus Punished / Wounded_legs /
+  Jumping / umortality lines; wizard `inv_weight` off-by-1 from
+  `weight()` omitting `eaten_stat` on partly-eaten food.
+- **Fix (#1194):** `invent.js` — `background_role_level_clause`
+  (`insight.c` rank==role → noun, no `"a "` before level, omit role);
+  `status_core_lines` Punished/`ansimpleoname(uball)` + Wounded_legs
+  `you_have`; Attributes Jumping + umortality `N_times`.
+  `mkobj.js` `weight()` FOOD/`CORPSE` `oeaten` → `eaten_stat`.
+- **Verification (#1194):** green+strict PASS; cohort 10/10;
+  focused **PASS** Scr **1812→1814**; first miss cleared.
+- **Do not:** treat @1808 as page-count shim; HEAVY_IRON_BALL
+  `owt!=0` short-circuit without levy-proof callers (wiped "very").
 - **Hypothesis (#1193):** @1799 — ^V menu pick Knight goal (`Home 5`);
   C `goal_first` NHW_TEXT swamp-exit hole vs JS
   `The heat and smoke are gone.--More--`. `qt_pager('goal_first')`
