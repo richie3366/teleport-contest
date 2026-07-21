@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1220** (Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`). Fortress held; #1224 map port D-0955.
+- Local suite **44**/44 @**#1225** (Scr **11405**/11405 RNG **100%**
+  speed `32+0.26/turn`). Fortress held; cadence reconfirm (no port).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
   dig destroy_drawbridge / desecrate_altar / shopdig / impact_drop /
   mkcavearea / grave; revive container/buried polish; ice melt /
   burn_floor_objects / fireball.
-- Cadence full `sessions` next @**#1225**.
+- Cadence full `sessions` next @**#1230**.
 
 ## Don't re-check (≤15)
 
@@ -46,8 +46,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1220**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `30+0.27/turn`.
+- Suite @**#1225**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `32+0.26/turn`.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
 - **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
 - **D-0953:** floorfood pool/lava reach + `vault_gd_watching`.
