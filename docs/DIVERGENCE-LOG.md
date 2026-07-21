@@ -6,8 +6,18 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1108; **#1109** set_uasmon BLINDED)
-- **Session:** seed4500-knight-coverage (prefix @**101710**)
+- **Status:** partial (#1080–#1109; **#1110** minliquid eel monflee)
+- **Session:** seed4500-knight-coverage (prefix @**103071**)
+- **Symptom (@101710):** C `rn2(5) @ postmov` vs JS `rn2(8)`
+  (`m_move` track avoid `4*(cnt-j)`).
+- **Cause (#1110):** land eel `minliquid` inlined flee bits but omitted
+  C `monflee(mtmp,2,FALSE,FALSE)` → `mon_track_clear`. Stale
+  `mtrack[0]` made JS burn track `rn2(8)` while C (cleared track)
+  selected a land-crawl step and hit `postmov` hide `rn2(5)`.
+- **Fix (#1110):** `mon.js` `minliquid` `await monflee(mtmp, 2, false,
+  false)`. Prefix **101710→103071** (runner RNG **103190** Scr
+  **928**). Named omit: minliquid gremlin/iron-golem/fountain arms.
+- **Next (@103071):** C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
 - **Symptom (@101641):** C `rn2(3) @ nhlib.lua shuffle` (`#version`)
   vs JS `rn2(61)` (early `#wizwish` namedesc).
 - **Cause (#1109):** brown-mold poly omitted C `PROPSET(BLINDED,
@@ -18,7 +28,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   HBlinded, !haseyes)`. Prefix **101641→101710** (runner RNG
   **101871** Scr **928**). Named omit: other PROPSET / BLND_RES /
   float_vs_flight / polysense.
-- **Next (@101710):** C `rn2(5) @ postmov` vs JS `rn2(8)`.
 - **Symptom (@101616):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`
   `@ mattacku` — looked like early attack; arity-matched earlier.
 - **Cause (#1108):** land eel on CORR: JS `mfndpos` omitted C

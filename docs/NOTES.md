@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101710**. #1109 landed
-  `set_uasmon` BLINDED FROMFORM (prefix **101641→101710**; runner
-  RNG **101871** Scr **928**). Next: C `rn2(5) @ postmov` vs JS
-  `rn2(8)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**103071**. #1110 landed
+  minliquid eel `monflee`+`mon_track_clear` (prefix **101710→103071**;
+  runner RNG **103190** Scr **928**). Next: C `rn2(3) @
+  select_newcham_form` vs JS `rn2(330)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -27,28 +27,25 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not “fix” gethungry / clear invuln to hide early `#pray` (#1095).
 - Do not omit Count:N `.` timed_occupation / Blind feel (#1096).
-- Do not omit peffect_extra_healing / BLINDED nh_timeout /
-  learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
-- Do not treat @101641 nhlib shuffle vs rn2(61) as missing `#version`
-  binding — was Blind FROMFORM / Monnam "It" (#1109).
-- Do not omit `set_uasmon` BLINDED `!haseyes` FROMFORM (#1109).
+- Do not treat @101641 nhlib shuffle as missing `#version` — was Blind
+  FROMFORM / Monnam "It" (#1109).
+- Do not treat @101710 postmov `rn2(5)` vs `rn2(8)` as m_search /
+  cnt — was missing minliquid `monflee` track clear (#1110).
+- Do not omit minliquid eel `monflee`/`mon_track_clear` (#1110).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
-  (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
-- **D-0928 #1109:** Blind FROMFORM; prefix **101710**; RNG **101871**
-  Scr **928**.
+- suite **42/44** @#1110 Scr **10518**/11405 RNG **787753**/792838
+  (99.36%); speed `29+0.25/turn`; next cadence @**#1115**.
+- **D-0928 #1110:** eel minliquid monflee; prefix **103071**; RNG
+  **103190** Scr **928**.
+- **D-0928 #1109:** Blind FROMFORM; was @**101710**.
 - **D-0928 #1108:** eel mfndpos nexttry; was @**101641**.
 - **D-0928 #1107:** eel hideunder; was @**101616**.
 - **D-0928 #1106:** `u_rooted`; was @**101608**.
 - **D-0928 #1105:** passiveum + mhitm_ad_ston; was @**101391**.
-- **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;
-  was @**101373**.
-- **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
-  empty-getobj; was @**100699**.
-- **D-0928 #1102…#1092:** goodpos / water / caitiff / Blind/wish /
-  wait / dobuzz / I-glyph / flip (see DIVERGENCE-INDEX).
+- **D-0928 #1104…#1092:** nolimbs / polyself / goodpos / water /
+  caitiff / Blind/wish / wait / dobuzz / I-glyph / flip (see index).
 - **D-0927…D-0921:** F-prefix / blnd / breamm / invent / wakeup /
   minetn-4 (see DIVERGENCE-INDEX).

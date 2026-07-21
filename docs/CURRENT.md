@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1105** (42/44,
-Scr **10514**/11405, RNG **99.16%**). Next cadence @**#1110**.
-vs @#1100: Scr **10516→10514**, RNG **785042→786142** (#1101–#1105 peels;
-`passiveum`/`mhitm_ad_ston` @#1105).
+Score last measured: **2026-07-21** — full `sessions` @**#1110** (42/44,
+Scr **10518**/11405, RNG **99.36%**). Next cadence @**#1115**.
+vs @#1105: Scr **10514→10518**, RNG **786142→787753** (#1106–#1110 peels;
+`minliquid` eel `monflee` @#1110).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,514 / 11,405** |
-| Positional RNG calls matched | **786,142 / 792,838** (99.16%) |
-| Speed label | `32+0.25/turn` (R² 0.853) |
+| Screens matched | **10,518 / 11,405** |
+| Positional RNG calls matched | **787,753 / 792,838** (99.36%) |
+| Speed label | `29+0.25/turn` (R² 0.866) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 101731/108275 | 924/1814 | knight; @**101641** nhlib shuffle |
+| seed4500 | 103190/108275 | 928/1814 | knight; @**103071** cham form |
 
 ## Green gate
 
@@ -71,10 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**101710** (D-0928). **#1109:**
-`set_uasmon` BLINDED FROMFORM (`!haseyes`). Prefix
-**101641→101710** (runner RNG **101871** Scr **928**). Next:
-C `rn2(5) @ postmov` vs JS `rn2(8)`. Focused:
+**Gameplay next:** **seed4500** @**103071** (D-0928). **#1110:**
+`minliquid` eel `monflee`+`mon_track_clear`. Prefix
+**101710→103071** (runner RNG **103190** Scr **928**). Next:
+C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -120,14 +120,17 @@ drink empty-getobj short-circuit (D-0928 #1103); omit ring
 for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
 S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); omit `mfndpos` eel
 `nexttry` land crawl (D-0928 #1108); omit `set_uasmon` BLINDED
-`!haseyes` FROMFORM (D-0928 #1109); treat @95154
+`!haseyes` FROMFORM (D-0928 #1109); omit minliquid eel
+`monflee`/`mon_track_clear` (D-0928 #1110); treat @95154
 as wish/extra_healing regress; treat @100699 as namedesc-only;
 treat @101378 rn2(3) match as knockback/ston coincidence;
 treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish);
 treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel);
 treat @101616 fleeck vs `mattacku` as missing eel `mfndpos`
 nexttry (was early attack); treat @101641 nhlib shuffle vs
-`rn2(61)` as missing `#version` binding (was Blind Monnam).
+`rn2(61)` as missing `#version` binding (was Blind Monnam);
+treat @101710 postmov `rn2(5)` vs `rn2(8)` as track avoid
+(was missing `monflee` clear).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
