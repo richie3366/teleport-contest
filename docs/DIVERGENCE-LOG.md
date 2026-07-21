@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0933 — NHW_TEXT paint ≤cols−1 (process_text_window)
+
+- **Status:** fixed (paint bound); recording-path residual parked
+- **Symptom:** seed2200 @158 Scr 229/230 — `option_help` path row only.
+  Diff was col 79 when JS held a ≥80-char config path; with wrap-forcing
+  synthetic path, cells still ≠ recording
+  `/Users/davidbau/.../c-harness/results/.nethackrc` (92 chars; screen
+  shows first 79).
+- **Falsified:** judge/`frozen` scorer elides RC path like
+  `verify-rerecord` `RC_PATH_RE`. Live LB richie3366 seed2200 **229**/230
+  cells; top forks PASS by hardcoding the recording `$HOME` string
+  (Hoimar `OPTION_HELP_LINES`).
+- **C locus:** `wintty.c` `tty_curs(1,n)` → `curx=0` (1-based→0-based);
+  `process_text_window` `++curx < cols` emits ≤cols−1 glyphs; long
+  no-space lines stay whole in `tty_putstr` storage.
+- **Change:** `show_text_pages` + fullscreen `show_nhw_menu_text` paint
+  bound `cols-1` (D-0933). Keep wrap-forcing synthetic `get_configfile`
+  — do **not** bake recording absolute path (Constitution / CURRENT).
+- **Verification:** green+strict PASS; NHW_TEXT cohort 12/12 PASS;
+  seed2200 still **229**/230 without path hardcode; temp recording path
+  + D-0933 → **230**/230 (reverted).
+- **Next:** LB gap — await cron for D-0930…D-0932; seed2200 path string
+  stays constitutional residual.
+
 ## D-0932 — serialize leading bold spaces (topten_print_bold)
 
 - **Status:** fixed (#1198)

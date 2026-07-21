@@ -7,8 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Leaderboard live **32**/44 @14:49Z vs local **43**/44. D-0930…
-  D-0932 shipped — await cron PASS lift.
+- Leaderboard live **31**/44 @16:41Z (pts **11351**/11405) vs local
+  **43**/44. D-0930…D-0932 + D-0933 shipped — await cron PASS lift.
+- seed2200 @158: D-0933 paint ≤cols−1 done; remaining miss is recording
+  `get_configfile` absolute path (Constitution — do not hardcode).
 - Falsifier: next `data.json` public.passing / gap-session screens.
 
 ## Don't re-check (≤15)
@@ -28,14 +30,17 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Do not treat @1799 as heat/smoke / lev_message order (#1193).
 - Do not treat @1770 as Norep/parse-clear alone (#1192).
+- Do not hardcode davidbau / recording `$HOME` into `get_configfile`.
+- Judge does **not** elide RC path (D-0933); `verify-rerecord` only.
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **43**/44 Scr **11404**/11405 RNG **100%** @**#1195**;
-  speed `31+0.26/turn`; sole miss seed2200 229/230 parked.
-- Live LB richie3366 **32**/44 public pts **11259**/11405
-  lastScored 2026-07-21T14:49Z; seed0013 PASS on judge.
+  speed `31+0.26/turn`; sole miss seed2200 229/230 (path string).
+- Live LB richie3366 **31**/44 public pts **11351**/11405
+  lastScored 2026-07-21T16:41Z (pre D-0930…D-0932).
+- **D-0933 #1199:** NHW_TEXT paint cols−1; seed2200 path residual.
 - **D-0932 #1198:** serialize leading bold spaces; seed0030
   `aC2_aJ0` **14→0**.
 - **D-0931 #1197:** flush paints S_air; serialize mid-row space CUF >4;

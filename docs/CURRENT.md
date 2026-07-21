@@ -45,7 +45,7 @@ seed0360, seed0383, seed0399, seed0014, seed2600, **seed4500**.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
+| seed2200 | 3018/3018 | **229**/230 | RC path string residual (D-0933 paint done) |
 
 ## Green gate
 
@@ -62,24 +62,28 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard gap** — live LB @2026-07-21T14:49Z **32**/44 public
-(pts **11259**/11405; seed0013 restored — D-0483 held). Local
-**43**/44. D-0930…**D-0932** (gray blanks + S_air/CUF + topten
-leading bold pads @#1198; seed0030 `aC2_aJ0`→0). Await next cron
-for PASS lift.
+**Leaderboard gap** — live LB @2026-07-21T16:41Z **31**/44 public
+(pts **11351**/11405; lastScored pre D-0930…D-0932). Local **43**/44.
+Await cron for D-0930…**D-0933** PASS lift.
 
-**Parked:** D-0006 / seed2200 @158.
+**seed2200 @158:** D-0933 fixed NHW_TEXT paint ≤cols−1. Remaining
+1-screen miss is recording-machine `get_configfile` absolute path —
+**parked** (Constitution; judge does not elide; competitors hardcode).
 
-**Do not re-break D-0660…D-0932. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006; seed2200 path string.
+
+**Do not re-break D-0660…D-0933. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
-**D-0931**; **D-0932**.
+**D-0931**; **D-0932**; **D-0933**.
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
 alone (#1192); older in D-0928/NOTES; skip painting map spaces in
-flush (breaks S_air); strip leading bold pads in serialize.
+flush (breaks S_air); strip leading bold pads in serialize;
+**hardcode davidbau / recording `$HOME` RC path**; assume judge
+elides RC path (falsified D-0933).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
@@ -91,7 +95,7 @@ flush (breaks S_air); strip leading bold pads in serialize.
 | ID | Why parked |
 |----|------------|
 | **D-0006** | seed1800 pet movement — needs C state/candidate capture |
-| seed2200 @158 | RC/`$HOME` harness path, not a port bug |
+| seed2200 path | recording `$HOME` string; Constitution forbids hardcode |
 
 ## Pointers (open only if needed)
 

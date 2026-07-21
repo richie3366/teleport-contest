@@ -9,6 +9,98 @@
   first miss **@1650→@1658**.
 - Next: @**1658** map open-door `/` vs wall `#`.
 
+## 2026-07-21 18:05 — #1191 castmu plines + urgent_pline
+
+- Objective: seed4500 @1761 C mold + spell-at-you vs JS early rehumanize.
+- C locus: `mcastu.c` `castmu` cast pline + `mcast_psi_bolt`;
+  `pline.c` `urgent_pline`; `polyself.c` `polyman` was_blind
+  `make_blinded`.
+- Change: `mcastu.js` cast+PSI/OPEN severity plines before `mdamageu`;
+  `display.js` `urgent_pline`/WIN_NOSTOP; `polyself.js` urgent return
+  + was_blind Blind restore (D-0928 #1191).
+- Verification: green+strict PASS; cohort 7/7; focused Scr
+  **1799→1803**; first miss **@1761→@1770**.
+- Next: @**1770** C keeps `Are you waiting to get hit?` vs JS clear.
+
+## 2026-07-21 17:51 — #1190 done2 cancel clear + score
+
+- Objective: cadence full `sessions` @#1190; seed4500 @1712 `#quit`
+  yn `n` leftover prompt vs C clear.
+- C locus: `end.c` `done2` cancel → `clear_nhwindow(WIN_MESSAGE)`.
+- Change: `end.js` `done2` — `clear_nhwindow_message()` on `!ok`
+  (D-0928 #1190).
+- Verification: green+strict PASS; full suite **42**/44 Scr
+  **11389**/11405 RNG **100%** speed `30+0.25/turn`; focused Scr
+  **1798→1799**; first miss **@1712→@1761**.
+- Next: @**1761** C brown-mold + spell-at-you vs JS rehumanize.
+
+## 2026-07-21 17:45 — #1189 getpos mMoOdDxX gather_locs
+
+- Objective: seed4500 @1698 C `open door` + cursor (63,7) vs JS blank.
+- C locus: `getpos.c` `mMoOdDxX` → `gather_locs` / `gather_locs_interesting`
+  (GLOC_DOOR) + `cmp_coord_distu`; doors skipped in feature matching[].
+- Change: `getpos.js` gather_locs cycle for m/M/o/O/d/D/x/X + `@` SELF
+  (D-0928 #1189).
+- Verification: green+strict PASS; cohort 7/7; Scr **1796→1798**;
+  first miss **@1698→@1712**.
+- Next: @1712 `#quit` yn `n` C clears topline vs JS keeps prompt.
+
+## 2026-07-21 17:33 — #1188 blank S_stone before typ CORR
+
+- Objective: seed4500 @1691 Blind farlook C `stone` vs JS `corridor`.
+- C locus: `pager.c` `lookat` case `S_stone` — seenv → `"stone"`
+  (STONE|SCORR or fallthrough defsyms) even when typ is CORR.
+- Change: `pager.js` `brief_at`/`describe_looked` + `getpos.js`
+  `auto_describe_text` — blank + stone memory before typ CORR
+  (D-0928 #1188).
+- Verification: green+strict PASS; cohort 8/8 (0012/0360); Scr
+  **1794→1796**; first miss **@1691→@1698**.
+- Next: @1698 getpos C `open door` + cursor vs JS blank/stale.
+
+## 2026-07-21 17:27 — #1187 getpos redraw_cmd ^R
+
+- Objective: seed4500 @1689 C getpos goal msg vs JS Unknown `^R`.
+- C locus: `getpos.c` HELP/`redraw_cmd` → `getpos_refresh` +
+  `show_goal_msg`; `cmd.c` `redraw_cmd` → doredraw (C('r')).
+- Change: `getpos.js` `redraw_cmd` + `getpos_refresh` (`flush_screen`)
+  on `?`/`^R`; no full Blind `docrt`.
+- Verification: green+strict PASS; cohort 4/4; Scr **1793→1794**;
+  first miss **@1689→@1691**.
+- Next: @1691 farlook `stone` vs `corridor` (auto_describe/lastseentyp).
+
+## 2026-07-21 17:25 — #1186 doapply nohands + invent Blind
+
+- Objective: seed4500 @1679 tools-current-form; then @1681 invent
+  typed ring/wand under Blind mold.
+- C locus: `apply.c` `doapply` nohands+`check_capacity` before getobj;
+  `invent.c` sortloot_item `!Blind` observe (prop Blind).
+- Change: `apply.js` gates; `invent.js` `invent_lines`/
+  `display_pickinv_reply` use `Blind()` not sticky `u.Blind`.
+- Verification: green+strict PASS; cohort 6/6; Scr **1784→1793**;
+  first miss **@1679→@1689**.
+- Next: @1689 getpos vs JS `Unknown direction: '^R'`.
+
+## 2026-07-21 17:17 — #1185 doeat check_capacity + score
+
+- Objective: cadence full `sessions` @#1185; seed4500 @1674 carry vs eat.
+- C locus: `eat.c` `doeat` → `hack.c` `check_capacity` after `floorfood`,
+  before `is_edible`.
+- Change: `eat.js` `doeat` EXT_ENCUMBER gate + You_cant carry message
+  (D-0928 #1185). Score refresh **42**/44 Scr **11374**/11405 RNG 100%.
+- Verification: green+strict PASS; seed1800 PASS; focused Scr
+  **1783→1784**; first miss **@1674→@1679**.
+- Next: @**1679** `doapply` `nohands` before getobj (tools current form).
+
+## 2026-07-21 17:15 — #1184 dosearch0 Blind feel_location
+
+- Objective: seed4500 @1658 C `/` vs JS `#` (misread as open door).
+- C locus: `detect.c` `dosearch0` — Blind/`visible_region_at` →
+  `feel_location`; SDOOR/SCORR feel; `unmap_invisible`.
+- Change: `detect.js` prop Blind + feel arms (D-0928 #1184); felt
+  `WAN_OPENING` at (25,9).
+- Verification: green+strict PASS; cohort 9/9; Scr **1732→1783**;
+  first miss **@1658→@1674**.
+- Next: @**1674** C carry-so-much-stuff vs JS eat-that.
 ## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
 
 - Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
