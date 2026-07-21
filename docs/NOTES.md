@@ -7,20 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1230** (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn`). Cadence reconfirm next @**#1235**.
+- Local suite **44**/44 @**#1235** (Scr **11405**/11405 RNG **100%**
+  speed `30+0.27/turn`). Cadence reconfirm next @**#1240**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0964** `revive` container/buried + `cant_revive` +
-  `zombie_can_dig` + OBJ_BURIED `obj_extract_self`.
-- **Next cluster:** ice melt / burn_floor_objects / fireball;
-  Ring_off float_down/learnring/adjust_attrib polish; angrygods 4–8 /
-  music desecrate.
-- Cadence full `sessions` next @**#1235**.
+- Latest port: **D-0965** ice melt / `burn_floor_objects` / fireball
+  + TIMER_LEVEL `MELT_ICE_AWAY` + `zap_over_floor` FIRE/COLD arms.
+- **Next cluster:** float_down / learnring / adjust_attrib Ring_off;
+  bury_objs / obj_ice_effects; explode AD_FIRE combat; angrygods 4–8.
+- Cadence full `sessions` next @**#1240**.
 
 ## Don't re-check (≤15)
 
@@ -41,14 +40,15 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … impact_drop (D-0961),
   conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
-  or revive container/cant_revive (D-0964).
+  revive container/cant_revive (D-0964), or ice/burn/fireball (D-0965).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 
 ## Landmarks (≤15)
 
-- Suite @**#1230**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn`.
+- Suite @**#1235**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `30+0.27/turn`.
+- **D-0965:** ice melt / burn_floor_objects / fireball / MELT_ICE_AWAY.
 - **D-0964:** revive container/buried / cant_revive / zombie_can_dig.
 - **D-0963:** desecrate_altar / god_zaps_you / fry_by_god dig wire.
 - **D-0962:** conjoined_pits / autodig quiet / boulder-fill.
@@ -60,6 +60,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0956:** Ring_gone/float_up/rescham/choke/set_mimic_blocking.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
 - **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
-- **D-0953:** floorfood pool/lava reach + `vault_gd_watching`.
-- **D-0952:** break-wand bhitm/cancel/zapyourself + WAN_LIGHT litroom.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

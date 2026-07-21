@@ -36,8 +36,8 @@ import { PM_SAMURAI } from './generated/monsters_data.js';
 import { otyp_uses_known, distant_name, doname } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
-    ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT,
-    HATCH_EGG, MAX_EGG_HATCH_TIME,
+    ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
+    MELT_ICE_AWAY, HATCH_EGG, MAX_EGG_HATCH_TIME,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, OBJ_MINVENT, OBJ_CONTAINED, OBJ_MIGRATING,
     G_GONE,
     LOST_NONE, LOST_EXPLODING,
@@ -544,12 +544,13 @@ function special_corpse(num) {
 }
 
 /**
- * C ref: timeout.c timer queue (gt.timer_base) — object timers only.
+ * C ref: timeout.c timer queue (gt.timer_base) — object + level timers.
  * start_timer inserts by absolute timeout (moves+when); run_timers fires
  * when timeout <= moves. Envelope: ROT_CORPSE → rot_corpse floor extract;
  * HATCH_EGG queued via attach_egg_hatch_timeout (D-0533) but hatch_egg
- * callback deferred; REVIVE_MON / ZOMBIFY_MON / burn / fig / melt deferred
- * (no-op fire clears the queue entry).
+ * callback deferred; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away (D-0965);
+ * REVIVE_MON / ZOMBIFY_MON / burn / fig deferred (no-op fire clears the
+ * queue entry).
  */
 function timer_base() {
     if (!game._timer_base) game._timer_base = null;
@@ -600,16 +601,23 @@ export function stop_timer(action, obj) {
 }
 
 /**
- * C ref: timeout.c start_timer — queue object timer; timeout = moves+when.
- * Duplicate (same obj + action) aborted like C (no second insert).
+ * C ref: timeout.c start_timer — queue timer; timeout = moves+when.
+ * TIMER_OBJECT: arg is obj (duplicate same obj+action aborted).
+ * TIMER_LEVEL: arg is packed a_long (or `{ a_long }`); used for
+ * MELT_ICE_AWAY spot timers (D-0965).
  */
-export function start_timer(when, kind, action, obj) {
-    if (!obj) return 0;
+export function start_timer(when, kind, action, arg) {
+    const isObj = (kind | 0) === TIMER_OBJECT;
+    if (isObj && !arg) return 0;
+    const obj = isObj ? arg : null;
+    const a_long = isObj
+        ? 0
+        : (typeof arg === 'number' ? (arg | 0) : (arg?.a_long | 0));
     const g = timer_base();
     for (let dup = g._timer_base; dup; dup = dup.next) {
-        if (dup.kind === kind && dup.action === action && dup.obj === obj) {
-            return 0;
-        }
+        if ((dup.kind | 0) !== (kind | 0) || dup.action !== action) continue;
+        if (isObj && dup.obj === obj) return 0;
+        if (!isObj && (dup.a_long | 0) === a_long) return 0;
     }
     const moves = game.moves | 0;
     const gnu = {
@@ -618,6 +626,7 @@ export function start_timer(when, kind, action, obj) {
         kind: kind | 0,
         action: action | 0,
         obj,
+        a_long,
     };
     let prev = null;
     let curr = g._timer_base;
@@ -628,8 +637,48 @@ export function start_timer(when, kind, action, obj) {
     gnu.next = curr;
     if (prev) prev.next = gnu;
     else g._timer_base = gnu;
-    if (kind === TIMER_OBJECT) obj.timed = (obj.timed | 0) + 1;
+    if (isObj) obj.timed = (obj.timed | 0) + 1;
     return when;
+}
+
+/**
+ * C ref: timeout.c spot_time_left — remaining turns for a TIMER_LEVEL
+ * action at (x,y), or 0 if none.
+ */
+export function spot_time_left(x, y, action) {
+    const where = (((x | 0) & 0xffff) << 16) | ((y | 0) & 0xffff);
+    const moves = game.moves | 0;
+    for (let curr = timer_base()._timer_base; curr; curr = curr.next) {
+        if ((curr.kind | 0) === TIMER_LEVEL
+            && curr.action === action
+            && (curr.a_long | 0) === where) {
+            return ((curr.timeout | 0) - moves) | 0;
+        }
+    }
+    return 0;
+}
+
+/**
+ * C ref: timeout.c spot_stop_timers — remove TIMER_LEVEL timers for
+ * action at (x,y).
+ */
+export function spot_stop_timers(x, y, action) {
+    const where = (((x | 0) & 0xffff) << 16) | ((y | 0) & 0xffff);
+    const g = timer_base();
+    let prev = null;
+    let curr = g._timer_base;
+    while (curr) {
+        const next = curr.next;
+        if ((curr.kind | 0) === TIMER_LEVEL
+            && curr.action === action
+            && (curr.a_long | 0) === where) {
+            if (prev) prev.next = next;
+            else g._timer_base = next;
+        } else {
+            prev = curr;
+        }
+        curr = next;
+    }
 }
 
 /**
@@ -677,6 +726,8 @@ async function rot_corpse(obj) {
 /**
  * C ref: timeout.c run_timers — fire due timers at start of list.
  * Called from nh_timeout after intrinsic TIMEOUT handling.
+ * Envelope: ROT_CORPSE; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away
+ * (D-0965). Named omit: REVIVE_MON / ZOMBIFY_MON / BURN_OBJECT / hatch.
  */
 export async function run_timers() {
     const g = timer_base();
@@ -689,6 +740,10 @@ export async function run_timers() {
         }
         if (curr.action === ROT_CORPSE) {
             await rot_corpse(curr.obj);
+        } else if (curr.action === MELT_ICE_AWAY
+            && (curr.kind | 0) === TIMER_LEVEL) {
+            const { melt_ice_away } = await import('./zap.js');
+            await melt_ice_away(curr.a_long | 0);
         }
         // REVIVE_MON / ZOMBIFY_MON / BURN_OBJECT / … deferred — entry dropped
     }

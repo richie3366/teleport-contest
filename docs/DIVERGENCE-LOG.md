@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0965 — ice melt / burn_floor_objects / fireball
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap debt — `zap_over_floor` skipped WEB burn, ice
+  melt, POOL→ROOM+PIT, fountain steam, cold freeze, and
+  `burn_floor_objects`; `dobuzz` ignored SPE_FIREBALL trail/explode.
+- **Cause:** prior envelope left those arms as named omit (`debt.md`).
+- **Fix:** port `melt_ice`/`start_melt_ice_timeout`/`melt_ice_away` +
+  TIMER_LEVEL spot timers; `burn_floor_objects`; expand
+  `zap_over_floor` ZT_FIRE/ZT_COLD; wire fireball skip-trail +
+  `explode(d(12,6))` in `dobuzz` (D-0965). Deferred: bury/unearth/
+  obj_ice_effects; lavawall spines; burn feedback plines;
+  explode AD_FIRE mon/hero combat beyond terrain.
+- **Verification:** green+strict PASS; zap/shared cohort 16/16 PASS.
+  Full `sessions` cadence @#1235 **44**/44 Scr **11405**/11405 RNG
+  **100%** speed `30+0.27/turn`.
+- **Files:** `js/zap.js`, `js/mkobj.js`, `docs/c-js-map/debt.md`.
+
 ## D-0964 — revive container/buried + cant_revive
 
 - **Status:** fixed (map-driven debt retirement)

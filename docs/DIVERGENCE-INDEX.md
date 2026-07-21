@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0965 | fixed | ice melt / `burn_floor_objects` / fireball + TIMER_LEVEL `MELT_ICE_AWAY` | map-driven debt; green+zap cohort 16/16; cadence 44/44 @#1235 |
 | D-0964 | fixed | `revive` container/buried + `cant_revive`/`zombie_can_dig` + OBJ_BURIED extract | map-driven debt; green+zap cohort 16/16 |
 | D-0963 | fixed | `desecrate_altar`/`god_zaps_you`/`fry_by_god` + dig altar wire | map-driven debt; green+dig/pray cohort 16/16 |
 | D-0962 | fixed | `conjoined_pits`/`xytodir` + autodig quiet + `dighole` boulder-fill | map-driven debt; green+dig cohort 16/16 |
