@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0950 — break-wand dig/create + dig helpers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** breaking a digging / create-monster wand only exploded
+  magically; no adjacent pits/holes, no create-monster burst, no dig
+  shop bill (`pay_for_damage("dig into")`).
+- **Cause:** named constitutional debt (`debt.md` after D-0949) —
+  `dig_check`/`digactualhole`/`fillholetyp` absent; `do_break_wand`
+  dig/create arms stubbed after explode.
+- **C locus:** `dig.c` `dig_check` / `fillholetyp` / `digactualhole` /
+  `liquid_flow`; `trap.c` `fill_pit`; `apply.c` `maybe_dunk_boulders`
+  + `do_break_wand` dig/create loop + shop pay.
+- **JS:** `dig.js` helpers; `apply.js` dig/create arms +
+  `pay_for_damage("dig into")`; export `feeltrap`/`set_utrap`. Deferred:
+  strike/cancel/poly/tele/undead bhit; `WAN_LIGHT` litroom; HOLE
+  `goto_level`; `furniture_handled`; full `boulder_hits_pool`/
+  `flooreffects`; pickaxe `dig`/`is_digging`; pool-lava/
+  `vault_gd_watching`.
+- **Verify:** green+strict; wizard/dig/shop cohort 12/12 PASS.
+
 ## D-0949 — `explode` shop pay + `do_break_wand` explode-types
 
 - **Status:** fixed (map-driven debt retirement)

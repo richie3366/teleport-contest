@@ -1084,10 +1084,12 @@ async function broken_wand_explode(obj, dmg, expltype) {
  * C ref: apply.c do_break_wand — apply a wand by breaking it.
  * Envelope: nohands/freehand/STR gates; yn confirm; unpaid
  * costly_alteration; freeinv; zappable restore charge; explode-type
- * wands (death/lightning/fire/cold/missile); nothing-else inert wands.
- * Named omit: dig/create/strike/cancel/poly/tele/undead adjacent arms;
- * WAN_LIGHT litroom; release_hold WAN_OPENING; ParanoidBreakwand getlin
- * "yes"; check_unpaid bill polish.
+ * wands (death/lightning/fire/cold/missile); nothing-else inert wands;
+ * magical explode + WAN_DIGGING adjacent dig_check/digactualhole +
+ * WAN_CREATE_MONSTER makemon + dig shop pay_for_damage (D-0950).
+ * Named omit: strike/cancel/poly/tele/undead adjacent bhit; WAN_LIGHT
+ * litroom; release_hold WAN_OPENING; ParanoidBreakwand getlin "yes";
+ * check_unpaid bill polish; ICE spot_stop_timers; HOLE goto_level.
  * @returns {number} ECMD_*
  */
 async function do_break_wand(obj) {
@@ -1177,28 +1179,114 @@ async function do_break_wand(obj) {
     case WAN_MAGIC_MISSILE:
         await broken_wand_explode(obj, dmg, EXPL_MAGICAL);
         return ECMD_TIME;
-    default:
-        // dig / create / strike / cancel / poly / tele / undead / light
-        // deferred — still explode magical + discard so wand is gone
+    case WAN_STRIKING:
+    case WAN_CANCELLATION:
+    case WAN_POLYMORPH:
+    case WAN_TELEPORTATION:
+    case WAN_UNDEAD_TURNING:
+        // adjacent bhitm/bhitpile / zapyourself deferred — explode + discard
         await explode(
             obj.ox | 0, obj.oy | 0, -(obj.otyp | 0), rnd(dmg),
             WAND_CLASS, EXPL_MAGICAL,
         );
-        // adjacent bhit / dig shop_damage pay deferred (named omit)
         await discard_broken_wand();
         return ECMD_TIME;
+    default:
+        break;
     }
+
+    // magical explosion before specific effects (dig / create / light)
+    await explode(
+        obj.ox | 0, obj.oy | 0, -(obj.otyp | 0), rnd(dmg),
+        WAND_CLASS, EXPL_MAGICAL,
+    );
+
+    const {
+        dig_check, fillholetyp, digactualhole, liquid_flow,
+        fill_pit, maybe_dunk_boulders, watch_dig,
+    } = await import('./dig.js');
+    const {
+        DIGCHECK_FAILED, DIGCHECK_FAIL_BOULDER, IS_WALL, IS_DOOR,
+        Can_dig_down, PIT, HOLE, ROOM, ICE, N_DIRS, xdir, ydir, isok,
+        SHOPBASE, NO_MM_FLAGS,
+    } = await import('./const.js');
+    const { in_rooms } = await import('./hack.js');
+    const { makemon } = await import('./makemon.js');
+    const { pay_for_damage } = await import('./shk.js');
+    const { recalc_block_point } = await import('./vision.js');
+    const { t_at } = await import('./trap.js');
+
+    let shop_damage = false;
+    let fillmsg = false;
+    const BY_OBJECT = null;
+
+    for (let i = 0; i <= N_DIRS; i++) {
+        const x = (obj.ox | 0) + (xdir[i] | 0);
+        const y = (obj.oy | 0) + (ydir[i] | 0);
+        if (!isok(x, y)) continue;
+
+        if (obj.otyp === WAN_DIGGING) {
+            const dcres = dig_check(BY_OBJECT, x, y);
+            if (dcres < DIGCHECK_FAILED || dcres === DIGCHECK_FAIL_BOULDER) {
+                const lev = game.level?.at(x, y);
+                if (lev && (IS_WALL(lev.typ) || IS_DOOR(lev.typ))) {
+                    await watch_dig(null, x, y, true);
+                    if (in_rooms(x, y, SHOPBASE)) shop_damage = true;
+                }
+                // ICE spot_stop_timers deferred
+                void ICE;
+                const typ = fillholetyp(x, y, false);
+                if (typ !== ROOM) {
+                    if (lev) {
+                        lev.typ = typ;
+                        lev.flags = 0;
+                    }
+                    await liquid_flow(
+                        x, y, typ, t_at(x, y),
+                        fillmsg
+                            ? null
+                            : 'Some holes are quickly filled with %s!',
+                    );
+                    fillmsg = true;
+                } else {
+                    const pitOnly = rn2(obj.spe | 0) < 3
+                        || (!Can_dig_down(u.uz) && !lev?.candig);
+                    await digactualhole(
+                        x, y, BY_OBJECT, pitOnly ? PIT : HOLE,
+                    );
+                }
+            }
+            fill_pit(x, y);
+            maybe_dunk_boulders(x, y);
+            recalc_block_point(x, y);
+            continue;
+        }
+        if (obj.otyp === WAN_CREATE_MONSTER) {
+            // near hero — x,y might be rock
+            makemon(null, u.ux | 0, u.uy | 0, NO_MM_FLAGS);
+            continue;
+        }
+        // strike/cancel/poly/tele/undead adjacent + self arms deferred
+    }
+
+    if (shop_damage) {
+        await pay_for_damage('dig into', false);
+    }
+
+    // WAN_LIGHT litroom deferred
+    await discard_broken_wand();
+    return ECMD_TIME;
 }
 
 /**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
- * WAND_CLASS → do_break_wand (D-0949 explode-type / nothing-else).
+ * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole/use_pick_axe; traps;
  * oil; BoT; Medusa/nymph mirror arms; camera closeup; most non-instrument
- * tools; break-wand dig/create/strike/cancel/poly/tele/undead arms.
+ * tools; break-wand strike/cancel/poly/tele/undead adjacent + WAN_LIGHT.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {

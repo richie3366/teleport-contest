@@ -81,7 +81,7 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0949. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0950. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
@@ -91,7 +91,9 @@ peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **D-0948** (`zap_over_floor` door/bars shopdamage + `dobuzz`
 `pay_for_damage` — do not re-stub);
 **D-0949** (`explode` shop pay + `do_break_wand` explode-types — do not
-re-stub).
+re-stub);
+**D-0950** (`dig_check`/`digactualhole` + break-wand dig/create pay —
+do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

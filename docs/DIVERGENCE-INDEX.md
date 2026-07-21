@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0950 | fixed | `dig_check`/`digactualhole`/`fillholetyp` + break-wand dig/create pay | map-driven debt; green+wizard/dig cohort 12/12 |
 | D-0949 | fixed | `explode` `zap_over_floor`/`pay_for_damage` + `do_break_wand` explode-types | map-driven debt; green+wizard/zap cohort 12/12 |
 | D-0948 | fixed | `zap_over_floor` door/bars shopdamage + `dobuzz` `pay_for_damage` | map-driven debt; green+zap/shop cohort 12/12 + shop extras |
 | D-0947 | fixed | `kick_door` shop `add_damage`/`pay_for_damage` + town watch | map-driven debt; suite **44**/44 @#1215; green+kick cohort 12/12 |

@@ -1045,7 +1045,7 @@ async function trapeffect_dart_trap(mtmp, trap) {
 }
 
 // C ref: trap.c feeltrap — mark seen + redisplay via newsym → map_trap
-function feeltrap(trap) {
+export function feeltrap(trap) {
     if (!trap) return;
     trap.tseen = true;
     newsym(trap.tx, trap.ty);
@@ -1275,7 +1275,7 @@ function s_suffix(s) {
  * C ref: trap.c set_utrap — set hero trap timer/type; botl when armed↔clear.
  * Named omission: float_vs_flight Lev/Fly block.
  */
-function set_utrap(tim, typ) {
+export function set_utrap(tim, typ) {
     const u = game.u || (game.u = {});
     const was = !!(u.utrap | 0);
     const now = !!(tim | 0);
