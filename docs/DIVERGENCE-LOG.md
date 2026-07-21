@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0968 — explode AD_FIRE mon/hero combat
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap debt — `explode` / `mon_explodes` applied
+  floor `zap_over_floor` for fireballs but skipped AD_FIRE mon/hero
+  HP, `destroy_items`, `burnarmor`, Fire_resistance shield mask, and
+  cold-vuln double damage.
+- **Cause:** prior envelope left non-PHYS combat as named omit after
+  D-0949/D-0965 terrain path.
+- **Fix:** `explosionmask` Fire_resistance/`resists_fire`; AD_FIRE
+  mon/hero path in `explode` (zap `destroy_items`, trap `burnarmor`,
+  resist + cold×2, `xkilled`/`monkilled` + `completelyburns`
+  XKILL_NOCORPSE, hero fatal `done(BURNING)`); `mon_explodes` AD_FIRE
+  type `-((ad-1)+20)` (D-0968). Deferred: AD_COLD/ELEC boom combat;
+  golemeffects/ugolemeffects; ignite_items body; burn_away_slime;
+  Invulnerable; grabbing/engulf double; sparkle glyphs; hallu.
+- **Verification:** green+strict PASS; zap/wizard/shared cohort 20/20
+  PASS (incl. seed2200/0360/0006/0398/5002).
+- **Files:** `js/explode.js`, `js/zap.js` (omit note),
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0967 — bury_objs / unearth_objs / obj_ice_effects
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,7 +38,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   wire `melt_ice`, cold `zap_over_floor`, and `liquid_flow` (D-0967).
   Deferred: shop `stolen_value` bury bill; `buried_ball_to_punishment`;
   `trap_ice_effects`; `end_burn` full; fire/water_damage_chain on
-  liquid_flow release; lavawall spines; explode AD_FIRE combat.
+  liquid_flow release; lavawall spines.
 - **Verification:** green+strict PASS; dig/zap cohort 16/16 PASS.
 - **Files:** `js/mkobj.js`, `js/dig.js`, `js/zap.js`,
   `docs/c-js-map/debt.md`.

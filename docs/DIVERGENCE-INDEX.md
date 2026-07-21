@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0968 | fixed | `explode` AD_FIRE mon/hero + `explosionmask` + `mon_explodes` AD_FIRE | map-driven debt; green+zap cohort 20/20 |
 | D-0967 | fixed | `bury_objs`/`unearth_objs`/`obj_ice_effects` + melt/freeze/liquid_flow | map-driven debt; green+dig/zap cohort 16/16 |
 | D-0966 | fixed | `Ring_on`/`learnring`/`adjust_attrib`/`float_down` + steed wire | map-driven debt; green+wear/steed cohort 20/20 |
 | D-0965 | fixed | ice melt / `burn_floor_objects` / fireball + TIMER_LEVEL `MELT_ICE_AWAY` | map-driven debt; green+zap cohort 16/16; cadence 44/44 @#1235 |

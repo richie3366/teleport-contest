@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:50 — #1238 D-0968 explode AD_FIRE combat
+
+- Objective: map-driven zap debt — explode AD_FIRE mon/hero combat
+  after D-0965 fireball terrain path.
+- C locus: `explode.c` explode / explosionmask / mon_explodes;
+  callers via fireball `dobuzz` + AT_BOOM.
+- Change: explosionmask Fire_resistance/resists_fire; AD_FIRE
+  mon/hero destroy_items+burnarmor+resist+cold×2+kill; mon_explodes
+  AD_FIRE (D-0968). Deferred: COLD/ELEC boom; golem/ignite/slime.
+- Verification: green+strict PASS; zap/wizard cohort 20/20 PASS.
+  Fortress held (no full cadence; next @#1240).
+- Next: angrygods 4–8; toggle_stealth; lavawall spines. Cadence @**#1240**.
+
 ## 2026-07-22 00:45 — #1237 D-0967 bury/unearth/obj_ice
 
 - Objective: map-driven zap/dig debt — bury_objs / unearth_objs /

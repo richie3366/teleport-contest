@@ -34,8 +34,8 @@
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
 // flash_hits WAN_LIGHT bhitm; trap_ice_effects; lavawall→wall
-// fix_wall_spines polish; explode AD_FIRE mon/hero combat beyond
-// zap_over_floor; burn feedback plines.
+// fix_wall_spines polish; burn feedback plines.
+// explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // Shop door/bars destroy + dobuzz pay_for_damage: D-0948.
 // Break-wand adjacent bhit + cancel helpers: D-0952.
 // unturn_dead invent revive + hero_breaks + worn ABON: D-0955.
@@ -1462,7 +1462,7 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
  * AD_RBRE) else xkilled/killed; shopdamage → pay_for_damage (D-0948).
  * Named omit: mon_reflects; map_invisible; Hallu hdmgtype;
  * disintegrate_mon; fire completelyburns XKILL_NOCORPSE; steed
- * redirect; explode AD_FIRE mon/hero combat beyond terrain.
+ * redirect; AD_COLD/ELEC explode combat beyond terrain.
  */
 export async function dobuzz(
     type, nd, sx0, sy0, dx0, dy0, sayhit, _saymiss, forcemiss,

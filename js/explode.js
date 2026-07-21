@@ -1,17 +1,19 @@
 // explode.js — Explosion effects (partial).
-// C ref: explode.c mon_explodes / explode; zap.c destroy_items / resist /
-//        zap_over_floor (D-0949 shopdamage → pay_for_damage).
+// C ref: explode.c mon_explodes / explode / explosionmask;
+//        zap.c destroy_items / resist / zap_over_floor
+//        (D-0949 shopdamage → pay_for_damage; D-0968 AD_FIRE combat).
 //
-// Branch envelope: AT_BOOM AD_PHYS → PHYS_EXPL_TYPE + MON_EXPLODE;
+// Branch envelope: AT_BOOM AD_PHYS / AD_FIRE → MON_EXPLODE;
 // WAND_CLASS / BURNING_OIL / SCROLL / TRAP_EXPLODE olet preamble;
-// adtyp from type; 3x3 zap_over_floor + shop pay; PHYS mon/hero damage
-// (destroy_items limit rn2(5), resist, Half_phys, exercise A_STR);
-// wake_nearto.
-// Named omissions: non-PHYS mon/hero damage / destroy_items bodies;
-// hallu rndmonnam; sparkle/shield glyphs; ugolemeffects; Invulnerable;
-// grabbing/engulf double-damage; blast-kill → xkilled/monkilled
-// (PHYS HP applied; death path deferred); wake_nearto beyond msleeping;
-// mr table (use 0); Role_switch damu only for known role pm.
+// adtyp from type; explosionmask Fire_resistance / resists_fire;
+// 3x3 zap_over_floor + shop pay; PHYS + AD_FIRE mon/hero damage
+// (destroy_items, burnarmor, resist, cold×2 vs fire, Half_phys,
+//  exercise A_STR, xkilled/monkilled); wake_nearto.
+// Named omissions: AD_COLD/ELEC/… mon/hero combat; hallu rndmonnam;
+// sparkle/shield glyphs; ugolemeffects/golemeffects; Invulnerable;
+// burn_away_slime; ignite_items body; grabbing/engulf double-damage;
+// wake_nearto beyond msleeping; Role_switch damu only for known role pm;
+// non-FIRE AT_BOOM spheres (cold/elec/…).
 
 import { game } from './gstate.js';
 import { d, rn2 } from './rng.js';
@@ -22,14 +24,18 @@ import { Monnam } from './do_name.js';
 import { maybe_half_phys } from './hack.js';
 import { exercise, A_STR } from './attrib.js';
 import {
-    isok, u_at, PHYS_EXPL_TYPE, MON_EXPLODE, EXPL_NOXIOUS,
-    STRAT_WAITMASK, KILLED_BY_AN, BURNING_OIL, TRAP_EXPLODE,
+    isok, u_at, PHYS_EXPL_TYPE, MON_EXPLODE, EXPL_NOXIOUS, EXPL_FIERY,
+    STRAT_WAITMASK, KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX,
+    BURNING_OIL, TRAP_EXPLODE, XKILL_GIVEMSG, XKILL_NOCORPSE, BURNING, DIED,
 } from './const.js';
-import { pmnames, G_UNIQ } from './monsters.js';
+import { pmnames, G_UNIQ, MR_FIRE, MR_COLD } from './monsters.js';
 import {
-    PM_CLERIC, PM_MONK, PM_WIZARD, PM_HEALER, PM_KNIGHT,
+    PM_CLERIC, PM_MONK, PM_WIZARD, PM_HEALER, PM_KNIGHT, monsterNames,
 } from './generated/monsters_data.js';
 import { WAND_CLASS, SCROLL_CLASS, objectNames, RAY } from './objects.js';
+
+const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
+const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
 
 const AD_PHYS = 0;
 const AD_MAGM = 1;
@@ -39,8 +45,12 @@ const AD_DISN = 5;
 const AD_ELEC = 6;
 const AD_DRST = 7;
 const AD_ACID = 8;
-const DMG_DESTROY_SCALE = 5;
-const MAX_ITEMS_DESTROYED = 20;
+
+/** C ref: explode.c enum explode_action */
+const EXPL_NONE = 0;
+const EXPL_MON = 1;
+const EXPL_HERO = 2;
+const EXPL_SKIP = 4;
 
 const WAN_MAGIC_MISSILE = objectNames.indexOf('WAN_MAGIC_MISSILE');
 const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
@@ -69,26 +79,37 @@ function pmname_mon(mon) {
     return String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
 }
 
-/**
- * C ref: zap.c destroy_items — AD_PHYS never destroys gear; still burns
- * the dmg/5 limit rn2(DMG_DESTROY_SCALE). Other adtyps deferred.
- */
-function destroy_items(_mon, dmgtyp, dmg_in) {
-    void dmgtyp; // AD_PHYS: destroyable() always false
-    let limit = Math.trunc(dmg_in / DMG_DESTROY_SCALE);
-    if ((dmg_in % DMG_DESTROY_SCALE) > rn2(DMG_DESTROY_SCALE)) limit++;
-    if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
-    if (limit < 1) return 0;
-    return 0;
+/** C ref: youprop.h Fire_resistance */
+function Fire_resistance() {
+    const u = game.u || {};
+    return !!(u.Fire_resistance || u.HFire_resistance || u.EFire_resistance);
+}
+
+/** C ref: monst.h resists_fire / resists_cold */
+function mon_resists_bit(mon, mrBit) {
+    if (!mon) return false;
+    const bits = (mon.data?.mresists | 0)
+        | (mon.mextrinsics | 0)
+        | (mon.mintrinsics | 0);
+    return !!(bits & mrBit);
+}
+function resists_fire(mon) { return mon_resists_bit(mon, MR_FIRE); }
+function resists_cold(mon) { return mon_resists_bit(mon, MR_COLD); }
+
+/** C ref: mondata.c completelyburns — paper/straw golem. */
+function completelyburns(data) {
+    const mndx = data?.mndx ?? data?.mnum;
+    return mndx === PM_PAPER_GOLEM || mndx === PM_STRAW_GOLEM;
 }
 
 /**
  * C ref: zap.c resist — burn rn2; MON_EXPLODE oclass uses default alev=ulevel.
- * tell/shield and HP application deferred (caller applies damage).
+ * tell/shield and HP application deferred (caller applies damage; C passes 0).
  */
 function resist(mtmp, oclass, damage, tell) {
     void damage;
     void tell;
+    void oclass;
     const alev = game.u?.ulevel | 0;
     let dlev = mtmp.m_lev | 0;
     if (dlev > 50) dlev = 50;
@@ -97,9 +118,41 @@ function resist(mtmp, oclass, damage, tell) {
     return rn2(100 + alev - dlev) < mr;
 }
 
-/** C ref: explode.c adtyp_to_expltype — AD_PHYS → EXPL_NOXIOUS */
+/** C ref: zap.c ignite_items — body deferred (no RNG). */
+function ignite_items(_objchn) {
+    // oil lamp / candle ignition deferred
+}
+
+/**
+ * C ref: explode.c explosionmask — PHYS none; FIRE → Fire_resistance /
+ * resists_fire. Other adtyps named omit (no shield).
+ */
+function explosionmask(m, adtyp, olet) {
+    void olet;
+    const isHero = !m || m === game.youmonst || m._youmonst;
+    if (isHero) {
+        switch (adtyp) {
+        case AD_PHYS:
+            return EXPL_NONE;
+        case AD_FIRE:
+            return Fire_resistance() ? EXPL_HERO : EXPL_NONE;
+        default:
+            return EXPL_NONE;
+        }
+    }
+    switch (adtyp) {
+    case AD_PHYS:
+        return EXPL_NONE;
+    case AD_FIRE:
+        return resists_fire(m) ? EXPL_MON : EXPL_NONE;
+    default:
+        return EXPL_NONE;
+    }
+}
+
+/** C ref: explode.c adtyp_to_expltype */
 function adtyp_to_expltype(adtyp) {
-    void adtyp;
+    if (adtyp === AD_FIRE) return EXPL_FIERY;
     return EXPL_NOXIOUS; // AD_PHYS / gas spore
 }
 
@@ -124,9 +177,9 @@ function Role_if(pm) {
 }
 
 /**
- * C ref: explode.c explode — PHYS_EXPL_TYPE / MON_EXPLODE subset +
+ * C ref: explode.c explode — PHYS + AD_FIRE mon/hero combat (D-0968) +
  * WAND/SCROLL/OIL/TRAP olet → zap_over_floor + pay_for_damage (D-0949).
- * Visual beam / shield sparkle deferred; non-PHYS mon/hero damage deferred.
+ * Visual beam / shield sparkle deferred; other adtyp combat deferred.
  */
 export async function explode(x, y, typeIn, dam, olet, _expltype) {
     void _expltype;
@@ -186,7 +239,6 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
         case 6: adtyp = AD_DRST; str = 'poison gas cloud'; break;
         case 7: adtyp = AD_ACID; str = 'splash of acid'; break;
         default:
-            // unknown base — treat as magical blast
             adtyp = AD_MAGM;
             str = 'magical blast';
             break;
@@ -197,6 +249,7 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
         str = game.killer?.name || 'explosion';
     }
 
+    const you = game.youmonst || { _youmonst: true };
     const explmask = [];
     for (let i = 0; i < 3; i++) {
         explmask[i] = [];
@@ -204,11 +257,19 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
             const xx = x + i - 1;
             const yy = y + j - 1;
             if (!isok(xx, yy)) {
-                explmask[i][j] = 4; // EXPL_SKIP
+                explmask[i][j] = EXPL_SKIP;
                 continue;
             }
-            // AD_PHYS: explosionmask leaves EXPL_NONE; non-PHYS shield deferred
-            explmask[i][j] = 0;
+            explmask[i][j] = EXPL_NONE;
+            if (u_at(xx, yy)) {
+                explmask[i][j] = explosionmask(you, adtyp, olet);
+            }
+            let mtmp = m_at(xx, yy);
+            if (!mtmp && u_at(xx, yy)) mtmp = game.u?.usteed;
+            if (mtmp && (mtmp.mhp | 0) < 1) mtmp = null;
+            if (mtmp) {
+                explmask[i][j] |= explosionmask(mtmp, adtyp, olet);
+            }
         }
     }
 
@@ -218,16 +279,17 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
     }
 
     const inside_engulfer = !!(game.u?.uswallow && type >= 0);
-    const { zap_over_floor } = await import('./zap.js');
+    const { zap_over_floor, destroy_items } = await import('./zap.js');
+    const combat_ok = adtyp === AD_PHYS || adtyp === AD_FIRE;
 
     if (dam) {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (explmask[i][j] === 4) continue;
+                if (explmask[i][j] === EXPL_SKIP) continue;
                 const xx = x + i - 1;
                 const yy = y + j - 1;
                 if (u_at(xx, yy)) {
-                    uhurt = 2;
+                    uhurt = ((explmask[i][j] & EXPL_HERO) !== 0) ? 1 : 2;
                     if (!game.context?.mon_moving && you_exploding) uhurt = 0;
                 } else if (inside_engulfer) {
                     continue;
@@ -240,8 +302,7 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
                     );
                 }
 
-                // Non-PHYS mon/hero combat deferred — PHYS path below
-                if (adtyp !== AD_PHYS) continue;
+                if (!combat_ok) continue;
 
                 let mtmp = m_at(xx, yy);
                 if (!mtmp && u_at(xx, yy)) mtmp = game.u?.usteed;
@@ -252,17 +313,49 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
                     await pline(`${Monnam(mtmp)} is caught in the ${str}!`);
                 }
 
-                const itemdmg = destroy_items(mtmp, adtyp, dam);
-                let mdam = dam;
-                if (resist(mtmp, olet, 0, false)) {
-                    if (cansee(xx, yy)) {
-                        await pline(`${Monnam(mtmp)} resists the ${str}!`);
-                    }
-                    mdam = Math.trunc((dam + 1) / 2);
+                const itemdmg = await destroy_items(mtmp, adtyp, dam);
+                if (adtyp === AD_FIRE) {
+                    const { burnarmor } = await import('./trap.js');
+                    await burnarmor(mtmp);
+                    ignite_items(mtmp.minvent);
                 }
-                mtmp.mhp = (mtmp.mhp | 0) - (mdam + itemdmg);
+
+                if ((explmask[i][j] & EXPL_MON) !== 0) {
+                    // golemeffects deferred — shield: item destruction only
+                    mtmp.mhp = (mtmp.mhp | 0) - itemdmg;
+                } else {
+                    let mdam = dam;
+                    if (resist(mtmp, olet, 0, false)) {
+                        if (cansee(xx, yy) || inside_engulfer) {
+                            await pline(
+                                `${Monnam(mtmp)} resists the ${str}!`,
+                            );
+                        }
+                        mdam = Math.trunc((dam + 1) / 2);
+                    }
+                    // grabbed double-damage deferred
+                    if (resists_cold(mtmp) && adtyp === AD_FIRE) mdam *= 2;
+                    else if (resists_fire(mtmp) && adtyp === AD_COLD) {
+                        mdam *= 2;
+                    }
+                    mtmp.mhp = (mtmp.mhp | 0) - (mdam + itemdmg);
+                }
+
                 if ((mtmp.mhp | 0) < 1) {
                     mtmp.mhp = 0;
+                    const xkflg = (adtyp === AD_FIRE
+                        && completelyburns(mtmp.data))
+                        ? XKILL_NOCORPSE
+                        : 0;
+                    if (!game.context?.mon_moving) {
+                        const { xkilled } = await import('./uhitm.js');
+                        await xkilled(mtmp, XKILL_GIVEMSG | xkflg);
+                    } else {
+                        const { monkilled } = await import('./mhitm.js');
+                        let how = adtyp;
+                        if (xkflg) how = 242; // AD_RBRE — no corpse
+                        await monkilled(mtmp, '', how);
+                    }
                 } else if (!game.context?.mon_moving) {
                     setmangry(mtmp, true);
                 }
@@ -270,18 +363,53 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
         }
     }
 
-    if (uhurt && adtyp === AD_PHYS) {
-        if (game.flags?.verbose !== false && type < 0) {
+    if (uhurt && combat_ok) {
+        // C: verbose && (type < 0 || olet != SCROLL_CLASS)
+        if (game.flags?.verbose !== false
+            && (type < 0 || olet !== SCROLL_CLASS)) {
             await pline(`You are caught in the ${str}!`);
         }
-        damu = maybe_half_phys(damu);
-        destroy_items({ /* youmonst */ }, adtyp, dam);
+        // burn_away_slime / Invulnerable deferred
+        if (adtyp === AD_PHYS || adtyp === AD_ACID) {
+            damu = maybe_half_phys(damu);
+        }
+        if (adtyp === AD_FIRE) {
+            const { burnarmor } = await import('./trap.js');
+            await burnarmor(you);
+            ignite_items(game.invent);
+        }
+        await destroy_items(you, adtyp, dam);
+        // ugolemeffects deferred
 
         const u = game.u;
         if (uhurt === 2 && u) {
             if (u.Upolyd) u.mh = (u.mh | 0) - damu;
             else u.uhp = (u.uhp | 0) - damu;
             if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+
+        if (u && ((u.uhp | 0) <= 0 || (u.Upolyd && (u.mh | 0) <= 0))) {
+            // Upolyd rehumanize deferred — fatal path as non-poly
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            if (olet === MON_EXPLODE) {
+                if (str && str !== game.killer.name) {
+                    game.killer.name = str;
+                }
+                game.killer.format = KILLED_BY_AN;
+            } else if (type >= 0 && olet !== SCROLL_CLASS) {
+                game.killer.format = NO_KILLER_PREFIX;
+                game.killer.name =
+                    `caught himself in his own ${str}`;
+            } else {
+                const towerOrBall = str === 'tower of flame'
+                    || str === 'fireball';
+                game.killer.format = towerOrBall ? KILLED_BY_AN : KILLED_BY;
+                game.killer.name = str;
+            }
+            await pline(`The ${str} is fatal.`);
+            const { done } = await import('./end.js');
+            await done(adtyp === AD_FIRE ? BURNING : DIED);
         }
         exercise(A_STR, false);
     }
@@ -302,7 +430,8 @@ export async function explode(x, y, typeIn, dam, olet, _expltype) {
 }
 
 /**
- * C ref: explode.c mon_explodes — roll boom damage, mondead if live, explode.
+ * C ref: explode.c mon_explodes — roll boom damage, kill if live, explode.
+ * Branch envelope: AD_PHYS + AD_FIRE. Other AT_BOOM adtyps deferred.
  */
 export async function mon_explodes(mon, mattk) {
     let dmg;
@@ -315,10 +444,14 @@ export async function mon_explodes(mon, mattk) {
     }
 
     let type;
-    if ((mattk.adtyp | 0) === AD_PHYS) {
+    const ad = mattk.adtyp | 0;
+    if (ad === AD_PHYS) {
         type = PHYS_EXPL_TYPE;
+    } else if (ad === AD_FIRE) {
+        // C: type = -((adtyp - 1) + 20) for AD_MAGM..AD_SPC2
+        type = -((ad - 1) + 20);
     } else {
-        // Non-PHYS AT_BOOM deferred
+        // Non-PHYS / non-FIRE AT_BOOM deferred
         return;
     }
 
@@ -336,7 +469,7 @@ export async function mon_explodes(mon, mattk) {
         type,
         dmg,
         MON_EXPLODE,
-        adtyp_to_expltype(mattk.adtyp | 0),
+        adtyp_to_expltype(ad),
     );
 
     game.killer.name = '';
