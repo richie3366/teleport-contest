@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1169)
+- **Status:** partial (#1080–#1171)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1521**/1814)
+  Scr **1525**/1814)
+- **Hypothesis (#1171):** @1151 — `#wizintrinsic` menu `blinded [23]` vs
+  C `[119]`. Two stacked causes: (1) Blind branch used
+  `incr_prop_timeout` from stale `uprops[BLINDED]=0` (raven/cream set
+  only `HBlinded`), overwriting remaining Blind with 30; C
+  `make_blinded(old+amt)`. (2) After that peel JS still `[116]` vs
+  `[119]` — C `nh_timeout` returns early when `u.uinvulnerable`
+  (prayer); JS kept decrementing Blind during prayer nomul.
+- **Fix (#1171):** `wizcmds.js` Blind → `make_blinded(newtimeout,true)`;
+  `do.js`/`apply.js`/`timeout.js` sync HBlinded↔uprops[BLINDED];
+  `timeout.js` `if (u.uinvulnerable) return`.
+- **Verification (#1171):** green+strict PASS; cohort 12/12; focused
+  seed4500 prefix **@1151→@1252**; Scr **1521→1525**. Next: @**1252**
+  map glyph DEC vs Primary (room/`s`).
 - **Hypothesis (#1169):** @1098 — one map cell C `_` color 6 vs JS
   floor `·` after Blind feel-floor. Misread as altar; color 6 =
   `CLR_CYAN`/`HI_METAL` = **iron chain** (Punished). JS deferred

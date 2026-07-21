@@ -14,7 +14,7 @@ import {
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
     VISITED, LFILE_EXISTS,
     UNENCUMBERED, KILLED_BY, DISMOUNT_FELL,
-    MAGIC_PORTAL, TIMEOUT, RLOC_NOMSG,
+    MAGIC_PORTAL, TIMEOUT, BLINDED, RLOC_NOMSG,
 } from './const.js';
 import { seetrap } from './trap.js';
 import { COIN_CLASS } from './objects.js';
@@ -1240,10 +1240,18 @@ function BlindedTimeout() {
     return (game.u?.HBlinded | 0) & TIMEOUT;
 }
 
-/** C potion.c set_itimeout / incr_itimeout — TIMEOUT field only. */
+/** C potion.c set_itimeout / incr_itimeout — TIMEOUT field only.
+ * Sync uprops[BLINDED] with HBlinded (C: same storage via macro). */
 function set_itimeout_HBlinded(val) {
     const u = game.u || (game.u = {});
-    u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT) | ((val | 0) & TIMEOUT);
+    const next = ((u.HBlinded | 0) & ~TIMEOUT) | ((val | 0) & TIMEOUT);
+    u.HBlinded = next;
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[BLINDED]) {
+        u.uprops[BLINDED] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    }
+    u.uprops[BLINDED].intrinsic =
+        ((u.uprops[BLINDED].intrinsic | 0) & ~TIMEOUT) | (next & TIMEOUT);
 }
 function incr_itimeout_HBlinded(incr) {
     set_itimeout_HBlinded(BlindedTimeout() + (incr | 0));

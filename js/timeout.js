@@ -214,12 +214,14 @@ function incr_itimeout_HFumbling(incr) {
  * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues;
  * STUNNED/INVIS/SEE_INVIS/HALLUC/SLEEPY/LEVITATION/… expiry messages;
  * Glib; ublesscnt (in allmain); usptime; ugallop; delayed
- * killers; u.uinvulnerable early return; defer_decor; full ice/
- * mount slip_or_trip arms; you_unwere (were → rehumanize).
+ * killers; defer_decor; full ice/mount slip_or_trip arms;
+ * you_unwere (were → rehumanize).
+ * u.uinvulnerable early-return freezes all TIMEOUT (D-0928 #1171).
  */
 export async function nh_timeout() {
     const u = game.u || (game.u = {});
-    // C: if (u.uinvulnerable) return; — deferred (prayer freezes TIMEOUT)
+    // C: if (u.uinvulnerable) return; — freezes ALL TIMEOUT decrement (D-0928 #1171)
+    if (u.uinvulnerable) return;
     // C: for (upp = u.uprops; …) if ((intrinsic & TIMEOUT) && !(--intrinsic & TIMEOUT))
 
     const hw = u.HWounded_legs | 0;
@@ -256,6 +258,13 @@ export async function nh_timeout() {
     if (hb & TIMEOUT) {
         const next = hb - 1;
         u.HBlinded = next;
+        // Keep uprops[BLINDED] ≡ HBlinded (C single storage; D-0928 #1171)
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[BLINDED]) {
+            u.uprops[BLINDED] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        u.uprops[BLINDED].intrinsic =
+            ((u.uprops[BLINDED].intrinsic | 0) & ~TIMEOUT) | (next & TIMEOUT);
         if (!(next & TIMEOUT)) {
             // C: after --, was_blind = !!Blind (props, not sticky);
             // set_itimeout(&HBlinded, 1L); make_blinded(0L, TRUE);
@@ -264,6 +273,8 @@ export async function nh_timeout() {
                 && !(u.BBlinded | 0)))
                 || !!u.uroleplay?.blind;
             u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT) | 1;
+            u.uprops[BLINDED].intrinsic =
+                ((u.uprops[BLINDED].intrinsic | 0) & ~TIMEOUT) | 1;
             await make_blinded(0, true);
             const still_blind = (!!(((u.HBlinded | 0) || (u.EBlinded | 0))
                 && !(u.BBlinded | 0)))

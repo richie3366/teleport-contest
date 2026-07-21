@@ -31,6 +31,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 15:42 — #1171 wiz Blind make_blinded + uinvulnerable
+
+- Objective: seed4500 @1151 `#wizintrinsic` Blind TIMEOUT `[23]` vs `[119]`.
+- C locus: `wizcmds.c` `wiz_intrinsic` BLINDED → `make_blinded`;
+  `timeout.c` `nh_timeout` `u.uinvulnerable` early return.
+- Change: Blind branch calls `make_blinded(newtimeout)` (not stale
+  uprops incr); sync HBlinded↔uprops; freeze TIMEOUT while praying
+  (D-0928 #1171).
+- Verification: green+strict PASS; cohort 12/12; Scr **1521→1525**;
+  prefix **@1151→@1252**.
+- Next: @**1252** map glyph DEC vs Primary.
+
 ## 2026-07-21 15:32 — #1170 public score cadence
 
 - Objective: mandatory full `sessions` score @#1170 (÷5).
