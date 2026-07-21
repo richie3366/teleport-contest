@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0940 — tin `costly_tin` / `use_tin_opener` + shop `costly_alteration`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** `costly_tin` was identity-only; apply TIN_OPENER said
+  "don't know how to use that"; unpaid shop tin open never billed.
+- **Cause:** named constitutional debt (`debt.md` eat / shop billing).
+- **C locus:** `eat.c` `costly_tin` / `use_tin_opener` / `tinopen_ok`;
+  `mkobj.c` `bill_dummy_object` / `costly_alteration`; `shk.c`
+  `sub_one_frombill` / `subfrombill` / `alter_cost`; `apply.c` TIN_OPENER.
+- **JS:** `shk.js` bill helpers + `costly_alteration`; `eat.js`
+  `costly_tin` + `use_tin_opener`; `apply.js` TIN_OPENER wire.
+  Deferred: floor remote `stolen_value`; unpaid `splitbill` / nextoid
+  price-matched oid; billobjs residual; `still_chewing` shop/`watch_dig`;
+  cpostfx specials.
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0939 — `cprefx` + cannibal / stone / slime helpers
 
 - **Status:** fixed (map-driven debt retirement)
@@ -16,8 +32,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `make_stoned`/`make_slimed`; `end.c` `delayed_killer`.
 - **JS:** `eat.js` full `cprefx` + wire `start_eating`; helpers in
   `monsters.js` / `mondata.js` / `were.js` / `potion.js` / `end.js`.
-  Deferred: `revive_corpse` after rider lifesave; tin `costly_tin` shop;
-  `use_tin_opener`; `still_chewing` shop/`watch_dig`.
+  Deferred: `revive_corpse` after rider lifesave; tin shop billing
+  retired D-0940; `still_chewing` shop/`watch_dig`.
 - **Verify:** green+strict; eat/role cohort 12/12 PASS.
 
 ## D-0938 — `b_trapped` + `make_stunned` (tin / door / chew / kick)

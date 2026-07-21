@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:25 — #1208 D-0940 costly_tin + use_tin_opener
+
+- Objective: map-driven — retire tin shop bill + apply tin-opener debt.
+- C locus: `eat.c` `costly_tin`/`use_tin_opener`; `mkobj.c`
+  `bill_dummy_object`/`costly_alteration`; `shk.c` subfrombill/alter_cost;
+  `apply.c` TIN_OPENER.
+- Change: port shop alteration helpers; wire `costly_tin` COST_OPEN/
+  DSTROY; `use_tin_opener` + apply case (D-0940).
+- Verification: green+strict PASS; eat/role cohort 12/12.
+- Next: `still_chewing` shop/`watch_dig`; cpostfx specials; or other
+  `debt.md` row. Cadence full `sessions` @#1210.
+
 ## 2026-07-21 22:20 — #1207 D-0939 cprefx + cannibal/stone/slime
 
 - Objective: map-driven — retire full `cprefx` debt cluster.

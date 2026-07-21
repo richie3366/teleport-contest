@@ -4,7 +4,9 @@
 //        addtobill / append_honorific / get_cost / getprice / billable;
 //        get_cost_of_shop_item / doname_with_price (D-0460);
 //        is_unpaid / unpaid_cost + doname unpaid suffix (D-0461);
-//        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset).
+//        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset);
+//        sub_one_frombill / subfrombill / alter_cost;
+//        mkobj.c bill_dummy_object / costly_alteration (D-0940).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
 // m_break_boulder; m_move_aggress; inhistemple callers; mapseen_temple;
@@ -18,7 +20,10 @@
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease; used-up/container bill arms;
 // traditional itemize ynq; observe_object/makeknown in shk_names_obj;
-// getpos pay-whom; container paydoname rewrite; contained_cost.
+// getpos pay-whom; container paydoname rewrite; contained_cost;
+// stolen_value floor-remote arm of costly_alteration; billobjs residual
+// when sub_one_frombill partial quan; nextoid shop-price oid match;
+// SetVoice; copy_oextra / free_omid / Is_candle on bill_dummy.
 
 import { game } from './gstate.js';
 import { rn2, rn1 } from './rng.js';
@@ -26,9 +31,10 @@ import { dist2, online2 } from './hacklib.js';
 import { in_rooms } from './hack.js';
 import {
     ESHK, EPRI, IS_ROOM, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE, ACH_SHOP,
-    OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, NO_ROOM, TEMPLE,
+    OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, OBJ_FREE, OBJ_DELETED,
+    NO_ROOM, TEMPLE,
     DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
-    COST_CONTENTS, COST_SINGLEOBJ, TELEPAT,
+    COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
 } from './const.js';
 import { hero_conflict, resist_conflict, m_canseeu } from './mondata.js';
 import { mon_nam } from './do_name.js';
@@ -45,9 +51,10 @@ import { mattacku } from './mhitu.js';
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { Hello } from './roles.js';
 import { shtypes, shkname, Shknam } from './shknam.js';
-import { splitobj } from './mkobj.js';
+import { splitobj, next_ident } from './mkobj.js';
 import { add_to_minv } from './makemon.js';
 import { acurr, A_CHA } from './attrib.js';
+import { simpleonames } from './objnam.js';
 import { xname, doname, paydoname, set_doname_shop_suffix } from './objnam.js';
 import { is_human } from './monsters.js';
 import { nhgetch } from './input.js';
@@ -352,6 +359,176 @@ export function unpaid_cost(unp_obj, cost_type) {
     }
     // C: if (!shkp || (unp_obj->unpaid && !bp)) impossible(...);
     return amt;
+}
+
+/**
+ * C ref: shk.c sub_one_frombill — remove obj from shk bill (or shrink).
+ * Named omission: billobjs residual object when bquan > quan (keep
+ * same bo_id / shrink bquan + useup instead).
+ */
+export function sub_one_frombill(obj, shkp) {
+    if (!obj || !shkp) return;
+    const bp = onbill(obj, shkp, false);
+    if (bp) {
+        obj.unpaid = 0;
+        if ((bp.bquan | 0) > (obj.quan | 0)) {
+            bp.bquan = (bp.bquan | 0) - (obj.quan | 0);
+            bp.useup = true;
+            return;
+        }
+        const eshkp = ESHK(shkp);
+        const bill = eshkp.bill_p || eshkp.bill;
+        if (!bill) return;
+        const n = (eshkp.billct | 0) - 1;
+        eshkp.billct = n < 0 ? 0 : n;
+        let i = 0;
+        for (; i <= n; i++) {
+            if (bill[i] === bp) break;
+        }
+        if (i <= n) {
+            bill[i] = bill[n];
+            bill[n] = undefined;
+        }
+        return;
+    }
+    if (obj.unpaid) obj.unpaid = 0;
+}
+
+/**
+ * C ref: shk.c subfrombill — unpaid obj (+ nested contents deferred depth).
+ * Container walk: coins skipped; recursive Has_contents.
+ */
+export function subfrombill(obj, shkp) {
+    if (!obj || !shkp) return;
+    sub_one_frombill(obj, shkp);
+    if (!Has_contents(obj)) return;
+    for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === COIN_CLASS) continue;
+        if (Has_contents(otmp)) subfrombill(otmp, shkp);
+        else sub_one_frombill(otmp, shkp);
+    }
+}
+
+/**
+ * C ref: shk.c alter_cost — bump/force bill price for obj on any shk bill.
+ */
+export function alter_cost(obj, amt) {
+    if (!obj) return;
+    const fmon = game.fmon || [];
+    for (const shkp of fmon) {
+        if (!shkp?.isshk || ((shkp.mhp | 0) < 1)) continue;
+        const bp = onbill(obj, shkp, true);
+        if (!bp) continue;
+        const newPrice = !amt ? get_cost(obj, shkp) : (amt < 0 ? -amt : amt);
+        if (newPrice > (bp.price | 0) || amt < 0) {
+            bp.price = newPrice | 0;
+        }
+        break;
+    }
+}
+
+/** C mkobj.c alteration_verbs[] — must match COST_xxx. */
+const ALTERATION_VERBS = [
+    'cancel', 'drain', 'uncharge', 'unbless', 'uncurse', 'disenchant',
+    'degrade', 'dilute', 'erase', 'burn', 'neutralize', 'destroy', 'splatter',
+    'bite', 'open', 'break the lock on', 'rust', 'rot', 'tarnish', 'crack',
+];
+
+/** C invent.c carried — invent[] membership (JS array invent). */
+function carried_shop(obj) {
+    return !!(obj && (game.invent || []).includes(obj));
+}
+
+/**
+ * C ref: mkobj.c bill_dummy_object — charge for fully used unpaid item.
+ * Named omissions: nextoid price-matched oid (uses next_ident);
+ * copy_oextra / free_omid / Is_candle lamplit; billobjs list.
+ */
+export async function bill_dummy_object(otmp) {
+    if (!otmp) return;
+    let cost = 0;
+    if (otmp.unpaid) {
+        cost = unpaid_cost(otmp, COST_SINGLEOBJ) | 0;
+        const ushop = (game.u?.ushops || '')[0];
+        const shkp = ushop != null && ushop !== ''
+            ? shop_keeper(ushop)
+            : null;
+        if (shkp) subfrombill(otmp, shkp);
+    }
+    const dummy = { ...otmp };
+    dummy.oextra = null;
+    dummy.where = OBJ_FREE;
+    dummy.o_id = next_ident();
+    dummy.timed = 0;
+    dummy.lamplit = 0;
+    dummy.owornmask = 0;
+    dummy.nobj = null;
+    dummy.nexthere = null;
+    await addtobill(dummy, false, true, true);
+    if (cost && dummy.where !== OBJ_DELETED) {
+        alter_cost(dummy, -cost);
+    }
+    otmp.no_charge = (otmp.where === OBJ_FLOOR
+        || otmp.where === OBJ_CONTAINED) ? 1 : 0;
+    otmp.unpaid = 0;
+}
+
+/**
+ * C ref: mkobj.c costly_alteration — shop bill for modified unpaid goods.
+ * Branch envelope: invent/free unpaid verbalize+bill_dummy; floor same-
+ * shop verbalize+bill_dummy.
+ * Named omission: floor remote stolen_value; SetVoice.
+ */
+export async function costly_alteration(obj, alter_type) {
+    if (!obj) return;
+    let at = alter_type | 0;
+    if (at < 0 || at >= ALTERATION_VERBS.length) at = 0;
+
+    let ox = 0;
+    let oy = 0;
+    let objroom = '\0';
+    const holder = { shkp: null };
+
+    if (carried_shop(obj) || obj.where === OBJ_INVENT || obj.where === OBJ_FREE) {
+        if (!obj.unpaid) return;
+    } else {
+        const loc = get_obj_location(obj, 0x1);
+        if (loc) {
+            ox = loc.x | 0;
+            oy = loc.y | 0;
+        } else {
+            ox = game.u?.ux | 0;
+            oy = game.u?.uy | 0;
+        }
+        if (!costly_spot(ox, oy)) return;
+        const rooms = in_rooms(ox, oy, SHOPBASE) || '';
+        objroom = rooms[0] || '\0';
+        if (!billable(holder, obj, objroom, false)) return;
+    }
+
+    const those = (obj.quan | 0) === 1 ? 'that' : 'those';
+    const them = (obj.quan | 0) === 1 ? 'it' : 'them';
+    const learnBknown = at === COST_UNCURS || at === COST_UNBLSS;
+    const verb = ALTERATION_VERBS[at];
+
+    if (obj.where === OBJ_FREE || obj.where === OBJ_INVENT
+        || carried_shop(obj)) {
+        if (learnBknown) obj.bknown = 1;
+        await verbalize(
+            `You ${verb} ${those} ${simpleonames(obj)}, you pay for ${them}!`,
+        );
+        await bill_dummy_object(obj);
+    } else if (obj.where === OBJ_FLOOR) {
+        if (learnBknown) obj.bknown = 1;
+        const ushop = (game.u?.ushops || '')[0] || '\0';
+        if (costly_spot(game.u?.ux | 0, game.u?.uy | 0) && objroom === ushop) {
+            await verbalize(
+                `You ${verb} ${those}, you pay for ${them}!`,
+            );
+            await bill_dummy_object(obj);
+        }
+        // else stolen_value deferred
+    }
 }
 
 /**

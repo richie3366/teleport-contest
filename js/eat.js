@@ -8,7 +8,8 @@
 //         doeat_nonfood / eatspecial / foodword;
 //         start_tin / opentin / consume_tin / tin_variety / use_up_tin;
 //         invent.c getobj; attrib.c poison_strdmg / gainstr;
-//         potion.c make_vomiting / make_glib.
+//         potion.c make_vomiting / make_glib;
+//         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
 // Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
 // cpostfx specials (wraith/were/nurse/
 // stalker/…); corpse_intrinsic / givit; hallu from AD_STUN/AD_HALU;
@@ -16,8 +17,8 @@
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
-// death path; vomit cantvomit/Sick/FAINTING/acid-breath; tin costly_tin
-// shop billing; use_tin_opener apply; Fixed_abil Popeye Olive/Bluto;
+// death path; vomit cantvomit/Sick/FAINTING/acid-breath;
+// Fixed_abil Popeye Olive/Bluto;
 // eatspecial PAPER/potion/ring/amulet/leash/trident/flint/uwepgone/
 // unpunish/vault_gd; still_chewing wall/door shop damage + watch_dig;
 // livelog conduct; cprefx revive_corpse after rider death; cprefx
@@ -38,7 +39,7 @@ import {
 } from './mkobj.js';
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import {
-    singular, xname, doname, the, makeplural, obj_is_pname,
+    singular, xname, doname, the, makeplural, obj_is_pname, thesimpleoname,
 } from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
@@ -62,6 +63,7 @@ import {
     KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, Has_contents, NO_PART,
     IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
     STONING, DIED, SLIMED, FROMOUTSIDE, Upolyd, NEUTRAL,
+    COST_DSTROY, COST_OPEN, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
@@ -80,6 +82,8 @@ import { hands_obj } from './weapon.js';
 import { t_at, deltrap, reset_utrap, b_trapped } from './trap.js';
 import { done, delayed_killer } from './end.js';
 import { polymon } from './polyself.js';
+import { costly_alteration, costly_spot } from './shk.js';
+import { wield_tool } from './wield.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -1375,11 +1379,27 @@ function tin_variety(obj, displ) {
 }
 
 /**
- * C ref: eat.c costly_tin — shop unpaid alteration.
- * Named omission: costly_alteration / unpaid split — identity only.
+ * C ref: eat.c costly_tin — shop unpaid alteration of tin being opened.
+ * Split stack if quan>1; costly_alteration(COST_OPEN/COST_DSTROY).
  */
-function costly_tin(_alter_type) {
-    return game.context?.tin?.tin ?? null;
+async function costly_tin(alter_type) {
+    let tin = game.context?.tin?.tin;
+    if (!tin) return null;
+    const unpaidCarried = carried(tin) && tin.unpaid;
+    const unpaidFloor = !carried(tin)
+        && costly_spot(tin.ox | 0, tin.oy | 0)
+        && !tin.no_charge;
+    if (unpaidCarried || unpaidFloor) {
+        if ((tin.quan | 0) > 1) {
+            tin = splitobj(tin, 1) || tin;
+            if (!game.context) game.context = {};
+            if (!game.context.tin) game.context.tin = {};
+            game.context.tin.tin = tin;
+            game.context.tin.o_id = tin.o_id | 0;
+        }
+        await costly_alteration(tin, alter_type);
+    }
+    return tin;
 }
 
 /** C ref: eat.c use_up_tin — invent useup or floor useupf; clear tin ctx. */
@@ -1663,7 +1683,7 @@ async function cprefx(pm) {
 /**
  * C ref: eat.c consume_tin — open tin contents + nutrition / spinach.
  * Branch envelope: ordinary meat tin + spinach; otrapped → b_trapped;
- * cursed trap roll burns rn2; costly_tin identity; Fixed_abil
+ * cursed trap roll burns rn2; costly_tin shop bill; Fixed_abil
  * Popeye Olive/Bluto deferred (!Fixed_abil → Popeye).
  */
 async function consume_tin(mesg) {
@@ -1675,7 +1695,7 @@ async function consume_tin(mesg) {
     // C: otrapped || (cursed && r != HOMEMADE && !rn2(8)) → b_trapped
     if (tin.otrapped || (tin.cursed && r !== HOMEMADE_TIN && !rn2(8))) {
         await b_trapped('tin', NO_PART);
-        tin = costly_tin(0);
+        tin = await costly_tin(COST_DSTROY);
         use_up_tin(tin);
         return;
     }
@@ -1695,7 +1715,7 @@ async function consume_tin(mesg) {
             }
             observe_object(tin);
             tin.known = 1;
-            tin = costly_tin(0);
+            tin = await costly_tin(COST_OPEN);
             use_up_tin(tin);
             if (always_eat) lesshungry(5);
             return;
@@ -1730,7 +1750,7 @@ async function consume_tin(mesg) {
                     observe_object(tin);
                     tin.known = 1;
                 }
-                tin = costly_tin(0);
+                tin = await costly_tin(COST_OPEN);
                 use_up_tin(tin);
                 return;
             }
@@ -1745,7 +1765,7 @@ async function consume_tin(mesg) {
         eating_conducts(ptr);
         observe_object(tin);
         tin.known = 1;
-        tin = game.context.tin.tin = costly_tin(0);
+        tin = game.context.tin.tin = await costly_tin(COST_OPEN);
 
         await cprefx(mnum);
         if (game.context?.tin?.tin) await cpostfx(mnum);
@@ -1795,7 +1815,7 @@ async function consume_tin(mesg) {
             if (game.flags?.verbose) {
                 await pline('You discard the open tin.');
             }
-            tin = costly_tin(0);
+            tin = await costly_tin(COST_OPEN);
             use_up_tin(tin);
             return;
         }
@@ -1812,7 +1832,7 @@ async function consume_tin(mesg) {
         }
         await gainstr(tin, 0, false);
 
-        tin = game.context.tin.tin = costly_tin(0);
+        tin = game.context.tin.tin = await costly_tin(COST_OPEN);
         let nutamt = tin.blessed ? 600
             : !tin.cursed ? (400 + rnd(200))
                 : (200 + rnd(400));
@@ -1931,6 +1951,93 @@ async function start_tin(otmp) {
         game.context.tin.usedtime = 0;
         set_occupation(opentin, 'opening the tin');
     }
+}
+
+/** C invent getobj ranks (hack.h) — match apply.js / C. */
+const GETOBJ_EXCLUDE = -3;
+const GETOBJ_SUGGEST = 2;
+
+/** C ref: eat.c tinopen_ok — SUGGEST TIN only. */
+function tinopen_ok(obj) {
+    if (obj && (obj.otyp | 0) === TIN) return GETOBJ_SUGGEST;
+    return GETOBJ_EXCLUDE;
+}
+
+/** Invent letters with tin SUGGEST (C getobj "open"). */
+function tinopen_lets() {
+    const lets = [];
+    for (const o of game.invent || []) {
+        if (o?.invlet && tinopen_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
+    }
+    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+    return lets.join('');
+}
+
+/**
+ * C ref: invent.c getobj("open", tinopen_ok, GETOBJ_NOFLAGS).
+ */
+async function getobj_tinopen() {
+    for (;;) {
+        await flush_topl_more();
+        const lets = tinopen_lets();
+        if (!lets) {
+            await pline("You don't have anything to open.");
+            return null;
+        }
+        const query = `What do you want to open? [${lets} or ?*]`;
+        const ch = await yn_function(query, null, '\0');
+        if (ch === '\x1b' || ch === ' ' || ch === '\n' || ch === '\r') {
+            if (game.flags?.verbose !== false) await pline('Never mind.');
+            return null;
+        }
+        if (ch === '?' || ch === '*') {
+            await pline('Never mind.');
+            return null;
+        }
+        const otmp = (game.invent || []).find((o) => o.invlet === ch);
+        if (!otmp) {
+            await pline("You don't have that object.");
+            continue;
+        }
+        if (tinopen_ok(otmp) === GETOBJ_EXCLUDE) {
+            await pline('You cannot open that!');
+            return null;
+        }
+        return otmp;
+    }
+}
+
+/** C invent.c carrying — first invent[] match by otyp. */
+function carrying_otyp(otyp) {
+    return (game.invent || []).find((o) => (o.otyp | 0) === (otyp | 0)) || null;
+}
+
+/**
+ * C ref: eat.c use_tin_opener — apply tin opener; wield if needed; start_tin.
+ * Named omit: safe_qbuf doname/thesimpleoname polish (simple qbuf).
+ * @returns {number} ECMD_*
+ */
+export async function use_tin_opener(obj) {
+    let res = ECMD_OK;
+    if (!carrying_otyp(TIN)) {
+        await pline('You have no tin to open.');
+        return ECMD_OK;
+    }
+    const u = game.u || {};
+    if (obj !== u.uwep) {
+        if (obj.cursed && obj.bknown) {
+            const qbuf = `Really wield ${doname(obj) || thesimpleoname(obj) || 'that'}?`;
+            if ((await yn_function(qbuf, 'ynq', 'n')) !== 'y') {
+                return ECMD_OK;
+            }
+        }
+        if (!(await wield_tool(obj, 'use'))) return ECMD_OK;
+        res = ECMD_TIME;
+    }
+    const otmp = await getobj_tinopen();
+    if (!otmp) return res | ECMD_CANCEL;
+    await start_tin(otmp);
+    return ECMD_TIME;
 }
 
 /**
