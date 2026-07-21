@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0942 — `pay_for_damage` / `getcad` / `hot_pursuit`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** shop damage scheduled via `add_damage` never billed /
+  pursued; wakeup of peaceful shk outside shops skipped `hot_pursuit`.
+- **Cause:** named constitutional debt (`debt.md` eat/shop after D-0941).
+- **C locus:** `shk.c` `pay_for_damage` / `getcad` / `hot_pursuit` /
+  `clear_no_charge*`; `hack.c` `still_chewing`; `dig.c` `zap_dig`;
+  `mon.c` `wakeup`.
+- **JS:** `shk.js` `hot_pursuit`/`getcad`/`pay_for_damage` + clear_no_charge
+  subset; wire chew + `zap_dig` + wakeup. Deferred: full `mnearto` yank;
+  SetVoice; sleep(1); mbodypart lunge; `ghod_hitsu`; dokick/explode/
+  apply/`dig` occupation other `pay_for_damage` sites; pickaxe
+  `is_digging`.
+- **Verify:** green+strict; shop/zap cohort 12/12; full `sessions`
+  **44**/44 @#1210.
+
 ## D-0941 — `still_chewing` shop `add_damage` + `watch_dig` / `angry_guards`
 
 - **Status:** fixed (map-driven debt retirement)
@@ -15,9 +32,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `add_damage`; `monmove.c` `watch_on_duty` dig arm.
 - **JS:** `shk.js` `add_damage`/`shop_wall_dmg`; `dig.js` `watch_dig`;
   `mon.js` `angry_guards`; wire `still_chewing` + `zap_dig` +
-  `mdig_tunnel` + `watch_on_duty`. Deferred: `pay_for_damage` /
-  `getcad` / `hot_pursuit`; pickaxe `dig` occupation (`is_digging`
-  stays false until then).
+  `mdig_tunnel` + `watch_on_duty`. Deferred (retired D-0942):
+  `pay_for_damage` / `getcad` / `hot_pursuit`. Still deferred: pickaxe
+  `dig` occupation (`is_digging` stays false until then).
 - **Verify:** green+strict; dig/role cohort 12/12 PASS.
 
 ## D-0940 — tin `costly_tin` / `use_tin_opener` + shop `costly_alteration`

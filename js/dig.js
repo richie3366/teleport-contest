@@ -300,9 +300,9 @@ export async function mdig_tunnel(mtmp) {
  * C ref: dig.c zap_dig — wand/spell dig beam across the level.
  * Branch envelope: horizontal digdepth=rn1(18,8) + door/SDOOR + maze_dig
  * wall/tree/stone + ordinary IS_OBSTRUCTED dig; DISP_BEAM trail.
- * watch_dig + shop add_damage wired (D-0941).
+ * watch_dig + shop add_damage wired (D-0941); pay_for_damage (D-0942).
  * Named omissions: swallowed pierce; u.dz falling-rock / dighole;
- * pitdig conjoined / adj_pit_checks / pit_flow; pay_for_damage.
+ * pitdig conjoined / adj_pit_checks / pit_flow.
  */
 export async function zap_dig() {
     const u = game.u;
@@ -426,6 +426,7 @@ export async function zap_dig() {
 
     // pit_flow deferred
     if (shopdoor || shopwall) {
-        // pay_for_damage deferred
+        const { pay_for_damage } = await import('./shk.js');
+        await pay_for_damage(shopdoor ? 'destroy' : 'dig into', false);
     }
 }

@@ -626,7 +626,7 @@ export async function wake_msg(mtmp, interesting) {
 
 /**
  * C ref: mon.c wakeup — clear sleep / non-monster disguise; via_attack → setmangry.
- * Named omissions: finish_meating; ghod_hitsu; hot_pursuit when shk && !*u.ushops.
+ * Named omissions: finish_meating; ghod_hitsu.
  */
 export async function wakeup(mtmp, via_attack) {
     if (!mtmp) return;
@@ -652,7 +652,11 @@ export async function wakeup(mtmp, via_attack) {
         }
         setmangry(mtmp, true);
         if (was_peaceful) {
-            // ghod_hitsu / hot_pursuit deferred
+            // ghod_hitsu deferred (priest in temple)
+            if (mtmp.isshk && !(game.u?.ushops && String(game.u.ushops).length)) {
+                const { hot_pursuit } = await import('./shk.js');
+                hot_pursuit(mtmp);
+            }
         }
     }
 }

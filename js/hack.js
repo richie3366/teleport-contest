@@ -1308,8 +1308,9 @@ export function dissolve_bars(x, y) {
  * Returns 1 if still eating, 0 when done (C int boolean).
  * Branch envelope: nondiggable teeth; metallivore full bars; start/continue
  * effort; finish boulder/wall/tree/IRONBARS/SDOOR/door/rock;
- * watch_dig on start/continue; shop add_damage on wall/door (D-0941).
- * Named omissions: pay_for_damage; livelog first-food; switch_terrain
+ * watch_dig on start/continue; shop add_damage on wall/door (D-0941);
+ * pay_for_damage after chew (D-0942).
+ * Named omissions: livelog first-food; switch_terrain
  * after bars.
  */
 export async function still_chewing(x, y) {
@@ -1473,8 +1474,7 @@ export async function still_chewing(x, y) {
     recalc_block_point(x, y);
     newsym(x, y);
     if (digtxt) await pline(`You ${digtxt}`);
-    // pay_for_damage(dmgtxt) deferred — damagelist already scheduled
-    void dmgtxt;
+    if (dmgtxt) await shkMod.pay_for_damage(dmgtxt, false);
     game.context.digging = {};
     return 0;
 }
