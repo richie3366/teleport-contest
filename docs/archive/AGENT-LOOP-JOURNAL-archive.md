@@ -1,3 +1,14 @@
+## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
+
+- Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
+- C locus: `shk.c` `dopay` — `canspotmon` seensk; Blind/`Blind_telepat`;
+  `You_cant("see...")`.
+- Change: `shk.js` `dopay` real `canspotmon` + Blind gates + see arm
+  (D-0928 #1182).
+- Verification: green+strict PASS; cohort 7/7; Scr **1723→1724**;
+  first miss **@1625→@1650**.
+- Next: @**1650** `#wizwhere` ` --More--` vs `--More--`.
+
 ## 2026-07-21 16:09 — #1174 getpos cmap furniture fountain
 
 - Objective: seed4500 @1322 getpos C `fountain` vs JS `unexplored area`.

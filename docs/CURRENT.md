@@ -64,20 +64,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **Leaderboard gap** — live LB @2026-07-21T14:49Z **32**/44 public
 (pts **11259**/11405; seed0013 restored — D-0483 held). Local
-**43**/44. D-0930 @#1196: serialize space+attr0+CLR_GRAY → NO_COLOR
-(closes judge-strict cell miss class; no glyph remap). Await next
-cron for PASS lift. CURRENT was stale at “22”.
+**43**/44. D-0930 gray-blank coerce + **D-0931** S_air flush + mid-row
+space CUF >4 (@#1197; seed0373 `sp_C6_J8`→0). Await next cron for
+PASS lift.
 
 **Parked:** D-0006 / seed2200 @158.
 
-**Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0931. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**.
+**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
+**D-0931**.
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
-alone (#1192); older in D-0928/NOTES.
+alone (#1192); older in D-0928/NOTES; skip painting map spaces in
+flush (breaks S_air).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

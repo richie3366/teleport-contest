@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0931 | fixed | flush S_air spaces + mid-row space CUF >4 | #1197; seed0373 sp_C6_J8→0; await LB |
 | D-0930 | fixed | serialize space+attr0+CLR_GRAY → NO_COLOR | #1196; j37→0; await LB cron 32→? |
 | D-0929 | fixed | look_here-only `keep_message_leftover` (not all corner) | suite **42/44**; Scr **10979**; seed4500 Scr **1389** held |
 | D-0928 | partial | #1194 ^X rank==role + eaten_stat; #1195 suite **43**/44 Scr **11404**/11405 | seed4500 Scr **1814**; LB gap → D-0930 |

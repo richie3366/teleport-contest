@@ -2827,7 +2827,8 @@ export function serialize_terminal_grid(display) {
  * `diffCell` forgives glyphless space color; the judge does not.
  * D-0480 also remapped glyph colors via tty_map_color and correlated with
  * judge 23→22 (D-0483). D-0930: only coerce space+attr0+CLR_GRAY → NO_COLOR
- * (Hoimar-shaped); do not remap glyphs.
+ * (Hoimar-shaped); do not remap glyphs. D-0931: paint S_air spaces in the
+ * flush grid, and mid-row space runs >4 → CSI CUF (contest tty capture).
  */
 export function serialize_for_scoring(term) {
     if (!term?.grid) return term?.serialize?.() ?? '';
@@ -2887,20 +2888,49 @@ export function serialize_for_scoring(term) {
         }
         if (firstCol > 4) out += `\x1b[${firstCol}C`;
         else if (firstCol > 0) out += ' '.repeat(firstCol);
-        for (let c = firstCol; c <= lastCol; c++) {
+        // Scoring color for a cell: glyphless CLR_GRAY blanks → NO_COLOR
+        // (D-0930). Inv/uline spaces keep their color (D-0129).
+        const cellEmitColor = (cell) => {
+            const a = cell.attr | 0;
+            if (cell.ch === ' ' && !(a & 0x5) && cell.color === CLR_GRAY)
+                return NO_COLOR;
+            return cell.color;
+        };
+        for (let c = firstCol; c <= lastCol; ) {
             const cell = term.grid[r][c];
             const wantAttr = cell.attr | 0;
-            // C wintty / contest tty: CLR_GRAY hilite empty → default fg.
-            // Frozen clearScreen leaves CLR_GRAY on blanks; emit NO_COLOR.
-            const emitColor = (cell.ch === ' ' && !(wantAttr & 0x5)
-                && cell.color === CLR_GRAY)
-                ? NO_COLOR
-                : cell.color;
+            // Contest tty capture: mid-row runs of >4 spaces (no inv/uline)
+            // become CSI CUF after the run's SGR — even for S_air CLR_CYAN
+            // (seed0373 `\x1b[36m\x1b[5C`). Decode leaves those cells as
+            // default blanks; emitting the spaces fails strict SGR (D-0931).
+            if (cell.ch === ' ' && !(wantAttr & 0x5)) {
+                const runColor = cellEmitColor(cell);
+                let end = c;
+                while (end + 1 <= lastCol) {
+                    const n = term.grid[r][end + 1];
+                    const na = n.attr | 0;
+                    if (n.ch !== ' ' || (na & 0x5)) break;
+                    if (cellEmitColor(n) !== runColor || na !== wantAttr) break;
+                    end++;
+                }
+                const runLen = end - c + 1;
+                if (runLen > 4) {
+                    const wantFg = colorToFg(runColor);
+                    out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
+                    curFg = wantFg;
+                    curAttr = wantAttr;
+                    out += `\x1b[${runLen}C`;
+                    c = end + 1;
+                    continue;
+                }
+            }
+            const emitColor = cellEmitColor(cell);
             const wantFg = colorToFg(emitColor);
             out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
             curFg = wantFg;
             curAttr = wantAttr;
             out += cell.ch;
+            c++;
         }
         out += sgrTransition(curFg, curAttr, 39, 0);
         curFg = 39;
@@ -2961,7 +2991,12 @@ function _buildScreenOutput() {
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
-                if (!loc?.disp_ch || loc.disp_ch === ' ') {
+                // C flush_screen / print_glyph paints every gbuf cell, including
+                // S_air (' '+CLR_CYAN). Skipping disp_ch===' ' left clearScreen
+                // CLR_GRAY blanks → serialize NO_COLOR (D-0931 / seed0373).
+                // Unexplored cells never get show_glyph_cell → disp_ch stays
+                // unset; leave those as clearScreen blanks.
+                if (loc?.disp_ch == null || loc.disp_ch === '') {
                     if (loc) loc.gnew = 0;
                     continue;
                 }

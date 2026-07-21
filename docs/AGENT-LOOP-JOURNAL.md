@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 18:56 — #1197 S_air flush + mid-row space CUF
+
+- Objective: leaderboard gap — seed0373 strict `sp_C6_J8` after D-0930.
+- C locus: `display.c` `back_to_glyph` AIR → `S_air`; `defsym.h`
+  CLR_CYAN; contest tty mid-row space runs >4 → CSI CUF.
+- Change: `_buildScreenOutput` paints set `disp_ch` spaces (incl. AIR);
+  `serialize_for_scoring` mid-row same-color space runs >4 → SGR+CUF
+  (D-0931; D-0930 gray coerce kept).
+- Verification: green+strict PASS; seed0373 strict space **0**; gap
+  cohort 12/12 + shared 6/6; seed0013/4500/0007 PASS.
+- Next: await LB cron; seed0030 bold-bleed residual deferred.
+
 ## 2026-07-21 18:44 — #1196 serialize CLR_GRAY blanks → NO_COLOR
 
 - Objective: leaderboard 32-vs-43 gap — judge cell-only fails on
@@ -184,14 +196,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; Scr **1724→1732**;
   first miss **@1650→@1658**.
 - Next: @**1658** map open-door `/` vs wall `#`.
-
-## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
-
-- Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
-- C locus: `shk.c` `dopay` — `canspotmon` seensk; Blind/`Blind_telepat`;
-  `You_cant("see...")`.
-- Change: `shk.js` `dopay` real `canspotmon` + Blind gates + see arm
-  (D-0928 #1182).
-- Verification: green+strict PASS; cohort 7/7; Scr **1723→1724**;
-  first miss **@1625→@1650**.
-- Next: @**1650** `#wizwhere` ` --More--` vs `--More--`.
