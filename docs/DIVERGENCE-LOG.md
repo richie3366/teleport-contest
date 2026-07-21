@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1186)
+- **Status:** partial (#1080–#1187)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1793**/1814)
+  Scr **1794**/1814)
+- **Hypothesis (#1187):** @1689 — C getpos goal
+  `Move cursor to a monster, object or location:` vs JS
+  `Unknown direction: '^R'`. C `getpos` treats `redraw_cmd` like
+  help: `getpos_refresh` + `show_goal_msg`; JS fell through to
+  unknown-direction.
+- **Fix (#1187):** `getpos.js` — `redraw_cmd` (C('r')/C('l')) +
+  `getpos_refresh` (`flush_screen`, not full `docrt`) + shared `?`/
+  `^R` arm with `show_goal_msg` (`getpos.c` / `cmd.c`).
+- **Verification (#1187):** green+strict PASS; cohort 4/4; focused
+  Scr **1793→1794**; first miss **@1689→@1691** (farlook `stone` vs
+  `corridor`).
+- **Do not:** treat @1689 as getdir; full-`docrt` Blind refresh.
 - **Hypothesis (#1186):** @1679 — C tools-current-form vs JS apply
   getobj; then @1681 invent `a ring`/`a wand` vs typed names.
 - **Fix (#1186):** `apply.js` `doapply` — `nohands` + EXT_ENCUMBER

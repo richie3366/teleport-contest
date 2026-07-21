@@ -6,11 +6,12 @@
 // rush (8×; '\n'==C('j') rushes — movecmd before quitchars), seenv-gated
 // feature-char matching (stairs + furniture/traps subset; D-0779/D-0818),
 // NHKF_GETPOS_SHOWVALID '$' before matching (D-0928 #1176),
-// `?` → getpos_help NHW_MENU + show_goal_msg (D-0819), autodescribe
-// topline, force unknown-direction pline, '.' → LOOK_TRADITIONAL,
-// ESC → -1. Menu/mMoOdDxX jump/S_goodpos tmp_at hilite/getloc_moveskip
-// glyph-skip / engraving/drawbridge/air full showsyms table deferred.
-// getpos_getvalid `(invalid target)` live (D-0899).
+// `?` / redraw_cmd(^R) → getpos_help? + getpos_refresh + show_goal_msg
+// (D-0928 #1187; D-0819 help), autodescribe topline, force
+// unknown-direction pline, '.' → LOOK_TRADITIONAL, ESC → -1.
+// Menu/mMoOdDxX jump/S_goodpos tmp_at hilite/getloc_moveskip glyph-skip /
+// engraving/drawbridge/air full showsyms / docrtRefresh redraw_map-only
+// deferred. getpos_getvalid `(invalid target)` live (D-0899).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -71,6 +72,29 @@ function force_getvalid_newsyms(validf) {
             if (validf(x, y)) newsym_force(x, y);
         }
     }
+}
+
+/**
+ * C ref: cmd.c redraw_cmd — key bound to doredraw.
+ * Default: extcmdlist C('r'); commands_init also binds C('l').
+ * (C('l') is handled earlier as MV_RUSH via CTRL_DIR when num_pad off.)
+ */
+function redraw_cmd(key) {
+    return key === 0x12 || key === 0x0c; // C('r'), C('l')
+}
+
+/**
+ * C ref: getpos.c getpos_refresh — clear GoodposSymbol hilite, then
+ * docrt_flags(docrtRefresh) → redraw_map (resend gbuf; no vision_recalc/
+ * cls). HiliteBackground re-paint deferred. JS uses flush_screen(1) —
+ * full docrt() under Blind regressed farlook describe (stone/corridor).
+ */
+async function getpos_refresh() {
+    if (getpos_hilitefunc && getpos_hilite_state === HiliteGoodposSymbol) {
+        getpos_hilitefunc(false); // tmp_at(DISP_END)
+        getpos_hilite_state = HiliteNormalMap; // defaultHiliteState
+    }
+    await flush_screen(1);
 }
 
 /**
@@ -998,11 +1022,15 @@ export async function getpos(ccp, force, goal, describeAt) {
             return 0; // C: result = 0 (not -1)
         }
 
-        if (ch === '?') {
-            // C: NHKF_GETPOS_HELP → getpos_help; getpos_refresh; show_goal_msg
-            await getpos_help(!!force, goal || 'desired location');
+        // C: NHKF_GETPOS_HELP || redraw_cmd(c) → help?; getpos_refresh;
+        // curs; show_goal_msg (falls to nxtc — no unknown-direction).
+        if (ch === '?' || redraw_cmd(key)) {
+            if (ch === '?') {
+                await getpos_help(!!force, goal || 'desired location');
+            }
+            await getpos_refresh();
+            if (disp?.setCursor) disp.setCursor(cx - 1, cy + 1);
             show_goal_msg = true;
-            msg_given = true;
             continue;
         }
 

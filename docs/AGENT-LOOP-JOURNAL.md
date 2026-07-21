@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:27 — #1187 getpos redraw_cmd ^R
+
+- Objective: seed4500 @1689 C getpos goal msg vs JS Unknown `^R`.
+- C locus: `getpos.c` HELP/`redraw_cmd` → `getpos_refresh` +
+  `show_goal_msg`; `cmd.c` `redraw_cmd` → doredraw (C('r')).
+- Change: `getpos.js` `redraw_cmd` + `getpos_refresh` (`flush_screen`)
+  on `?`/`^R`; no full Blind `docrt`.
+- Verification: green+strict PASS; cohort 4/4; Scr **1793→1794**;
+  first miss **@1689→@1691**.
+- Next: @1691 farlook `stone` vs `corridor` (auto_describe/lastseentyp).
+
 ## 2026-07-21 17:25 — #1186 doapply nohands + invent Blind
 
 - Objective: seed4500 @1679 tools-current-form; then @1681 invent
@@ -169,13 +180,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0009 PASS; cohort 14/14;
   Scr **1529→1576**; prefix **@1291→@1322**.
 - Next: @**1322** getpos `fountain` vs JS `unexplored area`.
-## 2026-07-21 15:50 — #1172 overview dismiss dismiss_nhw_menu
-
-- Objective: seed4500 @1252 map `"` vs `s` (misread DEC-vs-Primary).
-- C locus: `wintty.c` `erase_menu_or_text` corner → `docorner`;
-  `dungeon.c` `show_overview` → `destroy_nhwindow`.
-- Change: `show_overview` uses `dismiss_nhw_menu` (no forced corner
-  `docrt`/`see_monsters`) (D-0928 #1172).
-- Verification: green+strict PASS; cohort 14/14; Scr **1525→1529**;
-  prefix **@1252→@1291**.
-- Next: @**1291** look_here map bleed under corner menu.

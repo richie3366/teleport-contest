@@ -21,15 +21,16 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1185** (42/44,
 Scr **11374**/11405, RNG **100%**) + `doeat` `check_capacity`. Speed
-`30+0.26/turn`. Next cadence @**#1190**. #1186 seed4500 Scr
-**1784→1793**, first miss **@1679→@1689**.
+`30+0.26/turn`. Next cadence @**#1190**. #1187 seed4500 Scr
+**1793→1794**, first miss **@1689→@1691** (getpos `^R` done; farlook
+stone vs corridor).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **11,374 / 11,405** |
+| Screens matched | **11,375 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
 | Speed label | `30+0.26/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
@@ -46,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1793/1814 | knight; @1689 getpos `^R` |
+| seed4500 | **108275**/108275 | 1794/1814 | knight; @1691 farlook stone/corridor |
 
 ## Green gate
 
@@ -63,8 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1689** — C getpos `Move cursor to a monster, object or
-location:` vs JS `Unknown direction: '^R' (…)`. Focused:
+**seed4500 @1691** — Blind farlook getpos autodescribe: C `stone`
+vs JS `corridor` at same cursor after `^R` redraw. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -75,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1186; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1187; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -103,8 +104,11 @@ getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
 SCORR feel + `unmap_invisible` (#1184);
 `doeat` `check_capacity` / EXT_ENCUMBER before `is_edible` (#1185);
 `doapply` nohands+capacity before getobj; invent_lines/
-display_pickinv prop Blind observe (#1186).
+display_pickinv prop Blind observe (#1186);
+getpos `redraw_cmd(^R)` + `getpos_refresh`/`flush_screen` +
+`show_goal_msg` (#1187).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
+treat @1689 as getdir Unknown (#1187 was getpos redraw_cmd);
 treat @1679 as getobj-only (#1186 was nohands+capacity);
 treat @1681 invent typed names as doname-only (#1186 invent sticky Blind);
 treat @1674 as `is_edible`/FOOD-only (#1185 was capacity);
