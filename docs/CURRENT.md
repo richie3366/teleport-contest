@@ -74,10 +74,12 @@ if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** ^V24 medusa-3 hero place (D-0928).
 Whole post-flip map is JS+(−1,+1): C `>`**(31,17)** / `<`(44,5) /
-`@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`. Place `rn2`
-fail/success match ⇒ geometry offset. Need FlipX sum **80** ∧
-effective **ystart=2** together (FORCE either alone desyncs).
-Focused:
+`@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`. JS DIAG: my=1,
+flp=2, FlipX **sum81** (minx=2), stair `(49,16)`→`(32,16)`.
+**#1086:** C `get_location` **rn2(20)** ⇒ ysize=20; literal
+ystart=2 (+shrink/clamp) falsified — gen-time ystart matches JS
+(=1). X still needs FlipX sum80 (minx=1); Y+1 needs non-ystart
+cause. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.

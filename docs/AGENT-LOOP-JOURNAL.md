@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-21 02:01 — #1086 D-0928 ystart=2 falsified (C rn2(20))
+- Objective: seed4500 medusa-3 hero place (D-0928).
+- C locus: `sp_lev.c` `lspo_map`/`get_location`/`flip_level`/
+  `get_level_extends`; `dat/medusa-3.lua`.
+- Falsified: literal ystart=2 + ysize=19 (C still `rn2(20)` at
+  `get_location` @18198). DIAG: JS mx=3,my=1,flp=2,sum81,
+  stair `(49,16)`→`(32,16)`. Gen-time ystart=1 (=JS); Y+1 needs
+  non-ystart cause; FlipX sum80 still open for X. No production JS.
+- Verification: green+strict PASS; rng-diff still @88377.
+- Next: C-cited FlipX minx=1 with ystart=1; explain Y+1; cadence @#1090.
 
 ## 2026-07-21 01:53 — #1085 public score cadence
 - Objective: mandatory full `sessions` score (@#1085 % 5 == 0).
@@ -187,15 +197,3 @@ Use this shape:
 - Verification: prefix **61698→82788** RNG **83013** Scr **747**;
   green+strict PASS; cohort 15/15 PASS.
 - Next: @82788 C `distfleeck` `rn2(5)` vs JS `rn2(50)`.
-
-## 2026-07-21 00:09 — #1071 D-0920 TROUBLE_HIT fix_worst_trouble
-- Objective: seed4500 @61689 C `fix_worst_trouble` `rnd(5)` vs
-  JS `rn2(1000)` after matched `pleased` `rnl(2)`.
-- C locus: `pray.c` `critically_low_hp` / `in_trouble` /
-  `fix_worst_trouble` TROUBLE_HIT / `pleased` action switch.
-- Change: port critically_low_hp + TROUBLE_HIT detect/fix; wire
-  pleased `min(action,5)` cases. Root: stubbed in_trouble→0 skipped
-  HIT `rnd(5)` uhpmax boost.
-- Verification: prefix **61689→61698** RNG **61837** Scr **654**;
-  green+strict PASS; cohort 15/15 PASS.
-- Next: @61698 C nhlib.lua shuffle `rn2(3)` vs JS `rn2(79)`.

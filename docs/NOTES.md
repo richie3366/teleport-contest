@@ -10,12 +10,14 @@ Objective/score live in `CURRENT.md`.
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
 - **Gameplay next (D-0928):** seed4500 ^V24 medusa-3 land. Whole
   post-flip map is JS+(−1,+1): C `>`**(31,17)** / `<`(44,5) /
-  `@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`. Same place
-  `rn2` fail/success ⇒ geometry offset, not place RNG.
-  Needs FlipX sum**80** ∧ effective **ystart=2** together.
-  Formula text still yields ystart=1 for hei=20; FORCE ystart=2
-  alone → prefix 78606 (flip becomes 0). FORCE minx=1 alone →
-  stair `(44,4)` + post-flip desync (#1083). JS col2 STONE.
+  `@`(42,7) vs JS `(32,16)` / `(45,4)` / `(43,6)`.
+  JS DIAG: mx=3,my=1, flp=2, extends minx=2..79 **sum81**,
+  pre-flip dnstair `(49,16)` → `(32,16)`, tele `[36..41]×[3..8]`.
+  **#1086:** C `get_location` uses **rn2(20)** ⇒ ysize stays 20.
+  Literal ystart=2 + shrink ysize→19 desyncs @18198. Clamp also
+  turns bare FORCE ystart=2 into 0 (2+20>ROWNO). So gen-time
+  ystart is 1 (same as JS); Y+1 needs a non-ystart cause.
+  FlipX sum80 (minx=1) still explains X only.
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -32,7 +34,9 @@ Objective/score live in `CURRENT.md`.
   (D-0928 #1082/#1083). Need FlipX sum80 ∧ ly+1 together.
 - Do not expect JS ystart *formula text* alone to differ for hei=20
   (both compute 1) — C *effective* origin is still +1 (`>` y=17).
-- Do not FORCE ystart=2 alone — desyncs before flip (#1084).
+- Do not FORCE ystart=2 alone — clamp→0 / prefix→78606 (#1084).
+- Do not FORCE ystart=2 + ysize=19 — C rn2(20) @ get_location
+  (#1086); gen-time ystart is 1.
 - Do not silent-clear F-prefix then still run `#`/non-move (D-0927);
   nested g/G after F / full CMD_gGF table deferred.
 - Do not treat @87803 `rn2(20)` as distfleeck — it was gethungry
@@ -43,13 +47,13 @@ Objective/score live in `CURRENT.md`.
   `zap_over_floor` steam (D-0925); mon-mon AT_BREA deferred.
 - Do not re-add `splitobj` invent[] splice (D-0924); touchfood
   freeinv+`addinv_nomerge` is the invent-slot path.
-- Do not omit `touchfood` freeinv+`addinv_nomerge` / invent `splitobj`
-  nobj link (D-0923); sellobj_state invent-full dropy / COST_BITE deferred.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1085 Scr **10398**/11405 RNG **773047**/792838
   (97.50%); next cadence @**#1090**.
+- **D-0928 #1086:** C ysize=20 (rn2(20)); ystart=2+shrink falsified;
+  JS preflip mx=3,my=1,sum81,stair(49,16)→(32,16).
 - **D-0928 #1084:** C `>`**(31,17)** vs JS `(32,16)` — proves
   whole-map (−1,+1), not lregion-only. FORCE ystart=2 alone fails.
 - **D-0928 #1083:** C `<`(44,5) + `@`(42,7); JS default stair
@@ -67,4 +71,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0922 #1073:** wakeup wake_nearto.
 - **D-0921 #1072:** minetn-4 College Town.
 - **D-0920 #1071:** TROUBLE_HIT fix_worst_trouble.
-- **D-0919 #1070:** FAST TIMEOUT.
