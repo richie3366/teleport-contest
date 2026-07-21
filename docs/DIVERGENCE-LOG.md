@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1128)
-- **Session:** seed4500-knight-coverage (prefix @**106852**)
+- **Status:** partial (#1080–#1129)
+- **Session:** seed4500-knight-coverage (prefix @**107304**)
+- **Hypothesis (#1129):** @106852 C `nasty` `rn2(10)` vs JS `rn2(5)` —
+  `castmu` chose SUMMON_MONS then called `nasty`; JS deferred that
+  `mcast_spell` case so a later `rn2(5)` occupied the slot.
+- **Fix (#1129):** `wizard.js` `nasty` (Inhell `msummon` / pick_nasty
+  / enexto / makemon loop); export `pick_nasty`; `mcastu.js`
+  `MCAST_SUMMON_MONS` → `mcast_summon_mons`. Named omission: full
+  `unmakemon` (reject → `mhp=0`).
+- **Verification (#1129):** green+strict PASS; cohort 7/7; prefix
+  **106852→107304** (runner RNG **107335** Scr **941**). Next:
+  @**107304** C `mcalcmove` `rn2(12)` vs JS `d(4,8)` after vamp
+  shapeshift.
 - **Hypothesis (#1128):** Double `pickup(1)` @106194 is **C-faithful**
   (session shows two incapable screens). Missing `--More--` before
   combat was from omitted `"It suddenly arrives next to you!"` —

@@ -72,12 +72,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106852** (D-0928). Symptom
-`nasty` `rn2(10)` vs JS `rn2(5)` (wizard.c). #1128 fixed keystream:
-C also double-pickup @106194; missing was `STRAT_APPEARMSG` +
-`mnexto`→`rloc_to_flag` so `"It suddenly arrives…"` forced More
-before touch (was concatenating onto incapable). Prefix
-**106838→106852**. Focused:
+**Gameplay next:** **seed4500** @**107304** (D-0928). Symptom
+C `mcalcmove` `rn2(12)` vs JS `d(4,8)` after matched vamp
+`decide_to_shapeshift`/`pickvampshape` (mon.c). #1129 ported
+`nasty` + `castmu` SUMMON_MONS; prefix **106852→107304**.
+Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -89,7 +88,8 @@ D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
 #1121 set_uasmon MR_* + getmattk lich cold; #1122 AT_MAGC castmu;
 #1123 castmu PSI_BOLT mdamageu/rehumanize; #1124 dowear
 verysmall/nohands; #1127 pickup multi/!pickup/notake gate;
-#1128 STRAT_APPEARMSG + mnexto rloc_to_flag / RLOC bits.
+#1128 STRAT_APPEARMSG + mnexto rloc_to_flag / RLOC bits;
+#1129 nasty + SUMMON_MONS.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -127,7 +127,9 @@ AT_MAGC→`castmu` (#1122);
 `rehumanize`; JS Unchanging wear was missing `dowear`
 verysmall/nohands (#1123–#1124);
 @106838≠literal `rn2(32)` / mfndpos-only — keystream/`k` vs `l`;
-C also double-pickup; root was STRAT_APPEARMSG + mnexto msgs (#1127–#1128).
+C also double-pickup; root was STRAT_APPEARMSG + mnexto msgs (#1127–#1128);
+@106852≠omit `nasty` / treat as fleeck — was missing SUMMON_MONS
+→`nasty` (#1129).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

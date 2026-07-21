@@ -745,7 +745,7 @@ const NASTIES = [
  * Named omissions: rogue monsym uppercase retry; juvenile name-string gate
  * on big_to_little alt (always accept non-geno alt).
  */
-function pick_nasty(difcap) {
+export function pick_nasty(difcap) {
     let res = NASTIES[rn2(NASTIES.length)];
     // Rogue uppercase re-ROLL deferred (monsym table not wired here)
     let alt = res;

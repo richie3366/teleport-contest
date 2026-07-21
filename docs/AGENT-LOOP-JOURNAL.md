@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 10:06 — #1129 nasty + SUMMON_MONS; @107304 mcalcmove
+- Objective: seed4500 @106852 C `nasty` rn2(10) vs JS rn2(5).
+- C locus: `wizard.c` `nasty`; `mcastu.c` `mcast_summon_mons`.
+- Change: ported `nasty` + wired `castmu` SUMMON_MONS; exported
+  `pick_nasty`; unmakemon named omit (mhp=0).
+- Verification: green+strict PASS; cohort 7/7; prefix
+  **106852→107304** (RNG **107335** Scr **941**).
+- Next: @**107304** C `mcalcmove` rn2(12) vs JS `d(4,8)`; cadence @#1130.
+
 ## 2026-07-21 09:58 — #1128 STRAT_APPEARMSG + mnexto; @106852 nasty
 - Objective: seed4500 @106838 keystream/`k` vs `'l'`.
 - C locus: `makemon.c` STRAT_APPEARMSG; `mon.c` mnexto→`rloc_to_flag`;
