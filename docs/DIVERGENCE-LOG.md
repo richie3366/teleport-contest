@@ -6,8 +6,13 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1124; **#1124** dowear verysmall/nohands)
+- **Status:** partial (#1080–#1125; **#1124** dowear; **#1125** score)
 - **Session:** seed4500-knight-coverage (prefix @**106838**)
+- **Hypothesis (#1125):** @106838 same site `rn2(4*(cnt-j))`
+  (monmove.c:1963) — C arg **20** vs JS **32** ⇒ cnt−j 5 vs 8
+  (mfndpos `cnt` and/or `mtrack` hit index). Not a missing literal
+  `rn2(32)`. Suite @#1125: **42/44** Scr **10529** RNG **791421**
+  (99.82%). Next: dump C/JS `cnt`/`j`/`mtrack` at that locus.
 - **Cause (#1124 DIAG):** @106540 C fleeck `rn2(5)` vs JS
   `m_lined_up` `rn2(25)`. Not invent letter: C wish assigns `t`
   (`t - a spherical amulet.`) then `W` → `"Don't even bother."`
@@ -20,7 +25,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification (#1124):** green+strict PASS; cohort 6/6 (incl.
   seed0116 wear); prefix **106540→106838** (runner RNG **106858**
   Scr **939**).
-- **Next:** @**106838** C `m_move` `rn2(20)` vs JS `rn2(32)`.
+- **Next:** @**106838** dump `cnt`/`j`/`mtrack` (track-skip rn2).
 - **Cause (#1123 DIAG):** @106540 C `distfleeck` `rn2(5)` vs JS
   `m_lined_up` `rn2(25)`. After matching castmu `d(12,6)`, C
   rehumanizes (!Upolyd) so later `lined_up` skips conceal burn; JS

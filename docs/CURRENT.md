@@ -21,20 +21,20 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1120** (42/44,
-Scr **10527**/11405, RNG **99.78%**). Next cadence @**#1125**.
-vs @#1115: Scr **10516→10527**, RNG **788815→791103** (#1120 tactics +
-fire-trap `destroy_items`; seed4500 prefix **106304→106531**, runner
-**106540** Scr **937**).
+Score last measured: **2026-07-21** — full `sessions` @**#1125** (42/44,
+Scr **10529**/11405, RNG **99.82%**). Next cadence @**#1130**.
+vs @#1120: Scr **10527→10529**, RNG **791103→791421** (#1121–#1124
+poly/castmu/PSI_BOLT/`dowear`; seed4500 runner **106540→106858** Scr
+**937→939**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,527 / 11,405** |
-| Positional RNG calls matched | **791,103 / 792,838** (99.78%) |
-| Speed label | `30+0.24/turn` (R² 0.857) |
+| Screens matched | **10,529 / 11,405** |
+| Positional RNG calls matched | **791,421 / 792,838** (99.82%) |
+| Speed label | `31+0.25/turn` (R² 0.857) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -49,7 +49,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 106546/108275 | 937/1814 | knight; @**106536** choose_monster_spell rn2(23) vs rn2(5) |
+| seed4500 | 106858/108275 | 939/1814 | knight; @**106838** m_move track `rn2(4*(cnt-j))` C20 vs JS32 |
 
 ## Green gate
 
@@ -72,11 +72,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106838** (D-0928). **#1124:**
-`dowear` `verysmall||nohands` → `"Don't even bother."` — C never wore
-wished Unchanging (`Wt` while brown-mold); JS had deferred the gate.
-Prefix **106540→106838** (runner RNG **106858** Scr **939**). Next:
-@106838 C `m_move` `rn2(20)` vs JS `rn2(32)`. Focused:
+**Gameplay next:** **seed4500** @**106838** (D-0928). Same site
+`rn2(4*(cnt-j))` — C arg **20** (cnt−j=5) vs JS **32** (cnt−j=8):
+mfndpos `cnt` and/or `mtrack` hit index differ. Not a missing literal
+`rn2(32)`. Next: dump C/JS `cnt`/`j`/`mtrack` at that locus. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.

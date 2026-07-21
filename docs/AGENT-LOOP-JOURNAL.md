@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 09:07 — #1125 score cadence + @106838 hypothesis
+- Objective: mandatory full `sessions` @#1125; sharpen seed4500 peel.
+- C locus: `monmove.c:1963` `rn2(4*(cnt-j))` (track skip in `m_move`).
+- Change: no `js/` patch. Score **42/44** Scr **10529**/11405 RNG
+  **791421**/792838 (99.82%) speed `31+0.25/turn`. @106838 is same
+  site — C arg 20 vs JS 32 ⇒ cnt−j 5 vs 8 (mfndpos/`mtrack`), not a
+  missing literal rn2(32).
+- Verification: green+strict PASS; full sessions documented in CURRENT.
+- Next: dump C/JS `cnt`/`j`/`mtrack` at track-skip; cadence @#1130.
+
 ## 2026-07-21 09:03 — #1124 dowear verysmall/nohands
 - Objective: seed4500 @106540 Unchanging wear vs C (invent-letter hyp).
 - C locus: `do_wear.c` `dowear` verysmall/nohands → "Don't even bother."
@@ -121,32 +131,3 @@ Use this shape:
   **928**); green+strict PASS; cohort 5/5.
 - Next: @**104217** C `rn2(19) @ exercise` vs JS `rn2(5)`.
 
-## 2026-07-21 06:10 — #1113 eat key-desync (not getlev)
-- Objective: seed4500 @103155 C fleeck vs JS `getlev` `rnd(10)`.
-- C locus: `eat.c` `doeat`/`floorfood`/`is_edible` (session keys).
-- Falsified: post-refuse `^V`/getlev as root. DIAG: after Count:40
-  `.`, C `e` nothing-to-eat then SP+Count:20 `.`; JS floor apples +
-  invent food → getobj eats Count:20 keys. Inediate `is_edible=false`
-  advances to 104217 but contradicts C — not shipped.
-- Verification: green+strict PASS; no js/ code change.
-- Next: invent/floor food provenance vs C empty eat @103155.
-
-## 2026-07-21 05:48 — #1112 ok_to_throw + mtimedone
-- Objective: seed4500 @103155 C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
-- C locus: `dothrow.c` `ok_to_throw`; `timeout.c` `mtimedone`→`rehumanize`.
-- Change: `dothrow.js` refuse `notake`/`nohands` before getobj;
-  `timeout.js` decrement `mtimedone` + `polyself.js` `rehumanize`.
-  DIAG: mold threw shield→`thitmonst`; after fix JS `^V`→`getlev`
-  `rnd(10)` (prefix unchanged).
-- Verification: green+strict PASS; cohort 5/5 (1500/1800/0060/0013/0361).
-- Next: @**103155** C fleeck vs JS `getlev_catchup` `rnd(10)`.
-
-## 2026-07-21 05:29 — #1111 select_newcham_form random while
-- Objective: seed4500 @103071 C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
-- C locus: `mon.c` `select_newcham_form` random arm `while` (rogue uppercase gate).
-- Change: `makemon.js` match C — only continue on `!validspecmon` when
-  `tryct>40 && Is_rogue_level && !monsym_isupper`; else one `rn1` and
-  `newcham` outer accept re-enters select (fresh cham `rn2(3)`).
-- Verification: prefix **103071→103155** (runner RNG **103264** Scr
-  **928**); green+strict PASS; cohort 5/5 (1500/1800/0013/0361/0373).
-- Next: @**103155** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.

@@ -651,3 +651,33 @@
   green+strict PASS; cohort 7/7.
 - Next: @90492 post-tiger-kill feel `--More--` key sync (JS `e`
   vs C `distfleeck`).
+
+## 2026-07-21 06:10 — #1113 eat key-desync (not getlev)
+- Objective: seed4500 @103155 C fleeck vs JS `getlev` `rnd(10)`.
+- C locus: `eat.c` `doeat`/`floorfood`/`is_edible` (session keys).
+- Falsified: post-refuse `^V`/getlev as root. DIAG: after Count:40
+  `.`, C `e` nothing-to-eat then SP+Count:20 `.`; JS floor apples +
+  invent food → getobj eats Count:20 keys. Inediate `is_edible=false`
+  advances to 104217 but contradicts C — not shipped.
+- Verification: green+strict PASS; no js/ code change.
+- Next: invent/floor food provenance vs C empty eat @103155.
+
+## 2026-07-21 05:48 — #1112 ok_to_throw + mtimedone
+- Objective: seed4500 @103155 C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
+- C locus: `dothrow.c` `ok_to_throw`; `timeout.c` `mtimedone`→`rehumanize`.
+- Change: `dothrow.js` refuse `notake`/`nohands` before getobj;
+  `timeout.js` decrement `mtimedone` + `polyself.js` `rehumanize`.
+  DIAG: mold threw shield→`thitmonst`; after fix JS `^V`→`getlev`
+  `rnd(10)` (prefix unchanged).
+- Verification: green+strict PASS; cohort 5/5 (1500/1800/0060/0013/0361).
+- Next: @**103155** C fleeck vs JS `getlev_catchup` `rnd(10)`.
+
+## 2026-07-21 05:29 — #1111 select_newcham_form random while
+- Objective: seed4500 @103071 C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
+- C locus: `mon.c` `select_newcham_form` random arm `while` (rogue uppercase gate).
+- Change: `makemon.js` match C — only continue on `!validspecmon` when
+  `tryct>40 && Is_rogue_level && !monsym_isupper`; else one `rn1` and
+  `newcham` outer accept re-enters select (fresh cham `rn2(3)`).
+- Verification: prefix **103071→103155** (runner RNG **103264** Scr
+  **928**); green+strict PASS; cohort 5/5 (1500/1800/0013/0361/0373).
+- Next: @**103155** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.

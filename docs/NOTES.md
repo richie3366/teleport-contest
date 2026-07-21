@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106838**. #1124: `dowear`
-  verysmall/nohands → `"Don't even bother."` (C never wore Unchanging
-  while brown-mold). Prefix **106540→106838**. Next: @106838 C
-  `m_move` `rn2(20)` vs JS `rn2(32)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**106838**. Same C/JS site
+  `rn2(4*(cnt-j))` (monmove.c:1963) — C arg **20** vs JS **32** ⇒
+  cnt−j is 5 vs 8 (mfndpos `cnt` and/or `mtrack` match index). Falsify:
+  dump `cnt`/`j`/`mtrack` at first track-skip rn2 after index 106837.
+  Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -35,12 +36,13 @@ Objective/score live in `CURRENT.md`.
   covetous `tactics` + fire-trap `destroy_items` (#1120).
 - Do not treat @106531–@106540 as invent-letter Put-on mismatch —
   C `W` while nohands → Don't even bother; JS deferred (#1123–#1124).
-- Do not treat @106540 as courage `rn2(25)` vs fleeck alone (#1123).
+- Do not treat @106838 as a missing literal `rn2(32)` — same
+  `rn2(4*(cnt-j))` site; args differ (#1125).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1120 Scr **10527**/11405 RNG **791103**/792838
-  (99.78%); speed `30+0.24/turn`; next cadence @**#1125**.
+- suite **42/44** @#1125 Scr **10529**/11405 RNG **791421**/792838
+  (99.82%); speed `31+0.25/turn`; next cadence @**#1130**.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**;
   prefix **106540→106838**; runner RNG **106858** Scr **939**.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
