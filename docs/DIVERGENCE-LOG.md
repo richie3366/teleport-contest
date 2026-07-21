@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1166)
+- **Status:** partial (#1080–#1167)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1413**/1814)
+  Scr **1417**/1814)
+- **Hypothesis (#1167):** @1053 — C carrots
+  `(alternate weapons; not wielded)` after Sword wield vs JS bites.
+  Prior @1042 wielded carrots with `OPTIONS=pushweapon`; C pushed
+  sword into `uswapwep`, so @1052 `w`+`z` took `doswapweapon` (second
+  prinv). JS deferred `flags.pushweapon` → sword never in swap → no
+  alt prinv.
+- **Fix (#1167):** `wield.js` `dowield`/`wield_tool` —
+  `oldwep = uwep`; after successful ready/`setuwep`, if
+  `flags.pushweapon && oldwep && uwep != oldwep` → `setuswapwep(oldwep)`
+  (≡C; no invented second prinv).
+- **Verification (#1167):** green+strict PASS; cohort 19/19; focused
+  seed4500 prefix **@1053→@1092**; Scr **1413→1417**. Next: @**1092**
+  `#wizintrinsic` invulnerable shows JS `[30]` TIMEOUT vs C bare.
 - **Hypothesis (#1166):** @1048 — C DEC ROOM floor `~~` (not ICE typ;
   zero ICE on level) vs JS stale object memory `:`/`_` after
   `You attack thin air`. JS `unmap_object` wrongly called

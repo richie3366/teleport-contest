@@ -8,12 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1053** — C carrots
-  `(alternate weapons; not wielded)` after wield @1052 vs JS bites.
-  Focused:
+- **Primary (D-0928):** seed4500 @**1092** — `#wizintrinsic` shows
+  TIMEOUT `[30]` on invulnerable; C omits it. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: dump `uswapwep` / ready_weapon second prinv vs C; or
-  Blind `set_bc` side-effect on swap slot.
+  Falsify: C `wiz_intrinsic` / menu formatting vs JS timeout suffix.
 
 ## Don't re-check (≤15)
 
@@ -33,16 +31,19 @@ Objective/score live in `CURRENT.md`.
   (wizgenesis u.ux,u.uy → always “next to you”) (#1164).
 - Do not treat @1001 moat as swim-tip wording — was `waterbody_name`
   Medusa `"shallow sea"` (#1163).
-- Do not treat @997 hissing vs fire-hits-you as buzz reorder — was
-  missing `zap_over_floor` Norep + The (#1162).
 - Do not treat @1048 `:_` as ICE typ / feel_location-only — was
   `unmap_object`→`map_location` + fight_empty I-only unmap (#1166).
-  C DEC ROOM `~` ≡ ice-looking; zero ICE cells on level.
+- Do not invent pushweapon second prinv — C only `setuswapwep`;
+  carrots alt line is `doswapweapon` after prior push (#1167).
+- Do not treat @1053 bites-only as missing ready_weapon prinv —
+  was deferred `flags.pushweapon` (#1167).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1165 Scr **11024**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1170**.
+- **D-0928 #1167:** `flags.pushweapon` → `setuswapwep(oldwep)` in
+  `dowield`/`wield_tool`; prefix **@1053→@1092**; Scr **1413→1417**.
 - **D-0928 #1166:** unmap_object `map_background` + fight_empty
   always-unmap; prefix **@1048→@1053**; Scr **1434→1413**.
 - **D-0928 #1165:** score cadence; @1048 diagnosed (fixed #1166).
