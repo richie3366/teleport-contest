@@ -129,15 +129,20 @@ function dippable_lets() {
  * C ref: invent.c getobj("drink", drink_ok, GETOBJ_NOFLAGS)
  * Called after fountain/sink prompts (or when menu_requested).
  * `?`/`*` → display_pickinv_reply (D-0430); missing letter → continue.
+ * Empty suggest + !GETOBJ_PROMPT → no key read (C invent.c suggested==0).
  */
 async function getobj_drink() {
     const { display_pickinv_reply } = await import('./invent.js');
+    // C: suggested == 0 && !forceprompt && !allownone → You don't have…
+    // (drink_ok_extra / EXCLUDE_INACCESS "else " deferred)
+    if (!drinkable_lets()) {
+        await pline("You don't have anything to drink.");
+        return null;
+    }
     for (;;) {
         const rawLets = drinkable_lets();
         const lets = drink_prompt_lets(rawLets);
-        const query = lets
-            ? `What do you want to drink? [${lets} or ?*]`
-            : 'What do you want to drink? [*]';
+        const query = `What do you want to drink? [${lets} or ?*]`;
         const prompt = `${query} `;
 
         game._pending_message = prompt;

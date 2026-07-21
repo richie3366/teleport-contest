@@ -18,7 +18,7 @@
 // zap_over_floor beyond fire-pool steam + poison-gas 1x1 trail
 // (ice melt/fountain/WEB/cold/acid bars/POOL→PIT deferred); shopdamage;
 // map_invisible/unmap during buzz; backfire body; other NODIR; wrest
-// pline; check_capacity/nohands; check_unpaid; update_inventory;
+// pline; check_capacity; check_unpaid; update_inventory;
 // shieldeff/monstunseesu; setworn EReflecting bits (worn
 // SHIELD_OF_REFLECTION stands in); ureflects W_WEP/W_AMUL/W_ARM/
 // silver-dragon arms beyond shield makeknown; create_polymon after
@@ -49,7 +49,7 @@ import {
     confdir, fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
 } from './hack.js';
 import {
-    nonliving, is_demon, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
+    nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID,
 } from './monsters.js';
 import { m_at, wakeup } from './mon.js';
@@ -77,7 +77,7 @@ import {
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, DISP_BEAM, DISP_CHANGE, DISP_END,
     OBJ_FLOOR, Has_contents, ZAPPED_WAND, NOTELL, STRAT_WAITMASK,
-    POOL, Is_waterlevel, AD_RBRE,
+    POOL, Is_waterlevel, AD_RBRE, UNCHANGING,
 } from './const.js';
 
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
@@ -1281,10 +1281,10 @@ async function zapnodir(obj) {
 /**
  * C ref: zap.c zapyourself — self-directed wand/spell effects.
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / WAN_SLEEP /
- * SPE_SLEEP / WAN_DEATH / SPE_FINGER_OF_DEATH; other otyps named in
- * C-JS-MAP.
+ * SPE_SLEEP / WAN_DEATH / SPE_FINGER_OF_DEATH / WAN_POLYMORPH /
+ * SPE_POLYMORPH; other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
- * @returns {number} damage (0 for healing/sleep/death)
+ * @returns {number} damage (0 for healing/sleep/death/poly)
  */
 export async function zapyourself(obj, ordinary) {
     if (!obj) return 0;
@@ -1339,6 +1339,21 @@ export async function zapyourself(obj, ordinary) {
         await pline('You die.');
         const { done } = await import('./end.js');
         await done(DIED);
+        break;
+    }
+
+    case WAN_POLYMORPH:
+    case SPE_POLYMORPH: {
+        // C: zap.c zapyourself — !Unchanging → learn + polyself(POLY_NOFLAGS)
+        const u = game.u || {};
+        const up = u.uprops?.[UNCHANGING];
+        const unchanging = !!(u.Unchanging || u.HUnchanging || u.EUnchanging
+            || (up?.intrinsic | 0) || (up?.extrinsic | 0));
+        if (!unchanging) {
+            learn_it = true;
+            const { polyself } = await import('./polyself.js');
+            await polyself(0);
+        }
         break;
     }
 
@@ -1716,7 +1731,12 @@ async function weffects(obj) {
  * @returns {Promise<number>} 0 = cancel/no turn, 1 = took time
  */
 export async function dozap() {
-    // nohands / check_capacity deferred (humanoid start always ok)
+    // C: nohands(youmonst.data) before getobj (brown-mold poly etc.)
+    if (nohands(game.youmonst?.data)) {
+        await pline("You aren't able to zap anything in your current form.");
+        return 0;
+    }
+    // check_capacity deferred
     const obj = await getobj_zap();
     if (!obj) return 0;
 

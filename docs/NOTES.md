@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**100475**. #1102 landed
-  `goodpos` youmonst/`ustuck`/`usteed` `u_at` exception (wizard `^T`
-  self on FOUNTAIN). Prefix **100421→100475**.
-  Next: `polyself` `rn2(20)` vs JS `rn2(5)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**100699**. #1103 landed
+  `polyself` natural path + `zapyourself` WAN_POLYMORPH + `dozap`
+  `nohands` + drink empty-getobj. Prefix **100475→100699**.
+  Next: post-wish `rnd_otyp_by_namedesc` vs JS `rn2(5)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -33,16 +33,18 @@ Objective/score live in `CURRENT.md`.
 - Do not burn luck `rn2(20)` on Waterproof_container / splash_lit /
   grease / towel before those arms (#1101).
 - Do not reject `goodpos` `u_at` when `mtmp===youmonst` (#1102).
+- Do not omit `polyself` system-shock/`rn1` or prompt drink with
+  zero potions (GETOBJ_NOFLAGS) (#1103).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1100 Scr **10516**/11405 RNG **785042**/792838
   (99.02%); speed `31+0.25/turn`; next cadence @**#1105**.
-- **D-0928 #1102:** goodpos youmonst u_at; prefix **100475**;
-  RNG **100613** Scr **926**/1814.
-- **D-0928 #1101:** water_damage early arms; was @**100421**;
-  RNG **100477**.
-- **D-0928 #1100:** check_caitiff; was @**100395**; RNG **100479**.
+- **D-0928 #1103:** polyself NOFLAGS + zap poly + nohands + drink
+  empty-getobj; prefix **100699**; RNG **100862** Scr **926**/1814.
+- **D-0928 #1102:** goodpos youmonst u_at; was @**100475**.
+- **D-0928 #1101:** water_damage early arms; was @**100421**.
+- **D-0928 #1100:** check_caitiff; was @**100395**.
 - **D-0928 #1099:** adj_erinys infra; was @**95154**; FORCE→100395.
 - **D-0928 #1098…#1092:** Blind/wish / wait / dobuzz / I-glyph / flip
   (see DIVERGENCE-INDEX).

@@ -6,9 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1101; **#1102** goodpos youmonst self-cell)
-- **Session:** seed4500-knight-coverage (prefix @**100475**)
-- **Symptom (@100421):** C `rn2(5) @ distfleeck` vs JS `rnd(79)`.
+- **Status:** partial (#1080–#1102; **#1103** polyself NOFLAGS / zap)
+- **Session:** seed4500-knight-coverage (prefix @**100699**)
+- **Symptom (@100475):** C `rn2(20) @ polyself` vs JS `rn2(5)`.
+- **Cause (#1103):** after `#wizwish` wand of polymorph, `zq.` self
+  → C `zapyourself` → `polyself(POLY_NOFLAGS)` system-shock
+  `rn2(20)` then random `rn1(SPECIAL_PM-LOW_PM,LOW_PM)`; JS omitted
+  that path and `zapyourself` WAN_POLYMORPH. Follow-on: brown-mold
+  poly → C `dozap` `nohands` before getobj; empty-invent `q` drink
+  `getobj` GETOBJ_NOFLAGS returns without reading a key so `.` is
+  wait — JS prompted drink and ate `.`.
+- **Fix (#1103):** `polyself.js` system-shock + random pick;
+  `zap.js` `zapyourself` WAN/SPE_POLYMORPH + `dozap` nohands;
+  `potion.js` drink empty-getobj short-circuit. Prefix
+  **100475→100699**. Named omit: were/vamp/dragon-merge;
+  controllable_poly getlin; light-source bookkeeping;
+  `peffect_polymorph`; check_capacity.
+- **Next (@100699):** C `rnd_otyp_by_namedesc` vs JS `rn2(5)`.
 - **Cause (#1102):** wizard `^T` → `scrolltele` getpos picked hero
   cell on FOUNTAIN; C `goodpos(x,y,&youmonst,0)` allows `u_at` when
   `mtmp==youmonst`; JS rejected all `u_at` → `teleok` false →
@@ -18,7 +32,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   youmonst / swallowed ustuck / usteed. Prefix **100421→100475**.
   Named omit: youmonst swim/levitate pool·lava; teleok trap
   vibrating/pit-fly; tele_jump_ok/in_out_region in teleok.
-- **Next (@100475):** C `polyself` `rn2(20)` vs JS `rn2(5)`.
 - **Cause (#1101):** `dogushforth`/`gush` created a POOL on a ROOM
   cell with floor `CHEST`; C `water_damage` hits
   `Waterproof_container` → `ER_DAMAGED` with **no** luck `rn2(20)`.
