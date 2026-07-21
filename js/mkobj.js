@@ -213,7 +213,7 @@ export function weight(obj) {
  * C ref: eat.c eaten_stat — scale base by oeaten/obj_nutrition (min 1).
  * Nutrition: CORPSE → mons.cnutrit; else objects.oc_nutrition / food table.
  */
-function eaten_stat(base, obj) {
+export function eaten_stat(base, obj) {
     let full_amount;
     if (obj.otyp === CORPSE) {
         full_amount = mons(obj.corpsenm)?.cnutrit ?? 0;
@@ -1481,6 +1481,21 @@ export function obj_extract_self(obj) {
             cont.owt = weight(cont);
         }
         obj.ocontainer = null;
+    } else if (obj.where === OBJ_BURIED) {
+        // C: extract_nobj(obj, &svl.level.buriedobjlist)
+        const lvl = game.level;
+        if (lvl) {
+            if (lvl.buriedobjlist === obj) {
+                lvl.buriedobjlist = obj.nobj || null;
+            } else {
+                for (let p = lvl.buriedobjlist; p; p = p.nobj) {
+                    if (p.nobj === obj) {
+                        p.nobj = obj.nobj || null;
+                        break;
+                    }
+                }
+            }
+        }
     }
     obj.nobj = null;
     obj.nexthere = null;

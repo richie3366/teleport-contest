@@ -27,7 +27,7 @@
 // silver-dragon arms beyond shield makeknown; create_polymon after
 // poly_zapped; do_osshock shop bill; invent/worn poly_obj arms;
 // boxlock on Is_box; blank_novel / corpse revive→rot timer; revive
-// container/buried/cant_revive/omonst/ghost/shop stolen_value;
+// montraits/omonst/ghost recorporealize / shop stolen_value;
 // defended(); resists_magm body; ignite_items body; burnarmor worn
 // erode ported (D-0741); acid_damage/erode_armor; death-breath
 // disintegrate_arm; potionbreathe invis flash (D-0741);
@@ -38,6 +38,7 @@
 // Shop door/bars destroy + dobuzz pay_for_damage: D-0948.
 // Break-wand adjacent bhit + cancel helpers: D-0952.
 // unturn_dead invent revive + hero_breaks + worn ABON: D-0955.
+// revive container/buried + cant_revive + OBJ_BURIED extract: D-0964.
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -62,6 +63,7 @@ import {
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
+    G_UNIQ, is_rider,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
@@ -69,9 +71,9 @@ import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue } from './dig.js';
 import { killed, xkilled } from './uhitm.js';
-import { mon_nam, Monnam } from './do_name.js';
+import { mon_nam, Monnam, christen_monst } from './do_name.js';
 import { finish_losehp_done } from './end.js';
-import { burnarmor } from './trap.js';
+import { burnarmor, t_at } from './trap.js';
 import { potionbreathe, make_stunned } from './potion.js';
 import { create_gas_cloud } from './region.js';
 import { cvt_sdoor_to_door } from './detect.js';
@@ -85,7 +87,8 @@ import { rehumanize } from './polyself.js';
 import { costly_alteration } from './shk.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
-    oc_merge_of, uncurse, attach_egg_hatch_timeout,
+    oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
+    eaten_stat,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -97,7 +100,8 @@ import {
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     DISP_BEAM, DISP_CHANGE, DISP_END,
-    OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, Has_contents, ZAPPED_WAND, NOTELL, TELL,
+    OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
+    Has_contents, ZAPPED_WAND, NOTELL, TELL,
     STRAT_WAITMASK,
     POOL, Is_waterlevel, Is_rogue_level, AD_RBRE, UNCHANGING,
     PLNMSG_ENVELOPED_IN_GAS, PLNMSG_OBJ_GLOWS, IRONBARS, SDOOR, SHOPBASE,
@@ -106,7 +110,10 @@ import {
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
     W_RING, W_ARMG, W_ARMH, W_ARMOR,
-    NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, IS_POOL,
+    NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
+    IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
+    CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
+    OMONST, has_oname, ONAME,
 } from './const.js';
 import { hero_breaks, breaks } from './dothrow.js';
 
@@ -156,6 +163,16 @@ const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const CORPSE = objectNames.indexOf('CORPSE');
 const EGG = objectNames.indexOf('EGG');
+const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
+const PM_GUARD = monsterNames.indexOf('PM_GUARD');
+const PM_SHOPKEEPER = monsterNames.indexOf('PM_SHOPKEEPER');
+const PM_HIGH_CLERIC = monsterNames.indexOf('PM_HIGH_CLERIC');
+const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
+const PM_ANGEL = monsterNames.indexOf('PM_ANGEL');
+const PM_HUMAN_ZOMBIE = monsterNames.indexOf('PM_HUMAN_ZOMBIE');
+const PM_DOPPELGANGER = monsterNames.indexOf('PM_DOPPELGANGER');
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
+const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
 const RIN_GAIN_STRENGTH = objectNames.indexOf('RIN_GAIN_STRENGTH');
 const RIN_GAIN_CONSTITUTION = objectNames.indexOf('RIN_GAIN_CONSTITUTION');
 const RIN_ADORNMENT = objectNames.indexOf('RIN_ADORNMENT');
@@ -164,7 +181,6 @@ const RIN_INCREASE_DAMAGE = objectNames.indexOf('RIN_INCREASE_DAMAGE');
 const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
 const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
-const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
 const NC_VIA_WAND_OR_SPELL = 0x02;
@@ -1599,40 +1615,196 @@ function revive_egg(obj) {
     }
 }
 
+/** C ref: mondata.h is_reviver — rider or troll. */
+function is_reviver(ptr) {
+    return !!(ptr && (is_rider(ptr) || ptr.mlet === 'S_TROLL'));
+}
+
+/** C ref: mondata.h unique_corpstat — G_UNIQ. */
+function unique_corpstat(ptr) {
+    return !!((ptr?.geno | 0) & G_UNIQ);
+}
+
 /**
- * C ref: zap.c revive — invent/minvent/floor envelope for unturn_dead.
- * Named omit: nested containers; buried zombie dig-out; cant_revive
- * zombie/doppel; montraits/omonst; ghost recorporealization; shop
- * stolen_value; oeaten/oname; Rider delobj_core force.
+ * C ref: read.c cant_revive — remap guard/cleric/angel(/shopkeeper create)
+ * /worm-tail/unique to zombie or doppelganger.
+ * @param {{ mtype: number }} box inout mtype
+ * @returns {boolean}
+ */
+function cant_revive(box, revival, from_obj) {
+    let mtype = box.mtype | 0;
+    if (mtype === PM_GUARD
+        || (mtype === PM_SHOPKEEPER && !revival)
+        || mtype === PM_HIGH_CLERIC
+        || mtype === PM_ALIGNED_CLERIC
+        || mtype === PM_ANGEL) {
+        box.mtype = PM_HUMAN_ZOMBIE;
+        return true;
+    }
+    if (mtype === PM_LONG_WORM_TAIL) {
+        box.mtype = PM_LONG_WORM;
+        return true;
+    }
+    if (unique_corpstat(mons(mtype))
+        && (!from_obj || !OMONST(from_obj))) {
+        box.mtype = PM_DOPPELGANGER;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: zap.c get_obj_location — invent/floor/minvent + buried/contained
+ * when locflags request.
+ * @returns {{ x: number, y: number }|null}
+ */
+function get_obj_location_zap(obj, locflags = 0) {
+    if (!obj) return null;
+    switch (obj.where) {
+    case OBJ_INVENT:
+        return { x: game.u?.ux | 0, y: game.u?.uy | 0 };
+    case OBJ_FLOOR:
+        return { x: obj.ox | 0, y: obj.oy | 0 };
+    case OBJ_MINVENT:
+        if (obj.ocarry && (obj.ocarry.mx | 0)) {
+            return { x: obj.ocarry.mx | 0, y: obj.ocarry.my | 0 };
+        }
+        break;
+    case OBJ_BURIED:
+        if (locflags & BURIED_TOO) {
+            return { x: obj.ox | 0, y: obj.oy | 0 };
+        }
+        break;
+    case OBJ_CONTAINED:
+        if (locflags & CONTAINED_TOO) {
+            return get_obj_location_zap(obj.ocontainer, locflags);
+        }
+        break;
+    default:
+        break;
+    }
+    return null;
+}
+
+/**
+ * C ref: zap.c get_container_location — outermost container where + nesting.
+ * @returns {{ carrier: object|null, loc: number, nesting: number }}
+ */
+function get_container_location(obj) {
+    let nesting = 0;
+    let cur = obj;
+    while (cur && cur.where === OBJ_CONTAINED) {
+        nesting += 1;
+        cur = cur.ocontainer;
+    }
+    if (!cur) return { carrier: null, loc: 0, nesting };
+    const loc = cur.where | 0;
+    const carrier = loc === OBJ_MINVENT ? (cur.ocarry || null) : null;
+    return { carrier, loc, nesting };
+}
+
+/** C ref: zap.c zombie_can_dig — ROOM/CORR/GRAVE and no trap. */
+function zombie_can_dig(x, y) {
+    if (!isok(x, y)) return false;
+    if (t_at(x, y)) return false;
+    const typ = game.level?.at?.(x, y)?.typ | 0;
+    return typ === ROOM || typ === CORR || typ === GRAVE;
+}
+
+/** Thin obfree after extract — drop refs for GC. */
+function obfree_corpse(obj) {
+    if (!obj) return;
+    obj.quan = 0;
+    obj.where = OBJ_FREE;
+    if (obj.oextra) {
+        delete obj.oextra.omonst;
+        delete obj.oextra.omid;
+        delete obj.oextra.oname;
+    }
+}
+
+/**
+ * C ref: zap.c revive — invent/minvent/floor + container/buried +
+ * cant_revive zombie/doppel. Named omit: montraits/omonst revive;
+ * ghost recorporealization; shop stolen_value; cant_finish_meal;
+ * Rider delobj_core force.
  * @returns {Promise<object|null>} revived monst or null
  */
 async function revive(corpse, by_hero) {
     if (!corpse || (corpse.otyp | 0) !== CORPSE) return null;
-    const montype = corpse.corpsenm | 0;
+    let montype = corpse.corpsenm | 0;
     if (!ismnum(montype)) return null;
+
+    const mptr0 = mons(montype);
+    // Buried auto-reviver (troll/Rider) digs out like a zombie
+    const is_zomb = !!(mptr0 && (mptr0.mlet === 'S_ZOMBIE'
+        || (corpse.where === OBJ_BURIED && is_reviver(mptr0))));
 
     let x = 0;
     let y = 0;
-    if (corpse.where === OBJ_INVENT
-        || (game.invent || []).includes(corpse)) {
-        x = game.u?.ux | 0;
-        y = game.u?.uy | 0;
-    } else if (corpse.where === OBJ_MINVENT && corpse.ocarry) {
-        x = corpse.ocarry.mx | 0;
-        y = corpse.ocarry.my | 0;
-    } else if (corpse.where === OBJ_FLOOR) {
-        x = corpse.ox | 0;
-        y = corpse.oy | 0;
+    let container = null;
+    let container_nesting = 0;
+
+    if (corpse.where !== OBJ_CONTAINED) {
+        const locflags = is_zomb ? BURIED_TOO : 0;
+        // invent may lack where — treat invent membership as OBJ_INVENT
+        if (corpse.where === OBJ_INVENT
+            || (game.invent || []).includes(corpse)) {
+            x = game.u?.ux | 0;
+            y = game.u?.uy | 0;
+        } else {
+            const loc = get_obj_location_zap(corpse, locflags);
+            if (loc) {
+                x = loc.x;
+                y = loc.y;
+            }
+        }
     } else {
-        // contained / buried / free — deferred
+        container = corpse.ocontainer;
+        const info = get_container_location(container);
+        container_nesting = info.nesting | 0;
+        switch (info.loc) {
+        case OBJ_MINVENT:
+            if (info.carrier) {
+                x = info.carrier.mx | 0;
+                y = info.carrier.my | 0;
+            }
+            break;
+        case OBJ_INVENT:
+            x = game.u?.ux | 0;
+            y = game.u?.uy | 0;
+            break;
+        case OBJ_FLOOR: {
+            const loc = get_obj_location_zap(corpse, CONTAINED_TOO);
+            if (loc) {
+                x = loc.x;
+                y = loc.y;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    }
+
+    if (x) {
+        corpse.ox = x;
+        corpse.oy = y;
+    }
+
+    if (!x
+        || (container && (container.olocked
+            || container_nesting > 2
+            || (container.otyp | 0) === STATUE
+            || ((container.otyp | 0) === BAG_OF_HOLDING && rn2(40))))
+        || (is_zomb && corpse.where === OBJ_BURIED
+            && !zombie_can_dig(x, y))) {
         return null;
     }
-    if (!x) return null;
-    corpse.ox = x;
-    corpse.oy = y;
 
-    const mptr = mons(montype);
+    let mptr = mons(montype);
     if (!mptr) return null;
+
     if (corpse.norevive
         || (mptr.mlet === 'S_EEL'
             && !IS_POOL(game.level?.at?.(x, y)?.typ ?? 0))) {
@@ -1650,9 +1822,34 @@ async function revive(corpse, by_hero) {
         y = xy.y;
     }
 
-    const mmflags = NO_MINVENT | MM_NOWAIT | MM_NOMSG | MM_NOCOUNTBIRTH;
-    // cant_revive / montraits deferred → plain makemon of corpse species
-    const mtmp = makemon(mptr, x, y, mmflags);
+    let mmflags = NO_MINVENT | MM_NOWAIT | MM_NOMSG;
+    const cgend = (corpse.spe | 0) & CORPSTAT_GENDER;
+    if (cgend === CORPSTAT_MALE) mmflags |= MM_MALE;
+    else if (cgend === CORPSTAT_FEMALE) mmflags |= MM_FEMALE;
+
+    let mtmp = null;
+    const montypeBox = { mtype: montype };
+    if (cant_revive(montypeBox, true, corpse)) {
+        montype = montypeBox.mtype;
+        mtmp = makemon(mons(montype), x, y, mmflags);
+        if (mtmp) {
+            if (corpse.oextra?.omid != null) delete corpse.oextra.omid;
+            if (corpse.oextra?.omonst != null) delete corpse.oextra.omonst;
+            if ((mtmp.cham | 0) === PM_DOPPELGANGER) {
+                newcham(mtmp, mptr, 0);
+            } else if (mtmp.data?.mlet === 'S_ZOMBIE') {
+                mtmp.mhp = mtmp.mhpmax = 100;
+                // C: mon_adjust_speed(mtmp, 2, NULL) — MFAST, no msg
+                mtmp.permspeed = MFAST;
+                mtmp.mspeed = MFAST;
+            }
+        }
+    } else if (OMONST(corpse)) {
+        // montraits(corpse) deferred → plain makemon of corpse species
+        mtmp = makemon(mptr, x, y, mmflags | MM_NOCOUNTBIRTH);
+    } else {
+        mtmp = makemon(mptr, x, y, mmflags | MM_NOCOUNTBIRTH);
+    }
     if (!mtmp) return null;
 
     if (mtmp.mundetected) {
@@ -1688,6 +1885,14 @@ async function revive(corpse, by_hero) {
         // shop stolen_value deferred
     }
 
+    // ghost recorporealization (has_omid) deferred
+
+    if (has_oname(used) && !unique_corpstat(mtmp.data)) {
+        christen_monst(mtmp, ONAME(used));
+    }
+    if (used.oeaten) {
+        mtmp.mhp = eaten_stat(mtmp.mhp | 0, used);
+    }
     mtmp.mrevived = 1;
 
     switch (used.where) {
@@ -1700,8 +1905,20 @@ async function revive(corpse, by_hero) {
     case OBJ_MINVENT:
         m_useup(used.ocarry, used);
         break;
+    case OBJ_CONTAINED:
+        obj_extract_self(used);
+        obfree_corpse(used);
+        break;
+    case OBJ_BURIED:
+        if (is_zomb) {
+            obj_extract_self(used);
+            obfree_corpse(used);
+            break;
+        }
+        // C panics for non-zombie buried — leave corpse
+        break;
     default:
-        delobj(used);
+        // C panics; do not invent delobj RNG burn
         break;
     }
     return mtmp;

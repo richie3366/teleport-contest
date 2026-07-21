@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0964 — revive container/buried + cant_revive
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named zap debt — `revive` returned null for contained/
+  buried corpses; no container nesting/lock/BoH/statue gate; no
+  buried zombie dig-out; `cant_revive` never remapped guard/cleric/
+  unique to zombie/doppel.
+- **Cause:** D-0955 invent/minvent/floor envelope left container/buried/
+  cant_revive as named omit (`debt.md`).
+- **Fix:** `get_obj_location`/`get_container_location`/`zombie_can_dig`/
+  `cant_revive`/`is_reviver` in `zap.js`; expand `revive` for
+  contained/buried + gender flags + oeaten/oname; OBJ_BURIED arm of
+  `obj_extract_self` + export `eaten_stat` (D-0964). Deferred:
+  montraits/omonst; ghost recorporealize; shop stolen_value;
+  cant_finish_meal; Rider delobj_core force; ice melt /
+  burn_floor_objects / fireball.
+- **Verification:** green+strict PASS; zap/shared cohort 16/16 PASS
+  (incl. seed2200 wizard zap, seed0016 healer zap). Suite fortress
+  held (no full cadence; next @#1235).
+- **Files:** `js/zap.js`, `js/mkobj.js`, `docs/c-js-map/debt.md`.
+
 ## D-0963 — desecrate_altar / god_zaps_you dig wrath
 
 - **Status:** fixed (map-driven debt retirement)

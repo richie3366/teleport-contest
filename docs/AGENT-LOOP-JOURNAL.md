@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:30 — #1234 D-0964 revive container/buried
+
+- Objective: map-driven — `revive` container/buried + `cant_revive` +
+  `zombie_can_dig` (+ OBJ_BURIED extract).
+- C locus: `zap.c` `revive`/`get_obj_location`/`get_container_location`/
+  `zombie_can_dig`; `read.c` `cant_revive`; `mkobj.c` `obj_extract_self`
+  OBJ_BURIED.
+- Change: container/buried location + revival rules + cant_revive
+  zombie/doppel + oeaten/oname in `zap.js`; buried extract + export
+  `eaten_stat` in `mkobj.js` (D-0964). Deferred: montraits/omonst/
+  ghost/shop stolen_value; ice melt / burn_floor / fireball.
+- Verification: green+strict; zap/shared cohort 16/16 PASS (incl.
+  seed2200 wizard, seed0016 healer zap). Suite fortress held (no
+  full cadence; next @#1235).
+- Next: ice melt / `burn_floor_objects` / fireball; float_down /
+  learnring / adjust_attrib; angrygods 4–8.
+
 ## 2026-07-22 00:26 — #1233 D-0963 desecrate_altar / god_zaps
 
 - Objective: map-driven — retire dig `desecrate_altar`/`god_zaps_you`
@@ -205,33 +222,3 @@ Use this shape:
 - Verification: green+strict; full `sessions` 44/44.
 - Next: break-wand strike/cancel/poly/tele/undead `bhitm`/`bhitpile`/
   `zapyourself`; pool-lava / `vault_gd_watching`. Cadence @#1225.
-
-## 2026-07-21 23:27 — #1219 D-0951 pickaxe dig occupation
-
-- Objective: map-driven — `use_pick_axe`/`dig` occupation/`is_digging`/
-  `dig_typ`/`holetime` (+ thin `dighole`/`fracture_rock`).
-- C locus: `dig.c` pick_can_reach/dig_typ/is_digging/holetime/dig/
-  use_pick_axe/use_pick_axe2/dighole; `zap.c` fracture_rock/break_statue;
-  `apply.c` doapply pick/axe.
-- Change: dig occupation cluster in `dig.js`; `doapply` wire; shk
-  `holetime` (D-0951). Deferred: furniture_handled; HOLE goto_level;
-  mkcavearea; dig_up_grave; conjoined_pits; autodig; shopdig;
-  break-wand bhit; pool-lava/`vault_gd_watching`.
-- Verification: green+strict; cohort 12/12; arch/wizard 5/5 PASS.
-  Suite fortress held (no full cadence; next @#1220).
-- Next: break-wand bhit / pool-lava / `vault_gd_watching`.
-
-## 2026-07-21 23:21 — #1218 D-0950 dig helpers + break-wand dig/create
-
-- Objective: map-driven — `dig_check`/`fillholetyp`/`digactualhole` +
-  break-wand dig/create + dig `pay_for_damage`.
-- C locus: `dig.c` dig_check/fillholetyp/digactualhole/liquid_flow;
-  `trap.c` fill_pit; `apply.c` maybe_dunk + do_break_wand dig/create.
-- Change: dig helpers in `dig.js`; dig/create arms + shop dig pay in
-  `apply.js`; export `feeltrap`/`set_utrap` (D-0950). Deferred: bhit
-  strike/cancel/poly; WAN_LIGHT; HOLE goto_level; pickaxe dig;
-  pool-lava/`vault_gd_watching`.
-- Verification: green+strict; wizard/dig/shop cohort 12/12 PASS.
-  Suite fortress held (no full cadence; next @#1220).
-- Next: pickaxe `dig`/`is_digging` / break-wand bhit / pool-lava.
-

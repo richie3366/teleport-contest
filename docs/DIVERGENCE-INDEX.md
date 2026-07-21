@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0964 | fixed | `revive` container/buried + `cant_revive`/`zombie_can_dig` + OBJ_BURIED extract | map-driven debt; green+zap cohort 16/16 |
 | D-0963 | fixed | `desecrate_altar`/`god_zaps_you`/`fry_by_god` + dig altar wire | map-driven debt; green+dig/pray cohort 16/16 |
 | D-0962 | fixed | `conjoined_pits`/`xytodir` + autodig quiet + `dighole` boulder-fill | map-driven debt; green+dig cohort 16/16 |
 | D-0961 | fixed | `impact_drop`/`down_gate`/`drop_to`/`add_to_migration` dig hole fall | map-driven debt; green+dig cohort 16/16 |
