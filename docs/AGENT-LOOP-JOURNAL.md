@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 09:58 — #1128 STRAT_APPEARMSG + mnexto; @106852 nasty
+- Objective: seed4500 @106838 keystream/`k` vs `'l'`.
+- C locus: `makemon.c` STRAT_APPEARMSG; `mon.c` mnexto→`rloc_to_flag`;
+  `hack.h` RLOC_*; session screens (C also double incapable).
+- Change: falsified “C single pickup”; ported APPEARMSG + async
+  mnexto/rloc_to_flag + RLOC bit values; Blind `arrives` verb.
+  Appear pline forces More before touch — keystream reaches `'l'`.
+- Verification: green+strict PASS; cohort 6/6; prefix
+  **106838→106852** (RNG **106856** Scr **939**).
+- Next: @**106852** `nasty` rn2(10) vs JS rn2(5); cadence @#1130.
+
 ## 2026-07-21 09:36 — #1127 pickup notake gate; @106838 keystream
 - Objective: seed4500 @106838 track `rn2(20)` vs `rn2(32)`.
 - C locus: `pickup.c` `pickup` multi/!pickup/notake; dumps via

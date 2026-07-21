@@ -9,7 +9,7 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM, XKILL_NOMSG, NEW_MOON,
-    DISPLACED, IS_WATERWALL, RLOC_MSG, TIMEOUT, ARTICLE_A,
+    DISPLACED, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, ARTICLE_A,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
@@ -700,7 +700,8 @@ async function expels(mtmp, mdat, message) {
         }
     }
     await unstuck(mtmp);
-    mnexto(mtmp, 0);
+    // C: mnexto(mtmp, RLOC_NOMSG) — expel must not STRAT_APPEARMSG
+    await mnexto(mtmp, RLOC_NOMSG);
     newsym(game.u.ux, game.u.uy);
 }
 

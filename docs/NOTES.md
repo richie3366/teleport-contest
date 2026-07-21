@@ -8,14 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106838** track `rn2` is
-  symptom. C/JS dumps: wolf cnt 5 vs 8 because **u** C(68,17) vs
-  JS(67,14). @106679 `'l'`: C east; JS nhgetch got **`k`** (stream
-  behind). #1127: C `pickup` multi/!pickup/notake gate + incapable
-  pline (fires @106194 S_FUNGUS) — prefix unchanged. Next falsify:
-  JS calls `pickup(1)` **twice** @106194 (goto_level + teleds?) →
-  extra More vs C’s one incapable screen; compare nhgetch keys
-  106194–106539 to session. Focused:
+- **Gameplay next (D-0928):** seed4500 @**106852** `nasty`
+  `rn2(10)` vs JS `rn2(5)` (wizard.c). #1128 fixed keystream: C also
+  double-pickup; missing was `STRAT_APPEARMSG` + `mnexto`→`rloc_to_flag`
+  so `"It suddenly arrives…"` forced More before touch. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -40,16 +36,19 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @106531–@106540 as invent-letter Put-on mismatch —
   C `W` while nohands → Don't even bother; JS deferred (#1123–#1124).
 - Do not treat @106838 as missing literal `rn2(32)` or mfndpos-only —
-  C dump: hero/u already diverged; keystream/`k` vs `'l'` (#1127).
+  was keystream/`k` vs `'l'`; C also double-pickup (#1127–#1128).
+- Do not flush_topl_more after every notake incapable — over-consumes
+  `^T` (#1128 experiment).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1125 Scr **10529**/11405 RNG **791421**/792838
   (99.82%); speed `31+0.25/turn`; next cadence @**#1130**.
-- **D-0928 #1127:** C dump @106838 wolf cnt5/u(68,17) vs JS cnt8/u(67,14);
-  pickup notake gate ported; prefix still **106838**.
+- **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**;
+  prefix **106838→106852**; runner RNG **106856** Scr **939**.
+- **D-0928 #1127:** pickup notake gate; C also double incapable.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**;
-  prefix **106540→106838**; runner RNG **106858** Scr **939**.
+  prefix **106540→106838**.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
   was #1124.
 - **D-0928 #1122:** AT_MAGC castmu; was @**106536**.

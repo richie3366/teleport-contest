@@ -67,7 +67,7 @@ import {
     polyok,
     is_mplayer,
     hides_under,
-    M3_CLOSE, M3_WAITFORU,
+    M3_CLOSE, M3_WAITFORU, M3_WAITMASK, M3_COVETOUS,
 } from './monsters.js';
 import { big_to_little } from './mondata.js';
 import {
@@ -81,7 +81,7 @@ import {
     ROOMOFFSET, LS_MONSTER,
     AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
     In_quest, W_ARMH, W_SADDLE, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
-    STRAT_CLOSE, STRAT_WAITFORU, is_pit,
+    STRAT_CLOSE, STRAT_WAITFORU, STRAT_APPEARMSG, is_pit,
     A_LAWFUL, ONAME_RANDOM, EMIN,
     MFAST,
 } from './const.js';
@@ -2073,10 +2073,14 @@ export function makemon(mdat, x, y, mmflags = 0) {
     mtmp.mpeaceful = peace_minded(ptr) ? 1 : 0;
 
     // C: ptr->mflags3 && !(mmflags & MM_NOWAIT) → STRAT_WAITFORU / STRAT_CLOSE
+    // / STRAT_APPEARMSG (makemon.c; D-0928 #1128 — appear pline forces
+    // --More-- before hitmu so mold notake keys stay aligned).
     if ((ptr.mflags3 | 0) && !(mmflags & MM_NOWAIT)) {
         if (ptr.mflags3 & M3_WAITFORU) mtmp.mstrategy |= STRAT_WAITFORU;
         if (ptr.mflags3 & M3_CLOSE) mtmp.mstrategy |= STRAT_CLOSE;
-        // STRAT_APPEARMSG for WAITMASK|COVETOUS deferred
+        if (ptr.mflags3 & (M3_WAITMASK | M3_COVETOUS)) {
+            mtmp.mstrategy |= STRAT_APPEARMSG;
+        }
     }
 
     // C: link onto fmon before group/invent

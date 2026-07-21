@@ -74,7 +74,7 @@ function strategy(mtmp) {
  * FALLTHROUGH-to-harass deferred (falling through burned extra rn2 when C
  * early-returned from HEAL).
  */
-export function tactics(mtmp) {
+export async function tactics(mtmp) {
     const strat = strategy(mtmp);
     mtmp.mstrategy = ((mtmp.mstrategy | 0) & (STRAT_WAITMASK | STRAT_APPEARMSG))
         | strat;
@@ -86,7 +86,7 @@ export function tactics(mtmp) {
         return 0;
     case STRAT_NONE:
         if (!noteleport_level(mtmp) && !rn2(!mtmp.mflee ? 5 : 33)) {
-            mnexto(mtmp, RLOC_MSG);
+            await mnexto(mtmp, RLOC_MSG);
         }
         return 0;
     default:

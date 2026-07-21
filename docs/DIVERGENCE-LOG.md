@@ -6,8 +6,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1127)
-- **Session:** seed4500-knight-coverage (prefix @**106838**)
+- **Status:** partial (#1080–#1128)
+- **Session:** seed4500-knight-coverage (prefix @**106852**)
+- **Hypothesis (#1128):** Double `pickup(1)` @106194 is **C-faithful**
+  (session shows two incapable screens). Missing `--More--` before
+  combat was from omitted `"It suddenly arrives next to you!"` —
+  `makemon` deferred `STRAT_APPEARMSG`, and `mnexto` called silent
+  `rloc_to` (ignored `rlocflags`). Without the appear pline,
+  `"It touches you!"` concatenated onto incapable and skipped More;
+  keystream read `k` as movement @106679. Also aligned `RLOC_*` to C
+  (`NOMSG=0x04`).
+- **Fix (#1128):** `makemon.js` `STRAT_APPEARMSG` for
+  `M3_WAITMASK|M3_COVETOUS`; `mon.js` `mnexto`→`rloc_to_flag`;
+  `wizard.js`/`monmove.js` await; `const.js` RLOC bits; Blind
+  `arrives` verb in `rloc_post_move_msg`.
+- **Verification (#1128):** green+strict PASS; cohort 6/6; prefix
+  **106838→106852** (runner RNG **106856** Scr **939**). Next:
+  @**106852** `nasty` `rn2(10)` vs JS `rn2(5)`.
 - **Hypothesis (#1127):** @106838 track `rn2(4*(cnt-j))` C20 vs JS32
   is **late**. C dump: wolf@(15,16) cnt=5 j=0 u/gg=(68,17);
   JS @(15,15) cnt=8 u=(67,14). Hero diverge @106679: C `'l'`→east;
