@@ -6,16 +6,17 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, You_feel, mark_topline_prompt,
-    newsym, see_monsters,
+    newsym, see_monsters, urgent_pline,
 } from './display.js';
 import { yn_function } from './getline.js';
-import { an, doname, the, xname, xprname } from './objnam.js';
+import { an, doname, the, xname, xprname, vtense } from './objnam.js';
 import { find_ac } from './u_init.js';
 import { change_luck, Fast, Very_fast } from './attrib.js';
 import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object } from './artifact.js';
 import { welded } from './wield.js';
 import { makeknown } from './invent.js';
+import { obj_resists } from './dogmove.js';
 import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
     W_RING, W_RINGL, W_RINGR, W_AMUL, W_TOOL, W_WEAPONS, W_WEP, W_SWAPWEP,
@@ -1629,6 +1630,121 @@ export async function Ring_off_or_gone(obj, gone) {
  */
 export async function Ring_gone(obj) {
     await Ring_off_or_gone(obj, true);
+}
+
+/**
+ * C ref: invent.c useup — invent consume one (no obj_resists). Local for
+ * wornarm_destroyed; floor path not needed for disintegrate_arm.
+ */
+function invent_useup(otmp) {
+    if (!otmp) return;
+    if ((otmp.quan || 1) > 1) {
+        otmp.quan--;
+        return;
+    }
+    const inv = game.invent || [];
+    const idx = inv.indexOf(otmp);
+    if (idx >= 0) inv.splice(idx, 1);
+    otmp.quan = 0;
+    otmp.where = 0; // OBJ_FREE
+}
+
+/**
+ * C ref: do_wear.c maybe_destroy_armor — match atmp, obj_resists(0,90).
+ * @returns {object|null}
+ */
+function maybe_destroy_armor(armor, atmp, resistedRef) {
+    if (armor && (!atmp || atmp === armor)
+        && ((resistedRef.v = obj_resists(armor, 0, 90)) === false)) {
+        armor.in_use = 1;
+        return armor;
+    }
+    return null;
+}
+
+/**
+ * C ref: do_wear.c wornarm_destroyed — *_off then invent useup.
+ * Named omissions: cancel_don when donning; lava dunk side-effect free.
+ */
+async function wornarm_destroyed(wornarm) {
+    if (!wornarm) return;
+    const u = game.u || {};
+    const wornoid = wornarm.o_id;
+    // cancel_don deferred
+    if (wornarm === u.uarmc) Cloak_off();
+    else if (wornarm === u.uarm) await Armor_off();
+    else if (wornarm === u.uarmu) Shirt_off();
+    else if (wornarm === u.uarmh) Helmet_off();
+    else if (wornarm === u.uarmg) Gloves_off();
+    else if (wornarm === u.uarmf) Boots_off();
+    else if (wornarm === u.uarms) Shield_off();
+
+    for (const invobj of game.invent || []) {
+        if (invobj === wornarm && invobj.o_id === wornoid) {
+            invent_useup(wornarm);
+            break;
+        }
+    }
+}
+
+/**
+ * C ref: do_wear.c disintegrate_arm — destroy one worn armor piece
+ * (god_zaps_you / dragon breath / destroy-armor scroll).
+ * Named omissions: end_burn lamplit DSM; selftouch after gloves;
+ * cancel_don; cloak/suit name polish beyond armor_doff_simple_name.
+ * @param {object|null} atmp specific piece or null for any
+ * @returns {Promise<number>} 1 if destroyed, else 0
+ */
+export async function disintegrate_arm(atmp) {
+    const u = game.u || {};
+    let otmp = null;
+    const resistedc = { v: false };
+    const resistedsuit = { v: false };
+    const resisted = { v: false };
+    let losing_gloves = false;
+
+    if ((otmp = maybe_destroy_armor(u.uarmc, atmp, resistedc))) {
+        await urgent_pline(
+            `Your ${armor_doff_simple_name(otmp)} crumbles and turns to dust!`,
+        );
+    } else if (!resistedc.v
+        && (otmp = maybe_destroy_armor(u.uarm, atmp, resistedsuit))) {
+        const suit = armor_doff_simple_name(otmp);
+        // end_burn deferred
+        await urgent_pline(
+            `Your ${suit} ${vtense(suit, 'turn')} to dust and `
+            + `${vtense(suit, 'fall')} to the ground!`,
+        );
+    } else if (!resistedc.v && !resistedsuit.v
+        && (otmp = maybe_destroy_armor(u.uarmu, atmp, resisted))) {
+        await urgent_pline(
+            'Your shirt crumbles into tiny threads and falls apart!',
+        );
+    } else if ((otmp = maybe_destroy_armor(u.uarmh, atmp, resisted))) {
+        await urgent_pline(
+            `Your ${armor_doff_simple_name(otmp)} turns to dust and is blown away!`,
+        );
+    } else if ((otmp = maybe_destroy_armor(u.uarmg, atmp, resisted))) {
+        await urgent_pline(
+            `Your ${armor_doff_simple_name(otmp)} vanish!`,
+        );
+        losing_gloves = true;
+    } else if ((otmp = maybe_destroy_armor(u.uarmf, atmp, resisted))) {
+        await urgent_pline(
+            `Your ${armor_doff_simple_name(otmp)} disintegrate!`,
+        );
+    } else if ((otmp = maybe_destroy_armor(u.uarms, atmp, resisted))) {
+        await urgent_pline(
+            `Your ${armor_doff_simple_name(otmp)} crumbles away!`,
+        );
+    } else {
+        return 0;
+    }
+
+    await wornarm_destroyed(otmp);
+    void losing_gloves; // selftouch deferred
+    await stop_occupation();
+    return 1;
 }
 
 /**

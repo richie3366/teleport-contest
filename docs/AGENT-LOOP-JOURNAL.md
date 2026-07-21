@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:26 — #1233 D-0963 desecrate_altar / god_zaps
+
+- Objective: map-driven — retire dig `desecrate_altar`/`god_zaps_you`
+  under fortress.
+- C locus: `pray.c` `desecrate_altar`/`god_zaps_you`/`fry_by_god`;
+  `do_wear.c` `disintegrate_arm`; `minion.c` `lminion`/`summon_minion`;
+  caller `dig.c` `digactualhole`.
+- Change: port wrath cluster + armor strip + minion summon; wire
+  hero/obj altar dig after furniture-fall msg (D-0963). Deferred:
+  angrygods cases 4–8; music.c desecrate; shieldeff/SetVoice;
+  ureflects non-shield; selftouch/cancel_don.
+- Verification: green+strict PASS; dig/pray cohort 16/16 PASS
+  (incl. seed0017 altar-pray). Suite fortress held (no full cadence;
+  next @#1235).
+- Next: revive container/buried; ice melt / burn_floor_objects /
+  fireball; Ring_off polish. Cadence @#1235.
+
 ## 2026-07-22 00:22 — #1232 D-0962 conjoined/autodig/boulder
 
 - Objective: map-driven — retire dig `conjoined_pits` + autodig quiet
@@ -218,16 +235,3 @@ Use this shape:
   Suite fortress held (no full cadence; next @#1220).
 - Next: pickaxe `dig`/`is_digging` / break-wand bhit / pool-lava.
 
-## 2026-07-21 23:05 — #1217 D-0949 explode pay + do_break_wand
-
-- Objective: map-driven — `explode` `zap_over_floor`/`pay_for_damage`
-  + `do_break_wand` explode-type / inert envelope.
-- C locus: `explode.c` `explode`; `apply.c` `do_break_wand`/
-  `broken_wand_explode`; `zap.c` `zap_over_floor`.
-- Change: olet/adtyp preamble + floor shop bill in `explode.js`;
-  export `zap_over_floor`; `doapply` → break-wand (D-0949). Deferred:
-  non-PHYS mon/hero dmg; dig/create adjacent pay; pickaxe dig;
-  pool-lava/`vault_gd_watching`.
-- Verification: green+strict; wizard/zap/shop cohort 12/12 PASS.
-  Suite fortress held (no full cadence; next @#1220).
-- Next: break-wand dig pay / pickaxe `dig`/`is_digging` / pool-lava.

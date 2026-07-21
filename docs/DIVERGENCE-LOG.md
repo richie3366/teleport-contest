@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0963 — desecrate_altar / god_zaps_you dig wrath
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named dig debt — hero/object dig of an altar skipped C
+  `desecrate_altar` → `god_zaps_you` divine wrath.
+- **Cause:** deferred `pray.c` `desecrate_altar`/`god_zaps_you`/`fry_by_god`
+  and no wire from `dig.c` `digactualhole` after furniture-fall msg.
+- **Fix:** port `desecrate_altar`/`god_zaps_you`/`fry_by_god` in `pray.js`;
+  `disintegrate_arm` (+ maybe_destroy/wornarm_destroyed) in `do_wear.js`;
+  `lminion`/`summon_minion` in `minion.js`; wire
+  `heros_fault && IS_ALTAR(old_typ)` in `digactualhole` (D-0963).
+  Deferred: angrygods cases 4–8; music.c desecrate caller; shieldeff;
+  SetVoice; ureflects non-shield; selftouch after gloves; cancel_don.
+- **Verification:** green+strict PASS; dig/pray cohort 16/16 PASS
+  (incl. seed0017 altar-pray, seed0361 arch tour). Suite fortress held
+  (no full cadence; next @#1235).
+- **Files:** `js/pray.js`, `js/do_wear.js`, `js/minion.js`, `js/dig.js`,
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0962 — conjoined_pits + autodig quiet + boulder-fill
 
 - **Status:** fixed (map-driven debt retirement)

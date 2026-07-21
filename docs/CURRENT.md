@@ -72,9 +72,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** desecrate_altar / `god_zaps_you`; revive
-container/buried polish; ice melt / `burn_floor_objects` /
-fireball; float_down / learnring / adjust_attrib Ring_off polish.
+**Next cluster:** revive container/buried polish; ice melt /
+`burn_floor_objects` / fireball; float_down / learnring /
+adjust_attrib Ring_off polish; angrygods cases 4–8 /
+music desecrate caller.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -86,41 +87,13 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0961. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0963. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
-**D-0931**; **D-0932**; **D-0933**; **D-0934**; **D-0935**; **D-0936**;
-**D-0937**; **D-0938**; **D-0939**; **D-0940**; **D-0941**; **D-0942**;
-**D-0943**; **D-0944**; **D-0945**; **D-0946**; **D-0947**;
-**D-0948** (`zap_over_floor` door/bars shopdamage + `dobuzz`
-`pay_for_damage` — do not re-stub);
-**D-0949** (`explode` shop pay + `do_break_wand` explode-types — do not
-re-stub);
-**D-0950** (`dig_check`/`digactualhole` + break-wand dig/create pay —
-do not re-stub);
-**D-0951** (`use_pick_axe`/`dig` occupation/`is_digging`/`dig_typ`/
-`holetime` — do not re-stub);
-**D-0952** (break-wand strike/cancel/poly/tele/undead `bhitm` +
-`WAN_LIGHT` litroom — do not re-stub);
-**D-0953** (floorfood pool/lava reach + `vault_gd_watching` — do not
-re-stub);
-**D-0954** (`furniture_handled` fountain/sink + HOLE `goto_level` —
-do not re-stub);
-**D-0955** (`unturn_dead`/`revive` + `hero_breaks` + worn ABON cancel —
-do not re-stub);
-**D-0956** (`Ring_gone`/`float_up`/`rescham`/`choke`/`set_mimic_blocking`
-— do not re-stub);
-**D-0957** (`dig_up_grave` + `dighole` IS_GRAVE — do not re-stub);
-**D-0958** (`shopdig` dig warn/snatch — do not re-stub);
-**D-0959** (`destroy_drawbridge` + dig furniture/`dighole` — do not
-re-stub);
-**D-0960** (`mkcavearea`/`mkcavepos`/`rm_waslit` earth dig — do not
-re-stub);
-**D-0961** (`impact_drop`/`down_gate`/`drop_to`/`add_to_migration` —
-do not re-stub);
-**D-0962** (`conjoined_pits`/`xytodir` + autodig quiet + `dighole`
-boulder-fill/`delfloortrap` — do not re-stub).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
+**D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
+**D-0955**…**D-0963** (revive/Ring_gone/grave/shopdig/bridge/
+mkcavearea/impact_drop/conjoined/`desecrate_altar` — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

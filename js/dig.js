@@ -10,7 +10,8 @@
 //        D-0954 furniture_handled + HOLE goto_level; D-0957 dig_up_grave;
 //        D-0959 destroy_drawbridge; D-0960 mkcavearea earth;
 //        D-0961 impact_drop / down_gate / drop_to;
-//        D-0962 conjoined_pits / autodig quiet / boulder-fill)
+//        D-0962 conjoined_pits / autodig quiet / boulder-fill;
+//        D-0963 desecrate_altar / god_zaps_you)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -377,11 +378,12 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
 
 /**
  * C ref: dig.c digactualhole — create PIT or HOLE trap + side effects.
- * Branch envelope (D-0950/D-0954/D-0958/D-0961): furniture_handled; maketrap;
- * furniture fall msg; shop add_damage / pay ruin; PIT at_u set_utrap +
- * wake_nearby; HOLE hero fall goto_level + shopdig(1) pack snatch; mon
- * teleport_pet migrate; impact_drop floor objs through hole.
- * Named omit: desecrate_altar; switch_terrain; buried_ball_to_punishment;
+ * Branch envelope (D-0950/D-0954/D-0958/D-0961/D-0963): furniture_handled;
+ * maketrap; furniture fall msg; desecrate_altar on hero/obj altar dig;
+ * shop add_damage / pay ruin; PIT at_u set_utrap + wake_nearby; HOLE hero
+ * fall goto_level + shopdig(1) pack snatch; mon teleport_pet migrate;
+ * impact_drop floor objs through hole.
+ * Named omit: switch_terrain; buried_ball_to_punishment;
  * make_angry_shk; impact_drop shop stolen_value.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
@@ -459,8 +461,11 @@ export async function digactualhole(x, y, madeby, ttyp) {
     if (IS_FURNITURE(old_typ) && cansee(x, y)) {
         await pline(`The ${furniture} falls into the ${tname}!`);
     }
-    // desecrate_altar deferred when heros_fault && IS_ALTAR(old_typ)
-    void old_aligntyp;
+    // C: wrath should immediately follow altar destruction message
+    if (heros_fault && IS_ALTAR(old_typ)) {
+        const { desecrate_altar } = await import('./pray.js');
+        await desecrate_altar(false, old_aligntyp);
+    }
 
     if (ttyp === PIT) {
         if (shopdoor && heros_fault) {
@@ -1431,7 +1436,7 @@ export async function dig_up_grave(cc) {
  * digactualhole(PIT)+dig_up_grave (D-0957); fillholetyp liquid;
  * digactualhole PIT/HOLE.
  * Named omit: magical traps explode; DRAWBRIDGE_UP fluid polish;
- * spot_checks; by_magic traps; desecrate_altar (god_zaps_you).
+ * spot_checks; by_magic traps.
  */
 export async function dighole(pit_only, _by_magic, cc) {
     const u = game.u || {};

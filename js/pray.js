@@ -1,27 +1,29 @@
 // pray.js — Prayer / altar gods (partial).
 // C ref: pray.c — can_pray, dopray, prayer_done, gods_upset, angrygods,
 // water_prayer, on_altar / a_align helpers; dosacrifice (#offer); #turn
-// (doturn / maybe_turn_mon_iter, D-0912).
+// (doturn / maybe_turn_mon_iter, D-0912); desecrate_altar / god_zaps_you /
+// fry_by_god (D-0963).
 //
 // Branch envelope: ParanoidPray yn confirm (default on) + wizard Force
 // (D-0517) + #pray ublesscnt-too-soon (p_type 0) → angrygods; p_type 3 →
 // pleased You_feel + action rn1 + TROUBLE_HIT fix_worst_trouble (D-0920)
 // + ublesscnt rnz(350); #offer not-on-altar; Knight/Cleric #turn chant +
-// exercise + undead iter + nomul.
+// exercise + undead iter + nomul; digactualhole altar → desecrate_altar.
 // Named omissions: other in_trouble majors/minors; other fix_worst_trouble
-// cases; ParanoidConfirm "yes"; angrygods cases 4+; pleased pat_on_head
-// gifts / crown / give_spell; p_type -2/-1/1/2 outcome bodies beyond
-// water_prayer scan; pray_revive; floorfood sacrifice; known_spell
-// SPE_TURN_UNDEAD / spelleffects fallback for non-Knight/Cleric; resist
-// TELL pline polish; other livelog paths; poly silent/headless can_chant;
-// Fixed_abil/Dunce adjattrib; Unaware You_feel dream prefix.
+// cases; ParanoidConfirm "yes"; angrygods cases 4–8 (curse/minion/zap wire);
+// pleased pat_on_head gifts / crown / give_spell; p_type -2/-1/1/2 outcome
+// bodies beyond water_prayer scan; pray_revive; floorfood sacrifice;
+// known_spell SPE_TURN_UNDEAD / spelleffects fallback for non-Knight/Cleric;
+// resist TELL pline polish; other livelog paths; poly silent/headless
+// can_chant; Fixed_abil/Dunce adjattrib; Unaware You_feel dream prefix;
+// music.c desecrate_altar caller; SetVoice pitch; ureflects non-shield slots.
 
 import { game } from './gstate.js';
 import { rn2, rn1, rnl, rnz, rnd } from './rng.js';
 import { pline, verbalize, You_feel } from './display.js';
 import { nomul } from './hack.js';
 import { A_WIS, change_luck, adjattrib, adjalign, exercise } from './attrib.js';
-import { align_gname, xlev_to_rank } from './roles.js';
+import { align_gname, xlev_to_rank, uhim } from './roles.js';
 import { objects_at } from './mkobj.js';
 import { yn_function } from './getline.js';
 import { livelog_printf } from './pline.js';
@@ -29,13 +31,21 @@ import { can_chant } from './spell.js';
 import { couldsee } from './vision.js';
 import { monflee } from './monmove.js';
 import { set_malign } from './makemon.js';
-import { killed } from './uhitm.js';
+import { killed, xkilled } from './uhitm.js';
 import { aggravate } from './wizard.js';
 import { setuhpmax } from './exper.js';
+import { done } from './end.js';
+import { monstseesu, monstunseesu } from './mondata.js';
+import { mon_nam, Monnam } from './do_name.js';
+import { disintegrate_arm } from './do_wear.js';
+import { summon_minion } from './minion.js';
+import { makeknown } from './invent.js';
+import { objectNames, POT_WATER, POTION_CLASS } from './objects.js';
 import {
     is_undead as mon_is_undead,
     is_demon as mon_is_demon,
     is_vampshifter,
+    MR_ELEC, MR_DISINT,
 } from './monsters.js';
 import {
     PM_KNIGHT,
@@ -45,8 +55,13 @@ import {
     IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, A_NONE, A_LAWFUL, A_NEUTRAL,
     A_CHAOTIC, GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY, LL_CONDUCT,
     LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd,
+    DIED, KILLED_BY, Is_astralevel, M_SEEN_REFL, M_SEEN_ELEC, M_SEEN_DISINT,
+    W_ARMS, W_ARMC, W_ARM,
+    XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
 } from './const.js';
-import { POT_WATER, POTION_CLASS } from './objects.js';
+
+const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 
 const MOLOCH = 'Moloch';
 
@@ -345,9 +360,207 @@ function losexp_divine() {
     game.flags.botl = true;
 }
 
+/** C ref: youprop.h Reflecting — H/E + worn SoR/AoR subset. */
+function Reflecting() {
+    const u = game.u || {};
+    if ((u.HReflecting | 0) || (u.EReflecting | 0) || u.Reflecting) return true;
+    if (u.uarms?.otyp === SHIELD_OF_REFLECTION) return true;
+    if (u.uamul?.otyp === AMULET_OF_REFLECTION) return true;
+    return false;
+}
+
+/** C ref: youprop.h Shock_resistance */
+function Shock_resistance() {
+    const u = game.u || {};
+    return !!(u.Shock_resistance || (u.HShock_resistance | 0)
+        || (u.EShock_resistance | 0));
+}
+
+/** C ref: youprop.h Disint_resistance */
+function Disint_resistance() {
+    const u = game.u || {};
+    return !!(u.Disint_resistance || (u.HDisint_resistance | 0)
+        || (u.EDisint_resistance | 0));
+}
+
+/** C: monst.h resists_elec / resists_disint via mresists|mextrinsics|mintrinsics. */
+function mon_resists_bit(mon, mrBit) {
+    if (!mon) return false;
+    const bits = (mon.data?.mresists | 0)
+        | (mon.mextrinsics | 0)
+        | (mon.mintrinsics | 0);
+    return !!(bits & mrBit);
+}
+function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
+function resists_disint(mon) { return mon_resists_bit(mon, MR_DISINT); }
+
+/** C: dungeon.h Is_sanctum — on_level(&u.uz, &sanctum_level). */
+function Is_sanctum(uz) {
+    const s = game.sanctum_level;
+    const lev = uz ?? game.u?.uz;
+    return !!(s && lev
+        && (s.dnum | 0) === (lev.dnum | 0)
+        && (s.dlevel | 0) === (lev.dlevel | 0));
+}
+
+/**
+ * C ref: muse.c ureflects — shield slot only (other slots deferred).
+ * @returns {Promise<boolean>}
+ */
+async function ureflects(fmt, str) {
+    if (game.u?.uarms?.otyp === SHIELD_OF_REFLECTION) {
+        if (fmt && str) {
+            await pline(`${str} reflects from your shield.`);
+            makeknown(SHIELD_OF_REFLECTION);
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: pray.c fry_by_god — lightning or disintegration death.
+ * @param {number} resp_god
+ * @param {boolean} via_disintegration
+ */
+async function fry_by_god(resp_god, via_disintegration) {
+    await pline(
+        `You ${!via_disintegration
+            ? 'fry to a crisp'
+            : 'disintegrate into a pile of dust'}!`,
+    );
+    if (!game.killer) game.killer = { name: '', format: 0 };
+    game.killer.format = KILLED_BY;
+    game.killer.name = `the wrath of ${align_gname(game.urole, resp_god)}`;
+    await done(DIED);
+}
+
+/**
+ * C ref: pray.c god_zaps_you — lightning then disintegration wrath.
+ * Branch envelope: swallow elec/disint on ustuck; Reflecting / Shock /
+ * fry; armor strip via disintegrate_arm; Disint bask + godvoice; astral/
+ * sanctum 3× summon_minion.
+ * Named omissions: shieldeff flash; SetVoice; ureflects non-shield;
+ * angrygods cases that call this still deferred.
+ * @param {number} resp_god
+ */
+export async function god_zaps_you(resp_god) {
+    const u = game.u || (game.u = {});
+
+    if (u.uswallow && u.ustuck) {
+        await pline(
+            'Suddenly a bolt of lightning comes down at you from the heavens!',
+        );
+        await pline(`It strikes ${mon_nam(u.ustuck)}!`);
+        if (!resists_elec(u.ustuck)) {
+            await pline(`${Monnam(u.ustuck)} fries to a crisp!`);
+            await xkilled(u.ustuck, XKILL_NOMSG | XKILL_NOCONDUCT);
+        } else {
+            await pline(`${Monnam(u.ustuck)} seems unaffected.`);
+        }
+    } else {
+        await pline('Suddenly, a bolt of lightning strikes you!');
+        if (Reflecting()) {
+            // shieldeff deferred
+            if (Blind()) {
+                await pline("For some reason you're unaffected.");
+            } else {
+                await ureflects('%s reflects from your %s.', 'It');
+            }
+            monstseesu(M_SEEN_REFL);
+        } else if (Shock_resistance()) {
+            // shieldeff deferred
+            await pline('It seems not to affect you.');
+            monstseesu(M_SEEN_ELEC);
+            monstunseesu(M_SEEN_REFL);
+        } else {
+            await fry_by_god(resp_god, false);
+            monstunseesu(M_SEEN_REFL | M_SEEN_ELEC);
+            return;
+        }
+    }
+
+    await pline(`${align_gname(game.urole, resp_god)} is not deterred...`);
+    if (u.uswallow && u.ustuck) {
+        await pline(
+            `A wide-angle disintegration beam aimed at you hits ${mon_nam(u.ustuck)}!`,
+        );
+        if (!resists_disint(u.ustuck)) {
+            await pline(
+                `${Monnam(u.ustuck)} disintegrates into a pile of dust!`,
+            );
+            await xkilled(
+                u.ustuck,
+                XKILL_NOMSG | XKILL_NOCORPSE | XKILL_NOCONDUCT,
+            );
+        } else {
+            await pline(`${Monnam(u.ustuck)} seems unaffected.`);
+        }
+    } else {
+        await pline('A wide-angle disintegration beam hits you!');
+
+        const EReflecting = u.EReflecting | 0;
+        const EDisint = u.EDisint_resistance | 0;
+        if (u.uarms && !(EReflecting & W_ARMS) && !(EDisint & W_ARMS)) {
+            await disintegrate_arm(u.uarms);
+        }
+        if (u.uarmc && !(EReflecting & W_ARMC) && !(EDisint & W_ARMC)) {
+            await disintegrate_arm(u.uarmc);
+        }
+        if (u.uarm && !(EReflecting & W_ARM) && !(EDisint & W_ARM)
+            && !u.uarmc) {
+            await disintegrate_arm(u.uarm);
+        }
+        if (u.uarmu && !u.uarm && !u.uarmc) {
+            await disintegrate_arm(u.uarmu);
+        }
+        if (!Disint_resistance()) {
+            await fry_by_god(resp_god, true);
+            monstunseesu(M_SEEN_DISINT);
+            return;
+        }
+        await pline('You bask in its black glow for a minute...');
+        await godvoice(resp_god, 'I believe it not!');
+        monstseesu(M_SEEN_DISINT);
+        if (Is_astralevel(u.uz) || Is_sanctum(u.uz)) {
+            // SetVoice deferred
+            await verbalize('Thou cannot escape my wrath, mortal!');
+            await summon_minion(resp_god, false);
+            await summon_minion(resp_god, false);
+            await summon_minion(resp_god, false);
+            await verbalize(`Destroy ${uhim()}, my servants!`);
+        }
+    }
+}
+
+/**
+ * C ref: pray.c desecrate_altar — dig/convert high-altar wrath.
+ * Branch envelope: own-altar adjalign/ugangr; charged air + notice pline;
+ * godvoice; god_zaps_you.
+ * @param {boolean} highaltar
+ * @param {number} altaralign
+ */
+export async function desecrate_altar(highaltar, altaralign) {
+    const u = game.u || (game.u = {});
+    if (altaralign === (u.ualign?.type ?? 0)) {
+        adjalign(-20);
+        u.ugangr = (u.ugangr | 0) + 5;
+    }
+    await You_feel('the air around you grow charged...');
+    await pline(
+        `Suddenly, you realize that ${align_gname(game.urole, altaralign)} has noticed you...`,
+    );
+    await godvoice(
+        altaralign,
+        `So, mortal!  You dare desecrate my ${highaltar ? 'High Temple' : 'altar'}!`,
+    );
+    await god_zaps_you(altaralign);
+}
+
 /**
  * C ref: pray.c angrygods — cases 0–3 + ublesscnt rnz(300) tail.
- * Cases 4+ (curse/minion/zap) named omitted.
+ * Cases 4+ (curse/minion/zap) named omitted — god_zaps_you available
+ * for dig desecrate_altar (D-0963) but not yet wired into this switch.
  */
 async function angrygods(resp_god) {
     const u = game.u || (game.u = {});
