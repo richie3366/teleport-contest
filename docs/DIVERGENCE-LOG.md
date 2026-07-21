@@ -33,9 +33,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1154)
+- **Status:** partial (#1080–#1157)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1389**/1814)
+  Scr **1390**/1814)
+- **Hypothesis (#1157):** @893 C `#overview` Level 3 (general store +
+  fountain) + Level 4 (many fountains + Mines stairs) vs JS only
+  Level 25 — JS never (1) `recalc_mapseen` before leave, (2)
+  `show_map_spot`→`room_discovered` for mapped shops, (3)
+  `recbranch_mapseen` on branch stairs, (4) `shop_string` /
+  branch/wizard-proto print; also `init_mapseen` wiped
+  `lastseentyp` on every ensure.
+- **Fix (#1157):** `dungeon.js` msrooms + leave-safe find_mapseen;
+  `shop_string`/`br_string2`/branch lines/wizard `[proto]`;
+  `do.js` leave `recalc_mapseen` + `recbranch_mapseen`;
+  `hack.js` `room_discovered` on special enter;
+  `detect.js` `show_map_spot`→`room_discovered`. Altar-god /
+  builds_up / endgame-first / lastseentyp savelev restore deferred.
+- **Verification (#1157):** green+strict PASS; cohort 14/14; Scr
+  **1389→1390**; prefix **@893→@902**. Next: @**902** map `~` vs
+  `·` / DEC wall glyphs after overview dismiss.
 - **Hypothesis (#1154):** @832 C `staircase up to level 5` vs JS
   `level 1` — `stairs_description` used branch-relative
   `tolev.dlevel` instead of C `depth(&tolev)` (quest/knox →

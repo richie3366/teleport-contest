@@ -20,6 +20,20 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:55 — #1157 D-0928 mapseen overview shops/branches
+
+- Objective: seed4500 @893 `#overview` Level 3 vs 25.
+- C locus: `dungeon.c` `recalc_mapseen`/`room_discovered`/
+  `recbranch_mapseen`/`shop_string`/`print_mapseen`;
+  `detect.c` `show_map_spot`; `do.c` leave recalc + recbranch;
+  `hack.c` special-room `room_discovered`.
+- Change: msrooms + leave `recalc_mapseen`; find_mapseen keeps
+  `lastseentyp`; `show_map_spot`→`room_discovered` (mapped shops);
+  `recbranch_mapseen`; shop_string/branch/wizard proto print.
+- Verification: green+strict PASS; cohort 14/14; Scr **1389→1390**;
+  prefix **@893→@902**.
+- Next: seed4500 @902 map `~` vs `·` / DEC walls (D-0928).
+
 ## 2026-07-21 13:44 — #1156 D-0929 look_here overlay leftover
 
 - Objective: suite restore — narrow #1151 pager keep/restore.

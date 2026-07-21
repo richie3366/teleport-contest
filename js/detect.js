@@ -19,7 +19,7 @@
 // Named omissions: feel_location / visible_region_at /
 // unmap_invisible / Blind feel; Hallucination/cls
 // map_trap wait; activate_statue_trap; artifact SPFX_SEARCH;
-// warnreveal body (mfind0 via_warning wired); room_discovered;
+// warnreveal body (mfind0 via_warning wired);
 // map_trap/map_engraving restore after furniture; unconstrain
 // underwater-buried-swallow; notice_mon_off/on; findone
 // flash_glyph / mimic / hider / invis / chest-trap detect;
@@ -53,9 +53,10 @@ import {
     STATUE_TRAP, NO_TRAP, TRAPNUM, Is_rogue_level, BOLT_LIM, COLNO, ROWNO,
     SVALL, IS_FURNITURE, STONE, W_NONDIGGABLE, W_NONPASSWALL,
     TER_MAP, TER_TRP, TER_OBJ, TER_MON, TER_FULL, TER_DETECT, ECMD_OK,
-    I_SPECIAL, M_AP_TYPE, ARTICLE_A,
+    I_SPECIAL, M_AP_TYPE, ARTICLE_A, ROOMOFFSET,
 } from './const.js';
 import { CLR_WHITE } from './terminal.js';
+import { room_discovered } from './dungeon.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 
@@ -530,7 +531,10 @@ export function show_map_spot(x, y, cnf) {
             map_trap(trap, 1);
         }
     }
-    // room_discovered deferred
+    // C: possibly update #overview when mapping a room cell
+    if (!cnf && ((lev.roomno | 0) >= ROOMOFFSET)) {
+        room_discovered((lev.roomno | 0) - ROOMOFFSET);
+    }
 }
 
 /**

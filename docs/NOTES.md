@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**893** `#overview` Level 3 vs 25.
-  Focused:
+- **Primary (D-0928):** seed4500 @**902** map `~` vs `·` / DEC walls
+  after `#overview`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -31,11 +31,17 @@ Objective/score live in `CURRENT.md`.
   `maybe_wail` after iron-ball `losehp` (#1153).
 - Do not treat @814 floor vs `<` as display offset — was `mkstairs`
   missing end-of-dungeon no-op on minefill up (#1152).
+- Do not treat @893 overview Level 25 alone as interest_mapseen filter
+  — missing leave `recalc_mapseen`, `show_map_spot`→`room_discovered`,
+  `recbranch_mapseen`, shop_string (#1157).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1156 Scr **10979**/11405 RNG **792838**/792838
   (**100%**); speed `33+0.26/turn`; next cadence @**#1160**.
+- **D-0928 #1157:** mapseen msrooms/shop_string/`show_map_spot`
+  room_discovered + leave recalc + recbranch; Scr **1389→1390**;
+  @893 OK; next @902 map `~` vs `·`.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.
 - **D-0928 #1154:** `stairs_description` depth/dunlev; Scr
@@ -60,5 +66,3 @@ Objective/score live in `CURRENT.md`.
   prefix **@614→@630**.
 - **D-0928 #1144:** `select_menu_pick_any` MENU_SELECT_ALL/PAGE;
   Scr **999→1000**; prefix **@559→@614**.
-- **D-0928 #1143:** `#wizidentify`/`wiz_identify` + wizid
-  `unid_cnt==0`; Scr **998→999**; prefix **@541→@559**.

@@ -33,7 +33,10 @@ import {
     fumaroles,
     movebubbles,
 } from './mklev.js';
-import { In_tutorial, at_dgn_entrance, print_level_annotation } from './dungeon.js';
+import {
+    In_tutorial, at_dgn_entrance, print_level_annotation,
+    recalc_mapseen, recbranch_mapseen,
+} from './dungeon.js';
 import { Is_waterlevel, Is_airlevel } from './const.js';
 import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
@@ -386,6 +389,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C: check_special_room(TRUE) on leave — move_update clears urooms so
     // arrival re-enters temple/shop messages (intemple).
     await check_special_room(true);
+    // C: recalc_mapseen() before leaving — persist feat/msrooms on mapseen
+    recalc_mapseen();
     // C: do.c goto_level — Punished unplacebc before savelev so ball&chain
     // are not left on the departing floor (D-0915).
     // C: Punished ≡ (uball != 0)
@@ -456,6 +461,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         assign_graphics(Is_rogue_level(newlevel) ? ROGUESET : PRIMARYSET);
     }
     check_gold_symbol();
+
+    // C: record seen branch for stairs/fall/portal (not level-teleport)
+    if ((at_stairs || falling || portal)
+        && ((u.uz.dnum | 0) !== (newlevel.dnum | 0))) {
+        recbranch_mapseen(u.uz, newlevel);
+    }
 
     assign_level(u.uz0 || (u.uz0 = { dnum: 0, dlevel: 0 }), u.uz);
     assign_level(u.uz, newlevel);

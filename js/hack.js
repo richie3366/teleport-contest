@@ -1039,7 +1039,7 @@ export function impaired_movement() {
  * wake `!Stealth && !rn2(3)` (wake_msg pline deferred).
  * Named omissions: Mine Town ACH_TOWN; furniture_present throne detail;
  * BARRACKS monstinroom occupied vs abandoned; DELPHI oracle verbalize;
- * room_discovered mapseen; wake_msg canseemon text.
+ * wake_msg canseemon text.
  */
 export async function check_special_room(newlev) {
     const u = game.u;
@@ -1122,8 +1122,11 @@ export async function check_special_room(newlev) {
             break;
         }
 
-        // room_discovered deferred
-        void msg_given;
+        // C: if (msg_given) room_discovered(roomno);
+        if (msg_given) {
+            const { room_discovered } = await import('./dungeon.js');
+            room_discovered(roomno);
+        }
 
         if (rt !== 0) {
             if (rooms?.[roomno]) rooms[roomno].rtype = OROOM;
