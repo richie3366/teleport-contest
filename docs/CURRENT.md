@@ -22,8 +22,8 @@ notable non-PASS. Do not invent suite totals from one focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1190** (42/44,
 Scr **11389**/11405, RNG **100%**) + `done2` cancel
 `clear_nhwindow(WIN_MESSAGE)`. Speed `30+0.25/turn`. Next cadence
-@**#1195**. #1190 seed4500 Scr **1798→1799**, first miss
-**@1712→@1761** (poly rehumanize vs brown-mold spell).
+@**#1195**. #1191 seed4500 Scr **1799→1803**, first miss
+**@1761→@1770** (waiting-hit topline).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1799/1814 | knight; @1761 poly/rehumanize |
+| seed4500 | **108275**/108275 | 1803/1814 | knight; @1770 waiting-hit topline |
 
 ## Green gate
 
@@ -64,9 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1761** — C still brown mold + `Something casts a spell at
-you!` vs JS `You return to human form!` (botl Knight vs Brown Mold).
-Focused:
+**seed4500 @1770** — C keeps `Are you waiting to get hit?` vs JS
+clears topline (after @1769 full waiting-hit tip). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -77,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1190; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1191; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -111,8 +110,11 @@ getpos `redraw_cmd(^R)` + `getpos_refresh`/`flush_screen` +
 blank S_stone before typ CORR (`brief_at`/`auto_describe`/
 `describe_looked`) (#1188);
 getpos mMoOdDxX `gather_locs` + DOOR_PREV `D` (#1189);
-`done2` cancel → `clear_nhwindow_message` (#1190).
+`done2` cancel → `clear_nhwindow_message` (#1190);
+`castmu` cast+PSI/OPEN plines; `urgent_pline`/WIN_NOSTOP;
+`polyman` was_blind `make_blinded` (#1191).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
+treat @1761 as mtimedone-only rehumanize (#1191 was cast/PSI/urgent);
 treat @1712 as leftover parse clear (#1190 was done2 cancel clear);
 treat @1698 as feature-char open door (#1189 was mMoOdDxX gather);
 treat @1691 as typ-CORR win (#1188 was blank S_stone lookat);

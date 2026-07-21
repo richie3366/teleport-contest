@@ -8,12 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1761** — C brown mold +
-  `Something casts a spell at you!` vs JS `You return to human form!`
-  (botl Mold vs Knight). Focused:
+- **Primary (D-0928):** seed4500 @**1770** — C keeps
+  `Are you waiting to get hit?` vs JS clears (after @1769 full tip).
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `polyself`/`rehumanize`/`mhitu` cast timing vs JS early
-  return-to-human. Do not re-break done2 cancel clear (#1190).
+  Falsify: C Norep / topline retention vs JS clear on next `.`/space.
+  Do not re-break castmu/urgent_pline (#1191).
 
 ## Don't re-check (≤15)
 
@@ -24,6 +24,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1761 as mtimedone-only / skip PSI plines —
+  cast+PSI plines + `urgent_pline` (#1191); ESC More sets WIN_STOP.
 - Do not treat @1712 quit leftover as parse-only clear — `done2` cancel
   `clear_nhwindow(WIN_MESSAGE)` (#1190).
 - Do not treat @1698 open door as feature-char matching — doors skipped
@@ -36,14 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Do not use full `docrt()` for getpos `^R` refresh under Blind —
   C is `docrtRefresh`/`redraw_map`; JS `flush_screen` (#1187).
 - Do not treat @1679 apply as getobj — `doapply` nohands+capacity (#1186).
-- Do not treat @1681 invent typed ring/wand as doname-only —
-  invent_lines sticky Blind observe (#1186; #1180 was xname/doname).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** Scr **11389**/11405 @#1190 RNG **100%**;
   speed `30+0.25/turn`; next cadence @**#1195**.
+- **D-0928 #1191:** castmu cast+PSI/OPEN plines + `urgent_pline` +
+  polyman was_blind `make_blinded`; prefix **@1761→@1770**; Scr
+  **1799→1803**.
 - **D-0928 #1190:** `done2` cancel `clear_nhwindow_message`;
   prefix **@1712→@1761**; Scr **1798→1799**; suite Scr **11388→11389**.
 - **D-0928 #1189:** mMoOdDxX `gather_locs` + DOOR_PREV `D`;

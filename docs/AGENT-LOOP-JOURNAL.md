@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 18:05 — #1191 castmu plines + urgent_pline
+
+- Objective: seed4500 @1761 C mold + spell-at-you vs JS early rehumanize.
+- C locus: `mcastu.c` `castmu` cast pline + `mcast_psi_bolt`;
+  `pline.c` `urgent_pline`; `polyself.c` `polyman` was_blind
+  `make_blinded`.
+- Change: `mcastu.js` cast+PSI/OPEN severity plines before `mdamageu`;
+  `display.js` `urgent_pline`/WIN_NOSTOP; `polyself.js` urgent return
+  + was_blind Blind restore (D-0928 #1191).
+- Verification: green+strict PASS; cohort 7/7; focused Scr
+  **1799→1803**; first miss **@1761→@1770**.
+- Next: @**1770** C keeps `Are you waiting to get hit?` vs JS clear.
+
 ## 2026-07-21 17:51 — #1190 done2 cancel clear + score
 
 - Objective: cadence full `sessions` @#1190; seed4500 @1712 `#quit`
@@ -181,14 +194,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1583→1586**;
   prefix **@1438→@1441**.
 - Next: @**1441** map C DEC `~` vs JS `e`.
-
-## 2026-07-21 16:20 — #1176 getpos SHOWVALID `$`
-
-- Objective: seed4500 @1347 getpos `$` Unknown direction vs C stay.
-- C locus: `getpos.c` `NHKF_GETPOS_SHOWVALID`; `cmd.c` bind `'$'`.
-- Change: `getpos.js` SHOWVALID before matching + hilite toggle
-  stub; NOTES `feature_match_tags`/`S_goodpos` theory rejected
-  (D-0928 #1176).
-- Verification: green+strict PASS; cohort 6/6; Scr **1580→1583**;
-  prefix **@1347→@1438**.
-- Next: @**1438** poly More botl C `Brown Mold` vs JS `Knight`.

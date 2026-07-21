@@ -33,9 +33,26 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1190)
+- **Status:** partial (#1080–#1191)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1799**/1814)
+  Scr **1803**/1814)
+- **Hypothesis (#1191):** @1761 — C brown mold +
+  `Something casts a spell at you!` vs JS early
+  `You return to human form!`. JS `castmu` omitted C cast pline
+  and PSI_BOLT severity pline (so More fired only after
+  `polyman` flipped form); ESC on that More set WIN_STOP and
+  non-urgent return pline left the ache topline. C
+  `urgent_pline` clears STOP; `polyman` restores Blind via
+  `make_blinded(0,TRUE)`.
+- **Fix (#1191):** `mcastu.js` cast pline + PSI_BOLT/OPEN_WOUNDS
+  severity plines before `mdamageu`; `display.js` `urgent_pline`/
+  WIN_NOSTOP; `polyself.js` `polyman` urgent return + was_blind
+  `make_blinded`.
+- **Verification (#1191):** green+strict PASS; cohort 7/7; focused
+  Scr **1799→1803**; first miss **@1761→@1770** (waiting-to-get-hit
+  topline persistence).
+- **Do not:** suppress PSI_BOLT plines; use non-urgent return after
+  ESC More; FORCE poly duration.
 - **Hypothesis (#1190):** @1712 — `#quit` yn `n` C clears topline vs
   JS keeps `Really quit without saving? [yn] (n)`. C `done2` cancel
   arm calls `clear_nhwindow(WIN_MESSAGE)`; JS returned without clear.
