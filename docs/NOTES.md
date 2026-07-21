@@ -8,9 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **950**/1814.
-  First combined miss **@195** jump cursor (cells OK); first cell
-  **@237** C `Set fruit to what?` vs JS `Options`. Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **954**/1814.
+  First cell **@237** C `Set fruit to what?` vs JS `Options`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -34,14 +33,16 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
   matching (#1135).
-- Do not treat @231 statue as cmap floor — missing object arm (#1136).
+- Do not treat @195 jump curs as wrong hero setCursor — missing
+  `flush_screen(0)` last-glyph after getvalid force-newsyms (#1137).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
   (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
-- **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match;
-  next @**195** jump curs / @**237** fruit.
+- **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**;
+  @195 match; next @**237** fruit.
+- **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match.
 - **D-0928 #1135:** getpos `S_ss1` `'0'`; Scr **947→949**.
 - **D-0928 #1134:** `Kni-goal` load_special; RNG **complete 108275**.
 - **D-0928 #1133:** You-die `notdied` short-circuit; was @**107645**.
@@ -55,4 +56,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
   was #1124.
 - **D-0928 #1122:** AT_MAGC castmu; was @**106536**.
-- **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**.

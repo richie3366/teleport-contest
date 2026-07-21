@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1136)
+- **Status:** partial (#1080–#1137)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **950**/1814)
+  Scr **954**/1814)
+- **Hypothesis (#1137):** @195 jump getpos cursor C `[38,16]` vs JS hero
+  `[36,14]` (cells OK) — JS `flush_screen(1)` always curs(hero); C
+  `getpos` does `curs` then `flush_screen(0)`, which reprints
+  `getpos_sethilite` force-newsym dirty cells and leaves the tty cursor
+  on the last printed glyph (`print_glyph` advances past map_x).
+- **Fix (#1137):** `getpos_sethilite` force-newsyms old∪new valid cells;
+  `flush_screen_getpos_dirty` + clear `gnew` on full rebuild; getpos
+  pre-loop dirty flush. Named: S_goodpos `tmp_at` hilite glyphs.
+- **Verification (#1137):** green+strict PASS; cohort 6/6; Scr **950→954**;
+  @195/@206/@217/@228 cursors match. Next cell **@237** fruit vs Options.
 - **Hypothesis (#1136):** @231 C `a statue of a plains centaur
   (invalid target)` vs JS `floor of a room (invalid target)` —
   `auto_describe_text` deferred objects and fell through to ROOM cmap.

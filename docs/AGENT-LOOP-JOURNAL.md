@@ -12,6 +12,23 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — #NNNN short title
+- Objective: ...
+- C locus: ...
+- Change: ...
+- Verification: ...
+- Next: ...
+```
+
+## 2026-07-21 11:40 — #1137 getpos flush_screen(0) last-glyph curs
+- Objective: seed4500 @195 jump cursor (cells OK).
+- C locus: `getpos.c` curs+`flush_screen(0)`; `getpos_sethilite`
+  force-newsyms; `wintty.c` print_glyph advances past map_x.
+- Change: force-newsyms on getvalid change; `flush_screen_getpos_dirty`;
+  clear `gnew` on full rebuild; pre-loop dirty flush (later iters full).
+- Verification: green+strict PASS; cohort 6/6; Scr **950→954**; @195 match.
+- Next: @**237** `Set fruit to what?` vs Options.
+
 ## 2026-07-21 11:24 — #1136 getpos look_at_object auto_describe
 - Objective: seed4500 @231 statue vs floor `(invalid target)`.
 - C locus: `pager.c` `lookat`/`look_at_object`; `getpos.c` `auto_describe`.
@@ -155,13 +172,4 @@ Use this shape:
   Unchanging → **106540→106838**. Courage hyp falsified.
 - Verification: green+strict PASS; cohort 4/4; prefix still **106540**.
 - Next: Put-on / invent-letter for amulet of unchanging vs C.
-
-## 2026-07-21 08:28 — #1122 mattacku AT_MAGC→castmu
-- Objective: seed4500 @106536 C choose_monster_spell rn2(23) vs JS rn2(5).
-- C locus: `mhitu.c` `mattacku` AT_MAGC → `castmu`; `mcastu.c` dmg dice.
-- Change: JS omitted AT_MAGC (default no-op). Wired castmu/buzzmu;
-  burn `d((ml/2)+1,6)` before deferred mcast_spell.
-- Verification: green+strict PASS; cohort 6/6; prefix **106536→106540**
-  (runner RNG **106559** Scr **937**).
-- Next: @**106540** C fleeck rn2(5) vs JS rn2(25); cadence @#1125.
 

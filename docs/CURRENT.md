@@ -72,21 +72,21 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1136:** getpos `auto_describe`
-`look_at_object` via `look_shown_at`+`distant_name`/`doname` (was ROOM
-cmap) — @231 statue plains centaur matches. Scr **949→950**. First
-combined miss **@195** jump cursor (cells OK); first cell **@237** C
-`Set fruit to what?` vs JS `Options`. Focused:
+**108275**/108275). **D-0928 #1137:** getpos `flush_screen(0)` leaves
+cursor on last force-newsym glyph (was always hero) — @195 jump curs
+matches. Scr **950→954**. First cell **@237** C `Set fruit to what?`
+vs JS `Options`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1136 (bat MFAST … look_at_object).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1137 (bat MFAST … getpos dirty curs).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@195≠hero curs alone — missing flush_screen(0) last-glyph (#1137);
 @231≠cmap-only — missing object arm in auto_describe (#1136);
 @136≠unknown-dir for `'0'` — missing `S_ss1` matching (#1135);
 @107646≠ordinary rn2(79) — missing `Kni-goal` (#1134);
