@@ -19,9 +19,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1225** (**44**/44,
-Scr **11405**/11405, RNG **100%**). Cadence reconfirm (no port this
-iter). Speed `32+0.26/turn` (@#1225). Next cadence @**#1230**.
+Score last measured: **2026-07-21** — full `sessions` @**#1230** (**44**/44,
+Scr **11405**/11405, RNG **100%**). Cadence reconfirm + D-0960
+`mkcavearea` under fortress. Speed `31+0.27/turn` (@#1230). Next
+cadence @**#1235**.
 
 ## Score
 
@@ -30,10 +31,10 @@ iter). Speed `32+0.26/turn` (@#1225). Next cadence @**#1230**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `32+0.26/turn` (R² 0.871) |
+| Speed label | `31+0.27/turn` (R² 0.876) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44 @#1225):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44 @#1230):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
@@ -58,7 +59,7 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Hold local suite (44/44 @#1225) as a regression fortress.** Green
+**Hold local suite (44/44 @#1230) as a regression fortress.** Green
 gate + cohort + cadence full `sessions` must stay PASS. Do **not**
 chase public leaderboard / cron / `data.json` / hub CDN session drift
 — out of agent scope (human/maintainer). Do **not** invent FAIL peels,
@@ -71,10 +72,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** desecrate_altar / impact_drop / mkcavearea /
-conjoined_pits; revive container/buried polish; ice melt /
-`burn_floor_objects` / fireball; float_down / learnring / adjust_attrib
-Ring_off polish.
+**Next cluster:** desecrate_altar / impact_drop / conjoined_pits;
+revive container/buried polish; ice melt / `burn_floor_objects` /
+fireball; float_down / learnring / adjust_attrib Ring_off polish;
+autodig quiet / boulder-fill.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -86,7 +87,7 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0956. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0960. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
@@ -114,6 +115,8 @@ do not re-stub);
 **D-0957** (`dig_up_grave` + `dighole` IS_GRAVE — do not re-stub);
 **D-0958** (`shopdig` dig warn/snatch — do not re-stub);
 **D-0959** (`destroy_drawbridge` + dig furniture/`dighole` — do not
+re-stub);
+**D-0960** (`mkcavearea`/`mkcavepos`/`rm_waslit` earth dig — do not
 re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count

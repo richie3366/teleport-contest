@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0960 — mkcavearea earth dig collapse/extend
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** finishing a pick dig into STONE/SCORR/TREE on
+  `Is_earthlevel` skipped C `mkcavearea` blessed-extend /
+  cursed-collapse RNG arms — ordinary rock/tree typ change ran
+  instead.
+- **Cause:** named constitutional debt (`debt.md` dig.js) —
+  mkcavearea deferred after D-0959.
+- **C locus:** `dig.c` `rm_waslit`/`mkcavepos`/`mkcavearea`; caller
+  `dig` earth-level finish before digtyp tree/rock.
+- **JS:** port helpers + wire dig earth RNG (blessed `!rn2(3)` extend;
+  cursed/`!blessed` collapse arms preserve short-circuit). Deferred:
+  Soundeffect; earth elemental debris; desecrate_altar; impact_drop;
+  conjoined_pits; autodig quiet; boulder-fill.
+- **Verify:** cadence full sessions **44**/44 @#1230; green+strict;
+  dig/shared cohort 16/16 PASS.
+
 ## D-0959 — destroy_drawbridge dig furniture/dighole
 
 - **Status:** fixed (map-driven debt retirement)

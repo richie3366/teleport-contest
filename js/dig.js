@@ -8,13 +8,13 @@
 //        apply.c maybe_dunk_boulders; hack.c may_dig.
 //        (D-0941 watch_dig; D-0950 break-wand dig; D-0951 pickaxe dig;
 //        D-0954 furniture_handled + HOLE goto_level; D-0957 dig_up_grave;
-//        D-0959 destroy_drawbridge)
+//        D-0959 destroy_drawbridge; D-0960 mkcavearea earth)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
-    feel_newsym, flush_screen,
+    feel_newsym, flush_screen, flush_topl_more,
 } from './display.js';
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
@@ -30,7 +30,7 @@ import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS, GEM_CLASS } from './objects.js';
 import { CLR_WHITE } from './terminal.js';
 import {
-    is_watch, is_flyer, is_floater, grounded, MZ_HUGE,
+    is_watch, is_flyer, is_floater, grounded, MZ_HUGE, passes_walls,
 } from './monsters.js';
 import {
     PM_DWARF, PM_ELF, PM_RANGER, PM_ARCHEOLOGIST, PM_SAMURAI, PM_WIZARD,
@@ -84,7 +84,7 @@ import {
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, NO_PART,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
-    TAINT_AGE, MM_NOMSG,
+    TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG,
 } from './const.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -1082,6 +1082,116 @@ function wake_nearby(_petcall) {
 }
 
 /**
+ * C ref: dig.c rm_waslit — ROOM waslit at hero or nearby waslit.
+ */
+function rm_waslit() {
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const here = game.level?.at(ux, uy);
+    if (here && here.typ === ROOM && here.waslit) return true;
+    for (let x = ux - 2; x < ux + 3; x++) {
+        for (let y = uy - 1; y < uy + 2; y++) {
+            if (isok(x, y) && game.level?.at(x, y)?.waslit) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C ref: dig.c mkcavepos — one cell of earth-level cave collapse/extend.
+ * Named omit: Soundeffect (no RNG).
+ */
+async function mkcavepos(x, y, dist, waslit, rockit) {
+    if (!isok(x, y)) return;
+    const lev = game.level?.at(x, y);
+    if (!lev) return;
+
+    if (rockit) {
+        if (IS_OBSTRUCTED(lev.typ)) return;
+        if (t_at(x, y)) return; /* don't cover the portal */
+        const mtmp = m_at(x, y);
+        if (mtmp && !passes_walls(mtmp.data)) {
+            const { rloc } = await import('./teleport.js');
+            await rloc(mtmp, RLOC_NOMSG);
+        }
+    } else if (lev.typ === ROOM) {
+        return;
+    }
+
+    recalc_block_point(x, y); /* C unblock_point — JS rebuilds block map */
+
+    lev.seenv = 0;
+    lev.doormask = 0;
+    if (lev.flags !== undefined) lev.flags = 0;
+    if (dist < 3) lev.lit = rockit ? false : true;
+    if (waslit) lev.waslit = rockit ? false : true;
+    lev.horizontal = false;
+    /* short-circuit vision recalc */
+    if (game.viz_array?.[y]) {
+        game.viz_array[y][x] = (dist < 3) ? (IN_SIGHT | COULD_SEE) : COULD_SEE;
+    }
+    lev.typ = rockit ? STONE : ROOM;
+    if (dist >= 3) {
+        /* C impossible — keep soft for held-out */
+    }
+    feel_newsym(x, y);
+}
+
+/**
+ * C ref: dig.c mkcavearea — widen cave (ROOM) or collapse ceiling (STONE)
+ * around hero on earth level.
+ */
+async function mkcavearea(rockit) {
+    const u = game.u || {};
+    let xmin = u.ux | 0;
+    let xmax = u.ux | 0;
+    let ymin = u.uy | 0;
+    let ymax = u.uy | 0;
+    const waslit = rm_waslit();
+
+    if (rockit) {
+        await pline('Crash!  The ceiling collapses around you!');
+    } else {
+        const here = game.level?.at(u.ux | 0, u.uy | 0);
+        await pline(
+            `A mysterious force ${
+                here?.typ === CORR ? 'creates a' : 'extends the'
+            } cave around you!`,
+        );
+    }
+    await flush_topl_more(); /* display_nhwindow(WIN_MESSAGE, TRUE) */
+
+    for (let dist = 1; dist <= 2; dist++) {
+        xmin--;
+        xmax++;
+        if (dist < 2) {
+            ymin--;
+            ymax++;
+            for (let i = xmin + 1; i < xmax; i++) {
+                await mkcavepos(i, ymin, dist, waslit, rockit);
+                await mkcavepos(i, ymax, dist, waslit, rockit);
+            }
+        }
+        for (let i = ymin; i <= ymax; i++) {
+            await mkcavepos(xmin, i, dist, waslit, rockit);
+            await mkcavepos(xmax, i, dist, waslit, rockit);
+        }
+        flush_screen(1);
+        await nh_delay_output();
+    }
+
+    const ulev = game.level?.at(u.ux | 0, u.uy | 0);
+    if (!rockit && ulev && ulev.typ === CORR) {
+        ulev.typ = ROOM;
+        if (waslit) ulev.waslit = true;
+        newsym(u.ux | 0, u.uy | 0);
+    }
+    if (game.vision) game.vision.full_recalc = 1;
+    else game.vision_full_recalc = 1;
+}
+
+/**
  * C ref: dig.c pick_can_reach — pit/bimanual/Flying reach for statue/boulder.
  * Named omit: conjoined_pits when both in pits (treat as unreachable unless
  * bimanual).
@@ -1399,7 +1509,7 @@ export async function dighole(pit_only, _by_magic, cc) {
  * Branch envelope: weapon/level/pos gates; dig_check / petrified / hard wall;
  * Fumbling; effort + dwarf ×2; down → traps / dighole; lateral finish
  * statue/boulder/rock/wall/door/tree + shop pay; mid-effort hit msg.
- * Named omit: mkcavearea earth; altar_wrath/angry_priest; earth elemental
+ * Named omit: altar_wrath/angry_priest; earth elemental
  * debris; autodig quiet; drawbridge wall string; steed fumble.
  * @returns {number} 1 continue, 0 done
  */
@@ -1551,7 +1661,25 @@ async function dig() {
                 digtxt = 'The boulder falls apart.';
             }
         } else if (lev.typ === STONE || lev.typ === SCORR || IS_TREE(lev.typ)) {
-            // mkcavearea earth deferred
+            // C dig.c earth-level mkcavearea before ordinary rock/tree finish
+            if (Is_earthlevel(u.uz)) {
+                if (uwep.blessed && !rn2(3)) {
+                    await mkcavearea(false);
+                    digging.lastdigtime = game.moves | 0;
+                    digging.quiet = false;
+                    digging.level.dnum = 0;
+                    digging.level.dlevel = -1;
+                    return 0;
+                } else if ((uwep.cursed && !rn2(4))
+                    || (!uwep.blessed && !rn2(6))) {
+                    await mkcavearea(true);
+                    digging.lastdigtime = game.moves | 0;
+                    digging.quiet = false;
+                    digging.level.dnum = 0;
+                    digging.level.dlevel = -1;
+                    return 0;
+                }
+            }
             if (digtyp === DIGTYP_TREE) {
                 digtxt = 'You cut down the tree.';
                 lev.typ = ROOM;

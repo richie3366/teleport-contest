@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 @**#1225** (Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn`). Fortress held @#1229 (green+dig cohort).
+- Local suite **44**/44 @**#1230** (Scr **11405**/11405 RNG **100%**
+  speed `31+0.27/turn`). Cadence reconfirm + D-0960 under fortress.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0959** `destroy_drawbridge` + dig wires.
-- **Next cluster:** desecrate_altar / impact_drop / mkcavearea /
-  conjoined_pits; revive container/buried polish; ice melt /
-  burn_floor_objects / fireball; Ring_off float_down/learnring/
-  adjust_attrib polish.
-- Cadence full `sessions` next @**#1230**.
+- Latest port: **D-0960** `mkcavearea`/`mkcavepos`/`rm_waslit`.
+- **Next cluster:** desecrate_altar / impact_drop / conjoined_pits;
+  revive container/buried polish; ice melt / burn_floor_objects /
+  fireball; Ring_off float_down/learnring/adjust_attrib polish;
+  autodig quiet / boulder-fill.
+- Cadence full `sessions` next @**#1235**.
 
 ## Don't re-check (≤15)
 
@@ -41,14 +41,15 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954), unturn/hero_breaks/ABON
   (D-0955), Ring_gone/float_up/rescham/choke/set_mimic_blocking
-  (D-0956), dig_up_grave (D-0957), shopdig (D-0958), or
-  destroy_drawbridge (D-0959).
+  (D-0956), dig_up_grave (D-0957), shopdig (D-0958), destroy_drawbridge
+  (D-0959), or mkcavearea (D-0960).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
-- Suite @**#1225**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn`.
+- Suite @**#1230**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `31+0.27/turn`.
+- **D-0960:** mkcavearea / mkcavepos / rm_waslit earth dig.
 - **D-0959:** destroy_drawbridge + dig furniture/dighole wires.
 - **D-0958:** shopdig warn/snatch.
 - **D-0957:** dig_up_grave + dighole IS_GRAVE.

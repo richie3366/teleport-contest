@@ -12,6 +12,20 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+
+## 2026-07-22 00:12 — #1230 cadence score + D-0960 mkcavearea
+
+- Objective: cadence full `sessions` @#1230 + map-driven dig
+  `mkcavearea` earth collapse/extend under fortress.
+- C locus: `dig.c` `rm_waslit`/`mkcavepos`/`mkcavearea`; caller `dig`
+  earth-level finish.
+- Change: port helpers + wire blessed-extend / cursed-collapse RNG
+  arms (D-0960). Deferred: Soundeffect; earth elemental debris;
+  desecrate_altar; impact_drop; conjoined_pits; autodig; boulder-fill.
+- Verification: full sessions **44**/44 Scr **11405**/11405 RNG
+  **100%** speed `31+0.27/turn`; green+strict; dig cohort 16/16 PASS.
+- Next: desecrate_altar / impact_drop / conjoined_pits. Cadence @#1235.
+
 ## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
@@ -204,28 +218,3 @@ Use this shape:
 - Verification: green+strict; wizard/zap/shop cohort 12/12 PASS.
   Suite fortress held (no full cadence; next @#1220).
 - Next: break-wand dig pay / pickaxe `dig`/`is_digging` / pool-lava.
-
-## 2026-07-21 22:59 — #1216 D-0948 zap_over_floor shop door/bars
-
-- Objective: map-driven — retire `zap_over_floor` closed-door/SDOOR/
-  IRONBARS shopdamage + `dobuzz` `pay_for_damage`.
-- C locus: `zap.c` `zap_over_floor`/`dobuzz`; `lock.c` `picking_at`.
-- Change: door destroy by damgtype, bars dissolve + shop bill, SDOOR
-  reveal, trailing pay strings (D-0948). Deferred: ice/fountain/WEB/
-  POOL→PIT; burn_floor_objects; explode/apply pay; pickaxe dig.
-- Verification: green+strict; zap/shop cohort 12/12; seed0116/0398/
-  0108 PASS. Suite fortress held (no full cadence; next @#1220).
-- Next: explode/apply break-wand pay / dig occupation `is_digging`.
-
-## 2026-07-21 22:56 — #1215 cadence score + D-0947 kick_door shop/watch
-
-- Objective: cadence full `sessions` @#1215 + map-driven
-  `kick_door` shop/`pay_for_damage` + town watch.
-- C locus: `dokick.c` `kick_door`/`watchman_thief_arrest`/
-  `watchman_door_damage`; `shk.c` `add_damage`/`pay_for_damage`.
-- Change: wire shopdoor `in_rooms` + bill + town arrest/warn (D-0947).
-  Deferred: Blind feel_location; mon_yells polish; explode/apply/
-  dig-occupation pay sites; pickaxe `is_digging`.
-- Verification: full sessions **44**/44 Scr **11405**/11405 RNG
-  **100%** speed `31+0.29/turn`; green+strict; kick/shop cohort 12/12.
-- Next: explode/apply `pay_for_damage` / `is_digging`. Cadence @#1220.
