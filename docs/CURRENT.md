@@ -70,12 +70,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**90543** (D-0928). **#1097:**
-`print_level_annotation` + `hitmu` `stop_occupation` +
-`monster_nearby` `canspotmon` + `#wizintrinsic` BLINDED silent.
-Prefix **90492→90543**; RNG **91186**/108275 Scr **841**/1814.
-Next: @90543 C `peffect_extra_healing` `d(4,8)` vs JS `rn2(12)`
-(wish path). Focused:
+**Gameplay next:** **seed4500** @**95154** (D-0928). **#1098:**
+`peffect_extra_healing` + `nh_timeout` BLINDED + `learn_unseen_invent`
+via `healup`→`make_blinded`. Prefix **90543→95154**; RNG
+**95188**/108275 Scr **903**/1814. Next: @95154 C `newmonhp`
+`d(13,8)` vs JS `d(10,8)` (makemon HD). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -106,7 +105,9 @@ while mid-wrong `#pray` / clear `uinvulnerable` to paper over
 early `dopray` (D-0928 #1095); omit Count:N `.` `timed_occupation`
 or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
 / `hitmu` always-`stop_occupation` / wiz BLINDED Timeout pline
-(D-0928 #1097); treat @90543 as wait/feel/wiz regress.
+(D-0928 #1097); omit `peffect_extra_healing` / BLINDED
+`nh_timeout` / `learn_unseen_invent` on sight (D-0928 #1098);
+treat @95154 as wish/extra_healing regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

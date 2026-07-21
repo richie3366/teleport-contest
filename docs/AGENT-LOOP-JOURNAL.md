@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 03:54 — #1098 peffect_extra_healing + Blind timeout
+- Objective: seed4500 @90543 wish/extra_healing (D-0928).
+- C locus: `potion.c` `peffect_extra_healing`/`healup`/`make_blinded`;
+  `timeout.c` BLINDED; `invent.c` `learn_unseen_invent`.
+- Change: port peffect_extra_healing; nh_timeout BLINDED expiry;
+  healup→make_blinded→learn_unseen_invent; hold observe via Blind().
+- Verification: prefix **90543→95154**; RNG **95188** Scr **903**;
+  green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800 **7/7**.
+- Next: @95154 C `newmonhp` `d(13,8)` vs JS `d(10,8)`.
+
 ## 2026-07-21 03:45 — #1097 annotation + hitmu stop + wiz Blind
 - Objective: seed4500 @90492 post-feel key desync (D-0928).
 - C locus: `dungeon.c` `print_level_annotation`; `mhitu.c` `hitmu`

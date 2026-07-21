@@ -670,6 +670,22 @@ export function observe_object(obj) {
     discover_object(obj.otyp, false, true);
 }
 
+/**
+ * C ref: invent.c learn_unseen_invent — on regaining sight, mark invent
+ * picked up while Blind as seen (xname/observe). addinv_core2 /
+ * update_inventory / cleric bknown / archeologist scroll polish deferred.
+ */
+export function learn_unseen_invent() {
+    if (Blind()) return;
+    for (const otmp of game.invent || []) {
+        if (!otmp) continue;
+        // C: skip when already dknown (+ role bknown/scroll gates deferred)
+        if (otmp.dknown) continue;
+        // C: xname(otmp) → observe_object when !Blind
+        observe_object(otmp);
+    }
+}
+
 const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
 const EGG = objectNames.indexOf('EGG');
 const STATUE = objectNames.indexOf('STATUE');
@@ -2989,8 +3005,8 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
     } = await import('./artifact.js');
 
     if (!obj) return obj;
-    // C: if (!Blind) observe_object(obj)
-    if (!game.u?.Blind) obj.dknown = true;
+    // C invent.c hold_another_object: if (!Blind) observe_object(obj)
+    if (!Blind()) observe_object(obj);
 
     if (obj.oartifact) {
         const u = game.u || {};

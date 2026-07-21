@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**90543**. #1097 fixed
-  annotation More + Blind Count wait stop + wiz BLINDED silent.
-  Prefix **90492→90543**. Next: C `d(4,8) @ peffect_extra_healing`
-  vs JS `rn2(12)` after wish. Focused:
+- **Gameplay next (D-0928):** seed4500 @**95154**. #1098 fixed
+  peffect_extra_healing + Blind timeout + learn_unseen_invent.
+  Prefix **90543→95154**. Next: C `newmonhp` `d(13,8)` vs JS
+  `d(10,8)` after makemon. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -29,6 +29,8 @@ Objective/score live in `CURRENT.md`.
 - Do not omit Count:N `.` timed_occupation / Blind feel (#1096).
 - Do not omit `print_level_annotation` / `hitmu` stop_occupation /
   wiz BLINDED silent (#1097); @90492 was wait/feel key desync.
+- Do not omit peffect_extra_healing / BLINDED nh_timeout /
+  learn_unseen_invent (#1098); @90543 was wish Blind dknown/makeknown.
 - Do not omit mhitm_ad_blnd / breamm AT_BREA / invent[] splice
   (D-0924…D-0926; see index).
 
@@ -36,8 +38,9 @@ Objective/score live in `CURRENT.md`.
 
 - suite **42/44** @#1095 Scr **10397**/11405 RNG **774444**/792838
   (97.68%); speed `33+0.26/turn`; next cadence @**#1100**.
-- **D-0928 #1097:** annotation + hitmu stop + wiz Blind; prefix
-  **90543**; RNG **91186** Scr **841**/1814.
+- **D-0928 #1098:** extra_healing + Blind timeout + learn_unseen;
+  prefix **95154**; RNG **95188** Scr **903**/1814.
+- **D-0928 #1097:** annotation + hitmu stop + wiz Blind; was **90543**.
 - **D-0928 #1096:** Count:N `.` + Blind feel; was prefix **90492**.
 - **D-0928 #1095:** @89775 was early JS `#pray` (wait race).
 - **D-0928 #1094:** dobuzz `type < 0` `monkilled`; was prefix **89775**.

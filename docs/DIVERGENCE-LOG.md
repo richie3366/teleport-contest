@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1096; **#1097** annotation/wait/wiz Blind)
-- **Session:** seed4500-knight-coverage (prefix @**90543**)
+- **Status:** partial (#1080–#1097; **#1098** extra_healing/Blind/learn)
+- **Session:** seed4500-knight-coverage (prefix @**95154**)
+- **Symptom (was @90543):** C `d(4,8) @ peffect_extra_healing` vs JS
+  `rn2(12)` after wish; then missing third `exercise` (WIS makeknown).
+- **Cause (#1098):** (1) `peffects` omitted `POT_EXTRA_HEALING` /
+  `peffect_extra_healing`. (2) `nh_timeout` omitted BLINDED expiry →
+  sticky Blind through wish hold (no `observe_object`). (3) `healup`
+  cureblind stubbed without `make_blinded`→`learn_unseen_invent` →
+  invent `dknown` stayed false → `dopotion` skipped `makeknown`/
+  `exercise(A_WIS)`.
+- **Fix (#1098):** `potion.js` `peffect_extra_healing` + async
+  `healup`→`make_blinded`; `timeout.js` BLINDED case; `invent.js`
+  `learn_unseen_invent` + hold `observe_object` via `Blind()`.
+- **Next (@95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` (makemon).
 - **Symptom (was @90492):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`.
   Post-tiger-kill keys desynced (JS More late / space→Unknown).
 - **Cause (#1097):** (1) `goto_level` omitted `print_level_annotation`
@@ -21,8 +33,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `goto_level`; `mhitu.js` `hitmu` → `stop_occupation`; `hack.js`
   `monster_nearby` → `canspotmon`; `wizcmds.js` BLINDED no Timeout
   pline.
-- **Next (@90543):** C `d(4,8) @ peffect_extra_healing` vs JS
-  `rn2(12)` (wish path).
 - **Symptom (was @89775):** C `rn2(20) @ gethungry` vs JS `rn2(67)`.
   JS raced keystream to early `#pray` @89766 during C’s Count:20 wait.
 - **Cause (#1096):** (1) `parse` never set `multi = count-1`; counted
@@ -44,9 +54,11 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
   `domove_fight_empty`.
 - **Rejected (keep):** FORCE linedup/mux/place/FlipX last=77 (#1092).
-- **Verification (#1097):** prefix **90492→90543**; RNG **91186**
-  Scr **841**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+- **Verification (#1098):** prefix **90543→95154**; RNG **95188**
+  Scr **903**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.
+- **Verification (#1097):** prefix **90492→90543**; RNG **91186**
+  Scr **841**/1814; green+strict PASS; cohort **7/7**.
 - **Verification (#1096):** prefix **89775→90492**; RNG **90604**
   Scr **815**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
   0700/1150/1800 **7/7**.
