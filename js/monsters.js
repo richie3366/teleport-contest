@@ -621,6 +621,14 @@ export function is_shapeshifter(ptr) {
 export function is_vampire(ptr) {
     return ptr?.mlet === 'S_VAMPIRE';
 }
+/** C ref: mondata.h is_bat — bat / giant bat / vampire bat only (not raven) */
+const PM_BAT = monsterNames.indexOf('PM_BAT');
+const PM_GIANT_BAT = monsterNames.indexOf('PM_GIANT_BAT');
+const PM_VAMPIRE_BAT = monsterNames.indexOf('PM_VAMPIRE_BAT');
+export function is_bat(ptr) {
+    const n = ptr?.mndx;
+    return n === PM_BAT || n === PM_GIANT_BAT || n === PM_VAMPIRE_BAT;
+}
 /**
  * C ref: mondata.h is_vampshifter — cham is a vampire species.
  * Named omission: full mondata.h body beyond cham index check.

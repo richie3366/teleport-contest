@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 07:56 — #1119 S_BAT Inhell MFAST
+- Objective: seed4500 @104705 bat@46 mcalcmove 12vs24.
+- C locus: `makemon.c` S_BAT / `Inhell` / `is_bat` → `mon_adjust_speed(...,2)`.
+- Change: C dump — fmon order matched; bat mspeed MFAST vs JS 0.
+  Port `is_bat` + S_BAT hell arm (`permspeed`/`mspeed` MFAST).
+- Verification: green+strict PASS; cohort 5/5; prefix **104705→106304**
+  (runner RNG **106354** Scr **939**).
+- Next: @**106304** C fleeck vs JS `m_lined_up` rn2(25); cadence @#1120.
+
 ## 2026-07-21 07:35 — #1118 bat@46 mcalcmove (falsify fleeck rn2(4))
 - Objective: seed4500 @104705 C fleeck rn2(5) vs JS rn2(4).
 - C locus: `mon.c` `mcalcmove` / `mcalcdistress`; `allmain.c` EOT allot.
@@ -152,15 +161,4 @@ Use this shape:
   Scr **924**; green+strict PASS; cohort 7/7; suite **42/44** Scr
   **10514** RNG **786142** (99.16%).
 - Next: @**101391** `distfleeck` `rn2(5)` vs JS `rn2(61)`.
-
-## 2026-07-21 04:35 — #1104 nolimbs ring put-on + doread check_capacity
-- Objective: seed4500 @100699 C `rn2(46) @ rnd_otyp_by_namedesc` vs
-  JS `rn2(5)` (D-0928) — misread; JS namedesc ran 14 calls late.
-- C locus: `do_wear.c` `accessory_or_armor_on` `nolimbs`; `read.c`
-  `doread` → `check_capacity`; `mondata.h` `nolimbs`.
-- Change: `monsters.js` `nolimbs`/`M1_NOLIMBS`; ring cannot-stick
-  before Right/Left yn; `doread` EXT_ENCUMBER → pline + ECMD_OK.
-- Verification: prefix **100699→101373**; RNG **101373** Scr **926**;
-  green+strict PASS; cohort 1500/1800/0108/5002/5006/0014/2600 **7/7**.
-- Next: @**101373** `passiveum` `d(2,6)` vs `rnd(21)`; cadence @#1105.
 

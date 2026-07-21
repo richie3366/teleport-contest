@@ -6,18 +6,28 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1118; **#1118** bat@46 mcalcmove)
-- **Session:** seed4500-knight-coverage (prefix @**104705**)
-- **Symptom (@104705):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
+- **Status:** partial (#1080–#1119; **#1119** S_BAT Inhell MFAST)
+- **Session:** seed4500-knight-coverage (prefix @**106304**)
+- **Cause (#1119 C dump):** allotment fmon order matched; bat@46,19
+  fi=132 had C `mspeed=MFAST` vs JS `mspeed=0`. Same `rn2(12)=11`:
+  MFAST scales mmove 20→27 → always +24; normal → +12. Root: omitted
+  `makemon` `S_BAT` + `Inhell` + `is_bat` → `mon_adjust_speed(...,2,NULL)`.
+- **Fix (#1119):** `monsters.js` `is_bat`; `makemon.js` S_BAT hell arm
+  sets `permspeed`/`mspeed` MFAST. Named omit: orc/elf/unicorn mlet
+  peace; muse `mon_adjust_speed` call (cycle — inlined case 2).
+- **Verification (#1119):** green+strict PASS; cohort 5/5; prefix
+  **104705→106304** (runner RNG **106354** Scr **939**).
+- **Next:** @**106304** C `distfleeck` vs JS `m_lined_up` rn2(25).
+- **Symptom (@104705 was):** C `rn2(5) @ distfleeck` vs JS `rn2(4)`.
 - **Cause (#1118 DIAG):** JS `rn2(4)` is EOT `decide_to_shapeshift`
   fog path — movemon already finished. C still has one more mon
   move (vamp-bat @46,19 2nd pass). That bat got `mcalcmove` add
   **12** (rn2(12)=11); needs **24**. getlev leftover=0; fmon n=140
   matches. Lich@40,11 sits between bat@8 and bat@69 in JS fmon
-  (order suspect). FORCE +12 movement → prefix **104705→104943**
+  (order suspect). FORCE +12 → prefix **104705→104943**
   (not shipped).
-- **Next:** why C’s mcalcmove slot for bat@46 yields 24 (fmon order
-  dump / lich placement); do not FORCE movement.
+- **Next (@104705 was):** why C's mcalcmove slot for bat@46 yields 24
+  (fmon order dump / lich placement); do not FORCE movement.
 - **Symptom (@104241 was):** C `rn2(5) @ distfleeck` vs JS `rn2(20)`
   (`overexertion`→`gethungry`).
 - **Cause (#1117 C dump):** both C and JS `u_calc` Fast `rn2(3)=0`

@@ -71,19 +71,19 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**104705** (D-0928). **#1118:**
-falsified fleeck-vs-rn2(4) — JS `rn2(4)` is early `decide_to_shapeshift`;
-C still has one mon move. Vamp-bat @46,19 got `mcalcmove` **12** (needs
-**24**). Leftover after getlev=0; n=140. FORCE +12 → **104705→104943**
-(not shipped). Next: why that bat’s mcalcmove slot is 12 vs C 24
-(fmon order / lich@40,11 between bats?). Focused:
+**Gameplay next:** **seed4500** @**106304** (D-0928). **#1119:**
+ported `makemon` S_BAT Inhell `is_bat` → MFAST (`mon_adjust_speed` case
+2). Was @104705: C bat@46 mspeed=MFAST vs JS 0 → mcalcmove 24vs12.
+Prefix **104705→106304** (runner RNG **106354** Scr **939**). Next:
+C `distfleeck` vs JS `m_lined_up` rn2(25). Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject).
+**Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject);
+D-0928 #1119 S_BAT Inhell MFAST.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -109,7 +109,8 @@ fleeck≠wish/eel; @101641≠`#version`; @101710≠m_search;
 @104217≠exercise modulus (was missing mfind0 / wizwhere pager);
 @104241≠Very_fast / FORCE VF/umov0 / shed≠capacity root /
 u_calc umov delta (C dump after=12 too);
-@104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift).
+@104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift);
+@104705≠fmon-order alone — was missing S_BAT Inhell MFAST (#1119).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
