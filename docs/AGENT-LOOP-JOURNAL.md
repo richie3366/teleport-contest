@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 14:42 — #1164 makemon_appear_msg wizgenesis
+
+- Objective: seed4500 @1034 invent `appears close by` vs C path.
+- C locus: `makemon.c` !MM_NOMSG appear Norep (Amonnam +
+  next2u(**requested** x,y) + MM_NOEXCLAM); `read.c`
+  `create_particular_creation` has no caller pline.
+- Change: drop invent create_particular appear; add
+  `makemon_appear_msg` + await from creation (D-0928 #1164).
+- Verification: green+strict PASS; cohort 36/36; Scr **1433→1434**;
+  prefix **@1034→@1048**.
+- Next: @**1048** Blind map `(41,7)`/`(42,7)` C `~~` vs JS `:_`.
+
 ## 2026-07-21 14:36 — #1163 waterbody_name Medusa shallow sea
 
 - Objective: seed4500 @1001 C `shallow sea` vs JS `moat`.

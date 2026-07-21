@@ -33,9 +33,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1163)
+- **Status:** partial (#1080–#1164)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1433**/1814)
+  Scr **1434**/1814)
+- **Hypothesis (#1164):** @978/@1034 — NOTES claimed C empty vs JS
+  invent `A minotaur appears close by.` Dropping invent emptied
+  @978 where C shows `A red dragon appears next to you.` Root:
+  appear is `makemon.c` !MM_NOMSG Norep (Amonnam + next2u(**requested**
+  x,y) + MM_NOEXCLAM `.`); invent used mtmp.mx/my so far mon →
+  “close by”. create_particular has no caller pline.
+- **Fix (#1164):** remove invent create_particular appear; add
+  `makemon_appear_msg` + await from creation (sync makemon kept;
+  mimic mhidden_description / set_msg_xy / dochugw deferred).
+- **Verification (#1164):** green+strict PASS; cohort 36/36 (seed0398
+  Scr **87**/87; seed5002 **410**/410); seed4500 Scr **1433→1434**;
+  prefix **@1034→@1048**. Next: @**1048** Blind map `~~` vs `:_`.
 - **Hypothesis (#1163):** @1001 C `You avoid stepping into the shallow
   sea.` vs JS `…the moat.` — `waterbody_name` MOAT returned plain
   `"moat"`; C `pager.c` returns `"shallow sea"` on `Is_medusa_level`,
@@ -44,9 +56,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1163):** `hack.js` `waterbody_name` ports those MOAT/ICE/
   waterwall arms (SURFACE_AT drawbridge still deferred).
 - **Verification (#1163):** green+strict PASS; cohort 36/36; seed4500
-  Scr **1431→1433**; prefix **@1001→@1034**. Next: @**1034** C empty
-  topline vs JS `A minotaur appears close by.` (`create_particular`
-  invents caller pline; C creation has none).
+  Scr **1431→1433**; prefix **@1001→@1034**. Next: @**1034** wizgenesis
+  appear (resolved #1164).
 - **Hypothesis (#1162):** @997 C `You hear hissing gas` + `The blast
   of fire hits it!--More--` vs JS fire-hits-it then hits-you without
   hissing — `zap_over_floor` ZT_FIRE/is_pool created the steam cloud

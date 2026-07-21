@@ -8,12 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1034** — C empty topline vs JS
-  `A minotaur appears close by.` Focused:
+- **Primary (D-0928):** seed4500 @**1048** — Blind map `(41,7)`/`(42,7)`
+  C `~~` vs JS `:_`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `read.c` `create_particular_creation` has **no** appear
-  pline after `makemon(..., MM_NOEXCLAM)` — JS invents caller-side
-  `"appears close by"`; drop it (makemon announce still deferred).
+  Falsify: memory/glyph for pool/lava under Blind after wizgenesis.
 
 ## Don't re-check (≤15)
 
@@ -28,6 +26,9 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @103155 getlev/`^V` as root; no inediate FOOD reject (#1113).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not invent create_particular appear pline from mtmp.mx/my —
+  C appear is makemon !MM_NOMSG; next2u uses **requested** (x,y)
+  (wizgenesis u.ux,u.uy → always “next to you”) (#1164).
 - Do not treat @1001 moat as swim-tip wording — was `waterbody_name`
   Medusa `"shallow sea"` (#1163).
 - Do not treat @997 hissing vs fire-hits-you as buzz reorder — was
@@ -36,13 +37,14 @@ Objective/score live in `CURRENT.md`.
   `wake_msg` + growl pline (#1161).
 - Do not treat @941 overview Level-1 fountain / Mines 5 as interest_filter
   alone — was missing `lastseentyp` savelev/getlev (#1160).
-- Do not treat @929 Dlvl:6 staircase-down as More/keystream — was
-  missing Punished climb `great_effort` (#1159).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1160 Scr **11013**/11405 RNG **792838**/792838
   (**100%**); speed `32+0.26/turn`; next cadence @**#1165**.
+- **D-0928 #1164:** drop invent create_particular appear; add
+  `makemon_appear_msg` (req x,y next2u + MM_NOEXCLAM); Scr
+  **1433→1434**; prefix **@1034→@1048** Blind `~~` vs `:_`.
 - **D-0928 #1163:** `waterbody_name` Medusa/juiblex/samurai/ICE/
   waterlevel; Scr **1431→1433**; @1001 OK; next @1034 wizgenesis.
 - **D-0928 #1162:** zap_over_floor hissing-gas Norep + hit The;
@@ -70,5 +72,3 @@ Objective/score live in `CURRENT.md`.
   **1147→1366**; @789 OK — overlay half narrowed in D-0929.
 - **D-0928 #1150:** doname FOOD `oeaten`/`greased`; Scr
   **1146→1147**; @753 OK.
-- **D-0928 #1149:** self_lookat Punished + bare ball; Scr
-  **1142→1146**; @787 OK.
