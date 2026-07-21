@@ -72,21 +72,22 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1147:** `#name` getobj `name_ok` +
-`do_oname`. Scr **1120→1141**; prefix **@707→@751**. Next @**751** C
-`What do you want to take off? [cdef or ?*]` vs JS blank topline
-(`getobj_takeoff` letter set / prompt). Focused:
+**108275**/108275). **D-0928 #1148:** `getobj_takeoff` → `yn_function`
+leave toplines. Scr **1141→1142**; prefix **@751→@787**. Next @**787**
+C `human knight called wizard, chained to a heavy iron ball` vs JS
+without Punished suffix (`pager.c` `self_lookat`). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1147 (bat MFAST … `#name` getobj).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1148 (bat MFAST … takeoff yn leave).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
-@707≠`[?]` alone — missing getobj `name_ok` SUGGEST letters (#1147);
+@751≠blank alone — was clearing getobj prompt on delayed takeoff
+(#1148); @707≠`[?]` alone — missing getobj `name_ok` SUGGEST (#1147);
 @630≠non-wizard skills menu — missing wizard `#enhance` y_n/speedy
 (#1146);
 @614≠current-only overview — missing `interest_mapseen` (#1145);

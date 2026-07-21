@@ -6,9 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1147)
+- **Status:** partial (#1080–#1148)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1141**/1814)
+  Scr **1142**/1814)
+- **Hypothesis (#1148):** @751 C still shows takeoff `[cdef or ?*]` after
+  selecting `e` (delayed shield `armoroff`, no immediate `off_msg`) while
+  JS blanked `_pending_message` on getobj success — C leaves
+  `gt.toplines` until parse `clear_nhwindow(WIN_MESSAGE)`.
+- **Fix (#1148):** `do_wear.js` `getobj_takeoff` → `yn_function` +
+  `mark_topline_prompt` on success (≡ `getobj_drop`). `?`/`*` pickinv /
+  `takeoff_ok` inaccessible still deferred.
+- **Verification (#1148):** green+strict PASS; cohort 7/7
+  (0102/0106/0367/0383/0399/1500/1800); Scr **1141→1142**; prefix
+  **@751→@787**. Next: @**787** C `self_lookat` Punished
+  `, chained to a heavy iron ball`.
 - **Hypothesis (#1147):** @707 C `#name` invent getobj shows
   `What do you want to name? [a-km or ?*]` vs JS stub `[?]` —
   `docallcmd` case `i` never called `getobj("name", name_ok)`.

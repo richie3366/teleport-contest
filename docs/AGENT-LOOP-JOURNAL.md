@@ -20,6 +20,16 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:00 — #1148 getobj_takeoff yn leave toplines
+- Objective: seed4500 @751 C takeoff prompt after `e` vs JS blank.
+- C locus: `invent.c` getobj → `yn_function` leaves `gt.toplines`;
+  `do_wear.c` delayed `armoroff` (no immediate `off_msg`).
+- Change: `do_wear.js` `getobj_takeoff` → `yn_function` +
+  `mark_topline_prompt` on success (stop clearing pending msg).
+- Verification: green+strict PASS; cohort 7/7; Scr **1141→1142**;
+  prefix **@751→@787**.
+- Next: @**787** C `self_lookat` Punished `, chained to … ball`.
+
 ## 2026-07-21 12:55 — #1147 docallcmd getobj name_ok + do_oname
 - Objective: seed4500 @707 C `#name` `[a-km or ?*]` vs JS `[?]`.
 - C locus: `do_name.c` `name_ok` / `docallcmd` case `i` /
