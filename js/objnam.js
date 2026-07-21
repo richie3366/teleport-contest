@@ -16,6 +16,8 @@ import {
     AMULET_CLASS,
     GEM_CLASS,
     VENOM_CLASS,
+    BALL_CLASS,
+    CHAIN_CLASS,
     objectNames,
     objectNameStrs,
     objectDescrs,
@@ -27,6 +29,7 @@ import {
 } from './generated/monsters_data.js';
 import {
     W_ARMOR, W_AMUL, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
+    W_BALL, W_CHAIN,
     Has_contents, Is_container, Is_box, P_NONE, P_BOW, P_CROSSBOW, P_SHURIKEN,
     P_DART, P_BOOMERANG,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
@@ -638,6 +641,12 @@ function pretty_base(obj) {
         else if (un) buf += `${dn} called ${un}`; // named omit: armor_simple_name
         else buf += dn;
         return buf;
+    }
+    // C ref: objnam.c xname_flags BALL_CLASS —
+    // "%sheavy iron ball" with "very " when owt > oc_weight (punish levy).
+    if (obj.oclass === BALL_CLASS) {
+        const ocw = game.objects?.[obj.otyp]?.oc_weight ?? 0;
+        return `${((obj.owt | 0) > ocw) ? 'very ' : ''}heavy iron ball`;
     }
     let base = PRETTY[n] || (n ? n.toLowerCase().replace(/_/g, ' ') : 'object');
     // C ref: objnam.c xname — Samurai Japanese_item_name overrides actualn
@@ -1378,7 +1387,8 @@ export function doname(obj) {
 
     // C ref: objnam.c doname_base — ARMOR falls through to WEAPON for
     // add_erosion_words + spe; BALL/CHAIN also call add_erosion_words.
-    if (donameClass === WEAPON_CLASS || donameClass === ARMOR_CLASS) {
+    if (donameClass === WEAPON_CLASS || donameClass === ARMOR_CLASS
+        || donameClass === BALL_CLASS || donameClass === CHAIN_CLASS) {
         prefix += add_erosion_words(obj);
     }
 
@@ -1419,6 +1429,11 @@ export function doname(obj) {
         bp += ' (on right hand)';
     if (obj.owornmask & W_RINGL)
         bp += ' (on left hand)';
+    // C ref: objnam.c doname_base BALL_CLASS/CHAIN_CLASS —
+    // W_BALL → "(chained to you)"; W_CHAIN → "(attached to you)".
+    if (obj.owornmask & (W_BALL | W_CHAIN)) {
+        bp += ` (${(obj.owornmask & W_BALL) ? 'chained' : 'attached'} to you)`;
+    }
     // C ref: objnam.c doname_base W_WEP — stack/ammo/missile/non-weptool →
     // "(wielded)"; else "weapon in"/"wielded in" hand(s). mrg_to_wielded,
     // AKLYS tethered, warn_obj/artifact_light paren rewrite deferred.

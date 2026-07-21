@@ -72,10 +72,9 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1140:** `makeplural`/`makesingular`
-`singplur_compound` (`labeled`/`called`/`named`/…). Scr **969→970**;
-prefix → **@517**. Next @**517**/@**518** BALL_CLASS `very ` when
-`owt > oc_weight` + doname `(chained to you)` / iron-chain look_here.
+**108275**/108275). **D-0928 #1141:** BALL `very ` + `(chained to you)`
++ `check_here` skip `uchain`. Scr **970→995**; prefix → **@521**.
+Next @**521** C discoveries polearm menu `--More--` vs JS map.
 Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -83,10 +82,11 @@ Focused:
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1140 (bat MFAST … singplur_compound).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1141 (bat MFAST … ball/chain).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@517≠display of attached chain — `check_here` must skip `uchain` (#1141);
 @372≠wrong xname label — missing `singplur_compound` (#1140);
 @292≠finish-prayer append alone — missing cobra You_see (#1139);
 @237≠Options alone — missing Comp getlin for fruit (#1138);

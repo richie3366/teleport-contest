@@ -6,9 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1140)
+- **Status:** partial (#1080–#1141)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **970**/1814)
+  Scr **995**/1814)
+- **Hypothesis (#1141):** @517 JS `You see here an iron chain` vs C
+  blank — `check_here` counted `uchain` (C skips). @518 C
+  `very heavy iron ball (chained to you)` vs JS `heavy iron ball` —
+  missing BALL xname `owt>oc_weight` → `very ` and doname
+  `W_BALL`/`W_CHAIN` `(chained|attached to you)`.
+- **Fix (#1141):** `objnam.js` BALL `pretty_base` + doname erosion/
+  chained suffix; `pickup.js` `check_here` skip `uchain`.
+- **Verification (#1141):** green+strict PASS; cohort 8/8; Scr
+  **970→995**; prefix **@517→@521**. Next: @**521** C discoveries
+  polearm menu `--More--` vs JS map.
 - **Hypothesis (#1140):** @372 invent `3 scrolls labeled KIRJE` vs
   `3 scroll labeled KIRJEs` — JS `makeplural` only split on `" of "`;
   C `singplur_compound` also splits on `" labeled "` / `" called "` /
