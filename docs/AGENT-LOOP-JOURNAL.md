@@ -31,6 +31,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 16:05 — #1173 sanctum lspo_map lit=FALSE clear
+
+- Objective: seed4500 @1291 look_here map C blank/3×3 vs JS walls.
+- C locus: `sp_lev.c` `lspo_map` default lit=FALSE → `set_levltyp_lit`;
+  `dat/sanctum.lua` solidfill then map.
+- Change: `load_sanctum` clears SpLev_Map lit after map (lava stays);
+  global `sel_set_ter(false)`→unlit deferred (tut-1) (D-0928 #1173).
+- Verification: green+strict PASS; seed0009 PASS; cohort 14/14;
+  Scr **1529→1576**; prefix **@1291→@1322**.
+- Next: @**1322** getpos `fountain` vs JS `unexplored area`.
+
 ## 2026-07-21 15:50 — #1172 overview dismiss dismiss_nhw_menu
 
 - Objective: seed4500 @1252 map `"` vs `s` (misread DEC-vs-Primary).
@@ -178,16 +189,4 @@ Use this shape:
   **42/44** Scr **11013**/11405 RNG **100%**; seed4500
   **1412→1423**; @941 OK.
 - Next: seed4500 @985 wood nymph disarm vs wake (D-0928).
-
-## 2026-07-21 14:12 — #1159 D-0928 goto_level climb great_effort
-
-- Objective: seed4500 @929 C climb-stairs `--More--` vs JS Dlvl:6.
-- C locus: `do.c` `goto_level` — `great_effort = Punished && !Levitation`
-  + `u_locomotion("climb")` + Flying ladder " along".
-- Change: `do.js` climb pline (Levitation/Flying helpers); poly
-  locomotion / steed-flyer deferred.
-- Verification: green+strict PASS; cohort 12/12; Scr **1409→1412**;
-  prefix **@929→@941**.
-- Next: seed4500 @941 `#overview` extra Level-1 fountain + Mines 5
-  (D-0928).
 

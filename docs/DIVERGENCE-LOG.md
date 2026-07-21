@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1172)
+- **Status:** partial (#1080–#1173)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1529**/1814)
+  Scr **1576**/1814)
+- **Hypothesis (#1173):** @1291 — look_here “Things that are here”
+  map bleed (C blank/3×3 vs JS full room walls). Misread as corner
+  menu/docorner. After `^V`50 land on **sanctum** (Dlvl:48), JS
+  `load_sanctum` solidfill `BOOL_RANDOM` lit left on map cells because
+  `sel_set_ter(..., false)` is still nochange; C `lspo_map` default
+  lit=FALSE clears via `set_levltyp_lit`. litCount **1550→151**.
+- **Fix (#1173):** `mklev.js` `load_sanctum` — after
+  `splev_apply_centered_map`, clear SpLev_Map lit (lava stays lit)
+  like Pri-loca/fire. Global `sel_set_ter(false)`→unlit deferred
+  (tut-1 border wall display regresses until vision wall-hack matches).
+- **Verification (#1173):** green+strict PASS; seed0009 PASS; cohort
+  14/14; focused seed4500 prefix **@1291→@1322**; Scr **1529→1576**.
+  Next: @**1322** getpos `fountain` vs JS `unexplored area`.
 - **Hypothesis (#1172):** @1252 — map cell C `"` vs JS `s` (misread as
   DEC-vs-Primary room row; visual DEC/`·` translate matched). After
   `#overview` ESC, C `destroy_nhwindow` → `erase_menu_or_text` corner

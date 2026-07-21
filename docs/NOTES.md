@@ -8,11 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1291** — look_here
-  `Things that are here:` map bleed (C blank vs JS walls under
-  corner menu). Focused:
+- **Primary (D-0928):** seed4500 @**1322** — getpos `fountain` vs JS
+  `unexplored area` (Dlvl:3 after sanctum). Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `look_here`/NHW_MENU geometry vs JS corner paint/docorner.
+  Falsify: C `do_name`/`getpos` terrain name vs JS lastseentyp / glyph.
 
 ## Don't re-check (≤15)
 
@@ -40,11 +39,17 @@ Objective/score live in `CURRENT.md`.
   nh_timeout freeze (#1171).
 - Do not treat @1252 DEC-vs-Primary room row — sole miss was gbuf `"`
   vs `docrt`/`see_monsters` `s` after `#overview` (#1172).
+- Do not treat @1291 look_here corner paint — was sanctum solidfill
+  BOOL_RANDOM lit left on map (`lspo_map` lit=FALSE clear; #1173).
+  Do not blanket-fix `sel_set_ter(false)`→unlit yet (tut-1 border
+  walls regress until vision wall-hack matches C).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1170 Scr **11111**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1175**.
+- **D-0928 #1173:** sanctum map lit=FALSE clear after `splev_apply`;
+  prefix **@1291→@1322**; Scr **1529→1576**.
 - **D-0928 #1172:** overview dismiss `dismiss_nhw_menu` (no corner
   docrt); prefix **@1252→@1291**; Scr **1525→1529**.
 - **D-0928 #1171:** wiz Blind `make_blinded` + `u.uinvulnerable`
