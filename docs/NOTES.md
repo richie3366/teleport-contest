@@ -44,8 +44,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1165 Scr **11024**/11405 RNG **792838**/792838
-  (**100%**); speed `30+0.25/turn`; next cadence @**#1170**.
+- suite **42/44** @#1170 Scr **11111**/11405 RNG **792838**/792838
+  (**100%**); speed `30+0.25/turn`; next cadence @**#1175**.
 - **D-0928 #1169:** Blind `feel_location` + newsym u_at; maps chain;
   prefix **@1098→@1151**; Scr **1419→1521**.
 - **D-0928 #1168:** `nh_timeout` generic remaining uprops TIMEOUT `--`;
@@ -54,7 +54,7 @@ Objective/score live in `CURRENT.md`.
   `dowield`/`wield_tool`; prefix **@1053→@1092**; Scr **1413→1417**.
 - **D-0928 #1166:** unmap_object `map_background` + fight_empty
   always-unmap; prefix **@1048→@1053**; Scr **1434→1413**.
-- **D-0928 #1165:** score cadence; @1048 diagnosed (fixed #1166).
+- **D-0928 #1165:** score cadence Scr **11024**; @1048 diagnosed.
 - **D-0928 #1164:** drop invent create_particular appear; add
   `makemon_appear_msg` (req x,y next2u + MM_NOEXCLAM); Scr
   **1433→1434**; prefix **@1034→@1048**.

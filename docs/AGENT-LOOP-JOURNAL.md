@@ -31,6 +31,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 15:32 — #1170 public score cadence
+
+- Objective: mandatory full `sessions` score @#1170 (÷5).
+- C locus: n/a — docs/score only; primary remains @1151 Blind TIMEOUT.
+- Change: Score refresh — **42**/44 Scr **11111**/11405 RNG
+  **792838**/792838 (100%); speed `30+0.25/turn` (R² 0.86).
+  Scr +87 vs @#1165 reflects #1166–#1169 seed4500 peels (1521/1814).
+- Verification: green+strict PASS; full `sessions` 42/44.
+- Next: seed4500 @**1151** `#wizintrinsic` Blind TIMEOUT JS `[23]`
+  vs C `[119]` (D-0928).
+
 ## 2026-07-21 15:30 — #1169 Blind feel_location iron chain
 
 - Objective: seed4500 @1098 Blind feel map `_` vs floor (misread altar).
@@ -156,40 +167,4 @@ Use this shape:
   prefix **@929→@941**.
 - Next: seed4500 @941 `#overview` extra Level-1 fountain + Mines 5
   (D-0928).
-
-## 2026-07-21 14:04 — #1158 D-0928 show_map_spot engraving
-
-- Objective: seed4500 @902 map `` ` `` vs `·` after `#wizmap`.
-- C locus: `detect.c` `show_map_spot` — `map_engraving` when
-  `!IS_FURNITURE` and no tseen trap (`S_engroom`).
-- Change: `detect.js` `show_map_spot` remaps `engr_at` via
-  `map_engraving` after trap branch (wine-cellar engroom).
-- Verification: green+strict PASS; cohort 14/14; Scr **1390→1409**;
-  prefix **@902→@929**.
-- Next: seed4500 @929 climb-stairs `--More--` vs JS Dlvl:6 (D-0928).
-
-## 2026-07-21 13:55 — #1157 D-0928 mapseen overview shops/branches
-
-- Objective: seed4500 @893 `#overview` Level 3 vs 25.
-- C locus: `dungeon.c` `recalc_mapseen`/`room_discovered`/
-  `recbranch_mapseen`/`shop_string`/`print_mapseen`;
-  `detect.c` `show_map_spot`; `do.c` leave recalc + recbranch;
-  `hack.c` special-room `room_discovered`.
-- Change: msrooms + leave `recalc_mapseen`; find_mapseen keeps
-  `lastseentyp`; `show_map_spot`→`room_discovered` (mapped shops);
-  `recbranch_mapseen`; shop_string/branch/wizard proto print.
-- Verification: green+strict PASS; cohort 14/14; Scr **1389→1390**;
-  prefix **@893→@902**.
-- Next: seed4500 @902 map `~` vs `·` / DEC walls (D-0928).
-
-## 2026-07-21 13:44 — #1156 D-0929 look_here overlay leftover
-
-- Objective: suite restore — narrow #1151 pager keep/restore.
-- C locus: `invent.c` `look_here` `display_nhwindow(WIN_MESSAGE,FALSE)`
-  + `wintty.c` NHW_MENU corner `tty_clear_nhwindow` no-op when EMPTY.
-- Change: `show_nhw_menu_text(..., { keep_message_leftover })` only from
-  `look_here`; other corner menus clear `_pending_message` again.
-- Verification: green+strict PASS; 0006/0007/0009/0360 PASS; seed4500
-  Scr **1389**; full `sessions` **42/44** Scr **10979**/11405 RNG 100%.
-- Next: seed4500 @893 `#overview` Level 3 vs 25 (D-0928).
 
