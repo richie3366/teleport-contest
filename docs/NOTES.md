@@ -8,12 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106540**. #1123: castmu
-  PSI_BOLT→`mdamageu`/`rehumanize` (+ Unchanging→`done`). Still
-  @106540 because JS wears wished amulet of unchanging → savelife
-  keeps Upolyd → `m_lined_up` `rn2(25)`; C rehumanizes. Force-ignore
-  Unchanging → prefix **106540→106838**. Next: Put-on / invent letter
-  for that amulet vs C. Focused:
+- **Gameplay next (D-0928):** seed4500 @**106838**. #1124: `dowear`
+  verysmall/nohands → `"Don't even bother."` (C never wore Unchanging
+  while brown-mold). Prefix **106540→106838**. Next: @106838 C
+  `m_move` `rn2(20)` vs JS `rn2(32)`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -35,23 +33,20 @@ Objective/score live in `CURRENT.md`.
   S_BAT Inhell MFAST; don’t FORCE bat@46 +12 (#1118–#1119).
 - Do not treat @106304 fleeck vs lined_up as root — was missing
   covetous `tactics` + fire-trap `destroy_items` (#1120).
-- Do not treat @106531 as wrong base mattk dice — was missing poly
-  `COLD_RES` FROMFORM + `getmattk` lich cold→PHYS (#1121).
-- Do not treat @106536 as wrong `m_lev`/spell list — was missing
-  `mattacku` AT_MAGC→`castmu` (#1122).
-- Do not treat @106540 as courage `rn2(25)` vs fleeck — was missing
-  PSI_BOLT `mdamageu`; Unchanging amulet wear vs C is the rest (#1123).
+- Do not treat @106531–@106540 as invent-letter Put-on mismatch —
+  C `W` while nohands → Don't even bother; JS deferred (#1123–#1124).
+- Do not treat @106540 as courage `rn2(25)` vs fleeck alone (#1123).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1120 Scr **10527**/11405 RNG **791103**/792838
   (99.78%); speed `30+0.24/turn`; next cadence @**#1125**.
-- **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; still @**106540**;
-  force-ignore Unchanging → **106838**.
-- **D-0928 #1122:** AT_MAGC castmu; was @**106536**; prefix
-  **106536→106540**; runner RNG **106559** Scr **937**.
-- **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**;
-  prefix **106531→106536**; runner RNG **106546** Scr **937**.
+- **D-0928 #1124:** dowear verysmall/nohands; was @**106540**;
+  prefix **106540→106838**; runner RNG **106858** Scr **939**.
+- **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
+  was #1124.
+- **D-0928 #1122:** AT_MAGC castmu; was @**106536**.
+- **D-0928 #1121:** set_uasmon MR_* + getmattk lich cold; was @**106531**.
 - **D-0928 #1120:** tactics + fire destroy_items; was @**106304**.
 - **D-0928 #1119:** S_BAT Inhell MFAST; was @**104705**.
 - **D-0928 #1118:** @104705 early shapeshift; bat MFAST omit (→#1119).
@@ -61,5 +56,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.
 - **D-0928 #1113:** eat key-desync misread (More not empty eat).
 - **D-0928 #1112:** ok_to_throw + mtimedone; was @**103155**.
-- **D-0928 #1111:** select_newcham random while; was @**103071**.
-- **D-0928 #1110…#1092:** eel / Blind FROMFORM / …
+- **D-0928 #1111…#1092:** cham / eel / Blind FROMFORM / …

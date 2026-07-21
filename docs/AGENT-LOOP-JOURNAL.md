@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 09:03 — #1124 dowear verysmall/nohands
+- Objective: seed4500 @106540 Unchanging wear vs C (invent-letter hyp).
+- C locus: `do_wear.c` `dowear` verysmall/nohands → "Don't even bother."
+- Change: C wish letter `t` then `W` while brown-mold rejects Wear;
+  `t`/`z` become throw/zap. JS deferred the gate → put on Unchanging.
+  Port early reject; invent-letter theory falsified.
+- Verification: green+strict PASS; cohort 6/6; prefix **106540→106838**
+  (runner RNG **106858** Scr **939**).
+- Next: @**106838** C `m_move` `rn2(20)` vs JS `rn2(32)`; cadence @#1125.
+
 ## 2026-07-21 08:58 — #1123 castmu PSI_BOLT→mdamageu/rehumanize
 - Objective: seed4500 @106540 C fleeck rn2(5) vs JS rn2(25).
 - C locus: `mcastu.c` `mcast_psi_bolt`/`mdamageu`; `polyself.c` `rehumanize`.
@@ -140,14 +150,3 @@ Use this shape:
 - Verification: prefix **103071→103155** (runner RNG **103264** Scr
   **928**); green+strict PASS; cohort 5/5 (1500/1800/0013/0361/0373).
 - Next: @**103155** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
-
-## 2026-07-21 05:25 — #1110 cadence + minliquid eel monflee
-- Objective: cadence full `sessions` + seed4500 @101710 postmov vs rn2(8).
-- C locus: `mon.c` `minliquid_core` → `monflee(mtmp,2,FALSE,FALSE)`.
-- Change: `mon.js` `minliquid` await `monflee` (was inline flee bits
-  without `mon_track_clear`). Stale track forced JS `rn2(8)` track
-  avoid while C hid in `postmov`.
-- Verification: prefix **101710→103071** (runner RNG **103190** Scr
-  **928**); green+strict PASS; cohort 5/5; full suite **42/44** Scr
-  **10518** RNG **787753** (99.36%) speed `29+0.25/turn`.
-- Next: @**103071** C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.

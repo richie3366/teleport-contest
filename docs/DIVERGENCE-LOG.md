@@ -6,8 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1123; **#1123** castmu PSI_BOLT→mdamageu)
-- **Session:** seed4500-knight-coverage (prefix still @**106540**)
+- **Status:** partial (#1080–#1124; **#1124** dowear verysmall/nohands)
+- **Session:** seed4500-knight-coverage (prefix @**106838**)
+- **Cause (#1124 DIAG):** @106540 C fleeck `rn2(5)` vs JS
+  `m_lined_up` `rn2(25)`. Not invent letter: C wish assigns `t`
+  (`t - a spherical amulet.`) then `W` → `"Don't even bother."`
+  (poly brown mold: `verysmall||nohands`); `t`/`z` become throw/zap
+  rejects. JS `dowear` deferred that gate so `Wt` put on Unchanging
+  → `rehumanize`→`done`→savelife kept Upolyd. Force-ignore Unchanging
+  had predicted **106540→106838**.
+- **Fix (#1124):** `do_wear.js` `dowear` → C `verysmall||nohands`
+  pline `"Don't even bother."` / ECMD_OK before getobj.
+- **Verification (#1124):** green+strict PASS; cohort 6/6 (incl.
+  seed0116 wear); prefix **106540→106838** (runner RNG **106858**
+  Scr **939**).
+- **Next:** @**106838** C `m_move` `rn2(20)` vs JS `rn2(32)`.
 - **Cause (#1123 DIAG):** @106540 C `distfleeck` `rn2(5)` vs JS
   `m_lined_up` `rn2(25)`. After matching castmu `d(12,6)`, C
   rehumanizes (!Upolyd) so later `lined_up` skips conceal burn; JS
@@ -17,11 +30,10 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix (#1123):** `mcastu.js` PSI_BOLT/OPEN_WOUNDS → Antimagic-halve
   + `mdamageu`; `mhitu.js` `mdamageu` Upolyd `mh<1` → `rehumanize`;
   `polyself.js` Unchanging+`mh<1` → `done(DIED)` (C `rehumanize`).
-  Named: other `mcast_spell` bodies; invent/Put-on letter for wished
-  amulet of unchanging vs C (why JS still Unchanging when C is not).
+  Named: other `mcast_spell` bodies.
 - **Verification (#1123):** green+strict PASS; cohort 4/4; prefix
   still **106540** (Unchanging wear); force-reh → **106838**.
-- **Next:** Put-on / invent-letter for wished amulet of unchanging.
+- **Next (was):** Put-on / invent-letter for wished amulet of unchanging.
 - **Cause (#1122 DIAG):** @106536 C `choose_monster_spell` `rn2(23)` vs
   JS `rn2(5)` — JS `mattacku` omitted `AT_MAGC` → `castmu` (fell through
   `default`). After touch+passiveum, C burned lich `rn2(m_lev)` /
