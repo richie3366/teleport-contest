@@ -6,16 +6,25 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1099; **#1100** check_caitiff)
-- **Session:** seed4500-knight-coverage (prefix @**100395**)
+- **Status:** partial (#1080–#1100; **#1101** water_damage early arms)
+- **Session:** seed4500-knight-coverage (prefix @**100421**)
 - **Symptom (@100395):** C `rn2(3) @ gush` vs JS `rn2(20)`.
+- **Cause (#1101):** `dogushforth`/`gush` created a POOL on a ROOM
+  cell with floor `CHEST`; C `water_damage` hits
+  `Waterproof_container` → `ER_DAMAGED` with **no** luck `rn2(20)`.
+  JS omitted splash_lit / grease / towel / container arms and burned
+  luck `rn2(20)` first.
+- **Fix (#1101):** `trap.js` `water_damage` early arms +
+  `const.js` `Waterproof_container`; minimal `wet_a_towel`. Prefix
+  **100395→100421**. Named omit: invent plines; pot_acid boom;
+  waterproof makeknown; brass-lantern dunk; SPE_NOVEL blank.
+- **Next (@100421):** C `distfleeck` `rn2(5)` vs JS `rnd(79)`.
 - **Cause (#1100):** `find_roll_to_hit` omitted `check_caitiff` →
   lawful knight never `adjalign(-1)` on helpless/fleeing attacks →
   `ualign.abuse` stayed 0 → Erinys HD wrong (`d(10,8)` vs `d(13,8)`).
 - **Fix (#1100):** `uhitm.js` `check_caitiff` + call from
   `find_roll_to_hit` (`!attk_count++`); `dokick.js` `kickdmg` wires
   same. Prefix **95154→100395** (matches prior FORCE abuse=2 canary).
-- **Next (@100395):** fountain `gush` locus (`rn2(3)` vs `rn2(20)`).
 - **Symptom (was @95154):** C `d(13,8) @ newmonhp` vs JS `d(10,8)` —
   Erinys. C needs `ualign.abuse==2` → `adj_erinys` mlevel 9 →
   `adj_lev` 13; JS abuse stayed 0 (mlevel 7 → adj_lev 10). FORCE
@@ -73,6 +82,12 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Cause (#1093):** Blind Ctrl-j onto remembered `'I'` omitted
   `domove_fight_empty`.
 - **Rejected (keep):** FORCE linedup/mux/place/FlipX last=77 (#1092).
+- **Verification (#1101):** prefix **100395→100421**; RNG **100477**
+  Scr **926**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+  0700/1150/1800 **7/7** (incl. seed0014 fountain).
+- **Verification (#1100):** prefix **95154→100395**; RNG **100479**
+  Scr **926**; suite **42/44** Scr **10516** RNG **785042** (99.02%);
+  green+strict PASS; cohort knight/samurai/kick **9/9**.
 - **Verification (#1099):** still @**95154** (abuse=0); FORCE abuse=2
   → **100395**; green+strict PASS; cohort 0002/0014/0060/0102/0700/
   1150/1800 **7/7**.

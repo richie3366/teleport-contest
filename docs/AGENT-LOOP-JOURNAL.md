@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 04:12 — #1101 water_damage Waterproof before luck rn2(20)
+- Objective: seed4500 @100395 C `gush` `rn2(3)` vs JS `rn2(20)`
+  (D-0928).
+- C locus: `trap.c` `water_damage` / `Waterproof_container`;
+  `fountain.c` `gush` → `water_damage_chain`.
+- Change: port splash_lit / grease / towel / container arms before
+  luck `rn2(20)`; add `Waterproof_container`. DIAG: floor CHEST at
+  gush pool cell — C skips luck roll.
+- Verification: prefix **100395→100421**; RNG **100477** Scr **926**;
+  green+strict PASS; cohort 0002/0014/0060/0102/0700/1150/1800 **7/7**.
+- Next: @**100421** `distfleeck` `rn2(5)` vs `rnd(79)`; cadence @#1105.
+
 ## 2026-07-21 04:09 — #1100 public score + check_caitiff
 - Objective: mandatory full `sessions` score (@#1100 % 5 == 0);
   seed4500 @95154 Erinys abuse (D-0928).
@@ -175,14 +187,3 @@ Use this shape:
   without losing edge water. No production JS.
 - Verification: green+strict PASS; rng-diff baseline @88377.
 - Next: C-cited last=77 ∧ kelp940 ∧ keep edge water; cadence @#1090.
-
-## 2026-07-21 02:15 — #1087 D-0928 Y+1 falsified (tty/map); stairs ungated
-- Objective: seed4500 medusa-3 hero place (D-0928).
-- C locus: `sp_lev.c` `flip_level` stairs (no inFlipArea);
-  `mkmaze.c` `get_level_extends` scan bounds; `dat/medusa-3.lua`.
-- Falsified: whole-map Y+1 — C cursor `[42,7]` is tty (=map y+1);
-  land is X-only C(42,6) vs JS(43,6). FORCE minx=1 → stair(31,16)
-  but place desync @82419. Change: stairs/`dnstair` ungated flip +
-  extends `xmin<=COLNO`/`ymin<=ROWNO` (prefix unchanged @88377).
-- Verification: green+strict PASS; cohort 7/7; rng-diff @88377.
-- Next: C-cited FlipX sum80 with place-safe terrain; cadence @#1090.

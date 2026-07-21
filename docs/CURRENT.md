@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 100479/108275 | 926/1814 | knight; @**100395** `gush` |
+| seed4500 | 100477/108275 | 926/1814 | knight; @**100421** `distfleeck` |
 
 ## Green gate
 
@@ -71,10 +71,11 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**100395** (D-0928). **#1100:**
-`check_caitiff` in `find_roll_to_hit` + `kickdmg` → abuse path →
-prefix **95154→100395** (matches FORCE abuse=2 canary). Next: `gush`
-`rn2(3)` vs JS `rn2(20)` — fountain locus. Focused:
+**Gameplay next:** **seed4500** @**100421** (D-0928). **#1101:**
+`water_damage` early arms (`Waterproof_container` / splash_lit /
+grease / towel) before luck `rn2(20)` — gush onto floor CHEST.
+Prefix **100395→100421**. Next: `distfleeck` `rn2(5)` vs JS
+`rnd(79)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -109,7 +110,9 @@ or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
 `nh_timeout` / `learn_unseen_invent` on sight (D-0928 #1098);
 FORCE `ualign.abuse` / omit `adj_erinys` (D-0928 #1099);
 omit `check_caitiff` from `find_roll_to_hit` (D-0928 #1100);
-treat @95154 as wish/extra_healing regress.
+omit `water_damage` Waterproof/splash_lit/grease/towel before
+luck `rn2(20)` (D-0928 #1101); treat @95154 as wish/extra_healing
+regress.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
