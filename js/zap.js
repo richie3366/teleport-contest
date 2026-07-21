@@ -63,7 +63,7 @@ import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
@@ -1916,29 +1916,6 @@ async function cancel_item(obj) {
     // corpse revive→rot timer deferred
     unbless(obj);
     uncurse(obj);
-}
-
-/**
- * C ref: mon.c normal_shape — cham revert / were / seemimic.
- * Thin: cham newcham + seemimic; were/meating deferred.
- */
-function normal_shape(mon) {
-    if (!mon) return;
-    const mcham = mon.cham;
-    if (ismnum(mcham)) {
-        const mcan = mon.mcan;
-        newcham(mon, mons(mcham), NC_SHOW_MSG);
-        mon.cham = NON_PM;
-        if (mcan) mon.mcan = 1;
-        newsym(mon.mx | 0, mon.my | 0);
-    }
-    if (M_AP_TYPE(mon) !== M_AP_NOTHING) {
-        if (!mon.meating) {
-            if (M_AP_TYPE(mon) !== M_AP_MONSTER) mon.msleeping = 1;
-            seemimic(mon);
-        }
-        // finish_meating deferred
-    }
 }
 
 /**

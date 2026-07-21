@@ -21,11 +21,11 @@
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath;
 // Fixed_abil Popeye Olive/Bluto;
-// Ring_gone sink-fall / float_up /
-// rescham / choke(strangle) / set_mimic_blocking / perceives polish;
 // livelog conduct; cprefx revive_corpse after rider death; cprefx
 // polymon stone-golem failure polish.
 // D-0953: floorfood pool/lava reach + vault_gd_watching(GD_EATGOLD).
+// D-0956: Ring_gone / float_up / rescham / choke(strangle) /
+// set_mimic_blocking / perceives in eataccessory.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -55,11 +55,12 @@ import {
     is_clinger, breathless, is_flyer,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
+    M1_SEE_INVIS,
 } from './monsters.js';
 import { same_race } from './mondata.js';
 import { were_beastie, set_ulycn } from './were.js';
 import { monflee } from './monmove.js';
-import { dist2 } from './mon.js';
+import { dist2, rescham } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
@@ -78,9 +79,10 @@ import {
     SEE_INVIS, INVIS, PROT_FROM_SHAPE_CHANGERS, LEVITATION, SLEEPY,
     M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
     WWALKING, MAGICAL_BREATHING, FLYING, GD_EATGOLD, Is_waterlevel,
+    CHOKING, A_LAWFUL, STRANGLED,
 } from './const.js';
 import {
-    adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
+    adjattrib, gainstr, acurr, acurrstr, change_luck, exercise, adjalign,
     A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
 import { nomul, losehp, still_chewing, is_pool, is_lava } from './hack.js';
@@ -94,7 +96,7 @@ import { dropy, dropx, make_blinded } from './do.js';
 import { type_is_pname, rndmonnam, pmname, Ugender } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
-import { t_at, deltrap, reset_utrap, b_trapped, self_invis_message } from './trap.js';
+import { t_at, deltrap, reset_utrap, b_trapped, self_invis_message, float_up } from './trap.js';
 import { done, delayed_killer } from './end.js';
 import { polymon, polyself, rehumanize, change_sex } from './polyself.js';
 import { costly_alteration, costly_spot } from './shk.js';
@@ -102,11 +104,13 @@ import {
     wield_tool, uwepgone, uswapwepgone, uqwepgone,
 } from './wield.js';
 import { pluslvl } from './exper.js';
-import { toggle_displacement, setworn } from './do_wear.js';
+import { toggle_displacement, setworn, Ring_gone } from './do_wear.js';
 import { attrcurse } from './sit.js';
 import { dismount_steed } from './steed.js';
 import { unpunish } from './read.js';
 import { vault_gd_watching } from './vault.js';
+import { set_mimic_blocking } from './vision.js';
+import { PM_KNIGHT } from './generated/monsters_data.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -2015,13 +2019,18 @@ function o_unleash(otmp) {
 }
 
 /**
- * C ref: do_wear.c Ring_gone subset — clear worn ring slot before eat.
- * Named omissions: Ring_off_or_gone sink-fall / full messages.
+ * C ref: youprop.h Strangled — extrinsic STRANGLED or flat.
  */
-function Ring_gone_subset(obj) {
+function Strangled() {
     const u = game.u || {};
-    if (obj === u.uleft) setworn(null, W_RINGL);
-    else if (obj === u.uright) setworn(null, W_RINGR);
+    if (u.Strangled) return true;
+    const prop = u.uprops?.[STRANGLED];
+    return !!((prop?.extrinsic | 0) || (u.EStrangled | 0));
+}
+
+/** C mondata.h perceives — form sees invisible. */
+function perceives(ptr) {
+    return !!(((ptr?.mflags1 | 0) & M1_SEE_INVIS) !== 0);
 }
 
 /** Ensure uprops[prop] exists; return intrinsic bits. */
@@ -2092,6 +2101,54 @@ function bounded_increase(old, inc, typ) {
 }
 
 /**
+ * C ref: eat.c choke — satiated stuffing or amulet of strangulation.
+ * Branch envelope: non-satiated only AoS; lawful Knight adjalign; exercise CON;
+ * Breathless/Hunger/!Strangled&&!rn2(20) → vomit path (AoS composure);
+ * else killer + done(CHOKING).
+ * Named omissions: killer_xname polish (xname stand-in); multi-turn food choke
+ * callers beyond eataccessory.
+ */
+async function choke(food) {
+    const u = game.u || (game.u = {});
+    if ((u.uhs | 0) !== SATIATED) {
+        if (!food || (food.otyp | 0) !== AMULET_OF_STRANGULATION) return;
+    } else if ((game.urole?.mnum | 0) === PM_KNIGHT
+        && (u.ualign?.type | 0) === A_LAWFUL) {
+        adjalign(-1);
+        await You_feel('like a glutton!');
+    }
+
+    exercise(A_CON, false);
+
+    if (Breathless() || Hunger() || (!Strangled() && !rn2(20))) {
+        if (food && (food.otyp | 0) === AMULET_OF_STRANGULATION) {
+            await pline('You choke, but recover your composure.');
+            return;
+        }
+        await pline('You stuff yourself and then vomit voluminously.');
+        morehungry(Hunger() ? ((u.uhunger | 0) - 60) : 1000);
+        vomit();
+    } else {
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.format = KILLED_BY_AN;
+        if (food) {
+            await pline(`You choke over your ${foodword(food)}.`);
+            if (food.oclass === COIN_CLASS) {
+                game.killer.name = 'very rich meal';
+            } else {
+                game.killer.format = KILLED_BY;
+                game.killer.name = xname(food);
+            }
+        } else {
+            await pline('You choke over it.');
+            game.killer.name = 'quick snack';
+        }
+        await pline('You die...');
+        await done(CHOKING);
+    }
+}
+
+/**
  * C ref: eat.c accessory_has_effect — digest magic pline.
  */
 async function accessory_has_effect(otmp) {
@@ -2101,12 +2158,12 @@ async function accessory_has_effect(otmp) {
 
 /**
  * C ref: eat.c eataccessory — ring/amulet digest effects.
- * Branch envelope: Ring_gone subset; observe+known; rn2(3/5) switch
- * (default oc_oprop FROMOUTSIDE + see-invis/invis/levitation arms;
+ * Branch envelope: Ring_gone; observe+known; rn2(3/5) switch
+ * (default oc_oprop FROMOUTSIDE + see-invis/invis/levitation/PfSC arms;
  * adorn/gain-str/con/increase/protection/free-action; amulet change/
- * unchanging/restful; sustain/life/fly/reflect no-ops).
- * Named omissions: full Ring_gone sink death; float_up; rescham;
- * set_mimic_blocking; perceives/See_invisible polish; choke(strangle).
+ * unchanging/strangle choke/restful; sustain/life/fly/reflect no-ops).
+ * Named omissions: sink-fall death beyond Ring_gone; learnring;
+ * float_down in Ring_off; restartcham polish beyond restartcham helper.
  */
 async function eataccessory(otmp) {
     const u = game.u || (game.u = {});
@@ -2116,7 +2173,7 @@ async function eataccessory(otmp) {
     let oldprop = prop_intrinsic(prop);
 
     if (otmp === u.uleft || otmp === u.uright) {
-        Ring_gone_subset(otmp);
+        await Ring_gone(otmp);
         if ((u.uhp | 0) <= 0) return; // died from sink fall (if Ring_gone ports it)
     }
     observe_object(otmp);
@@ -2135,14 +2192,14 @@ async function eataccessory(otmp) {
 
         switch (typ) {
         case RIN_SEE_INVISIBLE: {
-            // set_mimic_blocking deferred
+            set_mimic_blocking();
             see_monsters();
             const blind = !!(u.Blind || ((u.HBlinded | 0) & TIMEOUT)
                 || (u.EBlinded | 0) || u.uroleplay?.blind);
             const invis = !!(prop_intrinsic(INVIS)
                 || (u.EInvis | 0) || (u.BInvis | 0) || u.Invis);
             if (invis && !oldprop && !(u.ESee_invisible | 0)
-                /* perceives deferred */ && !blind) {
+                && !perceives(hero_form_data()) && !blind) {
                 newsym(u.ux | 0, u.uy | 0);
                 await pline('Suddenly you can see yourself.');
                 makeknown(typ);
@@ -2167,7 +2224,7 @@ async function eataccessory(otmp) {
             break;
         }
         case RIN_PROTECTION_FROM_SHAPE_CHAN:
-            // rescham deferred
+            rescham();
             break;
         case RIN_LEVITATION: {
             // undo the intrinsic |= FROMOUTSIDE done above
@@ -2175,7 +2232,7 @@ async function eataccessory(otmp) {
             const levit = !!(prop_intrinsic(LEVITATION)
                 || (u.ELevitation | 0) || u.Levitation);
             if (!levit) {
-                // float_up deferred
+                await float_up();
                 incr_itimeout_prop(u, 'HLevitation', d(10, 20));
                 if (!u.uprops) u.uprops = {};
                 if (!u.uprops[LEVITATION]) {
@@ -2260,7 +2317,7 @@ async function eataccessory(otmp) {
         }
         break;
     case AMULET_OF_STRANGULATION:
-        // choke(otmp) deferred — no permanent effect in C either beyond choke
+        await choke(otmp);
         break;
     case AMULET_OF_RESTFUL_SLEEP: {
         const newnap = rnd(100);
@@ -2293,8 +2350,8 @@ async function eataccessory(otmp) {
  * trident/flint exercise; uwep/uqwep/uswapwep gone; unpunish ball/chain;
  * carried useup else useupf.
  * Named omissions: SCR_MAIL ifdef;
- * artifact_light in uwepgone; Ring_gone/float_up/rescham/choke polish
- * inside eataccessory.
+ * artifact_light in uwepgone; sink-fall death beyond Ring_gone;
+ * float_down / learnring / adjust_attrib in Ring_off_or_gone.
  */
 async function eatspecial() {
     const otmp = game.context?.victual?.piece;

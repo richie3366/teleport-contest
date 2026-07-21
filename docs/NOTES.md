@@ -8,19 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1225** (Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn`). Fortress held; cadence reconfirm (no port).
+  speed `32+0.26/turn`). Fortress held @#1226 (green+eat cohort).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0955** `unturn_dead`/`revive` + `hero_breaks` +
-  worn ABON `cancel_item`.
-- **Next cluster:** Ring_gone / float_up / rescham / choke(strangle);
-  dig destroy_drawbridge / desecrate_altar / shopdig / impact_drop /
-  mkcavearea / grave; revive container/buried polish; ice melt /
-  burn_floor_objects / fireball.
+- Latest port: **D-0956** `Ring_gone`/`float_up`/`rescham`/`choke`/
+  `set_mimic_blocking`/`perceives` in eataccessory (+ attrcurse).
+- **Next cluster:** dig destroy_drawbridge / desecrate_altar / shopdig /
+  impact_drop / mkcavearea / grave; revive container/buried polish;
+  ice melt / burn_floor_objects / fireball; Ring_off float_down/
+  learnring/adjust_attrib polish.
 - Cadence full `sessions` next @**#1230**.
 
 ## Don't re-check (≤15)
@@ -41,13 +41,15 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN / multi-turn rations (D-0935) … furniture/HOLE dig
-  (D-0954) or unturn/hero_breaks/ABON (D-0955).
+  (D-0954), unturn/hero_breaks/ABON (D-0955), or Ring_gone/float_up/
+  rescham/choke/set_mimic_blocking (D-0956).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1225**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `32+0.26/turn`.
+- **D-0956:** Ring_gone/float_up/rescham/choke/set_mimic_blocking.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
 - **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
 - **D-0953:** floorfood pool/lava reach + `vault_gd_watching`.

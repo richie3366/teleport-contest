@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0956 — Ring_gone / float_up / rescham / choke / set_mimic_blocking
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** eating worn rings/amulets skipped C `Ring_gone` side effects,
+  levitation digest never called `float_up`, PfSC never `rescham`, AoS never
+  `choke`, see-invis never `set_mimic_blocking`/`perceives`.
+- **Cause:** named constitutional debt (`debt.md` after D-0955) —
+  eataccessory deferred arms.
+- **C locus:** `eat.c` `eataccessory`/`choke`; `do_wear.c` `Ring_gone`/
+  `Ring_off_or_gone`; `trap.c` `float_up`; `mon.c` `rescham`/`restartcham`/
+  `normal_shape`; `display.c` `set_mimic_blocking`.
+- **JS:** `Ring_gone`/`Ring_off_or_gone` in `do_wear.js`; `float_up` in
+  `trap.js`; `rescham`/`restartcham`/`normal_shape` in `mon.js`;
+  `set_mimic_blocking` in `vision.js`; wire eataccessory + sit `attrcurse`
+  SEE_INVIS (D-0956). Deferred: sink-fall death; float_down/learnring/
+  adjust_attrib; buried_ball exact; Lev_at_will steed float; multi-turn
+  lesshungry choke callers; potion See_invisible set_mimic_blocking.
+- **Verify:** green+strict; eat/shared cohort 17/17 PASS.
+
 ## D-0955 — unturn_dead invent revive + hero_breaks + worn ABON cancel
 
 - **Status:** fixed (map-driven debt retirement)

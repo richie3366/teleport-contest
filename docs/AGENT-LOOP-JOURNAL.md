@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:00 — #1226 D-0956 Ring_gone/float_up/rescham/choke
+
+- Objective: map-driven eataccessory cluster (CURRENT next)
+- C locus: eat.c eataccessory/choke; do_wear.c Ring_gone; trap.c float_up;
+  mon.c rescham/normal_shape; display.c set_mimic_blocking
+- Change: Ring_gone/Ring_off_or_gone; float_up; rescham/restartcham;
+  set_mimic_blocking; wire eataccessory + attrcurse SEE_INVIS
+- Verification: green+strict PASS; eat/shared cohort 17/17 PASS
+- Next: dig destroy_drawbridge/desecrate_altar/shopdig/… or ice melt
+
 ## 2026-07-21 23:53 — #1225 cadence score refresh
 
 - Objective: mandatory cadence full `sessions` (@#1225 % 5 == 0);

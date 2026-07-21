@@ -6,11 +6,12 @@
 // attrcurse rnd(11) INTRINSIC strip (D-0945).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
 // uescaped_shaft gate, traps, water/gremlin, sink/altar/grave/stairs/
-// ladder/lava/ice/drawbridge/throne, lay_an_egg, money_cnt meager coil;
-// set_mimic_blocking on SEE_INVIS arm.
+// ladder/lava/ice/drawbridge/throne, lay_an_egg, money_cnt meager coil.
+// D-0956: set_mimic_blocking on SEE_INVIS attrcurse arm.
 
 import { game } from './gstate.js';
 import { pline, You_feel, newsym, see_monsters } from './display.js';
+import { set_mimic_blocking } from './vision.js';
 import { rnd } from './rng.js';
 import {
     ECMD_OK, ECMD_TIME,
@@ -62,7 +63,7 @@ function Hallucination() {
 /**
  * C ref: sit.c attrcurse — strip one random INTRINSIC ability.
  * Returns the prop index removed, or 0 if none matched the rnd(11) fallthrough.
- * Named omissions: set_mimic_blocking (display.c iter_mons light) on SEE_INVIS.
+ * Named omissions: none for SEE_INVIS light-block (D-0956).
  */
 export async function attrcurse() {
     const u = game.u || (game.u = {});
@@ -122,7 +123,7 @@ export async function attrcurse() {
         if ((u.HSee_invisible | 0) & INTRINSIC) {
             u.HSee_invisible = (u.HSee_invisible | 0) & ~INTRINSIC;
             if (!See_invisible()) {
-                // set_mimic_blocking deferred
+                set_mimic_blocking();
                 see_monsters();
                 newsym(u.ux | 0, u.uy | 0);
             }
