@@ -7,56 +7,40 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Leaderboard 22-vs-43 gap — await cron; D-0483 serialize revert.
-  Suite **43**/44 Scr **11404**/11405 confirmed @#1195.
-- **Parked:** D-0006 / seed2200 @158 RC harness.
+- Leaderboard live **32**/44 @14:49Z vs local **43**/44. D-0930
+  serialize gray-blank coerce shipped @#1196 — await cron PASS lift.
+- Falsifier: next `data.json` public.passing / gap-session screens.
+- Residual strict SGR (local visual PASS): seed0373 `sp_C6_J8` cyan
+  blanks; seed0030 bold attr bleed on spaces — not D-0930 scope.
 
 ## Don't re-check (≤15)
 
 - No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
-- Don't re-apply D-0480 space coerce (D-0483); D-0471…D-0927 done.
+- Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483); D-0930 is
+  space+attr0+CLR_GRAY only.
+- Don't re-apply D-0480 space coerce as blanket “all glyphless” without
+  Hoimar attr0+GRAY shape — seed0013 regressed under glyph remap.
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
 - Do not FORCE linedup/FlipX/stair-screen coords — C place matched (#1092).
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
-- Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit without levy-proof
-  callers — wiped "very heavy" (#1194).
-- Do not treat @1808 as page-count shim — rank==role + Punished/
-  Wounded_legs / Jumping / umortality + `eaten_stat` (#1194).
-- Do not treat @1799 as heat/smoke / lev_message order —
-  missing Kni `goal_first` (#1193); heat/smoke follows onquest.
-- Do not treat @1770 as Norep/parse-clear alone — `iflags.cmdassist`
-  after Options toggle (#1192); do not read `flags.cmdassist`.
-- Do not treat @1761 as mtimedone-only / skip PSI plines —
-  cast+PSI plines + `urgent_pline` (#1191); ESC More sets WIN_STOP.
-- Do not treat @1712 quit leftover as parse-only clear — `done2` cancel
-  `clear_nhwindow(WIN_MESSAGE)` (#1190).
-- Do not treat @1698 open door as feature-char matching — doors skipped
-  in matching[]; need mMoOdDxX `gather_locs` (#1189).
+- Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
+- Do not treat @1808 as page-count shim (#1194).
+- Do not treat @1799 as heat/smoke / lev_message order (#1193).
+- Do not treat @1770 as Norep/parse-clear alone (#1192).
+- Do not treat @1761 as mtimedone-only (#1191).
+- Do not treat @1712 quit leftover as parse-only clear (#1190).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **43**/44 Scr **11404**/11405 RNG **100%** @**#1195**;
   speed `31+0.26/turn`; sole miss seed2200 229/230 parked.
-- **D-0928 #1194:** ^X `!strcmpi(rank,role)` + Punished/legs/Jump/
-  umortality + `weight` `eaten_stat`; seed4500 **PASS** Scr **1814**.
-- **D-0928 #1193:** Kni `goal_first`/`goal_next`; prefix
-  **@1799→@1808**; Scr **1807→1812**.
-- **D-0928 #1192:** cmd_safety `iflags.cmdassist`; prefix
-  **@1770→@1799**; Scr **1803→1807**.
-- **D-0928 #1191:** castmu cast+PSI/OPEN plines + `urgent_pline` +
-  polyman was_blind `make_blinded`; prefix **@1761→@1770**; Scr
-  **1799→1803**.
-- **D-0928 #1190:** `done2` cancel `clear_nhwindow_message`;
-  prefix **@1712→@1761**; Scr **1798→1799**; suite Scr **11388→11389**.
-- **D-0928 #1189:** mMoOdDxX `gather_locs` + DOOR_PREV `D`;
-  prefix **@1698→@1712**; Scr **1796→1798**.
-- **D-0928 #1188:** blank S_stone before typ CORR (`brief_at`/
-  `auto_describe`/`describe_looked`); prefix **@1691→@1698**;
-  Scr **1794→1796**.
-- **D-0928 #1187:** getpos `redraw_cmd(^R)` + `getpos_refresh`;
-  prefix **@1689→@1691**; Scr **1793→1794**.
+- Live LB richie3366 **32**/44 public pts **11259**/11405
+  lastScored 2026-07-21T14:49Z; seed0013 PASS on judge.
+- **D-0930 #1196:** serialize space+attr0+CLR_GRAY → NO_COLOR;
+  seed0007 j37 **7080→0**; gap sessions local PASS held.
+- **D-0928 #1194:** ^X rank==role + eaten_stat; seed4500 **PASS**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

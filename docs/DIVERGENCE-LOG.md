@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0930 — serialize space+attr0+CLR_GRAY → NO_COLOR (judge SGR)
+
+- **Status:** fixed (#1196)
+- **Symptom:** Live LB **32**/44 public (pts 11259/11405 @14:49Z) vs
+  local **43**/44. Judge fails full-RNG sessions with 1–7 cell-only
+  screen misses (seed0002/0004/0007/0012/0014/0030/0360/0373/0383/
+  0399; seed4500 was stale score). Local `diffCell` forgives glyphless
+  space color; contest comparator does not.
+- **Cause:** Frozen `Terminal` clear/init paints blanks `CLR_GRAY`;
+  C tty ANSI_DEFAULT / empty gray hilite records default fg
+  (`NO_COLOR`). JS `serialize_for_scoring` emitted `\x1b[37m` on those
+  blanks (seed0007: **7080**× vs C **0**).
+- **C locus:** `wintty.c` color path / contest tty gray hilite empty →
+  default fg (same `tty_map_color` idea as map glyphs, for blanks).
+- **Change:** In `serialize_for_scoring`, when `ch===' '` &&
+  `!(attr&0x5)` && `color===CLR_GRAY`, emit as `NO_COLOR`. **Do not**
+  remap glyphs (`tty_map_color` on glyphs was D-0480 and hurt seed0013
+  — D-0483).
+- **Verification:** green+strict PASS; gap cohort + seed0013/4500/
+  0006/0009/1500/1800/0060/0102/0700/1150 PASS; seed0007 j37→0;
+  seed0360/0399 strict-clean; seed2200 still 229/230 parked.
+- **Named omissions:** seed0373 cyan blank spaces (`sp_C6_J8`);
+  seed0030 bold attr bleed on spaces (visual-invisible).
+- **Next:** await judge cron PASS lift.
+
 ## D-0929 — #1151 overlay `_pending_message` restore regresses suite
 
 - **Status:** fixed (#1156)

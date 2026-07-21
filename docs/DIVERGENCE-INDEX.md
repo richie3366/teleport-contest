@@ -5,8 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0930 | fixed | serialize space+attr0+CLR_GRAY → NO_COLOR | #1196; j37→0; await LB cron 32→? |
 | D-0929 | fixed | look_here-only `keep_message_leftover` (not all corner) | suite **42/44**; Scr **10979**; seed4500 Scr **1389** held |
-| D-0928 | partial | #1194 ^X rank==role + eaten_stat; #1195 suite **43**/44 Scr **11404**/11405 | seed4500 Scr **1814**; next leaderboard / seed2200 parked |
+| D-0928 | partial | #1194 ^X rank==role + eaten_stat; #1195 suite **43**/44 Scr **11404**/11405 | seed4500 Scr **1814**; LB gap → D-0930 |
 | D-0927 | fixed | rhack F-prefix reject non-movement (no execute) | seed4500 **87803→88377** RNG **88484** Scr **808**; next D-0928 place |
 | D-0926 | fixed | mhitm_ad_blnd mhitu (raven AT_CLAW) + make_blinded | seed4500 **87218→87803** RNG **88082** Scr **794**; next @87803 distfleeck |
 | D-0925 | fixed | breamm/breamu + mattacku AT_BREA + dobuzz fire-pool | seed4500 **86672→87218** RNG **87347** Scr **759**; next @87218 distfleeck |
@@ -604,10 +605,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0477 | fixed | Rule #2: pager dat texts in-process | remove Node fs/path/url; embed dat_text.js |
 | D-0478 | fixed | hilite_pet / wc2_petattr ATR_INVERSE on tame | seed0006 Scr 89→95; @71→@77 I vs # |
 | D-0479 | fixed | mondead unmap_object clears invisible I | seed0006 Scr 95→106; @77→@102 water demon |
-| D-0480 | partial | vanqsort strcmpi kept; serialize coerce reverted | D-0483; LB gap still open |
+| D-0480 | partial | vanqsort strcmpi kept; serialize coerce superseded by D-0930 | D-0483 revert glyph path; D-0930 blank-only |
 | D-0481 | fixed | makemon !in_mklev newsym after spawn | seed0006 Scr 106→110; @102→@110 disclose invent |
 | D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
-| D-0483 | fixed | revert D-0480 serialize space/tty_map_color | judge 23→22 correlated; keep strcmpi |
+| D-0483 | fixed | revert D-0480 serialize space/tty_map_color | seed0013 restored on live LB; keep strcmpi |
 | D-0484 | fixed | dofire empty-quiver continue + letter More | seed0007 RNG 2824→2832; dog_move next |
 | D-0485 | fixed | dofire ready More + getdir MV_ANY capitals | seed0007 RNG 2832→3219; picklock next |
 | D-0486 | fixed | vision_recalc rogue_vision for Is_rogue_level | C vision.c; not seed0007 (dlvl1) |

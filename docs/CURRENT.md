@@ -62,35 +62,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Leaderboard 22-vs-43 gap** — local **43**/44 suite-confirmed @#1195
-(D-0929 restored seed0006/0007/0009/0360; seed4500 **PASS** @#1194).
-Judge **22** after D-0480; D-0483 serialize revert. Next cron →
-upstream #5 if seed0013 restored.
+**Leaderboard gap** — live LB @2026-07-21T14:49Z **32**/44 public
+(pts **11259**/11405; seed0013 restored — D-0483 held). Local
+**43**/44. D-0930 @#1196: serialize space+attr0+CLR_GRAY → NO_COLOR
+(closes judge-strict cell miss class; no glyph remap). Await next
+cron for PASS lift. CURRENT was stale at “22”.
 
 **Parked:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1194 (teleds placebc #1151;
-D-0929 look_here-only leftover; lastseentyp #1160; wakeup #1161;
-hissing-gas #1162; waterbody_name #1163; makemon_appear #1164;
-unmap/fight_empty #1166; pushweapon #1167; nh_timeout #1168;
-Blind feel #1169–#1171; overview/sanctum/getpos/untrap #1172–#1176;
-float_vs_flight/polymon/timebot #1177–#1179; Blind doname #1180;
-achievements #1181; dopay Blind #1182; wizwhere menu #1183;
-dosearch0 Blind feel #1184; doeat capacity #1185; doapply #1186;
-getpos ^R #1187; blank S_stone #1188; mMoOdDxX #1189; done2 clear
-#1190; castmu/urgent_pline #1191; cmd_safety iflags.cmdassist #1192;
-Kni goal_first #1193; ^X rank==role + Punished/legs/Jump/umort +
-`eaten_stat` #1194).
+**Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
+**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**.
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
-HEAVY_IRON_BALL `owt!=0` weight short-circuit without levy-proof
-callers (#1194 wiped "very"); @1808 page-count shim (#1194);
-@1799 heat/smoke-only (#1193 missing Kni goal_first); @1770
-Norep/parse-clear alone (#1192 iflags.cmdassist); @1761
-mtimedone-only (#1191 cast/PSI); @1712 parse-clear (#1190 done2);
-@1698 feature-char door (#1189 gather); @1691 typ-CORR (#1188
-S_stone); @1689 getdir (#1187 redraw); older in D-0928/NOTES.
+HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
+shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
+alone (#1192); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

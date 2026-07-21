@@ -2822,9 +2822,12 @@ export function serialize_terminal_grid(display) {
  * D-0293: S_altar stays raw `{` in the grid (frozen DEC_MAP omits it) so
  * decodeScreen matches C whether the recorder emitted SO+`{` or bare `{`.
  *
- * D-0480 serialize space/NO_COLOR + tty_map_color-on-glyphs was reverted
- * (D-0483): it rewrote most screens' SGR, stayed local-PASS, but correlated
- * with judge 23→22 PASS (seed0013-rogue 59→58). Keep grid colors as stored.
+ * Frozen Terminal clear/init paints blanks as CLR_GRAY; C tty (ANSI_DEFAULT /
+ * empty gray hilite) records those as default fg (NO_COLOR). Local
+ * `diffCell` forgives glyphless space color; the judge does not.
+ * D-0480 also remapped glyph colors via tty_map_color and correlated with
+ * judge 23→22 (D-0483). D-0930: only coerce space+attr0+CLR_GRAY → NO_COLOR
+ * (Hoimar-shaped); do not remap glyphs.
  */
 export function serialize_for_scoring(term) {
     if (!term?.grid) return term?.serialize?.() ?? '';
@@ -2886,8 +2889,14 @@ export function serialize_for_scoring(term) {
         else if (firstCol > 0) out += ' '.repeat(firstCol);
         for (let c = firstCol; c <= lastCol; c++) {
             const cell = term.grid[r][c];
-            const wantFg = colorToFg(cell.color);
             const wantAttr = cell.attr | 0;
+            // C wintty / contest tty: CLR_GRAY hilite empty → default fg.
+            // Frozen clearScreen leaves CLR_GRAY on blanks; emit NO_COLOR.
+            const emitColor = (cell.ch === ' ' && !(wantAttr & 0x5)
+                && cell.color === CLR_GRAY)
+                ? NO_COLOR
+                : cell.color;
+            const wantFg = colorToFg(emitColor);
             out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
             curFg = wantFg;
             curAttr = wantAttr;
