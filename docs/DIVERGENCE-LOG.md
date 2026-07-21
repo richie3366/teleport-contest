@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0938 — `b_trapped` + `make_stunned` (tin / door / chew / kick)
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** tin `otrapped` used a partial kaboom (no wake/stun/CON);
+  door/chew/kick trap arms cleared `D_TRAPPED` without `b_trapped`.
+- **Cause:** named constitutional debt (`debt.md` eat / still_chewing /
+  lock / dokick).
+- **C locus:** `trap.c` `b_trapped`; `potion.c` `make_stunned`; callers in
+  `eat.c` `consume_tin`, `hack.c` `still_chewing`, `lock.c` pick/open,
+  `dokick.c` `kick_door`.
+- **JS:** `trap.js` `b_trapped` + local `wake_nearby`; `potion.js`
+  `make_stunned`; wired call sites. Deferred: `Soundeffect`;
+  `stagger()` poly verb; shop `add_damage`/`pay_for_damage`; `watch_dig`;
+  tin `costly_tin(COST_DSTROY)`.
+- **Verify:** green+strict; eat/kick cohort 12/12 PASS.
+
 ## D-0937 — metallivore floorfood beartrap/bars + `still_chewing`
 
 - **Status:** fixed (map-driven debt retirement)
@@ -15,8 +31,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **JS:** `eat.js` `floorfood_eat` / `doeat`; `hack.js` `still_chewing` /
   `dissolve_bars`; export `trap.js` `reset_utrap`.
 - **Verify:** green + eat cohort + full `sessions` **44**/44 @#1205.
-- **Deferred:** pool/lava reach; `watch_dig`; shop damage; door
-  `b_trapped`; `switch_terrain` after bars; livelog.
+- **Deferred:** pool/lava reach; `watch_dig`; shop damage;
+  `switch_terrain` after bars; livelog. (door `b_trapped` → D-0938)
 
 ## D-0936 — `is_edible` poly diets + `doeat_nonfood` / floor gold
 

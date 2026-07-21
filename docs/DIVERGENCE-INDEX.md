@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0938 | fixed | `b_trapped` + `make_stunned`; tin/door/chew/kick wires | map-driven debt; green+cohort 12/12 |
 | D-0937 | fixed | metallivore floorfood beartrap/bars + `still_chewing`/`dissolve_bars` | map-driven debt; suite **44**/44 @#1205 |
 | D-0936 | fixed | `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold | map-driven debt; green+eat cohort PASS |
 | D-0935 | fixed | `start_tin`/`opentin`/`consume_tin` + multi-turn rations | map-driven debt; green+eat cohort PASS |

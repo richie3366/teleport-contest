@@ -20,7 +20,7 @@ import {
     TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
     SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
     INTRINSIC, UNCHANGING,
-    In_mines, ACH_TOWN,
+    In_mines, ACH_TOWN, NO_PART,
 } from './const.js';
 import { pline, Norep, newsym, canspotmon, map_invisible } from './display.js';
 import { gethungry, morehungry } from './eat.js';
@@ -39,6 +39,7 @@ import {
 import { hliquid, Hallucination } from './do_name.js';
 import { near_capacity } from './invent.js';
 import { record_achievement } from './insight.js';
+import { b_trapped } from './trap.js';
 
 /** C ref: decl.c dirs_ord — cardinals first. */
 const DIRS_ORD = [
@@ -1307,9 +1308,9 @@ export function dissolve_bars(x, y) {
  * Returns 1 if still eating, 0 when done (C int boolean).
  * Branch envelope: nondiggable teeth; metallivore full bars; start/continue
  * effort; finish boulder/wall/tree/IRONBARS/SDOOR/door/rock.
- * Named omissions: watch_dig; shop add_damage/pay_for_damage; door
- * b_trapped; livelog first-food; switch_terrain after bars; maze/cavern
- * wall polish via in_town.
+ * Named omissions: watch_dig; shop add_damage/pay_for_damage; livelog
+ * first-food; switch_terrain after bars; maze/cavern wall polish via
+ * in_town.
  */
 export async function still_chewing(x, y) {
     const lev = game.level?.at(x, y);
@@ -1438,7 +1439,7 @@ export async function still_chewing(x, y) {
     } else if (lev.typ === SDOOR) {
         if ((lev.doormask | 0) & D_TRAPPED) {
             lev.doormask = D_NODOOR;
-            // b_trapped deferred
+            await b_trapped('secret door', NO_PART);
         } else {
             digtxt = 'chew through the secret door.';
             lev.doormask = D_BROKEN;
@@ -1448,7 +1449,7 @@ export async function still_chewing(x, y) {
         // shop pay deferred
         if ((lev.doormask | 0) & D_TRAPPED) {
             lev.doormask = D_NODOOR;
-            // b_trapped deferred
+            await b_trapped('door', NO_PART);
         } else {
             digtxt = 'chew through the door.';
             lev.doormask = D_BROKEN;

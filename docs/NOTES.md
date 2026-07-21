@@ -13,11 +13,10 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0937** floorfood metallivore beartrap/IRONBARS +
-  `doeat` `hands_obj` + `still_chewing`/`dissolve_bars`. Falsifier:
-  green + eat cohort + full `sessions` PASS.
+- Latest: **D-0938** `b_trapped` + `make_stunned`; tin/door/chew/kick
+  wires. Falsifier: green + eat/kick cohort PASS.
 - Next cluster: full `cprefx`; tin `costly_tin`+`use_tin_opener`;
-  `still_chewing` shop/`watch_dig`/`b_trapped`; other `debt.md` row.
+  `still_chewing` shop/`watch_dig`; other `debt.md` row.
 
 ## Don't re-check (≤15)
 
@@ -39,13 +38,15 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN / multi-turn rations (D-0935), non-food eat
-  (D-0936), or metallivore bars/`still_chewing` (D-0937).
+  (D-0936), metallivore bars/`still_chewing` (D-0937), or
+  `b_trapped`/`make_stunned` (D-0938).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1205**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn`.
+- **D-0938:** `b_trapped` + `make_stunned`; tin/door/chew/kick.
 - **D-0937:** floorfood beartrap/bars + `still_chewing`/`dissolve_bars`.
 - **D-0936:** `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold.
 - **D-0935:** TIN open/consume + multi-turn `eatfood` rations.

@@ -445,6 +445,35 @@ export async function make_confused(xtime, talk) {
 }
 
 /**
+ * C ref: potion.c make_stunned(xtime, talk)
+ * Sync HStun TIMEOUT; mirror onto u.Stunned for JS gates (C: Stun ≡ HStun).
+ * Named omissions: usteed saddle wobble; stagger(youmonst.data, …) poly verb.
+ */
+export async function make_stunned(xtime, talk) {
+    const u = game.u || (game.u = {});
+    const old = u.HStun | 0;
+    if (u.Unaware) talk = false;
+    if (!xtime && old && talk) {
+        const hallu = !!(u.Hallucination || u.HHallucination);
+        await You_feel(`${hallu ? 'less wobbly' : 'a bit steadier'} now.`);
+    }
+    if (xtime && !old && talk) {
+        if (u.usteed) {
+            await pline('You wobble in the saddle.');
+        } else {
+            // C: You("%s...", stagger(youmonst.data, "stagger"))
+            await pline('You stagger...');
+        }
+    }
+    if ((!xtime && old) || (xtime && !old)) {
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+    }
+    u.HStun = ((u.HStun | 0) & ~TIMEOUT) | itimeout(xtime);
+    u.Stunned = u.HStun;
+}
+
+/**
  * C ref: potion.c make_hallucinated(xtime, talk, mask)
  * Envelope: timed HHallucination set/clear + cosmic/boring pline.
  * Named omissions: EHalluc_resistance mask polish beyond |= / &=~;

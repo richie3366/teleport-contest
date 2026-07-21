@@ -17,10 +17,10 @@
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath; tin costly_tin
-// shop billing; otrapped b_trapped; use_tin_opener apply; Fixed_abil
-// Popeye Olive/Bluto; eatspecial PAPER/potion/ring/amulet/leash/
-// trident/flint/uwepgone/unpunish/vault_gd; still_chewing wall/door
-// shop damage + watch_dig + b_trapped; livelog conduct.
+// shop billing; use_tin_opener apply; Fixed_abil Popeye Olive/Bluto;
+// eatspecial PAPER/potion/ring/amulet/leash/trident/flint/uwepgone/
+// unpunish/vault_gd; still_chewing wall/door shop damage + watch_dig;
+// livelog conduct.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -55,12 +55,11 @@ import {
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
-    KILLED_BY_AN, Has_contents,
+    KILLED_BY_AN, Has_contents, NO_PART,
     IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
 } from './const.js';
 import { adjattrib, gainstr, acurr, acurrstr, A_STR, A_DEX } from './attrib.js';
 import { nomul, losehp, still_chewing } from './hack.js';
-import { level_difficulty } from './hacklib.js';
 import { near_capacity, observe_object } from './invent.js';
 import { make_confused, make_vomiting, make_glib } from './potion.js';
 import { addinv_nomerge } from './u_init.js';
@@ -68,7 +67,7 @@ import { dropy, dropx } from './do.js';
 import { type_is_pname, rndmonnam } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
-import { t_at, deltrap, reset_utrap } from './trap.js';
+import { t_at, deltrap, reset_utrap, b_trapped } from './trap.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -1505,8 +1504,8 @@ async function cprefx(_mnum) {
 
 /**
  * C ref: eat.c consume_tin — open tin contents + nutrition / spinach.
- * Branch envelope: ordinary meat tin + spinach; otrapped b_trapped deferred
- * (cursed trap roll still burns rn2); costly_tin identity; Fixed_abil
+ * Branch envelope: ordinary meat tin + spinach; otrapped → b_trapped;
+ * cursed trap roll burns rn2; costly_tin identity; Fixed_abil
  * Popeye Olive/Bluto deferred (!Fixed_abil → Popeye).
  */
 async function consume_tin(mesg) {
@@ -1517,11 +1516,7 @@ async function consume_tin(mesg) {
     const r = tin_variety(tin, false);
     // C: otrapped || (cursed && r != HOMEMADE && !rn2(8)) → b_trapped
     if (tin.otrapped || (tin.cursed && r !== HOMEMADE_TIN && !rn2(8))) {
-        // C trap.c b_trapped("tin", NO_PART) — wake_nearby/stun deferred
-        const lvl = level_difficulty(game.u?.uz) || 1;
-        const dmg = rnd(5 + (lvl < 5 ? lvl : 2 + Math.trunc(lvl / 2)));
-        await pline('KABOOM!!  The tin was booby-trapped!');
-        losehp(dmg, 'explosion', KILLED_BY_AN);
+        await b_trapped('tin', NO_PART);
         tin = costly_tin(0);
         use_up_tin(tin);
         return;
