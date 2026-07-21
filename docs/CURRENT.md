@@ -49,7 +49,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 106540/108275 | 937/1814 | knight; @**106531** hitmu d(2,6) vs d(3,6) |
+| seed4500 | 106546/108275 | 937/1814 | knight; @**106536** choose_monster_spell rn2(23) vs rn2(5) |
 
 ## Green gate
 
@@ -72,11 +72,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106531** (D-0928). **#1120:**
-(1) `dochug` covetous `tactics` STRAT_NONE harass; (2) fire-trap
-`destroy_items(AD_FIRE)` after burnarmor. Prefix **106304→106531**
-(runner RNG **106540** Scr **937**). Next: C `hitmu` `d(2,6)` vs JS
-`d(3,6)`. Focused:
+**Gameplay next:** **seed4500** @**106536** (D-0928). **#1121:**
+`set_uasmon` resist_from_form MR_* + `getmattk` lich cold→PHYS.
+Was @106531 C `hitmu` `d(2,6)` vs JS `d(3,6)` — brown-mold poly
+omitted `COLD_RES` FROMFORM so master-lich touch stayed 3d6.
+Prefix **106531→106536** (runner RNG **106546** Scr **937**).
+Next: C `choose_monster_spell` `rn2(23)` vs JS `rn2(5)`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -84,7 +85,8 @@ if seed0013 restored but near-misses remain → upstream #5.
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject);
-D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items.
+D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
+#1121 set_uasmon MR_* + getmattk lich cold.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -113,7 +115,9 @@ u_calc umov delta (C dump after=12 too);
 @104705≠distfleeck/want_move rn2(4) (early decide_to_shapeshift);
 @104705≠fmon-order alone — was missing S_BAT Inhell MFAST (#1119);
 @106304≠fleeck/lined_up root — was missing covetous `tactics` +
-fire-trap `destroy_items` (#1120).
+fire-trap `destroy_items` (#1120);
+@106531≠wrong hitmu dice table — was missing poly `COLD_RES`
+FROMFORM + `getmattk` lich cold→PHYS (#1121).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

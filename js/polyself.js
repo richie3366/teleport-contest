@@ -48,6 +48,14 @@ import {
     haseyes,
     MZ_SMALL,
     M1_SLITHY,
+    MR_FIRE,
+    MR_COLD,
+    MR_SLEEP,
+    MR_DISINT,
+    MR_ELEC,
+    MR_POISON,
+    MR_ACID,
+    MR_STONE,
 } from './monsters.js';
 import {
     POLY_CONTROLLED,
@@ -73,6 +81,14 @@ import {
     FROMFORM,
     FLYING,
     BLINDED,
+    FIRE_RES,
+    COLD_RES,
+    SLEEP_RES,
+    DISINT_RES,
+    SHOCK_RES,
+    POISON_RES,
+    ACID_RES,
+    STONE_RES,
     KILLED_BY_AN,
     ismnum,
     POLYMORPH_CONTROL,
@@ -216,9 +232,11 @@ function propset_fromform(propIdx, hField, on) {
 /**
  * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
  * via set_mon_data (prorates u.umovement when new form is slower).
- * Named omissions: resistance/movement PROPSET beyond FLYING/BLINDED;
- * BLND_RES; vamp cham; float_vs_flight; polysense; light-source
- * bookkeeping.
+ * Named omissions: DRAIN_RES (uwep-suppressed resists_drli); ANTIMAGIC;
+ * SICK_RES fungus/ghoul; STUNNED/HALLUC_RES/SEE_INVIS/TELEPAT/INFRAVISION/
+ * INVIS/TELEPORT/TELEPORT_CONTROL/LEVITATION/SWIMMING/PASSES_WALLS/
+ * REGENERATION/REFLECTING/BLND_RES; vamp cham; float_vs_flight; polysense;
+ * light-source bookkeeping.
  */
 export function set_uasmon() {
     const u = game.u || (game.u = {});
@@ -232,6 +250,17 @@ export function set_uasmon() {
     // Protection_from_shape_changers / vampire cham deferred
     if (game.youmonst.cham == null) game.youmonst.cham = NON_PM;
     u.mcham = game.youmonst.cham;
+
+    // C: resist_from_form(MRtyp) — mdat->mresists & MRtyp
+    const mres = mdat?.mresists | 0;
+    propset_fromform(FIRE_RES, 'HFire_resistance', !!(mres & MR_FIRE));
+    propset_fromform(COLD_RES, 'HCold_resistance', !!(mres & MR_COLD));
+    propset_fromform(SLEEP_RES, 'HSleep_resistance', !!(mres & MR_SLEEP));
+    propset_fromform(DISINT_RES, 'HDisint_resistance', !!(mres & MR_DISINT));
+    propset_fromform(SHOCK_RES, 'HShock_resistance', !!(mres & MR_ELEC));
+    propset_fromform(POISON_RES, 'HPoison_resistance', !!(mres & MR_POISON));
+    propset_fromform(ACID_RES, 'HAcid_resistance', !!(mres & MR_ACID));
+    propset_fromform(STONE_RES, 'HStone_resistance', !!(mres & MR_STONE));
 
     // C: PROPSET(FLYING, is_flyer(mdat) && !is_floater(mdat)) — D-0724
     // floating eye is flyer+floater; suppress Flying under Levitation.

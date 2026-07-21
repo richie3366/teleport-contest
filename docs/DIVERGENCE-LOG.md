@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1120; **#1120** tactics + fire destroy_items)
-- **Session:** seed4500-knight-coverage (prefix @**106531**)
+- **Status:** partial (#1080–#1121; **#1121** set_uasmon MR_* + getmattk lich cold)
+- **Session:** seed4500-knight-coverage (prefix @**106536**)
+- **Cause (#1121 DIAG):** @106531 C `hitmu` `d(2,6)` vs JS `d(3,6)` —
+  master lich AT_TUCH AD_COLD 3d6. Hero poly brown mold (`mresists`
+  has MR_COLD) but JS `set_uasmon` omitted `PROPSET(COLD_RES,
+  resist_from_form(MR_COLD))`, so `getmattk` lich cold→PHYS
+  (`damn=(damn+1)/2` → 2d6) never fired.
+- **Fix (#1121):** `polyself.js` `set_uasmon` resist_from_form for
+  FIRE/COLD/SLEEP/DISINT/SHOCK/POISON/ACID/STONE; `mhitm.js`
+  `get_mattk` lich cold-resist touch→PHYS (mdef null=hero);
+  `mattacku`/`mattackm` pass mdef.
+- **Verification (#1121):** green+strict PASS; cohort 6/6; prefix
+  **106531→106536** (runner RNG **106546** Scr **937**).
+- **Next:** @**106536** C `choose_monster_spell` `rn2(23)` vs JS `rn2(5)`.
 - **Cause (#1120 DIAG):** @106304 C `tactics` rn2(5) vs JS `m_lined_up`
   — `dochug` omitted covetous `tactics()` before `distfleeck`. After
   port, @106316 still fleeck vs lined_up: JS fleeck ate C
@@ -20,7 +32,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Verification (#1120):** green+strict PASS; cohort 6/6; prefix
   **106304→106531** (runner RNG **106540** Scr **937**); suite
   **42/44** Scr **10527** RNG **791103** (99.78%).
-- **Next:** @**106531** C `hitmu` `d(2,6)` vs JS `d(3,6)`.
 - **Cause (#1119 C dump):** allotment fmon order matched; bat@46,19
   fi=132 had C `mspeed=MFAST` vs JS `mspeed=0`. Same `rn2(12)=11`:
   MFAST scales mmove 20→27 → always +24; normal → +12. Root: omitted

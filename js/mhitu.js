@@ -1414,7 +1414,7 @@ export async function mattacku(mtmp) {
             if (firstfoundyou && !foundyou) continue;
         }
 
-        const mattk = get_mattk(mtmp, i);
+        const mattk = get_mattk(mtmp, i, null); // null = hero defender
         if (mattk.aatyp === AT_NONE) continue;
         // C: uswallow skips non-ENGL; skipnonmagc skips non-MAGC
         if ((u.uswallow | 0) && (mattk.aatyp | 0) !== AT_ENGL) continue;
