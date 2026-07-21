@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 01:47 — #1247 D-0977 passtune/drawbridge
+
+**Objective:** map-driven — retire passtune / open+close drawbridge
+from CURRENT next cluster / debt.
+**Changed:** port `dbridge.c open_drawbridge`/`close_drawbridge` +
+`invent.c delallobj`; wire `music.c do_play_instrument` passtune
+ynq/getlin/ACH_TUNE/Mastermind hints (D-0977). Docs: CURRENT/NOTES/
+debt/turns/divergence/journal.
+**Verified:** green+strict PASS; apply cohort **36**/37
+(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
+**Next:** ignite_items / burn_away_slime (`catch_lit`/`begin_burn`);
+release_hold WAN_OPENING / flash_hits.
+**Blocked:** none.
+
 ## 2026-07-22 01:42 — #1246 D-0976 dosinkfall
 
 **Objective:** map-driven — retire sink-fall (`dosinkfall`) from
@@ -224,17 +238,3 @@ pre-existing Scr 72/73). Rule #2: no fs.
 - Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
   Suite fortress held (no full cadence; next @#1235).
 - Next: desecrate_altar/`god_zaps_you`. Cadence @#1235.
-
-## 2026-07-22 00:16 — #1231 D-0961 impact_drop
-
-- Objective: map-driven — retire dig `impact_drop` under fortress.
-- C locus: `dokick.c` `down_gate`/`drop_to`/`impact_drop`; `mkobj.c`
-  `add_to_migration`; callers `dig.c` `digactualhole` HOLE arms.
-- Change: port helpers + migrate floor objs through hole/stairs;
-  wire both HOLE stay/mon paths (D-0961). Deferred: shop
-  `stolen_value` bill; `ship_object`/do/trap callers; desecrate_altar;
-  conjoined_pits; autodig; boulder-fill.
-- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
-  Suite fortress held (no full cadence; next @#1235).
-- Next: desecrate_altar / conjoined_pits. Cadence @#1235.
-

@@ -2,22 +2,24 @@
 // C ref: music.c do_play_instrument / do_improvisation / awaken_monsters /
 //        awaken_soldiers / put_monsters_to_sleep / charm_snakes /
 //        calm_nymphs / charm_monsters / do_pit / do_earthquake /
-//        generic_lvl_desc (D-0972 / D-0974).
+//        generic_lvl_desc (D-0972 / D-0974 / D-0977).
 //
 // Branch envelope: LEATHER_DRUM + DRUM_OF_EARTHQUAKE (D-0972) +
 // MAGIC/WOODEN_FLUTE sleep/snake + MAGIC/WOODEN_HARP charm/nymph +
-// FIRE/FROST_HORN ubuzz/zapyourself + BUGLE awaken_soldiers (D-0974).
-// Named omissions: passtune / getlin tune / drawbridge; Hero_playnotes
-// audio; consume_obj_charge unpaid polish; onscary wiz/angel/rider;
-// can_blow poly; selftouch/mselftouch petrify; flooreffects full
-// (boulder→pit thin); maketrap shop-hole/drawbridge-up/wall morph;
-// Soundeffect; count_level_features on fountain/sink morph;
-// sleep_monst defended(AD_SLEE)/shieldeff; tamedog givemsg pline.
+// FIRE/FROST_HORN ubuzz/zapyourself + BUGLE awaken_soldiers (D-0974) +
+// passtune getlin / Castle drawbridge open/close + Mastermind hints
+// (D-0977).
+// Named omissions: Hero_playnotes audio; consume_obj_charge unpaid
+// polish; onscary wiz/angel/rider; can_blow poly; selftouch/mselftouch
+// petrify; flooreffects full (boulder→pit thin); maketrap shop-hole/
+// drawbridge-up/wall morph; Soundeffect; count_level_features on
+// fountain/sink morph; sleep_monst defended(AD_SLEE)/shieldeff;
+// tamedog givemsg pline; set_entity crush on open/close.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rnl, d } from './rng.js';
 import { pline, newsym, canseemon, Norep, You_feel } from './display.js';
-import { yn_function } from './getline.js';
+import { yn_function, getlin } from './getline.js';
 import { objectNames, TOOL_CLASS, objects } from './objects.js';
 import {
     ECMD_OK, ECMD_TIME, TIMEOUT, STRAT_WAITMASK, NOTELL,
@@ -27,10 +29,11 @@ import {
     is_pit, u_at, COLNO, ROWNO, SHOPBASE, ARTICLE_THE, ARTICLE_A, SUPPRESS_SADDLE,
     XKILL_NOMSG, NO_KILLER_PREFIX, Upolyd, has_mgivenname, IS_ROOM,
     Is_astralevel, In_endgame, In_sokoban, In_V_tower, STONE,
-    BZ_OFS_AD, KILLED_BY,
+    BZ_OFS_AD, KILLED_BY, DRAWBRIDGE_DOWN, IS_DRAWBRIDGE, Never_mind,
+    Is_stronghold, ACH_TUNE, isok,
 } from './const.js';
 import { A_WIS, A_DEX, acurr, exercise, Fumbling } from './attrib.js';
-import { cxname, an, xname, The } from './objnam.js';
+import { cxname, an, xname, The, the } from './objnam.js';
 import {
     mindless, G_UNIQ, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
     M1_SLITHY, is_mercenary, MR_SLEEP,
@@ -55,6 +58,11 @@ import { PM_ARCHEOLOGIST, monsterNames } from './generated/monsters_data.js';
 import { getdir } from './lock.js';
 import { tamedog } from './dog.js';
 import { zapyourself, ubuzz, flash_str } from './zap.js';
+import {
+    find_drawbridge, is_drawbridge_wall,
+    open_drawbridge, close_drawbridge,
+} from './dbridge.js';
+import { record_achievement } from './insight.js';
 
 const WOODEN_FLUTE = objectNames.indexOf('WOODEN_FLUTE');
 const MAGIC_FLUTE = objectNames.indexOf('MAGIC_FLUTE');
@@ -159,6 +167,11 @@ function consume_obj_charge(obj, _maybe_unpaid) {
 async function You_hear(line) {
     if (Deaf()) return;
     await pline(`You hear ${line}`);
+}
+
+/** C ref: hacklib.c mungspaces — trim ends, compress internal spaces. */
+function mungspaces(s) {
+    return String(s || '').trim().replace(/\s+/g, ' ');
 }
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
@@ -1015,7 +1028,7 @@ export async function do_play_instrument(instr) {
         && !(Stunned() || Confusion() || Hallucination())) {
         c = await yn_function('Improvise?', 'ynq', 'y');
         if (c === 'q') {
-            await pline('Never mind.');
+            await pline(Never_mind);
             return ECMD_OK;
         }
     }
@@ -1025,7 +1038,128 @@ export async function do_play_instrument(instr) {
         return took ? ECMD_TIME : ECMD_OK;
     }
 
-    // Passtune / getlin tune / drawbridge deferred
-    await pline('You decide not to play a specific tune.');
-    return ECMD_OK;
+    // C: passtune / getlin tune / drawbridge (D-0977)
+    let buf = '';
+    if ((u.uevent?.uheard_tune | 0) === 2) {
+        c = await yn_function('Play the passtune?', 'ynq', 'y');
+    }
+    if (c === 'q') {
+        await pline(Never_mind);
+        return ECMD_OK;
+    } else if (c === 'y' && (u.uevent?.uheard_tune | 0) === 2) {
+        buf = game.tune || '';
+    } else {
+        buf = await getlin('What tune are you playing? [5 notes, A-G]');
+        buf = mungspaces(buf);
+        if (buf.charCodeAt(0) === 0x1b || buf === '') {
+            await pline(Never_mind);
+            return ECMD_OK;
+        }
+        // uppercase + H→B
+        let out = '';
+        for (let i = 0; i < buf.length; i++) {
+            let ch = buf.charAt(i).toUpperCase();
+            if (ch === 'H') ch = 'B';
+            out += ch;
+        }
+        buf = out;
+    }
+
+    await pline(
+        !Deaf()
+            ? `You extract a strange sound from ${the(xname(instr))}!`
+            : `You can feel ${the(xname(instr))} emitting vibrations.`,
+    );
+    Hero_playnotes(instr.otyp, buf, 50);
+
+    if (Is_stronghold(u.uz)) {
+        exercise(A_WIS, true); // just for trying
+        const tune = game.tune || '';
+        if (buf === tune) {
+            // Search for the drawbridge in 3×3 around hero
+            const uy = u.uy | 0;
+            const ux = u.ux | 0;
+            for (let y = uy - 1; y <= uy + 1; y++) {
+                for (let x = ux - 1; x <= ux + 1; x++) {
+                    if (!isok(x, y)) continue;
+                    const xy = { x, y };
+                    if (find_drawbridge(xy)) {
+                        if (!u.uevent) u.uevent = {};
+                        u.uevent.uheard_tune = 2;
+                        record_achievement(ACH_TUNE);
+                        const lev = game.level?.at(xy.x, xy.y);
+                        if (lev && lev.typ === DRAWBRIDGE_DOWN) {
+                            await close_drawbridge(xy.x, xy.y);
+                        } else {
+                            await open_drawbridge(xy.x, xy.y);
+                        }
+                        return ECMD_TIME;
+                    }
+                }
+            }
+        } else if (!Deaf()) {
+            if ((u.uevent?.uheard_tune | 0) < 1) {
+                if (!u.uevent) u.uevent = {};
+                u.uevent.uheard_tune = 1;
+            }
+            // Mastermind-style hints when a drawbridge is adjacent
+            let ok = false;
+            const uy = u.uy | 0;
+            const ux = u.ux | 0;
+            for (let y = uy - 1; y <= uy + 1 && !ok; y++) {
+                for (let x = ux - 1; x <= ux + 1 && !ok; x++) {
+                    if (!isok(x, y)) continue;
+                    const lev = game.level?.at(x, y);
+                    if ((lev && IS_DRAWBRIDGE(lev.typ))
+                        || is_drawbridge_wall(x, y) >= 0) {
+                        ok = true;
+                    }
+                }
+            }
+            if (ok) {
+                let tumblers = 0;
+                let gears = 0;
+                const matched = [false, false, false, false, false];
+                for (let xi = 0; xi < buf.length; xi++) {
+                    if (xi < 5) {
+                        if (buf.charAt(xi) === tune.charAt(xi)) {
+                            gears++;
+                            matched[xi] = true;
+                        } else {
+                            for (let yi = 0; yi < 5; yi++) {
+                                if (!matched[yi]
+                                    && buf.charAt(xi) === tune.charAt(yi)
+                                    && buf.charAt(yi) !== tune.charAt(yi)) {
+                                    tumblers++;
+                                    matched[yi] = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                const plur = (n) => (n === 1 ? '' : 's');
+                if (tumblers) {
+                    if (gears) {
+                        await You_hear(
+                            `${tumblers} tumbler${plur(tumblers)} click and ${
+                                gears} gear${plur(gears)} turn.`,
+                        );
+                    } else {
+                        await You_hear(
+                            `${tumblers} tumbler${plur(tumblers)} click.`,
+                        );
+                    }
+                } else if (gears) {
+                    await You_hear(`${gears} gear${plur(gears)} turn.`);
+                    if (gears === 5) {
+                        if (!u.uevent) u.uevent = {};
+                        u.uevent.uheard_tune = 2;
+                        record_achievement(ACH_TUNE);
+                    }
+                }
+            }
+        }
+    }
+    return ECMD_TIME;
 }

@@ -907,3 +907,16 @@
 - Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
   Suite fortress held (no full cadence; next @#1230).
 - Next: desecrate_altar / impact_drop / mkcavearea / conjoined_pits.
+
+## 2026-07-22 00:16 — #1231 D-0961 impact_drop
+
+- Objective: map-driven — retire dig `impact_drop` under fortress.
+- C locus: `dokick.c` `down_gate`/`drop_to`/`impact_drop`; `mkobj.c`
+  `add_to_migration`; callers `dig.c` `digactualhole` HOLE arms.
+- Change: port helpers + migrate floor objs through hole/stairs;
+  wire both HOLE stay/mon paths (D-0961). Deferred: shop
+  `stolen_value` bill; `ship_object`/do/trap callers; desecrate_altar;
+  conjoined_pits; autodig; boulder-fill.
+- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1235).
+- Next: desecrate_altar / conjoined_pits. Cadence @#1235.

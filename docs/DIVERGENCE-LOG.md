@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0977 — passtune + open/close_drawbridge
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `do_play_instrument` refused specific
+  tunes (`You decide not to play…`); Castle drawbridge could not open
+  or close via music; Mastermind gear/tumbler hints absent.
+- **Cause:** passtune/getlin arm deferred after D-0974; `dbridge.js`
+  had destroy + find but not `open_drawbridge`/`close_drawbridge`.
+- **Fix:** port `close_drawbridge`/`open_drawbridge` (terrain, You_see/
+  You_hear, `delallobj`, traps/engr, vision block/unblock,
+  `uopened_dbridge`); wire `do_play_instrument` passtune ynq / getlin
+  A–G (H→B) / `Hero_playnotes` stub / stronghold search + ACH_TUNE +
+  Mastermind tumbler/gear hints. Deferred: set_entity/do_entity crush;
+  revive_nasty; Blind/Unaware You_see polish; Hero_playnotes audio.
+- **Verification:** green+strict PASS; apply cohort **36**/37
+  (seed0009 Scr 72/73 pre-existing on HEAD).
+- **Files:** `js/dbridge.js`, `js/music.js`, `docs/c-js-map/debt.md`,
+  `docs/c-js-map/turns.md`.
+
 ## D-0976 — dosinkfall + spoteffects sink levitation
 
 - **Status:** fixed (map-driven debt retirement)
