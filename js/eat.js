@@ -10,9 +10,9 @@
 //         invent.c getobj; attrib.c poison_strdmg / gainstr;
 //         potion.c make_vomiting / make_glib.
 // Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
-// full cprefx; cpostfx specials (wraith/were/nurse/
+// cpostfx specials (wraith/were/nurse/
 // stalker/…); corpse_intrinsic / givit; hallu from AD_STUN/AD_HALU;
-// tainted Sick; slime/stone; make_blinded body / Hear_again afternmv;
+// tainted Sick; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
 // accessorytime + newuhs; losestr setuhpmax / terminal-frailty full
@@ -20,7 +20,8 @@
 // shop billing; use_tin_opener apply; Fixed_abil Popeye Olive/Bluto;
 // eatspecial PAPER/potion/ring/amulet/leash/trident/flint/uwepgone/
 // unpunish/vault_gd; still_chewing wall/door shop damage + watch_dig;
-// livelog conduct.
+// livelog conduct; cprefx revive_corpse after rider death; cprefx
+// polymon stone-golem failure polish.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -43,8 +44,11 @@ import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
     vegan, vegetarian, nohands, verysmall,
     is_rider, is_undead, olfaction,
+    flesh_petrifies, slimeproof, your_race, poly_when_stoned,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
 } from './monsters.js';
+import { same_race } from './mondata.js';
+import { were_beastie } from './were.js';
 import { monflee } from './monmove.js';
 import { dist2 } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
@@ -55,19 +59,27 @@ import {
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
-    KILLED_BY_AN, Has_contents, NO_PART,
+    KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, Has_contents, NO_PART,
     IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
+    STONING, DIED, SLIMED, FROMOUTSIDE, Upolyd, NEUTRAL,
 } from './const.js';
-import { adjattrib, gainstr, acurr, acurrstr, A_STR, A_DEX } from './attrib.js';
+import {
+    adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
+    A_STR, A_DEX, A_CHA, A_WIS,
+} from './attrib.js';
 import { nomul, losehp, still_chewing } from './hack.js';
 import { near_capacity, observe_object } from './invent.js';
-import { make_confused, make_vomiting, make_glib } from './potion.js';
+import {
+    make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
+} from './potion.js';
 import { addinv_nomerge } from './u_init.js';
 import { dropy, dropx } from './do.js';
 import { type_is_pname, rndmonnam } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
 import { t_at, deltrap, reset_utrap, b_trapped } from './trap.js';
+import { done, delayed_killer } from './end.js';
+import { polymon } from './polyself.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -126,7 +138,26 @@ const PM_FIRE_ELEMENTAL = monsterNames.indexOf('PM_FIRE_ELEMENTAL');
 const PM_RUST_MONSTER = monsterNames.indexOf('PM_RUST_MONSTER');
 const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
+const PM_LITTLE_DOG = monsterNames.indexOf('PM_LITTLE_DOG');
+const PM_DOG = monsterNames.indexOf('PM_DOG');
+const PM_LARGE_DOG = monsterNames.indexOf('PM_LARGE_DOG');
+const PM_KITTEN = monsterNames.indexOf('PM_KITTEN');
+const PM_HOUSECAT = monsterNames.indexOf('PM_HOUSECAT');
+const PM_LARGE_CAT = monsterNames.indexOf('PM_LARGE_CAT');
+const PM_DEATH = monsterNames.indexOf('PM_DEATH');
+const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
+const PM_FAMINE = monsterNames.indexOf('PM_FAMINE');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
+const PM_CAVE_DWELLER = monsterNames.indexOf('PM_CAVE_DWELLER');
+const PM_ORC = monsterNames.indexOf('PM_ORC');
 const EGG = objectNames.indexOf('EGG');
+
+/** C: eat.c CANNIBAL_ALLOWED — Cave Dweller or orc race. */
+function CANNIBAL_ALLOWED() {
+    const role = game.urole?.mnum | 0;
+    const race = game.urace?.mnum | 0;
+    return role === PM_CAVE_DWELLER || race === PM_ORC;
+}
 
 /** C objclass.h material enum indices used by foodword / doeat_nonfood. */
 const MAT_WAX = 2;
@@ -1046,10 +1077,12 @@ async function start_eating(otmp, already_partly_eaten) {
     game.context.victual.doreset = 0;
     game.context.victual.eating = 1;
 
-    // cprefx body deferred (maybe_cannibal no-op for newt; stone/slime omitted)
+    // C: cprefx before first bite; may clear victual on death/revive
     if (otmp.otyp === CORPSE || otmp.globby) {
-        // maybe_cannibal(pm, TRUE) returns false for non-race corpses — no RNG
-        void otmp.corpsenm;
+        await cprefx(game.context.victual.piece?.corpsenm | 0);
+        if (!game.context?.victual?.piece || !game.context.victual.eating) {
+            return;
+        }
     }
 
     if (bite()) {
@@ -1495,11 +1528,136 @@ function eating_conducts(pd) {
 }
 
 /**
- * C ref: eat.c cprefx — pre-corpse effects.
- * Named omission: body (cannibal / stone / slime / …) deferred.
+ * C ref: eat.c maybe_cannibal — own-species / poly-form / lycanthrope.
+ * Returns true when cannibalism penalty applied (luck + aggravate).
  */
-async function cprefx(_mnum) {
-    // no-op until full cprefx ports
+async function maybe_cannibal(pm, allowmsg) {
+    const u = game.u || {};
+    const moves = game.moves | 0;
+    // C: static ate_brains — one penalty per turn (mind flayer multi-hit)
+    if ((game.context?.eat_ate_brains | 0) === moves) return false;
+    if (!game.context) game.context = {};
+    game.context.eat_ate_brains = moves;
+
+    const fptr = mons(pm);
+    if (!fptr) return false;
+    if (!CANNIBAL_ALLOWED()
+        && (your_race(fptr)
+            || (Upolyd(u) && same_race(hero_form_data(), fptr))
+            || (ismnum(u.ulycn) && were_beastie(pm) === (u.ulycn | 0)))) {
+        if (allowmsg) {
+            if (Upolyd(u) && your_race(fptr)) {
+                await pline('You have a bad feeling deep inside.');
+            }
+            await pline('You cannibal!  You will regret this!');
+        }
+        u.HAggravate_monster = (u.HAggravate_monster | 0) | FROMOUTSIDE;
+        change_luck(-rn1(4, 2)); // -5..-2
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: eat.c fix_petrification — clear Stoned via make_stoned(0).
+ */
+async function fix_petrification() {
+    const hallu = !!(game.u?.Hallucination || game.u?.HHallucination);
+    let buf;
+    if (hallu) {
+        const fine = acurr(A_CHA) > 15 ? 'fine ' : '';
+        buf = `What a pity--you just ruined a future piece of ${fine}art!`;
+    } else {
+        buf = 'You feel limber!';
+    }
+    await make_stoned(0, buf, 0, '');
+}
+
+/**
+ * C ref: eat.c cprefx — pre-corpse / pre-tin-meat effects.
+ * Branch envelope: maybe_cannibal; flesh_petrifies → stone / polymon;
+ * dog/cat aggravate; lizard unstone; Death/Pestilence/Famine done;
+ * green slime; acidic unstone.
+ * Named omissions: revive_corpse after rider lifesave; polymon failure
+ * detail when stone-golem form unavailable.
+ */
+async function cprefx(pm) {
+    await maybe_cannibal(pm, true);
+
+    const ptr = mons(pm);
+    if (ptr && flesh_petrifies(ptr)) {
+        const u = game.u || {};
+        const Stone_resistance = !!(u.HStone_resistance || u.EStone_resistance
+            || u.Stone_resistance);
+        const youData = hero_form_data();
+        let polyed = false;
+        if (!Stone_resistance && poly_when_stoned(youData)) {
+            polyed = !!(await polymon(PM_STONE_GOLEM));
+        }
+        if (!Stone_resistance && !polyed) {
+            if (game.context?.tin?.tin) {
+                use_up_tin(game.context.tin.tin);
+            }
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            const meat = pmnames[pm]?.[NEUTRAL] || 'strange';
+            game.killer.name = `tasting ${meat} meat`;
+            game.killer.format = KILLED_BY;
+            await pline('You turn to stone.');
+            await done(STONING);
+            if (game.context?.victual?.piece) {
+                game.context.victual.eating = 0;
+            }
+            return;
+        }
+    }
+
+    switch (pm | 0) {
+    case PM_LITTLE_DOG:
+    case PM_DOG:
+    case PM_LARGE_DOG:
+    case PM_KITTEN:
+    case PM_HOUSECAT:
+    case PM_LARGE_CAT:
+        if (!CANNIBAL_ALLOWED()) {
+            const nm = pmnames[pm]?.[NEUTRAL] || 'animal';
+            await You_feel(`that eating the ${nm} was a bad idea.`);
+            const u = game.u || (game.u = {});
+            u.HAggravate_monster = (u.HAggravate_monster | 0) | FROMOUTSIDE;
+        }
+        break;
+    case PM_LIZARD:
+        if (game.u?.Stoned) await fix_petrification();
+        break;
+    case PM_DEATH:
+    case PM_PESTILENCE:
+    case PM_FAMINE: {
+        await pline('Eating that is instantly fatal.');
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        const nm = pmnames[pm]?.[NEUTRAL] || 'a Rider';
+        game.killer.name = `unwisely ate the body of ${nm}`;
+        game.killer.format = NO_KILLER_PREFIX;
+        await done(DIED);
+        exercise(A_WIS, false);
+        // revive_corpse for corpse (not tin) deferred
+        return;
+    }
+    case PM_GREEN_SLIME: {
+        const u = game.u || {};
+        const Slimed = !!(u.Slimed & TIMEOUT);
+        const Unchanging = !!(u.Unchanging || u.HUnchanging || u.EUnchanging);
+        if (!Slimed && !Unchanging && !slimeproof(hero_form_data())) {
+            await pline("You don't feel very well.");
+            await make_slimed(10, null);
+            delayed_killer(SLIMED, KILLED_BY_AN, '');
+        }
+    }
+    // FALLTHROUGH
+    default:
+        if (ptr && acidic(ptr) && (game.u?.Stoned)) {
+            await fix_petrification();
+        }
+        break;
+    }
 }
 
 /**

@@ -19,7 +19,7 @@ import {
     ECMD_TIME, ECMD_CANCEL,
     POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     TIMEOUT, HALLUC_RES,
-    QBUFSZ,
+    QBUFSZ, STONED, SLIMED,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
@@ -33,6 +33,9 @@ import { more_experienced } from './exper.js';
 import { trycall } from './do_name.js';
 import { newuhs } from './eat.js';
 import { heal_legs } from './trap.js';
+import {
+    delayed_killer, find_delayed_killer, dealloc_killer,
+} from './end.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_ACID = objectNames.indexOf('POT_ACID');
@@ -471,6 +474,44 @@ export async function make_stunned(xtime, talk) {
     }
     u.HStun = ((u.HStun | 0) & ~TIMEOUT) | itimeout(xtime);
     u.Stunned = u.HStun;
+}
+
+/**
+ * C ref: potion.c make_slimed — Slimed TIMEOUT; clear delayed SLIMED killer.
+ * Named omissions: U_AP_TYPE green-slime fake appearance clear.
+ */
+export async function make_slimed(xtime, msg) {
+    const u = game.u || (game.u = {});
+    const old = u.Slimed | 0;
+    u.Slimed = ((u.Slimed | 0) & ~TIMEOUT) | itimeout(xtime);
+    if ((!!xtime) !== (!!old)) {
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+        if (msg) await pline(msg);
+    }
+    if (!(u.Slimed & TIMEOUT)) {
+        dealloc_killer(find_delayed_killer(SLIMED));
+        // U_AP_TYPE green-slime appearance clear deferred
+    }
+}
+
+/**
+ * C ref: potion.c make_stoned — Stoned TIMEOUT; delayed STONED killer on start.
+ */
+export async function make_stoned(xtime, msg, killedby, killername) {
+    const u = game.u || (game.u = {});
+    const old = u.Stoned | 0;
+    u.Stoned = ((u.Stoned | 0) & ~TIMEOUT) | itimeout(xtime);
+    if ((!!xtime) !== (!!old)) {
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+        if (msg) await pline(msg);
+    }
+    if (!(u.Stoned & TIMEOUT)) {
+        dealloc_killer(find_delayed_killer(STONED));
+    } else if (!old) {
+        delayed_killer(STONED, killedby | 0, killername || '');
+    }
 }
 
 /**

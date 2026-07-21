@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0939 — `cprefx` + cannibal / stone / slime helpers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** `cprefx` was a no-op; `start_eating` skipped pre-corpse
+  effects; tin meat path called empty `cprefx`.
+- **Cause:** named constitutional debt (`debt.md` eat).
+- **C locus:** `eat.c` `cprefx` / `maybe_cannibal` / `fix_petrification`;
+  `mondata.h` `touch_petrifies`/`flesh_petrifies`/`slimeproof`/`flaming`;
+  `mondata.c` `same_race`; `were.c` `were_beastie`; `potion.c`
+  `make_stoned`/`make_slimed`; `end.c` `delayed_killer`.
+- **JS:** `eat.js` full `cprefx` + wire `start_eating`; helpers in
+  `monsters.js` / `mondata.js` / `were.js` / `potion.js` / `end.js`.
+  Deferred: `revive_corpse` after rider lifesave; tin `costly_tin` shop;
+  `use_tin_opener`; `still_chewing` shop/`watch_dig`.
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0938 — `b_trapped` + `make_stunned` (tin / door / chew / kick)
 
 - **Status:** fixed (map-driven debt retirement)

@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:20 — #1207 D-0939 cprefx + cannibal/stone/slime
+
+- Objective: map-driven — retire full `cprefx` debt cluster.
+- C locus: `eat.c` `cprefx`/`maybe_cannibal`/`fix_petrification`;
+  `mondata.h` petrify/slime macros; `mondata.c` `same_race`;
+  `were.c` `were_beastie`; `potion.c` `make_stoned`/`make_slimed`;
+  `end.c` `delayed_killer`.
+- Change: port helpers + `cprefx`; wire `start_eating` (D-0939).
+- Verification: green+strict PASS; eat/role cohort 12/12.
+- Next: `costly_tin`+`use_tin_opener` / still_chewing shop/`watch_dig`;
+  or other `debt.md` row. Cadence full `sessions` @#1210.
+
 ## 2026-07-21 22:10 — #1206 D-0938 b_trapped + make_stunned
 
 - Objective: map-driven — retire tin/door/chew/kick `b_trapped` debt.
