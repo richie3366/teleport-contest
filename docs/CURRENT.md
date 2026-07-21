@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1145** (42/44,
-Scr **10591**/11405, RNG **100%**). Next cadence @**#1150**.
-vs @#1140: Scr **10560→10591** (#1141–#1145 peels; #1145 overview
-+1 → seed4500 **1000→1001**). Speed `30+0.25/turn`.
+Score last measured: **2026-07-21** — full `sessions` @**#1150** (42/44,
+Scr **10737**/11405, RNG **100%**). Next cadence @**#1155**.
+vs @#1145: Scr **10591→10737** (#1146–#1150 peels; #1150 doname
+`oeaten` → seed4500 **1146→1147**). Speed `30+0.25/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,591 / 11,405** |
+| Screens matched | **10,737 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.25/turn` (R² 0.860) |
+| Speed label | `30+0.25/turn` (R² 0.861) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1001/1814 | knight; RNG done; screen peel |
+| seed4500 | **108275**/108275 | 1147/1814 | knight; RNG done; screen peel |
 
 ## Green gate
 
@@ -72,11 +72,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1149:** `self_lookat` Punished
-`, chained to ` + `ansimpleoname`; `simpleonames` bare BALL (no
-`very ` via live owt — ≡C `minimal_xname` zeroobj). Scr
-**1142→1146**; @**787** OK. Next @**753** C invent
-`partly eaten apple` vs JS bare `apple` (`doname`/`oeaten`).
+**108275**/108275). **D-0928 #1150:** `doname` FOOD `oeaten` →
+`partly eaten ` (+ `greased ` prefix order). Scr **1146→1147**;
+@**753** OK. Next @**789** C `Things that are here:` iron
+chain/ball + `--More--` vs JS map-only after stairs look.
 Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -84,11 +83,12 @@ Focused:
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1149 (bat MFAST … self_lookat
-Punished / bare ball).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1150 (bat MFAST … doname
+`oeaten`/`greased`).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@753≠bare apple alone — missing `doname` FOOD `oeaten` (#1150);
 @787≠Punished alone — also bare `ansimpleoname` ball (#1149);
 @751≠blank alone — was clearing getobj prompt on delayed takeoff
 (#1148); @707≠`[?]` alone — missing getobj `name_ok` SUGGEST (#1147);

@@ -77,3 +77,13 @@
   full suite Scr **9493**/11405 RNG **676373**/792838 (85.31%);
   speed `32+0.23/turn`.
 - Next: seed0014 @415 take-off botl AC:10 vs AC:14; nymph @416–417.
+
+## 2026-07-21 11:16 — #1135 score + getpos S_ss1 '0'; screen peel
+- Objective: cadence full `sessions`; seed4500 @136 feature `'0'`.
+- C locus: `getpos.c` matching[] / `defsym.h` `S_ss1` `'0'`.
+- Change: suite RNG closed 100% after #1134; `feature_match_tags('0')`
+  → ss1 so Can't find… (was Unknown direction). Scr **947→949**.
+- Verification: green+strict PASS; suite **42/44** Scr **10539**/11405
+  RNG **792838**/792838 (100%) `29+0.25/turn`.
+- Next: @**231** statue vs floor `(invalid target)`; cadence @#1140.
+

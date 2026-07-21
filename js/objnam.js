@@ -1386,6 +1386,9 @@ export function doname(obj) {
         else prefix += 'unlocked ';
     }
 
+    // C: doname_base — greased before class switch
+    if (obj.greased) prefix += 'greased ';
+
     // C: WEAPON_CLASS (incl. weptool remap) — poisoned before erosion/spe
     if (donameClass === WEAPON_CLASS && ispoisoned) prefix += 'poisoned ';
 
@@ -1400,6 +1403,12 @@ export function doname(obj) {
         || (donameClass === RING_CLASS && is_charged_otyp(otyp)))) {
         const spe = obj.spe | 0;
         prefix += (spe >= 0 ? `+${spe} ` : `${spe} `);
+    }
+
+    // C: FOOD_CLASS — oeaten → "partly eaten " (before just_an redo).
+    // CORPSE → corpse_xname / EGG / MEAT_RING still deferred.
+    if (donameClass === FOOD_CLASS && obj.oeaten) {
+        prefix += 'partly eaten ';
     }
 
     // C ref: objnam.c — redo article based on text after "a "

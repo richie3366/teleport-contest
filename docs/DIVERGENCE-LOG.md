@@ -6,9 +6,21 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1149)
+- **Status:** partial (#1080–#1150)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1146**/1814)
+  Scr **1147**/1814)
+- **Hypothesis (#1150):** @753 C invent `m - an uncursed partly eaten
+  apple` vs JS bare `apple` — `doname_base` FOOD_CLASS never appended
+  `partly eaten ` when `obj->oeaten` (also missing `greased ` before
+  class switch).
+- **Fix (#1150):** `objnam.js` `doname` — `greased ` then FOOD
+  `oeaten` → `partly eaten ` before `just_an` redo. CORPSE
+  `corpse_xname` / EGG / MEAT_RING / candle `partly used` deferred.
+- **Verification (#1150):** green+strict PASS; cohort 8/8 (incl.
+  0004/0016/0105/0399/1500/1800); Scr **1146→1147**; @753 OK.
+  Suite @#1150 **42/44** Scr **10737**/11405 RNG **100%**.
+  Next: @**789** C stairs `Things that are here:` chain/ball
+  `--More--` vs JS map-only.
 - **Hypothesis (#1149):** @787 C `human knight called wizard, chained to
   a heavy iron ball` vs JS missing Punished suffix; after adding
   suffix, JS said `very heavy` because `simpleonames`→`pretty_base`

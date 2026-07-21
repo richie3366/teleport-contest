@@ -20,6 +20,18 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 13:07 — #1150 score + doname FOOD oeaten
+- Objective: cadence full `sessions`; seed4500 @753 invent
+  `partly eaten apple`.
+- C locus: `objnam.c` `doname_base` FOOD_CLASS `oeaten` →
+  `partly eaten `; `greased ` before class switch.
+- Change: `objnam.js` `doname` greased + FOOD oeaten prefixes
+  (before `just_an`). CORPSE/EGG/`partly used` deferred.
+- Verification: green+strict PASS; cohort 8/8; Scr **1146→1147**;
+  @753 OK. Suite **42/44** Scr **10737**/11405 RNG **100%**
+  `30+0.25/turn`.
+- Next: @**789** stairs `Things that are here:` chain/ball More.
+
 ## 2026-07-21 13:05 — #1149 self_lookat Punished + bare ball
 - Objective: seed4500 @787 C `…chained to a heavy iron ball` vs JS.
 - C locus: `pager.c` `self_lookat` Punished; `objnam.c`
@@ -154,13 +166,4 @@ Use this shape:
   floor via `look_shown_at` + `distant_name`/`doname` (`TER_OBJ`).
 - Verification: green+strict PASS; cohort 6/6; Scr **949→950**; @231 match.
 - Next: @**195** jump cursor (cells OK); @**237** `Set fruit to what?`.
-
-## 2026-07-21 11:16 — #1135 score + getpos S_ss1 '0'; screen peel
-- Objective: cadence full `sessions`; seed4500 @136 feature `'0'`.
-- C locus: `getpos.c` matching[] / `defsym.h` `S_ss1` `'0'`.
-- Change: suite RNG closed 100% after #1134; `feature_match_tags('0')`
-  → ss1 so Can't find… (was Unknown direction). Scr **947→949**.
-- Verification: green+strict PASS; suite **42/44** Scr **10539**/11405
-  RNG **792838**/792838 (100%) `29+0.25/turn`.
-- Next: @**231** statue vs floor `(invalid target)`; cadence @#1140.
 
