@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0957 | fixed | `dig_up_grave` + `dighole` IS_GRAVE → PIT + grave contents | map-driven debt; green+dig cohort 16/16 |
 | D-0956 | fixed | `Ring_gone`/`float_up`/`rescham`/`choke`(strangle)/`set_mimic_blocking` in eataccessory | map-driven debt; green+eat cohort 17/17 |
 | D-0955 | fixed | `unturn_dead`/`revive` invent+floor + `hero_breaks`/`breaks` + worn ABON `cancel_item` | map-driven debt; green+zap cohort 16/16 |
 | D-0954 | fixed | dig `furniture_handled` fountain/sink + HOLE hero `goto_level` + mon migrate | map-driven debt; green+dig cohort 16/16 |

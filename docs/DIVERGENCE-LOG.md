@@ -4,6 +4,21 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0957 — dig_up_grave + dighole IS_GRAVE
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** digging a grave skipped C grave-robbing side effects
+  (align/WIS, corpse/zombie/mummy/empty, typ→ROOM, engr clear).
+- **Cause:** named constitutional debt (`debt.md` dig.js) — `dig_up_grave`
+  and `dighole` IS_GRAVE arm deferred after D-0954.
+- **C locus:** `dig.c` `dig_up_grave` / `dighole` IS_GRAVE;
+  `mkobj.c` `mk_tt_object` (topten-empty path).
+- **JS:** port `dig_up_grave` + local `mk_tt_object`; wire `dighole`
+  IS_GRAVE → `digactualhole(..., PIT)` then `dig_up_grave` (D-0957).
+  Deferred: destroy_drawbridge; desecrate_altar; shopdig; impact_drop;
+  mkcavearea; conjoined_pits; autodig quiet; boulder-fill.
+- **Verify:** green+strict; dig/shared cohort 16/16 PASS.
+
 ## D-0956 — Ring_gone / float_up / rescham / choke / set_mimic_blocking
 
 - **Status:** fixed (map-driven debt retirement)

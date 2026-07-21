@@ -8,19 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 @**#1225** (Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn`). Fortress held @#1226 (green+eat cohort).
+  speed `32+0.26/turn`). Fortress held @#1227 (green+dig cohort).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep suite PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0956** `Ring_gone`/`float_up`/`rescham`/`choke`/
-  `set_mimic_blocking`/`perceives` in eataccessory (+ attrcurse).
-- **Next cluster:** dig destroy_drawbridge / desecrate_altar / shopdig /
-  impact_drop / mkcavearea / grave; revive container/buried polish;
-  ice melt / burn_floor_objects / fireball; Ring_off float_down/
-  learnring/adjust_attrib polish.
+- Latest port: **D-0957** `dig_up_grave` + `dighole` IS_GRAVE.
+- **Next cluster:** destroy_drawbridge / desecrate_altar / shopdig /
+  impact_drop / mkcavearea / conjoined_pits; revive container/buried
+  polish; ice melt / burn_floor_objects / fireball; Ring_off
+  float_down/learnring/adjust_attrib polish.
 - Cadence full `sessions` next @**#1230**.
 
 ## Don't re-check (≤15)
@@ -40,15 +39,16 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN / multi-turn rations (D-0935) … furniture/HOLE dig
-  (D-0954), unturn/hero_breaks/ABON (D-0955), or Ring_gone/float_up/
-  rescham/choke/set_mimic_blocking (D-0956).
+- Do not re-stub TIN … furniture/HOLE (D-0954), unturn/hero_breaks/ABON
+  (D-0955), Ring_gone/float_up/rescham/choke/set_mimic_blocking
+  (D-0956), or dig_up_grave (D-0957).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1225**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `32+0.26/turn`.
+- **D-0957:** dig_up_grave + dighole IS_GRAVE.
 - **D-0956:** Ring_gone/float_up/rescham/choke/set_mimic_blocking.
 - **D-0955:** unturn_dead/revive + hero_breaks + worn ABON cancel.
 - **D-0954:** furniture_handled fountain/sink + HOLE goto_level.
@@ -60,6 +60,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0948:** `zap_over_floor` shop door/bars + `dobuzz` pay.
 - **D-0947:** `kick_door` shop damage + town watch arrest/warn.
 - **D-0946:** `eatspecial` PAPER/potion/`eataccessory`/leash/flint.
-- **D-0945:** were* `set_ulycn` + mimic `eatmdone` + `attrcurse`.
-- **D-0944:** `mconveys` extract + `corpse_intrinsic`/`givit`.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

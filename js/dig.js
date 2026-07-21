@@ -3,10 +3,11 @@
 //        dig_check / fillholetyp / digactualhole / liquid_flow /
 //        dig_typ / pick_can_reach / is_digging / holetime / dig /
 //        digcheck_fail_message / use_pick_axe / use_pick_axe2 / dighole /
-//        furniture_handled; zap.c fracture_rock / break_statue;
-//        trap.c fill_pit; apply.c maybe_dunk_boulders;
+//        furniture_handled / dig_up_grave; zap.c fracture_rock /
+//        break_statue; trap.c fill_pit; apply.c maybe_dunk_boulders;
 //        hack.c may_dig. (D-0941 watch_dig; D-0950 break-wand dig;
-//        D-0951 pickaxe dig; D-0954 furniture_handled + HOLE goto_level)
+//        D-0951 pickaxe dig; D-0954 furniture_handled + HOLE goto_level;
+//        D-0957 dig_up_grave)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -18,6 +19,7 @@ import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import {
     mksobj_at, objects_at, obj_extract_self, delobj, place_object, weight,
+    set_corpsenm,
 } from './mkobj.js';
 import {
     in_rooms, in_town, stop_occupation, is_pool, is_lava,
@@ -29,7 +31,9 @@ import { CLR_WHITE } from './terminal.js';
 import {
     is_watch, is_flyer, is_floater, grounded, MZ_HUGE,
 } from './monsters.js';
-import { PM_DWARF, PM_ELF, PM_RANGER } from './generated/monsters_data.js';
+import {
+    PM_DWARF, PM_ELF, PM_RANGER, PM_ARCHEOLOGIST, PM_SAMURAI, PM_WIZARD,
+} from './generated/monsters_data.js';
 import { m_canseeu } from './mondata.js';
 import { an, An, the, simpleonames, xname } from './objnam.js';
 import { hliquid, Monnam } from './do_name.js';
@@ -39,9 +43,11 @@ import {
     trapname, mintrap, b_trapped,
 } from './trap.js';
 import { nhgetch } from './input.js';
-import { set_occupation, can_reach_floor } from './engrave.js';
+import { set_occupation, can_reach_floor, del_engr_at } from './engrave.js';
 import { wield_tool, welded } from './wield.js';
-import { Fumbling, adjalign, acurr, A_STR } from './attrib.js';
+import {
+    Fumbling, adjalign, acurr, A_STR, A_WIS, exercise,
+} from './attrib.js';
 import { dbon } from './weapon.js';
 import { depth } from './hacklib.js';
 import { get_level } from './dungeon.js';
@@ -52,8 +58,8 @@ import {
 } from './fountain.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
-    IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE,
-    Amask2align, AM_MASK, A_NONE,
+    IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
+    Amask2align, AM_MASK, A_NONE, A_LAWFUL,
     W_NONDIGGABLE, SDOOR, SCORR, CORR, ROOM, DOOR, TREE, STONE,
     D_NODOOR, D_BROKEN, D_TRAPPED, D_CLOSED, D_LOCKED,
     SHOPBASE, SHOP_DOOR_COST, SHOP_PIT_COST, TT_PIT, TT_WEB, isok,
@@ -74,11 +80,13 @@ import {
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, NO_PART,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
+    TAINT_AGE, MM_NOMSG,
 } from './const.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
 const STATUE = objectNames.indexOf('STATUE');
+const CORPSE = objectNames.indexOf('CORPSE');
 const TREEFRUITS = [
     objectNames.indexOf('APPLE'),
     objectNames.indexOf('ORANGE'),
@@ -976,6 +984,30 @@ function Role_if(pm) {
     return (game.urole?.mnum | 0) === (pm | 0);
 }
 
+function Hallucination() {
+    const u = game.u || {};
+    return !!(u.Hallucination
+        || ((u.HHallucination | 0) || (u.EHallucination | 0)));
+}
+
+/** C hacklib.c sgn */
+function sgn(n) {
+    return n > 0 ? 1 : n < 0 ? -1 : 0;
+}
+
+/**
+ * C ref: mkobj.c mk_tt_object — CORPSE/STATUE with role pm (topten deferred).
+ * Used by dig_up_grave; empty RECORD path burns rnd(10) then rn1 role.
+ */
+function mk_tt_object(objtype, x, y) {
+    const initialize_it = objtype !== STATUE;
+    const otmp = mksobj_at(objtype, x, y, initialize_it, false);
+    if (!otmp) return null;
+    rnd(10); // C get_rnd_toptenentry after successful open
+    set_corpsenm(otmp, rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST));
+    return otmp;
+}
+
 function Flying() {
     const u = game.u || {};
     if (u.Flying) return true;
@@ -1183,11 +1215,94 @@ export function break_statue(obj) {
 }
 
 /**
+ * C ref: dig.c dig_up_grave — grave-robbing after digactualhole(PIT).
+ * Branch envelope (D-0957): WIS exercise; Archeologist/Samurai/Lawful
+ * align; emptygrave→default; rn2(5) corpse/zombie/mummy/empty; typ=ROOM;
+ * clear flags/horizontal; del_engr_at; newsym.
+ * Named omit: none in this helper (callers still omit drawbridge/boulder).
+ */
+export async function dig_up_grave(cc) {
+    const u = game.u || {};
+    let dig_x = u.ux | 0;
+    let dig_y = u.uy | 0;
+    if (cc) {
+        dig_x = cc.x | 0;
+        dig_y = cc.y | 0;
+        if (!isok(dig_x, dig_y)) return;
+    }
+    const lev = game.level?.at(dig_x, dig_y);
+    if (!lev) return;
+
+    // Grave-robbing is frowned upon...
+    exercise(A_WIS, false);
+    const alignType = u.ualign?.type | 0;
+    if (Role_if(PM_ARCHEOLOGIST)) {
+        adjalign(-sgn(alignType) * 3);
+        await You_feel('like a despicable grave-robber!');
+    } else if (Role_if(PM_SAMURAI)) {
+        adjalign(-sgn(alignType));
+        await pline('You disturb the honorable dead!');
+    } else if (alignType === A_LAWFUL) {
+        if ((u.ualign?.record | 0) > -10) adjalign(-1);
+        await pline('You have violated the sanctity of this grave!');
+    }
+
+    // -1: force default case for empty grave (C emptygrave ≡ flags)
+    const what_happens = (lev.flags | 0) ? -1 : rn2(5);
+    switch (what_happens) {
+    case 0:
+    case 1: {
+        await pline('You unearth a corpse.');
+        const otmp = mk_tt_object(CORPSE, dig_x, dig_y);
+        if (otmp) otmp.age = (otmp.age | 0) - (TAINT_AGE + 1);
+        break;
+    }
+    case 2: {
+        if (!Blind()) {
+            await pline(
+                `${Hallucination()
+                    ? 'Dude!  The living dead'
+                    : "The grave's owner is very upset"}!`,
+            );
+        }
+        {
+            const { makemon, mkclass } = await import('./makemon.js');
+            makemon(mkclass('S_ZOMBIE', 0), dig_x, dig_y, MM_NOMSG);
+        }
+        break;
+    }
+    case 3: {
+        if (!Blind()) {
+            await pline(
+                `${Hallucination()
+                    ? 'I want my mummy'
+                    : "You've disturbed a tomb"}!`,
+            );
+        }
+        {
+            const { makemon, mkclass } = await import('./makemon.js');
+            makemon(mkclass('S_MUMMY', 0), dig_x, dig_y, MM_NOMSG);
+        }
+        break;
+    }
+    default:
+        await pline('The grave is unoccupied.  Strange...');
+        break;
+    }
+    lev.typ = ROOM;
+    lev.flags = 0; // clear emptygrave
+    lev.horizontal = 0; // clear disturbed
+    del_engr_at(dig_x, dig_y);
+    newsym(dig_x, dig_y);
+}
+
+/**
  * C ref: dig.c dighole — create PIT/HOLE under hero (pickaxe down path).
- * Branch envelope: dig_check hard fails; pool/lava splash; fillholetyp
- * liquid; digactualhole PIT/HOLE.
- * Named omit: magical traps explode; boulder fill; grave dig_up;
- * throne/altar messages; destroy_drawbridge; spot_checks; by_magic traps.
+ * Branch envelope: dig_check hard fails; pool/lava splash; IS_GRAVE →
+ * digactualhole(PIT)+dig_up_grave (D-0957); fillholetyp liquid;
+ * digactualhole PIT/HOLE.
+ * Named omit: magical traps explode; boulder fill; destroy_drawbridge;
+ * spot_checks; by_magic traps.
  */
 export async function dighole(pit_only, _by_magic, cc) {
     const u = game.u || {};
@@ -1231,7 +1346,12 @@ export async function dighole(pit_only, _by_magic, cc) {
         await pline('The altar is too hard to break apart.');
         return false;
     }
-    // drawbridge / boulder / grave deferred
+    // drawbridge / boulder fill deferred
+    if (IS_GRAVE(old_typ)) {
+        await digactualhole(dig_x, dig_y, game.youmonst, PIT);
+        await dig_up_grave(cc);
+        return true;
+    }
 
     const typ = fillholetyp(dig_x, dig_y, false);
     lev.flags = 0;

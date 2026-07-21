@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 00:05 — #1227 D-0957 dig_up_grave
+
+- Objective: map-driven — retire dig `dig_up_grave` + `dighole`
+  IS_GRAVE arm under fortress.
+- C locus: `dig.c` `dig_up_grave` / `dighole` IS_GRAVE; `mkobj.c`
+  `mk_tt_object` (empty topten path).
+- Change: port `dig_up_grave` + local `mk_tt_object`; wire IS_GRAVE →
+  `digactualhole(PIT)` then grave contents (D-0957). Deferred:
+  destroy_drawbridge / desecrate_altar / shopdig / impact_drop /
+  mkcavearea / conjoined_pits / autodig / boulder-fill.
+- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1230).
+- Next: destroy_drawbridge / shopdig / impact_drop / mkcavearea.
+
 ## 2026-07-21 22:00 — #1226 D-0956 Ring_gone/float_up/rescham/choke
 
 - Objective: map-driven eataccessory cluster (CURRENT next)
@@ -211,27 +225,3 @@ Use this shape:
 - Verification: green+strict PASS; eat/role cohort 12/12.
 - Next: eatspecial PAPER/potion/ring; dig `pay_for_damage` sites /
   pickaxe `is_digging`. Cadence @#1215.
-
-## 2026-07-21 22:43 — #1212 D-0944 mconveys + givit
-
-- Objective: map-driven — retire `corpse_intrinsic`/`givit` debt.
-- C locus: `eat.c` `intrinsic_possible`/`should_givit`/`temp_givit`/
-  `givit`/`corpse_intrinsic`; `monst.c` MON mr2 (`mconveys`).
-- Change: extract `mconveys[]`; wire `mons()` + `control_teleport`/
-  `telepathic`; port intrinsic cluster into `cpostfx` (D-0944).
-  Deferred: were*/mimic gold/`attrcurse`/eatspecial PAPER+.
-- Verification: green+strict PASS; eat/role cohort 12/12.
-- Next: eatspecial PAPER/potion/ring; were* `set_ulycn`; other
-  `debt.md` row. Cadence @#1215.
-
-## 2026-07-21 22:38 — #1211 D-0943 cpostfx specials
-
-- Objective: map-driven — retire `cpostfx` specials / hallu debt.
-- C locus: `eat.c` `cpostfx` (+ `pluslvl`/`make_blinded`/`polyself`/
-  `toggle_displacement`/`self_invis_message`/`adjattrib`).
-- Change: port specials switch + AD_STUN/AD_HALU `make_hallucinated`
-  + newt buzz; export displacement/invis helpers (D-0943). Deferred:
-  were*/mimic gold/`attrcurse`/`corpse_intrinsic`/`givit`.
-- Verification: green+strict PASS; eat/role cohort 12/12.
-- Next: eatspecial PAPER/potion/ring; `mconveys`+`givit`; other
-  `pay_for_damage` sites / pickaxe `is_digging`. Cadence @#1215.
