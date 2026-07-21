@@ -81,7 +81,7 @@ M3_FLAGS = {
 }
 
 MR_FLAGS = {
-    # C ref: include/monflag.h — permonst.mresists / mrconveyed
+    # C ref: include/monflag.h — permonst.mresists / mconveys
     "MR_FIRE": 0x01,
     "MR_COLD": 0x02,
     "MR_SLEEP": 0x04,
@@ -326,10 +326,12 @@ def main() -> int:
             pmnames = [nams_m.group(1), nams_m.group(2), nams_m.group(3)]
         elif nam_m:
             pmnames = [None, None, nam_m.group(1)]
-        lvl, gen, mr1, flg1, flg2, flg3, diff, col, bn = (
+        # C ref: monst.c MON(..., mr1, mr2, ...) — mresists / mconveys
+        lvl, gen, mr1, mr2, flg1, flg2, flg3, diff, col, bn = (
             parts[2],
             parts[3],
             parts[6],
+            parts[7],
             parts[8],
             parts[9],
             parts[10],
@@ -439,6 +441,7 @@ def main() -> int:
             "geno": eval_flags(gen, G_FLAGS),
             "difficulty": int(diff.strip()),
             "mresists": eval_flags(mr1, MR_FLAGS),
+            "mconveys": eval_flags(mr2, MR_FLAGS),
             "mflags1": eval_flags(flg1, M1_FLAGS),
             "mflags2": eval_flags(flg2, M2_FLAGS),
             "mflags3": eval_flags(flg3, M3_FLAGS),
@@ -469,6 +472,7 @@ def main() -> int:
                     "geno": 0x1200,  # G_NOGEN|G_UNIQ fallback
                     "difficulty": 0,
                     "mresists": 0,
+                    "mconveys": 0,
                     "mflags1": 0,
                     "mflags2": 0,
                     "mflags3": 0,
@@ -540,6 +544,11 @@ def main() -> int:
     lines.append(
         "export const mresists = "
         + json.dumps([m.get("mresists", 0) for m in mons])
+        + ";"
+    )
+    lines.append(
+        "export const mconveys = "
+        + json.dumps([m.get("mconveys", 0) for m in mons])
         + ";"
     )
     lines.append("export const mflags1s = " + json.dumps([m.get("mflags1", 0) for m in mons]) + ";")

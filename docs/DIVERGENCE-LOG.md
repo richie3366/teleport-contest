@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0944 — `mconveys` + `corpse_intrinsic` / `givit`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** finished corpses never conferred resist/teleport/telepathy
+  intrinsics or giant strength via `check_intrinsics`.
+- **Cause:** named constitutional debt (`debt.md` eat after D-0943);
+  generated `mons` omitted `permonst.mconveys` (mr2).
+- **C locus:** `eat.c` `intrinsic_possible` / `should_givit` /
+  `temp_givit` / `givit` / `corpse_intrinsic`; `monst.c` MON mr2;
+  `mondata.h` `control_teleport` / `telepathic`.
+- **JS:** `extract-monsters.py` → `mconveys[]`; `mons()` + helpers;
+  `eat.js` intrinsic cluster wired in `cpostfx` check_intrinsics.
+  Deferred: were* `set_ulycn`; mimic gold `eatmdone`; `attrcurse`;
+  eatspecial PAPER/potion/ring.
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0943 — `cpostfx` specials + AD_STUN/AD_HALU hallu
 
 - **Status:** fixed (map-driven debt retirement)

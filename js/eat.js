@@ -12,7 +12,7 @@
 //         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
 // Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
 // were* set_ulycn; mimic gold eatmdone; disenchanter attrcurse;
-// corpse_intrinsic / givit (mconveys); hallu AD_STUN covered D-0943;
+// hallu AD_STUN covered D-0943; corpse_intrinsic/givit covered D-0944;
 // tainted Sick; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
@@ -26,7 +26,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { flush_topl_more, pline, You_feel, newsym } from './display.js';
+import { flush_topl_more, pline, You_feel, newsym, see_monsters } from './display.js';
 import { yn_function } from './getline.js';
 import {
     FOOD_CLASS, COIN_CLASS, WEAPON_CLASS, BALL_CLASS, CHAIN_CLASS,
@@ -44,9 +44,11 @@ import {
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
     vegan, vegetarian, nohands, verysmall,
-    is_rider, is_undead, olfaction,
+    is_rider, is_undead, olfaction, is_giant,
+    can_teleport, control_teleport, telepathic,
     flesh_petrifies, slimeproof, your_race, poly_when_stoned,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
+    MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
 } from './monsters.js';
 import { same_race } from './mondata.js';
 import { were_beastie } from './were.js';
@@ -65,6 +67,8 @@ import {
     STONING, DIED, SLIMED, FROMOUTSIDE, Upolyd, NEUTRAL,
     COST_DSTROY, COST_OPEN, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     INTRINSIC, POLY_NOFLAGS, DISPLACED,
+    FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, POISON_RES,
+    ACID_RES, STONE_RES, TELEPAT, TELEPORT, TELEPORT_CONTROL, LAST_PROP,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
@@ -142,6 +146,8 @@ const PM_WIZARD_OF_YENDOR = monsterNames.indexOf('PM_WIZARD_OF_YENDOR');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_RAVEN = monsterNames.indexOf('PM_RAVEN');
 const PM_NEWT = monsterNames.indexOf('PM_NEWT');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_SCORPION = monsterNames.indexOf('PM_SCORPION');
 const PM_FIRE_ELEMENTAL = monsterNames.indexOf('PM_FIRE_ELEMENTAL');
 const PM_RUST_MONSTER = monsterNames.indexOf('PM_RUST_MONSTER');
 const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
@@ -1058,13 +1064,195 @@ async function eye_of_newt_buzz() {
 }
 
 /**
+ * C ref: eat.c intrinsic_possible — true iff corpse can convey `type`.
+ */
+function intrinsic_possible(type, ptr) {
+    if (!ptr) return 0;
+    const mc = ptr.mconveys | 0;
+    switch (type | 0) {
+    case FIRE_RES: return (mc & MR_FIRE) !== 0 ? 1 : 0;
+    case SLEEP_RES: return (mc & MR_SLEEP) !== 0 ? 1 : 0;
+    case COLD_RES: return (mc & MR_COLD) !== 0 ? 1 : 0;
+    case DISINT_RES: return (mc & MR_DISINT) !== 0 ? 1 : 0;
+    case SHOCK_RES: return (mc & MR_ELEC) !== 0 ? 1 : 0;
+    case POISON_RES: return (mc & MR_POISON) !== 0 ? 1 : 0;
+    case ACID_RES: return (mc & MR_ACID) !== 0 ? 1 : 0;
+    case STONE_RES: return (mc & MR_STONE) !== 0 ? 1 : 0;
+    case TELEPORT: return can_teleport(ptr) ? 1 : 0;
+    case TELEPORT_CONTROL: return control_teleport(ptr) ? 1 : 0;
+    case TELEPAT: return telepathic(ptr) ? 1 : 0;
+    default: return 0;
+    }
+}
+
+/**
+ * C ref: eat.c should_givit — permanent-intrinsic chance vs mlevel.
+ */
+function should_givit(type, ptr) {
+    let chance;
+    switch (type | 0) {
+    case POISON_RES:
+        if ((ptr?.mndx === PM_KILLER_BEE || ptr?.mndx === PM_SCORPION)
+            && !rn2(4)) {
+            chance = 1;
+        } else {
+            chance = 15;
+        }
+        break;
+    case TELEPORT:
+        chance = 10;
+        break;
+    case TELEPORT_CONTROL:
+        chance = 12;
+        break;
+    case TELEPAT:
+        chance = 1;
+        break;
+    default:
+        chance = 15;
+        break;
+    }
+    return (ptr?.mlevel | 0) > rn2(chance);
+}
+
+/**
+ * C ref: eat.c temp_givit — timed acid/stone resist chance.
+ */
+function temp_givit(type, ptr) {
+    const chance = (type | 0) === STONE_RES ? 6
+        : (type | 0) === ACID_RES ? 3 : 0;
+    return chance ? ((ptr?.mlevel | 0) > rn2(chance)) : false;
+}
+
+/**
+ * C ref: eat.c givit — grant permanent or timed intrinsic from corpse.
+ * Named omissions: debugpline only.
+ */
+async function givit(type, ptr) {
+    if (!should_givit(type, ptr) && !temp_givit(type, ptr)) return;
+
+    const u = game.u || (game.u = {});
+    const hallu = !!(u.Hallucination || ((u.HHallucination | 0) & TIMEOUT));
+
+    switch (type | 0) {
+    case FIRE_RES:
+        if (!((u.HFire_resistance | 0) & FROMOUTSIDE)) {
+            await pline(hallu ? 'You be chillin\'.' : 'You feel a momentary chill.');
+            u.HFire_resistance = (u.HFire_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case SLEEP_RES:
+        if (!((u.HSleep_resistance | 0) & FROMOUTSIDE)) {
+            await You_feel('wide awake.');
+            u.HSleep_resistance = (u.HSleep_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case COLD_RES:
+        if (!((u.HCold_resistance | 0) & FROMOUTSIDE)) {
+            await You_feel('full of hot air.');
+            u.HCold_resistance = (u.HCold_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case DISINT_RES:
+        if (!((u.HDisint_resistance | 0) & FROMOUTSIDE)) {
+            await You_feel(hallu ? 'totally together, man.' : 'very firm.');
+            u.HDisint_resistance = (u.HDisint_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case SHOCK_RES:
+        if (!((u.HShock_resistance | 0) & FROMOUTSIDE)) {
+            if (hallu) await You_feel('grounded in reality.');
+            else await pline('Your health currently feels amplified!');
+            u.HShock_resistance = (u.HShock_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case POISON_RES:
+        if (!((u.HPoison_resistance | 0) & FROMOUTSIDE)) {
+            const had = !!(u.Poison_resistance || u.HPoison_resistance
+                || u.EPoison_resistance);
+            await You_feel(had ? 'especially healthy.' : 'healthy.');
+            u.HPoison_resistance = (u.HPoison_resistance | 0) | FROMOUTSIDE;
+        }
+        break;
+    case TELEPORT:
+        if (!((u.HTeleportation | 0) & FROMOUTSIDE)) {
+            await You_feel(hallu ? 'diffuse.' : 'very jumpy.');
+            u.HTeleportation = (u.HTeleportation | 0) | FROMOUTSIDE;
+        }
+        break;
+    case TELEPORT_CONTROL:
+        if (!((u.HTeleport_control | 0) & FROMOUTSIDE)) {
+            await You_feel(hallu
+                ? 'centered in your personal space.'
+                : 'in control of yourself.');
+            u.HTeleport_control = (u.HTeleport_control | 0) | FROMOUTSIDE;
+        }
+        break;
+    case TELEPAT:
+        if (!((u.HTelepat | 0) & FROMOUTSIDE)) {
+            await You_feel(hallu
+                ? 'in touch with the cosmos.'
+                : 'a strange mental acuity.');
+            u.HTelepat = (u.HTelepat | 0) | FROMOUTSIDE;
+            const Blind = !!(u.Blind || ((u.HBlinded | 0) & TIMEOUT));
+            if (Blind) see_monsters();
+        }
+        break;
+    case ACID_RES: {
+        const Acid_resistance = !!(u.Acid_resistance || u.HAcid_resistance
+            || u.EAcid_resistance);
+        if (!Acid_resistance) {
+            await You_feel(hallu
+                ? 'secure from flashbacks'
+                : 'less concerned about being harmed by acid');
+        }
+        incr_itimeout_prop(u, 'HAcid_resistance', d(3, 6));
+        break;
+    }
+    case STONE_RES: {
+        const Stone_resistance = !!(u.Stone_resistance || u.HStone_resistance
+            || u.EStone_resistance);
+        if (!Stone_resistance) {
+            await You_feel(hallu
+                ? 'unusually limber'
+                : 'less concerned about becoming petrified');
+        }
+        incr_itimeout_prop(u, 'HStone_resistance', d(3, 6));
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+/**
+ * C ref: eat.c corpse_intrinsic — pick one conveyable prop (or -1 STR).
+ * Non-deterministic; call once per corpse.
+ */
+function corpse_intrinsic(ptr) {
+    const conveys_STR = is_giant(ptr);
+    let count = 0;
+    let prop = 0;
+    if (conveys_STR) {
+        count = 1;
+        prop = -1;
+    }
+    for (let i = 1; i <= LAST_PROP; i++) {
+        if (!intrinsic_possible(i, ptr)) continue;
+        ++count;
+        if (!rn2(count)) prop = i;
+    }
+    // if strength is the only candidate, give it 50% chance
+    if (conveys_STR && count === 1 && !rn2(2)) prop = 0;
+    return prop;
+}
+
+/**
  * C ref: eat.c cpostfx — post-corpse effects.
- * Branch envelope (D-0943): named specials (wraith/nurse/stalker-bat/
- * quantum/lizard/chameleon-doppel-genetic/displacer/mind flayer INT/
- * riders) + check_intrinsics hallu + eye_of_newt_buzz.
+ * Branch envelope (D-0943/D-0944): named specials + check_intrinsics
+ * hallu/newt + corpse_intrinsic → givit / gainstr.
  * Named omissions: were* set_ulycn/retouch_equipment; mimic gold
- * eatmdone/afternmv; disenchanter attrcurse; corpse_intrinsic/givit/
- * gainstr (needs mconveys in generated mons); eatmbuf cleanup;
+ * eatmdone/afternmv; disenchanter attrcurse; eatmbuf cleanup;
  * display_nhwindow for mimic; livelog polyself conduct.
  */
 async function cpostfx(pm) {
@@ -1209,7 +1397,13 @@ async function cpostfx(pm) {
         if (attacktype(ptr, AT_MAGC) || (pm | 0) === PM_NEWT) {
             await eye_of_newt_buzz();
         }
-        // C: corpse_intrinsic → givit / gainstr deferred (no mconveys yet)
+        // C: corpse_intrinsic → givit / gainstr (D-0944)
+        const tmp = corpse_intrinsic(ptr);
+        if (tmp === -1) {
+            await gainstr(null, 0, true);
+        } else if (tmp > 0) {
+            await givit(tmp, ptr);
+        }
     }
 }
 
