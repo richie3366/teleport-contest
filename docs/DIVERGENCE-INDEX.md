@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0961 | fixed | `impact_drop`/`down_gate`/`drop_to`/`add_to_migration` dig hole fall | map-driven debt; green+dig cohort 16/16 |
 | D-0960 | fixed | `mkcavearea`/`mkcavepos`/`rm_waslit` earth dig | map-driven debt; green+dig cohort 16/16; cadence 44/44 @#1230 |
 | D-0959 | fixed | `destroy_drawbridge` + find/is_wall dig furniture/`dighole` | map-driven debt; green+dig cohort 16/16 |
 | D-0958 | fixed | `shopdig` dig warn/`shopdig(1)` pack snatch | map-driven debt; green+dig cohort 16/16 |

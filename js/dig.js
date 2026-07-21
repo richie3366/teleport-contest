@@ -8,7 +8,8 @@
 //        apply.c maybe_dunk_boulders; hack.c may_dig.
 //        (D-0941 watch_dig; D-0950 break-wand dig; D-0951 pickaxe dig;
 //        D-0954 furniture_handled + HOLE goto_level; D-0957 dig_up_grave;
-//        D-0959 destroy_drawbridge; D-0960 mkcavearea earth)
+//        D-0959 destroy_drawbridge; D-0960 mkcavearea earth;
+//        D-0961 impact_drop / down_gate / drop_to)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -374,12 +375,12 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
 
 /**
  * C ref: dig.c digactualhole — create PIT or HOLE trap + side effects.
- * Branch envelope (D-0950/D-0954/D-0958): furniture_handled; maketrap;
+ * Branch envelope (D-0950/D-0954/D-0958/D-0961): furniture_handled; maketrap;
  * furniture fall msg; shop add_damage / pay ruin; PIT at_u set_utrap +
  * wake_nearby; HOLE hero fall goto_level + shopdig(1) pack snatch; mon
- * teleport_pet migrate.
- * Named omit: desecrate_altar; impact_drop; switch_terrain;
- * buried_ball_to_punishment; make_angry_shk.
+ * teleport_pet migrate; impact_drop floor objs through hole.
+ * Named omit: desecrate_altar; switch_terrain; buried_ball_to_punishment;
+ * make_angry_shk; impact_drop shop stolen_value.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
     const lev = game.level?.at(x, y);
@@ -509,7 +510,10 @@ export async function digactualhole(x, y, madeby, ttyp) {
             }
 
             if (u.ustuck || wont_fall) {
-                // impact_drop deferred
+                if (newobjs) {
+                    const { impact_drop } = await import('./dokick.js');
+                    await impact_drop(null, x, y, 0);
+                }
                 if (oldobjs !== newobjs) {
                     const { pickup } = await import('./pickup.js');
                     await pickup(1);
@@ -541,7 +545,10 @@ export async function digactualhole(x, y, madeby, ttyp) {
                 const { pay_for_damage } = await import('./shk.js');
                 await pay_for_damage('ruin', false);
             }
-            // impact_drop deferred
+            if (newobjs) {
+                const { impact_drop } = await import('./dokick.js');
+                await impact_drop(null, x, y, 0);
+            }
             const mtmp = mtmp0 || m_at(x, y);
             if (mtmp) {
                 if (!grounded(mtmp.data)

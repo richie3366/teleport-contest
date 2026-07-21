@@ -1,7 +1,7 @@
-// dokick.js — #kick command.
+// dokick.js — #kick command + object fall-through (impact_drop).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
-// kick_monster, kickdmg (partial). Object/secret-door/furniture kicks named
-// in C-JS-MAP.md.
+// kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961).
+// Object/secret-door/furniture kicks named in C-JS-MAP.md.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rnl } from './rng.js';
@@ -11,10 +11,10 @@ import {
 import {
     pline, newsym, canspotmon, map_invisible, flush_topl_more, verbalize,
 } from './display.js';
-import { vision_recalc, recalc_block_point, couldsee } from './vision.js';
+import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir } from './lock.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
-import { objects_at } from './mkobj.js';
+import { objects_at, obj_extract_self, add_to_migration } from './mkobj.js';
 import {
     mon_at, attack_checks, passive, killed, check_caitiff,
 } from './uhitm.js';
@@ -22,7 +22,7 @@ import { AT_KICK } from './mhitm.js';
 import {
     overexertion, losehp, maybe_half_phys, in_rooms, in_town,
 } from './hack.js';
-import { set_wounded_legs, legs_in_no_shape, b_trapped } from './trap.js';
+import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at } from './trap.js';
 import { setmangry, seemimic } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
@@ -32,6 +32,8 @@ import {
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
+import { stairway_at } from './mklev.js';
+import { ok_to_quest } from './quest.js';
 import {
     COLNO, ROWNO,
     SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL,
@@ -39,7 +41,12 @@ import {
     IS_DOOR, IS_STWALL, IS_POOL, IS_THRONE, IS_FOUNTAIN, IS_SINK, IS_GRAVE,
     IS_TREE, KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE, P_MARTIAL_ARTS,
     RIGHT_SIDE, TIMEOUT, FOOT, SHOPBASE, SHOP_DOOR_COST,
+    MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
+    MIGR_WITH_HERO, TRAPDOOR, is_hole, Is_stronghold, Is_botlevel, In_endgame,
 } from './const.js';
+
+const BOULDER = objectNames.indexOf('BOULDER');
+const ROCK = objectNames.indexOf('ROCK');
 
 const PM_SASQUATCH = monsterNames.indexOf('PM_SASQUATCH');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
@@ -531,3 +538,162 @@ export async function dokick() {
     await kick_nondoor(x, y, avrg_attrib);
     return true;
 }
+
+function on_level(a, b) {
+    return !!(a && b
+        && (a.dnum | 0) === (b.dnum | 0)
+        && (a.dlevel | 0) === (b.dlevel | 0));
+}
+
+/**
+ * C ref: dokick.c down_gate — migration dest for objects falling down.
+ * Sets game.gate_str for impact_drop messages.
+ */
+export function down_gate(x, y) {
+    const u = game.u || {};
+    game.gate_str = null;
+    if (on_level(u.uz, game.qstart_level) && !ok_to_quest()) {
+        return MIGR_NOWHERE;
+    }
+    const stway = stairway_at(x, y);
+    if (stway && !stway.up && !stway.isladder) {
+        game.gate_str = 'down the stairs';
+        return ((stway.tolev?.dnum | 0) === (u.uz?.dnum | 0))
+            ? MIGR_STAIRS_UP
+            : MIGR_SSTAIRS;
+    }
+    if (stway && !stway.up && stway.isladder) {
+        game.gate_str = 'down the ladder';
+        return MIGR_LADDER_UP;
+    }
+    const ttmp = t_at(x, y);
+    if (ttmp && ttmp.tseen && is_hole(ttmp.ttyp)) {
+        game.gate_str = (ttmp.ttyp === TRAPDOOR)
+            ? 'through the trap door'
+            : 'through the hole';
+        return MIGR_RANDOM;
+    }
+    return MIGR_NOWHERE;
+}
+
+/**
+ * C ref: dokick.c drop_to — fill coord destination for a down_gate loc.
+ * cc.y === 0 means nowhere.
+ */
+export function drop_to(cc, loc, x, y) {
+    const u = game.u || {};
+    const stway = stairway_at(x, y);
+    switch (loc) {
+    case MIGR_RANDOM:
+        if (Is_stronghold(u.uz)) {
+            const v = game.valley_level;
+            cc.x = v?.dnum | 0;
+            cc.y = v?.dlevel | 0;
+            break;
+        } else if (In_endgame(u.uz) || Is_botlevel(u.uz)) {
+            cc.y = 0;
+            cc.x = 0;
+            break;
+        }
+        // FALLTHROUGH — stairs/ladder/sstairs share dest fill
+    case MIGR_STAIRS_UP:
+    case MIGR_LADDER_UP:
+    case MIGR_SSTAIRS:
+        if (stway?.tolev) {
+            cc.x = stway.tolev.dnum | 0;
+            cc.y = stway.tolev.dlevel | 0;
+        } else {
+            cc.x = u.uz?.dnum | 0;
+            cc.y = (u.uz?.dlevel | 0) + 1;
+        }
+        break;
+    default:
+    case MIGR_NOWHERE:
+        cc.y = 0;
+        cc.x = 0;
+        break;
+    }
+}
+
+/**
+ * C ref: dokick.c impact_drop — player/missile impact drops floor objs down.
+ * Branch envelope: down_gate/drop_to; boulder/rock rn2 skip; extract +
+ * add_to_migration; visible fall messages via gate_str.
+ * Named omit: stolen_value / picked_container shop bill; hot_pursuit /
+ * angry_guards thief messages when debit/robbed change.
+ * @param {object|null} missile  caused impact; won't drop itself
+ * @param {number} x
+ * @param {number} y
+ * @param {number} dlev  if !0 send objs with MIGR_WITH_HERO to dlev
+ */
+export async function impact_drop(missile, x, y, dlev) {
+    if (!objects_at(x, y)) return;
+
+    let toloc = down_gate(x, y);
+    const cc = { x: 0, y: 0 };
+    drop_to(cc, toloc, x, y);
+    if (!cc.y) return;
+
+    if (dlev) {
+        toloc = MIGR_WITH_HERO;
+        cc.y = dlev | 0;
+    }
+
+    // costly_spot / stolen_value shop billing deferred (named omit)
+    const isrock = !!(missile && (missile.otyp | 0) === ROCK);
+    let oct = 0;
+    let dct = 0;
+    const u = game.u || {};
+    const uball = u.uball;
+    const uchain = u.uchain;
+
+    for (let obj = objects_at(x, y); obj; ) {
+        const obj2 = obj.nexthere;
+        if (obj === missile) {
+            obj = obj2;
+            continue;
+        }
+        oct += obj.quan | 0;
+        if (obj === uball || obj === uchain) {
+            obj = obj2;
+            continue;
+        }
+        // boulders can fall too, but rarely & never due to rocks
+        if ((isrock && (obj.otyp | 0) === BOULDER)
+            || rn2((obj.otyp | 0) === BOULDER ? 30 : 3)) {
+            obj = obj2;
+            continue;
+        }
+        obj_extract_self(obj);
+        // stolen_value / picked_container / no_charge shop arms deferred
+        add_to_migration(obj);
+        obj.ox = cc.x | 0;
+        obj.oy = cc.y | 0;
+        obj.owornmask = toloc | 0;
+        dct += obj.quan | 0;
+        obj = obj2;
+    }
+
+    if (dct && cansee(x, y)) {
+        const what = dct === 1 ? 'object falls' : 'objects fall';
+        const gate = game.gate_str || 'down';
+        if (missile) {
+            await pline(
+                `From the impact, ${
+                    dct === oct ? 'the ' : dct === 1 ? 'an' : ''
+                }other ${what}.`,
+            );
+        } else if (oct === dct) {
+            await pline(
+                `${dct === 1 ? 'The' : 'All the'} adjacent ${what} ${gate}.`,
+            );
+        } else {
+            await pline(
+                `${dct === 1 ? 'One of the' : 'Some of the'} adjacent ${
+                    dct === 1 ? 'objects falls' : what
+                } ${gate}.`,
+            );
+        }
+    }
+}
+

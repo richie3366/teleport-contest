@@ -15,11 +15,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0960** `mkcavearea`/`mkcavepos`/`rm_waslit`.
-- **Next cluster:** desecrate_altar / impact_drop / conjoined_pits;
-  revive container/buried polish; ice melt / burn_floor_objects /
-  fireball; Ring_off float_down/learnring/adjust_attrib polish;
-  autodig quiet / boulder-fill.
+- Latest port: **D-0961** `impact_drop`/`down_gate`/`drop_to`/
+  `add_to_migration`.
+- **Next cluster:** desecrate_altar / conjoined_pits; autodig quiet /
+  boulder-fill; revive container/buried polish; ice melt /
+  burn_floor_objects / fireball; Ring_off float_down/learnring/
+  adjust_attrib polish.
 - Cadence full `sessions` next @**#1235**.
 
 ## Don't re-check (≤15)
@@ -42,13 +43,14 @@ Objective/score live in `CURRENT.md`.
 - Do not re-stub TIN … furniture/HOLE (D-0954), unturn/hero_breaks/ABON
   (D-0955), Ring_gone/float_up/rescham/choke/set_mimic_blocking
   (D-0956), dig_up_grave (D-0957), shopdig (D-0958), destroy_drawbridge
-  (D-0959), or mkcavearea (D-0960).
+  (D-0959), mkcavearea (D-0960), or impact_drop (D-0961).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1230**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn`.
+- **D-0961:** impact_drop / down_gate / drop_to / add_to_migration.
 - **D-0960:** mkcavearea / mkcavepos / rm_waslit earth dig.
 - **D-0959:** destroy_drawbridge + dig furniture/dighole wires.
 - **D-0958:** shopdig warn/snatch.
@@ -61,5 +63,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0951:** pickaxe dig occupation / use_pick_axe / is_digging.
 - **D-0950:** dig_check/digactualhole + break-wand dig/create pay.
 - **D-0949:** `explode` shop pay + `do_break_wand` explode-types.
-- **D-0948:** `zap_over_floor` shop door/bars + `dobuzz` pay.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

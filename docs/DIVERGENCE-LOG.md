@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0961 — impact_drop floor objects through holes
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** digging/creating a HOLE while floor objects remained
+  skipped C `impact_drop` — objects never migrated downward when
+  the hero stayed (ustuck/flight) or when only monsters fell.
+- **Cause:** named constitutional debt (`debt.md` dig.js /
+  dokick.js) — `impact_drop` deferred after D-0960.
+- **Fix:** port `dokick.c` `down_gate`/`drop_to`/`impact_drop` +
+  `mkobj.c` `add_to_migration`; wire both HOLE arms in
+  `digactualhole` (D-0961).
+- **Verification:** green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1235).
+- **Named omissions:** `stolen_value`/`picked_container` shop bill +
+  thief messages; `ship_object`/`do.c`/`trap.c` other callers;
+  `maybe_reset_pick`; desecrate_altar; conjoined_pits; autodig;
+  boulder-fill.
+
 ## D-0960 — mkcavearea earth dig collapse/extend
 
 - **Status:** fixed (map-driven debt retirement)

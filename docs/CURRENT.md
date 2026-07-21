@@ -72,10 +72,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** desecrate_altar / impact_drop / conjoined_pits;
-revive container/buried polish; ice melt / `burn_floor_objects` /
-fireball; float_down / learnring / adjust_attrib Ring_off polish;
-autodig quiet / boulder-fill.
+**Next cluster:** desecrate_altar / conjoined_pits; autodig quiet /
+boulder-fill; revive container/buried polish; ice melt /
+`burn_floor_objects` / fireball; float_down / learnring /
+adjust_attrib Ring_off polish.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -87,7 +87,7 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0960. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0961. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
@@ -117,7 +117,9 @@ do not re-stub);
 **D-0959** (`destroy_drawbridge` + dig furniture/`dighole` — do not
 re-stub);
 **D-0960** (`mkcavearea`/`mkcavepos`/`rm_waslit` earth dig — do not
-re-stub).
+re-stub);
+**D-0961** (`impact_drop`/`down_gate`/`drop_to`/`add_to_migration` —
+do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
