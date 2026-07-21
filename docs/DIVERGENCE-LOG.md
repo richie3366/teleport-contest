@@ -6,9 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1139)
+- **Status:** partial (#1080–#1140)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **969**/1814)
+  Scr **970**/1814)
+- **Hypothesis (#1140):** @372 invent `3 scrolls labeled KIRJE` vs
+  `3 scroll labeled KIRJEs` — JS `makeplural` only split on `" of "`;
+  C `singplur_compound` also splits on `" labeled "` / `" called "` /
+  `" named "` / … so pluralizes the head (`scroll`→`scrolls`).
+- **Fix (#1140):** `objnam.js` `singplur_compound` + use in
+  `makeplural`/`makesingular`. Named: pronoun genders; already_plural
+  ae/eaux; man→men; as_is collective; mongoose/slice edges.
+- **Verification (#1140):** green+strict PASS; cohort 6/6; Scr
+  **969→970**; suite @#1140 **10560**/11405 RNG 100%. Next: @**517**
+  JS `You see here an iron chain` vs C blank; @**518** C
+  `very heavy iron ball (chained to you)` vs JS `heavy iron ball`.
 - **Hypothesis (#1139):** @292 C shimmering `--More--` alone vs JS
   shimmering+finish-prayer — missing `hideunder` `You_see` during
   prayer turns; cobra pline cannot append → forces More on shimmering.

@@ -871,11 +871,34 @@ const SPECIAL_SUBJS = [
     'amnesia', 'detect monsters', 'paralysis', 'shape changers', 'nemesis',
 ];
 
+// C ref: objnam.c singplur_compound — compounds[] (compound_start " -").
+const SINGPLUR_COMPOUNDS = [
+    ' of ', ' labeled ', ' called ',
+    ' named ', ' above', // lurkers above
+    ' versus ', ' from ', ' in ',
+    ' on ', ' a la ', ' with',
+    ' de ', " d'", ' du ',
+    ' au ', '-in-', '-at-',
+];
+
+/** @returns {number} index of first compound marker, or -1 */
+function singplur_compound(str) {
+    const lower = str.toLowerCase();
+    for (let i = 0; i < str.length; i++) {
+        const c = str[i];
+        if (c !== ' ' && c !== '-') continue;
+        for (const cmpd of SINGPLUR_COMPOUNDS) {
+            if (lower.startsWith(cmpd.toLowerCase(), i)) return i;
+        }
+    }
+    return -1;
+}
+
 /**
  * C ref: objnam.c makesingular — wish/plural → canonical object name.
- * Compound " of " singularizes the head only; as_is; one_off reverse;
- * -ies/-ves/-es/-s. Named omissions: pronoun genders; craft/mongoose;
- * badman men→man; full Strcasecpy case polish on every branch.
+ * Compound via singplur_compound singularizes the head only; as_is;
+ * one_off reverse; -ies/-ves/-es/-s. Named omissions: pronoun genders;
+ * craft/mongoose; badman men→man; full Strcasecpy case polish.
  */
 export function makesingular(oldstr) {
     if (oldstr == null) return '';
@@ -883,13 +906,13 @@ export function makesingular(oldstr) {
     while (s.startsWith(' ')) s = s.slice(1);
     if (!s) return '';
 
-    // C: singplur_compound — singularize only the part before " of "
+    // C: singplur_compound — singularize only the part before marker
     let excess = '';
-    const ofIdx = s.toLowerCase().indexOf(' of ');
     let bp = s;
-    if (ofIdx > 0) {
-        excess = s.slice(ofIdx);
-        bp = s.slice(0, ofIdx);
+    const cmpIdx = singplur_compound(s);
+    if (cmpIdx >= 0) {
+        excess = s.slice(cmpIdx);
+        bp = s.slice(0, cmpIdx);
     }
 
     const lower = bp.toLowerCase();
@@ -980,7 +1003,7 @@ export function makesingular(oldstr) {
 }
 
 /**
- * C ref: objnam.c makeplural — irregular one_off + compound "of" + ya.
+ * C ref: objnam.c makeplural — irregular one_off + singplur_compound + ya.
  * Named omissions: pronoun genders; already_plural ae/eaux; man→men;
  * as_is collective; singplur_lookup mongoose/slice edges;
  * full case-preserve polish beyond matched-suffix first letter.
@@ -990,9 +1013,10 @@ export function makeplural(s) {
     while (s.startsWith(' ')) s = s.slice(1);
     // C: skip "pair of " → keep as-is (objects use collective "pair")
     if (/^pair of /i.test(s)) return s;
-    const of = s.indexOf(' of ');
-    if (of > 0) {
-        return makeplural(s.slice(0, of)) + s.slice(of);
+    // C: singplur_compound — pluralize head only ("scrolls labeled KIRJE")
+    const cmpIdx = singplur_compound(s);
+    if (cmpIdx >= 0) {
+        return makeplural(s.slice(0, cmpIdx)) + s.slice(cmpIdx);
     }
     // C: "ya" stays "ya" (Samurai bamboo arrows)
     if (s.length === 2 && s.toLowerCase() === 'ya') return s;
@@ -1151,7 +1175,7 @@ export function obj_is_pname(obj) {
 /**
  * C ref: objnam.c simpleonames ← minimal_xname — type appearance without
  * quan/BUC. Statue/figurine corpsenm suppressed (C bareobj.corpsenm=NON_PM).
- * Named omissions: sack→bag family aliases; makeplural quan≠1 polish.
+ * Named omissions: sack→bag family aliases.
  */
 export function simpleonames(obj) {
     if (!obj) return 'object';

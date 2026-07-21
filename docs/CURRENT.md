@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1135** (42/44,
-Scr **10539**/11405, RNG **100%**). Next cadence @**#1140**.
-vs @#1130: Scr **10531→10539**, RNG **792061→792838** (100%; #1134 Kni-goal
-closed seed4500 RNG; #1135 getpos `S_ss1` `'0'` Scr **947→949**).
+Score last measured: **2026-07-21** — full `sessions` @**#1140** (42/44,
+Scr **10560**/11405, RNG **100%**). Next cadence @**#1145**.
+vs @#1135 docs: Scr **10539→10560** (remeasure; #1140 makeplural +1 →
+seed4500 **969→970**). Speed `31+0.26/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,539 / 11,405** |
+| Screens matched | **10,560 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `29+0.25/turn` (R² 0.870) |
+| Speed label | `31+0.26/turn` (R² 0.850) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -48,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 949/1814 | knight; RNG done; screen peel |
+| seed4500 | **108275**/108275 | 970/1814 | knight; RNG done; screen peel |
 
 ## Green gate
 
@@ -72,20 +72,22 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** **seed4500** screen peel (RNG **complete**
-**108275**/108275). **D-0928 #1139:** `hideunder` `You_see` +
-`simpleonames` statue (≡C `minimal_xname`); prayer shimmering More
-matches. Scr **966→969**. Next @**372** wish invent
-`scrolls labeled KIRJE` vs `scroll labeled KIRJEs`. Focused:
+**108275**/108275). **D-0928 #1140:** `makeplural`/`makesingular`
+`singplur_compound` (`labeled`/`called`/`named`/…). Scr **969→970**;
+prefix → **@517**. Next @**517**/@**518** BALL_CLASS `very ` when
+`owt > oc_weight` + doname `(chained to you)` / iron-chain look_here.
+Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
 
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1139 (bat MFAST … hideunder You_see).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1140 (bat MFAST … singplur_compound).
 **Do not:** FORCE mfndpos/WEB; raw RNG gates; re-add invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; ship inediate FOOD
 reject; omit mfind0/wizwhere/break_armor/carrying_too_much. Rejected:
+@372≠wrong xname label — missing `singplur_compound` (#1140);
 @292≠finish-prayer append alone — missing cobra You_see (#1139);
 @237≠Options alone — missing Comp getlin for fruit (#1138);
 @195≠hero curs alone — missing flush_screen(0) last-glyph (#1137);

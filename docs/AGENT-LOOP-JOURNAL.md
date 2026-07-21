@@ -20,6 +20,14 @@ Use this shape:
 - Next: ...
 ```
 
+## 2026-07-21 12:08 — #1140 score + makeplural singplur_compound
+- Objective: cadence full `sessions` @#1140; seed4500 @372 scroll plural.
+- C locus: `objnam.c` `singplur_compound` / `makeplural` / `makesingular`.
+- Change: JS `singplur_compound` (`labeled`/`called`/`named`/…); score
+  docs **42/44** Scr **10560**/11405 RNG **100%** `31+0.26/turn`.
+- Verification: green+strict; cohort 6/6; seed4500 Scr **969→970**.
+- Next: @**517**/@**518** BALL `very ` + `(chained to you)` / chain look.
+
 ## 2026-07-21 12:05 — #1139 hideunder You_see + statue simpleonames
 - Objective: seed4500 @292 shimmering --More-- vs finish-prayer append.
 - C locus: `mon.c` hideunder You_see; `objnam.c` minimal_xname corpsenm=NON_PM;

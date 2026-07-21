@@ -8,9 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **969**/1814.
-  Next @**372** `3 scrolls labeled KIRJE` vs `3 scroll labeled KIRJEs`
-  (makeplural / labeled scroll). Focused:
+- **Gameplay next (D-0928):** seed4500 RNG complete; Scr **970**/1814;
+  prefix **@517**. Next @**517**/@**518** iron ball:
+  C `very heavy iron ball (chained to you)` vs JS `heavy iron ball`;
+  also JS `You see here an iron chain` vs C blank @517.
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -34,15 +36,17 @@ Objective/score live in `CURRENT.md`.
   `Kni-goal` loader (#1134).
 - Do not treat @136 `'0'` as unknown-direction — missing `S_ss1`
   matching (#1135).
-- Do not treat @292 shimmering+finish as More-flush alone — missing
-  cobra `You_see` hideunder (#1139).
+- Do not treat @372 `KIRJEs` as xname typo — missing `singplur_compound`
+  (#1140).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1135 Scr **10539**/11405 RNG **792838**/792838
-  (**100%**); speed `29+0.25/turn`; next cadence @**#1140**.
+- suite **42/44** @#1140 Scr **10560**/11405 RNG **792838**/792838
+  (**100%**); speed `31+0.26/turn`; next cadence @**#1145**.
+- **D-0928 #1140:** makeplural `singplur_compound`; Scr **969→970**;
+  invent `scrolls labeled KIRJE`; next @**517** iron ball/chain.
 - **D-0928 #1139:** hideunder You_see + statue simpleonames; Scr
-  **966→969**; @292–294 prayer match; next @**372** scroll plural.
+  **966→969**; @292–294 prayer match.
 - **D-0928 #1138:** doset fruit getlin + menu `>` page; Scr **954→966**.
 - **D-0928 #1137:** getpos dirty flush last-glyph curs; Scr **950→954**.
 - **D-0928 #1136:** getpos look_at_object; Scr **949→950**; @231 match.
@@ -55,4 +59,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1129:** nasty + SUMMON_MONS; was @**106852**.
 - **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**.
 - **D-0928 #1127:** pickup notake gate; C also double incapable.
-- **D-0928 #1124:** dowear verysmall/nohands; was @**106540**.
