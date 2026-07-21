@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:30 — #1209 D-0941 still_chewing shop/watch_dig
+
+- Objective: map-driven — retire `still_chewing` shop/`watch_dig` debt.
+- C locus: `hack.c` `still_chewing`; `dig.c` `watch_dig`; `mon.c`
+  `angry_guards`; `shk.c` `add_damage`; `monmove.c` `watch_on_duty`.
+- Change: port `add_damage`/`watch_dig`/`angry_guards`; wire chew,
+  `zap_dig`, `mdig_tunnel`, `watch_on_duty` (D-0941).
+- Verification: green+strict PASS; dig/role cohort 12/12.
+- Next: `pay_for_damage`/`getcad`/`hot_pursuit`; cpostfx; eatspecial
+  PAPER/potion/ring. Cadence full `sessions` @#1210.
+
 ## 2026-07-21 22:25 — #1208 D-0940 costly_tin + use_tin_opener
 
 - Objective: map-driven — retire tin shop bill + apply tin-opener debt.

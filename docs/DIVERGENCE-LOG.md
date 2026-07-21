@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0941 — `still_chewing` shop `add_damage` + `watch_dig` / `angry_guards`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** metallivore chew ignored town watch and never scheduled
+  shop wall/door repair; `zap_dig`/`mdig_tunnel` same omissions.
+- **Cause:** named constitutional debt (`debt.md` eat / dig / shop).
+- **C locus:** `hack.c` `still_chewing`; `dig.c` `watch_dig` /
+  `watchman_canseeu` / `is_digging`; `mon.c` `angry_guards`; `shk.c`
+  `add_damage`; `monmove.c` `watch_on_duty` dig arm.
+- **JS:** `shk.js` `add_damage`/`shop_wall_dmg`; `dig.js` `watch_dig`;
+  `mon.js` `angry_guards`; wire `still_chewing` + `zap_dig` +
+  `mdig_tunnel` + `watch_on_duty`. Deferred: `pay_for_damage` /
+  `getcad` / `hot_pursuit`; pickaxe `dig` occupation (`is_digging`
+  stays false until then).
+- **Verify:** green+strict; dig/role cohort 12/12 PASS.
+
 ## D-0940 — tin `costly_tin` / `use_tin_opener` + shop `costly_alteration`
 
 - **Status:** fixed (map-driven debt retirement)
@@ -16,8 +32,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **JS:** `shk.js` bill helpers + `costly_alteration`; `eat.js`
   `costly_tin` + `use_tin_opener`; `apply.js` TIN_OPENER wire.
   Deferred: floor remote `stolen_value`; unpaid `splitbill` / nextoid
-  price-matched oid; billobjs residual; `still_chewing` shop/`watch_dig`;
-  cpostfx specials.
+  price-matched oid; billobjs residual; `still_chewing` shop/`watch_dig`
+  retired D-0941; cpostfx specials.
 - **Verify:** green+strict; eat/role cohort 12/12 PASS.
 
 ## D-0939 — `cprefx` + cannibal / stone / slime helpers

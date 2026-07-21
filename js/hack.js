@@ -10,7 +10,7 @@ import {
     is_pit, TEMPLE, OROOM, COURT, SWAMP, MORGUE, ZOO, BEEHIVE, BARRACKS,
     LEPREHALL, COCKNEST, ANTHOLE, DELPHI,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ROOM, CORR, DOOR, SDOOR, TREE, ICE,
-    W_NONDIGGABLE,
+    W_NONDIGGABLE, SHOP_DOOR_COST,
     IS_WATERWALL, PARANOID_SWIM, TIP_SWIM,
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     xdir, ydir, N_DIRS,
@@ -1307,10 +1307,10 @@ export function dissolve_bars(x, y) {
  * C ref: hack.c still_chewing — chew wall/door/boulder/bars.
  * Returns 1 if still eating, 0 when done (C int boolean).
  * Branch envelope: nondiggable teeth; metallivore full bars; start/continue
- * effort; finish boulder/wall/tree/IRONBARS/SDOOR/door/rock.
- * Named omissions: watch_dig; shop add_damage/pay_for_damage; livelog
- * first-food; switch_terrain after bars; maze/cavern wall polish via
- * in_town.
+ * effort; finish boulder/wall/tree/IRONBARS/SDOOR/door/rock;
+ * watch_dig on start/continue; shop add_damage on wall/door (D-0941).
+ * Named omissions: pay_for_damage; livelog first-food; switch_terrain
+ * after bars.
  */
 export async function still_chewing(x, y) {
     const lev = game.level?.at(x, y);
@@ -1320,6 +1320,7 @@ export async function still_chewing(x, y) {
     const youData = game.youmonst?.data
         || mons(u.umonnum ?? game.urole?.mnum);
     let digtxt = null;
+    let dmgtxt = null;
 
     if (!game.context) game.context = {};
     let digging = game.context.digging;
@@ -1354,6 +1355,10 @@ export async function still_chewing(x, y) {
         && on_level_dig(digging.level, u.uz);
     const udaminc = u.udaminc | 0;
 
+    // Lazy imports avoid hack → dig/shk static cycles.
+    const digMod = await import('./dig.js');
+    const shkMod = await import('./shk.js');
+
     if (!sameSpot) {
         digging.down = false;
         digging.chew = true;
@@ -1374,7 +1379,7 @@ export async function still_chewing(x, y) {
                         ? 'bar'
                         : 'door';
         await pline(`You start chewing ${onA ? 'on a' : 'a hole in the'} ${what}.`);
-        // watch_dig deferred
+        await digMod.watch_dig(null, x, y, false);
         return 1;
     }
 
@@ -1395,7 +1400,7 @@ export async function still_chewing(x, y) {
             );
         }
         digging.chew = true;
-        // watch_dig deferred
+        await digMod.watch_dig(null, x, y, false);
         return 1;
     }
 
@@ -1414,7 +1419,10 @@ export async function still_chewing(x, y) {
             return 1;
         }
     } else if (IS_WALL(lev.typ)) {
-        // shop add_damage deferred
+        if (in_rooms(x, y, SHOPBASE)) {
+            shkMod.add_damage(x, y, shkMod.shop_wall_dmg());
+            dmgtxt = 'damage';
+        }
         digtxt = 'chew a hole in the wall.';
         if (game.level?.flags?.is_maze_lev) {
             lev.typ = ROOM;
@@ -1446,7 +1454,10 @@ export async function still_chewing(x, y) {
         }
         lev.typ = DOOR;
     } else if (IS_DOOR(lev.typ)) {
-        // shop pay deferred
+        if (in_rooms(x, y, SHOPBASE)) {
+            shkMod.add_damage(x, y, SHOP_DOOR_COST);
+            dmgtxt = 'break';
+        }
         if ((lev.doormask | 0) & D_TRAPPED) {
             lev.doormask = D_NODOOR;
             await b_trapped('door', NO_PART);
@@ -1462,7 +1473,8 @@ export async function still_chewing(x, y) {
     recalc_block_point(x, y);
     newsym(x, y);
     if (digtxt) await pline(`You ${digtxt}`);
-    // pay_for_damage deferred
+    // pay_for_damage(dmgtxt) deferred — damagelist already scheduled
+    void dmgtxt;
     game.context.digging = {};
     return 0;
 }

@@ -6,7 +6,8 @@
 //        is_unpaid / unpaid_cost + doname unpaid suffix (D-0461);
 //        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset);
 //        sub_one_frombill / subfrombill / alter_cost;
-//        mkobj.c bill_dummy_object / costly_alteration (D-0940).
+//        mkobj.c bill_dummy_object / costly_alteration (D-0940);
+//        add_damage shop repair list (D-0941).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
 // m_break_boulder; m_move_aggress; inhistemple callers; mapseen_temple;
@@ -23,14 +24,16 @@
 // getpos pay-whom; container paydoname rewrite; contained_cost;
 // stolen_value floor-remote arm of costly_alteration; billobjs residual
 // when sub_one_frombill partial quan; nextoid shop-price oid match;
-// SetVoice; copy_oextra / free_omid / Is_candle on bill_dummy.
+// SetVoice; copy_oextra / free_omid / Is_candle on bill_dummy;
+// pay_for_damage / getcad / hot_pursuit.
 
 import { game } from './gstate.js';
 import { rn2, rn1 } from './rng.js';
 import { dist2, online2 } from './hacklib.js';
 import { in_rooms } from './hack.js';
 import {
-    ESHK, EPRI, IS_ROOM, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE, ACH_SHOP,
+    ESHK, EPRI, IS_ROOM, IS_DOOR, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE,
+    ACH_SHOP, SVALL,
     OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, OBJ_FREE, OBJ_DELETED,
     NO_ROOM, TEMPLE,
     DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
@@ -53,7 +56,7 @@ import { Hello } from './roles.js';
 import { shtypes, shkname, Shknam } from './shknam.js';
 import { splitobj, next_ident } from './mkobj.js';
 import { add_to_minv } from './makemon.js';
-import { acurr, A_CHA } from './attrib.js';
+import { acurr, acurrstr, A_CHA } from './attrib.js';
 import { simpleonames } from './objnam.js';
 import { xname, doname, paydoname, set_doname_shop_suffix } from './objnam.js';
 import { is_human } from './monsters.js';
@@ -471,6 +474,59 @@ export async function bill_dummy_object(otmp) {
     otmp.no_charge = (otmp.where === OBJ_FLOOR
         || otmp.where === OBJ_CONTAINED) ? 1 : 0;
     otmp.unpaid = 0;
+}
+
+/**
+ * C `#define SHOP_WALL_DMG (10L * ACURRSTR)` — damaging a wall.
+ * @returns {number}
+ */
+export function shop_wall_dmg() {
+    return 10 * (acurrstr() | 0);
+}
+
+/**
+ * C ref: shk.c add_damage — schedule shop repair; accumulate cost.
+ * Door cells only schedule when they are a real shop entrance (shd).
+ * Named omission: shk_fixes_damage / repairable_damage body (uses list).
+ */
+export function add_damage(x, y, cost) {
+    const lev = game.level?.at(x, y);
+    if (!lev) return;
+
+    if (IS_DOOR(lev.typ)) {
+        const shops = in_rooms(x, y, SHOPBASE) || '';
+        let ok = false;
+        for (let i = 0; i < shops.length; i++) {
+            const mtmp = shop_keeper(shops.charCodeAt(i));
+            if (!mtmp) continue;
+            const eshk = ESHK(mtmp);
+            if (eshk && (x | 0) === (eshk.shd?.x | 0)
+                && (y | 0) === (eshk.shd?.y | 0)) {
+                ok = true;
+                break;
+            }
+        }
+        if (!ok) return;
+    }
+
+    if (!game.level.damagelist) game.level.damagelist = null;
+    for (let tmp = game.level.damagelist; tmp; tmp = tmp.next) {
+        if ((tmp.place?.x | 0) === (x | 0) && (tmp.place?.y | 0) === (y | 0)) {
+            tmp.cost = (tmp.cost | 0) + (cost | 0);
+            tmp.when = game.moves | 0;
+            return;
+        }
+    }
+    const tmp_dam = {
+        when: game.moves | 0,
+        place: { x: x | 0, y: y | 0 },
+        cost: cost | 0,
+        typ: lev.typ | 0,
+        flags: (lev.flags | 0) | (lev.doormask | 0) | (lev.wall_info | 0),
+        next: game.level.damagelist,
+    };
+    game.level.damagelist = tmp_dam;
+    if (cansee(x, y)) lev.seenv = SVALL;
 }
 
 /**

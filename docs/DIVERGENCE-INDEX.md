@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0941 | fixed | `still_chewing` shop `add_damage` + `watch_dig`/`angry_guards` | map-driven debt; green+cohort 12/12 |
 | D-0940 | fixed | tin `costly_tin`/`use_tin_opener` + shop `costly_alteration` | map-driven debt; green+cohort 12/12 |
 | D-0939 | fixed | `cprefx` + cannibal/stone/slime helpers | map-driven debt; green+cohort 12/12 |
 | D-0938 | fixed | `b_trapped` + `make_stunned`; tin/door/chew/kick wires | map-driven debt; green+cohort 12/12 |

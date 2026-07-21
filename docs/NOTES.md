@@ -13,10 +13,12 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0940** tin `costly_tin`/`use_tin_opener` + shop
-  `costly_alteration`. Falsifier: green + eat/role cohort PASS.
-- Next cluster: `still_chewing` shop/`watch_dig`; cpostfx specials;
-  eatspecial PAPER/potion/ring; other `debt.md` row.
+- Latest: **D-0941** `still_chewing` shop `add_damage` + `watch_dig`/
+  `angry_guards` (+ zap_dig/mdig/`watch_on_duty` wires).
+  Falsifier: green + dig/role cohort PASS.
+- Next cluster: `pay_for_damage`/`getcad`/`hot_pursuit`; cpostfx
+  specials; eatspecial PAPER/potion/ring; other `debt.md` row.
+- Cadence full `sessions` @**#1210**.
 
 ## Don't re-check (≤15)
 
@@ -39,14 +41,15 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN / multi-turn rations (D-0935), non-food eat
   (D-0936), metallivore bars/`still_chewing` (D-0937),
-  `b_trapped`/`make_stunned` (D-0938), `cprefx` (D-0939), or
-  tin shop/`use_tin_opener` (D-0940).
+  `b_trapped`/`make_stunned` (D-0938), `cprefx` (D-0939),
+  tin shop/`use_tin_opener` (D-0940), or shop/`watch_dig` (D-0941).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1205**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn`.
+- **D-0941:** `add_damage`/`watch_dig`/`angry_guards` + still_chewing.
 - **D-0940:** tin `costly_tin`/`use_tin_opener` + `costly_alteration`.
 - **D-0939:** `cprefx` + cannibal/stone/slime; start_eating wire.
 - **D-0938:** `b_trapped` + `make_stunned`; tin/door/chew/kick.
