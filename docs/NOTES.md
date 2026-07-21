@@ -8,11 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**106838**. Same C/JS site
-  `rn2(4*(cnt-j))` (monmove.c:1963) — C arg **20** vs JS **32** ⇒
-  cnt−j is 5 vs 8 (mfndpos `cnt` and/or `mtrack` match index). Falsify:
-  dump `cnt`/`j`/`mtrack` at first track-skip rn2 after index 106837.
-  Focused:
+- **Gameplay next (D-0928):** seed4500 @**106838** track `rn2` is
+  symptom. C/JS dumps: wolf cnt 5 vs 8 because **u** C(68,17) vs
+  JS(67,14). @106679 `'l'`: C east; JS nhgetch got **`k`** (stream
+  behind). #1127: C `pickup` multi/!pickup/notake gate + incapable
+  pline (fires @106194 S_FUNGUS) — prefix unchanged. Next falsify:
+  JS calls `pickup(1)` **twice** @106194 (goto_level + teleds?) →
+  extra More vs C’s one incapable screen; compare nhgetch keys
+  106194–106539 to session. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -36,13 +39,15 @@ Objective/score live in `CURRENT.md`.
   covetous `tactics` + fire-trap `destroy_items` (#1120).
 - Do not treat @106531–@106540 as invent-letter Put-on mismatch —
   C `W` while nohands → Don't even bother; JS deferred (#1123–#1124).
-- Do not treat @106838 as a missing literal `rn2(32)` — same
-  `rn2(4*(cnt-j))` site; args differ (#1125).
+- Do not treat @106838 as missing literal `rn2(32)` or mfndpos-only —
+  C dump: hero/u already diverged; keystream/`k` vs `'l'` (#1127).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1125 Scr **10529**/11405 RNG **791421**/792838
   (99.82%); speed `31+0.25/turn`; next cadence @**#1130**.
+- **D-0928 #1127:** C dump @106838 wolf cnt5/u(68,17) vs JS cnt8/u(67,14);
+  pickup notake gate ported; prefix still **106838**.
 - **D-0928 #1124:** dowear verysmall/nohands; was @**106540**;
   prefix **106540→106838**; runner RNG **106858** Scr **939**.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
@@ -57,5 +62,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1115:** mfind0 + wizwhere; was @**104217**.
 - **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.
 - **D-0928 #1113:** eat key-desync misread (More not empty eat).
-- **D-0928 #1112:** ok_to_throw + mtimedone; was @**103155**.
-- **D-0928 #1111…#1092:** cham / eel / Blind FROMFORM / …

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 09:36 — #1127 pickup notake gate; @106838 keystream
+- Objective: seed4500 @106838 track `rn2(20)` vs `rn2(32)`.
+- C locus: `pickup.c` `pickup` multi/!pickup/notake; dumps via
+  recorder `m_move` @106838.
+- Change: C dump — wolf cnt/u already diverge (hero path). JS `'l'`
+  step read **`k`** (More stream behind). Ported C shared pickup gate
+  + incapable pline (was early-return on `!flags.pickup` only). Pline
+  fires; prefix unchanged — suspect double `pickup(1)` @106194.
+- Verification: green+strict PASS; cohort 4/4; prefix still **106838**.
+- Next: falsify double-pickup More vs C single incapable; cadence @#1130.
+
 ## 2026-07-21 09:07 — #1125 score cadence + @106838 hypothesis
 - Objective: mandatory full `sessions` @#1125; sharpen seed4500 peel.
 - C locus: `monmove.c:1963` `rn2(4*(cnt-j))` (track skip in `m_move`).

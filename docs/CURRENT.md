@@ -72,10 +72,14 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106838** (D-0928). Same site
-`rn2(4*(cnt-j))` — C arg **20** (cnt−j=5) vs JS **32** (cnt−j=8):
-mfndpos `cnt` and/or `mtrack` hit index differ. Not a missing literal
-`rn2(32)`. Next: dump C/JS `cnt`/`j`/`mtrack` at that locus. Focused:
+**Gameplay next:** **seed4500** @**106838** (D-0928). Symptom
+`rn2(4*(cnt-j))` C20 vs JS32 is **late**: C dump wolf@(15,16)
+gg/u=(68,17); JS @(15,15) u=(67,14). Hero path diverges at `'l'`
+@106679 — C `dx,dy=1,0` vs JS reading stale **`k`** (keystream).
+Root: `--More--` timing around mold `notake` pickup pline. #1127
+merged C `pickup` multi/!pickup/notake gate (pline fires) but
+prefix still **106838** — next: double `pickup(1)` @106194 vs C
+single More, or other More skip in that combat window. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -86,7 +90,7 @@ peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
 #1121 set_uasmon MR_* + getmattk lich cold; #1122 AT_MAGC castmu;
 #1123 castmu PSI_BOLT mdamageu/rehumanize; #1124 dowear
-verysmall/nohands.
+verysmall/nohands; #1127 pickup multi/!pickup/notake gate.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…

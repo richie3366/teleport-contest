@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1125; **#1124** dowear; **#1125** score)
+- **Status:** partial (#1080–#1127)
 - **Session:** seed4500-knight-coverage (prefix @**106838**)
+- **Hypothesis (#1127):** @106838 track `rn2(4*(cnt-j))` C20 vs JS32
+  is **late**. C dump: wolf@(15,16) cnt=5 j=0 u/gg=(68,17);
+  JS @(15,15) cnt=8 u=(67,14). Hero diverge @106679: C `'l'`→east;
+  JS nhgetch returned **`k`** (keystream behind). Cause: `--More--`
+  timing after mold-on-loot. JS had split `!flags.pickup` early-return
+  omitting C’s shared `notake` pline. Ported gate; pline fires
+  (S_FUNGUS @106194) twice — prefix still **106838**. Next: double
+  `pickup(1)` More vs C single incapable screen.
+- **Fix (#1127):** `pickup.js` — C `pickup.c` multi/`!pickup`/`notake`
+  one gate + `"You are physically incapable of picking anything up."`
+- **Verification (#1127):** green+strict PASS; cohort 4/4; prefix
+  still **106838** (runner RNG **106868** Scr **939**).
 - **Hypothesis (#1125):** @106838 same site `rn2(4*(cnt-j))`
   (monmove.c:1963) — C arg **20** vs JS **32** ⇒ cnt−j 5 vs 8
   (mfndpos `cnt` and/or `mtrack` hit index). Not a missing literal
