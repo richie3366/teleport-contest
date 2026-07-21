@@ -8,10 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**103155**. #1111 landed
-  `select_newcham_form` random while = C (rogue uppercase gate only);
-  prefix **103071→103155**; runner RNG **103264** Scr **928**. Next:
-  C `rn2(5) @ distfleeck` vs JS `rnd(20)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**103155**. #1112 landed
+  `ok_to_throw` + `mtimedone`/`rehumanize`; prefix still **103155**.
+  After mold refuse, JS `^V`→`getlev_catchup` `rnd(10)` while C
+  `distfleeck`. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -34,11 +34,15 @@ Objective/score live in `CURRENT.md`.
   cnt — was missing minliquid `monflee` track clear (#1110).
 - Do not over-retry `select_newcham_form` random while on any
   `!validspecmon` — C only continues under rogue uppercase gate (#1111).
+- Do not re-allow mold `#throw` without `ok_to_throw` — was `thitmonst`
+  `rnd(20)` masking C fleeck (#1112); next is post-refuse `^V`/getlev.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1110 Scr **10518**/11405 RNG **787753**/792838
   (99.36%); speed `29+0.25/turn`; next cadence @**#1115**.
+- **D-0928 #1112:** ok_to_throw + mtimedone; still @**103155**;
+  next getlev `rnd(10)`.
 - **D-0928 #1111:** select_newcham random while; prefix **103155**;
   RNG **103264** Scr **928**.
 - **D-0928 #1110:** eel minliquid monflee; was @**103071**.

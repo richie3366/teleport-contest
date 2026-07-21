@@ -6,8 +6,19 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1110; **#1111** select_newcham random while)
-- **Session:** seed4500-knight-coverage (prefix @**103155**)
+- **Status:** partial (#1080–#1111; **#1112** ok_to_throw + mtimedone)
+- **Session:** seed4500-knight-coverage (prefix still @**103155**)
+- **Symptom (@103155):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`
+  `@ thitmonst` — brown-mold poly threw a small shield and hit a mon.
+- **Cause (#1112):** JS `dothrow`/`dofire` omitted C `ok_to_throw`
+  (`notake` / `nohands`). Mold is both; C refuses before getobj. Also
+  `nh_timeout` omitted `u.mtimedone` decrement → `rehumanize`.
+- **Fix (#1112):** `dothrow.js` `ok_to_throw`; `timeout.js` mtimedone +
+  `polyself.js` `rehumanize`. After refuse, JS next burns `rnd(10)` via
+  `wiz_level_tele`→`getlev_catchup` while C fleecks — prefix unchanged.
+- **Next (@103155):** C `rn2(5) @ distfleeck` vs JS `rnd(10) @
+  getlev_catchup` (post-nohands `^V` path). Named omit: check_capacity;
+  you_unwere; throwit ACURRSTR range body.
 - **Symptom (@103071):** C `rn2(3) @ select_newcham_form` vs JS
   `rn2(330)` — looked like a second cham pick vs continued random.
 - **Cause (#1111):** JS `select_newcham_form` random arm retried while
@@ -19,7 +30,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Prefix **103071→103155** (runner RNG **103264** Scr **928**).
   Named omit: dragon-armor ordinary; wizard mon_polycontrol;
   `newcham` outer rogue `tryct>15` uppercase reject.
-- **Next (@103155):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
+- **Next (@103155 was):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
 - **Symptom (@101710):** C `rn2(5) @ postmov` vs JS `rn2(8)`
   (`m_move` track avoid `4*(cnt-j)`).
 - **Cause (#1110):** land eel `minliquid` inlined flee bits but omitted

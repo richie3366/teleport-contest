@@ -18,7 +18,7 @@ import { dropx, canletgo } from './do.js';
 import { setuwep, setuswapwep } from './wield.js';
 import { races } from './roles.js';
 import { encumber_msg } from './invent.js';
-import { losehp } from './hack.js';
+import { losehp, nomul } from './hack.js';
 import { finish_losehp_done } from './end.js';
 import {
     mons,
@@ -379,6 +379,28 @@ async function newman() {
     see_monsters();
     await encumber_msg();
     // retouch_equipment(2) / selftouch deferred
+}
+
+/**
+ * C ref: polyself.c rehumanize — poly timeout / HP death while poly'd.
+ * Envelope: Unchanging stuck arm deferred (caller handles timeout reset);
+ * polyman return-to-race; nomul; botl/vision; encumber_msg.
+ * Named omissions: emits_light del_light_source; uhp<1 done(DIED);
+ * flying steed pline; retouch_equipment; selftouch; update_inventory.
+ */
+export async function rehumanize() {
+    const u = game.u || {};
+    // C: Unchanging + mh<1 done(DIED) — deferred (timeout resets mtimedone)
+    if (Unchanging(u) && (u.mh | 0) < 1) return;
+
+    const race = game.urace || {};
+    const adj = race.adj || race.noun || 'human';
+    await polyman('You return to %s form!', adj);
+    nomul(0);
+    if (game.flags) game.flags.botl = true;
+    game.vision_full_recalc = 1;
+    await encumber_msg();
+    // retouch_equipment / selftouch deferred
 }
 
 /**

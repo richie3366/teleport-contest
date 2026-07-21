@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 05:48 — #1112 ok_to_throw + mtimedone
+- Objective: seed4500 @103155 C `rn2(5) @ distfleeck` vs JS `rnd(20)`.
+- C locus: `dothrow.c` `ok_to_throw`; `timeout.c` `mtimedone`→`rehumanize`.
+- Change: `dothrow.js` refuse `notake`/`nohands` before getobj;
+  `timeout.js` decrement `mtimedone` + `polyself.js` `rehumanize`.
+  DIAG: mold threw shield→`thitmonst`; after fix JS `^V`→`getlev`
+  `rnd(10)` (prefix unchanged).
+- Verification: green+strict PASS; cohort 5/5 (1500/1800/0060/0013/0361).
+- Next: @**103155** C fleeck vs JS `getlev_catchup` `rnd(10)`.
+
 ## 2026-07-21 05:29 — #1111 select_newcham_form random while
 - Objective: seed4500 @103071 C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
 - C locus: `mon.c` `select_newcham_form` random arm `while` (rogue uppercase gate).
