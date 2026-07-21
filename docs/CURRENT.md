@@ -21,20 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, and notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1125** (42/44,
-Scr **10529**/11405, RNG **99.82%**). Next cadence @**#1130**.
-vs @#1120: Scr **10527→10529**, RNG **791103→791421** (#1121–#1124
-poly/castmu/PSI_BOLT/`dowear`; seed4500 runner **106540→106858** Scr
-**937→939**).
+Score last measured: **2026-07-21** — full `sessions` @**#1130** (42/44,
+Scr **10531**/11405, RNG **99.90%**). Next cadence @**#1135**.
+vs @#1125: Scr **10529→10531**, RNG **791421→792061** (#1129–#1130;
+seed4500 **107335→107498** Scr **941**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **10,529 / 11,405** |
-| Positional RNG calls matched | **791,421 / 792,838** (99.82%) |
-| Speed label | `31+0.25/turn` (R² 0.857) |
+| Screens matched | **10,531 / 11,405** |
+| Positional RNG calls matched | **792,061 / 792,838** (99.90%) |
+| Speed label | `30+0.25/turn` (R² 0.867) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -49,7 +48,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | 106858/108275 | 939/1814 | knight; @**106838** m_move track `rn2(4*(cnt-j))` C20 vs JS32 |
+| seed4500 | 107498/108275 | 941/1814 | knight; @**107470** `mhitm_ad_legs` C `rn2(2)` vs JS `rn2(3)` |
 
 ## Green gate
 
@@ -72,10 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**107304** (D-0928). Symptom
-C `mcalcmove` `rn2(12)` vs JS `d(4,8)` after matched vamp
-`decide_to_shapeshift`/`pickvampshape` (mon.c). #1129 ported
-`nasty` + `castmu` SUMMON_MONS; prefix **106852→107304**.
+**Gameplay next:** **seed4500** @**107470** (D-0928). Symptom
+C `mhitm_ad_legs` `rn2(2)` vs JS `rn2(3)` after matched fleeck/
+`mattacku`/`hitmu`. #1130 fixed vamp fog→fog `dochng` (mons()
+fresh-object `!==`); prefix **107304→107470**.
 Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -89,7 +88,7 @@ D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
 #1123 castmu PSI_BOLT mdamageu/rehumanize; #1124 dowear
 verysmall/nohands; #1127 pickup multi/!pickup/notake gate;
 #1128 STRAT_APPEARMSG + mnexto rloc_to_flag / RLOC bits;
-#1129 nasty + SUMMON_MONS.
+#1129 nasty + SUMMON_MONS; #1130 vamp dochng/newcham mndx.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -128,8 +127,8 @@ AT_MAGC→`castmu` (#1122);
 verysmall/nohands (#1123–#1124);
 @106838≠literal `rn2(32)` / mfndpos-only — keystream/`k` vs `l`;
 C also double-pickup; root was STRAT_APPEARMSG + mnexto msgs (#1127–#1128);
-@106852≠omit `nasty` / treat as fleeck — was missing SUMMON_MONS
-→`nasty` (#1129).
+@106852≠omit `nasty` — missing SUMMON_MONS→`nasty` (#1129);
+@107304≠mcalcmove — fog→fog `dochng` via `mons()` `!==` (#1130).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

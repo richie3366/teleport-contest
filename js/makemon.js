@@ -942,7 +942,7 @@ export function newcham(mtmp, mdat, _ncflags = 0) {
         if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GENOD) !== 0)
             return false;
     }
-    if (target === olddata) return false;
+    if ((target?.mndx | 0) === (olddata?.mndx | 0)) return false;
 
     mgender_from_permonst(mtmp, target);
     const hpn = mtmp.mhp | 0;

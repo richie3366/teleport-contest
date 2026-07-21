@@ -425,7 +425,9 @@ function decide_to_shapeshift(mon) {
                 mndx = pickvampshape(mon);
                 if (ismnum(mndx)) {
                     ptr = mons(mndx);
-                    dochng = ptr !== mon.data;
+                    // C: dochng = (ptr != mon->data). mons() returns a fresh
+                    // object each call, so compare mndx (same mons[] slot).
+                    dochng = (ptr?.mndx | 0) !== (mon.data?.mndx | 0);
                 }
             }
             if (dochng && amorphous(mon.data)

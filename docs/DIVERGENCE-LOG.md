@@ -6,8 +6,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1129)
-- **Session:** seed4500-knight-coverage (prefix @**107304**)
+- **Status:** partial (#1080–#1130)
+- **Session:** seed4500-knight-coverage (prefix @**107470**)
+- **Hypothesis (#1130):** @107304 C `mcalcmove` `rn2(12)` vs JS
+  `d(4,8)` after matched vamp fog `pickvampshape`. DIAG: same fog
+  mndx but `mons()` returns a fresh object each call so
+  `ptr !== mon.data` always true → spurious `newcham`→`newmonhp`
+  (`adj_lev` fog → `d(4,8)` on dlvl 22). C `ptr != mon->data` is
+  same `mons[]` slot.
+- **Fix (#1130):** `decide_to_shapeshift` `dochng` and `newcham`
+  same-form gate compare `mndx` (not object identity). Named:
+  `mons()` still allocates; other `=== mons(PM_*)` sites remain
+  fragile until a stable cache/getters land.
+- **Verification (#1130):** green+strict PASS; cohort 7/7; suite
+  **42/44** Scr **10531** RNG **792061** (99.90%); prefix
+  **107304→107470** (runner RNG **107498** Scr **941**). Next:
+  @**107470** C `mhitm_ad_legs` `rn2(2)` vs JS `rn2(3)`.
 - **Hypothesis (#1129):** @106852 C `nasty` `rn2(10)` vs JS `rn2(5)` —
   `castmu` chose SUMMON_MONS then called `nasty`; JS deferred that
   `mcast_spell` case so a later `rn2(5)` occupied the slot.

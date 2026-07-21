@@ -8,9 +8,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**107304** C `mcalcmove`
-  `rn2(12)` vs JS `d(4,8)` after matched vamp shapeshift (mon.c).
-  #1129 ported `nasty` + SUMMON_MONS; prefix **106852→107304**.
+- **Gameplay next (D-0928):** seed4500 @**107470** C `mhitm_ad_legs`
+  `rn2(2)` vs JS `rn2(3)` after matched fleeck/`mattacku`/`hitmu`.
+  #1130 vamp fog→fog `dochng` mndx; prefix **107304→107470**.
   Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
@@ -39,18 +39,20 @@ Objective/score live in `CURRENT.md`.
   was keystream/`k` vs `'l'`; C also double-pickup (#1127–#1128).
 - Do not treat @106852 as fleeck / omit `nasty` — was missing
   `castmu` SUMMON_MONS → `nasty` (#1129).
+- Do not treat @107304 as broken `mcalcmove` — was fog→fog `dochng`
+  via `mons()` fresh-object `!==` (#1130).
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1125 Scr **10529**/11405 RNG **791421**/792838
-  (99.82%); speed `31+0.25/turn`; next cadence @**#1130**.
+- suite **42/44** @#1130 Scr **10531**/11405 RNG **792061**/792838
+  (99.90%); speed `30+0.25/turn`; next cadence @**#1135**.
+- **D-0928 #1130:** vamp dochng/newcham mndx; was @**107304**;
+  prefix **107304→107470**; runner RNG **107498** Scr **941**.
 - **D-0928 #1129:** nasty + SUMMON_MONS; was @**106852**;
-  prefix **106852→107304**; runner RNG **107335** Scr **941**.
-- **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**;
-  prefix **106838→106852**.
+  prefix **106852→107304**.
+- **D-0928 #1128:** STRAT_APPEARMSG + mnexto rloc_to_flag; was @**106838**.
 - **D-0928 #1127:** pickup notake gate; C also double incapable.
-- **D-0928 #1124:** dowear verysmall/nohands; was @**106540**;
-  prefix **106540→106838**.
+- **D-0928 #1124:** dowear verysmall/nohands; was @**106540**.
 - **D-0928 #1123:** PSI_BOLT mdamageu/rehumanize; Unchanging wear
   was #1124.
 - **D-0928 #1122:** AT_MAGC castmu; was @**106536**.
@@ -61,4 +63,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0928 #1117:** carrying_too_much; was @**104241**.
 - **D-0928 #1116:** break_armor nohands shed; was @**104241**.
 - **D-0928 #1115:** mfind0 + wizwhere; was @**104217**.
-- **D-0928 #1114:** hitmu hidden-under; was @**104217** exercise.

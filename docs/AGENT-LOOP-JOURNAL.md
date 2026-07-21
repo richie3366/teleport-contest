@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 10:14 — #1130 score + vamp dochng mndx; @107470 legs
+- Objective: cadence full `sessions`; seed4500 @107304 mcalcmove vs d(4,8).
+- C locus: `mon.c` `decide_to_shapeshift`/`newcham` (`ptr != mon->data`).
+- Change: `mons()` fresh-object made fog→fog always `dochng`; compare
+  `mndx` in `decide_to_shapeshift` + `newcham`. Suite **42/44** Scr
+  **10531**/11405 RNG **792061**/792838 (99.90%) `30+0.25/turn`.
+- Verification: green+strict PASS; cohort 7/7; prefix **107304→107470**
+  (runner RNG **107498** Scr **941**).
+- Next: @**107470** C `mhitm_ad_legs` rn2(2) vs JS rn2(3); cadence @#1135.
+
 ## 2026-07-21 10:06 — #1129 nasty + SUMMON_MONS; @107304 mcalcmove
 - Objective: seed4500 @106852 C `nasty` rn2(10) vs JS rn2(5).
 - C locus: `wizard.c` `nasty`; `mcastu.c` `mcast_summon_mons`.
@@ -151,14 +161,3 @@ Use this shape:
 - Change: port `mfind0` (search find-unseen → exercise); wire `#wizwhere` text pages so pager `s` does not leak into rhack.
 - Verification: suite **42/44** Scr **10516**/11405 RNG **788815**/792838 (99.49%) `31+0.24/turn`; prefix **104217→104241** (runner **104252** Scr **926**); green+strict PASS; cohort 5/5.
 - Next: @**104241** C fleeck vs JS `rn2(20)`.
-
-## 2026-07-21 06:28 — #1114 hitmu hidden-under More
-- Objective: seed4500 @103155 invent/floor food vs C empty eat.
-- C locus: `mhitu.c` `hitmu` mundetected hides_under/eel reveal.
-- Change: #1113 misread — C `e`s were `--More--` quitchars (both
-  have floor apples). Port `hitmu` “was hidden under” pline so gold-
-  coins More aligns; stop early `doeat` key-desync.
-- Verification: prefix **103155→104217** (runner RNG **104364** Scr
-  **928**); green+strict PASS; cohort 5/5.
-- Next: @**104217** C `rn2(19) @ exercise` vs JS `rn2(5)`.
-
