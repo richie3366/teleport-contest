@@ -1288,7 +1288,7 @@ function set_utrap(tim, typ) {
 /**
  * C ref: trap.c reset_utrap — clear utrap; optional Lev/Fly restore msgs deferred.
  */
-function reset_utrap(_msg) {
+export function reset_utrap(_msg) {
     set_utrap(0, 0);
 }
 

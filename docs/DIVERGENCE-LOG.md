@@ -4,6 +4,20 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0937 — metallivore floorfood beartrap/bars + `still_chewing`
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** floorfood skipped beartrap/IRONBARS arms; no `hands_obj`
+  chew path; `still_chewing` / `dissolve_bars` absent.
+- **Cause:** named constitutional debt in `eat.js` / `debt.md`.
+- **C locus:** `eat.c` `floorfood` metallivore arms + `doeat` `&hands_obj`;
+  `hack.c` `still_chewing`; `monmove.c` `dissolve_bars`.
+- **JS:** `eat.js` `floorfood_eat` / `doeat`; `hack.js` `still_chewing` /
+  `dissolve_bars`; export `trap.js` `reset_utrap`.
+- **Verify:** green + eat cohort + full `sessions` **44**/44 @#1205.
+- **Deferred:** pool/lava reach; `watch_dig`; shop damage; door
+  `b_trapped`; `switch_terrain` after bars; livelog.
+
 ## D-0936 — `is_edible` poly diets + `doeat_nonfood` / floor gold
 
 - **Status:** fixed (map-driven debt retirement)

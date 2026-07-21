@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:00 — #1205 score + D-0937 still_chewing
+
+- Objective: cadence full `sessions` @#1205; map-driven metallivore
+  beartrap/bars/`still_chewing` cluster.
+- C locus: `eat.c` `floorfood`/`doeat` hands_obj; `hack.c`
+  `still_chewing`; `monmove.c` `dissolve_bars`.
+- Change: floorfood beartrap+IRONBARS; doeat hands_obj; still_chewing
+  + dissolve_bars (D-0937). Score **44**/44 Scr **11405** RNG **100%**
+  speed `32+0.27/turn`.
+- Verification: green+strict; eat cohort; full `sessions` post-fix.
+- Next: `cprefx` / `costly_tin`+`use_tin_opener` / still_chewing shop
+  polish; or other `debt.md` row.
+
 ## 2026-07-21 21:55 — #1204 D-0936 is_edible + doeat_nonfood
 
 - Objective: map-driven — retire `debt.md` eat.js metallivore non-food.

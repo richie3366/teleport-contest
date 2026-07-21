@@ -9,8 +9,8 @@
 //         start_tin / opentin / consume_tin / tin_variety / use_up_tin;
 //         invent.c getobj; attrib.c poison_strdmg / gainstr;
 //         potion.c make_vomiting / make_glib.
-// Named omissions: floorfood metallivore beartrap/bars/pool-lava/
-// cockatrice-feel; full cprefx; cpostfx specials (wraith/were/nurse/
+// Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
+// full cprefx; cpostfx specials (wraith/were/nurse/
 // stalker/…); corpse_intrinsic / givit; hallu from AD_STUN/AD_HALU;
 // tainted Sick; slime/stone; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
@@ -19,8 +19,8 @@
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath; tin costly_tin
 // shop billing; otrapped b_trapped; use_tin_opener apply; Fixed_abil
 // Popeye Olive/Bluto; eatspecial PAPER/potion/ring/amulet/leash/
-// trident/flint/uwepgone/unpunish/vault_gd; still_chewing iron bars;
-// livelog conduct.
+// trident/flint/uwepgone/unpunish/vault_gd; still_chewing wall/door
+// shop damage + watch_dig + b_trapped; livelog conduct.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -33,6 +33,7 @@ import {
 import {
     weight, splitobj, objects_at, delobj, stackobj,
     g_at, is_metallic, is_organic, is_flammable, is_rustprone,
+    mksobj, obj_extract_self,
 } from './mkobj.js';
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import {
@@ -55,9 +56,10 @@ import {
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
     KILLED_BY_AN, Has_contents,
+    IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
 } from './const.js';
 import { adjattrib, gainstr, acurr, acurrstr, A_STR, A_DEX } from './attrib.js';
-import { nomul, losehp } from './hack.js';
+import { nomul, losehp, still_chewing } from './hack.js';
 import { level_difficulty } from './hacklib.js';
 import { near_capacity, observe_object } from './invent.js';
 import { make_confused, make_vomiting, make_glib } from './potion.js';
@@ -65,6 +67,8 @@ import { addinv_nomerge } from './u_init.js';
 import { dropy, dropx } from './do.js';
 import { type_is_pname, rndmonnam } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
+import { hands_obj } from './weapon.js';
+import { t_at, deltrap, reset_utrap } from './trap.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -73,6 +77,7 @@ const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const MEAT_RING = objectNames.indexOf('MEAT_RING');
 const RIN_SLOW_DIGESTION = objectNames.indexOf('RIN_SLOW_DIGESTION');
 const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
+const BEARTRAP = objectNames.indexOf('BEARTRAP');
 
 /**
  * C ref: gy.youmonst.data via set_uasmon / invent.c basic assign.
@@ -632,11 +637,11 @@ async function getobj_eat() {
 /**
  * C ref: eat.c floorfood("eat", 0) — yn floor edibles, else invent getobj.
  * Branch envelope: can_reach_floor / !usteed / !menu_requested skip to
- * invent; metallivore floor gold ynq; edible floor FOOD (non-coin) ynq;
- * invent getobj_eat.
- * Named omissions: metallivore beartrap/bars; pool/lava reach gate;
- * will_feel_cockatrice; safe_qbuf ansimpleoname fallback; getobj_else
- * "else" wording; sacrifice/tin corpsecheck arms.
+ * invent; metallivore beartrap + IRONBARS + floor gold ynq; edible floor
+ * FOOD (non-coin) ynq; invent getobj_eat.
+ * Named omissions: pool/lava reach gate; will_feel_cockatrice;
+ * safe_qbuf ansimpleoname fallback; getobj_else "else" wording;
+ * sacrifice/tin corpsecheck arms.
  */
 async function floorfood_eat() {
     const u = game.u || {};
@@ -646,17 +651,73 @@ async function floorfood_eat() {
         const ux = u.ux | 0;
         const uy = u.uy | 0;
         const form = hero_form_data();
-        // C: feeding && metallivorous — beartrap/bars deferred; gold arm
-        if (metallivorous(form) && (form?.mndx ?? -1) !== PM_RUST_MONSTER) {
-            const gold = g_at(ux, uy);
-            if (gold) {
-                const quan = gold.quan || 1;
-                const qbuf = quan === 1
-                    ? 'There is 1 gold piece here; eat it?'
-                    : `There are ${quan} gold pieces here; eat them?`;
+        // C: feeding && metallivorous — beartrap, bars, then gold
+        if (metallivorous(form)) {
+            const ttmp = t_at(ux, uy);
+            if (ttmp && ttmp.tseen && (ttmp.ttyp | 0) === BEAR_TRAP) {
+                const u_in_beartrap = !!(u.utrap
+                    && (u.utraptype | 0) === TT_BEARTRAP);
+                const qbuf = `There is a bear trap here (${
+                    u_in_beartrap ? 'holding you' : 'armed'
+                }); eat it?`;
                 const c = await yn_function(qbuf, 'ynq', 'n');
-                if (c === 'y') return gold;
+                if (c === 'y') {
+                    deltrap(ttmp);
+                    if (u_in_beartrap) reset_utrap(true);
+                    const beartrap = mksobj(BEARTRAP, true, false);
+                    const msg = `You only manage to ${
+                        u_in_beartrap ? 'free yourself from' : 'disarm'
+                    } the bear trap.`;
+                    if (near_capacity() >= EXT_ENCUMBER && beartrap) {
+                        await pline(msg);
+                        obj_extract_self(beartrap);
+                        await dropy(beartrap);
+                        return null;
+                    }
+                    return beartrap;
+                }
                 if (c === 'q') return null;
+                // 'n' → getobj_else++; continue metallivore arms
+            }
+            const loc = game.level?.at(ux, uy);
+            if (loc && loc.typ === IRONBARS) {
+                const wi = (loc.wall_info | 0) | (loc.flags | 0);
+                const nodig = (wi & W_NONDIGGABLE) !== 0;
+                let c = 'n';
+                let qbuf = 'There are iron bars here';
+                if (nodig || (u.uhunger | 0) > 1500) {
+                    await pline(
+                        `${qbuf} but you ${
+                            nodig ? 'cannot' : 'are too full to'
+                        } eat them.`,
+                    );
+                } else {
+                    const dig = game.context?.digging;
+                    const resume = !!(dig?.chew
+                        && (dig.pos?.x | 0) === ux
+                        && (dig.pos?.y | 0) === uy
+                        && dig.level
+                        && (dig.level.dnum | 0) === (u.uz?.dnum | 0)
+                        && (dig.level.dlevel | 0) === (u.uz?.dlevel | 0));
+                    qbuf += resume
+                        ? '; resume eating them?'
+                        : '; eat them?';
+                    c = await yn_function(qbuf, 'ynq', 'n');
+                }
+                if (c === 'y') return hands_obj;
+                if (c === 'q') return null;
+            }
+            if ((form?.mndx ?? -1) !== PM_RUST_MONSTER) {
+                const gold = g_at(ux, uy);
+                if (gold) {
+                    const quan = gold.quan || 1;
+                    const qbuf = quan === 1
+                        ? 'There is 1 gold piece here; eat it?'
+                        : `There are ${quan} gold pieces here; eat them?`;
+                    const c = await yn_function(qbuf, 'ynq', 'n');
+                    if (c === 'y') return gold;
+                    if (c === 'q') return null;
+                }
             }
         }
         for (let otmp = objects_at(ux, uy); otmp; otmp = otmp.nexthere) {
@@ -1734,6 +1795,17 @@ export async function doeat() {
     if (near_capacity() >= EXT_ENCUMBER) {
         await pline("You can't do that while carrying so much stuff.");
         return 0;
+    }
+
+    // C: floorfood &hands_obj → metallivore chewing IRONBARS via still_chewing
+    if (otmp0 === hands_obj) {
+        const u = game.u || {};
+        const loc = game.level?.at(u.ux | 0, u.uy | 0);
+        if ((await still_chewing(u.ux | 0, u.uy | 0))
+            && loc && loc.typ === IRONBARS) {
+            await pline('You pause to swallow.');
+        }
+        return 1;
     }
 
     if (otmp0.oclass === COIN_CLASS && !is_edible(otmp0)) {
