@@ -33,9 +33,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1168)
+- **Status:** partial (#1080–#1169)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1419**/1814)
+  Scr **1521**/1814)
+- **Hypothesis (#1169):** @1098 — one map cell C `_` color 6 vs JS
+  floor `·` after Blind feel-floor. Misread as altar; color 6 =
+  `CLR_CYAN`/`HI_METAL` = **iron chain** (Punished). JS deferred
+  `feel_location` in Blind `newsym` u_at, so chain never entered
+  hero_memory; leave-cell `show_mem` kept floor.
+- **Fix (#1169):** `display.js` `feel_location` + `feel_newsym` +
+  `set_seenv`; Blind `newsym` u_at calls `feel_location` then
+  `display_self`. Reachable arm: engr_can_be_felt → `map_location` →
+  Punished `bc_felt`; levitate arm partial. Named omissions: full
+  do_room_glyph/litcorr levitate polish; usteed reach; MATCH_WARN
+  overlay.
+- **Verification (#1169):** green+strict PASS; cohort 5/5; focused
+  seed4500 prefix **@1098→@1151**; Scr **1419→1521**. Next: @**1151**
+  `#wizintrinsic` Blind TIMEOUT JS `[23]` vs C `[119]`.
 - **Hypothesis (#1168):** @1092 — JS `#wizintrinsic` showed
   `invulnerable [30]` vs C bare. Menu Sprintf already matched C;
   earlier session `#wizintrinsic` `a`/`r` set INVULNERABLE+FAST
@@ -50,7 +64,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   early return still deferred.
 - **Verification (#1168):** green+strict PASS; cohort 38/38; focused
   seed4500 prefix **@1092→@1098**; Scr **1417→1419**. Next: @**1098**
-  Blind feel-floor map cell C altar `_` vs JS floor `·` (r13,c38).
+  Blind feel-floor map cell (was misread as altar `_`).
 - **Hypothesis (#1167):** @1053 — C carrots
   `(alternate weapons; not wielded)` after Sword wield vs JS bites.
   Prior @1042 wielded carrots with `OPTIONS=pushweapon`; C pushed

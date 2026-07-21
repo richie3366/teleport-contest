@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1098** — Blind feel-floor map cell
-  C altar `_` vs JS floor `·` (r13,c38). Focused:
+- **Primary (D-0928):** seed4500 @**1151** — `#wizintrinsic` Blind
+  TIMEOUT JS `[23]` vs C `[119]` on `i - blinded`. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `feel_location` / `newsym` / lastseentyp after kill vs JS.
+  Falsify: C Blind set duration / `nh_timeout` BLINDED / cream-pie
+  `make_blinded` vs JS HBlinded remaining.
 
 ## Don't re-check (≤15)
 
@@ -38,11 +39,15 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1092 `[30]` as menu pad/Sprintf — prior `#wizintrinsic`
   set INVULNERABLE TIMEOUT; C generic `nh_timeout` `--` cleared it
   (#1168); menu format already matched C.
+- Do not treat @1098 `_` color 6 as altar — `CLR_CYAN` iron **chain**
+  (Punished); was missing Blind `feel_location` (#1169).
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1165 Scr **11024**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1170**.
+- **D-0928 #1169:** Blind `feel_location` + newsym u_at; maps chain;
+  prefix **@1098→@1151**; Scr **1419→1521**.
 - **D-0928 #1168:** `nh_timeout` generic remaining uprops TIMEOUT `--`;
   prefix **@1092→@1098**; Scr **1417→1419**.
 - **D-0928 #1167:** `flags.pushweapon` → `setuswapwep(oldwep)` in
@@ -61,13 +66,5 @@ Objective/score live in `CURRENT.md`.
   @985–@996 OK; next @997 hissing gas vs fire order.
 - **D-0928 #1160:** savelev/getlev `lastseentyp`; Scr **1412→1423**;
   @941 OK; next @985 nymph disarm vs wake.
-- **D-0928 #1159:** `goto_level` Punished climb great_effort; Scr
-  **1409→1412**; @929 OK; next @941 overview extras.
-- **D-0928 #1158:** `show_map_spot` engraving remapping; Scr
-  **1390→1409**; @902 OK; next @929 climb-stairs More.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**; seed4500 Scr **1389** held; four near-misses PASS.
-- **D-0928 #1154:** `stairs_description` depth/dunlev; Scr
-  **1388→1389**; @832 OK; next @893 `#overview` Level 3 vs 25.
-- **D-0928 #1151:** teleds placebc + overlay topline; Scr
-  **1147→1366**; @789 OK — overlay half narrowed in D-0929.

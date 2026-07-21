@@ -21,9 +21,9 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1165** (42/44,
 Scr **11024**/11405, RNG **100%**) cadence refresh; seed4500 focused
-**1419**/1814 after #1168 (+2 Scr vs @#1167). Speed
-`30+0.25/turn`. Next cadence @**#1170**. (#1168 focused seed4500
-prefix @1092→@1098; Scr **1417→1419** — suite score not remeasured.)
+**1521**/1814 after #1169 (+102 Scr vs @#1168). Speed
+`30+0.25/turn`. Next cadence @**#1170**. (#1169 focused seed4500
+prefix @1098→@1151; Scr **1419→1521** — suite score not remeasured.)
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1419/1814 | knight; @1098 feel map `_` |
+| seed4500 | **108275**/108275 | 1521/1814 | knight; @1151 Blind TIMEOUT |
 
 ## Green gate
 
@@ -64,10 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1098** — Blind feel-floor: one map cell C altar `_`
-(color 6) vs JS floor `·` (color 8) at row 13 col 38; topline matches
-(`You try to feel what is lying here on the floor.--More--`).
-Focused:
+**seed4500 @1151** — `#wizintrinsic` Blind TIMEOUT: JS `i - blinded
+[23]` vs C `[119]`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -78,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1168; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1169; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -86,16 +84,20 @@ zap_over_floor hissing-gas Norep + hit The (#1162);
 `makemon_appear_msg` req-(x,y) next2u + MM_NOEXCLAM (#1164);
 unmap_object `map_background` + fight_empty always-unmap (#1166);
 `flags.pushweapon` → `setuswapwep(oldwep)` (#1167);
-`nh_timeout` generic remaining uprops TIMEOUT `--` (#1168).
+`nh_timeout` generic remaining uprops TIMEOUT `--` (#1168);
+Blind `feel_location` + newsym u_at (#1169).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
 omit mfind0/wizwhere/break_armor/carrying_too_much; treat @1048 as
 ICE typ / feel_location-only (was unmap_object); invent pushweapon
 second prinv (C only setuswapwep — second prinv is doswapweapon);
-treat @1092 `[30]` as menu-format bug (was missing TIMEOUT `--`).
-Recent rejects: @1092≠Sprintf pad — prior `#wizintrinsic` set
-INVULNERABLE TIMEOUT=30; C `nh_timeout` loop cleared it (#1168);
+treat @1092 `[30]` as menu-format bug (was missing TIMEOUT `--`);
+treat @1098 `_` color 6 as altar (iron **chain** / missing
+`feel_location`).
+Recent rejects: @1098≠altar — Punished chain + Blind feel (#1169);
+@1092≠Sprintf pad — prior `#wizintrinsic` set INVULNERABLE
+TIMEOUT=30; C `nh_timeout` loop cleared it (#1168);
 @1053≠missing prinv — deferred pushweapon (#1167); @1048≠ICE typ —
 unmap_object (#1166); older in D-0928/NOTES.
 
