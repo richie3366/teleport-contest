@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:59 — #1216 D-0948 zap_over_floor shop door/bars
+
+- Objective: map-driven — retire `zap_over_floor` closed-door/SDOOR/
+  IRONBARS shopdamage + `dobuzz` `pay_for_damage`.
+- C locus: `zap.c` `zap_over_floor`/`dobuzz`; `lock.c` `picking_at`.
+- Change: door destroy by damgtype, bars dissolve + shop bill, SDOOR
+  reveal, trailing pay strings (D-0948). Deferred: ice/fountain/WEB/
+  POOL→PIT; burn_floor_objects; explode/apply pay; pickaxe dig.
+- Verification: green+strict; zap/shop cohort 12/12; seed0116/0398/
+  0108 PASS. Suite fortress held (no full cadence; next @#1220).
+- Next: explode/apply break-wand pay / dig occupation `is_digging`.
+
 ## 2026-07-21 22:56 — #1215 cadence score + D-0947 kick_door shop/watch
 
 - Objective: cadence full `sessions` @#1215 + map-driven

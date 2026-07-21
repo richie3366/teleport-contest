@@ -15,12 +15,11 @@
 // You_feel); RAY WAN_DIGGING/SPE_DIG → zap_dig (dig.c).
 // Named omissions: zap_updown/uswallow bhitm; bhitm poly body; zap_map;
 // spell ubuzz; mon_reflects; fireball/Hallucination hdmgtype rn2;
-// zap_over_floor fire-pool steam + hissing-gas Norep + poison-gas 1x1 trail
-// (ice melt/fountain/WEB/cold/acid bars/POOL→PIT deferred); shopdamage;
-// map_invisible/unmap during buzz; backfire body; other NODIR; wrest
-// pline; check_capacity; check_unpaid; update_inventory;
-// shieldeff/monstunseesu; setworn EReflecting bits (worn
-// SHIELD_OF_REFLECTION stands in); ureflects W_WEP/W_AMUL/W_ARM/
+// zap_over_floor ice melt/fountain/WEB/POOL→PIT/cold freeze;
+// burn_floor_objects after fire door; map_invisible/unmap during buzz;
+// backfire body; other NODIR; wrest pline; check_capacity; check_unpaid;
+// update_inventory; shieldeff/monstunseesu; setworn EReflecting bits
+// (worn SHIELD_OF_REFLECTION stands in); ureflects W_WEP/W_AMUL/W_ARM/
 // silver-dragon arms beyond shield makeknown; create_polymon after
 // poly_zapped; do_osshock shop bill; invent/worn poly_obj arms;
 // boxlock on Is_box; other bhito otyps; defended(); resists_magm body;
@@ -30,6 +29,7 @@
 // ugolemeffects; burn_away_slime; spell_damage_bonus / Knight questart
 // double; Rider/Death specials; disintegrate_mon; fire completelyburns
 // XKILL_NOCORPSE; mon_reflects.
+// Shop door/bars destroy + dobuzz pay_for_damage: D-0948.
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -47,6 +47,7 @@ import { A_WIS, A_STR, A_CON, exercise } from './attrib.js';
 import { findit } from './detect.js';
 import {
     confdir, fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
+    in_rooms, dissolve_bars, stop_occupation,
 } from './hack.js';
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
@@ -63,6 +64,9 @@ import { finish_losehp_done } from './end.js';
 import { burnarmor } from './trap.js';
 import { potionbreathe } from './potion.js';
 import { create_gas_cloud } from './region.js';
+import { cvt_sdoor_to_door } from './detect.js';
+import { recalc_block_point } from './vision.js';
+import { picking_at, reset_pick } from './lock.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of,
@@ -75,9 +79,12 @@ import {
 import {
     WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
-    IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, DISP_BEAM, DISP_CHANGE, DISP_END,
+    IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
+    DISP_BEAM, DISP_CHANGE, DISP_END,
     OBJ_FLOOR, Has_contents, ZAPPED_WAND, NOTELL, STRAT_WAITMASK,
-    POOL, Is_waterlevel, AD_RBRE, UNCHANGING, PLNMSG_ENVELOPED_IN_GAS,
+    POOL, Is_waterlevel, Is_rogue_level, AD_RBRE, UNCHANGING,
+    PLNMSG_ENVELOPED_IN_GAS, IRONBARS, SDOOR, SHOPBASE, SHOP_DOOR_COST,
+    SHOP_BARS_COST, W_NONDIGGABLE,
 } from './const.js';
 
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
@@ -103,6 +110,7 @@ const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
 const SPE_DIG = objectNames.indexOf('SPE_DIG');
 const WAN_DEATH = objectNames.indexOf('WAN_DEATH');
 const SPE_FINGER_OF_DEATH = objectNames.indexOf('SPE_FINGER_OF_DEATH');
+const WAN_STRIKING = objectNames.indexOf('WAN_STRIKING');
 
 /* C ref: zap.c ZT_* = AD_* - 1 */
 const ZT_MAGIC_MISSILE = 0;
@@ -114,6 +122,7 @@ const ZT_LIGHTNING = 5;
 const ZT_POISON_GAS = 6;
 const ZT_ACID = 7;
 const ZT_SPELL_0 = 10; // ZT_SPELL(0)
+const ZT_BREATH_0 = 20; // ZT_BREATH(0)
 const MAGIC_COOKIE = 1000; // zap.c local #define
 const AD_COLD = 3;
 const AD_FIRE = 2;
@@ -179,10 +188,26 @@ function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
 }
 
+/** C ref: youprop.h Deaf */
+function Deaf() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+}
+
+/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
+async function You_hear(line) {
+    if (Deaf()) return;
+    await pline(`You hear ${line}`);
+}
+
 function closed_door(x, y) {
     const loc = game.level?.at?.(x, y);
     if (!loc || !IS_DOOR(loc.typ)) return false;
     return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
+}
+
+function rm_wall_info(lev) {
+    return ((lev.wall_info | 0) | (lev.flags | 0));
 }
 
 function u_at(x, y) {
@@ -227,29 +252,27 @@ function flash_str(fltyp) {
  * C ref: zap.c zap_over_floor — floor effects for buzz trail.
  * Envelope: ZT_FIRE is_pool → create_gas_cloud(rnd(5)) + Norep hissing
  * gas / uneventful (+ POOL rangemod); ZT_POISON_GAS ZAP_POS →
- * create_gas_cloud(1,8). Named omit: WEB burn, ice melt, fountain
- * steam, POOL→ROOM+maketrap PIT (+ see_it evaporate msg), cold/acid
- * bars, shopdamage, ignoremon body.
+ * create_gas_cloud(1,8); ZT_LIGHTNING/ZT_ACID IRONBARS dissolve + shop
+ * bars; SDOOR reveal; closed_door destroy + shop door; ignoremon wakeup.
+ * Named omit: WEB burn, ice melt, fountain steam, POOL→ROOM+maketrap PIT,
+ * cold freeze, burn_floor_objects.
  */
-async function zap_over_floor(x, y, type, _shopdamage, _ignoremon, _explodingWand) {
+async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodingWand) {
     if ((type | 0) === -1) return -1000; // PHYS_EXPL_TYPE
     const loc = game.level?.at?.(x, y);
     if (!loc) return 0;
     const damgtype = zaptype(type) % 10;
     let rangemod = 0;
+    let exploding_wand_typ = explodingWand | 0;
+    const see_it = cansee(x, y);
 
     switch (damgtype) {
-    case ZT_FIRE:
+    case ZT_FIRE: {
         if (is_pool(x, y)) {
             const u = game.u || {};
             const on_water_level = !!Is_waterlevel(u.uz);
             let msggiven = false;
-            // C youprop.h Deaf
-            const deaf = !!(
-                (u.HDeaf | 0) || (u.EDeaf | 0)
-                || u.uroleplay?.deaf || u.Deaf
-            );
-            let msgtxt = !deaf
+            let msgtxt = !Deaf()
                 ? 'You hear hissing gas.'
                 : ((type | 0) >= 0
                     ? 'That seemed remarkably uneventful.'
@@ -263,11 +286,10 @@ async function zap_over_floor(x, y, type, _shopdamage, _ignoremon, _explodingWan
             }
 
             if ((loc.typ | 0) !== POOL) {
-                // MOAT / DRAWBRIDGE_UP / WATER — C waterlevel/see_it msgs
-                const see_it = cansee(x, y);
+                const seePool = cansee(x, y);
                 if (on_water_level) {
-                    msgtxt = (see_it || !deaf) ? 'Some water boils.' : null;
-                } else if (see_it) {
+                    msgtxt = (seePool || !Deaf()) ? 'Some water boils.' : null;
+                } else if (seePool) {
                     msgtxt = 'Some water evaporates.';
                 }
             } else {
@@ -278,11 +300,162 @@ async function zap_over_floor(x, y, type, _shopdamage, _ignoremon, _explodingWan
             if (msgtxt && !msggiven) await Norep(msgtxt);
         }
         break;
+    }
     case ZT_POISON_GAS:
         if (ZAP_POS(loc.typ)) create_gas_cloud(x, y, 1, 8);
         break;
+    case ZT_LIGHTNING:
+    case ZT_ACID:
+        if ((loc.typ | 0) === IRONBARS) {
+            if (damgtype === ZT_LIGHTNING && rn2(10)) break;
+            if ((rm_wall_info(loc) & W_NONDIGGABLE) !== 0) {
+                if (see_it) {
+                    await Norep(`The iron bars ${
+                        damgtype === ZT_ACID ? 'corrode' : 'melt'
+                    } somewhat but remain intact.`);
+                }
+            } else {
+                rangemod -= 3;
+                if (see_it) {
+                    await Norep(`The iron bars ${
+                        damgtype === ZT_ACID ? 'corrode away' : 'melt'
+                    }.`);
+                }
+                dissolve_bars(x, y);
+                if (in_rooms(x, y, SHOPBASE)) {
+                    const { add_damage } = await import('./shk.js');
+                    add_damage(x, y, (type | 0) >= 0 ? SHOP_BARS_COST : 0);
+                    if ((type | 0) >= 0 && shopdamage) shopdamage.v = true;
+                }
+            }
+        }
+        break;
     default:
         break;
+    }
+
+    // C: zapverb / yourzap for door feedback
+    let yourzap = (type | 0) >= 0 && !exploding_wand_typ;
+    let zapverb = 'blast';
+    if (!exploding_wand_typ) {
+        const ztype = zaptype(type);
+        if (ztype < ZT_SPELL_0) zapverb = 'bolt';
+        else if (ztype < ZT_BREATH_0) zapverb = 'spell';
+    } else if (exploding_wand_typ === POT_OIL
+        || exploding_wand_typ === SCR_FIRE) {
+        exploding_wand_typ = 0;
+        yourzap = (type | 0) >= 0 && !exploding_wand_typ;
+    }
+
+    // secret door → regular door
+    if ((loc.typ | 0) === SDOOR) {
+        cvt_sdoor_to_door(loc);
+        recalc_block_point(x, y);
+        newsym(x, y);
+        if (see_it) {
+            await pline(
+                `${yourzap ? 'Your' : 'The'} ${zapverb} reveals a secret door.`,
+            );
+        } else if (Is_rogue_level(game.u?.uz)) {
+            await You_feel('a draft.');
+        }
+    }
+
+    // regular door absorbs zap / may be destroyed
+    if (closed_door(x, y)) {
+        let new_doormask = -1;
+        let see_txt = null;
+        let sense_txt = null;
+        let hear_txt = null;
+
+        rangemod = -1000;
+        switch (damgtype) {
+        case ZT_FIRE:
+            new_doormask = D_NODOOR;
+            see_txt = 'The door is consumed in flames!';
+            sense_txt = 'smell smoke.';
+            break;
+        case ZT_COLD:
+            new_doormask = D_NODOOR;
+            see_txt = 'The door freezes and shatters!';
+            hear_txt = 'a deep cracking sound.';
+            break;
+        case ZT_DEATH:
+            if (Math.abs(type | 0) === (ZT_BREATH_0 + ZT_DEATH)) {
+                new_doormask = D_NODOOR;
+                see_txt = 'The door disintegrates!';
+                hear_txt = 'crashing wood.';
+                break;
+            }
+            // non-breath death → absorb (C goto def_case)
+            // falls through
+        case ZT_LIGHTNING:
+            if (damgtype === ZT_LIGHTNING) {
+                new_doormask = D_BROKEN;
+                see_txt = 'The door splinters!';
+                hear_txt = 'crackling.';
+                break;
+            }
+            // falls through for non-breath ZT_DEATH
+        default: {
+            let handled = false;
+            if (exploding_wand_typ > 0
+                && exploding_wand_typ === WAN_STRIKING) {
+                new_doormask = D_BROKEN;
+                see_txt = 'The door crashes open!';
+                sense_txt = 'feel a burst of cool air.';
+                handled = true;
+            }
+            if (!handled) {
+                if (see_it) {
+                    if (exploding_wand_typ) {
+                        await pline('The door remains intact.');
+                    } else {
+                        await pline(
+                            `The door absorbs ${yourzap ? 'your' : 'the'} ${
+                                zapverb
+                            }!`,
+                        );
+                    }
+                } else {
+                    await You_feel('vibrations.');
+                }
+            }
+            break;
+        }
+        }
+        if (new_doormask >= 0) {
+            if (in_rooms(x, y, SHOPBASE)) {
+                const { add_damage } = await import('./shk.js');
+                if ((type | 0) >= 0) {
+                    add_damage(x, y, SHOP_DOOR_COST);
+                    if (shopdamage) shopdamage.v = true;
+                } else {
+                    add_damage(x, y, 0);
+                }
+            }
+            loc.doormask = new_doormask;
+            if (loc.flags !== undefined) loc.flags = new_doormask;
+            recalc_block_point(x, y);
+            if (see_it) {
+                await pline(see_txt);
+                newsym(x, y);
+            } else if (sense_txt) {
+                await pline(`You ${sense_txt}`);
+            } else if (hear_txt) {
+                await You_hear(hear_txt);
+            }
+            if (picking_at(x, y)) {
+                await stop_occupation();
+                reset_pick();
+            }
+        }
+    }
+
+    // burn_floor_objects deferred
+    if (!ignoremon) {
+        const mon = m_at(x, y);
+        if (mon) await wakeup(mon, (type | 0) >= 0);
     }
     return rangemod;
 }
@@ -915,9 +1088,10 @@ async function zhitu(type, nd, fltxt, _sx, _sy) {
  * C ref: zap.c dobuzz — wand/spell/breath ray + DISP_BEAM + zhitm/zhitu.
  * Envelope: type<0 newsym; rn1(7,7) range; zap_over_floor trail (gas
  * deferred until after hit/reflect); mon/hero zap_hit; type<0 dead →
- * monkilled(…, AD_RBRE) else xkilled/killed. Named omit: fireball;
- * mon_reflects; shopdamage; map_invisible; Hallu hdmgtype;
- * disintegrate_mon; fire completelyburns XKILL_NOCORPSE; steed redirect.
+ * monkilled(…, AD_RBRE) else xkilled/killed; shopdamage → pay_for_damage
+ * (D-0948). Named omit: fireball; mon_reflects; map_invisible; Hallu
+ * hdmgtype; disintegrate_mon; fire completelyburns XKILL_NOCORPSE;
+ * steed redirect.
  */
 export async function dobuzz(
     type, nd, sx0, sy0, dx0, dy0, sayhit, _saymiss, forcemiss,
@@ -1082,6 +1256,16 @@ export async function dobuzz(
         }
     } finally {
         tmp_at(DISP_END, 0);
+    }
+    // fireball explode deferred
+    if (shopdamage.v) {
+        const { pay_for_damage } = await import('./shk.js');
+        const dmgstr = damgtype === ZT_FIRE ? 'burn away'
+            : damgtype === ZT_COLD ? 'shatter'
+                : damgtype === ZT_ACID ? 'damage'
+                    : damgtype === ZT_DEATH ? 'disintegrate'
+                        : 'destroy';
+        await pay_for_damage(dmgstr, false);
     }
 }
 

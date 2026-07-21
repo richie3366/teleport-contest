@@ -13,11 +13,10 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0947** `kick_door` shop `add_damage`/`pay_for_damage` +
-  town `watchman_thief_arrest`/`watchman_door_damage`. Falsifier:
-  green + kick/shop cohort PASS.
-- Next cluster: explode/apply `pay_for_damage`; pickaxe `is_digging`;
-  pool-lava reach; other `debt.md` row.
+- Latest: **D-0948** `zap_over_floor` door/bars shopdamage + `dobuzz`
+  `pay_for_damage`. Falsifier: green + zap/shop cohort PASS.
+- Next cluster: explode/apply break-wand `pay_for_damage`; pickaxe
+  `dig`/`is_digging`; pool-lava reach; `vault_gd_watching`.
 - Cadence full `sessions` next @**#1220**.
 
 ## Don't re-check (≤15)
@@ -35,24 +34,17 @@ Objective/score live in `CURRENT.md`.
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
 - Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
 - Do not treat @1808 as page-count shim (#1194).
-- Do not treat @1799 as heat/smoke / lev_message order (#1193).
-- Do not treat @1770 as Norep/parse-clear alone (#1192).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN / multi-turn rations (D-0935), non-food eat
-  (D-0936), metallivore bars/`still_chewing` (D-0937),
-  `b_trapped`/`make_stunned` (D-0938), `cprefx` (D-0939),
-  tin shop/`use_tin_opener` (D-0940), shop/`watch_dig` (D-0941),
-  `pay_for_damage`/`hot_pursuit` (D-0942), `cpostfx` specials
-  (D-0943), `corpse_intrinsic`/`givit`/`mconveys` (D-0944),
-  were*/mimic/`attrcurse` (D-0945), eatspecial PAPER+ (D-0946),
-  or kick_door shop/watch (D-0947).
+- Do not re-stub TIN / multi-turn rations (D-0935) … kick_door shop/watch
+  (D-0947), or zap door/bars/`dobuzz` pay (D-0948).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1215**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.29/turn`.
+- **D-0948:** `zap_over_floor` shop door/bars + `dobuzz` pay.
 - **D-0947:** `kick_door` shop damage + town watch arrest/warn.
 - **D-0946:** `eatspecial` PAPER/potion/`eataccessory`/leash/flint.
 - **D-0945:** were* `set_ulycn` + mimic `eatmdone` + `attrcurse`.
@@ -64,6 +56,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0939:** `cprefx` + cannibal/stone/slime; start_eating wire.
 - **D-0938:** `b_trapped` + `make_stunned`; tin/door/chew/kick.
 - **D-0937:** floorfood beartrap/bars + `still_chewing`/`dissolve_bars`.
-- **D-0936:** `is_edible` poly + `doeat_nonfood`/`eatspecial` + floor gold.
-- **D-0935:** TIN open/consume + multi-turn `eatfood` rations.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

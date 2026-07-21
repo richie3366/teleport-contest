@@ -87,9 +87,9 @@ peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929; **D-0930**;
 **D-0931**; **D-0932**; **D-0933**; **D-0934**; **D-0935**; **D-0936**;
 **D-0937**; **D-0938**; **D-0939**; **D-0940**; **D-0941**; **D-0942**;
-**D-0943**; **D-0944**; **D-0945**; **D-0946**; **D-0947**
-(`kick_door` shop `add_damage`/`pay_for_damage` + town watch —
-do not re-stub).
+**D-0943**; **D-0944**; **D-0945**; **D-0946**; **D-0947**;
+**D-0948** (`zap_over_floor` door/bars shopdamage + `dobuzz`
+`pay_for_damage` — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0948 | fixed | `zap_over_floor` door/bars shopdamage + `dobuzz` `pay_for_damage` | map-driven debt; green+zap/shop cohort 12/12 + shop extras |
 | D-0947 | fixed | `kick_door` shop `add_damage`/`pay_for_damage` + town watch | map-driven debt; suite **44**/44 @#1215; green+kick cohort 12/12 |
 | D-0946 | fixed | `eatspecial` PAPER/potion/ring/amulet + leash/trident/flint/uwepgone/unpunish | map-driven debt; green+eat cohort 12/12 |
 | D-0945 | fixed | `cpostfx` were*/mimic/`attrcurse` + `set_ulycn`/`eatmdone` | map-driven debt; green+eat cohort 12/12 |

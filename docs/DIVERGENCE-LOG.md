@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0948 — `zap_over_floor` shop door/bars + `dobuzz` pay_for_damage
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** ray/zap destruction of shop doors or iron bars never billed;
+  `dobuzz` never called `pay_for_damage` after setting shopdamage.
+- **Cause:** named constitutional debt (`debt.md` after D-0947) —
+  `zap_over_floor` stubbed fire-pool/gas only; door/bars/shopdamage omitted.
+- **C locus:** `zap.c` `zap_over_floor` (IRONBARS / SDOOR / closed_door +
+  shop `add_damage`); `dobuzz` trailing `pay_for_damage`; `lock.c`
+  `picking_at`/`reset_pick`.
+- **JS:** `zap.js` door destroy by damgtype, bars dissolve + shop costs,
+  SDOOR reveal, `shopdamage.v` → `pay_for_damage` strings; `lock.js`
+  export `picking_at`/`reset_pick`. Deferred: ice/fountain/WEB/POOL→PIT/
+  cold freeze; `burn_floor_objects`; explode/apply break-wand pay;
+  pickaxe `dig`/`is_digging`.
+- **Verify:** green+strict; zap/shop cohort 12/12; seed0116/0398/0108 PASS.
+
 ## D-0947 — `kick_door` shop damage + town watch
 
 - **Status:** fixed (map-driven debt retirement)
