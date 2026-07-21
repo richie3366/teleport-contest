@@ -199,7 +199,11 @@ export async function cmd_safety_prevention(ucverb, cmddesc, act, flagKey) {
         && !(game.multi | 0)) {
         let assist = '';
         // C: iflags.cmdassist || !(*flagcounter)++
-        const cmdassist = flags.cmdassist !== false;
+        // C optlist.h cmdassist → &iflags.cmdassist, default On.
+        // (Was wrongly reading flags.cmdassist; Options `O` toggles iflags.)
+        const cmdassist = iflags.cmdassist !== undefined
+            ? !!iflags.cmdassist
+            : true;
         if (cmdassist) {
             assist = `  Use 'm' prefix to force ${cmddesc}.`;
         } else {

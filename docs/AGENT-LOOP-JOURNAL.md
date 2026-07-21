@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 18:12 — #1192 cmd_safety iflags.cmdassist
+
+- Objective: seed4500 @1770 C short waiting-hit tip vs JS blank.
+- C locus: `do.c` `cmd_safety_prevention` — `iflags.cmdassist ||
+  !(*flagcounter)++` (seed toggled cmdassist off via Options `j`).
+- Change: `do.js` read `iflags.cmdassist` (default On), not
+  `flags.cmdassist` (D-0928 #1192).
+- Verification: green+strict PASS; cohort 7/7; focused Scr
+  **1803→1807**; first miss **@1770→@1799**.
+- Next: @**1799** C swamp-exit hole pline vs JS heat/smoke More.
+
 ## 2026-07-21 18:05 — #1191 castmu plines + urgent_pline
 
 - Objective: seed4500 @1761 C mold + spell-at-you vs JS early rehumanize.
@@ -182,15 +193,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1586→1716**;
   prefix **@1441→@1464**.
 - Next: @**1464** botl T:**229** vs C T:**231**.
-
-## 2026-07-21 16:28 — #1177 float_vs_flight + dropz encumber
-
-- Objective: seed4500 @1438 poly More botl Knight vs C Brown Mold;
-  @1439 gloves vs load More.
-- C locus: `polyself.c` `set_uasmon`→`float_vs_flight` botl;
-  `do.c` `dropz`→`encumber_msg` mid-`break_armor`.
-- Change: `polyself.js` `float_vs_flight`; `do.js` await
-  `encumber_msg` in `dropz` (D-0928 #1177).
-- Verification: green+strict PASS; cohort 6/6; Scr **1583→1586**;
-  prefix **@1438→@1441**.
-- Next: @**1441** map C DEC `~` vs JS `e`.

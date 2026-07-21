@@ -8,12 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1770** — C keeps
-  `Are you waiting to get hit?` vs JS clears (after @1769 full tip).
+- **Primary (D-0928):** seed4500 @**1799** — C
+  `As you exit the swamps, you see before you a huge, gaping hole…`
+  vs JS `The heat and smoke are gone.--More--` (key `B`).
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C Norep / topline retention vs JS clear on next `.`/space.
-  Do not re-break castmu/urgent_pline (#1191).
+  Falsify: C juiblex/swamp exit pline order vs JS heat/smoke More.
+  Do not re-break cmd_safety iflags.cmdassist (#1192).
 
 ## Don't re-check (≤15)
 
@@ -24,6 +25,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1770 as Norep/parse-clear alone — `iflags.cmdassist`
+  after Options toggle (#1192); do not read `flags.cmdassist`.
 - Do not treat @1761 as mtimedone-only / skip PSI plines —
   cast+PSI plines + `urgent_pline` (#1191); ESC More sets WIN_STOP.
 - Do not treat @1712 quit leftover as parse-only clear — `done2` cancel
@@ -37,13 +40,14 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1689 `^R` as getdir Unknown — getpos `redraw_cmd` (#1187).
 - Do not use full `docrt()` for getpos `^R` refresh under Blind —
   C is `docrtRefresh`/`redraw_map`; JS `flush_screen` (#1187).
-- Do not treat @1679 apply as getobj — `doapply` nohands+capacity (#1186).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** Scr **11389**/11405 @#1190 RNG **100%**;
   speed `30+0.25/turn`; next cadence @**#1195**.
+- **D-0928 #1192:** cmd_safety `iflags.cmdassist`; prefix
+  **@1770→@1799**; Scr **1803→1807**.
 - **D-0928 #1191:** castmu cast+PSI/OPEN plines + `urgent_pline` +
   polyman was_blind `make_blinded`; prefix **@1761→@1770**; Scr
   **1799→1803**.
@@ -62,11 +66,5 @@ Objective/score live in `CURRENT.md`.
   Scr **1783→1784**.
 - **D-0928 #1184:** `dosearch0` Blind `feel_location`; prefix
   **@1658→@1674**; Scr **1732→1783**.
-- **D-0928 #1183:** `#wizwhere` → `show_nhw_menu_text` (NHW_MENU);
-  prefix **@1650→@1658**; Scr **1724→1732**.
-- **D-0928 #1182:** `dopay` Blind/`canspotmon`/`You_cant("see...")`;
-  prefix **@1625→@1650**; Scr **1723→1724**.
-- **D-0928 #1181:** `show_achievements` + `record_achievement`;
-  ACH_RNK/HELL/MINE/TOWN/SHOP/TMPL; prefix **@1573→@1625**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

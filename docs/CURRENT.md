@@ -22,8 +22,8 @@ notable non-PASS. Do not invent suite totals from one focused session.
 Score last measured: **2026-07-21** — full `sessions` @**#1190** (42/44,
 Scr **11389**/11405, RNG **100%**) + `done2` cancel
 `clear_nhwindow(WIN_MESSAGE)`. Speed `30+0.25/turn`. Next cadence
-@**#1195**. #1191 seed4500 Scr **1799→1803**, first miss
-**@1761→@1770** (waiting-hit topline).
+@**#1195**. #1192 seed4500 Scr **1803→1807**, first miss
+**@1770→@1799** (swamp-exit vs heat/smoke).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1803/1814 | knight; @1770 waiting-hit topline |
+| seed4500 | **108275**/108275 | 1807/1814 | knight; @1799 swamp-exit vs heat/smoke |
 
 ## Green gate
 
@@ -64,8 +64,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1770** — C keeps `Are you waiting to get hit?` vs JS
-clears topline (after @1769 full waiting-hit tip). Focused:
+**seed4500 @1799** — C `As you exit the swamps, you see before you
+a huge, gaping hole…` vs JS `The heat and smoke are gone.--More--`
+(key `B`). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,59 +77,23 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1191; teleds placebc (#1151);
-D-0929 look_here-only `keep_message_leftover` (not blanket corner);
-lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
-zap_over_floor hissing-gas Norep + hit The (#1162);
-`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel (#1163);
-`makemon_appear_msg` req-(x,y) next2u + MM_NOEXCLAM (#1164);
-unmap_object `map_background` + fight_empty always-unmap (#1166);
-`flags.pushweapon` → `setuswapwep(oldwep)` (#1167);
-`nh_timeout` generic remaining uprops TIMEOUT `--` (#1168);
-Blind `feel_location` + newsym u_at (#1169);
-wiz Blind `make_blinded` + `u.uinvulnerable` nh_timeout freeze (#1171);
-overview dismiss `dismiss_nhw_menu` not corner docrt (#1172);
-sanctum `lspo_map` lit=FALSE clear after map (#1173);
-getpos `cmap_defsym_explanation` furniture fountain…bars (#1174);
-`dountrap`→`untrap`→`getdir(NULL)` (#1175);
-getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
-`set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177);
-`polymon` `vision_full_recalc=1` before `see_monsters` (#1178);
-`time_botl` on `moves++` + `timebot` in `flush_screen` (#1179);
-`doname`/`xname` prop Blind (not sticky `u.Blind`) (#1180);
-`show_achievements` + `record_achievement` ranks/HELL/MINE/TOWN
-(+SHOP/TMPL call sites) (#1181);
-`dopay` Blind/`canspotmon`/`You_cant("see...")` (#1182);
-`#wizwhere` `print_dungeon(FALSE)` → `show_nhw_menu_text` (#1183);
-`dosearch0` Blind/`visible_region_at` → `feel_location` + SDOOR/
-SCORR feel + `unmap_invisible` (#1184);
-`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible` (#1185);
-`doapply` nohands+capacity before getobj; invent_lines/
-display_pickinv prop Blind observe (#1186);
-getpos `redraw_cmd(^R)` + `getpos_refresh`/`flush_screen` +
-`show_goal_msg` (#1187);
-blank S_stone before typ CORR (`brief_at`/`auto_describe`/
-`describe_looked`) (#1188);
-getpos mMoOdDxX `gather_locs` + DOOR_PREV `D` (#1189);
-`done2` cancel → `clear_nhwindow_message` (#1190);
-`castmu` cast+PSI/OPEN plines; `urgent_pline`/WIN_NOSTOP;
-`polyman` was_blind `make_blinded` (#1191).
+**Keep:** D-0845…D-0927; D-0928 #1119–#1192 (teleds placebc #1151;
+D-0929 look_here-only leftover; lastseentyp #1160; wakeup #1161;
+hissing-gas #1162; waterbody_name #1163; makemon_appear #1164;
+unmap/fight_empty #1166; pushweapon #1167; nh_timeout #1168;
+Blind feel #1169–#1171; overview/sanctum/getpos/untrap #1172–#1176;
+float_vs_flight/polymon/timebot #1177–#1179; Blind doname #1180;
+achievements #1181; dopay Blind #1182; wizwhere menu #1183;
+dosearch0 Blind feel #1184; doeat capacity #1185; doapply #1186;
+getpos ^R #1187; blank S_stone #1188; mMoOdDxX #1189; done2 clear
+#1190; castmu/urgent_pline #1191; cmd_safety iflags.cmdassist #1192).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
-treat @1761 as mtimedone-only rehumanize (#1191 was cast/PSI/urgent);
-treat @1712 as leftover parse clear (#1190 was done2 cancel clear);
-treat @1698 as feature-char open door (#1189 was mMoOdDxX gather);
-treat @1691 as typ-CORR win (#1188 was blank S_stone lookat);
-treat @1689 as getdir Unknown (#1187 was getpos redraw_cmd);
-treat @1679 as getobj-only (#1186 was nohands+capacity);
-treat @1681 invent typed names as doname-only (#1186 invent sticky Blind);
-treat @1674 as `is_edible`/FOOD-only (#1185 was capacity);
-treat @1658 `/` as open door (#1184 was Blind feel wand);
-treat @1650 More as NHW_TEXT (#1183 was NHW_MENU dmore offset);
-treat @1625 Kabalebo as nearness (#1182 Blind canspotmon);
-@1573 leftover More (#1181 achievements); @1501 wish dknown (#1180);
-@1464 missed moves (#1179); @1441 feel (#1178); @1438 bot (#1177);
-@1439 gloves (#1177); @1347 S_goodpos (#1176); @1344 WIN_STOP (#1175);
-older in D-0928/NOTES.
+@1770 Norep/parse-clear alone (#1192 iflags.cmdassist); @1761
+mtimedone-only (#1191 cast/PSI); @1712 parse-clear (#1190 done2);
+@1698 feature-char door (#1189 gather); @1691 typ-CORR (#1188
+S_stone); @1689 getdir (#1187 redraw); @1679 getobj-only (#1186);
+@1674 FOOD-only (#1185); @1658 open door (#1184); @1650 NHW_TEXT
+(#1183); @1625 nearness (#1182); older in D-0928/NOTES.
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

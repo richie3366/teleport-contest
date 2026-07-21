@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1191)
+- **Status:** partial (#1080–#1192)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1803**/1814)
+  Scr **1807**/1814)
+- **Hypothesis (#1192):** @1770 — after Options toggled
+  `cmdassist` off, C short tip `Are you waiting to get hit?`
+  via `!(*flagcounter)++` vs JS blank. JS
+  `cmd_safety_prevention` read `flags.cmdassist !== false`
+  (always On) so every Norep used the full tip; second `.`
+  after `parse` clear suppressed → empty topline.
+- **Fix (#1192):** `do.js` — read `iflags.cmdassist` (optlist
+  default On when undefined); flagcounter path when Off.
+- **Verification (#1192):** green+strict PASS; cohort 7/7;
+  focused Scr **1803→1807**; first miss **@1770→@1799**
+  (swamp-exit hole vs heat/smoke More).
+- **Do not:** treat @1770 as Norep/parse-clear bug alone;
+  read `flags.cmdassist`; FORCE tip retention.
 - **Hypothesis (#1191):** @1761 — C brown mold +
   `Something casts a spell at you!` vs JS early
   `You return to human form!`. JS `castmu` omitted C cast pline
