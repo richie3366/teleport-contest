@@ -894,3 +894,16 @@
 - Verification: green+strict; wizard/zap/shop cohort 12/12 PASS.
   Suite fortress held (no full cadence; next @#1220).
 - Next: break-wand dig pay / pickaxe `dig`/`is_digging` / pool-lava.
+## 2026-07-22 00:09 — #1229 D-0959 destroy_drawbridge
+
+- Objective: map-driven — retire dig `destroy_drawbridge` under fortress.
+- C locus: `dbridge.c` `is_drawbridge_wall`/`find_drawbridge`/
+  `get_wall_for_db`/`destroy_drawbridge`; callers `dig.c`
+  `furniture_handled`/`dighole`.
+- Change: new `js/dbridge.js` terrain+message+wake+trap/engr+vision;
+  wire dig furniture + dighole (D-0959). Deferred: crush/entity;
+  revive_nasty; iron-chain scatter; desecrate_altar; impact_drop;
+  mkcavearea; conjoined_pits; autodig; boulder-fill.
+- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1230).
+- Next: desecrate_altar / impact_drop / mkcavearea / conjoined_pits.

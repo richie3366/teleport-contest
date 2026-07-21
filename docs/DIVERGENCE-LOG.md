@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0976 — dosinkfall + spoteffects sink levitation
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — levitating onto a sink did not crash /
+  strip levitation gear; `spoteffects` deferred sink fall; wearing
+  levitation rings/boots did not mirror `ELevitation` flat field.
+- **Cause:** `hack.c dosinkfall` unported; `confer_oc_oprop` mirrored
+  Stealth/Blind/Fast/Telepat but not LEVITATION→`ELevitation`.
+- **Fix:** port `dosinkfall` (crash `rn1`+floor weapons, strip
+  RIN_LEVITATION / LEVITATION_BOOTS / arti+timeout with HLevitation++
+  bracket); wire `spoteffects` IS_SINK+Levitation; export
+  `stop_donning`/`Ring_off`/`off_msg`; mirror LEVITATION extrinsic.
+  Deferred: full `selftouch` petrify; Boots_off LEVITATION float_down
+  side-effect; switch_terrain / levitation-timeout adjust in
+  spoteffects.
+- **Verification:** green+strict PASS; move/wear cohort **36**/37
+  (seed0009 Scr 72/73 pre-existing on HEAD).
+- **Files:** `js/hack.js`, `js/pickup.js`, `js/do_wear.js`,
+  `docs/c-js-map/debt.md`, `docs/c-js-map/turns.md`.
+
 ## D-0975 — lavawall fix_wall_spines + burn_floor feedback
 
 - **Status:** fixed (map-driven debt retirement)

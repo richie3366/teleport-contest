@@ -140,7 +140,7 @@ function is_boots(obj) {
 }
 
 /** C ref: do_wear.c off_msg */
-async function off_msg(otmp) {
+export async function off_msg(otmp) {
     if (game.flags?.verbose !== false) {
         await pline(`You were wearing ${doname(otmp)}.`);
     }
@@ -280,6 +280,10 @@ function confer_oc_oprop(obj, mask, on) {
     } else if (p === STEALTH) {
         if (on) u.EStealth = (u.EStealth | 0) | mask;
         else u.EStealth = (u.EStealth | 0) & ~mask;
+    } else if (p === LEVITATION) {
+        // C youprop.h ELevitation ≡ uprops[LEVITATION].extrinsic (D-0976)
+        if (on) u.ELevitation = (u.ELevitation | 0) | mask;
+        else u.ELevitation = (u.ELevitation | 0) & ~mask;
     }
 }
 
@@ -1711,8 +1715,8 @@ function adjust_attrib(obj, which, val) {
  * Branch envelope: unwield if needed; SEE_INVIS/INVIS/LEVITATION messages +
  * float_up/spoteffects; adjust_attrib STR/CON/CHA; accuracy/damage;
  * PROTECTION learnring+find_ac; PfSC rescham; WARNING see_monsters;
- * RIN_STEALTH toggle_stealth (D-0970). Named omissions: sink-fall death
- * polish.
+ * RIN_STEALTH toggle_stealth (D-0970). Named omissions: none for sink
+ * fall (dosinkfall via spoteffects D-0976).
  */
 export async function Ring_on(obj) {
     if (!obj) return;
@@ -1800,8 +1804,8 @@ export async function Ring_on(obj) {
  * Branch envelope: setworn clear; SEE_INVIS/INVIS messages + set_mimic_blocking;
  * LEVITATION float_down; accuracy/damage; PROTECTION find_ac; PfSC restartcham;
  * WARNING see_monsters; adjust_attrib STR/CON/CHA; learnring;
- * RIN_STEALTH toggle_stealth (D-0970). Named omissions: sink-fall death
- * beyond Ring_gone callers.
+ * RIN_STEALTH toggle_stealth (D-0970). Named omissions: none for sink
+ * fall (dosinkfall via spoteffects D-0976).
  * @param {object} obj
  * @param {boolean} gone TRUE → destroy/eat path (setnotworn ≡ clear slots)
  */
@@ -1892,10 +1896,115 @@ export async function Ring_off_or_gone(obj, gone) {
 }
 
 /**
+ * C ref: do_wear.c Ring_off — Ring_off_or_gone(obj, FALSE).
+ */
+export async function Ring_off(obj) {
+    await Ring_off_or_gone(obj, false);
+}
+
+/**
  * C ref: do_wear.c Ring_gone — Ring_off_or_gone(obj, TRUE).
  */
 export async function Ring_gone(obj) {
     await Ring_off_or_gone(obj, true);
+}
+
+/**
+ * C ref: do_wear.c cancel_don — clear afternmv / multi / takeoff delay.
+ * Applies to donning and doffing (C comment).
+ */
+function cancel_don() {
+    const af = game.afternmv;
+    if (!game.context) game.context = {};
+    if (!game.context.takeoff) game.context.takeoff = {};
+    game.context.takeoff.cancelled_don = (af === Cloak_on
+        || af === Armor_on
+        || af === Shirt_on
+        || af === Helmet_on
+        || af === Gloves_on
+        || af === Boots_on
+        || af === Shield_on);
+    game.afternmv = null;
+    game.nomovemsg = null;
+    game.multi = 0;
+    game.context.takeoff.delay = 0;
+    game.context.takeoff.what = 0;
+}
+
+/**
+ * C ref: do_wear.c doffing — armor currently being taken off via afternmv
+ * or takeoff.what. Accessory takeoff.what arms deferred.
+ */
+function doffing(otmp) {
+    if (!otmp) return false;
+    const u = game.u || {};
+    const what = game.context?.takeoff?.what | 0;
+    const af = game.afternmv;
+    if (otmp === u.uarm) return af === Armor_off || what === W_ARM;
+    if (otmp === u.uarmu) return af === Shirt_off || what === W_ARMU;
+    if (otmp === u.uarmc) return af === Cloak_off || what === W_ARMC;
+    if (otmp === u.uarmf) return af === Boots_off || what === W_ARMF;
+    if (otmp === u.uarmh) return af === Helmet_off || what === W_ARMH;
+    if (otmp === u.uarmg) return af === Gloves_off || what === W_ARMG;
+    if (otmp === u.uarms) return af === Shield_off || what === W_ARMS;
+    return false;
+}
+
+/**
+ * C ref: do_wear.c donning — put-on or take-off in progress for otmp.
+ */
+function donning(otmp) {
+    if (!otmp) return false;
+    if (doffing(otmp)) return true;
+    const u = game.u || {};
+    const af = game.afternmv;
+    if (otmp === u.uarm) return af === Armor_on;
+    if (otmp === u.uarmu) return af === Shirt_on;
+    if (otmp === u.uarmc) return af === Cloak_on;
+    if (otmp === u.uarmf) return af === Boots_on;
+    if (otmp === u.uarmh) return af === Helmet_on;
+    if (otmp === u.uarmg) return af === Gloves_on;
+    if (otmp === u.uarms) return af === Shield_on;
+    return false;
+}
+
+/**
+ * C ref: do_wear.c stop_donning — interrupt multi-turn armor don/doff.
+ * Called from hack.c dosinkfall (and steal). Named omissions: full
+ * remove_worn_item armor prop polish beyond setworn clear; accessory
+ * takeoff.what-only arms; thesimpleoname vs doname wording.
+ * @param {object|null} stolenobj no mesg when already doffing this
+ * @returns {Promise<number>} 0, or -multi when silently stopping doff
+ */
+export async function stop_donning(stolenobj) {
+    let otmp = null;
+    for (const o of game.invent || []) {
+        if (((o.owornmask | 0) & W_ARMOR) && donning(o)) {
+            otmp = o;
+            break;
+        }
+    }
+    if (!otmp) return 0;
+
+    const putting_on = !doffing(otmp);
+    cancel_don();
+    // don't want *_on/*_off via unmul — action isn't completing
+    game.afternmv = null;
+    let result = 0;
+    let buf = '';
+    if (putting_on || otmp !== stolenobj) {
+        const { thesimpleoname } = await import('./objnam.js');
+        buf = `You stop ${putting_on ? 'putting on' : 'taking off'} ${thesimpleoname(otmp)}.`;
+    } else {
+        result = -((game.multi | 0)); // C: before unmul; multi already 0 via cancel_don
+    }
+    await unmul(buf);
+    if (putting_on) {
+        // C: remove_worn_item(otmp, FALSE) — clear slot; setworn handles props
+        const mask = (otmp.owornmask | 0) & W_ARMOR;
+        if (mask) setworn(null, mask);
+    }
+    return result;
 }
 
 /**

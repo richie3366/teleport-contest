@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0975** lavawall `fix_wall_spines` +
-  `burn_floor_objects` give_feedback + fire-trap wire.
-- **Next cluster:** sink-fall death (`dosinkfall`); passtune/
-  drawbridge music; ignite_items / burn_away_slime.
+- Latest port: **D-0976** `dosinkfall` + `spoteffects` sink+Lev +
+  `ELevitation` mirror + `stop_donning`.
+- **Next cluster:** passtune/drawbridge music; ignite_items /
+  burn_away_slime.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -46,8 +46,8 @@ Objective/score live in `CURRENT.md`.
   AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969),
   `toggle_stealth` (D-0970), AD_COLD/ELEC explode (D-0971),
   `do_earthquake`/`do_pit` (D-0972), MAGM/DISN/DRST/ACID explode
-  (D-0973), flute/harp/horn/`awaken_soldiers` (D-0974), or lavawall
-  spines / burn feedback (D-0975).
+  (D-0973), flute/harp/horn/`awaken_soldiers` (D-0974), lavawall
+  spines / burn feedback (D-0975), or `dosinkfall` (D-0976).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -60,17 +60,16 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1245**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `31+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0976:** `dosinkfall` + sink `spoteffects` + `ELevitation` mirror.
 - **D-0975:** lavawall spines + burn_floor feedback + fire-trap wire.
 - **D-0974:** flute/harp/horn + BUGLE soldiers + FIRE/FROST ubuzz.
 - **D-0973:** explode AD_MAGM/DISN/DRST/ACID + masks + mon_explodes.
 - **D-0972:** music `do_earthquake`/`do_pit` + drum of earthquake.
 - **D-0971:** `explode` AD_COLD/ELEC + Cold/Shock mask + mon_explodes.
-- **D-0970:** `toggle_stealth` + ELVEN cloak/boots + `EStealth` mirror.
+- **D-0970:** `toggle_stealth` + ELVEN on/off + `EStealth` mirror.
 - **D-0969:** angrygods 4–8 + gods_angry/rndcurse + cursed_book.
 - **D-0968:** explode AD_FIRE mon/hero + explosionmask + mon_explodes.
 - **D-0967:** bury_objs/unearth_objs/obj_ice_effects + melt/freeze wire.
 - **D-0966:** Ring_on/off learnring/adjust_attrib + float_down.
 - **D-0965:** ice melt / burn_floor_objects / fireball / MELT_ICE_AWAY.
-- **D-0964:** revive container/buried / cant_revive / zombie_can_dig.
-- **D-0963:** desecrate_altar / god_zaps_you / fry_by_god dig wire.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
