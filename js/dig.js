@@ -9,7 +9,8 @@
 //        (D-0941 watch_dig; D-0950 break-wand dig; D-0951 pickaxe dig;
 //        D-0954 furniture_handled + HOLE goto_level; D-0957 dig_up_grave;
 //        D-0959 destroy_drawbridge; D-0960 mkcavearea earth;
-//        D-0961 impact_drop / down_gate / drop_to)
+//        D-0961 impact_drop / down_gate / drop_to;
+//        D-0962 conjoined_pits / autodig quiet / boulder-fill)
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
@@ -42,7 +43,7 @@ import { hliquid, Monnam } from './do_name.js';
 import { stairway_at } from './mklev.js';
 import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
-    trapname, mintrap, b_trapped,
+    delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
 } from './trap.js';
 import { nhgetch } from './input.js';
 import { set_occupation, can_reach_floor, del_engr_at } from './engrave.js';
@@ -86,6 +87,7 @@ import {
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, NO_PART,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
     TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG,
+    xytodir, DIR_180, DIR_ERR,
 } from './const.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -1200,15 +1202,16 @@ async function mkcavearea(rockit) {
 
 /**
  * C ref: dig.c pick_can_reach — pit/bimanual/Flying reach for statue/boulder.
- * Named omit: conjoined_pits when both in pits (treat as unreachable unless
- * bimanual).
+ * Branch envelope (D-0962): conjoined_pits when both hero and target in pits.
  */
 function pick_can_reach(pick, x, y) {
     const t = t_at(x, y);
     const target_in_pit = !!(t && is_pit(t.ttyp) && t.tseen);
     const u = game.u || {};
     if (u.utrap && u.utraptype === TT_PIT) {
-        if (target_in_pit) return false; // conjoined_pits deferred
+        if (target_in_pit) {
+            return conjoined_pits(t, t_at(u.ux | 0, u.uy | 0), false);
+        }
         return bimanual(pick);
     }
     if (bimanual(pick) || Flying()) return true;
@@ -1424,10 +1427,11 @@ export async function dig_up_grave(cc) {
 /**
  * C ref: dig.c dighole — create PIT/HOLE under hero (pickaxe down path).
  * Branch envelope: dig_check hard fails; pool/lava splash; drawbridge
- * destroy (D-0959); IS_GRAVE → digactualhole(PIT)+dig_up_grave (D-0957);
- * fillholetyp liquid; digactualhole PIT/HOLE.
- * Named omit: magical traps explode; boulder fill; spot_checks;
- * by_magic traps.
+ * destroy (D-0959); boulder fill / settle (D-0962); IS_GRAVE →
+ * digactualhole(PIT)+dig_up_grave (D-0957); fillholetyp liquid;
+ * digactualhole PIT/HOLE.
+ * Named omit: magical traps explode; DRAWBRIDGE_UP fluid polish;
+ * spot_checks; by_magic traps; desecrate_altar (god_zaps_you).
  */
 export async function dighole(pit_only, _by_magic, cc) {
     const u = game.u || {};
@@ -1463,14 +1467,6 @@ export async function dighole(pit_only, _by_magic, cc) {
         wake_nearby(false);
         return false;
     }
-    if (IS_THRONE(old_typ)) {
-        await pline('The throne is too hard to break apart.');
-        return false;
-    }
-    if (IS_ALTAR(old_typ)) {
-        await pline('The altar is too hard to break apart.');
-        return false;
-    }
     if (old_typ === DRAWBRIDGE_DOWN || is_drawbridge_wall(dig_x, dig_y) >= 0) {
         if (pit_only) {
             await pline('The drawbridge seems too hard to dig through.');
@@ -1481,11 +1477,35 @@ export async function dighole(pit_only, _by_magic, cc) {
         await destroy_drawbridge(xy.x, xy.y);
         return true;
     }
-    // boulder fill deferred
+    // C: dig.c dighole boulder settles into pit or fills hole (D-0962).
+    // Does not set retval — digging "fails" because no hole remains.
+    const boulder_here = sobj_at(BOULDER, dig_x, dig_y);
+    if (boulder_here) {
+        if (ttmp && is_pit(ttmp.ttyp) && rn2(2)) {
+            const adj = (dig_x !== (u.ux | 0) || dig_y !== (u.uy | 0))
+                ? 'adjacent ' : '';
+            await pline(`The boulder settles into the ${adj}pit.`);
+            ttmp.ttyp = PIT; // crush spikes
+        } else {
+            await pline('KADOOM!  The boulder falls in!');
+            wake_nearby(false);
+            delfloortrap(ttmp);
+        }
+        delobj(boulder_here);
+        return false;
+    }
     if (IS_GRAVE(old_typ)) {
         await digactualhole(dig_x, dig_y, game.youmonst, PIT);
         await dig_up_grave(cc);
         return true;
+    }
+    if (IS_THRONE(old_typ)) {
+        await pline('The throne is too hard to break apart.');
+        return false;
+    }
+    if (IS_ALTAR(old_typ)) {
+        await pline('The altar is too hard to break apart.');
+        return false;
     }
 
     const typ = fillholetyp(dig_x, dig_y, false);
@@ -1517,7 +1537,7 @@ export async function dighole(pit_only, _by_magic, cc) {
  * Fumbling; effort + dwarf ×2; down → traps / dighole; lateral finish
  * statue/boulder/rock/wall/door/tree + shop pay; mid-effort hit msg.
  * Named omit: altar_wrath/angry_priest; earth elemental
- * debris; autodig quiet; drawbridge wall string; steed fumble.
+ * debris; drawbridge wall string; steed fumble.
  * @returns {number} 1 continue, 0 done
  */
 async function dig() {
@@ -1889,9 +1909,11 @@ export async function use_pick_axe(obj) {
 
 /**
  * C ref: dig.c use_pick_axe2 — act on u.dx/dy/dz; set dig occupation.
- * Named omit: autodig quiet; Underwater; swallowed attack polish;
- * conjoined pits; uteetering/uescaped_shaft; axe down trap-only;
- * shopdig(0) on start downward; cant_reach_floor messaging polish.
+ * Branch envelope (D-0962): conjoined pit debris join; autodig quiet
+ * on repeated rock dig; boulder/statue reach failures.
+ * Named omit: Underwater; swallowed attack polish;
+ * uteetering/uescaped_shaft; axe down trap-only;
+ * cant_reach_floor messaging polish.
  */
 export async function use_pick_axe2(obj) {
     const u = game.u || {};
@@ -1932,6 +1954,7 @@ export async function use_pick_axe2(obj) {
         const dig_target = dig_typ(obj, rx, ry);
         if (dig_target === DIGTYP_UNDIGGABLE) {
             const trap = t_at(rx, ry);
+            let trap_with_u;
             if (trap && trap.ttyp === WEB) {
                 if (!trap.tseen) {
                     seetrap(trap);
@@ -1976,6 +1999,27 @@ export async function use_pick_axe2(obj) {
                 } else {
                     await pline(`You can't reach the ${what}.`);
                 }
+            } else if (u.utrap && (u.utraptype | 0) === TT_PIT && trap
+                && (trap_with_u = t_at(u.ux | 0, u.uy | 0))
+                && is_pit(trap.ttyp)
+                && !conjoined_pits(trap, trap_with_u, false)) {
+                // C: dig.c use_pick_axe2 — clear debris / join pits (D-0962)
+                const idx = xytodir(u.dx | 0, u.dy | 0);
+                if (idx !== DIR_ERR) {
+                    const adjidx = DIR_180(idx);
+                    trap_with_u.conjoined = (trap_with_u.conjoined | 0)
+                        | (1 << idx);
+                    trap.conjoined = (trap.conjoined | 0) | (1 << adjidx);
+                    await pline(
+                        'You clear some debris from between the pits.',
+                    );
+                }
+            } else if (u.utrap && (u.utraptype | 0) === TT_PIT
+                && t_at(u.ux | 0, u.uy | 0)) {
+                await pline(
+                    `You swing ${yobjnam_dig(obj)}, but the rubble `
+                    + 'has no place to go.',
+                );
             } else {
                 await pline(
                     `You swing ${yobjnam_dig(obj)} through thin air.`,
@@ -1989,6 +2033,15 @@ export async function use_pick_axe2(obj) {
                 || (digging.pos.y | 0) !== ry
                 || !on_level(digging.level, u.uz)
                 || digging.down) {
+                // C: autodig quiet when repeating rock dig at same spot
+                if (game.flags?.autodig && dig_target === DIGTYP_ROCK
+                    && !digging.down
+                    && u_at(digging.pos.x | 0, digging.pos.y | 0)
+                    && ((game.moves | 0) <= ((digging.lastdigtime | 0) + 2)
+                        && (game.moves | 0) >= (digging.lastdigtime | 0))) {
+                    game.did_dig_msg = true;
+                    digging.quiet = true;
+                }
                 digging.down = false;
                 digging.chew = false;
                 digging.warned = false;

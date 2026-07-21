@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0962 — conjoined_pits + autodig quiet + boulder-fill
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named dig debt — pit-to-pit pick reach always failed,
+  autodig always re-announced starts, and downward dig on a boulder
+  skipped C settle/KADOOM fill.
+- **Cause:** deferred `trap.c` `conjoined_pits`, `cmd.c` `xytodir`,
+  `use_pick_axe2` autodig quiet arm, and `dighole` boulder branch.
+- **Fix:** port `conjoined_pits` + export `delfloortrap`; add
+  `xytodir`; wire `pick_can_reach` / pit-debris join / autodig quiet;
+  `dighole` boulder settle-or-fill (retval false like C) (D-0962).
+- **Verification:** green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1235).
+- **Named omissions:** `desecrate_altar` needs `god_zaps_you`;
+  magical-trap explode; DRAWBRIDGE_UP fluid; zap_dig pitdig;
+  clear_conjoined_pits / adj_nonconjoined_pit callers.
+
 ## D-0961 — impact_drop floor objects through holes
 
 - **Status:** fixed (map-driven debt retirement)

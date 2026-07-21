@@ -70,6 +70,7 @@ import {
     IS_OBSTRUCTED, IS_STWALL, IS_TREE,
     HVY_ENCUMBER, ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container,
+    xytodir, DIR_180, DIR_ERR,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -799,6 +800,59 @@ export function deltrap(trap) {
     if (!traps || !trap) return;
     const i = traps.indexOf(trap);
     if (i >= 0) traps.splice(i, 1);
+}
+
+/**
+ * C ref: trap.c conjoined_pits — adjacent pits linked via conjoined bits.
+ * @param {object|null} trap2
+ * @param {object|null} trap1
+ * @param {boolean} u_entering_trap2
+ */
+export function conjoined_pits(trap2, trap1, u_entering_trap2) {
+    if (!trap1 || !trap2) return false;
+    if (!isok(trap2.tx, trap2.ty) || !isok(trap1.tx, trap1.ty)
+        || !is_pit(trap2.ttyp)
+        || !is_pit(trap1.ttyp)
+        || (u_entering_trap2
+            && !(game.u?.utrap && (game.u.utraptype | 0) === TT_PIT))) {
+        return false;
+    }
+    const dx = sgn((trap2.tx | 0) - (trap1.tx | 0));
+    const dy = sgn((trap2.ty | 0) - (trap1.ty | 0));
+    const diridx = xytodir(dx, dy);
+    if (diridx !== DIR_ERR) {
+        const adjidx = DIR_180(diridx);
+        if (((trap1.conjoined | 0) & (1 << diridx))
+            && ((trap2.conjoined | 0) & (1 << adjidx))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C ref: trap.c delfloortrap — destroy floor-emanating trap types.
+ * Clears hero utrap (unless buried ball) or mon mtrapped, then deltrap.
+ */
+export function delfloortrap(ttmp) {
+    if (!ttmp) return false;
+    const ttyp = ttmp.ttyp | 0;
+    if (ttyp === SQKY_BOARD || ttyp === BEAR_TRAP || ttyp === LANDMINE
+        || ttyp === FIRE_TRAP || is_pit(ttyp) || is_hole(ttyp)
+        || ttyp === TELEP_TRAP || ttyp === LEVEL_TELEP
+        || ttyp === WEB || ttyp === MAGIC_TRAP || ttyp === ANTI_MAGIC) {
+        if (u_at(ttmp.tx, ttmp.ty)) {
+            if ((game.u?.utraptype | 0) !== TT_BURIEDBALL) {
+                reset_utrap(true);
+            }
+        } else {
+            const mtmp = m_at(ttmp.tx, ttmp.ty);
+            if (mtmp) mtmp.mtrapped = 0;
+        }
+        deltrap(ttmp);
+        return true;
+    }
+    return false;
 }
 
 /** Hero sentinel: game.youmonst or explicit _youmonst flag from dotrap. */

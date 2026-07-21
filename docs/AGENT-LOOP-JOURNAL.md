@@ -12,20 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-
-## 2026-07-22 00:12 — #1230 cadence score + D-0960 mkcavearea
-
-- Objective: cadence full `sessions` @#1230 + map-driven dig
-  `mkcavearea` earth collapse/extend under fortress.
-- C locus: `dig.c` `rm_waslit`/`mkcavepos`/`mkcavearea`; caller `dig`
-  earth-level finish.
-- Change: port helpers + wire blessed-extend / cursed-collapse RNG
-  arms (D-0960). Deferred: Soundeffect; earth elemental debris;
-  desecrate_altar; impact_drop; conjoined_pits; autodig; boulder-fill.
-- Verification: full sessions **44**/44 Scr **11405**/11405 RNG
-  **100%** speed `31+0.27/turn`; green+strict; dig cohort 16/16 PASS.
-- Next: desecrate_altar / impact_drop / conjoined_pits. Cadence @#1235.
-
 ## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
@@ -34,6 +20,20 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-22 00:22 — #1232 D-0962 conjoined/autodig/boulder
+
+- Objective: map-driven — retire dig `conjoined_pits` + autodig quiet
+  + `dighole` boulder-fill under fortress.
+- C locus: `trap.c` `conjoined_pits`/`delfloortrap`; `cmd.c`
+  `xytodir`; `dig.c` `pick_can_reach`/`use_pick_axe2`/`dighole`.
+- Change: port helpers; wire pit reach/debris join/autodig quiet;
+  boulder settle-or-KADOOM (retval false) (D-0962). Deferred:
+  desecrate_altar/`god_zaps_you`; magical-trap explode; zap_dig
+  pitdig; clear_conjoined_pits callers.
+- Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1235).
+- Next: desecrate_altar/`god_zaps_you`. Cadence @#1235.
 
 ## 2026-07-22 00:16 — #1231 D-0961 impact_drop
 

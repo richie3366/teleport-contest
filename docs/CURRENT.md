@@ -72,10 +72,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** desecrate_altar / conjoined_pits; autodig quiet /
-boulder-fill; revive container/buried polish; ice melt /
-`burn_floor_objects` / fireball; float_down / learnring /
-adjust_attrib Ring_off polish.
+**Next cluster:** desecrate_altar / `god_zaps_you`; revive
+container/buried polish; ice melt / `burn_floor_objects` /
+fireball; float_down / learnring / adjust_attrib Ring_off polish.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -119,7 +118,9 @@ re-stub);
 **D-0960** (`mkcavearea`/`mkcavepos`/`rm_waslit` earth dig — do not
 re-stub);
 **D-0961** (`impact_drop`/`down_gate`/`drop_to`/`add_to_migration` —
-do not re-stub).
+do not re-stub);
+**D-0962** (`conjoined_pits`/`xytodir` + autodig quiet + `dighole`
+boulder-fill/`delfloortrap` — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
