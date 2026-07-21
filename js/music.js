@@ -1,20 +1,22 @@
 // music.js — Musical instruments (apply → do_play_instrument).
 // C ref: music.c do_play_instrument / do_improvisation / awaken_monsters /
-//        do_pit / do_earthquake / generic_lvl_desc (D-0972).
+//        awaken_soldiers / put_monsters_to_sleep / charm_snakes /
+//        calm_nymphs / charm_monsters / do_pit / do_earthquake /
+//        generic_lvl_desc (D-0972 / D-0974).
 //
-// Branch envelope this iteration: LEATHER_DRUM improvisation +
-// DRUM_OF_EARTHQUAKE → do_earthquake/do_pit + maketrap PIT IS_ROOM→ROOM.
+// Branch envelope: LEATHER_DRUM + DRUM_OF_EARTHQUAKE (D-0972) +
+// MAGIC/WOODEN_FLUTE sleep/snake + MAGIC/WOODEN_HARP charm/nymph +
+// FIRE/FROST_HORN ubuzz/zapyourself + BUGLE awaken_soldiers (D-0974).
 // Named omissions: passtune / getlin tune / drawbridge; Hero_playnotes
-// audio; charm_snakes / put_monsters_to_sleep / calm_nymphs /
-// charm_monsters / awaken_soldiers bodies; fire/frost horn ubuzz;
-// consume_obj_charge unpaid polish; onscary wiz/angel/rider; can_blow
-// poly; selftouch/mselftouch petrify; flooreffects full (boulder→pit
-// thin); maketrap shop-hole/drawbridge-up/wall morph; Soundeffect;
-// count_level_features on fountain/sink morph.
+// audio; consume_obj_charge unpaid polish; onscary wiz/angel/rider;
+// can_blow poly; selftouch/mselftouch petrify; flooreffects full
+// (boulder→pit thin); maketrap shop-hole/drawbridge-up/wall morph;
+// Soundeffect; count_level_features on fountain/sink morph;
+// sleep_monst defended(AD_SLEE)/shieldeff; tamedog givemsg pline.
 
 import { game } from './gstate.js';
-import { rn2, rnd, rn1, rnl } from './rng.js';
-import { pline, newsym, canseemon } from './display.js';
+import { rn2, rnd, rn1, rnl, d } from './rng.js';
+import { pline, newsym, canseemon, Norep, You_feel } from './display.js';
 import { yn_function } from './getline.js';
 import { objectNames, TOOL_CLASS, objects } from './objects.js';
 import {
@@ -25,12 +27,13 @@ import {
     is_pit, u_at, COLNO, ROWNO, SHOPBASE, ARTICLE_THE, ARTICLE_A, SUPPRESS_SADDLE,
     XKILL_NOMSG, NO_KILLER_PREFIX, Upolyd, has_mgivenname, IS_ROOM,
     Is_astralevel, In_endgame, In_sokoban, In_V_tower, STONE,
+    BZ_OFS_AD, KILLED_BY,
 } from './const.js';
 import { A_WIS, A_DEX, acurr, exercise, Fumbling } from './attrib.js';
-import { cxname, an } from './objnam.js';
+import { cxname, an, xname, The } from './objnam.js';
 import {
     mindless, G_UNIQ, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
-    M1_SLITHY,
+    M1_SLITHY, is_mercenary, MR_SLEEP,
 } from './monsters.js';
 import { dist2 } from './hacklib.js';
 import { Monnam, mon_nam, x_monnam } from './do_name.js';
@@ -44,11 +47,14 @@ import { obj_extract_self, delobj, objects_at, place_object, stackobj } from './
 import { losehp, maybe_half_phys, in_rooms } from './hack.js';
 import { xkilled } from './uhitm.js';
 import { makeknown } from './invent.js';
-import { align_str } from './roles.js';
+import { align_str, uhim } from './roles.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import { add_damage } from './shk.js';
 import { del_engr_at } from './engrave.js';
-import { PM_ARCHEOLOGIST } from './generated/monsters_data.js';
+import { PM_ARCHEOLOGIST, monsterNames } from './generated/monsters_data.js';
+import { getdir } from './lock.js';
+import { tamedog } from './dog.js';
+import { zapyourself, ubuzz, flash_str } from './zap.js';
 
 const WOODEN_FLUTE = objectNames.indexOf('WOODEN_FLUTE');
 const MAGIC_FLUTE = objectNames.indexOf('MAGIC_FLUTE');
@@ -61,6 +67,11 @@ const BUGLE = objectNames.indexOf('BUGLE');
 const LEATHER_DRUM = objectNames.indexOf('LEATHER_DRUM');
 const DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
 const BOULDER = objectNames.indexOf('BOULDER');
+const PM_GUARD = monsterNames.indexOf('PM_GUARD');
+
+/** C monattk.h — AD_FIRE/AD_COLD for horn buzz. */
+const AD_FIRE = 2;
+const AD_COLD = 3;
 
 const PLAY_NORMAL = 0x00;
 const PLAY_STUNNED = 0x01;
@@ -248,6 +259,195 @@ async function awaken_monsters(distance) {
         const distm = mdistu(mtmp);
         if (distm < distance) {
             await awaken_scare(mtmp, distm < Math.floor(distance / 3));
+        }
+    }
+}
+
+/** C ref: youprop.h Blind */
+function Blind() {
+    const u = game.u || {};
+    return !!((u.HBlind | 0) || (u.EBlind | 0) || u.Blind);
+}
+
+/** C ref: objnam.c otense subset — singular 3sg; quan≠1 keeps base. */
+function otense(obj, verb) {
+    if (!verb) return '';
+    if ((obj?.quan | 0) !== 1) return verb;
+    if (/[sxz]$/.test(verb) || /(?:ch|sh)$/.test(verb)) return `${verb}es`;
+    if (/[^aeiou]y$/.test(verb)) return `${verb.slice(0, -1)}ies`;
+    return `${verb}s`;
+}
+
+/** C ref: objnam.c Tobjnam — The(xname) + optional otense verb. */
+function Tobjnam(obj, verb) {
+    const bp = The(xname(obj));
+    return verb ? `${bp} ${otense(obj, verb)}` : bp;
+}
+
+/** C ref: objnam.c Yname2 — highc(yname). */
+function Yname2(obj) {
+    const s = yname(obj);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/** C ref: do_name.c a_monnam */
+function a_monnam(mtmp) {
+    return x_monnam(mtmp, ARTICLE_A, null, 0, false) || 'it';
+}
+
+/**
+ * C ref: mhitm.c sleep_monst — music TOOL_CLASS path (D-0974).
+ * defended(AD_SLEE)/shieldeff deferred.
+ */
+function sleep_monst_music(mon, amt, how) {
+    if (!mon) return 0;
+    if (how >= 0 && !mon.msleeping && !(mon.mfrozen | 0)
+        && mon.data?.mlet === 'S_MIMIC'
+        && ((mon.m_ap_type | 0) === M_AP_FURNITURE
+            || (mon.m_ap_type | 0) === M_AP_OBJECT)) {
+        seemimic(mon);
+    }
+    const sleepBits = (mon.data?.mresists | 0)
+        | (mon.mextrinsics | 0) | (mon.mintrinsics | 0);
+    if ((sleepBits & MR_SLEEP)
+        || (how >= 0 && resist(mon, how, 0, NOTELL))) {
+        return 0;
+    }
+    if (mon.mcanmove) {
+        mon.meating = 0;
+        amt = (amt | 0) + (mon.mfrozen | 0);
+        if (amt > 0) {
+            mon.mcanmove = 0;
+            mon.mfrozen = Math.min(amt, 127);
+        } else {
+            mon.msleeping = 1;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+/**
+ * C ref: mhitm.c slept_monst — grabber release; sticks/pline_mon thin.
+ */
+async function slept_monst(mon) {
+    const u = game.u || {};
+    const helpless = !!(mon?.msleeping || !mon?.mcanmove);
+    if (helpless && mon === u.ustuck && !u.uswallow) {
+        // sticks(youmonst) deferred → treat as non-sticking
+        await pline(`${Monnam(mon)}'s grip relaxes.`);
+        u.ustuck = null;
+        if (game.youmonst) game.youmonst.ustuck = null;
+    }
+}
+
+/** C ref: music.c put_monsters_to_sleep */
+async function put_monsters_to_sleep(distance) {
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (mdistu(mtmp) < distance
+            && sleep_monst_music(mtmp, d(10, 10), TOOL_CLASS)) {
+            mtmp.msleeping = 1;
+            await slept_monst(mtmp);
+        }
+    }
+}
+
+/** C ref: music.c charm_snakes — peaceful sway; NOT tamed. */
+async function charm_snakes(distance) {
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (mtmp.data?.mlet === 'S_SNAKE' && mtmp.mcanmove
+            && mdistu(mtmp) < distance) {
+            const was_peaceful = mtmp.mpeaceful;
+            mtmp.mpeaceful = 1;
+            mtmp.mavenge = 0;
+            mtmp.mstrategy = (mtmp.mstrategy | 0) & ~STRAT_WAITMASK;
+            const could_see_mon = canseemon(mtmp);
+            mtmp.mundetected = 0;
+            newsym(mtmp.mx, mtmp.my);
+            if (canseemon(mtmp)) {
+                if (!could_see_mon) {
+                    await pline(
+                        `You notice ${a_monnam(mtmp)}, swaying with the music.`,
+                    );
+                } else {
+                    await pline(
+                        `${Monnam(mtmp)} freezes, then sways with the music${
+                            was_peaceful ? '' : ', and now seems quieter'
+                        }.`,
+                    );
+                }
+            }
+        }
+    }
+}
+
+/** C ref: music.c calm_nymphs */
+async function calm_nymphs(distance) {
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (mtmp.data?.mlet === 'S_NYMPH' && mtmp.mcanmove
+            && mdistu(mtmp) < distance) {
+            mtmp.msleeping = 0;
+            mtmp.mpeaceful = 1;
+            mtmp.mavenge = 0;
+            mtmp.mstrategy = (mtmp.mstrategy | 0) & ~STRAT_WAITMASK;
+            if (canseemon(mtmp)) {
+                await pline(
+                    `${Monnam(mtmp)} listens cheerfully to the music, then seems quieter.`,
+                );
+            }
+        }
+    }
+}
+
+/**
+ * C ref: music.c awaken_soldiers — mercs ready; else awaken_scare nearby.
+ */
+async function awaken_soldiers(_bugler) {
+    const u = game.u || {};
+    // Hero bugler only this envelope (monster bugler deferred)
+    const distance = (u.ulevel | 0) * 30;
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (is_mercenary(mtmp.data)
+            && (mtmp.data?.mndx | 0) !== (PM_GUARD | 0)) {
+            if (!mtmp.mtame) mtmp.mpeaceful = 0;
+            mtmp.msleeping = 0;
+            mtmp.mfrozen = 0;
+            mtmp.mcanmove = 1;
+            mtmp.mstrategy = (mtmp.mstrategy | 0) & ~STRAT_WAITMASK;
+            if (canseemon(mtmp)) {
+                await pline(`${Monnam(mtmp)} is now ready for battle!`);
+            } else if (!Deaf()) {
+                await Norep(
+                    'You hear the rattle of battle gear being readied.',
+                );
+            }
+        } else {
+            const distm = mdistu(mtmp);
+            if (distm < distance) {
+                await awaken_scare(mtmp, distm < Math.floor(distance / 3));
+            }
+        }
+    }
+}
+
+/**
+ * C ref: music.c charm_monsters — resist(TOOL) or isshk → tamedog.
+ */
+async function charm_monsters(distance) {
+    const u = game.u || {};
+    let dist = distance | 0;
+    if (u.uswallow) dist = 0;
+    const list = [...(game.fmon || [])];
+    for (const mtmp of list) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (mdistu(mtmp) <= dist) {
+            if (!resist(mtmp, TOOL_CLASS, 0, NOTELL) || mtmp.isshk) {
+                await tamedog(mtmp, null, true);
+            }
         }
     }
 }
@@ -671,8 +871,7 @@ async function do_improvisation(instr) {
             await pline('You blow into the bugle.');
         }
         Hero_playnotes(itmp_otyp, improvisation, 80);
-        // awaken_soldiers deferred → awaken nearby only
-        await awaken_monsters((u.ulevel | 0) * 30);
+        await awaken_soldiers(null);
         exercise(A_WIS, false);
         break;
 
@@ -687,15 +886,109 @@ async function do_improvisation(instr) {
         makeknown(DRUM_OF_EARTHQUAKE);
         break;
 
-    case WOODEN_FLUTE:
     case MAGIC_FLUTE:
-    case WOODEN_HARP:
-    case MAGIC_HARP:
-    case FIRE_HORN:
-    case FROST_HORN:
-        // Shared prefix RNG already consumed; effect bodies deferred.
-        await pline(`You play ${yname(instr)}.`);
+        consume_obj_charge(instr, true);
+        await pline(
+            `You ${!Deaf() ? '' : 'seem to '}produce ${
+                Hallucination() ? 'piped' : 'soft'
+            }${same_old_song ? ', familiar' : ''} music.`,
+        );
+        Hero_playnotes(itmp_otyp, improvisation, 50);
+        await put_monsters_to_sleep((u.ulevel | 0) * 5);
+        exercise(A_DEX, true);
         break;
+
+    case WOODEN_FLUTE: {
+        // C: do_spec &= (rn2…) — RHS always evaluated (RNG)
+        do_spec = !!(do_spec
+            & (rn2(acurr(A_DEX)) + (u.ulevel | 0) > 25));
+        if (!Deaf()) {
+            await pline(
+                `${Tobjnam(instr, do_spec ? 'trill' : 'toot')}${
+                    same_old_song ? ' a familiar tune' : ''
+                }.`,
+            );
+        } else {
+            await You_feel(
+                `${yname(instr)} ${do_spec ? 'trill' : 'toot'}.`,
+            );
+        }
+        Hero_playnotes(itmp_otyp, improvisation, 50);
+        if (do_spec) await charm_snakes((u.ulevel | 0) * 3);
+        exercise(A_DEX, true);
+        break;
+    }
+
+    case FIRE_HORN:
+    case FROST_HORN: {
+        consume_obj_charge(instr, true);
+        if (!(await getdir(null))) {
+            await pline(`${Tobjnam(instr, 'vibrate')}.`);
+            break;
+        }
+        if (!(u.dx | 0) && !(u.dy | 0) && !(u.dz | 0)) {
+            const damage = await zapyourself(instr, true);
+            if (damage) {
+                const buf = `using a magical horn on ${uhim()}self`;
+                Hero_playnotes(itmp_otyp, improvisation, 50);
+                losehp(damage, buf, KILLED_BY);
+            }
+        } else {
+            const type = BZ_OFS_AD(
+                instr.otyp === FROST_HORN ? AD_COLD : AD_FIRE,
+            );
+            if (!Blind()) {
+                await pline(`A ${flash_str(type)} blasts out of the horn!`);
+            }
+            Hero_playnotes(itmp_otyp, improvisation, 50);
+            game.current_wand = instr;
+            await ubuzz(type, rn1(6, 6));
+            game.current_wand = null;
+        }
+        makeknown(instr.otyp);
+        break;
+    }
+
+    case MAGIC_HARP:
+        consume_obj_charge(instr, true);
+        if (!Deaf()) {
+            await pline(
+                `${Tobjnam(instr, 'produce')} very attractive${
+                    same_old_song ? ' and familiar' : ''
+                } music.`,
+            );
+        } else {
+            await You_feel('very soothing vibrations.');
+        }
+        Hero_playnotes(itmp_otyp, improvisation, 50);
+        await charm_monsters(Math.trunc(((u.ulevel | 0) - 1) / 3) + 1);
+        exercise(A_DEX, true);
+        break;
+
+    case WOODEN_HARP: {
+        // C: do_spec &= (rn2…) — RHS always evaluated (RNG)
+        do_spec = !!(do_spec
+            & (rn2(acurr(A_DEX)) + (u.ulevel | 0) > 25));
+        if (!Deaf()) {
+            let melody;
+            if (do_spec && same_old_song) {
+                melody = 'produces a familiar, lilting melody';
+            } else if (do_spec) {
+                melody = 'produces a lilting melody';
+            } else if (same_old_song) {
+                melody = 'twangs a familiar tune';
+            } else {
+                melody = 'twangs';
+            }
+            await pline(`${Yname2(instr)} ${melody}.`);
+        } else {
+            await You_feel('soothing vibrations.');
+        }
+        Hero_playnotes(itmp_otyp, improvisation, 50);
+        if (do_spec) await calm_nymphs((u.ulevel | 0) * 3);
+        exercise(A_DEX, true);
+        break;
+    }
 
     default:
         await pline(`What a weird instrument (${instr.otyp})!`);

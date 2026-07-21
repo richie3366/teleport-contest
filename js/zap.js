@@ -10,7 +10,8 @@
 // directional getdir ('.' = self) → confdir + zapyourself SPE_HEALING /
 // SPE_EXTRA_HEALING / WAN_SLEEP / SPE_SLEEP / WAN_DEATH /
 // SPE_FINGER_OF_DEATH / WAN_POLYMORPH / WAN_STRIKING / WAN_CANCELLATION /
-// WAN_TELEPORTATION / WAN_UNDEAD_TURNING / WAN_LIGHT;
+// WAN_TELEPORTATION / WAN_UNDEAD_TURNING / WAN_LIGHT /
+// WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN (D-0974);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
 // Reflecting); IMMEDIATE weffects → bhit(rn1(8,6)) + bhito WAN_POLYMORPH
@@ -162,6 +163,11 @@ const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
 const WAN_UNDEAD_TURNING = objectNames.indexOf('WAN_UNDEAD_TURNING');
 const SPE_TURN_UNDEAD = objectNames.indexOf('SPE_TURN_UNDEAD');
+const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
+const WAN_COLD = objectNames.indexOf('WAN_COLD');
+const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
+const FIRE_HORN = objectNames.indexOf('FIRE_HORN');
+const FROST_HORN = objectNames.indexOf('FROST_HORN');
 const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
@@ -328,7 +334,7 @@ function BZ_U_WAND(bztyp) {
  * Empty slots match C; Hallucination suppress deferred (caller passes
  * fltyp already via zaptype).
  */
-function flash_str(fltyp) {
+export function flash_str(fltyp) {
     const names = [
         'magic missile', 'bolt of fire', 'bolt of cold', 'sleep ray',
         'death ray', 'bolt of lightning', '', '', '', '',
@@ -1673,8 +1679,8 @@ export async function dobuzz(
     }
 }
 
-/** C ref: zap.c ubuzz */
-async function ubuzz(type, nd) {
+/** C ref: zap.c ubuzz — exported for music fire/frost horn (D-0974). */
+export async function ubuzz(type, nd) {
     const u = game.u;
     await dobuzz(type, nd, u.ux, u.uy, u.dx, u.dy, true, false, false);
 }
@@ -2795,6 +2801,40 @@ export async function zapyourself(obj, ordinary) {
         // broken wand: lightdamage + flashburn deferred → no hero dmg
         damage = 0;
         break;
+
+    case WAN_FIRE:
+    case FIRE_HORN: {
+        // C zap.c zapyourself — music fire horn self-blast (D-0974)
+        learn_it = true;
+        const orig_dmg = d(12, 6);
+        if (Fire_resistance()) {
+            // shieldeff / monstseesu / ugolemeffects deferred
+            await You_feel('rather warm.');
+        } else {
+            await pline("You've set yourself afire!");
+            damage = orig_dmg;
+        }
+        // burn_away_slime deferred
+        await burnarmor(game.youmonst || { _youmonst: true });
+        await destroy_items(game.youmonst || { _youmonst: true }, AD_FIRE, orig_dmg);
+        ignite_items(game.invent);
+        break;
+    }
+
+    case WAN_COLD:
+    case SPE_CONE_OF_COLD:
+    case FROST_HORN: {
+        learn_it = true;
+        const orig_dmg = d(12, 6);
+        if (Cold_resistance()) {
+            await You_feel('a little chill.');
+        } else {
+            await pline('You imitate a popsicle!');
+            damage = orig_dmg;
+        }
+        await destroy_items(game.youmonst || { _youmonst: true }, AD_COLD, orig_dmg);
+        break;
+    }
 
     default:
         // Other zapyourself cases deferred

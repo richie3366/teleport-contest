@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0974 — music flute/harp/horn + BUGLE awaken_soldiers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named music omission after D-0972 — MAGIC/WOODEN flute
+  sleep/snake, MAGIC/WOODEN harp charm/nymph, FIRE/FROST horn
+  charge+getdir+ubuzz/zapyourself, and BUGLE `awaken_soldiers` still
+  stubbed to a shared “You play…” pline.
+- **Cause:** prior music envelope stopped at leather drum + earthquake;
+  wind/string instrument effect bodies deferred with passtune.
+- **Fix:** port `put_monsters_to_sleep`/`charm_snakes`/`calm_nymphs`/
+  `charm_monsters`/`awaken_soldiers` + full `do_improvisation` arms;
+  export `ubuzz`/`flash_str`; `zapyourself` WAN_FIRE/FIRE_HORN +
+  WAN_COLD/SPE_CONE_OF_COLD/FROST_HORN (burnarmor/destroy_items;
+  burn_away_slime/ugolemeffects/shieldeff deferred). Wooden flute/harp
+  use C `do_spec &= rn2(DEX)` (always burn RNG). Deferred: passtune/
+  drawbridge; `Hero_playnotes`; flees_light; can_blow poly; selftouch;
+  sleep defended/shieldeff; tamedog givemsg pline.
+- **Verification:** green+strict PASS; apply/music/shared cohort
+  **35**/36 PASS (seed0009 Scr 72/73 pre-existing on HEAD).
+- **Files:** `js/music.js`, `js/zap.js`, `docs/c-js-map/debt.md`,
+  `docs/c-js-map/turns.md`.
+
 ## D-0973 — explode AD_MAGM/DISN/DRST/ACID mon/hero combat
 
 - **Status:** fixed (map-driven debt retirement)

@@ -73,7 +73,7 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** sink-fall death polish; lavawall spines / burn
-feedback plines; flute/harp/horn music bodies.
+feedback plines; passtune/drawbridge music.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -85,18 +85,18 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0973. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0974. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
 **D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
-**D-0955**…**D-0973** (revive/Ring_gone/grave/shopdig/bridge/
+**D-0955**…**D-0974** (revive/Ring_gone/grave/shopdig/bridge/
 mkcavearea/impact_drop/conjoined/`desecrate_altar`/revive container/
 ice melt/`burn_floor_objects`/fireball / Ring_on/`float_down` /
 bury/unearth/`obj_ice_effects` / explode AD_FIRE combat /
 angrygods 4–8/`rndcurse` / `toggle_stealth` / explode AD_COLD/ELEC /
-music `do_earthquake`/`do_pit` / explode AD_MAGM/DISN/DRST/ACID —
-do not re-stub).
+music `do_earthquake`/`do_pit` / explode AD_MAGM/DISN/DRST/ACID /
+flute·harp·horn/`awaken_soldiers`/FIRE·FROST horn — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
