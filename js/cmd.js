@@ -9,7 +9,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     newsym, flush_screen, pline, see_nearby_objects, clear_nhwindow_message,
-    mon_visible, sensemon,
+    mon_visible, sensemon, glyph_is_invisible, unmap_object,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
@@ -469,13 +469,18 @@ async function mention_walls_obstructed(x, y) {
 }
 
 /**
- * C ref: hack.c domove_fight_empty — F into empty/solid wastes a turn.
- * Branch envelope: thin air + simple solid; boulder/pick/explode/I-glyph
- * deferred (C-JS-MAP).
+ * C ref: hack.c domove_fight_empty — F into empty/solid, or remembered 'I'
+ * with no monster and !nopick, wastes a turn. Clears the I-glyph.
+ * Named omissions: boulder/statue dig; Underwater; explode poly; pick axe.
  */
 async function domove_fight_empty(x, y) {
     const offEdge = !isok(x, y);
     const loc = (!offEdge && game.level?.at(x, y)) || null;
+    // C: about to become known empty — remove 'I' if present
+    if (loc && glyph_is_invisible(loc)) {
+        unmap_object(x, y);
+        newsym(x, y);
+    }
     const solid = offEdge
         || !loc
         || !ACCESSIBLE(loc.typ)
@@ -1549,8 +1554,11 @@ async function domove(dx, dy) {
         // Named omissions: displacer swap; domove_bump_mon; mundetected Wait!;
         // full mon_visible Blind_telepat / Protection_from_shape amulet prop.
         mtmp = mon_at(newx, newy);
-        if (forcefight && !mtmp) {
-            // C: F with no monster → fight_empty, waste turn
+        // C: forcefight with no mon, OR remembered 'I' && !m_at && !nopick
+        // → fight_empty (hack.c). Blind rush onto I must waste the turn.
+        const destLoc = game.level?.at?.(newx, newy);
+        if ((forcefight && !mtmp)
+            || (glyph_is_invisible(destLoc) && !mtmp && !game.context?.nopick)) {
             await domove_fight_empty(newx, newy);
             if (game.context?.run) end_running();
             game.context.move = 1;

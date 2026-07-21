@@ -4,36 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-0928 — @88377 linedup is geometry miss; hero land wrong ~82426
+## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** open (#1080–#1091 as below; **#1092** falsifies
-  last=77 / FlipX sum80 via C recorder dumps)
-- **Session:** seed4500-knight-coverage @88377
-- **Symptom:** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`
-  (next monster). Earlier DIAG assumed C hero `@(42,6)` /
-  `>`(31,16) from screen decode.
-- **Rejected:** JS `linedup` boulder count / `rn2(2+spots)` bug;
-  FORCE mux; place_lregion shuffle (#1080); C land `@(39,5)` (#1081);
-  ystart alone (#1082–#1086); Y+1 (#1087); FORCE minx1/maxx78 /
-  stone78 / exclude78 / restore-w78 (#1088–#1089); **#1092 last=77 /
-  FlipX sum80** — C `flip_level` after clamps dumps
-  **minx=2 maxx=79 sum81** flp=2; stair (49,16)→(**32,16**) typ=STAIRS;
-  `place_lregion` rect **(40,3)-(45,8)** nl=(82,-1); tries
-  (45,6)/(43,8)/(43,6) — identical to JS (JS lands **43,6**).
-  Screen `>`@31 is not stairway x. Kelp=940 is flip-invariant.
-- **#1091:** stone78@83695 track `rn2(4*(cnt-j))` cnt8vs7; ported
-  mgoal/EPRI/ESHK + `_level_monsters` swap (prefix still @88377).
-- **#1092 change:** restore C `Flip_coord` `cc.x && inFlipArea` gate
-  (doors/mgoal/extras); stop inventing SpLev_Map flip (C leaves it).
-- **Cause (open):** @88377 linedup still fails with matched flip/
-  place. Revisit monster/hero geometry at breath; possible post-place
-  ux drift vs session cursor(42,6).
-- **C locus:** `sp_lev.c` `flip_level` / `Flip_coord`; `mkmaze.c`
-  `place_lregion` / `put_lregion_here`; `mthrowu.c` `linedup`.
-- **Partial:** #1082 epilogue; #1087 stairs ungated + extends bounds;
-  #1091 mgoal/mons-grid; #1092 Flip_coord gate + sum80 falsified.
-- **Next:** linedup path with place≡(43,6); do not re-chase last=77.
-- **Verification:** green+strict PASS; cohort 7/7; rng-diff @88377.
+- **Status:** partial (#1080–#1092 place/flip; **#1093** fight_empty I)
+- **Session:** seed4500-knight-coverage (was @88377; now @88399)
+- **Symptom (was):** C `rn2(2) @ linedup` vs JS `rn2(5) @ distfleeck`.
+  C hero/mux **(42,5)** vs red dragon **(47,10)** diagonal; JS had
+  walked to **(42,6)** so not collinear.
+- **Cause (#1093):** After matched place (**43,6**) and walk to
+  **(42,5)**, keys `e` (non-edible shield) then `\n` (Ctrl-j rush S).
+  Dest **(42,6)** had remembered invisible glyph, no `m_at`. C
+  `domove_fight_empty` wastes the turn (stay); JS omitted the I-arm
+  and stepped south → linedup geometry break.
+- **C locus:** `hack.c` `domove_fight_empty` / `domove_core`
+  (`glyph_is_invisible && !m_at && !nopick`); callers via rush.
+- **Fix:** JS `domove` calls `domove_fight_empty` for remembered `I`
+  (not only forcefight); clear I via `unmap_object`+`newsym`.
+- **Rejected (keep):** linedup boulder bug; FORCE mux/coords;
+  place_lregion / FlipX last=77/sum80 (#1092 C dump — place≡JS);
+  avoid_running_into_trap alone (no trap at dest); eat flush as
+  south-move fix; umovement after `u_calc_moveamt`.
+- **Next:** @88399 C `rn2(2) @ corpse_chance` vs JS `rn2(6)`.
+- **Verification:** prefix **88377→88399**; RNG **88484→89887**
+  Scr **806**/1814; green+strict PASS; cohort 0002/0014/0060/0102/
+  0700/1150/1800 **7/7**.
 
 ## D-0927 — rhack F-prefix must not execute next cmd (seed4500)
 
