@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 19:31 — #1202 LB poll pre-cron
+
+- Objective: leaderboard gap — primary await cron D-0930…D-0934.
+- C locus: n/a (no JS change); poll only.
+- Change: docs — `data.json` still lastScored **16:41Z** **31**/44
+  pts **11351**; HEAD==origin with D-0934; next cron ~**18:41Z**.
+- Verification: green+strict PASS (seed8000/0900).
+- Next: poll after ~18:41Z; if <44 name residual FAIL; else
+  held-out (no speculative peel while awaiting).
+
 ## 2026-07-21 19:30 — #1201 LB poll + gap cohort reconfirm
 
 - Objective: leaderboard gap — primary await cron D-0930…D-0934.
