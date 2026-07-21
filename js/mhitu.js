@@ -50,6 +50,7 @@ import {
     AD_SITM, AD_SEDU, AD_SSEX,
 } from './mhitm.js';
 import { castmu, buzzmu } from './mcastu.js';
+import { rehumanize } from './polyself.js';
 
 /** C ref: monattk.h — passiveum damage types beyond mhitm export set. */
 const AD_STUN = 12;
@@ -335,10 +336,10 @@ async function wildmiss(mtmp, mattk) {
 }
 
 /**
- * C ref: mhitu.c mdamageu — subtract HP; fatal → done_in_by (not losehp).
- * showdamage / rehumanize deferred.
+ * C ref: mhitu.c mdamageu — subtract HP; Upolyd mh<1 → rehumanize;
+ * else uhp<1 → done_in_by. showdamage deferred.
  */
-async function mdamageu(mtmp, n) {
+export async function mdamageu(mtmp, n) {
     let dmg = n | 0;
     if (dmg < 0) dmg = 0;
     if (!game.flags) game.flags = {};
@@ -348,9 +349,8 @@ async function mdamageu(mtmp, n) {
         u.mh = (u.mh || 0) - dmg;
         if ((u.mh || 0) > (u.mhmax || 0)) u.mh = u.mhmax;
         if ((u.mh || 0) < 1) {
-            // rehumanize deferred
             u.mh = 0;
-            if (game.program_state) game.program_state.gameover = true;
+            await rehumanize();
         }
         return;
     }

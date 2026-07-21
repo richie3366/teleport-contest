@@ -21,7 +21,7 @@ import { setuwep, setuswapwep } from './wield.js';
 import { races } from './roles.js';
 import { encumber_msg } from './invent.js';
 import { losehp, nomul } from './hack.js';
-import { finish_losehp_done } from './end.js';
+import { finish_losehp_done, done } from './end.js';
 import {
     mons,
     polyok,
@@ -65,6 +65,7 @@ import {
     NON_PM,
     LOW_PM,
     Upolyd,
+    DIED,
     ECMD_OK,
     MALE,
     FEMALE,
@@ -431,8 +432,14 @@ async function newman() {
  */
 export async function rehumanize() {
     const u = game.u || {};
-    // C: Unchanging + mh<1 done(DIED) — deferred (timeout resets mtimedone)
-    if (Unchanging(u) && (u.mh | 0) < 1) return;
+    // C: Unchanging && mh<1 → done(DIED); decline keeps creature form
+    if (Unchanging(u) && (u.mh | 0) < 1) {
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.format = 2; // NO_KILLER_PREFIX
+        game.killer.name = 'killed while stuck in creature form';
+        await done(DIED);
+        return;
+    }
 
     const race = game.urace || {};
     const adj = race.adj || race.noun || 'human';

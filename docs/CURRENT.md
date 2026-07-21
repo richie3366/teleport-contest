@@ -72,12 +72,13 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**106540** (D-0928). **#1122:**
-`mattacku` AT_MAGC→`castmu`/`buzzmu` + castmu dmg dice. Was @106536
-C `choose_monster_spell` `rn2(23)` vs JS `rn2(5)` — AT_MAGC omitted.
-Prefix **106536→106540** (runner RNG **106559** Scr **937**).
-Next: C `distfleeck` `rn2(5)` vs JS `rn2(25)` (courage / Upolyd
-conceal hyp). Focused:
+**Gameplay next:** **seed4500** @**106540** (D-0928). **#1123:**
+`castmu` PSI_BOLT/OPEN_WOUNDS → `mdamageu` + `rehumanize`; Unchanging
+`mh<1` → `done(DIED)`. Still @106540: JS wears wished amulet of
+unchanging so rehumanize→done→savelife keeps Upolyd → `m_lined_up`
+`rn2(25)`; C rehumanizes (!Upolyd). Force-ignore-Unchanging advances
+**106540→106838**. Next: Put-on / invent-letter vs C for that amulet.
+Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -86,7 +87,8 @@ conceal hyp). Focused:
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject);
 D-0928 #1119 S_BAT Inhell MFAST; #1120 tactics + fire destroy_items;
-#1121 set_uasmon MR_* + getmattk lich cold; #1122 AT_MAGC castmu.
+#1121 set_uasmon MR_* + getmattk lich cold; #1122 AT_MAGC castmu;
+#1123 castmu PSI_BOLT mdamageu/rehumanize.
 **Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
 stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
 vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
@@ -119,7 +121,9 @@ fire-trap `destroy_items` (#1120);
 @106531≠wrong hitmu dice table — was missing poly `COLD_RES`
 FROMFORM + `getmattk` lich cold→PHYS (#1121);
 @106536≠choose_monster_spell bound — was missing `mattacku`
-AT_MAGC→`castmu` (#1122).
+AT_MAGC→`castmu` (#1122);
+@106540≠courage/distfleeck alone — PSI_BOLT must `mdamageu`/
+`rehumanize`; JS Unchanging amulet blocks vs C (#1123).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 08:58 — #1123 castmu PSI_BOLT→mdamageu/rehumanize
+- Objective: seed4500 @106540 C fleeck rn2(5) vs JS rn2(25).
+- C locus: `mcastu.c` `mcast_psi_bolt`/`mdamageu`; `polyself.c` `rehumanize`.
+- Change: burn+apply PSI_BOLT/OPEN_WOUNDS; `mdamageu`→`rehumanize`;
+  Unchanging+mh<1→`done(DIED)`. Still @106540: JS wears wished
+  amulet of unchanging (savelife keeps Upolyd); force-ignore
+  Unchanging → **106540→106838**. Courage hyp falsified.
+- Verification: green+strict PASS; cohort 4/4; prefix still **106540**.
+- Next: Put-on / invent-letter for amulet of unchanging vs C.
+
 ## 2026-07-21 08:28 — #1122 mattacku AT_MAGC→castmu
 - Objective: seed4500 @106536 C choose_monster_spell rn2(23) vs JS rn2(5).
 - C locus: `mhitu.c` `mattacku` AT_MAGC → `castmu`; `mcastu.c` dmg dice.
@@ -141,23 +151,3 @@ Use this shape:
   **928**); green+strict PASS; cohort 5/5; full suite **42/44** Scr
   **10518** RNG **787753** (99.36%) speed `29+0.25/turn`.
 - Next: @**103071** C `rn2(3) @ select_newcham_form` vs JS `rn2(330)`.
-
-## 2026-07-21 05:15 — #1109 set_uasmon BLINDED FROMFORM
-- Objective: seed4500 @101641 C nhlib shuffle vs JS rn2(61) (masked).
-- C locus: `polyself.c` `set_uasmon` PROPSET(BLINDED, !haseyes).
-- Change: `polyself.js` `propset_fromform(BLINDED, HBlinded, !haseyes)`.
-  Sighted Monnam "The cockatrice" forced mid-turn More that ate
-  `#version`; C Blind → "It bites! … It touches you!".
-- Verification: prefix **101641→101710** (runner RNG **101871** Scr
-  **928**); green+strict PASS; cohort 12/12.
-- Next: @**101710** C `rn2(5) @ postmov` vs JS `rn2(8)`.
-
-## 2026-07-21 05:04 — #1108 mfndpos eel nexttry
-- Objective: seed4500 @101616 C `distfleeck` vs JS `mattacku` (masked).
-- C locus: `mon.c` `mfndpos` nexttry — land eel clears `wantpool`.
-- Change: `mon.js` `mfndpos` retry when `!cnt && wantpool && !is_pool`.
-  Real split was @101612 C `postmov` hide vs JS 2nd fleeck (`cnt=0`).
-- Verification: prefix **101616→101641** (runner RNG **101731** Scr
-  **924**); green+strict PASS; cohort 12/12.
-- Next: @**101641** C `rn2(3) @ nhlib.lua shuffle` vs JS `rn2(61)`.
-

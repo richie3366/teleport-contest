@@ -156,9 +156,31 @@ function choose_monster_spell(mtmp, adtyp) {
 }
 
 /**
+ * C ref: mcastu.c mcast_psi_bolt — Antimagic halves dmg; pline deferred.
+ * monstunseesu / monstseesu deferred.
+ */
+function mcast_psi_bolt(dmg) {
+    const u = game.u || {};
+    const Antimagic = !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+    if (Antimagic) dmg = Math.trunc((dmg + 1) / 2);
+    return dmg | 0;
+}
+
+/**
+ * C ref: mcastu.c mcast_open_wounds — Antimagic halves dmg; pline deferred.
+ */
+function mcast_open_wounds(dmg) {
+    const u = game.u || {};
+    const Antimagic = !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+    if (Antimagic) dmg = Math.trunc((dmg + 1) / 2);
+    return dmg | 0;
+}
+
+/**
  * C ref: mcastu.c castmu — spell selection + undirected early-out for
  * dochug non-attack cast. Burns mspec_used + fumble rn2; applies
- * HASTE_SELF / CURE_SELF (D-0796). Other mcast_spell bodies deferred.
+ * HASTE_SELF / CURE_SELF / PSI_BOLT / OPEN_WOUNDS (D-0928). Other
+ * mcast_spell bodies deferred.
  *
  * @param {object} mtmp
  * @param {{ adtyp: number }} mattk
@@ -215,16 +237,14 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
         else dmg = d(Math.trunc(ml / 2) + 1, 6);
     }
 
-    // C ref: mcastu.c mcast_spell — undirected bodies used by peaceful
-    // quest guardians (dochug cast-before-move). Directed attack spells
-    // and remaining undirected (DISAPPEAR / INSECTS / AGGRAVATION / …)
-    // still deferred; dmg already burned above for SPEL/CLRC.
+    // C ref: mcastu.c mcast_spell — undirected HASTE/CURE + directed
+    // PSI_BOLT (mdamageu). Other spell bodies still deferred.
     if (adtyp === AD_SPEL || adtyp === AD_CLRC) {
-        void dmg; // C: mcast_spell consumes; dmg zeroed after
         switch (spellnum) {
         case MCAST_HASTE_SELF:
             // C: mon_adjust_speed(mtmp, 1, NULL) — permspeed/mspeed MFAST
             await mon_adjust_speed(mtmp, 1, null);
+            dmg = 0;
             break;
         case MCAST_CURE_SELF:
             // C: m_cure_self — healmon(mtmp, d(3,6), 0) when wounded
@@ -234,10 +254,25 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
                     (mtmp.mhp | 0) + d(3, 6),
                 );
             }
+            dmg = 0;
+            break;
+        case MCAST_PSI_BOLT:
+            // C: mcast_psi_bolt — Antimagic halves; then mdamageu
+            dmg = mcast_psi_bolt(dmg);
+            break;
+        case MCAST_OPEN_WOUNDS:
+            // C: mcast_open_wounds — Antimagic halves; then mdamageu
+            dmg = mcast_open_wounds(dmg);
             break;
         default:
-            // Named omission: other mcast_spell cases
+            // Named omission: other mcast_spell cases (dmg zeroed in C)
+            dmg = 0;
             break;
+        }
+        if (dmg) {
+            // Lazy import avoids mhitu ↔ mcastu cycle (mhitu calls castmu)
+            const { mdamageu } = await import('./mhitu.js');
+            await mdamageu(mtmp, dmg);
         }
     }
 

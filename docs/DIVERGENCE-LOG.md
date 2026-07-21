@@ -6,8 +6,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1122; **#1122** mattacku AT_MAGC→castmu)
-- **Session:** seed4500-knight-coverage (prefix @**106540**)
+- **Status:** partial (#1080–#1123; **#1123** castmu PSI_BOLT→mdamageu)
+- **Session:** seed4500-knight-coverage (prefix still @**106540**)
+- **Cause (#1123 DIAG):** @106540 C `distfleeck` `rn2(5)` vs JS
+  `m_lined_up` `rn2(25)`. After matching castmu `d(12,6)`, C
+  rehumanizes (!Upolyd) so later `lined_up` skips conceal burn; JS
+  had deferred PSI_BOLT body (`void dmg`) so brown-mold `mh` stayed
+  alive / then Unchanging amulet → `done`/`savelife` keeps Upolyd.
+  Force-ignore Unchanging after `mdamageu` advances **106540→106838**.
+- **Fix (#1123):** `mcastu.js` PSI_BOLT/OPEN_WOUNDS → Antimagic-halve
+  + `mdamageu`; `mhitu.js` `mdamageu` Upolyd `mh<1` → `rehumanize`;
+  `polyself.js` Unchanging+`mh<1` → `done(DIED)` (C `rehumanize`).
+  Named: other `mcast_spell` bodies; invent/Put-on letter for wished
+  amulet of unchanging vs C (why JS still Unchanging when C is not).
+- **Verification (#1123):** green+strict PASS; cohort 4/4; prefix
+  still **106540** (Unchanging wear); force-reh → **106838**.
+- **Next:** Put-on / invent-letter for wished amulet of unchanging.
 - **Cause (#1122 DIAG):** @106536 C `choose_monster_spell` `rn2(23)` vs
   JS `rn2(5)` — JS `mattacku` omitted `AT_MAGC` → `castmu` (fell through
   `default`). After touch+passiveum, C burned lich `rn2(m_lev)` /
@@ -17,8 +31,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   deferred `mcast_spell`; stub `buzzmu` (SPEL/CLRC fail BZ_VALID).
 - **Verification (#1122):** green+strict PASS; cohort 6/6; prefix
   **106536→106540** (runner RNG **106559** Scr **937**).
-- **Next:** @**106540** C `distfleeck` `rn2(5)` vs JS `rn2(25)`
-  (courage / Upolyd concealment hyp).
 - **Cause (#1121 DIAG):** @106531 C `hitmu` `d(2,6)` vs JS `d(3,6)` —
   master lich AT_TUCH AD_COLD 3d6. Hero poly brown mold (`mresists`
   has MR_COLD) but JS `set_uasmon` omitted `PROPSET(COLD_RES,
