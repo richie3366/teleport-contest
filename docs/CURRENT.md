@@ -71,11 +71,12 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**103155** (D-0928). **#1112:**
-`ok_to_throw` (`notake`/`nohands`) + `nh_timeout` `mtimedone`→
-`rehumanize`. Was JS mold `thitmonst` `rnd(20)`; now post-refuse
-`^V`→`getlev_catchup` `rnd(10)` vs C `distfleeck`. Prefix still
-**103155**. Focused:
+**Gameplay next:** **seed4500** @**103155** (D-0928). **#1113:**
+DIAG falsified getlev/`^V` as root — after Count:40 `.`, C `e` is
+nothing-to-eat then SP + Count:20 `.` (fleeck in wait); JS
+`floorfood`/getobj on floor apples + invent carrot/apple eats those
+keys. Do not ship inediate `is_edible` lie (temp advance @104217).
+Next: invent/floor food provenance. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -83,53 +84,22 @@ if seed0013 restored but near-misses remain → upstream #5.
 **Do not re-break D-0660…D-0928. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
 **Keep:** D-0845…D-0927 (Hallu dochug … F-prefix reject).
-**Do not:** FORCE mfndpos omit (#1008); WEB-unique omit (#1004);
-mon_track_clear alone (D-0860); stub poisoned rn2(30)-only (D-0869);
-raw +N obj burns (D-0847); hliquid identity (D-0849); post-docrt
-vision_recalc in goto_level (D-0851); omit LANDMINE/minetn-3/watch/
-dipfountain/chest_shatter/addinv/yn wrap/short_oname/ID reconcile/
-armoroff find_ac/steal ring pline/rloc flags/seduce msgs/cream pie
-`The`/safemon/launch_obj flash/unhideable_trap/unweapon/setgemprobs/
-dryup/Temple themes/bigrm-9/BIND=/setworn armor/#jump/spitmm…hellfill/
-learn occupation/SCR_PUNISHMENT/drag_ball/#turn/`x`/knox portal/
-unplacebc/Nesting/fill_ordinary_room/drag_down/FAST TIMEOUT/
-TROUBLE_HIT/minetn-4 book shop/wakeup wake_nearto/touchfood
-addinv_nomerge (D-0874…D-0923); re-add splitobj invent[] splice
-(D-0924); omit breamm/AT_BREA / zap_over_floor fire-pool steam
-(D-0925); omit mhitm_ad_blnd mhitu / raven AT_CLAW blind (D-0926);
-silent-clear F-prefix then still run `#`/non-move (D-0927);
-FORCE linedup/mux/coords/minx=1/maxx78/stone78-clear/exclude78/
-restore-w78 / last=77 (D-0928 #1092); omit remembered-`I`
-`domove_fight_empty` on rush (D-0928 #1093); use `xkilled` for
-`dobuzz` `type < 0` mon death (D-0928 #1094); “fix” gethungry
-while mid-wrong `#pray` / clear `uinvulnerable` to paper over
-early `dopray` (D-0928 #1095); omit Count:N `.` `timed_occupation`
-or Blind `look_here` feel (D-0928 #1096); omit `print_level_annotation`
-/ `hitmu` always-`stop_occupation` / wiz BLINDED Timeout pline
-(D-0928 #1097); omit `peffect_extra_healing` / BLINDED
-`nh_timeout` / `learn_unseen_invent` on sight (D-0928 #1098);
-FORCE `ualign.abuse` / omit `adj_erinys` (D-0928 #1099);
-omit `check_caitiff` from `find_roll_to_hit` (D-0928 #1100);
-omit `water_damage` Waterproof/splash_lit/grease/towel before
-luck `rn2(20)` (D-0928 #1101); reject `goodpos` `u_at` for
-`youmonst` (D-0928 #1102); omit `polyself` system-shock/
-random pick or `zapyourself` WAN_POLYMORPH / `dozap` nohands /
-drink empty-getobj short-circuit (D-0928 #1103); omit ring
-`nolimbs` cannot-stick or `doread` `check_capacity` (D-0928
-#1104); omit `passiveum` after `hitmu` damage or
-`mhitm_ad_ston` mhitu `!rn2(3)` (D-0928 #1105); omit `u_rooted`
-for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
-S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); omit `mfndpos` eel
-`nexttry` land crawl (D-0928 #1108); omit `set_uasmon` BLINDED
-`!haseyes` FROMFORM (D-0928 #1109); omit minliquid eel
-`monflee`/`mon_track_clear` (D-0928 #1110); over-retry
-`select_newcham_form` random while on any `!validspecmon`
-(D-0928 #1111); omit `ok_to_throw` notake/nohands or
-`nh_timeout` `mtimedone`/`rehumanize` (D-0928 #1112). Rejected misreads: @95154 wish; @100699
-namedesc; @101378 ston coincidence; @101391/@101608/
-@101616 fleeck≠wish/eel/attack; @101641 Blind≠`#version`;
-@101710 track≠m_search; @103071 cham while≠second select;
-@103155 mold throw≠C fleeck (was missing ok_to_throw).
+**Do not:** FORCE mfndpos/WEB-unique omit; mon_track_clear alone;
+stub poisoned rn2(30)-only; raw +N burns; hliquid; post-docrt
+vision_recalc; omit LANDMINE…touchfood addinv_nomerge (D-0874…
+D-0923); re-add invent[] splice (D-0924); omit breamm/AT_BREA /
+fire-pool (D-0925); omit mhitm_ad_blnd (D-0926); silent F-prefix
+(D-0927); FORCE linedup/flip coords (D-0928 #1092); omit I-glyph
+rush / xkilled dobuzz / “fix” gethungry pray / Count:N `.` /
+annotation·hitmu·wiz Blind / peffect_extra_healing / FORCE abuse /
+omit caitiff·water_damage·goodpos u_at·polyself·nolimbs·passiveum·
+u_rooted·eel hide·mfndpos nexttry·Blind FROMFORM·minliquid monflee·
+cham while over-retry·ok_to_throw·mtimedone (#1093–#1112); ship
+inediate `is_edible` FOOD reject or chase getlev/`^V` as @103155
+root (#1113). Rejected: @95154 wish; @100699 namedesc; @101378
+ston; @101391/@101608/@101616 fleeck≠wish/eel; @101641≠`#version`;
+@101710≠m_search; @103071≠2nd cham; @103155 throw≠fleeck;
+@103155 getlev≠root (eat ate Count:20 keys).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
