@@ -1105,13 +1105,18 @@ async function movemon_singlemon(mtmp) {
     // C: mon.c movemon_singlemon — I_SPECIAL → m_dowear; may spend turn
     if (maybe_m_dowear_special(mtmp)) return false;
 
-    // C: is_hider — restrap may hide again; disguised/undetected skip dochug
-    // (eel hideunder rn2(4) deferred)
+    // C: is_hider — restrap may hide again; disguised/undetected skip dochug.
+    // Else eels may re-hide in isolated pools before dochug (rn2(4) gated).
     if (is_hider(mtmp.data)) {
         if (restrap(mtmp)) return false;
         const ap = M_AP_TYPE(mtmp);
         if (ap === M_AP_FURNITURE || ap === M_AP_OBJECT) return false;
         if (mtmp.mundetected) return false;
+    } else if (mtmp.data?.mlet === 'S_EEL' && !mtmp.mundetected
+        && (mtmp.mflee || !m_next2u(mtmp))
+        && !canseemon(mtmp) && !rn2(4)) {
+        // C mon.c:1295 — hideunder may spend turn; fail continues to Conflict
+        if (hideunder(mtmp)) return false;
     }
 
     // C: Conflict → fightm before dochugw (always rolls resist_conflict).

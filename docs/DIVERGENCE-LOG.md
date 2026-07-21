@@ -6,8 +6,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1105; **#1106** `u_rooted`)
-- **Session:** seed4500-knight-coverage (prefix @**101608**)
+- **Status:** partial (#1080–#1106; **#1107** eel `hideunder`)
+- **Session:** seed4500-knight-coverage (prefix @**101616**)
+- **Symptom (@101608):** C `rn2(4) @ movemon_singlemon` vs JS
+  `rn2(40) @ dochug`.
+- **Cause (#1107):** missing `S_EEL` pre-dochug re-hide arm
+  (`!mundetected && (mflee||!m_next2u) && !canseemon && !rn2(4)`
+  → `hideunder`). JS comment had it deferred; without the roll
+  JS entered `dochug` one call early.
+- **Fix (#1107):** `mon.js` `movemon_singlemon` else-if eel arm
+  using existing `hideunder`/`m_next2u`/`canseemon`. Prefix
+  **101608→101616** (runner RNG **101621** Scr **926**). Named
+  omit: You_see pline; cockatrice; `can_hide_under_obj` polish.
+- **Next (@101616):** C `rn2(5) @ distfleeck` vs JS `rnd(20)`
+  `@ mattacku` — JS already attacking while C still fleecking.
 - **Symptom (@101391):** C `rn2(5) @ distfleeck` vs JS `rn2(61)`
   (`rnd_otyp_by_namedesc` / early `#wizwish`). Looked like
   `distfleeck`; DIAG showed JS already in wish after skipping
@@ -21,7 +33,6 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   attack path / before `trapmove` (leave `context.move`). Prefix
   **101391→101608** (runner RNG **102013**). Named omit:
   Is_airlevel/Is_waterlevel "in place" (Levitation alone).
-- **Next (@101608):** C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`.
 - **Symptom (@101373):** C `d(2,6) @ passiveum` vs JS `rnd(21)` —
   brown-mold poly after wand-poly; mon hit dealt damage so C ran
   hero AT_NONE counterattack; JS `hitmu` skipped `passiveum`.

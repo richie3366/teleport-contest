@@ -12,6 +12,23 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-21 04:52 — #1107 movemon_singlemon S_EEL hideunder
+- Objective: seed4500 @101608 C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`.
+- C locus: `mon.c` `movemon_singlemon` eel arm → `hideunder`.
+- Change: `mon.js` else-if S_EEL `!mundetected` `(mflee||!m_next2u)`
+  `!canseemon` `!rn2(4)` → existing `hideunder` (was deferred).
+- Verification: prefix **101608→101616** (runner RNG **101621** Scr
+  **926**); green+strict PASS; cohort 7/7.
+- Next: @**101616** C `rn2(5) @ distfleeck` vs JS `rnd(20) @ mattacku`.
+
 ## 2026-07-21 04:49 — #1106 u_rooted (brown mold)
 - Objective: seed4500 @101391 C `distfleeck` `rn2(5)` vs JS `rn2(61)`.
 - C locus: `hack.c` `u_rooted` / `domove_core` (mmove==0).
@@ -32,14 +49,6 @@ Use this shape:
   Scr **924**; green+strict PASS; cohort 7/7; suite **42/44** Scr
   **10514** RNG **786142** (99.16%).
 - Next: @**101391** `distfleeck` `rn2(5)` vs JS `rn2(61)`.
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-21 04:35 — #1104 nolimbs ring put-on + doread check_capacity
 - Objective: seed4500 @100699 C `rn2(46) @ rnd_otyp_by_namedesc` vs
@@ -169,13 +178,3 @@ Use this shape:
 - Verification: prefix **88399→89775**; RNG **89881** Scr **807**;
   green+strict PASS; cohort 7/7.
 - Next: @89775 C `gethungry` `rn2(20)` vs JS `rn2(67)`.
-
-## 2026-07-21 03:22 — #1093 D-0928 fight_empty remembered I
-- Objective: seed4500 @88377 linedup (D-0928).
-- C locus: `hack.c` `domove_fight_empty` (I-glyph + !m_at + !nopick).
-- Change: Blind Ctrl-j onto remembered `'I'` wastes turn like C;
-  `unmap_object`+`newsym`. Place/flip already matched (#1092).
-- Verification: prefix **88377→88399**; RNG **89887** Scr **806**;
-  green+strict PASS; cohort 7/7.
-- Next: @88399 C `corpse_chance` `rn2(2)` vs JS `rn2(6)`.
-

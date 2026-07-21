@@ -8,9 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-38 gap — await cron; D-0483 serialize revert.
-- **Gameplay next (D-0928):** seed4500 @**101608**. #1106 landed
-  `u_rooted` (prefix **101391→101608**; runner RNG **102013**).
-  Next: C `rn2(4) @ movemon_singlemon` vs JS `rn2(40)`. Focused:
+- **Gameplay next (D-0928):** seed4500 @**101616**. #1107 landed
+  eel `hideunder` (prefix **101608→101616**; runner RNG **101621**
+  Scr **926**). Next: C `rn2(5) @ distfleeck` vs JS `rnd(20)`
+  `@ mattacku` — JS already attacking. Focused:
   `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 ## Don't re-check (≤15)
@@ -31,16 +32,16 @@ Objective/score live in `CURRENT.md`.
 - Do not FORCE `ualign.abuse=2` — missing path was `check_caitiff` (#1100).
 - Do not treat @101391 `distfleeck` vs `rn2(61)` as fleeck arity —
   was missing `u_rooted` → early `#wizwish` (#1106).
-- Do not omit `passiveum` after `hitmu` damage — brown-mold poly
-  AD_COLD (`#1105`); @101378 rn2(3) match was knockback coinciding
-  with missing `mhitm_ad_ston`.
+- Do not omit `movemon_singlemon` S_EEL `!rn2(4)` → `hideunder`
+  (#1107); @101608 rn2(4) vs rn2(40) was that omit.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1105 Scr **10514**/11405 RNG **786142**/792838
   (99.16%); speed `32+0.25/turn`; next cadence @**#1110**.
-- **D-0928 #1106:** `u_rooted`; prefix **101608**; RNG **102013**
-  Scr **924**/1814.
+- **D-0928 #1107:** eel hideunder; prefix **101616**; RNG **101621**
+  Scr **926**.
+- **D-0928 #1106:** `u_rooted`; was @**101608**.
 - **D-0928 #1105:** passiveum + mhitm_ad_ston; was @**101391**.
 - **D-0928 #1104:** nolimbs ring put-on + doread check_capacity;
   was @**101373**.

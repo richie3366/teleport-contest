@@ -71,10 +71,10 @@ seed0360 + seed0399 + seed0014 + **seed2600**; judge at 08:55Z dropped to
 **22** after D-0480. **D-0483** reverts serialize coerce. Next cron;
 if seed0013 restored but near-misses remain → upstream #5.
 
-**Gameplay next:** **seed4500** @**101608** (D-0928). **#1106:**
-`domove` `u_rooted` (`mmove==0` brown mold). Prefix **101391→101608**
-(runner RNG **102013**). Next: `movemon_singlemon` `rn2(4)` vs JS
-`rn2(40)`. Focused:
+**Gameplay next:** **seed4500** @**101616** (D-0928). **#1107:**
+`movemon_singlemon` S_EEL `hideunder` (`!rn2(4)` gated). Prefix
+**101608→101616** (runner RNG **101621** Scr **926**). Next:
+C `rn2(5) @ distfleeck` vs JS `rnd(20) @ mattacku`. Focused:
 `node scripts/rng-diff.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Parked gameplay:** D-0006 / seed2200 @158.
@@ -117,10 +117,12 @@ drink empty-getobj short-circuit (D-0928 #1103); omit ring
 `nolimbs` cannot-stick or `doread` `check_capacity` (D-0928
 #1104); omit `passiveum` after `hitmu` damage or
 `mhitm_ad_ston` mhitu `!rn2(3)` (D-0928 #1105); omit `u_rooted`
-for `mmove==0` poly (D-0928 #1106); treat @95154
+for `mmove==0` poly (D-0928 #1106); omit `movemon_singlemon`
+S_EEL `hideunder` `!rn2(4)` (D-0928 #1107); treat @95154
 as wish/extra_healing regress; treat @100699 as namedesc-only;
 treat @101378 rn2(3) match as knockback/ston coincidence;
-treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish).
+treat @101391 `distfleeck` vs `rn2(61)` as fleeck (was early wish);
+treat @101608 `rn2(4)` vs `rn2(40)` as fleeck/dochug (was eel).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
