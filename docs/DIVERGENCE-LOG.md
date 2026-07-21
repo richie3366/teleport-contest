@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0955 — unturn_dead invent revive + hero_breaks + worn ABON cancel
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** undead-turning skipped invent/floor corpse revive; striking
+  non-boulder floor objects never broke; cancel of worn gain rings /
+  brilliance / dex gauntlets left ABON/uhitinc/udaminc stale.
+- **Cause:** named constitutional debt (`debt.md` after D-0954) —
+  `unturn_dead`/`revive`/`hero_breaks`/`cancel_item` worn ABON deferred.
+- **C locus:** `zap.c` `revive`/`revive_egg`/`unturn_dead`/`unturn_you`/
+  `cancel_item` worn ABON; `dothrow.c` `breaktest`/`breakmsg`/`breakobj`/
+  `hero_breaks`/`breaks`; `zap.c` `bhitm`/`zapyourself`/`bhito` wire.
+- **JS:** thin invent/minvent/floor `revive` + `unturn_dead`/`unturn_you`;
+  `hero_breaks`/`breaks` + real `breaktest`; worn ABON in `cancel_item`;
+  wire bhitm/zapyourself/bhito (D-0955). Deferred: revive container/
+  buried/cant_revive/omonst/ghost/shop stolen_value; blank_novel;
+  corpse revive→rot timer; crackable erode_obj / shop break billing;
+  flash_hits; release_hold; Ring_gone/float_up/rescham/choke.
+- **Verify:** green+strict; zap/shared cohort 16/16 PASS.
+
 ## D-0954 — dig furniture_handled + HOLE goto_level
 
 - **Status:** fixed (map-driven debt retirement)

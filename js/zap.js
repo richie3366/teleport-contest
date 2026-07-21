@@ -2,7 +2,8 @@
 // C ref: zap.c dozap, zappable, weffects, zapnodir, learnwand, makewish,
 //        zapyourself, ubuzz, dobuzz, zhitm, destroy_items, resist,
 //        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
-//        cancel_item, cancel_monst
+//        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
+//        unturn_you
 //
 // Branch envelope: getobj wand + zappable + cursed backfire gate +
 // NODIR weffects → zapnodir WAN_SECRET_DOOR_DETECTION → findit;
@@ -13,28 +14,30 @@
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
 // Reflecting); IMMEDIATE weffects → bhit(rn1(8,6)) + bhito WAN_POLYMORPH
-// / cancel / striking boulder / tele pile + bhitm strike/cancel/poly/
-// tele/undead; RAY WAN_DIGGING/SPE_DIG → zap_dig (dig.c).
+// / cancel / striking boulder+statue+hero_breaks / tele pile + bhitm
+// strike/cancel/poly/tele/undead(+unturn_dead); RAY WAN_DIGGING/SPE_DIG
+// → zap_dig (dig.c).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing/opening/healing; unturn_dead invent revive; zap_map;
-// spell ubuzz; mon_reflects; fireball/Hallucination hdmgtype rn2;
-// zap_over_floor ice melt/fountain/WEB/POOL→PIT/cold freeze;
-// burn_floor_objects after fire door; map_invisible/unmap during buzz;
-// backfire body; other NODIR; wrest pline; check_capacity; check_unpaid;
-// update_inventory; shieldeff/monstunseesu; setworn EReflecting bits
-// (worn SHIELD_OF_REFLECTION stands in); ureflects W_WEP/W_AMUL/W_ARM/
+// probing/opening/healing; zap_map; spell ubuzz; mon_reflects;
+// fireball/Hallucination hdmgtype rn2; zap_over_floor ice melt/fountain/
+// WEB/POOL→PIT/cold freeze; burn_floor_objects after fire door;
+// map_invisible/unmap during buzz; backfire body; other NODIR; wrest
+// pline; check_capacity; check_unpaid; update_inventory; shieldeff/
+// monstunseesu; setworn EReflecting bits; ureflects W_WEP/W_AMUL/W_ARM/
 // silver-dragon arms beyond shield makeknown; create_polymon after
 // poly_zapped; do_osshock shop bill; invent/worn poly_obj arms;
-// boxlock on Is_box; cancel_item worn ABON polish / corpse timer swap;
+// boxlock on Is_box; blank_novel / corpse revive→rot timer; revive
+// container/buried/cant_revive/omonst/ghost/shop stolen_value;
 // defended(); resists_magm body; ignite_items body; burnarmor worn
 // erode ported (D-0741); acid_damage/erode_armor; death-breath
 // disintegrate_arm; potionbreathe invis flash (D-0741);
 // inventory_resistance_check; destroy_items elec body; ugolemeffects;
 // burn_away_slime; spell_damage_bonus / Knight questart double;
 // Rider/Death specials; disintegrate_mon; fire completelyburns
-// XKILL_NOCORPSE; mon_reflects; hero_breaks non-boulder striking.
+// XKILL_NOCORPSE; mon_reflects; flash_hits WAN_LIGHT bhitm.
 // Shop door/bars destroy + dobuzz pay_for_damage: D-0948.
 // Break-wand adjacent bhit + cancel helpers: D-0952.
+// unturn_dead invent revive + hero_breaks + worn ABON: D-0955.
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -46,9 +49,11 @@ import {
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
-import { hold_another_object, makeknown } from './invent.js';
-import { doname, xname, vtense, The } from './objnam.js';
-import { A_WIS, A_STR, A_CON, exercise } from './attrib.js';
+import { hold_another_object, makeknown, encumber_msg } from './invent.js';
+import { doname, xname, vtense, The, an } from './objnam.js';
+import {
+    A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise,
+} from './attrib.js';
 import { findit } from './detect.js';
 import {
     confdir, fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
@@ -58,7 +63,7 @@ import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
 } from './monsters.js';
-import { m_at, wakeup, seemimic } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
@@ -73,14 +78,14 @@ import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick } from './lock.js';
 import { monflee } from './monmove.js';
-import { newcham } from './makemon.js';
-import { tele, u_teleport_mon, rloco } from './teleport.js';
+import { newcham, makemon } from './makemon.js';
+import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize } from './polyself.js';
 import { costly_alteration } from './shk.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
-    oc_merge_of, uncurse,
+    oc_merge_of, uncurse, attach_egg_hatch_timeout,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -92,13 +97,18 @@ import {
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     DISP_BEAM, DISP_CHANGE, DISP_END,
-    OBJ_FLOOR, Has_contents, ZAPPED_WAND, NOTELL, TELL, STRAT_WAITMASK,
+    OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, Has_contents, ZAPPED_WAND, NOTELL, TELL,
+    STRAT_WAITMASK,
     POOL, Is_waterlevel, Is_rogue_level, AD_RBRE, UNCHANGING,
-    PLNMSG_ENVELOPED_IN_GAS, IRONBARS, SDOOR, SHOPBASE, SHOP_DOOR_COST,
+    PLNMSG_ENVELOPED_IN_GAS, PLNMSG_OBJ_GLOWS, IRONBARS, SDOOR, SHOPBASE,
+    SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
+    W_RING, W_ARMG, W_ARMH, W_ARMOR,
+    NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, IS_POOL,
 } from './const.js';
+import { hero_breaks, breaks } from './dothrow.js';
 
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
@@ -144,6 +154,16 @@ const POT_FRUIT_JUICE = objectNames.indexOf('POT_FRUIT_JUICE');
 const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const CORPSE = objectNames.indexOf('CORPSE');
+const EGG = objectNames.indexOf('EGG');
+const RIN_GAIN_STRENGTH = objectNames.indexOf('RIN_GAIN_STRENGTH');
+const RIN_GAIN_CONSTITUTION = objectNames.indexOf('RIN_GAIN_CONSTITUTION');
+const RIN_ADORNMENT = objectNames.indexOf('RIN_ADORNMENT');
+const RIN_INCREASE_ACCURACY = objectNames.indexOf('RIN_INCREASE_ACCURACY');
+const RIN_INCREASE_DAMAGE = objectNames.indexOf('RIN_INCREASE_DAMAGE');
+const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
+const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
+const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
@@ -224,6 +244,12 @@ function Reflecting() {
 
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
+}
+
+/** C ref: do_name.c Amonnam — highc(a_monnam). */
+function Amonnam(mtmp) {
+    const s = mon_nam(mtmp) || 'it';
+    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /** C ref: youprop.h Deaf */
@@ -1563,16 +1589,284 @@ function unbless(obj) {
 }
 
 /**
+ * C ref: zap.c revive_egg — re-arm HATCH_EGG when typed + !dead_species.
+ */
+function revive_egg(obj) {
+    if (!obj || (obj.otyp | 0) !== EGG) return;
+    const cn = obj.corpsenm ?? NON_PM;
+    if (cn !== NON_PM && !dead_species(cn, true)) {
+        attach_egg_hatch_timeout(obj, 0);
+    }
+}
+
+/**
+ * C ref: zap.c revive — invent/minvent/floor envelope for unturn_dead.
+ * Named omit: nested containers; buried zombie dig-out; cant_revive
+ * zombie/doppel; montraits/omonst; ghost recorporealization; shop
+ * stolen_value; oeaten/oname; Rider delobj_core force.
+ * @returns {Promise<object|null>} revived monst or null
+ */
+async function revive(corpse, by_hero) {
+    if (!corpse || (corpse.otyp | 0) !== CORPSE) return null;
+    const montype = corpse.corpsenm | 0;
+    if (!ismnum(montype)) return null;
+
+    let x = 0;
+    let y = 0;
+    if (corpse.where === OBJ_INVENT
+        || (game.invent || []).includes(corpse)) {
+        x = game.u?.ux | 0;
+        y = game.u?.uy | 0;
+    } else if (corpse.where === OBJ_MINVENT && corpse.ocarry) {
+        x = corpse.ocarry.mx | 0;
+        y = corpse.ocarry.my | 0;
+    } else if (corpse.where === OBJ_FLOOR) {
+        x = corpse.ox | 0;
+        y = corpse.oy | 0;
+    } else {
+        // contained / buried / free — deferred
+        return null;
+    }
+    if (!x) return null;
+    corpse.ox = x;
+    corpse.oy = y;
+
+    const mptr = mons(montype);
+    if (!mptr) return null;
+    if (corpse.norevive
+        || (mptr.mlet === 'S_EEL'
+            && !IS_POOL(game.level?.at?.(x, y)?.typ ?? 0))) {
+        if (cansee(x, y)) {
+            const nm = xname(corpse) || 'corpse';
+            const up = nm.charAt(0).toUpperCase() + nm.slice(1);
+            await pline(`${up} twitches feebly.`);
+        }
+        return null;
+    }
+
+    const xy = { x, y };
+    if (m_at(x, y) && enexto(xy, x, y, mptr)) {
+        x = xy.x;
+        y = xy.y;
+    }
+
+    const mmflags = NO_MINVENT | MM_NOWAIT | MM_NOMSG | MM_NOCOUNTBIRTH;
+    // cant_revive / montraits deferred → plain makemon of corpse species
+    const mtmp = makemon(mptr, x, y, mmflags);
+    if (!mtmp) return null;
+
+    if (mtmp.mundetected) {
+        mtmp.mundetected = 0;
+        newsym(mtmp.mx | 0, mtmp.my | 0);
+    }
+    if (M_AP_TYPE(mtmp) !== M_AP_NOTHING) seemimic(mtmp);
+
+    let one_of = (corpse.quan | 0) > 1;
+    let used = corpse;
+    if (one_of) {
+        const child = splitobj(corpse, 1);
+        if (child) used = child;
+    }
+
+    if (by_hero) {
+        x = used.ox | 0;
+        y = used.oy | 0;
+        if (cansee(x, y)) {
+            const carried = used.where === OBJ_INVENT
+                || (game.invent || []).includes(used);
+            const prefix = one_of ? 'one of ' : '';
+            const own = carried ? 'your ' : 'the ';
+            let nm = xname(used) || 'corpse';
+            if (one_of) used.quan = (used.quan | 0) + 1; // force plural briefly
+            const body = `${prefix}${own}${nm}`;
+            if (one_of) used.quan = (used.quan | 0) - 1;
+            const up = body.charAt(0).toUpperCase() + body.slice(1);
+            await pline(`${up} glows iridescently.`);
+            if (!game.iflags) game.iflags = {};
+            game.iflags.last_msg = PLNMSG_OBJ_GLOWS;
+        }
+        // shop stolen_value deferred
+    }
+
+    mtmp.mrevived = 1;
+
+    switch (used.where) {
+    case OBJ_INVENT:
+        useup_invent(used);
+        break;
+    case OBJ_FLOOR:
+        delobj(used);
+        break;
+    case OBJ_MINVENT:
+        m_useup(used.ocarry, used);
+        break;
+    default:
+        delobj(used);
+        break;
+    }
+    return mtmp;
+}
+
+/**
+ * C ref: zap.c unturn_dead — revive invent/minvent eggs+corpses.
+ * @returns {Promise<number>} count revived
+ */
+async function unturn_dead(mon) {
+    if (!mon) return 0;
+    const is_u = mon === game.youmonst || mon._youmonst;
+    const youseeit = is_u ? true : canseemon(mon);
+    const items = is_u
+        ? [...(game.invent || [])]
+        : (() => {
+            const out = [];
+            for (let o = mon.minvent; o; o = o.nobj) out.push(o);
+            return out;
+        })();
+    let res = 0;
+
+    for (const otmp of items) {
+        if ((otmp.otyp | 0) === EGG) revive_egg(otmp);
+        if ((otmp.otyp | 0) !== CORPSE) continue;
+
+        let owner = '';
+        let corpse = '';
+        if (youseeit) {
+            corpse = xname(otmp) || 'corpse';
+            if ((otmp.quan | 0) > 1) {
+                owner = 'One of your ';
+            } else {
+                owner = 'Your ';
+            }
+        }
+        const corpsenm = otmp.corpsenm | 0;
+        const save_norevive = otmp.norevive | 0;
+        otmp.norevive = 0;
+
+        const mtmp2 = await revive(otmp, !game.context?.mon_moving);
+        if (mtmp2) {
+            res++;
+            const different_type = mtmp2.data !== mons(corpsenm);
+            if ((game.iflags?.last_msg | 0) === PLNMSG_OBJ_GLOWS) {
+                corpse = 'It';
+                owner = '';
+            }
+            if (youseeit) {
+                const verb = nonliving(mtmp2.data)
+                    ? 'reanimates' : 'comes alive';
+                const as2 = different_type
+                    ? ` as ${an((mtmp2.data?.mname || 'monster').toLowerCase())}`
+                    : '';
+                await pline(
+                    `${owner}${corpse} suddenly ${verb}${as2}!`,
+                );
+            } else if (canseemon(mtmp2)) {
+                await pline(`${Amonnam(mtmp2)} suddenly appears!`);
+            }
+        } else {
+            otmp.norevive = save_norevive ? 1 : 0;
+        }
+    }
+    if (is_u && res) await encumber_msg();
+    return res;
+}
+
+/**
+ * C ref: zap.c unturn_you — invent unturn_dead + undead shudder/stun.
+ */
+async function unturn_you() {
+    await unturn_dead(game.youmonst);
+    const youdata = game.youmonst?.data;
+    if (is_undead(youdata)) {
+        const more = (game.u?.HStun | 0) & TIMEOUT ? 'even more ' : '';
+        await You_feel(`frightened and ${more}stunned.`);
+        await make_stunned(
+            ((game.u?.HStun | 0) & TIMEOUT) + rnd(30), false,
+        );
+    } else {
+        await pline('You shudder in dread.');
+    }
+}
+
+/**
  * C ref: zap.c cancel_item — strip charges/enchant + blank scrolls/books
- * + water potions; unbless/uncurse. Worn ABON / corpse revive-timer /
- * blank_novel / shop bill polish named omit (costly_alteration awaited
- * for spe/class changes).
+ * + water potions; unbless/uncurse. Worn ABON / uhitinc/udaminc before
+ * spe clear. Named omit: blank_novel; corpse revive→rot timer swap.
  */
 async function cancel_item(obj) {
     if (!obj) return;
     const otyp = obj.otyp | 0;
     const oc = game.objects?.[otyp];
-    // worn ABON adjustments deferred
+    const u = game.u || {};
+    const carried = obj.where === OBJ_INVENT
+        || (game.invent || []).includes(obj);
+    if (carried) {
+        // C: worn ABON / hit-dam before spe is zeroed
+        switch (otyp) {
+        case RIN_GAIN_STRENGTH:
+            if ((obj.owornmask | 0) & W_RING) {
+                if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+                u.abon.a[A_STR] = (u.abon.a[A_STR] | 0) - (obj.spe | 0);
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        case RIN_GAIN_CONSTITUTION:
+            if ((obj.owornmask | 0) & W_RING) {
+                if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+                u.abon.a[A_CON] = (u.abon.a[A_CON] | 0) - (obj.spe | 0);
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        case RIN_ADORNMENT:
+            if ((obj.owornmask | 0) & W_RING) {
+                if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+                u.abon.a[A_CHA] = (u.abon.a[A_CHA] | 0) - (obj.spe | 0);
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        case RIN_INCREASE_ACCURACY:
+            if ((obj.owornmask | 0) & W_RING) {
+                u.uhitinc = (u.uhitinc | 0) - (obj.spe | 0);
+            }
+            break;
+        case RIN_INCREASE_DAMAGE:
+            if ((obj.owornmask | 0) & W_RING) {
+                u.udaminc = (u.udaminc | 0) - (obj.spe | 0);
+            }
+            break;
+        case RIN_PROTECTION:
+            if ((obj.owornmask | 0) & W_RING) {
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        case GAUNTLETS_OF_DEXTERITY:
+            if ((obj.owornmask | 0) & W_ARMG) {
+                if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+                u.abon.a[A_DEX] = (u.abon.a[A_DEX] | 0) - (obj.spe | 0);
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        case HELM_OF_BRILLIANCE:
+            if ((obj.owornmask | 0) & W_ARMH) {
+                if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+                u.abon.a[A_INT] = (u.abon.a[A_INT] | 0) - (obj.spe | 0);
+                u.abon.a[A_WIS] = (u.abon.a[A_WIS] | 0) - (obj.spe | 0);
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        default:
+            if ((obj.owornmask | 0) & W_ARMOR) {
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+            }
+            break;
+        }
+    }
     const magic = !!(oc?.oc_magic);
     const speMatter = !!(obj.spe)
         && (obj.oclass === ARMOR_CLASS || obj.oclass === WEAPON_CLASS
@@ -1789,7 +2083,7 @@ export async function bhitm(mtmp, otmp) {
     case WAN_UNDEAD_TURNING:
     case SPE_TURN_UNDEAD: {
         wake = false;
-        // unturn_dead invent revive deferred
+        if (await unturn_dead(mtmp)) wake = true;
         if (is_undead(mtmp.data) || is_vampshifter(mtmp)) {
             reveal_invis = true;
             wake = true;
@@ -1993,17 +2287,7 @@ export async function zapyourself(obj, ordinary) {
     case WAN_UNDEAD_TURNING:
     case SPE_TURN_UNDEAD: {
         learn_it = true;
-        // unturn_dead invent revive deferred — shudder/stun only
-        const youdata = game.youmonst?.data;
-        if (is_undead(youdata)) {
-            const more = (game.u?.HStun | 0) & TIMEOUT ? 'even more ' : '';
-            await You_feel(`frightened and ${more}stunned.`);
-            await make_stunned(
-                ((game.u?.HStun | 0) & TIMEOUT) + rnd(30), false,
-            );
-        } else {
-            await pline('You shudder in dread.');
-        }
+        await unturn_you();
         break;
     }
 
@@ -2199,9 +2483,9 @@ function poly_obj(obj, id) {
 
 /**
  * C ref: zap.c bhito — floor object hit by wand.
- * Envelope: WAN_POLYMORPH; WAN_CANCELLATION; WAN_STRIKING boulder/statue;
- * WAN_TELEPORTATION rloco. Named omit: probing; undead corpse revive;
- * hero_breaks non-boulder; boxlock.
+ * Envelope: WAN_POLYMORPH; WAN_CANCELLATION; WAN_STRIKING boulder/statue/
+ * hero_breaks|breaks; WAN_TELEPORTATION rloco; WAN_UNDEAD_TURNING floor
+ * corpse/egg thin revive. Named omit: probing; boxlock; full revive arms.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -2256,8 +2540,13 @@ async function bhito(obj, otmp) {
                 }
             }
         } else {
-            // hero_breaks deferred
-            maybelearnit = false;
+            const oox = obj.ox | 0;
+            const ooy = obj.oy | 0;
+            const broke = game.context?.mon_moving
+                ? await breaks(obj, oox, ooy)
+                : await hero_breaks(obj, oox, ooy, 0);
+            if (!broke) maybelearnit = false;
+            else newsym(oox, ooy);
             res = 0;
         }
         if (maybelearnit) learn_it = true;
@@ -2269,8 +2558,20 @@ async function bhito(obj, otmp) {
         break;
     case WAN_UNDEAD_TURNING:
     case SPE_TURN_UNDEAD:
-        // revive egg/corpse deferred
-        res = 0;
+        if ((obj.otyp | 0) === EGG) {
+            revive_egg(obj);
+            res = 1;
+        } else if ((obj.otyp | 0) === CORPSE) {
+            const save_norevive = obj.norevive | 0;
+            obj.norevive = 0;
+            const m = await revive(obj, !game.context?.mon_moving);
+            if (!m) {
+                obj.norevive = save_norevive ? 1 : 0;
+                res = 0;
+            }
+        } else {
+            res = 0;
+        }
         break;
     default:
         res = 0;

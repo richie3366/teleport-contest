@@ -21,6 +21,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 23:51 — #1224 D-0955 unturn_dead + hero_breaks + ABON
+
+- Objective: map-driven — `unturn_dead` invent/floor revive +
+  `hero_breaks` non-boulder + worn ABON `cancel_item`.
+- C locus: `zap.c` `revive`/`unturn_dead`/`unturn_you`/`cancel_item`
+  ABON; `dothrow.c` `breaktest`/`hero_breaks`/`breaks`; bhito/bhitm
+  wire.
+- Change: thin invent/minvent/floor `revive` + unturn; real breaktest
+  + hero_breaks/breaks; worn ABON before spe clear (D-0955).
+  Deferred: revive container/buried/cant_revive/ghost; Ring_gone
+  cluster; dig destroy_drawbridge.
+- Verification: green+strict; zap/shared cohort 16/16 PASS.
+  Suite fortress held (no full cadence; next @#1225).
+- Next: Ring_gone / float_up / rescham / choke; dig bridge/altar/
+  shopdig/grave; ice melt / burn_floor_objects.
+
 ## 2026-07-21 23:45 — #1223 D-0954 furniture_handled + HOLE goto_level
 
 - Objective: map-driven — dig `furniture_handled` fountain/sink +

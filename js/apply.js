@@ -1091,7 +1091,7 @@ async function broken_wand_explode(obj, dmg, expltype) {
  * + WAN_LIGHT litroom (D-0952).
  * Named omit: release_hold WAN_OPENING; ParanoidBreakwand getlin "yes";
  * check_unpaid bill polish; ICE spot_stop_timers; HOLE goto_level;
- * unturn_dead invent revive; hero_breaks non-boulder.
+ * flash_hits; revive container/buried polish.
  * @returns {number} ECMD_*
  */
 async function do_break_wand(obj) {
@@ -1325,7 +1325,7 @@ async function do_break_wand(obj) {
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms; camera closeup; most non-instrument
- * tools; break-wand release_hold / unturn invent revive / hero_breaks.
+ * tools; break-wand release_hold / flash_hits polish.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {

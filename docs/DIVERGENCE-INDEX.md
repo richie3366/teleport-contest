@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0955 | fixed | `unturn_dead`/`revive` invent+floor + `hero_breaks`/`breaks` + worn ABON `cancel_item` | map-driven debt; green+zap cohort 16/16 |
 | D-0954 | fixed | dig `furniture_handled` fountain/sink + HOLE hero `goto_level` + mon migrate | map-driven debt; green+dig cohort 16/16 |
 | D-0953 | fixed | floorfood pool/lava reach + `vault_gd_watching` + gd_move witness | map-driven debt; green+eat/vault cohort 14/14 |
 | D-0952 | fixed | break-wand strike/cancel/poly/tele/undead `bhitm`/`bhitpile`/`zapyourself` + `WAN_LIGHT` litroom | map-driven debt; green+wizard cohort 14/14 |
