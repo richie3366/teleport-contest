@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1178)
+- **Status:** partial (#1080–#1179)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1716**/1814)
+  Scr **1720**/1814)
+- **Hypothesis (#1179):** @1464 — footsteps `--More--` botl C T:**231**
+  vs JS T:**229**. Mold multi-EOT `.` advances `moves` twice before
+  `dosounds`→`You_hear`→`more`; C `allmain.c` sets `disp.time_botl`
+  on `moves++` and `pline`→`flush_screen`→`timebot` refreshes Time
+  before More. JS never set `time_botl`; `flush_screen` stub-cleared it.
+- **Fix (#1179):** `allmain.js` set `flags.time_botl` when
+  `flags.time && !context.run` after `moves++`; `display.js` `timebot()`
+  (tty→`bot()`) from `flush_screen`. VIA_WINDOWPORT/`bot_disabled`
+  deferred.
+- **Verification (#1179):** green+strict PASS; cohort 6/6
+  (1500/1800/0108/0009/0012/0360); focused prefix **@1464→@1501**;
+  Scr **1716→1720**. Next: @**1501** wish `r - a ring.` vs
+  `r - an engagement ring.`
 - **Hypothesis (#1178):** @1441 — sole cell C DEC floor `~` vs JS
   floating-eye `e` at map (38,9). After mold poly, `HBlinded|=FROMFORM`
   but `cansee` still true (stale IN_SIGHT); `remembered_glyph` already

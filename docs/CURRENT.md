@@ -21,8 +21,8 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1175** (42/44,
 Scr **11170**/11405, RNG **100%**) cadence. Speed `30+0.26/turn`.
-Next cadence @**#1180**. #1178 polymon `vision_full_recalc`; focused
-Scr **1586→1716**, prefix **@1441→@1464** (suite score unchanged
+Next cadence @**#1180**. #1179 `timebot`/`time_botl`; focused Scr
+**1716→1720**, prefix **@1464→@1501** (suite score unchanged
 until #1180).
 
 ## Score
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1716/1814 | knight; @1464 botl T:229 vs T:231 |
+| seed4500 | **108275**/108275 | 1720/1814 | knight; @1501 wish ring doname |
 
 ## Green gate
 
@@ -64,8 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1464** — botl C T:**231** vs JS T:**229** (poly Blind map
-fixed @1441). Focused:
+**seed4500 @1501** — wish `r - a ring.` vs `r - an engagement ring.`
+(Blind mold; Time @1464 fixed). Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1177; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1179; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -93,7 +93,8 @@ getpos `cmap_defsym_explanation` furniture fountain…bars (#1174);
 `dountrap`→`untrap`→`getdir(NULL)` (#1175);
 getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
 `set_uasmon`→`float_vs_flight` botl + `dropz`→`encumber_msg` (#1177);
-`polymon` `vision_full_recalc=1` before `see_monsters` (#1178).
+`polymon` `vision_full_recalc=1` before `see_monsters` (#1178);
+`time_botl` on `moves++` + `timebot` in `flush_screen` (#1179).
 **Do not:** invent create_particular appear from mtmp.mx/my; blanket
 corner restore; FORCE mfndpos/WEB; raw RNG gates; invent splice;
 omit breamm/blnd/F-prefix; FORCE linedup/flip; inediate FOOD reject;
@@ -103,8 +104,10 @@ second prinv; treat @1441 map `e` vs DEC `~` as feel/newsym-only
 treat @1438 poly botl as deferred bot (was `float_vs_flight`);
 @1439 load vs gloves as glove order (was `dropz` encumber);
 @1347 `$` as S_goodpos (was SHOWVALID); @1344 blank as WIN_STOP
-(was `untrap` getdir). Older rejects in D-0928/NOTES.
-Recent rejects: @1441≠feel — vision_full_recalc (#1178);
+(was `untrap` getdir); @1464 T lag as missed moves++ (was `timebot`).
+Older rejects in D-0928/NOTES.
+Recent rejects: @1464≠missed moves — timebot (#1179);
+@1441≠feel — vision_full_recalc (#1178);
 @1438≠bot-after-More — float_vs_flight (#1177);
 @1439≠gloves-before-load — dropz encumber (#1177);
 @1347≠S_goodpos — SHOWVALID (#1176); @1344≠WIN_STOP — getdir

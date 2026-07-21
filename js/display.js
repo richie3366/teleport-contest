@@ -3104,11 +3104,9 @@ export async function flush_screen(mode) {
         return;
     }
     const flags = game.flags || {};
+    // C display.c flush_screen: bot() else timebot() before map glyphs
     if (flags.botl || flags.botlx) await bot();
-    else if (flags.time_botl) {
-        // timebot deferred — clear flag so it does not stick
-        flags.time_botl = false;
-    }
+    else if (flags.time_botl) await timebot();
     // Mid goto_level / getbones: keep stale map cells like C gbuf.
     if (!game.level || game._stale_map_flush) {
         _paintToplineAndStatus();
@@ -3198,6 +3196,22 @@ export async function bot() {
     if (game.flags) {
         game.flags.botl = false;
         game.flags.botlx = false;
+        game.flags.time_botl = false;
+    }
+}
+
+/**
+ * C ref: botl.c timebot — status update when only svm.moves changed.
+ * VIA_WINDOWPORT → stat_update_time deferred; tty path → full bot().
+ * Named omissions: gb.bot_disabled; suppress_map_output hangup/restore.
+ */
+export async function timebot() {
+    const flags = game.flags || {};
+    const iflags = game.iflags || {};
+    // C: status_updates defaults TRUE; treat undefined as enabled
+    if (flags.time && iflags.status_updates !== false) {
+        await bot();
+    } else if (game.flags) {
         game.flags.time_botl = false;
     }
 }
