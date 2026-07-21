@@ -19,19 +19,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-21** — full `sessions` @**#1180** (42/44,
-Scr **11312**/11405, RNG **100%**) cadence + Blind prop fix. Speed
-`30+0.25/turn`. Next cadence @**#1185**. #1184 dosearch0 Blind
-`feel_location`; focused Scr **1732→1783**, first miss **@1658→@1674**.
+Score last measured: **2026-07-21** — full `sessions` @**#1185** (42/44,
+Scr **11374**/11405, RNG **100%**) + `doeat` `check_capacity`. Speed
+`30+0.26/turn`. Next cadence @**#1190**. #1185 seed4500 Scr
+**1783→1784**, first miss **@1674→@1679**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **42 / 44** |
-| Screens matched | **11,312 / 11,405** |
+| Screens matched | **11,374 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.25/turn` (R² 0.87) |
+| Speed label | `30+0.26/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -46,7 +46,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1783/1814 | knight; @1674 carry vs eat |
+| seed4500 | **108275**/108275 | 1784/1814 | knight; @1679 apply nohands |
 
 ## Green gate
 
@@ -63,8 +63,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1674** — C `You can't do that while carrying so much stuff.`
-vs JS `You cannot eat that!`. Focused:
+**seed4500 @1679** — C `You aren't able to use or apply tools in your
+current form.` vs JS `What do you want to use or apply? […]`. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -75,7 +75,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1184; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1185; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -100,8 +100,10 @@ getpos `NHKF_GETPOS_SHOWVALID` `$` before matching (#1176);
 `dopay` Blind/`canspotmon`/`You_cant("see...")` (#1182);
 `#wizwhere` `print_dungeon(FALSE)` → `show_nhw_menu_text` (#1183);
 `dosearch0` Blind/`visible_region_at` → `feel_location` + SDOOR/
-SCORR feel + `unmap_invisible` (#1184).
+SCORR feel + `unmap_invisible` (#1184);
+`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible` (#1185).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
+treat @1674 as `is_edible`/FOOD-only (#1185 was capacity);
 treat @1658 `/` as open door (#1184 was Blind feel wand);
 treat @1650 More as NHW_TEXT (#1183 was NHW_MENU dmore offset);
 treat @1625 Kabalebo as nearness (#1182 Blind canspotmon);

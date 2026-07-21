@@ -8,10 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1674** — C carry-so-much-stuff vs
-  JS `You cannot eat that!`. Focused:
+- **Primary (D-0928):** seed4500 @**1679** — C tools-current-form vs
+  JS apply getobj prompt. Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `check_capacity` / eat / poly mold nohands path (§7 dump).
+  Falsify: C `doapply` `nohands` before getobj; also `check_capacity`
+  after that (§7).
 
 ## Don't re-check (≤15)
 
@@ -22,6 +23,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1674 carry vs eat as `is_edible`/FOOD-only —
+  `doeat` `check_capacity` (#1185).
 - Do not treat @1658 `/` vs `#` as open door — Blind `dosearch0`
   `feel_location` mapped `WAN_OPENING` (#1184).
 - Do not treat @1650 `#wizwhere` More as NHW_TEXT `show_text_pages`
@@ -35,13 +38,14 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1464 T:229 vs T:231 as missed `moves++` — timebot (#1179).
 - Do not treat @1441 map `e` vs DEC `~` as feel/newsym-only —
   polymon `vision_full_recalc` (#1178).
-- Do not treat @1438 poly botl as deferred bot — float_vs_flight (#1177).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
-- suite **42/44** @#1180 Scr **11312**/11405 RNG **792838**/792838
-  (**100%**); speed `30+0.25/turn`; next cadence @**#1185**.
+- suite **42/44** @#1185 Scr **11374**/11405 RNG **792838**/792838
+  (**100%**); speed `30+0.26/turn`; next cadence @**#1190**.
+- **D-0928 #1185:** `doeat` `check_capacity`; prefix **@1674→@1679**;
+  Scr **1783→1784**; suite Scr **11373→11374**.
 - **D-0928 #1184:** `dosearch0` Blind `feel_location`; prefix
   **@1658→@1674**; Scr **1732→1783**.
 - **D-0928 #1183:** `#wizwhere` → `show_nhw_menu_text` (NHW_MENU);

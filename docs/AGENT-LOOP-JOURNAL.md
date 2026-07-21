@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 17:17 — #1185 doeat check_capacity + score
+
+- Objective: cadence full `sessions` @#1185; seed4500 @1674 carry vs eat.
+- C locus: `eat.c` `doeat` → `hack.c` `check_capacity` after `floorfood`,
+  before `is_edible`.
+- Change: `eat.js` `doeat` EXT_ENCUMBER gate + You_cant carry message
+  (D-0928 #1185). Score refresh **42**/44 Scr **11374**/11405 RNG 100%.
+- Verification: green+strict PASS; seed1800 PASS; focused Scr
+  **1783→1784**; first miss **@1674→@1679**.
+- Next: @**1679** `doapply` `nohands` before getobj (tools current form).
+
 ## 2026-07-21 17:15 — #1184 dosearch0 Blind feel_location
 
 - Objective: seed4500 @1658 C `/` vs JS `#` (misread as open door).
@@ -31,7 +42,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 9/9; Scr **1732→1783**;
   first miss **@1658→@1674**.
 - Next: @**1674** C carry-so-much-stuff vs JS eat-that.
-
 ## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
 
 - Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.
@@ -42,7 +52,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; Scr **1724→1732**;
   first miss **@1650→@1658**.
 - Next: @**1658** map open-door `/` vs wall `#`.
-
 ## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
 
 - Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
@@ -53,7 +62,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; Scr **1723→1724**;
   first miss **@1625→@1650**.
 - Next: @**1650** `#wizwhere` ` --More--` vs `--More--`.
-
 ## 2026-07-21 16:55 — #1181 show_achievements + record
 
 - Objective: seed4500 @1573 Voluntary challenges More r11 vs C r20.
@@ -65,7 +73,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1722→1723**;
   first miss **@1573→@1625**.
 - Next: @**1625** C `You can't see...` vs JS Kabalebo pay.
-
 ## 2026-07-21 16:50 — #1180 score + prop Blind doname
 
 - Objective: cadence full `sessions` @#1180; seed4500 @1501 wish
@@ -78,7 +85,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1720→1722**;
   first miss **@1501→@1573**.
 - Next: @**1573** Voluntary challenges leftover `--More--`.
-
 ## 2026-07-21 16:45 — #1179 timebot / time_botl
 
 - Objective: seed4500 @1464 footsteps More botl C T:231 vs JS T:229.
@@ -89,7 +95,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1716→1720**;
   prefix **@1464→@1501**.
 - Next: @**1501** wish `r - a ring.` vs `r - an engagement ring.`
-
 ## 2026-07-21 16:37 — #1178 polymon vision_full_recalc
 
 - Objective: seed4500 @1441 map C DEC `~` vs JS floating-eye `e`.
@@ -100,7 +105,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1586→1716**;
   prefix **@1441→@1464**.
 - Next: @**1464** botl T:**229** vs C T:**231**.
-
 ## 2026-07-21 16:28 — #1177 float_vs_flight + dropz encumber
 
 - Objective: seed4500 @1438 poly More botl Knight vs C Brown Mold;
@@ -112,7 +116,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1583→1586**;
   prefix **@1438→@1441**.
 - Next: @**1441** map C DEC `~` vs JS `e`.
-
 ## 2026-07-21 16:20 — #1176 getpos SHOWVALID `$`
 
 - Objective: seed4500 @1347 getpos `$` Unknown direction vs C stay.
@@ -123,7 +126,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1580→1583**;
   prefix **@1347→@1438**.
 - Next: @**1438** poly More botl C `Brown Mold` vs JS `Knight`.
-
 ## 2026-07-21 16:15 — #1175 untrap getdir + score cadence
 
 - Objective: cadence full `sessions` @#1175; seed4500 @1344 `#untrap`
@@ -135,7 +137,6 @@ Use this shape:
   prefix **@1344→@1347**. Full suite **42**/44 Scr **11170**/11405
   RNG **100%** speed `30+0.26/turn`.
 - Next: @**1347** getpos `$` → `S_goodpos` `feature_match_tags`.
-
 ## 2026-07-21 16:09 — #1174 getpos cmap furniture fountain
 
 - Objective: seed4500 @1322 getpos C `fountain` vs JS `unexplored area`.
@@ -146,7 +147,6 @@ Use this shape:
   prefix **@1322→@1344**.
 - Next: @**1344** `#untrap` C `In what direction?` vs JS blank
   (`dountrap` omits `untrap`→`getdir`).
-
 ## 2026-07-21 16:05 — #1173 sanctum lspo_map lit=FALSE clear
 
 - Objective: seed4500 @1291 look_here map C blank/3×3 vs JS walls.
@@ -157,7 +157,6 @@ Use this shape:
 - Verification: green+strict PASS; seed0009 PASS; cohort 14/14;
   Scr **1529→1576**; prefix **@1291→@1322**.
 - Next: @**1322** getpos `fountain` vs JS `unexplored area`.
-
 ## 2026-07-21 15:50 — #1172 overview dismiss dismiss_nhw_menu
 
 - Objective: seed4500 @1252 map `"` vs `s` (misread DEC-vs-Primary).
@@ -168,26 +167,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 14/14; Scr **1525→1529**;
   prefix **@1252→@1291**.
 - Next: @**1291** look_here map bleed under corner menu.
-
-## 2026-07-21 15:42 — #1171 wiz Blind make_blinded + uinvulnerable
-
-- Objective: seed4500 @1151 `#wizintrinsic` Blind TIMEOUT `[23]` vs `[119]`.
-- C locus: `wizcmds.c` `wiz_intrinsic` BLINDED → `make_blinded`;
-  `timeout.c` `nh_timeout` `u.uinvulnerable` early return.
-- Change: Blind branch calls `make_blinded(newtimeout)` (not stale
-  uprops incr); sync HBlinded↔uprops; freeze TIMEOUT while praying
-  (D-0928 #1171).
-- Verification: green+strict PASS; cohort 12/12; Scr **1521→1525**;
-  prefix **@1151→@1252**.
-- Next: @**1252** map glyph DEC vs Primary.
-
-## 2026-07-21 15:32 — #1170 public score cadence
-
-- Objective: mandatory full `sessions` score @#1170 (÷5).
-- C locus: n/a — docs/score only; primary remains @1151 Blind TIMEOUT.
-- Change: Score refresh — **42**/44 Scr **11111**/11405 RNG
-  **792838**/792838 (100%); speed `30+0.25/turn` (R² 0.86).
-  Scr +87 vs @#1165 reflects #1166–#1169 seed4500 peels (1521/1814).
-- Verification: green+strict PASS; full `sessions` 42/44.
-- Next: seed4500 @**1151** `#wizintrinsic` Blind TIMEOUT JS `[23]`
-  vs C `[119]` (D-0928).

@@ -33,9 +33,22 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1184)
+- **Status:** partial (#1080–#1185)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1783**/1814)
+  Scr **1784**/1814)
+- **Hypothesis (#1185):** @1674 — C
+  `You can't do that while carrying so much stuff.` vs JS
+  `You cannot eat that!`. Overloaded poly mold; C `doeat` calls
+  `check_capacity` after `floorfood` before `is_edible`; JS skipped
+  the gate and fell through to inedible reject.
+- **Fix (#1185):** `eat.js` `doeat` — `near_capacity() >= EXT_ENCUMBER`
+  → You_cant carry message / ECMD_OK (same as `hack.c`
+  `check_capacity`).
+- **Verification (#1185):** green+strict PASS; seed1800 PASS; focused
+  Scr **1783→1784**; first miss **@1674→@1679**; full `sessions`
+  **42**/44 Scr **11374**/11405 RNG **100%**.
+- **Do not:** treat @1674 as poly-mold `is_edible` / FOOD-only gap —
+  capacity runs first in C.
 - **Hypothesis (#1184):** @1658 — map C `/` vs JS `#` (misread as
   open door). Poly brown mold Blind search; C `dosearch0` calls
   `feel_location` on neighbors when Blind, mapping floor
