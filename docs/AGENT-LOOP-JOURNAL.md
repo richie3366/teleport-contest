@@ -21,6 +21,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-21 22:38 — #1211 D-0943 cpostfx specials
+
+- Objective: map-driven — retire `cpostfx` specials / hallu debt.
+- C locus: `eat.c` `cpostfx` (+ `pluslvl`/`make_blinded`/`polyself`/
+  `toggle_displacement`/`self_invis_message`/`adjattrib`).
+- Change: port specials switch + AD_STUN/AD_HALU `make_hallucinated`
+  + newt buzz; export displacement/invis helpers (D-0943). Deferred:
+  were*/mimic gold/`attrcurse`/`corpse_intrinsic`/`givit`.
+- Verification: green+strict PASS; eat/role cohort 12/12.
+- Next: eatspecial PAPER/potion/ring; `mconveys`+`givit`; other
+  `pay_for_damage` sites / pickaxe `is_digging`. Cadence @#1215.
+
 ## 2026-07-21 22:33 — #1210 score + D-0942 pay_for_damage
 
 - Objective: cadence full `sessions` (@#1210 % 5 == 0); map-driven

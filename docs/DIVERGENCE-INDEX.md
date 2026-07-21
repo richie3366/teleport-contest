@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0943 | fixed | `cpostfx` specials + AD_STUN/AD_HALU hallu | map-driven debt; green+eat cohort 12/12 |
 | D-0942 | fixed | `pay_for_damage`/`getcad`/`hot_pursuit` + chew/zap/wakeup | map-driven debt; suite **44**/44 @#1210 |
 | D-0941 | fixed | `still_chewing` shop `add_damage` + `watch_dig`/`angry_guards` | map-driven debt; green+cohort 12/12 |
 | D-0940 | fixed | tin `costly_tin`/`use_tin_opener` + shop `costly_alteration` | map-driven debt; green+cohort 12/12 |

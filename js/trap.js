@@ -2299,8 +2299,8 @@ function resists_blnd(mon) {
     if (is_youmonst(mon)) return Blind() || Unaware();
     return !!(mon?.mblinded || !mon?.mcansee || mon?.msleeping);
 }
-async function self_invis_message() {
-    // C ref: potion.c self_invis_message
+/** C ref: potion.c self_invis_message — stalker corpse / invis potion. */
+export async function self_invis_message() {
     const prefix = Hallucination()
         ? 'Far out, man!  You'
         : 'Gee!  All of a sudden, you';

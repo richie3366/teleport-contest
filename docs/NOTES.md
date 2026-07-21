@@ -13,12 +13,12 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0942** `pay_for_damage`/`getcad`/`hot_pursuit` +
-  chew/`zap_dig`/`wakeup` wires. Falsifier: green + shop/zap cohort
-  + full `sessions` PASS.
-- Next cluster: cpostfx specials; eatspecial PAPER/potion/ring;
-  dokick/`explode`/`apply` dig `pay_for_damage` call sites; pickaxe
-  `dig` occupation (`is_digging`); other `debt.md` row.
+- Latest: **D-0943** `cpostfx` specials + AD_STUN/AD_HALU hallu.
+  Falsifier: green + eat/role cohort PASS.
+- Next cluster: eatspecial PAPER/potion/ring; `corpse_intrinsic`/
+  `givit` (needs `mconveys` extract); were* `set_ulycn`; mimic gold;
+  dokick/explode/apply dig `pay_for_damage` sites; pickaxe
+  `is_digging`; other `debt.md` row.
 - Cadence full `sessions` next @**#1215**.
 
 ## Don't re-check (≤15)
@@ -44,13 +44,15 @@ Objective/score live in `CURRENT.md`.
   (D-0936), metallivore bars/`still_chewing` (D-0937),
   `b_trapped`/`make_stunned` (D-0938), `cprefx` (D-0939),
   tin shop/`use_tin_opener` (D-0940), shop/`watch_dig` (D-0941),
-  or `pay_for_damage`/`hot_pursuit` (D-0942).
+  `pay_for_damage`/`hot_pursuit` (D-0942), or `cpostfx` specials
+  (D-0943).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1210**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn`.
+- **D-0943:** `cpostfx` specials + AD_STUN/AD_HALU hallu.
 - **D-0942:** `pay_for_damage`/`getcad`/`hot_pursuit` + wires.
 - **D-0941:** `add_damage`/`watch_dig`/`angry_guards` + still_chewing.
 - **D-0940:** tin `costly_tin`/`use_tin_opener` + `costly_alteration`.
@@ -64,4 +66,3 @@ Objective/score live in `CURRENT.md`.
 - **D-0932 #1198:** serialize leading bold spaces.
 - **D-0931 #1197:** flush S_air + mid-row space CUF >4.
 - **D-0930 #1196:** serialize space+attr0+CLR_GRAY → NO_COLOR.
-- **D-0928 #1194:** ^X rank==role + eaten_stat; seed4500 **PASS**.

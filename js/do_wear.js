@@ -588,7 +588,8 @@ async function Helmet_on() {
  * changes and hero can see/sense self. Timed-displacement (obj null) and
  * Blind_telepat-only sensing deferred when not needed for extrinsic cloak.
  */
-async function toggle_displacement(obj, oldprop, on) {
+/** C ref: do_wear.c toggle_displacement — cloak / corpse Displaced msg. */
+export async function toggle_displacement(obj, oldprop, on) {
     if (on ? game._initial_don : game.context?.takeoff?.cancelled_don) return;
     const u = game.u || {};
     const prop = u.uprops?.[DISPLACED];

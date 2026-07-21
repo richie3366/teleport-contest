@@ -11,8 +11,8 @@
 //         potion.c make_vomiting / make_glib;
 //         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
 // Named omissions: floorfood pool-lava reach gate / cockatrice-feel;
-// cpostfx specials (wraith/were/nurse/
-// stalker/…); corpse_intrinsic / givit; hallu from AD_STUN/AD_HALU;
+// were* set_ulycn; mimic gold eatmdone; disenchanter attrcurse;
+// corpse_intrinsic / givit (mconveys); hallu AD_STUN covered D-0943;
 // tainted Sick; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; multi-turn choke/newuhs messages; gethungry ring/amulet
@@ -20,13 +20,13 @@
 // death path; vomit cantvomit/Sick/FAINTING/acid-breath;
 // Fixed_abil Popeye Olive/Bluto;
 // eatspecial PAPER/potion/ring/amulet/leash/trident/flint/uwepgone/
-// unpunish/vault_gd; still_chewing wall/door shop damage + watch_dig;
+// unpunish/vault_gd;
 // livelog conduct; cprefx revive_corpse after rider death; cprefx
 // polymon stone-golem failure polish.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { flush_topl_more, pline, You_feel } from './display.js';
+import { flush_topl_more, pline, You_feel, newsym } from './display.js';
 import { yn_function } from './getline.js';
 import {
     FOOD_CLASS, COIN_CLASS, WEAPON_CLASS, BALL_CLASS, CHAIN_CLASS,
@@ -64,26 +64,30 @@ import {
     IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
     STONING, DIED, SLIMED, FROMOUTSIDE, Upolyd, NEUTRAL,
     COST_DSTROY, COST_OPEN, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
+    INTRINSIC, POLY_NOFLAGS, DISPLACED,
 } from './const.js';
 import {
     adjattrib, gainstr, acurr, acurrstr, change_luck, exercise,
-    A_STR, A_DEX, A_CHA, A_WIS,
+    A_STR, A_DEX, A_CHA, A_WIS, A_INT,
 } from './attrib.js';
 import { nomul, losehp, still_chewing } from './hack.js';
 import { near_capacity, observe_object } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
+    make_stunned, make_hallucinated,
 } from './potion.js';
 import { addinv_nomerge } from './u_init.js';
-import { dropy, dropx } from './do.js';
+import { dropy, dropx, make_blinded } from './do.js';
 import { type_is_pname, rndmonnam } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
-import { t_at, deltrap, reset_utrap, b_trapped } from './trap.js';
+import { t_at, deltrap, reset_utrap, b_trapped, self_invis_message } from './trap.js';
 import { done, delayed_killer } from './end.js';
-import { polymon } from './polyself.js';
+import { polymon, polyself } from './polyself.js';
 import { costly_alteration, costly_spot } from './shk.js';
 import { wield_tool } from './wield.js';
+import { pluslvl } from './exper.js';
+import { toggle_displacement } from './do_wear.js';
 
 /** C hack.h invlet_basic — a-zA-Z slots before invent-full dropy. */
 const INVLET_BASIC = 52;
@@ -154,7 +158,35 @@ const PM_FAMINE = monsterNames.indexOf('PM_FAMINE');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_CAVE_DWELLER = monsterNames.indexOf('PM_CAVE_DWELLER');
 const PM_ORC = monsterNames.indexOf('PM_ORC');
+const PM_WRAITH = monsterNames.indexOf('PM_WRAITH');
+const PM_HUMAN_WERERAT = monsterNames.indexOf('PM_HUMAN_WERERAT');
+const PM_HUMAN_WEREJACKAL = monsterNames.indexOf('PM_HUMAN_WEREJACKAL');
+const PM_HUMAN_WEREWOLF = monsterNames.indexOf('PM_HUMAN_WEREWOLF');
+const PM_WERERAT = monsterNames.indexOf('PM_WERERAT');
+const PM_WEREJACKAL = monsterNames.indexOf('PM_WEREJACKAL');
+const PM_WEREWOLF = monsterNames.indexOf('PM_WEREWOLF');
+const PM_NURSE = monsterNames.indexOf('PM_NURSE');
+const PM_STALKER = monsterNames.indexOf('PM_STALKER');
+const PM_YELLOW_LIGHT = monsterNames.indexOf('PM_YELLOW_LIGHT');
+const PM_GIANT_BAT = monsterNames.indexOf('PM_GIANT_BAT');
+const PM_BAT = monsterNames.indexOf('PM_BAT');
+const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
+const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
+const PM_SMALL_MIMIC = monsterNames.indexOf('PM_SMALL_MIMIC');
+const PM_QUANTUM_MECHANIC = monsterNames.indexOf('PM_QUANTUM_MECHANIC');
+const PM_CHAMELEON = monsterNames.indexOf('PM_CHAMELEON');
+const PM_DOPPELGANGER = monsterNames.indexOf('PM_DOPPELGANGER');
+const PM_SANDESTIN = monsterNames.indexOf('PM_SANDESTIN');
+const PM_GENETIC_ENGINEER = monsterNames.indexOf('PM_GENETIC_ENGINEER');
+const PM_DISPLACER_BEAST = monsterNames.indexOf('PM_DISPLACER_BEAST');
+const PM_DISENCHANTER = monsterNames.indexOf('PM_DISENCHANTER');
+const PM_MIND_FLAYER = monsterNames.indexOf('PM_MIND_FLAYER');
+const PM_MASTER_MIND_FLAYER = monsterNames.indexOf('PM_MASTER_MIND_FLAYER');
+const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
 const EGG = objectNames.indexOf('EGG');
+/* C monattk.h — stun / hallucination damage types for cpostfx hallu. */
+const AD_STUN = 12;
+const AD_HALU = 36;
 
 /** C: eat.c CANNIBAL_ALLOWED — Cave Dweller or orc race. */
 function CANNIBAL_ALLOWED() {
@@ -225,6 +257,27 @@ function attacktype(ptr, aatyp) {
         if (slots[i]?.aatyp === aatyp) return true;
     }
     return false;
+}
+
+/** C ref: mondata.h dmgtype — true if any mattk slot has adtyp. */
+function dmgtype(ptr, adtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < slots.length; i++) {
+        if (slots[i]?.adtyp === adtyp) return true;
+    }
+    return false;
+}
+
+/** C timeout.h set_itimeout — replace TIMEOUT bits on a long prop. */
+function set_itimeout_prop(u, key, val) {
+    u[key] = ((u[key] | 0) & ~TIMEOUT) | ((val | 0) & TIMEOUT);
+}
+
+/** C timeout.h incr_itimeout — add to TIMEOUT bits. */
+function incr_itimeout_prop(u, key, incr) {
+    const cur = (u[key] | 0) & TIMEOUT;
+    u[key] = ((u[key] | 0) & ~TIMEOUT) | ((cur + (incr | 0)) & TIMEOUT);
 }
 
 /**
@@ -1006,22 +1059,158 @@ async function eye_of_newt_buzz() {
 
 /**
  * C ref: eat.c cpostfx — post-corpse effects.
- * Branch envelope (D-0492): default check_intrinsics → eye_of_newt_buzz
- * for AT_MAGC || PM_NEWT. Special switch cases, AD_STUN/AD_HALU hallu,
- * corpse_intrinsic / givit deferred.
+ * Branch envelope (D-0943): named specials (wraith/nurse/stalker-bat/
+ * quantum/lizard/chameleon-doppel-genetic/displacer/mind flayer INT/
+ * riders) + check_intrinsics hallu + eye_of_newt_buzz.
+ * Named omissions: were* set_ulycn/retouch_equipment; mimic gold
+ * eatmdone/afternmv; disenchanter attrcurse; corpse_intrinsic/givit/
+ * gainstr (needs mconveys in generated mons); eatmbuf cleanup;
+ * display_nhwindow for mimic; livelog polyself conduct.
  */
 async function cpostfx(pm) {
-    // Ordinary corpses (incl. newt) take C's default check_intrinsics path.
-    // Named deferred specials (wraith, were*, nurse body, stalker/bat/mimic,
-    // quantum, lizard body, chameleon/doppel/genetic, displacer,
-    // disenchanter, riders, mind flayer INT) are no-ops until ported —
-    // they must not set check_intrinsics when their bodies land.
+    let check_intrinsics = false;
+    const u = game.u || (game.u = {});
     const ptr = mons(pm);
-    // C: dmgtype AD_STUN/AD_HALU / violet fungus → make_hallucinated deferred
-    if (attacktype(ptr, AT_MAGC) || pm === PM_NEWT) {
-        await eye_of_newt_buzz();
+
+    switch (pm | 0) {
+    case PM_WRAITH:
+        await pluslvl(false);
+        break;
+    case PM_HUMAN_WERERAT:
+    case PM_HUMAN_WEREJACKAL:
+    case PM_HUMAN_WEREWOLF:
+        // C: set_ulycn + retouch_equipment deferred
+        break;
+    case PM_NURSE:
+        if (Upolyd(u)) u.mh = u.mhmax | 0;
+        else u.uhp = u.uhpmax | 0;
+        await make_blinded(0, !u.ucreamed);
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        check_intrinsics = true;
+        break;
+    case PM_STALKER: {
+        const Invis = !!(u.Invis || (u.HInvis | 0) || (u.EInvis | 0));
+        const Blind = !!(u.Blind || ((u.HBlinded | 0) & TIMEOUT));
+        const BInvis = !!(u.BInvis | 0);
+        if (!Invis) {
+            set_itimeout_prop(u, 'HInvis', rn1(100, 50));
+            if (!Blind && !BInvis) await self_invis_message();
+        } else {
+            if (!((u.HInvis | 0) & INTRINSIC)) {
+                await You_feel('hidden!');
+            }
+            u.HInvis = (u.HInvis | 0) | FROMOUTSIDE;
+            u.HSee_invisible = (u.HSee_invisible | 0) | FROMOUTSIDE;
+        }
+        newsym(u.ux | 0, u.uy | 0);
+        // FALLTHROUGH → yellow light / giant bat stun
     }
-    // C: corpse_intrinsic → givit / gainstr deferred (newt conveys none)
+    // falls through
+    case PM_YELLOW_LIGHT:
+    case PM_GIANT_BAT:
+        await make_stunned(((u.HStun | 0) & TIMEOUT) + 30, false);
+        // FALLTHROUGH → bat stun
+    // falls through
+    case PM_BAT:
+        await make_stunned(((u.HStun | 0) & TIMEOUT) + 30, false);
+        break;
+    case PM_GIANT_MIMIC:
+    case PM_LARGE_MIMIC:
+    case PM_SMALL_MIMIC:
+        // C: gold-pile mimic body + eatmdone deferred
+        break;
+    case PM_QUANTUM_MECHANIC:
+        await pline('Your velocity suddenly seems very uncertain!');
+        if ((u.HFast | 0) & INTRINSIC) {
+            u.HFast = (u.HFast | 0) & ~INTRINSIC;
+            await pline('You seem slower.');
+        } else {
+            u.HFast = (u.HFast | 0) | FROMOUTSIDE;
+            await pline('You seem faster.');
+        }
+        break;
+    case PM_LIZARD:
+        if (((u.HStun | 0) & TIMEOUT) > 2) {
+            await make_stunned(2, false);
+        }
+        if (((u.HConfusion | 0) & TIMEOUT) > 2) {
+            await make_confused(2, false);
+        }
+        check_intrinsics = true;
+        break;
+    case PM_CHAMELEON:
+    case PM_DOPPELGANGER:
+    case PM_SANDESTIN:
+    case PM_GENETIC_ENGINEER: {
+        const Unchanging = !!(u.Unchanging || u.HUnchanging || u.EUnchanging);
+        if (Unchanging) {
+            await You_feel('momentarily different.');
+        } else {
+            if (game.context?.tin?.tin) {
+                use_up_tin(game.context.tin.tin);
+                lesshungry(200 + (metallivorous(hero_form_data()) ? 5 : 0));
+            }
+            if ((pm | 0) === PM_GENETIC_ENGINEER) {
+                await pline('You undergo a freakish metamorphosis.');
+            } else {
+                await pline('You feel a change coming over you.');
+            }
+            await polyself(POLY_NOFLAGS);
+        }
+        break;
+    }
+    case PM_DISPLACER_BEAST: {
+        const Displaced = !!(u.HDisplaced || u.EDisplaced
+            || (u.uprops?.[DISPLACED]?.intrinsic | 0)
+            || (u.uprops?.[DISPLACED]?.extrinsic | 0));
+        if (!Displaced) await toggle_displacement(null, 0, true);
+        incr_itimeout_prop(u, 'HDisplaced', d(6, 6));
+        break;
+    }
+    case PM_DISENCHANTER:
+        // C: attrcurse() deferred
+        break;
+    case PM_DEATH:
+    case PM_PESTILENCE:
+    case PM_FAMINE:
+        break;
+    case PM_MIND_FLAYER:
+    case PM_MASTER_MIND_FLAYER: {
+        const intBase = u.acurr?.a?.[A_INT] | 0;
+        const intMax = game.urace?.attrmax?.[A_INT] ?? 18;
+        if (intBase < intMax) {
+            if (!rn2(2)) {
+                await pline('Yum!  That was real brain food!');
+                await adjattrib(A_INT, 1, false);
+                break; // don't give telepathy via check_intrinsics
+            }
+        } else {
+            await pline('For some reason, that tasted bland.');
+        }
+        // FALLTHROUGH → default check_intrinsics
+    }
+    // falls through
+    default:
+        check_intrinsics = true;
+        break;
+    }
+
+    if (check_intrinsics) {
+        if (dmgtype(ptr, AD_STUN) || dmgtype(ptr, AD_HALU)
+            || (pm | 0) === PM_VIOLET_FUNGUS) {
+            await pline('Oh wow!  Great stuff!');
+            await make_hallucinated(
+                ((u.HHallucination | 0) & TIMEOUT) + 200,
+                false,
+                0,
+            );
+        }
+        if (attacktype(ptr, AT_MAGC) || (pm | 0) === PM_NEWT) {
+            await eye_of_newt_buzz();
+        }
+        // C: corpse_intrinsic → givit / gainstr deferred (no mconveys yet)
+    }
 }
 
 /**

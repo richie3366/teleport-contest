@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0943 — `cpostfx` specials + AD_STUN/AD_HALU hallu
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** post-corpse specials (wraith/nurse/stalker-bat/quantum/
+  lizard/chameleon/displacer/mind flayer) were no-ops; stun/hallu
+  corpses skipped `make_hallucinated`.
+- **Cause:** named constitutional debt (`debt.md` eat after D-0942).
+- **C locus:** `eat.c` `cpostfx`; helpers `pluslvl` / `make_blinded` /
+  `make_stunned` / `make_confused` / `polyself` / `toggle_displacement`
+  / `self_invis_message` / `adjattrib` / `eye_of_newt_buzz`.
+- **JS:** `eat.js` `cpostfx` switch + check_intrinsics hallu/newt;
+  export `toggle_displacement` / `self_invis_message`. Deferred: were*
+  `set_ulycn`/`retouch_equipment`; mimic gold `eatmdone`; disenchanter
+  `attrcurse`; `corpse_intrinsic`/`givit` (no `mconveys` in generated
+  mons).
+- **Verify:** green+strict; eat/role cohort 12/12 PASS.
+
 ## D-0942 — `pay_for_damage` / `getcad` / `hot_pursuit`
 
 - **Status:** fixed (map-driven debt retirement)
