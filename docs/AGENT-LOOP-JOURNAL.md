@@ -12,6 +12,26 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — #NNNN short title
+
+- Objective: …
+- C locus: …
+- Change: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-21 17:45 — #1189 getpos mMoOdDxX gather_locs
+
+- Objective: seed4500 @1698 C `open door` + cursor (63,7) vs JS blank.
+- C locus: `getpos.c` `mMoOdDxX` → `gather_locs` / `gather_locs_interesting`
+  (GLOC_DOOR) + `cmp_coord_distu`; doors skipped in feature matching[].
+- Change: `getpos.js` gather_locs cycle for m/M/o/O/d/D/x/X + `@` SELF
+  (D-0928 #1189).
+- Verification: green+strict PASS; cohort 7/7; Scr **1796→1798**;
+  first miss **@1698→@1712**.
+- Next: @1712 `#quit` yn `n` C clears topline vs JS keeps prompt.
+
 ## 2026-07-21 17:33 — #1188 blank S_stone before typ CORR
 
 - Objective: seed4500 @1691 Blind farlook C `stone` vs JS `corridor`.
@@ -23,14 +43,6 @@ Use this shape:
 - Verification: green+strict PASS; cohort 8/8 (0012/0360); Scr
   **1794→1796**; first miss **@1691→@1698**.
 - Next: @1698 getpos C `open door` + cursor vs JS blank/stale.
-## YYYY-MM-DD HH:MM — #NNNN short title
-
-- Objective: …
-- C locus: …
-- Change: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-21 17:27 — #1187 getpos redraw_cmd ^R
 
@@ -76,6 +88,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 9/9; Scr **1732→1783**;
   first miss **@1658→@1674**.
 - Next: @**1674** C carry-so-much-stuff vs JS eat-that.
+
 ## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
 
 - Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.
@@ -86,6 +99,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; Scr **1724→1732**;
   first miss **@1650→@1658**.
 - Next: @**1658** map open-door `/` vs wall `#`.
+
 ## 2026-07-21 17:01 — #1182 dopay Blind canspotmon You_cant
 
 - Objective: seed4500 @1625 C `You can't see...` vs JS Kabalebo pay.
@@ -96,6 +110,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 7/7; Scr **1723→1724**;
   first miss **@1625→@1650**.
 - Next: @**1650** `#wizwhere` ` --More--` vs `--More--`.
+
 ## 2026-07-21 16:55 — #1181 show_achievements + record
 
 - Objective: seed4500 @1573 Voluntary challenges More r11 vs C r20.
@@ -107,6 +122,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1722→1723**;
   first miss **@1573→@1625**.
 - Next: @**1625** C `You can't see...` vs JS Kabalebo pay.
+
 ## 2026-07-21 16:50 — #1180 score + prop Blind doname
 
 - Objective: cadence full `sessions` @#1180; seed4500 @1501 wish
@@ -119,6 +135,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1720→1722**;
   first miss **@1501→@1573**.
 - Next: @**1573** Voluntary challenges leftover `--More--`.
+
 ## 2026-07-21 16:45 — #1179 timebot / time_botl
 
 - Objective: seed4500 @1464 footsteps More botl C T:231 vs JS T:229.
@@ -129,6 +146,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1716→1720**;
   prefix **@1464→@1501**.
 - Next: @**1501** wish `r - a ring.` vs `r - an engagement ring.`
+
 ## 2026-07-21 16:37 — #1178 polymon vision_full_recalc
 
 - Objective: seed4500 @1441 map C DEC `~` vs JS floating-eye `e`.
@@ -139,6 +157,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1586→1716**;
   prefix **@1441→@1464**.
 - Next: @**1464** botl T:**229** vs C T:**231**.
+
 ## 2026-07-21 16:28 — #1177 float_vs_flight + dropz encumber
 
 - Objective: seed4500 @1438 poly More botl Knight vs C Brown Mold;
@@ -150,6 +169,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1583→1586**;
   prefix **@1438→@1441**.
 - Next: @**1441** map C DEC `~` vs JS `e`.
+
 ## 2026-07-21 16:20 — #1176 getpos SHOWVALID `$`
 
 - Objective: seed4500 @1347 getpos `$` Unknown direction vs C stay.
@@ -160,6 +180,7 @@ Use this shape:
 - Verification: green+strict PASS; cohort 6/6; Scr **1580→1583**;
   prefix **@1347→@1438**.
 - Next: @**1438** poly More botl C `Brown Mold` vs JS `Knight`.
+
 ## 2026-07-21 16:15 — #1175 untrap getdir + score cadence
 
 - Objective: cadence full `sessions` @#1175; seed4500 @1344 `#untrap`
@@ -171,13 +192,3 @@ Use this shape:
   prefix **@1344→@1347**. Full suite **42**/44 Scr **11170**/11405
   RNG **100%** speed `30+0.26/turn`.
 - Next: @**1347** getpos `$` → `S_goodpos` `feature_match_tags`.
-## 2026-07-21 16:09 — #1174 getpos cmap furniture fountain
-
-- Objective: seed4500 @1322 getpos C `fountain` vs JS `unexplored area`.
-- C locus: `pager.c` `lookat` cmap default → `defsyms[S_fountain].explanation`.
-- Change: `getpos.js` `cmap_defsym_explanation` fountain/sink/opulent
-  throne/grave/iron bars; S_altar align/high deferred (D-0928 #1174).
-- Verification: green+strict PASS; cohort 6/6; Scr **1576→1579**;
-  prefix **@1322→@1344**.
-- Next: @**1344** `#untrap` C `In what direction?` vs JS blank
-  (`dountrap` omits `untrap`→`getdir`).

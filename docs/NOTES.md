@@ -8,13 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1698** — getpos feature jump
-  C `open door` + cursor (63,7) vs JS blank + stale cursor.
+- **Primary (D-0928):** seed4500 @**1712** — `#quit` yn `n` C clears
+  topline vs JS keeps `Really quit without saving? [yn] (n)`.
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `getpos` matching/`find_responsive` door scan vs JS
-  feature match after `/` farlook. Do not re-break blank S_stone
-  before typ CORR (#1188).
+  Falsify: C `done`/`paranoid_quit`/`yn_function` clear WIN_MESSAGE
+  after `n` vs JS leftover pline. Do not re-break mMoOdDxX (#1189).
 
 ## Don't re-check (≤15)
 
@@ -25,6 +24,8 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1698 open door as feature-char matching — doors skipped
+  in matching[]; need mMoOdDxX `gather_locs` (#1189).
 - Do not treat @1691 stone/corridor as typ-CORR win — blank S_stone
   glyph + lastseentyp STONE before typ (#1188; C lookat fallthrough).
 - Do not bare-promote blank→stone without last/typ STONE|SCORR gate
@@ -37,15 +38,15 @@ Objective/score live in `CURRENT.md`.
   invent_lines sticky Blind observe (#1186; #1180 was xname/doname).
 - Do not treat @1674 carry vs eat as `is_edible`/FOOD-only —
   `doeat` `check_capacity` (#1185).
-- Do not treat @1658 `/` vs `#` as open door — Blind `dosearch0`
-  `feel_location` mapped `WAN_OPENING` (#1184).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** Scr **11375**/11405 (seed4500 +1 @#1187; last full
-  @#1185 RNG **100%**); focused seed4500 Scr **1796** @#1188;
+  @#1185 RNG **100%**); focused seed4500 Scr **1798** @#1189;
   speed `30+0.26/turn`; next cadence @**#1190**.
+- **D-0928 #1189:** mMoOdDxX `gather_locs` + DOOR_PREV `D`;
+  prefix **@1698→@1712**; Scr **1796→1798**.
 - **D-0928 #1188:** blank S_stone before typ CORR (`brief_at`/
   `auto_describe`/`describe_looked`); prefix **@1691→@1698**;
   Scr **1794→1796**.
@@ -66,7 +67,5 @@ Objective/score live in `CURRENT.md`.
   Scr **1722→1723**.
 - **D-0928 #1180:** prop Blind in `doname`/`xname`; prefix
   **@1501→@1573**; Scr **1720→1722**.
-- **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**.
-- **D-0928 #1178:** polymon `vision_full_recalc`; prefix **@1441→@1464**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.

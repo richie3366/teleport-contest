@@ -1,3 +1,14 @@
+## 2026-07-21 16:09 — #1174 getpos cmap furniture fountain
+
+- Objective: seed4500 @1322 getpos C `fountain` vs JS `unexplored area`.
+- C locus: `pager.c` `lookat` cmap default → `defsyms[S_fountain].explanation`.
+- Change: `getpos.js` `cmap_defsym_explanation` fountain/sink/opulent
+  throne/grave/iron bars; S_altar align/high deferred (D-0928 #1174).
+- Verification: green+strict PASS; cohort 6/6; Scr **1576→1579**;
+  prefix **@1322→@1344**.
+- Next: @**1344** `#untrap` C `In what direction?` vs JS blank
+  (`dountrap` omits `untrap`→`getdir`).
+
 ## 2026-07-21 09:07 — #1125 score cadence + @106838 hypothesis
 - Objective: mandatory full `sessions` @#1125; sharpen seed4500 peel.
 - C locus: `monmove.c:1963` `rn2(4*(cnt-j))` (track skip in `m_move`).

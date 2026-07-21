@@ -33,9 +33,20 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1188)
+- **Status:** partial (#1080–#1189)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1796**/1814)
+  Scr **1798**/1814)
+- **Hypothesis (#1189):** @1698 — getpos `D` (DOOR_PREV) C
+  `open door` + cursor (63,7) vs JS blank/stale. JS lacked
+  `mMoOdDxX` / `gather_locs` — `D` fell through to unknown-direction.
+- **Fix (#1189):** `getpos.js` — `gather_locs_interesting` +
+  `gather_locs` (`cmp_coord_distu`) + `mMoOdDxX` next/prev cycle +
+  `@` SELF reset (`getpos.c`).
+- **Verification (#1189):** green+strict PASS; cohort 7/7
+  (0360/0012/0004/0361/0367/1500/1800); focused Scr **1796→1798**;
+  first miss **@1698→@1712** (`#quit` yn `n` leaves prompt vs C clear).
+- **Do not:** treat @1698 as feature-char matching (doors skipped in
+  matching[]); FORCE door coords.
 - **Hypothesis (#1188):** @1691 — Blind farlook getpos autodescribe
   C `stone` vs JS `corridor` at same cursor (blank map cell). Cell
   typ CORR but `disp_ch` space + `lastseentyp` STONE; C `lookat`
