@@ -21,9 +21,9 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-07-21** — full `sessions` @**#1185** (42/44,
 Scr **11374**/11405, RNG **100%**) + `doeat` `check_capacity`. Speed
-`30+0.26/turn`. Next cadence @**#1190**. #1187 seed4500 Scr
-**1793→1794**, first miss **@1689→@1691** (getpos `^R` done; farlook
-stone vs corridor).
+`30+0.26/turn`. Next cadence @**#1190**. #1188 seed4500 Scr
+**1794→1796**, first miss **@1691→@1698** (blank S_stone lookat;
+next getpos open door).
 
 ## Score
 
@@ -47,7 +47,7 @@ seed0360, seed0383, seed0399, seed0014, **seed2600**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed4500 | **108275**/108275 | 1794/1814 | knight; @1691 farlook stone/corridor |
+| seed4500 | **108275**/108275 | 1796/1814 | knight; @1698 getpos open door |
 
 ## Green gate
 
@@ -64,8 +64,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed4500 @1691** — Blind farlook getpos autodescribe: C `stone`
-vs JS `corridor` at same cursor after `^R` redraw. Focused:
+**seed4500 @1698** — getpos feature jump: C `open door` + cursor
+(63,7) vs JS blank + stale cursor after farlook. Focused:
 `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
 
 **Leaderboard 22-vs-42 gap** — local **42**/44 (D-0929 restored
@@ -76,7 +76,7 @@ revert. Next cron → upstream #5 if seed0013 restored.
 
 **Do not re-break D-0660…D-0929. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1187; teleds placebc (#1151);
+**Keep:** D-0845…D-0927; D-0928 #1119–#1188; teleds placebc (#1151);
 D-0929 look_here-only `keep_message_leftover` (not blanket corner);
 lastseentyp savelev/getlev (#1160); wakeup `wake_msg`+growl (#1161);
 zap_over_floor hissing-gas Norep + hit The (#1162);
@@ -106,8 +106,11 @@ SCORR feel + `unmap_invisible` (#1184);
 `doapply` nohands+capacity before getobj; invent_lines/
 display_pickinv prop Blind observe (#1186);
 getpos `redraw_cmd(^R)` + `getpos_refresh`/`flush_screen` +
-`show_goal_msg` (#1187).
+`show_goal_msg` (#1187);
+blank S_stone before typ CORR (`brief_at`/`auto_describe`/
+`describe_looked`) (#1188).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
+treat @1691 as typ-CORR win (#1188 was blank S_stone lookat);
 treat @1689 as getdir Unknown (#1187 was getpos redraw_cmd);
 treat @1679 as getobj-only (#1186 was nohands+capacity);
 treat @1681 invent typed names as doname-only (#1186 invent sticky Blind);

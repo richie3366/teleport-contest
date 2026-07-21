@@ -33,9 +33,23 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1187)
+- **Status:** partial (#1080–#1188)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1794**/1814)
+  Scr **1796**/1814)
+- **Hypothesis (#1188):** @1691 — Blind farlook getpos autodescribe
+  C `stone` vs JS `corridor` at same cursor (blank map cell). Cell
+  typ CORR but `disp_ch` space + `lastseentyp` STONE; C `lookat`
+  case `S_stone` fallthrough → defsyms `"stone"`; JS `brief_at`
+  used typ CORR.
+- **Fix (#1188):** `pager.js` `brief_at` / `describe_looked` +
+  `getpos.js` `auto_describe_text` — blank + seenv + stone memory
+  (`lastseentyp`/`typ` STONE|SCORR) before typ CORR (`pager.c`
+  `lookat` S_stone).
+- **Verification (#1188):** green+strict PASS; cohort 8/8 (incl.
+  seed0012/0360); focused Scr **1794→1796**; first miss
+  **@1691→@1698** (getpos `open door` vs blank / cursor desync).
+- **Do not:** typ-CORR before glyph blank S_stone; bare blank→stone
+  without last/typ gate (seed0012).
 - **Hypothesis (#1187):** @1689 — C getpos goal
   `Move cursor to a monster, object or location:` vs JS
   `Unknown direction: '^R'`. C `getpos` treats `redraw_cmd` like

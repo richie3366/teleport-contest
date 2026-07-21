@@ -624,13 +624,18 @@ function auto_describe_text(cx, cy) {
             return 'unexplored area';
         }
         const last = game.lastseentyp?.[cx]?.[cy] | 0;
+        // C lookat case S_stone: seenv → "stone" for STONE|SCORR, else
+        // fallthrough defsyms[S_stone] ("stone") even when typ is CORR but
+        // glyph memory is stone (lastseentyp STONE|SCORR). Bare blank→stone
+        // without last/typ gate breaks seed0012 (D-0813/D-0817).
         if (
             loc
-            && (loc.typ === STONE || loc.typ === SCORR)
             && loc.seenv
-            && (last === STONE || last === SCORR)
+            && (
+                last === STONE || last === SCORR
+                || loc.typ === STONE || loc.typ === SCORR
+            )
         ) {
-            // C lookat case S_stone + seenv + STONE|SCORR → "stone"
             return 'stone';
         }
         // C lookat glyph_is_unexplored → "unexplored area"

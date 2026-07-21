@@ -8,13 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1691** — Blind farlook getpos
-  autodescribe C `stone` vs JS `corridor` (same cursor after `^R`).
+- **Primary (D-0928):** seed4500 @**1698** — getpos feature jump
+  C `open door` + cursor (63,7) vs JS blank + stale cursor.
   Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C `lookat`/`auto_describe` / `lastseentyp` at (cx,cy) under
-  Blind mold (§7 dump at describe locus). Do not full-`docrt` in
-  `getpos_refresh` (#1187 used `flush_screen`).
+  Falsify: C `getpos` matching/`find_responsive` door scan vs JS
+  feature match after `/` farlook. Do not re-break blank S_stone
+  before typ CORR (#1188).
 
 ## Don't re-check (≤15)
 
@@ -25,6 +25,10 @@ Objective/score live in `CURRENT.md`.
 - Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
+- Do not treat @1691 stone/corridor as typ-CORR win — blank S_stone
+  glyph + lastseentyp STONE before typ (#1188; C lookat fallthrough).
+- Do not bare-promote blank→stone without last/typ STONE|SCORR gate
+  (seed0012; D-0813/D-0817).
 - Do not treat @1689 `^R` as getdir Unknown — getpos `redraw_cmd` (#1187).
 - Do not use full `docrt()` for getpos `^R` refresh under Blind —
   C is `docrtRefresh`/`redraw_map`; JS `flush_screen` (#1187).
@@ -35,16 +39,16 @@ Objective/score live in `CURRENT.md`.
   `doeat` `check_capacity` (#1185).
 - Do not treat @1658 `/` vs `#` as open door — Blind `dosearch0`
   `feel_location` mapped `WAN_OPENING` (#1184).
-- Do not treat @1650 `#wizwhere` More as NHW_TEXT `show_text_pages`
-  — C `print_dungeon` always NHW_MENU; dmore offset 2 (#1183).
-- Do not treat @1625 Kabalebo "not near enough" as shop nearness FORCE
-  — was Blind `dopay` `canspotmon` seensk stub (#1182).
 - Older don't-rechecks: D-0928/NOTES archive / journal.
 
 ## Landmarks (≤15)
 
 - suite **42/44** Scr **11375**/11405 (seed4500 +1 @#1187; last full
-  @#1185 RNG **100%**); speed `30+0.26/turn`; next cadence @**#1190**.
+  @#1185 RNG **100%**); focused seed4500 Scr **1796** @#1188;
+  speed `30+0.26/turn`; next cadence @**#1190**.
+- **D-0928 #1188:** blank S_stone before typ CORR (`brief_at`/
+  `auto_describe`/`describe_looked`); prefix **@1691→@1698**;
+  Scr **1794→1796**.
 - **D-0928 #1187:** getpos `redraw_cmd(^R)` + `getpos_refresh`;
   prefix **@1689→@1691**; Scr **1793→1794**.
 - **D-0928 #1186:** `doapply` nohands+capacity + invent prop Blind;
@@ -64,6 +68,5 @@ Objective/score live in `CURRENT.md`.
   **@1501→@1573**; Scr **1720→1722**.
 - **D-0928 #1179:** `timebot`/`time_botl`; prefix **@1464→@1501**.
 - **D-0928 #1178:** polymon `vision_full_recalc`; prefix **@1441→@1464**.
-- **D-0928 #1177:** `float_vs_flight` + `dropz` encumber; **@1438→@1441**.
 - **D-0929 #1156:** look_here-only `keep_message_leftover`; suite
   **38→42**.
