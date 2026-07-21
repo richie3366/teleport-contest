@@ -1365,9 +1365,15 @@ function carrying(otyp) {
     return null;
 }
 
-/** C ref: dig.c holetime — dig occupation in shop; stub: not digging. */
+/** C ref: dig.c holetime — dig occupation in shop (D-0951). */
 function holetime() {
-    return -1;
+    // Mirror dig.js holetime without static dig import (cycle risk via pay).
+    // dig occupation sets occtxt to "digging"/"chopping" via set_occupation.
+    if (typeof game.occupation !== 'function') return -1;
+    const txt = game.occtxt || '';
+    if (txt !== 'digging' && txt !== 'chopping') return -1;
+    if (!(game.u?.ushops)) return -1;
+    return ((250 - ((game.context?.digging?.effort) | 0)) / 20) | 0;
 }
 
 /** C: onlineu(xx,yy) → online2(xx,yy,u.ux,u.uy) */

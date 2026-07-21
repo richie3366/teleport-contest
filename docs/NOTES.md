@@ -13,11 +13,11 @@ Objective/score live in `CURRENT.md`.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0950** `dig_check`/`digactualhole`/`fillholetyp` +
-  break-wand dig/create + dig `pay_for_damage`. Falsifier: green +
-  wizard/dig cohort.
-- Next cluster: pickaxe `dig`/`is_digging`/`use_pick_axe`; break-wand
-  strike/cancel/poly bhit; pool-lava reach; `vault_gd_watching`.
+- Latest: **D-0951** pickaxe `use_pick_axe`/`use_pick_axe2`/`dig`
+  occupation + `dig_typ`/`is_digging`/`holetime`/`dighole` thin +
+  fracture_rock/break_statue. Falsifier: green + dig/arch cohort.
+- Next cluster: break-wand strike/cancel/poly bhit; pool-lava reach;
+  `vault_gd_watching`; furniture_handled / HOLE `goto_level`.
 - Cadence full `sessions` next @**#1220**.
 
 ## Don't re-check (≤15)
@@ -39,13 +39,15 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN / multi-turn rations (D-0935) … kick_door shop/watch
   (D-0947), zap door/bars/`dobuzz` pay (D-0948), explode/break-wand
-  explode-types (D-0949), or dig helpers/break-wand dig (D-0950).
+  explode-types (D-0949), dig helpers/break-wand dig (D-0950), or
+  pickaxe dig occupation (D-0951).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 
 ## Landmarks (≤15)
 
 - Suite @**#1215**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.29/turn`.
+- **D-0951:** pickaxe dig occupation / use_pick_axe / is_digging.
 - **D-0950:** dig_check/digactualhole + break-wand dig/create pay.
 - **D-0949:** `explode` shop pay + `do_break_wand` explode-types.
 - **D-0948:** `zap_over_floor` shop door/bars + `dobuzz` pay.
@@ -58,5 +60,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0941:** `add_damage`/`watch_dig`/`angry_guards` + still_chewing.
 - **D-0940:** tin `costly_tin`/`use_tin_opener` + `costly_alteration`.
 - **D-0939:** `cprefx` + cannibal/stone/slime; start_eating wire.
-- **D-0938:** `b_trapped` + `make_stunned`; tin/door/chew/kick.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

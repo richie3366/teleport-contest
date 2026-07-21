@@ -93,7 +93,9 @@ peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **D-0949** (`explode` shop pay + `do_break_wand` explode-types — do not
 re-stub);
 **D-0950** (`dig_check`/`digactualhole` + break-wand dig/create pay —
-do not re-stub).
+do not re-stub);
+**D-0951** (`use_pick_axe`/`dig` occupation/`is_digging`/`dig_typ`/
+`holetime` — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear

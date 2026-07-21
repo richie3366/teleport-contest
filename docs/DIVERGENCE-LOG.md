@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0951 — pickaxe dig occupation / use_pick_axe
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** applying a pick-axe/mattock/axe said "Sorry"; `is_digging()`
+  always false so watch/shop dig follow never saw an occupation.
+- **Cause:** named constitutional debt (`debt.md` after D-0950) —
+  `use_pick_axe`/`dig` occupation/`dig_typ` absent.
+- **C locus:** `dig.c` `pick_can_reach` / `dig_typ` / `is_digging` /
+  `holetime` / `dig` / `digcheck_fail_message` / `dighole` /
+  `use_pick_axe` / `use_pick_axe2`; `zap.c` `fracture_rock` /
+  `break_statue`; `apply.c` `doapply` pick/axe cases.
+- **JS:** `dig.js` occupation cluster + thin `dighole`; `apply.js`
+  `doapply` → `use_pick_axe`; `shk.js` `holetime` mirrors dig occupation.
+  Deferred: `furniture_handled`; HOLE `goto_level`; `mkcavearea`;
+  `dig_up_grave`; conjoined_pits; autodig quiet; `shopdig`;
+  STATUE_TRAP activate; break-wand bhit; pool-lava/`vault_gd_watching`.
+- **Verify:** green+strict; shared cohort 12/12; arch/wizard extras 5/5.
+
 ## D-0950 — break-wand dig/create + dig helpers
 
 - **Status:** fixed (map-driven debt retirement)

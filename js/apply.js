@@ -1282,9 +1282,10 @@ async function do_break_wand(obj) {
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
- * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create).
+ * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create) +
+ * is_pick/is_axe → use_pick_axe (D-0951).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
- * whip/grapple/blindfold/lenses; use_stone; use_pole/use_pick_axe; traps;
+ * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms; camera closeup; most non-instrument
  * tools; break-wand strike/cancel/poly/tele/undead adjacent + WAN_LIGHT.
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -1377,6 +1378,13 @@ export async function doapply() {
     // C apply.c case TIN_OPENER → use_tin_opener (D-0940)
     if (obj.otyp === TIN_OPENER) {
         const res = await use_tin_opener(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c PICK_AXE/DWARVISH_MATTOCK + default is_pick|is_axe (D-0951)
+    if (is_pick(obj) || is_axe(obj)) {
+        const { use_pick_axe } = await import('./dig.js');
+        const res = await use_pick_axe(obj);
         return (res & ECMD_TIME) !== 0;
     }
 
