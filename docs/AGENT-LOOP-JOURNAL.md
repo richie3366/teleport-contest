@@ -12,14 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## YYYY-MM-DD HH:MM — #NNNN short title
 
-- Objective: …
-- C locus: …
-- Change: …
-- Verification: …
-- Next: …
-```
+## 2026-07-21 15:05 — #1166 unmap_object map_background + fight_empty
+
+- Objective: seed4500 @1048 Blind map `:_` vs C DEC ROOM `~~`.
+- C locus: `display.c` `unmap_object` (background not objects);
+  `hack.c` `domove_fight_empty` always unmap.
+- Change: `map_background` + fix `unmap_object`; fight_empty always
+  unmap (+ boulder/statue remap); export `map_object` (D-0928 #1166).
+- Verification: green+strict PASS; cohort 19/19; prefix **@1048→@1053**;
+  Scr **1434→1413**.
+- Next: @**1053** carrots alternate-weapons prinv vs bites.
 
 ## 2026-07-21 14:49 — #1165 public score + Blind ice diagnosis
 
@@ -178,4 +181,3 @@ Use this shape:
 - Verification: green+strict PASS; cohort 14/14; Scr **1366→1386**;
   prefix **@814→@831**.
 - Next: @**831** C `You hear the howling of the CwnAnnwn...--More--`.
-

@@ -8,12 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Leaderboard 22-vs-42 gap — await cron; D-0483 serialize revert.
-- **Primary (D-0928):** seed4500 @**1048** — Blind map screen
-  `(41,6)`/`(42,6)` (= map `(42,6)`/`(43,6)`): C DEC ice `~~`
-  vs JS lizard `:` + iron chain `_`. Focused:
+- **Primary (D-0928):** seed4500 @**1053** — C carrots
+  `(alternate weapons; not wielded)` after wield @1052 vs JS bites.
+  Focused:
   `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`
-  Falsify: C dump `levl[42][6].typ` / `glyph` vs JS ROOM + mem
-  corpse/chain; or port `feel_location` / ice typ under Punished.
+  Falsify: dump `uswapwep` / ready_weapon second prinv vs C; or
+  Blind `set_bc` side-effect on swap slot.
 
 ## Don't re-check (≤15)
 
@@ -35,19 +35,20 @@ Objective/score live in `CURRENT.md`.
   Medusa `"shallow sea"` (#1163).
 - Do not treat @997 hissing vs fire-hits-you as buzz reorder — was
   missing `zap_over_floor` Norep + The (#1162).
-- Do not treat @1048 `:_` as generic Blind floor glyphs — JS paints
-  lizard corpse + chain on ROOM; C ice memory (DEC `~`) (#1165).
-  Neighbor C `~` vs JS `·` still match via DEC_MAP.
+- Do not treat @1048 `:_` as ICE typ / feel_location-only — was
+  `unmap_object`→`map_location` + fight_empty I-only unmap (#1166).
+  C DEC ROOM `~` ≡ ice-looking; zero ICE cells on level.
 
 ## Landmarks (≤15)
 
 - suite **42/44** @#1165 Scr **11024**/11405 RNG **792838**/792838
   (**100%**); speed `30+0.25/turn`; next cadence @**#1170**.
-- **D-0928 #1165:** score cadence; @1048 = 2 cells — C ice `~~` vs
-  JS `:`/`_` (corpse+chain); typ ROOM in JS.
+- **D-0928 #1166:** unmap_object `map_background` + fight_empty
+  always-unmap; prefix **@1048→@1053**; Scr **1434→1413**.
+- **D-0928 #1165:** score cadence; @1048 diagnosed (fixed #1166).
 - **D-0928 #1164:** drop invent create_particular appear; add
   `makemon_appear_msg` (req x,y next2u + MM_NOEXCLAM); Scr
-  **1433→1434**; prefix **@1034→@1048** Blind ice vs objs.
+  **1433→1434**; prefix **@1034→@1048**.
 - **D-0928 #1163:** `waterbody_name` Medusa/juiblex/samurai/ICE/
   waterlevel; Scr **1431→1433**; @1001 OK; next @1034 wizgenesis.
 - **D-0928 #1162:** zap_over_floor hissing-gas Norep + hit The;

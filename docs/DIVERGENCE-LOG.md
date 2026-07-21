@@ -33,21 +33,34 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
 ## D-0928 — @88377 linedup was Blind rush onto remembered `I`
 
-- **Status:** partial (#1080–#1165)
+- **Status:** partial (#1080–#1166)
 - **Session:** seed4500-knight-coverage (RNG complete **108275**/108275;
-  Scr **1434**/1814)
+  Scr **1413**/1814)
+- **Hypothesis (#1166):** @1048 — C DEC ROOM floor `~~` (not ICE typ;
+  zero ICE on level) vs JS stale object memory `:`/`_` after
+  `You attack thin air`. JS `unmap_object` wrongly called
+  `map_location` (re-maps floor objs); C uses trap/engraving/
+  `map_background` only. JS `domove_fight_empty` only unmapped
+  when glyph was `I`; C always `unmap_object` then optional
+  boulder/statue `map_object`.
+- **Fix (#1166):** `display.js` `map_background` + `unmap_object`
+  ≡ C; export `map_object`; `cmd.js` `domove_fight_empty` always
+  unmap (+ boulder/statue remap). Named omissions: dig-with-pick,
+  Underwater, explode poly, ansimpleoname, Blind `set_bc`/`move_bc`
+  glyph arms, `feel_location`.
+- **Verification (#1166):** green+strict PASS; cohort 19/19; focused
+  seed4500 prefix **@1048→@1053**; Scr **1434→1413** (topline
+  desync @1053–@1056 then resync). Next: @**1053** C carrots
+  `(alternate weapons; not wielded)` vs JS bites (uswapwep/
+  ready_weapon prinv).
 - **Hypothesis (#1165):** @1048 — only 2 map cells miss: screen
-  `(41,6)`/`(42,6)` (= map `(42,6)`/`(43,6)`). C DEC ice `~~`
-  (NO_COLOR) vs JS lizard corpse `:` + iron chain `_`. JS `typ` is
-  ROOM with remembered_glyph from `map_object` (move_bc / newsym);
-  neighbor C `~` vs JS `·` still match via DEC_MAP. Likely missing
-  `feel_location` / ICE typ under Punished Blind memory — not
-  generic floor glyphs.
+  `(41,7)`/`(42,7)` (= map `(42,6)`/`(43,6)`). C DEC ice/ROOM `~~`
+  vs JS lizard/statue `:` + iron chain `_`. Falsified as ICE typ
+  — was stale memory after fight_empty (#1166).
 - **Change (#1165):** cadence score only (no port fix). Full
   `sessions` **42**/44 Scr **11024**/11405 RNG **100%**.
 - **Verification (#1165):** green+strict PASS; focused seed4500
-  Scr **1434**/1814 held. Next: C dump `levl` typ/glyph at those
-  coords, or port `feel_location` / ice persistence.
+  Scr **1434**/1814 held.
 - **Hypothesis (#1164):** @978/@1034 — NOTES claimed C empty vs JS
   invent `A minotaur appears close by.` Dropping invent emptied
   @978 where C shows `A red dragon appears next to you.` Root:
