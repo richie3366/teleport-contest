@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1006 — mon_poly monster-defender + newcham null-mdat
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-1004 — `mon_poly` deferred
+  monster-defender arm; `newcham(mtmp, null)` rejected ordinary
+  non-cham (blocked AD_POLY / wand-poly random forms).
+- **C locus:** `mhitm.c` `mon_poly`; `uhitm.c` `mhitm_ad_poly`;
+  `mon.c` `newcham`; `makemon.c` `mbirth_limit`; `mondata.c`
+  `resists_magm`; `zap.c` `resist` (WAND_CLASS).
+- **Fix:** port monster-defender resists_magm/resist/system-shock/
+  newcham/tele follow-up + mspec_used; wire `mdamagem` AD_POLY via
+  `mhitm_ad_poly`; allow `newcham` null-mdat for non-cham + Nazgul/
+  Erinys `mbirth_limit`.
+- **Deferred:** uhitm `damageum` poly'd-hero weaponless path;
+  shieldeff/shieldeff_mon; ANTIMAGIC gear scan in resists_magm;
+  TELL resist pline; cancelled→uncancel before random form;
+  monster-defender `magic_negation` in `mhitm_mgc_atk_negated`.
+- **Verify:** green+strict PASS; poly/combat cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing; seed0398 wandpoly PASS).
+  Rule #2: no fs.
+
 ## D-1005 — apply leash cluster (use_leash / next_to_u / check_leash)
 
 - **Status:** fixed (map-driven debt retirement)

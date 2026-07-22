@@ -1103,7 +1103,7 @@ async function mhitm_ad_legs_u(mtmp, _mattk, mhm) {
 /**
  * C ref: uhitm.c mhitm_ad_poly — mhitu (mdef == youmonst) arm.
  * hitmsg; if Maybe_Half_Phys(dmg) < current HP → mon_poly or negated msg.
- * Named omissions: magr.mcan You aren't transformed polish; uhitm/mhitm arms.
+ * Named omissions: magr.mcan You aren't transformed polish.
  */
 async function mhitm_ad_poly_u(mtmp, mattk, mhm) {
     await hitmsg(mtmp, mattk);

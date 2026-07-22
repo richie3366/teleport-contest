@@ -1,3 +1,17 @@
+## 2026-07-22 04:00 — #1262 D-0992 flooreffects fire/altar/hot
+
+**Objective:** map-driven — remaining flooreffects arms (CURRENT
+next: fire_damage / altar / hot potion).
+**C locus:** `do.c` flooreffects/doaltarobj/drop/dropx; `trap.c`
+fire_damage/lava_damage.
+**Changed:** port fire_damage + lava fallthrough; doaltarobj + dropx
+wire + drop skip-verbose; hot ROOM/CORR potion shatter via breakobj;
+export breakobj. Globby pudding_merge still deferred.
+**Verification:** green+strict PASS; altar/throw cohort 20/21
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** globby merge; or sellobj/check_shop_obj; or barefoot/
+tmp_at; or absent.md thin. Cadence @#1265.
+
 ## 2026-07-22 03:52 — #1261 D-0991 costly_gold/donate_gold
 
 **Objective:** map-driven — costly_gold/donate_gold kick+addtobill

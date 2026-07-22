@@ -74,8 +74,7 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** absent.md thin (scroll/vault / other potions); or
-mon_poly monster-defender / other in_trouble majors; or saddle/
-whistle apply.
+in_trouble majors; or saddle/whistle apply.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -92,7 +91,8 @@ peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
 **D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
-**D-0955**…**D-1005** (… leash use_leash/next_to_u — do not re-stub).
+**D-0955**…**D-1006** (… mon_poly monster-defender / newcham —
+do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
@@ -122,7 +122,8 @@ re-stub ParanoidWerechange/Hit / `you_were`/`you_unwere` (D-1001);
 re-stub allmain Teleport/Poly/ulycn once-per-turn (D-1002);
 re-stub `warnreveal`/`overexert_hp`/Upolyd eel `regen_hp` (D-1003);
 re-stub pray lycan / peffect_water / mon_poly youmonst (D-1004);
-re-stub leash `use_leash`/`next_to_u`/`check_leash` (D-1005).
+re-stub leash `use_leash`/`next_to_u`/`check_leash` (D-1005);
+re-stub `mon_poly` monster-defender / `newcham` null-mdat (D-1006).
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

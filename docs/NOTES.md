@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1005** apply leash — `use_leash`/`next_to_u`/
-  `check_leash` + `m_unleash`/`whimper` + domove/stairs/tele wires.
-- **Next cluster:** absent.md thin (scroll/vault / potions); or
-  mon_poly monster-defender; or saddle/whistle apply.
+- Latest: **D-1006** mon_poly monster-defender + `newcham` null-mdat
+  / mbirth_limit + mdamagem AD_POLY wire.
+- **Next cluster:** absent.md thin (scroll/vault/potions); or
+  in_trouble majors; or saddle/whistle apply.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -40,8 +40,8 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  leash use_leash/next_to_u (D-1005) or drop `objects_at` from timeout
-  mkobj (D-0980).
+  mon_poly monster-defender/newcham (D-1006) or drop `objects_at` from
+  timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -53,6 +53,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1275**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
 - **D-1005:** leash use_leash/next_to_u/check_leash + whimper.
 - **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
 - **D-1003:** warnreveal + overexert_hp + Upolyd eel regen_hp.
@@ -69,5 +70,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0995:** instapetrify + barefoot kick petrify + bhit DISP_FLASH.
 - **D-0994:** sellobj/check_shop_obj + saleable/set_cost/contained_cost
   + dropz/dodrop/throwit/breakobj.
-- **D-0993:** globby pudding_merge/obj_meld + flooreffects/make_corpse.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 05:49 — #1277 D-1006 mon_poly mon-defender
+
+**Objective:** map-driven — mon_poly monster-defender + newcham
+null-mdat (CURRENT next cluster).
+**C locus:** `mhitm.c` mon_poly; `uhitm.c` mhitm_ad_poly; `mon.c`
+newcham; `makemon.c` mbirth_limit; resists_magm / resist WAND_CLASS.
+**Change:** port mon-defender resists/resist/shock/newcham/tele +
+mspec_used; wire mdamagem AD_POLY; allow newcham(null) for ordinary
+non-cham + Nazgul/Erinys mbirth_limit — D-1006.
+**Verified:** green+strict PASS; poly/combat cohort **15**/16
+(seed0009 Scr 72/73 pre-existing; seed0398 wandpoly PASS). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
+or saddle/whistle.
+**Blocked:** none.
+
 ## 2026-07-22 05:45 — #1276 D-1005 leash cluster
 
 **Objective:** map-driven — `next_to_u`/`check_leash` + `use_leash`
@@ -210,16 +225,3 @@ nexto/message; thin shrink_glob; wire flooreffects + invent merged
 (seed0009 Scr 72/73 pre-existing). Rule #2 ok.
 **Next:** sellobj/check_shop_obj; or barefoot petrify/tmp_at; or
 absent.md thin. Cadence full sessions @#1265.
-## 2026-07-22 04:00 — #1262 D-0992 flooreffects fire/altar/hot
-
-**Objective:** map-driven — remaining flooreffects arms (CURRENT
-next: fire_damage / altar / hot potion).
-**C locus:** `do.c` flooreffects/doaltarobj/drop/dropx; `trap.c`
-fire_damage/lava_damage.
-**Changed:** port fire_damage + lava fallthrough; doaltarobj + dropx
-wire + drop skip-verbose; hot ROOM/CORR potion shatter via breakobj;
-export breakobj. Globby pudding_merge still deferred.
-**Verification:** green+strict PASS; altar/throw cohort 20/21
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** globby merge; or sellobj/check_shop_obj; or barefoot/
-tmp_at; or absent.md thin. Cadence @#1265.
