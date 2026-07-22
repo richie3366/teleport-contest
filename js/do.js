@@ -1573,7 +1573,7 @@ function freeinv_drop(obj) {
 /**
  * C ref: do.c dropz — place at hero feet; always encumber_msg (polyself
  * break_armor armor-drop More packs load before gloves).
- * Named omissions: engulf digest; shop sell; altar; ball;
+ * Named omissions: engulf digest; shop sell wired (D-0994); altar; ball;
  * container_impact; impact_disturbs_zombies.
  */
 export async function dropz(obj, _with_impact) {
@@ -1593,6 +1593,11 @@ export async function dropz(obj, _with_impact) {
         return;
     }
     place_object(obj, u.ux, u.uy);
+    // C: sellobj when has_shop (after place, before stack)
+    if (game.level?.flags?.has_shop) {
+        const { sellobj } = await import('./shk.js');
+        await sellobj(obj, u.ux | 0, u.uy | 0);
+    }
     stackobj(obj);
     newsym(u.ux, u.uy);
     // C dropz → encumber_msg() after place (capacity may cross on poly form)
@@ -1622,7 +1627,7 @@ export async function dropx(obj) {
 /**
  * C ref: do.c drop — canletgo, unwield, verbose pline, dropx.
  * Named omissions: corpse better_not_try; sink rings; levitation
- * hitfloor/Heart of Ahriman; swallowed digests path; shop sell state.
+ * hitfloor/Heart of Ahriman; swallowed digests path.
  */
 async function drop(obj) {
     if (!obj) return ECMD_FAIL;
@@ -1710,14 +1715,29 @@ async function getobj_drop() {
 }
 
 /**
- * C ref: do.c dodrop — getobj then drop (shop sellobj_state /
- * reset_occupations deferred).
+ * C ref: do.c dodrop — getobj then drop; shop sellobj_state around drop.
+ * reset_occupations deferred.
  *
  * Branch envelope: ordinary floor drop of invent item including uwep;
  * cancel / missing letter / worn armor reject. Deferred: #droptype,
- * count-split, shops, sinks, flooreffects, containers.
+ * count-split, sinks, containers.
  */
 export async function dodrop() {
+    const u = game.u || {};
+    const inshop = !!(u.ushops && u.ushops.length);
+    if (inshop) {
+        const { sellobj_state } = await import('./shk.js');
+        const { SELL_DELIBERATE, SELL_NORMAL } = await import('./const.js');
+        sellobj_state(SELL_DELIBERATE);
+        const obj = await getobj_drop();
+        if (!obj) {
+            sellobj_state(SELL_NORMAL);
+            return ECMD_CANCEL;
+        }
+        const result = await drop(obj);
+        sellobj_state(SELL_NORMAL);
+        return result;
+    }
     const obj = await getobj_drop();
     if (!obj) return ECMD_CANCEL;
     return drop(obj);

@@ -18,12 +18,14 @@ This is a planning list, not an exhaustive C file inventory:
   (`kick_object`+`bhit` KICKED via D-0988; Is_box/`ghitm` via D-0989;
   `hits_bars`/`hit_bars` via D-0990; costly_gold/donate_gold via D-0991;
   fire_damage/altar/hot potion via D-0992; globby pudding_merge via
-  D-0993; barefoot petrify / tmp_at flash still deferred;
+  D-0993; sellobj/check_shop_obj via D-0994; barefoot petrify /
+  tmp_at flash still deferred;
   throne/`fall_through`/tree via D-0986; SDOOR/altar/fountain/grave/sink
   via D-0985);
 - apply beyond lock-pick no-door (containers, other tools);
 - potions, scrolls, wands, spells, equipment, artifacts;
-- shops/priests/vault guards and billing;
+- shops/priests/vault guards and billing (sellobj/check_shop_obj
+  throw-land + drop via D-0994; remaining dopay/appease arms);
 - level transitions, branches, quests, and special levels;
 - pure-JS Lua 5.4 runtime plus `nh.*` bindings;
 - save/restore JSON VFS subset (D-0335 — `dosave`/`dosave0`/`try_restore_save`;

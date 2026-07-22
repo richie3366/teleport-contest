@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 04:20 — #1264 D-0994 sellobj/check_shop_obj
+
+**Objective:** map-driven — sellobj/check_shop_obj throw-land bill
+(CURRENT next).
+**C locus:** `shk.c` sellobj/sellobj_state/set_cost/contained_cost/
+dropped_container/special_stock/shk_names_obj/money2u/pay; `shknam.c`
+saleable/veggy_item; `dothrow.c` check_shop_obj; `do.c` dropz/dodrop.
+**Change:** saleable+helpers; sellobj+check_shop_obj; wire drop/
+throw/break; billable contained_*; pay→money2u (D-0994).
+**Verification:** green+strict PASS; shop/throw cohort **11**/12
+(seed0009 pre-existing). Rule #2 ok.
+**Next:** barefoot petrify/tmp_at; or absent.md thin; or dopay
+appease. Cadence full sessions @#1265.
+
 ## 2026-07-22 04:10 — #1263 D-0993 globby pudding_merge/obj_meld
 
 **Objective:** map-driven — globby coalesce cluster (CURRENT next).
@@ -224,20 +238,6 @@ NOTES/turns/divergence/journal; rotated #1234 crumb to archive.
 **Verified:** green+strict PASS; full suite **43**/44 Scr
 **11404**/11405 RNG **100%** speed `32+0.27/turn` (seed0009 Scr
 FAIL pre-existing). Rule #2: no fs.
-**Next:** absent.md thin systems or remaining debt (opening traps /
-SPE_KNOCK hurtle; montraits; shop stolen_value).
-**Blocked:** none.
-
-## 2026-07-22 02:08 — #1249 D-0979 release_hold/flash_hits
-
-**Objective:** map-driven — retire release_hold WAN_OPENING /
-flash_hits from CURRENT next cluster / debt.
-**Changed:** port `zap.c release_hold`; wire break/zapyourself/bhitm
-WAN_OPENING; move `flash_hits_mon`/`light_hits_gremlin` to uhitm;
-wire WAN_LIGHT + FLASHED_LIGHT minvis (D-0979). Docs: CURRENT/NOTES/
-debt/divergence/journal.
-**Verified:** green+strict PASS; zap/apply cohort **34**/35
-(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
 **Next:** absent.md thin systems or remaining debt (opening traps /
 SPE_KNOCK hurtle; montraits; shop stolen_value).
 **Blocked:** none.

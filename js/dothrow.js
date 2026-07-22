@@ -625,11 +625,11 @@ async function breakmsg(obj, in_view) {
 /**
  * C ref: dothrow.c breakobj — side effects then delobj (non-fracture).
  * Named omit: crackable erode_obj; explode_oil; release_camera_demon;
- * shop check_shop_obj / stolen_value / make_angry_shk; pyrolisk explode.
+ * pyrolisk explode; break_seq simultaneous make_angry polish.
  * @returns {Promise<number>} 1 if destroyed
  */
 /** Exported for flooreffects hot-ground shatter (do.c; D-0992). */
-export async function breakobj(obj, x, y, hero_caused, _from_invent) {
+export async function breakobj(obj, x, y, hero_caused, from_invent) {
     if (!obj) return 0;
     if (is_crackable(obj)) {
         // erode_obj ERODE_CRACK deferred — still remove for striking path
@@ -666,7 +666,32 @@ export async function breakobj(obj, x, y, hero_caused, _from_invent) {
     default:
         break;
     }
-    // shop billing deferred
+    // C: hero_caused shop billing (D-0994)
+    if (hero_caused) {
+        const { check_shop_obj, stolen_value, costly_spot, shop_keeper,
+            make_angry_shk } = await import('./shk.js');
+        const { in_rooms } = await import('./hack.js');
+        const { SHOPBASE, ESHK } = await import('./const.js');
+        const ushops = game.u?.ushops || '';
+        if (from_invent || obj.unpaid) {
+            if (ushops || obj.unpaid) {
+                await check_shop_obj(obj, x, y, true);
+            }
+        } else if (!obj.no_charge && costly_spot(x, y)) {
+            const o_shop = in_rooms(x, y, SHOPBASE) || '';
+            const shkp = shop_keeper(o_shop.charCodeAt(0) || 0);
+            if (shkp) {
+                const loss = await stolen_value(
+                    obj, x, y, !!shkp.mpeaceful, false,
+                );
+                if (loss > 0
+                    && o_shop.charCodeAt(0) !== (ushops.charCodeAt(0) || 0)) {
+                    await make_angry_shk(shkp, x, y);
+                }
+                void ESHK;
+            }
+        }
+    }
     if (!fracture) delobj(obj);
     return 1;
 }
@@ -814,6 +839,14 @@ async function throwit(obj) {
         if (await ship_object(obj, x, y, false)) return;
     }
     place_object(obj, x, y);
+    // C: charge / take possession for shop throw land (D-0994)
+    {
+        const ushops = game.u?.ushops || '';
+        if ((ushops || obj.unpaid) && obj !== game.u?.uball) {
+            const { check_shop_obj } = await import('./shk.js');
+            await check_shop_obj(obj, x, y, false);
+        }
+    }
     // C: throwit → stackobj after place_object
     stackobj(obj);
     // C dothrow.c throwit: if (cansee(bhitpos)) newsym — land glyph

@@ -15,10 +15,9 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0993** globby pudding_merge/obj_meld + flooreffects/
-  make_corpse.
-- **Next cluster:** sellobj/check_shop_obj; or barefoot petrify /
-  tmp_at flash; or absent.md thin (potion/scroll/vault).
+- Latest: **D-0994** sellobj/check_shop_obj + drop/throw bill.
+- **Next cluster:** barefoot petrify / tmp_at flash; or absent.md
+  thin (potion/scroll/vault); or dopay appease arms.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +38,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through pudding_merge
-  (D-0993) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through sellobj
+  (D-0994) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -52,6 +51,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1260**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `32+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0994:** sellobj/check_shop_obj + saleable/set_cost/contained_cost
+  + dropz/dodrop/throwit/breakobj.
 - **D-0993:** globby pudding_merge/obj_meld + flooreffects/make_corpse.
 - **D-0992:** fire_damage/doaltarobj/hot potion + dropx/flooreffects.
 - **D-0991:** costly_gold/donate_gold + addtobill coin/gltmp + kick.
@@ -64,7 +65,4 @@ Objective/score live in `CURRENT.md`.
   disturb_grave / sink_backs_up.
 - **D-0984:** ship_object/otransit_msg + dropx/throwit/drop_throw.
 - **D-0983:** stolen_value + revive/kick/dig/lock/costly_alteration.
-- **D-0982:** save_mtraits/montraits/ghost + KEEPTRAITS/wary_dog.
-- **D-0981:** openholding/openfalling + boxlock_invent + SPE_KNOCK
-  mhurtle/saddle.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

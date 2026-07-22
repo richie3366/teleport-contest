@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0994 — sellobj / check_shop_obj throw-land + drop bill
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0993 — drop/throw into a shop
+  skipped sale/`no_charge`/unpaid subfrombill; `breakobj` shop theft
+  arms deferred; `saleable`/`set_cost`/`contained_cost`/`money2u`
+  absent so sell path could not run.
+- **C locus:** `shk.c` `sellobj`/`sellobj_state`/`set_cost`/
+  `dropped_container`/`special_stock`/`shk_names_obj`/`contained_cost`/
+  `money2u`/`pay`; `shknam.c` `saleable`/`veggy_item`; `dothrow.c`
+  `check_shop_obj` + `breakobj`/`throwit` callers; `do.c` `dropz`/
+  `dodrop`.
+- **Fix:** port saleable+veggy_item; set_cost/contained_cost/
+  dropped_container/special_stock/shk_names_obj/money2u; sellobj +
+  sellobj_state; check_shop_obj; wire dropz/dodrop + throwit/breakobj;
+  billable no_charge uses contained_*; pay → money2u on sell.
+- **Deferred:** Izchak candle special_stock polish; SetVoice;
+  safe_qbuf sell prompt; money2u invent-full dropy; break_seq
+  simultaneous shatter; barefoot petrify; tmp_at flash.
+- **Verify:** green+strict PASS; shop/throw/kick cohort **11**/12
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0993 — globby pudding_merge / obj_meld / flooreffects
 
 - **Status:** fixed (map-driven debt retirement)
