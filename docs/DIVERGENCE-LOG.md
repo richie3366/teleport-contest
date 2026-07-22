@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0981 — openholding/openfalling + SPE_KNOCK hurtle/saddle
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0979 — WAN_OPENING/SPE_KNOCK left
+  holding/falling traps closed, invent boxes untouched, SPE_KNOCK no
+  knockback, saddle never dropped.
+- **C locus:** `trap.c` `openholdingtrap`/`openfallingtrap`/`reward_untrap`;
+  `zap.c` `bhitm`/`zapyourself`/`boxlock_invent`; `lock.c` `boxlock`;
+  `dothrow.c` `mhurtle`; `uhitm.c` `m_is_steadfast`.
+- **Fix:** port trap open helpers + invent `boxlock`; wire Punished
+  `unpunish` + trap/box paths on self-zap; mon path openholding →
+  openfalling → SPE_KNOCK `mhurtle` / WAN_OPENING saddle drop.
+  Deferred: mhurtle petrify/steed/`minliquid`/NODIAG; closeholdingtrap;
+  floor `bhito` boxlock; montraits/stolen_value.
+- **Verification:** green+strict PASS; zap cohort **20**/21 (seed0009
+  Scr 72/73 pre-existing).
+- **Files:** `js/trap.js`, `js/lock.js`, `js/dothrow.js`, `js/uhitm.js`,
+  `js/zap.js`, `docs/c-js-map/debt.md`.
+
 ## D-0980 — restore `objects_at` import in `timeout.js`
 
 - **Status:** fixed (fortress regression from D-0978)

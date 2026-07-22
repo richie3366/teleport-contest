@@ -12,14 +12,14 @@ import {
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
     MIM_REVEAL, engulfing_u, OBJ_FREE, MON_DETACH,
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
-    HAND, A_LAWFUL,
+    HAND, A_LAWFUL, Is_airlevel, Is_waterlevel,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
     objectNameStrs, objectNames,
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, acurr, adjalign, change_luck } from './attrib.js';
-import { overexertion, nomul, losehp } from './hack.js';
+import { overexertion, nomul, losehp, is_pool } from './hack.js';
 import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more } from './display.js';
 import { cansee } from './vision.js';
 import {
@@ -36,20 +36,24 @@ import {
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes,
-    is_golem, is_mplayer, is_rider, is_undead,
+    is_golem, is_mplayer, is_rider, is_undead, is_flyer, is_floater,
 } from './monsters.js';
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
 } from './mkobj.js';
-import { monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2, wake_nearto } from './mon.js';
+import {
+    monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
+    wake_nearto, m_carrying,
+} from './mon.js';
 import { monflee } from './monmove.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { mon_explodes } from './explode.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
-import { artifact_hit, youmonst } from './artifact.js';
+import { artifact_hit, youmonst, is_art } from './artifact.js';
 import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.js';
 import { abuse_dog } from './dog.js';
+import { ART_GIANTSLAYER } from './generated/artifacts_data.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
@@ -80,8 +84,77 @@ const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
 const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
+const LOADSTONE = objectNames.indexOf('LOADSTONE');
 // C objclass.h ARM_SHIELD — armor oc_skill / oc_armcat
 const ARM_SHIELD = 1;
+
+/** C youprop.h Levitation for m_is_steadfast. */
+function Levitation_steadfast() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+
+/** C youprop.h Flying for m_is_steadfast. */
+function Flying_steadfast() {
+    const u = game.u || {};
+    if (u.Flying) return true;
+    const steedFly = !!(u.usteed && is_flyer(u.usteed.data));
+    return !!(((u.HFlying | 0) || (u.EFlying | 0) || steedFly)
+        && !(u.BFlying | 0));
+}
+
+/** C invent.c carrying — first matching otyp in hero invent array. */
+function carrying_otyp(otyp) {
+    if (otyp < 0) return null;
+    for (const o of game.invent || []) {
+        if ((o.otyp | 0) === (otyp | 0)) return o;
+    }
+    return null;
+}
+
+/**
+ * C ref: uhitm.c m_is_steadfast — equipment protects against knockback.
+ * Named omit: MON_WEP vs uwep for non-you when worn differently.
+ */
+export function m_is_steadfast(mtmp) {
+    if (!mtmp) return false;
+    const is_u = mtmp === game.youmonst || !!mtmp._youmonst;
+    const otmp = is_u ? game.u?.uwep : null;
+    // MON_WEP: first W_WEP in minvent
+    let monWep = otmp;
+    if (!is_u) {
+        for (let o = mtmp.minvent; o; o = o.nobj) {
+            if ((o.owornmask || 0) & 0x00000001 /* W_WEP */) {
+                monWep = o;
+                break;
+            }
+        }
+    }
+
+    if ((is_u ? (Flying_steadfast() || Levitation_steadfast())
+        : (is_flyer(mtmp.data) || is_floater(mtmp.data)))
+        || Is_airlevel(game.u?.uz)
+        || (Is_waterlevel(game.u?.uz)
+            && !is_pool(game.u?.ux | 0, game.u?.uy | 0))) {
+        return false;
+    }
+
+    if (is_art(monWep, ART_GIANTSLAYER)) return true;
+    if (LOADSTONE >= 0) {
+        if (is_u) {
+            if (carrying_otyp(LOADSTONE)) return true;
+        } else if (m_carrying(mtmp, LOADSTONE)) {
+            return true;
+        }
+        if (game.u?.usteed && mtmp === game.u.usteed
+            && carrying_otyp(LOADSTONE)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /** C ref: hacklib.c s_suffix — local for cream-pie splash whom. */
 function s_suffix(s) {

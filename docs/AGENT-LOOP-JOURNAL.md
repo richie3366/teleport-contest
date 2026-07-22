@@ -21,6 +21,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 02:25 — #1251 D-0981 openholding/SPE_KNOCK
+
+**Objective:** map-driven — retire opening trap/saddle/SPE_KNOCK
+hurtle debt after D-0979.
+**C locus:** `trap.c` openholding/openfalling/`reward_untrap`;
+`zap.c` bhitm/zapyourself/`boxlock_invent`; `lock.c` boxlock;
+`dothrow.c` mhurtle; `uhitm.c` m_is_steadfast.
+**Changed:** port trap open helpers + invent boxlock; wire Punished
+unpunish + trap/box self-zap; mon openholding→openfalling→SPE_KNOCK
+mhurtle / WAN_OPENING saddle drop — D-0981. Deferred: mhurtle
+petrify/steed/minliquid; closeholdingtrap; montraits/stolen_value.
+**Verified:** green+strict PASS; zap cohort **20**/21 (seed0009 Scr
+72/73 pre-existing). Rule #2: no fs.
+**Next:** montraits/omonst/ghost; shop stolen_value; absent.md thin.
+**Blocked:** none.
+
 ## 2026-07-22 02:10 — #1250 cadence + D-0980 objects_at import
 
 **Objective:** mandatory cadence full `sessions` @#1250; fortress
@@ -216,19 +232,3 @@ pre-existing Scr 72/73). Rule #2: no fs.
 - Verification: green+strict PASS; dig/zap cohort 16/16 PASS.
   Suite fortress held (no full cadence; next @#1240).
 - Next: explode AD_FIRE; angrygods 4–8; toggle_stealth. Cadence @**#1240**.
-
-## 2026-07-22 00:36 — #1235 cadence + D-0965 ice/burn/fireball
-
-- Objective: mandatory cadence full `sessions` (@#1235 % 5 == 0);
-  map-driven zap debt — ice melt / `burn_floor_objects` / fireball.
-- C locus: `zap.c` `melt_ice`/`start_melt_ice_timeout`/`melt_ice_away`/
-  `burn_floor_objects`/`zap_over_floor`/`dobuzz` fireball.
-- Change: TIMER_LEVEL spot timers in `mkobj.js`; melt/burn + FIRE/COLD
-  `zap_over_floor` arms + fireball trail skip/`explode` in `zap.js`
-  (D-0965). Deferred: bury/obj_ice; lavawall spines; explode AD_FIRE
-  combat; burn feedback plines.
-- Verification: green+strict; zap cohort 16/16 PASS; full `sessions`
-  **44**/44 Scr **11405**/11405 RNG **100%** speed `30+0.27/turn`.
-- Next: float_down/learnring/adjust_attrib; bury/obj_ice; angrygods
-  4–8. Cadence @**#1240**.
-

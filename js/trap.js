@@ -25,9 +25,9 @@ import {
     glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph,
 } from './display.js';
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
-import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
-import { dist2, distmin, m_at } from './mon.js';
-import { cansee, couldsee, m_cansee, recalc_block_point } from './vision.js';
+import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam } from './do_name.js';
+import { dist2, distmin, m_at, wakeup } from './mon.js';
+import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at } from './engrave.js';
 import {
     G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
@@ -73,6 +73,7 @@ import {
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
     OBJ_FLOOR,
+    A_LAWFUL,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -87,8 +88,10 @@ import { thitu, ohitmon } from './mthrowu.js';
 import { dmgval } from './weapon.js';
 import { maybe_half_phys, nomul, losehp, stop_occupation } from './hack.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
-import { makemon, rndmonnum_adj, mpickobj } from './makemon.js';
-import { A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise } from './attrib.js';
+import { makemon, rndmonnum_adj, mpickobj, set_malign } from './makemon.js';
+import {
+    A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign,
+} from './attrib.js';
 import { tamedog } from './dog.js';
 import { welded } from './wield.js';
 import { count_wsegs } from './worm.js';
@@ -3534,6 +3537,185 @@ export async function lava_effects() {
     const { done } = await import('./end.js');
     await done(BURNING);
     return false;
+}
+
+/**
+ * C ref: trap.c reward_untrap — pacify adjacent monster freed from trap.
+ * Named omit: unique_corpstat polish beyond G_UNIQ (long-worm-tail).
+ */
+async function reward_untrap(ttmp, mtmp) {
+    if (!ttmp || !mtmp || ttmp.madeby_u) return;
+    const ptr = mtmp.data;
+    if (rnl(10) < 8 && !mtmp.mpeaceful && !helpless(mtmp)
+        && !(mtmp.mfrozen | 0) && !mindless(ptr)
+        && !((ptr?.geno | 0) & G_UNIQ)
+        && ptr?.mlet !== 'S_HUMAN') {
+        mtmp.mpeaceful = 1;
+        set_malign(mtmp);
+        await pline(`${Monnam(mtmp)} is grateful.`);
+    }
+    // Helping someone out of a trap is a nice thing to do.
+    if (!rn2(3) && !rnl(8) && (game.u?.ualign?.type | 0) === A_LAWFUL) {
+        adjalign(1);
+        await You_feel('that you did the right thing.');
+    }
+}
+
+/** C: you.h m_next2u — squared dist ≤ 2 (local; mon.js keeps private). */
+function m_next2u_trap(mtmp) {
+    const u = game.u || {};
+    const dx = (mtmp.mx | 0) - (u.ux | 0);
+    const dy = (mtmp.my | 0) - (u.uy | 0);
+    return dx * dx + dy * dy <= 2;
+}
+
+/** C hacklib vowels — article "an" vs "a". */
+function vowel_start(s) {
+    const c = (s || '')[0];
+    return !!c && 'aeiouAEIOU'.includes(c);
+}
+
+/**
+ * C ref: trap.c openholdingtrap — magic unlock frees hero/mon from
+ * holding trap (utrap / BEAR_TRAP / WEB).
+ * @param {object|null} mon  target (youmonst or steed → hero path)
+ * @returns {Promise<{happened:boolean,noticed:boolean}>}
+ */
+export async function openholdingtrap(mon) {
+    if (!mon) return { happened: false, noticed: false };
+    const u = game.u || {};
+    let ishero = mon === game.youmonst || !!mon._youmonst;
+    if (mon === u.usteed) ishero = true;
+
+    let t = t_at(ishero ? (u.ux | 0) : (mon.mx | 0),
+        ishero ? (u.uy | 0) : (mon.my | 0));
+    let trapdescr = null;
+    let which = null;
+    const the_your = ['the', 'your'];
+    let noticed = false;
+
+    if (ishero && (u.utrap | 0)) {
+        // all u.utraptype values are holding traps
+        if (!t) {
+            t = { tseen: 0, madeby_u: 0, ttyp: 0, tx: u.ux | 0, ty: u.uy | 0 };
+        }
+        which = the_your[(!t.tseen || !t.madeby_u) ? 0 : 1];
+        switch (u.utraptype | 0) {
+        case TT_LAVA:
+            trapdescr = 'molten lava';
+            break;
+        case TT_INFLOOR:
+            trapdescr = 'ground';
+            break;
+        case TT_BURIEDBALL:
+            trapdescr = 'your anchor';
+            which = '';
+            break;
+        case TT_BEARTRAP:
+        case TT_PIT:
+        case TT_WEB:
+            trapdescr = trapname(
+                (u.utraptype | 0) === TT_WEB ? WEB
+                    : (u.utraptype | 0) === TT_PIT ? PIT
+                        : BEAR_TRAP,
+                false,
+            );
+            break;
+        default:
+            trapdescr = 'trap';
+            break;
+        }
+    } else {
+        if (!t || ((t.ttyp | 0) !== BEAR_TRAP && (t.ttyp | 0) !== WEB)) {
+            return { happened: false, noticed: false };
+        }
+        trapdescr = trapname(t.ttyp, false);
+    }
+
+    if (which == null) {
+        which = t.tseen
+            ? the_your[t.madeby_u ? 1 : 0]
+            : (vowel_start(trapdescr) ? 'an' : 'a');
+    }
+    let whichSpaced = which;
+    if (whichSpaced) whichSpaced = `${whichSpaced} `;
+
+    if (ishero) {
+        if (!(u.utrap | 0)) return { happened: false, noticed: false };
+        noticed = true;
+        let buf;
+        if (!u.usteed) buf = 'You are';
+        else if ((u.utraptype | 0) === TT_BURIEDBALL) {
+            buf = `You and ${y_monnam(u.usteed)} are`;
+        } else {
+            buf = `${noit_Monnam(u.usteed)} is`;
+        }
+        await pline(`${buf} released from ${whichSpaced}${trapdescr}.`);
+        game.vision_full_recalc = 1;
+        reset_utrap(true);
+        if (game.vision_full_recalc) vision_recalc(0);
+    } else {
+        if (!(mon.mtrapped | 0)) return { happened: false, noticed: false };
+        mon.mtrapped = 0;
+        if (canseemon(mon)) {
+            noticed = true;
+            await pline(
+                `${Monnam(mon)} is released from ${whichSpaced}${trapdescr}.`,
+            );
+        } else if (cansee(t.tx | 0, t.ty | 0) && t.tseen) {
+            noticed = true;
+            if ((t.ttyp | 0) === WEB) {
+                await pline(
+                    `Something is released from ${whichSpaced}${trapdescr}.`,
+                );
+            } else {
+                const openSubj = whichSpaced
+                    ? `${whichSpaced.charAt(0).toUpperCase()}${whichSpaced.slice(1)}`
+                    : '';
+                await pline(`${openSubj}${trapdescr} opens.`);
+            }
+        }
+        if (rn2(2) && m_next2u_trap(mon)) {
+            await reward_untrap(t, mon);
+        }
+    }
+    return { happened: true, noticed };
+}
+
+/**
+ * C ref: trap.c openfallingtrap — magic unlock triggers trapdoor/hole/pit.
+ * @param {object|null} mon
+ * @param {boolean} trapdoor_only  TRUE → only TRAPDOOR/ROCKTRAP
+ * @returns {Promise<{happened:boolean,noticed:boolean}>}
+ */
+export async function openfallingtrap(mon, trapdoor_only) {
+    if (!mon) return { happened: false, noticed: false };
+    const u = game.u || {};
+    let ishero = mon === game.youmonst || !!mon._youmonst;
+    if (mon === u.usteed) ishero = true;
+
+    const t = t_at(ishero ? (u.ux | 0) : (mon.mx | 0),
+        ishero ? (u.uy | 0) : (mon.my | 0));
+    if (!t) return { happened: false, noticed: false };
+    const tt = t.ttyp | 0;
+    if ((tt !== TRAPDOOR && tt !== ROCKTRAP)
+        && (trapdoor_only || (tt !== HOLE && !is_pit(tt)))) {
+        return { happened: false, noticed: false };
+    }
+
+    if (ishero) {
+        if (u.utrap | 0) return { happened: false, noticed: false };
+        await dotrap(t, FORCETRAP);
+        return { happened: !!(u.utrap | 0), noticed: true };
+    }
+    if (mon.mtrapped | 0) return { happened: false, noticed: false };
+    const noticed = cansee(t.tx | 0, t.ty | 0) || canseemon(mon);
+    await wakeup(mon, true);
+    const res = await mintrap(mon, FORCETRAP);
+    return {
+        happened: res !== Trap_Effect_Finished,
+        noticed,
+    };
 }
 
 /**

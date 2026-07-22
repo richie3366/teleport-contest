@@ -19,13 +19,13 @@
 // strike/cancel/poly/tele/undead(+unturn_dead); RAY WAN_DIGGING/SPE_DIG
 // → zap_dig (dig.c).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing/opening trap+saddle+SPE_KNOCK hurtle; zap_map; spell ubuzz; mon_reflects;
+// probing; zap_map; spell ubuzz; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR; wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits; ureflects W_WEP/W_AMUL/W_ARM/silver-dragon arms
 // beyond shield makeknown; create_polymon after poly_zapped;
-// do_osshock shop bill; invent/worn poly_obj arms; boxlock on Is_box;
+// do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
 // blank_novel / corpse revive→rot timer; revive montraits/omonst/
 // ghost recorporealize / shop stolen_value; defended(); resists_magm
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
@@ -34,8 +34,9 @@
 // destroy_items elec body; ugolemeffects; burn_away_slime;
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
-// flash_hits WAN_LIGHT bhitm (D-0979); trap_ice_effects;
-// Underwater/utrap lava arms.
+// flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
+// Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
+// trap_ice_effects; Underwater/utrap lava arms.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -69,26 +70,28 @@ import {
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
-    G_UNIQ, is_rider, is_swimmer,
+    G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
-import { killed, xkilled, flash_hits_mon } from './uhitm.js';
+import {
+    killed, xkilled, flash_hits_mon, m_is_steadfast,
+} from './uhitm.js';
 import { mon_nam, Monnam, christen_monst, hliquid } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
-    NO_TRAP_FLAGS, ignite_items,
+    NO_TRAP_FLAGS, ignite_items, openholdingtrap, openfallingtrap,
 } from './trap.js';
 import { potionbreathe, make_stunned } from './potion.js';
 import { burn_away_slime } from './timeout.js';
 import { create_gas_cloud } from './region.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
-import { picking_at, reset_pick } from './lock.js';
+import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels } from './mhitu.js';
 import { newcham, makemon } from './makemon.js';
@@ -98,11 +101,15 @@ import { rehumanize } from './polyself.js';
 import { costly_alteration } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
+import { unpunish } from './read.js';
+import { which_armor } from './worn.js';
+import { mhurtle, hero_breaks, breaks } from './dothrow.js';
+import { abuse_dog } from './dog.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left,
-    obj_ice_effects,
+    obj_ice_effects, place_object, stackobj,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -125,16 +132,17 @@ import {
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
-    W_RING, W_ARMG, W_ARMH, W_ARMOR,
+    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
     OMONST, has_oname, ONAME,
     WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
+    IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD,
 } from './const.js';
-import { hero_breaks, breaks } from './dothrow.js';
 
+const MZ_HUMAN = MZ_MEDIUM;
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
 const WAN_MAGIC_MISSILE = objectNames.indexOf('WAN_MAGIC_MISSILE');
@@ -1891,6 +1899,32 @@ export function learnwand(obj) {
 }
 
 /**
+ * C ref: hacklib.c s_suffix — possessive for saddle drop msg.
+ */
+function s_suffix_zap(s) {
+    if (!s) return s;
+    if (s === 'it' || s === 'It') return 'its';
+    if (s.endsWith('s') || s.endsWith('z') || s.endsWith('x')
+        || s.endsWith('ch') || s.endsWith('sh')) {
+        return `${s}'`;
+    }
+    return `${s}'s`;
+}
+
+/** C ref: dungeon.c surface — floor/ground stand-in for saddle drop. */
+function surface_zap(x, y) {
+    const loc = game.level?.at?.(x, y);
+    const typ = loc?.typ ?? 0;
+    if (IS_FOUNTAIN(typ)) return 'fountain';
+    if (IS_ALTAR(typ)) return 'altar';
+    if (IS_WALL(typ) || IS_STWALL(typ)) return 'wall';
+    if (IS_DOOR(typ)) return 'doorway';
+    if (IS_ROOM(typ) && !Is_earthlevel(game.u?.uz)) return 'floor';
+    if (IS_AIR(typ)) return typ === CLOUD ? 'cloud' : 'air';
+    return 'ground';
+}
+
+/**
  * C ref: zap.c release_hold — free hero from ustuck / uswallow / sticks.
  * Named omit: status UHold botl polish only (set_ustuck already sets botl).
  */
@@ -2609,10 +2643,10 @@ async function miss_msg(str, mtmp) {
  * Envelope (break-wand / IMMEDIATE): WAN_STRIKING, WAN_UNDEAD_TURNING
  * (damage; invent unturn_dead deferred), WAN_POLYMORPH, WAN_CANCELLATION,
  * WAN_TELEPORTATION, WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
- * (release_hold when ustuck).
- * Named omit: slow/speed/locking/probing/opening trap+saddle+SPE_KNOCK
- * hurtle; long-worm mcorpsenm polish; Knight questart double;
- * spell_damage_bonus.
+ * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle).
+ * Named omit: slow/speed/locking/probing; long-worm mcorpsenm polish;
+ * Knight questart double; spell_damage_bonus; mhurtle petrify/steed;
+ * that_is_a_mimic box_or_door.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -2739,8 +2773,65 @@ export async function bhitm(mtmp, otmp) {
         if (mtmp === game.u?.ustuck) {
             await release_hold();
             learn_it = true;
+        } else {
+            const hold = await openholdingtrap(mtmp);
+            if (hold.happened) {
+                if (hold.noticed) learn_it = true;
+                break;
+            }
+            const fall = await openfallingtrap(mtmp, true);
+            if (fall.happened) {
+                if (fall.noticed) learn_it = true;
+                break;
+            }
+            if (otyp === SPE_KNOCK) {
+                wake = true;
+                if ((mtmp.data?.msize | 0) < MZ_HUMAN
+                    && !m_is_steadfast(mtmp)) {
+                    if (canseemon(mtmp)) {
+                        await pline(`${Monnam(mtmp)} is knocked back!`);
+                    }
+                    await mhurtle(
+                        mtmp,
+                        (mtmp.mx | 0) - (game.u?.ux | 0),
+                        (mtmp.my | 0) - (game.u?.uy | 0),
+                        rnd(2),
+                    );
+                } else if (canseemon(mtmp)) {
+                    await pline(`${Monnam(mtmp)} doesn't budge.`);
+                }
+                if ((mtmp.mhp | 0) > 0) {
+                    await wakeup(mtmp, !mindless(mtmp.data));
+                    await abuse_dog(mtmp);
+                }
+            } else {
+                const saddle = which_armor(mtmp, W_SADDLE);
+                if (saddle) {
+                    let buf = `${s_suffix_zap(Monnam(mtmp))} ${
+                        distant_name(saddle, xname)}`;
+                    const mx = mtmp.mx | 0;
+                    const my = mtmp.my | 0;
+                    if (cansee(mx, my)) {
+                        if (!canspotmon(mtmp)) {
+                            buf = An(distant_name(saddle, xname));
+                        }
+                        await pline(
+                            `${buf} falls to the ${surface_zap(mx, my)}.`,
+                        );
+                    } else if (canspotmon(mtmp)) {
+                        await pline(`${buf} falls off.`);
+                    }
+                    // C: mdrop_obj — extract worn saddle to floor
+                    obj_extract_self(saddle);
+                    saddle.owornmask = 0;
+                    mtmp.misc_worn_check =
+                        (mtmp.misc_worn_check || 0) & ~W_SADDLE;
+                    place_object(saddle, mx, my);
+                    stackobj(saddle);
+                    newsym(mx, my);
+                }
+            }
         }
-        // openholdingtrap / openfallingtrap / SPE_KNOCK hurtle / saddle deferred
         break;
     default:
         break;
@@ -2889,14 +2980,31 @@ export async function zapyourself(obj, ordinary) {
         break;
 
     case WAN_OPENING:
-    case SPE_KNOCK:
+    case SPE_KNOCK: {
         if (game.u?.ustuck) {
             await release_hold();
             learn_it = true;
         }
-        // Punished unpunish / openholdingtrap / boxlock_invent /
-        // openfallingtrap deferred
+        if (game.u?.uball) {
+            // C: Punished ≡ uball
+            learn_it = true;
+            unpunish();
+        }
+        // invent is hit iff hero doesn't escape from a trap
+        const hold = (game.u?.utrap | 0)
+            ? await openholdingtrap(game.youmonst || { _youmonst: true })
+            : { happened: false, noticed: false };
+        if (hold.noticed) learn_it = true;
+        if (!(game.u?.utrap | 0) || !hold.happened) {
+            await boxlock_invent(obj);
+            const fall = await openfallingtrap(
+                game.youmonst || { _youmonst: true },
+                true,
+            );
+            if (fall.noticed) learn_it = true;
+        }
         break;
+    }
 
     case WAN_FIRE:
     case FIRE_HORN: {

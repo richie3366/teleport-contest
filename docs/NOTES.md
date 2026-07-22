@@ -15,11 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0980** restore `objects_at` import in `timeout.js`
-  (D-0978 drop → seed0014 `ReferenceError`); prior **D-0979**
-  release_hold / flash_hits.
-- **Next cluster:** absent.md thin systems or other debt.md
-  (opening trap/saddle/SPE_KNOCK hurtle; montraits; shop stolen_value).
+- Latest: **D-0981** openholding/openfalling + Punished/`boxlock_invent`
+  + SPE_KNOCK `mhurtle`/saddle (after D-0979 release_hold).
+- **Next cluster:** montraits/omonst/ghost recorporealize; shop
+  `stolen_value`; or other absent.md thin systems.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -40,10 +39,9 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through ignite/
-  catch_lit/begin_burn/burn_away_slime (D-0978) or release_hold /
-  flash_hits_mon (D-0979); do not drop `objects_at` from timeout
-  mkobj import (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through openholding/
+  openfalling/SPE_KNOCK hurtle/saddle (D-0981) or drop `objects_at`
+  from timeout mkobj import (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -55,6 +53,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1250**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `32+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0981:** openholding/openfalling + boxlock_invent + SPE_KNOCK
+  mhurtle/saddle.
 - **D-0980:** restore `timeout.js` `objects_at` (D-0978 import drop).
 - **D-0979:** release_hold + flash_hits_mon / light_hits_gremlin.
 - **D-0978:** ignite_items / catch_lit / begin_burn / burn_away_slime.
