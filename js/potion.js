@@ -431,6 +431,29 @@ export function make_glib(xtime) {
 }
 
 /**
+ * C ref: potion.c make_deaf(xtime, talk) — HDeaf TIMEOUT set/clear.
+ * Named omit: Unaware talk suppress polish when sticky Deaf extrinsic.
+ * @param {number} xtime
+ * @param {boolean} talk
+ */
+export async function make_deaf(xtime, talk) {
+    const u = game.u || (game.u = {});
+    const old = u.HDeaf | 0;
+    if (u.Unaware) talk = false;
+    u.HDeaf = ((u.HDeaf | 0) & ~TIMEOUT) | itimeout(xtime);
+    const now = u.HDeaf | 0;
+    if (!!xtime !== !!old) {
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        if (talk) {
+            const Deaf = !!(now || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+            if (old && !Deaf) await pline('You can hear again.');
+            else await pline('You are unable to hear anything.');
+        }
+    }
+}
+
+/**
  * C ref: potion.c make_confused(xtime, talk)
  * Sync HConfusion TIMEOUT bits; mirror onto u.Confusion for JS gates
  * (C: Confusion ≡ HConfusion).

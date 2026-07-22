@@ -63,6 +63,7 @@ export const SPFX_RESTR = 0x00000002;
 export const SPFX_INTEL = 0x00000004;
 export const SPFX_ATTK = 0x00000040;
 export const SPFX_HALRES = 0x00000800;
+export const SPFX_LUCK = 0x00080000;
 export const SPFX_DMONS = 0x00100000;
 export const SPFX_DCLAS = 0x00200000;
 export const SPFX_DFLAG1 = 0x00400000;
@@ -147,6 +148,23 @@ export function get_artifact(obj) {
     const a = obj.oartifact | 0;
     if (a <= 0 || a > NROFARTIFACTS) return list[0];
     return list[a];
+}
+
+const LUCKSTONE_OTYP = objectNames.indexOf('LUCKSTONE');
+
+/**
+ * C ref: artifact.c confers_luck — LUCKSTONE or artifact SPFX_LUCK.
+ * @param {object} obj
+ * @returns {boolean}
+ */
+export function confers_luck(obj) {
+    if (!obj) return false;
+    if ((obj.otyp | 0) === LUCKSTONE_OTYP) return true;
+    if (!obj.oartifact) return false;
+    const arti = get_artifact(obj);
+    const list = artilist();
+    if (arti === list[0]) return false;
+    return ((arti.spfx | 0) & SPFX_LUCK) !== 0;
 }
 
 /**

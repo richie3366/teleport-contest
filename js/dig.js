@@ -476,6 +476,56 @@ export function unearth_objs(x, y) {
     newsym(x, y);
 }
 
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+
+/**
+ * C ref: dig.c buried_ball — nearest buried HEAVY_IRON_BALL within dist2≤8.
+ * Mutates cc.{x,y} to ball coords when found off-target.
+ * @param {{x:number,y:number}} cc
+ * @returns {object|null}
+ */
+function buried_ball(cc) {
+    const u = game.u || {};
+    let ball = null;
+    let bdist = 0;
+    if (!(u.utrap | 0) || (u.utraptype | 0) === TT_BURIEDBALL) {
+        for (let otmp = game.level?.buriedobjlist || null; otmp; otmp = otmp.nobj) {
+            if ((otmp.otyp | 0) !== HEAVY_IRON_BALL) continue;
+            if ((otmp.ox | 0) === (cc.x | 0) && (otmp.oy | 0) === (cc.y | 0)) {
+                return otmp;
+            }
+            const odist = dist2(otmp.ox | 0, otmp.oy | 0, cc.x | 0, cc.y | 0);
+            if (odist <= 8 && (!ball || odist < bdist)) {
+                ball = otmp;
+                bdist = odist;
+            }
+        }
+    }
+    if (ball) {
+        cc.x = ball.ox | 0;
+        cc.y = ball.oy | 0;
+    }
+    return ball;
+}
+
+/**
+ * C ref: dig.c buried_ball_to_freedom — unbury ball, reset TT_BURIEDBALL.
+ * Named omit: RUST_METAL timer stop (C #if 0).
+ */
+export function buried_ball_to_freedom() {
+    const u = game.u || {};
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    const ball = buried_ball(cc);
+    if (ball) {
+        obj_extract_self(ball);
+        place_object(ball, cc.x, cc.y);
+        stackobj(ball);
+        reset_utrap(true);
+        del_engr_at(cc.x, cc.y);
+        newsym(cc.x, cc.y);
+    }
+}
+
 /**
  * C ref: dig.c rot_organic — buried organic finished rotting; contents
  * re-buried then container freed.

@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1012 — pray in_trouble collapsing…cursed_blindfold + minors
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `in_trouble` / `fix_worst_trouble`
+  stopped after LYCANTHROPE; collapsing…cursed_blindfold majors and
+  all minor TROUBLE_* absent; helpers stuck_ring / unchanger /
+  make_deaf / buried_ball_to_freedom / confers_luck missing.
+- **C locus:** `pray.c` `in_trouble` / `fix_worst_trouble` /
+  `stuck_in_wall` / `worst_cursed_item` / `fix_curse_trouble` /
+  `blocked_boulder`; `do_wear.c` `stuck_ring` / `unchanger`;
+  `potion.c` `make_deaf`; `dig.c` `buried_ball` /
+  `buried_ball_to_freedom`; `artifact.c` `confers_luck`.
+- **Fix:** port remaining major + all minor checks and fix arms;
+  export stuck_ring/unchanger; make_deaf; buried_ball_to_freedom;
+  confers_luck + SPFX_LUCK.
+- **Deferred:** pleased pat_on_head gifts; BlindedTimeout==1 region
+  polish; swallow Blind attacktype_fordmg; update_inventory redraw;
+  blocked_boulder pool-sink nuance; remaining peffect_*.
+- **Verify:** green+strict PASS; pray/shared cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1011 — pray in_trouble majors Stoned…Region
 
 - **Status:** fixed (map-driven debt retirement)

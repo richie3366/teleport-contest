@@ -15,12 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1011** pray in_trouble majors Stoned…Region +
-  `make_sick` / `region_danger`/`region_safety` /
-  `rescued_from_terrain`.
+- Latest: **D-1012** pray in_trouble collapsing…cursed_blindfold +
+  all minors + stuck_ring/make_deaf/buried_ball/confers_luck.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  collapsing…cursed_blindfold + minors; or blindfold-as-tool /
-  containers.
+  blindfold-as-tool / containers; or pleased pat_on_head gifts.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -41,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  `use_crystal_ball` (D-1010) / in_trouble majors Stoned…Region
-  (D-1011) or drop `objects_at` from timeout mkobj (D-0980).
+  in_trouble collapsing…minors (D-1012) or drop `objects_at` from
+  timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -54,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
 - **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.
 - **D-1010:** apply use_crystal_ball + thin detect callees.
 - **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
