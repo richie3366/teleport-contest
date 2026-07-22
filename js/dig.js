@@ -48,6 +48,7 @@ import { stairway_at } from './mklev.js';
 import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
     delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
+    activate_statue_trap,
 } from './trap.js';
 import { nhgetch } from './input.js';
 import { set_occupation, can_reach_floor, del_engr_at } from './engrave.js';
@@ -96,6 +97,7 @@ import {
     xytodir, DIR_180, DIR_ERR,
     ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     ROT_ORGANIC, TIMER_OBJECT, Has_contents, OBJ_FREE,
+    CORPSTAT_HISTORIC, STATUE_TRAP,
 } from './const.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -1479,18 +1481,28 @@ export function fracture_rock(obj) {
 }
 
 /**
- * C ref: zap.c break_statue — contents out + fracture_rock.
- * Named omit: STATUE_TRAP activate; archaeologist historic guilt.
+ * C ref: zap.c break_statue — STATUE_TRAP activate_shatter or contents
+ * out + fracture_rock; Archeologist historic guilt when by hero.
  */
-export function break_statue(obj) {
+export async function break_statue(obj) {
     if (!obj) return false;
     const x = obj.ox | 0;
     const y = obj.oy | 0;
-    // STATUE_TRAP activation deferred
+    const trap = t_at(x, y);
+    const by_you = !game.context?.mon_moving;
+    if (trap && (trap.ttyp | 0) === STATUE_TRAP
+        && (await activate_statue_trap(trap, x, y, true))) {
+        return false;
+    }
     while (obj.cobj) {
         const item = obj.cobj;
         obj_extract_self(item);
         place_object(item, x, y);
+    }
+    if (by_you && Role_if(PM_ARCHEOLOGIST)
+        && ((obj.spe | 0) & CORPSTAT_HISTORIC)) {
+        await You_feel('guilty about damaging such a historic statue.');
+        adjalign(-1);
     }
     obj.spe = 0;
     fracture_rock(obj);
@@ -1828,7 +1840,7 @@ async function dig() {
         if (digtyp === DIGTYP_STATUE) {
             const obj = sobj_at(STATUE, dpx, dpy);
             if (obj) {
-                if (break_statue(obj)) digtxt = 'The statue shatters.';
+                if (await break_statue(obj)) digtxt = 'The statue shatters.';
                 else digtxt = null;
             }
         } else if (digtyp === DIGTYP_BOULDER) {

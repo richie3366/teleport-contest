@@ -16,18 +16,21 @@ import {
     mksobj, place_object, weight, stackobj, relobj_on_death,
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, delobj, mkcorpstat, add_to_container, obj_extract_self,
-    objects_at, splitobj,
+    objects_at, splitobj, nxtobj,
 } from './mkobj.js';
 import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone } from './mhitm.js';
 import { mon_explodes } from './explode.js';
 import {
     newsym, pline, urgent_pline, mon_visible, see_with_infrared, You_feel,
     unmap_object, glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph,
-    flush_topl_more,
+    flush_topl_more, feel_newsym, canspotmon, map_invisible,
 } from './display.js';
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
-import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam, pmname } from './do_name.js';
-import { dist2, distmin, m_at, wakeup } from './mon.js';
+import {
+    Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
+    christen_monst, rndmonnam,
+} from './do_name.js';
+import { dist2, distmin, m_at, wakeup, seemimic } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at } from './engrave.js';
 import {
@@ -39,7 +42,8 @@ import {
     is_animal, mindless, haseyes,
     bigmonst, is_golem, is_mplayer, is_rider,
     nohands, extra_nasty, acidic, poly_when_stoned, touch_petrifies,
-    resists_ston, MALE, FEMALE, NEUTRAL,
+    resists_ston, MALE, FEMALE, NEUTRAL, nonliving, is_vampshifter,
+    hides_under,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE, RECURSIVETRAP,
@@ -68,7 +72,11 @@ import {
     HEAD, ARM,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_WEP, W_SWAPWEP,
     W_SADDLE, I_SPECIAL,
-    CORPSTAT_NONE, MM_NOCOUNTBIRTH, MM_NOMSG,
+    CORPSTAT_NONE, CORPSTAT_HISTORIC, CORPSTAT_GENDER, CORPSTAT_MALE,
+    CORPSTAT_FEMALE, MM_NOCOUNTBIRTH, MM_NOMSG, MM_ADJACENTOK, MM_MALE,
+    MM_FEMALE, NO_MINVENT, M_AP_TYPE, ismnum, ANIMATE_NORMAL,
+    ANIMATE_SHATTER, ANIMATE_SPELL, AS_OK, AS_NO_MON, AS_MON_IS_UNIQUE,
+    OBJ_INVENT, has_oname, has_omonst, ONAME, OMONST,
     ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at,
     DISP_FLASH, DISP_END,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
@@ -91,11 +99,11 @@ import { monsterNames } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
 import { dmgval, MON_WEP, mwepgone } from './weapon.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
-import { makemon, rndmonnum_adj, mpickobj, set_malign } from './makemon.js';
+import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign, poisoned,
 } from './attrib.js';
-import { tamedog } from './dog.js';
+import { tamedog, wary_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
@@ -108,6 +116,7 @@ import { create_gas_cloud } from './region.js';
 import { polymon } from './polyself.js';
 import { done } from './end.js';
 import { mon_adjust_speed } from './muse.js';
+import { m_dowear } from './worn.js';
 
 const AD_ELEC = 6;
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
@@ -140,6 +149,46 @@ const PM_CYCLOPS = monsterNames.indexOf('PM_CYCLOPS');
 const PM_LORD_SURTUR = monsterNames.indexOf('PM_LORD_SURTUR');
 const STATUE = objectNames.indexOf('STATUE');
 const AD_RUST = 24; /* monattk.h */
+const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
+const PM_DOPPELGANGER = monsterNames.indexOf('PM_DOPPELGANGER');
+const PM_ARCHEOLOGIST = monsterNames.indexOf('PM_ARCHEOLOGIST');
+const something = 'something';
+
+/** C ref: hacklib.c upstart — capitalize first letter. */
+function upstart(str) {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/** C ref: mondata.h unique_corpstat — G_UNIQ. */
+function unique_corpstat(ptr) {
+    return !!((ptr?.geno | 0) & G_UNIQ);
+}
+
+/** C ref: objnam.c / shk.c shk_your thin — carried → "your ", else "the ". */
+function shk_your_statue(statue) {
+    const carried = (statue?.where | 0) === OBJ_INVENT
+        || (game.invent || []).includes(statue);
+    return carried ? 'your ' : 'the ';
+}
+
+function Role_if(pm) {
+    return (game.urole?.mnum | 0) === (pm | 0);
+}
+
+function a_monnam(mtmp) {
+    if (!mtmp) return something;
+    const nm = mon_nam(mtmp);
+    if (!nm) return something;
+    const c0 = nm.charAt(0);
+    if (c0 === c0.toUpperCase() && c0 !== c0.toLowerCase()) return nm;
+    return `a ${nm}`;
+}
+
+function carried_obj(obj) {
+    return (obj?.where | 0) === OBJ_INVENT
+        || (game.invent || []).includes(obj);
+}
 
 /** C ref: mondata.h flaming — fire vortex / sphere / elemental / salamander. */
 function flaming(ptr) {
@@ -199,6 +248,203 @@ function mk_trap_statue(x, y) {
     statue.owt = weight(statue);
     mongone_statue_donor(mtmp);
 }
+
+/**
+ * C ref: trap.c animate_statue — statue → live monster.
+ * Sequencing: create mon; message; shop stolen_value (non-NORMAL);
+ * transfer contents; m_dowear; delobj statue.
+ * Named omit: set_msg_xy; full shk ownership prefixes; quest MS_GUARDIAN
+ * other-role guard remap; remove_worn_item polish beyond owornmask clear.
+ * @param {object} statue
+ * @param {number} x
+ * @param {number} y
+ * @param {number} cause ANIMATE_NORMAL|SHATTER|SPELL
+ * @param {{ value?: number }|null} [fail_reason]
+ * @returns {Promise<object|null>}
+ */
+export async function animate_statue(statue, x, y, cause, fail_reason = null) {
+    if (!statue) {
+        if (fail_reason) fail_reason.value = AS_NO_MON;
+        return null;
+    }
+    const historic_gone = 'that the historic statue is now gone';
+    let mnum = statue.corpsenm | 0;
+    let mptr = mons(mnum);
+    let mon = null;
+    let golem_xform = false;
+    let use_saved_traits = false;
+
+    const { cant_revive, montraits } = await import('./zap.js');
+    const box = { mtype: mnum };
+    if (cant_revive(box, true, statue)) {
+        mnum = box.mtype | 0;
+        if (mnum !== PM_DOPPELGANGER) mptr = mons(mnum);
+        use_saved_traits = false;
+    } else if (is_golem(mptr) && cause === ANIMATE_SPELL) {
+        golem_xform = mptr !== mons(PM_FLESH_GOLEM);
+        mnum = PM_FLESH_GOLEM;
+        mptr = mons(PM_FLESH_GOLEM);
+        use_saved_traits = has_omonst(statue) && !golem_xform;
+    } else {
+        use_saved_traits = has_omonst(statue);
+    }
+
+    if (use_saved_traits) {
+        mon = montraits(statue, { x, y }, cause === ANIMATE_SPELL);
+        if (mon && mon.mtame && !mon.isminion) {
+            await wary_dog(mon, true);
+        }
+    } else {
+        const sgend = (statue.spe | 0) & CORPSTAT_GENDER;
+        let mmflags = NO_MINVENT | MM_NOMSG
+            | ((sgend === CORPSTAT_MALE) ? MM_MALE : 0)
+            | ((sgend === CORPSTAT_FEMALE) ? MM_FEMALE : 0);
+        if ((mnum === PM_DOPPELGANGER && mptr !== mons(PM_DOPPELGANGER))) {
+            // quest MS_GUARDIAN other-role guard remap deferred
+            mmflags |= MM_NOCOUNTBIRTH | MM_ADJACENTOK;
+            mon = makemon(mons(PM_DOPPELGANGER), x, y, mmflags);
+            if (mon && ismnum(mon.cham)) {
+                newcham(mon, mptr, 0);
+            }
+        } else {
+            if (cause === ANIMATE_SPELL) mmflags |= MM_ADJACENTOK;
+            mon = makemon(mptr, x, y, mmflags);
+        }
+    }
+
+    if (!mon) {
+        if (fail_reason) {
+            fail_reason.value = unique_corpstat(mons(statue.corpsenm | 0))
+                ? AS_MON_IS_UNIQUE
+                : AS_NO_MON;
+        }
+        return null;
+    }
+
+    if (has_oname(statue) && !unique_corpstat(mon.data)) {
+        mon = christen_monst(mon, ONAME(statue));
+    }
+    if (M_AP_TYPE(mon)) seemimic(mon);
+    else mon.mundetected = false;
+    mon.msleeping = 0;
+    if (cause === ANIMATE_NORMAL || cause === ANIMATE_SHATTER) {
+        mon.mtame = 0;
+        mon.mpeaceful = 0;
+        set_malign(mon);
+    }
+
+    const comes_to_life = !canspotmon(mon)
+        ? 'disappears'
+        : golem_xform
+            ? 'turns into flesh'
+            : (nonliving(mon.data) || is_vampshifter(mon))
+                ? 'moves'
+                : 'comes to life';
+
+    if (u_at(x, y) || cause === ANIMATE_SPELL) {
+        const shkp = shop_keeper(in_rooms(mon.mx, mon.my, SHOPBASE) || '');
+        let statuename;
+        if (cause === ANIMATE_SPELL
+            && (mon !== shkp || carried_obj(statue))) {
+            statuename = `${shk_your_statue(statue)}${xname(statue)}`;
+        } else {
+            statuename = `${shk_your_statue(statue)}statue`;
+        }
+        await pline(`${upstart(statuename)} ${comes_to_life}!`);
+    } else if (Hallucination()) {
+        await pline(
+            `The ${rndmonnam(null)} suddenly seems more animated.`,
+        );
+    } else if (cause === ANIMATE_SHATTER) {
+        let statuename;
+        if (cansee(x, y)) {
+            statuename = `${shk_your_statue(statue)}${xname(statue)}`;
+        } else {
+            statuename = 'a statue';
+        }
+        await pline(
+            `Instead of shattering, ${statuename} suddenly ${comes_to_life}!`,
+        );
+    } else {
+        // ANIMATE_NORMAL — set_msg_xy deferred
+        await pline(
+            `You find ${canspotmon(mon) ? a_monnam(mon) : something}`
+            + ' posing as a statue.',
+        );
+        if (!canspotmon(mon) && Blind()) map_invisible(x, y);
+        await stop_occupation();
+    }
+
+    if (!game.context?.mon_moving) {
+        if (cause !== ANIMATE_NORMAL && costly_spot(x, y)
+            && (carried_obj(statue) ? statue.unpaid : !statue.no_charge)) {
+            const shkp = shop_keeper(in_rooms(x, y, SHOPBASE) || '');
+            if (shkp && mon !== shkp) {
+                await stolen_value(
+                    statue, x, y, !!shkp.mpeaceful, false,
+                );
+            }
+        }
+        const historic = Role_if(PM_ARCHEOLOGIST)
+            && ((statue.spe | 0) & CORPSTAT_HISTORIC) !== 0;
+        if (historic) {
+            await You_feel(`guilty ${historic_gone}.`);
+            adjalign(-1);
+        }
+    } else {
+        const historic = Role_if(PM_ARCHEOLOGIST)
+            && ((statue.spe | 0) & CORPSTAT_HISTORIC) !== 0;
+        if (historic && cansee(x, y)) {
+            await You_feel(`regret ${historic_gone}.`);
+        }
+    }
+
+    while (statue.cobj) {
+        const item = statue.cobj;
+        obj_extract_self(item);
+        mpickobj(mon, item);
+    }
+    m_dowear(mon, true);
+    if (statue.owornmask) {
+        // remove_worn_item polish deferred — clear mask before delobj
+        statue.owornmask = 0;
+    }
+    delobj(statue);
+
+    const u = game.u || {};
+    if (u_at(x, y) && Upolyd(u) && hides_under(game.youmonst?.data)
+        && !objects_at(x, y)) {
+        u.uundetected = 0;
+    }
+
+    if (fail_reason) fail_reason.value = AS_OK;
+    return mon;
+}
+
+/**
+ * C ref: trap.c activate_statue_trap — deltrap then animate first valid
+ * floor statue (skip unique fails via AS_MON_IS_UNIQUE loop).
+ * @returns {Promise<object|null>}
+ */
+export async function activate_statue_trap(trap, x, y, shatter) {
+    let mtmp = null;
+    let otmp = sobj_at(STATUE, x, y);
+    const fail_reason = { value: AS_OK };
+
+    if (trap) deltrap(trap);
+    while (otmp) {
+        mtmp = await animate_statue(
+            otmp, x, y,
+            shatter ? ANIMATE_SHATTER : ANIMATE_NORMAL,
+            fail_reason,
+        );
+        if (mtmp || fail_reason.value !== AS_MON_IS_UNIQUE) break;
+        otmp = nxtobj(otmp, STATUE, true);
+    }
+    feel_newsym(x, y);
+    return mtmp;
+}
+
 // C ref: trap.c A_gush_of_water_hits
 const A_gush_of_water_hits = 'A gush of water hits';
 const DART = objectNames.indexOf('DART');
@@ -3466,10 +3712,23 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_rust_trap(mtmp, trap, trflags);
     case WEB:
         return trapeffect_web(mtmp, trap, trflags);
+    case STATUE_TRAP:
+        return trapeffect_statue_trap(mtmp, trap, trflags);
     default:
         // Named omission: arrow/anti-magic/… trap effects
         return Trap_Effect_Finished;
     }
+}
+
+/**
+ * C ref: trap.c trapeffect_statue_trap — hero activates; monsters immune.
+ */
+async function trapeffect_statue_trap(mtmp, trap, _trflags) {
+    if (is_youmonst(mtmp)) {
+        const u = game.u || {};
+        await activate_statue_trap(trap, u.ux | 0, u.uy | 0, false);
+    }
+    return Trap_Effect_Finished;
 }
 
 /**

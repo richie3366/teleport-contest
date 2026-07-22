@@ -14,7 +14,7 @@ import {
 } from './attrib.js';
 import {
     pline, newsym, canspotmon, canseemon, map_invisible, flush_topl_more,
-    verbalize, feel_newsym, Norep,
+    verbalize, feel_newsym, feel_location, Norep,
 } from './display.js';
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir, breakchestlock } from './lock.js';
@@ -32,9 +32,9 @@ import {
 } from './hack.js';
 import {
     set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage,
-    fall_through, chest_trap, instapetrify,
+    fall_through, chest_trap, instapetrify, activate_statue_trap,
 } from './trap.js';
-import { setmangry, seemimic, angry_guards, wakeup } from './mon.js';
+import { setmangry, seemimic, angry_guards, wakeup, wake_nearto } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
 import {
@@ -67,6 +67,7 @@ import {
     ESHK, Has_contents, ismnum, ER_NOTHING, A_LAWFUL,
     S_LPUDDING, S_LDWASHER, G_GONE, MM_NOMSG, MM_MALE, MM_FEMALE, MM_ANGRY,
     T_LOOTED, TREE_LOOTED, TREE_SWARM, MAY_HIT, VIS_EFFECTS, WEB,
+    STATUE_TRAP,
     OBJ_MIGRATING, OBJ_MINVENT, OBJ_FREE, KICKED_WEAPON,
 } from './const.js';
 import {
@@ -238,7 +239,7 @@ async function kick_dumb(x, y) {
     exercise(A_DEX, false);
     if (martial() || acurr(A_DEX) >= 16 || rn2(3)) {
         await pline('You kick at empty space.');
-        // Blind feel_location deferred
+        if (Blind()) feel_location(x, y);
     } else {
         await pline('Dumb move!  You strain a muscle.');
         exercise(A_STR, false);
@@ -252,7 +253,7 @@ async function kick_dumb(x, y) {
 
 /**
  * C ref: dokick.c kick_ouch — solid terrain / failed impact (partial).
- * Blind feel_location / wake_nearto / drawbridge / airlevel hurtle deferred.
+ * wake_nearto wired; drawbridge / airlevel hurtle deferred.
  * losehp applies the damage roll (regen_hp needs uhp < uhpmax).
  * set_wounded_legs on !rn2(3) → ATEMP(DEX)-- (D-0785).
  */
@@ -260,7 +261,11 @@ async function kick_ouch(x, y, kickobjnam = '') {
     await pline('Ouch!  That hurts!');
     exercise(A_DEX, false);
     exercise(A_STR, false);
-    // Blind feel_location / wake_nearto / drawbridge deferred
+    if (isok(x, y)) {
+        if (Blind()) feel_location(x, y); /* we know we hit it */
+        // drawbridge wall unaffected path deferred
+        await wake_nearto(x, y, 5 * 5);
+    }
     if (!rn2(3)) {
         // C: set_wounded_legs(RIGHT_SIDE, 5 + rnd(5))
         await set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
@@ -269,7 +274,7 @@ async function kick_ouch(x, y, kickobjnam = '') {
     //     losehp(Maybe_Half_Phys(dmg), kickstr(...), KILLED_BY);
     const dmg = rnd(acurr(A_CON) > 15 ? 3 : 5);
     const what = kickobjnam || 'a wall';
-    losehp(maybe_half_phys(dmg), what, KILLED_BY);
+    await losehp(maybe_half_phys(dmg), what, KILLED_BY);
     // Is_airlevel / Levitation hurtle deferred
     void x;
     void y;
@@ -339,8 +344,9 @@ async function watchman_door_damage(mtmp, x, y) {
  * C ref: dokick.c kick_door — open/broken/nodoor → kick_dumb; else
  * CLOSED/LOCKED bust attempt (exercise DEX, rnl(35) vs avrg_attrib).
  * Shop in_rooms + add_damage/pay_for_damage + town watch wired (D-0947).
- * Named omit: Blind feel_location; mon_yells SetVoice/Deaf polish;
- * giant doorbuster poly completeness.
+ * Blind feel_location / feel_newsym wired (D-0997).
+ * Named omit: mon_yells SetVoice/Deaf polish; giant doorbuster poly
+ * completeness.
  */
 async function kick_door(x, y, avrg_attrib) {
     const loc = game.level?.at(x, y);
@@ -376,7 +382,7 @@ async function kick_door(x, y, avrg_attrib) {
             loc.doormask = D_NODOOR;
             if (loc.flags !== undefined) loc.flags = loc.doormask;
             await b_trapped('door', FOOT);
-            newsym(x, y);
+            feel_newsym(x, y); /* we know we broke it */
             recalc_block_point(x, y);
             vision_recalc(1);
         } else if (acurr(A_STR) > 18 && !rn2(5) && !shopdoor) {
@@ -384,7 +390,7 @@ async function kick_door(x, y, avrg_attrib) {
             exercise(A_STR, true);
             loc.doormask = D_NODOOR;
             if (loc.flags !== undefined) loc.flags = loc.doormask;
-            newsym(x, y);
+            feel_newsym(x, y);
             recalc_block_point(x, y);
             vision_recalc(1);
         } else {
@@ -392,7 +398,7 @@ async function kick_door(x, y, avrg_attrib) {
             exercise(A_STR, true);
             loc.doormask = D_BROKEN;
             if (loc.flags !== undefined) loc.flags = loc.doormask;
-            newsym(x, y);
+            feel_newsym(x, y);
             recalc_block_point(x, y);
             vision_recalc(1);
         }
@@ -403,7 +409,7 @@ async function kick_door(x, y, avrg_attrib) {
         }
         if (in_town(x, y)) await get_iter_mons(watchman_thief_arrest);
     } else {
-        // Blind feel_location deferred
+        if (Blind()) feel_location(x, y); /* we know we hit it */
         exercise(A_STR, true);
         // C: (Deaf || !rn2(3)) ? "Thwack" : "Whammm"
         const thud = (game.u?.Deaf || !rn2(3)) ? 'Thwack' : 'Whammm';
@@ -1081,13 +1087,13 @@ async function kick_object(x, y, kickobjnam) {
 
 /**
  * C ref: dokick.c really_kick_object — guts of object kick.
- * Branch envelope: trap pit/web; Fumbling; barefoot touch_petrifies
- * corpse → polymon / instapetrify; range/martial/pool/ice/grease/
- * Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
+ * Branch envelope: trap pit/web; STATUE_TRAP activate; Fumbling; barefoot
+ * touch_petrifies corpse → polymon / instapetrify; range/martial/pool/ice/
+ * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: snuff_candle; impact_disturbs_zombies; STATUE_TRAP
- * activate; Blind feel; killer_xname polish (xname stand-in).
+ * Named omit: snuff_candle; impact_disturbs_zombies; killer_xname polish
+ * (xname stand-in).
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1105,7 +1111,10 @@ async function really_kick_object(x, y) {
             await pline(`You can't kick something that's in a ${where}!`);
             return 1;
         }
-        // STATUE_TRAP activate deferred
+        if ((trap.ttyp | 0) === STATUE_TRAP) {
+            await activate_statue_trap(trap, x, y, false);
+            return 1;
+        }
     }
 
     if (Fumbling() && !rn2(3)) {

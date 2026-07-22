@@ -20,6 +20,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 04:45 — #1267 D-0997 statue trap + Blind kick feel
+
+**Objective:** map-driven — STATUE_TRAP activate / Blind feel cluster
+(CURRENT next after D-0996).
+**C locus:** `trap.c` animate_statue/activate_statue_trap/
+trapeffect_statue_trap; `dokick.c` kick_dumb/ouch/door/really_kick;
+`zap.c` break_statue; `detect.c` dosearch0.
+**Change:** port animate_statue + activate_statue_trap; wire Blind
+feel_location/feel_newsym/wake_nearto + kick STATUE_TRAP; break_statue
+shatter-activate + historic guilt; dosearch0/dotrap; export
+montraits/cant_revive — D-0997.
+**Verified:** green+strict PASS; kick/search cohort **10**/10
+(incl. seed0060). Rule #2: no fs.
+**Next:** potion/scroll/vault thin; or dopay appease; or apply camera.
+**Blocked:** none.
+
 ## 2026-07-22 04:34 — #1266 D-0996 selftouch/minstapetrify
 
 **Objective:** map-driven — selftouch/mselftouch/minstapetrify cluster
@@ -194,49 +210,3 @@ speed `30+0.27/turn` (seed0009 Scr 72/73); green+strict PASS;
 kick cohort **19**/20. Rule #2: no fs.
 **Next:** kick_object / throne fall_through / tree; or flooreffects.
 **Blocked:** none.
-
-## 2026-07-22 02:52 — #1254 D-0984 ship_object
-
-**Objective:** map-driven — retire `ship_object` shop-floor / hole
-fall (CURRENT next cluster).
-**C locus:** `dokick.c` ship_object/otransit_msg; callers `do.c`
-dropx, `dothrow.c` throwit land, `mthrowu.c` drop_throw.
-**Changed:** port ship_object envelope + otransit_msg; wire
-dropx/throwit/drop_throw — D-0984. Deferred: kick_object
-shop_floor_obj; flooreffects pit/shaft; trap ROLL; maybe_unhide_at.
-**Verified:** green+strict PASS; throw/drop cohort **20**/21
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** kick_object/SDOOR/furniture; or flooreffects pit; absent.md.
-**Blocked:** none.
-
-## 2026-07-22 02:42 — #1253 D-0983 stolen_value
-
-**Objective:** map-driven — retire shop `stolen_value` debt
-(CURRENT next cluster: revive/kick/dig/lock callers).
-**C locus:** `shk.c` stolen_value/stolen_container/find_objowner/
-picked_container; callers zap revive, dokick impact_drop, dig
-bury_objs, lock breakchestlock, mkobj costly_alteration.
-**Changed:** port stolen_value envelope + wire named callers —
-D-0983. Deferred: ship_object; remaining kick object/SDOOR;
-SetVoice; unpaid splitbill.
-**Verified:** green+strict PASS; dig/zap cohort **19**/20 (seed0009
-Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** ship_object shop-floor fall; absent.md thin.
-**Blocked:** none.
-
-## 2026-07-22 02:35 — #1252 D-0982 montraits/ghost
-
-**Objective:** map-driven — retire montraits/omonst/ghost
-recorporealize debt (CURRENT next cluster).
-**C locus:** `mkobj.c` save_mtraits/get_mtraits/newomonst; `zap.c`
-montraits/revive; `mon.c` copy_mextra/replmon/KEEPTRAITS; `dog.c`
-wary_dog; `makemon.c` monhp_per_lvl.
-**Changed:** wire oextra omonst/omid + mkcorpstat traits; port
-montraits + thin replmon; revive omonst/wary_dog + ghost invent
-join; expand KEEPTRAITS — D-0982. Deferred: shop stolen_value;
-animate_statue wire; forget_temple_entry; full replshk/worm/light.
-**Verified:** green+strict PASS; zap cohort **19**/20 (seed0009 Scr
-72/73 pre-existing). Rule #2: no fs.
-**Next:** shop stolen_value; absent.md thin.
-**Blocked:** none.
-

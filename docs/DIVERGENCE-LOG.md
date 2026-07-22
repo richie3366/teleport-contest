@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0997 — animate_statue / activate_statue_trap + Blind kick feel
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0996 — kick `STATUE_TRAP` and
+  Blind `feel_location` were deferred; `break_statue`/`dosearch0` /
+  hero `dotrap` could not animate living statues.
+- **C locus:** `trap.c` `animate_statue`/`activate_statue_trap`/
+  `trapeffect_statue_trap`; `dokick.c` `kick_dumb`/`kick_ouch`/
+  `kick_door`/`really_kick_object`; `zap.c` `break_statue`;
+  `detect.c` `dosearch0` statue-trap find.
+- **Fix:** port animate_statue + activate_statue_trap; wire kick Blind
+  feel_location / feel_newsym / wake_nearto + STATUE_TRAP activate;
+  break_statue shatter-activate + Archeologist historic guilt;
+  dosearch0 activate; trapeffect_selector STATUE_TRAP; export
+  montraits/cant_revive for animate path.
+- **Deferred:** drawbridge/airlevel hurtle; snuff_candle; set_msg_xy;
+  quest MS_GUARDIAN other-role remap; full shk_your ownership;
+  remove_worn_item polish; find_trap on pit/web kick refuse.
+- **Verify:** green+strict PASS; kick/search cohort **10**/10
+  (incl. seed0060). Rule #2: no fs.
+
 ## D-0996 — selftouch / mselftouch / minstapetrify + monstone
 
 - **Status:** fixed (map-driven debt retirement)
@@ -18,10 +39,10 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   vamp_stone/monstone; mwepgone; xkilled `stoned`→monstone skip corpse;
   newcham allows forced mdat for non-shapeshifters (golem petrify);
   wire stair/sink/Sokoban float_down/music/disintegrate_arm callers.
-- **Deferred:** STATUE_TRAP activate; Blind feel; snuff_candle;
-  lifesaved_monster; flooreffects on ejected boulder; full vamp
-  lapidify plines/expels/enexto; mbirth_limit Nazgul gate; twoweapon
-  corpse polish.
+- **Deferred:** snuff_candle; lifesaved_monster; flooreffects on
+  ejected boulder; full vamp lapidify plines/expels/enexto;
+  mbirth_limit Nazgul gate; twoweapon corpse polish.
+  (STATUE_TRAP activate / Blind feel → D-0997.)
 - **Verify:** green+strict PASS; cohort **15**/16 (seed0009 Scr 72/73
   pre-existing). Rule #2: no fs.
 

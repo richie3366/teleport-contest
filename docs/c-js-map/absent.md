@@ -20,7 +20,8 @@ This is a planning list, not an exhaustive C file inventory:
   fire_damage/altar/hot potion via D-0992; globby pudding_merge via
   D-0993; sellobj/check_shop_obj via D-0994; barefoot petrify +
   `bhit` DISP_FLASH via D-0995; **selftouch/mselftouch/minstapetrify +
-  monstone** via D-0996;
+  monstone** via D-0996; **STATUE_TRAP activate + Blind feel** via
+  D-0997;
   throne/`fall_through`/tree via D-0986; SDOOR/altar/fountain/grave/sink
   via D-0985);
 - apply beyond lock-pick no-door (containers, other tools);

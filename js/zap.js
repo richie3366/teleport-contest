@@ -2066,7 +2066,7 @@ function SYSOPT_SEDUCE_zap() {
  * worm light-source swap.
  * @returns {object|null}
  */
-function montraits(obj, cc, adjacentok) {
+export function montraits(obj, cc, adjacentok) {
     let mtmp = null;
     const mtmp2 = has_omonst(obj) ? get_mtraits(obj, true) : null;
     if (!mtmp2) return null;
@@ -2157,7 +2157,7 @@ function montraits(obj, cc, adjacentok) {
  * @param {{ mtype: number }} box inout mtype
  * @returns {boolean}
  */
-function cant_revive(box, revival, from_obj) {
+export function cant_revive(box, revival, from_obj) {
     let mtype = box.mtype | 0;
     if (mtype === PM_GUARD
         || (mtype === PM_SHOPKEEPER && !revival)
@@ -3431,7 +3431,7 @@ async function bhito(obj, otmp) {
             }
             fracture_rock(obj);
         } else if ((obj.otyp | 0) === STATUE) {
-            if (break_statue(obj)) {
+            if (await break_statue(obj)) {
                 if (cansee(obj.ox | 0, obj.oy | 0)) {
                     await pline('The statue shatters.');
                 } else {
