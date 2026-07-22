@@ -1,3 +1,18 @@
+## 2026-07-22 01:15 — #1242 D-0972 music do_earthquake/do_pit
+
+- Objective: map-driven music debt — `DRUM_OF_EARTHQUAKE` after
+  leather-drum awaken (D-0454).
+- C locus: `music.c` `do_pit` / `do_earthquake` / `generic_lvl_desc` /
+  `do_improvisation` DRUM_OF_EARTHQUAKE arm.
+- Change: port pit/quake + wire drum charge/`makeknown`/
+  `awaken_monsters(ROWNO*COLNO)`; altar → `desecrate_altar`; PIT
+  IS_ROOM→ROOM morph in `do_pit` only (D-0972). Deferred: passtune;
+  flute/harp/horn; selftouch; full flooreffects; shared maketrap morph.
+- Verification: green+strict PASS; apply/shared cohort 36/36 PASS
+  (seed0002 drummer). seed0009 Scr FAIL pre-exists on clean HEAD.
+- Next: sink-fall; lavawall/burn; MAGM/DISN/DRST/ACID explode.
+  Cadence @**#1245**.
+
 ## 2026-07-21 17:04 — #1183 wizwhere NHW_MENU dmore
 
 - Objective: seed4500 @1650 C ` --More--` (col9) vs JS `--More--`.

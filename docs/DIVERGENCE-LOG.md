@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0987 — `flooreffects` pool/lava/pit/shaft + boulder
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — drop/throw/`kick_object` callers
+  skipped C `flooreffects` (always place); kick_object blocked on
+  this prerequisite.
+- **C locus:** `do.c` `flooreffects` / `boulder_hits_pool`;
+  `trap.c` `lava_damage` / `uteetering_at_seen_pit` /
+  `uescaped_shaft`.
+- **Fix:** port core arms (boulder pool/pit, lava soft-burn,
+  pool `water_damage`, hero pit tumble, shaft `ship_object`);
+  wire `dropz` / `throwit` (+ Splash/Plop) / `drop_throw`.
+  Deferred: `fire_damage`; globby meld; altar `doaltarobj`; hot
+  potion shatter; boulder+pit `hmon`; scatter/`xkilled` callers;
+  `kick_object` / `bhit` KICKED_WEAPON.
+- **Verification:** green+strict PASS; drop/throw cohort **20**/21
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+- **Files:** `js/do.js`, `js/dothrow.js`, `js/mthrowu.js`.
+
 ## D-0986 — throne/`fall_through` + tree scatter + hero hole fall
 
 - **Status:** fixed (map-driven debt retirement)

@@ -773,6 +773,24 @@ async function throwit(obj) {
         // Broken — darts usually survive via obj_resists
         return;
     }
+    // C: Splash/Plop before flooreffects when landing in pool/lava
+    {
+        const { is_pool, is_lava } = await import('./hack.js');
+        const { weight } = await import('./mkobj.js');
+        const { WT_SPLASH_THRESHOLD } = await import('./const.js');
+        if (!Deaf() && !game.u?.Underwater
+            && (is_pool(x, y)
+                || (is_lava(x, y) /* && !is_flammable deferred */))) {
+            await pline(
+                (weight(obj) > WT_SPLASH_THRESHOLD) ? 'Splash!' : 'Plop!',
+            );
+        }
+    }
+    // C: flooreffects then ship_object then place (D-0987)
+    {
+        const { flooreffects } = await import('./do.js');
+        if (await flooreffects(obj, x, y, 'fall')) return;
+    }
     // C: !mon && ship_object(obj, bhitpos, FALSE) before place
     {
         const { ship_object } = await import('./dokick.js');

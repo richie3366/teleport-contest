@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 03:20 — #1257 D-0987 flooreffects
+
+**Objective:** map-driven — `flooreffects` pit/shaft/pool/lava
+(CURRENT next cluster; kick_object prerequisite).
+**C locus:** `do.c` flooreffects / boulder_hits_pool; `trap.c`
+lava_damage / uteetering_at_seen_pit / uescaped_shaft.
+**Changed:** flooreffects core + boulder_hits_pool; wire dropz /
+throwit Splash+flooreffects / drop_throw — D-0987. Deferred:
+fire_damage; globby/altar/hot potion; kick_object+bhit KICKED_WEAPON.
+**Verified:** green+strict PASS; drop/throw cohort **20**/21
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** kick_object + bhit KICKED_WEAPON; or absent.md thin.
+**Blocked:** none.
+
 ## 2026-07-22 03:10 — #1256 D-0986 throne/tree + fall_through
 
 **Objective:** map-driven — finish `kick_nondoor` throne/tree
@@ -218,18 +232,3 @@ pre-existing Scr 72/73). Rule #2: no fs.
   sparkle/golem/ignite.
 - Verification: green+strict PASS; zap/shared cohort **24**/24 PASS.
 - Next: sink-fall; lavawall/burn; flute/harp/horn. Cadence @**#1245**.
-
-## 2026-07-22 01:15 — #1242 D-0972 music do_earthquake/do_pit
-
-- Objective: map-driven music debt — `DRUM_OF_EARTHQUAKE` after
-  leather-drum awaken (D-0454).
-- C locus: `music.c` `do_pit` / `do_earthquake` / `generic_lvl_desc` /
-  `do_improvisation` DRUM_OF_EARTHQUAKE arm.
-- Change: port pit/quake + wire drum charge/`makeknown`/
-  `awaken_monsters(ROWNO*COLNO)`; altar → `desecrate_altar`; PIT
-  IS_ROOM→ROOM morph in `do_pit` only (D-0972). Deferred: passtune;
-  flute/harp/horn; selftouch; full flooreffects; shared maketrap morph.
-- Verification: green+strict PASS; apply/shared cohort 36/36 PASS
-  (seed0002 drummer). seed0009 Scr FAIL pre-exists on clean HEAD.
-- Next: sink-fall; lavawall/burn; MAGM/DISN/DRST/ACID explode.
-  Cadence @**#1245**.

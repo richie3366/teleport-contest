@@ -2,7 +2,7 @@
 // C ref: do.c — donull, dodown, doup, goto_level (ordinary stairs subset;
 //         Punished unplacebc/placebc D-0915),
 //         cmd_safety_prevention, dodrop/drop/dropx/dropy/dropz,
-//         canletgo.
+//         canletgo; flooreffects / boulder_hits_pool (D-0987).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -13,15 +13,28 @@ import {
     UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_FALLING, UTOTYPE_PORTAL,
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
     VISITED, LFILE_EXISTS,
-    UNENCUMBERED, KILLED_BY, DISMOUNT_FELL,
+    UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX,
     MAGIC_PORTAL, TIMEOUT, BLINDED, RLOC_NOMSG,
     ACH_HELL, ACH_MINE, ACH_SOKO,
+    OBJ_FREE, ER_DESTROYED, WT_SPLASH_THRESHOLD, TT_PIT, FIRE_RES,
+    ROOM, DRAWBRIDGE_UP, TRAPDOOR, HOLE,
+    IS_WATERWALL, is_pit, is_hole, u_at, Has_contents,
+    Is_waterlevel, Is_airlevel,
+    In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level,
+    PRIMARYSET, ROGUESET,
 } from './const.js';
-import { seetrap } from './trap.js';
-import { COIN_CLASS } from './objects.js';
-import { pline, Norep, docrt, flush_screen, flush_topl_more, newsym, mark_topline_prompt, assign_graphics, check_gold_symbol } from './display.js';
+import {
+    seetrap, t_at, delfloortrap, reset_utrap, water_damage,
+} from './trap.js';
+import {
+    COIN_CLASS, SCROLL_CLASS, SPBOOK_CLASS, objectNames,
+} from './objects.js';
+import {
+    pline, Norep, docrt, flush_screen, flush_topl_more, newsym,
+    mark_topline_prompt, assign_graphics, check_gold_symbol,
+} from './display.js';
 import { yn_function } from './getline.js';
-import { vision_recalc, vision_reset } from './vision.js';
+import { vision_recalc, vision_reset, recalc_block_point, cansee } from './vision.js';
 import { clear_light_sources, relight_monsters } from './light.js';
 import { clear_regions } from './region.js';
 import {
@@ -38,20 +51,19 @@ import {
     In_tutorial, at_dgn_entrance, print_level_annotation,
     recalc_mapseen, recbranch_mapseen,
 } from './dungeon.js';
-import { Is_waterlevel, Is_airlevel } from './const.js';
 import { record_achievement } from './insight.js';
 import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, hide_monst } from './mon.js';
+import { m_at, mnexto, hide_monst, wake_nearto, dist2 } from './mon.js';
 import { enexto } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
-    check_special_room,
+    check_special_room, is_pool, is_lava, waterbody_name,
 } from './hack.js';
-import { place_object, stackobj } from './mkobj.js';
+import { place_object, stackobj, weight, delobj } from './mkobj.js';
 import { ship_object } from './dokick.js';
-import { doname } from './objnam.js';
+import { doname, xname, the, The, vtense } from './objnam.js';
 import {
     compactify_invlets, near_capacity, learn_unseen_invent, encumber_msg,
 } from './invent.js';
@@ -61,16 +73,24 @@ import { Fumbling } from './attrib.js';
 import {
     welded, setuwep, setuswapwep, setuqwep,
 } from './wield.js';
-import { objectNames } from './objects.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { PM_TOURIST, PM_ROGUE } from './generated/monsters_data.js';
 import { dismount_steed } from './steed.js';
 import { onquest, ok_to_quest } from './quest.js';
-import { In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level, PRIMARYSET, ROGUESET } from './const.js';
 import { resurrect } from './wizard.js';
 import { bones_include_name } from './bones.js';
-import { olfaction } from './monsters.js';
+import {
+    olfaction, passes_walls, throws_rocks, is_flyer, is_floater,
+} from './monsters.js';
 import { placebc, unplacebc, drag_down, ballrelease } from './ball.js';
+import { obj_resists } from './dogmove.js';
+
+const BOULDER = objectNames.indexOf('BOULDER');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
+const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
+const FIRE_HORN = objectNames.indexOf('FIRE_HORN');
+/** C objclass.h DRAGON_HIDE — materials below are soft enough to burn in lava. */
+const DRAGON_HIDE = 10;
 
 function Blind() {
     const u = game.u || {};
@@ -98,6 +118,36 @@ function Flying() {
     return !!(((u.HFlying | 0) || (u.EFlying | 0))
         && !(u.BFlying | 0));
 }
+/** C youprop.h Deaf — H/E Deaf or roleplay deaf. */
+function Deaf() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+}
+/** C youprop.h Passes_walls. */
+function Passes_walls() {
+    const u = game.u || {};
+    return !!(u.Passes_walls || u.HPasses_walls || u.EPasses_walls);
+}
+/** C hack.h distu — squared distance from hero. */
+function distu(x, y) {
+    const u = game.u || {};
+    return dist2(u.ux | 0, u.uy | 0, x | 0, y | 0);
+}
+/** C mondata.h m_in_air subset — flyer/floater. */
+function m_in_air(mtmp) {
+    return is_flyer(mtmp?.data) || is_floater(mtmp?.data);
+}
+function is_plural(obj) {
+    return (obj?.quan | 0) !== 1;
+}
+function otense(obj, verb) {
+    if (is_plural(obj)) return verb;
+    return vtense(null, verb);
+}
+async function You_hear(line) {
+    if (Deaf()) return;
+    await pline(`You hear ${line}`);
+}
 /**
  * C ref: hack.c u_locomotion — Lev/Fly verbs; poly locomotion() deferred.
  * @param {string} defWord
@@ -106,6 +156,277 @@ function u_locomotion(defWord) {
     if (Levitation()) return 'float';
     if (Flying()) return 'fly';
     return defWord;
+}
+
+/**
+ * C ref: trap.c uteetering_at_seen_pit — seen pit under hero, not trapped in it.
+ */
+function uteetering_at_seen_pit(trap) {
+    const u = game.u || {};
+    return !!(trap && is_pit(trap.ttyp) && trap.tseen
+        && u_at(trap.tx, trap.ty)
+        && !(u.utrap && (u.utraptype | 0) === TT_PIT));
+}
+
+/**
+ * C ref: trap.c uescaped_shaft — seen hole/trapdoor under hero.
+ */
+function uescaped_shaft(trap) {
+    return !!(trap && is_hole(trap.ttyp) && trap.tseen
+        && u_at(trap.tx, trap.ty));
+}
+
+/**
+ * C ref: trap.c lava_damage — soft materials burn up; hard → fire_damage.
+ * Named omit: fire_damage body (scrolls/books/potion boil); carried useupall.
+ * @returns {Promise<boolean>} true if object destroyed
+ */
+async function lava_damage(obj, x, y) {
+    if (!obj) return false;
+    const otyp = obj.otyp | 0;
+    const ocls = obj.oclass | 0;
+    if (obj_resists(obj, 0, 0) && otyp !== SPE_BOOK_OF_THE_DEAD) return false;
+    const oc = game.objects?.[otyp];
+    const mat = oc?.oc_material | 0;
+    if (mat < DRAGON_HIDE
+        && ocls !== SCROLL_CLASS && ocls !== SPBOOK_CLASS
+        && (oc?.oc_oprop | 0) !== FIRE_RES
+        && otyp !== WAN_FIRE && otyp !== FIRE_HORN
+        && !obj.oerodeproof
+        && !Has_contents(obj)) {
+        if (cansee(x, y)) {
+            const kicked = obj === game.kickedobj;
+            const thrown = obj === game.thrownobj || obj === game._thrownobj;
+            if (thrown || kicked) {
+                await pline(`${is_plural(obj) ? 'They' : 'It'} ${otense(obj, 'burn')} up!`);
+            } else {
+                await pline(`You see ${doname(obj)} hit lava and burn up!`);
+            }
+        }
+        delobj(obj);
+        return true;
+    }
+    // fire_damage deferred — object survives lava land
+    return false;
+}
+
+/**
+ * C ref: do.c boulder_hits_pool — boulder fills/sinks in pool or lava.
+ * Branch envelope: fills_up chance; ROOM morph / bury_objs; splash msgs;
+ * wake_nearto; adjacent lava dmg; obfree (!pushing).
+ * Named omit: DRAWBRIDGE_UP mask polish; pushing useupf; steed whobuf;
+ * Fire_resistance lava dmg; burn_away_slime; set_uinwater dry-land.
+ * @returns {Promise<boolean>}
+ */
+export async function boulder_hits_pool(otmp, rx, ry, pushing) {
+    if (!otmp || (otmp.otyp | 0) !== BOULDER) return false;
+    if (!(is_pool(rx, ry) || is_lava(rx, ry))) return false;
+
+    const lava = is_lava(rx, ry);
+    const what = waterbody_name(rx, ry);
+    const lev = game.level?.at?.(rx, ry);
+    const ltyp = lev?.typ;
+    const chance = rn2(10);
+    let fills_up = false;
+    if (Is_waterlevel(game.u?.uz)) {
+        fills_up = false;
+    } else if (IS_WATERWALL(ltyp)) {
+        fills_up = chance < 5;
+    } else if (lava) {
+        fills_up = chance === 0;
+    } else {
+        fills_up = chance !== 0;
+    }
+
+    const u = game.u || {};
+    if (fills_up && lev) {
+        if (ltyp === DRAWBRIDGE_UP) {
+            // drawbridgemask floor morph deferred — treat as ROOM
+            lev.typ = ROOM;
+            lev.flags = 0;
+        } else {
+            lev.typ = ROOM;
+            lev.flags = 0;
+            recalc_block_point(rx, ry);
+        }
+        const mtmp = m_at(rx, ry);
+        if (mtmp && !(mtmp.mhp <= 0) && !m_in_air(mtmp)) {
+            // mondied deferred — clear trapped only for thin fortress
+            mtmp.mtrapped = 0;
+        }
+        const ttmp = t_at(rx, ry);
+        if (ttmp) delfloortrap(ttmp);
+        try {
+            const { bury_objs } = await import('./dig.js');
+            await bury_objs(rx, ry);
+        } catch {
+            /* bury_objs optional */
+        }
+        newsym(rx, ry);
+        if (pushing) {
+            await pline(`You push ${the(xname(otmp))} into the ${what}.`);
+            if (game.flags?.verbose && !Blind()) {
+                await pline('Now you can cross it!');
+            }
+        }
+    }
+    if (!fills_up || !pushing) {
+        if (!u.uinwater) {
+            if (pushing ? !Blind() : cansee(rx, ry)) {
+                await pline(
+                    `There is a large splash as ${the(xname(otmp))} ${
+                        fills_up ? 'fills' : 'falls into'
+                    } the ${what}.`,
+                );
+            } else if (!Deaf()) {
+                await You_hear(`a${lava ? ' sizzling' : ''} splash.`);
+            }
+            await wake_nearto(rx, ry, 40);
+        }
+        if (fills_up && u.uinwater && distu(rx, ry) === 0) {
+            u.uinwater = 0;
+            docrt();
+            game.vision_full_recalc = 1;
+            await pline('You find yourself on dry land again!');
+        } else if (lava && distu(rx, ry) <= 2) {
+            // next2u approx: Chebyshev ≤1 → dist2 ≤ 2
+            const Fire_resistance = !!(u.Fire_resistance
+                || u.HFire_resistance || u.EFire_resistance);
+            await pline(`You are hit by molten lava${Fire_resistance ? '.' : '!'}`);
+            let dmg = 0;
+            const ndice = Fire_resistance ? 1 : 3;
+            for (let i = 0; i < ndice; i++) dmg += 1 + rn2(6);
+            await losehp(maybe_half_phys(dmg), 'molten lava', KILLED_BY);
+        } else if (!fills_up && game.flags?.verbose
+            && (pushing ? !Blind() : cansee(rx, ry))) {
+            await pline('It sinks without a trace!');
+        }
+    }
+    // boulder gone — !pushing uses obfree (no obj_resists)
+    otmp.quan = 0;
+    otmp.where = OBJ_FREE;
+    otmp.nobj = otmp.nexthere = null;
+    return true;
+}
+
+/**
+ * C ref: do.c flooreffects — special landings for free objects.
+ * Branch envelope: boulder_hits_pool; boulder plugs pit/hole; lava_damage;
+ * pool water_damage + splash; uteetering pit tumble; uescaped shaft ship_object.
+ * Named omit: globby pudding_merge; mon_moving doaltarobj; hot-ground
+ * potion shatter; boulder+pit hmon/mondied; Soundeffect.
+ * @returns {Promise<boolean>} true if object is gone (caller must not place)
+ */
+export async function flooreffects(obj, x, y, verb) {
+    if (!obj) return false;
+    if ((obj.where | 0) !== OBJ_FREE && obj.where != null) {
+        // C panic — tolerate and treat as free for port resilience
+        obj.where = OBJ_FREE;
+    }
+    obj.nobj = obj.nexthere = null;
+
+    const save = game._bhitpos ? { ...game._bhitpos } : null;
+    game._bhitpos = { x: x | 0, y: y | 0 };
+
+    let res = false;
+    const t0 = t_at(x, y);
+
+    if ((obj.otyp | 0) === BOULDER
+        && await boulder_hits_pool(obj, x, y, false)) {
+        res = true;
+    } else if ((obj.otyp | 0) === BOULDER && t0
+        && (is_pit(t0.ttyp) || is_hole(t0.ttyp))) {
+        const ttyp = t0.ttyp;
+        const tseen = !!t0.tseen;
+        const mtmp = m_at(x, y);
+        if ((mtmp && mtmp.mtrapped) || (game.u?.utrap && u_at(x, y))) {
+            if (verb && (cansee(x, y) || distu(x, y) === 0)) {
+                await pline(
+                    `${Blind() ? 'A' : 'The'} boulder ${vtense(null, verb)} into the pit${
+                        mtmp ? '' : ' with you'
+                    }.`,
+                );
+            }
+            if (mtmp) {
+                mtmp.mtrapped = 0;
+                // hmon / mondied deferred
+            } else if (!Passes_walls()
+                && !throws_rocks(game.youmonst?.data)) {
+                await losehp(
+                    maybe_half_phys(rnd(15)),
+                    'squished under a boulder',
+                    NO_KILLER_PREFIX,
+                );
+            } else {
+                reset_utrap(true);
+            }
+        }
+        if (verb) {
+            if (Blind() && u_at(x, y)) {
+                await You_hear('a CRASH! beneath you.');
+            } else if (!Blind() && cansee(x, y)) {
+                await pline(
+                    `The boulder ${
+                        (ttyp === TRAPDOOR && !tseen) ? 'triggers and ' : ''
+                    }${
+                        ttyp === TRAPDOOR ? 'plugs a trap door'
+                            : ttyp === HOLE ? 'plugs a hole'
+                                : 'fills a pit'
+                    }.`,
+                );
+            } else {
+                await You_hear(`a boulder ${verb}.`);
+            }
+        }
+        const t = t_at(x, y);
+        if (t) {
+            delfloortrap(t);
+            if (game.u?.utrap && u_at(x, y)) reset_utrap(false);
+        }
+        // useupf → delobj (obj already free; still burns resists rn2)
+        delobj(obj);
+        try {
+            const { bury_objs } = await import('./dig.js');
+            await bury_objs(x, y);
+        } catch { /* optional */ }
+        newsym(x, y);
+        res = true;
+    } else if (is_lava(x, y)) {
+        res = await lava_damage(obj, x, y);
+    } else if (is_pool(x, y)) {
+        if ((Blind() || Levitation() || Flying()) && !Deaf() && u_at(x, y)) {
+            if (!game.u?.Underwater) {
+                if (weight(obj) > WT_SPLASH_THRESHOLD) {
+                    await pline('Splash!');
+                } else if (Levitation() || Flying()) {
+                    await pline('Plop!');
+                }
+            }
+            // map_background deferred
+            newsym(x, y);
+        }
+        res = (await water_damage(obj, null, false)) === ER_DESTROYED;
+    } else if (u_at(x, y) && t0
+        && (uteetering_at_seen_pit(t0) || uescaped_shaft(t0))) {
+        if (is_pit(t0.ttyp)) {
+            const the_your = t0.madeby_u ? 'your' : 'the';
+            if (Blind() && !Deaf()) {
+                await You_hear(`${the(xname(obj))} tumble downwards.`);
+            } else {
+                await pline(
+                    `${The(xname(obj))} ${otense(obj, 'tumble')} into ${the_your} pit.`,
+                );
+            }
+            // object still places into pit (C does not destroy here)
+        } else if (await ship_object(obj, x, y, false)) {
+            res = true;
+        }
+    }
+    // globby / altar / hot potion deferred
+
+    if (save) game._bhitpos = save;
+    else delete game._bhitpos;
+    return res;
 }
 
 /**
@@ -1027,7 +1348,8 @@ function freeinv_drop(obj) {
 /**
  * C ref: do.c dropz — place at hero feet; always encumber_msg (polyself
  * break_armor armor-drop More packs load before gloves).
- * Named omissions: engulf digest; flooreffects; shop sell; altar; ball.
+ * Named omissions: engulf digest; shop sell; altar; ball;
+ * container_impact; impact_disturbs_zombies.
  */
 export async function dropz(obj, _with_impact) {
     if (!obj) return;
@@ -1040,7 +1362,11 @@ export async function dropz(obj, _with_impact) {
         // engulfer inventory deferred — leave free
         return;
     }
-    // flooreffects deferred — always place
+    // C: flooreffects before place (D-0987)
+    if (await flooreffects(obj, u.ux | 0, u.uy | 0, 'drop')) {
+        await encumber_msg();
+        return;
+    }
     place_object(obj, u.ux, u.uy);
     stackobj(obj);
     newsym(u.ux, u.uy);

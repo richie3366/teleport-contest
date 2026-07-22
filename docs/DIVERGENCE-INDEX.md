@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0987 | fixed | `flooreffects` pool/lava/pit/shaft + boulder + drop/throw wire | map-driven; green+drop/throw cohort 20/21 (seed0009 pre-existing) |
 | D-0986 | fixed | throne/`fall_through` + tree scatter + hero hole | map-driven; green+kick cohort 19/20 (seed0009 pre-existing) |
 | D-0985 | fixed | `kick_nondoor` SDOOR/furniture + altar_wrath/disturb_grave/sink_backs_up | map-driven; green+kick cohort 19/20 (seed0009 pre-existing); cadence 43/44 @#1255 |
 | D-0984 | fixed | `ship_object`/`otransit_msg` + dropx/throwit/drop_throw | map-driven; green+throw/drop cohort 20/21 (seed0009 pre-existing) |

@@ -3,7 +3,7 @@
 // kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); kick_nondoor SDOOR/furniture (D-0985);
 // throne fall_through + tree scatter/swarm (D-0986).
-// kick_object still named deferred in C-JS-MAP.md.
+// kick_object still named deferred (flooreffects D-0987; needs bhit KICKED_WEAPON).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rnl, rn1 } from './rng.js';
@@ -1040,7 +1040,7 @@ function remove_worn_item_ship(obj) {
  * add_to_migration + impact_drop of pile.
  * Named omit: maybe_unhide_at; Soundeffect; kick_object KICKED_WEAPON
  * shop_floor_obj=TRUE caller (kick object still deferred); flooreffects
- * pit/shaft callers beyond dropx/throwit/drop_throw.
+ * callers beyond dropz/throwit/drop_throw (D-0987 core done).
  * NOTE: assumes otmp already freed from fobj/invent (C comment).
  * @returns {Promise<boolean>} true if shipped/broken (caller must not place)
  */

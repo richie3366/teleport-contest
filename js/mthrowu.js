@@ -496,9 +496,12 @@ async function drop_throw(obj, ohit, x, y) {
         const { ship_object } = await import('./dokick.js');
         broken = await ship_object(obj, x, y, false);
         if (!broken) {
-            // flooreffects / passive_obj deferred
-            place_object(obj, x, y);
-            stackobj(obj);
+            // C: flooreffects before place (D-0987); passive_obj deferred
+            const { flooreffects } = await import('./do.js');
+            if (!(await flooreffects(obj, x, y, 'fall'))) {
+                place_object(obj, x, y);
+                stackobj(obj);
+            }
         }
     }
     game._thrownobj = null;
