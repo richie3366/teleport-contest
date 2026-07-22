@@ -10,8 +10,8 @@ import {
 import { vision_recalc, cansee } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
-    COIN_CLASS, GEM_CLASS, FOOD_CLASS, objectNames, objectNameStrs,
-    objectDescrs,
+    COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
+    objectNames, objectNameStrs, objectDescrs,
 } from './objects.js';
 import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE,
@@ -28,17 +28,21 @@ import {
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
 import { m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto, wake_nearby } from './mon.js';
-import { compactify_invlets, makeknown, near_capacity } from './invent.js';
+import {
+    compactify_invlets, makeknown, near_capacity, observe_object, prinv,
+} from './invent.js';
 import { rn2, rn1, rnd, d } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
     unsolid, nolimbs, has_head, breathless,
+    PM_ARCHEOLOGIST, PM_GNOME,
 } from './monsters.js';
 import { can_blow } from './mondata.js';
 import { wield_tool, welded } from './wield.js';
 import { splitobj, delobj, objects_at, unbless } from './mkobj.js';
-import { xname, the, makeplural } from './objnam.js';
+import { xname, the, The, makeplural, vtense } from './objnam.js';
+import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, change_luck } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam } from './do_name.js';
 import { monflee } from './monmove.js';
@@ -77,7 +81,25 @@ const TOUCHSTONE = objectNames.indexOf('TOUCHSTONE');
 const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 const FLINT = objectNames.indexOf('FLINT');
+const RUBBER_HOSE = objectNames.indexOf('RUBBER_HOSE');
 const SACK = objectNames.indexOf('SACK');
+/* C objclass.h enum obj_material_types — use_stone material switch */
+const MAT_LIQUID = 1;
+const MAT_WAX = 2;
+const MAT_CLOTH = 6;
+const MAT_LEATHER = 7;
+const MAT_WOOD = 8;
+const MAT_SILVER = 14;
+const MAT_GOLD = 15;
+const MAT_GLASS = 19;
+const MAT_GEMSTONE = 20;
+const MAT_MINERAL = 21;
+/** C decl.c c_obj_colors[] — streak color for use_stone. */
+const C_OBJ_COLORS = [
+    'black', 'red', 'green', 'brown', 'blue', 'magenta', 'cyan', 'gray',
+    'transparent', 'orange', 'bright green', 'yellow', 'bright blue',
+    'bright magenta', 'bright cyan', 'white',
+];
 const OILSKIN_SACK = objectNames.indexOf('OILSKIN_SACK');
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
@@ -1992,9 +2014,10 @@ async function use_towel(obj) {
  * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007) +
  * TOWEL → use_towel (D-1009) +
  * CRYSTAL_BALL → use_crystal_ball (D-1010) +
- * BLINDFOLD / LENSES → Blindf_on/off (D-1013).
+ * BLINDFOLD / LENSES → Blindf_on/off (D-1013) +
+ * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
- * whip/grapple; use_stone; use_pole; traps;
+ * whip/grapple; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms;
  * break-wand release_hold / flash_hits (D-0979).
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -2181,9 +2204,304 @@ export async function doapply() {
         return true; // ECMD_TIME
     }
 
+    // C apply.c case LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014)
+    if (is_graystone(obj)) {
+        const res = await use_stone(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
     // Other apply otyps deferred
     await pline("Sorry, I don't know how to use that.");
     return false;
+}
+
+/** C invent.c plur — quan!=1 → "s". */
+function plur_quan(quan) {
+    return (quan | 0) !== 1 ? 's' : '';
+}
+
+/** C obj.h is_flimsy — material ≤ LEATHER or rubber hose. */
+function is_flimsy_stone(otmp) {
+    if (!otmp) return false;
+    const mat = game.objects?.[otmp.otyp]?.oc_material ?? 0;
+    return mat <= MAT_LEATHER || otmp.otyp === RUBBER_HOSE;
+}
+
+/** C objnam.c otense / Tobjnam — for use_stone polish/wet msgs. */
+function otense_stone(obj, verb) {
+    if ((obj?.quan | 0) !== 1) return verb;
+    return vtense(null, verb);
+}
+function Tobjnam_stone(obj, verb) {
+    const bp = The(xname(obj));
+    return verb ? `${bp} ${otense_stone(obj, verb)}` : bp;
+}
+
+/** C role.h Role_if / Race_if — touchstone identify gate. */
+function Role_if_stone(pm) {
+    return (game.urole?.mnum | 0) === pm;
+}
+function Race_if_stone(pm) {
+    return (game.urace?.mnum | 0) === pm;
+}
+
+/**
+ * C ref: invent.c useup — invent consume one (no obj_resists).
+ * Used when cursed touchstone shatters a gem.
+ */
+function useup_stone(otmp) {
+    if (!otmp) return;
+    if ((otmp.quan || 1) > 1) {
+        otmp.quan--;
+        return;
+    }
+    const u = game.u || {};
+    if (u.uwep === otmp) u.uwep = null;
+    if (u.uswapwep === otmp) u.uswapwep = null;
+    if (u.uqwep === otmp) u.uqwep = null;
+    const inv = game.invent || [];
+    const idx = inv.indexOf(otmp);
+    if (idx >= 0) inv.splice(idx, 1);
+    otmp.quan = 0;
+    otmp.where = OBJ_FREE;
+}
+
+/**
+ * C ref: apply.c touchstone_ok — coins + unidentified gems SUGGEST;
+ * else DOWNPLAY (identified gems still selectable).
+ */
+function touchstone_ok(obj) {
+    if (!obj) return GETOBJ_EXCLUDE;
+    if (obj.oclass === COIN_CLASS) return GETOBJ_SUGGEST;
+    if (obj.oclass === GEM_CLASS
+        && !(obj.dknown && game.objects?.[obj.otyp]?.oc_name_known)) {
+        return GETOBJ_SUGGEST;
+    }
+    return GETOBJ_DOWNPLAY;
+}
+
+/** C invent.c any_obj_ok — every invent item SUGGEST. */
+function any_obj_ok_stone(obj) {
+    if (!obj) return GETOBJ_EXCLUDE;
+    return GETOBJ_SUGGEST;
+}
+
+/**
+ * C ref: invent.c getobj(stonebuf, touchstone_ok|any_obj_ok, GETOBJ_PROMPT)
+ * for use_stone second-object pick. DOWNPLAY letters accepted; EXCLUDE not.
+ */
+async function getobj_rub_on_stone(stonebuf, okfn) {
+    const suggest_lets = () => {
+        const lets = [];
+        for (const o of game.invent || []) {
+            if (o?.invlet && okfn(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
+        }
+        return lets.join('');
+    };
+    const has_downplay = () => {
+        for (const o of game.invent || []) {
+            if (okfn(o) === GETOBJ_DOWNPLAY) return true;
+        }
+        return false;
+    };
+
+    for (;;) {
+        await flush_topl_more();
+        const rawLets = suggest_lets();
+        if (!rawLets && !has_downplay()) {
+            await pline("You don't have anything to use.");
+            return null;
+        }
+        const lets = rawLets.length > 5 ? compactify_invlets(rawLets) : rawLets;
+        const query = lets
+            ? `What do you want to ${stonebuf}? [${lets} or ?*]`
+            : `What do you want to ${stonebuf}? [*]`;
+        const prompt = `${query} `;
+        game._pending_message = prompt;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+
+        const key = await nhgetch();
+        const ch = String.fromCharCode(key);
+        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
+            if (game.flags?.verbose !== false) await pline('Never mind.');
+            return null;
+        }
+        if (ch === '?' || ch === '*') {
+            const { display_pickinv_reply } = await import('./invent.js');
+            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline('Never mind.');
+                return null;
+            }
+            if (!ilet) continue;
+            const picked = (game.invent || []).find((o) => o.invlet === ilet);
+            if (!picked) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            const rank = okfn(picked);
+            if (rank === GETOBJ_EXCLUDE) {
+                await pline('That is a silly thing to rub.');
+                return null;
+            }
+            game._pending_message = '';
+            return picked;
+        }
+        const otmp = (game.invent || []).find((o) => o.invlet === ch);
+        if (!otmp) {
+            await pline("You don't have that object.");
+            continue;
+        }
+        const rank = okfn(otmp);
+        if (rank === GETOBJ_EXCLUDE) {
+            await pline('That is a silly thing to rub.');
+            return null;
+        }
+        game._pending_message = '';
+        return otmp;
+    }
+}
+
+/**
+ * C ref: apply.c use_stone — graystone / touchstone rub.
+ * Branch envelope: observe_object; getobj touchstone_ok|any_obj_ok;
+ * self-rub refuse; cursed touchstone shatter gem via obj_resists(80,100);
+ * Blind scritch / Hallu fractals; GEM/RING identify for Arc/Gnome/blessed;
+ * cloth/liquid/wax/wood/gold/silver/flimsy streak msgs.
+ * Named omissions: none for ordinary streak path; shop costly_alteration N/A.
+ * @returns {number} ECMD_*
+ */
+async function use_stone(tstone) {
+    const scritch = '"scritch, scritch"';
+    const Blind_now = Blind();
+    if (!Blind_now) observe_object(tstone);
+
+    const known = tstone.otyp === TOUCHSTONE && tstone.dknown
+        && !!game.objects?.[TOUCHSTONE]?.oc_name_known;
+    const stonebuf = `rub on the stone${plur_quan(tstone.quan)}`;
+    const obj = await getobj_rub_on_stone(
+        stonebuf,
+        known ? touchstone_ok : any_obj_ok_stone,
+    );
+    if (!obj) return ECMD_CANCEL;
+
+    if (obj === tstone && (obj.quan || 1) === 1) {
+        await pline(`You can't rub ${the(xname(obj))} on itself.`);
+        return ECMD_OK;
+    }
+
+    if (tstone.otyp === TOUCHSTONE && tstone.cursed
+        && obj.oclass === GEM_CLASS && !is_graystone(obj)
+        && !obj_resists(obj, 80, 100)) {
+        if (Blind()) {
+            await You_feel('something shatter.');
+        } else if (game.u?.Hallucination) {
+            await pline('Oh, wow, look at the pretty shards.');
+        } else {
+            await pline(
+                `A sharp crack shatters ${(obj.quan || 1) > 1 ? 'one of ' : ''}`
+                + `${the(xname(obj))}.`,
+            );
+        }
+        useup_stone(obj);
+        return ECMD_TIME;
+    }
+
+    if (Blind()) {
+        await pline(scritch);
+        return ECMD_TIME;
+    }
+    if (game.u?.Hallucination) {
+        await pline('Oh wow, man: Fractals!');
+        return ECMD_TIME;
+    }
+
+    let do_scratch = false;
+    let streak_color = null;
+    let oclass = obj.oclass;
+    const oc = game.objects?.[obj.otyp];
+    const mat = oc?.oc_material ?? 0;
+
+    // prevent non-gemstone rings from being treated like gems
+    if (oclass === RING_CLASS
+        && mat !== MAT_GEMSTONE && mat !== MAT_MINERAL) {
+        oclass = RANDOM_CLASS;
+    }
+
+    switch (oclass) {
+    case GEM_CLASS:
+    case RING_CLASS:
+        if (tstone.otyp !== TOUCHSTONE) {
+            do_scratch = true;
+        } else if (obj.oclass === GEM_CLASS
+            && (tstone.blessed
+                || (!tstone.cursed
+                    && (Role_if_stone(PM_ARCHEOLOGIST)
+                        || Race_if_stone(PM_GNOME))))) {
+            makeknown(TOUCHSTONE);
+            makeknown(obj.otyp);
+            await prinv(null, obj, 0);
+            return ECMD_TIME;
+        } else {
+            if (mat === MAT_GLASS) {
+                do_scratch = true;
+                break;
+            }
+        }
+        streak_color = C_OBJ_COLORS[oc?.oc_color ?? 0] || null;
+        break;
+
+    default:
+        switch (mat) {
+        case MAT_CLOTH:
+            await pline(`${Tobjnam_stone(tstone, 'look')} a little more polished now.`);
+            return ECMD_TIME;
+        case MAT_LIQUID:
+            if (!obj.known) {
+                await pline('You must think this is a wetstone, do you?');
+            } else {
+                await pline(`${Tobjnam_stone(tstone, 'are')} a little wetter now.`);
+            }
+            return ECMD_TIME;
+        case MAT_WAX:
+            streak_color = 'waxy';
+            break;
+        case MAT_WOOD:
+            streak_color = 'wooden';
+            break;
+        case MAT_GOLD:
+            do_scratch = true;
+            streak_color = 'golden';
+            break;
+        case MAT_SILVER:
+            do_scratch = true;
+            streak_color = 'silvery';
+            break;
+        default:
+            if (is_flimsy_stone(obj)) {
+                streak_color = C_OBJ_COLORS[oc?.oc_color ?? 0] || null;
+            } else {
+                do_scratch = tstone.otyp !== TOUCHSTONE;
+            }
+            break;
+        }
+        break;
+    }
+
+    const stones = `stone${plur_quan(tstone.quan)}`;
+    if (do_scratch) {
+        await pline(
+            `You make ${streak_color ? streak_color : ''}`
+            + `${streak_color ? ' ' : ''}scratch marks on the ${stones}.`,
+        );
+    } else if (streak_color) {
+        await pline(`You see ${streak_color} streaks on the ${stones}.`);
+    } else {
+        await pline(scritch);
+    }
+    return ECMD_TIME;
 }
 
 /** C ref: apply.c rub_ok */
@@ -2268,7 +2586,7 @@ function cmdq_add_key(ch) {
 
 /**
  * C ref: apply.c dorub — #rub lamp/stone/jelly.
- * Named omissions: use_stone / use_royal_jelly; djinni_from_bottle / begin_burn
+ * Named omissions: use_royal_jelly; djinni_from_bottle / begin_burn
  * full lamp transform; check_unpaid_usage; Blind smoke wording uses see/smell.
  * @returns {number} ECMD_*
  */
@@ -2282,7 +2600,15 @@ export async function dorub() {
     if (!obj) return ECMD_CANCEL;
 
     if (obj.oclass === GEM_CLASS || obj.oclass === FOOD_CLASS) {
-        // use_stone / use_royal_jelly deferred
+        // C: is_graystone → use_stone; LUMP_OF_ROYAL_JELLY → use_royal_jelly
+        if (is_graystone(obj)) {
+            return use_stone(obj);
+        }
+        if (obj.otyp === LUMP_OF_ROYAL_JELLY) {
+            // use_royal_jelly deferred
+            await pline("Sorry, I don't know how to use that.");
+            return ECMD_OK;
+        }
         await pline("Sorry, I don't know how to use that.");
         return ECMD_OK;
     }

@@ -7,18 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1280** (Scr **11404**/11405 RNG **100%**
-  speed `30+0.26/turn`). Next cadence @**#1285**.
+- Local suite **43**/44 @**#1285** (Scr **11404**/11405 RNG **100%**
+  speed `31+0.27/turn`). Next cadence @**#1290**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1013** apply BLINDFOLD/LENSES Blindf_on/off +
-  cursed_check export.
+- Latest: **D-1014** apply `use_stone` + dorub/doapply graystone.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  whip/grapple/jelly/use_stone; or pleased pat_on_head gifts.
+  whip/grapple/jelly/use_pole/oil; or pleased pat_on_head gifts.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  Blindf_on/off apply (D-1013) or drop `objects_at` from
-  timeout mkobj (D-0980).
+  use_stone (D-1014) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -50,8 +48,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1285**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1014:** apply use_stone + dorub/doapply graystone.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
 - **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
 - **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.
@@ -65,6 +64,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
 - **D-1003:** warnreveal + overexert_hp + Upolyd eel regen_hp.
 - **D-1002:** allmain Teleport/Poly/ulycn once-per-turn + mvl_change.
-- **D-1001:** ParanoidWerechange/Hit + you_were/unwere + mtimedone
-  + wolfsbane + confirm default.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

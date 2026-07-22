@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1014 — apply use_stone graystone/touchstone
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `dorub` GEM/FOOD graystone and
+  `doapply` LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT fell through to
+  "Sorry, I don't know how to use that."
+- **C locus:** `apply.c` `use_stone` / `touchstone_ok`; `dorub`
+  `is_graystone` arm; `doapply` graystone cases.
+- **Fix:** port `use_stone` (observe_object, getobj touchstone_ok|
+  any_obj_ok, self-rub refuse, cursed shatter via `obj_resists(80,100)`,
+  Blind/Hallu arms, Arc/Gnome/blessed identify + `prinv`, material
+  streak/scratch msgs); wire dorub + doapply.
+- **Deferred:** `use_royal_jelly`; whip/grapple/`use_pole`/oil;
+  pleased pat_on_head gifts.
+- **Verify:** full `sessions` @#1285 **43**/44 Scr **11404**/11405
+  RNG **100%** speed `31+0.27/turn`; green+strict PASS; apply cohort
+  **16**/17 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1013 — apply BLINDFOLD/LENSES Blindf_on/off
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,7 +35,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   export Blindf_on + cursed_check. res stays ECMD_TIME (C default).
 - **Deferred:** welded(uwep) cursed arm; Glib fingers_or_gloves;
   Punished set_bc / full toggle_blindness see_monsters on Blindf_*;
-  whip/grapple/jelly/use_stone/use_pole; pleased pat_on_head gifts;
+  whip/grapple/jelly/use_pole; pleased pat_on_head gifts;
   remaining peffect_*.
 - **Verify:** green+strict PASS; apply/shared cohort **15**/16
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
