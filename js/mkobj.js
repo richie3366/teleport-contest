@@ -25,8 +25,12 @@ import {
     objectNames,
 } from './objects.js';
 // objectNames used for known-flag heuristic (oc_uses_known not in table yet)
-import { rndmonnum, rndmonnum_adj } from './makemon.js';
-import { undead_to_corpse, can_be_hatched, dead_species } from './mon.js';
+import {
+    rndmonnum, rndmonnum_adj,
+} from './makemon.js';
+import {
+    undead_to_corpse, can_be_hatched, dead_species, copy_mextra,
+} from './mon.js';
 import { nartifact_exist, mk_artifact } from './artifact.js';
 import {
     mons, is_male, is_female, is_neuter, is_human, verysmall, PM_LICHEN, monsterNames,
@@ -43,7 +47,7 @@ import {
     LOST_NONE, LOST_EXPLODING,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
-    LS_OBJECT,
+    LS_OBJECT, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
 } from './const.js';
 import { recalc_block_point } from './vision.js';
 import { del_light_source } from './light.js';
@@ -1741,11 +1745,22 @@ export function mkgold(amount, x, y) {
 }
 
 // C ref: mkobj.c mkcorpstat()
-export function mkcorpstat(objtype, _mtmp, ptr, x, y, corpstatflags) {
+export function mkcorpstat(objtype, mtmp, ptr, x, y, corpstatflags) {
     const init = !!(corpstatflags & 8); // CORPSTAT_INIT
     const otmp = (x || y) ? mksobj_at(objtype, x, y, init, false) : mksobj(objtype, init, false);
-    if (otmp) otmp.spe = (corpstatflags & 0x07); // CORPSTAT_SPE_VAL
-    if (ptr != null && otmp) {
+    if (!otmp) return otmp;
+    otmp.spe = (corpstatflags & 0x07); // CORPSTAT_SPE_VAL
+    // C: otmp->norevive = gm.mkcorpstat_norevive
+    if (game.mkcorpstat_norevive) otmp.norevive = 1;
+
+    // C: when mtmp non-null — save_mtraits + ptr default + cancelled norevive
+    if (mtmp) {
+        save_mtraits(otmp, mtmp);
+        if (ptr == null) ptr = mtmp.data;
+        if (mtmp.mcan && ptr && !is_rider(ptr)) otmp.norevive = 1;
+    }
+
+    if (ptr != null) {
         // Override random corpsenm — ptr may be mndx number or mons struct
         const mndx = typeof ptr === 'number' ? ptr : (ptr.mndx ?? NON_PM);
         const old_corpsenm = otmp.corpsenm;
@@ -1759,6 +1774,128 @@ export function mkcorpstat(objtype, _mtmp, ptr, x, y, corpstatflags) {
         }
     }
     return otmp;
+}
+
+/**
+ * C ref: mkobj.c newoextra — allocate oextra bag on obj.
+ */
+function newoextra(obj) {
+    if (!obj.oextra) obj.oextra = {};
+    return obj.oextra;
+}
+
+/**
+ * C ref: mkobj.c newomonst — attach empty monst shell for saved traits.
+ */
+export function newomonst(otmp) {
+    if (!otmp) return;
+    newoextra(otmp);
+    if (!otmp.oextra.omonst) otmp.oextra.omonst = {};
+}
+
+/**
+ * C ref: mkobj.c free_omonst — drop saved traits monst.
+ */
+export function free_omonst(otmp) {
+    if (otmp?.oextra?.omonst) {
+        otmp.oextra.omonst = null;
+        delete otmp.oextra.omonst;
+    }
+}
+
+/**
+ * C ref: mkobj.c newomid — ensure oextra; OMID starts 0 until assigned.
+ */
+export function newomid(otmp) {
+    if (!otmp) return;
+    newoextra(otmp);
+    if (otmp.oextra.omid == null) otmp.oextra.omid = 0;
+}
+
+/**
+ * C ref: mkobj.c free_omid — clear corpse↔ghost link.
+ */
+export function free_omid(otmp) {
+    if (otmp?.oextra) otmp.oextra.omid = 0;
+}
+
+/**
+ * C ref: mkobj.c obj_attach_mid — lasting association corpse↔ghost m_id.
+ */
+export function obj_attach_mid(obj, mid) {
+    if (!mid || !obj) return null;
+    newomid(obj);
+    obj.oextra.omid = mid | 0;
+    return obj;
+}
+
+/**
+ * C ref: mkobj.c save_mtraits — snapshot live monst onto corpse/statue omonst.
+ * Named omit: forget_temple_entry for ispriest (EPRI still copied).
+ */
+export function save_mtraits(obj, mtmp) {
+    if (!obj || !mtmp) return obj;
+    // forget_temple_entry(mtmp) deferred for ispriest
+    if (!has_omonst(obj)) newomonst(obj);
+    if (!has_omonst(obj)) return obj;
+
+    const baselevel = mtmp.data?.mlevel | 0;
+    const mtmp2 = OMONST(obj);
+    // C: *mtmp2 = *mtmp then invalidate pointers
+    const keys = Object.keys(mtmp);
+    for (const k of keys) {
+        if (k === 'mextra' || k === 'nmon' || k === 'data'
+            || k === 'minvent' || k === 'mw' || k === 'edog') continue;
+        mtmp2[k] = mtmp[k];
+    }
+    mtmp2.mextra = null;
+    mtmp2.mnum = mtmp.data?.mndx ?? mtmp.mnum ?? 0;
+    mtmp2.nmon = null;
+    mtmp2.data = null;
+    mtmp2.minvent = null;
+    mtmp2.mw = null;
+    mtmp2.wormno = 0;
+    if (mtmp.mextra || mtmp.edog) copy_mextra(mtmp2, mtmp);
+    if ((mtmp2.mhpmax | 0) <= baselevel) mtmp2.mhpmax = baselevel + 1;
+    if ((mtmp2.mhp | 0) > (mtmp2.mhpmax | 0)) mtmp2.mhp = mtmp2.mhpmax | 0;
+    if ((mtmp2.mhp | 0) < 1) mtmp2.mhp = 0;
+    mtmp2.mstate = (mtmp2.mstate | 0) & ~MON_DETACH;
+    return obj;
+}
+
+/**
+ * C ref: mkobj.c get_mtraits — pointer into omonst or deep copy.
+ * Never insert non-copy result into fmon.
+ */
+export function get_mtraits(obj, copyof) {
+    if (!has_omonst(obj)) return null;
+    const mtmp = OMONST(obj);
+    if (!mtmp) return null;
+    if (copyof) {
+        const mnew = {};
+        for (const k of Object.keys(mtmp)) {
+            if (k === 'mextra' || k === 'edog') continue;
+            mnew[k] = mtmp[k];
+        }
+        mnew.mextra = null;
+        if (mtmp.mextra || mtmp.edog) copy_mextra(mnew, mtmp);
+        mnew.data = mons(mnew.mnum | 0);
+        return mnew;
+    }
+    mtmp.data = mons(mtmp.mnum | 0);
+    return mtmp;
+}
+
+/**
+ * C ref: mkobj.c corpse_revive_type — corpsenm or omonst.mnum.
+ */
+export function corpse_revive_type(obj) {
+    let revivetype = obj?.corpsenm | 0;
+    if (has_omonst(obj)) {
+        const mtmp = get_mtraits(obj, false);
+        if (mtmp) revivetype = mtmp.mnum | 0;
+    }
+    return revivetype;
 }
 
 export { O as OBJ };

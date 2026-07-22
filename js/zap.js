@@ -26,8 +26,8 @@
 // EReflecting bits; ureflects W_WEP/W_AMUL/W_ARM/silver-dragon arms
 // beyond shield makeknown; create_polymon after poly_zapped;
 // do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
-// blank_novel / corpse revive→rot timer; revive montraits/omonst/
-// ghost recorporealize / shop stolen_value; defended(); resists_magm
+// blank_novel / corpse revive→rot timer; shop stolen_value;
+// cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
 // acid_damage/erode_armor; death-breath disintegrate_arm;
 // potionbreathe invis flash (D-0741); inventory_resistance_check;
@@ -36,6 +36,7 @@
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
+// montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
@@ -72,7 +73,7 @@ import {
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
     G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
@@ -94,7 +95,7 @@ import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels } from './mhitu.js';
-import { newcham, makemon } from './makemon.js';
+import { newcham, makemon, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize } from './polyself.js';
@@ -104,12 +105,13 @@ import { explode } from './explode.js';
 import { unpunish } from './read.js';
 import { which_armor } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
-import { abuse_dog } from './dog.js';
+import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left,
     obj_ice_effects, place_object, stackobj,
+    get_mtraits, free_omonst, free_omid,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -136,10 +138,11 @@ import {
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
-    OMONST, has_oname, ONAME,
+    OMONST, has_oname, ONAME, has_omonst, has_omid, OMID, ESHK,
     WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
     IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD,
+    MM_NOTAIL, MM_ADJACENTOK, NATTK,
 } from './const.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
@@ -2036,6 +2039,116 @@ function unique_corpstat(ptr) {
     return !!((ptr?.geno | 0) & G_UNIQ);
 }
 
+const AD_SEDU = 22;
+const AD_SSEX = 35;
+const PM_GHOST = monsterNames.indexOf('PM_GHOST');
+
+/** C ref: mondata.h dmgtype — any mattk slot matches adtyp. */
+function dmgtype_zap(ptr, adtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < NATTK; i++) {
+        if ((slots[i]?.adtyp | 0) === adtyp) return true;
+    }
+    return false;
+}
+
+/** C: SYSOPT_SEDUCE — runtime seduce option (default on when unset). */
+function SYSOPT_SEDUCE_zap() {
+    return game.sysopt?.seduce !== false;
+}
+
+/**
+ * C ref: zap.c montraits — revive from corpse/statue omonst traits.
+ * Used by revive() and animate_statue(). Named omit: full replshk bill_p;
+ * worm light-source swap.
+ * @returns {object|null}
+ */
+function montraits(obj, cc, adjacentok) {
+    let mtmp = null;
+    const mtmp2 = has_omonst(obj) ? get_mtraits(obj, true) : null;
+    if (!mtmp2) return null;
+
+    mtmp2.data = mons(mtmp2.mnum | 0);
+    if ((mtmp2.mhpmax | 0) > 0 || is_rider(mtmp2.data)) {
+        let mmflags = NO_MINVENT | MM_NOWAIT | MM_NOCOUNTBIRTH
+            | MM_NOTAIL | MM_NOMSG;
+        if (adjacentok) mmflags |= MM_ADJACENTOK;
+        mtmp = makemon(mtmp2.data, cc.x | 0, cc.y | 0, mmflags);
+    }
+    if (!mtmp) {
+        // mtmp2 was a copy — drop
+        return null;
+    }
+
+    // heal / restore drained levels (rnd burns)
+    if ((mtmp.m_lev | 0) < (mtmp.data?.mlevel | 0)) {
+        const ltmp = rnd((mtmp.data.mlevel | 0) + 1);
+        if (ltmp > (mtmp.m_lev | 0)) {
+            while ((mtmp.m_lev | 0) < ltmp) {
+                mtmp.m_lev = (mtmp.m_lev | 0) + 1;
+                mtmp.mhpmax = (mtmp.mhpmax | 0) + monhp_per_lvl(mtmp);
+            }
+            mtmp2.m_lev = mtmp.m_lev;
+        }
+    }
+    if ((mtmp.mhpmax | 0) > (mtmp2.mhpmax | 0)) mtmp2.mhpmax = mtmp.mhpmax;
+    mtmp2.mhp = mtmp2.mhpmax | 0;
+
+    mtmp2.minvent = mtmp.minvent;
+    if (mtmp.m_id) {
+        mtmp2.m_id = mtmp.m_id;
+        if (game.quest_status?.leader_is_dead
+            && (mtmp2.m_id | 0) === (game.quest_status.leader_m_id | 0)) {
+            game.quest_status.leader_is_dead = false;
+        }
+    }
+    mtmp2.mx = mtmp.mx;
+    mtmp2.my = mtmp.my;
+    mtmp2.mux = mtmp.mux;
+    mtmp2.muy = mtmp.muy;
+    mtmp2.mw = mtmp.mw;
+    mtmp2.wormno = mtmp.wormno;
+    mtmp2.misc_worn_check = mtmp.misc_worn_check;
+    mtmp2.weapon_check = mtmp.weapon_check;
+    mtmp2.mtrapseen = mtmp.mtrapseen;
+    mtmp2.mflee = mtmp.mflee;
+    mtmp2.mburied = mtmp.mburied;
+    mtmp2.mundetected = mtmp.mundetected;
+    mtmp2.mfleetim = mtmp.mfleetim;
+    mtmp2.mlstmv = mtmp.mlstmv;
+    mtmp2.m_ap_type = mtmp.m_ap_type;
+
+    mtmp2.mrevived = 1;
+    mtmp2.mavenge = 0;
+    mtmp2.meating = 0;
+    mtmp2.mleashed = 0;
+    mtmp2.mtrapped = 0;
+    mtmp2.msleeping = 0;
+    mtmp2.mfrozen = 0;
+    mtmp2.mcanmove = 1;
+    if (!dmgtype_zap(mtmp2.data, AD_SEDU)
+        && (!SYSOPT_SEDUCE_zap() || !dmgtype_zap(mtmp2.data, AD_SSEX))) {
+        mtmp2.mcan = 0;
+    }
+    mtmp2.mcansee = 1;
+    mtmp2.mblinded = 0;
+    mtmp2.mstun = 0;
+    mtmp2.mconf = 0;
+
+    if (mtmp2.isshk) {
+        neweshk(mtmp);
+        const src = ESHK(mtmp2);
+        const dst = ESHK(mtmp);
+        if (src && dst) Object.assign(dst, src);
+        mtmp.isshk = 1;
+    }
+    replmon(mtmp, mtmp2);
+    newsym(mtmp2.mx | 0, mtmp2.my | 0);
+    restore_cham(mtmp2);
+    return mtmp2;
+}
+
 /**
  * C ref: read.c cant_revive — remap guard/cleric/angel(/shopkeeper create)
  * /worm-tail/unique to zombie or doppelganger.
@@ -2136,9 +2249,9 @@ function obfree_corpse(obj) {
 
 /**
  * C ref: zap.c revive — invent/minvent/floor + container/buried +
- * cant_revive zombie/doppel. Named omit: montraits/omonst revive;
- * ghost recorporealization; shop stolen_value; cant_finish_meal;
- * Rider delobj_core force.
+ * cant_revive zombie/doppel + montraits/omonst + ghost recorporealize.
+ * Named omit: shop stolen_value; cant_finish_meal; Rider delobj_core force;
+ * animate_statue caller of montraits.
  * @returns {Promise<object|null>} revived monst or null
  */
 async function revive(corpse, by_hero) {
@@ -2244,8 +2357,8 @@ async function revive(corpse, by_hero) {
         montype = montypeBox.mtype;
         mtmp = makemon(mons(montype), x, y, mmflags);
         if (mtmp) {
-            if (corpse.oextra?.omid != null) delete corpse.oextra.omid;
-            if (corpse.oextra?.omonst != null) delete corpse.oextra.omonst;
+            if (has_omid(corpse)) free_omid(corpse);
+            if (has_omonst(corpse)) free_omonst(corpse);
             if ((mtmp.cham | 0) === PM_DOPPELGANGER) {
                 newcham(mtmp, mptr, 0);
             } else if (mtmp.data?.mlet === 'S_ZOMBIE') {
@@ -2255,9 +2368,13 @@ async function revive(corpse, by_hero) {
                 mtmp.mspeed = MFAST;
             }
         }
-    } else if (OMONST(corpse)) {
-        // montraits(corpse) deferred → plain makemon of corpse species
-        mtmp = makemon(mptr, x, y, mmflags | MM_NOCOUNTBIRTH);
+    } else if (has_omonst(corpse)) {
+        xy.x = x;
+        xy.y = y;
+        mtmp = montraits(corpse, xy, false);
+        if (mtmp && mtmp.mtame && !mtmp.isminion) {
+            await wary_dog(mtmp, true);
+        }
     } else {
         mtmp = makemon(mptr, x, y, mmflags | MM_NOCOUNTBIRTH);
     }
@@ -2296,7 +2413,31 @@ async function revive(corpse, by_hero) {
         // shop stolen_value deferred
     }
 
-    // ghost recorporealization (has_omid) deferred
+    // C: recorporealization of an active ghost via OMID
+    if (has_omid(used)) {
+        const mid = OMID(used);
+        const ghost = find_mid(mid, 0);
+        if (ghost && (ghost.data?.mndx | 0) === PM_GHOST) {
+            if (canseemon(ghost)) {
+                await pline(
+                    `${Monnam(ghost)} is suddenly drawn into its former body!`,
+                );
+            }
+            while (ghost.minvent) {
+                const otmp = ghost.minvent;
+                obj_extract_self(otmp);
+                add_to_minv(mtmp, otmp);
+            }
+            if (ghost.mtame && !mtmp.mtame) {
+                if (await tamedog(mtmp, null, false)) {
+                    mtmp.mtame = ghost.mtame;
+                }
+            }
+            mtmp.mconf = 1;
+            mongone(ghost);
+        }
+        free_omid(used);
+    }
 
     if (has_oname(used) && !unique_corpstat(mtmp.data)) {
         christen_monst(mtmp, ONAME(used));

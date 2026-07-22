@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0982 | fixed | montraits/omonst/ghost recorporealize + KEEPTRAITS/`wary_dog` | map-driven; green+zap cohort 19/20 (seed0009 pre-existing) |
 | D-0981 | fixed | `openholdingtrap`/`openfallingtrap` + Punished/`boxlock_invent` + SPE_KNOCK `mhurtle`/saddle | map-driven; green+zap cohort 20/21 (seed0009 pre-existing) |
 | D-0980 | fixed | `timeout.js` restore `objects_at` import for `slip_or_trip` | fortress; D-0978 drop → seed0014 throw; cadence 43/44 @#1250 |
 | D-0979 | fixed | `release_hold` WAN_OPENING + `flash_hits_mon`/`light_hits_gremlin` WAN_LIGHT | map-driven; green+zap/apply cohort 34/35 (seed0009 pre-existing) |

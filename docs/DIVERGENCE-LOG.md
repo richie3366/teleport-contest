@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0982 — montraits/omonst/ghost recorporealize
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0981 — `mkcorpstat` ignored `mtmp`
+  (no `save_mtraits`); `revive` treated omonst corpses as plain
+  `makemon`; ghost `OMID` join deferred.
+- **C locus:** `mkobj.c` `save_mtraits`/`get_mtraits`/`newomonst`/
+  `free_omonst`/`obj_attach_mid`; `zap.c` `montraits`/`revive`;
+  `mon.c` `copy_mextra`/`replmon`/`KEEPTRAITS`/`make_corpse`;
+  `dog.c` `wary_dog`; `makemon.c` `monhp_per_lvl`.
+- **Fix:** wire oextra omonst/omid helpers + trait snapshot into
+  `mkcorpstat`; port `montraits` + thin `replmon`/`copy_mextra`;
+  `revive` omonst/`wary_dog` + ghost invent/`tamedog`/`mongone`;
+  expand `KEEPTRAITS`. Deferred: shop `stolen_value`;
+  `forget_temple_entry`; animate_statue montraits wire; full
+  replshk/worm/light; cant_finish_meal; bones `obj_attach_mid`.
+- **Verification:** green+strict PASS; zap cohort **19**/20
+  (seed0009 Scr 72/73 pre-existing).
+- **Files:** `js/mkobj.js`, `js/zap.js`, `js/mon.js`, `js/dog.js`,
+  `js/makemon.js`, `js/mhitm.js`, `js/const.js`, `docs/c-js-map/debt.md`.
+
 ## D-0981 — openholding/openfalling + SPE_KNOCK hurtle/saddle
 
 - **Status:** fixed (map-driven debt retirement)
