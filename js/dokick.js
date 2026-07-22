@@ -1,22 +1,24 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
 // kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961);
-// ship_object / otransit_msg (D-0984).
-// Object/secret-door/furniture kicks named in C-JS-MAP.md.
+// ship_object / otransit_msg (D-0984); kick_nondoor SDOOR/furniture (D-0985).
+// kick_object / throne fall_through / tree scatter named in C-JS-MAP.md.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rnl } from './rng.js';
 import {
-    acurr, acurrstr, A_DEX, A_STR, A_CON, exercise, Fumbling, change_luck,
+    acurr, acurrstr, A_DEX, A_STR, A_CON, A_WIS, exercise, Fumbling, change_luck,
+    adjalign,
 } from './attrib.js';
 import {
     pline, newsym, canspotmon, map_invisible, flush_topl_more, verbalize,
+    feel_newsym,
 } from './display.js';
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir } from './lock.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
 import {
-    objects_at, obj_extract_self, add_to_migration,
+    objects_at, obj_extract_self, add_to_migration, mksobj_at,
 } from './mkobj.js';
 import {
     mon_at, attack_checks, passive, killed, check_caitiff,
@@ -25,13 +27,13 @@ import { AT_KICK } from './mhitm.js';
 import {
     overexertion, losehp, maybe_half_phys, in_rooms, in_town,
 } from './hack.js';
-import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at } from './trap.js';
+import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage } from './trap.js';
 import { setmangry, seemimic, angry_guards } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
 import {
     verysmall, bigmonst, thick_skinned, nohands, haseyes,
-    is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch,
+    is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch, mons,
 } from './monsters.js';
 import { objectNames, COIN_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
@@ -41,20 +43,28 @@ import { xname, The, cxname } from './objnam.js';
 import { setuwep, setuqwep, setuswapwep } from './wield.js';
 import {
     COLNO, ROWNO,
-    SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL,
-    D_ISOPEN, D_BROKEN, D_NODOOR, D_TRAPPED, D_WARNED, LA_DOWN, SLT_ENCUMBER,
+    SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL, CORR, ROOM,
+    D_ISOPEN, D_BROKEN, D_NODOOR, D_LOCKED, D_TRAPPED, D_WARNED, LA_DOWN,
+    SLT_ENCUMBER,
     IS_DOOR, IS_STWALL, IS_POOL, IS_THRONE, IS_FOUNTAIN, IS_SINK, IS_GRAVE,
-    IS_TREE, KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE, P_MARTIAL_ARTS,
+    IS_TREE, IS_ALTAR, KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE,
+    P_MARTIAL_ARTS,
     RIGHT_SIDE, TIMEOUT, FOOT, SHOPBASE, SHOP_DOOR_COST,
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, TRAPDOOR, is_hole, Is_stronghold, Is_botlevel, In_endgame,
-    ESHK, Has_contents, ismnum,
+    ESHK, Has_contents, ismnum, ER_NOTHING, A_LAWFUL,
+    S_LPUDDING, S_LDWASHER, G_GONE, MM_NOMSG, MM_MALE, MM_FEMALE,
 } from './const.js';
 import {
     costly_spot, shop_keeper, stolen_value, picked_container, hot_pursuit,
     is_unpaid,
 } from './shk.js';
 import { shkname, Shknam } from './shknam.js';
+import { cvt_sdoor_to_door } from './detect.js';
+import { altar_wrath } from './pray.js';
+import { del_engr_at, disturb_grave } from './engrave.js';
+import { sink_backs_up } from './fountain.js';
+import { makemon } from './makemon.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
@@ -66,8 +76,32 @@ const GLASS = 19; // C materials.h
 
 const PM_SASQUATCH = monsterNames.indexOf('PM_SASQUATCH');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
+const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
+const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const PM_ARCHEOLOGIST = monsterNames.indexOf('PM_ARCHEOLOGIST');
+const PM_SAMURAI = monsterNames.indexOf('PM_SAMURAI');
 const KICKING_BOOTS = objectNames.indexOf('KICKING_BOOTS');
 const kick_passes_thru = 'kick passes harmlessly through';
+const something = 'something';
+const Something = 'Something';
+
+function Blind() {
+    return !!(game.u?.Blind || game.u?.ublind);
+}
+
+function Role_if(pm) {
+    return (game.urole?.mnum | 0) === (pm | 0);
+}
+
+/** C hacklib.c sgn */
+function sgn(n) {
+    return n > 0 ? 1 : n < 0 ? -1 : 0;
+}
+
+/** C ref: polyself.c poly_gender — 0/1 ≡ flags.female; neuter→2 deferred. */
+function poly_gender() {
+    return game.flags?.female ? 1 : 0;
+}
 
 function isok(x, y) {
     return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
@@ -270,8 +304,11 @@ async function kick_door(x, y, avrg_attrib) {
 }
 
 /**
- * C ref: dokick.c kick_nondoor — empty-floor envelope.
- * SDOOR/SCORR open rolls, throne/fountain/grave/tree/sink specials deferred.
+ * C ref: dokick.c kick_nondoor — secret door/passage + furniture + walls.
+ * Branch envelope (D-0985): SDOOR/SCORR open rolls; altar_wrath; fountain
+ * water_damage; grave disturb/break; IRONBARS ouch; sink pudding/washer/
+ * sink_backs_up; stairs/ladder/stwall. Named omit: throne (fall_through);
+ * tree (scatter / bee swarm).
  */
 async function kick_nondoor(x, y, avrg_attrib) {
     const loc = game.level?.at(x, y);
@@ -280,20 +317,166 @@ async function kick_nondoor(x, y, avrg_attrib) {
         return true;
     }
     const typ = loc.typ;
+    const u = game.u || {};
+    const Levitation = !!(u.Levitation);
 
-    if (typ === SDOOR || typ === SCORR) {
-        // Secret door/passage open attempt deferred → failed kick hurts
+    if (typ === SDOOR) {
+        if (!Levitation && rn2(30) < avrg_attrib) {
+            cvt_sdoor_to_door(loc); /* ->typ = DOOR */
+            const mask = loc.doormask | 0;
+            const uncover = ((mask & (D_LOCKED | D_TRAPPED)) === D_LOCKED);
+            await pline(
+                `Crash!  ${uncover ? 'Your kick uncovers' : 'You kick open'} a secret door!`,
+            );
+            exercise(A_DEX, true);
+            if (mask & D_TRAPPED) {
+                loc.doormask = D_NODOOR;
+                await b_trapped('door', FOOT);
+            } else if (loc.doormask !== D_NODOOR && !(loc.doormask & D_LOCKED)) {
+                loc.doormask = D_ISOPEN;
+            }
+            feel_newsym(x, y);
+            if (loc.doormask === D_ISOPEN || loc.doormask === D_NODOOR) {
+                recalc_block_point(x, y); /* C unblock_point */
+            }
+            return true;
+        }
         await kick_ouch(x, y);
         return true;
     }
-    if (IS_THRONE(typ) || IS_FOUNTAIN(typ) || IS_GRAVE(typ) || IS_TREE(typ)
-        || IS_SINK(typ) || typ === IRONBARS) {
-        // Furniture / bars specials deferred
+    if (typ === SCORR) {
+        if (!Levitation && rn2(30) < avrg_attrib) {
+            await pline('Crash!  You kick open a secret passage!');
+            exercise(A_DEX, true);
+            loc.typ = CORR;
+            feel_newsym(x, y);
+            recalc_block_point(x, y);
+            return true;
+        }
+        await kick_ouch(x, y);
+        return true;
+    }
+    if (IS_THRONE(typ) || IS_TREE(typ)) {
+        // throne fall_through / tree scatter+swarm deferred
+        await kick_ouch(x, y);
+        return true;
+    }
+    if (IS_ALTAR(typ)) {
+        if (Levitation) {
+            await kick_dumb(x, y);
+            return true;
+        }
+        await pline(`You kick ${Blind() ? something : 'the altar'}.`);
+        await altar_wrath(x, y);
+        if (!rn2(3)) {
+            await kick_ouch(x, y);
+            return true;
+        }
+        exercise(A_DEX, true);
+        return true;
+    }
+    if (IS_FOUNTAIN(typ)) {
+        if (Levitation) {
+            await kick_dumb(x, y);
+            return true;
+        }
+        await pline(`You kick ${Blind() ? something : 'the fountain'}.`);
+        if (!rn2(3)) {
+            await kick_ouch(x, y);
+            return true;
+        }
+        if (u.uarmf && rn2(3)) {
+            if ((await water_damage(u.uarmf, 'metal boots', true)) === ER_NOTHING) {
+                await pline('Your boots get wet.');
+            }
+        }
+        exercise(A_DEX, true);
+        return true;
+    }
+    if (IS_GRAVE(typ)) {
+        if (Levitation) {
+            await kick_dumb(x, y);
+        } else if (rn2(4)) {
+            await kick_ouch(x, y);
+        } else if (!loc.horizontal && !rn2(2)) {
+            await disturb_grave(x, y);
+        } else {
+            exercise(A_WIS, false);
+            const alignType = u.ualign?.type | 0;
+            if (Role_if(PM_ARCHEOLOGIST) || Role_if(PM_SAMURAI)
+                || (alignType === A_LAWFUL && (u.ualign?.record | 0) > -10)) {
+                adjalign(-sgn(alignType));
+            }
+            loc.typ = ROOM;
+            loc.flags = 0; // clear emptygrave
+            loc.horizontal = 0; // clear disturbed
+            mksobj_at(ROCK, x, y, true, false);
+            del_engr_at(x, y);
+            if (Blind()) {
+                await pline(`Crack!  ${Something} broke!`);
+            } else {
+                await pline('The headstone topples over and breaks!');
+                newsym(x, y);
+            }
+        }
+        return true;
+    }
+    if (typ === IRONBARS) {
+        await kick_ouch(x, y);
+        return true;
+    }
+    if (IS_SINK(typ)) {
+        const gend = poly_gender();
+        if (Levitation) {
+            await kick_dumb(x, y);
+            return true;
+        }
+        if (rn2(5)) {
+            const Deaf = !!(u.Deaf || u.HDeaf || u.EDeaf || u.uroleplay?.deaf);
+            if (!Deaf) await pline('Klunk!  The pipes vibrate noisily.');
+            else await pline('Klunk!');
+            exercise(A_DEX, true);
+            return true;
+        }
+        if (!((loc.looted | 0) & S_LPUDDING) && !rn2(3)
+            && !((game.mvitals?.[PM_BLACK_PUDDING]?.mvflags ?? 0) & G_GONE)) {
+            if (Blind()) {
+                if (!(u.Deaf || u.HDeaf)) await pline('You hear a gushing sound.');
+            } else {
+                await pline('A black ooze gushes up from the drain!');
+            }
+            if (PM_BLACK_PUDDING >= 0) {
+                makemon(mons(PM_BLACK_PUDDING), x, y, MM_NOMSG);
+            }
+            exercise(A_DEX, true);
+            newsym(x, y);
+            loc.looted = (loc.looted | 0) | S_LPUDDING;
+            return true;
+        }
+        if (!((loc.looted | 0) & S_LDWASHER) && !rn2(3)
+            && !((game.mvitals?.[PM_AMOROUS_DEMON]?.mvflags ?? 0) & G_GONE)) {
+            await pline(
+                `${Blind() ? Something : 'The dish washer'} returns!`,
+            );
+            if (PM_AMOROUS_DEMON >= 0) {
+                const sex = (gend === 1 || (gend === 2 && rn2(2)))
+                    ? MM_MALE : MM_FEMALE;
+                if (makemon(mons(PM_AMOROUS_DEMON), x, y, MM_NOMSG | sex)) {
+                    newsym(x, y);
+                }
+            }
+            loc.looted = (loc.looted | 0) | S_LDWASHER;
+            exercise(A_DEX, true);
+            return true;
+        }
+        if (!rn2(3)) {
+            await sink_backs_up(x, y);
+            return true;
+        }
         await kick_ouch(x, y);
         return true;
     }
     if (typ === STAIRS || typ === LADDER || IS_STWALL(typ)) {
-        // Down ladder/stairs → empty-space kick; solid wall → ouch
         if (!IS_STWALL(typ) && loc.ladder === LA_DOWN) {
             await kick_dumb(x, y);
             return true;
@@ -301,7 +484,6 @@ async function kick_nondoor(x, y, avrg_attrib) {
         await kick_ouch(x, y);
         return true;
     }
-    void avrg_attrib;
     await kick_dumb(x, y);
     return true;
 }

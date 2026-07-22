@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0985 — `kick_nondoor` SDOOR/furniture + helpers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0984 — `kick_nondoor` treated
+  SDOOR/SCORR and furniture as always-ouch; `altar_wrath` /
+  `disturb_grave` / `sink_backs_up` absent.
+- **C locus:** `dokick.c` `kick_nondoor`; helpers `pray.c` `altar_wrath`,
+  `engrave.c` `disturb_grave`, `fountain.c` `sink_backs_up`.
+- **Fix:** port SDOOR/SCORR open rolls; altar/fountain/grave/IRONBARS/
+  sink arms; export the three helpers. Deferred: throne `fall_through`;
+  tree scatter/swarm; `kick_object`; Blind `feel_location`.
+- **Verification:** green+strict PASS; kick/furniture cohort **19**/20
+  (seed0009 Scr 72/73 pre-existing). Cadence full `sessions` @#1255
+  **43**/44 before patch (same fortress). Rule #2: no fs.
+- **Files:** `js/dokick.js`, `js/pray.js`, `js/engrave.js`,
+  `js/fountain.js`.
+
 ## D-0984 — `ship_object` shop-floor / hole fall + drop/throw callers
 
 - **Status:** fixed (map-driven debt retirement)

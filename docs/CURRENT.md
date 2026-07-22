@@ -19,10 +19,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-07-22** — full `sessions` @**#1250** (**43**/44,
-Scr **11404**/11405, RNG **100%**). Cadence reconfirm + D-0980
-`timeout.js` restore `objects_at` import (D-0978 drop; seed0014 throw).
-Speed `32+0.27/turn` (@#1250). Next cadence @**#1255**.
+Score last measured: **2026-07-22** — full `sessions` @**#1255** (**43**/44,
+Scr **11404**/11405, RNG **100%**). Cadence reconfirm on HEAD before
+D-0985 `kick_nondoor` furniture. Speed `30+0.27/turn` (@#1255).
+Next cadence @**#1260**.
 
 ## Score
 
@@ -31,10 +31,10 @@ Speed `32+0.27/turn` (@#1250). Next cadence @**#1255**.
 | Sessions passing | **43 / 44** |
 | Screens matched | **11,404 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `32+0.27/turn` (R² 0.856) |
+| Speed label | `30+0.27/turn` (R² 0.877) |
 | Role-init throws | **0 / 44** |
 
-**PASS (43 @#1250):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43 @#1255):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
@@ -74,9 +74,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** kick `kick_object` / SDOOR / furniture specials, or
-other absent.md thin systems under fortress (potion/scroll thin;
-vault polish; flooreffects pit/shaft ship callers).
+**Next cluster:** `kick_object` / throne `fall_through` / tree scatter;
+or flooreffects pit/shaft; or absent.md thin systems under fortress
+(potion/scroll thin; vault polish).
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -88,28 +88,12 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-0984. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-0985. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
 **D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
-**D-0955**…**D-0984** (revive/Ring_gone/grave/shopdig/bridge/
-mkcavearea/impact_drop/conjoined/`desecrate_altar`/revive container/
-ice melt/`burn_floor_objects`/fireball / Ring_on/`float_down` /
-bury/unearth/`obj_ice_effects` / explode AD_FIRE combat /
-angrygods 4–8/`rndcurse` / `toggle_stealth` / explode AD_COLD/ELEC /
-music `do_earthquake`/`do_pit` / explode AD_MAGM/DISN/DRST/ACID /
-flute·harp·horn/`awaken_soldiers`/FIRE·FROST horn /
-lavawall spines + burn feedback / `dosinkfall` /
-passtune + open/close_drawbridge /
-`ignite_items`/`catch_lit`/`begin_burn`/`burn_away_slime` /
-`release_hold`/`flash_hits_mon` /
-`timeout.js` `objects_at` import for `slip_or_trip` /
-openholding/openfalling + Punished/`boxlock_invent` + SPE_KNOCK
-`mhurtle`/saddle /
-`save_mtraits`/`montraits`/ghost recorporealize/`wary_dog` /
-`stolen_value` + revive/kick/dig/lock/`costly_alteration` /
-`ship_object`/`otransit_msg` + dropx/throwit/drop_throw —
+**D-0955**…**D-0985** (… ship_object + kick_nondoor SDOOR/furniture —
 do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
@@ -122,7 +106,8 @@ a local FAIL; push shared `maketrap` PIT morph without full suite
 (keep in music `do_pit`, D-0972); chase seed0009 Scr 72/73 without
 C-cited shared cause; drop `objects_at` from `timeout.js` mkobj import
 (D-0980); re-stub `stolen_value` revive/kick/dig/lock callers (D-0983);
-re-stub `ship_object` drop/throw (D-0984).
+re-stub `ship_object` drop/throw (D-0984); re-stub kick_nondoor
+SDOOR/furniture (D-0985).
 
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/

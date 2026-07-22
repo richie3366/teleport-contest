@@ -15,7 +15,8 @@ This is a planning list, not an exhaustive C file inventory:
   `desecrate_altar` wired D-0972);
   chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208 + **fountain/sink You_hear** D-0303 + **shop You_hear** D-0306; swamp You1 / barracks/court You_hear / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred); **`u_entered_shop` welcome** D-0307 (deserted/angry/Invis/doorway block deferred);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
-  (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
+  (objects/`kick_object`, throne `fall_through`, tree scatter; SDOOR/
+  altar/fountain/grave/sink via D-0985);
 - apply beyond lock-pick no-door (containers, other tools);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing;

@@ -11,8 +11,7 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — #NNNN short title
+```text## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
 - C locus: …
@@ -20,6 +19,21 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-22 03:00 — #1255 cadence + D-0985 kick_nondoor
+
+**Objective:** cadence full `sessions` @#1255; map-driven
+`kick_nondoor` SDOOR/furniture (CURRENT next cluster).
+**C locus:** `dokick.c` kick_nondoor; `pray.c` altar_wrath;
+`engrave.c` disturb_grave; `fountain.c` sink_backs_up.
+**Changed:** port SDOOR/SCORR + altar/fountain/grave/bars/sink;
+export helpers — D-0985. Deferred: throne fall_through; tree
+scatter; kick_object.
+**Verified:** cadence **43**/44 Scr **11404**/11405 RNG **100%**
+speed `30+0.27/turn` (seed0009 Scr 72/73); green+strict PASS;
+kick cohort **19**/20. Rule #2: no fs.
+**Next:** kick_object / throne fall_through / tree; or flooreffects.
+**Blocked:** none.
 
 ## 2026-07-22 02:52 — #1254 D-0984 ship_object
 
@@ -203,19 +217,4 @@ pre-existing Scr 72/73). Rule #2: no fs.
 - Verification: green+strict PASS; apply/shared cohort 36/36 PASS
   (seed0002 drummer). seed0009 Scr FAIL pre-exists on clean HEAD.
 - Next: sink-fall; lavawall/burn; MAGM/DISN/DRST/ACID explode.
-  Cadence @**#1245**.
-
-## 2026-07-22 01:03 — #1241 D-0971 explode AD_COLD/ELEC
-
-- Objective: map-driven zap debt — AD_COLD/ELEC explode mon/hero after
-  D-0968 AD_FIRE combat.
-- C locus: `explode.c` explosionmask / explode / mon_explodes /
-  adtyp_to_expltype.
-- Change: Cold/Shock `explosionmask`; open combat_ok to COLD/ELEC;
-  `mon_explodes` COLD/ELEC type `-((ad-1)+20)`; FROSTY/MAGICAL
-  expltype (D-0971). Deferred: MAGM/DISN/DRST/ACID boom; lavawall;
-  golem/ignite/slime.
-- Verification: green+strict PASS; zap/wizard cohort 20/20 PASS.
-  Fortress held (no full cadence; next @#1245).
-- Next: music `do_earthquake`/`do_pit`; sink-fall; lavawall spines.
   Cadence @**#1245**.

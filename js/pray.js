@@ -353,6 +353,37 @@ async function godvoice(g_align, words) {
 }
 
 /**
+ * C ref: pray.c altar_wrath — kick/engrave/dig desecration voice.
+ * Branch envelope: own-altar record > -rn2(4) → godvoice + adjattrib WIS
+ * + record--; else Deaf-aware whisper + verbalize + Luck>−5 rn2 luck loss.
+ * Named omit: SetVoice pitch.
+ */
+export async function altar_wrath(x, y) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    const altaralign = a_align(x, y);
+    const Deaf = !!(u.Deaf || u.HDeaf || u.EDeaf || u.uroleplay?.deaf);
+
+    if ((u.ualign.type | 0) === (altaralign | 0)
+        && (u.ualign.record | 0) > -rn2(4)) {
+        await godvoice(altaralign, 'How darest thou desecrate my altar!');
+        await adjattrib(A_WIS, -1, false);
+        u.ualign.record = (u.ualign.record | 0) - 1;
+    } else {
+        await pline(
+            `${!Deaf ? 'A voice (could it be' : 'Despite your deafness, you seem to hear'} ${
+                align_gname(game.urole, altaralign)
+            }${!Deaf ? '?) whispers' : ' say'}:`,
+        );
+        // SetVoice deferred
+        await verbalize('Thou shalt pay, infidel!');
+        if (Luck() > -5 && rn2(Luck() + 6)) {
+            change_luck(rn2(20) ? -1 : -2);
+        }
+    }
+}
+
+/**
  * C ref: exper.c losexp — level-drain for divine anger (drainer==null).
  * RNG-free body; resists_drli / Upolyd / achievements deferred.
  */
