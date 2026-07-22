@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0986 — throne/`fall_through` + tree scatter + hero hole fall
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0985 — `kick_nondoor` throne/
+  tree deferred; hero HOLE/TRAPDOOR skipped `fall_through`; no
+  `scatter` for tree fruit.
+- **C locus:** `dokick.c` `kick_nondoor` IS_THRONE/IS_TREE;
+  `trap.c` `fall_through` (+ `trapeffect_hole` hero); `explode.c`
+  `scatter` (MAY_HIT thin).
+- **Fix:** port throne destroy/loot/`fall_through`; tree fruit
+  `scatter` + bee swarm; export `fall_through` and thin `scatter`.
+  Deferred: `kick_object`; scatter MAY_FRACTURE/MAY_DESTROY/shop/
+  flooreffects; Blind `feel_location`.
+- **Verification:** green+strict PASS; kick cohort **19**/20
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+- **Files:** `js/dokick.js`, `js/trap.js`, `js/explode.js`.
+
 ## D-0985 — `kick_nondoor` SDOOR/furniture + helpers
 
 - **Status:** fixed (map-driven debt retirement)

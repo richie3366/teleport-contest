@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0985** `kick_nondoor` SDOOR/SCORR + altar/fountain/
-  grave/bars/sink (+ `altar_wrath`/`disturb_grave`/`sink_backs_up`).
-- **Next cluster:** kick_object; throne fall_through; tree scatter;
-  or flooreffects pit/shaft; or absent.md thin.
+- Latest: **D-0986** throne/`fall_through` + tree scatter/swarm +
+  hero hole `fall_through` + thin `scatter`.
+- **Next cluster:** `kick_object` (needs `bhit` KICKED_WEAPON /
+  flooreffects); or flooreffects pit/shaft; or absent.md thin.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through kick_nondoor
-  furniture (D-0985) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through throne/tree
+  (D-0986) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -52,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1255**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0986:** throne/`fall_through` + tree scatter/swarm + hero hole.
 - **D-0985:** kick_nondoor SDOOR/furniture + altar_wrath /
   disturb_grave / sink_backs_up.
 - **D-0984:** ship_object/otransit_msg + dropx/throwit/drop_throw.
@@ -66,5 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0976:** `dosinkfall` + sink `spoteffects` + `ELevitation` mirror.
 - **D-0975:** lavawall spines + burn_floor feedback + fire-trap wire.
 - **D-0974:** flute/harp/horn + BUGLE soldiers + FIRE/FROST ubuzz.
-- **D-0973:** explode AD_MAGM/DISN/DRST/ACID + masks + mon_explodes.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

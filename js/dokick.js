@@ -1,11 +1,12 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
 // kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961);
-// ship_object / otransit_msg (D-0984); kick_nondoor SDOOR/furniture (D-0985).
-// kick_object / throne fall_through / tree scatter named in C-JS-MAP.md.
+// ship_object / otransit_msg (D-0984); kick_nondoor SDOOR/furniture (D-0985);
+// throne fall_through + tree scatter/swarm (D-0986).
+// kick_object still named deferred in C-JS-MAP.md.
 
 import { game } from './gstate.js';
-import { rn2, rnd, rnl } from './rng.js';
+import { rn2, rnd, rnl, rn1 } from './rng.js';
 import {
     acurr, acurrstr, A_DEX, A_STR, A_CON, A_WIS, exercise, Fumbling, change_luck,
     adjalign,
@@ -18,7 +19,8 @@ import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js
 import { getdir } from './lock.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
 import {
-    objects_at, obj_extract_self, add_to_migration, mksobj_at,
+    objects_at, obj_extract_self, add_to_migration, mksobj_at, mksobj, mkgold,
+    weight, rnd_class,
 } from './mkobj.js';
 import {
     mon_at, attack_checks, passive, killed, check_caitiff,
@@ -27,7 +29,7 @@ import { AT_KICK } from './mhitm.js';
 import {
     overexertion, losehp, maybe_half_phys, in_rooms, in_town,
 } from './hack.js';
-import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage } from './trap.js';
+import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage, fall_through } from './trap.js';
 import { setmangry, seemimic, angry_guards } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
@@ -39,7 +41,7 @@ import { objectNames, COIN_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { stairway_at } from './mklev.js';
 import { ok_to_quest } from './quest.js';
-import { xname, The, cxname } from './objnam.js';
+import { xname, The, cxname, An } from './objnam.js';
 import { setuwep, setuqwep, setuswapwep } from './wield.js';
 import {
     COLNO, ROWNO,
@@ -53,7 +55,8 @@ import {
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, TRAPDOOR, is_hole, Is_stronghold, Is_botlevel, In_endgame,
     ESHK, Has_contents, ismnum, ER_NOTHING, A_LAWFUL,
-    S_LPUDDING, S_LDWASHER, G_GONE, MM_NOMSG, MM_MALE, MM_FEMALE,
+    S_LPUDDING, S_LDWASHER, G_GONE, MM_NOMSG, MM_MALE, MM_FEMALE, MM_ANGRY,
+    T_LOOTED, TREE_LOOTED, TREE_SWARM, MAY_HIT,
 } from './const.js';
 import {
     costly_spot, shop_keeper, stolen_value, picked_container, hot_pursuit,
@@ -65,6 +68,8 @@ import { altar_wrath } from './pray.js';
 import { del_engr_at, disturb_grave } from './engrave.js';
 import { sink_backs_up } from './fountain.js';
 import { makemon } from './makemon.js';
+import { scatter } from './explode.js';
+import { enexto } from './teleport.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
@@ -72,6 +77,8 @@ const CORPSE = objectNames.indexOf('CORPSE');
 const MIRROR = objectNames.indexOf('MIRROR');
 const EGG = objectNames.indexOf('EGG');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
+const DILITHIUM_CRYSTAL = objectNames.indexOf('DILITHIUM_CRYSTAL');
+const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const GLASS = 19; // C materials.h
 
 const PM_SASQUATCH = monsterNames.indexOf('PM_SASQUATCH');
@@ -80,10 +87,43 @@ const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 const PM_ARCHEOLOGIST = monsterNames.indexOf('PM_ARCHEOLOGIST');
 const PM_SAMURAI = monsterNames.indexOf('PM_SAMURAI');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const KICKING_BOOTS = objectNames.indexOf('KICKING_BOOTS');
 const kick_passes_thru = 'kick passes harmlessly through';
 const something = 'something';
 const Something = 'Something';
+
+const TREEFRUITS = [
+    objectNames.indexOf('APPLE'),
+    objectNames.indexOf('ORANGE'),
+    objectNames.indexOf('PEAR'),
+    objectNames.indexOf('BANANA'),
+    objectNames.indexOf('EUCALYPTUS_LEAF'),
+].filter((i) => i >= 0);
+
+/** C you.h Luck — u.uluck + u.moreluck */
+function Luck() {
+    const u = game.u || {};
+    return (u.uluck || 0) + (u.moreluck || 0);
+}
+
+/** C dungeon.c dunlev / dunlevs_in_dungeon */
+function dunlev(lev) {
+    return lev?.dlevel ?? 1;
+}
+function dunlevs_in_dungeon(lev) {
+    return game.dungeons?.[lev?.dnum]?.num_dunlevs ?? 1;
+}
+
+/** C mkobj.c rnd_treefruit_at */
+function rnd_treefruit_at(x, y) {
+    if (!TREEFRUITS.length) return null;
+    return mksobj_at(TREEFRUITS[rn2(TREEFRUITS.length)], x, y, true, false);
+}
+
+function is_plural(obj) {
+    return (obj?.quan || 1) > 1;
+}
 
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
@@ -305,10 +345,10 @@ async function kick_door(x, y, avrg_attrib) {
 
 /**
  * C ref: dokick.c kick_nondoor — secret door/passage + furniture + walls.
- * Branch envelope (D-0985): SDOOR/SCORR open rolls; altar_wrath; fountain
+ * Branch envelope (D-0985/D-0986): SDOOR/SCORR open rolls; throne destroy/
+ * loot/fall_through; tree fruit scatter + bee swarm; altar_wrath; fountain
  * water_damage; grave disturb/break; IRONBARS ouch; sink pudding/washer/
- * sink_backs_up; stairs/ladder/stwall. Named omit: throne (fall_through);
- * tree (scatter / bee swarm).
+ * sink_backs_up; stairs/ladder/stwall.
  */
 async function kick_nondoor(x, y, avrg_attrib) {
     const loc = game.level?.at(x, y);
@@ -356,8 +396,51 @@ async function kick_nondoor(x, y, avrg_attrib) {
         await kick_ouch(x, y);
         return true;
     }
-    if (IS_THRONE(typ) || IS_TREE(typ)) {
-        // throne fall_through / tree scatter+swarm deferred
+    if (IS_THRONE(typ)) {
+        if (Levitation) {
+            await kick_dumb(x, y);
+            return true;
+        }
+        if ((Luck() < 0 || loc.looted) && !rn2(3)) {
+            loc.looted = 0;
+            loc.typ = ROOM;
+            mkgold(rnd(200), x, y);
+            if (Blind()) {
+                await pline('CRASH!  You destroy it.');
+            } else {
+                await pline('CRASH!  You destroy the throne.');
+                newsym(x, y);
+            }
+            exercise(A_DEX, true);
+            return true;
+        }
+        if (Luck() > 0 && !rn2(3) && !loc.looted) {
+            mkgold(rn1(201, 300), x, y);
+            let i = Luck() + 1;
+            if (i > 6) i = 6;
+            while (i--) {
+                mksobj_at(
+                    rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                    x, y, false, true,
+                );
+            }
+            if (Blind()) {
+                await pline(`You kick ${something} loose!`);
+            } else {
+                await pline('You kick loose some ornamental coins and gems!');
+                newsym(x, y);
+            }
+            loc.looted = T_LOOTED;
+            return true;
+        }
+        if (!rn2(4)) {
+            if (dunlev(u.uz) < dunlevs_in_dungeon(u.uz)) {
+                await fall_through(false, 0);
+                return true;
+            }
+            await kick_ouch(x, y);
+            return true;
+        }
         await kick_ouch(x, y);
         return true;
     }
@@ -422,6 +505,69 @@ async function kick_nondoor(x, y, avrg_attrib) {
         return true;
     }
     if (typ === IRONBARS) {
+        await kick_ouch(x, y);
+        return true;
+    }
+    if (IS_TREE(typ)) {
+        // nothing, fruit or trouble? 75:23.5:1.5%
+        if (rn2(3)) {
+            if (!rn2(6)
+                && !((game.mvitals?.[PM_KILLER_BEE]?.mvflags ?? 0) & G_GONE)) {
+                await You_hear('a low buzzing.');
+            }
+            await kick_ouch(x, y);
+            return true;
+        }
+        let treefruit = null;
+        if (rn2(15) && !((loc.looted | 0) & TREE_LOOTED)
+            && (treefruit = rnd_treefruit_at(x, y))) {
+            const nfruit = 8 - rnl(7);
+            const frtype = treefruit.otyp;
+            treefruit.quan = nfruit;
+            treefruit.owt = weight(treefruit);
+            if (is_plural(treefruit)) {
+                await pline(`Some ${xname(treefruit)} fall from the tree!`);
+            } else {
+                await pline(`${An(xname(treefruit))} falls from the tree!`);
+            }
+            const nfall = await scatter(x, y, 2, MAY_HIT, treefruit);
+            if (nfall !== nfruit) {
+                // leftover caught in branches — message only (dealloc)
+                const leftover = mksobj(frtype, true, false);
+                if (leftover) {
+                    leftover.quan = nfruit - nfall;
+                    await pline(
+                        `${nfruit - nfall} ${xname(leftover)} got caught in the branches.`,
+                    );
+                }
+            }
+            exercise(A_DEX, true);
+            exercise(A_WIS, true);
+            newsym(x, y);
+            loc.looted = (loc.looted | 0) | TREE_LOOTED;
+            return true;
+        }
+        if (!((loc.looted | 0) & TREE_SWARM)) {
+            let cnt = rnl(4) + 2;
+            let made = 0;
+            const mm = { x, y };
+            while (cnt--) {
+                if (PM_KILLER_BEE >= 0
+                    && enexto(mm, mm.x, mm.y, mons(PM_KILLER_BEE))
+                    && makemon(
+                        mons(PM_KILLER_BEE), mm.x, mm.y, MM_ANGRY | MM_NOMSG,
+                    )) {
+                    made++;
+                }
+            }
+            if (made) {
+                await pline("You've attracted the tree's former occupants!");
+            } else {
+                await pline('You smell stale honey.');
+            }
+            loc.looted = (loc.looted | 0) | TREE_SWARM;
+            return true;
+        }
         await kick_ouch(x, y);
         return true;
     }

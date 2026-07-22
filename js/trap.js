@@ -22,7 +22,7 @@ import { find_mac, make_corpse } from './mhitm.js';
 import { mon_explodes } from './explode.js';
 import {
     newsym, pline, mon_visible, see_with_infrared, You_feel, unmap_object,
-    glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph,
+    glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph, flush_topl_more,
 } from './display.js';
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam } from './do_name.js';
@@ -58,6 +58,7 @@ import {
     MAX_ERODE,
     LOW_PM, BOLT_LIM, STRAT_WAITMASK,
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
+    UTOTYPE_NONE, UTOTYPE_FALLING, Is_stronghold,
     KILLED_BY, KILLED_BY_AN, NO_PART,
     WATER, BURNING,
     TT_NONE, TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
@@ -95,7 +96,7 @@ import {
 import { tamedog } from './dog.js';
 import { welded } from './wield.js';
 import { count_wsegs } from './worm.js';
-import { level_difficulty } from './hacklib.js';
+import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned } from './potion.js';
 
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
@@ -2194,16 +2195,136 @@ async function trapeffect_level_telep(mtmp, trap, trflags) {
 }
 
 /**
+ * C ref: trap.c fall_through — hero drops through hole/trapdoor or throne
+ * shaft (td=false). schedule_goto FALLING; impact_drop when don't fall.
+ * Named omissions: next_to_u leash body (always true without leash);
+ * feeltrap side-effects beyond tseen; display_nhwindow exact.
+ */
+export async function fall_through(td, ftflags = 0) {
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const Sokoban = !!(game.level?.flags?.sokoban_rules
+        || game.level?.flags?.sokoban || game.Sokoban);
+    const Blind = !!(u.Blind || u.ublind);
+    const Levitation = !!u.Levitation;
+    const flying = !!(u.Flying
+        || (((u.HFlying | 0) || (u.EFlying | 0)) && !(u.BFlying | 0)));
+    const ptr = game.youmonst?.data;
+    const ft = ftflags | 0;
+    // C mondata.h ceiling_hider — clinger (not mimic) or flyer
+    const ceilHide = !!((is_clinger(ptr) && ptr?.mlet !== 'S_MIMIC')
+        || is_flyer(ptr));
+
+    // C: Blind && Levitation && !Sokoban → return early
+    if (Blind && Levitation && !Sokoban) return;
+
+    const newlevel = dunlev(u.uz) + 1;
+    const loc = game.level?.at(ux, uy);
+
+    let t = null;
+    if (td) {
+        t = t_at(ux, uy);
+        if (t) feeltrap(t);
+        if (!Sokoban && !(ft & TOOKPLUNGE)) {
+            if (t?.ttyp === TRAPDOOR) {
+                await pline('A trap door opens up under you!');
+            } else {
+                await pline("There's a gaping hole under you!");
+            }
+        }
+    } else {
+        await pline(`The ${surface_fd(ux, uy)} opens up under you!`);
+    }
+
+    let dont_fall = null;
+    if (Sokoban && Can_fall_thru(u.uz)) {
+        // KMH — can't escape Sokoban level traps
+    } else if (Levitation || u.ustuck
+        || (!Can_fall_thru(u.uz) && !loc?.candig)
+        || ((flying || is_clinger(ptr) || (ceilHide && u.uundetected))
+            && !(ft & TOOKPLUNGE))) {
+        dont_fall = "don't fall in.";
+    } else if ((ptr?.msize | 0) >= MZ_HUGE) {
+        dont_fall = "don't fit through.";
+    }
+    // next_to_u leash gate — always true without leash wiring
+
+    if (dont_fall) {
+        await pline(`You ${dont_fall}`);
+        const { impact_drop } = await import('./dokick.js');
+        await impact_drop(null, ux, uy, 0);
+        if (!td) {
+            await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, FALSE)
+            await pline('The opening under you closes up.');
+        }
+        return;
+    }
+
+    let controlled_flight = false;
+    if ((flying || is_clinger(ptr)) && (ft & TOOKPLUNGE) && td && t) {
+        if (flying) controlled_flight = true;
+        await pline(
+            `You ${flying ? 'swoop' : 'deliberately drop'} down ${
+                t.ttyp === TRAPDOOR
+                    ? 'through the trap door'
+                    : 'into the gaping hole'
+            }!`,
+        );
+    }
+
+    if (u.ushops) {
+        const { shopdig } = await import('./shk.js');
+        await shopdig(1);
+    }
+
+    const dtmp = { dnum: 0, dlevel: 0 };
+    if (Is_stronghold(u.uz)) {
+        const { find_hell } = await import('./dungeon.js');
+        find_hell(dtmp);
+    } else {
+        if (t) {
+            dtmp.dnum = t.dst?.dnum | 0;
+            dtmp.dlevel = t.dst?.dlevel | 0;
+            const bottom = dng_bottom(u.uz);
+            if ((dtmp.dlevel | 0) > bottom) dtmp.dlevel = bottom;
+        } else {
+            dtmp.dnum = u.uz?.dnum | 0;
+            dtmp.dlevel = newlevel;
+        }
+        const dist = depth(dtmp) - depth(u.uz);
+        if (dist > 1) {
+            await pline(
+                `You ${controlled_flight ? 'fly' : 'fall'} down a ${
+                    dist > 3 ? 'very ' : ''
+                }${dist > 2 ? 'deep ' : ''}shaft!`,
+            );
+        }
+    }
+
+    const msgbuf = !td
+        ? `The hole in the ${ceiling(ux, uy)} above you closes up.`
+        : null;
+
+    const { schedule_goto } = await import('./do.js');
+    schedule_goto(
+        dtmp,
+        !flying ? UTOTYPE_FALLING : UTOTYPE_NONE,
+        null,
+        msgbuf,
+    );
+}
+
+/**
  * C ref: trap.c trapeffect_hole — HOLE/TRAPDOOR monster fall → level tele.
  * Envelope: Can_fall_thru; grounded / !huge; then mlevel_tele_trap.
- * Named omissions: hero fall_through; Sokoban yank; forcetrap openfalling.
+ * Hero → fall_through (D-0986). Named omissions: Sokoban yank detail.
  */
 async function trapeffect_hole(mtmp, trap, trflags) {
     if (is_youmonst(mtmp)) {
-        // Hero fall_through deferred
+        await fall_through(true, (trflags | 0) & TOOKPLUNGE);
         return Trap_Effect_Finished;
     }
-    const tt = trap.ttyp;
     const mptr = mtmp.data;
     const forcetrap = (trflags & FORCETRAP) !== 0;
     const Sokoban = !!(game.level?.flags?.sokoban || game.Sokoban);
