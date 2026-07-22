@@ -296,7 +296,6 @@ function closeup_Hallucination() {
 /**
  * C ref: mon.c see_monster_closeup — mark mvitals seen_close; camera
  * photo + Tourist EXP for first photograph of each type (D-0999).
- * Named omit: see_nearby_monsters caller wire (allmain / vision).
  * @param {object} mtmp
  * @param {boolean} photo
  */
@@ -352,6 +351,46 @@ export async function see_monster_closeup(mtmp, photo) {
                 && mndx === trueNdx) {
                 more_experienced(experience(mtmp, 0), 0);
                 await newexplevel();
+            }
+        }
+    }
+}
+
+/**
+ * C ref: mon.c see_nearby_monsters — adjacent canseemon/sensemon →
+ * see_monster_closeup(photo=FALSE). Wired from allmain once-per-hero
+ * time-passed (D-1000).
+ * Named omit: transient_light_cleanup; under_water/under_ground polish.
+ */
+export async function see_nearby_monsters() {
+    if (closeup_Hallucination()
+        || (closeup_Blind() && !closeup_Blind_telepat())) {
+        return;
+    }
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    for (let x = ux - 1; x <= ux + 1; x++) {
+        for (let y = uy - 1; y <= uy + 1; y++) {
+            if (!isok_xy(x, y)) continue;
+            const mtmp = m_at(x, y);
+            if (!mtmp) continue;
+            let mndx = mtmp.data?.mndx ?? mtmp.mnum ?? -1;
+            if (M_AP_TYPE(mtmp) === M_AP_MONSTER) {
+                mndx = mtmp.mappearance | 0;
+            }
+            if (!game.mvitals) game.mvitals = [];
+            const slot = game.mvitals[mndx];
+            if (slot?.seen_close) continue;
+            // C: canseemon || (mundetected && sensemon)
+            if (canseemon(mtmp)
+                || (mtmp.mundetected && sensemon(mtmp))) {
+                if (!game.bhitpos) game.bhitpos = { x: 0, y: 0 };
+                game.bhitpos.x = x;
+                game.bhitpos.y = y;
+                game.notonhead = (x !== (mtmp.mx | 0)
+                    || y !== (mtmp.my | 0));
+                await see_monster_closeup(mtmp, false);
             }
         }
     }

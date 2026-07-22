@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0999** ParanoidBreakwand getlin + camera/makedog
-  `see_monster_closeup`. Cadence #1270 score-only (no port delta).
+- Latest: **D-1000** ParanoidPray Confirm + allmain
+  `see_nearby_monsters`.
 - **Next cluster:** absent.md thin (potion/scroll/vault); or
-  ParanoidPray getlin / `see_nearby_monsters`.
+  ParanoidWerechange / ParanoidHit getlin.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through camera/closeup
-  (D-0999) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through ParanoidPray
+  nearby (D-1000) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -52,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1270**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1000:** ParanoidPray Confirm + see_nearby_monsters allmain.
 - **D-0999:** ParanoidBreakwand getlin + see_monster_closeup
   camera/makedog.
 - **D-0998:** dopay robbed/angry appease + debit/loan/credit.

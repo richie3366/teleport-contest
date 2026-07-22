@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1000 — ParanoidPray Confirm + see_nearby_monsters
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0999 — `dopray` used plain yn
+  instead of `paranoid_query(ParanoidConfirm)`; `see_nearby_monsters`
+  absent from allmain time-passed (`debt.md` apply / mon).
+- **C locus:** `pray.c` `dopray`; `cmd.c` `paranoid_query`; `mon.c`
+  `see_nearby_monsters`; `allmain.c` once-per-hero time-passed.
+- **Fix:** wire ParanoidPray → `paranoid_query(ParanoidConfirm)`
+  (Confirm→getlin "yes"; else yn); port adjacent canseemon/sensemon
+  closeup loop; call from allmain after seer_turn.
+- **Deferred:** transient_light_cleanup; under_water/under_ground;
+  do_vicinity_map; sink_into_lava / pooleffects polish.
+- **Verify:** green+strict PASS; pray/allmain cohort **10**/11
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0999 — ParanoidBreakwand getlin + see_monster_closeup
 
 - **Status:** fixed (map-driven debt retirement)
@@ -15,8 +31,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix:** port getlin "yes" paranoid_ynq (+ ParanoidConfirm loop);
   wire ParanoidBreakwand / Quit / Die / Bones; camera photo closeup +
   Tourist EXP; makedog starting-pet seen_close.
-- **Deferred:** ParanoidPray getlin (still yn); `see_nearby_monsters`
-  allmain/vision wire; transient_light_cleanup.
+- **Deferred:** transient_light_cleanup (ParanoidPray Confirm +
+  `see_nearby_monsters` → D-1000).
 - **Verify:** green+strict PASS; startup/apply cohort **10**/11
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 
