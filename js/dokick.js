@@ -32,7 +32,7 @@ import {
 } from './hack.js';
 import {
     set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage,
-    fall_through, chest_trap,
+    fall_through, chest_trap, instapetrify,
 } from './trap.js';
 import { setmangry, seemimic, angry_guards, wakeup } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
@@ -40,13 +40,15 @@ import { martial_bonus, use_skill } from './weapon.js';
 import {
     verysmall, bigmonst, thick_skinned, nohands, haseyes,
     is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch, mons,
-    likes_gold, is_mercenary,
+    likes_gold, is_mercenary, touch_petrifies, poly_when_stoned,
 } from './monsters.js';
 import { objectNames, COIN_CLASS, GEM_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { stairway_at } from './mklev.js';
 import { ok_to_quest } from './quest.js';
-import { xname, The, cxname, An, doname, singular, distant_name } from './objnam.js';
+import {
+    xname, The, cxname, An, doname, singular, distant_name, the, makeplural,
+} from './objnam.js';
 import { setuwep, setuqwep, setuswapwep } from './wield.js';
 import {
     COLNO, ROWNO,
@@ -84,6 +86,7 @@ import { is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
 import { hero_breaks, thitmonst } from './dothrow.js';
 import { finish_meating, obj_resists } from './dogmove.js';
+import { polymon } from './polyself.js';
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -97,6 +100,7 @@ const PM_SOLDIER = monsterNames.indexOf('PM_SOLDIER');
 const PM_SERGEANT = monsterNames.indexOf('PM_SERGEANT');
 const PM_LIEUTENANT = monsterNames.indexOf('PM_LIEUTENANT');
 const PM_CAPTAIN = monsterNames.indexOf('PM_CAPTAIN');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const GLASS = 19; // C materials.h
 /** C ref: obj.h Is_mbag */
 function Is_mbag(obj) {
@@ -117,6 +121,12 @@ const kick_passes_thru = 'kick passes harmlessly through';
 const something = 'something';
 const Something = 'Something';
 
+/** C ref: mondata.c body_part — FOOT/LEG; full poly table deferred. */
+function body_part(part) {
+    if (part === FOOT) return 'foot';
+    if (part === LEG) return 'leg';
+    return 'body';
+}
 const TREEFRUITS = [
     objectNames.indexOf('APPLE'),
     objectNames.indexOf('ORANGE'),
@@ -1071,12 +1081,13 @@ async function kick_object(x, y, kickobjnam) {
 
 /**
  * C ref: dokick.c really_kick_object — guts of object kick.
- * Branch envelope: trap pit/web; Fumbling; range/martial/pool/ice/grease/
+ * Branch envelope: trap pit/web; Fumbling; barefoot touch_petrifies
+ * corpse → polymon / instapetrify; range/martial/pool/ice/grease/
  * Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: barefoot petrify/instapetrify; snuff_candle;
- * impact_disturbs_zombies; STATUE_TRAP activate; Blind feel; tmp_at flash.
+ * Named omit: snuff_candle; impact_disturbs_zombies; STATUE_TRAP
+ * activate; Blind feel; killer_xname polish (xname stand-in).
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1102,7 +1113,29 @@ async function really_kick_object(x, y) {
         return 1;
     }
 
-    // barefoot corpse petrify deferred
+    // C: barefoot cockatrice/chickatrice corpse → poly or instapetrify
+    {
+        const Stone_resistance = !!(u.Stone_resistance || u.HStone_resistance
+            || u.EStone_resistance);
+        const ptr = mons(kicked.corpsenm | 0);
+        if (!u.uarmf && (kicked.otyp | 0) === CORPSE
+            && touch_petrifies(ptr) && !Stone_resistance) {
+            await pline(`You kick ${the(cxname(kicked))} with your bare ${
+                makeplural(body_part(FOOT))
+            }.`);
+            const youData = game.youmonst?.data
+                || mons(u.umonnum ?? game.urole?.mnum);
+            if (poly_when_stoned(youData, game.mvitals)
+                && (await polymon(PM_STONE_GOLEM))) {
+                // hero transformed; kick continues
+            } else {
+                // C: killer_xname stand-in → xname / cxname
+                await instapetrify(
+                    `kicking ${cxname(kicked)} barefoot`,
+                );
+            }
+        }
+    }
 
     const isgold = (kicked.oclass | 0) === COIN_CLASS;
     let k_owt = weight(kicked) | 0;

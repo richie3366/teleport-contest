@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0995 — barefoot kick petrify + bhit DISP_FLASH
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0994 — barefoot cockatrice/
+  chickatrice corpse kick skipped `instapetrify`; `bhit` KICKED_WEAPON
+  omitted C `tmp_at(DISP_FLASH)` flight trail.
+- **C locus:** `trap.c` `instapetrify`; `dokick.c` `really_kick_object`
+  barefoot arm; `zap.c` `bhit` DISP_FLASH / `nh_delay_output` /
+  `DISP_END`.
+- **Fix:** port `instapetrify` (Stone_resistance / poly stone-golem /
+  urgent_pline + `done(STONING)`); wire barefoot kick message +
+  polymon/`instapetrify`; `bhit` DISP_FLASH paint + delay + finally
+  DISP_END for non-zap/non-invis beams.
+- **Deferred:** `minstapetrify`; full `selftouch` wield arms;
+  STATUE_TRAP activate; Blind feel; snuff_candle;
+  show_transient_light; map_invisible/unmap in bhit; killer_xname
+  polish; Hallucination rn2_on_display_rng glyph.
+- **Verify:** green+strict PASS; kick/throw cohort **11**/12
+  (seed0009 Scr 72/73 pre-existing). Cadence @#1265: **43**/44 Scr
+  **11404**/11405 RNG **100%** speed `30+0.27/turn`. Rule #2: no fs.
+
 ## D-0994 — sellobj / check_shop_obj throw-land + drop bill
 
 - **Status:** fixed (map-driven debt retirement)
@@ -22,7 +43,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   billable no_charge uses contained_*; pay → money2u on sell.
 - **Deferred:** Izchak candle special_stock polish; SetVoice;
   safe_qbuf sell prompt; money2u invent-full dropy; break_seq
-  simultaneous shatter; barefoot petrify; tmp_at flash.
+  simultaneous shatter; **D-0995** barefoot petrify + tmp_at flash.
 - **Verify:** green+strict PASS; shop/throw/kick cohort **11**/12
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 

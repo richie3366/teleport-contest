@@ -21,8 +21,9 @@ import {
 import { find_mac, make_corpse } from './mhitm.js';
 import { mon_explodes } from './explode.js';
 import {
-    newsym, pline, mon_visible, see_with_infrared, You_feel, unmap_object,
-    glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph, flush_topl_more,
+    newsym, pline, urgent_pline, mon_visible, see_with_infrared, You_feel,
+    unmap_object, glyph_is_invisible, tmp_at, nh_delay_output, obj_glyph,
+    flush_topl_more,
 } from './display.js';
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam } from './do_name.js';
@@ -37,7 +38,7 @@ import {
     likes_gems, mons, webmaker, throws_rocks,
     is_animal, mindless, haseyes,
     bigmonst, is_golem, is_mplayer, is_rider,
-    nohands, extra_nasty, acidic,
+    nohands, extra_nasty, acidic, poly_when_stoned,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE, RECURSIVETRAP,
@@ -59,7 +60,7 @@ import {
     LOW_PM, BOLT_LIM, STRAT_WAITMASK,
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
     UTOTYPE_NONE, UTOTYPE_FALLING, Is_stronghold,
-    KILLED_BY, KILLED_BY_AN, NO_PART,
+    KILLED_BY, KILLED_BY_AN, NO_PART, STONING,
     WATER, BURNING,
     TT_NONE, TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG,
@@ -103,8 +104,11 @@ import { get_obj_location } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk } from './shk.js';
 import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
+import { polymon } from './polyself.js';
+import { done } from './end.js';
 
 const AD_ELEC = 6;
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
 const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
 const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
@@ -1751,6 +1755,30 @@ function body_part(part) {
     if (part === HEAD) return 'head';
     if (part === ARM) return 'arm';
     return 'body';
+}
+
+/**
+ * C ref: trap.c instapetrify — Stone_resistance / poly_when_stoned stone
+ * golem short-circuit, else urgent "You turn to stone..." + done(STONING).
+ * Named omissions: minstapetrify; selftouch full cockatrice-wield arms.
+ * @param {string} str killer text (KILLED_BY)
+ */
+export async function instapetrify(str) {
+    const u = game.u || (game.u = {});
+    const Stone_resistance = !!(u.Stone_resistance || u.HStone_resistance
+        || u.EStone_resistance);
+    if (Stone_resistance) return;
+    const youData = game.youmonst?.data
+        || mons(u.umonnum ?? game.urole?.mnum);
+    if (poly_when_stoned(youData, game.mvitals)
+        && (await polymon(PM_STONE_GOLEM))) {
+        return;
+    }
+    await urgent_pline('You turn to stone...');
+    if (!game.killer) game.killer = { name: '', format: 0 };
+    game.killer.format = KILLED_BY;
+    game.killer.name = str != null ? String(str) : '';
+    await done(STONING);
 }
 
 /** C ref: mondata.c mbodypart — FOOT→"foot"; full poly table deferred. */

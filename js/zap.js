@@ -53,6 +53,7 @@ import { getlin } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon,
+    obj_glyph,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
@@ -122,7 +123,7 @@ import {
     WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
-    DISP_BEAM, DISP_CHANGE, DISP_END,
+    DISP_BEAM, DISP_CHANGE, DISP_END, DISP_FLASH,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
     Has_contents, ZAPPED_WAND, THROWN_WEAPON, KICKED_WEAPON,
     FLASHED_LIGHT, INVIS_BEAM, NOTELL, TELL,
@@ -3504,11 +3505,13 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
 
 /**
  * C ref: zap.c bhit — ZAPPED_WAND + KICKED_WEAPON lateral paths.
+ * Branch envelope: kicked start+range--; WATERWALL/LAVAWALL stop;
+ * hits_bars; mon stop; coin/ship_object; DISP_FLASH tmp_at +
+ * nh_delay_output; pool/lava/sink stop.
  * Named omit: THROWN_WEAPON / FLASHED_LIGHT / INVIS_BEAM callers;
- * tmp_at flash / nh_delay_output / show_transient_light;
- * shade_miss / M_AP_OBJECT skip; WEB stick rn2;
+ * show_transient_light; shade_miss / M_AP_OBJECT skip; WEB stick rn2;
  * shkcatch pick; map_invisible / unmap_object; zap_map / doorlock;
- * returning_missile / tethered weapon.
+ * returning_missile / tethered weapon; Hallucination rn2_on_display_rng.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -3518,6 +3521,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     let r = range | 0;
     let result = null;
     let point_blank = true;
+    const do_flash = weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM && !!obj;
 
     // C: kicked object starts one square ahead; range--
     if (weapon === KICKED_WEAPON) {
@@ -3529,91 +3533,107 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
         bhitpos.y = game.u?.uy | 0;
     }
 
-    while (r-- > 0) {
-        bhitpos.x += ddx;
-        bhitpos.y += ddy;
-        const x = bhitpos.x | 0;
-        const y = bhitpos.y | 0;
-        if (!isok(x, y)) {
-            bhitpos.x -= ddx;
-            bhitpos.y -= ddy;
-            break;
-        }
+    // C: tmp_at(DISP_FLASH, obj_to_glyph(...)) for thrown/kicked/flash
+    if (do_flash) tmp_at(DISP_FLASH, obj_glyph(obj));
 
-        const loc = game.level?.at?.(x, y);
-        const typ = loc?.typ;
+    try {
+        while (r-- > 0) {
+            bhitpos.x += ddx;
+            bhitpos.y += ddy;
+            const x = bhitpos.x | 0;
+            const y = bhitpos.y | 0;
+            if (!isok(x, y)) {
+                bhitpos.x -= ddx;
+                bhitpos.y -= ddy;
+                break;
+            }
 
-        // C: WATERWALL / LAVAWALL stop thrown/kicked items
-        if ((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
-            && (IS_WATERWALL(typ) || typ === LAVAWALL)) {
-            break;
-        }
-        // C: iron bars hits_bars for thrown/kicked (D-0990)
-        if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
-            // show_transient_light deferred
-            if (typ === IRONBARS) {
-                const { hits_bars } = await import('./mthrowu.js');
-                if (await hits_bars(
-                    pobj, x - ddx, y - ddy, x, y,
-                    point_blank ? 0 : !rn2(5), 1,
-                )) {
-                    obj = pobj?.obj;
-                    bhitpos.x -= ddx;
-                    bhitpos.y -= ddy;
+            const loc = game.level?.at?.(x, y);
+            const typ = loc?.typ;
+
+            // C: WATERWALL / LAVAWALL stop thrown/kicked items
+            if ((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
+                && (IS_WATERWALL(typ) || typ === LAVAWALL)) {
+                break;
+            }
+            // C: iron bars hits_bars for thrown/kicked (D-0990)
+            if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
+                // show_transient_light deferred
+                if (typ === IRONBARS) {
+                    const { hits_bars } = await import('./mthrowu.js');
+                    if (await hits_bars(
+                        pobj, x - ddx, y - ddy, x, y,
+                        point_blank ? 0 : !rn2(5), 1,
+                    )) {
+                        obj = pobj?.obj;
+                        bhitpos.x -= ddx;
+                        bhitpos.y -= ddy;
+                        break;
+                    }
+                }
+            }
+
+            let mtmp = m_at(x, y);
+            // WEB trap stick / shade_miss / mimic-as-object skip deferred
+
+            if (mtmp) {
+                if (weapon === ZAPPED_WAND) {
+                    if (fhitm) await fhitm(mtmp, obj);
+                    else await bhitm(mtmp, obj);
+                    r -= 3;
+                } else if (weapon !== FLASHED_LIGHT && weapon !== INVIS_BEAM) {
+                    // THROWN_WEAPON / KICKED_WEAPON — stop on monster
+                    game.notonhead = ((x | 0) !== (mtmp.mx | 0)
+                        || (y | 0) !== (mtmp.my | 0));
+                    result = mtmp;
                     break;
                 }
             }
-        }
 
-        let mtmp = m_at(x, y);
-        // WEB trap stick / shade_miss / mimic-as-object skip deferred
+            if (fhito) {
+                if (await bhitpile(obj, fhito, x, y, 0)) r--;
+            } else if (weapon === KICKED_WEAPON) {
+                // C: coin pile stop OR ship_object hole/stairs
+                obj = pobj?.obj;
+                if (!obj) break;
+                const coinPile = (obj.oclass | 0) === COIN_CLASS
+                    && !!objects_at(x, y);
+                if (coinPile) break;
+                const { ship_object } = await import('./dokick.js');
+                if (await ship_object(obj, x, y, costly_spot(x, y))) {
+                    break;
+                }
+            }
 
-        if (mtmp) {
-            if (weapon === ZAPPED_WAND) {
-                if (fhitm) await fhitm(mtmp, obj);
-                else await bhitm(mtmp, obj);
-                r -= 3;
-            } else if (weapon !== FLASHED_LIGHT && weapon !== INVIS_BEAM) {
-                // THROWN_WEAPON / KICKED_WEAPON — stop on monster
-                game.notonhead = ((x | 0) !== (mtmp.mx | 0)
-                    || (y | 0) !== (mtmp.my | 0));
-                result = mtmp;
+            if (weapon === ZAPPED_WAND && (IS_DOOR(typ) || typ === STONE)) {
+                // doorlock deferred
+            }
+            if (!ZAP_POS(typ) || closed_door(x, y)) {
+                bhitpos.x -= ddx;
+                bhitpos.y -= ddy;
                 break;
             }
-        }
-
-        if (fhito) {
-            if (await bhitpile(obj, fhito, x, y, 0)) r--;
-        } else if (weapon === KICKED_WEAPON) {
-            // C: coin pile stop OR ship_object hole/stairs
-            obj = pobj?.obj;
-            if (!obj) break;
-            const coinPile = (obj.oclass | 0) === COIN_CLASS
-                && !!objects_at(x, y);
-            if (coinPile) break;
-            const { ship_object } = await import('./dokick.js');
-            if (await ship_object(obj, x, y, costly_spot(x, y))) {
-                break;
+            if (do_flash) {
+                // map_invisible / unmap_object deferred
+                tmp_at(x, y);
+                await nh_delay_output();
+                // C: kicked objects fall in pools/lava; sink stops physical
+                if (weapon === KICKED_WEAPON
+                    && (is_pool(x, y) || is_lava(x, y))) {
+                    break;
+                }
+                if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
+            } else if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM) {
+                if (weapon === KICKED_WEAPON
+                    && (is_pool(x, y) || is_lava(x, y))) {
+                    break;
+                }
+                if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
             }
+            point_blank = false;
         }
-
-        if (weapon === ZAPPED_WAND && (IS_DOOR(typ) || typ === STONE)) {
-            // doorlock deferred
-        }
-        if (!ZAP_POS(typ) || closed_door(x, y)) {
-            bhitpos.x -= ddx;
-            bhitpos.y -= ddy;
-            break;
-        }
-        if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM) {
-            // C: kicked objects fall in pools/lava; sink stops physical
-            if (weapon === KICKED_WEAPON
-                && (is_pool(x, y) || is_lava(x, y))) {
-                break;
-            }
-            if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
-        }
-        point_blank = false;
+    } finally {
+        if (do_flash) tmp_at(DISP_END, 0);
     }
     return result;
 }

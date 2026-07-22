@@ -7,17 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1260** (Scr **11404**/11405 RNG **100%**
-  speed `32+0.27/turn`). Next cadence @**#1265**.
+- Local suite **43**/44 @**#1265** (Scr **11404**/11405 RNG **100%**
+  speed `30+0.27/turn`). Next cadence @**#1270**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0994** sellobj/check_shop_obj + drop/throw bill.
-- **Next cluster:** barefoot petrify / tmp_at flash; or absent.md
-  thin (potion/scroll/vault); or dopay appease arms.
+- Latest: **D-0995** instapetrify + barefoot kick + bhit DISP_FLASH.
+- **Next cluster:** absent.md thin (potion/scroll/vault); or dopay
+  appease; or selftouch/minstapetrify; or STATUE_TRAP/Blind feel.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -38,8 +38,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through sellobj
-  (D-0994) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through instapetrify
+  (D-0995) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -49,8 +49,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1260**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `32+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1265**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0995:** instapetrify + barefoot kick petrify + bhit DISP_FLASH.
 - **D-0994:** sellobj/check_shop_obj + saleable/set_cost/contained_cost
   + dropz/dodrop/throwit/breakobj.
 - **D-0993:** globby pudding_merge/obj_meld + flooreffects/make_corpse.
@@ -64,5 +65,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0985:** kick_nondoor SDOOR/furniture + altar_wrath /
   disturb_grave / sink_backs_up.
 - **D-0984:** ship_object/otransit_msg + dropx/throwit/drop_throw.
-- **D-0983:** stolen_value + revive/kick/dig/lock/costly_alteration.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
