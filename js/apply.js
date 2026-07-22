@@ -107,6 +107,7 @@ const SADDLE = objectNames.indexOf('SADDLE');
 const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
 const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
 const TOWEL = objectNames.indexOf('TOWEL');
+const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
@@ -1988,7 +1989,8 @@ async function use_towel(obj) {
  * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005) +
  * SADDLE → use_saddle (D-1008) +
  * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007) +
- * TOWEL → use_towel (D-1009).
+ * TOWEL → use_towel (D-1009) +
+ * CRYSTAL_BALL → use_crystal_ball (D-1010).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms;
@@ -2141,6 +2143,13 @@ export async function doapply() {
     if (TOWEL >= 0 && obj.otyp === TOWEL) {
         const res = await use_towel(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case CRYSTAL_BALL → use_crystal_ball (D-1010)
+    if (CRYSTAL_BALL >= 0 && obj.otyp === CRYSTAL_BALL) {
+        const { use_crystal_ball } = await import('./detect.js');
+        await use_crystal_ball(obj);
+        return true; // ECMD_TIME (doapply res defaults to TIME)
     }
 
     // Other apply otyps deferred

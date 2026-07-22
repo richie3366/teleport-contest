@@ -481,8 +481,9 @@ export async function arti_invoke(obj) {
     const invProp = oart?.inv_prop | 0;
     if (oart === list[ART_NONARTIFACT] || !invProp) {
         if (obj.otyp === CRYSTAL_BALL) {
-            // use_crystal_ball deferred
-            await pline(nothing_happens);
+            // C artifact.c arti_invoke → use_crystal_ball (D-1010)
+            const { use_crystal_ball } = await import('./detect.js');
+            await use_crystal_ball(obj);
         } else {
             await pline(nothing_happens);
         }

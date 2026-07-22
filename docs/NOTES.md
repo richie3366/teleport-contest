@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1009** apply `use_towel` + weapon wet/dry_a_towel +
-  burnarmor towel dry.
+- Latest: **D-1010** apply `use_crystal_ball` + thin object/trap/
+  furniture detect + drawing `def_char_*`.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  in_trouble majors; or crystal ball.
+  in_trouble majors; or blindfold-as-tool / containers.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -40,8 +40,9 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  whistle (D-1007) / `use_saddle` (D-1008) / `use_towel` (D-1009) or
-  drop `objects_at` from timeout mkobj (D-0980).
+  whistle (D-1007) / `use_saddle` (D-1008) / `use_towel` (D-1009) /
+  `use_crystal_ball` (D-1010) or drop `objects_at` from timeout mkobj
+  (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -53,6 +54,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1010:** apply use_crystal_ball + thin detect callees.
 - **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
 - **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
 - **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault/
@@ -68,6 +70,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0999:** ParanoidBreakwand getlin + see_monster_closeup
   camera/makedog.
 - **D-0998:** dopay robbed/angry appease + debit/loan/credit.
-- **D-0997:** animate_statue/activate_statue_trap + Blind kick feel +
-  break_statue/dosearch/dotrap wire.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

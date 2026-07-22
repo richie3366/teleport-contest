@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1010 — apply use_crystal_ball + thin detect callees
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `doapply` / non-arti `#invoke`
+  CRYSTAL_BALL fell through to "don't know how to use" /
+  `nothing_happens`; detect callees absent for ball path.
+- **C locus:** `detect.c` `use_crystal_ball` / `level_distance` /
+  thin `object_detect` / `trap_detect` / `furniture_detect`;
+  `drawing.c` `def_char_to_objclass` / monclass / furniture;
+  `apply.c` case CRYSTAL_BALL; `artifact.c` `arti_invoke`.
+- **Fix:** port Blind/fail/hallu/uncharged/charged envelopes;
+  yn look-for → furniture/object/monster/trap/level_distance;
+  wire `doapply` + `arti_invoke`.
+- **Deferred:** object_detect buried/minvent/cursed-mimic/gold/
+  clear_stale_map; trap_detect chest/door OTRAP; furniture
+  M_AP_FURNITURE seemimic; full defsyms furniture scan.
+- **Verify:** green+strict PASS; apply/detect cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1009 — apply use_towel + wet/dry_a_towel
 
 - **Status:** fixed (map-driven debt retirement)
@@ -18,7 +37,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   invent/mcarried plines + uwep `unweapon`; wire `doapply` TOWEL;
   `burnarmor` dry before slot burn.
 - **Deferred:** `gulp_blnd_check` swallow; `gloves_simple_name`
-  gauntlets discovery; `update_inventory` redraw; crystal ball.
+  gauntlets discovery; `update_inventory` redraw.
 - **Verify:** green+strict PASS; apply/trap cohort **15**/16
   (seed0009 Scr 72/73 pre-existing). Cadence **43**/44 @#1280.
   Rule #2: no fs.
