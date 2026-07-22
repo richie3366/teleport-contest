@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0998 | fixed | `dopay` robbed/angry appease + debit/loan/credit | map-driven; green+shop cohort 11/12 (seed0009 pre-existing) |
 | D-0997 | fixed | `animate_statue`/`activate_statue_trap` + Blind kick feel + break/search wire | map-driven; green+kick/search cohort 10/10 |
 | D-0996 | fixed | `selftouch`/`mselftouch`/`minstapetrify` + `monstone`/`mon_to_stone`/`vamp_stone` + `xkilled` stoned | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-0995 | fixed | `instapetrify` + barefoot kick petrify + `bhit` DISP_FLASH | map-driven; green+kick/throw cohort 11/12 (seed0009 pre-existing); cadence 43/44 @#1265 |

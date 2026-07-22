@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 04:49 — #1268 D-0998 dopay appease + debit
+
+**Objective:** map-driven — dopay robbed/angry appease + debit cluster
+(CURRENT next after D-0997).
+**C locus:** `shk.c` dopay proceed (robbed settle, angry appease,
+debit/loan/credit, pay/make_happy_shk/rouse).
+**Change:** port peaceful non-resident robbed settle; !bill&&!debit
+robbed/angry 1000-gold appease; debit before bill; hidden_gold stash
+msgs — D-0998.
+**Verified:** green+strict PASS; shop/shared cohort **11**/12
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** potion/scroll/vault thin; or apply camera/ParanoidBreakwand.
+**Blocked:** none.
+
 ## 2026-07-22 04:45 — #1267 D-0997 statue trap + Blind kick feel
 
 **Objective:** map-driven — STATUE_TRAP activate / Blind feel cluster

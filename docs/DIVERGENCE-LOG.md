@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0998 — dopay robbed / angry appease + debit
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0997 — `dopay` paid itemized
+  bills only; robbed settle, angry appease, and `debit`/`loan`/`credit`
+  debt pay were deferred (`absent.md` shops / `shk.js` dopay).
+- **C locus:** `shk.c` `dopay` proceed — peaceful non-resident robbed
+  settle; `!billct&&!debit` robbed/angry appease; debit before bill;
+  `pay`/`make_happy_shk`/`money2mon`/`rouse_shk`.
+- **Fix:** port robbed non-resident settle; angry robbed compensate +
+  1000-gold appease (`rn2(3)` + customer name); debit credit/money2mon
+  arms; rouse when owing; `hidden_gold` stashed msgs.
+- **Deferred:** multi-shk getpos; used-up/container bill; traditional
+  itemize; mute/Deaf thank-you nod; SetVoice; update_inventory polish.
+- **Verify:** green+strict PASS; shop/shared cohort **11**/12
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0997 — animate_statue / activate_statue_trap + Blind kick feel
 
 - **Status:** fixed (map-driven debt retirement)

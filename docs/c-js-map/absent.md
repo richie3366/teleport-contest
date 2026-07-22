@@ -27,7 +27,8 @@ This is a planning list, not an exhaustive C file inventory:
 - apply beyond lock-pick no-door (containers, other tools);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing (sellobj/check_shop_obj
-  throw-land + drop via D-0994; remaining dopay/appease arms);
+  throw-land + drop via D-0994; **dopay robbed/angry/debit** via
+  D-0998; remaining used-up/container bill + getpos pay-whom);
 - level transitions, branches, quests, and special levels;
 - pure-JS Lua 5.4 runtime plus `nh.*` bindings;
 - save/restore JSON VFS subset (D-0335 — `dosave`/`dosave0`/`try_restore_save`;

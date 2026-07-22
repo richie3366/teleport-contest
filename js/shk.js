@@ -21,7 +21,7 @@
 // container bill_box_content / contained_cost; remote_burglary; gem glass
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
-// dopay: debit/robbed/angry appease; used-up/container bill arms;
+// dopay: debit/robbed/angry appease (D-0998); used-up/container bill arms;
 // traditional itemize ynq; getpos pay-whom; container paydoname rewrite;
 // SetVoice; Izchak candle special_stock polish; safe_qbuf sell prompt;
 // money2u invent-full dropy; break_seq simultaneous shop shatter;
@@ -45,9 +45,10 @@ import {
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
     W_SWAPWEP, W_QUIVER, TT_PIT,
     SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL, CANDLESHOP,
+    ARTICLE_THE,
 } from './const.js';
 import { hero_conflict, resist_conflict, m_canseeu } from './mondata.js';
-import { mon_nam } from './do_name.js';
+import { mon_nam, x_monnam } from './do_name.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, SPBOOK_CLASS,
@@ -99,9 +100,44 @@ function ANGRY(mon) {
     return !mon?.mpeaceful;
 }
 
+/** C: NOTANGRY(mon) ≡ mpeaceful */
+function NOTANGRY(mon) {
+    return !!mon?.mpeaceful;
+}
+
 /** C: helpless — msleeping || !mcanmove */
 function helpless(mtmp) {
     return !!(mtmp?.msleeping || mtmp?.mcanmove === 0);
+}
+
+/** C hacklib.c plur — "s" when n !== 1. */
+function plur(n) {
+    return (n | 0) === 1 ? '' : 's';
+}
+
+/** C you.h noit_mhe/mhim/mhis — gender pronouns (no "it"). */
+function noit_mhe(mtmp) {
+    return mtmp?.female ? 'she' : 'he';
+}
+function noit_mhim(mtmp) {
+    return mtmp?.female ? 'her' : 'him';
+}
+function noit_mhis(mtmp) {
+    return mtmp?.female ? 'her' : 'his';
+}
+
+/**
+ * C vault.c / invent.c hidden_gold — gold inside carried containers.
+ * @param {boolean} even_if_unknown
+ */
+function hidden_gold(even_if_unknown) {
+    let value = 0;
+    for (const obj of game.invent || []) {
+        if (Has_contents(obj) && (obj.cknown || even_if_unknown)) {
+            value += contained_gold(obj, even_if_unknown);
+        }
+    }
+    return value;
 }
 
 /**
@@ -3214,10 +3250,12 @@ function Blind_telepat() {
 /**
  * C ref: shk.c dopay — #pay / `p`.
  * Covered: nexttosk; Blind/`canspotmon` seensk + You_cant("see...");
- * single resident / single-seen nearness; bill menu → money2mon/splitobj;
+ * single resident / single-seen nearness; rouse when owing;
+ * peaceful non-resident robbed settle; !bill&&!debit robbed/angry appease;
+ * debit pay (credit/money2mon); bill menu → money2mon/splitobj;
  * thank-you verbalize; ECMD_TIME when paid.
- * Deferred: multi-shk getpos; debit; robbed/angry appease; used-up/containers;
- * traditional itemize; mute/Deaf thank-you nod; hidden_gold stashed msgs.
+ * Deferred: multi-shk getpos; used-up/containers; traditional itemize;
+ * mute/Deaf thank-you nod; SetVoice.
  */
 export async function dopay() {
     game.multi = 0;
@@ -3226,6 +3264,7 @@ export async function dopay() {
     let nexttosk = 0;
     let nxtm = null;
     let resident = null;
+    const stashed_gold = hidden_gold(true) > 0;
 
     let walk = next_shkp(0, false);
     while (walk.shkp) {
@@ -3285,24 +3324,176 @@ export async function dopay() {
     const eshkp = ESHK(shkp);
     if (!eshkp) return ECMD_OK;
 
+    // C proceed: wake sleeping shk when someone who owes money offers payment
+    let ltmp = eshkp.robbed | 0;
+    if (ltmp || (eshkp.billct | 0) || (eshkp.debit | 0)) {
+        rouse_shk(shkp, true);
+    }
+
     if (helpless(shkp)) {
         await pline(`${Shknam(shkp)} ${rn2(2) ? 'seems to be napping' : "doesn't respond"}.`);
         return ECMD_OK;
     }
 
-    // debit / robbed / angry non-bill paths deferred
+    // C: peaceful non-resident — settle robbed gold only (not shop bill)
+    if (shkp !== resident && NOTANGRY(shkp)) {
+        const umoney = money_cnt(game.invent);
+        if (!ltmp) {
+            await pline(`You do not owe ${shkname(shkp)} anything.`);
+        } else if (!umoney) {
+            await pline(`You ${stashed_gold ? 'seem to ' : ''}have no gold.`);
+            if (stashed_gold) {
+                await pline('But you have some gold stashed away.');
+            }
+        } else {
+            if (umoney > ltmp) {
+                await pline(
+                    `You give ${shkname(shkp)} the ${ltmp} gold piece${plur(ltmp)} ${noit_mhe(shkp)} asked for.`,
+                );
+                await pay(ltmp, shkp);
+            } else {
+                await pline(
+                    `You give ${shkname(shkp)} all your${stashed_gold ? ' openly kept' : ''} gold.`,
+                );
+                await pay(umoney, shkp);
+                if (stashed_gold) await pline('But you have hidden gold!');
+            }
+            if ((umoney < ((ltmp / 2) | 0)) || (umoney < ltmp && stashed_gold)) {
+                await pline(`Unfortunately, ${noit_mhe(shkp)} doesn't look satisfied.`);
+            } else {
+                await make_happy_shk(shkp, false);
+            }
+        }
+        return ECMD_TIME;
+    }
+
+    // C: ltmp still eshkp->robbed — no bill/debit → owe-nothing / appease
     if (!(eshkp.billct | 0) && !(eshkp.debit | 0)) {
-        await pline(`You do not owe ${shkname(shkp)} anything.`);
+        const umoney = money_cnt(game.invent);
+        if (!ltmp && NOTANGRY(shkp)) {
+            await pline(`You do not owe ${shkname(shkp)} anything.`);
+            if (!umoney) {
+                await pline(
+                    `Moreover, you${stashed_gold ? ' seem to' : ''} have no gold.`,
+                );
+            }
+        } else if (ltmp) {
+            await pline(`${shkname(shkp)} is after blood, not gold!`);
+            if (umoney < ((ltmp / 2) | 0) || (umoney < ltmp && stashed_gold)) {
+                if (!umoney) {
+                    await pline(
+                        `Moreover, you${stashed_gold ? ' seem to' : ''} have no gold.`,
+                    );
+                } else {
+                    await pline(
+                        `Besides, you don't have enough to interest ${noit_mhim(shkp)}.`,
+                    );
+                }
+                return ECMD_TIME;
+            }
+            await pline(
+                `But since ${noit_mhis(shkp)} shop has been robbed recently,`,
+            );
+            await pline(
+                `you ${umoney < ltmp ? 'partially ' : ''}compensate ${shkname(shkp)} for ${noit_mhis(shkp)} losses.`,
+            );
+            await pay(umoney < ltmp ? umoney : ltmp, shkp);
+            await make_happy_shk(shkp, false);
+        } else {
+            // angry, not robbed — door/attack appease
+            await pline(`${Shknam(shkp)} is after your hide, not your gold!`);
+            if (umoney < 1000) {
+                if (!umoney) {
+                    await pline(
+                        `Moreover, you${stashed_gold ? ' seem to' : ''} have no gold.`,
+                    );
+                } else {
+                    await pline(
+                        `Besides, you don't have enough to interest ${noit_mhim(shkp)}.`,
+                    );
+                }
+                return ECMD_TIME;
+            }
+            const angryNam = canspotmon(shkp)
+                ? x_monnam(shkp, ARTICLE_THE, 'angry', 0, false)
+                : shkname(shkp);
+            await pline(
+                `You try to appease ${angryNam} by giving ${noit_mhim(shkp)} 1000 gold pieces.`,
+            );
+            await pay(1000, shkp);
+            const cust = String(eshkp.customer || '');
+            const pln = String(game.plname || '').slice(0, 32);
+            // C: strncmp(customer, plname, PL_NSIZ) || rn2(3)
+            if (cust.toLowerCase() !== pln.toLowerCase() || rn2(3)) {
+                await make_happy_shk(shkp, false);
+            } else {
+                await pline(`But ${shkname(shkp)} is as angry as ever.`);
+            }
+        }
+        return ECMD_TIME;
+    }
+
+    if (shkp !== resident) {
+        // C: impossible("dopay: not to shopkeeper?"); setpaid(resident)
+        if (resident) setpaid(resident);
         return ECMD_OK;
     }
 
     let paid = false;
+    // C: pay debt, if any, first
+    if (eshkp.debit | 0) {
+        let dtmp = eshkp.debit | 0;
+        const loan = eshkp.loan | 0;
+        const umoney = money_cnt(game.invent);
+        let sbuf = `You owe ${shkname(shkp)} ${dtmp} ${currency(dtmp)} `;
+        if (loan) {
+            if (loan === dtmp) {
+                sbuf += 'you picked up in the store.';
+            } else {
+                sbuf += 'for gold picked up and the use of merchandise.';
+            }
+        } else {
+            sbuf += 'for the use of merchandise.';
+        }
+        await pline(sbuf);
+        if (umoney + (eshkp.credit | 0) < dtmp) {
+            await pline(
+                `But you don't${stashed_gold ? ' seem to' : ''} have enough gold${
+                    eshkp.credit ? ' or credit' : ''
+                }.`,
+            );
+            return ECMD_TIME;
+        }
+        if ((eshkp.credit | 0) >= dtmp) {
+            eshkp.credit = (eshkp.credit | 0) - dtmp;
+            eshkp.debit = 0;
+            eshkp.loan = 0;
+            await pline('Your debt is covered by your credit.');
+        } else if (!(eshkp.credit | 0)) {
+            money2mon(shkp, dtmp);
+            eshkp.debit = 0;
+            eshkp.loan = 0;
+            await pline('You pay that debt.');
+            if (game.flags) game.flags.botl = true;
+        } else {
+            dtmp -= eshkp.credit | 0;
+            eshkp.credit = 0;
+            money2mon(shkp, dtmp);
+            eshkp.debit = 0;
+            eshkp.loan = 0;
+            await pline('That debt is partially offset by your credit.');
+            await pline('You pay the remainder.');
+            if (game.flags) game.flags.botl = true;
+        }
+        paid = true;
+    }
+
     let pay_done = true;
     if (eshkp.billct | 0) {
         const ibill = make_itemized_bill(shkp);
         const paidRef = { paid: false };
         if (!await pay_billed_items(shkp, ibill, paidRef)) pay_done = false;
-        paid = paidRef.paid;
+        paid = paid || paidRef.paid;
     }
 
     if (pay_done && !ANGRY(shkp) && paid) {
@@ -3316,6 +3507,7 @@ export async function dopay() {
                 `Thank you for shopping in ${s_suffix(shkname(shkp))} ${shopNm}${bang}`,
             );
         }
+        // mute/Deaf nod deferred
     }
 
     if (game.iflags) game.iflags.menu_requested = false;
