@@ -22,14 +22,14 @@ import { makemon, reset_align_shift_cache } from './makemon.js';
 import {
     mcalcmove, mcalcdistress, movemon, NORMAL_SPEED, see_nearby_monsters,
 } from './mon.js';
-import { LOW_PM, NUMMONS, mons, G_NOCORPSE, PM_WIZARD, reset_erinys } from './monsters.js';
+import { LOW_PM, NUMMONS, mons, G_NOCORPSE, PM_WIZARD, reset_erinys, breathless } from './monsters.js';
 import {
     A_DEX, A_STR, A_CON, A_WIS, A_INT, A_MAX, acurr, exercise, adjattrib,
     change_luck, Fast, Very_fast, Searching, Fumbling,
 } from './attrib.js';
-import { dosearch0 } from './detect.js';
+import { dosearch0, warnreveal } from './detect.js';
 import { nhgetch } from './input.js';
-import { unmul, monster_nearby, stop_occupation } from './hack.js';
+import { unmul, monster_nearby, stop_occupation, overexert_hp, is_pool } from './hack.js';
 import { reset_justpicked } from './pickup.js';
 import { set_wear } from './do_wear.js';
 import { gethungry } from './eat.js';
@@ -55,6 +55,7 @@ import {
     UTOTYPE_NONE, TIMEOUT, REGENERATION,
     MAXULEV, ENERGY_REGENERATION, MAGICAL_BREATHING,
     TELEPORT, POLYMORPH, UNCHANGING, NON_PM, POLY_NOFLAGS, ismnum,
+    WARNING, HALF_PHDAM, Is_waterlevel,
 } from './const.js';
 
 // C ref: allmain.c static mvl_change — delayed polyself(1) / you_were(2).
@@ -222,15 +223,42 @@ function maybe_generate_rnd_mon() {
     }
 }
 
+/** C youprop.h Regeneration — H || E via flat + uprops. */
+function Regeneration(u = game.u || {}) {
+    return !!(u.HRegeneration || u.ERegeneration
+        || (u.uprops?.[REGENERATION]?.intrinsic | 0)
+        || (u.uprops?.[REGENERATION]?.extrinsic | 0));
+}
+
+/** C youprop.h Breathless — Magical_breathing || breathless(form). */
+function Breathless(u = game.u || {}) {
+    const prop = u.uprops?.[MAGICAL_BREATHING];
+    if ((prop?.intrinsic | 0) || (prop?.extrinsic | 0)
+        || (u.HMagical_breathing | 0) || (u.EMagical_breathing | 0)) {
+        return true;
+    }
+    return breathless(game.youmonst?.data);
+}
+
+/** C youprop.h Half_physical_damage — H || E HALF_PHDAM. */
+function Half_physical_damage(u = game.u || {}) {
+    const e = u.uprops?.[HALF_PHDAM];
+    return !!((u.HHalf_physical_damage | 0) || (u.EHalf_physical_damage | 0)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C youprop.h Warning — H || E via flat + uprops. */
+function Warning(u = game.u || {}) {
+    const e = u.uprops?.[WARNING];
+    return !!((u.HWarning | 0) || (u.EWarning | 0) || u.Warning
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /** C: U_CAN_REGEN() — Regeneration || (Sleepy && u.usleep). */
 function u_can_regen() {
     const u = game.u || {};
-    // C youprop.h Regeneration ≡ HRegeneration || ERegeneration (uprops)
-    const regen = !!(u.HRegeneration || u.ERegeneration
-        || (u.uprops?.[REGENERATION]?.intrinsic | 0)
-        || (u.uprops?.[REGENERATION]?.extrinsic | 0));
     const sleepy = !!(u.HSleepy || u.ESleepy);
-    return regen || (sleepy && !!u.usleep);
+    return Regeneration(u) || (sleepy && !!u.usleep);
 }
 
 /**
@@ -245,9 +273,9 @@ function interrupt_multi(_msg) {
 }
 
 /**
- * C ref: allmain.c regen_hp(wtcap) — maybe recover HP once/turn.
- * Upolyd eel-out-of-water hp-loss rolls (rn2(mh)/rn2(8)) deferred until poly
- * eel forms are live; Breathless / Half_physical_damage props deferred.
+ * C ref: allmain.c regen_hp(wtcap) — maybe recover HP once/turn;
+ * Upolyd eel out of water may lose hp (rn2(mh) > rn2(8)).
+ * Named omit: rehumanize on mh<1 (polyself path deferred at this locus).
  */
 function regen_hp(wtcap) {
     const u = game.u || (game.u = {});
@@ -258,6 +286,21 @@ function regen_hp(wtcap) {
     if (Upolyd(u)) {
         if ((u.mh || 0) < 1) {
             // rehumanize deferred
+        } else if (
+            game.youmonst?.data?.mlet === 'S_EEL'
+            && !is_pool(u.ux | 0, u.uy | 0)
+            && !Is_waterlevel(u.uz)
+            && !Breathless(u)
+        ) {
+            // eel out of water loses hp (monster eels similar)
+            if (
+                (u.mh | 0) > 1
+                && !Regeneration(u)
+                && rn2(u.mh | 0) > rn2(8)
+                && (!Half_physical_damage(u) || !((game.moves | 0) % 2))
+            ) {
+                heal = -1;
+            }
         } else if ((u.mh || 0) < (u.mhmax || 0)) {
             if (u_can_regen() || (encumbrance_ok && !((game.moves || 0) % 20))) {
                 heal = 1;
@@ -772,14 +815,26 @@ export async function moveloop_core() {
                 if (g.u.ublesscnt) g.u.ublesscnt = (g.u.ublesscnt | 0) - 1;
 
                 // once-per-turn — C: regen_hp before dosounds when HP below max
+                // (Upolyd eel always enters regen_hp even at full mh)
                 if (g.u.uinvulnerable) {
                     mvl_wtcap = UNENCUMBERED;
                 } else if (
                     !Upolyd(g.u)
                         ? ((g.u.uhp || 0) < (g.u.uhpmax || 0))
-                        : ((g.u.mh || 0) < (g.u.mhmax || 0))
+                        : ((g.u.mh || 0) < (g.u.mhmax || 0)
+                            || game.youmonst?.data?.mlet === 'S_EEL')
                 ) {
                     regen_hp(mvl_wtcap);
+                }
+                // C: moving around while encumbered is hard work
+                if (mvl_wtcap > MOD_ENCUMBER && g.u.umoved) {
+                    if (!(
+                        mvl_wtcap < EXT_ENCUMBER
+                            ? ((game.moves | 0) % 30)
+                            : ((game.moves | 0) % 10)
+                    )) {
+                        await overexert_hp();
+                    }
                 }
                 // C: regen_pw(mvl_wtcap) always; gates + rn1 inside
                 regen_pw(mvl_wtcap);
@@ -793,7 +848,8 @@ export async function moveloop_core() {
                 ) {
                     await dosearch0(1);
                 }
-                // warnreveal deferred
+                // C: if (Warning) warnreveal();
+                if (Warning(g.u)) await warnreveal();
                 await dosounds();
                 gethungry();
                 age_spells();

@@ -15,10 +15,9 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1002** allmain Teleportation/Polymorph/ulycn
-  once-per-turn → tele/polyself/you_were + mvl_change.
+- Latest: **D-1003** warnreveal + overexert_hp + Upolyd eel regen_hp.
 - **Next cluster:** absent.md thin (potion/scroll/vault); or
-  warnreveal / overexert_hp / Upolyd eel; or potion/mhitm you_were.
+  potion/mhitm/pray you_were wires; or next_to_u/check_leash.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -40,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  allmain Teleport/Poly/ulycn (D-1002) or drop `objects_at` from timeout
+  warnreveal/overexert/eel (D-1003) or drop `objects_at` from timeout
   mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -53,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1270**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1003:** warnreveal + overexert_hp + Upolyd eel regen_hp.
 - **D-1002:** allmain Teleport/Poly/ulycn once-per-turn + mvl_change.
 - **D-1001:** ParanoidWerechange/Hit + you_were/unwere + mtimedone
   + wolfsbane + confirm default.
@@ -69,5 +69,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0993:** globby pudding_merge/obj_meld + flooreffects/make_corpse.
 - **D-0992:** fire_damage/doaltarobj/hot potion + dropx/flooreffects.
 - **D-0991:** costly_gold/donate_gold + addtobill coin/gltmp + kick.
-- **D-0990:** hits_bars/hit_bars + bhit/throwit/launch_obj wire.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

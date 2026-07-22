@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1003 — warnreveal + overexert_hp + Upolyd eel regen_hp
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-1002 — `warnreveal` deferred;
+  `overexert_hp` / encumber-move and melee HVY arms deferred; Upolyd
+  eel-out-of-water `regen_hp` rn2 rolls deferred (`turns.md` allmain/hack/detect).
+- **C locus:** `detect.c` `warnreveal`; `hack.c` `overexert_hp`/`overexertion`;
+  `allmain.c` `regen_hp` S_EEL arm + moveloop encumber `overexert_hp` +
+  Warning→`warnreveal`.
+- **Fix:** port `warnreveal`→`mfind0(…,1)`; `overexert_hp` + wire
+  `overexertion` (moves%3 + HVY) and allmain encumber+moved; eel
+  out-of-water heal=-1 with Regeneration/Breathless/Half_physical gates;
+  moveloop Upolyd eel always enters `regen_hp`.
+- **Deferred:** mfind0 set_msg_xy / display_nhwindow flush; rehumanize on
+  mh<1 at regen_hp; potion/mhitm you_were wires; next_to_u/check_leash.
+- **Verify:** green+strict PASS; allmain cohort **36**/37
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1002 — allmain Teleportation / Polymorph / ulycn once-per-turn
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,7 +35,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Teleportation/Polymorph/Unchanging (flat H/E + uprops); clear
   `_cmdq_canned` on successful tele.
 - **Deferred:** next_to_u/check_leash body; CQ_REPEAT queue;
-  potion/mhitm you_were wires; overexert_hp / Upolyd eel hp-loss.
+  potion/mhitm you_were wires. (warnreveal / overexert_hp / eel → D-1003)
 - **Verify:** green+strict PASS; allmain cohort **36**/37
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 

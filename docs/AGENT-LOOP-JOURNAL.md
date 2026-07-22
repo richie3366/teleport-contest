@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 05:22 — #1274 D-1003 warnreveal/overexert/eel
+
+**Objective:** map-driven — warnreveal + overexert_hp + Upolyd eel
+regen_hp (CURRENT next after D-1002).
+**C locus:** `detect.c` warnreveal; `hack.c` overexert_hp/overexertion;
+`allmain.c` regen_hp S_EEL + moveloop encumber/Warning wires.
+**Change:** warnreveal→mfind0 via_warning; overexert_hp + melee HVY
++ encumber-move; eel out-of-water rn2(mh)/rn2(8) — D-1003.
+**Verified:** green+strict PASS; allmain cohort **36**/37
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (potion/scroll/vault); or potion/mhitm
+you_were wires; or next_to_u/check_leash.
+**Blocked:** none.
+
 ## 2026-07-22 05:17 — #1273 D-1002 allmain Tele/Poly/ulycn
 
 **Objective:** map-driven — allmain Teleportation/Polymorph/ulycn
@@ -205,19 +219,4 @@ wire bhit/throwit/launch_obj point_blank arms — D-0990.
 11404/11405 RNG 100% speed `32+0.27/turn`. Rule #2: no fs.
 **Next:** costly_gold/donate_gold; flooreffects fire/globby;
 absent.md thin; barefoot petrify / tmp_at.
-**Blocked:** none.
-## 2026-07-22 03:40 — #1259 D-0989 Is_box + ghitm
-
-**Objective:** map-driven — Is_box kick arms / ghitm (CURRENT next
-cluster after D-0988).
-**C locus:** `dokick.c` Is_box/`ghitm`/`container_impact_dmg`;
-`trap.c` `chest_trap`; `lock.c` `breakchestlock`; `shk.c`
-`make_angry_shk`.
-**Changed:** impact shatter; lock break/lid + chest_trap; ghitm;
-export breakchestlock/chest_trap; thin make_angry/happy_shk —
-D-0989. Deferred: hits_bars; costly_gold; petrify; tmp_at.
-**Verified:** green+strict PASS; kick cohort **19**/20 (seed0009 Scr
-72/73 pre-existing); seed0060 kick-search PASS. Rule #2: no fs.
-**Next:** hits_bars/hit_bars; or flooreffects fire_damage/globby;
-or absent.md thin (potion/scroll/vault).
 **Blocked:** none.

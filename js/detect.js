@@ -18,7 +18,6 @@
 // **cmd_safety_prevention** for explicit `s` beside hostiles (D-0228).
 // Named omissions: Hallucination/cls
 // map_trap wait; artifact SPFX_SEARCH;
-// warnreveal body (mfind0 via_warning wired);
 // map_trap + map_engraving after furniture (D-0928 #1158); oldglyph
 // trap/object restore deferred; unconstrain underwater-buried-swallow;
 // notice_mon_off/on; findone flash_glyph / mimic / hider / invis /
@@ -218,6 +217,25 @@ async function mfind0(mtmp, via_warning) {
         return 1;
     }
     return 0;
+}
+
+/**
+ * C ref: detect.c warnreveal — adjacent mundetected Warning targets.
+ * Via_warning mfind0; set_msg_xy / display_nhwindow flush still deferred.
+ */
+export async function warnreveal() {
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    for (let x = ux - 1; x <= ux + 1; x++) {
+        for (let y = uy - 1; y <= uy + 1; y++) {
+            if (!isok(x, y) || (x === ux && y === uy)) continue;
+            const mtmp = m_at(x, y);
+            if (mtmp && warning_of(mtmp) && mtmp.mundetected) {
+                await mfind0(mtmp, 1); // via_warning
+            }
+        }
+    }
 }
 
 /**
