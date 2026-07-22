@@ -628,7 +628,8 @@ async function breakmsg(obj, in_view) {
  * shop check_shop_obj / stolen_value / make_angry_shk; pyrolisk explode.
  * @returns {Promise<number>} 1 if destroyed
  */
-async function breakobj(obj, x, y, hero_caused, _from_invent) {
+/** Exported for flooreffects hot-ground shatter (do.c; D-0992). */
+export async function breakobj(obj, x, y, hero_caused, _from_invent) {
     if (!obj) return 0;
     if (is_crackable(obj)) {
         // erode_obj ERODE_CRACK deferred — still remove for striking path

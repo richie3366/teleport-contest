@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0992 — flooreffects fire_damage / doaltarobj / hot potion
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0987 — hard lava landings skipped
+  `fire_damage`; altar drop skipped `doaltarobj`/bknown; hot-level
+  ROOM/CORR potion shatter was deferred; mon_moving altar land silent.
+- **C locus:** `do.c` `flooreffects` / `doaltarobj` / `drop` / `dropx`;
+  `trap.c` `fire_damage` / `lava_damage` fallthrough.
+- **Fix:** port `fire_damage` (catch_lit, containers, scroll/book/potion
+  destroy_strings, erode burn); lava soft-path then `fire_damage(TRUE)`;
+  `doaltarobj` flash/land + bknown; hot-ground survival chance +
+  `breakobj`; wire `dropx` altar + `drop` skip-verbose on altar.
+- **Deferred:** globby `pudding_merge`/`obj_meld`/`obj_nexto_xy`;
+  boulder+pit `hmon`/`mondied`; sellobj/check_shop_obj; barefoot
+  petrify; tmp_at flash.
+- **Verify:** green+strict PASS; altar/throw/drop cohort **20**/21
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0991 — costly_gold / donate_gold on kick + addtobill
 
 - **Status:** fixed (map-driven debt retirement)

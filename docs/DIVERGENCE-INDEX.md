@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0992 | fixed | `flooreffects` fire_damage/doaltarobj/hot-potion + dropx wire | map-driven; green+altar/throw cohort 20/21 (seed0009 pre-existing) |
 | D-0991 | fixed | `costly_gold`/`donate_gold` + addtobill coin + kick out/refund | map-driven; green+shop/kick cohort 11/12 (seed0009 pre-existing) |
 | D-0990 | fixed | `hits_bars`/`hit_bars` + bhit/throwit/launch_obj | map-driven; green+kick/throw cohort 7/8 (seed0009 pre-existing); cadence 43/44 @#1260 |
 | D-0989 | fixed | Is_box kick + `container_impact_dmg`/`chest_trap`/`ghitm` + `make_angry_shk` | map-driven; green+kick cohort 19/20 (seed0009 pre-existing) |

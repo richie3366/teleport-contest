@@ -20,6 +20,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 04:00 — #1262 D-0992 flooreffects fire/altar/hot
+
+**Objective:** map-driven — remaining flooreffects arms (CURRENT
+next: fire_damage / altar / hot potion).
+**C locus:** `do.c` flooreffects/doaltarobj/drop/dropx; `trap.c`
+fire_damage/lava_damage.
+**Changed:** port fire_damage + lava fallthrough; doaltarobj + dropx
+wire + drop skip-verbose; hot ROOM/CORR potion shatter via breakobj;
+export breakobj. Globby pudding_merge still deferred.
+**Verification:** green+strict PASS; altar/throw cohort 20/21
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** globby merge; or sellobj/check_shop_obj; or barefoot/
+tmp_at; or absent.md thin. Cadence @#1265.
+
 ## 2026-07-22 03:52 — #1261 D-0991 costly_gold/donate_gold
 
 **Objective:** map-driven — costly_gold/donate_gold kick+addtobill
@@ -225,18 +239,4 @@ fire-trap (D-0978). Docs: CURRENT/NOTES/debt/turns/divergence/journal.
 **Verified:** green+strict PASS; zap/trap/lamp cohort **25**/26
 (seed0009 Scr FAIL pre-existing). Rule #2: no fs.
 **Next:** release_hold WAN_OPENING / flash_hits.
-**Blocked:** none.
-
-## 2026-07-22 01:47 — #1247 D-0977 passtune/drawbridge
-
-**Objective:** map-driven — retire passtune / open+close drawbridge
-from CURRENT next cluster / debt.
-**Changed:** port `dbridge.c open_drawbridge`/`close_drawbridge` +
-`invent.c delallobj`; wire `music.c do_play_instrument` passtune
-ynq/getlin/ACH_TUNE/Mastermind hints (D-0977). Docs: CURRENT/NOTES/
-debt/turns/divergence/journal.
-**Verified:** green+strict PASS; apply cohort **36**/37
-(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
-**Next:** ignite_items / burn_away_slime (`catch_lit`/`begin_burn`);
-release_hold WAN_OPENING / flash_hits.
 **Blocked:** none.
