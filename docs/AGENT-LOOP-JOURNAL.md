@@ -11,7 +11,8 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — #NNNN short title
+```text
+## YYYY-MM-DD HH:MM — #NNNN short title
 
 - Objective: …
 - C locus: …
@@ -19,6 +20,22 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-22 06:31 — #1282 D-1011 in_trouble majors
+
+**Objective:** map-driven — pray in_trouble majors Stoned…Region
+(CURRENT next cluster).
+**C locus:** `pray.c` in_trouble/fix_worst_trouble; `potion.c`
+make_sick; `region.c` region_danger/region_safety; `trap.c`
+rescued_from_terrain/back_on_ground.
+**Change:** port Stoned/Slimed/Strangled/Lava/Sick/Starving/Region
+checks + fix arms; export make_sick; region danger/safety; thin
+lava-rescue terrain feedback — D-1011.
+**Verified:** green+strict PASS; pray/shared cohort **15**/16
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or collapsing…
+cursed_blindfold + minors; or blindfold-as-tool / containers.
+**Blocked:** none.
 
 ## 2026-07-22 04:22 — #1281 D-1010 use_crystal_ball
 
@@ -215,19 +232,4 @@ msgs — D-0998.
 **Verified:** green+strict PASS; shop/shared cohort **11**/12
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** potion/scroll/vault thin; or apply camera/ParanoidBreakwand.
-**Blocked:** none.
-## 2026-07-22 04:45 — #1267 D-0997 statue trap + Blind kick feel
-
-**Objective:** map-driven — STATUE_TRAP activate / Blind feel cluster
-(CURRENT next after D-0996).
-**C locus:** `trap.c` animate_statue/activate_statue_trap/
-trapeffect_statue_trap; `dokick.c` kick_dumb/ouch/door/really_kick;
-`zap.c` break_statue; `detect.c` dosearch0.
-**Change:** port animate_statue + activate_statue_trap; wire Blind
-feel_location/feel_newsym/wake_nearto + kick STATUE_TRAP; break_statue
-shatter-activate + historic guilt; dosearch0/dotrap; export
-montraits/cant_revive — D-0997.
-**Verified:** green+strict PASS; kick/search cohort **10**/10
-(incl. seed0060). Rule #2: no fs.
-**Next:** potion/scroll/vault thin; or dopay appease; or apply camera.
 **Blocked:** none.

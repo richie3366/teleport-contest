@@ -28,7 +28,7 @@ import {
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
 import {
     Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
-    christen_monst, rndmonnam,
+    christen_monst, rndmonnam, hliquid,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
@@ -66,7 +66,7 @@ import {
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
     UTOTYPE_NONE, UTOTYPE_FALLING, Is_stronghold,
     KILLED_BY, KILLED_BY_AN, NO_PART, STONING,
-    WATER, BURNING,
+    WATER, BURNING, DROWNING, DISSOLVED, PLNMSG_BACK_ON_GROUND,
     TT_NONE, TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG,
     HEAD, ARM,
@@ -1643,6 +1643,50 @@ export function set_utrap(tim, typ) {
  */
 export function reset_utrap(_msg) {
     set_utrap(0, 0);
+}
+
+/**
+ * C ref: trap.c back_on_ground — simplified surface wording.
+ * Named omissions: ice_descr / surface / Levitation-Flying preposition
+ * matrix beyond solid-ground default.
+ */
+async function back_on_ground(rescued) {
+    const prefix = rescued ? 'You find yourself' : 'You are back';
+    await pline(`${prefix} on solid ground.`);
+    if (!game.iflags) game.iflags = {};
+    game.iflags.last_msg = PLNMSG_BACK_ON_GROUND;
+}
+
+/**
+ * C ref: trap.c rescued_from_terrain — post-tele/lifesave terrain feedback.
+ * Envelope: DROWNING pool/air; BURNING/DISSOLVED pool/lava; else
+ * back_on_ground(TRUE). Named omissions: waterlevel air bubble;
+ * IS_WATERWALL "midst"; update_lastseentyp / prev_decor.
+ */
+export async function rescued_from_terrain(how) {
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    let mesggiven = false;
+    if (how === DROWNING) {
+        if (is_pool(ux, uy)) {
+            await pline(`You find yourself on top of ${hliquid('water')}.`);
+            mesggiven = true;
+        }
+    } else if (how === BURNING || how === DISSOLVED) {
+        if (is_pool(ux, uy)) {
+            await pline(
+                `You find yourself ${u.uinwater ? 'in' : 'on'} ${hliquid('water')}.`,
+            );
+            mesggiven = true;
+        } else if (is_lava(ux, uy)) {
+            await pline(
+                `You find yourself on top of ${hliquid('molten lava')}.`,
+            );
+            mesggiven = true;
+        }
+    }
+    if (!mesggiven) await back_on_ground(true);
 }
 
 /** C youprop.h Flying subset for float_up. */

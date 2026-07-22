@@ -15,10 +15,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1010** apply `use_crystal_ball` + thin object/trap/
-  furniture detect + drawing `def_char_*`.
+- Latest: **D-1011** pray in_trouble majors Stoned…Region +
+  `make_sick` / `region_danger`/`region_safety` /
+  `rescued_from_terrain`.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  in_trouble majors; or blindfold-as-tool / containers.
+  collapsing…cursed_blindfold + minors; or blindfold-as-tool /
+  containers.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -36,13 +38,11 @@ Objective/score live in `CURRENT.md`.
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
 - Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
-- Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  whistle (D-1007) / `use_saddle` (D-1008) / `use_towel` (D-1009) /
-  `use_crystal_ball` (D-1010) or drop `objects_at` from timeout mkobj
-  (D-0980).
+  `use_crystal_ball` (D-1010) / in_trouble majors Stoned…Region
+  (D-1011) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -54,6 +54,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.
 - **D-1010:** apply use_crystal_ball + thin detect callees.
 - **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
 - **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
@@ -67,7 +68,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1001:** ParanoidWerechange/Hit + you_were/unwere + mtimedone
   + wolfsbane + confirm default.
 - **D-1000:** ParanoidPray Confirm + see_nearby_monsters allmain.
-- **D-0999:** ParanoidBreakwand getlin + see_monster_closeup
-  camera/makedog.
-- **D-0998:** dopay robbed/angry appease + debit/loan/credit.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

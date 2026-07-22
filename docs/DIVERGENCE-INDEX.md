@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1011 | fixed | pray in_trouble majors Stoned…Region + make_sick/region_safety/rescued_from_terrain | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1010 | fixed | apply/detect `use_crystal_ball` + thin object/trap/furniture detect | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1009 | fixed | apply `use_towel` + weapon wet/dry_a_towel + burnarmor towel dry | map-driven; green+cohort 15/16 (seed0009 pre-existing); cadence 43/44 @#1280 |
 | D-1008 | fixed | apply/steed `use_saddle` + can_saddle whirly/unsolid | map-driven; green+cohort 15/16 (seed0009 pre-existing; ride PASS) |

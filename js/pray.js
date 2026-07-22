@@ -8,12 +8,12 @@
 // + wizard Force (D-0517) + #pray ublesscnt-too-soon (p_type 0) →
 // angrygods; p_type 3 → pleased You_feel + action rn1 + TROUBLE_HIT
 // fix_worst_trouble (D-0920) + TROUBLE_LYCANTHROPE you_unwere (D-1004)
-// + ublesscnt rnz(350); #offer not-on-altar;
+// + majors Stoned…Region (D-1011) + ublesscnt rnz(350); #offer not-on-altar;
 // Knight/Cleric #turn chant + exercise + undead iter + nomul;
 // digactualhole altar → desecrate_altar; angrygods 0–8 + default zap
 // (punish/attrcurse/rndcurse/summon_minion/god_zaps_you).
-// Named omissions: other in_trouble majors/minors; other fix_worst_trouble
-// cases; pleased pat_on_head gifts / crown /
+// Named omissions: other in_trouble majors after Region (collapsing…
+// cursed_blindfold) + all minors; pleased pat_on_head gifts / crown /
 // give_spell; p_type -2/-1/1/2 outcome bodies beyond water_prayer scan;
 // pray_revive; floorfood sacrifice; known_spell SPE_TURN_UNDEAD /
 // spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
@@ -41,7 +41,7 @@ import { setuhpmax } from './exper.js';
 import { done } from './end.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { mon_nam, Monnam } from './do_name.js';
-import { disintegrate_arm } from './do_wear.js';
+import { disintegrate_arm, setworn } from './do_wear.js';
 import { summon_minion } from './minion.js';
 import { makeknown } from './invent.js';
 import { punish } from './read.js';
@@ -59,24 +59,38 @@ import {
     PM_CLERIC,
 } from './generated/monsters_data.js';
 import { you_unwere } from './were.js';
+import { make_slimed, make_stoned, make_sick } from './potion.js';
+import { init_uhunger } from './eat.js';
+import { region_danger, region_safety } from './region.js';
+import { safe_teleds } from './teleport.js';
+import { reset_utrap, rescued_from_terrain } from './trap.js';
 import {
     IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, A_NONE, A_LAWFUL, A_NEUTRAL,
     A_CHAOTIC, GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY, PARANOID_CONFIRM,
     LL_CONDUCT,
     LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd, ismnum,
     DIED, KILLED_BY, Is_astralevel, M_SEEN_REFL, M_SEEN_ELEC, M_SEEN_DISINT,
-    W_ARMS, W_ARMC, W_ARM,
+    W_ARMS, W_ARMC, W_ARM, W_AMUL, OBJ_FREE, SICK_ALL,
+    WEAK, TT_LAVA, TELEDS_NO_FLAGS, DISSOLVED,
     XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
 } from './const.js';
 
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
 
 const MOLOCH = 'Moloch';
 
 const STRIDENT = 4; // pray.c
 const DEVOUT = 14; // pray.c
 // C: pray.c TROUBLE_* (priority via in_trouble order, not magnitude)
+const TROUBLE_STONED = 14;
+const TROUBLE_SLIMED = 13;
+const TROUBLE_STRANGLED = 12;
+const TROUBLE_LAVA = 11;
+const TROUBLE_SICK = 10;
+const TROUBLE_STARVING = 9;
+const TROUBLE_REGION = 8;
 const TROUBLE_HIT = 7;
 const TROUBLE_LYCANTHROPE = 6;
 // C: pray.c godvoices[]
@@ -178,33 +192,99 @@ function critically_low_hp(only_if_injured) {
 
 /**
  * C ref: pray.c in_trouble — major/minor trouble ranking.
- * Ported: TROUBLE_HIT via critically_low_hp (D-0920);
- * TROUBLE_LYCANTHROPE via ismnum(ulycn) (D-1004).
- * Named omissions: Stoned/Slimed/Strangled/Lava/Sick/Starving/Region
- * and later major/minor arms after lycanthrope (collapsing…hallucination).
+ * Ported: TROUBLE_STONED…REGION majors (D-1011); TROUBLE_HIT via
+ * critically_low_hp (D-0920); TROUBLE_LYCANTHROPE via ismnum(ulycn)
+ * (D-1004). Named omissions: collapsing…cursed_blindfold majors +
+ * all minor TROUBLE_* arms.
  */
 function in_trouble() {
     const u = game.u || {};
-    // Majors above HIT deferred — when those flags are unset, HIT matches C.
+    // C: major troubles in priority order
+    if (u.Stoned) return TROUBLE_STONED;
+    if (u.Slimed) return TROUBLE_SLIMED;
+    if (u.Strangled || (u.HStrangled | 0) || (u.EStrangled | 0)) {
+        return TROUBLE_STRANGLED;
+    }
+    if (u.utrap && (u.utraptype | 0) === TT_LAVA) return TROUBLE_LAVA;
+    if (u.Sick) return TROUBLE_SICK;
+    if ((u.uhs | 0) >= WEAK) return TROUBLE_STARVING;
+    if (region_danger()) return TROUBLE_REGION;
     const unchanging = !!(u.Unchanging || u.HUnchanging);
     if ((!Upolyd(u) || unchanging) && critically_low_hp(false)) {
         return TROUBLE_HIT;
     }
-    // C: after TROUBLE_HIT — ismnum(u.ulycn) → TROUBLE_LYCANTHROPE
     if (ismnum(u.ulycn)) return TROUBLE_LYCANTHROPE;
     return 0;
 }
 
+/** C invent.c useup for worn strangulation amulet (setworn + freeinv). */
+function useup_strangle_amulet(otmp) {
+    if (!otmp) return;
+    const u = game.u || {};
+    if (u.uamul === otmp) setworn(null, W_AMUL);
+    else if ((otmp.owornmask | 0) & W_AMUL) {
+        otmp.owornmask = (otmp.owornmask | 0) & ~W_AMUL;
+    }
+    if ((otmp.quan || 1) > 1) {
+        otmp.quan--;
+        return;
+    }
+    const inv = game.invent || [];
+    const idx = inv.indexOf(otmp);
+    if (idx >= 0) inv.splice(idx, 1);
+    otmp.quan = 0;
+    otmp.where = OBJ_FREE;
+}
+
 /**
  * C ref: pray.c fix_worst_trouble — divine repair of one trouble code.
- * Ported: TROUBLE_HIT (You_feel + rnd(5) uhpmax boost + full heal);
- * TROUBLE_LYCANTHROPE → you_unwere(TRUE) (D-1004).
- * Named omissions: all other TROUBLE_* cases.
+ * Ported: Stoned/Slimed/Strangled/Lava/Sick/Starving/Region (D-1011);
+ * TROUBLE_HIT (D-0920); TROUBLE_LYCANTHROPE (D-1004).
+ * Named omissions: collapsing…hallucination / saddle cases.
  */
 async function fix_worst_trouble(trouble) {
     const u = game.u || (game.u = {});
     if (!game.flags) game.flags = {};
     switch (trouble) {
+    case TROUBLE_STONED:
+        // C: make_stoned(0L, "You feel more limber.", 0, (char *) 0);
+        await make_stoned(0, 'You feel more limber.', 0, '');
+        break;
+    case TROUBLE_SLIMED:
+        await make_slimed(0, 'The slime disappears.');
+        break;
+    case TROUBLE_STRANGLED: {
+        if (u.uamul && (u.uamul.otyp | 0) === AMULET_OF_STRANGULATION) {
+            await pline('Your amulet vanishes!');
+            useup_strangle_amulet(u.uamul);
+        }
+        await pline('You can breathe again.');
+        u.Strangled = 0;
+        u.HStrangled = 0;
+        u.EStrangled = 0;
+        game.flags.botl = true;
+        break;
+    }
+    case TROUBLE_LAVA:
+        // C: safe_teleds else reset_utrap; rescued_from_terrain(DISSOLVED)
+        if (!(await safe_teleds(TELEDS_NO_FLAGS))) {
+            reset_utrap(true);
+        }
+        await rescued_from_terrain(DISSOLVED);
+        break;
+    case TROUBLE_STARVING:
+        // C: FALLTHROUGH into TROUBLE_HUNGRY — same stomach + init_uhunger
+        await pline('Your stomach feels content.');
+        init_uhunger();
+        game.flags.botl = true;
+        break;
+    case TROUBLE_SICK:
+        await You_feel('better.');
+        await make_sick(0, '', false, SICK_ALL);
+        break;
+    case TROUBLE_REGION:
+        await region_safety();
+        break;
     case TROUBLE_HIT: {
         // C: You_feel("much better.");
         await You_feel('much better.');
@@ -731,7 +811,8 @@ async function gods_upset(g_align) {
  * Branch envelope: You_feel align msg; off-altar/low-record adjalign;
  * action rn1 + STRIDENT clamp; fix_worst_trouble switch (HIT D-0920);
  * ublesscnt rnz(350) (+udemigod kick).
- * Named omissions: other in_trouble/fix_worst_trouble cases; pat_on_head
+ * Named omissions: collapsing…cursed_blindfold + minor TROUBLE_*;
+ * pat_on_head
  * gift switch (repair/uncurse/spellbook/intrinsic/crown/give_spell);
  * moves>100000 ublesscnt incr; on_altar wrong-god early return polish.
  */

@@ -20,7 +20,7 @@ import {
     ECMD_TIME, ECMD_CANCEL,
     POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     TIMEOUT, HALLUC_RES,
-    QBUFSZ, STONED, SLIMED,
+    QBUFSZ, STONED, SLIMED, SICK, SICK_ALL,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
 } from './const.js';
 import { hands_obj } from './weapon.js';
@@ -515,6 +515,57 @@ export async function make_stoned(xtime, msg, killedby, killername) {
         dealloc_killer(find_delayed_killer(STONED));
     } else if (!old) {
         delayed_killer(STONED, killedby | 0, killername || '');
+    }
+}
+
+/**
+ * C ref: potion.c make_sick — fatal illness / food poisoning TIMEOUT.
+ * Branch envelope: onset (Sick_resistance gate + talk msgs); cure by
+ * usick_type mask (partial vs full); delayed SICK killer.
+ * Named omissions: Unaware talk suppress; #wizintrinsic KILLED_BY vs
+ * KILLED_BY_AN cause polish.
+ */
+export async function make_sick(xtime, cause, talk, type) {
+    const u = game.u || (game.u = {});
+    const old = u.Sick | 0;
+    if (xtime > 0) {
+        const Sick_resistance = !!(u.Sick_resistance || u.HSick_resistance
+            || u.ESick_resistance);
+        if (Sick_resistance) return;
+        if (!old) {
+            await You_feel('deathly sick.');
+        } else if (talk) {
+            await You_feel(
+                `${xtime <= ((old & TIMEOUT) / 2) ? 'much' : 'even'} worse.`,
+            );
+        }
+        u.Sick = ((u.Sick | 0) & ~TIMEOUT) | itimeout(xtime);
+        u.usick_type = (u.usick_type | 0) | (type | 0);
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+    } else if (old && ((type | 0) & ((u.usick_type | 0) || SICK_ALL))) {
+        // was sick, now not (or partly)
+        u.usick_type = (u.usick_type | 0) & ~(type | 0);
+        if (u.usick_type) {
+            if (talk) await You_feel('somewhat better.');
+            u.Sick = ((u.Sick | 0) & ~TIMEOUT)
+                | itimeout((old & TIMEOUT) * 2);
+        } else {
+            if (talk) await You_feel('cured.  What a relief!');
+            u.Sick = 0;
+        }
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+    }
+
+    const kptr = find_delayed_killer(SICK);
+    if (u.Sick) {
+        exercise(A_CON, false);
+        if (xtime || !old || !kptr) {
+            delayed_killer(SICK, KILLED_BY_AN, cause || '');
+        }
+    } else {
+        dealloc_killer(kptr);
     }
 }
 

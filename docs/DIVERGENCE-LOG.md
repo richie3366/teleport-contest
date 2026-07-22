@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1011 — pray in_trouble majors Stoned…Region
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `in_trouble` / `fix_worst_trouble`
+  skipped Stoned/Slimed/Strangled/Lava/Sick/Starving/Region above
+  HIT; helpers `make_sick` / `region_danger` / `region_safety` /
+  `rescued_from_terrain` absent.
+- **C locus:** `pray.c` `in_trouble` / `fix_worst_trouble`;
+  `potion.c` `make_sick`; `region.c` `region_danger` /
+  `region_safety`; `trap.c` `rescued_from_terrain` /
+  `back_on_ground`.
+- **Fix:** port major checks + fix arms; export `make_sick`;
+  region danger/safety (tele + Magical_breathing / remove cloud);
+  thin lava-rescue terrain feedback; wire strangulation amulet
+  `useup` via `setworn`.
+- **Deferred:** collapsing…cursed_blindfold majors; all minors;
+  BlindedTimeout polish in `region_safety`; full `back_on_ground`
+  surface matrix; waterlevel air-bubble DROWNING wording.
+- **Verify:** green+strict PASS; pray/shared cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1010 — apply use_crystal_ball + thin detect callees
 
 - **Status:** fixed (map-driven debt retirement)
