@@ -2174,7 +2174,7 @@ function home_shk(shkp, _killkops) {
 }
 
 /** C ref: shk.c costly_adjacent — edge or free spot. */
-function costly_adjacent(shkp, x, y) {
+export function costly_adjacent(shkp, x, y) {
     if (!shkp || !inhishop(shkp) || !isok(x, y)) return false;
     const eshk = ESHK(shkp);
     const loc = game.level?.at?.(x, y);

@@ -115,8 +115,8 @@ import {
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
-    TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, RING_CLASS, FOOD_CLASS, NODIR,
-    IMMEDIATE, objectNames,
+    TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, RING_CLASS, FOOD_CLASS, COIN_CLASS,
+    NODIR, IMMEDIATE, objectNames,
 } from './objects.js';
 import {
     WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
@@ -124,7 +124,8 @@ import {
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     DISP_BEAM, DISP_CHANGE, DISP_END,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
-    Has_contents, ZAPPED_WAND, NOTELL, TELL,
+    Has_contents, ZAPPED_WAND, THROWN_WEAPON, KICKED_WEAPON,
+    FLASHED_LIGHT, INVIS_BEAM, NOTELL, TELL,
     STRAT_WAITMASK,
     POOL, MOAT, WATER, ICE, LAVAPOOL, LAVAWALL, DRAWBRIDGE_UP,
     DRAWBRIDGE_DOWN, ICED_POOL, ICED_MOAT, DB_ICE, DB_UNDER, DB_FLOOR,
@@ -141,7 +142,7 @@ import {
     OMONST, has_oname, ONAME, has_omonst, has_omid, OMID, ESHK,
     WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
-    IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD,
+    IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
     MM_NOTAIL, MM_ADJACENTOK, NATTK,
 } from './const.js';
 
@@ -3502,15 +3503,30 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
 }
 
 /**
- * C ref: zap.c bhit — ZAPPED_WAND lateral path only.
- * Thrown/kicked/flash/tmp_at / zap_map / doorlock deferred.
+ * C ref: zap.c bhit — ZAPPED_WAND + KICKED_WEAPON lateral paths.
+ * Named omit: THROWN_WEAPON / FLASHED_LIGHT / INVIS_BEAM callers;
+ * tmp_at flash / nh_delay_output / show_transient_light;
+ * hits_bars; shade_miss / M_AP_OBJECT skip; WEB stick rn2;
+ * shkcatch pick; map_invisible / unmap_object; zap_map / doorlock;
+ * returning_missile / tethered weapon.
+ * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
-    const obj = pobj?.obj;
+    let obj = pobj?.obj;
     const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
-    bhitpos.x = game.u?.ux | 0;
-    bhitpos.y = game.u?.uy | 0;
+    game.bhitpos = bhitpos;
     let r = range | 0;
+    let result = null;
+
+    // C: kicked object starts one square ahead; range--
+    if (weapon === KICKED_WEAPON) {
+        bhitpos.x = (game.u?.ux | 0) + ddx;
+        bhitpos.y = (game.u?.uy | 0) + ddy;
+        r--;
+    } else {
+        bhitpos.x = game.u?.ux | 0;
+        bhitpos.y = game.u?.uy | 0;
+    }
 
     while (r-- > 0) {
         bhitpos.x += ddx;
@@ -3524,17 +3540,45 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
         }
 
         const loc = game.level?.at?.(x, y);
-        let typ = loc?.typ;
+        const typ = loc?.typ;
 
-        const mtmp = m_at(x, y);
-        if (mtmp && weapon === ZAPPED_WAND) {
-            if (fhitm) await fhitm(mtmp, obj);
-            else await bhitm(mtmp, obj);
-            r -= 3;
+        // C: WATERWALL / LAVAWALL stop thrown/kicked items
+        if ((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
+            && (IS_WATERWALL(typ) || typ === LAVAWALL)) {
+            break;
+        }
+        // iron bars hits_bars deferred for kicked/thrown
+
+        let mtmp = m_at(x, y);
+        // WEB trap stick / shade_miss / mimic-as-object skip deferred
+
+        if (mtmp) {
+            if (weapon === ZAPPED_WAND) {
+                if (fhitm) await fhitm(mtmp, obj);
+                else await bhitm(mtmp, obj);
+                r -= 3;
+            } else if (weapon !== FLASHED_LIGHT && weapon !== INVIS_BEAM) {
+                // THROWN_WEAPON / KICKED_WEAPON — stop on monster
+                game.notonhead = ((x | 0) !== (mtmp.mx | 0)
+                    || (y | 0) !== (mtmp.my | 0));
+                result = mtmp;
+                break;
+            }
         }
 
         if (fhito) {
             if (await bhitpile(obj, fhito, x, y, 0)) r--;
+        } else if (weapon === KICKED_WEAPON) {
+            // C: coin pile stop OR ship_object hole/stairs
+            obj = pobj?.obj;
+            if (!obj) break;
+            const coinPile = (obj.oclass | 0) === COIN_CLASS
+                && !!objects_at(x, y);
+            if (coinPile) break;
+            const { ship_object } = await import('./dokick.js');
+            if (await ship_object(obj, x, y, costly_spot(x, y))) {
+                break;
+            }
         }
 
         if (weapon === ZAPPED_WAND && (IS_DOOR(typ) || typ === STONE)) {
@@ -3545,8 +3589,16 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             bhitpos.y -= ddy;
             break;
         }
+        if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM) {
+            // C: kicked objects fall in pools/lava; sink stops physical
+            if (weapon === KICKED_WEAPON
+                && (is_pool(x, y) || is_lava(x, y))) {
+                break;
+            }
+            if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
+        }
     }
-    return null;
+    return result;
 }
 
 function zapsetup() {
@@ -3563,7 +3615,7 @@ export async function zapwrapup() {
     game._obj_zapped = false;
 }
 
-export { zapsetup, bhito };
+export { zapsetup, bhito, bhit };
 
 /**
  * C ref: zap.c weffects — exercise + effect dispatch.

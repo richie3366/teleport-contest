@@ -335,7 +335,7 @@ async function tmiss(obj, mon, maybe_wakeup) {
  * leader catch, guaranteed_hit swallow body.
  * @returns {boolean} true if obj was consumed / taken care of
  */
-async function thitmonst(mon, obj) {
+export async function thitmonst(mon, obj) {
     const otyp = obj.otyp | 0;
     const guaranteed_hit = engulfing_u(mon);
     // C: dieroll = rnd(20) before class branches (unused on else/tmiss path)

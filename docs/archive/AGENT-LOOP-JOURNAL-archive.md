@@ -935,3 +935,17 @@
 - Verification: green+strict PASS; dig/shared cohort 16/16 PASS.
   Suite fortress held (no full cadence; next @#1235).
 - Next: desecrate_altar / conjoined_pits. Cadence @#1235.
+
+## 2026-07-22 01:20 — #1243 D-0973 explode MAGM/DISN/DRST/ACID
+
+- Objective: map-driven zap debt — MAGM/DISN/DRST/ACID explode combat
+  after D-0971 COLD/ELEC.
+- C locus: `explode.c` `explosionmask` / `explode` combat /
+  `mon_explodes` / `adtyp_to_expltype`.
+- Change: port Antimagic/Disint/Poison/Acid (+ DISN WAND
+  nonliving/demon/vamp) masks; thin `resists_magm`; open `combat_ok`
+  MAGM..ACID; `mon_explodes` AD_MAGM..AD_SPC2 (D-0973). Deferred:
+  lavawall/burn plines; engulfer msg; worn ANTIMAGIC scan; hallu/
+  sparkle/golem/ignite.
+- Verification: green+strict PASS; zap/shared cohort **24**/24 PASS.
+- Next: sink-fall; lavawall/burn; flute/harp/horn. Cadence @**#1245**.

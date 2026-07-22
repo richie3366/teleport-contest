@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 03:28 — #1258 D-0988 kick_object + bhit KICKED
+
+**Objective:** map-driven — `kick_object` + `bhit` KICKED_WEAPON
+(CURRENT next cluster after D-0987 flooreffects).
+**C locus:** `dokick.c` kick_object/really_kick_object; `zap.c` bhit
+KICKED_WEAPON.
+**Changed:** kick envelope + bhit kicked flight/land; export
+thitmonst / costly_adjacent — D-0988. Deferred: box lock/trap;
+ghitm; costly_gold; hits_bars; petrify barefoot; tmp_at flash.
+**Verified:** green+strict PASS; kick cohort **19**/20 (seed0009 Scr
+72/73 pre-existing); seed0060 kick-search PASS. Rule #2: no fs.
+**Next:** Is_box kick arms / ghitm / hits_bars; or flooreffects
+fire_damage/globby; or absent.md thin (potion/scroll/vault).
+**Blocked:** none.
+
 ## 2026-07-22 03:20 — #1257 D-0987 flooreffects
 
 **Objective:** map-driven — `flooreffects` pit/shaft/pool/lava
@@ -218,17 +233,3 @@ WAN_COLD. Docs: D-0974, debt/turns, CURRENT/NOTES.
 pre-existing Scr 72/73). Rule #2: no fs.
 **Next:** sink-fall death; lavawall spines/burn plines; passtune.
 **Blocked:** none.
-
-## 2026-07-22 01:20 — #1243 D-0973 explode MAGM/DISN/DRST/ACID
-
-- Objective: map-driven zap debt — MAGM/DISN/DRST/ACID explode combat
-  after D-0971 COLD/ELEC.
-- C locus: `explode.c` `explosionmask` / `explode` combat /
-  `mon_explodes` / `adtyp_to_expltype`.
-- Change: port Antimagic/Disint/Poison/Acid (+ DISN WAND
-  nonliving/demon/vamp) masks; thin `resists_magm`; open `combat_ok`
-  MAGM..ACID; `mon_explodes` AD_MAGM..AD_SPC2 (D-0973). Deferred:
-  lavawall/burn plines; engulfer msg; worn ANTIMAGIC scan; hallu/
-  sparkle/golem/ignite.
-- Verification: green+strict PASS; zap/shared cohort **24**/24 PASS.
-- Next: sink-fall; lavawall/burn; flute/harp/horn. Cadence @**#1245**.

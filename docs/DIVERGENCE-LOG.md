@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0988 — `kick_object` + `bhit` KICKED_WEAPON
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `dokick` treated floor objects as
+  always-ouch; no `kick_object` / `really_kick_object`; `bhit` lacked
+  KICKED_WEAPON start/range/ship_object/pool/sink/mon-stop.
+- **C locus:** `dokick.c` `kick_object`/`really_kick_object`;
+  `zap.c` `bhit` KICKED_WEAPON arms.
+- **Fix:** port kick envelope (trap pit/web, Fumbling, range/martial/
+  pool/ice/grease/Mjollnir, Norep, obstructed-loose, hero_breaks,
+  thump/split/slide, bhit flight, thitmonst, shop stolen_value,
+  flooreffects, place+stack); extend `bhit` for kicked start offset,
+  coin-pile/ship_object, pool/lava/sink stop, mon return. Deferred:
+  barefoot petrify; Is_box breakchestlock/chest_trap/container_impact;
+  ghitm; costly_gold/donate_gold; hits_bars; shade_miss; tmp_at flash;
+  snuff_candle; impact_disturbs_zombies; STATUE_TRAP.
+- **Verification:** green+strict PASS; kick cohort **19**/20
+  (seed0009 Scr 72/73 pre-existing). seed0060 kick-search PASS.
+  Rule #2: no fs.
+- **Files:** `js/dokick.js`, `js/zap.js`, `js/dothrow.js` (export
+  `thitmonst`), `js/shk.js` (export `costly_adjacent`).
+
 ## D-0987 — `flooreffects` pool/lava/pit/shaft + boulder
 
 - **Status:** fixed (map-driven debt retirement)
