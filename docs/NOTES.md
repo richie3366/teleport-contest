@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1265** (Scr **11404**/11405 RNG **100%**
-  speed `30+0.27/turn`). Next cadence @**#1270**.
+- Local suite **43**/44 @**#1270** (Scr **11404**/11405 RNG **100%**
+  speed `30+0.27/turn`). Next cadence @**#1275**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
@@ -16,7 +16,7 @@ Objective/score live in `CURRENT.md`.
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-0999** ParanoidBreakwand getlin + camera/makedog
-  `see_monster_closeup`.
+  `see_monster_closeup`. Cadence #1270 score-only (no port delta).
 - **Next cluster:** absent.md thin (potion/scroll/vault); or
   ParanoidPray getlin / `see_nearby_monsters`.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
@@ -50,7 +50,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1265**: **43**/44 Scr **11404**/11405 RNG **100%**
+- Suite @**#1270**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
 - **D-0999:** ParanoidBreakwand getlin + see_monster_closeup
   camera/makedog.
