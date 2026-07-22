@@ -36,7 +36,7 @@ import {
     unsolid, nolimbs, has_head, breathless,
 } from './monsters.js';
 import { can_blow } from './mondata.js';
-import { wield_tool } from './wield.js';
+import { wield_tool, welded } from './wield.js';
 import { splitobj, delobj, objects_at, unbless } from './mkobj.js';
 import { xname, the, makeplural } from './objnam.js';
 import { acurr, A_CHA, A_STR, change_luck } from './attrib.js';
@@ -56,6 +56,10 @@ import { growl, yelp, whimper, mon_msound } from './sounds.js';
 import { vault_summon_gd } from './vault.js';
 import { fill_pit } from './dig.js';
 import { mintrap, Trap_Killed_Mon } from './trap.js';
+import { make_glib } from './potion.js';
+import { Blindf_off } from './do_wear.js';
+import { dropx } from './do.js';
+import { is_wet_towel, dry_a_towel } from './weapon.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -102,6 +106,7 @@ const LEASH = objectNames.indexOf('LEASH');
 const SADDLE = objectNames.indexOf('SADDLE');
 const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
 const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
+const TOWEL = objectNames.indexOf('TOWEL');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
@@ -1847,6 +1852,133 @@ async function use_magic_whistle(obj) {
     await magic_whistled(obj);
 }
 
+/** C invent.c freehand — welded two-hand / cursed shield gate. */
+function freehand_towel() {
+    const u = game.u || {};
+    const uwep = u.uwep;
+    if (!uwep || !welded(uwep)) return true;
+    const bimanual = !!(game.objects?.[uwep.otyp]?.oc_big);
+    if (!bimanual && (!u.uarms || !u.uarms.cursed)) return true;
+    return false;
+}
+
+/** C objnam.c gloves_simple_name — gauntlets discovery polish deferred. */
+function gloves_simple_name_towel(_obj) {
+    return 'gloves';
+}
+
+/**
+ * C ref: apply.c use_towel — wipe glib / cream / cursed slapstick.
+ * dry_a_towel when wet (weapon.c). gulp_blnd_check swallow arm deferred.
+ * @returns {number} ECMD_OK | ECMD_TIME
+ */
+async function use_towel(obj) {
+    const u = game.u || (game.u = {});
+    const drying_feedback = obj === u.uwep;
+
+    if (!freehand_towel()) {
+        await pline(`You have no free ${body_part(HAND)}!`);
+        return ECMD_OK;
+    }
+    if (obj === u.ublindf) {
+        await pline("You cannot use it while you're wearing it!");
+        return ECMD_OK;
+    }
+    if (obj.cursed) {
+        switch (rn2(3)) {
+        case 2: {
+            const old = (u.Glib | 0) & TIMEOUT;
+            make_glib((old | 0) + rn1(10, 3));
+            await pline(
+                `Your ${makeplural(body_part(HAND))} ${
+                    old ? 'are filthier than ever' : 'get slimy'
+                }!`,
+            );
+            if (is_wet_towel(obj)) {
+                await dry_a_towel(obj, -1, drying_feedback);
+            }
+            return ECMD_TIME;
+        }
+        case 1: {
+            if (!u.ublindf) {
+                const old = u.ucreamed | 0;
+                u.ucreamed = old + rn1(10, 3);
+                await pline(
+                    `Yecch!  Your ${body_part(FACE)} ${
+                        old ? 'has more' : 'now has'
+                    } gunk on it!`,
+                );
+                make_blinded(BlindedTimeout() + ((u.ucreamed | 0) - old), true);
+            } else {
+                const bf = u.ublindf;
+                let what;
+                if (bf.otyp === LENSES) what = 'lenses';
+                else if (obj.otyp === bf.otyp) what = 'other towel';
+                else what = 'blindfold';
+                if (bf.cursed) {
+                    await pline(
+                        `You push your ${what} ${
+                            rn2(2) ? 'cock-eyed' : 'crooked'
+                        }.`,
+                    );
+                } else {
+                    const saved = bf;
+                    await pline(`You push your ${what} off.`);
+                    await Blindf_off(bf);
+                    await dropx(saved);
+                }
+            }
+            if (is_wet_towel(obj)) {
+                await dry_a_towel(obj, -1, drying_feedback);
+            }
+            return ECMD_TIME;
+        }
+        case 0:
+            break;
+        default:
+            break;
+        }
+    }
+
+    if ((u.Glib | 0) & TIMEOUT) {
+        make_glib(0);
+        await pline(
+            `You wipe off your ${
+                !u.uarmg
+                    ? makeplural(body_part(HAND))
+                    : gloves_simple_name_towel(u.uarmg)
+            }.`,
+        );
+        if (is_wet_towel(obj)) {
+            await dry_a_towel(obj, -1, drying_feedback);
+        }
+        return ECMD_TIME;
+    }
+    if (u.ucreamed | 0) {
+        const cream = u.ucreamed | 0;
+        // C: incr_itimeout(&HBlinded, -ucreamed)
+        make_blinded(BlindedTimeout() - cream, false);
+        u.ucreamed = 0;
+        if (!Blind()) {
+            await pline("You've got the glop off.");
+            // gulp_blnd_check deferred → always false
+            make_blinded(1, false);
+            make_blinded(0, true);
+        } else {
+            await pline(`Your ${body_part(FACE)} feels clean now.`);
+        }
+        if (is_wet_towel(obj)) {
+            await dry_a_towel(obj, -1, drying_feedback);
+        }
+        return ECMD_TIME;
+    }
+
+    await pline(
+        `Your ${body_part(FACE)} and ${makeplural(body_part(HAND))} are already clean.`,
+    );
+    return ECMD_OK;
+}
+
 /**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
@@ -1855,7 +1987,8 @@ async function use_magic_whistle(obj) {
  * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
  * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005) +
  * SADDLE → use_saddle (D-1008) +
- * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007).
+ * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007) +
+ * TOWEL → use_towel (D-1009).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms;
@@ -2002,6 +2135,12 @@ export async function doapply() {
             await use_whistle(obj);
         }
         return true; // ECMD_TIME
+    }
+
+    // C apply.c case TOWEL → use_towel (D-1009)
+    if (TOWEL >= 0 && obj.otyp === TOWEL) {
+        const res = await use_towel(obj);
+        return (res & ECMD_TIME) !== 0;
     }
 
     // Other apply otyps deferred

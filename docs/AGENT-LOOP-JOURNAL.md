@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 06:12 — #1280 cadence + D-1009 use_towel
+
+**Objective:** cadence full `sessions` @#1280 + map-driven towel
+cluster (CURRENT next apply tools).
+**C locus:** `apply.c` use_towel; `weapon.c` wet/dry_a_towel /
+finish_towel_change / is_wet_towel; `trap.c` burnarmor wet-towel dry.
+**Change:** port use_towel + shared wet/dry helpers; wire doapply
+TOWEL; burnarmor dry path (D-1009). Score refresh in CURRENT.
+**Verified:** green+strict PASS; apply/trap cohort **15**/16
+(seed0009 Scr 72/73 pre-existing). Full sessions **43**/44 Scr
+**11404**/11405 RNG **100%** speed `30+0.26/turn`. Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
+or crystal ball.
+**Blocked:** none.
+
 ## 2026-07-22 06:04 — #1279 D-1008 use_saddle
 
 **Objective:** map-driven — `use_saddle` apply SADDLE (CURRENT next
@@ -201,29 +216,3 @@ montraits/cant_revive — D-0997.
 (incl. seed0060). Rule #2: no fs.
 **Next:** potion/scroll/vault thin; or dopay appease; or apply camera.
 **Blocked:** none.
-## 2026-07-22 04:34 — #1266 D-0996 selftouch/minstapetrify
-
-**Objective:** map-driven — selftouch/mselftouch/minstapetrify cluster
-(CURRENT next after D-0995).
-**C locus:** `trap.c` selftouch/mselftouch/minstapetrify; `mon.c`
-mon_to_stone/vamp_stone/monstone + xkilled stoned; `weapon.c` mwepgone;
-`newcham` forced-mdat.
-**Change:** port selftouch family + monstone path; wire stair/sink/
-music/float_down/glove-loss; xkilled honors context.stoned (D-0996).
-**Verification:** green+strict PASS; cohort **15**/16 (seed0009
-pre-existing). Rule #2 ok.
-**Next:** absent.md thin (potion/scroll/vault); or dopay appease; or
-STATUE_TRAP/Blind feel. Cadence @#1270.
-## 2026-07-22 04:25 — #1265 cadence + D-0995 barefoot/tmp_at
-
-**Objective:** cadence full `sessions` @#1265 + map-driven barefoot
-petrify / bhit DISP_FLASH (CURRENT next).
-**C locus:** `trap.c` instapetrify; `dokick.c` really_kick_object
-barefoot; `zap.c` bhit DISP_FLASH/nh_delay_output/DISP_END.
-**Change:** port instapetrify; wire barefoot kick poly/stone; bhit
-flash trail (D-0995). Score refresh in CURRENT.
-**Verification:** green+strict PASS; kick/throw cohort **11**/12
-(seed0009 pre-existing). Full sessions **43**/44 Scr **11404**/11405
-RNG **100%** speed `30+0.27/turn`. Rule #2 ok.
-**Next:** absent.md thin (potion/scroll/vault); or dopay appease; or
-selftouch/minstapetrify. Cadence @#1270.

@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1009 — apply use_towel + wet/dry_a_towel
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `doapply` TOWEL fell through to
+  "don't know how to use"; `weapon.c` wet/dry helpers local-only;
+  `burnarmor` wet-towel dry deferred.
+- **C locus:** `apply.c` `use_towel`; `weapon.c` `wet_a_towel` /
+  `dry_a_towel` / `finish_towel_change` / `is_wet_towel`; `trap.c`
+  `burnarmor` carrying/m_carrying towel dry walk.
+- **Fix:** port `use_towel` (freehand / worn / cursed glib·cream·
+  blindfold push / wipe Glib / wipe cream); shared wet/dry with
+  invent/mcarried plines + uwep `unweapon`; wire `doapply` TOWEL;
+  `burnarmor` dry before slot burn.
+- **Deferred:** `gulp_blnd_check` swallow; `gloves_simple_name`
+  gauntlets discovery; `update_inventory` redraw; crystal ball.
+- **Verify:** green+strict PASS; apply/trap cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Cadence **43**/44 @#1280.
+  Rule #2: no fs.
+
 ## D-1008 — apply use_saddle (steed.c)
 
 - **Status:** fixed (map-driven debt retirement)

@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1275** (Scr **11404**/11405 RNG **100%**
-  speed `31+0.27/turn`). Next cadence @**#1280**.
+- Local suite **43**/44 @**#1280** (Scr **11404**/11405 RNG **100%**
+  speed `30+0.26/turn`). Next cadence @**#1285**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1008** apply `use_saddle` + `can_saddle` whirly/unsolid.
+- Latest: **D-1009** apply `use_towel` + weapon wet/dry_a_towel +
+  burnarmor towel dry.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  in_trouble majors; or crystal ball / towel.
+  in_trouble majors; or crystal ball.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +40,8 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  whistle (D-1007) / `use_saddle` (D-1008) or drop `objects_at` from
-  timeout mkobj (D-0980).
+  whistle (D-1007) / `use_saddle` (D-1008) / `use_towel` (D-1009) or
+  drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -50,8 +51,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1275**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
 - **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
 - **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault/
   tele_to_rnd_pet.

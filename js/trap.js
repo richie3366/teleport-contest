@@ -30,7 +30,7 @@ import {
     Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam,
 } from './do_name.js';
-import { dist2, distmin, m_at, wakeup, seemimic } from './mon.js';
+import { dist2, distmin, m_at, wakeup, seemimic, m_carrying } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at } from './engrave.js';
 import {
@@ -97,7 +97,7 @@ import {
 } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
-import { dmgval, MON_WEP, mwepgone } from './weapon.js';
+import { dmgval, MON_WEP, mwepgone, wet_a_towel, dry_a_towel, is_wet_towel } from './weapon.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
@@ -2896,7 +2896,7 @@ export async function erode_obj(otmp, ostr, type, ef_flags) {
 
 /**
  * C ref: trap.c burnarmor — armor-slot burn picker.
- * Envelope: wet-towel dry deferred; rn2(5) slot loop; case 1 cloak/suit/
+ * Envelope: wet-towel dry (D-1009); rn2(5) slot loop; case 1 cloak/suit/
  * shirt always returns TRUE after erode attempt; other cases erode then
  * continue on ER_NOTHING. Named: grease_protect polish; materialnm helm.
  */
@@ -2904,7 +2904,27 @@ export async function burnarmor(victim) {
     if (!victim) return false;
     const hitting_u = is_youmonst(victim) || !!victim._youmonst;
     const u = game.u || {};
-    // Towel dry_a_towel rn2 deferred
+    // C: burning may dry one wet towel (carrying / m_carrying TOWEL walk)
+    if (hitting_u) {
+        const inv = game.invent || [];
+        let i = inv.findIndex((o) => o && o.otyp === TOWEL);
+        for (; i >= 0 && i < inv.length; i++) {
+            const item = inv[i];
+            if (is_wet_towel(item)) {
+                const oldspe = item.spe | 0;
+                await dry_a_towel(item, rn2(oldspe + 1), true);
+                if ((item.spe | 0) !== oldspe) break;
+            }
+        }
+    } else {
+        for (let item = m_carrying(victim, TOWEL); item; item = item.nobj) {
+            if (is_wet_towel(item)) {
+                const oldspe = item.spe | 0;
+                await dry_a_towel(item, rn2(oldspe + 1), true);
+                if ((item.spe | 0) !== oldspe) break;
+            }
+        }
+    }
     for (;;) {
         switch (rn2(5)) {
         case 0: {
@@ -3805,18 +3825,6 @@ const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TOWEL = objectNames.indexOf('TOWEL');
 
 /**
- * C ref: weapon.c wet_a_towel — amt≤0 increments by -amt; else set.
- * Named omit: invent/mcarried pline; uwep unweapon via finish_towel_change.
- */
-function wet_a_towel(obj, amt, _verbose) {
-    const cur = obj.spe | 0;
-    const newspe = (amt <= 0) ? cur - amt : amt;
-    if (newspe !== cur) {
-        obj.spe = Math.max(0, Math.min(7, newspe | 0));
-    }
-}
-
-/**
  * C ref: trap.c water_damage
  * Branch envelope: null → ER_NOTHING; splash_lit; CAN_OF_GREASE;
  * TOWEL wet; greased wash rn2(2); Is_container / Waterproof_container
@@ -3835,7 +3843,7 @@ export async function water_damage(obj, _ostr, force) {
         return ER_NOTHING;
     }
     if (obj.otyp === TOWEL && (obj.spe | 0) < 7) {
-        wet_a_towel(obj, -rnd(7 - (obj.spe | 0)), true);
+        await wet_a_towel(obj, -rnd(7 - (obj.spe | 0)), true);
         return ER_NOTHING;
     }
     if (obj.greased) {

@@ -1012,7 +1012,7 @@ async function Blindf_on(otmp) {
  * Named omissions: gulp_blnd_check; Punished set_bc; full toggle_blindness
  * see_monsters / Sting / learn_unseen_invent.
  */
-async function Blindf_off(otmp) {
+export async function Blindf_off(otmp) {
     const u = game.u || (game.u = {});
     const was_blind = Blind();
     if (!otmp) otmp = u.ublindf;

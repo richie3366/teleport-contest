@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1009 | fixed | apply `use_towel` + weapon wet/dry_a_towel + burnarmor towel dry | map-driven; green+cohort 15/16 (seed0009 pre-existing); cadence 43/44 @#1280 |
 | D-1008 | fixed | apply/steed `use_saddle` + can_saddle whirly/unsolid | map-driven; green+cohort 15/16 (seed0009 pre-existing; ride PASS) |
 | D-1007 | fixed | apply whistle: use_whistle/magic_whistle + can_blow/vault_summon_gd/tele_to_rnd_pet | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1006 | fixed | mon_poly monster-defender + newcham null-mdat/mbirth_limit | map-driven; green+cohort 15/16 (seed0009 pre-existing; wandpoly PASS) |
