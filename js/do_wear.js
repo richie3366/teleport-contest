@@ -194,8 +194,9 @@ async function already_wearing(cc) {
 /**
  * C ref: do_wear.c cursed — message + bknown when stuck.
  * Plural when boots/gloves/lenses or quan>1 (not quan alone).
+ * Named omit: welded(uwep) branch; Glib fingers_or_gloves retry pline.
  */
-function cursed_check(otmp) {
+export function cursed_check(otmp) {
     if (!otmp) return false;
     if (otmp.cursed) {
         const use_plural = is_boots(otmp) || is_gloves(otmp)
@@ -979,7 +980,7 @@ function Blind() {
  * Named omissions: Punished set_bc; Eyes of Overworld birth-blind clear;
  * full toggle_blindness see_monsters / Sting / learn_unseen_invent.
  */
-async function Blindf_on(otmp) {
+export async function Blindf_on(otmp) {
     const already_blind = Blind();
     remove_worn_item(otmp);
     setworn(otmp, W_TOOL);

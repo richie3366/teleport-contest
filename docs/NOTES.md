@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1012** pray in_trouble collapsing…cursed_blindfold +
-  all minors + stuck_ring/make_deaf/buried_ball/confers_luck.
+- Latest: **D-1013** apply BLINDFOLD/LENSES Blindf_on/off +
+  cursed_check export.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  blindfold-as-tool / containers; or pleased pat_on_head gifts.
+  whip/grapple/jelly/use_stone; or pleased pat_on_head gifts.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  in_trouble collapsing…minors (D-1012) or drop `objects_at` from
+  Blindf_on/off apply (D-1013) or drop `objects_at` from
   timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -52,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1280**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
 - **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
 - **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.
 - **D-1010:** apply use_crystal_ball + thin detect callees.
@@ -66,5 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1002:** allmain Teleport/Poly/ulycn once-per-turn + mvl_change.
 - **D-1001:** ParanoidWerechange/Hit + you_were/unwere + mtimedone
   + wolfsbane + confirm default.
-- **D-1000:** ParanoidPray Confirm + see_nearby_monsters allmain.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

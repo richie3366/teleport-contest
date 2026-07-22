@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1013 | fixed | apply BLINDFOLD/LENSES Blindf_on/off + cursed_check export | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1012 | fixed | pray in_trouble collapsing…cursed_blindfold + all minors + stuck_ring/make_deaf/buried_ball helpers | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1011 | fixed | pray in_trouble majors Stoned…Region + make_sick/region_safety/rescued_from_terrain | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1010 | fixed | apply/detect `use_crystal_ball` + thin object/trap/furniture detect | map-driven; green+cohort 15/16 (seed0009 pre-existing) |

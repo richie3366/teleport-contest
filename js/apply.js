@@ -57,7 +57,7 @@ import { vault_summon_gd } from './vault.js';
 import { fill_pit } from './dig.js';
 import { mintrap, Trap_Killed_Mon } from './trap.js';
 import { make_glib } from './potion.js';
-import { Blindf_off } from './do_wear.js';
+import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
 import { dropx } from './do.js';
 import { is_wet_towel, dry_a_towel } from './weapon.js';
 
@@ -99,6 +99,7 @@ const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const BLINDFOLD = objectNames.indexOf('BLINDFOLD');
 const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
@@ -1990,9 +1991,10 @@ async function use_towel(obj) {
  * SADDLE → use_saddle (D-1008) +
  * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007) +
  * TOWEL → use_towel (D-1009) +
- * CRYSTAL_BALL → use_crystal_ball (D-1010).
+ * CRYSTAL_BALL → use_crystal_ball (D-1010) +
+ * BLINDFOLD / LENSES → Blindf_on/off (D-1013).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
- * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
+ * whip/grapple; use_stone; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms;
  * break-wand release_hold / flash_hits (D-0979).
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -2150,6 +2152,33 @@ export async function doapply() {
         const { use_crystal_ball } = await import('./detect.js');
         await use_crystal_ball(obj);
         return true; // ECMD_TIME (doapply res defaults to TIME)
+    }
+
+    // C apply.c case BLINDFOLD / LENSES → Blindf_on / Blindf_off (D-1013)
+    // res stays ECMD_TIME even when cursed / already-wearing (C default).
+    if ((BLINDFOLD >= 0 && obj.otyp === BLINDFOLD)
+        || (LENSES >= 0 && obj.otyp === LENSES)) {
+        const u = game.u || (game.u = {});
+        if (obj === u.ublindf) {
+            if (!cursed_check(obj)) {
+                await Blindf_off(obj);
+            } else {
+                await pline(
+                    game._cursed_takeoff_msg || "You can't.  It is cursed.",
+                );
+            }
+        } else if (!u.ublindf) {
+            await Blindf_on(obj);
+        } else {
+            const worn = u.ublindf;
+            const already = (TOWEL >= 0 && worn.otyp === TOWEL)
+                ? 'covered by a towel'
+                : (BLINDFOLD >= 0 && worn.otyp === BLINDFOLD)
+                    ? 'wearing a blindfold'
+                    : 'wearing lenses';
+            await pline(`You are already ${already}.`);
+        }
+        return true; // ECMD_TIME
     }
 
     // Other apply otyps deferred

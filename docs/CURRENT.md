@@ -74,7 +74,7 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** absent.md thin (scroll/vault / other potions); or
-remaining apply tools (blindfold-as-tool / containers); or pleased
+remaining apply tools (whip/grapple/jelly/use_stone); or pleased
 pat_on_head gifts.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
@@ -87,12 +87,12 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1012. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1013. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1012** (zap/dig/eat/shop/kick/paranoid/allmain/
-apply whistle·saddle·towel·crystal_ball + **in_trouble majors
+**D-0948**…**D-1013** (zap/dig/eat/shop/kick/paranoid/allmain/
+apply whistle·saddle·towel·crystal_ball·blindfold/lenses + **in_trouble majors
 Stoned…Region + collapsing…cursed_blindfold + minors** — do not
 re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
@@ -105,7 +105,7 @@ beyond the recorder configfile string; peel “for leaderboard” without
 a local FAIL; push shared `maketrap` PIT morph without full suite
 (keep in music `do_pit`, D-0972); chase seed0009 Scr 72/73 without
 C-cited shared cause; drop `objects_at` from `timeout.js` mkobj import
-(D-0980); re-stub D-0983…D-1012 clusters already Keep’d above.
+(D-0980); re-stub D-0983…D-1013 clusters already Keep’d above.
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

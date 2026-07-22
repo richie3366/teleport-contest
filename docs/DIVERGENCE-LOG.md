@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1013 — apply BLINDFOLD/LENSES Blindf_on/off
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `doapply` BLINDFOLD/LENSES fell through
+  to "Sorry, I don't know how to use that" despite `Blindf_on` /
+  `Blindf_off` already ported in `do_wear.js`.
+- **C locus:** `apply.c` `doapply` cases BLINDFOLD/LENSES; `do_wear.c`
+  `Blindf_on` / `Blindf_off` / `cursed`.
+- **Fix:** wire doapply eyewear arm — Blindf_off when worn + !cursed,
+  Blindf_on when free, already-wearing towel/blindfold/lenses msg;
+  export Blindf_on + cursed_check. res stays ECMD_TIME (C default).
+- **Deferred:** welded(uwep) cursed arm; Glib fingers_or_gloves;
+  Punished set_bc / full toggle_blindness see_monsters on Blindf_*;
+  whip/grapple/jelly/use_stone/use_pole; pleased pat_on_head gifts;
+  remaining peffect_*.
+- **Verify:** green+strict PASS; apply/shared cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1012 — pray in_trouble collapsing…cursed_blindfold + minors
 
 - **Status:** fixed (map-driven debt retirement)
