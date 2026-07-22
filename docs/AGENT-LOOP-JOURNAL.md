@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 02:52 — #1254 D-0984 ship_object
+
+**Objective:** map-driven — retire `ship_object` shop-floor / hole
+fall (CURRENT next cluster).
+**C locus:** `dokick.c` ship_object/otransit_msg; callers `do.c`
+dropx, `dothrow.c` throwit land, `mthrowu.c` drop_throw.
+**Changed:** port ship_object envelope + otransit_msg; wire
+dropx/throwit/drop_throw — D-0984. Deferred: kick_object
+shop_floor_obj; flooreffects pit/shaft; trap ROLL; maybe_unhide_at.
+**Verified:** green+strict PASS; throw/drop cohort **20**/21
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** kick_object/SDOOR/furniture; or flooreffects pit; absent.md.
+**Blocked:** none.
+
 ## 2026-07-22 02:42 — #1253 D-0983 stolen_value
 
 **Objective:** map-driven — retire shop `stolen_value` debt

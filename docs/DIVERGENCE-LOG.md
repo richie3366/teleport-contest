@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0984 — `ship_object` shop-floor / hole fall + drop/throw callers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0983 — single-object fall through
+  hole/stairs/ladder (`ship_object` / `otransit_msg`) deferred; dropx /
+  throwit / mthrowu `drop_throw` placed without gate/billing.
+- **C locus:** `dokick.c` `ship_object`/`otransit_msg`; callers
+  `do.c` `dropx`, `dothrow.c` `throwit` land, `mthrowu.c` `drop_throw`.
+- **Fix:** port `ship_object` envelope (down_gate/drop_to, nodrop rn2,
+  boulder plug, unpaid/`shop_floor_obj` `stolen_value`, breaktest muffled
+  crash/splat, migration + impact_drop); `otransit_msg`; wire dropx /
+  throwit / drop_throw. Deferred: `kick_object` KICKED_WEAPON
+  `shop_floor_obj=TRUE`; flooreffects pit/shaft; trap ROLL boulder;
+  `maybe_unhide_at`; doaltarobj; remaining kick SDOOR/furniture.
+- **Verification:** green+strict PASS; throw/drop/shop cohort **20**/21
+  (seed0009 Scr 72/73 pre-existing).
+- **Files:** `js/dokick.js`, `js/do.js`, `js/dothrow.js`, `js/mthrowu.js`.
+
 ## D-0983 — shop `stolen_value` + revive/kick/dig/lock callers
 
 - **Status:** fixed (map-driven debt retirement)

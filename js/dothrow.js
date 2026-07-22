@@ -554,7 +554,7 @@ function Doname2(obj) {
  * C ref: dothrow.c breaktest — obj_resists then glass / potion / egg /
  * cream pie / melon / venom / camera.
  */
-function breaktest(obj) {
+export function breaktest(obj) {
     if (!obj) return false;
     const oc = game.objects?.[obj.otyp | 0];
     let nonbreakchance = 1;
@@ -772,6 +772,11 @@ async function throwit(obj) {
     if (loc && !IS_SOFT(loc.typ) && breaktest(obj)) {
         // Broken — darts usually survive via obj_resists
         return;
+    }
+    // C: !mon && ship_object(obj, bhitpos, FALSE) before place
+    {
+        const { ship_object } = await import('./dokick.js');
+        if (await ship_object(obj, x, y, false)) return;
     }
     place_object(obj, x, y);
     // C: throwit → stackobj after place_object

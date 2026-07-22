@@ -1,12 +1,13 @@
-// dokick.js — #kick command + object fall-through (impact_drop).
+// dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
-// kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961).
+// kick_monster, kickdmg (partial); down_gate / drop_to / impact_drop (D-0961);
+// ship_object / otransit_msg (D-0984).
 // Object/secret-door/furniture kicks named in C-JS-MAP.md.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rnl } from './rng.js';
 import {
-    acurr, acurrstr, A_DEX, A_STR, A_CON, exercise, Fumbling,
+    acurr, acurrstr, A_DEX, A_STR, A_CON, exercise, Fumbling, change_luck,
 } from './attrib.js';
 import {
     pline, newsym, canspotmon, map_invisible, flush_topl_more, verbalize,
@@ -14,7 +15,9 @@ import {
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir } from './lock.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
-import { objects_at, obj_extract_self, add_to_migration } from './mkobj.js';
+import {
+    objects_at, obj_extract_self, add_to_migration,
+} from './mkobj.js';
 import {
     mon_at, attack_checks, passive, killed, check_caitiff,
 } from './uhitm.js';
@@ -34,6 +37,8 @@ import { objectNames, COIN_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { stairway_at } from './mklev.js';
 import { ok_to_quest } from './quest.js';
+import { xname, The, cxname } from './objnam.js';
+import { setuwep, setuqwep, setuswapwep } from './wield.js';
 import {
     COLNO, ROWNO,
     SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL,
@@ -43,15 +48,21 @@ import {
     RIGHT_SIDE, TIMEOUT, FOOT, SHOPBASE, SHOP_DOOR_COST,
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, TRAPDOOR, is_hole, Is_stronghold, Is_botlevel, In_endgame,
-    ESHK, Has_contents,
+    ESHK, Has_contents, ismnum,
 } from './const.js';
 import {
     costly_spot, shop_keeper, stolen_value, picked_container, hot_pursuit,
+    is_unpaid,
 } from './shk.js';
 import { shkname, Shknam } from './shknam.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
+const CORPSE = objectNames.indexOf('CORPSE');
+const MIRROR = objectNames.indexOf('MIRROR');
+const EGG = objectNames.indexOf('EGG');
+const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
+const GLASS = 19; // C materials.h
 
 const PM_SASQUATCH = monsterNames.indexOf('PM_SASQUATCH');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
@@ -620,12 +631,207 @@ export function drop_to(cc, loc, x, y) {
     }
 }
 
+/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
+async function You_hear(line) {
+    const u = game.u || {};
+    const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
+        || u.uroleplay?.deaf || u.Deaf);
+    if (Deaf) return;
+    await pline(`You hear ${line}`);
+}
+
+/** C ref: objnam.c otense — plural verb if quan ≠ 1. */
+function otense(obj, verb) {
+    if (!obj || (obj.quan | 0) === 1) {
+        // thin 3sg: fall→falls, hit→hits, rattle→rattles
+        if (!verb) return '';
+        if (verb.endsWith('s') || verb.endsWith('x') || verb.endsWith('ch')
+            || verb.endsWith('sh') || verb.endsWith('z')) {
+            return `${verb}es`;
+        }
+        if (verb.endsWith('y') && verb.length > 1
+            && !'aeiou'.includes(verb[verb.length - 2])) {
+            return `${verb.slice(0, -1)}ies`;
+        }
+        return `${verb}s`;
+    }
+    return verb;
+}
+
+/**
+ * C ref: dokick.c otransit_msg — visible fall / impact message.
+ * Named omit: Soundeffect.
+ */
+async function otransit_msg(otmp, nodrop, chainthere, num) {
+    let obuf;
+    if ((otmp.otyp | 0) === CORPSE) {
+        obuf = The(cxname(otmp));
+    } else {
+        obuf = The(xname(otmp));
+    }
+    const gate = game.gate_str || 'down';
+    if (num || chainthere) {
+        let xbuf;
+        if (num) {
+            xbuf = ` ${otense(otmp, 'hit')} ${
+                num === 1 ? 'another' : 'other'
+            } object${num > 1 ? 's' : ''}`;
+        } else {
+            xbuf = ` ${otense(otmp, 'rattle')} your chain`;
+        }
+        if (nodrop) {
+            xbuf += '.';
+        } else {
+            xbuf += ` and ${otense(otmp, 'fall')} ${gate}.`;
+        }
+        await pline(`${obuf}${xbuf}`);
+    } else if (!nodrop) {
+        await pline(`${obuf} ${otense(otmp, 'fall')} ${gate}.`);
+    }
+}
+
+/**
+ * C ref: worn.c remove_worn_item thin — clear weapon slots before ship.
+ * Full accessory/armor prop polish deferred.
+ */
+function remove_worn_item_ship(obj) {
+    if (!obj || !(obj.owornmask | 0)) return;
+    const u = game.u || {};
+    if (obj === u.uwep) setuwep(null);
+    if (obj === u.uquiver) setuqwep(null);
+    if (obj === u.uswapwep) setuswapwep(null);
+    obj.owornmask = 0;
+}
+
+/**
+ * C ref: dokick.c ship_object — single kicked/dropped/thrown obj falls
+ * through hole/stairs/ladder; shop unpaid / shop_floor_obj billing.
+ * Branch envelope: down_gate/drop_to; uball/uchain/rn2 nodrop;
+ * boulder plugs hole after optional impact_drop; otransit_msg;
+ * stolen_value + picked_container; breaktest muffled crash/splat;
+ * add_to_migration + impact_drop of pile.
+ * Named omit: maybe_unhide_at; Soundeffect; kick_object KICKED_WEAPON
+ * shop_floor_obj=TRUE caller (kick object still deferred); flooreffects
+ * pit/shaft callers beyond dropx/throwit/drop_throw.
+ * NOTE: assumes otmp already freed from fobj/invent (C comment).
+ * @returns {Promise<boolean>} true if shipped/broken (caller must not place)
+ */
+export async function ship_object(otmp, x, y, shop_floor_obj) {
+    if (!otmp) return false;
+    const toloc = down_gate(x, y);
+    if (toloc === MIGR_NOWHERE) return false;
+    const cc = { x: 0, y: 0 };
+    drop_to(cc, toloc, x, y);
+    if (!cc.y) return false;
+
+    const u = game.u || {};
+    const uball = u.uball;
+    const uchain = u.uchain;
+    // objects other than attached iron ball always fall down ladder,
+    // but have a chance of staying otherwise
+    let nodrop = (otmp === uball) || (otmp === uchain)
+        || (toloc !== MIGR_LADDER_UP && !!rn2(3));
+
+    const container = Has_contents(otmp);
+    const unpaid = is_unpaid(otmp);
+
+    let n = 0;
+    let impact = false;
+    let chainthere = false;
+    if (objects_at(x, y)) {
+        for (let obj = objects_at(x, y); obj; obj = obj.nexthere) {
+            if (obj === uchain) chainthere = true;
+            else if (obj !== otmp) n += obj.quan | 0;
+        }
+        if (n) impact = true;
+    }
+
+    // boulders never fall through trap doors, but they might knock
+    // other things down before plugging the hole
+    if ((otmp.otyp | 0) === BOULDER) {
+        const t = t_at(x, y);
+        if (t && is_hole(t.ttyp)) {
+            if (impact) await impact_drop(otmp, x, y, 0);
+            return false; // let caller finish the drop
+        }
+    }
+
+    if (cansee(x, y)) {
+        await otransit_msg(otmp, nodrop, chainthere, n);
+    }
+
+    if (nodrop) {
+        if (impact) {
+            await impact_drop(otmp, x, y, 0);
+            // maybe_unhide_at deferred
+        }
+        return false;
+    }
+
+    if (unpaid || shop_floor_obj) {
+        if (unpaid) {
+            await stolen_value(otmp, u.ux | 0, u.uy | 0, true, false);
+        } else {
+            const ox = otmp.ox | 0;
+            const oy = otmp.oy | 0;
+            const roomsHere = in_rooms(ox, oy, SHOPBASE) || '';
+            const peaceful = !!(costly_spot(u.ux | 0, u.uy | 0)
+                && (u.urooms || '').includes(roomsHere[0] || ''));
+            await stolen_value(otmp, ox, oy, peaceful, false);
+        }
+        if (container) picked_container(otmp);
+        if ((otmp.oclass | 0) !== COIN_CLASS) otmp.no_charge = 0;
+    }
+
+    if (otmp.owornmask) remove_worn_item_ship(otmp);
+
+    // some things break rather than ship — dothrow.c breaktest
+    const { breaktest } = await import('./dothrow.js');
+    if (breaktest(otmp)) {
+        const oc = game.objects?.[otmp.otyp | 0];
+        let result;
+        if ((oc?.oc_material | 0) === GLASS
+            || (otmp.otyp | 0) === EXPENSIVE_CAMERA) {
+            if ((otmp.otyp | 0) === MIRROR) change_luck(-2);
+            result = 'crash';
+        } else {
+            if ((otmp.otyp | 0) === EGG && (otmp.spe | 0)
+                && ismnum(otmp.corpsenm)) {
+                change_luck(-Math.min(otmp.quan | 0, 5));
+            }
+            result = 'splat';
+        }
+        await You_hear(`a muffled ${result}.`);
+        // C: obj_extract_self + obfree (not delobj — no obj_resists rn2)
+        obj_extract_self(otmp);
+        otmp.quan = 0;
+        otmp.where = 0; // OBJ_FREE
+        otmp.nobj = null;
+        otmp.nexthere = null;
+        return true;
+    }
+
+    add_to_migration(otmp);
+    otmp.ox = cc.x | 0;
+    otmp.oy = cc.y | 0;
+    otmp.owornmask = toloc | 0;
+
+    // boulder from rolling boulder trap, no longer part of the trap
+    if ((otmp.otyp | 0) === BOULDER) otmp.otrapped = 0;
+
+    if (impact) {
+        await impact_drop(otmp, x, y, 0);
+        newsym(x, y);
+    }
+    return true;
+}
+
 /**
  * C ref: dokick.c impact_drop — player/missile impact drops floor objs down.
  * Branch envelope: down_gate/drop_to; boulder/rock rn2 skip; extract +
  * add_to_migration; visible fall messages via gate_str; shop stolen_value
  * + picked_container + debit/robbed chase (D-0983).
- * Named omit: ship_object callers.
+ * Named omit: kick_object ship_object shop_floor caller.
  * @param {object|null} missile  caused impact; won't drop itself
  * @param {number} x
  * @param {number} y

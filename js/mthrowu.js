@@ -478,9 +478,10 @@ function u_catch_thrown_obj(otmp) {
 }
 
 /**
- * C ref: mthrowu.c drop_throw — mulch or place+stack.
+ * C ref: mthrowu.c drop_throw — mulch or ship_object or place+stack.
+ * Named omit: flooreffects / passive_obj.
  */
-function drop_throw(obj, ohit, x, y) {
+async function drop_throw(obj, ohit, x, y) {
     let broken = false;
     const n = objectNames[obj.otyp];
     if (n === 'CREAM_PIE' || obj.oclass === VENOM_CLASS
@@ -492,9 +493,13 @@ function drop_throw(obj, ohit, x, y) {
     if (broken) {
         delobj(obj);
     } else {
-        // flooreffects / ship_object deferred
-        place_object(obj, x, y);
-        stackobj(obj);
+        const { ship_object } = await import('./dokick.js');
+        broken = await ship_object(obj, x, y, false);
+        if (!broken) {
+            // flooreffects / passive_obj deferred
+            place_object(obj, x, y);
+            stackobj(obj);
+        }
     }
     game._thrownobj = null;
     return broken;
@@ -593,7 +598,7 @@ export async function ohitmon(mtmp, otmp, range, verbose) {
             }
         }
         if (!range) {
-            drop_throw(otmp, false, mtmp.mx, mtmp.my);
+            await drop_throw(otmp, false, mtmp.mx, mtmp.my);
             return true;
         }
         return false;
@@ -662,7 +667,7 @@ export async function ohitmon(mtmp, otmp, range, verbose) {
     }
     // C: objgone = drop_throw(...); if (!objgone && range == -1) {
     //    obj_extract_self(otmp); return FALSE; } — rolling boulder keeps going
-    const objgone = drop_throw(otmp, true, bx, by);
+    const objgone = await drop_throw(otmp, true, bx, by);
     if (!objgone && (range | 0) === -1) {
         obj_extract_self(otmp);
         return false;
@@ -701,7 +706,7 @@ export async function m_throw(mon, x, y, dx, dy, range, obj) {
         dx = rn2(3) - 1;
         dy = rn2(3) - 1;
         if (!dx && !dy) {
-            drop_throw(singleobj, false, x, y);
+            await drop_throw(singleobj, false, x, y);
             return;
         }
     }
@@ -710,7 +715,7 @@ export async function m_throw(mon, x, y, dx, dy, range, obj) {
     if (!isok(x + dx, y + dy)
         || IS_OBSTRUCTED(game.level?.at?.(x + dx, y + dy)?.typ ?? 0)
         || closed_door(x + dx, y + dy)) {
-        drop_throw(singleobj, false, x, y);
+        await drop_throw(singleobj, false, x, y);
         return;
     }
 
@@ -767,7 +772,7 @@ export async function m_throw(mon, x, y, dx, dy, range, obj) {
                         return;
                     }
                     if (hitu) {
-                        drop_throw(singleobj, true, u.ux, u.uy);
+                        await drop_throw(singleobj, true, u.ux, u.uy);
                         break;
                     }
                 } else {
@@ -783,7 +788,7 @@ export async function m_throw(mon, x, y, dx, dy, range, obj) {
             || IS_OBSTRUCTED(game.level?.at?.(bx + dx, by + dy)?.typ ?? 0)
             || closed_door(bx + dx, by + dy);
         if (!range || nextBlocked) {
-            drop_throw(singleobj, false, bx, by);
+            await drop_throw(singleobj, false, bx, by);
             break;
         }
         // C: tmp_at(bhitpos); nh_delay_output() — only when flight continues

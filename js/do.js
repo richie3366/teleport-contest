@@ -50,6 +50,7 @@ import {
     check_special_room,
 } from './hack.js';
 import { place_object, stackobj } from './mkobj.js';
+import { ship_object } from './dokick.js';
 import { doname } from './objnam.js';
 import {
     compactify_invlets, near_capacity, learn_unseen_invent, encumber_msg,
@@ -1053,14 +1054,16 @@ export async function dropy(obj) {
 }
 
 /**
- * C ref: do.c dropx — freeinv then dropy (ship_object/altar deferred).
+ * C ref: do.c dropx — freeinv then ship_object / dropy.
+ * Named omit: doaltarobj.
  */
 export async function dropx(obj) {
     if (!obj) return;
     freeinv_drop(obj);
     const u = game.u || {};
     if (!u.uswallow) {
-        // ship_object / doaltarobj deferred
+        if (await ship_object(obj, u.ux | 0, u.uy | 0, false)) return;
+        // doaltarobj deferred
     }
     await dropy(obj);
 }

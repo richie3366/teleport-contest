@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0984 | fixed | `ship_object`/`otransit_msg` + dropx/throwit/drop_throw | map-driven; green+throw/drop cohort 20/21 (seed0009 pre-existing) |
 | D-0983 | fixed | shop `stolen_value` + revive/kick/dig/lock/`costly_alteration` | map-driven; green+dig/zap cohort 19/20 (seed0009 pre-existing) |
 | D-0982 | fixed | montraits/omonst/ghost recorporealize + KEEPTRAITS/`wary_dog` | map-driven; green+zap cohort 19/20 (seed0009 pre-existing) |
 | D-0981 | fixed | `openholdingtrap`/`openfallingtrap` + Punished/`boxlock_invent` + SPE_KNOCK `mhurtle`/saddle | map-driven; green+zap cohort 20/21 (seed0009 pre-existing) |
