@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1002 — allmain Teleportation / Polymorph / ulycn once-per-turn
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-1001 — `you_were`/`polyself`/`tele`
+  existed but allmain moveloop skipped the C once-per-turn arms after
+  `regen_pw` (`turns.md` allmain).
+- **C locus:** `allmain.c` moveloop `!u.uinvulnerable` Teleportation
+  `!rn2(85)` → `tele()`; Polymorph `!rn2(100)` / ulycn `!rn2(80-20*night())`
+  → `mvl_change` → `polyself` / `you_were` when `multi>=0` && !Unchanging.
+- **Fix:** `maybe_tele_poly_were` + static `mvl_change`; prop helpers
+  Teleportation/Polymorph/Unchanging (flat H/E + uprops); clear
+  `_cmdq_canned` on successful tele.
+- **Deferred:** next_to_u/check_leash body; CQ_REPEAT queue;
+  potion/mhitm you_were wires; overexert_hp / Upolyd eel hp-loss.
+- **Verify:** green+strict PASS; allmain cohort **36**/37
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1001 — ParanoidWerechange / ParanoidHit + you_were/unwere
 
 - **Status:** fixed (map-driven debt retirement)
@@ -17,9 +34,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   paranoid_query; peaceful confirm ParanoidHit + Stormbringer
   override_confirmation; wire timeout mtimedone + wolfsbane
   you_unwere(TRUE); jsmain confirm default true.
-- **Deferred:** allmain Teleportation/Polymorph/ulycn once-per-turn;
-  potion/mhitm/pray TROUBLE_LYCANTHROPE you_were wires; mundetected
-  hide / Elbereth / warning-glyph attack_checks arms; were_summon.
+- **Deferred:** potion/mhitm/pray TROUBLE_LYCANTHROPE you_were wires;
+  mundetected hide / Elbereth / warning-glyph attack_checks arms;
+  were_summon. (allmain Teleport/Poly/ulycn → D-1002)
 - **Verify:** green+strict PASS; combat/timeout cohort **11**/12
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 

@@ -39,19 +39,88 @@ import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
 import { Hello, align_str } from './roles.js';
 import { livelog_printf } from './pline.js';
-import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.js';
+import { phase_of_the_moon, friday_13th, night, FULL_MOON, NEW_MOON } from './calendar.js';
 import { ATR_INVERSE } from './terminal.js';
 import { dosounds } from './sounds.js';
 import { invault } from './vault.js';
 import { nh_timeout } from './timeout.js';
 import { run_regions } from './region.js';
+import { tele } from './teleport.js';
+import { polyself } from './polyself.js';
+import { you_were } from './were.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
     UTOTYPE_NONE, TIMEOUT, REGENERATION,
     MAXULEV, ENERGY_REGENERATION, MAGICAL_BREATHING,
+    TELEPORT, POLYMORPH, UNCHANGING, NON_PM, POLY_NOFLAGS, ismnum,
 } from './const.js';
+
+// C ref: allmain.c static mvl_change — delayed polyself(1) / you_were(2).
+let mvl_change = 0;
+
+/** C ref: youprop.h Teleportation — H || E via flat + uprops. */
+function Teleportation(u = game.u || {}) {
+    const e = u.uprops?.[TELEPORT];
+    return !!((u.Teleportation || u.HTeleportation || u.ETeleportation)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Polymorph — H || E via flat + uprops. */
+function Polymorph(u = game.u || {}) {
+    const e = u.uprops?.[POLYMORPH];
+    return !!((u.Polymorph || u.HPolymorph || u.EPolymorph)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Unchanging — H || E via flat + uprops. */
+function Unchanging(u = game.u || {}) {
+    const e = u.uprops?.[UNCHANGING];
+    return !!((u.Unchanging || u.HUnchanging || u.EUnchanging)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C ref: allmain.c moveloop once-per-turn after regen_pw —
+ * Teleportation !rn2(85) → tele(); Polymorph/ulycn → mvl_change →
+ * polyself / you_were when multi >= 0 && !Unchanging.
+ * Named omit: next_to_u/check_leash body (leash unwired → always adjacent);
+ * cmdq_clear(CQ_REPEAT) when no JS repeat queue.
+ */
+async function maybe_tele_poly_were() {
+    const u = game.u || (game.u = {});
+    if (u.uinvulnerable) return;
+
+    if (Teleportation(u) && !rn2(85)) {
+        const old_ux = u.ux | 0;
+        const old_uy = u.uy | 0;
+        await tele();
+        if ((u.ux | 0) !== old_ux || (u.uy | 0) !== old_uy) {
+            // next_to_u / check_leash deferred (no leash → always next_to_u)
+            if (game._cmdq_canned) game._cmdq_canned = [];
+            if (game._cmdq_repeat) game._cmdq_repeat = [];
+        }
+    }
+    // delayed change may not be valid anymore
+    if ((mvl_change === 1 && !Polymorph(u))
+        || (mvl_change === 2 && (u.ulycn | 0) === NON_PM)) {
+        mvl_change = 0;
+    }
+    if (Polymorph(u) && !rn2(100)) {
+        mvl_change = 1;
+    } else if (ismnum(u.ulycn) && !Upolyd(u) && !rn2(80 - (20 * night()))) {
+        mvl_change = 2;
+    }
+    if (mvl_change && !Unchanging(u)) {
+        if ((game.multi == null || game.multi >= 0)) {
+            await stop_occupation();
+            if (mvl_change === 1) await polyself(POLY_NOFLAGS);
+            else await you_were();
+            mvl_change = 0;
+        }
+    }
+}
 
 // C ref: allmain.c moveloop_preamble() — moon/friday; new-game RNG only when !resuming
 export async function moveloop_preamble(resuming) {
@@ -222,8 +291,6 @@ function regen_hp(wtcap) {
 
 /**
  * C ref: allmain.c regen_pw(wtcap) — maybe recover Pw once/turn.
- * Named omissions: Teleportation / Polymorph once-per-turn arms that
- * follow regen_pw in moveloop (still deferred).
  */
 function regen_pw(wtcap) {
     const u = game.u || (game.u = {});
@@ -716,7 +783,8 @@ export async function moveloop_core() {
                 }
                 // C: regen_pw(mvl_wtcap) always; gates + rn1 inside
                 regen_pw(mvl_wtcap);
-                // Teleportation / Polymorph once-per-turn deferred
+                // C: !uinvulnerable Teleportation / Polymorph / ulycn arms
+                await maybe_tele_poly_were();
                 // C: Searching && !noautosearch && multi >= 0 → dosearch0(1)
                 if (
                     Searching()

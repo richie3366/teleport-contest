@@ -74,8 +74,8 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** absent.md thin systems under fortress
-(potion/scroll/vault polish); or allmain Teleportation /
-Polymorph / ulycn once-per-turn (`you_were` wired D-1001).
+(potion/scroll/vault polish); or warnreveal / overexert_hp /
+Upolyd eel hp-loss; or potion/mhitm you_were wires.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -87,12 +87,12 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1001. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1002. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
 **D-0948**…**D-0954** (zap/dig/eat shop+furniture — do not re-stub);
-**D-0955**…**D-1001** (… ParanoidWerechange/Hit / you_were — do not re-stub).
+**D-0955**…**D-1002** (… allmain Teleport/Poly/ulycn — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
@@ -118,7 +118,8 @@ re-stub `animate_statue`/`activate_statue_trap`/Blind kick feel
 (D-0997); re-stub dopay robbed/angry/debit appease (D-0998);
 re-stub ParanoidBreakwand getlin / `see_monster_closeup` (D-0999);
 re-stub ParanoidPray Confirm / `see_nearby_monsters` (D-1000);
-re-stub ParanoidWerechange/Hit / `you_were`/`you_unwere` (D-1001).
+re-stub ParanoidWerechange/Hit / `you_were`/`you_unwere` (D-1001);
+re-stub allmain Teleport/Poly/ulycn once-per-turn (D-1002).
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

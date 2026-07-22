@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 05:17 — #1273 D-1002 allmain Tele/Poly/ulycn
+
+**Objective:** map-driven — allmain Teleportation/Polymorph/ulycn
+once-per-turn (CURRENT next after D-1001).
+**C locus:** `allmain.c` moveloop after `regen_pw` (!uinvulnerable).
+**Change:** `maybe_tele_poly_were` + static `mvl_change`; tele /
+polyself(POLY_NOFLAGS) / you_were; prop helpers — D-1002.
+**Verified:** green+strict PASS; allmain cohort **36**/37
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (potion/scroll/vault); or warnreveal /
+overexert_hp / Upolyd eel; or potion/mhitm you_were wires.
+**Blocked:** none.
+
 ## 2026-07-22 05:10 — #1272 D-1001 ParanoidWerechange/Hit
 
 **Objective:** map-driven — ParanoidWerechange + ParanoidHit getlin

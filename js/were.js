@@ -4,8 +4,8 @@
 // Branch envelope: ParanoidWerechange getlin via paranoid_query (D-1001);
 // mon were_change / new_were; set_ulycn Drain_resistance.
 // Named omissions: were_summon; howl You_hear + wake_nearto; mon_break_armor;
-// allmain Polymorph/ulycn once-per-turn caller; potion/mhitm you_were wires;
-// pray TROUBLE_LYCANTHROPE (eat wolfsbane wired).
+// potion/mhitm you_were wires; pray TROUBLE_LYCANTHROPE (eat wolfsbane wired).
+// allmain Polymorph/ulycn once-per-turn caller wired D-1002.
 
 import { game } from './gstate.js';
 import { rn2, rn1 } from './rng.js';
