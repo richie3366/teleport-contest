@@ -73,11 +73,12 @@ import {
     HVY_ENCUMBER, ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
-    OBJ_FLOOR,
+    OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC,
     A_LAWFUL,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
+    maybe_half_phys, nomul, losehp, stop_occupation, in_rooms,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap_once_vault } from './teleport.js';
 import {
@@ -87,18 +88,23 @@ import {
 import { monsterNames } from './generated/monsters_data.js';
 import { thitu, ohitmon } from './mthrowu.js';
 import { dmgval } from './weapon.js';
-import { maybe_half_phys, nomul, losehp, stop_occupation } from './hack.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign } from './makemon.js';
 import {
-    A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign,
+    A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign, poisoned,
 } from './attrib.js';
 import { tamedog } from './dog.js';
 import { welded } from './wield.js';
 import { count_wsegs } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
-import { make_stunned } from './potion.js';
+import { make_stunned, make_hallucinated } from './potion.js';
+import { monstseesu, monstunseesu } from './mondata.js';
+import { get_obj_location } from './timeout.js';
+import { costly_spot, shop_keeper, stolen_value, make_angry_shk } from './shk.js';
+import { unpunish } from './read.js';
+import { create_gas_cloud } from './region.js';
 
+const AD_ELEC = 6;
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
 const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
 const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
@@ -3935,4 +3941,245 @@ export async function untrap(force = false, rx = 0, ry = 0, container = null) {
 export async function dountrap() {
     if (!(await could_untrap(true, false))) return ECMD_OK;
     return (await untrap(false, 0, 0, null)) ? ECMD_TIME : ECMD_OK;
+}
+
+/** C you.h Luck — u.uluck + u.moreluck */
+function Luck_chest() {
+    const u = game.u || {};
+    return (u.uluck || 0) + (u.moreluck || 0);
+}
+
+/** C ref: objnam.c Tobjnam — The(xname) + otense verb. */
+function Tobjnam_chest(obj, verb) {
+    const nam = The(xname(obj));
+    if (!verb) return nam;
+    const plural = (obj?.quan | 0) !== 1;
+    // thin otense: add s / es
+    let v = verb;
+    if (!plural) {
+        if (v.endsWith('s') || v.endsWith('x') || v.endsWith('ch') || v.endsWith('sh')) {
+            v += 'es';
+        } else if (v.endsWith('y') && !/[aeiou]y$/i.test(v)) {
+            v = `${v.slice(0, -1)}ies`;
+        } else {
+            v += 's';
+        }
+    }
+    return `${nam} ${v}`;
+}
+
+function currency_chest(amt) {
+    return (amt | 0) === 1 ? 'zorkmid' : 'zorkmids';
+}
+
+/**
+ * C ref: invent.c / shk.c delete_contents — obfree chain (no obj_resists).
+ */
+function delete_contents_chest(obj) {
+    while (obj?.cobj) {
+        const curr = obj.cobj;
+        obj_extract_self(curr);
+        if (curr.cobj) delete_contents_chest(curr);
+        curr.quan = 0;
+        curr.where = OBJ_FREE;
+        curr.nobj = null;
+        curr.nexthere = null;
+    }
+}
+
+/**
+ * C ref: trap.c chest_trap — hero triggers box trap (kick/open/force).
+ * Returns true if chest destroyed.
+ * Named omit: Soundeffect; bot() redraw polish; Blind gas rndcolor table
+ * (uses "strange"); Halluc_resistance stagger suffix polish; shieldeff.
+ */
+export async function chest_trap(obj, bodypart, disarm) {
+    if (!obj) return false;
+    const u = game.u || (game.u = {});
+    const loc = get_obj_location(obj, 0);
+    if (loc) {
+        obj.ox = loc.x | 0;
+        obj.oy = loc.y | 0;
+    }
+
+    obj.tknown = 0;
+    obj.otrapped = 0;
+    await pline(disarm ? 'You set it off!' : 'You trigger a trap!');
+    await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, FALSE)
+
+    const luck = Luck_chest();
+    if (luck > -13 && rn2(13 + luck) > 7) {
+        let msg = null;
+        switch (rn2(13)) {
+        case 12: case 11: msg = 'explosive charge is a dud'; break;
+        case 10: case 9: msg = 'electric charge is grounded'; break;
+        case 8: case 7: msg = 'flame fizzles out'; break;
+        case 6: case 5: case 4: msg = 'poisoned needle misses'; break;
+        case 3: case 2: case 1: case 0: msg = 'gas cloud blows away'; break;
+        default: break;
+        }
+        if (msg) await pline(`But luckily the ${msg}!`);
+    } else {
+        const roll = rn2(20)
+            ? ((luck >= 13) ? 0 : rn2(13 - luck))
+            : rn2(26);
+        switch (roll) {
+        case 25: case 24: case 23: case 22: case 21: {
+            const ox = obj.ox | 0;
+            const oy = obj.oy | 0;
+            let shkp = null;
+            let loss = 0;
+            const rooms = in_rooms(ox, oy, SHOPBASE) || '';
+            const costly = costly_spot(ox, oy)
+                && !!(shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0));
+            const insider = !!(u.ushops
+                && (u.ushops || '')[0]
+                && rooms[0]
+                && (u.ushops || '')[0] === rooms[0]
+                && (u.ushops || '').length > 0);
+
+            await pline(`${Tobjnam_chest(obj, 'explode')}!`);
+            const buf = `exploding ${xname(obj)}`;
+
+            if (costly) {
+                loss += await stolen_value(
+                    obj, ox, oy, !!(shkp?.mpeaceful), true,
+                );
+            }
+            delete_contents_chest(obj);
+
+            if (u.uball) {
+                const chain = u.uchain;
+                const ball = u.uball;
+                if ((chain && (chain.ox | 0) === ox && (chain.oy | 0) === oy)
+                    || (ball?.where === OBJ_FLOOR
+                        && (ball.ox | 0) === ox && (ball.oy | 0) === oy)) {
+                    unpunish();
+                }
+            }
+
+            let chestgone = false;
+            for (let otmp = objects_at(ox, oy); otmp; ) {
+                const otmp2 = otmp.nexthere;
+                if (costly) {
+                    loss += await stolen_value(
+                        otmp, otmp.ox | 0, otmp.oy | 0,
+                        !!(shkp?.mpeaceful), true,
+                    );
+                }
+                if (otmp === obj) chestgone = true;
+                delobj(otmp);
+                otmp = otmp2;
+            }
+            wake_nearby(false);
+            losehp(maybe_half_phys(d(6, 6)), buf, KILLED_BY_AN);
+            exercise(A_STR, false);
+            if (costly && loss) {
+                if (insider) {
+                    await pline(
+                        `You owe ${loss} ${currency_chest(loss)} for objects destroyed.`,
+                    );
+                } else {
+                    await pline(
+                        `You caused ${loss} ${currency_chest(loss)} worth of damage!`,
+                    );
+                    await make_angry_shk(shkp, ox, oy);
+                }
+            }
+            if (chestgone) return true;
+            break;
+        }
+        case 20: case 19: case 18: case 17:
+            await pline(
+                `A cloud of noxious gas billows from ${the(xname(obj))}.`,
+            );
+            if (rn2(3)) {
+                await poisoned('gas cloud', A_STR, 'cloud of poison gas', 15, false);
+            } else {
+                create_gas_cloud(obj.ox | 0, obj.oy | 0, 1, 8);
+            }
+            exercise(A_CON, false);
+            break;
+        case 16: case 15: case 14: case 13:
+            await pline(
+                `You feel a needle prick your ${body_part(bodypart)}.`,
+            );
+            await poisoned('needle', A_CON, 'poisoned needle', 10, false);
+            exercise(A_CON, false);
+            break;
+        case 12: case 11: case 10: case 9:
+            await dofiretrap(obj);
+            break;
+        case 8: case 7: case 6: {
+            let dmg = d(4, 4);
+            const orig_dmg = dmg;
+            await pline('You are jolted by a surge of electricity!');
+            const Shock_resistance = !!(u.Shock_resistance
+                || u.HShock_resistance || u.EShock_resistance);
+            if (Shock_resistance) {
+                // shieldeff deferred
+                await pline("You don't seem to be affected.");
+                monstseesu(M_SEEN_ELEC);
+                dmg = 0;
+            } else {
+                monstunseesu(M_SEEN_ELEC);
+            }
+            {
+                const { destroy_items } = await import('./zap.js');
+                await destroy_items(
+                    game.youmonst || { _youmonst: true }, AD_ELEC, orig_dmg,
+                );
+            }
+            if (dmg) losehp(dmg, 'electric shock', KILLED_BY_AN);
+            break;
+        }
+        case 5: case 4: case 3: {
+            const Free_action = !!(u.Free_action || u.HFree_action
+                || u.EFree_action);
+            if (!Free_action) {
+                await pline('Suddenly you are frozen in place!');
+                nomul(-d(5, 6));
+                game.multi_reason = 'frozen by a trap';
+                exercise(A_DEX, false);
+                game.nomovemsg = 'You can move again.';
+            } else {
+                await pline('You momentarily stiffen.');
+            }
+            break;
+        }
+        case 2: case 1: case 0: {
+            const gas = Blind() ? 'strange' : 'colorful';
+            await pline(
+                `A cloud of ${gas} gas billows from ${the(xname(obj))}.`,
+            );
+            const Stunned = !!(u.HStun || u.Stunned);
+            if (!Stunned) {
+                if (Hallucination()) {
+                    await pline('What a groovy feeling!');
+                } else {
+                    const Halluc_resistance = !!(u.Halluc_resistance
+                        || u.HHalluc_resistance || u.EHalluc_resistance);
+                    await pline(
+                        `You stagger${Halluc_resistance ? ''
+                            : Blind() ? ' and get dizzy'
+                                : ' and your vision blurs'}...`,
+                    );
+                }
+            }
+            await make_stunned(
+                ((u.HStun | 0) & TIMEOUT) + rn1(7, 16), false,
+            );
+            await make_hallucinated(
+                ((u.HHallucination | 0) & TIMEOUT) + rn1(5, 16), false, 0,
+            );
+            break;
+        }
+        default:
+            break;
+        }
+        if (game.flags) game.flags.botl = true;
+    }
+
+    obj.tknown = 1;
+    return false;
 }

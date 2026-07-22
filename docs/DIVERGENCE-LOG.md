@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0989 — Is_box kick + container_impact + chest_trap + ghitm
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0988 — Is_box kick skipped
+  `container_impact_dmg` / lock break / lid slam / `chest_trap`; gold
+  hits left `ghitm` deferred; no `make_angry_shk`.
+- **C locus:** `dokick.c` `really_kick_object` Is_box + `ghitm` +
+  `container_impact_dmg`; `trap.c` `chest_trap`; `lock.c`
+  `breakchestlock`; `shk.c` `make_angry_shk`/`make_happy_shk`.
+- **Fix:** port impact shatter; Is_box THUD/lock/`breakchestlock`/lid +
+  `chest_trap(LEG)`; `ghitm` catch path; thin `make_angry_shk` /
+  `make_happy_shk`. Export `breakchestlock` / `chest_trap`.
+- **Deferred:** `hits_bars` / `hit_bars`; costly_gold / donate_gold;
+  barefoot petrify; tmp_at flash; Blind feel; SetVoice;
+  `make_happy_shk` home_shk/migrate/kops.
+- **Verify:** green+strict PASS; kick cohort **19**/20 (seed0009 Scr
+  72/73 pre-existing). Rule #2: no fs.
+
 ## D-0988 — `kick_object` + `bhit` KICKED_WEAPON
 
 - **Status:** fixed (map-driven debt retirement)

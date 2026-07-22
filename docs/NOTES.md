@@ -15,8 +15,8 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0988** `kick_object` + `bhit` KICKED_WEAPON flight/land.
-- **Next cluster:** Is_box kick arms / ghitm / hits_bars; or
+- Latest: **D-0989** Is_box kick + container_impact/chest_trap/ghitm.
+- **Next cluster:** `hits_bars`/`hit_bars` on kicked/thrown; or
   flooreffects fire_damage/globby/altar; or absent.md thin
   (potion/scroll/vault).
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through kick_object
-  (D-0988) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through Is_box/ghitm
+  (D-0989) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -52,6 +52,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1255**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0989:** Is_box kick + container_impact/chest_trap/ghitm.
 - **D-0988:** kick_object + bhit KICKED_WEAPON.
 - **D-0987:** flooreffects pool/lava/pit/shaft + boulder + drop/throw.
 - **D-0986:** throne/`fall_through` + tree scatter/swarm + hero hole.
@@ -66,5 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0979:** release_hold + flash_hits_mon / light_hits_gremlin.
 - **D-0978:** ignite_items / catch_lit / begin_burn / burn_away_slime.
 - **D-0977:** passtune + open/close_drawbridge + Mastermind hints.
-- **D-0976:** `dosinkfall` + sink `spoteffects` + `ELevitation` mirror.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

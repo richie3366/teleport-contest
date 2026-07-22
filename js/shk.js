@@ -670,6 +670,45 @@ export function hot_pursuit(shkp) {
 }
 
 /**
+ * C ref: shk.c make_angry_shk — fold bill into robbed, then hot_pursuit.
+ * Named omit: full bill_p addupbill (stub 0 until bill walk).
+ */
+export async function make_angry_shk(shkp, _ox, _oy) {
+    if (!shkp?.isshk) return;
+    const eshkp = ESHK(shkp);
+    if (eshkp && ((eshkp.billct | 0) || (eshkp.debit | 0)
+        || (eshkp.loan | 0) || (eshkp.credit | 0))) {
+        eshkp.robbed = (eshkp.robbed | 0)
+            + addupbill(shkp) + (eshkp.debit | 0) + (eshkp.loan | 0);
+        eshkp.robbed -= eshkp.credit | 0;
+        if (eshkp.robbed < 0) eshkp.robbed = 0;
+        setpaid(shkp);
+    }
+    await pline(
+        `${Shknam(shkp)} ${!ANGRY(shkp) ? 'gets angry' : 'is furious'}!`,
+    );
+    hot_pursuit(shkp);
+}
+
+/**
+ * C ref: shk.c make_happy_shk — pacify + clear robbed/following.
+ * Named omit: Role_if Rogue adjalign; home_shk / migrate_to_level /
+ * make_happy_shoppers / kops_gone / pacify_guards; vanish pline.
+ */
+export async function make_happy_shk(shkp, _silentkops) {
+    if (!shkp?.isshk) return;
+    const wasmad = ANGRY(shkp);
+    pacify_shk(shkp, false);
+    const eshkp = ESHK(shkp);
+    if (eshkp) {
+        eshkp.following = 0;
+        eshkp.robbed = 0;
+    }
+    // home_shk / migrate / shoppers deferred
+    if (wasmad) await pline(`${Shknam(shkp)} calms down.`);
+}
+
+/**
  * C ref: shk.c getcad — shk verbalizes / plines about shop damage, then
  * hot_pursuit. SetVoice deferred.
  */

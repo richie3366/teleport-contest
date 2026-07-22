@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-0989 | fixed | Is_box kick + `container_impact_dmg`/`chest_trap`/`ghitm` + `make_angry_shk` | map-driven; green+kick cohort 19/20 (seed0009 pre-existing) |
 | D-0988 | fixed | `kick_object` + `bhit` KICKED_WEAPON flight/land | map-driven; green+kick cohort 19/20 (seed0009 pre-existing) |
 | D-0987 | fixed | `flooreffects` pool/lava/pit/shaft + boulder + drop/throw wire | map-driven; green+drop/throw cohort 20/21 (seed0009 pre-existing) |
 | D-0986 | fixed | throne/`fall_through` + tree scatter + hero hole | map-driven; green+kick cohort 19/20 (seed0009 pre-existing) |

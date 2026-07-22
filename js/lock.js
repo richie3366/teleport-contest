@@ -896,7 +896,7 @@ async function chest_shatter_msg(otmp) {
  * corpse age / start_corpse_timeout; potionbreathe on shatter.
  * Shop stolen_value on shatter/destroy (D-0983).
  */
-async function breakchestlock(box, destroyit) {
+export async function breakchestlock(box, destroyit) {
     if (!destroyit) {
         // C: costly_alteration(COST_BRKLCK) deferred
         box.olocked = 0;
