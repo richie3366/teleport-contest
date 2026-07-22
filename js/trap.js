@@ -69,7 +69,7 @@ import {
     CORPSTAT_NONE, MM_NOCOUNTBIRTH, MM_NOMSG,
     ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at,
     DISP_FLASH, DISP_END,
-    IS_OBSTRUCTED, IS_STWALL, IS_TREE,
+    IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
     HVY_ENCUMBER, ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
@@ -86,7 +86,7 @@ import {
     WEAPON_CLASS, TOOL_CLASS,
 } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { thitu, ohitmon } from './mthrowu.js';
+import { thitu, ohitmon, hits_bars } from './mthrowu.js';
 import { dmgval } from './weapon.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign } from './makemon.js';
@@ -1132,10 +1132,11 @@ function sobj_at(otyp, x, y) {
  * Envelope: find otyp (BOULDER also tries otherside); extract/split;
  * DISP_FLASH tmp_at + nh_delay_output while cansee (D-0890); ROLL path
  * with hero dmgval+thitu and mon ohitmon/throws_rocks snatch; stop on
- * obstructed/tree/door; place at rest. Named omissions: LAUNCH_UNSEEN
- * bowling msgs; dig context clear; launch_drop_spot bones; mid-roll
- * landmine/telep/pit flooreffects; iron bars hits_bars; boulder-on-boulder
- * chain; ship_object down_gate; wake_nearto polish; curs_on_u.
+ * obstructed/tree/door; IRONBARS hits_bars (D-0990); place at rest.
+ * Named omissions: LAUNCH_UNSEEN bowling msgs; dig context clear;
+ * launch_drop_spot bones; mid-roll landmine/telep/pit flooreffects;
+ * boulder-on-boulder chain; ship_object down_gate; wake_nearto polish;
+ * curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
  */
 async function launch_obj(otyp, x1, y1, x2, y2, style) {
@@ -1245,7 +1246,20 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
             // Mid-roll trap interactions (landmine/telep/pit) deferred
             if (dist > 0 && isok(x + dx, y + dy)) {
                 const typ = game.level?.at?.(x + dx, y + dy)?.typ ?? 0;
-                if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {
+                if (typ === IRONBARS) {
+                    // C: object stops here; hits_bars may destroy (whodidit=0)
+                    xRest = x;
+                    yRest = y;
+                    const box = { obj: singleobj };
+                    if (await hits_bars(box, x, y, x + dx, y + dy, !rn2(20), 0)) {
+                        if (!box.obj) {
+                            used_up = true;
+                        } else {
+                            singleobj = box.obj;
+                        }
+                        break;
+                    }
+                } else if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {
                     xRest = x;
                     yRest = y;
                     break;

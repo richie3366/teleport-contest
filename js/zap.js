@@ -3506,7 +3506,7 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
  * C ref: zap.c bhit — ZAPPED_WAND + KICKED_WEAPON lateral paths.
  * Named omit: THROWN_WEAPON / FLASHED_LIGHT / INVIS_BEAM callers;
  * tmp_at flash / nh_delay_output / show_transient_light;
- * hits_bars; shade_miss / M_AP_OBJECT skip; WEB stick rn2;
+ * shade_miss / M_AP_OBJECT skip; WEB stick rn2;
  * shkcatch pick; map_invisible / unmap_object; zap_map / doorlock;
  * returning_missile / tethered weapon.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
@@ -3517,6 +3517,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     game.bhitpos = bhitpos;
     let r = range | 0;
     let result = null;
+    let point_blank = true;
 
     // C: kicked object starts one square ahead; range--
     if (weapon === KICKED_WEAPON) {
@@ -3547,7 +3548,22 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             && (IS_WATERWALL(typ) || typ === LAVAWALL)) {
             break;
         }
-        // iron bars hits_bars deferred for kicked/thrown
+        // C: iron bars hits_bars for thrown/kicked (D-0990)
+        if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
+            // show_transient_light deferred
+            if (typ === IRONBARS) {
+                const { hits_bars } = await import('./mthrowu.js');
+                if (await hits_bars(
+                    pobj, x - ddx, y - ddy, x, y,
+                    point_blank ? 0 : !rn2(5), 1,
+                )) {
+                    obj = pobj?.obj;
+                    bhitpos.x -= ddx;
+                    bhitpos.y -= ddy;
+                    break;
+                }
+            }
+        }
 
         let mtmp = m_at(x, y);
         // WEB trap stick / shade_miss / mimic-as-object skip deferred
@@ -3597,6 +3613,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             }
             if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
         }
+        point_blank = false;
     }
     return result;
 }

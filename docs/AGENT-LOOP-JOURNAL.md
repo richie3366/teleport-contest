@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 03:45 — #1260 cadence + D-0990 hits_bars
+
+**Objective:** mandatory full `sessions` @#1260; map-driven
+`hits_bars`/`hit_bars` (CURRENT next cluster).
+**C locus:** `mthrowu.c` hits_bars/hit_bars; `zap.c` bhit;
+`dothrow.c` throwit; `trap.c` launch_obj.
+**Changed:** port hits_bars/hit_bars + harmless_missile helper;
+wire bhit/throwit/launch_obj point_blank arms — D-0990.
+**Verified:** green+strict PASS; kick/throw cohort **7**/8
+(seed0009 Scr 72/73 pre-existing); cadence **43**/44 Scr
+11404/11405 RNG 100% speed `32+0.27/turn`. Rule #2: no fs.
+**Next:** costly_gold/donate_gold; flooreffects fire/globby;
+absent.md thin; barefoot petrify / tmp_at.
+**Blocked:** none.
+
 ## 2026-07-22 03:40 — #1259 D-0989 Is_box + ghitm
 
 **Objective:** map-driven — Is_box kick arms / ghitm (CURRENT next
@@ -223,16 +238,3 @@ CURRENT next cluster / debt.
 **Next:** passtune/drawbridge; ignite_items / burn_away_slime.
 **Blocked:** none.
 
-## 2026-07-22 01:33 — #1245 cadence + D-0975 lavawall/burn
-
-**Objective:** mandatory full `sessions` score @#1245; map-driven
-retire lavawall spines + burn feedback (CURRENT next cluster).
-**Score:** **43**/44 Scr **11404**/11405 RNG **792838**/792838
-(100%) speed `31+0.26/turn`. Non-PASS: seed0009 Scr 72/73 (HEAD).
-**Changed:** export `fix_wall_spines`; zap lavawall freeze call;
-async `burn_floor_objects` give_feedback; fire-trap burn/melt wire
-(D-0975). Docs: CURRENT/NOTES/debt/turns/divergence/journal.
-**Verified:** green+strict PASS; zap/trap cohort **24**/24. Rule #2:
-no fs.
-**Next:** sink-fall `dosinkfall`; passtune/drawbridge; ignite_items.
-**Blocked:** none.

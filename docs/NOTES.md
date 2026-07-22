@@ -7,18 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1255** (Scr **11404**/11405 RNG **100%**
-  speed `30+0.27/turn`). Next cadence @**#1260**.
+- Local suite **43**/44 @**#1260** (Scr **11404**/11405 RNG **100%**
+  speed `32+0.27/turn`). Next cadence @**#1265**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0989** Is_box kick + container_impact/chest_trap/ghitm.
-- **Next cluster:** `hits_bars`/`hit_bars` on kicked/thrown; or
-  flooreffects fire_damage/globby/altar; or absent.md thin
-  (potion/scroll/vault).
+- Latest: **D-0990** hits_bars/hit_bars on kicked/thrown/launch.
+- **Next cluster:** costly_gold/donate_gold; or flooreffects
+  fire_damage/globby/altar; or absent.md thin (potion/scroll/vault);
+  or barefoot petrify / tmp_at flash.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through Is_box/ghitm
-  (D-0989) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through hits_bars
+  (D-0990) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -50,8 +50,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1255**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1260**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `32+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0990:** hits_bars/hit_bars + bhit/throwit/launch_obj wire.
 - **D-0989:** Is_box kick + container_impact/chest_trap/ghitm.
 - **D-0988:** kick_object + bhit KICKED_WEAPON.
 - **D-0987:** flooreffects pool/lava/pit/shaft + boulder + drop/throw.
@@ -65,6 +66,4 @@ Objective/score live in `CURRENT.md`.
   mhurtle/saddle.
 - **D-0980:** restore `timeout.js` `objects_at` (D-0978 import drop).
 - **D-0979:** release_hold + flash_hits_mon / light_hits_gremlin.
-- **D-0978:** ignite_items / catch_lit / begin_burn / burn_away_slime.
-- **D-0977:** passtune + open/close_drawbridge + Mastermind hints.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

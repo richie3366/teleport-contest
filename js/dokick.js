@@ -1077,7 +1077,7 @@ async function kick_object(x, y, kickobjnam) {
  * ghitm; shop stolen_value; flooreffects; place+stack.
  * Named omit: barefoot petrify/instapetrify; costly_gold / donate_gold
  * contained refund; snuff_candle; impact_disturbs_zombies; STATUE_TRAP
- * activate; Blind feel; hits_bars (bhit); tmp_at flash.
+ * activate; Blind feel; tmp_at flash.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};

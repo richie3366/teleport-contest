@@ -23,7 +23,7 @@ import {
     M_AP_TYPE, M_AP_MONSTER, M_AP_NOTHING,
     BRK_FROM_INV, BRK_KNOWN2BREAK, BRK_KNOWN2NOTBREAK, BRK_KNOWN_OUTCOME,
     ismnum, isok, u_at, MM_IGNOREWATER, MM_IGNORELAVA,
-    HURTLING, FORCEBUNGLE,
+    HURTLING, FORCEBUNGLE, IRONBARS,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -743,6 +743,7 @@ async function throwit(obj) {
     let x = u.ux;
     let y = u.uy;
     let hitmon = null;
+    let point_blank = true;
     while (range-- > 0) {
         const nx = x + dx;
         const ny = y + dy;
@@ -751,10 +752,25 @@ async function throwit(obj) {
         if (!loc) break;
         const typ = loc.typ ?? 0;
         const closed = IS_DOOR(typ) && ((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
+        // C bhit: IRONBARS via hits_bars before ZAP_POS stop (D-0990)
+        if (typ === IRONBARS) {
+            const { hits_bars } = await import('./mthrowu.js');
+            const pobj = { obj };
+            if (await hits_bars(
+                pobj, x, y, nx, ny,
+                point_blank ? 0 : !rn2(5), 1,
+            )) {
+                if (!pobj.obj) return; // destroyed at bars
+                obj = pobj.obj;
+                break; // land at previous cell (x,y)
+            }
+            // passes through — fall through to advance
+        }
         // C bhit: if (!ZAP_POS(typ) || closed_door) { bhitpos -= dir; break; }
         if (!ZAP_POS(typ) || closed) break;
         x = nx;
         y = ny;
+        point_blank = false;
         // C bhit THROWN_WEAPON: stop on monster
         const mon = m_at(x, y);
         if (mon) {

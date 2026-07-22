@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0990 — hits_bars / hit_bars on kicked/thrown/launch
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0989 — kicked/thrown missiles and
+  rolling-boulder launch ignored IRONBARS (`hits_bars`/`hit_bars`);
+  throwit flew through bars because IRONBARS is ZAP_POS.
+- **C locus:** `mthrowu.c` `hits_bars`/`hit_bars`; `zap.c` `bhit`
+  THROWN/KICKED; `dothrow.c` `throwit`→`bhit`; `trap.c` `launch_obj`;
+  `dothrow.c` `harmless_missile` (local helper).
+- **Fix:** port size/class hit test + break/whang/acid dissolve/hammer
+  bar-break; wire `bhit` + `throwit` + `launch_obj` with `point_blank`
+  / `!rn2(5)` / `!rn2(20)` always_hit arms.
+- **Deferred:** costly_gold / donate_gold; barefoot petrify; tmp_at
+  flash; Blind feel; Soundeffect enums; melee wielded `hit_bars`
+  (hack.c) callers; mon `m_throw` hits_bars if still thin.
+- **Verify:** green+strict PASS; kick/throw cohort **7**/8 (seed0009
+  Scr 72/73 pre-existing); cadence @#1260 **43**/44. Rule #2: no fs.
+
 ## D-0989 — Is_box kick + container_impact + chest_trap + ghitm
 
 - **Status:** fixed (map-driven debt retirement)
