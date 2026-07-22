@@ -513,7 +513,7 @@ export async function newgame() {
     // C ref: allmain.c newgame() — u_on_upstairs before makedog
     u_on_upstairs();
     // C ref: allmain.c → makedog() (skipped when preferred_pet === 'n')
-    makedog();
+    await makedog();
 
     // C ref: allmain.c → u_init_inventory_attrs() (after makedog)
     await u_init_inventory_attrs();

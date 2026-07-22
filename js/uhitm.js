@@ -1235,7 +1235,7 @@ async function light_hits_gremlin(mon, dmg) {
  * Envelope: disguised mimic wakeup/seemimic; sleep awaken; blind + flee
  * RNG; gremlin light_hits; resists_blnd illuminate msgs; unlit More.
  * Named omit: mhidden_description / glyph-diff exact pline; shieldeff
- * resists_blnd_by_arti; see_monster_closeup (camera caller).
+ * resists_blnd_by_arti. Camera caller wires see_monster_closeup (D-0999).
  * @returns {Promise<number>} 1 if noticeable effect, else 0
  */
 export async function flash_hits_mon(mtmp, otmp) {

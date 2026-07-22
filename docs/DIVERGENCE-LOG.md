@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0999 — ParanoidBreakwand getlin + see_monster_closeup
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0998 — `do_break_wand` used plain
+  yn; camera/makedog deferred `see_monster_closeup` (`debt.md` apply).
+- **C locus:** `cmd.c` `paranoid_ynq`/`paranoid_query`; `apply.c`
+  `do_break_wand` / `do_blinding_ray`; `mon.c` `see_monster_closeup`;
+  `dog.c` `makedog`; `end.c` quit/bones/die callers.
+- **Fix:** port getlin "yes" paranoid_ynq (+ ParanoidConfirm loop);
+  wire ParanoidBreakwand / Quit / Die / Bones; camera photo closeup +
+  Tourist EXP; makedog starting-pet seen_close.
+- **Deferred:** ParanoidPray getlin (still yn); `see_nearby_monsters`
+  allmain/vision wire; transient_light_cleanup.
+- **Verify:** green+strict PASS; startup/apply cohort **10**/11
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0998 — dopay robbed / angry appease + debit
 
 - **Status:** fixed (map-driven debt retirement)
