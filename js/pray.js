@@ -7,7 +7,8 @@
 // Branch envelope: ParanoidPray → paranoid_query(ParanoidConfirm) (D-1000)
 // + wizard Force (D-0517) + #pray ublesscnt-too-soon (p_type 0) →
 // angrygods; p_type 3 → pleased You_feel + action rn1 + TROUBLE_HIT
-// fix_worst_trouble (D-0920) + ublesscnt rnz(350); #offer not-on-altar;
+// fix_worst_trouble (D-0920) + TROUBLE_LYCANTHROPE you_unwere (D-1004)
+// + ublesscnt rnz(350); #offer not-on-altar;
 // Knight/Cleric #turn chant + exercise + undead iter + nomul;
 // digactualhole altar → desecrate_altar; angrygods 0–8 + default zap
 // (punish/attrcurse/rndcurse/summon_minion/god_zaps_you).
@@ -57,11 +58,12 @@ import {
     PM_KNIGHT,
     PM_CLERIC,
 } from './generated/monsters_data.js';
+import { you_unwere } from './were.js';
 import {
     IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, A_NONE, A_LAWFUL, A_NEUTRAL,
     A_CHAOTIC, GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY, PARANOID_CONFIRM,
     LL_CONDUCT,
-    LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd,
+    LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd, ismnum,
     DIED, KILLED_BY, Is_astralevel, M_SEEN_REFL, M_SEEN_ELEC, M_SEEN_DISINT,
     W_ARMS, W_ARMC, W_ARM,
     XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
@@ -76,6 +78,7 @@ const STRIDENT = 4; // pray.c
 const DEVOUT = 14; // pray.c
 // C: pray.c TROUBLE_* (priority via in_trouble order, not magnitude)
 const TROUBLE_HIT = 7;
+const TROUBLE_LYCANTHROPE = 6;
 // C: pray.c godvoices[]
 const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
 
@@ -175,9 +178,10 @@ function critically_low_hp(only_if_injured) {
 
 /**
  * C ref: pray.c in_trouble — major/minor trouble ranking.
- * Ported: TROUBLE_HIT via critically_low_hp (D-0920).
+ * Ported: TROUBLE_HIT via critically_low_hp (D-0920);
+ * TROUBLE_LYCANTHROPE via ismnum(ulycn) (D-1004).
  * Named omissions: Stoned/Slimed/Strangled/Lava/Sick/Starving/Region
- * and all later major/minor arms (lycanthrope…hallucination).
+ * and later major/minor arms after lycanthrope (collapsing…hallucination).
  */
 function in_trouble() {
     const u = game.u || {};
@@ -186,12 +190,15 @@ function in_trouble() {
     if ((!Upolyd(u) || unchanging) && critically_low_hp(false)) {
         return TROUBLE_HIT;
     }
+    // C: after TROUBLE_HIT — ismnum(u.ulycn) → TROUBLE_LYCANTHROPE
+    if (ismnum(u.ulycn)) return TROUBLE_LYCANTHROPE;
     return 0;
 }
 
 /**
  * C ref: pray.c fix_worst_trouble — divine repair of one trouble code.
- * Ported: TROUBLE_HIT (You_feel + rnd(5) uhpmax boost + full heal).
+ * Ported: TROUBLE_HIT (You_feel + rnd(5) uhpmax boost + full heal);
+ * TROUBLE_LYCANTHROPE → you_unwere(TRUE) (D-1004).
  * Named omissions: all other TROUBLE_* cases.
  */
 async function fix_worst_trouble(trouble) {
@@ -216,6 +223,10 @@ async function fix_worst_trouble(trouble) {
         game.flags.botl = true;
         break;
     }
+    case TROUBLE_LYCANTHROPE:
+        // C: you_unwere(TRUE);
+        await you_unwere(true);
+        break;
     default:
         break;
     }

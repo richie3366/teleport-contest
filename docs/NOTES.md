@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1270** (Scr **11404**/11405 RNG **100%**
-  speed `30+0.27/turn`). Next cadence @**#1275**.
+- Local suite **43**/44 @**#1275** (Scr **11404**/11405 RNG **100%**
+  speed `31+0.27/turn`). Next cadence @**#1280**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1003** warnreveal + overexert_hp + Upolyd eel regen_hp.
-- **Next cluster:** absent.md thin (potion/scroll/vault); or
-  potion/mhitm/pray you_were wires; or next_to_u/check_leash.
+- Latest: **D-1004** pray TROUBLE_LYCANTHROPE + peffect_water/vapor +
+  mon_poly youmonst AD_POLY.
+- **Next cluster:** next_to_u/check_leash; or absent.md thin
+  (scroll/vault / other potions); or mon_poly monster-defender.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  warnreveal/overexert/eel (D-1003) or drop `objects_at` from timeout
+  lycan you_were wires (D-1004) or drop `objects_at` from timeout
   mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -50,8 +51,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1270**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1275**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
 - **D-1003:** warnreveal + overexert_hp + Upolyd eel regen_hp.
 - **D-1002:** allmain Teleport/Poly/ulycn once-per-turn + mvl_change.
 - **D-1001:** ParanoidWerechange/Hit + you_were/unwere + mtimedone
@@ -68,5 +70,4 @@ Objective/score live in `CURRENT.md`.
   + dropz/dodrop/throwit/breakobj.
 - **D-0993:** globby pudding_merge/obj_meld + flooreffects/make_corpse.
 - **D-0992:** fire_damage/doaltarobj/hot potion + dropx/flooreffects.
-- **D-0991:** costly_gold/donate_gold + addtobill coin/gltmp + kick.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

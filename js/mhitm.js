@@ -5,7 +5,7 @@
 import { rn2, rnd, d } from './rng.js';
 import { distmin, m_at, record_mvitals_died, undead_to_corpse, monnear } from './mon.js';
 import { game } from './gstate.js';
-import { pline, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible } from './display.js';
+import { pline, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import { resist_conflict } from './mondata.js';
@@ -34,6 +34,7 @@ import {
     MGIVENNAME,
     ONAME_NO_FLAGS,
     G_GENOD,
+    POLY_NOFLAGS,
 } from './const.js';
 import {
     verysmall, G_FREQ, G_NOCORPSE, G_UNIQ, is_neuter, nonliving,
@@ -51,6 +52,8 @@ import { Monnam, mon_nam, oname, pmname } from './do_name.js';
 import { an } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham } from './makemon.js';
+import { polyself } from './polyself.js';
+import { you_were, you_unwere } from './were.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
@@ -227,11 +230,56 @@ export function get_mattk(magr, i, mdef = undefined) {
     return attk;
 }
 
+/** C ref: youprop.h Antimagic — H || E flat. */
+function Antimagic(u = game.u || {}) {
+    return !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+}
+
+/** C ref: youprop.h Unchanging — H || E flat. */
+function Unchanging(u = game.u || {}) {
+    return !!(u.Unchanging || u.HUnchanging || u.EUnchanging);
+}
+
+/**
+ * C ref: mhitm.c mon_poly — AD_POLY metamorphosis.
+ * Ported: mdef == youmonst lycanthropy / polyself arms (D-1004).
+ * Named omissions: monster-defender resist/newcham/system-shock / tele
+ * follow-up; shieldeff flash.
+ * @returns {Promise<number>} remaining damage (0 when shape-change applied)
+ */
+export async function mon_poly(magr, mdef, dmg) {
+    void magr;
+    const isyou = mdef == null || mdef === game.youmonst || !!(mdef && mdef._youmonst);
+    if (isyou) {
+        const u = game.u || {};
+        if (Antimagic(u)) {
+            // shieldeff(u.ux, u.uy) deferred
+        } else if (Unchanging(u)) {
+            // just take a little damage
+        } else if ((u.ulycn | 0) === NON_PM) {
+            await pline('You are subjected to a freakish metamorphosis.');
+            await polyself(POLY_NOFLAGS);
+            dmg = 0;
+        } else if ((u.umonnum | 0) !== (u.ulycn | 0)) {
+            await You_feel('an unnatural urge coming on.');
+            await you_were();
+            dmg = 0;
+        } else {
+            await You_feel('a natural urge coming on.');
+            await you_unwere(false);
+            dmg = 0;
+        }
+        return dmg | 0;
+    }
+    // Monster-defender mon_poly deferred (newcham / system shock / resist)
+    return dmg | 0;
+}
+
 export {
     AT_NONE, AT_CLAW, AT_BITE, AT_KICK, AT_BUTT, AT_TUCH, AT_STNG, AT_HUGS,
     AT_SPIT, AT_ENGL, AT_BREA, AT_EXPL, AT_BOOM, AT_GAZE, AT_TENT,
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
-    AD_DRDX, AD_DRCO, AD_SITM, AD_SEDU, AD_SSEX,
+    AD_DRDX, AD_DRCO, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
     could_seduce,
 };
 

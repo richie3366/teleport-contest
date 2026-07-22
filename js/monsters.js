@@ -700,6 +700,21 @@ export function is_vampshifter(mon) {
     if (cham < LOW_PM) return false;
     return is_vampire(mons(cham));
 }
+
+/**
+ * C ref: mondata.c hates_blessings — undead or demon type.
+ */
+export function hates_blessings(ptr) {
+    return is_undead(ptr) || is_demon(ptr);
+}
+
+/**
+ * C ref: mondata.c mon_hates_blessings — vampshifter or hates_blessings(data).
+ */
+export function mon_hates_blessings(mon) {
+    return is_vampshifter(mon) || hates_blessings(mon?.data);
+}
+
 /** C ref: mondata.h vampshifted — vampshifter currently not in vampire form */
 export function vampshifted(mon) {
     return is_vampshifter(mon) && mon?.data?.mlet !== 'S_VAMPIRE';

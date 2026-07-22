@@ -996,3 +996,18 @@ animate_statue wire; forget_temple_entry; full replshk/worm/light.
   sparkle/golem/ignite.
 - Verification: green+strict PASS; zap/shared cohort **24**/24 PASS.
 - Next: sink-fall; lavawall/burn; flute/harp/horn. Cadence @**#1245**.
+
+## 2026-07-22 03:45 — #1260 cadence + D-0990 hits_bars
+
+**Objective:** mandatory full `sessions` @#1260; map-driven
+`hits_bars`/`hit_bars` (CURRENT next cluster).
+**C locus:** `mthrowu.c` hits_bars/hit_bars; `zap.c` bhit;
+`dothrow.c` throwit; `trap.c` launch_obj.
+**Changed:** port hits_bars/hit_bars + harmless_missile helper;
+wire bhit/throwit/launch_obj point_blank arms — D-0990.
+**Verified:** green+strict PASS; kick/throw cohort **7**/8
+(seed0009 Scr 72/73 pre-existing); cadence **43**/44 Scr
+11404/11405 RNG 100% speed `32+0.27/turn`. Rule #2: no fs.
+**Next:** costly_gold/donate_gold; flooreffects fire/globby;
+absent.md thin; barefoot petrify / tmp_at.
+**Blocked:** none.

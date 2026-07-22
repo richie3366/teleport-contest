@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1004 — potion/mhitm/pray lycanthropy you_were wires
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-1003 — `you_were`/`you_unwere`
+  existed but pray `TROUBLE_LYCANTHROPE`, potion holy/unholy water +
+  vapor, and `mon_poly` hero AD_POLY arms were unwired.
+- **C locus:** `pray.c` `in_trouble`/`fix_worst_trouble`
+  `TROUBLE_LYCANTHROPE`; `potion.c` `peffect_water` + `potionbreathe`
+  `POT_WATER`; `mhitm.c` `mon_poly` youmonst; `uhitm.c` `mhitm_ad_poly`
+  mhitu; `mondata.c` `mon_hates_blessings`/`hates_blessings`.
+- **Fix:** wire TROUBLE_LYCANTHROPE → `you_unwere(TRUE)`; port
+  `peffect_water` + vapor lycan arms; `mon_poly` hero branch + mhitu
+  AD_POLY; `hates_blessings`/`mon_hates_blessings`.
+- **Deferred:** other in_trouble majors/minors; `make_sick` body;
+  `mon_poly` monster-defender newcham/system-shock; shieldeff;
+  next_to_u/check_leash.
+- **Verify:** green+strict PASS; pray/potion/combat cohort **16**/17
+  (seed0009 Scr 72/73 pre-existing). Cadence @#1275 **43**/44.
+  Rule #2: no fs.
+
 ## D-1003 — warnreveal + overexert_hp + Upolyd eel regen_hp
 
 - **Status:** fixed (map-driven debt retirement)
@@ -18,7 +38,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   out-of-water heal=-1 with Regeneration/Breathless/Half_physical gates;
   moveloop Upolyd eel always enters `regen_hp`.
 - **Deferred:** mfind0 set_msg_xy / display_nhwindow flush; rehumanize on
-  mh<1 at regen_hp; potion/mhitm you_were wires; next_to_u/check_leash.
+  mh<1 at regen_hp; potion/mhitm you_were wires → **D-1004**; next_to_u/check_leash.
 - **Verify:** green+strict PASS; allmain cohort **36**/37
   (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 
