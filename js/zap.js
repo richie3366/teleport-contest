@@ -26,7 +26,7 @@
 // EReflecting bits; ureflects W_WEP/W_AMUL/W_ARM/silver-dragon arms
 // beyond shield makeknown; create_polymon after poly_zapped;
 // do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
-// blank_novel / corpse revive→rot timer; shop stolen_value;
+// blank_novel / corpse revive→rot timer;
 // cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
 // acid_damage/erode_armor; death-breath disintegrate_arm;
@@ -99,7 +99,7 @@ import { newcham, makemon, monhp_per_lvl, neweshk, add_to_minv } from './makemon
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize } from './polyself.js';
-import { costly_alteration } from './shk.js';
+import { costly_alteration, stolen_value, costly_spot, shop_keeper } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish } from './read.js';
@@ -2249,8 +2249,9 @@ function obfree_corpse(obj) {
 
 /**
  * C ref: zap.c revive — invent/minvent/floor + container/buried +
- * cant_revive zombie/doppel + montraits/omonst + ghost recorporealize.
- * Named omit: shop stolen_value; cant_finish_meal; Rider delobj_core force;
+ * cant_revive zombie/doppel + montraits/omonst + ghost recorporealize +
+ * shop stolen_value (D-0983).
+ * Named omit: cant_finish_meal; Rider delobj_core force;
  * animate_statue caller of montraits.
  * @returns {Promise<object|null>} revived monst or null
  */
@@ -2396,9 +2397,15 @@ async function revive(corpse, by_hero) {
     if (by_hero) {
         x = used.ox | 0;
         y = used.oy | 0;
+        const carried = used.where === OBJ_INVENT
+            || (game.invent || []).includes(used);
+        let shkp = null;
+        if (costly_spot(x, y)
+            && (carried ? used.unpaid : !used.no_charge)) {
+            const rooms = in_rooms(x, y, SHOPBASE) || '';
+            shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0);
+        }
         if (cansee(x, y)) {
-            const carried = used.where === OBJ_INVENT
-                || (game.invent || []).includes(used);
             const prefix = one_of ? 'one of ' : '';
             const own = carried ? 'your ' : 'the ';
             let nm = xname(used) || 'corpse';
@@ -2409,8 +2416,13 @@ async function revive(corpse, by_hero) {
             await pline(`${up} glows iridescently.`);
             if (!game.iflags) game.iflags = {};
             game.iflags.last_msg = PLNMSG_OBJ_GLOWS;
+        } else if (shkp) {
+            await pline('A corpse is resuscitated.');
         }
-        // shop stolen_value deferred
+        // don't charge for shopkeeper's own corpse if we just revived him
+        if (shkp && mtmp !== shkp) {
+            await stolen_value(used, x, y, !!shkp.mpeaceful, false);
+        }
     }
 
     // C: recorporealization of an active ghost via OMID

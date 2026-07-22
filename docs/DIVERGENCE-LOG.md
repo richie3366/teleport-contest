@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0983 — shop `stolen_value` + revive/kick/dig/lock callers
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0982 — shop bill for removed /
+  destroyed / altered floor goods deferred at revive, `impact_drop`,
+  `bury_objs`, `breakchestlock`, and remote `costly_alteration`.
+- **C locus:** `shk.c` `stolen_value`/`stolen_container`/`find_objowner`/
+  `picked_container`/`contained_gold`; callers in `zap.c` `revive`,
+  `dokick.c` `impact_drop`, `dig.c` `bury_objs`, `lock.c`
+  `breakchestlock`, `mkobj.c` `costly_alteration`.
+- **Fix:** port `stolen_value` envelope (+ helpers); wire revive shop
+  charge, impact_drop silent bill + debit/robbed chase, bury
+  merchandise owe, chest destroy shatter bill, floor-remote
+  costly_alteration. Deferred: `ship_object` callers; remaining kick
+  object/SDOOR arms; SetVoice; unpaid `splitbill`.
+- **Verification:** green+strict PASS; dig/zap cohort **19**/20
+  (seed0009 Scr 72/73 pre-existing).
+- **Files:** `js/shk.js`, `js/zap.js`, `js/dokick.js`, `js/dig.js`,
+  `js/lock.js`.
+
 ## D-0982 — montraits/omonst/ghost recorporealize
 
 - **Status:** fixed (map-driven debt retirement)

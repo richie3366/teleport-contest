@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 02:42 — #1253 D-0983 stolen_value
+
+**Objective:** map-driven — retire shop `stolen_value` debt
+(CURRENT next cluster: revive/kick/dig/lock callers).
+**C locus:** `shk.c` stolen_value/stolen_container/find_objowner/
+picked_container; callers zap revive, dokick impact_drop, dig
+bury_objs, lock breakchestlock, mkobj costly_alteration.
+**Changed:** port stolen_value envelope + wire named callers —
+D-0983. Deferred: ship_object; remaining kick object/SDOOR;
+SetVoice; unpaid splitbill.
+**Verified:** green+strict PASS; dig/zap cohort **19**/20 (seed0009
+Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** ship_object shop-floor fall; absent.md thin.
+**Blocked:** none.
+
 ## 2026-07-22 02:35 — #1252 D-0982 montraits/ghost
 
 **Objective:** map-driven — retire montraits/omonst/ghost

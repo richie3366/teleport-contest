@@ -33,7 +33,7 @@ import {
     confdir, losehp, maybe_half_phys, nomul,
 } from './hack.js';
 import { objectNames } from './generated/objects_data.js';
-import { WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, POTION_CLASS } from './objects.js';
+import { WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, POTION_CLASS, COIN_CLASS } from './objects.js';
 import { CLR_WHITE } from './terminal.js';
 import {
     is_watch, is_flyer, is_floater, grounded, MZ_HUGE, passes_walls,
@@ -431,16 +431,32 @@ export async function bury_an_obj(otmp, dealloced) {
 
 /**
  * C ref: dig.c bury_objs — bury every floor object at <x,y>.
- * Named omit: shop stolen_value / "owe … for burying merchandise".
+ * Shop stolen_value + bury merchandise owe (D-0983).
  */
 export async function bury_objs(x, y) {
+    const rooms = in_rooms(x, y, SHOPBASE) || '';
+    const { shop_keeper, costly_spot, stolen_value } = await import('./shk.js');
+    const { shkname } = await import('./shknam.js');
+    const shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0);
+    const costly = !!(shkp && costly_spot(x, y));
+    let loss = 0;
+    const currency = (amt) => ((amt | 0) === 1 ? 'zorkmid' : 'zorkmids');
+
     for (let otmp = objects_at(x, y); otmp; ) {
-        // costly stolen_value arm deferred (named omit)
+        if (costly && !game.context?.mon_moving) {
+            loss += await stolen_value(otmp, x, y, !!shkp.mpeaceful, true);
+            if ((otmp.oclass | 0) !== COIN_CLASS) otmp.no_charge = 1;
+        }
         otmp = await bury_an_obj(otmp, null);
     }
     del_engr_at(x, y);
     newsym(x, y);
     // maybe_unhide_at deferred
+    if (costly && loss) {
+        await pline(
+            `You owe ${shkname(shkp)} ${loss} ${currency(loss)} for burying merchandise.`,
+        );
+    }
 }
 
 /**
@@ -518,7 +534,7 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
  * fall goto_level + shopdig(1) pack snatch; mon teleport_pet migrate;
  * impact_drop floor objs through hole.
  * Named omit: switch_terrain; buried_ball_to_punishment;
- * make_angry_shk; impact_drop shop stolen_value.
+ * make_angry_shk; ship_object callers.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
     const lev = game.level?.at(x, y);

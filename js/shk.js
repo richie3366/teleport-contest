@@ -24,8 +24,8 @@
 // dopay: debit/robbed/angry appease; used-up/container bill arms;
 // traditional itemize ynq; observe_object/makeknown in shk_names_obj;
 // getpos pay-whom; container paydoname rewrite; contained_cost;
-// stolen_value floor-remote arm of costly_alteration; billobjs residual
-// when sub_one_frombill partial quan; nextoid shop-price oid match;
+// billobjs residual when sub_one_frombill partial quan; nextoid shop-price
+// oid match; stolen_value callers beyond revive/kick/dig/lock/costly_alteration;
 // SetVoice; copy_oextra / free_omid / Is_candle on bill_dummy;
 // ghod_hitsu; clear_no_charge shop-rival filter / buriedobjlist;
 // mbodypart/body_part lunge text; sleep(1) door-yank pause.
@@ -38,6 +38,7 @@ import {
     ESHK, EPRI, IS_ROOM, IS_DOOR, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE,
     ACH_SHOP, SVALL, ROWNO, COLNO,
     OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, OBJ_FREE, OBJ_DELETED,
+    OBJ_ONBILL,
     NO_ROOM, TEMPLE, RLOC_MSG, RLOC_NOMSG,
     DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
@@ -67,7 +68,7 @@ import {
     is_human, is_demon, nolimbs, is_floater, is_flyer, amorphous, M1_SLITHY,
 } from './monsters.js';
 import { nhgetch } from './input.js';
-import { paint_corner_nhw_menu } from './invent.js';
+import { paint_corner_nhw_menu, count_contents } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
 import { enexto, rloc_to_flag } from './teleport.js';
@@ -1056,8 +1057,8 @@ function freeinv_shopdig(obj) {
 /**
  * C ref: mkobj.c costly_alteration — shop bill for modified unpaid goods.
  * Branch envelope: invent/free unpaid verbalize+bill_dummy; floor same-
- * shop verbalize+bill_dummy.
- * Named omission: floor remote stolen_value; SetVoice.
+ * shop verbalize+bill_dummy; floor remote stolen_value (D-0983).
+ * Named omission: SetVoice.
  */
 export async function costly_alteration(obj, alter_type) {
     if (!obj) return;
@@ -1106,9 +1107,224 @@ export async function costly_alteration(obj, alter_type) {
                 `You ${verb} ${those}, you pay for ${them}!`,
             );
             await bill_dummy_object(obj);
+        } else {
+            await stolen_value(obj, ox, oy, false, false);
         }
-        // else stolen_value deferred
     }
+}
+
+/**
+ * C ref: shk.c onshopbill — whether obj is on shk's bill.
+ */
+function onshopbill(obj, shkp, silent) {
+    return !!onbill(obj, shkp, silent);
+}
+
+/**
+ * C ref: shk.c find_objowner — owning shk for obj at <x,y> (or on bill).
+ * Named omit: next_shkp surcharge rile during scan is via next_shkp helper.
+ */
+export function find_objowner(obj, x, y) {
+    if (!obj) return null;
+    let deflt_shkp = null;
+    if (obj.where === OBJ_ONBILL) {
+        let walk = next_shkp(0, true);
+        while (walk.shkp) {
+            if (onshopbill(obj, walk.shkp, true)) return walk.shkp;
+            walk = next_shkp(walk.nextIdx, true);
+        }
+        return null;
+    }
+    const where = in_rooms(x, y, SHOPBASE) || '';
+    for (let i = 0; i < where.length; i++) {
+        const shkp = shop_keeper(where.charCodeAt(i));
+        if (!shkp) continue;
+        if (onshopbill(obj, shkp, true)) return shkp;
+        if (!deflt_shkp) deflt_shkp = shkp;
+    }
+    return deflt_shkp;
+}
+
+/**
+ * C ref: shk.c contained_gold — sum COIN_CLASS quan (+ nested when known).
+ */
+function contained_gold(obj, even_if_unknown) {
+    let value = 0;
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === COIN_CLASS) {
+            value += otmp.quan | 0;
+        } else if (Has_contents(otmp) && (otmp.cknown || even_if_unknown)) {
+            value += contained_gold(otmp, even_if_unknown);
+        }
+    }
+    return value;
+}
+
+/**
+ * C ref: shk.c picked_container — clear no_charge on all nested contents.
+ */
+export function picked_container(obj) {
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        otmp.no_charge = 0;
+        if (Has_contents(otmp)) picked_container(otmp);
+    }
+}
+
+/**
+ * C ref: shk.c stolen_container — price of nested unpaid/bill contents.
+ */
+function stolen_container(obj, shkp, price, ininv) {
+    let p = price | 0;
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === COIN_CLASS) continue;
+        let billamt = 0;
+        const holder = { shkp };
+        if (!billable(holder, otmp, ESHK(shkp)?.shoproom, true)) {
+            const bp = onbill(otmp, holder.shkp || shkp, false);
+            if (!bp) continue;
+            billamt = (bp.bquan | 0) * (bp.price | 0);
+            sub_one_frombill(otmp, holder.shkp || shkp);
+        }
+        if (billamt) {
+            p += billamt;
+        } else if (ininv ? otmp.unpaid : !otmp.no_charge) {
+            p += get_pricing_units(otmp) * get_cost(otmp, shkp);
+        }
+        if (Has_contents(otmp)) {
+            p = stolen_container(otmp, shkp, p, ininv);
+        }
+    }
+    return p;
+}
+
+/**
+ * C ref: shk.c stolen_value — charge debit/robbed for removed shop goods.
+ * Branch envelope: find_objowner/billable/onbill; container + gold; peaceful
+ * credit+owe / angry thief + hot_pursuit + angry_guards.
+ * Named omissions: check_credit pline_The reused via local msg path only;
+ * SetVoice; Hallu currency.
+ * @returns {Promise<number>} charged value
+ */
+export async function stolen_value(obj, x, y, peaceful, silent) {
+    if (!obj) return 0;
+    let value = 0;
+    let gvalue = 0;
+    let billamt = 0;
+    let roomno = 0;
+    let bp = null;
+    let shkp = find_objowner(obj, x, y);
+    if (shkp) {
+        roomno = ESHK(shkp)?.shoproom | 0;
+    } else {
+        const rooms = in_rooms(x, y, SHOPBASE) || '';
+        roomno = rooms ? rooms.charCodeAt(0) : 0;
+    }
+
+    const was_unpaid = !!obj.unpaid;
+    let c_count = 0;
+    let u_count = 0;
+    if (Has_contents(obj)) {
+        c_count = count_contents(obj, true, false, true, false);
+        u_count = count_contents(obj, true, false, false, false);
+    }
+
+    shkp = null;
+    const holder = { shkp: null };
+    if (!billable(holder, obj, roomno, true)) {
+        shkp = holder.shkp;
+        bp = onbill(obj, shkp, false);
+        if (bp) {
+            billamt = (bp.bquan | 0) * (bp.price | 0);
+            sub_one_frombill(obj, shkp);
+        }
+        if (!bp && !u_count) return 0;
+    } else {
+        shkp = holder.shkp;
+    }
+    if (!shkp) return 0;
+
+    if ((obj.oclass | 0) === COIN_CLASS) {
+        gvalue += obj.quan | 0;
+    } else {
+        if (billamt) value += billamt;
+        else if (!obj.no_charge) {
+            value += get_pricing_units(obj) * get_cost(obj, shkp);
+        }
+        if (Has_contents(obj)) {
+            const ininv = obj.where === OBJ_INVENT || obj.where === OBJ_FREE;
+            value += stolen_container(obj, shkp, 0, ininv);
+            if (!ininv) gvalue += contained_gold(obj, true);
+        }
+    }
+
+    if (gvalue + value === 0) return 0;
+    value += gvalue;
+
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return 0;
+
+    if (peaceful) {
+        const credit_use = !!(eshkp.credit | 0);
+        // C check_credit with pline_The (pay path keeps silent check_credit)
+        {
+            let credit = eshkp.credit | 0;
+            if (credit) {
+                if (credit >= value) {
+                    await pline('The price is deducted from your credit.');
+                    eshkp.credit = credit - value;
+                    value = 0;
+                } else {
+                    await pline('The price is partially covered by your credit.');
+                    eshkp.credit = 0;
+                    value -= credit;
+                }
+            }
+        }
+        if (ANGRY(shkp)) eshkp.robbed = (eshkp.robbed | 0) + value;
+        else eshkp.debit = (eshkp.debit | 0) + value;
+
+        if (!silent) {
+            let still = '';
+            if (credit_use) {
+                if (eshkp.credit | 0) {
+                    await pline(
+                        `You have ${eshkp.credit} ${currency(eshkp.credit)} credit remaining.`,
+                    );
+                    return value;
+                }
+                if (!value) {
+                    await pline('You have no credit remaining.');
+                    return 0;
+                }
+                still = 'still ';
+            }
+            let buf = `${still}owe ${shkname(shkp)} ${value} ${currency(value)}`;
+            if (u_count) {
+                buf += ` for ${was_unpaid ? 'it and ' : ''}${
+                    c_count > u_count ? 'some of ' : ''
+                }its contents`;
+            } else if ((obj.oclass | 0) !== COIN_CLASS) {
+                buf += ` for ${(obj.quan | 0) > 1 ? 'them' : 'it'}`;
+            }
+            await pline(`You ${buf}!`);
+        }
+    } else {
+        eshkp.robbed = (eshkp.robbed | 0) + value;
+        if (!silent) {
+            const pln = String(game.plname || '');
+            if (canseemon(shkp)) {
+                await Norep(
+                    `${Shknam(shkp)} booms: "${pln}, you are a thief!"`,
+                );
+            } else if (!hero_deaf()) {
+                await Norep('You hear a scream, "Thief!"');
+            }
+        }
+        hot_pursuit(shkp);
+        const { angry_guards } = await import('./mon.js');
+        await angry_guards(false);
+    }
+    return value;
 }
 
 /**

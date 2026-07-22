@@ -23,14 +23,14 @@ import {
     overexertion, losehp, maybe_half_phys, in_rooms, in_town,
 } from './hack.js';
 import { set_wounded_legs, legs_in_no_shape, b_trapped, t_at } from './trap.js';
-import { setmangry, seemimic } from './mon.js';
+import { setmangry, seemimic, angry_guards } from './mon.js';
 import { mon_nam, Monnam } from './do_name.js';
 import { martial_bonus, use_skill } from './weapon.js';
 import {
     verysmall, bigmonst, thick_skinned, nohands, haseyes,
     is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch,
 } from './monsters.js';
-import { objectNames } from './objects.js';
+import { objectNames, COIN_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { stairway_at } from './mklev.js';
 import { ok_to_quest } from './quest.js';
@@ -43,7 +43,12 @@ import {
     RIGHT_SIDE, TIMEOUT, FOOT, SHOPBASE, SHOP_DOOR_COST,
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, TRAPDOOR, is_hole, Is_stronghold, Is_botlevel, In_endgame,
+    ESHK, Has_contents,
 } from './const.js';
+import {
+    costly_spot, shop_keeper, stolen_value, picked_container, hot_pursuit,
+} from './shk.js';
+import { shkname, Shknam } from './shknam.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
@@ -618,9 +623,9 @@ export function drop_to(cc, loc, x, y) {
 /**
  * C ref: dokick.c impact_drop — player/missile impact drops floor objs down.
  * Branch envelope: down_gate/drop_to; boulder/rock rn2 skip; extract +
- * add_to_migration; visible fall messages via gate_str.
- * Named omit: stolen_value / picked_container shop bill; hot_pursuit /
- * angry_guards thief messages when debit/robbed change.
+ * add_to_migration; visible fall messages via gate_str; shop stolen_value
+ * + picked_container + debit/robbed chase (D-0983).
+ * Named omit: ship_object callers.
  * @param {object|null} missile  caused impact; won't drop itself
  * @param {number} x
  * @param {number} y
@@ -639,13 +644,30 @@ export async function impact_drop(missile, x, y, dlev) {
         cc.y = dlev | 0;
     }
 
-    // costly_spot / stolen_value shop billing deferred (named omit)
+    const costly = costly_spot(x, y);
+    let price = 0;
+    let debit = 0;
+    let robbed = 0;
+    let angry = false;
+    let shkp = null;
+    if (costly) {
+        const rooms = in_rooms(x, y, SHOPBASE) || '';
+        shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0);
+        if (shkp) {
+            const eshk = ESHK(shkp);
+            debit = eshk?.debit | 0;
+            robbed = eshk?.robbed | 0;
+            angry = !shkp.mpeaceful;
+        }
+    }
+
     const isrock = !!(missile && (missile.otyp | 0) === ROCK);
     let oct = 0;
     let dct = 0;
     const u = game.u || {};
     const uball = u.uball;
     const uchain = u.uchain;
+    const currency = (amt) => ((amt | 0) === 1 ? 'zorkmid' : 'zorkmids');
 
     for (let obj = objects_at(x, y); obj; ) {
         const obj2 = obj.nexthere;
@@ -665,7 +687,14 @@ export async function impact_drop(missile, x, y, dlev) {
             continue;
         }
         obj_extract_self(obj);
-        // stolen_value / picked_container / no_charge shop arms deferred
+        if (costly) {
+            const roomsHere = in_rooms(x, y, SHOPBASE) || '';
+            const peaceful = !!(costly_spot(u.ux | 0, u.uy | 0)
+                && (u.urooms || '').includes(roomsHere[0] || ''));
+            price += await stolen_value(obj, x, y, peaceful, true);
+            if (Has_contents(obj)) picked_container(obj);
+            if ((obj.oclass | 0) !== COIN_CLASS) obj.no_charge = 0;
+        }
         add_to_migration(obj);
         obj.ox = cc.x | 0;
         obj.oy = cc.y | 0;
@@ -695,5 +724,36 @@ export async function impact_drop(missile, x, y, dlev) {
             );
         }
     }
-}
 
+    if (costly && shkp && price) {
+        const eshk = ESHK(shkp);
+        if ((eshk?.robbed | 0) > robbed) {
+            await pline(
+                `You removed ${price} ${currency(price)} worth of goods!`,
+            );
+            if (cansee(shkp.mx | 0, shkp.my | 0)) {
+                if (!(eshk.customer || '')[0]) {
+                    eshk.customer = String(game.plname || '').slice(0, 32);
+                }
+                if (angry) {
+                    await pline(`${Shknam(shkp)} is infuriated!`);
+                } else {
+                    await pline(`"${game.plname || ''}, you are a thief!"`);
+                }
+            } else {
+                const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
+                    || u.uroleplay?.deaf || u.Deaf);
+                if (!Deaf) await pline('You hear a scream, "Thief!"');
+            }
+            hot_pursuit(shkp);
+            await angry_guards(false);
+            return;
+        }
+        if ((eshk?.debit | 0) > debit) {
+            const amt = (eshk.debit | 0) - debit;
+            await pline(
+                `You owe ${shkname(shkp)} ${amt} ${currency(amt)} for goods lost.`,
+            );
+        }
+    }
+}
