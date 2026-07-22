@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0978** `ignite_items` / `catch_lit` / `begin_burn` /
-  `burn_away_slime` + LS_OBJECT / BURN_OBJECT.
-- **Next cluster:** release_hold WAN_OPENING / flash_hits; then
-  absent.md / other debt.
+- Latest port: **D-0979** `release_hold` + `flash_hits_mon` /
+  `light_hits_gremlin` + WAN_OPENING / WAN_LIGHT wire.
+- **Next cluster:** absent.md thin systems or other debt.md
+  (opening trap/saddle/SPE_KNOCK hurtle; montraits; shop stolen_value).
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -39,17 +39,9 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … impact_drop (D-0961),
-  conjoined/autodig/boulder-fill (D-0962), desecrate/god_zaps (D-0963),
-  revive container/cant_revive (D-0964), ice/burn/fireball (D-0965),
-  Ring_on/float_down (D-0966), bury/unearth/obj_ice (D-0967), explode
-  AD_FIRE combat (D-0968), angrygods 4–8/`rndcurse` (D-0969),
-  `toggle_stealth` (D-0970), AD_COLD/ELEC explode (D-0971),
-  `do_earthquake`/`do_pit` (D-0972), MAGM/DISN/DRST/ACID explode
-  (D-0973), flute/harp/horn/`awaken_soldiers` (D-0974), lavawall
-  spines / burn feedback (D-0975), `dosinkfall` (D-0976),
-  passtune/open/close_drawbridge (D-0977), or ignite/catch_lit/
-  begin_burn/burn_away_slime (D-0978).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through ignite/
+  catch_lit/begin_burn/burn_away_slime (D-0978) or release_hold /
+  flash_hits_mon (D-0979).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - `dighole` boulder arm returns false like C (no hole remains).
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -62,6 +54,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1245**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `31+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0979:** release_hold + flash_hits_mon / light_hits_gremlin.
 - **D-0978:** ignite_items / catch_lit / begin_burn / burn_away_slime.
 - **D-0977:** passtune + open/close_drawbridge + Mastermind hints.
 - **D-0976:** `dosinkfall` + sink `spoteffects` + `ELevitation` mirror.
@@ -74,5 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0969:** angrygods 4–8 + gods_angry/rndcurse + cursed_book.
 - **D-0968:** explode AD_FIRE mon/hero + explosionmask + mon_explodes.
 - **D-0967:** bury_objs/unearth_objs/obj_ice_effects + melt/freeze wire.
-- **D-0966:** Ring_on/off learnring/adjust_attrib + float_down.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

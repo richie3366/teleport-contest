@@ -657,7 +657,7 @@ export function setmangry(mtmp, via_attack) {
  * C ref: mon.c wake_nearto / wake_nearto_core — clear sleep/wait in radius.
  * Named omissions: disturb_buried_zombies; petcall whistletime.
  */
-async function wake_nearto(x, y, distance) {
+export async function wake_nearto(x, y, distance) {
     for (const m of game.fmon || []) {
         if (!m || m.mx == null || (m.mhp | 0) <= 0) continue;
         if (distance === 0 || dist2(m.mx, m.my, x, y) < distance) {

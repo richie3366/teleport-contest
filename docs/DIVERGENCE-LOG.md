@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0979 — release_hold WAN_OPENING + flash_hits_mon
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — break/zap WAN_OPENING left `u.ustuck`
+  held; `bhitm` WAN_LIGHT no-op'd flash; camera FLASHED_LIGHT skipped
+  minvis `flash_hits_mon`.
+- **Cause:** `release_hold` / full `flash_hits_mon` never ported after
+  break-wand IMMEDIATE arms (D-0952); apply kept a thin local flash.
+- **Fix:** port `zap.c release_hold` (swallow/sticks/held); wire
+  `do_break_wand` + `zapyourself` + `bhitm` WAN_OPENING/SPE_KNOCK
+  ustuck path; move `flash_hits_mon`/`light_hits_gremlin` to
+  `uhitm.js` (mimic wakeup, gremlin dmg, unlit More); wire `bhitm`
+  WAN_LIGHT + FLASHED_LIGHT minvis continue. Deferred: openholding/
+  openfalling trap, Punished/boxlock_invent, SPE_KNOCK hurtle/saddle,
+  mhidden_description glyph pline, shieldeff, camera closeup.
+- **Verification:** green+strict PASS; zap/apply cohort **34**/35
+  (seed0009 Scr 72/73 pre-existing on HEAD).
+- **Files:** `js/zap.js`, `js/apply.js`, `js/uhitm.js`, `js/mhitu.js`,
+  `js/mon.js`, `js/monmove.js`, `docs/c-js-map/debt.md`.
+
 ## D-0978 — ignite_items / catch_lit / begin_burn / burn_away_slime
 
 - **Status:** fixed (map-driven debt retirement)

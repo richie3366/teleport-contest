@@ -19,7 +19,7 @@
 // strike/cancel/poly/tele/undead(+unturn_dead); RAY WAN_DIGGING/SPE_DIG
 // → zap_dig (dig.c).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing/opening/healing; zap_map; spell ubuzz; mon_reflects;
+// probing/opening trap+saddle+SPE_KNOCK hurtle; zap_map; spell ubuzz; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR; wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
@@ -34,7 +34,7 @@
 // destroy_items elec body; ugolemeffects; burn_away_slime;
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
-// flash_hits WAN_LIGHT bhitm; trap_ice_effects;
+// flash_hits WAN_LIGHT bhitm (D-0979); trap_ice_effects;
 // Underwater/utrap lava arms.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
@@ -76,7 +76,7 @@ import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
-import { killed, xkilled } from './uhitm.js';
+import { killed, xkilled, flash_hits_mon } from './uhitm.js';
 import { mon_nam, Monnam, christen_monst, hliquid } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
@@ -89,7 +89,8 @@ import { create_gas_cloud } from './region.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick } from './lock.js';
-import { monflee } from './monmove.js';
+import { monflee, sticks } from './monmove.js';
+import { digests, set_ustuck, unstuck, expels } from './mhitu.js';
 import { newcham, makemon } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
@@ -165,6 +166,8 @@ const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
 const WAN_UNDEAD_TURNING = objectNames.indexOf('WAN_UNDEAD_TURNING');
 const SPE_TURN_UNDEAD = objectNames.indexOf('SPE_TURN_UNDEAD');
+const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
+const SPE_KNOCK = objectNames.indexOf('SPE_KNOCK');
 const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
 const WAN_COLD = objectNames.indexOf('WAN_COLD');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
@@ -1888,6 +1891,48 @@ export function learnwand(obj) {
 }
 
 /**
+ * C ref: zap.c release_hold — free hero from ustuck / uswallow / sticks.
+ * Named omit: status UHold botl polish only (set_ustuck already sets botl).
+ */
+export async function release_hold() {
+    const u = game.u || {};
+    const mtmp = u.ustuck;
+    if (!mtmp) {
+        // impossible("release_hold when not held?")
+        return;
+    }
+    if (u.uswallow) {
+        if (digests(mtmp.data)) {
+            if (!Blind()) {
+                await pline(`${Monnam(mtmp)} opens its mouth!`);
+            } else {
+                await You_feel('a sudden rush of air!');
+            }
+        }
+        await expels(mtmp, mtmp.data, true);
+    } else if (sticks(game.youmonst?.data)) {
+        set_ustuck(null);
+        await You(`release ${mon_nam(mtmp)}.`);
+    } else {
+        await unstuck(u.ustuck);
+        let relbuf;
+        if (!nohands(mtmp.data)) {
+            // C: s_suffix(mon_nam) + " grasp"
+            const nam = mon_nam(mtmp);
+            const poss = (!nam) ? nam
+                : (nam === 'it' || nam === 'It') ? 'its'
+                    : (nam.endsWith('s') || nam.endsWith('z') || nam.endsWith('x')
+                        || nam.endsWith('ch') || nam.endsWith('sh'))
+                        ? `${nam}'` : `${nam}'s`;
+            relbuf = `from ${poss} grasp`;
+        } else {
+            relbuf = `by ${mon_nam(mtmp)}`;
+        }
+        await You(`are released ${relbuf}.`);
+    }
+}
+
+/**
  * C ref: zap.c zapnodir — NODIR wand effects.
  * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit only.
  */
@@ -2563,9 +2608,11 @@ async function miss_msg(str, mtmp) {
  * C ref: zap.c bhitm — monster hit by wand/spell effect.
  * Envelope (break-wand / IMMEDIATE): WAN_STRIKING, WAN_UNDEAD_TURNING
  * (damage; invent unturn_dead deferred), WAN_POLYMORPH, WAN_CANCELLATION,
- * WAN_TELEPORTATION, WAN_LIGHT (flash_hits deferred → no-op).
- * Named omit: slow/speed/locking/probing/opening/healing/make-invis;
- * long-worm mcorpsenm polish; Knight questart double; spell_damage_bonus.
+ * WAN_TELEPORTATION, WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
+ * (release_hold when ustuck).
+ * Named omit: slow/speed/locking/probing/opening trap+saddle+SPE_KNOCK
+ * hurtle; long-worm mcorpsenm polish; Knight questart double;
+ * spell_damage_bonus.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -2676,7 +2723,24 @@ export async function bhitm(mtmp, otmp) {
         learn_it = canspotmon(mtmp);
         break;
     case WAN_LIGHT:
-        // flash_hits_mon deferred (camera path has a local copy)
+        // C: broken-wand / IMMEDIATE light flash on monster
+        if (await flash_hits_mon(mtmp, otmp)) {
+            learn_it = true;
+            reveal_invis = true;
+        }
+        break;
+    case WAN_OPENING:
+    case SPE_KNOCK:
+        if (disguised_mimic) {
+            // that_is_a_mimic box_or_door deferred → seemimic
+            seemimic(mtmp);
+        }
+        wake = false; // don't want immediate counterattack
+        if (mtmp === game.u?.ustuck) {
+            await release_hold();
+            learn_it = true;
+        }
+        // openholdingtrap / openfallingtrap / SPE_KNOCK hurtle / saddle deferred
         break;
     default:
         break;
@@ -2695,7 +2759,9 @@ export async function bhitm(mtmp, otmp) {
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / WAN_SLEEP /
  * SPE_SLEEP / WAN_DEATH / SPE_FINGER_OF_DEATH / WAN_POLYMORPH /
  * SPE_POLYMORPH / WAN_STRIKING / WAN_CANCELLATION / WAN_TELEPORTATION /
- * WAN_UNDEAD_TURNING / WAN_LIGHT; other otyps named in C-JS-MAP.
+ * WAN_UNDEAD_TURNING / WAN_LIGHT / WAN_OPENING / SPE_KNOCK;
+ * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
+ * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
  */
@@ -2820,6 +2886,16 @@ export async function zapyourself(obj, ordinary) {
     case WAN_LIGHT:
         // broken wand: lightdamage + flashburn deferred → no hero dmg
         damage = 0;
+        break;
+
+    case WAN_OPENING:
+    case SPE_KNOCK:
+        if (game.u?.ustuck) {
+            await release_hold();
+            learn_it = true;
+        }
+        // Punished unpunish / openholdingtrap / boxlock_invent /
+        // openfallingtrap deferred
         break;
 
     case WAN_FIRE:

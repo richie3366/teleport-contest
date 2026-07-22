@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 02:08 — #1249 D-0979 release_hold/flash_hits
+
+**Objective:** map-driven — retire release_hold WAN_OPENING /
+flash_hits from CURRENT next cluster / debt.
+**Changed:** port `zap.c release_hold`; wire break/zapyourself/bhitm
+WAN_OPENING; move `flash_hits_mon`/`light_hits_gremlin` to uhitm;
+wire WAN_LIGHT + FLASHED_LIGHT minvis (D-0979). Docs: CURRENT/NOTES/
+debt/divergence/journal.
+**Verified:** green+strict PASS; zap/apply cohort **34**/35
+(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
+**Next:** absent.md thin systems or remaining debt (opening traps /
+SPE_KNOCK hurtle; montraits; shop stolen_value).
+**Blocked:** none.
+
 ## 2026-07-22 01:58 — #1248 D-0978 ignite/burn/slime
 
 **Objective:** map-driven — retire ignite_items / burn_away_slime
@@ -221,19 +235,3 @@ pre-existing Scr 72/73). Rule #2: no fs.
 - Next: ice melt / `burn_floor_objects` / fireball; float_down /
   learnring / adjust_attrib; angrygods 4–8.
 
-## 2026-07-22 00:26 — #1233 D-0963 desecrate_altar / god_zaps
-
-- Objective: map-driven — retire dig `desecrate_altar`/`god_zaps_you`
-  under fortress.
-- C locus: `pray.c` `desecrate_altar`/`god_zaps_you`/`fry_by_god`;
-  `do_wear.c` `disintegrate_arm`; `minion.c` `lminion`/`summon_minion`;
-  caller `dig.c` `digactualhole`.
-- Change: port wrath cluster + armor strip + minion summon; wire
-  hero/obj altar dig after furniture-fall msg (D-0963). Deferred:
-  angrygods cases 4–8; music.c desecrate; shieldeff/SetVoice;
-  ureflects non-shield; selftouch/cancel_don.
-- Verification: green+strict PASS; dig/pray cohort 16/16 PASS
-  (incl. seed0017 altar-pray). Suite fortress held (no full cadence;
-  next @#1235).
-- Next: revive container/buried; ice melt / burn_floor_objects /
-  fireball; Ring_off polish. Cadence @#1235.

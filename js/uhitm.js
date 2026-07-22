@@ -9,7 +9,7 @@ import {
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK,
-    M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
+    M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
     MIM_REVEAL, engulfing_u, OBJ_FREE, MON_DETACH,
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
     HAND, A_LAWFUL,
@@ -20,7 +20,8 @@ import {
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, acurr, adjalign, change_luck } from './attrib.js';
 import { overexertion, nomul, losehp } from './hack.js';
-import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible } from './display.js';
+import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more } from './display.js';
+import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
     dbon, weapon_dam_bonus, use_skill, weapon_type,
@@ -28,7 +29,7 @@ import {
 import { ammo_and_launcher } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
 import {
-    find_mac, get_mattk, make_corpse, mhitm_knockback,
+    find_mac, get_mattk, make_corpse, mhitm_knockback, monkilled,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
 } from './mhitm.js';
@@ -40,12 +41,12 @@ import {
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
 } from './mkobj.js';
-import { monnear, record_mvitals_died, seemimic, wakeup, setmangry } from './mon.js';
+import { monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2, wake_nearto } from './mon.js';
 import { monflee } from './monmove.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { mon_explodes } from './explode.js';
-import { mon_nam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
+import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
 import { artifact_hit, youmonst } from './artifact.js';
 import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.js';
 import { abuse_dog } from './dog.js';
@@ -73,10 +74,12 @@ const AD_CORR = 42;
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
+const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
+const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 // C objclass.h ARM_SHIELD — armor oc_skill / oc_armcat
 const ARM_SHIELD = 1;
 
@@ -1093,6 +1096,125 @@ async function that_is_a_mimic(mtmp, mimic_flags) {
 
     if (msg) await pline(msg);
     if (reveal_it) seemimic(mtmp);
+}
+
+/**
+ * C ref: mondata.c resists_blnd — mon already-blind / noeyes / sleeping;
+ * AD_BLND expl/gaze and artifact arms deferred.
+ */
+function resists_blnd_mon(mtmp) {
+    if (!mtmp) return true;
+    if (!haseyes(mtmp.data)) return true;
+    if (!mtmp.mcansee || (mtmp.mblinded | 0) || mtmp.msleeping) return true;
+    return false;
+}
+
+/**
+ * C ref: uhitm.c light_hits_gremlin — light damage + cry + wake_nearto.
+ * Named omissions: SetVoice; map_invisible when !canspotmon after hit.
+ */
+async function light_hits_gremlin(mon, dmg) {
+    if (!mon) return;
+    const mx = mon.mx | 0;
+    const my = mon.my | 0;
+    const u = game.u || {};
+    const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+    const dx = (mx) - (u.ux | 0);
+    const dy = (my) - (u.uy | 0);
+    const dist = dx * dx + dy * dy;
+    if (!Deaf && dist <= 90) {
+        const half = ((mon.mhp | 0) / 2) | 0;
+        await pline(
+            `${Monnam(mon)} ${
+                (dmg | 0) > half ? 'wails in agony' : 'cries out in pain'
+            }!`,
+        );
+    } else if (canseemon(mon)) {
+        await pline(`${Monnam(mon)} recoils from the light!`);
+    }
+    mon.mhp = (mon.mhp | 0) - (dmg | 0);
+    await wake_nearto(mx, my, 30);
+    if ((mon.mhp | 0) < 1) {
+        if (game.context?.mon_moving) {
+            await monkilled(mon, null, 10 /* AD_BLND */);
+        } else {
+            await killed(mon);
+        }
+    } else if (cansee(mx, my) && !canspotmon(mon)) {
+        map_invisible(mx, my);
+    }
+}
+
+/**
+ * C ref: uhitm.c flash_hits_mon — flash/light effect on monster.
+ * Envelope: disguised mimic wakeup/seemimic; sleep awaken; blind + flee
+ * RNG; gremlin light_hits; resists_blnd illuminate msgs; unlit More.
+ * Named omit: mhidden_description / glyph-diff exact pline; shieldeff
+ * resists_blnd_by_arti; see_monster_closeup (camera caller).
+ * @returns {Promise<number>} 1 if noticeable effect, else 0
+ */
+export async function flash_hits_mon(mtmp, otmp) {
+    if (!mtmp || game.notonhead) return 0;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const lev = game.level?.at(mx, my);
+    const useeit = canseemon(mtmp);
+    let res = 0;
+
+    if (M_AP_TYPE(mtmp) !== M_AP_NOTHING) {
+        // C: mhidden_description + glyph_at before/after pline deferred
+        await wakeup(mtmp, false); // → seemimic for non-M_AP_MONSTER
+    }
+
+    if (mtmp.msleeping && haseyes(mtmp.data)) {
+        mtmp.msleeping = 0;
+        if (useeit) {
+            await pline(`The flash awakens ${mon_nam(mtmp)}.`);
+            res = 1;
+        }
+    } else if (mtmp.data?.mlet !== 'S_LIGHT') {
+        if (!resists_blnd_mon(mtmp)) {
+            const tmp = dist2(otmp?.ox | 0, otmp?.oy | 0, mx, my);
+            if (useeit) {
+                await pline(`${Monnam(mtmp)} is blinded by the flash!`);
+                res = 1;
+            }
+            const mndx = mtmp.data?.mndx ?? mtmp.mnum ?? -1;
+            if ((mtmp.mnum | 0) === PM_GREMLIN || mndx === PM_GREMLIN) {
+                const amt = (otmp?.otyp | 0) === WAN_LIGHT
+                    ? d(1 + (otmp.spe | 0), 4)
+                    : rnd(Math.min(mtmp.mhp | 0, 4));
+                await light_hits_gremlin(mtmp, amt);
+            }
+            if ((mtmp.mhp | 0) > 0) {
+                if (!game.context?.mon_moving) {
+                    setmangry(mtmp, true);
+                }
+                if (tmp < 9 && !mtmp.isshk && rn2(4)) {
+                    await monflee(mtmp, rn2(4) ? rnd(100) : 0, false, true);
+                }
+                mtmp.mcansee = 0;
+                mtmp.mblinded = tmp < 3 ? 0 : rnd(1 + ((50 / tmp) | 0));
+            }
+        } else if (useeit) {
+            // resists_blnd_by_arti shieldeff deferred
+            if (game.flags?.verbose !== false) {
+                if (lev?.lit) {
+                    await pline(`The flash of light shines on ${mon_nam(mtmp)}.`);
+                } else {
+                    await pline(`${Monnam(mtmp)} is illuminated.`);
+                }
+                res = 2; // temporary 'message given'
+            }
+        }
+    }
+    if (res) {
+        if (!lev?.lit) {
+            await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, TRUE)
+        }
+        res &= 1;
+    }
+    return res & 1;
 }
 
 /**
