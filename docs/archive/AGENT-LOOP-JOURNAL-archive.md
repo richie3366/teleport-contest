@@ -1,3 +1,17 @@
+## 2026-07-22 04:10 — #1263 D-0993 globby pudding_merge/obj_meld
+
+**Objective:** map-driven — globby coalesce cluster (CURRENT next).
+**C locus:** `mkobj.c` obj_nexto_xy/obj_absorb/obj_meld/
+pudding_merge_message/Is_pudding; `do.c` flooreffects; `invent.c`
+mergable/merged; `mon.c` make_corpse pudding.
+**Change:** Is_pudding mksobj init + globby weight; absorb/meld/
+nexto/message; thin shrink_glob; wire flooreffects + invent merged
++ make_corpse GLOB path (D-0993).
+**Verification:** green+strict PASS; drop/throw cohort **20**/21
+(seed0009 Scr 72/73 pre-existing). Rule #2 ok.
+**Next:** sellobj/check_shop_obj; or barefoot petrify/tmp_at; or
+absent.md thin. Cadence full sessions @#1265.
+
 ## 2026-07-22 04:00 — #1262 D-0992 flooreffects fire/altar/hot
 
 **Objective:** map-driven — remaining flooreffects arms (CURRENT

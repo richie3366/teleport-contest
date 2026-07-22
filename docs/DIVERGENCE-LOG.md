@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1007 — apply whistle cluster (tin/magic + eucalyptus)
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — TIN_WHISTLE / MAGIC_WHISTLE / blessed
+  EUCALYPTUS_LEAF apply fell through to "don't know how to use".
+- **C locus:** `apply.c` `use_whistle`/`use_magic_whistle`/`magic_whistled`;
+  `mondata.c` `can_blow`; `mon.c` `wake_nearby` petcall whistletime;
+  `vault.c` `vault_summon_gd`; `teleport.c` `tele_to_rnd_pet`.
+- **Fix:** port whistle envelope into `doapply`; `can_blow`;
+  `wake_nearby(TRUE)` EDOG.whistletime + track clear; cursed tin
+  `vault_summon_gd`; cursed magic wake + `tele_to_rnd_pet`;
+  `magic_whistled` tame `mnexto`/`mintrap` + discover/cumulative pline;
+  eucalyptus leaf bless/wear-off arm.
+- **Deferred:** Soundeffect; Hallu hcolor on eucalyptus brown glow;
+  mintrap `last_msg` detection when pline does not set iflags;
+  full `is_silent` msound tables for poly `can_blow`.
+- **Verify:** green+strict PASS; apply/pet cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1006 — mon_poly monster-defender + newcham null-mdat
 
 - **Status:** fixed (map-driven debt retirement)

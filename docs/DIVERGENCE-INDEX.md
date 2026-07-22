@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1007 | fixed | apply whistle: use_whistle/magic_whistle + can_blow/vault_summon_gd/tele_to_rnd_pet | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1006 | fixed | mon_poly monster-defender + newcham null-mdat/mbirth_limit | map-driven; green+cohort 15/16 (seed0009 pre-existing; wandpoly PASS) |
 | D-1005 | fixed | apply leash: use_leash/next_to_u/check_leash + m_unleash wires | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1004 | fixed | pray TROUBLE_LYCANTHROPE + peffect_water/vapor + mon_poly youmonst AD_POLY | map-driven; green+cohort 16/17 (seed0009 pre-existing); cadence 43/44 @#1275 |

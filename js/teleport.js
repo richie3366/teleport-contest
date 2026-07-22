@@ -20,6 +20,7 @@ import {
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     MAGIC_PORTAL, RLOC_MSG, RLOC_NOMSG,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
+    MON_FLOOR,
 } from './const.js';
 import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
@@ -788,6 +789,35 @@ export async function teleds(nux, nuy, teleds_flags) {
     // C: spoteffects(TRUE) → move_update detects temple/shop entry
     const { spoteffects } = await import('./pickup.js');
     await spoteffects(true);
+}
+
+/**
+ * C ref: teleport.c tele_to_rnd_pet — cursed magic whistle hero-near-pet.
+ * Reservoir-sample a live on-map pet; if not adjacent, teleds to a
+ * teleok cell in the 3×3 around it (TELEDS_TELEPORT).
+ * Named omit: impossible() on no-teleport attempt.
+ */
+export async function tele_to_rnd_pet() {
+    if (noteleport_level(game.youmonst)) return;
+    let pet = null;
+    let cnt = 0;
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if ((mtmp.mstate | 0) !== MON_FLOOR) continue; // mon_offmap
+        if (!mtmp.mtame) continue;
+        cnt++;
+        if (!rn2(cnt)) pet = mtmp;
+    }
+    if (!pet) return;
+    const u = game.u || {};
+    const dx = (pet.mx | 0) - (u.ux | 0);
+    const dy = (pet.my | 0) - (u.uy | 0);
+    if (dx * dx + dy * dy <= 2) return; // m_next2u
+    const tx = (pet.mx | 0) + rn2(3) - 1;
+    const ty = (pet.my | 0) + rn2(3) - 1;
+    if (isok(tx, ty) && teleok(tx, ty, false)) {
+        await teleds(tx, ty, TELEDS_TELEPORT);
+    }
 }
 
 /**

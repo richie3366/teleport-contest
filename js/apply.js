@@ -20,13 +20,14 @@ import {
     COLNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     ACCESSIBLE, IS_STWALL, IS_DOOR, TELEDS_NO_FLAGS, INTRINSIC,
-    EXT_ENCUMBER, COST_DSTROY, HEAD, HAND,
+    EXT_ENCUMBER, COST_DSTROY, HEAD, HAND, NOSE,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
-    RLOC_NOMSG, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
+    RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
+    PLNMSG_enum, NO_TRAP_FLAGS,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
-import { m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto } from './mon.js';
+import { m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto, wake_nearby } from './mon.js';
 import { compactify_invlets, makeknown, near_capacity } from './invent.js';
 import { rn2, rn1, rnd, d } from './rng.js';
 import {
@@ -34,16 +35,17 @@ import {
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
     unsolid, nolimbs, has_head, breathless,
 } from './monsters.js';
+import { can_blow } from './mondata.js';
 import { wield_tool } from './wield.js';
-import { splitobj, delobj, objects_at } from './mkobj.js';
+import { splitobj, delobj, objects_at, unbless } from './mkobj.js';
 import { xname, the, makeplural } from './objnam.js';
-import { acurr, A_CHA, A_STR } from './attrib.js';
-import { Monnam, mon_nam, x_monnam } from './do_name.js';
+import { acurr, A_CHA, A_STR, change_luck } from './attrib.js';
+import { Monnam, mon_nam, x_monnam, y_monnam } from './do_name.js';
 import { monflee } from './monmove.js';
 import { nomul } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path } from './dothrow.js';
-import { teleds } from './teleport.js';
+import { teleds, tele_to_rnd_pet, noteleport_level } from './teleport.js';
 import { morehungry, use_tin_opener } from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
 import { costly_alteration } from './shk.js';
@@ -51,6 +53,9 @@ import { zappable, release_hold } from './zap.js';
 import { explode } from './explode.js';
 import { flash_hits_mon, xkilled } from './uhitm.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
+import { vault_summon_gd } from './vault.js';
+import { fill_pit } from './dig.js';
+import { mintrap, Trap_Killed_Mon } from './trap.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -94,6 +99,8 @@ const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
 const LEASH = objectNames.indexOf('LEASH');
+const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
+const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
@@ -894,11 +901,12 @@ function make_blinded(xtime, _talk) {
     }
 }
 
-/** C ref: mondata.c body_part — FACE/HEAD/HAND; poly table deferred. */
+/** C ref: mondata.c body_part — FACE/HEAD/HAND/NOSE; poly table deferred. */
 function body_part(part) {
     if (part === FACE) return 'face';
     if (part === HEAD) return 'head';
     if (part === HAND) return 'hand';
+    if (part === NOSE) return 'nose';
     return 'body part';
 }
 
@@ -1646,16 +1654,209 @@ async function use_leash(obj) {
     return ECMD_TIME;
 }
 
+/** C youprop.h Deaf — TIMEOUT/extrinsic/intrinsic/roleplay. */
+function Deaf_hero() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.Deaf || u.uroleplay?.deaf);
+}
+
+/** C youprop.h Underwater. */
+function Underwater_hero() {
+    return !!game.u?.Underwater;
+}
+
+/** C objnam.c Yobjnam2 thin. */
+function Yobjnam2_apply(obj, verb) {
+    const nam = xname(obj);
+    // vtense deferred — glow/glows for singular tools
+    const v = verb === 'glow' ? 'glows' : verb;
+    return `Your ${nam} ${v}`;
+}
+
+/** C hacklib.c upstart. */
+function upstart(str) {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/** C apply.c HowMany for magic_whistled cumulative pline. */
+function HowMany(n) {
+    if ((n | 0) < 2) return 'sqrt(-1)';
+    if ((n | 0) === 2) return 'two';
+    if ((n | 0) === 3) return 'three';
+    if ((n | 0) === 4) return 'four';
+    if ((n | 0) <= 7) return 'several';
+    return 'many';
+}
+
+/**
+ * C ref: apply.c use_whistle — tin whistle (and uncursed eucalyptus).
+ * Branch: !can_blow; Underwater bubbles; else Deaf/You + wake_nearby(TRUE);
+ * cursed → vault_summon_gd.
+ * Named omit: Soundeffect.
+ */
+async function use_whistle(obj) {
+    if (!can_blow(game.youmonst)) {
+        await pline('You are incapable of using the whistle.');
+        return;
+    }
+    if (Underwater_hero()) {
+        await pline(`You blow bubbles through ${yname(obj)}.`);
+        return;
+    }
+    if (Deaf_hero()) {
+        await You_feel(`rushing air tickle your ${body_part(NOSE)}.`);
+    } else {
+        const pitch = obj.cursed ? 'shrill' : 'high';
+        await pline(`You produce a ${pitch} whistling sound.`);
+    }
+    await wake_nearby(true);
+    if (obj.cursed) vault_summon_gd();
+}
+
+/**
+ * C ref: apply.c magic_whistled — tame pets mnexto + mintrap; discover /
+ * cumulative appear/shift/disappear pline when already known.
+ * Named omit: disturb polish; full rloc vanish msgs when undiscovered.
+ */
+async function magic_whistled(obj) {
+    const lf = game.level?.flags || {};
+    if ((lf.stasis_until | 0) >= (game.moves | 0)) return;
+
+    const already = !!game.objects?.[obj.otyp]?.oc_name_known;
+    let shift = 0;
+    let appear = 0;
+    let disappear = 0;
+    let trapped = 0;
+    let shiftbuf = '';
+    let appearbuf = '';
+    let disappearbuf = '';
+    let mnam = '';
+
+    const pets = [...(game.fmon || [])];
+    for (const mtmp of pets) {
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (!mtmp.mtame || mtmp === game.u?.usteed) continue;
+        if (mtmp.mtrapped) {
+            mtmp.mtrapped = 0;
+            fill_pit(mtmp.mx | 0, mtmp.my | 0);
+        }
+        const oseen = canspotmon(mtmp);
+        if (oseen) mnam = y_monnam(mtmp);
+        if (M_AP_TYPE(mtmp)) seemimic(mtmp);
+        const omx = mtmp.mx | 0;
+        const omy = mtmp.my | 0;
+        await mnexto(mtmp, already ? RLOC_NONE : RLOC_MSG);
+        if ((mtmp.mx | 0) !== omx || (mtmp.my | 0) !== omy) {
+            if (mtmp.mundetected) {
+                mtmp.mundetected = 0;
+                newsym(mtmp.mx | 0, mtmp.my | 0);
+            }
+            if (!game.iflags) game.iflags = {};
+            game.iflags.last_msg = PLNMSG_enum;
+            if ((await mintrap(mtmp, NO_TRAP_FLAGS)) === Trap_Killed_Mon) {
+                change_luck(-1);
+            }
+            if ((game.iflags.last_msg | 0) !== PLNMSG_enum) {
+                trapped++;
+                continue;
+            }
+            const nseen = (mtmp.mhp | 0) <= 0 ? false : canspotmon(mtmp);
+            if (nseen) {
+                mnam = y_monnam(mtmp);
+                if (oseen) {
+                    if (++shift === 1) shiftbuf = `${mnam} shifts location`;
+                } else if (++appear === 1) {
+                    appearbuf = `${mnam} appears`;
+                }
+            } else if (oseen) {
+                if (++disappear === 1) disappearbuf = `${mnam} disappears`;
+            }
+        }
+    }
+
+    let buf = '';
+    if (!already) {
+        if (shift + appear + trapped > 0) makeknown(obj.otyp);
+    } else {
+        if (shift > 0) {
+            if (shift > 1) {
+                shiftbuf = `${HowMany(shift)} creatures shift locations`;
+            }
+            buf = upstart(shiftbuf);
+        }
+        if (appear > 0) {
+            if (appear > 1) {
+                appearbuf = `${HowMany(appear)} ${
+                    shift === 0 ? 'creatures'
+                        : shift === 1 ? 'other creatures' : 'others'
+                } appear`;
+            }
+            if (shift === 0) buf = upstart(appearbuf);
+            else buf += `${disappear ? ',' : ' and'} ${appearbuf}`;
+        }
+        if (disappear > 0) {
+            if (disappear > 1) {
+                disappearbuf = `${HowMany(disappear)} ${
+                    shift === 0 && appear === 0 ? 'creatures'
+                        : shift < 2 && appear < 2 ? 'other creatures' : 'others'
+                } disappear`;
+            }
+            if (shift + appear === 0) buf = upstart(disappearbuf);
+            else buf += `${shift && appear ? ',' : ''} and ${disappearbuf}`;
+        }
+    }
+    if (buf) await pline(`${buf}.`);
+}
+
+/**
+ * C ref: apply.c use_magic_whistle — magic whistle / blessed eucalyptus.
+ * Branch: !can_blow; cursed !rn2(2) wake + maybe tele_to_rnd_pet;
+ * else magic_whistled. Named omit: Soundeffect.
+ */
+async function use_magic_whistle(obj) {
+    if (!can_blow(game.youmonst)) {
+        await pline('You are incapable of using the whistle.');
+        return;
+    }
+    if (obj.cursed && !rn2(2)) {
+        const uw = Underwater_hero() ? 'very ' : '';
+        const tone = Deaf_hero()
+            ? 'frequency vibration'
+            : 'pitched humming noise';
+        await pline(`You produce a ${uw}high-${tone}.`);
+        await wake_nearby(true);
+        if (!rn2(2) && !noteleport_level(game.youmonst)) {
+            await tele_to_rnd_pet();
+        }
+        return;
+    }
+    const hallu = !!(game.u?.Hallucination || game.u?.HHallucination);
+    const deaf = Deaf_hero();
+    const uw = Underwater_hero();
+    let adj;
+    if (hallu) adj = 'normal';
+    else if (uw && !deaf) adj = 'strange, high-pitched';
+    else adj = 'strange';
+    if (deaf) {
+        await pline(`You produce a ${adj}, sharp vibration.`);
+    } else {
+        await pline(`You produce a ${adj} whistling sound.`);
+    }
+    await magic_whistled(obj);
+}
+
 /**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
  * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create /
  * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
- * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005).
+ * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005) +
+ * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
- * oil; BoT; Medusa/nymph mirror arms; saddle/whistle;
+ * oil; BoT; Medusa/nymph mirror arms; saddle;
  * break-wand release_hold / flash_hits (D-0979).
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
@@ -1761,6 +1962,37 @@ export async function doapply() {
     if (LEASH >= 0 && obj.otyp === LEASH) {
         const res = await use_leash(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case MAGIC_WHISTLE / TIN_WHISTLE (D-1007)
+    if (MAGIC_WHISTLE >= 0 && obj.otyp === MAGIC_WHISTLE) {
+        await use_magic_whistle(obj);
+        return true; // ECMD_TIME
+    }
+    if (TIN_WHISTLE >= 0 && obj.otyp === TIN_WHISTLE) {
+        await use_whistle(obj);
+        return true; // ECMD_TIME
+    }
+
+    // C apply.c case EUCALYPTUS_LEAF → blessed magic / else tin whistle
+    if (obj.otyp === EUCALYPTUS_LEAF) {
+        if (obj.blessed) {
+            await use_magic_whistle(obj);
+            if (!rn2(49)) {
+                const Blind = !!(game.u?.Blind || game.u?.ublind
+                    || ((game.u?.HBlinded | 0) & TIMEOUT));
+                if (!Blind) {
+                    await pline(
+                        `${Yobjnam2_apply(obj, 'glow')} brown.`,
+                    );
+                    obj.bknown = 1;
+                }
+                unbless(obj);
+            }
+        } else {
+            await use_whistle(obj);
+        }
+        return true; // ECMD_TIME
     }
 
     // Other apply otyps deferred

@@ -15,10 +15,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1006** mon_poly monster-defender + `newcham` null-mdat
-  / mbirth_limit + mdamagem AD_POLY wire.
+- Latest: **D-1007** apply whistle tin/magic + eucalyptus +
+  can_blow / wake_nearby petcall / vault_summon_gd / tele_to_rnd_pet.
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
-  in_trouble majors; or saddle/whistle apply.
+  in_trouble majors; or use_saddle.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -40,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  mon_poly monster-defender/newcham (D-1006) or drop `objects_at` from
+  whistle use_whistle/magic (D-1007) or drop `objects_at` from
   timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
@@ -53,6 +53,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1275**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault/
+  tele_to_rnd_pet.
 - **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
 - **D-1005:** leash use_leash/next_to_u/check_leash + whimper.
 - **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
@@ -68,6 +70,4 @@ Objective/score live in `CURRENT.md`.
   break_statue/dosearch/dotrap wire.
 - **D-0996:** selftouch/mselftouch/minstapetrify + monstone/xkilled.
 - **D-0995:** instapetrify + barefoot kick petrify + bhit DISP_FLASH.
-- **D-0994:** sellobj/check_shop_obj + saleable/set_cost/contained_cost
-  + dropz/dodrop/throwit/breakobj.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

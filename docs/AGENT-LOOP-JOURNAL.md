@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 05:57 — #1278 D-1007 apply whistle
+
+**Objective:** map-driven — TIN/MAGIC whistle + eucalyptus (CURRENT
+next cluster saddle/whistle).
+**C locus:** `apply.c` use_whistle/use_magic_whistle/magic_whistled;
+`mondata.c` can_blow; `mon.c` wake_nearby petcall; `vault.c`
+vault_summon_gd; `teleport.c` tele_to_rnd_pet.
+**Change:** port whistle apply envelope + helpers; wire doapply —
+D-1007.
+**Verified:** green+strict PASS; apply/pet cohort **15**/16
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
+or use_saddle.
+**Blocked:** none.
+
 ## 2026-07-22 05:49 — #1277 D-1006 mon_poly mon-defender
 
 **Objective:** map-driven — mon_poly monster-defender + newcham
@@ -212,16 +227,3 @@ throw/break; billable contained_*; pay→money2u (D-0994).
 (seed0009 pre-existing). Rule #2 ok.
 **Next:** barefoot petrify/tmp_at; or absent.md thin; or dopay
 appease. Cadence full sessions @#1265.
-## 2026-07-22 04:10 — #1263 D-0993 globby pudding_merge/obj_meld
-
-**Objective:** map-driven — globby coalesce cluster (CURRENT next).
-**C locus:** `mkobj.c` obj_nexto_xy/obj_absorb/obj_meld/
-pudding_merge_message/Is_pudding; `do.c` flooreffects; `invent.c`
-mergable/merged; `mon.c` make_corpse pudding.
-**Change:** Is_pudding mksobj init + globby weight; absorb/meld/
-nexto/message; thin shrink_glob; wire flooreffects + invent merged
-+ make_corpse GLOB path (D-0993).
-**Verification:** green+strict PASS; drop/throw cohort **20**/21
-(seed0009 Scr 72/73 pre-existing). Rule #2 ok.
-**Next:** sellobj/check_shop_obj; or barefoot petrify/tmp_at; or
-absent.md thin. Cadence full sessions @#1265.
