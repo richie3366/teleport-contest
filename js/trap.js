@@ -18,7 +18,7 @@ import {
     erosion_matters, delobj, mkcorpstat, add_to_container, obj_extract_self,
     objects_at, splitobj,
 } from './mkobj.js';
-import { find_mac, make_corpse } from './mhitm.js';
+import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone } from './mhitm.js';
 import { mon_explodes } from './explode.js';
 import {
     newsym, pline, urgent_pline, mon_visible, see_with_infrared, You_feel,
@@ -26,7 +26,7 @@ import {
     flush_topl_more,
 } from './display.js';
 import { doname, an, the, The, xname, makeplural, vtense } from './objnam.js';
-import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam } from './do_name.js';
+import { Monnam, mon_nam, x_monnam_tame, y_monnam, noit_Monnam, pmname } from './do_name.js';
 import { dist2, distmin, m_at, wakeup } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at } from './engrave.js';
@@ -38,7 +38,8 @@ import {
     likes_gems, mons, webmaker, throws_rocks,
     is_animal, mindless, haseyes,
     bigmonst, is_golem, is_mplayer, is_rider,
-    nohands, extra_nasty, acidic, poly_when_stoned,
+    nohands, extra_nasty, acidic, poly_when_stoned, touch_petrifies,
+    resists_ston, MALE, FEMALE, NEUTRAL,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE, RECURSIVETRAP,
@@ -75,7 +76,7 @@ import {
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
     OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC,
-    A_LAWFUL,
+    A_LAWFUL, XKILL_NOMSG,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -88,14 +89,14 @@ import {
 } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
-import { dmgval } from './weapon.js';
+import { dmgval, MON_WEP, mwepgone } from './weapon.js';
 import { observe_object, encumber_msg, near_capacity } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign, poisoned,
 } from './attrib.js';
 import { tamedog } from './dog.js';
-import { welded } from './wield.js';
+import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
@@ -106,6 +107,7 @@ import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
 import { polymon } from './polyself.js';
 import { done } from './end.js';
+import { mon_adjust_speed } from './muse.js';
 
 const AD_ELEC = 6;
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
@@ -735,9 +737,27 @@ async function monkilled(mdef, fltxt, _how) {
     await mondied(mdef);
 }
 
-// C ref: trap.c mselftouch — petrify-wield only; no-op for ordinary pets
-function mselftouch(_mon, _arg, _byplayer) {
-    /* MON_WEP CORPSE + touch_petrifies deferred — no RNG when unbound */
+// C ref: trap.c mselftouch — MON_WEP CORPSE + touch_petrifies → minstapetrify
+export async function mselftouch(mon, arg, byplayer) {
+    const mwep = MON_WEP(mon);
+    const CORPSE = objectNames.indexOf('CORPSE');
+    if (mwep && (mwep.otyp | 0) === CORPSE
+        && touch_petrifies(mons(mwep.corpsenm))
+        && !resists_ston(mon)) {
+        if (cansee(mon.mx | 0, mon.my | 0)) {
+            const who = arg
+                ? `${arg}${mon_nam(mon)}`
+                : Monnam(mon);
+            const corpse = `the ${pmname(mwep.corpsenm, NEUTRAL)} corpse`;
+            await pline(`${who} touches ${corpse}.`);
+        }
+        await minstapetrify(mon, byplayer);
+        if ((mon.mhp | 0) > 0
+            && !which_armor(mon, W_ARMG)
+            && !resists_ston(mon)) {
+            mwepgone(mon);
+        }
+    }
 }
 
 // C ref: trap.c wearing_iron_shoes
@@ -1050,7 +1070,7 @@ async function trapeffect_pit(mtmp, trap, trflags) {
         );
         seetrap(trap);
     }
-    mselftouch(mtmp, 'Falling, ', false);
+    await mselftouch(mtmp, 'Falling, ', false);
     if (wearing_iron_shoes(mtmp)) relevant_spikes = false;
     if ((mtmp.mhp | 0) <= 0
         || await thitm(0, mtmp, null, rnd(relevant_spikes ? 10 : 6), false)) {
@@ -1563,7 +1583,8 @@ export async function float_down(hmask, emask) {
                         const { DISMOUNT_FELL } = await import('./const.js');
                         await dismount_steed(DISMOUNT_FELL);
                     }
-                    // selftouch deferred
+                    // C: selftouch("Falling, you")
+                    await selftouch('Falling, you');
                 } else if (u.usteed && (is_floater(u.usteed.data)
                     || is_flyer(u.usteed.data))) {
                     await pline('You settle more firmly in the saddle.');
@@ -1760,7 +1781,6 @@ function body_part(part) {
 /**
  * C ref: trap.c instapetrify — Stone_resistance / poly_when_stoned stone
  * golem short-circuit, else urgent "You turn to stone..." + done(STONING).
- * Named omissions: minstapetrify; selftouch full cockatrice-wield arms.
  * @param {string} str killer text (KILLED_BY)
  */
 export async function instapetrify(str) {
@@ -1779,6 +1799,82 @@ export async function instapetrify(str) {
     game.killer.format = KILLED_BY;
     game.killer.name = str != null ? String(str) : '';
     await done(STONING);
+}
+
+/**
+ * C ref: do_name.c obj_pmname — CORPSE/STATUE/FIGURINE pmnames subset.
+ * Named omission: aligned-cleric → cleric remap; omonst traits.
+ */
+function obj_pmname(obj) {
+    const CORPSE = objectNames.indexOf('CORPSE');
+    const STATUE = objectNames.indexOf('STATUE');
+    const FIGURINE = objectNames.indexOf('FIGURINE');
+    const otyp = obj?.otyp | 0;
+    const cnm = obj?.corpsenm;
+    if ((otyp === CORPSE || otyp === STATUE || otyp === FIGURINE)
+        && cnm != null && cnm >= 0) {
+        const cgend = (obj.spe | 0) & 0x03; // CORPSTAT_GENDER
+        const mgend = cgend === 1 ? MALE : cgend === 2 ? FEMALE : NEUTRAL;
+        return pmname(cnm, mgend);
+    }
+    return 'thing';
+}
+
+/**
+ * C ref: trap.c minstapetrify — resists_ston / poly golem / vamp_stone /
+ * mon_adjust_speed(-3) / turn-to-stone msg / xkilled(stoned) or monstone.
+ * Named omissions: SetVoice; lifesaved polish beyond xkilled/monstone.
+ */
+export async function minstapetrify(mon, byplayer) {
+    if (resists_ston(mon)) return;
+    if (poly_when_stoned(mon.data, game.mvitals)) {
+        await mon_to_stone(mon);
+        return;
+    }
+    if (!(await vamp_stone(mon))) return;
+
+    await mon_adjust_speed(mon, -3, null);
+
+    if (cansee(mon.mx | 0, mon.my | 0)) {
+        await pline(`${Monnam(mon)} turns to stone.`);
+    }
+    if (byplayer) {
+        if (!game.context) game.context = {};
+        game.context.stoned = true;
+        const { xkilled } = await import('./uhitm.js');
+        await xkilled(mon, XKILL_NOMSG);
+    } else {
+        await monstone(mon);
+    }
+}
+
+/**
+ * C ref: trap.c selftouch — wielded / twoweapon cockatrice corpse.
+ * Named omissions: twoweapon hypothetical polish beyond uswapwepgone.
+ * @param {string} arg pline subject prefix ("Falling, you" / "You")
+ */
+export async function selftouch(arg) {
+    const u = game.u || {};
+    const CORPSE = objectNames.indexOf('CORPSE');
+    const Stone_resistance = !!(u.Stone_resistance || u.HStone_resistance
+        || u.EStone_resistance);
+
+    if (u.uwep && (u.uwep.otyp | 0) === CORPSE
+        && touch_petrifies(mons(u.uwep.corpsenm))
+        && !Stone_resistance) {
+        const corpse_pm = obj_pmname(u.uwep);
+        await pline(`${arg} touch the ${corpse_pm} corpse.`);
+        await instapetrify(`${an(corpse_pm)} corpse`);
+        if (!u.uarmg && !Stone_resistance) uwepgone();
+    }
+    if (u.twoweap && u.uswapwep && (u.uswapwep.otyp | 0) === CORPSE
+        && touch_petrifies(mons(u.uswapwep.corpsenm))
+        && !Stone_resistance) {
+        const corpse_pm = obj_pmname(u.uswapwep);
+        await pline(`${arg} touch the ${corpse_pm} corpse.`);
+        await instapetrify(`${an(corpse_pm)} corpse`);
+        if (!u.uarmg && !Stone_resistance) uswapwepgone();
+    }
 }
 
 /** C ref: mondata.c mbodypart — FOOT→"foot"; full poly table deferred. */
@@ -1950,11 +2046,6 @@ function which_armor(mtmp, mask) {
         if ((otmp.owornmask || 0) & mask) return otmp;
     }
     return null;
-}
-
-/** C ref: mon.h MON_WEP */
-function MON_WEP(mtmp) {
-    return which_armor(mtmp, W_WEP);
 }
 
 /**

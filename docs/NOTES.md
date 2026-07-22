@@ -15,9 +15,9 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-0995** instapetrify + barefoot kick + bhit DISP_FLASH.
+- Latest: **D-0996** selftouch/mselftouch/minstapetrify + monstone.
 - **Next cluster:** absent.md thin (potion/scroll/vault); or dopay
-  appease; or selftouch/minstapetrify; or STATUE_TRAP/Blind feel.
+  appease; or STATUE_TRAP/Blind feel.
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
   as recent-port regression.
 
@@ -38,8 +38,8 @@ Objective/score live in `CURRENT.md`.
 - Do not treat @1808 as page-count shim (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through instapetrify
-  (D-0995) or drop `objects_at` from timeout mkobj (D-0980).
+- Do not re-stub TIN … furniture/HOLE (D-0954) … through selftouch/
+  monstone (D-0996) or drop `objects_at` from timeout mkobj (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -51,6 +51,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite @**#1265**: **43**/44 Scr **11404**/11405 RNG **100%**
   speed `30+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0996:** selftouch/mselftouch/minstapetrify + monstone/xkilled.
 - **D-0995:** instapetrify + barefoot kick petrify + bhit DISP_FLASH.
 - **D-0994:** sellobj/check_shop_obj + saleable/set_cost/contained_cost
   + dropz/dodrop/throwit/breakobj.

@@ -19,7 +19,8 @@ This is a planning list, not an exhaustive C file inventory:
   `hits_bars`/`hit_bars` via D-0990; costly_gold/donate_gold via D-0991;
   fire_damage/altar/hot potion via D-0992; globby pudding_merge via
   D-0993; sellobj/check_shop_obj via D-0994; barefoot petrify +
-  `bhit` DISP_FLASH via D-0995;
+  `bhit` DISP_FLASH via D-0995; **selftouch/mselftouch/minstapetrify +
+  monstone** via D-0996;
   throne/`fall_through`/tree via D-0986; SDOOR/altar/fountain/grave/sink
   via D-0985);
 - apply beyond lock-pick no-door (containers, other tools);

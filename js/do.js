@@ -27,6 +27,7 @@ import {
 } from './const.js';
 import {
     seetrap, t_at, delfloortrap, reset_utrap, water_damage, erode_obj,
+    selftouch,
 } from './trap.js';
 import {
     COIN_CLASS, SCROLL_CLASS, SPBOOK_CLASS, POTION_CLASS, objectNames,
@@ -895,15 +896,6 @@ function getlev_catchup_monsters(elapsed) {
 }
 
 /**
- * C ref: trap.c selftouch — stair-fall call site only.
- * Full cockatrice-corpse / twoweapon petrify deferred (no RNG unbound).
- * @param {string} _arg
- */
-async function selftouch_stair_fall(_arg) {
-    /* no-op until touch_petrifies + instapetrify wired */
-}
-
-/**
  * C ref: do.c goto_level — ordinary stairs + in-memory savelev/getlev.
  *
  * Ported: keepdogs → stash (VISITED|LFILE_EXISTS + omoves + track) →
@@ -919,8 +911,8 @@ async function selftouch_stair_fall(_arg) {
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
  * MICRO display_nhwindow after Valley odor; ACH_ENDG/ASTR/BGRM;
- * poly `locomotion()` climb verb / steed-flyer Flying; full `selftouch`
- * petrify; u_collide_m full limbo. Ported: Punished climb
+ * poly `locomotion()` climb verb / steed-flyer Flying;
+ * u_collide_m full limbo. Ported: Punished climb
  * `great_effort` + Flying ladder "along" (D-0928 #1159);
  * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
  * In_quest `onquest`;
@@ -1255,8 +1247,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                     await finish_maybe_wail();
                 }
                 // C: selftouch("Falling, you") — cockatrice corpse petrify
-                // deferred (no-op unless uwep corpse + touch_petrifies wired).
-                await selftouch_stair_fall('Falling, you');
+                await selftouch('Falling, you');
             } else if (game.flags?.verbose !== false) {
                 await pline(atLadder
                     ? 'You climb down the ladder.'

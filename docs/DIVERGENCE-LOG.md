@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0996 — selftouch / mselftouch / minstapetrify + monstone
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0995 — wielded cockatrice-corpse
+  `selftouch`/`mselftouch` were no-ops; `minstapetrify` absent so pit/
+  music falls and glove-loss could not stone; `xkilled` ignored
+  `context.stoned` (corpse instead of statue).
+- **C locus:** `trap.c` `selftouch`/`mselftouch`/`minstapetrify`;
+  `mon.c` `mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned;
+  `weapon.c` `mwepgone`; `makemon`/`mon.c` `newcham` forced-mdat.
+- **Fix:** port selftouch/mselftouch/minstapetrify; mon_to_stone/
+  vamp_stone/monstone; mwepgone; xkilled `stoned`→monstone skip corpse;
+  newcham allows forced mdat for non-shapeshifters (golem petrify);
+  wire stair/sink/Sokoban float_down/music/disintegrate_arm callers.
+- **Deferred:** STATUE_TRAP activate; Blind feel; snuff_candle;
+  lifesaved_monster; flooreffects on ejected boulder; full vamp
+  lapidify plines/expels/enexto; mbirth_limit Nazgul gate; twoweapon
+  corpse polish.
+- **Verify:** green+strict PASS; cohort **15**/16 (seed0009 Scr 72/73
+  pre-existing). Rule #2: no fs.
+
 ## D-0995 — barefoot kick petrify + bhit DISP_FLASH
 
 - **Status:** fixed (map-driven debt retirement)

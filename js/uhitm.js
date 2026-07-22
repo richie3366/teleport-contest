@@ -29,7 +29,7 @@ import {
 import { ammo_and_launcher } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
 import {
-    find_mac, get_mattk, make_corpse, mhitm_knockback, monkilled,
+    find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
 } from './mhitm.js';
@@ -481,11 +481,23 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         }
         await pline(`You ${verb} ${whom}!`);
     }
-    mondead(mtmp);
-    if ((mtmp.mhp | 0) >= 1) return; // lifesaved
+    // C: if (gs.stoned) monstone(mtmp); else mondead(mtmp);
+    const was_stoned = !!(game.context?.stoned);
+    if (was_stoned) {
+        await monstone(mtmp);
+    } else {
+        mondead(mtmp);
+    }
+    if ((mtmp.mhp | 0) >= 1) {
+        if (game.context) game.context.stoned = false;
+        return; // lifesaved
+    }
     const mdat = mtmp.data;
     const mndx = mtmp.mnum ?? mdat?.mndx;
-    if (!nocorpse) {
+    // C: if (gs.stoned) { gs.stoned = FALSE; goto cleanup; }
+    if (was_stoned) {
+        if (game.context) game.context.stoned = false;
+    } else if (!nocorpse) {
         // accessible/pool gate deferred — always attempt RNG like floor tile
         if (!rn2(6)) xkilled_treasure_drop(mtmp, mdat, mndx, x, y);
         // C: if (!wasinside && corpse_chance(...)) make_corpse(...)
