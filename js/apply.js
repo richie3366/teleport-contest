@@ -5,6 +5,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, canseemon, canspotmon, newsym,
+    map_invisible, unmap_invisible, glyph_is_invisible, You_feel,
 } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import {
@@ -21,21 +22,23 @@ import {
     ACCESSIBLE, IS_STWALL, IS_DOOR, TELEDS_NO_FLAGS, INTRINSIC,
     EXT_ENCUMBER, COST_DSTROY, HEAD, HAND,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
+    RLOC_NOMSG, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
-import { m_at, dist2, seemimic, see_monster_closeup } from './mon.js';
+import { m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto } from './mon.js';
 import { compactify_invlets, makeknown, near_capacity } from './invent.js';
 import { rn2, rn1, rnd, d } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
+    unsolid, nolimbs, has_head, breathless,
 } from './monsters.js';
 import { wield_tool } from './wield.js';
 import { splitobj, delobj, objects_at } from './mkobj.js';
 import { xname, the, makeplural } from './objnam.js';
 import { acurr, A_CHA, A_STR } from './attrib.js';
-import { Monnam, mon_nam } from './do_name.js';
+import { Monnam, mon_nam, x_monnam } from './do_name.js';
 import { monflee } from './monmove.js';
 import { nomul } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
@@ -46,7 +49,8 @@ import { yn_function, paranoid_query } from './getline.js';
 import { costly_alteration } from './shk.js';
 import { zappable, release_hold } from './zap.js';
 import { explode } from './explode.js';
-import { flash_hits_mon } from './uhitm.js';
+import { flash_hits_mon, xkilled } from './uhitm.js';
+import { growl, yelp, whimper, mon_msound } from './sounds.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -89,6 +93,8 @@ const CANDELABRUM_OF_INVOCATION =
 const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
+const LEASH = objectNames.indexOf('LEASH');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_NOTHING = objectNames.indexOf('WAN_NOTHING');
@@ -118,6 +124,11 @@ const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_UMBER_HULK = monsterNames.indexOf('PM_UMBER_HULK');
 const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
+/** C apply.c MAXLEASHED. */
+const MAXLEASHED = 2;
+/** C monflag.h MS_SILENT. */
+const MS_SILENT = 0;
 /** C mon.h howmonseen bits — NORMAL suffices for lit-room pets. */
 const MONSEEN_NORMAL = 0x01;
 const MONSEEN_SEEINVIS = 0x02;
@@ -1270,17 +1281,382 @@ async function do_break_wand(obj) {
     return ECMD_TIME;
 }
 
+/** C apply.c um_dist — true if Chebyshev distance to hero > n. */
+function um_dist(x, y, n) {
+    const u = game.u || {};
+    return Math.abs((u.ux | 0) - (x | 0)) > n
+        || Math.abs((u.uy | 0) - (y | 0)) > n;
+}
+
+/** C you.h m_next2u — squared distu ≤ 2. */
+function m_next2u(mtmp) {
+    const u = game.u || {};
+    const dx = (mtmp.mx | 0) - (u.ux | 0);
+    const dy = (mtmp.my | 0) - (u.uy | 0);
+    return dx * dx + dy * dy <= 2;
+}
+
+/** C hacklib.c s_suffix — possessive for leash snap pline. */
+function s_suffix_leash(s) {
+    const str = String(s || '');
+    if (!str) return "'s";
+    const last = str.charAt(str.length - 1);
+    if (last === 's' || last === 'x' || last === 'z'
+        || str.endsWith('ch') || str.endsWith('sh')) {
+        return `${str}'`;
+    }
+    return `${str}'s`;
+}
+
+/** C do_name.c l_monnam — ARTICLE_NONE + called. */
+function l_monnam(mtmp) {
+    return x_monnam(
+        mtmp, ARTICLE_NONE, null,
+        has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0,
+        true,
+    );
+}
+
+/** C you.h mhis — hallu rn2 deferred (leash pull-free msg). */
+function mhis_leash(mtmp) {
+    if (mtmp?.female) return 'her';
+    return 'his';
+}
+
+/**
+ * C ref: wizard.c mon_has_amulet — minvent holds AMULET_OF_YENDOR.
+ */
+export function mon_has_amulet(mtmp) {
+    if (!mtmp || AMULET_OF_YENDOR < 0) return 0;
+    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+        if ((otmp.otyp | 0) === AMULET_OF_YENDOR) return 1;
+    }
+    return 0;
+}
+
+/**
+ * C ref: apply.c number_leashed — invent LEASH with leashmon set.
+ */
+export function number_leashed() {
+    let i = 0;
+    if (LEASH < 0) return 0;
+    for (const obj of game.invent || []) {
+        if ((obj.otyp | 0) === LEASH && (obj.leashmon | 0) !== 0) i++;
+    }
+    return i;
+}
+
+/**
+ * C ref: apply.c get_mleash — invent LEASH attached to mtmp->m_id.
+ */
+export function get_mleash(mtmp) {
+    if (!mtmp || LEASH < 0) return null;
+    const mid = mtmp.m_id | 0;
+    for (const otmp of game.invent || []) {
+        if ((otmp.otyp | 0) === LEASH && (otmp.leashmon | 0) === mid) {
+            return otmp;
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: apply.c o_unleash — clear mleashed on mon matching leashmon.
+ * Named omit: update_inventory redraw.
+ */
+export function o_unleash(otmp) {
+    if (!otmp) return;
+    const lid = otmp.leashmon | 0;
+    if (lid) {
+        for (const mtmp of game.fmon || []) {
+            if ((mtmp.m_id | 0) === lid) {
+                mtmp.mleashed = 0;
+                break;
+            }
+        }
+    }
+    otmp.leashmon = 0;
+}
+
+/**
+ * C ref: apply.c m_unleash — clear leashmon + mleashed; optional feedback.
+ * Named omit: update_inventory redraw; pline_mon SetVoice.
+ */
+export async function m_unleash(mtmp, feedback) {
+    if (!mtmp) return;
+    if (feedback) {
+        if (canseemon(mtmp)) {
+            await pline(
+                `${Monnam(mtmp)} pulls free of ${mhis_leash(mtmp)} leash!`,
+            );
+        } else {
+            await pline('Your leash falls slack.');
+        }
+    }
+    const otmp = get_mleash(mtmp);
+    if (otmp) otmp.leashmon = 0;
+    mtmp.mleashed = 0;
+}
+
+/**
+ * C ref: apply.c unleash_all — bones / death clear.
+ */
+export function unleash_all() {
+    if (LEASH >= 0) {
+        for (const otmp of game.invent || []) {
+            if ((otmp.otyp | 0) === LEASH) otmp.leashmon = 0;
+        }
+    }
+    for (const mtmp of game.fmon || []) {
+        mtmp.mleashed = 0;
+    }
+}
+
+/**
+ * C ref: apply.c leashable — not long worm / unsolid / headless blob.
+ */
+export function leashable(mtmp) {
+    if (!mtmp?.data) return false;
+    const mnum = mtmp.mnum ?? mtmp.data.mndx ?? -1;
+    if (PM_LONG_WORM >= 0 && mnum === PM_LONG_WORM) return false;
+    if (unsolid(mtmp.data)) return false;
+    if (nolimbs(mtmp.data) && !has_head(mtmp.data)) return false;
+    return true;
+}
+
+/**
+ * C ref: apply.c mleashed_next2u — jerk pet adjacent or drop leash.
+ * Returns true when cursed leash blocks next_to_u (get_iter_mons stop).
+ */
+async function mleashed_next2u(mtmp) {
+    if (!mtmp?.mleashed) return false;
+    if (!m_next2u(mtmp)) await mnexto(mtmp, RLOC_NOMSG);
+    if (!m_next2u(mtmp)) {
+        const otmp = get_mleash(mtmp);
+        if (!otmp) {
+            // C: impossible("leashed-unleashed mon?");
+            return true;
+        }
+        if (otmp.cursed) return true;
+        mtmp.mleashed = 0;
+        otmp.leashmon = 0;
+        await You_feel(
+            `${number_leashed() > 1 ? 'a' : 'the'} leash go slack.`,
+        );
+    }
+    return false;
+}
+
+/**
+ * C ref: apply.c next_to_u — leashed pets must stay adjacent; steed+AoY ban.
+ * @returns {Promise<boolean>}
+ */
+export async function next_to_u() {
+    for (const mtmp of game.fmon || []) {
+        if ((mtmp.mhp | 0) <= 0) continue;
+        if (await mleashed_next2u(mtmp)) return false;
+    }
+    const steed = game.u?.usteed;
+    if (steed && mon_has_amulet(steed)) return false;
+    return true;
+}
+
+/**
+ * C ref: apply.c check_leash — stretch/choke/snap after hero moved from (x,y).
+ */
+export async function check_leash(x, y) {
+    if (LEASH < 0) return;
+    const u = game.u || {};
+    for (const otmp of game.invent || []) {
+        if ((otmp.otyp | 0) !== LEASH || (otmp.leashmon | 0) === 0) continue;
+        const mtmp = find_mid(otmp.leashmon | 0, 0);
+        if (!mtmp) {
+            otmp.leashmon = 0;
+            continue;
+        }
+        if (dist2(u.ux | 0, u.uy | 0, mtmp.mx | 0, mtmp.my | 0)
+            > dist2(x | 0, y | 0, mtmp.mx | 0, mtmp.my | 0)) {
+            if (!um_dist(mtmp.mx | 0, mtmp.my | 0, 3)) {
+                // still close enough
+            } else if (otmp.cursed && !breathless(mtmp.data)) {
+                if (um_dist(mtmp.mx | 0, mtmp.my | 0, 5)
+                    || ((mtmp.mhp = (mtmp.mhp | 0) - rnd(2)) <= 0)) {
+                    const save_pacifism = game.u?.uconduct?.killer | 0;
+                    await pline(
+                        `Your leash chokes ${mon_nam(mtmp)} to death!`,
+                    );
+                    await xkilled(mtmp, XKILL_NOMSG);
+                    if ((mtmp.mhp | 0) > 0 && game.u?.uconduct) {
+                        game.u.uconduct.killer = save_pacifism;
+                    }
+                } else {
+                    await pline(
+                        `${Monnam(mtmp)} is choked by the leash!`,
+                    );
+                    if (mtmp.mtame && rn2(mtmp.mtame | 0)) {
+                        mtmp.mtame = (mtmp.mtame | 0) - 1;
+                    }
+                }
+            } else if (um_dist(mtmp.mx | 0, mtmp.my | 0, 5)) {
+                await pline(
+                    `${s_suffix_leash(Monnam(mtmp))} leash snaps loose!`,
+                );
+                await m_unleash(mtmp, false);
+            } else {
+                await pline('You pull on the leash.');
+                if (mon_msound(mtmp) !== MS_SILENT) {
+                    switch (rn2(3)) {
+                    case 0:
+                        await growl(mtmp);
+                        break;
+                    case 1:
+                        await yelp(mtmp);
+                        break;
+                    default:
+                        await whimper(mtmp);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * C ref: cmd.c get_adjacent_loc — getdir then adjacent/self cell for leash.
+ */
+async function get_adjacent_loc_leash() {
+    if (!(await getdir_self_ok(null))) {
+        await pline('Never mind.');
+        return null;
+    }
+    const u = game.u || {};
+    const cc = {
+        x: (u.ux | 0) + (u.dx | 0),
+        y: (u.uy | 0) + (u.dy | 0),
+    };
+    if (!isok(cc.x, cc.y) && !(u.dx === 0 && u.dy === 0 && u.dz === 0)) {
+        return null;
+    }
+    if (u.dx === 0 && u.dy === 0) {
+        cc.x = u.ux | 0;
+        cc.y = u.uy | 0;
+    }
+    return cc;
+}
+
+/**
+ * C ref: apply.c use_leash_core — attach/detach leash at spotted mon.
+ */
+async function use_leash_core(obj, mtmp, cc, spotmon) {
+    const loc = game.level?.at?.(cc.x, cc.y);
+    if (!spotmon && !glyph_is_invisible(loc)) {
+        await pline(
+            `You fail to ${obj.leashmon ? 'un' : ''}leash something.`,
+        );
+        map_invisible(cc.x, cc.y);
+    } else if (!mtmp.mtame) {
+        await pline(
+            `${Monnam(mtmp)} ${!obj.leashmon ? 'cannot be' : 'is not'} leashed!`,
+        );
+    } else if (!obj.leashmon) {
+        if (mtmp.mleashed) {
+            await pline(
+                `This ${spotmon ? l_monnam(mtmp) : 'creature'} is already leashed.`,
+            );
+        } else if (unsolid(mtmp.data)) {
+            await pline('The leash would just fall off.');
+        } else if (nolimbs(mtmp.data) && !has_head(mtmp.data)) {
+            await pline(
+                `${Monnam(mtmp)} has no extremities the leash would fit.`,
+            );
+        } else if (!leashable(mtmp)) {
+            let lmonnam = l_monnam(mtmp);
+            if ((cc.x | 0) !== (mtmp.mx | 0) || (cc.y | 0) !== (mtmp.my | 0)) {
+                lmonnam = `${s_suffix_leash(lmonnam)} tail`;
+            }
+            await pline(
+                `The leash won't fit onto ${spotmon ? 'your ' : ''}${lmonnam}.`,
+            );
+        } else {
+            await pline(
+                `You slip the leash around ${spotmon ? 'your ' : ''}${l_monnam(mtmp)}.`,
+            );
+            mtmp.mleashed = 1;
+            obj.leashmon = mtmp.m_id | 0;
+            mtmp.msleeping = 0;
+        }
+    } else if ((obj.leashmon | 0) !== (mtmp.m_id | 0)) {
+        await pline('This leash is not attached to that creature.');
+    } else if (obj.cursed) {
+        await pline('The leash would not come off!');
+        obj.bknown = 1;
+    } else {
+        mtmp.mleashed = 0;
+        obj.leashmon = 0;
+        await pline(
+            `You remove the leash from ${spotmon ? 'your ' : ''}${l_monnam(mtmp)}.`,
+        );
+    }
+}
+
+/**
+ * C ref: apply.c use_leash — apply LEASH (getdir + attach/detach).
+ * Named omit: engulfer You_cant phrasing polish beyond noit_mon_nam.
+ */
+async function use_leash(obj) {
+    const u = game.u || {};
+    if (u.uswallow) {
+        const stuck = u.ustuck;
+        const nam = stuck ? mon_nam(stuck) : 'it';
+        if (!obj.leashmon) {
+            await pline(`You can't leash ${nam} from inside.`);
+        } else if (stuck && (obj.leashmon | 0) === (stuck.m_id | 0)) {
+            await pline(`You can't unleash ${nam} from inside.`);
+        } else {
+            await pline(`You can't unleash anything from inside ${nam}.`);
+        }
+        return ECMD_OK;
+    }
+    if (!obj.leashmon && number_leashed() >= MAXLEASHED) {
+        await pline('You cannot leash any more pets.');
+        return ECMD_OK;
+    }
+
+    const cc = await get_adjacent_loc_leash();
+    if (!cc) return ECMD_OK;
+
+    if ((cc.x | 0) === (u.ux | 0) && (cc.y | 0) === (u.uy | 0)) {
+        if (u.usteed && (u.dz | 0) > 0) {
+            await use_leash_core(obj, u.usteed, cc, 1);
+            return ECMD_TIME;
+        }
+        await pline('Leash yourself?  Very funny...');
+        return ECMD_OK;
+    }
+
+    const mtmp = m_at(cc.x, cc.y);
+    if (!mtmp) {
+        await pline('There is no creature there.');
+        unmap_invisible(cc.x, cc.y);
+        return ECMD_TIME;
+    }
+
+    await use_leash_core(obj, mtmp, cc, canspotmon(mtmp) ? 1 : 0);
+    return ECMD_TIME;
+}
+
 /**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
  * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create /
  * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
- * is_pick/is_axe → use_pick_axe (D-0951).
+ * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
- * oil; BoT; Medusa/nymph mirror arms; most non-instrument
- * tools; break-wand release_hold / flash_hits (D-0979).
+ * oil; BoT; Medusa/nymph mirror arms; saddle/whistle;
+ * break-wand release_hold / flash_hits (D-0979).
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
@@ -1378,6 +1754,12 @@ export async function doapply() {
     if (is_pick(obj) || is_axe(obj)) {
         const { use_pick_axe } = await import('./dig.js');
         const res = await use_pick_axe(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case LEASH → use_leash (D-1005)
+    if (LEASH >= 0 && obj.otyp === LEASH) {
+        const res = await use_leash(obj);
         return (res & ECMD_TIME) !== 0;
     }
 

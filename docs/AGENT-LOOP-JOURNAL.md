@@ -20,6 +20,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 05:45 — #1276 D-1005 leash cluster
+
+**Objective:** map-driven — `next_to_u`/`check_leash` + `use_leash`
+envelope (CURRENT next cluster).
+**C locus:** `apply.c` leash helpers/`use_leash`/`next_to_u`/
+`check_leash`; `wizard.c` `mon_has_amulet`; `sounds.c` `whimper`;
+callers allmain/hack/do/dig/trap/teleport/dog.
+**Change:** port leash attach/detach + stretch/choke/snap; wire
+doapply LEASH + domove/stairs/tele/dig/fall_through/`teleport_pet`/
+wary_dog/abuse_dog — D-1005.
+**Verified:** green+strict PASS; apply/move/pet cohort **15**/16
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or mon_poly mon arm;
+or saddle/whistle.
+**Blocked:** none.
+
 ## 2026-07-22 05:30 — #1275 cadence + D-1004 lycan wires
 
 **Objective:** cadence full `sessions` @#1275 + map-driven lycanthropy
@@ -207,17 +223,3 @@ export breakobj. Globby pudding_merge still deferred.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** globby merge; or sellobj/check_shop_obj; or barefoot/
 tmp_at; or absent.md thin. Cadence @#1265.
-## 2026-07-22 03:52 — #1261 D-0991 costly_gold/donate_gold
-
-**Objective:** map-driven — costly_gold/donate_gold kick+addtobill
-(CURRENT next cluster).
-**C locus:** `shk.c` costly_gold/donate_gold; callers
-`dokick.c` really_kick_object; `shk.c` addtobill.
-**Changed:** port credit/debit/loan gold bill + donate refund;
-wire kick-out, contained kick-land refund, addtobill coin/gltmp —
-D-0991.
-**Verified:** green+strict PASS; shop/kick cohort **11**/12
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** flooreffects fire/globby/altar; absent.md thin;
-barefoot petrify / tmp_at; sellobj/check_shop_obj.
-**Blocked:** none.

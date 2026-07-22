@@ -1,3 +1,17 @@
+## 2026-07-22 03:52 — #1261 D-0991 costly_gold/donate_gold
+
+**Objective:** map-driven — costly_gold/donate_gold kick+addtobill
+(CURRENT next cluster).
+**C locus:** `shk.c` costly_gold/donate_gold; callers
+`dokick.c` really_kick_object; `shk.c` addtobill.
+**Changed:** port credit/debit/loan gold bill + donate refund;
+wire kick-out, contained kick-land refund, addtobill coin/gltmp —
+D-0991.
+**Verified:** green+strict PASS; shop/kick cohort **11**/12
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** flooreffects fire/globby/altar; absent.md thin;
+barefoot petrify / tmp_at; sellobj/check_shop_obj.
+**Blocked:** none.
 ## 2026-07-22 02:52 — #1254 D-0984 ship_object
 
 **Objective:** map-driven — retire `ship_object` shop-floor / hole

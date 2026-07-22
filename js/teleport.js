@@ -664,10 +664,10 @@ function mvault_tele(mtmp) {
  * teledest rloc_to if free; else rloc. Caller handles in_sight pline/seetrap.
  * Named omission: RLOC_MSG vanish text inside rloc_to_core.
  */
-export function mtele_trap(mtmp, trap) {
+export async function mtele_trap(mtmp, trap) {
     if (!mtmp || !trap) return false;
     if (noteleport_level(mtmp)) return false;
-    if (!teleport_pet(mtmp, false)) return false;
+    if (!(await teleport_pet(mtmp, false))) return false;
 
     if (trap.once) {
         mvault_tele(mtmp);
@@ -993,7 +993,14 @@ export async function dotele(break_the_rules) {
             return false;
         }
     }
-    // next_to_u leash gate — always true without leash wiring
+    // C: next_to_u leash gate before tele (D-1005)
+    {
+        const { next_to_u } = await import('./apply.js');
+        if (!(await next_to_u())) {
+            await pline('You shudder for a moment.');
+            return false;
+        }
+    }
     // C: iflags.travelcc.x = iflags.travelcc.y = 0 before tele()
     // so scrolltele getpos starts at hero, not a stale '_' destination.
     if (!game.iflags) game.iflags = {};
@@ -1001,6 +1008,10 @@ export async function dotele(break_the_rules) {
     game.iflags.travelcc.x = 0;
     game.iflags.travelcc.y = 0;
     await tele();
+    {
+        const { next_to_u } = await import('./apply.js');
+        await next_to_u(); // C: (void) next_to_u() after tele
+    }
     // C: if (!trap) morehungry(100)
     const { morehungry } = await import('./eat.js');
     morehungry(100);
@@ -1105,7 +1116,7 @@ export function random_teleport_level() {
  * past-main-dungeon → find_hell (D-0904). Named omissions:
  * lev_by_name; bymenu=FALSE print_dungeon; heaven/escape outside
  * endgame; Quest/mines/sanctum deepest clamp + invoked gate;
- * Nowhere suicide yn; next_to_u leash body; buried ball; debug_fuzzer.
+ * Nowhere suicide yn; buried ball; debug_fuzzer.
  */
 export async function level_tele() {
     const u = game.u || {};
@@ -1232,7 +1243,14 @@ export async function level_tele() {
         force_dest = false;
     }
 
-    // next_to_u leash gate — always true without leash wiring
+    // C: next_to_u leash gate (D-1005)
+    {
+        const { next_to_u } = await import('./apply.js');
+        if (!(await next_to_u()) && !force_dest) {
+            await pline('You shudder for a moment.');
+            return;
+        }
+    }
 
     // C: In_endgame — wizard relative planes: dlevel = llimit + newlev
     // (newlev in (-llimit, 0)); no materialize post_msg.
@@ -1303,7 +1321,7 @@ export async function vault_tele() {
 /**
  * C ref: teleport.c tele_trap — hero TELEP_TRAP.
  * Envelope: once → deltrap handled by caller + vault_tele; endgame /
- * Antimagic / noteleport / next_to_u / teledest / tele() named partial.
+ * Antimagic / noteleport / teledest / tele() named partial.
  * Returns true if once-vault path ran (caller should deltrap).
  */
 export async function tele_trap_once_vault() {
@@ -1314,22 +1332,37 @@ export async function tele_trap_once_vault() {
     if (Antimagic || noteleport_level(game.youmonst)) {
         return false; // wrenching — no RNG
     }
-    // next_to_u leash gate — always true without leash wiring
+    // C: !next_to_u → shudder (D-1005)
+    {
+        const { next_to_u } = await import('./apply.js');
+        if (!(await next_to_u())) {
+            await pline('You shudder for a moment.');
+            return false;
+        }
+    }
     return vault_tele();
 }
 
 /**
  * C ref: teleport.c teleport_pet — steed/cursed-leash gate before migrate.
- * Named omission: yelp / m_unleash messages when unleashing.
  */
-export function teleport_pet(mtmp, force_it) {
+export async function teleport_pet(mtmp, force_it) {
     if (!mtmp) return false;
     if (mtmp === game.u?.usteed) return false;
     if (mtmp.mleashed) {
-        // C: cursed leash without force blocks; else unleash
-        // get_mleash / m_unleash body deferred — treat as free if forced
-        if (!force_it) return false;
-        mtmp.mleashed = 0;
+        const { get_mleash, m_unleash } = await import('./apply.js');
+        const otmp = get_mleash(mtmp);
+        if (!otmp) {
+            // C: impossible — treat as free
+            mtmp.mleashed = 0;
+            return true;
+        }
+        if (otmp.cursed && !force_it) {
+            const { yelp } = await import('./sounds.js');
+            await yelp(mtmp);
+            return false;
+        }
+        await m_unleash(mtmp, false);
     }
     return true;
 }
@@ -1413,10 +1446,10 @@ export function migrate_to_level(mtmp, tolev, xyloc, cc) {
  * endgame shimmer gates (rn2(7) still runs when In_endgame); in_sight
  * plines; control_teleport (portal always sets mconf).
  */
-export function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
+export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
     const tt = trap ? (trap.ttyp | 0) : NO_TRAP;
     if (mtmp === game.u?.ustuck) return Trap_Effect_Finished;
-    if (!teleport_pet(mtmp, force_it)) return Trap_Effect_Finished;
+    if (!(await teleport_pet(mtmp, force_it))) return Trap_Effect_Finished;
 
     const tolevel = { dnum: 0, dlevel: 1 };
     let migrate_typ = MIGR_RANDOM;

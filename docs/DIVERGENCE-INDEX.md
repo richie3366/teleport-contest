@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1005 | fixed | apply leash: use_leash/next_to_u/check_leash + m_unleash wires | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1004 | fixed | pray TROUBLE_LYCANTHROPE + peffect_water/vapor + mon_poly youmonst AD_POLY | map-driven; green+cohort 16/17 (seed0009 pre-existing); cadence 43/44 @#1275 |
 | D-1003 | fixed | warnreveal + overexert_hp + Upolyd eel regen_hp | map-driven; green+allmain cohort 36/37 (seed0009 pre-existing) |
 | D-1002 | fixed | allmain Teleportation/Polymorph/ulycn once-per-turn → tele/polyself/you_were | map-driven; green+allmain cohort 36/37 (seed0009 pre-existing) |

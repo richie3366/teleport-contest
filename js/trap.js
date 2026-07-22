@@ -2576,14 +2576,13 @@ async function trapeffect_level_telep(mtmp, trap, trflags) {
     }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     const forcetrap = (trflags & FORCETRAP) !== 0;
-    return mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
+    return await mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
 }
 
 /**
  * C ref: trap.c fall_through — hero drops through hole/trapdoor or throne
  * shaft (td=false). schedule_goto FALLING; impact_drop when don't fall.
- * Named omissions: next_to_u leash body (always true without leash);
- * feeltrap side-effects beyond tseen; display_nhwindow exact.
+ * Named omissions: feeltrap side-effects beyond tseen; display_nhwindow exact.
  */
 export async function fall_through(td, ftflags = 0) {
     const u = game.u || {};
@@ -2632,8 +2631,12 @@ export async function fall_through(td, ftflags = 0) {
         dont_fall = "don't fall in.";
     } else if ((ptr?.msize | 0) >= MZ_HUGE) {
         dont_fall = "don't fit through.";
+    } else {
+        const { next_to_u } = await import('./apply.js');
+        if (!(await next_to_u())) {
+            dont_fall = 'are jerked back by your pet!';
+        }
     }
-    // next_to_u leash gate — always true without leash wiring
 
     if (dont_fall) {
         await pline(`You ${dont_fall}`);
@@ -2729,7 +2732,7 @@ async function trapeffect_hole(mtmp, trap, trflags) {
         if (!inescapable) return Trap_Effect_Finished;
         // Sokoban yank still falls through
     }
-    return mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
+    return await mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
 }
 
 /**
@@ -3401,7 +3404,7 @@ async function trapeffect_telep_trap(mtmp, trap, _trflags) {
     }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     const monname = Monnam(mtmp);
-    if (mtele_trap(mtmp, trap)) {
+    if (await mtele_trap(mtmp, trap)) {
         if (in_sight) {
             if (canseemon(mtmp)) {
                 await pline(`${monname} seems disoriented.`);

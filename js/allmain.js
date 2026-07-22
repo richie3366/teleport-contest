@@ -86,8 +86,7 @@ function Unchanging(u = game.u || {}) {
  * C ref: allmain.c moveloop once-per-turn after regen_pw —
  * Teleportation !rn2(85) → tele(); Polymorph/ulycn → mvl_change →
  * polyself / you_were when multi >= 0 && !Unchanging.
- * Named omit: next_to_u/check_leash body (leash unwired → always adjacent);
- * cmdq_clear(CQ_REPEAT) when no JS repeat queue.
+ * Named omit: cmdq_clear(CQ_REPEAT) when no JS repeat queue.
  */
 async function maybe_tele_poly_were() {
     const u = game.u || (game.u = {});
@@ -98,7 +97,10 @@ async function maybe_tele_poly_were() {
         const old_uy = u.uy | 0;
         await tele();
         if ((u.ux | 0) !== old_ux || (u.uy | 0) !== old_uy) {
-            // next_to_u / check_leash deferred (no leash → always next_to_u)
+            const { next_to_u, check_leash } = await import('./apply.js');
+            if (!(await next_to_u())) {
+                await check_leash(old_ux, old_uy);
+            }
             if (game._cmdq_canned) game._cmdq_canned = [];
             if (game._cmdq_repeat) game._cmdq_repeat = [];
         }

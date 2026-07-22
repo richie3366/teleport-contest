@@ -390,14 +390,8 @@ export async function bury_an_obj(otmp, dealloced) {
     if (otmp === u.uchain || obj_resists(otmp, 0, 0)) return otmp2;
 
     if (otmp.otyp === LEASH && (otmp.leashmon | 0) !== 0) {
-        const lid = otmp.leashmon | 0;
-        for (let mtmp = game.fmon; mtmp; mtmp = mtmp.nmon) {
-            if ((mtmp.m_id | 0) === lid) {
-                mtmp.mleashed = 0;
-                break;
-            }
-        }
-        otmp.leashmon = 0;
+        const { o_unleash } = await import('./apply.js');
+        o_unleash(otmp);
     }
     // end_burn(lamplit && otyp != POT_OIL) deferred
     if (otmp.lamplit && otmp.otyp !== POT_OIL) {
@@ -663,9 +657,13 @@ export async function digactualhole(x, y, madeby, ttyp) {
         if (atHero) {
             // switch_terrain deferred
             if (u.Levitation || u.Flying) wont_fall = true;
-            // next_to_u leash gate — always true without leash wiring
+            // next_to_u leash gate — pet may jerk hero back (D-1005)
             if (!u.ustuck && !wont_fall) {
-                // leashed pet jerk deferred (next_to_u always true)
+                const { next_to_u } = await import('./apply.js');
+                if (!(await next_to_u())) {
+                    await pline('You are jerked back by your pet!');
+                    wont_fall = true;
+                }
             }
 
             if (u.ustuck || wont_fall) {
@@ -723,7 +721,7 @@ export async function digactualhole(x, y, madeby, ttyp) {
                 const { teleport_pet, migrate_to_level } = await import(
                     './teleport.js',
                 );
-                if (teleport_pet(mtmp, false)) {
+                if (await teleport_pet(mtmp, false)) {
                     const tolevel = { dnum: 0, dlevel: 1 };
                     if (Is_stronghold(u.uz)) {
                         const v = game.valley_level;

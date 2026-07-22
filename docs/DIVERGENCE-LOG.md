@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1005 — apply leash cluster (use_leash / next_to_u / check_leash)
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `next_to_u`/`check_leash` always-true stubs;
+  LEASH apply unwired; `m_unleash`/`get_mleash` thin clears only.
+- **C locus:** `apply.c` `number_leashed`/`o_unleash`/`m_unleash`/
+  `unleash_all`/`leashable`/`use_leash`/`use_leash_core`/`get_mleash`/
+  `mleashed_next2u`/`next_to_u`/`check_leash`; `wizard.c` `mon_has_amulet`;
+  `sounds.c` `whimper`; callers in `allmain.c`/`hack.c`/`do.c`/`dig.c`/
+  `trap.c`/`teleport.c`/`dog.c`.
+- **Fix:** port leash helpers + `use_leash` into `doapply`; export
+  `next_to_u`/`check_leash`; wire domove, stairs, tele/dotele/level_tele/
+  tele_trap, dig hole, fall_through, `teleport_pet`, `wary_dog`/`abuse_dog`;
+  `has_head`/`M1_NOHEAD`; `whimper`.
+- **Deferred:** getdir `<`/`>` steed-dz for self-cell leash; invent
+  `update_inventory` redraw; `artifact.c` `next_to_u`; `end.js`
+  `unleash_all` bones path; saddle/whistle apply.
+- **Verify:** green+strict PASS; apply/move/pet cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1004 — potion/mhitm/pray lycanthropy you_were wires
 
 - **Status:** fixed (map-driven debt retirement)
@@ -18,8 +38,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `peffect_water` + vapor lycan arms; `mon_poly` hero branch + mhitu
   AD_POLY; `hates_blessings`/`mon_hates_blessings`.
 - **Deferred:** other in_trouble majors/minors; `make_sick` body;
-  `mon_poly` monster-defender newcham/system-shock; shieldeff;
-  next_to_u/check_leash.
+  `mon_poly` monster-defender newcham/system-shock; shieldeff.
 - **Verify:** green+strict PASS; pray/potion/combat cohort **16**/17
   (seed0009 Scr 72/73 pre-existing). Cadence @#1275 **43**/44.
   Rule #2: no fs.
