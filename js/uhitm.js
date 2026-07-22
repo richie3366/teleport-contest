@@ -12,7 +12,7 @@ import {
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
     MIM_REVEAL, engulfing_u, OBJ_FREE, MON_DETACH,
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
-    HAND, A_LAWFUL, Is_airlevel, Is_waterlevel,
+    HAND, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -53,7 +53,8 @@ import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination } from './do_na
 import { artifact_hit, youmonst, is_art } from './artifact.js';
 import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.js';
 import { abuse_dog } from './dog.js';
-import { ART_GIANTSLAYER } from './generated/artifacts_data.js';
+import { ART_GIANTSLAYER, ART_STORMBRINGER } from './generated/artifacts_data.js';
+import { paranoid_query } from './getline.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
@@ -1312,11 +1313,13 @@ async function stumble_onto_mimic(mtmp) {
 }
 
 /**
- * C ref: uhitm.c attack_checks — invis Wait + disguised-mimic arms.
- * Returns true when the attack attempt is consumed (no hitum).
- * Peaceful-confirm / Elbereth / warning-glyph arms deferred.
+ * C ref: uhitm.c attack_checks — invis Wait + disguised-mimic + peaceful
+ * confirm (ParanoidHit). Returns true when the attack attempt is consumed
+ * (no hitum). Elbereth / warning-glyph / mundetected hide arms deferred.
+ * @param {object} mtmp
+ * @param {object|null} [wep] uwep for do_attack; null for kick
  */
-export async function attack_checks(mtmp) {
+export async function attack_checks(mtmp, wep = null) {
     // C: if you're close enough to attack, alert any waiting monster
     // (clears STRAT_CLOSE|WAITFORU even when the attack is later aborted —
     // kick / cancelled peaceful confirm / Wait! all disturb meditation).
@@ -1346,10 +1349,38 @@ export async function attack_checks(mtmp) {
     }
 
     // Disguised mimic
-    if (!M_AP_TYPE(mtmp)) return false;
-    // Protection_from_shape_changers / sensemon / glyph_is_invisible→seemimic deferred
-    await stumble_onto_mimic(mtmp);
-    return true;
+    if (M_AP_TYPE(mtmp)) {
+        // Protection_from_shape_changers / sensemon / glyph_is_invisible→seemimic deferred
+        await stumble_onto_mimic(mtmp);
+        return true;
+    }
+
+    // C: mundetected hide-under / eel reveal arms deferred
+
+    // C: flags.confirm && mpeaceful && !Confusion && !Hallucination && !Stunned
+    const u = game.u || {};
+    const confirm = game.flags?.confirm !== false; // C opt_out default On
+    if (confirm && mtmp.mpeaceful
+        && !u.Confusion && !u.Hallucination && !u.Stunned
+        && !(u.HStun | 0)) {
+        // Intelligent chaotic weapons (Stormbringer) want blood
+        if (is_art(wep, ART_STORMBRINGER)) {
+            game.override_confirmation = true;
+            return false;
+        }
+        if (canspotmon(mtmp)) {
+            const qbuf = `Really attack ${mon_nam(mtmp)}?`;
+            const bits = game.flags?.paranoia_bits | 0;
+            const be_paranoid = (bits & PARANOID_HIT) !== 0;
+            if (!(await paranoid_query(be_paranoid, qbuf))) {
+                if (!game.context) game.context = {};
+                game.context.move = 0;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 /**
@@ -1454,7 +1485,7 @@ export async function do_attack(mtmp) {
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
 
     // C: attack_checks before overexertion / hitum
-    if (await attack_checks(mtmp)) {
+    if (await attack_checks(mtmp, game.u?.uwep || null)) {
         return true;
     }
 

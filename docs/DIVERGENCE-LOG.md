@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1001 — ParanoidWerechange / ParanoidHit + you_were/unwere
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-1000 — `you_were`/`you_unwere`
+  absent; `attack_checks` peaceful confirm deferred; mtimedone used
+  plain rehumanize for were forms (`debt.md` eat/allmain/combat).
+- **C locus:** `were.c` `you_were`/`you_unwere`; `uhitm.c`
+  `attack_checks`; `timeout.c` mtimedone; `eat.c` fpostfx
+  SPRIG_OF_WOLFSBANE; `optlist.h` confirm default On.
+- **Fix:** port you_were/you_unwere with ParanoidWerechange
+  paranoid_query; peaceful confirm ParanoidHit + Stormbringer
+  override_confirmation; wire timeout mtimedone + wolfsbane
+  you_unwere(TRUE); jsmain confirm default true.
+- **Deferred:** allmain Teleportation/Polymorph/ulycn once-per-turn;
+  potion/mhitm/pray TROUBLE_LYCANTHROPE you_were wires; mundetected
+  hide / Elbereth / warning-glyph attack_checks arms; were_summon.
+- **Verify:** green+strict PASS; combat/timeout cohort **11**/12
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-1000 — ParanoidPray Confirm + see_nearby_monsters
 
 - **Status:** fixed (map-driven debt retirement)

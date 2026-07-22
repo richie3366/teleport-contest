@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1001 | fixed | ParanoidWerechange/Hit + `you_were`/`you_unwere` + mtimedone/wolfsbane | map-driven; green+combat/timeout cohort 11/12 (seed0009 pre-existing) |
 | D-1000 | fixed | ParanoidPray Confirm + `see_nearby_monsters` allmain wire | map-driven; green+pray/allmain cohort 10/11 (seed0009 pre-existing) |
 | D-0999 | fixed | ParanoidBreakwand getlin + `see_monster_closeup` camera/makedog | map-driven; green+startup/apply cohort 10/11 (seed0009 pre-existing) |
 | D-0998 | fixed | `dopay` robbed/angry appease + debit/loan/credit | map-driven; green+shop cohort 11/12 (seed0009 pre-existing) |
