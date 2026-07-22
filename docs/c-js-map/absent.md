@@ -24,7 +24,8 @@ This is a planning list, not an exhaustive C file inventory:
   D-0997;
   throne/`fall_through`/tree via D-0986; SDOOR/altar/fountain/grave/sink
   via D-0985);
-- apply beyond lock-pick no-door (containers, other tools);
+- apply beyond lock-pick no-door (containers, other tools;
+  `use_saddle` via D-1008; whistle/leash via D-1007/D-1005);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing (sellobj/check_shop_obj
   throw-land + drop via D-0994; **dopay robbed/angry/debit** via

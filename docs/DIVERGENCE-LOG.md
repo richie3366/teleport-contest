@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1008 — apply use_saddle (steed.c)
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission — `doapply` SADDLE fell through to
+  "don't know how to use"; `steed.c` `use_saddle` absent.
+- **C locus:** `steed.c` `use_saddle` / `can_saddle`; `apply.c`
+  `doapply` case SADDLE; helpers `u_handsy`/`maybewakesteed`/
+  `put_saddle_on_mon`/`instapetrify`.
+- **Fix:** port `use_saddle` chance envelope (DEX/CHA/tame/level/
+  Knight/riding skill/impair/riding gloves·boots/cursed) + petrify/
+  amorous/special gates; wire `doapply` SADDLE; tighten `can_saddle`
+  whirly/unsolid/amorphous.
+- **Deferred:** `update_mon_extrinsics`; poly `body_part(HAND)` in
+  `u_handsy`.
+- **Verify:** green+strict PASS; apply/steed cohort **15**/16
+  (seed0009 Scr 72/73 pre-existing; seed0103/0104 ride PASS).
+  Rule #2: no fs.
+
 ## D-1007 — apply whistle cluster (tin/magic + eucalyptus)
 
 - **Status:** fixed (map-driven debt retirement)

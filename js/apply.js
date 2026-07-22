@@ -99,6 +99,7 @@ const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
 const LEASH = objectNames.indexOf('LEASH');
+const SADDLE = objectNames.indexOf('SADDLE');
 const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
 const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
@@ -1853,10 +1854,11 @@ async function use_magic_whistle(obj) {
  * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create /
  * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
  * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005) +
+ * SADDLE → use_saddle (D-1008) +
  * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007).
  * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
  * whip/grapple/blindfold/lenses; use_stone; use_pole; traps;
- * oil; BoT; Medusa/nymph mirror arms; saddle;
+ * oil; BoT; Medusa/nymph mirror arms;
  * break-wand release_hold / flash_hits (D-0979).
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
@@ -1961,6 +1963,13 @@ export async function doapply() {
     // C apply.c case LEASH → use_leash (D-1005)
     if (LEASH >= 0 && obj.otyp === LEASH) {
         const res = await use_leash(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case SADDLE → use_saddle (D-1008)
+    if (SADDLE >= 0 && obj.otyp === SADDLE) {
+        const { use_saddle } = await import('./steed.js');
+        const res = await use_saddle(obj);
         return (res & ECMD_TIME) !== 0;
     }
 

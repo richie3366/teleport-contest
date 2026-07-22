@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 06:04 — #1279 D-1008 use_saddle
+
+**Objective:** map-driven — `use_saddle` apply SADDLE (CURRENT next
+cluster after whistle).
+**C locus:** `steed.c` use_saddle/can_saddle; `apply.c` doapply SADDLE.
+**Change:** port use_saddle chance envelope + petrify/special gates;
+tighten can_saddle whirly/unsolid; wire doapply — D-1008.
+**Verified:** green+strict PASS; apply/steed cohort **15**/16
+(seed0009 Scr 72/73 pre-existing; seed0103/0104 ride PASS). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
+or crystal ball / towel.
+**Blocked:** none.
+
 ## 2026-07-22 05:57 — #1278 D-1007 apply whistle
 
 **Objective:** map-driven — TIN/MAGIC whistle + eucalyptus (CURRENT
@@ -214,16 +227,3 @@ flash trail (D-0995). Score refresh in CURRENT.
 RNG **100%** speed `30+0.27/turn`. Rule #2 ok.
 **Next:** absent.md thin (potion/scroll/vault); or dopay appease; or
 selftouch/minstapetrify. Cadence @#1270.
-## 2026-07-22 04:20 — #1264 D-0994 sellobj/check_shop_obj
-
-**Objective:** map-driven — sellobj/check_shop_obj throw-land bill
-(CURRENT next).
-**C locus:** `shk.c` sellobj/sellobj_state/set_cost/contained_cost/
-dropped_container/special_stock/shk_names_obj/money2u/pay; `shknam.c`
-saleable/veggy_item; `dothrow.c` check_shop_obj; `do.c` dropz/dodrop.
-**Change:** saleable+helpers; sellobj+check_shop_obj; wire drop/
-throw/break; billable contained_*; pay→money2u (D-0994).
-**Verification:** green+strict PASS; shop/throw cohort **11**/12
-(seed0009 pre-existing). Rule #2 ok.
-**Next:** barefoot petrify/tmp_at; or absent.md thin; or dopay
-appease. Cadence full sessions @#1265.
