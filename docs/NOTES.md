@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1245** (Scr **11404**/11405 RNG **100%**
-  speed `31+0.26/turn`). Next cadence @**#1250**.
+- Local suite **43**/44 @**#1250** (Scr **11404**/11405 RNG **100%**
+  speed `32+0.27/turn`). Next cadence @**#1255**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest port: **D-0979** `release_hold` + `flash_hits_mon` /
-  `light_hits_gremlin` + WAN_OPENING / WAN_LIGHT wire.
+- Latest: **D-0980** restore `objects_at` import in `timeout.js`
+  (D-0978 drop → seed0014 `ReferenceError`); prior **D-0979**
+  release_hold / flash_hits.
 - **Next cluster:** absent.md thin systems or other debt.md
   (opening trap/saddle/SPE_KNOCK hurtle; montraits; shop stolen_value).
 - seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
@@ -41,9 +42,9 @@ Objective/score live in `CURRENT.md`.
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through ignite/
   catch_lit/begin_burn/burn_away_slime (D-0978) or release_hold /
-  flash_hits_mon (D-0979).
+  flash_hits_mon (D-0979); do not drop `objects_at` from timeout
+  mkobj import (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
-- `dighole` boulder arm returns false like C (no hole remains).
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
 - Wooden flute/harp: always burn `rn2(DEX)` even when stun/conf
@@ -52,8 +53,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite @**#1245**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `31+0.26/turn` (seed0009 Scr FAIL on HEAD).
+- Suite @**#1250**: **43**/44 Scr **11404**/11405 RNG **100%**
+  speed `32+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- **D-0980:** restore `timeout.js` `objects_at` (D-0978 import drop).
 - **D-0979:** release_hold + flash_hits_mon / light_hits_gremlin.
 - **D-0978:** ignite_items / catch_lit / begin_burn / burn_away_slime.
 - **D-0977:** passtune + open/close_drawbridge + Mastermind hints.
@@ -65,6 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-0971:** `explode` AD_COLD/ELEC + Cold/Shock mask + mon_explodes.
 - **D-0970:** `toggle_stealth` + ELVEN on/off + `EStealth` mirror.
 - **D-0969:** angrygods 4–8 + gods_angry/rndcurse + cursed_book.
-- **D-0968:** explode AD_FIRE mon/hero + explosionmask + mon_explodes.
-- **D-0967:** bury_objs/unearth_objs/obj_ice_effects + melt/freeze wire.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

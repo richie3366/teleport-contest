@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 02:10 — #1250 cadence + D-0980 objects_at import
+
+**Objective:** mandatory cadence full `sessions` @#1250; fortress
+regression on seed0014.
+**Changed:** restore `objects_at` on `timeout.js` mkobj import
+(D-0978 drop broke `slip_or_trip`) — D-0980. Docs: CURRENT score/
+NOTES/turns/divergence/journal; rotated #1234 crumb to archive.
+**Verified:** green+strict PASS; full suite **43**/44 Scr
+**11404**/11405 RNG **100%** speed `32+0.27/turn` (seed0009 Scr
+FAIL pre-existing). Rule #2: no fs.
+**Next:** absent.md thin systems or remaining debt (opening traps /
+SPE_KNOCK hurtle; montraits; shop stolen_value).
+**Blocked:** none.
+
 ## 2026-07-22 02:08 — #1249 D-0979 release_hold/flash_hits
 
 **Objective:** map-driven — retire release_hold WAN_OPENING /
@@ -217,21 +231,4 @@ pre-existing Scr 72/73). Rule #2: no fs.
   **44**/44 Scr **11405**/11405 RNG **100%** speed `30+0.27/turn`.
 - Next: float_down/learnring/adjust_attrib; bury/obj_ice; angrygods
   4–8. Cadence @**#1240**.
-
-## 2026-07-22 00:30 — #1234 D-0964 revive container/buried
-
-- Objective: map-driven — `revive` container/buried + `cant_revive` +
-  `zombie_can_dig` (+ OBJ_BURIED extract).
-- C locus: `zap.c` `revive`/`get_obj_location`/`get_container_location`/
-  `zombie_can_dig`; `read.c` `cant_revive`; `mkobj.c` `obj_extract_self`
-  OBJ_BURIED.
-- Change: container/buried location + revival rules + cant_revive
-  zombie/doppel + oeaten/oname in `zap.js`; buried extract + export
-  `eaten_stat` in `mkobj.js` (D-0964). Deferred: montraits/omonst/
-  ghost/shop stolen_value; ice melt / burn_floor / fireball.
-- Verification: green+strict; zap/shared cohort 16/16 PASS (incl.
-  seed2200 wizard, seed0016 healer zap). Suite fortress held (no
-  full cadence; next @#1235).
-- Next: ice melt / `burn_floor_objects` / fireball; float_down /
-  learnring / adjust_attrib; angrygods 4–8.
 

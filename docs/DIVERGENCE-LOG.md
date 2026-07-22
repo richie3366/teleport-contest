@@ -4,6 +4,22 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0980 — restore `objects_at` import in `timeout.js`
+
+- **Status:** fixed (fortress regression from D-0978)
+- **Symptom:** seed0014 throw `objects_at is not defined` → Scr 0/714
+  RNG 0/59178; suite **42**/44 on cadence @#1250 before fix.
+- **C locus:** `timeout.c` `slip_or_trip` — floor-object trip via
+  `level.objects[x][y]` (JS `objects_at`).
+- **Cause:** D-0978 rewrote the `mkobj.js` import in `timeout.js` for
+  burn/light helpers and dropped `objects_at` while `slip_or_trip`
+  still calls it.
+- **Fix:** re-add `objects_at` to the `mkobj.js` import (D-0980).
+- **Verification:** seed0014 PASS; green+strict PASS; full `sessions`
+  **43**/44 Scr **11404**/11405 RNG **100%** speed `32+0.27/turn`
+  (seed0009 Scr 72/73 pre-existing).
+- **Files:** `js/timeout.js`, `docs/c-js-map/turns.md`.
+
 ## D-0979 — release_hold WAN_OPENING + flash_hits_mon
 
 - **Status:** fixed (map-driven debt retirement)

@@ -15,7 +15,7 @@ import {
 import { heal_legs } from './trap.js';
 import { stop_occupation, nomul, is_pool } from './hack.js';
 import { run_timers, start_timer, stop_timer, weight,
-    obj_extract_self, delobj } from './mkobj.js';
+    obj_extract_self, delobj, objects_at } from './mkobj.js';
 import { make_confused, make_slimed } from './potion.js';
 import { make_blinded } from './do.js';
 import { Fumbling, Fast, Very_fast } from './attrib.js';
