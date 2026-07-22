@@ -33,11 +33,18 @@ import {
     is_animal, M1_SEE_INVIS,
 } from './monsters.js';
 import { objectNames } from './objects.js';
-import { relobj_on_death, mkcorpstat, stackobj } from './mkobj.js';
+import { relobj_on_death, mkcorpstat, stackobj, mksobj_at, obj_nexto,
+    obj_meld, pudding_merge_message,
+} from './mkobj.js';
 import { Monnam, mon_nam } from './do_name.js';
 import { mon_explodes } from './explode.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
+const GLOB_OF_BLACK_PUDDING = objectNames.indexOf('GLOB_OF_BLACK_PUDDING');
+const PM_GRAY_OOZE = monsterNames.indexOf('PM_GRAY_OOZE');
+const PM_BROWN_PUDDING = monsterNames.indexOf('PM_BROWN_PUDDING');
+const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
+const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
 const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
@@ -468,9 +475,10 @@ async function corpse_chance(mon) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c make_corpse — undead specials before G_NOCORPSE; else default_1.
-// Named omission: dragon scales, unicorn horn, worm tooth, golem drops,
-// lich dust, and other pre-G_NOCORPSE switch arms (D-0271 undead only).
+// C ref: mon.c make_corpse — undead specials before G_NOCORPSE; pudding globs;
+// else default_1. Named omission: dragon scales, unicorn horn, worm tooth,
+// golem drops, lich dust, and other pre-G_NOCORPSE switch arms (D-0271
+// undead; D-0993 pudding merge).
 export function make_corpse(mtmp) {
     const mdat = mtmp.data;
     const mndx = mtmp.mnum ?? mdat?.mndx;
@@ -494,6 +502,25 @@ export function make_corpse(mtmp) {
             stackobj(obj);
             newsym(x, y);
         }
+        return obj;
+    }
+
+    // C: gray ooze / brown pudding / green slime / black pudding → GLOB
+    if (mndx === PM_GRAY_OOZE || mndx === PM_BROWN_PUDDING
+        || mndx === PM_GREEN_SLIME || mndx === PM_BLACK_PUDDING) {
+        // C: GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx)
+        const gtyp = GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx);
+        let obj = mksobj_at(gtyp, x, y, true, false);
+        while (obj) {
+            const otmp = obj_nexto(obj);
+            if (!otmp) break;
+            void pudding_merge_message(obj, otmp);
+            const r1 = { obj };
+            const r2 = { obj: otmp };
+            obj = obj_meld(r1, r2);
+        }
+        // free_mgivenname deferred
+        newsym(x, y);
         return obj;
     }
 

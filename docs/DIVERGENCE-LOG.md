@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0993 — globby pudding_merge / obj_meld / flooreffects
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0992 — `flooreffects` skipped
+  globby coalesce; `mksobj` never set `globby`/corpsenm/timer on GLOB_*;
+  `make_corpse` left pudding deaths on corpse path; invent `merged`
+  did not `obj_absorb` globs.
+- **C locus:** `mkobj.c` `obj_nexto_xy`/`obj_absorb`/`obj_meld`/
+  `pudding_merge_message`/`start_glob_timeout`/`Is_pudding` init;
+  `do.c` `flooreffects` globby; `invent.c` `mergable`/`merged` globby;
+  `mon.c` `make_corpse` pudding→GLOB.
+- **Fix:** Is_pudding mksobj init + globby `weight`; `obj_nexto_xy`/
+  `obj_absorb`/`obj_meld`/`pudding_merge_message`; thin `shrink_glob`;
+  wire flooreffects + invent merged + make_corpse pudding arms.
+- **Deferred:** full `globby_bill_fixup` shop scenarios; shrink
+  ice/eat catch-up; `maybe_unhide_at` after meld; sellobj/
+  check_shop_obj; barefoot petrify; tmp_at flash.
+- **Verify:** green+strict PASS; drop/throw cohort **20**/21
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0992 — flooreffects fire_damage / doaltarobj / hot potion
 
 - **Status:** fixed (map-driven debt retirement)

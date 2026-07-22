@@ -63,7 +63,9 @@ import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
     check_special_room, is_pool, is_lava, waterbody_name,
 } from './hack.js';
-import { place_object, stackobj, weight, delobj, obj_extract_self } from './mkobj.js';
+import { place_object, stackobj, weight, delobj, obj_extract_self,
+    obj_nexto_xy, obj_meld, pudding_merge_message,
+} from './mkobj.js';
 import { ship_object } from './dokick.js';
 import { doname, xname, the, The, vtense, an } from './objnam.js';
 import {
@@ -394,9 +396,9 @@ export async function doaltarobj(obj) {
  * C ref: do.c flooreffects — special landings for free objects.
  * Branch envelope: boulder_hits_pool; boulder plugs pit/hole; lava_damage;
  * pool water_damage + splash; uteetering pit tumble; uescaped shaft ship_object;
- * mon_moving doaltarobj; hot-ground potion shatter (D-0992).
- * Named omit: globby pudding_merge/obj_meld; boulder+pit hmon/mondied;
- * Soundeffect.
+ * globby pudding_merge/obj_meld (D-0993); mon_moving doaltarobj;
+ * hot-ground potion shatter (D-0992).
+ * Named omit: boulder+pit hmon/mondied; Soundeffect; shrink ice polish.
  * @returns {Promise<boolean>} true if object is gone (caller must not place)
  */
 export async function flooreffects(obj, x, y, verb) {
@@ -506,7 +508,18 @@ export async function flooreffects(obj, x, y, verb) {
             res = true;
         }
     } else if (obj.globby) {
-        // pudding_merge / obj_nexto_xy / obj_meld deferred
+        // C: while obj_nexto_xy → pudding_merge_message + obj_meld
+        let globbyobj = obj;
+        while (globbyobj) {
+            const otmp = obj_nexto_xy(globbyobj, x, y, true);
+            if (!otmp) break;
+            await pudding_merge_message(globbyobj, otmp);
+            const r1 = { obj: globbyobj };
+            const r2 = { obj: otmp };
+            obj_meld(r1, r2);
+            globbyobj = r1.obj;
+        }
+        res = !globbyobj;
     } else if (game.context?.mon_moving && IS_ALTAR(ltyp) && cansee(x, y)) {
         await doaltarobj(obj);
     } else if ((obj.oclass | 0) === POTION_CLASS
