@@ -70,7 +70,7 @@ import {
 import {
     costly_spot, shop_keeper, stolen_value, picked_container, hot_pursuit,
     is_unpaid, find_objowner, costly_adjacent, addtobill, subfrombill,
-    make_angry_shk, make_happy_shk,
+    make_angry_shk, make_happy_shk, costly_gold, donate_gold, contained_gold,
 } from './shk.js';
 import { shkname, Shknam } from './shknam.js';
 import { cvt_sdoor_to_door } from './detect.js';
@@ -1075,9 +1075,8 @@ async function kick_object(x, y, kickobjnam) {
  * Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: barefoot petrify/instapetrify; costly_gold / donate_gold
- * contained refund; snuff_candle; impact_disturbs_zombies; STATUE_TRAP
- * activate; Blind feel; tmp_at flash.
+ * Named omit: barefoot petrify/instapetrify; snuff_candle;
+ * impact_disturbs_zombies; STATUE_TRAP activate; Blind feel; tmp_at flash.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1301,7 +1300,7 @@ async function really_kick_object(x, y) {
     const srcRoom = (in_rooms(x, y, SHOPBASE) || '')[0] || '';
     if (costly && (!costly_spot(bx, by) || srcRoom !== bhitroom)) {
         if (isgold) {
-            // costly_gold deferred
+            await costly_gold(x, y, kicked.quan | 0, false);
         } else {
             await stolen_value(kicked, x, y, !!(shkp?.mpeaceful), false);
         }
@@ -1313,8 +1312,13 @@ async function really_kick_object(x, y) {
         if (await fe(kicked, bx, by, 'fall')) return 1;
     }
     if (costly) {
+        let gtg = 0;
         if (kicked.unpaid) subfrombill(kicked, shkp);
-        // contained_gold donate_gold deferred
+        // if billed for contained gold during kick, refund now
+        if (Has_contents(kicked)
+            && (gtg = contained_gold(kicked, true)) > 0) {
+            await donate_gold(gtg, shkp, false);
+        }
     }
     place_object(kicked, bx, by);
     // impact_disturbs_zombies deferred

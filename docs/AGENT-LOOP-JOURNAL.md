@@ -20,6 +20,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-22 03:52 — #1261 D-0991 costly_gold/donate_gold
+
+**Objective:** map-driven — costly_gold/donate_gold kick+addtobill
+(CURRENT next cluster).
+**C locus:** `shk.c` costly_gold/donate_gold; callers
+`dokick.c` really_kick_object; `shk.c` addtobill.
+**Changed:** port credit/debit/loan gold bill + donate refund;
+wire kick-out, contained kick-land refund, addtobill coin/gltmp —
+D-0991.
+**Verified:** green+strict PASS; shop/kick cohort **11**/12
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** flooreffects fire/globby/altar; absent.md thin;
+barefoot petrify / tmp_at; sellobj/check_shop_obj.
+**Blocked:** none.
+
 ## 2026-07-22 03:45 — #1260 cadence + D-0990 hits_bars
 
 **Objective:** mandatory full `sessions` @#1260; map-driven
@@ -225,16 +240,3 @@ debt/turns/divergence/journal.
 **Next:** ignite_items / burn_away_slime (`catch_lit`/`begin_burn`);
 release_hold WAN_OPENING / flash_hits.
 **Blocked:** none.
-
-## 2026-07-22 01:42 — #1246 D-0976 dosinkfall
-
-**Objective:** map-driven — retire sink-fall (`dosinkfall`) from
-CURRENT next cluster / debt.
-**Changed:** port `hack.c dosinkfall`; wire `spoteffects` IS_SINK+Lev;
-`ELevitation` confer mirror; export `stop_donning`/`Ring_off`/`off_msg`
-(D-0976). Docs: CURRENT/NOTES/debt/turns/divergence/journal.
-**Verified:** green+strict PASS; move/wear cohort **36**/37
-(seed0009 Scr FAIL pre-existing). Rule #2: no fs.
-**Next:** passtune/drawbridge; ignite_items / burn_away_slime.
-**Blocked:** none.
-

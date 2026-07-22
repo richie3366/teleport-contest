@@ -19,8 +19,9 @@
 // addupbill body; clear_unpaid walks in setpaid; mongone full;
 // mnearto full (door yank uses enexto/rloc); paygd; M1_NOHEAD has_head;
 // container bill_box_content / contained_cost; remote_burglary; gem glass
-// pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM; costly_gold;
+// pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
+// sellobj / check_shop_obj full throw-land bill (donate_gold wired on kick);
 // dopay: debit/robbed/angry appease; used-up/container bill arms;
 // traditional itemize ynq; observe_object/makeknown in shk_names_obj;
 // getpos pay-whom; container paydoname rewrite; contained_cost;
@@ -1187,7 +1188,7 @@ export function find_objowner(obj, x, y) {
 /**
  * C ref: shk.c contained_gold — sum COIN_CLASS quan (+ nested when known).
  */
-function contained_gold(obj, even_if_unknown) {
+export function contained_gold(obj, even_if_unknown) {
     let value = 0;
     for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
         if ((otmp.oclass | 0) === COIN_CLASS) {
@@ -1197,6 +1198,94 @@ function contained_gold(obj, even_if_unknown) {
         }
     }
     return value;
+}
+
+/**
+ * C ref: shk.c costly_gold — gold taken from a costly spot adjusts
+ * credit/debit/loan (pickup addtobill coin; kick gold out of shop).
+ */
+export async function costly_gold(x, y, amount, silent) {
+    const amt = amount | 0;
+    if (!costly_spot(x, y) || amt <= 0) return;
+    const rooms = in_rooms(x, y, SHOPBASE) || '';
+    const shkp = shop_keeper(rooms.charCodeAt(0) || 0);
+    if (!shkp) return;
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return;
+
+    if ((eshkp.credit | 0) >= amt) {
+        if (!silent) {
+            if ((eshkp.credit | 0) > amt) {
+                await pline(
+                    `Your credit is reduced by ${amt} ${currency(amt)}.`,
+                );
+            } else {
+                await pline('Your credit is erased.');
+            }
+        }
+        eshkp.credit = (eshkp.credit | 0) - amt;
+    } else {
+        const delta = amt - (eshkp.credit | 0);
+        if (!silent) {
+            if (eshkp.credit | 0) await pline('Your credit is erased.');
+            if (eshkp.debit | 0) {
+                await pline(
+                    `Your debt increases by ${delta} ${currency(delta)}.`,
+                );
+            } else {
+                await pline(
+                    `You owe ${shkname(shkp)} ${delta} ${currency(delta)}.`,
+                );
+            }
+        }
+        eshkp.debit = (eshkp.debit | 0) + delta;
+        eshkp.loan = (eshkp.loan | 0) + delta;
+        eshkp.credit = 0;
+    }
+}
+
+/**
+ * C ref: shk.c donate_gold — opposite of costly_gold; gold dropped/kicked
+ * into shop pays debit or builds credit.
+ * @param {boolean} selling T: dropped in shop; F: kicked and landed in shop
+ */
+export async function donate_gold(gltmp, shkp, selling) {
+    const amount = gltmp | 0;
+    if (!shkp || amount <= 0) return;
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return;
+
+    if ((eshkp.debit | 0) >= amount) {
+        if (eshkp.loan | 0) {
+            if ((eshkp.loan | 0) > amount) eshkp.loan = (eshkp.loan | 0) - amount;
+            else eshkp.loan = 0;
+        }
+        eshkp.debit = (eshkp.debit | 0) - amount;
+        await pline(
+            `Your debt is ${eshkp.debit ? 'partially ' : ''}paid off.`,
+        );
+    } else {
+        const delta = amount - (eshkp.debit | 0);
+        eshkp.credit = (eshkp.credit | 0) + delta;
+        if (eshkp.debit | 0) {
+            eshkp.debit = 0;
+            eshkp.loan = 0;
+            await pline('Your debt is paid off.');
+        }
+        if ((eshkp.credit | 0) === delta) {
+            await pline(
+                `You have ${!selling ? 're-' : ''}established ${delta} ${
+                    currency(delta)
+                } credit.`,
+            );
+        } else {
+            await pline(
+                `${delta} ${currency(delta)} added${!selling ? ' back' : ''} to your credit; total is now ${
+                    eshkp.credit
+                } ${currency(eshkp.credit)}.`,
+            );
+        }
+    }
 }
 
 /**
@@ -1704,9 +1793,10 @@ function append_honorific(bufRef) {
 
 /**
  * C ref: shk.c addtobill — unpaid pickup quote path.
- * Covered: non-container ininv `"For you,"` + append_honorific.
- * Deferred: container bill; costly_gold; remote silent; Deaf list-price arm
- * fully; Angry "scum" still wired.
+ * Covered: non-container ininv `"For you,"` + append_honorific;
+ * COIN_CLASS / container contained_gold → costly_gold (D-0991).
+ * Deferred: container bill_box_content / contained_cost; remote silent;
+ * Deaf list-price arm fully; Angry "scum" still wired.
  */
 export async function addtobill(obj, ininv, dummy, silent) {
     const holder = { shkp: null };
@@ -1715,7 +1805,7 @@ export async function addtobill(obj, ininv, dummy, silent) {
     const shkp = holder.shkp;
 
     if ((obj?.oclass | 0) === COIN_CLASS) {
-        // costly_gold deferred
+        await costly_gold(obj.ox | 0, obj.oy | 0, obj.quan | 0, silent);
         return;
     }
     if ((ESHK(shkp)?.billct | 0) === BILLSZ) {
@@ -1724,6 +1814,8 @@ export async function addtobill(obj, ininv, dummy, silent) {
     }
 
     let ltmp = 0;
+    let cltmp = 0;
+    let gltmp = 0;
     const container = Has_contents(obj);
     if (!obj.no_charge) {
         ltmp = get_cost(obj, shkp);
@@ -1737,9 +1829,19 @@ export async function addtobill(obj, ininv, dummy, silent) {
     let contentscount = 0;
     if (container) {
         // bill_box_content / contained_cost deferred — still bill outer if priced
+        gltmp = contained_gold(obj, true);
         if (ltmp) add_one_tobill(obj, dummy, shkp);
+        // bill_box_content deferred
+        picked_container(obj);
+        ltmp += cltmp;
+
+        if (gltmp) {
+            await costly_gold(obj.ox | 0, obj.oy | 0, gltmp, silent);
+            if (!ltmp) return;
+        }
+
         if (obj.no_charge) obj.no_charge = 0;
-        contentscount = 0;
+        contentscount = count_unpaid(obj.cobj);
     } else {
         add_one_tobill(obj, dummy, shkp);
     }

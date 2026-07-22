@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-0991 — costly_gold / donate_gold on kick + addtobill
+
+- **Status:** fixed (map-driven debt retirement)
+- **Symptom:** named omission after D-0990 — gold kicked out of a shop
+  skipped credit/debit/`loan` adjust; contained-gold kick refund and
+  `addtobill` COIN_CLASS / container gold were stubs.
+- **C locus:** `shk.c` `costly_gold` / `donate_gold`; callers
+  `dokick.c` `really_kick_object`; `shk.c` `addtobill` coin +
+  `contained_gold`.
+- **Fix:** port credit-reduce vs debit+loan paths; donate debit-pay /
+  credit-establish messages; wire kick-out `costly_gold`, kick-land
+  contained refund `donate_gold(…, FALSE)`, `addtobill` coin +
+  container `gltmp`. Export `contained_gold`.
+- **Deferred:** `sellobj` / `check_shop_obj` throw-land bill;
+  barefoot petrify; tmp_at flash; Blind feel; bill_box_content /
+  contained_cost.
+- **Verify:** green+strict PASS; shop/kick cohort **11**/12
+  (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+
 ## D-0990 — hits_bars / hit_bars on kicked/thrown/launch
 
 - **Status:** fixed (map-driven debt retirement)
