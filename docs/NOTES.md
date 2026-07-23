@@ -7,19 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **43**/44 @**#1285** (Scr **11404**/11405 RNG **100%**
-  speed `31+0.27/turn`). Next cadence @**#1290**.
+- Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
+  speed `33+0.27/turn`) after **D-1015**. Next cadence @**#1290**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1014** apply `use_stone` + dorub/doapply graystone.
+- Latest: **D-1015** tutorial `setnotworn` clears oc_oprop extrinsics
+  (seed0009 Scr 72→73).
 - **Next cluster:** absent.md thin (scroll/vault/potions); or
   whip/grapple/jelly/use_pole/oil; or pleased pat_on_head gifts.
-- seed0009 Scr 72/73 FAIL reproduces on clean HEAD — do not chase
-  as recent-port regression.
 
 ## Don't re-check (≤15)
 
@@ -44,12 +43,14 @@ Objective/score live in `CURRENT.md`.
   suite — keep morph in music `do_pit` (D-0972).
 - Wooden flute/harp: always burn `rn2(DEX)` even when stun/conf
   cleared `do_spec` (C `&=`, not JS `&&`).
-- Do not chase seed0009 Scr 72/73 without C-cited shared cause.
+- Tutorial invent stash must `setnotworn`→`setworn` clear extrinsics
+  (D-1015); pointer-only slot clear leaves EStealth (seed0009).
 
 ## Landmarks (≤15)
 
-- Suite @**#1285**: **43**/44 Scr **11404**/11405 RNG **100%**
-  speed `31+0.27/turn` (seed0009 Scr FAIL on HEAD).
+- Suite after **D-1015**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `33+0.27/turn`.
+- **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
 - **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
@@ -62,6 +63,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
 - **D-1005:** leash use_leash/next_to_u/check_leash + whimper.
 - **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
-- **D-1003:** warnreveal + overexert_hp + Upolyd eel regen_hp.
-- **D-1002:** allmain Teleport/Poly/ulycn once-per-turn + mvl_change.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

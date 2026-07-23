@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1015 | fixed | tutorial `setnotworn` clears oc_oprop / EStealth | seed0009 Scr 72→73; suite 44/44 Scr 11405/11405 |
 | D-1014 | fixed | apply `use_stone` + dorub/doapply graystone | map-driven; cadence 43/44 @#1285; green+cohort 16/17 (seed0009 pre-existing) |
 | D-1013 | fixed | apply BLINDFOLD/LENSES Blindf_on/off + cursed_check export | map-driven; green+cohort 15/16 (seed0009 pre-existing) |
 | D-1012 | fixed | pray in_trouble collapsing…cursed_blindfold + all minors + stuck_ring/make_deaf/buried_ball helpers | map-driven; green+cohort 15/16 (seed0009 pre-existing) |

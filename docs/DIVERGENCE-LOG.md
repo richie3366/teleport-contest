@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1015 — tutorial setnotworn clears oc_oprop extrinsics
+
+- **Status:** fixed (seed0009 Scr 72/73)
+- **Symptom:** seed0009 death Attributes showed extra “You were
+  stealthy.” (Scr 72/73; RNG full). `EStealth==W_ARMC` with empty
+  invent / null `uarmc` at disclose.
+- **C locus:** `nhlua.c` `nhl_gamestate(false)` — `setnotworn(otmp)`
+  then `freeinv`; `worn.c` `setnotworn` clears
+  `u.uprops[oc_oprop].extrinsic`.
+- **Cause:** `tutorial_enter_gamestate` nulled worn slot pointers
+  without clearing extrinsics. D-0970 `confer_oc_oprop` STEALTH→
+  `EStealth` made the leak visible (Ranger starting elven cloak).
+- **Fix:** `setnotworn` in `do.js` calls `setworn(null, propMask)` for
+  armor/accessory bits; tutorial stash uses that path (preserve
+  `owornmask` as restore flag after clear).
+- **Verify:** seed0009 Scr **73**/73; full `sessions` **44**/44 Scr
+  **11405**/11405 RNG **100%** speed `33+0.27/turn`; green+strict;
+  tutorial/wear cohort **9**/9. Rule #2: no fs.
+- **Files:** `js/do.js`.
+
 ## D-1014 — apply use_stone graystone/touchstone
 
 - **Status:** fixed (map-driven debt retirement)
