@@ -21,6 +21,22 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 18:20 — #1304 D-1035 nhl_gamestate memcpy + init_uhunger
+
+**Objective:** map-driven startup cluster — C `nhl_gamestate`
+memcpy u/disco/mvitals/spl_book + `init_uhunger` (`startup.md`).
+**C locus:** `nhlua.c` nhl_gamestate/free_tutorial; `eat.c`
+init_uhunger; `do.c` tutorial/goto_level.
+**Change:** snapshot you (skip gi worn ptrs) + disco/mvitals/spells
+then memset spells; leave restores keeping uz/uz0, clears oc_uname,
+init_uhunger ATEMP, free_tutorial. Rule #2: no fs.
+**Score:** last full `sessions` still **#1300** 44/44 (cadence @#1305).
+**Verified:** private node (memcpy/uz/uname/uwep/ATEMP); green+strict
+PASS; cohort 8/8 (seed0009 Scr **73**/73; seed0106 **267**/267;
+seed0361 **366**/366). Leave path **unhit** by public traces.
+**Next:** remaining tut-1 des / nhcore disable, or debt.md / hatch_egg.
+**Blocked:** none.
+
 ## 2026-08-15 17:56 — #1303 D-1034 ordinary throne_sit_effect 1–13
 
 **Objective:** map-driven sit cluster — C ordinary `throne_sit_effect`
@@ -275,21 +291,4 @@ RNG **100%** speed `31+0.27/turn` (R² 0.876). Next @**#1295**.
 (seed0009 Scr **73**/73). Private node (queen+timer; cursed hatch
 stop; stack cancel quan-1). Path **unhit** by public traces.
 **Next:** apply.js whip/grapple/`use_pole`.
-**Blocked:** none.
-
-## 2026-08-15 13:50 — D-1020 setnotworn pointer-walk + leave-tutorial
-
-**Objective:** C-wrong Keep — D-1015 `setnotworn` used
-`setworn(null, owornmask)`; leave-tutorial invent restore absent.
-**C locus:** `worn.c` `setnotworn` pointer-equal `worn[]`;
-`nhlua.c` `nhl_gamestate(true)` useupall/`addinv_nomerge`/`setworn`;
-`do.c` `tutorial(FALSE)`.
-**Change:** pointer-walk + confer/w_blocks/artifact; stash prepend +
-`_lastinvnr=51`; leave restores invent+re-wear; apply.js shares
-export. Rule #2: no fs.
-**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
-**Verified:** green+strict PASS; tutorial/wear cohort **11**/11
-(seed0009 Scr **73**/73); private node (stash-flag no-op vs real
-slot clears EStealth). Leave path likely **unhit** by public traces.
-**Next:** apply.js whip/grapple/jelly/`use_pole`.
 **Blocked:** none.

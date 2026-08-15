@@ -15,13 +15,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1034** ordinary `throne_sit_effect` 1–13 + `take_gold`
-  + `do_genocide(5)`. Public traces unhit (green+cohort PASS).
-- **Next cluster:** nhl_gamestate memcpy u/disco/mvitals/spl_book +
-  `init_uhunger` (`startup.md`). `hatch_egg` still deferred.
-- **D-1034 falsifier (held):** non-Vlad throne case 5 strips gold;
-  case 8 getlin `none` leaves mvitals; case 1 adjattrib+losehp;
-  courtmon `makemon` at ux,uy.
+- Latest: **D-1035** `nhl_gamestate` memcpy u/disco/mvitals/spl_book
+  + `init_uhunger` ATEMP. Public traces unhit (green+cohort PASS).
+- **Next cluster:** remaining tut-1 des (large-box/food/stairs/kelp/
+  `place_lregion`/tut_key) + nhcore disable, or `debt.md` /
+  `hatch_egg`. `hatch_egg` still deferred.
+- **D-1035 falsifier (held):** leave restores uhp/disco/mvitals/spells
+  after tutorial mutation; `uz` stays tutorial during leave; gi `uwep`
+  not clobbered; ATEMP(STR)<0 clears then encumber_msg.
 
 ## Don't re-check (≤15)
 
@@ -40,7 +41,8 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  ordinary throne_sit_effect (D-1034) or drop `objects_at` (D-0980).
+  nhl_gamestate memcpy/`init_uhunger` (D-1035) or drop `objects_at`
+  (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -48,16 +50,16 @@ Objective/score live in `CURRENT.md`.
   `cancel_monst` youdefend walks `game.invent[]`. cmdq pickaxe is
   `doapply` fn + invlet KEY. Tutorial stash needs `setnotworn`.
   Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
-- Do not drive `setnotworn` from `owornmask`/`setworn(null)` — C is
-  pointer-equal on `worn[]` (D-1020). Do not `delobj` tutorial loot
-  on leave or the jelly lump (`useupall`/`obfree`, no `obj_resists`
-  rn2). Jelly: GETOBJ_PROMPT with no eggs; stack-cancel does not
-  unsplit (C `unsplitobj` no-op on OBJ_FREE).
+- Do not memcpy gi worn/ball pointers with struct you (D-1035 — C `u`
+  has no `uwep`). Do not drive `setnotworn` from `owornmask`/
+  `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave
+  (`useupall`/`obfree`, no `obj_resists` rn2).
 
 ## Landmarks (≤15)
 
 - Suite cadence **#1300**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.867).
+- **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
 - **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
 - **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
 - **D-1032:** fig_transform / attach_fig_transform_timeout.
@@ -71,4 +73,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
 - **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
 - **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.
-- **D-1021:** use_royal_jelly + dorub/doapply + timeout kill_egg.

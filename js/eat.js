@@ -88,7 +88,7 @@ import {
 } from './attrib.js';
 import { nomul, losehp, still_chewing, is_pool, is_lava } from './hack.js';
 import { near_capacity, observe_object, makeknown, compactify_invlets,
-    freeinv_core } from './invent.js';
+    freeinv_core, encumber_msg } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
     make_stunned, make_hallucinated,
@@ -401,17 +401,24 @@ function Hunger() {
 }
 
 /**
- * C ref: eat.c init_uhunger — reset hunger to Not Hungry / 900.
- * ATEMP(A_STR) repair + encumber_msg deferred.
+ * C ref: eat.c init_uhunger — 900 / NOT_HUNGRY; botl if was hungry or
+ * ATEMP(A_STR)<0; clear that temp STR loss then encumber_msg.
  */
-export function init_uhunger() {
+export async function init_uhunger() {
     const u = game.u;
     if (!u) return;
-    if ((u.uhs ?? NOT_HUNGRY) !== NOT_HUNGRY) {
-        if (game.flags) game.flags.botl = true;
-    }
+    if (!u.atemp) u.atemp = { a: [0, 0, 0, 0, 0, 0] };
+    const strTemp = u.atemp.a[A_STR] | 0;
+    // C: disp.botl = (u.uhs != NOT_HUNGRY || ATEMP(A_STR) < 0);
+    const botl = ((u.uhs ?? NOT_HUNGRY) !== NOT_HUNGRY) || strTemp < 0;
+    if (game.flags) game.flags.botl = botl;
+    if (game.disp) game.disp.botl = botl;
     u.uhunger = 900;
     u.uhs = NOT_HUNGRY;
+    if (strTemp < 0) {
+        u.atemp.a[A_STR] = 0;
+        await encumber_msg();
+    }
 }
 
 /**

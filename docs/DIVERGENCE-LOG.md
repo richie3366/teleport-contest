@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1035 — nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** tutorial enter/leave stashed invent (D-1020) but did
+  not backup `u` / disco / mvitals / `spl_book`. Tutorial mutations
+  (HP, discoveries, kills, spells, hunger) would persist after the
+  portal. `init_uhunger` skipped ATEMP(STR) repair.
+- **C locus:** `nhlua.c` `nhl_gamestate` / `free_tutorial`;
+  `eat.c` `init_uhunger`; `do.c` `tutorial`/`goto_level`.
+- **Fix:** after invent stash, memcpy-style snapshot of struct you
+  (skip gi worn/ball pointers — those are not in C `u`) plus disco /
+  mvitals / `spl_book`, then memset spells. Leave: setworn, restore
+  you keeping `uz`/`uz0`, disco, mvitals, clear `oc_uname`,
+  `init_uhunger`, `free_tutorial`, restore spells. `init_uhunger`
+  assigns botl from hungry\|ATEMP(STR)<0 and clears that temp STR
+  then `encumber_msg`. Rule #2: no fs.
+- **Deferred:** leftover `obfree` contents/timers; nhcore
+  `NHCORE_*_TUTORIAL` disable; `update_inventory`; tut-1 des
+  large-box/food/stairs/kelp/`place_lregion`/tut_key/eckey.
+- **Verify:** private node (memset/restore uhp/disco/mvitals/spells,
+  uz keep, oc_uname, gi uwep unclobbered, ATEMP STR). green+strict
+  PASS; cohort 8/8 (seed0009 Scr **73**/73; seed0106 **267**/267;
+  seed0361 **366**/366; seed0105 **30**/30; seed0103/1500 + green).
+  Leave path likely **unhit** by public traces.
+- **Files:** `js/do.js`, `js/eat.js`, `js/pray.js`, `js/end.js`.
+
 ## D-1034 — ordinary throne_sit_effect 1–13 / take_gold / do_genocide
 
 - **Status:** fixed (map-driven; not a public FAIL)

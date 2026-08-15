@@ -14,3 +14,20 @@
 **Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
 jelly/use_pole; or pleased pat_on_head gifts.
 **Blocked:** none.
+
+## 2026-08-15 13:50 — D-1020 setnotworn pointer-walk + leave-tutorial
+
+**Objective:** C-wrong Keep — D-1015 `setnotworn` used
+`setworn(null, owornmask)`; leave-tutorial invent restore absent.
+**C locus:** `worn.c` `setnotworn` pointer-equal `worn[]`;
+`nhlua.c` `nhl_gamestate(true)` useupall/`addinv_nomerge`/`setworn`;
+`do.c` `tutorial(FALSE)`.
+**Change:** pointer-walk + confer/w_blocks/artifact; stash prepend +
+`_lastinvnr=51`; leave restores invent+re-wear; apply.js shares
+export. Rule #2: no fs.
+**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
+**Verified:** green+strict PASS; tutorial/wear cohort **11**/11
+(seed0009 Scr **73**/73); private node (stash-flag no-op vs real
+slot clears EStealth). Leave path likely **unhit** by public traces.
+**Next:** apply.js whip/grapple/jelly/`use_pole`.
+**Blocked:** none.

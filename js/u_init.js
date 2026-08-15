@@ -1765,7 +1765,7 @@ export async function u_init_misc() {
     // C ref: u_init.c ubirthday = getnow() (contest patch 001)
     g.ubirthday = getnow();
 
-    // C: init_uhunger() — 900 / NOT_HUNGRY (ATEMP repair deferred)
+    // C: init_uhunger() — 900 / NOT_HUNGRY (ATEMP/encumber on eat.js path)
     g.u.uhunger = 900;
     g.u.uhs = NOT_HUNGRY;
     g.u.ublesscnt = 300;
