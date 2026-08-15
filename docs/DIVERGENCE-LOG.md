@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1019 — sellobj BSS sell_response + robbed precedence
+
+- **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)
+- **Symptom:** D-0994 `ensure_sell_state` defaulted
+  `game.sell_response` to `'a'` (auto-accept). C BSS is `'\0'`
+  (falsy → query) until `sellobj_state(SELL_NORMAL)` after an
+  accidental drop. First throw-land / dropz sale auto-sold. JS also
+  “fixed” `eshkp->robbed -= offer < 0L` by subtracting `offer` and
+  clamping; C `<` binds tighter than `-=` so robbed is cleared, not
+  reduced by the offer. nyaq `'y'`/`'n'` was stored into
+  `sell_response` (C only persists `'a'`→`'y'` and `'q'`→`'n'`).
+- **C locus:** `shk.c` `sellobj_state` / `sellobj` robbed block
+  (`if ((eshkp->robbed -= offer < 0L)) eshkp->robbed = 0L`) and
+  `switch (gs.sell_response ? gs.sell_response : nyaq(qbuf))`;
+  `hack.h` `ynaq` default `'y'` / `nyaq` default `'n'`.
+- **Fix:** BSS `sell_response = null`; robbed `-= (offer<0)` then
+  zero remaining; cash `nyaq` result is local; credit `ynaq`
+  default `'y'`. Rule #2: no fs.
+- **Deferred:** SetVoice; safe_qbuf container wording; pickup
+  put-in / trap / gold-throw `sellobj` callers; invent-full dropy;
+  D-1020 `setnotworn` pointer-walk.
+- **Verify:** green+strict; shop/throw cohort **12**/12. Private
+  node: BSS `null` not `'a'`; robbed 100 + gold 50 → robbed 0
+  (invented subtract would leave 50). Public traces likely unhit.
+- **Files:** `js/shk.js`.
+
 ## D-1018 — use_pick_axe cmdq wield re-apply doapply+invlet
 
 - **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)

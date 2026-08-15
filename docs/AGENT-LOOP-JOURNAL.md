@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 13:35 — D-1019 sellobj BSS sell_response / robbed
+
+**Objective:** C-wrong Keep — D-0994 defaulted `sell_response` to
+`'a'` (auto-sell) and subtracted `offer` from `robbed`.
+**C locus:** `shk.c` `sellobj`/`sellobj_state`; BSS `'\0'` queries;
+`robbed -= (offer<0)` then clear; `nyaq` not stored.
+**Change:** BSS `null`; robbed C precedence; nyaq local; credit
+`ynaq` default `'y'`. Rule #2: no fs.
+**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
+**Verified:** green+strict PASS; shop/throw cohort **12**/12;
+private node (BSS null; robbed 100+gold 50 → 0). Robbed / first-sale
+query likely **unhit** by public traces.
+**Next:** D-1020 `setnotworn` pointer-walk + leave-tutorial.
+**Blocked:** none.
+
 ## 2026-08-15 13:24 — D-1018 use_pick_axe cmdq wield re-apply
 
 **Objective:** C-wrong Keep — D-0951 queued `{typ:'ec'}` after
@@ -230,19 +245,4 @@ wary_dog/abuse_dog — D-1005.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or mon_poly mon arm;
 or saddle/whistle.
-**Blocked:** none.
-
-## 2026-07-22 05:30 — #1275 cadence + D-1004 lycan wires
-
-**Objective:** cadence full `sessions` @#1275 + map-driven lycanthropy
-you_were wires (pray/potion/mhitm).
-**C locus:** `pray.c` TROUBLE_LYCANTHROPE; `potion.c` peffect_water +
-potionbreathe POT_WATER; `mhitm.c` mon_poly youmonst; `uhitm.c`
-mhitm_ad_poly; `mondata.c` mon_hates_blessings.
-**Change:** wire TROUBLE_LYCANTHROPE → you_unwere; peffect_water + vapor;
-mon_poly hero + mhitu AD_POLY — D-1004.
-**Verified:** green+strict PASS; pray/potion/combat cohort **16**/17
-(seed0009 Scr 72/73 pre-existing). Cadence **43**/44 Scr **11404**/11405
-RNG **100%** speed `31+0.27/turn`. Rule #2: no fs.
-**Next:** next_to_u/check_leash; or absent.md thin; or mon_poly mon arm.
 **Blocked:** none.

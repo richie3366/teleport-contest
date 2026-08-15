@@ -9,23 +9,22 @@ Objective/score live in `CURRENT.md`.
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`) last full measure **D-1015**. Next cadence
-  @**#1290**. D-1018 held green+apply/cmdq cohort 15/15 (wield
-  re-apply unhit by public traces).
+  @**#1290**. D-1019 held green+shop/throw cohort 12/12 (robbed /
+  first-sale query unhit by public traces).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1018** `use_pick_axe` queues `doapply` fn + invlet
-  CMDQ_KEY; `getobj_apply` pops KEY; `rhack` canned uses
-  `(res & ECMD_TIME)` (boolean `doapply` true spends the turn).
-- **Next cluster:** D-1019 `sellobj` default `'a'` / C `robbed`
-  precedence. Then D-1020 setnotworn pointer. Not absent.md/whip
-  until those Keeps are honest.
-- **D-1018 falsifier (held):** apply unwielded pick → next
-  `rhack(0)` runs `doapply` with canned invlet (no getobj prompt).
-  Public 15/15 cohort PASS does **not** prove that path.
+- Latest: **D-1019** `sellobj` BSS `sell_response` is `null` (`'\0'`),
+  not `'a'`; robbed uses C `-= (offer<0)` then clear remaining;
+  nyaq result not stored (only `'a'`→`'y'` / `'q'`→`'n'`).
+- **Next cluster:** D-1020 `setnotworn` pointer-walk + leave-tutorial.
+  Not absent.md/whip until that Keep is honest.
+- **D-1019 falsifier (held):** first shop sale (no prior
+  `sellobj_state`) must query; robbed shop gold drop clears `robbed`
+  (not `robbed-offer`). Public 12/12 does **not** prove those paths.
 
 ## Don't re-check (≤15)
 
@@ -44,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  cancel_monst invent walk (D-1017) or drop `objects_at` (D-0980).
+  sellobj BSS/`robbed` (D-1019) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -54,11 +53,14 @@ Objective/score live in `CURRENT.md`.
   `nobj` on the Array (D-1017). `cmdq_add_ec` must push a function
   `rhack` can await — not `{typ:'ec'}`; `getobj_apply` must pop
   CMDQ_KEY (D-1018). Tutorial stash needs `setnotworn`.
+- Do not default `sell_response` to `'a'` (C BSS `'\0'` → query);
+  do not “fix” `robbed -= offer` (C `-= (offer<0)` then clear).
 
 ## Landmarks (≤15)
 
 - Suite after **D-1015**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`.
+- **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.
 - **D-1018:** `use_pick_axe` cmdq `doapply`+invlet + getobj KEY.
 - **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
 - **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
@@ -70,5 +72,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
 - **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
 - **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault.
-- **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

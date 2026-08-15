@@ -10,7 +10,8 @@
 //        add_damage shop repair list (D-0941);
 //        pay_for_damage / getcad / hot_pursuit (D-0942);
 //        shopdig dig-warn / pack-snatch (D-0958);
-//        shopdig(1) um_dist snatch polarity + setnotworn (D-1016).
+//        shopdig(1) um_dist snatch polarity + setnotworn (D-1016);
+//        sellobj BSS sell_response / robbed precedence (D-1019).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
 // m_break_boulder; m_move_aggress; inhistemple callers; mapseen_temple;
@@ -1324,9 +1325,13 @@ export async function donate_gold(gltmp, shkp, selling) {
     }
 }
 
-/** Ensure sellobj globals exist (C gs.sell_response / gs.sell_how / ga.auto_credit). */
+/**
+ * C gs.sell_response / gs.sell_how / ga.auto_credit — BSS zero-init.
+ * sell_response '\0' is falsy (query); JS uses null. Do not default 'a'
+ * (that is only sellobj_state(SELL_NORMAL) after an accidental drop).
+ */
 function ensure_sell_state() {
-    if (game.sell_response === undefined) game.sell_response = 'a';
+    if (game.sell_response === undefined) game.sell_response = null;
     if (game.sell_how === undefined) game.sell_how = SELL_NORMAL;
     if (game.auto_credit === undefined) game.auto_credit = false;
 }
@@ -1542,6 +1547,8 @@ async function shk_names_obj(shkp, obj, fmt, amt, arg) {
  * C ref: shk.c sellobj — drop/throw land sale into shop.
  * Branch envelope: unpaid sub_one; angry scum; gold donate; credit /
  * cash offer query; no-interest / special_stock / robbed restock.
+ * D-1019: BSS sell_response is '\0' (query), not 'a'; robbed uses C
+ * `-= (offer < 0)` then clear remaining; nyaq result is not stored.
  * Named omit: SetVoice; safe_qbuf fancy container prompt wording.
  */
 export async function sellobj(obj, x, y) {
@@ -1608,9 +1615,12 @@ export async function sellobj(obj, x, y) {
 
     if (eshkp.robbed) {
         if (isgold) offer = obj.quan | 0;
-        else if (cgold) offer += 1; // C: offer += cgold (boolean → 1)
-        eshkp.robbed = (eshkp.robbed | 0) - offer;
-        if ((eshkp.robbed | 0) < 0) eshkp.robbed = 0;
+        else if (cgold) offer += cgold; // C boolean 0/1, not gltmp
+        // C: if ((eshkp->robbed -= offer < 0L)) eshkp->robbed = 0L;
+        // `<` binds tighter than `-=`: subtract (offer<0), then zero
+        // remaining robbed. Offer is not deducted (D-1019).
+        eshkp.robbed = (eshkp.robbed | 0) - (((offer | 0) < 0) | 0);
+        if (eshkp.robbed) eshkp.robbed = 0;
         if (offer && !hero_deaf() && !muteshk(shkp)) {
             await verbalize(
                 'Thank you for your contribution to restock this recently plundered shop.',
@@ -1661,7 +1671,8 @@ export async function sellobj(obj, x, y) {
                 (obj.quan | 0) === 1 ? 'that' : 'those'
             }?`;
             record_price_quote(obj.otyp, Math.trunc(tmpcr / ((obj.quan | 0) || 1)), false);
-            c = await yn_function(qbuf, 'ynaq', 'n');
+            // C: ynaq → yn_function(..., ynaqchars, 'y')
+            c = await yn_function(qbuf, 'ynaq', 'y');
             if (c === 'a') {
                 c = 'y';
                 game.auto_credit = true;
@@ -1692,8 +1703,8 @@ export async function sellobj(obj, x, y) {
         if (short_funds) offer = shkmoney;
         let only_partially_your_contents = false;
         let yourc = 0;
+        let qbuf = '';
         if (!game.sell_response) {
-            let qbuf;
             if (container) {
                 const shksc = count_contents(obj, true, true, false, true);
                 yourc = count_contents(obj, true, true, true, true) - shksc;
@@ -1716,9 +1727,14 @@ export async function sellobj(obj, x, y) {
             record_price_quote(
                 obj.otyp, Math.trunc(offer / ((obj.quan | 0) || 1)), false,
             );
-            game.sell_response = await yn_function(qbuf, 'ynaq', 'n');
         }
-        switch (game.sell_response) {
+        // C: switch (gs.sell_response ? gs.sell_response : nyaq(qbuf))
+        // nyaq default 'n'; do not store y/n into sell_response (only
+        // case 'a'→'y' and 'q'→'n' persist).
+        const sell_c = game.sell_response
+            ? game.sell_response
+            : await yn_function(qbuf, 'ynaq', 'n');
+        switch (sell_c) {
         case 'q':
             game.sell_response = 'n';
             // fallthrough
