@@ -37,7 +37,7 @@ import {
     IS_TREE, W_NONPASSWALL, FIG_TRANSFORM, TIMER_OBJECT, OBJ_MINVENT,
     EXACT_NAME,
 } from './const.js';
-import { pick_lock } from './lock.js';
+import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
 import {
     m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto, wake_nearby,
@@ -70,7 +70,7 @@ import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination } from './do_name.js
 import { monflee } from './monmove.js';
 import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
-import { walk_path, thitmonst } from './dothrow.js';
+import { walk_path, thitmonst, hurtle } from './dothrow.js';
 import { uhim } from './roles.js';
 import { is_art } from './artifact.js';
 import { ART_SNICKERSNEE } from './generated/artifacts_data.js';
@@ -260,9 +260,6 @@ const GETOBJ_EXCLUDE_SELECTABLE = 0;
 const GETOBJ_DOWNPLAY = 1;
 const GETOBJ_SUGGEST = 2;
 const GETOBJ_EXCLUDE_INACCESS = 3;
-
-const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
-const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 
 /** C ref: obj.h is_axe — WEAPON/TOOL with P_AXE skill. */
 function is_axe(obj) {
@@ -458,34 +455,6 @@ async function getobj_apply() {
 }
 
 /**
- * C ref: cmd.c getdir — '.' is self (dx=dy=dz=0, success), not cancel.
- * Used by use_stethoscope; lock.js getdir still treats '.' as cancel.
- */
-async function getdir_self_ok(prompt) {
-    const msg = prompt || 'In what direction?';
-    game._pending_message = `${msg} `;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    game._pending_message = '';
-    if (!game.u) game.u = {};
-    if (ch === '.') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return true;
-    }
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-        return false;
-    }
-    if (!(ch in DIR_DX)) return false;
-    game.u.dx = DIR_DX[ch];
-    game.u.dy = DIR_DY[ch];
-    game.u.dz = 0;
-    return true;
-}
-
-/**
  * C ref: apply.c use_stethoscope — one free use per hero_seq; '.' → ustatusline.
  * Adjacent: isok / m_at (mundetected + mappearance seemimic + mstatusline) /
  * empty → "hear nothing special", return res (D-0735 / D-0738).
@@ -496,7 +465,7 @@ async function getdir_self_ok(prompt) {
  * @returns {number} 1 = ECMD_TIME, 0 = ECMD_OK, -1 = ECMD_CANCEL
  */
 async function use_stethoscope(_obj) {
-    if (!(await getdir_self_ok(null))) return -1; // ECMD_CANCEL
+    if (!(await getdir(null))) return -1; // ECMD_CANCEL
 
     // C: first use this hero_seq is free; another use costs the turn
     if (!game.context) game.context = {};
@@ -690,7 +659,7 @@ function bhit_invis_beam(ddx, ddy, range) {
  * @returns {number} ECMD_*
  */
 async function use_mirror(obj) {
-    if (!(await getdir_self_ok(null))) return ECMD_CANCEL;
+    if (!(await getdir(null))) return ECMD_CANCEL;
 
     const u = game.u || (game.u = {});
     const invis_mirror = !!(u.Invis || u.HInvis || u.EInvis);
@@ -956,7 +925,7 @@ async function use_camera(obj) {
         await pline('Using your camera underwater would void the warranty.');
         return ECMD_OK;
     }
-    if (!(await getdir_self_ok(null))) return ECMD_CANCEL;
+    if (!(await getdir(null))) return ECMD_CANCEL;
 
     if ((obj.spe | 0) <= 0) {
         await pline(nothing_happens);
@@ -1650,7 +1619,7 @@ export async function check_leash(x, y) {
  * C ref: cmd.c get_adjacent_loc — getdir then adjacent/self cell for leash.
  */
 async function get_adjacent_loc_leash() {
-    if (!(await getdir_self_ok(null))) {
+    if (!(await getdir(null))) {
         await pline('Never mind.');
         return null;
     }
@@ -3631,42 +3600,6 @@ function u_wield_art(art) {
 }
 
 /**
- * C ref: cmd.c getdir — hjkl/yubn + '.'/'s' self + '<>' vertical (whip).
- * Then caller runs confdir(FALSE) when not swallowed.
- */
-async function getdir_whip(prompt) {
-    const msg = prompt || 'In what direction?';
-    game._pending_message = `${msg} `;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    game._pending_message = '';
-    if (!game.u) game.u = {};
-    if (ch === '.' || ch === 's') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return true;
-    }
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') return false;
-    if (ch === '<') {
-        game.u.dx = game.u.dy = 0;
-        game.u.dz = -1;
-        return true;
-    }
-    if (ch === '>') {
-        game.u.dx = game.u.dy = 0;
-        game.u.dz = 1;
-        return true;
-    }
-    if (!(ch in DIR_DX)) return false;
-    game.u.dx = DIR_DX[ch];
-    game.u.dy = DIR_DY[ch];
-    game.u.dz = 0;
-    return true;
-}
-
-/**
  * C ref: steed.c kick_steed — whip/kick riding. monverbself polish deferred.
  */
 async function kick_steed_apply() {
@@ -3705,36 +3638,6 @@ async function kick_steed_apply() {
 }
 
 /**
- * C ref: dothrow.c hurtle — range-1 yank (grapple surface). Punished diagonal
- * slack + hurtle_step walk_path named omit; teleds one step.
- */
-async function hurtle_apply(dx, dy, range, verbose) {
-    const u = game.u || {};
-    if (u.Punished && u.uball && u.uball.where !== OBJ_INVENT) {
-        await You_feel('a tug from the iron ball.');
-        nomul(0);
-        return;
-    }
-    if (u.utrap) {
-        await pline('You are anchored by the trap.');
-        nomul(0);
-        return;
-    }
-    dx = sgn_apply(dx);
-    dy = sgn_apply(dy);
-    if (!range || (!dx && !dy) || u.ustuck) return;
-    nomul(-range);
-    if (!game.multi_reason) game.multi_reason = 'moving through the air';
-    game.nomovemsg = '';
-    if (verbose) {
-        await pline(`You ${range > 1 ? 'hurtle' : 'float'} in the opposite direction.`);
-    }
-    const nx = (u.ux | 0) + dx * (range | 0);
-    const ny = (u.uy | 0) + dy * (range | 0);
-    if (isok(nx, ny)) await teleds(nx, ny, TELEDS_NO_FLAGS);
-}
-
-/**
  * C ref: apply.c use_whip — lash, pit yank, disarm, force_attack.
  * Named omit: #if 0 snatch-to-face thitu; artifact_light on setmnotwielded;
  * yname full carried-by-mon possessive; wipe_engr_at body.
@@ -3751,7 +3654,7 @@ async function use_whip(obj) {
         }
         return ECMD_OK;
     }
-    if (!(await getdir_whip(null))) return res | ECMD_CANCEL;
+    if (!(await getdir(null))) return res | ECMD_CANCEL;
 
     let rx;
     let ry;
@@ -4207,7 +4110,7 @@ function display_grapple_positions(_on_off) {
 
 /**
  * C ref: apply.c use_grapple — getpos, skill menu, snag/hit/hurtle.
- * Named omit: untrap non-adjacent (C FIXME); hurtle_step walk_path;
+ * Named omit: untrap non-adjacent (C FIXME); wipe_engr_at body.
  * S_goodpos tmp_at; thitmonst weapon arm partial.
  */
 async function use_grapple(obj) {
@@ -4323,7 +4226,7 @@ async function use_grapple(obj) {
             );
         } else {
             await pline(`You are yanked toward the ${surface_apply(cc.x, cc.y)}!`);
-            await hurtle_apply(
+            await hurtle(
                 sgn_apply(cc.x - u.ux), sgn_apply(cc.y - u.uy), 1, false,
             );
             await spoteffects(true);
@@ -4793,53 +4696,6 @@ export async function fig_transform(figurine, timeout) {
 }
 
 /**
- * C ref: cmd.c getdir — cmdq KEY/DIR then hjkl/yubn + '.'/'s' self + '<>'.
- * Named omit: mouse getpos; cmdassist; fuzzer; redraw ^R.
- */
-async function getdir_fig(prompt) {
-    const q = game._cmdq_canned;
-    if (q?.length) {
-        const head = q[0];
-        if (head && typeof head === 'object'
-            && (head.typ === 'key' || head.typ === 'dir')) {
-            q.shift();
-            if (!game.u) game.u = {};
-            if (head.typ === 'dir') {
-                game.u.dx = head.dirx | 0;
-                game.u.dy = head.diry | 0;
-                game.u.dz = head.dirz | 0;
-                return true;
-            }
-            const ch = typeof head.key === 'string'
-                ? head.key
-                : String.fromCharCode(head.key | 0);
-            if (ch === '.' || ch === 's') {
-                game.u.dx = game.u.dy = game.u.dz = 0;
-                return true;
-            }
-            if (ch === '<') {
-                game.u.dx = game.u.dy = 0;
-                game.u.dz = -1;
-                return true;
-            }
-            if (ch === '>') {
-                game.u.dx = game.u.dy = 0;
-                game.u.dz = 1;
-                return true;
-            }
-            if (ch in DIR_DX) {
-                game.u.dx = DIR_DX[ch];
-                game.u.dy = DIR_DY[ch];
-                game.u.dz = 0;
-                return true;
-            }
-            return false;
-        }
-    }
-    return getdir_whip(prompt);
-}
-
-/**
  * C ref: apply.c use_figurine — swallow location fail ECMD_OK; getdir
  * cancel clears context.move/multi; failed loc after getdir is TIME;
  * You set/release/toss then make_familiar; stop FIG_TRANSFORM; useup;
@@ -4854,7 +4710,7 @@ export async function use_figurine(obj) {
             return ECMD_OK;
         }
     }
-    if (!(await getdir_fig(null))) {
+    if (!(await getdir(null))) {
         if (!game.context) game.context = {};
         game.context.move = 0;
         game.multi = 0;

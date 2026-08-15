@@ -8,7 +8,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `33+0.28/turn` R² 0.869) after D-1037 (cadence still **#1305**;
+  speed `34+0.29/turn` R² 0.854) after D-1038 (cadence still **#1305**;
   next @**#1310**).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
@@ -16,10 +16,11 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1037** `save_timers(RANGE_LEVEL)` / `restore_timers` +
-  `run_timers` HATCH_EGG dispatch. Off-level floor eggs were firing
-  hatch RNG; C peels those timers on savelev.
-- **Next cluster:** remaining tut-1 des / nhcore disable.
+- Latest: **D-1038** shared `lock.js` `getdir` (cmdq / self ./s / <> /
+  movecmd / optional numpad) + `dothrow.js` `hurtle`/`hurtle_step`
+  (not `teleds`). Do not put `confdir` inside shared getdir.
+- **Next cluster:** `dosit` trap-before-throne (D-1033), then tut-1
+  des / nhcore disable.
 - **Hypothesis:** none live. Falsify a new cluster against C + green.
 
 ## Don't re-check (≤15)
@@ -52,12 +53,15 @@ Objective/score live in `CURRENT.md`.
   `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave.
   Do not fire object timers for floor/buried/contained objs after
   leaving their level (D-1037 — peel via `save_timers`). `cry_sound`
-  uses C `monflag.h` numbers, not growl locals.
+  uses C `monflag.h` numbers, not growl locals. Do not restore
+  `getdir_whip` or `hurtle_apply` `teleds` (D-1038). Do not put
+  `confdir` inside shared `getdir`.
 
 ## Landmarks (≤15)
 
-- Suite after D-1037: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `33+0.28/turn` (R² 0.869). Cadence **#1305**; next @**#1310**.
+- Suite after D-1038: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `34+0.29/turn` (R² 0.854). Cadence **#1305**; next @**#1310**.
+- **D-1038:** lock `getdir` C envelope + dothrow `hurtle`/`hurtle_step`.
 - **D-1037:** save_timers RANGE_LEVEL + hatch_egg dispatch.
 - **D-1036:** hatch_egg/learn_egg_type/cry_sound body.
 - **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
@@ -70,6 +74,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1028:** use_bell doapply BELL/BELL_OF_OPENING + openit/mkundead.
 - **D-1027:** use_tinning_kit doapply TINNING_KIT + homemade spe=-2.
 - **D-1026:** use_grease doapply CAN_OF_GREASE + inaccessible.
-- **D-1025:** use_candle / use_candelabrum doapply + weight spe.
-- **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
-- **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
+

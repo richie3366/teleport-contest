@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1038 — shared getdir envelope + hurtle via hurtle_step
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** D-1022 `getdir_whip` / `getdir_self_ok` / `getdir_fig`
+  were hjkl-only clones, not C `cmd.c` `getdir`. Numpad / HJKL /
+  Ctrl-rush / cmdq DIR·KEY / `s` self / `<>` cancelled or failed.
+  Grapple yank used `teleds` (clears `nomul`/`utrap`) instead of
+  `walk_path` + `hurtle_step` / `u_on_newpos`.
+- **C locus:** `cmd.c` `getdir`; `dothrow.c` `hurtle` / `hurtle_step`;
+  `apply.c` `use_whip` / `use_grapple`.
+- **Fix:** `lock.js` `getdir` consumes cmdq DIR/KEY, `.`/`s` self,
+  `<>` vertical, `movecmd` walk/run/rush, optional numpad when
+  `number_pad` on, `^R` retry. Apply callers import that `getdir`
+  (stethoscope/mirror/camera/leash/whip/figurine). `dothrow.js`
+  `hurtle` + `hurtle_step`: Punished tug, typed trap-anchor
+  message, `nomul(-range)`, wall/door/bars/boulder/`m_at` stop
+  with `rnd` damage + `wake_nearto`, then `u.ux/uy` (not `teleds`).
+  Rule #2: no fs.
+- **Deferred:** trailing `confdir(FALSE)` inside shared getdir
+  (use_whip already confdirs — would double confuse-whip RNG);
+  help_dir / cmdassist / “strange direction” (NEED_MORE);
+  mouse `_` getpos; CQ_REPEAT; dxdy_moveok; fuzzer; endmultishot;
+  in_out_region; Passes_walls; drag_ball; switch_terrain;
+  check_special_room; drown; petrify bump; trap pass-over;
+  nh_delay_output. Throw path keeps `getdir_cmdassist`.
+  `dosit` trap-before-throne still open (D-1033).
+- **Verify:** green+strict PASS; full `sessions` **44**/44 Scr
+  **11405**/11405 RNG **100%** speed `34+0.29/turn` (R² 0.854).
+  Public apply whip/hurtle still unhit.
+- **Files:** `js/lock.js`, `js/dothrow.js`, `js/apply.js`.
+
 ## D-1037 — save_timers RANGE_LEVEL + hatch_egg dispatch
 
 - **Status:** fixed (map-driven; not a public FAIL)

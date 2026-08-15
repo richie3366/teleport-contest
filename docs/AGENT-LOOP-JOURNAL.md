@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 19:50 — D-1038 shared getdir + hurtle_step
+
+**Objective:** Keep’d D-1022 C-wrongs — real `getdir`, not `getdir_whip`;
+`hurtle` via `hurtle_step` not `teleds`.
+**C locus:** `cmd.c` `getdir`; `dothrow.c` `hurtle` / `hurtle_step`;
+`apply.c` `use_whip` / `use_grapple`.
+**Change:** `lock.js` getdir cmdq DIR/KEY, `.`/`s`, `<>`, movecmd
+walk/run/rush, optional numpad, `^R` retry. No trailing confdir (whip
+already confdirs). Apply deletes getdir_whip/self_ok/fig. `dothrow.js`
+hurtle: tug / typed trap-anchor / nomul(-range) / wall·mon stop /
+u_on_newpos. Throw path still `getdir_cmdassist`. Docs/reviews
+`loop-2026-08-15/` rewritten in English.
+**Score:** full `sessions` **44**/44 Scr **11405**/11405 RNG **100%**
+speed `34+0.29/turn` (R² 0.854). Cadence still **#1305**; next @**#1310**.
+**Verified:** green+strict PASS; 44/44.
+**Next:** `dosit` `else if (trap)` before IS_THRONE (D-1033), then tut-1.
+**Blocked:** none.
+
 ## 2026-08-15 19:15 — D-1037 save_timers RANGE_LEVEL + hatch dispatch
 
 **Objective:** map-driven egg where/timer parity then wire HATCH_EGG
