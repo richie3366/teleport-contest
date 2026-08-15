@@ -71,13 +71,13 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Whip/pole/grapple names: real `yname` / `Amonnam` /
-`mbodypart` (not local apply clones). Source: `reviews/loop-2026-08-15/D-1022-7f952620-whip-grapple-pole.md`
-risk 5. Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
-optional debt. Unattended loop pops **one** queue item per port iter
-(Must-fix before Open). Review every 3; cadence every 5 is score-only
-**unless Must-fix is open**. Agents **commit and `git push origin HEAD`**
-each iteration.
+**Next cluster:** `find_mac` must walk monster `minvent` worn `ARM_BONUS`
+/ amulet of guarding like C `worn.c` (thitmonst tmp). Source:
+`reviews/loop-unattended/02-eb3469ae-thitmonst-hit-vs-miss.md`. Written
+reviews bind: QUALITY-RISK C-wrongs are Must-fix, not optional debt.
+Unattended loop pops **one** queue item per port iter (Must-fix before
+Open). Review every 3; cadence every 5 is score-only **unless Must-fix
+is open**. Agents **commit and `git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),

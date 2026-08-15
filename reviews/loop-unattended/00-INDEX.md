@@ -10,4 +10,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 
 | File | Commit | D-id | Verdict |
 |------|--------|------|---------|
-| *(none yet — first review iter is #1306)* | | | |
+| [01-12458fe9-pole-glyph-targeting.md](./01-12458fe9-pole-glyph-targeting.md) | `12458fe9` | D-1040 pole `glyph_at` | **ACCEPT-WITH-DEBT** |
+| [02-eb3469ae-thitmonst-hit-vs-miss.md](./02-eb3469ae-thitmonst-hit-vs-miss.md) | `eb3469ae` | D-1041 `thitmonst` hit-vs-miss | **QUALITY-RISK** |

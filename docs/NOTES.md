@@ -17,12 +17,14 @@ Objective/score live in `CURRENT.md`.
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1041** `thitmonst` weapon hit-vs-miss (D-1022 risk 4).
+  Unattended review **#1308**: D-1040 ACCEPT-WITH-DEBT; D-1041
+  QUALITY-RISK (`find_mac` armor, mulch `rnl`, leader `questarti`).
   Loop is **fail-closed** (review every 3, cadence every 5 score-only
   unless Must-fix is open). Agents **commit + `git push`**. Reviews bind:
   unpaid `reviews/loop-2026-08-15/` C-wrongs are `LOOP-QUEUE.md` **Must-fix**.
-- **Next cluster:** Must-fix — whip/pole/grapple `yname` / `Amonnam` /
-  `mbodypart` (D-1022 risk 5). Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** none live. Falsify a new cluster against C + green.
+- **Next cluster:** Must-fix — `find_mac` minvent `ARM_BONUS` (review 02).
+  Do not dump tut-1 or yname while that row is first.
+- **Hypothesis:** none live. Falsify `find_mac` against C `worn.c` + green.
 
 ## Don't re-check (≤15)
 
