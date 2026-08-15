@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 13:50 — D-1020 setnotworn pointer-walk + leave-tutorial
+
+**Objective:** C-wrong Keep — D-1015 `setnotworn` used
+`setworn(null, owornmask)`; leave-tutorial invent restore absent.
+**C locus:** `worn.c` `setnotworn` pointer-equal `worn[]`;
+`nhlua.c` `nhl_gamestate(true)` useupall/`addinv_nomerge`/`setworn`;
+`do.c` `tutorial(FALSE)`.
+**Change:** pointer-walk + confer/w_blocks/artifact; stash prepend +
+`_lastinvnr=51`; leave restores invent+re-wear; apply.js shares
+export. Rule #2: no fs.
+**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
+**Verified:** green+strict PASS; tutorial/wear cohort **11**/11
+(seed0009 Scr **73**/73); private node (stash-flag no-op vs real
+slot clears EStealth). Leave path likely **unhit** by public traces.
+**Next:** apply.js whip/grapple/jelly/`use_pole`.
+**Blocked:** none.
+
 ## 2026-08-15 13:35 — D-1019 sellobj BSS sell_response / robbed
 
 **Objective:** C-wrong Keep — D-0994 defaulted `sell_response` to
@@ -228,21 +245,5 @@ non-cham + Nazgul/Erinys mbirth_limit — D-1006.
 **Verified:** green+strict PASS; poly/combat cohort **15**/16
 (seed0009 Scr 72/73 pre-existing; seed0398 wandpoly PASS). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
-or saddle/whistle.
-**Blocked:** none.
-
-## 2026-07-22 05:45 — #1276 D-1005 leash cluster
-
-**Objective:** map-driven — `next_to_u`/`check_leash` + `use_leash`
-envelope (CURRENT next cluster).
-**C locus:** `apply.c` leash helpers/`use_leash`/`next_to_u`/
-`check_leash`; `wizard.c` `mon_has_amulet`; `sounds.c` `whimper`;
-callers allmain/hack/do/dig/trap/teleport/dog.
-**Change:** port leash attach/detach + stretch/choke/snap; wire
-doapply LEASH + domove/stairs/tele/dig/fall_through/`teleport_pet`/
-wary_dog/abuse_dog — D-1005.
-**Verified:** green+strict PASS; apply/move/pet cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or mon_poly mon arm;
 or saddle/whistle.
 **Blocked:** none.

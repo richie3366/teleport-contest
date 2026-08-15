@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1020 | fixed | `setnotworn` worn[] pointer-walk + leave-tutorial invent restore | C pointer-equal; JS was mask `setworn(null)`; `nhl_gamestate(true)` invent+rewear |
 | D-1019 | fixed | `sellobj` BSS `sell_response` + C `robbed` precedence | C `'\0'` queries; JS defaulted `'a'` auto-sold; robbed `-= (offer<0)` then clear |
 | D-1018 | fixed | `use_pick_axe` cmdq wield re-apply `doapply`+invlet | C queues EC+KEY; JS `{typ:'ec'}` uncallable; getobj_apply ignored KEY |
 | D-1017 | fixed | `cancel_monst` self-cancel walks hero `invent` Array | C `gi.invent` nobj; JS treated Array as nobj head; ABON never ran |

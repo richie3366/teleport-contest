@@ -71,10 +71,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** D-1020 `setnotworn` pointer-walk + leave-tutorial.
-Do **not** pick `absent.md` / whip until that C-wrong Keep is
-fixed. D-1020 corrects an already-Keep’d function — that is not
-a re-stub.
+**Next cluster:** apply.js whip/grapple/jelly/`use_pole` (`debt.md`).
+D-1020 `setnotworn` pointer-walk + leave-tutorial invent restore is
+Keep’d — do not re-stub. Remaining nhl_gamestate memcpy u/disco/
+mvitals/spl_book + `init_uhunger` named in `startup.md`.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -86,17 +86,18 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1019. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1020. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1019** (zap/dig/eat/shop/kick/paranoid/allmain/
+**D-0948**…**D-1020** (zap/dig/eat/shop/kick/paranoid/allmain/
 apply whistle·saddle·towel·crystal_ball·blindfold/lenses·**use_stone** +
 **in_trouble majors Stoned…Region + collapsing…cursed_blindfold + minors**
 + **tutorial `setnotworn` extrinsic clear** + **`shopdig(1)` um_dist
 snatch polarity** + **`cancel_monst` hero invent Array walk** +
 **`use_pick_axe` cmdq `doapply`+invlet** + **`sellobj` BSS `'\0'` /
-C `robbed` precedence** — do not re-stub).
+C `robbed` precedence** + **`setnotworn` worn[] pointer-walk +
+leave-tutorial invent restore** — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
@@ -108,8 +109,10 @@ a local FAIL; push shared `maketrap` PIT morph without full suite
 (keep in music `do_pit`, D-0972); clear tutorial invent worn slots
 without `setnotworn`/`setworn` extrinsic clear (D-1015); invert
 `shopdig(1)` `um_dist` snatch skip (D-1016 — skip when **far**);
-drop `objects_at` from `timeout.js` mkobj import (D-0980); re-stub
-D-0983…D-1019 clusters already Keep’d above.
+drop `objects_at` from `timeout.js` mkobj import (D-0980); drive
+`setnotworn` from `owornmask`+`setworn(null)` (D-1020 — C walks
+`worn[]` by pointer); re-stub
+D-0983…D-1020 clusters already Keep’d above.
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

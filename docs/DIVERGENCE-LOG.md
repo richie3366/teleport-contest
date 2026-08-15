@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1020 — setnotworn pointer-walk + leave-tutorial invent restore
+
+- **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)
+- **Symptom:** D-1015 approximated `setnotworn` as `setworn(null,
+  owornmask)`. C walks `worn[]` by **pointer**. A stashed object
+  whose `owornmask` is the restore flag would unwear whoever now
+  occupies that slot. Leave-tutorial never restored invent
+  (`nhl_gamestate(true)` omitted since D-0350). apply.js cream pie /
+  break-wand used a local pointer-null stub (`uqwep` not `uquiver`).
+- **C locus:** `worn.c` `setnotworn` (`obj == *(wp->w_obj)`);
+  `nhlua.c` `nhl_gamestate(true)` useupall + `addinv_nomerge` +
+  `setworn(otmp, wornmask)`; `do.c` `tutorial(FALSE)` on leaving
+  the tutorial dungeon.
+- **Fix:** pointer-walk + `confer_oc_oprop` off + `w_blocks` blocked
+  + artifact off; do not zero unmatched `owornmask`. Enter prepends
+  `gmst_invent` and sets `_lastinvnr=51`. Leave: moves pline,
+  useupall (no `delobj`/`rn2`), restore + re-wear. apply.js imports
+  the export. Rule #2: no fs.
+- **Deferred:** memcpy u/disco/mvitals/spl_book; `init_uhunger`;
+  oc_uname; `cancel_doff`; `monstunseesu_prop`; `update_inventory`;
+  nhcore callback disable; JS `setworn` still lacks W_WEP (restore
+  uses `setuwep`/`setuqwep`/`setuswapwep`).
+- **Verify:** green+strict; tutorial/wear cohort **11**/11
+  (seed0009 Scr **73**/73). Private node: stash-flag `setnotworn`
+  leaves occupant + `EStealth`; real slot clears. Leave path
+  likely **unhit** by public traces.
+- **Files:** `js/do.js`, `js/apply.js`, `js/do_wear.js` (export
+  `confer_oc_oprop`).
+
 ## D-1019 — sellobj BSS sell_response + robbed precedence
 
 - **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)

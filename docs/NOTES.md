@@ -9,22 +9,21 @@ Objective/score live in `CURRENT.md`.
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`) last full measure **D-1015**. Next cadence
-  @**#1290**. D-1019 held green+shop/throw cohort 12/12 (robbed /
-  first-sale query unhit by public traces).
+  @**#1290**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1019** `sellobj` BSS `sell_response` is `null` (`'\0'`),
-  not `'a'`; robbed uses C `-= (offer<0)` then clear remaining;
-  nyaq result not stored (only `'a'`→`'y'` / `'q'`→`'n'`).
-- **Next cluster:** D-1020 `setnotworn` pointer-walk + leave-tutorial.
-  Not absent.md/whip until that Keep is honest.
-- **D-1019 falsifier (held):** first shop sale (no prior
-  `sellobj_state`) must query; robbed shop gold drop clears `robbed`
-  (not `robbed-offer`). Public 12/12 does **not** prove those paths.
+- Latest: **D-1020** `setnotworn` walks C `worn[]` by pointer (not
+  `owornmask`+`setworn(null)`); leave-tutorial `nhl_gamestate(true)`
+  useupall + `addinv_nomerge` + re-wear. apply.js shares the export.
+- **Next cluster:** apply.js whip/grapple/jelly/`use_pole`. Remaining
+  nhl_gamestate memcpy u/disco/mvitals/spl_book named in `startup.md`.
+- **D-1020 falsifier (held):** portal leave restores kit + wear;
+  `setnotworn(stashed)` with restore-flag mask must not unwear a
+  different occupant of that slot. Public traces likely unhit leave.
 
 ## Don't re-check (≤15)
 
@@ -43,23 +42,23 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  sellobj BSS/`robbed` (D-1019) or drop `objects_at` (D-0980).
+  setnotworn pointer-walk (D-1020) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
-- `shopdig(1)` skip snatch iff `um_dist || helpless || !bill` (C close
-  = `!um_dist`; do not restore `if (!um_dist) return`).
-- Hero `cancel_monst` self-cancel must iterate `game.invent[]`, never
-  `nobj` on the Array (D-1017). `cmdq_add_ec` must push a function
-  `rhack` can await — not `{typ:'ec'}`; `getobj_apply` must pop
-  CMDQ_KEY (D-1018). Tutorial stash needs `setnotworn`.
-- Do not default `sell_response` to `'a'` (C BSS `'\0'` → query);
-  do not “fix” `robbed -= offer` (C `-= (offer<0)` then clear).
+- `shopdig(1)` skip snatch iff `um_dist || helpless || !bill`.
+  `cancel_monst` youdefend walks `game.invent[]`. cmdq pickaxe is
+  `doapply` fn + invlet KEY. Tutorial stash needs `setnotworn`.
+- Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
+- Do not drive `setnotworn` from `owornmask`/`setworn(null)` — C is
+  pointer-equal on `worn[]` (D-1020). Do not `delobj` tutorial loot
+  on leave (`useupall`→obfree, no `obj_resists` rn2).
 
 ## Landmarks (≤15)
 
 - Suite after **D-1015**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`.
+- **D-1020:** setnotworn worn[] pointer-walk + leave-tutorial restore.
 - **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.
 - **D-1018:** `use_pick_axe` cmdq `doapply`+invlet + getobj KEY.
 - **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
@@ -68,8 +67,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
 - **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
 - **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.
-- **D-1010:** apply use_crystal_ball + thin detect callees.
-- **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
-- **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
-- **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

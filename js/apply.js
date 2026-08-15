@@ -62,7 +62,7 @@ import { fill_pit } from './dig.js';
 import { mintrap, Trap_Killed_Mon } from './trap.js';
 import { make_glib } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
-import { dropx } from './do.js';
+import { dropx, setnotworn } from './do.js';
 import { is_wet_towel, dry_a_towel } from './weapon.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
@@ -972,20 +972,6 @@ function can_blnd_cream_self(obj) {
     if (game.u?.ublindf || (game.u?.EBlinded | 0)) return false;
     void obj;
     return true;
-}
-
-/** C ref: worn.c setnotworn — clear hero worn slots pointing at obj. */
-function setnotworn(obj) {
-    if (!obj) return;
-    const u = game.u || {};
-    for (const slot of [
-        'uwep', 'uswapwep', 'uqwep',
-        'uarm', 'uarmc', 'uarmh', 'uarms', 'uarmg', 'uarmf', 'uarmu',
-        'uleft', 'uright', 'uamul', 'ublindf',
-    ]) {
-        if (u[slot] === obj) u[slot] = null;
-    }
-    obj.owornmask = 0;
 }
 
 /** Remove obj from invent array (C freeinv / obj_extract_self OBJ_INVENT). */
