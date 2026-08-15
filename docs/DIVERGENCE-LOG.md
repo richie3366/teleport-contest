@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1040 — pole targeting via glyph_at, not live m_at
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1022 `glyph_is_poleable_at` treated every live `m_at`
+  / `sobj_at(STATUE)` as poleable. C `use_pole` / `find_poleable_mon`
+  use `glyph_at` (gbuf): monster glyph, invisible `I`, or statue
+  glyph. Tame/peaceful are skipped only when `glyph_is_monster` and
+  `m_at`. Hidden monsters were auto-targets; a peaceful `I` was
+  skipped.
+- **C locus:** `apply.c` `find_poleable_mon` / `get_valid_polearm_position`
+  / `use_pole`; `display.c` `glyph_at`; `display.h` `glyph_is_monster`
+  / `glyph_is_invisible` / `glyph_is_statue` / `glyph_to_obj`.
+- **Fix:** classify the shown layer (newsym-equivalent monster /
+  remembered `I` / statue glyph). Skip tame/peaceful only on a
+  monster glyph. Statue/boulder hit requires glyph **and** `sobj_at`.
+  `map_object` tags statue/boulder on `remembered_glyph` (JS has no
+  integer glyph IDs). Rule #2: no fs.
+- **Deferred:** `thitmonst` hit-vs-miss; `yname`/`Amonnam`/`mbodypart`;
+  `pickup_object` telekinesis; `u_wipe_engr` / `tmp_at` S_goodpos;
+  integer glyph IDs; MATCH_WARN_OF_MON / worm tails; furniture-mimic
+  cmap as non-monster (named, same as `newsym`).
+- **Verify:** green+strict PASS; apply/combat/display cohort **10**/10
+  incl. seed0361 Scr **366**/366, seed0399 Scr **532**/532. Private
+  node **12**/12: hidden `m_at` not poleable; `I` is; tame skipped;
+  peaceful `I` not skipped; statue glyph not autotarget. Public
+  traces **unhit**. Cadence still **#1305**.
+- **Files:** `js/apply.js`, `js/display.js` (`remembered_glyph.statue`
+  / `.boulder`).
+
 ## D-1039 — dosit trap arm before IS_THRONE
 
 - **Status:** fixed (map-driven; not a public FAIL)

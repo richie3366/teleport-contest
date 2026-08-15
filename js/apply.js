@@ -6,7 +6,7 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
-    verbalize,
+    verbalize, mon_visible, tp_sensemon, see_with_infrared,
 } from './display.js';
 import { vision_recalc, cansee, couldsee } from './vision.js';
 import {
@@ -3880,16 +3880,108 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
     await wakeup(mtmp, true);
 }
 
-function glyph_is_poleable_at(x, y) {
-    if (m_at(x, y)) return true;
-    const loc = game.level?.at?.(x, y);
-    if (glyph_is_invisible(loc)) return true;
-    if (sobj_at_nexthere(STATUE, x, y)) return true;
+function Detect_monsters_apply() {
+    const u = game.u || {};
+    return !!(u.Detect_monsters
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+}
+
+/** C display.c display_monster: unsensed mimic object/furniture is not a monster glyph. */
+function pole_mimic_unsensed_object(mtmp) {
+    if (!mtmp) return false;
+    if (sensemon(mtmp)) return false;
+    const ap = M_AP_TYPE(mtmp);
+    return ap === M_AP_OBJECT || ap === M_AP_FURNITURE;
+}
+
+function covers_objects_pole(x, y) {
+    // C display.h covers_objects — is_pool && !Underwater, or lava
+    return (is_pool(x, y) && !game.u?.Underwater) || is_lava(x, y);
+}
+
+function shown_floor_obj_pole(x, y) {
+    if (covers_objects_pole(x, y)) return null;
+    return objects_at(x, y);
+}
+
+/**
+ * C ref: display.c glyph_at + display.h glyph_is_monster.
+ * JS has no integer glyphs; classify the gbuf layer newsym would paint.
+ * Hidden live m_at is not a monster glyph (D-1040).
+ */
+function glyph_is_monster_at(x, y) {
+    const mtmp = m_at(x, y);
+    if (!mtmp) return false;
+    if (cansee(x, y)) {
+        const see_it = mon_visible(mtmp) || tp_sensemon(mtmp);
+        if (!see_it && !Detect_monsters_apply()) return false;
+        // C: mimic appearance only when PHYSICALLY_SEEN
+        if (see_it && pole_mimic_unsensed_object(mtmp)) return false;
+        return true;
+    }
+    if (tp_sensemon(mtmp) || (mon_visible(mtmp) && see_with_infrared(mtmp))) {
+        return true;
+    }
+    return Detect_monsters_apply();
+}
+
+/** C display.h glyph_is_invisible(glyph_at) — gbuf I, not live m_at. */
+function glyph_is_invisible_glyph_at(x, y) {
+    if (glyph_is_monster_at(x, y)) return false;
+    return glyph_is_invisible(game.level?.at?.(x, y));
+}
+
+/**
+ * C ref: display.h glyph_is_statue(glyph_at).
+ * Live sobj_at(STATUE) alone is not enough (covered / under a monster glyph).
+ */
+function glyph_is_statue_glyph_at(x, y) {
+    if (glyph_is_monster_at(x, y) || glyph_is_invisible_glyph_at(x, y)) {
+        return false;
+    }
+    if (cansee(x, y)) {
+        const mtmp = m_at(x, y);
+        if (mtmp && pole_mimic_unsensed_object(mtmp)
+            && M_AP_TYPE(mtmp) === M_AP_OBJECT
+            && (mtmp.mappearance | 0) === STATUE) {
+            return true;
+        }
+        const obj = shown_floor_obj_pole(x, y);
+        return !!(obj && (obj.otyp | 0) === STATUE);
+    }
+    const rg = game.level?.at?.(x, y)?.remembered_glyph;
+    if (rg?.statue) return true;
     return false;
 }
 
-function glyph_is_statue_at(x, y) {
-    return !!sobj_at_nexthere(STATUE, x, y);
+/** C display.h glyph_to_obj(glyph_at) == BOULDER. */
+function glyph_to_obj_boulder_at(x, y) {
+    if (glyph_is_monster_at(x, y) || glyph_is_invisible_glyph_at(x, y)) {
+        return false;
+    }
+    if (cansee(x, y)) {
+        const mtmp = m_at(x, y);
+        if (mtmp && pole_mimic_unsensed_object(mtmp)
+            && M_AP_TYPE(mtmp) === M_AP_OBJECT
+            && (mtmp.mappearance | 0) === BOULDER) {
+            return true;
+        }
+        const obj = shown_floor_obj_pole(x, y);
+        return !!(obj && (obj.otyp | 0) === BOULDER);
+    }
+    const rg = game.level?.at?.(x, y)?.remembered_glyph;
+    if (rg?.boulder) return true;
+    return false;
+}
+
+/**
+ * C ref: apply.c glyph_is_poleable(glyph_at) —
+ * monster glyph || invisible glyph || statue glyph (not live m_at / sobj).
+ */
+export function glyph_is_poleable_at(x, y) {
+    return glyph_is_monster_at(x, y)
+        || glyph_is_invisible_glyph_at(x, y)
+        || glyph_is_statue_glyph_at(x, y);
 }
 
 function calc_pole_range() {
@@ -3914,7 +4006,11 @@ function get_valid_polearm_position(x, y) {
     return !!(cansee(x, y) || (couldsee(x, y) && glyph_is_poleable_at(x, y)));
 }
 
-function find_poleable_mon(pos) {
+/**
+ * C ref: apply.c find_poleable_mon — unique poleable glyph in range.
+ * Skip tame/peaceful only when glyph_is_monster(glyph_at) && m_at (D-1040).
+ */
+export function find_poleable_mon(pos) {
     const impaired = !!(game.u?.Confusion || game.u?.HConfusion
         || game.u?.Stunned || game.u?.HStun || game.u?.Hallucination);
     const rt = isqrt_pole(game.gp?.polearm_range_max | 0);
@@ -3928,12 +4024,15 @@ function find_poleable_mon(pos) {
         for (let y = lo_y; y <= hi_y; ++y) {
             if (!get_valid_polearm_position(x, y)) continue;
             const mtmp = m_at(x, y);
-            if (!impaired && mtmp
-                && (mtmp.mtame || (mtmp.mpeaceful && game.flags?.confirm !== false))) {
+            // C: !impaired && glyph_is_monster(glyph) && m_at && (mtame || (mpeaceful && flags.confirm))
+            if (!impaired
+                && glyph_is_monster_at(x, y)
+                && mtmp
+                && (mtmp.mtame || (mtmp.mpeaceful && (game.flags?.confirm ?? true)))) {
                 continue;
             }
             if (glyph_is_poleable_at(x, y)
-                && (!glyph_is_statue_at(x, y) || impaired)) {
+                && (!glyph_is_statue_glyph_at(x, y) || impaired)) {
                 if (mpos.x) return false;
                 mpos.x = x;
                 mpos.y = y;
@@ -3981,7 +4080,7 @@ export function could_pole_mon() {
 /**
  * C ref: apply.c use_pole — getpos range + thitmonst / statue / furniture.
  * Named omit: S_goodpos tmp_at paint; thitmonst weapon hit-vs-miss still
- * partial in dothrow.js; defsyms furniture explanation; glyph_at cmap.
+ * partial in dothrow.js; defsyms furniture explanation; integer glyph IDs.
  */
 async function use_pole(obj, autohit) {
     const thump = 'Thump!  Your blow bounces harmlessly off the %s.';
@@ -4064,7 +4163,8 @@ async function use_pole(obj, autohit) {
             }
         }
         await thitmonst(mtmp, u.uwep);
-    } else if (glyph_is_statue_at(cc.x, cc.y) && sobj_at_nexthere(STATUE, cc.x, cc.y)) {
+    } else if (glyph_is_statue_glyph_at(cc.x, cc.y)
+        && sobj_at_nexthere(STATUE, cc.x, cc.y)) {
         const t = t_at(cc.x, cc.y);
         if (t && (t.ttyp | 0) === STATUE_TRAP
             && (await activate_statue_trap(t, t.tx, t.ty, false))) {
@@ -4075,7 +4175,8 @@ async function use_pole(obj, autohit) {
         }
     } else {
         unmap_invisible(cc.x, cc.y);
-        if (sobj_at_nexthere(BOULDER, cc.x, cc.y)) {
+        if (glyph_to_obj_boulder_at(cc.x, cc.y)
+            && sobj_at_nexthere(BOULDER, cc.x, cc.y)) {
             await pline(thump.replace('%s', 'boulder'));
             await wake_nearto(cc.x, cc.y, 25);
         } else if (!accessible_apply(cc.x, cc.y)

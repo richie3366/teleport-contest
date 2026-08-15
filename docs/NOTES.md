@@ -16,12 +16,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1039** `dosit` trap-before-throne. Loop is **fail-closed**
-  (review every 3, cadence every 5 score-only unless Must-fix is open).
-  Agents **commit + `git push`**. Reviews bind: unpaid
-  `reviews/loop-2026-08-15/` C-wrongs are `LOOP-QUEUE.md` **Must-fix**.
-- **Next cluster:** Must-fix head — pole targeting live `m_at` (D-1022).
-  Do not dump tut-1 while Must-fix is open.
+- Latest: **D-1040** pole `glyph_at` targeting (D-1022 risk 3). Loop is
+  **fail-closed** (review every 3, cadence every 5 score-only unless
+  Must-fix is open). Agents **commit + `git push`**. Reviews bind:
+  unpaid `reviews/loop-2026-08-15/` C-wrongs are `LOOP-QUEUE.md` **Must-fix**.
+- **Next cluster:** Must-fix — pole `thitmonst` hit-vs-miss (D-1022
+  risk 4). Do not dump tut-1 while Must-fix is open.
 - **Hypothesis:** none live. Falsify a new cluster against C + green.
 
 ## Don't re-check (≤15)
@@ -57,13 +57,15 @@ Objective/score live in `CURRENT.md`.
   uses C `monflag.h` numbers, not growl locals. Do not restore
   `getdir_whip` or `hurtle_apply` `teleds` (D-1038). Do not put
   `confdir` inside shared `getdir`. Do not skip `dosit`
-  `else if (trap)` before `IS_THRONE` (D-1039).
+  `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
+  `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040).
 
 ## Landmarks (≤15)
 
 - Suite after D-1038: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `34+0.29/turn` (R² 0.854). Cadence **#1305**; next @**#1310**.
 - **D-1039:** `dosit` trap-before-throne + `dotrap` `VIASITTING`.
+- **D-1040:** pole `glyph_at` targeting (not live `m_at` stand-in).
 - **D-1038:** lock `getdir` C envelope + dothrow `hurtle`/`hurtle_step`.
 - **D-1037:** save_timers RANGE_LEVEL + hatch_egg dispatch.
 - **D-1036:** hatch_egg/learn_egg_type/cry_sound body.
