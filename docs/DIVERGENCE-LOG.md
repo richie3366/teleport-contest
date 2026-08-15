@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1017 — cancel_monst self-cancel hero invent Array walk
+
+- **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)
+- **Symptom:** D-0952/`cancel_item` ABON exists, but hero self-cancel
+  never visited inventory. `game.invent` is an Array; JS did
+  `for (otmp = game.invent; otmp; otmp = otmp.nobj)`, so `cancel_item`
+  ran once on the Array itself. Worn rings/gauntlets/helm ABON,
+  spe-zero, blank scrolls never fired. Public traces likely unhit
+  `zapyourself` WAN/SPE_CANCELLATION (`self_cancel` TRUE).
+- **C locus:** `zap.c` `cancel_monst` `for (otmp = youdefend ? gi.invent
+  : mdef->minvent; otmp; otmp = otmp->nobj) cancel_item(otmp)`;
+  `cancel_item` carried ABON before spe clear; clay `You_feel("%s
+  headed.", Hallucination ? "dark" : "light")`; `s_suffix(mon_nam)`;
+  `monkilled(..., AD_SPEL)`.
+- **Fix:** youdefend walks `game.invent[]` (same mapping as
+  `destroy_items`/`unturn_dead`); minvent stays nobj. Clay hallu
+  dark/light, `s_suffix_zap`, `AD_SPEL`. `disp.botl` + `flags.botl`.
+- **Deferred:** Unchanging helper share; `monkilled` still ignores
+  `how`; muse cancel wand; `update_inventory`.
+- **Verify:** green+strict; wizard/zap cohort **18**/18. Rule #2: no
+  fs. Public suite not re-run (cadence @#1290). Self-cancel path
+  likely unhit — fortress is not a cancel-self proof.
+- **Files:** `js/zap.js`.
+
 ## D-1016 — shopdig(1) um_dist snatch polarity + setnotworn
 
 - **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)

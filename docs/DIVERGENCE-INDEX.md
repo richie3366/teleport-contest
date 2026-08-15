@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1017 | fixed | `cancel_monst` self-cancel walks hero `invent` Array | C `gi.invent` nobj; JS treated Array as nobj head; ABON never ran |
 | D-1016 | fixed | `shopdig(1)` snatch `um_dist` polarity + `setnotworn` | C close+bill; JS had De Morgan inverted; do.js setnotworn |
 | D-1015 | fixed | tutorial `setnotworn` clears oc_oprop / EStealth | seed0009 Scr 72→73; suite 44/44 Scr 11405/11405 |
 | D-1014 | fixed | apply `use_stone` + dorub/doapply graystone | map-driven; cadence 43/44 @#1285; green+cohort 16/17 (seed0009 pre-existing) |

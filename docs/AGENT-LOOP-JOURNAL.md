@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 13:15 — D-1017 cancel_monst invent Array walk
+
+**Objective:** C-wrong Keep — D-0952 self-cancel walked `nobj` on
+`game.invent` Array; `cancel_item`/ABON never saw hero items.
+**C locus:** `zap.c` `cancel_monst` `gi.invent` nobj loop;
+`cancel_item` carried ABON; clay hallu/`s_suffix`/`AD_SPEL`.
+**Change:** youdefend iterates `game.invent[]`; minvent stays nobj;
+clay dark/light + `s_suffix_zap` + `monkilled(..., AD_SPEL)`.
+Rule #2: no fs.
+**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
+**Verified:** green+strict PASS; wizard/zap cohort **18**/18.
+Self-cancel path likely **unhit** by public traces.
+**Next:** D-1018 `use_pick_axe` cmdq wield re-apply.
+**Blocked:** none.
+
 ## 2026-08-15 13:02 — D-1016 shopdig um_dist snatch polarity
 
 **Objective:** C-wrong Keep — D-0958 snatch ran when shk was far.
@@ -226,32 +241,4 @@ regen_hp (CURRENT next after D-1002).
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (potion/scroll/vault); or potion/mhitm
 you_were wires; or next_to_u/check_leash.
-**Blocked:** none.
-
-## 2026-07-22 05:17 — #1273 D-1002 allmain Tele/Poly/ulycn
-
-**Objective:** map-driven — allmain Teleportation/Polymorph/ulycn
-once-per-turn (CURRENT next after D-1001).
-**C locus:** `allmain.c` moveloop after `regen_pw` (!uinvulnerable).
-**Change:** `maybe_tele_poly_were` + static `mvl_change`; tele /
-polyself(POLY_NOFLAGS) / you_were; prop helpers — D-1002.
-**Verified:** green+strict PASS; allmain cohort **36**/37
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (potion/scroll/vault); or warnreveal /
-overexert_hp / Upolyd eel; or potion/mhitm you_were wires.
-**Blocked:** none.
-
-## 2026-07-22 05:10 — #1272 D-1001 ParanoidWerechange/Hit
-
-**Objective:** map-driven — ParanoidWerechange + ParanoidHit getlin
-(CURRENT next after D-1000).
-**C locus:** `were.c` you_were/you_unwere; `uhitm.c` attack_checks;
-`timeout.c` mtimedone; `eat.c` fpostfx wolfsbane; `flag.h` confirm.
-**Change:** you_were/you_unwere + ParanoidWerechange; peaceful
-confirm ParanoidHit + Stormbringer override; mtimedone wire;
-wolfsbane purify; confirm default On — D-1001.
-**Verified:** green+strict PASS; combat/timeout cohort **11**/12
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (potion/scroll/vault); or allmain
-Teleportation/Polymorph/ulycn once-per-turn.
 **Blocked:** none.

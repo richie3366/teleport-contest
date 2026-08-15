@@ -9,21 +9,21 @@ Objective/score live in `CURRENT.md`.
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`) last full measure **D-1015**. Next cadence
-  @**#1290**. D-1016 held green+shop/dig cohort 9/9 (snatch unhit).
+  @**#1290**. D-1017 held green+zap cohort 18/18 (self-cancel unhit).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1016** `shopdig(1)` snatch `um_dist` De Morgan +
-  `setnotworn` (D-0958 was inverted; public suite likely unhit).
-- **Next cluster:** D-1017 `cancel_monst` invent Array vs `nobj`
-  (ABON self-cancel). Then cmdq pickaxe / sellobj / setnotworn
-  pointer. Not absent.md/whip until those Keeps are honest.
-- **D-1016 falsifier (held):** shk Chebyshev ≤5 + bill + `shopdig(1)`
-  → backpack pline + invent snatch; dist >5 → no snatch. Public
-  9/9 cohort PASS does **not** prove that path.
+- Latest: **D-1017** `cancel_monst` youdefend self-cancel walks
+  `game.invent[]` (was `nobj` on the Array; ABON never ran).
+- **Next cluster:** D-1018 `use_pick_axe` cmdq wield re-apply
+  (`{typ:'ec'}` vs C `doapply`+invlet). Then sellobj `'a'`/`robbed`;
+  setnotworn pointer. Not absent.md/whip until those Keeps are honest.
+- **D-1017 falsifier (held):** `zapyourself` WAN/SPE_CANCELLATION with
+  worn ABON ring → `cancel_item` on each invent obj. Public 18/18
+  cohort PASS does **not** prove that path.
 
 ## Don't re-check (≤15)
 
@@ -42,19 +42,20 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_stone (D-1014) or drop `objects_at` from timeout mkobj (D-0980).
+  cancel_monst invent walk (D-1017) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
 - `shopdig(1)` skip snatch iff `um_dist || helpless || !bill` (C close
   = `!um_dist`; do not restore `if (!um_dist) return`).
-- Tutorial invent stash must `setnotworn`→`setworn` clear extrinsics
-  (D-1015); pointer-only slot clear leaves EStealth (seed0009).
+- Hero `cancel_monst` self-cancel must iterate `game.invent[]`, never
+  `nobj` on the Array (D-1017). Tutorial stash needs `setnotworn`.
 
 ## Landmarks (≤15)
 
 - Suite after **D-1015**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`.
+- **D-1017:** `cancel_monst` hero invent Array walk + clay hallu.
 - **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
 - **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
@@ -64,8 +65,6 @@ Objective/score live in `CURRENT.md`.
 - **D-1010:** apply use_crystal_ball + thin detect callees.
 - **D-1009:** apply use_towel + wet/dry_a_towel + burnarmor dry.
 - **D-1008:** apply use_saddle + can_saddle whirly/unsolid.
-- **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault/
-  tele_to_rnd_pet.
+- **D-1007:** apply whistle tin/magic/eucalyptus + can_blow/vault.
 - **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
-- **D-1005:** leash use_leash/next_to_u/check_leash + whimper.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.
