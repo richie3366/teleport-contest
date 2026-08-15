@@ -71,9 +71,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Pole `thitmonst` hit-vs-miss envelope for `use_pole`
-(combat RNG). Source: `reviews/loop-2026-08-15/D-1022-7f952620-whip-grapple-pole.md`
-risk 4. Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
+**Next cluster:** Whip/pole/grapple names: real `yname` / `Amonnam` /
+`mbodypart` (not local apply clones). Source: `reviews/loop-2026-08-15/D-1022-7f952620-whip-grapple-pole.md`
+risk 5. Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
 optional debt. Unattended loop pops **one** queue item per port iter
 (Must-fix before Open). Review every 3; cadence every 5 is score-only
 **unless Must-fix is open**. Agents **commit and `git push origin HEAD`**
@@ -89,11 +89,11 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1040. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1041. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1040** (zap/dig/eat/shop/kick/paranoid/allmain/
+**D-0948**…**D-1041** (zap/dig/eat/shop/kick/paranoid/allmain/
 apply doapply cluster through **fig_transform**; Vlad + ordinary
 throne sit; **nhl_gamestate** memcpy + **init_uhunger**;
 **hatch_egg** dispatch via **save_timers RANGE_LEVEL** — do not re-stub;
@@ -101,7 +101,8 @@ throne sit; **nhl_gamestate** memcpy + **init_uhunger**;
 — do not restore `getdir_whip` or `hurtle_apply` `teleds`;
 **`dosit` trap-before-throne** — do not skip `else if (trap)` /
 restore throne-first; **pole targeting** — not live `m_at` for
-`glyph_is_poleable` (D-1040)).
+`glyph_is_poleable` (D-1040); **`thitmonst` weapon hit-vs-miss** —
+do not restore always-`tmiss` for WEAPON/weptool/GEM (D-1041)).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
 shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
@@ -117,7 +118,7 @@ drop `objects_at` from `timeout.js` mkobj import (D-0980); drive
 `setnotworn` from `owornmask`+`setworn(null)` (D-1020 — C walks
 `worn[]` by pointer); treat every live `m_at` as a pole target
 (D-1040 — C uses `glyph_at`); re-stub
-D-0983…D-1040 clusters already Keep’d above.
+D-0983…D-1041 clusters already Keep’d above.
 **Do not put trailing `confdir` inside shared `getdir`** (use_whip
 already confdirs). **Do not add help_dir / “strange direction”
 pline to lock `getdir`** (NEED_MORE). Throw path keeps

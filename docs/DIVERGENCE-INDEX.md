@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1041 | fixed | dothrow `thitmonst` weapon hit-vs-miss | D-1022 always-`tmiss` for WEAPON/weptool/GEM; C tmp+dieroll `hmon`/`tmiss` + APPLIED wakeup |
 | D-1040 | fixed | apply pole `glyph_at` targeting | D-1022 `glyph_is_poleable_at` used live `m_at`/`sobj_at`; C `glyph_at` + skip tame only if monster glyph |
 | D-1039 | fixed | sit `dosit` trap-before-throne | D-1033 skipped `else if (trap)`; JS ran throne RNG on a trapped cell; already-trapped sit + `dotrap` `VIASITTING` |
 | D-1038 | fixed | lock `getdir` C envelope + dothrow `hurtle` | D-1022 clones (`getdir_whip`/`hurtle_apply` teleds) were C-wrong; shared getdir + hurtle_step, no trailing confdir |

@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 21:05 — #1307 D-1041 thitmonst weapon hit-vs-miss
+
+**Objective:** Must-fix D-1022 risk 4 — pole `thitmonst` hit-vs-miss
+envelope (combat RNG), not always-`tmiss`.
+**C locus:** `dothrow.c` `thitmonst` tmp+dieroll WEAPON/weptool/GEM;
+`uhitm.c` `hmon_hitmon_msg_hit` thrown/APPLIED + `first_weapon_hit`.
+**Change:** C to-hit (Luck/DEX/`distmin`/`omon_adj` `!rn2(10)`);
+kicked/ammo/thrown/applied bonuses; hit `hmon`+`exercise`+mulch+
+`passive_obj`; miss `tmiss` + APPLIED `wakeup`. Thrown hit pline.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1305**; next @**#1310**).
+**Verified:** green+strict PASS; throw/kick/combat cohort **10**/10
+(seed0361 Scr **366**/366; seed1800 throw; seed0060 kick). Private
+node **10**/10 (AC hit/miss; APPLIED wakeup; frozen `rn2(10)` before
+dieroll; pie DEX; armor skip; hook weptool). Path **unhit** by public
+traces.
+**Next:** Must-fix whip/pole/grapple `yname`/`Amonnam`/`mbodypart`
+(D-1022 risk 5).
+**Blocked:** none.
+
 ## 2026-08-15 20:50 — #1306 D-1040 pole glyph_at targeting
 
 **Objective:** Must-fix D-1022 risk 3 — `glyph_is_poleable_at` /
@@ -268,25 +288,5 @@ stop FIG_TRANSFORM; useup. Rule #2: no fs.
 **73**/73). Private node (swallow; cancel; wall TIME; extinct
 dust; blessed spawn+useup). Path **unhit** by public traces.
 **Next:** apply.js use_unicorn_horn (UNICORN_HORN).
-**Blocked:** none.
-
-## 2026-08-15 16:12 — #1297 D-1028 use_bell
-
-**Objective:** map-driven apply cluster — C `use_bell`
-(CURRENT BELL / BELL_OF_OPENING).
-**C locus:** `apply.c` use_bell/doapply BELL; `detect.c`
-openit/openone; `mkroom.c` mkundead/morguemon; `hack.c`
-invocation_pos.
-**Change:** doapply dispatch (res stays TIME); muffled; empty BofO
-silent+learno; cursed nymph shatter/speed/nomul; charged swallow
-openit / mkundead / invocation age / blessed unpunish+openit /
-uncursed findit. Rule #2: no fs.
-**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
-**Verified:** green+strict PASS; apply/shared cohort **37**/37
-(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
-**73**/73). Private node (muffled; empty inv known; cursed spe--
-graveyard; openit box+door; doapply TIME). Path **unhit** by public
-traces.
-**Next:** apply.js use_figurine (FIGURINE).
 **Blocked:** none.
 

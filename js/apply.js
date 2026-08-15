@@ -2584,7 +2584,7 @@ export async function use_tinning_kit(obj) {
  * Medusa/nymph mirror arms;
  * shop check_unpaid / lamp-oil verbalize; pickup invent getobj tip;
  * break-wand release_hold / flash_hits (D-0979);
- * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
+ * S_goodpos tmp_at; hurtle_step;
  * pickinv handsbuf;
  * getdir mouse.
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -4079,8 +4079,8 @@ export function could_pole_mon() {
 
 /**
  * C ref: apply.c use_pole — getpos range + thitmonst / statue / furniture.
- * Named omit: S_goodpos tmp_at paint; thitmonst weapon hit-vs-miss still
- * partial in dothrow.js; defsyms furniture explanation; integer glyph IDs.
+ * Named omit: S_goodpos tmp_at paint; defsyms furniture explanation;
+ * integer glyph IDs. thitmonst weapon hit-vs-miss: D-1041.
  */
 async function use_pole(obj, autohit) {
     const thump = 'Thump!  Your blow bounces harmlessly off the %s.';
@@ -4212,7 +4212,7 @@ function display_grapple_positions(_on_off) {
 /**
  * C ref: apply.c use_grapple — getpos, skill menu, snag/hit/hurtle.
  * Named omit: untrap non-adjacent (C FIXME); wipe_engr_at body.
- * S_goodpos tmp_at; thitmonst weapon arm partial.
+ * S_goodpos tmp_at.
  */
 async function use_grapple(obj) {
     const res = ECMD_OK;

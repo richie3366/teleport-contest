@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1041 — thitmonst weapon/weptool/gem hit-vs-miss
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1022 `thitmonst` skipped the C WEAPON/weptool/GEM arm.
+  Pole/grapple/`uwep` apply always fell through to `tmiss(TRUE)`:
+  no tmp, no `hmon`, no APPLIED miss `wakeup`. A pole “hit” was not
+  C combat RNG.
+- **C locus:** `dothrow.c` `thitmonst` (tmp Luck/DEX/`distmin`/bow
+  gloves/`omon_adj`/elf-orc; dieroll after unicorn/leader; weapon
+  kicked/ammo/thrown/applied; hit `hmon`+`exercise(A_DEX)`+mulch+
+  `passive_obj`; miss `tmiss` + APPLIED `wakeup`); `uhitm.c`
+  `hmon_hitmon_msg_hit` thrown/`HMON_APPLIED`; `first_weapon_hit`
+  MELEE|APPLIED.
+- **Fix:** port that envelope in `dothrow.js`; export `passive_obj`;
+  APPLIED `weaphit++` before `hmon`; thrown/applied hit pline via
+  `hit(xname)`. Rule #2: no fs.
+- **Deferred:** `gem_accept` luck/`mpickobj`; leader catch/return
+  body; iron ball/boulder hit; `potionhit`; swallow vanish;
+  `cutworm`; mulch `check_shop_obj`; `mshot_xname`.
+- **Verify:** green+strict PASS; throw/kick/combat cohort **10**/10
+  (seed0361 Scr **366**/366; seed1800 throw; seed0060 kick). Private
+  node **10**/10 (AC hit/miss; APPLIED wakeup; frozen `rn2(10)`
+  before dieroll; pie DEX after dieroll; armor not weapon; hook
+  weptool). Path **unhit** by public traces.
+- **Files:** `js/dothrow.js`, `js/uhitm.js` (`passive_obj` export +
+  APPLIED first-hit / thrown hit pline), `js/apply.js` (omit notes).
+
 ## D-1040 — pole targeting via glyph_at, not live m_at
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

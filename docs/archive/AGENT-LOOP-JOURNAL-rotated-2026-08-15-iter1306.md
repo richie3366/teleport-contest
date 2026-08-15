@@ -1,4 +1,25 @@
-# Rotated from AGENT-LOOP-JOURNAL.md after D-1040 / #1306
+# Rotated from AGENT-LOOP-JOURNAL.md after D-1041 / #1307
+
+## 2026-08-15 16:12 — #1297 D-1028 use_bell
+
+**Objective:** map-driven apply cluster — C `use_bell`
+(CURRENT BELL / BELL_OF_OPENING).
+**C locus:** `apply.c` use_bell/doapply BELL; `detect.c`
+openit/openone; `mkroom.c` mkundead/morguemon; `hack.c`
+invocation_pos.
+**Change:** doapply dispatch (res stays TIME); muffled; empty BofO
+silent+learno; cursed nymph shatter/speed/nomul; charged swallow
+openit / mkundead / invocation age / blessed unpunish+openit /
+uncursed findit. Rule #2: no fs.
+**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
+**Verified:** green+strict PASS; apply/shared cohort **37**/37
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+**73**/73). Private node (muffled; empty inv known; cursed spe--
+graveyard; openit box+door; doapply TIME). Path **unhit** by public
+traces.
+**Next:** apply.js use_figurine (FIGURINE).
+**Blocked:** none.
+
 
 ## 2026-08-15 15:55 — #1296 D-1027 use_tinning_kit
 
