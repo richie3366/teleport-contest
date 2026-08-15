@@ -19,9 +19,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-16** — full `sessions` after review
-cadence **#1320** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.26/turn` (R² 0.871). Next cadence @**#1325**.
+Score last measured: **2026-08-16** — full `sessions` after cadence
+**#1325** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `32+0.26/turn` (R² 0.87). Next cadence @**#1330**.
 
 ## Score
 
@@ -30,7 +30,7 @@ Speed `31+0.26/turn` (R² 0.871). Next cadence @**#1325**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.26/turn` (R² 0.871) |
+| Speed label | `32+0.26/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -71,11 +71,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** `cry_sound`: monster `msound` must be C
-`monflag.h` numbers, not empty → always-chitter. Source:
-`reviews/loop-2026-08-15/D-1036-2ae43a8b-hatch-egg.md` risk 3.
-**D-1052** shipped cursed-lamp `make_glib` `(HGlib|EGlib)&TIMEOUT`
-(`youprop.h` Glib ≡ `uprops[GLIB].intrinsic`). Written reviews bind:
+**Next cluster:** `get_obj_location` flags: JS `0` must not accept
+CONTAINED when C hatch passes `0`. Source: D-1036 risk 4.
+**D-1053** shipped `cry_sound` `msound` from C `monflag.h` via
+extracted `msounds[]`. Written reviews bind:
 QUALITY-RISK C-wrongs are Must-fix, not optional debt. Unattended
 loop pops **one** queue item per port iter (Must-fix before Open).
 Review every 3; cadence every 5 is score-only **unless Must-fix is
@@ -91,44 +90,29 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1052. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1053. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1052** (zap/dig/eat/shop/kick/paranoid/allmain/apply
-through fig_transform; Vlad + ordinary throne; nhl_gamestate memcpy;
-hatch via RANGE_LEVEL; lock `getdir` + `hurtle_step`; dosit trap-before-throne;
-pole `glyph_at`; `thitmonst` hit-vs-miss; `find_mac` ARM_BONUS; mulch `rnl(4)`;
-`urole.questarti`; whip `yname`/`Amonnam`/`mbodypart`; `light_cocktail` `**`;
-`consume_obj_charge` unpaid; Vlad case 10 `HConfusion` only; **take_gold
-`remove_worn_item(FALSE)`**; **`pickup_object` telekinesis**; **apply
-`u_wipe_engr` + S_goodpos `tmp_at`**; **lamp `make_glib` HGlib|EGlib**).
-**Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
-HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
-shim (#1194); @1799 heat/smoke-only (#1193); @1770 Norep/parse-clear
-alone (#1192); older in D-0928/NOTES; skip painting map spaces in
-flush (breaks S_air); strip leading bold pads in serialize;
-assume judge elides RC path (falsified D-0933); extend §1.2 carve-out
-beyond the recorder configfile string; peel “for leaderboard” without
-a local FAIL; push shared `maketrap` PIT morph without full suite
-(keep in music `do_pit`, D-0972); clear tutorial invent worn slots
-without `setnotworn`/`setworn` extrinsic clear (D-1015); invert
-`shopdig(1)` `um_dist` snatch skip (D-1016 — skip when **far**);
-drop `objects_at` from `timeout.js` mkobj import (D-0980); drive
-`setnotworn` from `owornmask`+`setworn(null)` (D-1020 — C walks
-`worn[]` by pointer); treat every live `m_at` as a pole target
-(D-1040 — C uses `glyph_at`); re-stub
-D-0983…D-1052 clusters already Keep’d above (no `spe--`-only
-`consume_obj_charge`; no extra flat `u.Confusion` on Vlad case 10;
-no `take_gold` invent-splice without `remove_worn_item`;
-no `pickup_object` `void telekinesis`; no apply `u_wipe_engr_apply`
-no-op / empty `display_*_positions`; no `use_lamp`
-`(u.Glib|0)&TIMEOUT` instead of C `Glib&TIMEOUT`).
-**Do not put trailing `confdir` inside shared `getdir`** (use_whip
-already confdirs). **Do not add help_dir / “strange direction”
-pline to lock `getdir`** (NEED_MORE). Throw path keeps
-`getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from invent/migrating objects**
-(C `obj_is_local` is false for those — they follow the hero).
+**D-0948**…**D-1053** (zap/dig/eat/shop/kick/allmain/apply through
+fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
+`glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
+whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
+`remove_worn_item`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
+`msounds[]`/`cry_sound`).
+**Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
+`owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
+leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
+shared `maketrap` PIT morph; tutorial worn without `setnotworn`;
+invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
+`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1053
+(no `spe--` unpaid; no extra `u.Confusion`; no gold splice; no
+`void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
+no empty-`msound` chitter).
+**Do not put trailing `confdir` inside shared `getdir`**. **Do not
+add help_dir / “strange direction” pline to lock `getdir`**. Throw
+keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from
+invent/migrating objects** (C `obj_is_local` is false).
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

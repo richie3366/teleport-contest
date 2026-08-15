@@ -8,22 +8,22 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.871) after review cadence **#1320**;
-  next @**#1325**.
+  speed `32+0.26/turn` R² 0.87) after cadence **#1325**;
+  next @**#1330**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1052** cursed-lamp `make_glib` `(HGlib|EGlib)&TIMEOUT`.
-  Remaining Must-fix: `cry_sound` C `monflag.h` numbers. Loop is
-  **fail-closed** (review every 3, cadence every 5 score-only unless
-  Must-fix is open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — `cry_sound` `msound`. Source: D-1036
-  risk 3. Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** none live. Falsify `cry_sound` against C
-  `monflag.h` MS_* + green.
+- Latest: **D-1053** `msounds[]` + `cry_sound` C `monflag.h` numbers.
+  Remaining Must-fix: `get_obj_location` flags `0` vs CONTAINED.
+  Loop is **fail-closed** (review every 3, cadence every 5 score-only
+  unless Must-fix is open). Agents **commit + `git push`**.
+- **Next cluster:** Must-fix — `get_obj_location` flags. Source:
+  D-1036 risk 4. Do not dump tut-1 while Must-fix is open.
+- **Hypothesis:** none live. Falsify `get_obj_location(0)` against C
+  CONTAINED reject.
 
 ## Don't re-check (≤15)
 
@@ -38,8 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Don't emit mid-row space runs >4 as literal spaces when contest CUFs
   (D-0931); keep inv/uline spaces (D-0129); leading bold pads (D-0932).
 - Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
-- Do not FORCE linedup/FlipX/stair-screen coords — C place matched (#1092).
-- Do not invent SpLev_Map flip in `flip_level` — C leaves it (#1092).
+- Do not FORCE linedup/FlipX/stair-screen / SpLev_Map flip (#1092).
 - Do not blanket-restore overlay `_pending_message` for all corner menus
   — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
 - Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
@@ -58,9 +57,9 @@ Objective/score live in `CURRENT.md`.
   has no `uwep`). Do not drive `setnotworn` from `owornmask`/
   `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave.
   Do not fire object timers for floor/buried/contained objs after
-  leaving their level (D-1037 — peel via `save_timers`). `cry_sound`
-  uses C `monflag.h` numbers, not growl locals. Do not restore
-  `getdir_whip` or `hurtle_apply` `teleds` (D-1038). Do not put
+  leaving their level (D-1037 — peel via `save_timers`). Do not omit
+  `msounds[]` / restore always-chitter `cry_sound` (D-1053). Do not
+  restore `getdir_whip` or `hurtle_apply` `teleds` (D-1038). Do not put
   `confdir` inside shared `getdir`. Do not skip `dosit`
   `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
   `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040). Do not restore
@@ -82,10 +81,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after review cadence **#1320**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.26/turn` (R² 0.871). Next @**#1325**.
-- **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; `Glib` is
-  HGlib|EGlib (`uprops[GLIB]`). Expiry `make_glib(0)` inventory deferred.
+- Suite after cadence **#1325**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
+- **D-1053:** `extract-monsters.py` `SIZ` sound → `msounds[]`;
+  `mons().msound`; `cry_sound` / growl MS_* = `monflag.h`.
+  `peace_minded`/`set_malign` still do not read `ptr.msound`.
+- **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; Glib is HGlib|EGlib.
 - **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
   S_goodpos. allmain/dokick/uhitm wipe callers still stub.
 - **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`.
@@ -97,4 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1044:** `special_obj_hits_leader` `urole.questarti`.
 - **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
 - **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
-- **D-1041:** `thitmonst` WEAPON/weptool/GEM tmp+dieroll `hmon`/`tmiss`.

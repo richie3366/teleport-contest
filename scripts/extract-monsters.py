@@ -92,6 +92,56 @@ MR_FLAGS = {
     "MR_STONE": 0x80,
 }
 
+# C ref: include/monflag.h enum ms_sounds — permonst.msound (SIZ 3rd arg)
+MS_SOUNDS = {
+    "MS_SILENT": 0,
+    "MS_BARK": 1,
+    "MS_MEW": 2,
+    "MS_ROAR": 3,
+    "MS_BELLOW": 4,
+    "MS_GROWL": 5,
+    "MS_SQEEK": 6,
+    "MS_SQAWK": 7,
+    "MS_CHIRP": 8,
+    "MS_HISS": 9,
+    "MS_BUZZ": 10,
+    "MS_GRUNT": 11,
+    "MS_NEIGH": 12,
+    "MS_MOO": 13,
+    "MS_WAIL": 14,
+    "MS_GURGLE": 15,
+    "MS_BURBLE": 16,
+    "MS_TRUMPET": 17,
+    "MS_ANIMAL": 17,
+    "MS_SHRIEK": 18,
+    "MS_BONES": 19,
+    "MS_LAUGH": 20,
+    "MS_MUMBLE": 21,
+    "MS_IMITATE": 22,
+    "MS_WERE": 23,
+    "MS_ORC": 24,
+    "MS_HUMANOID": 25,
+    "MS_ARREST": 26,
+    "MS_SOLDIER": 27,
+    "MS_GUARD": 28,
+    "MS_DJINNI": 29,
+    "MS_NURSE": 30,
+    "MS_SEDUCE": 31,
+    "MS_VAMPIRE": 32,
+    "MS_BRIBE": 33,
+    "MS_CUSS": 34,
+    "MS_RIDER": 35,
+    "MS_LEADER": 36,
+    "MS_NEMESIS": 37,
+    "MS_GUARDIAN": 38,
+    "MS_SELL": 39,
+    "MS_ORACLE": 40,
+    "MS_PRIEST": 41,
+    "MS_SPELL": 42,
+    "MS_BOAST": 43,
+    "MS_GROAN": 44,
+}
+
 M1_FLAGS = {
     # C ref: include/monflag.h — subset used by ported predicates
     "M1_FLY": 0x00000001,
@@ -416,16 +466,20 @@ def main() -> int:
         msize = 2  # MZ_MEDIUM default
         cwt = 0
         cnutrit = 0
+        msound = 0  # MS_SILENT
         if len(parts) > 5:
             sm = re.search(
                 r"SIZ\s*\(\s*([A-Za-z0-9_]+)\s*,\s*([A-Za-z0-9_]+)\s*,"
-                r"\s*[A-Za-z0-9_]+\s*,\s*([A-Za-z0-9_]+)\s*\)",
+                r"\s*([A-Za-z0-9_]+)\s*,\s*([A-Za-z0-9_]+)\s*\)",
                 parts[5],
             )
             if sm:
                 cwt = wt_map.get(sm.group(1), eval_flags(sm.group(1), wt_map))
                 cnutrit = wt_map.get(sm.group(2), eval_flags(sm.group(2), wt_map))
-                msize = mz_map.get(sm.group(3), eval_flags(sm.group(3), mz_map))
+                msound = MS_SOUNDS.get(
+                    sm.group(3), eval_flags(sm.group(3), MS_SOUNDS)
+                )
+                msize = mz_map.get(sm.group(4), eval_flags(sm.group(4), mz_map))
             else:
                 sm2 = re.search(r"SIZ\s*\([^)]*?,\s*([A-Z0-9_]+)\s*\)", parts[5])
                 if sm2:
@@ -449,6 +503,7 @@ def main() -> int:
             "msize": msize,
             "cwt": int(cwt),
             "cnutrit": int(cnutrit),
+            "msound": int(msound),
             "has_at_weap": "AT_WEAP" in atks,
             "mattk": parse_mattk(atks),
             "mcolor": mcolor,
@@ -480,6 +535,7 @@ def main() -> int:
                     "msize": 2,
                     "cwt": 0,
                     "cnutrit": 0,
+                    "msound": 0,
                     "has_at_weap": False,
                     "mattk": parse_mattk(""),
                     "mcolor": 7,  # CLR_GRAY
@@ -559,6 +615,11 @@ def main() -> int:
     lines.append(
         "export const cnutrits = "
         + json.dumps([int(m.get("cnutrit", 0)) for m in mons])
+        + ";"
+    )
+    lines.append(
+        "export const msounds = "
+        + json.dumps([int(m.get("msound", 0)) for m in mons])
         + ";"
     )
     lines.append("export const mlets = " + json.dumps([m["sym"] for m in mons]) + ";")

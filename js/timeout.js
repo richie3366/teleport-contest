@@ -891,7 +891,7 @@ function Deaf_hatch() {
         || ((u.HDeaf | 0) & TIMEOUT) || (u.EDeaf | 0));
 }
 
-/** C mondata.h is_silent — msound == MS_SILENT. Tables omit msound → 0. */
+/** C mondata.h is_silent — ptr->msound == MS_SILENT. */
 function is_silent_hatch(ptr) {
     return (ptr?.msound | 0) === 0;
 }
@@ -997,8 +997,7 @@ export function learn_egg_type(mnum) {
  * G_UNIQ/G_GENOD/G_EXTINCT skip spawn; enexto+makemon NO_MINVENT|MM_NOMSG;
  * tamedog yours||carried-dragon; leftover rnd(12) re-arm; invent useup /
  * floor extract+obfree+hideunder. Named omit: SetVoice before Gleep;
- * update_inventory; migrating #if 0; generated msound (cry_sound default
- * chitter/gurgle); impossible() unknown where.
+ * update_inventory; migrating #if 0; impossible() unknown where.
  */
 export async function hatch_egg(egg, timeout) {
     if (!egg) return;

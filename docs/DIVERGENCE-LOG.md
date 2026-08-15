@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1053 — cry_sound msound C monflag.h numbers
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1036 risk 3. `cry_sound` used C `monflag.h` numbers
+  locally, but generated `mons()` omitted `msound`, so
+  `ptr.msound|0` was 0 (MS_SILENT) → always chitter (eel gurgle).
+  Growl table numbering also diverged (MS_ROAR=6 vs C 3).
+- **C locus:** `sounds.c` `cry_sound`; `monsters.h` `SIZ(wt,nut,sound,sz)`;
+  `monflag.h` `enum ms_sounds`.
+- **Fix:** `extract-monsters.py` captures SIZ sound → `msounds[]`;
+  `mons().msound`; `cry_sound` / `growl_sound` / `mon_msound` use
+  C numbers. `domonnoise` leader poly-safe is C `msound > MS_ANIMAL`
+  (dropped omitted-table `msound===0` shim). Rule #2: no fs.
+- **Deferred:** `peace_minded`/`set_malign`/`m_initweap` still do not
+  read `ptr.msound` (mndx/urole gates remain); `domonnoise` other
+  MS_* arms; `get_obj_location` flags 0 vs CONTAINED (D-1036 risk 4).
+- **Verify:** private node chickatrice hiss / bee buzz / baby dragon
+  growl / raven screech / naga hatchling mumble / eel gurgle / ant
+  chitter. green+strict PASS; cadence full `sessions` **44**/44
+  Scr **11405**/11405 RNG **100%** speed `32+0.26/turn` (R² 0.87).
+- **Files:** `scripts/extract-monsters.py`,
+  `js/generated/monsters_data.js`, `js/monsters.js`, `js/sounds.js`,
+  `js/timeout.js`.
+
 ## D-1052 — cursed-lamp make_glib Glib TIMEOUT
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)
@@ -462,7 +486,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   First dispatch trial broke fortress — cause was off-level timers
   (D-1037), not a wrong hatch body. Rule #2: no fs.
 - **Deferred:** SetVoice; `update_inventory`; migrating `#if 0`;
-  generated `msound` (cry_sound defaults chitter/gurgle);
+  generated `msound` (retired D-1053);
   `impossible()` unknown where. (Dispatch itself: D-1037.)
 - **Verify:** private node (NON_PM; cry_sound; MV_KNOWS_EGG; floor
   lizard hatch; leftover quan; invent spe tame). Dispatch trial
