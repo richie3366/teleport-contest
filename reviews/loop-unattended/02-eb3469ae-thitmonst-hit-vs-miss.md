@@ -158,7 +158,7 @@ Journal: green+strict PASS; throw/kick/combat cohort **10**/10 (seed0361 Scr 366
 ## Actionable C-wrongs
 
 1. **`find_mac` must walk monster `minvent` worn `ARM_BONUS` / amulet of guarding and cap `AC_MAX` like C `worn.c:717–735`.** Today thitmonst tmp uses base `data.ac` only. One port iter: that function, then re-run throw/combat cohort. Source: `reviews/loop-unattended/02-eb3469ae-thitmonst-hit-vs-miss.md`.
-   **Addressed:** D-1042.
+   **Addressed:** D-1042 `19e907f5`.
 
 2. **`should_mulch_missile` hero blessed save must be `!rnl(4)` not `!rn2(4)` like C `dothrow.c:1992`.** Now live on every surviving ammo/missile hit from this envelope. `rnl` already exists in `js/rng.js`. Source: same review.
 
