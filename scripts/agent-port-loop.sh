@@ -28,6 +28,9 @@ Options:
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
+Fail-closed (default): green / full-suite / density / protected / banned
+halt and revert the iteration. Review every LOOP_REVIEW_EVERY (3);
+cadence every LOOP_CADENCE_EVERY (5). Agents commit; the script pushes.
 See docs/AGENT-PORT-LOOP.md.
 EOF
 }
@@ -90,6 +93,13 @@ trap cleanup EXIT
 # Fresh stop latch every successful launch, as requested.
 printf '0\n' >"$STOP_FILE"
 
+dirty="$(git status --porcelain | grep -v 'STOP_AGENT_LOOP.md' || true)"
+if [[ -n "$dirty" ]]; then
+  echo "error: dirty worktree; commit or stash before launching the unattended loop:" >&2
+  printf '%s\n' "$dirty" >&2
+  exit 1
+fi
+
 # Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
 MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
@@ -129,10 +139,36 @@ ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
+LOOP_REVIEW_EVERY="${LOOP_REVIEW_EVERY:-3}"
+LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-5}"
+LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-400}"
+LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-8}"
+LOOP_PUSH="${LOOP_PUSH:-1}"
+LOOP_FAIL_CLOSED="${LOOP_FAIL_CLOSED:-1}"
+REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.prompt.md}"
+CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
+QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
+REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
 
 PROMPT_FILE="${PROMPT_FILE:-$ROOT/scripts/agent-port-loop.prompt.md}"
 if [[ ! -f "$PROMPT_FILE" ]]; then
   echo "error: missing prompt file: $PROMPT_FILE" >&2
+  exit 1
+fi
+if [[ ! -f "$REVIEW_PROMPT_FILE" ]]; then
+  echo "error: missing review prompt: $REVIEW_PROMPT_FILE" >&2
+  exit 1
+fi
+if [[ ! -f "$CADENCE_PROMPT_FILE" ]]; then
+  echo "error: missing cadence prompt: $CADENCE_PROMPT_FILE" >&2
+  exit 1
+fi
+if [[ ! -f "$REQUIRE_PASS" ]]; then
+  echo "error: missing $REQUIRE_PASS" >&2
+  exit 1
+fi
+if [[ ! -f "$QUEUE_FILE" ]]; then
+  echo "error: missing work queue: $QUEUE_FILE" >&2
   exit 1
 fi
 if (( TOKEN_BUDGET > 0 )) && [[ ! -f "$EXTRACT_USAGE" ]]; then
@@ -248,6 +284,9 @@ const protectedPaths = [
   '.cursor/rules',
   'scripts/agent-port-loop.sh',
   'scripts/agent-port-loop.prompt.md',
+  'scripts/agent-port-loop.review.prompt.md',
+  'scripts/agent-port-loop.cadence.prompt.md',
+  'scripts/loop-require-results-pass.mjs',
   'frozen',
   'sessions',
   'nethack-c/upstream',
@@ -280,15 +319,41 @@ console.log(hash.digest('hex'));
 NODE
 }
 
+# The frozen runner exits 0 even when sessions FAIL. Parse __RESULTS_JSON__.
+run_session_gate() {
+  local tmp="$1"
+  shift
+  node frozen/ps_test_runner.mjs "$@" 2>&1 | tee -a "$MASTER_LOG" "$tmp"
+  node "$REQUIRE_PASS" "$tmp"
+}
+
 run_green_gate() {
-  node frozen/ps_test_runner.mjs \
+  local tmp
+  tmp="$(mktemp "$LOG_DIR/.green-XXXXXX")"
+  if ! run_session_gate "$tmp" \
     sessions/seed8000-tourist-starter.session.json \
-    sessions/seed0900-tourist-explore-actions.session.json \
-    2>&1 | tee -a "$MASTER_LOG"
+    sessions/seed0900-tourist-explore-actions.session.json
+  then
+    rm -f "$tmp"
+    return 1
+  fi
+  rm -f "$tmp"
   node scripts/strict-output-check.mjs \
     sessions/seed8000-tourist-starter.session.json \
     sessions/seed0900-tourist-explore-actions.session.json \
     2>&1 | tee -a "$MASTER_LOG"
+  return "${PIPESTATUS[0]}"
+}
+
+run_full_suite_gate() {
+  local tmp
+  tmp="$(mktemp "$LOG_DIR/.suite-XXXXXX")"
+  if ! run_session_gate "$tmp" sessions; then
+    rm -f "$tmp"
+    return 1
+  fi
+  rm -f "$tmp"
+  return 0
 }
 
 run_with_timeout() {
@@ -343,6 +408,55 @@ scan_new_banned_patterns() {
   return "$found"
 }
 
+iter_mode() {
+  local n="$1"
+  local rev="$LOOP_REVIEW_EVERY"
+  local cad="$LOOP_CADENCE_EVERY"
+  if (( n % cad == 0 && n % rev == 0 )); then
+    echo audit
+  elif (( n % cad == 0 )); then
+    echo cadence
+  elif (( n % rev == 0 )); then
+    echo review
+  else
+    echo port
+  fi
+}
+
+queue_has_open() {
+  rg -q '^- \[ \]' "$QUEUE_FILE"
+}
+
+js_diff_stats() {
+  git diff --numstat "$1" "$2" -- js \
+    | awk '{ ins += $1; if ($1 + $2 > 0) files++ } END { print ins+0, files+0 }'
+}
+
+# before_head must be set. origin_before is optional (empty if fetch failed).
+halt_loop() {
+  local reason="$1"
+  local do_revert="${2:-1}"
+  echo "$(date -Iseconds) HALT: $reason" | tee -a "$MASTER_LOG"
+  printf '%s\n' "$reason" >"$LOG_DIR/last-halt-reason.txt"
+  if [[ "$do_revert" == "1" && -n "${before_head:-}" ]]; then
+    echo "$(date -Iseconds) revert: git reset --hard $before_head" | tee -a "$MASTER_LOG"
+    git reset --hard "$before_head" >/dev/null
+    git clean -fd -- js reviews >/dev/null 2>&1 || true
+  fi
+  printf '1\n' >"$STOP_FILE"
+  exit 1
+}
+
+maybe_halt() {
+  local reason="$1"
+  local do_revert="${2:-1}"
+  if [[ "$LOOP_FAIL_CLOSED" == "1" ]]; then
+    halt_loop "$reason" "$do_revert"
+  fi
+  echo "$(date -Iseconds) warning (LOOP_FAIL_CLOSED=0): $reason (continuing)" \
+    | tee -a "$MASTER_LOG"
+}
+
 echo "=== agent-port-loop ==="
 echo "root:   $ROOT"
 echo "agent:  $AGENT_BIN"
@@ -366,6 +480,9 @@ echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
+echo "review: every ${LOOP_REVIEW_EVERY}; cadence every ${LOOP_CADENCE_EVERY} (score-only)"
+echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
+echo "push:   supervisor after gates (LOOP_PUSH=${LOOP_PUSH}); agents must not push"
 echo
 
 AUTHORITY_HASH="$(protected_fingerprint)"
@@ -402,29 +519,54 @@ while true; do
 
   iter=$((iter + 1))
   write_iter_count "$iter"
+  mode="$(iter_mode "$iter")"
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
   snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$STAMP-$iter.XXXXXX")"
   cp -R "$ROOT/js" "$snapshot/js"
-  echo "$(date -Iseconds) === iteration $iter starting (global #$iter) ===" | tee -a "$MASTER_LOG"
+  before_head="$(git rev-parse HEAD)"
+  origin_before=""
+  if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+    git fetch origin >/dev/null 2>&1 || true
+    origin_before="$(git rev-parse '@{u}' 2>/dev/null || true)"
+  fi
+  echo "$(date -Iseconds) === iteration $iter starting (global #$iter mode=$mode) ===" \
+    | tee -a "$MASTER_LOG"
   echo "log: $iter_log" | tee -a "$MASTER_LOG"
   echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
     | tee -a "$MASTER_LOG"
 
-  # Each iteration is a fresh agent session (new context). Prompt insists on
-  # reading docs/CURRENT.md + docs/NOTES.md so state survives across loops.
-  # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
-  prompt_body="$(cat "$PROMPT_FILE")"
-  if (( iter % 5 == 0 )); then
-    echo "$(date -Iseconds) === full public score due (iteration $iter % 5 == 0) ===" \
-      | tee -a "$MASTER_LOG"
-    prompt_body+=$'\n\n## MANDATORY this iteration (global #'"$iter"' divisible by 5)\n'
-    prompt_body+=$'Run the full public score and document it in `docs/CURRENT.md` Score:\n\n'
-    prompt_body+=$'```bash\nnode frozen/ps_test_runner.mjs sessions\n```\n\n'
-    prompt_body+=$'Record pass count, screen/RNG aggregates, speed label, PASS list, and\n'
-    prompt_body+=$'notable non-PASS from `__RESULTS_JSON__`. Prepend a journal crumb.\n'
-    prompt_body+=$'Do this even if you also ship a port fix; prefer score+docs if short on time.\n'
+  if [[ "$mode" == "port" ]] && ! queue_has_open; then
+    halt_loop "work queue empty (docs/LOOP-QUEUE.md has no open '- [ ]' item)" 0
   fi
+
+  # Each iteration is a fresh agent session (new context).
+  # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
+  case "$mode" in
+    review)
+      prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
+      echo "$(date -Iseconds) === review iteration (no js/ port) ===" | tee -a "$MASTER_LOG"
+      ;;
+    cadence)
+      prompt_body="$(cat "$CADENCE_PROMPT_FILE")"
+      echo "$(date -Iseconds) === cadence score-only (iteration $iter % ${LOOP_CADENCE_EVERY} == 0) ===" \
+        | tee -a "$MASTER_LOG"
+      ;;
+    audit)
+      prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
+      prompt_body+=$'\n\n## ALSO this iteration: cadence score (audit = review + score, no port)\n'
+      prompt_body+=$'Run `node frozen/ps_test_runner.mjs sessions`, rewrite CURRENT Score\n'
+      prompt_body+=$'from __RESULTS_JSON__, journal. Still no js/ edits.\n'
+      echo "$(date -Iseconds) === audit iteration (review + full suite, no port) ===" \
+        | tee -a "$MASTER_LOG"
+      ;;
+    *)
+      prompt_body="$(cat "$PROMPT_FILE")"
+      prompt_body+=$'\n\n## This iteration cluster\n'
+      prompt_body+=$'Pop the first unchecked item in `docs/LOOP-QUEUE.md`. That item is the\n'
+      prompt_body+=$'only cluster. Copy it into `docs/CURRENT.md` Next cluster before coding.\n'
+      ;;
+  esac
   iter_start="$(now_epoch)"
   set +e
   run_with_timeout "$AGENT_BIN" -p \
@@ -522,11 +664,12 @@ NODE
     deny_status=$?
     set -e
     if [[ "$deny_status" -eq 2 ]]; then
-      echo "warning: structured tool denial(s) in agent stream (continuing):" \
+      echo "warning: structured tool denial(s) in agent stream:" \
         | tee -a "$MASTER_LOG"
       printf '%s\n' "$deny_report" | tee -a "$MASTER_LOG"
       echo "hint:  AGENT_FORCE=1 if Shell was auto-denied; raw=$iter_raw" \
         | tee -a "$MASTER_LOG"
+      maybe_halt "tool approval denials (set AGENT_FORCE=1 for unattended scorers)" 1
     fi
   fi
 
@@ -535,10 +678,7 @@ NODE
 
   record_iteration_tokens "$iter_raw"
   if (( MISSING_USAGE_STREAK >= MISSING_USAGE_LIMIT )); then
-    echo "error: ${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream — halting" \
-      | tee -a "$MASTER_LOG"
-    echo "raw:   $iter_raw" | tee -a "$MASTER_LOG"
-    exit 1
+    halt_loop "${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream" 1
   fi
 
   if (( iter_elapsed < SHORT_ITER_SEC )); then
@@ -549,31 +689,107 @@ NODE
     short_streak=0
   fi
   if (( short_streak >= SHORT_STREAK_LIMIT )); then
-    echo "error: ${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens; halting" \
-      | tee -a "$MASTER_LOG"
-    echo "raw:   $iter_raw" | tee -a "$MASTER_LOG"
-    exit 1
+    halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
+  fi
+
+  if [[ "$status" -eq 124 ]]; then
+    halt_loop "agent iteration timed out after ${ITERATION_TIMEOUT_SEC}s" 1
   fi
 
   if [[ "$status" -ne 0 ]]; then
-    echo "warning: agent iteration exit $status (continuing); raw=$iter_raw" \
-      | tee -a "$MASTER_LOG"
+    echo "warning: agent iteration exit $status; raw=$iter_raw" | tee -a "$MASTER_LOG"
+  fi
+
+  after_head="$(git rev-parse HEAD)"
+  read -r js_ins js_files <<<"$(js_diff_stats "$before_head" "$after_head")"
+
+  origin_after=""
+  agent_pushed=0
+  if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+    git fetch origin >/dev/null 2>&1 || true
+    origin_after="$(git rev-parse '@{u}' 2>/dev/null || true)"
+    if [[ -n "$origin_before" && -n "$origin_after" && "$origin_after" != "$origin_before" ]]; then
+      agent_pushed=1
+    fi
   fi
 
   if [[ "$(protected_fingerprint)" != "$AUTHORITY_HASH" ]]; then
-    echo "warning: protected authority/fixture changed (continuing)" \
-      | tee -a "$MASTER_LOG"
+    if (( agent_pushed )); then
+      halt_loop "protected authority/fixture changed AND already pushed — human must revert origin" 0
+    fi
+    halt_loop "protected authority/fixture changed" 1
   fi
 
   if ! scan_new_banned_patterns "$snapshot"; then
-    echo "warning: banned-pattern audit failed (continuing)" | tee -a "$MASTER_LOG"
+    if (( agent_pushed )); then
+      halt_loop "banned-pattern audit failed AND already pushed — human must revert origin" 0
+    fi
+    halt_loop "banned-pattern audit failed (DIAG/FORCE/seed gate/console/getRngLog or deleted js/)" 1
+  fi
+
+  if [[ "$mode" != "port" ]] && (( js_files > 0 )); then
+    if (( agent_pushed )); then
+      halt_loop "$mode iteration touched js/ AND already pushed — human must revert origin" 0
+    fi
+    halt_loop "$mode iteration must not edit js/ (${js_files} file(s), +${js_ins})" 1
+  fi
+
+  if [[ "$mode" == "port" ]]; then
+    if (( js_ins == 0 && js_files == 0 )); then
+      if (( agent_pushed )); then
+        halt_loop "empty port iteration (no js/ diff) already pushed" 0
+      fi
+      halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
+    fi
+    if (( js_ins > LOOP_MAX_JS_INSERTIONS || js_files > LOOP_MAX_JS_FILES )); then
+      if (( agent_pushed )); then
+        halt_loop "density cap exceeded (+${js_ins} / ${js_files} files) AND already pushed" 0
+      fi
+      halt_loop "density cap exceeded: js +${js_ins} insertions / ${js_files} files (max ${LOOP_MAX_JS_INSERTIONS}/${LOOP_MAX_JS_FILES})" 1
+    fi
+  fi
+
+  if [[ "$mode" == "review" || "$mode" == "audit" ]]; then
+    if ! git diff --name-only "$before_head" "$after_head" | rg -q 'reviews/loop-unattended/'; then
+      if (( agent_pushed )); then
+        halt_loop "review produced no reviews/loop-unattended/ file AND already pushed" 0
+      fi
+      halt_loop "review iteration wrote no reviews/loop-unattended/ file" 1
+    fi
+    if git diff "$before_head" "$after_head" -- 'reviews/loop-unattended' \
+      | rg -q '^\+Verdict: \*\*REJECT\*\*'; then
+      echo "$(date -Iseconds) review REJECT — stopping after this iteration's docs land" \
+        | tee -a "$MASTER_LOG"
+      printf '1\n' >"$STOP_FILE"
+    fi
   fi
 
   echo "$(date -Iseconds) === post-iteration green gate ===" | tee -a "$MASTER_LOG"
   if ! run_green_gate; then
-    echo "warning: green regression (continuing)" | tee -a "$MASTER_LOG"
+    if (( agent_pushed )); then
+      halt_loop "green regression AND already pushed — human must revert origin" 0
+    fi
+    halt_loop "green regression (seed8000/seed0900 or strict lengths)" 1
   fi
+
+  if [[ "$mode" == "cadence" || "$mode" == "audit" ]]; then
+    echo "$(date -Iseconds) === post-iteration full suite gate ===" | tee -a "$MASTER_LOG"
+    if ! run_full_suite_gate; then
+      if (( agent_pushed )); then
+        halt_loop "full-suite regression AND already pushed — human must revert origin" 0
+      fi
+      halt_loop "full public suite regression" 1
+    fi
+  fi
+
   rm -rf "$snapshot"
+
+  if (( agent_pushed == 0 )) && [[ "$LOOP_PUSH" == "1" ]] && [[ "$after_head" != "$before_head" ]]; then
+    echo "$(date -Iseconds) === supervisor git push ===" | tee -a "$MASTER_LOG"
+    if ! git push origin HEAD; then
+      halt_loop "git push origin HEAD failed (local commits kept)" 0
+    fi
+  fi
 
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after iteration $iter"

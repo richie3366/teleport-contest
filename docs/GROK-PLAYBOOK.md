@@ -227,8 +227,10 @@ in the journal for human/auditor review.
 
 ## 10. End each loop iteration with git
 
-Stage intentional changes; commit with why (C locus / D-ID / verification);
-`git push origin HEAD` (no `--force`). If push fails, journal the error.
+Stage intentional changes; commit with why (C locus / D-ID / verification).
+**Do not `git push`.** The supervisor pushes `origin HEAD` only after
+fail-closed green / density / authority gates (`docs/AGENT-PORT-LOOP.md`).
+No `--force`. If the supervisor push fails, it halts with local commits kept.
 
 ---
 

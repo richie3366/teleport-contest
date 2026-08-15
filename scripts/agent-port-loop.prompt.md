@@ -7,15 +7,19 @@ small, accurate repo notes are.
 1. `docs/GROK-PLAYBOOK.md` — priority, **Contest Rule #2**, anti-patterns, endings.
 2. Hard bans via Cursor rules / `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10 (skim).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective (chooses work).
-4. `docs/NOTES.md` — live hypothesis / don’t-recheck only.
-5. **One** subsystem file via `docs/C-JS-MAP.md` index (`docs/c-js-map/*.md`).
-6. `docs/PORTING-RUNBOOK.md` §3–7 only if procedure is unclear.
+4. **`docs/LOOP-QUEUE.md`** — first `- [ ]` item is the only cluster.
+5. `docs/NOTES.md` — live hypothesis / don’t-recheck only.
+6. **One** subsystem file via `docs/C-JS-MAP.md` index (`docs/c-js-map/*.md`).
+7. `docs/PORTING-RUNBOOK.md` §3–7 only if procedure is unclear.
 
 **Priority:** `CURRENT.md` primary beats NOTES and parked canaries.
 **Do not implement** D-0006 until its C-state falsifier exists.
 When the local public suite is already PASS: **map-driven mode**
-(`GROK-PLAYBOOK.md` §2a–2b) — retire named `c-js-map` debt/absent in one
-semantic cluster; do not invent FAIL peels or chase leaderboard drift.
+(`GROK-PLAYBOOK.md` §2a–2b) — pop the **first unchecked** item in
+`docs/LOOP-QUEUE.md` and ship that one C family; copy it into
+`CURRENT.md` **Next cluster**. Do not invent FAIL peels, do not
+combine queue items, do not chase leaderboard drift. If the queue has
+no open item: journal Blocked and stop (do not invent work).
 
 **HARD — Contest Rule #2:** scored `js/` must run as plain ESM in **Node and
 Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
@@ -43,6 +47,9 @@ Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
 - Longer RNG prefix without a C-cited cause is **not** success.
 - One C function / tight helper cluster; related map deferrals OK; name
   remaining deferred branches in the map section.
+- Target **50–300** lines of C-faithful JS. The supervisor **reverts**
+  the iteration if `js/` insertions exceed 400 or `js/` files touched
+  exceed 8. Do not “finish tut-1” / whip+pole+grapple in one iter.
 
 Before patching: C locus + callers, JS locus, channel, falsifiable hypothesis,
 focused + green + cohort commands.
@@ -76,7 +83,8 @@ frozen `isaac64`/`terminal`/`storage`, and any `fastforward.js` additions.
 3. Divergence entry + `DIVERGENCE-INDEX.md` row; one `c-js-map/*.md` section.
 4. Prepend a short entry to `AGENT-LOOP-JOURNAL.md` (rotate to `archive/` if >15).
 5. Optional: `node scripts/check-hot-docs.mjs`.
-6. **Commit and push** intentional work.
+6. **Commit** intentional work. **Do not push** — the supervisor
+   `git push`es only after fail-closed green / density / authority gates.
 
 Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 `DIVERGENCE-INDEX.md`, `c-js-map/*.md`, `C-JS-MAP.md` (index only if needed),
@@ -84,8 +92,9 @@ Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 
 ## Git
 
-Stage intentional changes; commit with why; `git push origin HEAD`. No force-push,
-no amend of pushed commits, no reset of unrelated work.
+Stage intentional changes; commit with why. **Do not `git push`.**
+No force-push, no amend of pushed commits, no reset of unrelated work.
+Check off the queue item only after the JS is committed.
 
 ## Absolute prohibitions
 
@@ -93,5 +102,5 @@ No frame/RNG alignment machinery, seed-specific production logic, whole-program
 transpile/WASM as the scored port. Do not edit authority docs (Constitution,
 runbook, playbook, API/phases/strategy, Cursor rules, loop scripts/prompt),
 `frozen/**`, `sessions/**`, upstream C/patches, or frozen JS contracts.
-Do not write `1` to `STOP_AGENT_LOOP.md`. After two falsifications, reconstruct
-the C path or pivot — do not spin.
+Do not write `1` to `STOP_AGENT_LOOP.md` (review iterations may, on REJECT).
+After two falsifications, reconstruct the C path or pivot — do not spin.

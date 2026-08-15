@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 20:20 — fail-closed unattended loop + LOOP-QUEUE
+
+**Objective:** make the CLI loop safe to leave running (user request).
+**C locus:** n/a (supervisor / prompts / queue).
+**Change:** parse `__RESULTS_JSON__` (runner exits 0 on FAIL); revert+halt
+on green/suite/density/protected/banned/empty-port; agents commit only,
+supervisor pushes; review every 3; cadence every 5 score-only; work
+picker is `docs/LOOP-QUEUE.md` (one item). First iter after launch is
+**#1306 review**.
+**Score:** unchanged (fortress after D-1039; cadence still #1305).
+**Verified:** `bash -n` loop script; require-pass helper 2/2 and 1-fail.
+**Next:** launch with `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`.
+**Blocked:** none.
+
 ## 2026-08-15 20:01 — D-1039 dosit trap-before-throne
 
 **Objective:** Keep’d D-1033 C-wrong — `dosit` must test trap before

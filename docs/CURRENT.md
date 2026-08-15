@@ -71,8 +71,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** remaining tut-1 des (large-box / food / stairs /
-kelp / `place_lregion` / tut_key) + nhcore callback disable.
+**Next cluster:** first open item in `docs/LOOP-QUEUE.md` (currently
+pole targeting: live `m_at` vs glyph stand-in, D-1022 Keep’d C-wrong).
+Unattended loop pops **one** queue item per port iter. Review every 3;
+cadence every 5 is score-only.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -132,6 +134,7 @@ pline to lock `getdir`** (NEED_MORE). Throw path keeps
 | Need | File |
 |------|------|
 | Live hypothesis / don’t-recheck | `NOTES.md` |
+| Unattended work picker | `LOOP-QUEUE.md` (one `- [ ]` item per port iter) |
 | Divergence by ID | `DIVERGENCE-INDEX.md` → one `## D-NNNN` |
 | Subsystem omissions | `C-JS-MAP.md` → one `c-js-map/*.md` |
 | Latest loop crumbs | `AGENT-LOOP-JOURNAL.md` (tail only) |

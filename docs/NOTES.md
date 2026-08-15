@@ -16,9 +16,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1039** `dosit` trap-before-throne (already-trapped sit
-  + `dotrap` `VIASITTING`). Do not skip trap arm / restore throne-first.
-- **Next cluster:** remaining tut-1 des / nhcore disable.
+- Latest: **D-1039** `dosit` trap-before-throne. Loop is **fail-closed**
+  (review every 3, cadence every 5 score-only, queue pops one item).
+- **Next cluster:** first `LOOP-QUEUE.md` item — pole targeting live
+  `m_at` (D-1022). Do not dump tut-1 in one iter.
 - **Hypothesis:** none live. Falsify a new cluster against C + green.
 
 ## Don't re-check (≤15)

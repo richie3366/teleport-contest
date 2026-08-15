@@ -1,13 +1,14 @@
-# Agent port loop (supervised / semi-unattended)
+# Agent port loop (fail-closed unattended)
 
-Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. **Not a
-trusted supervisor** — treat as operator-assisted until transactional gates
-(see `docs/AUDIT-ROADMAP.md`) land. Do not run with `AGENT_FORCE=1` on an
-uncheckpointed primary checkout.
+Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. The
+shell is the **gate**: agents commit locally; the script reverts and
+halts on green/suite failure, density overflow, banned patterns, or
+protected-file edits, and **pushes only after those gates pass**.
 
-The loop is an operator tool, not an architecture authority. Each agent must
-obey `CONSTITUTION.md`, `PORTING-RUNBOOK.md`, and the active objective in
-`CURRENT.md`.
+Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
+Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
+the script now **refuses to start** if the tree is dirty (except
+`STOP_AGENT_LOOP.md`).
 
 ## Quick start
 
@@ -18,7 +19,7 @@ agent --list-models | rg grok
 # Run until you stop it
 ./scripts/agent-port-loop.sh
 
-# Fully unattended after checkpointing/reviewing the tree
+# Fully unattended after a clean committed tree
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh
 
 # Cap this supervisor run at ~50M tokens (all usage kinds; not persisted)
@@ -37,22 +38,22 @@ stop does not stick across runs.
 
 ## Before an unattended run
 
-`--force` (`AGENT_FORCE=1`) is required for a useful headless loop: without it,
-`--print` mode **auto-denies** Shell/tool approvals (there is no interactive
-prompt). `--trust` only skips the workspace-trust question.
+`--force` (`AGENT_FORCE=1`) is **required** for a useful headless loop:
+without it, `--print` mode **auto-denies** Shell/tool approvals and the
+fail-closed script will halt. `--trust` only skips the workspace-trust
+question.
 
-On a dirty worktree, checkpoint before enabling force:
-
-1. Make a human-controlled backup/checkpoint of the current tree.
-2. Review `git status --short` and `docs/CURRENT.md`.
-3. Ensure the green gate passes before starting.
+1. Commit everything you care about (`git status` clean except STOP).
+2. Confirm `docs/LOOP-QUEUE.md` has open `- [ ]` items.
+3. Confirm the green gate (the script re-runs it as preflight).
 4. Run only one loop against this checkout; do not edit concurrently.
-5. Prefer `AGENT_FORCE=1` so scorers can run. Use `AGENT_FORCE=0` only when you
-   intentionally want edit-only / no-shell iterations.
+5. Launch with `AGENT_FORCE=1`. Optional: `--token-budget-m 50`.
 
-Do not use a new CLI worktree unless the current uncommitted port has first
-been checkpointed: a worktree created from `HEAD` will not include these local
-changes.
+The script resets `STOP_AGENT_LOOP.md` to `0` at startup. First
+iteration after global count **1305** will be **#1306 review** (every 3),
+then port, then review, with **#1310 cadence** score-only.
+
+Halt reason (if it stops itself): `.agent-port-loop-logs/last-halt-reason.txt`.
 
 ## Model
 
@@ -74,27 +75,46 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 ## Design
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  ./scripts/agent-port-loop.sh                           │
-│                                                         │
-│  1. acquire one-loop lock; reset STOP to 0              │
-│  2. read/update global iteration-count; green gate      │
-│  3. loop until human STOP, token budget, or exhaustion streak:   │
-│       if STOP_AGENT_LOOP.md == 1 → exit                 │
-│       if --token-budget-m reached → exit (after last iter) │
-│       snapshot js/; run model with finite timeout       │
-│       run: agent -p --model cursor-grok-4.6-xhigh ... \ │
-│              "$(cat scripts/agent-port-loop.prompt.md)" │
-│       meter usage from stream-json result (if budget set) │
-│       warn (do not halt) on agent failure, protected    │
-│         edits, banned patterns, or green regression     │
-│       halt after SHORT_STREAK_LIMIT consecutive         │
-│         agent runs shorter than SHORT_ITER_SEC          │
-│       halt after 3× consecutive missing usage (budget)  │
-│       if STOP_AGENT_LOOP.md == 1 → exit                 │
-│       sleep LOOP_SLEEP_SEC (default 2)                  │
-└─────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────┐
+│  ./scripts/agent-port-loop.sh                                 │
+│                                                               │
+│  1. lock; STOP=0; refuse dirty tree (except STOP file)        │
+│  2. preflight green (RESULTS_JSON must all pass + strict)     │
+│  3. loop until STOP, token budget, or halt:                   │
+│       mode = review (every 3) / cadence (every 5, score-only) │
+│              / audit (15, 30, …) / else port                  │
+│       port: refuse empty LOOP-QUEUE                           │
+│       snapshot js/; remember HEAD; run agent (commit, no push)│
+│       FAIL-CLOSED (revert HEAD + STOP=1):                     │
+│         timeout, tool denials, protected edit, banned pattern,│
+│         js/ on review/cadence, empty port, density >400/8,    │
+│         green fail, cadence full-suite fail                   │
+│       else supervisor `git push origin HEAD`                  │
+│       halt after short-run streak / missing usage (budget)    │
+│       sleep LOOP_SLEEP_SEC                                    │
+└───────────────────────────────────────────────────────────────┘
 ```
+
+### Iteration modes
+
+| Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
+|------------|------|----------------------|------------------------|
+| `n % 3 == 0` and not cadence | **review** | no | must add `reviews/loop-unattended/`; REJECT → STOP |
+| `n % 5 == 0` | **cadence** | no | full `sessions` must all PASS |
+| both (`15`, `30`, …) | **audit** | no | review + full suite |
+| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt |
+
+Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` so the next port
+fixes them instead of opening tut-1.
+
+### Why agents must not push
+
+The frozen runner **exits 0 even when sessions fail**. Old loops let
+the agent `git push` *before* the shell green gate. A bad dump could
+already be on `origin/main`. Now: agent commits; shell parses
+`__RESULTS_JSON__`; only then push. If the agent still pushes, a later
+gate failure **cannot** be reset without a force-push — the script
+halts and asks a human to revert origin.
 
 ### Token budget (`--token-budget-m`)
 
@@ -140,15 +160,14 @@ porting guide). The prompt emphasizes:
 4. Port one complete C semantic unit; no trace-derived implementation
 5. Verify focused + green + cohort behavior
 6. Remove diagnostics and update durable memory before exit
-7. **Commit and push** to `origin` (see prompt “End-of-iteration git”; no
-   force-push)
+7. **Commit** (no push — the supervisor pushes after gates)
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
-in `docs/CURRENT.md`. **Every 5 global loop iterations** the loop injects a
-mandatory full `sessions` score into the prompt; agents must update CURRENT
-Score from `__RESULTS_JSON__`. Fixed causes belong in `DIVERGENCE-LOG.md`
-(+ index); structural omissions belong in one `docs/c-js-map/*.md` section;
-each iteration prepends a short journal entry (rotate into `docs/archive/`
-when >15).
+in `docs/CURRENT.md`. **Every 5 global loop iterations** is a **cadence**
+score-only iter (no port). **Every 3** is a **review** iter (no port).
+Work comes from `docs/LOOP-QUEUE.md`. Fixed causes belong in
+`DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
+`docs/c-js-map/*.md` section; each iteration prepends a short journal
+entry (rotate into `docs/archive/` when >15).
 
 ### Logs
 
@@ -158,6 +177,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 - `iter-NNNN-<stamp>.log` — human-readable extract per iteration (`NNNN` is
   global and monotonic across restarts)
 - `iter-NNNN-<stamp>.raw` — full CLI output (`stream-json` tool events when enabled)
+- `last-halt-reason.txt` — why the supervisor stopped itself
 - `iteration-count` — total claimed global iterations (survives restarts).
   Bootstraps from the **count** of `iter-*.log` files if higher than the
   stored value (not max `NNNN`, because early runs reused 0001…)
@@ -170,10 +190,16 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `AGENT_TRUST` | `1` | Pass `--trust` (required for headless `-p`; set `0` only for interactive trust prompt) |
 | `AGENT_FORCE` | `0` | Set `1` to pass `--force` so Shell/scorers are not auto-denied under `-p` |
 | `AGENT_OUTPUT_FORMAT` | `stream-json` | `stream-json` keeps tool events in `iter-*.raw`; `text` is narrative-only |
-| `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (loop continues afterward) |
+| `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (**halt+revert**) |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
+| `LOOP_REVIEW_EVERY` | `3` | Review-only iteration cadence |
+| `LOOP_CADENCE_EVERY` | `5` | Full-suite score-only iteration cadence |
+| `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
+| `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
+| `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |
+| `LOOP_FAIL_CLOSED` | `1` | `0` restores warn-and-continue (debug only) |
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
 | `LOOP_SLEEP_SEC` | `2` | Pause between iterations |
 | `STOP_FILE` | `$ROOT/STOP_AGENT_LOOP.md` | Stop latch path |
@@ -184,15 +210,11 @@ Under `.agent-port-loop-logs/` (gitignored):
 ## Operator checklist
 
 1. `agent login` (once) so `--list-models` / runs work.
-2. Checkpoint the dirty tree and confirm the green gate.
-3. Ensure `CURRENT.md` has one primary objective and a falsifier (focused
-   FAIL command, or map-driven omission + green/cohort/canary when suite
-   is PASS).
-4. Start `./scripts/agent-port-loop.sh` in a dedicated terminal.
-5. Watch the live tee, diffs, green-gate results, journal, and per-iteration
-   commits on `origin/main`.
-6. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
-7. After stop, inspect `git log` / `git diff`, Notes, `CURRENT.md`, map section, and journal.
+2. Clean committed tree; `LOOP-QUEUE.md` has open items.
+3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`
+4. Watch the live tee or come back to `last-halt-reason.txt` / `git log`.
+5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
+6. After stop, inspect `git log`, Notes, `CURRENT.md`, queue, and journal.
 
 ## Failure modes
 
@@ -201,21 +223,22 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
 | Auth errors | `agent login` |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
-| banned-pattern / green / agent exit mid-loop | Logged as **warning**; loop continues (human STOP or token streak still halt) |
-| `N consecutive agent runs <30s` | Likely out of tokens / quota — loop halts; top up and restart |
-| Token budget reached | Expected exit after an iteration when `--token-budget-m` is set |
-| `3× consecutive missing usage` | stream-json had no `result.usage` — check `AGENT_OUTPUT_FORMAT` / CLI |
-| Green sessions fail mid-loop | Warning only; restore semantic parity when you can, or set STOP |
+| banned-pattern / green / density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
+| `N consecutive agent runs <30s` | Out of tokens / quota — halt+revert |
+| Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
+| `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
+| Green / full suite fail | Halt+revert; `last-halt-reason.txt` |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
-| Agent repeats dead ends | Notes/divergence handoff failed — fix durable memory |
-| Unrelated files change | Prefer STOP + restore from checkpoint; loop no longer auto-halts on this |
+| Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
+| Agent `git push`ed itself | Halt without reset; human reverts origin |
+| Queue empty | Halt before a port iter (refill `LOOP-QUEUE.md`) |
+| Dirty tree at start | Loop refuses to launch |
 
-The shell still runs the two-session exact-length green gate, one-loop locking,
-protected-path hashes, finite iteration time, and a diff-based banned-pattern
-scan — but mid-loop failures are warnings. Automatic halts (besides human
-`STOP_AGENT_LOOP.md`): three consecutive agent runs shorter than 30s; optional
-`--token-budget-m` after an overshooting iteration; three consecutive missing
-usage events when a budget is set. Human log/diff review remains important.
+The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
+enforces density, one-loop locking, protected-path hashes, finite
+iteration time, and a diff-based banned-pattern scan. Automatic halt
+writes `STOP_AGENT_LOOP.md=1`. `LOOP_FAIL_CLOSED=0` restores the old
+warn-and-continue behaviour for debugging only.
 
 ## Relation to in-chat `/loop`
 

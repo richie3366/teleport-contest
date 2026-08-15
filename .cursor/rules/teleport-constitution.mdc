@@ -24,6 +24,9 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   Constitution, runbook, **GROK-PLAYBOOK**, API/phase/strategy docs, Cursor
   rules, loop scripts/prompt, `frozen/**`, `sessions/**`, upstream C, or contest
   patches.
+- Do **not** `git push` from a loop agent. The supervisor pushes after
+  fail-closed gates. Do not write `1` to `STOP_AGENT_LOOP.md` except a
+  **review** iteration on REJECT.
 - **Contest Rule #2:** scored `js/` must be plain ESM for **Node and Chrome** —
   no build step, WASM, network, **filesystem**, threads, or native addons.
   Persist only via frozen `storage.js` VFS. Never import Node builtins
