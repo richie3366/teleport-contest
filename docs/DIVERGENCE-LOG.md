@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1025 — use_candle / use_candelabrum
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `CANDELABRUM_OF_INVOCATION` /
+  `WAX_CANDLE` / `TALLOW_CANDLE` as unknown (`Sorry, I don't know how
+  to use that.`). C snuffs/lights the candelabrum and attaches
+  candles (or `use_lamp` when none / already 7).
+- **C locus:** `apply.c` `use_candelabrum` / `use_candle` / `doapply`
+  cases; `hack.c` `invocation_pos`; `dungeon.c` `Invocation_lev`;
+  `stairs.c` `On_stairs`; `light.c` `obj_merge_light_sources`;
+  `mkobj.c` `weight` candelabrum `spe * TALLOW_CANDLE`.
+- **Fix:** doapply dispatch; snuff/`end_burn`; empty + attach tip;
+  Underwater / swallow / cursed flicker; spe<7 dim vs 7 brightly;
+  non-invocation `(age+1)/2`; invocation `known`; attach `y_n` /
+  split cap 7 / `useupall` / age min / magically ignite; `weight`
+  spe arm. Rule #2: no fs.
+- **Deferred:** grease; `snuff_candle` drop/throw; `safe_qbuf`
+  truncation; SetVoice; `update_inventory`; `obj_split_light_source`
+  on lit split; `obfree` oextra; figurine/unihorn.
+- **Verify:** green+strict PASS; apply/doapply cohort **18**/18
+  incl. seed0105 Scr **30**/30, seed0361 Scr **366**/366. Private
+  node: empty/cursed/uw no light; spe7 non-inv 25 burn turns;
+  snuff; no-candelabrum `use_lamp`; swallow; attach y spe+age;
+  spe==7 lamp; split leftover; n→lamp; invocation known + 125
+  turns. Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/timeout.js` (`obj_merge_light_sources`),
+  `js/mkobj.js` (`weight` candelabrum).
+
 ## D-1024 — flip_through_book / flip_coin
 
 - **Status:** fixed (map-driven; not a public FAIL)

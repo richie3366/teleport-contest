@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 15:25 — #1294 D-1025 use_candle/use_candelabrum
+
+**Objective:** map-driven apply cluster — C `use_candle` /
+`use_candelabrum` (CURRENT candle/candelabrum).
+**C locus:** `apply.c` use_candelabrum/use_candle/doapply;
+`hack.c` invocation_pos; `dungeon.c` Invocation_lev;
+`stairs.c` On_stairs; `light.c` obj_merge_light_sources;
+`mkobj.c` weight spe*tallow.
+**Change:** doapply dispatch; snuff/light; attach y_n + split cap 7
++ useupall; non-inv (age+1)/2; invocation known; weight spe arm.
+Rule #2: no fs.
+**Score:** last full `sessions` still **#1290** 44/44 (cadence @#1295).
+**Verified:** green+strict PASS; apply/doapply cohort **18**/18
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366). Private node
+(empty/cursed/uw; spe7 25 turns; snuff; lamp fallback; attach;
+split leftover; invocation 125 turns). Path **unhit** by public traces.
+**Next:** apply.js use_grease.
+**Blocked:** none.
+
 ## 2026-08-15 15:10 — #1293 D-1024 flip_through_book/flip_coin
 
 **Objective:** map-driven apply cluster — C `flip_through_book` /
@@ -241,19 +260,4 @@ lava-rescue terrain feedback — D-1011.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or collapsing…
 cursed_blindfold + minors; or blindfold-as-tool / containers.
-**Blocked:** none.
-
-## 2026-07-22 04:22 — #1281 D-1010 use_crystal_ball
-
-**Objective:** map-driven — apply CRYSTAL_BALL / detect
-`use_crystal_ball` (CURRENT next cluster).
-**C locus:** `detect.c` use_crystal_ball/level_distance + thin
-object_detect/trap_detect/furniture_detect; `drawing.c` def_char_*;
-`apply.c`/`artifact.c` wire.
-**Change:** port Blind/fail/hallu/uncharged/charged detect envelopes;
-wire doapply + arti_invoke — D-1010.
-**Verified:** green+strict PASS; apply/detect cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
-or blindfold-as-tool / containers.
 **Blocked:** none.

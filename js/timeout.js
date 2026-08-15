@@ -645,6 +645,23 @@ export function end_burn(obj, timer_attached) {
 }
 
 /**
+ * C ref: light.c obj_merge_light_sources — src folded into dest.
+ * src === dest means adding candles to a lit candelabrum (range only).
+ */
+export function obj_merge_light_sources(src, dest) {
+    if (src !== dest) end_burn(src, true);
+    const list = game.light_base;
+    if (!list?.length || !dest) return;
+    for (const ls of list) {
+        if (ls.type === LS_OBJECT && ls.id === dest) {
+            ls.range = candle_light_range(dest);
+            game.vision_full_recalc = 1;
+            break;
+        }
+    }
+}
+
+/**
  * C ref: timeout.c burn_object — BURN_OBJECT timer callback.
  * Envelope: fuel milestones + burn-out useup; away-timeout catch-up.
  * Named omit: maybe_unhide_at polish; update_inventory redraw.

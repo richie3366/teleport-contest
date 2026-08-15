@@ -54,6 +54,9 @@ import { recalc_block_point } from './vision.js';
 import { del_light_source } from './light.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const CANDELABRUM_OF_INVOCATION =
+    objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
 const BOOMERANG = objectNames.indexOf('BOOMERANG');
@@ -227,6 +230,11 @@ export function weight(obj) {
     }
     // HEAVY_IRON_BALL punish-levy owt preserve deferred (C owt!=0 short-circuit);
     // callers that must keep levy must not assign owt=weight(ball) after incr.
+    // C mkobj.c weight — candelabrum spe * tallow candle (use_candle owt)
+    if (obj.otyp === CANDELABRUM_OF_INVOCATION && (obj.spe | 0)) {
+        const cwt = objects[TALLOW_CANDLE]?.oc_weight ?? 0;
+        return wt + (obj.spe | 0) * (cwt | 0);
+    }
     if (!wt) return Math.trunc((quan + 1) / 2);
     return wt * quan;
 }

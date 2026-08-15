@@ -15,14 +15,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1024** `flip_through_book` / `flip_coin` (doapply
-  SPBOOK/COIN). Public traces unhit (green+apply cohort still PASS).
-- **Next cluster:** apply.js `use_candle` / `use_candelabrum`.
-  Grease still named in apply debt; remaining nhl_gamestate memcpy
-  u/disco/mvitals/spl_book named in `startup.md`.
-- **D-1024 falsifier (held):** underwater book → ECMD_OK; blank paper
-  makeknown; BoT hear rustling; DEX≥10 coin → rn2(2) heads/tails;
-  hallu coin → rn2(100); underwater stack → split 1 + dropx.
+- Latest: **D-1025** `use_candle` / `use_candelabrum` (doapply
+  WAX/TALLOW/CANDELABRUM). Public traces unhit (green+apply cohort
+  still PASS).
+- **Next cluster:** apply.js `use_grease` (CAN_OF_GREASE). Remaining
+  nhl_gamestate memcpy u/disco/mvitals/spl_book named in `startup.md`.
+- **D-1025 falsifier (held):** empty/cursed/uw no light; spe7
+  non-inv burn turns 25; snuff; no-candelabrum `use_lamp`; swallow;
+  attach y spe+age; split leftover; n→lamp; invocation known + 125
+  turns.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  flip_through_book/flip_coin (D-1024) or drop `objects_at` (D-0980).
+  use_candle/use_candelabrum (D-1025) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -59,6 +60,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1290**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.876).
+- **D-1025:** use_candle / use_candelabrum doapply + weight spe.
 - **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
 - **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
 - **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.

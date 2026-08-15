@@ -6,6 +6,7 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
+    verbalize,
 } from './display.js';
 import { vision_recalc, cansee, couldsee } from './vision.js';
 import {
@@ -87,7 +88,7 @@ import {
     mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at,
     activate_statue_trap, maketrap, feeltrap, dotrap, trapname,
 } from './trap.js';
-import { begin_burn, end_burn, Is_candle } from './timeout.js';
+import { begin_burn, end_burn, Is_candle, obj_merge_light_sources } from './timeout.js';
 import { set_occupation } from './engrave.js';
 import { makemon } from './makemon.js';
 import { addinv } from './u_init.js';
@@ -165,6 +166,8 @@ const LAND_MINE = objectNames.indexOf('LAND_MINE');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
+const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BLINDFOLD = objectNames.indexOf('BLINDFOLD');
 const LENSES = objectNames.indexOf('LENSES');
 const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
@@ -2201,9 +2204,11 @@ export async function flip_coin(obj) {
  * BULLWHIP → use_whip / GRAPPLING_HOOK → use_grapple / is_pole → use_pole
  * (D-1022) +
  * OIL_LAMP/MAGIC_LAMP/BRASS_LANTERN → use_lamp / POT_OIL → light_cocktail +
- * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023).
+ * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023) +
+ * CANDELABRUM_OF_INVOCATION → use_candelabrum /
+ * WAX_CANDLE/TALLOW_CANDLE → use_candle (D-1025).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; grease; candle/candelabrum/figurine/unihorn;
+ * Medusa/nymph mirror arms; grease; figurine/unihorn;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step.
@@ -2426,6 +2431,20 @@ export async function doapply() {
     if (GRAPPLING_HOOK >= 0 && obj.otyp === GRAPPLING_HOOK) {
         const res = await use_grapple(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case CANDELABRUM_OF_INVOCATION → use_candelabrum (D-1025)
+    if (CANDELABRUM_OF_INVOCATION >= 0
+        && obj.otyp === CANDELABRUM_OF_INVOCATION) {
+        await use_candelabrum(obj);
+        return true; // ECMD_TIME
+    }
+
+    // C apply.c case WAX_CANDLE / TALLOW_CANDLE → use_candle (D-1025)
+    if ((WAX_CANDLE >= 0 && obj.otyp === WAX_CANDLE)
+        || (TALLOW_CANDLE >= 0 && obj.otyp === TALLOW_CANDLE)) {
+        await use_candle(obj);
+        return true; // ECMD_TIME
     }
 
     // C apply.c case OIL_LAMP / MAGIC_LAMP / BRASS_LANTERN → use_lamp (D-1023)
@@ -3943,6 +3962,195 @@ function useup_apply(obj) {
     obj.quan = 0;
 }
 
+/** C invent.c useupall — setnotworn + freeinv; obfree oextra omitted. */
+function useupall_apply(obj) {
+    if (!obj) return;
+    setnotworn(obj);
+    freeinv_apply(obj);
+    obj.quan = 0;
+    obj.where = OBJ_FREE;
+}
+
+/** C invent.c carrying — first matching otyp in hero invent[]. */
+function carrying_apply(otyp) {
+    if (otyp < 0) return null;
+    for (const otmp of game.invent || []) {
+        if (otmp.otyp === otyp) return otmp;
+    }
+    return null;
+}
+
+/** C dungeon.c Invocation_lev — In_hell && dlevel == num_dunlevs-1. */
+function Invocation_lev_apply(lev) {
+    const uz = lev || game.u?.uz;
+    if (!uz) return false;
+    const dun = game.dungeons?.[uz.dnum | 0];
+    if (!dun?.flags?.hellish) return false;
+    return (uz.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
+}
+
+/** C hack.c invocation_pos — Invocation_lev && (x,y)==inv_pos. */
+function invocation_pos_apply(x, y) {
+    if (!Invocation_lev_apply()) return false;
+    const ip = game.inv_pos || game.svi?.inv_pos;
+    if (!ip) return false;
+    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
+}
+
+/** C stairs.c On_stairs — stairway_at != NULL. */
+function On_stairs_apply(x, y) {
+    return !!stairway_at(x, y);
+}
+
+/**
+ * C ref: apply.c use_candelabrum — snuff if lit; else light attached
+ * candles (Underwater / swallow / cursed fail; non-invocation age/=2).
+ * Named omit: update_inventory redraw; impossible() log on age 0.
+ */
+export async function use_candelabrum(obj) {
+    if (!obj) return;
+    const s = ((obj.spe | 0) !== 1) ? 'candles' : 'candle';
+    const u = game.u || {};
+
+    if (obj.lamplit) {
+        await pline(`You snuff the ${s}.`);
+        end_burn(obj, true);
+        return;
+    }
+    if ((obj.spe | 0) <= 0) {
+        await pline(`This ${xname(obj)} has no ${s}.`);
+        let hasCandle = false;
+        for (const o of game.invent || []) {
+            if (Is_candle(o)) {
+                hasCandle = true;
+                break;
+            }
+        }
+        if (hasCandle) {
+            await pline(
+                `To attach candles, apply them instead of the ${xname(obj)}.`,
+            );
+        }
+        return;
+    }
+    if (Underwater_hero()) {
+        await pline('You cannot make fire under water.');
+        return;
+    }
+    if (u.uswallow || obj.cursed) {
+        if (!Blind()) {
+            await pline(
+                `The ${s} ${vtense(s, 'flicker')} for a moment, then ${vtense(s, 'die')}.`,
+            );
+        }
+        return;
+    }
+    if ((obj.spe | 0) < 7) {
+        await pline(
+            `There ${vtense(s, 'are')} only ${obj.spe | 0} ${s} in ${the(xname(obj))}.`,
+        );
+        if (!Blind()) {
+            await pline(
+                `${(obj.spe | 0) === 1 ? 'It is' : 'They are'} lit.  ${Tobjnam_oil(obj, 'shine')} dimly.`,
+            );
+        }
+    } else {
+        await pline(
+            `${The(xname(obj))}'s ${s} burn${Blind() ? '.' : ' brightly!'}`,
+        );
+    }
+    if (!invocation_pos_apply(u.ux | 0, u.uy | 0)
+        || On_stairs_apply(u.ux | 0, u.uy | 0)) {
+        await pline(
+            `The ${s} ${vtense(s, 'are')} being rapidly consumed!`,
+        );
+        // C: (age + 1L) / 2L — round up so age 1 does not become 0
+        obj.age = Math.trunc(((obj.age | 0) + 1) / 2);
+        if ((obj.age | 0) === 0) {
+            obj.age = 1;
+        }
+    } else {
+        if ((obj.spe | 0) === 7) {
+            if (Blind()) {
+                await pline(`${Tobjnam_oil(obj, 'radiate')} a strange warmth!`);
+            } else {
+                await pline(`${Tobjnam_oil(obj, 'glow')} with a strange light!`);
+            }
+        }
+        obj.known = 1;
+    }
+    begin_burn(obj, false);
+}
+
+/**
+ * C ref: apply.c use_candle — attach to carried candelabrum (spe<7) or
+ * use_lamp. Swallow → no_elbow_room. Named omit: safe_qbuf truncation;
+ * SetVoice; update_inventory; obj_split_light_source on lit split;
+ * obfree oextra.
+ */
+export async function use_candle(optr) {
+    let obj = optr;
+    if (!obj) return;
+    const u = game.u || {};
+    let s = ((obj.quan | 0) !== 1) ? 'candles' : 'candle';
+
+    if (u.uswallow) {
+        await pline("You don't have enough elbow-room to maneuver.");
+        return;
+    }
+
+    const otmp = carrying_apply(CANDELABRUM_OF_INVOCATION);
+    if (!otmp || (otmp.spe | 0) === 7) {
+        await use_lamp(obj);
+        return;
+    }
+
+    // C: y_n(safe_qbuf attach …) — typical (non-truncated) yname path
+    const qbuf = `Attach ${yname(obj)} to ${yname(otmp)}?`;
+    if ((await yn_function(qbuf, 'yn', 'n')) === 'n') {
+        await use_lamp(obj);
+        return;
+    }
+
+    if ((otmp.spe | 0) + (obj.quan | 0) > 7) {
+        const child = splitobj(obj, 7 - (otmp.spe | 0));
+        if (child) obj = child;
+        s = ((obj.quan | 0) !== 1) ? 'candles' : 'candle';
+    }
+
+    const was_lamplit = !!obj.lamplit;
+    if (was_lamplit) end_burn(obj, true);
+
+    await pline(
+        `You attach ${obj.quan | 0}${!(otmp.spe | 0) ? '' : ' more'} ${s} to ${the(xname(otmp))}.`,
+    );
+    if (!(otmp.spe | 0) || (otmp.age | 0) > (obj.age | 0)) {
+        otmp.age = obj.age | 0;
+    }
+    otmp.spe = (otmp.spe | 0) + (obj.quan | 0);
+    if (otmp.lamplit && !was_lamplit) {
+        await pline(`The new ${s} magically ${vtense(s, 'ignite')}!`);
+    } else if (!otmp.lamplit && was_lamplit) {
+        await pline(`${(obj.quan | 0) > 1 ? 'They go' : 'It goes'} out.`);
+    }
+    if (obj.unpaid) {
+        // C SetVoice(shop_keeper(*in_rooms(..., SHOPBASE))) omitted
+        const them = (obj.quan | 0) > 1 ? 'them' : 'it';
+        await verbalize(
+            `You ${otmp.lamplit ? 'burn' : 'use'} ${them}, you bought ${them}!`,
+        );
+    }
+    if ((obj.quan | 0) < 7 && (otmp.spe | 0) === 7) {
+        await pline(
+            `${The(xname(otmp))} now has seven${otmp.lamplit ? ' lit' : ''} candles attached.`,
+        );
+    }
+    if (otmp.lamplit) obj_merge_light_sources(otmp, otmp);
+    useupall_apply(obj);
+    otmp.owt = weight(otmp);
+    // update_inventory deferred
+}
+
 /**
  * C ref: apply.c reset_trapset — clear gt.trapinfo tobj / force_bungle.
  * Called from use_trap, set_trap, and do.c goto_level.
@@ -3969,7 +4177,7 @@ async function use_unpaid_trapobj(otmp, _x, _y) {
 
 /**
  * C ref: apply.c use_lamp — light or snuff oil lamp / magic lamp / lantern
- * (candle arms included; doapply candles still use_candle, deferred).
+ * (candle arms included; doapply candles dispatch use_candle, D-1025).
  * Named omit: shop check_unpaid; candle unpaid SetVoice / bill_dummy.
  */
 export async function use_lamp(obj) {
