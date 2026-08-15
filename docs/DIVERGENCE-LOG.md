@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1039 — dosit trap arm before IS_THRONE
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** D-1033 Keep’d `dosit` `IS_THRONE` after OBJ_AT but skipped
+  C’s `else if (trap != 0 || (u.utrap && utraptype >= TT_LAVA))`. A trap
+  on the throne cell spent JS `rnd(6)`/`rnd(13)` throne RNG; C calls
+  `dotrap(trap, VIASITTING)` (or already-trapped sit) and never the
+  throne switch.
+- **C locus:** `sit.c` `dosit` (~466 trap / ~503 `dotrap` VIASITTING /
+  ~556 `IS_THRONE`); `trap.c` `dotrap`.
+- **Fix:** after OBJ_AT picnic, already-trapped sit (beartrap/pit/web/
+  lava/infloor/buriedball) else `"You sit down."`/`"You land."` +
+  `dotrap(VIASITTING)`, then `IS_THRONE`. Rule #2: no fs.
+- **Deferred:** water/gremlin, sink/altar/grave/stairs/ladder/lava/ice/
+  drawbridge sit; `uteetering_at_seen_pit` / `uescaped_shaft` OBJ_AT
+  gate; steed `mon_nam`; `lay_an_egg`; hero pit/hole `dotrap` bodies
+  (still named-omit in `trap.js`). Do not re-stub D-1033/D-1034 throne
+  switches.
+- **Verify:** green+strict PASS; sit/trap cohort seed0106/0107/4500/
+  0014 + seed0360/2200 PASS. Public `#sit` on a trapped throne still
+  unhit. Cadence still **#1305** (44/44 after D-1038).
+- **Files:** `js/sit.js`.
+
 ## D-1038 — shared getdir envelope + hurtle via hurtle_step
 
 - **Status:** fixed (map-driven; not a public FAIL)
@@ -29,7 +52,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   in_out_region; Passes_walls; drag_ball; switch_terrain;
   check_special_room; drown; petrify bump; trap pass-over;
   nh_delay_output. Throw path keeps `getdir_cmdassist`.
-  `dosit` trap-before-throne still open (D-1033).
+  `dosit` trap-before-throne closed in D-1039.
 - **Verify:** green+strict PASS; full `sessions` **44**/44 Scr
   **11405**/11405 RNG **100%** speed `34+0.29/turn` (R² 0.854).
   Public apply whip/hurtle still unhit.

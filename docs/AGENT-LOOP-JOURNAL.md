@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 20:01 — D-1039 dosit trap-before-throne
+
+**Objective:** Keep’d D-1033 C-wrong — `dosit` must test trap before
+`IS_THRONE` so a trapped throne cell does not spend throne RNG.
+**C locus:** `sit.c` `dosit` trap ~466 / `dotrap` VIASITTING ~503 /
+`IS_THRONE` ~556; `trap.c` `dotrap`.
+**Change:** `js/sit.js` already-trapped sit (beartrap/pit/web/lava/
+infloor/buriedball) else sit-down/land + `dotrap(VIASITTING)` after
+OBJ_AT, before throne. Water/sink/altar/… still named omit. Do not
+re-stub D-1033/D-1034 throne switches.
+**Score:** cadence still **#1305** **44**/44 Scr **11405**/11405 RNG
+**100%** after D-1038; this iter green+cohort only (next full @**#1310**).
+**Verified:** green+strict PASS; seed0106/0107/4500/0014/0360/2200 PASS.
+**Next:** remaining tut-1 des (large-box / food / stairs / kelp /
+`place_lregion` / tut_key) + nhcore callback disable.
+**Blocked:** none.
+
 ## 2026-08-15 19:50 — D-1038 shared getdir + hurtle_step
 
 **Objective:** Keep’d D-1022 C-wrongs — real `getdir`, not `getdir_whip`;

@@ -1,10 +1,12 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
-// rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034).
+// rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
+// dosit trap-before-throne (D-1039).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch).
 //
 // Branch envelope: reachable floor (Levitation only), OBJ_AT picnic body
-// (dragon/towel/slithy/sit+comfort/squishy/cream-pie), IS_THRONE sit +
+// (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
+// (D-1039: already-trapped sit / dotrap VIASITTING), IS_THRONE sit +
 // special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
 // confused remove-curse/poly/acid/shuffle) + ordinary throne_sit_effect
 // 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
@@ -13,11 +15,12 @@
 // + Magicbane / Antimagic / Half_spell_damage / SPFX_INTEL resist /
 // steed saddle (D-0969).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
-// uescaped_shaft gate, traps, water/gremlin, sink/altar/grave/stairs/
-// ladder/lava/ice/drawbridge, wizard getlin / Analyze y_n, lay_an_egg,
+// uescaped_shaft gate, water/gremlin, sink/altar/grave/stairs/ladder/
+// lava/ice/drawbridge, wizard getlin / Analyze y_n, lay_an_egg,
 // money_cnt meager coil; shieldeff; update_inventory redraw;
 // Hallucination hcolor synonyms; Yobjnam2 shk_your/pname polish;
-// SetVoice; eyecount poly; remove_worn_item gold.
+// SetVoice; eyecount poly; remove_worn_item gold; hero pit/hole dotrap
+// bodies still named-omit in trap.js.
 // D-0956: set_mimic_blocking on SEE_INVIS attrcurse arm.
 
 import { game } from './gstate.js';
@@ -26,7 +29,7 @@ import {
     verbalize,
 } from './display.js';
 import { set_mimic_blocking, cansee } from './vision.js';
-import { rnd, rn2, rn1 } from './rng.js';
+import { rnd, rn2, rn1, d } from './rng.js';
 import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
@@ -34,8 +37,11 @@ import {
     INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
-    KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL, NO_MM_FLAGS,
-    EYE, HEAD,
+    KILLED_BY, KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL,
+    NO_MM_FLAGS,
+    EYE, HEAD, FOOT,
+    TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
+    SPIKED_PIT, VIASITTING,
 } from './const.js';
 import { objects_at, delobj, curse, unbless } from './mkobj.js';
 import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
@@ -43,10 +49,14 @@ import { xname, the, The, vtense, makeplural } from './objnam.js';
 import { amorphous, mons, M1_SLITHY, is_prince, is_vampire } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
-import { A_MAX, A_CON, adjattrib, exercise, change_luck } from './attrib.js';
+import { A_MAX, A_CON, A_STR, A_WIS, adjattrib, exercise, change_luck } from './attrib.js';
 import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
+import { t_at, dotrap } from './trap.js';
+import { losehp, finish_maybe_wail } from './hack.js';
+import { burn_away_slime } from './timeout.js';
+import { hliquid } from './do_name.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const TOWEL = objectNames.indexOf('TOWEL');
@@ -384,11 +394,40 @@ function BlindedTimeout() {
     return (u.HBlinded | 0) & TIMEOUT;
 }
 
-/** C ref: mondata.c body_part — EYE/HEAD; poly table deferred. */
+/** C ref: mondata.c body_part — EYE/HEAD/FOOT; poly table deferred. */
 function body_part(part) {
     if ((part | 0) === EYE) return 'eye';
     if ((part | 0) === HEAD) return 'head';
+    if ((part | 0) === FOOT) return 'foot';
     return 'body';
+}
+
+/** C youprop.h Flying — HFlying || EFlying || u.Flying. */
+function Flying() {
+    const u = game.u || {};
+    return !!((u.Flying) || (u.HFlying | 0) || (u.EFlying | 0));
+}
+
+/** C youprop.h Half_physical_damage. */
+function Half_physical_damage() {
+    const u = game.u || {};
+    return !!((u.Half_physical_damage)
+        || (u.HHalf_physical_damage | 0)
+        || (u.EHalf_physical_damage | 0));
+}
+
+/**
+ * C hack.c losehp then maybe_wail / done(DIED). Returns true if fatal.
+ */
+async function sit_losehp(n, knam, k_format) {
+    losehp(n, knam, k_format);
+    await finish_maybe_wail();
+    if (game._losehp_needs_done) {
+        const { finish_losehp_done } = await import('./end.js');
+        await finish_losehp_done();
+        return true;
+    }
+    return false;
 }
 
 /** C ref: mondata.c eyecount — poly forms deferred (humanoid 2). */
@@ -788,7 +827,57 @@ export async function dosit() {
         return ECMD_TIME;
     }
 
-    // trap / pool / sink / altar / grave / stairs / ladder / lava / ice /
+    // C sit.c dosit: else if (trap != 0 || (u.utrap && utraptype >= TT_LAVA))
+    // before water/sink/…/IS_THRONE. Furniture sit still deferred.
+    const trap = t_at(u.ux, u.uy);
+    if (trap || (u.utrap && ((u.utraptype | 0) >= TT_LAVA))) {
+        if (u.utrap) {
+            exercise(A_WIS, false); // stuck longer
+            if ((u.utraptype | 0) === TT_BEARTRAP) {
+                await pline(
+                    `You can't sit down with your ${body_part(FOOT)} in the bear trap.`,
+                );
+                u.utrap = (u.utrap | 0) + 1;
+            } else if ((u.utraptype | 0) === TT_PIT) {
+                if (trap && (trap.ttyp | 0) === SPIKED_PIT) {
+                    await pline('You sit down on a spike.  Ouch!');
+                    if (await sit_losehp(
+                        Half_physical_damage() ? rn2(2) : 1,
+                        'sitting on an iron spike',
+                        KILLED_BY,
+                    )) {
+                        return ECMD_TIME;
+                    }
+                    exercise(A_STR, false);
+                } else {
+                    await pline('You sit down in the pit.');
+                }
+                u.utrap = (u.utrap | 0) + rn2(5);
+            } else if ((u.utraptype | 0) === TT_WEB) {
+                await pline(
+                    'You sit in the spider web and get entangled further!',
+                );
+                u.utrap = (u.utrap | 0) + rn1(10, 5);
+            } else if ((u.utraptype | 0) === TT_LAVA) {
+                await pline(`You sit in the ${hliquid('lava')}!`);
+                if (u.Slimed) await burn_away_slime();
+                u.utrap = (u.utrap | 0) + rnd(4);
+                if (await sit_losehp(d(2, 10), 'sitting in lava', KILLED_BY)) {
+                    return ECMD_TIME;
+                }
+            } else if ((u.utraptype | 0) === TT_INFLOOR
+                || (u.utraptype | 0) === TT_BURIEDBALL) {
+                await pline("You can't maneuver to sit!");
+                u.utrap = (u.utrap | 0) + 1;
+            }
+        } else {
+            await pline(`You ${Flying() ? 'land' : 'sit down'}.`);
+            await dotrap(trap, VIASITTING);
+        }
+        return ECMD_TIME;
+    }
+
+    // pool / sink / altar / grave / stairs / ladder / lava / ice /
     // drawbridge deferred. C: IS_THRONE after those, before lay_an_egg.
     const loc = game.level?.at(u.ux, u.uy);
     const typ = loc?.typ ?? 0;

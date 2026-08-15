@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1039 | fixed | sit `dosit` trap-before-throne | D-1033 skipped `else if (trap)`; JS ran throne RNG on a trapped cell; already-trapped sit + `dotrap` `VIASITTING` |
 | D-1038 | fixed | lock `getdir` C envelope + dothrow `hurtle` | D-1022 clones (`getdir_whip`/`hurtle_apply` teleds) were C-wrong; shared getdir + hurtle_step, no trailing confdir |
 | D-1037 | fixed | timeout `save_timers` RANGE_LEVEL + HATCH_EGG dispatch | C peels local timers on savelev; JS kept firing off-level floor eggs; hatch_egg now dispatched |
 | D-1036 | fixed | timeout `hatch_egg`/`learn_egg_type` + `cry_sound` | C timer callback; body D-1036; dispatch D-1037 via save_timers peel |
