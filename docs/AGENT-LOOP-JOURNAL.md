@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 21:35 — #1310 D-1043 should_mulch_missile hero rnl(4)
+
+**Objective:** Must-fix review 02 item 2 — `should_mulch_missile`
+hero blessed save `!rnl(4)` not `!rn2(4)`.
+**C locus:** `dothrow.c` `should_mulch_missile` (~1976–2002);
+callers `thitmonst` / `mthrowu.c` `ohitmon`.
+**Change:** hero arm uses existing `rnl(4)`; monster path stays
+`rn2(3)`. Rule #2: no fs.
+**Score:** cadence **#1310** full `sessions` **44**/44 Scr
+**11405**/11405 RNG **100%** speed `31+0.27/turn` (R² 0.874).
+Next @**#1315**.
+**Verified:** green+strict PASS; throw/combat/zap cohort **4**/4
+(seed0361 Scr **366**/366; seed1800 throw; seed0060 kick;
+seed2200 zap). Private node **11**/11. Path **unhit** by public
+traces.
+**Next:** Must-fix `special_obj_hits_leader` `urole.questarti`.
+**Blocked:** none.
+
 ## 2026-08-15 21:30 — #1309 D-1042 find_mac minvent ARM_BONUS
 
 **Objective:** Must-fix review 02 item 1 — `find_mac` walk monster
@@ -282,23 +300,4 @@ RNG **100%** speed `31+0.27/turn` (R² 0.867).
 Private node (empty no RNG; food/potion/jelly; cursed BUC; apply
 hold). Path **unhit** by public traces.
 **Next:** fig_transform / attach_fig_transform_timeout.
-**Blocked:** none.
-
-## 2026-08-15 16:41 — #1299 D-1030 use_unicorn_horn
-
-**Objective:** map-driven apply cluster — C `use_unicorn_horn`
-(CURRENT UNICORN_HORN).
-**C locus:** `apply.c` use_unicorn_horn/doapply UNICORN_HORN;
-`cmd.c` domonability unicorn; `rnd.c` shuffle_int_array;
-`potion.c` make_*; `do.c` make_blinded.
-**Change:** doapply dispatch (res TIME); cursed rn1(90,10)+rn2(13)/2
-afflict; TimedTrouble collect/shuffle/rn2(d(2,blessed?4:2)) cure;
-poly #monster null obj. Rule #2: no fs.
-**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
-**Verified:** green+strict PASS; apply/shared cohort **37**/37
-(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
-**73**/73). Private node (no-trouble no RNG; cursed rn2(90)+rn2(13);
-blessed d(2,4); two-trouble shuffle; I_SPECIAL skip; cream-only
-blind skip). Path **unhit** by public traces.
-**Next:** apply.js hornoplenty (HORN_OF_PLENTY).
 **Blocked:** none.

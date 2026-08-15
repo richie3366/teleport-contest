@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1043 — should_mulch_missile hero blessed save `rnl(4)`
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1041 enabled `should_mulch_missile` on every surviving
+  WEAPON/weptool/GEM hit. JS used `!rn2(4)` for the hero blessed save.
+  C `dothrow.c:1992` uses `!rnl(4)` (luck-biased; logs `rnl` plus an
+  internal `rn2(37+|adj|)` when Luck adjusts). Blessed ammo/missile
+  hits would consume the wrong RNG word.
+- **C locus:** `dothrow.c` `should_mulch_missile` (~1976–2002):
+  `obj->blessed && (svc.context.mon_moving ? !rn2(3) : !rnl(4))`.
+  Monster path stays `rn2(3)`. Callers: `thitmonst`; `mthrowu.c`
+  `ohitmon`.
+- **Fix:** hero arm calls existing `rnl(4)` in `js/weapon.js`. Rule #2:
+  no fs.
+- **Deferred:** leader `urole.questarti` (next Must-fix); shop
+  `check_shop_obj`/`obfree` on mulch; flint/gem `!rn2(2)` already
+  matched; `gem_accept`; `potionhit`; `cutworm`.
+- **Verify:** green+strict PASS; throw/combat/zap cohort **4**/4
+  (seed0361 Scr **366**/366; seed1800 throw; seed0060 kick;
+  seed2200 zap). Private node **11**/11 (hero `rnl(4)` not `rn2(4)`;
+  mon_moving `rn2(3)`; unblessed skip; Luck `rn2(38)`; high-spe
+  chance `rn2(4)` then `rnl`; boomerang/sword/null no roll; `rnl=0`
+  saves; flint extra `rn2(2)`; arrow ammo). Cadence **#1310** full
+  `sessions` **44**/44 Scr **11405**/11405 RNG **100%**. Path
+  **unhit** by public traces.
+- **Files:** `js/weapon.js`.
+
 ## D-1042 — find_mac minvent worn ARM_BONUS / amulet of guarding
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

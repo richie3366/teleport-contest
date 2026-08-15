@@ -8,22 +8,24 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `34+0.29/turn` R² 0.854) after D-1038 (cadence still **#1305**;
-  next @**#1310**).
+  speed `31+0.27/turn` R² 0.874) after D-1043 cadence **#1310**;
+  next @**#1315**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1042** `find_mac` minvent `ARM_BONUS` / guarding −2
-  (review 02 item 1). Remaining Must-fix on that review: mulch
-  `rnl` vs `rn2`; leader `urole.questarti`. Loop is **fail-closed**
-  (review every 3, cadence every 5 score-only unless Must-fix is
-  open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — `should_mulch_missile` hero `!rnl(4)`
-  (review 02 item 2). Do not dump tut-1 or yname while Must-fix is open.
-- **Hypothesis:** none live. Falsify mulch against C `dothrow.c` + green.
+- Latest: **D-1043** `should_mulch_missile` hero blessed `!rnl(4)`
+  (review 02 item 2). Remaining Must-fix on that review: leader
+  `urole.questarti`. Loop is **fail-closed** (review every 3, cadence
+  every 5 score-only unless Must-fix is open). Agents **commit +
+  `git push`**.
+- **Next cluster:** Must-fix — `special_obj_hits_leader` uses
+  `urole.questarti` (review 02 item 3). Do not dump tut-1 or yname
+  while Must-fix is open.
+- **Hypothesis:** none live. Falsify leader predicate against C
+  `dothrow.c` `is_quest_artifact` + green.
 
 ## Don't re-check (≤15)
 
@@ -61,12 +63,14 @@ Objective/score live in `CURRENT.md`.
   `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
   `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040). Do not restore
   `thitmonst` always-`tmiss` for WEAPON/weptool/GEM (D-1041). Do not
-  restore `find_mac` base-`data.ac` stub (D-1042).
+  restore `find_mac` base-`data.ac` stub (D-1042). Do not restore
+  hero blessed mulch `rn2(4)` (D-1043 — C `rnl(4)`).
 
 ## Landmarks (≤15)
 
-- Suite after D-1038: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `34+0.29/turn` (R² 0.854). Cadence **#1305**; next @**#1310**.
+- Suite after D-1043: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `31+0.27/turn` (R² 0.874). Cadence **#1310**; next @**#1315**.
+- **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
 - **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
 - **D-1039:** `dosit` trap-before-throne + `dotrap` `VIASITTING`.
 - **D-1041:** `thitmonst` WEAPON/weptool/GEM tmp+dieroll `hmon`/`tmiss`.
@@ -79,5 +83,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
 - **D-1032:** fig_transform / attach_fig_transform_timeout.
 - **D-1031:** hornoplenty doapply HORN_OF_PLENTY + floor tip.
-- **D-1030:** use_unicorn_horn doapply UNICORN_HORN + TimedTrouble.
 

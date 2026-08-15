@@ -161,6 +161,7 @@ Journal: green+strict PASS; throw/kick/combat cohort **10**/10 (seed0361 Scr 366
    **Addressed:** D-1042 `19e907f5`.
 
 2. **`should_mulch_missile` hero blessed save must be `!rnl(4)` not `!rn2(4)` like C `dothrow.c:1992`.** Now live on every surviving ammo/missile hit from this envelope. `rnl` already exists in `js/rng.js`. Source: same review.
+   **Addressed:** D-1043.
 
 3. **`special_obj_hits_leader` must use C `is_quest_artifact` (`oartifact == urole.questarti`), not `game.u.questarti`.** Unique/`oc_unique` still gates; quest artifacts that are not `oc_unique` currently fall into weapon hit-vs-miss against the leader. Source: same review.
 
