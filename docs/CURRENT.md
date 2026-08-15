@@ -73,8 +73,10 @@ public traces.
 
 **Next cluster:** `get_obj_location` flags: JS `0` must not accept
 CONTAINED when C hatch passes `0`. Source: D-1036 risk 4.
-**D-1053** shipped `cry_sound` `msound` from C `monflag.h` via
-extracted `msounds[]`. Written reviews bind:
+Reviews **13–14** ACCEPT D-1052/D-1053 (no new Must-fix).
+`timeout.js` already gates `OBJ_CONTAINED` on `CONTAINED_TOO` like
+C `zap.c:682–685`; next port must cite a still-wrong `where` /
+clone or close the row. Written reviews bind:
 QUALITY-RISK C-wrongs are Must-fix, not optional debt. Unattended
 loop pops **one** queue item per port iter (Must-fix before Open).
 Review every 3; cadence every 5 is score-only **unless Must-fix is

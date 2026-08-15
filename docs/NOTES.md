@@ -16,14 +16,16 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1053** `msounds[]` + `cry_sound` C `monflag.h` numbers.
+- Latest: reviews **13–14** ACCEPT D-1052/D-1053 (no new Must-fix).
   Remaining Must-fix: `get_obj_location` flags `0` vs CONTAINED.
   Loop is **fail-closed** (review every 3, cadence every 5 score-only
   unless Must-fix is open). Agents **commit + `git push`**.
 - **Next cluster:** Must-fix — `get_obj_location` flags. Source:
-  D-1036 risk 4. Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** none live. Falsify `get_obj_location(0)` against C
-  CONTAINED reject.
+  D-1036 risk 4. `timeout.js` already rejects CONTAINED when flags=0
+  (C `zap.c:682–685`). Do not dump tut-1 while Must-fix is open.
+- **Hypothesis:** remaining gap is `egg.where` encoding or a
+  diverging clone (`shk.js`/`zap.js`), not the timeout.js mask.
+  Falsify a contained egg under `get_obj_location(egg, 0)` vs C.
 
 ## Don't re-check (≤15)
 
@@ -86,7 +88,7 @@ Objective/score live in `CURRENT.md`.
 - **D-1053:** `extract-monsters.py` `SIZ` sound → `msounds[]`;
   `mons().msound`; `cry_sound` / growl MS_* = `monflag.h`.
   `peace_minded`/`set_malign` still do not read `ptr.msound`.
-- **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; Glib is HGlib|EGlib.
+- **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; Glib is intrinsic.
 - **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
   S_goodpos. allmain/dokick/uhitm wipe callers still stub.
 - **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`.
@@ -96,5 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1046:** `light_cocktail` `{obj}` / `*optr` snuff-merge + split.
 - **D-1045:** whip `yname`/`Amonnam`/`mbodypart` (not apply clones).
 - **D-1044:** `special_obj_hits_leader` `urole.questarti`.
-- **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
-- **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
