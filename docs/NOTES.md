@@ -8,21 +8,25 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.867) cadence **#1300**. Next @**#1305**.
+  speed `31+0.27/turn` R² 0.875) cadence **#1305**. Next @**#1310**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1035** `nhl_gamestate` memcpy u/disco/mvitals/spl_book
-  + `init_uhunger` ATEMP. Public traces unhit (green+cohort PASS).
-- **Next cluster:** remaining tut-1 des (large-box/food/stairs/kelp/
-  `place_lregion`/tut_key) + nhcore disable, or `debt.md` /
-  `hatch_egg`. `hatch_egg` still deferred.
-- **D-1035 falsifier (held):** leave restores uhp/disco/mvitals/spells
-  after tutorial mutation; `uz` stays tutorial during leave; gi `uwep`
-  not clobbered; ATEMP(STR)<0 clears then encumber_msg.
+- Latest: **D-1036** `hatch_egg`/`learn_egg_type`/`cry_sound` body.
+  `run_timers` still **drops** HATCH_EGG.
+- **Hypothesis:** JS floor typed eggs (attach OBJ_FREE, fire
+  OBJ_FLOOR) spend hatch RNG; C’s matching timer is a no-op
+  (sterilized NON_PM or not floor — likely contained). Falsify with
+  a **temp C dump** of egg `where`/`corpsenm` at hatch timeout — not
+  another JS dispatch trial.
+- **Next cluster:** C vs JS egg where/timer parity, **then** wire
+  HATCH_EGG; remaining tut-1 des / nhcore disable.
+- **D-1036 held:** private hatch_egg (NON_PM / cry_sound /
+  MV_KNOWS_EGG / leftover quan / invent spe tame). Dispatch trial
+  broke fortress — do not re-wire.
 
 ## Don't re-check (≤15)
 
@@ -41,8 +45,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  nhl_gamestate memcpy/`init_uhunger` (D-1035) or drop `objects_at`
-  (D-0980).
+  hatch_egg body (D-1036) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -52,13 +55,15 @@ Objective/score live in `CURRENT.md`.
   Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
 - Do not memcpy gi worn/ball pointers with struct you (D-1035 — C `u`
   has no `uwep`). Do not drive `setnotworn` from `owornmask`/
-  `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave
-  (`useupall`/`obfree`, no `obj_resists` rn2).
+  `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave.
+  **Do not wire `run_timers` HATCH_EGG** without a C egg-where dump
+  (D-1036). `cry_sound` uses C `monflag.h` numbers, not growl locals.
 
 ## Landmarks (≤15)
 
-- Suite cadence **#1300**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` (R² 0.867).
+- Suite cadence **#1305**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `31+0.27/turn` (R² 0.875).
+- **D-1036:** hatch_egg/learn_egg_type/cry_sound body; dispatch dropped.
 - **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
 - **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
 - **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
@@ -72,4 +77,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1025:** use_candle / use_candelabrum doapply + weight spe.
 - **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
 - **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
-- **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.

@@ -5,7 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1036 | fixed (partial) | timeout `hatch_egg`/`learn_egg_type` + `cry_sound` | C timer callback; JS dropped HATCH_EGG; body ported, dispatch still dropped until egg where matches C |
 | D-1035 | fixed | `nhl_gamestate` memcpy u/disco/mvitals/spl_book + `init_uhunger` | C backup/restore + memset spells + ATEMP; JS invent-only; memcpy skips gi worn ptrs |
+| D-1034 | fixed | sit ordinary `throne_sit_effect` 1–13 | C rnd(13) switch; JS dropped; take_gold + do_genocide REALLY+ONTHRONE |
 | D-1033 | fixed | sit `special_throne_effect` | C Vlad throne 1–13; JS omitted IS_THRONE; grease COIN skip + losexp/seffects wires |
 | D-1032 | fixed | timeout/apply `fig_transform` | C attach rnd(9000)+200; JS dropped FIG_TRANSFORM; callback + BUC/carry/drop wires |
 | D-1031 | fixed | apply/mkobj `hornoplenty` | C doapply HORN_OF_PLENTY; JS said unknown; rn2(13) potion/food + tip BoT/horn |

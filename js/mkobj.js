@@ -609,10 +609,11 @@ function special_corpse(num) {
  * C ref: timeout.c timer queue (gt.timer_base) — object + level timers.
  * start_timer inserts by absolute timeout (moves+when); run_timers fires
  * when timeout <= moves. Envelope: ROT_CORPSE → rot_corpse floor extract;
- * HATCH_EGG queued via attach_egg_hatch_timeout (D-0533) but hatch_egg
- * callback deferred; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away (D-0965);
- * REVIVE_MON / ZOMBIFY_MON / hatch deferred (no-op fire clears the
- * queue entry). FIG_TRANSFORM → fig_transform (D-1032).
+ * HATCH_EGG queued via attach_egg_hatch_timeout (D-0533); hatch_egg
+ * body ported (D-1036) but run_timers still drops the callback until
+ * egg where matches C; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away (D-0965);
+ * REVIVE_MON / ZOMBIFY_MON deferred (no-op fire clears the queue
+ * entry). FIG_TRANSFORM → fig_transform (D-1032).
  */
 function timer_base() {
     if (!game._timer_base) game._timer_base = null;
@@ -754,7 +755,6 @@ export function spot_stop_timers(x, y, action) {
 /**
  * C ref: timeout.c attach_egg_hatch_timeout — stop prior HATCH_EGG; if
  * when==0 roll rnd(i)>150 for i in 151..MAX_EGG_HATCH_TIME; queue timer.
- * hatch_egg body deferred (run_timers drops HATCH_EGG entries).
  */
 export function attach_egg_hatch_timeout(egg, when = 0) {
     if (!egg) return;
@@ -773,7 +773,6 @@ export function attach_egg_hatch_timeout(egg, when = 0) {
 
 /**
  * C ref: timeout.c kill_egg — stop HATCH_EGG so the egg never hatches.
- * hatch_egg callback body still deferred (run_timers drops HATCH_EGG).
  */
 export function kill_egg(egg) {
     if (!egg) return;
@@ -838,8 +837,9 @@ async function rot_corpse(obj) {
  * Called from nh_timeout after intrinsic TIMEOUT handling.
  * Envelope: ROT_CORPSE; ROT_ORGANIC (dig.c); TIMER_LEVEL MELT_ICE_AWAY
  * (D-0965/D-0967); BURN_OBJECT (D-0978); SHRINK_GLOB thin (D-0993);
- * FIG_TRANSFORM (D-1032). Named omit: REVIVE_MON / ZOMBIFY_MON / hatch;
- * full shrink ice/eat catch-up.
+ * FIG_TRANSFORM (D-1032). Named omit: HATCH_EGG dispatch (body ported
+ * D-1036; JS floor typed eggs spend hatch RNG that C does not);
+ * REVIVE_MON / ZOMBIFY_MON; full shrink ice/eat catch-up.
  */
 export async function run_timers() {
     const g = timer_base();
@@ -868,7 +868,11 @@ export async function run_timers() {
             const { fig_transform } = await import('./apply.js');
             await fig_transform(curr.obj, curr.timeout | 0);
         }
-        // REVIVE_MON / ZOMBIFY_MON / hatch deferred — entry dropped
+        // HATCH_EGG body is in timeout.js hatch_egg (D-1036) but run_timers
+        // still drops the entry: wiring it spends rnd/enexto/makemon on JS
+        // floor typed eggs while C's matching timer is a no-op (sterilized
+        // or not floor). Do not dispatch until egg where matches C.
+        // REVIVE_MON / ZOMBIFY_MON also deferred.
     }
 }
 

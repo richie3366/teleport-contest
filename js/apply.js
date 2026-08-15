@@ -3341,7 +3341,7 @@ function unsplitobj_jelly(obj) {
 /**
  * C ref: apply.c use_royal_jelly — split/freeinv; getobj egg; killer→queen;
  * cursed kill_egg; else attach_egg_hatch_timeout + blessed spe=2; obfree lump.
- * Named omit: hatch_egg callback (timer still queued); update_inventory redraw.
+ * Named omit: update_inventory redraw; HATCH_EGG still not dispatched (D-1036).
  * @returns {number} ECMD_CANCEL | ECMD_TIME
  */
 async function use_royal_jelly(obj) {

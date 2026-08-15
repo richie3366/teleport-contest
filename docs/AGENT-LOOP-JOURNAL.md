@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 18:45 — #1305 D-1036 hatch_egg body + cadence score
+
+**Objective:** map-driven timeout cluster — C `hatch_egg` /
+`learn_egg_type` / `cry_sound`. Cadence full `sessions` @#1305.
+**C locus:** `timeout.c` hatch_egg/learn_egg_type; `sounds.c`
+cry_sound; `mkobj.c` run_timers; `mon.c` hideunder.
+**Change:** port callback envelope (NON_PM, yours, silent,
+get_obj_location, rnd(quan), geno skip, enexto+makemon, tamedog,
+leftover re-arm, invent useup / floor obfree+hideunder). Leave
+`run_timers` dropping HATCH_EGG — JS floor typed eggs spend hatch
+RNG C does not. Rule #2: no fs.
+**Score:** **#1305** full `sessions` **44**/44 Scr **11405**/11405
+RNG **100%** speed `31+0.27/turn` (R² 0.875). Next @**#1310**.
+**Verified:** green+strict PASS; seed0014/4500 PASS after unwire;
+dispatch trial 42/44 (seed0014/4500 FAIL). Private hatch_egg
+envelope. Path **unhit** while dispatch dropped.
+**Next:** C vs JS egg where/timer parity, then wire HATCH_EGG;
+remaining tut-1 des / nhcore disable.
+**Blocked:** HATCH_EGG dispatch until egg where matches C.
+
 ## 2026-08-15 18:20 — #1304 D-1035 nhl_gamestate memcpy + init_uhunger
 
 **Objective:** map-driven startup cluster — C `nhl_gamestate`
@@ -274,21 +294,4 @@ Rule #2: no fs.
 is_pole; whip/hook not; could_pole_mon false). Path **unhit** by
 public traces.
 **Next:** apply.js oil / `use_trap` / BAG_OF_TRICKS.
-**Blocked:** none.
-
-## 2026-08-15 14:10 — #1290 D-1021 use_royal_jelly
-
-**Objective:** map-driven apply cluster — C `use_royal_jelly` (CURRENT
-whip/grapple/jelly/`use_pole`). Cadence full `sessions` @#1290.
-**C locus:** `apply.c` `use_royal_jelly`/`jelly_ok`/`dorub`/`doapply`;
-`timeout.c` `kill_egg`.
-**Change:** split+freeinv; GETOBJ_PROMPT egg; killer→queen; cursed
-`kill_egg`; hatch timeout + blessed `spe=2`; obfree not delobj.
-Rule #2: no fs.
-**Score:** **#1290** full `sessions` **44**/44 Scr **11405**/11405
-RNG **100%** speed `31+0.27/turn` (R² 0.876). Next @**#1295**.
-**Verified:** green+strict PASS; apply/eat cohort **7**/7
-(seed0009 Scr **73**/73). Private node (queen+timer; cursed hatch
-stop; stack cancel quan-1). Path **unhit** by public traces.
-**Next:** apply.js whip/grapple/`use_pole`.
 **Blocked:** none.

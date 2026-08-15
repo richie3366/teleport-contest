@@ -1683,7 +1683,7 @@ export function restrap(mtmp) {
  * Named omissions: You_see pline; pet cursed_object_at; cockatrice skip;
  * youmonst path; can_hide_under_obj filter.
  */
-function hideunder(mtmp) {
+export function hideunder(mtmp) {
     if (!mtmp?.data) return false;
     const u = game.u || {};
     const is_u = mtmp === game.youmonst;

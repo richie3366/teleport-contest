@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1036 — hatch_egg / learn_egg_type / cry_sound (dispatch deferred)
+
+- **Status:** fixed (partial — `run_timers` still drops HATCH_EGG)
+- **Symptom:** C `timeout.c` `hatch_egg` is the HATCH_EGG timer
+  callback (`learn_egg_type`, `cry_sound`, spawn `big_to_little`).
+  JS queued the timer (D-0533) but `run_timers` dropped the action.
+- **C locus:** `timeout.c` `hatch_egg` / `learn_egg_type`;
+  `sounds.c` `cry_sound`; `mkobj.c` `run_timers`; `mon.c` `hideunder`.
+- **Fix:** port callback envelope (NON_PM; yours spe/male-carried
+  `rn2(2)`; silent `timeout!=moves`; `get_obj_location(0)`;
+  `rnd(quan)`; G_UNIQ/G_GENOD/G_EXTINCT skip; `enexto`+`makemon`
+  NO_MINVENT|MM_NOMSG; `tamedog`; leftover `rnd(12)` re-arm; invent
+  `useup` vs floor extract+obfree+`hideunder`). `cry_sound` uses C
+  `monflag.h` numbers (local; growl table numbering differs).
+  **Do not dispatch from `run_timers`:** wiring spends hatch RNG on
+  JS floor typed eggs (giant-spider attach OBJ_FREE, fire OBJ_FLOOR)
+  while C traces have no hatch RNG — C's callback is a no-op
+  (sterilized or not floor). Rule #2: no fs.
+- **Deferred:** `run_timers` HATCH_EGG dispatch until egg where
+  matches C; SetVoice; `update_inventory`; migrating `#if 0`;
+  generated `msound` (cry_sound defaults chitter/gurgle);
+  `impossible()` unknown where.
+- **Verify:** private node (NON_PM; cry_sound; MV_KNOWS_EGG; floor
+  lizard hatch; leftover quan; invent spe tame). Dispatch trial
+  broke fortress (seed0014 RNG 45430/59178 Scr 635/714; seed4500
+  100939/108275 Scr 1572/1814). Unwired: green+strict PASS;
+  seed0014/4500 PASS; cadence **#1305** full `sessions` **44**/44
+  Scr **11405**/11405 RNG **100%**.
+- **Files:** `js/timeout.js`, `js/sounds.js`, `js/mon.js`,
+  `js/mkobj.js`, `js/apply.js` (comment).
+
 ## D-1035 — nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger
 
 - **Status:** fixed (map-driven; not a public FAIL)
