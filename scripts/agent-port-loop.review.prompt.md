@@ -76,7 +76,9 @@ production / unrevertible mess). QUALITY-RISK continues via Must-fix.
 
 Stage review + queue + CURRENT + NOTES + journal. Commit with why.
 **`git push origin HEAD`** (no force-push, no amend of pushed commits).
-No `js/` edits.
+No `js/` edits. If a previous `**Addressed:** D-NNNN` line is missing
+its short hash, fill it in this commit from `git log` (not a stamp-only
+SHA — you are already committing the review).
 
 ## Prohibitions
 

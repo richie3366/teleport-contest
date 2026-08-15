@@ -29,7 +29,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- No raw RNG-index / coordinate / FORCE in production; Rule #2 no `fs`.
+- Do not predict / amend / extra-commit **Addressed** HASH (chicken-egg).
+  Stamp `D-NNNN` in the fix commit; the next real commit fills
+  `git log --format=%h` of that fix. No stamp-only SHAs.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483); D-0930 is
   space+attr0+CLR_GRAY only.
 - Don't skip painting `disp_ch===' '` in flush — breaks S_air (D-0931).

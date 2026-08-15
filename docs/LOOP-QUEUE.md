@@ -7,8 +7,13 @@ Unattended **port** iterations pop the **first unchecked** item, preferring
 
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: check it off **and**
-edit the cited review (`**Addressed:** D-NNNN HASH`). Commit + push that
-review update in the same iteration.
+stamp the cited review `**Addressed:** D-NNNN` in **this** commit.
+Do **not** put this commit’s hash in the same SHA (chicken-egg), do
+**not** amend, and do **not** make a stamp-only follow-up commit
+(`da0fabe3` / `cdbedcbb` / `3ac7a037` / `9c087297` were that waste).
+The **next** real commit (next Must-fix, cadence, or review — whatever
+already has a reason to exist) fills in the short hash from
+`git log -1 --format=%h` of the fix.
 
 Catch-up from `reviews/loop-2026-08-15/` (2026-08-15). Already done
 off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne

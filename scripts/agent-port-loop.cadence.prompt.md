@@ -21,6 +21,9 @@ supervisor will halt on the full-suite gate.
 ## Git
 
 Commit score/docs only. **`git push origin HEAD`.** No new D-id. No force-push.
+If a previous `**Addressed:** D-NNNN` line is missing its short hash, fill
+it in this same score commit (`git log --format=%h` of the fix). Do not
+open a second SHA just for the hash.
 
 ## Prohibitions
 

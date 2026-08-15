@@ -234,6 +234,10 @@ authority) and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`).
 No `--force`, no amend of pushed commits. If a gate fails **after** a
 push, the supervisor halts **without** `git reset` — a human reverts origin.
 
+**Addressed hashes:** stamp `**Addressed:** D-NNNN` in the fix commit.
+Fill the short hash in the **next** real commit (whatever already has
+a reason to exist). Never a stamp-only SHA, never hash prediction.
+
 ---
 
 ## 11. Quick commands

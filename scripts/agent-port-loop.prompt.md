@@ -96,8 +96,12 @@ Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 Stage intentional changes; commit with why; **`git push origin HEAD`**.
 No force-push, no amend of pushed commits, no reset of unrelated work.
 Check off the queue item only after the JS is committed. If this item
-cites `Source: reviews/…`, update that review with
-`**Addressed:** D-NNNN HASH` in the same commit.
+cites `Source: reviews/…`, stamp `**Addressed:** D-NNNN` on that review
+**in this commit** (D-id only). Do **not** predict this SHA, amend, or
+open a second “Stamp HASH” commit. If a previous `**Addressed:** D-NNNN`
+line is still missing its short hash, fill it here from
+`git log --oneline` of that fix — bundled with this iteration’s real
+work.
 
 ## Absolute prohibitions
 

@@ -596,7 +596,10 @@ while true; do
       prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any,\n'
       prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
       prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
-      prompt_body+=$'that review and stamp `**Addressed:** D-NNNN HASH` when you ship.\n'
+      prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
+      prompt_body+=$'Do not predict this commit hash, amend, or make a stamp-only SHA. If a\n'
+      prompt_body+=$'previous Addressed line is missing its short hash, fill it in this same\n'
+      prompt_body+=$'commit from `git log` (bundled with this fix).\n'
       cluster_line="$(queue_first_cluster)"
       if [[ -n "$cluster_line" ]]; then
         prompt_body+=$'\n**Queue head:** '
