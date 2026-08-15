@@ -1071,6 +1071,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     if (on_level(newlevel, u.uz)) return;
 
+    // C: maybe_reset_pick(NULL); reset_trapset() before leaving
+    try {
+        const { reset_trapset } = await import('./apply.js');
+        reset_trapset();
+    } catch { /* apply optional */ }
+
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
     if (!game.iflags?.nofollowers) keepdogs(false);
     // C: check_special_room(TRUE) on leave — move_update clears urooms so

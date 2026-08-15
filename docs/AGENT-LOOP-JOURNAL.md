@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 14:55 — #1292 D-1023 oil/use_trap/bagotricks
+
+**Objective:** map-driven apply cluster — C `use_lamp` /
+`light_cocktail` / `use_trap` / `bagotricks` (CURRENT oil / traps / BoT).
+**C locus:** `apply.c` use_lamp/light_cocktail/use_trap/set_trap/
+reset_trapset/doapply; `makemon.c` bagotricks; `do.c` goto_level.
+**Change:** doapply dispatch; begin_burn/end_burn; POT_OIL split;
+trapinfo occupation DEX/STR + riding FORCEBUNGLE; BoT spe-- + rn2(23)
+makemon. goto_level reset_trapset. Rule #2: no fs.
+**Score:** last full `sessions` still **#1290** 44/44 (cadence @#1295).
+**Verified:** green+strict PASS; apply/lamp/ride cohort **18**/18
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366). Private node
+(lamp on/empty; oil makeknown; lev no occ; floor time_needed;
+empty BoT cknown; charged spe--). Path **unhit** by public traces.
+**Next:** apply.js flip_through_book / flip_coin.
+**Blocked:** none.
+
 ## 2026-08-15 14:35 — #1291 D-1022 whip/grapple/use_pole
 
 **Objective:** map-driven apply cluster — C `use_whip` / `use_grapple`
@@ -237,17 +254,4 @@ TOWEL; burnarmor dry path (D-1009). Score refresh in CURRENT.
 **11404**/11405 RNG **100%** speed `30+0.26/turn`. Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
 or crystal ball.
-**Blocked:** none.
-
-## 2026-07-22 06:04 — #1279 D-1008 use_saddle
-
-**Objective:** map-driven — `use_saddle` apply SADDLE (CURRENT next
-cluster after whistle).
-**C locus:** `steed.c` use_saddle/can_saddle; `apply.c` doapply SADDLE.
-**Change:** port use_saddle chance envelope + petrify/special gates;
-tighten can_saddle whirly/unsolid; wire doapply — D-1008.
-**Verified:** green+strict PASS; apply/steed cohort **15**/16
-(seed0009 Scr 72/73 pre-existing; seed0103/0104 ride PASS). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
-or crystal ball / towel.
 **Blocked:** none.

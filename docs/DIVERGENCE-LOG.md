@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1023 — use_lamp / light_cocktail / use_trap / bagotricks
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `OIL_LAMP`/`MAGIC_LAMP`/`BRASS_LANTERN`,
+  `POT_OIL`, `LAND_MINE`/`BEARTRAP`, and `BAG_OF_TRICKS` as unknown
+  (`Sorry, I don't know how to use that.`). C lights/snuffs lamps,
+  lights oil potions, occupations landmine/beartrap arming, and
+  `bagotricks` consumes charges to `makemon`.
+- **C locus:** `apply.c` `use_lamp` / `light_cocktail` / `use_trap` /
+  `set_trap` / `reset_trapset` / `doapply` cases; `makemon.c`
+  `bagotricks`; `do.c` `goto_level` `reset_trapset`.
+- **Fix:** doapply dispatch; `begin_burn`/`end_burn`; cursed spill
+  `make_glib`; POT_OIL split+`hold_another_object`; trapinfo occupation
+  + DEX/STR time + riding `y_n`/`FORCEBUNGLE`; BoT `spe--` + `rn2(23)`
+  extra `makemon`. `goto_level` clears trapset. Rule #2: no fs.
+- **Deferred:** shop `check_unpaid` / lamp-oil SetVoice; candle
+  `use_candle`/`use_candelabrum`; `use_unpaid_trapobj` verbalize;
+  pickup `tipcontainer` BoT; `cmd.c` `reset_occupations`; grease;
+  flip_book/flip_coin.
+- **Verify:** green+strict PASS; apply/lamp/ride cohort **18**/18
+  incl. seed0105 Scr **30**/30, seed0361 Scr **366**/366. Private
+  node: lamp on/empty; oil makeknown; levitation no occupation;
+  floor occupation+time_needed; empty BoT cknown; charged spe--.
+  Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/do.js` (`goto_level` `reset_trapset`).
+
 ## D-1022 — use_whip / use_grapple / use_pole + doapply
 
 - **Status:** fixed (map-driven; not a public FAIL)

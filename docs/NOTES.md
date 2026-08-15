@@ -15,15 +15,16 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1022** `use_whip`/`use_grapple`/`use_pole` (wield+cmdq;
-  getdir/getpos; pit yank; disarm; force_attack; Snickersnee `is_pole`).
-  Public traces unhit (archeologist tour still PASS).
-- **Next cluster:** apply.js oil / `use_trap` / BAG_OF_TRICKS.
+- Latest: **D-1023** `use_lamp`/`light_cocktail`/`use_trap`/`bagotricks`
+  (doapply oil lamps + POT_OIL + landmine/beartrap occupation + BoT).
+  Public traces unhit (seed0105 lamp-ration still PASS).
+- **Next cluster:** apply.js `flip_through_book` / `flip_coin`.
   Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
   `startup.md`.
-- **D-1022 falsifier (held):** apply wielded bullwhip + direction →
-  not "Sorry"; apply polearm → getpos "Where do you want to hit?";
-  Snickersnee `is_pole`; `could_pole_mon` false without uwep.
+- **D-1023 falsifier (held):** apply oil lamp with age>0 → lamplit;
+  empty lamp → no light; POT_OIL → makeknown+lamplit; levitation
+  use_trap → no occupation; floor use_trap → set_occupation;
+  empty known BoT → cknown; charged BoT → spe--.
 
 ## Don't re-check (≤15)
 
@@ -42,7 +43,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_whip/use_grapple/use_pole (D-1022) or drop `objects_at` (D-0980).
+  use_lamp/light_cocktail/use_trap/bagotricks (D-1023) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -60,6 +61,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1290**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.876).
+- **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
 - **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.
 - **D-1021:** use_royal_jelly + dorub/doapply + timeout kill_egg.
 - **D-1020:** setnotworn worn[] pointer-walk + leave-tutorial restore.

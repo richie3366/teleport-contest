@@ -17,16 +17,18 @@ import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
     P_TWO_WEAPON_COMBAT, NEED_WEAPON,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, nothing_happens, nothing_seems_to_happen,
-    FACE, FOOT, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
+    FACE, FOOT, FINGER, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
     COLNO, ROWNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
-    M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
-    ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_WATERWALL, IS_AIR,
+    M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
+    ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_OBSTRUCTED, IS_WATERWALL,
+    IS_AIR, AIR, CLOUD,
     TELEDS_NO_FLAGS, TELEDS_ALLOW_DRAG, INTRINSIC, STONE, LAVAWALL, TT_PIT,
     EXT_ENCUMBER, COST_DSTROY, COST_DEGRD, HEAD, HAND, NOSE, NON_PM,
     KILLED_BY, NO_KILLER_PREFIX, W_WEP, DISMOUNT_THROWN, STATUE_TRAP,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
+    LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -50,14 +52,14 @@ import { can_blow, little_to_big, big_to_little } from './mondata.js';
 import { wield_tool, welded, is_pole } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
-    obj_extract_self, place_object, stackobj,
+    obj_extract_self, place_object, stackobj, weight,
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam } from './do_name.js';
 import { monflee } from './monmove.js';
-import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion } from './hack.js';
+import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path, thitmonst } from './dothrow.js';
 import { uhim } from './roles.js';
@@ -69,17 +71,26 @@ import { select_menu_pick_one } from './options.js';
 import { teleds, tele_to_rnd_pet, noteleport_level, enexto, rloc_to } from './teleport.js';
 import { morehungry, use_tin_opener } from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
-import { costly_alteration } from './shk.js';
+import { costly_alteration, costly_spot, add_damage, bill_dummy_object } from './shk.js';
 import { zappable, release_hold } from './zap.js';
 import { explode } from './explode.js';
 import {
     flash_hits_mon, xkilled, attack_checks, check_caitiff,
     force_attack, stumble_onto_mimic,
 } from './uhitm.js';
+import { digests } from './mhitu.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
 import { vault_summon_gd } from './vault.js';
 import { fill_pit } from './dig.js';
-import { mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at, activate_statue_trap } from './trap.js';
+import {
+    mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at,
+    activate_statue_trap, maketrap, feeltrap, dotrap, trapname,
+} from './trap.js';
+import { begin_burn, end_burn, Is_candle } from './timeout.js';
+import { set_occupation } from './engrave.js';
+import { makemon } from './makemon.js';
+import { addinv } from './u_init.js';
+import { stairway_at } from './mklev.js';
 import { make_glib } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
 import { dropx, setnotworn, fire_damage } from './do.js';
@@ -149,6 +160,8 @@ const DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
 const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
 const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
+const LAND_MINE = objectNames.indexOf('LAND_MINE');
+const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const BLINDFOLD = objectNames.indexOf('BLINDFOLD');
@@ -983,6 +996,7 @@ function body_part(part) {
     if (part === HAND) return 'hand';
     if (part === NOSE) return 'nose';
     if (part === FOOT) return 'foot';
+    if (part === FINGER) return 'finger';
     return 'body part';
 }
 
@@ -2050,9 +2064,12 @@ async function use_towel(obj) {
  * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014) +
  * LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021) +
  * BULLWHIP → use_whip / GRAPPLING_HOOK → use_grapple / is_pole → use_pole
- * (D-1022).
+ * (D-1022) +
+ * OIL_LAMP/MAGIC_LAMP/BRASS_LANTERN → use_lamp / POT_OIL → light_cocktail +
+ * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023).
  * Named omissions: retouch_object; flip_through_book; flip_coin;
- * traps; oil; BoT; Medusa/nymph mirror arms;
+ * Medusa/nymph mirror arms; grease; candle/candelabrum/figurine/unihorn;
+ * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step.
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -2113,8 +2130,9 @@ export async function doapply() {
         return res === ECMD_TIME;
     }
     if (obj.otyp === BAG_OF_TRICKS) {
-        await pline("Sorry, I don't know how to use that.");
-        return false;
+        // C apply.c case BAG_OF_TRICKS → bagotricks(obj, FALSE, NULL)
+        await bagotricks(obj, false, null);
+        return true; // ECMD_TIME
     }
 
     // C apply.c: WOODEN_FLUTE..DRUM_OF_EARTHQUAKE → do_play_instrument
@@ -2261,6 +2279,26 @@ export async function doapply() {
     if (GRAPPLING_HOOK >= 0 && obj.otyp === GRAPPLING_HOOK) {
         const res = await use_grapple(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case OIL_LAMP / MAGIC_LAMP / BRASS_LANTERN → use_lamp (D-1023)
+    if (obj.otyp === OIL_LAMP || obj.otyp === MAGIC_LAMP
+        || obj.otyp === BRASS_LANTERN) {
+        await use_lamp(obj);
+        return true; // ECMD_TIME
+    }
+
+    // C apply.c case POT_OIL → light_cocktail (D-1023)
+    if (obj.otyp === POT_OIL) {
+        await light_cocktail(obj);
+        return true; // ECMD_TIME
+    }
+
+    // C apply.c case LAND_MINE / BEARTRAP → use_trap (D-1023)
+    if ((LAND_MINE >= 0 && obj.otyp === LAND_MINE)
+        || (BEARTRAP >= 0 && obj.otyp === BEARTRAP)) {
+        await use_trap(obj);
+        return true; // ECMD_TIME
     }
 
     // C apply.c default is_pole → use_pole(obj, FALSE) (D-1022)
@@ -3693,6 +3731,374 @@ async function use_grapple(obj) {
     }
     await pline(nothing_happens);
     return ECMD_TIME;
+}
+
+/** C invent.c carried — where==OBJ_INVENT or invent[] membership. */
+function carried_apply(obj) {
+    return !!(obj && (obj.where === OBJ_INVENT
+        || (game.invent || []).includes(obj)));
+}
+
+/** C shk.c shk_your / Shk_Your — trailing space; shop/mon prefix deferred. */
+function shk_your_apply(obj) {
+    return carried_apply(obj) ? 'your ' : 'the ';
+}
+function Shk_Your_apply(obj) {
+    const s = shk_your_apply(obj);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/** C objnam.c Yname2 / otense / Tobjnam thin. */
+function Yname2_oil(obj) {
+    const s = `${shk_your_apply(obj)}${xname(obj)}`;
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function otense_oil(obj, verb) {
+    if ((obj?.quan | 0) !== 1) return verb;
+    return vtense(null, verb);
+}
+function Tobjnam_oil(obj, verb) {
+    return `${The(xname(obj))} ${otense_oil(obj, verb)}`;
+}
+
+/** C do_wear.c fingers_or_gloves — gloves vs fingers. */
+function fingers_or_gloves_apply(check_gloves) {
+    if (check_gloves && game.u?.uarmg) {
+        return gloves_simple_name_towel(game.u.uarmg);
+    }
+    return makeplural(body_part(FINGER));
+}
+
+function Stunned_apply() {
+    const u = game.u || {};
+    return !!(u.Stunned || ((u.HStun | 0) && !(u.BStun | 0)));
+}
+
+function freeinv_apply(obj) {
+    if (!obj) return;
+    const inv = game.invent || [];
+    const idx = inv.indexOf(obj);
+    if (idx >= 0) inv.splice(idx, 1);
+    obj.where = OBJ_FREE;
+}
+
+/** C invent.c useup — consume one; useupall path skips obfree contents. */
+function useup_apply(obj) {
+    if (!obj) return;
+    if ((obj.quan || 1) > 1) {
+        obj.in_use = false;
+        obj.quan--;
+        obj.owt = weight(obj);
+        return;
+    }
+    setnotworn(obj);
+    freeinv_apply(obj);
+    obj.quan = 0;
+}
+
+/**
+ * C ref: apply.c reset_trapset — clear gt.trapinfo tobj / force_bungle.
+ * Called from use_trap, set_trap, and do.c goto_level.
+ */
+export function reset_trapset() {
+    const ti = game.trapinfo || (game.trapinfo = {});
+    ti.tobj = null;
+    ti.force_bungle = 0;
+}
+
+function trapinfo() {
+    return game.trapinfo || (game.trapinfo = {
+        tobj: null, tx: 0, ty: 0, time_needed: 0, force_bungle: 0,
+    });
+}
+
+/**
+ * C ref: shk.c use_unpaid_trapobj — bill dummy if unpaid.
+ * Named omit: Deaf / find_objowner / SetVoice "You set it, you buy it!".
+ */
+async function use_unpaid_trapobj(otmp, _x, _y) {
+    if (otmp?.unpaid) await bill_dummy_object(otmp);
+}
+
+/**
+ * C ref: apply.c use_lamp — light or snuff oil lamp / magic lamp / lantern
+ * (candle arms included; doapply candles still use_candle, deferred).
+ * Named omit: shop check_unpaid; candle unpaid SetVoice / bill_dummy.
+ */
+export async function use_lamp(obj) {
+    if (!obj) return;
+    const lamp = (obj.otyp === OIL_LAMP || obj.otyp === MAGIC_LAMP)
+        ? 'lamp'
+        : (obj.otyp === BRASS_LANTERN) ? 'lantern' : null;
+
+    if (obj.lamplit) {
+        if (lamp) {
+            await pline(`${Shk_Your_apply(obj)}${lamp} is now off.`);
+        } else {
+            await pline(`You snuff out ${yname(obj)}.`);
+        }
+        end_burn(obj, true);
+        return;
+    }
+    if (Underwater_hero()) {
+        await pline(`${!Is_candle(obj)
+            ? 'This is not a diving lamp'
+            : "Sorry, fire and water don't mix"}.`);
+        return;
+    }
+    if ((!Is_candle(obj) && (obj.age | 0) === 0)
+        || (obj.otyp === MAGIC_LAMP && (obj.spe | 0) === 0)) {
+        if (obj.otyp === BRASS_LANTERN) {
+            if (!Blind()) await pline('Your lantern is out of power.');
+            else await pline(nothing_seems_to_happen);
+        } else {
+            await pline(`This ${xname(obj)} has no oil.`);
+        }
+        return;
+    }
+    if (obj.cursed && !rn2(2)) {
+        if ((obj.otyp === OIL_LAMP || obj.otyp === MAGIC_LAMP) && !rn2(3)) {
+            await pline(
+                `The lamp spills and covers your ${fingers_or_gloves_apply(true)} with oil.`,
+            );
+            make_glib(((game.u?.Glib | 0) & TIMEOUT) + d(2, 10));
+        } else if (!Blind()) {
+            await pline(
+                `${Tobjnam_oil(obj, 'flicker')} for a moment, then ${otense_oil(obj, 'die')}.`,
+            );
+        } else {
+            await pline(nothing_seems_to_happen);
+        }
+        return;
+    }
+    if (lamp) {
+        // check_unpaid deferred
+        await pline(`${Shk_Your_apply(obj)}${lamp} is now on.`);
+    } else {
+        await pline(
+            `${s_suffix_apply(Yname2_oil(obj))} flame${plur_quan(obj.quan)} ${otense_oil(obj, 'burn')}${Blind() ? '.' : ' brightly!'}`,
+        );
+        // candle unpaid verbalize / bill_dummy deferred
+    }
+    begin_burn(obj, false);
+}
+
+/**
+ * C ref: apply.c light_cocktail — apply POT_OIL as a lit flask.
+ * Named omit: shop check_unpaid + SetVoice "in addition to the cost".
+ */
+export async function light_cocktail(obj0) {
+    let obj = obj0;
+    if (!obj) return;
+    const u = game.u || {};
+
+    if (u.uswallow) {
+        await pline("You don't have enough elbow-room to maneuver.");
+        return;
+    }
+    if (obj.lamplit) {
+        await pline('You snuff the lit potion.');
+        end_burn(obj, true);
+        if (!obj.owornmask) {
+            freeinv_apply(obj);
+            obj = await addinv(obj);
+        }
+        return;
+    }
+    if (Underwater_hero()) {
+        await pline('There is not enough oxygen to sustain a fire.');
+        return;
+    }
+
+    const split1off = (obj.quan || 1) > 1;
+    if (split1off) {
+        const child = splitobj(obj, 1);
+        if (child) obj = child;
+    }
+
+    await pline(
+        `You light ${shk_your_apply(obj)}potion.${Blind() ? '' : '  It gives off a dim light.'}`,
+    );
+
+    if (obj.unpaid && costly_spot(u.ux | 0, u.uy | 0)) {
+        await bill_dummy_object(obj);
+    }
+    makeknown(obj.otyp);
+
+    begin_burn(obj, false);
+    if (split1off) {
+        obj_extract_self(obj);
+        obj.nomerge = 1;
+        obj = await hold_another_object(obj, 'You drop %s!', doname(obj), null);
+        if (obj) obj.nomerge = 0;
+    }
+}
+
+/**
+ * C ref: apply.c set_trap — occupation while arming landmine / beartrap.
+ * @returns {Promise<number>} 1 still busy, 0 done
+ */
+async function set_trap() {
+    const ti = trapinfo();
+    const otmp = ti.tobj;
+    const u = game.u || {};
+
+    if (!otmp || !carried_apply(otmp) || !u_at_xy(ti.tx, ti.ty)) {
+        reset_trapset();
+        return 0;
+    }
+    if (--ti.time_needed > 0) return 1;
+
+    const ttyp = (otmp.otyp === LAND_MINE) ? LANDMINE : BEAR_TRAP;
+    const ttmp = maketrap(u.ux | 0, u.uy | 0, ttyp);
+    if (ttmp) {
+        ttmp.madeby_u = 1;
+        feeltrap(ttmp);
+        if (in_rooms(u.ux | 0, u.uy | 0, SHOPBASE)) {
+            add_damage(u.ux | 0, u.uy | 0, 0);
+        }
+        if (!ti.force_bungle) {
+            await pline(`You finish arming ${the(trapname(ttyp, false))}.`);
+        }
+        if (((otmp.cursed || Fumbling()) && (rnl(10) > 5)) || ti.force_bungle) {
+            await dotrap(ttmp, ti.force_bungle ? FORCEBUNGLE : 0);
+        }
+    } else {
+        await pline('Your trap setting attempt fails.');
+    }
+    useup_apply(otmp);
+    reset_trapset();
+    return 0;
+}
+
+/**
+ * C ref: apply.c use_trap — start/resume arming LAND_MINE / BEARTRAP.
+ * Named omit: cmd.c reset_occupations caller (goto_level is wired).
+ */
+export async function use_trap(otmp) {
+    if (!otmp) return;
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const levtyp = game.level?.at?.(ux, uy)?.typ | 0;
+    const occutext = 'setting the trap';
+    let what = null;
+
+    if (nohands(game.youmonst?.data)) what = 'without hands';
+    else if (Stunned_apply()) what = 'while stunned';
+    else if (u.uswallow) {
+        what = digests(u.ustuck?.data) ? 'while swallowed' : 'while engulfed';
+    } else if (Underwater_hero()) what = 'underwater';
+    else if (Levitation_apply()) what = 'while levitating';
+    else if (is_pool(ux, uy)) what = 'in water';
+    else if (is_lava(ux, uy)) what = 'in lava';
+    else if (stairway_at(ux, uy)) {
+        const stway = stairway_at(ux, uy);
+        what = stway?.isladder ? 'on the ladder' : 'on the stairs';
+    } else if (IS_FURNITURE(levtyp) || IS_OBSTRUCTED(levtyp)
+        || closed_door(ux, uy) || t_at(ux, uy)) {
+        what = 'here';
+    } else if (Is_airlevel(u.uz) || Is_waterlevel(u.uz)) {
+        what = (levtyp === AIR) ? 'in midair'
+            : (levtyp === CLOUD) ? 'in a cloud'
+                : 'in this place';
+    }
+    if (what) {
+        await pline(`You can't set a trap ${what}!`);
+        reset_trapset();
+        return;
+    }
+
+    const ttyp = (otmp.otyp === LAND_MINE) ? LANDMINE : BEAR_TRAP;
+    const ti = trapinfo();
+    if (otmp === ti.tobj && u_at_xy(ti.tx, ti.ty)) {
+        await pline(
+            `You resume setting ${shk_your_apply(otmp)}${trapname(ttyp, false)}.`,
+        );
+        set_occupation(set_trap, occutext, 0);
+        return;
+    }
+    ti.tobj = otmp;
+    ti.tx = ux;
+    ti.ty = uy;
+    let tmp = acurr(A_DEX);
+    ti.time_needed = (tmp > 17) ? 2 : (tmp > 12) ? 3 : (tmp > 7) ? 4 : 5;
+    if (Blind()) ti.time_needed *= 2;
+    tmp = acurr(A_STR);
+    if (ttyp === BEAR_TRAP && tmp < 18) {
+        ti.time_needed += (tmp > 12) ? 1 : (tmp > 7) ? 2 : 4;
+    }
+    if (u.usteed && P_SKILL(P_RIDING) < P_BASIC) {
+        let chance;
+        if (Fumbling() || otmp.cursed) chance = (rnl(10) > 3);
+        else chance = (rnl(10) > 5);
+        await pline(
+            `You aren't very skilled at reaching from ${mon_nam(u.usteed)}.`,
+        );
+        const buf = `Continue your attempt to set ${the(trapname(ttyp, false))}?`;
+        if ((await yn_function(buf, 'yn', 'n')) === 'y') {
+            if (chance) {
+                if (ttyp === LANDMINE) {
+                    ti.time_needed = 0;
+                    ti.force_bungle = 1;
+                } else if (ttyp === BEAR_TRAP) {
+                    reset_trapset();
+                    await pline(`You drop ${the(trapname(ttyp, false))}!`);
+                    await dropx(otmp);
+                    return;
+                }
+            }
+        } else {
+            reset_trapset();
+            return;
+        }
+    }
+    await pline(
+        `You begin setting ${shk_your_apply(otmp)}${trapname(ttyp, false)}.`,
+    );
+    await use_unpaid_trapobj(otmp, ux, uy);
+    set_occupation(set_trap, occutext, 0);
+}
+
+/**
+ * C ref: makemon.c bagotricks — apply / tip BAG_OF_TRICKS.
+ * Named omit: check_unpaid inside consume_obj_charge; pickup tipcontainer.
+ * @returns {Promise<number>} monsters created
+ */
+export async function bagotricks(bag, tipping = false, seencount = null) {
+    let moncount = 0;
+    if (!bag || bag.otyp !== BAG_OF_TRICKS) return 0;
+    if ((bag.spe | 0) < 1) {
+        await pline((tipping && bag.cknown) ? "It's empty." : nothing_happens);
+        if (bag.dknown && game.objects?.[bag.otyp]?.oc_name_known) {
+            bag.cknown = 1;
+        }
+        return 0;
+    }
+    consume_obj_charge(bag, !tipping);
+    let creatcnt = 1;
+    let seecount = 0;
+    if (!rn2(23)) creatcnt += rnd(7);
+    do {
+        const mtmp = makemon(null, game.u?.ux | 0, game.u?.uy | 0, NO_MM_FLAGS);
+        if (mtmp) {
+            moncount++;
+            const ap = M_AP_TYPE(mtmp);
+            if ((canseemon(mtmp) && (ap === M_AP_NOTHING || ap === M_AP_MONSTER))
+                || sensemon(mtmp)) {
+                seecount++;
+            }
+        }
+    } while (--creatcnt > 0);
+    if (seecount) {
+        if (seencount && typeof seencount === 'object') {
+            seencount.n = (seencount.n | 0) + seecount;
+        }
+        if (bag.dknown) makeknown(BAG_OF_TRICKS);
+    } else if (!tipping) {
+        await pline(!moncount ? nothing_happens : nothing_seems_to_happen);
+    }
+    return moncount;
 }
 
 /** C ref: apply.c rub_ok */
