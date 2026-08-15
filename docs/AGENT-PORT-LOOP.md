@@ -176,7 +176,8 @@ porting guide). The prompt emphasizes:
 in `docs/CURRENT.md`. **Every 5 global loop iterations** is a **cadence**
 score-only iter (no port) **unless Must-fix is open** (then port; cadence
 slips). **Every 3** is a **review** iter (no port). Work comes from
-`docs/LOOP-QUEUE.md` (Must-fix before Open). Fixed causes belong in
+`docs/LOOP-QUEUE.md` (Must-fix before Open; live file unchecked-only,
+done rows in `docs/archive/LOOP-QUEUE-DONE.md`). Fixed causes belong in
 `DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
 `docs/c-js-map/*.md` section; each iteration prepends a short journal
 entry (rotate into `docs/archive/` when >15).

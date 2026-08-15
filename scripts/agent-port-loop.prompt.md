@@ -95,13 +95,14 @@ Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 
 Stage intentional changes; commit with why; **`git push origin HEAD`**.
 No force-push, no amend of pushed commits, no reset of unrelated work.
-Check off the queue item only after the JS is committed. If this item
-cites `Source: reviews/…`, stamp `**Addressed:** D-NNNN` on that review
-**in this commit** (D-id only). Do **not** predict this SHA, amend, or
-open a second “Stamp HASH” commit. If a previous `**Addressed:** D-NNNN`
-line is still missing its short hash, fill it here from
-`git log --oneline` of that fix — bundled with this iteration’s real
-work.
+When the queue item is shipped: stamp `**Addressed:** D-NNNN` on the
+cited review (D-id only), mark the line `- [x]`, run
+`node scripts/archive-loop-queue-done.mjs`, and include that in **this**
+commit. Live `LOOP-QUEUE.md` stays unchecked-only. Do **not** predict
+this SHA, amend, or open a stamp-only commit. If a previous
+`**Addressed:** D-NNNN` line (review or `docs/archive/LOOP-QUEUE-DONE.md`)
+is still missing its short hash, fill it here from `git log --oneline`
+of that fix — bundled with this iteration’s real work.
 
 ## Absolute prohibitions
 

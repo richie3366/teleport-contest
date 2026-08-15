@@ -15,8 +15,10 @@ Update `docs/NOTES.md` landmarks/score echo. Prepend
 `docs/AGENT-LOOP-JOURNAL.md` (rotate to `docs/archive/` if >15 entries).
 
 If any session failed: journal the failure, **do not** invent a peel,
-**do not** “align” tests. Leave `LOOP-QUEUE.md` unchanged. The
-supervisor will halt on the full-suite gate.
+**do not** “align” tests. Do not pop a new queue item. You **may**
+archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
+and fill missing Addressed hashes. The supervisor will halt on the
+full-suite gate.
 
 ## Git
 

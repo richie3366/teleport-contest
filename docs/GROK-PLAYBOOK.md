@@ -238,6 +238,11 @@ push, the supervisor halts **without** `git reset` — a human reverts origin.
 Fill the short hash in the **next** real commit (whatever already has
 a reason to exist). Never a stamp-only SHA, never hash prediction.
 
+**Queue archive:** live `LOOP-QUEUE.md` is unchecked-only. After
+shipping, mark `- [x]` and run `node scripts/archive-loop-queue-done.mjs`
+in the same commit (`docs/archive/LOOP-QUEUE-DONE.md`). The supervisor
+archives leftover `[x]` if you forget.
+
 ---
 
 ## 11. Quick commands

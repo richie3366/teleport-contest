@@ -151,6 +151,7 @@ REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.p
 CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
 REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
+ARCHIVE_QUEUE="$ROOT/scripts/archive-loop-queue-done.mjs"
 
 PROMPT_FILE="${PROMPT_FILE:-$ROOT/scripts/agent-port-loop.prompt.md}"
 if [[ ! -f "$PROMPT_FILE" ]]; then
@@ -167,6 +168,10 @@ if [[ ! -f "$CADENCE_PROMPT_FILE" ]]; then
 fi
 if [[ ! -f "$REQUIRE_PASS" ]]; then
   echo "error: missing $REQUIRE_PASS" >&2
+  exit 1
+fi
+if [[ ! -f "$ARCHIVE_QUEUE" ]]; then
+  echo "error: missing $ARCHIVE_QUEUE" >&2
   exit 1
 fi
 if [[ ! -f "$QUEUE_FILE" ]]; then
@@ -289,6 +294,7 @@ const protectedPaths = [
   'scripts/agent-port-loop.review.prompt.md',
   'scripts/agent-port-loop.cadence.prompt.md',
   'scripts/loop-require-results-pass.mjs',
+  'scripts/archive-loop-queue-done.mjs',
   'frozen',
   'sessions',
   'nethack-c/upstream',
@@ -456,7 +462,19 @@ js_diff_stats() {
     | awk '{ ins += $1; if ($1 + $2 > 0) files++ } END { print ins+0, files+0 }'
 }
 
-# before_head must be set. origin_before is optional (empty if fetch failed).
+maybe_archive_checked_queue() {
+  rg -q '^- \[x\]' "$QUEUE_FILE" || return 0
+  echo "$(date -Iseconds) === archive checked LOOP-QUEUE items ===" | tee -a "$MASTER_LOG"
+  node "$ARCHIVE_QUEUE" | tee -a "$MASTER_LOG"
+  if git diff --quiet -- docs/LOOP-QUEUE.md docs/archive/LOOP-QUEUE-DONE.md; then
+    return 0
+  fi
+  git add docs/LOOP-QUEUE.md docs/archive/LOOP-QUEUE-DONE.md
+  if ! git commit -m "Archive checked LOOP-QUEUE items."; then
+    halt_loop "failed to commit archived LOOP-QUEUE items (local tree kept)" 0
+  fi
+}
+
 halt_loop() {
   local reason="$1"
   local do_revert="${2:-1}"
@@ -597,9 +615,11 @@ while true; do
       prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
       prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
       prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
-      prompt_body+=$'Do not predict this commit hash, amend, or make a stamp-only SHA. If a\n'
-      prompt_body+=$'previous Addressed line is missing its short hash, fill it in this same\n'
-      prompt_body+=$'commit from `git log` (bundled with this fix).\n'
+      prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
+      prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
+      prompt_body+=$'commit hash, amend, or make a stamp-only SHA. If a previous Addressed line\n'
+      prompt_body+=$'(review or LOOP-QUEUE-DONE.md) is missing its short hash, fill it in this\n'
+      prompt_body+=$'same commit from `git log` (bundled with this fix).\n'
       cluster_line="$(queue_first_cluster)"
       if [[ -n "$cluster_line" ]]; then
         prompt_body+=$'\n**Queue head:** '
@@ -835,10 +855,18 @@ NODE
 
   rm -rf "$snapshot"
 
-  if (( agent_pushed == 0 )) && [[ "$LOOP_PUSH" == "1" ]] && [[ "$after_head" != "$before_head" ]]; then
-    echo "$(date -Iseconds) === supervisor git push ===" | tee -a "$MASTER_LOG"
-    if ! git push origin HEAD; then
-      halt_loop "git push origin HEAD failed (local commits kept)" 0
+  maybe_archive_checked_queue
+
+  if [[ "$LOOP_PUSH" == "1" ]]; then
+    git fetch origin >/dev/null 2>&1 || true
+    local_head="$(git rev-parse HEAD)"
+    remote_head="$(git rev-parse '@{u}' 2>/dev/null || true)"
+    if [[ -n "$remote_head" && "$local_head" != "$remote_head" ]] ||
+       [[ -z "$remote_head" && "$local_head" != "$before_head" ]]; then
+      echo "$(date -Iseconds) === supervisor git push ===" | tee -a "$MASTER_LOG"
+      if ! git push origin HEAD; then
+        halt_loop "git push origin HEAD failed (local commits kept)" 0
+      fi
     fi
   fi
 

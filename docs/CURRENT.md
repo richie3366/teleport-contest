@@ -142,7 +142,7 @@ pline to lock `getdir`** (NEED_MORE). Throw path keeps
 | Need | File |
 |------|------|
 | Live hypothesis / don’t-recheck | `NOTES.md` |
-| Unattended work picker | `LOOP-QUEUE.md` (Must-fix before Open; one `- [ ]` per port iter) |
+| Unattended work picker | `LOOP-QUEUE.md` (unchecked only; done → `archive/LOOP-QUEUE-DONE.md`) |
 | Divergence by ID | `DIVERGENCE-INDEX.md` → one `## D-NNNN` |
 | Subsystem omissions | `C-JS-MAP.md` → one `c-js-map/*.md` |
 | Latest loop crumbs | `AGENT-LOOP-JOURNAL.md` (tail only) |
