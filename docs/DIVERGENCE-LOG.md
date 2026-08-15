@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1049 — take_gold remove_worn_item before delobj
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1034 risk 3. JS `take_gold` spliced `game.invent` then
+  `delobj` with no unwear. C `sit.c` calls `remove_worn_item(otmp, FALSE)`
+  first. Gold is a legal quiver/wield/swapwep object (`pickup.c` /
+  `shk.c` comments); leftover `u.uquiver` / `uwep` / `uswapwep` after
+  `delobj` is C-wrong.
+- **C locus:** `sit.c` `take_gold` (~14–33); `steal.c` `remove_worn_item`
+  (~213–290) W_WEAPONS → `uwepgone` / `uswapwepgone` / `uqwepgone`;
+  `wield.c` `uqwepgone` (~897).
+- **Fix:** `remove_worn_item(otmp, false)` then invent splice + `delobj`.
+  Helper matches C `!owornmask` return and W_WEAPONS `*gone`. sit cannot
+  import `steal.js` (`hack`→`eat` cycle); local helper cites steal.c.
+  Rule #2: no fs.
+- **Deferred:** `donning`/`cancel_don`; `in_use`; armor `*_off`;
+  `Amulet_off` / `Ring_gone` / `Blindf_off`; `unpunish`; `setnotworn`
+  pointer-walk (COIN_CLASS never those slots). JS `obj_extract_self`
+  still omits OBJ_INVENT (splice stays).
+- **Verify:** green+strict PASS; sit cohort **4**/4 (seed0106 Scr
+  **267**/267; seed0107 **98**/98; seed0108 **303**/303; seed4500
+  **1814**/1814). Private node **20**/20 (unworn strip; no-gold
+  strange-sensation; quiver/wield/swap clear; sword uwep kept). Path
+  **unhit** on public traces.
+- **Files:** `js/sit.js`.
+
 ## D-1048 — Vlad special_throne_effect case 10 HConfusion only
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

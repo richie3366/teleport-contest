@@ -1,6 +1,6 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
 // rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
-// dosit trap-before-throne (D-1039).
+// dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch).
 //
@@ -19,8 +19,9 @@
 // lava/ice/drawbridge, wizard getlin / Analyze y_n, lay_an_egg,
 // money_cnt meager coil; shieldeff; update_inventory redraw;
 // Hallucination hcolor synonyms; Yobjnam2 shk_your/pname polish;
-// SetVoice; eyecount poly; remove_worn_item gold; hero pit/hole dotrap
-// bodies still named-omit in trap.js.
+// SetVoice; eyecount poly; hero pit/hole dotrap bodies still named-omit
+// in trap.js. take_gold calls steal.c remove_worn_item (D-1049); armor
+// *_off / unpunish / setnotworn pointer-walk still named on that helper.
 // D-0956: set_mimic_blocking on SEE_INVIS attrcurse arm.
 
 import { game } from './gstate.js';
@@ -34,7 +35,7 @@ import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
     IS_THRONE, In_V_tower, ROOM, CLOUD,
-    INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE,
+    INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE, W_WEAPONS, W_BALL, W_CHAIN,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
     KILLED_BY, KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL,
@@ -55,6 +56,7 @@ import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
 import { t_at, dotrap } from './trap.js';
 import { losehp, finish_maybe_wail } from './hack.js';
+import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
 import { burn_away_slime } from './timeout.js';
 import { hliquid } from './do_name.js';
 
@@ -139,8 +141,40 @@ function Yobjnam2(obj, verb) {
 }
 
 /**
+ * C ref: steal.c remove_worn_item(obj, unchain_ball).
+ * take_gold / cursed_book pass FALSE. Gold is worn as W_WEAPONS
+ * (quiver — pickup.c / shk.c); C then uwepgone/uswapwepgone/uqwepgone.
+ * Named omit: donning/cancel_don; in_use; Armor_off/Cloak_off/Boots_off/
+ * Gloves_off/Helmet_off/Shield_off/Shirt_off; Amulet_off; Ring_gone;
+ * Blindf_off; unpunish; do.js setnotworn pointer-walk (COIN_CLASS never
+ * occupies those slots). sit cannot import steal.js (hack→eat cycle).
+ */
+function remove_worn_item(obj, unchain_ball) {
+    if (!obj) return;
+    // C: if (donning(obj)) cancel_don();
+    if (!obj.owornmask) return;
+
+    const u = game.u || {};
+    // C: oldinuse = obj->in_use; obj->in_use = 1; restore at end
+    if (obj.owornmask & W_WEAPONS) {
+        if (obj === u.uwep) uwepgone();
+        if (obj === u.uswapwep) uswapwepgone();
+        if (obj === u.uquiver) uqwepgone();
+    }
+    if (obj.owornmask & (W_BALL | W_CHAIN)) {
+        if (unchain_ball) {
+            // C unpunish() — take_gold passes FALSE
+        }
+    } else if (obj.owornmask) {
+        // C catchall setnotworn(obj) — weapon slots already *gone
+        obj.owornmask = 0;
+    }
+}
+
+/**
  * C ref: sit.c take_gold — strip COIN_CLASS from invent.
- * Named omit: remove_worn_item (coins rarely worn).
+ * C: remove_worn_item(otmp, FALSE) then delobj. JS invent[] splice
+ * stays: obj_extract_self still omits OBJ_INVENT (mkobj.js).
  */
 export async function take_gold() {
     let lost_money = false;
@@ -148,6 +182,7 @@ export async function take_gold() {
     for (const otmp of [...invent]) {
         if (otmp?.oclass !== COIN_CLASS) continue;
         lost_money = true;
+        remove_worn_item(otmp, false);
         const idx = invent.indexOf(otmp);
         if (idx >= 0) invent.splice(idx, 1);
         delobj(otmp);
