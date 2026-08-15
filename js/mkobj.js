@@ -1,5 +1,6 @@
 // mkobj.js — Object creation.
-// C ref: mkobj.c — mkobj, mksobj, mkgold, next_ident, mksobj_init (partial).
+// C ref: mkobj.c — mkobj, mksobj, mkgold, next_ident, mksobj_init (partial),
+//        hornoplenty / fixup_oil (D-1031).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
@@ -37,7 +38,7 @@ import {
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
 import { PM_SAMURAI } from './generated/monsters_data.js';
-import { otyp_uses_known, distant_name, doname } from './objnam.js';
+import { otyp_uses_known, distant_name, doname, cxname, The, vtense } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
@@ -49,11 +50,20 @@ import {
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     LS_OBJECT, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
+    IRONBARS, ROOM, IS_ALTAR, IS_SOFT, Is_airlevel, Is_waterlevel,
+    MAX_OIL_IN_FLASK, nothing_happens,
 } from './const.js';
 import { recalc_block_point } from './vision.js';
 import { del_light_source } from './light.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
+const POT_BOOZE = objectNames.indexOf('POT_BOOZE');
+const POT_WATER = objectNames.indexOf('POT_WATER');
+const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
+const POT_OIL = objectNames.indexOf('POT_OIL');
+const FOOD_RATION = objectNames.indexOf('FOOD_RATION');
+const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
@@ -2181,6 +2191,190 @@ export function corpse_revive_type(obj) {
         if (mtmp) revivetype = mtmp.mnum | 0;
     }
     return revivetype;
+}
+
+/**
+ * C invent.c consume_obj_charge — spe--; unpaid/update_inventory deferred.
+ */
+function consume_obj_charge_horn(obj, _maybe_unpaid) {
+    if (!obj) return;
+    obj.spe = (obj.spe | 0) - 1;
+}
+
+/** C objnam.c otense — plural verb if quan!=1, else vtense(null). */
+function otense_horn(obj, verb) {
+    if ((obj?.quan | 0) !== 1) return verb;
+    return vtense(null, verb);
+}
+
+/** C objnam.c aobjnam — count + cxname + optional otense verb. */
+function aobjnam_horn(otmp, verb) {
+    let bp = cxname(otmp);
+    if ((otmp?.quan | 0) !== 1) bp = `${otmp.quan} ${bp}`;
+    if (verb) bp = `${bp} ${otense_horn(otmp, verb)}`;
+    return bp;
+}
+
+/** C objnam.c Doname2 — capitalized doname. */
+function Doname2_horn(obj) {
+    const s = doname(obj);
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+/** C dungeon.c surface — enough for horn drop/hit messages. */
+function surface_horn(x, y) {
+    const typ = game.level?.at(x, y)?.typ ?? 0;
+    if (IS_ALTAR(typ)) return 'altar';
+    if (typ === ICE) return 'ice';
+    if (typ === ROOM) return 'floor';
+    return 'ground';
+}
+
+/**
+ * C mkobj.c fixup_oil — potion age when otyp changes to/from POT_OIL.
+ * source Null → non-oil becoming oil uses MAX_OIL_IN_FLASK (horn/poly).
+ */
+export function fixup_oil(potion, source) {
+    if (!potion) return;
+    if (potion.otyp === POT_OIL) {
+        if (source && source.otyp === POT_OIL) {
+            potion.age = source.age;
+        } else {
+            potion.age = MAX_OIL_IN_FLASK;
+        }
+    } else if (source && source.otyp === POT_OIL) {
+        if (potion.age === source.age) potion.age = game.moves | 0;
+        if ((source.age | 0) < MAX_OIL_IN_FLASK) potion.odiluted = 1;
+    }
+}
+
+/**
+ * C dothrow.c hitfloor — thin altar/soft/drop for horn tipping.
+ * Named omit: hero_breaks / ship_object / dropz(thrown=TRUE).
+ */
+async function hitfloor_horn(obj, verbosely) {
+    const { dropy, doaltarobj } = await import('./do.js');
+    const { pline } = await import('./display.js');
+    const u = game.u || {};
+    const typ = game.level?.at(u.ux | 0, u.uy | 0)?.typ ?? 0;
+    if (IS_SOFT(typ) || u.uinwater || u.uswallow) {
+        await dropy(obj);
+        return;
+    }
+    if (IS_ALTAR(typ)) {
+        await doaltarobj(obj);
+    } else if (verbosely) {
+        await pline(
+            `${Doname2_horn(obj)} ${otense_horn(obj, 'hit')} the ${
+                surface_horn(u.ux | 0, u.uy | 0)
+            }.`,
+        );
+    }
+    await dropy(obj);
+}
+
+/**
+ * C ref: mkobj.c hornoplenty — apply / tip HORN_OF_PLENTY.
+ * consume_obj_charge then rn2(13) potion vs food; magic potions reroll
+ * rnd_class(POT_BOOZE, POT_WATER) skipping SICKNESS; FOOD_RATION rn2(7)
+ * → royal jelly; copy horn BUC; unpaid addtobill; !tipping
+ * hold_another_object; tipping targetbox add_to_container else floor
+ * dropy / doaltarobj. Named omit: check_unpaid inside consume_obj_charge;
+ * update_inventory / perm_invent; hitfloor hero_breaks/ship_object.
+ * @returns {Promise<number>} objects created (0 or 1)
+ */
+export async function hornoplenty(horn, tipping = false, targetbox = null) {
+    const { pline } = await import('./display.js');
+    let objcount = 0;
+
+    if (!horn || horn.otyp !== HORN_OF_PLENTY) {
+        return 0;
+    }
+    if ((horn.spe | 0) < 1) {
+        await pline(nothing_happens);
+        if (!horn.cknown) horn.cknown = 1;
+        return 0;
+    }
+
+    consume_obj_charge_horn(horn, !tipping);
+    let obj;
+    let what;
+    if (!rn2(13)) {
+        obj = mkobj(POTION_CLASS, false);
+        if (game.objects?.[obj.otyp]?.oc_magic) {
+            do {
+                obj.otyp = rnd_class(POT_BOOZE, POT_WATER);
+            } while (obj.otyp === POT_SICKNESS);
+            if (obj.otyp === POT_OIL) fixup_oil(obj, null);
+        }
+        what = ((obj.quan | 0) > 1) ? 'Some potions' : 'A potion';
+    } else {
+        obj = mkobj(FOOD_CLASS, false);
+        if (obj.otyp === FOOD_RATION && !rn2(7)) {
+            obj.otyp = LUMP_OF_ROYAL_JELLY;
+        }
+        what = 'Some food';
+    }
+    objcount++;
+    await pline(`${what} ${vtense(what, 'spill')} out.`);
+    obj.blessed = horn.blessed ? 1 : 0;
+    obj.cursed = horn.cursed ? 1 : 0;
+    obj.owt = weight(obj);
+
+    if (horn.unpaid) {
+        const { addtobill } = await import('./shk.js');
+        await addtobill(obj, false, false, !!tipping);
+    }
+    if (!game.iflags) game.iflags = {};
+    game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
+    try {
+        const u = game.u || {};
+        if (!tipping) {
+            const { hold_another_object } = await import('./invent.js');
+            const typ = game.level?.at(u.ux | 0, u.uy | 0)?.typ ?? 0;
+            const dropFmt = u.uswallow
+                ? 'Oops!  %s out of your reach!'
+                : (Is_airlevel(u.uz) || Is_waterlevel(u.uz)
+                    || typ < IRONBARS || typ >= ICE)
+                    ? 'Oops!  %s away from you!'
+                    : 'Oops!  %s to the floor!';
+            await hold_another_object(
+                obj, dropFmt, The(aobjnam_horn(obj, 'slip')), null,
+            );
+        } else if (targetbox) {
+            add_to_container(targetbox, obj);
+            targetbox.owt = weight(targetbox);
+            if (targetbox.where === OBJ_INVENT) {
+                const { encumber_msg } = await import('./invent.js');
+                await encumber_msg();
+            }
+        } else {
+            const { dropy, doaltarobj } = await import('./do.js');
+            const { can_reach_floor } = await import('./engrave.js');
+            if (!can_reach_floor(true)) {
+                await hitfloor_horn(obj, true);
+            } else {
+                const typ = game.level?.at(u.ux | 0, u.uy | 0)?.typ ?? 0;
+                if (IS_ALTAR(typ)) {
+                    await doaltarobj(obj);
+                } else {
+                    await pline(
+                        `${Doname2_horn(obj)} ${otense_horn(obj, 'drop')} to the ${
+                            surface_horn(u.ux | 0, u.uy | 0)
+                        }.`,
+                    );
+                }
+                await dropy(obj);
+            }
+        }
+    } finally {
+        game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
+    }
+    if (horn.dknown) {
+        const { makeknown } = await import('./invent.js');
+        makeknown(HORN_OF_PLENTY);
+    }
+    return objcount;
 }
 
 export { O as OBJ };

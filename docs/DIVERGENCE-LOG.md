@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1031 — hornoplenty
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `HORN_OF_PLENTY` as unknown
+  (`Sorry, I don't know how to use that.`). C blows the horn (one move).
+- **C locus:** `mkobj.c` `hornoplenty` / `fixup_oil`; `apply.c`
+  `doapply` `HORN_OF_PLENTY`; `pickup.c` `tipcontainer_checks`
+  bag/horn empty-via-apply.
+- **Fix:** doapply dispatch (res stays ECMD_TIME); empty `spe<1`
+  nothing_happens + cknown; consume then `rn2(13)` potion vs food;
+  magic potions `rnd_class(POT_BOOZE, POT_WATER)` skip SICKNESS;
+  `fixup_oil` for POT_OIL; FOOD_RATION `rn2(7)` royal jelly; copy
+  horn BUC + weight; unpaid addtobill; !tipping
+  `hold_another_object`; tipping targetbox `add_to_container` else
+  floor dropy/doaltarobj; floor tip BoT/horn loops until empty.
+  Rule #2: no fs.
+- **Deferred:** `check_unpaid` inside consume_obj_charge;
+  update_inventory / perm_invent; hitfloor `hero_breaks`/`ship_object`;
+  pickup invent getobj tip / tipcontainer_gettarget; shop
+  `check_unpaid_usage` / `subfrombill` after floor BoT/horn;
+  `fig_transform` timer.
+- **Verify:** green+strict PASS; full `sessions` **44**/44 Scr
+  **11405**/11405 RNG **100%** cadence **#1300**. Private node:
+  empty no RNG + cknown; charged food/potion/jelly; cursed BUC
+  copy; apply hold invent. Public traces **unhit**.
+- **Files:** `js/mkobj.js`, `js/apply.js`, `js/pickup.js`.
+
 ## D-1030 — use_unicorn_horn
 
 - **Status:** fixed (map-driven; not a public FAIL)

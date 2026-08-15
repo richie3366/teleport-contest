@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 16:53 — #1300 D-1031 hornoplenty + cadence score
+
+**Objective:** map-driven apply cluster — C `hornoplenty`
+(CURRENT HORN_OF_PLENTY) + cadence full `sessions`.
+**C locus:** `mkobj.c` hornoplenty/fixup_oil; `apply.c` doapply
+HORN_OF_PLENTY; `pickup.c` tipcontainer_checks bag/horn.
+**Change:** doapply dispatch (res TIME); empty spe<1 nothing_happens
++ cknown; rn2(13) potion vs food; magic rnd_class skip sickness;
+FOOD_RATION rn2(7) jelly; BUC copy; hold_another_object / tip
+container or floor drop; floor tip BoT/horn loop. Rule #2: no fs.
+**Score:** full `sessions` **#1300** **44**/44 Scr **11405**/11405
+RNG **100%** speed `31+0.27/turn` (R² 0.867).
+**Verified:** green+strict PASS; suite **44**/44 (seed0105 Scr
+**30**/30; seed0361 Scr **366**/366; seed0009 Scr **73**/73).
+Private node (empty no RNG; food/potion/jelly; cursed BUC; apply
+hold). Path **unhit** by public traces.
+**Next:** fig_transform / attach_fig_transform_timeout.
+**Blocked:** none.
+
 ## 2026-08-15 16:41 — #1299 D-1030 use_unicorn_horn
 
 **Objective:** map-driven apply cluster — C `use_unicorn_horn`
@@ -268,18 +287,4 @@ Rule #2: no fs.
 **Verified:** green+strict PASS; wizard/zap cohort **18**/18.
 Self-cancel path likely **unhit** by public traces.
 **Next:** D-1018 `use_pick_axe` cmdq wield re-apply.
-**Blocked:** none.
-
-## 2026-08-15 13:02 — D-1016 shopdig um_dist snatch polarity
-
-**Objective:** C-wrong Keep — D-0958 snatch ran when shk was far.
-**C locus:** `shk.c` `shopdig` `!um_dist && !helpless && bill`;
-`apply.c` `um_dist`; `worn.c` `setnotworn`.
-**Change:** skip snatch iff `um_dist || helpless || !bill`; snatch
-loop uses exported `do.js` `setnotworn` (extrinsics). Rule #2: no fs.
-**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
-**Verified:** green+strict PASS; shop/dig/wear cohort **9**/9
-(seed0116/0060/0361/1800/0009/0014/0360/0103/0104). Snatch path
-likely **unhit** by public traces — fortress not a snatch proof.
-**Next:** D-1017 `cancel_monst` invent Array vs `nobj`.
 **Blocked:** none.

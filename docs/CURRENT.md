@@ -19,9 +19,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-15** — full `sessions` cadence **#1295**
-(**44**/44, Scr **11405**/11405, RNG **100%**). Speed `30+0.26/turn`
-(R² 0.876). Next cadence @**#1300**.
+Score last measured: **2026-08-15** — full `sessions` cadence **#1300**
+(**44**/44, Scr **11405**/11405, RNG **100%**). Speed `31+0.27/turn`
+(R² 0.867). Next cadence @**#1305**.
 
 ## Score
 
@@ -30,7 +30,7 @@ Score last measured: **2026-08-15** — full `sessions` cadence **#1295**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `30+0.26/turn` (R² 0.876) |
+| Speed label | `31+0.27/turn` (R² 0.867) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -71,9 +71,11 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** apply.js `hornoplenty` (`debt.md` HORN_OF_PLENTY).
-D-1030 `use_unicorn_horn` is Keep’d. Remaining nhl_gamestate
-memcpy u/disco/mvitals/spl_book + `init_uhunger` named in `startup.md`.
+**Next cluster:** `fig_transform` / `attach_fig_transform_timeout`
+(mkobj/timeout; named omit from D-1029). D-1031 `hornoplenty` is
+Keep’d. Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book +
+`init_uhunger` named in `startup.md`. sit.c throne grease spray
+named with `grease_ok` COIN skip.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -85,11 +87,11 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1030. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1031. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1030** (zap/dig/eat/shop/kick/paranoid/allmain/
+**D-0948**…**D-1031** (zap/dig/eat/shop/kick/paranoid/allmain/
 apply whistle·saddle·towel·crystal_ball·blindfold/lenses·**use_stone** +
 **in_trouble majors Stoned…Region + collapsing…cursed_blindfold + minors**
 + **tutorial `setnotworn` extrinsic clear** + **`shopdig(1)` um_dist
@@ -101,11 +103,8 @@ leave-tutorial invent restore** + **`use_royal_jelly` dorub/doapply** +
 **`use_lamp`/`light_cocktail`/`use_trap`/`bagotricks`** +
 **`flip_through_book`/`flip_coin`** +
 **`use_candle`/`use_candelabrum`** +
-**`use_grease`** +
-**`use_tinning_kit`** +
-**`use_bell`** +
-**`use_figurine`** +
-**`use_unicorn_horn`**
+**`use_grease`/`use_tinning_kit`/`use_bell`/`use_figurine`** +
+**`use_unicorn_horn`/`hornoplenty`**
 — do not re-stub).
 **Do not / recent rejects:** invent appear/nearness/FORCE/RNG gates;
 HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194); @1808 page-count
@@ -121,7 +120,7 @@ without `setnotworn`/`setworn` extrinsic clear (D-1015); invert
 drop `objects_at` from `timeout.js` mkobj import (D-0980); drive
 `setnotworn` from `owornmask`+`setworn(null)` (D-1020 — C walks
 `worn[]` by pointer); re-stub
-D-0983…D-1030 clusters already Keep’d above.
+D-0983…D-1031 clusters already Keep’d above.
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/

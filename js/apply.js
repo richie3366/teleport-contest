@@ -59,6 +59,7 @@ import { wield_tool, welded, is_pole } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
+    hornoplenty,
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
@@ -172,6 +173,7 @@ const BELL = objectNames.indexOf('BELL');
 const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
 const FIGURINE = objectNames.indexOf('FIGURINE');
 const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
+const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
 const TIN = objectNames.indexOf('TIN');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
@@ -2604,10 +2606,11 @@ export async function use_tinning_kit(obj) {
  * TINNING_KIT → use_tinning_kit (D-1027) +
  * BELL / BELL_OF_OPENING → use_bell (D-1028) +
  * FIGURINE → use_figurine (D-1029) +
- * UNICORN_HORN → use_unicorn_horn (D-1030).
+ * UNICORN_HORN → use_unicorn_horn (D-1030) +
+ * HORN_OF_PLENTY → hornoplenty (D-1031).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; horn of plenty;
- * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
+ * Medusa/nymph mirror arms;
+ * shop check_unpaid / lamp-oil verbalize; pickup invent getobj tip;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
  * sit.c special_throne_effect grease spray; pickinv handsbuf;
@@ -2861,6 +2864,12 @@ export async function doapply() {
     // C apply.c case UNICORN_HORN → use_unicorn_horn (D-1030); res stays TIME
     if (UNICORN_HORN >= 0 && obj.otyp === UNICORN_HORN) {
         await use_unicorn_horn(obj);
+        return true; // ECMD_TIME
+    }
+
+    // C apply.c case HORN_OF_PLENTY → hornoplenty(obj, FALSE, NULL) (D-1031)
+    if (HORN_OF_PLENTY >= 0 && obj.otyp === HORN_OF_PLENTY) {
+        await hornoplenty(obj, false, null);
         return true; // ECMD_TIME
     }
 
@@ -5291,7 +5300,7 @@ export async function use_trap(otmp) {
 
 /**
  * C ref: makemon.c bagotricks — apply / tip BAG_OF_TRICKS.
- * Named omit: check_unpaid inside consume_obj_charge; pickup tipcontainer.
+ * Named omit: check_unpaid inside consume_obj_charge; pickup invent getobj tip.
  * @returns {Promise<number>} monsters created
  */
 export async function bagotricks(bag, tipping = false, seencount = null) {
