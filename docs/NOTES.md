@@ -16,15 +16,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1041** `thitmonst` weapon hit-vs-miss (D-1022 risk 4).
-  Unattended review **#1308**: D-1040 ACCEPT-WITH-DEBT; D-1041
-  QUALITY-RISK (`find_mac` armor, mulch `rnl`, leader `questarti`).
-  Loop is **fail-closed** (review every 3, cadence every 5 score-only
-  unless Must-fix is open). Agents **commit + `git push`**. Reviews bind:
-  unpaid `reviews/loop-2026-08-15/` C-wrongs are `LOOP-QUEUE.md` **Must-fix**.
-- **Next cluster:** Must-fix — `find_mac` minvent `ARM_BONUS` (review 02).
-  Do not dump tut-1 or yname while that row is first.
-- **Hypothesis:** none live. Falsify `find_mac` against C `worn.c` + green.
+- Latest: **D-1042** `find_mac` minvent `ARM_BONUS` / guarding −2
+  (review 02 item 1). Remaining Must-fix on that review: mulch
+  `rnl` vs `rn2`; leader `urole.questarti`. Loop is **fail-closed**
+  (review every 3, cadence every 5 score-only unless Must-fix is
+  open). Agents **commit + `git push`**.
+- **Next cluster:** Must-fix — `should_mulch_missile` hero `!rnl(4)`
+  (review 02 item 2). Do not dump tut-1 or yname while Must-fix is open.
+- **Hypothesis:** none live. Falsify mulch against C `dothrow.c` + green.
 
 ## Don't re-check (≤15)
 
@@ -61,12 +60,14 @@ Objective/score live in `CURRENT.md`.
   `confdir` inside shared `getdir`. Do not skip `dosit`
   `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
   `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040). Do not restore
-  `thitmonst` always-`tmiss` for WEAPON/weptool/GEM (D-1041).
+  `thitmonst` always-`tmiss` for WEAPON/weptool/GEM (D-1041). Do not
+  restore `find_mac` base-`data.ac` stub (D-1042).
 
 ## Landmarks (≤15)
 
 - Suite after D-1038: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `34+0.29/turn` (R² 0.854). Cadence **#1305**; next @**#1310**.
+- **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
 - **D-1039:** `dosit` trap-before-throne + `dotrap` `VIASITTING`.
 - **D-1041:** `thitmonst` WEAPON/weptool/GEM tmp+dieroll `hmon`/`tmiss`.
 - **D-1040:** pole `glyph_at` targeting (not live `m_at` stand-in).
@@ -79,5 +80,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1032:** fig_transform / attach_fig_transform_timeout.
 - **D-1031:** hornoplenty doapply HORN_OF_PLENTY + floor tip.
 - **D-1030:** use_unicorn_horn doapply UNICORN_HORN + TimedTrouble.
-- **D-1029:** use_figurine doapply FIGURINE + make_familiar.
 

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1042 — find_mac minvent worn ARM_BONUS / amulet of guarding
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1041 `thitmonst` tmp called `find_mac`, but JS returned
+  only `mon.data.ac` (comment “no worn armor peel yet”). An orc in a
+  helmet was easier to hit than C `worn.c`.
+- **C locus:** `worn.c` `find_mac` (~717–735): `base = mon->data->ac`;
+  walk `minvent` where `owornmask & misc_worn_check`; `AMULET_OF_GUARDING`
+  subtracts 2 (not erosion/`spe`); else `ARM_BONUS`; cap `abs` at
+  `AC_MAX` like `find_ac`.
+- **Fix:** port that walk in `worn.js`; `mhitm.js` imports/re-exports.
+  Rule #2: no fs.
+- **Deferred:** mulch `rnl` vs `rn2` (next Must-fix); leader
+  `urole.questarti`; `gem_accept`; `potionhit`; `cutworm`; shop
+  `obfree` on mulch. Hero `find_ac` HProtection wiring still named.
+- **Verify:** green+strict PASS; throw/combat/zap cohort **8**/8
+  (seed0361 Scr **366**/366; seed1800 throw; seed0060 kick;
+  seed2200 zap). Private node **11**/11 (bare; worn helm `a_ac`;
+  unworn pack; mask miss; `spe`/erosion; guarding −2 not `spe`;
+  stack; `AC_MAX` cap; mhitm re-export). Path **unhit** by public
+  traces. Cadence still **#1305**.
+- **Files:** `js/worn.js`, `js/mhitm.js`.
+
 ## D-1041 — thitmonst weapon/weptool/gem hit-vs-miss
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

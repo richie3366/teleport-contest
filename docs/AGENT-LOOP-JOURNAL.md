@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 21:30 — #1309 D-1042 find_mac minvent ARM_BONUS
+
+**Objective:** Must-fix review 02 item 1 — `find_mac` walk monster
+`minvent` worn `ARM_BONUS` / amulet of guarding (thitmonst tmp).
+**C locus:** `worn.c` `find_mac` (~717–735); `hack.h` `ARM_BONUS`.
+**Change:** port the walk in `worn.js`; `mhitm.js` import+re-export
+(local binding; re-export-only left `find_mac` undefined in mattackm).
+Guarding −2 not `spe`/erosion; `AC_MAX` cap after the walk. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1305**; next @**#1310**).
+**Verified:** green+strict PASS; throw/combat/zap cohort **8**/8
+(seed0361 Scr **366**/366; seed1800 throw; seed0060 kick; seed2200
+zap). Private node **11**/11. Path **unhit** by public traces.
+**Next:** Must-fix `should_mulch_missile` hero `!rnl(4)`.
+**Blocked:** none.
+
 ## 2026-08-15 21:20 — #1308 review D-1040 / D-1041
 
 **Objective:** review every JS-touching commit since
@@ -287,23 +302,3 @@ blessed d(2,4); two-trouble shuffle; I_SPECIAL skip; cream-only
 blind skip). Path **unhit** by public traces.
 **Next:** apply.js hornoplenty (HORN_OF_PLENTY).
 **Blocked:** none.
-
-## 2026-08-15 16:28 — #1298 D-1029 use_figurine
-
-**Objective:** map-driven apply cluster — C `use_figurine`
-(CURRENT FIGURINE).
-**C locus:** `apply.c` use_figurine/figurine_location_checks/doapply
-FIGURINE; `dog.c` make_familiar/pick_familiar_pm; `makemon.c`
-MM_IGNOREWATER gpflags.
-**Change:** doapply dispatch (res TIME/OK/CANCEL); swallow room;
-getdir cmdq+self+vertical; loc TIME; You set/release/toss;
-make_familiar extinct dust / shatter / BUC 80-10-10 / initedog;
-stop FIG_TRANSFORM; useup. Rule #2: no fs.
-**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
-**Verified:** green+strict PASS; apply/shared cohort **37**/37
-(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
-**73**/73). Private node (swallow; cancel; wall TIME; extinct
-dust; blessed spawn+useup). Path **unhit** by public traces.
-**Next:** apply.js use_unicorn_horn (UNICORN_HORN).
-**Blocked:** none.
-

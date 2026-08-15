@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1042 | fixed | worn `find_mac` minvent ARM_BONUS | D-1041 tmp used stub base `data.ac`; C walks worn `ARM_BONUS` / guarding −2 + `AC_MAX` |
 | D-1041 | fixed | dothrow `thitmonst` weapon hit-vs-miss | D-1022 always-`tmiss` for WEAPON/weptool/GEM; C tmp+dieroll `hmon`/`tmiss` + APPLIED wakeup |
 | D-1040 | fixed | apply pole `glyph_at` targeting | D-1022 `glyph_is_poleable_at` used live `m_at`/`sobj_at`; C `glyph_at` + skip tame only if monster glyph |
 | D-1039 | fixed | sit `dosit` trap-before-throne | D-1033 skipped `else if (trap)`; JS ran throne RNG on a trapped cell; already-trapped sit + `dotrap` `VIASITTING` |
