@@ -1,0 +1,10 @@
+---
+description: Code comments, docs, and reviews must be written in English
+alwaysApply: true
+---
+
+# English prose
+
+Write **code comments**, **documentation** (`docs/**`, `.cursor/rules/**`, `README*`), and **review files** (`reviews/**`) in **English**. Technical terms, C identifiers, and NetHack jargon are fine untranslated.
+
+Do not write those in French or any other language. Chat replies may still match the user's language.
