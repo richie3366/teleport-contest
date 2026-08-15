@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 19:15 — D-1037 save_timers RANGE_LEVEL + hatch dispatch
+
+**Objective:** map-driven egg where/timer parity then wire HATCH_EGG
+(CURRENT after D-1036 dropped dispatch).
+**C locus:** `timeout.c` save_timers/restore_timers/timer_is_local/
+obj_is_local/mon_is_local; `invent.c` merged obj_stop_timers;
+`zap.c` get_obj_location.
+**Change:** peel RANGE_LEVEL timers into level_info on goto_level
+leave; restore on getlev; merged stops absorbed timers; get_obj_location
+no invent-default; carried is where==INVENT; run_timers → hatch_egg.
+Dump: off-level shop/minefill eggs DROP on_fobj=0. Rule #2: no fs.
+**Score:** full `sessions` **44**/44 Scr **11405**/11405 RNG **100%**
+speed `33+0.28/turn` (R² 0.869). Cadence still **#1305**; next @**#1310**.
+**Verified:** green+strict PASS; seed0014/4500 PASS **with** dispatch
+(was 42/44 without peel).
+**Next:** remaining tut-1 des / nhcore disable.
+**Blocked:** none.
+
 ## 2026-08-15 18:45 — #1305 D-1036 hatch_egg body + cadence score
 
 **Objective:** map-driven timeout cluster — C `hatch_egg` /

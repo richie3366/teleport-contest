@@ -8,25 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.875) cadence **#1305**. Next @**#1310**.
+  speed `33+0.28/turn` R² 0.869) after D-1037 (cadence still **#1305**;
+  next @**#1310**).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1036** `hatch_egg`/`learn_egg_type`/`cry_sound` body.
-  `run_timers` still **drops** HATCH_EGG.
-- **Hypothesis:** JS floor typed eggs (attach OBJ_FREE, fire
-  OBJ_FLOOR) spend hatch RNG; C’s matching timer is a no-op
-  (sterilized NON_PM or not floor — likely contained). Falsify with
-  a **temp C dump** of egg `where`/`corpsenm` at hatch timeout — not
-  another JS dispatch trial.
-- **Next cluster:** C vs JS egg where/timer parity, **then** wire
-  HATCH_EGG; remaining tut-1 des / nhcore disable.
-- **D-1036 held:** private hatch_egg (NON_PM / cry_sound /
-  MV_KNOWS_EGG / leftover quan / invent spe tame). Dispatch trial
-  broke fortress — do not re-wire.
+- Latest: **D-1037** `save_timers(RANGE_LEVEL)` / `restore_timers` +
+  `run_timers` HATCH_EGG dispatch. Off-level floor eggs were firing
+  hatch RNG; C peels those timers on savelev.
+- **Next cluster:** remaining tut-1 des / nhcore disable.
+- **Hypothesis:** none live. Falsify a new cluster against C + green.
 
 ## Don't re-check (≤15)
 
@@ -45,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  hatch_egg body (D-1036) or drop `objects_at` (D-0980).
+  hatch_egg (D-1036/D-1037) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -56,14 +50,16 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball pointers with struct you (D-1035 — C `u`
   has no `uwep`). Do not drive `setnotworn` from `owornmask`/
   `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave.
-  **Do not wire `run_timers` HATCH_EGG** without a C egg-where dump
-  (D-1036). `cry_sound` uses C `monflag.h` numbers, not growl locals.
+  Do not fire object timers for floor/buried/contained objs after
+  leaving their level (D-1037 — peel via `save_timers`). `cry_sound`
+  uses C `monflag.h` numbers, not growl locals.
 
 ## Landmarks (≤15)
 
-- Suite cadence **#1305**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` (R² 0.875).
-- **D-1036:** hatch_egg/learn_egg_type/cry_sound body; dispatch dropped.
+- Suite after D-1037: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `33+0.28/turn` (R² 0.869). Cadence **#1305**; next @**#1310**.
+- **D-1037:** save_timers RANGE_LEVEL + hatch_egg dispatch.
+- **D-1036:** hatch_egg/learn_egg_type/cry_sound body.
 - **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
 - **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
 - **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.

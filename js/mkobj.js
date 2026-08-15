@@ -41,7 +41,9 @@ import { PM_SAMURAI } from './generated/monsters_data.js';
 import { otyp_uses_known, distant_name, doname, cxname, The, vtense } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
-    ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
+    ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON,
+    TIMER_OBJECT, TIMER_LEVEL, TIMER_GLOBAL, TIMER_MONSTER,
+    RANGE_LEVEL,
     MELT_ICE_AWAY, HATCH_EGG, FIG_TRANSFORM, BURN_OBJECT, SHRINK_GLOB,
     MAX_EGG_HATCH_TIME,
     OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_BURIED, OBJ_MINVENT, OBJ_CONTAINED,
@@ -610,14 +612,127 @@ function special_corpse(num) {
  * start_timer inserts by absolute timeout (moves+when); run_timers fires
  * when timeout <= moves. Envelope: ROT_CORPSE → rot_corpse floor extract;
  * HATCH_EGG queued via attach_egg_hatch_timeout (D-0533); hatch_egg
- * body ported (D-1036) but run_timers still drops the callback until
- * egg where matches C; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away (D-0965);
- * REVIVE_MON / ZOMBIFY_MON deferred (no-op fire clears the queue
- * entry). FIG_TRANSFORM → fig_transform (D-1032).
+ * dispatched (D-1036/D-1037); TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away
+ * (D-0965); REVIVE_MON / ZOMBIFY_MON deferred (no-op fire clears the
+ * queue entry). FIG_TRANSFORM → fig_transform (D-1032).
+ * save_timers(RANGE_LEVEL) peels local timers on level leave.
  */
 function timer_base() {
     if (!game._timer_base) game._timer_base = null;
     return game;
+}
+
+/**
+ * C ref: timeout.c insert_timer — ordered by timeout ascending; equal
+ * timeout inserts before the existing node (curr->timeout >= gnu).
+ */
+function insert_timer(gnu) {
+    const g = timer_base();
+    let prev = null;
+    let curr = g._timer_base;
+    while (curr && curr.timeout < gnu.timeout) {
+        prev = curr;
+        curr = curr.next;
+    }
+    gnu.next = curr;
+    if (prev) prev.next = gnu;
+    else g._timer_base = gnu;
+}
+
+/**
+ * C ref: timeout.c mon_is_local — not on migrating_mons / mydogs.
+ */
+function mon_is_local(mon) {
+    if (!mon) return false;
+    for (const curr of game.migrating_mons || []) {
+        if (curr === mon) return false;
+    }
+    for (const curr of game.mydogs || []) {
+        if (curr === mon) return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: timeout.c obj_is_local — floor/buried stay; invent/migrating
+ * follow the hero; contained/minvent recurse. OBJ_FREE panics in C;
+ * JS treats it as non-local so a stale timer is not saved onto a level.
+ */
+function obj_is_local(obj) {
+    if (!obj) return false;
+    switch (obj.where | 0) {
+    case OBJ_INVENT:
+    case OBJ_MIGRATING:
+        return false;
+    case OBJ_FLOOR:
+    case OBJ_BURIED:
+        return true;
+    case OBJ_CONTAINED:
+        return obj_is_local(obj.ocontainer);
+    case OBJ_MINVENT:
+        return mon_is_local(obj.ocarry);
+    default:
+        return false;
+    }
+}
+
+/**
+ * C ref: timeout.c timer_is_local — TIMER_LEVEL always; TIMER_OBJECT
+ * follows obj_is_local; TIMER_GLOBAL never; TIMER_MONSTER via mon.
+ */
+function timer_is_local(timer) {
+    if (!timer) return false;
+    switch (timer.kind | 0) {
+    case TIMER_LEVEL:
+        return true;
+    case TIMER_GLOBAL:
+        return false;
+    case TIMER_OBJECT:
+        return obj_is_local(timer.obj);
+    case TIMER_MONSTER:
+        return mon_is_local(timer.mon);
+    default:
+        return false;
+    }
+}
+
+/**
+ * C ref: timeout.c save_timers — peel RANGE_LEVEL locals (or RANGE_GLOBAL
+ * non-locals) off gt.timer_base. JS in-memory stash returns the peeled
+ * list; no NHFILE. C: !(range==LEVEL xor timer_is_local) → remove.
+ */
+export function save_timers(range) {
+    const wantLocal = (range | 0) === RANGE_LEVEL;
+    const saved = [];
+    const g = timer_base();
+    let prev = null;
+    let curr = g._timer_base;
+    while (curr) {
+        const next = curr.next;
+        if (timer_is_local(curr) === wantLocal) {
+            if (prev) prev.next = next;
+            else g._timer_base = next;
+            curr.next = null;
+            saved.push(curr);
+        } else {
+            prev = curr;
+        }
+        curr = next;
+    }
+    return saved;
+}
+
+/**
+ * C ref: timeout.c restore_timers — re-insert saved elements (adjust 0
+ * for in-memory getlev; bones ghostly timeout+=adjust deferred).
+ */
+export function restore_timers(list) {
+    if (!list) return;
+    for (const t of list) {
+        if (!t) continue;
+        t.next = null;
+        insert_timer(t);
+    }
 }
 
 export function obj_stop_timers(obj) {
@@ -699,15 +814,7 @@ export function start_timer(when, kind, action, arg) {
         obj,
         a_long,
     };
-    let prev = null;
-    let curr = g._timer_base;
-    while (curr && curr.timeout < gnu.timeout) {
-        prev = curr;
-        curr = curr.next;
-    }
-    gnu.next = curr;
-    if (prev) prev.next = gnu;
-    else g._timer_base = gnu;
+    insert_timer(gnu);
     if (isObj) obj.timed = (obj.timed | 0) + 1;
     return when;
 }
@@ -837,9 +944,9 @@ async function rot_corpse(obj) {
  * Called from nh_timeout after intrinsic TIMEOUT handling.
  * Envelope: ROT_CORPSE; ROT_ORGANIC (dig.c); TIMER_LEVEL MELT_ICE_AWAY
  * (D-0965/D-0967); BURN_OBJECT (D-0978); SHRINK_GLOB thin (D-0993);
- * FIG_TRANSFORM (D-1032). Named omit: HATCH_EGG dispatch (body ported
- * D-1036; JS floor typed eggs spend hatch RNG that C does not);
- * REVIVE_MON / ZOMBIFY_MON; full shrink ice/eat catch-up.
+ * FIG_TRANSFORM (D-1032). Named omit: REVIVE_MON / ZOMBIFY_MON;
+ * full shrink ice/eat catch-up. Local timers peel via save_timers
+ * RANGE_LEVEL on goto_level (D-1037).
  */
 export async function run_timers() {
     const g = timer_base();
@@ -867,12 +974,11 @@ export async function run_timers() {
         } else if (curr.action === FIG_TRANSFORM && curr.obj) {
             const { fig_transform } = await import('./apply.js');
             await fig_transform(curr.obj, curr.timeout | 0);
+        } else if (curr.action === HATCH_EGG && curr.obj) {
+            const { hatch_egg } = await import('./timeout.js');
+            await hatch_egg(curr.obj, curr.timeout | 0);
         }
-        // HATCH_EGG body is in timeout.js hatch_egg (D-1036) but run_timers
-        // still drops the entry: wiring it spends rnd/enexto/makemon on JS
-        // floor typed eggs while C's matching timer is a no-op (sterilized
-        // or not floor). Do not dispatch until egg where matches C.
-        // REVIVE_MON / ZOMBIFY_MON also deferred.
+        // REVIVE_MON / ZOMBIFY_MON deferred.
     }
 }
 
@@ -1548,6 +1654,10 @@ function merged(potmp, pobj) {
         otmp.owt = weight(otmp);
     }
     obj_extract_self(obj);
+    // C invent.c merged: "really should merge the timeouts" then
+    // obj_stop_timers(obj) so the absorbed object's HATCH_EGG (etc.)
+    // does not fire after extract.
+    if (obj.timed) obj_stop_timers(obj);
     if (obj.known !== otmp.known) otmp.known = 1;
     if (obj.bknown !== otmp.bknown) otmp.bknown = 1;
     if (obj.rknown !== otmp.rknown) otmp.rknown = 1;

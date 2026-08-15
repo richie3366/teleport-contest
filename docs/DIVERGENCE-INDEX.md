@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1036 | fixed (partial) | timeout `hatch_egg`/`learn_egg_type` + `cry_sound` | C timer callback; JS dropped HATCH_EGG; body ported, dispatch still dropped until egg where matches C |
+| D-1037 | fixed | timeout `save_timers` RANGE_LEVEL + HATCH_EGG dispatch | C peels local timers on savelev; JS kept firing off-level floor eggs; hatch_egg now dispatched |
+| D-1036 | fixed | timeout `hatch_egg`/`learn_egg_type` + `cry_sound` | C timer callback; body D-1036; dispatch D-1037 via save_timers peel |
 | D-1035 | fixed | `nhl_gamestate` memcpy u/disco/mvitals/spl_book + `init_uhunger` | C backup/restore + memset spells + ATEMP; JS invent-only; memcpy skips gi worn ptrs |
 | D-1034 | fixed | sit ordinary `throne_sit_effect` 1–13 | C rnd(13) switch; JS dropped; take_gold + do_genocide REALLY+ONTHRONE |
 | D-1033 | fixed | sit `special_throne_effect` | C Vlad throne 1–13; JS omitted IS_THRONE; grease COIN skip + losexp/seffects wires |

@@ -489,8 +489,8 @@ function Blind() {
 }
 
 function carried(obj) {
-    return !!obj && (obj.where === OBJ_INVENT
-        || (game.invent || []).includes(obj));
+    // C invent.c: #define carried(o) ((o)->where == OBJ_INVENT)
+    return !!obj && obj.where === OBJ_INVENT;
 }
 
 /** C ref: zap.c get_obj_location — invent/floor/minvent + flags. */
@@ -514,11 +514,6 @@ export function get_obj_location(obj, locflags = 0) {
     case OBJ_CONTAINED:
         if (locflags & CONTAINED_TOO) {
             return get_obj_location(obj.ocontainer, locflags);
-        }
-        break;
-    default:
-        if ((game.invent || []).includes(obj)) {
-            return { x: game.u?.ux | 0, y: game.u?.uy | 0 };
         }
         break;
     }
@@ -1001,8 +996,6 @@ export function learn_egg_type(mnum) {
  * floor extract+obfree+hideunder. Named omit: SetVoice before Gleep;
  * update_inventory; migrating #if 0; generated msound (cry_sound default
  * chitter/gurgle); impossible() unknown where.
- * run_timers still drops HATCH_EGG until egg where/timer matches C
- * (JS floor typed eggs spend hatch RNG; C's matching timer is a no-op).
  */
 export async function hatch_egg(egg, timeout) {
     if (!egg) return;

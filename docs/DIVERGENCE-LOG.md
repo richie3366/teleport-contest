@@ -4,9 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-1036 — hatch_egg / learn_egg_type / cry_sound (dispatch deferred)
+## D-1037 — save_timers RANGE_LEVEL + hatch_egg dispatch
 
-- **Status:** fixed (partial — `run_timers` still drops HATCH_EGG)
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** JS `run_timers` kept HATCH_EGG (and other object/spot
+  timers) on the live queue after `goto_level`. Off-level shop/minefill
+  eggs still had `where=OBJ_FLOOR` but were absent from current `fobj`
+  / `_objects_at`. Wiring `hatch_egg` spent `rnd`/`enexto`/`makemon`
+  on those ghosts (seed0014/4500 42/44). C `savelev` peels
+  `timer_is_local` timers so they do not run until getlev.
+- **C locus:** `timeout.c` `save_timers` / `restore_timers` /
+  `timer_is_local` / `obj_is_local` / `mon_is_local` / `insert_timer`;
+  `save.c` `savelev`; `invent.c` `merged` `obj_stop_timers`;
+  `zap.c` `get_obj_location` (no invent-default for OBJ_FREE).
+- **Fix:** in-memory `save_timers(RANGE_LEVEL)` on leave-level stash
+  and `restore_timers` on getlev; `merged` stops absorbed timers;
+  `get_obj_location` matches C switch (no invent includes fallback);
+  timeout `carried` is `where==OBJ_INVENT` only; `run_timers`
+  dispatches `hatch_egg`. Rule #2: no fs.
+- **Deferred:** bones ghostly `timeout+=adjust`; RANGE_GLOBAL save;
+  `kill_eggs` on genocide/level-change; `obj_split_timers`;
+  `impossible()` unknown where; SetVoice; `update_inventory`.
+- **Verify:** dump showed attach via `mkshobj_at`/`load_minefill`/
+  `fill_ordinary_room` then DROP `on_fobj=0` at later dlevel; after
+  peel, no off-level DROP. green+strict PASS; seed0014/4500 PASS
+  **with dispatch**; full `sessions` **44**/44 Scr **11405**/11405
+  RNG **100%** speed `33+0.28/turn` (R² 0.869).
+- **Files:** `js/mkobj.js`, `js/do.js`, `js/timeout.js`, `js/apply.js`
+  (comment).
+
+## D-1036 — hatch_egg / learn_egg_type / cry_sound
+
+- **Status:** fixed (dispatch completed by D-1037)
 - **Symptom:** C `timeout.c` `hatch_egg` is the HATCH_EGG timer
   callback (`learn_egg_type`, `cry_sound`, spawn `big_to_little`).
   JS queued the timer (D-0533) but `run_timers` dropped the action.
@@ -18,20 +47,14 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   NO_MINVENT|MM_NOMSG; `tamedog`; leftover `rnd(12)` re-arm; invent
   `useup` vs floor extract+obfree+`hideunder`). `cry_sound` uses C
   `monflag.h` numbers (local; growl table numbering differs).
-  **Do not dispatch from `run_timers`:** wiring spends hatch RNG on
-  JS floor typed eggs (giant-spider attach OBJ_FREE, fire OBJ_FLOOR)
-  while C traces have no hatch RNG — C's callback is a no-op
-  (sterilized or not floor). Rule #2: no fs.
-- **Deferred:** `run_timers` HATCH_EGG dispatch until egg where
-  matches C; SetVoice; `update_inventory`; migrating `#if 0`;
+  First dispatch trial broke fortress — cause was off-level timers
+  (D-1037), not a wrong hatch body. Rule #2: no fs.
+- **Deferred:** SetVoice; `update_inventory`; migrating `#if 0`;
   generated `msound` (cry_sound defaults chitter/gurgle);
-  `impossible()` unknown where.
+  `impossible()` unknown where. (Dispatch itself: D-1037.)
 - **Verify:** private node (NON_PM; cry_sound; MV_KNOWS_EGG; floor
   lizard hatch; leftover quan; invent spe tame). Dispatch trial
-  broke fortress (seed0014 RNG 45430/59178 Scr 635/714; seed4500
-  100939/108275 Scr 1572/1814). Unwired: green+strict PASS;
-  seed0014/4500 PASS; cadence **#1305** full `sessions` **44**/44
-  Scr **11405**/11405 RNG **100%**.
+  without save_timers: 42/44. After D-1037: 44/44.
 - **Files:** `js/timeout.js`, `js/sounds.js`, `js/mon.js`,
   `js/mkobj.js`, `js/apply.js` (comment).
 

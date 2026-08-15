@@ -15,7 +15,7 @@ import {
     W_ACCESSORY, W_SADDLE, W_BALL, W_CHAIN, INVIS, CLAIRVOYANT, LOST_DROPPED,
     UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_FALLING, UTOTYPE_PORTAL,
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
-    VISITED, LFILE_EXISTS,
+    VISITED, LFILE_EXISTS, RANGE_LEVEL,
     UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX,
     MAGIC_PORTAL, TIMEOUT, BLINDED, RLOC_NOMSG,
     ACH_HELL, ACH_MINE, ACH_SOKO,
@@ -68,6 +68,7 @@ import {
 } from './hack.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
+    save_timers, restore_timers,
 } from './mkobj.js';
 import { ship_object } from './dokick.js';
 import { doname, xname, the, The, vtense, an } from './objnam.js';
@@ -1345,6 +1346,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             updest: snapDest(game.updest),
             dndest: snapDest(game.dndest),
             lastseentyp: snapLastseen(game.lastseentyp),
+            // C save.c savelev → save_timers(RANGE_LEVEL); release peels
+            // local object/spot timers off gt.timer_base so they do not
+            // fire while the hero is on another level (D-1037).
+            timers: save_timers(RANGE_LEVEL),
         };
     }
 
@@ -1431,6 +1436,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             game.lastseentyp = null;
         }
         rebuildObjectsAt(game.fobj);
+        restore_timers(info.timers);
         relight_monsters();
         rest_track(info.track);
         // C: Sokoban ≡ level.flags.sokoban_rules — sync JS alias after getlev
