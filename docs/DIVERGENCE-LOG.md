@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1024 — flip_through_book / flip_coin
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `SPBOOK_CLASS` / `COIN_CLASS` as unknown
+  (`Sorry, I don't know how to use that.`). C flips spellbook pages
+  (BoT/blank/novel/fade) and flips gold (slip/drop vs heads/tails).
+- **C locus:** `apply.c` `flip_through_book` / `flip_coin` / `doapply`
+  oclass dispatch (after wands, before otyp switch).
+- **Fix:** doapply SPBOOK/COIN return; underwater book ECMD_OK; BoT
+  Deaf/Blind/You_hear; blank `makeknown`; fade
+  `min(spestudied, MAX_SPELL_STUDY)`; coin Underwater/Glib/Fumbling/
+  DEX<10 `!rn2(DEX)` then split1+`dropx`; else hallu `rn2(100)` or
+  `rn2(2)`. Rule #2: no fs.
+- **Deferred:** `retouch_object`; Soundeffect rustling; Unaware
+  You_hear/You_see prefixes; Hallucination hcolor display-rng;
+  grease; `use_candle`/`use_candelabrum`.
+- **Verify:** green+strict PASS; apply/doapply cohort **18**/18
+  incl. seed0105 Scr **30**/30, seed0361 Scr **366**/366. Private
+  node: uw book ECMD_OK; blank makeknown; heal TIME; hallu
+  `rn2(100)`; DEX≥10 `rn2(2)`; DEX 5 `rn2(5)`; uw stack split 9.
+  Public traces **unhit**.
+- **Files:** `js/apply.js`.
+
 ## D-1023 — use_lamp / light_cocktail / use_trap / bagotricks
 
 - **Status:** fixed (map-driven; not a public FAIL)

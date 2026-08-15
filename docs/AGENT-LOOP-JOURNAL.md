@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 15:10 — #1293 D-1024 flip_through_book/flip_coin
+
+**Objective:** map-driven apply cluster — C `flip_through_book` /
+`flip_coin` (CURRENT flip book/coin).
+**C locus:** `apply.c` flip_through_book/flip_coin/doapply oclass
+dispatch (after WAND, before otyp switch).
+**Change:** SPBOOK/COIN return; underwater book ECMD_OK; BoT
+Deaf/Blind/You_hear; blank makeknown; fade min(spestudied,3);
+coin slip split1+dropx else rn2(100)/rn2(2). Rule #2: no fs.
+**Score:** last full `sessions` still **#1290** 44/44 (cadence @#1295).
+**Verified:** green+strict PASS; apply/doapply cohort **18**/18
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366). Private node
+(uw book ECMD_OK; blank known; hallu rn2(100); DEX rn2(2)/rn2(5);
+uw stack split 9). Path **unhit** by public traces.
+**Next:** apply.js use_candle / use_candelabrum.
+**Blocked:** none.
+
 ## 2026-08-15 14:55 — #1292 D-1023 oil/use_trap/bagotricks
 
 **Objective:** map-driven apply cluster — C `use_lamp` /
@@ -239,19 +256,4 @@ wire doapply + arti_invoke — D-1010.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
 or blindfold-as-tool / containers.
-**Blocked:** none.
-
-## 2026-07-22 06:12 — #1280 cadence + D-1009 use_towel
-
-**Objective:** cadence full `sessions` @#1280 + map-driven towel
-cluster (CURRENT next apply tools).
-**C locus:** `apply.c` use_towel; `weapon.c` wet/dry_a_towel /
-finish_towel_change / is_wet_towel; `trap.c` burnarmor wet-towel dry.
-**Change:** port use_towel + shared wet/dry helpers; wire doapply
-TOWEL; burnarmor dry path (D-1009). Score refresh in CURRENT.
-**Verified:** green+strict PASS; apply/trap cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Full sessions **43**/44 Scr
-**11404**/11405 RNG **100%** speed `30+0.26/turn`. Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
-or crystal ball.
 **Blocked:** none.

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1024 | fixed | apply `flip_through_book`/`flip_coin` | C doapply SPBOOK/COIN; JS said unknown; fade/BoT/blank + slip dropx |
 | D-1023 | fixed | apply `use_lamp`/`light_cocktail`/`use_trap`/`bagotricks` | C doapply oil/trap/BoT; JS said unknown; begin_burn + occupation + spe-- |
 | D-1022 | fixed | apply `use_whip`/`use_grapple`/`use_pole` + Snickersnee `is_pole` | C doapply dispatch; JS said unknown; wield+cmdq getdir/getpos |
 | D-1021 | fixed | apply `use_royal_jelly` + dorub/doapply | C smear/egg hatch; JS said unknown; kill_egg + GETOBJ_PROMPT |

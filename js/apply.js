@@ -29,6 +29,7 @@ import {
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
+    MAX_SPELL_STUDY,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -54,10 +55,10 @@ import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight,
 } from './mkobj.js';
-import { xname, the, The, makeplural, vtense, doname, an, singular, cxname } from './objnam.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, change_luck, Fumbling } from './attrib.js';
-import { Monnam, mon_nam, x_monnam, y_monnam } from './do_name.js';
+import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination } from './do_name.js';
 import { monflee } from './monmove.js';
 import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
@@ -174,6 +175,9 @@ const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
 const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
 const TOWEL = objectNames.indexOf('TOWEL');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
+const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
+const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
@@ -2049,12 +2053,143 @@ async function use_towel(obj) {
     return ECMD_OK;
 }
 
+/** C apply.c flip_through_book fadeness[] — min(spestudied, MAX_SPELL_STUDY). */
+const SPELLBOOK_FADENESS = [
+    'fresh',
+    'slightly faded',
+    'very faded',
+    'extremely faded',
+    'barely visible',
+];
+
+/** C decl.h NH_RED — c_color_names.c_red. */
+const NH_RED = 'red';
+
+/**
+ * C ref: pline.c You_hear — skip if Deaf; Unaware/Underwater barely /
+ * flags.acoustics deferred.
+ */
+async function You_hear_apply(line) {
+    if (Deaf_hero()) return;
+    await pline(`You hear ${line}`);
+}
+
+/**
+ * C ref: pline.c You_see — Blind → "You sense"; Unaware dream deferred.
+ */
+async function You_see_apply(line) {
+    if (Blind()) await pline(`You sense ${line}`);
+    else await pline(`You see ${line}`);
+}
+
+/**
+ * C ref: do_name.c hcolor — identity when not hallucinating.
+ * Hallucination display-rng hcolors[] synonyms deferred.
+ */
+function hcolor_apply(colorpref) {
+    return colorpref || 'colorless';
+}
+
+/**
+ * C ref: apply.c flip_through_book — apply a spellbook (including blank /
+ * novel / Book of the Dead). Underwater is ECMD_OK (no time); else TIME.
+ * Named omit: Soundeffect rustling; Unaware You_hear/You_see prefixes;
+ * Hallucination hcolor display-rng.
+ * @returns {Promise<number>} ECMD_OK or ECMD_TIME
+ */
+export async function flip_through_book(obj) {
+    if (!obj) return ECMD_FAIL;
+    if (Underwater_hero()) {
+        await pline("You don't want to get the pages even more soggy, do you?");
+        return ECMD_OK;
+    }
+
+    await pline(`You flip through the pages of ${thesimpleoname(obj)}.`);
+
+    if (obj.otyp === SPE_BOOK_OF_THE_DEAD) {
+        if (!Deaf_hero()) {
+            // C: Soundeffect(se_rustling_paper, 50) when !Hallucination — omit
+            const sound = Hallucination() ? 'chuckling' : 'rustling';
+            await You_hear_apply(
+                `the pages make an unpleasant ${sound} sound.`,
+            );
+        } else if (!Blind()) {
+            await You_see_apply(
+                `the pages glow faintly ${hcolor_apply(NH_RED)}.`,
+            );
+        } else {
+            await You_feel('the pages tremble.');
+        }
+    } else if (Blind()) {
+        await pline(`The pages feel ${Hallucination() ? 'freshly picked' : 'rough and dry'}.`);
+    } else if (obj.otyp === SPE_BLANK_PAPER) {
+        await pline(`This spellbook ${Hallucination()
+            ? "doesn't have much of a plot"
+            : 'has nothing written in it'}.`);
+        makeknown(obj.otyp);
+    } else if (Hallucination()) {
+        await pline('You enjoy the animated initials.');
+    } else if (obj.otyp === SPE_NOVEL) {
+        await pline('This looks like it might be interesting to read.');
+    } else {
+        const findx = Math.min(obj.spestudied | 0, MAX_SPELL_STUDY);
+        const magic = game.objects?.[obj.otyp]?.oc_magic ? ' magical' : '';
+        await pline(
+            `The${magic} ink in this spellbook is ${SPELLBOOK_FADENESS[findx]}.`,
+        );
+    }
+
+    return ECMD_TIME;
+}
+
+/**
+ * C ref: apply.c flip_coin — apply gold. Lose if Underwater else Glib /
+ * Fumbling / (DEX<10 && !rn2(DEX)); split 1 then dropx. Else hallu
+ * rn2(100) double-header vs edge, or rn2(2) heads/tails.
+ * @returns {Promise<number>} ECMD_TIME
+ */
+export async function flip_coin(obj) {
+    if (!obj) return ECMD_FAIL;
+    let otmp = obj;
+    let lose_coin = false;
+
+    await pline(`You flip ${an(singular(obj, xname))}.`);
+    if (Underwater_hero()) {
+        await pline('It tumbles away.');
+        lose_coin = true;
+    } else if (Glib_apply() || Fumbling()
+        || (acurr(A_DEX) < 10 && !rn2(acurr(A_DEX)))) {
+        await pline(
+            `It slips between your ${fingers_or_gloves_apply(false)}.`,
+        );
+        lose_coin = true;
+    }
+
+    if (lose_coin) {
+        if ((otmp.quan | 0) > 1) {
+            const split = splitobj(otmp, 1);
+            if (split) otmp = split;
+        }
+        await dropx(otmp);
+        return ECMD_TIME;
+    }
+    if (Hallucination()) {
+        await pline(rn2(100)
+            ? 'Wow, a double header!'
+            : 'The coin miraculously lands on its edge!');
+    } else {
+        await pline(`It comes up ${rn2(2) ? 'heads' : 'tails'}.`);
+    }
+    return ECMD_TIME;
+}
+
 /**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
  * WAND_CLASS → do_break_wand (D-0949 explode-type / D-0950 dig+create /
  * D-0952 strike/cancel/poly/tele/undead bhit + WAN_LIGHT) +
+ * SPBOOK_CLASS → flip_through_book / COIN_CLASS → flip_coin (D-1024) +
  * is_pick/is_axe → use_pick_axe (D-0951) + LEASH → use_leash (D-1005) +
  * SADDLE → use_saddle (D-1008) +
  * TIN_WHISTLE / MAGIC_WHISTLE / EUCALYPTUS_LEAF whistle arms (D-1007) +
@@ -2067,7 +2202,7 @@ async function use_towel(obj) {
  * (D-1022) +
  * OIL_LAMP/MAGIC_LAMP/BRASS_LANTERN → use_lamp / POT_OIL → light_cocktail +
  * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023).
- * Named omissions: retouch_object; flip_through_book; flip_coin;
+ * Named omissions: retouch_object;
  * Medusa/nymph mirror arms; grease; candle/candelabrum/figurine/unihorn;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
@@ -2092,6 +2227,18 @@ export async function doapply() {
     // C: WAND_CLASS → do_break_wand (before tool cases in C after getobj)
     if (obj.oclass === WAND_CLASS) {
         const res = await do_break_wand(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c: SPBOOK_CLASS → flip_through_book (D-1024)
+    if (obj.oclass === SPBOOK_CLASS) {
+        const res = await flip_through_book(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c: COIN_CLASS → flip_coin (D-1024)
+    if (obj.oclass === COIN_CLASS) {
+        const res = await flip_coin(obj);
         return (res & ECMD_TIME) !== 0;
     }
 
