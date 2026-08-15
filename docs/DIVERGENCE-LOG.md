@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1026 — use_grease
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `CAN_OF_GREASE` as unknown
+  (`Sorry, I don't know how to use that.`). C greases a chosen object
+  or hands (`-`), or slips the can when Glib / cursed|Fumbling.
+- **C locus:** `apply.c` `use_grease` / `grease_ok` / `doapply`
+  `CAN_OF_GREASE`; `do_wear.c` `inaccessible_equipment`; `invent.c`
+  `getobj` GETOBJ_PROMPT + hands `grease_ok(NULL)`; `potion.c`
+  `make_glib`.
+- **Fix:** doapply dispatch; Glib / cursed|Fumbling `rn2(2)` slip
+  `consume_obj_charge`+`dropx`; getobj `-` hands / coin exclude /
+  covered armor EXCLUDE_INACCESS then ECMD_OK; object `greased=1`
+  + cursed `rn1(6,10)`; hands `rn1(11,5)`; empty known/seem.
+  Rule #2: no fs.
+- **Deferred:** `consume_obj_charge` unpaid / `update_inventory`;
+  pickinv handsbuf; sit.c `special_throne_effect` grease spray
+  (same COIN skip); tinning kit / bell / figurine / unihorn /
+  horn of plenty.
+- **Verify:** green+strict PASS; full `sessions` **44**/44 Scr
+  **11405**/11405 RNG **100%** cadence **#1295**. Private node:
+  empty known/seem; hands glib 5..15 spe--; cover dagger; cancel;
+  gold cannot; shirt-under-suit ECMD_OK; Glib slip no charge;
+  cmdq `-`. Public traces **unhit**.
+- **Files:** `js/apply.js`.
+
 ## D-1025 — use_candle / use_candelabrum
 
 - **Status:** fixed (map-driven; not a public FAIL)

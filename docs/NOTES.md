@@ -8,22 +8,20 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.876) cadence **#1290**. Next @**#1295**.
+  speed `30+0.26/turn` R² 0.876) cadence **#1295**. Next @**#1300**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1025** `use_candle` / `use_candelabrum` (doapply
-  WAX/TALLOW/CANDELABRUM). Public traces unhit (green+apply cohort
-  still PASS).
-- **Next cluster:** apply.js `use_grease` (CAN_OF_GREASE). Remaining
+- Latest: **D-1026** `use_grease` (doapply CAN_OF_GREASE). Public
+  traces unhit (green+full sessions still PASS).
+- **Next cluster:** apply.js `use_tinning_kit` (TINNING_KIT). Remaining
   nhl_gamestate memcpy u/disco/mvitals/spl_book named in `startup.md`.
-- **D-1025 falsifier (held):** empty/cursed/uw no light; spe7
-  non-inv burn turns 25; snuff; no-candelabrum `use_lamp`; swallow;
-  attach y spe+age; split leftover; n→lamp; invocation known + 125
-  turns.
+- **D-1026 falsifier (held):** empty known/seem; Glib slip no charge;
+  cursed|Fumbling rn2(2) dropx; hands `-` glib 5..15; cover greased;
+  shirt-under-suit ECMD_OK; gold cannot; cmdq `-`.
 
 ## Don't re-check (≤15)
 
@@ -42,14 +40,14 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_candle/use_candelabrum (D-1025) or drop `objects_at` (D-0980).
+  use_grease (D-1026) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
 - `shopdig(1)` skip snatch iff `um_dist || helpless || !bill`.
   `cancel_monst` youdefend walks `game.invent[]`. cmdq pickaxe is
   `doapply` fn + invlet KEY. Tutorial stash needs `setnotworn`.
-- Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
+  Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
 - Do not drive `setnotworn` from `owornmask`/`setworn(null)` — C is
   pointer-equal on `worn[]` (D-1020). Do not `delobj` tutorial loot
   on leave or the jelly lump (`useupall`/`obfree`, no `obj_resists`
@@ -58,8 +56,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite cadence **#1290**: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` (R² 0.876).
+- Suite cadence **#1295**: **44**/44 Scr **11405**/11405 RNG **100%**
+  speed `30+0.26/turn` (R² 0.876).
+- **D-1026:** use_grease doapply CAN_OF_GREASE + inaccessible.
 - **D-1025:** use_candle / use_candelabrum doapply + weight spe.
 - **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
 - **D-1023:** use_lamp/light_cocktail/use_trap/bagotricks.
@@ -73,4 +72,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
 - **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.
-- **D-1011:** pray majors Stoned…Region + make_sick/region/rescue.

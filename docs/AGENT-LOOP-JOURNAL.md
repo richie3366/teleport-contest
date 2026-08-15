@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 15:36 — #1295 D-1026 use_grease + cadence score
+
+**Objective:** map-driven apply cluster — C `use_grease` (CURRENT
+CAN_OF_GREASE) plus mandatory #1295 full `sessions` score.
+**C locus:** `apply.c` use_grease/grease_ok/doapply; `do_wear.c`
+inaccessible_equipment; `invent.c` getobj GETOBJ_PROMPT + hands;
+`potion.c` make_glib.
+**Change:** doapply dispatch; Glib/cursed|Fumbling slip dropx;
+getobj `-` hands / coin exclude / covered EXCLUDE_INACCESS;
+object greased + cursed rn1(6,10); hands rn1(11,5); empty
+known/seem. Rule #2: no fs.
+**Score:** full `sessions` **#1295** **44**/44 Scr **11405**/11405
+RNG **100%** speed `30+0.26/turn` (R² 0.876).
+**Verified:** green+strict PASS; suite **44**/44 (seed0105 Scr
+**30**/30; seed0361 Scr **366**/366). Private node (empty;
+hands glib; cover; cancel; gold; shirt ECMD_OK; Glib slip;
+cmdq `-`). Path **unhit** by public traces.
+**Next:** apply.js use_tinning_kit.
+**Blocked:** none.
+
 ## 2026-08-15 15:25 — #1294 D-1025 use_candle/use_candelabrum
 
 **Objective:** map-driven apply cluster — C `use_candle` /
@@ -244,20 +264,4 @@ confers_luck.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or blindfold-as-tool /
 containers; or pleased pat_on_head gifts.
-**Blocked:** none.
-
-## 2026-07-22 06:31 — #1282 D-1011 in_trouble majors
-
-**Objective:** map-driven — pray in_trouble majors Stoned…Region
-(CURRENT next cluster).
-**C locus:** `pray.c` in_trouble/fix_worst_trouble; `potion.c`
-make_sick; `region.c` region_danger/region_safety; `trap.c`
-rescued_from_terrain/back_on_ground.
-**Change:** port Stoned/Slimed/Strangled/Lava/Sick/Starving/Region
-checks + fix arms; export make_sick; region danger/safety; thin
-lava-rescue terrain feedback — D-1011.
-**Verified:** green+strict PASS; pray/shared cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or collapsing…
-cursed_blindfold + minors; or blindfold-as-tool / containers.
 **Blocked:** none.
