@@ -23,7 +23,7 @@ Reviews bind the next port. Unpaid C-wrongs are in `docs/LOOP-QUEUE.md` **Must-f
 |------|--------|
 | 1 `getdir_whip` vs C `getdir` | **Addressed:** D-1038 `07434534` (`lock.js` `getdir`) |
 | 2 `hurtle_apply` `teleds` | **Addressed:** D-1038 `07434534` (`dothrow.js` `hurtle`/`hurtle_step`) |
-| 3 pole targeting live `m_at` vs glyphs | **Addressed:** D-1040 (C `glyph_at` / `find_poleable_mon`) |
+| 3 pole targeting live `m_at` vs glyphs | **Addressed:** D-1040 `12458fe9` (C `glyph_at` / `find_poleable_mon`) |
 | 4 `thitmonst` hit-vs-miss | **Must-fix** |
 | 5 `yname` / `Amonnam` / `mbodypart` clones | **Must-fix** |
 | 6 `pickup_object` ignores `telekinesis` | **Must-fix** |
