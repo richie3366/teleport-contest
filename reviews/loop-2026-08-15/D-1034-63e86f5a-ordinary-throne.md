@@ -17,7 +17,7 @@ Deliverable: the C switch **and** a `do_genocide(how)` getlin port (caller case 
 
 | Risk | Status |
 |------|--------|
-| 3 `take_gold` without `remove_worn_item` | **Addressed:** D-1049 |
+| 3 `take_gold` without `remove_worn_item` | **Addressed:** D-1049 `9e24f61a` |
 | 4 `dosit` trap skip | **Addressed:** D-1039 `45784d80` (same gap as D-1033) |
 | 1–2 `do_genocide` / partial callees | named omit / unhit — not Must-fix |
 
@@ -80,7 +80,7 @@ Cohort 9/9 including `#sit` seeds. Those seeds **already PASS before** the switc
 ## Risks / debt
 1. `do_genocide` getlin / `name_to_mon` unhit.
 2. `courtmon` / `identify_pack` / `tele` / `aggravate` / `do_mapping` = partial callees.
-3. `take_gold` without `remove_worn_item`. **Addressed:** D-1049
+3. `take_gold` without `remove_worn_item`. **Addressed:** D-1049 `9e24f61a`
 4. `dosit` trap skip (D-1033) still applies: the switch is reached only if the cell has no object **and** JS ignores the trap.
 
 ## Verdict

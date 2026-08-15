@@ -8,16 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `33+0.27/turn` R² 0.868) after D-1046 cadence **#1315**;
-  next @**#1320**.
+  speed `31+0.26/turn` R² 0.871) after review cadence **#1320**;
+  next @**#1325**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1049 `take_gold` `remove_worn_item(FALSE)` before
-  `delobj` (C W_WEAPONS `*gone`; sit local — no steal import).
+- Latest: reviews 09/10 **ACCEPT** D-1048/D-1049 (no new Must-fix).
   Remaining Must-fix: `pickup_object` telekinesis (D-1022 risk 6).
   Loop is **fail-closed** (review every 3, cadence every 5
   score-only unless Must-fix is open). Agents **commit + `git push`**.
@@ -81,8 +80,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after D-1046 cadence **#1315**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `33+0.27/turn` (R² 0.868). Next @**#1320**.
+- Suite after review cadence **#1320**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.26/turn` (R² 0.871). Next @**#1325**.
 - **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`
   (W_WEAPONS `uwepgone`/`uswapwepgone`/`uqwepgone`).
 - **D-1048:** Vlad case 10 `HConfusion` only (no flat `u.Confusion`).

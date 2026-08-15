@@ -19,9 +19,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-15** — full `sessions` after D-1046
-cadence **#1315** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `33+0.27/turn` (R² 0.868). Next cadence @**#1320**.
+Score last measured: **2026-08-16** — full `sessions` after review
+cadence **#1320** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.26/turn` (R² 0.871). Next cadence @**#1325**.
 
 ## Score
 
@@ -30,7 +30,7 @@ Speed `33+0.27/turn` (R² 0.868). Next cadence @**#1320**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `33+0.27/turn` (R² 0.868) |
+| Speed label | `31+0.26/turn` (R² 0.871) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -72,12 +72,13 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** `pickup_object` honors `telekinesis` like C
-(whip/grapple pull-in). Source: D-1022 risk 6. D-1049 shipped
-`take_gold` `remove_worn_item(FALSE)` before `delobj`. Written
-reviews bind: QUALITY-RISK C-wrongs are Must-fix, not optional
-debt. Unattended loop pops **one** queue item per port iter
-(Must-fix before Open). Review every 3; cadence every 5 is
-score-only **unless Must-fix is open**. Agents **commit and
+(whip/grapple pull-in). Source: D-1022 risk 6. Reviews 09/10 **ACCEPT**
+D-1048 (`HConfusion` only) and D-1049 (`take_gold` `remove_worn_item`);
+no new Must-fix. D-1049 shipped `take_gold` `remove_worn_item(FALSE)`
+before `delobj`. Written reviews bind: QUALITY-RISK C-wrongs are
+Must-fix, not optional debt. Unattended loop pops **one** queue item
+per port iter (Must-fix before Open). Review every 3; cadence every 5
+is score-only **unless Must-fix is open**. Agents **commit and
 `git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C

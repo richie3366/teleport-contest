@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 00:12 — #1320 review D-1048/D-1049 + cadence score
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`e395bb74` D-1048, `9e24f61a` D-1049)
+against pinned C, not the journal; cadence full `sessions`.
+**C locus:** `sit.c` `special_throne_effect` case 10 /
+`read.c` `seffect_remove_curse` / `youprop.h` Confusion ≡ HConfusion;
+`sit.c` `take_gold` / `steal.c` `remove_worn_item` W_WEAPONS `*gone`.
+**Change:** reviews 09 ACCEPT (HConfusion save/set/restore; callee
+reads HConfusion only; sibling OR-flat named) and 10 ACCEPT
+(unwear then delobj; sit clone’s live path is real `uqwepgone`).
+No new Must-fix. Filled Addressed hash `9e24f61a`. No `js/` edits.
+Rule #2: no fs.
+**Score:** cadence **#1320** **44**/44 Scr **11405**/11405 RNG **100%**
+speed `31+0.26/turn` (R² 0.871). Next @**#1325**.
+**Verified:** C read of `sit.c:14–33` / `310–323`, `steal.c:213–290`,
+`wield.c:873–902`, `read.c:1489–1605` / `2225–2227`, `youprop.h:83–84`;
+JS hunks grepped FORCE/fs/seed.
+**Next:** Must-fix `pickup_object` telekinesis (D-1022 risk 6).
+**Blocked:** none.
+
 ## 2026-08-16 00:05 — #1319 D-1049 take_gold remove_worn_item
 
 **Objective:** Must-fix D-1034 risk 3 — `take_gold` must
@@ -262,43 +283,4 @@ No `js/` edits. Rule #2: no fs.
 **Verified:** C read of `apply.c:3279–3563`, `dothrow.c:1969–2304`,
 `worn.c:717–735`, `zap.c:3556–3567`; JS hunks grepped FORCE/fs/seed.
 **Next:** Must-fix `find_mac` minvent `ARM_BONUS`.
-**Blocked:** none.
-
-## 2026-08-15 21:05 — #1307 D-1041 thitmonst weapon hit-vs-miss
-
-**Objective:** Must-fix D-1022 risk 4 — pole `thitmonst` hit-vs-miss
-envelope (combat RNG), not always-`tmiss`.
-**C locus:** `dothrow.c` `thitmonst` tmp+dieroll WEAPON/weptool/GEM;
-`uhitm.c` `hmon_hitmon_msg_hit` thrown/APPLIED + `first_weapon_hit`.
-**Change:** C to-hit (Luck/DEX/`distmin`/`omon_adj` `!rn2(10)`);
-kicked/ammo/thrown/applied bonuses; hit `hmon`+`exercise`+mulch+
-`passive_obj`; miss `tmiss` + APPLIED `wakeup`. Thrown hit pline.
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1305**; next @**#1310**).
-**Verified:** green+strict PASS; throw/kick/combat cohort **10**/10
-(seed0361 Scr **366**/366; seed1800 throw; seed0060 kick). Private
-node **10**/10 (AC hit/miss; APPLIED wakeup; frozen `rn2(10)` before
-dieroll; pie DEX; armor skip; hook weptool). Path **unhit** by public
-traces.
-**Next:** Must-fix whip/pole/grapple `yname`/`Amonnam`/`mbodypart`
-(D-1022 risk 5).
-**Blocked:** none.
-
-## 2026-08-15 20:50 — #1306 D-1040 pole glyph_at targeting
-
-**Objective:** Must-fix D-1022 risk 3 — `glyph_is_poleable_at` /
-`find_poleable_mon` follow C `glyph_at`, not live `m_at`.
-**C locus:** `apply.c` find_poleable_mon / get_valid_polearm_position /
-use_pole; `display.c` glyph_at; `display.h` glyph_is_monster/statue/
-invisible.
-**Change:** classify shown layer (monster glyph / I / statue glyph);
-skip tame/peaceful only when `glyph_is_monster` && `m_at`; statue/
-boulder hit = glyph_at && sobj_at. `map_object` tags statue/boulder
-memory. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1305**; next @**#1310**).
-**Verified:** green+strict PASS; apply/combat/display cohort **10**/10
-(seed0361 Scr **366**/366; seed0399 Scr **532**/532). Private node
-**12**/12 (hidden `m_at`; `I`; tame skip; peaceful `I`; statue not
-autotarget). Path **unhit** by public traces.
-**Next:** Must-fix pole `thitmonst` hit-vs-miss (D-1022 risk 4).
 **Blocked:** none.
