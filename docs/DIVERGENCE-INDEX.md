@@ -5,7 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1046 | fixed | apply `light_cocktail` `struct obj **` | D-1023 took obj by value; C writes `*optr` after snuff-merge/`addinv` and split/`hold_another_object` |
 | D-1045 | fixed | apply/objnam/do_name/polyself whip names | D-1022 clones: `the(xname)` / `highc(mon_nam)` / hero `body_part`; C `yname`/`Amonnam`/`mbodypart` |
+| D-1044 | fixed | dothrow `special_obj_hits_leader` `urole.questarti` | D-1041 used `u.questarti`; C `is_quest_artifact` reads `gu.urole.questarti` |
 | D-1043 | fixed | dothrow `should_mulch_missile` hero `rnl(4)` | D-1041 blessed hero save used `rn2(4)`; C `dothrow.c` uses luck-biased `rnl(4)` |
 | D-1042 | fixed | worn `find_mac` minvent ARM_BONUS | D-1041 tmp used stub base `data.ac`; C walks worn `ARM_BONUS` / guarding −2 + `AC_MAX` |
 | D-1041 | fixed | dothrow `thitmonst` weapon hit-vs-miss | D-1022 always-`tmiss` for WEAPON/weptool/GEM; C tmp+dieroll `hmon`/`tmiss` + APPLIED wakeup |

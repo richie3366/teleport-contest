@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1046 — light_cocktail takes/updates `struct obj **`
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1023 risk 4. JS `light_cocktail(obj0)` took the flask
+  by value. C `apply.c` `light_cocktail(struct obj **optr)` writes
+  `*optr = addinv(obj)` after unworn snuff-merge and `*optr = obj`
+  after split/`hold_another_object`. `doapply` calls
+  `light_cocktail(&obj)` so later `arti_speak` (still deferred)
+  would see the child/merged pointer, not the pre-split stack.
+- **C locus:** `apply.c` `light_cocktail` (~1703–1765); caller
+  `doapply` `POT_OIL` `light_cocktail(&obj)` (~4349).
+- **Fix:** JS takes `{ obj }` (C `struct obj **`). Snuff+`!owornmask`
+  assigns `optr.obj = addinv(obj)`; light path assigns `optr.obj = obj`
+  after split/hold. Swallow / underwater / worn-snuff leave `*optr`
+  unchanged. `doapply` uses `let obj` and `light_cocktail(&obj)`.
+  Rule #2: no fs.
+- **Deferred:** shop `check_unpaid` / SetVoice “in addition”;
+  `arti_speak` after doapply; `use_candle`/`use_bell`/`use_figurine`
+  still take obj by value (C `**` too); `consume_obj_charge` unpaid.
+- **Verify:** green+strict PASS; apply cohort **9**/9
+  (seed0361 Scr **366**/366; seed0105/0009/0012/0060/0102/1500/
+  1800/2200). Private node **13**/13 (swallow/uw/worn leave
+  `*optr`; snuff-merge `*optr` is survivor; split `*optr` is
+  quan-1 child). Path **unhit**. Cadence **#1315** **44**/44.
+- **Files:** `js/apply.js`.
+
 ## D-1045 — whip/pole/grapple names: real `yname` / `Amonnam` / `mbodypart`
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

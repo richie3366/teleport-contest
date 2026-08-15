@@ -8,25 +8,24 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.874) after D-1043 cadence **#1310**;
-  next @**#1315**.
+  speed `33+0.27/turn` R² 0.868) after D-1046 cadence **#1315**;
+  next @**#1320**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews **05** (`d9febc3c` D-1044) and **06**
-  (`e8884a53` D-1045) **ACCEPT** against pinned C. Remaining
-  Must-fix: `light_cocktail` `struct obj **` (D-1023 risk 4).
+- Latest: D-1046 `light_cocktail` `struct obj **` (D-1023 risk 4).
+  Remaining Must-fix: `consume_obj_charge` unpaid/shop (D-1023 risk 3).
   Loop is **fail-closed** (review every 3, cadence every 5
   score-only unless Must-fix is open). Agents **commit +
   `git push`**.
-- **Next cluster:** Must-fix — `light_cocktail` must take/update
-  `struct obj **` like C `apply.c`. Read D-1023 review first.
-  Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** none live. Falsify light_cocktail `obj **` against
-  C `apply.c` + green.
+- **Next cluster:** Must-fix — `consume_obj_charge` unpaid/shop path
+  (not `spe--` only). Source: D-1023 risk 3. Do not dump tut-1
+  while Must-fix is open.
+- **Hypothesis:** none live. Falsify consume_obj_charge against C
+  `mkobj.c`/`apply.c` + green.
 
 ## Don't re-check (≤15)
 
@@ -73,12 +72,14 @@ Objective/score live in `CURRENT.md`.
   `special_obj_hits_leader` `game.u.questarti` (D-1044 — C
   `urole.questarti`). Do not restore apply `yname`/`Amonnam`/
   `mbodypart` clones (D-1045 — C `yname`/`highc(a_monnam)` /
-  `mbodypart(mtmp)`).
+  `mbodypart(mtmp)`). Do not restore `light_cocktail(obj0)` by-value
+  (D-1046 — C `struct obj **`).
 
 ## Landmarks (≤15)
 
-- Suite after D-1043: **44**/44 Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` (R² 0.874). Cadence **#1310**; next @**#1315**.
+- Suite after D-1046 cadence **#1315**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `33+0.27/turn` (R² 0.868). Next @**#1320**.
+- **D-1046:** `light_cocktail` `{obj}` / `*optr` snuff-merge + split.
 - **D-1045:** whip `yname`/`Amonnam`/`mbodypart` (not apply clones).
 - **D-1044:** `special_obj_hits_leader` `urole.questarti`.
 - **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
@@ -91,5 +92,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1036:** hatch_egg/learn_egg_type/cry_sound body.
 - **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
 - **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
-- **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
 

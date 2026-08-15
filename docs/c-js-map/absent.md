@@ -30,7 +30,7 @@ This is a planning list, not an exhaustive C file inventory:
   Blindf_on/off** via D-1013; **`use_stone` graystone/touchstone** via
   D-1014; containers already wired via `use_container`;
   **whip/grapple/`use_pole` D-1022** + **pole `glyph_at` D-1040** + **`thitmonst` hit-vs-miss D-1041** + **shared getdir/`hurtle` D-1038** + **whip `yname`/`Amonnam`/`mbodypart` D-1045**;
-  oil still deferred;
+  **oil lamp/cocktail/trap/BoT D-1023** + **`light_cocktail` `struct obj **` D-1046** (shop unpaid / `consume_obj_charge` still named);
   **`use_royal_jelly` D-1021**);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing (sellobj/check_shop_obj

@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 22:40 — #1315 D-1046 light_cocktail struct obj **
+
+**Objective:** Must-fix D-1023 risk 4 — `light_cocktail` takes/updates
+`struct obj **` like C `apply.c`.
+**C locus:** `apply.c` `light_cocktail` (~1703–1765); `doapply`
+`POT_OIL` `light_cocktail(&obj)` (~4349).
+**Change:** JS `{ obj }` box. Snuff+`!owornmask` `*optr = addinv`;
+light path `*optr = obj` after split/hold. Swallow/uw/worn-snuff
+leave `*optr`. `doapply` `let obj` + `&obj`. Rule #2: no fs.
+**Score:** cadence **#1315** **44**/44 Scr **11405**/11405 RNG
+**100%** speed `33+0.27/turn` (R² 0.868). Next @**#1320**.
+**Verified:** green+strict PASS; apply cohort **9**/9
+(seed0361 Scr **366**/366). Private node **13**/13 (snuff-merge
+survivor; split child). Path **unhit**.
+**Next:** Must-fix `consume_obj_charge` unpaid/shop (D-1023 risk 3).
+**Blocked:** none.
+
 ## 2026-08-15 22:20 — review D-1044 / D-1045 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -258,40 +275,4 @@ re-stub D-1033/D-1034 throne switches.
 **Verified:** green+strict PASS; seed0106/0107/4500/0014/0360/2200 PASS.
 **Next:** remaining tut-1 des (large-box / food / stairs / kelp /
 `place_lregion` / tut_key) + nhcore callback disable.
-**Blocked:** none.
-
-## 2026-08-15 19:50 — D-1038 shared getdir + hurtle_step
-
-**Objective:** Keep’d D-1022 C-wrongs — real `getdir`, not `getdir_whip`;
-`hurtle` via `hurtle_step` not `teleds`.
-**C locus:** `cmd.c` `getdir`; `dothrow.c` `hurtle` / `hurtle_step`;
-`apply.c` `use_whip` / `use_grapple`.
-**Change:** `lock.js` getdir cmdq DIR/KEY, `.`/`s`, `<>`, movecmd
-walk/run/rush, optional numpad, `^R` retry. No trailing confdir (whip
-already confdirs). Apply deletes getdir_whip/self_ok/fig. `dothrow.js`
-hurtle: tug / typed trap-anchor / nomul(-range) / wall·mon stop /
-u_on_newpos. Throw path still `getdir_cmdassist`. Docs/reviews
-`loop-2026-08-15/` rewritten in English.
-**Score:** full `sessions` **44**/44 Scr **11405**/11405 RNG **100%**
-speed `34+0.29/turn` (R² 0.854). Cadence still **#1305**; next @**#1310**.
-**Verified:** green+strict PASS; 44/44.
-**Next:** `dosit` `else if (trap)` before IS_THRONE (D-1033), then tut-1.
-**Blocked:** none.
-
-## 2026-08-15 19:15 — D-1037 save_timers RANGE_LEVEL + hatch dispatch
-
-**Objective:** map-driven egg where/timer parity then wire HATCH_EGG
-(CURRENT after D-1036 dropped dispatch).
-**C locus:** `timeout.c` save_timers/restore_timers/timer_is_local/
-obj_is_local/mon_is_local; `invent.c` merged obj_stop_timers;
-`zap.c` get_obj_location.
-**Change:** peel RANGE_LEVEL timers into level_info on goto_level
-leave; restore on getlev; merged stops absorbed timers; get_obj_location
-no invent-default; carried is where==INVENT; run_timers → hatch_egg.
-Dump: off-level shop/minefill eggs DROP on_fobj=0. Rule #2: no fs.
-**Score:** full `sessions` **44**/44 Scr **11405**/11405 RNG **100%**
-speed `33+0.28/turn` (R² 0.869). Cadence still **#1305**; next @**#1310**.
-**Verified:** green+strict PASS; seed0014/4500 PASS **with** dispatch
-(was 42/44 without peel).
-**Next:** remaining tut-1 des / nhcore disable.
 **Blocked:** none.

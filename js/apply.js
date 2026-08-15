@@ -2575,7 +2575,8 @@ export async function doapply() {
         return false; // ECMD_OK
     }
 
-    const obj = await getobj_apply();
+    // C doapply: struct obj *obj is mutated via &obj (light_cocktail, …)
+    let obj = await getobj_apply();
     if (!obj) return false;
 
     // C: WAND_CLASS → do_break_wand (before tool cases in C after getobj)
@@ -2840,9 +2841,11 @@ export async function doapply() {
         return true; // ECMD_TIME
     }
 
-    // C apply.c case POT_OIL → light_cocktail (D-1023)
+    // C apply.c case POT_OIL → light_cocktail(&obj) (D-1023 / D-1046)
     if (obj.otyp === POT_OIL) {
-        await light_cocktail(obj);
+        const optr = { obj };
+        await light_cocktail(optr);
+        obj = optr.obj;
         return true; // ECMD_TIME
     }
 
@@ -5185,11 +5188,15 @@ export async function use_lamp(obj) {
 }
 
 /**
- * C ref: apply.c light_cocktail — apply POT_OIL as a lit flask.
+ * C ref: apply.c light_cocktail(struct obj **optr) — apply POT_OIL as a
+ * lit flask. Writes *optr after snuff-merge (addinv) and after
+ * split/hold; swallow / underwater / worn-snuff leave *optr unchanged.
  * Named omit: shop check_unpaid + SetVoice "in addition to the cost".
+ * @param {{ obj: object|null }} optr
  */
-export async function light_cocktail(obj0) {
-    let obj = obj0;
+export async function light_cocktail(optr) {
+    // C: struct obj *obj = *optr
+    let obj = optr?.obj;
     if (!obj) return;
     const u = game.u || {};
 
@@ -5202,7 +5209,7 @@ export async function light_cocktail(obj0) {
         end_burn(obj, true);
         if (!obj.owornmask) {
             freeinv_apply(obj);
-            obj = await addinv(obj);
+            optr.obj = await addinv(obj);
         }
         return;
     }
@@ -5233,6 +5240,7 @@ export async function light_cocktail(obj0) {
         obj = await hold_another_object(obj, 'You drop %s!', doname(obj), null);
         if (obj) obj.nomerge = 0;
     }
+    optr.obj = obj;
 }
 
 /**
