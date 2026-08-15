@@ -5,6 +5,7 @@ import { game } from './gstate.js';
 import {
     TIMEOUT, FROMOUTSIDE, FUMBLING, FAST, FOOT, ICE, STRAT_WAITMASK,
     UNCHANGING, LAST_PROP, WOUNDED_LEGS, CONFUSION, BLINDED, DEAF,
+    GLIB,
     STUNNED, HALLUC, LEVITATION, INVIS, SEE_INVIS, CLAIRVOYANT,
     TELEPORT, REGENERATION,
     OBJ_INVENT, OBJ_FLOOR, OBJ_MINVENT, OBJ_MIGRATING, OBJ_FREE,
@@ -66,6 +67,7 @@ const TIMEOUT_FLAT = {
     [TELEPORT]: 'HTeleportation',
     [REGENERATION]: 'HRegeneration',
     [FAST]: 'HFast',
+    [GLIB]: 'Glib',
 };
 
 /** C ref: weight.h WT_NOISY_INV — inv_weight() threshold for noisy fumbling. */
@@ -232,7 +234,7 @@ function incr_itimeout_HFumbling(incr) {
  * switch cases for those props still deferred (silent clear).
  * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues;
  * STUNNED/INVIS/SEE_INVIS/HALLUC/SLEEPY/LEVITATION/… expiry messages;
- * Glib; ublesscnt (in allmain); usptime; ugallop; delayed
+ * GLIB `make_glib(0)` inventory on expiry; ublesscnt (in allmain); usptime; ugallop; delayed
  * killers; defer_decor; full ice/mount slip_or_trip arms;
  * you_unwere callers beyond mtimedone (pray TROUBLE / potion).
  * u.uinvulnerable early-return freezes all TIMEOUT (D-0928 #1171).
@@ -383,6 +385,7 @@ export async function nh_timeout() {
                 u.Hallucination = !!(u.HHallucination & TIMEOUT);
             }
             if (p === STUNNED) u.Stunned = u.HStun;
+            if (p === GLIB) u.HGlib = next;
         }
         // Expiry switch (STONED/HALLUC/INVIS/…) deferred — silent clear.
     }

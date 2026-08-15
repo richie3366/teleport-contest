@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1052 | fixed | apply/potion cursed-lamp `make_glib` Glib TIMEOUT | D-1023 `use_lamp` used `(u.Glib\|0)&TIMEOUT`; C `Glib` ≡ `uprops[GLIB].intrinsic`; remaining `(HGlib\|EGlib)&TIMEOUT` |
 | D-1051 | fixed | apply `u_wipe_engr` + S_goodpos `tmp_at` | D-1022 no-ops; C `u_wipe_engr`→`wipe_engr_at`; pole/grapple/jump `tmp_at(DISP_BEAM,S_goodpos)` |
 | D-1050 | fixed | pickup `pickup_object` telekinesis | D-1022 voided flag; C whip TRUE silent encumbrance refuse + remote corpse/scare `raise`; grapple FALSE ynq |
 | D-1049 | fixed | sit `take_gold` `remove_worn_item` | D-1034 spliced invent + `delobj` only; C `remove_worn_item(otmp, FALSE)` then `delobj` (quiver gold → `uqwepgone`) |

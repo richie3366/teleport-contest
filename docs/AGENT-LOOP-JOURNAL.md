@@ -21,6 +21,21 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 01:32 — #1324 D-1052 cursed-lamp make_glib Glib TIMEOUT
+
+**Objective:** Must-fix — cursed-lamp `make_glib` remaining timeout
+must match C `(Glib&TIMEOUT)` / review `HGlib|EGlib`.
+**C locus:** `apply.c` `use_lamp` (~1673); `potion.c` `make_glib`
+`set_itimeout(&Glib)`; `youprop.h` Glib ≡ `uprops[GLIB].intrinsic`.
+**Change:** export `Glib()` as HGlib|EGlib; `make_glib` writes
+intrinsic + HGlib/Glib mirrors; `use_lamp`/`use_towel`/`use_grease`
+use `(Glib()&TIMEOUT)`; `nh_timeout` TIMEOUT_FLAT GLIB. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
+**Verified:** green+strict PASS; apply/timeout cohort **8**/8;
+private node remainder 20→27 and `nh_timeout` 5→2. Path unhit.
+**Next:** Must-fix `cry_sound` C `monflag.h` numbers (D-1036 risk 3).
+**Blocked:** none.
+
 ## 2026-08-16 01:20 — #1323 review D-1050/D-1051 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -277,18 +292,4 @@ supervisor runs it if leftover `[x]` remain. Drained D-1040–D-1043.
 **Score:** unchanged (cadence still **#1310**).
 **Verified:** helper no-op on unchecked-only queue; `bash -n` loop script.
 **Next:** Must-fix `special_obj_hits_leader` `urole.questarti`.
-**Blocked:** none.
-
-## 2026-08-15 21:42 — Addressed HASH in the next real commit
-
-**Objective:** stop stamp-only SHAs (`da0fabe3`…`9c087297`) and hash
-chicken-egg spinning.
-**C locus:** n/a (git hygiene).
-**Change:** stamp `**Addressed:** D-NNNN` in the fix commit; fill the
-short hash in the **next** commit that already has work (port / review /
-cadence). No amend, no hash prediction, no stamp-only follow-up.
-**Score:** unchanged (cadence still **#1310**).
-**Verified:** n/a.
-**Next:** Must-fix `special_obj_hits_leader` `urole.questarti` (and
-backfill any missing hash in that same SHA).
 **Blocked:** none.

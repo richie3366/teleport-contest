@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1052 — cursed-lamp make_glib Glib TIMEOUT
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1023 `use_lamp` gap. JS
+  `make_glib(((u.Glib|0)&TIMEOUT)+d(2,10))` read a flat `u.Glib`.
+  C `Glib` is `u.uprops[GLIB].intrinsic` (`youprop.h`; no EGlib).
+  Remaining timeout is `(HGlib|EGlib)&TIMEOUT` (H ≡ intrinsic,
+  E ≡ extrinsic). Flat-only `u.Glib` never ticked in `nh_timeout`,
+  so a second spill added `d(2,10)` to a frozen remainder.
+- **C locus:** `apply.c` `use_lamp` (~1673)
+  `make_glib((int)(Glib&TIMEOUT)+d(2,10))`; `potion.c` `make_glib`
+  `set_itimeout(&Glib, xtime)`; `youprop.h` `#define Glib
+  u.uprops[GLIB].intrinsic`; `timeout.c` generic TIMEOUT `--`.
+- **Fix:** `Glib()` reads `uprops[GLIB].intrinsic|extrinsic`.
+  `make_glib` `set_itimeout`s the intrinsic and mirrors `u.HGlib` /
+  `u.Glib`. `use_lamp` (and apply `use_towel`/`use_grease` extracts)
+  use `(Glib()&TIMEOUT)`. `nh_timeout` TIMEOUT_FLAT `[GLIB]='Glib'`.
+  Rule #2: no fs.
+- **Deferred:** `make_glib(0)` inventory on GLIB expiry; potion dip
+  oil spill (same C expression, not in `use_lamp`); eat greasy-tin
+  `alreadyglib`; wizcmds `#wizintrinsic` GLIB special arm.
+- **Verify:** green+strict PASS; apply/timeout cohort **8**/8
+  (seed0361 Scr **366**/366; seed4500 **1814**/1814; seed2200
+  **230**/230; seed0012 **308**/308; seed0009 **73**/73;
+  seed0017 **67**/67; seed0077 **33**/33; seed0102 **25**/25).
+  Private node: `make_glib(20)` writes uprops/HGlib; add 7 → 27;
+  leftover flat 12; `nh_timeout`×3 from 5 → remaining 2. Path
+  **unhit** on public traces.
+- **Files:** `js/potion.js`, `js/apply.js`, `js/timeout.js`.
+
 ## D-1051 — apply u_wipe_engr + S_goodpos tmp_at
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

@@ -108,7 +108,7 @@ import { make_familiar } from './dog.js';
 import { addinv } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
 import {
-    make_glib, make_sick, make_confused, make_stunned, make_vomiting,
+    make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
     make_hallucinated, make_deaf,
 } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
@@ -1932,7 +1932,7 @@ async function use_towel(obj) {
     if (obj.cursed) {
         switch (rn2(3)) {
         case 2: {
-            const old = (u.Glib | 0) & TIMEOUT;
+            const old = Glib() & TIMEOUT;
             make_glib((old | 0) + rn1(10, 3));
             await pline(
                 `Your ${makeplural(body_part(HAND))} ${
@@ -1985,7 +1985,7 @@ async function use_towel(obj) {
         }
     }
 
-    if ((u.Glib | 0) & TIMEOUT) {
+    if (Glib()) {
         make_glib(0);
         await pline(
             `You wipe off your ${
@@ -2377,7 +2377,7 @@ export async function use_grease(obj) {
         }
         await consume_obj_charge(obj, true);
 
-        const oldglib = (game.u?.Glib | 0) & TIMEOUT;
+        const oldglib = Glib() & TIMEOUT;
         if (otmp !== hands_obj) {
             await pline(
                 `You cover ${yname(otmp)} with a thick layer of grease.`,
@@ -3427,7 +3427,8 @@ function Flying_apply() {
 }
 
 function Glib_apply() {
-    return !!((game.u?.Glib | 0) || (game.u?.HGlib | 0));
+    // C youprop.h Glib — (HGlib|EGlib); Glib is intrinsic-only in C.
+    return !!Glib();
 }
 
 function Stone_resistance_apply() {
@@ -5147,6 +5148,8 @@ async function use_unpaid_trapobj(otmp, _x, _y) {
 /**
  * C ref: apply.c use_lamp — light or snuff oil lamp / magic lamp / lantern
  * (candle arms included; doapply candles dispatch use_candle, D-1025).
+ * Cursed spill: make_glib((Glib&TIMEOUT)+d(2,10)) — Glib is
+ * (HGlib|EGlib) remaining timeout, not a flat `u.Glib` boolean (D-1052).
  * Named omit: shop check_unpaid; candle unpaid SetVoice / bill_dummy.
  */
 export async function use_lamp(obj) {
@@ -5185,7 +5188,7 @@ export async function use_lamp(obj) {
             await pline(
                 `The lamp spills and covers your ${fingers_or_gloves_apply(true)} with oil.`,
             );
-            make_glib(((game.u?.Glib | 0) & TIMEOUT) + d(2, 10));
+            make_glib((Glib() & TIMEOUT) + d(2, 10));
         } else if (!Blind()) {
             await pline(
                 `${Tobjnam_oil(obj, 'flicker')} for a moment, then ${otense_oil(obj, 'die')}.`,

@@ -19,7 +19,7 @@ Deliverable: **four** C functions with no caller/callee link (lamp, oil flask, t
 |------|--------|
 | 3 `consume_obj_charge` = `spe--` only | **Addressed:** D-1047 `2ca2ccd7` |
 | 4 `light_cocktail` without C `**optr` | **Addressed:** D-1046 `3371ddf0` |
-| `use_lamp` Glib `(u.Glib\|0)&TIMEOUT` vs C `HGlib\|EGlib` | **Must-fix** |
+| `use_lamp` Glib `(u.Glib\|0)&TIMEOUT` vs C `HGlib\|EGlib` | **Addressed:** D-1052 |
 | `makemon(NULL)` / `dotrap` / `begin_burn` still-partial | named omit — not Must-fix |
 
 ## Inventory
@@ -94,3 +94,4 @@ Green + apply cohort. Public **unhit**. Private journal node (not re-read here):
 
 **Addressed:** D-1047 `2ca2ccd7`
 **Addressed:** D-1046 `3371ddf0`
+**Addressed:** D-1052
