@@ -8,17 +8,22 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `33+0.27/turn`) after **D-1015**. Next cadence @**#1290**.
+  speed `33+0.27/turn`) last full measure **D-1015**. Next cadence
+  @**#1290**. D-1016 held green+shop/dig cohort 9/9 (snatch unhit).
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1015** tutorial `setnotworn` clears oc_oprop extrinsics
-  (seed0009 Scr 72→73).
-- **Next cluster:** absent.md thin (scroll/vault/potions); or
-  whip/grapple/jelly/use_pole/oil; or pleased pat_on_head gifts.
+- Latest: **D-1016** `shopdig(1)` snatch `um_dist` De Morgan +
+  `setnotworn` (D-0958 was inverted; public suite likely unhit).
+- **Next cluster:** D-1017 `cancel_monst` invent Array vs `nobj`
+  (ABON self-cancel). Then cmdq pickaxe / sellobj / setnotworn
+  pointer. Not absent.md/whip until those Keeps are honest.
+- **D-1016 falsifier (held):** shk Chebyshev ≤5 + bill + `shopdig(1)`
+  → backpack pline + invent snatch; dist >5 → no snatch. Public
+  9/9 cohort PASS does **not** prove that path.
 
 ## Don't re-check (≤15)
 
@@ -41,8 +46,8 @@ Objective/score live in `CURRENT.md`.
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
-- Wooden flute/harp: always burn `rn2(DEX)` even when stun/conf
-  cleared `do_spec` (C `&=`, not JS `&&`).
+- `shopdig(1)` skip snatch iff `um_dist || helpless || !bill` (C close
+  = `!um_dist`; do not restore `if (!um_dist) return`).
 - Tutorial invent stash must `setnotworn`→`setworn` clear extrinsics
   (D-1015); pointer-only slot clear leaves EStealth (seed0009).
 
@@ -50,6 +55,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after **D-1015**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `33+0.27/turn`.
+- **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
 - **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
@@ -62,5 +68,4 @@ Objective/score live in `CURRENT.md`.
   tele_to_rnd_pet.
 - **D-1006:** mon_poly monster-defender + newcham null-mdat/mbirth.
 - **D-1005:** leash use_leash/next_to_u/check_leash + whimper.
-- **D-1004:** pray lycan + peffect_water/vapor + mon_poly youmonst.
 - **D-0934:** CONSTITUTION §1.2 + `get_configfile` recorder path.

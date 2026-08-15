@@ -180,8 +180,9 @@ async function There(line) {
 /**
  * C worn.c setnotworn — clear hero worn slots pointing at obj and
  * uprops[oc_oprop].extrinsic (via setworn). Does not find_ac.
+ * Exported for shopdig snatch (D-1016); tutorial stash (D-1015).
  */
-function setnotworn(obj) {
+export function setnotworn(obj) {
     if (!obj) return;
     const u = game.u || {};
     const mask = obj.owornmask || 0;

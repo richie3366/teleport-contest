@@ -9,7 +9,8 @@
 //        mkobj.c bill_dummy_object / costly_alteration (D-0940);
 //        add_damage shop repair list (D-0941);
 //        pay_for_damage / getcad / hot_pursuit (D-0942);
-//        shopdig dig-warn / pack-snatch (D-0958).
+//        shopdig dig-warn / pack-snatch (D-0958);
+//        shopdig(1) um_dist snatch polarity + setnotworn (D-1016).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
 // m_break_boulder; m_move_aggress; inhistemple callers; mapseen_temple;
@@ -973,6 +974,8 @@ export async function pay_for_damage(dmgstr, cant_mollify) {
  * digging a hole in a shop.
  * Envelope (D-0958): inhishop verbalize / knight adjalign; fall path
  * mnexto + invent snatch via setnotworn/freeinv/subfrombill/add_to_minv.
+ * D-1016: snatch iff !um_dist (close, Chebyshev ≤5) like C shk.c:5061;
+ * worn clear via do.js setnotworn (extrinsics), not pointer-only stub.
  * Named omit: SetVoice; nolimbs #if0 curse/rile early-return.
  * @param {number} fall 0 = start dig warn; 1 = fall-through snatch
  */
@@ -1029,9 +1032,10 @@ export async function shopdig(fall) {
         return;
     }
 
-    // fall === 1 — snatch pack when close + owed
+    // fall === 1 — C else if (!um_dist(shk,5) && !helpless && bill).
+    // um_dist is true when far (Chebyshev > 5); snatch when close.
     const eshk = ESHK(shkp);
-    if (!um_dist(shkp.mx | 0, shkp.my | 0, 5)
+    if (um_dist(shkp.mx | 0, shkp.my | 0, 5)
         || helpless(shkp)
         || !((eshk?.billct | 0) || (eshk?.debit | 0))) {
         return;
@@ -1066,6 +1070,7 @@ export async function shopdig(fall) {
         await pline(`${Shknam(shkp)} ${grabs} your backpack!`);
     }
 
+    const { setnotworn } = await import('./do.js');
     const invent = game.invent || [];
     for (const obj of [...invent]) {
         if (!obj) continue;
@@ -1075,7 +1080,7 @@ export async function shopdig(fall) {
             continue;
         }
         if (obj === game.current_wand) continue;
-        setnotworn_shopdig(obj);
+        setnotworn(obj);
         freeinv_shopdig(obj);
         subfrombill(obj, shkp);
         add_to_minv(shkp, obj); // may free obj in C; JS keeps reference
@@ -1107,20 +1112,6 @@ function locomotion_shk(ptr, def) {
     if (!(ptr?.mmove | 0)) return pick('wiggle', 'Wiggle');
     if (nolimbs(ptr)) return pick('crawl', 'Crawl');
     return d;
-}
-
-/** C worn.c setnotworn — clear hero worn slots pointing at obj. */
-function setnotworn_shopdig(obj) {
-    if (!obj) return;
-    const u = game.u || {};
-    for (const slot of [
-        'uwep', 'uswapwep', 'uqwep', 'uquiver',
-        'uarm', 'uarmc', 'uarmh', 'uarms', 'uarmg', 'uarmf', 'uarmu',
-        'uleft', 'uright', 'uamul', 'ublindf',
-    ]) {
-        if (u[slot] === obj) u[slot] = null;
-    }
-    obj.owornmask = 0;
 }
 
 /** C invent.c freeinv — splice from invent[]; refresh gold botl cache. */

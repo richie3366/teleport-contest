@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1016 — shopdig(1) um_dist snatch polarity + setnotworn
+
+- **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)
+- **Symptom:** D-0958 claimed pack snatch complete. JS early-return copied
+  C’s `!um_dist` into `if (cond) return`, so snatch ran when the shk was
+  **far** (Chebyshev >5) and skipped when **close**. `mnexto` RNG on the
+  wrong path. Local `setnotworn_shopdig` nulled slots without
+  `uprops`/`EStealth` (D-1015 class leak once snatch is live).
+- **C locus:** `shk.c` `shopdig` `else if (!um_dist(shkp->mx, shkp->my, 5)
+  && !helpless(shkp) && (billct || debit))`; `apply.c` `um_dist` true
+  iff Chebyshev **> n**; `worn.c` `setnotworn`.
+- **Fix:** skip snatch iff `um_dist || helpless || !bill` (De Morgan of
+  C). Worn clear via exported `do.js` `setnotworn` (dynamic import; avoid
+  `do.js`↔`shk.js` static cycle). `freeinv_shopdig` kept (gold botl).
+- **Deferred:** SetVoice; nolimbs `#if0`; C `setnotworn` pointer-walk
+  vs JS mask (D-1020); `cancel_monst` invent Array (D-1017); cmdq pickaxe
+  (D-1018); `sellobj` default `'a'` / `robbed` (D-1019).
+- **Verify:** green+strict; shop/dig/wear cohort (see journal). Rule #2:
+  no fs. Public suite not re-run (cadence @#1290).
+- **Files:** `js/shk.js`, `js/do.js` (export only).
+
 ## D-1015 — tutorial setnotworn clears oc_oprop extrinsics
 
 - **Status:** fixed (seed0009 Scr 72/73)
