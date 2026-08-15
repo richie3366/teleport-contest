@@ -1,81 +1,81 @@
 # Review — `a59caac8` — D-1033 Vlad `special_throne_effect`
 
-## Métadonnées
-- Hash complet / court : `a59caac832949a04d03f9d1b8767063293ff5b81` / `a59caac8`
-- Parent : `31c0489f` (D-1032 fig_transform)
-- Auteur, date : Raphaël Hervier (Co-authored-by Cursor), 2026-08-15 17:35
-- D-id : **D-1033**
-- Stats : 12 files, **+405 / −76** — `js/sit.js` **+229**, `js/exper.js` **+76**
-- Fichiers JS / map / cadence : `sit.js`, `exper.js` (`losexp`), `read.js` (`seffects` SPE_REMOVE_CURSE) ; data/debt ; pas de cadence (#1300 encore)
+## Metadata
+- Full / short hash: `a59caac832949a04d03f9d1b8767063293ff5b81` / `a59caac8`
+- Parent: `31c0489f` (D-1032 fig_transform)
+- Author, date: Raphaël Hervier (Co-authored-by Cursor), 2026-08-15 17:35
+- D-id: **D-1033**
+- Stats: 12 files, **+405 / −76** — `js/sit.js` **+229**, `js/exper.js` **+76**
+- JS / map / cadence: `sit.js`, `exper.js` (`losexp`), `read.js` (`seffects` SPE_REMOVE_CURSE); data/debt; no cadence (#1300 still)
 
-## Intention vs livrable
-Promesse : Vlad `special_throne_effect` + `dosit` `IS_THRONE`. Ordinary 1–13 **différé** (D-1034 le lendemain) — densité honnête pour **ce** SHA, contrairement à D-1023.
+## Intent vs deliverable
+Promise: Vlad `special_throne_effect` + `dosit` `IS_THRONE`. Ordinary 1–13 **deferred** (D-1034 the next day) — honest density for **this** SHA, unlike D-1023.
 
-Livrable : switch 1–13 spécial + `throne_sit_effect` envelope `rnd(6)>4` / `rnd(13)` / `In_V_tower` early-return + `dosit` throne après OBJ_AT. `losexp` pour le drain case 5.
+Deliverable: special switch 1–13 + `throne_sit_effect` envelope `rnd(6)>4` / `rnd(13)` / `In_V_tower` early-return + `dosit` throne after OBJ_AT. `losexp` for drain case 5.
 
-## Inventaire
-| Fichier | Rôle |
-|---------|------|
+## Inventory
+| File | Role |
+|------|------|
 | `js/sit.js` | `special_throne_effect`, envelope `throne_sit_effect`, `dosit` IS_THRONE |
-| `js/exper.js` | `losexp` drain permanent |
+| `js/exper.js` | `losexp` permanent drain |
 | `js/read.js` | `seffects` fake SPE_REMOVE_CURSE (case 10) |
-| `js/apply.js` | grease_ok COIN skip comment/wire mince |
+| `js/apply.js` | grease_ok COIN skip comment/thin wire |
 
-## Fidélité C ↔ JS
+## C ↔ JS fidelity
 
-### Envelope `throne_sit_effect` — fidèle
-C `sit.c:39` : `special_throne = In_V_tower` ; `if (rnd(6)>4)` { `effect = rnd(13)` ; wizard getlin ; si special → `special_throne_effect` **return** (pas de puff) ; sinon ordinary }. Else confort prince / out of place. Puis `!special && !rn2(3)` puff ROOM.
+### Envelope `throne_sit_effect` — faithful
+C `sit.c:39`: `special_throne = In_V_tower`; `if (rnd(6)>4)` { `effect = rnd(13)`; wizard getlin; if special → `special_throne_effect` **return** (no puff); else ordinary }. Else comfort prince / out of place. Then `!special && !rn2(3)` puff ROOM.
 
-JS : même `rnd(6)>4` (commentaire C « = !rn2(3) » non simplifié — **le RNG est `rnd(6)`**, pas `rn2(3)`, match). Wizard getlin nommé omit. Special **return** avant vanish : match.
+JS: same `rnd(6)>4` (comment “= !rn2(3)” not simplified — **RNG is `rnd(6)`**, not `rn2(3)`, match). Wizard getlin named omit. Special **return** before vanish: match.
 
-### `special_throne_effect` 1–13 — graphe copié
+### `special_throne_effect` 1–13 — graph copied
 C `sit.c:238–354`.
 
 | Case | C | JS |
 |------|---|-----|
-| 1–4 | `makewish` ; typ=ROOM ; « disintegrates » | même ; `throne_to_room` |
-| 5 | pline terrible ; `!Drain_resistance` → `losexp` puis `ulevelmax--` si `> ulevel` | même |
-| 6 | grease invent **sauf COIN** ; `make_glib(rn1(101,100))` | même skip COIN (D-log grease_ok) |
-| 7 | `attrcurse` ; amused | même |
-| 8 | `find_hell` ; `dlevel = num_dunlevs-1` ; amulette → disoriented else `schedule_goto` | même |
-| 9 | typo C **seeems** ; `msummon(NULL)` ×3 | typo **conservée** (fidèle, pas un fix) |
-| 10 | fake SPE_REMOVE_CURSE blessed ; `HConfusion=1` ; `seffects` ; restore | JS pose **aussi** `u.Confusion=1` en plus de `HConfusion` — le plat C n’y est pas |
-| 11 | vampire unworthy else poly | même |
-| 12 | acid `rnd(16)` resist else `rnd(80)` ; `exercise CON` | même |
-| 13 | warp ; `adjattrib(i, rn2(5)-2, -1)` pour `A_MAX` | même |
+| 1–4 | `makewish`; typ=ROOM; “disintegrates” | same; `throne_to_room` |
+| 5 | terrible pline; `!Drain_resistance` → `losexp` then `ulevelmax--` if `> ulevel` | same |
+| 6 | grease invent **except COIN**; `make_glib(rn1(101,100))` | same COIN skip (D-log grease_ok) |
+| 7 | `attrcurse`; amused | same |
+| 8 | `find_hell`; `dlevel = num_dunlevs-1`; amulet → disoriented else `schedule_goto` | same |
+| 9 | C typo **seeems**; `msummon(NULL)` ×3 | typo **kept** (fidelity, not a fix) |
+| 10 | fake SPE_REMOVE_CURSE blessed; `HConfusion=1`; `seffects`; restore | JS also sets flat `u.Confusion=1` besides `HConfusion` — C does not |
+| 11 | vampire unworthy else poly | same |
+| 12 | acid `rnd(16)` resist else `rnd(80)`; `exercise CON` | same |
+| 13 | warp; `adjattrib(i, rn2(5)-2, -1)` for `A_MAX` | same |
 
-**Écart case 10 :** C ne touche que `HConfusion`. JS force le flag plat `Confusion`. Si `seffects` lit l’un ou l’autre, le scroll « confused remove curse » diverge. À vérifier dans `read.js` `seffects` — risque réel, pas cosmétique.
+**Case 10 gap:** C only touches `HConfusion`. JS forces the flat `Confusion` flag. If `seffects` reads one or the other, the “confused remove curse” scroll diverges. Check `read.js` `seffects` — real risk, not cosmetic.
 
-`makewish` / `msummon` / `polyself` / `schedule_goto` / `losexp` : le switch est du C ; **l’effet** est la qualité de ces callees (wish déjà Keep’d ailleurs). Unhit public.
+`makewish` / `msummon` / `polyself` / `schedule_goto` / `losexp`: the switch is C; **the effect** is the quality of those callees (wish already Keep’d elsewhere). Public unhit.
 
-### `dosit` IS_THRONE — branché trop tôt dans un `dosit` encore troué
-C `sit.c:398` : steed `mon_nam` ; hider ; `can_reach_floor` ; ustuck ; pool/gremlin ; **OBJ_AT** ; **else if trap** (`dotrap` VIASITTING) ; water/sink/altar/grave/stairs/ladder/lava/ice/drawbridge ; **puis** `IS_THRONE`.
+### `dosit` IS_THRONE — wired too early in a still-gappy `dosit`
+C `sit.c:398`: steed `mon_nam`; hider; `can_reach_floor`; ustuck; pool/gremlin; **OBJ_AT**; **else if trap** (`dotrap` VIASITTING); water/sink/altar/grave/stairs/ladder/lava/ice/drawbridge; **then** `IS_THRONE`.
 
-JS `dosit` : steed message **« your steed »** ≠ C `mon_nam(usteed)` ; Levitation early-return tumble (approx `!can_reach_floor`) ; OBJ_AT picnic ; **saute trap/water/sink/…** ; `IS_THRONE`.
+JS `dosit`: steed message **“your steed”** ≠ C `mon_nam(usteed)`; Levitation early-return tumble (approx `!can_reach_floor`); OBJ_AT picnic; **skips trap/water/sink/…**; `IS_THRONE`.
 
-Conséquence : **piège sur la case trône** → C `dotrap` sitting, JS effet trône. Nommé « traps deferred » dans l’en-tête sit.js — honnête, mais le Keep D-1033 vend `dosit IS_THRONE` comme si le caller était le C.
+Consequence: **trap on the throne cell** → C `dotrap` sitting, JS throne effect. Named “traps deferred” in the sit.js header — honest, but Keep D-1033 sells `dosit IS_THRONE` as if the caller were C.
 
-OBJ_AT sur trône : les deux s’assoient sur l’objet, pas le trône. Match.
+OBJ_AT on throne: both sit on the object, not the throne. Match.
 
 ## Constitution / playbook
-Grep : bans clean. Typo `seeems` copiée = pas de polish anti-C. Pas de FORCE.
+Grep: bans clean. Copied `seeems` typo = no anti-C polish. No FORCE.
 
-## Densité (§2b)
-**Right size** pour l’iter : une famille `special_throne` + le fil `dosit`/`losexp` nécessaire. Ordinary 1–13 **pas** dans ce SHA.
+## Density (§2b)
+**Right size** for the iter: one `special_throne` family + the necessary `dosit`/`losexp` thread. Ordinary 1–13 **not** in this SHA.
 
 ## Documentation
-D-log : ordinary 1–13 deferred — vrai (D-1034 suit). `dosit` trap skip sous-vendu comme « IS_THRONE after those » alors que JS n’a pas « those ».
+D-log: ordinary 1–13 deferred — true (D-1034 follows). `dosit` trap skip undersold as “IS_THRONE after those” when JS does not have “those”.
 
-## Vérification
-Green ; journal « all 44/44 » + seeds `#sit` 0106/0107/4500. Si ces seeds ne sont pas sur le trône de Vlad, **case 1–13 special est unhit**. Private node grease/Drain.
+## Verification
+Green; journal “all 44/44” + `#sit` seeds 0106/0107/4500. If those seeds are not on Vlad’s throne, **special cases 1–13 are unhit**. Private node grease/Drain.
 
-## Risques / dette
-1. `dosit` saute `t_at` / terrains entre objet et trône.
-2. Case 10 `Confusion` plat extra.
-3. Callees wish/msummon/poly/goto : pas re-audités ici.
-4. Message steed.
+## Risks / debt
+1. `dosit` skips `t_at` / terrains between object and throne.
+2. Case 10 extra flat `Confusion`.
+3. Callees wish/msummon/poly/goto: not re-audited here.
+4. Steed message.
 
 ## Verdict
-- Verdict : **ACCEPT-WITH-DEBT**
-- Note : **6.5 / 10**
-- Une phrase : le switch Vlad est une copie C (typo comprise) ; le Keep `dosit IS_THRONE` est un **raccourci** dans un `#sit` qui n’a pas encore le `else if (trap)` C.
+- Verdict: **ACCEPT-WITH-DEBT**
+- Score: **6.5 / 10**
+- One sentence: the Vlad switch is a C copy (typo included); Keep `dosit IS_THRONE` is a **shortcut** in a `#sit` that does not yet have C’s `else if (trap)`.

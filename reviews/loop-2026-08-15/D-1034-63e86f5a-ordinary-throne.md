@@ -1,81 +1,81 @@
 # Review — `63e86f5a` — D-1034 ordinary throne 1–13 + genocide
 
-## Métadonnées
-- Hash complet / court : `63e86f5a28696d8848415cc0c16fade11e12fba3` / `63e86f5a`
-- Parent : `a59caac8` (D-1033)
-- Auteur, date : Raphaël Hervier (Co-authored-by Cursor), 2026-08-15 17:56
-- D-id : **D-1034**
-- Stats : 13 files, **+570 / −73** — `js/sit.js` **+259**, `js/read.js` **+247**
-- Fichiers JS / map / cadence : `sit.js` ordinary switch ; `read.js` `do_genocide` ; `mon.js` `kill_genocided_monsters` ; `mklev.js` `courtmon` export ; pas de cadence
+## Metadata
+- Full / short hash: `63e86f5a28696d8848415cc0c16fade11e12fba3` / `63e86f5a`
+- Parent: `a59caac8` (D-1033)
+- Author, date: Raphaël Hervier (Co-authored-by Cursor), 2026-08-15 17:56
+- D-id: **D-1034**
+- Stats: 13 files, **+570 / −73** — `js/sit.js` **+259**, `js/read.js` **+247**
+- JS / map / cadence: `sit.js` ordinary switch; `read.js` `do_genocide`; `mon.js` `kill_genocided_monsters`; `mklev.js` `courtmon` export; no cadence
 
-## Intention vs livrable
-Promesse : ordinary `throne_sit_effect` cases 1–13 + `take_gold` + `do_genocide`.
+## Intent vs deliverable
+Promise: ordinary `throne_sit_effect` cases 1–13 + `take_gold` + `do_genocide`.
 
-Livrable : le switch C **et** un port `do_genocide(how)` getlin (caller case 8 `how=5` = REALLY\|ONTHRONE). Deux familles (sit + read genocide). Plus gros SHA du run post-D-1022.
+Deliverable: the C switch **and** a `do_genocide(how)` getlin port (caller case 8 `how=5` = REALLY\|ONTHRONE). Two families (sit + read genocide). Largest SHA of the post-D-1022 run.
 
-## Inventaire
-| Fichier | Rôle |
-|---------|------|
-| `js/sit.js` | cases 1–13 + vanish déjà D-1033 |
+## Inventory
+| File | Role |
+|------|------|
+| `js/sit.js` | cases 1–13 + vanish already D-1033 |
 | `js/read.js` | `do_genocide` REALLY/PLAYER/ONTHRONE |
 | `js/mon.js` | `kill_genocided_monsters` |
 | `js/mklev.js` | export `courtmon` |
 | `js/spell.js` | `take_gold` import (cursed_book) |
 
-## Fidélité C ↔ JS
+## C ↔ JS fidelity
 
-### Ordinary switch — branche par branche
-C `sit.c:68–209` après `rnd(6)>4` et `!In_V_tower`. JS `sit.js:567–732`. Wizard getlin omit (même RNG `rnd(13)` live).
+### Ordinary switch — branch by branch
+C `sit.c:68–209` after `rnd(6)>4` and `!In_V_tower`. JS `sit.js:567–732`. Wizard getlin omit (same live `rnd(13)` RNG).
 
-| Case | Preuve |
-|------|--------|
-| 1 | C `adjattrib(rn2(A_MAX), -rn1(4,3), FALSE)` puis `losehp(rnd(10), "cursed throne")`. JS `adjattrib(..., 0)` : `attrib.js` `msgflg<=0` → You_feel ≡ C FALSE. RNG `rn2` puis `rn1` puis `rnd` : LTR match. |
+| Case | Evidence |
+|------|----------|
+| 1 | C `adjattrib(rn2(A_MAX), -rn1(4,3), FALSE)` then `losehp(rnd(10), "cursed throne")`. JS `adjattrib(..., 0)`: `attrib.js` `msgflg<=0` → You_feel ≡ C FALSE. RNG `rn2` then `rn1` then `rnd`: LTR match. |
 | 2 | `adjattrib(rn2(A_MAX), 1, FALSE)` / JS `0`. Match. |
-| 3 | « A%s electric shock » Shock → `"n"` else `" massive"` ; `rnd(6)` vs `rnd(30)` ; `exercise CON`. Match. |
-| 4 | heal max+4, cream, `make_blinded(0,TRUE)`, `make_sick(0,…,SICK_ALL)`, `heal_legs(0)`, botl. Match d’enveloppe ; qualité = ces `make_*`. |
-| 5 | `take_gold` : C `remove_worn_item`+`delobj` COIN. JS splice invent + `delobj`, **pas** `remove_worn_item` (nommé). Message strange sensation / no gold : match. |
+| 3 | “A%s electric shock” Shock → `"n"` else `" massive"`; `rnd(6)` vs `rnd(30)`; `exercise CON`. Match. |
+| 4 | heal max+4, cream, `make_blinded(0,TRUE)`, `make_sick(0,…,SICK_ALL)`, `heal_legs(0)`, botl. Envelope match; quality = those `make_*`. |
+| 5 | `take_gold`: C `remove_worn_item`+`delobj` COIN. JS invent splice + `delobj`, **no** `remove_worn_item` (named). Strange sensation / no gold message: match. |
 | 6 | `uluck + rn2(5) < 0` → luck+1 else `makewish`. Match. |
-| 7 | `rnd(10)` courtmon `makemon` à (tx,ty) ; voice Dame/Sire. SetVoice omit. |
-| 8 | `do_genocide(5)`. Voir ci-dessous. |
-| 9 | Luck>0 → `make_blinded(BlindedTimeout+rn1(100,250))` + `change_luck(-rnd(2) ou -1)` else `rndcurse`. Match. |
-| 10 | Luck<0 **ou** `HSee_invisible & INTRINSIC` → nommap confuse `HConfusion&TIMEOUT+rnd(30)` else `do_mapping` ; sinon vision/tingle + `HSee_invisible \|= FROMOUTSIDE`. JS `eyecount`/`vtense` fallthrough 2→1 : match. |
-| 11 | Luck<0 `aggravate` else `tele()`. Match d’enveloppe. |
-| 12 | insight ; `invent` → `identify_pack(rn2(5), FALSE)`. JS `invent.length` : pile vide C `gi.invent` NULL vs JS `[]` — les deux skip. |
+| 7 | `rnd(10)` courtmon `makemon` at (tx,ty); Dame/Sire voice. SetVoice omit. |
+| 8 | `do_genocide(5)`. See below. |
+| 9 | Luck>0 → `make_blinded(BlindedTimeout+rn1(100,250))` + `change_luck(-rnd(2) or -1)` else `rndcurse`. Match. |
+| 10 | Luck<0 **or** `HSee_invisible & INTRINSIC` → nommap confuse `HConfusion&TIMEOUT+rnd(30)` else `do_mapping`; else vision/tingle + `HSee_invisible \|= FROMOUTSIDE`. JS `eyecount`/`vtense` fallthrough 2→1: match. |
+| 11 | Luck<0 `aggravate` else `tele()`. Envelope match. |
+| 12 | insight; `invent` → `identify_pack(rn2(5), FALSE)`. JS `invent.length`: empty C `gi.invent` NULL vs JS `[]` — both skip. |
 | 13 | pretzel `make_confused((HConfusion&TIMEOUT)+rn1(7,16))`. Match. |
 
-Vanish : `!special && !rn2(3) && (!wizard \|\| y_n Analyze=='y')`. JS `wizard_mode()` + `yn_function`. En non-wizard le `yn` n’est pas évalué (short-circuit) : **pas de RNG extra**. Match.
+Vanish: `!special && !rn2(3) && (!wizard \|\| y_n Analyze=='y')`. JS `wizard_mode()` + `yn_function`. In non-wizard the `yn` is not evaluated (short-circuit): **no extra RNG**. Match.
 
-### `do_genocide(5)` — nouveau sous-système, pas un stub de une ligne
-C `read.c` `do_genocide` : getlin type, `G_GENO` refus, self-geno ONTHRONE killer « imperious order », `kill_genocided_monsters`.
+### `do_genocide(5)` — new subsystem, not a one-line stub
+C `read.c` `do_genocide`: getlin type, `G_GENO` refuse, self-geno ONTHRONE killer “imperious order”, `kill_genocided_monsters`.
 
-JS `read.js:1021` : `GENO_REALLY=1`, `GENO_ONTHRONE=4`, `how=5` les deux bits. Killer ONTHRONE `KILLED_BY_AN` / `imperious order` : match C. `getlin` nom de monstre ; 5 essais ; `G_GENO` thunderous No mortal.
+JS `read.js:1021`: `GENO_REALLY=1`, `GENO_ONTHRONE=4`, `how=5` both bits. ONTHRONE killer `KILLED_BY_AN` / `imperious order`: matches C. `getlin` monster name; 5 tries; `G_GENO` thunderous No mortal.
 
-**Risques :** `name_to_mon` / livelog / Hallu / `kill_eggs` / cham `newcham` nommés. Un `#sit` trône case 8 **interactif** n’est dans aucune trace publique. Le getlin peut désync I/O sans toucher le RNG prefix si le joueur ne s’assoit pas.
+**Risks:** `name_to_mon` / livelog / Hallu / `kill_eggs` / cham `newcham` named. An interactive `#sit` throne case 8 is in **no** public trace. getlin can desync I/O without touching the RNG prefix if the player never sits.
 
-`G_GENO 0x0020` dans ce commit (monsters.js) : à traiter comme un **const C** (obj.h/monflag), pas une constante de trace.
+`G_GENO 0x0020` in this commit (`monsters.js`): treat as a **C const** (obj.h/monflag), not a trace constant.
 
 ### `courtmon`
-Export mklev. Non relu ligne à ligne ici ; si `courtmon` JS est encore un sous-ensemble de `mkroom.c`, case 7 spawn le **mauvais** monstre de cour (RNG `makemon` ensuite).
+mklev export. Not re-read line by line here; if JS `courtmon` is still a subset of `mkroom.c`, case 7 spawns the **wrong** court monster (then `makemon` RNG).
 
 ## Constitution / playbook
-Bans clean. `getlin` = input `nhgetch` chain existante. Pas de seed-gate. Cadence non mêlée (bon).
+Bans clean. `getlin` = existing `nhgetch` input chain. No seed-gate. Cadence not mixed in (good).
 
-## Densité (§2b)
-**Too big** si on compte `do_genocide` comme famille read.c à part (c’en est une). Justifiable comme callee immédiat de case 8 — mais +247 `read.js` + kill_genocided + courtmon, c’est un cluster sit **et** un mini-port genocide. Qualité : le switch sit est meilleur que D-1023 ; le genocide est un second roman.
+## Density (§2b)
+**Too big** if `do_genocide` counts as a separate read.c family (it is one). Justifiable as the immediate callee of case 8 — but +247 `read.js` + kill_genocided + courtmon is a sit cluster **and** a mini genocide port. Quality: the sit switch is better than D-1023; genocide is a second novel.
 
 ## Documentation
-D-log honnête sur wizard getlin / kill_eggs. CURRENT Keep 1–13. NOTES unhit : vrai.
+D-log honest on wizard getlin / kill_eggs. CURRENT Keep 1–13. NOTES unhit: true.
 
-## Vérification
-Cohort 9/9 dont seeds `#sit`. Ces seeds **PASS déjà avant** le switch (forteresse). Ils ne prouvent pas case 1–13. Private node journal mince vs 13 bras.
+## Verification
+Cohort 9/9 including `#sit` seeds. Those seeds **already PASS before** the switch (fortress). They do not prove cases 1–13. Private journal node thin vs 13 arms.
 
-## Risques / dette
+## Risks / debt
 1. `do_genocide` getlin / `name_to_mon` unhit.
-2. `courtmon` / `identify_pack` / `tele` / `aggravate` / `do_mapping` = callees partials.
-3. `take_gold` sans `remove_worn_item`.
-4. `dosit` trap skip (D-1033) s’applique encore : on n’atteint le switch que si la case n’a pas d’objet **et** JS ignore le trap.
+2. `courtmon` / `identify_pack` / `tele` / `aggravate` / `do_mapping` = partial callees.
+3. `take_gold` without `remove_worn_item`.
+4. `dosit` trap skip (D-1033) still applies: the switch is reached only if the cell has no object **and** JS ignores the trap.
 
 ## Verdict
-- Verdict : **QUALITY-RISK**
-- Note : **5.5 / 10**
-- Une phrase : les **13 cases** et le puff `!rn2(3)` sont une copie C soigneuse (RNG, `adjattrib` msgflg, bits genocide 5) ; coller `do_genocide` complet dans le même SHA, sans trace qui s’assoie, c’est un Keep de switch + un port read.c non exercé.
+- Verdict: **QUALITY-RISK**
+- Score: **5.5 / 10**
+- One sentence: the **13 cases** and `!rn2(3)` puff are a careful C copy (RNG, `adjattrib` msgflg, genocide bits 5); stuffing full `do_genocide` into the same SHA, with no sitting trace, is a Keep of the switch plus an unexercised read.c port.
