@@ -18,7 +18,7 @@ import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
     P_TWO_WEAPON_COMBAT, NEED_WEAPON,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, nothing_happens, nothing_seems_to_happen,
-    FACE, FOOT, FINGER, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
+    FACE, FOOT, FINGER, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, OBJ_FLOOR, isok, SDOOR, SCORR,
     COLNO, ROWNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
     ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_OBSTRUCTED, IS_WATERWALL,
@@ -30,7 +30,7 @@ import {
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
-    MAX_SPELL_STUDY,
+    MAX_SPELL_STUDY, HOMEMADE_TIN,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -48,15 +48,15 @@ import {
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
     unsolid, nolimbs, has_head, breathless,
     PM_ARCHEOLOGIST, PM_GNOME, bigmonst, verysmall, strongmonst,
-    touch_petrifies, poly_when_stoned,
+    touch_petrifies, poly_when_stoned, is_rider,
 } from './monsters.js';
 import { can_blow, little_to_big, big_to_little } from './mondata.js';
 import { wield_tool, welded, is_pole } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
-    obj_extract_self, place_object, stackobj, weight,
+    obj_extract_self, place_object, stackobj, weight, mksobj,
 } from './mkobj.js';
-import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname } from './objnam.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination } from './do_name.js';
@@ -71,10 +71,15 @@ import { P_SKILL, weapon_type, dbon, MON_WEP, is_wet_towel, dry_a_towel, hands_o
 import { pickup_object, spoteffects } from './pickup.js';
 import { select_menu_pick_one } from './options.js';
 import { teleds, tele_to_rnd_pet, noteleport_level, enexto, rloc_to } from './teleport.js';
-import { morehungry, use_tin_opener } from './eat.js';
+import {
+    morehungry, use_tin_opener, floorfood, set_tin_variety, useup, useupf,
+    carried,
+} from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
-import { costly_alteration, costly_spot, add_damage, bill_dummy_object } from './shk.js';
-import { zappable, release_hold } from './zap.js';
+import {
+    costly_alteration, costly_spot, add_damage, bill_dummy_object, shop_keeper,
+} from './shk.js';
+import { zappable, release_hold, revive } from './zap.js';
 import { explode } from './explode.js';
 import {
     flash_hits_mon, xkilled, attack_checks, check_caitiff,
@@ -147,6 +152,8 @@ const OILSKIN_SACK = objectNames.indexOf('OILSKIN_SACK');
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
+const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
+const TIN = objectNames.indexOf('TIN');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const ICE_BOX = objectNames.indexOf('ICE_BOX');
@@ -2438,6 +2445,122 @@ export async function use_grease(obj) {
 }
 
 /**
+ * C ref: do.c revive_corpse — zap.revive + invent/floor messages.
+ * Named omit: MINVENT/CONTAINED/BURIED; Adjmonnam bite-covered;
+ * Rider Death/Pestilence/Famine visual suffixes.
+ * @returns {Promise<boolean>}
+ */
+async function revive_corpse(corpse) {
+    if (!corpse) return false;
+    const inInvent = corpse.where === OBJ_INVENT
+        || (game.invent || []).includes(corpse);
+    const where = inInvent ? OBJ_INVENT : (corpse.where | 0);
+    const is_uwep = corpse === game.u?.uwep;
+    const cname = cxname_singular(corpse) || 'corpse';
+    const corpsex = corpse.ox | 0;
+    const corpsey = corpse.oy | 0;
+    const mtmp = await revive(corpse, false);
+    if (!mtmp) return false;
+    if (where === OBJ_INVENT) {
+        if (is_uwep) {
+            await pline(`The ${cname} writhes out of your grasp!`);
+        } else {
+            await You_feel('squirming in your backpack!');
+        }
+    } else if (where === OBJ_FLOOR) {
+        if (cansee(corpsex, corpsey) || canseemon(mtmp)) {
+            if (canseemon(mtmp)) {
+                await pline(`${Monnam(mtmp)} rises from the dead!`);
+            } else {
+                await pline(`${The(cname)} disappears!`);
+            }
+        }
+    }
+    return true;
+}
+
+/**
+ * C ref: apply.c use_tinning_kit — spe<=0; floorfood("tin",2); oeaten;
+ * touch_petrifies instapetrify; rider revive_corpse; cnutrit 0;
+ * consume_obj_charge; mksobj(TIN,FALSE,FALSE) homemade; shop verbalize;
+ * useup/useupf; hold_another_object. doapply does not assign res
+ * (stays ECMD_TIME). Named omit: consume_obj_charge unpaid;
+ * SetVoice; will_feel_cockatrice (in floorfood); arti_speak.
+ */
+export async function use_tinning_kit(obj) {
+    if (!obj) return;
+    if ((obj.spe | 0) <= 0) {
+        await pline('You seem to be out of tins.');
+        return;
+    }
+    const corpse = await floorfood('tin', 2);
+    if (!corpse) return;
+    if (corpse.oeaten) {
+        await pline('You cannot tin something which is partly eaten.');
+        return;
+    }
+    const mptr = mons(corpse.corpsenm);
+    if (touch_petrifies(mptr) && !Stone_resistance_apply() && !game.u?.uarmg) {
+        const corpse_name = an(cxname(corpse));
+        let kbuf = '';
+        if (poly_when_stoned(game.youmonst?.data)) {
+            await pline(`You tin ${corpse_name} without wearing gloves.`);
+            kbuf = '';
+        } else {
+            await pline(
+                `Tinning ${corpse_name} without wearing gloves is a fatal mistake...`,
+            );
+            kbuf = `trying to tin ${corpse_name} without gloves`;
+        }
+        await instapetrify(kbuf);
+    }
+    if (is_rider(mptr)) {
+        if (await revive_corpse(corpse)) {
+            await verbalize(
+                'Yes...  But War does not preserve its enemies...',
+            );
+        } else {
+            await pline('The corpse evades your grasp.');
+        }
+        return;
+    }
+    if (!mptr || (mptr.cnutrit | 0) === 0) {
+        await pline("That's too insubstantial to tin.");
+        return;
+    }
+    consume_obj_charge(obj, true);
+
+    const can = mksobj(TIN, false, false);
+    if (can) {
+        const you_buy_it = 'You tin it, you bought it!';
+        can.corpsenm = corpse.corpsenm;
+        can.cursed = obj.cursed;
+        can.blessed = obj.blessed;
+        can.owt = weight(can);
+        can.known = 1;
+        set_tin_variety(can, HOMEMADE_TIN);
+        if (carried(corpse)) {
+            if (corpse.unpaid) {
+                const rooms = in_rooms(game.u?.ux | 0, game.u?.uy | 0, SHOPBASE);
+                shop_keeper(rooms.charCodeAt(0));
+                await verbalize(you_buy_it);
+            }
+            useup(corpse);
+        } else {
+            if (costly_spot(corpse.ox | 0, corpse.oy | 0) && !corpse.no_charge) {
+                const rooms = in_rooms(corpse.ox | 0, corpse.oy | 0, SHOPBASE);
+                shop_keeper(rooms.charCodeAt(0));
+                await verbalize(you_buy_it);
+            }
+            useupf(corpse, 1);
+        }
+        await hold_another_object(
+            can, 'You make, but cannot pick up, %s.', doname(can), null,
+        );
+    }
+}
+
+/**
  * C ref: apply.c doapply() — nohands + check_capacity before getobj;
  * LOCK_PICK/key/STETHOSCOPE + MIRROR/CAMERA + sack/bag use_container +
  * musical instruments + cream pie + MAGIC_MARKER→dowrite + TIN_OPENER +
@@ -2458,9 +2581,10 @@ export async function use_grease(obj) {
  * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023) +
  * CANDELABRUM_OF_INVOCATION → use_candelabrum /
  * WAX_CANDLE/TALLOW_CANDLE → use_candle (D-1025) +
- * CAN_OF_GREASE → use_grease (D-1026).
+ * CAN_OF_GREASE → use_grease (D-1026) +
+ * TINNING_KIT → use_tinning_kit (D-1027).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; figurine/unihorn/tinning kit/bell/horn of plenty;
+ * Medusa/nymph mirror arms; figurine/unihorn/bell/horn of plenty;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
@@ -2582,6 +2706,12 @@ export async function doapply() {
         const { use_pick_axe } = await import('./dig.js');
         const res = await use_pick_axe(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case TINNING_KIT → use_tinning_kit (D-1027); res stays TIME
+    if (TINNING_KIT >= 0 && obj.otyp === TINNING_KIT) {
+        await use_tinning_kit(obj);
+        return true; // ECMD_TIME
     }
 
     // C apply.c case LEASH → use_leash (D-1005)

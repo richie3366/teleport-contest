@@ -1,3 +1,18 @@
+## 2026-07-22 06:42 — #1283 D-1012 in_trouble collapsing+minors
+
+**Objective:** map-driven — pray in_trouble collapsing…cursed_blindfold
++ all minors (CURRENT next cluster).
+**C locus:** `pray.c` in_trouble/fix_worst_trouble/stuck_in_wall/
+worst_cursed_item/fix_curse_trouble; `do_wear.c` stuck_ring/unchanger;
+`potion.c` make_deaf; `dig.c` buried_ball_to_freedom; `artifact.c`
+confers_luck.
+**Change:** port remaining majors + all minors + helpers — D-1012.
+**Verified:** green+strict PASS; pray/shared cohort **15**/16
+(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
+**Next:** absent.md thin (scroll/vault/potions); or blindfold-as-tool /
+containers; or pleased pat_on_head gifts.
+**Blocked:** none.
+
 ## 2026-07-22 04:10 — #1263 D-0993 globby pudding_merge/obj_meld
 
 **Objective:** map-driven — globby coalesce cluster (CURRENT next).

@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 15:55 — #1296 D-1027 use_tinning_kit
+
+**Objective:** map-driven apply cluster — C `use_tinning_kit`
+(CURRENT TINNING_KIT).
+**C locus:** `apply.c` use_tinning_kit/tinnable/doapply; `eat.c`
+floorfood("tin",2)/tin_ok/set_tin_variety(HOMEMADE); `do.c`
+revive_corpse invent/floor; `invent.c` getobj/useup/hold.
+**Change:** doapply dispatch (res stays TIME); spe<=0; floor yn
+tinnable (not feeding: usteed does not skip); tin_ok You_cant/
+gold/silly; gloves instapetrify; rider War; homemade spe=-2;
+shop verbalize; useup/useupf; hold. Rule #2: no fs.
+**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
+**Verified:** green+strict PASS; apply/shared cohort **37**/37
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+**73**/73). Private node (empty; homemade cursed copy; fog cmdq
+no charge). Path **unhit** by public traces.
+**Next:** apply.js use_bell (BELL / BELL_OF_OPENING).
+**Blocked:** none.
+
 ## 2026-08-15 15:36 — #1295 D-1026 use_grease + cadence score
 
 **Objective:** map-driven apply cluster — C `use_grease` (CURRENT
@@ -249,19 +268,4 @@ Blindf_on/Blindf_off/cursed.
 (seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
 jelly/use_stone; or pleased pat_on_head gifts.
-**Blocked:** none.
-
-## 2026-07-22 06:42 — #1283 D-1012 in_trouble collapsing+minors
-
-**Objective:** map-driven — pray in_trouble collapsing…cursed_blindfold
-+ all minors (CURRENT next cluster).
-**C locus:** `pray.c` in_trouble/fix_worst_trouble/stuck_in_wall/
-worst_cursed_item/fix_curse_trouble; `do_wear.c` stuck_ring/unchanger;
-`potion.c` make_deaf; `dig.c` buried_ball_to_freedom; `artifact.c`
-confers_luck.
-**Change:** port remaining majors + all minors + helpers — D-1012.
-**Verified:** green+strict PASS; pray/shared cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or blindfold-as-tool /
-containers; or pleased pat_on_head gifts.
 **Blocked:** none.

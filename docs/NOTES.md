@@ -15,13 +15,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1026** `use_grease` (doapply CAN_OF_GREASE). Public
-  traces unhit (green+full sessions still PASS).
-- **Next cluster:** apply.js `use_tinning_kit` (TINNING_KIT). Remaining
-  nhl_gamestate memcpy u/disco/mvitals/spl_book named in `startup.md`.
-- **D-1026 falsifier (held):** empty known/seem; Glib slip no charge;
-  cursed|Fumbling rn2(2) dropx; hands `-` glib 5..15; cover greased;
-  shirt-under-suit ECMD_OK; gold cannot; cmdq `-`.
+- Latest: **D-1027** `use_tinning_kit` (doapply TINNING_KIT). Public
+  traces unhit (green+cohort still PASS).
+- **Next cluster:** apply.js `use_bell` (BELL / BELL_OF_OPENING).
+  Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
+  `startup.md`.
+- **D-1027 falsifier (held):** spe<=0 out of tins; homemade spe=-2
+  cursed copy + charge; fog cmdq/You_cant no charge; gold cannot;
+  doapply TIME even on cancel; rider revive+War.
 
 ## Don't re-check (≤15)
 
@@ -40,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_grease (D-1026) or drop `objects_at` (D-0980).
+  use_tinning_kit (D-1027) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -58,6 +59,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1295**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.26/turn` (R² 0.876).
+- **D-1027:** use_tinning_kit doapply TINNING_KIT + homemade spe=-2.
 - **D-1026:** use_grease doapply CAN_OF_GREASE + inaccessible.
 - **D-1025:** use_candle / use_candelabrum doapply + weight spe.
 - **D-1024:** flip_through_book / flip_coin doapply SPBOOK/COIN.
@@ -71,4 +73,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
 - **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.
-- **D-1012:** pray collapsing…cursed_blindfold + minors + helpers.

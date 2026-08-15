@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1027 — use_tinning_kit
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `TINNING_KIT` as unknown
+  (`Sorry, I don't know how to use that.`). C tins a floor/invent
+  corpse into a homemade tin (one move).
+- **C locus:** `apply.c` `use_tinning_kit` / `tinnable` / `doapply`
+  `TINNING_KIT`; `eat.c` `floorfood("tin", 2)` / `tin_ok` /
+  `set_tin_variety(HOMEMADE_TIN)`; `do.c` `revive_corpse` invent/floor
+  (rider); `invent.c` `getobj` GETOBJ_NOFLAGS + `consume_obj_charge` /
+  `useup`/`useupf` / `hold_another_object`.
+- **Fix:** doapply dispatch (res stays ECMD_TIME); spe<=0; floor yn
+  tinnable corpses (usteed does not skip); invent tin_ok SUGGEST /
+  EXCLUDE_SELECTABLE You_cant / gold cannot / silly; oeaten;
+  gloves petrify instapetrify; rider revive+War; cnutrit 0;
+  charge; mksobj(TIN,FALSE,FALSE) homemade spe=-2; shop verbalize;
+  useup/useupf; hold_another_object. Rule #2: no fs.
+- **Deferred:** will_feel_cockatrice; sacrifice floorfood; getobj ?/*
+  pickinv; consume_obj_charge unpaid / update_inventory; SetVoice;
+  revive_corpse MINVENT/CONTAINED/BURIED / Rider visual suffixes /
+  Adjmonnam; arti_speak.
+- **Verify:** green+strict PASS; apply/shared cohort **37**/37
+  (seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+  **73**/73). Private node: empty spe; homemade cursed copy spe=-2
+  charge; fog cmdq no charge. Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/eat.js`, `js/zap.js` (`revive` export).
+
 ## D-1026 — use_grease
 
 - **Status:** fixed (map-driven; not a public FAIL)
