@@ -45,7 +45,7 @@ import {
 } from './mon.js';
 import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
-    hold_another_object,
+    hold_another_object, consume_obj_charge,
 } from './invent.js';
 import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
@@ -833,14 +833,6 @@ async function use_mirror(obj) {
 }
 
 /**
- * C invent.c consume_obj_charge — spe--; unpaid/update_inventory deferred.
- */
-function consume_obj_charge(obj, _maybe_unpaid) {
-    if (!obj) return;
-    obj.spe = (obj.spe | 0) - 1;
-}
-
-/**
  * C zap.c bhit FLASHED_LIGHT — first non-minvis mon stops the beam;
  * minvis calls flash_hits_mon and continues (C zap.c bhit).
  * Named omissions: tmp_at flash glyph; transient_light; iron bars;
@@ -921,7 +913,7 @@ async function use_camera(obj) {
         await pline(nothing_happens);
         return ECMD_TIME;
     }
-    consume_obj_charge(obj, true);
+    await consume_obj_charge(obj, true);
 
     const u = game.u || {};
     if (obj.cursed && !rn2(2)) {
@@ -2354,8 +2346,8 @@ async function getobj_grease() {
 /**
  * C ref: apply.c use_grease — Glib / cursed|Fumbling slip dropx; getobj
  * target; hands make_glib rn1(11,5); object greased + cursed && !nohands
- * glib rn1(6,10); empty known/seem. Named omit: consume_obj_charge unpaid;
- * update_inventory; pickinv handsbuf.
+ * glib rn1(6,10); empty known/seem. Named omit: update_inventory;
+ * pickinv handsbuf.
  * @returns {number} ECMD_*
  */
 export async function use_grease(obj) {
@@ -2371,7 +2363,7 @@ export async function use_grease(obj) {
 
     if ((obj.spe | 0) > 0) {
         if ((obj.cursed || Fumbling()) && !rn2(2)) {
-            consume_obj_charge(obj, true);
+            await consume_obj_charge(obj, true);
             await pline(
                 `${Tobjnam_grease(obj, 'slip')} from your ${fingers_or_gloves_apply(false)}.`,
             );
@@ -2383,7 +2375,7 @@ export async function use_grease(obj) {
         if (await inaccessible_equipment(otmp, 'grease', false)) {
             return ECMD_OK;
         }
-        consume_obj_charge(obj, true);
+        await consume_obj_charge(obj, true);
 
         const oldglib = (game.u?.Glib | 0) & TIMEOUT;
         if (otmp !== hands_obj) {
@@ -2451,8 +2443,8 @@ async function revive_corpse(corpse) {
  * touch_petrifies instapetrify; rider revive_corpse; cnutrit 0;
  * consume_obj_charge; mksobj(TIN,FALSE,FALSE) homemade; shop verbalize;
  * useup/useupf; hold_another_object. doapply does not assign res
- * (stays ECMD_TIME). Named omit: consume_obj_charge unpaid;
- * SetVoice; will_feel_cockatrice (in floorfood); arti_speak.
+ * (stays ECMD_TIME). Named omit: SetVoice; will_feel_cockatrice
+ * (in floorfood); arti_speak.
  */
 export async function use_tinning_kit(obj) {
     if (!obj) return;
@@ -2495,7 +2487,7 @@ export async function use_tinning_kit(obj) {
         await pline("That's too insubstantial to tin.");
         return;
     }
-    consume_obj_charge(obj, true);
+    await consume_obj_charge(obj, true);
 
     const can = mksobj(TIN, false, false);
     if (can) {
@@ -4451,8 +4443,8 @@ async function mkundead(mm, revive_corpses, mm_flags) {
  * speed/nomul) else charged BofO consume_obj_charge then swallow openit /
  * cursed mkundead / invocation age=moves / blessed unpunish+openit /
  * uncursed findit. doapply does not assign res (stays ECMD_TIME).
- * Named omit: Hero_playnotes audio; consume_obj_charge unpaid;
- * detecting() vision; open_drawbridge crush/entity.
+ * Named omit: Hero_playnotes audio; detecting() vision;
+ * open_drawbridge crush/entity.
  */
 export async function use_bell(obj) {
     if (!obj) return;
@@ -4506,7 +4498,7 @@ export async function use_bell(obj) {
         }
         wakem = true;
     } else {
-        consume_obj_charge(obj, true);
+        await consume_obj_charge(obj, true);
 
         if (u.uswallow) {
             if (!obj.cursed) await openit();
@@ -5371,7 +5363,7 @@ export async function use_trap(otmp) {
 
 /**
  * C ref: makemon.c bagotricks — apply / tip BAG_OF_TRICKS.
- * Named omit: check_unpaid inside consume_obj_charge; pickup invent getobj tip.
+ * Named omit: pickup invent getobj tip.
  * @returns {Promise<number>} monsters created
  */
 export async function bagotricks(bag, tipping = false, seencount = null) {
@@ -5384,7 +5376,7 @@ export async function bagotricks(bag, tipping = false, seencount = null) {
         }
         return 0;
     }
-    consume_obj_charge(bag, !tipping);
+    await consume_obj_charge(bag, !tipping);
     let creatcnt = 1;
     let seecount = 0;
     if (!rn2(23)) creatcnt += rnd(7);

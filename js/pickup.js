@@ -36,7 +36,7 @@ import { m_at } from './mon.js';
 import { oclass_to_sym } from './options.js';
 import { objectNames, COIN_CLASS } from './objects.js';
 import { ATR_INVERSE } from './terminal.js';
-import { addtobill, costly_spot } from './shk.js';
+import { addtobill, costly_spot, check_unpaid_usage } from './shk.js';
 import { nohands, M1_NOTAKE } from './monsters.js';
 import { welded } from './wield.js';
 
@@ -1657,7 +1657,7 @@ async function able_to_loot(x, y, looting) {
  * C ref: pickup.c tipcontainer — empty box onto floor (no target bag).
  * Named omissions: tipcontainer_gettarget menu; bag-of-holding explode;
  * ice-box thaw; shop billing; altar/highdrop; cursed mbag item-gone;
- * otrapped chest_trap; invent getobj tip; check_unpaid_usage;
+ * otrapped chest_trap; invent getobj tip;
  * subfrombill after floor shop BoT/horn.
  * @param {object} box
  */
@@ -1706,7 +1706,9 @@ async function tipcontainer(box) {
         } while ((box.spe | 0) > 0);
         if ((box.spe | 0) < oldSpe) {
             if (bag && !totseen) await pline(nothing_seems_to_happen);
-            // check_unpaid_usage deferred
+            // C pickup.c: check_unpaid wants a non-zero charge count
+            box.spe = oldSpe;
+            await check_unpaid_usage(box, true);
             box.spe = 0;
             box.cknown = 1;
         }

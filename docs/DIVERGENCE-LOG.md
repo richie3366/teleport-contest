@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1047 — consume_obj_charge unpaid/shop path
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1023 risk 3. Local JS `consume_obj_charge` was `spe--`
+  only (`_maybe_unpaid` void). C `invent.c` calls `check_unpaid(obj)`
+  when `maybe_unpaid`, then `spe -= 1`, then `update_inventory` if
+  known. Shop use of an unpaid charged tool never billed debit or
+  spoke a usage fee.
+- **C locus:** `invent.c` `consume_obj_charge` (~1336–1346);
+  `shk.c` `check_unpaid` / `check_unpaid_usage` / `cost_per_charge`
+  (~5627–5742). Tip BoT/horn: `pickup.c` restores `spe` then
+  `check_unpaid_usage(box, TRUE)` (~4021–4028).
+- **Fix:** One `invent.js` `consume_obj_charge`. `shk.js`
+  `cost_per_charge` + `check_unpaid_usage` (debit always; verbalize +
+  `exercise(A_WIS)` iff `!Deaf && !muteshk`). Apply/detect/music/mkobj
+  stubs deleted. Pickup tip uses altusage. Rule #2: no fs.
+- **Deferred:** SetVoice; `update_inventory` perm_invent redraw;
+  direct `check_unpaid` (lamp/candle/oil/spell/zap/write/engrave);
+  trap.c squeaky-grease / pickup spill `consume_obj_charge`; tip
+  `subfrombill`.
+- **Verify:** green+strict PASS; apply cohort **9**/9
+  (seed0361 Scr **366**/366; seed0105/0009/0012/0060/0102/1500/
+  1800/2200). Private node **9**/9 (paid/no-ushops skip; unpaid wand
+  debit; `maybe_unpaid` false; empty charged skip; MAGIC_LAMP oil
+  `oc_cost`; BoT altusage; Usage-fee verbalize). Path **unhit**.
+- **Files:** `js/invent.js`, `js/shk.js`, `js/apply.js`, `js/detect.js`,
+  `js/music.js`, `js/mkobj.js`, `js/pickup.js`.
+
 ## D-1046 — light_cocktail takes/updates `struct obj **`
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)
@@ -22,7 +50,8 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Rule #2: no fs.
 - **Deferred:** shop `check_unpaid` / SetVoice “in addition”;
   `arti_speak` after doapply; `use_candle`/`use_bell`/`use_figurine`
-  still take obj by value (C `**` too); `consume_obj_charge` unpaid.
+  still take obj by value (C `**` too); `consume_obj_charge` unpaid
+  → D-1047.
 - **Verify:** green+strict PASS; apply cohort **9**/9
   (seed0361 Scr **366**/366; seed0105/0009/0012/0060/0102/1500/
   1800/2200). Private node **13**/13 (swallow/uw/worn leave

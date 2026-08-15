@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1047 | fixed | invent/shk `consume_obj_charge` unpaid | D-1023 locals were `spe--` only; C `check_unpaid` → `cost_per_charge` debit + verbalize before `spe--` |
 | D-1046 | fixed | apply `light_cocktail` `struct obj **` | D-1023 took obj by value; C writes `*optr` after snuff-merge/`addinv` and split/`hold_another_object` |
 | D-1045 | fixed | apply/objnam/do_name/polyself whip names | D-1022 clones: `the(xname)` / `highc(mon_nam)` / hero `body_part`; C `yname`/`Amonnam`/`mbodypart` |
 | D-1044 | fixed | dothrow `special_obj_hits_leader` `urole.questarti` | D-1041 used `u.questarti`; C `is_quest_artifact` reads `gu.urole.questarti` |
