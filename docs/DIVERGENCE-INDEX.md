@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1051 | fixed | apply `u_wipe_engr` + S_goodpos `tmp_at` | D-1022 no-ops; C `u_wipe_engr`→`wipe_engr_at`; pole/grapple/jump `tmp_at(DISP_BEAM,S_goodpos)` |
 | D-1050 | fixed | pickup `pickup_object` telekinesis | D-1022 voided flag; C whip TRUE silent encumbrance refuse + remote corpse/scare `raise`; grapple FALSE ynq |
 | D-1049 | fixed | sit `take_gold` `remove_worn_item` | D-1034 spliced invent + `delobj` only; C `remove_worn_item(otmp, FALSE)` then `delobj` (quiver gold → `uqwepgone`) |
 | D-1048 | fixed | sit/read Vlad case 10 `HConfusion` only | D-1033 also wrote flat `u.Confusion`; C `Confusion` ≡ `HConfusion`; `seffect_remove_curse` reads intrinsic |

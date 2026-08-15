@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1051 — apply u_wipe_engr + S_goodpos tmp_at
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1022 risk 7. JS `u_wipe_engr_apply` was a no-op
+  (seed-reasoning comment). `display_polearm_positions` /
+  `display_grapple_positions` / `display_jump_positions` were empty
+  while `getpos_sethilite` still registered them as C hilite
+  callbacks. C `use_pole`/`use_grapple` call `u_wipe_engr`; C
+  `display_*_positions` paint `tmp_at(DISP_BEAM, cmap_to_glyph(S_goodpos))`.
+- **C locus:** `engrave.c` `u_wipe_engr` (~264–268) →
+  `wipe_engr_at`; `apply.c` `display_polearm_positions` (~3334–3352),
+  `display_grapple_positions` (~3707–3725),
+  `display_jump_positions` (~1967–1984); `defsym.h` S_goodpos `'$'`
+  HI_ZAP.
+- **Fix:** export real `u_wipe_engr` (`can_reach_floor(TRUE)` then
+  `wipe_engr_at(u.ux,u.uy,cnt,FALSE)`). Wire apply callers. Port the
+  three hilite loops onto existing `tmp_at`. Rule #2: no fs.
+- **Deferred:** allmain/dokick/uhitm `u_wipe_engr` callers still
+  stub; getpos default hilite is Normal (paint on SHOWVALID `$`);
+  `flush_screen(1)` may still overwrite gbuf between `$` and the
+  next getpos frame; full `cmap_to_glyph`/showsyms table.
+- **Verify:** green+strict PASS; apply/jump cohort **6**/6
+  (seed0361 Scr **366**/366; seed4500 **1814**/1814; seed2200
+  **230**/230; seed0012 **308**/308). Private node **7**/7 (dust
+  wipe; headstone; levitation skip; nowipeout; no extra RNG;
+  tmp_at `$`). Path **unhit** on public traces.
+- **Files:** `js/engrave.js`, `js/apply.js`.
+
 ## D-1050 — pickup_object honors telekinesis
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

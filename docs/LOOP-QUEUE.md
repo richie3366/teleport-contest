@@ -21,7 +21,6 @@ Catch-up from `reviews/loop-2026-08-15/` (2026-08-15). Already done
 off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
 (D-1039); D-1036 hatch dispatch (D-1037).
 
-- [ ] `u_wipe_engr` / `tmp_at` no-ops in apply: wire or stop calling them as if they were C. Source: D-1022 risk 7.
 - [ ] Cursed-lamp `make_glib`: JS `(u.Glib|0)&TIMEOUT` must match C `HGlib|EGlib` timeout. Source: `reviews/loop-2026-08-15/D-1023-aaac3f9d-lamp-trap-bot.md` `use_lamp` gap.
 - [ ] `cry_sound`: monster `msound` must be C `monflag.h` numbers, not empty → always-chitter. Source: `reviews/loop-2026-08-15/D-1036-2ae43a8b-hatch-egg.md` risk 3.
 - [ ] `get_obj_location` flags: JS `0` must not accept CONTAINED when C hatch passes `0`. Source: D-1036 risk 4.

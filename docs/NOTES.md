@@ -16,15 +16,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1050 `pickup_object` telekinesis (D-1022 risk 6).
-  Remaining Must-fix: `u_wipe_engr` / `tmp_at` (D-1022 risk 7).
-  Loop is **fail-closed** (review every 3, cadence every 5
-  score-only unless Must-fix is open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — `u_wipe_engr` / `tmp_at` no-ops in
-  apply. Source: D-1022 risk 7. Do not dump tut-1 while Must-fix
-  is open.
-- **Hypothesis:** none live. Falsify wipe/tmp_at against C `engrave.c`
-  / `display.c` + green.
+- Latest: D-1051 apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
+  S_goodpos (D-1022 risk 7). Remaining Must-fix: cursed-lamp
+  `make_glib` HGlib|EGlib. Loop is **fail-closed** (review every 3,
+  cadence every 5 score-only unless Must-fix is open). Agents
+  **commit + `git push`**.
+- **Next cluster:** Must-fix — cursed-lamp `make_glib`. Source:
+  D-1023 `use_lamp` gap. Do not dump tut-1 while Must-fix is open.
+- **Hypothesis:** none live. Falsify lamp Glib timeout against C
+  `youprop.h` HGlib|EGlib + green.
 
 ## Don't re-check (≤15)
 
@@ -77,13 +77,15 @@ Objective/score live in `CURRENT.md`.
   Vlad case 10 extra flat `u.Confusion` (D-1048 — C `HConfusion`
   only). Do not restore `take_gold` invent-splice without
   `remove_worn_item` (D-1049). Do not `void telekinesis` (D-1050).
+  Do not restore apply `u_wipe_engr_apply` / empty `display_*_positions`
+  (D-1051).
 
 ## Landmarks (≤15)
 
 - Suite after review cadence **#1320**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.871). Next @**#1325**.
-- **D-1050:** `pickup_object` honors `telekinesis` (whip TRUE /
-  grapple FALSE). `lift_object` silent refuse vs ynq.
+- **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
+  S_goodpos. allmain/dokick/uhitm wipe callers still stub.
 - **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`.
 - **D-1048:** Vlad case 10 `HConfusion` only (no flat `u.Confusion`).
 - **D-1047:** `consume_obj_charge` unpaid/`check_unpaid` +
@@ -93,7 +95,5 @@ Objective/score live in `CURRENT.md`.
 - **D-1044:** `special_obj_hits_leader` `urole.questarti`.
 - **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
 - **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
-- **D-1039:** `dosit` trap-before-throne + `dotrap` `VIASITTING`.
 - **D-1041:** `thitmonst` WEAPON/weptool/GEM tmp+dieroll `hmon`/`tmiss`.
 - **D-1040:** pole `glyph_at` targeting (not live `m_at` stand-in).
-- **D-1038:** lock `getdir` C envelope + dothrow `hurtle`/`hurtle_step`.

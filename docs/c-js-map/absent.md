@@ -29,7 +29,7 @@ This is a planning list, not an exhaustive C file inventory:
   via D-1008; whistle/leash via D-1007/D-1005; **BLINDFOLD/LENSES
   Blindf_on/off** via D-1013; **`use_stone` graystone/touchstone** via
   D-1014; containers already wired via `use_container`;
-  **whip/grapple/`use_pole` D-1022** + **pole `glyph_at` D-1040** + **`thitmonst` hit-vs-miss D-1041** + **shared getdir/`hurtle` D-1038** + **whip `yname`/`Amonnam`/`mbodypart` D-1045**;
+  **whip/grapple/`use_pole` D-1022** + **pole `glyph_at` D-1040** + **`thitmonst` hit-vs-miss D-1041** + **shared getdir/`hurtle` D-1038** + **whip `yname`/`Amonnam`/`mbodypart` D-1045** + **`u_wipe_engr` / S_goodpos `tmp_at` D-1051**;
   **oil lamp/cocktail/trap/BoT D-1023** + **`light_cocktail` `struct obj **` D-1046** + **`consume_obj_charge` unpaid/`check_unpaid` D-1047** (SetVoice / lamp-oil `check_unpaid` / perm_invent redraw still named);
   **`use_royal_jelly` D-1021**);
 - potions, scrolls, wands, spells, equipment, artifacts;

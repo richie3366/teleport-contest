@@ -6,7 +6,7 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
-    verbalize, mon_visible, tp_sensemon, see_with_infrared,
+    verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
 } from './display.js';
 import { vision_recalc, cansee, couldsee } from './vision.js';
 import {
@@ -35,7 +35,7 @@ import {
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
     MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
     IS_TREE, W_NONPASSWALL, FIG_TRANSFORM, TIMER_OBJECT, OBJ_MINVENT,
-    EXACT_NAME,
+    EXACT_NAME, DISP_BEAM, DISP_END, HI_ZAP,
 } from './const.js';
 import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -102,7 +102,7 @@ import {
 } from './trap.js';
 import { begin_burn, end_burn, Is_candle, obj_merge_light_sources,
     get_obj_location } from './timeout.js';
-import { set_occupation } from './engrave.js';
+import { set_occupation, u_wipe_engr } from './engrave.js';
 import { makemon, mkclass } from './makemon.js';
 import { make_familiar } from './dog.js';
 import { addinv } from './u_init.js';
@@ -2535,7 +2535,7 @@ export async function use_tinning_kit(obj) {
  * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014) +
  * LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021) +
  * BULLWHIP → use_whip / GRAPPLING_HOOK → use_grapple / is_pole → use_pole
- * (D-1022) +
+ * (D-1022) + `u_wipe_engr` / pole·grapple·jump `tmp_at` S_goodpos (D-1051) +
  * OIL_LAMP/MAGIC_LAMP/BRASS_LANTERN → use_lamp / POT_OIL → light_cocktail +
  * LAND_MINE/BEARTRAP → use_trap / BAG_OF_TRICKS → bagotricks (D-1023) +
  * CANDELABRUM_OF_INVOCATION → use_candelabrum /
@@ -2550,7 +2550,6 @@ export async function use_tinning_kit(obj) {
  * Medusa/nymph mirror arms;
  * shop check_unpaid / lamp-oil verbalize; pickup invent getobj tip;
  * break-wand release_hold / flash_hits (D-0979);
- * S_goodpos tmp_at; hurtle_step;
  * pickinv handsbuf;
  * getdir mouse.
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -3544,11 +3543,6 @@ async function obj_no_longer_held_apply(obj) {
     }
 }
 
-/** C ref: engrave.c u_wipe_engr — no-op when no floor engraving (no RNG). */
-function u_wipe_engr_apply(_cnt) {
-    // wipe_engr_at body deferred; public traces have no engraving here
-}
-
 /** C ref: weapon.c uwep_skill_type. */
 function uwep_skill_type() {
     if (game.u?.twoweap) return P_TWO_WEAPON_COMBAT;
@@ -4005,8 +3999,28 @@ export function find_poleable_mon(pos) {
     return true;
 }
 
-function display_polearm_positions(_on_off) {
-    // C tmp_at DISP_BEAM S_goodpos; getpos already defers glyph paint (D-0899)
+/**
+ * C ref: defsym.h PCHAR S_goodpos — '$' / HI_ZAP (cmap_to_glyph).
+ */
+function cmap_to_glyph_goodpos() {
+    return { ch: '$', color: HI_ZAP, dec: false };
+}
+
+function display_polearm_positions(on_off) {
+    // C apply.c display_polearm_positions — tmp_at DISP_BEAM S_goodpos
+    if (on_off) {
+        tmp_at(DISP_BEAM, cmap_to_glyph_goodpos());
+        const u = game.u || {};
+        for (let dx = -3; dx <= 3; dx++) {
+            for (let dy = -3; dy <= 3; dy++) {
+                const x = dx + (u.ux | 0);
+                const y = dy + (u.uy | 0);
+                if (get_valid_polearm_position(x, y)) tmp_at(x, y);
+            }
+        }
+    } else {
+        tmp_at(DISP_END, 0);
+    }
 }
 
 function snickersnee_used_dist_attk(obj) {
@@ -4039,8 +4053,8 @@ export function could_pole_mon() {
 
 /**
  * C ref: apply.c use_pole — getpos range + thitmonst / statue / furniture.
- * Named omit: S_goodpos tmp_at paint; defsyms furniture explanation;
- * integer glyph IDs. thitmonst weapon hit-vs-miss: D-1041.
+ * Named omit: defsyms furniture explanation; integer glyph IDs.
+ * thitmonst weapon hit-vs-miss: D-1041. S_goodpos tmp_at: D-1051.
  */
 async function use_pole(obj, autohit) {
     const thump = 'Thump!  Your blow bounces harmlessly off the %s.';
@@ -4150,7 +4164,7 @@ async function use_pole(obj, autohit) {
             await pline('You miss; there is no one there to hit.');
         }
     }
-    u_wipe_engr_apply(2);
+    u_wipe_engr(2);
     return freehit ? ECMD_OK : ECMD_TIME;
 }
 
@@ -4165,14 +4179,28 @@ function can_grapple_location(x, y) {
     return isok(x, y) && cansee(x, y) && distu_apply(x, y) <= grapple_range();
 }
 
-function display_grapple_positions(_on_off) {
-    // C tmp_at DISP_BEAM; getpos getvalid still force-newsyms
+function display_grapple_positions(on_off) {
+    // C apply.c display_grapple_positions — tmp_at DISP_BEAM S_goodpos
+    if (on_off) {
+        tmp_at(DISP_BEAM, cmap_to_glyph_goodpos());
+        const u = game.u || {};
+        for (let dx = -3; dx <= 3; dx++) {
+            for (let dy = -3; dy <= 3; dy++) {
+                const x = dx + (u.ux | 0);
+                const y = dy + (u.uy | 0);
+                if (can_grapple_location(x, y) && !u_at_xy(x, y)) {
+                    tmp_at(x, y);
+                }
+            }
+        }
+    } else {
+        tmp_at(DISP_END, 0);
+    }
 }
 
 /**
  * C ref: apply.c use_grapple — getpos, skill menu, snag/hit/hurtle.
- * Named omit: untrap non-adjacent (C FIXME); wipe_engr_at body.
- * S_goodpos tmp_at.
+ * Named omit: untrap non-adjacent (C FIXME). S_goodpos tmp_at: D-1051.
  */
 async function use_grapple(obj) {
     const res = ECMD_OK;
@@ -4233,7 +4261,7 @@ async function use_grapple(obj) {
         }
     }
 
-    if (tohit === 2 || !rn2(2)) u_wipe_engr_apply(rnd(2));
+    if (tohit === 2 || !rn2(2)) u_wipe_engr(rnd(2));
 
     switch (tohit) {
     case 0:
@@ -5712,11 +5740,26 @@ function is_valid_jump_pos_sync(x, y, magic) {
 
 /**
  * C ref: apply.c display_jump_positions — tmp_at goodpos hilite.
- * Named omission: S_goodpos glyph paint (tmp_at DISP_BEAM); getpos_sethilite
- * still force-newsyms valid cells so flush_screen(0) cursor matches C.
+ * getpos_sethilite still force-newsyms valid cells so flush_screen(0)
+ * cursor matches C; paint is live when SHOWVALID toggles HiliteGoodpos.
  */
-function display_jump_positions(_on_off) {
-    // deferred: tmp_at(DISP_BEAM, cmap_to_glyph(S_goodpos))
+function display_jump_positions(on_off) {
+    // C apply.c display_jump_positions — tmp_at DISP_BEAM S_goodpos
+    if (on_off) {
+        tmp_at(DISP_BEAM, cmap_to_glyph_goodpos());
+        const u = game.u || {};
+        for (let dx = -4; dx <= 4; dx++) {
+            for (let dy = -4; dy <= 4; dy++) {
+                const x = dx + (u.ux | 0);
+                const y = dy + (u.uy | 0);
+                if (get_valid_jump_position(x, y) && !u_at_xy(x, y)) {
+                    tmp_at(x, y);
+                }
+            }
+        }
+    } else {
+        tmp_at(DISP_END, 0);
+    }
 }
 
 /**
