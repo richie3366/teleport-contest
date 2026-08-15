@@ -27,10 +27,11 @@ import {
     EXT_ENCUMBER, COST_DSTROY, COST_DEGRD, HEAD, HAND, NOSE, NON_PM,
     KILLED_BY, NO_KILLER_PREFIX, W_WEP, DISMOUNT_THROWN, STATUE_TRAP,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
-    RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
+    RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, ARTICLE_A,
+    SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
-    MAX_SPELL_STUDY, HOMEMADE_TIN,
+    MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -88,20 +89,24 @@ import {
 import { digests } from './mhitu.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
 import { vault_summon_gd } from './vault.js';
-import { fill_pit } from './dig.js';
+import { fill_pit, buried_ball_to_freedom } from './dig.js';
 import {
     mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at,
     activate_statue_trap, maketrap, feeltrap, dotrap, trapname,
 } from './trap.js';
 import { begin_burn, end_burn, Is_candle, obj_merge_light_sources } from './timeout.js';
 import { set_occupation } from './engrave.js';
-import { makemon } from './makemon.js';
+import { makemon, mkclass } from './makemon.js';
 import { addinv } from './u_init.js';
-import { stairway_at } from './mklev.js';
+import { stairway_at, morguemon } from './mklev.js';
 import { make_glib } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
 import { dropx, setnotworn, fire_damage } from './do.js';
 import { polymon } from './polyself.js';
+import { unpunish } from './read.js';
+import { findit, openit } from './detect.js';
+import { level_difficulty } from './hacklib.js';
+import { mon_adjust_speed } from './muse.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -125,6 +130,9 @@ const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
 const PM_HORSE = monsterNames.indexOf('PM_HORSE');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
+const PM_WOOD_NYMPH = monsterNames.indexOf('PM_WOOD_NYMPH');
+const PM_WATER_NYMPH = monsterNames.indexOf('PM_WATER_NYMPH');
+const PM_MOUNTAIN_NYMPH = monsterNames.indexOf('PM_MOUNTAIN_NYMPH');
 const TOUCHSTONE = objectNames.indexOf('TOUCHSTONE');
 const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
@@ -153,6 +161,8 @@ const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
+const BELL = objectNames.indexOf('BELL');
+const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
 const TIN = objectNames.indexOf('TIN');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
@@ -2582,9 +2592,10 @@ export async function use_tinning_kit(obj) {
  * CANDELABRUM_OF_INVOCATION → use_candelabrum /
  * WAX_CANDLE/TALLOW_CANDLE → use_candle (D-1025) +
  * CAN_OF_GREASE → use_grease (D-1026) +
- * TINNING_KIT → use_tinning_kit (D-1027).
+ * TINNING_KIT → use_tinning_kit (D-1027) +
+ * BELL / BELL_OF_OPENING → use_bell (D-1028).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; figurine/unihorn/bell/horn of plenty;
+ * Medusa/nymph mirror arms; figurine/unihorn/horn of plenty;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
@@ -2820,6 +2831,13 @@ export async function doapply() {
     if (GRAPPLING_HOOK >= 0 && obj.otyp === GRAPPLING_HOOK) {
         const res = await use_grapple(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case BELL / BELL_OF_OPENING → use_bell (D-1028); res stays TIME
+    if ((BELL >= 0 && obj.otyp === BELL)
+        || (BELL_OF_OPENING >= 0 && obj.otyp === BELL_OF_OPENING)) {
+        await use_bell(obj);
+        return true; // ECMD_TIME
     }
 
     // C apply.c case CANDELABRUM_OF_INVOCATION → use_candelabrum (D-1025)
@@ -4389,6 +4407,156 @@ function invocation_pos_apply(x, y) {
 /** C stairs.c On_stairs — stairway_at != NULL. */
 function On_stairs_apply(x, y) {
     return !!stairway_at(x, y);
+}
+
+/** C music.c Hero_playnotes — tty/sound deferred (no RNG). */
+function Hero_playnotes_bell(_instr, _notes, _vol) {}
+
+/** C do_name.c a_monnam — ARTICLE_A; SUPPRESS_SADDLE when named. */
+function a_monnam_bell(mtmp) {
+    return x_monnam(
+        mtmp, ARTICLE_A, null,
+        has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, false,
+    );
+}
+
+/**
+ * C ref: mkroom.c mkundead — (level_difficulty+1)/10 + rnd(5) undead
+ * around mm; optional corpse revive then makemon; graveyard flag.
+ * Named omit: spell.c caller (same helper); revive visual polish.
+ */
+async function mkundead(mm, revive_corpses, mm_flags) {
+    let cnt = Math.trunc(((level_difficulty(game.u?.uz) || 1) + 1) / 10) + rnd(5);
+    while (cnt--) {
+        const mdat = morguemon();
+        const cc = { x: 0, y: 0 };
+        if (mdat && enexto(cc, mm.x, mm.y, mdat)) {
+            let skipMakemon = false;
+            if (revive_corpses) {
+                const otmp = sobj_at_nexthere(CORPSE, cc.x, cc.y);
+                if (otmp && await revive(otmp, false)) skipMakemon = true;
+            }
+            if (!skipMakemon) makemon(mdat, cc.x, cc.y, mm_flags);
+        }
+    }
+    if (game.level) {
+        if (!game.level.flags) game.level.flags = {};
+        game.level.flags.graveyard = true;
+    }
+}
+
+/**
+ * C ref: apply.c use_bell — ordinary ring (Underwater/swallow muffled;
+ * invocation empty BofO silent+learno; cursed nymph summon + shatter/
+ * speed/nomul) else charged BofO consume_obj_charge then swallow openit /
+ * cursed mkundead / invocation age=moves / blessed unpunish+openit /
+ * uncursed findit. doapply does not assign res (stays ECMD_TIME).
+ * Named omit: Hero_playnotes audio; consume_obj_charge unpaid;
+ * detecting() vision; open_drawbridge crush/entity.
+ */
+export async function use_bell(obj) {
+    if (!obj) return;
+    let wakem = false;
+    let learno = false;
+    const ordinary = obj.otyp !== BELL_OF_OPENING || !(obj.spe | 0);
+    const u = game.u || {};
+    const invoking = obj.otyp === BELL_OF_OPENING
+        && invocation_pos_apply(u.ux, u.uy)
+        && !On_stairs_apply(u.ux, u.uy);
+
+    Hero_playnotes_bell(obj.otyp, 'C', 100);
+    await pline(`You ring ${the(xname(obj))}.`);
+
+    if (Underwater_hero() || (u.uswallow && ordinary)) {
+        await pline('But the sound is muffled.');
+    } else if (invoking && ordinary) {
+        await pline('But it makes no sound.');
+        learno = true;
+    } else if (ordinary) {
+        const woodGone = !!((game.mvitals?.[PM_WOOD_NYMPH]?.mvflags ?? 0) & G_GONE);
+        const waterGone = !!((game.mvitals?.[PM_WATER_NYMPH]?.mvflags ?? 0) & G_GONE);
+        const mtnGone = !!((game.mvitals?.[PM_MOUNTAIN_NYMPH]?.mvflags ?? 0) & G_GONE);
+        if (obj.cursed && !rn2(4)
+            && !woodGone && !waterGone && !mtnGone) {
+            const mtmp = makemon(
+                mkclass('S_NYMPH', 0), u.ux | 0, u.uy | 0,
+                NO_MINVENT | MM_NOMSG,
+            );
+            if (mtmp) {
+                await pline(`You summon ${a_monnam_bell(mtmp)}!`);
+                if (!obj_resists(obj, 93, 100)) {
+                    await pline(`${Tobjnam_grease(obj, 'have')} shattered!`);
+                    useup(obj);
+                    obj = null;
+                } else {
+                    switch (rn2(3)) {
+                    default:
+                        break;
+                    case 1:
+                        await mon_adjust_speed(mtmp, 2, null);
+                        break;
+                    case 2:
+                        game.nomovemsg = '';
+                        game.multi_reason = null;
+                        nomul(-rnd(2));
+                        break;
+                    }
+                }
+            }
+        }
+        wakem = true;
+    } else {
+        consume_obj_charge(obj, true);
+
+        if (u.uswallow) {
+            if (!obj.cursed) await openit();
+            else await pline(nothing_happens);
+        } else if (obj.cursed) {
+            await mkundead(
+                { x: u.ux | 0, y: u.uy | 0 }, false, NO_MINVENT,
+            );
+            wakem = true;
+        } else if (invoking) {
+            await pline(
+                `${Tobjnam_grease(obj, 'issue')} an unsettling shrill sound...`,
+            );
+            obj.age = game.moves | 0;
+            learno = true;
+            wakem = true;
+        } else if (obj.blessed) {
+            let res = 0;
+            if (u.uchain) {
+                unpunish();
+                res = 1;
+            } else if ((u.utrap | 0) && (u.utraptype | 0) === TT_BURIEDBALL) {
+                buried_ball_to_freedom();
+                res = 1;
+            }
+            res += await openit();
+            switch (res) {
+            case 0:
+                await pline(nothing_happens);
+                break;
+            case 1:
+                await pline('Something opens...');
+                learno = true;
+                break;
+            default:
+                await pline('Things open around you...');
+                learno = true;
+                break;
+            }
+        } else {
+            if (await findit() !== 0) learno = true;
+            else await pline(nothing_happens);
+        }
+    }
+
+    if (learno) {
+        makeknown(BELL_OF_OPENING);
+        if (obj) obj.known = 1;
+    }
+    if (wakem) await wake_nearby(true);
 }
 
 /**

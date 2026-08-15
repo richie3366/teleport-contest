@@ -14761,10 +14761,10 @@ function courtmon() {
 }
 
 /**
- * C ref: mkroom.c morguemon — undead pick for MORGUE fill_zoo.
+ * C ref: mkroom.c morguemon — undead pick for MORGUE fill_zoo / mkundead.
  * Named omission: Inhell S_DEMON arm uses dungeon hellish flag (≡ C Inhell).
  */
-function morguemon() {
+export function morguemon() {
     const i = rn2(100);
     const hd = rn2(level_difficulty());
     if (hd > 10 && i < 10) {

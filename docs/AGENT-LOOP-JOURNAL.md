@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 16:12 — #1297 D-1028 use_bell
+
+**Objective:** map-driven apply cluster — C `use_bell`
+(CURRENT BELL / BELL_OF_OPENING).
+**C locus:** `apply.c` use_bell/doapply BELL; `detect.c`
+openit/openone; `mkroom.c` mkundead/morguemon; `hack.c`
+invocation_pos.
+**Change:** doapply dispatch (res stays TIME); muffled; empty BofO
+silent+learno; cursed nymph shatter/speed/nomul; charged swallow
+openit / mkundead / invocation age / blessed unpunish+openit /
+uncursed findit. Rule #2: no fs.
+**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
+**Verified:** green+strict PASS; apply/shared cohort **37**/37
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+**73**/73). Private node (muffled; empty inv known; cursed spe--
+graveyard; openit box+door; doapply TIME). Path **unhit** by public
+traces.
+**Next:** apply.js use_figurine (FIGURINE).
+**Blocked:** none.
+
 ## 2026-08-15 15:55 — #1296 D-1027 use_tinning_kit
 
 **Objective:** map-driven apply cluster — C `use_tinning_kit`
@@ -254,18 +274,4 @@ graystone cases.
 pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
 jelly/use_pole; or pleased pat_on_head gifts.
-**Blocked:** none.
-
-## 2026-07-22 06:48 — #1284 D-1013 apply blindfold/lenses
-
-**Objective:** map-driven — apply BLINDFOLD/LENSES Blindf_on/off
-(CURRENT next apply tools).
-**C locus:** `apply.c` doapply cases BLINDFOLD/LENSES; `do_wear.c`
-Blindf_on/Blindf_off/cursed.
-**Change:** wire doapply eyewear arm + export Blindf_on/cursed_check
-— D-1013.
-**Verified:** green+strict PASS; apply/shared cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
-jelly/use_stone; or pleased pat_on_head gifts.
 **Blocked:** none.

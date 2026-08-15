@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1028 — use_bell
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `BELL` / `BELL_OF_OPENING` as unknown
+  (`Sorry, I don't know how to use that.`). C rings the bell (one move).
+- **C locus:** `apply.c` `use_bell` / `doapply` `BELL`/`BELL_OF_OPENING`;
+  `detect.c` `openit`/`openone`; `mkroom.c` `mkundead`/`morguemon`;
+  `hack.c` `invocation_pos`; `invent.c` `consume_obj_charge`/`makeknown`.
+- **Fix:** doapply dispatch (res stays ECMD_TIME); Hero_playnotes no-op;
+  Underwater/swallow muffled; empty BofO at invocation silent+learno;
+  ordinary cursed nymph `mkclass(S_NYMPH)` + `obj_resists` shatter /
+  speed / nomul; charged consume then swallow `openit` / cursed
+  `mkundead` / invocation `age=moves` / blessed unpunish+openit /
+  uncursed `findit`. `openit` boxes+doors+scorr+holding/falling+
+  drawbridge. Rule #2: no fs.
+- **Deferred:** Hero_playnotes audio; consume_obj_charge unpaid;
+  detecting() vision; open_drawbridge crush/entity; spell.c
+  `mkundead(revive_corpses)` caller (helper exists); figurine /
+  unihorn / horn of plenty.
+- **Verify:** green+strict PASS; apply/shared cohort **37**/37
+  (seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+  **73**/73). Private node: muffled; empty inv no-sound+known;
+  cursed spe-- + graveyard; blessed/uncursed charge; openit box+
+  locked door; doapply TIME. Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/detect.js`, `js/mklev.js` (`morguemon`
+  export).
+
 ## D-1027 — use_tinning_kit
 
 - **Status:** fixed (map-driven; not a public FAIL)

@@ -15,14 +15,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1027** `use_tinning_kit` (doapply TINNING_KIT). Public
-  traces unhit (green+cohort still PASS).
-- **Next cluster:** apply.js `use_bell` (BELL / BELL_OF_OPENING).
+- Latest: **D-1028** `use_bell` (doapply BELL / BELL_OF_OPENING).
+  Public traces unhit (green+cohort still PASS).
+- **Next cluster:** apply.js `use_figurine` (FIGURINE).
   Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
   `startup.md`.
-- **D-1027 falsifier (held):** spe<=0 out of tins; homemade spe=-2
-  cursed copy + charge; fog cmdq/You_cant no charge; gold cannot;
-  doapply TIME even on cancel; rider revive+War.
+- **D-1028 falsifier (held):** underwater muffled; empty BofO at
+  invocation no-sound+makeknown; cursed charged spe-- + graveyard;
+  blessed openit; uncursed findit; doapply TIME not unknown.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_tinning_kit (D-1027) or drop `objects_at` (D-0980).
+  use_bell (D-1028) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -59,6 +59,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1295**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.26/turn` (R² 0.876).
+- **D-1028:** use_bell doapply BELL/BELL_OF_OPENING + openit/mkundead.
 - **D-1027:** use_tinning_kit doapply TINNING_KIT + homemade spe=-2.
 - **D-1026:** use_grease doapply CAN_OF_GREASE + inaccessible.
 - **D-1025:** use_candle / use_candelabrum doapply + weight spe.
@@ -72,4 +73,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
 - **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.
 - **D-1014:** apply use_stone + dorub/doapply graystone.
-- **D-1013:** apply BLINDFOLD/LENSES Blindf_on/off.

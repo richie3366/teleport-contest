@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1028 | fixed | apply `use_bell` | C doapply BELL/BELL_OF_OPENING; JS said unknown; ordinary/BofO + openit/findit/mkundead |
 | D-1027 | fixed | apply `use_tinning_kit` | C doapply TINNING_KIT; JS said unknown; floorfood tin + homemade spe=-2 + rider revive |
 | D-1026 | fixed | apply `use_grease` | C doapply CAN_OF_GREASE; JS said unknown; Glib/slip dropx + hands/object grease + inaccessible |
 | D-1025 | fixed | apply `use_candle`/`use_candelabrum` | C doapply candle/candelabrum; JS said unknown; attach/split + light/snuff + age/=2 |
