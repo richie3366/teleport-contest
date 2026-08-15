@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1034 | fixed | sit ordinary `throne_sit_effect` 1–13 | C switch after Vlad return; JS dropped effect; take_gold + courtmon + do_genocide(5) |
 | D-1033 | fixed | sit `special_throne_effect` | C Vlad throne 1–13; JS omitted IS_THRONE; grease COIN skip + losexp/seffects wires |
 | D-1032 | fixed | timeout/apply `fig_transform` | C attach rnd(9000)+200; JS dropped FIG_TRANSFORM; callback + BUC/carry/drop wires |
 | D-1031 | fixed | apply/mkobj `hornoplenty` | C doapply HORN_OF_PLENTY; JS said unknown; rn2(13) potion/food + tip BoT/horn |

@@ -14747,7 +14747,7 @@ function squadmon() {
 /**
  * C ref: mkroom.c courtmon — difficulty-scaled court monster pick.
  */
-function courtmon() {
+export function courtmon() {
     const i = rn2(60) + rn2(3 * level_difficulty());
     if (i > 100) return mkclass('S_DRAGON', 0);
     if (i > 95) return mkclass('S_GIANT', 0);

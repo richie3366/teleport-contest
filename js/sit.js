@@ -1,26 +1,29 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
-// rndcurse + Vlad special_throne_effect (D-1033).
+// rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
-// attrcurse / rndcurse; dungeon.c surface (fountain branch).
+// take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch).
 //
 // Branch envelope: reachable floor (Levitation only), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), IS_THRONE sit +
 // special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
-// confused remove-curse/poly/acid/shuffle), default having-fun;
-// attrcurse rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane
-// / Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
-// (D-0969).
+// confused remove-curse/poly/acid/shuffle) + ordinary throne_sit_effect
+// 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
+// curse/see-invis mapping/aggravate-tele/identify/pretzel), default
+// having-fun; attrcurse rnd(11) INTRINSIC strip (D-0945); rndcurse invent
+// + Magicbane / Antimagic / Half_spell_damage / SPFX_INTEL resist /
+// steed saddle (D-0969).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
 // uescaped_shaft gate, traps, water/gremlin, sink/altar/grave/stairs/
-// ladder/lava/ice/drawbridge, ordinary throne_sit_effect 1–13,
-// wizard getlin / Analyze y_n, lay_an_egg, money_cnt meager coil;
-// shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
-// Yobjnam2 shk_your/pname polish.
+// ladder/lava/ice/drawbridge, wizard getlin / Analyze y_n, lay_an_egg,
+// money_cnt meager coil; shieldeff; update_inventory redraw;
+// Hallucination hcolor synonyms; Yobjnam2 shk_your/pname polish;
+// SetVoice; eyecount poly; remove_worn_item gold.
 // D-0956: set_mimic_blocking on SEE_INVIS attrcurse arm.
 
 import { game } from './gstate.js';
 import {
     pline, You_feel, newsym, see_monsters, map_background, newsym_force,
+    verbalize,
 } from './display.js';
 import { set_mimic_blocking, cansee } from './vision.js';
 import { rnd, rn2, rn1 } from './rng.js';
@@ -28,18 +31,19 @@ import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
     IS_THRONE, In_V_tower, ROOM, CLOUD,
-    INTRINSIC, TIMEOUT, W_SADDLE,
+    INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
-    KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS,
+    KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL, NO_MM_FLAGS,
+    EYE, HEAD,
 } from './const.js';
 import { objects_at, delobj, curse, unbless } from './mkobj.js';
 import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
-import { xname, the, The, vtense } from './objnam.js';
+import { xname, the, The, vtense, makeplural } from './objnam.js';
 import { amorphous, mons, M1_SLITHY, is_prince, is_vampire } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
-import { A_MAX, A_CON, adjattrib, exercise } from './attrib.js';
+import { A_MAX, A_CON, adjattrib, exercise, change_luck } from './attrib.js';
 import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
@@ -122,6 +126,30 @@ function Tobjnam(otmp, verb) {
 function Yobjnam2(obj, verb) {
     const nam = xname(obj);
     return `Your ${nam} ${vtense(nam, verb)}`;
+}
+
+/**
+ * C ref: sit.c take_gold — strip COIN_CLASS from invent.
+ * Named omit: remove_worn_item (coins rarely worn).
+ */
+export async function take_gold() {
+    let lost_money = false;
+    const invent = game.invent || [];
+    for (const otmp of [...invent]) {
+        if (otmp?.oclass !== COIN_CLASS) continue;
+        lost_money = true;
+        const idx = invent.indexOf(otmp);
+        if (idx >= 0) invent.splice(idx, 1);
+        delobj(otmp);
+    }
+    if (!lost_money) {
+        await You_feel('a strange sensation.');
+    } else {
+        await pline('You notice you have no gold!');
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+        if (game._goldCount != null) game._goldCount = 0;
+    }
 }
 
 /**
@@ -337,6 +365,37 @@ function surface(x, y) {
     return 'ground';
 }
 
+/** C ref: you.h Luck — u.uluck + u.moreluck. */
+function Luck() {
+    const u = game.u || {};
+    return (u.uluck | 0) + (u.moreluck | 0);
+}
+
+/** C youprop.h Shock_resistance — H || E. */
+function Shock_resistance() {
+    const u = game.u || {};
+    return !!((u.HShock_resistance | 0) || (u.EShock_resistance | 0)
+        || u.Shock_resistance);
+}
+
+/** C youprop.h BlindedTimeout — HBlinded & TIMEOUT. */
+function BlindedTimeout() {
+    const u = game.u || {};
+    return (u.HBlinded | 0) & TIMEOUT;
+}
+
+/** C ref: mondata.c body_part — EYE/HEAD; poly table deferred. */
+function body_part(part) {
+    if ((part | 0) === EYE) return 'eye';
+    if ((part | 0) === HEAD) return 'head';
+    return 'body';
+}
+
+/** C ref: mondata.c eyecount — poly forms deferred (humanoid 2). */
+function eyecount(_data) {
+    return 2;
+}
+
 /** C ref: youprop.h Drain_resistance — H || E. */
 function Drain_resistance() {
     const u = game.u || {};
@@ -490,10 +549,10 @@ export async function special_throne_effect(effect) {
 
 /**
  * C ref: sit.c throne_sit_effect — rnd(6)>4 then rnd(13); Vlad special
- * returns before vanish. Ordinary 1–13 deferred. Wizard getlin deferred.
+ * returns before vanish. Wizard getlin deferred.
  */
 async function throne_sit_effect() {
-    const u = game.u || {};
+    const u = game.u || (game.u = {});
     const tx = u.ux | 0;
     const ty = u.uy | 0;
     const special_throne = !!In_V_tower(u.uz);
@@ -505,8 +564,172 @@ async function throne_sit_effect() {
             await special_throne_effect(effect);
             return;
         }
-        // ordinary throne_sit_effect cases 1–13 deferred
-        void effect;
+        switch (effect | 0) {
+        case 1: {
+            const { losehp } = await import('./hack.js');
+            await adjattrib(rn2(A_MAX), -rn1(4, 3), 0);
+            losehp(rnd(10), 'cursed throne', KILLED_BY_AN);
+            break;
+        }
+        case 2:
+            await adjattrib(rn2(A_MAX), 1, 0);
+            break;
+        case 3: {
+            const { losehp } = await import('./hack.js');
+            await pline(
+                `A${Shock_resistance() ? 'n' : ' massive'} electric shock shoots through your body!`,
+            );
+            losehp(
+                Shock_resistance() ? rnd(6) : rnd(30),
+                'electric chair',
+                KILLED_BY_AN,
+            );
+            exercise(A_CON, false);
+            break;
+        }
+        case 4: {
+            await You_feel('much, much better!');
+            if (Upolyd(u)) {
+                if ((u.mh | 0) >= ((u.mhmax | 0) - 5)) u.mhmax = (u.mhmax | 0) + 4;
+                u.mh = u.mhmax | 0;
+            }
+            if ((u.uhp | 0) >= ((u.uhpmax | 0) - 5)) {
+                u.uhpmax = (u.uhpmax | 0) + 4;
+                if ((u.uhpmax | 0) > (u.uhppeak | 0)) u.uhppeak = u.uhpmax | 0;
+            }
+            u.uhp = u.uhpmax | 0;
+            u.ucreamed = 0;
+            const { make_blinded } = await import('./do.js');
+            const { make_sick } = await import('./potion.js');
+            const { heal_legs } = await import('./trap.js');
+            await make_blinded(0, true);
+            await make_sick(0, null, false, SICK_ALL);
+            await heal_legs(0);
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+            break;
+        }
+        case 5:
+            await take_gold();
+            break;
+        case 6:
+            if ((u.uluck | 0) + rn2(5) < 0) {
+                await You_feel('your luck is changing.');
+                change_luck(1);
+            } else {
+                const { makewish } = await import('./zap.js');
+                await makewish();
+            }
+            break;
+        case 7: {
+            let cnt = rnd(10);
+            await pline('A voice echoes:');
+            // SetVoice deferred
+            await verbalize(
+                `Thine audience hath been summoned, ${game.flags?.female ? 'Dame' : 'Sire'}!`,
+            );
+            const { courtmon } = await import('./mklev.js');
+            const { makemon } = await import('./makemon.js');
+            while (cnt--) {
+                makemon(courtmon(), tx, ty, NO_MM_FLAGS);
+            }
+            break;
+        }
+        case 8: {
+            await pline('A voice echoes:');
+            // SetVoice deferred
+            await verbalize(
+                `By thine Imperious order, ${game.flags?.female ? 'Dame' : 'Sire'}...`,
+            );
+            const { do_genocide } = await import('./read.js');
+            await do_genocide(5); // REALLY|ONTHRONE
+            break;
+        }
+        case 9: {
+            await pline('A voice echoes:');
+            // SetVoice deferred
+            await verbalize(
+                'A curse upon thee for sitting upon this most holy throne!',
+            );
+            if (Luck() > 0) {
+                const { make_blinded } = await import('./do.js');
+                await make_blinded(BlindedTimeout() + rn1(100, 250), true);
+                change_luck((Luck() > 1) ? -rnd(2) : -1);
+            } else {
+                await rndcurse();
+            }
+            break;
+        }
+        case 10:
+            if (Luck() < 0 || ((u.HSee_invisible | 0) & INTRINSIC)) {
+                if (game.level?.flags?.nommap) {
+                    await pline('A terrible drone fills your head!');
+                    const { make_confused } = await import('./potion.js');
+                    await make_confused(
+                        ((u.HConfusion | 0) & TIMEOUT) + rnd(30),
+                        false,
+                    );
+                } else {
+                    await pline('An image forms in your mind.');
+                    const { do_mapping } = await import('./detect.js');
+                    do_mapping();
+                }
+            } else {
+                if (!Blind()) {
+                    await pline('Your vision becomes clear.');
+                } else {
+                    const num_of_eyes = eyecount(game.youmonst?.data);
+                    let eye = body_part(EYE);
+                    switch (num_of_eyes) {
+                    default:
+                    case 2:
+                        eye = makeplural(eye);
+                        // FALLTHROUGH
+                    case 1:
+                        await pline(`Your ${eye} ${vtense(eye, 'tingle')}...`);
+                        break;
+                    case 0:
+                        await pline(
+                            `You have a very strange feeling in your ${body_part(HEAD)}.`,
+                        );
+                        break;
+                    }
+                }
+                u.HSee_invisible = (u.HSee_invisible | 0) | FROMOUTSIDE;
+                newsym(u.ux | 0, u.uy | 0);
+            }
+            break;
+        case 11:
+            if (Luck() < 0) {
+                await You_feel('threatened.');
+                const { aggravate } = await import('./wizard.js');
+                aggravate();
+            } else {
+                await You_feel('a wrenching sensation.');
+                const { tele } = await import('./teleport.js');
+                await tele();
+            }
+            break;
+        case 12: {
+            await pline('You are granted an insight!');
+            if (game.invent && game.invent.length) {
+                const { identify_pack } = await import('./invent.js');
+                await identify_pack(rn2(5), false);
+            }
+            break;
+        }
+        case 13: {
+            await pline('Your mind turns into a pretzel!');
+            const { make_confused } = await import('./potion.js');
+            await make_confused(
+                ((u.HConfusion | 0) & TIMEOUT) + rn1(7, 16),
+                false,
+            );
+            break;
+        }
+        default:
+            break;
+        }
     } else if (is_prince(game.youmonst?.data) || u.uevent?.uhand_of_elbereth) {
         await You_feel('very comfortable here.');
     } else {

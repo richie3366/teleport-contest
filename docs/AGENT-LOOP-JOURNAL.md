@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 17:56 — #1303 D-1034 ordinary throne_sit_effect 1–13
+
+**Objective:** map-driven sit cluster — C ordinary `throne_sit_effect`
+cases 1–13 (CURRENT after D-1033 Vlad special).
+**C locus:** `sit.c` throne_sit_effect/take_gold; `read.c` do_genocide;
+`mkroom.c` courtmon; `mon.c` kill_genocided_monsters.
+**Change:** ordinary 1–13 (adjattrib/shock/heal/take_gold/luck-wish/
+courtmon/genocide getlin/curse/see-invis mapping/aggravate-tele/
+identify/pretzel); export courtmon; do_genocide REALLY+ONTHRONE;
+spell cursed_book imports take_gold. Rule #2: no fs.
+**Score:** last full `sessions` still **#1300** 44/44 (cadence @#1305).
+**Verified:** green+strict PASS; cohort 9/9 (seed0106/0107/4500 `#sit`;
+seed0105 Scr **30**/30; seed0361 **366**/366; seed0009 **73**/73;
+seed1500/1800/0060). Path **unhit** by public traces.
+**Next:** nhl_gamestate memcpy / `init_uhunger` (`startup.md`).
+**Blocked:** none.
+
 ## 2026-08-15 17:35 — #1302 D-1033 special_throne_effect
 
 **Objective:** map-driven sit cluster — C `special_throne_effect`

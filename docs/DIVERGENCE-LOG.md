@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1034 — ordinary throne_sit_effect 1–13 / take_gold / do_genocide
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** non-Vlad `#sit` on a throne rolled `rnd(6)>4` then
+  `rnd(13)` and dropped the effect. C `throne_sit_effect` runs the
+  ordinary 1–13 switch (attr drain, luck-wish, court, genocide, …)
+  before the puff-of-logic vanish.
+- **C locus:** `sit.c` `throne_sit_effect` / `take_gold`; `read.c`
+  `do_genocide`; `mkroom.c` `courtmon`; `mon.c`
+  `kill_genocided_monsters`.
+- **Fix:** ordinary switch 1–13; `take_gold` COIN `delobj` (spell
+  `cursed_book` now imports it); export `courtmon`; `do_genocide`
+  REALLY|ONTHRONE getlin + `G_GENOD|G_NOCORPSE` + `mondead` wipe;
+  `G_GENO` 0x0020. Rule #2: no fs.
+- **Deferred:** wizard getlin / SetVoice / `kill_eggs` / cham
+  `newcham`; seffects SCR_GENOCIDE / `do_class_genocide`; livelog /
+  Hallucination names / vampshifted POLY_REVERT; `lay_an_egg`.
+- **Verify:** green+strict PASS; sit/shared cohort 9/9 (seed0106/0107
+  /4500 `#sit`; seed0105 Scr **30**/30; seed0361 **366**/366;
+  seed0009 **73**/73; seed1500/1800/0060). Public traces **unhit**.
+- **Files:** `js/sit.js`, `js/read.js`, `js/spell.js`, `js/mon.js`,
+  `js/mhitm.js`, `js/mklev.js`, `js/monsters.js`.
+
 ## D-1033 — special_throne_effect / dosit IS_THRONE
 
 - **Status:** fixed (map-driven; not a public FAIL)
