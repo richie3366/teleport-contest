@@ -16,11 +16,11 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1047 `consume_obj_charge` unpaid/`check_unpaid`
-  (D-1023 risk 3). Remaining Must-fix: Vlad `HConfusion` only
-  (D-1033 risk 2). Loop is **fail-closed** (review every 3, cadence
-  every 5 score-only unless Must-fix is open). Agents **commit +
-  `git push`**.
+- Latest: reviews 07/08 **ACCEPT** D-1046 `**optr` and D-1047
+  unpaid `consume_obj_charge` (not stubs). Remaining Must-fix:
+  Vlad `HConfusion` only (D-1033 risk 2). Loop is **fail-closed**
+  (review every 3, cadence every 5 score-only unless Must-fix is
+  open). Agents **commit + `git push`**.
 - **Next cluster:** Must-fix — Vlad special case 10: C sets
   `HConfusion` only; JS must not also force flat `u.Confusion`.
   Source: D-1033 risk 2. Do not dump tut-1 while Must-fix is open.

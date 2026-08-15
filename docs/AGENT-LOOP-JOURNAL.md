@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 23:35 — review D-1046 / D-1047 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`3371ddf0` D-1046, `2ca2ccd7` D-1047)
+against pinned C, not the journal.
+**C locus:** `apply.c` `light_cocktail` / `doapply` `POT_OIL`;
+`invent.c` `consume_obj_charge`; `shk.c` `cost_per_charge` /
+`check_unpaid_usage` / `check_unpaid`; `pickup.c` tip restore-spe.
+**Change:** reviews 07 ACCEPT (`*optr` snuff-merge + split/hold;
+shop `check_unpaid` inside cocktail still named) and 08 ACCEPT
+(invent `check_unpaid` then `spe--`; `cost_per_charge` arms +
+usage-fee `rn2`; tip restore-spe). No new Must-fix. No `js/`
+edits. Filled Addressed hash `2ca2ccd7`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1315**; next @**#1320**).
+**Verified:** C read of `apply.c:1702–1765` / `4349–4351` /
+`4421–4423`, `invent.c:1336–1346`, `shk.c:5626–5742`,
+`pickup.c:4021–4031`; JS hunks grepped FORCE/fs/seed.
+**Next:** Must-fix Vlad `HConfusion` only (D-1033 risk 2).
+**Blocked:** none.
+
 ## 2026-08-15 23:10 — #1316 D-1047 consume_obj_charge unpaid/shop
 
 **Objective:** Must-fix D-1023 risk 3 — `consume_obj_charge` unpaid

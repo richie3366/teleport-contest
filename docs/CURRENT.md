@@ -74,11 +74,13 @@ public traces.
 **Next cluster:** Vlad special case 10: C sets `HConfusion` only;
 JS must not also force flat `u.Confusion`. Source:
 `reviews/loop-2026-08-15/D-1033-a59caac8-vlad-throne.md` risk 2.
-Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
-optional debt. Unattended loop pops **one** queue item per port iter
-(Must-fix before Open). Review every 3; cadence every 5 is score-only
-**unless Must-fix is open**. Agents **commit and `git push origin HEAD`**
-each iteration.
+Reviews 07/08 **ACCEPT** D-1046 `**optr` and D-1047 unpaid
+`consume_obj_charge` — those Must-fix rows are archived. Written
+reviews bind: QUALITY-RISK C-wrongs are Must-fix, not optional
+debt. Unattended loop pops **one** queue item per port iter
+(Must-fix before Open). Review every 3; cadence every 5 is
+score-only **unless Must-fix is open**. Agents **commit and
+`git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),

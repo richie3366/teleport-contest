@@ -17,7 +17,7 @@ Deliverable: **four** C functions with no caller/callee link (lamp, oil flask, t
 
 | Risk | Status |
 |------|--------|
-| 3 `consume_obj_charge` = `spe--` only | **Addressed:** D-1047 |
+| 3 `consume_obj_charge` = `spe--` only | **Addressed:** D-1047 `2ca2ccd7` |
 | 4 `light_cocktail` without C `**optr` | **Addressed:** D-1046 `3371ddf0` |
 | `use_lamp` Glib `(u.Glib\|0)&TIMEOUT` vs C `HGlib\|EGlib` | **Must-fix** |
 | `makemon(NULL)` / `dotrap` / `begin_burn` still-partial | named omit — not Must-fix |
@@ -83,7 +83,7 @@ Green + apply cohort. Public **unhit**. Private journal node (not re-read here):
 ## Risks / debt
 1. Density: four C functions Keep’d without a body review until now.
 2. `makemon(NULL)` / `dotrap` / `begin_burn`: “Match C” is the **dispatch**, not the effect.
-3. `consume_obj_charge` without shop. **Addressed:** D-1047
+3. `consume_obj_charge` without shop. **Addressed:** D-1047 `2ca2ccd7`
 4. `light_cocktail` without `**optr`. **Addressed:** D-1046 `3371ddf0`
 5. Trap occupation: first apply occupation path besides pickaxe — private canary (floor beartrap, 2–5 turns).
 
@@ -92,5 +92,5 @@ Green + apply cohort. Public **unhit**. Private journal node (not re-read here):
 - Score: **4.5 / 10**
 - One sentence: the **skeleton** (guard order, lamp/trap/BoT RNG, `set_trap` occupation, TIME even on trap failure) is a C copy; stuffing four of them into one SHA, plus still-partial callees, is the same overclaim as D-1022.
 
-**Addressed:** D-1047
+**Addressed:** D-1047 `2ca2ccd7`
 **Addressed:** D-1046 `3371ddf0`
