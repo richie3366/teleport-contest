@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1050 — pickup_object honors telekinesis
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1022 risk 6. JS `pickup_object` did `void telekinesis`.
+  C whip `pickup_object(otmp, 1L, TRUE)` vs grapple `FALSE`. The flag
+  skips cockatrice touch, changes rider/scare verbs, and makes
+  `lift_object` refuse silently when encumbrance would rise (no ynq).
+- **C locus:** `pickup.c` `pickup_object` (~1803); `lift_object`
+  (~1705) telekinesis `result=0`; `carry_count` acquire vs lift
+  (~1669); `fatal_corpse_mistake` remotely (~285); `rider_corpse_revival`
+  (~302); scare dust `raise` vs `pick` (~1854).
+- **Fix:** Thread the boolean. `lift_object` `calc_capacity` vs
+  `flags.pickup_burden` (default MOD_ENCUMBER); telekinesis → 0,
+  else `ynq` Continue?. Floor `carry_count` (no container
+  `delta_cwt`). Remote corpse skips petrify; scare dust uses
+  `raise`. Rule #2: no fs.
+- **Deferred:** Sokoban boulder HAND wrap; LOADSTONE/giant-boulder
+  weight override; container `delta_cwt`; shop `no_charge`
+  `merge_choice`; ghostly `fix_ghostly_obj`; Death/Pestilence
+  revive suffixes; `out_container` still always-lifts.
+- **Verify:** green+strict PASS; apply/pickup cohort **10**/10
+  (seed0361 Scr **366**/366; seed2200 **230**/230; seed0012
+  **308**/308). Private node: light TRUE lifts; heavy TRUE
+  refuses and leaves floor; cockatrice TRUE skips petrify.
+  Path **unhit** on public traces.
+- **Files:** `js/pickup.js`, `js/invent.js` (`max_capacity`).
+
 ## D-1049 — take_gold remove_worn_item before delobj
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

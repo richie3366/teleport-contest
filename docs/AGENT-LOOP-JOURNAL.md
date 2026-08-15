@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 00:45 — #1321 D-1050 pickup_object telekinesis
+
+**Objective:** Must-fix D-1022 risk 6 — `pickup_object` honors
+`telekinesis` like C (whip/grapple pull-in).
+**C locus:** `pickup.c` `pickup_object` (~1803) / `lift_object`
+(~1705) / `carry_count` (~1569) / `fatal_corpse_mistake` /
+`rider_corpse_revival`.
+**Change:** stop `void telekinesis`. Whip TRUE: silent encumbrance
+refuse, remote corpse skip petrify, scare `raise`. Grapple FALSE:
+`ynq` Continue?. Floor `carry_count`; `max_capacity` in invent.
+Named: Sokoban boulder / LOADSTONE override / container `delta_cwt`
+/ ghostly. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
+**Verified:** green+strict PASS; apply/pickup cohort **10**/10
+(seed0361 Scr **366**/366). Private: light TRUE lifts; heavy TRUE
+refuses; cockatrice TRUE no petrify. Path **unhit**.
+**Next:** Must-fix `u_wipe_engr` / `tmp_at` (D-1022 risk 7).
+**Blocked:** none.
+
 ## 2026-08-16 00:12 — #1320 review D-1048/D-1049 + cadence score
 
 **Objective:** review every JS-touching commit since
@@ -266,21 +285,4 @@ Guarding −2 not `spe`/erosion; `AC_MAX` cap after the walk. Rule #2: no fs.
 (seed0361 Scr **366**/366; seed1800 throw; seed0060 kick; seed2200
 zap). Private node **11**/11. Path **unhit** by public traces.
 **Next:** Must-fix `should_mulch_missile` hero `!rnl(4)`.
-**Blocked:** none.
-
-## 2026-08-15 21:20 — #1308 review D-1040 / D-1041
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`12458fe9` D-1040, `eb3469ae` D-1041)
-against pinned C, not the journal.
-**C locus:** `apply.c` `find_poleable_mon` / `glyph_at`; `dothrow.c`
-`thitmonst`; `worn.c` `find_mac`; `uhitm.c` `hmon_hitmon_msg_hit`.
-**Change:** reviews 01 ACCEPT-WITH-DEBT (glyph predicates match; gbuf
-still a named omit) and 02 QUALITY-RISK (tmp stub `find_mac`; mulch
-`rn2` not `rnl`; leader clone `u.questarti`). Must-fix prepended.
-No `js/` edits. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1305**; next @**#1310**).
-**Verified:** C read of `apply.c:3279–3563`, `dothrow.c:1969–2304`,
-`worn.c:717–735`, `zap.c:3556–3567`; JS hunks grepped FORCE/fs/seed.
-**Next:** Must-fix `find_mac` minvent `ARM_BONUS`.
 **Blocked:** none.

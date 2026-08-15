@@ -186,6 +186,15 @@ export function near_capacity() {
 }
 
 /**
+ * C ref: hack.c max_capacity — inv_weight() - 2*wc. Negative remaining
+ * until 3× cap (carry_count / lift_object).
+ */
+export function max_capacity() {
+    const wt = inv_weight();
+    return wt - (2 * (game._weight_cap || weight_cap()));
+}
+
+/**
  * C ref: pickup.c encumber_msg — pline when near_capacity crosses go.oldcap.
  * Envelope: all SLT..OVERLOADED up/down arms; stagger() poly deferred
  * (humanoid uses verb as-is).
