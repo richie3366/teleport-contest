@@ -56,19 +56,19 @@ changes.
 
 ## Model
 
-Default: **Cursor Grok 4.5 High**, non-fast.
+Default: **Cursor Grok 4.6 Extra High**, non-fast.
 
 | Want | CLI `--model` slug | `agent --list-models` label |
 |------|--------------------|-----------------------------|
-| High, non-fast (default) | `grok-4.5-xhigh` | Cursor Grok 4.5 |
-| Medium, non-fast | `grok-4.5-high` | Cursor Grok 4.5 Medium |
-| Low, non-fast | `grok-4.5-medium` | Cursor Grok 4.5 Low |
-| High, fast | `grok-4.5-fast-xhigh` | Cursor Grok 4.5 Fast |
+| Extra High, non-fast (default) | `cursor-grok-4.6-xhigh` | Cursor Grok 4.6 Extra High |
+| High, non-fast | `cursor-grok-4.6-high` | Cursor Grok 4.6 |
+| Medium, non-fast | `cursor-grok-4.6-medium` | Cursor Grok 4.6 Medium |
+| Extra High, fast | `cursor-grok-4.6-xhigh-fast` | Cursor Grok 4.6 Extra High Fast |
 
 Override:
 
 ```bash
-MODEL=grok-4.5-high ./scripts/agent-port-loop.sh
+MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 ```
 
 ## Design
@@ -83,7 +83,7 @@ MODEL=grok-4.5-high ./scripts/agent-port-loop.sh
 │       if STOP_AGENT_LOOP.md == 1 → exit                 │
 │       if --token-budget-m reached → exit (after last iter) │
 │       snapshot js/; run model with finite timeout       │
-│       run: agent -p --model grok-4.5-xhigh ...      \   │
+│       run: agent -p --model cursor-grok-4.6-xhigh ... \ │
 │              "$(cat scripts/agent-port-loop.prompt.md)" │
 │       meter usage from stream-json result (if budget set) │
 │       warn (do not halt) on agent failure, protected    │
@@ -165,7 +165,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `MODEL` | `grok-4.5-xhigh` | Agent model slug |
+| `MODEL` | `cursor-grok-4.6-xhigh` | Agent model slug |
 | `AGENT_BIN` | `cursor-agent` or `agent` | CLI binary |
 | `AGENT_TRUST` | `1` | Pass `--trust` (required for headless `-p`; set `0` only for interactive trust prompt) |
 | `AGENT_FORCE` | `0` | Set `1` to pass `--force` so Shell/scorers are not auto-denied under `-p` |

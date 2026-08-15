@@ -90,9 +90,9 @@ trap cleanup EXIT
 # Fresh stop latch every successful launch, as requested.
 printf '0\n' >"$STOP_FILE"
 
-# Default: Cursor Grok 4.5 High (CLI slug cursor-grok-4.5-high)
+# Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
-MODEL="${MODEL:-cursor-grok-4.5-high}"
+MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
 AGENT_BIN="${AGENT_BIN:-}"
 if [[ -z "$AGENT_BIN" ]]; then
   if command -v cursor-agent >/dev/null 2>&1; then
