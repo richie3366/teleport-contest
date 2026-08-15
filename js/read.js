@@ -20,7 +20,8 @@
 // SCR_DESTROY_ARMOR confused erodeproof / cursed vibrate+stun /
 // blessed getobj choice / disintegrate_cursed_armor; nommap/Hallucination/
 // blessed-SDOOR convert body; notice_mon_off/on; can_chant poly silent/
-// headless/buzz/burble; SPE_MAGIC_MAPPING / SPE_REMOVE_CURSE cast;
+// headless/buzz/burble; SPE_MAGIC_MAPPING cast; SPE_REMOVE_CURSE seffects
+// arm (throne fake book D-1033; #cast still deferred);
 // Teleport_control getpos; confused light yellow/black-light pets;
 // snuff_lit / impact_arti_light / Punished ball; gremlin light-hit list;
 // Rogue whole-room light; Sunsword radius-0; remove-curse shop water
@@ -72,6 +73,7 @@ const SCR_MAGIC_MAPPING = objectNames.indexOf('SCR_MAGIC_MAPPING');
 const SCR_TELEPORTATION = objectNames.indexOf('SCR_TELEPORTATION');
 const SCR_LIGHT = objectNames.indexOf('SCR_LIGHT');
 const SCR_REMOVE_CURSE = objectNames.indexOf('SCR_REMOVE_CURSE');
+const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
 const SCR_ENCHANT_WEAPON = objectNames.indexOf('SCR_ENCHANT_WEAPON');
 const SCR_DESTROY_ARMOR = objectNames.indexOf('SCR_DESTROY_ARMOR');
 const SCR_IDENTIFY = objectNames.indexOf('SCR_IDENTIFY');
@@ -407,15 +409,17 @@ function learnscrolltyp(scrolltyp) {
  * loadstone/leash uncurse or confused blessorcurse.
  * Deferred: shop POT_WATER costly_alteration/alter_cost; Punished/
  * unpunish; buried_ball_to_freedom; steed saddle Yobjnam2/hcolor glow;
- * update_inventory; SPE_REMOVE_CURSE cast path (wired if seffects hit).
+ * update_inventory; SPE_REMOVE_CURSE #cast still deferred (throne fake
+ * book hits seffects switch, D-1033).
  */
 async function seffect_remove_curse(sobj) {
     const otyp = sobj.otyp | 0;
     const sblessed = !!sobj.blessed;
     const scursed = !!sobj.cursed;
-    const confused = !!(game.u?.Confusion);
-    const Hallucination = !!(game.u?.Hallucination);
     const u = game.u || {};
+    // C youprop.h Confusion — HConfusion || EConfusion (flat Confusion mirror)
+    const confused = !!(u.Confusion || (u.HConfusion | 0) || (u.EConfusion | 0));
+    const Hallucination = !!(u.Hallucination);
 
     const feel = !Hallucination
         ? (!confused ? 'like someone is helping you.'
@@ -792,7 +796,7 @@ async function seffect_punishment(sobj) {
  * @returns {number} 0 = caller useup/learn; 1 = already used up;
  *   -1 = unimplemented (caller must not useup)
  */
-async function seffects(sobj) {
+export async function seffects(sobj) {
     const otyp = sobj.otyp;
     const oc = game.objects?.[otyp];
 
@@ -810,6 +814,7 @@ async function seffects(sobj) {
         await seffect_light(sobj);
         break;
     case SCR_REMOVE_CURSE:
+    case SPE_REMOVE_CURSE:
         await seffect_remove_curse(sobj);
         break;
     case SCR_IDENTIFY: {

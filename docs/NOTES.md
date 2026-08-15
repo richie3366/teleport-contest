@@ -15,14 +15,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1032** `fig_transform` / `attach_fig_transform_timeout`.
+- Latest: **D-1033** `special_throne_effect` (grease COIN skip).
   Public traces unhit (green+all 44 still PASS).
-- **Next cluster:** sit.c `special_throne_effect` grease spray
-  (`grease_ok` COIN skip). Remaining nhl_gamestate memcpy named in
-  `startup.md`. `hatch_egg` still deferred.
-- **D-1032 falsifier (held):** attach rnd(9000)+200; cursed addinv
-  vs uncursed none; bless/uncurse/freeinv stop; curse carried vs
-  free; contained bad-loc rnd(5000).
+- **Next cluster:** ordinary `throne_sit_effect` cases 1–13.
+  Remaining nhl_gamestate memcpy named in `startup.md`. `hatch_egg`
+  still deferred.
+- **D-1033 falsifier (held):** grease gold skipped / weapon greased;
+  `make_glib(rn1(101,100))`; Drain_resistance skip vs ulevel--;
+  dosit IS_THRONE + In_V_tower no vanish.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  fig_transform (D-1032) or drop `objects_at` (D-0980).
+  special_throne_effect (D-1033) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -59,6 +59,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1300**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.867).
+- **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
 - **D-1032:** fig_transform / attach_fig_transform_timeout.
 - **D-1031:** hornoplenty doapply HORN_OF_PLENTY + floor tip.
 - **D-1030:** use_unicorn_horn doapply UNICORN_HORN + TimedTrouble.
@@ -72,4 +73,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.
 - **D-1021:** use_royal_jelly + dorub/doapply + timeout kill_egg.
 - **D-1020:** setnotworn worn[] pointer-walk + leave-tutorial restore.
-- **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.

@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 17:35 — #1302 D-1033 special_throne_effect
+
+**Objective:** map-driven sit cluster — C `special_throne_effect`
+(CURRENT grease spray / `grease_ok` COIN skip).
+**C locus:** `sit.c` special_throne_effect/throne_sit_effect/dosit
+IS_THRONE; `exper.c` losexp; `read.c` seffects SPE_REMOVE_CURSE.
+**Change:** Vlad 1–13 (wish+disintegrate, drain, grease invent
+COIN skip + `make_glib(rn1(101,100))`, attrcurse, VS goto,
+msummon×3, confused seffects, poly, acid, shuffle); dosit
+IS_THRONE; ordinary 1–13 deferred. Rule #2: no fs.
+**Score:** last full `sessions` still **#1300** 44/44 (cadence @#1305).
+**Verified:** green+strict PASS; all **44**/44 (seed0106/0107/4500
+`#sit`; seed0105 Scr **30**/30; seed0361 **366**/366; seed0009
+**73**/73). Private node (gold skip / glib 100..200; Drain skip
+vs ulevel--). Path **unhit** by public traces.
+**Next:** ordinary throne_sit_effect cases 1–13.
+**Blocked:** none.
+
 ## 2026-08-15 17:10 — #1301 D-1032 fig_transform timer
 
 **Objective:** map-driven timeout cluster — C `fig_transform` /
@@ -257,37 +275,4 @@ export. Rule #2: no fs.
 (seed0009 Scr **73**/73); private node (stash-flag no-op vs real
 slot clears EStealth). Leave path likely **unhit** by public traces.
 **Next:** apply.js whip/grapple/jelly/`use_pole`.
-**Blocked:** none.
-
-## 2026-08-15 13:35 — D-1019 sellobj BSS sell_response / robbed
-
-**Objective:** C-wrong Keep — D-0994 defaulted `sell_response` to
-`'a'` (auto-sell) and subtracted `offer` from `robbed`.
-**C locus:** `shk.c` `sellobj`/`sellobj_state`; BSS `'\0'` queries;
-`robbed -= (offer<0)` then clear; `nyaq` not stored.
-**Change:** BSS `null`; robbed C precedence; nyaq local; credit
-`ynaq` default `'y'`. Rule #2: no fs.
-**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
-**Verified:** green+strict PASS; shop/throw cohort **12**/12;
-private node (BSS null; robbed 100+gold 50 → 0). Robbed / first-sale
-query likely **unhit** by public traces.
-**Next:** D-1020 `setnotworn` pointer-walk + leave-tutorial.
-**Blocked:** none.
-
-## 2026-08-15 13:24 — D-1018 use_pick_axe cmdq wield re-apply
-
-**Objective:** C-wrong Keep — D-0951 queued `{typ:'ec'}` after
-wield; `getobj_apply` ignored CMDQ_KEY; canned boolean TIME
-did not set `context.move`.
-**C locus:** `dig.c` `use_pick_axe` `cmdq_add_ec(doapply)` +
-`cmdq_add_key(invlet)`; `cmd.c` rhack `(res & ECMD_TIME)`;
-`invent.c` getobj CMDQ_KEY.
-**Change:** queue `doapply` fn + charCode KEY; getobj_apply pops
-KEY (SUGGEST|DOWNPLAY); rhack canned TIME/CANCEL bits.
-Rule #2: no fs.
-**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
-**Verified:** green+strict PASS; apply/cmdq/dig cohort **15**/15;
-private node falsifier (queue shape + canned getobj + TIME bit).
-Wield-reapply path likely **unhit** by public traces.
-**Next:** D-1019 `sellobj` default `'a'` / `robbed`.
 **Blocked:** none.

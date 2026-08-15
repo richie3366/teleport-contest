@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1033 — special_throne_effect / dosit IS_THRONE
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `#sit` on a throne used the default “having fun”
+  floor line. C `dosit` calls `throne_sit_effect`; Vlad’s tower
+  dispatches `special_throne_effect` (incl. grease spray with the
+  same `COIN_CLASS` skip as `grease_ok`).
+- **C locus:** `sit.c` `special_throne_effect` / `throne_sit_effect`
+  / `dosit` `IS_THRONE`; `exper.c` `losexp`; `read.c` `seffects`
+  `SPE_REMOVE_CURSE`; `apply.c` `grease_ok` COIN skip; `potion.c`
+  `make_glib`.
+- **Fix:** dosit IS_THRONE + Vlad special 1–13 (wish+disintegrate,
+  drain+ulevelmax, grease invent/`rn1(101,100)`, attrcurse, VS
+  `schedule_goto`, triple `msummon`, confused blessed remove-curse,
+  poly, acid `losehp`, ability shuffle); `losexp` ulevel>1 path;
+  `seffects` SPE arm. Rule #2: no fs.
+- **Deferred:** ordinary `throne_sit_effect` 1–13; wizard getlin /
+  Analyze `y_n`; `update_inventory`; `losexp` level-1 `done(DIED)` /
+  Upolyd `rehumanize`; `defended(AD_DRLI)` worn walk; Punished
+  unpunish in seffects.
+- **Verify:** green+strict PASS; all **44**/44 (seed0106/0107/4500
+  `#sit`; seed0105 Scr **30**/30; seed0361 **366**/366; seed0009
+  **73**/73). Private node: gold skipped / weapon greased; glib
+  100..200; Drain_resistance skip vs ulevel--; In_V_tower no vanish.
+  Public traces **unhit**.
+- **Files:** `js/sit.js`, `js/exper.js`, `js/read.js`, `js/apply.js`
+  (comment).
+
 ## D-1032 — fig_transform / attach_fig_transform_timeout
 
 - **Status:** fixed (map-driven; not a public FAIL)

@@ -2283,8 +2283,8 @@ async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
 
 /**
  * C ref: apply.c grease_ok — null (hands '-') SUGGEST; COIN_CLASS EXCLUDE;
- * inaccessible_equipment EXCLUDE_INACCESS; else SUGGEST. sit.c throne
- * spray uses the same COIN_CLASS skip (named there).
+ * inaccessible_equipment EXCLUDE_INACCESS; else SUGGEST. sit.c
+ * special_throne_effect grease spray uses the same COIN_CLASS skip (D-1033).
  */
 function grease_ok(obj) {
     if (!obj) return GETOBJ_SUGGEST;
@@ -2616,7 +2616,7 @@ export async function use_tinning_kit(obj) {
  * shop check_unpaid / lamp-oil verbalize; pickup invent getobj tip;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
- * sit.c special_throne_effect grease spray; pickinv handsbuf;
+ * pickinv handsbuf;
  * getdir mouse.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
