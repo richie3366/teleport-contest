@@ -18,7 +18,9 @@ import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
     P_TWO_WEAPON_COMBAT, NEED_WEAPON,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, nothing_happens, nothing_seems_to_happen,
-    FACE, FOOT, FINGER, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, OBJ_FLOOR, isok, SDOOR, SCORR,
+    FACE, FOOT, FINGER, TIMEOUT, BLINDED, SICK, HALLUC, VOMITING, CONFUSION,
+    STUNNED, DEAF, SICK_NONVOMITABLE, SICK_ALL,
+    OBJ_FREE, OBJ_INVENT, OBJ_FLOOR, isok, SDOOR, SCORR,
     COLNO, ROWNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
     ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_OBSTRUCTED, IS_WATERWALL,
@@ -44,7 +46,7 @@ import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
     hold_another_object,
 } from './invent.js';
-import { rn2, rn1, rnd, d, rnl } from './rng.js';
+import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks, passes_walls,
@@ -60,7 +62,7 @@ import {
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
-import { acurr, A_CHA, A_STR, A_DEX, change_luck, Fumbling } from './attrib.js';
+import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination } from './do_name.js';
 import { monflee } from './monmove.js';
 import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
@@ -75,7 +77,7 @@ import { select_menu_pick_one } from './options.js';
 import { teleds, tele_to_rnd_pet, noteleport_level, enexto, rloc_to } from './teleport.js';
 import {
     morehungry, use_tin_opener, floorfood, set_tin_variety, useup, useupf,
-    carried,
+    carried, vomit,
 } from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
 import {
@@ -101,9 +103,12 @@ import { makemon, mkclass } from './makemon.js';
 import { make_familiar } from './dog.js';
 import { addinv } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
-import { make_glib } from './potion.js';
+import {
+    make_glib, make_sick, make_confused, make_stunned, make_vomiting,
+    make_hallucinated, make_deaf,
+} from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
-import { dropx, setnotworn, fire_damage } from './do.js';
+import { dropx, setnotworn, fire_damage, make_blinded as potion_make_blinded } from './do.js';
 import { polymon } from './polyself.js';
 import { unpunish } from './read.js';
 import { findit, openit } from './detect.js';
@@ -166,6 +171,7 @@ const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
 const BELL = objectNames.indexOf('BELL');
 const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
 const FIGURINE = objectNames.indexOf('FIGURINE');
+const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
 const TIN = objectNames.indexOf('TIN');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
@@ -2597,9 +2603,10 @@ export async function use_tinning_kit(obj) {
  * CAN_OF_GREASE → use_grease (D-1026) +
  * TINNING_KIT → use_tinning_kit (D-1027) +
  * BELL / BELL_OF_OPENING → use_bell (D-1028) +
- * FIGURINE → use_figurine (D-1029).
+ * FIGURINE → use_figurine (D-1029) +
+ * UNICORN_HORN → use_unicorn_horn (D-1030).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; unihorn/horn of plenty;
+ * Medusa/nymph mirror arms; horn of plenty;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
@@ -2849,6 +2856,12 @@ export async function doapply() {
     if (FIGURINE >= 0 && obj.otyp === FIGURINE) {
         const res = await use_figurine(obj);
         return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case UNICORN_HORN → use_unicorn_horn (D-1030); res stays TIME
+    if (UNICORN_HORN >= 0 && obj.otyp === UNICORN_HORN) {
+        await use_unicorn_horn(obj);
+        return true; // ECMD_TIME
     }
 
     // C apply.c case CANDELABRUM_OF_INVOCATION → use_candelabrum (D-1025)
@@ -4706,6 +4719,161 @@ export async function use_figurine(obj) {
     useup(obj);
     if (Blind()) map_invisible(cc.x, cc.y);
     return ECMD_TIME;
+}
+
+/** C monattk.h AT_ENGL / AD_BLND — swallow-blind gate in use_unicorn_horn. */
+const AT_ENGL_UNI = 11;
+const AD_BLND_UNI = 11;
+
+/**
+ * C ref: mondata.c attacktype_fordmg — first mattk with aatyp and adtyp
+ * (AD_ANY==-1 wildcard). Local copy to avoid makemon/mhitu import cycles.
+ */
+function attacktype_fordmg(ptr, atyp, dtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return null;
+    for (let i = 0; i < slots.length; i++) {
+        const a = slots[i];
+        if ((a?.aatyp | 0) === atyp
+            && (dtyp === -1 || (a?.adtyp | 0) === dtyp)) {
+            return a;
+        }
+    }
+    return null;
+}
+
+/**
+ * C youprop.h TimedTrouble — timeout-only intrinsic (no I_SPECIAL/extrinsic
+ * high bits): ((P) && !((P) & ~TIMEOUT)) ? (P & TIMEOUT) : 0.
+ */
+function TimedTrouble(P) {
+    const p = P | 0;
+    if (p && !(p & ~TIMEOUT)) return p & TIMEOUT;
+    return 0;
+}
+
+/**
+ * C ref: apply.c use_unicorn_horn — cursed rn1(90,10)+rn2(13)/2 afflict;
+ * else collect up to 7 TimedTrouble props, shuffle if >1, fix
+ * rn2(d(2, blessed?4:2)) of them (null obj ≡ uncursed, poly #monster).
+ * Named omit: impossible() on unknown idx; unfixable_trbl leftover.
+ * @param {object|null} obj unicorn horn or null (poly ability)
+ */
+export async function use_unicorn_horn(obj) {
+    const u = game.u || (game.u = {});
+
+    if (obj && obj.cursed) {
+        const lcount = rn1(90, 10);
+        switch (Math.trunc(rn2(13) / 2)) { // case 6 half as likely
+        case 0:
+            await make_sick(
+                ((u.Sick | 0) & TIMEOUT)
+                    ? Math.trunc(((u.Sick | 0) & TIMEOUT) / 3) + 1
+                    : rn1(acurr(A_CON), 20),
+                xname(obj),
+                true,
+                SICK_NONVOMITABLE,
+            );
+            break;
+        case 1:
+            await potion_make_blinded(BlindedTimeout() + lcount, true);
+            break;
+        case 2:
+            if (!(u.HConfusion | 0)) {
+                await pline(
+                    `You suddenly feel ${Hallucination() ? 'trippy' : 'confused'}.`,
+                );
+            }
+            await make_confused(((u.HConfusion | 0) & TIMEOUT) + lcount, true);
+            break;
+        case 3:
+            await make_stunned(((u.HStun | 0) & TIMEOUT) + lcount, true);
+            break;
+        case 4:
+            if (u.Vomiting) vomit();
+            else await make_vomiting(14, false);
+            break;
+        case 5:
+            await make_hallucinated(
+                ((u.HHallucination | 0) & TIMEOUT) + lcount,
+                true,
+                0,
+            );
+            break;
+        case 6:
+            if (Deaf_hero()) await pline(nothing_seems_to_happen);
+            await make_deaf(((u.HDeaf | 0) & TIMEOUT) + lcount, true);
+            break;
+        }
+        return;
+    }
+
+    const trouble_list = [];
+    if (TimedTrouble(u.Sick)) trouble_list.push(SICK);
+    if (TimedTrouble(u.HBlinded) > (u.ucreamed | 0)
+        && !(u.uswallow
+            && attacktype_fordmg(u.ustuck?.data, AT_ENGL_UNI, AD_BLND_UNI))) {
+        trouble_list.push(BLINDED);
+    }
+    if (TimedTrouble(u.HHallucination)) trouble_list.push(HALLUC);
+    if (TimedTrouble(u.Vomiting)) trouble_list.push(VOMITING);
+    if (TimedTrouble(u.HConfusion)) trouble_list.push(CONFUSION);
+    if (TimedTrouble(u.HStun)) trouble_list.push(STUNNED);
+    if (TimedTrouble(u.HDeaf)) trouble_list.push(DEAF);
+
+    const trouble_count = trouble_list.length;
+    if (trouble_count === 0) {
+        await pline(nothing_happens);
+        return;
+    }
+    if (trouble_count > 1) shuffle_int_array(trouble_list, trouble_count);
+
+    let val_limit = rn2(d(2, (obj && obj.blessed) ? 4 : 2));
+    if (val_limit > trouble_count) val_limit = trouble_count;
+
+    let did_prop = 0;
+    for (let val = 0; val < val_limit; val++) {
+        const idx = trouble_list[val];
+        switch (idx) {
+        case SICK:
+            await make_sick(0, '', true, SICK_ALL);
+            did_prop++;
+            break;
+        case BLINDED:
+            await potion_make_blinded(u.ucreamed | 0, true);
+            did_prop++;
+            break;
+        case HALLUC:
+            await make_hallucinated(0, true, 0);
+            did_prop++;
+            break;
+        case VOMITING:
+            await make_vomiting(0, true);
+            did_prop++;
+            break;
+        case CONFUSION:
+            await make_confused(0, true);
+            did_prop++;
+            break;
+        case STUNNED:
+            await make_stunned(0, true);
+            did_prop++;
+            break;
+        case DEAF:
+            await make_deaf(0, true);
+            did_prop++;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (did_prop) {
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+    } else {
+        await pline(nothing_seems_to_happen);
+    }
 }
 
 /**

@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1030 — use_unicorn_horn
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `UNICORN_HORN` as unknown
+  (`Sorry, I don't know how to use that.`). C applies the horn (one move).
+- **C locus:** `apply.c` `use_unicorn_horn` / `doapply` `UNICORN_HORN`;
+  `cmd.c` `domonability` unicorn; `rnd.c` `shuffle_int_array`;
+  `potion.c` `make_*`; `do.c` `make_blinded`.
+- **Fix:** doapply dispatch (res stays ECMD_TIME); cursed
+  `rn1(90,10)` + `rn2(13)/2` afflict (sick/blind/conf/stun/vomit/hallu/
+  deaf); else collect 7 TimedTrouble props, shuffle if >1, fix
+  `rn2(d(2, blessed?4:2))` (null obj ≡ uncursed); cream-only Blind
+  skip; swallow AD_BLND engl skip; `disp.botl` if did_prop else
+  nothing_seems_to_happen. Poly `#monster` `use_unicorn_horn(null)`.
+  Rule #2: no fs.
+- **Deferred:** `hornoplenty` / HORN_OF_PLENTY; `fig_transform` timer;
+  muse.c monster unihorn; `apply_ok` still does not SUGGEST weapon
+  unihorn (C); `impossible()` unknown idx; `unfixable_trbl` leftover.
+- **Verify:** green+strict PASS; apply/shared cohort **37**/37
+  (seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+  **73**/73; healer seed0016/0002 unhit). Private node: no-trouble
+  no RNG; cursed rn2(90)+rn2(13); blessed d(2,4); two-trouble
+  shuffle rn2(2); I_SPECIAL stun skipped; cream-only blind skipped.
+  Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/rng.js` (`shuffle_int_array`),
+  `js/polyself.js` (`domonability`).
+
 ## D-1029 — use_figurine
 
 - **Status:** fixed (map-driven; not a public FAIL)
@@ -21,7 +48,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Deferred:** `fig_transform` timer callback; `attach_fig_transform_timeout`
   in `set_corpsenm`; SPE_CREATE_FAMILIAR spell.c dispatch (helper exists);
   getdir mouse/cmdassist; makemon MM_EDOG newedog alloc (initedog still
-  creates edog); unihorn / horn of plenty.
+  creates edog); horn of plenty.
 - **Verify:** green+strict PASS; apply/shared cohort **37**/37
   (seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
   **73**/73). Private node: swallow ECMD_OK; cancel move0; wall TIME

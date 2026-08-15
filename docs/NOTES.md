@@ -15,14 +15,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1029** `use_figurine` (doapply FIGURINE + make_familiar).
-  Public traces unhit (green+cohort still PASS).
-- **Next cluster:** apply.js `use_unicorn_horn` (UNICORN_HORN).
+- Latest: **D-1030** `use_unicorn_horn` (doapply UNICORN_HORN +
+  TimedTrouble shuffle/cure; poly #monster null obj). Public traces
+  unhit (green+cohort still PASS).
+- **Next cluster:** apply.js `hornoplenty` (HORN_OF_PLENTY).
   Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
   `startup.md`.
-- **D-1029 falsifier (held):** swallow no-room ECMD_OK; getdir cancel
-  move/multi 0; wall TIME no useup; extinct Nazgul dust; blessed
-  spawn+useup TIME.
+- **D-1030 falsifier (held):** uncursed no-trouble no RNG; cursed
+  rn2(90)+rn2(13); blessed d(2,4); two-trouble shuffle rn2(n);
+  TimedTrouble skips I_SPECIAL; cream-only blind not collected.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_figurine (D-1029) or drop `objects_at` (D-0980).
+  use_unicorn_horn (D-1030) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -59,6 +60,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1295**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `30+0.26/turn` (R² 0.876).
+- **D-1030:** use_unicorn_horn doapply UNICORN_HORN + TimedTrouble.
 - **D-1029:** use_figurine doapply FIGURINE + make_familiar.
 - **D-1028:** use_bell doapply BELL/BELL_OF_OPENING + openit/mkundead.
 - **D-1027:** use_tinning_kit doapply TINNING_KIT + homemade spe=-2.
@@ -72,4 +74,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.
 - **D-1018:** `use_pick_axe` cmdq `doapply`+invlet + getobj KEY.
 - **D-1016:** `shopdig(1)` `um_dist` De Morgan + do.js `setnotworn`.
-- **D-1015:** tutorial `setnotworn` clears oc_oprop / EStealth.

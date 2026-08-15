@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1030 | fixed | apply `use_unicorn_horn` | C doapply UNICORN_HORN; JS said unknown; cursed rn2(13)/2 + TimedTrouble shuffle/cure |
 | D-1029 | fixed | apply `use_figurine` | C doapply FIGURINE; JS said unknown; loc checks + make_familiar BUC 80-10-10 |
 | D-1028 | fixed | apply `use_bell` | C doapply BELL/BELL_OF_OPENING; JS said unknown; ordinary/BofO + openit/findit/mkundead |
 | D-1027 | fixed | apply `use_tinning_kit` | C doapply TINNING_KIT; JS said unknown; floorfood tin + homemade spe=-2 + rider revive |
