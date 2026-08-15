@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1021 — use_royal_jelly + dorub/doapply
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `dorub`/`doapply` treated `LUMP_OF_ROYAL_JELLY` as
+  unknown (`Sorry, I don't know how to use that.`). C smears on an
+  egg: killer bee → queen, cursed `kill_egg`, else hatch timeout +
+  blessed `spe=2`.
+- **C locus:** `apply.c` `use_royal_jelly` / `jelly_ok` / `dorub` /
+  `doapply` case; `timeout.c` `kill_egg` (`stop_timer(HATCH_EGG)`).
+- **Fix:** split+`freeinv` before getobj (GETOBJ_PROMPT); egg-only
+  SUGGEST; killer→queen; cursed stop hatch; else
+  `attach_egg_hatch_timeout` + blessed parent flag; `setnotworn` +
+  obfree (not `delobj`/`rn2`). Cancel: `addinv_nomerge` if unsplit;
+  `unsplitobj` no-op on OBJ_FREE after freeinv (C same). Rule #2: no fs.
+- **Deferred:** `hatch_egg` callback; `update_inventory` redraw;
+  whip/grapple/`use_pole`.
+- **Verify:** green+strict PASS; apply/eat cohort **7**/7
+  (seed0009 Scr **73**/73). Private node: queen+timer; cursed kills
+  hatch; stack cancel quan-1; single cancel restores. Public traces
+  **unhit**.
+- **Files:** `js/apply.js`, `js/mkobj.js` (`kill_egg`).
+
 ## D-1020 — setnotworn pointer-walk + leave-tutorial invent restore
 
 - **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)

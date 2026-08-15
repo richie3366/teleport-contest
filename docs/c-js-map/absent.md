@@ -29,7 +29,7 @@ This is a planning list, not an exhaustive C file inventory:
   via D-1008; whistle/leash via D-1007/D-1005; **BLINDFOLD/LENSES
   Blindf_on/off** via D-1013; **`use_stone` graystone/touchstone** via
   D-1014; containers already wired via `use_container`;
-  whip/grapple/jelly/use_pole/oil still deferred);
+  whip/grapple/use_pole/oil still deferred; **`use_royal_jelly` D-1021**);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing (sellobj/check_shop_obj
   throw-land + drop via D-0994; **dopay robbed/angry/debit** via

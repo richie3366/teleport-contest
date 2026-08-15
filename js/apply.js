@@ -20,7 +20,7 @@ import {
     COLNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     ACCESSIBLE, IS_STWALL, IS_DOOR, TELEDS_NO_FLAGS, INTRINSIC,
-    EXT_ENCUMBER, COST_DSTROY, HEAD, HAND, NOSE,
+    EXT_ENCUMBER, COST_DSTROY, HEAD, HAND, NOSE, NON_PM,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS,
@@ -40,7 +40,7 @@ import {
 } from './monsters.js';
 import { can_blow } from './mondata.js';
 import { wield_tool, welded } from './wield.js';
-import { splitobj, delobj, objects_at, unbless } from './mkobj.js';
+import { splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg } from './mkobj.js';
 import { xname, the, The, makeplural, vtense } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, change_luck } from './attrib.js';
@@ -76,7 +76,10 @@ const POT_OIL = objectNames.indexOf('POT_OIL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const EUCALYPTUS_LEAF = objectNames.indexOf('EUCALYPTUS_LEAF');
 const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
+const EGG = objectNames.indexOf('EGG');
 const BANANA = objectNames.indexOf('BANANA');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
 const TOUCHSTONE = objectNames.indexOf('TOUCHSTONE');
 const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
@@ -2022,8 +2025,9 @@ async function use_towel(obj) {
  * TOWEL → use_towel (D-1009) +
  * CRYSTAL_BALL → use_crystal_ball (D-1010) +
  * BLINDFOLD / LENSES → Blindf_on/off (D-1013) +
- * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014).
- * Named omissions: retouch_object; flip_through_book; flip_coin; jelly;
+ * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014) +
+ * LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021).
+ * Named omissions: retouch_object; flip_through_book; flip_coin;
  * whip/grapple; use_pole; traps;
  * oil; BoT; Medusa/nymph mirror arms;
  * break-wand release_hold / flash_hits (D-0979).
@@ -2214,6 +2218,12 @@ export async function doapply() {
     // C apply.c case LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014)
     if (is_graystone(obj)) {
         const res = await use_stone(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021)
+    if (obj.otyp === LUMP_OF_ROYAL_JELLY) {
+        const res = await use_royal_jelly(obj);
         return (res & ECMD_TIME) !== 0;
     }
 
@@ -2511,6 +2521,213 @@ async function use_stone(tstone) {
     return ECMD_TIME;
 }
 
+/** C ref: apply.c jelly_ok — eggs SUGGEST; else EXCLUDE. */
+function jelly_ok(obj) {
+    if (obj && obj.otyp === EGG) return GETOBJ_SUGGEST;
+    return GETOBJ_EXCLUDE;
+}
+
+/**
+ * C ref: invent.c getobj("rub the royal jelly on", jelly_ok, GETOBJ_PROMPT).
+ * Prompt even with no eggs. CMDQ_KEY like other getobj. EXCLUDE → silly_thing.
+ */
+async function getobj_jelly() {
+    const word = 'rub the royal jelly on';
+    const q = game._cmdq_canned;
+    if (q?.length) {
+        const head = q[0];
+        if (head && typeof head === 'object' && head.typ === 'key') {
+            q.shift();
+            const ch = String.fromCharCode(head.key);
+            for (const o of game.invent || []) {
+                if (o.invlet === ch && jelly_ok(o) === GETOBJ_SUGGEST) return o;
+            }
+            game._cmdq_canned = [];
+            return null;
+        }
+    }
+
+    const suggest_lets = () => {
+        const lets = [];
+        for (const o of game.invent || []) {
+            if (o?.invlet && jelly_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
+        }
+        return lets.join('');
+    };
+
+    for (;;) {
+        await flush_topl_more();
+        const rawLets = suggest_lets();
+        // C GETOBJ_PROMPT: still ask when suggested==0
+        const lets = rawLets.length > 5 ? compactify_invlets(rawLets) : rawLets;
+        const query = lets
+            ? `What do you want to ${word}? [${lets} or ?*]`
+            : `What do you want to ${word}? [*]`;
+        const prompt = `${query} `;
+        game._pending_message = prompt;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+
+        const key = await nhgetch();
+        const ch = String.fromCharCode(key);
+        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
+            if (game.flags?.verbose !== false) await pline('Never mind.');
+            return null;
+        }
+        if (ch === '?' || ch === '*') {
+            const { display_pickinv_reply } = await import('./invent.js');
+            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline('Never mind.');
+                return null;
+            }
+            if (!ilet) continue;
+            const picked = (game.invent || []).find((o) => o.invlet === ilet);
+            if (!picked) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            const rank = jelly_ok(picked);
+            if (rank === GETOBJ_EXCLUDE) {
+                await pline(`That is a silly thing to ${word}.`);
+                return null;
+            }
+            game._pending_message = '';
+            return picked;
+        }
+        const otmp = (game.invent || []).find((o) => o.invlet === ch);
+        if (!otmp) {
+            await pline("You don't have that object.");
+            continue;
+        }
+        const rank = jelly_ok(otmp);
+        if (rank === GETOBJ_EXCLUDE) {
+            await pline(`That is a silly thing to ${word}.`);
+            return null;
+        }
+        game._pending_message = '';
+        return otmp;
+    }
+}
+
+/** C ref: invent.c freeinv — drop from invent[]; where=OBJ_FREE. */
+function freeinv_jelly(obj) {
+    if (!obj) return;
+    const inv = game.invent || [];
+    const idx = inv.indexOf(obj);
+    if (idx >= 0) inv.splice(idx, 1);
+    obj.where = OBJ_FREE;
+    obj.pickup_prev = 0;
+}
+
+/**
+ * C ref: mkobj.c unsplitobj — OBJ_FREE/FLOOR return null. After
+ * use_royal_jelly freeinv the lump is OBJ_FREE so cancel is a no-op
+ * (C same: stack quan already reduced).
+ */
+function unsplitobj_jelly(obj) {
+    if (!obj || obj.where !== OBJ_INVENT) return null;
+    const split = game.context?.objsplit;
+    if (!split) return null;
+    let parent = null;
+    let child = null;
+    if (obj.o_id === split.child_oid) {
+        child = obj;
+        parent = (game.invent || []).find((o) => o.o_id === split.parent_oid);
+    } else if (obj.o_id === split.parent_oid) {
+        parent = obj;
+        child = (game.invent || []).find((o) => o.o_id === split.child_oid);
+    }
+    if (!parent || !child || parent === child) return null;
+    parent.quan = (parent.quan | 0) + (child.quan | 0);
+    const inv = game.invent || [];
+    const idx = inv.indexOf(child);
+    if (idx >= 0) inv.splice(idx, 1);
+    child.where = OBJ_FREE;
+    child.quan = 0;
+    return parent;
+}
+
+/**
+ * C ref: apply.c use_royal_jelly — split/freeinv; getobj egg; killer→queen;
+ * cursed kill_egg; else attach_egg_hatch_timeout + blessed spe=2; obfree lump.
+ * Named omit: hatch_egg callback (timer still queued); update_inventory redraw.
+ * @returns {number} ECMD_CANCEL | ECMD_TIME
+ */
+async function use_royal_jelly(obj) {
+    const splitit = (obj.quan || 1) > 1;
+    let lump = obj;
+    if (splitit) {
+        const child = splitobj(obj, 1);
+        if (child) lump = child;
+    }
+    // C: freeinv so the lump is not offered as a self-rub choice
+    freeinv_jelly(lump);
+
+    const eobj = await getobj_jelly();
+    if (!eobj) {
+        if (splitit) {
+            unsplitobj_jelly(lump);
+        } else {
+            const { addinv_nomerge } = await import('./u_init.js');
+            await addinv_nomerge(lump);
+        }
+        return ECMD_CANCEL;
+    }
+
+    await pline(`You smear royal jelly all over ${yname(eobj)}.`);
+    if (eobj.otyp !== EGG) {
+        await pline(nothing_happens);
+        setnotworn(lump);
+        lump.quan = 0;
+        lump.where = OBJ_FREE;
+        return ECMD_TIME;
+    }
+
+    const oldcorpsenm = eobj.corpsenm ?? NON_PM;
+    if ((eobj.corpsenm ?? NON_PM) === PM_KILLER_BEE) {
+        eobj.corpsenm = PM_QUEEN_BEE;
+    }
+
+    if (lump.cursed) {
+        if ((eobj.timed | 0) || (eobj.corpsenm ?? NON_PM) !== oldcorpsenm) {
+            await pline(
+                `The ${xname(eobj)} ${otense_stone(eobj, 'quiver')} feebly.`,
+            );
+        } else {
+            await pline(nothing_seems_to_happen);
+        }
+        kill_egg(eobj);
+        setnotworn(lump);
+        lump.quan = 0;
+        lump.where = OBJ_FREE;
+        return ECMD_TIME;
+    }
+
+    const was_timed = eobj.timed | 0;
+    if ((eobj.corpsenm ?? NON_PM) !== NON_PM) {
+        if (!(eobj.timed | 0)) attach_egg_hatch_timeout(eobj, 0);
+        // C: blessed jelly → hatched creature thinks you're the parent
+        if (lump.blessed && !(eobj.spe | 0)) eobj.spe = 2;
+    }
+
+    if (((eobj.timed | 0) && !was_timed)
+        || (eobj.spe | 0) === 2
+        || (eobj.corpsenm ?? NON_PM) !== oldcorpsenm) {
+        await pline(
+            `The ${xname(eobj)} ${otense_stone(eobj, 'quiver')} briefly.`,
+        );
+    } else {
+        await pline(nothing_seems_to_happen);
+    }
+
+    setnotworn(lump);
+    lump.quan = 0;
+    lump.where = OBJ_FREE;
+    return ECMD_TIME;
+}
+
 /** C ref: apply.c rub_ok */
 function rub_ok(obj) {
     if (!obj) return GETOBJ_EXCLUDE;
@@ -2593,7 +2810,7 @@ function cmdq_add_key(ch) {
 
 /**
  * C ref: apply.c dorub — #rub lamp/stone/jelly.
- * Named omissions: use_royal_jelly; djinni_from_bottle / begin_burn
+ * Named omissions: djinni_from_bottle / begin_burn
  * full lamp transform; check_unpaid_usage; Blind smoke wording uses see/smell.
  * @returns {number} ECMD_*
  */
@@ -2612,9 +2829,7 @@ export async function dorub() {
             return use_stone(obj);
         }
         if (obj.otyp === LUMP_OF_ROYAL_JELLY) {
-            // use_royal_jelly deferred
-            await pline("Sorry, I don't know how to use that.");
-            return ECMD_OK;
+            return use_royal_jelly(obj);
         }
         await pline("Sorry, I don't know how to use that.");
         return ECMD_OK;
