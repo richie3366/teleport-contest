@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1044 — special_obj_hits_leader uses `urole.questarti`
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1041 cloned `special_obj_hits_leader` with
+  `obj.oartifact === game.u?.questarti`. `questarti` lives on
+  `game.urole` (C `gu.urole.questarti`). `u.questarti` is unset, so
+  quest artifacts that are not `oc_unique` skipped the leader
+  intercept and fell into WEAPON hit-vs-miss (`rnd(20)` vs the
+  leader). Unique/`oc_unique` and unknown fake Amulet still gated.
+- **C locus:** `questpgr.c` `is_quest_artifact` (~67–70):
+  `otmp->oartifact == gu.urole.questarti`. Macro
+  `dothrow.c` `special_obj_hits_leader` (~1969–1972): that or
+  `objects[].oc_unique` or `FAKE_AMULET_OF_YENDOR && !known`, and
+  `mon->m_id == quest_status.leader_m_id`. Caller
+  `thitmonst` skips APPLIED. Detect/dogmove already cloned
+  `urole.questarti`.
+- **Fix:** local `is_quest_artifact` on `game.urole.questarti`
+  (`want!==0` so sparse JS urole cannot treat every non-artifact
+  as the quest item). Unique/fake/`leader_m_id` unchanged.
+  Rule #2: no fs.
+- **Deferred:** leader catch/`finish_quest`/`addinv` body;
+  `gem_accept`; `potionhit`; `cutworm`; shop `obfree` on mulch.
+  Some roles still omit `questarti` in `roles.js` (startup sparse).
+- **Verify:** green+strict PASS; throw/combat/zap cohort **4**/4
+  (seed0361 Scr **366**/366; seed1800 throw; seed0060 kick;
+  seed2200 zap). Private node **11**/11 (credit-card quest arti vs
+  leader; `u.questarti` alone false; unique amulet; unknown fake;
+  known fake skip; no `leader_m_id`). Path **unhit** by public
+  traces. Cadence still **#1310**; next @**#1315**.
+- **Files:** `js/dothrow.js`.
+
 ## D-1043 — should_mulch_missile hero blessed save `rnl(4)`
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

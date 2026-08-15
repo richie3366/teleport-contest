@@ -16,16 +16,16 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews **03** (`19e907f5` D-1042) and **04** (`d3fac215`
-  D-1043) **ACCEPT** against pinned C. Remaining Must-fix from
-  review 02: leader `urole.questarti`. Loop is **fail-closed**
-  (review every 3, cadence every 5 score-only unless Must-fix is
-  open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — `special_obj_hits_leader` uses
-  `urole.questarti` (review 02 item 3). Do not dump tut-1 or yname
-  while Must-fix is open.
-- **Hypothesis:** none live. Falsify leader predicate against C
-  `dothrow.c` `is_quest_artifact` + green.
+- Latest: **D-1044** `special_obj_hits_leader` uses
+  `urole.questarti` (review 02 item 3). Remaining Must-fix: whip/
+  pole/grapple `yname`/`Amonnam`/`mbodypart` (D-1022 risk 5). Loop
+  is **fail-closed** (review every 3, cadence every 5 score-only
+  unless Must-fix is open). Agents **commit + `git push`**.
+- **Next cluster:** Must-fix — whip/pole/grapple names: real
+  `yname` / `Amonnam` / `mbodypart` (not local apply clones).
+  Do not dump tut-1 while Must-fix is open.
+- **Hypothesis:** none live. Falsify yname clones against C
+  `apply.c` + green.
 
 ## Don't re-check (≤15)
 
@@ -68,12 +68,15 @@ Objective/score live in `CURRENT.md`.
   `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040). Do not restore
   `thitmonst` always-`tmiss` for WEAPON/weptool/GEM (D-1041). Do not
   restore `find_mac` base-`data.ac` stub (D-1042). Do not restore
-  hero blessed mulch `rn2(4)` (D-1043 — C `rnl(4)`).
+  hero blessed mulch `rn2(4)` (D-1043 — C `rnl(4)`). Do not restore
+  `special_obj_hits_leader` `game.u.questarti` (D-1044 — C
+  `urole.questarti`).
 
 ## Landmarks (≤15)
 
 - Suite after D-1043: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.874). Cadence **#1310**; next @**#1315**.
+- **D-1044:** `special_obj_hits_leader` `urole.questarti`.
 - **D-1043:** `should_mulch_missile` hero blessed `!rnl(4)`.
 - **D-1042:** `find_mac` minvent worn `ARM_BONUS` / guarding −2.
 - **D-1039:** `dosit` trap-before-throne + `dotrap` `VIASITTING`.
@@ -86,5 +89,4 @@ Objective/score live in `CURRENT.md`.
 - **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
 - **D-1033:** special_throne_effect + dosit IS_THRONE + losexp.
 - **D-1032:** fig_transform / attach_fig_transform_timeout.
-- **D-1031:** hornoplenty doapply HORN_OF_PLENTY + floor tip.
 

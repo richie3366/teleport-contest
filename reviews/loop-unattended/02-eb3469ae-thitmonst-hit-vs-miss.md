@@ -164,6 +164,7 @@ Journal: green+strict PASS; throw/kick/combat cohort **10**/10 (seed0361 Scr 366
    **Addressed:** D-1043 `d3fac215`.
 
 3. **`special_obj_hits_leader` must use C `is_quest_artifact` (`oartifact == urole.questarti`), not `game.u.questarti`.** Unique/`oc_unique` still gates; quest artifacts that are not `oc_unique` currently fall into weapon hit-vs-miss against the leader. Source: same review.
+   **Addressed:** D-1044.
 
 Named omits (map, not Must-fix): `gem_accept` luck/`mpickobj`; leader catch/`finish_quest`/`addinv` body; iron ball/boulder hit-vs-miss; `potionhit`; swallow vanish body; `cutworm`; `check_shop_obj`/`obfree` on mulch; `mshot_xname`; `hit()` `engulfing_u`; `passive_obj` `erode_obj`; first_weapon_hit `is_weptool` vs `oc_skill != null`.
 

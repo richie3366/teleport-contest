@@ -84,6 +84,7 @@ const GAUNTLETS_OF_POWER = objectNames.indexOf('GAUNTLETS_OF_POWER');
 const GAUNTLETS_OF_FUMBLING = objectNames.indexOf('GAUNTLETS_OF_FUMBLING');
 const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
+const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const MINERAL = 21; // objclass.h
 const PIERCE = 1; // objclass.h weapon oc_dir
 const PM_PYROLISK = monsterNames.indexOf('PM_PYROLISK');
@@ -439,14 +440,23 @@ function helpless_thit(mon) {
 }
 
 /**
+ * C ref: questpgr.c is_quest_artifact — otmp->oartifact == gu.urole.questarti.
+ * C compares raw; guard want!==0 so incomplete JS urole (questarti still 0
+ * on some roles) cannot treat every non-artifact as the quest item.
+ */
+function is_quest_artifact(obj) {
+    const want = game.urole?.questarti | 0;
+    return want !== 0 && (obj?.oartifact | 0) === want;
+}
+
+/**
  * C ref: dothrow.c special_obj_hits_leader — quest artifact / unique /
  * unknown fake Amulet vs quest leader. Body (catch / finish_quest) deferred.
  */
-function special_obj_hits_leader(obj, mon) {
+export function special_obj_hits_leader(obj, mon) {
     const unique = !!(game.objects?.[obj.otyp]?.oc_unique);
-    const fake = objectNames[obj.otyp] === 'FAKE_AMULET_OF_YENDOR' && !obj.known;
-    const qart = !!(obj.oartifact && obj.oartifact === game.u?.questarti);
-    if (!(qart || unique || fake)) return false;
+    const fake = obj.otyp === FAKE_AMULET_OF_YENDOR && !obj.known;
+    if (!(is_quest_artifact(obj) || unique || fake)) return false;
     const lid = game.quest_status?.leader_m_id | 0;
     return !!lid && (mon.m_id | 0) === lid;
 }
