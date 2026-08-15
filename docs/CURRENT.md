@@ -73,7 +73,9 @@ public traces.
 
 **Next cluster:** `light_cocktail` must take/update `struct obj **`
 like C `apply.c` `light_cocktail`. Source:
-`reviews/loop-2026-08-15/D-1023-aaac3f9d-lamp-trap-bot.md` risk 4.
+`reviews/loop-2026-08-15/D-1023-aaac3f9d-lamp-trap-bot.md` risk 4
+(reviews **05**/`d9febc3c` and **06**/`e8884a53` **ACCEPT**; no new
+Must-fix).
 Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
 optional debt. Unattended loop pops **one** queue item per port iter
 (Must-fix before Open). Review every 3; cadence every 5 is score-only

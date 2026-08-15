@@ -16,11 +16,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1045** whip `yname`/`Amonnam`/`mbodypart` (D-1022
-  risk 5). Remaining Must-fix: `light_cocktail` `struct obj **`
-  (D-1023 risk 4). Loop is **fail-closed** (review every 3,
-  cadence every 5 score-only unless Must-fix is open). Agents
-  **commit + `git push`**.
+- Latest: reviews **05** (`d9febc3c` D-1044) and **06**
+  (`e8884a53` D-1045) **ACCEPT** against pinned C. Remaining
+  Must-fix: `light_cocktail` `struct obj **` (D-1023 risk 4).
+  Loop is **fail-closed** (review every 3, cadence every 5
+  score-only unless Must-fix is open). Agents **commit +
+  `git push`**.
 - **Next cluster:** Must-fix — `light_cocktail` must take/update
   `struct obj **` like C `apply.c`. Read D-1023 review first.
   Do not dump tut-1 while Must-fix is open.

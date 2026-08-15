@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 22:20 — review D-1044 / D-1045 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`d9febc3c` D-1044, `e8884a53` D-1045)
+against pinned C, not the journal.
+**C locus:** `questpgr.c` `is_quest_artifact`; `dothrow.c`
+`special_obj_hits_leader`; `objnam.c` `yname`; `shk.c` `shk_your`;
+`do_name.c` `a_monnam`/`Amonnam`; `polyself.c` `mbodypart`.
+**Change:** reviews 05 ACCEPT (leader predicate reads
+`urole.questarti`; catch body still named) and 06 ACCEPT (whip
+uses real `yname`/`Amonnam`/`mbodypart`; `shk_owns`/`surface`
+named). No new Must-fix. No `js/` edits. Filled Addressed hashes
+`d9febc3c` / `e8884a53`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1310**; next @**#1315**).
+**Verified:** C read of `questpgr.c:67–70`, `dothrow.c:1969–1972`,
+`objnam.c:2358–2374`, `shk.c:5862–5874`, `do_name.c:1152–1164`,
+`polyself.c:1972–2146`, `apply.c` whipattack; JS hunks grepped
+FORCE/fs/seed.
+**Next:** Must-fix `light_cocktail` `struct obj **` (D-1023 risk 4).
+**Blocked:** none.
+
 ## 2026-08-15 22:16 — #1313 D-1045 whip yname/Amonnam/mbodypart
 
 **Objective:** Must-fix D-1022 risk 5 — whip/pole/grapple names use
