@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 16:28 — #1298 D-1029 use_figurine
+
+**Objective:** map-driven apply cluster — C `use_figurine`
+(CURRENT FIGURINE).
+**C locus:** `apply.c` use_figurine/figurine_location_checks/doapply
+FIGURINE; `dog.c` make_familiar/pick_familiar_pm; `makemon.c`
+MM_IGNOREWATER gpflags.
+**Change:** doapply dispatch (res TIME/OK/CANCEL); swallow room;
+getdir cmdq+self+vertical; loc TIME; You set/release/toss;
+make_familiar extinct dust / shatter / BUC 80-10-10 / initedog;
+stop FIG_TRANSFORM; useup. Rule #2: no fs.
+**Score:** last full `sessions` still **#1295** 44/44 (cadence @#1300).
+**Verified:** green+strict PASS; apply/shared cohort **37**/37
+(seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+**73**/73). Private node (swallow; cancel; wall TIME; extinct
+dust; blessed spawn+useup). Path **unhit** by public traces.
+**Next:** apply.js use_unicorn_horn (UNICORN_HORN).
+**Blocked:** none.
+
 ## 2026-08-15 16:12 — #1297 D-1028 use_bell
 
 **Objective:** map-driven apply cluster — C `use_bell`
@@ -257,21 +276,6 @@ likely **unhit** by public traces — fortress not a snatch proof.
 `33+0.27/turn`.
 **Verified:** seed0009 PASS; green+strict; cohort 9/9; full
 `sessions` 44/44. Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
-jelly/use_pole; or pleased pat_on_head gifts.
-**Blocked:** none.
-
-## 2026-07-22 06:55 — #1285 cadence score + D-1014 use_stone
-
-**Objective:** mandatory full `sessions` score @#1285; map-driven
-`use_stone` (CURRENT next apply tools).
-**C locus:** `apply.c` `use_stone` / `touchstone_ok`; dorub/doapply
-graystone cases.
-**Change:** port use_stone + wire dorub/doapply — D-1014.
-**Score:** **43**/44 Scr **11404**/11405 RNG **100%** speed
-`31+0.27/turn` (seed0009 Scr 72/73 only FAIL).
-**Verified:** green+strict PASS; apply cohort **16**/17 (seed0009
-pre-existing). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or whip/grapple/
 jelly/use_pole; or pleased pat_on_head gifts.
 **Blocked:** none.

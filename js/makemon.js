@@ -74,7 +74,7 @@ import { big_to_little } from './mondata.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
     MM_EPRI, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
-    MM_NOMSG, MM_NOEXCLAM,
+    MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
     In_mines, In_sokoban, In_endgame,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
@@ -1979,7 +1979,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
     const allow_minvent = (mmflags & NO_MINVENT) === 0;
     const allowtail = (mmflags & MM_NOTAIL) === 0;
     const byyou = !!(game.u && x === game.u.ux && y === game.u.uy);
-    const gpflags = GP_CHECKSCARY | GP_AVOID_MONPOS;
+    // C: (mmflags & MM_IGNOREWATER) | GP_CHECKSCARY | GP_AVOID_MONPOS
+    const gpflags = ((mmflags & MM_IGNOREWATER) ? MM_IGNOREWATER : 0)
+        | GP_CHECKSCARY | GP_AVOID_MONPOS;
 
     if (!game.level?.flags?.rndmongen && !ptr) return null;
 

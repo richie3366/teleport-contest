@@ -32,6 +32,7 @@ import {
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
     MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
+    IS_TREE, W_NONPASSWALL, FIG_TRANSFORM,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -46,7 +47,7 @@ import {
 import { rn2, rn1, rnd, d, rnl } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
-    likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
+    likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks, passes_walls,
     unsolid, nolimbs, has_head, breathless,
     PM_ARCHEOLOGIST, PM_GNOME, bigmonst, verysmall, strongmonst,
     touch_petrifies, poly_when_stoned, is_rider,
@@ -55,7 +56,7 @@ import { can_blow, little_to_big, big_to_little } from './mondata.js';
 import { wield_tool, welded, is_pole } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
-    obj_extract_self, place_object, stackobj, weight, mksobj,
+    obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
@@ -97,6 +98,7 @@ import {
 import { begin_burn, end_burn, Is_candle, obj_merge_light_sources } from './timeout.js';
 import { set_occupation } from './engrave.js';
 import { makemon, mkclass } from './makemon.js';
+import { make_familiar } from './dog.js';
 import { addinv } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
 import { make_glib } from './potion.js';
@@ -163,6 +165,7 @@ const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
 const BELL = objectNames.indexOf('BELL');
 const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
+const FIGURINE = objectNames.indexOf('FIGURINE');
 const TIN = objectNames.indexOf('TIN');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
@@ -2593,13 +2596,15 @@ export async function use_tinning_kit(obj) {
  * WAX_CANDLE/TALLOW_CANDLE → use_candle (D-1025) +
  * CAN_OF_GREASE → use_grease (D-1026) +
  * TINNING_KIT → use_tinning_kit (D-1027) +
- * BELL / BELL_OF_OPENING → use_bell (D-1028).
+ * BELL / BELL_OF_OPENING → use_bell (D-1028) +
+ * FIGURINE → use_figurine (D-1029).
  * Named omissions: retouch_object;
- * Medusa/nymph mirror arms; figurine/unihorn/horn of plenty;
+ * Medusa/nymph mirror arms; unihorn/horn of plenty;
  * shop check_unpaid / lamp-oil verbalize; pickup tipcontainer BoT;
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
- * sit.c special_throne_effect grease spray; pickinv handsbuf.
+ * sit.c special_throne_effect grease spray; pickinv handsbuf;
+ * fig_transform timer / attach_fig_transform_timeout.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
@@ -2838,6 +2843,12 @@ export async function doapply() {
         || (BELL_OF_OPENING >= 0 && obj.otyp === BELL_OF_OPENING)) {
         await use_bell(obj);
         return true; // ECMD_TIME
+    }
+
+    // C apply.c case FIGURINE → use_figurine (D-1029)
+    if (FIGURINE >= 0 && obj.otyp === FIGURINE) {
+        const res = await use_figurine(obj);
+        return (res & ECMD_TIME) !== 0;
     }
 
     // C apply.c case CANDELABRUM_OF_INVOCATION → use_candelabrum (D-1025)
@@ -4557,6 +4568,144 @@ export async function use_bell(obj) {
         if (obj) obj.known = 1;
     }
     if (wakem) await wake_nearby(true);
+}
+
+/** C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks. */
+function may_passwall_fig(x, y) {
+    const loc = game.level?.at?.(x, y);
+    if (!loc) return false;
+    const wi = (loc.wall_info | 0) | (loc.flags | 0);
+    return !(IS_STWALL(loc.typ) && (wi & W_NONPASSWALL));
+}
+
+/**
+ * C ref: apply.c figurine_location_checks — swallow+carried no room;
+ * !isok; obstructed unless passes_walls+may_passwall; boulder unless
+ * passes_walls|throws_rocks.
+ */
+async function figurine_location_checks(obj, cc, quietly) {
+    const u = game.u || {};
+    if (carried(obj) && u.uswallow) {
+        if (!quietly) await pline("You don't have enough room in here.");
+        return false;
+    }
+    const x = cc ? (cc.x | 0) : (u.ux | 0);
+    const y = cc ? (cc.y | 0) : (u.uy | 0);
+    if (!isok(x, y)) {
+        if (!quietly) await pline('You cannot put the figurine there.');
+        return false;
+    }
+    const loc = game.level?.at?.(x, y);
+    const typ = loc?.typ | 0;
+    const ptr = mons(obj.corpsenm);
+    if (IS_OBSTRUCTED(typ)
+        && !(passes_walls(ptr) && may_passwall_fig(x, y))) {
+        if (!quietly) {
+            await pline(
+                `You cannot place a figurine in ${IS_TREE(typ) ? 'a tree' : 'solid rock'}!`,
+            );
+        }
+        return false;
+    }
+    if (sobj_at_nexthere(BOULDER, x, y) && !passes_walls(ptr)
+        && !throws_rocks(ptr)) {
+        if (!quietly) {
+            await pline('You cannot fit the figurine on the boulder.');
+        }
+        return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: cmd.c getdir — cmdq KEY/DIR then hjkl/yubn + '.'/'s' self + '<>'.
+ * Named omit: mouse getpos; cmdassist; fuzzer; redraw ^R.
+ */
+async function getdir_fig(prompt) {
+    const q = game._cmdq_canned;
+    if (q?.length) {
+        const head = q[0];
+        if (head && typeof head === 'object'
+            && (head.typ === 'key' || head.typ === 'dir')) {
+            q.shift();
+            if (!game.u) game.u = {};
+            if (head.typ === 'dir') {
+                game.u.dx = head.dirx | 0;
+                game.u.dy = head.diry | 0;
+                game.u.dz = head.dirz | 0;
+                return true;
+            }
+            const ch = typeof head.key === 'string'
+                ? head.key
+                : String.fromCharCode(head.key | 0);
+            if (ch === '.' || ch === 's') {
+                game.u.dx = game.u.dy = game.u.dz = 0;
+                return true;
+            }
+            if (ch === '<') {
+                game.u.dx = game.u.dy = 0;
+                game.u.dz = -1;
+                return true;
+            }
+            if (ch === '>') {
+                game.u.dx = game.u.dy = 0;
+                game.u.dz = 1;
+                return true;
+            }
+            if (ch in DIR_DX) {
+                game.u.dx = DIR_DX[ch];
+                game.u.dy = DIR_DY[ch];
+                game.u.dz = 0;
+                return true;
+            }
+            return false;
+        }
+    }
+    return getdir_whip(prompt);
+}
+
+/**
+ * C ref: apply.c use_figurine — swallow location fail ECMD_OK; getdir
+ * cancel clears context.move/multi; failed loc after getdir is TIME;
+ * You set/release/toss then make_familiar; stop FIG_TRANSFORM; useup;
+ * Blind map_invisible. Named omit: fig_transform callback; getdir mouse.
+ */
+export async function use_figurine(obj) {
+    if (!obj) return ECMD_OK;
+    const u = game.u || (game.u = {});
+
+    if (u.uswallow) {
+        if (!(await figurine_location_checks(obj, null, false))) {
+            return ECMD_OK;
+        }
+    }
+    if (!(await getdir_fig(null))) {
+        if (!game.context) game.context = {};
+        game.context.move = 0;
+        game.multi = 0;
+        return ECMD_CANCEL;
+    }
+    const x = (u.ux | 0) + (u.dx | 0);
+    const y = (u.uy | 0) + (u.dy | 0);
+    const cc = { x, y };
+    if (!(await figurine_location_checks(obj, cc, false))) {
+        return ECMD_TIME;
+    }
+    const act = (u.dx || u.dy)
+        ? 'set the figurine beside you'
+        : (Is_airlevel(u.uz) || Is_waterlevel(u.uz) || is_pool(cc.x, cc.y))
+            ? 'release the figurine'
+            : ((u.dz | 0) < 0
+                ? 'toss the figurine into the air'
+                : 'set the figurine on the ground');
+    await pline(
+        `You ${act} and it ${Blind() ? 'supposedly ' : ''}transforms.`,
+    );
+    await make_familiar(obj, cc.x, cc.y, false);
+    stop_timer(FIG_TRANSFORM, obj);
+    useup(obj);
+    if (Blind()) map_invisible(cc.x, cc.y);
+    return ECMD_TIME;
 }
 
 /**

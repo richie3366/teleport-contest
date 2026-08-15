@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1029 — use_figurine
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `FIGURINE` as unknown
+  (`Sorry, I don't know how to use that.`). C animates it (one move).
+- **C locus:** `apply.c` `use_figurine` / `figurine_location_checks` /
+  `doapply` `FIGURINE`; `dog.c` `make_familiar` / `pick_familiar_pm`;
+  `makemon.c` `MM_IGNOREWATER` into `gpflags`.
+- **Fix:** doapply dispatch (res TIME after getdir loc fail; OK if
+  swallowed; CANCEL clears context.move/multi); You set/release/toss;
+  make_familiar extinct special-limit dust / shatter / angel free_emin
+  / rn2(10) then BUC 80/10/10 tame·peace·hostile / named christen /
+  initedog / AT_WEAP wield; stop FIG_TRANSFORM; useup; Blind
+  map_invisible. Rule #2: no fs.
+- **Deferred:** `fig_transform` timer callback; `attach_fig_transform_timeout`
+  in `set_corpsenm`; SPE_CREATE_FAMILIAR spell.c dispatch (helper exists);
+  getdir mouse/cmdassist; makemon MM_EDOG newedog alloc (initedog still
+  creates edog); unihorn / horn of plenty.
+- **Verify:** green+strict PASS; apply/shared cohort **37**/37
+  (seed0105 Scr **30**/30; seed0361 Scr **366**/366; seed0009 Scr
+  **73**/73). Private node: swallow ECMD_OK; cancel move0; wall TIME
+  no useup; extinct Nazgul dust; blessed spawn+useup. Public traces
+  **unhit**.
+- **Files:** `js/apply.js`, `js/dog.js`, `js/makemon.js` (`MM_IGNOREWATER`
+  gpflags).
+
 ## D-1028 — use_bell
 
 - **Status:** fixed (map-driven; not a public FAIL)
