@@ -73,7 +73,8 @@ public traces.
 
 **Next cluster:** `special_obj_hits_leader` must use C
 `is_quest_artifact` (`urole.questarti`), not `u.questarti`. Source:
-`reviews/loop-unattended/02-eb3469ae-thitmonst-hit-vs-miss.md`. Written
+`reviews/loop-unattended/02-eb3469ae-thitmonst-hit-vs-miss.md`
+(item 3; items 1–2 **ACCEPT** in reviews 03/04). Written
 reviews bind: QUALITY-RISK C-wrongs are Must-fix, not optional debt.
 Unattended loop pops **one** queue item per port iter (Must-fix before
 Open). Review every 3; cadence every 5 is score-only **unless Must-fix

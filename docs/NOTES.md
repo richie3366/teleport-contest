@@ -16,11 +16,11 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1043** `should_mulch_missile` hero blessed `!rnl(4)`
-  (review 02 item 2). Remaining Must-fix on that review: leader
-  `urole.questarti`. Loop is **fail-closed** (review every 3, cadence
-  every 5 score-only unless Must-fix is open). Agents **commit +
-  `git push`**.
+- Latest: reviews **03** (`19e907f5` D-1042) and **04** (`d3fac215`
+  D-1043) **ACCEPT** against pinned C. Remaining Must-fix from
+  review 02: leader `urole.questarti`. Loop is **fail-closed**
+  (review every 3, cadence every 5 score-only unless Must-fix is
+  open). Agents **commit + `git push`**.
 - **Next cluster:** Must-fix — `special_obj_hits_leader` uses
   `urole.questarti` (review 02 item 3). Do not dump tut-1 or yname
   while Must-fix is open.

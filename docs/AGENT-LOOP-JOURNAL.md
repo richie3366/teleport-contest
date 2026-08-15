@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 21:48 — review D-1042 / D-1043 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`19e907f5` D-1042, `d3fac215` D-1043)
+against pinned C, not the journal.
+**C locus:** `worn.c` `find_mac`; `hack.h` `ARM_BONUS`; `dothrow.c`
+`should_mulch_missile`; `rnd.c` `rnl`.
+**Change:** reviews 03 ACCEPT (`find_mac` minvent walk / guarding −2 /
+`AC_MAX`; stub gone) and 04 ACCEPT (hero blessed save `!rnl(4)`;
+monster `rn2(3)` unchanged). No new Must-fix. No `js/` edits.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1310**; next @**#1315**).
+**Verified:** C read of `worn.c:717–735`, `hack.h:1526–1528`,
+`dothrow.c:1976–2002`, `rnd.c:112–151`, `questpgr.c:67–70`; JS hunks
+grepped FORCE/fs/seed.
+**Next:** Must-fix `special_obj_hits_leader` `urole.questarti`.
+**Blocked:** none.
+
 ## 2026-08-15 21:44 — archive checked LOOP-QUEUE items
 
 **Objective:** live queue must not accumulate `- [x]` rows.
