@@ -15,14 +15,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1021** `use_royal_jelly` (split/freeinv/getobj egg;
-  killer→queen; cursed `kill_egg`; hatch timeout + blessed `spe=2`;
-  dorub/doapply). Public traces unhit.
-- **Next cluster:** apply.js whip/grapple/`use_pole`. Remaining
-  nhl_gamestate memcpy u/disco/mvitals/spl_book named in `startup.md`.
-- **D-1021 falsifier (held):** smearing on killer-bee egg → queen +
-  hatch timer; cursed lump stops HATCH_EGG; stack cancel leaves
-  quan-1 (C `unsplitobj` no-op on OBJ_FREE after freeinv).
+- Latest: **D-1022** `use_whip`/`use_grapple`/`use_pole` (wield+cmdq;
+  getdir/getpos; pit yank; disarm; force_attack; Snickersnee `is_pole`).
+  Public traces unhit (archeologist tour still PASS).
+- **Next cluster:** apply.js oil / `use_trap` / BAG_OF_TRICKS.
+  Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
+  `startup.md`.
+- **D-1022 falsifier (held):** apply wielded bullwhip + direction →
+  not "Sorry"; apply polearm → getpos "Where do you want to hit?";
+  Snickersnee `is_pole`; `could_pole_mon` false without uwep.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +42,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  use_royal_jelly (D-1021) or drop `objects_at` (D-0980).
+  use_whip/use_grapple/use_pole (D-1022) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -59,6 +60,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1290**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.876).
+- **D-1022:** use_whip/use_grapple/use_pole + Snickersnee is_pole.
 - **D-1021:** use_royal_jelly + dorub/doapply + timeout kill_egg.
 - **D-1020:** setnotworn worn[] pointer-walk + leave-tutorial restore.
 - **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.

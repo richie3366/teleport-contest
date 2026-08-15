@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1022 | fixed | apply `use_whip`/`use_grapple`/`use_pole` + Snickersnee `is_pole` | C doapply dispatch; JS said unknown; wield+cmdq getdir/getpos |
 | D-1021 | fixed | apply `use_royal_jelly` + dorub/doapply | C smear/egg hatch; JS said unknown; kill_egg + GETOBJ_PROMPT |
 | D-1020 | fixed | `setnotworn` worn[] pointer-walk + leave-tutorial invent restore | C pointer-equal; JS was mask `setworn(null)`; `nhl_gamestate(true)` invent+rewear |
 | D-1019 | fixed | `sellobj` BSS `sell_response` + C `robbed` precedence | C `'\0'` queries; JS defaulted `'a'` auto-sold; robbed `-= (offer<0)` then clear |

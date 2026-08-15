@@ -5,65 +5,85 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, canseemon, canspotmon, newsym,
-    map_invisible, unmap_invisible, glyph_is_invisible, You_feel,
+    map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
 } from './display.js';
-import { vision_recalc, cansee } from './vision.js';
+import { vision_recalc, cansee, couldsee } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
     COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
     objectNames, objectNameStrs, objectDescrs,
 } from './objects.js';
 import {
-    P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE,
+    P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
+    P_TWO_WEAPON_COMBAT, NEED_WEAPON,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, nothing_happens, nothing_seems_to_happen,
-    FACE, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
-    COLNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
+    FACE, FOOT, TIMEOUT, BLINDED, OBJ_FREE, OBJ_INVENT, isok, SDOOR, SCORR,
+    COLNO, ROWNO, DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, ZAP_POS, MAXULEV, WEAK,
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
-    ACCESSIBLE, IS_STWALL, IS_DOOR, TELEDS_NO_FLAGS, INTRINSIC,
-    EXT_ENCUMBER, COST_DSTROY, HEAD, HAND, NOSE, NON_PM,
+    ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_WATERWALL, IS_AIR,
+    TELEDS_NO_FLAGS, TELEDS_ALLOW_DRAG, INTRINSIC, STONE, LAVAWALL, TT_PIT,
+    EXT_ENCUMBER, COST_DSTROY, COST_DEGRD, HEAD, HAND, NOSE, NON_PM,
+    KILLED_BY, NO_KILLER_PREFIX, W_WEP, DISMOUNT_THROWN, STATUE_TRAP,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, SUPPRESS_SADDLE, has_mgivenname,
-    PLNMSG_enum, NO_TRAP_FLAGS,
+    PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
-import { m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto, wake_nearby } from './mon.js';
+import {
+    m_at, dist2, seemimic, see_monster_closeup, find_mid, mnexto, wake_nearby,
+    wakeup, wake_nearto,
+} from './mon.js';
 import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
+    hold_another_object,
 } from './invent.js';
-import { rn2, rn1, rnd, d } from './rng.js';
+import { rn2, rn1, rnd, d, rnl } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks,
     unsolid, nolimbs, has_head, breathless,
-    PM_ARCHEOLOGIST, PM_GNOME,
+    PM_ARCHEOLOGIST, PM_GNOME, bigmonst, verysmall, strongmonst,
+    touch_petrifies, poly_when_stoned,
 } from './monsters.js';
-import { can_blow } from './mondata.js';
-import { wield_tool, welded } from './wield.js';
-import { splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg } from './mkobj.js';
-import { xname, the, The, makeplural, vtense } from './objnam.js';
+import { can_blow, little_to_big, big_to_little } from './mondata.js';
+import { wield_tool, welded, is_pole } from './wield.js';
+import {
+    splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
+    obj_extract_self, place_object, stackobj,
+} from './mkobj.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
-import { acurr, A_CHA, A_STR, change_luck } from './attrib.js';
+import { acurr, A_CHA, A_STR, A_DEX, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam } from './do_name.js';
 import { monflee } from './monmove.js';
-import { nomul } from './hack.js';
+import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
-import { walk_path } from './dothrow.js';
-import { teleds, tele_to_rnd_pet, noteleport_level } from './teleport.js';
+import { walk_path, thitmonst } from './dothrow.js';
+import { uhim } from './roles.js';
+import { is_art } from './artifact.js';
+import { ART_SNICKERSNEE } from './generated/artifacts_data.js';
+import { P_SKILL, weapon_type, dbon, MON_WEP, is_wet_towel, dry_a_towel } from './weapon.js';
+import { pickup_object, spoteffects } from './pickup.js';
+import { select_menu_pick_one } from './options.js';
+import { teleds, tele_to_rnd_pet, noteleport_level, enexto, rloc_to } from './teleport.js';
 import { morehungry, use_tin_opener } from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
 import { costly_alteration } from './shk.js';
 import { zappable, release_hold } from './zap.js';
 import { explode } from './explode.js';
-import { flash_hits_mon, xkilled } from './uhitm.js';
+import {
+    flash_hits_mon, xkilled, attack_checks, check_caitiff,
+    force_attack, stumble_onto_mimic,
+} from './uhitm.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
 import { vault_summon_gd } from './vault.js';
 import { fill_pit } from './dig.js';
-import { mintrap, Trap_Killed_Mon } from './trap.js';
+import { mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at, activate_statue_trap } from './trap.js';
 import { make_glib } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
-import { dropx, setnotworn } from './do.js';
-import { is_wet_towel, dry_a_towel } from './weapon.js';
+import { dropx, setnotworn, fire_damage } from './do.js';
+import { polymon } from './polyself.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -72,6 +92,11 @@ const STETHOSCOPE = objectNames.indexOf('STETHOSCOPE');
 const MIRROR = objectNames.indexOf('MIRROR');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const BULLWHIP = objectNames.indexOf('BULLWHIP');
+const GRAPPLING_HOOK = objectNames.indexOf('GRAPPLING_HOOK');
+const CORPSE = objectNames.indexOf('CORPSE');
+const STATUE = objectNames.indexOf('STATUE');
+const CRYSKNIFE = objectNames.indexOf('CRYSKNIFE');
+const WORM_TOOTH = objectNames.indexOf('WORM_TOOTH');
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const EUCALYPTUS_LEAF = objectNames.indexOf('EUCALYPTUS_LEAF');
@@ -80,6 +105,8 @@ const EGG = objectNames.indexOf('EGG');
 const BANANA = objectNames.indexOf('BANANA');
 const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
+const PM_HORSE = monsterNames.indexOf('PM_HORSE');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const TOUCHSTONE = objectNames.indexOf('TOUCHSTONE');
 const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
@@ -198,15 +225,9 @@ function is_pick(obj) {
     return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_PICK_AXE;
 }
 
-/** C ref: obj.h is_pole — polearms/lance (Snickersnee artifact deferred). */
-function is_pole(obj) {
-    if (!obj) return false;
-    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
-    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
-    return sk === P_POLEARMS || sk === P_LANCE;
-}
-
-/** C ref: obj.h is_graystone. */
+/**
+ * C ref: obj.h is_graystone.
+ */
 function is_graystone(obj) {
     if (!obj) return false;
     const o = obj.otyp;
@@ -217,7 +238,7 @@ function is_graystone(obj) {
  * C ref: apply.c apply_ok — SUGGEST tools/wands/spellbooks + applicable
  * weapons/oil/food/graystones; DOWNPLAY coins/unknown potions/hallu banana;
  * EXCLUDE_SELECTABLE for known non-touchstone graystones and unapplicable.
- * Snickersnee pole path deferred with other artifacts.
+ * Snickersnee is included via obj.h is_pole (wield.js).
  */
 function apply_ok(obj) {
     if (!obj) return GETOBJ_EXCLUDE;
@@ -961,6 +982,7 @@ function body_part(part) {
     if (part === HEAD) return 'head';
     if (part === HAND) return 'hand';
     if (part === NOSE) return 'nose';
+    if (part === FOOT) return 'foot';
     return 'body part';
 }
 
@@ -2026,11 +2048,13 @@ async function use_towel(obj) {
  * CRYSTAL_BALL → use_crystal_ball (D-1010) +
  * BLINDFOLD / LENSES → Blindf_on/off (D-1013) +
  * graystone LUCKSTONE/LOADSTONE/TOUCHSTONE/FLINT → use_stone (D-1014) +
- * LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021).
+ * LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021) +
+ * BULLWHIP → use_whip / GRAPPLING_HOOK → use_grapple / is_pole → use_pole
+ * (D-1022).
  * Named omissions: retouch_object; flip_through_book; flip_coin;
- * whip/grapple; use_pole; traps;
- * oil; BoT; Medusa/nymph mirror arms;
- * break-wand release_hold / flash_hits (D-0979).
+ * traps; oil; BoT; Medusa/nymph mirror arms;
+ * break-wand release_hold / flash_hits (D-0979);
+ * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
@@ -2224,6 +2248,24 @@ export async function doapply() {
     // C apply.c case LUMP_OF_ROYAL_JELLY → use_royal_jelly (D-1021)
     if (obj.otyp === LUMP_OF_ROYAL_JELLY) {
         const res = await use_royal_jelly(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case BULLWHIP → use_whip (D-1022)
+    if (obj.otyp === BULLWHIP) {
+        const res = await use_whip(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c case GRAPPLING_HOOK → use_grapple (D-1022)
+    if (GRAPPLING_HOOK >= 0 && obj.otyp === GRAPPLING_HOOK) {
+        const res = await use_grapple(obj);
+        return (res & ECMD_TIME) !== 0;
+    }
+
+    // C apply.c default is_pole → use_pole(obj, FALSE) (D-1022)
+    if (is_pole(obj)) {
+        const res = await use_pole(obj, false);
         return (res & ECMD_TIME) !== 0;
     }
 
@@ -2725,6 +2767,931 @@ async function use_royal_jelly(obj) {
     setnotworn(lump);
     lump.quan = 0;
     lump.where = OBJ_FREE;
+    return ECMD_TIME;
+}
+
+/** C apply.c shared strings for pole/grapple. */
+const not_enough_room = "There's not enough room here to use that.";
+const where_to_hit = 'Where do you want to hit?';
+const cant_see_spot = "won't hit anything if you can't see that spot.";
+const cant_reach = "can't reach that spot from here.";
+const msg_slipsfree = 'The bullwhip slips free.';
+const msg_snap = 'Snap!';
+
+/** C hacklib.c isqrt — integer square root (odd-subtraction). */
+function isqrt_pole(val) {
+    let rt = 0;
+    let odd = 1;
+    let v = val | 0;
+    while (v >= odd) {
+        v -= odd;
+        odd += 2;
+        rt++;
+    }
+    return rt;
+}
+
+function distu_apply(x, y) {
+    const u = game.u || {};
+    return dist2(u.ux | 0, u.uy | 0, x | 0, y | 0);
+}
+
+function u_at_xy(x, y) {
+    const u = game.u || {};
+    return (u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0);
+}
+
+function sgn_apply(n) {
+    n = n | 0;
+    return n < 0 ? -1 : n > 0 ? 1 : 0;
+}
+
+function Role_if(pm) {
+    return (game.urole?.mnum | 0) === pm;
+}
+
+function uhis() {
+    return game.flags?.female ? 'her' : 'his';
+}
+
+function Amonnam_apply(mtmp) {
+    const s = mon_nam(mtmp) || 'it';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function s_suffix_apply(s) {
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`;
+    if (low === 'you') return `${buf}r`;
+    if (buf.endsWith('s') || buf.endsWith('S')) return `${buf}'`;
+    return `${buf}'s`;
+}
+
+function mhis_apply(mtmp) {
+    if (!mtmp) return 'its';
+    if (mtmp.female) return 'her';
+    return 'his';
+}
+
+function mbodypart_apply(_mon, part) {
+    return body_part(part);
+}
+
+function Levitation_apply() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+
+function Flying_apply() {
+    const u = game.u || {};
+    if (u.Flying) return true;
+    return !!(((u.HFlying | 0) || (u.EFlying | 0)) && !(u.BFlying | 0));
+}
+
+function Glib_apply() {
+    return !!((game.u?.Glib | 0) || (game.u?.HGlib | 0));
+}
+
+function Stone_resistance_apply() {
+    const u = game.u || {};
+    return !!(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance);
+}
+
+function Protection_from_shape_changers_apply() {
+    const u = game.u || {};
+    return !!(u.HProtection_from_shape_changers
+        || u.EProtection_from_shape_changers
+        || u.Protection_from_shape_changers);
+}
+
+function Deaf_apply() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+}
+
+function helpless_apply(mtmp) {
+    return !!(mtmp?.msleeping || mtmp?.mcanmove === 0);
+}
+
+function is_pool_or_lava_apply(x, y) {
+    return is_pool(x, y) || is_lava(x, y);
+}
+
+function surface_apply(x, y) {
+    const loc = game.level?.at?.(x, y);
+    const typ = loc?.typ ?? 0;
+    if (IS_FURNITURE(typ)) return 'furniture';
+    if (IS_AIR(typ) || is_pool(x, y)) return 'water';
+    if (is_lava(x, y)) return 'lava';
+    return 'floor';
+}
+
+function ceiling_apply(_x, _y) {
+    return 'ceiling';
+}
+
+function accessible_apply(x, y) {
+    const loc = game.level?.at?.(x, y);
+    if (!loc) return false;
+    if (!ACCESSIBLE(loc.typ)) return false;
+    if (IS_DOOR(loc.typ)) {
+        const m = loc.doormask | 0;
+        if (m & (D_CLOSED | D_LOCKED)) return false;
+    }
+    return true;
+}
+
+function sobj_at_nexthere(otyp, x, y) {
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if ((o.otyp | 0) === otyp) return o;
+    }
+    return null;
+}
+
+function bimanual_apply(obj) {
+    if (!obj) return false;
+    const oc = game.objects?.[obj.otyp];
+    return !!(oc?.oc_bimanual || oc?.oc_big);
+}
+
+/** C ref: wield.c mwelded — monster wielded cursed wep (owornmask & W_WEP). */
+function mwelded_apply(obj) {
+    if (!obj) return false;
+    if (!((obj.owornmask || 0) & W_WEP)) return false;
+    if (!obj.cursed) return false;
+    if (obj.oclass === WEAPON_CLASS) return true;
+    return obj.oclass === TOOL_CLASS
+        && ((game.objects?.[obj.otyp]?.oc_skill | 0) !== P_NONE);
+}
+
+/** C ref: weapon.c setmnotwielded — artifact_light end_burn deferred. */
+function setmnotwielded_apply(mon, obj) {
+    if (!obj) return;
+    if (MON_WEP(mon) === obj) mon.mw = null;
+    obj.owornmask = (obj.owornmask || 0) & ~W_WEP;
+}
+
+/**
+ * C ref: weapon.c possibly_unwield — after extract, wep is gone from minvent.
+ */
+function possibly_unwield_apply(mon) {
+    const mw_tmp = MON_WEP(mon);
+    if (!mw_tmp) return;
+    let obj = mon.minvent;
+    while (obj) {
+        if (obj === mw_tmp) break;
+        obj = obj.nobj;
+    }
+    if (!obj) {
+        mon.mw = null;
+        mon.weapon_check = NEED_WEAPON;
+    }
+}
+
+/** C ref: do.c obj_no_longer_held — recurse contents; CRYSKNIFE → worm tooth. */
+async function obj_no_longer_held_apply(obj) {
+    if (!obj) return;
+    for (let contents = obj.cobj; contents; contents = contents.nobj) {
+        await obj_no_longer_held_apply(contents);
+    }
+    if ((obj.otyp | 0) === CRYSKNIFE) {
+        if (!obj.oerodeproof || !rn2(10)) {
+            if (!game.context?.mon_moving && !game.program_state?.gameover) {
+                await costly_alteration(obj, COST_DEGRD);
+            }
+            obj.otyp = WORM_TOOTH;
+            obj.oerodeproof = 0;
+        }
+    }
+}
+
+/** C ref: engrave.c u_wipe_engr — no-op when no floor engraving (no RNG). */
+function u_wipe_engr_apply(_cnt) {
+    // wipe_engr_at body deferred; public traces have no engraving here
+}
+
+/** C ref: weapon.c uwep_skill_type. */
+function uwep_skill_type() {
+    if (game.u?.twoweap) return P_TWO_WEAPON_COMBAT;
+    return weapon_type(game.u?.uwep);
+}
+
+function u_wield_art(art) {
+    return is_art(game.u?.uwep, art);
+}
+
+/**
+ * C ref: cmd.c getdir — hjkl/yubn + '.'/'s' self + '<>' vertical (whip).
+ * Then caller runs confdir(FALSE) when not swallowed.
+ */
+async function getdir_whip(prompt) {
+    const msg = prompt || 'In what direction?';
+    game._pending_message = `${msg} `;
+    await flush_screen(1);
+    const disp = game.nhDisplay;
+    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
+    const key = await nhgetch();
+    const ch = String.fromCharCode(key);
+    game._pending_message = '';
+    if (!game.u) game.u = {};
+    if (ch === '.' || ch === 's') {
+        game.u.dx = game.u.dy = game.u.dz = 0;
+        return true;
+    }
+    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') return false;
+    if (ch === '<') {
+        game.u.dx = game.u.dy = 0;
+        game.u.dz = -1;
+        return true;
+    }
+    if (ch === '>') {
+        game.u.dx = game.u.dy = 0;
+        game.u.dz = 1;
+        return true;
+    }
+    if (!(ch in DIR_DX)) return false;
+    game.u.dx = DIR_DX[ch];
+    game.u.dy = DIR_DY[ch];
+    game.u.dz = 0;
+    return true;
+}
+
+/**
+ * C ref: steed.c kick_steed — whip/kick riding. monverbself polish deferred.
+ */
+async function kick_steed_apply() {
+    const u = game.u || {};
+    const steed = u.usteed;
+    if (!steed) return;
+    if (helpless_apply(steed)) {
+        const He = 'It';
+        if ((steed.mcanmove || steed.mfrozen) && !rn2(2)) {
+            if (steed.mcanmove) steed.msleeping = 0;
+            else if ((steed.mfrozen | 0) > 2) steed.mfrozen -= 2;
+            else {
+                steed.mfrozen = 0;
+                steed.mcanmove = 1;
+            }
+            if (helpless_apply(steed)) await pline(`${He} stirs.`);
+            else await pline(`${He} rouses!`);
+        } else {
+            await pline(`${He} does not respond.`);
+        }
+        return;
+    }
+    if (steed.mtame) steed.mtame--;
+    if (!steed.mtame && steed.mleashed) {
+        await m_unleash(steed, true);
+    }
+    if (!steed.mtame
+        || ((u.ulevel | 0) + (steed.mtame | 0) < rnd((MAXULEV / 2 + 5) | 0))) {
+        newsym(steed.mx, steed.my);
+        const { dismount_steed } = await import('./steed.js');
+        await dismount_steed(DISMOUNT_THROWN);
+        return;
+    }
+    await pline(`${Monnam(steed)} gallops!`);
+    u.ugallop = (u.ugallop | 0) + rn1(20, 30);
+}
+
+/**
+ * C ref: dothrow.c hurtle — range-1 yank (grapple surface). Punished diagonal
+ * slack + hurtle_step walk_path named omit; teleds one step.
+ */
+async function hurtle_apply(dx, dy, range, verbose) {
+    const u = game.u || {};
+    if (u.Punished && u.uball && u.uball.where !== OBJ_INVENT) {
+        await You_feel('a tug from the iron ball.');
+        nomul(0);
+        return;
+    }
+    if (u.utrap) {
+        await pline('You are anchored by the trap.');
+        nomul(0);
+        return;
+    }
+    dx = sgn_apply(dx);
+    dy = sgn_apply(dy);
+    if (!range || (!dx && !dy) || u.ustuck) return;
+    nomul(-range);
+    if (!game.multi_reason) game.multi_reason = 'moving through the air';
+    game.nomovemsg = '';
+    if (verbose) {
+        await pline(`You ${range > 1 ? 'hurtle' : 'float'} in the opposite direction.`);
+    }
+    const nx = (u.ux | 0) + dx * (range | 0);
+    const ny = (u.uy | 0) + dy * (range | 0);
+    if (isok(nx, ny)) await teleds(nx, ny, TELEDS_NO_FLAGS);
+}
+
+/**
+ * C ref: apply.c use_whip — lash, pit yank, disarm, force_attack.
+ * Named omit: #if 0 snatch-to-face thitu; artifact_light on setmnotwielded;
+ * yname full carried-by-mon possessive; wipe_engr_at body.
+ */
+async function use_whip(obj) {
+    const u = game.u || (game.u = {});
+    const res = ECMD_OK;
+
+    if (obj !== u.uwep) {
+        if (await wield_tool(obj, 'lash')) {
+            cmdq_add_ec(doapply);
+            cmdq_add_key(obj.invlet);
+            return ECMD_TIME;
+        }
+        return ECMD_OK;
+    }
+    if (!(await getdir_whip(null))) return res | ECMD_CANCEL;
+
+    let rx;
+    let ry;
+    let mtmp;
+    if (u.uswallow) {
+        mtmp = u.ustuck;
+        rx = mtmp?.mx | 0;
+        ry = mtmp?.my | 0;
+    } else {
+        confdir(false);
+        rx = (u.ux | 0) + (u.dx | 0);
+        ry = (u.uy | 0) + (u.dy | 0);
+        if (!isok(rx, ry)) {
+            await pline('You miss.');
+            return res;
+        }
+        mtmp = m_at(rx, ry);
+    }
+
+    let proficient = 0;
+    if (Role_if(PM_ARCHEOLOGIST)) proficient++;
+    const dex = acurr(A_DEX);
+    if (dex < 6) proficient--;
+    else if (dex >= 14) proficient += (dex - 14);
+    if (Fumbling()) proficient--;
+    if (proficient > 3) proficient = 3;
+    if (proficient < 0) proficient = 0;
+
+    if (u.uswallow) {
+        await pline('There is not enough room to flick your bullwhip.');
+    } else if (Underwater_hero()) {
+        await pline('There is too much resistance to flick your bullwhip.');
+    } else if ((u.dz | 0) < 0) {
+        await pline(`You flick a bug off of the ${ceiling_apply(u.ux, u.uy)}.`);
+    } else if (!(u.dz | 0) && (IS_WATERWALL(game.level?.at?.(rx, ry)?.typ)
+            || (game.level?.at?.(rx, ry)?.typ | 0) === LAVAWALL)) {
+        await pline('You cause a small splash.');
+        if ((game.level?.at?.(rx, ry)?.typ | 0) === LAVAWALL) {
+            await fire_damage(u.uwep, false, rx, ry);
+        }
+        return ECMD_TIME;
+    } else if ((!(u.dx | 0) && !(u.dy | 0)) || (u.dz | 0) > 0) {
+        if (u.usteed && !rn2(proficient + 2)) {
+            await pline(`You whip ${mon_nam(u.usteed)}!`);
+            await kick_steed_apply();
+            return ECMD_TIME;
+        }
+        if (is_pool_or_lava_apply(u.ux, u.uy)
+            || IS_WATERWALL(game.level?.at?.(rx, ry)?.typ)
+            || (game.level?.at?.(rx, ry)?.typ | 0) === LAVAWALL) {
+            await pline('You cause a small splash.');
+            if (is_lava(u.ux, u.uy)) {
+                await fire_damage(u.uwep, false, u.ux, u.uy);
+            }
+            return ECMD_TIME;
+        }
+        if (Levitation_apply() || u.usteed || Flying_apply()) {
+            const otmp = objects_at(u.ux, u.uy);
+            if (otmp && (otmp.otyp | 0) === CORPSE
+                && ((otmp.corpsenm | 0) === PM_HORSE
+                    || (otmp.corpsenm | 0) === little_to_big(PM_HORSE)
+                    || (otmp.corpsenm | 0) === big_to_little(PM_HORSE))) {
+                await pline('Why beat a dead horse?');
+                return ECMD_TIME;
+            }
+            if (otmp && proficient) {
+                await pline(
+                    `You wrap your bullwhip around ${an(singular(otmp, xname))} on the ${surface_apply(u.ux, u.uy)}.`,
+                );
+                if (rnl(6) || (await pickup_object(otmp, 1, true)) < 1) {
+                    await pline(msg_slipsfree);
+                }
+                return ECMD_TIME;
+            }
+        }
+        let dam = rnd(2) + dbon() + (obj.spe | 0);
+        if (dam <= 0) dam = 1;
+        await pline(`You hit your ${body_part(FOOT)} with your bullwhip.`);
+        const buf = `killed ${uhim()}self with ${uhis()} bullwhip`;
+        losehp(maybe_half_phys(dam), buf, NO_KILLER_PREFIX);
+        return ECMD_TIME;
+    } else if ((Fumbling() || Glib_apply()) && !rn2(5)) {
+        await pline(`The bullwhip slips out of your ${body_part(HAND)}.`);
+        await dropx(obj);
+    } else if (u.utrap && (u.utraptype | 0) === TT_PIT) {
+        let wrapped_what = sobj_at_nexthere(BOULDER, rx, ry)
+            ? 'a boulder'
+            : (IS_FURNITURE(game.level?.at?.(rx, ry)?.typ) ? 'something' : null);
+        let did_attack = false;
+        if (mtmp) {
+            if (bigmonst(mtmp.data) && canspotmon(mtmp)) {
+                wrapped_what = mon_nam(mtmp);
+            }
+            if (!wrapped_what) {
+                await whip_attack(obj, mtmp, rx, ry, proficient);
+                did_attack = true;
+            }
+        }
+        if (wrapped_what) {
+            const cc = { x: rx, y: ry };
+            await pline(`You wrap your bullwhip around ${wrapped_what}.`);
+            if (proficient && rn2(proficient + 2)) {
+                if (!mtmp || enexto(cc, rx, ry, game.youmonst?.data)) {
+                    await pline('You yank yourself out of the pit!');
+                    reset_utrap(true);
+                    await teleds(cc.x, cc.y, TELEDS_ALLOW_DRAG);
+                    game.vision_full_recalc = 1;
+                }
+            } else {
+                await pline(msg_slipsfree);
+            }
+            if (mtmp) await wakeup(mtmp, true);
+        } else if (!did_attack) {
+            await pline(msg_snap);
+        }
+    } else if (mtmp) {
+        await whip_attack(obj, mtmp, rx, ry, proficient);
+    } else if (Is_airlevel(u.uz) || Is_waterlevel(u.uz)) {
+        await pline('You snap your whip through thin air.');
+    } else {
+        await pline(msg_snap);
+    }
+    return ECMD_TIME;
+}
+
+/**
+ * C ref: apply.c use_whip whipattack label — reveal, disarm, or force_attack.
+ */
+async function whip_attack(obj, mtmp, rx, ry, proficient) {
+    const u = game.u || {};
+    let otmp = null;
+    if (!canspotmon(mtmp)) {
+        mtmp.mundetected = 0;
+        const spotitnow = canspotmon(mtmp);
+        const loc = game.level?.at?.(rx, ry);
+        if (spotitnow || !glyph_is_invisible(loc)) {
+            await pline(
+                `${!spotitnow ? 'A monster' : Amonnam_apply(mtmp)} is there that you ${
+                    !Blind() ? "couldn't see" : "hadn't noticed"
+                }.`,
+            );
+            if (!spotitnow) map_invisible(rx, ry);
+            else newsym(rx, ry);
+        }
+    } else {
+        otmp = MON_WEP(mtmp);
+    }
+
+    if (otmp) {
+        const onambuf = cxname(otmp);
+        let gotit = proficient && (!Fumbling() || !rn2(10));
+        let mon_hand = null;
+        if (gotit) {
+            mon_hand = mbodypart_apply(mtmp, HAND);
+            if (bimanual_apply(otmp)) mon_hand = makeplural(mon_hand);
+        }
+        await pline(`You wrap your bullwhip around ${the(xname(otmp))}.`);
+        if (gotit && mwelded_apply(otmp)) {
+            await pline(
+                `${(otmp.quan | 0) === 1 ? 'It is' : 'They are'} welded to ${mhis_apply(mtmp)} ${mon_hand}${
+                    !otmp.bknown ? '!' : '.'
+                }`,
+            );
+            otmp.bknown = 1;
+            gotit = false;
+        }
+        if (gotit) {
+            obj_extract_self(otmp);
+            possibly_unwield_apply(mtmp);
+            setmnotwielded_apply(mtmp, otmp);
+            switch (rn2(proficient + 1)) {
+            case 2:
+                await pline(
+                    `You yank ${the(xname(otmp))} to the ${surface_apply(u.ux, u.uy)}!`,
+                );
+                place_object(otmp, u.ux, u.uy);
+                stackobj(otmp);
+                break;
+            case 3: {
+                await pline(`You snatch ${the(xname(otmp))}!`);
+                const mdat = mons(otmp.corpsenm);
+                if ((otmp.otyp | 0) === CORPSE
+                    && touch_petrifies(mdat)
+                    && !u.uarmg
+                    && !Stone_resistance_apply()
+                    && !(poly_when_stoned(game.youmonst?.data)
+                        && (await polymon(PM_STONE_GOLEM)))) {
+                    const kbuf = (otmp.quan | 0) === 1 ? an(onambuf) : onambuf;
+                    await pline(`Snatching ${kbuf} is a fatal mistake.`);
+                    place_object(otmp, u.ux, u.uy);
+                    await instapetrify(kbuf);
+                    obj_extract_self(otmp);
+                }
+                await hold_another_object(
+                    otmp, 'You drop %s!', doname(otmp), null,
+                );
+                break;
+            }
+            default:
+                await pline(
+                    `You yank ${the(onambuf)} from ${s_suffix_apply(mon_nam(mtmp))} ${mon_hand}!`,
+                );
+                await obj_no_longer_held_apply(otmp);
+                place_object(otmp, mtmp.mx, mtmp.my);
+                stackobj(otmp);
+                break;
+            }
+        } else {
+            await pline(msg_slipsfree);
+        }
+    } else {
+        let do_snap = true;
+        if (M_AP_TYPE(mtmp) && !Protection_from_shape_changers_apply()
+            && !sensemon(mtmp)) {
+            await stumble_onto_mimic(mtmp);
+            do_snap = false;
+        } else {
+            await pline(`You flick your bullwhip towards ${mon_nam(mtmp)}.`);
+        }
+        if (proficient && (await force_attack(mtmp, false))) return;
+        if (do_snap) await pline(msg_snap);
+    }
+    await wakeup(mtmp, true);
+}
+
+function glyph_is_poleable_at(x, y) {
+    if (m_at(x, y)) return true;
+    const loc = game.level?.at?.(x, y);
+    if (glyph_is_invisible(loc)) return true;
+    if (sobj_at_nexthere(STATUE, x, y)) return true;
+    return false;
+}
+
+function glyph_is_statue_at(x, y) {
+    return !!sobj_at_nexthere(STATUE, x, y);
+}
+
+function calc_pole_range() {
+    const typ = uwep_skill_type();
+    const min_range = 4;
+    let max_range;
+    if (typ === P_NONE || P_SKILL(typ) <= P_BASIC) max_range = 4;
+    else if (P_SKILL(typ) === P_SKILLED) max_range = 5;
+    else max_range = 8;
+    if (!game.gp) game.gp = {};
+    game.gp.polearm_range_min = min_range;
+    game.gp.polearm_range_max = max_range;
+    return { min_range, max_range };
+}
+
+function get_valid_polearm_position(x, y) {
+    if (!isok(x, y)) return false;
+    const min_range = game.gp?.polearm_range_min | 0;
+    const max_range = game.gp?.polearm_range_max | 0;
+    const du = distu_apply(x, y);
+    if (du < min_range || du > max_range) return false;
+    return !!(cansee(x, y) || (couldsee(x, y) && glyph_is_poleable_at(x, y)));
+}
+
+function find_poleable_mon(pos) {
+    const impaired = !!(game.u?.Confusion || game.u?.HConfusion
+        || game.u?.Stunned || game.u?.HStun || game.u?.Hallucination);
+    const rt = isqrt_pole(game.gp?.polearm_range_max | 0);
+    const u = game.u || {};
+    const lo_x = Math.max((u.ux | 0) - rt, 1);
+    const hi_x = Math.min((u.ux | 0) + rt, COLNO - 1);
+    const lo_y = Math.max((u.uy | 0) - rt, 0);
+    const hi_y = Math.min((u.uy | 0) + rt, ROWNO - 1);
+    const mpos = { x: 0, y: 0 };
+    for (let x = lo_x; x <= hi_x; ++x) {
+        for (let y = lo_y; y <= hi_y; ++y) {
+            if (!get_valid_polearm_position(x, y)) continue;
+            const mtmp = m_at(x, y);
+            if (!impaired && mtmp
+                && (mtmp.mtame || (mtmp.mpeaceful && game.flags?.confirm !== false))) {
+                continue;
+            }
+            if (glyph_is_poleable_at(x, y)
+                && (!glyph_is_statue_at(x, y) || impaired)) {
+                if (mpos.x) return false;
+                mpos.x = x;
+                mpos.y = y;
+            }
+        }
+    }
+    if (!mpos.x) return false;
+    pos.x = mpos.x;
+    pos.y = mpos.y;
+    return true;
+}
+
+function display_polearm_positions(_on_off) {
+    // C tmp_at DISP_BEAM S_goodpos; getpos already defers glyph paint (D-0899)
+}
+
+function snickersnee_used_dist_attk(obj) {
+    const u = game.u || {};
+    if (obj && obj === u.uwep && u_wield_art(ART_SNICKERSNEE)
+        && (game.context?.snickersnee_turn | 0) === (game.moves | 0)) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: apply.c could_pole_mon — wielded pole and a reachable target.
+ */
+export function could_pole_mon() {
+    const u = game.u || {};
+    if (!u.uwep || !is_pole(u.uwep)) return false;
+    const { min_range, max_range } = calc_pole_range();
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    if (!find_poleable_mon(cc)) {
+        const hitm = game.context?.polearm?.hitmon;
+        if (hitm && (hitm.mhp | 0) > 0 && sensemon(hitm)) {
+            const d = distu_apply(hitm.mx, hitm.my);
+            if (d <= max_range && d >= min_range) return true;
+        }
+        return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: apply.c use_pole — getpos range + thitmonst / statue / furniture.
+ * Named omit: S_goodpos tmp_at paint; thitmonst weapon hit-vs-miss still
+ * partial in dothrow.js; defsyms furniture explanation; glyph_at cmap.
+ */
+async function use_pole(obj, autohit) {
+    const thump = 'Thump!  Your blow bounces harmlessly off the %s.';
+    const res = ECMD_OK;
+    const u = game.u || (game.u = {});
+    let freehit = false;
+
+    if (u.uswallow) {
+        await pline(not_enough_room);
+        return ECMD_OK;
+    }
+    if (obj !== u.uwep) {
+        if (await wield_tool(obj, 'swing')) {
+            cmdq_add_ec(doapply);
+            cmdq_add_key(obj.invlet);
+            return ECMD_TIME;
+        }
+        return ECMD_OK;
+    }
+
+    const { min_range, max_range } = calc_pole_range();
+    if (!autohit) await pline(where_to_hit);
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    const hitm = game.context?.polearm?.hitmon;
+    if (!find_poleable_mon(cc) && hitm && (hitm.mhp | 0) > 0 && sensemon(hitm)) {
+        const d = distu_apply(hitm.mx, hitm.my);
+        if (d <= max_range && d >= min_range) {
+            cc.x = hitm.mx;
+            cc.y = hitm.my;
+        }
+    }
+    if (!autohit) {
+        getpos_sethilite(display_polearm_positions, get_valid_polearm_position);
+        if ((await getpos(cc, true, 'the spot to hit')) < 0) {
+            return res | ECMD_CANCEL;
+        }
+    }
+
+    const du = distu_apply(cc.x, cc.y);
+    if (du > max_range) {
+        await pline('Too far!');
+        return ECMD_FAIL;
+    } else if (du < min_range) {
+        if (autohit && u_at_xy(cc.x, cc.y)) {
+            await pline("Don't know what to hit.");
+        } else {
+            await pline('Too close!');
+        }
+        return ECMD_FAIL;
+    } else if (!cansee(cc.x, cc.y) && !glyph_is_poleable_at(cc.x, cc.y)) {
+        await pline(`You ${cant_see_spot}`);
+        return ECMD_FAIL;
+    } else if (!couldsee(cc.x, cc.y)) {
+        await pline(`You ${cant_reach}`);
+        return ECMD_FAIL;
+    }
+
+    if (!game.context) game.context = {};
+    if (!game.context.polearm) game.context.polearm = {};
+    game.context.polearm.hitmon = null;
+    game.bhitpos = { x: cc.x, y: cc.y };
+    const mtmp = m_at(cc.x, cc.y);
+    if (mtmp) {
+        if (await attack_checks(mtmp, u.uwep)) {
+            return res | (game.context.move ? ECMD_TIME : ECMD_OK);
+        }
+        if (await overexertion()) return ECMD_TIME;
+        game.context.polearm.hitmon = mtmp;
+        if (snickersnee_used_dist_attk(obj)) {
+            await pline("The blade doesn't reach there!");
+            return ECMD_FAIL;
+        }
+        check_caitiff(mtmp);
+        game.notonhead = (cc.x !== mtmp.mx || cc.y !== mtmp.my);
+        if (obj === u.uwep && u_wield_art(ART_SNICKERSNEE)) {
+            freehit = (game.moves | 0) !== (game.context.snickersnee_turn | 0);
+            game.context.snickersnee_turn = game.moves | 0;
+            if (freehit && !Deaf_apply()) {
+                await pline('Shkinng!');
+            }
+        }
+        await thitmonst(mtmp, u.uwep);
+    } else if (glyph_is_statue_at(cc.x, cc.y) && sobj_at_nexthere(STATUE, cc.x, cc.y)) {
+        const t = t_at(cc.x, cc.y);
+        if (t && (t.ttyp | 0) === STATUE_TRAP
+            && (await activate_statue_trap(t, t.tx, t.ty, false))) {
+            /* feedback from animate_statue */
+        } else {
+            await pline(thump.replace('%s', 'statue'));
+            await wake_nearto(cc.x, cc.y, 25);
+        }
+    } else {
+        unmap_invisible(cc.x, cc.y);
+        if (sobj_at_nexthere(BOULDER, cc.x, cc.y)) {
+            await pline(thump.replace('%s', 'boulder'));
+            await wake_nearto(cc.x, cc.y, 25);
+        } else if (!accessible_apply(cc.x, cc.y)
+            || IS_FURNITURE(game.level?.at?.(cc.x, cc.y)?.typ)) {
+            const typ = game.level?.at?.(cc.x, cc.y)?.typ | 0;
+            const what = (typ === STONE || typ === SCORR)
+                ? 'stone'
+                : 'an unknown obstacle';
+            await pline(`You uselessly attack ${what}.`);
+        } else {
+            await pline('You miss; there is no one there to hit.');
+        }
+    }
+    u_wipe_engr_apply(2);
+    return freehit ? ECMD_OK : ECMD_TIME;
+}
+
+function grapple_range() {
+    const typ = uwep_skill_type();
+    if (typ === P_NONE || P_SKILL(typ) <= P_BASIC) return 4;
+    if (P_SKILL(typ) === P_SKILLED) return 5;
+    return 8;
+}
+
+function can_grapple_location(x, y) {
+    return isok(x, y) && cansee(x, y) && distu_apply(x, y) <= grapple_range();
+}
+
+function display_grapple_positions(_on_off) {
+    // C tmp_at DISP_BEAM; getpos getvalid still force-newsyms
+}
+
+/**
+ * C ref: apply.c use_grapple — getpos, skill menu, snag/hit/hurtle.
+ * Named omit: untrap non-adjacent (C FIXME); hurtle_step walk_path;
+ * S_goodpos tmp_at; thitmonst weapon arm partial.
+ */
+async function use_grapple(obj) {
+    const res = ECMD_OK;
+    const u = game.u || (game.u = {});
+
+    if (u.uswallow) {
+        await pline(not_enough_room);
+        return ECMD_OK;
+    }
+    if (obj !== u.uwep) {
+        if (await wield_tool(obj, 'cast')) {
+            cmdq_add_ec(doapply);
+            cmdq_add_key(obj.invlet);
+            return ECMD_TIME;
+        }
+        return ECMD_OK;
+    }
+
+    await pline(where_to_hit);
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    getpos_sethilite(display_grapple_positions, can_grapple_location);
+    if ((await getpos(cc, true, 'the spot to hit')) < 0) {
+        return res | ECMD_CANCEL;
+    }
+
+    const typ = uwep_skill_type();
+    if (distu_apply(cc.x, cc.y) > grapple_range()) {
+        await pline('Too far!');
+        return res;
+    } else if (!cansee(cc.x, cc.y)) {
+        await pline(`You ${cant_see_spot}`);
+        return res;
+    } else if (!couldsee(cc.x, cc.y)) {
+        await pline(`You ${cant_reach}`);
+        return res;
+    }
+
+    let tohit = rn2(5);
+    if (typ !== P_NONE && P_SKILL(typ) >= P_SKILLED) {
+        const items = [
+            {
+                text: `an object on the ${surface_apply(cc.x, cc.y)}`,
+                selectable: true,
+                tohit: 1,
+            },
+            { text: 'a monster', selectable: true, tohit: 2 },
+            {
+                text: `the ${surface_apply(cc.x, cc.y)}`,
+                selectable: true,
+                tohit: 3,
+            },
+        ];
+        tohit = rn2(4);
+        const picked = await select_menu_pick_one(items);
+        if (picked?.kind === 'pick' && picked.item
+            && rn2(P_SKILL(typ) > P_SKILLED ? 20 : 2)) {
+            tohit = picked.item.tohit | 0;
+        }
+    }
+
+    if (tohit === 2 || !rn2(2)) u_wipe_engr_apply(rnd(2));
+
+    switch (tohit) {
+    case 0:
+        break;
+    case 1: {
+        const otmp = objects_at(cc.x, cc.y);
+        if (otmp) {
+            await pline(
+                `You snag an object from the ${surface_apply(cc.x, cc.y)}!`,
+            );
+            await pickup_object(otmp, 1, false);
+            newsym(cc.x, cc.y);
+            return ECMD_TIME;
+        }
+        break;
+    }
+    case 2: {
+        game.bhitpos = { x: cc.x, y: cc.y };
+        const mtmp = m_at(cc.x, cc.y);
+        if (!mtmp) break;
+        game.notonhead = (cc.x !== mtmp.mx || cc.y !== mtmp.my);
+        const save_confirm = game.flags?.confirm;
+        const pullcc = { x: cc.x, y: cc.y };
+        if (verysmall(mtmp.data) && !rn2(4)
+            && enexto(pullcc, u.ux, u.uy, null)) {
+            if (game.flags) game.flags.confirm = false;
+            await attack_checks(mtmp, u.uwep);
+            if (game.flags) game.flags.confirm = save_confirm;
+            check_caitiff(mtmp);
+            await pline(`You pull in ${mon_nam(mtmp)}!`);
+            mtmp.mundetected = 0;
+            rloc_to(mtmp, pullcc.x, pullcc.y);
+            return ECMD_TIME;
+        } else if ((!bigmonst(mtmp.data) && !strongmonst(mtmp.data))
+            || rn2(4)) {
+            if (game.flags) game.flags.confirm = false;
+            await attack_checks(mtmp, u.uwep);
+            if (game.flags) game.flags.confirm = save_confirm;
+            check_caitiff(mtmp);
+            await thitmonst(mtmp, u.uwep);
+            return ECMD_TIME;
+        }
+        // FALLTHROUGH to surface
+    }
+    /* fallthrough */
+    case 3: {
+        const loc = game.level?.at?.(cc.x, cc.y);
+        if (IS_AIR(loc?.typ) || is_pool(cc.x, cc.y)) {
+            await pline(
+                `The hook slices through the ${surface_apply(cc.x, cc.y)}.`,
+            );
+        } else {
+            await pline(`You are yanked toward the ${surface_apply(cc.x, cc.y)}!`);
+            await hurtle_apply(
+                sgn_apply(cc.x - u.ux), sgn_apply(cc.y - u.uy), 1, false,
+            );
+            await spoteffects(true);
+        }
+        return ECMD_TIME;
+    }
+    default:
+        if (P_SKILL(typ) <= P_BASIC) {
+            await pline('You hook yourself!');
+            losehp(maybe_half_phys(rn1(10, 10)), 'a grappling hook', KILLED_BY);
+            return ECMD_TIME;
+        }
+        break;
+    }
+    await pline(nothing_happens);
     return ECMD_TIME;
 }
 

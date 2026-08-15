@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1022 — use_whip / use_grapple / use_pole + doapply
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** `doapply` treated `BULLWHIP` / `GRAPPLING_HOOK` /
+  `is_pole` weapons as unknown (`Sorry, I don't know how to use
+  that.`). C dispatches to `use_whip` / `use_grapple` /
+  `use_pole(obj, FALSE)`. `is_pole` includes Snickersnee.
+- **C locus:** `apply.c` `use_whip` / `use_pole` / `use_grapple` /
+  `could_pole_mon` / `calc_pole_range` / `find_poleable_mon` /
+  `doapply` cases; `obj.h` `is_pole`; `uhitm.c` `force_attack`;
+  `steed.c` `kick_steed`.
+- **Fix:** wield+cmdq `doapply`+invlet; whip `getdir`+`confdir` then
+  proficiency / pit yank / disarm / `force_attack`; pole+grapple
+  `getpos` range; Snickersnee `is_pole` + one free hit/turn; export
+  `could_pole_mon`. Rule #2: no fs.
+- **Deferred:** `thitmonst` weapon hit-vs-miss (dothrow); S_goodpos
+  `tmp_at` paint; `hurtle_step` walk_path; `wipe_engr_at` body;
+  non-adjacent untrap (C FIXME); `#if 0` snatch-to-face `thitu`;
+  `artifact_light` on `setmnotwielded`; oil / traps / BoT.
+- **Verify:** green+strict PASS; apply/combat/ride cohort **18**/18
+  incl. seed0361 Scr **366**/366. Private node: partisan/Snickersnee
+  `is_pole`; whip/hook not pole; `could_pole_mon` false without
+  uwep. Public traces **unhit**.
+- **Files:** `js/apply.js`, `js/wield.js` (`is_pole`), `js/uhitm.js`
+  (`force_attack` / `stumble_onto_mimic` export).
+
 ## D-1021 — use_royal_jelly + dorub/doapply
 
 - **Status:** fixed (map-driven; not a public FAIL)

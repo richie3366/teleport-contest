@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 14:35 — #1291 D-1022 whip/grapple/use_pole
+
+**Objective:** map-driven apply cluster — C `use_whip` / `use_grapple`
+/ `use_pole` (CURRENT whip/grapple/`use_pole`).
+**C locus:** `apply.c` use_whip/use_pole/use_grapple/doapply;
+`obj.h` is_pole; `uhitm.c` force_attack; `steed.c` kick_steed.
+**Change:** doapply dispatch; wield+cmdq; whip getdir+confdir;
+pole/grapple getpos; Snickersnee is_pole; could_pole_mon.
+Rule #2: no fs.
+**Score:** last full `sessions` still **#1290** 44/44 (cadence @#1295).
+**Verified:** green+strict PASS; apply/combat/ride cohort **18**/18
+(seed0361 Scr **366**/366). Private node (partisan/Snickersnee
+is_pole; whip/hook not; could_pole_mon false). Path **unhit** by
+public traces.
+**Next:** apply.js oil / `use_trap` / BAG_OF_TRICKS.
+**Blocked:** none.
+
 ## 2026-08-15 14:10 — #1290 D-1021 use_royal_jelly
 
 **Objective:** map-driven apply cluster — C `use_royal_jelly` (CURRENT
@@ -233,19 +250,4 @@ tighten can_saddle whirly/unsolid; wire doapply — D-1008.
 (seed0009 Scr 72/73 pre-existing; seed0103/0104 ride PASS). Rule #2: no fs.
 **Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
 or crystal ball / towel.
-**Blocked:** none.
-
-## 2026-07-22 05:57 — #1278 D-1007 apply whistle
-
-**Objective:** map-driven — TIN/MAGIC whistle + eucalyptus (CURRENT
-next cluster saddle/whistle).
-**C locus:** `apply.c` use_whistle/use_magic_whistle/magic_whistled;
-`mondata.c` can_blow; `mon.c` wake_nearby petcall; `vault.c`
-vault_summon_gd; `teleport.c` tele_to_rnd_pet.
-**Change:** port whistle apply envelope + helpers; wire doapply —
-D-1007.
-**Verified:** green+strict PASS; apply/pet cohort **15**/16
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (scroll/vault/potions); or in_trouble majors;
-or use_saddle.
 **Blocked:** none.
