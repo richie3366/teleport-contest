@@ -16,11 +16,11 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1051 apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
-  S_goodpos (D-1022 risk 7). Remaining Must-fix: cursed-lamp
-  `make_glib` HGlib|EGlib. Loop is **fail-closed** (review every 3,
-  cadence every 5 score-only unless Must-fix is open). Agents
-  **commit + `git push`**.
+- Latest: reviews **11/12 ACCEPT** (`4e55ff2f` D-1050 telekinesis;
+  `7e389050` D-1051 apply wipe/`tmp_at`). Remaining Must-fix:
+  cursed-lamp `make_glib` HGlib|EGlib. Loop is **fail-closed**
+  (review every 3, cadence every 5 score-only unless Must-fix is
+  open). Agents **commit + `git push`**.
 - **Next cluster:** Must-fix — cursed-lamp `make_glib`. Source:
   D-1023 `use_lamp` gap. Do not dump tut-1 while Must-fix is open.
 - **Hypothesis:** none live. Falsify lamp Glib timeout against C

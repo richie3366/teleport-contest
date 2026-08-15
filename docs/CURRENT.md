@@ -74,12 +74,13 @@ public traces.
 **Next cluster:** Cursed-lamp `make_glib`: JS `(u.Glib|0)&TIMEOUT`
 must match C `HGlib|EGlib` timeout. Source:
 `reviews/loop-2026-08-15/D-1023-aaac3f9d-lamp-trap-bot.md` `use_lamp`
-gap. D-1051 shipped apply `u_wipe_engr` + pole/grapple/jump
-`tmp_at` S_goodpos (D-1022 risk 7). Written reviews bind:
-QUALITY-RISK C-wrongs are Must-fix, not optional debt. Unattended
-loop pops **one** queue item per port iter (Must-fix before Open).
-Review every 3; cadence every 5 is score-only **unless Must-fix is
-open**. Agents **commit and `git push origin HEAD`** each iteration.
+gap. Reviews **11** (`4e55ff2f` D-1050) and **12** (`7e389050`
+D-1051) **ACCEPT** — telekinesis flag and apply wipe/`tmp_at` are
+not stubs; no new Must-fix. Written reviews bind: QUALITY-RISK
+C-wrongs are Must-fix, not optional debt. Unattended loop pops
+**one** queue item per port iter (Must-fix before Open). Review
+every 3; cadence every 5 is score-only **unless Must-fix is open**.
+Agents **commit and `git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),

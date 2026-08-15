@@ -27,7 +27,7 @@ Reviews bind the next port. Unpaid C-wrongs are in `docs/LOOP-QUEUE.md` **Must-f
 | 4 `thitmonst` hit-vs-miss | **Addressed:** D-1041 `eb3469ae` |
 | 5 `yname` / `Amonnam` / `mbodypart` clones | **Addressed:** D-1045 `e8884a53` |
 | 6 `pickup_object` ignores `telekinesis` | **Addressed:** D-1050 `4e55ff2f` |
-| 7 `u_wipe_engr` / `tmp_at` no-ops | **Addressed:** D-1051 |
+| 7 `u_wipe_engr` / `tmp_at` no-ops | **Addressed:** D-1051 `7e389050` |
 | 8 density / oil dump | process smell — not a code Must-fix |
 
 ## Inventory
@@ -134,7 +134,7 @@ Real proof: fortress **not regressed** + `is_pole` macro. **No** proof that `use
 4. Partial `thitmonst` — a pole hit is not a C hit (combat RNG).
 5. Messages: `yname`, `Amonnam`, `mbodypart`, `surface`/`ceiling`, `kick_steed` `He`.
 6. `pickup_object` ignores `telekinesis`. **Addressed:** D-1050 `4e55ff2f`
-7. `u_wipe_engr` / `tmp_at` no-op — engraving / hilite. **Addressed:** D-1051
+7. `u_wipe_engr` / `tmp_at` no-op — engraving / hilite. **Addressed:** D-1051 `7e389050`
 8. Density: 1292 oil/trap/BoT risks the same dump.
 
 ## Verdict
