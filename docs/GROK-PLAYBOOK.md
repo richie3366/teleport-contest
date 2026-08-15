@@ -66,6 +66,7 @@ treat that score as a **regression fortress**, not a work picker.
 | Prefer `debt.md` scenario-shaped code, then `absent.md` thin systems | Chase public leaderboard / cron / hub CDN drift in-loop |
 | Optional private C-recorder canaries on thin spots | Memorize or hardcode public traces |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
+| Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
 
 Sessions still measure progress; they are **not** the specification.
 Held-out / summer escalation can exercise branches the public set never
@@ -228,9 +229,10 @@ in the journal for human/auditor review.
 ## 10. End each loop iteration with git
 
 Stage intentional changes; commit with why (C locus / D-ID / verification).
-**Do not `git push`.** The supervisor pushes `origin HEAD` only after
-fail-closed green / density / authority gates (`docs/AGENT-PORT-LOOP.md`).
-No `--force`. If the supervisor push fails, it halts with local commits kept.
+**`git push origin HEAD`.** The supervisor fail-closes (green / density /
+authority) and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`).
+No `--force`, no amend of pushed commits. If a gate fails **after** a
+push, the supervisor halts **without** `git reset` — a human reverts origin.
 
 ---
 

@@ -13,6 +13,14 @@ Git promise (rarely this honest): port the callback **and** keep `run_timers` **
 
 Actual deliverable: body ported; dispatch **deliberately** omitted after a trial that put the fortress at **42/44** (seed0014 / seed4500). Cadence #1305 measured **after** the unwind. This is the only SHA in the run where a public FAIL was used as a **falsifier**, not a peel to “align”.
 
+## Disposition (catch-up 2026-08-15)
+
+| Risk | Status |
+|------|--------|
+| 1 Do not dispatch until `where` parity | **Addressed:** D-1037 `7247025c` (`save_timers RANGE_LEVEL` + hatch dispatch) |
+| 3 Empty `msound` → always chitter | **Must-fix** |
+| 4 `get_obj_location` flags `0` vs CONTAINED | **Must-fix** |
+
 ## Inventory
 | File | Role |
 |------|------|

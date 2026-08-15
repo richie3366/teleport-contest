@@ -1,43 +1,61 @@
-You are a **review-only** iteration of the unattended NetHack C→JS port loop.
-Do **not** port new C. Do **not** edit `js/`. Your job is to catch Keep’d
-C-wrongs before the next port iteration dumps more code.
+You are a **review** iteration of the unattended NetHack C→JS port loop.
+Reviews exist to catch **mistakes, misses, and hallucinations** and to
+**force a fix on the next port iter**. They are not a status report.
+
+Do **not** port new C in this iteration. Do **not** edit `js/`. You **must**
+write the review, enqueue Must-fix items, **commit, and `git push origin HEAD`**.
 
 ## Read
 
-1. `docs/GROK-PLAYBOOK.md` §2b (density) and anti-patterns (skim).
-2. `docs/CURRENT.md` and `docs/LOOP-QUEUE.md`.
-3. `docs/NOTES.md` don’t-recheck.
-4. `git log --oneline -12` and the commits since the last file in
-   `reviews/loop-unattended/` (if none, last 4 commits that touch `js/`).
+1. `docs/GROK-PLAYBOOK.md` §2b + anti-patterns.
+2. `docs/CURRENT.md`, `docs/LOOP-QUEUE.md`, `docs/NOTES.md`.
+3. Prior reviews that this SHA claims to close (`reviews/loop-unattended/`,
+   `reviews/loop-2026-08-15/`).
+4. `git log --oneline -15`. Review **every commit since the last
+   `reviews/loop-unattended/` file** that touches `js/` (if none, last 4
+   `js/` commits). Do not skip a SHA because the journal said “fortress held”.
 
-## Method (each JS-touching commit)
+## Method (mandatory, each JS-touching commit)
 
-1. `git show --stat HASH` then the `js/` hunks.
-2. For each function added/changed: read the C locus
-   (`nethack-c/upstream/src/…`) body + callers + guarding `if`.
-3. Name concrete C↔JS gaps: branch order, RNG, early-return, stub
-   helpers that are not the C callee, missing fields.
-4. Grep the diff for `FORCE`, `DIAG`, `getRngLog`, `readFileSync`,
-   `from 'fs'`, `node:`, seed names in control flow, `fastforward`.
-5. Density: too small (one stray `if`) vs too big (unrelated families)
-   vs one cluster.
+This is an audit against **pinned C**, not against the commit message.
 
-Write in **English**. Target **80–150 lines** per commit that touched
-`js/`; **≤40 lines** for docs-only. No full-diff paste.
+1. `git show --stat HASH` and the `js/` hunks. Quote what the subject
+   **promises**. List what the diff **actually** adds (functions, helpers).
+2. For **every** new or changed JS function: open the C locus
+   (`nethack-c/upstream/src/<file>.c`, body + callers + guarding `if`).
+   Cite C line ranges. Walk branch order and RNG (`rn2`/`rnd`/`rn1`/`d`)
+   call-for-call.
+3. Classify each helper: **C callee** (imported real function) vs **clone**
+   (local `getdir_whip` / `Amonnam_apply` / glyph stand-in) vs **no-op**.
+   Clones that diverge from C are **C-wrongs**, not named omits.
+4. Grep the diff: `FORCE`, `DIAG`, `getRngLog`, `readFileSync`, `from 'fs'`,
+   `node:`, seed names in control flow, `fastforward`, hardcoded coordinates.
+5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
+   for a **dispatch** while the **callee** is a stub? Say so explicitly.
+6. Density §2b. Verification: focused + green + **relevant** cohort, or
+   admit public-unhit.
 
-## Output files
+Write in **English**. Target **150–350 lines** per JS-touching commit
+(docs-only: 40–80). No full-diff paste. Short C/JS citations (≤30 lines).
 
-Create/update:
+## Required output
 
-- `reviews/loop-unattended/NN-HASH-slug.md` (NN = next index)
-- `reviews/loop-unattended/00-INDEX.md` (add a row)
+1. `reviews/loop-unattended/NN-HASH-slug.md` (NN = next index)
+2. Update `reviews/loop-unattended/00-INDEX.md`
+3. If the verdict is QUALITY-RISK or REJECT: **prepend** one `- [ ]` line
+   per distinct C-wrong family under `LOOP-QUEUE.md` **Must-fix** (not
+   Open). Each line cites `Source: reviews/loop-unattended/NN-…`. Set
+   `CURRENT.md` **Next cluster** to the first new Must-fix item.
+4. Journal crumb. Commit **and** `git push origin HEAD`.
 
 ### Required headings
 
 `# Review NN — HASH — title`
 
-Metadata (hash, D-id, stats). Intent vs deliverable. C↔JS fidelity
-(at least one concrete gap or a branch-by-branch confirm). Density.
+Metadata. Intent vs deliverable (promise vs diff). Inventory.
+**C ↔ JS fidelity** (concrete gap or branch-by-branch confirm — “seems
+fine” is not allowed). Hallucinations / overclaim. Density. Verification.
+**Actionable C-wrongs** (numbered; each must be queueable in one port iter).
 Verdict line **exactly** one of:
 
 - `Verdict: **ACCEPT**`
@@ -45,24 +63,24 @@ Verdict line **exactly** one of:
 - `Verdict: **QUALITY-RISK**`
 - `Verdict: **REJECT**`
 
-If QUALITY-RISK or REJECT and there is a Keep’d C-wrong, **prepend**
-one unchecked item to `docs/LOOP-QUEUE.md` (single C family) and set
-`docs/CURRENT.md` **Next cluster** to that item.
+ACCEPT-WITH-DEBT still lists Actionable items if any C-wrong remains
+(named omits go in the map, not Must-fix). QUALITY-RISK **without** a
+Must-fix prepend is a failed review — the supervisor will halt.
 
 ## STOP
 
-You **may** write `1` to `STOP_AGENT_LOOP.md` only on **REJECT**
-(constitution / Rule #2 / TRACE-shaped production / unrevertible mess).
-QUALITY-RISK continues the loop via the queue prepend.
+Write `1` to `STOP_AGENT_LOOP.md` only on **REJECT** (Rule #2 / trace-shaped
+production / unrevertible mess). QUALITY-RISK continues via Must-fix.
 
 ## Git
 
-Commit the review + queue/CURRENT/NOTES/journal. **Do not push** — the
-supervisor pushes after gates. No `js/` edits. No force-push. No amend
-of pushed commits.
+Stage review + queue + CURRENT + NOTES + journal. Commit with why.
+**`git push origin HEAD`** (no force-push, no amend of pushed commits).
+No `js/` edits.
 
 ## Prohibitions
 
 Do not edit Constitution, playbook, runbook, Cursor rules, loop
 scripts/prompts, `frozen/**`, `sessions/**`, upstream C. Do not invent
-FAIL peels. Do not “fix” the C-wrong in this iteration.
+FAIL peels. Do not “fix” JS in this iteration — enqueue it so the **next
+port iter** must ship the first Must-fix item.

@@ -13,6 +13,15 @@ Promise: “Match C `use_lamp`, `light_cocktail`, `use_trap`, and `bagotricks` d
 
 Deliverable: **four** C functions with no caller/callee link (lamp, oil flask, trap occupation, bag of tricks) + helpers (`Shk_Your`, `fingers_or_gloves`, `set_trap` occupation). This is the CURRENT “oil / trap / BoT” cluster swallowed in one gulp — exactly the dump predicted after D-1022.
 
+## Disposition (catch-up 2026-08-15)
+
+| Risk | Status |
+|------|--------|
+| 3 `consume_obj_charge` = `spe--` only | **Must-fix** |
+| 4 `light_cocktail` without C `**optr` | **Must-fix** |
+| `use_lamp` Glib `(u.Glib\|0)&TIMEOUT` vs C `HGlib\|EGlib` | **Must-fix** |
+| `makemon(NULL)` / `dotrap` / `begin_burn` still-partial | named omit — not Must-fix |
+
 ## Inventory
 | File | Role |
 |------|------|

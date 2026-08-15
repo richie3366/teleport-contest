@@ -215,10 +215,13 @@ clearly marked temporary and scheduled for deletion.
    over stacking shims.
 10. Unattended loop agents read `GROK-PLAYBOOK.md` first; objective priority
     and anti-patterns live there. They do not edit that playbook in-loop.
-11. After a verified loop iteration, **commit** stageable work. The
-    unattended supervisor (`scripts/agent-port-loop.sh`) **pushes** only
-    after fail-closed gates (see `docs/AGENT-PORT-LOOP.md`). Loop agents
-    must not `git push`. No force-push, reset, or history rewrite.
+11. After a verified loop iteration, **commit** stageable work and
+    **`git push origin HEAD`**. The unattended supervisor
+    (`scripts/agent-port-loop.sh`) fail-closes (green / density /
+    authority) and pushes if the agent forgot (see
+    `docs/AGENT-PORT-LOOP.md`). No force-push, reset, or history rewrite.
+    If a gate fails after a push, halt without `git reset` (human reverts
+    origin).
 
 ---
 

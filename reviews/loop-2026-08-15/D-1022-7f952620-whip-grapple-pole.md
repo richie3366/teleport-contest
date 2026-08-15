@@ -15,6 +15,21 @@ Actual deliverable: all **three** C functions **and** a swarm of local helpers (
 
 The `doapply` wiring (BULLWHIP → GRAPPLING_HOOK → `is_pole`) is the only part public traces might someday hit; the bodies are not.
 
+## Disposition (catch-up 2026-08-15)
+
+Reviews bind the next port. Unpaid C-wrongs are in `docs/LOOP-QUEUE.md` **Must-fix**.
+
+| Risk | Status |
+|------|--------|
+| 1 `getdir_whip` vs C `getdir` | **Addressed:** D-1038 `07434534` (`lock.js` `getdir`) |
+| 2 `hurtle_apply` `teleds` | **Addressed:** D-1038 `07434534` (`dothrow.js` `hurtle`/`hurtle_step`) |
+| 3 pole targeting live `m_at` vs glyphs | **Must-fix** (queue head) |
+| 4 `thitmonst` hit-vs-miss | **Must-fix** |
+| 5 `yname` / `Amonnam` / `mbodypart` clones | **Must-fix** |
+| 6 `pickup_object` ignores `telekinesis` | **Must-fix** |
+| 7 `u_wipe_engr` / `tmp_at` no-ops | **Must-fix** |
+| 8 density / oil dump | process smell — not a code Must-fix |
+
 ## Inventory
 | File | Role |
 |------|------|

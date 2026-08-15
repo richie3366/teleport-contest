@@ -13,6 +13,14 @@ Promise: ordinary `throne_sit_effect` cases 1–13 + `take_gold` + `do_genocide`
 
 Deliverable: the C switch **and** a `do_genocide(how)` getlin port (caller case 8 `how=5` = REALLY\|ONTHRONE). Two families (sit + read genocide). Largest SHA of the post-D-1022 run.
 
+## Disposition (catch-up 2026-08-15)
+
+| Risk | Status |
+|------|--------|
+| 3 `take_gold` without `remove_worn_item` | **Must-fix** |
+| 4 `dosit` trap skip | **Addressed:** D-1039 `45784d80` (same gap as D-1033) |
+| 1–2 `do_genocide` / partial callees | named omit / unhit — not Must-fix |
+
 ## Inventory
 | File | Role |
 |------|------|

@@ -13,6 +13,14 @@ Promise: Vlad `special_throne_effect` + `dosit` `IS_THRONE`. Ordinary 1–13 **d
 
 Deliverable: special switch 1–13 + `throne_sit_effect` envelope `rnd(6)>4` / `rnd(13)` / `In_V_tower` early-return + `dosit` throne after OBJ_AT. `losexp` for drain case 5.
 
+## Disposition (catch-up 2026-08-15)
+
+| Risk | Status |
+|------|--------|
+| 1 `dosit` trap-before-throne | **Addressed:** D-1039 `45784d80` |
+| 2 Case 10 extra flat `u.Confusion` | **Must-fix** |
+| 4 Steed `"your steed"` ≠ `mon_nam(usteed)` | Open (named; not Must-fix) |
+
 ## Inventory
 | File | Role |
 |------|------|

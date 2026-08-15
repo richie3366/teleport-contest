@@ -1,9 +1,11 @@
 # Agent port loop (fail-closed unattended)
 
 Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. The
-shell is the **gate**: agents commit locally; the script reverts and
-halts on green/suite failure, density overflow, banned patterns, or
-protected-file edits, and **pushes only after those gates pass**.
+shell is the **gate**: agents **commit and `git push`** inside the
+iteration; the script still fail-closes (revert+halt if the push has
+not landed, else halt without reset) on green/suite failure, density
+overflow, banned patterns, or protected-file edits. If the agent
+forgot to push, the supervisor pushes after those gates pass.
 
 Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
 Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
@@ -51,7 +53,8 @@ question.
 
 The script resets `STOP_AGENT_LOOP.md` to `0` at startup. First
 iteration after global count **1305** will be **#1306 review** (every 3),
-then port, then review, with **#1310 cadence** score-only.
+then **#1307 port** of the Must-fix head (pole targeting). Cadence at
+**#1310** defers while Must-fix remains open.
 
 Halt reason (if it stops itself): `.agent-port-loop-logs/last-halt-reason.txt`.
 
@@ -83,13 +86,15 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │  3. loop until STOP, token budget, or halt:                   │
 │       mode = review (every 3) / cadence (every 5, score-only) │
 │              / audit (15, 30, …) / else port                  │
-│       port: refuse empty LOOP-QUEUE                           │
-│       snapshot js/; remember HEAD; run agent (commit, no push)│
-│       FAIL-CLOSED (revert HEAD + STOP=1):                     │
-│         timeout, tool denials, protected edit, banned pattern,│
-│         js/ on review/cadence, empty port, density >400/8,    │
-│         green fail, cadence full-suite fail                   │
-│       else supervisor `git push origin HEAD`                  │
+│       port: refuse empty LOOP-QUEUE; Must-fix beats Open;          │
+│             cadence defers while Must-fix is open                  │
+│       snapshot js/; remember HEAD; run agent (commit + push)       │
+│       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
+│         timeout, tool denials, protected edit, banned pattern,     │
+│         js/ on review/cadence, empty port, density >400/8,         │
+│         green fail, cadence full-suite fail,                       │
+│         QUALITY-RISK/REJECT with no new Must-fix row               │
+│       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
 └───────────────────────────────────────────────────────────────┘
@@ -100,21 +105,26 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 | Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
 |------------|------|----------------------|------------------------|
 | `n % 3 == 0` and not cadence | **review** | no | must add `reviews/loop-unattended/`; REJECT → STOP |
-| `n % 5 == 0` | **cadence** | no | full `sessions` must all PASS |
+| `n % 5 == 0` | **cadence** | no | full `sessions` must all PASS; **deferred to port** while Must-fix is open |
 | both (`15`, `30`, …) | **audit** | no | review + full suite |
 | else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt |
 
-Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` so the next port
-fixes them instead of opening tut-1.
+Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
+the next port **must** fix them instead of opening tut-1. A
+QUALITY-RISK or REJECT review that does not add a Must-fix row is a
+failed review (halt). Cadence score-only defers while Must-fix is
+open (review/audit still run on schedule).
 
-### Why agents must not push
+### Why agents push inside the iteration
 
-The frozen runner **exits 0 even when sessions fail**. Old loops let
-the agent `git push` *before* the shell green gate. A bad dump could
-already be on `origin/main`. Now: agent commits; shell parses
-`__RESULTS_JSON__`; only then push. If the agent still pushes, a later
-gate failure **cannot** be reset without a force-push — the script
-halts and asks a human to revert origin.
+The user wants each iteration’s work on `origin` as soon as it is
+written (including review files and queue Must-fix rows). Agents
+**commit and `git push origin HEAD`**. The frozen runner still
+**exits 0 even when sessions fail**, so the supervisor parses
+`__RESULTS_JSON__` after the agent returns. If a gate fails and the
+agent already pushed, **do not `git reset`** (that would require a
+force-push) — halt and ask a human to revert origin. If the agent
+committed but forgot to push, the supervisor pushes after gates.
 
 ### Token budget (`--token-budget-m`)
 
@@ -160,11 +170,13 @@ porting guide). The prompt emphasizes:
 4. Port one complete C semantic unit; no trace-derived implementation
 5. Verify focused + green + cohort behavior
 6. Remove diagnostics and update durable memory before exit
-7. **Commit** (no push — the supervisor pushes after gates)
+7. **Commit and `git push origin HEAD`** (supervisor fail-closes; pushes if forgotten)
+
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
 in `docs/CURRENT.md`. **Every 5 global loop iterations** is a **cadence**
-score-only iter (no port). **Every 3** is a **review** iter (no port).
-Work comes from `docs/LOOP-QUEUE.md`. Fixed causes belong in
+score-only iter (no port) **unless Must-fix is open** (then port; cadence
+slips). **Every 3** is a **review** iter (no port). Work comes from
+`docs/LOOP-QUEUE.md` (Must-fix before Open). Fixed causes belong in
 `DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
 `docs/c-js-map/*.md` section; each iteration prepends a short journal
 entry (rotate into `docs/archive/` when >15).
@@ -230,7 +242,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | Green / full suite fail | Halt+revert; `last-halt-reason.txt` |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
-| Agent `git push`ed itself | Halt without reset; human reverts origin |
+| Agent `git push` then gate fail | Halt without reset; human reverts origin |
+| QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty | Halt before a port iter (refill `LOOP-QUEUE.md`) |
 | Dirty tree at start | Loop refuses to launch |
 

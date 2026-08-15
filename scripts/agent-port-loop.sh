@@ -29,8 +29,10 @@ Options:
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
 Fail-closed (default): green / full-suite / density / protected / banned
-halt and revert the iteration. Review every LOOP_REVIEW_EVERY (3);
-cadence every LOOP_CADENCE_EVERY (5). Agents commit; the script pushes.
+halt and revert the iteration (or halt without reset if already pushed).
+Review every LOOP_REVIEW_EVERY (3); cadence every LOOP_CADENCE_EVERY (5)
+unless Must-fix is open. Agents commit and push; the script fail-closes
+and pushes if they forgot.
 See docs/AGENT-PORT-LOOP.md.
 EOF
 }
@@ -427,6 +429,28 @@ queue_has_open() {
   rg -q '^- \[ \]' "$QUEUE_FILE"
 }
 
+mustfix_open_count() {
+  awk '
+    /^## Must-fix/ { p=1; next }
+    /^## / { p=0 }
+    p && /^- \[ \]/ { n++ }
+    END { print n+0 }
+  ' "$QUEUE_FILE"
+}
+
+queue_first_cluster() {
+  awk '
+    /^## Must-fix/ { sec="mf"; next }
+    /^## Open/ { sec="op"; next }
+    /^## / { sec=""; next }
+    /^- \[ \]/ {
+      if (sec=="mf") { print; found=1; exit }
+      if (sec=="op" && open=="") open=$0
+    }
+    END { if (!found && open!="") print open }
+  ' "$QUEUE_FILE"
+}
+
 js_diff_stats() {
   git diff --numstat "$1" "$2" -- js \
     | awk '{ ins += $1; if ($1 + $2 > 0) files++ } END { print ins+0, files+0 }'
@@ -482,7 +506,7 @@ echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
 echo "review: every ${LOOP_REVIEW_EVERY}; cadence every ${LOOP_CADENCE_EVERY} (score-only)"
 echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
-echo "push:   supervisor after gates (LOOP_PUSH=${LOOP_PUSH}); agents must not push"
+echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
 echo
 
 AUTHORITY_HASH="$(protected_fingerprint)"
@@ -520,6 +544,12 @@ while true; do
   iter=$((iter + 1))
   write_iter_count "$iter"
   mode="$(iter_mode "$iter")"
+  mustfix_before="$(mustfix_open_count)"
+  if [[ "$mode" == "cadence" ]] && (( mustfix_before > 0 )); then
+    echo "$(date -Iseconds) note: Must-fix open (${mustfix_before}) — cadence deferred, this iter is port" \
+      | tee -a "$MASTER_LOG"
+    mode=port
+  fi
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
   snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$STAMP-$iter.XXXXXX")"
@@ -563,8 +593,16 @@ while true; do
     *)
       prompt_body="$(cat "$PROMPT_FILE")"
       prompt_body+=$'\n\n## This iteration cluster\n'
-      prompt_body+=$'Pop the first unchecked item in `docs/LOOP-QUEUE.md`. That item is the\n'
-      prompt_body+=$'only cluster. Copy it into `docs/CURRENT.md` Next cluster before coding.\n'
+      prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any,\n'
+      prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
+      prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
+      prompt_body+=$'that review and stamp `**Addressed:** D-NNNN HASH` when you ship.\n'
+      cluster_line="$(queue_first_cluster)"
+      if [[ -n "$cluster_line" ]]; then
+        prompt_body+=$'\n**Queue head:** '
+        prompt_body+="$cluster_line"
+        prompt_body+=$'\n'
+      fi
       ;;
   esac
   iter_start="$(now_epoch)"
@@ -761,6 +799,16 @@ NODE
       echo "$(date -Iseconds) review REJECT — stopping after this iteration's docs land" \
         | tee -a "$MASTER_LOG"
       printf '1\n' >"$STOP_FILE"
+    fi
+    if git diff "$before_head" "$after_head" -- reviews \
+      | rg -q '^\+Verdict: \*\*(QUALITY-RISK|REJECT)\*\*'; then
+      mustfix_after="$(mustfix_open_count)"
+      if (( mustfix_after <= mustfix_before )); then
+        if (( agent_pushed )); then
+          halt_loop "QUALITY-RISK/REJECT review added no Must-fix queue item AND already pushed" 0
+        fi
+        halt_loop "QUALITY-RISK/REJECT review added no Must-fix item in docs/LOOP-QUEUE.md" 1
+      fi
     fi
   fi
 

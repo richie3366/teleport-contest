@@ -14,12 +14,14 @@ Objective/score live in `CURRENT.md`.
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
-  (cadence score refreshes every 5 are expected).
+  (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1039** `dosit` trap-before-throne. Loop is **fail-closed**
-  (review every 3, cadence every 5 score-only, queue pops one item).
-- **Next cluster:** first `LOOP-QUEUE.md` item — pole targeting live
-  `m_at` (D-1022). Do not dump tut-1 in one iter.
+  (review every 3, cadence every 5 score-only unless Must-fix is open).
+  Agents **commit + `git push`**. Reviews bind: unpaid
+  `reviews/loop-2026-08-15/` C-wrongs are `LOOP-QUEUE.md` **Must-fix**.
+- **Next cluster:** Must-fix head — pole targeting live `m_at` (D-1022).
+  Do not dump tut-1 while Must-fix is open.
 - **Hypothesis:** none live. Falsify a new cluster against C + green.
 
 ## Don't re-check (≤15)

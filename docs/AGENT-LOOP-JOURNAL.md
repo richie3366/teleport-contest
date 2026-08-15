@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 20:30 — reviews bind + in-iter commit/push
+
+**Objective:** user: reviews are not theater; catch up unpaid
+`loop-2026-08-15` C-wrongs; restore agent `git commit` + `git push`
+inside each loop iteration.
+**C locus:** n/a (supervisor / prompts / queue / reviews).
+**Change:** `LOOP-QUEUE.md` **Must-fix** (12 unpaid Keep’d C-wrongs;
+pole targeting first). Disposition stamps on D-1022/1023/1033/1034/1036
+(D-1037/1038/1039 **Addressed**). Review prompt: thorough + Actionable
+→ Must-fix or supervisor halt. Cadence defers while Must-fix is open.
+Agents commit+push; supervisor fail-closes and pushes if forgotten.
+**Score:** unchanged (fortress after D-1039; cadence still #1305).
+**Verified:** `bash -n` loop script.
+**Next:** launch `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` (#1306
+review, then #1307 Must-fix pole targeting).
+**Blocked:** none.
+
 ## 2026-08-15 20:20 — fail-closed unattended loop + LOOP-QUEUE
 
 **Objective:** make the CLI loop safe to leave running (user request).

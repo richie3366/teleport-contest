@@ -63,3 +63,12 @@ diff vs `nethack-c/upstream`, not vs the loop journal.
    before throne. (D-1038 ports getdir + hurtle.)
 3. Next review bundle: by ~8–10 iters, or as soon as a SHA is ≥2 C
    functions / ≳300 LOC JS.
+
+## Catch-up (2026-08-15, binding)
+
+Written reviews were sitting unread while the queue pointed at tut-1.
+Unpaid Keep’d C-wrongs are now `docs/LOOP-QUEUE.md` **Must-fix** (pole
+targeting first). Off-queue already shipped: D-1037 hatch dispatch,
+D-1038 `getdir`/`hurtle`, D-1039 `dosit` trap-before-throne — stamped
+**Addressed** on the source reviews. A QUALITY-RISK/REJECT review with
+no new Must-fix row is a failed review (supervisor halt).

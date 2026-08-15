@@ -20,7 +20,7 @@ supervisor will halt on the full-suite gate.
 
 ## Git
 
-Commit score/docs only. **Do not push.** No new D-id. No force-push.
+Commit score/docs only. **`git push origin HEAD`.** No new D-id. No force-push.
 
 ## Prohibitions
 

@@ -7,7 +7,7 @@ small, accurate repo notes are.
 1. `docs/GROK-PLAYBOOK.md` — priority, **Contest Rule #2**, anti-patterns, endings.
 2. Hard bans via Cursor rules / `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10 (skim).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective (chooses work).
-4. **`docs/LOOP-QUEUE.md`** — first `- [ ]` item is the only cluster.
+4. **`docs/LOOP-QUEUE.md`** — first **Must-fix** `- [ ]` if any, else first Open.
 5. `docs/NOTES.md` — live hypothesis / don’t-recheck only.
 6. **One** subsystem file via `docs/C-JS-MAP.md` index (`docs/c-js-map/*.md`).
 7. `docs/PORTING-RUNBOOK.md` §3–7 only if procedure is unclear.
@@ -15,11 +15,12 @@ small, accurate repo notes are.
 **Priority:** `CURRENT.md` primary beats NOTES and parked canaries.
 **Do not implement** D-0006 until its C-state falsifier exists.
 When the local public suite is already PASS: **map-driven mode**
-(`GROK-PLAYBOOK.md` §2a–2b) — pop the **first unchecked** item in
-`docs/LOOP-QUEUE.md` and ship that one C family; copy it into
-`CURRENT.md` **Next cluster**. Do not invent FAIL peels, do not
-combine queue items, do not chase leaderboard drift. If the queue has
-no open item: journal Blocked and stop (do not invent work).
+(`GROK-PLAYBOOK.md` §2a–2b) — pop the **first unchecked Must-fix** item
+in `docs/LOOP-QUEUE.md` (review C-wrongs) if any, else the first Open
+item. Copy it into `CURRENT.md` **Next cluster**. One C family only.
+If the item cites `Source: reviews/…`, **read that review** (Actionable /
+Disposition) before coding. Reviews exist to force a C-faithful fix, not
+to sit unread while you pop tut-1.
 
 **HARD — Contest Rule #2:** scored `js/` must run as plain ESM in **Node and
 Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
@@ -83,8 +84,8 @@ frozen `isaac64`/`terminal`/`storage`, and any `fastforward.js` additions.
 3. Divergence entry + `DIVERGENCE-INDEX.md` row; one `c-js-map/*.md` section.
 4. Prepend a short entry to `AGENT-LOOP-JOURNAL.md` (rotate to `archive/` if >15).
 5. Optional: `node scripts/check-hot-docs.mjs`.
-6. **Commit** intentional work. **Do not push** — the supervisor
-   `git push`es only after fail-closed green / density / authority gates.
+6. **Commit and `git push origin HEAD`.** The supervisor also fail-closes
+   (green / density / authority) and pushes if you forgot. No force-push.
 
 Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 `DIVERGENCE-INDEX.md`, `c-js-map/*.md`, `C-JS-MAP.md` (index only if needed),
@@ -92,9 +93,11 @@ Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
 
 ## Git
 
-Stage intentional changes; commit with why. **Do not `git push`.**
+Stage intentional changes; commit with why; **`git push origin HEAD`**.
 No force-push, no amend of pushed commits, no reset of unrelated work.
-Check off the queue item only after the JS is committed.
+Check off the queue item only after the JS is committed. If this item
+cites `Source: reviews/…`, update that review with
+`**Addressed:** D-NNNN HASH` in the same commit.
 
 ## Absolute prohibitions
 
