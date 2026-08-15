@@ -129,3 +129,23 @@ is_pole; whip/hook not; could_pole_mon false). Path **unhit** by
 public traces.
 **Next:** apply.js oil / `use_trap` / BAG_OF_TRICKS.
 **Blocked:** none.
+
+## 2026-08-15 18:45 — #1305 D-1036 hatch_egg body + cadence score
+
+**Objective:** map-driven timeout cluster — C `hatch_egg` /
+`learn_egg_type` / `cry_sound`. Cadence full `sessions` @#1305.
+**C locus:** `timeout.c` hatch_egg/learn_egg_type; `sounds.c`
+cry_sound; `mkobj.c` run_timers; `mon.c` hideunder.
+**Change:** port callback envelope (NON_PM, yours, silent,
+get_obj_location, rnd(quan), geno skip, enexto+makemon, tamedog,
+leftover re-arm, invent useup / floor obfree+hideunder). Leave
+`run_timers` dropping HATCH_EGG — JS floor typed eggs spend hatch
+RNG C does not. Rule #2: no fs.
+**Score:** **#1305** full `sessions` **44**/44 Scr **11405**/11405
+RNG **100%** speed `31+0.27/turn` (R² 0.875). Next @**#1310**.
+**Verified:** green+strict PASS; seed0014/4500 PASS after unwire;
+dispatch trial 42/44 (seed0014/4500 FAIL). Private hatch_egg
+envelope. Path **unhit** while dispatch dropped.
+**Next:** C vs JS egg where/timer parity, then wire HATCH_EGG;
+remaining tut-1 des / nhcore disable.
+**Blocked:** HATCH_EGG dispatch until egg where matches C.

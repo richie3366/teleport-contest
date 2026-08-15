@@ -21,7 +21,6 @@ Catch-up from `reviews/loop-2026-08-15/` (2026-08-15). Already done
 off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
 (D-1039); D-1036 hatch dispatch (D-1037).
 
-- [ ] Whip/pole/grapple names: real `yname` / `Amonnam` / `mbodypart` (not local apply clones). Source: D-1022 risk 5.
 - [ ] `light_cocktail` must take/update `struct obj **` like C `apply.c` `light_cocktail`. Source: `reviews/loop-2026-08-15/D-1023-aaac3f9d-lamp-trap-bot.md` risk 4.
 - [ ] `consume_obj_charge` unpaid/shop path (not `spe--` only). Source: D-1023 risk 3.
 - [ ] Vlad special case 10: C sets `HConfusion` only; JS must not also force flat `u.Confusion`. Source: `reviews/loop-2026-08-15/D-1033-a59caac8-vlad-throne.md` risk 2.

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1045 — whip/pole/grapple names: real `yname` / `Amonnam` / `mbodypart`
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1022 risk 5. Apply clones were C-wrong: local `yname`
+  always `"your "+xname` so whip wrap/yank/snatch used `the(xname)`
+  instead of minvent possessive; `Amonnam_apply` was `highc(mon_nam)`
+  (definite) not `highc(a_monnam)` (indefinite); `mbodypart_apply`
+  ignored the monster and returned hero `body_part` ("hands" on a dog).
+- **C locus:** `objnam.c` `yname` (~2358) + `shk.c` `shk_your`/`mon_owns`
+  (~5862/5900); `do_name.c` `a_monnam`/`Amonnam` (~1152–1164);
+  `polyself.c` `mbodypart`/`body_part` (~1972–2146); callers
+  `apply.c` `use_whip` wrap/yank/snatch / reveal / welded HAND.
+- **Fix:** export C `yname` (cxname + `shk_your`; pname skip before
+  `ART_ORB_OF_DETECTION`); `set_y_monnam` late-bind for `mon_owns`
+  (objnam↔do_name cycle). `a_monnam`/`Amonnam` via `x_monnam`
+  ARTICLE_A. `mbodypart` tables + specials by `mndx` (JS `mons()`
+  allocates). Apply deletes clones; whip uses the real helpers.
+  Rule #2: no fs.
+- **Deferred:** `shk_owns` shop unpaid/floor costly prefix; `u_wipe_engr`
+  / `tmp_at`; `pickup_object` telekinesis; `surface`/`ceiling`;
+  `kick_steed` `He`/`monverbself`.
+- **Verify:** green+strict PASS; apply/combat cohort **9**/9
+  (seed0361 Scr **366**/366; seed0105/0009/0012/0060/0102/1500/
+  1800/2200). Private node **21**/21 (`An orc` ≠ `The orc`; dog
+  HAND `paw`; minvent `the orc's ` / pet `your little dog's `).
+  Path **unhit** by public traces. Cadence still **#1310**; next
+  @**#1315**.
+- **Files:** `js/objnam.js`, `js/do_name.js`, `js/polyself.js`,
+  `js/apply.js`.
+
 ## D-1044 — special_obj_hits_leader uses `urole.questarti`
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

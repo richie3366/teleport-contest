@@ -25,7 +25,7 @@ Reviews bind the next port. Unpaid C-wrongs are in `docs/LOOP-QUEUE.md` **Must-f
 | 2 `hurtle_apply` `teleds` | **Addressed:** D-1038 `07434534` (`dothrow.js` `hurtle`/`hurtle_step`) |
 | 3 pole targeting live `m_at` vs glyphs | **Addressed:** D-1040 `12458fe9` (C `glyph_at` / `find_poleable_mon`) |
 | 4 `thitmonst` hit-vs-miss | **Addressed:** D-1041 `eb3469ae` |
-| 5 `yname` / `Amonnam` / `mbodypart` clones | **Must-fix** |
+| 5 `yname` / `Amonnam` / `mbodypart` clones | **Addressed:** D-1045 |
 | 6 `pickup_object` ignores `telekinesis` | **Must-fix** |
 | 7 `u_wipe_engr` / `tmp_at` no-ops | **Must-fix** |
 | 8 density / oil dump | process smell — not a code Must-fix |

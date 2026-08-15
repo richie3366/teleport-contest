@@ -29,7 +29,7 @@ import {
     EXT_ENCUMBER, COST_DSTROY, COST_DEGRD, HEAD, HAND, NOSE, NON_PM,
     KILLED_BY, NO_KILLER_PREFIX, W_WEP, DISMOUNT_THROWN, STATUE_TRAP,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
-    RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE, ARTICLE_A,
+    RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE,
     SUPPRESS_SADDLE, has_mgivenname,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
@@ -63,10 +63,10 @@ import {
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
     start_timer, hornoplenty,
 } from './mkobj.js';
-import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname, yname, shk_your } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
-import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination } from './do_name.js';
+import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam } from './do_name.js';
 import { monflee } from './monmove.js';
 import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
@@ -113,7 +113,7 @@ import {
 } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
 import { dropx, setnotworn, fire_damage, make_blinded as potion_make_blinded } from './do.js';
-import { polymon } from './polyself.js';
+import { polymon, mbodypart, body_part } from './polyself.js';
 import { unpunish } from './read.js';
 import { findit, openit } from './detect.js';
 import { level_difficulty } from './hacklib.js';
@@ -495,7 +495,7 @@ async function use_stethoscope(_obj) {
     // C: m_at(rx,ry) → mundetected / mappearance seemimic / mstatusline
     const mtmp = m_at(rx, ry);
     if (mtmp) {
-        const mnm = a_monnam_steth(mtmp);
+        const mnm = a_monnam(mtmp);
 
         if (mtmp.mundetected) {
             if (!canspotmon(mtmp)) {
@@ -548,16 +548,6 @@ async function use_stethoscope(_obj) {
     // C: if (!its_dead(...)) You("hear nothing special."); return res
     await pline('You hear nothing special.');
     return res;
-}
-
-/** C ref: do_name.c a_monnam — ARTICLE_A for stethoscope reveal (hallu deferred). */
-function a_monnam_steth(mtmp) {
-    if (!mtmp) return 'a monster';
-    if (mtmp.mextra?.mgivenname) return mtmp.mextra.mgivenname;
-    const raw = mtmp?.data?.name || 'monster';
-    const plain = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
-    const art = /^[aeiou]/i.test(plain) ? 'an' : 'a';
-    return `${art} ${plain}`;
 }
 
 /** C ref: objnam.c simple_typename — otyp → lowercase name. */
@@ -998,17 +988,6 @@ function make_blinded(xtime, _talk) {
     }
 }
 
-/** C ref: mondata.c body_part — FACE/HEAD/HAND/NOSE; poly table deferred. */
-function body_part(part) {
-    if (part === FACE) return 'face';
-    if (part === HEAD) return 'head';
-    if (part === HAND) return 'hand';
-    if (part === NOSE) return 'nose';
-    if (part === FOOT) return 'foot';
-    if (part === FINGER) return 'finger';
-    return 'body part';
-}
-
 /**
  * C ref: mondata.c can_blnd(NULL, &youmonst, AT_WEAP, cream_pie) subset.
  * Named omissions: visored helmet; mon_perma_blind; raven-vs-raven.
@@ -1090,11 +1069,6 @@ async function use_cream_pie(obj) {
     freeinv_pie(pie);
     delobj(pie); // obj_resists rn2(100) then extract+free
     return ECMD_OK;
-}
-
-/** C ref: objnam.c yname — invent → "your …". */
-function yname(obj) {
-    return `your ${xname(obj)}`;
 }
 
 /** C ref: o_init.c objdescr_is — appearance string match. */
@@ -2216,7 +2190,7 @@ function equipment_is_inaccessible(obj, only_if_known_cursed) {
 
 /**
  * C ref: do_wear.c inaccessible_equipment — messages when verb is set.
- * Named omit: shop/mon yname prefixes.
+ * Named omit: shk_owns shop prefix (unpaid / floor costly).
  */
 async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
     if (!equipment_is_inaccessible(obj, only_if_known_cursed)) return false;
@@ -2233,7 +2207,7 @@ async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
     if (obj === u.uarmu
         && ((u.uarm && blocks(u.uarm)) || (u.uarmc && blocks(u.uarmc)))) {
         const sameprefix = !!(u.uarm && u.uarmc
-            && shk_your_apply(u.uarmc) === shk_your_apply(u.uarm));
+            && shk_your(u.uarmc) === shk_your(u.uarm));
         let buf = '';
         if (u.uarmc) buf += yname(u.uarmc);
         if (u.uarm && u.uarmc) buf += ' and ';
@@ -3430,11 +3404,6 @@ function uhis() {
     return game.flags?.female ? 'her' : 'his';
 }
 
-function Amonnam_apply(mtmp) {
-    const s = mon_nam(mtmp) || 'it';
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 function s_suffix_apply(s) {
     const buf = String(s ?? '');
     const low = buf.toLowerCase();
@@ -3448,10 +3417,6 @@ function mhis_apply(mtmp) {
     if (!mtmp) return 'its';
     if (mtmp.female) return 'her';
     return 'his';
-}
-
-function mbodypart_apply(_mon, part) {
-    return body_part(part);
 }
 
 function Levitation_apply() {
@@ -3640,7 +3605,7 @@ async function kick_steed_apply() {
 /**
  * C ref: apply.c use_whip — lash, pit yank, disarm, force_attack.
  * Named omit: #if 0 snatch-to-face thitu; artifact_light on setmnotwielded;
- * yname full carried-by-mon possessive; wipe_engr_at body.
+ * wipe_engr_at body.
  */
 async function use_whip(obj) {
     const u = game.u || (game.u = {});
@@ -3792,7 +3757,7 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
         const loc = game.level?.at?.(rx, ry);
         if (spotitnow || !glyph_is_invisible(loc)) {
             await pline(
-                `${!spotitnow ? 'A monster' : Amonnam_apply(mtmp)} is there that you ${
+                `${!spotitnow ? 'A monster' : Amonnam(mtmp)} is there that you ${
                     !Blind() ? "couldn't see" : "hadn't noticed"
                 }.`,
             );
@@ -3808,10 +3773,10 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
         let gotit = proficient && (!Fumbling() || !rn2(10));
         let mon_hand = null;
         if (gotit) {
-            mon_hand = mbodypart_apply(mtmp, HAND);
+            mon_hand = mbodypart(mtmp, HAND);
             if (bimanual_apply(otmp)) mon_hand = makeplural(mon_hand);
         }
-        await pline(`You wrap your bullwhip around ${the(xname(otmp))}.`);
+        await pline(`You wrap your bullwhip around ${yname(otmp)}.`);
         if (gotit && mwelded_apply(otmp)) {
             await pline(
                 `${(otmp.quan | 0) === 1 ? 'It is' : 'They are'} welded to ${mhis_apply(mtmp)} ${mon_hand}${
@@ -3828,13 +3793,13 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
             switch (rn2(proficient + 1)) {
             case 2:
                 await pline(
-                    `You yank ${the(xname(otmp))} to the ${surface_apply(u.ux, u.uy)}!`,
+                    `You yank ${yname(otmp)} to the ${surface_apply(u.ux, u.uy)}!`,
                 );
                 place_object(otmp, u.ux, u.uy);
                 stackobj(otmp);
                 break;
             case 3: {
-                await pline(`You snatch ${the(xname(otmp))}!`);
+                await pline(`You snatch ${yname(otmp)}!`);
                 const mdat = mons(otmp.corpsenm);
                 if ((otmp.otyp | 0) === CORPSE
                     && touch_petrifies(mdat)
@@ -4452,14 +4417,6 @@ function On_stairs_apply(x, y) {
 /** C music.c Hero_playnotes — tty/sound deferred (no RNG). */
 function Hero_playnotes_bell(_instr, _notes, _vol) {}
 
-/** C do_name.c a_monnam — ARTICLE_A; SUPPRESS_SADDLE when named. */
-function a_monnam_bell(mtmp) {
-    return x_monnam(
-        mtmp, ARTICLE_A, null,
-        has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, false,
-    );
-}
-
 /**
  * C ref: mkroom.c mkundead — (level_difficulty+1)/10 + rnd(5) undead
  * around mm; optional corpse revive then makemon; graveyard flag.
@@ -4523,7 +4480,7 @@ export async function use_bell(obj) {
                 NO_MINVENT | MM_NOMSG,
             );
             if (mtmp) {
-                await pline(`You summon ${a_monnam_bell(mtmp)}!`);
+                await pline(`You summon ${a_monnam(mtmp)}!`);
                 if (!obj_resists(obj, 93, 100)) {
                     await pline(`${Tobjnam_grease(obj, 'have')} shattered!`);
                     useup(obj);
@@ -4681,10 +4638,6 @@ function m_monnam_fig(mtmp) {
     return x_monnam(mtmp, ARTICLE_NONE, null, EXACT_NAME, false);
 }
 
-function a_monnam_fig(mtmp) {
-    return x_monnam(mtmp, ARTICLE_A, null, 0, false);
-}
-
 function See_invisible_fig() {
     const u = game.u || {};
     return !!(u.See_invisible || u.HSee_invisible || u.ESee_invisible);
@@ -4772,7 +4725,7 @@ export async function fig_transform(figurine, timeout) {
                 let carriedby;
                 if (mon && canseemon(mon)
                     && (!(mon.wormno | 0) || cansee(mon.mx | 0, mon.my | 0))) {
-                    carriedby = `${s_suffix_fig(a_monnam_fig(mon))} pack`;
+                    carriedby = `${s_suffix_fig(a_monnam(mon))} pack`;
                 } else if (mon && is_pool(mon.mx | 0, mon.my | 0)) {
                     carriedby = 'empty water';
                 } else {
