@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1048 — Vlad special_throne_effect case 10 HConfusion only
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1033 risk 2. JS case 10 saved/set/restored flat
+  `u.Confusion` in addition to `HConfusion`. C `sit.c` only writes
+  `HConfusion` (`youprop.h`: `#define Confusion HConfusion`). Forcing
+  then restoring the flat flag desyncs JS gates that read one field
+  or the other; `seffect_remove_curse` confused-blessed remove-curse
+  must see C `Confusion != 0`.
+- **C locus:** `sit.c` `special_throne_effect` case 10 (~310–323);
+  `read.c` `seffect_remove_curse` `confused = (Confusion != 0)`
+  (~1495); `youprop.h` Confusion ≡ HConfusion (~83–84).
+- **Fix:** save/set/restore `HConfusion` only (`= 1` then prior
+  value). `seffect_remove_curse` reads `!!(u.HConfusion | 0)` — not
+  flat `u.Confusion` / `EConfusion`. Rule #2: no fs.
+- **Deferred:** Punished/unpunish; buried_ball; steed saddle glow;
+  update_inventory; SPE_REMOVE_CURSE #cast; other seffects still OR
+  a flat Confusion mirror.
+- **Verify:** green+strict PASS; sit cohort **3**/3 (seed0106 Scr
+  **267**/267; seed0107 **98**/98; seed4500 **1814**/1814) +
+  seed0108 Scr **303**/303. Private node **12**/12 (no flat write;
+  HConfusion restore; leftover flat/EConfusion not confused;
+  HConfusion-only is). Path **unhit**.
+- **Files:** `js/sit.js`, `js/read.js`.
+
 ## D-1047 — consume_obj_charge unpaid/shop path
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

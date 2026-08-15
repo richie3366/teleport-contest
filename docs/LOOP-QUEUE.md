@@ -21,7 +21,6 @@ Catch-up from `reviews/loop-2026-08-15/` (2026-08-15). Already done
 off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
 (D-1039); D-1036 hatch dispatch (D-1037).
 
-- [ ] Vlad special case 10: C sets `HConfusion` only; JS must not also force flat `u.Confusion`. Source: `reviews/loop-2026-08-15/D-1033-a59caac8-vlad-throne.md` risk 2.
 - [ ] `take_gold` must `remove_worn_item` like C `sit.c`. Source: `reviews/loop-2026-08-15/D-1034-63e86f5a-ordinary-throne.md` risk 3.
 - [ ] `pickup_object` honors `telekinesis` like C (whip/grapple pull-in). Source: D-1022 risk 6.
 - [ ] `u_wipe_engr` / `tmp_at` no-ops in apply: wire or stop calling them as if they were C. Source: D-1022 risk 7.

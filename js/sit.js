@@ -8,8 +8,8 @@
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), IS_THRONE sit +
 // special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
-// confused remove-curse/poly/acid/shuffle) + ordinary throne_sit_effect
-// 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
+// confused remove-curse HConfusion-only D-1048 / poly/acid/shuffle) +
+// ordinary throne_sit_effect 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
 // curse/see-invis mapping/aggravate-tele/identify/pretzel), default
 // having-fun; attrcurse rnd(11) INTRINSIC strip (D-0945); rndcurse invent
 // + Magicbane / Antimagic / Half_spell_damage / SPFX_INTEL resist /
@@ -470,6 +470,7 @@ function throne_to_room(tx, ty) {
 /**
  * C ref: sit.c special_throne_effect — Vlad's tower throne (effect 1..13).
  * Case 6 grease spray uses the same COIN_CLASS skip as apply.c grease_ok.
+ * Case 10: HConfusion only (D-1048; C Confusion ≡ HConfusion).
  * Named omit: update_inventory; losexp Upolyd/level-1 done; Punished
  * unpunish in seffects; SetVoice.
  */
@@ -539,10 +540,12 @@ export async function special_throne_effect(effect) {
         break;
     }
     case 10: {
+        // C sit.c: long save_confusion = HConfusion; HConfusion = 1L;
+        // seffects(&fake); HConfusion = save_confusion.
+        // C youprop.h: #define Confusion HConfusion — no separate flat
+        // flag (D-1048). seffect_remove_curse reads HConfusion.
         const save_confusion = u.HConfusion;
-        const save_flat = u.Confusion;
         u.HConfusion = 1;
-        u.Confusion = 1;
         const { seffects } = await import('./read.js');
         await seffects({
             otyp: SPE_REMOVE_CURSE,
@@ -551,7 +554,6 @@ export async function special_throne_effect(effect) {
             cursed: 0,
         });
         u.HConfusion = save_confusion;
-        u.Confusion = save_flat;
         break;
     }
     case 11:

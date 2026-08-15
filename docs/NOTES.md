@@ -16,16 +16,16 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews 07/08 **ACCEPT** D-1046 `**optr` and D-1047
-  unpaid `consume_obj_charge` (not stubs). Remaining Must-fix:
-  Vlad `HConfusion` only (D-1033 risk 2). Loop is **fail-closed**
-  (review every 3, cadence every 5 score-only unless Must-fix is
-  open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — Vlad special case 10: C sets
-  `HConfusion` only; JS must not also force flat `u.Confusion`.
-  Source: D-1033 risk 2. Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** none live. Falsify Vlad HConfusion against C
-  `sit.c` `special_throne_effect` + green.
+- Latest: D-1048 Vlad case 10 `HConfusion` only (C `Confusion` ≡
+  `HConfusion`; seffects reads intrinsic). Remaining Must-fix:
+  `take_gold` `remove_worn_item` (D-1034 risk 3). Loop is
+  **fail-closed** (review every 3, cadence every 5 score-only
+  unless Must-fix is open). Agents **commit + `git push`**.
+- **Next cluster:** Must-fix — `take_gold` must `remove_worn_item`
+  like C `sit.c`. Source: D-1034 risk 3. Do not dump tut-1 while
+  Must-fix is open.
+- **Hypothesis:** none live. Falsify take_gold worn-gold against
+  C `sit.c` `take_gold` + green.
 
 ## Don't re-check (≤15)
 
@@ -74,12 +74,15 @@ Objective/score live in `CURRENT.md`.
   `mbodypart` clones (D-1045 — C `yname`/`highc(a_monnam)` /
   `mbodypart(mtmp)`). Do not restore `light_cocktail(obj0)` by-value
   (D-1046 — C `struct obj **`). Do not restore `consume_obj_charge`
-  as `spe--` only (D-1047 — C `check_unpaid` first).
+  as `spe--` only (D-1047 — C `check_unpaid` first). Do not restore
+  Vlad case 10 extra flat `u.Confusion` (D-1048 — C `HConfusion`
+  only).
 
 ## Landmarks (≤15)
 
 - Suite after D-1046 cadence **#1315**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `33+0.27/turn` (R² 0.868). Next @**#1320**.
+- **D-1048:** Vlad case 10 `HConfusion` only (no flat `u.Confusion`).
 - **D-1047:** `consume_obj_charge` unpaid/`check_unpaid` +
   `cost_per_charge` (not local `spe--`).
 - **D-1046:** `light_cocktail` `{obj}` / `*optr` snuff-merge + split.
@@ -94,4 +97,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1037:** save_timers RANGE_LEVEL + hatch_egg dispatch.
 - **D-1036:** hatch_egg/learn_egg_type/cry_sound body.
 - **D-1035:** nhl_gamestate memcpy u/disco/mvitals/spl_book + init_uhunger.
-- **D-1034:** ordinary throne_sit_effect 1–13 + take_gold + do_genocide.
