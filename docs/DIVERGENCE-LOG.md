@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1032 — fig_transform / attach_fig_transform_timeout
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** cursed carried figurines never queued `FIG_TRANSFORM`;
+  `run_timers` dropped the action. C animates them after
+  `rnd(9000)+200` turns (`timeout.c` / `apply.c`).
+- **C locus:** `timeout.c` `attach_fig_transform_timeout`; `apply.c`
+  `fig_transform`; `mkobj.c` `set_corpsenm`/`bless`/`curse`/`uncurse`;
+  `invent.c` `carry_obj_effects`/`freeinv_core`; `steal.c` `mpickobj`.
+- **Fix:** attach stop+`rnd(9000)+200`; `run_timers` dispatches
+  callback; bad loc retries `rnd(5000)`; `make_familiar` quietly then
+  useup/extract; invent/floor/minvent messages; bless/uncurse/drop
+  stop; curse+addinv+mpickobj attach if cursed typed. Rule #2: no fs.
+- **Deferred:** `set_msg_xy`; OBJ_MIGRATING; `impossible()` null/where;
+  other freeinv copies (throw/pie/jelly/shopdig/steed/muse/ball);
+  `freeinv_core` uhaves/luck/loadstone/tin; hatch_egg; getdir mouse.
+- **Verify:** green+strict PASS; apply/shared cohort **37**/37 plus
+  remaining public **5**/5 (seed0014/0383/0399/2600/4500) — all 44
+  covered; seed0009 Scr **73**/73; seed0105 **30**/30; seed0361
+  **366**/366. Private node: attach rnd(9000)+200; cursed carry vs
+  uncursed none; bless/uncurse/freeinv stop; curse carried vs free;
+  contained bad-loc rnd(5000). Public traces **unhit**.
+- **Files:** `js/mkobj.js`, `js/apply.js`, `js/invent.js`,
+  `js/u_init.js`, `js/makemon.js`, `js/do.js`, `js/steal.js`,
+  `js/eat.js`, `js/dog.js`.
+
 ## D-1031 — hornoplenty
 
 - **Status:** fixed (map-driven; not a public FAIL)

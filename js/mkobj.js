@@ -42,7 +42,8 @@ import { otyp_uses_known, distant_name, doname, cxname, The, vtense } from './ob
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL,
-    MELT_ICE_AWAY, HATCH_EGG, BURN_OBJECT, SHRINK_GLOB, MAX_EGG_HATCH_TIME,
+    MELT_ICE_AWAY, HATCH_EGG, FIG_TRANSFORM, BURN_OBJECT, SHRINK_GLOB,
+    MAX_EGG_HATCH_TIME,
     OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_BURIED, OBJ_MINVENT, OBJ_CONTAINED,
     OBJ_MIGRATING,
     G_GONE,
@@ -69,6 +70,7 @@ const CANDELABRUM_OF_INVOCATION =
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
+const FIGURINE = objectNames.indexOf('FIGURINE');
 const BOOMERANG = objectNames.indexOf('BOOMERANG');
 const CORPSE = objectNames.indexOf('CORPSE');
 const GLOB_OF_GRAY_OOZE = objectNames.indexOf('GLOB_OF_GRAY_OOZE');
@@ -346,11 +348,22 @@ export function curse(otmp) {
     if (!otmp) return;
     otmp.cursed = true;
     otmp.blessed = false;
+    // C mkobj.c curse — FIGURINE attach when carried/mcarried + typed
+    if ((otmp.otyp | 0) === FIGURINE
+        && (otmp.corpsenm | 0) !== NON_PM
+        && !dead_species(otmp.corpsenm | 0, true)
+        && figurine_is_carried(otmp)) {
+        attach_fig_transform_timeout(otmp);
+    }
 }
 export function bless(otmp) {
     if (!otmp) return;
     otmp.blessed = true;
     otmp.cursed = false;
+    // C mkobj.c bless — stop FIG_TRANSFORM if figurine timed
+    if ((otmp.otyp | 0) === FIGURINE && (otmp.timed | 0)) {
+        stop_timer(FIG_TRANSFORM, otmp);
+    }
 }
 
 /** C ref: mkobj.c unbless — clear blessed only. */
@@ -360,14 +373,17 @@ export function unbless(otmp) {
 }
 
 /**
- * C ref: mkobj.c uncurse — clear cursed; bag weight / luck / figurine /
- * lamplit adjust deferred beyond BAG_OF_HOLDING owt.
+ * C ref: mkobj.c uncurse — clear cursed; bag weight; figurine stop
+ * FIG_TRANSFORM. luck / lamplit adjust still deferred.
  */
 export function uncurse(otmp) {
     if (!otmp) return;
     otmp.cursed = false;
     const bag = objectNames.indexOf('BAG_OF_HOLDING');
     if (bag >= 0 && (otmp.otyp | 0) === bag) otmp.owt = weight(otmp);
+    else if ((otmp.otyp | 0) === FIGURINE && (otmp.timed | 0)) {
+        stop_timer(FIG_TRANSFORM, otmp);
+    }
 }
 
 // C ref: mkobj.c blessorcurse()
@@ -595,8 +611,8 @@ function special_corpse(num) {
  * when timeout <= moves. Envelope: ROT_CORPSE → rot_corpse floor extract;
  * HATCH_EGG queued via attach_egg_hatch_timeout (D-0533) but hatch_egg
  * callback deferred; TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away (D-0965);
- * REVIVE_MON / ZOMBIFY_MON / burn / fig deferred (no-op fire clears the
- * queue entry).
+ * REVIVE_MON / ZOMBIFY_MON / hatch deferred (no-op fire clears the
+ * queue entry). FIG_TRANSFORM → fig_transform (D-1032).
  */
 function timer_base() {
     if (!game._timer_base) game._timer_base = null;
@@ -765,6 +781,37 @@ export function kill_egg(egg) {
 }
 
 /**
+ * C ref: timeout.c attach_fig_transform_timeout — stop prior FIG_TRANSFORM;
+ * queue rnd(9000)+200.
+ */
+export function attach_fig_transform_timeout(figurine) {
+    if (!figurine) return;
+    stop_timer(FIG_TRANSFORM, figurine);
+    const i = rnd(9000) + 200;
+    start_timer(i, TIMER_OBJECT, FIG_TRANSFORM, figurine);
+}
+
+/** C invent.c carried / mcarried — invent or monster inventory. */
+function figurine_is_carried(obj) {
+    if (!obj) return false;
+    const where = obj.where | 0;
+    if (where === OBJ_INVENT || where === OBJ_MINVENT) return true;
+    return (game.invent || []).includes(obj);
+}
+
+/**
+ * C ref: invent.c carry_obj_effects — cursed figurine starts FIG_TRANSFORM
+ * after addinv / mpickobj.
+ */
+export function carry_obj_effects(obj) {
+    if (!obj || (obj.otyp | 0) !== FIGURINE) return;
+    if (obj.cursed && (obj.corpsenm | 0) !== NON_PM
+        && !dead_species(obj.corpsenm | 0, true)) {
+        attach_fig_transform_timeout(obj);
+    }
+}
+
+/**
  * C ref: dig.c rot_corpse — corpse finished rotting.
  * Envelope: OBJ_FLOOR extract + newsym; invent/minvent/worn plines deferred.
  */
@@ -790,8 +837,9 @@ async function rot_corpse(obj) {
  * C ref: timeout.c run_timers — fire due timers at start of list.
  * Called from nh_timeout after intrinsic TIMEOUT handling.
  * Envelope: ROT_CORPSE; ROT_ORGANIC (dig.c); TIMER_LEVEL MELT_ICE_AWAY
- * (D-0965/D-0967); BURN_OBJECT (D-0978); SHRINK_GLOB thin (D-0993).
- * Named omit: REVIVE_MON / ZOMBIFY_MON / hatch; full shrink ice/eat catch-up.
+ * (D-0965/D-0967); BURN_OBJECT (D-0978); SHRINK_GLOB thin (D-0993);
+ * FIG_TRANSFORM (D-1032). Named omit: REVIVE_MON / ZOMBIFY_MON / hatch;
+ * full shrink ice/eat catch-up.
  */
 export async function run_timers() {
     const g = timer_base();
@@ -816,6 +864,9 @@ export async function run_timers() {
             await burn_object(curr.obj, curr.timeout | 0);
         } else if (curr.action === SHRINK_GLOB && curr.obj) {
             await shrink_glob(curr.obj);
+        } else if (curr.action === FIG_TRANSFORM && curr.obj) {
+            const { fig_transform } = await import('./apply.js');
+            await fig_transform(curr.obj, curr.timeout | 0);
         }
         // REVIVE_MON / ZOMBIFY_MON / hatch deferred — entry dropped
     }
@@ -876,12 +927,19 @@ export function set_corpsenm(obj, id) {
     if (name === 'CORPSE') {
         start_corpse_timeout(obj);
         obj.owt = weight(obj);
+    } else if (name === 'FIGURINE') {
+        // C mkobj.c set_corpsenm FIGURINE — attach when typed + carried
+        if (id !== NON_PM && !dead_species(id, true)
+            && figurine_is_carried(obj)) {
+            attach_fig_transform_timeout(obj);
+        }
+        obj.owt = weight(obj);
     } else if (name === 'EGG') {
         // C: attach_egg_hatch_timeout when typed + !dead_species; no owt here
         if (id !== NON_PM && !dead_species(id, true)) {
             attach_egg_hatch_timeout(obj, when);
         }
-    } else if (name === 'STATUE' || name === 'FIGURINE' || name === 'TIN') {
+    } else if (name === 'STATUE' || name === 'TIN') {
         obj.owt = weight(obj);
     }
 }

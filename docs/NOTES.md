@@ -15,15 +15,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5 are expected).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1031** `hornoplenty` (doapply HORN_OF_PLENTY +
-  pickup floor tip BoT/horn). Public traces unhit (green+suite
-  still PASS).
-- **Next cluster:** `fig_transform` / `attach_fig_transform_timeout`.
-  Remaining nhl_gamestate memcpy u/disco/mvitals/spl_book named in
-  `startup.md`. sit.c throne grease spray named omit.
-- **D-1031 falsifier (held):** empty spe<1 no RNG + cknown; charged
-  rn2(13) food vs potion; FOOD_RATION rn2(7) jelly; magic potion
-  rnd_class skip sickness; BUC copy; doapply TIME; tip into box.
+- Latest: **D-1032** `fig_transform` / `attach_fig_transform_timeout`.
+  Public traces unhit (green+all 44 still PASS).
+- **Next cluster:** sit.c `special_throne_effect` grease spray
+  (`grease_ok` COIN skip). Remaining nhl_gamestate memcpy named in
+  `startup.md`. `hatch_egg` still deferred.
+- **D-1032 falsifier (held):** attach rnd(9000)+200; cursed addinv
+  vs uncursed none; bless/uncurse/freeinv stop; curse carried vs
+  free; contained bad-loc rnd(5000).
 
 ## Don't re-check (≤15)
 
@@ -42,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
 - Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  hornoplenty (D-1031) or drop `objects_at` (D-0980).
+  fig_transform (D-1032) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
@@ -60,6 +59,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite cadence **#1300**: **44**/44 Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` (R² 0.867).
+- **D-1032:** fig_transform / attach_fig_transform_timeout.
 - **D-1031:** hornoplenty doapply HORN_OF_PLENTY + floor tip.
 - **D-1030:** use_unicorn_horn doapply UNICORN_HORN + TimedTrouble.
 - **D-1029:** use_figurine doapply FIGURINE + make_familiar.
@@ -73,4 +73,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1021:** use_royal_jelly + dorub/doapply + timeout kill_egg.
 - **D-1020:** setnotworn worn[] pointer-walk + leave-tutorial restore.
 - **D-1019:** sellobj BSS `'\0'` + robbed C precedence + nyaq not stored.
-- **D-1018:** `use_pick_axe` cmdq `doapply`+invlet + getobj KEY.

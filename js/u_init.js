@@ -8,7 +8,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne } from './rng.js';
-import { mksobj, mkobj, weight, mergable } from './mkobj.js';
+import { mksobj, mkobj, weight, mergable, carry_obj_effects } from './mkobj.js';
 import {
     WEAPON_CLASS,
     ARMOR_CLASS,
@@ -934,6 +934,7 @@ export async function addinv(obj) {
             const { pline } = await import('./display.js');
             await pline('You learn more about your items by comparing them.');
         }
+        carry_obj_effects(otmp);
         return otmp;
     }
     assigninvlet(obj);
@@ -949,6 +950,7 @@ export async function addinv(obj) {
     if (obj.oclass === COIN_CLASS || objectNames[obj.otyp] === 'GOLD_PIECE') {
         game._goldCount = (game._goldCount || 0) + (obj.quan || 0);
     }
+    carry_obj_effects(obj);
     return obj;
 }
 

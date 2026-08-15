@@ -159,7 +159,7 @@ async function pick_familiar_pm(otmp, quietly) {
  * figurine shatter / angel free_emin; pool minliquid; rn2(10) then B/U/C
  * 80/10/10 tame·peace·hostile; named christen; initedog; AT_WEAP wield.
  * Named omit: livelog first pet; makemon MM_EDOG newedog alloc (initedog
- * still creates edog); fig_transform timer callback.
+ * still creates edog).
  */
 export async function make_familiar(otmp, x, y, quietly) {
     let mtmp = null;

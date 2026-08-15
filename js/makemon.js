@@ -92,7 +92,7 @@ import {
 import { enexto_core, enexto_gpflags, goodpos, noteleport_level } from './teleport.js';
 import {
     mksobj, mkobj, mkobj_at, weight, objects_at, curse, bless, is_crackable,
-    set_corpsenm, stop_timer, add_to_container, rnd_class,
+    set_corpsenm, stop_timer, add_to_container, rnd_class, carry_obj_effects,
 } from './mkobj.js';
 
 /** Local t_at — avoid makemon↔trap import cycle; matches trap.js t_at. */
@@ -1041,9 +1041,11 @@ export function add_to_minv(mtmp, obj) {
     return 0;
 }
 
-// C ref: steal.c mpickobj — carrying-effects stubs omitted for mklev invent
+// C ref: steal.c mpickobj — carry_obj_effects then add_to_minv
 export function mpickobj(mtmp, otmp) {
     if (!otmp) return 1;
+    // C steal.c mpickobj — carry_obj_effects before add_to_minv
+    carry_obj_effects(otmp);
     return add_to_minv(mtmp, otmp);
 }
 

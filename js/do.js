@@ -73,6 +73,7 @@ import { ship_object } from './dokick.js';
 import { doname, xname, the, The, vtense, an } from './objnam.js';
 import {
     compactify_invlets, near_capacity, learn_unseen_invent, encumber_msg,
+    freeinv_core,
 } from './invent.js';
 import { can_reach_floor, set_occupation } from './engrave.js';
 import { pickup } from './pickup.js';
@@ -1672,6 +1673,7 @@ function freeinv_drop(obj) {
     if (idx >= 0) inv.splice(idx, 1);
     obj.owornmask = 0;
     obj.nobj = null;
+    freeinv_core(obj);
     // where left for place_object to set OBJ_FLOOR
     // C invent.c freeinv_core — COIN_CLASS → disp.botl = TRUE; return
     if (obj.oclass === COIN_CLASS) {

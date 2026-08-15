@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 17:10 — #1301 D-1032 fig_transform timer
+
+**Objective:** map-driven timeout cluster — C `fig_transform` /
+`attach_fig_transform_timeout` (CURRENT next after D-1031).
+**C locus:** `timeout.c` attach_fig_transform_timeout; `apply.c`
+fig_transform; `mkobj.c` set_corpsenm/bless/curse/uncurse;
+`invent.c` carry_obj_effects/freeinv_core; `steal.c` mpickobj.
+**Change:** attach rnd(9000)+200; run_timers callback; bad loc
+rnd(5000); make_familiar quietly + useup/extract; BUC/carry/drop
+wires. Rule #2: no fs.
+**Score:** last full `sessions` still **#1300** 44/44 (cadence @#1305).
+**Verified:** green+strict PASS; apply/shared **37**/37 + remaining
+**5**/5 (all 44); seed0009 Scr **73**/73; seed0105 **30**/30;
+seed0361 **366**/366. Private node (attach/carry/bless/curse/freeinv/
+bad-loc). Path **unhit** by public traces.
+**Next:** sit.c special_throne_effect grease spray.
+**Blocked:** none.
+
 ## 2026-08-15 16:53 — #1300 D-1031 hornoplenty + cadence score
 
 **Objective:** map-driven apply cluster — C `hornoplenty`
@@ -272,19 +290,4 @@ Rule #2: no fs.
 private node falsifier (queue shape + canned getobj + TIME bit).
 Wield-reapply path likely **unhit** by public traces.
 **Next:** D-1019 `sellobj` default `'a'` / `robbed`.
-**Blocked:** none.
-
-## 2026-08-15 13:15 — D-1017 cancel_monst invent Array walk
-
-**Objective:** C-wrong Keep — D-0952 self-cancel walked `nobj` on
-`game.invent` Array; `cancel_item`/ABON never saw hero items.
-**C locus:** `zap.c` `cancel_monst` `gi.invent` nobj loop;
-`cancel_item` carried ABON; clay hallu/`s_suffix`/`AD_SPEL`.
-**Change:** youdefend iterates `game.invent[]`; minvent stays nobj;
-clay dark/light + `s_suffix_zap` + `monkilled(..., AD_SPEL)`.
-Rule #2: no fs.
-**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
-**Verified:** green+strict PASS; wizard/zap cohort **18**/18.
-Self-cancel path likely **unhit** by public traces.
-**Next:** D-1018 `use_pick_axe` cmdq wield re-apply.
 **Blocked:** none.

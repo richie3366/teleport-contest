@@ -87,7 +87,8 @@ import {
     A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
 import { nomul, losehp, still_chewing, is_pool, is_lava } from './hack.js';
-import { near_capacity, observe_object, makeknown, compactify_invlets } from './invent.js';
+import { near_capacity, observe_object, makeknown, compactify_invlets,
+    freeinv_core } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
     make_stunned, make_hallucinated,
@@ -953,6 +954,7 @@ export function useup(otmp) {
             otmp.owt = weight(otmp);
             return;
         }
+        freeinv_core(otmp);
         const inv = game.invent || [];
         const idx = inv.indexOf(otmp);
         if (idx >= 0) inv.splice(idx, 1);

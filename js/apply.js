@@ -34,7 +34,8 @@ import {
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
     MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
-    IS_TREE, W_NONPASSWALL, FIG_TRANSFORM,
+    IS_TREE, W_NONPASSWALL, FIG_TRANSFORM, TIMER_OBJECT, OBJ_MINVENT,
+    EXACT_NAME,
 } from './const.js';
 import { pick_lock } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -50,7 +51,8 @@ import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
     nohands, haseyes, humanoid, is_demon, is_vampire, is_vampshifter,
     likes_gems, M1_SEE_INVIS, monsterNames, mons, throws_rocks, passes_walls,
-    unsolid, nolimbs, has_head, breathless,
+    unsolid, nolimbs, has_head, breathless, is_floater, is_flyer, amorphous,
+    hides_under, MZ_SMALL, M1_SLITHY,
     PM_ARCHEOLOGIST, PM_GNOME, bigmonst, verysmall, strongmonst,
     touch_petrifies, poly_when_stoned, is_rider,
 } from './monsters.js';
@@ -59,7 +61,7 @@ import { wield_tool, welded, is_pole } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
-    hornoplenty,
+    start_timer, hornoplenty,
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, cxname_singular, thesimpleoname } from './objnam.js';
 import { obj_resists } from './dogmove.js';
@@ -98,7 +100,8 @@ import {
     mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at,
     activate_statue_trap, maketrap, feeltrap, dotrap, trapname,
 } from './trap.js';
-import { begin_burn, end_burn, Is_candle, obj_merge_light_sources } from './timeout.js';
+import { begin_burn, end_burn, Is_candle, obj_merge_light_sources,
+    get_obj_location } from './timeout.js';
 import { set_occupation } from './engrave.js';
 import { makemon, mkclass } from './makemon.js';
 import { make_familiar } from './dog.js';
@@ -2605,7 +2608,7 @@ export async function use_tinning_kit(obj) {
  * CAN_OF_GREASE → use_grease (D-1026) +
  * TINNING_KIT → use_tinning_kit (D-1027) +
  * BELL / BELL_OF_OPENING → use_bell (D-1028) +
- * FIGURINE → use_figurine (D-1029) +
+ * FIGURINE → use_figurine (D-1029) + fig_transform / attach_fig_transform_timeout (D-1032) +
  * UNICORN_HORN → use_unicorn_horn (D-1030) +
  * HORN_OF_PLENTY → hornoplenty (D-1031).
  * Named omissions: retouch_object;
@@ -2614,7 +2617,7 @@ export async function use_tinning_kit(obj) {
  * break-wand release_hold / flash_hits (D-0979);
  * thitmonst weapon hit-vs-miss (dothrow); S_goodpos tmp_at; hurtle_step;
  * sit.c special_throne_effect grease spray; pickinv handsbuf;
- * fig_transform timer / attach_fig_transform_timeout.
+ * getdir mouse.
  * @returns {boolean} true if the command took time (ECMD_TIME)
  */
 export async function doapply() {
@@ -4639,6 +4642,156 @@ async function figurine_location_checks(obj, cc, quietly) {
     return true;
 }
 
+/** C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s. */
+function s_suffix_fig(s) {
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`;
+    if (low === 'you') return `${buf}r`;
+    if (buf.endsWith('s') || buf.endsWith('S')) return `${buf}'`;
+    return `${buf}'s`;
+}
+
+/**
+ * C ref: mondata.c locomotion — verb for how a monster moves.
+ */
+function locomotion_fig(ptr, def) {
+    const cap = !!(def && def[0] === def[0].toUpperCase()
+        && def[0] !== def[0].toLowerCase());
+    const pick = (lo, hi) => (cap ? hi : lo);
+    if (is_floater(ptr)) return pick('float', 'Float');
+    if (is_flyer(ptr) && (ptr.msize ?? 2) <= MZ_SMALL) {
+        return pick('fly', 'Fly');
+    }
+    if (is_flyer(ptr)) return pick('fly', 'Fly');
+    if (((ptr?.mflags1 ?? 0) & M1_SLITHY) !== 0) {
+        return pick('slither', 'Slither');
+    }
+    if (amorphous(ptr)) return pick('ooze', 'Ooze');
+    if (!(ptr?.mmove | 0)) return pick('wiggle', 'Wiggle');
+    if (nolimbs(ptr)) return pick('crawl', 'Crawl');
+    return def;
+}
+
+function m_monnam_fig(mtmp) {
+    return x_monnam(mtmp, ARTICLE_NONE, null, EXACT_NAME, false);
+}
+
+function a_monnam_fig(mtmp) {
+    return x_monnam(mtmp, ARTICLE_A, null, 0, false);
+}
+
+function See_invisible_fig() {
+    const u = game.u || {};
+    return !!(u.See_invisible || u.HSee_invisible || u.ESee_invisible);
+}
+
+function obfree_fig(obj) {
+    if (!obj) return;
+    obj.quan = 0;
+    obj.where = OBJ_FREE;
+    obj.timed = 0;
+}
+
+/**
+ * C ref: apply.c fig_transform — timer callback; turn figurine into
+ * monster. Bad loc retries rnd(5000). Named omit: set_msg_xy; migrating
+ * OBJ_MIGRATING; impossible() null/unknown where.
+ */
+export async function fig_transform(figurine, timeout) {
+    if (!figurine) return;
+    const silent = (timeout | 0) !== (game.moves | 0);
+    const loc = get_obj_location(figurine, 0);
+    const cc = { x: loc ? (loc.x | 0) : 0, y: loc ? (loc.y | 0) : 0 };
+    let okay_spot = !!loc;
+    const where = figurine.where | 0;
+    if (where === OBJ_INVENT || where === OBJ_MINVENT) {
+        okay_spot = enexto(cc, cc.x, cc.y, mons(figurine.corpsenm | 0));
+    }
+    if (!okay_spot || !(await figurine_location_checks(figurine, cc, true))) {
+        start_timer(rnd(5000), TIMER_OBJECT, FIG_TRANSFORM, figurine);
+        return;
+    }
+
+    const cansee_spot = cansee(cc.x, cc.y);
+    const mtmp = await make_familiar(figurine, cc.x, cc.y, true);
+    let redraw = false;
+    if (mtmp) {
+        const monnambuf = an(m_monnam_fig(mtmp));
+        let and_vanish = '';
+        let suppress_see = false;
+        const mshelter = objects_at(mtmp.mx | 0, mtmp.my | 0);
+        if ((mtmp.minvis && !See_invisible_fig())
+            || (mtmp.data?.mlet === 'S_MIMIC'
+                && M_AP_TYPE(mtmp) !== M_AP_NOTHING)) {
+            suppress_see = true;
+        }
+        if (mtmp.mundetected) {
+            if (hides_under(mtmp.data) && mshelter) {
+                and_vanish = ` and ${locomotion_fig(mtmp.data, 'crawl')} under ${doname(mshelter)}`;
+            } else if (mtmp.data?.mlet === 'S_MIMIC'
+                || mtmp.data?.mlet === 'S_EEL') {
+                suppress_see = true;
+            } else {
+                and_vanish = ' and vanish';
+            }
+        }
+
+        switch (figurine.where | 0) {
+        case OBJ_INVENT: {
+            const loco = locomotion_fig(mtmp.data, 'drop');
+            if (Blind() || suppress_see) {
+                await You_feel(`something ${loco} from your pack!`);
+            } else {
+                await You_see_apply(
+                    `${monnambuf} ${loco} out of your pack${and_vanish}!`,
+                );
+            }
+            break;
+        }
+        case OBJ_FLOOR:
+            if (cansee_spot && !silent) {
+                // C set_msg_xy(cc) deferred
+                if (suppress_see) {
+                    await pline(`${an(xname(figurine))} suddenly vanishes!`);
+                } else {
+                    await You_see_apply(
+                        `a figurine transform into ${monnambuf}${and_vanish}!`,
+                    );
+                }
+                redraw = true;
+            }
+            break;
+        case OBJ_MINVENT:
+            if (cansee_spot && !silent && !suppress_see) {
+                const mon = figurine.ocarry;
+                let carriedby;
+                if (mon && canseemon(mon)
+                    && (!(mon.wormno | 0) || cansee(mon.mx | 0, mon.my | 0))) {
+                    carriedby = `${s_suffix_fig(a_monnam_fig(mon))} pack`;
+                } else if (mon && is_pool(mon.mx | 0, mon.my | 0)) {
+                    carriedby = 'empty water';
+                } else {
+                    carriedby = 'thin air';
+                }
+                await You_see_apply(
+                    `${monnambuf} ${locomotion_fig(mtmp.data, 'drop')} out of ${carriedby}${and_vanish}!`,
+                );
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    if (carried(figurine)) {
+        useup(figurine);
+    } else {
+        obj_extract_self(figurine);
+        obfree_fig(figurine);
+    }
+    if (redraw) newsym(cc.x, cc.y);
+}
+
 /**
  * C ref: cmd.c getdir — cmdq KEY/DIR then hjkl/yubn + '.'/'s' self + '<>'.
  * Named omit: mouse getpos; cmdassist; fuzzer; redraw ^R.
@@ -4690,7 +4843,7 @@ async function getdir_fig(prompt) {
  * C ref: apply.c use_figurine — swallow location fail ECMD_OK; getdir
  * cancel clears context.move/multi; failed loc after getdir is TIME;
  * You set/release/toss then make_familiar; stop FIG_TRANSFORM; useup;
- * Blind map_invisible. Named omit: fig_transform callback; getdir mouse.
+ * Blind map_invisible. Named omit: getdir mouse.
  */
 export async function use_figurine(obj) {
     if (!obj) return ECMD_OK;
