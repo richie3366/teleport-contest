@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1018 — use_pick_axe cmdq wield re-apply doapply+invlet
+
+- **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)
+- **Symptom:** D-0951 `use_pick_axe` after `wield_tool` queued
+  `{typ:'ec', fn}` plus a string invlet. `rhack(0)` does
+  `await canned()` (expects a function) so the follow-up apply
+  threw or no-op'd. `getobj_apply` never popped CMDQ_KEY, so even
+  a callable `doapply` would prompt instead of using the invlet.
+  Canned `doapply` returns boolean; `rhack` used `res === 1`, so
+  boolean true did not set `context.move`.
+- **Cause:** named constitutional debt (`debt.md` after D-0951) —
+  cmdq shape diverged from `cmd.c` / working `dorub`/`iactions`
+  (`push(fn)` + `{typ:'key', key: charCode}`).
+- **C locus:** `dig.c` `use_pick_axe` `cmdq_add_ec(CQ_CANNED,
+  doapply)` + `cmdq_add_key(CQ_CANNED, obj->invlet)`; `cmd.c`
+  `cmdq_add_ec`/`cmdq_pop`/`rhack` `(res & ECMD_TIME)`;
+  `invent.c` `getobj` CMDQ_KEY SUGGEST|DOWNPLAY.
+- **Fix:** `dig.js` queues `doapply` then charCode KEY; `getobj_apply`
+  consumes KEY like `getobj_throw`; `rhack` canned uses
+  `(res & ECMD_TIME)` / CANCEL|FAIL clear. Rule #2: no fs.
+- **Deferred:** `getobj_apply` CMDQ_INT / USER_INPUT / HANDS_SYM
+  `hands_obj`; `rhack` leftover KEY-as-command; whip/pole cmdq.
+- **Verify:** green+strict; apply/cmdq/dig cohort **15**/15.
+  Private node falsifier: queue shape fn+charCode; canned getobj
+  skips nhgetch; boolean true spends turn. Public traces likely
+  unhit — fortress is not a pickaxe-wield-reapply proof.
+- **Files:** `js/dig.js`, `js/apply.js`, `js/cmd.js`.
+
 ## D-1017 — cancel_monst self-cancel hero invent Array walk
 
 - **Status:** fixed (map-driven C-wrong Keep; not a public FAIL)

@@ -288,6 +288,27 @@ function apply_has_downplay() {
  * (C suggested==0 && !forceprompt && !allownone); do not prompt [*].
  */
 async function getobj_apply() {
+    // C invent.c getobj: cmdq_pop CMDQ_KEY before interactive prompt
+    // (use_pick_axe / itemactions re-queue doapply + invlet; D-1018).
+    const q = game._cmdq_canned;
+    if (q?.length) {
+        const head = q[0];
+        if (head && typeof head === 'object' && head.typ === 'key') {
+            q.shift();
+            const ch = typeof head.key === 'string'
+                ? head.key
+                : String.fromCharCode(head.key);
+            for (const o of game.invent || []) {
+                if (o.invlet === ch) {
+                    const v = apply_ok(o);
+                    if (v === GETOBJ_SUGGEST || v === GETOBJ_DOWNPLAY) return o;
+                }
+            }
+            game._cmdq_canned = [];
+            return null;
+        }
+    }
+
     const lets0 = apply_lets();
     // C: apply_ok(NULL) is GETOBJ_EXCLUDE — no hands; DOWNPLAY sets forceprompt.
     if (!lets0 && !apply_has_downplay()) {

@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-15 13:24 — D-1018 use_pick_axe cmdq wield re-apply
+
+**Objective:** C-wrong Keep — D-0951 queued `{typ:'ec'}` after
+wield; `getobj_apply` ignored CMDQ_KEY; canned boolean TIME
+did not set `context.move`.
+**C locus:** `dig.c` `use_pick_axe` `cmdq_add_ec(doapply)` +
+`cmdq_add_key(invlet)`; `cmd.c` rhack `(res & ECMD_TIME)`;
+`invent.c` getobj CMDQ_KEY.
+**Change:** queue `doapply` fn + charCode KEY; getobj_apply pops
+KEY (SUGGEST|DOWNPLAY); rhack canned TIME/CANCEL bits.
+Rule #2: no fs.
+**Score:** last full `sessions` still **D-1015** 44/44 (cadence @#1290).
+**Verified:** green+strict PASS; apply/cmdq/dig cohort **15**/15;
+private node falsifier (queue shape + canned getobj + TIME bit).
+Wield-reapply path likely **unhit** by public traces.
+**Next:** D-1019 `sellobj` default `'a'` / `robbed`.
+**Blocked:** none.
+
 ## 2026-08-15 13:15 — D-1017 cancel_monst invent Array walk
 
 **Objective:** C-wrong Keep — D-0952 self-cancel walked `nobj` on
@@ -227,18 +245,4 @@ mon_poly hero + mhitu AD_POLY — D-1004.
 (seed0009 Scr 72/73 pre-existing). Cadence **43**/44 Scr **11404**/11405
 RNG **100%** speed `31+0.27/turn`. Rule #2: no fs.
 **Next:** next_to_u/check_leash; or absent.md thin; or mon_poly mon arm.
-**Blocked:** none.
-
-## 2026-07-22 05:22 — #1274 D-1003 warnreveal/overexert/eel
-
-**Objective:** map-driven — warnreveal + overexert_hp + Upolyd eel
-regen_hp (CURRENT next after D-1002).
-**C locus:** `detect.c` warnreveal; `hack.c` overexert_hp/overexertion;
-`allmain.c` regen_hp S_EEL + moveloop encumber/Warning wires.
-**Change:** warnreveal→mfind0 via_warning; overexert_hp + melee HVY
-+ encumber-move; eel out-of-water rn2(mh)/rn2(8) — D-1003.
-**Verified:** green+strict PASS; allmain cohort **36**/37
-(seed0009 Scr 72/73 pre-existing). Rule #2: no fs.
-**Next:** absent.md thin (potion/scroll/vault); or potion/mhitm
-you_were wires; or next_to_u/check_leash.
 **Blocked:** none.
