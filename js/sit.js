@@ -60,13 +60,15 @@
 // VS-goto/msummon/ confused remove-curse HConfusion-only D-1048 /
 // poly/acid/shuffle) + ordinary throne_sit_effect 1–13 (adjattrib/shock/
 // heal/take_gold/luck-wish/courtmon/genocide/ curse/see-invis mapping/
-// aggravate-tele/identify/pretzel), lays_eggs → lay_an_egg (D-1075)
+// aggravate-tele/identify/pretzel) + wizard getlin 1..13 (D-1084;
+// wizard && !iflags.debug_fuzzer after rnd(13); ESC Never_mind return;
+// atoi 1..13 override; 0/empty keep rnd — not Analyze y_n),
+// lays_eggs → lay_an_egg (D-1075)
 // else default having-fun; attrcurse
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: wizard getlin / Analyze y_n,
-// shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
+// Deferred: shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly. take_gold calls
 // steal.c remove_worn_item (D-1049); armor *_off / unpunish / setnotworn
 // pointer-walk still named on that helper. D-0956: set_mimic_blocking
@@ -92,7 +94,7 @@ import {
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
     KILLED_BY, KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL,
-    NO_MM_FLAGS,
+    NO_MM_FLAGS, Never_mind,
     EYE, HEAD, FOOT,
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     SPIKED_PIT, VIASITTING,
@@ -113,7 +115,7 @@ import { ART_MAGICBANE } from './generated/artifacts_data.js';
 import { A_MAX, A_CON, A_STR, A_WIS, adjattrib, exercise, change_luck } from './attrib.js';
 import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
-import { yn_function } from './getline.js';
+import { yn_function, getlin } from './getline.js';
 import { t_at, dotrap, water_damage, uteetering_at_seen_pit, uescaped_shaft } from './trap.js';
 import { losehp, finish_maybe_wail, is_pool, is_lava } from './hack.js';
 import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
@@ -766,8 +768,8 @@ export async function special_throne_effect(effect) {
 }
 
 /**
- * C ref: sit.c throne_sit_effect — rnd(6)>4 then rnd(13); Vlad special
- * returns before vanish. Wizard getlin deferred.
+ * C ref: sit.c throne_sit_effect — rnd(6)>4 then rnd(13); wizard
+ * getlin may override 1..13 (D-1084); Vlad special returns before vanish.
  */
 async function throne_sit_effect() {
     const u = game.u || (game.u = {});
@@ -777,7 +779,19 @@ async function throne_sit_effect() {
 
     if (rnd(6) > 4) {
         let effect = rnd(13);
-        // wizard getlin "Throne sit effect (1..13)" deferred
+        // C sit.c: if (wizard && !iflags.debug_fuzzer) getlin then atoi.
+        // wizard ≡ flags.debug||flags.wizard (D-0576). Analyze y_n is
+        // the later vanish arm, not this prompt.
+        if (wizard_mode() && !game.iflags?.debug_fuzzer) {
+            const buf = await getlin('Throne sit effect (1..13) [0=random]');
+            if (buf === '\x1b') {
+                await pline(Never_mind);
+                return; /* caller still spends the sit turn */
+            }
+            // C atoi: leading digits; empty/junk → 0 → keep rnd(13).
+            const which = parseInt(String(buf ?? ''), 10);
+            if (which >= 1 && which <= 13) effect = which | 0;
+        }
         if (special_throne) {
             await special_throne_effect(effect);
             return;

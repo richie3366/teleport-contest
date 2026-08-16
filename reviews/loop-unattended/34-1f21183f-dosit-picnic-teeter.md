@@ -141,7 +141,7 @@ None from this SHA. The picnic conjunct and the moved helpers match C.
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. **`can_reach_floor(check_pit)` teeter/shaft** (`engrave.c:209–211`): live Open line. Helpers now exist in `trap.js` — wire them; do not pull `ceiling_hider` / `MZ_HUGE` this next iter. **Not** this SHA’s miss; `dosit` passes `FALSE`, so the helper arm is dead at `#sit`. **Addressed:** D-1083
+1. **`can_reach_floor(check_pit)` teeter/shaft** (`engrave.c:209–211`): live Open line. Helpers now exist in `trap.js` — wire them; do not pull `ceiling_hider` / `MZ_HUGE` this next iter. **Not** this SHA’s miss; `dosit` passes `FALSE`, so the helper arm is dead at `#sit`. **Addressed:** D-1083 `e6167027`
 2. Hero pit/hole `dotrap` `VIASITTING` bodies (D-1039 Open). Picnic skip makes that arm reachable from a seen precipice. **Addressed:** D-1076 `87b4b7cb`
 3. `pickup.c` / `hack.c` `pickup` / `dig.c` still omit teeter callers. Pre-existing. Do not expand this next iter.
 4. Dragon meager hoard shipped next as D-1074. `lay_an_egg` remains Open.

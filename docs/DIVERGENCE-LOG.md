@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1084 — throne_sit_effect wizard getlin 1..13
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** wizard `#sit` on a throne always kept `rnd(13)`. C
+  `throne_sit_effect` still rolls `rnd(13)` then, when
+  `wizard && !iflags.debug_fuzzer`, `getlin("Throne sit effect
+  (1..13) [0=random]")`. ESC → `Never_mind` and return (turn still
+  elapses). `atoi` in 1..13 overrides; 0/empty/junk keep the roll.
+- **C locus:** `sit.c` `throne_sit_effect` (~48–61).
+- **Fix:** after `rnd(13)`, same getlin/atoi/ESC return. `wizard` is
+  `flags.debug||flags.wizard` (D-0576). Did not retouch Analyze
+  `y_n` vanish (already ported). Rule #2: no fs.
+- **Deferred:** SetVoice; `kill_eggs`; seffects SCR_GENOCIDE;
+  `rndcurse` `shieldeff`; take_gold armor `*_off` / `unpunish` /
+  `setnotworn` pointer-walk.
+- **Verify:** private canary (non-wizard / fuzzer skip; ESC gold+throne
+  kept + Never_mind; atoi 5 take_gold; atoi 13 pretzel; 0/empty keep
+  rnd); green+strict PASS; sit/shared cohort **12**/12 + strict
+  1800/4500/2200. Path unhit on public sessions.
+- **Files:** `js/sit.js`.
+
 ## D-1083 — can_reach_floor(check_pit) teeter/shaft
 
 - **Status:** fixed (map-driven Open from D-1073 named omit;

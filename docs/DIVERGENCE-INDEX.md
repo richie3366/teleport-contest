@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1084 | fixed | sit `throne_sit_effect` wizard getlin 1..13 | map-driven; C `sit.c:48–61`; `wizard && !debug_fuzzer` after `rnd(13)`; ESC Never_mind return; atoi 1..13 override; 0/empty keep rnd; Analyze y_n not this iter |
 | D-1083 | fixed | engrave `can_reach_floor(check_pit)` teeter/shaft | map-driven; C `engrave.c:209–211` / `trap.c` helpers; seen pit precipice / hole FALSE; in-pit/unseen/Flying still TRUE; invent/pickup `trap&&is_pit` callers + `cant_reach_floor` named |
 | D-1082 | fixed | engrave `can_reach_floor` ceiling_hider / Flying\|\|MZ_HUGE | map-driven; C `engrave.c:203–207` / `mondata.h` / `youprop.h` Flying; lurker undetected FALSE before huge; trapper still reaches; check_pit D-1083 |
 | D-1081 | fixed | eat `cprefx` rider `revive_corpse` after lifesave | map-driven; C `eat.c:831–849` / `do.c:2111–2246`; tin skip; `zero_victual`; floor rider suffixes; MINVENT/CONTAINED/BURIED + Adjmonnam named |
