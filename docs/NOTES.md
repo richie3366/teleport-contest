@@ -19,12 +19,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1081** `cprefx` rider `revive_corpse` after lifesave.
+- Latest: **D-1082** `can_reach_floor` ceiling_hider / Flying||MZ_HUGE.
   Cadence **#1375** fortress held. Reviews **39–41**.
-- **Next cluster:** Open `engrave.c` `can_reach_floor` ceiling_hider /
-  MZ_HUGE (named from D-1069/D-1071). Not check_pit.
-- **Hypothesis:** `can_reach_floor` still omits ceiling_hider / MZ_HUGE
-  (named from D-1069/D-1071).
+- **Next cluster:** Open `engrave.c` `can_reach_floor(check_pit)`
+  teeter/shaft (named from D-1073). Not ceiling_hider.
+- **Hypothesis:** `can_reach_floor(check_pit)` still no-ops
+  `uteetering_at_seen_pit` / `uescaped_shaft`.
 
 ## Don't re-check (≤15)
 
@@ -61,6 +61,8 @@ Objective/score live in `CURRENT.md`.
   only `dosit` return (D-1069). Do not treat sticky `u.Levitation`
   as C `youprop.h` `Levitation` in `can_reach_floor` (D-1070).
   Do not skip helper hugs `AT_HUGS`+`!sticks` (D-1071). Do not
+  skip ceiling_hider / restore sticky `u.Flying` in
+  `can_reach_floor` (D-1082). Do not
   skip dosit ustuck lap (D-1072). Do not treat eel WRAP as hugs.
   Do not import `monmove.js` `sticks` for dosit lap (AT numbers
   6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`). Do not skip dosit OBJ_AT
@@ -85,6 +87,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1375**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1380**.
+- **D-1082:** `can_reach_floor` ceiling_hider FALSE then
+  Flying||MZ_HUGE TRUE (`engrave.c`). check_pit still named.
 - **D-1081:** `cprefx` rider `revive_corpse` after lifesave (`eat.c` /
   `do.c`). Tin skip; `zero_victual`; floor rider suffixes. MINVENT/
   CONTAINED/BURIED + Adjmonnam still named.
@@ -94,4 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named. Review **39** ACCEPT.
 - **D-1077:** `is_lava` DRAWBRIDGE_UP+`DB_LAVA` (`dbridge.c`). Review **38** ACCEPT. `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.
 - **D-1076:** hero pit/hole `dotrap` VIASITTING; Punished `ballfall` still omit.
-- **D-1075:** `dosit` `lay_an_egg` after throne; `egg_type_from_parent` in `mon.js`.

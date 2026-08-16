@@ -32,7 +32,8 @@
 // !can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
 // (D-1069/D-1070; shared engrave.js helper; Levitation is C
 // youprop.h (H||E)&&!B; hugs AT_HUGS+!sticks D-1071; ceiling_hider /
-// MZ_HUGE still named there), ustuck !sticks lap Monnam/mhis
+// Flying||MZ_HUGE D-1082 — dosit clears non-trapper hiders first so
+// the ceiling arm is dead at #sit), ustuck !sticks lap Monnam/mhis
 // (D-1072; eel WRAP / mimic STCK / trapper-not-swallow; hugs already
 // air via helper), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie) with C precipice
@@ -63,8 +64,8 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: can_reach_floor ceiling_hider/MZ_HUGE and
-// check_pit teeter/shaft (engrave.js), wizard getlin / Analyze y_n,
+// Deferred: can_reach_floor check_pit teeter/shaft (engrave.js),
+// wizard getlin / Analyze y_n,
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
 // pit/hole dotrap bodies D-1076. take_gold calls

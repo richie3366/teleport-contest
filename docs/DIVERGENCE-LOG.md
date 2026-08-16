@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1082 — can_reach_floor ceiling_hider / Flying||MZ_HUGE
+
+- **Status:** fixed (map-driven Open from D-1069/D-1071 named omit;
+  not a public FAIL)
+- **Symptom:** `can_reach_floor` skipped C
+  `u.uundetected && ceiling_hider(youmonst.data)` (FALSE) and
+  `Flying || msize >= MZ_HUGE` (TRUE before `check_pit`). An
+  undetected piercer/lurker still reached the floor. Sticky
+  `u.Flying` stood in for C `youprop.h` Flying (same class as
+  D-1070 Levitation).
+- **C locus:** `engrave.c` `can_reach_floor` (~203–207);
+  `mondata.h` `ceiling_hider`; `youprop.h` Flying;
+  `monflag.h` `MZ_HUGE=4`.
+- **Fix:** after unskilled `P_RIDING`, undetected ceiling hiders
+  return FALSE (piercer CLING+HIDE; lurker FLY+HIDE — before
+  MZ_HUGE). Trapper is HIDE-only so still TRUE. Large mimic
+  CLING+HIDE is excluded (`mlet == S_MIMIC`). Then
+  `Flying() || msize >= MZ_HUGE` returns TRUE.
+  `Flying()` is `(H||E||steed is_flyer) && !B`, not sticky
+  `u.Flying`. Unskilled riding still FALSE before Flying.
+  Did not pull `check_pit` teeter/shaft. Rule #2: no fs.
+- **Deferred:** `uteetering_at_seen_pit` / `uescaped_shaft` when
+  `check_pit` (next Open); `display.js` `feel_can_reach_floor`
+  clone still omits these arms.
+- **Verify:** private node: undetected piercer/lurker false;
+  detected lurker/trapper/giant true; large mimic S_MIMIC true;
+  H/E Flying true; unskilled flying steed false; basic rider
+  flying steed true; swallow/Levitation/hugs still false.
+  green+strict PASS; cohort **20**/20 (incl. 0101 engrave,
+  0004 feeding, 0103/0104 ride, 1800 eat, 4500). Path unhit
+  on public sessions.
+- **Files:** `js/engrave.js`; `js/sit.js` comments only.
+
 ## D-1081 — cprefx revive_corpse after rider lifesave
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -21,11 +21,12 @@
 // allmain/dokick/uhitm `u_wipe_engr` callers still stubbed;
 // demon/vampire blood default beyond type; Blind feel path for
 // engrave/burn; full surface()/is_ice nouns; wipeout_text seeded
-// (non-zero) path; can_reach_floor ceiling_hider / MZ_HUGE /
-// uteetering_at_seen_pit / uescaped_shaft.
+// (non-zero) path; can_reach_floor uteetering_at_seen_pit /
+// uescaped_shaft (check_pit).
 // Ported: Levitation (H||E)&&!B D-1070; ustuck AT_HUGS + !sticks
 // D-1071 (local mondata.c sticks — avoid engrave←monmove cycle);
-// sticks exported for sit.js dosit lap D-1072.
+// sticks exported for sit.js dosit lap D-1072; ceiling_hider +
+// Flying||MZ_HUGE D-1082 (Flying is youprop.h, not sticky u.Flying).
 // disturb_grave (D-0985) via kick_nondoor / engraving callers.
 // Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
@@ -53,7 +54,7 @@ import { nomul } from './hack.js';
 import { t_at } from './trap.js';
 import { makemon } from './makemon.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { mons } from './monsters.js';
+import { mons, is_hider, is_clinger, is_flyer, MZ_HUGE } from './monsters.js';
 
 const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
 
@@ -230,6 +231,26 @@ function Levitation() {
         && !(u.BLevitation | 0));
 }
 
+/**
+ * C youprop.h Flying — (HFlying || EFlying || steed is_flyer) && !BFlying.
+ * Sticky u.Flying is not a C field (same class as D-1070 Levitation).
+ */
+function Flying() {
+    const u = game.u || {};
+    const steedFlyer = !!(u.usteed && is_flyer(u.usteed.data));
+    return !!(((u.HFlying | 0) || (u.EFlying | 0) || steedFlyer)
+        && !(u.BFlying | 0));
+}
+
+/**
+ * C ref: mondata.h ceiling_hider — hider that clings (not mimic) or
+ * flies (lurker above). Trapper is HIDE without CLING/FLY.
+ */
+function ceiling_hider(ptr) {
+    if (!is_hider(ptr)) return false;
+    return (is_clinger(ptr) && ptr.mlet !== 'S_MIMIC') || is_flyer(ptr);
+}
+
 /** C monattk.h — used by can_reach_floor hugs arm / local sticks. */
 const AT_HUGS = 7;
 const AT_ENGL = 11;
@@ -274,15 +295,16 @@ export function sticks(ptr) {
 /**
  * C ref: engrave.c can_reach_floor — whether hero can touch ground-level.
  * Branch envelope: swallow / ustuck AT_HUGS+!sticks / Levitation(+!air/water)
- * / unskilled steed / Flying early-true; pit teeter/shaft, ceiling_hider,
- * MZ_HUGE named omissions (treated as reachable when other gates pass).
+ * / unskilled steed / uundetected ceiling_hider FALSE / Flying||MZ_HUGE
+ * TRUE (skips check_pit). Pit teeter/shaft named omission.
  */
 export function can_reach_floor(check_pit) {
     const u = game.u || {};
+    const youdata = game.youmonst?.data;
     // C engrave.c: uswallow || (ustuck && !sticks(youmonst.data)
     // && attacktype(ustuck->data, AT_HUGS)) || (Levitation && !air/water)
     if (u.uswallow
-        || (u.ustuck && !sticks(game.youmonst?.data)
+        || (u.ustuck && !sticks(youdata)
             && attacktype(u.ustuck.data, AT_HUGS))
         || (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz)))) {
         return false;
@@ -292,9 +314,14 @@ export function can_reach_floor(check_pit) {
         const rank = typeof sk === 'object' ? (sk.skill ?? 0) : (sk ?? 0);
         if (rank < P_BASIC) return false;
     }
-    // uundetected + ceiling_hider deferred
-    if (u.Flying) return true;
-    // youmonst msize >= MZ_HUGE deferred (would also return TRUE)
+    // C: u.uundetected && ceiling_hider(youmonst.data) → FALSE
+    if (u.uundetected && ceiling_hider(youdata)) {
+        return false;
+    }
+    // C: Flying || msize >= MZ_HUGE → TRUE (before check_pit)
+    if (Flying() || (youdata?.msize | 0) >= MZ_HUGE) {
+        return true;
+    }
     if (check_pit && t_at(u.ux, u.uy)) {
         // uteetering_at_seen_pit / uescaped_shaft deferred → not blocked
     }
