@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1355**;
-  next @**#1360**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1360**;
+  next @**#1365**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty (reviews **31**/**32** ACCEPT D-1070/D-1071).
   Keep 8–12 open rows; refill from the map when below 8.
@@ -68,8 +68,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1355**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1360**.
+- Suite after cadence **#1360**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1365**.
 - **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.
   Eel WRAP reaches; python hugs does not. Lap still named.
 - **D-1070:** `can_reach_floor` + sit message `Levitation()` =

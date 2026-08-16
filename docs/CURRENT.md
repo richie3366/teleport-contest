@@ -20,8 +20,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-16** — full `sessions` after cadence
-**#1355** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1360**.
+**#1360** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1365**.
 
 ## Score
 
@@ -73,7 +73,7 @@ public traces.
 
 **Next cluster:** Open — `sit.c` `dosit` ustuck `!sticks` lap
 (`Monnam` / `mhis`). Helper hugs D-1071. Reviews **31**/**32**
-ACCEPT D-1070/D-1071; Must-fix empty. Queue 10 Open. Cadence @**#1360**.
+ACCEPT D-1070/D-1071; Must-fix empty. Queue 10 Open. Cadence @**#1365**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
