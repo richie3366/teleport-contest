@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1063 — tut-1 packed food objects via create_object
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 food listed as deferred `des.*`.
+  `dat/tut-1.lua:258–261` is packed `des.object` apple, candy bar, and
+  lichen corpse (`buc = "not-cursed"`, corpse `montype = "lichen"`).
+  JS `load_tut1` used `tut1_object` then `set_corpsenm(PM_LICHEN)`,
+  leaving mksobj gender `spe` instead of C CORPSTAT lflags (0) and
+  skipping `create_object` curse_state 4 / `stackobj`.
+- **C locus:** `sp_lev.c` `create_object` (~2233–2264) / `lspo_object`
+  (~3557–3754) / `get_table_buc` (~3441–3451); `dat/tut-1.lua` food
+  at (50,3).
+- **Fix:** `create_object` `corpsenm` (`NON_PM` skip, `NON_PM-1` random,
+  else `set_corpsenm`). `l_create_object` buc map + STATUE/EGG/CORPSE/
+  TIN/FIGURINE montype (pmnames strcmpi, not `find_montype` gender RNG;
+  class-letter `mkclass(G_NOGEN|G_IGNORE)`; spinach/empty tin/egg).
+  CORPSE/STATUE `spe` = historic/male/female lflags. `load_tut1` uses
+  it for the three foods only. Rule #2: no fs.
+- **Deferred:** tut-1 `place_lregion` / tut_key / nhcore disable;
+  Lua argc string/coord overloads; quan non-merge repeat; named/oname;
+  buried/lit/achievement; Medusa statue fill;
+  `invent_carrying_monster`; class-letter `def_char_to_objclass`; other
+  `load_*` `des.object` still hand-rolled.
+- **Verify:** private node: apple+candy+lichen pile at packed (50,3);
+  corpse `corpsenm=PM_LICHEN` `spe=0`; candy wrapper `spe` in 1..12;
+  none cursed. green+strict PASS; seed0009 **73**/73; cohort **9**/9
+  (0009/0030/0060/0102/0360/0373/1500/1800/2200) plus green 8000/0900.
+- **Files:** `js/mklev.js`.
+
 ## D-1062 — tut-1 packed large-box contents via create_object
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

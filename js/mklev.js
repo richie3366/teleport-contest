@@ -71,7 +71,7 @@ import {
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
     SP_OBJ_CONTENT, SP_OBJ_CONTAINER,
     Can_fall_thru, Can_dig_down, G_GONE,
-    CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_NONE,
+    CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_NONE,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -100,6 +100,7 @@ import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
     is_male, is_female, mons, G_NOGEN, G_UNIQ, G_IGNORE, monsterNames,
+    LOW_PM, pmnames,
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
@@ -128,6 +129,9 @@ const SCR_TELEPORTATION = objectNames.indexOf('SCR_TELEPORTATION');
 const BELL = objectNames.indexOf('BELL');
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
+const EGG = objectNames.indexOf('EGG');
+const TIN = objectNames.indexOf('TIN');
+const FIGURINE = objectNames.indexOf('FIGURINE');
 const SPBOOK_no_NOVEL = 0 - SPBOOK_CLASS; // C: objclass.h -(int)SPBOOK_CLASS
 const POT_HEALING = objectNames.indexOf('POT_HEALING');
 const POT_EXTRA_HEALING = objectNames.indexOf('POT_EXTRA_HEALING');
@@ -8357,7 +8361,7 @@ function splev_map_center_start(wid, hei) {
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
  * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
  * leave-tutorial invent restore, map_location tseen traps;
- * food / place_lregion / nhcore disable.
+ * place_lregion / nhcore disable.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -8630,12 +8634,15 @@ function load_tut1() {
     }
 
     tut1_engr(48, 1, "Use 'e' to eat edible things", BURN);
-    tut1_object(xstart, ystart, 50, 3, APPLE, -127, 'not-cursed');
-    tut1_object(xstart, ystart, 50, 3, CANDY_BAR, -127, 'not-cursed');
-    {
-        const otmp = tut1_object(xstart, ystart, 50, 3, CORPSE, -127, 'not-cursed');
-        if (otmp) set_corpsenm(otmp, PM_LICHEN);
-    }
+    // C: dat/tut-1.lua des.object apple / candy bar / lichen corpse
+    // → lspo_object / create_object (D-1063). buc "not-cursed" is
+    // curse_state 4 (uncurse). Corpse montype is pmnames strcmpi, not
+    // find_montype gender RNG; spe becomes CORPSTAT lflags (0).
+    l_create_object({ id: APPLE, rx: 50, ry: 3, buc: 'not-cursed' });
+    l_create_object({ id: CANDY_BAR, rx: 50, ry: 3, buc: 'not-cursed' });
+    l_create_object({
+        id: CORPSE, rx: 50, ry: 3, buc: 'not-cursed', montype: 'lichen',
+    });
 
     tut1_door(46, 11, D_CLOSED);
     tut1_engr(43, 11, "Use '#twoweapon' to use two weapons at once", BURN);
@@ -9941,11 +9948,11 @@ function get_location_coord(humidity, croom, rx, ry) {
 
 /**
  * C ref: sp_lev.c create_object (~2193–2439).
- * Named omit: oname / novelidx; quan>0 oc_merge; corpsenm/set_corpsenm;
- * recharged; tknown; invent_carrying_monster / saddle; artifact uncreate
- * when container_obj is NULL; Medusa statue fill; achievement prizes;
- * lit begin_burn; buried bury_an_obj; class-letter def_char_to_objclass
- * (id-less RANDOM_CLASS / mkobj_at oclass still work).
+ * Named omit: oname / novelidx; quan>0 oc_merge; recharged; tknown;
+ * invent_carrying_monster / saddle; artifact uncreate when container_obj
+ * is NULL; Medusa statue fill; achievement prizes; lit begin_burn;
+ * buried bury_an_obj; class-letter def_char_to_objclass (id-less
+ * RANDOM_CLASS / mkobj_at oclass still work).
  */
 function create_object(o, croom) {
     const named = !!(o.name);
@@ -9989,6 +9996,14 @@ function create_object(o, croom) {
         break;
     default:
         break;
+    }
+
+    // C: corpsenm is "empty" if NON_PM, random if NON_PM-1, else specific.
+    // set_corpsenm restarts egg hatch / corpse timers (D-1063).
+    const cn = (o.corpsenm == null) ? NON_PM : (o.corpsenm | 0);
+    if (cn !== NON_PM) {
+        if (cn === NON_PM - 1) set_corpsenm(otmp, rndmonnum());
+        else set_corpsenm(otmp, cn);
     }
 
     const eroded = o.eroded | 0;
@@ -10041,10 +10056,93 @@ function create_object(o, croom) {
 }
 
 /**
+ * C ref: sp_lev.c get_table_buc — bucs[] / bucs2i[].
+ */
+function get_table_buc(buc) {
+    const bucs = {
+        random: 0,
+        blessed: 1,
+        uncursed: 2,
+        cursed: 3,
+        'not-cursed': 4,
+        'not-uncursed': 5,
+        'not-blessed': 6,
+    };
+    if (buc == null) return 0;
+    return bucs[String(buc).toLowerCase()] ?? 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_object montype — strcmpi pmnames, no find_montype
+ * gender RNG.
+ */
+function lspo_object_montype_mndx(montype) {
+    const want = String(montype).toLowerCase();
+    for (let i = LOW_PM; i < monsterNames.length; i++) {
+        const names = pmnames[i];
+        if (!names) continue;
+        if ((names[NEUTRAL] && names[NEUTRAL].toLowerCase() === want)
+            || (names[MALE] && names[MALE].toLowerCase() === want)
+            || (names[FEMALE] && names[FEMALE].toLowerCase() === want)) {
+            return i;
+        }
+    }
+    return NON_PM;
+}
+
+/**
+ * C ref: sp_lev.c lspo_object STATUE/EGG/CORPSE/TIN/FIGURINE montype + spe.
+ * Class-letter montype uses mkclass(G_NOGEN|G_IGNORE). Corpse/statue spe
+ * becomes CORPSTAT lflags (historic/male/female), overwriting mksobj gender.
+ */
+function lspo_object_apply_montype(tmp) {
+    const id = tmp.id | 0;
+    if (id !== STATUE && id !== EGG && id !== CORPSE && id !== TIN
+        && id !== FIGURINE) {
+        return;
+    }
+    let nonpmobj = false;
+    const montype = tmp.montype;
+    if (montype != null && montype !== '') {
+        const mt = String(montype);
+        const low = mt.toLowerCase();
+        if ((id === TIN && (low === 'spinach' || low === 'empty'))
+            || (id === EGG && low === 'empty')) {
+            tmp.corpsenm = NON_PM;
+            tmp.spe = low === 'spinach' ? 1 : 0;
+            nonpmobj = true;
+        } else if (mt.length === 1) {
+            const mlet = monclass_letter_to_mlet(mt);
+            if (mlet) {
+                const pm = mkclass(mlet, G_NOGEN | G_IGNORE);
+                if (pm) tmp.corpsenm = pm.mndx | 0;
+            } else {
+                const mndx = lspo_object_montype_mndx(mt);
+                if (mndx !== NON_PM) tmp.corpsenm = mndx;
+            }
+        } else {
+            const mndx = lspo_object_montype_mndx(mt);
+            if (mndx !== NON_PM) tmp.corpsenm = mndx;
+        }
+    }
+    if (id === STATUE || id === CORPSE) {
+        let lflags = 0;
+        if (tmp.historic) lflags |= CORPSTAT_HISTORIC;
+        if (tmp.male) lflags |= CORPSTAT_MALE;
+        if (tmp.female) lflags |= CORPSTAT_FEMALE;
+        tmp.spe = lflags;
+    } else if (id === EGG) {
+        tmp.spe = tmp.laid_by_you ? 1 : 0;
+    } else if (!nonpmobj) {
+        tmp.spe = 0;
+    }
+}
+
+/**
  * C ref: sp_lev.c lspo_object table form (unpacked; not lua_State).
  * contentsFn runs after create_object like Lua contents=function.
  * Named omit: argc string/coord overloads; quan non-merge repeat loop;
- * montype/historic; other load_* des.object still hand-rolled.
+ * other load_* des.object still hand-rolled.
  */
 export function l_create_object(o, contentsFn, croom = null) {
     const tmp = { ...o };
@@ -10052,13 +10150,16 @@ export function l_create_object(o, contentsFn, croom = null) {
     if (tmp.trapped == null) tmp.trapped = -1;
     if (tmp.locked == null) tmp.locked = -1;
     if (tmp.eroded == null) tmp.eroded = 0;
+    if (tmp.buc != null) tmp.curse_state = get_table_buc(tmp.buc);
     if (tmp.curse_state == null) tmp.curse_state = 0;
     if (tmp.rx == null) tmp.rx = -1;
     if (tmp.ry == null) tmp.ry = -1;
+    if (tmp.corpsenm == null) tmp.corpsenm = NON_PM;
     if ((tmp.class == null || tmp.class < 0) && (tmp.id | 0) > 0) {
         const oc = game.objects?.[tmp.id]?.oc_class;
         tmp.class = (oc != null && oc >= 0) ? oc : 1;
     }
+    lspo_object_apply_montype(tmp);
     tmp.containment = tmp.containment | 0;
     if (container_idx) tmp.containment |= SP_OBJ_CONTENT;
     if (contentsFn) tmp.containment |= SP_OBJ_CONTAINER;

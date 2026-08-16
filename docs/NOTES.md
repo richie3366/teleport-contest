@@ -11,17 +11,16 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.88) after cadence **#1340**;
   next @**#1345**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 food objects is next.
+  LB). Must-fix empty; Open tut-1 `place_lregion` is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1062** tut-1 large-box `create_object` (DRY
-  `get_location_coord` + `delete_contents` + container_obj). Review
-  **23** ACCEPT (`3ca1b544`). Reviews **21**/**22** ACCEPT D-1060/D-1061.
-- **Next cluster:** Open — tut-1 food objects only.
-- **Hypothesis:** none live. Next falsifier is the Open food
-  cluster (C `des.object` apple/candy/lichen vs JS `tut1_object`).
+- Latest: **D-1063** tut-1 food `l_create_object` (buc not-cursed,
+  corpse montype pmnames→`set_corpsenm`, CORPSE spe=lflags).
+- **Next cluster:** Open — tut-1 `place_lregion` only.
+- **Hypothesis:** none live. Next falsifier is Open `place_lregion`
+  (C `levregion_add` vs JS `updest`/`dndest` copy).
 
 ## Don't re-check (≤15)
 
@@ -69,31 +68,28 @@ Objective/score live in `CURRENT.md`.
   sit_message (D-1057) / skip lava/ice/DRAWBRIDGE_DOWN sit or
   trap TT_LAVA as terrain lava (D-1058). Do not restore sit
   Fire/Cold H||E-only (D-1060); do not rewrite `confer_oc_oprop`
-  to mirror every E* for that peel; do not pull `hack.js` `is_lava`
-  DRAWBRIDGE_UP+DB_LAVA into it. Do not skip `mineralize`
-  `In_endgame` before kelp or kelp WATER without `!Is_waterlevel`
-  (D-1059). tut-1.lua has no `des.mineralize`. Do not skip
-  `mkstairs` `force` ROOM before dungeon-end return or raw-mkstairs
-  tut-1 packed `des.stair` (D-1061). Do not restore raw `rn2(sx/sy)`
-  for nested tut-1 box contents or skip `delete_contents` after
-  `mkbox_cnts` (D-1062).
+  to mirror every E* for that peel. Do not skip `mineralize`
+  `In_endgame` before kelp (D-1059). Do not skip `mkstairs`
+  `force` ROOM or raw-mkstairs tut-1 packed `des.stair` (D-1061).
+  Do not restore raw `rn2(sx/sy)` nested tut-1 box contents or skip
+  `delete_contents` after `mkbox_cnts` (D-1062). Do not restore
+  `tut1_object` for tut-1 food or skip `create_object` `corpsenm` /
+  `find_montype` gender RNG for `montype` (D-1063).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1340**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
+- **D-1063:** tut-1 packed apple/candy/lichen → `l_create_object`
+  / `create_object` (buc 4, montype pmnames, CORPSE spe=lflags).
 - **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
   / `create_object` (DRY `get_location_coord`, `delete_contents`,
-  container_obj). Was raw `rn2(sx/sy)` then `cobj=null`. Review **23**
-  ACCEPT `3ca1b544`.
+  container_obj). Review **23** ACCEPT `3ca1b544`.
 - **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
   (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
   Review **22** ACCEPT `05915d9b`.
 - **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
   (worn ring `d(2,10)`). Review **21** ACCEPT `ecd37108`.
-  zap/trap/explode aliases named.
 - **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
   map chars); `water_has_kelp` `!Is_waterlevel`; `In_endgame` skip.
   Review **20** ACCEPT `c0d5279a`.
-- **D-1058:** `dosit` lava/ice/DRAWBRIDGE_DOWN sit (terrain; trap
-  TT_LAVA remains D-1039). `likes_lava` warm vs `d(2|10,10)`.
