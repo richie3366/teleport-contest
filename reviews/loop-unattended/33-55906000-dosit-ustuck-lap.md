@@ -140,7 +140,7 @@ None from this SHA. The lap `if`, engrave `sticks` export, `Monnam` import, and 
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. **`dosit` OBJ_AT picnic gate** (`sit.c:437–439`): skip picnic when `uteetering_at_seen_pit(trap)` or `uescaped_shaft(trap)`. Live Open line. Do not pull dragon meager hoard / `lay_an_egg` / `ceiling_hider` this next iter.
+1. **`dosit` OBJ_AT picnic gate** (`sit.c:437–439`): skip picnic when `uteetering_at_seen_pit(trap)` or `uescaped_shaft(trap)`. Live Open line. Do not pull dragon meager hoard / `lay_an_egg` / `ceiling_hider` this next iter. **Addressed:** D-1073 `1f21183f` (meager follow-up **Addressed:** D-1074 `962e07a9`)
 2. Helper `ceiling_hider` / `MZ_HUGE` / pit teeter; `Flying` sticky vs `youprop.h` (not live at `dosit`+`FALSE`).
 3. Sit.js `Hallucination()` remains TIMEOUT\|sticky (also `attrcurse`); `EHalluc_resistance` without sticky can still `rn2(4)` in `mhis` while C would not. Do not rewrite every `Hallucination()` clone as part of picnic.
 4. `monmove.js` `sticks` still uses AT 6/7. Do not import it for later sit/engrave peels.

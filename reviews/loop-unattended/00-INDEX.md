@@ -43,3 +43,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [31-9d3545c9-can-reach-floor-levitation.md](./31-9d3545c9-can-reach-floor-levitation.md) | `9d3545c9` | D-1070 `can_reach_floor` Levitation | **ACCEPT** |
 | [32-aa96e08c-can-reach-floor-hugs.md](./32-aa96e08c-can-reach-floor-hugs.md) | `aa96e08c` | D-1071 `can_reach_floor` hugs | **ACCEPT** |
 | [33-55906000-dosit-ustuck-lap.md](./33-55906000-dosit-ustuck-lap.md) | `55906000` | D-1072 `dosit` ustuck lap | **ACCEPT** |
+| [34-1f21183f-dosit-picnic-teeter.md](./34-1f21183f-dosit-picnic-teeter.md) | `1f21183f` | D-1073 picnic `uteetering`/`uescaped_shaft` | **ACCEPT** |
+| [35-962e07a9-dosit-meager-hoard.md](./35-962e07a9-dosit-meager-hoard.md) | `962e07a9` | D-1074 dragon `money_cnt` meager | **ACCEPT** |

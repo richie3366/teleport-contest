@@ -8,11 +8,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1360**;
-  next @**#1365**.
+  speed `31+0.26/turn` R² 0.87) after cadence **#1365**;
+  next @**#1370**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty (reviews **31**/**32**/**33** ACCEPT
-  D-1070/D-1071/D-1072). Keep 8–12 open rows; refill from the map
+  LB). Must-fix empty (reviews **34**/**35** ACCEPT
+  D-1073/D-1074). Keep 8–12 open rows; refill from the map
   when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
@@ -71,8 +71,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1360**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1365**.
+- Suite after cadence **#1365**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1370**.
 - **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin
   `money_cnt`. `lay_an_egg` still named.
 - **D-1073:** `dosit` OBJ_AT skip picnic on seen-pit teeter /
