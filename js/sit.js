@@ -67,8 +67,8 @@
 // else default having-fun; attrcurse
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
-// (D-0969).
-// Deferred: shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
+// (D-0969) + Antimagic `shieldeff(u.ux,u.uy)` (D-1087; display.c).
+// Deferred: update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly. take_gold calls
 // steal.c remove_worn_item (D-1049/D-1086) via steal.js — W_WEAPONS *gone,
 // armor *_off, unpunish, setnotworn pointer-walk. donning/cancel_don /
@@ -81,7 +81,7 @@
 import { game } from './gstate.js';
 import {
     pline, You_feel, newsym, see_monsters, map_background, newsym_force,
-    verbalize, canspotmon,
+    verbalize, canspotmon, shieldeff,
 } from './display.js';
 import { set_mimic_blocking, cansee } from './vision.js';
 import { rnd, rn2, rn1, d } from './rng.js';
@@ -266,11 +266,11 @@ export async function take_gold() {
 
 /**
  * C ref: sit.c rndcurse — curse random invent (and maybe steed saddle).
- * Branch envelope: Magicbane absorb; Antimagic shield (flash deferred);
+ * Branch envelope: Magicbane absorb; Antimagic `shieldeff` (D-1087);
  * invent non-COIN sample; SPFX_INTEL resist; bless→unbless else curse;
  * steed W_SADDLE 1/4.
- * Named omissions: shieldeff; update_inventory redraw; Hallucination
- * hcolor; Yobjnam2 article polish.
+ * Named omissions: update_inventory redraw; Hallucination hcolor;
+ * Yobjnam2 article polish.
  */
 export async function rndcurse() {
     const u = game.u || (game.u = {});
@@ -282,7 +282,7 @@ export async function rndcurse() {
     }
 
     if (Antimagic()) {
-        // shieldeff(u.ux, u.uy) deferred
+        await shieldeff(u.ux, u.uy);
     }
 
     await You_feel('a malignant aura surround you.');

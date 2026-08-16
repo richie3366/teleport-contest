@@ -11,18 +11,20 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.88) after cadence **#1380**;
   next @**#1385**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open
-  11 after **D-1086** (≥8; no refill).
+  10 after **D-1087** (≥8; no refill).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1081**…**D-1086**. Reviews **42** ACCEPT,
+- Latest ports: **D-1081**…**D-1087**. Reviews **42** ACCEPT,
   **43** QUALITY-RISK (Flying Must-fix shipped D-1085), **44**
   ACCEPT, **45** ACCEPT.
-- **Next cluster:** Open `sit.c` `rndcurse` `shieldeff` (named
-  omit). Not update_inventory / hcolor.
-- **Hypothesis:** `rndcurse` Antimagic arm skips C `shieldeff`
-  flash. Falsifier: Antimagic hero `rndcurse` must call
-  `shieldeff(u.ux,u.uy)` like C `sit.c` before invent walk.
+- **Next cluster:** Open `makemon.c` `m_initweap` `ptr.msound`
+  for MS_GUARDIAN / MS_PRIEST (still mndx after D-1079). Not
+  peace_minded.
+- **Hypothesis:** `m_initweap` still gates guardian/priest kits
+  on `mndx` not `ptr.msound`. Falsifier: a monster with
+  `msound` MS_GUARDIAN/MS_PRIEST but a non-kit `mndx` must take
+  the C `ptr.msound` weapon arm like `makemon.c`.
 
 ## Don't re-check (≤15)
 
@@ -52,7 +54,8 @@ Objective/score live in `CURRENT.md`.
   ceiling_hider (D-1082) / no-op `check_pit` (D-1083) / always
   `rnd(13)` wizard (D-1084) / `Flying()` H/E flats without
   `uprops[FLYING]` (D-1085) / steal `remove_worn_item` setworn-only
-  armor / skip `unpunish` / `owornmask=0` vs `setnotworn` (D-1086).
+  armor / skip `unpunish` / `owornmask=0` vs `setnotworn` (D-1086) /
+  skip rndcurse Antimagic `shieldeff` (D-1087).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085).
 
@@ -60,6 +63,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1380**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
+- **D-1087:** display.c `shieldeff` + sit `rndcurse` Antimagic
+  call. `update_inventory` / hcolor / other callers still named.
 - **D-1086:** steal.c `remove_worn_item` armor `*_off` /
   `unpunish` / `setnotworn`. sit `take_gold` dynamic-imports it.
 - **D-1085:** `Flying()` ORs `uprops[FLYING]`. Review **43**

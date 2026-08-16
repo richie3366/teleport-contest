@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `steal.c` `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` pointer-walk (named from sit take_gold D-1049). **Addressed:** D-1086
+- [x] `sit.c` `rndcurse` `shieldeff` (named omit). Not update_inventory / hcolor. **Addressed:** D-1087
+
+
+- [x] `steal.c` `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` pointer-walk (named from sit take_gold D-1049). **Addressed:** D-1086 `89a97acc`
 
 
 - [x] `engrave.c` `can_reach_floor` `Flying()` must be C `youprop.h` Flying via `uprops[FLYING]` (intrinsic||extrinsic||steed `is_flyer`)&&!blocked, not `HFlying`/`EFlying` flats that `confer_oc_oprop` never writes. Worn `AMULET_OF_FLYING` must skip `check_pit`. Copy `eat.js` `Flying()` shape. Do not rewrite `confer_oc_oprop`. Not steal.c `remove_worn_item`. Source: reviews/loop-unattended/43-453e759c-can-reach-floor-ceiling-hider.md **Addressed:** D-1085 `3e1a74e8`

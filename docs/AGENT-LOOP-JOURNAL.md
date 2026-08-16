@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 16:05 — #1383 D-1087 rndcurse Antimagic shieldeff
+
+**Objective:** Open queue — `sit.c` `rndcurse` `shieldeff` (named
+omit). Not update_inventory / hcolor.
+**C locus:** `sit.c` `rndcurse` (~581–583); `display.c` `shieldeff`
+(~1109–1124); `decl.c` `shield_static`; `display.h` SHIELD_COUNT 21.
+**Change:** `display.js` `shieldeff` matches C (sparkle opt_out On;
+`cansee`; 21 ASCII S_ss1..4 + `flush_screen(1)` + `nh_delay_output`;
+`newsym` restore). `rndcurse` awaits it on Antimagic. Did not pull
+`update_inventory` / hcolor / other callers. Filled D-1086 hash
+`89a97acc`. Rotated #1369 to archive. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1380** **44**/44; next
+@**#1385**).
+**Verified:** private canary 8/8 (21-frame `shield_static`; `!sparkle`
+/ `!cansee` skip; `rndcurse` Antimagic 21 vs !Antimagic 0);
+green+strict seed8000/0900; cohort **9**/9 (0106/0107/0108/4500/
+1500/1800/0017/0360/2200) + sit strict.
+**Next:** Open `makemon.c` `m_initweap` `ptr.msound` MS_GUARDIAN /
+MS_PRIEST.
+**Blocked:** none.
+
 ## 2026-08-16 15:32 — #1382 D-1086 steal.c remove_worn_item armor *_off
 
 **Objective:** Open queue — `steal.c` `remove_worn_item` armor
@@ -294,25 +315,5 @@ archive. Rule #2: no fs.
 **Score:** cadence **#1370** **44**/44 Scr **11405**/11405 RNG **100%**
 speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
 **Verified:** full `sessions` **44**/44; role-init throws **0**/44.
-**Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
-**Blocked:** none.
-
-## 2026-08-16 12:14 — #1369 D-1077 is_lava DRAWBRIDGE_UP+DB_LAVA
-
-**Objective:** Open queue — `hack.c` `is_lava` includes DRAWBRIDGE_UP
-+ `DB_LAVA` (named from D-1060).
-**C locus:** `dbridge.c` `is_lava` (~62–74); `rm.h` `DB_LAVA`/`DB_UNDER`.
-**Change:** shared `hack.js` `is_lava` matches C (LAVAPOOL/LAVAWALL or
-DRAWBRIDGE_UP with `drawbridgemask & DB_UNDER == DB_LAVA`). `mon.js`
-`mfndpos` uses that helper instead of a LAVAPOOL/LAVAWALL-only clone.
-Did not pull `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT. Stamped review
-19 named omit **Addressed:** D-1077. Rule #2: no fs. Rotated #1354
-to archive.
-**Score:** fortress unchanged (cadence **#1365** **44**/44; next
-@**#1370**).
-**Verified:** private canary (UP+DB_LAVA true; ICE/MOAT/FLOOR/DOWN
-false); green+strict seed8000/0900; cohort **15**/15
-(8000/0900/1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/
-2200/0009) + strict 0014/4500/0360/2200. Path public-unhit.
 **Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
 **Blocked:** none.

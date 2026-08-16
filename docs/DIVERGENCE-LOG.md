@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1087 — sit.c rndcurse Antimagic shieldeff
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omit — `rndcurse` Antimagic arm skipped C
+  `shieldeff(u.ux, u.uy)` flash (`sit.c` after Magicbane return,
+  before the malignant-aura `You`).
+- **Cause:** D-0969 ported Magicbane / invent / SPFX_INTEL / steed
+  saddle and left `shieldeff` as a comment; `display.c` `shieldeff`
+  was absent.
+- **C locus:** `sit.c` `rndcurse` (~581–583); `display.c`
+  `shieldeff` (~1109–1124); `decl.c` `shield_static[SHIELD_COUNT]`;
+  `display.h` `SHIELD_COUNT` 21; `defsym.h` S_ss1..S_ss4; `optlist.h`
+  `sparkle` opt_out default On.
+- **Fix:** `display.js` `shieldeff` matches C (`flags.sparkle ===
+  false` skip so missing JS field ≡ On; `cansee`; 21
+  `show_glyph_cell` + `flush_screen(1)` + `nh_delay_output`;
+  `newsym` restore). `rndcurse` `await shieldeff(u.ux, u.uy)` on
+  Antimagic. ASCII defsym glyphs ('0' '#' '@' '*' / HI_ZAP). Rule
+  #2: no fs.
+- **Deferred:** `update_inventory` redraw; Hallucination `hcolor`;
+  DEC/showsyms S_ss* remap; explode.c inline sparkle;
+  `shieldeff_mon`; zap/pray/spell/trap/mhitm/uhitm/muse/mcastu
+  callers still unwired.
+- **Verify:** private canary **8**/8 (default On 21-frame
+  `shield_static` sequence; `!sparkle` skip; `!cansee` skip;
+  explicit true; `rndcurse` !Antimagic 0 frames; Antimagic 21
+  before invent). Green+strict PASS; sit/pray cohort **9**/9
+  (0106/0107/0108/4500/1500/1800/0017/0360/2200) + sit strict.
+  Path public-unhit for Antimagic `rndcurse`.
+- **Files:** `js/display.js`, `js/sit.js`.
+
 ## D-1086 — steal.c remove_worn_item armor *_off / unpunish / setnotworn
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
