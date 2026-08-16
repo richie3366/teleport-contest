@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1095 | fixed | `split_mon` trap rust / minliquid / uhitm AD_COLD | map-driven; C `trap.c:1652–1720` / `mon.c:987–992` / `uhitm.c:6078–6082`; `healmon` monster arm; drown/mhitu/mhitm/cmd still named |
 | D-1094 | fixed | makemon MS_NEMESIS mitem `ptr.msound` | map-driven; C `role.c:2049–2056` overlay + `makemon.c:1378`; not `urole.neminum`; Tourist Master of Thieves; PM_NINJA weap still named |
 | D-1093 | fixed | dogmove pal/target numeric `ptr.msound` | map-driven; C `dogmove.c` find_friends/score_targ/dog_move; MS_LEADER=36 / GUARDIAN=38 not string `'MS_LEADER'`; perceives/conf/faith still named |
 | D-1092 | fixed | makemon S_ORC/S_UNICORN mlet peace | map-driven; C `makemon.c:1335–1342`; elf `Race_if` orcs hostile; `is_unicorn` co-align always peaceful (pony skip); 5.0 no S_ELF mlet; dprince/raven/emin still named |
@@ -22,7 +23,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-1081 | fixed | eat `cprefx` rider `revive_corpse` after lifesave | map-driven; C `eat.c:831–849` / `do.c:2111–2246`; tin skip; `zero_victual`; floor rider suffixes; MINVENT/CONTAINED/BURIED + Adjmonnam named |
 | D-1080 | fixed | shk `u_entered_shop` deserted/angry/Invis/doorway | map-driven; C `shk.c:723–917`; empty_shops latch; carrying walks `game.invent`; SetVoice/Soundeffect/Hallu named |
 | D-1079 | fixed | makemon `peace_minded`/`set_malign` `ptr.msound` | map-driven; C `makemon.c:2268–2366`; MS_LEADER −20 before always_peaceful; GUARDIAN/NEMESIS peace; `m_initweap` still mndx |
-| D-1078 | fixed | sit `split_mon` monster `clone_mon` | map-driven; C `potion.c:2899–2912` / `makemon.c:837–943`; sit local else no longer `return null`; trap/mon/uhitm callers still named |
+| D-1078 | fixed | sit `split_mon` monster `clone_mon` | map-driven; C `potion.c:2899–2912` / `makemon.c:837–943`; sit local else no longer `return null`; trap rust/minliquid/uhitm AD_COLD later D-1095 |
 | D-1077 | fixed | `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | map-driven; C `dbridge.c:62–74`; shared `hack.js`; mfndpos uses it; `is_pool`/`is_moat` later D-1090 |
 | D-1076 | fixed | trap hero `trapeffect_pit`/`trapeffect_hole` VIASITTING | map-driven; C `trap.c:1835–2025`; `set_utrap(rn1(6,2), TT_PIT)`; spikes/`poisoned`; hole `Can_fall_thru`; `check_in_air` youprop Lev/Fly; Punished `ballfall` still omit |
 | D-1075 | fixed | sit `dosit` `lay_an_egg` after throne | map-driven; C `sit.c:357–396`/`559–560`; male/hunger/tetra/Sargasso `ECMD_OK`; spawn vs lay; `egg_type_from_parent` in `mon.js`; not having-fun |

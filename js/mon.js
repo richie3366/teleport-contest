@@ -13,9 +13,10 @@ import {
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
     ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
+    IS_FOUNTAIN,
     ismnum, M_POISONGAS_OK, u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_MIGRATING, MON_DETACH,
 } from './const.js';
-import { t_at } from './trap.js';
+import { t_at, m_harmless_trap, water_damage_chain } from './trap.js';
 import {
     nohands, verysmall, throws_rocks, passes_walls, lays_eggs, mons,
     monsterNames, NON_PM, LOW_PM, mon_knows_traps, tunnels, needspick,
@@ -27,7 +28,6 @@ import {
     is_undead, amphibious, can_teleport, MR_FIRE, mindless, G_UNIQ,
     is_watch,
 } from './monsters.js';
-import { m_harmless_trap } from './trap.js';
 import {
     little_to_big, big_to_little, hero_conflict, resist_conflict,
     m_canseeu,
@@ -56,6 +56,7 @@ import { vtense } from './objnam.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
+const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
@@ -1090,11 +1091,31 @@ function mondead_liquid(mtmp) {
 }
 
 /**
+ * C ref: mon.c healmon. Monster HP bump + optional max overheal.
+ * youmonst healup arm named (potion.js cycle via eat/sit).
+ */
+export function healmon(mtmp, amt, overheal) {
+    if (!mtmp || mtmp === game.youmonst) return 0;
+    const oldhp = mtmp.mhp | 0;
+    amt |= 0;
+    overheal |= 0;
+    if (oldhp + amt > (mtmp.mhpmax | 0) + overheal) {
+        mtmp.mhpmax = (mtmp.mhpmax | 0) + overheal;
+        mtmp.mhp = mtmp.mhpmax | 0;
+    } else {
+        mtmp.mhp = oldhp + amt;
+        if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhpmax = mtmp.mhp | 0;
+    }
+    return (mtmp.mhp | 0) - oldhp;
+}
+
+/**
  * C ref: mon.c minliquid / minliquid_core — liquid compatibility; 1=died.
- * Named omissions: gremlin split_mon/dryup; iron-golem rust d(2,6);
- * steed Flying/Levitation gate; fire_damage_chain / water_damage_chain;
+ * Envelope: gremlin pool/fountain rn2(3)→split_mon + dryup (D-1095).
+ * Named omissions: iron-golem rust d(2,6); steed Flying/Levitation gate;
+ * fire_damage_chain; lava/pool water_damage_chain on non-gremlin;
  * deal_with_overcrowding; xkilled(!mon_moving); engulfing_u drown flush;
- * fountain-only gremlin arm; pline death messages.
+ * pline death messages.
  */
 export async function minliquid(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return 1;
@@ -1106,9 +1127,23 @@ export async function minliquid(mtmp) {
         && (!(is_flyer(ptr) || is_floater(ptr)) || Is_waterlevel(game.u?.uz));
     const inlava = is_lava(mx, my)
         && !(is_flyer(ptr) || is_floater(ptr));
+    const infountain = IS_FOUNTAIN(game.level?.at?.(mx, my)?.typ);
 
     // steed Flying/Levitation deferred — usteed rare on this path
-    // gremlin split_mon / iron-golem rust / fountain arms deferred
+
+    // C minliquid_core:987–992 — gremlin split before iron-golem / lava
+    if ((ptr?.mndx ?? -1) === PM_GREMLIN && (inpool || infountain) && rn2(3)) {
+        const { split_mon } = await import('./sit.js');
+        if (await split_mon(mtmp, null)) {
+            const { dryup } = await import('./fountain.js');
+            await dryup(mx, my, false);
+        }
+        if (inpool) {
+            await water_damage_chain(mtmp.minvent, false);
+        }
+        return 0;
+    }
+    // iron-golem rust d(2,6) still named
 
     if (inlava) {
         if (!is_clinger(ptr) && !likes_lava(ptr)) {

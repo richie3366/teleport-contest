@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 18:12 — #1393 D-1095 split_mon rust/minliquid/uhitm AD_COLD
+
+**Objective:** Open queue — `potion.c` `split_mon` trap rust /
+`minliquid` / uhitm AD_COLD callers (named from D-1078). Not sit
+clone_mon.
+**C locus:** `trap.c` rust 1652–1720; `mon.c` `minliquid_core`
+987–992 / `healmon` 4596–4614; `uhitm.c` `passive` AD_COLD
+6078–6082.
+**Change:** rust hero+monster gremlin `split_mon`; minliquid
+gremlin pool/fountain `rn2(3)` → split + `dryup` + pool
+`water_damage_chain`; AD_COLD `healmon` then split on mhpmax
+gate. Did not pull drown/mhitu/mhitm/cmd. Filled D-1094 hash
+`46775b20`. Rotated #1378. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1390** **44**/44; next
+@**#1395**).
+**Verified:** private canary **6**/6; green+strict seed8000/0900;
+cohort **15**/15 + strict 0014/0360/4500/2200. Path public-unhit.
+**Next:** Open `fountain.c` `dryup` wizard yn.
+**Blocked:** none.
+
 ## 2026-08-16 18:00 — #1392 D-1094 MS_NEMESIS mitem ptr.msound
 
 **Objective:** Open queue — `makemon.c` `m_initweap` MS_NEMESIS
@@ -341,23 +362,4 @@ kept + Never_mind; atoi 5 take_gold; atoi 13 pretzel; 0/empty keep
 rnd); green+strict seed8000/0900; cohort **12**/12 + strict
 1800/4500/2200.
 **Next:** Open `steal.c` `remove_worn_item` armor `*_off`.
-**Blocked:** none.
-
-## 2026-08-16 14:38 — #1378 D-1083 can_reach_floor check_pit teeter/shaft
-
-**Objective:** Open queue — `engrave.c` `can_reach_floor(check_pit)`
-teeter/shaft (named from D-1073). Not ceiling_hider.
-**C locus:** `engrave.c` `can_reach_floor` (~209–211); `trap.c`
-`uteetering_at_seen_pit` / `uescaped_shaft`.
-**Change:** after Flying||MZ_HUGE, `check_pit && t_at &&
-(uteetering || uescaped)` returns FALSE. In-pit / unseen still
-reach. Did not pull invent/pickup `trap&&is_pit` callers or
-`cant_reach_floor`. Filled D-1082 Addressed hash `453e759c`.
-Rotated #1364 to archive. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1375** **44**/44; next
-@**#1380**).
-**Verified:** private canary 16/16 (teeter/in-pit/unseen/shaft/
-Flying/MZ_HUGE/swallow/Levitation); green+strict seed8000/0900;
-cohort **14**/14 + strict 1800/0004/0101/0103/0360/2200/4500.
-**Next:** Open `sit.c` `throne_sit_effect` wizard getlin.
 **Blocked:** none.

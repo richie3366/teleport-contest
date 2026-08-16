@@ -122,7 +122,7 @@ None that Must-fix this next iter. The claimed msound gates match `makemon.c`.
 Named omits / do-nots (map / Open, not Must-fix):
 
 1. `PM_NINJA` weap between priest and guardian (`makemon.c:270–272`). Do not pull into `is_pool` / sit Antimagic.
-2. MS_NEMESIS mitem `ptr.msound` not `urole.neminum`. **Addressed:** D-1094
+2. MS_NEMESIS mitem `ptr.msound` not `urole.neminum`. **Addressed:** D-1094 `46775b20`
 3. `dogmove.js` string `'MS_LEADER'` **Addressed:** D-1093 `e0b68f1d`. S_ORC/S_ELF/unicorn peace **Addressed:** D-1092 `c3f28bfd`.
 4. Local `MS_*` duplicates `sounds.js` — values match `monflag.h` today (review **40** clone hazard).
 

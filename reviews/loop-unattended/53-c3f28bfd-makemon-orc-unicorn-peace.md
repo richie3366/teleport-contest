@@ -138,7 +138,7 @@ None that Must-fix this next iter. The claimed mlet arms match `makemon.c`.
 Named omits / do-nots (map / Open, not Must-fix):
 
 1. `dogmove.c` pal/target tests must compare numeric `ptr.msound` not string `'MS_LEADER'`. **Addressed:** D-1093 `e0b68f1d`
-2. `makemon.c` `m_initweap` MS_NEMESIS mitem `ptr.msound` not `urole.neminum`. **Addressed:** D-1094
+2. `makemon.c` `m_initweap` MS_NEMESIS mitem `ptr.msound` not `urole.neminum`. **Addressed:** D-1094 `46775b20`
 3. `MM_ANGRY` before `peace_minded` (`makemon.c:1299`).
 4. dprince `MS_BRIBE` peace; raven `BEC_DE_CORBIN`; emin/angel roaming.
 5. Do not invent `S_ELF` mlet. Do not skip `peace_minded` `rn2` because the override will fire.

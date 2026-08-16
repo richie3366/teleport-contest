@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1095 — split_mon trap rust / minliquid / uhitm AD_COLD
+
+- **Status:** fixed (map-driven Open; named from D-1078; not a public FAIL)
+- **Symptom:** D-1078 ported `split_mon`/`clone_mon` but trap rust,
+  `minliquid`, and uhitm `passive` AD_COLD still skipped the C
+  call sites (rust burned `rn2(3)` then no-op; minliquid drowned
+  pool gremlins; AD_COLD burned `rn2(2)` without `healmon`).
+- **C locus:** `trap.c` `trapeffect_rust_trap` (~1652–1654,
+  1719–1720); `mon.c` `minliquid_core` (~987–992) / `healmon`
+  (~4596–4614); `uhitm.c` `passive` AD_COLD (~6078–6082);
+  `potion.c` `split_mon` already D-1078.
+- **Fix:** rust hero+monster gremlin `split_mon(…, NULL)`;
+  minliquid gremlin pool/fountain `rn2(3)` → `split_mon` then
+  `dryup(…, FALSE)` and pool `water_damage_chain`; AD_COLD
+  `healmon((tmp+rn2(2))/2, (tmp+1)/2)` then `split_mon` when
+  `mhpmax > (m_lev+1)*8`. Rule #2: no fs.
+- **JS:** `js/trap.js`, `js/mon.js`, `js/uhitm.js` (`split_mon`
+  stays in `sit.js` — potion/eat cycle).
+- **Not this iter:** drown gremlin/iron golem; minliquid iron-golem
+  rust; steed Flying/Lev; mhitu `passiveum` / mhitm AD_COLD;
+  cmd `#polyself` split; `healmon` youmonst `healup`; heat
+  `s_suffix(mon_nam)`.
+- **Verify:** private canary **6**/6 (pool split 20→10/10; rust
+  mintrap split; `healmon` 4/2 and cap; AD_COLD heal/split;
+  fountain gremlin does not drown); green+strict seed8000/0900;
+  cohort **15**/15 (1500/1800/0060/0102/0700/0017/0106/0107/
+  0014/0009/0360/4500/2200 + green) + strict 0014/0360/4500/2200.
+  Path public-unhit.
+- **Files:** `js/trap.js`, `js/mon.js`, `js/uhitm.js`.
+
 ## D-1094 — makemon MS_NEMESIS mitem ptr.msound
 
 - **Status:** fixed (map-driven Open; named after D-1053/D-1088; not a public FAIL)

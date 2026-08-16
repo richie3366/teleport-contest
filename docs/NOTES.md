@@ -10,21 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
   next @**#1395**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 9
-  after **D-1094** (no refill; still ≥8). Reviews **50–53**
+- Mode: **map-driven** under fortress. Must-fix empty. Open 8
+  after **D-1095** (no refill; still ≥8). Reviews **50–53**
   **ACCEPT** (D-1089…D-1092); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1094**. Prior **46** ACCEPT,
+- Latest ports: **D-1089**…**D-1095**. Prior **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
   D-1089, **49** ACCEPT.
-- **Next cluster:** Open `potion.c` `split_mon` trap rust /
-  `minliquid` / uhitm AD_COLD callers (named from D-1078).
-  Not sit clone_mon.
-- **Hypothesis:** none live. D-1094 shipped: C `role_init`
-  writes `mons[neminum].msound = MS_NEMESIS`; mitem is
-  `ptr->msound` not `urole.neminum`.
+- **Next cluster:** Open `fountain.c` `dryup` wizard yn (named).
+  Not angry_guards.
+- **Hypothesis:** none live. D-1095 shipped: rust/`minliquid`/
+  uhitm AD_COLD call `split_mon`; `healmon` monster arm.
 
 ## Don't re-check (≤15)
 
@@ -51,8 +49,8 @@ Objective/score live in `CURRENT.md`.
   POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
   `IS_LAVA` macros (D-1091) / invent `S_ELF` mlet (D-1092) /
   restore dogmove string `'MS_LEADER'` (D-1093) / restore
-  MS_NEMESIS mitem `urole.neminum` or mutate generated `msounds[]`
-  globally (D-1094; overlay is on `game`).
+  MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
+  uhitm AD_COLD `split_mon` (D-1095).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -61,9 +59,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
+- **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
+  `healmon` monster arm. Drown/mhitu/mhitm/cmd still named.
 - **D-1094:** `role_init` quest-pm overlay + makemon mitem
-  `ptr.msound == MS_NEMESIS`. Tourist Master of Thieves is
-  table `MS_LEADER` until overlay. PM_NINJA weap still named.
+  `ptr.msound == MS_NEMESIS`. Hash `46775b20`.
 - **D-1093:** `dogmove` pal/target `ptr.msound` numeric
   MS_LEADER=36 / MS_GUARDIAN=38. Hash `e0b68f1d`.
 - **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;

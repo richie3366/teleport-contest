@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `split_mon` trap rust / `minliquid` / uhitm AD_COLD callers (named from D-1078). Not sit clone_mon.
 - [ ] `fountain.c` `dryup` wizard yn (named). Not angry_guards.
 - [ ] `mon.c` `kill_eggs` after genocide (named from sit D-1034). Not seffects SCR_GENOCIDE.
 - [ ] `read.c` `seffects` SCR_GENOCIDE (named from sit). Not kill_eggs.
