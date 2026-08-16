@@ -71,7 +71,7 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `sit.c` `split_mon` monster `clone_mon` arm (JS named omit). Must-fix empty. Queue 9. Cadence @**#1375**.
+**Next cluster:** Open — `sit.c` `split_mon` monster `clone_mon` arm (JS named omit). Must-fix empty (review **38** ACCEPT D-1077). Queue 9. Cadence @**#1375**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300

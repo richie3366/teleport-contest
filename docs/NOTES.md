@@ -11,7 +11,7 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1370**;
   next @**#1375**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty (reviews **36** ACCEPT D-1075;
+  LB). Must-fix empty (review **38** ACCEPT D-1077;
   **37** ACCEPT-WITH-DEBT D-1076 — Punished `ballfall` /
   Sokoban air named, not Must-fix). Keep 8–12 open rows;
   refill from the map when below 8.
@@ -19,11 +19,10 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1077** `is_lava` DRAWBRIDGE_UP+`DB_LAVA` on shared
-  `hack.js` (C `dbridge.c`); mfndpos uses it. Do not restore
-  LAVAPOOL/LAVAWALL-only. `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT
-  still named. Reviews **36**/**37** closed D-1075/`f21410e1` and
-  D-1076/`87b4b7cb`.
+- Latest: review **38** ACCEPT `a9e819a4` D-1077 (`is_lava`
+  DRAWBRIDGE_UP+`DB_LAVA`; mfndpos uses shared helper). Do not
+  restore LAVAPOOL/LAVAWALL-only. `is_pool`/`is_moat`
+  DRAWBRIDGE_UP+DB_MOAT still named. Cadence **#1370** fortress held.
 - **Next cluster:** Open `sit.c` `split_mon` monster `clone_mon` arm.
 - **Hypothesis:** JS `split_mon` returns null when `mon !== youmonst`;
   C `potion.c` calls `clone_mon(mon, 0, 0)` and halves both mhpmax.
@@ -81,8 +80,8 @@ Objective/score live in `CURRENT.md`.
 - Suite after cadence **#1370**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
 - **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
-  (`dbridge.c`). mfndpos uses shared helper. `is_pool`/`is_moat`
-  DRAWBRIDGE_UP+DB_MOAT still named.
+  (`dbridge.c`). mfndpos uses shared helper. Review **38** ACCEPT.
+  `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.
 - **D-1076:** hero `trapeffect_pit`/`trapeffect_hole` under
   `dotrap` `VIASITTING`. `set_utrap(rn1(6,2))`; spikes/`poisoned`;
   hole `Can_fall_thru`. Punished `ballfall` still omit.

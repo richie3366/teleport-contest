@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 12:21 — #1371 review D-1077 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`a9e819a4` D-1077) against pinned C, not
+the journal. `9903fb6c` is docs-only cadence #1370.
+**C locus:** `dbridge.c` `is_lava` 62–74; `rm.h` `DB_LAVA`/`DB_UNDER`;
+`sit.c` 539; `mon.c` `mfndpos` 2258 / `minliquid` 971.
+**Change:** review **38** ACCEPT (shared `hack.js` `is_lava` DRAWBRIDGE_UP
++`DB_LAVA`; `mfndpos` uses it, clone deleted). `is_pool`/`is_moat` and
+`goodpos` macros named, not Must-fix. No `js/` edits. Rule #2: no fs.
+Rotated #1356 to archive.
+**Score:** fortress unchanged (cadence **#1370** **44**/44; next
+@**#1375**).
+**Verified:** C read of `dbridge.c:46–113`, `rm.h:75`/`217`/`291–295`,
+`sit.c:539–555`, `mon.c:971–972`/`2256–2259`, `teleport.c:134–175`;
+JS hunks grepped FORCE/fs/seed.
+**Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
+**Blocked:** none.
+
 ## 2026-08-16 12:20 — #1370 cadence score refresh
 
 **Objective:** mandatory cadence full `sessions` (@#1370 % 5 == 0);
@@ -306,24 +325,5 @@ PASS; cohort **14**/14 (8000/0900/1500/1800/0060/0102/0700/0106/
 0107/0101/0116/2200/4500/0009). Path unhit.
 **Next:** Open `can_reach_floor` ustuck AT_HUGS + `!sticks` (before
 dosit lap).
-**Blocked:** none.
-
-## 2026-08-16 09:50 — #1356 review D-1069 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`872d1d93` D-1069) against pinned C, not
-the journal. `8314cc94` is docs-only cadence #1355.
-**C locus:** `sit.c` `dosit` 414–421; `engrave.c` `can_reach_floor`;
-`youprop.h` `Levitation`; `do_wear.js` `confer_oc_oprop` LEVITATION.
-**Change:** review **30** QUALITY-RISK (sit.c three-message envelope
-+ swallow match; helper Levitation is sticky `u.Levitation`, not
-`(H||E)&&!B`). Must-fix prepended. No `js/` edits. Rule #2: no fs.
-Rotated #1341 to archive.
-**Score:** fortress unchanged (cadence **#1355** **44**/44; next
-@**#1360**).
-**Verified:** C read of `sit.c:398–429`, `engrave.c:187–214`,
-`youprop.h:235–240`; grep `u.Levitation=` empty in `js/`; hunk
-grepped FORCE/fs/seed.
-**Next:** Must-fix `can_reach_floor` Levitation `(H||E)&&!B`.
 **Blocked:** none.
 
