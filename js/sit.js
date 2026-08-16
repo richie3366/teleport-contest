@@ -17,8 +17,11 @@
 // when uteetering_at_seen_pit or uescaped_shaft (D-1073; C sit.c
 // 437–439 / trap.c; helpers in trap.js) + dragon coin hoard
 // "meager " vs money_cnt(invent) < ulevel*1000 (D-1074; C sit.c
-// 443–446 / hack.c money_cnt first COIN_CLASS quan).
-// C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
+// 443–446 / hack.c money_cnt first COIN_CLASS quan) + lay_an_egg
+// after IS_THRONE (D-1075; C sit.c 357–396 / 559–560; male / hunger /
+// splash tetra / Sargasso ECMD_OK; spawn vs lay; egg_type_from_parent
+// in mon.js).
+// C ref: sit.c dosit / lay_an_egg / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
 // potion.js/mhitu.js: eat←potion, zap←mhitu cycles).
@@ -53,13 +56,14 @@
 // VS-goto/msummon/ confused remove-curse HConfusion-only D-1048 /
 // poly/acid/shuffle) + ordinary throne_sit_effect 1–13 (adjattrib/shock/
 // heal/take_gold/luck-wish/courtmon/genocide/ curse/see-invis mapping/
-// aggravate-tele/identify/pretzel), default having-fun; attrcurse
+// aggravate-tele/identify/pretzel), lays_eggs → lay_an_egg (D-1075)
+// else default having-fun; attrcurse
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
 // Deferred: can_reach_floor ceiling_hider/MZ_HUGE and
 // check_pit teeter/shaft (engrave.js), wizard getlin / Analyze y_n,
-// lay_an_egg; clone_mon monster split_mon;
+// clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
 // pit/hole dotrap bodies still named-omit in trap.js. take_gold calls
@@ -91,12 +95,16 @@ import {
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     SPIKED_PIT, VIASITTING,
 } from './const.js';
-import { objects_at, delobj, curse, unbless } from './mkobj.js';
+import {
+    objects_at, delobj, curse, unbless, mksobj, weight, set_corpsenm, stackobj,
+} from './mkobj.js';
+import { observe_object } from './invent.js';
+import { egg_type_from_parent } from './mon.js';
 import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
 import {
     amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
-    humanoid, likes_lava, is_hider, monsterNames, is_neuter, G_UNIQ,
+    lays_eggs, humanoid, likes_lava, is_hider, monsterNames, is_neuter, G_UNIQ,
 } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -117,8 +125,11 @@ const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
 const WATER_WALKING_BOOTS = objectNames.indexOf('WATER_WALKING_BOOTS');
+const EGG = objectNames.indexOf('EGG');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_TRAPPER = monsterNames.indexOf('PM_TRAPPER');
+const PM_GIANT_EEL = monsterNames.indexOf('PM_GIANT_EEL');
+const PM_ELECTRIC_EEL = monsterNames.indexOf('PM_ELECTRIC_EEL');
 const CLOTH = 6; // objclass.h obj_material_types
 
 /** C youprop.h:279 `#define Underwater (u.uinwater)`. */
@@ -1054,6 +1065,66 @@ function money_cnt(invent) {
 }
 
 /**
+ * C objects.h FOOD("egg", …, 80, …). Extractor may omit oc_nutrition.
+ */
+function egg_oc_nutrition() {
+    const oc = game.objects?.[EGG];
+    if (oc?.oc_nutrition != null) return oc.oc_nutrition | 0;
+    return 80;
+}
+
+/**
+ * C ref: sit.c lay_an_egg — hero lays/spawns after furniture/throne.
+ * dropy/morehungry via dynamic import (do←engrave←hack←eat←sit;
+ * eat already imports sit).
+ */
+async function lay_an_egg() {
+    const u = game.u || {};
+    const data = game.youmonst?.data;
+    if (!game.flags?.female) {
+        await pline(
+            `${Hallucination()
+                ? 'You may think you are a platypus, but a male still'
+                : 'Males'} can't lay eggs!`,
+        );
+        return ECMD_OK;
+    } else if ((u.uhunger | 0) < egg_oc_nutrition()) {
+        await pline("You don't have enough energy to lay an egg.");
+        return ECMD_OK;
+    } else if (eggs_in_water(data)) {
+        if (!(Underwater() || Is_waterlevel(u.uz))) {
+            await pline('A splash tetra you are not.');
+            return ECMD_OK;
+        }
+        // C: youmonst.data == &mons[PM_*] — JS mons() is a new object
+        // each call, so compare umonnum (≡ data.mndx when poly is consistent).
+        if (Upolyd(u)
+            && ((u.umonnum | 0) === PM_GIANT_EEL
+                || (u.umonnum | 0) === PM_ELECTRIC_EEL)) {
+            await pline('You yearn for the Sargasso Sea.');
+            return ECMD_OK;
+        }
+    }
+    const uegg = mksobj(EGG, false, false);
+    uegg.spe = 1;
+    uegg.quan = 1;
+    uegg.owt = weight(uegg);
+    // C: set_corpsenm(uegg, egg_type_from_parent(u.umonnum, FALSE))
+    set_corpsenm(uegg, egg_type_from_parent(u.umonnum | 0, false));
+    uegg.known = 1;
+    observe_object(uegg);
+    await pline(
+        `You ${eggs_in_water(data) ? 'spawn' : 'lay'} an egg.`,
+    );
+    const { dropy } = await import('./do.js');
+    await dropy(uegg);
+    stackobj(uegg);
+    const { morehungry } = await import('./eat.js');
+    morehungry(egg_oc_nutrition());
+    return ECMD_TIME;
+}
+
+/**
  * C ref: sit.c dosit — #sit
  */
 export async function dosit() {
@@ -1289,7 +1360,10 @@ export async function dosit() {
         return ECMD_TIME;
     }
 
-    // lay_an_egg deferred → default
+    // C sit.c dosit: else if (lays_eggs(youmonst.data)) return lay_an_egg();
+    if (lays_eggs(game.youmonst?.data)) {
+        return lay_an_egg();
+    }
     await pline(`Having fun sitting on the ${surface(u.ux, u.uy)}?`);
     return ECMD_TIME;
 }

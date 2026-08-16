@@ -18,14 +18,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1074** `dosit` dragon `COIN_CLASS` prefixes
-  `"meager "` when `obj.quan + money_cnt(invent) < ulevel * 1000`.
-  C `hack.c` `money_cnt` is first coin pile, not a sum. Local in
-  `sit.js`. Did not pull `lay_an_egg` / `clone_mon` split_mon.
-- **Next cluster:** Open `sit.c` `dosit` `lay_an_egg` at end of
-  function. Not hider / reach / ustuck / ceiling_hider.
-- **Hypothesis:** JS egg-layer `#sit` takes having-fun; C
-  `lays_eggs(youmonst.data)` returns `lay_an_egg()`.
+- Latest: **D-1075** `dosit` `lays_eggs` → `lay_an_egg()` after
+  IS_THRONE. Male / hunger / tetra / Sargasso `ECMD_OK`; else
+  typed egg + `morehungry(80)`. `egg_type_from_parent` in `mon.js`.
+  Did not pull `clone_mon` split_mon / wizard getlin / `shieldeff`.
+- **Next cluster:** Open `trap.c` hero pit/hole bodies under
+  `dotrap` `VIASITTING` (named from D-1039).
+- **Hypothesis:** JS `dotrap` VIASITTING skips hero pit/hole
+  bodies that C `trap.c` runs.
 
 ## Don't re-check (≤15)
 
@@ -67,14 +67,19 @@ Objective/score live in `CURRENT.md`.
   6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`). Do not skip dosit OBJ_AT
   picnic on `uteetering_at_seen_pit`/`uescaped_shaft` (D-1073).
   Do not restore dragon sit always-bare “hoard” (D-1074); C
-  `money_cnt` is first `COIN_CLASS`, not a sum.
+  `money_cnt` is first `COIN_CLASS`, not a sum. Do not restore
+  oviparous `#sit` having-fun (D-1075); do not skip male/hunger/
+  tetra/Sargasso `ECMD_OK`; do not put `egg_type_from_parent` in
+  sit.js (C `mon.c`; `force_ordinary` short-circuits `rn2(77)`).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1365**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1370**.
+- **D-1075:** `dosit` `lay_an_egg` after throne. Male/hungry/tetra/
+  Sargasso `ECMD_OK`; `egg_type_from_parent` in `mon.js`.
 - **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin
-  `money_cnt`. `lay_an_egg` still named.
+  `money_cnt`.
 - **D-1073:** `dosit` OBJ_AT skip picnic on seen-pit teeter /
   seen hole/trapdoor. Helpers in `trap.js`. In-pit still picnics.
   `can_reach_floor(check_pit)` still named on `engrave.js`.
@@ -90,9 +95,3 @@ Objective/score live in `CURRENT.md`.
   && `umonnum != PM_TRAPPER` → `u.uundetected=0`. No `newsym`.
 - **D-1067:** `dosit` steed `You("… %s.", mon_nam(usteed))` ARTICLE_THE.
   Unnamed saddled `"the saddled pony"`; named bare. Not `y_monnam`.
-- **D-1066:** tut-1 `tutorial()` → `l_nhcore_call` ENTER/LEAVE then
-  both `nhcore_call_available` FALSE. Lua NHCB cmd_before/`tutorial_turn`
-  still named. Knight jump / leftover `obfree` / `update_inventory` named.
-- **D-1065:** tut-1 `tut_key` → `nh.eckey`/`cmd_from_ecname`.
-  Kick `Ctrl-D`; loot `M-l`; tip `Alt-T`; untrap `M-u`;
-  twoweapon `X`. Knight jump still deferred.

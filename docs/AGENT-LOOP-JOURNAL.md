@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 11:32 — #1366 D-1075 dosit lay_an_egg after throne
+
+**Objective:** Open queue — `sit.c` `dosit` `lay_an_egg` at end of
+function. Not hider / reach / ustuck. Review 35 named omit 1.
+**C locus:** `sit.c` `lay_an_egg` (~357–396) / `dosit` (~559–560);
+`mon.c` `egg_type_from_parent`.
+**Change:** oviparous `#sit` returns `lay_an_egg()` instead of
+having-fun. Male / hunger `<` 80 / dry tetra / Upolyd giant or
+electric eel Sargasso → `ECMD_OK`. Else typed egg (`spe=1`,
+`egg_type_from_parent(umonnum,FALSE)` in `mon.js`, `dropy` /
+`stackobj` / `morehungry`). Did not pull `clone_mon` / wizard
+getlin / `shieldeff`. Stamped review 35 **Addressed:** D-1075.
+Rule #2: no fs. Rotated refill #1351 to archive.
+**Verified:** private canary (male/hungry/tetra/Sargasso `ECMD_OK`;
+pyrolisk egg parent+timed; queen→killer bee; human having-fun);
+green+strict seed8000/0900; cohort seed1500/1800/0060/0102/0700/0017.
+**Next:** Open `trap.c` hero pit/hole `dotrap` VIASITTING.
+**Blocked:** none.
+
 ## 2026-08-16 11:17 — #1365 review D-1073/D-1074 + cadence score
 
 **Objective:** review every JS-touching commit since
@@ -303,20 +322,5 @@ Rotated #1336/#1337 to archive.
 human stays 1; usteed skips clear. green+strict PASS; cohort
 **9**/9 (8000/0900/0106/0107/4500/1500/1800/0060/2200). Path unhit.
 **Next:** Open `dosit` `can_reach_floor(FALSE)`.
-**Blocked:** none.
-
-## 2026-08-16 09:18 — refill LOOP-QUEUE when below 8 open items
-
-**Objective:** empty-queue halt at #1351 was the supervisor blocking
-the agent from refilling; keep 8–12 Open rows from the map.
-**C locus:** n/a (queue hygiene). Next port: `sit.c` `dosit` hider.
-**Change:** filled 12 Open items (hider / `can_reach_floor` / ustuck /
-uteeter / hoard / `lay_an_egg` / VIASITTING pit / `is_lava` DB_LAVA /
-`clone_mon` / `msound` malign / shop doorway / rider `revive_corpse`).
-Supervisor no longer halts *before* a port when empty; injects refill
-when count < 8; halts *after* a port that is still empty.
-**Score:** unchanged (cadence still **#1350**).
-**Verified:** `bash -n` loop script; 12 `- [ ]` in LOOP-QUEUE.
-**Next:** `dosit` hider.
 **Blocked:** none.
 

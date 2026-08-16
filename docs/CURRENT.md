@@ -71,8 +71,8 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `sit.c` `dosit` `lay_an_egg` at end of
-function. Must-fix empty. Queue 12. Cadence @**#1370**.
+**Next cluster:** Open — `trap.c` hero pit/hole bodies under `dotrap`
+`VIASITTING` (named from D-1039). Must-fix empty. Queue 11. Cadence @**#1370**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
@@ -80,7 +80,7 @@ lines. Prefer delete-wrong-JS + re-port. See playbook §2a–2b.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1074. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1075. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
@@ -98,7 +98,7 @@ tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `l_create_object`; tut-1 `place_lregion`/`levregion_add`; tut-1
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
-Levitation `(H||E)&&!B` D-1070; hugs D-1071; lap D-1072; picnic teeter D-1073; dragon meager D-1074).
+Levitation `(H||E)&&!B` D-1070; hugs D-1071; lap D-1072; picnic teeter D-1073; dragon meager D-1074; lay_an_egg D-1075).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -111,7 +111,7 @@ no empty-`msound` chitter; no deser cobj parent `where`; no skip
 `dosit` pool/gremlin `in_water`; no “fix” second `water_damage` to
 `uarmf`; no restore sit `u.Underwater` alias; no restore sticky
 `u.Levitation` in `can_reach_floor` / sit `Levitation()` (D-1070);
-no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-1074) / `monmove.js` `sticks`;
+no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-1074) / oviparous having-fun (D-1075) / `monmove.js` `sticks`;
 no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;

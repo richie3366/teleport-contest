@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1075 — dosit lay_an_egg after IS_THRONE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS oviparous `#sit` on ordinary floor took the
+  having-fun default. C `sit.c` `dosit` `else if (lays_eggs)`
+  `return lay_an_egg()`.
+- **C locus:** `sit.c` `lay_an_egg` (~357–396) / `dosit` (~559–560);
+  `mon.c` `egg_type_from_parent` (~5568–5579).
+- **Fix:** `lays_eggs` returns `lay_an_egg()`. Male / hunger `<`
+  egg nutrition / dry `eggs_in_water` tetra / Upolyd giant or
+  electric eel Sargasso → `ECMD_OK`. Else `mksobj(EGG,FALSE,FALSE)`,
+  `spe=1`, `egg_type_from_parent(umonnum,FALSE)` (rn2(77) always;
+  queen→killer / winged gargoyle→gargoyle unless 1/77),
+  `set_corpsenm` + `observe_object` + spawn-vs-lay + `dropy` +
+  `stackobj` + `morehungry(80)`. `egg_type_from_parent` lives in
+  `mon.js` (C home). `dropy`/`morehungry` dynamic (do/eat cycles).
+- **JS:** `js/sit.js` `lay_an_egg` / `dosit`; `js/mon.js`
+  `egg_type_from_parent`. Rule #2: no fs.
+- **Not this iter:** `clone_mon` monster `split_mon`; wizard getlin;
+  `shieldeff`; polyself `learn_egg_type(..., TRUE)`; other
+  `money_cnt` sum clones.
+- **Verify:** private canary (male/hungry/tetra/Sargasso `ECMD_OK`;
+  pyrolisk egg `spe=1` corpsenm parent timed; queen→killer bee;
+  human having-fun); green+strict seed8000/0900; cohort
+  seed1500/1800/0060/0102/0700/0017. Path unhit on public sessions.
+
 ## D-1074 — dosit dragon money_cnt meager hoard
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

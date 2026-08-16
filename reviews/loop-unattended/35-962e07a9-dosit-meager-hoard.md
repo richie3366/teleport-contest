@@ -136,7 +136,7 @@ None from this SHA. The prefix, the `<` threshold, and the local first-pile `mon
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. **`dosit` `lay_an_egg`** (`sit.c:559–560`): live Open line. `return lay_an_egg();` at the end of the furniture/`IS_THRONE` chain. Do not pull `clone_mon` split_mon / wizard getlin / `shieldeff` this next iter.
+1. **`dosit` `lay_an_egg`** (`sit.c:559–560`): live Open line. `return lay_an_egg();` at the end of the furniture/`IS_THRONE` chain. Do not pull `clone_mon` split_mon / wizard getlin / `shieldeff` this next iter. **Addressed:** D-1075
 2. Other JS `money_cnt` sum clones (end/shk/invent/fountain/monmove). Equivalent under merge. Do not “align” them in the egg iter.
 3. Helper `ceiling_hider` / `MZ_HUGE`; `can_reach_floor(check_pit)` (Open); hero pit/hole `dotrap` bodies (Open).
 

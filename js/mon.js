@@ -424,6 +424,22 @@ export function can_be_hatched(mnum) {
 }
 
 /**
+ * C ref: mon.c egg_type_from_parent — #sit / learn_egg_type corpsenm.
+ * BREEDER_EGG is !rn2(77). `force_ordinary || !BREEDER_EGG` short-circuits
+ * the roll when force_ordinary is true (polyself); sit passes FALSE so
+ * rn2(77) always runs. Queen bee → killer bee and winged gargoyle →
+ * gargoyle unless the 1/77 breeder roll keeps the parent.
+ */
+export function egg_type_from_parent(mnum, force_ordinary) {
+    // C: if (force_ordinary || !BREEDER_EGG) with BREEDER_EGG (!rn2(77))
+    if (force_ordinary || rn2(77)) {
+        if (mnum === pm('QUEEN_BEE')) mnum = pm('KILLER_BEE');
+        else if (mnum === pm('WINGED_GARGOYLE')) mnum = pm('GARGOYLE');
+    }
+    return mnum;
+}
+
+/**
  * C ref: mon.c dead_species — genocided species (egg checks baby form too).
  */
 export function dead_species(m_idx, egg) {
