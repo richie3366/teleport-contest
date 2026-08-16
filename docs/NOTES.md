@@ -17,8 +17,8 @@ Objective/score live in `CURRENT.md`.
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1062** tut-1 large-box `create_object` (DRY
-  `get_location_coord` + `delete_contents` + container_obj). Reviews
-  **21** ACCEPT D-1060 (`ecd37108`), **22** ACCEPT D-1061 (`05915d9b`).
+  `get_location_coord` + `delete_contents` + container_obj). Review
+  **23** ACCEPT (`3ca1b544`). Reviews **21**/**22** ACCEPT D-1060/D-1061.
 - **Next cluster:** Open — tut-1 food objects only.
 - **Hypothesis:** none live. Next falsifier is the Open food
   cluster (C `des.object` apple/candy/lichen vs JS `tut1_object`).
@@ -84,7 +84,8 @@ Objective/score live in `CURRENT.md`.
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
 - **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
   / `create_object` (DRY `get_location_coord`, `delete_contents`,
-  container_obj). Was raw `rn2(sx/sy)` then `cobj=null`.
+  container_obj). Was raw `rn2(sx/sy)` then `cobj=null`. Review **23**
+  ACCEPT `3ca1b544`.
 - **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
   (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
   Review **22** ACCEPT `05915d9b`.
