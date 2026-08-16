@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1086 | fixed | steal `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` | map-driven; C `steal.c:213–290`; W_ARMOR → do_wear `*_off`; leftover `setnotworn` pointer-walk; unchain → `unpunish`; W_WEAPONS `*gone`; Amulet/Ring/Blindf still setworn |
 | D-1085 | fixed | engrave `Flying()` via `uprops[FLYING]` | review **43** Must-fix; C `youprop.h:247–255`; confer writes amulet extrinsic not `EFlying`; worn `AMULET_OF_FLYING` skips `check_pit`; other Flying clones named |
 | D-1084 | fixed | sit `throne_sit_effect` wizard getlin 1..13 | map-driven; C `sit.c:48–61`; `wizard && !debug_fuzzer` after `rnd(13)`; ESC Never_mind return; atoi 1..13 override; 0/empty keep rnd; Analyze y_n not this iter |
 | D-1083 | fixed | engrave `can_reach_floor(check_pit)` teeter/shaft | map-driven; C `engrave.c:209–211` / `trap.c` helpers; seen pit precipice / hole FALSE; in-pit/unseen/Flying still TRUE; invent/pickup `trap&&is_pit` callers + `cant_reach_floor` named |

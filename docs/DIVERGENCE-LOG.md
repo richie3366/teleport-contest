@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1086 — steal.c remove_worn_item armor *_off / unpunish / setnotworn
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** D-1049 gold-shaped `remove_worn_item` (sit clone) and
+  steal.js `remove_worn_item_steal` skipped C `steal.c` armor `*_off`,
+  `unpunish`, and `setnotworn` pointer-walk. Nymph theft of a fedora
+  skipped Archeologist luck; DSM skipped `dragon_armor_handling`;
+  leftover `owornmask` was zeroed instead of walking `worn[]` by
+  pointer; `worn_item_removal` never `unpunish`'d.
+- **C locus:** `steal.c` `remove_worn_item` (~213–290); callees
+  `do_wear.c` `Armor_off`/`Cloak_off`/`Boots_off`/`Gloves_off`/
+  `Helmet_off`/`Shield_off`/`Shirt_off`; `worn.c` `setnotworn`;
+  `read.c` `unpunish`; `wield.c` `*gone`.
+- **Fix:** export `Armor_off`/`Shirt_off`; steal.js
+  `remove_worn_item(obj, unchain_ball)` matches C dispatch (W_ARMOR
+  `*_off`, W_WEAPONS `*gone`, unchain → `unpunish`, leftover →
+  `setnotworn`). `worn_item_removal` passes TRUE; steal armor TRUE;
+  leftover W_WEAPONS FALSE. sit `take_gold` dynamic-imports the
+  steal.c helper (hack→eat cycle). Rule #2: no fs.
+- **Deferred:** `donning`/`cancel_don`; `in_use`; uskin `skinback`;
+  `Amulet_off`; `Ring_gone`/`Blindf_off` still `setworn`; stealarm
+  afternmv; `*_off` internal named omits (mummy wrapping, SPEED
+  boots, helm telepathy, …).
+- **Verify:** private canary **24**/24 (fedora luck; DSM
+  `EDrain_resistance`; cloak/boots/gloves/shield/shirt slots; stale
+  quiver pointer-walk; live quiver/`unweapon` `*gone`; unpunish
+  TRUE vs FALSE; take_gold quiver splice). Green+strict PASS; sit
+  cohort **4**/4 (0106/0107/0108/4500) + 1500/1800/0017/0360/2200
+  **9**/9 + sit strict. Path public-unhit for armor theft.
+- **Files:** `js/steal.js`, `js/sit.js`, `js/do_wear.js`.
+
 ## D-1085 — can_reach_floor Flying() via uprops[FLYING]
 
 - **Status:** fixed (Must-fix from review **43** QUALITY-RISK of D-1082;

@@ -10,21 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.88) after cadence **#1380**;
   next @**#1385**.
-- Mode: **map-driven** under fortress. Must-fix empty after
-  **D-1085**. Open still 12. Pop first Open.
+- Mode: **map-driven** under fortress. Must-fix empty. Open
+  11 after **D-1086** (≥8; no refill).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1081**…**D-1085**. Reviews **42** ACCEPT,
+- Latest ports: **D-1081**…**D-1086**. Reviews **42** ACCEPT,
   **43** QUALITY-RISK (Flying Must-fix shipped D-1085), **44**
   ACCEPT, **45** ACCEPT.
-- **Next cluster:** Open `steal.c` `remove_worn_item` armor
-  `*_off` / `unpunish` / `setnotworn` pointer-walk (named from
-  sit take_gold D-1049).
-- **Hypothesis:** take_gold already calls `remove_worn_item`
-  (D-1049) but armor `*_off` / `unpunish` / pointer-walk still
-  omit vs C `steal.c`. Falsifier: worn armor + take_gold must
-  run the C off-path, not a slot-clear stub.
+- **Next cluster:** Open `sit.c` `rndcurse` `shieldeff` (named
+  omit). Not update_inventory / hcolor.
+- **Hypothesis:** `rndcurse` Antimagic arm skips C `shieldeff`
+  flash. Falsifier: Antimagic hero `rndcurse` must call
+  `shieldeff(u.ux,u.uy)` like C `sit.c` before invent walk.
 
 ## Don't re-check (≤15)
 
@@ -53,7 +51,8 @@ Objective/score live in `CURRENT.md`.
   welcome (D-1080) / `cprefx` without revive (D-1081) / skip
   ceiling_hider (D-1082) / no-op `check_pit` (D-1083) / always
   `rnd(13)` wizard (D-1084) / `Flying()` H/E flats without
-  `uprops[FLYING]` (D-1085).
+  `uprops[FLYING]` (D-1085) / steal `remove_worn_item` setworn-only
+  armor / skip `unpunish` / `owornmask=0` vs `setnotworn` (D-1086).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085).
 
@@ -61,11 +60,12 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1380**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
+- **D-1086:** steal.c `remove_worn_item` armor `*_off` /
+  `unpunish` / `setnotworn`. sit `take_gold` dynamic-imports it.
 - **D-1085:** `Flying()` ORs `uprops[FLYING]`. Review **43**
-  Must-fix shipped (Addressed D-id only this SHA).
+  Must-fix shipped (hash `3e1a74e8` filled this SHA).
 - **D-1084:** wizard getlin 1..13. Review **45** ACCEPT.
-- **D-1083:** `check_pit` teeter/shaft. Review **44** ACCEPT
-  (pickup `t && is_pit` named).
+- **D-1083:** `check_pit` teeter/shaft. Review **44** ACCEPT.
 - **D-1082:** ceiling_hider + MZ_HUGE. Review **43** QUALITY-RISK
   (Flying clone; closed by D-1085).
 - **D-1081:** `cprefx` rider `revive_corpse`. Review **42** ACCEPT.
