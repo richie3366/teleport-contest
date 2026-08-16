@@ -10,18 +10,18 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1415**;
   next @**#1420**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 10
+- Mode: **map-driven** under fortress. Must-fix empty. Open 9
   after archive (no refill). Reviews **70–73** ACCEPT
   (D-1109 `lspo_exclusion`; D-1110 live `onscary`; D-1111
   `teleok` VS/pit-fly; D-1112 `mlevel_tele_trap` portal arms).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1113**. Prior **66–69** ACCEPT
+- Latest ports: **D-1089**…**D-1114**. Prior **66–69** ACCEPT
   / 67 ACCEPT-WITH-DEBT.
-- **Next cluster:** Open `fountain.c` `dipfountain` cases 17–20
-  uncurse (named). Not Excalibur.
-- **Hypothesis:** none live. D-1113 `dipsink` shipped this iter.
+- **Next cluster:** Open `fountain.c` `dipfountain` case 29
+  `mkgold` coins (named). Not wash_hands.
+- **Hypothesis:** none live. D-1114 uncurse 17–20 shipped this iter.
 
 ## Don't re-check (≤15)
 
@@ -72,7 +72,8 @@ Objective/score live in `CURRENT.md`.
   `mlevel_tele_trap` LEVEL_TELEP/NO_TRAP early-return, skip
   amulet/`is_home_elemental` before `rn2(7)`, or always-mconf
   xport (D-1112) / restore dipsink cancel or skip
-  `wash_hands`/`polymorph_sink` from it (D-1113).
+  `wash_hands`/`polymorph_sink` from it (D-1113) / restore
+  dipfountain uncurse 17–20 no-op (D-1114).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -81,7 +82,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1415**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1420**.
-- **D-1113:** `dipsink` + dodip sink yn + local `polymorph_sink`.
+- **D-1114:** dipfountain uncurse 17–20.
+- **D-1113:** `dipsink` + dodip sink yn. Hash `c67f09d1`.
 - **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP.
   Hash `bb552fba`.
 - **D-1111:** `teleok` VIBRATING_SQUARE / pit-fly. Hash `b0847b88`.

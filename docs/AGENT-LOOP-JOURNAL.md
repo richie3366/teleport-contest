@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 23:12 — #1417 D-1114 dipfountain cases 17–20 uncurse
+
+**Objective:** Open queue — `fountain.c` `dipfountain` cases 17–20
+uncurse (named). Not Excalibur.
+**C locus:** `fountain.c` `dipfountain` 464–475; `mkobj.c`
+`uncurse`; `youprop.h` Blind.
+**Change:** port uncurse fallthrough — cursed non-hands glow
+(unless Blind) + `uncurse`; else loss pline. Coins not skipped.
+Luck/lamplit stay on mkobj `uncurse`. Case 29 still named.
+Filled D-1113 hash `c67f09d1`. Rotated #1402. Open 9 after
+archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1415** **44**/44; next
+@**#1420**).
+**Verified:** private canary **45**/45; green+strict seed8000/0900;
+cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
+0016/4500/0360/2200/0009/0367/0004/0030) + strict 0014/0360/
+4500/2200/0004/0030/0009/0367. Path public-unhit.
+**Next:** Open `fountain.c` `dipfountain` case 29 `mkgold`.
+Not wash_hands.
+**Blocked:** none.
+
 ## 2026-08-16 23:05 — #1416 D-1113 dipsink + dodip sink yn
 
 **Objective:** Open queue — `fountain.c` `dipsink` (named). Not
@@ -342,27 +363,5 @@ cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
 Public traces **unhit**.
 **Next:** Open `fountain.c` `dryup` `angry_guards` after real
 dryup. Not wizard yn.
-**Blocked:** none.
-
-## 2026-08-16 20:00 — #1402 D-1102 goodpos_onscary Elbereth/scare/altar-vamp
-
-**Objective:** Open queue — `teleport.c` `goodpos_onscary` Elbereth /
-SCR_SCARE_MONSTER / altar-vampire (named). Not `is_pool`.
-**C locus:** `teleport.c` `goodpos_onscary` 49–76; `engrave.c`
-`sengr_at` strict; `mondata.h` unique_corpstat/haseyes;
-`dungeon.c` In_hell hellish.
-**Change:** fakemon scare approx. Local `engr_at`/`sengr_at`
-(engrave.js cycle). Altar `S_VAMPIRE` only; scare before Inhell;
-HEADSTONE/future time skip; minotaur/`!haseyes` Elbereth skip.
-Did not pull live-mon `onscary`. Filled D-1101 hash `a7302142`.
-Rotated #1387. Open 11 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1400** **44**/44; next
-@**#1405**).
-**Verified:** private canary **48**/48; green+strict seed8000/0900;
-cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
-0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
-Public traces **unhit**.
-**Next:** Open `dbridge.c` `db_under_typ` / `hack.c`
-`waterbody_name` SURFACE_AT. Not `goodpos`.
 **Blocked:** none.
 

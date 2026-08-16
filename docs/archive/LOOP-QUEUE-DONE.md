@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `dipsink` (named). Not wash_hands. **Addressed:** D-1113
+- [x] `fountain.c` `dipfountain` cases 17–20 uncurse (named). Not Excalibur. **Addressed:** D-1114
+
+
+- [x] `fountain.c` `dipsink` (named). Not wash_hands. **Addressed:** D-1113 `c67f09d1`
 
 
 - [x] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path. **Addressed:** D-1112 `bb552fba`

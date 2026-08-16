@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1114 — dipfountain cases 17–20 uncurse
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `dipfountain` cases 17–20 were empty `break`.
+  C `fountain.c:464–475` uncurses a cursed non-hands object
+  (`pline_The` glow unless Blind, then `uncurse`) else
+  `"A feeling of loss comes over you."` Coins are not skipped
+  (unlike case 16). Then `dryup` still runs.
+- **C locus:** `fountain.c` `dipfountain` (~464–475); `mkobj.c`
+  `uncurse`; `youprop.h` Blind.
+- **Fix:** port the four-case fallthrough. Local `Blind()` already
+  matches `(H||E)&&!B` (+ uroleplay.blind). Glow uses
+  `hliquid("water")`. Existing `uncurse` (bag weight / figurine
+  timer; luck/lamplit still named on mkobj). Rule #2: no fs.
+- **JS:** `js/fountain.js` `dipfountain`.
+- **Not this iter:** case 29 `mkgold`; potion.c pool dip;
+  drinkfountain enlightenment; luck/`set_moreluck` and lamplit
+  `maybe_adjust_light` inside `uncurse`; `update_inventory`.
+- **Verify:** private canary **45**/45 (17–20 glow+uncurse; Blind /
+  EBlinded skip glow; BBlinded glow; uncursed/blessed/hands loss;
+  cursed coins; case 16 curse + coin skip; Levitation keep; default
+  nothing; uarmg; roleplay.blind; cursed=1; dryup after uncurse;
+  ulevel<5 sword); green+strict seed8000/0900; cohort **17**/17
+  including 0014/0360/4500/0030 + strict 0014/0360/4500/2200/0004/
+  0030/0009/0367. Path public-unhit.
+- **Files:** `js/fountain.js`.
+
 ## D-1113 — fountain.c dipsink + dodip sink yn
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

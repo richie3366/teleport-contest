@@ -9,7 +9,7 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
+// dipfountain case 29 (You see coins/mkgold); gush minliquid
 // body; set_levltyp side effects beyond typ/flags; Hallucination
 // rndmonnam in snakes pline; mongrantswish tmp_at glyph hide.
 // dryup wizard y_n after town warn (D-1096).
@@ -19,6 +19,7 @@
 // dipfountain Excalibur LONG_SWORD body (D-1107).
 // wash_hands + dipfountain hands/uarmg wire (D-1108).
 // dipsink + dodip sink yn + local polymorph_sink (D-1113).
+// dipfountain cases 17–20 uncurse (D-1114).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -35,8 +36,8 @@ import {
     glyph_is_invisible,
 } from './display.js';
 import {
-    curse, bless, mksobj_at, rnd_class, mkobj, mkobj_at, obj_extract_self,
-    objects_at, delobj,
+    curse, bless, uncurse, mksobj_at, rnd_class, mkobj, mkobj_at,
+    obj_extract_self, objects_at, delobj,
 } from './mkobj.js';
 import {
     water_damage, water_damage_chain, t_at, deltrap, mintrap, NO_TRAP_FLAGS,
@@ -1269,8 +1270,19 @@ export async function dipfountain(obj) {
     case 17:
     case 18:
     case 19:
-    case 20:
-        // Uncurse the item — deferred
+    case 20: // Uncurse the item
+        // C fountain.c:464–475 — !hands && cursed → glow (unless Blind)
+        // then uncurse; else "feeling of loss" (blessed/uncursed/hands).
+        // Coins are not skipped (unlike case 16). Luck/lamplit uncurse
+        // side effects stay on mkobj.js uncurse.
+        if (!is_hands && obj.cursed) {
+            if (!Blind()) {
+                await pline(`The ${hliquid('water')} glows for a moment.`);
+            }
+            uncurse(obj);
+        } else {
+            await pline('A feeling of loss comes over you.');
+        }
         break;
     case 21: // Water Demon
         await dowaterdemon();
