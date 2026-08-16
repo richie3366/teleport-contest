@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1116 — drinkfountain case 19 MAGIC enlightenment
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `drinkfountain` case 19 skipped
+  `enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS)`.
+  `enlightenment(..., final=0)` always called `doattributes()`,
+  which is BASIC ^X (plus MAGIC only for wizard/explore).
+- **C locus:** `fountain.c` `drinkfountain` (~287–293);
+  `insight.c` `enlightenment` (~383–449) / `doattributes`
+  (~2009–2018). MAGIC-only skips Background/Basics/
+  Characteristics; still runs `status_enlightenment` +
+  `attributes_enlightenment` + elapsed. Bones/debug
+  Miscellaneous requires BASIC.
+- **Fix:** `doattributes(enl_mode)` honors MAGIC-only.
+  Case 19 calls `enlightenment(MAGICENLIGHTENMENT, 0)`
+  after `display_nhwindow` and before `exercise(A_WIS)`.
+  ^X `doattributes()` with no args unchanged. Rule #2: no fs.
+- **JS:** `js/fountain.js` `drinkfountain`; `js/invent.js`
+  `doattributes` / `enlightenment`.
+- **Not this iter:** `gush` `minliquid`; potion/zap/artifact
+  MAGIC callers; `update_inventory`; vomit poly arms.
+- **Verify:** private canary **54**/54 (MAGIC vs ^X sections;
+  wizard/explore bones-gate; stealth/MR/piety/mortality;
+  drink 19 overlay + subsides; Levitation; mgkftn; default;
+  refresh); green+strict seed8000/0900; cohort **22**/22
+  including 0014/0060/0116/0360/0361/0367/0373/0383/4500/2200
+  + strict 0014/0360/4500/2200/0004/0030/0009/0367/0116/0373/
+  0060/0383. Path public-unhit.
+- **Files:** `js/fountain.js`, `js/invent.js`.
+
 ## D-1115 — dipfountain case 29 mkgold coins
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

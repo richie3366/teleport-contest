@@ -7,8 +7,9 @@
 // message+RNG arms; case 22 dowatersnakes; case 23 dowaterdemon;
 // case 26 monster_detect + browse_map; case 27 dofindgem when
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
-// case 30 dogushforth(TRUE).
-// Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
+// case 30 dogushforth(TRUE);
+// drinkfountain case 19 MAGICENLIGHTENMENT body (D-1116).
+// Deferred: vomit cantvomit/Sick/acid poly arms,
 // gush minliquid body; set_levltyp side effects beyond typ/flags;
 // Hallucination rndmonnam in snakes pline; mongrantswish tmp_at
 // glyph hide.
@@ -59,6 +60,7 @@ import {
     SQKY_BOARD, BEAR_TRAP, LANDMINE, FIRE_TRAP,
     TELEP_TRAP, LEVEL_TELEP, WEB, MAGIC_TRAP, ANTI_MAGIC,
     is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER,
+    MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { PM_KNIGHT, monsterNames } from './generated/monsters_data.js';
@@ -78,7 +80,7 @@ import { mon_offmap } from './monmove.js';
 import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at, make_grave } from './engrave.js';
 import { monstseesu, monstunseesu } from './mondata.js';
-import { observe_object } from './invent.js';
+import { observe_object, enlightenment } from './invent.js';
 import { hliquid, x_monnam, Hallucination, type_is_pname, oname, trycall } from './do_name.js';
 import {
     exist_artifact, artiname, discover_artifact, ART_EXCALIBUR,
@@ -804,10 +806,11 @@ export async function drinkfountain() {
         if (mgkftn) return;
     } else {
         switch (fate) {
-        case 19: // Self-knowledge — enlightenment body deferred
+        case 19: // Self-knowledge — C fountain.c:287–293
             await You_feel('self-knowledgeable...');
-            await flush_topl_more();
-            // enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS) deferred
+            await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, FALSE)
+            // MAGIC only — not doattributes BASIC ^X (insight.c:290 / :2009)
+            await enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
             exercise(A_WIS, true);
             await pline('The feeling subsides.');
             break;

@@ -10,18 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1415**;
   next @**#1420**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  after archive (no refill). Reviews **70–73** ACCEPT
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12
+  after archive+refill. Reviews **70–73** ACCEPT
   (D-1109 `lspo_exclusion`; D-1110 live `onscary`; D-1111
   `teleok` VS/pit-fly; D-1112 `mlevel_tele_trap` portal arms).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1115**. Prior **66–69** ACCEPT
+- Latest ports: **D-1089**…**D-1116**. Prior **66–69** ACCEPT
   / 67 ACCEPT-WITH-DEBT.
-- **Next cluster:** Open `fountain.c` `drinkfountain`
-  enlightenment body (named). Not dryup.
-- **Hypothesis:** none live. D-1115 case 29 `mkgold` shipped.
+- **Next cluster:** Open `fountain.c` `gush` `minliquid` body
+  (named). Not dogushforth.
+- **Hypothesis:** none live. D-1116 drinkfountain MAGIC
+  enlightenment shipped.
 
 ## Don't re-check (≤15)
 
@@ -75,7 +76,8 @@ Objective/score live in `CURRENT.md`.
   `wash_hands`/`polymorph_sink` from it (D-1113) / restore
   dipfountain uncurse 17–20 no-op (D-1114) / restore
   dipfountain case 29 empty break or skip looted gate
-  (D-1115).
+  (D-1115) / skip `drinkfountain` case 19 enlightenment or route
+  MAGIC-only through `doattributes` BASIC ^X (D-1116).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -84,7 +86,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1415**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1420**.
-- **D-1115:** dipfountain case 29 `mkgold`.
+- **D-1116:** drinkfountain case 19 MAGIC enlightenment.
+- **D-1115:** dipfountain case 29 `mkgold`. Hash `79438232`.
 - **D-1114:** dipfountain uncurse 17–20. Hash `e30a51f2`.
 - **D-1113:** `dipsink` + dodip sink yn. Hash `c67f09d1`.
 - **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP.

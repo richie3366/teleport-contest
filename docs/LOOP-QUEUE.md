@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup.
 - [ ] `fountain.c` `gush` `minliquid` body (named). Not dogushforth.
 - [ ] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink.
 - [ ] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `teleds` `fill_pit` (named). Not Punished ball.
 - [ ] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG.
 - [ ] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym.
+- [ ] `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself.
+- [ ] `fountain.c` `dowatersnakes` Hallucination `rndmonnam` (named). Not gush.
+- [ ] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment.
+- [ ] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup.
+- [ ] `potion.c` pool dip yn (named from dipsink). Not drinkfountain.
 
 ## Parked (do not pop)
 

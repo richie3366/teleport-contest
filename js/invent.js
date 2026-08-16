@@ -2,7 +2,7 @@
 // C ref: invent.c display_inventory / ddoinv / let_to_name / doorganize;
 //        consume_obj_charge unpaid check_unpaid (D-1047);
 //        o_init.c dodiscovered / discover_object;
-//        insight.c enlightenment (BASICENLIGHTENMENT subset).
+//        insight.c enlightenment (BASIC ^X + MAGIC-only in-progress D-1116).
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
 
 import { game } from './gstate.js';
@@ -89,6 +89,7 @@ import {
     NEW_MOON,
     FULL_MOON,
     Upolyd,
+    BASICENLIGHTENMENT,
     MAGICENLIGHTENMENT,
     Is_airlevel,
     Is_waterlevel,
@@ -1953,7 +1954,9 @@ function status_core_lines(final = 0, opts = {}) {
  */
 export async function enlightenment(mode, final = 0) {
     if (!final) {
-        await doattributes();
+        // C insight.c: en_via_menu = !final. MAGIC-only (potion/fountain/
+        // wand/artifact) is not doattributes() — that ORs BASIC for ^X.
+        await doattributes(mode);
         return;
     }
     const { show_nhw_menu_text } = await import('./pager.js');
@@ -2286,10 +2289,14 @@ function one_characteristic_line_final(attrindx, final) {
 }
 
 /**
- * C ref: insight.c enlightenment(BASICENLIGHTENMENT) — pantheon/wallet from C.
- * ^X path (ENL_GAMEINPROGRESS); gameover uses enlightenment(..., final).
+ * C ref: insight.c enlightenment(..., ENL_GAMEINPROGRESS) via menu overlay.
+ * ^X `doattributes` uses BASIC (| MAGIC when wizard|discover). Fountain
+ * case 19 / potion / wand pass MAGICENLIGHTENMENT only — skip Background
+ * / Basics / Characteristics; Status + Attributes + elapsed still run.
+ * Bones/debug Miscellaneous lines need BASIC (C insight.c:428).
+ * @param {number|null} enl_mode BASICENLIGHTENMENT | MAGICENLIGHTENMENT
  */
-export async function doattributes() {
+export async function doattributes(enl_mode = null) {
     const u = game.u || {};
     let name = game.plname || 'Hero';
     // C ref: insight.c / botl — capitalize first letter of plname for display
@@ -2367,6 +2374,13 @@ export async function doattributes() {
     const uexp = u.uexp | 0;
     const ulvl = u.ulevel | 0;
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
+    const discover = !!(game.flags?.explore || game.flags?.discover);
+    // C insight.c doattributes: BASIC, OR MAGIC when wizard||discover.
+    // Callers of enlightenment(MAGICENLIGHTENMENT, 0) pass MAGIC only.
+    const mode = enl_mode != null
+        ? (enl_mode | 0)
+        : (BASICENLIGHTENMENT | ((wizard || discover) ? MAGICENLIGHTENMENT : 0));
+    const magic = !!(mode & MAGICENLIGHTENMENT);
     let xpLine = `  You have ${uexp} experience point${uexp === 1 ? '' : 's'}`;
     if (!Upolyd(u) && ulvl < 30 && wizard) {
         const nxtlvl = newuexp(ulvl);
@@ -2387,47 +2401,49 @@ export async function doattributes() {
     const lines = [
         ` ${name} the ${role}'s attributes:`,
         '',
-        ' Background:',
-        `  You are ${roleLevel}.`,
-        `  You are ${align}, on a mission for ${u_gname(game.urole, atype)}`,
-        opposed,
-        `  You are ${hand}-handed.`,
-        dungeonLine,
-        adventureLine,
     ];
-    const moon = game.flags?.moonphase;
-    if (moon === FULL_MOON || moon === NEW_MOON) {
-        const phase = moon === FULL_MOON ? 'full' : 'new';
-        lines.push(`  There is a ${phase} moon in effect.`);
+    // C insight.c enlightenment: background/basics/characteristics iff BASIC
+    if (mode & BASICENLIGHTENMENT) {
+        lines.push(
+            ' Background:',
+            `  You are ${roleLevel}.`,
+            `  You are ${align}, on a mission for ${u_gname(game.urole, atype)}`,
+            opposed,
+            `  You are ${hand}-handed.`,
+            dungeonLine,
+            adventureLine,
+        );
+        const moon = game.flags?.moonphase;
+        if (moon === FULL_MOON || moon === NEW_MOON) {
+            const phase = moon === FULL_MOON ? 'full' : 'new';
+            lines.push(`  There is a ${phase} moon in effect.`);
+        }
+        if (game.flags?.friday13) {
+            // C insight.c: Sprintf(buf, " Bad things %s…") then enlght_out;
+            // menu/tty paints one more leading space like enlght_line body rows.
+            lines.push('  Bad things can happen on Friday the 13th.');
+        }
+        lines.push(
+            xpLine,
+            '',
+            ' Basics:',
+            `  You have ${hpLine}.`,
+            `  You have ${pwLine}.`,
+            `  Your armor class is ${u.uac ?? 10}.`,
+            wallet,
+            autopickup_enlightenment_line(),
+            '',
+            ' Characteristics:',
+            one_characteristic_line(A_STR),
+            one_characteristic_line(A_DEX),
+            one_characteristic_line(A_CON),
+            one_characteristic_line(A_INT),
+            one_characteristic_line(A_WIS),
+            one_characteristic_line(A_CHA),
+            '',
+        );
     }
-    if (game.flags?.friday13) {
-        // C insight.c: Sprintf(buf, " Bad things %s…") then enlght_out;
-        // menu/tty paints one more leading space like enlght_line body rows.
-        lines.push('  Bad things can happen on Friday the 13th.');
-    }
-    lines.push(
-        xpLine,
-        '',
-        ' Basics:',
-        `  You have ${hpLine}.`,
-        `  You have ${pwLine}.`,
-        `  Your armor class is ${u.uac ?? 10}.`,
-        wallet,
-        autopickup_enlightenment_line(),
-        '',
-        ' Characteristics:',
-        one_characteristic_line(A_STR),
-        one_characteristic_line(A_DEX),
-        one_characteristic_line(A_CON),
-        one_characteristic_line(A_INT),
-        one_characteristic_line(A_WIS),
-        one_characteristic_line(A_CHA),
-        '',
-        ' Status:',
-    );
-    // C ref: insight.c doattributes — wizard|discover → MAGICENLIGHTENMENT
-    const discover = !!(game.flags?.explore || game.flags?.discover);
-    const magic = wizard || discover;
+    lines.push(' Status:');
     // C ref: insight.c status_enlightenment — Deaf/Sleepy before hunger;
     // Sleepy needs magic || cause_known; wizard hunger/weight suffixes.
     lines.push(...status_core_lines(0, { overlay: true, magic }));
@@ -2698,7 +2714,8 @@ export async function doattributes() {
     {
         const o = (txt) => ` ${txt}`;
         lines.push(' Miscellaneous:');
-        if (wizard || discover) {
+        // C insight.c:428 — bones/debug only when BASIC && (wizard|discover|final)
+        if ((mode & BASICENLIGHTENMENT) && (wizard || discover)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ',
                 `running in ${wizard ? 'debug' : 'explore'} mode`,
