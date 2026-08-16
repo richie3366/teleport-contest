@@ -17,9 +17,8 @@ Objective/score live in `CURRENT.md`.
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1065** tut-1 `tut_key` / `nh.eckey` via
-  `cmd_from_ecname` (Ctrl-/Alt- rewrite + `tut_key_help`). Reviews
-  **24** ACCEPT `3f376b74` (D-1063 food) and **25** ACCEPT
-  `dc354c44` (D-1064 dests).
+  `cmd_from_ecname` (Ctrl-/Alt- rewrite + `tut_key_help`). Review
+  **26** ACCEPT `296bc792`.
 - **Next cluster:** Open — tut-1 nhcore callback disable on
   enter/leave.
 - **Hypothesis:** none live. Next falsifier is Open nhcore

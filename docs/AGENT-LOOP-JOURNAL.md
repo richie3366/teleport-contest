@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 07:05 — #1347 review D-1065 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`296bc792` D-1065) against pinned C,
+not the journal. Docs-only `b3daacc3` cadence #1345 noted, not a
+port claim.
+**C locus:** `cmd.c` `cmd_from_ecname` / `cmd_from_func` /
+`commands_init` / `reset_commands`; `nhlua.c` `nhl_get_cmd_key`;
+`hacklib.c` `visctrl`; `dat/tut-1.lua` `tut_key` / `tut_key_help`.
+**Change:** review 26 ACCEPT (default `!num_pad` eckey strings +
+Lua Ctrl-/Alt- rewrite; loot `M-l` / tip `Alt-T` / untrap `M-u` /
+twoweapon `X`; `cmd_from_func` list-order and `ef_funct` sharing
+named, unhit by tut-1). Must-fix empty. Filled Addressed hash
+`296bc792`. No `js/` edits. Rule #2: no fs. Rotated #1332 to
+archive.
+**Score:** fortress unchanged (cadence **#1345** **44**/44; next
+@**#1350**).
+**Verified:** C read of `cmd.c:2135–2154`/`2750–2782`/`3036–3088`/
+`3343–3476`, `nhlua.c:1644–1657`, `hacklib.c:469–493`,
+`hack.h:655`, `dat/tut-1.lua:5–27`/`70–107`/`230–267`/`294`; grep
+FORCE/DIAG/fs on the `js/dokeylist.js` + `js/mklev.js` hunks.
+**Next:** Open tut-1 nhcore callback disable on enter/leave.
+**Blocked:** none.
+
 ## 2026-08-16 06:40 — #1346 D-1065 tut-1 tut_key / eckey
 
 **Objective:** Open queue — tut-1 `tut_key` / eckey only (not
@@ -297,26 +321,5 @@ trap `rnd(4)`; Fire_res `d(2,10)`; ice ±Cold; drawbridge; throne
 still `rnd(6)`; trap TT_LAVA `rnd(4)`+`d(2,10)`. green+strict PASS;
 cohort **6**/6 (seed1500/1800/0060/0102/0360/2200). Path unhit.
 **Next:** Open tut-1 `des` kelp only.
-**Blocked:** none.
-
-## 2026-08-16 03:15 — #1332 review D-1056/D-1057 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`2e79451d` D-1056, `e1852e71` D-1057)
-against pinned C, not the journal.
-**C locus:** `youprop.h` `Underwater`; `sit.c` `dosit` ~430 / ~505 /
-~526–538; `pray.c` `altar_wrath` / `godvoice` / `align_gname`;
-`mondata.h` `humanoid`; `defsym.h` explanations.
-**Change:** reviews 17 ACCEPT (sit predicates read `u.uinwater`) and
-18 ACCEPT (furniture sit_message + real `altar_wrath`; lava/ice/
-drawbridge still named Open). Must-fix empty. Filled Addressed hash
-`e1852e71`. No `js/` edits. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1330** **44**/44; next
-@**#1335**).
-**Verified:** C read of `youprop.h:279`, `sit.c:430–431`/`505–510`/
-`526–557`, `defsym.h:129–133`, `rm.h:82–88`, `mondata.h:65`,
-`pray.c:107`/`1415–1426`/`2530–2554`/`2652–2672`, `attrib.c:117–128`
-/`411–418`, `dbridge.c:62–96`; grep `uinwater=` vs `u.Underwater`.
-**Next:** Open `dosit` lava sit (not ice/drawbridge in that cluster).
 **Blocked:** none.
 
