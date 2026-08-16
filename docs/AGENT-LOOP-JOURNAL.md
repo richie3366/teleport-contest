@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 06:16 — #1345 cadence score refresh
+
+**Objective:** mandatory cadence full `sessions` (@#1345 % 5 == 0);
+refresh `CURRENT.md` Score. No port (score-only).
+**C locus:** n/a (score-only; no JS port change).
+**Change:** docs only — Score **44**/44 Scr **11405**/11405 RNG
+**100%** speed `31+0.27/turn` (R² 0.87). No leftover `[x]` / missing
+Addressed hashes. Rotated #1330 to archive. Rule #2: no fs.
+**Score:** cadence **#1345** **44**/44 Scr **11405**/11405 RNG **100%**
+speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
+**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
+**Next:** Open tut-1 `tut_key` / eckey only.
+**Blocked:** none.
+
 ## 2026-08-16 06:15 — #1344 review D-1063/D-1064 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -305,22 +319,5 @@ grave/stairs/ladder not having-fun; altar `rn2(4)` no throne;
 ROOM having-fun; throne still `rnd(6)`. green+strict PASS;
 cohort **6**/6 (seed1500/1800/0060/0102/0360/2200). Path unhit.
 **Next:** Open `dosit` lava / ice / drawbridge sit.
-**Blocked:** none.
-
-## 2026-08-16 02:46 — #1330 D-1056 dosit Underwater ≡ u.uinwater
-
-**Objective:** Must-fix — `dosit` water predicates use C
-`Underwater` (`u.uinwater`), not unset `u.Underwater`.
-**C locus:** `sit.c` `dosit` ~430 / ~505; `youprop.h:279`.
-**Change:** local `Underwater()` returns `u.uinwater`; both sit
-predicates use it. Did not rewrite other `js/` `u.Underwater` or
-second `water_damage` to `uarmf`. Rule #2: no fs.
-**Score:** cadence **#1330** **44**/44 Scr **11405**/11405 RNG
-**100%** speed `31+0.27/turn` (R² 0.88). Next @**#1335**.
-**Verified:** private node `uinwater=1` muddy 0×`rn2(10)`;
-`uinwater=0` in_water 2×`rn2(10)`; dead `u.Underwater` ignored;
-picnic vs skip; eel underwater having-fun. green+strict PASS;
-cohort **6**/6; full `sessions` **44**/44.
-**Next:** Open `dosit` sink/altar/grave/stairs/ladder messages.
 **Blocked:** none.
 

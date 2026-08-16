@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.88) after cadence **#1340**;
-  next @**#1345**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1345**;
+  next @**#1350**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty; Open tut-1 `tut_key` / eckey is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
@@ -81,8 +81,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1340**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
+- Suite after cadence **#1345**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
 - **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
   `levregion_add` + `fixup_special` dest copy. `place_lregion`
   from `u_on_rndspot`. Review **25** ACCEPT `dc354c44`.
