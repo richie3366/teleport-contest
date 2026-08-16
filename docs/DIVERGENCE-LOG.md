@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1091 — goodpos is_pool()/is_lava() not IS_POOL/IS_LAVA
+
+- **Status:** fixed (map-driven Open; named from D-1077 review **38**; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos` used `IS_POOL(typ)` / `IS_LAVA(typ)`.
+  `IS_POOL(DRAWBRIDGE_UP)` is true for **every** raised bridge (`rm.h`
+  range POOL..DRAWBRIDGE_UP), so UP+`DB_LAVA` took the swimmer/pool arm
+  before the lava arm. C `teleport.c` `goodpos` calls `is_pool(x,y)` /
+  `is_lava(x,y)` (`dbridge.c`), so UP+lava is lava (flyer/`likes_lava`)
+  and UP+moat is pool.
+- **C locus:** `teleport.c` `goodpos` (~134–175); `dbridge.c` `is_pool` /
+  `is_lava`; `rm.h` `IS_POOL`/`IS_LAVA`.
+- **Fix:** `js/teleport.js` `goodpos` imports shared `hack.js` `is_pool` /
+  `is_lava`. Dropped the JS-only `!mtmp` pool/lava early-out (C falls
+  through to `accessible()` + ignorewater/ignorelava). Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** youmonst swim/levitate/Wwalking pool·lava arms;
+  `passes_walls`/`may_passwall`; `is_exclusion_zone`; `goodpos_onscary`
+  Elbereth/scare/altar-vamp; `onscary` when `m_id != 0`; `waterbody_name`
+  `SURFACE_AT`; `db_under_typ`; `is_pool_or_lava` typ macros.
+- **Verify:** private canary **44**/44 (POOL/MOAT/WATER/LAVAPOOL/LAVAWALL;
+  UP+`DB_LAVA` swimmer false / flyer·salamander true / eye false;
+  UP+dir+lava; UP+`DB_MOAT` swimmer true / sala false; UP+ICE/FLOOR
+  neither; DOWN+lava walkable; ignorewater/ignorelava; null mtmp;
+  `!isok`); green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/0009/
+  0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit on public DRAWBRIDGE_UP lava placement.
+- **Files:** `js/teleport.js`.
+
 ## D-1090 — is_pool / is_moat DRAWBRIDGE_UP + DB_MOAT
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

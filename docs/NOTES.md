@@ -10,22 +10,20 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1385**;
   next @**#1390**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  after **D-1090** (≥8; no refill).
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12
+  after **D-1091** (refilled from teleport-row named omits).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1085**…**D-1090**. Reviews **46** ACCEPT,
+- Latest ports: **D-1085**…**D-1091**. Reviews **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK (Antimagic
   uprops shipped D-1089), **49** ACCEPT.
-- **Next cluster:** Open `teleport.c` `goodpos` must call
-  `is_pool()` / `is_lava()` not `IS_POOL` / `IS_LAVA` macros
-  (named from D-1077 review 38). Not `is_pool` DRAWBRIDGE.
-- **Hypothesis:** `teleport.js` `goodpos` still uses `IS_POOL`/
-  `IS_LAVA` (typ range / LAVAPOOL\|LAVAWALL). C `teleport.c`
-  calls `is_pool()`/`is_lava()`, so DRAWBRIDGE_UP+`DB_LAVA`
-  takes the lava arm not the swimmer/pool arm. Falsifier:
-  UP+`DB_LAVA` → lava branch; UP+`DB_MOAT` → pool branch.
+- **Next cluster:** Open `makemon.c` S_ORC / S_ELF / unicorn
+  mlet peace override after `m_initweap` (named omit on
+  makemon row). Not `goodpos`.
+- **Hypothesis:** `makemon.js` still skips the post-`m_initweap`
+  S_ORC/S_ELF/unicorn `mlet` peace override. Falsifier: C
+  `makemon.c` after `m_initweap` vs JS same site.
 
 ## Don't re-check (≤15)
 
@@ -49,7 +47,8 @@ Objective/score live in `CURRENT.md`.
   in `can_reach_floor` (D-1070).
 - Do not skip hugs (D-1071) … priest/guardian mndx (D-1088) /
   restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
-  POOL/MOAT/WATER-only (D-1090).
+  POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
+  `IS_LAVA` macros (D-1091).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -58,8 +57,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1385**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1390**.
+- **D-1091:** `goodpos` `is_pool()`/`is_lava()` not typ macros.
+  UP+`DB_LAVA` is lava arm. Hash next commit.
 - **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
-  Juiblex MOAT is pool not moat. Hash next commit.
+  Juiblex MOAT is pool not moat. Hash `43caa8ff`.
 - **D-1089:** sit `rndcurse` `Antimagic()` ORs
   `uprops[ANTIMAGIC]`. Review **48**. Hash `f91650c0`.
 - **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
@@ -71,5 +72,4 @@ Objective/score live in `CURRENT.md`.
   (`Amulet_off` still setworn).
 - **D-1085:** engrave `Flying()` ORs `uprops[FLYING]`. Review
   **46** ACCEPT (hash `3e1a74e8`).
-- **D-1084:** wizard getlin. Review **45** ACCEPT.
 - Filled D-1088 archive hash `049af16e` prior SHA.

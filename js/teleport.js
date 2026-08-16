@@ -9,7 +9,7 @@ import {
     CC_SKIP_MONS, CC_SKIP_INACCS,
     GP_CHECKSCARY, GP_ALLOW_U, GP_AVOID_MONPOS, GP_ALLOW_XY,
     MM_IGNOREWATER, MM_IGNORELAVA,
-    ACCESSIBLE, IS_POOL, IS_LAVA, ZAP_POS, IS_DOOR, IS_WATERWALL,
+    ACCESSIBLE, IS_POOL, ZAP_POS, IS_DOOR, IS_WATERWALL,
     D_CLOSED, D_LOCKED,
     MIGR_RANDOM, MIGR_PORTAL, MON_MIGRATING, NO_TRAP,
     is_xport,
@@ -33,7 +33,7 @@ import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
-import { nomul, in_rooms } from './hack.js';
+import { nomul, in_rooms, is_pool, is_lava } from './hack.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
 import { getlin } from './getline.js';
@@ -131,7 +131,8 @@ function m_in_air(mtmp) {
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
  * Named omissions: youmonst swim/levitate pool·lava arms; passes_walls /
- * may_passwall early-out; GP_AVOID_MONPOS exclusion zones.
+ * may_passwall early-out; GP_AVOID_MONPOS exclusion zones; onscary when
+ * m_id != 0 (fakemon uses goodpos_onscary).
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -163,31 +164,33 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
         // C: occupied by another mon (fakemon mx=0 never equals occupant)
         if (mtmp2 && (mtmp2 !== mtmp || mtmp.wormno)) return false;
 
-        // C: is_pool / is_swimmer / m_in_air — D-0653 (was blanket reject)
-        if (IS_POOL(typ) && !ignorewater) {
+        /* C teleport.c goodpos: is_pool()/is_lava() not IS_POOL/IS_LAVA
+         * (D-1091). IS_POOL(DRAWBRIDGE_UP) is every raised bridge, so
+         * UP+DB_LAVA must take the lava arm, not the swimmer arm. */
+        if (is_pool(x, y) && !ignorewater) {
+            // C: youmonst Swimming/Amphibious/Lev/Fly/Wwalk deferred
             return !!(is_swimmer(mdat)
                 || (!Is_waterlevel(game.u?.uz)
                     && !IS_WATERWALL(typ)
                     && m_in_air(mtmp)));
         } else if (mdat?.mlet === 'S_EEL' && rn2(13) && !ignorewater) {
             return false;
-        } else if (IS_LAVA(typ) && !ignorelava) {
+        } else if (is_lava(x, y) && !ignorelava) {
             // C: PM_FLOATING_EYE avoids lava heat
             if (mdat && (mdat.mndx ?? -1) === PM_FLOATING_EYE) return false;
+            // C: youmonst Lev/Fly/Fire+Wwalk+oerodeproof/Upolyd likes_lava deferred
             return !!(m_in_air(mtmp) || likes_lava(mdat));
         }
         // passes_walls + may_passwall deferred
         // C: amorphous may ooze through closed doors before accessible()
         if (amorphous(mdat) && closed_door(x, y)) return true;
         if (checkscary && goodpos_onscary(x, y, mdat)) return false;
-    } else {
-        if (IS_POOL(typ) && !ignorewater) return false;
-        if (IS_LAVA(typ) && !ignorelava) return false;
     }
 
     // C: accessible() — rejects closed/locked doors (bare ACCESSIBLE is wrong)
     if (!accessible(x, y)) {
-        if (!(IS_POOL(typ) && ignorewater) && !(IS_LAVA(typ) && ignorelava)) {
+        if (!(is_pool(x, y) && ignorewater)
+            && !(is_lava(x, y) && ignorelava)) {
             return false;
         }
     }
