@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 16:50 — #1386 D-1089 rndcurse Antimagic via uprops
+
+**Objective:** Must-fix from review **48** — `sit.c` `rndcurse`
+`Antimagic()` via `uprops[ANTIMAGIC]` (invent.js `hero_Antimagic`
+shape). Not `is_pool`. Not `update_inventory` / hcolor.
+**C locus:** `youprop.h` Antimagic 55–57; `sit.c` `rndcurse`
+581–593; confer `oc_oprop` ANTIMAGIC (cloak / gray DSM).
+**Change:** sit `Antimagic()` ORs flats **and**
+`uprops[ANTIMAGIC]` intrinsic/extrinsic. Did not rewrite
+`confer_oc_oprop` or other `Antimagic()` clones. Stamped review
+**48** **Addressed:** D-1089. Rotated #1372 to archive. Open 9
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1385** **44**/44; next
+@**#1390**).
+**Verified:** private canary **21**/21 (`setworn` cloak W_ARMC
+extrinsic, `EAntimagic` unset, 21 frames + `rnd(3)`; no-cloak 0
++ `rnd(6)`; gray DSM; cloak+Half `rnd(2)`; `HAntimagic`);
+green+strict seed8000/0900; cohort **9**/9
+(0106/0107/0108/4500/1500/1800/0017/0360/2200) + sit strict.
+Path public-unhit for worn-cloak `rndcurse`.
+**Next:** Open `dbridge.c` `is_pool` / `is_moat` DRAWBRIDGE_UP +
+`DB_MOAT`. Audit @**#1390**.
+**Blocked:** none.
+
 ## 2026-08-16 16:40 — #1385 review D-1085–D-1088 + cadence score
 
 **Objective:** review every JS-touching commit since
@@ -294,26 +318,4 @@ seed8000/0900; cohort **18**/18 (incl. 0361/0367/0373 quest) +
 strict 0014/4500/0360/0361/0367/0373/2200. Kill-malign public-unhit.
 **Next:** Open `shk.c` `u_entered_shop` deserted / angry / Invis /
 pickaxe doorway. Audit @**#1375**.
-**Blocked:** none.
-
-## 2026-08-16 13:12 — #1372 D-1078 sit split_mon monster clone_mon
-
-**Objective:** Open queue — `sit.c` `split_mon` monster `clone_mon`
-arm (JS named omit).
-**C locus:** `potion.c` `split_mon` 2899–2912; `makemon.c`
-`clone_mon` 837–943.
-**Change:** `makemon.js` `clone_mon` (C home) + sit local
-`split_mon` else no longer `return null`. Halves current HP then
-max. Did not pull trap rust / `minliquid` / uhitm AD_COLD callers.
-Stamped review **38** named omit **Addressed:** D-1078. Rule #2:
-no fs. Rotated #1357 to archive.
-**Score:** fortress unchanged (cadence **#1370** **44**/44; next
-@**#1375**).
-**Verified:** private canary (20/20 both 10/10; odd stays; `mhp<=1`
-/ `G_EXTINCT` null; named; peaceful luck `rn2`; hero `cloneu`);
-green+strict seed8000/0900; cohort **15**/15 (8000/0900/1500/1800/
-0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/0009) + strict
-0014/4500/0360/2200. Path public-unhit.
-**Next:** Open `makemon.c` `peace_minded` / `set_malign` read
-`ptr.msound`. Audit @**#1375**.
 **Blocked:** none.

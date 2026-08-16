@@ -67,7 +67,9 @@
 // else default having-fun; attrcurse
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
-// (D-0969) + Antimagic `shieldeff(u.ux,u.uy)` (D-1087; display.c).
+// (D-0969) + Antimagic `shieldeff(u.ux,u.uy)` (D-1087; display.c;
+// D-1089 Antimagic ≡ uprops[ANTIMAGIC] like youprop.h / invent.js
+// hero_Antimagic — confer cloak-of-MR never writes EAntimagic).
 // Deferred: update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly. take_gold calls
 // steal.c remove_worn_item (D-1049/D-1086) via steal.js — W_WEAPONS *gone,
@@ -94,6 +96,7 @@ import {
     G_EXTINCT, NO_MINVENT, MM_EDOG, MM_NOMSG,
     INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
+    ANTIMAGIC,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
     KILLED_BY, KILLED_BY_AN, UTOTYPE_NONE, POLY_NOFLAGS, Upolyd, SICK_ALL,
     NO_MM_FLAGS, Never_mind,
@@ -161,10 +164,19 @@ function See_invisible() {
         || u.See_invisible);
 }
 
-/** C youprop.h Antimagic. */
+/**
+ * C youprop.h Antimagic — HAntimagic || EAntimagic
+ * ≡ uprops[ANTIMAGIC].intrinsic || uprops[ANTIMAGIC].extrinsic.
+ * confer_oc_oprop writes ANTIMAGIC only to uprops (EAntimagic
+ * unmirrored). Keep H/E/sticky flats for eat/poly (invent.js
+ * hero_Antimagic). Worn CLOAK_OF_MAGIC_RESISTANCE / gray DSM
+ * must gate rndcurse shieldeff + the cnt divisor (D-1089).
+ */
 function Antimagic() {
     const u = game.u || {};
-    return !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+    const e = u.uprops?.[ANTIMAGIC];
+    return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
 /** C youprop.h Half_spell_damage. */
@@ -266,7 +278,8 @@ export async function take_gold() {
 
 /**
  * C ref: sit.c rndcurse — curse random invent (and maybe steed saddle).
- * Branch envelope: Magicbane absorb; Antimagic `shieldeff` (D-1087);
+ * Branch envelope: Magicbane absorb; Antimagic `shieldeff` (D-1087)
+ * gated on youprop.h Antimagic via uprops[ANTIMAGIC] (D-1089);
  * invent non-COIN sample; SPFX_INTEL resist; bless→unbless else curse;
  * steed W_SADDLE 1/4.
  * Named omissions: update_inventory redraw; Hallucination hcolor;

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1089 — sit.c rndcurse Antimagic() via uprops[ANTIMAGIC]
+
+- **Status:** fixed (Must-fix from review **48** QUALITY-RISK of D-1087;
+  not a public FAIL)
+- **Symptom:** `sit.js` `Antimagic()` claimed C `youprop.h` Antimagic
+  but read only `u.Antimagic` / `u.HAntimagic` / `u.EAntimagic`.
+  `confer_oc_oprop` writes worn `CLOAK_OF_MAGIC_RESISTANCE` / gray
+  DSM to `uprops[ANTIMAGIC].extrinsic` and never mirrors
+  `EAntimagic`. After D-1087, `rndcurse` `shieldeff` and the
+  `rnd(6/(Antimagic+Half+1))` count missed worn MR.
+- **C locus:** `youprop.h` Antimagic (~55–57); `sit.c` `rndcurse`
+  (~581–593); `prop.h` `ANTIMAGIC=12`; `objects.h` cloak/gray DSM
+  `oc_oprop ANTIMAGIC`.
+- **Fix:** OR flats **and** `uprops[ANTIMAGIC]` intrinsic/extrinsic
+  (`invent.js` `hero_Antimagic` shape). Did not rewrite
+  `confer_oc_oprop`. Did not pull `update_inventory` / hcolor /
+  other `shieldeff` callers / other `Antimagic()` clones /
+  `Half_spell_damage()` uprops. Rule #2: no fs.
+- **Deferred:** `update_inventory` redraw; Hallucination `hcolor`;
+  sit `Half_spell_damage()` vs uprops; zap/pray/spell/trap
+  `Antimagic()` clones; explode inline sparkle; `shieldeff_mon`.
+- **Verify:** private canary **21**/21 (`setworn` cloak W_ARMC
+  extrinsic, `EAntimagic` unset, 21 `shield_static` frames +
+  `rnd(3)`; no-cloak 0 frames + `rnd(6)`; gray DSM `W_ARM`;
+  cloak+Half `rnd(2)`; `HAntimagic` regression). Green+strict
+  PASS; sit/pray cohort **9**/9 (0106/0107/0108/4500/1500/1800/
+  0017/0360/2200) + sit strict. Path public-unhit for worn-cloak
+  `rndcurse`.
+- **Files:** `js/sit.js`.
+
 ## D-1088 — m_initweap MS_PRIEST / MS_GUARDIAN ptr.msound
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
