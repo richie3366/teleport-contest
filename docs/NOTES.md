@@ -10,20 +10,20 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn` R² 0.87) after cadence **#1410**;
   next @**#1415**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 9
+- Mode: **map-driven** under fortress. Must-fix empty. Open 8
   after archive (no refill). Reviews **66** ACCEPT (D-1105),
   **67** ACCEPT-WITH-DEBT (D-1106 gbuf analog named), **68–69**
   ACCEPT (D-1107/D-1108).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1109**. Prior **62–65** ACCEPT
+- Latest ports: **D-1089**…**D-1110**. Prior **62–65** ACCEPT
   / 63 ACCEPT-WITH-DEBT.
-- **Next cluster:** Open `teleport.c` `goodpos` live-mon
-  `onscary` when `m_id != 0` (named). Not `goodpos_onscary`.
-- **Hypothesis:** none live. D-1109 shipped: `lspo_exclusion`
-  populate + `free_exclusions` + `flip_level` rect remap;
-  soko MONGEN + vault TELE.
+- **Next cluster:** Open `teleport.c` `teleok` vibrating /
+  pit-fly (named). Not `rloc`.
+- **Hypothesis:** none live. D-1110 shipped: `goodpos` `m_id`
+  ternary → local `onscary` (vampshifter altar, hero/image
+  Elbereth). Fakemon still `goodpos_onscary`.
 
 ## Don't re-check (≤15)
 
@@ -68,7 +68,8 @@ Objective/score live in `CURRENT.md`.
   (D-1103) / restore Excalibur `dryup` stub or skip
   `exist_artifact`/`oname` (D-1107) / restore `wash_hands`
   ER_NOTHING stub or skip Glib `ER_GREASED` (D-1108) / restore
-  vault raw `exclusion_zones` or skip `lspo_exclusion` (D-1109).
+  vault raw `exclusion_zones` or skip `lspo_exclusion` (D-1109) /
+  restore `goodpos` always-`goodpos_onscary` (D-1110).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -77,6 +78,9 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1410**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1415**.
+- **D-1110:** `goodpos` live-mon `onscary` when `m_id != 0`.
+  Local `monmove.c` clone; fakemon still `goodpos_onscary`.
+  mfndpos `mon.js` partial named.
 - **D-1109:** `lspo_exclusion` populate + `free_exclusions` +
   `flip_level` rects. soko MONGEN; vault TELE helper. soko2-2 /
   hellfill prefab / save/rest named.
@@ -93,7 +97,4 @@ Objective/score live in `CURRENT.md`.
   (`nolimbs` HEAD else `makeplural(ARM)` + `mhis`). Hash
   `b4930cb9`.
 - **D-1102:** `goodpos_onscary` altar S_VAMPIRE / scare /
-  strict Elbereth. Hash `ebe1f041`. Live-mon `onscary` still
-  named (Open).
-- **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
-  after boulder. Hash `a7302142`.
+  strict Elbereth. Hash `ebe1f041`. Live-mon path is D-1110.

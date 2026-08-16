@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1110 — goodpos live-mon onscary when m_id != 0
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos` always called
+  `goodpos_onscary` under `GP_CHECKSCARY`. C uses
+  `mtmp->m_id ? onscary(x,y,mtmp) : goodpos_onscary(x,y,mdat)`.
+  Live `rloc_pos_ok` therefore treated any strict Elbereth as
+  scary even with the hero elsewhere, and skipped vampshifter
+  altar / lawful-minion / shop-temple immunities.
+- **C locus:** `teleport.c` `goodpos` (~168–169);
+  `monmove.c` `onscary` (~241–303); `engrave.c` `sengr_at`
+  strict; `monst.h` `is_lminion`; `shk.c` `inhishop`;
+  `priest.c` `inhistemple`/`has_shrine`/`mon_aligntyp`;
+  `youprop.h` `Displaced`.
+- **Fix:** local `onscary` in `js/teleport.js` (mon.js cycle).
+  Ternary on `mtmp.m_id`. Altar `S_VAMPIRE || is_vampshifter`.
+  Elbereth needs `u_at` / Displaced mux,muy / `guardobjects` +
+  `vobj_at`. Humans/uniques resist magical scare; `iswiz` /
+  `is_lminion` / `PM_ANGEL` / riders resist all. Shopkeeper in
+  shop and priest in tended temple resist. Fakemon `m_id==0`
+  still `goodpos_onscary` (D-1102). Did not rewrite `mon.js`
+  mfndpos `onscary`. Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** `teleok` vibrating/pit-fly;
+  `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP;
+  mfndpos `mon.js` `onscary` sengr_at stringify.
+- **Verify:** private canary **61**/61 (live vs fake Elbereth
+  no-hero; hero+`GP_ALLOW_U`; peaceful/blind/guard/minotaur;
+  cube `!haseyes` vs `mcansee`; Displaced mux + uprops;
+  guardobjects+obj; scare; human/uniq/Angel/S_ANGEL/rider/
+  iswiz/lminion; altar vamp vs bat vs vampshift; Inhell/
+  endgame; HEADSTONE/substring/future/strcmpi; xorn wallwalk;
+  shk in/out; priest shrine/desecrated; undef `m_id`);
+  green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/
+  2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (no public live Elbereth `rloc`).
+- **Files:** `js/teleport.js`.
+
 ## D-1109 — lspo_exclusion populate exclusion_zones from des.exclusion
 
 - **Status:** fixed (map-driven Open; named omit from D-0522/D-0690/D-1101; not a public FAIL)

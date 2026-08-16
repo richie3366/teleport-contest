@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 22:10 — #1412 D-1110 goodpos live-mon onscary when m_id != 0
+
+**Objective:** Open queue — `teleport.c` `goodpos` live-mon
+`onscary` when `m_id != 0` (named). Not `goodpos_onscary`.
+**C locus:** `teleport.c` `goodpos` 168–169; `monmove.c`
+`onscary` 241–303; `engrave.c` `sengr_at`; `monst.h`
+`is_lminion`; `shk.c` `inhishop`; `priest.c` `inhistemple`.
+**Change:** `m_id ? onscary : goodpos_onscary`. Local `onscary`
+(mon.js cycle): vampshifter altar; Elbereth needs hero/image/
+`guardobjects`; `iswiz`/`is_lminion`/`PM_ANGEL`/rider;
+shop/temple resist. Fakemon still D-1102 helper. mfndpos
+`mon.js` partial named. Filled D-1109 hash `5bf81ca7`.
+Rotated #1397. Open 8 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1410** **44**/44; next
+@**#1415**).
+**Verified:** private canary **61**/61; green+strict seed8000/0900;
+cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
+0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+Path public-unhit.
+**Next:** Open `teleport.c` `teleok` vibrating / pit-fly. Not
+`rloc`.
+**Blocked:** none.
+
 ## 2026-08-16 21:55 — #1411 D-1109 lspo_exclusion populate exclusion_zones
 
 **Objective:** Open queue — `sp_lev.c` `lspo_exclusion` populate
@@ -341,28 +364,5 @@ cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
 Public traces **unhit**.
 **Next:** Open `teleport.c` `goodpos` `passes_walls` +
 `may_passwall` early-out. Not youmonst swim.
-**Blocked:** none.
-
-## 2026-08-16 19:06 — #1397 D-1098 seffects SCR_GENOCIDE
-
-**Objective:** Open queue — `read.c` `seffects` SCR_GENOCIDE
-(named from sit). Not kill_eggs.
-**C locus:** `read.c` `seffect_genocide` ~1722–1738 /
-`do_class_genocide` ~2638–2820; `mondata.c` `name_to_monclass`
-~1090–1176. Confusion ≡ HConfusion.
-**Change:** wire `seffects` + `doread` allowlist; blessed → class
-getlin (`name_to_monclass` then `name_to_mon`); `G_GENOD|G_NOCORPSE`
-+ `kill_genocided_monsters`; own role/race `uhp=-1` / Unchanging
-poly `done(GENOCIDED)`. Uncursed uses existing `do_genocide`.
-livelog / Hallu / POLY_REVERT / cham `newcham` / `update_inventory`
-still named. Filled D-1097 hash `d1e7ae23`. Rotated #1382.
-Open 10 (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1395** **44**/44; next
-@**#1400**).
-**Verified:** private canary 21/21 `name_to_monclass` + 8/8 seffects;
-green+strict seed8000/0900; cohort **10**/10 (5006/0002/0106/0105/
-1500/1800/0009/0361/0107/2200). Public traces **unhit**.
-**Next:** Open `teleport.c` `goodpos` youmonst swim/lev/fly/wwalk
-pool and lava arms. Not `passes_walls`.
 **Blocked:** none.
 

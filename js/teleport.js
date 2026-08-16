@@ -15,6 +15,8 @@ import {
     MIGR_RANDOM, MIGR_PORTAL, MON_MIGRATING, NO_TRAP,
     is_xport,
     ROOM, CORR, ICE, VAULT, SHOPBASE, ANY_SHOP, TEMPLE,
+    A_NONE, A_LAWFUL, A_CHAOTIC, A_NEUTRAL, AM_SHRINE, Amask2align,
+    ESHK, EPRI, EMIN, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER,
     is_hole, Is_stronghold, Is_botlevel, Is_knox_level,
@@ -30,6 +32,7 @@ import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
     amphibious, monsterNames, passes_walls, is_dlord, is_dprince,
     is_rider, control_teleport, haseyes, G_UNIQ,
+    is_minion, is_vampshifter,
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
@@ -68,6 +71,7 @@ const BOULDER = objectNames.indexOf('BOULDER');
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_MINOTAUR = monsterNames.indexOf('PM_MINOTAUR');
+const PM_ANGEL = monsterNames.indexOf('PM_ANGEL');
 
 function isok(x, y) {
     return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
@@ -145,7 +149,7 @@ function sengr_at(s, x, y, strict) {
 /**
  * C ref: teleport.c goodpos_onscary — fakemon (m_id==0) scary approx.
  * Altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102).
- * Named: onscary when m_id != 0 (vampshifter altar, hero/image Elbereth).
+ * Live m_id != 0 uses onscary (D-1110).
  */
 function goodpos_onscary(x, y, mptr) {
     if (!mptr) return false;
@@ -283,9 +287,133 @@ export function is_exclusion_zone(type, x, y) {
     return false;
 }
 
+/** C ref: dungeon.c on_level. Local (priest/shk cycle). */
+function on_level(a, b) {
+    return !!a && !!b
+        && (a.dnum | 0) === (b.dnum | 0)
+        && (a.dlevel | 0) === (b.dlevel | 0);
+}
+
+/**
+ * C ref: priest.c mon_aligntyp — ispriest EPRI / isminion EMIN / data.
+ * Local clone avoids priest.js → makemon.js → teleport cycle (D-1110).
+ */
+function mon_aligntyp(mon) {
+    let algn;
+    if (mon?.ispriest) algn = EPRI(mon)?.shralign ?? mon?.data?.maligntyp ?? 0;
+    else if (mon?.isminion) algn = EMIN(mon)?.min_align ?? mon?.data?.maligntyp ?? 0;
+    else algn = mon?.data?.maligntyp ?? 0;
+    if (algn === A_NONE) return A_NONE;
+    if (algn > 0) return A_LAWFUL;
+    if (algn < 0) return A_CHAOTIC;
+    return A_NEUTRAL;
+}
+
+/** C monst.h is_lminion — is_minion(data) && mon_aligntyp == A_LAWFUL. */
+function is_lminion(mon) {
+    return is_minion(mon?.data) && mon_aligntyp(mon) === A_LAWFUL;
+}
+
+/**
+ * C youprop.h Displaced — HDisplaced || EDisplaced (no B).
+ * confer may write CLOAK_OF_DISPLACEMENT to uprops[], not EDisplaced.
+ */
+function Displaced() {
+    const u = game.u || {};
+    return !!_uprop_he(u, 'HDisplaced', 'EDisplaced', DISPLACED);
+}
+
+/**
+ * C ref: shk.c inhishop — on_level(shoplevel) + in_rooms SHOPBASE.
+ * Local clone — shk.js imports this file.
+ */
+function inhishop(shkp) {
+    const eshk = ESHK(shkp);
+    if (!eshk) return false;
+    if (!on_level(eshk.shoplevel, game.u?.uz)) return false;
+    const shkrooms = in_rooms(shkp.mx, shkp.my, SHOPBASE);
+    if (!shkrooms) return false;
+    return shkrooms.includes(String.fromCharCode(eshk.shoproom | 0));
+}
+
+/**
+ * C ref: priest.c histemple_at / has_shrine / inhistemple.
+ * Local clones — priest.js → makemon.js → teleport cycle.
+ */
+function histemple_at(priest, x, y) {
+    if (!priest || !priest.ispriest) return false;
+    const epri = EPRI(priest);
+    if (!epri) return false;
+    const rooms = in_rooms(x, y, TEMPLE);
+    if (!rooms || (rooms.charCodeAt(0) | 0) !== (epri.shroom | 0)) return false;
+    return on_level(epri.shrlevel, game.u?.uz);
+}
+
+function has_shrine(pri) {
+    if (!pri || !pri.ispriest) return false;
+    const epri = EPRI(pri);
+    if (!epri?.shrpos) return false;
+    const lev = game.level?.at(epri.shrpos.x | 0, epri.shrpos.y | 0);
+    if (!lev || !IS_ALTAR(lev.typ) || !((lev.altarmask | 0) & AM_SHRINE)) {
+        return false;
+    }
+    return (epri.shralign | 0)
+        === (Amask2align((lev.altarmask | 0) & ~AM_SHRINE) | 0);
+}
+
+function inhistemple(priest) {
+    if (!priest || !priest.ispriest) return false;
+    if (!histemple_at(priest, priest.mx, priest.my)) return false;
+    return has_shrine(priest);
+}
+
+/**
+ * C ref: monmove.c onscary — live-mon scare for goodpos when m_id != 0.
+ * Local copy avoids mon.js ↔ teleport cycle (D-1110).
+ * mfndpos still uses mon.js's partial (sengr_at object stringify named).
+ */
+function onscary(x, y, mtmp) {
+    const auditory_scare = (x === 0 && y === 0);
+    const magical_scare = !auditory_scare;
+    const ptr = mtmp?.data;
+
+    /* C: Rodney, lawful minions, Angels, the Riders */
+    if (mtmp.iswiz || is_lminion(mtmp) || (ptr?.mndx ?? -1) === PM_ANGEL
+        || is_rider(ptr)) {
+        return false;
+    }
+    /* C: humans / uniques resist magical scare (altar, scroll, Elbereth) */
+    if (magical_scare && (ptr?.mlet === 'S_HUMAN' || unique_corpstat(ptr))) {
+        return false;
+    }
+    if ((mtmp.isshk && inhishop(mtmp))
+        || (mtmp.ispriest && inhistemple(mtmp))) {
+        return false;
+    }
+    if (auditory_scare) return true;
+
+    const loc = game.level?.at(x, y);
+    if (loc && IS_ALTAR(loc.typ)
+        && (ptr?.mlet === 'S_VAMPIRE' || is_vampshifter(mtmp))) {
+        return true;
+    }
+    if (sobj_at(SCR_SCARE_MONSTER, x, y)) return true;
+
+    const ep = sengr_at('Elbereth', x, y, true);
+    return !!(ep
+        && (u_at(x, y)
+            || (Displaced() && mtmp.mux === x && mtmp.muy === y)
+            || (ep.guardobjects && objects_at(x, y)))
+        && !(mtmp.isshk || mtmp.isgd || !mtmp.mcansee
+            || mtmp.mpeaceful
+            || (ptr?.mndx ?? -1) === PM_MINOTAUR
+            || Inhell() || In_endgame(game.u?.uz)));
+}
+
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: onscary when m_id != 0 (fakemon uses goodpos_onscary).
+ * Named omissions: teleok vibrating/pit-fly; MAGIC_PORTAL/LEVEL_TELEP
+ * mlevel_tele_trap arms.
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -354,7 +482,12 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
         if (passes_walls(mdat) && may_passwall(x, y)) return true;
         // C: amorphous may ooze through closed doors before accessible()
         if (amorphous(mdat) && closed_door(x, y)) return true;
-        if (checkscary && goodpos_onscary(x, y, mdat)) return false;
+        /* C teleport.c goodpos: live m_id uses onscary; fakemon
+         * (m_id==0) uses goodpos_onscary (D-1110). */
+        if (checkscary && (mtmp.m_id ? onscary(x, y, mtmp)
+            : goodpos_onscary(x, y, mdat))) {
+            return false;
+        }
     }
 
     // C: accessible() — rejects closed/locked doors (bare ACCESSIBLE is wrong)
