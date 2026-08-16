@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 18:48 — #1396 D-1097 kill_eggs after genocide
+
+**Objective:** Open queue — `mon.c` `kill_eggs` after genocide
+(named from sit D-1034). Not seffects SCR_GENOCIDE.
+**C locus:** `mon.c` `kill_eggs` 5607–5635 /
+`kill_genocided_monsters` 5637–5677; `timeout.c` `kill_egg`;
+`dead_species(..., TRUE)`.
+**Change:** walk invent array + nobj lists; EGG → `dead_species`
+→ `kill_egg`; else `Has_contents` recurse `cobj`. Call on every
+live fmon minvent then invent/fobj/migrating/buried. No
+`continue` past minvent on deferred `newcham`. TIN/CORPSE `#if 0`
+not ported. Stamped D-1034 review **Addressed:** D-1097.
+Rotated #1381. Open 11 (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1395** **44**/44; next
+@**#1400**).
+**Verified:** private canary **24**/24; green+strict seed8000/0900;
+cohort **15**/15 + strict 0106/0107/4500/0360. Path public-unhit.
+**Next:** Open `read.c` `seffects` SCR_GENOCIDE. Not kill_eggs.
+**Blocked:** none.
+
 ## 2026-08-16 18:30 — #1395 review D-1093–D-1096 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -344,27 +364,4 @@ other armor slots; stale quiver pointer-walk; live `*gone`/
 seed8000/0900; cohort **9**/9 (0106/0107/0108/4500/1500/1800/0017/
 0360/2200) + sit strict.
 **Next:** Open `sit.c` `rndcurse` `shieldeff`.
-**Blocked:** none.
-
-## 2026-08-16 15:20 — #1381 D-1085 can_reach_floor Flying via uprops
-
-**Objective:** Must-fix — `engrave.c` `can_reach_floor` `Flying()`
-via `uprops[FLYING]` (review **43**). Not steal.c `remove_worn_item`.
-**C locus:** `youprop.h` Flying (~247–255); `engrave.c`
-`can_reach_floor` (~206–207); `do_wear.c` Amulet_on flying
-(~1056–1058).
-**Change:** `Flying()` ORs H/E flats **and** `uprops[FLYING]`
-intrinsic/extrinsic; keep steed `is_flyer`; keep `!BFlying` /
-`prop.blocked` (eat.js shape, no sticky skip of blocked).
-Worn amulet skips `check_pit`. Did not rewrite `confer_oc_oprop`.
-Stamped review **43** **Addressed:** D-1085 (hash next SHA).
-Rotated #1367 to archive. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1380** **44**/44; next
-@**#1385**).
-**Verified:** private canary 20/20 (confer amulet EFlying unset
-skips pit; HFlying; unskilled rider still false; BFlying;
-MZ_HUGE; shaft; swallow/ceiling before Flying); green+strict
-seed8000/0900; cohort **14**/14 + strict 1800/0004/0101/0103/
-0360/2200/4500.
-**Next:** Open `steal.c` `remove_worn_item` armor `*_off`.
 **Blocked:** none.

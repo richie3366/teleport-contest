@@ -37,7 +37,7 @@
 // punish Blind set_bc; flooreffects on placebc; HEAVY_IRON_BALL reuse
 // from angrygods; seffects SCR_GENOCIDE / do_class_genocide wire;
 // do_genocide livelog / Hallucination names / vampshifted POLY_REVERT /
-// kill_eggs / chameleon newcham.
+// chameleon newcham; update_inventory.
 //
 // Branch envelope: getobj read loop (scrolls/spellbooks + ?/* pickinv) +
 // SCROLL_CLASS path for SCR_MAGIC_MAPPING / SCR_TELEPORTATION / SCR_LIGHT /
@@ -1016,7 +1016,7 @@ function Deaf() {
  * C ref: read.c do_genocide(how).
  * how: 0 = cursed spawn; 1 = REALLY; 3 = REALLY|PLAYER; 5 = REALLY|ONTHRONE.
  * Named omissions: livelog; Hallucination type names; vampshifted
- * POLY_REVERT; kill_eggs; chameleon newcham; update_inventory;
+ * POLY_REVERT; chameleon newcham; update_inventory;
  * do_class_genocide / seffects SCR_GENOCIDE wire.
  */
 export async function do_genocide(how) {

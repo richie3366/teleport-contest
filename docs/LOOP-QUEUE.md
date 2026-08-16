@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `kill_eggs` after genocide (named from sit D-1034). Not seffects SCR_GENOCIDE.
 - [ ] `read.c` `seffects` SCR_GENOCIDE (named from sit). Not kill_eggs.
 - [ ] `teleport.c` `goodpos` youmonst Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava arms (named). Not `passes_walls`.
 - [ ] `teleport.c` `goodpos` `passes_walls` + `may_passwall` early-out (named). Not youmonst swim.

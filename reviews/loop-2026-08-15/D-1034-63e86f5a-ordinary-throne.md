@@ -20,6 +20,7 @@ Deliverable: the C switch **and** a `do_genocide(how)` getlin port (caller case 
 | 3 `take_gold` without `remove_worn_item` | **Addressed:** D-1049 `9e24f61a` |
 | 4 `dosit` trap skip | **Addressed:** D-1039 `45784d80` (same gap as D-1033) |
 | 1–2 `do_genocide` / partial callees | named omit / unhit — not Must-fix |
+| `kill_eggs` after genocide | **Addressed:** D-1097 |
 
 ## Inventory
 | File | Role |
@@ -58,7 +59,7 @@ C `read.c` `do_genocide`: getlin type, `G_GENO` refuse, self-geno ONTHRONE kille
 
 JS `read.js:1021`: `GENO_REALLY=1`, `GENO_ONTHRONE=4`, `how=5` both bits. ONTHRONE killer `KILLED_BY_AN` / `imperious order`: matches C. `getlin` monster name; 5 tries; `G_GENO` thunderous No mortal.
 
-**Risks:** `name_to_mon` / livelog / Hallu / `kill_eggs` / cham `newcham` named. An interactive `#sit` throne case 8 is in **no** public trace. getlin can desync I/O without touching the RNG prefix if the player never sits.
+**Risks:** `name_to_mon` / livelog / Hallu / cham `newcham` named; `kill_eggs` **Addressed:** D-1097. An interactive `#sit` throne case 8 is in **no** public trace. getlin can desync I/O without touching the RNG prefix if the player never sits.
 
 `G_GENO 0x0020` in this commit (`monsters.js`): treat as a **C const** (obj.h/monflag), not a trace constant.
 

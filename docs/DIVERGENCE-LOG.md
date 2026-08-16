@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1097 — kill_eggs after genocide
+
+- **Status:** fixed (map-driven Open; named from sit D-1034; not a public FAIL)
+- **Symptom:** `kill_genocided_monsters` wiped live G_GENOD mons but left
+  hatch timers on eggs of that species (invent / floor / minvent /
+  migrating / buried / nested containers). C `kill_eggs` stops them.
+- **C locus:** `mon.c` `kill_eggs` (~5607–5635) / `kill_genocided_monsters`
+  (~5637–5677); `timeout.c` `kill_egg` (`stop_timer(HATCH_EGG)`);
+  `dead_species(..., TRUE)` also checks `big_to_little`. TIN/CORPSE
+  arms are `#if 0` in C.
+- **Fix:** walk JS invent as array and other lists as nobj; EGG →
+  `dead_species` → `kill_egg`; else `Has_contents` recurse `cobj`.
+  Call after each live fmon (even if not genocided) then invent/fobj/
+  migrating/buried. Do not `continue` past minvent on deferred
+  `newcham`. Rule #2: no fs.
+- **JS:** `js/mon.js` `kill_eggs` / `kill_genocided_monsters`.
+- **Not this iter:** seffects SCR_GENOCIDE; cham `newcham`; do.c
+  `goto_level` / cmd.c wiz-level-change callers; TIN/CORPSE `#if 0`.
+- **Verify:** private canary **24**/24 (invent/fobj/cobj/minvent/
+  DEADMONSTER skip/buried/migrating/nested; cub geno kills wolf egg;
+  wolf geno does not kill cub egg; empty lists); green+strict
+  seed8000/0900; cohort **15**/15 + strict 0106/0107/4500/0360.
+  Path public-unhit.
+- **Files:** `js/mon.js` (comment in `js/read.js`).
+
 ## D-1096 — dryup wizard y_n("Dry up fountain?")
 
 - **Status:** fixed (map-driven Open; named omit from D-0894; not a public FAIL)

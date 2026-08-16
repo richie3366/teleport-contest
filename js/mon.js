@@ -15,6 +15,7 @@ import {
     ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
     IS_FOUNTAIN,
     ismnum, M_POISONGAS_OK, u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_MIGRATING, MON_DETACH,
+    Has_contents,
 } from './const.js';
 import { t_at, m_harmless_trap, water_damage_chain } from './trap.js';
 import {
@@ -32,7 +33,7 @@ import {
     little_to_big, big_to_little, hero_conflict, resist_conflict,
     m_canseeu,
 } from './mondata.js';
-import { objects_at } from './mkobj.js';
+import { objects_at, kill_egg } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag } from './teleport.js';
@@ -60,6 +61,7 @@ const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
+const EGG = objectNames.indexOf('EGG');
 const NC_SHOW_MSG = 1;
 
 /** C ref: monmove.c closed_door — IS_DOOR && (CLOSED|LOCKED). */
@@ -1788,9 +1790,35 @@ export function hide_monst(mon) {
 }
 
 /**
- * C ref: mon.c kill_genocided_monsters — wipe live mons of G_GENOD species.
+ * C ref: mon.c kill_eggs — stop HATCH_EGG on eggs of genocided species
+ * (dead_species(..., TRUE) also checks baby form). JS invent is an
+ * array; other lists are nobj chains. TIN/CORPSE arms are #if 0 in C.
+ */
+function kill_eggs(obj_list) {
+    if (!obj_list) return;
+    if (Array.isArray(obj_list)) {
+        for (const otmp of obj_list) kill_eggs_one(otmp);
+        return;
+    }
+    for (let otmp = obj_list; otmp; otmp = otmp.nobj) {
+        kill_eggs_one(otmp);
+    }
+}
+
+function kill_eggs_one(otmp) {
+    if (!otmp) return;
+    if ((otmp.otyp | 0) === EGG) {
+        if (dead_species(otmp.corpsenm | 0, true)) kill_egg(otmp);
+    } else if (Has_contents(otmp)) {
+        kill_eggs(otmp.cobj);
+    }
+}
+
+/**
+ * C ref: mon.c kill_genocided_monsters — wipe live mons of G_GENOD species
+ * then kill_eggs on minvent / invent / fobj / migrating_objs / buried.
  * Named omissions: chameleon `newcham` when imitating a genocided form;
- * `kill_eggs` on minvent/invent/fobj/migrating/buried.
+ * do.c `goto_level` / cmd.c wiz-level-change callers.
  */
 export function kill_genocided_monsters() {
     const mv = game.mvitals || [];
@@ -1802,11 +1830,15 @@ export function kill_genocided_monsters() {
         if ((((mv[mndx]?.mvflags ?? 0) & G_GENOD) !== 0) || kill_cham) {
             if (ismnum(cham) && !kill_cham) {
                 // newcham(mtmp, NULL, NC_SHOW_MSG) deferred
-                continue;
+            } else {
+                mondead(mtmp);
             }
-            mondead(mtmp);
         }
-        // kill_eggs(mtmp->minvent) deferred
+        if (mtmp.minvent) kill_eggs(mtmp.minvent);
     }
-    // kill_eggs(invent/fobj/migrating_objs/buriedobjlist) deferred
+
+    kill_eggs(game.invent);
+    kill_eggs(game.fobj);
+    kill_eggs(game.migrating_objs);
+    kill_eggs(game.level?.buriedobjlist);
 }

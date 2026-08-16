@@ -10,17 +10,17 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1395**;
   next @**#1400**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11.
   Reviews **54** ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap
   named), **55–57** ACCEPT (D-1094…D-1096); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1096**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `mon.c` `kill_eggs` after genocide
-  (named from sit D-1034). Not seffects SCR_GENOCIDE.
-- **Hypothesis:** none live. D-1096 shipped: `dryup` wizard
-  `y_n("Dry up fountain?")` after town warn; `'n'` abort.
+- Latest ports: **D-1089**…**D-1097**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `read.c` `seffects` SCR_GENOCIDE
+  (named from sit). Not kill_eggs.
+- **Hypothesis:** none live. D-1097 shipped: `kill_eggs` on
+  minvent/invent/fobj/migrating/buried + Has_contents.
 
 ## Don't re-check (≤15)
 
@@ -49,7 +49,8 @@ Objective/score live in `CURRENT.md`.
   restore dogmove string `'MS_LEADER'` (D-1093) / restore
   MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
   uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
-  add `debug_fuzzer` skip there (D-1096).
+  add `debug_fuzzer` skip there (D-1096) / skip `kill_eggs` or
+  port TIN/CORPSE `#if 0` (D-1097).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -58,6 +59,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1395**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1400**.
+- **D-1097:** `kill_eggs` after genocide. Hash next SHA.
+  TIN/CORPSE `#if 0`; cham `newcham`; goto_level caller named.
 - **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
   warn. Hash `bd16c130`. `'n'` abort. `angry_guards` still named.
 - **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
