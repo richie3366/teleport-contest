@@ -16,8 +16,8 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1057 furniture sit_message (sink/altar/grave/stairs/ladder).
-  Must-fix empty.
+- Latest: reviews 17/18 ACCEPT (D-1056 Underwater, D-1057 furniture).
+  Must-fix empty. Next Open lava sit.
 - **Next cluster:** Open — `dosit` lava / ice / drawbridge sit
   (terrain, not trap-lava D-1039).
 - **Hypothesis:** lava sit is WWalking-only (C `sit.c:539–549`):

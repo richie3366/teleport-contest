@@ -73,7 +73,8 @@ public traces.
 
 **Next cluster:** Open — `sit.c` `dosit` lava / ice / drawbridge
 sit (terrain, not trap-lava already in D-1039). Must-fix empty
-after D-1057.
+after D-1057. Reviews **17–18** ACCEPT (`2e79451d` /
+`e1852e71`).
 Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
 optional debt. Review every 3; cadence every 5 is score-only
 **unless Must-fix is open**. Agents **commit and `git push origin
