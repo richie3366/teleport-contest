@@ -30,11 +30,12 @@ Options:
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
 Fail-closed (default): green / full-suite / density / protected / banned
 halt and revert the iteration (or halt without reset if already pushed).
-Review every LOOP_REVIEW_EVERY (3); cadence every LOOP_CADENCE_EVERY (5)
-unless Must-fix is open. Queue below LOOP_QUEUE_MIN (8) must be refilled
-from the map (target LOOP_QUEUE_TARGET 12); do not halt before the agent
-when empty — halt after a port that still has no open items.
-Agents commit and push; the script fail-closes and pushes if they forgot.
+Every LOOP_CADENCE_EVERY (5) is review + full-suite score (no port).
+Queue below LOOP_QUEUE_MIN (8) must be refilled from the map
+(target LOOP_QUEUE_TARGET 12); halt after a port that still has no
+open items. Agents commit and push; the script fail-closes and pushes
+if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
+writes 0, at launch.
 See docs/AGENT-PORT-LOOP.md.
 EOF
 }
@@ -94,10 +95,11 @@ printf '%s\n' "$$" >"$LOCK_DIR/pid"
 cleanup() { rm -rf "$LOCK_DIR"; }
 trap cleanup EXIT
 
-# Fresh stop latch every successful launch, as requested.
+# Fresh stop latch every successful launch. File is gitignored so a
+# loop-agent `git reset --hard` cannot restore a tracked 0.
 printf '0\n' >"$STOP_FILE"
 
-dirty="$(git status --porcelain | grep -v 'STOP_AGENT_LOOP.md' || true)"
+dirty="$(git status --porcelain)"
 if [[ -n "$dirty" ]]; then
   echo "error: dirty worktree; commit or stash before launching the unattended loop:" >&2
   printf '%s\n' "$dirty" >&2
@@ -143,7 +145,6 @@ ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
-LOOP_REVIEW_EVERY="${LOOP_REVIEW_EVERY:-3}"
 LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-5}"
 LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-400}"
 LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-8}"
@@ -422,14 +423,8 @@ scan_new_banned_patterns() {
 
 iter_mode() {
   local n="$1"
-  local rev="$LOOP_REVIEW_EVERY"
-  local cad="$LOOP_CADENCE_EVERY"
-  if (( n % cad == 0 && n % rev == 0 )); then
+  if (( n % LOOP_CADENCE_EVERY == 0 )); then
     echo audit
-  elif (( n % cad == 0 )); then
-    echo cadence
-  elif (( n % rev == 0 )); then
-    echo review
   else
     echo port
   fi
@@ -530,7 +525,7 @@ echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
-echo "review: every ${LOOP_REVIEW_EVERY}; cadence every ${LOOP_CADENCE_EVERY} (score-only)"
+echo "audit:  every ${LOOP_CADENCE_EVERY} (review + full suite); else port"
 echo "queue:  min ${LOOP_QUEUE_MIN} open / target ${LOOP_QUEUE_TARGET} (refill from map)"
 echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
 echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
@@ -572,11 +567,6 @@ while true; do
   write_iter_count "$iter"
   mode="$(iter_mode "$iter")"
   mustfix_before="$(mustfix_open_count)"
-  if [[ "$mode" == "cadence" ]] && (( mustfix_before > 0 )); then
-    echo "$(date -Iseconds) note: Must-fix open (${mustfix_before}) — cadence deferred, this iter is port" \
-      | tee -a "$MASTER_LOG"
-    mode=port
-  fi
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
   snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$STAMP-$iter.XXXXXX")"

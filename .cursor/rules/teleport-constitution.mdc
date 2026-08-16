@@ -25,9 +25,11 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   rules, loop scripts/prompt, `frozen/**`, `sessions/**`, upstream C, or contest
   patches.
 - Loop agents **commit** and **`git push origin HEAD`** at the end of
-  each iteration (no force-push, no amend of pushed commits). The
-  supervisor fail-closes and pushes if the agent forgot. Do not write
-  `1` to `STOP_AGENT_LOOP.md` except a **review** iteration on REJECT.
+  each iteration (no force-push, no amend of pushed commits, no
+  `git reset --hard`). The supervisor fail-closes and pushes if the
+  agent forgot. `STOP_AGENT_LOOP.md` is gitignored; do not add it.
+  Do not write `1` except a **review/audit** iteration on REJECT.
+  Do not write `0` (only the supervisor does, at launch).
 - **Contest Rule #2:** scored `js/` must be plain ESM for **Node and Chrome** —
   no build step, WASM, network, **filesystem**, threads, or native addons.
   Persist only via frozen `storage.js` VFS. Never import Node builtins

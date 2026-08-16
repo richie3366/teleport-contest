@@ -10,7 +10,8 @@ no `fs`/`path`/`url`/`node:*`, no runtime filesystem. Persist only via
 
 ## Public score cadence
 
-**Every 5 global loop iterations** (`iteration-count % 5 == 0`), run:
+**Every 5 global loop iterations** (`iteration-count % 5 == 0`) is an
+**audit**: write the C-fidelity review **and** run:
 
 ```bash
 node frozen/ps_test_runner.mjs sessions
@@ -21,7 +22,7 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-16** — full `sessions` after cadence
 **#1370** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1375**.
+Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1375**.
 
 ## Score
 
@@ -59,7 +60,7 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 ## Primary objective
 
 **Hold local suite as a regression fortress** (green gate + cohort;
-cadence full `sessions` every 5). Do **not** chase public leaderboard /
+review + full `sessions` together every 5). Do **not** chase public leaderboard /
 cron / `data.json` / hub CDN session drift — out of agent scope. Do
 **not** invent FAIL peels, ALIGN/FORCE, or seed gates for already-
 matching public paths.
@@ -71,7 +72,7 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `sit.c` `split_mon` monster `clone_mon` arm (JS named omit). Must-fix empty (review **38** ACCEPT D-1077). Queue 9. Cadence @**#1375**.
+**Next cluster:** Open — `sit.c` `split_mon` monster `clone_mon` arm (JS named omit). Must-fix empty (review **38** ACCEPT D-1077). Queue 9. Next **audit** (review + score) @**#1375**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
@@ -155,5 +156,6 @@ invent/migrating objects** (C `obj_is_local` is false).
 ## Handoff rule
 
 Update **this file** when score, green gate, or primary objective changes.
-On every 5th global iteration, refresh Score from a full `sessions` run.
+On every 5th global iteration, write the C-fidelity review **and**
+refresh Score from a full `sessions` run.
 Journal; divergence + index; one C-JS-MAP section. No completed D-lists.

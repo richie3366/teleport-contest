@@ -9,8 +9,8 @@ forgot to push, the supervisor pushes after those gates pass.
 
 Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
 Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
-the script now **refuses to start** if the tree is dirty (except
-`STOP_AGENT_LOOP.md`).
+the script now **refuses to start** if the tracked tree is dirty.
+`STOP_AGENT_LOOP.md` is gitignored.
 
 ## Quick start
 
@@ -35,8 +35,9 @@ and change its content from `0` to `1` (whitespace ignored).
 echo 1 > STOP_AGENT_LOOP.md
 ```
 
-The script resets `STOP_AGENT_LOOP.md` to `0` at **startup** only, so a previous
-stop does not stick across runs.
+The file is **gitignored**. A loop-agent `git reset --hard` must not
+restore a tracked `0` and continue after you stopped. Only the
+supervisor writes `0`, at **startup**.
 
 ## Before an unattended run
 
@@ -45,16 +46,15 @@ without it, `--print` mode **auto-denies** Shell/tool approvals and the
 fail-closed script will halt. `--trust` only skips the workspace-trust
 question.
 
-1. Commit everything you care about (`git status` clean except STOP).
+1. Commit everything you care about (`git status` clean; STOP is gitignored).
 2. Confirm `docs/LOOP-QUEUE.md` will be refilled in-loop if below 8 open items.
 3. Confirm the green gate (the script re-runs it as preflight).
 4. Run only one loop against this checkout; do not edit concurrently.
 5. Launch with `AGENT_FORCE=1`. Optional: `--token-budget-m 50`.
 
-The script resets `STOP_AGENT_LOOP.md` to `0` at startup. First
-iteration after global count **1305** will be **#1306 review** (every 3),
-then **#1307 port** of the Must-fix head (pole targeting). Cadence at
-**#1310** defers while Must-fix remains open.
+The script resets `STOP_AGENT_LOOP.md` to `0` at **startup only** (the
+file is gitignored, so a loop-agent `git reset --hard` cannot restore
+a tracked 0). First audit after this change is the next `n % 5 == 0`.
 
 Halt reason (if it stops itself): `.agent-port-loop-logs/last-halt-reason.txt`.
 
@@ -81,19 +81,17 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 ┌───────────────────────────────────────────────────────────────┐
 │  ./scripts/agent-port-loop.sh                                 │
 │                                                               │
-│  1. lock; STOP=0; refuse dirty tree (except STOP file)        │
+│  1. lock; STOP=0 (gitignored file); refuse dirty tracked tree │
 │  2. preflight green (RESULTS_JSON must all pass + strict)     │
 │  3. loop until STOP, token budget, or halt:                   │
-│       mode = review (every 3) / cadence (every 5, score-only) │
-│              / audit (15, 30, …) / else port                  │
+│       mode = audit when n%5==0 (review + full suite) / else port │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
-│             Open from the map (target 12) then ships one cluster;  │
-│             cadence defers while Must-fix is open                  │
+│             Open from the map (target 12) then ships one cluster   │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         timeout, tool denials, protected edit, banned pattern,     │
-│         js/ on review/cadence, empty port, density >400/8,         │
-│         green fail, cadence full-suite fail,                       │
+│         js/ on audit, empty port, density >400/8,                  │
+│         green fail, audit full-suite fail,                         │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
@@ -105,16 +103,14 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 
 | Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
 |------------|------|----------------------|------------------------|
-| `n % 3 == 0` and not cadence | **review** | no | must add `reviews/loop-unattended/`; REJECT → STOP |
-| `n % 5 == 0` | **cadence** | no | full `sessions` must all PASS; **deferred to port** while Must-fix is open |
-| both (`15`, `30`, …) | **audit** | no | review + full suite |
+| `n % 5 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` PASS; REJECT → STOP |
 | else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt; still-empty queue after port → halt |
 
 Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
-the next port **must** fix them instead of opening tut-1. A
-QUALITY-RISK or REJECT review that does not add a Must-fix row is a
-failed review (halt). Cadence score-only defers while Must-fix is
-open (review/audit still run on schedule).
+the next port **must** fix them. A QUALITY-RISK or REJECT review that
+does not add a Must-fix row is a failed review (halt). Review and
+public-score cadence run **together** every 5 iterations (not on
+separate cadences). Must-fix does not skip that audit.
 
 ### Why agents push inside the iteration
 
@@ -174,11 +170,12 @@ porting guide). The prompt emphasizes:
 7. **Commit and `git push origin HEAD`** (supervisor fail-closes; pushes if forgotten)
 
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
-in `docs/CURRENT.md`. **Every 5 global loop iterations** is a **cadence**
-score-only iter (no port) **unless Must-fix is open** (then port; cadence
-slips). **Every 3** is a **review** iter (no port). Work comes from
+in `docs/CURRENT.md`. **Every 5 global loop iterations** (`n % 5 == 0`) is
+an **audit**: C-fidelity review **and** full `sessions` score (no port).
+Work comes from
 `docs/LOOP-QUEUE.md` (Must-fix before Open; live file unchecked-only,
-done rows in `docs/archive/LOOP-QUEUE-DONE.md`). Fixed causes belong in
+done rows in `docs/archive/LOOP-QUEUE-DONE.md`). `STOP_AGENT_LOOP.md` is
+**gitignored**; only the supervisor writes `0`, at launch. Fixed causes belong in
 `DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
 `docs/c-js-map/*.md` section; each iteration prepends a short journal
 entry (rotate into `docs/archive/` when >15).
@@ -208,8 +205,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
-| `LOOP_REVIEW_EVERY` | `3` | Review-only iteration cadence |
-| `LOOP_CADENCE_EVERY` | `5` | Full-suite score-only iteration cadence |
+| `LOOP_CADENCE_EVERY` | `5` | Review + full-suite score when `n % this == 0` |
 | `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
 | `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
 | `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |

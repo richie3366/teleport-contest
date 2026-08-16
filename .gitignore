@@ -4,6 +4,9 @@ node_modules/
 # cursor-agent port loop
 .agent-port-loop-logs/
 .agent-tmp-*
+# Local stop latch. Only the supervisor writes 0 at launch; git reset
+# must not restore a tracked 0 and continue a stopped loop.
+STOP_AGENT_LOOP.md
 
 # Python bytecode
 *.pyc

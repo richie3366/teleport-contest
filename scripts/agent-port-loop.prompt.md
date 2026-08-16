@@ -72,11 +72,10 @@ Mark temporary DIAG distinctly; remove before exit.
 4. subsystem cohort if shared; 5. strict lengths; 6. full `sessions` after
 shared startup/RNG/display or foundation milestones.
 
-**Public score every 5 iterations:** if this is a global loop iteration whose
-number is divisible by 5 (see `.agent-port-loop-logs/iteration-count`, or the
-loop injects a reminder), run `node frozen/ps_test_runner.mjs sessions` and
-rewrite `CURRENT.md` Score (pass count, screen/RNG aggregates, speed, PASS
-list, notable non-PASS). Do not estimate suite totals from one focused seed.
+**Public score every 5 iterations** is the **audit** iter (`n % 5 == 0`):
+review + `node frozen/ps_test_runner.mjs sessions`, not a port iter.
+If this prompt is a port iter, skip the full suite unless CURRENT says
+otherwise (shared startup/RNG/display).
 
 Remove DIAG/FORCE, seed names, recorded coords, raw RNG-index gates, edits to
 frozen `isaac64`/`terminal`/`storage`, and any `fastforward.js` additions.
@@ -116,5 +115,6 @@ No frame/RNG alignment machinery, seed-specific production logic, whole-program
 transpile/WASM as the scored port. Do not edit authority docs (Constitution,
 runbook, playbook, API/phases/strategy, Cursor rules, loop scripts/prompt),
 `frozen/**`, `sessions/**`, upstream C/patches, or frozen JS contracts.
-Do not write `1` to `STOP_AGENT_LOOP.md` (review iterations may, on REJECT).
-After two falsifications, reconstruct the C path or pivot — do not spin.
+Do not write `1` to `STOP_AGENT_LOOP.md` (review/audit iterations may, on REJECT).
+Do not write `0` to that file, do not `git add` it (gitignored), and do not
+`git reset --hard` / `git clean`. After two falsifications, reconstruct the C path or pivot — do not spin.

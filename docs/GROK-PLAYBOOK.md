@@ -232,7 +232,10 @@ in the journal for human/auditor review.
 Stage intentional changes; commit with why (C locus / D-ID / verification).
 **`git push origin HEAD`.** The supervisor fail-closes (green / density /
 authority) and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`).
-No `--force`, no amend of pushed commits. If a gate fails **after** a
+No `--force`, no amend of pushed commits, no `git reset --hard` (that
+restored a tracked `STOP_AGENT_LOOP.md` `0` and continued a stopped
+loop). `STOP_AGENT_LOOP.md` is gitignored; do not add or commit it.
+Only the supervisor writes `0` at launch. If a gate fails **after** a
 push, the supervisor halts **without** `git reset` — a human reverts origin.
 
 **Addressed hashes:** stamp `**Addressed:** D-NNNN` in the fix commit.

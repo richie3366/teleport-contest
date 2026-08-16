@@ -17,7 +17,7 @@ Objective/score live in `CURRENT.md`.
   refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
-  (cadence score refreshes every 5).
+  (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: review **38** ACCEPT `a9e819a4` D-1077 (`is_lava`
   DRAWBRIDGE_UP+`DB_LAVA`; mfndpos uses shared helper). Do not

@@ -77,7 +77,8 @@ production / unrevertible mess). QUALITY-RISK continues via Must-fix.
 ## Git
 
 Stage review + queue + CURRENT + NOTES + journal. Commit with why.
-**`git push origin HEAD`** (no force-push, no amend of pushed commits).
+**`git push origin HEAD`** (no force-push, no amend of pushed commits,
+no `git reset --hard`). Do not `git add` `STOP_AGENT_LOOP.md` (gitignored).
 No `js/` edits. If leftover `- [x]` remain in `LOOP-QUEUE.md`, run
 `node scripts/archive-loop-queue-done.mjs`. If a previous
 `**Addressed:** D-NNNN` line is missing its short hash, fill it in this

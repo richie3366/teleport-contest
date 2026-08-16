@@ -21,6 +21,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 12:30 — audit = review + cadence on n%5==0; gitignore STOP
+
+**Objective:** user: same iteration for review and public score when
+`n % 5 == 0`; `STOP_AGENT_LOOP.md` gitignored so `git reset --hard`
+cannot restore a tracked 0.
+**C locus:** n/a (supervisor).
+**Change:** `iter_mode` audit-only on cadence; drop review-every-3 and
+Must-fix cadence deferral. STOP untracked. Agents must not reset --hard.
+**Score:** unchanged (last cadence **#1370**; next audit **#1375**).
+**Verified:** `bash -n` loop script.
+**Next:** Open `split_mon` `clone_mon`; audit @#1375.
+**Blocked:** none.
+
 ## 2026-08-16 12:21 — #1371 review D-1077 against pinned C
 
 **Objective:** review every JS-touching commit since
