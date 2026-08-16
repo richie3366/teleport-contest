@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 16:25 — #1384 D-1088 m_initweap priest/guardian ptr.msound
+
+**Objective:** Open queue — `makemon.c` `m_initweap` `ptr.msound`
+for MS_GUARDIAN / MS_PRIEST (still mndx after D-1079). Not
+peace_minded.
+**C locus:** `makemon.c` `m_initweap` 263–327; `m_initinv` 721–727;
+`quest_mon_represents_role` 11–13; `monflag.h` MS_PRIEST=41 /
+MS_GUARDIAN=38.
+**Change:** priest/guardian kits (and `m_initinv` priest) gate on
+`ptr.msound`; `quest_mon_represents_role` uses LEADER/NEMESIS
+msound not ldrnum/neminum. Did not pull PM_NINJA weap or
+MS_NEMESIS mitem. Filled D-1087 hash `d5038ac7`. Rotated #1370
+to archive. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1380** **44**/44; next
+@**#1385**).
+**Verified:** private canary (synth HUMAN+MS_PRIEST mace; silent
+chieftain no sword; Priest-role Twoflower mace); green+strict
+seed8000/0900; cohort **16**/16 (incl. 0361/0367/0373 quest) +
+strict 0367/0361/0373/0014/4500/0360/2200. Synth public-unhit.
+**Next:** Open `dbridge.c` `is_pool` / `is_moat` DRAWBRIDGE_UP +
+`DB_MOAT`. Audit @**#1385**.
+**Blocked:** none.
+
 ## 2026-08-16 16:05 — #1383 D-1087 rndcurse Antimagic shieldeff
 
 **Objective:** Open queue — `sit.c` `rndcurse` `shieldeff` (named
@@ -300,20 +323,5 @@ Rotated #1356 to archive.
 **Verified:** C read of `dbridge.c:46–113`, `rm.h:75`/`217`/`291–295`,
 `sit.c:539–555`, `mon.c:971–972`/`2256–2259`, `teleport.c:134–175`;
 JS hunks grepped FORCE/fs/seed.
-**Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
-**Blocked:** none.
-
-## 2026-08-16 12:20 — #1370 cadence score refresh
-
-**Objective:** mandatory cadence full `sessions` (@#1370 % 5 == 0);
-refresh `CURRENT.md` Score. No port (score-only).
-**C locus:** n/a (score-only; no JS port change).
-**Change:** docs only — Score **44**/44 Scr **11405**/11405 RNG
-**100%** speed `31+0.27/turn` (R² 0.87). Filled Addressed hash
-`a9e819a4` (D-1077). Queue 9 Open (no refill). Rotated #1355 to
-archive. Rule #2: no fs.
-**Score:** cadence **#1370** **44**/44 Scr **11405**/11405 RNG **100%**
-speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
-**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
 **Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
 **Blocked:** none.

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1088 — m_initweap MS_PRIEST / MS_GUARDIAN ptr.msound
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `m_initweap` gated priest/guardian kits on
+  `mndx` (ALIGNED/HIGH_CLERIC; student…neanderthal list) after
+  D-1079 extracted `msounds[]`. C uses `ptr->msound`.
+- **C locus:** `makemon.c` `m_initweap` (~263–327); `m_initinv`
+  (~721–727); `quest_mon_represents_role` macro (~11–13);
+  `monflag.h` MS_PRIEST=41 / MS_GUARDIAN=38.
+- **Fix:** priest arm is `ptr.msound == MS_PRIEST` or
+  `quest_mon_represents_role(PM_CLERIC)` (S_HUMAN + Role_if +
+  LEADER/NEMESIS msound, not ldrnum/neminum). Guardian arm is
+  `ptr.msound == MS_GUARDIAN` then `switch(mm)`. Same priest
+  predicate in `m_initinv`. Rule #2: no fs.
+- **JS:** `js/makemon.js` `m_initweap` / `m_initinv` /
+  `quest_mon_represents_role`.
+- **Not this iter:** PM_NINJA weap (C between priest and
+  guardian); MS_NEMESIS mitem still `urole.neminum`; `dogmove.js`
+  string `'MS_LEADER'` compares; S_ORC/S_ELF/unicorn peace.
+- **Verify:** private canary (ALIGNED/HIGH msound 41; 13
+  guardian types 38; synth HUMAN+MS_PRIEST mace; silent
+  chieftain no sword; Tourist Arch Priest no mace; Priest-role
+  Arch Priest + Twoflower mace via LEADER); green+strict
+  seed8000/0900; cohort **16**/16 (1500/1800/0060/0102/0700/
+  0017/0106/0107/0009/0014/0360/0361/0367/0373/4500/2200) +
+  strict 0367/0361/0373/0014/4500/0360/2200. Quest tours hit
+  acolyte/chieftain/Arch Priest kits; synth public-unhit.
+- **Files:** `js/makemon.js`.
+
 ## D-1087 — sit.c rndcurse Antimagic shieldeff
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

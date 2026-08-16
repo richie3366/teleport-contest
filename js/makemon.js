@@ -449,12 +449,12 @@ function sgn(x) {
 const MS_LEADER = 36;
 const MS_NEMESIS = 37;
 const MS_GUARDIAN = 38;
+const MS_PRIEST = 41;
 
 /**
  * C ref: makemon.c set_malign — kill-alignment weight from type + peaceful.
  * Named omissions: priest/minion EPRI/EMIN individual align ×5 when those
- * mextra fields are absent. m_initweap still gates MS_GUARDIAN/MS_PRIEST
- * by mndx, not ptr.msound.
+ * mextra fields are absent. MS_NEMESIS mitem still urole.neminum.
  */
 export function set_malign(mtmp) {
     if (!mtmp?.data) return;
@@ -1180,15 +1180,14 @@ function m_initweap_default(mtmp, ptr) {
 
 /**
  * C ref: makemon.c quest_mon_represents_role — human quest leader/nemesis
- * as archetype of the hero's role. Tables omit msound; gate by urole
- * ldrnum/neminum (set in role_init).
+ * as archetype of the hero's role (priests and monks). Role_if(role_pm)
+ * plus ptr->msound MS_LEADER / MS_NEMESIS (D-1088; not ldrnum/neminum).
  */
 function quest_mon_represents_role(ptr, role_pm) {
     if (!ptr || ptr.mlet !== 'S_HUMAN') return false;
     if ((game.urole?.mnum | 0) !== (role_pm | 0)) return false;
-    const mndx = ptr.mndx | 0;
-    return mndx === (game.urole?.ldrnum | 0)
-        || mndx === (game.urole?.neminum | 0);
+    const ms = ptr.msound | 0;
+    return ms === MS_LEADER || ms === MS_NEMESIS;
 }
 
 // C ref: makemon.c m_initweap — ordinary-level armed-mlet envelope
@@ -1373,8 +1372,7 @@ function m_initweap(mtmp) {
             }
         } else if (
             // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
-            // tables omit msound; ALIGNED/HIGH_CLERIC + Arch Priest / nemesis
-            mm === pm('ALIGNED_CLERIC') || mm === pm('HIGH_CLERIC')
+            (ptr.msound | 0) === MS_PRIEST
             || quest_mon_represents_role(ptr, pm('CLERIC'))
         ) {
             // C: makemon.c m_initweap MS_PRIEST — mksobj(MACE,FALSE,FALSE)
@@ -1383,14 +1381,9 @@ function m_initweap(mtmp) {
             if (!rn2(2)) curse(otmp);
             mpickobj(mtmp, otmp);
         } else if (
-            // C: ptr->msound == MS_GUARDIAN — tables omit msound; gate by mndx
-            mm === pm('STUDENT') || mm === pm('ATTENDANT')
-            || mm === pm('ABBOT') || mm === pm('ACOLYTE')
-            || mm === pm('GUIDE') || mm === pm('APPRENTICE')
-            || mm === pm('CHIEFTAIN') || mm === pm('PAGE')
-            || mm === pm('ROSHI') || mm === pm('WARRIOR')
-            || mm === pm('HUNTER') || mm === pm('THUG')
-            || mm === pm('NEANDERTHAL')
+            // C: ptr->msound == MS_GUARDIAN then switch(mm); PM_NINJA between
+            // priest and guardian is still named-omit (C-JS-MAP).
+            (ptr.msound | 0) === MS_GUARDIAN
         ) {
             // C: makemon.c m_initweap MS_GUARDIAN switch
             switch (mm) {
@@ -1452,7 +1445,7 @@ function m_initweap(mtmp) {
                 break;
             }
         }
-        // PM_NINJA + quest_mon_represents_role(PM_MONK) deferred (C-JS-MAP)
+        // C: PM_NINJA between priest and guardian — named omit (C-JS-MAP)
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default
@@ -1854,7 +1847,7 @@ function m_initinv(mtmp) {
             }
         } else if (
             // C: ptr->msound == MS_PRIEST || quest_mon_represents_role(ptr, PM_CLERIC)
-            ptr.mndx === pm('ALIGNED_CLERIC') || ptr.mndx === pm('HIGH_CLERIC')
+            (ptr.msound | 0) === MS_PRIEST
             || quest_mon_represents_role(ptr, pm('CLERIC'))
         ) {
             // C: makemon.c m_initinv MS_PRIEST — robe/cloak, shield, gold

@@ -11,20 +11,18 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.88) after cadence **#1380**;
   next @**#1385**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open
-  10 after **D-1087** (≥8; no refill).
+  9 after **D-1088** (≥8; no refill).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1081**…**D-1087**. Reviews **42** ACCEPT,
+- Latest ports: **D-1081**…**D-1088**. Reviews **42** ACCEPT,
   **43** QUALITY-RISK (Flying Must-fix shipped D-1085), **44**
   ACCEPT, **45** ACCEPT.
-- **Next cluster:** Open `makemon.c` `m_initweap` `ptr.msound`
-  for MS_GUARDIAN / MS_PRIEST (still mndx after D-1079). Not
-  peace_minded.
-- **Hypothesis:** `m_initweap` still gates guardian/priest kits
-  on `mndx` not `ptr.msound`. Falsifier: a monster with
-  `msound` MS_GUARDIAN/MS_PRIEST but a non-kit `mndx` must take
-  the C `ptr.msound` weapon arm like `makemon.c`.
+- **Next cluster:** Open `dbridge.c` `is_pool` / `is_moat`
+  DRAWBRIDGE_UP + `DB_MOAT` (named from D-1077). Not `is_lava`.
+- **Hypothesis:** `is_pool`/`is_moat` still miss DRAWBRIDGE_UP
+  whose under-typ is `DB_MOAT` (D-1077 retired `is_lava` only).
+  Falsifier: UP+`DB_MOAT` must be pool/moat like C `dbridge.c`.
 
 ## Don't re-check (≤15)
 
@@ -46,16 +44,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) /
-  meager (D-1074) / having-fun egg (D-1075) / pit `dotrap` stub
-  (D-1076) / `is_lava` LAVAPOOL-only (D-1077) / `split_mon` null
-  (D-1078) / unread `ptr.msound` peace (D-1079) / silent shop
-  welcome (D-1080) / `cprefx` without revive (D-1081) / skip
-  ceiling_hider (D-1082) / no-op `check_pit` (D-1083) / always
-  `rnd(13)` wizard (D-1084) / `Flying()` H/E flats without
-  `uprops[FLYING]` (D-1085) / steal `remove_worn_item` setworn-only
-  armor / skip `unpunish` / `owornmask=0` vs `setnotworn` (D-1086) /
-  skip rndcurse Antimagic `shieldeff` (D-1087).
+- Do not skip hugs (D-1071) … `shieldeff` (D-1087) / restore
+  `m_initweap` priest/guardian mndx (D-1088).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085).
 
@@ -63,6 +53,9 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1380**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
+- **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
+  `ptr.msound`; `quest_mon_represents_role` LEADER/NEMESIS.
+  PM_NINJA weap + MS_NEMESIS mitem still named.
 - **D-1087:** display.c `shieldeff` + sit `rndcurse` Antimagic
   call. `update_inventory` / hcolor / other callers still named.
 - **D-1086:** steal.c `remove_worn_item` armor `*_off` /

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1088 | fixed | makemon `m_initweap` priest/guardian `ptr.msound` | map-driven; C `makemon.c:263–327`/`721–727` + `quest_mon_represents_role`; MS_PRIEST=41 / MS_GUARDIAN=38; PM_NINJA weap + MS_NEMESIS mitem still named |
 | D-1087 | fixed | sit `rndcurse` Antimagic `shieldeff` | map-driven; C `sit.c:581–583` / `display.c:1109–1124`; sparkle opt_out On; SHIELD_COUNT 21 `shield_static`; ASCII S_ss1..4; other callers + update_inventory/hcolor named |
 | D-1086 | fixed | steal `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` | map-driven; C `steal.c:213–290`; W_ARMOR → do_wear `*_off`; leftover `setnotworn` pointer-walk; unchain → `unpunish`; W_WEAPONS `*gone`; Amulet/Ring/Blindf still setworn |
 | D-1085 | fixed | engrave `Flying()` via `uprops[FLYING]` | review **43** Must-fix; C `youprop.h:247–255`; confer writes amulet extrinsic not `EFlying`; worn `AMULET_OF_FLYING` skips `check_pit`; other Flying clones named |
