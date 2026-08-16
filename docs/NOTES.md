@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1335**;
-  next @**#1340**.
+  speed `31+0.27/turn` R² 0.88) after cadence **#1340**;
+  next @**#1345**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty; Open tut-1 food objects is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
@@ -80,8 +80,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1335**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
+- Suite after cadence **#1340**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
 - **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
   / `create_object` (DRY `get_location_coord`, `delete_contents`,
   container_obj). Was raw `rn2(sx/sy)` then `cobj=null`.

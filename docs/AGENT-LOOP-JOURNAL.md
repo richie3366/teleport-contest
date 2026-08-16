@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 04:46 — #1340 cadence score refresh
+
+**Objective:** mandatory cadence full `sessions` (@#1340 % 5 == 0);
+refresh `CURRENT.md` Score. No port (score-only).
+**C locus:** n/a (score-only; no JS port change).
+**Change:** docs only — Score **44**/44 Scr **11405**/11405 RNG
+**100%** speed `31+0.27/turn` (R² 0.88). Filled Addressed hash
+`3ca1b544` (D-1062). Rotated #1325 to archive. Rule #2: no fs.
+**Score:** cadence **#1340** **44**/44 Scr **11405**/11405 RNG **100%**
+speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
+**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
+**Next:** Open tut-1 food objects only.
+**Blocked:** none.
+
 ## 2026-08-16 04:42 — #1339 D-1062 tut-1 create_object large-box contents
 
 **Objective:** Open queue — tut-1 large-box contents only (not food /
@@ -305,25 +319,5 @@ no fs.
 **Next:** Must-fix `get_obj_location` flags `0` vs CONTAINED
 (D-1036 risk 4). `timeout.js` already gates CONTAINED on
 `CONTAINED_TOO`; prove remaining `where`/clone or close the row.
-**Blocked:** none.
-
-## 2026-08-16 01:47 — #1325 D-1053 cry_sound msound C monflag.h
-
-**Objective:** Must-fix — `cry_sound` monster `msound` must be C
-`monflag.h` numbers, not empty → always-chitter (D-1036 risk 3).
-**C locus:** `sounds.c` `cry_sound` / `growl_sound`; `monsters.h`
-`SIZ(wt,nut,sound,sz)`; `monflag.h` `enum ms_sounds`.
-**Change:** extractor captures SIZ sound → `msounds[]`; `mons().msound`;
-unify growl/cry MS_* to C numbers; `domonnoise` leader poly-safe is
-C `msound > MS_ANIMAL` (dropped omitted-table `msound===0` shim).
-`peace_minded`/`set_malign` still unread. Rule #2: no fs.
-**Score:** cadence **#1325** **44**/44 Scr **11405**/11405 RNG **100%**
-speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
-**Verified:** private cry stems match C (bee buzz / hiss / growl /
-screech / grunt / chirp / mumble / eel gurgle / ant chitter).
-green+strict PASS; quest/hatch cohort **7**/7 after leader shim
-(seed0361/0367/0373/4500/0014). Path **unhit** by public traces.
-**Next:** Must-fix `get_obj_location` flags `0` vs CONTAINED
-(D-1036 risk 4).
 **Blocked:** none.
 
