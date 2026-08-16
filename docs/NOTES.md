@@ -8,24 +8,20 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `32+0.26/turn` R² 0.87) after cadence **#1325**;
-  next @**#1330**.
+  speed `31+0.27/turn` R² 0.88) after cadence **#1330**;
+  next @**#1335**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Pick a C cluster from `debt.md` / `absent.md`; keep green PASS.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews 15 ACCEPT (D-1054 restore `cobj` CONTAINED) /
-  16 QUALITY-RISK (D-1055 `in_water` body matches; sit reads
-  unset `u.Underwater`). Loop is **fail-closed**. Agents
-  **commit + `git push`**.
-- **Next cluster:** Must-fix — `dosit` `Underwater` ≡ `u.uinwater`
-  (`youprop.h:279`). Source: review 16.
-- **Hypothesis:** `drown` writes `u.uinwater`; `dosit` reads
-  `u.Underwater` (never written). Falsifier: `uinwater=1` on a
-  pool → muddy-bottom, no `rn2(10)` armor. Do not “fix” the
-  second `in_water` `water_damage` to `uarmf` (pinned C uses `uarm`).
+- Latest: D-1056 sit `Underwater` ≡ `u.uinwater`. Must-fix empty.
+- **Next cluster:** Open — `dosit` sink / altar / grave / stairs /
+  ladder sit messages only.
+- **Hypothesis:** furniture sit is message-only (C `sit.c:526–538`);
+  do not pull lava/ice/drawbridge into that cluster. Falsifier:
+  sit on a sink typ → rump/underside wet pline, no throne RNG.
 
 ## Don't re-check (≤15)
 
@@ -82,15 +78,17 @@ Objective/score live in `CURRENT.md`.
   C `Glib` ≡ `uprops[GLIB].intrinsic`). Do not stamp parent-chain
   `where` onto save/bones `cobj` (D-1054). Do not skip `dosit`
   pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
-  (D-1055). Do not leave `dosit` reading `u.Underwater`.
+  (D-1055). Do not restore sit `u.Underwater` (D-1056 — C
+  `youprop.h` `Underwater` ≡ `u.uinwater`). Do not “fix” other
+  `js/` `u.Underwater` in a furniture-sit iter.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1325**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
+- Suite after cadence **#1330**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1335**.
+- **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
 - **D-1055:** `dosit` `in_water` + early pool/gremlin goto + C
-  `uarm` twice. Must-fix: sit `Underwater` → `u.uinwater`.
+  `uarm` twice.
 - **D-1054:** restore `cobj` `OBJ_CONTAINED`; buried `OBJ_BURIED`.
-  `get_obj_location` switch was already C.
 - **D-1053:** `msounds[]` / `cry_sound` no longer always-chitter.
 - **D-1052:** lamp `make_glib` ticking `Glib & TIMEOUT`.

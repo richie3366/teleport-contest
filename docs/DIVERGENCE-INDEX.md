@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1056 | fixed | sit `dosit` `Underwater` ≡ `u.uinwater` | D-1055 read unset `u.Underwater`; C `youprop.h:279` is `u.uinwater` |
 | D-1055 | fixed | sit `dosit` water/pool/gremlin | after trap before sink; early pool/gremlin `in_water`; `split_mon`+`dryup`; C `water_damage(uarm)` twice |
 | D-1054 | fixed | save/bones restore cobj `OBJ_CONTAINED` | D-1036 hatch `get_obj_location(0)` accepted restored box eggs tagged FLOOR/INVENT |
 | D-1053 | fixed | sounds/data `cry_sound` `msounds[]` C `monflag.h` | D-1036 empty `msound` always-chitter; extractor SIZ sound + growl MS_* unified |

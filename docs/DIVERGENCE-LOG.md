@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1056 — dosit Underwater ≡ u.uinwater
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1055 `dosit` water predicates read `u.Underwater`, a
+  field C does not have and JS never writes. C `youprop.h:279` is
+  `#define Underwater (u.uinwater)`. `drown` writes `u.uinwater`.
+  Pool + `uinwater=1` took early `in_water` + two `rn2(10)` instead of
+  muddy-bottom.
+- **C locus:** `sit.c` `dosit` (`is_pool && !Underwater` ~430;
+  `(Underwater || Is_waterlevel)` ~505); `youprop.h:279`.
+- **Fix:** local `Underwater()` helper returns `!!u.uinwater`; both
+  sit reads use it. Did not rewrite other `js/` `u.Underwater` or
+  the second `in_water` `water_damage(uarm)`. Rule #2: no fs.
+- **Deferred:** sink/altar/grave/stairs/ladder/lava/ice/drawbridge;
+  `clone_mon` monster `split_mon`; `lay_an_egg`; apply
+  `Underwater_hero` still the dead alias (named, not this cluster).
+- **Verify:** private node: `uinwater=1` muddy + 0×`rn2(10)`;
+  `uinwater=0` in_water + 2×`rn2(10)`; dead `u.Underwater=1` ignored;
+  submerged picnic vs water-walk skip; eel-underwater having-fun.
+  green+strict PASS; cohort **6**/6; cadence full `sessions`
+  **44**/44 Scr **11405**/11405 RNG **100%** speed `31+0.27/turn`
+  (R² 0.88).
+- **Files:** `js/sit.js`.
+
 ## D-1055 — dosit water / pool / gremlin sit
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

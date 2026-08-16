@@ -1,7 +1,7 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
 // rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
 // dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049)
-// + water/pool/gremlin sit (D-1055).
+// + water/pool/gremlin sit (D-1055/D-1056).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -12,7 +12,8 @@
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
 // fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
-// split_mon+dryup / rn2(10) water_damage uarm twice), IS_THRONE sit +
+// split_mon+dryup / rn2(10) water_damage uarm twice; D-1056: C
+// youprop.h Underwater ≡ u.uinwater), IS_THRONE sit +
 // special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
 // confused remove-curse HConfusion-only D-1048 / poly/acid/shuffle) +
 // ordinary throne_sit_effect 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
@@ -79,6 +80,11 @@ const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
 const WATER_WALKING_BOOTS = objectNames.indexOf('WATER_WALKING_BOOTS');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const CLOTH = 6; // objclass.h obj_material_types
+
+/** C youprop.h:279 `#define Underwater (u.uinwater)`. */
+function Underwater() {
+    return !!(game.u?.uinwater);
+}
 
 /** C youprop.h Blind — HBlinded TIMEOUT or flat Blind. */
 function Blind() {
@@ -932,7 +938,7 @@ export async function dosit() {
     const trap = t_at(u.ux, u.uy);
     const typ = game.level?.at(u.ux, u.uy)?.typ ?? 0;
     // C: else if (is_pool && !Underwater) goto in_water — skips OBJ_AT/trap
-    if (is_pool(u.ux, u.uy) && !u.Underwater) {
+    if (is_pool(u.ux, u.uy) && !Underwater()) {
         await dosit_in_water();
         return ECMD_TIME;
     }
@@ -1023,7 +1029,7 @@ export async function dosit() {
 
     // C: (Underwater || Is_waterlevel) && !eggs_in_water — after trap,
     // before is_pool in_water / IS_SINK.
-    if ((u.Underwater || Is_waterlevel(u.uz))
+    if ((Underwater() || Is_waterlevel(u.uz))
         && !eggs_in_water(game.youmonst?.data)) {
         if (Is_waterlevel(u.uz)) {
             await pline('There are no cushions floating nearby.');

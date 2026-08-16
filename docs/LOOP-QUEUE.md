@@ -23,8 +23,6 @@ off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `dosit` water predicates must use C `Underwater` (`u.uinwater`, `youprop.h:279`), not the unset `u.Underwater` alias. Early pool `goto in_water` and muddy/cushions both read the dead field. Source: reviews/loop-unattended/16-e13735f8-dosit-in-water.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `sit.c` `dosit` sink / altar / grave / stairs / ladder sit messages only.

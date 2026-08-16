@@ -158,7 +158,7 @@ This review iter did not re-run sessions (not a cadence slot; Must-fix will reop
 
 ## Actionable C-wrongs
 
-1. **`dosit` must use C `Underwater` (`u.uinwater`).** Replace the two new reads of `u.Underwater` (`sit.js` early `is_pool && !Underwater`, and `(Underwater \|\| Is_waterlevel) && !eggs_in_water`) with `u.uinwater` (or a one-line helper that is that bit). Do **not** “fix” every `u.Underwater` in `js/` this iter. Do **not** rewrite the second `water_damage` to `uarmf`. Do **not** drop the early pool/gremlin goto. Falsifier: `u.uinwater=1` on a pool, not an eel → muddy-bottom pline, **no** `rn2(10)` armor rolls; water-walking `uinwater=0` still `in_water`.
+1. **`dosit` must use C `Underwater` (`u.uinwater`).** Replace the two new reads of `u.Underwater` (`sit.js` early `is_pool && !Underwater`, and `(Underwater \|\| Is_waterlevel) && !eggs_in_water`) with `u.uinwater` (or a one-line helper that is that bit). Do **not** “fix” every `u.Underwater` in `js/` this iter. Do **not** rewrite the second `water_damage` to `uarmf`. Do **not** drop the early pool/gremlin goto. Falsifier: `u.uinwater=1` on a pool, not an eel → muddy-bottom pline, **no** `rn2(10)` armor rolls; water-walking `uinwater=0` still `in_water`. **Addressed:** D-1056
 
 Named omits (map, not queue): sink/altar/grave/stairs/ladder/lava/ice/drawbridge; `clone_mon` monster `split_mon`; `lay_an_egg`; `can_reach_floor`/`ustuck`/hider; `is_pool` `is_moat`; `dryup` wizard yn / `angry_guards`; `water_damage` invent plines; JS `Upolyd` `mtimedone` vs C `umonnum != umonster`; `makemon` ignoring `MM_EDOG` (initedog still builds `edog`).
 
@@ -169,3 +169,5 @@ Do not restore skipped `in_water`. Do not pop furniture sit while this Must-fix 
 - Verdict: **QUALITY-RISK**
 - Score: **6.5 / 10**
 - One sentence: `in_water` body and early pool/gremlin skip match C, including `water_damage(uarm)` twice, but both new Underwater tests read a field C does not have and JS never writes.
+
+**Addressed:** D-1056
