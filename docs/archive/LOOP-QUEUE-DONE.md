@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating. **Addressed:** D-1119
+- [x] `teleport.c` `tele_trap` Antimagic wrenching pline (named). Not vault_tele. **Addressed:** D-1120
+
+
+- [x] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating. **Addressed:** D-1119 `26560ccf`
 
 
 - [x] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink. **Addressed:** D-1118 `8a01c200`

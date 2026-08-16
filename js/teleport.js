@@ -26,7 +26,8 @@ import {
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
-    FIRE_RES, LEVITATION, FLYING, WWALKING, SWIMMING, MAGICAL_BREATHING,
+    FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
+    MAGICAL_BREATHING,
 } from './const.js';
 import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
@@ -38,6 +39,7 @@ import {
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
+    shieldeff,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
 import { nomul, in_rooms, is_pool, is_lava } from './hack.js';
@@ -258,6 +260,21 @@ function Fire_resistance() {
         || u.Fire_resistance
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
+
+/**
+ * C youprop.h Antimagic — HAntimagic || EAntimagic
+ * ≡ uprops[ANTIMAGIC]. confer_oc_oprop writes cloak-of-MR / gray DSM
+ * to uprops only (D-1089). Sticky u.Antimagic for eat/poly flats.
+ */
+function Antimagic() {
+    const u = game.u || {};
+    const e = u.uprops?.[ANTIMAGIC];
+    return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/* C teleport.c tele_trap static in_tele_trap — block dest-trap recursion. */
+let in_tele_trap = false;
 
 /**
  * C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks.
@@ -1681,27 +1698,37 @@ export async function vault_tele() {
 
 /**
  * C ref: teleport.c tele_trap — hero TELEP_TRAP.
- * Envelope: once → deltrap handled by caller + vault_tele; endgame /
- * Antimagic / noteleport / teledest / tele() named partial.
- * Returns true if once-vault path ran (caller should deltrap).
+ * Envelope: In_endgame / Antimagic / noteleport_level wrenching +
+ * Antimagic shieldeff (D-1120); !next_to_u shudder (D-1005); once →
+ * deltrap + vault_tele. Named omissions: teledest / tele().
  */
-export async function tele_trap_once_vault() {
-    const u = game.u;
-    if (!u) return false;
-    // In_endgame deferred
-    const Antimagic = !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
-    if (Antimagic || noteleport_level(game.youmonst)) {
-        return false; // wrenching — no RNG
-    }
-    // C: !next_to_u → shudder (D-1005)
-    {
-        const { next_to_u } = await import('./apply.js');
-        if (!(await next_to_u())) {
-            await pline('You shudder for a moment.');
-            return false;
+export async function tele_trap(trap) {
+    /* a fixed-destination teleport trap could theoretically place hero onto a
+     * second teleport trap; prevent the recursive call from spoteffects() from
+     * triggering the trap at the destination */
+    if (in_tele_trap) return;
+    in_tele_trap = true;
+    try {
+        const u = game.u;
+        if (!u) return;
+        if (In_endgame(u.uz) || Antimagic() || noteleport_level(game.youmonst)) {
+            if (Antimagic()) await shieldeff(u.ux, u.uy);
+            await You_feel('a wrenching sensation.');
+        } else if (trap?.once) {
+            const { next_to_u } = await import('./apply.js');
+            if (!(await next_to_u())) {
+                await pline('You shudder for a moment.');
+            } else {
+                const { deltrap } = await import('./trap.js');
+                deltrap(trap);
+                newsym(u.ux, u.uy); /* get rid of trap symbol */
+                await vault_tele();
+            }
         }
+        // else teledest / tele() named omit
+    } finally {
+        in_tele_trap = false;
     }
-    return vault_tele();
 }
 
 /**

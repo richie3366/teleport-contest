@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1120 — tele_trap Antimagic wrenching pline
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `tele_trap_once_vault` silent-returned on
+  Antimagic/noteleport (no You_feel, no shieldeff) and the
+  caller `deltrap`'d once-TELEP first. C `tele_trap` wrenches
+  for `In_endgame || Antimagic || noteleport_level` and only
+  then `else if` next_to_u / once deltrap+`vault_tele`. Worn
+  cloak-of-MR lives in `uprops[ANTIMAGIC]` (D-1089 confer),
+  so H\|\|E flats alone missed it.
+- **C locus:** `teleport.c` `tele_trap` (~1492–1535);
+  `youprop.h` Antimagic; `display.c` `shieldeff`;
+  `trap.c` `trapeffect_telep_trap` seetrap then tele_trap.
+- **Fix:** export `tele_trap(trap)`. Wrenching arm first:
+  Antimagic `shieldeff` then `You_feel("a wrenching
+  sensation.")`. Local Antimagic() includes uprops.
+  `in_tele_trap` recursion guard. once: `next_to_u` then
+  deltrap+`vault_tele` (dynamic import; trap.js cycle).
+  trapeffect: seetrap then `tele_trap`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `tele_trap`; `js/trap.js`
+  `trapeffect_telep_trap`.
+- **Not this iter:** teledest / `tele()`; `teleds` `fill_pit`;
+  vault_tele body; Punished ball.
+- **Verify:** private canary **34**/34 (H/E/sticky/uprops
+  confer; noteleport/stasis/endgame; non-once AM; once
+  deltrap-after-next_to_u; covetous bypass; guard);
+  green+strict seed8000/0900; cohort **24**/24 including
+  0012 vault + 0360/4500/0373/0367 + strict 0012/0360/4500/
+  0014/2200/0004/0009/0367/0373/0030/0002/0116. Path
+  public-unhit on AM TELEP.
+- **Files:** `js/teleport.js`, `js/trap.js`.
+
 ## D-1119 — teleok tele_jump_ok / in_out_region
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

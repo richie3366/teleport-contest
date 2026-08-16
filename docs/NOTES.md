@@ -10,15 +10,15 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1420**;
   next @**#1425**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 9.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 8.
   Reviews **74–77** ACCEPT (D-1113 `dipsink`; D-1114 uncurse
   17–20; D-1115 case 29 `mkgold`; D-1116 MAGIC enlightenment).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1119**. Prior **70–73** ACCEPT.
-- **Next cluster:** Open `tele_trap` Antimagic wrenching pline.
-- **Hypothesis:** none live. D-1119 teleok jump/region shipped.
+- Latest ports: **D-1089**…**D-1120**. Prior **70–73** ACCEPT.
+- **Next cluster:** Open `teleds` `fill_pit`.
+- **Hypothesis:** none live. D-1120 tele_trap wrenching shipped.
 
 ## Don't re-check (≤15)
 
@@ -78,7 +78,8 @@ Objective/score live in `CURRENT.md`.
   `xkilled` drown when `!mon_moving` (D-1117) / skip drinksink
   case 10 `polyself` or Unchanging-only H (D-1118) /
   skip teleok `tele_jump_ok`/`in_out_region` after goodpos
-  (D-1119).
+  (D-1119) / restore tele_trap silent AM or deltrap-before-wrenching
+  (D-1120).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -87,7 +88,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1420**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1425**.
-- **D-1119:** teleok `tele_jump_ok`/`in_out_region`. Hash next.
+- **D-1120:** `tele_trap` Antimagic wrenching. Hash next.
+- **D-1119:** teleok `tele_jump_ok`/`in_out_region`. Hash `26560ccf`.
 - **D-1118:** drinksink case 10 `polyself`. Hash `8a01c200`.
 - **D-1117:** gush `minliquid` when `m_at`. Hash `afb86487`.
 - **D-1116:** drinkfountain case 19 MAGIC enlightenment. Hash `19e4be31`.
@@ -96,4 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1113:** `dipsink` + dodip sink yn. Hash `c67f09d1`.
 - **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP. Hash `bb552fba`.
 - **D-1111:** `teleok` VIBRATING_SQUARE / pit-fly. Hash `b0847b88`.
-- **D-1110:** live-mon `onscary` when `m_id != 0`. Hash `fd738eab`.

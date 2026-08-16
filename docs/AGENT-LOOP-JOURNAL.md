@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 00:50 — #1424 D-1120 tele_trap Antimagic wrenching pline
+
+**Objective:** Open queue — `teleport.c` `tele_trap` Antimagic
+wrenching pline (named). Not vault_tele.
+**C locus:** `teleport.c` `tele_trap` 1492–1535; `youprop.h`
+Antimagic; `display.c` `shieldeff`; `trap.c`
+`trapeffect_telep_trap`.
+**Change:** export `tele_trap(trap)`. In_endgame/Antimagic/
+noteleport You_feel wrenching; Antimagic `shieldeff` first.
+Local Antimagic() includes uprops (cloak confer). Recursion
+guard. once: `next_to_u` then deltrap+`vault_tele`. trapeffect
+seetrap then `tele_trap` (no deltrap-before-AM). Did not pull
+teledest/`tele()` or `teleds` `fill_pit`. Filled D-1119 hash
+`26560ccf`. Rotated #1409. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1420** **44**/44; next
+@**#1425**).
+**Verified:** private canary **34**/34; green+strict seed8000/0900;
+cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
+0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/
+0361/0108/0002/5002/2600) + strict 0012/0360/4500/0014/2200/
+0004/0009/0367/0373/0030/0002/0116. Path public-unhit on AM
+TELEP.
+**Next:** Open `teleport.c` `teleds` `fill_pit`. Not Punished
+ball.
+**Blocked:** none.
+
 ## 2026-08-17 00:40 — #1423 D-1119 teleok tele_jump_ok / in_out_region
 
 **Objective:** Open queue — `teleport.c` `teleok` `tele_jump_ok`
@@ -345,30 +372,6 @@ Must-fix empty. Filled D-1108 archive hash `62b93acb`. Rotated
 @**#1415**.
 **Verified:** C read of the four loci vs JS hunks; grep
 FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `sp_lev.c` `lspo_exclusion` populate
-`exclusion_zones` from `des.exclusion`. Not `goodpos`.
-**Blocked:** none.
-
-## 2026-08-16 21:30 — #1409 D-1108 wash_hands + dipfountain hands/uarmg
-
-**Objective:** Open queue — `fountain.c` `wash_hands` (named).
-Not Excalibur.
-**C locus:** `fountain.c` `wash_hands` 557–577; `dipfountain`
-448–449; `youprop.h` Glib; `potion.c` `make_glib`; `do_wear.c`
-`fingers_or_gloves`; `objnam.c` `gloves_simple_name`.
-**Change:** port `wash_hands` and wire hands/`uarmg`. You-wash
-pline; Glib `make_glib(0)` + slippery; `water_damage(uarmg)`;
-was_glib+ER_NOTHING→ER_GREASED so dipfountain `!rn2(2)` skip
-can fire. Dynamic import `make_glib` (potion cycle). Did not
-pull `dipsink`, pool dip, uncurse 17–20, or case 29 `mkgold`.
-Filled D-1107 hash `0633a261`. Rotated #1394. Open 10 after
-archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1405** **44**/44; next
-@**#1410**).
-**Verified:** private canary **33**/33; green+strict seed8000/0900;
-cohort **19**/19 (0014 fountain + wizard/role + knight 0103/0104/
-4500) + strict 0014/0006/2200/0360/4500/0103. Public traces
-**unhit**.
 **Next:** Open `sp_lev.c` `lspo_exclusion` populate
 `exclusion_zones` from `des.exclusion`. Not `goodpos`.
 **Blocked:** none.
