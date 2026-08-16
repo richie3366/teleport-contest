@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1070 — can_reach_floor Levitation is youprop.h (H||E)&&!B
+
+- **Status:** fixed (map-driven Must-fix from review **30** QUALITY-RISK; not a public FAIL)
+- **Symptom:** D-1069 shipped `dosit` `can_reach_floor(FALSE)` three
+  messages, but the helper’s Levitation arm (and sit’s message clone)
+  keyed on sticky `u.Levitation`. That field is never written in
+  production (`confer_oc_oprop` mirrors `ELevitation`, timeout/eat
+  write `HLevitation`). Worn boots / potion `#sit` sat on the dungeon
+  floor. C `youprop.h` `Levitation` is
+  `(HLevitation || ELevitation) && !BLevitation`. Sit clone
+  sticky-true also ignored `BLevitation` (`I_SPECIAL` floor trap).
+- **C locus:** `engrave.c` `can_reach_floor` (~198); `sit.c` `dosit`
+  (~417 `else if (Levitation)`); `youprop.h:235–240`.
+- **Fix:** helper and sit message use `(H||E)&&!B`. Keep
+  `!(Is_airlevel || Is_waterlevel)`. Did not rewrite `confer_oc_oprop`,
+  other `Levitation()` clones, hugs / ceiling_hider / MZ_HUGE. Rule #2:
+  no fs.
+- **Deferred:** helper hugs / ceiling_hider / MZ_HUGE / uteetering /
+  uescaped_shaft; dosit ustuck lap (ship hugs first); other
+  `Levitation()` clones; `Flying` sticky vs `(H||E||steed flyer)&&!B`.
+- **Verify:** private node: `setworn` boots `ELevitation` sticky-unset
+  → `can_reach_floor(false)` false → `"You tumble in place."`
+  `ECMD_OK`; potion `HLevitation` same; `BLevitation` `I_SPECIAL` with
+  H/E sits; air/water + E sits; swallow still no seats; sticky-only
+  reaches (C has no such field). green+strict PASS; cohort **14**/14
+  (8000/0900/1500/1800/0060/0102/0700/0106/0107/0101/0116/2200/4500/
+  0009). Path unhit on public sessions.
+- **Files:** `js/engrave.js`, `js/sit.js`.
+
 ## D-1069 — dosit can_reach_floor(FALSE) swallow / tumble / sit-on-air
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -10,7 +10,8 @@
 // trapper (D-1068; sit.c after usteed, before can_reach_floor) +
 // can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
 // (D-1069; replace Levitation-only early return; air/water Levitation
-// may sit).
+// may sit) + helper/message Levitation ≡ youprop.h (H||E)&&!B
+// (D-1070; not sticky u.Levitation).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -19,8 +20,9 @@
 // Branch envelope: usteed early-return You+mon_nam (D-1067),
 // hider ceiling drop u.uundetected=0 except PM_TRAPPER (D-1068),
 // !can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
-// (D-1069; shared engrave.js helper; hugs / ceiling_hider / MZ_HUGE
-// still named there), OBJ_AT picnic body
+// (D-1069/D-1070; shared engrave.js helper; Levitation is C
+// youprop.h (H||E)&&!B; hugs / ceiling_hider / MZ_HUGE still named
+// there), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
@@ -488,10 +490,13 @@ function Flying() {
     return !!((u.Flying) || (u.HFlying | 0) || (u.EFlying | 0));
 }
 
-/** C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation. */
+/**
+ * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
+ * Sticky u.Levitation is not a C field; BLevitation (floor I_SPECIAL)
+ * must still block (D-1070). Do not sticky-true past !B.
+ */
 function Levitation() {
     const u = game.u || {};
-    if (u.Levitation) return true;
     return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
         && !(u.BLevitation | 0));
 }

@@ -11,20 +11,22 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1355**;
   next @**#1360**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix head: `can_reach_floor` Levitation `(H||E)&&!B`.
-  Keep 8–12 open rows; refill from the map when below 8.
+  LB). Must-fix empty. Keep 8–12 open rows; refill from the map
+  when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
-  (cadence score refreshes every 5, deferred while Must-fix is open).
+  (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1069** sit.c three-message envelope + swallow string.
-  Helper Levitation is still sticky `u.Levitation` (unset in
-  production; H/E live). Review **30** QUALITY-RISK.
-- **Next cluster:** Must-fix `can_reach_floor` Levitation
-  `(H||E)&&!B`. Do not restore Levitation-only `dosit` / skip
-  swallow / skip air-water exception / pull hugs this iter.
-- **Hypothesis:** worn boots `ELevitation` / potion `HLevitation`
-  make `can_reach_floor(false)` TRUE in JS and FALSE in C.
+- Latest: **D-1070** `can_reach_floor` / sit `Levitation()` is C
+  `youprop.h` `(H||E)&&!B` (review **30** QUALITY-RISK). Worn boots
+  / potion `#sit` tumble; `BLevitation` sits; air/water still sit.
+- **Next cluster:** Open `can_reach_floor` ustuck AT_HUGS +
+  `!sticks` **before** dosit lap (review **30**: hugs → air, not
+  lap). Do not pull ceiling_hider / MZ_HUGE. Do not restore sticky
+  `u.Levitation` in the helper (D-1070).
+- **Hypothesis:** hugged `ustuck` + `!sticks` + `AT_HUGS` still
+  reaches the floor in JS (`can_reach_floor` TRUE) so `#sit` sits
+  or would lap, while C returns FALSE then sit-on-air.
 
 ## Don't re-check (≤15)
 
@@ -59,14 +61,17 @@ Objective/score live in `CURRENT.md`.
   `y_monnam` (D-1067). Do not skip `dosit` hider clear / do not
   clear trapper `uundetected` (D-1068). Do not restore Levitation-
   only `dosit` return (D-1069). Do not treat sticky `u.Levitation`
-  as C `youprop.h` `Levitation` in `can_reach_floor` (review **30**).
+  as C `youprop.h` `Levitation` in `can_reach_floor` (D-1070).
+  Do not ship dosit ustuck lap before helper hugs.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1355**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1360**.
+- **D-1070:** `can_reach_floor` + sit message `Levitation()` =
+  `(H||E)&&!B`. Not sticky `u.Levitation`. Hugs still named.
 - **D-1069:** `dosit` three-message envelope + swallow. Helper
-  Levitation sticky ≠ C `(H||E)&&!B` — Must-fix (review **30**).
+  Levitation was sticky — fixed D-1070.
 - **D-1068:** `dosit` after usteed: `u.uundetected && is_hider`
   && `umonnum != PM_TRAPPER` → `u.uundetected=0`. No `newsym`.
 - **D-1067:** `dosit` steed `You("… %s.", mon_nam(usteed))` ARTICLE_THE.

@@ -22,7 +22,8 @@
 // demon/vampire blood default beyond type; Blind feel path for
 // engrave/burn; full surface()/is_ice nouns; wipeout_text seeded
 // (non-zero) path; can_reach_floor ustuck-hugs /
-// ceiling_hider / MZ_HUGE / uteetering_at_seen_pit / uescaped_shaft.
+// ceiling_hider / MZ_HUGE / uteetering_at_seen_pit / uescaped_shaft
+// (Levitation arm is C youprop.h (H||E)&&!B — D-1070).
 // disturb_grave (D-0985) via kick_nondoor / engraving callers.
 // Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
@@ -217,6 +218,17 @@ export function wipeout_text(engr, cnt, seed = 0) {
 }
 
 /**
+ * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
+ * confer_oc_oprop mirrors E (D-0976); timeout/eat write H. Sticky
+ * u.Levitation is not a C field (D-1070).
+ */
+function Levitation() {
+    const u = game.u || {};
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+
+/**
  * C ref: engrave.c can_reach_floor — whether hero can touch ground-level.
  * Branch envelope: swallow / Levitation(+!air/water) / unskilled steed /
  * Flying early-true; pit teeter/shaft, ustuck AT_HUGS, ceiling_hider,
@@ -226,7 +238,7 @@ export function can_reach_floor(check_pit) {
     const u = game.u || {};
     if (u.uswallow) return false;
     // ustuck + AT_HUGS + !sticks deferred
-    if (u.Levitation && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
+    if (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
         return false;
     }
     if (u.usteed) {
