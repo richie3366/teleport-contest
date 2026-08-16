@@ -21,6 +21,11 @@ item. Copy it into `CURRENT.md` **Next cluster**. One C family only.
 If the item cites `Source: reviews/…`, **read that review** (Actionable /
 Disposition) before coding. Reviews exist to force a C-faithful fix, not
 to sit unread while you pop tut-1.
+If Must-fix+Open `- [ ]` count is below **8** (including after you archive
+this item), **refill Open** to **~12** in this same commit from named map
+omissions (`data.md` / `debt.md` / `absent.md`). One C family per line.
+Do not halt-and-wait for a human; do not invent FAIL peels; do not
+enqueue D-0006.
 
 **HARD — Contest Rule #2:** scored `js/` must run as plain ESM in **Node and
 Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
@@ -102,7 +107,8 @@ commit. Live `LOOP-QUEUE.md` stays unchecked-only. Do **not** predict
 this SHA, amend, or open a stamp-only commit. If a previous
 `**Addressed:** D-NNNN` line (review or `docs/archive/LOOP-QUEUE-DONE.md`)
 is still missing its short hash, fill it here from `git log --oneline`
-of that fix — bundled with this iteration’s real work.
+of that fix — bundled with this iteration’s real work. After archive, if
+open `- [ ]` count is below 8, refill Open to ~12 in this same commit.
 
 ## Absolute prohibitions
 

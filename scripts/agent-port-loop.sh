@@ -31,8 +31,10 @@ Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
 Fail-closed (default): green / full-suite / density / protected / banned
 halt and revert the iteration (or halt without reset if already pushed).
 Review every LOOP_REVIEW_EVERY (3); cadence every LOOP_CADENCE_EVERY (5)
-unless Must-fix is open. Agents commit and push; the script fail-closes
-and pushes if they forgot.
+unless Must-fix is open. Queue below LOOP_QUEUE_MIN (8) must be refilled
+from the map (target LOOP_QUEUE_TARGET 12); do not halt before the agent
+when empty — halt after a port that still has no open items.
+Agents commit and push; the script fail-closes and pushes if they forgot.
 See docs/AGENT-PORT-LOOP.md.
 EOF
 }
@@ -147,6 +149,8 @@ LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-400}"
 LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-8}"
 LOOP_PUSH="${LOOP_PUSH:-1}"
 LOOP_FAIL_CLOSED="${LOOP_FAIL_CLOSED:-1}"
+LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-8}"
+LOOP_QUEUE_TARGET="${LOOP_QUEUE_TARGET:-12}"
 REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.prompt.md}"
 CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
@@ -431,6 +435,10 @@ iter_mode() {
   fi
 }
 
+queue_open_count() {
+  awk '/^- \[ \]/ { n++ } END { print n+0 }' "$QUEUE_FILE"
+}
+
 queue_has_open() {
   rg -q '^- \[ \]' "$QUEUE_FILE"
 }
@@ -523,6 +531,7 @@ echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
 echo "review: every ${LOOP_REVIEW_EVERY}; cadence every ${LOOP_CADENCE_EVERY} (score-only)"
+echo "queue:  min ${LOOP_QUEUE_MIN} open / target ${LOOP_QUEUE_TARGET} (refill from map)"
 echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
 echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
 echo
@@ -584,10 +593,6 @@ while true; do
   echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
     | tee -a "$MASTER_LOG"
 
-  if [[ "$mode" == "port" ]] && ! queue_has_open; then
-    halt_loop "work queue empty (docs/LOOP-QUEUE.md has no open '- [ ]' item)" 0
-  fi
-
   # Each iteration is a fresh agent session (new context).
   # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
   case "$mode" in
@@ -625,9 +630,34 @@ while true; do
         prompt_body+=$'\n**Queue head:** '
         prompt_body+="$cluster_line"
         prompt_body+=$'\n'
+      else
+        prompt_body+=$'\n**Queue is empty.** Refill Open from the map first, then ship the\n'
+        prompt_body+=$'first new `- [ ]` line in this same iteration (js/ required).\n'
       fi
       ;;
   esac
+
+  open_now="$(queue_open_count)"
+  if (( open_now < LOOP_QUEUE_MIN )); then
+    echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
+      | tee -a "$MASTER_LOG"
+    prompt_body+=$'\n\n## Queue refill (mandatory this iteration)\n'
+    prompt_body+="Open \`- [ ]\` count is ${open_now} (min ${LOOP_QUEUE_MIN}, target ${LOOP_QUEUE_TARGET})."$'\n'
+    prompt_body+=$'If you archive this iter’s item, count the remainder **after** archive.\n'
+    prompt_body+=$'Append **Open** lines until the live file has about '
+    prompt_body+="${LOOP_QUEUE_TARGET}"
+    prompt_body+=$' unchecked items.\n'
+    prompt_body+=$'Sources: named omits in one `docs/c-js-map/*.md` (prefer `data.md` /\n'
+    prompt_body+=$'`debt.md`, then `absent.md`). One C function/family per line; cite C\n'
+    prompt_body+=$'file + function. Grep live `LOOP-QUEUE.md` and\n'
+    prompt_body+=$'`docs/archive/LOOP-QUEUE-DONE.md` so you do not duplicate. Do not invent\n'
+    prompt_body+=$'FAIL peels. Do not enqueue parked D-0006.\n'
+    if [[ "$mode" == "port" ]]; then
+      prompt_body+=$'Then pop Must-fix else Open (including a line you just added if the\n'
+      prompt_body+=$'queue was empty) and ship that one cluster in this same iteration.\n'
+    fi
+  fi
+
   iter_start="$(now_epoch)"
   set +e
   run_with_timeout "$AGENT_BIN" -p \
@@ -856,6 +886,13 @@ NODE
   rm -rf "$snapshot"
 
   maybe_archive_checked_queue
+
+  if [[ "$mode" == "port" ]] && ! queue_has_open; then
+    if (( agent_pushed )); then
+      halt_loop "queue still empty after port (map refill failed) AND already pushed" 0
+    fi
+    halt_loop "queue still empty after port — refill Open from c-js-map (min ${LOOP_QUEUE_MIN})" 1
+  fi
 
   if [[ "$LOOP_PUSH" == "1" ]]; then
     git fetch origin >/dev/null 2>&1 || true

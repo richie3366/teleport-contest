@@ -67,6 +67,7 @@ treat that score as a **regression fortress**, not a work picker.
 | Optional private C-recorder canaries on thin spots | Memorize or hardcode public traces |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
 | Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
+| Keep 8–12 open queue rows; refill Open from the map when below 8 | Halt and wait for a human because the queue ran dry |
 
 Sessions still measure progress; they are **not** the specification.
 Held-out / summer escalation can exercise branches the public set never

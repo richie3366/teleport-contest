@@ -46,7 +46,7 @@ fail-closed script will halt. `--trust` only skips the workspace-trust
 question.
 
 1. Commit everything you care about (`git status` clean except STOP).
-2. Confirm `docs/LOOP-QUEUE.md` has open `- [ ]` items.
+2. Confirm `docs/LOOP-QUEUE.md` will be refilled in-loop if below 8 open items.
 3. Confirm the green gate (the script re-runs it as preflight).
 4. Run only one loop against this checkout; do not edit concurrently.
 5. Launch with `AGENT_FORCE=1`. Optional: `--token-budget-m 50`.
@@ -86,7 +86,8 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │  3. loop until STOP, token budget, or halt:                   │
 │       mode = review (every 3) / cadence (every 5, score-only) │
 │              / audit (15, 30, …) / else port                  │
-│       port: refuse empty LOOP-QUEUE; Must-fix beats Open;          │
+│       port: Must-fix beats Open; if open count < 8, agent refills  │
+│             Open from the map (target 12) then ships one cluster;  │
 │             cadence defers while Must-fix is open                  │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
@@ -107,7 +108,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 | `n % 3 == 0` and not cadence | **review** | no | must add `reviews/loop-unattended/`; REJECT → STOP |
 | `n % 5 == 0` | **cadence** | no | full `sessions` must all PASS; **deferred to port** while Must-fix is open |
 | both (`15`, `30`, …) | **audit** | no | review + full suite |
-| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt |
+| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt; still-empty queue after port → halt |
 
 Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
 the next port **must** fix them instead of opening tut-1. A
@@ -211,6 +212,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_CADENCE_EVERY` | `5` | Full-suite score-only iteration cadence |
 | `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
 | `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
+| `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |
+| `LOOP_QUEUE_TARGET` | `12` | Refill up to about this many open rows |
 | `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |
 | `LOOP_FAIL_CLOSED` | `1` | `0` restores warn-and-continue (debug only) |
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
@@ -223,7 +226,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 ## Operator checklist
 
 1. `agent login` (once) so `--list-models` / runs work.
-2. Clean committed tree; `LOOP-QUEUE.md` has open items.
+2. Clean committed tree. Queue below 8 open items is refilled in-loop.
 3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`
 4. Watch the live tee or come back to `last-halt-reason.txt` / `git log`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
@@ -245,7 +248,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then gate fail | Halt without reset; human reverts origin |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
-| Queue empty | Halt before a port iter (refill `LOOP-QUEUE.md`) |
+| Queue empty after port | Agent failed to refill from the map — halt |
 | Dirty tree at start | Loop refuses to launch |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),

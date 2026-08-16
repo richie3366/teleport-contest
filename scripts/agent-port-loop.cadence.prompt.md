@@ -17,8 +17,9 @@ Update `docs/NOTES.md` landmarks/score echo. Prepend
 If any session failed: journal the failure, **do not** invent a peel,
 **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
-and fill missing Addressed hashes. The supervisor will halt on the
-full-suite gate.
+and fill missing Addressed hashes. If open `- [ ]` count is below 8,
+refill Open to ~12 from named map omits (`LOOP-QUEUE.md`). The
+supervisor will halt on the full-suite gate.
 
 ## Git
 

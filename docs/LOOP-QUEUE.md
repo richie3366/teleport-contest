@@ -5,6 +5,14 @@ Unattended **port** iterations pop the **first unchecked** item, preferring
 Live file is **unchecked-only**. Done rows live in
 `docs/archive/LOOP-QUEUE-DONE.md`.
 
+**Keep 8–12 open `- [ ]` rows.** If Must-fix+Open drops below **8**
+(including after you archive this iter’s item), **refill Open** in the
+**same commit** up to **12**. Sources: named omits in the subsystem
+`docs/c-js-map/*.md` row you are in (prefer `data.md` / `debt.md`, then
+`absent.md`). One C function/family per line; cite C file + function.
+Do not duplicate live or archived rows. Do not invent FAIL peels. Do
+not enqueue parked D-0006.
+
 ## Must-fix (from reviews) — pop first
 
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
@@ -12,18 +20,26 @@ contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then
 run `node scripts/archive-loop-queue-done.mjs` **in this same commit**.
 Do **not** leave `- [x]` in this file. Do **not** put this commit’s hash
-in the same SHA (chicken-egg), amend, or make a stamp-only follow-up
-(`da0fabe3` / `cdbedcbb` / `3ac7a037` / `9c087297` were that waste).
+in the same SHA (chicken-egg), amend, or make a stamp-only follow-up.
 The **next** real commit fills the short hash on the review (and on the
 archive row) from `git log -1 --format=%h` of the fix.
-
-Catch-up from `reviews/loop-2026-08-15/` (2026-08-15). Already done
-off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
-(D-1039); D-1036 hatch dispatch (D-1037).
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
+
+- [ ] `sit.c` `dosit` hider: `u.uundetected && is_hider` except trapper clears ceiling hide. Not `can_reach_floor` / ustuck.
+- [ ] `sit.c` `dosit` `can_reach_floor(FALSE)`: swallow “no seats” / Levitation tumble / sitting on air. Replace JS Levitation-only early return.
+- [ ] `sit.c` `dosit` ustuck `!sticks` lap (`Monnam` / `mhis`). Not swallow combat.
+- [ ] `sit.c` `dosit` OBJ_AT gate: skip picnic when `uteetering_at_seen_pit` or `uescaped_shaft` like C.
+- [ ] `sit.c` `dosit` dragon coin hoard: `money_cnt(invent)` meager vs `ulevel * 1000` (JS always bare “hoard”).
+- [ ] `sit.c` `dosit` `lay_an_egg` at end of function. Not hider / reach / ustuck.
+- [ ] `trap.c` hero pit/hole bodies under `dotrap` `VIASITTING` (named omit from D-1039).
+- [ ] `hack.c` `is_lava` includes DRAWBRIDGE_UP + `DB_LAVA` (named from D-1060).
+- [ ] `sit.c` `split_mon` monster `clone_mon` arm (JS named omit).
+- [ ] `makemon.c` `peace_minded` / `set_malign` read `ptr.msound` (`msounds[]` exists, D-1053).
+- [ ] `shk.c` `u_entered_shop` deserted / angry / Invis / pickaxe doorway (named D-0307).
+- [ ] `eat.c` `cprefx` `revive_corpse` after rider lifesave (debt.md).
 
 ## Parked (do not pop)
 

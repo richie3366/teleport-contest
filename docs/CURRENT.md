@@ -71,9 +71,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open empty after D-1067. Must-fix empty. Next:
-`dosit` hider/`can_reach_floor`/ustuck or `debt.md` unless Must-fix.
-Review **28** ACCEPT (`2e50b318` D-1067; also **27** `7e330128`).
+**Next cluster:** first Open item — `dosit` hider (`u.uundetected` /
+`is_hider`, not trapper). Must-fix empty. Queue keep 8–12; refill
+from the map when below 8. Review **28** ACCEPT (`2e50b318` D-1067).
 Review every 3; cadence @**#1355**. Agents **commit and push**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C

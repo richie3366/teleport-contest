@@ -46,7 +46,9 @@ Write in **English**. Target **150–350 lines** per JS-touching commit
    per distinct C-wrong family under `LOOP-QUEUE.md` **Must-fix** (not
    Open). Each line cites `Source: reviews/loop-unattended/NN-…`. Set
    `CURRENT.md` **Next cluster** to the first new Must-fix item.
-4. Journal crumb. Commit **and** `git push origin HEAD`.
+4. Journal crumb. If Must-fix+Open `- [ ]` count is below 8, **refill
+   Open** to ~12 from named map omits (same rules as `LOOP-QUEUE.md`).
+   Commit **and** `git push origin HEAD`.
 
 ### Required headings
 

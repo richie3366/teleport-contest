@@ -11,7 +11,8 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.26/turn` R² 0.87) after cadence **#1350**;
   next @**#1355**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open empty after D-1067.
+  LB). Must-fix empty; Open refilled (head: `dosit` hider). Keep 8–12
+  open rows; refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
@@ -19,10 +20,9 @@ Objective/score live in `CURRENT.md`.
 - Latest: **D-1067** `dosit` steed `You`+`mon_nam(usteed)` ARTICLE_THE
   (not `"your steed"` / not `y_monnam`). Hider / `can_reach_floor` /
   ustuck still named.
-- **Next cluster:** Open empty. Remaining `dosit` hider /
-  `can_reach_floor` / `ustuck` or `debt.md` unless Must-fix.
-  Reviews **27** ACCEPT `7e330128` D-1066, **28** ACCEPT
-  `2e50b318` D-1067.
+- **Next cluster:** `dosit` hider (`u.uundetected && is_hider` except
+  trapper). Then `can_reach_floor` / ustuck. Reviews **27** ACCEPT
+  `7e330128` D-1066, **28** ACCEPT `2e50b318` D-1067.
 - **Hypothesis:** none live.
 
 ## Don't re-check (≤15)
