@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1094 — makemon MS_NEMESIS mitem ptr.msound
+
+- **Status:** fixed (map-driven Open; named after D-1053/D-1088; not a public FAIL)
+- **Symptom:** JS `makemon` extra mitem `BELL_OF_OPENING` gated on
+  `ptr.mndx === urole.neminum`. C uses `ptr->msound == MS_NEMESIS`.
+  Static `msounds[]` still has Master of Thieves as `MS_LEADER`
+  (Rogue leader); C `role_init` writes `mons[neminum].msound =
+  MS_NEMESIS` (and clears `M2_PEACEFUL`, sets hostile/nasty/stalk /
+  `M3_WANTSARTI|WAITFORU`).
+- **C locus:** `role.c` `role_init` (~2027–2061); `makemon.c`
+  `makemon` mitem (~1378); gender/leader_m_id `ptr->msound &&
+  quest_info == mndx` (~1253–1273).
+- **Fix:** per-game `game.pm_fixup` overlay in `mons()` (resetGame
+  matches a fresh C process). `role_init_quest_pm_fixup` ports the
+  leader/guardian/nemesis permonst writes. mitem / leader_m_id /
+  gender use `ptr.msound`. Rule #2: no fs.
+- **JS:** `js/u_init.js`, `js/monsters.js`, `js/makemon.js`.
+- **Not this iter:** PM_NINJA weap between priest and guardian;
+  `mon_learns_traps(ALL_TRAPS)` for leader/nemesis; dprince bribe /
+  raven `BEC_DE_CORBIN`; sparse `ldrnum` on some roles.
+- **Verify:** private canary **30**/30 (Tourist thief → 37 hostile
+  Bell; reset → 36 peaceful; Rogue thief stays leader / assassin
+  Bell; Arc minion + Carnarvon maligntyp 3); green+strict
+  seed8000/0900; cohort **20**/20 (incl. 0361/0367/0373/0360/1800/
+  1500/0014/2200/4500) + strict 1800/0361/0367/0360/0014/2200/0004.
+  Path public-unhit (Tourist quest nemesis spawn).
+- **Files:** `js/u_init.js`, `js/monsters.js`, `js/makemon.js`.
+
 ## D-1093 — dogmove pal/target numeric ptr.msound
 
 - **Status:** fixed (map-driven Open; named from D-1053 review **14**; not a public FAIL)

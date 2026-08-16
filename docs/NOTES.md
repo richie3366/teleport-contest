@@ -10,21 +10,21 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
   next @**#1395**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 10
-  after **D-1093** (no refill; still ≥8). Reviews **50–53**
+- Mode: **map-driven** under fortress. Must-fix empty. Open 9
+  after **D-1094** (no refill; still ≥8). Reviews **50–53**
   **ACCEPT** (D-1089…D-1092); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1093**. Prior **46** ACCEPT,
+- Latest ports: **D-1089**…**D-1094**. Prior **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
   D-1089, **49** ACCEPT.
-- **Next cluster:** Open `makemon.c` `m_initweap` MS_NEMESIS
-  mitem `ptr.msound` not `urole.neminum` (named). Not S_ORC
-  peace. Not dogmove pal tests.
-- **Hypothesis:** `m_initweap` mitem still gates nemesis by
-  `urole.neminum` after `msounds[]` (D-1053) / priest-guardian
-  msound (D-1088). Falsifier: C `makemon.c` MS_NEMESIS vs JS.
+- **Next cluster:** Open `potion.c` `split_mon` trap rust /
+  `minliquid` / uhitm AD_COLD callers (named from D-1078).
+  Not sit clone_mon.
+- **Hypothesis:** none live. D-1094 shipped: C `role_init`
+  writes `mons[neminum].msound = MS_NEMESIS`; mitem is
+  `ptr->msound` not `urole.neminum`.
 
 ## Don't re-check (≤15)
 
@@ -50,7 +50,9 @@ Objective/score live in `CURRENT.md`.
   restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
   POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
   `IS_LAVA` macros (D-1091) / invent `S_ELF` mlet (D-1092) /
-  restore dogmove string `'MS_LEADER'` (D-1093).
+  restore dogmove string `'MS_LEADER'` (D-1093) / restore
+  MS_NEMESIS mitem `urole.neminum` or mutate generated `msounds[]`
+  globally (D-1094; overlay is on `game`).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -59,19 +61,18 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
+- **D-1094:** `role_init` quest-pm overlay + makemon mitem
+  `ptr.msound == MS_NEMESIS`. Tourist Master of Thieves is
+  table `MS_LEADER` until overlay. PM_NINJA weap still named.
 - **D-1093:** `dogmove` pal/target `ptr.msound` numeric
-  MS_LEADER=36 / MS_GUARDIAN=38. String `'MS_LEADER'` was dead
-  after D-1053. Review **14** named omit.
+  MS_LEADER=36 / MS_GUARDIAN=38. Hash `e0b68f1d`.
 - **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;
-  `is_unicorn` co-align always peaceful. Review **53** ACCEPT.
-  Hash `c3f28bfd`.
+  `is_unicorn` co-align always peaceful. Hash `c3f28bfd`.
 - **D-1091:** `goodpos` `is_pool()`/`is_lava()` not typ macros.
-  UP+`DB_LAVA` is lava arm. Hash `278521f1`.
+  Hash `278521f1`.
 - **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
-  Juiblex MOAT is pool not moat. Hash `43caa8ff`.
+  Hash `43caa8ff`.
 - **D-1089:** sit `rndcurse` `Antimagic()` ORs
-  `uprops[ANTIMAGIC]`. Review **48**. Hash `f91650c0`.
+  `uprops[ANTIMAGIC]`. Hash `f91650c0`.
 - **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
-  `ptr.msound`. Review **49** ACCEPT. Hash `049af16e`.
-- **D-1087:** `shieldeff` body matches `display.c`. Review **48**
-  QUALITY-RISK closed by D-1089.
+  `ptr.msound`. Hash `049af16e`.

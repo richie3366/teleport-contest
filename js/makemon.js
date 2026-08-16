@@ -460,7 +460,7 @@ const MS_PRIEST = 41;
 /**
  * C ref: makemon.c set_malign — kill-alignment weight from type + peaceful.
  * Named omissions: priest/minion EPRI/EMIN individual align ×5 when those
- * mextra fields are absent. MS_NEMESIS mitem still urole.neminum.
+ * mextra fields are absent.
  */
 export function set_malign(mtmp) {
     if (!mtmp?.data) return;
@@ -2105,7 +2105,8 @@ export function makemon(mdat, x, y, mmflags = 0) {
     // C: ptr->msound == MS_LEADER && quest_info(MS_LEADER) == mndx
     const ldr = game.urole?.ldrnum ?? NON_PM;
     const nem = game.urole?.neminum ?? NON_PM;
-    if (ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0)) {
+    if ((ptr.msound | 0) === MS_LEADER
+        && ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0)) {
         if (!game.quest_status) game.quest_status = {};
         game.quest_status.leader_m_id = mtmp.m_id;
     }
@@ -2119,10 +2120,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
         mtmp.female = 1;
     else if (is_male(ptr) || ((mmflags & MM_MALE) !== 0 && maleok))
         mtmp.female = 0;
-    // C: MS_LEADER/MS_NEMESIS gender from role_init (quest_status)
-    else if (ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0))
+    // C: ptr->msound == MS_LEADER/NEMESIS && quest_info(...) == mndx
+    else if ((ptr.msound | 0) === MS_LEADER
+        && ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0))
         mtmp.female = game.quest_status?.ldrgend | 0;
-    else if (nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0))
+    else if ((ptr.msound | 0) === MS_NEMESIS
+        && nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0))
         mtmp.female = game.quest_status?.nemgend | 0;
     else mtmp.female = femaleok ? rn2(2) : 0;
 
@@ -2251,8 +2254,8 @@ export function makemon(mdat, x, y, mmflags = 0) {
         // SPE_DIG when first Wizard on earth — deferred (fire/air/water first)
     } else if (ptr.mndx === PM_CROESUS) {
         mitem = otyp('TWO_HANDED_SWORD');
-    } else if (nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0)) {
-        // C: ptr->msound == MS_NEMESIS (tables omit msound → urole.neminum)
+    } else if ((ptr.msound | 0) === MS_NEMESIS) {
+        // C: makemon.c — ptr->msound == MS_NEMESIS (role_init wrote msound)
         mitem = otyp('BELL_OF_OPENING');
     } else if (ptr.mndx === PM_PESTILENCE) {
         mitem = otyp('POT_SICKNESS');

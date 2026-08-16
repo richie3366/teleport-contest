@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 18:00 — #1392 D-1094 MS_NEMESIS mitem ptr.msound
+
+**Objective:** Open queue — `makemon.c` `m_initweap` MS_NEMESIS
+mitem `ptr.msound` not `urole.neminum` (named). Not S_ORC peace.
+**C locus:** `role.c` `role_init` 2027–2061; `makemon.c` mitem
+1378; gender/leader_m_id `ptr->msound && quest_info`.
+**Change:** `role_init_quest_pm_fixup` overlays live `mons[]`
+msound/flags/maligntyp on `game.pm_fixup` (`resetGame` = fresh
+C process). mitem / leader_m_id / gender use `ptr.msound`.
+Did not pull PM_NINJA weap or `mon_learns_traps(ALL_TRAPS)`.
+Stamped reviews **14**/**49**/**53**. Filled D-1093 hash
+`e0b68f1d`. Rotated #1377. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1390** **44**/44; next
+@**#1395**).
+**Verified:** private canary **30**/30 (Tourist thief 37 hostile
+Bell; reset 36; Rogue thief leader / assassin Bell; Arc
+Carnarvon maligntyp 3); green+strict seed8000/0900; cohort
+**20**/20 + strict 1800/0361/0367/0360/0014/2200/0004. Path
+public-unhit (Tourist quest nemesis).
+**Next:** Open `potion.c` `split_mon` trap rust / `minliquid` /
+uhitm AD_COLD.
+**Blocked:** none.
+
 ## 2026-08-16 17:42 — #1391 D-1093 dogmove pal/target numeric msound
 
 **Objective:** Open queue — `dogmove.c` pal/target tests must
@@ -336,24 +360,4 @@ Rotated #1364 to archive. Rule #2: no fs.
 Flying/MZ_HUGE/swallow/Levitation); green+strict seed8000/0900;
 cohort **14**/14 + strict 1800/0004/0101/0103/0360/2200/4500.
 **Next:** Open `sit.c` `throne_sit_effect` wizard getlin.
-**Blocked:** none.
-
-## 2026-08-16 14:24 — #1377 D-1082 can_reach_floor ceiling_hider / MZ_HUGE
-
-**Objective:** Open queue — `engrave.c` `can_reach_floor` ceiling_hider /
-MZ_HUGE (named from D-1069/D-1071). Not check_pit.
-**C locus:** `engrave.c` `can_reach_floor` (~203–207); `mondata.h`
-`ceiling_hider`; `youprop.h` Flying; `monflag.h` `MZ_HUGE`.
-**Change:** undetected ceiling hiders return FALSE (piercer/lurker;
-trapper HIDE-only still reaches; large mimic S_MIMIC excluded).
-Then `Flying() || msize >= MZ_HUGE` TRUE. Flying is youprop.h
-`(H||E||steed is_flyer)&&!B`, not sticky `u.Flying`. Did not
-pull check_pit. Filled D-1081 Addressed hash `cd5af20a`.
-Rotated #1362/#1363 to archive. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1375** **44**/44; next
-@**#1380**).
-**Verified:** private canary (piercer/lurker/trapper/mimic/giant/
-HFlying/steed-skill); green+strict seed8000/0900; cohort **20**/20
-+ strict 1800/0004/0101/0103/0360/2200/4500.
-**Next:** Open `engrave.c` `can_reach_floor(check_pit)` teeter/shaft.
 **Blocked:** none.

@@ -136,7 +136,7 @@ None that Must-fix this next iter. The two functions read `ptr.msound` at C’s 
 Named omits / do-nots (map / Open, not Must-fix):
 
 1. `makemon.c` `m_initweap` `ptr.msound` for MS_GUARDIAN / MS_PRIEST **Addressed:** D-1088 `049af16e`. Do not steal eat.c `cprefx` for it.
-2. `dogmove.c` pal/target numeric `ptr.msound` not string `'MS_LEADER'`. **Addressed:** D-1093
+2. `dogmove.c` pal/target numeric `ptr.msound` not string `'MS_LEADER'`. **Addressed:** D-1093 `e0b68f1d`
 3. Stale `m_initweap` comments still say tables omit msound.
 
 Do not restore unread `ptr.msound` in peace/malign. Do not skip `always_peaceful` before MS_LEADER in `peace_minded`. Do not put MS_LEADER −20 after always_peaceful in `set_malign`.
