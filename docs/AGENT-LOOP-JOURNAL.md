@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 00:55 — #1425 review D-1117–D-1120 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `fountain.c` `gush` 157–160 / `mon.c` `minliquid`
+947–1109; `fountain.c` `drinksink` 680–686 / `polyself.c`
+469–496; `teleport.c` `teleok` 440–443 / `tele_jump_ok`
+386–417 / `region.c` `in_out_region` 480–527; `teleport.c`
+`tele_trap` 1492–1535 / `trap.c` `trapeffect_telep_trap`
+2075–2078.
+**Change:** reviews **78** ACCEPT D-1117 (occupied gush →
+`minliquid`; iron `d(2,6)`; drown `mondied`/`xkilled`; lava
+named), **79** ACCEPT D-1118 (`polyself(POLY_NOFLAGS)` real
+callee; Unchanging uprops), **80** ACCEPT D-1119 (`tele_jump_ok`
++ `in_out_region`; gas NO_CALLBACK; walk/`update_player_regions`
+named), **81** ACCEPT D-1120 (wrenching `shieldeff`+You_feel;
+once deltrap after `next_to_u`; teledest/`tele()` named).
+Must-fix empty. Filled D-1120 archive hash `acfb0167`. Rotated
+#1410. Open 8 (no refill). Rule #2: no fs.
+**Score:** cadence **#1425** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1430**.
+**Verified:** C read of the four loci vs JS hunks; grep
+FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `teleds` `fill_pit`. Not Punished
+ball.
+**Blocked:** none.
+
 ## 2026-08-17 00:50 — #1424 D-1120 tele_trap Antimagic wrenching pline
 
 **Objective:** Open queue — `teleport.c` `tele_trap` Antimagic
@@ -348,31 +376,5 @@ cohort **16**/16 (0360 soko + 0373/4500/2200/0030/…) + strict
 0360/0373/4500/2200. Path public-unhit.
 **Next:** Open `teleport.c` `goodpos` live-mon `onscary` when
 `m_id != 0`. Not `goodpos_onscary`.
-**Blocked:** none.
-
-## 2026-08-16 21:45 — #1410 review D-1105–D-1108 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `fountain.c` `watchman_warn_fountain` 183–193 /
-`mondata.c` `pronoun_gender`; `fountain.c` `dryup` 223–227 /
-`display.c` `glyph_at`; `fountain.c` `dipfountain` 404–447 /
-`artifact.c` `artiname`/`exist_artifact`; `fountain.c`
-`wash_hands` 557–577 / `objnam.c` `gloves_simple_name`.
-**Change:** reviews **66** ACCEPT D-1105 (shake/wave real
-`mbodypart`/`mhis`), **67** ACCEPT-WITH-DEBT D-1106 (`S_cloud`
-skip via `visible_region_at` analog; unseen `m_at` named),
-**68** ACCEPT D-1107 (Lady of the Lake; `exist_artifact`/`oname`
-real, not dryup stub), **69** ACCEPT D-1108 (`wash_hands` real
-`make_glib`/`water_damage`; trap.js gloves stub unused).
-Must-fix empty. Filled D-1108 archive hash `62b93acb`. Rotated
-#1395. Open 10 (no refill). Rule #2: no fs.
-**Score:** cadence **#1410** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.26/turn` (R² 0.87). Next
-@**#1415**.
-**Verified:** C read of the four loci vs JS hunks; grep
-FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `sp_lev.c` `lspo_exclusion` populate
-`exclusion_zones` from `des.exclusion`. Not `goodpos`.
 **Blocked:** none.
 

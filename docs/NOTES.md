@@ -8,17 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1420**;
-  next @**#1425**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1425**;
+  next @**#1430**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 8.
-  Reviews **74–77** ACCEPT (D-1113 `dipsink`; D-1114 uncurse
-  17–20; D-1115 case 29 `mkgold`; D-1116 MAGIC enlightenment).
-- Density: one semantic cluster (~50–300 LOC). Review + full
-  `sessions` together every 5.
+  Reviews **78–81** ACCEPT (D-1117–D-1120). Density: one
+  cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1120**. Prior **70–73** ACCEPT.
+- Latest ports: **D-1089**…**D-1120**. Prior **74–77** ACCEPT.
 - **Next cluster:** Open `teleds` `fill_pit`.
-- **Hypothesis:** none live. D-1120 tele_trap wrenching shipped.
+- **Hypothesis:** none live. Cadence #1425 fortress held.
 
 ## Don't re-check (≤15)
 
@@ -86,9 +84,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1420**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1425**.
-- **D-1120:** `tele_trap` Antimagic wrenching. Hash next.
+- Suite after cadence **#1425**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1430**.
+- **D-1120:** `tele_trap` Antimagic wrenching. Hash `acfb0167`.
 - **D-1119:** teleok `tele_jump_ok`/`in_out_region`. Hash `26560ccf`.
 - **D-1118:** drinksink case 10 `polyself`. Hash `8a01c200`.
 - **D-1117:** gush `minliquid` when `m_at`. Hash `afb86487`.

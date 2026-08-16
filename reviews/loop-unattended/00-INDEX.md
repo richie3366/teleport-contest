@@ -87,3 +87,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [75-e30a51f2-dipfountain-uncurse.md](./75-e30a51f2-dipfountain-uncurse.md) | `e30a51f2` | D-1114 `dipfountain` cases 17–20 uncurse | **ACCEPT** |
 | [76-79438232-dipfountain-mkgold.md](./76-79438232-dipfountain-mkgold.md) | `79438232` | D-1115 `dipfountain` case 29 `mkgold` | **ACCEPT** |
 | [77-19e4be31-drinkfountain-enlightenment.md](./77-19e4be31-drinkfountain-enlightenment.md) | `19e4be31` | D-1116 `drinkfountain` case 19 MAGIC enlightenment | **ACCEPT** |
+| [78-afb86487-gush-minliquid.md](./78-afb86487-gush-minliquid.md) | `afb86487` | D-1117 `gush` `minliquid` when `m_at` | **ACCEPT** |
+| [79-8a01c200-drinksink-polyself.md](./79-8a01c200-drinksink-polyself.md) | `8a01c200` | D-1118 drinksink case 10 `polyself` | **ACCEPT** |
+| [80-26560ccf-teleok-jump-region.md](./80-26560ccf-teleok-jump-region.md) | `26560ccf` | D-1119 teleok `tele_jump_ok` / `in_out_region` | **ACCEPT** |
+| [81-acfb0167-tele-trap-wrenching.md](./81-acfb0167-tele-trap-wrenching.md) | `acfb0167` | D-1120 `tele_trap` Antimagic wrenching | **ACCEPT** |
