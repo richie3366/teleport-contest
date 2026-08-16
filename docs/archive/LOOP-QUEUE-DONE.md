@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path. **Addressed:** D-1112
+- [x] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path. **Addressed:** D-1112 `bb552fba`
 
 
 - [x] `teleport.c` `teleok` vibrating / pit-fly (named). Not `rloc`. **Addressed:** D-1111 `b0847b88`

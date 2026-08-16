@@ -8,24 +8,21 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.87) after cadence **#1410**;
-  next @**#1415**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1415**;
+  next @**#1420**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 11
-  after archive (no refill). Reviews **66** ACCEPT (D-1105),
-  **67** ACCEPT-WITH-DEBT (D-1106), **68–69** ACCEPT
-  (D-1107/D-1108).
+  after archive (no refill). Reviews **70–73** ACCEPT
+  (D-1109 `lspo_exclusion`; D-1110 live `onscary`; D-1111
+  `teleok` VS/pit-fly; D-1112 `mlevel_tele_trap` portal arms).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1112**. Prior **62–65** ACCEPT
-  / 63 ACCEPT-WITH-DEBT.
+- Latest ports: **D-1089**…**D-1112**. Prior **66–69** ACCEPT
+  / 67 ACCEPT-WITH-DEBT.
 - **Next cluster:** Open `fountain.c` `dipsink` (named). Not
   wash_hands.
-- **Hypothesis:** none live. D-1112 shipped: `mlevel_tele_trap`
-  MAGIC_PORTAL stay (amulet || home-elemental || `rn2(7)`);
-  LEVEL_TELEP `random_teleport_level`/`get_level`; NO_TRAP
-  `onscary(0,0)` stay else same-level migrate; xport mconf
-  iff `!control_teleport`. Hole dest unchanged.
+- **Hypothesis:** none live. Audit #1415: four JS SHAs match
+  pinned C; no Must-fix. D-1112 archive hash filled `bb552fba`.
 
 ## Don't re-check (≤15)
 
@@ -82,14 +79,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1410**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1415**.
+- Suite after cadence **#1415**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1420**.
 - **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP.
-  Endgame amulet/home-elemental/`rn2(7)`; LEVEL_TELEP
-  `random_teleport_level`; NO_TRAP `onscary(0,0)`; xport mconf
-  iff `!control_teleport`. valley/botlevel-avoid/hero named.
-- **D-1111:** `teleok` VIBRATING_SQUARE always ok; pit/hole iff
-  Levitation||Flying. Hash `b0847b88`.
+  Hash `bb552fba`.
+- **D-1111:** `teleok` VIBRATING_SQUARE / pit-fly. Hash `b0847b88`.
 - **D-1110:** live-mon `onscary` when `m_id != 0`. Hash `fd738eab`.
 - **D-1109:** `lspo_exclusion` populate. Hash `5bf81ca7`.
 - **D-1108:** `wash_hands`. Hash `62b93acb`.

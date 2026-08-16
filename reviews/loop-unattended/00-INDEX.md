@@ -79,3 +79,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [67-127c045c-dryup-cloud-glyph.md](./67-127c045c-dryup-cloud-glyph.md) | `127c045c` | D-1106 `dryup` cansee `S_cloud` skip | **ACCEPT-WITH-DEBT** |
 | [68-0633a261-dipfountain-excalibur.md](./68-0633a261-dipfountain-excalibur.md) | `0633a261` | D-1107 `dipfountain` Excalibur LONG_SWORD | **ACCEPT** |
 | [69-62b93acb-wash-hands.md](./69-62b93acb-wash-hands.md) | `62b93acb` | D-1108 `wash_hands` + dipfountain hands/uarmg | **ACCEPT** |
+| [70-5bf81ca7-lspo-exclusion.md](./70-5bf81ca7-lspo-exclusion.md) | `5bf81ca7` | D-1109 `lspo_exclusion` populate `exclusion_zones` | **ACCEPT** |
+| [71-fd738eab-goodpos-onscary-live.md](./71-fd738eab-goodpos-onscary-live.md) | `fd738eab` | D-1110 `goodpos` live-mon `onscary` | **ACCEPT** |
+| [72-b0847b88-teleok-vibrating-pit.md](./72-b0847b88-teleok-vibrating-pit.md) | `b0847b88` | D-1111 `teleok` vibrating / pit-fly | **ACCEPT** |
+| [73-bb552fba-mlevel-tele-trap.md](./73-bb552fba-mlevel-tele-trap.md) | `bb552fba` | D-1112 `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP | **ACCEPT** |
