@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 07:15 — #1348 D-1066 tut-1 tutorial() nhcore disable
+
+**Objective:** Open queue — tut-1 nhcore callback disable on
+enter/leave only (not Lua cmd_before/`tutorial_turn` / Knight jump).
+**C locus:** `nhlua.c` `tutorial` / `l_nhcore_call` / `l_nhcore_init`;
+`do.c` `goto_level`; `dat/nhcore.lua` enter/leave_tutorial;
+`dat/nhlib.lua` `tutorial_enter`/`tutorial_leave`.
+**Change:** `goto_level` calls `tutorial()`. `l_nhcore_init` fills
+`nhcore_call_available` TRUE. After leave, both ENTER/LEAVE FALSE.
+Lua `nh.callback` cmd_before/`tutorial_turn` still named. Rule #2:
+no fs. Rotated #1333 to archive.
+**Score:** fortress unchanged (cadence **#1345** **44**/44; next
+@**#1350**).
+**Verified:** private node enter keeps available + stash; leave
+disables both; second enter skips; nil start_new_game disables that
+slot; GETPOS stays TRUE. green+strict PASS; seed0009 **73**/73;
+cohort **12**/12.
+**Next:** Open `dosit` steed `mon_nam(usteed)`.
+**Blocked:** none.
+
 ## 2026-08-16 07:05 — #1347 review D-1065 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -300,26 +320,5 @@ box / key / `place_lregion`).
 WATER no `rn2`; defaults `rn2(10)`×2+`rn2(30)`. green+strict PASS;
 seed0009 **73**/73; cohort **8**/8.
 **Next:** Open tut-1 stairs only.
-**Blocked:** none.
-
-## 2026-08-16 03:20 — #1333 D-1058 dosit lava/ice/DRAWBRIDGE_DOWN sit
-
-**Objective:** Open queue — `sit.c` `dosit` lava / ice / drawbridge
-sit (terrain, not trap-lava D-1039).
-**C locus:** `sit.c` `dosit` ~539–555; `dbridge.c` `is_lava`/`is_ice`;
-`mondata.h` `likes_lava`; `youprop.h` Fire/Cold; `timeout.c`
-`burn_away_slime`.
-**Change:** WWalking lava sit_message + `burn_away_slime` +
-`likes_lava` warm vs `d((Fire_resistance?2:10),10)` `"sitting on
-lava"`; ice sit_message + !Cold `"ice feels cold"`; DRAWBRIDGE_DOWN
-`"drawbridge"`. Local `is_ice` includes DRAWBRIDGE_UP+DB_ICE.
-`hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA still named. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1330** **44**/44; next
-@**#1335**).
-**Verified:** private node likes_lava no `d()`; burn `d(10,10)` no
-trap `rnd(4)`; Fire_res `d(2,10)`; ice ±Cold; drawbridge; throne
-still `rnd(6)`; trap TT_LAVA `rnd(4)`+`d(2,10)`. green+strict PASS;
-cohort **6**/6 (seed1500/1800/0060/0102/0360/2200). Path unhit.
-**Next:** Open tut-1 `des` kelp only.
 **Blocked:** none.
 

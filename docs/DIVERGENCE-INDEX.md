@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1066 | fixed | tut-1 `tutorial()` nhcore ENTER/LEAVE disable | map-driven; C `tutorial()` `l_nhcore_call` then both `nhcore_call_available` FALSE after leave; JS `goto_level` called `nhl_gamestate` directly |
 | D-1065 | fixed | tut-1 `tut_key` / `nh.eckey` | map-driven; C `cmd_from_ecname`/`nhl_get_cmd_key` + Lua Ctrl-/Alt- rewrite; hardcoded `:`/`\\`/`#twoweapon`/`Ctrl-T` were not eckey |
 | D-1064 | fixed | tut-1 `levregion_add` / `fixup_special` dest copy | map-driven; C `sp_lev.c` `des.teleport_region` `{9,3,9,3}`: `LR_TELE` both, exclude `-1` `del_islev`; `place_lregion` from `u_on_rndspot` not load |
 | D-1063 | fixed | tut-1 `create_object` food apple/candy/lichen | map-driven; C `sp_lev.c` packed `des.object`: buc not-cursed=`uncurse`, corpse `montype` pmnames→`set_corpsenm`, CORPSE `spe`=CORPSTAT lflags |

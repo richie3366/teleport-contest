@@ -11,18 +11,17 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1345**;
   next @**#1350**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 nhcore callback disable is next.
+  LB). Must-fix empty; Open `dosit` steed `mon_nam` is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1065** tut-1 `tut_key` / `nh.eckey` via
-  `cmd_from_ecname` (Ctrl-/Alt- rewrite + `tut_key_help`). Review
-  **26** ACCEPT `296bc792`.
-- **Next cluster:** Open — tut-1 nhcore callback disable on
-  enter/leave.
-- **Hypothesis:** none live. Next falsifier is Open nhcore
-  callback disable on tutorial enter/leave.
+- Latest: **D-1066** tut-1 `tutorial()` nhcore ENTER/LEAVE disable
+  (`nhcore_call_available` both FALSE after leave). Lua `nh.callback`
+  cmd_before/`tutorial_turn` still named.
+- **Next cluster:** Open — `dosit` steed message: C `mon_nam(usteed)`,
+  not `"your steed"`. Source: D-1033 risk 4.
+- **Hypothesis:** none live. Next falsifier is Open dosit steed nam.
 
 ## Don't re-check (≤15)
 
@@ -43,48 +42,24 @@ Objective/score live in `CURRENT.md`.
 - Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
 - Judge does **not** elide RC path (D-0933); §1.2 allows recorder
   `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not re-stub TIN … furniture/HOLE (D-0954) … through
-  hatch_egg (D-1036/D-1037) or drop `objects_at` (D-0980).
 - Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
-- `shopdig(1)` skip snatch iff `um_dist || helpless || !bill`.
-  Tutorial stash needs `setnotworn`. Do not default `sell_response`
-  to `'a'`; do not “fix” `robbed -= offer`.
 - Do not memcpy gi worn/ball pointers with struct you (D-1035).
   Do not drive `setnotworn` from `owornmask`/`setworn(null)` (D-1020).
   Do not `delobj` tutorial loot on leave. Do not fire off-level
-  object timers (D-1037). Do not omit `msounds[]` (D-1053). Do not
-  restore `getdir_whip` / `hurtle_apply` `teleds` (D-1038). Do not
-  put `confdir` inside shared `getdir`. Do not skip `dosit`
-  `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
-  `m_at` as poleable (D-1040) / always-`tmiss` (D-1041) /
-  base-`data.ac` (D-1042) / mulch `rn2(4)` (D-1043) /
-  `u.questarti` (D-1044) / apply name clones (D-1045) /
-  `light_cocktail` by-value (D-1046) / `spe--` unpaid (D-1047) /
-  extra flat `u.Confusion` (D-1048) / gold splice (D-1049) /
-  `void telekinesis` (D-1050) / wipe/`tmp_at` no-ops (D-1051) /
-  `(u.Glib|0)&TIMEOUT` (D-1052) / parent-chain `cobj.where`
-  (D-1054) / skip `in_water` or second `water_damage`→`uarmf`
-  (D-1055) / sit `u.Underwater` (D-1056) / skip furniture
-  sit_message (D-1057) / skip lava/ice/DRAWBRIDGE_DOWN sit or
-  trap TT_LAVA as terrain lava (D-1058). Do not restore sit
-  Fire/Cold H||E-only (D-1060); do not rewrite `confer_oc_oprop`
-  to mirror every E* for that peel. Do not skip `mineralize`
-  `In_endgame` before kelp (D-1059). Do not skip `mkstairs`
-  `force` ROOM or raw-mkstairs tut-1 packed `des.stair` (D-1061).
-  Do not restore raw `rn2(sx/sy)` nested tut-1 box contents or skip
-  `delete_contents` after `mkbox_cnts` (D-1062). Do not restore
-  `tut1_object` for tut-1 food or skip `create_object` `corpsenm` /
-  `find_montype` gender RNG for `montype` (D-1063). Do not restore
-  tut-1 `updest`/`dndest` copy or exclude `0,0,0,0` (D-1064). Do not
-  restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`
-  (D-1065).
+  object timers (D-1037). Do not omit `msounds[]` (D-1053).
+- Do not restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`
+  (D-1065). Do not skip `tutorial()` `nhcore_call_available` disable
+  or raw-`nhl_gamestate` from `goto_level` (D-1066).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1345**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
+- **D-1066:** tut-1 `tutorial()` → `l_nhcore_call` ENTER/LEAVE then
+  both `nhcore_call_available` FALSE. Lua NHCB cmd_before/`tutorial_turn`
+  still named. Knight jump / leftover `obfree` / `update_inventory` named.
 - **D-1065:** tut-1 `tut_key` → `nh.eckey`/`cmd_from_ecname`.
   Kick `Ctrl-D`; loot `M-l`; tip `Alt-T`; untrap `M-u`;
   twoweapon `X`. Knight jump still deferred.
@@ -95,5 +70,3 @@ Objective/score live in `CURRENT.md`.
   CORPSTAT spe). Review **24** ACCEPT `3f376b74`.
 - **D-1062:** tut-1 packed box+wand → `l_create_object` (DRY,
   `delete_contents`). Review **23** ACCEPT `3ca1b544`.
-- **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
-  force. Review **22** ACCEPT `05915d9b`.

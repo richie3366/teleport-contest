@@ -72,6 +72,7 @@ import {
     SP_OBJ_CONTENT, SP_OBJ_CONTAINER,
     Can_fall_thru, Can_dig_down, G_GONE,
     CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_NONE,
+    NUM_NHCORE_CALLS,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -885,7 +886,8 @@ async function getbones() {
     return try_load_bones(game.u?.uz);
 }
 
-// C ref: allmain.c l_nhcore_init()
+// C ref: nhlua.c l_nhcore_init() — nhlib shuffle is the second load;
+// after nhl_loadlua("nhcore.lua") every nhcore_call_available[] is TRUE.
 export function l_nhcore_init() {
     const align = [0, 0, 0]; // A_LAWFUL, A_NEUTRAL, A_CHAOTIC
     for (let i = align.length; i > 1; i--) {
@@ -893,6 +895,7 @@ export function l_nhcore_init() {
         [align[i - 1], align[j]] = [align[j], align[i - 1]];
     }
     game.splev_align = align;
+    game.nhcore_call_available = new Array(NUM_NHCORE_CALLS).fill(true);
 }
 
 // C ref: mklev.c mklev()
@@ -8487,8 +8490,8 @@ function splev_map_center_start(wid, hei) {
 
 /**
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
- * Named omissions: Knight jump (role gate), leave-tutorial invent
- * restore, map_location tseen traps; nhcore disable.
+ * Named omissions: Knight jump (role gate); leftover obfree;
+ * Lua nh.callback cmd_before/end_turn; update_inventory.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua

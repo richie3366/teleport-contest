@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1066 — tut-1 tutorial() nhcore ENTER/LEAVE disable
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — after leaving the tutorial, C
+  `tutorial(FALSE)` sets `nhcore_call_available[ENTER]` and
+  `[LEAVE]` FALSE so a later dungeon-cross cannot re-run Lua
+  `tutorial_enter`/`tutorial_leave`. JS `goto_level` called
+  `nhl_gamestate` directly and never disabled the slots.
+- **C locus:** `nhlua.c` `tutorial` / `l_nhcore_call` /
+  `l_nhcore_init`; `do.c` `goto_level`; `dat/nhcore.lua`
+  `enter_tutorial`/`leave_tutorial`; `dat/nhlib.lua`
+  `tutorial_enter`/`tutorial_leave`.
+- **Fix:** `l_nhcore_init` fills `game.nhcore_call_available` TRUE.
+  `l_nhcore_call` skips disabled slots; ENTER/LEAVE dispatch to
+  `nhl_gamestate`; commented-out nhcore names disable on first
+  call; GETPOS_TIP stays a Lua function (still wired in getpos.js).
+  `tutorial(entering)` then, after leave, clears both flags.
+  `goto_level` calls `tutorial()` like C. Rule #2: no fs.
+- **Deferred:** Lua `nh.callback` cmd_before/`tutorial_cmd_before`
+  (save blacklist); `tutorial_turn` hunger ration; leftover
+  `obfree`; `update_inventory`; Knight jump; `l_nhcore_call`
+  GETPOS_TIP; START/RESTORE/MOVELOOP/EXIT still no-op Lua.
+- **Verify:** private node: enter keeps both TRUE + stashes; leave
+  restores and disables both; second enter skips stash; nil
+  start_new_game disables that slot; GETPOS stays TRUE.
+  green+strict PASS; seed0009 **73**/73; cohort **12**/12
+  (8000/0900/0009/0030/0060/0102/0116/0360/0373/1500/1800/2200).
+- **Files:** `js/do.js`, `js/mklev.js`.
+
 ## D-1065 — tut-1 tut_key / nh.eckey via cmd_from_ecname
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

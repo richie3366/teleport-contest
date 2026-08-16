@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
+- [x] tut-1 nhcore callback disable on enter/leave. **Addressed:** D-1066
+
+
 - [x] tut-1 `tut_key` / eckey only. **Addressed:** D-1065 `296bc792`
 
 

@@ -25,7 +25,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] tut-1 nhcore callback disable on enter/leave.
 - [ ] `dosit` steed message: C `mon_nam(usteed)`, not `"your steed"`. Source: D-1033 risk 4 (named, not a Must-fix).
 
 ## Parked (do not pop)
