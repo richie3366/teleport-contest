@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1058 — dosit lava/ice/DRAWBRIDGE_DOWN sit
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — `dosit` skipped C lava / ice /
+  DRAWBRIDGE_DOWN sit after furniture / before throne (fell through
+  to throne `rnd(6)` or having-fun). Trap TT_LAVA already D-1039.
+- **C locus:** `sit.c` `dosit` (~539–555); `dbridge.c` `is_lava` /
+  `is_ice`; `mondata.h` `likes_lava`; `youprop.h` `Fire_resistance` /
+  `Cold_resistance`; `timeout.c` `burn_away_slime`; `defsym.h` `S_ice`.
+- **Fix:** WWalking lava: sit_message + `burn_away_slime` +
+  `likes_lava` warm early `ECMD_TIME` else `d((Fire_resistance?2:10),10)`
+  `"sitting on lava"` (not trap `"sitting in lava"` / `d(2,10)`+`rnd(4)`).
+  Ice: sit_message `"ice"` + !Cold_resistance `"The ice feels cold."`
+  (local `is_ice` matches C ICE or DRAWBRIDGE_UP+DB_ICE). DRAWBRIDGE_DOWN
+  sit_message `"drawbridge"`. Shared `hack.js` `is_lava` (LAVAPOOL/
+  LAVAWALL). Rule #2: no fs.
+- **Deferred:** `is_lava` DRAWBRIDGE_UP+DB_LAVA still named on
+  `hack.js` helper; `lay_an_egg`; steed `mon_nam`;
+  `can_reach_floor`/`ustuck`/hider.
+- **Verify:** private node likes_lava warm no `d()`/no `rnd(6)`;
+  burn `d(10,10)` no trap `rnd(4)`; Fire_res `d(2,10)`; ice ±Cold
+  no `d()`/no `rnd(6)`; DRAWBRIDGE_DOWN sit_message; DRAWBRIDGE_UP+DB_ICE
+  is_ice; ROOM having-fun; throne still `rnd(6)`; trap TT_LAVA
+  `rnd(4)`+`d(2,10)`. green+strict PASS; cohort **6**/6
+  (seed1500/1800/0060/0102/0360/2200). Path unhit in public suite.
+- **Files:** `js/sit.js`.
+
 ## D-1057 — dosit sink/altar/grave/stairs/ladder sit_message
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

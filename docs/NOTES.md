@@ -16,15 +16,13 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews 17/18 ACCEPT (D-1056 Underwater, D-1057 furniture).
-  Must-fix empty. Next Open lava sit.
-- **Next cluster:** Open — `dosit` lava / ice / drawbridge sit
-  (terrain, not trap-lava D-1039).
-- **Hypothesis:** lava sit is WWalking-only (C `sit.c:539–549`):
-  sit_message + `burn_away_slime` + likes_lava warm vs `d(2|10,10)`
-  burn. Do not pull ice Cold_resistance or DRAWBRIDGE_DOWN into
-  that cluster. Falsifier: sit LAVAPOOL + likes_lava → warm pline,
-  no `losehp`; no throne `rnd(6)`.
+- Latest: D-1058 lava/ice/DRAWBRIDGE_DOWN sit. Must-fix empty.
+  Next Open tut-1 kelp.
+- **Next cluster:** Open — tut-1 `des` kelp only. Not stairs /
+  box / key / `place_lregion`.
+- **Hypothesis:** kelp is a tut-1 `des` object/terrain sprinkle,
+  not stairs / box / key / `place_lregion`. Falsifier: C tut-1
+  kelp locus vs JS; do not pull those siblings into this cluster.
 
 ## Don't re-check (≤15)
 
@@ -83,18 +81,19 @@ Objective/score live in `CURRENT.md`.
   pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
   (D-1055). Do not restore sit `u.Underwater` (D-1056 — C
   `youprop.h` `Underwater` ≡ `u.uinwater`). Do not skip furniture
-  sit_message / `altar_wrath` on `IS_ALTAR` (D-1057). Do not pull
-  lava HP into an ice/drawbridge peel.
+  sit_message / `altar_wrath` on `IS_ALTAR` (D-1057). Do not skip
+  lava/ice/DRAWBRIDGE_DOWN sit or restore trap TT_LAVA as terrain
+  lava (D-1058).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1330**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1335**.
+- **D-1058:** `dosit` lava/ice/DRAWBRIDGE_DOWN sit (terrain; trap
+  TT_LAVA remains D-1039). `likes_lava` warm vs `d(2|10,10)`.
 - **D-1057:** `dosit` sink/altar/`altar_wrath`/grave/stairs/ladder
   sit_message (C `"stairs"`/`"ladder"`, not defsyms up/down).
 - **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
-- **D-1055:** `dosit` `in_water` + early pool/gremlin goto + C
-  `uarm` twice.
+- **D-1055:** `in_water` + pool/gremlin goto + C `uarm` twice.
 - **D-1054:** restore `cobj` `OBJ_CONTAINED`; buried `OBJ_BURIED`.
 - **D-1053:** `msounds[]` / `cry_sound` no longer always-chitter.
-- **D-1052:** lamp `make_glib` ticking `Glib & TIMEOUT`.

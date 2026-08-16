@@ -2,7 +2,8 @@
 // rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
 // dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049)
 // + water/pool/gremlin sit (D-1055/D-1056) + furniture sit_message
-// (D-1057: sink/altar/grave/stairs/ladder).
+// (D-1057: sink/altar/grave/stairs/ladder) + lava/ice/DRAWBRIDGE_DOWN
+// sit (D-1058; terrain, not trap TT_LAVA).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -17,6 +18,10 @@
 // youprop.h Underwater ≡ u.uinwater), IS_SINK/IS_ALTAR/IS_GRAVE/STAIRS/
 // LADDER sit_message (D-1057; sink humanoid rump vs underside; altar
 // altar_wrath via dynamic import — pray.js already imports sit.js),
+// lava WWalking sit_message + burn_away_slime + likes_lava warm vs
+// d((Fire_resistance?2:10),10) "sitting on lava" (D-1058), ice
+// sit_message + !Cold_resistance "ice feels cold", DRAWBRIDGE_DOWN
+// sit_message "drawbridge" (before IS_THRONE; trap TT_LAVA is D-1039),
 // IS_THRONE sit + special_throne_effect (wish/drain/grease/attrcurse/
 // VS-goto/msummon/ confused remove-curse HConfusion-only D-1048 /
 // poly/acid/shuffle) + ordinary throne_sit_effect 1–13 (adjattrib/shock/
@@ -26,14 +31,15 @@
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
-// uescaped_shaft gate, lava/ice/drawbridge, wizard getlin / Analyze y_n,
+// uescaped_shaft gate, wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
 // pit/hole dotrap bodies still named-omit in trap.js. take_gold calls
 // steal.c remove_worn_item (D-1049); armor *_off / unpunish / setnotworn
 // pointer-walk still named on that helper. D-0956: set_mimic_blocking
-// on SEE_INVIS attrcurse arm.
+// on SEE_INVIS attrcurse arm. D-1058 uses shared hack.js is_lava
+// (LAVAPOOL/LAVAWALL); DRAWBRIDGE_UP+DB_LAVA under still named there.
 
 import { game } from './gstate.js';
 import {
@@ -46,6 +52,7 @@ import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
     IS_THRONE, IS_SINK, In_V_tower, ROOM, CLOUD, FOUNTAIN, STAIRS, LADDER,
+    ICE, DRAWBRIDGE_DOWN, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     Is_waterlevel,
     G_EXTINCT, NO_MINVENT, MM_EDOG, MM_NOMSG,
     INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE, W_WEAPONS, W_BALL, W_CHAIN,
@@ -62,7 +69,7 @@ import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
 import {
     amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
-    humanoid, monsterNames,
+    humanoid, likes_lava, monsterNames,
 } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -71,7 +78,7 @@ import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
 import { t_at, dotrap, water_damage } from './trap.js';
-import { losehp, finish_maybe_wail, is_pool } from './hack.js';
+import { losehp, finish_maybe_wail, is_pool, is_lava } from './hack.js';
 import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
 import { burn_away_slime } from './timeout.js';
 import { hliquid, christen_monst } from './do_name.js';
@@ -464,6 +471,33 @@ function body_part(part) {
 function Flying() {
     const u = game.u || {};
     return !!((u.Flying) || (u.HFlying | 0) || (u.EFlying | 0));
+}
+
+/** C youprop.h Fire_resistance — H || E. */
+function Fire_resistance() {
+    const u = game.u || {};
+    return !!((u.Fire_resistance) || (u.HFire_resistance | 0)
+        || (u.EFire_resistance | 0));
+}
+
+/** C youprop.h Cold_resistance — H || E. */
+function Cold_resistance() {
+    const u = game.u || {};
+    return !!((u.Cold_resistance) || (u.HCold_resistance | 0)
+        || (u.ECold_resistance | 0));
+}
+
+/**
+ * C ref: dbridge.c is_ice — ICE or DRAWBRIDGE_UP with DB_ICE under.
+ * Local: sit cannot import zap.js is_ice (sit already dynamic-imports
+ * zap for makewish; keep the static DAG lean).
+ */
+function is_ice(x, y) {
+    const lev = game.level?.at(x, y);
+    if (!lev) return false;
+    if ((lev.typ | 0) === ICE) return true;
+    return (lev.typ | 0) === DRAWBRIDGE_UP
+        && ((lev.drawbridgemask | 0) & DB_UNDER) === DB_ICE;
 }
 
 /** C youprop.h Half_physical_damage. */
@@ -1057,7 +1091,7 @@ export async function dosit() {
     }
 
     // C sit.c dosit ~526–538: furniture sit_message before lava/ice/
-    // DRAWBRIDGE_DOWN (those still deferred) and IS_THRONE.
+    // DRAWBRIDGE_DOWN and IS_THRONE.
     if (IS_SINK(typ)) {
         // C: You(sit_message, defsyms[S_sink].explanation) — "sink"
         await You_sit_message('sink');
@@ -1088,7 +1122,39 @@ export async function dosit() {
         await You_sit_message('ladder');
         return ECMD_TIME;
     }
-    // lava / ice / DRAWBRIDGE_DOWN still deferred (next Open cluster).
+    // C sit.c dosit ~539–555: lava (WWalking) / ice / DRAWBRIDGE_DOWN
+    // before IS_THRONE. Trap TT_LAVA is the earlier utrap arm (D-1039).
+    if (is_lava(u.ux, u.uy)) {
+        // C: must be WWalking — sit_message + burn_away_slime always
+        await You_sit_message(hliquid('lava'));
+        await burn_away_slime();
+        if (likes_lava(game.youmonst?.data)) {
+            await pline(`The ${hliquid('lava')} feels warm.`);
+            return ECMD_TIME;
+        }
+        await pline(`The ${hliquid('lava')} burns you!`);
+        if (await sit_losehp(
+            d(Fire_resistance() ? 2 : 10, 10),
+            'sitting on lava',
+            KILLED_BY,
+        )) {
+            return ECMD_TIME;
+        }
+        return ECMD_TIME;
+    }
+    if (is_ice(u.ux, u.uy)) {
+        // C: You(sit_message, defsyms[S_ice].explanation) — "ice"
+        await You_sit_message('ice');
+        if (!Cold_resistance()) {
+            await pline('The ice feels cold.');
+        }
+        return ECMD_TIME;
+    }
+    if (typ === DRAWBRIDGE_DOWN) {
+        // C: You(sit_message, "drawbridge") — not defsyms lowered/raised
+        await You_sit_message('drawbridge');
+        return ECMD_TIME;
+    }
     if (IS_THRONE(typ)) {
         await pline('You sit on the opulent throne.');
         await throne_sit_effect();
