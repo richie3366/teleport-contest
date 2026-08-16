@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 10:52 — #1362 review D-1072 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`55906000` D-1072) against pinned C,
+not the journal. Docs-only `4ee4c056` cadence #1360 noted, not a
+port claim.
+**C locus:** `sit.c` `dosit` (~422–429); `mondata.c` `sticks` /
+`pronoun_gender`; `you.h` `mhis`; `do_name.c` `Monnam`.
+**Change:** review **33** ACCEPT (lap `ustuck && !sticks(hero)`
+with engrave `sticks` export C AT 7/11, not `monmove.js` 6/7;
+`Monnam` imported; local `mhis` non-hallu matches
+`pronoun_gender`; hugs still air). Must-fix empty. Filled
+Addressed hash `55906000`. No `js/` edits. Rule #2: no fs.
+Rotated #1347 to archive.
+**Score:** fortress unchanged (cadence **#1360** **44**/44; next
+@**#1365**).
+**Verified:** C read of `sit.c:400–435`, `engrave.c:191–199`,
+`mondata.c:654–658`/`1191–1207`, `you.h:317–324`,
+`do_name.c:1074–1079`, `role.c:688–694`, `monsters.h` eel/mimic
+ATTK; JS `sit.js:155–181`/`1054–1085`, `engrave.js:233–274`,
+`monmove.js:1315–1328`; grep FORCE/fs on the hunks.
+**Next:** Open `sit.c` `dosit` OBJ_AT `uteetering`/`uescaped_shaft`
+gate.
+**Blocked:** none.
+
 ## 2026-08-16 10:45 — #1361 D-1072 dosit ustuck !sticks lap
 
 **Objective:** Open queue — `sit.c` `dosit` ustuck `!sticks` lap
@@ -294,29 +319,5 @@ disables both; second enter skips; nil start_new_game disables that
 slot; GETPOS stays TRUE. green+strict PASS; seed0009 **73**/73;
 cohort **12**/12.
 **Next:** Open `dosit` steed `mon_nam(usteed)`.
-**Blocked:** none.
-
-## 2026-08-16 07:05 — #1347 review D-1065 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`296bc792` D-1065) against pinned C,
-not the journal. Docs-only `b3daacc3` cadence #1345 noted, not a
-port claim.
-**C locus:** `cmd.c` `cmd_from_ecname` / `cmd_from_func` /
-`commands_init` / `reset_commands`; `nhlua.c` `nhl_get_cmd_key`;
-`hacklib.c` `visctrl`; `dat/tut-1.lua` `tut_key` / `tut_key_help`.
-**Change:** review 26 ACCEPT (default `!num_pad` eckey strings +
-Lua Ctrl-/Alt- rewrite; loot `M-l` / tip `Alt-T` / untrap `M-u` /
-twoweapon `X`; `cmd_from_func` list-order and `ef_funct` sharing
-named, unhit by tut-1). Must-fix empty. Filled Addressed hash
-`296bc792`. No `js/` edits. Rule #2: no fs. Rotated #1332 to
-archive.
-**Score:** fortress unchanged (cadence **#1345** **44**/44; next
-@**#1350**).
-**Verified:** C read of `cmd.c:2135–2154`/`2750–2782`/`3036–3088`/
-`3343–3476`, `nhlua.c:1644–1657`, `hacklib.c:469–493`,
-`hack.h:655`, `dat/tut-1.lua:5–27`/`70–107`/`230–267`/`294`; grep
-FORCE/DIAG/fs on the `js/dokeylist.js` + `js/mklev.js` hunks.
-**Next:** Open tut-1 nhcore callback disable on enter/leave.
 **Blocked:** none.
 

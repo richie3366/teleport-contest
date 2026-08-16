@@ -42,3 +42,4 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [30-872d1d93-dosit-can-reach-floor.md](./30-872d1d93-dosit-can-reach-floor.md) | `872d1d93` | D-1069 `dosit` `can_reach_floor` | **QUALITY-RISK** |
 | [31-9d3545c9-can-reach-floor-levitation.md](./31-9d3545c9-can-reach-floor-levitation.md) | `9d3545c9` | D-1070 `can_reach_floor` Levitation | **ACCEPT** |
 | [32-aa96e08c-can-reach-floor-hugs.md](./32-aa96e08c-can-reach-floor-hugs.md) | `aa96e08c` | D-1071 `can_reach_floor` hugs | **ACCEPT** |
+| [33-55906000-dosit-ustuck-lap.md](./33-55906000-dosit-ustuck-lap.md) | `55906000` | D-1072 `dosit` ustuck lap | **ACCEPT** |

@@ -72,7 +72,8 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** Open — `sit.c` `dosit` OBJ_AT picnic gate
-(`uteetering_at_seen_pit` / `uescaped_shaft`). Must-fix empty. Queue 9. Cadence @**#1365**.
+(`uteetering_at_seen_pit` / `uescaped_shaft`). Must-fix empty
+(review **33** ACCEPT D-1072). Queue 9. Cadence @**#1365**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
