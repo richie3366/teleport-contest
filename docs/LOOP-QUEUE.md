@@ -25,7 +25,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] tut-1 `des` kelp only. Not stairs / box / key / `place_lregion`.
 - [ ] tut-1 stairs only.
 - [ ] tut-1 large-box contents only.
 - [ ] tut-1 food objects only.

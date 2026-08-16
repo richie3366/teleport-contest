@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 03:35 — #1334 D-1059 tut-1 mineralize kelp
+
+**Objective:** Open queue — tut-1 `des` kelp only (not stairs /
+box / key / `place_lregion`).
+**C locus:** `mklev.c` `water_has_kelp` / `mineralize`;
+`dat/tut-1.lua` has no `des.mineralize` (map `P`/`W` + post-load
+`mineralize(-1,-1,-1,-1,FALSE)`).
+**Change:** `water_has_kelp` C `&&`/`||` (`POOL` or `WATER &&
+!Is_waterlevel`; MOAT); `In_endgame` return before kelp unless
+`skip_lvl_checks`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1330** **44**/44; next
+@**#1335**).
+**Verified:** private node P/W/M place; endgame skip; waterlevel
+WATER no `rn2`; defaults `rn2(10)`×2+`rn2(30)`. green+strict PASS;
+seed0009 **73**/73; cohort **8**/8.
+**Next:** Open tut-1 stairs only.
+**Blocked:** none.
+
 ## 2026-08-16 03:20 — #1333 D-1058 dosit lava/ice/DRAWBRIDGE_DOWN sit
 
 **Objective:** Open queue — `sit.c` `dosit` lava / ice / drawbridge
@@ -294,24 +312,6 @@ speed `31+0.26/turn` (R² 0.871). Next @**#1325**.
 **Verified:** C read of `sit.c:14–33` / `310–323`, `steal.c:213–290`,
 `wield.c:873–902`, `read.c:1489–1605` / `2225–2227`, `youprop.h:83–84`;
 JS hunks grepped FORCE/fs/seed.
-**Next:** Must-fix `pickup_object` telekinesis (D-1022 risk 6).
-**Blocked:** none.
-
-## 2026-08-16 00:05 — #1319 D-1049 take_gold remove_worn_item
-
-**Objective:** Must-fix D-1034 risk 3 — `take_gold` must
-`remove_worn_item` like C `sit.c`.
-**C locus:** `sit.c` `take_gold` (~14); `steal.c` `remove_worn_item`
-(~213) W_WEAPONS → `uwepgone`/`uswapwepgone`/`uqwepgone`.
-**Change:** `remove_worn_item(otmp, false)` then splice+`delobj`.
-Helper: `!owornmask` return + W_WEAPONS `*gone`. sit cannot import
-`steal.js` (hack→eat cycle). Armor `*_off`/`unpunish`/`setnotworn`
-named. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1315**; next @**#1320**).
-**Verified:** green+strict PASS; sit cohort **4**/4 (seed0106 Scr
-**267**/267; seed0107 **98**/98; seed0108 **303**/303; seed4500
-**1814**/1814). Private node **20**/20 (quiver/wield/swap clear;
-sword uwep kept). Path **unhit**.
 **Next:** Must-fix `pickup_object` telekinesis (D-1022 risk 6).
 **Blocked:** none.
 

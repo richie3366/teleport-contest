@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1059 — tut-1 kelp via mineralize water_has_kelp
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 kelp listed as deferred `des.*`.
+  `dat/tut-1.lua` has no `des.mineralize` / no kelp object. Kelp is
+  `mklev.c` `mineralize(-1,-1,-1,-1,FALSE)` after `load_tut1` on map
+  `'P'`/`'W'`. JS already sprinkled kelp but `water_has_kelp` treated
+  WATER like POOL (no `!Is_waterlevel`) and skipped C’s `In_endgame`
+  return before the kelp loop.
+- **C locus:** `mklev.c` `water_has_kelp` / `mineralize` (~1430–1478);
+  `sp_lev.c` `lspo_mineralize` (skip_lvl_checks TRUE; unused by tut-1);
+  `dat/tut-1.lua` map `P`/`W`; `mklev()` `level_finalize_topology`.
+- **Fix:** `water_has_kelp` matches C `&&`/`||` (POOL or WATER &&
+  `!Is_waterlevel`, then MOAT). `mineralize` defaults kelp_pool/moat
+  then `if (!skip_lvl_checks && In_endgame) return` before kelp.
+  tut-1 still uses the shared `mklev()` call (special then skips
+  gold/gems). Rule #2: no fs.
+- **Deferred:** tut-1 stairs / large-box / food / `place_lregion` /
+  tut_key/eckey / nhcore callback disable; `lspo_mineralize` Lua
+  opcode (no production `des.mineralize` caller).
+- **Verify:** private node: special P/W/M `kelp_pool=1` places 3, no
+  `rn2(1000)`; `In_endgame` skip false → 0 kelp; skip true still
+  kelps; waterlevel WATER skip true → no WATER kelp / 2× `rn2(1)`;
+  defaults `rn2(10)`×2 + `rn2(30)`×1. green+strict PASS; seed0009
+  **73**/73; cohort **8**/8 (1500/1800/0060/0102/0360/2200/0373/4500).
+  Path unhit except tut-1 P/W `rn2(10)` already in D-0353 prefix.
+- **Files:** `js/mklev.js`.
+
 ## D-1058 — dosit lava/ice/DRAWBRIDGE_DOWN sit
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

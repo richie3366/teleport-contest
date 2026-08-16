@@ -16,13 +16,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1058 lava/ice/DRAWBRIDGE_DOWN sit. Must-fix empty.
-  Next Open tut-1 kelp.
-- **Next cluster:** Open — tut-1 `des` kelp only. Not stairs /
-  box / key / `place_lregion`.
-- **Hypothesis:** kelp is a tut-1 `des` object/terrain sprinkle,
-  not stairs / box / key / `place_lregion`. Falsifier: C tut-1
-  kelp locus vs JS; do not pull those siblings into this cluster.
+- Latest: D-1059 tut-1 kelp via `mineralize`. Must-fix empty.
+  Next Open tut-1 stairs.
+- **Next cluster:** Open — tut-1 stairs only.
+- **Hypothesis:** tut-1 `des.stair` is `mkstairs` after loot, not
+  kelp / box / key / `place_lregion`. Falsifier: C `lspo_stair` vs
+  JS `mkstairs` in `load_tut1`; do not pull those siblings.
 
 ## Don't re-check (≤15)
 
@@ -49,46 +48,35 @@ Objective/score live in `CURRENT.md`.
 - Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
   suite — keep morph in music `do_pit` (D-0972).
 - `shopdig(1)` skip snatch iff `um_dist || helpless || !bill`.
-  `cancel_monst` youdefend walks `game.invent[]`. cmdq pickaxe is
-  `doapply` fn + invlet KEY. Tutorial stash needs `setnotworn`.
-  Do not default `sell_response` to `'a'`; do not “fix” `robbed -= offer`.
-- Do not memcpy gi worn/ball pointers with struct you (D-1035 — C `u`
-  has no `uwep`). Do not drive `setnotworn` from `owornmask`/
-  `setworn(null)` (D-1020). Do not `delobj` tutorial loot on leave.
-  Do not fire object timers for floor/buried/contained objs after
-  leaving their level (D-1037 — peel via `save_timers`). Do not omit
-  `msounds[]` / restore always-chitter `cry_sound` (D-1053). Do not
-  restore `getdir_whip` or `hurtle_apply` `teleds` (D-1038). Do not put
-  `confdir` inside shared `getdir`. Do not skip `dosit`
+  Tutorial stash needs `setnotworn`. Do not default `sell_response`
+  to `'a'`; do not “fix” `robbed -= offer`.
+- Do not memcpy gi worn/ball pointers with struct you (D-1035).
+  Do not drive `setnotworn` from `owornmask`/`setworn(null)` (D-1020).
+  Do not `delobj` tutorial loot on leave. Do not fire off-level
+  object timers (D-1037). Do not omit `msounds[]` (D-1053). Do not
+  restore `getdir_whip` / `hurtle_apply` `teleds` (D-1038). Do not
+  put `confdir` inside shared `getdir`. Do not skip `dosit`
   `else if (trap)` before `IS_THRONE` (D-1039). Do not restore live
-  `m_at`/`sobj_at` as `glyph_is_poleable` (D-1040). Do not restore
-  `thitmonst` always-`tmiss` for WEAPON/weptool/GEM (D-1041). Do not
-  restore `find_mac` base-`data.ac` stub (D-1042). Do not restore
-  hero blessed mulch `rn2(4)` (D-1043 — C `rnl(4)`). Do not restore
-  `special_obj_hits_leader` `game.u.questarti` (D-1044 — C
-  `urole.questarti`). Do not restore apply `yname`/`Amonnam`/
-  `mbodypart` clones (D-1045 — C `yname`/`highc(a_monnam)` /
-  `mbodypart(mtmp)`). Do not restore `light_cocktail(obj0)` by-value
-  (D-1046 — C `struct obj **`). Do not restore `consume_obj_charge`
-  as `spe--` only (D-1047 — C `check_unpaid` first). Do not restore
-  Vlad case 10 extra flat `u.Confusion` (D-1048 — C `HConfusion`
-  only). Do not restore `take_gold` invent-splice without
-  `remove_worn_item` (D-1049). Do not `void telekinesis` (D-1050).
-  Do not restore apply `u_wipe_engr_apply` / empty `display_*_positions`
-  (D-1051). Do not restore `use_lamp` `(u.Glib|0)&TIMEOUT` (D-1052 —
-  C `Glib` ≡ `uprops[GLIB].intrinsic`). Do not stamp parent-chain
-  `where` onto save/bones `cobj` (D-1054). Do not skip `dosit`
-  pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
-  (D-1055). Do not restore sit `u.Underwater` (D-1056 — C
-  `youprop.h` `Underwater` ≡ `u.uinwater`). Do not skip furniture
-  sit_message / `altar_wrath` on `IS_ALTAR` (D-1057). Do not skip
-  lava/ice/DRAWBRIDGE_DOWN sit or restore trap TT_LAVA as terrain
-  lava (D-1058).
+  `m_at` as poleable (D-1040) / always-`tmiss` (D-1041) /
+  base-`data.ac` (D-1042) / mulch `rn2(4)` (D-1043) /
+  `u.questarti` (D-1044) / apply name clones (D-1045) /
+  `light_cocktail` by-value (D-1046) / `spe--` unpaid (D-1047) /
+  extra flat `u.Confusion` (D-1048) / gold splice (D-1049) /
+  `void telekinesis` (D-1050) / wipe/`tmp_at` no-ops (D-1051) /
+  `(u.Glib|0)&TIMEOUT` (D-1052) / parent-chain `cobj.where`
+  (D-1054) / skip `in_water` or second `water_damage`→`uarmf`
+  (D-1055) / sit `u.Underwater` (D-1056) / skip furniture
+  sit_message (D-1057) / skip lava/ice/DRAWBRIDGE_DOWN sit or
+  trap TT_LAVA as terrain lava (D-1058). Do not skip
+  `mineralize` `In_endgame` before kelp or kelp WATER without
+  `!Is_waterlevel` (D-1059). tut-1.lua has no `des.mineralize`.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1330**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1335**.
+- **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
+  map chars); `water_has_kelp` `!Is_waterlevel`; `In_endgame` skip.
 - **D-1058:** `dosit` lava/ice/DRAWBRIDGE_DOWN sit (terrain; trap
   TT_LAVA remains D-1039). `likes_lava` warm vs `d(2|10,10)`.
 - **D-1057:** `dosit` sink/altar/`altar_wrath`/grave/stairs/ladder
@@ -96,4 +84,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
 - **D-1055:** `in_water` + pool/gremlin goto + C `uarm` twice.
 - **D-1054:** restore `cobj` `OBJ_CONTAINED`; buried `OBJ_BURIED`.
-- **D-1053:** `msounds[]` / `cry_sound` no longer always-chitter.
