@@ -10,17 +10,15 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1420**;
   next @**#1425**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11.
   Reviews **74–77** ACCEPT (D-1113 `dipsink`; D-1114 uncurse
   17–20; D-1115 case 29 `mkgold`; D-1116 MAGIC enlightenment).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1116**. Prior **70–73** ACCEPT.
-- **Next cluster:** Open `fountain.c` `gush` `minliquid` body
-  (named). Not dogushforth.
-- **Hypothesis:** none live. D-1116 drinkfountain MAGIC
-  enlightenment shipped.
+- Latest ports: **D-1089**…**D-1117**. Prior **70–73** ACCEPT.
+- **Next cluster:** Open `fountain.c` `drinksink` case 10 `polyself`. Not dipsink.
+- **Hypothesis:** none live. D-1117 gush `minliquid` shipped.
 
 ## Don't re-check (≤15)
 
@@ -75,7 +73,9 @@ Objective/score live in `CURRENT.md`.
   dipfountain uncurse 17–20 no-op (D-1114) / restore
   dipfountain case 29 empty break or skip looted gate
   (D-1115) / skip `drinkfountain` case 19 enlightenment or route
-  MAGIC-only through `doattributes` BASIC ^X (D-1116).
+  MAGIC-only through `doattributes` BASIC ^X (D-1116) / restore
+  gush `void mtmp` newsym-only or skip iron-golem rust /
+  `xkilled` drown when `!mon_moving` (D-1117).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -84,6 +84,7 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1420**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1425**.
+- **D-1117:** gush `minliquid` when `m_at`. Hash filled next commit.
 - **D-1116:** drinkfountain case 19 MAGIC enlightenment.
   Hash `19e4be31`.
 - **D-1115:** dipfountain case 29 `mkgold`. Hash `79438232`.
@@ -96,4 +97,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1109:** `lspo_exclusion` populate. Hash `5bf81ca7`.
 - **D-1108:** `wash_hands`. Hash `62b93acb`.
 - **D-1107:** dipfountain Excalibur. Hash `0633a261`.
-- **D-1106:** `dryup` S_cloud skip. Hash `127c045c`.

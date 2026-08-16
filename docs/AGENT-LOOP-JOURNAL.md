@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 00:05 — #1421 D-1117 gush minliquid when m_at
+
+**Objective:** Open queue — `fountain.c` `gush` `minliquid` body
+(named). Not dogushforth.
+**C locus:** `fountain.c` `gush` 157–160; `mon.c` `minliquid` /
+`minliquid_core` 947–1121 (iron 993–1008, drown 1068–1109).
+**Change:** occupied gush cells `await minliquid` else `newsym`.
+Iron golem `!rn2(5)` `d(2,6)` + `mondied`. Drown pline;
+`mon_moving` → `mondied` else `xkilled(XKILL_NOMSG)`; survivor
+`water_damage_chain` + `rloc(RLOC_NOMSG)`. `sad_feeling` wrapper.
+`await rloc(RLOC_MSG)` teleport-away. Did not pull `set_levltyp`,
+steed Fly/Lev, lava `xkilled`/`fire_damage_chain`, overcrowding,
+`engulfing_u`. Stamped review **77** item 4. Rotated #1406. Open
+11 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1420** **44**/44; next
+@**#1425**).
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **19**/19 (0014 fountain + 0360 minliquid lava +
+1500/1800/0060/0102/0700/0017/4500/2200/0004/0030/0009/0367/
+0116/0373/0383/0007/0361) + strict 0014/0360/4500/2200/0004/
+0030/0009/0367/0116/0373/0060/0383. Path public-unhit.
+**Next:** Open `fountain.c` `drinksink` case 10 `polyself`. Not
+dipsink.
+**Blocked:** none.
+
 ## 2026-08-16 23:50 — #1420 review D-1113–D-1116 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -342,27 +367,5 @@ cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
 0014/0006/2200/0360/4500 + isolated 0009. Public traces **unhit**.
 **Next:** Open `fountain.c` `dipfountain` Excalibur LONG_SWORD
 body. Not wash_hands.
-**Blocked:** none.
-
-## 2026-08-16 20:50 — #1406 D-1105 watchman_warn_fountain Deaf shake/wave
-
-**Objective:** Open queue — `fountain.c` `watchman_warn_fountain`
-Deaf shake/wave (named). Not dryup yn.
-**C locus:** `fountain.c` `watchman_warn_fountain` 183–193;
-`youprop.h` Deaf; `mondata.h` `nolimbs`; `you.h` `mhis` /
-`pronoun_gender`; `polyself.c` `mbodypart` HEAD/ARM.
-**Change:** Deaf else-arm: `nolimbs` shakes HEAD else waves
-`makeplural(ARM)` + `mhis`. Local `mhe`/`mhis` follow
-`pronoun_gender` (hallu `rn2(4)`). `!Deaf` yell unchanged.
-Did not pull cloud-glyph skip, Excalibur, or `wash_hands`.
-Rotated #1391. Open 8 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1405** **44**/44; next
-@**#1410**).
-**Verified:** private canary **34**/34; green+strict seed8000/0900;
-cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
-+ 1500/1800/0060/0102/0700/0017/4500/0009/0106) + strict
-0014/0006/2200/0360/4500 + isolated 0009. Public traces **unhit**.
-**Next:** Open `fountain.c` `dryup` cansee cloud-glyph skip.
-Not angry_guards.
 **Blocked:** none.
 

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1117 | fixed | `gush` `minliquid` when `m_at` | map-driven; C `fountain.c:157–160` / `mon.c` `minliquid_core` 993–1109; iron rust `!rn2(5)` `d(2,6)`; drown `xkilled` vs `mondied`; `set_levltyp` / steed / lava xkilled / overcrowding still named |
 | D-1116 | fixed | `drinkfountain` case 19 MAGIC enlightenment | map-driven; C `fountain.c:287–293` / `insight.c` `enlightenment(MAGICENLIGHTENMENT,0)`; not `doattributes` BASIC ^X; Status+Attributes+elapsed; bones/debug still BASIC-gated; potion/zap/artifact callers still named |
 | D-1115 | fixed | `dipfountain` case 29 `mkgold` coins | map-driven; C `fountain.c:530–546`; looted skip; else `SET_FOUNTAIN_LOOTED` + `rnd((num_dunlevs-dlevel+1)*2)+5` merge/create; Blind-skip glistening; `exercise(A_WIS,TRUE)`/`newsym`; `update_inventory` still named |
 | D-1114 | fixed | `dipfountain` cases 17–20 uncurse | map-driven; C `fountain.c:464–475`; `!is_hands && cursed` Blind-skip glow + `uncurse`; else loss; coins not skipped; luck/lamplit stay on mkobj `uncurse`; case 29 `mkgold` still named |

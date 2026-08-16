@@ -9,8 +9,9 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE);
 // drinkfountain case 19 MAGICENLIGHTENMENT body (D-1116).
+// gush m_at → minliquid else newsym (D-1117).
 // Deferred: vomit cantvomit/Sick/acid poly arms,
-// gush minliquid body; set_levltyp side effects beyond typ/flags;
+// set_levltyp side effects beyond typ/flags;
 // Hallucination rndmonnam in snakes pline; mongrantswish tmp_at
 // glyph hide.
 // dryup wizard y_n after town warn (D-1096).
@@ -75,7 +76,7 @@ import {
     mons, is_watch, nolimbs, humanoid, is_neuter, G_UNIQ,
     breathless, haseyes,
 } from './monsters.js';
-import { m_at, angry_guards } from './mon.js';
+import { m_at, angry_guards, minliquid } from './mon.js';
 import { mon_offmap } from './monmove.js';
 import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at, make_grave } from './engrave.js';
@@ -661,8 +662,8 @@ function delfloortrap(ttmp) {
 
 /**
  * C ref: fountain.c gush — pool along LOS from overflowing fountain.
- * Named omissions: full set_levltyp side effects; minliquid body
- * (newsym only when mon present).
+ * D-1117: m_at → minliquid; else newsym (C 157–160).
+ * Named omissions: full set_levltyp side effects (typ/flags only).
  */
 async function gush(x, y, poolcnt) {
     const u = game.u || {};
@@ -688,10 +689,10 @@ async function gush(x, y, poolcnt) {
     del_engr_at(x, y);
     await water_damage_chain(objects_at(x, y), true);
 
+    // C fountain.c:157–160 — minliquid when occupied; newsym only if empty.
     const mtmp = m_at(x, y);
-    // minliquid deferred when mon present — newsym only
-    void mtmp;
-    newsym(x, y);
+    if (mtmp) await minliquid(mtmp);
+    else newsym(x, y);
 }
 
 /**

@@ -122,7 +122,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 1. Overlay elapsed `"none"` vs C `fmt_elapsed_time` (`insight.c:448–449`). Pre-existing analog; now on MAGIC-only too.
 2. Remaining `attributes_enlightenment` / `status_enlightenment` arms (invent.js header already lists them).
 3. Potion / wand / artifact MAGIC callers as first-class ports (shared callee now honors MAGIC if they call `enlightenment(MAGIC,0)`).
-4. `gush` `minliquid` body. Live Open. Not this SHA.
+4. `gush` `minliquid` body. **Addressed:** D-1117
 5. Do not restore the case-19 skip. Do not route MAGIC-only through no-arg `doattributes()` (BASIC ^X). Do not drop Attributes for non-wizard MAGIC. Do not show bones/debug on MAGIC-only. Do not rewrite other `Antimagic()` clones this peel.
 
 ## Verdict
@@ -130,4 +130,4 @@ Named omits / do-nots (map / Open, not Must-fix):
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: fountain fate 19 now calls MAGIC-only enlightenment (no Background/Basics, yes Status/Attributes, no BASIC bones/debug) instead of skipping it or showing ^X, while overlay elapsed `"none"` and remaining insight arms stay named.
-- Must-fix stays empty for this SHA; next port pops Open `fountain.c` `gush` `minliquid` body. Not dogushforth.
+- Must-fix stays empty for this SHA; next port popped Open `fountain.c` `gush` `minliquid` body. **Addressed:** D-1117. Not dogushforth.

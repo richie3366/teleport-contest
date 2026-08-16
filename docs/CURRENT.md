@@ -72,15 +72,15 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** gush `minliquid`. Not dogushforth.
+**Next cluster:** drinksink `polyself`. Not dipsink.
 
 **Density:** one C family.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1116. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1117. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1116** (getdir/hurtle; pole
+**D-0948**…**D-1117** (getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 HConfusion-only; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
@@ -89,11 +89,11 @@ HConfusion-only; take_gold
 twice; sit `Underwater` ≡ `u.uinwater`; furniture sit_message;
 lava/ice/DRAWBRIDGE_DOWN sit; sit Fire/Cold `uprops[]`; tut-1
 `mineralize` kelp; tut-1 `l_create_stairway` packed `force`;
-tut-1 `create_object` large-box contents; tut-1 food; tut-1 `place_lregion`/`levregion_add`; tut-1
+tut-1 `create_object` box+food; tut-1 `place_lregion`/`levregion_add`; tut-1
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1116).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1117).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -120,7 +120,7 @@ after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
 no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
 restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
 skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
-dosit `"your steed"` / skip hider clear / Levitation-only `dosit`).
+dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush minliquid (D-1117)).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

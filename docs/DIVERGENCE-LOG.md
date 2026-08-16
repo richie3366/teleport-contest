@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1117 — gush minliquid when m_at
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `gush` set POOL then always `newsym`, ignoring
+  `m_at`. C `fountain.c:157–160` calls `minliquid(mtmp)` when a
+  monster occupies the new pool, else `newsym`.
+- **C locus:** `fountain.c` `gush` (~157–160);
+  `mon.c` `minliquid` / `minliquid_core` (~947–1121),
+  especially iron-golem rust (~993–1008) and pool drown
+  (~1068–1109).
+- **Fix:** `gush` awaits `minliquid` when occupied. Wrapper sets
+  `sad_feeling` like C. Iron golem: `inpool && !rn2(5)` then
+  `d(2,6)` + `mondied`. Drown: `await rloc(RLOC_MSG)` teleport
+  away; pline; `mon_moving` → `mondied` else `xkilled(XKILL_NOMSG)`;
+  lifesave survivor `water_damage_chain` + `rloc(RLOC_NOMSG)`.
+  Lava still uses `mondead_liquid` (named). Rule #2: no fs.
+- **JS:** `js/fountain.js` `gush`; `js/mon.js` `minliquid` /
+  `minliquid_core`.
+- **Not this iter:** `set_levltyp` side effects; steed Flying/
+  Levitation; lava `fire_damage_chain`/`xkilled`/`on_fire`;
+  `deal_with_overcrowding`; `engulfing_u` flush; drinksink
+  `polyself`.
+- **Verify:** private canary **19**/19 (gush dispatch source;
+  flyer/swimmer skip; iron `rn2(5)` hit+miss `d(2,6)`; goblin
+  drown `!mon_moving`/`mon_moving`; gremlin `rn2(3)`;
+  `sad_feeling` clear); green+strict seed8000/0900; cohort
+  **19**/19 including 0014/0360/4500/2200/0030/0004/0009/0367/
+  0116/0373/0060/0383/1500/1800/0102/0700/0017/0007/0361 +
+  strict 0014/0360/4500/2200/0004/0030/0009/0367/0116/0373/
+  0060/0383. Path public-unhit (0014 gush cells had no `m_at`).
+- **Files:** `js/fountain.js`, `js/mon.js`.
+
 ## D-1116 — drinkfountain case 19 MAGIC enlightenment
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
