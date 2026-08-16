@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 04:25 — #1338 review D-1060/D-1061 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`ecd37108` D-1060, `05915d9b` D-1061)
+against pinned C, not the journal.
+**C locus:** `youprop.h` Fire/Cold; `sit.c` `dosit` ~548–553;
+`worn.c` `oc_oprop`; `sp_lev.c` `l_create_stairway`/`get_location`;
+`mklev.c` `mkstairs` force; `trap.c` `deltrap`; `dat/tut-1.lua` stair.
+**Change:** reviews 21 ACCEPT (sit helpers OR `uprops[FIRE_RES]`/
+`[COLD_RES]`; worn ring `d(2,10)`) and 22 ACCEPT (packed origin add;
+`force` ROOM then dungeon-end; tut-1 is 2-level so down stairs
+place — D-log “early return” was overclaim). No new Must-fix.
+Filled Addressed hash `05915d9b`. No `js/` edits. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1335** **44**/44; next
+@**#1340**).
+**Verified:** C read of `youprop.h:26–32`, `sit.c:539–555`,
+`do_wear.js:261–288`, `sp_lev.c:1202–1349`/`4147–4212`,
+`mklev.c:2156–2197`, `trap.c:6502–6549`, `tut-1.lua:289`;
+JS hunks grepped FORCE/fs/seed.
+**Next:** Open tut-1 large-box contents only.
+**Blocked:** none.
+
 ## 2026-08-16 04:13 — #1337 D-1061 tut-1 packed des.stair l_create_stairway
 
 **Objective:** Open queue — tut-1 stairs only (not box / food /
@@ -297,26 +319,5 @@ use `(Glib()&TIMEOUT)`; `nh_timeout` TIMEOUT_FLAT GLIB. Rule #2: no fs.
 **Verified:** green+strict PASS; apply/timeout cohort **8**/8;
 private node remainder 20→27 and `nh_timeout` 5→2. Path unhit.
 **Next:** Must-fix `cry_sound` C `monflag.h` numbers (D-1036 risk 3).
-**Blocked:** none.
-
-## 2026-08-16 01:20 — #1323 review D-1050/D-1051 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`4e55ff2f` D-1050, `7e389050` D-1051)
-against pinned C, not the journal.
-**C locus:** `pickup.c` `pickup_object`/`lift_object`/`carry_count`/
-`fatal_corpse_mistake`/`rider_corpse_revival`; `engrave.c`
-`u_wipe_engr`; `apply.c` `display_*_positions`; `defsym.h` S_goodpos.
-**Change:** reviews 11 ACCEPT (telekinesis TRUE silent encumbrance
-refuse + skip petrify; scare `carry_count` FALSE; ynq default `q`)
-and 12 ACCEPT (real `u_wipe_engr`; three `tmp_at` S_goodpos loops;
-paint on `$` like C). No new Must-fix. Filled Addressed hash
-`7e389050`. No `js/` edits. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
-**Verified:** C read of `pickup.c:273–313` / `1570–1888`,
-`hack.c:4391–4396`, `hack.h:1330` ynq, `engrave.c:187–289`,
-`apply.c:1959–1984` / `3334–3352` / `3701–3725` / `3561` / `3809–3810`,
-`defsym.h:207`; JS hunks grepped FORCE/fs/seed.
-**Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
 **Blocked:** none.
 

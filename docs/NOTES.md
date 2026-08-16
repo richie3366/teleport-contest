@@ -16,12 +16,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1061 tut-1 packed `des.stair` / `mkstairs` force.
-  D-1060 sit Fire/Cold `uprops[]`. D-1059 kelp ACCEPT.
+- Latest: reviews **21** ACCEPT D-1060 (`ecd37108`), **22** ACCEPT
+  D-1061 (`05915d9b`). D-log “tut-1 dungeon-end return” was
+  overclaim (Tutorial is 2 levels; down stairs place).
 - **Next cluster:** Open — tut-1 large-box contents only.
-- **Hypothesis:** packed tut-1 `des.stair` skipped C `l_create_stairway`
-  (deltrap / SpLev_Map / `force` ROOM before dungeon-end return).
-  Falsified: 2-level down places STAIRS; botlevel force leaves ROOM.
+- **Hypothesis:** none live. Next falsifier is the Open large-box
+  cluster (C `des.object` packed box contents vs JS stub).
 
 ## Don't re-check (≤15)
 
@@ -82,8 +82,10 @@ Objective/score live in `CURRENT.md`.
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
 - **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
   (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
+  Review **22** ACCEPT `05915d9b`.
 - **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
-  (worn ring `d(2,10)`; review 19). zap/trap/explode aliases named.
+  (worn ring `d(2,10)`). Review **21** ACCEPT `ecd37108`.
+  zap/trap/explode aliases named.
 - **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
   map chars); `water_has_kelp` `!Is_waterlevel`; `In_endgame` skip.
   Review **20** ACCEPT `c0d5279a`.

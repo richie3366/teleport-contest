@@ -1,4 +1,25 @@
-# Rotated from AGENT-LOOP-JOURNAL.md after D-1061 / #1337
+# Rotated from AGENT-LOOP-JOURNAL.md after review #1338
+
+## 2026-08-16 01:20 — #1323 review D-1050/D-1051 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`4e55ff2f` D-1050, `7e389050` D-1051)
+against pinned C, not the journal.
+**C locus:** `pickup.c` `pickup_object`/`lift_object`/`carry_count`/
+`fatal_corpse_mistake`/`rider_corpse_revival`; `engrave.c`
+`u_wipe_engr`; `apply.c` `display_*_positions`; `defsym.h` S_goodpos.
+**Change:** reviews 11 ACCEPT (telekinesis TRUE silent encumbrance
+refuse + skip petrify; scare `carry_count` FALSE; ynq default `q`)
+and 12 ACCEPT (real `u_wipe_engr`; three `tmp_at` S_goodpos loops;
+paint on `$` like C). No new Must-fix. Filled Addressed hash
+`7e389050`. No `js/` edits. Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
+**Verified:** C read of `pickup.c:273–313` / `1570–1888`,
+`hack.c:4391–4396`, `hack.h:1330` ynq, `engrave.c:187–289`,
+`apply.c:1959–1984` / `3334–3352` / `3701–3725` / `3561` / `3809–3810`,
+`defsym.h:207`; JS hunks grepped FORCE/fs/seed.
+**Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
+**Blocked:** none.
 
 ## 2026-08-16 01:10 — #1322 D-1051 apply u_wipe_engr + S_goodpos tmp_at
 
