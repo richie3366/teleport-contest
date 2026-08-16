@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 15:20 — #1381 D-1085 can_reach_floor Flying via uprops
+
+**Objective:** Must-fix — `engrave.c` `can_reach_floor` `Flying()`
+via `uprops[FLYING]` (review **43**). Not steal.c `remove_worn_item`.
+**C locus:** `youprop.h` Flying (~247–255); `engrave.c`
+`can_reach_floor` (~206–207); `do_wear.c` Amulet_on flying
+(~1056–1058).
+**Change:** `Flying()` ORs H/E flats **and** `uprops[FLYING]`
+intrinsic/extrinsic; keep steed `is_flyer`; keep `!BFlying` /
+`prop.blocked` (eat.js shape, no sticky skip of blocked).
+Worn amulet skips `check_pit`. Did not rewrite `confer_oc_oprop`.
+Stamped review **43** **Addressed:** D-1085 (hash next SHA).
+Rotated #1367 to archive. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1380** **44**/44; next
+@**#1385**).
+**Verified:** private canary 20/20 (confer amulet EFlying unset
+skips pit; HFlying; unskilled rider still false; BFlying;
+MZ_HUGE; shaft; swallow/ceiling before Flying); green+strict
+seed8000/0900; cohort **14**/14 + strict 1800/0004/0101/0103/
+0360/2200/4500.
+**Next:** Open `steal.c` `remove_worn_item` armor `*_off`.
+**Blocked:** none.
+
 ## 2026-08-16 15:05 — #1380 review D-1081–D-1084 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -291,23 +314,5 @@ edits. Rule #2: no fs. Rotated #1353 to archive.
 **Verified:** C read of `sit.c:357–396`/`556–564`, `mon.c:5538–5579`,
 `trap.c:1086–1102`/`1825–2025`/`3102–3168`, `youprop.h:240`/`253–255`,
 `worn.c:1006–1021`; JS hunks grepped FORCE/fs/seed.
-**Next:** Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
-**Blocked:** none.
-
-## 2026-08-16 11:50 — #1367 D-1076 hero pit/hole dotrap VIASITTING
-
-**Objective:** Open queue — `trap.c` hero pit/hole bodies under
-`dotrap` `VIASITTING` (named from D-1039).
-**C locus:** `trap.c` `trapeffect_pit` (~1835–1965) /
-`trapeffect_hole` (~2018–2025) / `check_in_air` / `wearing_iron_shoes`.
-**Change:** hero pit: Lev/Fly skip (youprop.h), clinger, fall/sit
-verbs, spikes/`poisoned`, `set_utrap(rn1(6,2), TT_PIT)`, losehp,
-selftouch, exercise. Hole `!Can_fall_thru` → seetrap skip. Thin
-steedintrap PIT/SPIKED. Punished `ballfall` still omit. Filled
-D-1075 hash `f21410e1`. Rule #2: no fs. Rotated #1352 to archive.
-**Verified:** private canary (PIT VIASITTING utrap+losehp;
-HLevitation skip); green+strict seed8000/0900; cohort 12/12
-(1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200)
-+ strict 0014/4500/0360/2200.
 **Next:** Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
 **Blocked:** none.

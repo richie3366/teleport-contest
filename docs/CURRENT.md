@@ -72,15 +72,15 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Must-fix — `engrave.c` `can_reach_floor` `Flying()` via `uprops[FLYING]` (review **43**). Not steal.c `remove_worn_item`. Audit @**#1385**.
+**Next cluster:** Open — `steal.c` `remove_worn_item` armor `*_off` (D-1049). Audit @**#1385**.
 
-**Iteration density:** one C function/family (~50–300 lines). Prefer delete-wrong-JS + re-port. Playbook §2a–2b.
+**Iteration density:** one C family (~50–300 lines). Prefer delete-wrong-JS + re-port. Playbook §2a–2b.
 
-**Parked:** D-0006 only. **Do not re-break D-0660…D-1084. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006 only. **Do not re-break D-0660…D-1085. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1084** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1085** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
@@ -95,7 +95,7 @@ tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 Levitation `(H||E)&&!B` D-1070; hugs D-1071; lap D-1072; picnic teeter D-1073; dragon meager D-1074; lay_an_egg D-1075; hero pit/hole `dotrap` D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `clone_mon` D-1078; msound D-1079; D-1080–D-1084).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; `clone_mon` D-1078; msound D-1079; D-1080–D-1085).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -112,7 +112,7 @@ no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-
 no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
-no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080–D-1083 rider/ceiling_hider/sticky Flying/check_pit teeter; no skip wizard getlin / restore always-`rnd(13)` for wizard (D-1084); no skip `cprefx` rider `revive_corpse` (D-1081); no skip ceiling_hider / MZ_HUGE (D-1082); no skip `check_pit` teeter/shaft (D-1083); no `Flying()` H/E-only without `uprops[FLYING]` (review **43**); no skip `mineralize` `In_endgame` before kelp; no WATER kelp
+no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080–D-1085 rider/`cprefx`/ceiling_hider/`check_pit`/wizard getlin/`Flying()` H/E-only; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
 without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
 `youprop.h`; no skip `mkstairs` `force` ROOM before dungeon-end
 return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw

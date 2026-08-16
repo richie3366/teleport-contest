@@ -10,19 +10,21 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.88) after cadence **#1380**;
   next @**#1385**.
-- Mode: **map-driven** under fortress. Review **43** QUALITY-RISK
-  Must-fix (Flying uprops). Open still 12. Pop Must-fix first.
+- Mode: **map-driven** under fortress. Must-fix empty after
+  **D-1085**. Open still 12. Pop first Open.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1081**…**D-1084**. Reviews **42** ACCEPT,
-  **43** QUALITY-RISK, **44** ACCEPT, **45** ACCEPT.
-- **Next cluster:** Must-fix `engrave.js` `Flying()` via
-  `uprops[FLYING]` (copy `eat.js`). Not steal.c.
-- **Hypothesis:** `confer_oc_oprop` writes amulet-of-flying to
-  `uprops[FLYING].extrinsic` and never `u.EFlying`; after D-1083
-  that misses `check_pit` skip. Falsifier: setworn amulet, teeter
-  seen pit, `can_reach_floor(true)` must be true.
+- Latest ports: **D-1081**…**D-1085**. Reviews **42** ACCEPT,
+  **43** QUALITY-RISK (Flying Must-fix shipped D-1085), **44**
+  ACCEPT, **45** ACCEPT.
+- **Next cluster:** Open `steal.c` `remove_worn_item` armor
+  `*_off` / `unpunish` / `setnotworn` pointer-walk (named from
+  sit take_gold D-1049).
+- **Hypothesis:** take_gold already calls `remove_worn_item`
+  (D-1049) but armor `*_off` / `unpunish` / pointer-walk still
+  omit vs C `steal.c`. Falsifier: worn armor + take_gold must
+  run the C off-path, not a slot-clear stub.
 
 ## Don't re-check (≤15)
 
@@ -50,21 +52,21 @@ Objective/score live in `CURRENT.md`.
   (D-1078) / unread `ptr.msound` peace (D-1079) / silent shop
   welcome (D-1080) / `cprefx` without revive (D-1081) / skip
   ceiling_hider (D-1082) / no-op `check_pit` (D-1083) / always
-  `rnd(13)` wizard (D-1084). Do not restore sticky `u.Flying` as
-  the only Flying test; do not skip `uprops[FLYING]` (review **43**).
+  `rnd(13)` wizard (D-1084) / `Flying()` H/E flats without
+  `uprops[FLYING]` (D-1085).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop` in the Flying peel (D-1060 do-not).
+  `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1380**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
-- Review **43** QUALITY-RISK: `Flying()` H/E flats miss amulet
-  `uprops[FLYING]`. Must-fix next.
+- **D-1085:** `Flying()` ORs `uprops[FLYING]`. Review **43**
+  Must-fix shipped (Addressed D-id only this SHA).
 - **D-1084:** wizard getlin 1..13. Review **45** ACCEPT.
 - **D-1083:** `check_pit` teeter/shaft. Review **44** ACCEPT
   (pickup `t && is_pit` named).
 - **D-1082:** ceiling_hider + MZ_HUGE. Review **43** QUALITY-RISK
-  (Flying clone).
+  (Flying clone; closed by D-1085).
 - **D-1081:** `cprefx` rider `revive_corpse`. Review **42** ACCEPT.
 - **D-1080:** `u_entered_shop`. Review **41** ACCEPT-WITH-DEBT.

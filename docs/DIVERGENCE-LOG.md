@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1085 — can_reach_floor Flying() via uprops[FLYING]
+
+- **Status:** fixed (Must-fix from review **43** QUALITY-RISK of D-1082;
+  not a public FAIL)
+- **Symptom:** `engrave.js` `Flying()` claimed C `youprop.h` Flying but
+  read only `u.HFlying` / `u.EFlying` / `u.BFlying`. `confer_oc_oprop`
+  writes worn `AMULET_OF_FLYING` to `uprops[FLYING].extrinsic` and
+  never mirrors `EFlying`. After D-1083, a teetering hero wearing
+  that amulet still failed `can_reach_floor(true)` (C skips
+  `check_pit` when Flying). Poly `HFlying` and steed `is_flyer`
+  already worked.
+- **C locus:** `youprop.h` Flying (~247–255); `engrave.c`
+  `can_reach_floor` (~206–207); `prop.h` `FLYING=49`; `do_wear.c`
+  `Amulet_on` AMULET_OF_FLYING (~1056–1058) “setworn() has already
+  set extrinsic flying”.
+- **Fix:** OR flats **and** `uprops[FLYING]` intrinsic/extrinsic,
+  keep steed `is_flyer`, keep `!BFlying` / `prop.blocked` (eat.js
+  shape without the sticky early-return that would skip blocked).
+  Did not rewrite `confer_oc_oprop`. Did not pull steal.c
+  `remove_worn_item`. Did not rewrite other `Flying()` clones.
+  Rule #2: no fs.
+- **Deferred:** `display.js` `feel_can_reach_floor` clone (uses
+  FALSE so check_pit N/A); invent/pickup `trap && is_pit` callers;
+  `cant_reach_floor` pit-bottom; `float_vs_flight` BFlying under
+  Levitation; other modules’ H/E-only `Flying()` clones.
+- **Verify:** private canary 20/20 (confer amulet skips pit with
+  EFlying unset; direct uprops; HFlying; unskilled rider still
+  false; BFlying / prop.blocked; MZ_HUGE; shaft; swallow/ceiling
+  still before Flying); green+strict PASS; cohort **14**/14 +
+  strict 1800/0004/0101/0103/0360/2200/4500. Path unhit on public
+  sessions.
+- **Files:** `js/engrave.js`.
+
 ## D-1084 — throne_sit_effect wizard getlin 1..13
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

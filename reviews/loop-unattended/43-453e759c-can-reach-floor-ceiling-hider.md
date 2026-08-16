@@ -135,6 +135,8 @@ Private canary vs C (journal) **did not** include amulet of flying. Cohort 0101 
 
 1. **`engrave.js` `can_reach_floor` `Flying()` must be C `youprop.h` Flying ≡ `(uprops[FLYING].intrinsic \|\| uprops[FLYING].extrinsic \|\| steed is_flyer) && !blocked`.** Copy the `eat.js:806–815` shape (OR the flats **and** the uprops pair; keep steed; keep `!BFlying` / `prop.blocked`). Worn `AMULET_OF_FLYING` must skip `check_pit` (TRUE after D-1083). Do **not** rewrite `confer_oc_oprop` this iter (D-1060 / review **19** same do-not). Do **not** pull steal.c `remove_worn_item`. Do **not** rewrite every other `Flying()` clone. Falsifier: `setworn` amulet of flying (`uprops[FLYING].extrinsic` set, `EFlying` unset), not poly-flyer, not steed, `check_pit` true, `uteetering_at_seen_pit` true → `can_reach_floor(true)` is **true**; unskilled rider still false before Flying; poly `HFlying` still true; `BFlying` still blocks.
 
+**Addressed:** D-1085
+
 Named omits / do-nots (map / Open, not Must-fix):
 
 2. `check_pit` teeter/shaft — shipped next as D-1083 (caller `t && is_pit` still named).

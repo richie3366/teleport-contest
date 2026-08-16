@@ -1,4 +1,22 @@
-# Rotated from AGENT-LOOP-JOURNAL.md after #1380 review + cadence
+# Rotated from AGENT-LOOP-JOURNAL.md after #1381 D-1085
+
+## 2026-08-16 11:50 — #1367 D-1076 hero pit/hole dotrap VIASITTING
+
+**Objective:** Open queue — `trap.c` hero pit/hole bodies under
+`dotrap` `VIASITTING` (named from D-1039).
+**C locus:** `trap.c` `trapeffect_pit` (~1835–1965) /
+`trapeffect_hole` (~2018–2025) / `check_in_air` / `wearing_iron_shoes`.
+**Change:** hero pit: Lev/Fly skip (youprop.h), clinger, fall/sit
+verbs, spikes/`poisoned`, `set_utrap(rn1(6,2), TT_PIT)`, losehp,
+selftouch, exercise. Hole `!Can_fall_thru` → seetrap skip. Thin
+steedintrap PIT/SPIKED. Punished `ballfall` still omit. Filled
+D-1075 hash `f21410e1`. Rule #2: no fs. Rotated #1352 to archive.
+**Verified:** private canary (PIT VIASITTING utrap+losehp;
+HLevitation skip); green+strict seed8000/0900; cohort 12/12
+(1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200)
++ strict 0014/4500/0360/2200.
+**Next:** Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
+**Blocked:** none.
 
 ## 2026-08-16 11:32 — #1366 D-1075 dosit lay_an_egg after throne
 
