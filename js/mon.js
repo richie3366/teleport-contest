@@ -73,12 +73,6 @@ function mdistu(mtmp) {
     return dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy);
 }
 
-/** Local is_pool — is_lava uses shared hack.js (D-1077). */
-function mfndpos_is_pool(x, y) {
-    const typ = game.level?.at(x, y)?.typ;
-    return typ === POOL || typ === MOAT || typ === WATER;
-}
-
 /** C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks. */
 function may_passwall(x, y) {
     const loc = game.level?.at(x, y);
@@ -1290,7 +1284,7 @@ export function mfndpos(mon, data, flag) {
                     continue;
                 }
                 // C: poolok/lavaok outer gate
-                if (!((poolok || mfndpos_is_pool(nx, ny) === wantpool)
+                if (!((poolok || is_pool(nx, ny) === wantpool)
                     && (lavaok || !is_lava(nx, ny)))) {
                     continue;
                 }
@@ -1384,7 +1378,7 @@ export function mfndpos(mon, data, flag) {
             }
         }
         // C mon.c:2376 — eel nexttry when stranded on land with no water nbr
-        if (!cnt && wantpool && !mfndpos_is_pool(x, y)) {
+        if (!cnt && wantpool && !is_pool(x, y)) {
             wantpool = false;
             continue;
         }

@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1090 — is_pool / is_moat DRAWBRIDGE_UP + DB_MOAT
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `hack.js` `is_pool` treated only `POOL`/`MOAT`/`WATER`.
+  Local `is_moat` clones were `MOAT` terrain (dig skipped juiblex;
+  zap did not). C `dbridge.c` `is_moat` is also `DRAWBRIDGE_UP` whose
+  `drawbridgemask & DB_UNDER` is `DB_MOAT` (0), except on Juiblex.
+  `is_pool` is `POOL`/`MOAT`/`WATER` or `is_moat()` — Juiblex `MOAT`
+  terrain stays pool. Sit/minliquid/mfndpos missed raised-bridge water.
+- **C locus:** `dbridge.c` `is_pool` (~46–58) / `is_moat` (~100–113);
+  `rm.h` `DB_MOAT`/`DB_UNDER`; callers `sit.c` `dosit`, `mon.c`
+  `mfndpos`/`minliquid`, `dig.c` `fillholetyp`, `zap.c` freeze.
+- **Fix:** shared `hack.js` `is_pool`/`is_moat` match C. `mon.js`
+  `mfndpos` uses `is_pool` (deleted `mfndpos_is_pool`). `dig.js`/
+  `zap.js` import the shared `is_moat`. Rule #2: no fs.
+- **JS:** `js/hack.js`, `js/mon.js`, `js/dig.js`, `js/zap.js`.
+  Sit comment in `js/sit.js`.
+- **Not this iter:** `teleport.c` `goodpos` still `IS_POOL`/`IS_LAVA`
+  macros; `waterbody_name` `SURFACE_AT`; `db_under_typ`; `hideunder`
+  typ macros; `display.js` `covers_objects` `IS_POOL`; `is_lava`
+  (already D-1077).
+- **Verify:** private canary **41**/41 (POOL/MOAT/WATER; UP+DB_MOAT
+  with/without `DB_DIR`; UP+LAVA/ICE/FLOOR false; DOWN+MOAT false;
+  juiblex MOAT pool-not-moat / UP+MOAT neither; `!isok` / missing
+  cell; D-1077 lava still true); green+strict seed8000/0900;
+  cohort **13**/13 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
+  0014/0360/2200/0009) + strict 0014/4500/0360/2200.
+  Path unhit on public DRAWBRIDGE_UP moat.
+- **Files:** `js/hack.js`, `js/mon.js`, `js/dig.js`, `js/zap.js`,
+  `js/sit.js` (comment).
+
 ## D-1089 — sit.c rndcurse Antimagic() via uprops[ANTIMAGIC]
 
 - **Status:** fixed (Must-fix from review **48** QUALITY-RISK of D-1087;

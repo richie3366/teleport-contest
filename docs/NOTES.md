@@ -10,20 +10,22 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1385**;
   next @**#1390**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 9
-  after **D-1089** (≥8; no refill).
+- Mode: **map-driven** under fortress. Must-fix empty. Open 8
+  after **D-1090** (≥8; no refill).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1085**…**D-1089**. Reviews **46** ACCEPT,
+- Latest ports: **D-1085**…**D-1090**. Reviews **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK (Antimagic
   uprops shipped D-1089), **49** ACCEPT.
-- **Next cluster:** Open `dbridge.c` `is_pool` / `is_moat`
-  DRAWBRIDGE_UP + `DB_MOAT` (named from D-1077). Not `is_lava`.
-- **Hypothesis:** `hack.js` `is_pool`/`is_moat` still
-  `IS_POOL`/`MOAT` only; C `dbridge.c` also DRAWBRIDGE_UP +
-  `DB_MOAT`. Falsifier: DRAWBRIDGE_UP cell with `DB_MOAT`
-  under → `is_pool`/`is_moat` true (same shape as D-1077 lava).
+- **Next cluster:** Open `teleport.c` `goodpos` must call
+  `is_pool()` / `is_lava()` not `IS_POOL` / `IS_LAVA` macros
+  (named from D-1077 review 38). Not `is_pool` DRAWBRIDGE.
+- **Hypothesis:** `teleport.js` `goodpos` still uses `IS_POOL`/
+  `IS_LAVA` (typ range / LAVAPOOL\|LAVAWALL). C `teleport.c`
+  calls `is_pool()`/`is_lava()`, so DRAWBRIDGE_UP+`DB_LAVA`
+  takes the lava arm not the swimmer/pool arm. Falsifier:
+  UP+`DB_LAVA` → lava branch; UP+`DB_MOAT` → pool branch.
 
 ## Don't re-check (≤15)
 
@@ -46,7 +48,8 @@ Objective/score live in `CURRENT.md`.
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
 - Do not skip hugs (D-1071) … priest/guardian mndx (D-1088) /
-  restore sit Antimagic H||E-only (D-1089).
+  restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
+  POOL/MOAT/WATER-only (D-1090).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -55,8 +58,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1385**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1390**.
+- **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
+  Juiblex MOAT is pool not moat. Hash next commit.
 - **D-1089:** sit `rndcurse` `Antimagic()` ORs
-  `uprops[ANTIMAGIC]`. Review **48** Must-fix. Hash next commit.
+  `uprops[ANTIMAGIC]`. Review **48**. Hash `f91650c0`.
 - **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
   `ptr.msound`. Review **49** ACCEPT.
 - **D-1087:** `shieldeff` body matches `display.c`. Review **48**

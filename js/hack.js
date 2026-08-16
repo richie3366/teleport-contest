@@ -9,7 +9,8 @@ import {
     NO_ROOM, SHARED, SHARED_PLUS, ROOMOFFSET, SHOPBASE, COLNO, ROWNO,
     is_pit, TEMPLE, OROOM, COURT, SWAMP, MORGUE, ZOO, BEEHIVE, BARRACKS,
     LEPREHALL, COCKNEST, ANTHOLE, DELPHI,
-    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, DRAWBRIDGE_UP, DB_UNDER, DB_LAVA,
+    POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, DRAWBRIDGE_UP, DB_UNDER, DB_MOAT,
+    DB_LAVA,
     ROOM, CORR, DOOR, SDOOR, TREE, ICE,
     W_NONDIGGABLE, SHOP_DOOR_COST,
     IS_WATERWALL, PARANOID_SWIM, TIP_SWIM,
@@ -733,17 +734,25 @@ function is_waterwall_at(x, y) {
 }
 
 /**
- * C ref: dbridge.c is_pool — POOL/MOAT/WATER; juiblex/drawbridge arms deferred.
+ * C ref: dbridge.c is_pool — POOL/MOAT/WATER, or is_moat (DRAWBRIDGE_UP
+ * + DB_MOAT). Juiblex MOAT terrain is pool but not moat (D-1090).
  */
 export function is_pool(x, y) {
     if (!isok(x, y)) return false;
-    const typ = game.level?.at(x, y)?.typ;
-    return typ === POOL || typ === MOAT || typ === WATER;
+    const lev = game.level?.at(x, y);
+    if (!lev) return false;
+    const ltyp = lev.typ | 0;
+    /* C: ltyp == MOAT is not redundant with is_moat — Juiblex has
+     * MOATs that is_moat rejects. */
+    if (ltyp === POOL || ltyp === MOAT || ltyp === WATER || is_moat(x, y)) {
+        return true;
+    }
+    return false;
 }
 
 /**
  * C ref: dbridge.c is_lava — LAVAPOOL/LAVAWALL or DRAWBRIDGE_UP with
- * DB_LAVA under (D-1077). is_pool/is_moat DRAWBRIDGE_UP+DB_MOAT still named.
+ * DB_LAVA under (D-1077).
  */
 export function is_lava(x, y) {
     if (!isok(x, y)) return false;
@@ -753,6 +762,24 @@ export function is_lava(x, y) {
     if (ltyp === LAVAPOOL || ltyp === LAVAWALL) return true;
     return ltyp === DRAWBRIDGE_UP
         && ((lev.drawbridgemask | 0) & DB_UNDER) === DB_LAVA;
+}
+
+/**
+ * C ref: dbridge.c is_moat — MOAT or DRAWBRIDGE_UP with DB_MOAT under;
+ * Juiblex swamp is never a moat (D-1090). DB_MOAT is 0.
+ */
+export function is_moat(x, y) {
+    if (!isok(x, y)) return false;
+    const lev = game.level?.at(x, y);
+    if (!lev) return false;
+    const ltyp = lev.typ | 0;
+    if (!Is_juiblex_level(game.u?.uz)
+        && (ltyp === MOAT
+            || (ltyp === DRAWBRIDGE_UP
+                && ((lev.drawbridgemask | 0) & DB_UNDER) === DB_MOAT))) {
+        return true;
+    }
+    return false;
 }
 
 /**

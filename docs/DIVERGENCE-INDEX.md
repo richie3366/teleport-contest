@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1090 | fixed | `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT` | map-driven; C `dbridge.c:46–58`/`100–113`; juiblex skip; `DB_MOAT=0`; shared `hack.js`; mfndpos/dig/zap clones deleted; `goodpos` macros still named |
 | D-1089 | fixed | sit `rndcurse` `Antimagic()` via `uprops[ANTIMAGIC]` | review **48** Must-fix; C `youprop.h:55–57`; confer cloak-of-MR / gray DSM extrinsic not `EAntimagic`; `shieldeff` + reduced `rnd` count; Half_spell_damage clone named |
 | D-1088 | fixed | makemon `m_initweap` priest/guardian `ptr.msound` | map-driven; C `makemon.c:263–327`/`721–727` + `quest_mon_represents_role`; MS_PRIEST=41 / MS_GUARDIAN=38; PM_NINJA weap + MS_NEMESIS mitem still named |
 | D-1087 | fixed | sit `rndcurse` Antimagic `shieldeff` | map-driven; C `sit.c:581–583` / `display.c:1109–1124`; sparkle opt_out On; SHIELD_COUNT 21 `shield_static`; ASCII S_ss1..4; other callers + update_inventory/hcolor named |
@@ -17,7 +18,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-1080 | fixed | shk `u_entered_shop` deserted/angry/Invis/doorway | map-driven; C `shk.c:723–917`; empty_shops latch; carrying walks `game.invent`; SetVoice/Soundeffect/Hallu named |
 | D-1079 | fixed | makemon `peace_minded`/`set_malign` `ptr.msound` | map-driven; C `makemon.c:2268–2366`; MS_LEADER −20 before always_peaceful; GUARDIAN/NEMESIS peace; `m_initweap` still mndx |
 | D-1078 | fixed | sit `split_mon` monster `clone_mon` | map-driven; C `potion.c:2899–2912` / `makemon.c:837–943`; sit local else no longer `return null`; trap/mon/uhitm callers still named |
-| D-1077 | fixed | `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | map-driven; C `dbridge.c:62–74`; shared `hack.js`; mfndpos uses it; `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named |
+| D-1077 | fixed | `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | map-driven; C `dbridge.c:62–74`; shared `hack.js`; mfndpos uses it; `is_pool`/`is_moat` later D-1090 |
 | D-1076 | fixed | trap hero `trapeffect_pit`/`trapeffect_hole` VIASITTING | map-driven; C `trap.c:1835–2025`; `set_utrap(rn1(6,2), TT_PIT)`; spikes/`poisoned`; hole `Can_fall_thru`; `check_in_air` youprop Lev/Fly; Punished `ballfall` still omit |
 | D-1075 | fixed | sit `dosit` `lay_an_egg` after throne | map-driven; C `sit.c:357–396`/`559–560`; male/hunger/tetra/Sargasso `ECMD_OK`; spawn vs lay; `egg_type_from_parent` in `mon.js`; not having-fun |
 | D-1074 | fixed | sit `dosit` dragon `money_cnt` meager hoard | map-driven; C `sit.c:443–446` / `hack.c` first COIN_CLASS quan; `"meager "` iff `obj.quan + money_cnt(invent) < ulevel * 1000`; not a sum |

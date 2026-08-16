@@ -72,15 +72,15 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** Open — `dbridge.c` `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`. Not `is_lava`. Audit @**#1390**.
+**Next cluster:** Open — `teleport.c` `goodpos` not `IS_POOL`/`IS_LAVA`. Audit @**#1390**.
 
 **Density:** one C family (~50–300 lines). §2a–2b.
 
-**Parked:** D-0006 only. **Do not re-break D-0660…D-1089. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006 only. **Do not re-break D-0660…D-1090. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1089** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1090** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
@@ -95,7 +95,7 @@ tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 Levitation `(H||E)&&!B` D-1070; hugs D-1071; lap D-1072; picnic teeter D-1073; dragon meager D-1074; lay_an_egg D-1075; hero pit/hole `dotrap` D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `clone_mon` D-1078; msound D-1079; D-1080–D-1089).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; `clone_mon` D-1078; msound D-1079; D-1080–D-1090).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -112,7 +112,7 @@ no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-
 no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
-no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080–D-1089; no restore `m_initweap` priest/guardian mndx (D-1088); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
+no restore `is_lava`/`is_pool` LAVAPOOL/POOL-only (D-1077/D-1090); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080–D-1090; no restore `m_initweap` priest/guardian mndx (D-1088); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
 without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
 `youprop.h`; no restore sit Antimagic H||E-only (D-1089); no skip `mkstairs` `force` ROOM before dungeon-end
 return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw

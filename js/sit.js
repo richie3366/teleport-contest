@@ -77,8 +77,8 @@
 // in_use / uskin skinback / Amulet_off / Ring_gone / Blindf_off still
 // named on steal.js. D-0956: set_mimic_blocking
 // on SEE_INVIS attrcurse arm. D-1058/D-1077 uses shared hack.js is_lava
-// (LAVAPOOL/LAVAWALL or DRAWBRIDGE_UP+DB_LAVA). is_pool DRAWBRIDGE_UP
-// +DB_MOAT still named on that helper.
+// (LAVAPOOL/LAVAWALL or DRAWBRIDGE_UP+DB_LAVA). D-1090 is_pool/is_moat
+// DRAWBRIDGE_UP+DB_MOAT (Juiblex MOAT is pool, not moat).
 
 import { game } from './gstate.js';
 import {
