@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.87) after cadence **#1350**;
-  next @**#1355**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1355**;
+  next @**#1360**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty; Open head: `dosit` ustuck `!sticks` lap.
   Keep 8–12 open rows; refill from the map when below 8.
@@ -61,8 +61,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1350**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1355**.
+- Suite after cadence **#1355**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1360**.
 - **D-1069:** `dosit` `!can_reach_floor(FALSE)`: swallow “no
   seats” / Levitation tumble / sit-on-air; `ECMD_OK`. Air/water
   Levitation sits. Helper hugs/ceiling_hider still named.

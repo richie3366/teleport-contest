@@ -21,6 +21,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 09:47 — #1355 cadence score refresh
+
+**Objective:** mandatory cadence full `sessions` (@#1355 % 5 == 0);
+refresh `CURRENT.md` Score. No port (score-only).
+**C locus:** n/a (score-only; no JS port change).
+**Change:** docs only — Score **44**/44 Scr **11405**/11405 RNG
+**100%** speed `31+0.27/turn` (R² 0.87). Filled Addressed hash
+`872d1d93` (D-1069). Rotated #1340 to archive. Rule #2: no fs.
+**Score:** cadence **#1355** **44**/44 Scr **11405**/11405 RNG **100%**
+speed `31+0.27/turn` (R² 0.87). Next @**#1360**.
+**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
+**Next:** Open `dosit` ustuck `!sticks` lap (`Monnam` / `mhis`).
+**Blocked:** none.
+
 ## 2026-08-16 09:45 — #1354 D-1069 dosit can_reach_floor swallow/tumble/air
 
 **Objective:** Open queue — `sit.c` `dosit` `can_reach_floor(FALSE)`:
@@ -297,20 +311,6 @@ Rule #2: no fs.
 **Verified:** C read of `sp_lev.c:1202–1353`/`2193–2439`/`3040–3046`/
 `3557–3754`, `shk.c:1175–1183`, `mkobj.c:304–370`/`2557–2592`,
 `tut-1.lua:232–235`; JS hunks grepped FORCE/fs/seed.
-**Next:** Open tut-1 food objects only.
-**Blocked:** none.
-
-## 2026-08-16 04:46 — #1340 cadence score refresh
-
-**Objective:** mandatory cadence full `sessions` (@#1340 % 5 == 0);
-refresh `CURRENT.md` Score. No port (score-only).
-**C locus:** n/a (score-only; no JS port change).
-**Change:** docs only — Score **44**/44 Scr **11405**/11405 RNG
-**100%** speed `31+0.27/turn` (R² 0.88). Filled Addressed hash
-`3ca1b544` (D-1062). Rotated #1325 to archive. Rule #2: no fs.
-**Score:** cadence **#1340** **44**/44 Scr **11405**/11405 RNG **100%**
-speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
-**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
 **Next:** Open tut-1 food objects only.
 **Blocked:** none.
 
