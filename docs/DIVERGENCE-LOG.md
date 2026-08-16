@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1121 — teleds fill_pit after u_on_newpos
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` left a boulder sitting on a vacated
+  pit/hole. C `teleds` calls `fill_pit(u.ux0, u.uy0)` immediately
+  after `u_on_newpos`.
+- **C locus:** `teleport.c` `teleds` (~523–528);
+  `trap.c` `fill_pit` (~4008–4019).
+- **Fix:** after the `u_on_newpos` subset, `await import('./dig.js')`
+  and `fill_pit(u.ux0, u.uy0)` (static import would cycle
+  teleport→dig→trap→teleport). Existing D-0950 helper:
+  pit/hole + boulder → extract + deltrap + delobj. C
+  `flooreffects(otmp,x,y,"settle")` still named. Did not pull
+  Punished ball, swallow docrt, or switch_terrain. Rule #2: no fs.
+- **JS:** `js/teleport.js` `teleds`.
+- **Not this iter:** `flooreffects("settle")` body; `switch_terrain`;
+  `notice_mon_*`; hideunder/mimic; buried-ball unearth; vault_guard
+  `uleftvault`; `update_player_regions`; Punished ball.
+- **Verify:** private canary **22**/22 (PIT/HOLE/SPIKED/TRAPDOOR fill;
+  TELEP skip; origin-not-dest; same-cell; empty move; steed);
+  green+strict seed8000/0900; cohort **24**/24 including 0012 vault
+  + 0360/4500/0373/0367 + strict 0012/0360/4500/0014/2200/0004/
+  0009/0367/0373/0030/0002/0116. Path public-unhit on boulder+pit
+  teleport.
+- **Files:** `js/teleport.js`.
+
 ## D-1120 — tele_trap Antimagic wrenching pline
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -1048,10 +1048,13 @@ export function teleok(x, y, trapok) {
 /**
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
  * Envelope: Punished unplacebc/placebc (or drag_ball when in range);
- * place + vision; TELEDS_TELEPORT+verbose materialize; spoteffects(TRUE).
+ * place + fill_pit(ux0,uy0) + vision; TELEDS_TELEPORT+verbose
+ * materialize; spoteffects(TRUE).
  * Named omissions: swallow docrt, vault_guard uleftvault, regions,
- * switch_terrain, fill_pit, notice_mon_*, hideunder/mimic, buried-ball
- * unearth; shop-enter plines beyond spoteffects subset.
+ * switch_terrain, notice_mon_*, hideunder/mimic, buried-ball
+ * unearth; fill_pit still uses thin extract+deltrap+delobj (C
+ * flooreffects("settle") named); shop-enter plines beyond
+ * spoteffects subset.
  *
  * Do NOT set u.urooms before spoteffects — C only temporarily fakes
  * urooms for vault_guard exit, then restores so move_update can detect
@@ -1112,7 +1115,12 @@ export async function teleds(nux, nuy, teleds_flags) {
         u.usteed.mx = u.ux;
         u.usteed.my = u.uy;
     }
-    // fill_pit(ux0,uy0) deferred
+    // C: fill_pit(u.ux0, u.uy0) after u_on_newpos (trap.c).
+    // Dynamic import: dig.js → trap.js → teleport.js cycle.
+    {
+        const { fill_pit } = await import('./dig.js');
+        fill_pit(u.ux0 | 0, u.uy0 | 0);
+    }
     // C: placebc when chain was taken off map (OBJ_FREE)
     if (ball_active && u.uchain && (u.uchain.where | 0) === OBJ_FREE) {
         placebc();

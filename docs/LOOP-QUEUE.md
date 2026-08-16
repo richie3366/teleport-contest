@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `fill_pit` (named). Not Punished ball.
 - [ ] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG.
 - [ ] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym.
 - [ ] `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment.
 - [ ] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup.
 - [ ] `potion.c` pool dip yn (named from dipsink). Not drinkfountain.
+- [ ] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit.
+- [ ] `teleport.c` `teleds` `update_player_regions` (named). Not teleok in_out_region.
+- [ ] `teleport.c` `teleds` `hideunder` / mimic (named). Not swallow docrt.
+- [ ] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball.
+- [ ] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching.
 
 ## Parked (do not pop)
 
