@@ -9,7 +9,7 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// wash_hands, dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
+// dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
 // body; set_levltyp side effects beyond typ/flags; Hallucination
 // rndmonnam in snakes pline; mongrantswish tmp_at glyph hide.
 // dryup wizard y_n after town warn (D-1096).
@@ -17,6 +17,7 @@
 // watchman_warn_fountain Deaf shake/wave (D-1105).
 // dryup cansee cloud-glyph skip (D-1106).
 // dipfountain Excalibur LONG_SWORD body (D-1107).
+// wash_hands + dipfountain hands/uarmg wire (D-1108).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -41,18 +42,18 @@ import {
 } from './trap.js';
 import {
     COIN_CLASS, RING_CLASS, POTION_CLASS, POT_WATER,
-    objectNames, objectDescrs, objects,
+    objectNames, objectNameStrs, objectDescrs, objects,
 } from './objects.js';
 import {
     ROOM, FOUNTAIN, IS_FOUNTAIN, IS_DOOR, SDOOR, POOL, u_at, isok,
-    ER_NOTHING, ER_DESTROYED,
+    ER_NOTHING, ER_GREASED, ER_DESTROYED, GLIB,
     F_LOOTED, F_WARNED, FROMOUTSIDE, S_LRING, MM_NOMSG,
     nothing_seems_to_happen,
     A_LAWFUL, ONAME_VIA_DIP, ONAME_KNOW_ARTI, LL_ARTIFACT,
     KILLED_BY, G_GONE, M_SEEN_FIRE,
     SQKY_BOARD, BEAR_TRAP, LANDMINE, FIRE_TRAP,
     TELEP_TRAP, LEVEL_TELEP, WEB, MAGIC_TRAP, ANTI_MAGIC,
-    is_pit, is_hole, ARTICLE_A, ARM, HEAD,
+    is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { PM_KNIGHT, monsterNames } from './generated/monsters_data.js';
@@ -76,7 +77,7 @@ import {
 } from './artifact.js';
 import { livelog_printf } from './pline.js';
 import { uhim } from './roles.js';
-import { mbodypart } from './polyself.js';
+import { mbodypart, body_part } from './polyself.js';
 import { makeplural } from './objnam.js';
 import { somegold } from './steal.js';
 import { yn_function } from './getline.js';
@@ -897,6 +898,74 @@ export async function drinkfountain() {
 }
 
 /**
+ * C youprop.h Glib — uprops[GLIB].intrinsic only (no EGlib).
+ * Leftover flats when the slot was never created.
+ */
+function wash_Glib() {
+    const u = game.u || {};
+    const p = u.uprops?.[GLIB];
+    if (p) return p.intrinsic | 0;
+    return (u.HGlib | 0) || (u.Glib | 0);
+}
+
+/**
+ * C ref: objnam.c gloves_simple_name — "gauntlets" iff dknown and
+ * (oc_name_known ? OBJ_NAME : OBJ_DESCR) contains "gauntlets".
+ */
+function gloves_simple_name(gloves) {
+    if (gloves && gloves.dknown) {
+        const otyp = gloves.otyp | 0;
+        const ocl = objects()?.[otyp];
+        const actualn = objectNameStrs[otyp] || '';
+        const descrpn = objectDescrs[otyp] || '';
+        const s = ocl?.oc_name_known ? actualn : descrpn;
+        if (String(s).toLowerCase().includes('gauntlets')) return 'gauntlets';
+    }
+    return 'gloves';
+}
+
+/**
+ * C ref: do_wear.c fingers_or_gloves — gloves vs makeplural(FINGER).
+ */
+function fingers_or_gloves(check_gloves) {
+    const u = game.u || {};
+    if (check_gloves && u.uarmg) return gloves_simple_name(u.uarmg);
+    return makeplural(body_part(FINGER));
+}
+
+/**
+ * C ref: fountain.c wash_hands — dip '-' or worn gloves in fountain.
+ * Always You-wash pline; clear Glib + slippery pline; water_damage(uarmg);
+ * was_glib && ER_NOTHING → ER_GREASED so dipfountain's er!=NOTHING / !rn2(2)
+ * skip can fire (C comment: not what ER_GREASED is for).
+ * dipsink / potion.c pool dip still named.
+ * @returns {Promise<number>} ER_*
+ */
+export async function wash_hands() {
+    const u = game.u || {};
+    const hands = makeplural(body_part(HAND));
+    let res = ER_NOTHING;
+    const was_glib = !!wash_Glib();
+
+    await pline(
+        `You wash your ${u.uarmg ? 'gloved ' : ''}${hands}`
+        + ` in the ${hliquid('water')}.`,
+    );
+    if (wash_Glib()) {
+        const { make_glib } = await import('./potion.js');
+        make_glib(0);
+        await pline(
+            `Your ${fingers_or_gloves(true)} are no longer slippery.`,
+        );
+    }
+    if (u.uarmg) {
+        res = await water_damage(u.uarmg, null, true);
+    }
+    if (was_glib && res === ER_NOTHING) res = ER_GREASED;
+    return res;
+}
+
+/**
  * C ref: fountain.c dipfountain
  * @param {object} obj invent object or hands_obj
  */
@@ -977,8 +1046,7 @@ export async function dipfountain(obj) {
 
     let er = ER_NOTHING;
     if (is_hands || obj === u.uarmg) {
-        // wash_hands deferred — ER_NOTHING (no RNG)
-        er = ER_NOTHING;
+        er = await wash_hands();
     } else {
         er = await water_damage(obj, null, true);
     }

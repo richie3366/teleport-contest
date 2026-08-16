@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1108 — wash_hands + dipfountain hands/uarmg
+
+- **Status:** fixed (map-driven Open; named omit from D-0109/D-0877/D-1107; not a public FAIL)
+- **Symptom:** JS `dipfountain` treated `hands_obj` / `uarmg` as
+  `ER_NOTHING` with no pline, no Glib clear, and no glove
+  `water_damage`. C `fountain.c:448–449` calls `wash_hands`
+  (`fountain.c:557–577`): always You-wash, `make_glib(0)` +
+  slippery pline when Glib, `water_damage(uarmg)`, and
+  `was_glib && ER_NOTHING` → `ER_GREASED` so the dipfountain
+  `er != ER_NOTHING && !rn2(2)` skip can fire (no `rnd(30)` /
+  `dryup`).
+- **C locus:** `fountain.c` `wash_hands` (~557–577) +
+  `dipfountain` caller (~448–449). `youprop.h` Glib intrinsic;
+  `potion.c` `make_glib`; `do_wear.c` `fingers_or_gloves`;
+  `objnam.c` `gloves_simple_name`; `trap.c` `water_damage`.
+- **Fix:** port `wash_hands` and wire the hands/`uarmg` arm.
+  Local `gloves_simple_name` (dknown + name/descr "gauntlets").
+  Glib is `uprops[GLIB].intrinsic` (leftover flats if no slot).
+  `make_glib` via dynamic import (potion↔fountain cycle).
+  Did not pull `dipsink`, potion.c pool dip, uncurse 17–20, or
+  case 29 `mkgold`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `wash_hands` / `dipfountain`.
+- **Not this iter:** `dipsink`; potion.c pool `wash_hands`; dip
+  uncurse 17–20; case 29 coins; `update_inventory`.
+- **Verify:** private canary **33**/33 (bare wash; Glib
+  `ER_GREASED`+clear+fingers; leftover `u.Glib`; leather gloved
+  wash; Glib+leather gloves slippery; identified GoP gauntlets;
+  unidentified / `!dknown` gloves; dog paws; rust GoP
+  `ER_DAMAGED` not fake GREASED; levitation skip; dagger no
+  wash; no-Glib dip `rnd(30)` without `rn2(2)`; Glib skip
+  FOUNTAIN / continue `rnd(30)`; dip `uarmg`); green+strict
+  seed8000/0900; cohort **19**/19 (0014 fountain + wizard/role +
+  knight 0103/0104/4500) + strict 0014/0006/2200/0360/4500/0103.
+  Path public-unhit.
+- **Files:** `js/fountain.js`.
+
 ## D-1107 — dipfountain Excalibur LONG_SWORD body
 
 - **Status:** fixed (map-driven Open; named omit from D-0109/D-0877/D-1106; not a public FAIL)

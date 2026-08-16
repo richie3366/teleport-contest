@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1108 | fixed | `wash_hands` + dipfountain hands/uarmg | map-driven; C `fountain.c:557–577`/`448–449`; You-wash; Glib `make_glib(0)` + slippery `fingers_or_gloves`; `water_damage(uarmg)`; was_glib+ER_NOTHING→ER_GREASED so `!rn2(2)` skip; dipsink / pool dip still named |
 | D-1107 | fixed | `dipfountain` Excalibur LONG_SWORD body | map-driven; C `fountain.c:404–447`; `exist_artifact`+`artiname`; lawful `oname`/`discover_artifact`/`bless`; unaligned curse+`spe--`; ROOM+town `angry_guards` not `dryup`; `wash_hands` still named |
 | D-1106 | fixed | `dryup` cansee cloud-glyph skip of dryup pline | map-driven; C `fountain.c:223–227`; skip iff `glyph_is_cmap(glyph_at)` && `glyph_to_cmap==S_cloud`; poison still plines; shown mon/I `!cmap`; Excalibur still named |
 | D-1105 | fixed | `watchman_warn_fountain` Deaf shake/wave | map-driven; C `fountain.c:183–193`; `nolimbs` shakes HEAD else waves `makeplural(ARM)` + `mhis`; !Deaf yell unchanged; cloud-glyph D-1106 |

@@ -10,19 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn` R² 0.86) after cadence **#1405**;
   next @**#1410**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 11
-  after D-1107 archive (no refill). Reviews **62** ACCEPT
+- Mode: **map-driven** under fortress. Must-fix empty. Open 10
+  after D-1108 archive (no refill). Reviews **62** ACCEPT
   (D-1101), **63** ACCEPT-WITH-DEBT (D-1102 live-mon `onscary`
   still named Open), **64–65** ACCEPT (D-1103/D-1104).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1107**. Prior **58–61** ACCEPT.
-- **Next cluster:** Open `fountain.c` `wash_hands` (named). Not
-  Excalibur.
-- **Hypothesis:** none live. D-1107 shipped: `dipfountain`
-  Excalibur LONG_SWORD body (`exist_artifact`+`artiname`; lawful
-  `oname`/`bless`; unaligned curse; ROOM not `dryup`).
+- Latest ports: **D-1089**…**D-1108**. Prior **58–61** ACCEPT.
+- **Next cluster:** Open `sp_lev.c` `lspo_exclusion` populate
+  `exclusion_zones` from `des.exclusion` (named). Not `goodpos`.
+- **Hypothesis:** none live. D-1108 shipped: `wash_hands` +
+  dipfountain hands/`uarmg` (You-wash; Glib `make_glib(0)`;
+  `water_damage(uarmg)`; was_glib+ER_NOTHING→ER_GREASED).
 
 ## Don't re-check (≤15)
 
@@ -65,7 +65,8 @@ Objective/score live in `CURRENT.md`.
   pull live-mon `onscary` into it (D-1102) / restore
   `waterbody_name` raw DRAWBRIDGE_UP typ or skip `db_under_typ`
   (D-1103) / restore Excalibur `dryup` stub or skip
-  `exist_artifact`/`oname` (D-1107).
+  `exist_artifact`/`oname` (D-1107) / restore `wash_hands`
+  ER_NOTHING stub or skip Glib `ER_GREASED` (D-1108).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -74,9 +75,12 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1405**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.86). Next @**#1410**.
+- **D-1108:** `wash_hands` + dipfountain hands/`uarmg`. You-wash;
+  Glib `make_glib(0)`; `water_damage(uarmg)`; was_glib→ER_GREASED.
+  dipsink / pool dip still named.
 - **D-1107:** `dipfountain` Excalibur LONG_SWORD body. Lawful
-  `oname`/`discover_artifact`/`bless`; unaligned curse+`spe--`;
-  ROOM+`angry_guards` not `dryup`.
+  `oname`/`bless`; unaligned curse+`spe--`; ROOM not `dryup`.
+  Hash `0633a261`.
 - **D-1106:** `dryup` skips dries-up pline when gbuf cmap is
   `S_cloud` (fog/steam). Poison / shown mon / I still pline.
   Hash `127c045c`.
@@ -91,10 +95,6 @@ Objective/score live in `CURRENT.md`.
   strict Elbereth. Hash `ebe1f041`. Live-mon `onscary` still
   named (Open).
 - **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
-  after boulder. Hash `a7302142`.
+  after boulder.   Hash `a7302142`.
 - **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
   Hash `305ad188`.
-- **D-1099:** `goodpos` youmonst swim/lev/fly/wwalk pool+lava.
-  Hash `a6934a3d`.
-- **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
-  `name_to_monclass`. Hash `cdb72162`.
