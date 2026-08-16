@@ -125,7 +125,7 @@ None that Must-fix this next iter. The yn sits where `fountain.c` puts it and ab
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. `angry_guards(FALSE)` after a real dry when `isyou && in_town` (`fountain.c:236–237`). Do not pull it into `kill_eggs`. Live Open after genocide / `goodpos` / `db_under_typ`.
+1. `angry_guards(FALSE)` after a real dry when `isyou && in_town` (`fountain.c:236–237`). **Addressed:** D-1104 `7458a5b8`.
 2. cansee cloud-glyph skip of the dryup pline; Deaf shake/wave warn.
 3. `yn_function` fourth `resp_save` analog — getline debt, not a dryup peel.
 
@@ -135,5 +135,5 @@ Do not skip the yn under `debug_fuzzer`. Do not prompt before the town-warn `ret
 
 - Verdict: **ACCEPT**
 - Score: **7 / 10**
-- One sentence: wizard `dryup` now asks C’s `y_n("Dry up fountain?")` after the town warn and aborts on `'n'`, while `angry_guards` after a real dry stays the named Open row.
+- One sentence: wizard `dryup` now asks C’s `y_n("Dry up fountain?")` after the town warn and aborts on `'n'`, while `angry_guards` after a real dry was the named Open row (**Addressed:** D-1104 `7458a5b8`).
 - Must-fix stays empty for this SHA; density is thin but the callee is real getline, not a stub.

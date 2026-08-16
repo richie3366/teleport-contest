@@ -71,3 +71,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [59-cdb72162-seffects-scr-genocide.md](./59-cdb72162-seffects-scr-genocide.md) | `cdb72162` | D-1098 `seffects` SCR_GENOCIDE / `name_to_monclass` | **ACCEPT-WITH-DEBT** |
 | [60-a6934a3d-goodpos-youmonst-swim.md](./60-a6934a3d-goodpos-youmonst-swim.md) | `a6934a3d` | D-1099 `goodpos` youmonst swim/lev/fly/wwalk | **ACCEPT** |
 | [61-305ad188-goodpos-passes-walls.md](./61-305ad188-goodpos-passes-walls.md) | `305ad188` | D-1100 `goodpos` `passes_walls` + `may_passwall` | **ACCEPT** |
+| [62-a7302142-goodpos-exclusion-zone.md](./62-a7302142-goodpos-exclusion-zone.md) | `a7302142` | D-1101 `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` | **ACCEPT** |
+| [63-ebe1f041-goodpos-onscary.md](./63-ebe1f041-goodpos-onscary.md) | `ebe1f041` | D-1102 `goodpos_onscary` Elbereth / scare / altar-vamp | **ACCEPT-WITH-DEBT** |
+| [64-130e7e21-db-under-typ.md](./64-130e7e21-db-under-typ.md) | `130e7e21` | D-1103 `db_under_typ` / `waterbody_name` SURFACE_AT | **ACCEPT** |
+| [65-7458a5b8-dryup-angry-guards.md](./65-7458a5b8-dryup-angry-guards.md) | `7458a5b8` | D-1104 `dryup` `angry_guards` after real dryup | **ACCEPT** |

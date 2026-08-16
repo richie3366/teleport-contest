@@ -134,8 +134,8 @@ None that Must-fix this next iter. The early-out is C’s conjunct on form `M1_W
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` (`teleport.c:181–182`). Live Open. Not `onscary`.
-2. `goodpos_onscary` Elbereth / SCR_SCARE_MONSTER / altar-vampire; `onscary` when `m_id != 0`.
+1. `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` (`teleport.c:181–182`). **Addressed:** D-1101 `a7302142`. Not `onscary`.
+2. `goodpos_onscary` Elbereth / SCR_SCARE_MONSTER / altar-vampire **Addressed:** D-1102 `ebe1f041`. `onscary` when `m_id != 0` still named.
 3. Do not import `mon.js` `may_passwall` (cycle). Do not use youprop `Passes_walls` in `goodpos`.
 
 Do not skip `passes_walls`/`may_passwall`. Do not let pool/lava fall through to wallwalk. Do not restore human ring-of-passwall as `goodpos` stone-ok.
@@ -147,4 +147,4 @@ Do not skip `passes_walls`/`may_passwall`. Do not let pool/lava fall through to 
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: wallwalkers now return true from `goodpos` via form `passes_walls` and a `hack.c`-matching `may_passwall` before `accessible()`, while a passwall ring on a human still cannot occupy stone and `is_exclusion_zone` stays the live Open row.
-- Must-fix stays empty for this SHA; next port pops Open `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone`.
+- Must-fix stays empty for this SHA; next port pops Open `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone`. **Addressed:** D-1101 `a7302142`

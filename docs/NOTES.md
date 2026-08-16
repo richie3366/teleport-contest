@@ -8,16 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1400**;
-  next @**#1405**.
+  speed `31+0.26/turn` R² 0.86) after cadence **#1405**;
+  next @**#1410**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 9
-  after archive (no refill). Reviews **58** ACCEPT (D-1097),
-  **59** ACCEPT-WITH-DEBT (D-1098 `'?'` list_genocided stub
-  named), **60–61** ACCEPT (D-1099/D-1100); no new Must-fix.
+  (no refill). Reviews **62** ACCEPT (D-1101), **63**
+  ACCEPT-WITH-DEBT (D-1102 live-mon `onscary` still named Open),
+  **64–65** ACCEPT (D-1103/D-1104); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1104**. Prior **50–53** ACCEPT.
+- Latest ports: **D-1089**…**D-1104**. Prior **58–61** ACCEPT.
 - **Next cluster:** Open `fountain.c` `watchman_warn_fountain`
   Deaf shake/wave (named). Not dryup yn.
 - **Hypothesis:** none live. D-1104 shipped: `dryup`
@@ -69,17 +69,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1400**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1405**.
+- Suite after cadence **#1405**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.26/turn` (R² 0.86). Next @**#1410**.
 - **D-1104:** `dryup` `angry_guards(FALSE)` after real dryup
-  (`isyou && in_town`). Hash filled next commit. Cloud-glyph /
+  (`isyou && in_town`). Hash `7458a5b8`. Cloud-glyph /
   Deaf shake still named.
 - **D-1103:** `db_under_typ` + `waterbody_name`/`describe_decor`
   `SURFACE_AT`. Hash `130e7e21`. Hideunder macros /
   display DRAWBRIDGE_UP glyphs still named.
 - **D-1102:** `goodpos_onscary` altar S_VAMPIRE / scare /
   strict Elbereth. Hash `ebe1f041`. Live-mon `onscary` still
-  named.
+  named (Open).
 - **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
   after boulder. Hash `a7302142`.
 - **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
