@@ -66,7 +66,7 @@
 // clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
-// pit/hole dotrap bodies still named-omit in trap.js. take_gold calls
+// pit/hole dotrap bodies D-1076. take_gold calls
 // steal.c remove_worn_item (D-1049); armor *_off / unpunish / setnotworn
 // pointer-walk still named on that helper. D-0956: set_mimic_blocking
 // on SEE_INVIS attrcurse arm. D-1058 uses shared hack.js is_lava

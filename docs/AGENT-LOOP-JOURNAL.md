@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 11:50 — #1367 D-1076 hero pit/hole dotrap VIASITTING
+
+**Objective:** Open queue — `trap.c` hero pit/hole bodies under
+`dotrap` `VIASITTING` (named from D-1039).
+**C locus:** `trap.c` `trapeffect_pit` (~1835–1965) /
+`trapeffect_hole` (~2018–2025) / `check_in_air` / `wearing_iron_shoes`.
+**Change:** hero pit: Lev/Fly skip (youprop.h), clinger, fall/sit
+verbs, spikes/`poisoned`, `set_utrap(rn1(6,2), TT_PIT)`, losehp,
+selftouch, exercise. Hole `!Can_fall_thru` → seetrap skip. Thin
+steedintrap PIT/SPIKED. Punished `ballfall` still omit. Filled
+D-1075 hash `f21410e1`. Rule #2: no fs. Rotated #1352 to archive.
+**Verified:** private canary (PIT VIASITTING utrap+losehp;
+HLevitation skip); green+strict seed8000/0900; cohort 12/12
+(1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200)
++ strict 0014/4500/0360/2200.
+**Next:** Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
+**Blocked:** none.
+
 ## 2026-08-16 11:32 — #1366 D-1075 dosit lay_an_egg after throne
 
 **Objective:** Open queue — `sit.c` `dosit` `lay_an_egg` at end of
@@ -302,25 +320,5 @@ Rotated #1338 to archive.
 `engrave.c:187–214`, `cmd.c:889–913`, `polyself.c:1860–1873`;
 JS hunk grepped FORCE/fs/seed. `PM_TRAPPER` index 99.
 **Next:** Open `dosit` `can_reach_floor(FALSE)` only.
-**Blocked:** none.
-
-## 2026-08-16 09:28 — #1352 D-1068 dosit hider uundetected except trapper
-
-**Objective:** Open queue — `sit.c` `dosit` hider:
-`u.uundetected && is_hider` except trapper. Not `can_reach_floor`
-/ ustuck.
-**C locus:** `sit.c` `dosit` (~410–412); `mondata.h` `is_hider`;
-`monsters.h` `PM_TRAPPER`.
-**Change:** after usteed return, clear `u.uundetected` for hiders
-that are not `PM_TRAPPER` (ceiling drop). Trapper stays hidden.
-No `newsym` (C has none). Did not port `can_reach_floor` / ustuck.
-Filled no prior Addressed hashes (already present). Rule #2: no fs.
-Rotated #1336/#1337 to archive.
-**Score:** fortress unchanged (cadence **#1350** **44**/44; next
-@**#1355**).
-**Verified:** private node lurker/piercer 1→0; trapper stays 1;
-human stays 1; usteed skips clear. green+strict PASS; cohort
-**9**/9 (8000/0900/0106/0107/4500/1500/1800/0060/2200). Path unhit.
-**Next:** Open `dosit` `can_reach_floor(FALSE)`.
 **Blocked:** none.
 

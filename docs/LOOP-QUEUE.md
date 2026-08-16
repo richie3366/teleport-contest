@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `trap.c` hero pit/hole bodies under `dotrap` `VIASITTING` (named omit from D-1039).
 - [ ] `hack.c` `is_lava` includes DRAWBRIDGE_UP + `DB_LAVA` (named from D-1060).
 - [ ] `sit.c` `split_mon` monster `clone_mon` arm (JS named omit).
 - [ ] `makemon.c` `peace_minded` / `set_malign` read `ptr.msound` (`msounds[]` exists, D-1053).

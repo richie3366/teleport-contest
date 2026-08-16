@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1076 | fixed | trap hero `trapeffect_pit`/`trapeffect_hole` VIASITTING | map-driven; C `trap.c:1835–2025`; `set_utrap(rn1(6,2), TT_PIT)`; spikes/`poisoned`; hole `Can_fall_thru`; `check_in_air` youprop Lev/Fly; Punished `ballfall` still omit |
 | D-1075 | fixed | sit `dosit` `lay_an_egg` after throne | map-driven; C `sit.c:357–396`/`559–560`; male/hunger/tetra/Sargasso `ECMD_OK`; spawn vs lay; `egg_type_from_parent` in `mon.js`; not having-fun |
 | D-1074 | fixed | sit `dosit` dragon `money_cnt` meager hoard | map-driven; C `sit.c:443–446` / `hack.c` first COIN_CLASS quan; `"meager "` iff `obj.quan + money_cnt(invent) < ulevel * 1000`; not a sum |
 | D-1073 | fixed | sit `dosit` OBJ_AT picnic skip `uteetering`/`uescaped_shaft` | map-driven; C `sit.c:437–439` / `trap.c`; helpers exported from `trap.js`; in-pit still picnics; `can_reach_floor(check_pit)` still named |

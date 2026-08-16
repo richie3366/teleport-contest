@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1076 — hero trapeffect_pit / trapeffect_hole under dotrap VIASITTING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `trapeffect_pit` returned immediately for
+  `youmonst`. C `trap.c` runs feeltrap, fall/sit verbs,
+  `set_utrap(rn1(6,2), TT_PIT)`, spike/`poisoned`/`losehp`,
+  `selftouch`, `exercise` STR/DEX. JS `trapeffect_hole` always
+  `fall_through` and skipped C's `!Can_fall_thru` seetrap skip.
+- **C locus:** `trap.c` `trapeffect_pit` (~1835–1965 hero);
+  `trapeffect_hole` (~2018–2025 hero); `check_in_air` (~1086);
+  `wearing_iron_shoes` (~1098); `adj_nonconjoined_pit` (~6604);
+  `steedintrap` PIT/SPIKED (~3145); `dotrap` `VIASITTING`.
+- **Fix:** hero pit body; hole `Can_fall_thru` else `seetrap`;
+  `check_in_air` Lev/Fly = `youprop.h` `(H||E)&&!B` / steed flyer
+  (not sticky `u.Levitation`); `wearing_iron_shoes` hero `uarmf`
+  + mon `which_armor` `IRON`. Thin `steedintrap` PIT/SPIKED only.
+  Rule #2: no fs.
+- **JS:** `js/trap.js`. Sit comment in `js/sit.js`.
+- **Not this iter:** Punished `unplacebc`/`ballfall`/`placebc`;
+  poly `locomotion()`; dotrap Sokoban air-currents / conj-adj
+  escape; `impossible()` on bad-level hole; steedintrap other
+  types; `is_lava` DRAWBRIDGE_UP+DB_LAVA.
+- **Verify:** private canary (PIT VIASITTING `TT_PIT` +
+  `rn1(6,2)` utrap + losehp; HLevitation skip); green+strict
+  seed8000/0900; cohort 12/12 (1500/1800/0060/0102/0700/0017/
+  0106/0107/4500/0014/0360/2200) + strict 0014/4500/0360/2200.
+  Path unhit on public `#sit` over a pit.
+
 ## D-1075 — dosit lay_an_egg after IS_THRONE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
