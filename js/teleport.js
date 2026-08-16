@@ -11,7 +11,7 @@ import {
     LR_TELE, LR_UPTELE, LR_DOWNTELE, LR_MONGEN,
     MM_IGNOREWATER, MM_IGNORELAVA,
     ACCESSIBLE, IS_POOL, ZAP_POS, IS_DOOR, IS_WATERWALL, IS_STWALL,
-    D_CLOSED, D_LOCKED, W_NONPASSWALL,
+    D_CLOSED, D_LOCKED, W_NONPASSWALL, IS_ALTAR, HEADSTONE,
     MIGR_RANDOM, MIGR_PORTAL, MON_MIGRATING, NO_TRAP,
     is_xport,
     ROOM, CORR, ICE, VAULT, SHOPBASE, ANY_SHOP, TEMPLE,
@@ -29,7 +29,7 @@ import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
     amphibious, monsterNames, passes_walls, is_dlord, is_dprince,
-    is_rider, control_teleport,
+    is_rider, control_teleport, haseyes, G_UNIQ,
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
@@ -65,7 +65,9 @@ const Trap_Effect_Finished = 0;
 const Trap_Moved_Mon = 4;
 
 const BOULDER = objectNames.indexOf('BOULDER');
+const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
+const PM_MINOTAUR = monsterNames.indexOf('PM_MINOTAUR');
 
 function isok(x, y) {
     return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
@@ -110,14 +112,55 @@ function sobj_at(otyp, x, y) {
     return null;
 }
 
+/** C ref: mondata.h unique_corpstat — G_UNIQ. Local (trap.js cycle). */
+function unique_corpstat(ptr) {
+    return !!((ptr?.geno | 0) & G_UNIQ);
+}
+
+/**
+ * C ref: engrave.c engr_at / sengr_at.
+ * Local clones — engrave.js imports trap.js/makemon.js which import this file.
+ * strict: strcmpi whole actual_text; else case-insensitive substring.
+ * HEADSTONE skipped (player named Elbereth). Future engr_time ignored.
+ */
+function engr_at(x, y) {
+    for (let ep = game.head_engr; ep; ep = ep.nxt_engr) {
+        if (ep.engr_x === x && ep.engr_y === y) return ep;
+    }
+    return null;
+}
+
+function sengr_at(s, x, y, strict) {
+    const ep = engr_at(x, y);
+    if (!ep || ep.engr_type === HEADSTONE) return null;
+    if ((ep.engr_time | 0) > (game.moves | 0)) return null;
+    const txt = String(ep.engr_txt?.actual_text ?? ep.engr_txt ?? '');
+    const needle = String(s ?? '');
+    const hay = txt.toLowerCase();
+    const want = needle.toLowerCase();
+    if (strict ? hay !== want : !hay.includes(want)) return null;
+    return ep;
+}
+
 /**
  * C ref: teleport.c goodpos_onscary — fakemon (m_id==0) scary approx.
- * Elbereth / SCR_SCARE_MONSTER / altar-vampire arms deferred (named omission).
+ * Altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102).
+ * Named: onscary when m_id != 0 (vampshifter altar, hero/image Elbereth).
  */
-function goodpos_onscary(_x, _y, mptr) {
+function goodpos_onscary(x, y, mptr) {
     if (!mptr) return false;
-    if (mptr.mlet === 'S_HUMAN' || mptr.mlet === 'S_ANGEL') return false;
-    return false;
+    /* C: onscary checks Angels and lawful minions; this oversimplifies */
+    if (mptr.mlet === 'S_HUMAN' || mptr.mlet === 'S_ANGEL'
+        || is_rider(mptr) || unique_corpstat(mptr)) {
+        return false;
+    }
+    /* C: onscary also checks vampshifted bats/fog/wolves — not here */
+    const loc = game.level?.at(x, y);
+    if (loc && IS_ALTAR(loc.typ) && mptr.mlet === 'S_VAMPIRE') return true;
+    if (sobj_at(SCR_SCARE_MONSTER, x, y)) return true;
+    if (Inhell() || In_endgame(game.u?.uz)) return false;
+    if ((mptr.mndx ?? -1) === PM_MINOTAUR || !haseyes(mptr)) return false;
+    return !!sengr_at('Elbereth', x, y, true);
 }
 
 /**
@@ -242,8 +285,7 @@ export function is_exclusion_zone(type, x, y) {
 
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: onscary when m_id != 0 (fakemon uses goodpos_onscary);
- * Elbereth / SCR_SCARE_MONSTER / altar-vampire.
+ * Named omissions: onscary when m_id != 0 (fakemon uses goodpos_onscary).
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1102 — goodpos_onscary Elbereth / SCR_SCARE_MONSTER / altar-vampire
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos_onscary` returned false
+  after S_HUMAN/S_ANGEL, so `GP_CHECKSCARY` never rejected
+  Elbereth, scare-monster scrolls, or altar-vampire cells.
+  C `goodpos_onscary` does those three plus rider/unique
+  immunity, Inhell/endgame Elbereth skip, minotaur/`!haseyes`.
+- **C locus:** `teleport.c` `goodpos_onscary` (~49–76);
+  `engrave.c` `sengr_at` strict `strcmpi`; `mondata.h`
+  `unique_corpstat` / `haseyes`; `dungeon.c` `In_hell` hellish.
+- **Fix:** fakemon scare approx from C. Local `engr_at`/`sengr_at`
+  (engrave.js → trap/makemon → teleport cycle). Scare scroll
+  before Inhell. Altar is `S_VAMPIRE` mlet only (vampshifter is
+  `onscary`, not this helper). Did not pull live-mon `onscary`
+  when `m_id != 0`. Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** `onscary` when `m_id != 0`; `db_under_typ` /
+  `waterbody_name` SURFACE_AT; `lspo_exclusion` populate.
+- **Verify:** private canary **48**/48 (immune human/angel/rider/
+  uniq; altar vamp vs bat; scare in hell; Elbereth strcmpi /
+  substring / HEADSTONE / future time / Inhell / endgame;
+  minotaur+cube Elbereth vs scare; xorn wallwalk before scary;
+  no-flag still accepts); green+strict seed8000/0900; cohort
+  **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/
+  0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (no public Elbereth/`GP_CHECKSCARY` miss).
+- **Files:** `js/teleport.js`.
+
 ## D-1101 — goodpos GP_AVOID_MONPOS is_exclusion_zone(LR_MONGEN)
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
