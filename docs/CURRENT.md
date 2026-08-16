@@ -72,17 +72,17 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `shk.c` `u_entered_shop` deserted/angry/Invis/pickaxe (D-0307). Queue 12. Audit @**#1375**.
+**Next cluster:** Open — `eat.c` `cprefx` `revive_corpse` after rider lifesave (debt.md). Audit @**#1375**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
 lines. Prefer delete-wrong-JS + re-port. See playbook §2a–2b.
 
-**Parked:** D-0006 only. **Do not re-break D-0660…D-1079. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006 only. **Do not re-break D-0660…D-1080. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1079** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1080** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
@@ -114,7 +114,7 @@ no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-
 no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
-no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip `mineralize` `In_endgame` before kelp; no WATER kelp
+no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080;no skip `mineralize` `In_endgame` before kelp; no WATER kelp
 without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
 `youprop.h`; no skip `mkstairs` `force` ROOM before dungeon-end
 return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw

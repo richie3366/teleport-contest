@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1080 | fixed | shk `u_entered_shop` deserted/angry/Invis/doorway | map-driven; C `shk.c:723–917`; empty_shops latch; carrying walks `game.invent`; SetVoice/Soundeffect/Hallu named |
 | D-1079 | fixed | makemon `peace_minded`/`set_malign` `ptr.msound` | map-driven; C `makemon.c:2268–2366`; MS_LEADER −20 before always_peaceful; GUARDIAN/NEMESIS peace; `m_initweap` still mndx |
 | D-1078 | fixed | sit `split_mon` monster `clone_mon` | map-driven; C `potion.c:2899–2912` / `makemon.c:837–943`; sit local else no longer `return null`; trap/mon/uhitm callers still named |
 | D-1077 | fixed | `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | map-driven; C `dbridge.c:62–74`; shared `hack.js`; mfndpos uses it; `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named |

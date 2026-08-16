@@ -19,13 +19,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1079** `peace_minded`/`set_malign` read `ptr.msound`
-  (`makemon.c`; `msounds[]` D-1053). `m_initweap` still mndx.
-  Review **38** ACCEPT D-1077. Cadence **#1370** fortress held.
-- **Next cluster:** Open `shk.c` `u_entered_shop` deserted / angry /
-  Invis / pickaxe doorway (named D-0307).
-- **Hypothesis:** `u_entered_shop` still omits deserted / angry /
-  Invis / pickaxe doorway arms (D-0307).
+- Latest: **D-1080** `u_entered_shop` deserted / angry / surcharge /
+  robbed / Invis / pickaxe·steed·Fast doorway `dochug` (`shk.c`).
+  SetVoice / Soundeffect / Hallu shkname still named. Cadence **#1370**
+  fortress held. Review **38** ACCEPT D-1077.
+- **Next cluster:** Open `eat.c` `cprefx` `revive_corpse` after rider
+  lifesave (debt.md).
+- **Hypothesis:** `cprefx` still omits `revive_corpse` after rider
+  lifesave (debt.md).
 
 ## Don't re-check (≤15)
 
@@ -77,12 +78,14 @@ Objective/score live in `CURRENT.md`.
   Do not restore sit `split_mon` monster `return null` (D-1078);
   trap/mon/uhitm callers still named. Do not skip
   `peace_minded`/`set_malign` `ptr.msound` (D-1079);
-  `m_initweap` still mndx.
+  `m_initweap` still mndx. Do not skip `u_entered_shop` deserted /
+  angry / Invis / pickaxe doorway (D-1080).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1370**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
+- **D-1080:** `u_entered_shop` deserted/angry/Invis/pickaxe doorway (`shk.c`).
 - **D-1079:** `peace_minded`/`set_malign` `ptr.msound` (MS_LEADER −20).
 - **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named.
 - **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
@@ -93,8 +96,4 @@ Objective/score live in `CURRENT.md`.
   hole `Can_fall_thru`. Punished `ballfall` still omit.
 - **D-1075:** `dosit` `lay_an_egg` after throne. Male/hungry/tetra/
   Sargasso `ECMD_OK`; `egg_type_from_parent` in `mon.js`.
-- **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin
-  `money_cnt`.
-- **D-1073:** `dosit` picnic skip on seen-pit teeter / hole shaft.
-- **D-1072:** `dosit` ustuck `!sticks` lap `Monnam`/`mhis` (eel no-lap).
-- **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.
+- **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin `money_cnt`.

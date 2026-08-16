@@ -13,7 +13,7 @@ This is a planning list, not an exhaustive C file inventory:
   TEST_TRAV/GUESS/travelmap deferred); prayer partial (`#pray` + angrygods 0–8 /
   default zap D-0969; pleased gifts still deferred; music earthquake
   `desecrate_altar` wired D-0972);
-  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208 + **fountain/sink You_hear** D-0303 + **shop You_hear** D-0306; swamp You1 / barracks/court You_hear / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred); **`u_entered_shop` welcome** D-0307 (deserted/angry/Invis/doorway block deferred);
+  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208 + **fountain/sink You_hear** D-0303 + **shop You_hear** D-0306; swamp You1 / barracks/court You_hear / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred); **`u_entered_shop` welcome** D-0307 + deserted/angry/Invis/doorway D-1080 (SetVoice/Soundeffect/Hallu shkname named);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
   (`kick_object`+`bhit` KICKED via D-0988; Is_box/`ghitm` via D-0989;
   `hits_bars`/`hit_bars` via D-0990; costly_gold/donate_gold via D-0991;

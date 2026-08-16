@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1080 — u_entered_shop deserted / angry / Invis / doorway
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `u_entered_shop` cleared `ushops` on missing/out-of-shop
+  keepers without `deserted_shop`, returned silent on Invis /
+  ANGRY / surcharge / robbed, and skipped pickaxe/steed/Fast
+  doorway `dochug`. Named omit from D-0307.
+- **C locus:** `shk.c` `deserted_shop` (~723–747);
+  `u_entered_shop` (~751–917); `hack.h` `ROLL_FROM`; `youprop.h`
+  Invis/Deaf/Blind/Fast; `invent.c` `carrying`.
+- **Fix:** `deserted_shop` counts floor mons (`sensemon` /
+  `canseemon` + M_AP) then Blind-forces “untended”; `empty_shops`
+  latch + `in_rooms` change on the null-keeper path. Invis /
+  angry (`ROLL_FROM(angrytexts)` when Deaf) / surcharge
+  (`mbodypart` EYE) / robbed arms. Doorway: pick-axe/mattock
+  count (not quan), steed `y_monnam`, Fast+floor `sobj_at` silent
+  extra `dochug`. `carrying()` walks `game.invent` (JS analog of
+  C nobj). Rule #2: no fs.
+- **JS:** `js/shk.js` `u_entered_shop` / `deserted_shop` /
+  `carrying`.
+- **Not this iter:** SetVoice; Soundeffect robbed mutter; Hallu
+  shkname; C `bill_p` poison on `!inhishop`; `shk_move` Fast +
+  floor pickaxe; `pick_pick`; unpaid leave verbalize.
+- **Verify:** private canary (deserted/latch/Blind-untended;
+  peaceful visitct++; Invis+pick no leave-outside; angry/Deaf
+  `rn2`; surcharge eye; robbed; pick-axe/pick-axes; Fast floor
+  silent; muteshk/following skip; `!inhishop` deserted);
+  green+strict seed8000/0900; cohort **41**/41 (incl. 0030 shop,
+  0116 wear-shop, 0361 archeologist, 1150 caveman) + strict
+  0030/0116/0361/0014/4500/0360/2200. Path public-unhit except
+  peaceful welcome already D-0307.
+- **Files:** `js/shk.js`.
+
 ## D-1079 — peace_minded / set_malign read ptr.msound
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

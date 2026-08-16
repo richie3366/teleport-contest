@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` `u_entered_shop` deserted / angry / Invis / pickaxe doorway (named D-0307).
 - [ ] `eat.c` `cprefx` `revive_corpse` after rider lifesave (debt.md).
 - [ ] `engrave.c` `can_reach_floor` ceiling_hider / MZ_HUGE (named from D-1069/D-1071). Not check_pit.
 - [ ] `engrave.c` `can_reach_floor(check_pit)` teeter/shaft (named from D-1073). Not ceiling_hider.
