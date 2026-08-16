@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1065 — tut-1 tut_key / nh.eckey via cmd_from_ecname
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 engravings used hardcoded hjkl /
+  `Ctrl-D` / `:` / `\\` / `#twoweapon` / `Ctrl-T` instead of
+  `dat/tut-1.lua` `tut_key` → `nh.eckey` → `cmd_from_ecname`.
+  Default binds still match most letters, but loot is `M-l`, tip
+  `Alt-T` (`M-T`), untrap `M-u`, twoweapon `X`.
+- **C locus:** `cmd.c` `cmd_from_ecname` / `cmd_from_func`;
+  `nhlua.c` `nhl_get_cmd_key`; `hacklib.c` `visctrl`;
+  `dat/tut-1.lua` `tut_key` / `tut_key_help`.
+- **Fix:** `cmd_from_ecname` on default `commands_init` +
+  `reset_commands(!num_pad)` binds with BIND= overlay. `load_tut1`
+  ports Lua `^^([A-Z])$` → `Ctrl-X` (stash for caret help) and
+  `M-X` → `Alt-X`. `tut_key_help` after kick and at (64,4).
+  Rule #2: no fs.
+- **Deferred:** Knight jump role-gate engraving; nhcore callback
+  disable; number_pad/phone/swap_yz dir layouts; `cmd_from_func`
+  list-order vs 0..255 when two non-printables share a command;
+  leftover `obfree`; `update_inventory`.
+- **Verify:** private node: kick `Ctrl-D`/`^D`, loot `M-l`, tip
+  `Alt-T`, untrap `M-u`, twoweapon `X`, down `>`; unknown `""`.
+  green+strict PASS; seed0009 **73**/73; cohort **12**/12
+  (8000/0900/0009/0030/0060/0102/0116/0360/0373/1500/1800/2200).
+- **Files:** `js/dokeylist.js`, `js/mklev.js`.
+
 ## D-1064 — tut-1 teleport_region via levregion_add + fixup dest copy
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

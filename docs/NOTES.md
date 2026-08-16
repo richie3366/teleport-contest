@@ -11,18 +11,19 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1345**;
   next @**#1350**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 `tut_key` / eckey is next.
+  LB). Must-fix empty; Open tut-1 nhcore callback disable is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1064** tut-1 `des.teleport_region` → `levregion_add`
-  + `fixup_special` dest copy (`LR_TELE`, exclude `-1` `del_islev`).
-  Reviews **24** ACCEPT `3f376b74` (D-1063 food) and **25** ACCEPT
+- Latest: **D-1065** tut-1 `tut_key` / `nh.eckey` via
+  `cmd_from_ecname` (Ctrl-/Alt- rewrite + `tut_key_help`). Reviews
+  **24** ACCEPT `3f376b74` (D-1063 food) and **25** ACCEPT
   `dc354c44` (D-1064 dests).
-- **Next cluster:** Open — tut-1 `tut_key` / eckey only.
-- **Hypothesis:** none live. Next falsifier is Open `tut_key` /
-  `eckey` (C `nh.eckey` vs JS hardcoded hjkl / `>`).
+- **Next cluster:** Open — tut-1 nhcore callback disable on
+  enter/leave.
+- **Hypothesis:** none live. Next falsifier is Open nhcore
+  callback disable on tutorial enter/leave.
 
 ## Don't re-check (≤15)
 
@@ -77,23 +78,23 @@ Objective/score live in `CURRENT.md`.
   `delete_contents` after `mkbox_cnts` (D-1062). Do not restore
   `tut1_object` for tut-1 food or skip `create_object` `corpsenm` /
   `find_montype` gender RNG for `montype` (D-1063). Do not restore
-  tut-1 `updest`/`dndest` copy or exclude `0,0,0,0` (D-1064).
+  tut-1 `updest`/`dndest` copy or exclude `0,0,0,0` (D-1064). Do not
+  restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`
+  (D-1065).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1345**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
+- **D-1065:** tut-1 `tut_key` → `nh.eckey`/`cmd_from_ecname`.
+  Kick `Ctrl-D`; loot `M-l`; tip `Alt-T`; untrap `M-u`;
+  twoweapon `X`. Knight jump still deferred.
 - **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
   `levregion_add` + `fixup_special` dest copy. `place_lregion`
   from `u_on_rndspot`. Review **25** ACCEPT `dc354c44`.
-- **D-1063:** tut-1 packed apple/candy/lichen → `l_create_object`
-  / `create_object` (buc 4, montype pmnames, CORPSE spe=lflags).
-  Review **24** ACCEPT `3f376b74`.
-- **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
-  / `create_object` (DRY `get_location_coord`, `delete_contents`,
-  container_obj). Review **23** ACCEPT `3ca1b544`.
+- **D-1063:** tut-1 food → `l_create_object` (buc 4, montype,
+  CORPSTAT spe). Review **24** ACCEPT `3f376b74`.
+- **D-1062:** tut-1 packed box+wand → `l_create_object` (DRY,
+  `delete_contents`). Review **23** ACCEPT `3ca1b544`.
 - **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
-  (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
-  Review **22** ACCEPT `05915d9b`.
-- **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
-  (worn ring `d(2,10)`). Review **21** ACCEPT `ecd37108`.
+  force. Review **22** ACCEPT `05915d9b`.

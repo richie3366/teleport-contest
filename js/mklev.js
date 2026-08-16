@@ -111,6 +111,7 @@ import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst, oname } from './do_name.js';
 import { makeroguerooms, makerogueghost } from './extralev.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
+import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch,
 } from './dungeon.js';
@@ -8486,9 +8487,8 @@ function splev_map_center_start(wid, hei) {
 
 /**
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
- * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
- * leave-tutorial invent restore, map_location tseen traps;
- * nhcore disable.
+ * Named omissions: Knight jump (role gate), leave-tutorial invent
+ * restore, map_location tseen traps; nhcore disable.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -8566,7 +8566,6 @@ function load_tut1() {
     game.flags.lit_corridor = true;
 
     // C: lspo_engraving degrade=false → nowipeout; coords map-relative.
-    // tut_key/eckey deferred — default hjkl / single-letter binds.
     const tut1_engr = (mx, my, text, etype = ENGRAVE) => {
         const ep = make_engr_at(
             xstart + mx, ystart + my, text, null, 0, etype,
@@ -8583,15 +8582,43 @@ function load_tut1() {
         loc.doormask = mask;
         loc.flags = mask;
     };
+    // C: dat/tut-1.lua tut_key / tut_key_help — nh.eckey (cmd_from_ecname)
+    // then ^^([A-Z])$ → Ctrl-X (stash for caret help), M-X → Alt-X.
+    let tut_ctrl_key = null;
+    const tut_key = (command) => {
+        const s = cmd_from_ecname(command);
+        const ctrl = /^\^([A-Z])$/.exec(s);
+        if (ctrl) {
+            tut_ctrl_key = ctrl[1];
+            return `Ctrl-${ctrl[1]}`;
+        }
+        const alt = /^M-([A-Z])$/.exec(s);
+        if (alt) return `Alt-${alt[1]}`;
+        return s;
+    };
+    const tut_key_help = (mx, my) => {
+        if (tut_ctrl_key != null) {
+            tut1_engr(mx, my,
+                `Note: Outside the tutorial, Ctrl-key combinations are shown prefixed with a caret, like '^${tut_ctrl_key}'`);
+            tut_ctrl_key = null;
+        }
+    };
 
-    tut1_engr(9, 3, 'Move around with h j k l');
-    // C: diagmovekeys via tut_key; default b u n y for hjkl.
-    tut1_engr(5, 2, 'Move diagonally with b u n y');
+    const movekeys = tut_key('movewest') + ' '
+        + tut_key('movesouth') + ' '
+        + tut_key('movenorth') + ' '
+        + tut_key('moveeast');
+    const diagmovekeys = tut_key('movesouthwest') + ' '
+        + tut_key('movenortheast') + ' '
+        + tut_key('movesoutheast') + ' '
+        + tut_key('movenorthwest');
+    tut1_engr(9, 3, 'Move around with ' + movekeys);
+    tut1_engr(5, 2, 'Move diagonally with ' + diagmovekeys);
     // Knight jump engraving deferred (role gate).
     tut1_engr(2, 4, 'Some actions may require multiple tries before succeeding');
     tut1_engr(2, 5, 'Open the door by moving into it');
     tut1_door(2, 6, D_CLOSED);
-    tut1_engr(2, 7, "Close the door with 'c'");
+    tut1_engr(2, 7, "Close the door with '" + tut_key('close') + "'");
     tut1_engr(4, 5, 'You can leave the tutorial via the magic portal.');
     // C: create_trap → mktrap(SEEN); victim gate always burns rnd(4)
     {
@@ -8600,14 +8627,14 @@ function load_tut1() {
     }
 
     // --- tut-1.lua kick door through search traps (RNG-critical) ---
-    tut1_engr(5, 9, "This door is locked. Kick it with 'Ctrl-D'");
+    tut1_engr(5, 9, "This door is locked. Kick it with '" + tut_key('kick') + "'");
     tut1_door(5, 10, D_LOCKED);
-    // tut_key_help(6,8): kick is Ctrl-D → ctrl-key help engraving
-    tut1_engr(6, 8,
-        "Note: Outside the tutorial, Ctrl-key combinations are shown prefixed with a caret, like '^D'");
+    // C: tut_key_help(6,8) after kick — first Ctrl combo by default.
+    tut_key_help(6, 8);
     tut1_engr(5, 12,
-        "Look around the map with ';', press ESC when you're done");
-    tut1_engr(10, 13, "Use 's' to search for secret doors");
+        "Look around the map with '" + tut_key('glance')
+        + "', press ESC when you're done");
+    tut1_engr(10, 13, "Use '" + tut_key('search') + "' to search for secret doors");
     tut1_engr(10, 15, 'Wrong secret');
     tut1_engr(10, 10, 'Behind this door is a dark corridor');
     // des.door percent(50) locked/closed — C nhlib percent → rn2(100)
@@ -8629,7 +8656,7 @@ function load_tut1() {
             mktrap_seen_victim(ttmp, { novictim: true });
         }
     }
-    tut1_engr(15, 15, "Some traps can be disabled with 'Ctrl-T'");
+    tut1_engr(15, 15, "Some traps can be disabled with '" + tut_key('untrap') + "'");
     {
         // spider_on_web=false → no spider; still burns victim-gate rnd(4)
         const ttmp = maketrap(xstart + 15, ystart + 16, WEB);
@@ -8637,7 +8664,7 @@ function load_tut1() {
     }
     tut1_door(18, 13, D_CLOSED);
 
-    tut1_engr(19, 13, "Pick up items with ','");
+    tut1_engr(19, 13, "Pick up items with '" + tut_key('pickup') + "'");
     // C: Monk → leather gloves; else leather armor; spe=0 cursed
     {
         const otyp = (game.urole?.mnum === PM_MONK)
@@ -8645,9 +8672,9 @@ function load_tut1() {
             : objectNames.indexOf('LEATHER_ARMOR');
         tut1_object(xstart, ystart, 19, 14, otyp, 0, 'cursed');
     }
-    tut1_engr(19, 15, "Wear armor with 'W'");
+    tut1_engr(19, 15, "Wear armor with '" + tut_key('wear') + "'");
     tut1_object(xstart, ystart, 21, 15, DAGGER, 0, 'not-cursed');
-    tut1_engr(21, 14, "Wield weapons with 'w'");
+    tut1_engr(21, 14, "Wield weapons with '" + tut_key('wield') + "'");
     tut1_engr(22, 13, 'Hit monsters by walking into them.');
     // lichen: find_montype gender + induced_align + makemon waiting
     {
@@ -8668,7 +8695,7 @@ function load_tut1() {
     }
     tut1_engr(25, 13, 'Push boulders by moving into them');
     tut1_object(xstart, ystart, 25, 12, BOULDER, -127, null);
-    tut1_engr(27, 9, "Take off armor with 'T'");
+    tut1_engr(27, 9, "Take off armor with '" + tut_key('takeoff') + "'");
     {
         const otmp = tut1_object(xstart, ystart, 23, 11,
             objectNames.indexOf('SCR_REMOVE_CURSE'), -127, 'blessed');
@@ -8677,7 +8704,8 @@ function load_tut1() {
     tut1_engr(22, 11,
         'Some items have shuffled descriptions, different each game');
     tut1_engr(23, 11,
-        "Pick up this scroll, read it with 'r', and try to remove the armor again");
+        "Pick up this scroll, read it with '" + tut_key('read')
+        + "', and try to remove the armor again");
     tut1_engr(19, 10, 'Another magic portal, a way to leave this tutorial');
     {
         const ttmp = maketrap(xstart + 19, ystart + 11, MAGIC_PORTAL);
@@ -8692,7 +8720,7 @@ function load_tut1() {
     tut1_object(xstart, ystart, 14, 6, BOULDER, -127, null);
     tut1_door(20, 3, percent(50) ? D_ISOPEN : D_CLOSED);
     tut1_engr(21, 3, 'Avoid being burdened, it slows you down');
-    tut1_engr(22, 3, "Drop items with 'd'");
+    tut1_engr(22, 3, "Drop items with '" + tut_key('drop') + "'");
     tut1_engr(22, 4,
         'You can drop partial stacks by prefixing the item slot letter with a number');
     {
@@ -8702,7 +8730,7 @@ function load_tut1() {
         const mtmp = pm >= 0 ? makemon(mons(pm), xstart + 26, ystart + 2, MM_NOGRP) : null;
         if (mtmp) mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
     }
-    tut1_engr(25, 5, "Throw items with 't'");
+    tut1_engr(25, 5, "Throw items with '" + tut_key('throw') + "'");
     {
         const ttmp = maketrap(xstart + 21, ystart + 1, MAGIC_PORTAL);
         mktrap_seen_victim(ttmp, { seen: true });
@@ -8722,14 +8750,15 @@ function load_tut1() {
     tut1_object(xstart, ystart, 37, 3,
         objectNames.indexOf('SLING'), 9, 'not-cursed');
     tut1_engr(37, 3, 'Wield the sling');
-    tut1_engr(36, 1, "Use 'f' to fire missiles with the wielded launcher");
+    tut1_engr(36, 1, "Use '" + tut_key('fire') + "' to fire missiles with the wielded launcher");
     tut1_engr(35, 4,
-        "Firing launches items from your quiver; Use 'Q' to put items in it");
-    tut1_engr(33, 4, "You can wait a turn with '.'");
+        "Firing launches items from your quiver; Use '" + tut_key('quiver')
+        + "' to put items in it");
+    tut1_engr(33, 4, "You can wait a turn with '" + tut_key('wait') + "'");
     tut1_door(38, 6, D_CLOSED);
 
     // --- tut-1.lua loot box through end (RNG-critical) ---
-    tut1_engr(39, 6, "You loot containers with ':'");
+    tut1_engr(39, 6, "You loot containers with '" + tut_key('loot') + "'");
     // C: dat/tut-1.lua des.object packed large box + contents wand
     // → lspo_object / create_object (D-1062).
     l_create_object({
@@ -8744,20 +8773,20 @@ function load_tut1() {
             spe: 30,
         });
     });
-    tut1_engr(42, 6, "Containers can also be emptied with '\\'");
-    tut1_engr(45, 6, "Magic wands are used with 'z'");
+    tut1_engr(42, 6, "Containers can also be emptied with '" + tut_key('tip') + "'");
+    tut1_engr(45, 6, "Magic wands are used with '" + tut_key('zap') + "'");
 
     tut1_door(35, 9, D_NODOOR);
-    tut1_engr(34, 9, "You can run by prefixing a movement key with 'G'");
+    tut1_engr(34, 9, "You can run by prefixing a movement key with '" + tut_key('run') + "'");
     tut1_door(33, 16, D_NODOOR);
-    tut1_engr(35, 15, "Travel across the level with '_'");
+    tut1_engr(35, 15, "Travel across the level with '" + tut_key('travel') + "'");
 
     {
         const ttmp = maketrap(xstart + 27, ystart + 14, MAGIC_PORTAL);
         mktrap_seen_victim(ttmp, { seen: true });
     }
 
-    tut1_engr(48, 1, "Use 'e' to eat edible things", BURN);
+    tut1_engr(48, 1, "Use '" + tut_key('eat') + "' to eat edible things", BURN);
     // C: dat/tut-1.lua des.object apple / candy bar / lichen corpse
     // → lspo_object / create_object (D-1063). buc "not-cursed" is
     // curse_state 4 (uncurse). Corpse montype is pmnames strcmpi, not
@@ -8769,25 +8798,25 @@ function load_tut1() {
     });
 
     tut1_door(46, 11, D_CLOSED);
-    tut1_engr(43, 11, "Use '#twoweapon' to use two weapons at once", BURN);
+    tut1_engr(43, 11, "Use '" + tut_key('twoweapon') + "' to use two weapons at once", BURN);
     tut1_object(xstart, ystart, 43, 13, KNIFE, -127, 'uncursed');
     tut1_object(xstart, ystart, 43, 14, DAGGER, -127, 'blessed');
-    tut1_engr(43, 16, "Swap weapons quickly with 'x'", BURN);
+    tut1_engr(43, 16, "Swap weapons quickly with '" + tut_key('swap') + "'", BURN);
     // C: lspo_door state=random → rnddoor() / ROLL_FROM
     tut1_door(40, 15, rnddoor());
 
     tut1_object(xstart, ystart, 48, 7, RIN_LEVITATION, -127, 'not-cursed');
-    tut1_engr(48, 10, "Put on accessories with 'P'", BURN);
-    tut1_engr(48, 16, "Remove accessories with 'R'", BURN);
+    tut1_engr(48, 10, "Put on accessories with '" + tut_key('puton') + "'", BURN);
+    tut1_engr(48, 16, "Remove accessories with '" + tut_key('remove') + "'", BURN);
     tut1_door(50, 16, D_CLOSED);
 
-    tut1_engr(58, 9, "Use '>' to go down the stairs", BURN);
+    tut1_engr(58, 9, "Use '" + tut_key('down') + "' to go down the stairs", BURN);
     // C: dat/tut-1.lua des.stair({ dir = "down", coord = { 58,10 } })
-    // → l_create_stairway packed, force=TRUE (D-1061). tut_key("down")
-    // still hardcoded '>' (separate Open item).
+    // → l_create_stairway packed, force=TRUE (D-1061).
     l_create_stairway(0, 58, 10, null, false);
 
-    // tut_key_help(64,4): no pending Ctrl key after kick help already emitted
+    // C: tut_key_help(64,4) — no pending Ctrl after kick help already emitted
+    tut_key_help(64, 4);
     tut1_engr(65, 3, 'UNDER CONSTRUCTION', BURN);
     {
         const ttmp = maketrap(xstart + 66, ystart + 2, MAGIC_PORTAL);
@@ -8809,10 +8838,10 @@ function load_tut1() {
         tut1_engr(59, 2,
             "Unfortunately you don't have enough energy to cast spells.");
     }
-    tut1_engr(57, 2, "Pick up the spellbook with ','");
+    tut1_engr(57, 2, "Pick up the spellbook with '" + tut_key('pickup') + "'");
     tut1_object(xstart, ystart, 57, 2, SPE_LIGHT, -127, 'blessed');
-    tut1_engr(55, 2, "Read the spellbook with 'r'");
-    tut1_engr(53, 2, "Use 'Z' to cast a spell");
+    tut1_engr(55, 2, "Read the spellbook with '" + tut_key('read') + "'");
+    tut1_engr(53, 2, "Use '" + tut_key('cast') + "' to cast a spell");
     // des.region(selection.area(53,01, 59, 3), "unlit")
     for (let y = ystart + 1; y <= ystart + 3 && y < ROWNO; y++) {
         for (let x = xstart + 53; x <= xstart + 59 && x < COLNO; x++) {
@@ -8821,7 +8850,7 @@ function load_tut1() {
         }
     }
 
-    tut1_engr(72, 2, 'You "quaff" potions with \'q\'');
+    tut1_engr(72, 2, "You \"quaff\" potions with '" + tut_key('quaff') + "'");
     tut1_object(xstart, ystart, 72, 2, POT_OBJECT_DETECTION, -127, 'blessed');
     // C: tut-1.lua has no des.mineralize / no kelp object. Kelp is
     // mklev.c mineralize(-1,-1,-1,-1,FALSE) in level_finalize_topology

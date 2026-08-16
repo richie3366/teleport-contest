@@ -21,6 +21,23 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 06:40 — #1346 D-1065 tut-1 tut_key / eckey
+
+**Objective:** Open queue — tut-1 `tut_key` / eckey only (not
+nhcore disable / Knight jump).
+**C locus:** `cmd.c` `cmd_from_ecname`/`cmd_from_func`;
+`nhlua.c` `nhl_get_cmd_key`; `dat/tut-1.lua` `tut_key` /
+`tut_key_help`; `hacklib.c` `visctrl`.
+**Change:** `cmd_from_ecname` on default binds + BIND overlay.
+`load_tut1` Lua Ctrl-/Alt- rewrite + `tut_key_help`. Loot
+`M-l`, tip `Alt-T`, untrap `M-u`, twoweapon `X`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1345** **44**/44; next
+@**#1350**).
+**Verified:** private node eckey table; green+strict PASS;
+seed0009 **73**/73; cohort **12**/12.
+**Next:** Open tut-1 nhcore callback disable on enter/leave.
+**Blocked:** none.
+
 ## 2026-08-16 06:16 — #1345 cadence score refresh
 
 **Objective:** mandatory cadence full `sessions` (@#1345 % 5 == 0);
@@ -301,23 +318,5 @@ drawbridge still named Open). Must-fix empty. Filled Addressed hash
 `pray.c:107`/`1415–1426`/`2530–2554`/`2652–2672`, `attrib.c:117–128`
 /`411–418`, `dbridge.c:62–96`; grep `uinwater=` vs `u.Underwater`.
 **Next:** Open `dosit` lava sit (not ice/drawbridge in that cluster).
-**Blocked:** none.
-
-## 2026-08-16 03:00 — #1331 D-1057 dosit furniture sit_message
-
-**Objective:** Open queue — `sit.c` `dosit` sink / altar / grave /
-stairs / ladder sit messages only. Not lava/ice/drawbridge.
-**C locus:** `sit.c` `dosit` ~526–538; `defsym.h` S_sink/S_altar/
-S_grave; `pray.c` `altar_wrath`.
-**Change:** sit_message for IS_SINK (rump/underside) + IS_ALTAR +
-`altar_wrath` (dynamic import) + IS_GRAVE + STAIRS `"stairs"` +
-LADDER `"ladder"`. Filled D-1056 hash `2e79451d`. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1330** **44**/44; next
-@**#1335**).
-**Verified:** private node sink rump/underside no throne `rnd(6)`;
-grave/stairs/ladder not having-fun; altar `rn2(4)` no throne;
-ROOM having-fun; throne still `rnd(6)`. green+strict PASS;
-cohort **6**/6 (seed1500/1800/0060/0102/0360/2200). Path unhit.
-**Next:** Open `dosit` lava / ice / drawbridge sit.
 **Blocked:** none.
 
