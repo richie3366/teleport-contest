@@ -72,9 +72,10 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** Open — tut-1 `tut_key` / eckey only. Must-fix
-empty. Review **23** ACCEPT (`3ca1b544` D-1062). Review every 3;
-cadence every 5 is score-only **unless Must-fix is open**. Agents
-**commit and `git push origin HEAD`** each iteration.
+empty. Reviews **24** ACCEPT (`3f376b74` D-1063) and **25** ACCEPT
+(`dc354c44` D-1064). Review every 3; cadence every 5 is score-only
+**unless Must-fix is open**. Agents **commit and `git push origin
+HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),

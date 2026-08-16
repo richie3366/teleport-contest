@@ -33,3 +33,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [21-ecd37108-dosit-fire-cold-uprops.md](./21-ecd37108-dosit-fire-cold-uprops.md) | `ecd37108` | D-1060 sit Fire/Cold `uprops[]` | **ACCEPT** |
 | [22-05915d9b-tut1-l-create-stairway.md](./22-05915d9b-tut1-l-create-stairway.md) | `05915d9b` | D-1061 tut-1 packed `l_create_stairway` | **ACCEPT** |
 | [23-3ca1b544-tut1-create-object.md](./23-3ca1b544-tut1-create-object.md) | `3ca1b544` | D-1062 tut-1 `create_object` large-box | **ACCEPT** |
+| [24-3f376b74-tut1-food-objects.md](./24-3f376b74-tut1-food-objects.md) | `3f376b74` | D-1063 tut-1 food `create_object` | **ACCEPT** |
+| [25-dc354c44-tut1-levregion-add.md](./25-dc354c44-tut1-levregion-add.md) | `dc354c44` | D-1064 tut-1 `levregion_add` TELE dests | **ACCEPT** |

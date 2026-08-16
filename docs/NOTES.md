@@ -18,6 +18,8 @@ Objective/score live in `CURRENT.md`.
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1064** tut-1 `des.teleport_region` → `levregion_add`
   + `fixup_special` dest copy (`LR_TELE`, exclude `-1` `del_islev`).
+  Reviews **24** ACCEPT `3f376b74` (D-1063 food) and **25** ACCEPT
+  `dc354c44` (D-1064 dests).
 - **Next cluster:** Open — tut-1 `tut_key` / eckey only.
 - **Hypothesis:** none live. Next falsifier is Open `tut_key` /
   `eckey` (C `nh.eckey` vs JS hardcoded hjkl / `>`).
@@ -83,9 +85,10 @@ Objective/score live in `CURRENT.md`.
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
 - **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
   `levregion_add` + `fixup_special` dest copy. `place_lregion`
-  from `u_on_rndspot`. Review **23** ACCEPT `3ca1b544`.
+  from `u_on_rndspot`. Review **25** ACCEPT `dc354c44`.
 - **D-1063:** tut-1 packed apple/candy/lichen → `l_create_object`
   / `create_object` (buc 4, montype pmnames, CORPSE spe=lflags).
+  Review **24** ACCEPT `3f376b74`.
 - **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
   / `create_object` (DRY `get_location_coord`, `delete_contents`,
   container_obj). Review **23** ACCEPT `3ca1b544`.
@@ -94,6 +97,3 @@ Objective/score live in `CURRENT.md`.
   Review **22** ACCEPT `05915d9b`.
 - **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
   (worn ring `d(2,10)`). Review **21** ACCEPT `ecd37108`.
-- **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
-  map chars); `water_has_kelp` `!Is_waterlevel`; `In_endgame` skip.
-  Review **20** ACCEPT `c0d5279a`.
