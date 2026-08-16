@@ -75,3 +75,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [63-ebe1f041-goodpos-onscary.md](./63-ebe1f041-goodpos-onscary.md) | `ebe1f041` | D-1102 `goodpos_onscary` Elbereth / scare / altar-vamp | **ACCEPT-WITH-DEBT** |
 | [64-130e7e21-db-under-typ.md](./64-130e7e21-db-under-typ.md) | `130e7e21` | D-1103 `db_under_typ` / `waterbody_name` SURFACE_AT | **ACCEPT** |
 | [65-7458a5b8-dryup-angry-guards.md](./65-7458a5b8-dryup-angry-guards.md) | `7458a5b8` | D-1104 `dryup` `angry_guards` after real dryup | **ACCEPT** |
+| [66-b4930cb9-watchman-deaf-shake.md](./66-b4930cb9-watchman-deaf-shake.md) | `b4930cb9` | D-1105 `watchman_warn_fountain` Deaf shake/wave | **ACCEPT** |
+| [67-127c045c-dryup-cloud-glyph.md](./67-127c045c-dryup-cloud-glyph.md) | `127c045c` | D-1106 `dryup` cansee `S_cloud` skip | **ACCEPT-WITH-DEBT** |
+| [68-0633a261-dipfountain-excalibur.md](./68-0633a261-dipfountain-excalibur.md) | `0633a261` | D-1107 `dipfountain` Excalibur LONG_SWORD | **ACCEPT** |
+| [69-62b93acb-wash-hands.md](./69-62b93acb-wash-hands.md) | `62b93acb` | D-1108 `wash_hands` + dipfountain hands/uarmg | **ACCEPT** |

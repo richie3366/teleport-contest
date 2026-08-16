@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `wash_hands` (named). Not Excalibur. **Addressed:** D-1108
+- [x] `fountain.c` `wash_hands` (named). Not Excalibur. **Addressed:** D-1108 `62b93acb`
 
 
 - [x] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands. **Addressed:** D-1107 `0633a261`

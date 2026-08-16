@@ -8,16 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.86) after cadence **#1405**;
-  next @**#1410**.
+  speed `31+0.26/turn` R² 0.87) after cadence **#1410**;
+  next @**#1415**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 10
-  after D-1108 archive (no refill). Reviews **62** ACCEPT
-  (D-1101), **63** ACCEPT-WITH-DEBT (D-1102 live-mon `onscary`
-  still named Open), **64–65** ACCEPT (D-1103/D-1104).
+  (no refill). Reviews **66** ACCEPT (D-1105), **67**
+  ACCEPT-WITH-DEBT (D-1106 gbuf analog named), **68–69**
+  ACCEPT (D-1107/D-1108).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1108**. Prior **58–61** ACCEPT.
+- Latest ports: **D-1089**…**D-1108**. Prior **62–65** ACCEPT
+  / 63 ACCEPT-WITH-DEBT.
 - **Next cluster:** Open `sp_lev.c` `lspo_exclusion` populate
   `exclusion_zones` from `des.exclusion` (named). Not `goodpos`.
 - **Hypothesis:** none live. D-1108 shipped: `wash_hands` +
@@ -73,11 +74,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1405**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.26/turn` (R² 0.86). Next @**#1410**.
+- Suite after cadence **#1410**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1415**.
 - **D-1108:** `wash_hands` + dipfountain hands/`uarmg`. You-wash;
   Glib `make_glib(0)`; `water_damage(uarmg)`; was_glib→ER_GREASED.
-  dipsink / pool dip still named.
+  Hash `62b93acb`. dipsink / pool dip still named.
 - **D-1107:** `dipfountain` Excalibur LONG_SWORD body. Lawful
   `oname`/`bless`; unaligned curse+`spe--`; ROOM not `dryup`.
   Hash `0633a261`.
@@ -96,5 +97,3 @@ Objective/score live in `CURRENT.md`.
   named (Open).
 - **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
   after boulder.   Hash `a7302142`.
-- **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
-  Hash `305ad188`.
