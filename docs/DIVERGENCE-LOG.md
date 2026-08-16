@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1079 — peace_minded / set_malign read ptr.msound
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `peace_minded`/`set_malign` skipped C
+  `ptr->msound` arms (comments: tables omit msound). D-1053
+  extracted `msounds[]` / `mons().msound`; leaders still used
+  `always_peaceful` malign (−15 for Twoflower) not MS_LEADER −20.
+- **C locus:** `makemon.c` `peace_minded` (~2268–2308);
+  `set_malign` (~2321–2366); `monflag.h` MS_LEADER=36 /
+  MS_NEMESIS=37 / MS_GUARDIAN=38.
+- **Fix:** after `always_peaceful`/`always_hostile`,
+  `peace_minded` returns true for LEADER/GUARDIAN and false for
+  NEMESIS before PM_ERINYS. `set_malign` sets −20 when
+  `data.msound == MS_LEADER` before A_NONE / always_peaceful.
+  Rule #2: no fs.
+- **JS:** `js/makemon.js` `peace_minded` / `set_malign`.
+- **Not this iter:** `m_initweap` MS_GUARDIAN/MS_PRIEST still
+  mndx; MS_NEMESIS mitem still `urole.neminum`; `dogmove.js`
+  string `'MS_LEADER'` compares.
+- **Verify:** private canary (Twoflower/Carnarvon/Arch Priest 36;
+  Minion 37; student 38; leader malign −20 vs always_peaceful
+  −15; synth LEADER/GUARDIAN true and NEMESIS false with no
+  `rn2`; Erinys D-0905; A_NONE hostile 20); green+strict
+  seed8000/0900; cohort **18**/18 (8000/0900/1500/1800/0060/
+  0102/0700/0017/0106/0107/4500/0014/0360/0361/0367/0373/2200/
+  0009) + strict 0014/4500/0360/0361/0367/0373/2200. Quest tours
+  spawn leaders; public kill-malign unhit.
+- **Files:** `js/makemon.js`.
+
 ## D-1078 — sit split_mon monster clone_mon
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 13:25 — #1373 D-1079 peace_minded/set_malign ptr.msound
+
+**Objective:** Open queue — `makemon.c` `peace_minded` / `set_malign`
+read `ptr.msound` (`msounds[]` exists, D-1053).
+**C locus:** `makemon.c` `peace_minded` 2268–2308; `set_malign`
+2321–2366; `monflag.h` MS_LEADER=36 / NEMESIS=37 / GUARDIAN=38.
+**Change:** `peace_minded` returns true for LEADER/GUARDIAN and
+false for NEMESIS after always_* before PM_ERINYS. `set_malign`
+MS_LEADER −20 before A_NONE / always_peaceful. Did not pull
+`m_initweap` mndx gates. Filled D-1078 Addressed hash `c7dcd80a`.
+Rotated #1358 to archive. Refilled Open to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1370** **44**/44; next
+@**#1375**).
+**Verified:** private canary (Twoflower 36 malign −20; synth
+LEADER/GUARDIAN no `rn2`; Erinys D-0905); green+strict
+seed8000/0900; cohort **18**/18 (incl. 0361/0367/0373 quest) +
+strict 0014/4500/0360/0361/0367/0373/2200. Kill-malign public-unhit.
+**Next:** Open `shk.c` `u_entered_shop` deserted / angry / Invis /
+pickaxe doorway. Audit @**#1375**.
+**Blocked:** none.
+
 ## 2026-08-16 13:12 — #1372 D-1078 sit split_mon monster clone_mon
 
 **Objective:** Open queue — `sit.c` `split_mon` monster `clone_mon`
@@ -315,28 +336,3 @@ owlbear/python/eel/trapper `mattk`; grep FORCE/fs on the
 **Next:** Open `sit.c` `dosit` ustuck `!sticks` lap (`Monnam` /
 `mhis`). Use C `sticks`, not `monmove.js`.
 **Blocked:** none.
-
-## 2026-08-16 10:16 — #1358 D-1071 can_reach_floor ustuck AT_HUGS + !sticks
-
-**Objective:** Open queue — `engrave.c` `can_reach_floor` ustuck
-AT_HUGS + `!sticks` (`mondata.c` `sticks`). Sit-on-air reachable;
-ship before ustuck lap. Not ceiling_hider / MZ_HUGE. Review **30**.
-**C locus:** `engrave.c` `can_reach_floor` (~192–197); `mondata.c`
-`sticks` / `attacktype`; `monattk.h` `AT_HUGS=7`.
-**Change:** hugs arm in C `||` order with swallow and Levitation.
-Local `sticks`/`attacktype`/`dmgtype` (avoid engrave←monmove cycle).
-Eel WRAP still reaches; python hugs does not; hero `sticks` still
-reaches. Did not pull ceiling_hider / MZ_HUGE / dosit lap. Filled
-D-1070 Addressed hash `9d3545c9`. Rotated #1343 to archive. Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1355** **44**/44; next
-@**#1360**).
-**Verified:** private node owlbear/python hug false; eel/trapper
-reach; poly sticks reach; swallow/ELevitation still false.
-green+strict PASS; cohort **14**/14
-(8000/0900/1500/1800/0060/0102/0700/0106/0107/0101/0116/2200/4500/
-0009). Path unhit.
-**Next:** Open `sit.c` `dosit` ustuck `!sticks` lap (`Monnam` /
-`mhis`). Not swallow combat.
-**Blocked:** none.
-

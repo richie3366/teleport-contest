@@ -445,10 +445,16 @@ function sgn(x) {
     return x < 0 ? -1 : x > 0 ? 1 : 0;
 }
 
+/** C ref: monflag.h enum ms_sounds — msounds[] D-1053; peace/malign D-1079. */
+const MS_LEADER = 36;
+const MS_NEMESIS = 37;
+const MS_GUARDIAN = 38;
+
 /**
  * C ref: makemon.c set_malign — kill-alignment weight from type + peaceful.
- * Named omissions: MS_LEADER (msound not extracted); priest/minion EPRI/EMIN
- * individual align ×5 when those mextra fields are absent.
+ * Named omissions: priest/minion EPRI/EMIN individual align ×5 when those
+ * mextra fields are absent. m_initweap still gates MS_GUARDIAN/MS_PRIEST
+ * by mndx, not ptr.msound.
  */
 export function set_malign(mtmp) {
     if (!mtmp?.data) return;
@@ -463,8 +469,10 @@ export function set_malign(mtmp) {
     }
     const ual = game.u?.ualign?.type ?? 0;
     const coaligned = sgn(mal) === sgn(ual);
-    // MS_LEADER → -20 deferred (msound not on ptr)
-    if (mal === A_NONE) {
+    // C: ptr->msound == MS_LEADER before A_NONE / always_peaceful (D-1079)
+    if ((mtmp.data.msound | 0) === MS_LEADER) {
+        mtmp.malign = -20;
+    } else if (mal === A_NONE) {
         mtmp.malign = mtmp.mpeaceful ? 0 : 20;
     } else if (always_peaceful(mtmp.data)) {
         const absmal = Math.abs(mal);
@@ -1014,7 +1022,10 @@ function race_hostile(ptr) {
 export function peace_minded(ptr) {
     if (always_peaceful(ptr)) return true;
     if (always_hostile(ptr)) return false;
-    // Named omissions: MS_LEADER/GUARDIAN/NEMESIS msound (tables omit msound).
+    // C: ptr->msound after always_* , before PM_ERINYS (D-1079; msounds[] D-1053)
+    const ms = ptr.msound | 0;
+    if (ms === MS_LEADER || ms === MS_GUARDIAN) return true;
+    if (ms === MS_NEMESIS) return false;
     // C: PM_ERINYS → !u.ualign.abuse (no co-aligned rn2) — D-0905
     if (ptr.mndx === pm('ERINYS')) return !(game.u?.ualign?.abuse | 0);
     if (race_peaceful(ptr)) return true;
