@@ -19,9 +19,9 @@ import {
     ESHK, EPRI, EMIN, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER,
-    is_hole, Is_stronghold, Is_botlevel, Is_knox_level,
+    is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
-    MAGIC_PORTAL, RLOC_MSG, RLOC_NOMSG,
+    MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, LEVITATION, FLYING, WWALKING, SWIMMING, MAGICAL_BREATHING,
@@ -412,8 +412,6 @@ function onscary(x, y, mtmp) {
 
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: teleok vibrating/pit-fly; MAGIC_PORTAL/LEVEL_TELEP
- * mlevel_tele_trap arms.
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -994,12 +992,24 @@ export async function mtele_trap(mtmp, trap) {
 }
 
 /**
- * C ref: teleport.c teleok — trapok/goodpos subset; tele_jump_ok /
- * in_out_region named omitted (always allow for ordinary vault dest).
+ * C ref: teleport.c teleok — trapok; VIBRATING_SQUARE always ok;
+ * pit/hole ok iff Levitation||Flying (D-1111).
+ * Named omit: tele_jump_ok / in_out_region (always allow).
  */
-function teleok(x, y, trapok) {
+export function teleok(x, y, trapok) {
     if (!trapok) {
-        if (trap_at(x, y)) return false;
+        /* C: allow vibrating square (not a real trap); pits and holes
+         * if levitating or flying. Local trapok is by-value. */
+        const trap = trap_at(x, y);
+        if (!trap) {
+            trapok = true;
+        } else if ((trap.ttyp | 0) === VIBRATING_SQUARE) {
+            trapok = true;
+        } else if ((is_pit(trap.ttyp) || is_hole(trap.ttyp))
+            && (Levitation() || Flying())) {
+            trapok = true;
+        }
+        if (!trapok) return false;
     }
     const you = game.youmonst || null;
     if (!goodpos(x, y, you, 0)) return false;

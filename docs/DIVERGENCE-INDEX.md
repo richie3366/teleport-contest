@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1111 | fixed | `teleok` vibrating / pit-fly | map-driven; C `teleport.c:422–433`; VS always ok; pit/hole iff Levitation\|\|Flying (youprop + steed flyer; sticky `u.Lev`/`u.Fly` ignored); `tele_jump_ok`/`in_out_region` still named |
 | D-1110 | fixed | `goodpos` live-mon `onscary` when `m_id != 0` | map-driven; C `teleport.c:168–169` ternary + `monmove.c` `onscary`; vampshifter altar; Elbereth needs hero/image/`guardobjects`; `is_lminion`/`inhishop`/`inhistemple`; fakemon still `goodpos_onscary`; mfndpos `mon.js` partial named |
 | D-1109 | fixed | `lspo_exclusion` populate `exclusion_zones` from `des.exclusion` | map-driven; C `sp_lev.c:5496–5531`; type map TELE/UPTELE/DOWNTELE/MONGEN; `get_location(ANY_LOC\|NO_LOC_WARN)`; prepend list; `free_exclusions` on clear; `flip_level` remaps rects; soko2-2 / hellfill prefab / save/rest still named |
 | D-1108 | fixed | `wash_hands` + dipfountain hands/uarmg | map-driven; C `fountain.c:557–577`/`448–449`; You-wash; Glib `make_glib(0)` + slippery `fingers_or_gloves`; `water_damage(uarmg)`; was_glib+ER_NOTHING→ER_GREASED so `!rn2(2)` skip; dipsink / pool dip still named |

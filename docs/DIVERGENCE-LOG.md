@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1111 — teleok vibrating square / pit-fly
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleok` rejected **any** `trap_at` when
+  `trapok` was false. C allows a vibrating square (not a real
+  trap) and allows pits/holes when `Levitation || Flying`.
+  `safe_teleds` / scroll / vault dest therefore skipped those
+  cells and kept sampling.
+- **C locus:** `teleport.c` `teleok` (~422–433);
+  `trap.h` `is_pit`/`is_hole`/`VIBRATING_SQUARE`;
+  `youprop.h` `Levitation`/`Flying`.
+- **Fix:** local `trapok` by-value like C: no trap → ok;
+  `VIBRATING_SQUARE` → ok; pit/hole → ok iff existing
+  `Levitation()`/`Flying()` clones (flats or `uprops[]`; `!B*`;
+  steed `is_flyer`; no sticky `u.Levitation`/`u.Flying`).
+  Then `goodpos(&youmonst, 0)`. Did not port `tele_jump_ok` or
+  `in_out_region`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `teleok`.
+- **Not this iter:** `tele_jump_ok` / `in_out_region`;
+  `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP;
+  `tele_trap` Antimagic wrenching pline; `teleds` `fill_pit`.
+- **Verify:** private canary **56**/56 (VS array/ntrap/level.traps;
+  pit/hole/spiked/trapdoor; H/E/uprop Lev+Fly; sticky ignored;
+  B* block; steed flyer; trapok TRUE backup; TELEP/portal/web
+  reject; STONE still fails goodpos); green+strict
+  seed8000/0900; cohort **41**/41 including 4500/0360/0367/0004
+  + strict 0014/4500/0360/2200/0367/0009/0004. Path public-unhit.
+- **Files:** `js/teleport.js`.
+
 ## D-1110 — goodpos live-mon onscary when m_id != 0
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

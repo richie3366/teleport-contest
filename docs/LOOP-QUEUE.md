@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleok` vibrating / pit-fly (named). Not `rloc`.
 - [ ] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path.
 - [ ] `fountain.c` `dipsink` (named). Not wash_hands.
 - [ ] `fountain.c` `dipfountain` cases 17–20 uncurse (named). Not Excalibur.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup.
 - [ ] `fountain.c` `gush` `minliquid` body (named). Not dogushforth.
 - [ ] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink.
+- [ ] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating.
+- [ ] `teleport.c` `tele_trap` Antimagic wrenching pline (named). Not vault_tele.
+- [ ] `teleport.c` `teleds` `fill_pit` (named). Not Punished ball.
+- [ ] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG.
+- [ ] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym.
 
 ## Parked (do not pop)
 

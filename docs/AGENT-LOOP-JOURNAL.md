@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 22:22 — #1413 D-1111 teleok vibrating / pit-fly
+
+**Objective:** Open queue — `teleport.c` `teleok` vibrating /
+pit-fly (named). Not `rloc`.
+**C locus:** `teleport.c` `teleok` 422–433; `trap.h`
+`is_pit`/`is_hole`/`VIBRATING_SQUARE`; `youprop.h`
+Levitation/Flying.
+**Change:** local trapok by-value: no trap / VS always ok;
+pit/hole iff Levitation||Flying (existing youprop clones +
+steed flyer; sticky `u.Levitation`/`u.Flying` ignored). Then
+`goodpos(&youmonst, 0)`. `tele_jump_ok`/`in_out_region` still
+named. Filled D-1110 hash `fd738eab`. Rotated #1398. Open 12
+after archive+refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1410** **44**/44; next
+@**#1415**).
+**Verified:** private canary **56**/56; green+strict seed8000/0900;
+cohort **41**/41 (CURRENT list + 4500/0014) + strict 0014/4500/
+0360/2200/0367/0009/0004. Path public-unhit.
+**Next:** Open `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL /
+LEVEL_TELEP / NO_TRAP. Not hole path.
+**Blocked:** none.
+
 ## 2026-08-16 22:10 — #1412 D-1110 goodpos live-mon onscary when m_id != 0
 
 **Objective:** Open queue — `teleport.c` `goodpos` live-mon
@@ -341,28 +363,5 @@ cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
 Public traces **unhit**.
 **Next:** Open `teleport.c` `goodpos` `GP_AVOID_MONPOS`
 `is_exclusion_zone`. Not `onscary`. Audit @**#1400**.
-**Blocked:** none.
-
-## 2026-08-16 19:16 — #1398 D-1099 goodpos youmonst swim/lev/fly/wwalk
-
-**Objective:** Open queue — `teleport.c` `goodpos` youmonst
-Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava
-arms (named). Not `passes_walls`.
-**C locus:** `teleport.c` `goodpos` 136–161; `youprop.h`
-Swimming/Amphibious/Levitation/Flying/Wwalking/Fire_resistance.
-**Change:** youmonst pool/lava arms use youprop clones (flats OR
-uprops; Lev/Fly honor B*; no sticky `u.Levitation`/`u.Flying`).
-Lava Fire+Wwalk+oerodeproof boots / Upolyd likes_lava. Monster
-`is_swimmer`/`m_in_air` unchanged. Did not pull `passes_walls`.
-Filled D-1098 hash `cdb72162`. Rotated #1383. Open 9 (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1395** **44**/44; next
-@**#1400**).
-**Verified:** private canary **52**/52; green+strict seed8000/0900;
-cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
-0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
-Public traces **unhit**.
-**Next:** Open `teleport.c` `goodpos` `passes_walls` +
-`may_passwall` early-out. Not youmonst swim.
 **Blocked:** none.
 

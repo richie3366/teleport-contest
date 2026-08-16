@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `teleport.c` `goodpos` live-mon `onscary` when `m_id != 0` (named). Not `goodpos_onscary`. **Addressed:** D-1110
+- [x] `teleport.c` `teleok` vibrating / pit-fly (named). Not `rloc`. **Addressed:** D-1111
+
+
+- [x] `teleport.c` `goodpos` live-mon `onscary` when `m_id != 0` (named). Not `goodpos_onscary`. **Addressed:** D-1110 `fd738eab`
 
 
 - [x] `sp_lev.c` `lspo_exclusion` populate `exclusion_zones` from `des.exclusion` (named). Not `goodpos`. **Addressed:** D-1109 `5bf81ca7`
