@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1100 — goodpos passes_walls + may_passwall early-out
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos` skipped C's
+  `passes_walls(mdat) && may_passwall(x,y)` return-TRUE after the
+  pool/eel/lava arms. Wallwalkers (xorn, earth elemental) were
+  rejected on STONE/walls/closed doors/trees/iron bars/boulders
+  via `accessible()` / boulder checks that C never reaches.
+- **C locus:** `teleport.c` `goodpos` (~163–164); `hack.c`
+  `may_passwall` (~931–936); `mondata.h` `passes_walls` ≡
+  `M1_WALLWALK`. Not youprop `Passes_walls`.
+- **Fix:** local `may_passwall` in `js/teleport.js` (STWALL +
+  `wall_info|flags` W_NONPASSWALL; avoids mon.js cycle). Early-out
+  uses form `passes_walls(mdat)` so a human with H/EPasses_walls
+  still cannot occupy stone. Pool/lava still return first. Did
+  not pull `is_exclusion_zone` / Elbereth onscary. Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** `GP_AVOID_MONPOS` `is_exclusion_zone`;
+  `goodpos_onscary` Elbereth/scare/altar-vamp; `onscary` when
+  `m_id != 0`; youprop Passes_walls in other callers.
+- **Verify:** private canary **68**/68 (table xorn/earth vs
+  jackal/human/pudding; STONE/VWALL/TREE/IRONBARS/SDOOR/SCORR/
+  closed·locked door; W_NONPASSWALL wall_info and flags alias;
+  TREE+NONPASS still true; H/EPasses_walls human STONE false;
+  youmonst xorn form STONE true / NONPASS false; boulder skip;
+  pool before wallwalk; occupied / u_at / GP_ALLOW_U /
+  GP_CHECKSCARY); green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/
+  0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (xorn/earth-elemental placement on rock).
+- **Files:** `js/teleport.js`.
+
 ## D-1099 — goodpos youmonst swim/lev/fly/wwalk pool and lava
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

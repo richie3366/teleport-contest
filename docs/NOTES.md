@@ -10,18 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1395**;
   next @**#1400**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 9.
-  Reviews **54** ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap
-  named), **55–57** ACCEPT (D-1094…D-1096); no new Must-fix.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 8
+  after D-1100 (no refill; still ≥8). Reviews **54**
+  ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap named), **55–57**
+  ACCEPT (D-1094…D-1096); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1099**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `teleport.c` `goodpos` `passes_walls` +
-  `may_passwall` early-out (named). Not youmonst swim.
-- **Hypothesis:** none live. D-1099 shipped: youmonst pool/lava
-  uses youprop Swimming/Amphibious/Levitation/Flying/Wwalking
-  (and lava Fire+Wwalk+oerodeproof / Upolyd likes_lava).
+- Latest ports: **D-1089**…**D-1100**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `teleport.c` `goodpos`
+  `GP_AVOID_MONPOS` `is_exclusion_zone` (named). Not `onscary`.
+- **Hypothesis:** none live. D-1100 shipped: `passes_walls(mdat)`
+  && `may_passwall` early-out (form flag, not youprop
+  Passes_walls). Pool/lava still return first.
 
 ## Don't re-check (≤15)
 
@@ -54,7 +55,8 @@ Objective/score live in `CURRENT.md`.
   port TIN/CORPSE `#if 0` (D-1097) / skip `seffects` SCR_GENOCIDE
   or `do_class_genocide` / `name_to_monclass` (D-1098) / restore
   youmonst `goodpos` pool/lava to monster `is_swimmer`/`m_in_air`
-  (D-1099).
+  (D-1099) / skip `goodpos` `passes_walls`/`may_passwall` or use
+  youprop Passes_walls there (D-1100).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -63,8 +65,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1395**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1400**.
+- **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
+  Hash next SHA. `is_exclusion_zone` still named.
 - **D-1099:** `goodpos` youmonst swim/lev/fly/wwalk pool+lava.
-  Hash next SHA. `passes_walls`/`may_passwall` still named.
+  Hash `a6934a3d`.
 - **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
   `name_to_monclass`. Hash `cdb72162`. livelog / Hallu / POLY_REVERT
   / cham `newcham` / `update_inventory` still named.

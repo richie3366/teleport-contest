@@ -9,8 +9,8 @@ import {
     CC_SKIP_MONS, CC_SKIP_INACCS,
     GP_CHECKSCARY, GP_ALLOW_U, GP_AVOID_MONPOS, GP_ALLOW_XY,
     MM_IGNOREWATER, MM_IGNORELAVA,
-    ACCESSIBLE, IS_POOL, ZAP_POS, IS_DOOR, IS_WATERWALL,
-    D_CLOSED, D_LOCKED,
+    ACCESSIBLE, IS_POOL, ZAP_POS, IS_DOOR, IS_WATERWALL, IS_STWALL,
+    D_CLOSED, D_LOCKED, W_NONPASSWALL,
     MIGR_RANDOM, MIGR_PORTAL, MON_MIGRATING, NO_TRAP,
     is_xport,
     ROOM, CORR, ICE, VAULT, SHOPBASE, ANY_SHOP, TEMPLE,
@@ -205,10 +205,21 @@ function Fire_resistance() {
 }
 
 /**
+ * C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks.
+ * Local copy avoids mon.js ↔ teleport cycle (D-1100).
+ */
+function may_passwall(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    // C: wall_info aliases flags; OR JS split W_* fields (D-0865).
+    const wi = (loc.wall_info | 0) | (loc.flags | 0);
+    return !(IS_STWALL(loc.typ) && (wi & W_NONPASSWALL));
+}
+
+/**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: passes_walls / may_passwall early-out;
- * GP_AVOID_MONPOS exclusion zones; onscary when m_id != 0
- * (fakemon uses goodpos_onscary).
+ * Named omissions: GP_AVOID_MONPOS exclusion zones; onscary when
+ * m_id != 0 (fakemon uses goodpos_onscary).
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -271,7 +282,10 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
             }
             return !!(m_in_air(mtmp) || likes_lava(mdat));
         }
-        // passes_walls + may_passwall deferred
+        /* C teleport.c goodpos: passes_walls(mdat) && may_passwall
+         * early-out before amorphous/accessible (D-1100). Form flag,
+         * not youprop Passes_walls. */
+        if (passes_walls(mdat) && may_passwall(x, y)) return true;
         // C: amorphous may ooze through closed doors before accessible()
         if (amorphous(mdat) && closed_door(x, y)) return true;
         if (checkscary && goodpos_onscary(x, y, mdat)) return false;
