@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1073 — dosit OBJ_AT picnic skip uteetering / uescaped_shaft
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `#sit` picnic (`objects_at`) fired even when the
+  hero stood on a seen pit precipice or a seen hole/trapdoor. C
+  `sit.c` `dosit` requires
+  `OBJ_AT && !(uteetering_at_seen_pit(trap) || uescaped_shaft(trap))`
+  so picnic does not hide the trap arm.
+- **C locus:** `sit.c` `dosit` (~437–439); `trap.c`
+  `uteetering_at_seen_pit` / `uescaped_shaft` (~6648–6664).
+- **Fix:** export the two `trap.c` helpers from `trap.js` (C home;
+  `do.js` `flooreffects` already had local clones). `dosit` picnic
+  `if` now matches C. In-pit `utraptype==TT_PIT` still picnics
+  (C teeter is false). Unseen pits still picnic.
+- **JS:** `js/sit.js` `dosit`; `js/trap.js` exports; `js/do.js`
+  imports (deleted locals). Rule #2: no fs.
+- **Not this iter:** `can_reach_floor(check_pit)` teeter/shaft
+  (still named on `engrave.js`); dragon `money_cnt` meager hoard;
+  `lay_an_egg`; hero pit/hole `dotrap` bodies (D-1039).
+- **Verify:** private helper/gate canary; green+strict seed8000/0900;
+  cohort seed1500/1800/0060/0102/0700/0017. Path unhit on public
+  sessions.
+
 ## D-1072 — dosit ustuck !sticks lap (Monnam / mhis)
 
 - **Status:** fixed (map-driven Open from review **32** named omit;

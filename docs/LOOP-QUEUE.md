@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sit.c` `dosit` OBJ_AT gate: skip picnic when `uteetering_at_seen_pit` or `uescaped_shaft` like C.
 - [ ] `sit.c` `dosit` dragon coin hoard: `money_cnt(invent)` meager vs `ulevel * 1000` (JS always bare “hoard”).
 - [ ] `sit.c` `dosit` `lay_an_egg` at end of function. Not hider / reach / ustuck.
 - [ ] `trap.c` hero pit/hole bodies under `dotrap` `VIASITTING` (named omit from D-1039).

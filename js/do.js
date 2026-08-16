@@ -31,7 +31,7 @@ import {
 } from './const.js';
 import {
     seetrap, t_at, delfloortrap, reset_utrap, water_damage, erode_obj,
-    selftouch,
+    selftouch, uteetering_at_seen_pit, uescaped_shaft,
 } from './trap.js';
 import {
     COIN_CLASS, SCROLL_CLASS, SPBOOK_CLASS, POTION_CLASS, objectNames,
@@ -459,24 +459,6 @@ function u_locomotion(defWord) {
     if (Levitation()) return 'float';
     if (Flying()) return 'fly';
     return defWord;
-}
-
-/**
- * C ref: trap.c uteetering_at_seen_pit — seen pit under hero, not trapped in it.
- */
-function uteetering_at_seen_pit(trap) {
-    const u = game.u || {};
-    return !!(trap && is_pit(trap.ttyp) && trap.tseen
-        && u_at(trap.tx, trap.ty)
-        && !(u.utrap && (u.utraptype | 0) === TT_PIT));
-}
-
-/**
- * C ref: trap.c uescaped_shaft — seen hole/trapdoor under hero.
- */
-function uescaped_shaft(trap) {
-    return !!(trap && is_hole(trap.ttyp) && trap.tseen
-        && u_at(trap.tx, trap.ty));
 }
 
 /**

@@ -13,7 +13,9 @@
 // may sit) + helper/message Levitation ≡ youprop.h (H||E)&&!B
 // (D-1070; not sticky u.Levitation) + helper hugs AT_HUGS+!sticks
 // (D-1071; sit-on-air reachable) + dosit ustuck !sticks lap
-// (D-1072; Monnam / mhis; not swallow combat).
+// (D-1072; Monnam / mhis; not swallow combat) + OBJ_AT picnic skip
+// when uteetering_at_seen_pit or uescaped_shaft (D-1073; C sit.c
+// 437–439 / trap.c; helpers in trap.js).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -27,7 +29,9 @@
 // MZ_HUGE still named there), ustuck !sticks lap Monnam/mhis
 // (D-1072; eel WRAP / mimic STCK / trapper-not-swallow; hugs already
 // air via helper), OBJ_AT picnic body
-// (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
+// (dragon/towel/slithy/sit+comfort/squishy/cream-pie) with C precipice
+// skip (D-1073: !(uteetering_at_seen_pit || uescaped_shaft) from
+// trap.c via trap.js), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
 // fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
@@ -49,9 +53,8 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: can_reach_floor ceiling_hider/MZ_HUGE,
-// uteetering/
-// uescaped_shaft gate, wizard getlin / Analyze y_n,
+// Deferred: can_reach_floor ceiling_hider/MZ_HUGE and
+// check_pit teeter/shaft (engrave.js), wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
@@ -97,7 +100,7 @@ import { A_MAX, A_CON, A_STR, A_WIS, adjattrib, exercise, change_luck } from './
 import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
-import { t_at, dotrap, water_damage } from './trap.js';
+import { t_at, dotrap, water_damage, uteetering_at_seen_pit, uescaped_shaft } from './trap.js';
 import { losehp, finish_maybe_wail, is_pool, is_lava } from './hack.js';
 import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
 import { burn_away_slime } from './timeout.js';
@@ -1095,9 +1098,12 @@ export async function dosit() {
         return ECMD_TIME;
     }
 
-    // C: OBJ_AT && !(uteetering_at_seen_pit || uescaped_shaft) — pit gates deferred
+    // C sit.c dosit: OBJ_AT && !(uteetering_at_seen_pit(trap)
+    // || uescaped_shaft(trap)) — precipice skip so picnic does not
+    // hide the trap arm (D-1073). In-pit utrap still picnics (C
+    // uteetering is false when utraptype==TT_PIT).
     const obj = objects_at(u.ux, u.uy);
-    if (obj) {
+    if (obj && !(uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
         const youdata = game.youmonst?.data;
         if (youdata?.mlet === 'S_DRAGON' && obj.oclass === COIN_CLASS) {
             // money_cnt meager-hoard threshold deferred → always bare "hoard"

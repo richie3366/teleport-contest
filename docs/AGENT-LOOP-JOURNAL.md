@@ -21,6 +21,24 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 11:02 — #1363 D-1073 dosit OBJ_AT picnic teeter/shaft skip
+
+**Objective:** Open queue — `sit.c` `dosit` OBJ_AT gate: skip picnic
+when `uteetering_at_seen_pit` or `uescaped_shaft` like C.
+**C locus:** `sit.c` `dosit` (~437–439); `trap.c`
+`uteetering_at_seen_pit` / `uescaped_shaft`.
+**Change:** export those helpers from `trap.js` (C home); `do.js`
+`flooreffects` uses the exports (deleted locals). Picnic `if` is
+`obj && !(uteetering || uescaped)`. In-pit `TT_PIT` still picnics.
+Did not pull `can_reach_floor(check_pit)` / meager hoard /
+`lay_an_egg`. Rule #2: no fs. Rotated #1348 to archive.
+**Score:** fortress unchanged (cadence **#1360** **44**/44; next
+@**#1365**).
+**Verified:** private helper/gate canary; green+strict seed8000/0900;
+cohort seed1500/1800/0060/0102/0700/0017.
+**Next:** Open `sit.c` `dosit` dragon coin hoard `money_cnt` meager.
+**Blocked:** none.
+
 ## 2026-08-16 10:52 — #1362 review D-1072 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -299,25 +317,5 @@ saddled pony"`; named bare). Not `y_monnam`. Hider /
 (0106/0107/4500/1500/1800/0060/2200). Path unhit.
 **Next:** Open empty; remaining `dosit` hider / `can_reach_floor`
 / `ustuck` or `debt.md`.
-**Blocked:** none.
-
-## 2026-08-16 07:15 — #1348 D-1066 tut-1 tutorial() nhcore disable
-
-**Objective:** Open queue — tut-1 nhcore callback disable on
-enter/leave only (not Lua cmd_before/`tutorial_turn` / Knight jump).
-**C locus:** `nhlua.c` `tutorial` / `l_nhcore_call` / `l_nhcore_init`;
-`do.c` `goto_level`; `dat/nhcore.lua` enter/leave_tutorial;
-`dat/nhlib.lua` `tutorial_enter`/`tutorial_leave`.
-**Change:** `goto_level` calls `tutorial()`. `l_nhcore_init` fills
-`nhcore_call_available` TRUE. After leave, both ENTER/LEAVE FALSE.
-Lua `nh.callback` cmd_before/`tutorial_turn` still named. Rule #2:
-no fs. Rotated #1333 to archive.
-**Score:** fortress unchanged (cadence **#1345** **44**/44; next
-@**#1350**).
-**Verified:** private node enter keeps available + stash; leave
-disables both; second enter skips; nil start_new_game disables that
-slot; GETPOS stays TRUE. green+strict PASS; seed0009 **73**/73;
-cohort **12**/12.
-**Next:** Open `dosit` steed `mon_nam(usteed)`.
 **Blocked:** none.
 

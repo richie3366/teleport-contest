@@ -18,16 +18,16 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1072** `dosit` ustuck `!sticks` lap (`Monnam` /
-  `mhis`). Eel/mimic/trapper-not-swallow → no lap `ECMD_OK`;
-  hugs still sit-on-air (D-1071); python hero `sticks` sits.
-  Used engrave `sticks` export. Do not import `monmove.js`
-  `sticks` (AT_HUGS/AT_ENGL 6/7 ≠ C 7/11).
-- **Next cluster:** Open `sit.c` `dosit` OBJ_AT gate: skip picnic
-  when `uteetering_at_seen_pit` or `uescaped_shaft` like C. Do
-  not pull `lay_an_egg` / dragon meager hoard / ceiling_hider.
-- **Hypothesis:** JS `dosit` picnic fires while C skips OBJ_AT
-  when `uteetering_at_seen_pit(trap)` or `uescaped_shaft(trap)`.
+- Latest: **D-1073** `dosit` OBJ_AT picnic skip when
+  `uteetering_at_seen_pit` or `uescaped_shaft` (`trap.js` helpers;
+  `do.js` flooreffects uses the same exports). In-pit `TT_PIT`
+  still picnics. Unseen pits still picnic. Did not pull
+  `can_reach_floor(check_pit)` / meager hoard / `lay_an_egg`.
+- **Next cluster:** Open `sit.c` `dosit` dragon coin hoard:
+  `money_cnt(invent)` meager vs `ulevel * 1000`. Do not pull
+  `lay_an_egg` / ceiling_hider / `can_reach_floor(check_pit)`.
+- **Hypothesis:** JS dragon sit always prints bare “hoard”; C
+  prefixes `"meager "` when `obj->quan + money_cnt(invent) < ulevel * 1000`.
 
 ## Don't re-check (≤15)
 
@@ -66,12 +66,16 @@ Objective/score live in `CURRENT.md`.
   Do not skip helper hugs `AT_HUGS`+`!sticks` (D-1071). Do not
   skip dosit ustuck lap (D-1072). Do not treat eel WRAP as hugs.
   Do not import `monmove.js` `sticks` for dosit lap (AT numbers
-  6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`).
+  6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`). Do not skip dosit OBJ_AT
+  picnic on `uteetering_at_seen_pit`/`uescaped_shaft` (D-1073).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1360**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1365**.
+- **D-1073:** `dosit` OBJ_AT skip picnic on seen-pit teeter /
+  seen hole/trapdoor. Helpers in `trap.js`. In-pit still picnics.
+  `can_reach_floor(check_pit)` still named on `engrave.js`.
 - **D-1072:** `dosit` ustuck `!sticks` lap `Monnam`/`mhis`.
   Eel no-lap; hugs still air; python hero sits. Not swallow.
 - **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.

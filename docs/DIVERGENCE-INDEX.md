@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1073 | fixed | sit `dosit` OBJ_AT picnic skip `uteetering`/`uescaped_shaft` | map-driven; C `sit.c:437–439` / `trap.c`; helpers exported from `trap.js`; in-pit still picnics; `can_reach_floor(check_pit)` still named |
 | D-1072 | fixed | sit `dosit` ustuck `!sticks` lap `Monnam`/`mhis` | map-driven; C `sit.c:422–429`; engrave `sticks` export not `monmove.js`; eel no-lap; hugs still air |
 | D-1071 | fixed | engrave `can_reach_floor` ustuck AT_HUGS + `!sticks` | map-driven; C `engrave.c:192–197` / `mondata.c` `sticks`; sit-on-air reachable; eel WRAP still reaches; lap D-1072 |
 | D-1070 | fixed | engrave/sit `can_reach_floor` Levitation `youprop.h` | review 30 QUALITY-RISK; C `(H||E)&&!B` not sticky `u.Levitation`; worn boots/potion `#sit` tumble; hugs D-1071 |

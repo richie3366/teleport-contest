@@ -8,6 +8,8 @@
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
 // mu_maybe_destroy_web, b_trapped,
+// uteetering_at_seen_pit / uescaped_shaft (D-1073; sit OBJ_AT gate +
+// do.c flooreffects),
 // make_corpse ordinary path via thitm death.
 
 import { game } from './gstate.js';
@@ -1110,6 +1112,27 @@ export function conjoined_pits(trap2, trap1, u_entering_trap2) {
         }
     }
     return false;
+}
+
+/**
+ * C ref: trap.c uteetering_at_seen_pit — seen pit under the hero, not
+ * trapped in it (standing on the precipice).
+ * @param {object|null} trap
+ */
+export function uteetering_at_seen_pit(trap) {
+    const u = game.u || {};
+    return !!(trap && is_pit(trap.ttyp) && trap.tseen
+        && u_at(trap.tx, trap.ty)
+        && !(u.utrap && (u.utraptype | 0) === TT_PIT));
+}
+
+/**
+ * C ref: trap.c uescaped_shaft — seen hole/trapdoor under the hero.
+ * @param {object|null} trap
+ */
+export function uescaped_shaft(trap) {
+    return !!(trap && is_hole(trap.ttyp) && trap.tseen
+        && u_at(trap.tx, trap.ty));
 }
 
 /**
