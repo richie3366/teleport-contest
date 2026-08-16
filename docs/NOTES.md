@@ -19,12 +19,12 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1080** `u_entered_shop` deserted/angry/Invis/doorway.
+- Latest: **D-1081** `cprefx` rider `revive_corpse` after lifesave.
   Cadence **#1375** fortress held. Reviews **39–41**.
-- **Next cluster:** Open `eat.c` `cprefx` `revive_corpse` after rider
-  lifesave (debt.md).
-- **Hypothesis:** `cprefx` still omits `revive_corpse` after rider
-  lifesave (debt.md).
+- **Next cluster:** Open `engrave.c` `can_reach_floor` ceiling_hider /
+  MZ_HUGE (named from D-1069/D-1071). Not check_pit.
+- **Hypothesis:** `can_reach_floor` still omits ceiling_hider / MZ_HUGE
+  (named from D-1069/D-1071).
 
 ## Don't re-check (≤15)
 
@@ -77,22 +77,21 @@ Objective/score live in `CURRENT.md`.
   trap/mon/uhitm callers still named. Do not skip
   `peace_minded`/`set_malign` `ptr.msound` (D-1079);
   `m_initweap` still mndx. Do not skip `u_entered_shop` deserted /
-  angry / Invis / pickaxe doorway (D-1080).
+  angry / Invis / pickaxe doorway (D-1080). Do not skip `cprefx`
+  rider `revive_corpse` after lifesave / do not restore apply-local
+  `revive_corpse` (D-1081); MINVENT/CONTAINED/BURIED still named.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1375**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1380**.
+- **D-1081:** `cprefx` rider `revive_corpse` after lifesave (`eat.c` /
+  `do.c`). Tin skip; `zero_victual`; floor rider suffixes. MINVENT/
+  CONTAINED/BURIED + Adjmonnam still named.
 - **D-1080:** `u_entered_shop` deserted/angry/Invis/pickaxe doorway (`shk.c`).
   Review **41** ACCEPT-WITH-DEBT (youprop sticky / `in_rooms` pointer named).
 - **D-1079:** `peace_minded`/`set_malign` `ptr.msound` (MS_LEADER −20). Review **40** ACCEPT.
 - **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named. Review **39** ACCEPT.
-- **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
-  (`dbridge.c`). mfndpos uses shared helper. Review **38** ACCEPT.
-  `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.
-- **D-1076:** hero `trapeffect_pit`/`trapeffect_hole` under
-  `dotrap` `VIASITTING`. `set_utrap(rn1(6,2))`; spikes/`poisoned`;
-  hole `Can_fall_thru`. Punished `ballfall` still omit.
-- **D-1075:** `dosit` `lay_an_egg` after throne. Male/hungry/tetra/
-  Sargasso `ECMD_OK`; `egg_type_from_parent` in `mon.js`.
-- **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin `money_cnt`.
+- **D-1077:** `is_lava` DRAWBRIDGE_UP+`DB_LAVA` (`dbridge.c`). Review **38** ACCEPT. `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.
+- **D-1076:** hero pit/hole `dotrap` VIASITTING; Punished `ballfall` still omit.
+- **D-1075:** `dosit` `lay_an_egg` after throne; `egg_type_from_parent` in `mon.js`.

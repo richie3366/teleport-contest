@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1081 — cprefx revive_corpse after rider lifesave
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `cprefx` Death/Pestilence/Famine called `done(DIED)` +
+  `exercise(A_WIS,false)` then returned. C continues: if
+  `victual.piece` is a CORPSE (null for tins), `revive_corpse` and
+  `zero_victual` on success. Named omit from debt.md / D-0939.
+- **C locus:** `eat.c` `cprefx` (~831–849); `do.c` `revive_corpse`
+  (~2111–2246) invent/floor + rider visual suffixes.
+- **Fix:** after lifesave, short-circuit `piece && otyp==CORPSE &&
+  revive_corpse(piece)` then `victual = {}`. Moved `revive_corpse`
+  from `apply.js` to `do.js` (C home) so eat can call it without an
+  apply↔eat cycle. Floor messages append Death/Pestilence/Famine
+  suffixes (`data.mndx`; `mons()` allocates). Rule #2: no fs.
+- **JS:** `js/eat.js` `cprefx`; `js/do.js` `revive_corpse`;
+  `js/apply.js` tinning imports the shared helper.
+- **Not this iter:** OBJ_MINVENT / OBJ_CONTAINED / OBJ_BURIED;
+  Adjmonnam bite-covered; polymon stone-golem failure polish.
+- **Verify:** private canary (null/non-CORPSE/tin-skip/norevive keep
+  victual; lizard floor zeros victual; invent/uwep; Death/Pestilence/
+  Famine `data.mndx` after unique→doppelganger `newcham`);
+  green+strict seed8000/0900; cohort **14**/14 (incl. 1800 eat-throw,
+  0004 feeding, 0361, 4500, 0360, 2200) + strict on those. Path
+  public-unhit except ordinary eating already D-0939.
+- **Files:** `js/eat.js`, `js/do.js`, `js/apply.js`.
+
 ## D-1080 — u_entered_shop deserted / angry / Invis / doorway
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
