@@ -230,8 +230,10 @@ node loop-observer/server.mjs --no-open
 ```
 
 The header picker opens any of the last 10 iterations; **Go live**
-resumes following the current one. Halt reason is still
-`last-halt-reason.txt`.
+resumes following the current one. Live auto-follow (and picker
+changes) drop the previous thread so the tab does not accumulate
+iters. Restart `npm run observe-loop` after pulling observer code.
+Halt reason is still `last-halt-reason.txt`.
 
 ## Operator checklist
 

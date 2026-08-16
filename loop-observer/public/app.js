@@ -1,5 +1,5 @@
 const thread = document.getElementById("thread");
-const col = document.createElement("div");
+let col = document.createElement("div");
 col.className = "col";
 thread.appendChild(col);
 
@@ -22,6 +22,7 @@ let recent = [];
 let meta = {};
 let picking = false;
 let pickerKey = "";
+let viewEpoch = -1;
 let ws;
 
 thread.addEventListener("scroll", () => {
@@ -369,22 +370,26 @@ function extLabel(ext) {
   return (e || "FILE").slice(0, 4).toUpperCase();
 }
 
-function highlight(code) {
+function highlight(code, ext) {
   let s = esc(code);
+  const e = (ext || "").toLowerCase();
+  if (!/^(js|mjs|cjs|jsx|ts|tsx)$/.test(e)) return s;
+  // Keywords before any <span class="…"> injection: a later \bclass\b
+  // pass would rewrite the attribute and leak `class="str">` into the text.
+  s = s.replace(
+    /\b(const|let|var|function|return|import|export|from|async|await|if|else|for|while|class|new|try|catch|throw|typeof|in|of|default|null|undefined|true|false)\b/g,
+    '<span class="kw">$1</span>',
+  );
   s = s.replace(/(\/\/.*$)/gm, '<span class="cmt">$1</span>');
   s = s.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="cmt">$1</span>');
   s = s.replace(
     /(&quot;(?:\\.|[^&])*?&quot;|&#39;(?:\\.|[^&])*?&#39;|`(?:\\.|[^`])*?`)/g,
     '<span class="str">$1</span>',
   );
-  s = s.replace(
-    /\b(const|let|var|function|return|import|export|from|async|await|if|else|for|while|class|new|try|catch|throw|typeof|in|of|default|null|undefined|true|false)\b/g,
-    '<span class="kw">$1</span>',
-  );
   return s;
 }
 
-function appendDiffLines(body, lines) {
+function appendDiffLines(body, lines, ext) {
   for (const line of lines) {
     if (line.kind === "hunk") continue;
     const dl = document.createElement("div");
@@ -396,7 +401,7 @@ function appendDiffLines(body, lines) {
     sign.className = "sign";
     sign.textContent = line.kind === "add" ? "+" : line.kind === "del" ? "−" : "";
     const code = document.createElement("code");
-    code.innerHTML = highlight(line.text ?? "");
+    code.innerHTML = highlight(line.text ?? "", ext);
     dl.append(g, sign, code);
     body.appendChild(dl);
   }
@@ -441,7 +446,7 @@ function renderDiff(msg) {
   body.className = "diff-body";
   const lines = r.lines || [];
   const collapsed = lines.length > DIFF_PREVIEW;
-  appendDiffLines(body, collapsed ? lines.slice(0, DIFF_PREVIEW) : lines);
+  appendDiffLines(body, collapsed ? lines.slice(0, DIFF_PREVIEW) : lines, ext);
   if (!lines.length && msg.detail) {
     const dl = document.createElement("div");
     dl.className = "dl ctx";
@@ -457,7 +462,7 @@ function renderDiff(msg) {
     more.addEventListener("click", () => {
       body.replaceChildren();
       body.classList.add("open");
-      appendDiffLines(body, lines);
+      appendDiffLines(body, lines, ext);
       more.remove();
     });
     card.appendChild(more);
@@ -540,8 +545,32 @@ function build(msg) {
   }
 }
 
+function resetThread() {
+  nodes.clear();
+  const fresh = document.createElement("div");
+  fresh.className = "col";
+  col.replaceWith(fresh);
+  col = fresh;
+}
+
+function patchThinking(row, msg) {
+  const d = row.querySelector("details.think");
+  const body = row.querySelector(".body");
+  const sum = row.querySelector("summary");
+  if (!d || !body || !sum) return false;
+  body.textContent = msg.text || "";
+  sum.textContent = thinkLabel(msg);
+  d.classList.toggle("running", msg.status === "running");
+  if (msg.status === "running") d.open = true;
+  return true;
+}
+
 function upsert(msg) {
   const prev = nodes.get(msg.id);
+  if (prev && msg.kind === "thinking" && patchThinking(prev, msg)) {
+    if (scrollFollow) thread.scrollTop = thread.scrollHeight;
+    return;
+  }
   const wasOpen = prev?.querySelector("details")?.open;
   const next = build(msg);
   const details = next.querySelector("details");
@@ -554,20 +583,45 @@ function upsert(msg) {
 }
 
 function replaceAll(messages) {
-  nodes.clear();
-  col.replaceChildren();
+  resetThread();
   for (const msg of messages || []) upsert(msg);
   ensureEmpty();
   if (scrollFollow) thread.scrollTop = thread.scrollHeight;
 }
 
-function applySnapshot(data) {
+function adoptEpoch(data) {
+  if (data.epoch != null) viewEpoch = data.epoch;
+}
+
+function olderThanView(data) {
+  return data.epoch != null && viewEpoch >= 0 && data.epoch < viewEpoch;
+}
+
+function wrongView(data) {
+  return data.epoch != null && viewEpoch >= 0 && data.epoch !== viewEpoch;
+}
+
+function applyClear(data) {
+  if (olderThanView(data)) return;
   applyView(data, { scroll: false });
+  adoptEpoch(data);
+  if (data.meta) meta = data.meta;
+  resetThread();
+  ensureEmpty();
+  renderPicker();
+  renderMeta();
+}
+
+function applySnapshot(data) {
+  if (olderThanView(data)) return;
+  applyView(data, { scroll: false });
+  adoptEpoch(data);
   meta = data.meta || {};
   renderPicker();
   renderMeta();
   scrollFollow = following;
   replaceAll(data.messages);
+  if (Array.isArray(data.messages)) data.messages.length = 0;
   if (!following) {
     thread.scrollTop = 0;
     els.jump.hidden = true;
@@ -578,15 +632,20 @@ function applySnapshot(data) {
 }
 
 function applyUpsert(data) {
+  if (wrongView(data)) return;
   applyView(data);
+  adoptEpoch(data);
   if (data.meta) meta = data.meta;
   renderPicker();
   renderMeta();
   for (const msg of data.messages || []) upsert(msg);
+  if (Array.isArray(data.messages)) data.messages.length = 0;
 }
 
 function applyMeta(data) {
+  if (wrongView(data)) return;
   applyView(data);
+  adoptEpoch(data);
   if (data.meta) meta = data.meta;
   renderPicker();
   renderMeta();
@@ -606,7 +665,8 @@ function connect() {
     } catch {
       return;
     }
-    if (data.op === "snapshot") applySnapshot(data);
+    if (data.op === "clear") applyClear(data);
+    else if (data.op === "snapshot") applySnapshot(data);
     else if (data.op === "upsert") applyUpsert(data);
     else if (data.op === "meta") applyMeta(data);
   });

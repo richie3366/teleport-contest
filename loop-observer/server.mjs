@@ -40,6 +40,7 @@ let currentAbs = null;
 let followLive = true;
 let liveHint = { iter: null, name: null };
 let recent = [];
+let viewEpoch = 0;
 let pollTimer = null;
 let dirWatcher = null;
 
@@ -60,6 +61,7 @@ function viewState() {
     following: followLive,
     live: liveHint,
     recent,
+    epoch: viewEpoch,
   };
 }
 
@@ -181,6 +183,7 @@ async function pickCurrentRaw(raws) {
 async function switchTo(file) {
   leftover = "";
   fileOffset = 0;
+  viewEpoch += 1;
   currentRel = file?.name ?? null;
   currentAbs = file?.abs ?? null;
   resetTranscript(transcript, {
@@ -190,6 +193,9 @@ async function switchTo(file) {
     relFile: currentRel,
     running: true,
   });
+  // Drop the previous transcript on clients before we parse/send the next
+  // .raw, so live follow does not keep the last iter's DOM + JSON around.
+  broadcast({ op: "clear", meta: transcript.meta, ...viewState() });
   if (file) {
     transcript.meta.mode = await latestMasterMode(file.iter);
     await ingestFromOffset(true);

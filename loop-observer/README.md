@@ -45,6 +45,32 @@ resumes auto-follow.
 
 Pin state is **global** for that observer process (shared across tabs).
 
+## Live reset (memory)
+
+The page holds **one** transcript. On every view switch (`switchTo` —
+live auto-follow to a new `.raw`, **Go live**, or a picker change) the
+server increments `epoch`, `resetTranscript`s, and broadcasts `clear`
+**before** it reads the next file. The client then:
+
+- Recreates the thread column and drops the node map (old cards,
+  Show-more closures, and diff line arrays can be GC’d)
+- Ignores `upsert` / `meta` whose `epoch` is not the current view
+- Ignores a delayed `clear` / `snapshot` from an older `epoch`
+
+Thinking cards update in place (text/status) so a long iter does not
+rebuild a DOM node on every delta.
+
+Restart the observer process after pulling these protocol changes; a
+tab refresh is not enough for `server.mjs`.
+
+## Diffs
+
+Edit/Write cards parse unified diffs. Syntax highlight runs only for
+`js` / `mjs` / `cjs` / `jsx` / `ts` / `tsx`. Keywords are applied
+**before** any `<span class="…">` injection so `\bclass\b` cannot
+rewrite the attribute and leak `class="str">` into markdown (or other)
+diffs. Other extensions are escaped text only.
+
 ## How “current” is chosen
 
 1. `iteration-count` in `.agent-port-loop-logs/` if a matching
@@ -74,8 +100,9 @@ WebSocket `ws://127.0.0.1:<port>/ws`.
 
 Server → client:
 
-- `snapshot` — full transcript plus `following`, `live`, `recent` (10)
-- `upsert` — changed messages
+- `clear` — drop the current thread (sent before loading another iter)
+- `snapshot` — full transcript plus `following`, `live`, `recent` (10), `epoch`
+- `upsert` — changed messages (ignored if `epoch` does not match)
 - `meta` — running flag / catalog without replacing the thread
 
 Client → server:
@@ -90,5 +117,6 @@ Client → server:
 
 - Does not start, stop, or supervise `scripts/agent-port-loop.sh`.
 - Halt reason remains `.agent-port-loop-logs/last-halt-reason.txt`.
-- Restart the observer after pulling UI changes; the bound port is new
-  each launch.
+- Restart the observer process after pulling `server.mjs` (new port
+  each launch). `Cache-Control: no-store` is enough for `public/`
+  after a refresh.

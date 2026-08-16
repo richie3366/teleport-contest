@@ -39,6 +39,8 @@ function emptyMeta() {
 }
 
 export function resetTranscript(state, metaPatch = {}) {
+  if (state.byId) state.byId.clear();
+  if (Array.isArray(state.messages)) state.messages.length = 0;
   state.meta = { ...emptyMeta(), ...metaPatch };
   state.messages = [];
   state.byId = new Map();
