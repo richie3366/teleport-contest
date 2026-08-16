@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1055 — dosit water / pool / gremlin sit
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — `dosit` skipped C water after trap /
+  before sink (and early `goto in_water` for pool water-walking and
+  gremlin fountain/pool).
+- **C locus:** `sit.c` `dosit` (~430 early pool/gremlin goto; ~505
+  Underwater/waterlevel; ~511 `in_water`); `potion.c` `split_mon`;
+  `mhitu.c` `cloneu`.
+- **Fix:** early `is_pool&&!Underwater` and gremlin fountain/pool skip
+  OBJ_AT/trap; muddy-bottom / no-cushions; `in_water` sit + hero
+  `split_mon`/`cloneu` + fountain `dryup`; else `rn2(10)`
+  `water_damage(uarm)` twice (pinned C second call uses `uarm`, not
+  `uarmf`). Locals in `sit.js` (eat←potion / zap←mhitu cycles).
+  Rule #2: no fs.
+- **Deferred:** sink/altar/grave/stairs/ladder/lava/ice/drawbridge;
+  `clone_mon` monster `split_mon`; steed `mon_nam`; `lay_an_egg`.
+- **Verify:** private node pool (skip picnic gold), underwater mud,
+  gremlin fountain multiply mh/mhmax 20→10, eel-pool still in_water,
+  eel-underwater having-fun; green+strict PASS; cohort **6**/6
+  (seed1500/1800/0060/0102/0360/2200). Path thin on public traces.
+- **Files:** `js/sit.js`, `js/dog.js` (`initedog` export),
+  `js/monsters.js` (`eggs_in_water`).
+
 ## D-1054 — restore cobj where=OBJ_CONTAINED (hatch flags 0)
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)

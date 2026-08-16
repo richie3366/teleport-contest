@@ -1,12 +1,18 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
 // rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
-// dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049).
+// dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049)
+// + water/pool/gremlin sit (D-1055).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
-// take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch).
+// take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
+// potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
+// potion.js/mhitu.js: eat←potion, zap←mhitu cycles).
 //
 // Branch envelope: reachable floor (Levitation only), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
-// (D-1039: already-trapped sit / dotrap VIASITTING), IS_THRONE sit +
+// (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
+// (D-1055: early goto in_water for pool !Underwater and gremlin
+// fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
+// split_mon+dryup / rn2(10) water_damage uarm twice), IS_THRONE sit +
 // special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
 // confused remove-curse HConfusion-only D-1048 / poly/acid/shuffle) +
 // ordinary throne_sit_effect 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
@@ -15,9 +21,9 @@
 // + Magicbane / Antimagic / Half_spell_damage / SPFX_INTEL resist /
 // steed saddle (D-0969).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
-// uescaped_shaft gate, water/gremlin, sink/altar/grave/stairs/ladder/
-// lava/ice/drawbridge, wizard getlin / Analyze y_n, lay_an_egg,
-// money_cnt meager coil; shieldeff; update_inventory redraw;
+// uescaped_shaft gate, sink/altar/grave/stairs/ladder/lava/ice/
+// drawbridge, wizard getlin / Analyze y_n, lay_an_egg, money_cnt meager
+// coil; clone_mon monster split_mon; shieldeff; update_inventory redraw;
 // Hallucination hcolor synonyms; Yobjnam2 shk_your/pname polish;
 // SetVoice; eyecount poly; hero pit/hole dotrap bodies still named-omit
 // in trap.js. take_gold calls steal.c remove_worn_item (D-1049); armor
@@ -34,7 +40,8 @@ import { rnd, rn2, rn1, d } from './rng.js';
 import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
-    IS_THRONE, In_V_tower, ROOM, CLOUD,
+    IS_THRONE, In_V_tower, ROOM, CLOUD, FOUNTAIN, Is_waterlevel,
+    G_EXTINCT, NO_MINVENT, MM_EDOG, MM_NOMSG,
     INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE, W_WEAPONS, W_BALL, W_CHAIN,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
     FAST, STEALTH, PROTECTION, AGGRAVATE_MONSTER,
@@ -47,18 +54,21 @@ import {
 import { objects_at, delobj, curse, unbless } from './mkobj.js';
 import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
-import { amorphous, mons, M1_SLITHY, is_prince, is_vampire } from './monsters.js';
+import {
+    amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
+    monsterNames,
+} from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
 import { A_MAX, A_CON, A_STR, A_WIS, adjattrib, exercise, change_luck } from './attrib.js';
 import { losexp } from './exper.js';
 import { find_hell } from './dungeon.js';
 import { yn_function } from './getline.js';
-import { t_at, dotrap } from './trap.js';
-import { losehp, finish_maybe_wail } from './hack.js';
+import { t_at, dotrap, water_damage } from './trap.js';
+import { losehp, finish_maybe_wail, is_pool } from './hack.js';
 import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
 import { burn_away_slime } from './timeout.js';
-import { hliquid } from './do_name.js';
+import { hliquid, christen_monst } from './do_name.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const TOWEL = objectNames.indexOf('TOWEL');
@@ -66,6 +76,8 @@ const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
+const WATER_WALKING_BOOTS = objectNames.indexOf('WATER_WALKING_BOOTS');
+const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const CLOTH = 6; // objclass.h obj_material_types
 
 /** C youprop.h Blind — HBlinded TIMEOUT or flat Blind. */
@@ -821,6 +833,89 @@ async function throne_sit_effect() {
 }
 
 /**
+ * C ref: mhitu.c cloneu. Local: sit cannot import mhitu.js
+ * (mhitu→zap→potion→eat→sit). clone_mon named omit.
+ */
+async function cloneu() {
+    const u = game.u || {};
+    if ((u.mh | 0) <= 1) return null;
+    const mndx = game.youmonst?.data?.mndx | 0;
+    if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_EXTINCT) !== 0) {
+        return null;
+    }
+    const { makemon } = await import('./makemon.js');
+    const { initedog } = await import('./dog.js');
+    const mon = makemon(
+        game.youmonst?.data, u.ux, u.uy,
+        NO_MINVENT | MM_EDOG | MM_NOMSG,
+    );
+    if (!mon) return null;
+    mon.mcloned = 1;
+    christen_monst(mon, game.plname || '');
+    initedog(mon, true);
+    mon.m_lev = game.youmonst?.data?.mlevel | 0;
+    mon.mhpmax = u.mhmax | 0;
+    mon.mhp = Math.trunc((u.mh | 0) / 2);
+    u.mh = (u.mh | 0) - (mon.mhp | 0);
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    return mon;
+}
+
+/**
+ * C ref: potion.c split_mon. Hero path for dosit gremlin; clone_mon
+ * monster arm named omit (returns null).
+ */
+async function split_mon(mon, mtmp) {
+    let reason = '';
+    if (mtmp) {
+        // C: the_your[1]=="your" when attacker is youmonst; else
+        // s_suffix(mon_nam(mtmp)). dosit passes NULL.
+        reason = ` from ${mtmp === game.youmonst ? 'your' : 'its'} heat`;
+    }
+    if (mon === game.youmonst) {
+        const u = game.u || {};
+        if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax | 0;
+        const mtmp2 = ((u.mh | 0) > 1) ? await cloneu() : null;
+        if (mtmp2) {
+            mtmp2.mhpmax = Math.trunc((u.mhmax | 0) / 2);
+            u.mhmax = (u.mhmax | 0) - (mtmp2.mhpmax | 0);
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true;
+            await pline(`You multiply${reason}!`);
+        }
+        return mtmp2;
+    }
+    return null;
+}
+
+/**
+ * C ref: sit.c dosit in_water (~512–525).
+ * Second water_damage uses uarm, not uarmf (pinned C).
+ */
+async function dosit_in_water() {
+    const u = game.u || {};
+    await pline(`You sit in the ${hliquid('water')}.`);
+    if (Upolyd(u) && (u.umonnum | 0) === PM_GREMLIN) {
+        if (await split_mon(game.youmonst, null)) {
+            const ftyp = game.level?.at(u.ux, u.uy)?.typ ?? 0;
+            if (ftyp === FOUNTAIN) {
+                const { dryup } = await import('./fountain.js');
+                await dryup(u.ux, u.uy, true);
+            }
+        }
+    } else {
+        if (!rn2(10) && u.uarm) {
+            await water_damage(u.uarm, 'armor', true);
+        }
+        if (!rn2(10) && u.uarmf
+            && (u.uarmf.otyp | 0) !== WATER_WALKING_BOOTS) {
+            await water_damage(u.uarm, 'armor', true);
+        }
+    }
+}
+
+/**
  * C ref: sit.c dosit — #sit
  */
 export async function dosit() {
@@ -833,7 +928,20 @@ export async function dosit() {
         await pline('You tumble in place.');
         return ECMD_OK;
     }
-    // can_reach_floor / uswallow / ustuck / pool / gremlin deferred
+    // can_reach_floor / uswallow / ustuck still deferred
+    const trap = t_at(u.ux, u.uy);
+    const typ = game.level?.at(u.ux, u.uy)?.typ ?? 0;
+    // C: else if (is_pool && !Underwater) goto in_water — skips OBJ_AT/trap
+    if (is_pool(u.ux, u.uy) && !u.Underwater) {
+        await dosit_in_water();
+        return ECMD_TIME;
+    }
+    // C: else if (Upolyd && PM_GREMLIN && (FOUNTAIN || is_pool))
+    if (Upolyd(u) && (u.umonnum | 0) === PM_GREMLIN
+        && (typ === FOUNTAIN || is_pool(u.ux, u.uy))) {
+        await dosit_in_water();
+        return ECMD_TIME;
+    }
 
     // C: OBJ_AT && !(uteetering_at_seen_pit || uescaped_shaft) — pit gates deferred
     const obj = objects_at(u.ux, u.uy);
@@ -866,7 +974,6 @@ export async function dosit() {
 
     // C sit.c dosit: else if (trap != 0 || (u.utrap && utraptype >= TT_LAVA))
     // before water/sink/…/IS_THRONE. Furniture sit still deferred.
-    const trap = t_at(u.ux, u.uy);
     if (trap || (u.utrap && ((u.utraptype | 0) >= TT_LAVA))) {
         if (u.utrap) {
             exercise(A_WIS, false); // stuck longer
@@ -914,10 +1021,24 @@ export async function dosit() {
         return ECMD_TIME;
     }
 
-    // pool / sink / altar / grave / stairs / ladder / lava / ice /
+    // C: (Underwater || Is_waterlevel) && !eggs_in_water — after trap,
+    // before is_pool in_water / IS_SINK.
+    if ((u.Underwater || Is_waterlevel(u.uz))
+        && !eggs_in_water(game.youmonst?.data)) {
+        if (Is_waterlevel(u.uz)) {
+            await pline('There are no cushions floating nearby.');
+        } else {
+            await pline('You sit down on the muddy bottom.');
+        }
+        return ECMD_TIME;
+    }
+    if (is_pool(u.ux, u.uy) && !eggs_in_water(game.youmonst?.data)) {
+        await dosit_in_water();
+        return ECMD_TIME;
+    }
+
+    // sink / altar / grave / stairs / ladder / lava / ice /
     // drawbridge deferred. C: IS_THRONE after those, before lay_an_egg.
-    const loc = game.level?.at(u.ux, u.uy);
-    const typ = loc?.typ ?? 0;
     if (IS_THRONE(typ)) {
         await pline('You sit on the opulent throne.');
         await throne_sit_effect();

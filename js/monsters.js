@@ -341,6 +341,11 @@ export function lays_eggs(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_OVIPAROUS);
 }
 
+/** C ref: mondata.h eggs_in_water — oviparous eel swimmer. */
+export function eggs_in_water(ptr) {
+    return lays_eggs(ptr) && ptr?.mlet === 'S_EEL' && is_swimmer(ptr);
+}
+
 // C ref: mondata.h is_flyer / is_floater / is_clinger / grounded / passes_walls
 export function is_flyer(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_FLY);

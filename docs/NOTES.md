@@ -16,15 +16,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1054 — `deserObjChain` kept cobj `where=OBJ_CONTAINED`
-  (C `restobjchn`); hatch `get_obj_location(0)` no longer sees
-  restored box eggs as FLOOR/INVENT/MINVENT. Must-fix queue empty.
-  Loop is **fail-closed** (review every 3, cadence every 5 score-only
+- Latest: D-1055 — `dosit` water/pool/gremlin `in_water` (early
+  pool/gremlin goto; Underwater mud; `split_mon`+`dryup`; C
+  `water_damage(uarm)` twice). Must-fix queue empty. Loop is
+  **fail-closed** (review every 3, cadence every 5 score-only
   unless Must-fix is open). Agents **commit + `git push`**.
-- **Next cluster:** Open — `sit.c` `dosit` water / pool / gremlin
-  sit (after trap, before sink). Not furniture.
-- **Hypothesis:** none live; fortress holds. Do not re-stamp
-  parent-chain `where` onto `cobj` in save/bones deser.
+- **Next cluster:** Open — `sit.c` `dosit` sink / altar / grave /
+  stairs / ladder sit messages only.
+- **Hypothesis:** none live; fortress holds. Do not “fix” the
+  second `in_water` `water_damage` to `uarmf` (pinned C uses `uarm`).
 
 ## Don't re-check (≤15)
 
@@ -79,12 +79,16 @@ Objective/score live in `CURRENT.md`.
   Do not restore apply `u_wipe_engr_apply` / empty `display_*_positions`
   (D-1051). Do not restore `use_lamp` `(u.Glib|0)&TIMEOUT` (D-1052 —
   C `Glib` ≡ `uprops[GLIB].intrinsic`). Do not stamp parent-chain
-  `where` onto save/bones `cobj` (D-1054).
+  `where` onto save/bones `cobj` (D-1054). Do not skip `dosit`
+  pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
+  (D-1055).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1325**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
+- **D-1055:** `dosit` water/pool/gremlin `in_water`; early goto skips
+  picnic/trap; `split_mon`/`cloneu` + fountain `dryup`; C `uarm` twice.
 - **D-1054:** restore `cobj` `where=OBJ_CONTAINED` (not parent
   FLOOR/INVENT); buried list `OBJ_BURIED`. `get_obj_location(0)`
   matches C hatch. `peace_minded` still unread `msound`.
@@ -94,6 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
   S_goodpos. allmain/dokick/uhitm wipe callers still stub.
 - **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`.
-- **D-1048:** Vlad case 10 `HConfusion` only (no flat `u.Confusion`).
-- **D-1047:** `consume_obj_charge` unpaid/`check_unpaid` +
-  `cost_per_charge` (not local `spe--`).
