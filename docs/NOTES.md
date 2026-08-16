@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.87) after cadence **#1365**;
-  next @**#1370**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1370**;
+  next @**#1375**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty (reviews **36** ACCEPT D-1075;
   **37** ACCEPT-WITH-DEBT D-1076 — Punished `ballfall` /
@@ -78,8 +78,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1365**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1370**.
+- Suite after cadence **#1370**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
 - **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
   (`dbridge.c`). mfndpos uses shared helper. `is_pool`/`is_moat`
   DRAWBRIDGE_UP+DB_MOAT still named.

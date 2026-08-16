@@ -151,7 +151,7 @@ This review iter ran cadence full `sessions` (**#1335** **44**/44 Scr **11405**/
 
 1. **`dosit` lava/ice sit must use C `Fire_resistance` / `Cold_resistance` (`u.uprops[FIRE_RES]` / `[COLD_RES]` intrinsic\|\|extrinsic).** Replace the two new sit helpers so they OR the uprops pair (same shape as `invent.js` `hero_Fire_resistance`). Do **not** rewrite `confer_oc_oprop` to mirror every `E*` this iter. Do **not** “fix” zap/trap/explode aliases this iter. Do **not** pull `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA into this peel. Falsifier: `setworn` a FIRE_RES ring (uprops extrinsic set, `EFire_resistance` unset), sit LAVAPOOL, not likes_lava → `d(2,10)` not `d(10,10)`; intrinsic-only `HFire_resistance` still `d(2,10)`; no-res still `d(10,10)`; Cold ring on ICE skips “The ice feels cold.” **Addressed:** D-1060 `ecd37108`
 
-Named omits (map, not queue): `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA **Addressed:** D-1077; `lay_an_egg` **Addressed:** D-1075 `f21410e1`; steed `mon_nam` **Addressed:** D-1067 `2e50b318`; `can_reach_floor` / ustuck / hider **Addressed:** D-1069 `872d1d93` / D-1072 `55906000` / D-1068 `990b06a8`.
+Named omits (map, not queue): `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA **Addressed:** D-1077 `a9e819a4`; `lay_an_egg` **Addressed:** D-1075 `f21410e1`; steed `mon_nam` **Addressed:** D-1067 `2e50b318`; `can_reach_floor` / ustuck / hider **Addressed:** D-1069 `872d1d93` / D-1072 `55906000` / D-1068 `990b06a8`.
 
 Do not skip terrain lava `burn_away_slime` when `!Slimed` (C always calls; callee no-ops). Do not merge trap TT_LAVA (`d(2,10)`+`rnd(4)` `"sitting in lava"`) into this arm. Do not add a WWalking predicate. Do not use defsyms lowered/raised for DRAWBRIDGE_DOWN.
 
