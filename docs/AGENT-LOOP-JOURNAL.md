@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 21:55 — #1411 D-1109 lspo_exclusion populate exclusion_zones
+
+**Objective:** Open queue — `sp_lev.c` `lspo_exclusion` populate
+`exclusion_zones` from `des.exclusion` (named). Not `goodpos`.
+**C locus:** `sp_lev.c` `lspo_exclusion` 5496–5531;
+`dungeon.c` `free_exclusions`; `sp_lev.c` `flip_level` 876–896.
+**Change:** port `lspo_exclusion` (type map; `get_location`
+ANY_LOC|NO_LOC_WARN; prepend). `free_exclusions` on
+`clear_level_structures`. `flip_level` remaps rectangles.
+Wire loaded soko `des.exclusion` MONGEN + vault TELE helper.
+soko2-2 / hellfill prefab / save/rest still named. Rotated
+#1396. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1410** **44**/44; next
+@**#1415**).
+**Verified:** private canary **25**/25; green+strict seed8000/0900;
+cohort **16**/16 (0360 soko + 0373/4500/2200/0030/…) + strict
+0360/0373/4500/2200. Path public-unhit.
+**Next:** Open `teleport.c` `goodpos` live-mon `onscary` when
+`m_id != 0`. Not `goodpos_onscary`.
+**Blocked:** none.
+
 ## 2026-08-16 21:45 — #1410 review D-1105–D-1108 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -343,25 +364,5 @@ green+strict seed8000/0900; cohort **10**/10 (5006/0002/0106/0105/
 1500/1800/0009/0361/0107/2200). Public traces **unhit**.
 **Next:** Open `teleport.c` `goodpos` youmonst swim/lev/fly/wwalk
 pool and lava arms. Not `passes_walls`.
-**Blocked:** none.
-
-## 2026-08-16 18:48 — #1396 D-1097 kill_eggs after genocide
-
-**Objective:** Open queue — `mon.c` `kill_eggs` after genocide
-(named from sit D-1034). Not seffects SCR_GENOCIDE.
-**C locus:** `mon.c` `kill_eggs` 5607–5635 /
-`kill_genocided_monsters` 5637–5677; `timeout.c` `kill_egg`;
-`dead_species(..., TRUE)`.
-**Change:** walk invent array + nobj lists; EGG → `dead_species`
-→ `kill_egg`; else `Has_contents` recurse `cobj`. Call on every
-live fmon minvent then invent/fobj/migrating/buried. No
-`continue` past minvent on deferred `newcham`. TIN/CORPSE `#if 0`
-not ported. Stamped D-1034 review **Addressed:** D-1097.
-Rotated #1381. Open 11 (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1395** **44**/44; next
-@**#1400**).
-**Verified:** private canary **24**/24; green+strict seed8000/0900;
-cohort **15**/15 + strict 0106/0107/4500/0360. Path public-unhit.
-**Next:** Open `read.c` `seffects` SCR_GENOCIDE. Not kill_eggs.
 **Blocked:** none.
 

@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1109 — lspo_exclusion populate exclusion_zones from des.exclusion
+
+- **Status:** fixed (map-driven Open; named omit from D-0522/D-0690/D-1101; not a public FAIL)
+- **Symptom:** JS `goodpos` / `put_lregion_here` walked
+  `game.exclusion_zones`, but Lua `des.exclusion` never filled the
+  list except one baked themerms vault TELE rectangle. C
+  `sp_lev.c:5496–5531` `lspo_exclusion` maps type strings, runs
+  `get_location_coord(ANY_LOC|NO_LOC_WARN)`, and prepends onto
+  `sve.exclusion_zones`. Sokoban hole/pit rows (`monster-generation`
+  → `LR_MONGEN`) stayed empty in JS.
+- **C locus:** `sp_lev.c` `lspo_exclusion` (~5496–5531) +
+  `get_location` packed ANY_LOC; `dungeon.c` `free_exclusions`
+  (`mklev.c` `clear_level_structures`); `sp_lev.c` `flip_level`
+  exclusion-zone FlipX/Y (~876–896). Lua: `soko1-1`/`soko1-2`/
+  `soko2-1`/`soko3-1`/`soko3-2`/`soko4-1`/`soko4-2`; themerms
+  Water-surrounded vault TELE `{2,2,3,3}`.
+- **Fix:** port `lspo_exclusion`; `free_exclusions` on level clear;
+  flip remaps rectangles (ungated, swap if inverted). Wire loaded
+  specials that call `des.exclusion`. Vault uses the helper (map
+  origin) instead of a raw list assign. Did not pull soko2-2
+  (load deferred), hellfill `rnd_hell_prefab` TELE maps, or
+  `save_exclusions`/`load_exclusions`. Rule #2: no fs.
+- **JS:** `js/mklev.js` `lspo_exclusion` / `free_exclusions` /
+  `flip_level` / soko loaders / `water_vault_contents`.
+- **Not this iter:** soko2-2 load; hellfill prefab exclusions;
+  goto_level / bones save/rest of the list; live-mon `onscary`.
+- **Verify:** private canary **25**/25 (default TELE; origin add;
+  TELE≠MONGEN alias; U/DTELE alias TELE; named up/down types;
+  prepend; croom origin; FlipY low-corner); green+strict
+  seed8000/0900; cohort **16**/16 including soko **0360**/0373 +
+  4500/2200/0030 + strict 0360/0373/4500/2200. Path public-unhit
+  (list was empty on public prefixes).
+- **Do not regress:** do not restore the vault raw `exclusion_zones`
+  assign; do not skip `free_exclusions` on `clear_level_structures`;
+  do not skip the `flip_level` exclusion arm after populate.
+
 ## D-1108 — wash_hands + dipfountain hands/uarmg
 
 - **Status:** fixed (map-driven Open; named omit from D-0109/D-0877/D-1107; not a public FAIL)

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
+- [x] `sp_lev.c` `lspo_exclusion` populate `exclusion_zones` from `des.exclusion` (named). Not `goodpos`. **Addressed:** D-1109
+
+
 - [x] `fountain.c` `wash_hands` (named). Not Excalibur. **Addressed:** D-1108 `62b93acb`
 
 
