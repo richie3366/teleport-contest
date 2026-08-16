@@ -72,15 +72,15 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** Excalibur.
+**Next cluster:** wash_hands.
 
 **Density:** one C family (~50–300).
 
-**Parked:** D-0006 only. **Do not re-break D-0660…D-1106. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006 only. **Do not re-break D-0660…D-1107. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1106** (zap/dig/eat/shop/apply through
+**D-0948**…**D-1107** (zap/dig/eat/shop/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 HConfusion-only; take_gold
@@ -95,7 +95,7 @@ tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1106).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1107).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards. **Addressed:** D-1106
+- [x] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands. **Addressed:** D-1107
+
+
+- [x] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards. **Addressed:** D-1106 `127c045c`
 
 
 - [x] `fountain.c` `watchman_warn_fountain` Deaf shake/wave (named). Not dryup yn. **Addressed:** D-1105 `b4930cb9`

@@ -9,14 +9,14 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// Excalibur LONG_SWORD body, wash_hands,
-// dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
+// wash_hands, dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
 // body; set_levltyp side effects beyond typ/flags; Hallucination
 // rndmonnam in snakes pline; mongrantswish tmp_at glyph hide.
 // dryup wizard y_n after town warn (D-1096).
 // dryup angry_guards after real dryup (D-1104).
 // watchman_warn_fountain Deaf shake/wave (D-1105).
 // dryup cansee cloud-glyph skip (D-1106).
+// dipfountain Excalibur LONG_SWORD body (D-1107).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -33,7 +33,7 @@ import {
     glyph_is_invisible,
 } from './display.js';
 import {
-    curse, mksobj_at, rnd_class, mkobj, mkobj_at, obj_extract_self,
+    curse, bless, mksobj_at, rnd_class, mkobj, mkobj_at, obj_extract_self,
     objects_at, delobj,
 } from './mkobj.js';
 import {
@@ -48,6 +48,7 @@ import {
     ER_NOTHING, ER_DESTROYED,
     F_LOOTED, F_WARNED, FROMOUTSIDE, S_LRING, MM_NOMSG,
     nothing_seems_to_happen,
+    A_LAWFUL, ONAME_VIA_DIP, ONAME_KNOW_ARTI, LL_ARTIFACT,
     KILLED_BY, G_GONE, M_SEEN_FIRE,
     SQKY_BOARD, BEAR_TRAP, LANDMINE, FIRE_TRAP,
     TELEP_TRAP, LEVEL_TELEP, WEB, MAGIC_TRAP, ANTI_MAGIC,
@@ -69,7 +70,12 @@ import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at } from './engrave.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { observe_object } from './invent.js';
-import { hliquid, x_monnam, Hallucination, type_is_pname } from './do_name.js';
+import { hliquid, x_monnam, Hallucination, type_is_pname, oname } from './do_name.js';
+import {
+    exist_artifact, artiname, discover_artifact, ART_EXCALIBUR,
+} from './artifact.js';
+import { livelog_printf } from './pline.js';
+import { uhim } from './roles.js';
 import { mbodypart } from './polyself.js';
 import { makeplural } from './objnam.js';
 import { somegold } from './steal.js';
@@ -85,6 +91,11 @@ const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
 const PM_WATER_DEMON = monsterNames.indexOf('PM_WATER_DEMON');
 const PM_WATER_MOCCASIN = monsterNames.indexOf('PM_WATER_MOCCASIN');
 const PM_WATER_NYMPH = monsterNames.indexOf('PM_WATER_NYMPH');
+
+/** C ref: you.h Role_if — urole.mnum match. */
+function Role_if(pm) {
+    return (game.urole?.mnum ?? -1) === pm;
+}
 
 /** C ref: rm.h FOUNTAIN_IS_WARNED */
 function FOUNTAIN_IS_WARNED(x, y) {
@@ -898,12 +909,69 @@ export async function dipfountain(obj) {
 
     const is_hands = obj === hands_obj;
 
-    // C && order: otyp, ulevel, rn2, quan, !oartifact, !exist_artifact
+    // C fountain.c:404–447 — Excalibur LONG_SWORD body (D-1107).
+    // && order: otyp, ulevel, rn2(Role_if(PM_KNIGHT)?6:30), quan==1,
+    // !oartifact, !exist_artifact(LONG_SWORD, artiname(ART_EXCALIBUR)).
+    // Not dryup: no rn2(3), no town-warn, no wizard yn. Fountain → ROOM
+    // via set_levltyp analog + flags=0, then in_town angry_guards.
     if (obj && obj.otyp === LONG_SWORD && (u.ulevel | 0) >= 5
-        && !rn2(game.urole?.mnum === PM_KNIGHT ? 6 : 30)
-        && (obj.quan | 0) === 1 && !obj.oartifact) {
-        // exist_artifact stub: assume none — Excalibur body deferred
-        await dryup(u.ux, u.uy, true);
+        && !rn2(Role_if(PM_KNIGHT) ? 6 : 30)
+        && (obj.quan | 0) === 1 && !obj.oartifact
+        && !exist_artifact(LONG_SWORD, artiname(ART_EXCALIBUR))) {
+        const lady = 'Lady of the Lake';
+        if ((u.ualign?.type | 0) !== A_LAWFUL) {
+            await pline(
+                `A freezing mist rises from the ${hliquid('water')}`
+                + ' and envelopes the sword.',
+            );
+            await pline('The fountain disappears!');
+            curse(obj);
+            if ((obj.spe | 0) > -6 && !rn2(3)) {
+                obj.spe = (obj.spe | 0) - 1;
+            }
+            obj.oerodeproof = false;
+            exercise(A_WIS, false);
+            livelog_printf(
+                LL_ARTIFACT,
+                'was denied %s!  The %s has deemed %s unworthy',
+                artiname(ART_EXCALIBUR), lady, uhim(),
+            );
+        } else {
+            await pline(
+                'From the murky depths, a hand reaches up to bless the sword.',
+            );
+            await pline('As the hand retreats, the fountain disappears!');
+            obj = oname(
+                obj, artiname(ART_EXCALIBUR),
+                ONAME_VIA_DIP | ONAME_KNOW_ARTI,
+            );
+            discover_artifact(ART_EXCALIBUR);
+            bless(obj);
+            obj.oeroded = 0;
+            obj.oeroded2 = 0;
+            obj.oerodeproof = true;
+            exercise(A_WIS, true);
+            livelog_printf(
+                LL_ARTIFACT, 'was given %s by the %s',
+                artiname(ART_EXCALIBUR), lady,
+            );
+        }
+        // C update_inventory() — perm_invent redraw named omit.
+        const loc = game.level?.at(u.ux, u.uy);
+        if (loc) {
+            // C set_levltyp(u.ux,u.uy,ROOM) + levl[].flags=0.
+            // Full set_levltyp (ice/lava/count_level_features) still named.
+            loc.typ = ROOM;
+            loc.flags = 0;
+            loc.looted = 0;
+            if (game.level?.flags && (game.level.flags.nfountains | 0) > 0) {
+                game.level.flags.nfountains--;
+            }
+        }
+        newsym(u.ux, u.uy);
+        if (in_town(u.ux, u.uy)) {
+            await angry_guards(false);
+        }
         return;
     }
 

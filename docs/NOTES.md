@@ -10,18 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn` R² 0.86) after cadence **#1405**;
   next @**#1410**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after D-1106 archive + refill. Reviews **62** ACCEPT
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+  after D-1107 archive (no refill). Reviews **62** ACCEPT
   (D-1101), **63** ACCEPT-WITH-DEBT (D-1102 live-mon `onscary`
   still named Open), **64–65** ACCEPT (D-1103/D-1104).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1106**. Prior **58–61** ACCEPT.
-- **Next cluster:** Open `fountain.c` `dipfountain` Excalibur
-  LONG_SWORD body (named). Not wash_hands.
-- **Hypothesis:** none live. D-1106 shipped: `dryup` skips the
-  dries-up pline when gbuf cmap is `S_cloud`.
+- Latest ports: **D-1089**…**D-1107**. Prior **58–61** ACCEPT.
+- **Next cluster:** Open `fountain.c` `wash_hands` (named). Not
+  Excalibur.
+- **Hypothesis:** none live. D-1107 shipped: `dipfountain`
+  Excalibur LONG_SWORD body (`exist_artifact`+`artiname`; lawful
+  `oname`/`bless`; unaligned curse; ROOM not `dryup`).
 
 ## Don't re-check (≤15)
 
@@ -63,7 +64,8 @@ Objective/score live in `CURRENT.md`.
   (D-1101) / restore `goodpos_onscary` human/angel-only stub or
   pull live-mon `onscary` into it (D-1102) / restore
   `waterbody_name` raw DRAWBRIDGE_UP typ or skip `db_under_typ`
-  (D-1103).
+  (D-1103) / restore Excalibur `dryup` stub or skip
+  `exist_artifact`/`oname` (D-1107).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -72,8 +74,12 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1405**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.86). Next @**#1410**.
+- **D-1107:** `dipfountain` Excalibur LONG_SWORD body. Lawful
+  `oname`/`discover_artifact`/`bless`; unaligned curse+`spe--`;
+  ROOM+`angry_guards` not `dryup`.
 - **D-1106:** `dryup` skips dries-up pline when gbuf cmap is
   `S_cloud` (fog/steam). Poison / shown mon / I still pline.
+  Hash `127c045c`.
 - **D-1105:** `watchman_warn_fountain` Deaf shake/wave
   (`nolimbs` HEAD else `makeplural(ARM)` + `mhis`). Hash
   `b4930cb9`.
@@ -92,6 +98,3 @@ Objective/score live in `CURRENT.md`.
   Hash `a6934a3d`.
 - **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
   `name_to_monclass`. Hash `cdb72162`.
-- **D-1097:** `kill_eggs` after genocide. Hash `d1e7ae23`.
-- **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
-  warn. Hash `bd16c130`.

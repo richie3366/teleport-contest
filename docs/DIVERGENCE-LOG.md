@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1107 — dipfountain Excalibur LONG_SWORD body
+
+- **Status:** fixed (map-driven Open; named omit from D-0109/D-0877/D-1106; not a public FAIL)
+- **Symptom:** JS `dipfountain` consumed the LONG_SWORD `rn2` gate then
+  called `dryup` (rn2(3), town-warn, wizard yn) and returned. C
+  `fountain.c:404–447` never calls `dryup` on that path: Lady of
+  the Lake gift or deny, then `set_levltyp` ROOM + `flags=0` +
+  town `angry_guards(FALSE)`.
+- **C locus:** `fountain.c` `dipfountain` (~404–447). `artifact.c`
+  `exist_artifact` / `artiname` / `discover_artifact`; `do_name.c`
+  `oname` `ONAME_VIA_DIP|ONAME_KNOW_ARTI`; `mkobj.c` `bless`/`curse`;
+  `you.h` `Role_if` / `ualign.type`; `mkmaze.c` `set_levltyp`.
+- **Fix:** port the gated body. `&&` order matches C (otyp, ulevel,
+  `rn2(knight?6:30)`, quan, `!oartifact`, `!exist_artifact`).
+  Unaligned: freeze-mist plines, curse, `spe>-6 && !rn2(3)` decrement,
+  `oerodeproof=FALSE`, `exercise(A_WIS,FALSE)`. Lawful: bless-hand
+  plines, `oname`+`discover_artifact`+`bless`, clear erosion,
+  `oerodeproof=TRUE`, `exercise(A_WIS,TRUE)`. Then ROOM/flags=0/
+  `newsym` / in_town `angry_guards`. Did not pull `wash_hands`,
+  uncurse 17–20, case 29 `mkgold`, or `update_inventory` redraw.
+  Rule #2: no fs.
+- **JS:** `js/fountain.js` `dipfountain`; `js/artifact.js`
+  `artiname` / `discover_artifact` / `artidisco[]`.
+- **Not this iter:** `wash_hands`; dip uncurse 17–20; case 29 coins;
+  `update_inventory`; artidisco save/rest; full `set_levltyp`.
+- **Verify:** private canary **49**/49 (artiname; discover once;
+  lawful gift; chaotic/neutral deny; `exist_artifact` skip; ulevel<5
+  no `rn2(6)`; quan>1 / already-arti / dagger; levitation; tourist
+  `rn2(30)`; town angry / !town; spe-6; female `uhim`; second sword);
+  green+strict seed8000/0900; cohort **17**/17 (0014 fountain +
+  0006/2200/0108/0360/5002 wizard + 1500/1800/0060/0102/0700/0017/
+  4500/0009/0106 + knight 0103/0104) + strict 0014/0006/2200/0360/
+  4500/0103 + isolated 0009. Path public-unhit.
+- **Files:** `js/fountain.js`, `js/artifact.js`.
+
 ## D-1106 — dryup cansee cloud-glyph skip of dryup pline
 
 - **Status:** fixed (map-driven Open; named omit from D-0894/D-1096/D-1104; not a public FAIL)

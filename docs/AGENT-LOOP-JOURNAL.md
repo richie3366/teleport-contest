@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 21:20 — #1408 D-1107 dipfountain Excalibur LONG_SWORD
+
+**Objective:** Open queue — `fountain.c` `dipfountain` Excalibur
+LONG_SWORD body (named). Not wash_hands.
+**C locus:** `fountain.c` `dipfountain` 404–447; `artifact.c`
+`exist_artifact`/`artiname`/`discover_artifact`; `do_name.c`
+`oname` `ONAME_VIA_DIP|ONAME_KNOW_ARTI`.
+**Change:** port Lady of the Lake gift/deny. Gate `&&` order
+matches C. Lawful `oname`+`discover_artifact`+`bless`; unaligned
+curse+`spe--`; then ROOM/`flags=0`/`newsym`/town `angry_guards`,
+not `dryup`. Thin `artiname`/`discover_artifact`. Did not pull
+`wash_hands`, uncurse 17–20, or case 29 `mkgold`. Filled D-1106
+hash `127c045c`. Rotated #1393. Open 11 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1405** **44**/44; next
+@**#1410**).
+**Verified:** private canary **49**/49; green+strict seed8000/0900;
+cohort **17**/17 (0014 fountain + wizard/role + knight 0103/0104/
+4500) + strict 0014/0006/2200/0360/4500/0103 + isolated 0009.
+Public traces **unhit**.
+**Next:** Open `fountain.c` `wash_hands`. Not Excalibur.
+**Blocked:** none.
+
 ## 2026-08-16 21:05 — #1407 D-1106 dryup cansee cloud-glyph skip
 
 **Objective:** Open queue — `fountain.c` `dryup` cansee
@@ -335,26 +358,5 @@ to 12 from fountain named omits. Rule #2: no fs.
 **Verified:** private canary **12**/12; green+strict seed8000/0900;
 cohort **15**/15 + strict 0014/0006/2200/0360. Path public-unhit.
 **Next:** Open `mon.c` `kill_eggs` after genocide.
-**Blocked:** none.
-
-## 2026-08-16 18:12 — #1393 D-1095 split_mon rust/minliquid/uhitm AD_COLD
-
-**Objective:** Open queue — `potion.c` `split_mon` trap rust /
-`minliquid` / uhitm AD_COLD callers (named from D-1078). Not sit
-clone_mon.
-**C locus:** `trap.c` rust 1652–1720; `mon.c` `minliquid_core`
-987–992 / `healmon` 4596–4614; `uhitm.c` `passive` AD_COLD
-6078–6082.
-**Change:** rust hero+monster gremlin `split_mon`; minliquid
-gremlin pool/fountain `rn2(3)` → split + `dryup` + pool
-`water_damage_chain`; AD_COLD `healmon` then split on mhpmax
-gate. Did not pull drown/mhitu/mhitm/cmd. Filled D-1094 hash
-`46775b20`. Rotated #1378. Open 8 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1390** **44**/44; next
-@**#1395**).
-**Verified:** private canary **6**/6; green+strict seed8000/0900;
-cohort **15**/15 + strict 0014/0360/4500/2200. Path public-unhit.
-**Next:** Open `fountain.c` `dryup` wizard yn.
 **Blocked:** none.
 
