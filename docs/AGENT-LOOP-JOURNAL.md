@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 19:37 — #1400 review D-1097–D-1100 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `mon.c` `kill_eggs` 5609–5677 / `timeout.c` `kill_egg`;
+`read.c` `seffect_genocide` 1722–1738 / `do_class_genocide` 2638–2820
+/ `mondata.c` `name_to_monclass` 1090–1176; `teleport.c` `goodpos`
+136–164 / `youprop.h` swim–wwalk / `hack.c` `may_passwall` 932–936.
+**Change:** reviews **58** ACCEPT D-1097 (`kill_egg` real), **59**
+ACCEPT-WITH-DEBT D-1098 (wipe real; `'?'` `list_genocided` stub
+named), **60** ACCEPT D-1099 (youprop youmonst pool/lava), **61**
+ACCEPT D-1100 (form `passes_walls` + `may_passwall` clone). Must-fix
+empty. Filled D-1100 archive hash `305ad188`. Rotated #1385. Open 8
+(no refill). Rule #2: no fs.
+**Score:** cadence **#1400** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1405**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `goodpos` `GP_AVOID_MONPOS`
+`is_exclusion_zone`. Not `onscary`.
+**Blocked:** none.
+
 ## 2026-08-16 19:22 — #1399 D-1100 goodpos passes_walls + may_passwall
 
 **Objective:** Open queue — `teleport.c` `goodpos` `passes_walls` +
@@ -342,26 +365,3 @@ Path public-unhit for worn-cloak `rndcurse`.
 `DB_MOAT`. Audit @**#1390**.
 **Blocked:** none.
 
-## 2026-08-16 16:40 — #1385 review D-1085–D-1088 + cadence score
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`dfe4f198` closed D-1081–D-1084) against
-pinned C. Cadence full `sessions` in the same iter.
-**C locus:** `youprop.h` Flying 247–255; `steal.c` `remove_worn_item`
-213–290; `display.c` `shieldeff` 1110–1124; `makemon.c` `m_initweap`
-263–327 / `quest_mon_represents_role` 11–13; `youprop.h` Antimagic
-55–57.
-**Change:** reviews **46** ACCEPT (D-1085 Flying uprops), **47**
-ACCEPT-WITH-DEBT (D-1086 armor `*_off`), **48** QUALITY-RISK (D-1087
-`shieldeff` body matches; sit `Antimagic()` misses
-`uprops[ANTIMAGIC]`), **49** ACCEPT (D-1088 priest/guardian msound).
-Must-fix prepend sit Antimagic. Filled D-1088 hash `049af16e`.
-Rotated #1371 + cadence-policy crumb. No `js/` edits. Rule #2: no fs.
-**Score:** cadence **#1385** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
-@**#1390**.
-**Verified:** C read of the four loci + `confer_oc_oprop` 261–288;
-JS hunks grepped FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Must-fix sit `rndcurse` `Antimagic()` via uprops. Not
-`is_pool`.
-**Blocked:** none.

@@ -8,12 +8,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1395**;
-  next @**#1400**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1400**;
+  next @**#1405**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  after D-1100 (no refill; still ≥8). Reviews **54**
-  ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap named), **55–57**
-  ACCEPT (D-1094…D-1096); no new Must-fix.
+  (no refill; still ≥8). Reviews **58** ACCEPT (D-1097),
+  **59** ACCEPT-WITH-DEBT (D-1098 `'?'` list_genocided stub
+  named), **60–61** ACCEPT (D-1099/D-1100); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
@@ -63,10 +63,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1395**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1400**.
+- Suite after cadence **#1400**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1405**.
 - **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
-  Hash next SHA. `is_exclusion_zone` still named.
+  Hash `305ad188`. `is_exclusion_zone` still named.
 - **D-1099:** `goodpos` youmonst swim/lev/fly/wwalk pool+lava.
   Hash `a6934a3d`.
 - **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
@@ -88,5 +88,3 @@ Objective/score live in `CURRENT.md`.
   Hash `278521f1`.
 - **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
   Hash `43caa8ff`.
-- **D-1089:** sit `rndcurse` `Antimagic()` ORs
-  `uprops[ANTIMAGIC]`. Hash `f91650c0`.

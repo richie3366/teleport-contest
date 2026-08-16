@@ -67,3 +67,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [55-46775b20-role-init-nemesis-msound.md](./55-46775b20-role-init-nemesis-msound.md) | `46775b20` | D-1094 `role_init` overlay + MS_NEMESIS Bell | **ACCEPT** |
 | [56-a86a7111-split-mon-callers.md](./56-a86a7111-split-mon-callers.md) | `a86a7111` | D-1095 rust/`minliquid`/uhitm AD_COLD `split_mon` | **ACCEPT** |
 | [57-bd16c130-dryup-wizard-yn.md](./57-bd16c130-dryup-wizard-yn.md) | `bd16c130` | D-1096 `dryup` wizard `y_n` | **ACCEPT** |
+| [58-d1e7ae23-kill-eggs-genocide.md](./58-d1e7ae23-kill-eggs-genocide.md) | `d1e7ae23` | D-1097 `kill_eggs` after genocide | **ACCEPT** |
+| [59-cdb72162-seffects-scr-genocide.md](./59-cdb72162-seffects-scr-genocide.md) | `cdb72162` | D-1098 `seffects` SCR_GENOCIDE / `name_to_monclass` | **ACCEPT-WITH-DEBT** |
+| [60-a6934a3d-goodpos-youmonst-swim.md](./60-a6934a3d-goodpos-youmonst-swim.md) | `a6934a3d` | D-1099 `goodpos` youmonst swim/lev/fly/wwalk | **ACCEPT** |
+| [61-305ad188-goodpos-passes-walls.md](./61-305ad188-goodpos-passes-walls.md) | `305ad188` | D-1100 `goodpos` `passes_walls` + `may_passwall` | **ACCEPT** |
