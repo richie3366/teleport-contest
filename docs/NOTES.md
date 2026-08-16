@@ -10,19 +10,18 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn` R² 0.86) after cadence **#1405**;
   next @**#1410**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  after D-1105 archive (no refill). Reviews **62** ACCEPT
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12
+  after D-1106 archive + refill. Reviews **62** ACCEPT
   (D-1101), **63** ACCEPT-WITH-DEBT (D-1102 live-mon `onscary`
   still named Open), **64–65** ACCEPT (D-1103/D-1104).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1105**. Prior **58–61** ACCEPT.
-- **Next cluster:** Open `fountain.c` `dryup` cansee cloud-glyph
-  skip of dryup pline (named). Not angry_guards.
-- **Hypothesis:** none live. D-1105 shipped: Deaf
-  `watchman_warn_fountain` shake/wave. Cloud-glyph skip still
-  named.
+- Latest ports: **D-1089**…**D-1106**. Prior **58–61** ACCEPT.
+- **Next cluster:** Open `fountain.c` `dipfountain` Excalibur
+  LONG_SWORD body (named). Not wash_hands.
+- **Hypothesis:** none live. D-1106 shipped: `dryup` skips the
+  dries-up pline when gbuf cmap is `S_cloud`.
 
 ## Don't re-check (≤15)
 
@@ -53,7 +52,8 @@ Objective/score live in `CURRENT.md`.
   uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
   add `debug_fuzzer` skip there (D-1096) / skip `dryup`
   `angry_guards` after real dryup (D-1104) / skip Deaf shake/wave
-  in `watchman_warn_fountain` (D-1105) / skip `kill_eggs` or
+  in `watchman_warn_fountain` (D-1105) / always-pline `dryup` when
+  cansee or skip poison/`!cmap` (D-1106) / skip `kill_eggs` or
   port TIN/CORPSE `#if 0` (D-1097) / skip `seffects` SCR_GENOCIDE
   or `do_class_genocide` / `name_to_monclass` (D-1098) / restore
   youmonst `goodpos` pool/lava to monster `is_swimmer`/`m_in_air`
@@ -72,9 +72,11 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1405**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.86). Next @**#1410**.
+- **D-1106:** `dryup` skips dries-up pline when gbuf cmap is
+  `S_cloud` (fog/steam). Poison / shown mon / I still pline.
 - **D-1105:** `watchman_warn_fountain` Deaf shake/wave
-  (`nolimbs` HEAD else `makeplural(ARM)` + `mhis`). Cloud-glyph
-  skip still named.
+  (`nolimbs` HEAD else `makeplural(ARM)` + `mhis`). Hash
+  `b4930cb9`.
 - **D-1104:** `dryup` `angry_guards(FALSE)` after real dryup
   (`isyou && in_town`). Hash `7458a5b8`.
 - **D-1103:** `db_under_typ` + `waterbody_name`/`describe_decor`
@@ -93,7 +95,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1097:** `kill_eggs` after genocide. Hash `d1e7ae23`.
 - **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
   warn. Hash `bd16c130`.
-- **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
-  Hash `a86a7111`.
-- **D-1094:** `role_init` quest-pm overlay + makemon mitem
-  `ptr.msound == MS_NEMESIS`. Hash `46775b20`.

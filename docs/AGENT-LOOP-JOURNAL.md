@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 21:05 — #1407 D-1106 dryup cansee cloud-glyph skip
+
+**Objective:** Open queue — `fountain.c` `dryup` cansee
+cloud-glyph skip of dryup pline (named). Not angry_guards.
+**C locus:** `fountain.c` `dryup` 223–227; `display.c`
+`glyph_at`/`show_region`; `display.h` `glyph_is_cmap`;
+`glyphs.c` `glyph_to_cmap`; `defsym.h` `S_cloud`.
+**Change:** skip `"The fountain dries up!"` when `cansee` and
+gbuf cmap analog is `S_cloud` (fog/steam region). Poison
+`S_poisoncloud`, shown `m_at`, and remembered I still pline.
+Did not pull Excalibur, `wash_hands`, `dipsink`, or newsym
+`show_region`. Filled D-1105 hash `b4930cb9`. Rotated #1392.
+Open 12 after archive + refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1405** **44**/44; next
+@**#1410**).
+**Verified:** private canary **33**/33; green+strict seed8000/0900;
+cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
++ 1500/1800/0060/0102/0700/0017/4500/0009/0106) + strict
+0014/0006/2200/0360/4500 + isolated 0009. Public traces **unhit**.
+**Next:** Open `fountain.c` `dipfountain` Excalibur LONG_SWORD
+body. Not wash_hands.
+**Blocked:** none.
+
 ## 2026-08-16 20:50 — #1406 D-1105 watchman_warn_fountain Deaf shake/wave
 
 **Objective:** Open queue — `fountain.c` `watchman_warn_fountain`
@@ -335,26 +358,3 @@ cohort **15**/15 + strict 0014/0360/4500/2200. Path public-unhit.
 **Next:** Open `fountain.c` `dryup` wizard yn.
 **Blocked:** none.
 
-## 2026-08-16 18:00 — #1392 D-1094 MS_NEMESIS mitem ptr.msound
-
-**Objective:** Open queue — `makemon.c` `m_initweap` MS_NEMESIS
-mitem `ptr.msound` not `urole.neminum` (named). Not S_ORC peace.
-**C locus:** `role.c` `role_init` 2027–2061; `makemon.c` mitem
-1378; gender/leader_m_id `ptr->msound && quest_info`.
-**Change:** `role_init_quest_pm_fixup` overlays live `mons[]`
-msound/flags/maligntyp on `game.pm_fixup` (`resetGame` = fresh
-C process). mitem / leader_m_id / gender use `ptr.msound`.
-Did not pull PM_NINJA weap or `mon_learns_traps(ALL_TRAPS)`.
-Stamped reviews **14**/**49**/**53**. Filled D-1093 hash
-`e0b68f1d`. Rotated #1377. Open 9 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1390** **44**/44; next
-@**#1395**).
-**Verified:** private canary **30**/30 (Tourist thief 37 hostile
-Bell; reset 36; Rogue thief leader / assassin Bell; Arc
-Carnarvon maligntyp 3); green+strict seed8000/0900; cohort
-**20**/20 + strict 1800/0361/0367/0360/0014/2200/0004. Path
-public-unhit (Tourist quest nemesis).
-**Next:** Open `potion.c` `split_mon` trap rust / `minliquid` /
-uhitm AD_COLD.
-**Blocked:** none.

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1106 — dryup cansee cloud-glyph skip of dryup pline
+
+- **Status:** fixed (map-driven Open; named omit from D-0894/D-1096/D-1104; not a public FAIL)
+- **Symptom:** JS `dryup` always `pline("The fountain dries up!")` when
+  `cansee`. C `fountain.c:223–227` skips that pline when the
+  displayed glyph is cmap `S_cloud` (fog/steam overlay). Poison
+  clouds are `S_poisoncloud` and still pline. Shown monster / I
+  is `!glyph_is_cmap` so C still plines.
+- **C locus:** `fountain.c` `dryup` (~223–227), after wizard `y_n`
+  and before `set_levltyp` ROOM. `display.c` `glyph_at` /
+  `show_region`; `display.h` `glyph_is_cmap`; `glyphs.c`
+  `glyph_to_cmap`; `defsym.h` `S_cloud` vs `S_poisoncloud`.
+- **Fix:** skip pline iff `cansee` and analog of gbuf cmap
+  `S_cloud`. JS has no integer glyphs; `visible_region_at` glyph
+  `'S_cloud'` is C `show_region` (JS newsym still defers that
+  paint). Live `m_at` / remembered I are `!cmap`. Did not pull
+  Excalibur, `wash_hands`, `dipsink`, or full
+  `mon_overrides_region`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `dryup` / `glyph_at_cmap_is_s_cloud`.
+- **Not this iter:** Excalibur LONG_SWORD body; `wash_hands`;
+  `dipsink`; newsym `show_region`; full `mon_overrides_region`.
+- **Verify:** private canary **33**/33 (plain pline; fog skip;
+  poison pline; !cansee; off-cell/invisible/ttl-2; mon/I overlay;
+  !isyou; town-warn; wizard `'n'`/`'y'`; warned-town); green+strict
+  seed8000/0900; cohort **15**/15 (0014 fountain + 0006/2200/0108/
+  0360/5002 wizard + 1500/1800/0060/0102/0700/0017/4500/0009/0106)
+  + strict 0014/0006/2200/0360/4500 + isolated 0009. Path
+  public-unhit (public seats are not fog-covered fountains).
+- **Files:** `js/fountain.js`.
+
 ## D-1105 — watchman_warn_fountain Deaf shake/wave
 
 - **Status:** fixed (map-driven Open; named omit from D-0894/D-1104; not a public FAIL)

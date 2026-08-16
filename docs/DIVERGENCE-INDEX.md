@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1105 | fixed | `watchman_warn_fountain` Deaf shake/wave | map-driven; C `fountain.c:183–193`; `nolimbs` shakes HEAD else waves `makeplural(ARM)` + `mhis`; !Deaf yell unchanged; cloud-glyph still named |
+| D-1106 | fixed | `dryup` cansee cloud-glyph skip of dryup pline | map-driven; C `fountain.c:223–227`; skip iff `glyph_is_cmap(glyph_at)` && `glyph_to_cmap==S_cloud`; poison still plines; shown mon/I `!cmap`; Excalibur still named |
+| D-1105 | fixed | `watchman_warn_fountain` Deaf shake/wave | map-driven; C `fountain.c:183–193`; `nolimbs` shakes HEAD else waves `makeplural(ARM)` + `mhis`; !Deaf yell unchanged; cloud-glyph D-1106 |
 | D-1104 | fixed | `dryup` `angry_guards(FALSE)` after real dryup | map-driven; C `fountain.c:236–237` after ROOM/`newsym`; `isyou && in_town`; not town-warn return / wizard `'n'`; Deaf shake D-1105; cloud-glyph still named |
 | D-1103 | fixed | `db_under_typ` / `waterbody_name` SURFACE_AT | map-driven; C `dbridge.c:116–128` + `rm.h` SURFACE_AT + `pager.c` waterbody_name; pickup `describe_decor`; hideunder macros / display glyphs still named |
 | D-1102 | fixed | `goodpos_onscary` Elbereth / scare / altar-vamp | map-driven; C `teleport.c:49–76` + `engrave.c` `sengr_at` strict; altar `S_VAMPIRE` not vampshifter; scare before Inhell; HEADSTONE/future time skip; live-mon `onscary` still named |

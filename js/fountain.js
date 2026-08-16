@@ -12,11 +12,11 @@
 // Excalibur LONG_SWORD body, wash_hands,
 // dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
 // body; set_levltyp side effects beyond typ/flags; Hallucination
-// rndmonnam in snakes pline; mongrantswish tmp_at glyph hide;
-// dryup cansee cloud-glyph skip.
+// rndmonnam in snakes pline; mongrantswish tmp_at glyph hide.
 // dryup wizard y_n after town warn (D-1096).
 // dryup angry_guards after real dryup (D-1104).
 // watchman_warn_fountain Deaf shake/wave (D-1105).
+// dryup cansee cloud-glyph skip (D-1106).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -30,6 +30,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import {
     pline, newsym, You_feel, flush_topl_more, canspotmon, verbalize,
+    glyph_is_invisible,
 } from './display.js';
 import {
     curse, mksobj_at, rnd_class, mkobj, mkobj_at, obj_extract_self,
@@ -73,6 +74,7 @@ import { mbodypart } from './polyself.js';
 import { makeplural } from './objnam.js';
 import { somegold } from './steal.js';
 import { yn_function } from './getline.js';
+import { visible_region_at } from './region.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const DILITHIUM_CRYSTAL = objectNames.indexOf('DILITHIUM_CRYSTAL');
@@ -110,6 +112,23 @@ function SET_FOUNTAIN_LOOTED(x, y) {
 /** C flag.h `#define wizard flags.debug`. */
 function wizard_mode() {
     return !!(game.flags?.debug || game.flags?.wizard);
+}
+
+/**
+ * C fountain.c:224–226 — glyph_is_cmap(glyph_at) && glyph_to_cmap == S_cloud.
+ * JS has no integer glyphs. C gbuf is S_cloud when newsym show_region
+ * painted fog/steam (make_gas_cloud damage=0 → 'S_cloud'). Poison clouds
+ * are 'S_poisoncloud' and do not skip. A shown monster / remembered I is
+ * !glyph_is_cmap (display.c mon_overrides_region; full _mon_visible /
+ * distu / M_AP still named).
+ */
+function glyph_at_cmap_is_s_cloud(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    if (m_at(x, y)) return false;
+    if (glyph_is_invisible(loc)) return false;
+    const reg = visible_region_at(x, y);
+    return !!reg && reg.glyph === 'S_cloud';
 }
 
 /** C ref: rm.h CLEAR_FOUNTAIN_LOOTED */
@@ -669,7 +688,7 @@ export async function dogushforth(drinking) {
  * Town first-use warn via watchman_warn_fountain (D-0894; Deaf D-1105).
  * Wizard y_n after that return (D-1096).
  * angry_guards(FALSE) after real dryup when isyou && in_town (D-1104).
- * Named omit: cloud-glyph skip of dryup pline.
+ * cansee cloud-glyph skip of dryup pline (D-1106).
  */
 export async function dryup(x, y, isyou) {
     const loc = game.level?.at(x, y);
@@ -692,8 +711,8 @@ export async function dryup(x, y, isyou) {
             return;
         }
     }
-    if (cansee(x, y)) {
-        // cloud-glyph skip deferred
+    // C fountain.c:223–227 — skip pline when gbuf cmap is S_cloud.
+    if (cansee(x, y) && !glyph_at_cmap_is_s_cloud(x, y)) {
         await pline('The fountain dries up!');
     }
     loc.typ = ROOM;

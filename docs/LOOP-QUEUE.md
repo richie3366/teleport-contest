@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards.
 - [ ] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands.
 - [ ] `fountain.c` `wash_hands` (named). Not Excalibur.
 - [ ] `sp_lev.c` `lspo_exclusion` populate `exclusion_zones` from `des.exclusion` (named). Not `goodpos`.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `teleok` vibrating / pit-fly (named). Not `rloc`.
 - [ ] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path.
 - [ ] `fountain.c` `dipsink` (named). Not wash_hands.
+- [ ] `fountain.c` `dipfountain` cases 17–20 uncurse (named). Not Excalibur.
+- [ ] `fountain.c` `dipfountain` case 29 `mkgold` coins (named). Not wash_hands.
+- [ ] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup.
+- [ ] `fountain.c` `gush` `minliquid` body (named). Not dogushforth.
+- [ ] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink.
 
 ## Parked (do not pop)
 
