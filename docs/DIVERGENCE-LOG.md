@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1071 — can_reach_floor ustuck AT_HUGS + !sticks
+
+- **Status:** fixed (map-driven Open from review **30** named omit;
+  not a public FAIL)
+- **Symptom:** `can_reach_floor` skipped C
+  `u.ustuck && !sticks(youmonst.data) && attacktype(ustuck->data, AT_HUGS)`.
+  A hugged hero still reached the floor, so `#sit` sat (and a later
+  ustuck lap would fire). C returns FALSE then sit-on-air. Giant eel
+  `AD_WRAP` without `AT_HUGS` still reaches; python has `AT_HUGS` so
+  it does not. Hero forms that `sticks` (owlbear `AT_HUGS`, python
+  `WRAP && !ENGL`) still reach when grabbed.
+- **C locus:** `engrave.c` `can_reach_floor` (~192–197); `mondata.c`
+  `sticks` (~653–658) / `attacktype` (~53–57); `monattk.h` `AT_HUGS=7`.
+- **Fix:** helper hugs arm in C `||` order with swallow and
+  Levitation. Local `sticks`/`attacktype`/`dmgtype` (engrave already
+  imported by `monmove.js`). Did not pull ceiling_hider / MZ_HUGE /
+  pit teeter / dosit lap. Rule #2: no fs.
+- **Deferred:** helper ceiling_hider / MZ_HUGE / uteetering /
+  uescaped_shaft; dosit ustuck lap (`sit.c:422–429`).
+- **Verify:** private node: human+owlbear hug → false; python hug
+  → false; eel WRAP → true; trapper ENGL not-swallow → true;
+  owlbear/python hero `sticks` → true; swallow / ELevitation still
+  false. green+strict PASS; cohort **14**/14
+  (8000/0900/1500/1800/0060/0102/0700/0106/0107/0101/0116/2200/4500/
+  0009). Path unhit on public sessions.
+- **Files:** `js/engrave.js` (sit.js comments only).
+
 ## D-1070 — can_reach_floor Levitation is youprop.h (H||E)&&!B
 
 - **Status:** fixed (map-driven Must-fix from review **30** QUALITY-RISK; not a public FAIL)
@@ -21,9 +48,10 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `!(Is_airlevel || Is_waterlevel)`. Did not rewrite `confer_oc_oprop`,
   other `Levitation()` clones, hugs / ceiling_hider / MZ_HUGE. Rule #2:
   no fs.
-- **Deferred:** helper hugs / ceiling_hider / MZ_HUGE / uteetering /
-  uescaped_shaft; dosit ustuck lap (ship hugs first); other
-  `Levitation()` clones; `Flying` sticky vs `(H||E||steed flyer)&&!B`.
+- **Deferred:** helper hugs shipped D-1071; still named ceiling_hider /
+  MZ_HUGE / uteetering / uescaped_shaft; dosit ustuck lap (ship hugs
+  first); other `Levitation()` clones; `Flying` sticky vs
+  `(H||E||steed flyer)&&!B`.
 - **Verify:** private node: `setworn` boots `ELevitation` sticky-unset
   → `can_reach_floor(false)` false → `"You tumble in place."`
   `ECMD_OK`; potion `HLevitation` same; `BLevitation` `I_SPECIAL` with

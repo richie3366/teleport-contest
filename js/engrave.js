@@ -21,9 +21,10 @@
 // allmain/dokick/uhitm `u_wipe_engr` callers still stubbed;
 // demon/vampire blood default beyond type; Blind feel path for
 // engrave/burn; full surface()/is_ice nouns; wipeout_text seeded
-// (non-zero) path; can_reach_floor ustuck-hugs /
-// ceiling_hider / MZ_HUGE / uteetering_at_seen_pit / uescaped_shaft
-// (Levitation arm is C youprop.h (H||E)&&!B — D-1070).
+// (non-zero) path; can_reach_floor ceiling_hider / MZ_HUGE /
+// uteetering_at_seen_pit / uescaped_shaft.
+// Ported: Levitation (H||E)&&!B D-1070; ustuck AT_HUGS + !sticks
+// D-1071 (local mondata.c sticks — avoid engrave←monmove cycle).
 // disturb_grave (D-0985) via kick_nondoor / engraving callers.
 // Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
@@ -228,17 +229,59 @@ function Levitation() {
         && !(u.BLevitation | 0));
 }
 
+/** C monattk.h — used by can_reach_floor hugs arm / local sticks. */
+const AT_HUGS = 7;
+const AT_ENGL = 11;
+const AD_STCK = 19;
+const AD_WRAP = 28;
+
+/**
+ * C ref: mondata.c attacktype — any mattk slot with aatyp.
+ * Local copy: monmove.js already imports wipe_engr_at (cycle).
+ */
+function attacktype(ptr, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < slots.length; i++) {
+        if (slots[i]?.aatyp === aatyp) return true;
+    }
+    return false;
+}
+
+/** C ref: mondata.c dmgtype — any mattk slot with adtyp. */
+function dmgtype(ptr, adtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < slots.length; i++) {
+        if (slots[i]?.adtyp === adtyp) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
+ * Short-circuit matches C: STCK || (WRAP && !ENGL) || HUGS.
+ */
+function sticks(ptr) {
+    return !!(dmgtype(ptr, AD_STCK)
+        || (dmgtype(ptr, AD_WRAP) && !attacktype(ptr, AT_ENGL))
+        || attacktype(ptr, AT_HUGS));
+}
+
 /**
  * C ref: engrave.c can_reach_floor — whether hero can touch ground-level.
- * Branch envelope: swallow / Levitation(+!air/water) / unskilled steed /
- * Flying early-true; pit teeter/shaft, ustuck AT_HUGS, ceiling_hider,
+ * Branch envelope: swallow / ustuck AT_HUGS+!sticks / Levitation(+!air/water)
+ * / unskilled steed / Flying early-true; pit teeter/shaft, ceiling_hider,
  * MZ_HUGE named omissions (treated as reachable when other gates pass).
  */
 export function can_reach_floor(check_pit) {
     const u = game.u || {};
-    if (u.uswallow) return false;
-    // ustuck + AT_HUGS + !sticks deferred
-    if (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
+    // C engrave.c: uswallow || (ustuck && !sticks(youmonst.data)
+    // && attacktype(ustuck->data, AT_HUGS)) || (Levitation && !air/water)
+    if (u.uswallow
+        || (u.ustuck && !sticks(game.youmonst?.data)
+            && attacktype(u.ustuck.data, AT_HUGS))
+        || (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz)))) {
         return false;
     }
     if (u.usteed) {

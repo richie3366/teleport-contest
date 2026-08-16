@@ -11,7 +11,8 @@
 // can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
 // (D-1069; replace Levitation-only early return; air/water Levitation
 // may sit) + helper/message Levitation ≡ youprop.h (H||E)&&!B
-// (D-1070; not sticky u.Levitation).
+// (D-1070; not sticky u.Levitation) + helper hugs AT_HUGS+!sticks
+// (D-1071; sit-on-air reachable; do not ship ustuck lap this iter).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -21,8 +22,8 @@
 // hider ceiling drop u.uundetected=0 except PM_TRAPPER (D-1068),
 // !can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
 // (D-1069/D-1070; shared engrave.js helper; Levitation is C
-// youprop.h (H||E)&&!B; hugs / ceiling_hider / MZ_HUGE still named
-// there), OBJ_AT picnic body
+// youprop.h (H||E)&&!B; hugs AT_HUGS+!sticks D-1071; ceiling_hider /
+// MZ_HUGE still named there), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
@@ -45,7 +46,8 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: ustuck lap, can_reach_floor hugs/ceiling_hider/MZ_HUGE,
+// Deferred: ustuck lap (helper hugs already D-1071),
+// can_reach_floor ceiling_hider/MZ_HUGE,
 // uteetering/
 // uescaped_shaft gate, wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;

@@ -17,16 +17,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1070** `can_reach_floor` / sit `Levitation()` is C
-  `youprop.h` `(H||E)&&!B` (review **30** QUALITY-RISK). Worn boots
-  / potion `#sit` tumble; `BLevitation` sits; air/water still sit.
-- **Next cluster:** Open `can_reach_floor` ustuck AT_HUGS +
-  `!sticks` **before** dosit lap (review **30**: hugs → air, not
-  lap). Do not pull ceiling_hider / MZ_HUGE. Do not restore sticky
-  `u.Levitation` in the helper (D-1070).
-- **Hypothesis:** hugged `ustuck` + `!sticks` + `AT_HUGS` still
-  reaches the floor in JS (`can_reach_floor` TRUE) so `#sit` sits
-  or would lap, while C returns FALSE then sit-on-air.
+- Latest: **D-1071** `can_reach_floor` ustuck `AT_HUGS` + `!sticks`
+  (review **30** named omit). Hug → sit-on-air; eel WRAP still
+  reaches; hero `sticks` still reaches. Lap still named.
+- **Next cluster:** Open `sit.c` `dosit` ustuck `!sticks` lap
+  (`Monnam` / `mhis`). Not swallow combat. Helper hugs already
+  D-1071. Do not pull ceiling_hider / MZ_HUGE.
+- **Hypothesis:** hugged `!sticks` hero who *can* reach the floor
+  (eel WRAP, not AT_HUGS) still sits in JS, while C offers no lap
+  (`Monnam` / `mhis`) and returns `ECMD_OK`.
 
 ## Don't re-check (≤15)
 
@@ -62,14 +61,17 @@ Objective/score live in `CURRENT.md`.
   clear trapper `uundetected` (D-1068). Do not restore Levitation-
   only `dosit` return (D-1069). Do not treat sticky `u.Levitation`
   as C `youprop.h` `Levitation` in `can_reach_floor` (D-1070).
-  Do not ship dosit ustuck lap before helper hugs.
+  Do not skip helper hugs `AT_HUGS`+`!sticks` (D-1071). Do not
+  treat eel WRAP as hugs.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1355**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1360**.
+- **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.
+  Eel WRAP reaches; python hugs does not. Lap still named.
 - **D-1070:** `can_reach_floor` + sit message `Levitation()` =
-  `(H||E)&&!B`. Not sticky `u.Levitation`. Hugs still named.
+  `(H||E)&&!B`. Not sticky `u.Levitation`.
 - **D-1069:** `dosit` three-message envelope + swallow. Helper
   Levitation was sticky — fixed D-1070.
 - **D-1068:** `dosit` after usteed: `u.uundetected && is_hider`

@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1070 | fixed | engrave/sit `can_reach_floor` Levitation `youprop.h` | review 30 QUALITY-RISK; C `(H||E)&&!B` not sticky `u.Levitation`; worn boots/potion `#sit` tumble; hugs still named |
+| D-1071 | fixed | engrave `can_reach_floor` ustuck AT_HUGS + `!sticks` | map-driven; C `engrave.c:192–197` / `mondata.c` `sticks`; sit-on-air reachable; eel WRAP still reaches; lap still named |
+| D-1070 | fixed | engrave/sit `can_reach_floor` Levitation `youprop.h` | review 30 QUALITY-RISK; C `(H||E)&&!B` not sticky `u.Levitation`; worn boots/potion `#sit` tumble; hugs D-1071 |
 | D-1069 | fixed | sit `dosit` `can_reach_floor(FALSE)` swallow/tumble/air | map-driven; C `sit.c:414–421` after hider; air/water Levitation may sit; helper hugs/ceiling_hider still named |
 | D-1068 | fixed | sit `dosit` hider `u.uundetected` except trapper | map-driven; C `sit.c:410–412` after usteed, before `can_reach_floor`; trapper stays floor-hidden; no `newsym` |
 | D-1067 | fixed | sit `dosit` steed `mon_nam(usteed)` | D-1033 risk 4; C `You`+`mon_nam` ARTICLE_THE, not `"your steed"` / not `y_monnam` |

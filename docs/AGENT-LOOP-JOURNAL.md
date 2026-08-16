@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 10:16 — #1358 D-1071 can_reach_floor ustuck AT_HUGS + !sticks
+
+**Objective:** Open queue — `engrave.c` `can_reach_floor` ustuck
+AT_HUGS + `!sticks` (`mondata.c` `sticks`). Sit-on-air reachable;
+ship before ustuck lap. Not ceiling_hider / MZ_HUGE. Review **30**.
+**C locus:** `engrave.c` `can_reach_floor` (~192–197); `mondata.c`
+`sticks` / `attacktype`; `monattk.h` `AT_HUGS=7`.
+**Change:** hugs arm in C `||` order with swallow and Levitation.
+Local `sticks`/`attacktype`/`dmgtype` (avoid engrave←monmove cycle).
+Eel WRAP still reaches; python hugs does not; hero `sticks` still
+reaches. Did not pull ceiling_hider / MZ_HUGE / dosit lap. Filled
+D-1070 Addressed hash `9d3545c9`. Rotated #1343 to archive. Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1355** **44**/44; next
+@**#1360**).
+**Verified:** private node owlbear/python hug false; eel/trapper
+reach; poly sticks reach; swallow/ELevitation still false.
+green+strict PASS; cohort **14**/14
+(8000/0900/1500/1800/0060/0102/0700/0106/0107/0101/0116/2200/4500/
+0009). Path unhit.
+**Next:** Open `sit.c` `dosit` ustuck `!sticks` lap (`Monnam` /
+`mhis`). Not swallow combat.
+**Blocked:** none.
+
 ## 2026-08-16 10:05 — #1357 D-1070 can_reach_floor Levitation (H||E)&&!B
 
 **Objective:** Must-fix — `can_reach_floor` Levitation + sit
@@ -289,27 +313,6 @@ no fs.
 `mkmaze.c:341–410`/`570–704`, `dungeon.c:1605–1634`,
 `dungeon.h:35–44`/`144–145`, `dat/tut-1.lua:59`/`258–261`; grep
 FORCE/DIAG/fs on the `js/mklev.js` hunks.
-**Next:** Open tut-1 `tut_key` / eckey only.
-**Blocked:** none.
-
-## 2026-08-16 05:50 — #1343 D-1064 tut-1 levregion_add / place_lregion dests
-
-**Objective:** Open queue — tut-1 `place_lregion` only (not key /
-nhcore).
-**C locus:** `sp_lev.c` `levregion_add` / `lspo_teleport_region` /
-`get_location` ANY_LOC; `mkmaze.c` `fixup_special` TELE dest copy;
-`dungeon.c` `u_on_rndspot` → `place_lregion`; `dat/tut-1.lua:59`.
-**Change:** `get_location` packed ANY_LOC; `levregion_add`;
-`l_teleport_region` (dir both=`LR_TELE`, omit exclude `-1`
-`del_islev`). `fixup_special` leftover lregion switch. `load_tut1`
-uses it and calls `fixup_special`. Did not rewire other `load_*`
-inline lregions; branch fallback still `made_branch`. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1340** **44**/44; next
-@**#1345**).
-**Verified:** private node packed inarea origin+9,+3, delarea `-1`,
-`LR_TELE`; `region_islev` skip; exclude `get_location`. green+strict
-PASS; seed0009 **73**/73; cohort **12**/12
-(8000/0900/0009/0030/0060/0102/0116/0360/0373/1500/1800/2200).
 **Next:** Open tut-1 `tut_key` / eckey only.
 **Blocked:** none.
 
