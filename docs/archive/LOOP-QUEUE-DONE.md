@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
+- [x] `fountain.c` `watchman_warn_fountain` Deaf shake/wave (named). Not dryup yn. **Addressed:** D-1105
+
+
 - [x] `fountain.c` `dryup` `angry_guards` after real dryup (named). Not wizard yn. **Addressed:** D-1104 `7458a5b8`
 
 

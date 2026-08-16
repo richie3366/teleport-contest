@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 20:50 — #1406 D-1105 watchman_warn_fountain Deaf shake/wave
+
+**Objective:** Open queue — `fountain.c` `watchman_warn_fountain`
+Deaf shake/wave (named). Not dryup yn.
+**C locus:** `fountain.c` `watchman_warn_fountain` 183–193;
+`youprop.h` Deaf; `mondata.h` `nolimbs`; `you.h` `mhis` /
+`pronoun_gender`; `polyself.c` `mbodypart` HEAD/ARM.
+**Change:** Deaf else-arm: `nolimbs` shakes HEAD else waves
+`makeplural(ARM)` + `mhis`. Local `mhe`/`mhis` follow
+`pronoun_gender` (hallu `rn2(4)`). `!Deaf` yell unchanged.
+Did not pull cloud-glyph skip, Excalibur, or `wash_hands`.
+Rotated #1391. Open 8 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1405** **44**/44; next
+@**#1410**).
+**Verified:** private canary **34**/34; green+strict seed8000/0900;
+cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
++ 1500/1800/0060/0102/0700/0017/4500/0009/0106) + strict
+0014/0006/2200/0360/4500 + isolated 0009. Public traces **unhit**.
+**Next:** Open `fountain.c` `dryup` cansee cloud-glyph skip.
+Not angry_guards.
+**Blocked:** none.
+
 ## 2026-08-16 20:33 — #1405 review D-1101–D-1104 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -335,27 +357,4 @@ Carnarvon maligntyp 3); green+strict seed8000/0900; cohort
 public-unhit (Tourist quest nemesis).
 **Next:** Open `potion.c` `split_mon` trap rust / `minliquid` /
 uhitm AD_COLD.
-**Blocked:** none.
-
-## 2026-08-16 17:42 — #1391 D-1093 dogmove pal/target numeric msound
-
-**Objective:** Open queue — `dogmove.c` pal/target tests must
-compare numeric `ptr.msound` not string `'MS_LEADER'` (named from
-D-1053 review **14**).
-**C locus:** `dogmove.c` `find_friends` 728–730 / `score_targ`
-767–769 / `dog_move` 1124–1126; `monflag.h` MS_LEADER=36 /
-MS_GUARDIAN=38.
-**Change:** `dogmove.js` compares `(ptr.msound | 0) === MS_LEADER`
-/ `MS_GUARDIAN`. Did not pull `perceives`, conf/`Is_qstart` score,
-faith/AT_NONE/vampshifter, or melee `haseyes`/`mon_reflects`.
-Stamped reviews **14**/**53**/**40**/**49**. Filled D-1092 hash on
-review **49**. Rotated #1376. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1390** **44**/44; next
-@**#1395**).
-**Verified:** private canary **12**/12; green+strict seed8000/0900;
-cohort **12**/12 + strict 1800/0004/0367/0360/0014/2200/0361.
-Path public-unhit.
-**Next:** Open `makemon.c` `m_initweap` MS_NEMESIS mitem
-`ptr.msound` not `urole.neminum`.
 **Blocked:** none.

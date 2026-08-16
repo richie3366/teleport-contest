@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1105 — watchman_warn_fountain Deaf shake/wave
+
+- **Status:** fixed (map-driven Open; named omit from D-0894/D-1104; not a public FAIL)
+- **Symptom:** JS `watchman_warn_fountain` yelled when `!Deaf` then
+  returned true with **no pline** when Deaf. C `fountain.c:187–193`
+  emits a visual `"%s earnestly %s %s %s!"` (shakes HEAD if
+  `nolimbs`, else waves `makeplural(ARM)` + `mhis`).
+- **C locus:** `fountain.c` `watchman_warn_fountain` (~183–193);
+  `youprop.h` `Deaf`; `mondata.h` `nolimbs`; `you.h` `mhis` →
+  `pronoun_gender(..., PRONOUN_HALLU)`; `polyself.c` `mbodypart`
+  HEAD/ARM; `objnam.c` `makeplural`.
+- **Fix:** Deaf else-arm matches C left-to-right arg order. Local
+  `mhe`/`mhis` now follow `pronoun_gender` (hallu `rn2(4)`).
+  `!Deaf` yell + verbalize unchanged (D-0894). Did not pull
+  cansee cloud-glyph skip, Excalibur, or `wash_hands`. Rule #2:
+  no fs.
+- **JS:** `js/fountain.js` `watchman_warn_fountain`.
+- **Not this iter:** cloud-glyph skip of the dryup pline;
+  Excalibur LONG_SWORD body; `wash_hands`; `dipsink`.
+- **Verify:** private canary **34**/34 (Deaf waves arms; !Deaf
+  yell; uroleplay/EDeaf/`u.Deaf`; nolimbs shakes head; captain;
+  jackal/hostile/dead/unseen trickle; out-of-town / `!isyou` /
+  already-warned skip); green+strict seed8000/0900; cohort
+  **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard +
+  1500/1800/0060/0102/0700/0017/4500/0009/0106) + strict
+  0014/0006/2200/0360/4500 + isolated 0009. Path public-unhit
+  (public seats are !Deaf).
+- **Files:** `js/fountain.js`.
+
 ## D-1104 — dryup angry_guards(FALSE) after real dryup
 
 - **Status:** fixed (map-driven Open; named omit from D-0894/D-1096; not a public FAIL)
