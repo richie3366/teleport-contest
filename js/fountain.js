@@ -9,11 +9,12 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// angry_guards after real dryup, wizard yn, Deaf shake/wave warn arm,
+// angry_guards after real dryup, Deaf shake/wave warn arm,
 // Excalibur LONG_SWORD body, wash_hands, dipfountain cases 17–20/
 // 29 (You see coins/mkgold); gush minliquid body; set_levltyp side
 // effects beyond typ/flags; Hallucination rndmonnam in snakes pline;
 // mongrantswish tmp_at glyph hide; dryup cansee cloud-glyph skip.
+// dryup wizard y_n after town warn (D-1096).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -67,6 +68,7 @@ import { monstseesu, monstunseesu } from './mondata.js';
 import { observe_object } from './invent.js';
 import { hliquid, x_monnam } from './do_name.js';
 import { somegold } from './steal.js';
+import { yn_function } from './getline.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const DILITHIUM_CRYSTAL = objectNames.indexOf('DILITHIUM_CRYSTAL');
@@ -99,6 +101,11 @@ function FOUNTAIN_IS_LOOTED(x, y) {
 function SET_FOUNTAIN_LOOTED(x, y) {
     const loc = game.level?.at(x, y);
     if (loc) loc.looted = (loc.looted || 0) | F_LOOTED;
+}
+
+/** C flag.h `#define wizard flags.debug`. */
+function wizard_mode() {
+    return !!(game.flags?.debug || game.flags?.wizard);
 }
 
 /** C ref: rm.h CLEAR_FOUNTAIN_LOOTED */
@@ -632,8 +639,9 @@ export async function dogushforth(drinking) {
 /**
  * C ref: fountain.c dryup
  * Town first-use warn via watchman_warn_fountain (D-0894).
- * Named omit: wizard yn; angry_guards after real dryup; cloud-glyph
- * skip of dryup pline; Deaf shake/wave warn arm.
+ * Wizard y_n after that return (D-1096). Named omit: angry_guards
+ * after real dryup; cloud-glyph skip of dryup pline; Deaf shake/wave
+ * warn arm.
  */
 export async function dryup(x, y, isyou) {
     const loc = game.level?.at(x, y);
@@ -649,7 +657,13 @@ export async function dryup(x, y, isyou) {
         }
         return;
     }
-    // wizard yn deferred
+    // C fountain.c:216–219 — wizard y_n after town warn (D-1096).
+    // wizard ≡ flags.debug (flag.h). No debug_fuzzer gate (unlike sit getlin).
+    if (isyou && wizard_mode()) {
+        if ((await yn_function('Dry up fountain?', 'yn', 'n')) === 'n') {
+            return;
+        }
+    }
     if (cansee(x, y)) {
         // cloud-glyph skip deferred
         await pline('The fountain dries up!');
@@ -662,7 +676,6 @@ export async function dryup(x, y, isyou) {
     }
     newsym(x, y);
     // angry_guards(FALSE) when isyou && in_town deferred
-    void isyou;
 }
 
 /**

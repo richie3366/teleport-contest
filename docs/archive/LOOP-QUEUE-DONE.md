@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `potion.c` `split_mon` trap rust / `minliquid` / uhitm AD_COLD callers (named from D-1078). Not sit clone_mon. **Addressed:** D-1095
+- [x] `fountain.c` `dryup` wizard yn (named). Not angry_guards. **Addressed:** D-1096
+
+
+- [x] `potion.c` `split_mon` trap rust / `minliquid` / uhitm AD_COLD callers (named from D-1078). Not sit clone_mon. **Addressed:** D-1095 `a86a7111`
 
 
 - [x] `makemon.c` `m_initweap` MS_NEMESIS mitem `ptr.msound` not `urole.neminum` (named). Not S_ORC peace. **Addressed:** D-1094 `46775b20`

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dryup` wizard yn (named). Not angry_guards.
 - [ ] `mon.c` `kill_eggs` after genocide (named from sit D-1034). Not seffects SCR_GENOCIDE.
 - [ ] `read.c` `seffects` SCR_GENOCIDE (named from sit). Not kill_eggs.
 - [ ] `teleport.c` `goodpos` youmonst Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava arms (named). Not `passes_walls`.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` (named). Not `onscary`.
 - [ ] `teleport.c` `goodpos_onscary` Elbereth / SCR_SCARE_MONSTER / altar-vampire (named). Not `is_pool`.
 - [ ] `dbridge.c` `db_under_typ` / `hack.c` `waterbody_name` SURFACE_AT (named from D-1077 review 38). Not `goodpos`.
+- [ ] `fountain.c` `dryup` `angry_guards` after real dryup (named). Not wizard yn.
+- [ ] `fountain.c` `watchman_warn_fountain` Deaf shake/wave (named). Not dryup yn.
+- [ ] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards.
+- [ ] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands.
+- [ ] `fountain.c` `wash_hands` (named). Not Excalibur.
 
 ## Parked (do not pop)
 

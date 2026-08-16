@@ -10,19 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
   next @**#1395**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  after **D-1095** (no refill; still ≥8). Reviews **50–53**
-  **ACCEPT** (D-1089…D-1092); no new Must-fix.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12
+  after **D-1096** (refilled from fountain named omits). Reviews
+  **50–53** **ACCEPT** (D-1089…D-1092); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1095**. Prior **46** ACCEPT,
+- Latest ports: **D-1089**…**D-1096**. Prior **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
   D-1089, **49** ACCEPT.
-- **Next cluster:** Open `fountain.c` `dryup` wizard yn (named).
-  Not angry_guards.
-- **Hypothesis:** none live. D-1095 shipped: rust/`minliquid`/
-  uhitm AD_COLD call `split_mon`; `healmon` monster arm.
+- **Next cluster:** Open `mon.c` `kill_eggs` after genocide
+  (named from sit D-1034). Not seffects SCR_GENOCIDE.
+- **Hypothesis:** none live. D-1096 shipped: `dryup` wizard
+  `y_n("Dry up fountain?")` after town warn; `'n'` abort.
 
 ## Don't re-check (≤15)
 
@@ -50,7 +50,8 @@ Objective/score live in `CURRENT.md`.
   `IS_LAVA` macros (D-1091) / invent `S_ELF` mlet (D-1092) /
   restore dogmove string `'MS_LEADER'` (D-1093) / restore
   MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
-  uhitm AD_COLD `split_mon` (D-1095).
+  uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
+  add `debug_fuzzer` skip there (D-1096).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -59,8 +60,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
+- **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
+  warn. `'n'` abort. No fuzzer skip. `angry_guards` still named.
 - **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
-  `healmon` monster arm. Drown/mhitu/mhitm/cmd still named.
+  Hash `a86a7111`. Drown/mhitu/mhitm/cmd still named.
 - **D-1094:** `role_init` quest-pm overlay + makemon mitem
   `ptr.msound == MS_NEMESIS`. Hash `46775b20`.
 - **D-1093:** `dogmove` pal/target `ptr.msound` numeric
@@ -73,5 +76,3 @@ Objective/score live in `CURRENT.md`.
   Hash `43caa8ff`.
 - **D-1089:** sit `rndcurse` `Antimagic()` ORs
   `uprops[ANTIMAGIC]`. Hash `f91650c0`.
-- **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
-  `ptr.msound`. Hash `049af16e`.

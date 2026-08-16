@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1096 — dryup wizard y_n("Dry up fountain?")
+
+- **Status:** fixed (map-driven Open; named omit from D-0894; not a public FAIL)
+- **Symptom:** JS `dryup` skipped C `if (isyou && wizard) y_n("Dry up fountain?")`
+  after the town-warn return. Wizard mode always dried; `'n'` could not abort.
+- **C locus:** `fountain.c` `dryup` (~216–219); `hack.h` `y_n` →
+  `yn_function(query, ynchars, 'n', TRUE)`; `flag.h` `#define wizard flags.debug`.
+  No `iflags.debug_fuzzer` gate (unlike sit `getlin`). Town first-use still
+  returns before this prompt. `angry_guards` still after the real dry.
+- **Fix:** after town warn, `isyou && wizard_mode()` → `yn_function('Dry up fountain?', 'yn', 'n')`; `'n'` (and quit→def `'n'`) return without drying. Rule #2: no fs.
+- **JS:** `js/fountain.js` `dryup`.
+- **Not this iter:** `angry_guards(FALSE)` after real dryup; Deaf shake/wave
+  warn; cansee cloud-glyph skip of the dryup pline.
+- **Verify:** private canary **12**/12 (non-wizard no yn; wizard `'n'`/`'y'`/
+  space-def; `!isyou` no yn; `flags.wizard` alias; fuzzer still yn; town
+  first-use skips yn); green+strict seed8000/0900; cohort **15**/15
+  (0014 fountain + 0006/2200/0108/0360/5002 wizard + 1500/1800/0060/0102/
+  0700/0017/4500/0009/0106) + strict 0014/0006/2200/0360. Path public-unhit
+  (public seats are not wizard dryup).
+- **Files:** `js/fountain.js`.
+
 ## D-1095 — split_mon trap rust / minliquid / uhitm AD_COLD
 
 - **Status:** fixed (map-driven Open; named from D-1078; not a public FAIL)

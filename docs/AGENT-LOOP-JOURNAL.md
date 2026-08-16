@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 18:22 — #1394 D-1096 dryup wizard y_n
+
+**Objective:** Open queue — `fountain.c` `dryup` wizard yn (named).
+Not angry_guards.
+**C locus:** `fountain.c` `dryup` 216–219; `hack.h` `y_n`;
+`flag.h` `wizard` ≡ `flags.debug`.
+**Change:** after town warn, `isyou && wizard_mode()` →
+`yn_function('Dry up fountain?', 'yn', 'n')`; `'n'` (and
+quit→def) return without drying. No `debug_fuzzer` gate.
+Did not pull `angry_guards` / cloud-glyph / Deaf shake.
+Filled D-1095 hash `a86a7111`. Rotated #1379. Refilled Open
+to 12 from fountain named omits. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1390** **44**/44; next
+@**#1395**).
+**Verified:** private canary **12**/12; green+strict seed8000/0900;
+cohort **15**/15 + strict 0014/0006/2200/0360. Path public-unhit.
+**Next:** Open `mon.c` `kill_eggs` after genocide.
+**Blocked:** none.
+
 ## 2026-08-16 18:12 — #1393 D-1095 split_mon rust/minliquid/uhitm AD_COLD
 
 **Objective:** Open queue — `potion.c` `split_mon` trap rust /
@@ -343,23 +362,4 @@ Flying uprops (copy `eat.js`). Filled D-1084 archive hash
 C read of the four loci vs JS hunks; grep FORCE/fs/seed.
 **Next:** Must-fix `engrave.c` `can_reach_floor` `Flying()` via
 `uprops[FLYING]`. Not steal.c `remove_worn_item`.
-**Blocked:** none.
-
-## 2026-08-16 14:54 — #1379 D-1084 throne_sit_effect wizard getlin
-
-**Objective:** Open queue — `sit.c` `throne_sit_effect` wizard getlin
-"Throne sit effect (1..13)" (named). Not Analyze y_n.
-**C locus:** `sit.c` `throne_sit_effect` (~48–61).
-**Change:** after `rnd(13)`, `wizard && !iflags.debug_fuzzer`
-getlin; ESC Never_mind return (turn still elapses); atoi 1..13
-overrides; 0/empty/junk keep the roll. Did not retouch Analyze
-`y_n` vanish. Filled D-1083 Addressed hash `e6167027`. Rotated
-#1365 to archive. Refilled Open to 12. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1375** **44**/44; next
-@**#1380**).
-**Verified:** private canary (non-wizard/fuzzer skip; ESC gold+throne
-kept + Never_mind; atoi 5 take_gold; atoi 13 pretzel; 0/empty keep
-rnd); green+strict seed8000/0900; cohort **12**/12 + strict
-1800/4500/2200.
-**Next:** Open `steal.c` `remove_worn_item` armor `*_off`.
 **Blocked:** none.

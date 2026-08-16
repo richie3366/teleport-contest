@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1096 | fixed | `dryup` wizard `y_n("Dry up fountain?")` | map-driven; C `fountain.c:216–219` after town warn; `flags.debug`; `'n'` abort; no `debug_fuzzer` gate; `angry_guards` / cloud-glyph / Deaf shake still named |
 | D-1095 | fixed | `split_mon` trap rust / minliquid / uhitm AD_COLD | map-driven; C `trap.c:1652–1720` / `mon.c:987–992` / `uhitm.c:6078–6082`; `healmon` monster arm; drown/mhitu/mhitm/cmd still named |
 | D-1094 | fixed | makemon MS_NEMESIS mitem `ptr.msound` | map-driven; C `role.c:2049–2056` overlay + `makemon.c:1378`; not `urole.neminum`; Tourist Master of Thieves; PM_NINJA weap still named |
 | D-1093 | fixed | dogmove pal/target numeric `ptr.msound` | map-driven; C `dogmove.c` find_friends/score_targ/dog_move; MS_LEADER=36 / GUARDIAN=38 not string `'MS_LEADER'`; perceives/conf/faith still named |
