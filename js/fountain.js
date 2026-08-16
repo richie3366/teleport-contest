@@ -9,9 +9,9 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// dipfountain case 29 (You see coins/mkgold); gush minliquid
-// body; set_levltyp side effects beyond typ/flags; Hallucination
-// rndmonnam in snakes pline; mongrantswish tmp_at glyph hide.
+// gush minliquid body; set_levltyp side effects beyond typ/flags;
+// Hallucination rndmonnam in snakes pline; mongrantswish tmp_at
+// glyph hide.
 // dryup wizard y_n after town warn (D-1096).
 // dryup angry_guards after real dryup (D-1104).
 // watchman_warn_fountain Deaf shake/wave (D-1105).
@@ -20,6 +20,7 @@
 // wash_hands + dipfountain hands/uarmg wire (D-1108).
 // dipsink + dodip sink yn + local polymorph_sink (D-1113).
 // dipfountain cases 17–20 uncurse (D-1114).
+// dipfountain case 29 mkgold coins (D-1115).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -37,7 +38,7 @@ import {
 } from './display.js';
 import {
     curse, bless, uncurse, mksobj_at, rnd_class, mkobj, mkobj_at,
-    obj_extract_self, objects_at, delobj,
+    obj_extract_self, objects_at, delobj, mkgold,
 } from './mkobj.js';
 import {
     water_damage, water_damage_chain, t_at, deltrap, mintrap, NO_TRAP_FLAGS,
@@ -999,6 +1000,14 @@ function Inhell() {
     return (game.u?.uz?.dnum | 0) === GEHENNOM;
 }
 
+/** C dungeon.c dunlev / dunlevs_in_dungeon — dipfountain case 29 gold. */
+function dunlev(lev) {
+    return lev?.dlevel ?? 1;
+}
+function dunlevs_in_dungeon(lev) {
+    return game.dungeons?.[lev?.dnum]?.num_dunlevs ?? 1;
+}
+
 /**
  * Incremental analog of mkmaze.c set_levltyp fountain/sink counts.
  * Named omit: ice timers, CAN_OVERWRITE, full count_level_features scan.
@@ -1346,7 +1355,24 @@ export async function dipfountain(obj) {
         break;
     }
     case 29:
-        // You see coins / mkgold — deferred
+        // C fountain.c:530–546 — You see coins. More gold nearer
+        // the surface: rnd((num_dunlevs - dlevel + 1)*2) + 5.
+        // Already-looted fountains skip mkgold/pline/exercise/newsym
+        // (dryup still runs after the switch). Blind skips the
+        // glistening pline but still places gold.
+        if (FOUNTAIN_IS_LOOTED(u.ux, u.uy)) break;
+        SET_FOUNTAIN_LOOTED(u.ux, u.uy);
+        mkgold(
+            rnd((dunlevs_in_dungeon(u.uz) - dunlev(u.uz) + 1) * 2) + 5,
+            u.ux, u.uy,
+        );
+        if (!Blind()) {
+            await pline(
+                `Far below you, you see coins glistening in the ${hliquid('water')}.`,
+            );
+        }
+        exercise(A_WIS, true);
+        newsym(u.ux, u.uy);
         break;
     default:
         if (er === ER_NOTHING) {

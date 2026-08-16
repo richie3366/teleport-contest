@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1115 | fixed | `dipfountain` case 29 `mkgold` coins | map-driven; C `fountain.c:530–546`; looted skip; else `SET_FOUNTAIN_LOOTED` + `rnd((num_dunlevs-dlevel+1)*2)+5` merge/create; Blind-skip glistening; `exercise(A_WIS,TRUE)`/`newsym`; `update_inventory` still named |
 | D-1114 | fixed | `dipfountain` cases 17–20 uncurse | map-driven; C `fountain.c:464–475`; `!is_hands && cursed` Blind-skip glow + `uncurse`; else loss; coins not skipped; luck/lamplit stay on mkobj `uncurse`; case 29 `mkgold` still named |
 | D-1113 | fixed | `dipsink` + dodip sink yn | map-driven; C `fountain.c:716–801` / `do.c` `polymorph_sink` / `potion.c` dodip yn; lottery `breaksink`; hands `wash_hands`; potion pour+switch; local poly `rn2(4)`; pool dip / uncurse 17–20 still named |
 | D-1112 | fixed | `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP | map-driven; C `teleport.c:2033–2095`; endgame amulet/`is_home_elemental`/`rn2(7)` stay; LEVEL_TELEP `random_teleport_level`+`get_level`; NO_TRAP `onscary(0,0)` stay else same-level migrate; `is_xport`&&!`control_teleport` mconf; valley/botlevel-avoid/hero still named |

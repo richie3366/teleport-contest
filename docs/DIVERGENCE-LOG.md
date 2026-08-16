@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1115 — dipfountain case 29 mkgold coins
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `dipfountain` case 29 was empty `break`.
+  C `fountain.c:530–546` on an unlooted fountain sets
+  `FOUNTAIN_LOOTED`, places
+  `rnd((dunlevs_in_dungeon-dunlev+1)*2)+5` gold via `mkgold`
+  (more nearer the surface), prints glistening unless Blind,
+  `exercise(A_WIS, TRUE)`, `newsym`. Already-looted skips that
+  arm; `dryup` still runs after the switch.
+- **C locus:** `fountain.c` `dipfountain` (~530–546); `mkobj.c`
+  `mkgold`; `dungeon.c` `dunlev` / `dunlevs_in_dungeon`;
+  `youprop.h` Blind.
+- **Fix:** port the arm. Local `dunlev`/`dunlevs_in_dungeon`
+  match trap.js. Existing `mkgold` merges `g_at` or
+  `mksobj_at(GOLD_PIECE)`. Blind is the D-1114 helper.
+  Rule #2: no fs.
+- **JS:** `js/fountain.js` `dipfountain`.
+- **Not this iter:** `drinkfountain` enlightenment; `gush`
+  `minliquid`; `drinksink` case 10 `polyself`; `update_inventory`
+  redraw; potion.c pool dip.
+- **Verify:** private canary **57**/57 (amount formula; looted
+  skip; Blind/EBlinded/BBlinded/roleplay; merge; F_WARNED;
+  Levitation; hands; case 16/17 regression; dryup after;
+  exercise); green+strict seed8000/0900; cohort **17**/17
+  including 0014/0360/4500/0030 + strict 0014/0360/4500/2200/
+  0004/0030/0009/0367. Path public-unhit.
+- **Files:** `js/fountain.js`.
+
 ## D-1114 — dipfountain cases 17–20 uncurse
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
