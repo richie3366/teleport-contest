@@ -147,4 +147,4 @@ Do not restore silent `ushops=''` on missing keeper. Do not skip Invis return be
 - Verdict: **ACCEPT-WITH-DEBT**
 - Score: **7.5 / 10**
 - One sentence: deserted / Invis / angry / surcharge / robbed / pickaxe-steed-Fast doorway `dochug` now run like `shk.c`, while youprop helpers still OR sticky flags and null-keeper `in_rooms` is string identity rather than C’s static-buf pointer compare.
-- Must-fix stays empty; next port pops Open `eat.c` `cprefx` `revive_corpse` after rider lifesave.
+- Must-fix stays empty; next port pops Open `eat.c` `cprefx` `revive_corpse` after rider lifesave. **Addressed:** D-1081 `cd5af20a`

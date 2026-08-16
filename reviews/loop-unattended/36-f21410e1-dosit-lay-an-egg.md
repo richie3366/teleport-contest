@@ -165,7 +165,7 @@ None from this SHA. The dispatch, the four `ECMD_OK` gates, `mksobj`/`set_corpse
 Named omits / do-nots (map / Open, not Must-fix):
 
 1. Hero pit/hole `dotrap` `VIASITTING` bodies — shipped next as D-1076 `87b4b7cb`.
-2. `clone_mon` monster `split_mon` (live Open). Wizard getlin / `shieldeff` (Open). Do not pull them into `is_lava`.
+2. `clone_mon` monster `split_mon` (live Open). Wizard getlin **Addressed:** D-1084 `83a3ada5`. `shieldeff` still named. Do not pull them into `is_lava`.
 3. Polyself `learn_egg_type(..., TRUE)` still named (`force_ordinary` skips `rn2(77)`).
 4. Sit `Hallucination()` / `observe_object` sticky vs `youprop.h` — pre-existing; platypus / discover only.
 

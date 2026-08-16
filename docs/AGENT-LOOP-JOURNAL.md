@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 15:05 — #1380 review D-1081–D-1084 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `eat.c` `cprefx` 831–849 / `do.c` `revive_corpse`
+2111–2246; `engrave.c` `can_reach_floor` 203–211 / `youprop.h`
+Flying / `mondata.h` `ceiling_hider`; `trap.c` teeter/shaft;
+`sit.c` `throne_sit_effect` 48–61.
+**Change:** reviews **42** ACCEPT D-1081, **43** QUALITY-RISK
+D-1082 (`Flying()` misses `uprops[FLYING]` for amulet of flying),
+**44** ACCEPT D-1083, **45** ACCEPT D-1084. Must-fix prepend
+Flying uprops (copy `eat.js`). Filled D-1084 archive hash
+`83a3ada5`. Rotated #1366 to archive. Rule #2: no fs.
+**Score:** cadence **#1380** **44**/44 Scr **11405**/11405 RNG
+**100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
+**Verified:** full `sessions` **44**/44; role-init throws **0**/44.
+C read of the four loci vs JS hunks; grep FORCE/fs/seed.
+**Next:** Must-fix `engrave.c` `can_reach_floor` `Flying()` via
+`uprops[FLYING]`. Not steal.c `remove_worn_item`.
+**Blocked:** none.
+
 ## 2026-08-16 14:54 — #1379 D-1084 throne_sit_effect wizard getlin
 
 **Objective:** Open queue — `sit.c` `throne_sit_effect` wizard getlin
@@ -289,23 +310,4 @@ HLevitation skip); green+strict seed8000/0900; cohort 12/12
 (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200)
 + strict 0014/4500/0360/2200.
 **Next:** Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
-**Blocked:** none.
-
-## 2026-08-16 11:32 — #1366 D-1075 dosit lay_an_egg after throne
-
-**Objective:** Open queue — `sit.c` `dosit` `lay_an_egg` at end of
-function. Not hider / reach / ustuck. Review 35 named omit 1.
-**C locus:** `sit.c` `lay_an_egg` (~357–396) / `dosit` (~559–560);
-`mon.c` `egg_type_from_parent`.
-**Change:** oviparous `#sit` returns `lay_an_egg()` instead of
-having-fun. Male / hunger `<` 80 / dry tetra / Upolyd giant or
-electric eel Sargasso → `ECMD_OK`. Else typed egg (`spe=1`,
-`egg_type_from_parent(umonnum,FALSE)` in `mon.js`, `dropy` /
-`stackobj` / `morehungry`). Did not pull `clone_mon` / wizard
-getlin / `shieldeff`. Stamped review 35 **Addressed:** D-1075.
-Rule #2: no fs. Rotated refill #1351 to archive.
-**Verified:** private canary (male/hungry/tetra/Sargasso `ECMD_OK`;
-pyrolisk egg parent+timed; queen→killer bee; human having-fun);
-green+strict seed8000/0900; cohort seed1500/1800/0060/0102/0700/0017.
-**Next:** Open `trap.c` hero pit/hole `dotrap` VIASITTING.
 **Blocked:** none.

@@ -8,92 +8,63 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `32+0.27/turn` R² 0.87) after cadence **#1375**;
-  next @**#1380**.
-- Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty (reviews **39–41**). Keep 8–12 open rows;
-  refill from the map when below 8.
-- Density: one semantic cluster (~50–300 LOC), not one-bullet peels;
-  empty “hold green only” iters → stop loop (review + full
-  `sessions` together every 5).
+  speed `31+0.27/turn` R² 0.88) after cadence **#1380**;
+  next @**#1385**.
+- Mode: **map-driven** under fortress. Review **43** QUALITY-RISK
+  Must-fix (Flying uprops). Open still 12. Pop Must-fix first.
+- Density: one semantic cluster (~50–300 LOC). Review + full
+  `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1084** `throne_sit_effect` wizard getlin 1..13.
-- **Next cluster:** Open `steal.c` `remove_worn_item` armor `*_off`
-  / `unpunish` / `setnotworn` pointer-walk (named from sit take_gold
-  D-1049).
-- **Hypothesis:** take_gold COIN never hits armor slots; the named
-  miss is still the steal.c helper body.
+- Latest ports: **D-1081**…**D-1084**. Reviews **42** ACCEPT,
+  **43** QUALITY-RISK, **44** ACCEPT, **45** ACCEPT.
+- **Next cluster:** Must-fix `engrave.js` `Flying()` via
+  `uprops[FLYING]` (copy `eat.js`). Not steal.c.
+- **Hypothesis:** `confer_oc_oprop` writes amulet-of-flying to
+  `uprops[FLYING].extrinsic` and never `u.EFlying`; after D-1083
+  that misses `check_pit` skip. Falsifier: setworn amulet, teeter
+  seen pit, `can_reach_floor(true)` must be true.
 
 ## Don't re-check (≤15)
 
-- Do not predict / amend / extra-commit **Addressed** HASH (chicken-egg).
-  Stamp `D-NNNN` in the fix commit; the next real commit fills
-  `git log --format=%h` of that fix. No stamp-only SHAs. Live
-  `LOOP-QUEUE.md` is unchecked-only — run
-  `node scripts/archive-loop-queue-done.mjs` in the same commit.
-- Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483); D-0930 is
-  space+attr0+CLR_GRAY only.
-- Don't skip painting `disp_ch===' '` in flush — breaks S_air (D-0931).
-- Don't emit mid-row space runs >4 as literal spaces when contest CUFs
-  (D-0931); keep inv/uline spaces (D-0129); leading bold pads (D-0932).
-- Do not FORCE shk satdoor/`onlineu` without hero-path proof (D-0376).
-- Do not FORCE linedup/FlipX/stair-screen / SpLev_Map flip (#1092).
-- Do not blanket-restore overlay `_pending_message` for all corner menus
-  — only look_here `keep_message_leftover` (D-0929); keep teleds placebc.
-- Do not HEAVY_IRON_BALL `owt!=0` weight short-circuit (#1194).
-- Judge does **not** elide RC path (D-0933); §1.2 allows recorder
-  `get_configfile` only (D-0934) — do not extend carve-out.
-- Do not chase public LB / `mazesofmenace` CDN session drift in-loop.
-- Do not push shared `maketrap` PIT IS_ROOM→ROOM morph without full
-  suite — keep morph in music `do_pit` (D-0972).
-- Do not memcpy gi worn/ball pointers with struct you (D-1035).
-  Do not drive `setnotworn` from `owornmask`/`setworn(null)` (D-1020).
-  Do not `delobj` tutorial loot on leave. Do not fire off-level
-  object timers (D-1037). Do not omit `msounds[]` (D-1053).
-- Do not restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`
-  (D-1065). Do not skip `tutorial()` `nhcore_call_available` disable
-  or raw-`nhl_gamestate` from `goto_level` (D-1066). Do not restore
-  dosit `"your steed"` vs `mon_nam(usteed)` / do not swap in
-  `y_monnam` (D-1067). Do not skip `dosit` hider clear / do not
-  clear trapper `uundetected` (D-1068). Do not restore Levitation-
-  only `dosit` return (D-1069). Do not treat sticky `u.Levitation`
-  as C `youprop.h` `Levitation` in `can_reach_floor` (D-1070).
-  Do not skip helper hugs `AT_HUGS`+`!sticks` (D-1071). Do not
-  skip ceiling_hider / restore sticky `u.Flying` (D-1082) / skip
-  `check_pit` teeter/shaft (D-1083). Do not skip wizard throne
-  getlin / restore always-`rnd(13)` (D-1084). Do not skip dosit
-  ustuck lap (D-1072). Do not treat eel WRAP as hugs. Do not import
-  `monmove.js` `sticks` for dosit lap (AT numbers 6/7 ≠ C
-  `AT_HUGS=7`/`AT_ENGL=11`). Do not skip dosit OBJ_AT picnic on
-  `uteetering_at_seen_pit`/`uescaped_shaft` (D-1073). Do not
-  restore dragon sit always-bare “hoard” (D-1074); C `money_cnt`
-  is first `COIN_CLASS`, not a sum. Do not restore oviparous `#sit`
-  having-fun (D-1075); do not skip male/hunger/tetra/Sargasso
-  `ECMD_OK`; do not put `egg_type_from_parent` in sit.js (C `mon.c`;
-  `force_ordinary` short-circuits `rn2(77)`). Do not restore hero
-  `trapeffect_pit` early-return / skip `Can_fall_thru` on hole /
-  sticky `u.Levitation` in `check_in_air` (D-1076). Do not restore
-  `is_lava` LAVAPOOL/LAVAWALL-only (D-1077). Do not restore sit
-  `split_mon` monster `return null` (D-1078); trap/mon/uhitm callers
-  still named. Do not skip `peace_minded`/`set_malign` `ptr.msound`
-  (D-1079); `m_initweap` still mndx. Do not skip `u_entered_shop`
-  deserted / angry / Invis / pickaxe doorway (D-1080). Do not skip
-  `cprefx` rider `revive_corpse` after lifesave / do not restore
-  apply-local `revive_corpse` (D-1081); MINVENT/CONTAINED/BURIED
-  still named.
+- Do not predict / amend **Addressed** HASH (chicken-egg). Stamp
+  `D-NNNN` in the fix; next real commit fills `%h`. Live queue is
+  unchecked-only — `archive-loop-queue-done.mjs` in the same commit.
+- Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
+- Don't skip painting `disp_ch===' '` in flush (D-0931).
+- Don't emit mid-row space runs >4 as literal spaces (D-0931).
+- Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
+- Do not blanket-restore overlay `_pending_message` (D-0929).
+- Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide
+  RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
+- Do not push shared `maketrap` PIT morph (D-0972).
+- Do not memcpy gi worn/ball pointers (D-1035) / `setnotworn` from
+  `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
+  (D-1037) / omit `msounds[]` (D-1053).
+- Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
+  nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
+  (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
+  in `can_reach_floor` (D-1070).
+- Do not skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) /
+  meager (D-1074) / having-fun egg (D-1075) / pit `dotrap` stub
+  (D-1076) / `is_lava` LAVAPOOL-only (D-1077) / `split_mon` null
+  (D-1078) / unread `ptr.msound` peace (D-1079) / silent shop
+  welcome (D-1080) / `cprefx` without revive (D-1081) / skip
+  ceiling_hider (D-1082) / no-op `check_pit` (D-1083) / always
+  `rnd(13)` wizard (D-1084). Do not restore sticky `u.Flying` as
+  the only Flying test; do not skip `uprops[FLYING]` (review **43**).
+- Do not import `monmove.js` `sticks` for sit. Do not rewrite
+  `confer_oc_oprop` in the Flying peel (D-1060 do-not).
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1375**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1380**.
-- **D-1084:** `throne_sit_effect` wizard getlin 1..13 (`sit.c`
-  ~48–61). ESC Never_mind return; atoi 1..13; 0/empty keep rnd.
-- **D-1083:** `can_reach_floor(check_pit)` teeter/shaft FALSE
-  (`engrave.c` / `trap.js`). Flying||MZ_HUGE skip; pickup callers named.
-- **D-1082:** `can_reach_floor` ceiling_hider then Flying||MZ_HUGE (`engrave.c`).
-- **D-1081:** `cprefx` rider `revive_corpse` after lifesave (`eat.c` /
-  `do.c`). Tin skip; `zero_victual`; floor rider suffixes.
-- **D-1080:** `u_entered_shop` deserted/angry/Invis/doorway (`shk.c`).
-  Review **41** ACCEPT-WITH-DEBT (youprop sticky / `in_rooms` named).
-- **D-1079:** `peace_minded`/`set_malign` `ptr.msound`. Review **40** ACCEPT.
-- **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`). Review **39** ACCEPT.
+- Suite after cadence **#1380**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1385**.
+- Review **43** QUALITY-RISK: `Flying()` H/E flats miss amulet
+  `uprops[FLYING]`. Must-fix next.
+- **D-1084:** wizard getlin 1..13. Review **45** ACCEPT.
+- **D-1083:** `check_pit` teeter/shaft. Review **44** ACCEPT
+  (pickup `t && is_pit` named).
+- **D-1082:** ceiling_hider + MZ_HUGE. Review **43** QUALITY-RISK
+  (Flying clone).
+- **D-1081:** `cprefx` rider `revive_corpse`. Review **42** ACCEPT.
+- **D-1080:** `u_entered_shop`. Review **41** ACCEPT-WITH-DEBT.

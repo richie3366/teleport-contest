@@ -51,3 +51,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [39-c7dcd80a-split-mon-clone-mon.md](./39-c7dcd80a-split-mon-clone-mon.md) | `c7dcd80a` | D-1078 sit `split_mon` `clone_mon` | **ACCEPT** |
 | [40-d7d679c1-peace-malign-msound.md](./40-d7d679c1-peace-malign-msound.md) | `d7d679c1` | D-1079 `peace_minded`/`set_malign` `ptr.msound` | **ACCEPT** |
 | [41-0a4a5df3-u-entered-shop.md](./41-0a4a5df3-u-entered-shop.md) | `0a4a5df3` | D-1080 `u_entered_shop` deserted/angry/Invis/doorway | **ACCEPT-WITH-DEBT** |
+| [42-cd5af20a-cprefx-revive-corpse.md](./42-cd5af20a-cprefx-revive-corpse.md) | `cd5af20a` | D-1081 `cprefx` rider `revive_corpse` | **ACCEPT** |
+| [43-453e759c-can-reach-floor-ceiling-hider.md](./43-453e759c-can-reach-floor-ceiling-hider.md) | `453e759c` | D-1082 `can_reach_floor` ceiling_hider / Flying\|\|MZ_HUGE | **QUALITY-RISK** |
+| [44-e6167027-can-reach-floor-check-pit.md](./44-e6167027-can-reach-floor-check-pit.md) | `e6167027` | D-1083 `can_reach_floor(check_pit)` teeter/shaft | **ACCEPT** |
+| [45-83a3ada5-throne-wizard-getlin.md](./45-83a3ada5-throne-wizard-getlin.md) | `83a3ada5` | D-1084 `throne_sit_effect` wizard getlin | **ACCEPT** |
