@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 04:42 — #1339 D-1062 tut-1 create_object large-box contents
+
+**Objective:** Open queue — tut-1 large-box contents only (not food /
+`place_lregion` / key / nhcore).
+**C locus:** `sp_lev.c` `create_object` / `lspo_object`;
+`get_location_coord`; `shk.c` `delete_contents`; `dat/tut-1.lua`
+box (41,6) + nested wand.
+**Change:** `l_create_object` unpacked path: packed origin, random
+DRY `get_location_coord` double-try, `delete_contents` after
+`mkbox_cnts`, `container_obj` push/pop, `stackobj` when not content.
+`load_tut1` uses it for the box+wand only. Did not rewire other
+`load_*` `des.object`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1335** **44**/44; next
+@**#1340**).
+**Verified:** private node 20/20 DRY-only ROOM; box broken/unlocked
+wand `spe=30` `cobj` len 1. green+strict PASS; seed0009 **73**/73;
+cohort **11**/11 (8000/0900/0009/1500/1800/0060/0102/0360/2200/0030/
+0373). Path unhit except seed0009 prefix.
+**Next:** Open tut-1 food objects only.
+**Blocked:** none.
+
 ## 2026-08-16 04:25 — #1338 review D-1060/D-1061 against pinned C
 
 **Objective:** review every JS-touching commit since
@@ -304,20 +325,5 @@ green+strict PASS; quest/hatch cohort **7**/7 after leader shim
 (seed0361/0367/0373/4500/0014). Path **unhit** by public traces.
 **Next:** Must-fix `get_obj_location` flags `0` vs CONTAINED
 (D-1036 risk 4).
-**Blocked:** none.
-
-## 2026-08-16 01:32 — #1324 D-1052 cursed-lamp make_glib Glib TIMEOUT
-
-**Objective:** Must-fix — cursed-lamp `make_glib` remaining timeout
-must match C `(Glib&TIMEOUT)` / review `HGlib|EGlib`.
-**C locus:** `apply.c` `use_lamp` (~1673); `potion.c` `make_glib`
-`set_itimeout(&Glib)`; `youprop.h` Glib ≡ `uprops[GLIB].intrinsic`.
-**Change:** export `Glib()` as HGlib|EGlib; `make_glib` writes
-intrinsic + HGlib/Glib mirrors; `use_lamp`/`use_towel`/`use_grease`
-use `(Glib()&TIMEOUT)`; `nh_timeout` TIMEOUT_FLAT GLIB. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
-**Verified:** green+strict PASS; apply/timeout cohort **8**/8;
-private node remainder 20→27 and `nh_timeout` 5→2. Path unhit.
-**Next:** Must-fix `cry_sound` C `monflag.h` numbers (D-1036 risk 3).
 **Blocked:** none.
 

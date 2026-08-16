@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
+- [x] tut-1 large-box contents only. **Addressed:** D-1062
+
+
 - [x] tut-1 stairs only. **Addressed:** D-1061 `05915d9b`
 
 

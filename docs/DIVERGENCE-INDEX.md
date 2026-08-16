@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1062 | fixed | tut-1 `create_object` large-box contents | map-driven; C `sp_lev.c` packed box + nested random wand: `get_location_coord` DRY, `delete_contents` after mkbox_cnts, container_obj stack |
 | D-1061 | fixed | tut-1 `l_create_stairway` packed stairs | map-driven; C `sp_lev.c` packed `des.stair` deltrap+SpLev_Map+`mkstairs` force ROOM before dungeon-end return |
 | D-1060 | fixed | sit `dosit` Fire/Cold `uprops[]` | review 19 QUALITY-RISK; C `youprop.h` `uprops[FIRE_RES]`/`[COLD_RES]`; worn ring `d(2,10)` not H\|\|E flats |
 | D-1059 | fixed | mklev tut-1 `mineralize` kelp | map-driven; C `water_has_kelp` `!Is_waterlevel` + `In_endgame` return before kelp; tut-1.lua has no `des.mineralize` |

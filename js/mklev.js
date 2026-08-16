@@ -69,6 +69,7 @@ import {
     Is_airlevel,
     Is_waterlevel,
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
+    SP_OBJ_CONTENT, SP_OBJ_CONTAINER,
     Can_fall_thru, Can_dig_down, G_GONE,
     CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_NONE,
 } from './const.js';
@@ -85,7 +86,7 @@ import {
     mkobj, mksobj, mksobj_at, mkobj_at, mkgold, mkcorpstat, next_ident,
     curse, bless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
     set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
-    add_to_container, objects_at,
+    add_to_container, objects_at, stackobj,
 } from './mkobj.js';
 import {
     makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham,
@@ -8356,7 +8357,7 @@ function splev_map_center_start(wid, hei) {
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
  * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
  * leave-tutorial invent restore, map_location tseen traps;
- * large-box contents / food / place_lregion / nhcore disable.
+ * food / place_lregion / nhcore disable.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -8601,35 +8602,20 @@ function load_tut1() {
 
     // --- tut-1.lua loot box through end (RNG-critical) ---
     tut1_engr(39, 6, "You loot containers with ':'");
-    // C: create_object large box broken+trapped=false + contents wand
-    {
-        const box = tut1_object(xstart, ystart, 41, 6, LARGE_BOX, -127, null);
-        if (box) {
-            // C: broken → obroken=1 olocked=0; trapped=0 overrides mksobj
-            box.obroken = 1;
-            box.olocked = 0;
-            box.otrapped = 0;
-            // C: SP_OBJ_CONTAINER → delete_contents (mkbox_cnts already burned)
-            box.cobj = null;
-            // contents: get_location RANDOM then mksobj_at wand spe=30
-            const sx = game.splev_xsize | 0;
-            const sy = game.splev_ysize | 0;
-            let wx = xstart + rn2(sx);
-            let wy = ystart + rn2(sy);
-            const wand = mksobj_at(
-                WAN_SECRET_DOOR_DETECTION, wx, wy, true, true,
-            );
-            if (wand) {
-                wand.spe = 30;
-                wand.oeroded = 0;
-                wand.oeroded2 = 0;
-                wand.oerodeproof = 0;
-                obj_extract_self(wand);
-                add_to_container(box, wand);
-                box.owt = weight(box);
-            }
-        }
-    }
+    // C: dat/tut-1.lua des.object packed large box + contents wand
+    // → lspo_object / create_object (D-1062).
+    l_create_object({
+        id: LARGE_BOX,
+        rx: 41,
+        ry: 6,
+        broken: 1,
+        trapped: 0,
+    }, () => {
+        l_create_object({
+            id: WAN_SECRET_DOOR_DETECTION,
+            spe: 30,
+        });
+    });
     tut1_engr(42, 6, "Containers can also be emptied with '\\'");
     tut1_engr(45, 6, "Magic wands are used with 'z'");
 
@@ -9900,6 +9886,186 @@ function splev_create_monster(id_or_class, peaceful) {
     }
     if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
         mtmp.mpeaceful = peaceful;
+}
+
+// C ref: sp_lev.c — static container_obj[MAX_CONTAINMENT] / container_idx
+const MAX_CONTAINMENT = 10;
+let container_idx = 0;
+const container_obj = new Array(MAX_CONTAINMENT).fill(null);
+
+/** C ref: sp_lev.c spo_pop_container */
+function spo_pop_container() {
+    if (container_idx > 0) {
+        container_idx--;
+        container_obj[container_idx] = null;
+    }
+}
+
+/**
+ * C ref: shk.c delete_contents — obj_extract_self + obfree (no obj_resists).
+ */
+function create_object_delete_contents(obj) {
+    while (obj?.cobj) {
+        const curr = obj.cobj;
+        obj_extract_self(curr);
+        if (curr.cobj) create_object_delete_contents(curr);
+        curr.quan = 0;
+        curr.where = OBJ_FREE;
+        curr.nobj = null;
+        curr.nexthere = null;
+    }
+}
+
+/**
+ * C ref: sp_lev.c get_location_coord — packed add origin; random DRY retry.
+ * Packed does not consult humidity (same as l_create_stairway). Random uses
+ * get_location_coord_random / in-room double-try. Named omit: class-letter
+ * def_char_to_objclass path lives in create_object.
+ */
+function get_location_coord(humidity, croom, rx, ry) {
+    if (rx < 0 && ry < 0) {
+        return croom
+            ? get_location_coord_in_room(croom, humidity)
+            : get_location_coord_random(humidity);
+    }
+    const mx = croom ? (croom.lx | 0) : (game.splev_xstart | 0);
+    const my = croom ? (croom.ly | 0) : (game.splev_ystart | 0);
+    let x = mx + (rx | 0);
+    let y = my + (ry | 0);
+    if (!isok(x, y)) {
+        x = X_MAZE_MAX;
+        y = Y_MAZE_MAX;
+    }
+    return { x, y };
+}
+
+/**
+ * C ref: sp_lev.c create_object (~2193–2439).
+ * Named omit: oname / novelidx; quan>0 oc_merge; corpsenm/set_corpsenm;
+ * recharged; tknown; invent_carrying_monster / saddle; artifact uncreate
+ * when container_obj is NULL; Medusa statue fill; achievement prizes;
+ * lit begin_burn; buried bury_an_obj; class-letter def_char_to_objclass
+ * (id-less RANDOM_CLASS / mkobj_at oclass still work).
+ */
+function create_object(o, croom) {
+    const named = !!(o.name);
+    const pos = get_location_coord(DRY, croom, o.rx ?? -1, o.ry ?? -1);
+    const x = pos.x;
+    const y = pos.y;
+
+    let c = (o.class != null && o.class >= 0) ? o.class : 0;
+    let otmp;
+    const id = o.id ?? -1;
+    if (!c) {
+        otmp = mkobj_at(RANDOM_CLASS, x, y, !named);
+    } else if (id !== -1) {
+        otmp = mksobj_at(id, x, y, true, !named);
+    } else {
+        otmp = mkobj_at(c, x, y, !named);
+    }
+    if (!otmp) return null;
+
+    if (o.spe !== -127 && o.spe != null) otmp.spe = o.spe | 0;
+
+    switch (o.curse_state | 0) {
+    case 1:
+        bless(otmp);
+        break;
+    case 2:
+        unbless(otmp);
+        uncurse(otmp);
+        break;
+    case 3:
+        curse(otmp);
+        break;
+    case 4:
+        uncurse(otmp);
+        break;
+    case 5:
+        blessorcurse(otmp, 1);
+        break;
+    case 6:
+        unbless(otmp);
+        break;
+    default:
+        break;
+    }
+
+    const eroded = o.eroded | 0;
+    if (eroded) {
+        if (eroded < 0) {
+            otmp.oerodeproof = 1;
+        } else {
+            otmp.oeroded = eroded % 4;
+            otmp.oeroded2 = ((eroded >> 2) % 4);
+        }
+    } else {
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    }
+    if (o.locked === 0 || o.locked === 1) {
+        otmp.olocked = o.locked;
+    } else if (o.broken) {
+        otmp.obroken = 1;
+        otmp.olocked = 0;
+    }
+    if (o.trapped === 0 || o.trapped === 1) otmp.otrapped = o.trapped;
+    otmp.greased = o.greased ? 1 : 0;
+
+    const containment = o.containment | 0;
+    if (containment & SP_OBJ_CONTENT) {
+        if (container_idx) {
+            const cobj = container_obj[container_idx - 1];
+            obj_extract_self(otmp);
+            if (cobj) {
+                otmp = add_to_container(cobj, otmp);
+                cobj.owt = weight(cobj);
+            } else {
+                otmp.quan = 0;
+                otmp.where = OBJ_FREE;
+                return null;
+            }
+        }
+    }
+    if (containment & SP_OBJ_CONTAINER) {
+        create_object_delete_contents(otmp);
+        if (container_idx < MAX_CONTAINMENT) {
+            container_obj[container_idx] = otmp;
+            container_idx++;
+        }
+    }
+
+    if (!(containment & SP_OBJ_CONTENT)) stackobj(otmp);
+    return otmp;
+}
+
+/**
+ * C ref: sp_lev.c lspo_object table form (unpacked; not lua_State).
+ * contentsFn runs after create_object like Lua contents=function.
+ * Named omit: argc string/coord overloads; quan non-merge repeat loop;
+ * montype/historic; other load_* des.object still hand-rolled.
+ */
+export function l_create_object(o, contentsFn, croom = null) {
+    const tmp = { ...o };
+    if (tmp.spe == null) tmp.spe = -127;
+    if (tmp.trapped == null) tmp.trapped = -1;
+    if (tmp.locked == null) tmp.locked = -1;
+    if (tmp.eroded == null) tmp.eroded = 0;
+    if (tmp.curse_state == null) tmp.curse_state = 0;
+    if (tmp.rx == null) tmp.rx = -1;
+    if (tmp.ry == null) tmp.ry = -1;
+    if ((tmp.class == null || tmp.class < 0) && (tmp.id | 0) > 0) {
+        const oc = game.objects?.[tmp.id]?.oc_class;
+        tmp.class = (oc != null && oc >= 0) ? oc : 1;
+    }
+    tmp.containment = tmp.containment | 0;
+    if (container_idx) tmp.containment |= SP_OBJ_CONTENT;
+    if (contentsFn) tmp.containment |= SP_OBJ_CONTAINER;
+    const otmp = create_object(tmp, croom);
+    if (typeof contentsFn === 'function') contentsFn(otmp);
+    if ((tmp.containment & SP_OBJ_CONTAINER) !== 0) spo_pop_container();
+    return otmp;
 }
 
 /**

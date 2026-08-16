@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1062 — tut-1 packed large-box contents via create_object
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 large-box contents listed as deferred
+  `des.*`. `dat/tut-1.lua:232–235` is a packed `des.object` large box
+  (`broken`, `trapped=false`) whose `contents` function is a random-coord
+  wand of secret door detection (`spe=30`). JS `load_tut1` used raw
+  `xstart+rn2(sx)` / `ystart+rn2(sy)` (no DRY `get_location` retry) and
+  `box.cobj = null` instead of `delete_contents` after `mkbox_cnts`.
+- **C locus:** `sp_lev.c` `create_object` (~2193–2439) / `lspo_object`
+  (~3557–3754); `get_location_coord` (~1337–1353); `shk.c`
+  `delete_contents` (~1175–1183); `dat/tut-1.lua` box at (41,6).
+- **Fix:** `l_create_object` unpacked table path: class from
+  `objects[id].oc_class`, `SP_OBJ_CONTAINER`/`SP_OBJ_CONTENT` via
+  `container_obj[]`, packed origin add, random `get_location_coord(DRY)`
+  double-try, `delete_contents` then contents callback, `spo_pop_container`,
+  `stackobj` when not content. `load_tut1` calls it for the box+wand only.
+  Rule #2: no fs.
+- **Deferred:** tut-1 food / `place_lregion` / tut_key / nhcore disable;
+  Lua argc string/coord overloads; quan non-merge repeat; named/oname;
+  corpsenm; buried/lit/achievement; Medusa statue fill;
+  `invent_carrying_monster`; class-letter `def_char_to_objclass`; other
+  `load_*` `des.object` still hand-rolled (tower/medusa `cobj=null`).
+- **Verify:** private node: 20/20 random wands on the sole ROOM cell in a
+  2×2 STONE map (raw `rn2` would miss); packed box broken/unlocked/
+  untrapped, wand `spe=30`, `cobj` length 1 (mkbox_cnts deleted).
+  green+strict PASS; seed0009 **73**/73; cohort **11**/11
+  (8000/0900/0009/1500/1800/0060/0102/0360/2200/0030/0373). Path unhit
+  except seed0009 prefix already in D-0353.
+- **Files:** `js/mklev.js`.
+
 ## D-1061 — tut-1 packed des.stair via l_create_stairway force
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

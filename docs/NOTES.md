@@ -11,17 +11,17 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1335**;
   next @**#1340**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 large-box contents is next.
+  LB). Must-fix empty; Open tut-1 food objects is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews **21** ACCEPT D-1060 (`ecd37108`), **22** ACCEPT
-  D-1061 (`05915d9b`). D-log “tut-1 dungeon-end return” was
-  overclaim (Tutorial is 2 levels; down stairs place).
-- **Next cluster:** Open — tut-1 large-box contents only.
-- **Hypothesis:** none live. Next falsifier is the Open large-box
-  cluster (C `des.object` packed box contents vs JS stub).
+- Latest: **D-1062** tut-1 large-box `create_object` (DRY
+  `get_location_coord` + `delete_contents` + container_obj). Reviews
+  **21** ACCEPT D-1060 (`ecd37108`), **22** ACCEPT D-1061 (`05915d9b`).
+- **Next cluster:** Open — tut-1 food objects only.
+- **Hypothesis:** none live. Next falsifier is the Open food
+  cluster (C `des.object` apple/candy/lichen vs JS `tut1_object`).
 
 ## Don't re-check (≤15)
 
@@ -74,12 +74,17 @@ Objective/score live in `CURRENT.md`.
   `In_endgame` before kelp or kelp WATER without `!Is_waterlevel`
   (D-1059). tut-1.lua has no `des.mineralize`. Do not skip
   `mkstairs` `force` ROOM before dungeon-end return or raw-mkstairs
-  tut-1 packed `des.stair` (D-1061).
+  tut-1 packed `des.stair` (D-1061). Do not restore raw `rn2(sx/sy)`
+  for nested tut-1 box contents or skip `delete_contents` after
+  `mkbox_cnts` (D-1062).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1335**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
+- **D-1062:** tut-1 packed large box + nested wand → `l_create_object`
+  / `create_object` (DRY `get_location_coord`, `delete_contents`,
+  container_obj). Was raw `rn2(sx/sy)` then `cobj=null`.
 - **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
   (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
   Review **22** ACCEPT `05915d9b`.
@@ -91,7 +96,3 @@ Objective/score live in `CURRENT.md`.
   Review **20** ACCEPT `c0d5279a`.
 - **D-1058:** `dosit` lava/ice/DRAWBRIDGE_DOWN sit (terrain; trap
   TT_LAVA remains D-1039). `likes_lava` warm vs `d(2|10,10)`.
-- **D-1057:** `dosit` sink/altar/`altar_wrath`/grave/stairs/ladder
-  sit_message (C `"stairs"`/`"ladder"`, not defsyms up/down).
-- **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
-- **D-1055:** `in_water` + pool/gremlin goto + C `uarm` twice.
