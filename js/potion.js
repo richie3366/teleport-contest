@@ -2,7 +2,7 @@
 // C ref: potion.c dodrink, dopotion, peffects, peffect_oil,
 //         peffect_confusion, peffect_booze, peffect_healing,
 //         peffect_extra_healing, peffect_water, make_confused, dodip;
-//         invent.c getobj; fountain.c drinkfountain / dipfountain.
+//         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
 
 import { game } from './gstate.js';
@@ -14,7 +14,7 @@ import { A_WIS, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise } from './attrib
 import { makeknown, compactify_invlets } from './invent.js';
 import { yn_function } from './getline.js';
 import { doname, xname, short_oname, thesimpleoname, makeplural } from './objnam.js';
-import { dipfountain, drinkfountain, drinksink } from './fountain.js';
+import { dipfountain, drinkfountain, drinksink, dipsink } from './fountain.js';
 import {
     IS_FOUNTAIN, IS_SINK, IS_POOL,
     ECMD_TIME, ECMD_CANCEL,
@@ -1055,9 +1055,11 @@ async function getobj_dip(at_here) {
 
 /**
  * C ref: potion.c dodip — #dip
- * Branch envelope: fountain-at-feet yn → dipfountain.
- * Deferred: sink/pool dips, potion_dip alchemy, m-prefix skip floor,
- * inaccessible_equipment, can_reach_floor false.
+ * Branch envelope: fountain-at-feet yn → dipfountain; sink-at-feet yn →
+ * dipsink (D-1113).
+ * Deferred: pool dip, potion_dip alchemy, m-prefix skip floor,
+ * inaccessible_equipment, can_reach_floor false, drink_ok_extra potion
+ * getobj after 'n'.
  * @returns {number} ECMD_*
  */
 export async function dodip() {
@@ -1103,8 +1105,17 @@ export async function dodip() {
             }
             // drink_ok_extra++ then potion getobj — deferred cancel
             return ECMD_CANCEL;
-        } else if (at_sink || at_pool) {
-            // dipsink / pool dip deferred
+        } else if (at_sink) {
+            const q = `Dip ${game.flags?.verbose !== false ? obuf : shortestname} into the sink?`;
+            if ((await yn_function(q, 'yn', 'n')) === 'y') {
+                if (!is_hands) obj.pickup_prev = 0;
+                await dipsink(obj);
+                return ECMD_TIME;
+            }
+            // drink_ok_extra++ then potion getobj — deferred cancel
+            return ECMD_CANCEL;
+        } else if (at_pool) {
+            // pool dip still named
             return ECMD_CANCEL;
         }
     }

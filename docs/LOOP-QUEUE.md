@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dipsink` (named). Not wash_hands.
 - [ ] `fountain.c` `dipfountain` cases 17–20 uncurse (named). Not Excalibur.
 - [ ] `fountain.c` `dipfountain` case 29 `mkgold` coins (named). Not wash_hands.
 - [ ] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup.

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1113 — fountain.c dipsink + dodip sink yn
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `#dip` on a sink cancelled (`at_sink || at_pool`
+  ECMD_CANCEL). C `dodip` asks yn then `dipsink`: lottery
+  `!rn2(25/15)` `breaksink`, hands/uarmg `wash_hands`, non-potion
+  tap+`water_damage`, potion pour + otyp switch (`polymorph_sink`,
+  oil/acid/lev/detect, `potionbreathe`, `trycall`/`useup`).
+- **C locus:** `fountain.c` `dipsink` (~716–801); `do.c`
+  `polymorph_sink` (~404–455); `potion.c` `dodip` (~2325–2334).
+- **Fix:** port `dipsink`; wire dodip sink yn like fountain.
+  Local `polymorph_sink` (fountain/throne/altar/grave) with
+  incremental nsinks/nfountains analog. Hands path calls existing
+  `wash_hands` (D-1108). Dynamic `potionbreathe` (cycle). Rule #2:
+  no fs.
+- **JS:** `js/fountain.js` `dipsink`; `js/potion.js` `dodip`.
+- **Not this iter:** potion.c pool dip; dipfountain uncurse 17–20 /
+  case 29 `mkgold`; `drink_ok_extra` potion getobj after `'n'`;
+  full `set_levltyp` ice/CAN_OVERWRITE/count_level_features scan;
+  `potionbreathe` trycall-when-!kn.
+- **Verify:** private canary **60**/60 (lottery 25/15; Glib still-
+  slippery; hands/uarmg wash; non-potion tap; quan one-of; oil/
+  acid Blind/Deaf; lev `sink_backs_up`; detect S_LRING; poly
+  four dest + hell AM_NONE; BBlinded; default vapor); green+
+  strict seed8000/0900; cohort **17**/17 including 0014/0360/
+  4500/0030 + strict 0014/0360/4500/2200/0004/0030/0009/0367.
+  Path public-unhit.
+- **Files:** `js/fountain.js`, `js/potion.js`.
+
 ## D-1112 — mlevel_tele_trap MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
