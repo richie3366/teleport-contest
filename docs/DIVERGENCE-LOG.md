@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1072 — dosit ustuck !sticks lap (Monnam / mhis)
+
+- **Status:** fixed (map-driven Open from review **32** named omit;
+  not a public FAIL)
+- **Symptom:** after `can_reach_floor(FALSE)` succeeded, JS `#sit`
+  still sat (pool/OBJ_AT/having-fun). C `sit.c` `dosit`
+  `else if (u.ustuck && !sticks(youmonst.data))` plines
+  `Monnam`/`mhis` lap and returns `ECMD_OK`. Hugs never reach
+  this arm (helper FALSE → sit-on-air, D-1071). Eel `AD_WRAP`,
+  mimic `AD_STCK`, and trapper-not-swallow do.
+- **C locus:** `sit.c` `dosit` (~422–429); `mondata.c` `sticks`;
+  `you.h` `mhis` → `pronoun_gender(..., PRONOUN_HALLU)`;
+  `do_name.c` `Monnam`.
+- **Fix:** after the helper succeeds, `ustuck && !sticks(hero)`
+  using the engrave export (C `AT_HUGS=7`/`AT_ENGL=11`).
+  Humanoid grabber → `"%s won't offer %s lap."`; else
+  `"%s has no lap."` Local `mhis` is C `pronoun_gender` (hallu
+  `rn2(4)`, `canspotmon`/`is_neuter`/`humanoid|G_UNIQ|pname`).
+  Did not import `monmove.js` `sticks`. Did not pull swallow
+  combat / ceiling_hider / MZ_HUGE / pit teeter / `lay_an_egg`.
+  Rule #2: no fs.
+- **Deferred:** helper ceiling_hider / MZ_HUGE / uteetering /
+  uescaped_shaft; OBJ_AT picnic pit gates; dragon meager hoard;
+  `lay_an_egg`.
+- **Verify:** private node: eel/mimic/trapper `"has no lap."`
+  `ECMD_OK`; hobbit `"won't offer … lap."`; owlbear hug still
+  sit-on-air; python hero `sticks` sits (no lap); swallow still
+  no seats. green+strict PASS; cohort **14**/14
+  (8000/0900/1500/1800/0060/0102/0700/0106/0107/0101/0116/2200/4500/
+  0009). Path unhit on public sessions.
+- **Files:** `js/sit.js`, `js/engrave.js` (`sticks` export).
+
 ## D-1071 — can_reach_floor ustuck AT_HUGS + !sticks
 
 - **Status:** fixed (map-driven Open from review **30** named omit;
@@ -22,7 +54,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   imported by `monmove.js`). Did not pull ceiling_hider / MZ_HUGE /
   pit teeter / dosit lap. Rule #2: no fs.
 - **Deferred:** helper ceiling_hider / MZ_HUGE / uteetering /
-  uescaped_shaft; dosit ustuck lap (`sit.c:422–429`).
+  uescaped_shaft; dosit ustuck lap shipped D-1072.
 - **Verify:** private node: human+owlbear hug → false; python hug
   → false; eel WRAP → true; trapper ENGL not-swallow → true;
   owlbear/python hero `sticks` → true; swallow / ELevitation still

@@ -12,7 +12,8 @@
 // (D-1069; replace Levitation-only early return; air/water Levitation
 // may sit) + helper/message Levitation ≡ youprop.h (H||E)&&!B
 // (D-1070; not sticky u.Levitation) + helper hugs AT_HUGS+!sticks
-// (D-1071; sit-on-air reachable; do not ship ustuck lap this iter).
+// (D-1071; sit-on-air reachable) + dosit ustuck !sticks lap
+// (D-1072; Monnam / mhis; not swallow combat).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -23,7 +24,9 @@
 // !can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
 // (D-1069/D-1070; shared engrave.js helper; Levitation is C
 // youprop.h (H||E)&&!B; hugs AT_HUGS+!sticks D-1071; ceiling_hider /
-// MZ_HUGE still named there), OBJ_AT picnic body
+// MZ_HUGE still named there), ustuck !sticks lap Monnam/mhis
+// (D-1072; eel WRAP / mimic STCK / trapper-not-swallow; hugs already
+// air via helper), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
@@ -46,8 +49,7 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: ustuck lap (helper hugs already D-1071),
-// can_reach_floor ceiling_hider/MZ_HUGE,
+// Deferred: can_reach_floor ceiling_hider/MZ_HUGE,
 // uteetering/
 // uescaped_shaft gate, wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
@@ -62,7 +64,7 @@
 import { game } from './gstate.js';
 import {
     pline, You_feel, newsym, see_monsters, map_background, newsym_force,
-    verbalize,
+    verbalize, canspotmon,
 } from './display.js';
 import { set_mimic_blocking, cansee } from './vision.js';
 import { rnd, rn2, rn1, d } from './rng.js';
@@ -87,7 +89,7 @@ import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
 import {
     amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
-    humanoid, likes_lava, is_hider, monsterNames,
+    humanoid, likes_lava, is_hider, monsterNames, is_neuter, G_UNIQ,
 } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -99,7 +101,7 @@ import { t_at, dotrap, water_damage } from './trap.js';
 import { losehp, finish_maybe_wail, is_pool, is_lava } from './hack.js';
 import { uwepgone, uswapwepgone, uqwepgone } from './wield.js';
 import { burn_away_slime } from './timeout.js';
-import { hliquid, christen_monst, mon_nam } from './do_name.js';
+import { hliquid, christen_monst, mon_nam, Monnam, type_is_pname } from './do_name.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const TOWEL = objectNames.indexOf('TOWEL');
@@ -155,6 +157,27 @@ function Hallucination() {
     if (u.Halluc_resistance) return false;
     return !!((u.Hallucination)
         || ((u.HHallucination | 0) & TIMEOUT));
+}
+
+/**
+ * C you.h mhis → genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his.
+ * C mondata.c pronoun_gender: hallu rn2(4); !canspotmon / is_neuter /
+ * non-(humanoid|G_UNIQ|pname) → 2 (its); else female.
+ * Local: sit cannot import mhitu.js (zap←mhitu cycle).
+ */
+function mhis(mtmp) {
+    if (Hallucination()) {
+        return ['his', 'her', 'its', 'their'][rn2(4)];
+    }
+    if (!canspotmon(mtmp)) return 'its';
+    const ptr = mtmp?.data;
+    if (!ptr || is_neuter(ptr)) return 'its';
+    if (humanoid(ptr)
+        || ((ptr.geno | 0) & G_UNIQ)
+        || type_is_pname(ptr)) {
+        return mtmp.female ? 'her' : 'his';
+    }
+    return 'its';
 }
 
 /** C ref: obj.h u_wield_art — is_art(uwep, art). */
@@ -1031,7 +1054,7 @@ export async function dosit() {
     // Dynamic import: sit←engrave←hack←eat←sit. C sit.c dosit:
     // if (!can_reach_floor(FALSE)) { swallow / Levitation / air }.
     {
-        const { can_reach_floor } = await import('./engrave.js');
+        const { can_reach_floor, sticks } = await import('./engrave.js');
         if (!can_reach_floor(false)) {
             if (u.uswallow) {
                 await pline('There are no seats in here!');
@@ -1042,8 +1065,22 @@ export async function dosit() {
             }
             return ECMD_OK;
         }
+        // C sit.c dosit: else if (u.ustuck && !sticks(youmonst.data))
+        // — grabber is beside the hero, not under the seat. Hugs already
+        // FALSE from the helper (D-1071), so this arm is WRAP/STCK
+        // (eel, mimic, trapper not swallowed). C sticks from engrave,
+        // not monmove.js (AT_HUGS 6/7 ≠ C 7/11).
+        if (u.ustuck && !sticks(game.youmonst?.data)) {
+            if (humanoid(u.ustuck.data)) {
+                await pline(
+                    `${Monnam(u.ustuck)} won't offer ${mhis(u.ustuck)} lap.`,
+                );
+            } else {
+                await pline(`${Monnam(u.ustuck)} has no lap.`);
+            }
+            return ECMD_OK;
+        }
     }
-    // ustuck !sticks lap still deferred
     const trap = t_at(u.ux, u.uy);
     const typ = game.level?.at(u.ux, u.uy)?.typ ?? 0;
     // C: else if (is_pool && !Underwater) goto in_water — skips OBJ_AT/trap

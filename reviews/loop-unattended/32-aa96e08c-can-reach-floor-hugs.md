@@ -145,7 +145,7 @@ None from this SHA. The hugs arm and the local clones match C.
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. **dosit ustuck lap** (`sit.c:422–429`) is the live Open line. Helper hugs is in: a python/owlbear grab now airs, not laps. Eel WRAP still reaches and still needs `Monnam` / `mhis`. When shipping lap, use **this** `sticks` (C `monattk.h` 7/11/19/28) or re-port `mondata.c` — do **not** `import { sticks } from './monmove.js'` (`AT_HUGS` commented as 6, `AT_ENGL` as 7; `sticks(python)` is false vs C true). Do not pull swallow combat. Do not pull `ceiling_hider` / `MZ_HUGE` / pit teeter this next iter.
+1. **dosit ustuck lap** (`sit.c:422–429`) is the live Open line. Helper hugs is in: a python/owlbear grab now airs, not laps. Eel WRAP still reaches and still needs `Monnam` / `mhis`. When shipping lap, use **this** `sticks` (C `monattk.h` 7/11/19/28) or re-port `mondata.c` — do **not** `import { sticks } from './monmove.js'` (`AT_HUGS` commented as 6, `AT_ENGL` as 7; `sticks(python)` is false vs C true). Do not pull swallow combat. Do not pull `ceiling_hider` / `MZ_HUGE` / pit teeter this next iter. **Addressed:** D-1072
 2. Helper `ceiling_hider` / `MZ_HUGE` / `uteetering` / `uescaped_shaft`; `Flying` sticky vs `youprop.h` (not live at `dosit`+`FALSE`).
 
 Do not skip helper hugs / treat eel WRAP as hugs. Do not restore Levitation-only `dosit`. Do not add `newsym` at the hider clear. Do not put trailing `confdir` inside shared `getdir`.

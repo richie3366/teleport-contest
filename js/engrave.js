@@ -24,7 +24,8 @@
 // (non-zero) path; can_reach_floor ceiling_hider / MZ_HUGE /
 // uteetering_at_seen_pit / uescaped_shaft.
 // Ported: Levitation (H||E)&&!B D-1070; ustuck AT_HUGS + !sticks
-// D-1071 (local mondata.c sticks — avoid engrave←monmove cycle).
+// D-1071 (local mondata.c sticks — avoid engrave←monmove cycle);
+// sticks exported for sit.js dosit lap D-1072.
 // disturb_grave (D-0985) via kick_nondoor / engraving callers.
 // Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
@@ -261,8 +262,10 @@ function dmgtype(ptr, adtyp) {
 /**
  * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
  * Short-circuit matches C: STCK || (WRAP && !ENGL) || HUGS.
+ * Exported for sit.js dosit lap (D-1072). Do not import monmove.js
+ * sticks (AT_HUGS commented as 6, AT_ENGL as 7).
  */
-function sticks(ptr) {
+export function sticks(ptr) {
     return !!(dmgtype(ptr, AD_STCK)
         || (dmgtype(ptr, AD_WRAP) && !attacktype(ptr, AT_ENGL))
         || attacktype(ptr, AT_HUGS));

@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 10:45 — #1361 D-1072 dosit ustuck !sticks lap
+
+**Objective:** Open queue — `sit.c` `dosit` ustuck `!sticks` lap
+(`Monnam` / `mhis`). Not swallow combat.
+**C locus:** `sit.c` `dosit` (~422–429); `mondata.c` `sticks`;
+`you.h` `mhis` / `mondata.c` `pronoun_gender`; `do_name.c` `Monnam`.
+**Change:** after `can_reach_floor(FALSE)` succeeds, C
+`u.ustuck && !sticks(youmonst.data)` → humanoid
+`Monnam`/`mhis` lap else `Monnam` has no lap; `ECMD_OK`.
+Engrave `sticks` export (C AT 7/11), not `monmove.js`.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1360** **44**/44; next
+@**#1365**).
+**Verified:** private node eel/mimic/trapper no-lap; hobbit offer
+lap; owlbear air; python hero sits; swallow no seats.
+green+strict PASS; cohort **14**/14. Rotated #1346 to archive.
+**Next:** Open `sit.c` `dosit` OBJ_AT `uteetering`/`uescaped_shaft`
+gate.
+**Blocked:** none.
+
 ## 2026-08-16 10:33 — #1360 cadence score refresh
 
 **Objective:** mandatory cadence full `sessions` (@#1360 % 5 == 0);
@@ -297,23 +317,6 @@ archive.
 `3343–3476`, `nhlua.c:1644–1657`, `hacklib.c:469–493`,
 `hack.h:655`, `dat/tut-1.lua:5–27`/`70–107`/`230–267`/`294`; grep
 FORCE/DIAG/fs on the `js/dokeylist.js` + `js/mklev.js` hunks.
-**Next:** Open tut-1 nhcore callback disable on enter/leave.
-**Blocked:** none.
-
-## 2026-08-16 06:40 — #1346 D-1065 tut-1 tut_key / eckey
-
-**Objective:** Open queue — tut-1 `tut_key` / eckey only (not
-nhcore disable / Knight jump).
-**C locus:** `cmd.c` `cmd_from_ecname`/`cmd_from_func`;
-`nhlua.c` `nhl_get_cmd_key`; `dat/tut-1.lua` `tut_key` /
-`tut_key_help`; `hacklib.c` `visctrl`.
-**Change:** `cmd_from_ecname` on default binds + BIND overlay.
-`load_tut1` Lua Ctrl-/Alt- rewrite + `tut_key_help`. Loot
-`M-l`, tip `Alt-T`, untrap `M-u`, twoweapon `X`. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1345** **44**/44; next
-@**#1350**).
-**Verified:** private node eckey table; green+strict PASS;
-seed0009 **73**/73; cohort **12**/12.
 **Next:** Open tut-1 nhcore callback disable on enter/leave.
 **Blocked:** none.
 
