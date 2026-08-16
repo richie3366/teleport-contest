@@ -23,6 +23,8 @@ off-queue: D-1022 `getdir`/`hurtle` (D-1038); D-1033 trap-before-throne
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `dosit` lava/ice sit Fire_resistance/Cold_resistance must read C `youprop.h` (`u.uprops[FIRE_RES]`/`[COLD_RES]` intrinsic||extrinsic). `sit.js` clones H||E flats; `confer_oc_oprop` writes FIRE_RES/COLD_RES only to uprops (`EFire`/`ECold` unmirrored). Worn fire-resistance ring must take `d(2,10)` not `d(10,10)`. Do not rewrite `confer_oc_oprop` this iter; do not pull DRAWBRIDGE_UP+DB_LAVA `is_lava`. Source: reviews/loop-unattended/19-27f0a233-dosit-lava-ice.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] tut-1 stairs only.

@@ -20,8 +20,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-16** — full `sessions` after cadence
-**#1330** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.88). Next cadence @**#1335**.
+**#1335** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1340**.
 
 ## Score
 
@@ -30,7 +30,7 @@ Speed `31+0.27/turn` (R² 0.88). Next cadence @**#1335**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.88) |
+| Speed label | `31+0.27/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -71,12 +71,13 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — tut-1 stairs only. Must-fix empty after
-D-1059. Reviews **17–18** ACCEPT (`2e79451d` / `e1852e71`).
-Written reviews bind: QUALITY-RISK C-wrongs are Must-fix, not
-optional debt. Review every 3; cadence every 5 is score-only
-**unless Must-fix is open**. Agents **commit and `git push origin
-HEAD`** each iteration.
+**Next cluster:** Must-fix — `dosit` lava/ice sit Fire_resistance /
+Cold_resistance must read C `youprop.h` `uprops[FIRE_RES]` /
+`[COLD_RES]` (review **19** QUALITY-RISK `27f0a233`). Review **20**
+ACCEPT (`c0d5279a` kelp). Written reviews bind: QUALITY-RISK
+C-wrongs are Must-fix, not optional debt. Review every 3; cadence
+every 5 is score-only **unless Must-fix is open**. Agents **commit
+and `git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -115,7 +116,8 @@ no empty-`msound` chitter; no deser cobj parent `where`; no skip
 sit_message / `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
 no skip `mineralize` `In_endgame` before kelp; no WATER kelp
-without `!Is_waterlevel`).
+without `!Is_waterlevel`; no sit Fire/Cold H||E-only as C
+`youprop.h`).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

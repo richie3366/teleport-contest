@@ -28,3 +28,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [16-e13735f8-dosit-in-water.md](./16-e13735f8-dosit-in-water.md) | `e13735f8` | D-1055 `dosit` `in_water` | **QUALITY-RISK** |
 | [17-2e79451d-dosit-underwater.md](./17-2e79451d-dosit-underwater.md) | `2e79451d` | D-1056 `dosit` `Underwater` ≡ `u.uinwater` | **ACCEPT** |
 | [18-e1852e71-dosit-furniture.md](./18-e1852e71-dosit-furniture.md) | `e1852e71` | D-1057 furniture sit_message | **ACCEPT** |
+| [19-27f0a233-dosit-lava-ice.md](./19-27f0a233-dosit-lava-ice.md) | `27f0a233` | D-1058 lava/ice/DRAWBRIDGE_DOWN sit | **QUALITY-RISK** |
+| [20-c0d5279a-mineralize-kelp.md](./20-c0d5279a-mineralize-kelp.md) | `c0d5279a` | D-1059 mineralize kelp | **ACCEPT** |
