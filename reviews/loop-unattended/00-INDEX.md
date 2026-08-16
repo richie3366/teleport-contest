@@ -59,3 +59,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [47-89a97acc-remove-worn-item-armor-off.md](./47-89a97acc-remove-worn-item-armor-off.md) | `89a97acc` | D-1086 `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` | **ACCEPT-WITH-DEBT** |
 | [48-d5038ac7-rndcurse-shieldeff.md](./48-d5038ac7-rndcurse-shieldeff.md) | `d5038ac7` | D-1087 `rndcurse` Antimagic `shieldeff` | **QUALITY-RISK** |
 | [49-049af16e-m-initweap-priest-guardian-msound.md](./49-049af16e-m-initweap-priest-guardian-msound.md) | `049af16e` | D-1088 `m_initweap` priest/guardian `ptr.msound` | **ACCEPT** |
+| [50-f91650c0-rndcurse-antimagic-uprops.md](./50-f91650c0-rndcurse-antimagic-uprops.md) | `f91650c0` | D-1089 sit `rndcurse` `Antimagic()` via `uprops[ANTIMAGIC]` | **ACCEPT** |
+| [51-43caa8ff-is-pool-is-moat-drawbridge.md](./51-43caa8ff-is-pool-is-moat-drawbridge.md) | `43caa8ff` | D-1090 `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT` | **ACCEPT** |
+| [52-278521f1-goodpos-is-pool-is-lava.md](./52-278521f1-goodpos-is-pool-is-lava.md) | `278521f1` | D-1091 `goodpos` `is_pool()`/`is_lava()` not typ macros | **ACCEPT** |
+| [53-c3f28bfd-makemon-orc-unicorn-peace.md](./53-c3f28bfd-makemon-orc-unicorn-peace.md) | `c3f28bfd` | D-1092 `makemon` S_ORC/S_UNICORN mlet peace | **ACCEPT** |

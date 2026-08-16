@@ -8,16 +8,17 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1385**;
-  next @**#1390**.
+  speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
+  next @**#1395**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 11
-  after **D-1092** (no refill; still ≥8).
+  after **D-1092** (no refill; still ≥8). Reviews **50–53**
+  **ACCEPT** (D-1089…D-1092); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1085**…**D-1092**. Reviews **46** ACCEPT,
-  **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK (Antimagic
-  uprops shipped D-1089), **49** ACCEPT.
+- Latest ports: **D-1089**…**D-1092**. Prior **46** ACCEPT,
+  **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
+  D-1089, **49** ACCEPT.
 - **Next cluster:** Open `dogmove.c` pal/target tests must
   compare numeric `ptr.msound` not string `'MS_LEADER'`
   (named from D-1053 review **14**). Not S_ORC peace.
@@ -56,10 +57,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1385**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1390**.
+- Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
 - **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;
-  `is_unicorn` co-align always peaceful. Hash next commit.
+  `is_unicorn` co-align always peaceful. Review **53** ACCEPT.
+  Hash `c3f28bfd`.
 - **D-1091:** `goodpos` `is_pool()`/`is_lava()` not typ macros.
   UP+`DB_LAVA` is lava arm. Hash `278521f1`.
 - **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
