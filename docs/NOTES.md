@@ -11,17 +11,17 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1345**;
   next @**#1350**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open `dosit` steed `mon_nam` is next.
+  LB). Must-fix empty; Open empty after D-1067.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1066** tut-1 `tutorial()` nhcore ENTER/LEAVE disable
-  (`nhcore_call_available` both FALSE after leave). Lua `nh.callback`
-  cmd_before/`tutorial_turn` still named.
-- **Next cluster:** Open — `dosit` steed message: C `mon_nam(usteed)`,
-  not `"your steed"`. Source: D-1033 risk 4.
-- **Hypothesis:** none live. Next falsifier is Open dosit steed nam.
+- Latest: **D-1067** `dosit` steed `You`+`mon_nam(usteed)` ARTICLE_THE
+  (not `"your steed"` / not `y_monnam`). Hider / `can_reach_floor` /
+  ustuck still named.
+- **Next cluster:** Open empty. Remaining `dosit` hider /
+  `can_reach_floor` / `ustuck` or `debt.md` unless Must-fix.
+- **Hypothesis:** none live.
 
 ## Don't re-check (≤15)
 
@@ -51,12 +51,16 @@ Objective/score live in `CURRENT.md`.
   object timers (D-1037). Do not omit `msounds[]` (D-1053).
 - Do not restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`
   (D-1065). Do not skip `tutorial()` `nhcore_call_available` disable
-  or raw-`nhl_gamestate` from `goto_level` (D-1066).
+  or raw-`nhl_gamestate` from `goto_level` (D-1066). Do not restore
+  dosit `"your steed"` vs `mon_nam(usteed)` / do not swap in
+  `y_monnam` (D-1067).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1345**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
+- **D-1067:** `dosit` steed `You("… %s.", mon_nam(usteed))` ARTICLE_THE.
+  Unnamed saddled `"the saddled pony"`; named bare. Not `y_monnam`.
 - **D-1066:** tut-1 `tutorial()` → `l_nhcore_call` ENTER/LEAVE then
   both `nhcore_call_available` FALSE. Lua NHCB cmd_before/`tutorial_turn`
   still named. Knight jump / leftover `obfree` / `update_inventory` named.
@@ -66,7 +70,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
   `levregion_add` + `fixup_special` dest copy. `place_lregion`
   from `u_on_rndspot`. Review **25** ACCEPT `dc354c44`.
-- **D-1063:** tut-1 food → `l_create_object` (buc 4, montype,
-  CORPSTAT spe). Review **24** ACCEPT `3f376b74`.
-- **D-1062:** tut-1 packed box+wand → `l_create_object` (DRY,
-  `delete_contents`). Review **23** ACCEPT `3ca1b544`.

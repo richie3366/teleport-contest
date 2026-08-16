@@ -71,26 +71,22 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `dosit` steed `mon_nam(usteed)` (D-1033
-risk 4). Must-fix empty. Review **26** ACCEPT (`296bc792` D-1065).
-Review every 3; cadence every 5 is score-only **unless Must-fix
-is open**. Agents **commit and `git push origin HEAD`** each iteration.
+**Next cluster:** Open empty after D-1067. Must-fix empty. Next:
+`dosit` hider/`can_reach_floor`/ustuck or `debt.md` unless Must-fix.
+Review **26** ACCEPT (`296bc792` D-1065). Review every 3; cadence
+@**#1350** score-only unless Must-fix. Agents **commit and push**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
-function or tight caller/callee family; related map deferrals OK),
-not one map bullet and not an unrelated multi-subsystem rewrite.
-Target ~50–300 lines of C-faithful JS or one small-file restart when
-that amortizes fixed agent overhead. One falsifier / verification
-story. Prefer delete-wrong-JS + re-port over stacking shims.
-See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
+function or tight family; related deferrals OK). Target ~50–300
+lines. Prefer delete-wrong-JS + re-port. See playbook §2a–2b.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1066. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1067. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1066** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1067** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
@@ -102,13 +98,14 @@ lava/ice/DRAWBRIDGE_DOWN sit; sit Fire/Cold `uprops[]`; tut-1
 `mineralize` kelp; tut-1 `l_create_stairway` packed `force`;
 tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `l_create_object`; tut-1 `place_lregion`/`levregion_add`; tut-1
-`tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore ENTER/LEAVE disable).
+`tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
+steed `mon_nam(usteed)`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
 shared `maketrap` PIT morph; tutorial worn without `setnotworn`;
 invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
-`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1066
+`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1067
 (no `spe--` unpaid; no extra `u.Confusion`; no gold splice; no
 `void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
 no empty-`msound` chitter; no deser cobj parent `where`; no skip
@@ -125,7 +122,8 @@ after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
 `create_object` `corpsenm` / `find_montype` gender RNG for `montype`;
 no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
 restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
-skip `tutorial()` available[] or raw `nhl_gamestate` `goto_level`).
+skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
+dosit `"your steed"` vs `mon_nam(usteed)`).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

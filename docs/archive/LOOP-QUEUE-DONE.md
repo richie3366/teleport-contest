@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] tut-1 nhcore callback disable on enter/leave. **Addressed:** D-1066
+- [x] `dosit` steed message: C `mon_nam(usteed)`, not `"your steed"`. Source: D-1033 risk 4 (named, not a Must-fix). **Addressed:** D-1067
+
+
+- [x] tut-1 nhcore callback disable on enter/leave. **Addressed:** D-1066 `7e330128`
 
 
 - [x] tut-1 `tut_key` / eckey only. **Addressed:** D-1065 `296bc792`

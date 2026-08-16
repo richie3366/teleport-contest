@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1067 — dosit steed You + mon_nam(usteed)
+
+- **Status:** fixed (map-driven Open; D-1033 risk 4; not a public FAIL)
+- **Symptom:** named omission — `#sit` while mounted printed
+  `"You are already sitting on your steed."` C `sit.c` `dosit`
+  uses `You("are already sitting on %s.", mon_nam(u.usteed))`.
+  `mon_nam` is ARTICLE_THE (unnamed saddled pony → `"the saddled
+  pony"`; named → bare). Not `y_monnam` (`"your …"`).
+- **C locus:** `sit.c` `dosit` (~406–408); `do_name.c` `mon_nam` /
+  `x_monnam` ARTICLE_THE + `do_it` excludes `u.usteed`.
+- **Fix:** `dosit` interpolates `mon_nam(u.usteed)`. Shared
+  `do_name.js` `mon_nam` (Hallu `rndmonnam` display RNG when
+  Hallucination). Rule #2: no fs.
+- **Deferred:** hider undetected; `can_reach_floor` full (uswallow
+  / sit-on-air); ustuck lap; uteetering / uescaped_shaft;
+  wizard getlin; `lay_an_egg`. `cmd.c` `"Dismount your steed"`
+  menu text is a different C string.
+- **Verify:** private node: saddled unnamed `"the saddled pony"`;
+  named `"Lightning"`; unsaddled `"the pony"`; `ECMD_OK`; never
+  `"your steed"`. green+strict PASS; cohort **7**/7 (0106/0107/
+  4500/1500/1800/0060/2200). Path unhit on public sessions.
+- **Files:** `js/sit.js`.
+
 ## D-1066 — tut-1 tutorial() nhcore ENTER/LEAVE disable
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

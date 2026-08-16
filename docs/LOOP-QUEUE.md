@@ -25,8 +25,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dosit` steed message: C `mon_nam(usteed)`, not `"your steed"`. Source: D-1033 risk 4 (named, not a Must-fix).
-
 ## Parked (do not pop)
 
 - D-0006 seed1800 pet movement — needs C state/candidate capture.

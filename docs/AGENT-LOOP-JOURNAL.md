@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 07:22 — #1349 D-1067 dosit steed mon_nam(usteed)
+
+**Objective:** Open queue — `dosit` steed message: C
+`mon_nam(usteed)`, not `"your steed"` (D-1033 risk 4).
+**C locus:** `sit.c` `dosit` (~406–408); `do_name.c` `mon_nam` /
+`x_monnam` ARTICLE_THE.
+**Change:** `You`+`mon_nam(u.usteed)` (unnamed saddled `"the
+saddled pony"`; named bare). Not `y_monnam`. Hider /
+`can_reach_floor` / ustuck still named. Filled Addressed hash
+`7e330128` (D-1066). Rule #2: no fs. Rotated #1334 to archive.
+**Score:** fortress unchanged (cadence **#1345** **44**/44; next
+@**#1350**).
+**Verified:** private node three names + `ECMD_OK`; never
+`"your steed"`. green+strict PASS; cohort **7**/7
+(0106/0107/4500/1500/1800/0060/2200). Path unhit.
+**Next:** Open empty; remaining `dosit` hider / `can_reach_floor`
+/ `ustuck` or `debt.md`.
+**Blocked:** none.
+
 ## 2026-08-16 07:15 — #1348 D-1066 tut-1 tutorial() nhcore disable
 
 **Objective:** Open queue — tut-1 nhcore callback disable on
@@ -302,23 +321,5 @@ speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
 `invent.js:1684–1689`, `mklev.c:1430–1550`, `dungeon.h:115`/`141`;
 grep `EFire_resistance=`; hunks grepped FORCE/fs/seed.
 **Next:** Must-fix sit Fire/Cold `uprops[]` (review 19 item 1).
-**Blocked:** none.
-
-## 2026-08-16 03:35 — #1334 D-1059 tut-1 mineralize kelp
-
-**Objective:** Open queue — tut-1 `des` kelp only (not stairs /
-box / key / `place_lregion`).
-**C locus:** `mklev.c` `water_has_kelp` / `mineralize`;
-`dat/tut-1.lua` has no `des.mineralize` (map `P`/`W` + post-load
-`mineralize(-1,-1,-1,-1,FALSE)`).
-**Change:** `water_has_kelp` C `&&`/`||` (`POOL` or `WATER &&
-!Is_waterlevel`; MOAT); `In_endgame` return before kelp unless
-`skip_lvl_checks`. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1330** **44**/44; next
-@**#1335**).
-**Verified:** private node P/W/M place; endgame skip; waterlevel
-WATER no `rn2`; defaults `rn2(10)`×2+`rn2(30)`. green+strict PASS;
-seed0009 **73**/73; cohort **8**/8.
-**Next:** Open tut-1 stairs only.
 **Blocked:** none.
 
