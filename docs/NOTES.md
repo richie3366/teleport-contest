@@ -11,16 +11,16 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.88) after cadence **#1340**;
   next @**#1345**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 `place_lregion` is next.
+  LB). Must-fix empty; Open tut-1 `tut_key` / eckey is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1063** tut-1 food `l_create_object` (buc not-cursed,
-  corpse montype pmnames→`set_corpsenm`, CORPSE spe=lflags).
-- **Next cluster:** Open — tut-1 `place_lregion` only.
-- **Hypothesis:** none live. Next falsifier is Open `place_lregion`
-  (C `levregion_add` vs JS `updest`/`dndest` copy).
+- Latest: **D-1064** tut-1 `des.teleport_region` → `levregion_add`
+  + `fixup_special` dest copy (`LR_TELE`, exclude `-1` `del_islev`).
+- **Next cluster:** Open — tut-1 `tut_key` / eckey only.
+- **Hypothesis:** none live. Next falsifier is Open `tut_key` /
+  `eckey` (C `nh.eckey` vs JS hardcoded hjkl / `>`).
 
 ## Don't re-check (≤15)
 
@@ -74,12 +74,16 @@ Objective/score live in `CURRENT.md`.
   Do not restore raw `rn2(sx/sy)` nested tut-1 box contents or skip
   `delete_contents` after `mkbox_cnts` (D-1062). Do not restore
   `tut1_object` for tut-1 food or skip `create_object` `corpsenm` /
-  `find_montype` gender RNG for `montype` (D-1063).
+  `find_montype` gender RNG for `montype` (D-1063). Do not restore
+  tut-1 `updest`/`dndest` copy or exclude `0,0,0,0` (D-1064).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1340**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1345**.
+- **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
+  `levregion_add` + `fixup_special` dest copy. `place_lregion`
+  from `u_on_rndspot`. Review **23** ACCEPT `3ca1b544`.
 - **D-1063:** tut-1 packed apple/candy/lichen → `l_create_object`
   / `create_object` (buc 4, montype pmnames, CORPSE spe=lflags).
 - **D-1062:** tut-1 packed large box + nested wand → `l_create_object`

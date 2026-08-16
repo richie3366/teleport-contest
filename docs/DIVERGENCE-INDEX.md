@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1064 | fixed | tut-1 `levregion_add` / `fixup_special` dest copy | map-driven; C `sp_lev.c` `des.teleport_region` `{9,3,9,3}`: `LR_TELE` both, exclude `-1` `del_islev`; `place_lregion` from `u_on_rndspot` not load |
 | D-1063 | fixed | tut-1 `create_object` food apple/candy/lichen | map-driven; C `sp_lev.c` packed `des.object`: buc not-cursed=`uncurse`, corpse `montype` pmnames→`set_corpsenm`, CORPSE `spe`=CORPSTAT lflags |
 | D-1062 | fixed | tut-1 `create_object` large-box contents | map-driven; C `sp_lev.c` packed box + nested random wand: `get_location_coord` DRY, `delete_contents` after mkbox_cnts, container_obj stack |
 | D-1061 | fixed | tut-1 `l_create_stairway` packed stairs | map-driven; C `sp_lev.c` packed `des.stair` deltrap+SpLev_Map+`mkstairs` force ROOM before dungeon-end return |

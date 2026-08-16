@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1064 — tut-1 teleport_region via levregion_add + fixup dest copy
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 `place_lregion` listed as deferred
+  `des.*`. `dat/tut-1.lua:59` is `des.teleport_region({ region = { 9,3,
+  9,3 } })`. JS `load_tut1` copied `updest`/`dndest` with exclude
+  `0,0,0,0` instead of C `levregion_add` (`get_location` ANY_LOC) then
+  `fixup_special` dest copy. C default dir `"both"` is `LR_TELE`; omitted
+  exclude is `-1,-1,-1,-1` with `del_islev` so `-1` is not random.
+  `place_lregion` is not called at load — `goto_level` `u_on_rndspot`
+  places the hero.
+- **C locus:** `sp_lev.c` `levregion_add` / `lspo_teleport_region` /
+  `l_get_lregion` / `get_location` ANY_LOC; `mkmaze.c` `fixup_special`
+  TELE dest copy; `dungeon.c` `u_on_rndspot` → `place_lregion`;
+  `dat/tut-1.lua` teleport_region.
+- **Fix:** `get_location` packed ANY_LOC; `levregion_add`;
+  `l_teleport_region` unpacked. `fixup_special` leftover lregion
+  switch (TELE dest copy; PORTAL/STAIR/BRANCH `place_lregion`).
+  `load_tut1` uses the helper and calls `fixup_special` at the
+  load_special epilogue. Fallback branch still gates on `made_branch`
+  so inline-BRANCH loaders do not double-place. Rule #2: no fs.
+- **Deferred:** tut-1 tut_key/eckey / nhcore disable; Lua argc parse;
+  other `load_*` still push/apply lregions by hand; wallify /
+  map_cleanup / `count_level_features` on tut-1; water/air
+  `setup_waterlevel` at start of `fixup_special`.
+- **Verify:** private node packed `{9,3}` → inarea origin+9,+3,
+  delarea `-1` `del_islev`, `LR_TELE`; `region_islev` skips add;
+  exclude gets `get_location`. green+strict PASS; seed0009 **73**/73;
+  cohort **12**/12 (8000/0900/0009/0030/0060/0102/0116/0360/0373/
+  1500/1800/2200).
+- **Files:** `js/mklev.js`.
+
 ## D-1063 — tut-1 packed food objects via create_object
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

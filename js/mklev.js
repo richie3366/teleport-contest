@@ -646,11 +646,138 @@ function baalz_fixup() {
     bh.inarea.y2 = bh.delarea.y2 = 0;
 }
 
+/**
+ * C ref: sp_lev.c levregion_add — get_location ANY_LOC unless in_islev /
+ * del_islev, then append to gl.lregions. Exclude omitted → delarea -1 and
+ * del_islev so get_location does not treat -1 as random.
+ */
+function levregion_add(lregion) {
+    if (!lregion.in_islev) {
+        const a = get_location(lregion.inarea.x1, lregion.inarea.y1, ANY_LOC, null);
+        const b = get_location(lregion.inarea.x2, lregion.inarea.y2, ANY_LOC, null);
+        lregion.inarea.x1 = a.x;
+        lregion.inarea.y1 = a.y;
+        lregion.inarea.x2 = b.x;
+        lregion.inarea.y2 = b.y;
+    }
+    if (!lregion.del_islev) {
+        const a = get_location(lregion.delarea.x1, lregion.delarea.y1, ANY_LOC, null);
+        const b = get_location(lregion.delarea.x2, lregion.delarea.y2, ANY_LOC, null);
+        lregion.delarea.x1 = a.x;
+        lregion.delarea.y1 = a.y;
+        lregion.delarea.x2 = b.x;
+        lregion.delarea.y2 = b.y;
+    }
+    if (!game.lregions) game.lregions = [];
+    game.lregions.push({
+        ...lregion,
+        inarea: { ...lregion.inarea },
+        delarea: { ...lregion.delarea },
+        rname: lregion.rname && typeof lregion.rname === 'object'
+            ? { ...lregion.rname } : lregion.rname,
+    });
+}
+
+/**
+ * C ref: sp_lev.c lspo_teleport_region / l_get_lregion (unpacked table).
+ * dir default "both" → LR_TELE. Missing exclude → delarea -1,-1,-1,-1 and
+ * del_islev. Named omit: Lua argc parse; other load_* still push lregions
+ * by hand (earth/fire/air/hell) rather than this helper.
+ */
+export function l_teleport_region(opts) {
+    const region = opts.region;
+    const exclude = opts.exclude;
+    const dir = opts.dir || 'both';
+    const rtype = dir === 'up' ? LR_UPTELE
+        : dir === 'down' ? LR_DOWNTELE
+        : LR_TELE;
+    const lregion = {
+        inarea: {
+            x1: region[0] | 0, y1: region[1] | 0,
+            x2: region[2] | 0, y2: region[3] | 0,
+        },
+        delarea: exclude
+            ? {
+                x1: exclude[0] | 0, y1: exclude[1] | 0,
+                x2: exclude[2] | 0, y2: exclude[3] | 0,
+            }
+            : { x1: -1, y1: -1, x2: -1, y2: -1 },
+        in_islev: !!opts.region_islev,
+        del_islev: !!opts.exclude_islev,
+        rtype,
+        padding: 0,
+        rname: { str: null },
+    };
+    if (!exclude || (exclude[0] | 0) < 0)
+        lregion.del_islev = true;
+    levregion_add(lregion);
+}
+
 // C ref: mkmaze.c fixup_special — post-special-level branch/lregion placement
 function fixup_special() {
-    // lev_region[] from level compiler deferred (minefill has none / noflip)
-    // load_fire applies tele/portal lregions inline after flip.
-    if (!game.made_branch && is_branchlev()) {
+    // C: leftover gl.lregions. Other load_* still consume inline after
+    // flip then call this (array empty). tut-1 leaves TELE for dest copy.
+    // Fallback still uses made_branch: inline BRANCH would double-place
+    // if this used C's added_branch-only gate.
+    let added_branch = false;
+    const lregions = game.lregions || [];
+    game.lregions = [];
+    for (const r of lregions) {
+        switch (r.rtype) {
+        case LR_BRANCH:
+            added_branch = true;
+            // fall through
+        case LR_PORTAL:
+        case LR_UPSTAIR:
+        case LR_DOWNSTAIR: {
+            let lev = null;
+            if (r.rtype === LR_PORTAL) {
+                const name = (r.rname && typeof r.rname === 'object')
+                    ? r.rname.str : r.rname;
+                if (name) {
+                    if (name[0] >= '0' && name[0] <= '9') {
+                        lev = {
+                            dnum: game.u?.uz?.dnum | 0,
+                            dlevel: parseInt(name, 10) | 0,
+                        };
+                    } else {
+                        const sp = find_level(name);
+                        if (sp?.dlevel) {
+                            lev = {
+                                dnum: sp.dlevel.dnum | 0,
+                                dlevel: sp.dlevel.dlevel | 0,
+                            };
+                        }
+                    }
+                }
+            }
+            place_lregion(
+                r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                r.rtype, lev,
+            );
+            break;
+        }
+        case LR_TELE:
+        case LR_UPTELE:
+        case LR_DOWNTELE: {
+            // C: copy dests only — place_lregion runs from goto_level
+            // u_on_rndspot, not here.
+            const tele = {
+                lx: r.inarea.x1, ly: r.inarea.y1,
+                hx: r.inarea.x2, hy: r.inarea.y2,
+                nlx: r.delarea.x1, nly: r.delarea.y1,
+                nhx: r.delarea.x2, nhy: r.delarea.y2,
+            };
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                game.updest = { ...tele };
+            if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                game.dndest = { ...tele };
+            break;
+        }
+        }
+    }
+    if (!added_branch && !game.made_branch && is_branchlev()) {
         place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null);
     }
 
@@ -8361,7 +8488,7 @@ function splev_map_center_start(wid, hei) {
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
  * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
  * leave-tutorial invent restore, map_location tseen traps;
- * place_lregion / nhcore disable.
+ * nhcore disable.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -8427,13 +8554,10 @@ function load_tut1() {
             if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
         }
     }
-    // des.teleport_region({ region = { 9,3, 9,3 } }) — C levregion_add
-    // get_location then fixup_special → updest/dndest; place via u_on_rndspot.
-    const tx = xstart + 9;
-    const ty = ystart + 3;
-    const tele = { lx: tx, ly: ty, hx: tx, hy: ty, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
-    game.updest = { ...tele };
-    game.dndest = { ...tele };
+    // des.teleport_region({ region = { 9,3, 9,3 } }) — C lspo_teleport_region
+    // → levregion_add (get_location ANY_LOC). fixup_special copies dests
+    // after the lua body; place_lregion runs from u_on_rndspot.
+    l_teleport_region({ region: [9, 3, 9, 3] });
 
     // C: nh.parse_config OPTIONS=mention_walls/mention_decor/lit_corridor
     if (!game.flags) game.flags = {};
@@ -8702,6 +8826,10 @@ function load_tut1() {
     // C: tut-1.lua has no des.mineralize / no kelp object. Kelp is
     // mklev.c mineralize(-1,-1,-1,-1,FALSE) in level_finalize_topology
     // after makelevel (map 'P'→POOL / 'W'→WATER; D-1059).
+
+    // C load_special: noflip → skip flip; fixup_special copies TELE dests.
+    // wallify / map_cleanup / count_level_features deferred (not this cluster).
+    fixup_special();
 }
 
 /**
@@ -9921,6 +10049,44 @@ function create_object_delete_contents(obj) {
         curr.nobj = null;
         curr.nexthere = null;
     }
+}
+
+/**
+ * C ref: sp_lev.c get_location. Packed (x>=0): add map/room origin.
+ * ANY_LOC skips the !isok maze-max clamp. Random (x<0): existing
+ * get_location_random / in-room somexy. levregion_add always passes
+ * ANY_LOC and NULL croom.
+ */
+function get_location(x, y, humidity, croom) {
+    let mx, my;
+    if (croom) {
+        mx = croom.lx | 0;
+        my = croom.ly | 0;
+    } else {
+        const o = splev_map_origin();
+        mx = o.mx;
+        my = o.my;
+    }
+    if (x >= 0) {
+        x = (x | 0) + mx;
+        y = (y | 0) + my;
+    } else {
+        const pos = croom
+            ? get_location_in_room(croom, humidity)
+            : get_location_random(null, humidity);
+        x = pos.x;
+        y = pos.y;
+    }
+    if (!(humidity & ANY_LOC) && !isok(x, y)) {
+        if (!(humidity & NO_LOC_WARN)) {
+            x = X_MAZE_MAX;
+            y = Y_MAZE_MAX;
+        } else {
+            x = -1;
+            y = -1;
+        }
+    }
+    return { x, y };
 }
 
 /**

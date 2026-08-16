@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 05:50 — #1343 D-1064 tut-1 levregion_add / place_lregion dests
+
+**Objective:** Open queue — tut-1 `place_lregion` only (not key /
+nhcore).
+**C locus:** `sp_lev.c` `levregion_add` / `lspo_teleport_region` /
+`get_location` ANY_LOC; `mkmaze.c` `fixup_special` TELE dest copy;
+`dungeon.c` `u_on_rndspot` → `place_lregion`; `dat/tut-1.lua:59`.
+**Change:** `get_location` packed ANY_LOC; `levregion_add`;
+`l_teleport_region` (dir both=`LR_TELE`, omit exclude `-1`
+`del_islev`). `fixup_special` leftover lregion switch. `load_tut1`
+uses it and calls `fixup_special`. Did not rewire other `load_*`
+inline lregions; branch fallback still `made_branch`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1340** **44**/44; next
+@**#1345**).
+**Verified:** private node packed inarea origin+9,+3, delarea `-1`,
+`LR_TELE`; `region_islev` skip; exclude `get_location`. green+strict
+PASS; seed0009 **73**/73; cohort **12**/12
+(8000/0900/0009/0030/0060/0102/0116/0360/0373/1500/1800/2200).
+**Next:** Open tut-1 `tut_key` / eckey only.
+**Blocked:** none.
+
 ## 2026-08-16 05:20 — #1342 D-1063 tut-1 create_object food objects
 
 **Objective:** Open queue — tut-1 food objects only (not
@@ -298,43 +319,5 @@ edits. Rule #2: no fs.
 `youprop.h:279`, `potion.c:2873–2898`, `mhitu.c:2616–2638`,
 `mondata.h:78–79`; grep `uinwater=` vs `u.Underwater` reads.
 **Next:** Must-fix sit `Underwater` → `u.uinwater`.
-**Blocked:** none.
-
-## 2026-08-16 02:25 — #1328 D-1055 dosit water/pool/gremlin sit
-
-**Objective:** Open queue — `sit.c` `dosit` water / pool / gremlin
-sit (after trap, before sink). Not furniture.
-**C locus:** `sit.c` `dosit` ~430 early pool/gremlin goto; ~505
-Underwater/waterlevel; ~511 `in_water`; `potion.c` `split_mon`;
-`mhitu.c` `cloneu`.
-**Change:** early `is_pool&&!Underwater` and gremlin fountain/pool
-skip OBJ_AT/trap; muddy-bottom / no-cushions; `in_water` sit +
-hero `split_mon`/`cloneu` + fountain `dryup`; else `rn2(10)`
-`water_damage(uarm)` twice (C second call is `uarm`). Locals in
-`sit.js` (eat←potion / zap←mhitu cycles). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1325** **44**/44; next
-@**#1330**).
-**Verified:** private node pool skip-picnic, underwater mud,
-gremlin fountain multiply 20→10, eel-pool in_water,
-eel-underwater having-fun; green+strict PASS; cohort **6**/6
-(seed1500/1800/0060/0102/0360/2200). Path thin.
-**Next:** Open `dosit` sink/altar/grave/stairs/ladder messages.
-**Blocked:** none.
-
-## 2026-08-16 02:08 — #1327 D-1054 restore cobj OBJ_CONTAINED
-
-**Objective:** Must-fix — `get_obj_location` flags `0` must not
-accept CONTAINED when C hatch passes `0` (D-1036 risk 4).
-**C locus:** `zap.c` `get_obj_location`; `timeout.c` `hatch_egg`
-flags `0`; `restore.c` `restobjchn` cobj/`ocontainer`.
-**Change:** `timeout.js` switch already matched C. `deserObjChain`
-stamped nested `cobj` with parent FLOOR/INVENT/MINVENT; recurse
-`OBJ_CONTAINED`. Save buried list `OBJ_BURIED`. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1325** **44**/44; next
-@**#1330**).
-**Verified:** private node flags=0 null + save/restore
-`where=CONTAINED`; green+strict PASS; restore/bones/hatch cohort
-**7**/7. Path thin (live `goto_level` keeps `where`).
-**Next:** Open `dosit` water/pool/gremlin sit (Must-fix empty).
 **Blocked:** none.
 

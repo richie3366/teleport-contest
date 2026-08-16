@@ -1,5 +1,43 @@
 # Rotated from AGENT-LOOP-JOURNAL.md after D-1055 / #1328
 
+## 2026-08-16 02:25 — #1328 D-1055 dosit water/pool/gremlin sit
+
+**Objective:** Open queue — `sit.c` `dosit` water / pool / gremlin
+sit (after trap, before sink). Not furniture.
+**C locus:** `sit.c` `dosit` ~430 early pool/gremlin goto; ~505
+Underwater/waterlevel; ~511 `in_water`; `potion.c` `split_mon`;
+`mhitu.c` `cloneu`.
+**Change:** early `is_pool&&!Underwater` and gremlin fountain/pool
+skip OBJ_AT/trap; muddy-bottom / no-cushions; `in_water` sit +
+hero `split_mon`/`cloneu` + fountain `dryup`; else `rn2(10)`
+`water_damage(uarm)` twice (C second call is `uarm`). Locals in
+`sit.js` (eat←potion / zap←mhitu cycles). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1325** **44**/44; next
+@**#1330**).
+**Verified:** private node pool skip-picnic, underwater mud,
+gremlin fountain multiply 20→10, eel-pool in_water,
+eel-underwater having-fun; green+strict PASS; cohort **6**/6
+(seed1500/1800/0060/0102/0360/2200). Path thin.
+**Next:** Open `dosit` sink/altar/grave/stairs/ladder messages.
+**Blocked:** none.
+
+## 2026-08-16 02:08 — #1327 D-1054 restore cobj OBJ_CONTAINED
+
+**Objective:** Must-fix — `get_obj_location` flags `0` must not
+accept CONTAINED when C hatch passes `0` (D-1036 risk 4).
+**C locus:** `zap.c` `get_obj_location`; `timeout.c` `hatch_egg`
+flags `0`; `restore.c` `restobjchn` cobj/`ocontainer`.
+**Change:** `timeout.js` switch already matched C. `deserObjChain`
+stamped nested `cobj` with parent FLOOR/INVENT/MINVENT; recurse
+`OBJ_CONTAINED`. Save buried list `OBJ_BURIED`. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1325** **44**/44; next
+@**#1330**).
+**Verified:** private node flags=0 null + save/restore
+`where=CONTAINED`; green+strict PASS; restore/bones/hatch cohort
+**7**/7. Path thin (live `goto_level` keeps `where`).
+**Next:** Open `dosit` water/pool/gremlin sit (Must-fix empty).
+**Blocked:** none.
+
 ## 2026-08-15 23:35 — review D-1046 / D-1047 against pinned C
 
 **Objective:** review every JS-touching commit since

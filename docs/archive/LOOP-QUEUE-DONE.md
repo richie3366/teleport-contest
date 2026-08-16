@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] tut-1 food objects only. **Addressed:** D-1063
+- [x] tut-1 `place_lregion` only. **Addressed:** D-1064
+
+
+- [x] tut-1 food objects only. **Addressed:** D-1063 `3f376b74`
 
 
 - [x] tut-1 large-box contents only. **Addressed:** D-1062 `3ca1b544`
