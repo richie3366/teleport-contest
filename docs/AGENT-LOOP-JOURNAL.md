@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 11:10 — #1364 D-1074 dosit dragon money_cnt meager hoard
+
+**Objective:** Open queue — `sit.c` `dosit` dragon coin hoard:
+`money_cnt(invent)` meager vs `ulevel * 1000` (JS always bare
+“hoard”).
+**C locus:** `sit.c` `dosit` (~443–446); `hack.c` `money_cnt`
+(first `COIN_CLASS` quan, not a sum).
+**Change:** local `money_cnt` in `sit.js`; prefix `"meager "` when
+`obj.quan + money_cnt(invent) < u.ulevel * 1000`. Equal-to-threshold
+is bare. Did not pull `lay_an_egg` / `clone_mon` split_mon. Filled
+Addressed hash `1f21183f` (D-1073). Rule #2: no fs. Rotated #1349
+to archive. Refilled Open to 12.
+**Score:** fortress unchanged (cadence **#1360** **44**/44; next
+@**#1365**).
+**Verified:** private canary (meager/bare/ulevel/first-coin-not-sum);
+green+strict seed8000/0900; cohort seed1500/1800/0060/0102/0700/0017.
+**Next:** Open `sit.c` `dosit` `lay_an_egg`.
+**Blocked:** none.
+
 ## 2026-08-16 11:02 — #1363 D-1073 dosit OBJ_AT picnic teeter/shaft skip
 
 **Objective:** Open queue — `sit.c` `dosit` OBJ_AT gate: skip picnic
@@ -298,24 +317,5 @@ speed `31+0.26/turn` (R² 0.87). Next @**#1355**.
 Full `sessions` **44**/44; role-init throws **0**/44.
 **Next:** Open empty; remaining `dosit` hider / `can_reach_floor` /
 `ustuck` or `debt.md`.
-**Blocked:** none.
-
-## 2026-08-16 07:22 — #1349 D-1067 dosit steed mon_nam(usteed)
-
-**Objective:** Open queue — `dosit` steed message: C
-`mon_nam(usteed)`, not `"your steed"` (D-1033 risk 4).
-**C locus:** `sit.c` `dosit` (~406–408); `do_name.c` `mon_nam` /
-`x_monnam` ARTICLE_THE.
-**Change:** `You`+`mon_nam(u.usteed)` (unnamed saddled `"the
-saddled pony"`; named bare). Not `y_monnam`. Hider /
-`can_reach_floor` / ustuck still named. Filled Addressed hash
-`7e330128` (D-1066). Rule #2: no fs. Rotated #1334 to archive.
-**Score:** fortress unchanged (cadence **#1345** **44**/44; next
-@**#1350**).
-**Verified:** private node three names + `ECMD_OK`; never
-`"your steed"`. green+strict PASS; cohort **7**/7
-(0106/0107/4500/1500/1800/0060/2200). Path unhit.
-**Next:** Open empty; remaining `dosit` hider / `can_reach_floor`
-/ `ustuck` or `debt.md`.
 **Blocked:** none.
 

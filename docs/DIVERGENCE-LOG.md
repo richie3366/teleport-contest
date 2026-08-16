@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1074 — dosit dragon money_cnt meager hoard
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS dragon `#sit` on floor gold always printed
+  `You coil up around your hoard.` C `sit.c` `dosit` prefixes
+  `"meager "` when `obj->quan + money_cnt(gi.invent) < u.ulevel * 1000`.
+- **C locus:** `sit.c` `dosit` (~443–446); `hack.c` `money_cnt`
+  (first `COIN_CLASS` `quan` on the nobj chain, not a sum — gold
+  merges).
+- **Fix:** local `money_cnt` in `sit.js` (C first-pile; sit cannot
+  import end/shk clones). `You("… %shoard.")` with `"meager "` or
+  `""`. Equal-to-threshold is bare (C `<`, not `<=`).
+- **JS:** `js/sit.js` `dosit` dragon `COIN_CLASS` arm. Rule #2: no fs.
+- **Not this iter:** `lay_an_egg`; `clone_mon` monster `split_mon`;
+  other JS `money_cnt` sum clones (end/shk/invent) left as-is.
+- **Verify:** private canary (meager/bare/ulevel/first-coin-not-sum);
+  green+strict seed8000/0900; cohort seed1500/1800/0060/0102/0700/0017.
+  Path unhit on public sessions.
+
 ## D-1073 — dosit OBJ_AT picnic skip uteetering / uescaped_shaft
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -15,7 +15,9 @@
 // (D-1071; sit-on-air reachable) + dosit ustuck !sticks lap
 // (D-1072; Monnam / mhis; not swallow combat) + OBJ_AT picnic skip
 // when uteetering_at_seen_pit or uescaped_shaft (D-1073; C sit.c
-// 437–439 / trap.c; helpers in trap.js).
+// 437–439 / trap.c; helpers in trap.js) + dragon coin hoard
+// "meager " vs money_cnt(invent) < ulevel*1000 (D-1074; C sit.c
+// 443–446 / hack.c money_cnt first COIN_CLASS quan).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -31,7 +33,9 @@
 // air via helper), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie) with C precipice
 // skip (D-1073: !(uteetering_at_seen_pit || uescaped_shaft) from
-// trap.c via trap.js), trap-before-throne
+// trap.c via trap.js; D-1074 dragon COIN_CLASS You("%shoard")
+// meager when obj.quan + money_cnt(invent) < u.ulevel * 1000),
+// trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
 // fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
@@ -55,7 +59,7 @@
 // (D-0969).
 // Deferred: can_reach_floor ceiling_hider/MZ_HUGE and
 // check_pit teeter/shaft (engrave.js), wizard getlin / Analyze y_n,
-// lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
+// lay_an_egg; clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
 // pit/hole dotrap bodies still named-omit in trap.js. take_gold calls
@@ -1037,6 +1041,19 @@ async function You_sit_message(what) {
 }
 
 /**
+ * C ref: hack.c money_cnt — first COIN_CLASS quan on the invent
+ * chain (gold merges, so first pile is the wallet). Not a sum.
+ * Local: sit cannot import the other money_cnt clones (end/shk
+ * cycles). JS invent is an array ≡ C nobj walk.
+ */
+function money_cnt(invent) {
+    for (const otmp of invent || []) {
+        if (otmp.oclass === COIN_CLASS) return otmp.quan | 0;
+    }
+    return 0;
+}
+
+/**
  * C ref: sit.c dosit — #sit
  */
 export async function dosit() {
@@ -1106,8 +1123,14 @@ export async function dosit() {
     if (obj && !(uteetering_at_seen_pit(trap) || uescaped_shaft(trap))) {
         const youdata = game.youmonst?.data;
         if (youdata?.mlet === 'S_DRAGON' && obj.oclass === COIN_CLASS) {
-            // money_cnt meager-hoard threshold deferred → always bare "hoard"
-            await pline('You coil up around your hoard.');
+            // C sit.c dosit: You("coil up around your %shoard.",
+            // (obj->quan + money_cnt(gi.invent) < u.ulevel * 1000)
+            // ? "meager " : "") — first invent gold pile, not a sum.
+            const meager =
+                ((obj.quan | 0) + money_cnt(game.invent)
+                    < (u.ulevel | 0) * 1000)
+                    ? 'meager ' : '';
+            await pline(`You coil up around your ${meager}hoard.`);
         } else if (obj.otyp === TOWEL) {
             await pline("It's probably not a good time for a picnic...");
         } else {

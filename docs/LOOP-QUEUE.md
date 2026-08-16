@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sit.c` `dosit` dragon coin hoard: `money_cnt(invent)` meager vs `ulevel * 1000` (JS always bare “hoard”).
 - [ ] `sit.c` `dosit` `lay_an_egg` at end of function. Not hider / reach / ustuck.
 - [ ] `trap.c` hero pit/hole bodies under `dotrap` `VIASITTING` (named omit from D-1039).
 - [ ] `hack.c` `is_lava` includes DRAWBRIDGE_UP + `DB_LAVA` (named from D-1060).
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `makemon.c` `peace_minded` / `set_malign` read `ptr.msound` (`msounds[]` exists, D-1053).
 - [ ] `shk.c` `u_entered_shop` deserted / angry / Invis / pickaxe doorway (named D-0307).
 - [ ] `eat.c` `cprefx` `revive_corpse` after rider lifesave (debt.md).
+- [ ] `engrave.c` `can_reach_floor` ceiling_hider / MZ_HUGE (named from D-1069/D-1071). Not check_pit.
+- [ ] `engrave.c` `can_reach_floor(check_pit)` teeter/shaft (named from D-1073). Not ceiling_hider.
+- [ ] `sit.c` `throne_sit_effect` wizard getlin "Throne sit effect (1..13)" (named). Not Analyze y_n.
+- [ ] `steal.c` `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` pointer-walk (named from sit take_gold D-1049).
+- [ ] `sit.c` `rndcurse` `shieldeff` (named omit). Not update_inventory / hcolor.
 
 ## Parked (do not pop)
 

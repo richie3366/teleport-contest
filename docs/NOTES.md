@@ -18,16 +18,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1073** `dosit` OBJ_AT picnic skip when
-  `uteetering_at_seen_pit` or `uescaped_shaft` (`trap.js` helpers;
-  `do.js` flooreffects uses the same exports). In-pit `TT_PIT`
-  still picnics. Unseen pits still picnic. Did not pull
-  `can_reach_floor(check_pit)` / meager hoard / `lay_an_egg`.
-- **Next cluster:** Open `sit.c` `dosit` dragon coin hoard:
-  `money_cnt(invent)` meager vs `ulevel * 1000`. Do not pull
-  `lay_an_egg` / ceiling_hider / `can_reach_floor(check_pit)`.
-- **Hypothesis:** JS dragon sit always prints bare “hoard”; C
-  prefixes `"meager "` when `obj->quan + money_cnt(invent) < ulevel * 1000`.
+- Latest: **D-1074** `dosit` dragon `COIN_CLASS` prefixes
+  `"meager "` when `obj.quan + money_cnt(invent) < ulevel * 1000`.
+  C `hack.c` `money_cnt` is first coin pile, not a sum. Local in
+  `sit.js`. Did not pull `lay_an_egg` / `clone_mon` split_mon.
+- **Next cluster:** Open `sit.c` `dosit` `lay_an_egg` at end of
+  function. Not hider / reach / ustuck / ceiling_hider.
+- **Hypothesis:** JS egg-layer `#sit` takes having-fun; C
+  `lays_eggs(youmonst.data)` returns `lay_an_egg()`.
 
 ## Don't re-check (≤15)
 
@@ -68,11 +66,15 @@ Objective/score live in `CURRENT.md`.
   Do not import `monmove.js` `sticks` for dosit lap (AT numbers
   6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`). Do not skip dosit OBJ_AT
   picnic on `uteetering_at_seen_pit`/`uescaped_shaft` (D-1073).
+  Do not restore dragon sit always-bare “hoard” (D-1074); C
+  `money_cnt` is first `COIN_CLASS`, not a sum.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1360**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1365**.
+- **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin
+  `money_cnt`. `lay_an_egg` still named.
 - **D-1073:** `dosit` OBJ_AT skip picnic on seen-pit teeter /
   seen hole/trapdoor. Helpers in `trap.js`. In-pit still picnics.
   `can_reach_floor(check_pit)` still named on `engrave.js`.
@@ -94,6 +96,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1065:** tut-1 `tut_key` → `nh.eckey`/`cmd_from_ecname`.
   Kick `Ctrl-D`; loot `M-l`; tip `Alt-T`; untrap `M-u`;
   twoweapon `X`. Knight jump still deferred.
-- **D-1064:** tut-1 `des.teleport_region` `{9,3,9,3}` →
-  `levregion_add` + `fixup_special` dest copy. `place_lregion`
-  from `u_on_rndspot`. Review **25** ACCEPT `dc354c44`.
