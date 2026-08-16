@@ -25,7 +25,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sit.c` `dosit` sink / altar / grave / stairs / ladder sit messages only.
 - [ ] `sit.c` `dosit` lava / ice / drawbridge sit (terrain, not trap-lava already in D-1039).
 - [ ] tut-1 `des` kelp only. Not stairs / box / key / `place_lregion`.
 - [ ] tut-1 stairs only.

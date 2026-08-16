@@ -16,12 +16,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1056 sit `Underwater` ≡ `u.uinwater`. Must-fix empty.
-- **Next cluster:** Open — `dosit` sink / altar / grave / stairs /
-  ladder sit messages only.
-- **Hypothesis:** furniture sit is message-only (C `sit.c:526–538`);
-  do not pull lava/ice/drawbridge into that cluster. Falsifier:
-  sit on a sink typ → rump/underside wet pline, no throne RNG.
+- Latest: D-1057 furniture sit_message (sink/altar/grave/stairs/ladder).
+  Must-fix empty.
+- **Next cluster:** Open — `dosit` lava / ice / drawbridge sit
+  (terrain, not trap-lava D-1039).
+- **Hypothesis:** lava sit is WWalking-only (C `sit.c:539–549`):
+  sit_message + `burn_away_slime` + likes_lava warm vs `d(2|10,10)`
+  burn. Do not pull ice Cold_resistance or DRAWBRIDGE_DOWN into
+  that cluster. Falsifier: sit LAVAPOOL + likes_lava → warm pline,
+  no `losehp`; no throne `rnd(6)`.
 
 ## Don't re-check (≤15)
 
@@ -79,13 +82,16 @@ Objective/score live in `CURRENT.md`.
   `where` onto save/bones `cobj` (D-1054). Do not skip `dosit`
   pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
   (D-1055). Do not restore sit `u.Underwater` (D-1056 — C
-  `youprop.h` `Underwater` ≡ `u.uinwater`). Do not “fix” other
-  `js/` `u.Underwater` in a furniture-sit iter.
+  `youprop.h` `Underwater` ≡ `u.uinwater`). Do not skip furniture
+  sit_message / `altar_wrath` on `IS_ALTAR` (D-1057). Do not pull
+  lava HP into an ice/drawbridge peel.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1330**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.88). Next @**#1335**.
+- **D-1057:** `dosit` sink/altar/`altar_wrath`/grave/stairs/ladder
+  sit_message (C `"stairs"`/`"ladder"`, not defsyms up/down).
 - **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
 - **D-1055:** `dosit` `in_water` + early pool/gremlin goto + C
   `uarm` twice.

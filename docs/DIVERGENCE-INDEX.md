@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1057 | fixed | sit `dosit` sink/altar/grave/stairs/ladder sit_message | map-driven; C `sit.c:526–538`; altar calls `altar_wrath`; stairs/ladder literals not defsyms |
 | D-1056 | fixed | sit `dosit` `Underwater` ≡ `u.uinwater` | D-1055 read unset `u.Underwater`; C `youprop.h:279` is `u.uinwater` |
 | D-1055 | fixed | sit `dosit` water/pool/gremlin | after trap before sink; early pool/gremlin `in_water`; `split_mon`+`dryup`; C `water_damage(uarm)` twice |
 | D-1054 | fixed | save/bones restore cobj `OBJ_CONTAINED` | D-1036 hatch `get_obj_location(0)` accepted restored box eggs tagged FLOOR/INVENT |

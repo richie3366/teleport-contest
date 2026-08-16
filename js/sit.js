@@ -1,7 +1,8 @@
 // sit.js — #sit command (floor / fountain / OBJ_AT subset) + attrcurse /
 // rndcurse + throne_sit_effect / special_throne_effect (D-1033/D-1034) +
 // dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049)
-// + water/pool/gremlin sit (D-1055/D-1056).
+// + water/pool/gremlin sit (D-1055/D-1056) + furniture sit_message
+// (D-1057: sink/altar/grave/stairs/ladder).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -13,23 +14,26 @@
 // (D-1055: early goto in_water for pool !Underwater and gremlin
 // fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
 // split_mon+dryup / rn2(10) water_damage uarm twice; D-1056: C
-// youprop.h Underwater ≡ u.uinwater), IS_THRONE sit +
-// special_throne_effect (wish/drain/grease/attrcurse/VS-goto/msummon/
-// confused remove-curse HConfusion-only D-1048 / poly/acid/shuffle) +
-// ordinary throne_sit_effect 1–13 (adjattrib/shock/heal/take_gold/luck-wish/courtmon/genocide/
-// curse/see-invis mapping/aggravate-tele/identify/pretzel), default
-// having-fun; attrcurse rnd(11) INTRINSIC strip (D-0945); rndcurse invent
-// + Magicbane / Antimagic / Half_spell_damage / SPFX_INTEL resist /
-// steed saddle (D-0969).
+// youprop.h Underwater ≡ u.uinwater), IS_SINK/IS_ALTAR/IS_GRAVE/STAIRS/
+// LADDER sit_message (D-1057; sink humanoid rump vs underside; altar
+// altar_wrath via dynamic import — pray.js already imports sit.js),
+// IS_THRONE sit + special_throne_effect (wish/drain/grease/attrcurse/
+// VS-goto/msummon/ confused remove-curse HConfusion-only D-1048 /
+// poly/acid/shuffle) + ordinary throne_sit_effect 1–13 (adjattrib/shock/
+// heal/take_gold/luck-wish/courtmon/genocide/ curse/see-invis mapping/
+// aggravate-tele/identify/pretzel), default having-fun; attrcurse
+// rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
+// Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
+// (D-0969).
 // Deferred: steed name, hider, can_reach_floor full, ustuck, uteetering/
-// uescaped_shaft gate, sink/altar/grave/stairs/ladder/lava/ice/
-// drawbridge, wizard getlin / Analyze y_n, lay_an_egg, money_cnt meager
-// coil; clone_mon monster split_mon; shieldeff; update_inventory redraw;
-// Hallucination hcolor synonyms; Yobjnam2 shk_your/pname polish;
-// SetVoice; eyecount poly; hero pit/hole dotrap bodies still named-omit
-// in trap.js. take_gold calls steal.c remove_worn_item (D-1049); armor
-// *_off / unpunish / setnotworn pointer-walk still named on that helper.
-// D-0956: set_mimic_blocking on SEE_INVIS attrcurse arm.
+// uescaped_shaft gate, lava/ice/drawbridge, wizard getlin / Analyze y_n,
+// lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
+// shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
+// Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
+// pit/hole dotrap bodies still named-omit in trap.js. take_gold calls
+// steal.c remove_worn_item (D-1049); armor *_off / unpunish / setnotworn
+// pointer-walk still named on that helper. D-0956: set_mimic_blocking
+// on SEE_INVIS attrcurse arm.
 
 import { game } from './gstate.js';
 import {
@@ -41,7 +45,8 @@ import { rnd, rn2, rn1, d } from './rng.js';
 import {
     ECMD_OK, ECMD_TIME,
     IS_FOUNTAIN, IS_AIR, IS_ALTAR, IS_GRAVE, IS_ROOM, IS_WALL, IS_DOOR,
-    IS_THRONE, In_V_tower, ROOM, CLOUD, FOUNTAIN, Is_waterlevel,
+    IS_THRONE, IS_SINK, In_V_tower, ROOM, CLOUD, FOUNTAIN, STAIRS, LADDER,
+    Is_waterlevel,
     G_EXTINCT, NO_MINVENT, MM_EDOG, MM_NOMSG,
     INTRINSIC, TIMEOUT, FROMOUTSIDE, W_SADDLE, W_WEAPONS, W_BALL, W_CHAIN,
     FIRE_RES, COLD_RES, POISON_RES, TELEPAT, TELEPORT, INVIS, SEE_INVIS,
@@ -57,7 +62,7 @@ import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
 import {
     amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
-    monsterNames,
+    humanoid, monsterNames,
 } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -922,6 +927,14 @@ async function dosit_in_water() {
 }
 
 /**
+ * C ref: sit.c dosit — static const char sit_message[] = "sit on the %s.";
+ * You(sit_message, …) → "You sit on the %s."
+ */
+async function You_sit_message(what) {
+    await pline(`You sit on the ${what}.`);
+}
+
+/**
  * C ref: sit.c dosit — #sit
  */
 export async function dosit() {
@@ -979,7 +992,7 @@ export async function dosit() {
     }
 
     // C sit.c dosit: else if (trap != 0 || (u.utrap && utraptype >= TT_LAVA))
-    // before water/sink/…/IS_THRONE. Furniture sit still deferred.
+    // before water/sink/…/IS_THRONE.
     if (trap || (u.utrap && ((u.utraptype | 0) >= TT_LAVA))) {
         if (u.utrap) {
             exercise(A_WIS, false); // stuck longer
@@ -1043,8 +1056,39 @@ export async function dosit() {
         return ECMD_TIME;
     }
 
-    // sink / altar / grave / stairs / ladder / lava / ice /
-    // drawbridge deferred. C: IS_THRONE after those, before lay_an_egg.
+    // C sit.c dosit ~526–538: furniture sit_message before lava/ice/
+    // DRAWBRIDGE_DOWN (those still deferred) and IS_THRONE.
+    if (IS_SINK(typ)) {
+        // C: You(sit_message, defsyms[S_sink].explanation) — "sink"
+        await You_sit_message('sink');
+        await pline(
+            `Your ${humanoid(game.youmonst?.data) ? 'rump' : 'underside'} gets wet.`,
+        );
+        return ECMD_TIME;
+    }
+    if (IS_ALTAR(typ)) {
+        // C: You(sit_message, defsyms[S_altar].explanation) then altar_wrath
+        await You_sit_message('altar');
+        const { altar_wrath } = await import('./pray.js');
+        await altar_wrath(u.ux, u.uy);
+        return ECMD_TIME;
+    }
+    if (IS_GRAVE(typ)) {
+        // C: You(sit_message, defsyms[S_grave].explanation) — "grave"
+        await You_sit_message('grave');
+        return ECMD_TIME;
+    }
+    if (typ === STAIRS) {
+        // C: You(sit_message, "stairs") — not defsyms staircase up/down
+        await You_sit_message('stairs');
+        return ECMD_TIME;
+    }
+    if (typ === LADDER) {
+        // C: You(sit_message, "ladder") — not defsyms ladder up/down
+        await You_sit_message('ladder');
+        return ECMD_TIME;
+    }
+    // lava / ice / DRAWBRIDGE_DOWN still deferred (next Open cluster).
     if (IS_THRONE(typ)) {
         await pline('You sit on the opulent throne.');
         await throne_sit_effect();

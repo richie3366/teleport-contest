@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1057 — dosit sink/altar/grave/stairs/ladder sit_message
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — `dosit` skipped C furniture sit after
+  water / before lava (fell through to throne or having-fun).
+- **C locus:** `sit.c` `dosit` (~526–538); `defsym.h` `S_sink`/
+  `S_altar`/`S_grave` explanations; `pray.c` `altar_wrath`.
+- **Fix:** `You(sit_message, …)` for `IS_SINK` (humanoid rump vs
+  underside wet), `IS_ALTAR` + `altar_wrath` (dynamic import;
+  `pray.js` already imports `sit.js`), `IS_GRAVE`, `typ==STAIRS`
+  literal `"stairs"`, `typ==LADDER` literal `"ladder"`. Not defsyms
+  staircase/ladder up/down. Rule #2: no fs.
+- **Deferred:** lava/ice/DRAWBRIDGE_DOWN; `lay_an_egg`; steed
+  `mon_nam`; `can_reach_floor`/`ustuck`/hider.
+- **Verify:** private node sink rump/underside + no throne `rnd(6)`;
+  grave/stairs/ladder sit_message not having-fun; altar `rn2(4)`
+  wrath no throne; ROOM having-fun; throne still `rnd(6)`.
+  green+strict PASS; cohort **6**/6 (seed1500/1800/0060/0102/0360/
+  2200). Path unhit in public suite.
+- **Files:** `js/sit.js`.
+
 ## D-1056 — dosit Underwater ≡ u.uinwater
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)
