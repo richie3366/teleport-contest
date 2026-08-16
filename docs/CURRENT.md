@@ -71,14 +71,10 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** `get_obj_location` flags: JS `0` must not accept
-CONTAINED when C hatch passes `0`. Source: D-1036 risk 4.
-Reviews **13–14** ACCEPT D-1052/D-1053 (no new Must-fix).
-`timeout.js` already gates `OBJ_CONTAINED` on `CONTAINED_TOO` like
-C `zap.c:682–685`; next port must cite a still-wrong `where` /
-clone or close the row. Written reviews bind:
-QUALITY-RISK C-wrongs are Must-fix, not optional debt. Unattended
-loop pops **one** queue item per port iter (Must-fix before Open).
+**Next cluster:** `sit.c` `dosit` water / pool / gremlin sit (after
+trap, before sink). Not the furniture list. Must-fix queue empty
+after D-1054. Unattended loop pops first Open. Written reviews
+bind: QUALITY-RISK C-wrongs are Must-fix, not optional debt.
 Review every 3; cadence every 5 is score-only **unless Must-fix is
 open**. Agents **commit and `git push origin HEAD`** each iteration.
 
@@ -92,25 +88,25 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1053. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1054. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1053** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1054** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
 `remove_worn_item`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
-`msounds[]`/`cry_sound`).
+`msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
 shared `maketrap` PIT morph; tutorial worn without `setnotworn`;
 invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
-`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1053
+`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1054
 (no `spe--` unpaid; no extra `u.Confusion`; no gold splice; no
 `void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
-no empty-`msound` chitter).
+no empty-`msound` chitter; no deser cobj parent `where`).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

@@ -19,7 +19,7 @@ Actual deliverable: body ported; dispatch **deliberately** omitted after a trial
 |------|--------|
 | 1 Do not dispatch until `where` parity | **Addressed:** D-1037 `7247025c` (`save_timers RANGE_LEVEL` + hatch dispatch) |
 | 3 Empty `msound` → always chitter | **Addressed:** D-1053 `178d60f2` |
-| 4 `get_obj_location` flags `0` vs CONTAINED | **Must-fix** |
+| 4 `get_obj_location` flags `0` vs CONTAINED | **Addressed:** D-1054 |
 
 ## Inventory
 | File | Role |
@@ -81,7 +81,7 @@ Private hatch node (NON_PM, cry, leftover) ≠ dispatch. Cadence 44/44 **after**
 1. **Do not dispatch** until `attach_egg_hatch_timeout` / `where` ≠ C. *(Superseded by D-1037 peel, not by ignoring this review.)*
 2. JS eggs: timers pop without hatch → eggs that **will never hatch** even off-suite (gameplay outside traces).
 3. Empty `msound` → cry always chitter. **Addressed:** D-1053 `178d60f2`
-4. JS `get_obj_location` flags `0`: if the implementation accepts CONTAINED, C does not.
+4. JS `get_obj_location` flags `0`: if the implementation accepts CONTAINED, C does not. **Addressed:** D-1054
 
 ## Verdict
 - Verdict: **ACCEPT-WITH-DEBT**
@@ -92,3 +92,4 @@ Private hatch node (NON_PM, cry, leftover) ≠ dispatch. Cadence 44/44 **after**
 Temp C dump: for an egg that timers out on seed0014/4500, `where`, `corpsenm`, `spe`, carried. Then align JS **attach**, then one `run_timers` → `hatch_egg` line.
 
 **Addressed:** D-1053 `178d60f2`
+**Addressed:** D-1054

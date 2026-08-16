@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1054 — restore cobj where=OBJ_CONTAINED (hatch flags 0)
+
+- **Status:** fixed (map-driven Must-fix; not a public FAIL)
+- **Symptom:** D-1036 risk 4. `timeout.js` `get_obj_location` already
+  matches C `zap.c:682–685` (`OBJ_CONTAINED` only if
+  `CONTAINED_TOO`). Hatch passes `0`. JS `deserObjChain` then stamped
+  nested `cobj` with the parent chain's `where` (FLOOR / INVENT /
+  MINVENT), so a restored box egg looked like a floor/invent/minvent
+  object and `get_obj_location(egg, 0)` returned coords. C
+  `restobjchn` keeps saved `where=OBJ_CONTAINED` and only rewrites
+  `ocontainer`. Save also tagged `buriedobjlist` as FLOOR (bones
+  already used BURIED).
+- **C locus:** `zap.c` `get_obj_location`; `timeout.c` `hatch_egg`
+  flags `0`; `restore.c` `restobjchn` (`cobj` + `ocontainer` loop).
+- **Fix:** `deserObjChain` recurses contents as `OBJ_CONTAINED`;
+  invent kids same; save buried list `OBJ_BURIED`. Switch unchanged.
+  Rule #2: no fs.
+- **Deferred:** `shk.js` local `get_obj_location` still omits
+  MINVENT/BURIED (named); `zap.js` `get_obj_location_zap` invent
+  `.includes` fallback; `impossible()` unknown where; binary NHFILE.
+- **Verify:** private node: live `add_to_container` flags=0 null;
+  CONTAINED_TOO recurses; save/restore egg.where=CONTAINED and
+  hatch flags=0 null; buried flags=0 null. Old FLOOR-tagged ghost
+  still locates (the C-wrong encoding). green+strict PASS;
+  restore/bones/hatch cohort **7**/7 (seed0013-restore, seed5006,
+  seed0006/0007, seed0014, seed4500, seed2200). Path thin on
+  public traces (in-memory `goto_level` keeps live `where`).
+- **Files:** `js/save.js`, `js/bones.js`, `js/timeout.js` (comment).
+
 ## D-1053 — cry_sound msound C monflag.h numbers
 
 - **Status:** fixed (map-driven Must-fix; not a public FAIL)
@@ -19,7 +48,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   (dropped omitted-table `msound===0` shim). Rule #2: no fs.
 - **Deferred:** `peace_minded`/`set_malign`/`m_initweap` still do not
   read `ptr.msound` (mndx/urole gates remain); `domonnoise` other
-  MS_* arms; `get_obj_location` flags 0 vs CONTAINED (D-1036 risk 4).
+  MS_* arms. (`get_obj_location` flags 0 vs CONTAINED: D-1054.)
 - **Verify:** private node chickatrice hiss / bee buzz / baby dragon
   growl / raven screech / naga hatchling mumble / eel gurgle / ant
   chitter. green+strict PASS; cadence full `sessions` **44**/44

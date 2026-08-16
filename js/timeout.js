@@ -496,10 +496,14 @@ function carried(obj) {
     return !!obj && obj.where === OBJ_INVENT;
 }
 
-/** C ref: zap.c get_obj_location — invent/floor/minvent + flags. */
+/** C ref: zap.c get_obj_location — invent/floor/minvent + flags.
+ * hatch_egg / burn_object / fig_transform / catch_lit pass 0:
+ * OBJ_CONTAINED and OBJ_BURIED are false unless CONTAINED_TOO /
+ * BURIED_TOO. Restore must keep cobj where=OBJ_CONTAINED
+ * (restore.c restobjchn; D-1054) — not the parent chain's where. */
 export function get_obj_location(obj, locflags = 0) {
     if (!obj) return null;
-    switch (obj.where) {
+    switch (obj.where | 0) {
     case OBJ_INVENT:
         return { x: game.u?.ux | 0, y: game.u?.uy | 0 };
     case OBJ_FLOOR:

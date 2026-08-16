@@ -16,16 +16,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews **13–14** ACCEPT D-1052/D-1053 (no new Must-fix).
-  Remaining Must-fix: `get_obj_location` flags `0` vs CONTAINED.
+- Latest: D-1054 — `deserObjChain` kept cobj `where=OBJ_CONTAINED`
+  (C `restobjchn`); hatch `get_obj_location(0)` no longer sees
+  restored box eggs as FLOOR/INVENT/MINVENT. Must-fix queue empty.
   Loop is **fail-closed** (review every 3, cadence every 5 score-only
   unless Must-fix is open). Agents **commit + `git push`**.
-- **Next cluster:** Must-fix — `get_obj_location` flags. Source:
-  D-1036 risk 4. `timeout.js` already rejects CONTAINED when flags=0
-  (C `zap.c:682–685`). Do not dump tut-1 while Must-fix is open.
-- **Hypothesis:** remaining gap is `egg.where` encoding or a
-  diverging clone (`shk.js`/`zap.js`), not the timeout.js mask.
-  Falsify a contained egg under `get_obj_location(egg, 0)` vs C.
+- **Next cluster:** Open — `sit.c` `dosit` water / pool / gremlin
+  sit (after trap, before sink). Not furniture.
+- **Hypothesis:** none live; fortress holds. Do not re-stamp
+  parent-chain `where` onto `cobj` in save/bones deser.
 
 ## Don't re-check (≤15)
 
@@ -79,15 +78,18 @@ Objective/score live in `CURRENT.md`.
   `remove_worn_item` (D-1049). Do not `void telekinesis` (D-1050).
   Do not restore apply `u_wipe_engr_apply` / empty `display_*_positions`
   (D-1051). Do not restore `use_lamp` `(u.Glib|0)&TIMEOUT` (D-1052 —
-  C `Glib` ≡ `uprops[GLIB].intrinsic`).
+  C `Glib` ≡ `uprops[GLIB].intrinsic`). Do not stamp parent-chain
+  `where` onto save/bones `cobj` (D-1054).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1325**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
+- **D-1054:** restore `cobj` `where=OBJ_CONTAINED` (not parent
+  FLOOR/INVENT); buried list `OBJ_BURIED`. `get_obj_location(0)`
+  matches C hatch. `peace_minded` still unread `msound`.
 - **D-1053:** `extract-monsters.py` `SIZ` sound → `msounds[]`;
   `mons().msound`; `cry_sound` / growl MS_* = `monflag.h`.
-  `peace_minded`/`set_malign` still do not read `ptr.msound`.
 - **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; Glib is intrinsic.
 - **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
   S_goodpos. allmain/dokick/uhitm wipe callers still stub.
@@ -95,6 +97,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1048:** Vlad case 10 `HConfusion` only (no flat `u.Confusion`).
 - **D-1047:** `consume_obj_charge` unpaid/`check_unpaid` +
   `cost_per_charge` (not local `spe--`).
-- **D-1046:** `light_cocktail` `{obj}` / `*optr` snuff-merge + split.
-- **D-1045:** whip `yname`/`Amonnam`/`mbodypart` (not apply clones).
-- **D-1044:** `special_obj_hits_leader` `urole.questarti`.
