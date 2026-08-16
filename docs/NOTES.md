@@ -10,19 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1400**;
   next @**#1405**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 8
-  (no refill; still ≥8). Reviews **58** ACCEPT (D-1097),
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12
+  after archive+refill. Reviews **58** ACCEPT (D-1097),
   **59** ACCEPT-WITH-DEBT (D-1098 `'?'` list_genocided stub
   named), **60–61** ACCEPT (D-1099/D-1100); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1100**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `teleport.c` `goodpos`
-  `GP_AVOID_MONPOS` `is_exclusion_zone` (named). Not `onscary`.
-- **Hypothesis:** none live. D-1100 shipped: `passes_walls(mdat)`
-  && `may_passwall` early-out (form flag, not youprop
-  Passes_walls). Pool/lava still return first.
+- Latest ports: **D-1089**…**D-1101**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `teleport.c` `goodpos_onscary`
+  Elbereth / SCR_SCARE_MONSTER / altar-vampire (named). Not `is_pool`.
+- **Hypothesis:** none live. D-1101 shipped: `GP_AVOID_MONPOS`
+  `is_exclusion_zone(LR_MONGEN)` after boulder. TELE zones do not
+  reject mongen. Wallwalk/pool/lava still skip it.
 
 ## Don't re-check (≤15)
 
@@ -56,7 +56,9 @@ Objective/score live in `CURRENT.md`.
   or `do_class_genocide` / `name_to_monclass` (D-1098) / restore
   youmonst `goodpos` pool/lava to monster `is_swimmer`/`m_in_air`
   (D-1099) / skip `goodpos` `passes_walls`/`may_passwall` or use
-  youprop Passes_walls there (D-1100).
+  youprop Passes_walls there (D-1100) / skip `goodpos`
+  `is_exclusion_zone(LR_MONGEN)` or run it before wallwalk/pool
+  (D-1101).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -65,8 +67,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1400**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1405**.
+- **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
+  after boulder. Hash filled next commit. `goodpos_onscary` still named.
 - **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
-  Hash `305ad188`. `is_exclusion_zone` still named.
+  Hash `305ad188`.
 - **D-1099:** `goodpos` youmonst swim/lev/fly/wwalk pool+lava.
   Hash `a6934a3d`.
 - **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
@@ -86,5 +90,3 @@ Objective/score live in `CURRENT.md`.
   `is_unicorn` co-align always peaceful. Hash `c3f28bfd`.
 - **D-1091:** `goodpos` `is_pool()`/`is_lava()` not typ macros.
   Hash `278521f1`.
-- **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
-  Hash `43caa8ff`.

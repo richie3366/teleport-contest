@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` (named). Not `onscary`.
 - [ ] `teleport.c` `goodpos_onscary` Elbereth / SCR_SCARE_MONSTER / altar-vampire (named). Not `is_pool`.
 - [ ] `dbridge.c` `db_under_typ` / `hack.c` `waterbody_name` SURFACE_AT (named from D-1077 review 38). Not `goodpos`.
 - [ ] `fountain.c` `dryup` `angry_guards` after real dryup (named). Not wizard yn.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards.
 - [ ] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands.
 - [ ] `fountain.c` `wash_hands` (named). Not Excalibur.
+- [ ] `sp_lev.c` `lspo_exclusion` populate `exclusion_zones` from `des.exclusion` (named). Not `goodpos`.
+- [ ] `teleport.c` `goodpos` live-mon `onscary` when `m_id != 0` (named). Not `goodpos_onscary`.
+- [ ] `teleport.c` `teleok` vibrating / pit-fly (named). Not `rloc`.
+- [ ] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path.
+- [ ] `fountain.c` `dipsink` (named). Not wash_hands.
 
 ## Parked (do not pop)
 

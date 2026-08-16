@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
+- [x] `teleport.c` `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone` (named). Not `onscary`. **Addressed:** D-1101
+
+
 - [x] `teleport.c` `goodpos` `passes_walls` + `may_passwall` early-out (named). Not youmonst swim. **Addressed:** D-1100 `305ad188`
 
 

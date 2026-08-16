@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 19:48 — #1401 D-1101 goodpos GP_AVOID_MONPOS is_exclusion_zone
+
+**Objective:** Open queue — `teleport.c` `goodpos` `GP_AVOID_MONPOS`
+`is_exclusion_zone` (named). Not `onscary`.
+**C locus:** `teleport.c` `goodpos` 180–182; `mkmaze.c`
+`is_exclusion_zone` 317–331; `dungeon.h` `within_bounded_area` / `LR_*`.
+**Change:** local `is_exclusion_zone` (mklev.js already imports
+teleport.js — cycle). After boulder: `avoid_monpos &&
+is_exclusion_zone(LR_MONGEN)` → false. TELE/UPTELE/DOWNTELE do
+not reject mongen. Wallwalk/pool/lava still skip it. Did not
+pull live-mon `onscary`. D-1100 hash already `305ad188`.
+Rotated #1386. Open 12 after archive+refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1400** **44**/44; next
+@**#1405**).
+**Verified:** private canary **57**/57; green+strict seed8000/0900;
+cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
+0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+Public traces **unhit**.
+**Next:** Open `teleport.c` `goodpos_onscary` Elbereth /
+SCR_SCARE_MONSTER / altar-vampire. Not `is_pool`.
+**Blocked:** none.
+
 ## 2026-08-16 19:37 — #1400 review D-1097–D-1100 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -339,29 +361,5 @@ seed8000/0900; cohort **13**/13 (1500/1800/0060/0102/0700/
 Path public-unhit for DRAWBRIDGE_UP moat.
 **Next:** Open `teleport.c` `goodpos` `is_pool()`/`is_lava()`
 not `IS_POOL`/`IS_LAVA`. Audit @**#1390**.
-**Blocked:** none.
-
-## 2026-08-16 16:50 — #1386 D-1089 rndcurse Antimagic via uprops
-
-**Objective:** Must-fix from review **48** — `sit.c` `rndcurse`
-`Antimagic()` via `uprops[ANTIMAGIC]` (invent.js `hero_Antimagic`
-shape). Not `is_pool`. Not `update_inventory` / hcolor.
-**C locus:** `youprop.h` Antimagic 55–57; `sit.c` `rndcurse`
-581–593; confer `oc_oprop` ANTIMAGIC (cloak / gray DSM).
-**Change:** sit `Antimagic()` ORs flats **and**
-`uprops[ANTIMAGIC]` intrinsic/extrinsic. Did not rewrite
-`confer_oc_oprop` or other `Antimagic()` clones. Stamped review
-**48** **Addressed:** D-1089. Rotated #1372 to archive. Open 9
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1385** **44**/44; next
-@**#1390**).
-**Verified:** private canary **21**/21 (`setworn` cloak W_ARMC
-extrinsic, `EAntimagic` unset, 21 frames + `rnd(3)`; no-cloak 0
-+ `rnd(6)`; gray DSM; cloak+Half `rnd(2)`; `HAntimagic`);
-green+strict seed8000/0900; cohort **9**/9
-(0106/0107/0108/4500/1500/1800/0017/0360/2200) + sit strict.
-Path public-unhit for worn-cloak `rndcurse`.
-**Next:** Open `dbridge.c` `is_pool` / `is_moat` DRAWBRIDGE_UP +
-`DB_MOAT`. Audit @**#1390**.
 **Blocked:** none.
 

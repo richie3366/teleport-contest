@@ -8,6 +8,7 @@ import {
     CC_NO_FLAGS, CC_INCL_CENTER, CC_UNSHUFFLED, CC_RING_PAIRS,
     CC_SKIP_MONS, CC_SKIP_INACCS,
     GP_CHECKSCARY, GP_ALLOW_U, GP_AVOID_MONPOS, GP_ALLOW_XY,
+    LR_TELE, LR_UPTELE, LR_DOWNTELE, LR_MONGEN,
     MM_IGNOREWATER, MM_IGNORELAVA,
     ACCESSIBLE, IS_POOL, ZAP_POS, IS_DOOR, IS_WATERWALL, IS_STWALL,
     D_CLOSED, D_LOCKED, W_NONPASSWALL,
@@ -216,10 +217,33 @@ function may_passwall(x, y) {
     return !(IS_STWALL(loc.typ) && (wi & W_NONPASSWALL));
 }
 
+/** C dungeon.h within_bounded_area. Local copy avoids rect.js coupling. */
+function within_bounded_area(x, y, lx, ly, hx, hy) {
+    return x >= lx && x <= hx && y >= ly && y <= hy;
+}
+
+/**
+ * C ref: mkmaze.c is_exclusion_zone.
+ * Local copy — mklev.js already imports teleport.js (cycle, D-1101).
+ */
+export function is_exclusion_zone(type, x, y) {
+    for (let ez = game.exclusion_zones; ez; ez = ez.next) {
+        if (((type === LR_DOWNTELE
+                && (ez.zonetype === LR_DOWNTELE || ez.zonetype === LR_TELE))
+            || (type === LR_UPTELE
+                && (ez.zonetype === LR_UPTELE || ez.zonetype === LR_TELE))
+            || type === ez.zonetype)
+            && within_bounded_area(x, y, ez.lx, ez.ly, ez.hx, ez.hy)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: GP_AVOID_MONPOS exclusion zones; onscary when
- * m_id != 0 (fakemon uses goodpos_onscary).
+ * Named omissions: onscary when m_id != 0 (fakemon uses goodpos_onscary);
+ * Elbereth / SCR_SCARE_MONSTER / altar-vampire.
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -299,6 +323,9 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
         }
     }
     if (sobj_at(BOULDER, x, y) && (!mdat || !throws_rocks(mdat))) return false;
+    /* C teleport.c goodpos: pretend GP_AVOID_MONPOS == monster creation
+     * (D-1101). Wallwalk / pool / lava early-outs skip this. */
+    if (avoid_monpos && is_exclusion_zone(LR_MONGEN, x, y)) return false;
     return true;
 }
 

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1101 — goodpos GP_AVOID_MONPOS is_exclusion_zone(LR_MONGEN)
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos` honored `GP_AVOID_MONPOS`
+  only as `m_at` occupied. C also rejects after the boulder check
+  when `is_exclusion_zone(LR_MONGEN, x, y)`. Ordinary monsters on
+  ROOM inside a mongen exclusion were accepted; C returns FALSE.
+- **C locus:** `teleport.c` `goodpos` (~180–182); `mkmaze.c`
+  `is_exclusion_zone` (~317–331); `dungeon.h` `within_bounded_area`
+  / `LR_*`. Comment: pretend GP_AVOID_MONPOS == monster creation.
+- **Fix:** local `is_exclusion_zone` in `js/teleport.js` (mklev.js
+  already imports teleport.js — cycle). After boulder:
+  `avoid_monpos && is_exclusion_zone(LR_MONGEN, x, y)` → false.
+  TELE/UPTELE/DOWNTELE zones do not reject mongen. Wallwalk /
+  pool / lava early-outs still skip it (C same). Did not pull
+  live-mon `onscary` / Elbereth. Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** `goodpos_onscary` Elbereth/scare/altar-vamp;
+  `onscary` when `m_id != 0`; `lspo_exclusion` populate of
+  `des.exclusion` (zones still mostly unpopulated).
+- **Verify:** private canary **57**/57 (null zones; MONGEN reject
+  with flag / rloc without flag; TELE/UPTELE/DOWNTELE no mongen
+  reject; DOWNTELE matches TELE; inclusive bounds; linked list;
+  xorn ROOM/STONE skip; eel pool skip; flyer lava skip; xorn lava
+  arm first; ignorewater still hits exclusion; `u_at` / `MON_AT`
+  first); green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/
+  0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (`LR_MONGEN` zones not populated in public
+  specials).
+- **Files:** `js/teleport.js`.
+
 ## D-1100 — goodpos passes_walls + may_passwall early-out
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

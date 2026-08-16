@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1100 | fixed | `goodpos` `passes_walls` + `may_passwall` early-out | map-driven; C `teleport.c:163–164` / `hack.c` `may_passwall`; form `M1_WALLWALK` not youprop Passes_walls; STWALL+W_NONPASSWALL blocks; `is_exclusion_zone` still named |
+| D-1101 | fixed | `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)` | map-driven; C `teleport.c:180–182` / `mkmaze.c` `is_exclusion_zone`; after boulder; TELE/UPTELE/DOWNTELE do not reject mongen; wallwalk/pool/lava skip; live-mon `onscary` still named |
+| D-1100 | fixed | `goodpos` `passes_walls` + `may_passwall` early-out | map-driven; C `teleport.c:163–164` / `hack.c` `may_passwall`; form `M1_WALLWALK` not youprop Passes_walls; STWALL+W_NONPASSWALL blocks; `is_exclusion_zone` later D-1101 |
 | D-1099 | fixed | `goodpos` youmonst swim/lev/fly/wwalk pool+lava | map-driven; C `teleport.c:136–161` + `youprop.h`; confer uprops for Fly/Wwalk/Fire/Amphibious; lava Fire+Wwalk+oerodeproof / Upolyd likes_lava; `passes_walls` later D-1100 |
 | D-1098 | fixed | `seffects` SCR_GENOCIDE / `do_class_genocide` | map-driven; C `read.c` seffect_genocide/`do_class_genocide` + `mondata.c` `name_to_monclass`; Confusion ≡ HConfusion; livelog / Hallu / POLY_REVERT / cham `newcham` / `update_inventory` still named |
 | D-1097 | fixed | `kill_eggs` after genocide | map-driven; C `mon.c:5607–5677`; `kill_egg`/`dead_species(..., TRUE)`; invent array + nobj lists; TIN/CORPSE `#if 0` not ported; cham `newcham` / goto_level caller still named |
