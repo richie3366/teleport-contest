@@ -129,8 +129,8 @@ None that Must-fix this next iter. The getlin/atoi/ESC/turn envelope matches `si
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. Review **43** Flying uprops is the live Must-fix (not this SHA).
-2. `shieldeff`; `rndcurse` `shieldeff`; take_gold armor `*_off` / `unpunish` / `setnotworn` (live Open after Must-fix).
+1. Review **43** Flying uprops **Addressed:** D-1085 `3e1a74e8`.
+2. take_gold armor `*_off` / `unpunish` / `setnotworn` **Addressed:** D-1086 `89a97acc`. `shieldeff` body **Addressed:** D-1087 `d5038ac7`; sit `Antimagic()` vs `uprops[ANTIMAGIC]` is review **48** QUALITY-RISK (live Must-fix).
 3. `wizard_mode` extra `flags.wizard` (D-0576 analog).
 
 Do not restore always-`rnd(13)` for wizard. Do not skip `rnd(13)` before getlin. Do not return `ECMD_OK` on ESC. Do not steal Analyze `y_n`. Do not put trailing `confdir` inside shared `getdir`.

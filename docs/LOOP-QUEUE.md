@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `sit.c` `rndcurse` `Antimagic()` must be C `youprop.h` Antimagic ≡ `uprops[ANTIMAGIC]` intrinsic||extrinsic (invent.js `hero_Antimagic` shape), not `HAntimagic`/`EAntimagic` flats that `confer_oc_oprop` never writes. Worn `CLOAK_OF_MAGIC_RESISTANCE` / gray DSM must `shieldeff` and use the reduced `rnd(6/(Antimagic+Half+1))` count. Do not rewrite `confer_oc_oprop`. Not `update_inventory` / hcolor. Not `is_pool`. Source: reviews/loop-unattended/48-d5038ac7-rndcurse-shieldeff.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dbridge.c` `is_pool` / `is_moat` DRAWBRIDGE_UP + `DB_MOAT` (named from D-1077). Not `is_lava`.

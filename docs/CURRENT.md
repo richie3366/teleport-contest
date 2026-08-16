@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-16** — full `sessions` after cadence
-**#1380** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.88). Next audit (review + score) @**#1385**.
+**#1385** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1390**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `31+0.27/turn` (R² 0.88). Next audit (review + score) @**#1385**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.88) |
+| Speed label | `31+0.27/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -72,7 +72,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Open — `dbridge.c` `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`. Not `is_lava`. Audit @**#1385**.
+**Next cluster:** Must-fix — `sit.c` `rndcurse` `Antimagic()` via
+`uprops[ANTIMAGIC]` (review **48**). Not `is_pool`. Not `update_inventory`.
+Audit @**#1390**.
 
 **Density:** one C family (~50–300 lines). Playbook §2a–2b.
 
@@ -114,7 +116,7 @@ no skip furniture sit_message /
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
 no restore `is_lava` LAVAPOOL-only (D-1077); no restore `split_mon` monster null (D-1078); no skip peace/malign `msound` (D-1079); no skip D-1080–D-1088; no restore `m_initweap` priest/guardian mndx (D-1088); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
 without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
-`youprop.h`; no skip `mkstairs` `force` ROOM before dungeon-end
+`youprop.h`; no restore sit Antimagic H||E-only (review **48**); no skip `mkstairs` `force` ROOM before dungeon-end
 return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw
 `rn2(sx/sy)` nested tut-1 box contents / skip `delete_contents`
 after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip

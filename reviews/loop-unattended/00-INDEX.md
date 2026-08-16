@@ -55,3 +55,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [43-453e759c-can-reach-floor-ceiling-hider.md](./43-453e759c-can-reach-floor-ceiling-hider.md) | `453e759c` | D-1082 `can_reach_floor` ceiling_hider / Flying\|\|MZ_HUGE | **QUALITY-RISK** |
 | [44-e6167027-can-reach-floor-check-pit.md](./44-e6167027-can-reach-floor-check-pit.md) | `e6167027` | D-1083 `can_reach_floor(check_pit)` teeter/shaft | **ACCEPT** |
 | [45-83a3ada5-throne-wizard-getlin.md](./45-83a3ada5-throne-wizard-getlin.md) | `83a3ada5` | D-1084 `throne_sit_effect` wizard getlin | **ACCEPT** |
+| [46-3e1a74e8-can-reach-floor-flying-uprops.md](./46-3e1a74e8-can-reach-floor-flying-uprops.md) | `3e1a74e8` | D-1085 `can_reach_floor` Flying `uprops[FLYING]` | **ACCEPT** |
+| [47-89a97acc-remove-worn-item-armor-off.md](./47-89a97acc-remove-worn-item-armor-off.md) | `89a97acc` | D-1086 `remove_worn_item` armor `*_off` / `unpunish` / `setnotworn` | **ACCEPT-WITH-DEBT** |
+| [48-d5038ac7-rndcurse-shieldeff.md](./48-d5038ac7-rndcurse-shieldeff.md) | `d5038ac7` | D-1087 `rndcurse` Antimagic `shieldeff` | **QUALITY-RISK** |
+| [49-049af16e-m-initweap-priest-guardian-msound.md](./49-049af16e-m-initweap-priest-guardian-msound.md) | `049af16e` | D-1088 `m_initweap` priest/guardian `ptr.msound` | **ACCEPT** |

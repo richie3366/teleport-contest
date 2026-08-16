@@ -135,7 +135,7 @@ None that Must-fix this next iter. The two functions read `ptr.msound` at C’s 
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. `makemon.c` `m_initweap` `ptr.msound` for MS_GUARDIAN / MS_PRIEST (live Open). Do not steal eat.c `cprefx` for it.
+1. `makemon.c` `m_initweap` `ptr.msound` for MS_GUARDIAN / MS_PRIEST **Addressed:** D-1088 `049af16e`. Do not steal eat.c `cprefx` for it.
 2. `dogmove.c` pal/target numeric `ptr.msound` not string `'MS_LEADER'` (live Open).
 3. Stale `m_initweap` comments still say tables omit msound.
 

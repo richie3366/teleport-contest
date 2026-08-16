@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 16:40 — #1385 review D-1085–D-1088 + cadence score
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`dfe4f198` closed D-1081–D-1084) against
+pinned C. Cadence full `sessions` in the same iter.
+**C locus:** `youprop.h` Flying 247–255; `steal.c` `remove_worn_item`
+213–290; `display.c` `shieldeff` 1110–1124; `makemon.c` `m_initweap`
+263–327 / `quest_mon_represents_role` 11–13; `youprop.h` Antimagic
+55–57.
+**Change:** reviews **46** ACCEPT (D-1085 Flying uprops), **47**
+ACCEPT-WITH-DEBT (D-1086 armor `*_off`), **48** QUALITY-RISK (D-1087
+`shieldeff` body matches; sit `Antimagic()` misses
+`uprops[ANTIMAGIC]`), **49** ACCEPT (D-1088 priest/guardian msound).
+Must-fix prepend sit Antimagic. Filled D-1088 hash `049af16e`.
+Rotated #1371 + cadence-policy crumb. No `js/` edits. Rule #2: no fs.
+**Score:** cadence **#1385** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1390**.
+**Verified:** C read of the four loci + `confer_oc_oprop` 261–288;
+JS hunks grepped FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
+**Next:** Must-fix sit `rndcurse` `Antimagic()` via uprops. Not
+`is_pool`.
+**Blocked:** none.
+
 ## 2026-08-16 16:25 — #1384 D-1088 m_initweap priest/guardian ptr.msound
 
 **Objective:** Open queue — `makemon.c` `m_initweap` `ptr.msound`
@@ -292,36 +316,4 @@ green+strict seed8000/0900; cohort **15**/15 (8000/0900/1500/1800/
 0014/4500/0360/2200. Path public-unhit.
 **Next:** Open `makemon.c` `peace_minded` / `set_malign` read
 `ptr.msound`. Audit @**#1375**.
-**Blocked:** none.
-
-## 2026-08-16 12:30 — audit = review + cadence on n%5==0; gitignore STOP
-
-**Objective:** user: same iteration for review and public score when
-`n % 5 == 0`; `STOP_AGENT_LOOP.md` gitignored so `git reset --hard`
-cannot restore a tracked 0.
-**C locus:** n/a (supervisor).
-**Change:** `iter_mode` audit-only on cadence; drop review-every-3 and
-Must-fix cadence deferral. STOP untracked. Agents must not reset --hard.
-**Score:** unchanged (last cadence **#1370**; next audit **#1375**).
-**Verified:** `bash -n` loop script.
-**Next:** Open `split_mon` `clone_mon`; audit @#1375.
-**Blocked:** none.
-
-## 2026-08-16 12:21 — #1371 review D-1077 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`a9e819a4` D-1077) against pinned C, not
-the journal. `9903fb6c` is docs-only cadence #1370.
-**C locus:** `dbridge.c` `is_lava` 62–74; `rm.h` `DB_LAVA`/`DB_UNDER`;
-`sit.c` 539; `mon.c` `mfndpos` 2258 / `minliquid` 971.
-**Change:** review **38** ACCEPT (shared `hack.js` `is_lava` DRAWBRIDGE_UP
-+`DB_LAVA`; `mfndpos` uses it, clone deleted). `is_pool`/`is_moat` and
-`goodpos` macros named, not Must-fix. No `js/` edits. Rule #2: no fs.
-Rotated #1356 to archive.
-**Score:** fortress unchanged (cadence **#1370** **44**/44; next
-@**#1375**).
-**Verified:** C read of `dbridge.c:46–113`, `rm.h:75`/`217`/`291–295`,
-`sit.c:539–555`, `mon.c:971–972`/`2256–2259`, `teleport.c:134–175`;
-JS hunks grepped FORCE/fs/seed.
-**Next:** Open `sit.c` `split_mon` monster `clone_mon` arm.
 **Blocked:** none.

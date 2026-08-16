@@ -136,7 +136,7 @@ Journal: green+strict PASS; sit cohort **4**/4 (seed0106 Scr **267**/267; seed01
 
 None that belong on Must-fix from **this** SHA. D-1034 risk 3 (no `remove_worn_item` before `delobj`) is actually closed on the gold path.
 
-Named omits (map, not queue): `donning`/`cancel_don`; `in_use`; armor `*_off` / `Amulet_off` / `Ring_gone` / `Blindf_off`; `unpunish`; `setnotworn` pointer-walk; invent splice vs `obj_extract_self(OBJ_INVENT)`; `*gone` `update_inventory` / `uwepgone` artifact_light. Remaining Must-fix: `pickup_object` telekinesis (D-1022 risk 6), `u_wipe_engr`/`tmp_at`, cursed-lamp `make_glib`, `cry_sound` `msound`, `get_obj_location` flags.
+Named omits (map, not queue): `donning`/`cancel_don`; `in_use`; armor `*_off` / `unpunish` / `setnotworn` **Addressed:** D-1086 `89a97acc`; `Amulet_off` / `Ring_gone` / `Blindf_off` still setworn; invent splice vs `obj_extract_self(OBJ_INVENT)`; `*gone` `update_inventory` / `uwepgone` artifact_light.
 
 Do not restore invent-splice-only `take_gold`. Do not call sit’s `remove_worn_item` for armor. Do not pop tut-1 while Must-fix is open.
 
