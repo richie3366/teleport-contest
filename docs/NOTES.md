@@ -11,19 +11,18 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.26/turn` R² 0.87) after cadence **#1350**;
   next @**#1355**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open head: `dosit` `can_reach_floor`. Keep
-  8–12 open rows; refill from the map when below 8.
+  LB). Must-fix empty; Open head: `dosit` ustuck `!sticks` lap.
+  Keep 8–12 open rows; refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1068** `dosit` hider `u.uundetected=0` except
-  `PM_TRAPPER` (after usteed, before reach; no `newsym`).
-  `can_reach_floor` / ustuck still named.
-- **Next cluster:** `dosit` `can_reach_floor(FALSE)` swallow /
-  Levitation tumble / sit-on-air. Then ustuck lap. Review **29**
-  ACCEPT `990b06a8` D-1068 (hider gate; `#monster` `dohide` still
-  named). Do not skip trapper exception / do not add `newsym`.
+- Latest: **D-1069** `dosit` `can_reach_floor(FALSE)` swallow
+  “no seats” / Levitation tumble / sit-on-air. Air/water Levitation
+  may sit. ustuck lap still named; hugs/ceiling_hider on helper.
+- **Next cluster:** `dosit` ustuck `!sticks` lap (`Monnam` /
+  `mhis`). Review **29** ACCEPT `990b06a8` D-1068. Do not restore
+  Levitation-only early return / skip swallow seats / skip air sit.
 - **Hypothesis:** none live.
 
 ## Don't re-check (≤15)
@@ -57,12 +56,16 @@ Objective/score live in `CURRENT.md`.
   or raw-`nhl_gamestate` from `goto_level` (D-1066). Do not restore
   dosit `"your steed"` vs `mon_nam(usteed)` / do not swap in
   `y_monnam` (D-1067). Do not skip `dosit` hider clear / do not
-  clear trapper `uundetected` (D-1068).
+  clear trapper `uundetected` (D-1068). Do not restore Levitation-
+  only `dosit` return (D-1069).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1350**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1355**.
+- **D-1069:** `dosit` `!can_reach_floor(FALSE)`: swallow “no
+  seats” / Levitation tumble / sit-on-air; `ECMD_OK`. Air/water
+  Levitation sits. Helper hugs/ceiling_hider still named.
 - **D-1068:** `dosit` after usteed: `u.uundetected && is_hider`
   && `umonnum != PM_TRAPPER` → `u.uundetected=0`. No `newsym`.
 - **D-1067:** `dosit` steed `You("… %s.", mon_nam(usteed))` ARTICLE_THE.

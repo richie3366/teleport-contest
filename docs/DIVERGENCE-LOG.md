@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1069 — dosit can_reach_floor(FALSE) swallow / tumble / sit-on-air
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — `#sit` used a Levitation-only early
+  return (`You tumble in place.`). C `sit.c` `dosit` after the hider
+  clear calls `can_reach_floor(FALSE)`: swallow → `There("are no
+  seats in here!")`; else Levitation → tumble; else sit-on-air;
+  `return ECMD_OK`. Air/water Levitation is reachable (helper) and
+  may sit. JS swallowed heroes sat on the floor; air-level
+  Levitation tumbled.
+- **C locus:** `sit.c` `dosit` (~414–421); `engrave.c`
+  `can_reach_floor`; `youprop.h` `Levitation`.
+- **Fix:** after hider clear, dynamic-import shared
+  `can_reach_floor(false)` (avoid sit←engrave←hack←eat←sit) and the
+  three messages. `Levitation()` is `(H||E)&&!B` plus sticky
+  `u.Levitation`. Rule #2: no fs.
+- **Deferred:** ustuck `!sticks` lap; helper hugs / ceiling_hider /
+  MZ_HUGE / uteetering / uescaped_shaft; wizard getlin; `lay_an_egg`.
+- **Verify:** private node: swallow → no seats `ECMD_OK`; dungeon
+  Levitation → tumble; air/water Levitation sits (not tumble);
+  lurker hide still clears then sits (not sit-on-air). green+strict
+  PASS; cohort **9**/9 (8000/0900/0106/0107/4500/1500/1800/0060/
+  2200). Path unhit on public sessions.
+- **Files:** `js/sit.js`.
+
 ## D-1068 — dosit hider u.uundetected clear except trapper
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

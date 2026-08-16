@@ -7,7 +7,10 @@
 // youprop.h uprops[FIRE_RES]/[COLD_RES] intrinsic||extrinsic) +
 // dosit steed You + mon_nam(usteed) (D-1067; ARTICLE_THE, not
 // "your steed" / not y_monnam) + hider u.uundetected clear except
-// trapper (D-1068; sit.c after usteed, before can_reach_floor).
+// trapper (D-1068; sit.c after usteed, before can_reach_floor) +
+// can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
+// (D-1069; replace Levitation-only early return; air/water Levitation
+// may sit).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -15,7 +18,9 @@
 //
 // Branch envelope: usteed early-return You+mon_nam (D-1067),
 // hider ceiling drop u.uundetected=0 except PM_TRAPPER (D-1068),
-// reachable floor (Levitation only), OBJ_AT picnic body
+// !can_reach_floor(FALSE) swallow / Levitation tumble / sit-on-air
+// (D-1069; shared engrave.js helper; hugs / ceiling_hider / MZ_HUGE
+// still named there), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
@@ -38,7 +43,8 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: can_reach_floor full, ustuck, uteetering/
+// Deferred: ustuck lap, can_reach_floor hugs/ceiling_hider/MZ_HUGE,
+// uteetering/
 // uescaped_shaft gate, wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
@@ -480,6 +486,14 @@ function body_part(part) {
 function Flying() {
     const u = game.u || {};
     return !!((u.Flying) || (u.HFlying | 0) || (u.EFlying | 0));
+}
+
+/** C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation. */
+function Levitation() {
+    const u = game.u || {};
+    if (u.Levitation) return true;
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
 }
 
 /**
@@ -1007,11 +1021,22 @@ export async function dosit() {
         && (u.umonnum | 0) !== PM_TRAPPER) {
         u.uundetected = 0;
     }
-    if (u.Levitation) {
-        await pline('You tumble in place.');
-        return ECMD_OK;
+    // Dynamic import: sit←engrave←hack←eat←sit. C sit.c dosit:
+    // if (!can_reach_floor(FALSE)) { swallow / Levitation / air }.
+    {
+        const { can_reach_floor } = await import('./engrave.js');
+        if (!can_reach_floor(false)) {
+            if (u.uswallow) {
+                await pline('There are no seats in here!');
+            } else if (Levitation()) {
+                await pline('You tumble in place.');
+            } else {
+                await pline('You are sitting on air.');
+            }
+            return ECMD_OK;
+        }
     }
-    // can_reach_floor / uswallow / ustuck still deferred
+    // ustuck !sticks lap still deferred
     const trap = t_at(u.ux, u.uy);
     const typ = game.level?.at(u.ux, u.uy)?.typ ?? 0;
     // C: else if (is_pool && !Underwater) goto in_water — skips OBJ_AT/trap
