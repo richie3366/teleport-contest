@@ -28,9 +28,11 @@
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
 // case 5 S_LRING ring; case 6 breaksink; case 8 more_experienced;
 // case 9 sewage morehungry+vomit; case 10 Unchanging gate +
-// polyself(POLY_NOFLAGS) (D-1118).
-// Deferred: case 13 create_gas_cloud region; Hallucination hcolor
-// synonyms; monstseesu when Fire_resistance already set.
+// polyself(POLY_NOFLAGS) (D-1118); case 13 create_gas_cloud(1,4)
+// (D-1124; size-1: ttl rn1(3,4) only).
+// Deferred: Hallucination hcolor synonyms; make_gas_cloud enveloped
+// pline / inside_f damage (region.js); monstseesu when
+// Fire_resistance already set.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -93,7 +95,7 @@ import { mbodypart, body_part, polyself } from './polyself.js';
 import { makeplural, the, xname, an } from './objnam.js';
 import { somegold } from './steal.js';
 import { yn_function } from './getline.js';
-import { visible_region_at } from './region.js';
+import { visible_region_at, create_gas_cloud } from './region.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -468,8 +470,12 @@ export async function drinksink() {
         await You_hear('snatches of song from among the sewers...');
         break;
     case 13:
+        // C fountain.c:696–698 — stench then create_gas_cloud(ux,uy,1,4).
+        // Size-1 skips BFS expand (no shuffle rn2); ttl = rn1(3,4).
+        // make_gas_cloud enveloped pline / inside_f damage stay named
+        // on region.js.
         await pline('Ew, what a stench!');
-        // create_gas_cloud(ux,uy,1,4) deferred (size-1: no expand RNG)
+        create_gas_cloud(u.ux, u.uy, 1, 4);
         break;
     case 19:
         if (u.Hallucination) {

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1124 — drinksink case 13 create_gas_cloud
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `drinksink` case 13 printed "Ew, what a stench!"
+  and skipped `create_gas_cloud(u.ux, u.uy, 1, 4)`. C
+  `fountain.c:696–698` always registers a size-1 poison cloud
+  (damage 4) at the hero and burns `rn1(3,4)` for ttl.
+- **C locus:** `fountain.c` `drinksink` (~696–698);
+  `region.c` `create_gas_cloud` (~1213–1308) / `make_gas_cloud`
+  (~1182–1204).
+- **Fix:** call existing `js/region.js` `create_gas_cloud` after
+  the stench pline. Size-1 skips BFS expand (no shuffle `rn2`);
+  ttl = `rn1(3,4)` then `(ttl * cloudsize) / newidx`. Glyph
+  `S_poisoncloud`. Did not pull `make_gas_cloud` enveloped pline
+  (async), `inside_f` damage, or `m_poisongas_ok` inside_cloud
+  gate (already named on region.js). Rule #2: no fs.
+- **JS:** `js/fountain.js` `drinksink`.
+- **Not this iter:** Hallucination `hcolor` synonyms; enveloped
+  `"noxious gas"`/`last_msg`; `set_heros_fault` (new-cloud
+  default already clear); `inside_gas_cloud` dam>0; `dowatersnakes`
+  `rndmonnam`.
+- **Verify:** private canary **29**/29 (source call; Levitation
+  skip; fate 13 1-rect arg=4 ttl 4/5/6; size-1 RNG `rn2(20)` then
+  `rn2(3)` only; fate 0 no cloud; overlap two regions; live ux/uy;
+  case 10/11 unchanged); green+strict seed8000/0900; cohort
+  **20**/20 including 0014 fountain + 0002 drinksink + 0108 +
+  0360/2200/4500 + strict those. Path public-unhit.
+- **Files:** `js/fountain.js`.
+
 ## D-1123 — rloc_to worm / ustuck-swallow docrt
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

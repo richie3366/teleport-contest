@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym. **Addressed:** D-1123
+- [x] `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself. **Addressed:** D-1124
+
+
+- [x] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym. **Addressed:** D-1123 `a55c4b24`
 
 
 - [x] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG. **Addressed:** D-1122 `5a2f96ca`
