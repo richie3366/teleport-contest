@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1083 — can_reach_floor(check_pit) teeter/shaft
+
+- **Status:** fixed (map-driven Open from D-1073 named omit;
+  not a public FAIL)
+- **Symptom:** `can_reach_floor` no-op'd C
+  `check_pit && t_at && (uteetering_at_seen_pit || uescaped_shaft)`
+  (FALSE). A teetering hero on a seen pit, or standing on a seen
+  hole/trapdoor, still reached the floor for `TRUE` callers
+  (`u_wipe_engr`, `maybe_smudge_engr`, eat, lock). Flying / MZ_HUGE
+  already skip this arm (D-1082). `dosit` passes FALSE so `#sit`
+  picnic skip stays D-1073.
+- **C locus:** `engrave.c` `can_reach_floor` (~209–211);
+  `trap.c` `uteetering_at_seen_pit` / `uescaped_shaft` (~6648–6664).
+- **Fix:** after Flying||MZ_HUGE, when `check_pit`, `t_at(u.ux,u.uy)`
+  plus the existing `trap.js` helpers return FALSE. In-pit
+  `utraptype==TT_PIT` still reaches (teeter is false). Unseen
+  traps still reach. `check_pit` false still reaches. Did not
+  pull invent/pickup caller `trap && is_pit` args (review **34**
+  named omit 3) or `cant_reach_floor` pit-bottom pline. Rule #2:
+  no fs.
+- **Deferred:** invent `lookhere` / pickup() still pass FALSE/TRUE
+  vs C `trap && is_pit`; `cant_reach_floor` "bottom of the pit";
+  `display.js` `feel_can_reach_floor` clone (uses FALSE).
+- **Verify:** private canary 16/16 (teeter/in-pit/unseen/shaft/
+  Flying/MZ_HUGE/swallow/Levitation); green+strict PASS; cohort
+  **14**/14 + strict 1800/0004/0101/0103/0360/2200/4500. Path
+  unhit on public sessions.
+- **Files:** `js/engrave.js`; `js/trap.js` / `js/sit.js` comments.
+
 ## D-1082 — can_reach_floor ceiling_hider / Flying||MZ_HUGE
 
 - **Status:** fixed (map-driven Open from D-1069/D-1071 named omit;

@@ -8,8 +8,8 @@
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
 // mu_maybe_destroy_web, b_trapped,
-// uteetering_at_seen_pit / uescaped_shaft (D-1073; sit OBJ_AT gate +
-// do.c flooreffects),
+// uteetering_at_seen_pit / uescaped_shaft (D-1073 sit OBJ_AT gate +
+// do.c flooreffects; D-1083 can_reach_floor(check_pit)),
 // make_corpse ordinary path via thitm death.
 
 import { game } from './gstate.js';

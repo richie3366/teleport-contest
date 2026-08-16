@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 14:38 — #1378 D-1083 can_reach_floor check_pit teeter/shaft
+
+**Objective:** Open queue — `engrave.c` `can_reach_floor(check_pit)`
+teeter/shaft (named from D-1073). Not ceiling_hider.
+**C locus:** `engrave.c` `can_reach_floor` (~209–211); `trap.c`
+`uteetering_at_seen_pit` / `uescaped_shaft`.
+**Change:** after Flying||MZ_HUGE, `check_pit && t_at &&
+(uteetering || uescaped)` returns FALSE. In-pit / unseen still
+reach. Did not pull invent/pickup `trap&&is_pit` callers or
+`cant_reach_floor`. Filled D-1082 Addressed hash `453e759c`.
+Rotated #1364 to archive. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1375** **44**/44; next
+@**#1380**).
+**Verified:** private canary 16/16 (teeter/in-pit/unseen/shaft/
+Flying/MZ_HUGE/swallow/Levitation); green+strict seed8000/0900;
+cohort **14**/14 + strict 1800/0004/0101/0103/0360/2200/4500.
+**Next:** Open `sit.c` `throne_sit_effect` wizard getlin.
+**Blocked:** none.
+
 ## 2026-08-16 14:24 — #1377 D-1082 can_reach_floor ceiling_hider / MZ_HUGE
 
 **Objective:** Open queue — `engrave.c` `can_reach_floor` ceiling_hider /
@@ -293,24 +312,5 @@ speed `31+0.26/turn` (R² 0.87). Next @**#1370**.
 `pline.c:366–374`, `you.h:345–348`; JS `sit.js:1043–1133`,
 `trap.js:1117–1135`, `do.js:628–733`. Hunks grepped FORCE/fs.
 Full `sessions` **44**/44; role-init throws **0**/44.
-**Next:** Open `sit.c` `dosit` `lay_an_egg`.
-**Blocked:** none.
-
-## 2026-08-16 11:10 — #1364 D-1074 dosit dragon money_cnt meager hoard
-
-**Objective:** Open queue — `sit.c` `dosit` dragon coin hoard:
-`money_cnt(invent)` meager vs `ulevel * 1000` (JS always bare
-“hoard”).
-**C locus:** `sit.c` `dosit` (~443–446); `hack.c` `money_cnt`
-(first `COIN_CLASS` quan, not a sum).
-**Change:** local `money_cnt` in `sit.js`; prefix `"meager "` when
-`obj.quan + money_cnt(invent) < u.ulevel * 1000`. Equal-to-threshold
-is bare. Did not pull `lay_an_egg` / `clone_mon` split_mon. Filled
-Addressed hash `1f21183f` (D-1073). Rule #2: no fs. Rotated #1349
-to archive. Refilled Open to 12.
-**Score:** fortress unchanged (cadence **#1360** **44**/44; next
-@**#1365**).
-**Verified:** private canary (meager/bare/ulevel/first-coin-not-sum);
-green+strict seed8000/0900; cohort seed1500/1800/0060/0102/0700/0017.
 **Next:** Open `sit.c` `dosit` `lay_an_egg`.
 **Blocked:** none.

@@ -21,12 +21,15 @@
 // allmain/dokick/uhitm `u_wipe_engr` callers still stubbed;
 // demon/vampire blood default beyond type; Blind feel path for
 // engrave/burn; full surface()/is_ice nouns; wipeout_text seeded
-// (non-zero) path; can_reach_floor uteetering_at_seen_pit /
-// uescaped_shaft (check_pit).
+// (non-zero) path; invent lookhere / pickup() still pass FALSE/TRUE
+// vs C `trap && is_pit` at those callers; cant_reach_floor pit-bottom
+// message; display.js feel_can_reach_floor clone still omits hugs /
+// ceiling / Flying (uses FALSE so check_pit N/A).
 // Ported: Levitation (H||E)&&!B D-1070; ustuck AT_HUGS + !sticks
 // D-1071 (local mondata.c sticks — avoid engrave←monmove cycle);
 // sticks exported for sit.js dosit lap D-1072; ceiling_hider +
-// Flying||MZ_HUGE D-1082 (Flying is youprop.h, not sticky u.Flying).
+// Flying||MZ_HUGE D-1082 (Flying is youprop.h, not sticky u.Flying);
+// check_pit uteetering/uescaped_shaft D-1083 (helpers in trap.js).
 // disturb_grave (D-0985) via kick_nondoor / engraving callers.
 // Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
@@ -51,7 +54,7 @@ import {
     Never_mind, Is_airlevel, Is_waterlevel, P_RIDING, P_BASIC,
 } from './const.js';
 import { nomul } from './hack.js';
-import { t_at } from './trap.js';
+import { t_at, uteetering_at_seen_pit, uescaped_shaft } from './trap.js';
 import { makemon } from './makemon.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { mons, is_hider, is_clinger, is_flyer, MZ_HUGE } from './monsters.js';
@@ -296,7 +299,8 @@ export function sticks(ptr) {
  * C ref: engrave.c can_reach_floor — whether hero can touch ground-level.
  * Branch envelope: swallow / ustuck AT_HUGS+!sticks / Levitation(+!air/water)
  * / unskilled steed / uundetected ceiling_hider FALSE / Flying||MZ_HUGE
- * TRUE (skips check_pit). Pit teeter/shaft named omission.
+ * TRUE (skips check_pit) / check_pit && t_at && (uteetering || uescaped)
+ * FALSE. invent/pickup caller pit-arg and cant_reach_floor named.
  */
 export function can_reach_floor(check_pit) {
     const u = game.u || {};
@@ -322,8 +326,12 @@ export function can_reach_floor(check_pit) {
     if (Flying() || (youdata?.msize | 0) >= MZ_HUGE) {
         return true;
     }
-    if (check_pit && t_at(u.ux, u.uy)) {
-        // uteetering_at_seen_pit / uescaped_shaft deferred → not blocked
+    // C: check_pit && t_at && (uteetering_at_seen_pit || uescaped_shaft)
+    if (check_pit) {
+        const t = t_at(u.ux, u.uy);
+        if (t && (uteetering_at_seen_pit(t) || uescaped_shaft(t))) {
+            return false;
+        }
     }
     return true;
 }
