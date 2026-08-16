@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loop observer</title>
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <span class="spark" aria-hidden="true"></span>
+        <div>
+          <div class="brand-title">Loop observer</div>
+          <div class="brand-sub" id="file-label">waiting for logs…</div>
+        </div>
+      </div>
+      <div class="status-cluster">
+        <label class="pick">
+          <span class="pick-label">Iter</span>
+          <select id="iter-pick" aria-label="Recent iterations"></select>
+        </label>
+        <span class="pill mode" id="mode-pill" hidden></span>
+        <button type="button" class="live-btn" id="live-btn" title="Follow the current iteration">
+          <i></i><span id="live-label">Live</span>
+        </button>
+      </div>
+    </header>
+    <div class="meta-bar" id="meta-bar"></div>
+    <main id="thread" class="thread" aria-live="polite"></main>
+    <div class="jump" id="jump" hidden>
+      <button type="button" id="jump-btn">↓ Jump to latest</button>
+    </div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -219,12 +219,27 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `PROMPT_FILE` | `$ROOT/scripts/agent-port-loop.prompt.md` | Prompt body |
 | `LOG_DIR` | `$ROOT/.agent-port-loop-logs` | Log directory |
 
+## Loop observer
+
+Browser conversation view of the current (or a recent) iter `.raw`
+stream. Zero-dep; localhost only. Full usage: `loop-observer/README.md`.
+
+```bash
+npm run observe-loop          # prints URL, opens a window
+node loop-observer/server.mjs --no-open
+```
+
+The header picker opens any of the last 10 iterations; **Go live**
+resumes following the current one. Halt reason is still
+`last-halt-reason.txt`.
+
 ## Operator checklist
 
 1. `agent login` (once) so `--list-models` / runs work.
 2. Clean committed tree. Queue below 8 open items is refilled in-loop.
 3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`
-4. Watch the live tee or come back to `last-halt-reason.txt` / `git log`.
+4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
+   above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
 6. After stop, inspect `git log`, Notes, `CURRENT.md`, queue, and journal.
 
