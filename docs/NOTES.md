@@ -10,21 +10,22 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.26/turn` R² 0.87) after cadence **#1410**;
   next @**#1415**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after archive+refill (teleport named omits). Reviews **66**
-  ACCEPT (D-1105), **67** ACCEPT-WITH-DEBT (D-1106), **68–69**
-  ACCEPT (D-1107/D-1108).
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+  after archive (no refill). Reviews **66** ACCEPT (D-1105),
+  **67** ACCEPT-WITH-DEBT (D-1106), **68–69** ACCEPT
+  (D-1107/D-1108).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1111**. Prior **62–65** ACCEPT
+- Latest ports: **D-1089**…**D-1112**. Prior **62–65** ACCEPT
   / 63 ACCEPT-WITH-DEBT.
-- **Next cluster:** Open `teleport.c` `mlevel_tele_trap`
-  MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP (named). Not hole path.
-- **Hypothesis:** none live. D-1111 shipped: `teleok` allows
-  VIBRATING_SQUARE and pit/hole iff Levitation||Flying
-  (youprop + steed flyer; sticky `u.Levitation`/`u.Flying`
-  ignored). `tele_jump_ok`/`in_out_region` still named.
+- **Next cluster:** Open `fountain.c` `dipsink` (named). Not
+  wash_hands.
+- **Hypothesis:** none live. D-1112 shipped: `mlevel_tele_trap`
+  MAGIC_PORTAL stay (amulet || home-elemental || `rn2(7)`);
+  LEVEL_TELEP `random_teleport_level`/`get_level`; NO_TRAP
+  `onscary(0,0)` stay else same-level migrate; xport mconf
+  iff `!control_teleport`. Hole dest unchanged.
 
 ## Don't re-check (≤15)
 
@@ -71,7 +72,10 @@ Objective/score live in `CURRENT.md`.
   ER_NOTHING stub or skip Glib `ER_GREASED` (D-1108) / restore
   vault raw `exclusion_zones` or skip `lspo_exclusion` (D-1109) /
   restore `goodpos` always-`goodpos_onscary` (D-1110) /
-  restore teleok any-trap reject (D-1111).
+  restore teleok any-trap reject (D-1111) / restore
+  `mlevel_tele_trap` LEVEL_TELEP/NO_TRAP early-return, skip
+  amulet/`is_home_elemental` before `rn2(7)`, or always-mconf
+  xport (D-1112).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -80,21 +84,15 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1410**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1415**.
+- **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP.
+  Endgame amulet/home-elemental/`rn2(7)`; LEVEL_TELEP
+  `random_teleport_level`; NO_TRAP `onscary(0,0)`; xport mconf
+  iff `!control_teleport`. valley/botlevel-avoid/hero named.
 - **D-1111:** `teleok` VIBRATING_SQUARE always ok; pit/hole iff
-  Levitation||Flying. `tele_jump_ok`/`in_out_region` named.
-- **D-1110:** `goodpos` live-mon `onscary` when `m_id != 0`.
-  Local `monmove.c` clone; fakemon still `goodpos_onscary`.
-  mfndpos `mon.js` partial named. Hash `fd738eab`.
-- **D-1109:** `lspo_exclusion` populate + `free_exclusions` +
-  `flip_level` rects. soko MONGEN; vault TELE helper. soko2-2 /
-  hellfill prefab / save/rest named.
-- **D-1108:** `wash_hands` + dipfountain hands/`uarmg`. You-wash;
-  Glib `make_glib(0)`; `water_damage(uarmg)`; was_glib→ER_GREASED.
-  Hash `62b93acb`. dipsink / pool dip still named.
-- **D-1107:** `dipfountain` Excalibur LONG_SWORD body. Lawful
-  `oname`/`bless`; unaligned curse+`spe--`; ROOM not `dryup`.
-  Hash `0633a261`.
-- **D-1106:** `dryup` skips dries-up pline when gbuf cmap is
-  `S_cloud`. Poison / shown mon / I still pline. Hash `127c045c`.
-- **D-1102:** `goodpos_onscary` altar S_VAMPIRE / scare /
-  strict Elbereth. Hash `ebe1f041`. Live-mon path is D-1110.
+  Levitation||Flying. Hash `b0847b88`.
+- **D-1110:** live-mon `onscary` when `m_id != 0`. Hash `fd738eab`.
+- **D-1109:** `lspo_exclusion` populate. Hash `5bf81ca7`.
+- **D-1108:** `wash_hands`. Hash `62b93acb`.
+- **D-1107:** dipfountain Excalibur. Hash `0633a261`.
+- **D-1106:** `dryup` S_cloud skip. Hash `127c045c`.
+- **D-1102:** `goodpos_onscary` altar/scare/Elbereth. Hash `ebe1f041`.

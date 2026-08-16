@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP arms (named). Not hole path.
 - [ ] `fountain.c` `dipsink` (named). Not wash_hands.
 - [ ] `fountain.c` `dipfountain` cases 17–20 uncurse (named). Not Excalibur.
 - [ ] `fountain.c` `dipfountain` case 29 `mkgold` coins (named). Not wash_hands.

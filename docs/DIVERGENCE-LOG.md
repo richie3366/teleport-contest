@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1112 — mlevel_tele_trap MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `mlevel_tele_trap` migrated MAGIC_PORTAL with
+  endgame `rn2(7)` even when the mon held the Amulet or was a
+  home elemental (C short-circuits those before the roll), always
+  set `mconf` on xport, and early-returned LEVEL_TELEP / NO_TRAP
+  without `random_teleport_level` / same-level migrate.
+- **C locus:** `teleport.c` `mlevel_tele_trap` (~2033–2095);
+  `makemon.c` `is_home_elemental`; `wizard.c` `mon_has_amulet`;
+  `monmove.c` `onscary(0,0)`; `dungeon.c` `get_level`.
+- **Fix:** port MAGIC_PORTAL stay (amulet || home-elemental ||
+  `rn2(7)`); LEVEL_TELEP amulet/endgame stay else
+  `random_teleport_level`/`get_level`; NO_TRAP amulet/endgame/
+  `onscary(0,0)` stay else migrate to `u.uz`. Shared in_sight
+  migrate/shimmer/disorient plines + local `seetrap`.
+  `is_xport && !control_teleport` sets `mconf`. Hole dest
+  unchanged. Local helpers (apply/makemon/trap cycles).
+  Rule #2: no fs.
+- **JS:** `js/teleport.js` `mlevel_tele_trap`.
+- **Not this iter:** valley_level stronghold dest; botlevel hole
+  avoid pline; hero `level_tele_trap` / `domagicportal`;
+  `tele_trap` Antimagic wrenching; `teleds` `fill_pit`.
+- **Verify:** private canary **53**/53 (ustuck; portal migrate +
+  MIGR_PORTAL/mconf; TPORT_CNTRL skip mconf; endgame amulet/
+  home-elemental skip `rn2(7)`; away-elemental burns it;
+  LEVEL_TELEP amulet/endgame stay vs ordinary `rn2(5)` stay/
+  migrate; NO_TRAP ordinary stay vs wiz/rider same-level
+  migrate; WEB impossible; hole dest regression; shimmer
+  tseen); green+strict seed8000/0900; cohort **36**/36
+  including 0360/0030/4500/0373/0367/0014 + strict
+  0360/0014/4500/2200/0367/0009/0004/0030. Path public-unhit.
+- **Files:** `js/teleport.js`.
+
 ## D-1111 — teleok vibrating square / pit-fly
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

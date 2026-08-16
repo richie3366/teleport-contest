@@ -21,6 +21,8 @@ import {
     UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER,
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
+    Is_airlevel, Is_firelevel, Is_earthlevel,
+    HOLE, TRAPDOOR, LEVEL_TELEP,
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
@@ -72,6 +74,10 @@ const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_MINOTAUR = monsterNames.indexOf('PM_MINOTAUR');
 const PM_ANGEL = monsterNames.indexOf('PM_ANGEL');
+const PM_AIR_ELEMENTAL = monsterNames.indexOf('PM_AIR_ELEMENTAL');
+const PM_FIRE_ELEMENTAL = monsterNames.indexOf('PM_FIRE_ELEMENTAL');
+const PM_EARTH_ELEMENTAL = monsterNames.indexOf('PM_EARTH_ELEMENTAL');
+const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
 
 function isok(x, y) {
     return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
@@ -1788,12 +1794,55 @@ export function migrate_to_level(mtmp, tolev, xyloc, cc) {
 }
 
 /**
- * C ref: teleport.c mlevel_tele_trap — monster hole/trapdoor/portal migrate.
- * Envelope: HOLE/TRAPDOOR → trap.dst (+ stronghold/botlevel gates);
- * MAGIC_PORTAL → trap.dst + MIGR_PORTAL (D-0782); LEVEL_TELEP / NO_TRAP
- * still deferred. Named omissions: mon_has_amulet / is_home_elemental
- * endgame shimmer gates (rn2(7) still runs when In_endgame); in_sight
- * plines; control_teleport (portal always sets mconf).
+ * C ref: trap.c seetrap — mark tseen + newsym.
+ * Local copy avoids trap.js ↔ teleport cycle.
+ */
+function seetrap(trap) {
+    if (trap && !trap.tseen) {
+        trap.tseen = true;
+        newsym(trap.tx, trap.ty);
+    }
+}
+
+/**
+ * C ref: wizard.c mon_has_amulet — minvent holds AMULET_OF_YENDOR.
+ * Local copy avoids apply.js ↔ teleport cycle.
+ */
+function mon_has_amulet(mtmp) {
+    if (!mtmp || AMULET_OF_YENDOR < 0) return 0;
+    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+        if ((otmp.otyp | 0) === AMULET_OF_YENDOR) return 1;
+    }
+    return 0;
+}
+
+/**
+ * C ref: makemon.c is_home_elemental — S_ELEMENTAL on matching plane.
+ * Local copy avoids makemon.js ↔ teleport cycle.
+ */
+function is_home_elemental(ptr) {
+    if (ptr?.mlet !== 'S_ELEMENTAL') return false;
+    switch (ptr.mndx ?? -1) {
+    case PM_AIR_ELEMENTAL:
+        return Is_airlevel(game.u?.uz);
+    case PM_FIRE_ELEMENTAL:
+        return Is_firelevel(game.u?.uz);
+    case PM_EARTH_ELEMENTAL:
+        return Is_earthlevel(game.u?.uz);
+    case PM_WATER_ELEMENTAL:
+        return Is_waterlevel(game.u?.uz);
+    default:
+        return false;
+    }
+}
+
+/**
+ * C ref: teleport.c mlevel_tele_trap — monster hole/trapdoor/portal/levelport.
+ * Envelope: HOLE/TRAPDOOR dest (D-0250); MAGIC_PORTAL dst+MIGR_PORTAL
+ * (D-0782) with endgame amulet/home-elemental/rn2(7) stay; LEVEL_TELEP
+ * random_teleport_level+get_level; NO_TRAP same-level migrate unless
+ * amulet/endgame/onscary(0,0). Named omissions: valley_level stronghold
+ * dest; botlevel hole avoid pline; hero level_tele_trap / domagicportal.
  */
 export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
     const tt = trap ? (trap.ttyp | 0) : NO_TRAP;
@@ -1825,25 +1874,60 @@ export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
             if (bottom > 0 && tolevel.dlevel > bottom) tolevel.dlevel = bottom;
         }
     } else if (tt === MAGIC_PORTAL) {
-        // C: endgame amulet/elemental/rn2(7) shimmer stay; else portal migrate
+        // C: In_endgame && (amulet || home-elemental || rn2(7)) stay
         if (In_endgame(game.u?.uz)
-            && (/* mon_has_amulet / is_home_elemental deferred */ rn2(7))) {
-            void in_sight;
+            && (mon_has_amulet(mtmp)
+                || is_home_elemental(mtmp.data)
+                || rn2(7))) {
+            if (in_sight && mtmp.data?.mlet !== 'S_ELEMENTAL') {
+                await pline(`${Monnam(mtmp)} seems to shimmer for a moment.`);
+                seetrap(trap);
+            }
             return Trap_Effect_Finished;
         }
         const dst = trap.dst || {};
         tolevel.dnum = dst.dnum | 0;
         tolevel.dlevel = dst.dlevel | 0;
         migrate_typ = MIGR_PORTAL;
+    } else if (tt === LEVEL_TELEP || tt === NO_TRAP) {
+        if (mon_has_amulet(mtmp) || In_endgame(game.u?.uz)
+            || (tt === NO_TRAP && onscary(0, 0, mtmp))) {
+            if (in_sight) {
+                await pline(
+                    `${Monnam(mtmp)} seems very disoriented for a moment.`,
+                );
+            }
+            return Trap_Effect_Finished;
+        }
+        if (tt === NO_TRAP) {
+            const uz = game.u?.uz || { dnum: 0, dlevel: 1 };
+            tolevel.dnum = uz.dnum | 0;
+            tolevel.dlevel = uz.dlevel | 0;
+        } else {
+            const nlev = random_teleport_level();
+            if (nlev === (depth(game.u?.uz) | 0)) {
+                if (in_sight) {
+                    await pline(`${Monnam(mtmp)} shudders for a moment.`);
+                }
+                return Trap_Effect_Finished;
+            }
+            get_level(tolevel, nlev);
+        }
     } else {
-        // LEVEL_TELEP / NO_TRAP deferred
+        // C: impossible("mlevel_tele_trap: unexpected trap type")
         return Trap_Effect_Finished;
     }
 
-    // in_sight pline deferred (screen-only)
-    void in_sight;
-    // C: is_xport && !control_teleport → mconf; control_teleport deferred
-    if (is_xport(tt)) mtmp.mconf = 1;
+    if (in_sight) {
+        const how = (tt === HOLE) ? 'falls into a hole'
+            : (tt === TRAPDOOR) ? 'falls through a trap door'
+            : 'disappears out of sight';
+        await pline(`Suddenly, ${mon_nam(mtmp)} ${how}.`);
+        if (trap) seetrap(trap);
+    }
+    if (is_xport(tt) && !control_teleport(mtmp.data)) {
+        mtmp.mconf = 1;
+    }
     migrate_to_level(mtmp, ledger_no(tolevel), migrate_typ, null);
     return Trap_Moved_Mon;
 }
