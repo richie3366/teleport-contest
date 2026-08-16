@@ -20,13 +20,14 @@ import {
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     MAGIC_PORTAL, RLOC_MSG, RLOC_NOMSG,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
-    MON_FLOOR,
+    MON_FLOOR, Upolyd,
+    FIRE_RES, LEVITATION, FLYING, WWALKING, SWIMMING, MAGICAL_BREATHING,
 } from './const.js';
 import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
-    monsterNames, passes_walls, is_dlord, is_dprince,
+    amphibious, monsterNames, passes_walls, is_dlord, is_dprince,
     is_rider, control_teleport,
 } from './monsters.js';
 import {
@@ -128,11 +129,86 @@ function m_in_air(mtmp) {
     return !!(is_flyer(ptr) || is_floater(ptr));
 }
 
+/** C youprop.h H/E/blocked via flat + uprops[idx] (confer may not mirror E*). */
+function _uprop_he(u, flatH, flatE, idx) {
+    const prop = u.uprops?.[idx];
+    return ((u[flatH] | 0) || (u[flatE] | 0)
+        || (prop?.intrinsic | 0) || (prop?.extrinsic | 0));
+}
+
+/**
+ * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
+ * Sticky u.Levitation is not a C field; B must still block (D-1070).
+ */
+function Levitation() {
+    const u = game.u || {};
+    const prop = u.uprops?.[LEVITATION];
+    const blocked = (u.BLevitation | 0) || (prop?.blocked | 0);
+    return !!(_uprop_he(u, 'HLevitation', 'ELevitation', LEVITATION) && !blocked);
+}
+
+/**
+ * C youprop.h Flying — (H||E||steed is_flyer) && !BFlying.
+ * confer_oc_oprop writes AMULET_OF_FLYING to uprops[].extrinsic, not EFlying
+ * (D-1085). Sticky u.Flying is not a C field.
+ */
+function Flying() {
+    const u = game.u || {};
+    const prop = u.uprops?.[FLYING];
+    const blocked = (u.BFlying | 0) || (prop?.blocked | 0);
+    const steedFlyer = !!(u.usteed && is_flyer(u.usteed.data));
+    return !!((_uprop_he(u, 'HFlying', 'EFlying', FLYING) || steedFlyer)
+        && !blocked);
+}
+
+/**
+ * C youprop.h Wwalking — (HWwalking || EWwalking) && !Is_waterlevel.
+ * confer writes WATER_WALKING_BOOTS to uprops[WWALKING], not EWwalking.
+ */
+function Wwalking() {
+    const u = game.u || {};
+    return !!(_uprop_he(u, 'HWwalking', 'EWwalking', WWALKING)
+        && !Is_waterlevel(u.uz));
+}
+
+/**
+ * C youprop.h Swimming — H||E||steed is_swimmer.
+ */
+function Swimming() {
+    const u = game.u || {};
+    if (_uprop_he(u, 'HSwimming', 'ESwimming', SWIMMING)) return true;
+    return !!(u.usteed && is_swimmer(u.usteed.data));
+}
+
+/**
+ * C youprop.h Amphibious — magical breathing || amphibious(youmonst.data).
+ * confer writes AMULET_OF_MAGICAL_BREATHING to uprops, not EMagical_breathing.
+ */
+function Amphibious() {
+    const u = game.u || {};
+    if (_uprop_he(u, 'HMagical_breathing', 'EMagical_breathing', MAGICAL_BREATHING)) {
+        return true;
+    }
+    return amphibious(game.youmonst?.data);
+}
+
+/**
+ * C youprop.h Fire_resistance — H||E ≡ uprops[FIRE_RES].
+ * confer_oc_oprop does not mirror EFire_resistance (sit.js D-1089 shape).
+ */
+function Fire_resistance() {
+    const u = game.u || {};
+    const e = u.uprops?.[FIRE_RES];
+    return !!((u.HFire_resistance | 0) || (u.EFire_resistance | 0)
+        || u.Fire_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /**
  * C ref: teleport.c goodpos() — placement / enexto suitability.
- * Named omissions: youmonst swim/levitate pool·lava arms; passes_walls /
- * may_passwall early-out; GP_AVOID_MONPOS exclusion zones; onscary when
- * m_id != 0 (fakemon uses goodpos_onscary).
+ * Named omissions: passes_walls / may_passwall early-out;
+ * GP_AVOID_MONPOS exclusion zones; onscary when m_id != 0
+ * (fakemon uses goodpos_onscary).
  */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
@@ -168,7 +244,15 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
          * (D-1091). IS_POOL(DRAWBRIDGE_UP) is every raised bridge, so
          * UP+DB_LAVA must take the lava arm, not the swimmer arm. */
         if (is_pool(x, y) && !ignorewater) {
-            // C: youmonst Swimming/Amphibious/Lev/Fly/Wwalk deferred
+            /* C teleport.c goodpos: youmonst uses youprop.h Swimming /
+             * Amphibious / Levitation / Flying / Wwalking, not m_in_air
+             * (D-1099). Monster arm stays is_swimmer / m_in_air. */
+            if (mtmp === game.youmonst) {
+                return !!(Swimming() || Amphibious()
+                    || (!Is_waterlevel(game.u?.uz)
+                        && !IS_WATERWALL(typ)
+                        && (Levitation() || Flying() || Wwalking())));
+            }
             return !!(is_swimmer(mdat)
                 || (!Is_waterlevel(game.u?.uz)
                     && !IS_WATERWALL(typ)
@@ -176,9 +260,15 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
         } else if (mdat?.mlet === 'S_EEL' && rn2(13) && !ignorewater) {
             return false;
         } else if (is_lava(x, y) && !ignorelava) {
-            // C: PM_FLOATING_EYE avoids lava heat
+            // C: PM_FLOATING_EYE avoids lava heat (before youmonst arm)
             if (mdat && (mdat.mndx ?? -1) === PM_FLOATING_EYE) return false;
-            // C: youmonst Lev/Fly/Fire+Wwalk+oerodeproof/Upolyd likes_lava deferred
+            if (mtmp === game.youmonst) {
+                const u = game.u || {};
+                return !!(Levitation() || Flying()
+                    || (Fire_resistance() && Wwalking() && u.uarmf
+                        && u.uarmf.oerodeproof)
+                    || (Upolyd(u) && likes_lava(game.youmonst.data)));
+            }
             return !!(m_in_air(mtmp) || likes_lava(mdat));
         }
         // passes_walls + may_passwall deferred

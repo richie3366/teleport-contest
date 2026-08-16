@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1099 | fixed | `goodpos` youmonst swim/lev/fly/wwalk pool+lava | map-driven; C `teleport.c:136–161` + `youprop.h`; confer uprops for Fly/Wwalk/Fire/Amphibious; lava Fire+Wwalk+oerodeproof / Upolyd likes_lava; `passes_walls` still named |
 | D-1098 | fixed | `seffects` SCR_GENOCIDE / `do_class_genocide` | map-driven; C `read.c` seffect_genocide/`do_class_genocide` + `mondata.c` `name_to_monclass`; Confusion ≡ HConfusion; livelog / Hallu / POLY_REVERT / cham `newcham` / `update_inventory` still named |
 | D-1097 | fixed | `kill_eggs` after genocide | map-driven; C `mon.c:5607–5677`; `kill_egg`/`dead_species(..., TRUE)`; invent array + nobj lists; TIN/CORPSE `#if 0` not ported; cham `newcham` / goto_level caller still named |
 | D-1096 | fixed | `dryup` wizard `y_n("Dry up fountain?")` | map-driven; C `fountain.c:216–219` after town warn; `flags.debug`; `'n'` abort; no `debug_fuzzer` gate; `angry_guards` / cloud-glyph / Deaf shake still named |

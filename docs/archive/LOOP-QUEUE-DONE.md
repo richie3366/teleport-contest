@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `read.c` `seffects` SCR_GENOCIDE (named from sit). Not kill_eggs. **Addressed:** D-1098
+- [x] `teleport.c` `goodpos` youmonst Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava arms (named). Not `passes_walls`. **Addressed:** D-1099
+
+
+- [x] `read.c` `seffects` SCR_GENOCIDE (named from sit). Not kill_eggs. **Addressed:** D-1098 `cdb72162`
 
 
 - [x] `mon.c` `kill_eggs` after genocide (named from sit D-1034). Not seffects SCR_GENOCIDE. **Addressed:** D-1097 `d1e7ae23`

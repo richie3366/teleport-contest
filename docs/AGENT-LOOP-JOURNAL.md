@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 19:16 — #1398 D-1099 goodpos youmonst swim/lev/fly/wwalk
+
+**Objective:** Open queue — `teleport.c` `goodpos` youmonst
+Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava
+arms (named). Not `passes_walls`.
+**C locus:** `teleport.c` `goodpos` 136–161; `youprop.h`
+Swimming/Amphibious/Levitation/Flying/Wwalking/Fire_resistance.
+**Change:** youmonst pool/lava arms use youprop clones (flats OR
+uprops; Lev/Fly honor B*; no sticky `u.Levitation`/`u.Flying`).
+Lava Fire+Wwalk+oerodeproof boots / Upolyd likes_lava. Monster
+`is_swimmer`/`m_in_air` unchanged. Did not pull `passes_walls`.
+Filled D-1098 hash `cdb72162`. Rotated #1383. Open 9 (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1395** **44**/44; next
+@**#1400**).
+**Verified:** private canary **52**/52; green+strict seed8000/0900;
+cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
+0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+Public traces **unhit**.
+**Next:** Open `teleport.c` `goodpos` `passes_walls` +
+`may_passwall` early-out. Not youmonst swim.
+**Blocked:** none.
+
 ## 2026-08-16 19:06 — #1397 D-1098 seffects SCR_GENOCIDE
 
 **Objective:** Open queue — `read.c` `seffects` SCR_GENOCIDE
@@ -343,25 +366,4 @@ seed8000/0900; cohort **16**/16 (incl. 0361/0367/0373 quest) +
 strict 0367/0361/0373/0014/4500/0360/2200. Synth public-unhit.
 **Next:** Open `dbridge.c` `is_pool` / `is_moat` DRAWBRIDGE_UP +
 `DB_MOAT`. Audit @**#1385**.
-**Blocked:** none.
-
-## 2026-08-16 16:05 — #1383 D-1087 rndcurse Antimagic shieldeff
-
-**Objective:** Open queue — `sit.c` `rndcurse` `shieldeff` (named
-omit). Not update_inventory / hcolor.
-**C locus:** `sit.c` `rndcurse` (~581–583); `display.c` `shieldeff`
-(~1109–1124); `decl.c` `shield_static`; `display.h` SHIELD_COUNT 21.
-**Change:** `display.js` `shieldeff` matches C (sparkle opt_out On;
-`cansee`; 21 ASCII S_ss1..4 + `flush_screen(1)` + `nh_delay_output`;
-`newsym` restore). `rndcurse` awaits it on Antimagic. Did not pull
-`update_inventory` / hcolor / other callers. Filled D-1086 hash
-`89a97acc`. Rotated #1369 to archive. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1380** **44**/44; next
-@**#1385**).
-**Verified:** private canary 8/8 (21-frame `shield_static`; `!sparkle`
-/ `!cansee` skip; `rndcurse` Antimagic 21 vs !Antimagic 0);
-green+strict seed8000/0900; cohort **9**/9 (0106/0107/0108/4500/
-1500/1800/0017/0360/2200) + sit strict.
-**Next:** Open `makemon.c` `m_initweap` `ptr.msound` MS_GUARDIAN /
-MS_PRIEST.
 **Blocked:** none.

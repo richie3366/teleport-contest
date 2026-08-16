@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1099 — goodpos youmonst swim/lev/fly/wwalk pool and lava
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleport.js` `goodpos` used monster `is_swimmer` /
+  `m_in_air` / `likes_lava` for **every** `mtmp`, including
+  `&gy.youmonst`. C splits: youmonst pool is `Swimming || Amphibious
+  || (!waterlevel && !is_waterwall && (Levitation || Flying ||
+  Wwalking))`; lava is `Levitation || Flying || (Fire_resistance &&
+  Wwalking && uarmf && oerodeproof) || (Upolyd && likes_lava)`.
+  Worn flying / water-walking / fire-res / magical breathing live
+  in `uprops[]` (confer does not mirror those E* flats).
+- **C locus:** `teleport.c` `goodpos` (~136–161); `youprop.h`
+  Swimming / Amphibious / Levitation / Flying / Wwalking /
+  Fire_resistance; `you.h` Upolyd.
+- **Fix:** local youprop clones in `js/teleport.js` (flats OR
+  uprops; Lev/Fly honor B*; no sticky `u.Levitation`/`u.Flying`).
+  Monster arm unchanged. Did not pull `passes_walls`/`may_passwall`.
+  Rule #2: no fs.
+- **JS:** `js/teleport.js`.
+- **Not this iter:** `passes_walls`/`may_passwall`; `is_exclusion_zone`;
+  `goodpos_onscary` Elbereth/scare/altar-vamp; `onscary` when
+  `m_id != 0`; Breathless comment in C pool arm.
+- **Verify:** private canary **52**/52 (grounded false; HSwimming /
+  uprops swim/breath/wwalk/fly; amphibious form; BLev/BFly block;
+  sticky Lev/Fly false; steed swim/fly; WATER wall Lev false /
+  swim true; waterlevel Wwalk/Lev false swim true; lava Fire+Wwalk
+  +proof boots; Upolyd salamander vs unpolyd data; floating-eye
+  first; UP+moat vs UP+lava; ignorewater/ignorelava; fakemon
+  regression); green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/
+  0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (wizard ^T onto water with youprop, not form).
+- **Files:** `js/teleport.js`.
+
 ## D-1098 — seffects SCR_GENOCIDE / do_class_genocide
 
 - **Status:** fixed (map-driven Open; named from sit D-1034; not a public FAIL)

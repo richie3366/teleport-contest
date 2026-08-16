@@ -10,18 +10,18 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1395**;
   next @**#1400**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 10.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 9.
   Reviews **54** ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap
   named), **55–57** ACCEPT (D-1094…D-1096); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1098**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `teleport.c` `goodpos` youmonst
-  Swimming/Amphibious/Levitation/Flying/Wwalking pool and lava
-  arms (named). Not `passes_walls`.
-- **Hypothesis:** none live. D-1098 shipped: blessed class
-  genocide + uncursed type path; Confusion ≡ HConfusion.
+- Latest ports: **D-1089**…**D-1099**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `teleport.c` `goodpos` `passes_walls` +
+  `may_passwall` early-out (named). Not youmonst swim.
+- **Hypothesis:** none live. D-1099 shipped: youmonst pool/lava
+  uses youprop Swimming/Amphibious/Levitation/Flying/Wwalking
+  (and lava Fire+Wwalk+oerodeproof / Upolyd likes_lava).
 
 ## Don't re-check (≤15)
 
@@ -52,7 +52,9 @@ Objective/score live in `CURRENT.md`.
   uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
   add `debug_fuzzer` skip there (D-1096) / skip `kill_eggs` or
   port TIN/CORPSE `#if 0` (D-1097) / skip `seffects` SCR_GENOCIDE
-  or `do_class_genocide` / `name_to_monclass` (D-1098).
+  or `do_class_genocide` / `name_to_monclass` (D-1098) / restore
+  youmonst `goodpos` pool/lava to monster `is_swimmer`/`m_in_air`
+  (D-1099).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -61,8 +63,10 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1395**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1400**.
+- **D-1099:** `goodpos` youmonst swim/lev/fly/wwalk pool+lava.
+  Hash next SHA. `passes_walls`/`may_passwall` still named.
 - **D-1098:** `seffects` SCR_GENOCIDE / `do_class_genocide` /
-  `name_to_monclass`. Hash next SHA. livelog / Hallu / POLY_REVERT
+  `name_to_monclass`. Hash `cdb72162`. livelog / Hallu / POLY_REVERT
   / cham `newcham` / `update_inventory` still named.
 - **D-1097:** `kill_eggs` after genocide. Hash `d1e7ae23`.
   TIN/CORPSE `#if 0`; cham `newcham`; goto_level caller named.
