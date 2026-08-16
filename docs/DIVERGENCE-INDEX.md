@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1093 | fixed | dogmove pal/target numeric `ptr.msound` | map-driven; C `dogmove.c` find_friends/score_targ/dog_move; MS_LEADER=36 / GUARDIAN=38 not string `'MS_LEADER'`; perceives/conf/faith still named |
 | D-1092 | fixed | makemon S_ORC/S_UNICORN mlet peace | map-driven; C `makemon.c:1335–1342`; elf `Race_if` orcs hostile; `is_unicorn` co-align always peaceful (pony skip); 5.0 no S_ELF mlet; dprince/raven/emin still named |
 | D-1091 | fixed | `goodpos` `is_pool()`/`is_lava()` not typ macros | map-driven; C `teleport.c:134–175`; UP+`DB_LAVA` lava arm not swimmer; dropped JS-only `!mtmp` else; youmonst swim/lev/fly still named |
 

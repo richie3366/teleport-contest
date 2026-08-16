@@ -137,7 +137,7 @@ This review iter did not re-run sessions (cadence already measured on this SHA).
 
 None that belong on Must-fix from **this** SHA. D-1036 risk 3 (empty `msound` → always chitter) is actually closed.
 
-Named omits (map, not queue): `peace_minded`/`set_malign` **Addressed:** D-1079 `d7d679c1`; `m_initweap` still mndx (live Open); `domonnoise` isshk/guardian/orc/moo/gecko; `dogmove` string `msound`; leftover `mon_msound` mlet infer for stubs.
+Named omits (map, not queue): `peace_minded`/`set_malign` **Addressed:** D-1079 `d7d679c1`; `m_initweap` priest/guardian **Addressed:** D-1088 `049af16e` (MS_NEMESIS mitem still Open); `domonnoise` isshk/guardian/orc/moo/gecko; `dogmove` pal/target **Addressed:** D-1093; leftover `mon_msound` mlet infer for stubs.
 
 Do not restore empty `msounds[]` or the `msound===0` leader shim. Do not restore growl `MS_ROAR=6`. Remaining Must-fix is D-1036 risk 4 `get_obj_location` flags `0` vs CONTAINED.
 

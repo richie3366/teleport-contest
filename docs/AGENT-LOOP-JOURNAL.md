@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 17:42 — #1391 D-1093 dogmove pal/target numeric msound
+
+**Objective:** Open queue — `dogmove.c` pal/target tests must
+compare numeric `ptr.msound` not string `'MS_LEADER'` (named from
+D-1053 review **14**).
+**C locus:** `dogmove.c` `find_friends` 728–730 / `score_targ`
+767–769 / `dog_move` 1124–1126; `monflag.h` MS_LEADER=36 /
+MS_GUARDIAN=38.
+**Change:** `dogmove.js` compares `(ptr.msound | 0) === MS_LEADER`
+/ `MS_GUARDIAN`. Did not pull `perceives`, conf/`Is_qstart` score,
+faith/AT_NONE/vampshifter, or melee `haseyes`/`mon_reflects`.
+Stamped reviews **14**/**53**/**40**/**49**. Filled D-1092 hash on
+review **49**. Rotated #1376. Open 10 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1390** **44**/44; next
+@**#1395**).
+**Verified:** private canary **12**/12; green+strict seed8000/0900;
+cohort **12**/12 + strict 1800/0004/0367/0360/0014/2200/0361.
+Path public-unhit.
+**Next:** Open `makemon.c` `m_initweap` MS_NEMESIS mitem
+`ptr.msound` not `urole.neminum`.
+**Blocked:** none.
+
 ## 2026-08-16 17:30 — #1390 review D-1089–D-1092 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -333,23 +356,4 @@ Rotated #1362/#1363 to archive. Rule #2: no fs.
 HFlying/steed-skill); green+strict seed8000/0900; cohort **20**/20
 + strict 1800/0004/0101/0103/0360/2200/4500.
 **Next:** Open `engrave.c` `can_reach_floor(check_pit)` teeter/shaft.
-**Blocked:** none.
-
-## 2026-08-16 14:15 — #1376 D-1081 cprefx rider revive_corpse after lifesave
-
-**Objective:** Open queue — `eat.c` `cprefx` `revive_corpse` after
-rider lifesave (debt.md).
-**C locus:** `eat.c` `cprefx` 831–849; `do.c` `revive_corpse`
-2111–2246.
-**Change:** after `done(DIED)`+`exercise`, revive CORPSE
-`victual.piece` (tins skip) then `zero_victual`. Moved helper to
-`do.js` (C home); floor Death/Pestilence/Famine suffixes.
-Did not pull MINVENT/CONTAINED/BURIED / Adjmonnam. Filled no prior
-missing Addressed hash. Rotated #1361 to archive. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1375** **44**/44; next
-@**#1380**).
-**Verified:** private canary (tin-skip/norevive keep; lizard zeros
-victual; invent/uwep; rider `data.mndx`); green+strict
-seed8000/0900; cohort **14**/14 + strict 1800/0004/0361/4500/0360/2200.
-**Next:** Open `engrave.c` `can_reach_floor` ceiling_hider / MZ_HUGE.
 **Blocked:** none.

@@ -10,21 +10,21 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
   next @**#1395**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 11
-  after **D-1092** (no refill; still ≥8). Reviews **50–53**
+- Mode: **map-driven** under fortress. Must-fix empty. Open 10
+  after **D-1093** (no refill; still ≥8). Reviews **50–53**
   **ACCEPT** (D-1089…D-1092); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1092**. Prior **46** ACCEPT,
+- Latest ports: **D-1089**…**D-1093**. Prior **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
   D-1089, **49** ACCEPT.
-- **Next cluster:** Open `dogmove.c` pal/target tests must
-  compare numeric `ptr.msound` not string `'MS_LEADER'`
-  (named from D-1053 review **14**). Not S_ORC peace.
-- **Hypothesis:** `dogmove.js` still compares `ptr.msound` to
-  the string `'MS_LEADER'` after `msounds[]` is numeric
-  (D-1053). Falsifier: C `dogmove.c` pal/target vs JS.
+- **Next cluster:** Open `makemon.c` `m_initweap` MS_NEMESIS
+  mitem `ptr.msound` not `urole.neminum` (named). Not S_ORC
+  peace. Not dogmove pal tests.
+- **Hypothesis:** `m_initweap` mitem still gates nemesis by
+  `urole.neminum` after `msounds[]` (D-1053) / priest-guardian
+  msound (D-1088). Falsifier: C `makemon.c` MS_NEMESIS vs JS.
 
 ## Don't re-check (≤15)
 
@@ -49,8 +49,8 @@ Objective/score live in `CURRENT.md`.
 - Do not skip hugs (D-1071) … priest/guardian mndx (D-1088) /
   restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
   POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
-  `IS_LAVA` macros (D-1091) / skip `S_ORC`/`S_UNICORN` mlet peace
-  or invent `S_ELF` mlet (D-1092).
+  `IS_LAVA` macros (D-1091) / invent `S_ELF` mlet (D-1092) /
+  restore dogmove string `'MS_LEADER'` (D-1093).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -59,6 +59,9 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
+- **D-1093:** `dogmove` pal/target `ptr.msound` numeric
+  MS_LEADER=36 / MS_GUARDIAN=38. String `'MS_LEADER'` was dead
+  after D-1053. Review **14** named omit.
 - **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;
   `is_unicorn` co-align always peaceful. Review **53** ACCEPT.
   Hash `c3f28bfd`.
@@ -72,6 +75,3 @@ Objective/score live in `CURRENT.md`.
   `ptr.msound`. Review **49** ACCEPT. Hash `049af16e`.
 - **D-1087:** `shieldeff` body matches `display.c`. Review **48**
   QUALITY-RISK closed by D-1089.
-- **D-1086:** steal.c `remove_worn_item` armor `*_off` /
-  `unpunish` / `setnotworn`. Review **47** ACCEPT-WITH-DEBT
-  (`Amulet_off` still setworn).

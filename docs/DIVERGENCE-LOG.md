@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1093 — dogmove pal/target numeric ptr.msound
+
+- **Status:** fixed (map-driven Open; named from D-1053 review **14**; not a public FAIL)
+- **Symptom:** `dogmove.js` `find_friends` / `score_targ` / `dog_move`
+  compared `ptr.msound` to the strings `'MS_LEADER'` / `'MS_GUARDIAN'`.
+  After D-1053, `mons().msound` is C `monflag.h` numbers (36/38), so
+  those tests never matched. Pets never treated quest leaders as
+  pals, never scored them −5000, never balked at attacking peaceful
+  leaders/guardians.
+- **C locus:** `dogmove.c` `find_friends` (~728–730), `score_targ`
+  (~767–769), `dog_move` ALLOW_M balk (~1124–1126); `monflag.h`
+  `MS_LEADER=36` / `MS_GUARDIAN=38`.
+- **Fix:** compare `(ptr.msound | 0) === MS_LEADER` / `MS_GUARDIAN`
+  like `makemon.js` peace/malign (D-1079). Rule #2: no fs.
+- **JS:** `js/dogmove.js`.
+- **Not this iter:** `find_friends` `perceives(mtmp->data)` for
+  invisible tame pals; `score_targ` confused/`Is_qstart` wrap,
+  priest/minion faith, AT_NONE, vampshifter level; melee
+  `haseyes`/`mon_reflects`/`touch_petrifies`; MS_NEMESIS mitem.
+- **Verify:** private canary **12**/12 (Twoflower/Carnarvon/Arch
+  Priest 36 pal; student/attendant 38 pal; jackal/nemesis/ant/
+  shopkeeper/little-dog not; stub/string not pal; source has no
+  string compares); green+strict seed8000/0900; cohort **12**/12
+  (1800/1500/0004/0360/0367/0014/2200/0399/0106/0012/0007/0361)
+  + strict 1800/0004/0367/0360/0014/2200/0361. Path public-unhit
+  (quest pal on a ray / peaceful leader melee).
+- **Files:** `js/dogmove.js`.
+
 ## D-1092 — makemon S_ORC / S_UNICORN mlet peace
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
