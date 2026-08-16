@@ -11,15 +11,16 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1355**;
   next @**#1360**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty. Keep 8–12 open rows; refill from the map
-  when below 8.
+  LB). Must-fix empty (reviews **31**/**32** ACCEPT D-1070/D-1071).
+  Keep 8–12 open rows; refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - Latest: **D-1071** `can_reach_floor` ustuck `AT_HUGS` + `!sticks`
-  (review **30** named omit). Hug → sit-on-air; eel WRAP still
-  reaches; hero `sticks` still reaches. Lap still named.
+  (review **32** ACCEPT). Hug → sit-on-air; eel WRAP still
+  reaches; hero `sticks` still reaches. Lap still named. Do not
+  import `monmove.js` `sticks` for lap (AT_HUGS/AT_ENGL 6/7 ≠ C 7/11).
 - **Next cluster:** Open `sit.c` `dosit` ustuck `!sticks` lap
   (`Monnam` / `mhis`). Not swallow combat. Helper hugs already
   D-1071. Do not pull ceiling_hider / MZ_HUGE.
@@ -62,7 +63,8 @@ Objective/score live in `CURRENT.md`.
   only `dosit` return (D-1069). Do not treat sticky `u.Levitation`
   as C `youprop.h` `Levitation` in `can_reach_floor` (D-1070).
   Do not skip helper hugs `AT_HUGS`+`!sticks` (D-1071). Do not
-  treat eel WRAP as hugs.
+  treat eel WRAP as hugs. Do not import `monmove.js` `sticks` for
+  dosit lap (AT numbers 6/7 ≠ C `AT_HUGS=7`/`AT_ENGL=11`).
 
 ## Landmarks (≤15)
 

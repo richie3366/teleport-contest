@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 10:28 — #1359 review D-1070/D-1071 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`9d3545c9` D-1070, `aa96e08c` D-1071)
+against pinned C, not the journal.
+**C locus:** `engrave.c` `can_reach_floor`; `youprop.h` `Levitation`;
+`mondata.c` `sticks`/`attacktype`/`dmgtype`; `monattk.h` `AT_HUGS`;
+`sit.c` `dosit` message `Levitation`.
+**Change:** reviews **31** ACCEPT (helper + sit clone `(H||E)&&!B`,
+no sticky-true) and **32** ACCEPT (hugs conjunct in C `||` order;
+local `sticks` matches C 7/11/19/28, not `monmove.js` 6/7). Must-fix
+empty. Filled Addressed hash `aa96e08c`. No `js/` edits. Rule #2:
+no fs. Rotated #1344 to archive.
+**Score:** fortress unchanged (cadence **#1355** **44**/44; next
+@**#1360**).
+**Verified:** C read of `engrave.c:187–214`, `sit.c:414–429`,
+`youprop.h:235–255`, `mondata.c:42–57`/`654–658`/`700–714`,
+`monattk.h:11–21`/`61`/`70`, `do_wear.js:284–288`; generated
+owlbear/python/eel/trapper `mattk`; grep FORCE/fs on the
+`js/engrave.js` hunks.
+**Next:** Open `sit.c` `dosit` ustuck `!sticks` lap (`Monnam` /
+`mhis`). Use C `sticks`, not `monmove.js`.
+**Blocked:** none.
+
 ## 2026-08-16 10:16 — #1358 D-1071 can_reach_floor ustuck AT_HUGS + !sticks
 
 **Objective:** Open queue — `engrave.c` `can_reach_floor` ustuck
@@ -290,30 +314,4 @@ speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
 **Verified:** full `sessions` **44**/44; role-init throws **0**/44.
 **Next:** Open tut-1 `tut_key` / eckey only.
 **Blocked:** none.
-
-## 2026-08-16 06:15 — #1344 review D-1063/D-1064 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`3f376b74` D-1063, `dc354c44` D-1064)
-against pinned C, not the journal.
-**C locus:** `sp_lev.c` `create_object` / `lspo_object` /
-`get_table_buc` / `levregion_add` / `lspo_teleport_region` /
-`get_location`; `mkmaze.c` `fixup_special` leftover TELE;
-`dungeon.c` `u_on_rndspot`; `dat/tut-1.lua` food + teleport_region.
-**Change:** reviews 24 ACCEPT (buc 4 `uncurse`, pmnames lichen not
-`find_montype`, CORPSTAT spe then `set_corpsenm`) and 25 ACCEPT
-(ANY_LOC origin add, omit-exclude `-1` `del_islev`, leftover dest
-copy; `place_lregion` already ran from `u_on_rndspot`). Must-fix
-empty. Filled Addressed hash `dc354c44`. No `js/` edits. Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1340** **44**/44; next
-@**#1345**).
-**Verified:** C read of `sp_lev.c:2193–2264`/`3442–3451`/`3667–3720`/
-`1202–1269`/`5371–5459`, `mkobj.c:1318–1367`/`1822–1838`,
-`mkmaze.c:341–410`/`570–704`, `dungeon.c:1605–1634`,
-`dungeon.h:35–44`/`144–145`, `dat/tut-1.lua:59`/`258–261`; grep
-FORCE/DIAG/fs on the `js/mklev.js` hunks.
-**Next:** Open tut-1 `tut_key` / eckey only.
-**Blocked:** none.
-
 

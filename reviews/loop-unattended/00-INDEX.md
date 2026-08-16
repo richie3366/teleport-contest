@@ -40,3 +40,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [28-2e50b318-dosit-steed-mon-nam.md](./28-2e50b318-dosit-steed-mon-nam.md) | `2e50b318` | D-1067 `dosit` steed `mon_nam` | **ACCEPT** |
 | [29-990b06a8-dosit-hider-uundetected.md](./29-990b06a8-dosit-hider-uundetected.md) | `990b06a8` | D-1068 `dosit` hider `uundetected` | **ACCEPT** |
 | [30-872d1d93-dosit-can-reach-floor.md](./30-872d1d93-dosit-can-reach-floor.md) | `872d1d93` | D-1069 `dosit` `can_reach_floor` | **QUALITY-RISK** |
+| [31-9d3545c9-can-reach-floor-levitation.md](./31-9d3545c9-can-reach-floor-levitation.md) | `9d3545c9` | D-1070 `can_reach_floor` Levitation | **ACCEPT** |
+| [32-aa96e08c-can-reach-floor-hugs.md](./32-aa96e08c-can-reach-floor-hugs.md) | `aa96e08c` | D-1071 `can_reach_floor` hugs | **ACCEPT** |

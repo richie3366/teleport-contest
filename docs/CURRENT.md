@@ -72,7 +72,8 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** Open — `sit.c` `dosit` ustuck `!sticks` lap
-(`Monnam` / `mhis`). Helper hugs D-1071. Queue 10 Open. Cadence @**#1360**.
+(`Monnam` / `mhis`). Helper hugs D-1071. Reviews **31**/**32**
+ACCEPT D-1070/D-1071; Must-fix empty. Queue 10 Open. Cadence @**#1360**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
@@ -112,7 +113,8 @@ no empty-`msound` chitter; no deser cobj parent `where`; no skip
 `uarmf`; no restore sit `u.Underwater` alias; no restore sticky
 `u.Levitation` in `can_reach_floor` / sit `Levitation()` (D-1070);
 no skip helper hugs `AT_HUGS`+`!sticks` (D-1071) / no ship lap as
-if hugs were still omitted; no skip furniture sit_message /
+if hugs were still omitted / no `monmove.js` `sticks` for lap
+(AT 6/7 ≠ C 7/11); no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
 no skip `mineralize` `In_endgame` before kelp; no WATER kelp
