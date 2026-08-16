@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1068 — dosit hider u.uundetected clear except trapper
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — `#sit` never dropped a ceiling hider.
+  C `sit.c` `dosit` after the usteed return: if `u.uundetected &&
+  is_hider(youmonst.data) && u.umonnum != PM_TRAPPER` then
+  `u.uundetected = 0` (“no longer on the ceiling”). Trapper hides on
+  the floor and stays undetected. No `newsym` at this locus.
+- **C locus:** `sit.c` `dosit` (~410–412); `mondata.h` `is_hider`
+  (`M1_HIDE`); `monsters.h` `PM_TRAPPER`.
+- **Fix:** same predicate after usteed, before the Levitation /
+  `can_reach_floor` stub. `is_hider(game.youmonst.data)`. Rule #2:
+  no fs.
+- **Deferred:** `can_reach_floor` full (uswallow / sit-on-air);
+  ustuck lap; uteetering / uescaped_shaft; wizard getlin;
+  `lay_an_egg`.
+- **Verify:** private node: lurker/piercer `uundetected` 1→0;
+  trapper stays 1; human (not hider) stays 1; usteed return skips
+  the clear. green+strict PASS; cohort **9**/9 (8000/0900/0106/
+  0107/4500/1500/1800/0060/2200). Path unhit on public sessions.
+- **Files:** `js/sit.js`.
+
 ## D-1067 — dosit steed You + mon_nam(usteed)
 
 - **Status:** fixed (map-driven Open; D-1033 risk 4; not a public FAIL)
@@ -17,7 +39,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 - **Fix:** `dosit` interpolates `mon_nam(u.usteed)`. Shared
   `do_name.js` `mon_nam` (Hallu `rndmonnam` display RNG when
   Hallucination). Rule #2: no fs.
-- **Deferred:** hider undetected; `can_reach_floor` full (uswallow
+- **Deferred:** `can_reach_floor` full (uswallow
   / sit-on-air); ustuck lap; uteetering / uescaped_shaft;
   wizard getlin; `lay_an_egg`. `cmd.c` `"Dismount your steed"`
   menu text is a different C string.

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1068 | fixed | sit `dosit` hider `u.uundetected` except trapper | map-driven; C `sit.c:410–412` after usteed, before `can_reach_floor`; trapper stays floor-hidden; no `newsym` |
 | D-1067 | fixed | sit `dosit` steed `mon_nam(usteed)` | D-1033 risk 4; C `You`+`mon_nam` ARTICLE_THE, not `"your steed"` / not `y_monnam` |
 | D-1066 | fixed | tut-1 `tutorial()` nhcore ENTER/LEAVE disable | map-driven; C `tutorial()` `l_nhcore_call` then both `nhcore_call_available` FALSE after leave; JS `goto_level` called `nhl_gamestate` directly |
 | D-1065 | fixed | tut-1 `tut_key` / `nh.eckey` | map-driven; C `cmd_from_ecname`/`nhl_get_cmd_key` + Lua Ctrl-/Alt- rewrite; hardcoded `:`/`\\`/`#twoweapon`/`Ctrl-T` were not eckey |

@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 09:28 — #1352 D-1068 dosit hider uundetected except trapper
+
+**Objective:** Open queue — `sit.c` `dosit` hider:
+`u.uundetected && is_hider` except trapper. Not `can_reach_floor`
+/ ustuck.
+**C locus:** `sit.c` `dosit` (~410–412); `mondata.h` `is_hider`;
+`monsters.h` `PM_TRAPPER`.
+**Change:** after usteed return, clear `u.uundetected` for hiders
+that are not `PM_TRAPPER` (ceiling drop). Trapper stays hidden.
+No `newsym` (C has none). Did not port `can_reach_floor` / ustuck.
+Filled no prior Addressed hashes (already present). Rule #2: no fs.
+Rotated #1336/#1337 to archive.
+**Score:** fortress unchanged (cadence **#1350** **44**/44; next
+@**#1355**).
+**Verified:** private node lurker/piercer 1→0; trapper stays 1;
+human stays 1; usteed skips clear. green+strict PASS; cohort
+**9**/9 (8000/0900/0106/0107/4500/1500/1800/0060/2200). Path unhit.
+**Next:** Open `dosit` `can_reach_floor(FALSE)`.
+**Blocked:** none.
+
 ## 2026-08-16 09:18 — refill LOOP-QUEUE when below 8 open items
 
 **Objective:** empty-queue halt at #1351 was the supervisor blocking
@@ -296,45 +316,5 @@ Filled Addressed hash `05915d9b`. No `js/` edits. Rule #2: no fs.
 `mklev.c:2156–2197`, `trap.c:6502–6549`, `tut-1.lua:289`;
 JS hunks grepped FORCE/fs/seed.
 **Next:** Open tut-1 large-box contents only.
-**Blocked:** none.
-
-## 2026-08-16 04:13 — #1337 D-1061 tut-1 packed des.stair l_create_stairway
-
-**Objective:** Open queue — tut-1 stairs only (not box / food /
-`place_lregion` / key / nhcore).
-**C locus:** `sp_lev.c` `l_create_stairway` / `lspo_stair`;
-`mklev.c` `mkstairs` force; `dat/tut-1.lua` `des.stair` (58,10).
-**Change:** packed path deltrap + SpLev_Map + `mkstairs(..., force)`
-so ROOM is set before dungeon-end return. Tutorial is dlevel 1 of
-2 so down stairs place. Ladder arm skips the mkstairs end-check.
-Did not rewire `splev_create_stair` / other loaders. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1335** **44**/44; next
-@**#1340**).
-**Verified:** private node 2-lev HWALL→STAIRS, botlevel force ROOM,
-deltrap, ladder on botlevel. green+strict PASS; seed0009 **73**/73;
-cohort **11**/11 (8000/0900/0009/1500/1800/0060/0102/0360/2200/0030/
-0373). Path unhit except seed0009 prefix.
-**Next:** Open tut-1 large-box contents only.
-**Blocked:** none.
-
-## 2026-08-16 03:55 — #1336 D-1060 dosit Fire/Cold uprops[]
-
-**Objective:** Must-fix — `dosit` lava/ice sit Fire_resistance /
-Cold_resistance must read C `youprop.h` `uprops[FIRE_RES]` /
-`[COLD_RES]` (review 19 QUALITY-RISK).
-**C locus:** `youprop.h:26–32`; `sit.c` `dosit` ~548–553;
-`worn.c` `setworn` `oc_oprop`.
-**Change:** sit helpers OR flats + `uprops[]` (invent.js
-`hero_Fire_resistance` shape). Did not rewrite `confer_oc_oprop`;
-did not retouch zap/trap/explode aliases; did not pull `is_lava`
-DRAWBRIDGE_UP+DB_LAVA. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1335** **44**/44; next
-@**#1340**).
-**Verified:** private node worn FIRE_RES ring `EFire` unset →
-`d(2,10)`; `HFire` only → `d(2,10)`; no-res → `d(10,10)`; COLD_RES
-ring on ICE skips “ice feels cold”; trap TT_LAVA still
-`rnd(4)`+`d(2,10)`. green+strict PASS; cohort **6**/6
-(seed1500/1800/0060/0102/0360/2200). Path unhit.
-**Next:** Open tut-1 stairs only.
 **Blocked:** none.
 

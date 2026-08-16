@@ -6,13 +6,15 @@
 // sit (D-1058; terrain, not trap TT_LAVA; D-1060 Fire/Cold
 // youprop.h uprops[FIRE_RES]/[COLD_RES] intrinsic||extrinsic) +
 // dosit steed You + mon_nam(usteed) (D-1067; ARTICLE_THE, not
-// "your steed" / not y_monnam).
+// "your steed" / not y_monnam) + hider u.uundetected clear except
+// trapper (D-1068; sit.c after usteed, before can_reach_floor).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
 // potion.js/mhitu.js: eat←potion, zap←mhitu cycles).
 //
 // Branch envelope: usteed early-return You+mon_nam (D-1067),
+// hider ceiling drop u.uundetected=0 except PM_TRAPPER (D-1068),
 // reachable floor (Levitation only), OBJ_AT picnic body
 // (dragon/towel/slithy/sit+comfort/squishy/cream-pie), trap-before-throne
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
@@ -36,7 +38,7 @@
 // rnd(11) INTRINSIC strip (D-0945); rndcurse invent + Magicbane /
 // Antimagic / Half_spell_damage / SPFX_INTEL resist / steed saddle
 // (D-0969).
-// Deferred: hider, can_reach_floor full, ustuck, uteetering/
+// Deferred: can_reach_floor full, ustuck, uteetering/
 // uescaped_shaft gate, wizard getlin / Analyze y_n,
 // lay_an_egg, money_cnt meager coil; clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
@@ -75,7 +77,7 @@ import { objectNames, COIN_CLASS, SPBOOK_CLASS } from './objects.js';
 import { xname, the, The, vtense, makeplural } from './objnam.js';
 import {
     amorphous, mons, M1_SLITHY, is_prince, is_vampire, eggs_in_water,
-    humanoid, likes_lava, monsterNames,
+    humanoid, likes_lava, is_hider, monsterNames,
 } from './monsters.js';
 import { get_artifact, SPFX_INTEL } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -97,6 +99,7 @@ const CHEST = objectNames.indexOf('CHEST');
 const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
 const WATER_WALKING_BOOTS = objectNames.indexOf('WATER_WALKING_BOOTS');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+const PM_TRAPPER = monsterNames.indexOf('PM_TRAPPER');
 const CLOTH = 6; // objclass.h obj_material_types
 
 /** C youprop.h:279 `#define Underwater (u.uinwater)`. */
@@ -996,6 +999,13 @@ export async function dosit() {
         // — ARTICLE_THE (named → bare; saddled adj unless named).
         await pline(`You are already sitting on ${mon_nam(u.usteed)}.`);
         return ECMD_OK;
+    }
+    // C sit.c dosit: u.uundetected && is_hider(youmonst.data)
+    // && umonnum != PM_TRAPPER — trapper stays hidden on the floor;
+    // other hiders drop from the ceiling. No newsym at this locus.
+    if (u.uundetected && is_hider(game.youmonst?.data)
+        && (u.umonnum | 0) !== PM_TRAPPER) {
+        u.uundetected = 0;
     }
     if (u.Levitation) {
         await pline('You tumble in place.');
