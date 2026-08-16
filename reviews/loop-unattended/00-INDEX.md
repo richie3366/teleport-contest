@@ -45,3 +45,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [33-55906000-dosit-ustuck-lap.md](./33-55906000-dosit-ustuck-lap.md) | `55906000` | D-1072 `dosit` ustuck lap | **ACCEPT** |
 | [34-1f21183f-dosit-picnic-teeter.md](./34-1f21183f-dosit-picnic-teeter.md) | `1f21183f` | D-1073 picnic `uteetering`/`uescaped_shaft` | **ACCEPT** |
 | [35-962e07a9-dosit-meager-hoard.md](./35-962e07a9-dosit-meager-hoard.md) | `962e07a9` | D-1074 dragon `money_cnt` meager | **ACCEPT** |
+| [36-f21410e1-dosit-lay-an-egg.md](./36-f21410e1-dosit-lay-an-egg.md) | `f21410e1` | D-1075 `dosit` `lay_an_egg` | **ACCEPT** |
+| [37-87b4b7cb-dotrap-pit-hole.md](./37-87b4b7cb-dotrap-pit-hole.md) | `87b4b7cb` | D-1076 hero pit/hole `dotrap` | **ACCEPT-WITH-DEBT** |

@@ -72,7 +72,8 @@ recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
 **Next cluster:** Open — `hack.c` `is_lava` includes DRAWBRIDGE_UP +
-`DB_LAVA` (named from D-1060). Must-fix empty. Queue 10. Cadence @**#1370**.
+`DB_LAVA` (named from D-1060). Must-fix empty (reviews **36** ACCEPT
+D-1075; **37** ACCEPT-WITH-DEBT D-1076). Queue 10. Cadence @**#1370**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300

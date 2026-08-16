@@ -11,17 +11,18 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.26/turn` R² 0.87) after cadence **#1365**;
   next @**#1370**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty (reviews **34**/**35** ACCEPT
-  D-1073/D-1074). Keep 8–12 open rows; refill from the map
-  when below 8.
+  LB). Must-fix empty (reviews **36** ACCEPT D-1075;
+  **37** ACCEPT-WITH-DEBT D-1076 — Punished `ballfall` /
+  Sokoban air named, not Must-fix). Keep 8–12 open rows;
+  refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1076** hero `trapeffect_pit` / `trapeffect_hole`
-  under `dotrap` `VIASITTING`. `set_utrap(rn1(6,2), TT_PIT)`,
-  spikes/`poisoned`, `Can_fall_thru` hole skip. `check_in_air`
-  Lev/Fly = youprop.h. Punished `ballfall` still omit.
+- Latest: reviews **36**/**37** closed D-1075/`f21410e1` and
+  D-1076/`87b4b7cb` against pinned C. Hero pit/hole bodies
+  and `lay_an_egg` stay; do not restore stubs. Punished
+  `ballfall` still omit.
 - **Next cluster:** Open `hack.c` `is_lava` DRAWBRIDGE_UP +
   `DB_LAVA` (named from D-1060).
 - **Hypothesis:** JS `is_lava` misses DRAWBRIDGE_UP cells whose

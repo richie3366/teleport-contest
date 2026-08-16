@@ -138,7 +138,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 
 1. **`dosit` `lay_an_egg`** (`sit.c:559–560`): live Open line. `return lay_an_egg();` at the end of the furniture/`IS_THRONE` chain. Do not pull `clone_mon` split_mon / wizard getlin / `shieldeff` this next iter. **Addressed:** D-1075 `f21410e1`
 2. Other JS `money_cnt` sum clones (end/shk/invent/fountain/monmove). Equivalent under merge. Do not “align” them in the egg iter.
-3. Helper `ceiling_hider` / `MZ_HUGE`; `can_reach_floor(check_pit)` (Open); hero pit/hole `dotrap` bodies (Open).
+3. Helper `ceiling_hider` / `MZ_HUGE`; `can_reach_floor(check_pit)` (Open); hero pit/hole `dotrap` bodies **Addressed:** D-1076 `87b4b7cb`.
 
 Do not restore dragon sit always-bare `"hoard"`. Do not sum invent gold at this site. Do not skip picnic teeter. Do not import `monmove.js` `sticks`. Do not put trailing `confdir` inside shared `getdir`.
 
