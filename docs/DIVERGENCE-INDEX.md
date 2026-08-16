@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1091 | fixed | `goodpos` `is_pool()`/`is_lava()` not typ macros | map-driven; C `teleport.c:134–175`; UP+`DB_LAVA` lava arm not swimmer; youmonst swim/`passes_walls`/`is_exclusion_zone` still named |
+| D-1092 | fixed | makemon S_ORC/S_UNICORN mlet peace | map-driven; C `makemon.c:1335–1342`; elf `Race_if` orcs hostile; `is_unicorn` co-align always peaceful (pony skip); 5.0 no S_ELF mlet; dprince/raven/emin still named |
+
 | D-1090 | fixed | `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT` | map-driven; C `dbridge.c:46–58`/`100–113`; juiblex skip; `DB_MOAT=0`; shared `hack.js`; mfndpos/dig/zap clones deleted; `goodpos` later D-1091 |
 | D-1089 | fixed | sit `rndcurse` `Antimagic()` via `uprops[ANTIMAGIC]` | review **48** Must-fix; C `youprop.h:55–57`; confer cloak-of-MR / gray DSM extrinsic not `EAntimagic`; `shieldeff` + reduced `rnd` count; Half_spell_damage clone named |
 | D-1088 | fixed | makemon `m_initweap` priest/guardian `ptr.msound` | map-driven; C `makemon.c:263–327`/`721–727` + `quest_mon_represents_role`; MS_PRIEST=41 / MS_GUARDIAN=38; PM_NINJA weap + MS_NEMESIS mitem still named |

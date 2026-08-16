@@ -144,7 +144,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 
 1. **`sit.c` `split_mon` monster `clone_mon` arm** — **Addressed:** D-1078 `c7dcd80a`. Do not pull `is_pool` DRAWBRIDGE_UP / `goodpos` `IS_LAVA` / Punished `ballfall` this next iter.
 2. `hack.js` `is_pool` / `is_moat` DRAWBRIDGE_UP+`DB_MOAT` (C `dbridge.c:46–58`/`100–113`; juiblex skip; `DB_MOAT=0`). `mfndpos_is_pool` is the same subset. **Addressed:** D-1090 `43caa8ff`
-3. `teleport.c` `goodpos` still `IS_POOL`/`IS_LAVA` macros vs C `is_pool()`/`is_lava()` (`teleport.c:134–175`). Pre-existing; UP+lava takes the JS pool arm. **Addressed:** D-1091
+3. `teleport.c` `goodpos` still `IS_POOL`/`IS_LAVA` macros vs C `is_pool()`/`is_lava()` (`teleport.c:134–175`). Pre-existing; UP+lava takes the JS pool arm. **Addressed:** D-1091 `278521f1`
 4. `trap.js` `is_pool_or_lava` macros; `waterbody_name` SURFACE_AT; `db_under_typ`.
 
 Do not restore `is_lava` LAVAPOOL/LAVAWALL-only. Do not restore `mfndpos_is_lava`. Do not treat `IS_LAVA(typ)` as `is_lava(x,y)`. Do not add a WWalking predicate to sit lava. Do not put trailing `confdir` inside shared `getdir`.

@@ -58,6 +58,7 @@ import {
     is_vampshifter,
     vampshifted,
     is_bat,
+    is_unicorn,
     nonliving,
     amorphous,
     unsolid,
@@ -443,6 +444,11 @@ const mclass_maxf = Object.create(null);
 
 function sgn(x) {
     return x < 0 ? -1 : x > 0 ? 1 : 0;
+}
+
+/** C ref: you.h Race_if — gu.urace.mnum == X. */
+function Race_if(pmnum) {
+    return (game.urace?.mnum | 0) === (pmnum | 0);
 }
 
 /** C ref: monflag.h enum ms_sounds — msounds[] D-1053; peace/malign D-1079. */
@@ -2145,7 +2151,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
 
     // C: switch (ptr->mlet) BEFORE set_malign / G_SGROUP (makemon.c:1303).
     // Cave spider is G_SGROUP — mkobj_at(RANDOM) must burn before group rn2(2)
-    // (D-0761). Named omissions: orc/elf peace; unicorn align peace.
+    // (D-0761). S_ORC/S_UNICORN mlet peace D-1092 (5.0 has no S_ELF mlet).
     if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
     else if (ptr.mlet === 'S_SPIDER' || ptr.mlet === 'S_SNAKE') {
         // C: in_mklev → mkobj_at(RANDOM) then hideunder(mtmp).
@@ -2190,6 +2196,17 @@ export function makemon(mdat, x, y, mmflags = 0) {
         // C: if (rn2(5) && !u.uhave.amulet) msleeping = 1
         if (rn2(5) && !(game.u?.uhave?.amulet || game.u?.uhave_amulet))
             mtmp.msleeping = 1;
+    } else if (ptr.mlet === 'S_ORC') {
+        // C: makemon.c case S_ORC — Race_if(PM_ELF) forces hostile after
+        // peace_minded (elves are S_HUMAN; hatemask already hates M2_ORC).
+        if (Race_if(pm('ELF'))) mtmp.mpeaceful = 0;
+    } else if (ptr.mlet === 'S_UNICORN') {
+        // C: case S_UNICORN — is_unicorn && co-align → always peaceful
+        // (overrides peace_minded rn2 / amulet hostility; pony/horse skip).
+        if (is_unicorn(ptr)
+            && sgn(game.u?.ualign?.type ?? 0) === sgn(ptr.maligntyp | 0)) {
+            mtmp.mpeaceful = 1;
+        }
     } else if (ptr.mlet === 'S_BAT') {
         // C: Inhell && is_bat(ptr) → mon_adjust_speed(mtmp, 2, NULL)
         // (case 2: permspeed=MFAST, no creation msg; boots check empty)
@@ -2268,7 +2285,8 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
-    // C: set_malign after peaceful changes (orc/unicorn/emin deferred)
+    // C: set_malign after peaceful changes (S_ORC/S_UNICORN mlet D-1092;
+    // dprince bribe / raven BEC_DE_CORBIN / emin roaming still deferred)
     set_malign(mtmp);
 
     // C: anymon && !(mmflags & MM_NOGRP) → small/large group (after sleep)

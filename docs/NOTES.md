@@ -10,20 +10,20 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1385**;
   next @**#1390**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after **D-1091** (refilled from teleport-row named omits).
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+  after **D-1092** (no refill; still ≥8).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1085**…**D-1091**. Reviews **46** ACCEPT,
+- Latest ports: **D-1085**…**D-1092**. Reviews **46** ACCEPT,
   **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK (Antimagic
   uprops shipped D-1089), **49** ACCEPT.
-- **Next cluster:** Open `makemon.c` S_ORC / S_ELF / unicorn
-  mlet peace override after `m_initweap` (named omit on
-  makemon row). Not `goodpos`.
-- **Hypothesis:** `makemon.js` still skips the post-`m_initweap`
-  S_ORC/S_ELF/unicorn `mlet` peace override. Falsifier: C
-  `makemon.c` after `m_initweap` vs JS same site.
+- **Next cluster:** Open `dogmove.c` pal/target tests must
+  compare numeric `ptr.msound` not string `'MS_LEADER'`
+  (named from D-1053 review **14**). Not S_ORC peace.
+- **Hypothesis:** `dogmove.js` still compares `ptr.msound` to
+  the string `'MS_LEADER'` after `msounds[]` is numeric
+  (D-1053). Falsifier: C `dogmove.c` pal/target vs JS.
 
 ## Don't re-check (≤15)
 
@@ -48,7 +48,8 @@ Objective/score live in `CURRENT.md`.
 - Do not skip hugs (D-1071) … priest/guardian mndx (D-1088) /
   restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
   POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
-  `IS_LAVA` macros (D-1091).
+  `IS_LAVA` macros (D-1091) / skip `S_ORC`/`S_UNICORN` mlet peace
+  or invent `S_ELF` mlet (D-1092).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -57,19 +58,18 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1385**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1390**.
+- **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;
+  `is_unicorn` co-align always peaceful. Hash next commit.
 - **D-1091:** `goodpos` `is_pool()`/`is_lava()` not typ macros.
-  UP+`DB_LAVA` is lava arm. Hash next commit.
+  UP+`DB_LAVA` is lava arm. Hash `278521f1`.
 - **D-1090:** `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT`.
   Juiblex MOAT is pool not moat. Hash `43caa8ff`.
 - **D-1089:** sit `rndcurse` `Antimagic()` ORs
   `uprops[ANTIMAGIC]`. Review **48**. Hash `f91650c0`.
 - **D-1088:** `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN
-  `ptr.msound`. Review **49** ACCEPT.
+  `ptr.msound`. Review **49** ACCEPT. Hash `049af16e`.
 - **D-1087:** `shieldeff` body matches `display.c`. Review **48**
   QUALITY-RISK closed by D-1089.
 - **D-1086:** steal.c `remove_worn_item` armor `*_off` /
   `unpunish` / `setnotworn`. Review **47** ACCEPT-WITH-DEBT
   (`Amulet_off` still setworn).
-- **D-1085:** engrave `Flying()` ORs `uprops[FLYING]`. Review
-  **46** ACCEPT (hash `3e1a74e8`).
-- Filled D-1088 archive hash `049af16e` prior SHA.

@@ -4,7 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1092 — makemon S_ORC / S_UNICORN mlet peace
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `makemon` `mlet` switch omitted C `S_ORC` /
+  `S_UNICORN` peace overrides after `peace_minded`. Co-aligned
+  unicorns could stay hostile from the `rn2` stray chance or the
+  Amulet arm. Named omit said “orc/elf/unicorn”; 5.0 has no
+  `S_ELF` mlet (elves are `S_HUMAN`).
+- **C locus:** `makemon.c` `makemon` (~1335–1342); `you.h`
+  `Race_if`; `mondata.h` `is_unicorn` (`S_UNICORN` && `likes_gems`).
+  Runs in the mlet switch **before** `set_malign` / `m_initweap`.
+- **Fix:** `S_ORC` + `Race_if(PM_ELF)` → `mpeaceful=0`. `S_UNICORN`
+  + `is_unicorn` + `sgn(ualign.type)==sgn(maligntyp)` →
+  `mpeaceful=1` (pony/horse skip). `peace_minded` still burns its
+  `rn2` first. Rule #2: no fs.
+- **JS:** `js/makemon.js` `makemon` mlet switch.
+- **Not this iter:** dprince `MS_BRIBE` peace; raven
+  `BEC_DE_CORBIN`; emin/angel roaming; `MM_ANGRY` before
+  `peace_minded`; MS_NEMESIS mitem still `urole.neminum`.
+- **Verify:** private canary **12**/12 (elf+goblin hatemask-0
+  always hostile; human+goblin mixed; lawful white / neutral gray
+  / chaotic black always peaceful + malign<0; chaotic white
+  hostile; amulet+black still peaceful; pony mixed; elf MH_ORC
+  hatemask still hostile); green+strict seed8000/0900; cohort
+  **22**/22 (incl. 0060 orc, 0004/0103 pony, 0399 unicorn-history,
+  0360/0361/0367/0373/4500/0014/2200) + strict 0014/0360/0399/
+  0004/0060/4500/2200/0367. Override public-unhit (or already
+  matching `peace_minded` roll).
+- **Files:** `js/makemon.js`.
+
 ## D-1091 — goodpos is_pool()/is_lava() not IS_POOL/IS_LAVA
+
 
 - **Status:** fixed (map-driven Open; named from D-1077 review **38**; not a public FAIL)
 - **Symptom:** JS `teleport.js` `goodpos` used `IS_POOL(typ)` / `IS_LAVA(typ)`.
