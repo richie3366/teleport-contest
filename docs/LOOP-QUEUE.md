@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dryup` `angry_guards` after real dryup (named). Not wizard yn.
 - [ ] `fountain.c` `watchman_warn_fountain` Deaf shake/wave (named). Not dryup yn.
 - [ ] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards.
 - [ ] `fountain.c` `dipfountain` Excalibur LONG_SWORD body (named). Not wash_hands.

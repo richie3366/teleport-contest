@@ -9,12 +9,13 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE).
 // Deferred: enlightenment body, vomit cantvomit/Sick/acid poly arms,
-// angry_guards after real dryup, Deaf shake/wave warn arm,
-// Excalibur LONG_SWORD body, wash_hands, dipfountain cases 17–20/
-// 29 (You see coins/mkgold); gush minliquid body; set_levltyp side
-// effects beyond typ/flags; Hallucination rndmonnam in snakes pline;
-// mongrantswish tmp_at glyph hide; dryup cansee cloud-glyph skip.
+// Deaf shake/wave warn arm, Excalibur LONG_SWORD body, wash_hands,
+// dipfountain cases 17–20/29 (You see coins/mkgold); gush minliquid
+// body; set_levltyp side effects beyond typ/flags; Hallucination
+// rndmonnam in snakes pline; mongrantswish tmp_at glyph hide;
+// dryup cansee cloud-glyph skip.
 // dryup wizard y_n after town warn (D-1096).
+// dryup angry_guards after real dryup (D-1104).
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -60,7 +61,7 @@ import { monster_detect } from './detect.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { makemon } from './makemon.js';
 import { mons, is_watch } from './monsters.js';
-import { m_at } from './mon.js';
+import { m_at, angry_guards } from './mon.js';
 import { mon_offmap } from './monmove.js';
 import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at } from './engrave.js';
@@ -639,9 +640,9 @@ export async function dogushforth(drinking) {
 /**
  * C ref: fountain.c dryup
  * Town first-use warn via watchman_warn_fountain (D-0894).
- * Wizard y_n after that return (D-1096). Named omit: angry_guards
- * after real dryup; cloud-glyph skip of dryup pline; Deaf shake/wave
- * warn arm.
+ * Wizard y_n after that return (D-1096).
+ * angry_guards(FALSE) after real dryup when isyou && in_town (D-1104).
+ * Named omit: cloud-glyph skip of dryup pline; Deaf shake/wave warn arm.
  */
 export async function dryup(x, y, isyou) {
     const loc = game.level?.at(x, y);
@@ -675,7 +676,10 @@ export async function dryup(x, y, isyou) {
         game.level.flags.nfountains--;
     }
     newsym(x, y);
-    // angry_guards(FALSE) when isyou && in_town deferred
+    // C fountain.c:236–237 — after ROOM/newsym, not on the town-warn return.
+    if (isyou && in_town(x, y)) {
+        await angry_guards(false);
+    }
 }
 
 /**

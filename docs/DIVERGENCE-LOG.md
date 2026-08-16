@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1104 — dryup angry_guards(FALSE) after real dryup
+
+- **Status:** fixed (map-driven Open; named omit from D-0894/D-1096; not a public FAIL)
+- **Symptom:** JS `dryup` replaced the fountain and `newsym`'d but skipped
+  C `if (isyou && in_town(x, y)) angry_guards(FALSE)`. Peaceful
+  watchmen stayed peaceful after a real town dry.
+- **C locus:** `fountain.c` `dryup` (~236–237), after `set_levltyp` /
+  `newsym`. `mon.c` `angry_guards` already D-0941. Town first-use
+  still returns before this call. Wizard `'n'` aborts before it.
+  `!isyou` (minliquid) never angers.
+- **Fix:** after ROOM/`newsym`, `isyou && in_town(x, y)` →
+  `angry_guards(false)`. Reuses `mon.js` `angry_guards`. Did not
+  pull Deaf shake/wave warn, cansee cloud-glyph skip, or dipfountain
+  Excalibur `angry_guards`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `dryup`.
+- **Not this iter:** `watchman_warn_fountain` Deaf shake/wave;
+  cloud-glyph skip of the dryup pline; Excalibur LONG_SWORD body;
+  `wash_hands`; `dipsink`.
+- **Verify:** private canary **37**/37 (isyou+town angers; `!isyou` /
+  `!town` / first-use / wizard `'n'`/space-def no angry; wizard `'y'`
+  angers; sleeper/frozen/captain/jackal/dead/hostile/no-watch);
+  green+strict seed8000/0900; cohort **15**/15 (0014 fountain +
+  0006/2200/0108/0360/5002 wizard + 1500/1800/0060/0102/0700/0017/
+  4500/0009/0106) + strict 0014/0006/2200/0360/4500/0009. Path
+  public-unhit (public seats do not dry a warned town fountain).
+- **Files:** `js/fountain.js`.
+
 ## D-1103 — db_under_typ / waterbody_name SURFACE_AT
 
 - **Status:** fixed (map-driven Open; named from D-1077 review **38**; not a public FAIL)

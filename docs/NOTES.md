@@ -10,19 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1400**;
   next @**#1405**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 10
+- Mode: **map-driven** under fortress. Must-fix empty. Open 9
   after archive (no refill). Reviews **58** ACCEPT (D-1097),
   **59** ACCEPT-WITH-DEBT (D-1098 `'?'` list_genocided stub
   named), **60–61** ACCEPT (D-1099/D-1100); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1103**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `fountain.c` `dryup` `angry_guards`
-  after real dryup (named). Not wizard yn.
-- **Hypothesis:** none live. D-1103 shipped: `db_under_typ` +
-  `waterbody_name`/`describe_decor` `SURFACE_AT`. Hideunder
-  macros / display DRAWBRIDGE_UP glyphs still named.
+- Latest ports: **D-1089**…**D-1104**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `fountain.c` `watchman_warn_fountain`
+  Deaf shake/wave (named). Not dryup yn.
+- **Hypothesis:** none live. D-1104 shipped: `dryup`
+  `angry_guards(FALSE)` after real dryup. Cloud-glyph skip /
+  Deaf shake still named.
 
 ## Don't re-check (≤15)
 
@@ -51,7 +51,8 @@ Objective/score live in `CURRENT.md`.
   restore dogmove string `'MS_LEADER'` (D-1093) / restore
   MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
   uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
-  add `debug_fuzzer` skip there (D-1096) / skip `kill_eggs` or
+  add `debug_fuzzer` skip there (D-1096) / skip `dryup`
+  `angry_guards` after real dryup (D-1104) / skip `kill_eggs` or
   port TIN/CORPSE `#if 0` (D-1097) / skip `seffects` SCR_GENOCIDE
   or `do_class_genocide` / `name_to_monclass` (D-1098) / restore
   youmonst `goodpos` pool/lava to monster `is_swimmer`/`m_in_air`
@@ -70,8 +71,11 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1400**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1405**.
+- **D-1104:** `dryup` `angry_guards(FALSE)` after real dryup
+  (`isyou && in_town`). Hash filled next commit. Cloud-glyph /
+  Deaf shake still named.
 - **D-1103:** `db_under_typ` + `waterbody_name`/`describe_decor`
-  `SURFACE_AT`. Hash filled next commit. Hideunder macros /
+  `SURFACE_AT`. Hash `130e7e21`. Hideunder macros /
   display DRAWBRIDGE_UP glyphs still named.
 - **D-1102:** `goodpos_onscary` altar S_VAMPIRE / scare /
   strict Elbereth. Hash `ebe1f041`. Live-mon `onscary` still
@@ -88,10 +92,8 @@ Objective/score live in `CURRENT.md`.
 - **D-1097:** `kill_eggs` after genocide. Hash `d1e7ae23`.
   TIN/CORPSE `#if 0`; cham `newcham`; goto_level caller named.
 - **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
-  warn. Hash `bd16c130`. `'n'` abort. `angry_guards` still named.
+  warn. Hash `bd16c130`. `'n'` abort. `angry_guards` D-1104.
 - **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
   Hash `a86a7111`. Drown/mhitu/mhitm/cmd still named.
 - **D-1094:** `role_init` quest-pm overlay + makemon mitem
   `ptr.msound == MS_NEMESIS`. Hash `46775b20`.
-- **D-1093:** `dogmove` pal/target `ptr.msound` numeric
-  MS_LEADER=36 / MS_GUARDIAN=38. Hash `e0b68f1d`.

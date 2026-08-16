@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1104 | fixed | `dryup` `angry_guards(FALSE)` after real dryup | map-driven; C `fountain.c:236–237` after ROOM/`newsym`; `isyou && in_town`; not town-warn return / wizard `'n'`; Deaf shake / cloud-glyph still named |
 | D-1103 | fixed | `db_under_typ` / `waterbody_name` SURFACE_AT | map-driven; C `dbridge.c:116–128` + `rm.h` SURFACE_AT + `pager.c` waterbody_name; pickup `describe_decor`; hideunder macros / display glyphs still named |
 | D-1102 | fixed | `goodpos_onscary` Elbereth / scare / altar-vamp | map-driven; C `teleport.c:49–76` + `engrave.c` `sengr_at` strict; altar `S_VAMPIRE` not vampshifter; scare before Inhell; HEADSTONE/future time skip; live-mon `onscary` still named |
 | D-1101 | fixed | `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)` | map-driven; C `teleport.c:180–182` / `mkmaze.c` `is_exclusion_zone`; after boulder; TELE/UPTELE/DOWNTELE do not reject mongen; wallwalk/pool/lava skip; live-mon `onscary` still named |
@@ -12,7 +13,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-1099 | fixed | `goodpos` youmonst swim/lev/fly/wwalk pool+lava | map-driven; C `teleport.c:136–161` + `youprop.h`; confer uprops for Fly/Wwalk/Fire/Amphibious; lava Fire+Wwalk+oerodeproof / Upolyd likes_lava; `passes_walls` later D-1100 |
 | D-1098 | fixed | `seffects` SCR_GENOCIDE / `do_class_genocide` | map-driven; C `read.c` seffect_genocide/`do_class_genocide` + `mondata.c` `name_to_monclass`; Confusion ≡ HConfusion; livelog / Hallu / POLY_REVERT / cham `newcham` / `update_inventory` still named |
 | D-1097 | fixed | `kill_eggs` after genocide | map-driven; C `mon.c:5607–5677`; `kill_egg`/`dead_species(..., TRUE)`; invent array + nobj lists; TIN/CORPSE `#if 0` not ported; cham `newcham` / goto_level caller still named |
-| D-1096 | fixed | `dryup` wizard `y_n("Dry up fountain?")` | map-driven; C `fountain.c:216–219` after town warn; `flags.debug`; `'n'` abort; no `debug_fuzzer` gate; `angry_guards` / cloud-glyph / Deaf shake still named |
+| D-1096 | fixed | `dryup` wizard `y_n("Dry up fountain?")` | map-driven; C `fountain.c:216–219` after town warn; `flags.debug`; `'n'` abort; no `debug_fuzzer` gate; `angry_guards` later D-1104; cloud-glyph / Deaf shake still named |
 | D-1095 | fixed | `split_mon` trap rust / minliquid / uhitm AD_COLD | map-driven; C `trap.c:1652–1720` / `mon.c:987–992` / `uhitm.c:6078–6082`; `healmon` monster arm; drown/mhitu/mhitm/cmd still named |
 | D-1094 | fixed | makemon MS_NEMESIS mitem `ptr.msound` | map-driven; C `role.c:2049–2056` overlay + `makemon.c:1378`; not `urole.neminum`; Tourist Master of Thieves; PM_NINJA weap still named |
 | D-1093 | fixed | dogmove pal/target numeric `ptr.msound` | map-driven; C `dogmove.c` find_friends/score_targ/dog_move; MS_LEADER=36 / GUARDIAN=38 not string `'MS_LEADER'`; perceives/conf/faith still named |

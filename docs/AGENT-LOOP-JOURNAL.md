@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 20:24 — #1404 D-1104 dryup angry_guards after real dryup
+
+**Objective:** Open queue — `fountain.c` `dryup` `angry_guards`
+after real dryup (named). Not wizard yn.
+**C locus:** `fountain.c` `dryup` 236–237 after ROOM/`newsym`;
+`mon.c` `angry_guards` (already D-0941).
+**Change:** `isyou && in_town` → `angry_guards(false)` after the
+real dry. Town-warn return and wizard `'n'` still skip it.
+Did not pull Deaf shake/wave, cloud-glyph skip, or Excalibur
+`angry_guards`. Filled D-1103 hash `130e7e21`. Rotated #1389.
+Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1400** **44**/44; next
+@**#1405**).
+**Verified:** private canary **37**/37; green+strict seed8000/0900;
+cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
++ 1500/1800/0060/0102/0700/0017/4500/0009/0106) + strict
+0014/0006/2200/0360/4500/0009. Public traces **unhit**.
+**Next:** Open `fountain.c` `watchman_warn_fountain` Deaf
+shake/wave. Not dryup yn. Audit @**#1405**.
+**Blocked:** none.
+
 ## 2026-08-16 20:12 — #1403 D-1103 db_under_typ / waterbody_name SURFACE_AT
 
 **Objective:** Open queue — `dbridge.c` `db_under_typ` /
@@ -336,28 +357,4 @@ no fs.
 FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `dogmove.c` pal/target numeric `ptr.msound` not
 `'MS_LEADER'`.
-**Blocked:** none.
-
-## 2026-08-16 17:20 — #1389 D-1092 makemon S_ORC/S_UNICORN mlet peace
-
-**Objective:** Open queue — `makemon.c` S_ORC / S_ELF / unicorn
-mlet peace override after `m_initweap` (named omit on makemon
-row).
-**C locus:** `makemon.c` `makemon` 1335–1342; `you.h` `Race_if`;
-`mondata.h` `is_unicorn`. In the mlet switch **before**
-`set_malign` / `m_initweap`. 5.0 has no `S_ELF` mlet.
-**Change:** `S_ORC` + `Race_if(PM_ELF)` → hostile. `S_UNICORN` +
-`is_unicorn` + co-align → always peaceful (pony/horse skip).
-`peace_minded` still burns `rn2` first. Did not pull dprince
-bribe / raven `BEC_DE_CORBIN` / emin roaming / `MM_ANGRY`.
-Filled D-1091 hash `278521f1` (archive + review **38**). Rotated
-#1374. Open 11 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1385** **44**/44; next
-@**#1390**).
-**Verified:** private canary **12**/12; green+strict
-seed8000/0900; cohort **22**/22 (incl. 0060/0004/0103/0399/
-0360/4500/0014/2200) + strict 0014/0360/0399/0004/0060/4500/
-2200/0367. Override public-unhit or already matching.
-**Next:** Open `dogmove.c` pal/target numeric `ptr.msound` not
-`'MS_LEADER'`. Audit @**#1390**.
 **Blocked:** none.

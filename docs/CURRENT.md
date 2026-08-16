@@ -72,7 +72,7 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** `dryup` `angry_guards`. Not wizard yn.
+**Next cluster:** `watchman_warn_fountain` Deaf shake.
 
 **Density:** one C family (~50–300 lines). §2a–2b.
 
@@ -95,7 +95,7 @@ tut-1 `create_object` large-box contents; tut-1 food apple/candy/lichen
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1103).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1104).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
