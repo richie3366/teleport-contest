@@ -83,3 +83,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [71-fd738eab-goodpos-onscary-live.md](./71-fd738eab-goodpos-onscary-live.md) | `fd738eab` | D-1110 `goodpos` live-mon `onscary` | **ACCEPT** |
 | [72-b0847b88-teleok-vibrating-pit.md](./72-b0847b88-teleok-vibrating-pit.md) | `b0847b88` | D-1111 `teleok` vibrating / pit-fly | **ACCEPT** |
 | [73-bb552fba-mlevel-tele-trap.md](./73-bb552fba-mlevel-tele-trap.md) | `bb552fba` | D-1112 `mlevel_tele_trap` MAGIC_PORTAL / LEVEL_TELEP / NO_TRAP | **ACCEPT** |
+| [74-c67f09d1-dipsink.md](./74-c67f09d1-dipsink.md) | `c67f09d1` | D-1113 `dipsink` + dodip sink yn | **ACCEPT** |
+| [75-e30a51f2-dipfountain-uncurse.md](./75-e30a51f2-dipfountain-uncurse.md) | `e30a51f2` | D-1114 `dipfountain` cases 17–20 uncurse | **ACCEPT** |
+| [76-79438232-dipfountain-mkgold.md](./76-79438232-dipfountain-mkgold.md) | `79438232` | D-1115 `dipfountain` case 29 `mkgold` | **ACCEPT** |
+| [77-19e4be31-drinkfountain-enlightenment.md](./77-19e4be31-drinkfountain-enlightenment.md) | `19e4be31` | D-1116 `drinkfountain` case 19 MAGIC enlightenment | **ACCEPT** |

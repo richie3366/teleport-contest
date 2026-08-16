@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup. **Addressed:** D-1116
+- [x] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup. **Addressed:** D-1116 `19e4be31`
 
 
 - [x] `fountain.c` `dipfountain` case 29 `mkgold` coins (named). Not wash_hands. **Addressed:** D-1115 `79438232`

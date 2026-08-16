@@ -8,17 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1415**;
-  next @**#1420**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after archive+refill. Reviews **70–73** ACCEPT
-  (D-1109 `lspo_exclusion`; D-1110 live `onscary`; D-1111
-  `teleok` VS/pit-fly; D-1112 `mlevel_tele_trap` portal arms).
+  speed `31+0.27/turn` R² 0.87) after cadence **#1420**;
+  next @**#1425**.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12.
+  Reviews **74–77** ACCEPT (D-1113 `dipsink`; D-1114 uncurse
+  17–20; D-1115 case 29 `mkgold`; D-1116 MAGIC enlightenment).
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1116**. Prior **66–69** ACCEPT
-  / 67 ACCEPT-WITH-DEBT.
+- Latest ports: **D-1089**…**D-1116**. Prior **70–73** ACCEPT.
 - **Next cluster:** Open `fountain.c` `gush` `minliquid` body
   (named). Not dogushforth.
 - **Hypothesis:** none live. D-1116 drinkfountain MAGIC
@@ -84,9 +82,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1415**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1420**.
+- Suite after cadence **#1420**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1425**.
 - **D-1116:** drinkfountain case 19 MAGIC enlightenment.
+  Hash `19e4be31`.
 - **D-1115:** dipfountain case 29 `mkgold`. Hash `79438232`.
 - **D-1114:** dipfountain uncurse 17–20. Hash `e30a51f2`.
 - **D-1113:** `dipsink` + dodip sink yn. Hash `c67f09d1`.

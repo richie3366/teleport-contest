@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 23:50 — #1420 review D-1113–D-1116 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `fountain.c` `dipsink` 716–801 / `do.c`
+`polymorph_sink` 404–455 / `potion.c` dodip 2325–2334;
+`fountain.c` `dipfountain` 464–475; `fountain.c` 530–546 /
+`mkobj.c` `mkgold`; `fountain.c` `drinkfountain` 287–293 /
+`insight.c` `enlightenment` 383–449 / `doattributes` 2009–2018.
+**Change:** reviews **74** ACCEPT D-1113 (`dipsink` + yn; poly
+clone; pool/`drink_ok_extra` named), **75** ACCEPT D-1114
+(uncurse 17–20; luck/lamplit named), **76** ACCEPT D-1115
+(`mkgold` formula; `update_inventory` named), **77** ACCEPT
+D-1116 (MAGIC-only gates; overlay elapsed `"none"` named).
+Must-fix empty. Filled D-1116 archive hash `19e4be31`.
+Rotated #1405. Open 12 (no refill). Rule #2: no fs.
+**Score:** cadence **#1420** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1425**.
+**Verified:** C read of the four loci vs JS hunks; grep
+FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `fountain.c` `gush` `minliquid` body. Not
+dogushforth.
+**Blocked:** none.
+
 ## 2026-08-16 23:36 — #1419 D-1116 drinkfountain MAGIC enlightenment
 
 **Objective:** Open queue — `fountain.c` `drinkfountain`
@@ -339,30 +364,5 @@ cohort **15**/15 (0014 fountain + 0006/2200/0108/0360/5002 wizard
 0014/0006/2200/0360/4500 + isolated 0009. Public traces **unhit**.
 **Next:** Open `fountain.c` `dryup` cansee cloud-glyph skip.
 Not angry_guards.
-**Blocked:** none.
-
-## 2026-08-16 20:33 — #1405 review D-1101–D-1104 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `teleport.c` `goodpos` 180–182 / `mkmaze.c`
-`is_exclusion_zone` 317–331; `teleport.c` `goodpos_onscary`
-49–76 / `engrave.c` `sengr_at`; `dbridge.c` `db_under_typ`
-116–128 / `rm.h` SURFACE_AT / `pager.c` waterbody_name;
-`fountain.c` `dryup` 236–237 / `mon.c` `angry_guards`.
-**Change:** reviews **62** ACCEPT D-1101 (`is_exclusion_zone`
-real clone), **63** ACCEPT-WITH-DEBT D-1102 (fakemon helper
-real; live-mon `onscary` still named Open), **64** ACCEPT
-D-1103 (`db_under_typ`/`SURFACE_AT` real), **65** ACCEPT
-D-1104 (`angry_guards` imported D-0941). Must-fix empty.
-Filled D-1104 archive hash `7458a5b8`. Rotated #1390. Open 9
-(no refill). Rule #2: no fs.
-**Score:** cadence **#1405** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.26/turn` (R² 0.86). Next
-@**#1410**.
-**Verified:** C read of the four loci vs JS hunks; grep
-FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `fountain.c` `watchman_warn_fountain` Deaf
-shake/wave. Not dryup yn.
 **Blocked:** none.
 
