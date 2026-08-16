@@ -176,4 +176,4 @@ Do not restore oviparous `#sit` having-fun. Do not skip male/hunger/tetra/Sargas
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: oviparous `#sit` after throne returns `lay_an_egg()`, whose gates and `egg_type_from_parent(umonnum, FALSE)` `rn2(77)` match C `sit.c` / `mon.c`, not a having-fun stub.
-- Must-fix stays empty; next port after D-1076 pops Open `hack.c` `is_lava`.
+- Must-fix stays empty; next port after D-1076 pops Open `hack.c` `is_lava`. **Addressed:** D-1077

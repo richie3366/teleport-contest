@@ -73,14 +73,10 @@ function mdistu(mtmp) {
     return dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy);
 }
 
-/** Local is_pool/is_lava — avoid mon.js ↔ hack.js cycle. */
+/** Local is_pool — is_lava uses shared hack.js (D-1077). */
 function mfndpos_is_pool(x, y) {
     const typ = game.level?.at(x, y)?.typ;
     return typ === POOL || typ === MOAT || typ === WATER;
-}
-function mfndpos_is_lava(x, y) {
-    const typ = game.level?.at(x, y)?.typ;
-    return typ === LAVAPOOL || typ === LAVAWALL;
 }
 
 /** C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks. */
@@ -1295,7 +1291,7 @@ export function mfndpos(mon, data, flag) {
                 }
                 // C: poolok/lavaok outer gate
                 if (!((poolok || mfndpos_is_pool(nx, ny) === wantpool)
-                    && (lavaok || !mfndpos_is_lava(nx, ny)))) {
+                    && (lavaok || !is_lava(nx, ny)))) {
                     continue;
                 }
 

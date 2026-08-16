@@ -19,14 +19,14 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: reviews **36**/**37** closed D-1075/`f21410e1` and
-  D-1076/`87b4b7cb` against pinned C. Hero pit/hole bodies
-  and `lay_an_egg` stay; do not restore stubs. Punished
-  `ballfall` still omit.
-- **Next cluster:** Open `hack.c` `is_lava` DRAWBRIDGE_UP +
-  `DB_LAVA` (named from D-1060).
-- **Hypothesis:** JS `is_lava` misses DRAWBRIDGE_UP cells whose
-  `drawbridgemask` is `DB_LAVA`.
+- Latest: **D-1077** `is_lava` DRAWBRIDGE_UP+`DB_LAVA` on shared
+  `hack.js` (C `dbridge.c`); mfndpos uses it. Do not restore
+  LAVAPOOL/LAVAWALL-only. `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT
+  still named. Reviews **36**/**37** closed D-1075/`f21410e1` and
+  D-1076/`87b4b7cb`.
+- **Next cluster:** Open `sit.c` `split_mon` monster `clone_mon` arm.
+- **Hypothesis:** JS `split_mon` returns null when `mon !== youmonst`;
+  C `potion.c` calls `clone_mon(mon, 0, 0)` and halves both mhpmax.
 
 ## Don't re-check (≤15)
 
@@ -74,12 +74,15 @@ Objective/score live in `CURRENT.md`.
   sit.js (C `mon.c`; `force_ordinary` short-circuits `rn2(77)`).
   Do not restore hero `trapeffect_pit` early-return / skip
   `Can_fall_thru` on hole / sticky `u.Levitation` in `check_in_air`
-  (D-1076).
+  (D-1076). Do not restore `is_lava` LAVAPOOL/LAVAWALL-only (D-1077).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1365**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1370**.
+- **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
+  (`dbridge.c`). mfndpos uses shared helper. `is_pool`/`is_moat`
+  DRAWBRIDGE_UP+DB_MOAT still named.
 - **D-1076:** hero `trapeffect_pit`/`trapeffect_hole` under
   `dotrap` `VIASITTING`. `set_utrap(rn1(6,2))`; spikes/`poisoned`;
   hole `Can_fall_thru`. Punished `ballfall` still omit.
@@ -88,13 +91,9 @@ Objective/score live in `CURRENT.md`.
 - **D-1074:** dragon sit `"meager "` vs `ulevel*1000`; first-coin
   `money_cnt`.
 - **D-1073:** `dosit` picnic skip on seen-pit teeter / hole shaft.
-- **D-1072:** `dosit` ustuck `!sticks` lap `Monnam`/`mhis`.
-  Eel no-lap; hugs still air; python hero sits. Not swallow.
+- **D-1072:** `dosit` ustuck `!sticks` lap `Monnam`/`mhis` (eel no-lap).
 - **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.
-  Eel WRAP reaches; python hugs does not.
 - **D-1070:** `can_reach_floor` + sit message `Levitation()` =
   `(H||E)&&!B`. Not sticky `u.Levitation`.
 - **D-1069:** `dosit` three-message envelope + swallow. Helper
   Levitation was sticky — fixed D-1070.
-- **D-1068:** `dosit` after usteed: `u.uundetected && is_hider`
-  && `umonnum != PM_TRAPPER` → `u.uundetected=0`. No `newsym`.

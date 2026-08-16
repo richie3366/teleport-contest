@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1077 — is_lava DRAWBRIDGE_UP + DB_LAVA
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `hack.js` `is_lava` treated only `LAVAPOOL`/`LAVAWALL`
+  as lava. C `dbridge.c` also returns true for `DRAWBRIDGE_UP` whose
+  `drawbridgemask & DB_UNDER` is `DB_LAVA`. Sit on that cell skipped
+  the lava arm (having-fun / throne); mfndpos treated it as non-lava.
+- **C locus:** `dbridge.c` `is_lava` (~62–74); `rm.h` `DB_LAVA`/`DB_UNDER`;
+  callers `sit.c` `dosit`, `mon.c` `mfndpos`.
+- **Fix:** shared `hack.js` `is_lava` matches C (isok, LAVAPOOL/LAVAWALL,
+  then DRAWBRIDGE_UP+DB_LAVA). `mon.js` `mfndpos` uses that helper
+  instead of a LAVAPOOL/LAVAWALL-only clone. Rule #2: no fs.
+- **JS:** `js/hack.js`, `js/mon.js`. Sit comment in `js/sit.js`.
+- **Not this iter:** `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT;
+  `is_pool_or_lava` clones that use `IS_LAVA` (macro, not `is_lava`);
+  `waterbody_name` `SURFACE_AT`; `db_under_typ`; sit `split_mon`
+  `clone_mon`.
+- **Verify:** private canary (LAVAPOOL/LAVAWALL true; UP+DB_LAVA true
+  with/without DB_DIR; UP+ICE/MOAT/FLOOR false; DOWN+DB_LAVA false;
+  ICE/ROOM/POOL/`isok` fail false); green+strict seed8000/0900;
+  cohort **15**/15 (8000/0900/1500/1800/0060/0102/0700/0017/0106/
+  0107/4500/0014/0360/2200/0009) + strict 0014/4500/0360/2200.
+  Path unhit on public DRAWBRIDGE_UP lava.
+- **Files:** `js/hack.js`, `js/mon.js`, `js/sit.js` (comment).
+
 ## D-1076 — hero trapeffect_pit / trapeffect_hole under dotrap VIASITTING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

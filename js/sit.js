@@ -69,8 +69,9 @@
 // pit/hole dotrap bodies D-1076. take_gold calls
 // steal.c remove_worn_item (D-1049); armor *_off / unpunish / setnotworn
 // pointer-walk still named on that helper. D-0956: set_mimic_blocking
-// on SEE_INVIS attrcurse arm. D-1058 uses shared hack.js is_lava
-// (LAVAPOOL/LAVAWALL); DRAWBRIDGE_UP+DB_LAVA under still named there.
+// on SEE_INVIS attrcurse arm. D-1058/D-1077 uses shared hack.js is_lava
+// (LAVAPOOL/LAVAWALL or DRAWBRIDGE_UP+DB_LAVA). is_pool DRAWBRIDGE_UP
+// +DB_MOAT still named on that helper.
 
 import { game } from './gstate.js';
 import {

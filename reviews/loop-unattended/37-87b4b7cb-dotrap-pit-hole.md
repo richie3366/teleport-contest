@@ -147,4 +147,4 @@ Do not restore hero `trapeffect_pit` early-return. Do not skip `Can_fall_thru` o
 - Verdict: **ACCEPT-WITH-DEBT**
 - Score: **8 / 10**
 - One sentence: sitting (and walking) into a pit/hole now runs C’s hero `trapeffect_pit` / `Can_fall_thru` hole skip with youprop Lev/Fly and real iron shoes, while Punished `ballfall` and dotrap Sokoban/escape extras stay named.
-- Must-fix stays empty; next port pops Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`.
+- Must-fix stays empty; next port pops Open `hack.c` `is_lava` DRAWBRIDGE_UP + `DB_LAVA`. **Addressed:** D-1077
