@@ -27,10 +27,10 @@
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
 // case 5 S_LRING ring; case 6 breaksink; case 8 more_experienced;
-// case 9 sewage morehungry+vomit.
-// Deferred: case 10 polyself body; case 13 create_gas_cloud region;
-// Hallucination hcolor synonyms; monstseesu when Fire_resistance
-// already set.
+// case 9 sewage morehungry+vomit; case 10 Unchanging gate +
+// polyself(POLY_NOFLAGS) (D-1118).
+// Deferred: case 13 create_gas_cloud region; Hallucination hcolor
+// synonyms; monstseesu when Fire_resistance already set.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -62,6 +62,7 @@ import {
     TELEP_TRAP, LEVEL_TELEP, WEB, MAGIC_TRAP, ANTI_MAGIC,
     is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
+    POLY_NOFLAGS, UNCHANGING,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { PM_KNIGHT, monsterNames } from './generated/monsters_data.js';
@@ -88,7 +89,7 @@ import {
 } from './artifact.js';
 import { livelog_printf } from './pline.js';
 import { uhim } from './roles.js';
-import { mbodypart, body_part } from './polyself.js';
+import { mbodypart, body_part, polyself } from './polyself.js';
 import { makeplural, the, xname, an } from './objnam.js';
 import { somegold } from './steal.js';
 import { yn_function } from './getline.js';
@@ -290,6 +291,13 @@ function Fire_resistance() {
     return !!(u.Fire_resistance || u.HFire_resistance || u.EFire_resistance);
 }
 
+/** C ref: youprop.h Unchanging — H || E via flat + uprops. */
+function Unchanging(u = game.u || {}) {
+    const e = u.uprops?.[UNCHANGING];
+    return !!((u.Unchanging || u.HUnchanging || u.EUnchanging)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /**
  * C ref: fountain.c breaksink — sink → looted fountain; update nsinks/nfountains.
  */
@@ -444,10 +452,13 @@ export async function drinksink() {
         vomit();
         break;
     case 10:
+        // C fountain.c:680–686 — toxic wastes; !Unchanging →
+        // metamorphosis + polyself(POLY_NOFLAGS). Unchanging skips
+        // both the You() and the call (no "fail to transform").
         await pline(`This ${hliquid('water')} contains toxic wastes!`);
-        if (!(u.Unchanging || u.HUnchanging)) {
+        if (!Unchanging(u)) {
             await pline('You undergo a freakish metamorphosis!');
-            // polyself(POLY_NOFLAGS) deferred — no poly RNG yet
+            await polyself(POLY_NOFLAGS);
         }
         break;
     case 11:

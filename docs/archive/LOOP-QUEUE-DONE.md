@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `gush` `minliquid` body (named). Not dogushforth. **Addressed:** D-1117
+- [x] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink. **Addressed:** D-1118
+
+
+- [x] `fountain.c` `gush` `minliquid` body (named). Not dogushforth. **Addressed:** D-1117 `afb86487`
 
 
 - [x] `fountain.c` `drinkfountain` enlightenment body (named). Not dryup. **Addressed:** D-1116 `19e4be31`

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1118 — drinksink case 10 polyself
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `drinksink` case 10 printed toxic wastes and
+  metamorphosis but skipped `polyself(POLY_NOFLAGS)`. C
+  `fountain.c:680–686` calls `polyself` when `!Unchanging`.
+  Unchanging skips both the You() and the call (no
+  "fail to transform"). Outer gate used only
+  `u.Unchanging||u.HUnchanging`, missing `EUnchanging` and
+  `uprops[UNCHANGING]` that `confer_oc_oprop` writes for an
+  amulet of unchanging.
+- **C locus:** `fountain.c` `drinksink` (~680–686);
+  `polyself.c` `polyself` (~469–496); `youprop.h` Unchanging
+  ≡ `HUnchanging || EUnchanging`.
+- **Fix:** local Unchanging helper (flats + uprops). Case 10
+  `await polyself(POLY_NOFLAGS)` after metamorphosis when
+  `!Unchanging`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `drinksink`.
+- **Not this iter:** case 13 `create_gas_cloud`; Hallucination
+  hcolor; were/vamp/`POLY_MONSTER`/`POLY_REVERT` named on
+  `polyself.js`.
+- **Verify:** private canary **39**/39 (source POLY_NOFLAGS;
+  H/E/sticky/uprops intrinsic+extrinsic skip You+call+shock
+  RNG; !Unchanging shock `rn2(20)`/`rnd(30)`; Levitation
+  `floating_above`; fate 0 sip); green+strict seed8000/0900;
+  cohort **21**/21 including 0014 fountain + 0002 drinksink +
+  0108 `#polyself` + 0360/2200/4500 + strict those. Path
+  public-unhit.
+- **Files:** `js/fountain.js`.
+
 ## D-1117 — gush minliquid when m_at
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1118 | fixed | drinksink case 10 `polyself` | map-driven; C `fountain.c:680–686`; `!Unchanging` metamorphosis + `polyself(POLY_NOFLAGS)`; Unchanging skips You+call; youprop H\|\|E flats+uprops; case 13 `create_gas_cloud` still named |
 | D-1117 | fixed | `gush` `minliquid` when `m_at` | map-driven; C `fountain.c:157–160` / `mon.c` `minliquid_core` 993–1109; iron rust `!rn2(5)` `d(2,6)`; drown `xkilled` vs `mondied`; `set_levltyp` / steed / lava xkilled / overcrowding still named |
 | D-1116 | fixed | `drinkfountain` case 19 MAGIC enlightenment | map-driven; C `fountain.c:287–293` / `insight.c` `enlightenment(MAGICENLIGHTENMENT,0)`; not `doattributes` BASIC ^X; Status+Attributes+elapsed; bones/debug still BASIC-gated; potion/zap/artifact callers still named |
 | D-1115 | fixed | `dipfountain` case 29 `mkgold` coins | map-driven; C `fountain.c:530–546`; looted skip; else `SET_FOUNTAIN_LOOTED` + `rnd((num_dunlevs-dlevel+1)*2)+5` merge/create; Blind-skip glistening; `exercise(A_WIS,TRUE)`/`newsym`; `update_inventory` still named |
