@@ -16,14 +16,15 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1055 — `dosit` water/pool/gremlin `in_water` (early
-  pool/gremlin goto; Underwater mud; `split_mon`+`dryup`; C
-  `water_damage(uarm)` twice). Must-fix queue empty. Loop is
-  **fail-closed** (review every 3, cadence every 5 score-only
-  unless Must-fix is open). Agents **commit + `git push`**.
-- **Next cluster:** Open — `sit.c` `dosit` sink / altar / grave /
-  stairs / ladder sit messages only.
-- **Hypothesis:** none live; fortress holds. Do not “fix” the
+- Latest: reviews 15 ACCEPT (D-1054 restore `cobj` CONTAINED) /
+  16 QUALITY-RISK (D-1055 `in_water` body matches; sit reads
+  unset `u.Underwater`). Loop is **fail-closed**. Agents
+  **commit + `git push`**.
+- **Next cluster:** Must-fix — `dosit` `Underwater` ≡ `u.uinwater`
+  (`youprop.h:279`). Source: review 16.
+- **Hypothesis:** `drown` writes `u.uinwater`; `dosit` reads
+  `u.Underwater` (never written). Falsifier: `uinwater=1` on a
+  pool → muddy-bottom, no `rn2(10)` armor. Do not “fix” the
   second `in_water` `water_damage` to `uarmf` (pinned C uses `uarm`).
 
 ## Don't re-check (≤15)
@@ -81,20 +82,15 @@ Objective/score live in `CURRENT.md`.
   C `Glib` ≡ `uprops[GLIB].intrinsic`). Do not stamp parent-chain
   `where` onto save/bones `cobj` (D-1054). Do not skip `dosit`
   pool/gremlin `in_water` or rewrite second `water_damage` to `uarmf`
-  (D-1055).
+  (D-1055). Do not leave `dosit` reading `u.Underwater`.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1325**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `32+0.26/turn` (R² 0.87). Next @**#1330**.
-- **D-1055:** `dosit` water/pool/gremlin `in_water`; early goto skips
-  picnic/trap; `split_mon`/`cloneu` + fountain `dryup`; C `uarm` twice.
-- **D-1054:** restore `cobj` `where=OBJ_CONTAINED` (not parent
-  FLOOR/INVENT); buried list `OBJ_BURIED`. `get_obj_location(0)`
-  matches C hatch. `peace_minded` still unread `msound`.
-- **D-1053:** `extract-monsters.py` `SIZ` sound → `msounds[]`;
-  `mons().msound`; `cry_sound` / growl MS_* = `monflag.h`.
-- **D-1052:** lamp `make_glib` `(Glib()&TIMEOUT)+d(2,10)`; Glib is intrinsic.
-- **D-1051:** apply `u_wipe_engr` + pole/grapple/jump `tmp_at`
-  S_goodpos. allmain/dokick/uhitm wipe callers still stub.
-- **D-1049:** `take_gold` `remove_worn_item(FALSE)` then `delobj`.
+- **D-1055:** `dosit` `in_water` + early pool/gremlin goto + C
+  `uarm` twice. Must-fix: sit `Underwater` → `u.uinwater`.
+- **D-1054:** restore `cobj` `OBJ_CONTAINED`; buried `OBJ_BURIED`.
+  `get_obj_location` switch was already C.
+- **D-1053:** `msounds[]` / `cry_sound` no longer always-chitter.
+- **D-1052:** lamp `make_glib` ticking `Glib & TIMEOUT`.

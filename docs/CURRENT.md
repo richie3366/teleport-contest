@@ -71,10 +71,11 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** `sit.c` `dosit` sink / altar / grave / stairs /
-ladder sit messages only. Water/pool/gremlin sit is D-1055.
-Must-fix queue empty. Unattended loop pops first Open. Written
-reviews bind: QUALITY-RISK C-wrongs are Must-fix, not optional debt.
+**Next cluster:** Must-fix — `dosit` water predicates must use C
+`Underwater` (`u.uinwater`), not the unset `u.Underwater` alias.
+Source: `reviews/loop-unattended/16-e13735f8-dosit-in-water.md`.
+Open furniture sit waits until Must-fix is empty. Written reviews
+bind: QUALITY-RISK C-wrongs are Must-fix, not optional debt.
 Review every 3; cadence every 5 is score-only **unless Must-fix is
 open**. Agents **commit and `git push origin HEAD`** each iteration.
 
@@ -98,7 +99,8 @@ fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
 `remove_worn_item`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
-water/pool/gremlin).
+`in_water` body / early pool-gremlin goto / `water_damage(uarm)`
+twice — **except** sit `Underwater` must be `u.uinwater`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -109,7 +111,7 @@ invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
 `void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
 no empty-`msound` chitter; no deser cobj parent `where`; no skip
 `dosit` pool/gremlin `in_water`; no “fix” second `water_damage` to
-`uarmf`).
+`uarmf`; no leave sit reading `u.Underwater`).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from
