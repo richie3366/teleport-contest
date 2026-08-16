@@ -48,3 +48,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [36-f21410e1-dosit-lay-an-egg.md](./36-f21410e1-dosit-lay-an-egg.md) | `f21410e1` | D-1075 `dosit` `lay_an_egg` | **ACCEPT** |
 | [37-87b4b7cb-dotrap-pit-hole.md](./37-87b4b7cb-dotrap-pit-hole.md) | `87b4b7cb` | D-1076 hero pit/hole `dotrap` | **ACCEPT-WITH-DEBT** |
 | [38-a9e819a4-is-lava-drawbridge.md](./38-a9e819a4-is-lava-drawbridge.md) | `a9e819a4` | D-1077 `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | **ACCEPT** |
+| [39-c7dcd80a-split-mon-clone-mon.md](./39-c7dcd80a-split-mon-clone-mon.md) | `c7dcd80a` | D-1078 sit `split_mon` `clone_mon` | **ACCEPT** |
+| [40-d7d679c1-peace-malign-msound.md](./40-d7d679c1-peace-malign-msound.md) | `d7d679c1` | D-1079 `peace_minded`/`set_malign` `ptr.msound` | **ACCEPT** |
+| [41-0a4a5df3-u-entered-shop.md](./41-0a4a5df3-u-entered-shop.md) | `0a4a5df3` | D-1080 `u_entered_shop` deserted/angry/Invis/doorway | **ACCEPT-WITH-DEBT** |

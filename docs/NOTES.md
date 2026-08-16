@@ -8,21 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1370**;
-  next @**#1375**.
+  speed `32+0.27/turn` R² 0.87) after cadence **#1375**;
+  next @**#1380**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty (review **38** ACCEPT D-1077;
-  **37** ACCEPT-WITH-DEBT D-1076 — Punished `ballfall` /
-  Sokoban air named, not Must-fix). Keep 8–12 open rows;
+  LB). Must-fix empty (review **39** ACCEPT D-1078; **40** ACCEPT
+  D-1079; **41** ACCEPT-WITH-DEBT D-1080 — youprop sticky /
+  `in_rooms` pointer named, not Must-fix). Keep 8–12 open rows;
   refill from the map when below 8.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: **D-1080** `u_entered_shop` deserted / angry / surcharge /
-  robbed / Invis / pickaxe·steed·Fast doorway `dochug` (`shk.c`).
-  SetVoice / Soundeffect / Hallu shkname still named. Cadence **#1370**
-  fortress held. Review **38** ACCEPT D-1077.
+- Latest: **D-1080** `u_entered_shop` deserted/angry/Invis/doorway.
+  Cadence **#1375** fortress held. Reviews **39–41**.
 - **Next cluster:** Open `eat.c` `cprefx` `revive_corpse` after rider
   lifesave (debt.md).
 - **Hypothesis:** `cprefx` still omits `revive_corpse` after rider
@@ -83,11 +81,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1370**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
+- Suite after cadence **#1375**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1380**.
 - **D-1080:** `u_entered_shop` deserted/angry/Invis/pickaxe doorway (`shk.c`).
-- **D-1079:** `peace_minded`/`set_malign` `ptr.msound` (MS_LEADER −20).
-- **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named.
+  Review **41** ACCEPT-WITH-DEBT (youprop sticky / `in_rooms` pointer named).
+- **D-1079:** `peace_minded`/`set_malign` `ptr.msound` (MS_LEADER −20). Review **40** ACCEPT.
+- **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named. Review **39** ACCEPT.
 - **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
   (`dbridge.c`). mfndpos uses shared helper. Review **38** ACCEPT.
   `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.

@@ -137,7 +137,7 @@ This review iter did not re-run sessions (cadence already measured on this SHA).
 
 None that belong on Must-fix from **this** SHA. D-1036 risk 3 (empty `msound` → always chitter) is actually closed.
 
-Named omits (map, not queue): `peace_minded`/`set_malign`/`m_initweap` still unread; `domonnoise` isshk/guardian/orc/moo/gecko; `dogmove` string `msound`; leftover `mon_msound` mlet infer for stubs.
+Named omits (map, not queue): `peace_minded`/`set_malign` **Addressed:** D-1079 `d7d679c1`; `m_initweap` still mndx (live Open); `domonnoise` isshk/guardian/orc/moo/gecko; `dogmove` string `msound`; leftover `mon_msound` mlet infer for stubs.
 
 Do not restore empty `msounds[]` or the `msound===0` leader shim. Do not restore growl `MS_ROAR=6`. Remaining Must-fix is D-1036 risk 4 `get_obj_location` flags `0` vs CONTAINED.
 
@@ -150,3 +150,5 @@ C hatch comment (`timeout.c:1038–1040`): only INVENT/FLOOR/MINVENT; fail for M
 - Verdict: **ACCEPT**
 - Score: **8.5 / 10**
 - One sentence: `mons().msound` is C `SIZ`/`monflag.h`, so `cry_sound` is no longer always-chitter and growl numbers match C; peace/malign still do not read the field.
+
+Peace/malign later **Addressed:** D-1079 `d7d679c1`.
