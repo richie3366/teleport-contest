@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1345**;
-  next @**#1350**.
+  speed `31+0.26/turn` R² 0.87) after cadence **#1350**;
+  next @**#1355**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
   LB). Must-fix empty; Open empty after D-1067.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
@@ -21,6 +21,8 @@ Objective/score live in `CURRENT.md`.
   ustuck still named.
 - **Next cluster:** Open empty. Remaining `dosit` hider /
   `can_reach_floor` / `ustuck` or `debt.md` unless Must-fix.
+  Reviews **27** ACCEPT `7e330128` D-1066, **28** ACCEPT
+  `2e50b318` D-1067.
 - **Hypothesis:** none live.
 
 ## Don't re-check (≤15)
@@ -57,8 +59,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1345**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1350**.
+- Suite after cadence **#1350**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.26/turn` (R² 0.87). Next @**#1355**.
 - **D-1067:** `dosit` steed `You("… %s.", mon_nam(usteed))` ARTICLE_THE.
   Unnamed saddled `"the saddled pony"`; named bare. Not `y_monnam`.
 - **D-1066:** tut-1 `tutorial()` → `l_nhcore_call` ENTER/LEAVE then

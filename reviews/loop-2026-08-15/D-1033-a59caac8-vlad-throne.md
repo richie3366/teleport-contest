@@ -19,7 +19,7 @@ Deliverable: special switch 1–13 + `throne_sit_effect` envelope `rnd(6)>4` / `
 |------|--------|
 | 1 `dosit` trap-before-throne | **Addressed:** D-1039 `45784d80` |
 | 2 Case 10 extra flat `u.Confusion` | **Addressed:** D-1048 `e395bb74` |
-| 4 Steed `"your steed"` ≠ `mon_nam(usteed)` | **Addressed:** D-1067 |
+| 4 Steed `"your steed"` ≠ `mon_nam(usteed)` | **Addressed:** D-1067 `2e50b318` |
 
 ## Inventory
 | File | Role |
@@ -81,7 +81,7 @@ Green; journal “all 44/44” + `#sit` seeds 0106/0107/4500. If those seeds are
 1. `dosit` skips `t_at` / terrains between object and throne.
 2. Case 10 extra flat `Confusion`. **Addressed:** D-1048 `e395bb74`
 3. Callees wish/msummon/poly/goto: not re-audited here.
-4. Steed message. **Addressed:** D-1067
+4. Steed message. **Addressed:** D-1067 `2e50b318`
 
 ## Verdict
 - Verdict: **ACCEPT-WITH-DEBT**

@@ -20,8 +20,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-16** — full `sessions` after cadence
-**#1345** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1350**.
+**#1350** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.26/turn` (R² 0.87). Next cadence @**#1355**.
 
 ## Score
 
@@ -30,7 +30,7 @@ Speed `31+0.27/turn` (R² 0.87). Next cadence @**#1350**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.87) |
+| Speed label | `31+0.26/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -73,8 +73,8 @@ public traces.
 
 **Next cluster:** Open empty after D-1067. Must-fix empty. Next:
 `dosit` hider/`can_reach_floor`/ustuck or `debt.md` unless Must-fix.
-Review **26** ACCEPT (`296bc792` D-1065). Review every 3; cadence
-@**#1350** score-only unless Must-fix. Agents **commit and push**.
+Review **28** ACCEPT (`2e50b318` D-1067; also **27** `7e330128`).
+Review every 3; cadence @**#1355**. Agents **commit and push**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
