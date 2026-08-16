@@ -8,17 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `32+0.27/turn` R² 0.87) after cadence **#1390**;
-  next @**#1395**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after **D-1096** (refilled from fountain named omits). Reviews
-  **50–53** **ACCEPT** (D-1089…D-1092); no new Must-fix.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1395**;
+  next @**#1400**.
+- Mode: **map-driven** under fortress. Must-fix empty. Open 12.
+  Reviews **54** ACCEPT-WITH-DEBT (D-1093 `score_targ` wrap
+  named), **55–57** ACCEPT (D-1094…D-1096); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1096**. Prior **46** ACCEPT,
-  **47** ACCEPT-WITH-DEBT, **48** QUALITY-RISK closed by
-  D-1089, **49** ACCEPT.
+- Latest ports: **D-1089**…**D-1096**. Prior **50–53** ACCEPT.
 - **Next cluster:** Open `mon.c` `kill_eggs` after genocide
   (named from sit D-1034). Not seffects SCR_GENOCIDE.
 - **Hypothesis:** none live. D-1096 shipped: `dryup` wizard
@@ -58,10 +56,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1390**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `32+0.27/turn` (R² 0.87). Next @**#1395**.
+- Suite after cadence **#1395**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1400**.
 - **D-1096:** `dryup` wizard `y_n("Dry up fountain?")` after town
-  warn. `'n'` abort. No fuzzer skip. `angry_guards` still named.
+  warn. Hash `bd16c130`. `'n'` abort. `angry_guards` still named.
 - **D-1095:** rust/`minliquid`/uhitm AD_COLD `split_mon` callers.
   Hash `a86a7111`. Drown/mhitu/mhitm/cmd still named.
 - **D-1094:** `role_init` quest-pm overlay + makemon mitem

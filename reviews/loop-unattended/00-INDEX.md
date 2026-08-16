@@ -63,3 +63,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [51-43caa8ff-is-pool-is-moat-drawbridge.md](./51-43caa8ff-is-pool-is-moat-drawbridge.md) | `43caa8ff` | D-1090 `is_pool`/`is_moat` DRAWBRIDGE_UP+`DB_MOAT` | **ACCEPT** |
 | [52-278521f1-goodpos-is-pool-is-lava.md](./52-278521f1-goodpos-is-pool-is-lava.md) | `278521f1` | D-1091 `goodpos` `is_pool()`/`is_lava()` not typ macros | **ACCEPT** |
 | [53-c3f28bfd-makemon-orc-unicorn-peace.md](./53-c3f28bfd-makemon-orc-unicorn-peace.md) | `c3f28bfd` | D-1092 `makemon` S_ORC/S_UNICORN mlet peace | **ACCEPT** |
+| [54-e0b68f1d-dogmove-numeric-msound.md](./54-e0b68f1d-dogmove-numeric-msound.md) | `e0b68f1d` | D-1093 `dogmove` pal/target numeric `ptr.msound` | **ACCEPT-WITH-DEBT** |
+| [55-46775b20-role-init-nemesis-msound.md](./55-46775b20-role-init-nemesis-msound.md) | `46775b20` | D-1094 `role_init` overlay + MS_NEMESIS Bell | **ACCEPT** |
+| [56-a86a7111-split-mon-callers.md](./56-a86a7111-split-mon-callers.md) | `a86a7111` | D-1095 rust/`minliquid`/uhitm AD_COLD `split_mon` | **ACCEPT** |
+| [57-bd16c130-dryup-wizard-yn.md](./57-bd16c130-dryup-wizard-yn.md) | `bd16c130` | D-1096 `dryup` wizard `y_n` | **ACCEPT** |

@@ -150,4 +150,4 @@ Do not restore mndx-only orc/unicorn lists. Do not use `Role_if` / `urole.mnum` 
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: `makemon` now forces orcs hostile to elf-race heroes and co-aligned unicorns always peaceful like `makemon.c`, using `Race_if` and imported `is_unicorn`, while 5.0 correctly has no `S_ELF` arm and `dogmove` still string-compares `msound`.
-- Must-fix stays empty for this SHA; next port pops Open `dogmove.c` pal/target numeric `ptr.msound`. **Addressed:** D-1093
+- Must-fix stays empty for this SHA; next port pops Open `dogmove.c` pal/target numeric `ptr.msound`. **Addressed:** D-1093 `e0b68f1d`

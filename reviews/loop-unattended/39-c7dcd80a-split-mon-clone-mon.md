@@ -136,7 +136,7 @@ None that Must-fix this next iter. `clone_mon` and the sit else match C at the l
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. trap rust / `minliquid` / uhitm AD_COLD `split_mon` call sites still omit (live Open later, not eat.c).
+1. trap rust / `minliquid` / uhitm AD_COLD `split_mon` call sites. **Addressed:** D-1095 `a86a7111`. Drown/`mhitu`/mhitm/cmd still named.
 2. Heat reason `s_suffix(mon_nam(mtmp))` still `"its"`; C `place_monster` 2D grid / `impossible()`; long-worm `cutworm`.
 3. Do not pull `peace_minded` `msound` / `u_entered_shop` / `is_pool` DRAWBRIDGE_UP into a clone peel.
 
