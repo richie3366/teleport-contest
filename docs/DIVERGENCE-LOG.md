@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1122 — rloc Wizard stair / control_mon_tele
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `rloc` jumped straight to 50× `rnd`/`rn2`.
+  C prefers the Wizard of Yendor's stair/ladder via `goodpos`
+  (not `rloc_pos_ok`) and, in wizard mode, `control_mon_tele`
+  before that random search.
+- **C locus:** `teleport.c` `rloc` (~1813–1841);
+  `stairway_find_forwiz` (~1786–1794);
+  `control_mon_tele` (~1898–1934);
+  `dungeon.c` `In_W_tower` / `On_W_tower_level` (~1912–1938).
+- **Fix:** on-map `iswiz` picks up-stair outside the tower,
+  down-ladder inside (up-ladder at tower bottom) when
+  `goodpos`. Then `iflags.mon_telecontrol` + wizard getpos
+  (`rloc_pos_ok` / force `y_n`). Default Off: public paths
+  unchanged. Did not pull steed→`tele()`, `mnexto`
+  `control_mon_tele`, or `RLOC_ERR` `impossible()`. Rule #2:
+  no fs.
+- **JS:** `js/teleport.js` `rloc` / `control_mon_tele`;
+  `js/dungeon.js` `In_W_tower` / `On_W_tower_level`.
+- **Not this iter:** steed `tele()`; `mnexto` telecontrol;
+  OPTIONS=`montelecontrol` doset page; worm/`docrt` `rloc_to`.
+- **Verify:** private canary **33**/33 (stair dest; no rnd;
+  arriving mx==0; occupied/hero-on-stair; dnum; outside vs
+  In_W_tower ladder; `control_mon_tele` gates); green+strict
+  seed8000/0900; cohort **24**/24 including 0012 vault +
+  0360/4500/0373/0367 + 2200/0014/0004/0009/1500/1800/0060/
+  0102/0700/0017/0030/0116/0383/0007/0361/0108/0002/5002/2600
+  + strict 0012/0360/4500/0014/2200/0004/0009/0367/0373/0030/
+  0002/0116. Path public-unhit on live Wizard rloc.
+- **Files:** `js/teleport.js`, `js/dungeon.js`.
+
 ## D-1121 — teleds fill_pit after u_on_newpos
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

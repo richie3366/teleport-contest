@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1122 | fixed | `rloc` Wizard stair / `control_mon_tele` | map-driven; C `teleport.c:1813–1841` / `control_mon_tele` 1898–1934 / `dungeon.c` `In_W_tower`; iswiz on-map `goodpos` stairs/ladders before 50× rnd; wizard-mode getpos; steed/`mnexto` still named |
 | D-1121 | fixed | `teleds` `fill_pit` after `u_on_newpos` | map-driven; C `teleport.c:526` / `trap.c` `fill_pit`; vacated pit/hole+boulder settles; JS helper still thin extract+deltrap+delobj vs C `flooreffects("settle")`; Punished ball not this iter |
 | D-1120 | fixed | `tele_trap` Antimagic wrenching pline | map-driven; C `teleport.c:1502–1505`; In_endgame\|\|Antimagic\|\|noteleport You_feel + Antimagic shieldeff; youprop uprops confer; once deltrap after next_to_u; teledest/tele still named |
 | D-1119 | fixed | teleok `tele_jump_ok` / `in_out_region` | map-driven; C `teleport.c:440–443` / `region.c:480–527`; `teleok` after `goodpos` runs `tele_jump_ok(u.ux,u.uy,x,y)` then `in_out_region`; gas NO_CALLBACK never rejects; enter_msg/`update_player_regions` still named |

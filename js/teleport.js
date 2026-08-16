@@ -45,11 +45,11 @@ import { vision_recalc, couldsee } from './vision.js';
 import { nomul, in_rooms, is_pool, is_lava } from './hack.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
-import { getlin } from './getline.js';
-import { get_level, find_hell } from './dungeon.js';
+import { getlin, yn_function } from './getline.js';
+import { get_level, find_hell, In_W_tower } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
-import { mon_nam, Monnam, x_monnam } from './do_name.js';
+import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
@@ -927,53 +927,147 @@ async function rloc_to_with_msg(mtmp, x, y, rlocflags) {
 }
 
 /**
- * C ref: teleport.c rloc — 50× rnd/rn2 then unshuffled candy shuffle.
- * Named omissions: Wizard stair preference; mon_telecontrol; steed→tele();
- * telemsg "vanishes and reappears"; ustuck-together; shop bill on leave.
+ * C ref: teleport.c stairway_find_forwiz — first stair/ladder of dir
+ * whose dest dungeon matches u.uz.dnum.
+ */
+function stairway_find_forwiz(isladder, up) {
+    const wantLadder = !!isladder;
+    const wantUp = !!up;
+    const dnum = game.u?.uz?.dnum | 0;
+    for (let stway = game.stairs; stway; stway = stway.next) {
+        if (!!stway.isladder === wantLadder
+            && !!stway.up === wantUp
+            && (stway.tolev?.dnum | 0) === dnum) {
+            return stway;
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: teleport.c control_mon_tele — wizard-mode getpos destination.
+ * Gated on flags.debug||flags.wizard and iflags.mon_telecontrol (default
+ * Off). mnexto still omits this caller. Named omit: OPTIONS= parse into
+ * doset (iflags may be set directly); debug_fuzzer skips force y_n.
+ */
+export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
+    if (!isok(cc_p.x, cc_p.y)) {
+        cc_p.x = mon.mx | 0;
+        cc_p.y = mon.my | 0;
+        if (!isok(cc_p.x, cc_p.y)) {
+            cc_p.x = game.u?.ux | 0;
+            cc_p.y = game.u?.uy | 0;
+        }
+    }
+
+    const wizard = !!(game.flags?.debug || game.flags?.wizard);
+    if (!wizard || !game.iflags?.mon_telecontrol) return false;
+
+    const nam = noit_mon_nam(mon);
+    await pline(`Teleport ${nam} @ <${mon.mx | 0},${mon.my | 0}> where?`);
+    const tcbuf = `where to teleport ${nam}`;
+    const { getpos } = await import('./getpos.js');
+    if ((await getpos(cc_p, false, tcbuf)) >= 0 && !u_at(cc_p.x, cc_p.y)) {
+        const ok = via_rloc
+            ? rloc_pos_ok(cc_p.x, cc_p.y, mon)
+            : goodpos(cc_p.x, cc_p.y, mon, rlocflags);
+        if (ok) return true;
+        if (!game.iflags?.debug_fuzzer) {
+            const forceQ =
+                `<${mon.mx | 0},${mon.my | 0}> is not considered viable; force anyway?`;
+            if ((await yn_function(forceQ, 'yn', 'n')) === 'y') return true;
+        }
+    }
+    await pline(`${via_rloc ? 'Picking random' : 'Using derived'} destination.`);
+    return false;
+}
+
+/**
+ * C ref: teleport.c rloc — Wizard stair / control_mon_tele then 50× rnd/rn2
+ * then unshuffled candy shuffle (D-1122).
+ * Named omissions: steed→tele(); mnexto control_mon_tele; telemsg
+ * "vanishes and reappears"; ustuck-together; shop bill on leave;
+ * RLOC_ERR impossible().
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;
     if (mtmp === game.u?.usteed) return false; // tele() deferred
 
-    // Wizard / mon_telecontrol arms deferred
+    let x = 0;
+    let y = 0;
+    let found = false;
 
-    for (let trycount = 0; trycount < 50; ++trycount) {
-        const x = rnd(COLNO - 1); // 1..COLNO-1
-        const y = rn2(ROWNO); // 0..ROWNO-1
-        if (rloc_pos_ok(x, y, mtmp)) {
-            await rloc_to_with_msg(mtmp, x, y, rlocflags);
-            return true;
+    // C: Wizard already on the map prefers stairs/ladders via goodpos
+    // (not rloc_pos_ok — onscary / tele-jump ignored).
+    if (mtmp.iswiz && (mtmp.mx | 0)) {
+        let stway;
+        if (!In_W_tower(game.u?.ux | 0, game.u?.uy | 0, game.u?.uz)) {
+            stway = stairway_find_forwiz(false, true);
+        } else if (!stairway_find_forwiz(true, false)) {
+            stway = stairway_find_forwiz(true, true);
+        } else {
+            stway = stairway_find_forwiz(true, false);
+        }
+        x = stway ? (stway.sx | 0) : 0;
+        y = stway ? (stway.sy | 0) : 0;
+        if (goodpos(x, y, mtmp, 0)) found = true;
+    }
+
+    if (!found && game.iflags?.mon_telecontrol && (mtmp.mx | 0)) {
+        const cc = { x: mtmp.mx | 0, y: mtmp.my | 0 };
+        if (await control_mon_tele(mtmp, cc, rlocflags, true)) {
+            x = cc.x | 0;
+            y = cc.y | 0;
+            found = true;
         }
     }
 
-    let cc_flags = CC_INCL_CENTER | CC_UNSHUFFLED | CC_SKIP_MONS;
-    if (!passes_walls(mtmp.data)) cc_flags |= CC_SKIP_INACCS;
-    const candy = [];
-    const candycount = collect_coords(
-        candy, (COLNO / 2) | 0, (ROWNO / 2) | 0, 0, cc_flags, null,
-    );
-    let backupx = 0;
-    let backupy = 0;
-    for (let i = 0; i < candycount; ++i) {
-        const j = rn2(candycount - i);
-        if (j > 0) {
-            const tmp = candy[i];
-            candy[i] = candy[i + j];
-            candy[i + j] = tmp;
-        }
-        const x = candy[i].x | 0;
-        const y = candy[i].y | 0;
-        if (rloc_pos_ok(x, y, mtmp)) {
-            await rloc_to_with_msg(mtmp, x, y, rlocflags);
-            return true;
-        }
-        if (!backupx && goodpos(x, y, mtmp, 0)) {
-            backupx = x;
-            backupy = y;
+    if (!found) {
+        for (let trycount = 0; trycount < 50; ++trycount) {
+            x = rnd(COLNO - 1); // 1..COLNO-1
+            y = rn2(ROWNO); // 0..ROWNO-1
+            if (rloc_pos_ok(x, y, mtmp)) {
+                found = true;
+                break;
+            }
         }
     }
-    if (!backupx) return false;
-    await rloc_to_with_msg(mtmp, backupx, backupy, rlocflags);
+
+    if (!found) {
+        let cc_flags = CC_INCL_CENTER | CC_UNSHUFFLED | CC_SKIP_MONS;
+        if (!passes_walls(mtmp.data)) cc_flags |= CC_SKIP_INACCS;
+        const candy = [];
+        const candycount = collect_coords(
+            candy, (COLNO / 2) | 0, (ROWNO / 2) | 0, 0, cc_flags, null,
+        );
+        let backupx = 0;
+        let backupy = 0;
+        for (let i = 0; i < candycount; ++i) {
+            const j = rn2(candycount - i);
+            if (j > 0) {
+                const tmp = candy[i];
+                candy[i] = candy[i + j];
+                candy[i + j] = tmp;
+            }
+            x = candy[i].x | 0;
+            y = candy[i].y | 0;
+            if (rloc_pos_ok(x, y, mtmp)) {
+                found = true;
+                break;
+            }
+            if (!backupx && goodpos(x, y, mtmp, 0)) {
+                backupx = x;
+                backupy = y;
+            }
+        }
+        if (!found) {
+            if (!backupx) return false;
+            x = backupx;
+            y = backupy;
+        }
+    }
+
+    await rloc_to_with_msg(mtmp, x, y, rlocflags);
     return true;
 }
 

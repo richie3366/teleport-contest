@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG.
 - [ ] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym.
 - [ ] `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself.
 - [ ] `fountain.c` `dowatersnakes` Hallucination `rndmonnam` (named). Not gush.

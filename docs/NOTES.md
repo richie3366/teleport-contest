@@ -10,12 +10,12 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1425**;
   next @**#1430**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after archive+refill. Reviews **78–81** ACCEPT (D-1117–D-1120).
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+  after archive (no refill). Reviews **78–81** ACCEPT (D-1117–D-1120).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1121**. Prior **74–77** ACCEPT.
-- **Next cluster:** Open `rloc` Wizard stair / `mon_telecontrol`.
+- Latest ports: **D-1089**…**D-1122**. Prior **74–77** ACCEPT.
+- **Next cluster:** Open `rloc_to` worm / ustuck-swallow `docrt`.
 - **Hypothesis:** none live. Cadence #1425 fortress held.
 
 ## Don't re-check (≤15)
@@ -78,7 +78,8 @@ Objective/score live in `CURRENT.md`.
   skip teleok `tele_jump_ok`/`in_out_region` after goodpos
   (D-1119) / restore tele_trap silent AM or deltrap-before-wrenching
   (D-1120) / skip `teleds` `fill_pit` after `u_on_newpos` or
-  restore that call deferred (D-1121).
+  restore that call deferred (D-1121) / skip Wizard stair
+  `goodpos` or `control_mon_tele` (D-1122).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -87,7 +88,8 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1425**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1430**.
-- **D-1121:** `teleds` `fill_pit` after `u_on_newpos`.
+- **D-1122:** `rloc` Wizard stair / `control_mon_tele`.
+- **D-1121:** `teleds` `fill_pit` after `u_on_newpos`. Hash `803a7f5c`.
 - **D-1120:** `tele_trap` Antimagic wrenching. Hash `acfb0167`.
 - **D-1119:** teleok `tele_jump_ok`/`in_out_region`. Hash `26560ccf`.
 - **D-1118:** drinksink case 10 `polyself`. Hash `8a01c200`.
@@ -96,4 +98,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1115:** dipfountain case 29 `mkgold`. Hash `79438232`.
 - **D-1114:** dipfountain uncurse 17–20. Hash `e30a51f2`.
 - **D-1113:** `dipsink` + dodip sink yn. Hash `c67f09d1`.
-- **D-1112:** `mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP. Hash `bb552fba`.

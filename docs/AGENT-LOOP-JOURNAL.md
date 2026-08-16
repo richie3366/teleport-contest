@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 01:20 — #1427 D-1122 rloc Wizard stair / control_mon_tele
+
+**Objective:** Open queue — `teleport.c` `rloc` Wizard stair /
+`mon_telecontrol` (named). Not RLOC_MSG.
+**C locus:** `teleport.c` `rloc` 1813–1841; `stairway_find_forwiz`
+1786–1794; `control_mon_tele` 1898–1934; `dungeon.c` `In_W_tower`
+1912–1938.
+**Change:** on-map `iswiz` prefers stair/ladder via `goodpos`
+(outside tower: up stair; in tower: down ladder, else up
+ladder). Then wizard-mode `control_mon_tele` getpos. Default
+Off. Did not pull steed→`tele()` / `mnexto` telecontrol /
+RLOC_MSG. Filled D-1121 hash `803a7f5c`. Rotated #1412. Open 11
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1425** **44**/44; next
+@**#1430**).
+**Verified:** private canary **33**/33; green+strict seed8000/0900;
+cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
+0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/
+0361/0108/0002/5002/2600) + strict 0012/0360/4500/0014/2200/
+0004/0009/0367/0373/0030/0002/0116. Path public-unhit on live
+Wizard rloc.
+**Next:** Open `teleport.c` `rloc_to` worm / ustuck-swallow
+`docrt`. Not newsym.
+**Blocked:** none.
+
 ## 2026-08-17 01:05 — #1426 D-1121 teleds fill_pit after u_on_newpos
 
 **Objective:** Open queue — `teleport.c` `teleds` `fill_pit`
@@ -357,27 +382,3 @@ cohort **41**/41 (CURRENT list + 4500/0014) + strict 0014/4500/
 **Next:** Open `teleport.c` `mlevel_tele_trap` MAGIC_PORTAL /
 LEVEL_TELEP / NO_TRAP. Not hole path.
 **Blocked:** none.
-
-## 2026-08-16 22:10 — #1412 D-1110 goodpos live-mon onscary when m_id != 0
-
-**Objective:** Open queue — `teleport.c` `goodpos` live-mon
-`onscary` when `m_id != 0` (named). Not `goodpos_onscary`.
-**C locus:** `teleport.c` `goodpos` 168–169; `monmove.c`
-`onscary` 241–303; `engrave.c` `sengr_at`; `monst.h`
-`is_lminion`; `shk.c` `inhishop`; `priest.c` `inhistemple`.
-**Change:** `m_id ? onscary : goodpos_onscary`. Local `onscary`
-(mon.js cycle): vampshifter altar; Elbereth needs hero/image/
-`guardobjects`; `iswiz`/`is_lminion`/`PM_ANGEL`/rider;
-shop/temple resist. Fakemon still D-1102 helper. mfndpos
-`mon.js` partial named. Filled D-1109 hash `5bf81ca7`.
-Rotated #1397. Open 8 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1410** **44**/44; next
-@**#1415**).
-**Verified:** private canary **61**/61; green+strict seed8000/0900;
-cohort **14**/14 (1500/1800/0060/0102/0700/0017/0106/0107/4500/
-0014/0360/2200/0009/0367) + strict 0014/4500/0360/2200/0367/0009.
-Path public-unhit.
-**Next:** Open `teleport.c` `teleok` vibrating / pit-fly. Not
-`rloc`.
-**Blocked:** none.
-
