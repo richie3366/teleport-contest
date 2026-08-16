@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1119 — teleok tele_jump_ok / in_out_region
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleok` returned after `goodpos`. C still
+  requires `tele_jump_ok(u.ux,u.uy,x,y)` (cannot cross
+  updest/dndest `nlx>0` rectangles) and `in_out_region(x,y)`
+  (can_enter/leave then REG_HERO_INSIDE). Hero teleport
+  (`safe_teleds` / vault / whistle) therefore allowed
+  restricted-region jumps C would reject.
+- **C locus:** `teleport.c` `teleok` (~440–443) /
+  `tele_jump_ok` (~386–417); `region.c` `in_out_region`
+  (~480–527); `dungeon.h` `within_bounded_area`;
+  `region.h` `hero_inside`.
+- **Fix:** existing `tele_jump_ok` from `rloc_pos_ok` now
+  also gates `teleok`. Port `in_out_region`: skip
+  `attach_2_u`; can_enter/leave when dest vs `hero_inside`
+  bit and callback ≠ NO_CALLBACK (−1 / unset); then
+  leave/enter membership. Gas clouds stay NO_CALLBACK so
+  never reject. `make_gas_cloud` inits those fields and
+  `add_region` hero_inside. enter_msg/leave_msg pline
+  deferred (async; `create_msg_region` #if 0). Rule #2:
+  no fs.
+- **JS:** `js/teleport.js` `teleok`; `js/region.js`
+  `in_out_region`.
+- **Not this iter:** enter_msg/leave_msg; force-field
+  callbacks (#if 0); `update_player_regions` in `teleds`;
+  `in_out_region` in `hack.c`/`dothrow.c`; geometric
+  `is_hero_inside_gas_cloud`; `tele_trap` Antimagic pline.
+- **Verify:** private canary **35**/35 (dndest/updest
+  in↔out; nlx=0; trapok-before-jump; VS/PIT regression;
+  gas NO_CALLBACK; can_enter/leave reject; attach_2_u
+  skip; enter/leave bits; jump short-circuit); green+strict
+  seed8000/0900; cohort **24**/24 including 0360/4500/0373/
+  0367 + strict 0360/4500/0014/2200/0004/0009/0367/0373/
+  0030/0012/0002/0116. Path public-unhit on restricted
+  dests (0360 still full match).
+- **Files:** `js/teleport.js`, `js/region.js`.
+
 ## D-1118 — drinksink case 10 polyself
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 00:40 — #1423 D-1119 teleok tele_jump_ok / in_out_region
+
+**Objective:** Open queue — `teleport.c` `teleok` `tele_jump_ok`
+/ `in_out_region` (named). Not vibrating.
+**C locus:** `teleport.c` `teleok` 440–443 / `tele_jump_ok`
+386–417; `region.c` `in_out_region` 480–527.
+**Change:** `teleok` after `goodpos` runs `tele_jump_ok(u.ux,
+u.uy,x,y)` then `in_out_region`. Port `in_out_region` three
+loops (can_enter/leave; leave bit; enter bit). Gas stays
+NO_CALLBACK so never rejects. `make_gas_cloud` inits those
+fields + `add_region` hero_inside. Did not pull enter_msg
+pline, force fields, `update_player_regions`, or
+hack.c/dothrow callers. Filled D-1118 hash `8a01c200`.
+Rotated #1408. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1420** **44**/44; next
+@**#1425**).
+**Verified:** private canary **35**/35; green+strict seed8000/0900;
+cohort **24**/24 (0360/4500/0373/0367 + 2200/0014/0004/0009/
+1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/0361/0108/
+0002/0012/5002/2600) + strict 0360/4500/0014/2200/0004/0009/
+0367/0373/0030/0012/0002/0116. Path public-unhit on restricted
+dests.
+**Next:** Open `teleport.c` `tele_trap` Antimagic wrenching
+pline. Not vault_tele.
+**Blocked:** none.
+
 ## 2026-08-17 00:20 — #1422 D-1118 drinksink case 10 polyself
 
 **Objective:** Open queue — `fountain.c` `drinksink` case 10
@@ -345,28 +371,5 @@ cohort **19**/19 (0014 fountain + wizard/role + knight 0103/0104/
 **unhit**.
 **Next:** Open `sp_lev.c` `lspo_exclusion` populate
 `exclusion_zones` from `des.exclusion`. Not `goodpos`.
-**Blocked:** none.
-
-## 2026-08-16 21:20 — #1408 D-1107 dipfountain Excalibur LONG_SWORD
-
-**Objective:** Open queue — `fountain.c` `dipfountain` Excalibur
-LONG_SWORD body (named). Not wash_hands.
-**C locus:** `fountain.c` `dipfountain` 404–447; `artifact.c`
-`exist_artifact`/`artiname`/`discover_artifact`; `do_name.c`
-`oname` `ONAME_VIA_DIP|ONAME_KNOW_ARTI`.
-**Change:** port Lady of the Lake gift/deny. Gate `&&` order
-matches C. Lawful `oname`+`discover_artifact`+`bless`; unaligned
-curse+`spe--`; then ROOM/`flags=0`/`newsym`/town `angry_guards`,
-not `dryup`. Thin `artiname`/`discover_artifact`. Did not pull
-`wash_hands`, uncurse 17–20, or case 29 `mkgold`. Filled D-1106
-hash `127c045c`. Rotated #1393. Open 11 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1405** **44**/44; next
-@**#1410**).
-**Verified:** private canary **49**/49; green+strict seed8000/0900;
-cohort **17**/17 (0014 fountain + wizard/role + knight 0103/0104/
-4500) + strict 0014/0006/2200/0360/4500/0103 + isolated 0009.
-Public traces **unhit**.
-**Next:** Open `fountain.c` `wash_hands`. Not Excalibur.
 **Blocked:** none.
 

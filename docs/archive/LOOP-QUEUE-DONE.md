@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink. **Addressed:** D-1118
+- [x] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating. **Addressed:** D-1119
+
+
+- [x] `fountain.c` `drinksink` case 10 `polyself` (named). Not dipsink. **Addressed:** D-1118 `8a01c200`
 
 
 - [x] `fountain.c` `gush` `minliquid` body (named). Not dogushforth. **Addressed:** D-1117 `afb86487`

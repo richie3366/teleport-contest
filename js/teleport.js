@@ -49,6 +49,7 @@ import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
+import { in_out_region } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
@@ -999,8 +1000,10 @@ export async function mtele_trap(mtmp, trap) {
 
 /**
  * C ref: teleport.c teleok — trapok; VIBRATING_SQUARE always ok;
- * pit/hole ok iff Levitation||Flying (D-1111).
- * Named omit: tele_jump_ok / in_out_region (always allow).
+ * pit/hole ok iff Levitation||Flying (D-1111); then goodpos,
+ * tele_jump_ok, in_out_region (D-1119).
+ * Named omit: enter_msg/leave_msg pline in in_out_region;
+ * update_player_regions in teleds.
  */
 export function teleok(x, y, trapok) {
     if (!trapok) {
@@ -1019,6 +1022,9 @@ export function teleok(x, y, trapok) {
     }
     const you = game.youmonst || null;
     if (!goodpos(x, y, you, 0)) return false;
+    const u = game.u || {};
+    if (!tele_jump_ok(u.ux, u.uy, x, y)) return false;
+    if (!in_out_region(x, y)) return false;
     return true;
 }
 

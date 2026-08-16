@@ -72,15 +72,15 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** teleok region. Not VS.
+**Next cluster:** Open `teleport.c` `tele_trap` Antimagic wrenching pline (named). Not vault_tele.
 
 **Density:** one C family.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1118. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1119. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1118** (getdir/hurtle; pole
+**D-0948**…**D-1119** (getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 HConfusion-only; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
@@ -110,7 +110,7 @@ no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-
 no skip furniture sit_message /
 `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
-no restore `is_lava`/`is_pool` LAVAPOOL/POOL-only (D-1077/D-1090); no restore `goodpos` typ macros (D-1091); no restore youmonst pool/lava to `is_swimmer` (D-1099); no skip wallwalk `may_passwall` (D-1100); no skip mongen exclusion after boulder (D-1101); no skip D-1109 `lspo_exclusion`; no D-1102 onscary stub / always-goodpos_onscary (D-1110); no teleok any-trap reject (D-1111); no D-1103 waterbody raw; no skip D-1104 `angry_guards`/D-1106; no restore `split_mon` monster null (D-1078); no skip D-1095 split_mon callers; no skip peace/malign `msound` (D-1079); no restore priest/guardian mndx (D-1088) / neminum mitem (D-1094); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
+no restore `is_lava`/`is_pool` LAVAPOOL/POOL-only (D-1077/D-1090); no restore `goodpos` typ macros (D-1091); no restore youmonst pool/lava to `is_swimmer` (D-1099); no skip wallwalk `may_passwall` (D-1100); no skip mongen exclusion after boulder (D-1101); no skip D-1109 `lspo_exclusion`; no D-1102 onscary stub / always-goodpos_onscary (D-1110); no teleok any-trap reject (D-1111); no skip D-1119 teleok jump/region; no D-1103 waterbody raw; no skip D-1104 `angry_guards`/D-1106; no restore `split_mon` monster null (D-1078); no skip D-1095 split_mon callers; no skip peace/malign `msound` (D-1079); no restore priest/guardian mndx (D-1088) / neminum mitem (D-1094); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
 without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
 `youprop.h`; no restore sit Antimagic H||E-only (D-1089); no skip `mkstairs` `force` ROOM before dungeon-end
 return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleok` `tele_jump_ok` / `in_out_region` (named). Not vibrating.
 - [ ] `teleport.c` `tele_trap` Antimagic wrenching pline (named). Not vault_tele.
 - [ ] `teleport.c` `teleds` `fill_pit` (named). Not Punished ball.
 - [ ] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG.

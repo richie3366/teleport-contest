@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1119 | fixed | teleok `tele_jump_ok` / `in_out_region` | map-driven; C `teleport.c:440–443` / `region.c:480–527`; `teleok` after `goodpos` runs `tele_jump_ok(u.ux,u.uy,x,y)` then `in_out_region`; gas NO_CALLBACK never rejects; enter_msg/`update_player_regions` still named |
 | D-1118 | fixed | drinksink case 10 `polyself` | map-driven; C `fountain.c:680–686`; `!Unchanging` metamorphosis + `polyself(POLY_NOFLAGS)`; Unchanging skips You+call; youprop H\|\|E flats+uprops; case 13 `create_gas_cloud` still named |
 | D-1117 | fixed | `gush` `minliquid` when `m_at` | map-driven; C `fountain.c:157–160` / `mon.c` `minliquid_core` 993–1109; iron rust `!rn2(5)` `d(2,6)`; drown `xkilled` vs `mondied`; `set_levltyp` / steed / lava xkilled / overcrowding still named |
 | D-1116 | fixed | `drinkfountain` case 19 MAGIC enlightenment | map-driven; C `fountain.c:287–293` / `insight.c` `enlightenment(MAGICENLIGHTENMENT,0)`; not `doattributes` BASIC ^X; Status+Attributes+elapsed; bones/debug still BASIC-gated; potion/zap/artifact callers still named |
