@@ -3,7 +3,8 @@
 // dosit trap-before-throne (D-1039) + take_gold remove_worn_item (D-1049)
 // + water/pool/gremlin sit (D-1055/D-1056) + furniture sit_message
 // (D-1057: sink/altar/grave/stairs/ladder) + lava/ice/DRAWBRIDGE_DOWN
-// sit (D-1058; terrain, not trap TT_LAVA).
+// sit (D-1058; terrain, not trap TT_LAVA; D-1060 Fire/Cold
+// youprop.h uprops[FIRE_RES]/[COLD_RES] intrinsic||extrinsic).
 // C ref: sit.c dosit / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
@@ -19,8 +20,10 @@
 // LADDER sit_message (D-1057; sink humanoid rump vs underside; altar
 // altar_wrath via dynamic import — pray.js already imports sit.js),
 // lava WWalking sit_message + burn_away_slime + likes_lava warm vs
-// d((Fire_resistance?2:10),10) "sitting on lava" (D-1058), ice
-// sit_message + !Cold_resistance "ice feels cold", DRAWBRIDGE_DOWN
+// d((Fire_resistance?2:10),10) "sitting on lava" (D-1058;
+// D-1060 Fire_resistance/Cold_resistance read uprops[] like
+// youprop.h, not H||E flats alone), ice sit_message +
+// !Cold_resistance "ice feels cold", DRAWBRIDGE_DOWN
 // sit_message "drawbridge" (before IS_THRONE; trap TT_LAVA is D-1039),
 // IS_THRONE sit + special_throne_effect (wish/drain/grease/attrcurse/
 // VS-goto/msummon/ confused remove-curse HConfusion-only D-1048 /
@@ -473,18 +476,30 @@ function Flying() {
     return !!((u.Flying) || (u.HFlying | 0) || (u.EFlying | 0));
 }
 
-/** C youprop.h Fire_resistance — H || E. */
+/**
+ * C youprop.h Fire_resistance — HFire_resistance || EFire_resistance
+ * ≡ uprops[FIRE_RES].intrinsic || uprops[FIRE_RES].extrinsic.
+ * confer_oc_oprop writes FIRE_RES only to uprops (EFire unmirrored).
+ * Keep H/E flats for eat/poly/adjabil (invent.js hero_Fire_resistance).
+ */
 function Fire_resistance() {
     const u = game.u || {};
-    return !!((u.Fire_resistance) || (u.HFire_resistance | 0)
-        || (u.EFire_resistance | 0));
+    const e = u.uprops?.[FIRE_RES];
+    return !!((u.HFire_resistance | 0) || (u.EFire_resistance | 0)
+        || u.Fire_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
-/** C youprop.h Cold_resistance — H || E. */
+/**
+ * C youprop.h Cold_resistance — H || E via uprops[COLD_RES]
+ * (worn ring; confer_oc_oprop does not mirror ECold).
+ */
 function Cold_resistance() {
     const u = game.u || {};
-    return !!((u.Cold_resistance) || (u.HCold_resistance | 0)
-        || (u.ECold_resistance | 0));
+    const e = u.uprops?.[COLD_RES];
+    return !!((u.HCold_resistance | 0) || (u.ECold_resistance | 0)
+        || u.Cold_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
 /**

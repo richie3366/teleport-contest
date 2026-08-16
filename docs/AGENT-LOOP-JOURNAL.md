@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 03:55 — #1336 D-1060 dosit Fire/Cold uprops[]
+
+**Objective:** Must-fix — `dosit` lava/ice sit Fire_resistance /
+Cold_resistance must read C `youprop.h` `uprops[FIRE_RES]` /
+`[COLD_RES]` (review 19 QUALITY-RISK).
+**C locus:** `youprop.h:26–32`; `sit.c` `dosit` ~548–553;
+`worn.c` `setworn` `oc_oprop`.
+**Change:** sit helpers OR flats + `uprops[]` (invent.js
+`hero_Fire_resistance` shape). Did not rewrite `confer_oc_oprop`;
+did not retouch zap/trap/explode aliases; did not pull `is_lava`
+DRAWBRIDGE_UP+DB_LAVA. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1335** **44**/44; next
+@**#1340**).
+**Verified:** private node worn FIRE_RES ring `EFire` unset →
+`d(2,10)`; `HFire` only → `d(2,10)`; no-res → `d(10,10)`; COLD_RES
+ring on ICE skips “ice feels cold”; trap TT_LAVA still
+`rnd(4)`+`d(2,10)`. green+strict PASS; cohort **6**/6
+(seed1500/1800/0060/0102/0360/2200). Path unhit.
+**Next:** Open tut-1 stairs only.
+**Blocked:** none.
+
 ## 2026-08-16 03:50 — #1335 review D-1058/D-1059 + cadence score
 
 **Objective:** review every JS-touching commit since
@@ -296,24 +317,5 @@ getpos default Normal (paint on `$`). Rule #2: no fs.
 (seed0361 Scr **366**/366; seed4500 **1814**/1814). Private
 **7**/7. Path **unhit**.
 **Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
-**Blocked:** none.
-
-## 2026-08-16 00:45 — #1321 D-1050 pickup_object telekinesis
-
-**Objective:** Must-fix D-1022 risk 6 — `pickup_object` honors
-`telekinesis` like C (whip/grapple pull-in).
-**C locus:** `pickup.c` `pickup_object` (~1803) / `lift_object`
-(~1705) / `carry_count` (~1569) / `fatal_corpse_mistake` /
-`rider_corpse_revival`.
-**Change:** stop `void telekinesis`. Whip TRUE: silent encumbrance
-refuse, remote corpse skip petrify, scare `raise`. Grapple FALSE:
-`ynq` Continue?. Floor `carry_count`; `max_capacity` in invent.
-Named: Sokoban boulder / LOADSTONE override / container `delta_cwt`
-/ ghostly. Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
-**Verified:** green+strict PASS; apply/pickup cohort **10**/10
-(seed0361 Scr **366**/366). Private: light TRUE lifts; heavy TRUE
-refuses; cockatrice TRUE no petrify. Path **unhit**.
-**Next:** Must-fix `u_wipe_engr` / `tmp_at` (D-1022 risk 7).
 **Blocked:** none.
 

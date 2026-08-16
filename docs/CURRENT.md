@@ -71,13 +71,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** Must-fix — `dosit` lava/ice sit Fire_resistance /
-Cold_resistance must read C `youprop.h` `uprops[FIRE_RES]` /
-`[COLD_RES]` (review **19** QUALITY-RISK `27f0a233`). Review **20**
-ACCEPT (`c0d5279a` kelp). Written reviews bind: QUALITY-RISK
-C-wrongs are Must-fix, not optional debt. Review every 3; cadence
-every 5 is score-only **unless Must-fix is open**. Agents **commit
-and `git push origin HEAD`** each iteration.
+**Next cluster:** Open — tut-1 stairs only. Must-fix empty. Review
+every 3; cadence every 5 is score-only **unless Must-fix is open**.
+Agents **commit and `git push origin HEAD`** each iteration.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight caller/callee family; related map deferrals OK),
@@ -89,11 +85,11 @@ See `GROK-PLAYBOOK.md` §2a–2b, `PORTING-RUNBOOK.md` §3.
 
 **Parked:** D-0006 only.
 
-**Do not re-break D-0660…D-1059. Do not FORCE CLOSE/movement/umov /
+**Do not re-break D-0660…D-1060. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1059** (zap/dig/eat/shop/kick/allmain/apply through
+**D-0948**…**D-1060** (zap/dig/eat/shop/kick/allmain/apply through
 fig_transform; throne; RANGE_LEVEL hatch; getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
@@ -101,13 +97,14 @@ whip names; cocktail `**`; unpaid; HConfusion-only; take_gold
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
 `in_water` body / early pool-gremlin goto / `water_damage(uarm)`
 twice; sit `Underwater` ≡ `u.uinwater`; furniture sit_message;
-lava/ice/DRAWBRIDGE_DOWN sit; tut-1 `mineralize` kelp).
+lava/ice/DRAWBRIDGE_DOWN sit; sit Fire/Cold `uprops[]`; tut-1
+`mineralize` kelp).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
 shared `maketrap` PIT morph; tutorial worn without `setnotworn`;
 invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
-`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1059
+`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1060
 (no `spe--` unpaid; no extra `u.Confusion`; no gold splice; no
 `void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
 no empty-`msound` chitter; no deser cobj parent `where`; no skip
@@ -116,7 +113,7 @@ no empty-`msound` chitter; no deser cobj parent `where`; no skip
 sit_message / `altar_wrath` on `IS_ALTAR`; no skip lava/ice/
 DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
 no skip `mineralize` `In_endgame` before kelp; no WATER kelp
-without `!Is_waterlevel`; no sit Fire/Cold H||E-only as C
+without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
 `youprop.h`).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw

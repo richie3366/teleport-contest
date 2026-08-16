@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1060 — dosit Fire_resistance/Cold_resistance read uprops[]
+
+- **Status:** fixed (map-driven Must-fix from review 19 QUALITY-RISK; not a public FAIL)
+- **Symptom:** D-1058 lava/ice sit cloned `Fire_resistance`/`Cold_resistance`
+  as H\|\|E flats (`u.HFire_resistance` / `u.EFire_resistance`). C
+  `youprop.h:26–32` is `uprops[FIRE_RES]`/`[COLD_RES]` intrinsic\|\|extrinsic.
+  `confer_oc_oprop` writes FIRE_RES/COLD_RES only to `uprops[].extrinsic`
+  (no `EFire`/`ECold` mirror). Worn fire-resistance ring sat lava as
+  `d(10,10)` instead of C `d(2,10)`.
+- **C locus:** `youprop.h` `Fire_resistance` / `Cold_resistance` (~26–32);
+  `sit.c` `dosit` (~548–553); `worn.c` `setworn` `oc_oprop`.
+- **Fix:** sit helpers OR flats + `uprops[FIRE_RES]`/`[COLD_RES]`
+  (same shape as `invent.js` `hero_Fire_resistance`). Did **not** rewrite
+  `confer_oc_oprop` to mirror every E*; did **not** retouch zap/trap/explode
+  aliases; did **not** pull `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA.
+  Rule #2: no fs.
+- **Deferred:** zap/trap/explode Fire/Cold still H\|\|E-only (named; not this
+  peel); `is_lava` DRAWBRIDGE_UP+DB_LAVA still named on `hack.js`;
+  `lay_an_egg`; steed `mon_nam`; `can_reach_floor`/`ustuck`/hider.
+- **Verify:** private node: `confer_oc_oprop` FIRE_RES ring, `EFire` unset,
+  sit LAVAPOOL → `d(2,10)`; `HFire_resistance` only → `d(2,10)`; no-res →
+  `d(10,10)`; COLD_RES ring on ICE skips “The ice feels cold.”; no-res ice
+  prints it; trap TT_LAVA still `rnd(4)`+`d(2,10)`. green+strict PASS;
+  cohort **6**/6 (seed1500/1800/0060/0102/0360/2200). Path unhit in public
+  suite.
+- **Files:** `js/sit.js`.
+
 ## D-1059 — tut-1 kelp via mineralize water_has_kelp
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

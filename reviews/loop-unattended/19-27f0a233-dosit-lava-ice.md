@@ -149,7 +149,7 @@ This review iter ran cadence full `sessions` (**#1335** **44**/44 Scr **11405**/
 
 ## Actionable C-wrongs
 
-1. **`dosit` lava/ice sit must use C `Fire_resistance` / `Cold_resistance` (`u.uprops[FIRE_RES]` / `[COLD_RES]` intrinsic\|\|extrinsic).** Replace the two new sit helpers so they OR the uprops pair (same shape as `invent.js` `hero_Fire_resistance`). Do **not** rewrite `confer_oc_oprop` to mirror every `E*` this iter. Do **not** “fix” zap/trap/explode aliases this iter. Do **not** pull `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA into this peel. Falsifier: `setworn` a FIRE_RES ring (uprops extrinsic set, `EFire_resistance` unset), sit LAVAPOOL, not likes_lava → `d(2,10)` not `d(10,10)`; intrinsic-only `HFire_resistance` still `d(2,10)`; no-res still `d(10,10)`; Cold ring on ICE skips “The ice feels cold.”
+1. **`dosit` lava/ice sit must use C `Fire_resistance` / `Cold_resistance` (`u.uprops[FIRE_RES]` / `[COLD_RES]` intrinsic\|\|extrinsic).** Replace the two new sit helpers so they OR the uprops pair (same shape as `invent.js` `hero_Fire_resistance`). Do **not** rewrite `confer_oc_oprop` to mirror every `E*` this iter. Do **not** “fix” zap/trap/explode aliases this iter. Do **not** pull `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA into this peel. Falsifier: `setworn` a FIRE_RES ring (uprops extrinsic set, `EFire_resistance` unset), sit LAVAPOOL, not likes_lava → `d(2,10)` not `d(10,10)`; intrinsic-only `HFire_resistance` still `d(2,10)`; no-res still `d(10,10)`; Cold ring on ICE skips “The ice feels cold.” **Addressed:** D-1060
 
 Named omits (map, not queue): `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA; `lay_an_egg`; steed `mon_nam`; `can_reach_floor` / ustuck / hider.
 
@@ -160,3 +160,5 @@ Do not skip terrain lava `burn_away_slime` when `!Slimed` (C always calls; calle
 - Verdict: **QUALITY-RISK**
 - Score: **6 / 10**
 - One sentence: lava/ice/drawbridge arm order and real callees match C, but the new Fire/Cold helpers miss `uprops[]` so a worn fire-resistance ring still rolls `d(10,10)`.
+
+**Addressed:** D-1060

@@ -11,20 +11,17 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1335**;
   next @**#1340**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix from review **19** pops before Open stairs.
+  LB). Must-fix empty; Open tut-1 stairs is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1059 tut-1 kelp via `mineralize` ACCEPT. D-1058 lava/ice
-  sit QUALITY-RISK: Fire/Cold helpers miss `uprops[]`.
-- **Next cluster:** Must-fix — sit `Fire_resistance`/`Cold_resistance`
-  must OR `u.uprops[FIRE_RES]`/`[COLD_RES]` (invent.js shape). Do not
-  rewrite `confer_oc_oprop`; do not pull DRAWBRIDGE_UP+DB_LAVA `is_lava`.
-- **Hypothesis:** `setworn` a FIRE_RES ring writes only
-  `uprops[FIRE_RES].extrinsic`; sit lava then rolls `d(10,10)` instead
-  of C `d(2,10)`. Falsifier: confer ring, `EFire_resistance` unset,
-  sit LAVAPOOL not likes_lava → `d(2,10)`.
+- Latest: D-1060 sit Fire/Cold `uprops[]` (review 19). D-1059 kelp
+  ACCEPT. D-1058 lava/ice sit arms.
+- **Next cluster:** Open — tut-1 stairs only.
+- **Hypothesis:** worn FIRE_RES ring (`uprops` only, `EFire` unset)
+  sat lava as `d(10,10)`. Falsified: now `d(2,10)`. Do not rewrite
+  `confer_oc_oprop`; zap/trap/explode Fire/Cold still H||E-only.
 
 ## Don't re-check (≤15)
 
@@ -70,23 +67,24 @@ Objective/score live in `CURRENT.md`.
   (D-1054) / skip `in_water` or second `water_damage`→`uarmf`
   (D-1055) / sit `u.Underwater` (D-1056) / skip furniture
   sit_message (D-1057) / skip lava/ice/DRAWBRIDGE_DOWN sit or
-  trap TT_LAVA as terrain lava (D-1058). Do not treat sit
-  `Fire_resistance()` H||E flats as C `youprop.h` (review 19);
-  do not rewrite `confer_oc_oprop` in that peel; do not pull
-  `hack.js` `is_lava` DRAWBRIDGE_UP+DB_LAVA into it. Do not skip
-  `mineralize` `In_endgame` before kelp or kelp WATER without
-  `!Is_waterlevel` (D-1059). tut-1.lua has no `des.mineralize`.
+  trap TT_LAVA as terrain lava (D-1058). Do not restore sit
+  Fire/Cold H||E-only (D-1060); do not rewrite `confer_oc_oprop`
+  to mirror every E* for that peel; do not pull `hack.js` `is_lava`
+  DRAWBRIDGE_UP+DB_LAVA into it. Do not skip `mineralize`
+  `In_endgame` before kelp or kelp WATER without `!Is_waterlevel`
+  (D-1059). tut-1.lua has no `des.mineralize`.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1335**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
+- **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
+  (worn ring `d(2,10)`; review 19). zap/trap/explode aliases named.
 - **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
   map chars); `water_has_kelp` `!Is_waterlevel`; `In_endgame` skip.
   Review **20** ACCEPT `c0d5279a`.
 - **D-1058:** `dosit` lava/ice/DRAWBRIDGE_DOWN sit (terrain; trap
-  TT_LAVA remains D-1039). Review **19** QUALITY-RISK: Fire/Cold
-  helpers miss `uprops[]`. `likes_lava` warm vs `d(2|10,10)`.
+  TT_LAVA remains D-1039). `likes_lava` warm vs `d(2|10,10)`.
 - **D-1057:** `dosit` sink/altar/`altar_wrath`/grave/stairs/ladder
   sit_message (C `"stairs"`/`"ladder"`, not defsyms up/down).
 - **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
