@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1078 | fixed | sit `split_mon` monster `clone_mon` | map-driven; C `potion.c:2899–2912` / `makemon.c:837–943`; sit local else no longer `return null`; trap/mon/uhitm callers still named |
 | D-1077 | fixed | `is_lava` DRAWBRIDGE_UP+`DB_LAVA` | map-driven; C `dbridge.c:62–74`; shared `hack.js`; mfndpos uses it; `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named |
 | D-1076 | fixed | trap hero `trapeffect_pit`/`trapeffect_hole` VIASITTING | map-driven; C `trap.c:1835–2025`; `set_utrap(rn1(6,2), TT_PIT)`; spikes/`poisoned`; hole `Can_fall_thru`; `check_in_air` youprop Lev/Fly; Punished `ballfall` still omit |
 | D-1075 | fixed | sit `dosit` `lay_an_egg` after throne | map-driven; C `sit.c:357–396`/`559–560`; male/hunger/tetra/Sargasso `ECMD_OK`; spawn vs lay; `egg_type_from_parent` in `mon.js`; not having-fun |

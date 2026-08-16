@@ -142,7 +142,7 @@ None that Must-fix this next iter. The shared `is_lava` mask test and the delete
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. **`sit.c` `split_mon` monster `clone_mon` arm** — live Open. Do not pull `is_pool` DRAWBRIDGE_UP / `goodpos` `IS_LAVA` / Punished `ballfall` this next iter.
+1. **`sit.c` `split_mon` monster `clone_mon` arm** — **Addressed:** D-1078. Do not pull `is_pool` DRAWBRIDGE_UP / `goodpos` `IS_LAVA` / Punished `ballfall` this next iter.
 2. `hack.js` `is_pool` / `is_moat` DRAWBRIDGE_UP+`DB_MOAT` (C `dbridge.c:46–58`/`100–113`; juiblex skip; `DB_MOAT=0`). `mfndpos_is_pool` is the same subset.
 3. `teleport.c` `goodpos` still `IS_POOL`/`IS_LAVA` macros vs C `is_pool()`/`is_lava()` (`teleport.c:134–175`). Pre-existing; UP+lava takes the JS pool arm.
 4. `trap.js` `is_pool_or_lava` macros; `waterbody_name` SURFACE_AT; `db_under_typ`.
@@ -158,4 +158,4 @@ Subject: “Refresh cadence #1370 full-suite score so CURRENT.md matches the mea
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: shared `hack.js` `is_lava` now returns true for DRAWBRIDGE_UP+`DB_LAVA` like C `dbridge.c`, and `mfndpos` uses that helper instead of a LAVAPOOL-only clone, while `is_pool`/`is_moat` and `goodpos` macros stay named.
-- Must-fix stays empty; next port pops Open `sit.c` `split_mon` monster `clone_mon` arm.
+- Must-fix stays empty; next port pops Open `sit.c` `split_mon` monster `clone_mon` arm. **Addressed:** D-1078

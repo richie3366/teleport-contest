@@ -24,7 +24,8 @@
 // C ref: sit.c dosit / lay_an_egg / throne_sit_effect / special_throne_effect /
 // take_gold / attrcurse / rndcurse; dungeon.c surface (fountain branch);
 // potion.c split_mon / mhitu.c cloneu (locals — sit cannot import
-// potion.js/mhitu.js: eat←potion, zap←mhitu cycles).
+// potion.js/mhitu.js: eat←potion, zap←mhitu cycles). D-1078: monster
+// split_mon arm calls makemon.js clone_mon (C home).
 //
 // Branch envelope: usteed early-return You+mon_nam (D-1067),
 // hider ceiling drop u.uundetected=0 except PM_TRAPPER (D-1068),
@@ -42,7 +43,8 @@
 // (D-1039: already-trapped sit / dotrap VIASITTING), water/pool/gremlin
 // (D-1055: early goto in_water for pool !Underwater and gremlin
 // fountain/pool; Underwater/waterlevel cushions/mud; in_water sit +
-// split_mon+dryup / rn2(10) water_damage uarm twice; D-1056: C
+// split_mon+dryup (D-1078 monster clone_mon arm) / rn2(10)
+// water_damage uarm twice; D-1056: C
 // youprop.h Underwater ≡ u.uinwater), IS_SINK/IS_ALTAR/IS_GRAVE/STAIRS/
 // LADDER sit_message (D-1057; sink humanoid rump vs underside; altar
 // altar_wrath via dynamic import — pray.js already imports sit.js),
@@ -63,7 +65,6 @@
 // (D-0969).
 // Deferred: can_reach_floor ceiling_hider/MZ_HUGE and
 // check_pit teeter/shaft (engrave.js), wizard getlin / Analyze y_n,
-// clone_mon monster split_mon;
 // shieldeff; update_inventory redraw; Hallucination hcolor synonyms;
 // Yobjnam2 shk_your/pname polish; SetVoice; eyecount poly; hero
 // pit/hole dotrap bodies D-1076. take_gold calls
@@ -963,7 +964,8 @@ async function throne_sit_effect() {
 
 /**
  * C ref: mhitu.c cloneu. Local: sit cannot import mhitu.js
- * (mhitu→zap→potion→eat→sit). clone_mon named omit.
+ * (mhitu→zap→potion→eat→sit). Monster clones use makemon.js
+ * clone_mon (D-1078).
  */
 async function cloneu() {
     const u = game.u || {};
@@ -992,10 +994,11 @@ async function cloneu() {
 }
 
 /**
- * C ref: potion.c split_mon. Hero path for dosit gremlin; clone_mon
- * monster arm named omit (returns null).
+ * C ref: potion.c split_mon. Hero path cloneu; monster path
+ * clone_mon (D-1078). Non-youmonst heat reason still "its"
+ * (C s_suffix(mon_nam(mtmp)) named).
  */
-async function split_mon(mon, mtmp) {
+export async function split_mon(mon, mtmp) {
     let reason = '';
     if (mtmp) {
         // C: the_your[1]=="your" when attacker is youmonst; else
@@ -1015,7 +1018,17 @@ async function split_mon(mon, mtmp) {
         }
         return mtmp2;
     }
-    return null;
+    if ((mon.mhp | 0) > (mon.mhpmax | 0)) mon.mhp = mon.mhpmax | 0;
+    const { clone_mon } = await import('./makemon.js');
+    const mtmp2 = ((mon.mhp | 0) > 1) ? await clone_mon(mon, 0, 0) : null;
+    if (mtmp2) {
+        mtmp2.mhpmax = Math.trunc((mon.mhpmax | 0) / 2);
+        mon.mhpmax = (mon.mhpmax | 0) - (mtmp2.mhpmax | 0);
+        if (canspotmon(mon)) {
+            await pline(`${Monnam(mon)} multiplies${reason}!`);
+        }
+    }
+    return mtmp2;
 }
 
 /**

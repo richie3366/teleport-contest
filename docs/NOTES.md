@@ -19,13 +19,13 @@ Objective/score live in `CURRENT.md`.
   not one-bullet peels; empty “hold green only” iters → stop loop
   (review + full `sessions` together every 5).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: review **38** ACCEPT `a9e819a4` D-1077 (`is_lava`
-  DRAWBRIDGE_UP+`DB_LAVA`; mfndpos uses shared helper). Do not
-  restore LAVAPOOL/LAVAWALL-only. `is_pool`/`is_moat`
-  DRAWBRIDGE_UP+DB_MOAT still named. Cadence **#1370** fortress held.
-- **Next cluster:** Open `sit.c` `split_mon` monster `clone_mon` arm.
-- **Hypothesis:** JS `split_mon` returns null when `mon !== youmonst`;
-  C `potion.c` calls `clone_mon(mon, 0, 0)` and halves both mhpmax.
+- Latest: **D-1078** sit `split_mon` monster `clone_mon` (`makemon.c`
+  home; sit local `split_mon` else). Trap/mon/uhitm call sites still
+  named. Review **38** ACCEPT D-1077. Cadence **#1370** fortress held.
+- **Next cluster:** Open `makemon.c` `peace_minded` / `set_malign`
+  read `ptr.msound`.
+- **Hypothesis:** `peace_minded`/`set_malign` still ignore
+  `ptr.msound` even though `msounds[]` exists (D-1053).
 
 ## Don't re-check (≤15)
 
@@ -74,11 +74,14 @@ Objective/score live in `CURRENT.md`.
   Do not restore hero `trapeffect_pit` early-return / skip
   `Can_fall_thru` on hole / sticky `u.Levitation` in `check_in_air`
   (D-1076). Do not restore `is_lava` LAVAPOOL/LAVAWALL-only (D-1077).
+  Do not restore sit `split_mon` monster `return null` (D-1078);
+  trap/mon/uhitm callers still named.
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1370**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1375**.
+- **D-1078:** sit `split_mon` monster `clone_mon` (`makemon.c`); trap/mon/uhitm callers named.
 - **D-1077:** `hack.js` `is_lava` DRAWBRIDGE_UP+`DB_LAVA`
   (`dbridge.c`). mfndpos uses shared helper. Review **38** ACCEPT.
   `is_pool`/`is_moat` DRAWBRIDGE_UP+DB_MOAT still named.
@@ -94,5 +97,3 @@ Objective/score live in `CURRENT.md`.
 - **D-1071:** helper hugs `AT_HUGS`+`!sticks`. Sit-on-air reachable.
 - **D-1070:** `can_reach_floor` + sit message `Levitation()` =
   `(H||E)&&!B`. Not sticky `u.Levitation`.
-- **D-1069:** `dosit` three-message envelope + swallow. Helper
-  Levitation was sticky — fixed D-1070.

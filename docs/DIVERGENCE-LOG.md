@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1078 — sit split_mon monster clone_mon
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `sit.js` `split_mon` returned null when
+  `mon !== youmonst`. C `potion.c` clamps `mhp`, calls
+  `clone_mon(mon, 0, 0)`, halves both `mhpmax`, and plines
+  `Monnam` multiplies when `canspotmon`.
+- **C locus:** `potion.c` `split_mon` (~2899–2912);
+  `makemon.c` `clone_mon` (~837–943); `mhitu.c` `cloneu` already
+  on the hero arm (D-1055).
+- **Fix:** `makemon.js` `clone_mon` (C home): `mhp<=1` /
+  `G_EXTINCT` fail; `x==0` → parent cell then `enexto`; copy
+  without `mextra`/`minvent`; HP half (odd stays); clear
+  isshk/isgd/ispriest; light; christen; luck `rn2` if
+  `!mon_moving && mpeaceful`; emin XOR renegade or
+  `tamedog`+edog copy; `set_malign`+`newsym`. Sit `split_mon`
+  else arm calls it then halves max HP. Rule #2: no fs.
+- **JS:** `js/makemon.js` `clone_mon`; `js/sit.js` `split_mon`.
+- **Not this iter:** trap rust / `minliquid` / uhitm AD_COLD
+  `split_mon` call sites; `cutworm`; C `place_monster` 2D grid /
+  `impossible()`; heat reason `s_suffix(mon_nam)` (still "its");
+  wizard getlin; `shieldeff`; `peace_minded` `msound`.
+- **Verify:** private canary (empty-xy 20→10/10 max still 20;
+  `mhp<=1` / `G_EXTINCT` null; odd HP stays; `split_mon` 20/20
+  both 10/10 adjacent; clamp `mhp>mhpmax`; named christen;
+  peaceful luck `rn2`; `mon_moving` skip luck; hero `cloneu`
+  20→10); green+strict seed8000/0900; cohort **15**/15
+  (8000/0900/1500/1800/0060/0102/0700/0017/0106/0107/4500/
+  0014/0360/2200/0009) + strict 0014/4500/0360/2200.
+  Path public-unhit.
+- **Files:** `js/makemon.js`, `js/sit.js`.
+
 ## D-1077 — is_lava DRAWBRIDGE_UP + DB_LAVA
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

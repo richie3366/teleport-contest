@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sit.c` `split_mon` monster `clone_mon` arm (JS named omit).
 - [ ] `makemon.c` `peace_minded` / `set_malign` read `ptr.msound` (`msounds[]` exists, D-1053).
 - [ ] `shk.c` `u_entered_shop` deserted / angry / Invis / pickaxe doorway (named D-0307).
 - [ ] `eat.c` `cprefx` `revive_corpse` after rider lifesave (debt.md).
