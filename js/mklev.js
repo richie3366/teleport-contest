@@ -8355,7 +8355,8 @@ function splev_map_center_start(wid, hei) {
 /**
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
  * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
- * leave-tutorial invent restore, map_location tseen traps.
+ * leave-tutorial invent restore, map_location tseen traps;
+ * large-box contents / food / place_lregion / nhcore disable.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -8664,7 +8665,10 @@ function load_tut1() {
     tut1_door(50, 16, D_CLOSED);
 
     tut1_engr(58, 9, "Use '>' to go down the stairs", BURN);
-    mkstairs(xstart + 58, ystart + 10, 0, null);
+    // C: dat/tut-1.lua des.stair({ dir = "down", coord = { 58,10 } })
+    // → l_create_stairway packed, force=TRUE (D-1061). tut_key("down")
+    // still hardcoded '>' (separate Open item).
+    l_create_stairway(0, 58, 10, null, false);
 
     // tut_key_help(64,4): no pending Ctrl key after kick help already emitted
     tut1_engr(65, 3, 'UNDER CONSTRUCTION', BURN);
@@ -9896,6 +9900,74 @@ function splev_create_monster(id_or_class, peaceful) {
     }
     if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
         mtmp.mpeaceful = peaceful;
+}
+
+/**
+ * C ref: sp_lev.c l_create_stairway (lspo_stair / lspo_ladder).
+ * Packed coord: get_location adds xstart/ystart (or croom lx/ly), deltrap,
+ * SpLev_Map[x][y]=1, mkstairs(..., force=TRUE). Random: good_stair_loc then
+ * mkstairs force=FALSE. Ladder skips mkstairs (no dungeon-end no-op).
+ * Named omit: Lua argc table/string parse (loaders pass unpacked dir/coord);
+ * splev_create_stair / splev_room_stair still hand-rolled (no SpLev_Map /
+ * level.traps deltrap); other des.stair loaders still raw mkstairs without
+ * force; deltrap conjoined pits / Sokoban.
+ */
+export function l_create_stairway(up, rx, ry, croom, using_ladder) {
+    const random = rx === -1 && ry === -1;
+    let x, y;
+    if (random) {
+        const pos = croom
+            ? get_location_coord_in_room(croom, DRY, good_stair_loc)
+            : get_location_random(good_stair_loc);
+        x = pos.x;
+        y = pos.y;
+    } else {
+        const mx = croom ? (croom.lx | 0) : (game.splev_xstart | 0);
+        const my = croom ? (croom.ly | 0) : (game.splev_ystart | 0);
+        x = mx + rx;
+        y = my + ry;
+        // C get_location: !ANY_LOC && !isok → x_maze_max, y_maze_max
+        if (!isok(x, y)) {
+            x = X_MAZE_MAX;
+            y = Y_MAZE_MAX;
+        }
+    }
+    const trap = t_at(x, y);
+    if (trap) {
+        // C deltrap unlinks gf.ftrap; JS maketrap also keeps level.traps
+        let prev = null;
+        for (let t = game.ftrap; t; t = t.ntrap) {
+            if (t === trap) {
+                if (prev) prev.ntrap = t.ntrap;
+                else game.ftrap = t.ntrap;
+                break;
+            }
+            prev = t;
+        }
+        const traps = game.level?.traps;
+        if (Array.isArray(traps)) {
+            const i = traps.indexOf(trap);
+            if (i >= 0) traps.splice(i, 1);
+        }
+    }
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${x},${y}`);
+
+    if (using_ladder) {
+        const loc = game.level.at(x, y);
+        if (loc) {
+            loc.typ = LADDER;
+            loc.ladder = up ? LA_UP : LA_DOWN;
+        }
+        const dlev = game.u?.uz?.dlevel ?? 1;
+        stairway_add(x, y, !!up, true, {
+            dnum: game.u?.uz?.dnum ?? 0,
+            dlevel: dlev + (up ? -1 : 1),
+        });
+        return;
+    }
+    // C: mkstairs(..., !(scoord & SP_COORD_IS_RANDOM))
+    mkstairs(x, y, up ? 1 : 0, croom, !random);
 }
 
 function splev_create_stair(up) {
@@ -17356,25 +17428,28 @@ function generate_stairs_find_room() {
  * C ref: mklev.c mkstairs — place ordinary up/down stairs within the branch.
  * Cannot place stairs off an end of the dungeon (up on dunlev 1, down on
  * botlevel); des.stair / minefill still call this and rely on the no-op.
- * Branch stairs go through place_branch → stairway_add, not here.
+ * Packed des.stair passes force=TRUE so the cell becomes ROOM before that
+ * return (D-1061). Branch stairs go through place_branch → stairway_add.
  */
-function mkstairs(x, y, up, croom) {
+function mkstairs(x, y, up, croom, force = false) {
     const g = game;
     if (!x || !isok(x, y)) return;
+    const loc = g.level.at(x, y);
+    // C: if (force) levl[x][y].typ = ROOM; then dungeon-end return
+    if (force && loc) loc.typ = ROOM;
     // C: if (dunlev(&u.uz) == (up ? 1 : dunlevs_in_dungeon(&u.uz))) return;
     const dlev = g.u?.uz?.dlevel ?? 1;
     if (up ? dlev === 1 : Is_botlevel(g.u?.uz)) return;
 
-    const loc = g.level.at(x, y);
-    if (loc) {
-        loc.typ = STAIRS;
-        loc.ladder = up ? LA_UP : LA_DOWN;
-    }
     const dest = {
         dnum: g.u?.uz?.dnum ?? 0,
         dlevel: dlev + (up ? -1 : 1),
     };
     stairway_add(x, y, !!up, false, dest);
+    if (loc) {
+        loc.typ = STAIRS;
+        loc.ladder = up ? LA_UP : LA_DOWN;
+    }
     if (up) g.level.upstair = { x, y };
     else g.level.dnstair = { x, y };
 }

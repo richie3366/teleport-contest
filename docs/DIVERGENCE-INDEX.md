@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1061 | fixed | tut-1 `l_create_stairway` packed stairs | map-driven; C `sp_lev.c` packed `des.stair` deltrap+SpLev_Map+`mkstairs` force ROOM before dungeon-end return |
 | D-1060 | fixed | sit `dosit` Fire/Cold `uprops[]` | review 19 QUALITY-RISK; C `youprop.h` `uprops[FIRE_RES]`/`[COLD_RES]`; worn ring `d(2,10)` not H\|\|E flats |
 | D-1059 | fixed | mklev tut-1 `mineralize` kelp | map-driven; C `water_has_kelp` `!Is_waterlevel` + `In_endgame` return before kelp; tut-1.lua has no `des.mineralize` |
 | D-1058 | fixed | sit `dosit` lava/ice/DRAWBRIDGE_DOWN sit | map-driven; C `sit.c:539–555`; WWalking lava `likes_lava` vs `d(2\|10,10)`; trap TT_LAVA remains D-1039 |

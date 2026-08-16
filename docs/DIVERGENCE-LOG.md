@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1061 — tut-1 packed des.stair via l_create_stairway force
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** named omission — tut-1 stairs listed as deferred `des.*`.
+  `dat/tut-1.lua:289` is `des.stair({ dir = "down", coord = { 58,10 } })`.
+  JS called `mkstairs(xstart+58, ystart+10, 0, null)` with no C
+  `l_create_stairway` (deltrap, `SpLev_Map`, packed `force=TRUE`).
+  `mkstairs` returned on dungeon-end *before* C's `force` ROOM assign.
+- **C locus:** `sp_lev.c` `l_create_stairway` / `lspo_stair` (~4147–4212);
+  `mklev.c` `mkstairs` (~2156–2197); `dat/tut-1.lua` stair at (58,10).
+- **Fix:** `l_create_stairway` packed path: `get_location` add
+  xstart/ystart, deltrap (`ftrap` + `level.traps`), `SpLev_Map`,
+  `mkstairs(..., force=TRUE)`. `mkstairs` sets ROOM when `force` then
+  dungeon-end return (tut-1 is Tutorial dlevel 1 of 2, so down stairs
+  place). Ladder arm skips the mkstairs end-check. Rule #2: no fs.
+- **Deferred:** tut-1 large-box / food / `place_lregion` / tut_key /
+  nhcore disable; `splev_create_stair` / `splev_room_stair` still
+  hand-rolled (no SpLev_Map / traps-list deltrap); other load_special
+  `des.stair` still raw `mkstairs` without force; deltrap conjoined /
+  Sokoban.
+- **Verify:** private node: 2-level HWALL→STAIRS dest dlevel+1;
+  botlevel `force` ROOM and no stairway node; trap spliced; ladder
+  still places on botlevel. green+strict PASS; seed0009 **73**/73;
+  cohort **11**/11 (8000/0900/0009/1500/1800/0060/0102/0360/2200/0030/
+  0373). Path unhit except seed0009 prefix already in D-0353.
+- **Files:** `js/mklev.js`.
+
 ## D-1060 — dosit Fire_resistance/Cold_resistance read uprops[]
 
 - **Status:** fixed (map-driven Must-fix from review 19 QUALITY-RISK; not a public FAIL)

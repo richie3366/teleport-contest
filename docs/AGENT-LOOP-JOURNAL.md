@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 04:13 — #1337 D-1061 tut-1 packed des.stair l_create_stairway
+
+**Objective:** Open queue — tut-1 stairs only (not box / food /
+`place_lregion` / key / nhcore).
+**C locus:** `sp_lev.c` `l_create_stairway` / `lspo_stair`;
+`mklev.c` `mkstairs` force; `dat/tut-1.lua` `des.stair` (58,10).
+**Change:** packed path deltrap + SpLev_Map + `mkstairs(..., force)`
+so ROOM is set before dungeon-end return. Tutorial is dlevel 1 of
+2 so down stairs place. Ladder arm skips the mkstairs end-check.
+Did not rewire `splev_create_stair` / other loaders. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1335** **44**/44; next
+@**#1340**).
+**Verified:** private node 2-lev HWALL→STAIRS, botlevel force ROOM,
+deltrap, ladder on botlevel. green+strict PASS; seed0009 **73**/73;
+cohort **11**/11 (8000/0900/0009/1500/1800/0060/0102/0360/2200/0030/
+0373). Path unhit except seed0009 prefix.
+**Next:** Open tut-1 large-box contents only.
+**Blocked:** none.
+
 ## 2026-08-16 03:55 — #1336 D-1060 dosit Fire/Cold uprops[]
 
 **Objective:** Must-fix — `dosit` lava/ice sit Fire_resistance /
@@ -298,24 +317,6 @@ paint on `$` like C). No new Must-fix. Filled Addressed hash
 `hack.c:4391–4396`, `hack.h:1330` ynq, `engrave.c:187–289`,
 `apply.c:1959–1984` / `3334–3352` / `3701–3725` / `3561` / `3809–3810`,
 `defsym.h:207`; JS hunks grepped FORCE/fs/seed.
-**Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
-**Blocked:** none.
-
-## 2026-08-16 01:10 — #1322 D-1051 apply u_wipe_engr + S_goodpos tmp_at
-
-**Objective:** Must-fix D-1022 risk 7 — `u_wipe_engr` / `tmp_at`
-no-ops in apply: wire them as C.
-**C locus:** `engrave.c` `u_wipe_engr` (~264); `apply.c`
-`display_polearm_positions` / `display_grapple_positions` /
-`display_jump_positions`; `defsym.h` S_goodpos.
-**Change:** real `u_wipe_engr` → `can_reach_floor`+`wipe_engr_at`.
-Pole/grapple/jump hilite loops call existing `tmp_at(DISP_BEAM,
-S_goodpos '$' HI_ZAP)`. Named: allmain/dokick/uhitm wipe callers;
-getpos default Normal (paint on `$`). Rule #2: no fs.
-**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
-**Verified:** green+strict PASS; apply/jump cohort **6**/6
-(seed0361 Scr **366**/366; seed4500 **1814**/1814). Private
-**7**/7. Path **unhit**.
 **Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
 **Blocked:** none.
 

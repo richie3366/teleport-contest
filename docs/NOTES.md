@@ -11,17 +11,17 @@ Objective/score live in `CURRENT.md`.
   speed `31+0.27/turn` R² 0.87) after cadence **#1335**;
   next @**#1340**.
 - Mode: **map-driven retirement** under fortress (not FAIL peels /
-  LB). Must-fix empty; Open tut-1 stairs is next.
+  LB). Must-fix empty; Open tut-1 large-box contents is next.
 - Density: one semantic cluster (~50–300 LOC or small-file restart),
   not one-bullet peels; empty “hold green only” iters → stop loop
   (cadence score refreshes every 5, deferred while Must-fix is open).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest: D-1060 sit Fire/Cold `uprops[]` (review 19). D-1059 kelp
-  ACCEPT. D-1058 lava/ice sit arms.
-- **Next cluster:** Open — tut-1 stairs only.
-- **Hypothesis:** worn FIRE_RES ring (`uprops` only, `EFire` unset)
-  sat lava as `d(10,10)`. Falsified: now `d(2,10)`. Do not rewrite
-  `confer_oc_oprop`; zap/trap/explode Fire/Cold still H||E-only.
+- Latest: D-1061 tut-1 packed `des.stair` / `mkstairs` force.
+  D-1060 sit Fire/Cold `uprops[]`. D-1059 kelp ACCEPT.
+- **Next cluster:** Open — tut-1 large-box contents only.
+- **Hypothesis:** packed tut-1 `des.stair` skipped C `l_create_stairway`
+  (deltrap / SpLev_Map / `force` ROOM before dungeon-end return).
+  Falsified: 2-level down places STAIRS; botlevel force leaves ROOM.
 
 ## Don't re-check (≤15)
 
@@ -72,12 +72,16 @@ Objective/score live in `CURRENT.md`.
   to mirror every E* for that peel; do not pull `hack.js` `is_lava`
   DRAWBRIDGE_UP+DB_LAVA into it. Do not skip `mineralize`
   `In_endgame` before kelp or kelp WATER without `!Is_waterlevel`
-  (D-1059). tut-1.lua has no `des.mineralize`.
+  (D-1059). tut-1.lua has no `des.mineralize`. Do not skip
+  `mkstairs` `force` ROOM before dungeon-end return or raw-mkstairs
+  tut-1 packed `des.stair` (D-1061).
 
 ## Landmarks (≤15)
 
 - Suite after cadence **#1335**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1340**.
+- **D-1061:** tut-1 packed `des.stair` → `l_create_stairway`
+  (deltrap, SpLev_Map, `mkstairs` force). Tutorial is dlevel 1 of 2.
 - **D-1060:** sit Fire/Cold OR `uprops[FIRE_RES]`/`[COLD_RES]`
   (worn ring `d(2,10)`; review 19). zap/trap/explode aliases named.
 - **D-1059:** tut-1 kelp is `mineralize` after `load_tut1` (POOL/WATER
@@ -89,4 +93,3 @@ Objective/score live in `CURRENT.md`.
   sit_message (C `"stairs"`/`"ladder"`, not defsyms up/down).
 - **D-1056:** `dosit` `Underwater()` reads `u.uinwater`.
 - **D-1055:** `in_water` + pool/gremlin goto + C `uarm` twice.
-- **D-1054:** restore `cobj` `OBJ_CONTAINED`; buried `OBJ_BURIED`.

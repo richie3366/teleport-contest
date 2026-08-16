@@ -1,4 +1,22 @@
-# Rotated from AGENT-LOOP-JOURNAL.md after #1322 D-1051
+# Rotated from AGENT-LOOP-JOURNAL.md after D-1061 / #1337
+
+## 2026-08-16 01:10 — #1322 D-1051 apply u_wipe_engr + S_goodpos tmp_at
+
+**Objective:** Must-fix D-1022 risk 7 — `u_wipe_engr` / `tmp_at`
+no-ops in apply: wire them as C.
+**C locus:** `engrave.c` `u_wipe_engr` (~264); `apply.c`
+`display_polearm_positions` / `display_grapple_positions` /
+`display_jump_positions`; `defsym.h` S_goodpos.
+**Change:** real `u_wipe_engr` → `can_reach_floor`+`wipe_engr_at`.
+Pole/grapple/jump hilite loops call existing `tmp_at(DISP_BEAM,
+S_goodpos '$' HI_ZAP)`. Named: allmain/dokick/uhitm wipe callers;
+getpos default Normal (paint on `$`). Rule #2: no fs.
+**Score:** fortress unchanged (cadence still **#1320**; next @**#1325**).
+**Verified:** green+strict PASS; apply/jump cohort **6**/6
+(seed0361 Scr **366**/366; seed4500 **1814**/1814). Private
+**7**/7. Path **unhit**.
+**Next:** Must-fix cursed-lamp `make_glib` HGlib|EGlib (D-1023).
+**Blocked:** none.
 
 ## 2026-08-15 21:30 — #1309 D-1042 find_mac minvent ARM_BONUS
 
