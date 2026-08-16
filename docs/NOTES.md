@@ -21,8 +21,9 @@ Objective/score live in `CURRENT.md`.
   `PM_TRAPPER` (after usteed, before reach; no `newsym`).
   `can_reach_floor` / ustuck still named.
 - **Next cluster:** `dosit` `can_reach_floor(FALSE)` swallow /
-  Levitation tumble / sit-on-air. Then ustuck lap. Reviews **27**
-  ACCEPT `7e330128` D-1066, **28** ACCEPT `2e50b318` D-1067.
+  Levitation tumble / sit-on-air. Then ustuck lap. Review **29**
+  ACCEPT `990b06a8` D-1068 (hider gate; `#monster` `dohide` still
+  named). Do not skip trapper exception / do not add `newsym`.
 - **Hypothesis:** none live.
 
 ## Don't re-check (≤15)

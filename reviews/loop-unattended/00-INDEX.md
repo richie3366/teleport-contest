@@ -38,3 +38,4 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [26-296bc792-tut1-tut-key-eckey.md](./26-296bc792-tut1-tut-key-eckey.md) | `296bc792` | D-1065 tut-1 `tut_key` / `nh.eckey` | **ACCEPT** |
 | [27-7e330128-tut1-tutorial-nhcore.md](./27-7e330128-tut1-tutorial-nhcore.md) | `7e330128` | D-1066 tut-1 `tutorial()` nhcore disable | **ACCEPT** |
 | [28-2e50b318-dosit-steed-mon-nam.md](./28-2e50b318-dosit-steed-mon-nam.md) | `2e50b318` | D-1067 `dosit` steed `mon_nam` | **ACCEPT** |
+| [29-990b06a8-dosit-hider-uundetected.md](./29-990b06a8-dosit-hider-uundetected.md) | `990b06a8` | D-1068 `dosit` hider `uundetected` | **ACCEPT** |

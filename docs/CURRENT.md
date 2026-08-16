@@ -74,8 +74,8 @@ public traces.
 **Next cluster:** first Open item — `dosit` `can_reach_floor(FALSE)`:
 swallow “no seats” / Levitation tumble / sitting on air. Replace JS
 Levitation-only early return. Must-fix empty. Queue keep 8–12 (11
-after this archive; no refill). Review **28** ACCEPT (`2e50b318`
-D-1067). Review every 3; cadence @**#1355**. Agents **commit and push**.
+unchecked; no refill). Review **29** ACCEPT (`990b06a8` D-1068).
+Review every 3; cadence @**#1355**. Agents **commit and push**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300
