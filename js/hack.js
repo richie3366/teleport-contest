@@ -10,7 +10,7 @@ import {
     is_pit, TEMPLE, OROOM, COURT, SWAMP, MORGUE, ZOO, BEEHIVE, BARRACKS,
     LEPREHALL, COCKNEST, ANTHOLE, DELPHI,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, DRAWBRIDGE_UP, DB_UNDER, DB_MOAT,
-    DB_LAVA,
+    DB_LAVA, DB_ICE, STONE,
     ROOM, CORR, DOOR, SDOOR, TREE, ICE,
     W_NONDIGGABLE, SHOP_DOOR_COST,
     IS_WATERWALL, PARANOID_SWIM, TIP_SWIM,
@@ -783,14 +783,46 @@ export function is_moat(x, y) {
 }
 
 /**
+ * C ref: dbridge.c db_under_typ — ICE / LAVAPOOL / MOAT from
+ * drawbridgemask & DB_UNDER; else STONE (D-1103). DB_MOAT is 0;
+ * DB_FLOOR falls through to STONE.
+ */
+export function db_under_typ(mask) {
+    switch ((mask | 0) & DB_UNDER) {
+    case DB_ICE:
+        return ICE;
+    case DB_LAVA:
+        return LAVAPOOL;
+    case DB_MOAT:
+        return MOAT;
+    default:
+        return STONE;
+    }
+}
+
+/**
+ * C ref: rm.h SURFACE_AT — DRAWBRIDGE_UP reports db_under_typ, else
+ * levl.typ (D-1103). Missing JS cell → STONE (C levl[][] always exists
+ * after isok).
+ */
+export function SURFACE_AT(x, y) {
+    const lev = game.level?.at(x, y);
+    if (!lev) return STONE;
+    if ((lev.typ | 0) === DRAWBRIDGE_UP) {
+        return db_under_typ(lev.drawbridgemask);
+    }
+    return lev.typ | 0;
+}
+
+/**
  * C ref: pager.c waterbody_name — pool/moat/lava/ice/wall; medusa
  * shallow sea / juiblex swamp / samurai qstart pond (D-0928 #1163).
- * Named omit: SURFACE_AT drawbridge under-typ (raw typ for now).
+ * ltyp via SURFACE_AT so a raised drawbridge names its under-typ
+ * (D-1103).
  */
 export function waterbody_name(x, y) {
     if (!isok(x, y)) return 'drink';
-    // C: SURFACE_AT — DRAWBRIDGE_UP under deferred → raw typ
-    const typ = game.level?.at(x, y)?.typ;
+    const typ = SURFACE_AT(x, y);
     const hallucinate = Hallucination() && !game.program_state?.gameover;
     if (typ === LAVAPOOL) return `molten ${hliquid('lava')}`;
     if (typ === ICE) {

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1103 — db_under_typ / waterbody_name SURFACE_AT
+
+- **Status:** fixed (map-driven Open; named from D-1077 review **38**; not a public FAIL)
+- **Symptom:** JS `hack.js` `waterbody_name` switched on raw `lev.typ`,
+  so a raised drawbridge (`DRAWBRIDGE_UP`) named `"water"` instead of
+  the under-typ (`"molten lava"` / `"moat"` / `"ice"`). C
+  `pager.c` `waterbody_name` uses `SURFACE_AT` → `db_under_typ`.
+  `pickup.js` `surface_at` returned `DRAWBRIDGE_UP` as-is.
+- **C locus:** `dbridge.c` `db_under_typ` (~116–128); `rm.h`
+  `SURFACE_AT`; `pager.c` `waterbody_name` (~561–611);
+  `pickup.c` `describe_decor` `SURFACE_AT`.
+- **Fix:** shared `hack.js` `db_under_typ` (ICE / LAVAPOOL / MOAT;
+  `DB_MOAT=0`; `DB_FLOOR` → STONE) + `SURFACE_AT`. `waterbody_name`
+  reads `SURFACE_AT`. `pickup.js` `describe_decor` uses the shared
+  helper. Did not pull `classify_terrain` / `update_lastseentyp` /
+  `accessible` / display DRAWBRIDGE_UP glyphs / getpos typ-gate /
+  describe_decor waterhere rename / `is_ice` shared / hideunder
+  macros. Rule #2: no fs.
+- **JS:** `js/hack.js`, `js/pickup.js`.
+- **Not this iter:** hideunder / trap `is_pool_or_lava` typ macros;
+  `is_ice` DRAWBRIDGE_UP+`DB_ICE` local clones; display.c
+  DRAWBRIDGE_UP → S_pool/S_lava/S_ice; `classify_terrain`;
+  live-mon `onscary`.
+- **Verify:** private canary **46**/46 (under-typ switch ± DIR;
+  SURFACE_AT UP/DOWN/POOL/missing; waterbody lava/moat/ice/floor;
+  medusa/juiblex/samurai/waterlevel; hallu frozen/deep);
+  green+strict seed8000/0900; cohort **14**/14
+  (1500/1800/0060/0102/0700/0017/0106/0107/4500/0014/0360/2200/
+  0009/0367) + strict 0014/4500/0360/2200/0367/0009.
+  Path public-unhit (no public raised-bridge look).
+- **Files:** `js/hack.js`, `js/pickup.js`.
+
 ## D-1102 — goodpos_onscary Elbereth / SCR_SCARE_MONSTER / altar-vampire
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dbridge.c` `db_under_typ` / `hack.c` `waterbody_name` SURFACE_AT (named from D-1077 review 38). Not `goodpos`.
 - [ ] `fountain.c` `dryup` `angry_guards` after real dryup (named). Not wizard yn.
 - [ ] `fountain.c` `watchman_warn_fountain` Deaf shake/wave (named). Not dryup yn.
 - [ ] `fountain.c` `dryup` cansee cloud-glyph skip of dryup pline (named). Not angry_guards.

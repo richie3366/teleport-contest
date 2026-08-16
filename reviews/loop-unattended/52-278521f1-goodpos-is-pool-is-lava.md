@@ -157,7 +157,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 2. `passes_walls` + `may_passwall` early-out (live Open).
 3. `GP_AVOID_MONPOS` `is_exclusion_zone` (live Open).
 4. `goodpos_onscary` Elbereth / SCR_SCARE_MONSTER / altar-vampire; `onscary` when `m_id != 0` (live Open).
-5. hideunder / trap.js `is_pool_or_lava` still `IS_POOL` macros; `waterbody_name` `SURFACE_AT`; `db_under_typ`.
+5. hideunder / trap.js `is_pool_or_lava` still `IS_POOL` macros (named). `waterbody_name` `SURFACE_AT` / `db_under_typ` **Addressed:** D-1103
 
 Do not restore `IS_POOL`/`IS_LAVA` in `goodpos`. Do not restore the `!mtmp` pool/lava else. Do not treat `IS_POOL(DRAWBRIDGE_UP)` as `is_pool(x,y)`. Do not pull youmonst arms into `dogmove` pal/target.
 

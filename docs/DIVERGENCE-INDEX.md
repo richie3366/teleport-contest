@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1103 | fixed | `db_under_typ` / `waterbody_name` SURFACE_AT | map-driven; C `dbridge.c:116–128` + `rm.h` SURFACE_AT + `pager.c` waterbody_name; pickup `describe_decor`; hideunder macros / display glyphs still named |
 | D-1102 | fixed | `goodpos_onscary` Elbereth / scare / altar-vamp | map-driven; C `teleport.c:49–76` + `engrave.c` `sengr_at` strict; altar `S_VAMPIRE` not vampshifter; scare before Inhell; HEADSTONE/future time skip; live-mon `onscary` still named |
 | D-1101 | fixed | `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)` | map-driven; C `teleport.c:180–182` / `mkmaze.c` `is_exclusion_zone`; after boulder; TELE/UPTELE/DOWNTELE do not reject mongen; wallwalk/pool/lava skip; live-mon `onscary` still named |
 | D-1100 | fixed | `goodpos` `passes_walls` + `may_passwall` early-out | map-driven; C `teleport.c:163–164` / `hack.c` `may_passwall`; form `M1_WALLWALK` not youprop Passes_walls; STWALL+W_NONPASSWALL blocks; `is_exclusion_zone` later D-1101 |

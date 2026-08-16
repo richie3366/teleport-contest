@@ -137,7 +137,7 @@ None that Must-fix this next iter. The shared `is_pool`/`is_moat` mask tests and
 Named omits / do-nots (map / Open, not Must-fix):
 
 1. `teleport.c` `goodpos` `IS_POOL`/`IS_LAVA` macros **Addressed:** D-1091 `278521f1`.
-2. `dbridge.c` `db_under_typ` / `hack.c` `waterbody_name` `SURFACE_AT` (live Open).
+2. `dbridge.c` `db_under_typ` / `hack.c` `waterbody_name` `SURFACE_AT` **Addressed:** D-1103
 3. trap.js / eat.js / apply.js / makemon hideunder `is_pool_or_lava` typ macros (`IS_POOL` includes every `DRAWBRIDGE_UP`).
 4. `is_ice` DRAWBRIDGE_UP+`DB_ICE` still local in `zap.js` (C `dbridge.c:86–97`).
 

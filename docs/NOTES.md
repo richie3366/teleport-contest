@@ -10,20 +10,19 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1400**;
   next @**#1405**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+- Mode: **map-driven** under fortress. Must-fix empty. Open 10
   after archive (no refill). Reviews **58** ACCEPT (D-1097),
   **59** ACCEPT-WITH-DEBT (D-1098 `'?'` list_genocided stub
   named), **60–61** ACCEPT (D-1099/D-1100); no new Must-fix.
 - Density: one semantic cluster (~50–300 LOC). Review + full
   `sessions` together every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1102**. Prior **50–53** ACCEPT.
-- **Next cluster:** Open `dbridge.c` `db_under_typ` / `hack.c`
-  `waterbody_name` SURFACE_AT (named from D-1077 review 38).
-  Not `goodpos`.
-- **Hypothesis:** none live. D-1102 shipped: fakemon
-  `goodpos_onscary` altar/`SCR_SCARE_MONSTER`/strict Elbereth.
-  Live-mon `onscary` when `m_id != 0` still named.
+- Latest ports: **D-1089**…**D-1103**. Prior **50–53** ACCEPT.
+- **Next cluster:** Open `fountain.c` `dryup` `angry_guards`
+  after real dryup (named). Not wizard yn.
+- **Hypothesis:** none live. D-1103 shipped: `db_under_typ` +
+  `waterbody_name`/`describe_decor` `SURFACE_AT`. Hideunder
+  macros / display DRAWBRIDGE_UP glyphs still named.
 
 ## Don't re-check (≤15)
 
@@ -60,7 +59,9 @@ Objective/score live in `CURRENT.md`.
   youprop Passes_walls there (D-1100) / skip `goodpos`
   `is_exclusion_zone(LR_MONGEN)` or run it before wallwalk/pool
   (D-1101) / restore `goodpos_onscary` human/angel-only stub or
-  pull live-mon `onscary` into it (D-1102).
+  pull live-mon `onscary` into it (D-1102) / restore
+  `waterbody_name` raw DRAWBRIDGE_UP typ or skip `db_under_typ`
+  (D-1103).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -69,9 +70,12 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1400**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1405**.
+- **D-1103:** `db_under_typ` + `waterbody_name`/`describe_decor`
+  `SURFACE_AT`. Hash filled next commit. Hideunder macros /
+  display DRAWBRIDGE_UP glyphs still named.
 - **D-1102:** `goodpos_onscary` altar S_VAMPIRE / scare /
-  strict Elbereth. Hash filled next commit. Live-mon `onscary`
-  still named.
+  strict Elbereth. Hash `ebe1f041`. Live-mon `onscary` still
+  named.
 - **D-1101:** `goodpos` `GP_AVOID_MONPOS` `is_exclusion_zone(LR_MONGEN)`
   after boulder. Hash `a7302142`.
 - **D-1100:** `goodpos` `passes_walls` + `may_passwall` early-out.
@@ -91,5 +95,3 @@ Objective/score live in `CURRENT.md`.
   `ptr.msound == MS_NEMESIS`. Hash `46775b20`.
 - **D-1093:** `dogmove` pal/target `ptr.msound` numeric
   MS_LEADER=36 / MS_GUARDIAN=38. Hash `e0b68f1d`.
-- **D-1092:** `makemon` S_ORC `Race_if(PM_ELF)` hostile;
-  `is_unicorn` co-align always peaceful. Hash `c3f28bfd`.
