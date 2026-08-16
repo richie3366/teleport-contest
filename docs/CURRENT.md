@@ -72,7 +72,7 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** Open `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym.
+**Next cluster:** Open `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself.
 
 **Density:** one C family.
 
@@ -80,7 +80,7 @@ public traces.
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1122** (getdir/hurtle; pole
+**D-0948**…**D-1123** (getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 HConfusion-only; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
@@ -120,7 +120,7 @@ after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
 no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
 restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
 skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
-dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122)).
+dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123)).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

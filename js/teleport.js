@@ -39,10 +39,11 @@ import {
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
-    shieldeff,
+    shieldeff, docrt,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
-import { nomul, in_rooms, is_pool, is_lava } from './hack.js';
+import { nomul, in_rooms, is_pool, is_lava, check_special_room } from './hack.js';
+import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
 import { getlin, yn_function } from './getline.js';
@@ -638,12 +639,14 @@ export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
 
 /**
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
- * RLOC_NOMSG path: remove from old cell + newsym(old), place, newsym(new).
- * Named omissions: worm tail; u.ustuck swallow docrt branch; shopkeeper home
- * teleport; maybe_unhide_at polish.
+ * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
+ * place_worm_tail_randomly; ustuck swallow u_on_newpos/check_special_room/
+ * docrt else !m_next2u unstuck; newsym(new) (D-1123).
+ * Named omissions: shopkeeper home teleport; maybe_unhide_at;
+ * update_monster_region; set_apparxy; shop bill on leave.
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886).
  */
-export function rloc_to(mtmp, x, y) {
+export async function rloc_to(mtmp, x, y) {
     if (!mtmp) return;
     const oldx = mtmp.mx | 0;
     const oldy = mtmp.my | 0;
@@ -651,11 +654,17 @@ export function rloc_to(mtmp, x, y) {
     if (x === oldx && y === oldy && m_at(x, y) === mtmp) return;
 
     if (oldx) {
-        // C: remove_monster(oldx,oldy); newsym(oldx,oldy);
-        // Clear coords so m_at(old) does not see this mon during newsym.
+        /* JS m_at scans fmon by mx/my; zero coords before newsym so the
+         * head is not still “on” the old cell (C occupancy is the grid). */
         mtmp.mx = 0;
         mtmp.my = 0;
-        newsym(oldx, oldy);
+        if (mtmp.wormno) {
+            // C: remove_worm — all segs off grid + newsym each
+            remove_worm(mtmp);
+        } else {
+            // C: remove_monster(oldx,oldy); newsym(oldx,oldy);
+            newsym(oldx, oldy);
+        }
     }
     // C ref: teleport.c rloc_to — mon_track_clear before place
     if (mtmp.mtrack) {
@@ -667,7 +676,33 @@ export function rloc_to(mtmp, x, y) {
     mtmp.my = y;
     mtmp.mux = game.u?.ux ?? x;
     mtmp.muy = game.u?.uy ?? y;
-    // C: newsym(x, y) after place_monster
+    if (mtmp.wormno) {
+        // C: place_worm_tail_randomly after place_monster
+        place_worm_tail_randomly(mtmp, x, y);
+    }
+
+    const u = game.u || {};
+    if (u.ustuck === mtmp) {
+        if (u.uswallow) {
+            /* C dungeon.c u_on_newpos: ux/uy, clear hide, steed.
+             * see_nearby_objects skipped while swallowed. earth_sense named. */
+            u.ux = mtmp.mx | 0;
+            u.uy = mtmp.my | 0;
+            u.uundetected = 0;
+            if (u.usteed) {
+                u.usteed.mx = u.ux;
+                u.usteed.my = u.uy;
+            }
+            await check_special_room(false);
+            await docrt();
+        } else if (distu_xy(mtmp.mx, mtmp.my) > 2) {
+            // C: else if (!m_next2u(mtmp)) unstuck(mtmp)
+            const { unstuck } = await import('./mhitu.js');
+            await unstuck(mtmp);
+        }
+    }
+
+    // C: newsym(x, y) after maybe_unhide_at (unhide named omit)
     newsym(x, y);
 }
 
@@ -915,7 +950,7 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
  */
 export async function rloc_to_flag(mtmp, x, y, rlocflags) {
     const state = await rloc_pre_move_msg(mtmp, x, y, rlocflags);
-    rloc_to(mtmp, x, y);
+    await rloc_to(mtmp, x, y);
     await rloc_post_move_msg(mtmp, x, y, state);
 }
 
@@ -1074,11 +1109,11 @@ export async function rloc(mtmp, rlocflags = 0) {
 /**
  * C ref: teleport.c mvault_tele — place mon into VAULT via somexyspace.
  */
-function mvault_tele(mtmp) {
+async function mvault_tele(mtmp) {
     const croom = search_special(VAULT);
     const c = { x: 0, y: 0 };
     if (croom && somexyspace(croom, c) && goodpos(c.x, c.y, mtmp, 0)) {
-        rloc_to(mtmp, c.x, c.y);
+        await rloc_to(mtmp, c.x, c.y);
         return;
     }
     rloc(mtmp, 0);
@@ -1096,12 +1131,12 @@ export async function mtele_trap(mtmp, trap) {
     if (!(await teleport_pet(mtmp, false))) return false;
 
     if (trap.once) {
-        mvault_tele(mtmp);
+        await mvault_tele(mtmp);
     } else if (isok(trap.teledest?.x, trap.teledest?.y)) {
         const dx = trap.teledest.x | 0;
         const dy = trap.teledest.y | 0;
         if (!(m_at(dx, dy) || u_at(dx, dy))) {
-            rloc_to(mtmp, dx, dy);
+            await rloc_to(mtmp, dx, dy);
         }
     } else {
         rloc(mtmp, 0);
@@ -1422,7 +1457,7 @@ export async function u_teleport_mon(mtmp, give_feedback) {
         const cc = { x: 0, y: 0 };
         const u = game.u || {};
         if (enexto(cc, u.ux | 0, u.uy | 0, mtmp.data)) {
-            rloc_to(mtmp, cc.x, cc.y);
+            await rloc_to(mtmp, cc.x, cc.y);
             return true;
         }
     }

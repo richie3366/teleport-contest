@@ -4262,7 +4262,7 @@ async function use_grapple(obj) {
             check_caitiff(mtmp);
             await pline(`You pull in ${mon_nam(mtmp)}!`);
             mtmp.mundetected = 0;
-            rloc_to(mtmp, pullcc.x, pullcc.y);
+            await rloc_to(mtmp, pullcc.x, pullcc.y);
             return ECMD_TIME;
         } else if ((!bigmonst(mtmp.data) && !strongmonst(mtmp.data))
             || rn2(4)) {

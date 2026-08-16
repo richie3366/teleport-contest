@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1123 — rloc_to worm / ustuck-swallow docrt
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `rloc_to` always zeroed mx/my + `newsym(old)` then
+  placed the head. C `rloc_to_core` uses `remove_worm` for tailed
+  worms (all segs off the grid) then `place_worm_tail_randomly`
+  after place, and if `u.ustuck == mtmp` either swallow-follows
+  (`u_on_newpos` / `check_special_room` / `docrt`) or `!m_next2u`
+  `unstuck`.
+- **C locus:** `teleport.c` `rloc_to_core` (~1675–1697);
+  `worm.c` `remove_worm` (~714–726);
+  `dungeon.c` `u_on_newpos` (~1568–1601);
+  `hack.c` `check_special_room`; `display.c` `docrt` swallow arm;
+  `mon.c` `unstuck`.
+- **Fix:** `js/worm.js` `remove_worm`. `rloc_to` is async: worm
+  pickup vs ordinary newsym(old); `place_worm_tail_randomly`;
+  swallow `u_on_newpos` subset (ux/uy, clear hide, steed;
+  `see_nearby_objects` skipped) then `check_special_room(false)`
+  + `docrt`; else `distu>2` dynamic-import `unstuck` (teleport↔
+  mhitu cycle). Did not pull shk-home, `maybe_unhide_at`,
+  `set_apparxy`, `update_monster_region`, or shop bill. Rule #2:
+  no fs.
+- **JS:** `js/teleport.js` `rloc_to`; `js/worm.js` `remove_worm`;
+  await at `rloc_to_flag` / `mtele_trap` / `u_teleport_mon` /
+  shapeshift / grapple / hurtle.
+- **Not this iter:** shk `make_angry_shk`; `maybe_unhide_at`;
+  `set_apparxy`; `update_monster_region`; minvent shop bill;
+  `teleds` swallow docrt; `earth_sense`.
+- **Verify:** private canary **27**/27 (null/same-cell; ordinary
+  track; `remove_worm` grid vs chain; tailed rloc vacate+re-place;
+  dummy no extra rn2; swallow hero/steed/`docrt` paint; adjacent
+  grab stays; far grab `unstuck`); green+strict seed8000/0900;
+  cohort **24**/24 including 0012 vault + 0360/4500/0373/0367 +
+  2200/0014/0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/
+  0383/0007/0361/0108/0002/5002/2600 + strict 0012/0360/4500/
+  0014/2200/0004/0009/0367/0373/0030/0002/0116. Path public-unhit
+  on live worm rloc / swallow-teleport.
+- **Files:** `js/teleport.js`, `js/worm.js`, `js/mon.js`,
+  `js/apply.js`, `js/dothrow.js`.
+
 ## D-1122 — rloc Wizard stair / control_mon_tele
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

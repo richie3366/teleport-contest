@@ -532,7 +532,7 @@ function mon_regen(mon, digest_meal) {
  * Named omissions: mon_has_special Vlad stay in pickvampshape; NC_SHOW_MSG
  * display polish; canseemon worm_known.
  */
-function decide_to_shapeshift(mon) {
+async function decide_to_shapeshift(mon) {
     let ptr = null;
     let mndx;
     const was_female = mon.female ? 1 : 0;
@@ -568,7 +568,7 @@ function decide_to_shapeshift(mon) {
                 && closed_door(mon.mx, mon.my)) {
                 const new_xy = { x: 0, y: 0 };
                 if (enexto(new_xy, mon.mx, mon.my, ptr)) {
-                    rloc_to(mon, new_xy.x, new_xy.y);
+                    await rloc_to(mon, new_xy.x, new_xy.y);
                 }
             }
         } else {
@@ -603,7 +603,7 @@ async function m_calcdistress(mtmp) {
         if (await minliquid(mtmp)) return;
     }
     mon_regen(mtmp, false);
-    if (ismnum(mtmp.cham)) decide_to_shapeshift(mtmp);
+    if (ismnum(mtmp.cham)) await decide_to_shapeshift(mtmp);
     were_change(mtmp);
     if (mtmp.mblinded && !(--mtmp.mblinded)) mtmp.mcansee = 1;
     if (mtmp.mfrozen && !(--mtmp.mfrozen)) mtmp.mcanmove = 1;

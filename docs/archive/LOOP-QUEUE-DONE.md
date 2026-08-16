@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-16
 
-- [x] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG. **Addressed:** D-1122
+- [x] `teleport.c` `rloc_to` worm / ustuck-swallow `docrt` (named). Not newsym. **Addressed:** D-1123
+
+
+- [x] `teleport.c` `rloc` Wizard stair / `mon_telecontrol` (named). Not RLOC_MSG. **Addressed:** D-1122 `5a2f96ca`
 
 
 - [x] `teleport.c` `teleds` `fill_pit` (named). Not Punished ball. **Addressed:** D-1121 `803a7f5c`
