@@ -71,11 +71,11 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots (held-out hardening) — never memorize
 public traces.
 
-**Next cluster:** first Open item — `dosit` ustuck `!sticks` lap
-(`Monnam` / `mhis`). Not swallow combat. Must-fix empty. Queue keep
-8–12 (10 unchecked; no refill). Review **29** ACCEPT
-(`990b06a8` D-1068). Review every 3; cadence @**#1360**. Agents
-**commit and push**.
+**Next cluster:** Must-fix — `can_reach_floor` Levitation must be
+C `youprop.h` `(H||E)&&!B`, not sticky `u.Levitation` (review **30**
+QUALITY-RISK `872d1d93` D-1069). Do not pull hugs / ustuck lap.
+Queue keep 8–12 (1 Must-fix + 10 Open). Review every 3; cadence
+@**#1360**. Agents **commit and push**.
 
 **Iteration density:** one **semantic cluster** per iteration (one C
 function or tight family; related deferrals OK). Target ~50–300

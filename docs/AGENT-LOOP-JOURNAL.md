@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-16 09:50 — #1356 review D-1069 against pinned C
+
+**Objective:** review every JS-touching commit since
+`reviews/loop-unattended/` (`872d1d93` D-1069) against pinned C, not
+the journal. `8314cc94` is docs-only cadence #1355.
+**C locus:** `sit.c` `dosit` 414–421; `engrave.c` `can_reach_floor`;
+`youprop.h` `Levitation`; `do_wear.js` `confer_oc_oprop` LEVITATION.
+**Change:** review **30** QUALITY-RISK (sit.c three-message envelope
++ swallow match; helper Levitation is sticky `u.Levitation`, not
+`(H||E)&&!B`). Must-fix prepended. No `js/` edits. Rule #2: no fs.
+Rotated #1341 to archive.
+**Score:** fortress unchanged (cadence **#1355** **44**/44; next
+@**#1360**).
+**Verified:** C read of `sit.c:398–429`, `engrave.c:187–214`,
+`youprop.h:235–240`; grep `u.Levitation=` empty in `js/`; hunk
+grepped FORCE/fs/seed.
+**Next:** Must-fix `can_reach_floor` Levitation `(H||E)&&!B`.
+**Blocked:** none.
+
 ## 2026-08-16 09:47 — #1355 cadence score refresh
 
 **Objective:** mandatory cadence full `sessions` (@#1355 % 5 == 0);
@@ -290,28 +309,6 @@ Did not rewire knife/ring/other `tut1_object`. Rule #2: no fs.
 PASS; seed0009 **73**/73; cohort **9**/9
 (0009/0030/0060/0102/0360/0373/1500/1800/2200).
 **Next:** Open tut-1 `place_lregion` only.
-**Blocked:** none.
-
-## 2026-08-16 04:55 — #1341 review D-1062 against pinned C
-
-**Objective:** review every JS-touching commit since
-`reviews/loop-unattended/` (`3ca1b544` D-1062) against pinned C, not
-the journal. Cadence `51b969b5` is docs-only.
-**C locus:** `sp_lev.c` `create_object` / `lspo_object` /
-`get_location_coord` / `spo_pop_container`; `shk.c` `delete_contents`;
-`mkobj.c` `mkbox_cnts` / `obj_extract_self`; `dat/tut-1.lua` box+wand.
-**Change:** review 23 ACCEPT (packed origin add; DRY random double-try;
-`container_obj` push/pop; `stackobj` before contents; broken/trapped
-after `mkbox_cnts`). `delete_contents` is an extract clone, not
-`obfree` — named, same class as D-1061 `deltrap`. No new Must-fix.
-Addressed hash `3ca1b544` already on the archive row. No `js/` edits.
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1340** **44**/44; next
-@**#1345**).
-**Verified:** C read of `sp_lev.c:1202–1353`/`2193–2439`/`3040–3046`/
-`3557–3754`, `shk.c:1175–1183`, `mkobj.c:304–370`/`2557–2592`,
-`tut-1.lua:232–235`; JS hunks grepped FORCE/fs/seed.
-**Next:** Open tut-1 food objects only.
 **Blocked:** none.
 
 
