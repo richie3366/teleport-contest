@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1098 — seffects SCR_GENOCIDE / do_class_genocide
+
+- **Status:** fixed (map-driven Open; named from sit D-1034; not a public FAIL)
+- **Symptom:** `doread`/`seffects` omitted `SCR_GENOCIDE`. Blessed class
+  wipe (`do_class_genocide`) and uncursed/cursed `do_genocide((!cursed)|
+  (2*!!Confusion))` never ran. C `Confusion` is `HConfusion` only.
+- **C locus:** `read.c` `seffect_genocide` (~1722–1738) / `seffects`
+  `SCR_GENOCIDE`; `do_class_genocide` (~2638–2820); `mondata.c`
+  `name_to_monclass` (~1090–1176).
+- **Fix:** wire `seffects` + `doread` allowlist; blessed → class getlin
+  (`name_to_monclass` letter/explain/truematch then `name_to_mon`);
+  `G_GENOD|G_NOCORPSE` + `kill_genocided_monsters`; own role/race
+  `uhp=-1` / Unchanging poly `done(GENOCIDED)`. Uncursed uses existing
+  `do_genocide`. Rule #2: no fs.
+- **Deferred:** livelog; Hallucination type names; vampshifted
+  `POLY_REVERT`; chameleon `newcham`; `update_inventory`;
+  `create_particular` still does not call `name_to_monclass`.
+- **Verify:** private canary 21/21 `name_to_monclass` + 8/8 seffects
+  (blessed `a` wipes S_ANT including bees; uncursed sticky
+  `u.Confusion` still type-getlin not PLAYER; blessed `none`
+  declines). green+strict PASS; cohort 10/10 (seed5006/0002/0106/
+  0105/1500/1800/0009/0361/0107/2200). Public traces **unhit**.
+- **Files:** `js/read.js`, `js/mondata.js`.
+
 ## D-1097 — kill_eggs after genocide
 
 - **Status:** fixed (map-driven Open; named from sit D-1034; not a public FAIL)

@@ -20,7 +20,7 @@ Deliverable: the C switch **and** a `do_genocide(how)` getlin port (caller case 
 | 3 `take_gold` without `remove_worn_item` | **Addressed:** D-1049 `9e24f61a` |
 | 4 `dosit` trap skip | **Addressed:** D-1039 `45784d80` (same gap as D-1033) |
 | 1–2 `do_genocide` / partial callees | named omit / unhit — not Must-fix |
-| `kill_eggs` after genocide | **Addressed:** D-1097 |
+| `kill_eggs` after genocide | **Addressed:** D-1097 `d1e7ae23` |
 
 ## Inventory
 | File | Role |
