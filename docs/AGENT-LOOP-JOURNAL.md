@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 23:55 — #1507 D-1186 cmd.c g/G PREFIXCMD rush
+
+**Objective:** Must-fix human canary seed8243 `cmd.c` `g` rush
+prefix vs JS Unknown command. Not maybe_smudge. Not offx.
+**C locus:** `cmd.c` `do_rush`/`do_run` 1588–1617 / `set_move_cmd`
+1387–1399 / rhack PREFIXCMD + `DOMOVE_RUSH` 3762–3801.
+**Change:** `rhack` `g`→run=2 / `G`→run=3 + `DOMOVE_RUSH`,
+`move=0` like `F`/`m` (no inner `parse` getch). Following walk
+keeps run and sets first-step multi/mv. Double-prefix cancel;
+non-walk after pending prefix pline. Did not pull nested F+g/G.
+Filled D-1185 archive hash `4750946a`. Rotated #1492. Open 10 +
+Must-fix portal yn = 11 (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1505** **44**/44; next
+@**#1510**).
+**Verified:** canary Scr **106→107**/129 (`g` Unknown gone; @22
+empty); remaining @107 ParanoidTrap portal yn; green+strict
+seed8000/0900; cohort **8**/8
+(1500/1800/0700/0361/0014/2200/0009/0012) + strict
+1500/0700/0009/0361.
+**Next:** Must-fix seed8243 `hack.c` `avoid_trap_andor_region`
+ParanoidTrap portal yn. Not maybe_smudge_engr.
+**Blocked:** none.
+
 ## 2026-08-17 23:35 — #1506 D-1185 doddoremarm A empty-worn
 
 **Objective:** Must-fix human canary seed8243. Queued as chargen
@@ -375,31 +398,5 @@ cohort **43**/43 (CURRENT shared + 0014/0383/4500/2600 + green)
 0373/0002/0700/0015/0116/0106. Path public-unhit on polyed Fog.
 **Next:** Open `dothrow.c` `mhurtle_step` `m_in_out_region` (named).
 Not hurtle_step.
-**Blocked:** none.
-
-## 2026-08-17 19:57 — #1492 D-1174 mdisplacem update_monster_region
-
-**Objective:** Open — `mhitm.c` `mdisplacem` `update_monster_region`
-(named). Not rloc_to.
-**C locus:** `mhitm.c` `mdisplacem` 178–267 / region 256–257;
-callee `region.c` 598–611; caller `monmove.c` `m_move` 2025–2037.
-**Change:** port `mdisplacem` (sanity, `rn2(7)`, grid-bug, unhide,
-wake, petrify, swap); after both `place_monster` and defender
-worm tail, `update_monster_region` each. Wire ALLOW_MDISP return
-bits. Keep `should_displace` false. Did not pull dogmove caller
-or dbridge. Filled D-1173 archive hash `e07eeae7`. Rotated #1477.
-Open 10 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1490** **44**/44; next
-@**#1495**).
-**Verified:** private canary **46**/46 (C/JS tail-before-region;
-sanity no rng; 1-in-7 miss; swap enter/leave/stay; attach_2_m;
-unhide/wake/meating/seemimic; grid-bug diagonal vs cardinal;
-petrify died/gloves/golem-poly/`resists_ston`; thenable; m_move
-caller bits; no fs/FORCE); green+strict seed8000/0900; cohort
-**43**/43 (CURRENT shared + 0014/0383/4500/2600 + green) + strict
-0101/0012/0360/4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/
-0015/0116/0106. Path public-unhit while `should_displace` is false.
-**Next:** Open `allmain.c` `m_everyturn_effect` youmonst (named).
-Not m_postmove_effect.
 **Blocked:** none.
 

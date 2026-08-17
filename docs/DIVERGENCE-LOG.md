@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1186 — `cmd.c` `g`/`G` PREFIXCMD `do_rush`/`do_run`
+
+- **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
+- **Symptom:** After empty-worn `A` (D-1185), first miss @22 `g`.
+  C `do_rush` PREFIXCMD (run=2, `DOMOVE_RUSH`, ECMD_OK) then a walk
+  key rushes until something interesting. JS `rhack` fell through to
+  `Unknown command 'g'.`
+- **C locus:** `cmd.c` `do_rush`/`do_run` `:1588–1617`; `set_move_cmd`
+  `:1387–1399` (already-set `domove_attempting` keeps `context.run`);
+  `rhack` PREFIXCMD loop `:3762–3801` (`DOMOVE_RUSH` firsttime
+  `multi=max(COLNO,ROWNO)` + `mv`); extcmdlist `'g'`/`'G'` PREFIXCMD
+  `:1837–1840`. Walk cmds have `CMD_gGF_PREFIX`; capital/Ctrl-dir
+  rush/run do not.
+- **JS was:** `g`/`G` unbound. Ctrl-dir already `run=3`; capital
+  HJKLYUBN already `run=1`.
+- **Fix:** `js/cmd.js` `rhack` — `g`→run=2 / `G`→run=3 +
+  `DOMOVE_RUSH`, `move=0` (same PREFIXCMD return as `F`/`m`, no extra
+  inner `parse` getch). Following walk with RUSH and no WALK bit
+  keeps run and sets first-step multi/mv. Double g/G Norep cancel.
+  Non-walk after pending prefix → C pline. Did not pull nested F+g/G
+  or rhack `goto got_prefix_input`.
+- **Not this iter:** `hack.c` `avoid_trap_andor_region` ParanoidTrap
+  portal yn (next canary miss @107); `maybe_smudge_engr` `rnd(5)`.
+  Rule #2: no fs.
+- **Verified:** private canary Scr **106→107**/129 (Unknown `'g'`
+  gone; @22 empty matches C); remaining first miss @107 portal yn;
+  green+strict seed8000/0900; cohort **8**/8
+  (1500/1800/0700/0361/0014/2200/0009/0012) + strict
+  1500/0700/0009/0361. Path public-unhit unless a session types `g`/`G`.
+- **Files:** `js/cmd.js`.
+
 ## D-1185 — `doddoremarm` `A` empty-worn You are not wearing anything
 
 - **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)

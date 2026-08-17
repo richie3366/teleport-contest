@@ -26,7 +26,7 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] Human canary seed8243: `cmd.c` `g` rush prefix (until something interesting) vs JS Unknown command. Not maybe_smudge_engr. Not offx.
+- [ ] Human canary seed8243: `hack.c` `avoid_trap_andor_region` ParanoidTrap `"Really step into that magic portal?"` yn. Not maybe_smudge_engr. Not kill_genocided.
 
 ## Open (map-driven, after Must-fix is empty)
 

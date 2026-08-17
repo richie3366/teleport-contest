@@ -1157,8 +1157,9 @@ export async function rhack(key) {
     // Silent clear used to let F+# fall through into doextcmd, desyncing
     // later getobj letters as movement (D-0927 seed4500 @87803).
     // Named omissions: nested g/G PREFIXCMD after F; full CMD_gGF table.
+    // C: g/G are PREFIXCMD so they do not trip the F-prefix error.
     if (game.context?.forcefight
-        && ch !== 'F' && ch !== 'm'
+        && ch !== 'F' && ch !== 'm' && ch !== 'g' && ch !== 'G'
         && !isMovementKey(ch) && !isRunKey(ch) && !rushDir) {
         const upDown = (ch === '<' || ch === '>');
         await pline(
@@ -1176,6 +1177,33 @@ export async function rhack(key) {
         if (game.iflags) game.iflags.menu_requested = false;
         return;
     }
+    // C rhack: g/G PREFIXCMD then a non-walk, non-PREFIXCMD key (capital
+    // run / Ctrl-rush lack CMD_gGF_PREFIX) → same pline, reset_cmd_vars.
+    const pendingRushPrefix = !!(
+        ((game.domove_attempting || 0) & DOMOVE_RUSH)
+        && !game.context?.mv
+        && (game.context?.run === 2 || game.context?.run === 3)
+    );
+    if (pendingRushPrefix
+        && ch !== 'g' && ch !== 'G' && ch !== 'F' && ch !== 'm'
+        && !isMovementKey(ch)) {
+        const which = game.context.run === 3 ? 'G' : 'g';
+        const upDown = (ch === '<' || ch === '>');
+        await pline(
+            `The '${which}' prefix should be followed by a movement command${
+                upDown ? ' other than up or down' : ''}.`,
+        );
+        game.context.forcefight = 0;
+        game.domove_attempting = 0;
+        game.context.move = 0;
+        game.context.mv = 0;
+        game.context.run = 0;
+        game.multi = 0;
+        game.context.travel = 0;
+        game.context.travel1 = 0;
+        if (game.iflags) game.iflags.menu_requested = false;
+        return;
+    }
     // C rhack: keep menu_requested for CMD_M_PREFIX commands (O→doset_simple
     // reads it to call doset). Drop only when the next command rejects 'm'.
     // Named omission: full accept_menu_prefix table — O/,/e/q/a/s/p/>/< enough
@@ -1183,18 +1211,28 @@ export async function rhack(key) {
     const accepts_m_prefix = ch === 'O' || ch === ',' || ch === 'e'
         || ch === 'q' || ch === 'a' || ch === 's' || ch === 'p'
         || ch === '>' || ch === '<';
-    if (ch !== 'm' && !accepts_m_prefix && !isMovementKey(ch) && !isRunKey(ch)
+    if (ch !== 'm' && ch !== 'g' && ch !== 'G' && ch !== 'F'
+        && !accepts_m_prefix && !isMovementKey(ch) && !isRunKey(ch)
         && !rushDir && game.iflags?.menu_requested) {
         game.iflags.menu_requested = false;
     }
 
     if (isMovementKey(ch)) {
         // C ref: cmd.c set_move_cmd(dir, 0) — clear stale travel; DOMOVE_WALK
+        // unless a g/G PREFIXCMD already set DOMOVE_RUSH (keeps context.run).
         if (!game.context) game.context = {};
         game.context.travel = 0;
         game.context.travel1 = 0;
-        if (!game.domove_attempting) {
+        const attempting = game.domove_attempting || 0;
+        if (!attempting) {
             game.domove_attempting = DOMOVE_WALK;
+        } else if ((attempting & DOMOVE_WALK) === 0
+                   && (attempting & DOMOVE_RUSH) !== 0
+                   && !game.context.mv) {
+            // C rhack DOMOVE_RUSH after do_rush/do_run: firsttime multi + mv
+            if (!game.multi) game.multi = Math.max(COLNO, ROWNO);
+            if (game.u) game.u.last_str_turn = 0;
+            game.context.mv = 1;
         }
         await domove(DIR_DX[ch], DIR_DY[ch]);
         // C: forcefight cleared after DOMOVE_WALK domove
@@ -1253,6 +1291,25 @@ export async function rhack(key) {
             await pline("Double m prefix, canceled.");
         } else {
             game.iflags.menu_requested = true;
+            game.context.move = 0;
+        }
+    } else if (ch === 'g' || ch === 'G') {
+        // C ref: cmd.c do_rush ('g') / do_run ('G') — PREFIXCMD, ECMD_OK.
+        // run=2 rush-until-interesting; run=3 run-until-interesting.
+        // Following walk key keeps run (set_move_cmd sees attempting).
+        if (!game.context) game.context = {};
+        if ((game.domove_attempting || 0) & DOMOVE_RUSH) {
+            game.context.run = 0;
+            game.domove_attempting = 0;
+            game.context.mv = 0;
+            game.multi = 0;
+            game.context.move = 0;
+            await pline(ch === 'G'
+                ? 'Double run prefix, canceled.'
+                : 'Double rush prefix, canceled.');
+        } else {
+            game.context.run = ch === 'G' ? 3 : 2;
+            game.domove_attempting = (game.domove_attempting || 0) | DOMOVE_RUSH;
             game.context.move = 0;
         }
     } else if (ch >= '0' && ch <= '9') {

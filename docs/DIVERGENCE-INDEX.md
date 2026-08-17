@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1186 | fixed | `cmd.c` `g`/`G` PREFIXCMD rush/run | human canary seed8243; C `cmd.c` `do_rush`/`do_run` 1588–1617 + rhack PREFIXCMD/`DOMOVE_RUSH`; `g` run=2 `G` run=3 `DOMOVE_RUSH` ECMD_OK; following walk keeps run (`set_move_cmd` sees attempting) + firsttime multi/mv; capital/Ctrl after prefix lack CMD_gGF; nested F+g/G / rhack inner parse still named |
 | D-1185 | fixed | `doddoremarm` `A` empty-worn | human canary seed8243; C `do_wear.c:3022–3034`; no weapons/accessories/`wearing_armor` → You are not wearing anything ECMD_OK; chargen `\e[72C` was truncated capture (local C H2344 `\e[40C` already matched JS; do not revert D-0078); `ggetobj`/`menu_remarm`/`take_off` when worn still named |
 | D-1184 | fixed | `scrolltele` `!Blinded` `make_blinded(0,FALSE)` | map-driven; C `teleport.c:861–863` after noteleport return before amulet/W-tower; `Blinded` ≡ `HBlinded && !BBlinded` (not Blindfold); skip when Blinded so timeout/FROMFORM is not cured; Eyes leftover TIMEOUT cleared; W-tower Override yn still named |
 | D-1183 | fixed | `rloc_to_core` ustuck-together You() | map-driven; C `teleport.c:1710–1711` first post-msg arm; `mtmp==ustuck && !u_at(ux0,uy0)` → `You("and %s teleport together.")` else-if telemsg; swallow dest≠origin; grab far already unstuck; wand `makeknown` / `set_msg_xy` still named |
