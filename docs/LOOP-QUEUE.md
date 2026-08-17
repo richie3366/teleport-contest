@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `classify_terrain` (named from switch_terrain). Not invocation.
 - [ ] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg.
 - [ ] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds.
 - [ ] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds.

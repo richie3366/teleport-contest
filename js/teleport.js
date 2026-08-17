@@ -1192,7 +1192,7 @@ export async function teleok(x, y, trapok) {
  * notice_all_mons(TRUE) after invocation (D-1142).
  * Named omissions: fill_pit still uses thin
  * extract+deltrap+delobj (C flooreffects("settle") named);
- * classify_terrain; shop-enter plines beyond spoteffects subset;
+ * shop-enter plines beyond spoteffects subset;
  * hostile gd_move rloc/gd_letknow/wallify_vault (uleftvault calls
  * gd_move after mpeaceful=0; JS gd_move still early-returns hostile);
  * walk invocation_message is D-1150; mkmaze.c inv_pos;

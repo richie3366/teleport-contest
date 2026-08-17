@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1151 — switch_terrain classify_terrain
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `switch_terrain` never called `classify_terrain`.
+  C does when `flags.terrainstatus`, so `iflags.terrain_typ` stayed
+  stale (ice/pool/floor/door remaps never ran) and botl never
+  requested a terrain-status refresh.
+- **C locus:** `hack.c` `classify_terrain` (~3131–3214);
+  `switch_terrain` (~3257–3258); `rm.h` xFLOOR…xWATERWALL;
+  `optlist.h` `&flags.terrainstatus`.
+- **Fix:** port `classify_terrain` in `hack.js`. Read
+  `lastseentyp[ux][uy]`; Underwater ≡ `u.uinwater` → xSUBMERGED;
+  arboreal STONE→TREE; ROOM/CORR → xFLOOR else earth xGROUND;
+  DOOR D_ISOPEN / D_CLOSED|LOCKED|TRAPPED; DRAWBRIDGE_UP
+  `db_under_typ` then STONE/ROOM→xGROUND; Medusa moat xSEA /
+  Juiblex xSWAMP; WATER off waterlevel → xWATERWALL. Update
+  `iflags.terrain_typ`; `disp.botl` iff `flags.terrainstatus &&
+  !context.run`. `switch_terrain` calls it when the option is On.
+  Option bag writes `flags.terrainstatus` (C, not iflags). Did
+  not paint `botl.c` `terrain_descr[]`, options toggle,
+  `end_running` MAX_TYPE, `u_on_newpos` MAX_TYPE, or other
+  `switch_terrain` callers. Rule #2: no fs.
+- **JS:** `js/hack.js` `classify_terrain` / `switch_terrain`;
+  `js/const.js` xFLOOR…xWATERWALL; `js/options.js` bag.
+- **Not this iter:** botl `terrain_descr[]` paint; `options.c`
+  `opt_terrainstatus` classify; `end_running` / dungeon.c
+  MAX_TYPE; `spoteffects` / `set_uinwater` / `dissolve_bars` /
+  `digactualhole` / dothrow / `goto_level` callers; `rloc_to`
+  `maybe_unhide_at`.
+- **Verify:** private canary **32**/32 (ice/pool; ROOM/CORR floor;
+  earth ground; arboreal tree; door open/shut/trapped; drawbridge
+  ice/lava/moat/floor; Medusa sea / Juiblex swamp; WATER wall vs
+  waterlevel; uinwater; sticky Underwater ignore; same-typ no
+  botl; run suppresses botl; option Off skip from switch_terrain;
+  On classifies); green+strict seed8000/0900; cohort **23**/23
+  including 0007 options + 0012 vault + 0004 pony + 0360/4500/
+  2200/0030/0002/0006 + strict 0007/0012/0360/4500/2200/0004/
+  0002/0006/0030. Path public-unhit (`terrainstatus` default Off).
+- **Files:** `js/hack.js`, `js/const.js`, `js/options.js`,
+  `js/teleport.js`.
+
 ## D-1150 — domove walk invocation_message
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
