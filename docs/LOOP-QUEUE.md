@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair.
 - [ ] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
 - [ ] `mhitm.c` `mdisplacem` `update_monster_region` (named). Not rloc_to.
 - [ ] `allmain.c` `m_everyturn_effect` youmonst (named). Not m_postmove_effect.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do.c` `goto_level` `obj_delivery` (named). Not in_out_region.
 - [ ] `do.c` `goto_level` `fix_shop_damage` (named). Not obj_delivery.
 - [ ] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage.
+- [ ] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR.
+- [ ] `teleport.c` `rloc` `RLOC_ERR` impossible() (named). Not vanish-msg.
+- [ ] `teleport.c` `rloc_pos_ok` mx==0 updest/dndest (named). Not room lock.
+- [ ] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg.
+- [ ] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet.
 
 ## Parked (do not pop)
 

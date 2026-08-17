@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1172 — `rloc` steed `tele()` then TRUE
+
+- **Status:** fixed (map-driven Open; named omit from D-1122 / D-1171;
+  not a public FAIL)
+- **Symptom:** JS `rloc(usteed)` returned false without calling `tele()`.
+  C, when the relocating monster is the hero's steed, calls `tele()`
+  (hero `scrolltele` / `safe_teleds`) and returns TRUE even if
+  `tele()` does not move (noteleport). Callers that branch on `rloc`
+  success (`minliquid` lava/pool, `u_teleport_mon`, …) took the
+  failure path and never moved the rider with the mount.
+- **C locus:** `teleport.c` `rloc` (~1808–1811) before the Wizard
+  stair `iswiz && mx` arm (D-1122): `if (mtmp == u.usteed) { tele();
+  return TRUE; }`. Callee `tele` → `scrolltele(NULL)`. `teleds`
+  already copies `usteed` mx/my after `u_on_newpos`. Distinct from
+  `teleport_pet` steed FALSE.
+- **Fix:** `await tele(); return true` on pointer identity with
+  `u.usteed`. Did not pull Wizard stair, `mnexto` `control_mon_tele`,
+  vanish-msg, or `RLOC_ERR` `impossible()`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc`.
+- **Not this iter:** `mnexto` `control_mon_tele`; telemsg "vanishes
+  and reappears"; ustuck-together; `RLOC_ERR`; `scrolltele`
+  make_blinded / W-tower amulet / steed whobuf.
+- **Verify:** private canary **33**/33 (C `{ tele(); return TRUE }`
+  before iswiz; teleport_pet FALSE is a different locus; JS await
+  tele then true; no `return false` for steed; Wizard stair kept
+  for non-steed; noteleport steed TRUE + no 50× rnd + hero/steed
+  stay + mysterious-force; ordinary rloc still rnd and does not
+  move hero/steed; iswiz steed does not take stairs; teleport_pet
+  still FALSE; thenable; no fs/FORCE); green+strict seed8000/0900;
+  cohort **41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
+  0101/0012/0360/4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/
+  0015/0116/0106. Path public-unhit on riding `rloc(usteed)`.
+- **Files:** `js/teleport.js`.
+
 ## D-1171 — `rloc_pos_ok` isshk/ispriest dest room lock
 
 - **Status:** fixed (map-driven Open; named omit from D-0686 / D-1170;

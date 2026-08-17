@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_pos_ok` isshk/ispriest room lock (named). Not make_angry_shk. **Addressed:** D-1171
+- [x] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair. **Addressed:** D-1172
+
+
+- [x] `teleport.c` `rloc_pos_ok` isshk/ispriest room lock (named). Not make_angry_shk. **Addressed:** D-1171 `822498d3`
 
 
 - [x] `teleport.c` `rloc_to` occupation `dochugw` (named). Not mintrap. **Addressed:** D-1170 `5a6be1fe`

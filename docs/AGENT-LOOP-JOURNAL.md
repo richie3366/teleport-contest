@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 19:10 — #1489 D-1172 rloc steed tele()
+
+**Objective:** Open — `teleport.c` `rloc` steed `tele()` (named). Not
+Wizard stair.
+**C locus:** `teleport.c` `rloc` 1808–1811 before iswiz stair.
+**Change:** `rloc(usteed)` `await tele(); return true` even if tele
+does not move (noteleport). Not Wizard stair (D-1122). Did not pull
+`mnexto` `control_mon_tele`, vanish-msg, or `RLOC_ERR`. Filled
+D-1171 archive hash `822498d3`. Rotated #1474. Open 7 after archive
+→ refill Open to 12 from teleport named omits. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1485** **44**/44; next
+@**#1490**).
+**Verified:** private canary **33**/33 (C tele()+TRUE before iswiz;
+teleport_pet FALSE other locus; JS await tele then true; no
+`return false` for steed; Wizard stair kept; noteleport TRUE + no
+50× rnd + stay + mysterious-force; ordinary still rnd; iswiz steed
+not stairs; teleport_pet still FALSE; thenable; no fs/FORCE);
+green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/
+0103/0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
+riding `rloc(usteed)`.
+**Next:** Open `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
+**Blocked:** none.
+
 ## 2026-08-17 18:57 — #1488 D-1171 rloc_pos_ok shk/priest room lock
 
 **Objective:** Open — `teleport.c` `rloc_pos_ok` isshk/ispriest room
@@ -396,29 +420,4 @@ Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `teleport.c` `rloc_to` `update_monster_region`
 (named). Not set_apparxy.
-**Blocked:** none.
-
-## 2026-08-17 14:25 — #1474 D-1160 rloc_to set_apparxy dest
-
-**Objective:** Open — `teleport.c` `rloc_to` `set_apparxy`
-(named). Not vanish-msg.
-**C locus:** `teleport.c` `rloc_to_core` 1702; `monmove.c`
-`set_apparxy` 2198–2266; `steed.c` `place_monster` 898–932.
-**Change:** drop mux=hero stand-in (`place_monster` writes mx/my
-only). After dest `maybe_unhide_at`/`newsym`, call `set_apparxy`
-(dynamic import; monmove↔teleport cycle). Did not pull
-vanish-msg / `update_monster_region` / shk-home / shop bill /
-trapped `mintrap`. Filled D-1159 archive hash `e42ace32`.
-Rotated #1459. Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1470** **44**/44; next
-@**#1475**).
-**Verified:** private canary **33**/33 (null; same-cell; already-
-know; mux0; pet; ustuck; Invis skip vs `rn2(3)`; Displacement
-skip vs `rn2(4)`; displacer; xorn+gold; oldx0; Underwater);
-green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
-0004/0367/0373/0002. Path public-unhit on Invis/Displaced rloc
-with stale mux.
-**Next:** Open `teleport.c` `rloc_to` `update_monster_region`
-(named). Not set_apparxy. Audit @**#1475**.
 **Blocked:** none.
