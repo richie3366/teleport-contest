@@ -135,3 +135,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [123-38353d8a-rloc-make-angry-shk.md](./123-38353d8a-rloc-make-angry-shk.md) | `38353d8a` | D-1162 `rloc_to` `make_angry_shk` | **ACCEPT** |
 | [124-d24ff150-rloc-stolen-value.md](./124-d24ff150-rloc-stolen-value.md) | `d24ff150` | D-1163 `rloc_to` minvent `stolen_value` | **ACCEPT** |
 | [125-6f7e188b-rloc-mintrap.md](./125-6f7e188b-rloc-mintrap.md) | `6f7e188b` | D-1164 `rloc_to` trapped `mintrap` | **ACCEPT** |
+| [126-6d44ab7f-hurtle-in-out-region.md](./126-6d44ab7f-hurtle-in-out-region.md) | `6d44ab7f` | D-1165 `hurtle_step` `in_out_region` | **ACCEPT** |
+| [127-0cb3acbe-goto-level-in-out-region.md](./127-0cb3acbe-goto-level-in-out-region.md) | `0cb3acbe` | D-1166 `goto_level` `in_out_region` | **ACCEPT** |
+| [128-d6ba6ede-youmonst-m-postmove.md](./128-d6ba6ede-youmonst-m-postmove.md) | `d6ba6ede` | D-1167 youmonst `m_postmove_effect` | **ACCEPT** |
+| [129-0ff54fb4-moveloop-fumaroles.md](./129-0ff54fb4-moveloop-fumaroles.md) | `0ff54fb4` | D-1168 moveloop EOT fumaroles | **ACCEPT** |

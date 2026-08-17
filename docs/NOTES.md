@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1480** 44/44 @**#1485**. Next: `run_regions` `hero_inside` bit.
+- **#1485** 44/44 @**#1490**. Next: `run_regions` `hero_inside` bit.
 
 ## Don't re-check (≤15)
 
@@ -83,4 +83,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1480** **44**/44 @**#1485**. **D-1168**.
+- **#1485** **44**/44 @**#1490**. **D-1168**. Review **126–129** ACCEPT.

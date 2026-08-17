@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `allmain.c` `moveloop` `fumaroles` (named). Not mklev. **Addressed:** D-1168
+- [x] `allmain.c` `moveloop` `fumaroles` (named). Not mklev. **Addressed:** D-1168 `0ff54fb4`
 
 
 - [x] `hack.c` `m_postmove_effect` youmonst (named). Not in_out_region. **Addressed:** D-1167 `d6ba6ede`
