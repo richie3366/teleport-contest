@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do.c` `goto_level` `obj_delivery` (named). Not in_out_region. **Addressed:** D-1177
+- [x] `do.c` `goto_level` `fix_shop_damage` (named). Not obj_delivery. **Addressed:** D-1178
+
+
+- [x] `do.c` `goto_level` `obj_delivery` (named). Not in_out_region. **Addressed:** D-1177 `36e0ce72`
 
 
 - [x] `dothrow.c` `mhurtle_step` `m_in_out_region` (named). Not hurtle_step. **Addressed:** D-1176 `b652fbf3`

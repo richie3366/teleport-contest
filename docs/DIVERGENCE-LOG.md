@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1178 — do.c `goto_level` `fix_shop_damage`
+
+- **Status:** fixed (map-driven Open; named omit from D-1177 / D-1166;
+  not a public FAIL)
+- **Symptom:** JS `goto_level` restored a previously visited level
+  then ran `in_out_region` and `pickup(1)` without C `!new`
+  `fix_shop_damage`. A persisted `damagelist` older than
+  `REPAIR_DELAY` was never catchup-repaired before pickup, so
+  bones/revisit maps could keep shop wall gaps, traps, and
+  doorway wreckage that C would have restored off-level.
+- **C locus:** `do.c` `goto_level` `:1985–1986` `if (!new)
+  fix_shop_damage()` after `in_out_region`, before `do_fall_dmg`
+  / `pickup`. Callee `shk.c` `fix_shop_damage` 4849–4874:
+  empty damagelist return; `next_shkp(fmon, FALSE)`; skip
+  `shk_impaired`; walk list with `nextdamg` saved;
+  `repair_damage(..., TRUE)` then `discard_damage_struct` if
+  truthy. `repair_damage` 4731–4845: delay/occupancy/trap/
+  owner gates; trap convert (landmine/beartrap `mksobj`+
+  `mpickobj`; pit fill; else vanish); catchup skips only
+  post-`block_point` messages; terrain restore + `litter_scatter`
+  (`rn2(9)`, Punished verbalize) still run. Other callers
+  `allmain.c:88` restore and `bones.c:731` unwired.
+- **Fix:** port `shk_impaired` / `repairable_damage` / discard /
+  litter / `repair_damage(catchup)` / `fix_shop_damage`. Wire
+  `goto_level` `if (!madeNew)` after `in_out_region`. Dynamic
+  import at the call site (do↔timeout cycle) and inside the
+  callee (trap.js → shk.js). Boulder/rock in a gap: extract +
+  free, not `delobj`. Did not pull `shk_fixes_damage` in
+  `shk_move`, allmain/bones callers, or `do_fall_dmg`. Rule #2:
+  no fs.
+- **JS:** `js/shk.js` `fix_shop_damage` / `repair_damage`;
+  `js/do.js` `goto_level`.
+- **Not this iter:** `shk_fixes_damage` in `shk_move`; allmain
+  restore / bones `fix_shop_damage`; `do_fall_dmg`;
+  `kill_genocided_monsters`; `run_timers`; `notice_mon_off`.
+- **Verify:** green+strict seed8000/0900; cohort **10**/10
+  (green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
+  screens. Path public-unhit unless a session revisits a damaged
+  shop after 5 turns; extra `rn2(9)` from litter is C-faithful.
+
 ## D-1177 — do.c `goto_level` `obj_delivery`
 
 - **Status:** fixed (map-driven Open; named omit from D-1166 / reviews

@@ -1275,12 +1275,12 @@ function getlev_catchup_monsters(elapsed) {
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
- * fix_shop_damage (obj_delivery is D-1177; in_out_region is D-1166),
  * MICRO display_nhwindow after Valley odor; ACH_ENDG/ASTR/BGRM;
  * poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb
  * `great_effort` + Flying ladder "along" (D-0928 #1159);
  * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
+ * `fix_shop_damage` catchup on !new after in_out_region (D-1178);
  * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
@@ -1772,12 +1772,16 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     await obj_delivery(true);
 
     // C do.c:1980–1981 — after obj_delivery(TRUE), before !new
-    // fix_shop_damage / do_fall_dmg / pickup(1). (void): do not abort
-    // the level change if can_enter/leave would reject (C assumes TRUE
-    // on level change). Restored REG_HERO_INSIDE is leave-time; this
-    // updates enter/leave for the landing cell (D-1166).
-    // fix_shop_damage / do_fall_dmg still named.
+    // fix_shop_damage. (void): do not abort the level change (D-1166).
     await in_out_region(u.ux, u.uy);
+
+    // C do.c:1985–1986 — shop repair catchup on revisited levels (!new)
+    // before do_fall_dmg / pickup so bones map includes it (D-1178).
+    // do_fall_dmg still named.
+    if (!madeNew) {
+        const { fix_shop_damage } = await import('./shk.js');
+        await fix_shop_damage();
+    }
 
     // C: goto_level ends with pickup(1) — autopick or check_here/engr
     await pickup(1);

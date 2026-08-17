@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1496** 44/44 @**#1500**. Next: `fix_shop_damage`.
+- **#1497** 44/44 @**#1500**. Next: `do_fall_dmg`.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1496** **44**/44 @**#1500**. **D-1177**. Review **134–137** ACCEPT.
+- **#1497** **44**/44 @**#1500**. **D-1178**. Review **134–137** ACCEPT.

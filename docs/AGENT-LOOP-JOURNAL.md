@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 21:10 — #1497 D-1178 goto_level fix_shop_damage
+
+**Objective:** Open — `do.c` `goto_level` `fix_shop_damage` (named).
+Not obj_delivery.
+**C locus:** `do.c` `goto_level` 1985–1986 `if (!new)` after
+`in_out_region` before `do_fall_dmg`/`pickup`; callee `shk.c`
+`fix_shop_damage` 4849–4874 / `repair_damage` catchup 4731–4845.
+**Change:** port catchup repair (`shk_impaired`, delay/occupancy/
+trap/owner gates, trap convert, terrain restore, litter
+`rn2(9)`). Wire `!madeNew` after `in_out_region`. Catchup skips
+only post-`block_point` messages. Did not pull `shk_fixes_damage`
+in `shk_move`, allmain/bones callers, or `do_fall_dmg`. Filled
+D-1177 archive hash `36e0ce72`. Rotated #1482. Open 11 after
+archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1495** **44**/44; next
+@**#1500**).
+**Verified:** green+strict seed8000/0900; cohort **10**/10
+(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
+screens. Path public-unhit unless a session revisits a damaged
+shop after 5 turns.
+**Next:** Open `do.c` `goto_level` `do_fall_dmg` (named). Not
+fix_shop_damage.
+**Blocked:** none.
+
 ## 2026-08-17 21:00 — #1496 D-1177 goto_level obj_delivery
 
 **Objective:** Open — `do.c` `goto_level` `obj_delivery` (named).
@@ -392,30 +416,3 @@ Hezrou/Steam walk.
 mklev.
 **Blocked:** none.
 
-## 2026-08-17 16:35 — #1482 D-1166 goto_level in_out_region
-
-**Objective:** Open — `do.c` `goto_level` `in_out_region` (named).
-Not walk.
-**C locus:** `do.c` `goto_level` 1980–1981 after `obj_delivery`
-before `fix_shop_damage`/`pickup`; callee `region.c`
-`in_out_region` 480–527.
-**Change:** await `in_out_region(u.ux,u.uy)` at that site and
-`(void)` the return — do not abort the level change. Gas
-`NO_CALLBACK` never rejects. Restored `REG_HERO_INSIDE` follows
-the landing cell. Did not pull `obj_delivery` /
-`fix_shop_damage` / `do_fall_dmg` or `run_regions` `hero_inside`
-bit. Filled D-1165 archive hash `6d44ab7f`. Rotated #1467. Open 8
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1480** **44**/44; next
-@**#1485**).
-**Verified:** private canary **36**/36 (src void+order; empty;
-enter/leave/stay-in/stay-out; `attach_2_u`; overlap; A→B; gas
-NO_CALLBACK; can_enter/leave reject still completes; enter_f/
-leave_f; same-level early return; rect edge; mixed attach);
-green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
-0004/0367/0373/0002/0700/0015. Path public-unhit on arriving into
-a live restored region.
-**Next:** Open `hack.c` `m_postmove_effect` youmonst (named). Not
-in_out_region.
-**Blocked:** none.
