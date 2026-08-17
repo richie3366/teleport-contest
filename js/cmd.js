@@ -1823,7 +1823,7 @@ async function domove(dx, dy) {
      * drag_ball, before m_at / occupy. Gas NO_CALLBACK never
      * rejects; still updates REG_HERO_INSIDE (D-1157). C returns
      * without move_bc put-down. dothrow hurtle_step is D-1165;
-     * do.c goto_level caller still named. */
+     * do.c goto_level is D-1166. */
     if (!(await in_out_region(newx, newy))) {
         return;
     }

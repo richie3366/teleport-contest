@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `goto_level` `in_out_region` (named). Not walk.
 - [ ] `hack.c` `m_postmove_effect` youmonst (named). Not in_out_region.
 - [ ] `allmain.c` `moveloop` `fumaroles` (named). Not mklev.
 - [ ] `region.c` `run_regions` `hero_inside` bit (named). Not walk caller.

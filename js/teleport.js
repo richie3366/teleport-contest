@@ -1235,9 +1235,9 @@ export async function mtele_trap(mtmp, trap) {
  * pit/hole ok iff Levitation||Flying (D-1111); then goodpos,
  * tele_jump_ok, in_out_region (D-1119). in_out_region awaits
  * pline1(enter_msg/leave_msg) when set (D-1143).
- * Named omit: do.c goto_level in_out_region caller; force-field
- * enter/leave callbacks. hack.c walk is D-1157; dothrow.c
- * hurtle_step is D-1165.
+ * Named omit: force-field enter/leave callbacks. hack.c walk is
+ * D-1157; dothrow.c hurtle_step is D-1165; do.c goto_level is
+ * D-1166.
  */
 export async function teleok(x, y, trapok) {
     if (!trapok) {

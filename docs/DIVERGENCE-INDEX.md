@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1165 | fixed | dothrow `hurtle_step` `in_out_region` | map-driven; C `dothrow.c:787–790` after isok before `*range==0`; callee `region.c` 480–527; gas NO_CALLBACK never rejects; REG_HERO_INSIDE even on later bump; do.c `goto_level` still named |
+| D-1166 | fixed | do.c `goto_level` `in_out_region` | map-driven; C `do.c:1980–1981` after obj_delivery before pickup; `(void)` — do not abort level change; callee `region.c` 480–527; gas NO_CALLBACK never rejects; restored REG_HERO_INSIDE from landing cell; `obj_delivery`/`fix_shop_damage`/`do_fall_dmg` / `run_regions` bit still named |
+| D-1165 | fixed | dothrow `hurtle_step` `in_out_region` | map-driven; C `dothrow.c:787–790` after isok before `*range==0`; callee `region.c` 480–527; gas NO_CALLBACK never rejects; REG_HERO_INSIDE even on later bump; do.c `goto_level` D-1166 |
 | D-1164 | fixed | `rloc_to` trapped `mintrap` | map-driven; C `teleport.c:1766–1767` / `trap.c` mintrap; `mtrapped && !wormno` after dest (after appear when `rloc_to_flag`); dest no trap clears mtrapped; dest trap already-trapped `rn2(40)` not fresh step-on; occupation `dochugw` still named |
 | D-1163 | fixed | `rloc_to` minvent shop bill `stolen_value` | map-driven; C `teleport.c:1748–1758` / `shk.c` find_objowner/onshopbill/stolen_value; dest `!costly_spot` clear no_charge else bill; shop-to-shop sticks; trapped `mintrap` D-1164; occupation `dochugw` still named |
 | D-1162 | fixed | `rloc_to` resident shk `make_angry_shk` | map-driven; C `teleport.c:1739` / `shk.c` 1470–1488; snapshot `inhishop` before pickup; dest `!inhishop` → angry+`hot_pursuit`; `rloc_to_flag` appear then angry; minvent bill D-1163; occupation `dochugw` / trapped `mintrap` still named |

@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 16:35 — #1482 D-1166 goto_level in_out_region
+
+**Objective:** Open — `do.c` `goto_level` `in_out_region` (named).
+Not walk.
+**C locus:** `do.c` `goto_level` 1980–1981 after `obj_delivery`
+before `fix_shop_damage`/`pickup`; callee `region.c`
+`in_out_region` 480–527.
+**Change:** await `in_out_region(u.ux,u.uy)` at that site and
+`(void)` the return — do not abort the level change. Gas
+`NO_CALLBACK` never rejects. Restored `REG_HERO_INSIDE` follows
+the landing cell. Did not pull `obj_delivery` /
+`fix_shop_damage` / `do_fall_dmg` or `run_regions` `hero_inside`
+bit. Filled D-1165 archive hash `6d44ab7f`. Rotated #1467. Open 8
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1480** **44**/44; next
+@**#1485**).
+**Verified:** private canary **36**/36 (src void+order; empty;
+enter/leave/stay-in/stay-out; `attach_2_u`; overlap; A→B; gas
+NO_CALLBACK; can_enter/leave reject still completes; enter_f/
+leave_f; same-level early return; rect edge; mixed attach);
+green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002/0700/0015. Path public-unhit on arriving into
+a live restored region.
+**Next:** Open `hack.c` `m_postmove_effect` youmonst (named). Not
+in_out_region.
+**Blocked:** none.
+
 ## 2026-08-17 16:15 — #1481 D-1165 hurtle_step in_out_region
 
 **Objective:** Open — `dothrow.c` `hurtle_step` `in_out_region`
@@ -371,36 +399,4 @@ seed8000/0900; cohort **14**/14 (0002 drinksink + 0014 fountain
 0004/0006/0012. Path public-unhit on dissipation plines.
 **Next:** Open `mklev.c` `fumaroles` `clear_heros_fault` / Norep
 whoosh (named). Not expire dissipation.
-**Blocked:** none.
-
-## 2026-08-17 12:32 — #1467 D-1154 inv_pos / VIBRATING_SQUARE
-
-**Objective:** Open — `mkmaze.c` `inv_pos` / VIBRATING_SQUARE
-(named from invocation_pos). Not teleds.
-**C locus:** `mkmaze.c` `pick_vibrasquare_location` 1042–1093 /
-`makemaz` 1214–1216; `sp_lev.c` `create_trap` VS 1818–1821;
-`hellfill.lua` 437–441; `mklev.c` `occupied` 1806–1811.
-**Change:** port `pick_vibrasquare_location` (`svi.inv_pos`,
-upstairs row/col/diag/`distmin<=11`, `SPACE_POS`, `occupied`;
-no-upstairs short-circuit). `create_trap(VS)` then `maketrap`.
-hellfill Invocation_lev → VS else down stair. `occupied`
-`invocation_pos`. Did not pull `makemaz("")` create_maze,
-`Can_dig_down` !Invocation_lev, apply.js clone, or shared
-`dungeon.c` export. Filled D-1153 archive hash `b332516f`.
-Rotated #1452. Open 10 after archive (no refill). Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1465** **44**/44; next
-@**#1470**).
-**Verified:** private canary **33**/33 (range; stairs
-row/col/diag/distmin; SPACE_POS; no-stairs 2 `rn2`; occupied +
-`invocation_pos` on/off Invocation_lev; botlevel/not-hellish;
-maketrap VS / undestroyable; fountain/trap/STONE skip; pool;
-stale 99,99; (0,0) vs (1,0); !isok); green+strict seed8000/0900;
-cohort **24**/24 (0360/4500 hellfill + 0012 vault + 0004 pony +
-2200/0030/0002/0006/0007/0009/0014/0017/0060/0102/0106/0108/
-0116/0361/0367/0373/0383/0700/1500/1800) + strict
-0012/0004/0360/4500/2200/0030/0002/0367. Path public-unhit on
-Invocation_lev.
-**Next:** Open `region.c` `expire_gas_cloud` dissipation plines
-(named). Not inside_gas HP.
 **Blocked:** none.

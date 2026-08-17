@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1166 — do.c goto_level `in_out_region`
+
+- **Status:** fixed (map-driven Open; named omit from D-1165/D-1157/D-1119;
+  not a public FAIL)
+- **Symptom:** JS `goto_level` restored/created the dest map then
+  `pickup(1)` with no C `in_out_region(u.ux,u.uy)`, so restored
+  `REG_HERO_INSIDE` stayed at leave-time bits until the next walk /
+  hurtle / teleds. Walk already called the helper (D-1157); hurtle
+  (D-1165); teleok probes (D-1119); teleds uses absolute
+  `update_player_regions` (D-1130), not this enter/leave path.
+- **C locus:** `do.c` `goto_level` (~1980–1981) after `obj_delivery(TRUE)`,
+  before `!new` `fix_shop_damage` / `do_fall_dmg` / `pickup(1)`.
+  Callee `region.c` `in_out_region` (~480–527) already ported.
+  Comment: assume TRUE when changing level — `(void)` the return.
+- **Fix:** await `in_out_region(u.ux, u.uy)` at that site and discard
+  the return (do not abort the level change if can_enter/leave would
+  reject). Gas `NO_CALLBACK` never rejects; still sets/clears the
+  bit. `obj_delivery` / `fix_shop_damage` / `do_fall_dmg` remain
+  named. Did not pull `run_regions` `hero_inside` bit (C uses the
+  bit; JS still geometry) or `mhurtle_step` `m_in_out_region`.
+  Rule #2: no fs.
+- **JS:** `js/do.js` `goto_level`; comments in `region.js` /
+  `teleport.js` / `cmd.js`.
+- **Not this iter:** `obj_delivery`; `fix_shop_damage`; `do_fall_dmg`;
+  `run_regions` / `region_danger` still geometric; force-field
+  callbacks; `mhurtle_step` `m_in_out_region`;
+  `hack.c` `m_postmove_effect` youmonst.
+- **Verify:** private canary **36**/36 (src void+order; empty land;
+  enter/leave/stay-in/stay-out; `attach_2_u` skip; overlap; A→B;
+  gas NO_CALLBACK; can_enter/leave reject still completes; can_enter
+  allow; enter_f/leave_f; same-level early return; rect edge; mixed
+  attach); green+strict seed8000/0900; cohort **41**/41 (CURRENT
+  shared + 0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/
+  0014/0004/0367/0373/0002/0700/0015. Path public-unhit on arriving
+  into a live restored region (gas never rejects).
+- **Files:** `js/do.js`; comments `js/region.js` `js/teleport.js`
+  `js/cmd.js`.
+
 ## D-1165 — dothrow.c hurtle_step `in_out_region`
 
 - **Status:** fixed (map-driven Open; named omit from D-1157/D-1119/D-1143;
