@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit.
 - [ ] `teleport.c` `teleds` `update_player_regions` (named). Not teleok in_out_region.
 - [ ] `teleport.c` `teleds` `hideunder` / mimic (named). Not swallow docrt.
 - [ ] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball.

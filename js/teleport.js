@@ -42,7 +42,7 @@ import {
     shieldeff, docrt,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
-import { nomul, in_rooms, is_pool, is_lava, check_special_room } from './hack.js';
+import { nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain } from './hack.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
@@ -1178,12 +1178,13 @@ export function teleok(x, y, trapok) {
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
  * Envelope: Punished unplacebc/placebc (or drag_ball when in range);
  * place + fill_pit(ux0,uy0) + vision; TELEDS_TELEPORT+verbose
- * materialize; spoteffects(TRUE).
+ * materialize; dest-typ≠origin → switch_terrain (D-1129);
+ * spoteffects(TRUE).
  * Named omissions: swallow docrt, vault_guard uleftvault, regions,
- * switch_terrain, notice_mon_*, hideunder/mimic, buried-ball
- * unearth; fill_pit still uses thin extract+deltrap+delobj (C
- * flooreffects("settle") named); shop-enter plines beyond
- * spoteffects subset.
+ * notice_mon_*, hideunder/mimic, buried-ball unearth;
+ * fill_pit still uses thin extract+deltrap+delobj (C
+ * flooreffects("settle") named); classify_terrain; shop-enter
+ * plines beyond spoteffects subset.
  *
  * Do NOT set u.urooms before spoteffects — C only temporarily fakes
  * urooms for vault_guard exit, then restores so move_update can detect
@@ -1269,6 +1270,16 @@ export async function teleds(nux, nuy, teleds_flags) {
     if (is_teleport && game.flags.verbose !== false) {
         const same = (nux === u.ux0 && nuy === u.uy0);
         await pline(`You materialize in ${same ? 'the same' : 'a different'} location!`);
+    }
+    /* C: if terrain type changes, levitation or flying might become
+       blocked or unblocked; after map+vision (and materialize) so any
+       message paints the new location (hack.c switch_terrain). */
+    {
+        const destTyp = game.level?.at(u.ux | 0, u.uy | 0)?.typ;
+        const origTyp = game.level?.at(u.ux0 | 0, u.uy0 | 0)?.typ;
+        if ((destTyp | 0) !== (origTyp | 0)) {
+            await switch_terrain();
+        }
     }
     // C: vault_guard temporary urooms fake then restore — deferred (no guard)
     // C: spoteffects(TRUE) → move_update detects temple/shop entry

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1129 | fixed | `teleds` `switch_terrain` dest-typ | map-driven; C `teleport.c:551–552` / `hack.c` `switch_terrain` 3178–3217; dest typ≠origin after vision+materialize; obstructed/closed-door/waterwall/lavawall BLev/BFly FROMOUTSIDE skip float_down; unblock float_up/float_vs_flight; classify_terrain / other callers still named |
 | D-1128 | fixed | `potion.c` dodip pool yn | map-driven; C `potion.c:2335–2361` / `fountain.c` `wash_hands`/`floating_above` / `steed.c` `rider_cant_reach` / `trap.c` `water_damage`; `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; Levitation youprop; hands/uarmg wash; else water_damage + POT_ACID in_use/useup; pot_acid_damage boom+delobj / drink_ok_extra / potion_dip still named |
 | D-1127 | fixed | `eat.c` `vomit` cantvomit/Sick/acid poly | map-driven; C `eat.c:3736–3784` / `mondata.c` `cantvomit` 663–673 / `zap.c` `ubreatheu`+`zhitu` ZT_ACID; jaw-gape; SICK_VOMITABLE `make_sick(0)`; FAINTING dry-heave vs spewed; AT_BREA AD_ACID; altar_wrath; acidic melt_ice; acid_damage/erode bodies + timeout vomiting_dialog still named |
 

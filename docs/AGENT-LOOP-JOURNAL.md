@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 03:20 — #1436 D-1129 teleds switch_terrain dest-typ
+
+**Objective:** Open queue — `teleport.c` `teleds` `switch_terrain`
+(named). Not fill_pit.
+**C locus:** `teleport.c` `teleds` 548–552; `hack.c`
+`switch_terrain` 3178–3217; `youprop.h` Levitation/Flying.
+**Change:** port `switch_terrain` in `hack.js`. `teleds` awaits
+it after vision+materialize when dest typ ≠ origin. Block:
+You_cant then `B* |= FROMOUTSIDE` (no `float_down`). Unblock:
+clear FROMOUTSIDE, `float_up` / `float_vs_flight` + start
+flying. youprop H||E||steed-flyer && !B. Did not pull
+`classify_terrain` or other callers. Filled no prior hash
+gap. Rotated #1421. Open 9 after archive (no refill). Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1435** **44**/44; next
+@**#1440**).
+**Verified:** private canary **46**/46; green+strict seed8000/0900;
+cohort **24**/24 (0012 vault + 0004 scroll + 0360/0367/0373/
+4500/2200/1500/1800/0030/0009/0002/0116/0060/0102/0700/0017/
+0007/0361/0108/0383/5002) + strict 0012/0360/4500/0004/2200/
+0367/0373/0030/0009/0002. Path public-unhit on wall-teleport.
+**Next:** Open `teleport.c` `teleds` `update_player_regions`.
+Not teleok in_out_region.
+**Blocked:** none.
+
 ## 2026-08-17 03:05 — #1435 review D-1125–D-1128 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -379,29 +404,4 @@ cohort **21**/21 (0014 fountain + 0002 drinksink + 0108
 0383. Path public-unhit.
 **Next:** Open `teleport.c` `teleok` `tele_jump_ok` /
 `in_out_region`. Not vibrating.
-**Blocked:** none.
-
-## 2026-08-17 00:05 — #1421 D-1117 gush minliquid when m_at
-
-**Objective:** Open queue — `fountain.c` `gush` `minliquid` body
-(named). Not dogushforth.
-**C locus:** `fountain.c` `gush` 157–160; `mon.c` `minliquid` /
-`minliquid_core` 947–1121 (iron 993–1008, drown 1068–1109).
-**Change:** occupied gush cells `await minliquid` else `newsym`.
-Iron golem `!rn2(5)` `d(2,6)` + `mondied`. Drown pline;
-`mon_moving` → `mondied` else `xkilled(XKILL_NOMSG)`; survivor
-`water_damage_chain` + `rloc(RLOC_NOMSG)`. `sad_feeling` wrapper.
-`await rloc(RLOC_MSG)` teleport-away. Did not pull `set_levltyp`,
-steed Fly/Lev, lava `xkilled`/`fire_damage_chain`, overcrowding,
-`engulfing_u`. Stamped review **77** item 4. Rotated #1406. Open
-11 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1420** **44**/44; next
-@**#1425**).
-**Verified:** private canary **19**/19; green+strict seed8000/0900;
-cohort **19**/19 (0014 fountain + 0360 minliquid lava +
-1500/1800/0060/0102/0700/0017/4500/2200/0004/0030/0009/0367/
-0116/0373/0383/0007/0361) + strict 0014/0360/4500/2200/0004/
-0030/0009/0367/0116/0373/0060/0383. Path public-unhit.
-**Next:** Open `fountain.c` `drinksink` case 10 `polyself`. Not
-dipsink.
 **Blocked:** none.

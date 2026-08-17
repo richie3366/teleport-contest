@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1129 — teleds switch_terrain when dest typ ≠ origin
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` never called `switch_terrain` after
+  landing. C does when `levl[u.ux][u.uy].typ != levl[u.ux0][u.uy0].typ`
+  after vision+materialize, so levitation/flight FROMOUTSIDE
+  block (rock, closed door, waterwall, lavawall) never toggled.
+- **C locus:** `teleport.c` `teleds` (~548–552);
+  `hack.c` `switch_terrain` (~3178–3217); `youprop.h`
+  Levitation/Flying/BLevitation/BFlying.
+- **Fix:** port `switch_terrain` in `hack.js`. `teleds` awaits it
+  after materialize, before `spoteffects`. Block: You_cant then
+  `B* \|= FROMOUTSIDE` (no `float_down`). Unblock: clear
+  FROMOUTSIDE, `float_up` if Levitation\|\|remaining B, then
+  flying arm `float_vs_flight` + "start flying". youprop H\|\|E
+  (Flying: steed `is_flyer`) && !B; sticky `u.Levitation` ignored.
+  Did not pull `classify_terrain` or other callers. Rule #2: no fs.
+- **JS:** `js/hack.js` `switch_terrain`; `js/teleport.js` `teleds`.
+- **Not this iter:** `classify_terrain`; `spoteffects`/
+  `set_uinwater`/`dissolve_bars`/`digactualhole`/`dothrow`/
+  `goto_level` callers; `update_player_regions`; hideunder;
+  swallow `docrt`; vault_guard.
+- **Verify:** private canary **46**/46 (obstructed/door/waterwall/
+  lavawall/pool/corr; confer uprops; sticky ignore; steed flyer;
+  teleds same-typ skip / ROOM→STONE / STONE→ROOM / materialize
+  order / fill_pit ux0); green+strict seed8000/0900; cohort
+  **24**/24 including 0012 vault + 0004 scroll + 0360/0367/0373/
+  4500/2200 + strict 0012/0360/4500/0004/2200/0367/0373/0030/
+  0009/0002. Path public-unhit on wall-teleport Lev/Fly.
+- **Files:** `js/hack.js`, `js/teleport.js`.
+
 ## D-1128 — potion.c dodip pool yn
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -10,12 +10,12 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1435**;
   next @**#1440**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 10
+- Mode: **map-driven** under fortress. Must-fix empty. Open 9
   (no refill). Reviews **86–89** ACCEPT (D-1125–D-1128).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1128**. Reviews **86–89** ACCEPT.
-- **Next cluster:** Open `teleport.c` `teleds` `switch_terrain`.
+- Latest ports: **D-1089**…**D-1129**. Reviews **86–89** ACCEPT.
+- **Next cluster:** Open `teleport.c` `teleds` `update_player_regions`.
 - **Hypothesis:** none live. Cadence #1435 fortress held.
 
 ## Don't re-check (≤15)
@@ -88,7 +88,7 @@ Objective/score live in `CURRENT.md`.
   `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
   void spewed (D-1127) / skip `dodip` pool yn or restore `IS_POOL`
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
-  or `water_damage` (D-1128).
+  or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain` (D-1129).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.

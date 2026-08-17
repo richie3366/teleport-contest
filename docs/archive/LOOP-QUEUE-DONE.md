@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit. **Addressed:** D-1129
+
+
 - [x] `potion.c` pool dip yn (named from dipsink). Not drinkfountain. **Addressed:** D-1128 `5b3923d7`
 
 
