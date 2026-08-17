@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 14:25 — #1474 D-1160 rloc_to set_apparxy dest
+
+**Objective:** Open — `teleport.c` `rloc_to` `set_apparxy`
+(named). Not vanish-msg.
+**C locus:** `teleport.c` `rloc_to_core` 1702; `monmove.c`
+`set_apparxy` 2198–2266; `steed.c` `place_monster` 898–932.
+**Change:** drop mux=hero stand-in (`place_monster` writes mx/my
+only). After dest `maybe_unhide_at`/`newsym`, call `set_apparxy`
+(dynamic import; monmove↔teleport cycle). Did not pull
+vanish-msg / `update_monster_region` / shk-home / shop bill /
+trapped `mintrap`. Filled D-1159 archive hash `e42ace32`.
+Rotated #1459. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1470** **44**/44; next
+@**#1475**).
+**Verified:** private canary **33**/33 (null; same-cell; already-
+know; mux0; pet; ustuck; Invis skip vs `rn2(3)`; Displacement
+skip vs `rn2(4)`; displacer; xorn+gold; oldx0; Underwater);
+green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002. Path public-unhit on Invis/Displaced rloc
+with stale mux.
+**Next:** Open `teleport.c` `rloc_to` `update_monster_region`
+(named). Not set_apparxy. Audit @**#1475**.
+**Blocked:** none.
+
 ## 2026-08-17 14:11 — #1473 D-1159 mfndpos m_poisongas_ok vamp/eel/breath
 
 **Objective:** Open — `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath
@@ -387,30 +412,4 @@ full `sessions` `__RESULTS_JSON__`.
 **Next:** Must-fix `mon.c` `mongone` `mdrop_special_objs` then
 discard (elemental_clog victim). Not worn extract. Not
 `invocation_message`.
-**Blocked:** none.
-
-## 2026-08-17 08:31 — #1459 D-1148 deal_with_overcrowding limbo
-
-**Objective:** Open queue — `fountain.c` `gush`
-`deal_with_overcrowding` (named). Not lava xkilled.
-**C locus:** `mon.c` `deal_with_overcrowding` 3986–3995;
-`m_into_limbo` 3833–3840; `migrate_mon` 3843–3861;
-`elemental_clog`/`ok_to_obliterate` 3864–3949; callers
-`minliquid_core` 1061–1062 / 1104–1105 and `mnexto` 3966–3968.
-**Change:** port dispatcher + limbo/clog arms; wire minliquid
-failed survivor `rloc` and `mnexto` failed-enexto. Thin
-`mdrop_special_objs` (invocation/`obj_resists(0,0)`). Did not
-pull steed Fly/Lev, `engulfing_u`, or full `mdrop_obj` worn.
-Filled D-1147 archive hash `5c43dbc9`. Rotated #1444. Open 10
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1455** **44**/44; next
-@**#1460**).
-**Verified:** private canary **46**/46; green+strict seed8000/0900;
-cohort **24**/24 (0014 gush + 0360 lava + 4500/2200/0030/0004/
-0002/0012/0006/0007/0009/0106/0108/0116/0367/0373/0383/0398/
-1500/1800/0060/0102/0700/0017) + strict 8000/0900/0014/0360/
-4500/2200/0004/0030/0002/0006/0106/0108 (seed0012 isolated
-PASS). Path public-unhit on gush `m_at` overcrowding.
-**Next:** Open `hack.c` `domove` `invocation_message` (named).
-Not teleds. Audit @**#1460**.
 **Blocked:** none.

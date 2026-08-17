@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1160 — rloc_to set_apparxy after dest newsym
+
+- **Status:** fixed (map-driven Open; named omit from D-1152;
+  not a public FAIL)
+- **Symptom:** JS `rloc_to` wrote `mux`/`muy` = hero at place
+  (stand-in) and never called `set_apparxy`. C `place_monster`
+  sets mx/my + occupancy only; `rloc_to_core` orients after dest
+  `newsym`, so Invis/`!mcansee` `rn2(3)` and Displacement `rn2(4)`
+  can re-run when mux is stale or zero.
+- **C locus:** `teleport.c` `rloc_to_core` (~1702); callee
+  `monmove.c` `set_apparxy` (~2198–2266); `steed.c`
+  `place_monster` (~898–932).
+- **Fix:** drop the mux=hero write. After `maybe_unhide_at` +
+  dest `newsym`, dynamic-import `set_apparxy` (same monmove
+  cycle as D-1152). Pets / ustuck / `u_at(mux,muy)` still
+  early-exit with no RNG. Did not pull vanish-msg,
+  `update_monster_region`, shk-home, shop bill, occupation
+  `dochugw`, or trapped `mintrap`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to`; `js/monmove.js`
+  `set_apparxy` (comment).
+- **Not this iter:** vanish-msg; `update_monster_region`;
+  `make_angry_shk`; minvent `stolen_value`; occupation
+  `dochugw`; trapped `mintrap`; makemon byyou `set_apparxy`.
+- **Verify:** private canary **33**/33 (null; same-cell skip;
+  already-know; mux0 displ0; pet; ustuck; Invis skip vs
+  `rn2(3)`; `!mcansee`; Displacement skip vs `rn2(4)`;
+  displacer beast; xorn+gold; oldx0; Underwater; other mon;
+  onto-hero); green+strict seed8000/0900; cohort **41**/41
+  (CURRENT shared + 0014/0383/4500/2600) + strict 0101/0012/
+  0360/4500/2200/0014/0004/0367/0373/0002. Path public-unhit
+  on Invis/Displaced rloc with stale mux.
+- **Files:** `js/teleport.js`, `js/monmove.js`.
+
 ## D-1159 — mon.c `m_poisongas_ok` mfndpos vamp/eel/breath
 
 - **Status:** fixed (map-driven Open; named omit from D-1146/D-1158;

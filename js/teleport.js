@@ -646,9 +646,10 @@ export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
  * place_worm_tail_randomly; ustuck swallow u_on_newpos/check_special_room/
  * docrt else !m_next2u unstuck (D-1123); maybe_unhide_at then newsym(new)
- * (D-1152).
+ * (D-1152); set_apparxy after dest newsym (D-1160; C place_monster
+ * writes mx/my only).
  * Named omissions: shopkeeper home teleport;
- * update_monster_region; set_apparxy; shop bill on leave.
+ * update_monster_region; shop bill on leave.
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886).
  */
 export async function rloc_to(mtmp, x, y) {
@@ -677,10 +678,10 @@ export async function rloc_to(mtmp, x, y) {
             mtmp.mtrack[j] = { x: 0, y: 0 };
         }
     }
+    // C place_monster (steed.c): mx/my + occupancy; mux/muy stay until
+    // set_apparxy after dest newsym (teleport.c:1702, D-1160).
     mtmp.mx = x;
     mtmp.my = y;
-    mtmp.mux = game.u?.ux ?? x;
-    mtmp.muy = game.u?.uy ?? y;
     if (mtmp.wormno) {
         // C: place_worm_tail_randomly after place_monster
         place_worm_tail_randomly(mtmp, x, y);
@@ -707,11 +708,12 @@ export async function rloc_to(mtmp, x, y) {
         }
     }
 
-    // C: maybe_unhide_at(x, y) then newsym(x, y) (teleport.c:1700–1701).
+    // C: maybe_unhide_at; newsym; set_apparxy (teleport.c:1700–1702).
     // Dynamic import: monmove.js already imports rloc from this file.
-    const { maybe_unhide_at } = await import('./monmove.js');
+    const { maybe_unhide_at, set_apparxy } = await import('./monmove.js');
     await maybe_unhide_at(x, y);
     newsym(x, y);
+    set_apparxy(mtmp);
 }
 
 /**

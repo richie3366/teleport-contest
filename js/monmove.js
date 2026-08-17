@@ -640,6 +640,7 @@ function can_fog(mtmp) {
 /**
  * C ref: monmove.c set_apparxy — decide where monster thinks hero stands.
  * Covers Displaced / Invis / Underwater / already-know early exits.
+ * Also rloc_to_core after dest newsym (teleport.c:1702, D-1160).
  */
 export function set_apparxy(mtmp) {
     const u = game.u || {};
