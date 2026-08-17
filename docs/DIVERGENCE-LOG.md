@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1144 — djinni_from_bottle mongrantswish
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS never ran C `djinni_from_bottle`. MAGIC_LAMP `#rub`
+  transformed the lamp (`OIL_LAMP`/`spe=0`/`rn1(500,1000)`/`makeknown`)
+  without releasing a djinni. `mongrantswish` existed for fountains
+  (D-1136) but had no potion/lamp caller.
+- **C locus:** `potion.c` `djinni_from_bottle` (~2815–2868);
+  `mongrantswish` (~2845); `apply.c` `dorub` MAGIC_LAMP (~1816–1831).
+- **Fix:** port makemon `PM_DJINNI` `MM_NOMSG`; Blind cloud vs smell
+  plines; `rn2(5)` then blessed `(4)?rnd(4):0` / cursed
+  `(0)?rn2(4):4`; switch wish `mongrantswish` / `tamedog(NULL,FALSE)` /
+  peaceful `set_malign` / vanish `mongone` / hostile `set_malign`.
+  MAGIC_LAMP: `check_unpaid_usage` then transform then `begin_burn` if
+  lamplit then `djinni_from_bottle` then `makeknown`/`update_inventory`.
+  Did not wire dodrink smoky `POTION_OCCUPANT_CHANCE`. SetVoice named
+  omit. Full `mongone` still D-0472 subset. Rule #2: no fs.
+- **JS:** `js/potion.js` `djinni_from_bottle`; `js/apply.js` `dorub`;
+  existing `fountain.js` `mongrantswish`.
+- **Not this iter:** dodrink milky/smoky occupant RNG;
+  `ghost_from_bottle`; muse.c smoky monster-quaff; SetVoice;
+  full `mongone` (`mdrop_special_objs` / `discard_minvent` / `m_detach`).
+- **Verify:** private canary **33**/33 (source order; BUC remap spec;
+  MAGIC_LAMP transform-before-djinni; dodrink occupant still deferred;
+  empty occupied makemon); green+strict seed8000/0900; cohort **24**/24
+  including 0108 `#rub` magic lamp + 0105 lamp + 0006 demon + 0014
+  fountain + 0002 drinksink + 0007 snakes + 2200/4500/0360/0030 +
+  strict 8000/0900/0108/0006/0014/0002/0105/2200/4500/0360/0030/0004.
+  Path public-unhit on djinni release (0108 rub still matches without
+  extra `rn2(5)`).
+- **Files:** `js/potion.js`, `js/apply.js`, `js/fountain.js` (comment).
+
 ## D-1143 — in_out_region enter_msg / leave_msg
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

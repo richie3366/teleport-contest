@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 07:12 — #1454 D-1144 djinni_from_bottle mongrantswish
+
+**Objective:** Open queue — `potion.c` `djinni_from_bottle`
+`mongrantswish` (named). Not bottle chance RNG.
+**C locus:** `potion.c` `djinni_from_bottle` 2815–2868 / `mongrantswish`
+2845; `apply.c` `dorub` MAGIC_LAMP 1816–1831.
+**Change:** port makemon djinni, Blind cloud/smell, `rn2(5)` BUC remap,
+wish `mongrantswish` / `tamedog` / peace / vanish `mongone` / hostile.
+MAGIC_LAMP: unpaid + OIL_LAMP transform + `begin_burn` if lamplit then
+djinni then `makeknown`/`update_inventory`. Did not wire dodrink smoky
+occupant chance. SetVoice / full `mongone` named. Filled D-1143 archive
+hash `bb8585ec`. Rotated #1439. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1450** **44**/44; next
+@**#1455**).
+**Verified:** private canary **33**/33; green+strict seed8000/0900;
+cohort **24**/24 (0108 `#rub` lamp + 0105 lamp + 0006 demon + 0014
+fountain + 0002 drinksink + 0007 snake + 2200/4500/0360/0030/0004/
+0009/0012/1500/1800/0060/0116/0361/0367/0373/0383/5002/0106/0399)
++ strict 8000/0900/0108/0006/0014/0002/0105/2200/4500/0360/0030/0004.
+Path public-unhit on djinni release.
+**Next:** Open `fountain.c` Excalibur `:441` `update_inventory`.
+Not artidisco save.
+**Blocked:** none.
+
 ## 2026-08-17 06:57 — #1453 D-1143 in_out_region enter_msg / leave_msg
 
 **Objective:** Open queue — `region.c` `in_out_region`
@@ -380,30 +405,6 @@ Open 11 (no refill). Rule #2: no fs.
 @**#1445**.
 **Verified:** C read of the four loci vs JS hunks; grep
 FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `teleport.c` `tele()` / trap teledest. Not
-tele_trap wrenching.
-**Blocked:** none.
-
-## 2026-08-17 04:00 — #1439 D-1132 teleds buried_ball_to_punishment
-
-**Objective:** Open queue — `teleport.c` `teleds`
-`buried_ball_to_punishment` (named). Not Punished ball.
-**C locus:** `teleport.c` `teleds` 456–459; `dig.c`
-`buried_ball_to_punishment` 1934–1955 / `buried_ball`.
-**Change:** port `buried_ball_to_punishment` (extract, `punish`
-reuse, `reset_utrap(FALSE)`, `del_engr_at`/`newsym`). `teleds`
-calls it when `utraptype==TT_BURIEDBALL` before `ball_active`.
-Did not wire trapmove/`unearth_objs`/`digactualhole`/`level_tele`/
-`domagicportal`. Filled D-1131 hash `00956ae8`. Dropped leftover
-#1424 stub (already archived). Open 11 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1435** **44**/44; next
-@**#1440**).
-**Verified:** private canary **49**/49; green+strict seed8000/0900;
-cohort **22**/22 (0012 vault + 0004 + 0007 snake + 0009 swim +
-0360/0367/0373/4500/2200/1500/1800/0030/0002/0116/0060/0102/0700/
-0017/0361/0108/0383/5002) + strict 0012/0360/4500/0004/2200/0367/
-0373/0030/0009/0002. Path public-unhit on buried-ball teleds.
 **Next:** Open `teleport.c` `tele()` / trap teledest. Not
 tele_trap wrenching.
 **Blocked:** none.

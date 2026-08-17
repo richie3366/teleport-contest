@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1144 | fixed | `djinni_from_bottle` `mongrantswish` | map-driven; C `potion.c:2815–2868` makemon + BUC `rn2(5)` remap + wish/`tamedog`/peace/vanish/hostile; MAGIC_LAMP `#rub` transform then call (apply.c:1816–1831); JS `mongrantswish` D-1136; dodrink smoky occupant / SetVoice / full `mongone` still named |
 | D-1143 | fixed | `in_out_region` enter_msg / leave_msg | map-driven; C `region.c:505–506,519–520` `pline1` after clear/set; JS `await pline`; `teleok` async; `create_msg_region` #if 0 so live gas never sets msgs; force-field callbacks / hack.c/dothrow/`do.c` callers / geometric gas still named |
 | D-1142 | fixed | `teleds` `notice_mon_off` / `notice_all_mons` | map-driven; C `teleport.c:540,570–571` / `flag.h` `notice_mon_off`/`on` / `hack.c` `notice_mon`/`notice_all_mons`; off before `vision_recalc`, on+`notice_all_mons(TRUE)` after invocation; distu sort You see/notice; default `spot_monsters` Off; vision_recalc / goto_level / newgame / seffect_magic_mapping / wizcmds / save / postmov / option wiring still named |
 | D-1141 | fixed | `teleds` `invocation_message` | map-driven; C `teleport.c:569` / `hack.c` `invocation_message`/`invocation_pos`; after `spoteffects`; Invocation_lev && (x,y)==inv_pos && !On_stairs; nomul; You_feel vibration; `uvibrated`; candelabrum spe==7&&lamplit throb/glow; walk caller / `mkmaze.c` `inv_pos` still named |

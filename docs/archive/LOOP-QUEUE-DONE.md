@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions. **Addressed:** D-1143
+- [x] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG. **Addressed:** D-1144
+
+
+- [x] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions. **Addressed:** D-1143 `bb8585ec`
 
 
 - [x] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation. **Addressed:** D-1142 `52194cc9`

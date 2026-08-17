@@ -531,7 +531,8 @@ function mhis(mtmp) {
  * so the map still shows the monster during the wish prompt
  * (D-1136). Not a recomputed mon_to_glyph (no extra Hallu rng).
  * Full C mongone (mdrop_special_objs / discard_minvent / m_detach)
- * and djinni_from_bottle caller still named.
+ * still named. djinni_from_bottle calls this (D-1144); dodrink smoky
+ * occupant chance still named.
  */
 export async function mongrantswish(mtmp) {
     if (!mtmp) return;
