@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 21:40 — #1500 review D-1177–D-1180 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `dokick.c` `obj_delivery` 1769–1851 / `do.c` 1815+1978;
+`shk.c` `fix_shop_damage` 4849–4874 / `repair_damage` 4731–4845;
+`do.c` `do_fall_dmg` 1805–1809 + 1988–1994; `teleport.c`
+`rloc_to_core` 1658–1659 + 1712–1719.
+**Change:** reviews **138** ACCEPT D-1177 (XOR FALSE/TRUE +
+`OBJ_MIGRATING` extract; `rloco` internals / wizkit named), **139**
+ACCEPT D-1178 (`!new` catchup; silent post-`block_point`;
+`shk_fixes_damage` named), **140** ACCEPT D-1179 (`d(max(dist,1),6)`
+after catchup; `ballfall` / W-tower bit 2 named), **141** ACCEPT
+D-1180 (reappear suffix + same-cell return; ustuck / `RLOC_ERR`
+named). Must-fix empty. Filled D-1180 archive hash `665bbe09`.
+Rotated #1485. Open 9 (no refill). Rule #2: no fs.
+**Score:** cadence **#1500** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.87). Next
+@**#1505**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `rloc` `RLOC_ERR` impossible() (named).
+Not vanish-msg.
+**Blocked:** none.
+
 ## 2026-08-17 21:26 — #1499 D-1180 rloc_to_core telemsg
 
 **Objective:** Open — `teleport.c` `rloc_to_core` telemsg (named).
@@ -376,31 +401,4 @@ green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
 vs cell.
 **Next:** Open `teleport.c` `rloc_to` occupation `dochugw`
 (named). Not mintrap.
-**Blocked:** none.
-
-## 2026-08-17 17:35 — #1485 review D-1165–D-1168 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `dothrow.c` `hurtle_step` 784–790 / `region.c`
-`in_out_region` 480–527; `do.c` `goto_level` 1974–1996;
-`hack.c` `domove_core` 2873–2884 / `monmove.c` `m_postmove_effect`
-672–683; `allmain.c` `moveloop_core` 370–377 / `mkmaze.c`
-`fumaroles` 1484–1514.
-**Change:** reviews **126** ACCEPT D-1165 (else-if after `isok`
-before `*range==0`; real `in_out_region`; `mhurtle_step` named),
-**127** ACCEPT D-1166 (`(void)` landing-cell await; `obj_delivery`
-/ shop / fall named), **128** ACCEPT D-1167 (occupy then
-youmonst helper at `u.ux0`; everyturn fog named), **129** ACCEPT
-D-1168 (EOT water/air `movebubbles` else `fumaroles`; callee
-D-1156; `intervene`/`amulet()` named). Must-fix empty. Filled
-D-1168 archive hash `0ff54fb4`. Rotated #1470. Open 11 (no
-refill). Rule #2: no fs.
-**Score:** cadence **#1485** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `33+0.27/turn` (R² 0.86). Next
-@**#1490**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `region.c` `run_regions` `hero_inside` bit (named).
-Not walk caller.
 **Blocked:** none.

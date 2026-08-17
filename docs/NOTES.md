@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1499** 44/44 @**#1500**. Next: `rloc` `RLOC_ERR`.
+- **#1500** 44/44 @**#1505**. Next: `rloc` `RLOC_ERR`.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1499** **44**/44 @**#1500**. **D-1180**. Review **134–137** ACCEPT.
+- **#1500** **44**/44 @**#1505**. **D-1180**. Review **138–141** ACCEPT.

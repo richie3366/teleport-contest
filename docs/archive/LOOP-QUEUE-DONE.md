@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR. **Addressed:** D-1180
+- [x] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR. **Addressed:** D-1180 `665bbe09`
 
 
 - [x] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage. **Addressed:** D-1179 `5f08f9e5`

@@ -147,3 +147,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [135-e5ec6685-mdisplacem-update-monster-region.md](./135-e5ec6685-mdisplacem-update-monster-region.md) | `e5ec6685` | D-1174 `mdisplacem` `update_monster_region` | **ACCEPT** |
 | [136-7188da5b-youmonst-m-everyturn-effect.md](./136-7188da5b-youmonst-m-everyturn-effect.md) | `7188da5b` | D-1175 youmonst `m_everyturn_effect` | **ACCEPT** |
 | [137-b652fbf3-mhurtle-step-m-in-out-region.md](./137-b652fbf3-mhurtle-step-m-in-out-region.md) | `b652fbf3` | D-1176 `mhurtle_step` `m_in_out_region` | **ACCEPT** |
+| [138-36e0ce72-goto-level-obj-delivery.md](./138-36e0ce72-goto-level-obj-delivery.md) | `36e0ce72` | D-1177 `goto_level` `obj_delivery` | **ACCEPT** |
+| [139-4a700d08-goto-level-fix-shop-damage.md](./139-4a700d08-goto-level-fix-shop-damage.md) | `4a700d08` | D-1178 `goto_level` `fix_shop_damage` | **ACCEPT** |
+| [140-5f08f9e5-goto-level-do-fall-dmg.md](./140-5f08f9e5-goto-level-do-fall-dmg.md) | `5f08f9e5` | D-1179 `goto_level` `do_fall_dmg` | **ACCEPT** |
+| [141-665bbe09-rloc-to-core-telemsg.md](./141-665bbe09-rloc-to-core-telemsg.md) | `665bbe09` | D-1180 `rloc_to_core` telemsg | **ACCEPT** |

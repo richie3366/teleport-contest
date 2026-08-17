@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1495** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `32+0.27/turn` (R² 0.87). Next audit (review + score) @**#1500**.
+**#1500** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `32+0.27/turn` (R² 0.87). Next audit (review + score) @**#1505**.
 
 ## Score
 
