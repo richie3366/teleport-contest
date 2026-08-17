@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to` `set_apparxy` (named). Not vanish-msg. **Addressed:** D-1160
+- [x] `teleport.c` `rloc_to` `set_apparxy` (named). Not vanish-msg. **Addressed:** D-1160 `8efa62e9`
 
 
 - [x] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f. **Addressed:** D-1159 `e42ace32`

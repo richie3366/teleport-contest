@@ -127,3 +127,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [115-10904562-pick-vibrasquare.md](./115-10904562-pick-vibrasquare.md) | `10904562` | D-1154 `pick_vibrasquare_location` / hellfill VS | **ACCEPT** |
 | [116-df99ab32-expire-gas-cloud.md](./116-df99ab32-expire-gas-cloud.md) | `df99ab32` | D-1155 `expire_gas_cloud` dissipation plines | **ACCEPT** |
 | [117-16e8d88b-fumaroles-whoosh.md](./117-16e8d88b-fumaroles-whoosh.md) | `16e8d88b` | D-1156 fumaroles `clear_heros_fault` / Norep whoosh | **ACCEPT** |
+| [118-ed28eef1-walk-in-out-region.md](./118-ed28eef1-walk-in-out-region.md) | `ed28eef1` | D-1157 walk `in_out_region` | **ACCEPT** |
+| [119-7cc347fc-create-gas-cloud-selection.md](./119-7cc347fc-create-gas-cloud-selection.md) | `7cc347fc` | D-1158 `create_gas_cloud_selection` / Cloud room | **ACCEPT** |
+| [120-e42ace32-mfndpos-m-poisongas-ok.md](./120-e42ace32-mfndpos-m-poisongas-ok.md) | `e42ace32` | D-1159 mfndpos `m_poisongas_ok` vamp/eel/breath | **ACCEPT** |
+| [121-8efa62e9-rloc-set-apparxy.md](./121-8efa62e9-rloc-set-apparxy.md) | `8efa62e9` | D-1160 `rloc_to` `set_apparxy` dest | **ACCEPT** |

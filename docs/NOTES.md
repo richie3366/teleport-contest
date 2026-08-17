@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Suite **#1470** **44**/44; next @**#1475**. Open 9.
+- Suite **#1475** **44**/44; next @**#1480**. Open 9.
 - **Next:** `rloc_to` `update_monster_region` after `place_monster` (`:1685`).
 
 ## Don't re-check (≤15)
@@ -84,4 +84,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1470** **44**/44. Next @**#1475**. **D-1160**.
+- Suite **#1475** **44**/44. Next @**#1480**. **D-1160**.
