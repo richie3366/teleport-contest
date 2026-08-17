@@ -8,9 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1450**;
-  next @**#1455**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 9.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1455**;
+  next @**#1460**. Mode: **map-driven** fortress. Must-fix empty.
+  Open 9. Reviews **102–105** ACCEPT / ACCEPT-WITH-DEBT
+  (D-1142 option/`vision_recalc` named).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - **Next cluster:** Open `fountain.c` Excalibur `:441`
   `update_inventory`.
@@ -95,4 +96,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1450** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1455**. **D-1144.** **D-1143:** `bb8585ec`.
+- Suite **#1455** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1460**. **D-1144:** `1c1f7ccb`. **D-1143:** `bb8585ec`.

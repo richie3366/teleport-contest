@@ -111,3 +111,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [99-068e78df-minliquid-lava-on-fire.md](./99-068e78df-minliquid-lava-on-fire.md) | `068e78df` | D-1138 minliquid lava `on_fire` / `xkilled` | **ACCEPT** |
 | [100-4071a74d-teleds-swallow-docrt.md](./100-4071a74d-teleds-swallow-docrt.md) | `4071a74d` | D-1139 `teleds` swallow `docrt` | **ACCEPT** |
 | [101-36fb8797-teleds-vault-uleftvault.md](./101-36fb8797-teleds-vault-uleftvault.md) | `36fb8797` | D-1140 `teleds` vault_guard `uleftvault` | **ACCEPT-WITH-DEBT** |
+| [102-4d71520e-teleds-invocation-message.md](./102-4d71520e-teleds-invocation-message.md) | `4d71520e` | D-1141 `teleds` `invocation_message` | **ACCEPT** |
+| [103-52194cc9-teleds-notice-mon.md](./103-52194cc9-teleds-notice-mon.md) | `52194cc9` | D-1142 `teleds` `notice_mon_off` / `notice_all_mons` | **ACCEPT-WITH-DEBT** |
+| [104-bb8585ec-in-out-region-msgs.md](./104-bb8585ec-in-out-region-msgs.md) | `bb8585ec` | D-1143 `in_out_region` enter_msg / leave_msg | **ACCEPT** |
+| [105-1c1f7ccb-djinni-from-bottle.md](./105-1c1f7ccb-djinni-from-bottle.md) | `1c1f7ccb` | D-1144 `djinni_from_bottle` `mongrantswish` | **ACCEPT** |

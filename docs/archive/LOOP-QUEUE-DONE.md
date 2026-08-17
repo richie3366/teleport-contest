@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG. **Addressed:** D-1144
+- [x] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG. **Addressed:** D-1144 `1c1f7ccb`
 
 
 - [x] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions. **Addressed:** D-1143 `bb8585ec`
