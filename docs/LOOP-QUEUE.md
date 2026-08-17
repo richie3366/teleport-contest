@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment.
 - [ ] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup.
 - [ ] `potion.c` pool dip yn (named from dipsink). Not drinkfountain.
 - [ ] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `teleds` `hideunder` / mimic (named). Not swallow docrt.
 - [ ] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball.
 - [ ] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching.
+- [ ] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift.
+- [ ] `do_name.c` `hcolor` Hallucination drinksink synonyms (named). Not hliquid.
+- [ ] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon.
+- [ ] `region.c` `make_gas_cloud` enveloped pline (named). Not create_gas_cloud size-1.
+- [ ] `fountain.c` `gush` lava `fire_damage_chain` / `xkilled` (named). Not minliquid.
 
 ## Parked (do not pop)
 

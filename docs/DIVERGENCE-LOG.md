@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1126 — drinkfountain case 24 update_inventory
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `drinkfountain` case 24 cursed non-coin invent via
+  `!rn2(5)` then `void buc_changed` (skipped `update_inventory`).
+  C `fountain.c:332–333` calls `update_inventory()` when
+  `buc_changed`.
+- **C locus:** `fountain.c` `drinkfountain` (~317–334);
+  `invent.c` `update_inventory` (~2781–2809);
+  `display.c` `suppress_map_output` (~714–718);
+  `wintty.c` `tty_update_inventory` (~3606–3614) →
+  `invent.c` `sync_perminvent` (~5565–5646).
+- **Fix:** `if (buc_changed) update_inventory()`. Callee matches C:
+  skip `!in_moveloop` / `suppress_map_output()`; save
+  `suppress_price=0` around tty `sync_perminvent`. Default
+  perm_invent Off: WIN_INVEN `WIN_ERR`, `core_invent_state` 0,
+  static wri null → return before `display_inventory` (no RNG).
+  Did not pull perm_invent On WIN_INVEN redraw, dipfountain
+  441/552, `consume_obj_charge` known, or vomit poly arms.
+  Rule #2: no fs.
+- **JS:** `js/fountain.js` `drinkfountain`; `js/invent.js`
+  `update_inventory` / `sync_perminvent`; `js/display.js`
+  `suppress_map_output`.
+- **Not this iter:** perm_invent On `display_inventory` WIN_INVEN;
+  `dipfountain` `update_inventory`; `consume_obj_charge` known;
+  hangup `done_hup`; `eat.c` `vomit` cantvomit/Sick/acid.
+- **Verify:** private canary **31**/31 (C/JS source call; gates;
+  suppress_price restore; perm_invent Off/On no core RNG; coin
+  skip); green+strict seed8000/0900; cohort **22**/22 (0014
+  fountain + 0007 snakes + 0002 drinksink + 0006 demon + 0108 +
+  0360/2200/4500 + 0004/0009/0012/0030/0383/0399/0116/0367/0398
+  + 1500/1800/0060) + strict 8000/0900/0014/0007/0002/0006/0108/
+  0360/2200/4500/0030. Path public-unhit (perm_invent Off).
+- **Files:** `js/fountain.js`, `js/invent.js`, `js/display.js`.
+
 ## D-1125 — dowatersnakes Hallucination rndmonnam
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

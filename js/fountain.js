@@ -9,6 +9,7 @@
 // !FOUNTAIN_IS_LOOTED else fallthrough; case 28 dowaternymph;
 // case 30 dogushforth(TRUE);
 // drinkfountain case 19 MAGICENLIGHTENMENT body (D-1116).
+// drinkfountain case 24 buc_changed → update_inventory (D-1126).
 // gush m_at → minliquid else newsym (D-1117).
 // Deferred: vomit cantvomit/Sick/acid poly arms,
 // set_levltyp side effects beyond typ/flags;
@@ -84,7 +85,7 @@ import { mon_offmap } from './monmove.js';
 import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at, make_grave } from './engrave.js';
 import { monstseesu, monstunseesu } from './mondata.js';
-import { observe_object, enlightenment } from './invent.js';
+import { observe_object, enlightenment, update_inventory } from './invent.js';
 import {
     hliquid, x_monnam, Hallucination, rndmonnam, type_is_pname, oname, trycall,
 } from './do_name.js';
@@ -869,10 +870,11 @@ export async function drinkfountain() {
         case 23: // Water demon
             await dowaterdemon();
             break;
-        case 24: { // Maybe curse some items
+        case 24: { // Maybe curse some items — C fountain.c:317–334
             await pline("This water's no good!");
             morehungry(rn1(20, 11));
             exercise(A_CON, false);
+            // more severe than rndcurse(); coins skipped
             let buc_changed = 0;
             for (const obj of [...(game.invent || [])]) {
                 if (obj.oclass !== COIN_CLASS && !obj.cursed && !rn2(5)) {
@@ -880,7 +882,7 @@ export async function drinkfountain() {
                     buc_changed++;
                 }
             }
-            void buc_changed; // update_inventory deferred
+            if (buc_changed) update_inventory();
             break;
         }
         case 25: // See invisible

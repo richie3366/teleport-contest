@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 02:20 — #1432 D-1126 drinkfountain case 24 update_inventory
+
+**Objective:** Open queue — `fountain.c` `drinkfountain` case 24
+`update_inventory` (named). Not enlightenment.
+**C locus:** `fountain.c` `drinkfountain` 317–334; `invent.c`
+`update_inventory` 2781–2809; `display.c` `suppress_map_output`
+714–718; `wintty.c` `tty_update_inventory` → `sync_perminvent`.
+**Change:** `if (buc_changed) update_inventory()`. Callee:
+`in_moveloop` / `suppress_map_output` / suppress_price=0 around
+tty `sync_perminvent`. Default perm_invent Off returns before
+`display_inventory` (no RNG). Did not pull On WIN_INVEN,
+dipfountain 441/552, or vomit arms. Filled D-1125 hash
+`2fc408c0`. Rotated #1417. Open 12 after archive+refill.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1430** **44**/44; next
+@**#1435**).
+**Verified:** private canary **31**/31; green+strict seed8000/0900;
+cohort **22**/22 (0014 fountain + 0007 snakes + 0002 drinksink +
+0006 demon + 0108 + 0360/2200/4500 + 0004/0009/0012/0030/0383/
+0399/0116/0367/0398 + 1500/1800/0060) + strict 8000/0900/0014/
+0007/0002/0006/0108/0360/2200/4500/0030. Path public-unhit.
+**Next:** Open `eat.c` `vomit` cantvomit/Sick/acid poly arms.
+Not dryup. Audit @**#1435**.
+**Blocked:** none.
+
 ## 2026-08-17 02:10 — #1431 D-1125 dowatersnakes Hallucination rndmonnam
 
 **Objective:** Open queue — `fountain.c` `dowatersnakes` Hallucination
@@ -373,25 +398,4 @@ cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
 4500/2200/0004/0030/0009/0367. Path public-unhit.
 **Next:** Open `fountain.c` `drinkfountain` enlightenment body.
 Not dryup.
-**Blocked:** none.
-
-## 2026-08-16 23:12 — #1417 D-1114 dipfountain cases 17–20 uncurse
-
-**Objective:** Open queue — `fountain.c` `dipfountain` cases 17–20
-uncurse (named). Not Excalibur.
-**C locus:** `fountain.c` `dipfountain` 464–475; `mkobj.c`
-`uncurse`; `youprop.h` Blind.
-**Change:** port uncurse fallthrough — cursed non-hands glow
-(unless Blind) + `uncurse`; else loss pline. Coins not skipped.
-Luck/lamplit stay on mkobj `uncurse`. Case 29 still named.
-Filled D-1113 hash `c67f09d1`. Rotated #1402. Open 9 after
-archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1415** **44**/44; next
-@**#1420**).
-**Verified:** private canary **45**/45; green+strict seed8000/0900;
-cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
-0016/4500/0360/2200/0009/0367/0004/0030) + strict 0014/0360/
-4500/2200/0004/0030/0009/0367. Path public-unhit.
-**Next:** Open `fountain.c` `dipfountain` case 29 `mkgold`.
-Not wash_hands.
 **Blocked:** none.

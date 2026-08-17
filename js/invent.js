@@ -1,6 +1,8 @@
 // invent.js — Inventory / discoveries / attributes / #adjust.
 // C ref: invent.c display_inventory / ddoinv / let_to_name / doorganize;
 //        consume_obj_charge unpaid check_unpaid (D-1047);
+//        update_inventory in_moveloop + suppress_map_output +
+//        suppress_price dance (D-1126; perm_invent On WIN_INVEN still named);
 //        o_init.c dodiscovered / discover_object;
 //        insight.c enlightenment (BASIC ^X + MAGIC-only in-progress D-1116).
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
@@ -9,7 +11,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
-    endgamelevelname, obj_glyph,
+    endgamelevelname, obj_glyph, suppress_map_output,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname } from './objnam.js';
 import { yn_function } from './getline.js';
@@ -41,6 +43,7 @@ import {
     Never_mind,
     ECMD_OK,
     ECMD_CANCEL,
+    WIN_ERR,
     OBJ_INVENT,
     OBJ_CONTAINED,
     OBJ_FLOOR,
@@ -1222,6 +1225,45 @@ export function discover_object(
 /** C ref: hack.h makeknown — discover_object(x, TRUE, TRUE, TRUE). */
 export function makeknown(otyp) {
     discover_object(otyp, true, true, true);
+}
+
+/**
+ * C ref: invent.c sync_perminvent.
+ * Default perm_invent Off: WIN_INVEN is WIN_ERR, core_invent_state 0,
+ * static wri null → return before display_inventory. TTY_PERM_INVENT On
+ * (ctrl_nhwindow / WIN_INVEN display_inventory) still named.
+ */
+function sync_perminvent() {
+    const iflags = game.iflags || {};
+    const win_inven = game.WIN_INVEN ?? WIN_ERR;
+    const core_invent_state = game.gc?.core_invent_state | 0;
+
+    // C: if (WIN_INVEN == WIN_ERR && (core_invent_state || prohibited)
+    //    && !toggling_on) return; prohibited/toggling still named.
+    if (win_inven === WIN_ERR && core_invent_state) return;
+    // prepare_perminvent: InvOptNone no-op unless perminv_mode changed (named).
+    if (!iflags.perm_invent && core_invent_state) return;
+    if (iflags.perm_invent) {
+        // Named: request_settings / display_inventory(NULL, FALSE).
+        return;
+    }
+    // C: if (!wri || wri->tocore.maxslot == 0) return;
+}
+
+/**
+ * C ref: invent.c update_inventory.
+ * Skip when !in_moveloop or suppress_map_output(); else suppress_price=0
+ * around win_update_inventory(0). TTY_PERM_INVENT → sync_perminvent.
+ */
+export function update_inventory() {
+    if (!(game.program_state?.in_moveloop | 0)) return;
+    if (suppress_map_output()) return;
+    const iflags = game.iflags || (game.iflags = {});
+    const save_suppress_price = iflags.suppress_price | 0;
+    iflags.suppress_price = 0;
+    // C wintty.c tty_update_inventory — TTY_PERM_INVENT calls sync_perminvent.
+    sync_perminvent();
+    iflags.suppress_price = save_suppress_price;
 }
 
 /**

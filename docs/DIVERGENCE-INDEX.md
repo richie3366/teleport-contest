@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1125 | fixed | dowatersnakes Hallucination `rndmonnam` | map-driven; C `fountain.c:45–46` / `do_name.c` `rndmonnam`; `!Blind` Hallucination `makeplural(rndmonnam(NULL))` else `"snakes"`; display-rng only on hallu arm; drinkfountain case 24 still named |
+| D-1126 | fixed | drinkfountain case 24 `update_inventory` | map-driven; C `fountain.c:332–333` / `invent.c` `update_inventory` 2781–2809 / `display.c` `suppress_map_output`; `if (buc_changed)` then in_moveloop/`suppress_map_output`/suppress_price=0 around tty `sync_perminvent`; default perm_invent Off no `display_inventory`; On WIN_INVEN / dipfountain 441+552 named |
+| D-1125 | fixed | dowatersnakes Hallucination `rndmonnam` | map-driven; C `fountain.c:45–46` / `do_name.c` `rndmonnam`; `!Blind` Hallucination `makeplural(rndmonnam(NULL))` else `"snakes"`; display-rng only on hallu arm |
 | D-1124 | fixed | drinksink case 13 `create_gas_cloud` | map-driven; C `fountain.c:696–698` / `region.c` `create_gas_cloud`; size-1 poison `arg=4` + ttl `rn1(3,4)`; no expand shuffle; enveloped/`inside_f`/`hcolor` still named |
 | D-1123 | fixed | `rloc_to` worm / ustuck-swallow `docrt` | map-driven; C `teleport.c:1675–1697` / `worm.c` `remove_worm`; worm pickup+tail re-place; swallow `u_on_newpos`/`check_special_room`/`docrt`; grab `!m_next2u` `unstuck`; shk-home/`maybe_unhide_at` still named |
 | D-1122 | fixed | `rloc` Wizard stair / `control_mon_tele` | map-driven; C `teleport.c:1813–1841` / `control_mon_tele` 1898–1934 / `dungeon.c` `In_W_tower`; iswiz on-map `goodpos` stairs/ladders before 50× rnd; wizard-mode getpos; steed/`mnexto` still named |
