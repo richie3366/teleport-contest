@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1440** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1445**.
+**#1445** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.26/turn` (R² 0.87). Next audit (review + score) @**#1450**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1445**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.87) |
+| Speed label | `31+0.26/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,

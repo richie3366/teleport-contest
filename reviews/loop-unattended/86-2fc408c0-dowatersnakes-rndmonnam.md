@@ -116,7 +116,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 
 1. Blind youprop in `dowatersnakes` (`youprop.h:103`). Still `u.Blind \|\| u.ublind`.
 2. drinksink Hallucination `hcolor` on sip strings. **Addressed:** D-1135 `b166bda5`
-3. `mongrantswish` `tmp_at` glyph hide. **Addressed:** D-1136
+3. `mongrantswish` `tmp_at` glyph hide. **Addressed:** D-1136 `52aea3d1`
 4. drinkfountain case 24 `update_inventory` — **Addressed:** D-1126 `6497347e` (next SHA).
 5. Do not restore hardcoded `"snakes"` on the hallu arm. Do not evaluate `rndmonnam` when `!Hallucination`. Do not pull vomit / pool dip into this SHA.
 

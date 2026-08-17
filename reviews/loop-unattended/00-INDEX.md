@@ -103,3 +103,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [91-6dd7a794-teleds-update-player-regions.md](./91-6dd7a794-teleds-update-player-regions.md) | `6dd7a794` | D-1130 `teleds` `update_player_regions` | **ACCEPT** |
 | [92-00956ae8-teleds-hideunder-mimic.md](./92-00956ae8-teleds-hideunder-mimic.md) | `00956ae8` | D-1131 `teleds` hideunder / mimic | **ACCEPT-WITH-DEBT** |
 | [93-a8d04dd2-teleds-buried-ball.md](./93-a8d04dd2-teleds-buried-ball.md) | `a8d04dd2` | D-1132 `teleds` TT_BURIEDBALL unearth | **ACCEPT** |
+| [94-a956e990-tele-trap-teledest.md](./94-a956e990-tele-trap-teledest.md) | `a956e990` | D-1133 `tele_trap` teledest / `tele()` | **ACCEPT** |
+| [95-5f55ceba-dipfountain-update-inventory.md](./95-5f55ceba-dipfountain-update-inventory.md) | `5f55ceba` | D-1134 `dipfountain` after-switch `update_inventory` | **ACCEPT** |
+| [96-b166bda5-hcolor-drinksink.md](./96-b166bda5-hcolor-drinksink.md) | `b166bda5` | D-1135 `hcolor` Hallu drinksink | **ACCEPT** |
+| [97-52aea3d1-mongrantswish-tmp-at.md](./97-52aea3d1-mongrantswish-tmp-at.md) | `52aea3d1` | D-1136 `mongrantswish` `tmp_at` hide | **ACCEPT** |

@@ -8,14 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1440**;
-  next @**#1445**. Mode: **map-driven** fortress. Must-fix empty.
-  Open refill to 12 after D-1136 archive. Reviews **90–93** ACCEPT /
-  **92** ACCEPT-WITH-DEBT (eel `Underwater` sticky named).
+  speed `31+0.26/turn` R² 0.87) after cadence **#1445**;
+  next @**#1450**. Mode: **map-driven** fortress. Must-fix empty.
+  Open 12. Reviews **94–97** ACCEPT (tele_trap teledest/`tele()`;
+  dipfountain `:552`; hcolor drinksink; mongrantswish `tmp_at`).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - **Next cluster:** Open `region.c` `make_gas_cloud` enveloped
   pline. Not create_gas_cloud size-1.
-- **Hypothesis:** none live. Cadence #1440 fortress held. D-1136 shipped.
+- **Hypothesis:** none live. Cadence #1445 fortress held. D-1136
+  reviewed ACCEPT.
 
 ## Don't re-check (≤15)
 
@@ -96,4 +97,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1135:** `b166bda5`. **D-1134:** `5f55ceba`. **D-1133:** `a956e990`. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`.
+- Suite **#1445** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1450**. **D-1136:** `52aea3d1`. **D-1135:** `b166bda5`. **D-1134:** `5f55ceba`. **D-1133:** `a956e990`. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`.

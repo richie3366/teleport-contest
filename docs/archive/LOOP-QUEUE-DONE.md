@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon. **Addressed:** D-1136
+- [x] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon. **Addressed:** D-1136 `52aea3d1`
 
 
 - [x] `do_name.c` `hcolor` Hallucination drinksink synonyms (named). Not hliquid. **Addressed:** D-1135 `b166bda5`
