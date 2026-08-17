@@ -819,7 +819,7 @@ export async function moveloop_core() {
 
                 // once-per-turn — C: nh_timeout then run_regions
                 await nh_timeout();
-                run_regions();
+                await run_regions();
                 // C allmain.c moveloop: if (u.ublesscnt) u.ublesscnt--;
                 if (g.u.ublesscnt) g.u.ublesscnt = (g.u.ublesscnt | 0) - 1;
 

@@ -3,7 +3,7 @@
 // clear_regions / run_regions / in_out_region / m_in_out_region /
 // inside_gas_cloud; region_danger / region_safety (pray);
 // read.c valid_cloud_pos.
-// Named omissions: inside_f damage/pline (dam>0); dissipation plines;
+// Named omissions: expire_gas_cloud dissipation plines;
 // numeric cmap glyph ints (JS tags 'S_poisoncloud'/'S_cloud');
 // create_gas_cloud_selection; binary save_regions format; force
 // fields; incremental fill_point (JS uses vision_reset);
@@ -11,25 +11,45 @@
 // can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
 // attach_2_m; is_hero_inside_gas_cloud still geometric not the bit
 // (walk `in_out_region` still named — do not flip until that bit is
-// live on steps); m_poisongas_ok size-1 inside_cloud gate;
+// live on steps); mfndpos m_poisongas_ok still the mon.js subset;
 // fumaroles clear_heros_fault / Norep whoosh.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
-import { rn2, rn1, d } from './rng.js';
+import { rn2, rn1, d, rnd } from './rng.js';
 import { pline, You_feel } from './display.js';
 import {
     isok, ACCESSIBLE, u_at, TIMEOUT, REG_HERO_INSIDE, REG_NOT_HEROS,
-    PLNMSG_ENVELOPED_IN_GAS,
+    PLNMSG_ENVELOPED_IN_GAS, KILLED_BY_AN, EYE, LUNG, POISON_RES,
+    M_SEEN_POISON, M_POISONGAS_OK, M_POISONGAS_MINOR, M_POISONGAS_BAD,
+    Is_waterlevel,
 } from './const.js';
-import { is_pool, is_lava } from './hack.js';
-import { recalc_block_point } from './vision.js';
-import { monsterNames, nonliving, breathless } from './monsters.js';
+import {
+    is_pool, is_lava, losehp, maybe_half_phys, finish_maybe_wail,
+} from './hack.js';
+import { recalc_block_point, cansee } from './vision.js';
+import {
+    monsterNames, nonliving, breathless, haseyes, is_vampshifter,
+    MR_POISON,
+} from './monsters.js';
+import { objectNames } from './objects.js';
+import { makeplural } from './objnam.js';
+import { body_part } from './polyself.js';
+import { Monnam } from './do_name.js';
+import { monstseesu, monstunseesu } from './mondata.js';
+import { dist2 } from './hacklib.js';
 
 const MAX_CLOUD_SIZE = 150;
 const INSIDE_GAS_CLOUD = 1; // callback index stand-in
 const NO_CALLBACK = -1; // C region.c
+const AT_BREA = 12; // C monattk.h
+const AD_DRST = 7;
+const AD_RBRE = 242;
+const MS_SILENT = 0;
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
+const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
+const PM_VROCK = monsterNames.indexOf('PM_VROCK');
+const TOWEL = objectNames.indexOf('TOWEL');
 
 /**
  * C ref: read.c valid_cloud_pos — ACCESSIBLE | pool | lava.
@@ -82,6 +102,97 @@ function clear_hero_inside(reg) {
 /** C region.h set_heros_fault — clear REG_NOT_HEROS. */
 function set_heros_fault(reg) {
     reg.player_flags = (reg.player_flags | 0) & ~REG_NOT_HEROS;
+}
+/** C region.h heros_fault — REG_NOT_HEROS clear. */
+function heros_fault(reg) {
+    return ((reg.player_flags | 0) & REG_NOT_HEROS) === 0;
+}
+
+/** C youprop.h Blind — (H||E) && !B; roleplay blind. */
+function Blind() {
+    const u = game.u || {};
+    if (u.uroleplay?.blind) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/** C youprop.h Half_gas_damage — damp/wet towel (spe > 0). */
+function Half_gas_damage() {
+    const t = game.u?.ublindf;
+    return !!(t && TOWEL >= 0 && t.otyp === TOWEL && (t.spe | 0) > 0);
+}
+
+/** C mondata.h is_silent — msound == MS_SILENT. */
+function is_silent(ptr) {
+    return (ptr?.msound | 0) === MS_SILENT;
+}
+
+/** C mondata.h immune_poisongas — Hezrou or Vrock (mndx; JS mons() allocs). */
+function immune_poisongas(ptr) {
+    const n = ptr?.mndx ?? -1;
+    return n === PM_HEZROU || n === PM_VROCK;
+}
+
+/**
+ * C ref: mondata.c attacktype_fordmg — first mattk with aatyp+adtyp.
+ */
+function attacktype_fordmg(ptr, atyp, dtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return null;
+    for (let i = 0; i < slots.length; i++) {
+        const a = slots[i];
+        if ((a?.aatyp | 0) === atyp
+            && (dtyp === -1 || (a?.adtyp | 0) === dtyp)) {
+            return a;
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: monst.h resists_poison → Resists_Elem(POISON_RES) subset:
+ * data.mresists | mextrinsics | mintrinsics. Artifact/worn grants named.
+ */
+function resists_poison(mtmp) {
+    if (!mtmp || mtmp === game.youmonst) return Poison_resistance();
+    const bits = (mtmp.data?.mresists | 0)
+        | (mtmp.mextrinsics | 0)
+        | (mtmp.mintrinsics | 0);
+    return !!(bits & MR_POISON);
+}
+
+function distu(x, y) {
+    const u = game.u || {};
+    return dist2(x, y, u.ux | 0, u.uy | 0);
+}
+
+/**
+ * C ref: mon.c m_poisongas_ok — OK / MINOR / BAD for gas clouds.
+ * null mtmp ≡ hero (&youmonst). mfndpos still uses the mon.js subset.
+ */
+function m_poisongas_ok(mtmp) {
+    const is_you = !mtmp || mtmp === game.youmonst;
+    const ptr = (mtmp || game.youmonst)?.data;
+    if (nonliving(ptr) || is_vampshifter(mtmp || game.youmonst)
+        || breathless(ptr) || immune_poisongas(ptr)) {
+        return M_POISONGAS_OK;
+    }
+    const u = game.u || {};
+    const px = is_you ? (u.ux | 0) : (mtmp.mx | 0);
+    const py = is_you ? (u.uy | 0) : (mtmp.my | 0);
+    if ((ptr?.mlet === 'S_EEL' || Is_waterlevel(u.uz)) && is_pool(px, py)) {
+        return M_POISONGAS_OK;
+    }
+    if (attacktype_fordmg(ptr, AT_BREA, AD_DRST)
+        || attacktype_fordmg(ptr, AT_BREA, AD_RBRE)) {
+        return M_POISONGAS_OK;
+    }
+    if (is_you && (u.uinvulnerable || Breathless() || u.uinwater)) {
+        return M_POISONGAS_OK;
+    }
+    if (is_you ? Poison_resistance() : resists_poison(mtmp)) {
+        return M_POISONGAS_MINOR;
+    }
+    return M_POISONGAS_BAD;
 }
 
 function callback_set(f) {
@@ -151,17 +262,85 @@ function remove_mon_from_reg(reg, mon) {
 }
 
 /**
- * C ref: region.c inside_gas_cloud — fog maintains vapor TTL (+5 if <20).
- * Damage/pline arms deferred when dam < 1 (fog/steam trails).
+ * C ref: region.c inside_gas_cloud — fog TTL; dam>0 hero/mon HP.
+ * Returns true if p2 died (drop from reg.monsters). Hero is null.
  */
-function inside_gas_cloud(reg, mtmp) {
-    const mnum = mtmp?.mnum ?? mtmp?.data?.mndx ?? -1;
+async function inside_gas_cloud(reg, mtmp) {
+    const umon = mtmp || game.youmonst;
+    const mnum = umon?.mnum ?? umon?.data?.mndx ?? -1;
     // C: fog clouds maintain gas clouds, even poisonous ones
-    if ((reg.ttl | 0) < 20 && mtmp && mnum === PM_FOG_CLOUD) {
+    if ((reg.ttl | 0) < 20 && umon && mnum === PM_FOG_CLOUD) {
         reg.ttl = (reg.ttl | 0) + 5;
     }
-    if ((reg.arg | 0) < 1) return false;
-    // dam>0 monster/hero effects deferred
+    const dam0 = reg.arg | 0;
+    if (dam0 < 1) return false;
+
+    if (!mtmp) {
+        if (m_poisongas_ok(game.youmonst) === M_POISONGAS_OK) return false;
+        if (!Blind()) {
+            await pline(`Your ${makeplural(body_part(EYE))} sting.`);
+            const { make_blinded } = await import('./do.js');
+            await make_blinded(1, false);
+        }
+        if (!Poison_resistance()) {
+            await pline(
+                `Something is burning your ${makeplural(body_part(LUNG))}!`,
+            );
+            await pline('You cough and spit blood!');
+            const u = game.u || {};
+            const { wake_nearto } = await import('./mon.js');
+            await wake_nearto(u.ux | 0, u.uy | 0, 2);
+            let dam = maybe_half_phys(rnd(dam0) + 5);
+            if (Half_gas_damage()) dam = Math.trunc((dam + 1) / 2);
+            losehp(dam, 'gas cloud', KILLED_BY_AN);
+            if (game._losehp_needs_done) {
+                const { finish_losehp_done } = await import('./end.js');
+                await finish_losehp_done();
+                return false;
+            }
+            await finish_maybe_wail();
+            monstunseesu(M_SEEN_POISON);
+            return false;
+        }
+        await pline('You cough!');
+        {
+            const u = game.u || {};
+            const { wake_nearto } = await import('./mon.js');
+            await wake_nearto(u.ux | 0, u.uy | 0, 2);
+        }
+        monstseesu(M_SEEN_POISON);
+        return false;
+    }
+
+    if (m_poisongas_ok(mtmp) !== M_POISONGAS_OK) {
+        if (!is_silent(mtmp.data)) {
+            if (cansee(mtmp.mx, mtmp.my) || distu(mtmp.mx, mtmp.my) < 8) {
+                await pline(`${Monnam(mtmp)} coughs!`);
+            }
+            const { wake_nearto } = await import('./mon.js');
+            await wake_nearto(mtmp.mx | 0, mtmp.my | 0, 2);
+        }
+        if (heros_fault(reg)) {
+            const { setmangry } = await import('./mon.js');
+            setmangry(mtmp, true);
+        }
+        if (haseyes(mtmp.data) && mtmp.mcansee) {
+            mtmp.mblinded = 1;
+            mtmp.mcansee = 0;
+        }
+        if (resists_poison(mtmp)) return false;
+        mtmp.mhp = (mtmp.mhp | 0) - (rnd(dam0) + 5);
+        if ((mtmp.mhp | 0) < 1) {
+            if (heros_fault(reg)) {
+                const { killed } = await import('./uhitm.js');
+                await killed(mtmp);
+            } else {
+                const { monkilled } = await import('./mhitm.js');
+                await monkilled(mtmp, 'gas cloud', AD_DRST);
+            }
+            if ((mtmp.mhp | 0) < 1) return true;
+        }
+    }
     return false;
 }
 
@@ -344,10 +523,12 @@ export function m_in_out_region(mon, x, y) {
 
 /**
  * C ref: region.c run_regions — ttl expiry then age + inside_f callbacks.
- * Envelope: gas-cloud ttl; fog-in-cloud TTL refresh (D-0834).
- * Named omissions: inside_f damage on hero/monsters; dissipation plines.
+ * Envelope: gas-cloud ttl; fog-in-cloud TTL refresh (D-0834);
+ * inside_f dam>0 hero/mon HP (D-1146).
+ * Named omissions: expire_gas_cloud dissipation plines.
+ * Hero inside_f uses geometry (not the bit) until walk in_out_region.
  */
-export function run_regions() {
+export async function run_regions() {
     const regs = game.regions || [];
     // End of life — backward because remove mutates the array
     for (let i = regs.length - 1; i >= 0; i--) {
@@ -363,24 +544,25 @@ export function run_regions() {
         }
         remove_region(reg);
     }
-    // Age remaining + inside_f (fog maintains vapor)
+    // Age remaining + inside_f (fog maintains vapor; dam>0 HP)
     for (const reg of game.regions || []) {
         if ((reg.ttl | 0) > 0) reg.ttl = (reg.ttl | 0) - 1;
         if (reg.inside_f !== INSIDE_GAS_CLOUD) continue;
         const u = game.u || {};
         if (inside_region(reg, u.ux | 0, u.uy | 0)) {
-            inside_gas_cloud(reg, null);
+            await inside_gas_cloud(reg, null);
+            if (game.program_state?.gameover) return;
         }
         const mids = reg.monsters || [];
         for (let j = 0; j < mids.length; j++) {
             const mtmp = find_mid(mids[j]);
-            if (!mtmp || (mtmp.mhp | 0) <= 0) {
+            if (!mtmp || (mtmp.mhp | 0) <= 0
+                || await inside_gas_cloud(reg, mtmp)) {
                 mids[j] = mids[mids.length - 1];
                 mids.pop();
                 j--;
-                continue;
             }
-            inside_gas_cloud(reg, mtmp);
+            if (game.program_state?.gameover) return;
         }
     }
 }
@@ -397,9 +579,10 @@ export async function create_gas_cloud(x, y, cloudsize, damage) {
     let newidx = 1;
     let inside_cloud = is_hero_inside_gas_cloud();
 
-    // C: single-point on hero + (!damage || m_poisongas_ok) — message gate only
-    // (m_poisongas_ok body deferred: damage>0 keeps prior inside_cloud)
-    if (!game.context?.mon_moving && u_at(x, y) && cloudsize === 1 && !damage) {
+    // C: single-point on hero + (!damage || m_poisongas_ok==OK)
+    if (!game.context?.mon_moving && u_at(x, y) && cloudsize === 1
+        && (!(damage | 0)
+            || m_poisongas_ok(game.youmonst) === M_POISONGAS_OK)) {
         inside_cloud = true;
     }
 
@@ -464,11 +647,13 @@ export async function create_gas_cloud(x, y, cloudsize, damage) {
     return cloud;
 }
 
-/** C youprop.h Poison_resistance — H || E || flag. */
+/** C youprop.h Poison_resistance — H || E || flag || uprops. */
 function Poison_resistance() {
     const u = game.u || {};
+    const p = u.uprops?.[POISON_RES];
     return !!((u.HPoison_resistance | 0) || (u.EPoison_resistance | 0)
-        || u.Poison_resistance);
+        || u.Poison_resistance
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
 /** C youprop.h Breathless — magical breathing || breathless(form). */

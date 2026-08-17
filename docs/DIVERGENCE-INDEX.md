@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1146 | fixed | `inside_gas_cloud` damage | map-driven; C `region.c:1091–1165` / `run_regions` 439–456 / `mon.c` `m_poisongas_ok`; dam>0 hero sting/blind/losehp or cough; mon cough/angry/blind/`rnd+5` killed\|monkilled; size-1 `m_poisongas_ok` gate; await `run_regions`; expire dissipation / fumaroles / geometric bit / mfndpos subset still named |
 | D-1145 | fixed | Excalibur `:441` `update_inventory` | map-driven; C `fountain.c:441` after gift/deny before `set_levltyp` ROOM; both arms; Excalibur return still skips `:552` (C); default perm_invent Off tty no-op (D-1126 callee); artidisco save/rest / On WIN_INVEN / `consume_obj_charge` still named |
 | D-1144 | fixed | `djinni_from_bottle` `mongrantswish` | map-driven; C `potion.c:2815–2868` makemon + BUC `rn2(5)` remap + wish/`tamedog`/peace/vanish/hostile; MAGIC_LAMP `#rub` transform then call (apply.c:1816–1831); JS `mongrantswish` D-1136; dodrink smoky occupant / SetVoice / full `mongone` still named |
 | D-1143 | fixed | `in_out_region` enter_msg / leave_msg | map-driven; C `region.c:505–506,519–520` `pline1` after clear/set; JS `await pline`; `teleok` async; `create_msg_region` #if 0 so live gas never sets msgs; force-field callbacks / hack.c/dothrow/`do.c` callers / geometric gas still named |

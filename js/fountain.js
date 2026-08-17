@@ -35,7 +35,8 @@
 // (D-1124; size-1: ttl rn1(3,4) only).
 // drinksink case 4 !Blind hcolor(OBJ_DESCR) (D-1135).
 // make_gas_cloud enveloped You + PLNMSG_ENVELOPED_IN_GAS (D-1137).
-// Deferred: inside_f damage / m_poisongas_ok (region.js); monstseesu
+// inside_f dam>0 HP + m_poisongas_ok size-1 gate (D-1146 region.js).
+// Deferred: expire dissipation; mfndpos m_poisongas_ok subset; monstseesu
 // when Fire_resistance already set; sit/apply/pray/detect/do/wield/read
 // identity hcolor stubs; rndcolor.
 
@@ -476,7 +477,7 @@ export async function drinksink() {
     case 13:
         // C fountain.c:696–698 — stench then create_gas_cloud(ux,uy,1,4).
         // Size-1 skips BFS expand (no shuffle rn2); ttl = rn1(3,4).
-        // Enveloped You after add_region (D-1137); inside_f damage named.
+        // Enveloped You after add_region (D-1137); inside_f HP D-1146.
         await pline('Ew, what a stench!');
         await create_gas_cloud(u.ux, u.uy, 1, 4);
         break;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save. **Addressed:** D-1145
+- [x] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline. **Addressed:** D-1146
+
+
+- [x] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save. **Addressed:** D-1145 `623bc861`
 
 
 - [x] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG. **Addressed:** D-1144 `1c1f7ccb`

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline.
 - [ ] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs.
 - [ ] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled.
 - [ ] `hack.c` `domove` `invocation_message` (named). Not teleds.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg.
 - [ ] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds.
 - [ ] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds.
+- [ ] `region.c` `expire_gas_cloud` dissipation plines (named). Not inside_gas HP.
+- [ ] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation.
+- [ ] `hack.c` walk `in_out_region` (named). Not teleds.
+- [ ] `region.c` `create_gas_cloud_selection` (named). Not BFS create.
+- [ ] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f.
 
 ## Parked (do not pop)
 

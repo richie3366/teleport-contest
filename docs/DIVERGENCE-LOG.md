@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1146 — inside_gas_cloud damage
+
+- **Status:** fixed (map-driven Open; named omit from D-1124/D-1137; not a public FAIL)
+- **Symptom:** JS `inside_gas_cloud` refreshed fog TTL then `return false`
+  when `arg>=1`. C `region.c:1107–1164` applies hero eye-sting /
+  `make_blinded(1,FALSE)` / lung-burn `Maybe_Half_Phys(rnd(dam)+5)` /
+  towel `Half_gas_damage` / `losehp` / `monstunseesu`, or resist
+  cough + `monstseesu`; monsters cough/`setmangry`/blind /
+  `rnd(dam)+5` then `killed`/`monkilled`. `run_regions` drops a
+  monster when the callback returns TRUE. Size-1
+  `create_gas_cloud` also gates enveloped via `m_poisongas_ok==OK`.
+- **C locus:** `region.c` `inside_gas_cloud` (~1091–1165);
+  `run_regions` (~439–456); `create_gas_cloud` (~1229–1236);
+  `mon.c` `m_poisongas_ok` (~330–357).
+- **Fix:** port dam>0 hero/mon arms; local `m_poisongas_ok` (OK /
+  MINOR / BAD: nonliving/vamp/breathless/Hezrou|Vrock, eel/waterlevel
+  pool, AT_BREA AD_DRST/RBRE, hero uinvulnerable/Breathless/`uinwater`,
+  Poison_resistance/resists_poison MINOR). `run_regions` async +
+  await from `allmain` after `nh_timeout`. Size-1 inside_cloud gate
+  uses `m_poisongas_ok`. Hero inside_f still geometric (walk
+  `in_out_region` named). Did not pull expire dissipation plines,
+  fumaroles whoosh, `create_gas_cloud_selection`, or mfndpos's
+  thinner `mon.js` `m_poisongas_ok`. Rule #2: no fs.
+- **JS:** `js/region.js` `inside_gas_cloud` / `m_poisongas_ok` /
+  `run_regions`; `js/allmain.js` await.
+- **Not this iter:** `expire_gas_cloud` dissipation plines;
+  fumaroles `clear_heros_fault` / Norep; `create_gas_cloud_selection`;
+  geometric `is_hero_inside_gas_cloud`; mfndpos `m_poisongas_ok`
+  vamp/eel/breath; Resists_Elem artifact/worn grants.
+- **Verify:** private canary **76**/76 (C/JS source order: hero OK
+  skip, eyes/`make_blinded`, Half_Phys+towel, losehp, resist cough,
+  mon cough/distu/setmangry/blind/HP/killed|monkilled, fog umon,
+  `m_poisongas_ok` arms, size-1 gate, await `run_regions`);
+  green+strict seed8000/0900; cohort **20**/20 (0002 drinksink +
+  0014 fountain + 0361/0383 fog ttl + 0006/0007/0106/0108/0360/
+  2200/0004/0009/0030/0012/0116/1500/1800/0060/0102/0700) + strict
+  8000/0900/0002/0014/0006/0361/0383/0360/0030/2200/0108/0004/0007/
+  0012. Path public-unhit on dam>0 HP (fog ttl still matches).
+- **Files:** `js/region.js`, `js/allmain.js`, `js/fountain.js` (comment).
+
 ## D-1145 — dipfountain Excalibur :441 update_inventory
 
 - **Status:** fixed (map-driven Open; named omit from D-1107/D-1134; not a public FAIL)
