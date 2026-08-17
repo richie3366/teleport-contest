@@ -143,3 +143,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [131-5a6be1fe-rloc-occupation-dochugw.md](./131-5a6be1fe-rloc-occupation-dochugw.md) | `5a6be1fe` | D-1170 `rloc_to` occupation `dochugw` | **ACCEPT** |
 | [132-822498d3-rloc-pos-ok-room-lock.md](./132-822498d3-rloc-pos-ok-room-lock.md) | `822498d3` | D-1171 `rloc_pos_ok` shk/priest room | **ACCEPT** |
 | [133-e7c5c8ac-rloc-steed-tele.md](./133-e7c5c8ac-rloc-steed-tele.md) | `e7c5c8ac` | D-1172 `rloc` steed `tele()` | **ACCEPT** |
+| [134-e07eeae7-mnexto-control-mon-tele.md](./134-e07eeae7-mnexto-control-mon-tele.md) | `e07eeae7` | D-1173 `mnexto` `control_mon_tele` savemm | **ACCEPT** |
+| [135-e5ec6685-mdisplacem-update-monster-region.md](./135-e5ec6685-mdisplacem-update-monster-region.md) | `e5ec6685` | D-1174 `mdisplacem` `update_monster_region` | **ACCEPT** |
+| [136-7188da5b-youmonst-m-everyturn-effect.md](./136-7188da5b-youmonst-m-everyturn-effect.md) | `7188da5b` | D-1175 youmonst `m_everyturn_effect` | **ACCEPT** |
+| [137-b652fbf3-mhurtle-step-m-in-out-region.md](./137-b652fbf3-mhurtle-step-m-in-out-region.md) | `b652fbf3` | D-1176 `mhurtle_step` `m_in_out_region` | **ACCEPT** |

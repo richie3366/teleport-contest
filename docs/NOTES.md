@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1490** 44/44 @**#1495**. Next: `obj_delivery`.
+- **#1495** 44/44 @**#1500**. Next: `obj_delivery`.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1490** **44**/44 @**#1495**. **D-1176**. Review **130–133** ACCEPT.
+- **#1495** **44**/44 @**#1500**. **D-1176**. Review **134–137** ACCEPT.

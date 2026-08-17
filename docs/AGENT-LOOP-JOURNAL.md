@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 20:50 — #1495 review D-1173–D-1176 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `mon.c` `mnexto` 3974–3978 / `teleport.c`
+`control_mon_tele` 1898–1934; `mhitm.c` `mdisplacem` 178–267 /
+`region.c` 598–611; `allmain.c` 481 / `monmove.c`
+`m_everyturn_effect` 650–663; `dothrow.c` `mhurtle_step` 1000 /
+`region.c` `m_in_out_region` 533–576.
+**Change:** reviews **134** ACCEPT D-1173 (`control_mon_tele(..., FALSE)`
++ savemm copy; public Off; not rloc via_rloc TRUE), **135** ACCEPT
+D-1174 (real `mdisplacem` + region after defender tail; `should_displace`
+keeps public arm unhit), **136** ACCEPT D-1175 (Fog at current `u.ux`
+after bot before `context.move`; not `ux0` trail), **137** ACCEPT
+D-1176 (`will_hurtle && m_in_out_region` three-loop; gas never rejects;
+`place_monster` vs rloc named). Must-fix empty. Filled D-1176 archive
+hash `b652fbf3`. Rotated #1480. Open 8 (no refill). Rule #2: no fs.
+**Score:** cadence **#1495** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.87). Next
+@**#1500**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `do.c` `goto_level` `obj_delivery` (named). Not
+in_out_region.
+**Blocked:** none.
+
 ## 2026-08-17 20:25 — #1494 D-1176 mhurtle_step m_in_out_region
 
 **Objective:** Open — `dothrow.c` `mhurtle_step` `m_in_out_region`
@@ -393,32 +419,4 @@ bit; no-dir/ustuck/utrap); green+strict seed8000/0900; cohort
 public-unhit on hurtle through a live region.
 **Next:** Open `do.c` `goto_level` `in_out_region` (named). Not
 walk.
-**Blocked:** none.
-
-## 2026-08-17 15:55 — #1480 review D-1161–D-1164 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `teleport.c` `rloc_to_core` 1685 / `region.c`
-`update_monster_region` 598–611; `teleport.c` 1651 / 1739–1740 /
-`shk.c` `make_angry_shk` 1470–1488 / `inhishop` 1039–1048;
-`teleport.c` 1742–1758 / `shk.c` `stolen_value` 3754–3871 /
-`onshopbill` 1160–1163; `teleport.c` 1765–1767 / `trap.c`
-`mintrap` 3733–3789.
-**Change:** reviews **122** ACCEPT D-1161 (absolute membership after
-place before tail; mhitm/dbridge named), **123** ACCEPT D-1162
-(origin `inhishop` snap + real `hot_pursuit`; D-log “bill fold”
-overclaims `addupbill` stub 0 — named, not Must-fix), **124**
-ACCEPT D-1163 (dest `!costly_spot` minvent walk; unpaid-not-on-bill
-ordinary), **125** ACCEPT D-1164 (dest-bare clear; dest-trap
-already-trapped `rn2(40)` not trapeffect; occupation /
-`m_easy_escape_pit` named). Must-fix empty. Filled D-1164 archive
-hash `6f7e188b`. Rotated #1465. Open 10 (no refill). Rule #2: no fs.
-**Score:** cadence **#1480** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.87). Next
-@**#1485**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `dothrow.c` `hurtle_step` `in_out_region` (named).
-Not walk.
 **Blocked:** none.
