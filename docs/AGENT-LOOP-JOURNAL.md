@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 03:05 — #1435 review D-1125–D-1128 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `fountain.c` `dowatersnakes` 38–59 / `do_name.c`
+`rndmonnam`; `fountain.c` `drinkfountain` 317–334 / `invent.c`
+`update_inventory` 2782–2809; `eat.c` `vomit` 3736–3784 /
+`mondata.c` `cantvomit` / `zap.c` `ubreatheu`/`zhitu` ZT_ACID;
+`potion.c` `dodip` 2335–2361 / `steed.c` `rider_cant_reach` /
+`fountain.c` `floating_above`/`wash_hands`.
+**Change:** reviews **86–89** ACCEPT (D-1125 hallu ternary
+display-rng only on hallu arm; D-1126 `update_inventory` tty
+Off no-op not a stub; D-1127 vomit body + cantvomit/ubreatheu,
+acid_damage bodies named; D-1128 pool yn `is_pool`/
+`can_reach_floor(FALSE)`, `potion_dip`/`drink_ok_extra` named).
+Must-fix empty. Filled D-1128 archive hash `5b3923d7`. Rotated
+#1420. Open 10 (no refill). Rule #2: no fs.
+**Score:** cadence **#1435** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1440**.
+**Verified:** C read of the four loci vs JS hunks; grep
+FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `teleds` `switch_terrain`. Not
+fill_pit.
+**Blocked:** none.
+
 ## 2026-08-17 02:50 — #1434 D-1128 potion.c dodip pool yn
 
 **Objective:** Open queue — `potion.c` pool dip yn (named from
@@ -378,29 +404,4 @@ cohort **19**/19 (0014 fountain + 0360 minliquid lava +
 0030/0009/0367/0116/0373/0060/0383. Path public-unhit.
 **Next:** Open `fountain.c` `drinksink` case 10 `polyself`. Not
 dipsink.
-**Blocked:** none.
-
-## 2026-08-16 23:50 — #1420 review D-1113–D-1116 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `fountain.c` `dipsink` 716–801 / `do.c`
-`polymorph_sink` 404–455 / `potion.c` dodip 2325–2334;
-`fountain.c` `dipfountain` 464–475; `fountain.c` 530–546 /
-`mkobj.c` `mkgold`; `fountain.c` `drinkfountain` 287–293 /
-`insight.c` `enlightenment` 383–449 / `doattributes` 2009–2018.
-**Change:** reviews **74** ACCEPT D-1113 (`dipsink` + yn; poly
-clone; pool/`drink_ok_extra` named), **75** ACCEPT D-1114
-(uncurse 17–20; luck/lamplit named), **76** ACCEPT D-1115
-(`mkgold` formula; `update_inventory` named), **77** ACCEPT
-D-1116 (MAGIC-only gates; overlay elapsed `"none"` named).
-Must-fix empty. Filled D-1116 archive hash `19e4be31`.
-Rotated #1405. Open 12 (no refill). Rule #2: no fs.
-**Score:** cadence **#1420** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
-@**#1425**.
-**Verified:** C read of the four loci vs JS hunks; grep
-FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `fountain.c` `gush` `minliquid` body. Not
-dogushforth.
 **Blocked:** none.

@@ -95,3 +95,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [83-5a2f96ca-rloc-wizard-stair.md](./83-5a2f96ca-rloc-wizard-stair.md) | `5a2f96ca` | D-1122 `rloc` Wizard stair / `control_mon_tele` | **ACCEPT** |
 | [84-a55c4b24-rloc-to-worm-docrt.md](./84-a55c4b24-rloc-to-worm-docrt.md) | `a55c4b24` | D-1123 `rloc_to` worm / ustuck-swallow `docrt` | **ACCEPT** |
 | [85-3b7606b3-drinksink-gas-cloud.md](./85-3b7606b3-drinksink-gas-cloud.md) | `3b7606b3` | D-1124 drinksink case 13 `create_gas_cloud` | **ACCEPT** |
+| [86-2fc408c0-dowatersnakes-rndmonnam.md](./86-2fc408c0-dowatersnakes-rndmonnam.md) | `2fc408c0` | D-1125 `dowatersnakes` Hallucination `rndmonnam` | **ACCEPT** |
+| [87-6497347e-drinkfountain-update-inventory.md](./87-6497347e-drinkfountain-update-inventory.md) | `6497347e` | D-1126 drinkfountain case 24 `update_inventory` | **ACCEPT** |
+| [88-b4954c6f-vomit-cantvomit-acid.md](./88-b4954c6f-vomit-cantvomit-acid.md) | `b4954c6f` | D-1127 `vomit` cantvomit/Sick/acid | **ACCEPT** |
+| [89-5b3923d7-dodip-pool-yn.md](./89-5b3923d7-dodip-pool-yn.md) | `5b3923d7` | D-1128 `dodip` pool yn | **ACCEPT** |

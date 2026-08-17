@@ -8,16 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1430**;
-  next @**#1435**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1435**;
+  next @**#1440**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 10
-  after archive (no refill). Reviews **82** ACCEPT-WITH-DEBT
-  (D-1121 thin `fill_pit`); **83–85** ACCEPT (D-1122–D-1124).
+  (no refill). Reviews **86–89** ACCEPT (D-1125–D-1128).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1128**. Prior **82–85** ACCEPT.
+- Latest ports: **D-1089**…**D-1128**. Reviews **86–89** ACCEPT.
 - **Next cluster:** Open `teleport.c` `teleds` `switch_terrain`.
-- **Hypothesis:** none live. Cadence #1430 fortress held.
+- **Hypothesis:** none live. Cadence #1435 fortress held.
 
 ## Don't re-check (≤15)
 
@@ -96,5 +95,5 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1430** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1435**.
-- **D-1128:** dodip pool yn. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.
+- Suite **#1435** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1440**.
+- **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.
