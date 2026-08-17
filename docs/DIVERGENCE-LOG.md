@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1163 — rloc_to minvent shop bill stolen_value after angry
+
+- **Status:** fixed (map-driven Open; named omit from D-1162; not a
+  public FAIL)
+- **Symptom:** JS `rloc_to` placed then `make_angry_shk` with no
+  minvent shop walk. C `rloc_to_core` after angry, when
+  `minvent && !costly_spot(dest)`, finds the origin shk via
+  `find_objowner(minvent, oldx, oldy)` and for each carried object
+  either clears `no_charge` or calls `stolen_value` for items on
+  that shk's bill. Shop-to-shop dest stays costly so no_charge and
+  the first shk's bill stick.
+- **C locus:** `teleport.c` `rloc_to_core` (~1742–1758); callees
+  `shk.c` `costly_spot` / `find_objowner` (~1084) / `onshopbill`
+  (~1160) / `stolen_value` (~3754). `peaceful = !shkp ||
+  shkp->mpeaceful`. Unpaid-not-on-bill is ordinary (no notice).
+- **Fix:** after angry (silent `rloc_to`; after appear in
+  `rloc_to_flag`), walk minvent. Export `onshopbill`. Import
+  `Norep` in `stolen_value`'s already-ported angry arm (C Norep
+  thief scream). Did not pull occupation `dochugw` or trapped
+  `mintrap`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to` / `rloc_to_flag` /
+  `rloc_maybe_minvent_shop_bill`; `js/shk.js` `onshopbill` /
+  `stolen_value` Norep import.
+- **Not this iter:** vanish-msg; occupation `dochugw`; trapped
+  `mintrap`; `rloc_pos_ok` shk/priest room lock; `rloco` object
+  shop bill.
+- **Verify:** private canary **44**/44 (billed debit; no_charge
+  clear; shop-to-shop stick; same-shop skip; ordinary unpaid;
+  no minvent; same-cell; corridor; shk-home !costly; chain;
+  no_charge-beats-bill; angry robbed; rloc_to_flag; null;
+  migrating old 0,0; credit; two billed); green+strict
+  seed8000/0900; cohort **41**/41 (CURRENT shared +
+  0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+  0004/0367/0373/0002. Path public-unhit on a billed-minvent
+  rloc out of shop.
+- **Files:** `js/teleport.js`, `js/shk.js`.
+
 ## D-1162 — rloc_to resident shk make_angry_shk after dest
 
 - **Status:** fixed (map-driven Open; named omit from D-1161 /

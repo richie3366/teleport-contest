@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 15:34 — #1478 D-1163 rloc_to minvent shop bill
+
+**Objective:** Open — `teleport.c` `rloc_to` minvent shop bill
+(named). Not shk-home.
+**C locus:** `teleport.c` `rloc_to_core` 1742–1758; `shk.c`
+`find_objowner` / `onshopbill` / `stolen_value` / `costly_spot`.
+**Change:** after angry, dest `!costly_spot` walks minvent: clear
+`no_charge` else `stolen_value` for `onshopbill`. Export
+`onshopbill`; import `Norep` on stolen_value's angry arm. Did
+not pull occupation `dochugw` / trapped `mintrap`. Filled D-1162
+archive hash `38353d8a`. Rotated #1463. Open 11 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1475** **44**/44; next
+@**#1480**).
+**Verified:** private canary **44**/44 (billed debit; no_charge;
+shop-to-shop; same-shop; ordinary unpaid; no minvent; same-cell;
+corridor; shk-home; chain; no_charge-beats-bill; angry robbed;
+flag; null; migrating; credit; two billed); green+strict
+seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002. Path public-unhit on billed-minvent rloc
+out of shop.
+**Next:** Open `teleport.c` `rloc_to` trapped `mintrap` (named).
+Not occupation.
+**Blocked:** none.
+
 ## 2026-08-17 15:10 — #1477 D-1162 rloc_to make_angry_shk
 
 **Objective:** Open — `teleport.c` `rloc_to` shk `make_angry_shk`
@@ -381,31 +407,4 @@ cohort **25**/25 (0012 vault + 0360/4500/0373/0367 +
 public-unhit on hidden-hider rloc.
 **Next:** Open `teleport.c` `vault_tele` `tele()` fallback
 (named). Not teleds. Audit @**#1465**.
-**Blocked:** none.
-
-## 2026-08-17 09:35 — #1463 D-1151 switch_terrain classify_terrain
-
-**Objective:** Open — `hack.c` `classify_terrain` (named from
-switch_terrain). Not invocation.
-**C locus:** `hack.c` `classify_terrain` 3131–3214;
-`switch_terrain` 3257–3258; `rm.h` xFLOOR…xWATERWALL.
-**Change:** port `classify_terrain`; `switch_terrain` calls it when
-`flags.terrainstatus`. lastseentyp remaps; Underwater ≡ `uinwater`;
-botl iff option && !run. Option bag `flags.terrainstatus` (C).
-Did not paint `terrain_descr[]`, options toggle, MAX_TYPE
-sentinels, or other callers. Filled D-1150 archive hash
-`505df513`. Rotated #1448. Open 8 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1460** **44**/44; next
-@**#1465**).
-**Verified:** private canary **32**/32 (ice/pool/floor/ground/tree;
-door; drawbridge; Medusa/Juiblex; WATER wall; uinwater; sticky
-ignore; run/off gates; switch_terrain On/Off); green+strict
-seed8000/0900; cohort **23**/23 (0007 options + 0012 vault +
-0004/0002/0006/0009/0014/0017/0030/0060/0102/0106/0108/0116/
-0360/0367/0373/0383/0700/1500/1800/2200/4500) + strict
-0007/0012/0360/4500/2200/0004/0002/0006/0030. Path public-unhit
-(`terrainstatus` default Off).
-**Next:** Open `teleport.c` `rloc_to` `maybe_unhide_at` (named).
-Not vanish-msg. Audit @**#1465**.
 **Blocked:** none.

@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1162 | fixed | `rloc_to` resident shk `make_angry_shk` | map-driven; C `teleport.c:1739` / `shk.c` 1470–1488; snapshot `inhishop` before pickup; dest `!inhishop` → angry+`hot_pursuit`; `rloc_to_flag` appear then angry; minvent `stolen_value` / occupation `dochugw` / trapped `mintrap` still named |
+| D-1163 | fixed | `rloc_to` minvent shop bill `stolen_value` | map-driven; C `teleport.c:1748–1758` / `shk.c` find_objowner/onshopbill/stolen_value; dest `!costly_spot` clear no_charge else bill; shop-to-shop sticks; occupation `dochugw` / trapped `mintrap` still named |
+| D-1162 | fixed | `rloc_to` resident shk `make_angry_shk` | map-driven; C `teleport.c:1739` / `shk.c` 1470–1488; snapshot `inhishop` before pickup; dest `!inhishop` → angry+`hot_pursuit`; `rloc_to_flag` appear then angry; minvent bill D-1163; occupation `dochugw` / trapped `mintrap` still named |
 | D-1161 | fixed | `rloc_to` `update_monster_region` after place | map-driven; C `teleport.c:1685` / `region.c` 598–611; absolute membership from mx/my before worm tail; no enter/leave callbacks (`m_in_out_region` is walk); mhitm displace / dbridge / vanish-msg / shk-home still named |
 | D-1160 | fixed | `rloc_to` `set_apparxy` after dest newsym | map-driven; C `teleport.c:1702` / `steed.c` `place_monster` mx/my only; drop mux=hero stand-in; Invis/Displaced re-orient; vanish-msg, shk-home still named |
 | D-1159 | fixed | mfndpos `m_poisongas_ok` vamp/eel/breath | map-driven; C `mon.c:330–357`; vampshifter / eel\|waterlevel+pool / AT_BREA AD_DRST\|RBRE / immune Hezrou\|Vrock → OK; resists → MINOR (mfndpos still avoids); Resists_Elem worn/artifact still named; region.js keeps a local clone |

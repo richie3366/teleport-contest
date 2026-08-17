@@ -655,6 +655,28 @@ async function rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy) {
 }
 
 /**
+ * C ref: teleport.c rloc_to_core 1742–1758 — minvent shop goods after angry.
+ * Dest !costly_spot: clear no_charge; onshopbill → stolen_value(oldxy).
+ * Shop-to-shop keeps no_charge and the first shk's bill. Dynamic import:
+ * shk.js already imports rloc_to_flag from this file.
+ */
+async function rloc_maybe_minvent_shop_bill(mtmp, destx, desty, oldx, oldy) {
+    if (!mtmp?.minvent) return;
+    const { costly_spot, find_objowner, onshopbill, stolen_value } =
+        await import('./shk.js');
+    if (costly_spot(destx, desty)) return;
+    const shkp = find_objowner(mtmp.minvent, oldx, oldy);
+    const peaceful = !shkp || !!shkp.mpeaceful;
+    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+        if (otmp.no_charge) {
+            otmp.no_charge = 0;
+        } else if (shkp && onshopbill(otmp, shkp, true)) {
+            await stolen_value(otmp, oldx, oldy, peaceful, false);
+        }
+    }
+}
+
+/**
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
  * update_monster_region (D-1161; after place, before worm tail);
@@ -662,11 +684,12 @@ async function rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy) {
  * docrt else !m_next2u unstuck (D-1123); maybe_unhide_at then newsym(new)
  * (D-1152); set_apparxy after dest newsym (D-1160; C place_monster
  * writes mx/my only); resident shk !inhishop dest → make_angry_shk
- * (D-1162; after dest, after vanish/appear when rloc_to_flag).
- * Named omissions: minvent shop bill stolen_value; occupation dochugw;
- * trapped mintrap. RLOC_MSG vanish+appear live in async `rloc`
- * (D-0885 / D-0886). rloc_opts.defer_shk_angry is JS-only so
- * rloc_to_flag can run appear pline before angry (C order).
+ * (D-1162; after dest, after vanish/appear when rloc_to_flag);
+ * minvent shop bill after angry (D-1163; dest !costly_spot → clear
+ * no_charge else stolen_value for onshopbill). Named omissions:
+ * occupation dochugw; trapped mintrap. RLOC_MSG vanish+appear live
+ * in async `rloc` (D-0885 / D-0886). rloc_opts.defer_shk_angry is
+ * JS-only so rloc_to_flag can run appear pline before angry (C order).
  */
 export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     if (!mtmp) return null;
@@ -735,11 +758,13 @@ export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     await maybe_unhide_at(x, y);
     newsym(x, y);
     set_apparxy(mtmp);
-    // C: vanish/appear pline then resident_shk && !inhishop make_angry_shk.
-    // Silent rloc_to (RLOC_NOMSG) skips the pline block; rloc_to_flag
-    // defers angry until after rloc_post_move_msg.
+    // C: vanish/appear pline then resident_shk && !inhishop make_angry_shk
+    // then minvent shop bill (teleport.c:1739 then 1748). Silent rloc_to
+    // (RLOC_NOMSG) skips the pline block; rloc_to_flag defers angry+bill
+    // until after rloc_post_move_msg.
     if (!rloc_opts?.defer_shk_angry) {
         await rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy);
+        await rloc_maybe_minvent_shop_bill(mtmp, x, y, oldx, oldy);
     }
     return { resident_shk, oldx, oldy };
 }
@@ -993,6 +1018,7 @@ export async function rloc_to_flag(mtmp, x, y, rlocflags) {
     await rloc_post_move_msg(mtmp, x, y, state);
     if (snap) {
         await rloc_maybe_angry_shk(mtmp, snap.resident_shk, snap.oldx, snap.oldy);
+        await rloc_maybe_minvent_shop_bill(mtmp, x, y, snap.oldx, snap.oldy);
     }
 }
 
