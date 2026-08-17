@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
 - [ ] `do.c` `goto_level` `run_timers` (named). Not kill_genocided.
 - [ ] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level.
 - [ ] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery.

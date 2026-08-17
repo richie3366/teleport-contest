@@ -65,7 +65,7 @@ import { record_achievement } from './insight.js';
 import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, hide_monst, wake_nearto, dist2 } from './mon.js';
+import { m_at, mnexto, hide_monst, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
 import { enexto } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
@@ -1266,8 +1266,8 @@ function getlev_catchup_monsters(elapsed) {
  * Ported: keepdogs → stash (VISITED|LFILE_EXISTS + omoves + track) →
  * assign uz → mklev or restore stash + getlev catchup + rest_track →
  * stairway_find_from → climb/descend pline (Flying / encumber|Punished|
- * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs → vision/docrt →
- * pickup(1).
+ * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs →
+ * kill_genocided_monsters (D-1190) → vision/docrt → pickup(1).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
@@ -1282,6 +1282,8 @@ function getlev_catchup_monsters(elapsed) {
  * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
  * `fix_shop_damage` catchup on !new after in_out_region (D-1178);
  * trap-door `do_fall_dmg` `d(max(dist,1),6)` after shop repair (D-1179);
+ * `kill_genocided_monsters` after losedogs (D-1190; `run_timers` still
+ * named);
  * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
@@ -1660,6 +1662,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     await obj_delivery(false);
 
     losedogs();
+    // C do.c:1817 — after losedogs, before run_timers / u_collide_m.
+    // Migrating mons (and eggs) genocided while in limbo die here so
+    // possessions land on this level. run_timers still named.
+    kill_genocided_monsters();
 
     // C: u_collide_m if still co-located — rn2(2)+enexto path
     let mtmp = m_at(u.ux, u.uy);

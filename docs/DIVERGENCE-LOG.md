@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1190 — do.c `goto_level` `kill_genocided_monsters`
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** JS `goto_level` delivered migrating mons via
+  `losedogs` then collided / reset vision. C also calls
+  `kill_genocided_monsters()` so a species genocided while
+  those mons were in limbo dies on arrival (possessions land
+  here) and `kill_eggs` walks invent/fobj/migrating/buried.
+- **C locus:** `do.c` `goto_level` `:1817` after `losedogs`,
+  before `run_timers` / `u_collide_m`. Callee `mon.c`
+  `kill_genocided_monsters` `:5639–5677` (D-1097 walk).
+- **JS was:** `losedogs()` then `m_at`/`u_collide_m`. Genocide
+  callers already used the callee (`read.js`).
+- **Fix:** `js/do.js` `goto_level` calls existing
+  `kill_genocided_monsters` after `losedogs`. Did not pull
+  `run_timers`, `notice_mon_off`, cmd.c wiz-level-change, or
+  cham `newcham`.
+- **Not this iter:** `run_timers`; `notice_mon_off`; cmd.c
+  `#levelchange` after `losedogs`. Rule #2: no fs.
+- **Verified:** green+strict seed8000/0900; cohort **10**/10
+  (1500/1800/0015/0002/0014/2200/4500/0367/0009/0012) +
+  strict lengths. Public-unhit unless a genocided species
+  migrates across a level change.
+- **Files:** `js/do.js`, `js/mon.js` (comment).
+
 ## D-1189 — `cmd.c` rhack Unknown command `visctrl(key)`
 
 - **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)

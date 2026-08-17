@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] Human canary seed8243: `cmd.c` rhack `Unknown command` `visctrl(key)` so Ctrl-C is `^C` not raw ETX. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1189
+- [x] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers. **Addressed:** D-1190
+
+
+- [x] Human canary seed8243: `cmd.c` rhack `Unknown command` `visctrl(key)` so Ctrl-C is `^C` not raw ETX. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1189 `15dddffe`
 
 
 - [x] Human canary seed8243: `teleport.c` `domagicportal` `"You activated a magic portal!"` / tutorial ATSTAIRS stunmsg. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1188 `c58efd08`

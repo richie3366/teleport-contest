@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:45 — #1512 D-1190 goto_level kill_genocided_monsters
+
+**Objective:** Open — `do.c` `goto_level` `kill_genocided_monsters`
+(named). Not `run_timers`.
+**C locus:** `do.c` `goto_level` 1817 after losedogs before
+`run_timers` / `u_collide_m`; callee `mon.c` 5639–5677 (D-1097).
+**Change:** wire existing `kill_genocided_monsters` after
+`losedogs` so migrating G_GENOD mons (and eggs) die on arrival.
+Did not pull `run_timers`, `notice_mon_off`, cmd.c
+`#levelchange`, or cham `newcham`. Filled D-1189 archive hash
+`15dddffe`. Rotated #1497. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1510** **44**/44; next
+@**#1515**).
+**Verified:** green+strict seed8000/0900; cohort **10**/10
+(1500/1800/0015/0002/0014/2200/4500/0367/0009/0012) + strict
+lengths. Public-unhit unless genocide-then-migrate.
+**Next:** Open `do.c` `goto_level` `run_timers` (named). Not
+kill_genocided.
+**Blocked:** none.
+
 ## 2026-08-18 00:40 — #1511 D-1189 cmd.c rhack visctrl ^C
 
 **Objective:** Must-fix human canary seed8243 `cmd.c` rhack
@@ -370,29 +391,5 @@ screens. Path public-unhit unless a session falls through a
 hole/trap door.
 **Next:** Open `teleport.c` `rloc_to_core` telemsg (named). Not
 RLOC_ERR.
-**Blocked:** none.
-
-## 2026-08-17 21:10 — #1497 D-1178 goto_level fix_shop_damage
-
-**Objective:** Open — `do.c` `goto_level` `fix_shop_damage` (named).
-Not obj_delivery.
-**C locus:** `do.c` `goto_level` 1985–1986 `if (!new)` after
-`in_out_region` before `do_fall_dmg`/`pickup`; callee `shk.c`
-`fix_shop_damage` 4849–4874 / `repair_damage` catchup 4731–4845.
-**Change:** port catchup repair (`shk_impaired`, delay/occupancy/
-trap/owner gates, trap convert, terrain restore, litter
-`rn2(9)`). Wire `!madeNew` after `in_out_region`. Catchup skips
-only post-`block_point` messages. Did not pull `shk_fixes_damage`
-in `shk_move`, allmain/bones callers, or `do_fall_dmg`. Filled
-D-1177 archive hash `36e0ce72`. Rotated #1482. Open 11 after
-archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1495** **44**/44; next
-@**#1500**).
-**Verified:** green+strict seed8000/0900; cohort **10**/10
-(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
-screens. Path public-unhit unless a session revisits a damaged
-shop after 5 turns.
-**Next:** Open `do.c` `goto_level` `do_fall_dmg` (named). Not
-fix_shop_damage.
 **Blocked:** none.
 
