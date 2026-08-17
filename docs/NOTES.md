@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1497** 44/44 @**#1500**. Next: `do_fall_dmg`.
+- **#1498** 44/44 @**#1500**. Next: `rloc_to_core` telemsg.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1497** **44**/44 @**#1500**. **D-1178**. Review **134–137** ACCEPT.
+- **#1498** **44**/44 @**#1500**. **D-1179**. Review **134–137** ACCEPT.

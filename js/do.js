@@ -7,7 +7,7 @@
 //         revive_corpse (D-1081; eat.c cprefx rider + apply tinning).
 
 import { game } from './gstate.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, d } from './rng.js';
 import { depth } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
@@ -1274,13 +1274,14 @@ function getlev_catchup_monsters(elapsed) {
  * → "mysterious force prevents you from descending" (D-0798).
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
- * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
- * MICRO display_nhwindow after Valley odor; ACH_ENDG/ASTR/BGRM;
- * poly `locomotion()` climb verb / steed-flyer Flying;
+ * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2,
+ * Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after Valley odor;
+ * ACH_ENDG/ASTR/BGRM; poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb
  * `great_effort` + Flying ladder "along" (D-0928 #1159);
  * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
  * `fix_shop_damage` catchup on !new after in_out_region (D-1178);
+ * trap-door `do_fall_dmg` `d(max(dist,1),6)` after shop repair (D-1179);
  * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
@@ -1297,6 +1298,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     const prev_temperature = (game.level?.flags?.temperature | 0);
 
     let up = depth_of(newlevel) < depth_of(u.uz);
+    // C: dist = depth(newlevel) - depth(&u.uz) before uz reassignment.
+    const dist = depth_of(newlevel) - depth_of(u.uz);
+    let do_fall_dmg = false;
     const newdungeon = (u.uz.dnum | 0) !== (newlevel.dnum | 0);
     const new_ledger = ledger_no(newlevel);
     if (new_ledger <= 0) return; // C: done(ESCAPED)
@@ -1633,8 +1637,15 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             }
         }
     } else if (!at_stairs) {
-        // C: trap door / level_tele / tutorial UTOTYPE_NONE → u_on_rndspot
+        // C: trap door / level_tele / In_endgame → u_on_rndspot
+        // Named omit: was_in_W_tower bit 2 (D-1179).
         u_on_rndspot(up ? 1 : 0);
+        if (falling) {
+            // C do.c:1805–1809 — Punished && !welded(uball) ballfall still
+            // named (ball.js). selftouch then do_fall_dmg (D-1179).
+            await selftouch('Falling, you');
+            do_fall_dmg = true;
+        }
     }
 
     game.at_ladder = false;
@@ -1777,10 +1788,23 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C do.c:1985–1986 — shop repair catchup on revisited levels (!new)
     // before do_fall_dmg / pickup so bones map includes it (D-1178).
-    // do_fall_dmg still named.
     if (!madeNew) {
         const { fix_shop_damage } = await import('./shk.js');
         await fix_shop_damage();
+    }
+
+    // C do.c:1988–1994 — trap-door/hole fall after shop repair, before
+    // pickup. losehp is noreturn on death so skip pickup (D-1179).
+    if (do_fall_dmg) {
+        let dmg = d(Math.max(dist | 0, 1), 6);
+        dmg = maybe_half_phys(dmg);
+        losehp(dmg, 'falling down a mine shaft', KILLED_BY);
+        await finish_maybe_wail();
+        if (game._losehp_needs_done) {
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            return;
+        }
     }
 
     // C: goto_level ends with pickup(1) — autopick or check_here/engr

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage.
 - [ ] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR.
 - [ ] `teleport.c` `rloc` `RLOC_ERR` impossible() (named). Not vanish-msg.
 - [ ] `teleport.c` `rloc_pos_ok` mx==0 updest/dndest (named). Not room lock.

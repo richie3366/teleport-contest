@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1179 — do.c `goto_level` `do_fall_dmg`
+
+- **Status:** fixed (map-driven Open; named omit from D-1178 / D-1177 /
+  D-1166; not a public FAIL)
+- **Symptom:** JS `goto_level` placed the hero on a trap-door/hole
+  arrival (`falling`) then ran shop repair and `pickup(1)` without C
+  `do_fall_dmg`. Shaft fall never rolled `d(max(dist,1),6)` /
+  `Maybe_Half_Phys` / `losehp("falling down a mine shaft")` after
+  `fix_shop_damage`, so HP/killer/bones on that path diverged from C.
+- **C locus:** `do.c` `goto_level` `:1498` `do_fall_dmg` flag + `dist`
+  before uz reassignment; `:1803–1810` non-stairs `falling` arm
+  (`selftouch` then flag); `:1988–1994` after `!new`
+  `fix_shop_damage`, before `pickup(1)`.
+- **JS was:** `else if (!at_stairs)` only `u_on_rndspot`; no flag;
+  no shaft `losehp`.
+- **Fix:** capture `dist`; on `falling` `selftouch` then set the
+  flag; after shop repair `d(max(dist,1),6)` `maybe_half_phys`
+  `losehp`; fatal skips pickup (C `losehp` noreturn).
+- **JS:** `js/do.js` `goto_level`.
+- **Not this iter:** Punished `ballfall`; W-tower `u_on_rndspot` bit
+  2; `kill_genocided_monsters`; `run_timers`; `notice_mon_off`;
+  leave-level `impact_drop`. Rule #2: no fs.
+- **Verified:** green+strict seed8000/0900; cohort (see journal).
+  Path public-unhit unless a session falls through a hole/trap door.
+
 ## D-1178 — do.c `goto_level` `fix_shop_damage`
 
 - **Status:** fixed (map-driven Open; named omit from D-1177 / D-1166;
