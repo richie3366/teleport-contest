@@ -11,8 +11,7 @@
 // drinkfountain case 19 MAGICENLIGHTENMENT body (D-1116).
 // drinkfountain case 24 buc_changed → update_inventory (D-1126).
 // gush m_at → minliquid else newsym (D-1117).
-// Deferred: vomit cantvomit/Sick/acid poly arms,
-// set_levltyp side effects beyond typ/flags;
+// Deferred: set_levltyp side effects beyond typ/flags;
 // mongrantswish tmp_at glyph hide.
 // dowatersnakes Hallucination makeplural(rndmonnam(NULL)) (D-1125).
 // dryup wizard y_n after town warn (D-1096).
@@ -453,8 +452,8 @@ export async function drinksink() {
     case 9:
         await pline('Gaggg... this tastes like sewage!  You vomit.');
         // C: morehungry(rn1(30 - ACURR(A_CON), 11))
-        morehungry(rn1(30 - acurr(A_CON), 11));
-        vomit();
+            morehungry(rn1(30 - acurr(A_CON), 11));
+            await vomit();
         break;
     case 10:
         // C fountain.c:680–686 — toxic wastes; !Unchanging →
@@ -843,8 +842,8 @@ export async function drinkfountain() {
         case 20: // Foul water
             await pline('The water is foul!  You gag and vomit.');
             morehungry(rn1(20, 11));
-            // C: eat.c vomit() — nomul(-2); poly acid spew deferred
-            vomit();
+            // C: eat.c vomit() — nomul(-2); cantvomit/Sick/acid poly (D-1127)
+            await vomit();
             break;
         case 21: { // Poisonous
             await pline('The water is contaminated!');

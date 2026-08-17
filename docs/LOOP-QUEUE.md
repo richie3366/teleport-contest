@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup.
 - [ ] `potion.c` pool dip yn (named from dipsink). Not drinkfountain.
 - [ ] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit.
 - [ ] `teleport.c` `teleds` `update_player_regions` (named). Not teleok in_out_region.

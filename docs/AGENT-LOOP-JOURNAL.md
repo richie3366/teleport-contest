@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 02:35 — #1433 D-1127 eat.c vomit cantvomit/Sick/acid
+
+**Objective:** Open queue — `eat.c` `vomit` cantvomit/Sick/acid
+poly arms (named from drinkfountain). Not dryup.
+**C locus:** `eat.c` `vomit` 3736–3784; `mondata.c` `cantvomit`
+663–673; `zap.c` `ubreatheu` 3017–3021 / `zhitu` ZT_ACID
+4528–4546; `pray.c` `altar_wrath`; `zap.c` `melt_ice`.
+**Change:** remaining `vomit` body. cantvomit jaw-gape (mndx);
+Sick SICK_VOMITABLE `make_sick(0)`; FAINTING dry-heave vs
+spewed; AT_BREA AD_ACID `ubreatheu`→zhitu; altar_wrath;
+acidic melt_ice. zhitu ZT_ACID resist+hliquid+d(nd,6)+rn2
+gates (acid_damage/erode bodies named). Did not pull timeout
+vomiting_dialog or pool dip. Filled D-1126 hash `6497347e`.
+Rotated #1418. Open 11 after archive (no refill). Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1430** **44**/44; next
+@**#1435**).
+**Verified:** private canary **27**/27; green+strict seed8000/0900;
+cohort **22**/22 (0014 fountain + 0002 drinksink + 0012 vomit
++ 0004/0006/0007/0009/0016/0030/0060/0102/0103/0108/0116/
+0360/0367/0398/0700/1500/1800/2200/4500) + strict 0014/0002/
+0012/0108/0004/1800/0360/2200/4500/0030. Path public-unhit
+except existing nomul.
+**Next:** Open `potion.c` pool dip yn (named from dipsink).
+Not drinkfountain. Audit @**#1435**.
+**Blocked:** none.
+
 ## 2026-08-17 02:20 — #1432 D-1126 drinkfountain case 24 update_inventory
 
 **Objective:** Open queue — `fountain.c` `drinkfountain` case 24
@@ -374,28 +401,4 @@ cohort **22**/22 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
 0373/0060/0383. Path public-unhit.
 **Next:** Open `fountain.c` `gush` `minliquid` body. Not
 dogushforth. Audit @**#1420**.
-**Blocked:** none.
-
-## 2026-08-16 23:22 — #1418 D-1115 dipfountain case 29 mkgold coins
-
-**Objective:** Open queue — `fountain.c` `dipfountain` case 29
-`mkgold` coins (named). Not wash_hands.
-**C locus:** `fountain.c` `dipfountain` 530–546; `mkobj.c`
-`mkgold`; `dungeon.c` `dunlev` / `dunlevs_in_dungeon`;
-`youprop.h` Blind.
-**Change:** port You-see-coins. Unlooted: `SET_FOUNTAIN_LOOTED`,
-`mkgold(rnd((num_dunlevs-dlevel+1)*2)+5)` merge/create,
-Blind-skip glistening, `exercise(A_WIS,TRUE)`, `newsym`.
-Looted skip before `mkgold`. `dryup` still after switch.
-Did not pull enlightenment / gush `minliquid` / `update_inventory`.
-Filled D-1114 hash `e30a51f2`. Rotated #1403. Open 8 after
-archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1415** **44**/44; next
-@**#1420**).
-**Verified:** private canary **57**/57; green+strict seed8000/0900;
-cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
-0016/4500/0360/2200/0009/0367/0004/0030) + strict 0014/0360/
-4500/2200/0004/0030/0009/0367. Path public-unhit.
-**Next:** Open `fountain.c` `drinkfountain` enlightenment body.
-Not dryup.
 **Blocked:** none.

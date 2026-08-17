@@ -4854,7 +4854,7 @@ export async function use_unicorn_horn(obj) {
             await make_stunned(((u.HStun | 0) & TIMEOUT) + lcount, true);
             break;
         case 4:
-            if (u.Vomiting) vomit();
+            if (u.Vomiting) await vomit();
             else await make_vomiting(14, false);
             break;
         case 5:

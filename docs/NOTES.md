@@ -10,13 +10,13 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1430**;
   next @**#1435**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 12
-  after archive+refill. Reviews **82** ACCEPT-WITH-DEBT
+- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+  after archive (no refill). Reviews **82** ACCEPT-WITH-DEBT
   (D-1121 thin `fill_pit`); **83–85** ACCEPT (D-1122–D-1124).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1126**. Prior **82–85** ACCEPT.
-- **Next cluster:** Open `eat.c` `vomit` cantvomit/Sick/acid.
+- Latest ports: **D-1089**…**D-1127**. Prior **82–85** ACCEPT.
+- **Next cluster:** Open `potion.c` pool dip yn (named from dipsink).
 - **Hypothesis:** none live. Cadence #1430 fortress held.
 
 ## Don't re-check (≤15)
@@ -85,7 +85,9 @@ Objective/score live in `CURRENT.md`.
   grab `!m_next2u` `unstuck` (D-1123) / skip drinksink case 13
   `create_gas_cloud` (D-1124) / restore always-snakes skip of
   Hallucination `rndmonnam` (D-1125) / skip drinkfountain case 24
-  `update_inventory` or restore `void buc_changed` (D-1126).
+  `update_inventory` or restore `void buc_changed` (D-1126) / skip
+  `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
+  void spewed (D-1127).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
@@ -94,7 +96,5 @@ Objective/score live in `CURRENT.md`.
 
 - Suite after cadence **#1430**: **44**/44 Scr **11405**/11405
   RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1435**.
-- **D-1126:** drinkfountain case 24 `update_inventory`.
-- **D-1125:** `dowatersnakes` `rndmonnam`. Hash `2fc408c0`.
-- **D-1124:** drinksink `create_gas_cloud`. Hash `3b7606b3`.
-- **D-1123:** `rloc_to` worm `docrt` `a55c4b24`. **D-1122:** Wizard stair `5a2f96ca`.
+- **D-1127:** `eat.c` `vomit` cantvomit/Sick/acid poly.
+- **D-1126:** drinkfountain `update_inventory` `6497347e`. **D-1125:** `2fc408c0`.

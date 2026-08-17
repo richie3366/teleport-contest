@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment. **Addressed:** D-1126
+- [x] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup. **Addressed:** D-1127
+
+
+- [x] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment. **Addressed:** D-1126 `6497347e`
 
 
 - [x] `fountain.c` `dowatersnakes` Hallucination `rndmonnam` (named). Not gush. **Addressed:** D-1125 `2fc408c0`

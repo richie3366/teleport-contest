@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1127 — `eat.c` `vomit` cantvomit/Sick/acid poly arms
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `vomit()` only did `nomul(-2)` (D-0371). C also
+  does cantvomit jaw-gape (no Sick cure / no spew), else
+  `Sick && SICK_VOMITABLE` → `make_sick(0L,NULL,TRUE,SICK_VOMITABLE)`,
+  FAINTING dry-heave vs `spewed`, then if spewed: yellow-dragon
+  `AT_BREA`/`AD_ACID` `ubreatheu`, `IS_ALTAR` `altar_wrath`,
+  `acidic` `melt_ice`.
+- **C locus:** `eat.c` `vomit` (~3736–3784); `mondata.c`
+  `cantvomit` (~663–673); `zap.c` `ubreatheu` (~3017–3021) /
+  `zhitu` ZT_ACID (~4528–4546); `pray.c` `altar_wrath`;
+  `zap.c` `melt_ice`.
+- **Fix:** port remaining `vomit` body. `cantvomit` compares mndx
+  (JS `mons()` is a fresh object). `ubreatheu` → `zhitu` with
+  `dtyp = 20 + adtyp - 1`. ZT_ACID: Acid_resistance hliquid
+  pline + `d(nd,6)`/`exercise(A_STR)` else; consume C `rn2`
+  acid_damage/erode gates (bodies still named). Dynamic import
+  zap/pray to avoid eat←zap←fountain / eat←pray cycles.
+  Did not pull timeout `vomiting_dialog`, acid_damage/erode
+  bodies, or C web-destroy TODO. Rule #2: no fs.
+- **JS:** `js/eat.js` `vomit`; `js/mondata.js` `cantvomit`;
+  `js/zap.js` `ubreatheu` / `zhitu` ZT_ACID; callers await
+  (`fountain.js` drinkfountain 20 / drinksink 9; `apply.js`
+  unicorn; `eat.js` `choke`).
+- **Not this iter:** timeout.c vomiting_dialog cantvomit/Hallu;
+  `zhitu` acid_damage/erode_armor; pool dip yn.
+- **Verify:** private canary **27**/27 (rodent/horse/mole/chuck
+  predicates; human nomul; SICK_VOMITABLE cure; SICK_ALL
+  partial; FAINTING; yellow spew); green+strict seed8000/0900;
+  cohort **22**/22 (0014 fountain + 0002 drinksink + 0012 foul
+  vomit + 0004/0006/0007/0009/0016/0030/0060/0102/0103/0108/
+  0116/0360/0367/0398/0700/1500/1800/2200/4500) + strict
+  0014/0002/0012/0108/0004/1800/0360/2200/4500/0030. Path
+  public-unhit except existing nomul.
+- **Next:** Open `potion.c` pool dip yn (named from dipsink).
+  Not drinkfountain.
+
 ## D-1126 — drinkfountain case 24 update_inventory
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
