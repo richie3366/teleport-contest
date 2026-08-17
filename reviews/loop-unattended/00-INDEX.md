@@ -107,3 +107,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [95-5f55ceba-dipfountain-update-inventory.md](./95-5f55ceba-dipfountain-update-inventory.md) | `5f55ceba` | D-1134 `dipfountain` after-switch `update_inventory` | **ACCEPT** |
 | [96-b166bda5-hcolor-drinksink.md](./96-b166bda5-hcolor-drinksink.md) | `b166bda5` | D-1135 `hcolor` Hallu drinksink | **ACCEPT** |
 | [97-52aea3d1-mongrantswish-tmp-at.md](./97-52aea3d1-mongrantswish-tmp-at.md) | `52aea3d1` | D-1136 `mongrantswish` `tmp_at` hide | **ACCEPT** |
+| [98-50136436-make-gas-cloud-enveloped.md](./98-50136436-make-gas-cloud-enveloped.md) | `50136436` | D-1137 `make_gas_cloud` enveloped You | **ACCEPT** |
+| [99-068e78df-minliquid-lava-on-fire.md](./99-068e78df-minliquid-lava-on-fire.md) | `068e78df` | D-1138 minliquid lava `on_fire` / `xkilled` | **ACCEPT** |
+| [100-4071a74d-teleds-swallow-docrt.md](./100-4071a74d-teleds-swallow-docrt.md) | `4071a74d` | D-1139 `teleds` swallow `docrt` | **ACCEPT** |
+| [101-36fb8797-teleds-vault-uleftvault.md](./101-36fb8797-teleds-vault-uleftvault.md) | `36fb8797` | D-1140 `teleds` vault_guard `uleftvault` | **ACCEPT-WITH-DEBT** |

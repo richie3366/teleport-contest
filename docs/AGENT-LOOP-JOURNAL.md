@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 06:20 — #1450 review D-1137–D-1140 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `region.c` `make_gas_cloud` 1182–1204 /
+`create_gas_cloud` 1229–1236; `mon.c` `minliquid_core` 1010–1067
+/ `mondata.c` `on_fire` 1411–1445 / `trap.c` `fire_damage_chain`
+4550–4572 / `allmain.c` 210–216; `teleport.c` `teleds` 487–504
+/ `mon.c` `set_ustuck` 3421–3435; `teleport.c` `teleds` 454,
+553–566 / `vault.c` `uleftvault` 256–277.
+**Change:** reviews **98** ACCEPT D-1137 (You + `PLNMSG_ENVELOPED_IN_GAS`
+after add_region analog; `set_heros_fault`; inside_f HP /
+`m_poisongas_ok` named), **99** ACCEPT D-1138 (lava `on_fire` /
+`mondead` vs `xkilled` + `fire_damage_chain`; `mon_moving` wrap;
+gush is pool-only), **100** ACCEPT D-1139 (`set_ustuck(Null)` +
+origin `docrt`; not `unstuck`), **101** ACCEPT-WITH-DEBT D-1140
+(vault fake/restore + irate/`mpeaceful=0`; hostile `gd_move`
+named no-op, not Must-fix). Must-fix empty. Filled D-1140 archive
+hash `36fb8797`. Rotated #1436. Open 8 (no refill). Rule #2: no fs.
+**Score:** cadence **#1450** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1455**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `teleds` `invocation_message`. Not
+vault_guard.
+**Blocked:** none.
+
 ## 2026-08-17 06:10 — #1449 D-1140 teleds vault_guard uleftvault
 
 **Objective:** Open queue — `teleport.c` `teleds` `vault_guard`
@@ -348,29 +376,4 @@ cohort **22**/22 (0012 vault + 0004 scroll + 0360/0367/0373/
 0367/0373/0030/0009/0002. Path public-unhit on gas teleds.
 **Next:** Open `teleport.c` `teleds` `hideunder` / mimic.
 Not swallow docrt.
-**Blocked:** none.
-
-## 2026-08-17 03:20 — #1436 D-1129 teleds switch_terrain dest-typ
-
-**Objective:** Open queue — `teleport.c` `teleds` `switch_terrain`
-(named). Not fill_pit.
-**C locus:** `teleport.c` `teleds` 548–552; `hack.c`
-`switch_terrain` 3178–3217; `youprop.h` Levitation/Flying.
-**Change:** port `switch_terrain` in `hack.js`. `teleds` awaits
-it after vision+materialize when dest typ ≠ origin. Block:
-You_cant then `B* |= FROMOUTSIDE` (no `float_down`). Unblock:
-clear FROMOUTSIDE, `float_up` / `float_vs_flight` + start
-flying. youprop H||E||steed-flyer && !B. Did not pull
-`classify_terrain` or other callers. Filled no prior hash
-gap. Rotated #1421. Open 9 after archive (no refill). Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1435** **44**/44; next
-@**#1440**).
-**Verified:** private canary **46**/46; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0004 scroll + 0360/0367/0373/
-4500/2200/1500/1800/0030/0009/0002/0116/0060/0102/0700/0017/
-0007/0361/0108/0383/5002) + strict 0012/0360/4500/0004/2200/
-0367/0373/0030/0009/0002. Path public-unhit on wall-teleport.
-**Next:** Open `teleport.c` `teleds` `update_player_regions`.
-Not teleok in_out_region.
 **Blocked:** none.

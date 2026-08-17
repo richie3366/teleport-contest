@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `teleds` `vault_guard` `uleftvault` (named). Not swallow docrt. **Addressed:** D-1140
+- [x] `teleport.c` `teleds` `vault_guard` `uleftvault` (named). Not swallow docrt. **Addressed:** D-1140 `36fb8797`
 
 
 - [x] `teleport.c` `teleds` swallow `docrt` (named). Not hideunder. **Addressed:** D-1139 `4071a74d`

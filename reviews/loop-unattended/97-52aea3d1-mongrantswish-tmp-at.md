@@ -122,7 +122,7 @@ Named omits / do-nots (map / Open, not Must-fix):
 1. Full C `mongone` (`mon.c:3267–3283`) — `mdrop_special_objs` / `discard_minvent` / `m_detach`; JS does not even call `mon.js` `mongone()`.
 2. `djinni_from_bottle` `mongrantswish(&mtmp)` (`potion.c:2845`).
 3. Shared integer `glyph_at()`; OOB `cmap_to_glyph(S_room)` vs `'.'`.
-4. Next Open: `region.c` `make_gas_cloud` enveloped pline (`region.c:1197–1203`). Not `create_gas_cloud` size-1.
+4. Next Open: `region.c` `make_gas_cloud` enveloped pline (`region.c:1197–1203`). Not `create_gas_cloud` size-1. **Addressed:** D-1137 `50136436`.
 5. Do not restore splice+`makewish` without `tmp_at`. Do not `mon_to_glyph` here. Do not use DISP_FLASH (would skip `!cansee`). Do not pull `djinni_from_bottle` into this hide peel.
 
 ## Verdict
@@ -130,4 +130,4 @@ Named omits / do-nots (map / Open, not Must-fix):
 - Verdict: **ACCEPT**
 - Score: **8 / 10**
 - One sentence: `mongrantswish` now snapshots gbuf `disp_*` and wraps `makewish` in real `tmp_at(DISP_ALWAYS)` so the prompt still shows the removed monster, while full `mongone` and `djinni_from_bottle` stay named.
-- Must-fix stays empty for this SHA; next port pops Open `region.c` `make_gas_cloud` enveloped pline. Not create_gas_cloud size-1.
+- Must-fix stays empty for this SHA; next port popped Open `region.c` `make_gas_cloud` enveloped pline. **Addressed:** D-1137 `50136436`. Not create_gas_cloud size-1.

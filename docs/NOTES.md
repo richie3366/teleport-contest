@@ -8,9 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.26/turn` R² 0.87) after cadence **#1445**;
-  next @**#1450**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 8. Reviews **94–97** ACCEPT.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1450**;
+  next @**#1455**. Mode: **map-driven** fortress. Must-fix empty.
+  Open 8. Reviews **98–100** ACCEPT, **101** ACCEPT-WITH-DEBT
+  (hostile `gd_move` named, not Must-fix).
 - Public LB / cron / hub CDN: **out of scope** (human).
 - **Next cluster:** Open `teleport.c` `teleds`
   `invocation_message`. Not vault_guard.
@@ -95,4 +96,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1445** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1450**. **D-1139:** `4071a74d`. **D-1138:** `068e78df`. **D-1137:** `50136436`. **D-1136:** `52aea3d1`. **D-1135:** `b166bda5`.
+- Suite **#1450** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1455**. **D-1140:** `36fb8797`. **D-1139:** `4071a74d`. **D-1138:** `068e78df`. **D-1137:** `50136436`. **D-1136:** `52aea3d1`.
