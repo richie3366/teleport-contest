@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1192 | fixed | allmain.c `newgame` wizkit `obj_delivery(FALSE)` | map-driven; C `allmain.c:826–829` after skills before legacy; `files.c` `read_wizkit`/`wizkit_addinv` VFS `WIZKIT=`; overflow WITH_HERO\|NOBREAK\|NOSCATTER then FALSE; `deliver_obj_to_mon` / getenv / `wish_history` / `init_artifacts` / newgame `notice_mon_off` still named |
 | D-1191 | fixed | do.c `goto_level` `run_timers` | map-driven; C `do.c:1818–1823` after losedogs+obj_delivery+kill_genocided before `u_collide_m`; callee `timeout.c` 2222–2241 (JS `mkobj.js` D-0405/D-1037); expire dest+delivered timers; invent/migrating stay live (`obj_is_local` false); `notice_mon_off` / cmd.c wiz-level-change / REVIVE/ZOMBIFY still named |
 | D-1190 | fixed | do.c `goto_level` `kill_genocided_monsters` | map-driven; C `do.c:1817` after losedogs before run_timers/`u_collide_m`; callee `mon.c` 5639–5677 (D-1097); migrating G_GENOD mons + `kill_eggs` on invent/fobj/migrating/buried; `run_timers` D-1191; `notice_mon_off` / cmd.c wiz-level-change / cham `newcham` still named |
 | D-1189 | fixed | `cmd.c` rhack `visctrl` Unknown command | human canary seed8243; C `cmd.c:3833–3834` / `hacklib.c` `visctrl` 469–493; `Unknown command '%s'` via `visctrl(key)` so Ctrl-C is `^C` not raw ETX; `dokeylist.js` `visctrl` already existed; `custompline(SUPPRESS_HISTORY)` / `cmdq_clear` CQ_REPEAT / `sanity_no_check` still named |

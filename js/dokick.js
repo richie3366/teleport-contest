@@ -1885,7 +1885,7 @@ export async function impact_drop(missile, x, y, dlev) {
  * trap-door with the hero), TRUE after check_special_room (stairs /
  * random). C XOR: skip when (!near_hero) != (where == MIGR_WITH_HERO).
  * nx/ny persist across the loop like C (only RANDOM/default zeros).
- * Named omit: deliver_obj_to_mon; allmain newgame wizkit FALSE.
+ * Named omit: deliver_obj_to_mon. allmain newgame wizkit FALSE is D-1192.
  */
 export async function obj_delivery(near_hero) {
     const u = game.u || {};

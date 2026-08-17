@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1192 — allmain.c `newgame` wizkit `obj_delivery(FALSE)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1177; not a
+  public FAIL)
+- **Symptom:** JS `newgame` went from `u_init_skills_discoveries` to
+  `flags.legacy` without the wizard WIZKIT finish. C
+  `if (wizard) { read_wizkit(); obj_delivery(FALSE); }` so overflow
+  kit items (MIGR_WITH_HERO|NOBREAK|NOSCATTER at dnum 0 / dlevel 1)
+  land at the hero. Fitting items `addinv` inside `wizkit_addinv`.
+- **C locus:** `allmain.c` `newgame` `:826–829` after skills before
+  legacy. Callees `files.c` `read_wizkit` `:2584–2601`,
+  `proc_wizkit_line` `:2562–2581`, `wizkit_addinv` `:2537–2559`;
+  `cfgfiles.c` `cnf_line_WIZKIT`; `dokick.c` `obj_delivery` FALSE
+  (D-1177).
+- **JS was:** no `read_wizkit`, no newgame `obj_delivery(FALSE)`.
+- **Fix:** `js/files.js` VFS `read_wizkit` (Rule #2: no fs/getenv/
+  HOME fopen); `WIZKIT=` in `parseNethackrc`; wire the wizard
+  pair in `js/allmain.js` `newgame`. Did not pull
+  `deliver_obj_to_mon`, `wish_history_add`, `config_error` UI,
+  `option_help` WIZKIT dump, `init_artifacts`, or newgame
+  `notice_mon_off`.
+- **JS:** `js/files.js`; `js/allmain.js` `newgame`; `js/options.js`
+  `parseNethackrc`; `js/dokick.js` `obj_delivery`.
+- **Not this iter:** `deliver_obj_to_mon`; getenv/HOME/`access`;
+  `wish_history_add`; `config_error_init`/`done`; CHOOSE/sections;
+  `option_help` WIZKIT; `init_artifacts`; newgame `notice_mon_off`.
+  Rule #2: no fs.
+- **Verify:** private canary **18**/18 (WIZKIT= parse; !wizard;
+  missing VFS; dagger addinv; overflow flags + FALSE at hero;
+  source order). green+strict seed8000/0900; cohort **23**/23
+  (incl. wizard debug 0006/0108/0116/0360/0373/0398/2200/4500/
+  5002/5006) full RNG+screens + strict lengths. Path public-unhit
+  unless a wizard session has WIZKIT= in VFS.
+
 ## D-1191 — do.c `goto_level` `run_timers`
 
 - **Status:** fixed (map-driven; not a public FAIL)

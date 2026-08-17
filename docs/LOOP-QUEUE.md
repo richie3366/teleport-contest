@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level.
 - [ ] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery.
 - [ ] `do.c` `goto_level` `notice_mon_off` (named). Not docrt.
 - [ ] `teleport.c` `rloc_to_core` wand `makeknown` (named). Not ustuck-together.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded.
 - [ ] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive.
 - [ ] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit.
+- [ ] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit.
+- [ ] `artifact.c` `init_artifacts` (named). Not wizkit.
+- [ ] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers.
+- [ ] `cmd.c` `wiz_level_change` (named). Not notice_mon_off.
+- [ ] `eat.c` `eatspecial` (named). Not doeat_nonfood.
 
 ## Parked (do not pop)
 

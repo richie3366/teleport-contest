@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:55 — #1514 D-1192 newgame wizkit obj_delivery(FALSE)
+
+**Objective:** Open — `allmain.c` `newgame` wizkit
+`obj_delivery(FALSE)` (named). Not goto_level.
+**C locus:** `allmain.c` `newgame` 826–829 after skills before
+legacy; `files.c` `read_wizkit` 2584–2601 / `wizkit_addinv`
+2537–2559 / `proc_wizkit_line` 2562–2581; `cfgfiles.c`
+`cnf_line_WIZKIT`; callee `dokick.c` `obj_delivery` FALSE
+(D-1177).
+**Change:** VFS `read_wizkit` + `WIZKIT=` parse; wire wizard
+`read_wizkit` then `obj_delivery(FALSE)` so overflow kit items
+land at the hero. Did not pull `deliver_obj_to_mon`, getenv/
+HOME, `wish_history`, `config_error` UI, `option_help` WIZKIT,
+`init_artifacts`, or newgame `notice_mon_off`. Filled D-1191
+archive hash `cc7d0ef5`. Rotated #1499. Open 7 after archive
+→ refill to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1510** **44**/44; next
+@**#1515**).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **23**/23 (incl. wizard debug
+0006/0108/0116/0360/0373/0398/2200/4500/5002/5006) + strict
+lengths. Public-unhit unless a wizard session has WIZKIT= in
+VFS.
+**Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
+obj_delivery.
+**Blocked:** none.
+
 ## 2026-08-18 00:50 — #1513 D-1191 goto_level run_timers
 
 **Objective:** Open — `do.c` `goto_level` `run_timers` (named).
@@ -369,27 +396,5 @@ Rotated #1485. Open 9 (no refill). Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `teleport.c` `rloc` `RLOC_ERR` impossible() (named).
 Not vanish-msg.
-**Blocked:** none.
-
-## 2026-08-17 21:26 — #1499 D-1180 rloc_to_core telemsg
-
-**Objective:** Open — `teleport.c` `rloc_to_core` telemsg (named).
-Not RLOC_ERR.
-**C locus:** `teleport.c` `rloc_to_core` 1658–1659 same-cell
-return; 1662–1672 set telemsg; 1712–1719 `"%s vanishes and
-reappears%s."` next / close-by / closer / farther.
-**Change:** emit the reappear pline with C suffix order; same-cell
-`rloc_to_flag` return before vanish/appear. Did not pull
-ustuck-together, wand `makeknown`, `set_msg_xy`, or `RLOC_ERR`.
-Filled D-1179 archive hash `5f08f9e5`. Rotated #1484. Open 9
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1495** **44**/44; next
-@**#1500**).
-**Verified:** green+strict seed8000/0900; cohort **10**/10
-(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
-screens. Path public-unhit unless a spotted monster teleports
-to a still-visible cell.
-**Next:** Open `teleport.c` `rloc` `RLOC_ERR` impossible()
-(named). Not vanish-msg.
 **Blocked:** none.
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do.c` `goto_level` `run_timers` (named). Not kill_genocided. **Addressed:** D-1191
+- [x] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level. **Addressed:** D-1192
+
+
+- [x] `do.c` `goto_level` `run_timers` (named). Not kill_genocided. **Addressed:** D-1191 `cc7d0ef5`
 
 
 - [x] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers. **Addressed:** D-1190 `9a2cbc27`
