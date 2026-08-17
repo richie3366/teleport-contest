@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled. **Addressed:** D-1148
+- [x] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled. **Addressed:** D-1148 `27274b3b`
 
 
 - [x] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs. **Addressed:** D-1147 `5c43dbc9`

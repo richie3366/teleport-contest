@@ -115,3 +115,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [103-52194cc9-teleds-notice-mon.md](./103-52194cc9-teleds-notice-mon.md) | `52194cc9` | D-1142 `teleds` `notice_mon_off` / `notice_all_mons` | **ACCEPT-WITH-DEBT** |
 | [104-bb8585ec-in-out-region-msgs.md](./104-bb8585ec-in-out-region-msgs.md) | `bb8585ec` | D-1143 `in_out_region` enter_msg / leave_msg | **ACCEPT** |
 | [105-1c1f7ccb-djinni-from-bottle.md](./105-1c1f7ccb-djinni-from-bottle.md) | `1c1f7ccb` | D-1144 `djinni_from_bottle` `mongrantswish` | **ACCEPT** |
+| [106-623bc861-excalibur-update-inventory.md](./106-623bc861-excalibur-update-inventory.md) | `623bc861` | D-1145 Excalibur `:441` `update_inventory` | **ACCEPT** |
+| [107-fe5cefad-inside-gas-cloud.md](./107-fe5cefad-inside-gas-cloud.md) | `fe5cefad` | D-1146 `inside_gas_cloud` damage | **ACCEPT** |
+| [108-5c43dbc9-rndcolor.md](./108-5c43dbc9-rndcolor.md) | `5c43dbc9` | D-1147 `rndcolor` chest_trap gas | **ACCEPT** |
+| [109-27274b3b-overcrowding.md](./109-27274b3b-overcrowding.md) | `27274b3b` | D-1148 `deal_with_overcrowding` limbo / clog | **QUALITY-RISK** |

@@ -7,10 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 after cadence **#1455**; next @**#1460**.
-  Map-driven. Must-fix empty. Open 10.
-- **Next:** `hack.c` `domove` `invocation_message` (named). Not teleds.
-- **Hypothesis:** none live.
+- Local suite **44**/44 after cadence **#1460**; next @**#1465**.
+  Map-driven. Must-fix 1. Open 10.
+- **Next:** Must-fix `mon.c` `mongone` `mdrop_special_objs` then
+  discard (elemental_clog victim). Not worn extract.
+  Source: reviews/loop-unattended/109-27274b3b-overcrowding.md.
+- **Hypothesis:** C `mongone` 3277–3280 drops specials before
+  discard; JS `minvent=null`. Falsify: clog victim holding
+  Amulet — C floor drop vs JS vanish.
 
 ## Don't re-check (≤15)
 
@@ -91,4 +95,5 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1455** **44**/44. Next @**#1460**. **D-1147:** `5c43dbc9`.
+- Suite **#1460** **44**/44. Next @**#1465**. **D-1148:** `27274b3b`.
+  Review **109** QUALITY-RISK: clog victim `mongone`.

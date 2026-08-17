@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1455** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1460**.
+**#1460** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `32+0.28/turn` (R² 0.87). Next audit (review + score) @**#1465**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1460**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.87) |
+| Speed label | `32+0.28/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -72,7 +72,9 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** Open `hack.c` `domove` `invocation_message` (named). Not teleds.
+**Next cluster:** Must-fix `mon.c` `mongone` `mdrop_special_objs` then
+discard (elemental_clog victim). Not worn extract.
+Source: reviews/loop-unattended/109-27274b3b-overcrowding.md.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1148. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
