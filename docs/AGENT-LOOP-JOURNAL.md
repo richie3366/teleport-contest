@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:08 — #1508 D-1187 avoid_trap_andor_region ParanoidTrap
+
+**Objective:** Must-fix human canary seed8243 `hack.c`
+`avoid_trap_andor_region` ParanoidTrap portal yn. Not
+maybe_smudge. Not kill_genocided.
+**C locus:** `hack.c` `avoid_trap_andor_region` 2515–2581 /
+`domove_core` 2825–2828; `trap.c` `into_vs_onto` 5375–5388 /
+`immune_to_trap` 2783–2934 (MAGIC_PORTAL hero NOT_IMMUNE).
+**Change:** yn `"Really step into that magic portal?"` via
+`paranoid_query(ParanoidConfirm)` (default bits → yn, not
+getlin yes). Call after `u_rooted` before `u.utrap`. Silent
+TEST_MOVE subset. Gas-region arm via local clones. Did not
+pull hero `domagicportal`. Filled D-1186 archive hash
+`4dd396cc`. Rotated #1493. Open 10 + Must-fix portal
+activate = 11 (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1505** **44**/44; next
+@**#1510**).
+**Verified:** canary Scr **107→108**/129 (yn matches; @108
+leftover yn vs C activate); green+strict seed8000/0900;
+cohort **42**/42 (CURRENT shared + 0014/0383/0399/4500/2600
++ green) + strict 1500/0700/0009/0361/0015/0012.
+**Next:** Must-fix seed8243 `teleport.c` `domagicportal`
+`"You activated a magic portal!"` / tutorial ATSTAIRS.
+Not maybe_smudge_engr.
+**Blocked:** none.
+
 ## 2026-08-17 23:55 — #1507 D-1186 cmd.c g/G PREFIXCMD rush
 
 **Objective:** Must-fix human canary seed8243 `cmd.c` `g` rush
@@ -369,34 +395,5 @@ seed8000/0900; cohort **43**/43 (CURRENT shared + 0014/0383/4500/
 knock through a live force field.
 **Next:** Open `do.c` `goto_level` `obj_delivery` (named). Not
 in_out_region. Audit @**#1495**.
-**Blocked:** none.
-
-## 2026-08-17 20:12 — #1493 D-1175 youmonst m_everyturn_effect
-
-**Objective:** Open — `allmain.c` `m_everyturn_effect` youmonst
-(named). Not m_postmove_effect.
-**C locus:** `allmain.c` 481 after bot before `context.move`;
-callee `monmove.c` `m_everyturn_effect` 658–674 `is_u?u.ux:mx`.
-**Change:** await `m_everyturn_effect(youmonst)` once-per-input.
-Helper: fog at current `u.ux` (`data.mndx`); await
-`create_gas_cloud(1,0)`; `movemon_singlemon` awaits. Human no-op.
-Did not pull udemigod/`amulet()`/`glibr`/`do_storms`/
-`mkot_trap_warn` or `mhurtle_step`. Filled D-1174 archive hash
-`e5ec6685`. Rotated #1478. Open 9 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1490** **44**/44; next
-@**#1495**).
-**Verified:** private canary **27**/27 (C/JS after bot before
-context.move; helper `is_u` ux not ux0; import; await create;
-data.mndx first; null; human no cloud/RNG; Hezrou/Steam not this
-function; fog ux not ux0/not mx; size-1 dmg 0; ttl `rn1`;
-heros_fault; hero_inside; no envelop; thenable; door skip;
-visible_region skip; monster mx/my; stale mnum; `mon_moving`;
-region elsewhere; no fs/FORCE); green+strict seed8000/0900;
-cohort **43**/43 (CURRENT shared + 0014/0383/4500/2600 + green)
-+ strict 0101/0012/0360/4500/2200/0014/0004/0103/0104/0367/
-0373/0002/0700/0015/0116/0106. Path public-unhit on polyed Fog.
-**Next:** Open `dothrow.c` `mhurtle_step` `m_in_out_region` (named).
-Not hurtle_step.
 **Blocked:** none.
 

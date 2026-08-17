@@ -20,6 +20,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          xdir, ydir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, VIBRATING_SQUARE,
+         PARANOID_TRAP,
          ARTICLE_NONE, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE,
          has_mgivenname,
          } from './const.js';
@@ -65,7 +66,7 @@ import { getpos } from './getpos.js';
 import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
     impaired_movement, is_pool, is_lava, carrying_too_much,
-    invocation_message,
+    invocation_message, avoid_trap_andor_region,
 } from './hack.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
@@ -1721,6 +1722,12 @@ async function domove(dx, dy) {
     if (await u_rooted()) {
         if (game.context?.run) end_running();
         return;
+    }
+
+    // C ref: hack.c domove_core — ParanoidTrap → avoid_trap_andor_region
+    // after u_rooted, before u.utrap/trapmove (D-1187).
+    if (((game.flags?.paranoia_bits | 0) & PARANOID_TRAP) !== 0) {
+        if (await avoid_trap_andor_region(newx, newy)) return;
     }
 
     // C ref: hack.c domove_core — u.utrap → trapmove before test_move

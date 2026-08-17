@@ -51,9 +51,11 @@ import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE, RECURSIVETRAP,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
     PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, FIRE_TRAP, SLP_GAS_TRAP,
-    TELEP_TRAP, ROLLING_BOULDER_TRAP,
+    TELEP_TRAP, ROLLING_BOULDER_TRAP, POLY_TRAP,
     BEAR_TRAP, WEB, RUST_TRAP, VIBRATING_SQUARE, LANDMINE,
     ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES, SLEEP_RES,
+    TRAP_NOT_IMMUNE, TRAP_CLEARLY_IMMUNE, TRAP_HIDDEN_IMMUNE,
+    In_endgame, In_sokoban, Is_earthlevel,
     STONE_RES, FAILEDUNTRAP,
     NO_TRAP, TRAPNUM, WT_ELF,
     is_hole, is_pit, unhideable_trap, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
@@ -153,6 +155,7 @@ const PM_NORN = monsterNames.indexOf('PM_NORN');
 const PM_CYCLOPS = monsterNames.indexOf('PM_CYCLOPS');
 const PM_LORD_SURTUR = monsterNames.indexOf('PM_LORD_SURTUR');
 const STATUE = objectNames.indexOf('STATUE');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const AD_RUST = 24; /* monattk.h */
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_DOPPELGANGER = monsterNames.indexOf('PM_DOPPELGANGER');
@@ -1284,6 +1287,154 @@ export function trapname(ttyp, _override) {
     const t = ttyp | 0;
     if (t > NO_TRAP && t < TRAPNUM) return TRAP_EXPLANATIONS[t] || 'trap';
     return 'trap';
+}
+
+/**
+ * C ref: trap.c into_vs_onto — True → "into" that trap, else "onto".
+ */
+export function into_vs_onto(traptype) {
+    switch (traptype | 0) {
+    case BEAR_TRAP:
+    case PIT:
+    case SPIKED_PIT:
+    case HOLE:
+    case TELEP_TRAP:
+    case LEVEL_TELEP:
+    case MAGIC_PORTAL:
+    case WEB:
+        return true;
+    default:
+        return false;
+    }
+}
+
+/** C dungeon.c has_ceiling — endgame non-earth has no ceiling. */
+function has_ceiling_trap(lev) {
+    if (In_endgame(lev) && !Is_earthlevel(lev)) return false;
+    return true;
+}
+
+/**
+ * C youprop.h Sleep_resistance / Antimagic — H||E; confer writes uprops
+ * only (D-1089). Sticky flats kept for poly/eat.
+ */
+function Sleep_resistance() {
+    const u = game.u || {};
+    return !!((u.HSleep_resistance | 0) || (u.ESleep_resistance | 0)
+        || u.Sleep_resistance);
+}
+function Antimagic_prop() {
+    const u = game.u || {};
+    return !!((u.HAntimagic | 0) || (u.EAntimagic | 0) || u.Antimagic);
+}
+
+/**
+ * C ref: trap.c immune_to_trap. Hero MAGIC_PORTAL is NOT_IMMUNE so
+ * ParanoidTrap still asks (hack.c avoid_trap_andor_region). Named
+ * omissions: monster ANTI_MAGIC resists_magm/attacktype; FIRE/MAGIC
+ * invent-burn walk (hero FIRE is at most HIDDEN — still asks);
+ * POLY resists_magm (hero Antimagic is HIDDEN — still asks).
+ */
+export function immune_to_trap(mon, ttype) {
+    if (!mon) return TRAP_NOT_IMMUNE;
+    const pm = mon.data;
+    const is_you = is_youmonst(mon);
+    const u = game.u || {};
+    const Sokoban = !!(game.level?.flags?.sokoban_rules || game.Sokoban);
+    const t = ttype | 0;
+
+    switch (t) {
+    case ARROW_TRAP:
+    case DART_TRAP:
+    case ROCKTRAP:
+        return TRAP_NOT_IMMUNE;
+    case BEAR_TRAP:
+        if (pm && ((pm.msize | 0) <= MZ_SMALL
+            || amorphous(pm) || is_whirly(pm) || unsolid(pm))) {
+            return TRAP_CLEARLY_IMMUNE;
+        }
+        // FALLTHROUGH
+    case SQKY_BOARD:
+    case LANDMINE:
+    case ROLLING_BOULDER_TRAP:
+    case HOLE:
+    case TRAPDOOR:
+    case PIT:
+    case SPIKED_PIT:
+        if (Sokoban && (is_pit(t) || is_hole(t))) return TRAP_NOT_IMMUNE;
+        if (In_sokoban(u.uz) && t === ROLLING_BOULDER_TRAP) {
+            return TRAP_CLEARLY_IMMUNE;
+        }
+        if (pm && (is_floater(pm) || is_flyer(pm)
+            || (is_clinger(pm) && has_ceiling_trap(u.uz)))) {
+            return TRAP_CLEARLY_IMMUNE;
+        }
+        if (is_you && (hero_Levitation() || hero_Flying())) {
+            return TRAP_CLEARLY_IMMUNE;
+        }
+        return TRAP_NOT_IMMUNE;
+    case SLP_GAS_TRAP:
+        if (pm && breathless(pm)) return TRAP_CLEARLY_IMMUNE;
+        if (!is_you && resists_sleep(mon)) return TRAP_CLEARLY_IMMUNE;
+        if (is_you && Sleep_resistance()) return TRAP_HIDDEN_IMMUNE;
+        return TRAP_NOT_IMMUNE;
+    case LEVEL_TELEP:
+    case TELEP_TRAP:
+        // C wizard.c mon_has_amulet walks mtmp->minvent (youmonst.minvent
+        // is not gi.invent — hero-with-Amulet is not CLEARLY via this).
+        if (In_endgame(u.uz)) return TRAP_CLEARLY_IMMUNE;
+        for (let otmp = mon.minvent; otmp; otmp = otmp.nobj) {
+            if ((otmp.otyp | 0) === AMULET_OF_YENDOR) return TRAP_CLEARLY_IMMUNE;
+        }
+        return TRAP_NOT_IMMUNE;
+    case POLY_TRAP:
+        if (is_you && Antimagic_prop()) return TRAP_HIDDEN_IMMUNE;
+        return TRAP_NOT_IMMUNE;
+    case STATUE_TRAP:
+        if (!is_you) return TRAP_CLEARLY_IMMUNE;
+        return TRAP_NOT_IMMUNE;
+    case WEB:
+        if (pm && (webmaker(pm) || amorphous(pm) || is_whirly(pm) || flaming(pm)
+            || unsolid(pm) || (pm.mndx ?? -1) === PM_GELATINOUS_CUBE)) {
+            return TRAP_CLEARLY_IMMUNE;
+        }
+        return TRAP_NOT_IMMUNE;
+    case ANTI_MAGIC:
+        if (is_you) {
+            if (Antimagic_prop()) return TRAP_NOT_IMMUNE;
+            if ((u.uenmax | 0) === 0) return TRAP_HIDDEN_IMMUNE;
+        }
+        return TRAP_NOT_IMMUNE;
+    case RUST_TRAP:
+        if ((pm?.mndx ?? -1) === PM_IRON_GOLEM) return TRAP_NOT_IMMUNE;
+        for (let obj = is_you ? game.invent : mon.minvent; obj; obj = obj.nobj) {
+            if (is_rustprone(obj) && (obj.owornmask | 0)) {
+                if (is_you && (obj === u.uquiver
+                    || (obj === u.uswapwep && !u.twoweap))) {
+                    continue;
+                }
+                return TRAP_NOT_IMMUNE;
+            }
+        }
+        return TRAP_CLEARLY_IMMUNE;
+    case MAGIC_TRAP:
+        if (is_you) return TRAP_NOT_IMMUNE;
+        // FALLTHROUGH — monsters: fire-trap replica
+    case FIRE_TRAP:
+        if (is_you) {
+            if (!Fire_resistance()) return TRAP_NOT_IMMUNE;
+            return TRAP_HIDDEN_IMMUNE;
+        }
+        if (!resists_fire(mon)) return TRAP_NOT_IMMUNE;
+        return TRAP_CLEARLY_IMMUNE;
+    case MAGIC_PORTAL:
+        if (!is_you) return TRAP_CLEARLY_IMMUNE;
+        return TRAP_NOT_IMMUNE;
+    case VIBRATING_SQUARE:
+        return TRAP_CLEARLY_IMMUNE;
+    default:
+        return TRAP_NOT_IMMUNE;
+    }
 }
 
 /**

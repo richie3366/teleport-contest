@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] Human canary seed8243: `cmd.c` `g` rush prefix (until something interesting) vs JS Unknown command. Not maybe_smudge_engr. Not offx. **Addressed:** D-1186
+- [x] Human canary seed8243: `hack.c` `avoid_trap_andor_region` ParanoidTrap `"Really step into that magic portal?"` yn. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1187
+
+
+- [x] Human canary seed8243: `cmd.c` `g` rush prefix (until something interesting) vs JS Unknown command. Not maybe_smudge_engr. Not offx. **Addressed:** D-1186 `4dd396cc`
 
 
 - [x] Human canary (no review stamp): `private-sessions/seed8243-samurai-tutorial.session.json`. Chargen `\e[72C` was truncated capture; local C H2344 `\e[40C` already matched JS (do not revert D-0078). First real miss: `do_wear.c` `doddoremarm` `A` empty-worn. **Addressed:** D-1185 `4750946a`

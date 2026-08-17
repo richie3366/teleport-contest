@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1187 — `hack.c` `avoid_trap_andor_region` ParanoidTrap portal yn
+
+- **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
+- **Symptom:** After `g` PREFIXCMD (D-1186), first miss @107. C
+  `domove_core` asks `"Really step into that magic portal? [yn] (n)"`
+  before occupying a tseen MAGIC_PORTAL. JS walked onto the portal
+  and ate the `y` as a vi-move.
+- **C locus:** `hack.c` `avoid_trap_andor_region` `:2515–2581`;
+  caller `domove_core` `:2825–2828` after `u_rooted` before
+  `u.utrap`. Helpers `trap.c` `into_vs_onto` `:5375–5388` and
+  `immune_to_trap` `:2783–2934` (MAGIC_PORTAL hero
+  `TRAP_NOT_IMMUNE`). `paranoid_query(ParanoidConfirm, qbuf)` —
+  default bits omit CONFIRM so yn, not getlin `"yes"`.
+- **JS was:** no `avoid_trap_andor_region`; `domove` went
+  rooted → `trapmove` → occupy.
+- **Fix:** `js/hack.js` `avoid_trap_andor_region` + `js/cmd.js`
+  call site; `js/trap.js` `into_vs_onto` / `immune_to_trap`.
+  Silent TEST_MOVE subset (isok / obstructed / closed door /
+  diagonal doorway). Gas-region arm via local
+  `visible_region_at`/`reg_damg` clones (no hack↔region import
+  cycle). Did not pull hero `domagicportal` (next @108).
+- **Not this iter:** `teleport.c` `domagicportal` `"You activated
+  a magic portal!"` / tutorial ATSTAIRS stunmsg;
+  `maybe_smudge_engr` `rnd(5)`; full `test_move` Passes_walls /
+  squeeze / chew. Rule #2: no fs.
+- **Verified:** private canary Scr **107→108**/129 (yn prompt
+  matches; leftover yn vs C portal-activate is `domagicportal`);
+  green+strict seed8000/0900; cohort **42**/42 (CURRENT shared +
+  0014/0383/0399/4500/2600 + green) + strict
+  1500/0700/0009/0361/0015/0012. Path public-unhit unless a
+  session walks onto a tseen non-CLEARLY-immune trap.
+- **Files:** `js/hack.js`, `js/cmd.js`, `js/trap.js`.
+
 ## D-1186 — `cmd.c` `g`/`G` PREFIXCMD `do_rush`/`do_run`
 
 - **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
