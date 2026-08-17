@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] Human canary (no review stamp): `private-sessions/seed8243-samurai-tutorial.session.json`. Chargen `\e[72C` was truncated capture; local C H2344 `\e[40C` already matched JS (do not revert D-0078). First real miss: `do_wear.c` `doddoremarm` `A` empty-worn. **Addressed:** D-1185
+
+
 - [x] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet. **Addressed:** D-1184 `1b94d8d3`
 
 

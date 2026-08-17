@@ -49,7 +49,7 @@ import { do_attack, mon_at, is_safemon, mundisplaceable } from './uhitm.js';
 import { doopen, doopen_indir, doclose } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch, doterrain } from './detect.js';
-import { dotakeoff, dowear, doputon } from './do_wear.js';
+import { dotakeoff, doddoremarm, dowear, doputon } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon } from './wield.js';
@@ -1353,6 +1353,11 @@ export async function rhack(key) {
         const tookTime = await dotakeoff();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'A') {
+        // C ref: do_wear.c doddoremarm / cmd.c 'A' takeoffall
+        const res = await doddoremarm();
+        game.context.move = (res & ECMD_TIME) ? 1 : 0;
+        if (res & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'w') {
         // C ref: wield.c dowield — wield a weapon
         const tookTime = await dowield();

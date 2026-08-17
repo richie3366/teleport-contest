@@ -7,20 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1505** 44/44 @**#1510**. Human canary
-  `private-sessions/seed8243-samurai-tutorial.session.json`: JS
-  **FAIL** RNG 2361/2534 Scr 22/129. Step 0 is C vs JS `built` date
-  (ignore). First real miss @step 8 chargen confirm `offx`.
+- **#1506** 44/44 @**#1510**. seed8243: H2344 confirm `\e[40C` already
+  matched (truncated `\e[72C` was not C). Next @22 `cmd.c` `g` rush.
   Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
-  — if Scr still fails @0/`built` only, elide date and re-check @8.
-  Keystream has `\x1b[A` arrows and `\x03`; replay as recorded, do not
-  “fix” keys. Do not add to public `sessions/`. Dump C `cw->offx` /
-  `cw->maxcol` at confirm. Do not hardcode `\e[72C` or revert D-0078
-  H2344. Reviews **142–146** ACCEPT (no new Must-fix).
+  Later `maybe_smudge_engr` `rnd(5)` vs `rn2(5)`. Not public sessions.
 
 ## Don't re-check (≤15)
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
+- Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -84,11 +79,11 @@ Objective/score live in `CURRENT.md`.
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
   `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149) / skip walk `domove` `invocation_message` (D-1150) / skip
-  `classify_terrain` (D-1151) / skip `rloc_to` `maybe_unhide_at` (D-1152) / skip `rloc_to` `set_apparxy` or restore mux=hero (D-1160) / skip `rloc_to` `update_monster_region` (D-1161) / skip rloc_to angry/bill/mintrap (D-1162–D-1164) / D-1170 occupation / vault_tele false (D-1153) / skip `pick_vibrasquare` / hellfill VS (D-1154) / skip `expire_gas_cloud` dissipation (D-1155) / skip fumaroles whoosh/EOT (D-1156/D-1168) / thinner mfndpos gas (D-1159) / D-1172/D-1174/D-1176/D-1183).
+  `classify_terrain` (D-1151); D-1152…D-1185 in CURRENT Keep).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 
 ## Landmarks (≤15)
 
-- **#1505** **44**/44 @**#1510**. **D-1184**. Review **142–146** ACCEPT.
+- **#1506** **44**/44 @**#1510**. **D-1185**. Review **142–146** ACCEPT.

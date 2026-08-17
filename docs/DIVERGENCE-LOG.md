@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1185 — `doddoremarm` `A` empty-worn You are not wearing anything
+
+- **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
+- **Symptom:** Queued as chargen NHW_MENU `offx` (`\e[72C` vs JS
+  `\e[40C`). Local C re-record of the recipe (upstream
+  `16ff59115315917b93185d026aeefea06db9b0f4` + contest patches)
+  paints confirm at H2344 `\e[40C` cursor `[46,8,1]` — JS already
+  matched. The checked-in capture truncated menu lines to ~8 glyphs
+  at col 72. First real miss vs the dump: `A` → C
+  `You are not wearing anything.` vs JS `Unknown command 'A'.`
+- **C locus:** `do_wear.c` `doddoremarm` `:3022–3034` (`cmd.c` `'A'`
+  `takeoffall`); empty
+  `!uwep && !uswapwep && !uquiver && !uamul && !ublindf && !uleft
+  && !uright && !wearing_armor()` → `You("are not wearing anything.")`
+  `ECMD_OK`. `wearing_armor` is `invent.c:2149–2152`.
+- **JS was:** `A` fell through rhack unknown-command. `T`/`dotakeoff`
+  already ported (D-0063).
+- **Fix:** `js/do_wear.js` `doddoremarm` + `js/cmd.js` `'A'`. Did not
+  pull `ggetobj`/`menu_remarm`/`take_off` occupation when worn. Did
+  not revert D-0078 H2344. Replaced the truncated private session
+  with the local C re-record.
+- **Not this iter:** `cmd.c` `g` rush prefix; `maybe_smudge_engr`
+  `rnd(5)`; worn-path takeoffall menu. Rule #2: no fs.
+- **Verified:** private canary Scr **102→106**/129 (four `A` steps);
+  remaining first miss @22 `g`; green+strict seed8000/0900; cohort
+  **8**/8 (1500/1800/0700/0361/0014/2200/0009/0012) + strict
+  1500/0700/0009/0361. Path public-unhit unless `A` on empty worn.
+- **Files:** `js/do_wear.js`, `js/cmd.js`;
+  `private-sessions/seed8243-samurai-tutorial.session.json`.
+
 ## D-1184 — `scrolltele` `!Blinded` `make_blinded(0, FALSE)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1183 / D-0407;

@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 23:35 — #1506 D-1185 doddoremarm A empty-worn
+
+**Objective:** Must-fix human canary seed8243. Queued as chargen
+`offx`; dump first.
+**C locus:** `wintty.c` H2344 `tty_display_nhwindow` NHW_MENU offx
+(confirm already matched); first real miss `do_wear.c`
+`doddoremarm` 3022–3034 / `cmd.c` `'A'` takeoffall.
+**Change:** local C re-record replaces truncated `\e[72C` capture
+(H2344 `\e[40C` already matched JS; do not revert D-0078).
+`doddoremarm` empty-worn You are not wearing anything. Did not
+pull `ggetobj`/`menu_remarm`/`take_off`. Did not port `g` rush.
+Rotated #1491. Open 10 + Must-fix `g` prefix = 11 (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1505** **44**/44; next
+@**#1510**).
+**Verified:** canary Scr **102→106**/129 (four `A`); remaining @22
+`g`; green+strict seed8000/0900; cohort **8**/8
+(1500/1800/0700/0361/0014/2200/0009/0012) + strict
+1500/0700/0009/0361.
+**Next:** Must-fix seed8243 `cmd.c` `g` rush prefix. Not
+maybe_smudge_engr.
+**Blocked:** none.
+
 ## 2026-08-17 23:15 — #1505 review D-1181–D-1184 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -378,31 +401,5 @@ caller bits; no fs/FORCE); green+strict seed8000/0900; cohort
 0015/0116/0106. Path public-unhit while `should_displace` is false.
 **Next:** Open `allmain.c` `m_everyturn_effect` youmonst (named).
 Not m_postmove_effect.
-**Blocked:** none.
-
-## 2026-08-17 19:39 — #1491 D-1173 mnexto control_mon_tele savemm
-
-**Objective:** Open — `mon.c` `mnexto` `control_mon_tele` (named). Not
-rloc.
-**C locus:** `mon.c` `mnexto` 3974–3978 after enexto; callee
-`teleport.c` `control_mon_tele` 1898–1934 via_rloc FALSE.
-**Change:** after successful enexto, `iflags.mon_telecontrol` (not
-wizard at caller, not mx!=0) `control_mon_tele(..., false)` then
-restore savemm coord copy on FALSE so cancel/hero-cell cannot stick.
-Default Off. Did not pull vanish-msg, `RLOC_ERR`, or OPTIONS= doset.
-Filled no prior missing hash (D-1172 already `e7c5c8ac`). Rotated
-#1476. Open 11 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1490** **44**/44; next
-@**#1495**).
-**Verified:** private canary **38**/38 (C/JS order; via_rloc FALSE;
-savemm copy; no wizard/mx gate; Off (11,10); On without wizard;
-steed sync; wizard `.` / ESC / hero `h.` restore; STONE force y/n;
-mx==0 still prompts; rloc still rnd; thenable; `.` consumed; no
-fs/FORCE); green+strict seed8000/0900; cohort **41**/41 (CURRENT
-shared + 0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/
-0014/0004/0103/0104/0367/0373/0002/0700/0015/0116/0106. Path
-public-unhit on wizard `montelecontrol`.
-**Next:** Open `mhitm.c` `mdisplacem` `update_monster_region` (named).
-Not rloc_to.
 **Blocked:** none.
 
