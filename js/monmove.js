@@ -26,7 +26,7 @@ import {
     count_traps,
 } from './trap.js';
 import { mattacku } from './mhitu.js';
-import { mattackm } from './mhitm.js';
+import { mattackm, mdisplacem } from './mhitm.js';
 import { castmu, AD_SPEL, AD_CLRC } from './mcastu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point, m_cansee } from './vision.js';
 import {
@@ -1651,9 +1651,14 @@ export async function m_move(mtmp, after) {
         return m_move_aggress(mtmp, nix, niy);
     }
 
-    // C: ALLOW_MDISP → mdisplacem; body deferred → treat as failed displace
+    // C: ALLOW_MDISP → mdisplacem (mhitm.c); region update is inside
+    // mdisplacem after both places (D-1174). should_displace still named
+    // (better_with_displacing stays false → MDISP-only squares skipped).
     if ((chiInfo & ALLOW_MDISP) !== 0) {
-        // Named: mdisplacem body still deferred
+        const mtmp2 = m_at(nix, niy); /* ALLOW_MDISP implies m_at is set */
+        const mstatus = await mdisplacem(mtmp, mtmp2, false);
+        if (mstatus & (M_ATTK_AGR_DIED | M_ATTK_DEF_DIED)) return MMOVE_DIED;
+        if (mstatus & M_ATTK_HIT) return MMOVE_MOVED;
         return MMOVE_DONE;
     }
 

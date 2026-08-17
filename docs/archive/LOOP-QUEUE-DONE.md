@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc. **Addressed:** D-1173
+- [x] `mhitm.c` `mdisplacem` `update_monster_region` (named). Not rloc_to. **Addressed:** D-1174
+
+
+- [x] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc. **Addressed:** D-1173 `e07eeae7`
 
 
 - [x] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair. **Addressed:** D-1172 `e7c5c8ac`

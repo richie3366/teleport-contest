@@ -16,7 +16,7 @@
 // in_out_region D-1157. hurtle_step in_out_region D-1165. goto_level
 // in_out_region D-1166. youmonst m_postmove_effect D-1167 (trail at
 // u.ux0). allmain moveloop fumaroles D-1168. Selection create D-1158. rloc_to
-// update_monster_region D-1161 (mhitm displace / dbridge named).
+// update_monster_region D-1161; mhitm mdisplacem D-1174 (dbridge named).
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -523,8 +523,8 @@ export function update_player_regions() {
  * place_monster, before worm tail (teleport.c:1685, D-1161).
  * Absolute membership from (mon.mx, mon.my). No can_enter/leave
  * or enter/leave callbacks — those are m_in_out_region (walk).
- * C does not skip attach_2_m here. mhitm displace / dbridge
- * callers still named.
+ * C does not skip attach_2_m here. mhitm mdisplacem D-1174
+ * (after both place_monster + defender worm tail). dbridge named.
  */
 export function update_monster_region(mon) {
     const mx = mon.mx | 0;

@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 19:57 — #1492 D-1174 mdisplacem update_monster_region
+
+**Objective:** Open — `mhitm.c` `mdisplacem` `update_monster_region`
+(named). Not rloc_to.
+**C locus:** `mhitm.c` `mdisplacem` 178–267 / region 256–257;
+callee `region.c` 598–611; caller `monmove.c` `m_move` 2025–2037.
+**Change:** port `mdisplacem` (sanity, `rn2(7)`, grid-bug, unhide,
+wake, petrify, swap); after both `place_monster` and defender
+worm tail, `update_monster_region` each. Wire ALLOW_MDISP return
+bits. Keep `should_displace` false. Did not pull dogmove caller
+or dbridge. Filled D-1173 archive hash `e07eeae7`. Rotated #1477.
+Open 10 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1490** **44**/44; next
+@**#1495**).
+**Verified:** private canary **46**/46 (C/JS tail-before-region;
+sanity no rng; 1-in-7 miss; swap enter/leave/stay; attach_2_m;
+unhide/wake/meating/seemimic; grid-bug diagonal vs cardinal;
+petrify died/gloves/golem-poly/`resists_ston`; thenable; m_move
+caller bits; no fs/FORCE); green+strict seed8000/0900; cohort
+**43**/43 (CURRENT shared + 0014/0383/4500/2600 + green) + strict
+0101/0012/0360/4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/
+0015/0116/0106. Path public-unhit while `should_displace` is false.
+**Next:** Open `allmain.c` `m_everyturn_effect` youmonst (named).
+Not m_postmove_effect.
+**Blocked:** none.
+
 ## 2026-08-17 19:39 — #1491 D-1173 mnexto control_mon_tele savemm
 
 **Objective:** Open — `mon.c` `mnexto` `control_mon_tele` (named). Not
@@ -391,28 +417,4 @@ seed8000/0900; cohort **41**/41 (CURRENT shared +
 out of shop.
 **Next:** Open `teleport.c` `rloc_to` trapped `mintrap` (named).
 Not occupation.
-**Blocked:** none.
-
-## 2026-08-17 15:10 — #1477 D-1162 rloc_to make_angry_shk
-
-**Objective:** Open — `teleport.c` `rloc_to` shk `make_angry_shk`
-(named). Not vanish-msg.
-**C locus:** `teleport.c` `rloc_to_core` 1651 / 1734–1740;
-`shk.c` `make_angry_shk` 1470–1488 / `inhishop` 1039–1048.
-**Change:** snapshot `resident_shk` before pickup; dest
-`!inhishop` → existing `make_angry_shk`. `rloc_to_flag` defers
-angry until after appear pline. Did not pull vanish-msg / minvent
-shop bill / occupation `dochugw` / trapped `mintrap`. Filled
-D-1161 archive hash `4dfadf3a`. Rotated #1462. Open 12 after
-archive+refill. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1475** **44**/44; next
-@**#1480**).
-**Verified:** private canary **32**/32 (leave-shop angry+following;
-stay-shop; already-out; non-shk; same-cell; furious; bill fold;
-null; flag appear-then-angry; flag stay; priest; migrating mx==0);
-green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/
-0367/0373/0002. Path public-unhit on resident shk rloc out of shop.
-**Next:** Open `teleport.c` `rloc_to` minvent shop bill (named).
-Not shk-home.
 **Blocked:** none.

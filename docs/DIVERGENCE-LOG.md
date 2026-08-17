@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1174 — `mdisplacem` `update_monster_region` after both places
+
+- **Status:** fixed (map-driven Open; named omit from D-1161 / review 122;
+  not a public FAIL)
+- **Symptom:** JS `m_move` treated `ALLOW_MDISP` as a failed displace
+  (`MMOVE_DONE`) with no swap and no region list update. C `mdisplacem`
+  places both monsters, replants the defender's worm tail, then calls
+  `update_monster_region` on **each** so dest poisoncloud membership is
+  absolute from the new `(mx,my)`. Distinct from `rloc_to` (D-1161),
+  which updates the relocating mon **before** its tail.
+- **C locus:** `mhitm.c` `mdisplacem` (~178–267), region calls 256–257
+  after `place_monster` both + defender `place_worm_tail_randomly`.
+  Caller `monmove.c` `m_move` 2025–2037. Callee `region.c` 598–611.
+- **Fix:** port `mdisplacem` (sanity, `rn2(7)`, grid-bug diagonal,
+  unhide/`seemimic`/wake/`finish_meating`, vis, touch-petrify, swap,
+  defender tail, **then** `update_monster_region` both, pline/newsym/
+  flush). Wire `m_move` ALLOW_MDISP to the real return bits. Keep
+  `better_with_displacing = false` (`should_displace` named — enabling
+  it would consume `undesirable_disp` `rn2(40)` on public paths).
+  Did not pull dogmove caller or dbridge. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mdisplacem`; `js/monmove.js` ALLOW_MDISP arm.
+- **Not this iter:** `should_displace` / `undesirable_disp`; dogmove
+  `mdisplacem` caller; dbridge entity `update_monster_region`;
+  `type_is_pname` in displace `mhis`; `finish_meating` mimic AP (already
+  named on dogmove).
+- **Verify:** private canary **46**/46 (C/JS order tail-before-region;
+  sanity no rng; 1-in-7 miss; swap enter/leave/stay; attach_2_m still
+  add; unhide/wake/meating/seemimic; grid-bug diagonal vs cardinal;
+  petrify died/gloves/golem-poly/`resists_ston`; thenable; m_move
+  caller bits; no fs/FORCE); green+strict seed8000/0900; cohort **43**/43
+  (CURRENT shared + 0014/0383/4500/2600 + green) + strict 0101/0012/0360/
+  4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/0015/0116/0106.
+  Path public-unhit while `should_displace` is false.
+- **Files:** `js/mhitm.js`, `js/monmove.js`, `js/region.js` (comments).
+
 ## D-1173 — `mnexto` `control_mon_tele(..., FALSE)` + savemm
 
 - **Status:** fixed (map-driven Open; named omit from D-1122 / D-1172;
