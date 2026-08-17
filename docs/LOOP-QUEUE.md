@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_to` `update_monster_region` (named). Not set_apparxy.
 - [ ] `teleport.c` `rloc_to` shk `make_angry_shk` (named). Not vanish-msg.
 - [ ] `teleport.c` `rloc_to` minvent shop bill (named). Not shk-home.
 - [ ] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation.

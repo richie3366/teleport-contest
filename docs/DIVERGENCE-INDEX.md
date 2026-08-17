@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1160 | fixed | `rloc_to` `set_apparxy` after dest newsym | map-driven; C `teleport.c:1702` / `steed.c` `place_monster` mx/my only; drop mux=hero stand-in; Invis/Displaced re-orient; vanish-msg, `update_monster_region`, shk-home still named |
+| D-1161 | fixed | `rloc_to` `update_monster_region` after place | map-driven; C `teleport.c:1685` / `region.c` 598–611; absolute membership from mx/my before worm tail; no enter/leave callbacks (`m_in_out_region` is walk); mhitm displace / dbridge / vanish-msg / shk-home still named |
+| D-1160 | fixed | `rloc_to` `set_apparxy` after dest newsym | map-driven; C `teleport.c:1702` / `steed.c` `place_monster` mx/my only; drop mux=hero stand-in; Invis/Displaced re-orient; vanish-msg, shk-home still named |
 | D-1159 | fixed | mfndpos `m_poisongas_ok` vamp/eel/breath | map-driven; C `mon.c:330–357`; vampshifter / eel\|waterlevel+pool / AT_BREA AD_DRST\|RBRE / immune Hezrou\|Vrock → OK; resists → MINOR (mfndpos still avoids); Resists_Elem worn/artifact still named; region.js keeps a local clone |
 | D-1158 | fixed | `create_gas_cloud_selection` / Cloud room | map-driven; C `region.c:1311–1336` 1×1 bitmap not BFS/`rn1` ttl; `sp_lev.c` `lspo_gas_cloud` 4928–4965; themerms Cloud asleep fog + `des.gas_cloud({selection})`; Ice/Boulder/… fill, `run_regions` geometry, mfndpos `m_poisongas_ok` D-1159 |
 | D-1157 | fixed | `domove` walk `in_out_region` | map-driven; C `hack.c:2866–2868` after `drag_ball` before occupy; callee `region.c` 480–527; gas NO_CALLBACK never rejects; REG_HERO_INSIDE; `is_hero_inside_gas_cloud` now the bit; dothrow hurtle / do.c goto_level / `run_regions` geometry still named |

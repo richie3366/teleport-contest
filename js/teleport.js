@@ -56,7 +56,7 @@ import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
-import { in_out_region, update_player_regions } from './region.js';
+import { in_out_region, update_player_regions, update_monster_region } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
@@ -644,12 +644,12 @@ export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
 /**
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
+ * update_monster_region (D-1161; after place, before worm tail);
  * place_worm_tail_randomly; ustuck swallow u_on_newpos/check_special_room/
  * docrt else !m_next2u unstuck (D-1123); maybe_unhide_at then newsym(new)
  * (D-1152); set_apparxy after dest newsym (D-1160; C place_monster
  * writes mx/my only).
- * Named omissions: shopkeeper home teleport;
- * update_monster_region; shop bill on leave.
+ * Named omissions: shopkeeper home teleport; shop bill on leave.
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886).
  */
 export async function rloc_to(mtmp, x, y) {
@@ -682,8 +682,11 @@ export async function rloc_to(mtmp, x, y) {
     // set_apparxy after dest newsym (teleport.c:1702, D-1160).
     mtmp.mx = x;
     mtmp.my = y;
+    // C: update_monster_region after place, before worm tail
+    // (teleport.c:1685 / region.c:598–611, D-1161).
+    update_monster_region(mtmp);
     if (mtmp.wormno) {
-        // C: place_worm_tail_randomly after place_monster
+        // C: place_worm_tail_randomly after update_monster_region
         place_worm_tail_randomly(mtmp, x, y);
     }
 

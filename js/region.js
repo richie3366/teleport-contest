@@ -1,7 +1,8 @@
 // region.js — gas-cloud / NhRegion subset.
 // C ref: region.c create_gas_cloud / make_gas_cloud / visible_region_at /
 // clear_regions / run_regions / expire_gas_cloud / in_out_region /
-// m_in_out_region / inside_gas_cloud; region_danger / region_safety (pray);
+// m_in_out_region / update_monster_region / inside_gas_cloud;
+// region_danger / region_safety (pray);
 // read.c valid_cloud_pos.
 // Named omissions: numeric cmap glyph ints (JS tags
 // 'S_poisoncloud'/'S_cloud'); binary save_regions format; force
@@ -13,6 +14,7 @@
 // mfndpos m_poisongas_ok D-1159 (mon.js; this file keeps a local clone
 // — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
 // in_out_region D-1157. Selection create D-1158.
+// rloc_to update_monster_region D-1161 (mhitm displace / dbridge named).
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -513,8 +515,29 @@ export function update_player_regions() {
 }
 
 /**
+ * C ref: region.c update_monster_region — rloc_to_core after
+ * place_monster, before worm tail (teleport.c:1685, D-1161).
+ * Absolute membership from (mon.mx, mon.my). No can_enter/leave
+ * or enter/leave callbacks — those are m_in_out_region (walk).
+ * C does not skip attach_2_m here. mhitm displace / dbridge
+ * callers still named.
+ */
+export function update_monster_region(mon) {
+    const mx = mon.mx | 0;
+    const my = mon.my | 0;
+    for (const reg of game.regions || []) {
+        if (inside_region(reg, mx, my)) {
+            if (!mon_in_region(reg, mon)) add_mon_to_reg(reg, mon);
+        } else {
+            if (mon_in_region(reg, mon)) remove_mon_from_reg(reg, mon);
+        }
+    }
+}
+
+/**
  * C ref: region.c m_in_out_region — maintain reg.monsters on move.
  * Gas clouds have no can_enter/leave/enter/leave callbacks.
+ * Walk dest (x,y) before place; rloc uses update_monster_region.
  */
 export function m_in_out_region(mon, x, y) {
     if (!mon) return true;

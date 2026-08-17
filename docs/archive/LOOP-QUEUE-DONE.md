@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `teleport.c` `rloc_to` `update_monster_region` (named). Not set_apparxy. **Addressed:** D-1161
+
+
 - [x] `teleport.c` `rloc_to` `set_apparxy` (named). Not vanish-msg. **Addressed:** D-1160 `8efa62e9`
 
 

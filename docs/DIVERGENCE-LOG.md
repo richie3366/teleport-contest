@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1161 — rloc_to update_monster_region after place
+
+- **Status:** fixed (map-driven Open; named omit from D-1160 /
+  review **121**; not a public FAIL)
+- **Symptom:** JS `rloc_to` placed then worm-tail / ustuck /
+  `maybe_unhide_at` / dest `newsym` / `set_apparxy` with no
+  `update_monster_region`. C `rloc_to_core` syncs `reg->monsters`
+  from dest `(mx,my)` **between** `place_monster` and worm tail,
+  so a teleported head is on the list for `run_regions` inside_f.
+- **C locus:** `teleport.c` `rloc_to_core` (~1685); callee
+  `region.c` `update_monster_region` (~598–611). Contrast
+  `m_in_out_region` (~533–576): walk dest + can_enter/leave
+  callbacks; C rloc does **not** invoke those.
+- **Fix:** export `update_monster_region`; `rloc_to` calls it
+  after mx/my, before `place_worm_tail_randomly`. Absolute add/
+  remove from geometry; no enter/leave callbacks; no
+  `attach_2_m` skip (C does not). Did not pull vanish-msg,
+  shk-home, shop bill, occupation `dochugw`, trapped `mintrap`,
+  or mhitm displace / dbridge callers. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to`; `js/region.js`
+  `update_monster_region`.
+- **Not this iter:** vanish-msg; `make_angry_shk`; minvent
+  `stolen_value`; occupation `dochugw`; trapped `mintrap`;
+  mhitm `mdisplacem` / dbridge `update_monster_region`.
+- **Verify:** private canary **24**/24 (empty; enter; leave;
+  stay in/out; two-region; attach_2_m still add; enter_f /
+  leave_f not invoked; swap-pop; uses mx,my; no m_id; other
+  mid; rloc enter/leave/same-cell skip/migrating oldx0/within
+  cloud/no enter_f/two-region); green+strict seed8000/0900;
+  cohort **41**/41 (CURRENT shared + 0014/0383/4500/2600) +
+  strict 0101/0012/0360/4500/2200/0014/0004/0367/0373/0002.
+  Path public-unhit on rloc into a live poisoncloud.
+- **Files:** `js/teleport.js`, `js/region.js`.
+
 ## D-1160 — rloc_to set_apparxy after dest newsym
 
 - **Status:** fixed (map-driven Open; named omit from D-1152;
