@@ -24,9 +24,9 @@ import {
     INTRINSIC, UNCHANGING,
     In_mines, ACH_TOWN, NO_PART,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
-    FROMFORM, P_NONE, LEVITATION, FLYING,
+    FROMFORM, P_NONE, LEVITATION, FLYING, BLINDED, FOOT,
 } from './const.js';
-import { pline, Norep, newsym, canspotmon, map_invisible } from './display.js';
+import { pline, Norep, newsym, canspotmon, map_invisible, You_feel } from './display.js';
 import { gethungry, morehungry } from './eat.js';
 import { m_at } from './mon.js';
 import { recalc_block_point } from './vision.js';
@@ -34,14 +34,14 @@ import { is_hider, throws_rocks, noncorporeal, metallivorous, mons, is_flyer } f
 import { objects_at, obj_extract_self, place_object, delobj } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS } from './objects.js';
-import { xname } from './objnam.js';
+import { xname, The, makeplural } from './objnam.js';
 import { A_STR, A_CON, A_DEX, acurr, exercise } from './attrib.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { midnight } from './calendar.js';
 import {
     PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE, PM_SAMURAI,
 } from './generated/monsters_data.js';
-import { hliquid, Hallucination } from './do_name.js';
+import { hliquid, Hallucination, y_monnam } from './do_name.js';
 import { near_capacity } from './invent.js';
 import { record_achievement } from './insight.js';
 import { b_trapped, selftouch } from './trap.js';
@@ -53,6 +53,8 @@ const DIRS_ORD = [
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+const CANDELABRUM_OF_INVOCATION =
+    objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 
 function sobj_at(otyp, x, y) {
     for (let o = objects_at(x, y); o; o = o.nexthere) {
@@ -1456,6 +1458,97 @@ export async function switch_terrain() {
         if (game.disp) game.disp.botl = true;
     }
     // C: if (flags.terrainstatus) classify_terrain(); named omit
+}
+
+/**
+ * C dungeon.c Invocation_lev — In_hell && dlevel == num_dunlevs-1.
+ * Local clone (apply.js still has its own); dungeon.c export named.
+ */
+function Invocation_lev(lev) {
+    if (!lev) return false;
+    const dun = game.dungeons?.[lev.dnum | 0];
+    if (!dun?.flags?.hellish) return false;
+    return (lev.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
+}
+
+/**
+ * C invent.c carrying — first matching otyp in hero invent[].
+ */
+function carrying(otyp) {
+    if (otyp < 0) return null;
+    for (const otmp of game.invent || []) {
+        if ((otmp.otyp | 0) === otyp) return otmp;
+    }
+    return null;
+}
+
+/**
+ * C stairs.c On_stairs — stairway_at != NULL. Walk game.stairs
+ * (mklev.js stairway_at) so hack.js does not import mklev.
+ */
+function On_stairs(x, y) {
+    const sx = x | 0;
+    const sy = y | 0;
+    for (let s = game.stairs; s; s = s.next) {
+        if ((s.sx | 0) === sx && (s.sy | 0) === sy) return true;
+    }
+    return false;
+}
+
+/**
+ * C youprop.h Blind — (HBlinded || EBlinded) && !BBlinded.
+ * uroleplay.blind is PermaBlind (OPTIONS:blind).
+ */
+function Blind_im() {
+    const u = game.u || {};
+    if (u.uroleplay?.blind) return true;
+    const prop = u.uprops?.[BLINDED];
+    const blocked = (u.BBlinded | 0) || (prop?.blocked | 0);
+    return !!(_uprop_he_st(u, 'HBlinded', 'EBlinded', BLINDED) && !blocked);
+}
+
+/**
+ * C hack.c invocation_pos — Invocation_lev(&u.uz) && (x,y)==svi.inv_pos.
+ * Unset inv_pos is not (0,0).
+ */
+export function invocation_pos(x, y) {
+    const u = game.u;
+    if (!u || !Invocation_lev(u.uz)) return false;
+    const ip = game.svi?.inv_pos || game.inv_pos;
+    if (!ip) return false;
+    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
+}
+
+/**
+ * C hack.c invocation_message — clue when standing on the Invocation
+ * square (not a stair). teleds calls this after spoteffects (D-1141).
+ * Named omit: hack.c:2973 walk caller; mkmaze.c inv_pos placement;
+ * apply.js still uses a local invocation_pos clone.
+ */
+export async function invocation_message() {
+    const u = game.u;
+    if (!u) return;
+    if (!invocation_pos(u.ux, u.uy) || On_stairs(u.ux, u.uy)) return;
+
+    const otmp = carrying(CANDELABRUM_OF_INVOCATION);
+    nomul(0); // stop running or travelling
+    let buf;
+    if (u.usteed) {
+        buf = `beneath ${y_monnam(u.usteed)}`;
+    } else if (Levitation_st() || Flying_st()) {
+        buf = 'beneath you';
+    } else {
+        const { body_part } = await import('./polyself.js');
+        buf = `under your ${makeplural(body_part(FOOT))}`;
+    }
+    await You_feel(`a strange vibration ${buf}.`);
+    if (!u.uevent) u.uevent = {};
+    u.uevent.uvibrated = 1;
+    if (otmp && (otmp.spe | 0) === 7 && otmp.lamplit) {
+        await pline(
+            `${The(xname(otmp))} ${Blind_im() ? 'throbs palpably' : 'glows with a strange light'}!`,
+        );
+    }
 }
 
 /**

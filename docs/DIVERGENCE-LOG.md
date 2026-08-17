@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1141 — teleds invocation_message
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` returned after `spoteffects(TRUE)` and never
+  called C `hack.c` `invocation_message`. Landing on the Invocation
+  square (not a stair) therefore never stopped run, never printed the
+  vibration You_feel, never set `u.uevent.uvibrated`, and never
+  throbbed/glowed a lit 7-candle candelabrum.
+- **C locus:** `teleport.c` `teleds` (~569); `hack.c`
+  `invocation_message` (~3064–3085); `hack.c` `invocation_pos`
+  (~982–986); `dungeon.c` `Invocation_lev` (~2017–2021);
+  `stairs.c` `On_stairs` (~148–151); `invent.c` `carrying`
+  (~1495–1504).
+- **Fix:** port `invocation_pos` / `invocation_message` in `hack.js`.
+  `teleds` awaits it after `spoteffects`. Gate is `invocation_pos` &&
+  !`On_stairs`. Then `carrying(CANDELABRUM_OF_INVOCATION)`, `nomul(0)`,
+  buf (steed `y_monnam` / Levitation||Flying "beneath you" /
+  `makeplural(body_part(FOOT))`), You_feel vibration, `uvibrated=1`,
+  lit spe==7 candelabrum pline (Blind throb vs glow). Unset `inv_pos`
+  is not (0,0). Did not pull `notice_mon_*`, the `hack.c:2973` walk
+  caller, or `mkmaze.c` `inv_pos` placement. Rule #2: no fs.
+- **JS:** `js/hack.js` `invocation_message` / `invocation_pos`;
+  `js/teleport.js` `teleds`.
+- **Not this iter:** `notice_mon_off`/`on`/`notice_all_mons`;
+  `hack.c:2973` walk `invocation_message`; `mkmaze.c` `inv_pos` /
+  VIBRATING_SQUARE; apply.js local `invocation_pos` clone;
+  dungeon.c `Invocation_lev` shared export.
+- **Verify:** private canary **26**/26 (Invocation_lev match/mismatch;
+  unset inv_pos; explicit (0,0); On_stairs skip; feet/lev/blocked-lev/
+  fly/steed buf; spe==7 lit glow; Blind/uroleplay throb; spe!=7 and
+  unlit skip candelabrum); green+strict seed8000/0900; cohort
+  **24**/24 including 0012 vault + 0367 Pri ^T + 0004 scroll +
+  0009 swim + 0360/0373/4500/2200 + strict 0012/0367/0004/0360/
+  4500/2200/0030/0009/0002. Path public-unhit on Invocation_lev.
+- **Files:** `js/hack.js`, `js/teleport.js`.
+
 ## D-1140 — teleds vault_guard uleftvault
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

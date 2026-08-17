@@ -43,7 +43,7 @@ import {
     shieldeff, docrt,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
-import { nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain } from './hack.js';
+import { nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain, invocation_message } from './hack.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
@@ -1183,12 +1183,13 @@ export function teleok(x, y, trapok) {
  * m_ap_type (D-1131); place + fill_pit(ux0,uy0) + update_player_regions
  * (D-1130) + vision; TELEDS_TELEPORT+verbose materialize;
  * dest-typ≠origin → switch_terrain (D-1129); vault_guard save/restore
- * + uleftvault (D-1140); spoteffects(TRUE).
- * Named omissions: invocation_message, notice_mon_*; fill_pit still
- * uses thin extract+deltrap+delobj (C flooreffects("settle") named);
+ * + uleftvault (D-1140); spoteffects(TRUE); invocation_message (D-1141).
+ * Named omissions: notice_mon_*; fill_pit still uses thin
+ * extract+deltrap+delobj (C flooreffects("settle") named);
  * classify_terrain; shop-enter plines beyond spoteffects subset;
  * hostile gd_move rloc/gd_letknow/wallify_vault (uleftvault calls
- * gd_move after mpeaceful=0; JS gd_move still early-returns hostile).
+ * gd_move after mpeaceful=0; JS gd_move still early-returns hostile);
+ * hack.c:2973 walk invocation_message; mkmaze.c inv_pos.
  *
  * Do NOT set u.urooms before spoteffects — C only temporarily fakes
  * urooms for vault_guard exit, then restores so move_update can detect
@@ -1342,6 +1343,9 @@ export async function teleds(nux, nuy, teleds_flags) {
     // C: spoteffects(TRUE) → move_update detects temple/shop entry
     const { spoteffects } = await import('./pickup.js');
     await spoteffects(true);
+    /* C: invocation_message() after spoteffects (hack.c). Walk
+     * caller (hack.c:2973) and notice_mon_* still named. */
+    await invocation_message();
 }
 
 /**

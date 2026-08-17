@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `invocation_message` (named). Not vault_guard.
 - [ ] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation.
 - [ ] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions.
 - [ ] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline.
 - [ ] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs.
 - [ ] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled.
+- [ ] `hack.c` `domove` `invocation_message` (named). Not teleds.
+- [ ] `hack.c` `classify_terrain` (named from switch_terrain). Not invocation.
+- [ ] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg.
+- [ ] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds.
+- [ ] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds.
 
 ## Parked (do not pop)
 
