@@ -9,8 +9,8 @@
 // fields; incremental fill_point (JS uses vision_reset);
 // create_msg_region (#if 0; never sets enter/leave_msg in live C);
 // can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
-// attach_2_m; run_regions / region_danger / region_safety still use
-// geometry for inside_f (`hero_inside` bit is a later queue item);
+// attach_2_m; region_danger / region_safety still use geometry
+// (run_regions hero inside_f uses the REG_HERO_INSIDE bit, D-1169);
 // mfndpos m_poisongas_ok D-1159 (mon.js; this file keeps a local clone
 // — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
 // in_out_region D-1157. hurtle_step in_out_region D-1165. goto_level
@@ -640,9 +640,10 @@ function expire_gas_cloud(reg) {
  * Envelope: gas-cloud ttl; fog-in-cloud TTL refresh (D-0834);
  * inside_f dam>0 hero/mon HP (D-1146); expire_gas_cloud thick
  * halve + thin diss_within / diss_seen plines.
- * Hero inside_f still uses geometry (not the bit — C uses
- * hero_inside(); queue `run_regions` `hero_inside` bit). Walk /
- * hurtle_step / goto_level set the bit (D-1157 / D-1165 / D-1166).
+ * Hero inside_f uses hero_inside() (D-1169; C 439–441), not
+ * inside_region(u.ux,u.uy). Walk / hurtle_step / goto_level /
+ * teleds keep the bit (D-1157 / D-1165 / D-1166 / D-1130).
+ * region_danger / region_safety still geometric (named).
  * Polyed Hezrou/Steam walk leaves a size-1 trail at u.ux0 (D-1167).
  */
 export async function run_regions() {
@@ -666,8 +667,9 @@ export async function run_regions() {
     for (const reg of game.regions || []) {
         if ((reg.ttl | 0) > 0) reg.ttl = (reg.ttl | 0) - 1;
         if (reg.inside_f !== INSIDE_GAS_CLOUD) continue;
-        const u = game.u || {};
-        if (inside_region(reg, u.ux | 0, u.uy | 0)) {
+        /* C region.c:439–441 — f_indx != NO_CALLBACK &&
+         * hero_inside(reg) then callbacks[f_indx](reg, Null). */
+        if (hero_inside(reg)) {
             await inside_gas_cloud(reg, null);
             if (game.program_state?.gameover) return;
         }
@@ -849,6 +851,8 @@ function Breathless() {
 /**
  * C ref: region.c region_danger — prayer trouble: hero in damaging gas.
  * Completely harmless when nonliving/Breathless; Poison_resistance skips.
+ * Membership still uses inside_region geometry (named; C uses
+ * hero_inside()). run_regions inside_f is the bit (D-1169).
  */
 export function region_danger() {
     const u = game.u || {};
@@ -868,6 +872,7 @@ export function region_danger() {
  * C ref: region.c region_safety — clear prayer gas-cloud trouble.
  * Envelope: multi/non-expiring → safe_teleds (+ Magical_breathing if
  * still in danger); single expiring → remove_region; already gone msg.
+ * Membership still geometric (named; C uses hero_inside()).
  * Named omissions: BlindedTimeout==1 make_blinded polish.
  */
 export async function region_safety() {

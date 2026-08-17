@@ -21,6 +21,35 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 18:05 — #1486 D-1169 run_regions hero_inside bit
+
+**Objective:** Open — `region.c` `run_regions` `hero_inside` bit
+(named). Not walk caller.
+**C locus:** `region.c` `run_regions` 439–441 after ttl age;
+callee `inside_gas_cloud` 1091–1165 (D-1146). Caller
+`allmain.c:274` after `nh_timeout`.
+**Change:** hero `inside_f` uses `hero_inside(reg)` (`REG_HERO_INSIDE`)
+instead of `inside_region(u.ux,u.uy)`. Gas tag + monster list
+unchanged. Did not flip `region_danger` / `region_safety`
+(still geometric). Filled D-1168 archive hash already
+`0ff54fb4`. Rotated #1471. Open 10 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1485** **44**/44; next
+@**#1490**).
+**Verified:** private canary **26**/26 (C/JS hero_inside vs
+geometry; allmain nh_timeout then run_regions; danger/safety
+still geometric; no fs/FORCE; fog ttl bit-set/geo-miss fires,
+bit-clear/geo-hit does not; both/neither; NO_CALLBACK skip;
+monster list independent; ttl==0 expire; empty; overlap only
+bit-set; human dam0 no fog +5; age before inside_f; thenable);
+green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002/0700/0015. Path public-unhit on stale bit
+vs cell.
+**Next:** Open `teleport.c` `rloc_to` occupation `dochugw`
+(named). Not mintrap.
+**Blocked:** none.
+
 ## 2026-08-17 17:35 — #1485 review D-1165–D-1168 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -383,26 +412,4 @@ cohort **39**/39 (CURRENT shared + 0014/0383). Path public-unhit
 on Cloud fill (reservoir pick already burned).
 **Next:** Open `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath
 (named). Not inside_f. Audit @**#1475**.
-**Blocked:** none.
-
-## 2026-08-17 13:38 — #1471 D-1157 walk in_out_region
-
-**Objective:** Open — `hack.c` walk `in_out_region` (named). Not teleds.
-**C locus:** `hack.c` `domove_core` 2866–2868 after `drag_ball`;
-callee `region.c` `in_out_region` 480–527; `is_hero_inside_gas_cloud`
-1168–1176.
-**Change:** `cmd.js` `domove` awaits `in_out_region(newx,newy)`
-before occupy. Gas NO_CALLBACK never rejects; still updates
-REG_HERO_INSIDE. Flip `is_hero_inside_gas_cloud` to the bit.
-Did not pull hurtle / goto_level callers or `run_regions`
-geometry. D-1156 hash already `16e8d88b`. Rotated #1456. Open
-12 after refill. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1470** **44**/44; next
-@**#1475**).
-**Verified:** private canary **32**/32; green+strict seed8000/0900;
-cohort **39**/39 (CURRENT shared + 0014/0383) + strict 8000/0900/
-0002/0014/0012/0004/0030/0360/0361/0383/2200/0006. Path
-public-unhit on force-field reject.
-**Next:** Open `region.c` `create_gas_cloud_selection` (named).
-Not BFS create. Audit @**#1475**.
 **Blocked:** none.

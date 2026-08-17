@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1485** 44/44 @**#1490**. Next: `run_regions` `hero_inside` bit.
+- **#1485** 44/44 @**#1490**. Next: `rloc_to` occupation `dochugw`.
 
 ## Don't re-check (≤15)
 
@@ -83,4 +83,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1485** **44**/44 @**#1490**. **D-1168**. Review **126–129** ACCEPT.
+- **#1485** **44**/44 @**#1490**. **D-1169**.

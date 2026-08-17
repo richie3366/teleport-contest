@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `region.c` `run_regions` `hero_inside` bit (named). Not walk caller. **Addressed:** D-1169
+
+
 - [x] `allmain.c` `moveloop` `fumaroles` (named). Not mklev. **Addressed:** D-1168 `0ff54fb4`
 
 

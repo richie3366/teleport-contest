@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1169 — `run_regions` hero `inside_f` uses `hero_inside` bit
+
+- **Status:** fixed (map-driven Open; named omit from D-1157/review 118
+  and review 129; not a public FAIL)
+- **Symptom:** JS `run_regions` gated hero `inside_f` on
+  `inside_region(u.ux,u.uy)` geometry. C uses `hero_inside()`
+  (`REG_HERO_INSIDE`). A stale bit vs the hero cell would wrong-damage
+  (or skip damage) relative to C. Walk / hurtle / goto_level / teleds
+  already keep the bit; EOT damage still ignored it.
+- **C locus:** `region.c` `run_regions` (~439–441) after ttl age:
+  `f_indx != NO_CALLBACK && hero_inside(reg)` then
+  `callbacks[f_indx](reg, Null)`. Monster list is a separate
+  `f_indx != NO_CALLBACK` loop. Caller `allmain.c:274` after
+  `nh_timeout`. `inside_gas_cloud` (~1091–1165) already D-1146.
+- **Fix:** hero arm uses `hero_inside(reg)` instead of
+  `inside_region(reg, u.ux, u.uy)`. Gas-only `inside_f` tag and
+  monster loop unchanged. Did not flip `region_danger` /
+  `region_safety` (still geometric; C uses the bit). Did not pull
+  force-field `#if 0` callbacks or `attach_2_m`. Rule #2: no fs.
+- **JS:** `js/region.js` `run_regions`.
+- **Not this iter:** `region_danger` / `region_safety` geometry;
+  `mhurtle_step` `m_in_out_region`; `rloc_to` occupation `dochugw`;
+  `m_everyturn_effect` youmonst.
+- **Verify:** private canary **26**/26 (C/JS hero_inside vs
+  inside_region; allmain nh_timeout then run_regions; region_danger/
+  safety still geometric; no fs/FORCE; fog ttl bit-set/geo-miss
+  fires, bit-clear/geo-hit does not; both/neither; NO_CALLBACK skip;
+  monster list independent; ttl==0 expire; empty; overlap only
+  bit-set; human dam0 no fog +5; age before inside_f; thenable);
+  green+strict seed8000/0900; cohort + strict on gas-adjacent
+  sessions. Path public-unhit on stale-bit vs cell (callers keep
+  them aligned on public walks).
+- **Files:** `js/region.js`.
+
 ## D-1168 — allmain `moveloop` EOT fumaroles
 
 - **Status:** fixed (map-driven Open; named omit from D-1156/review 117;

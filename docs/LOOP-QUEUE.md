@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `region.c` `run_regions` `hero_inside` bit (named). Not walk caller.
 - [ ] `teleport.c` `rloc_to` occupation `dochugw` (named). Not mintrap.
 - [ ] `teleport.c` `rloc_pos_ok` isshk/ispriest room lock (named). Not make_angry_shk.
 - [ ] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair.
