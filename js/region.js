@@ -11,7 +11,7 @@
 // NO_CALLBACK); attach_2_m; is_hero_inside_gas_cloud still geometric
 // not the bit (walk `in_out_region` still named — do not flip until
 // that bit is live on steps); mfndpos m_poisongas_ok still the mon.js
-// subset; fumaroles clear_heros_fault / Norep whoosh.
+// subset. fumaroles whoosh D-1156.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -102,6 +102,10 @@ function clear_hero_inside(reg) {
 /** C region.h set_heros_fault — clear REG_NOT_HEROS. */
 function set_heros_fault(reg) {
     reg.player_flags = (reg.player_flags | 0) & ~REG_NOT_HEROS;
+}
+/** C region.h clear_heros_fault — set REG_NOT_HEROS (natural clouds). */
+export function clear_heros_fault(reg) {
+    reg.player_flags = (reg.player_flags | 0) | REG_NOT_HEROS;
 }
 /** C region.h heros_fault — REG_NOT_HEROS clear. */
 function heros_fault(reg) {

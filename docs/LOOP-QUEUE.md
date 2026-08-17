@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation.
 - [ ] `hack.c` walk `in_out_region` (named). Not teleds.
 - [ ] `region.c` `create_gas_cloud_selection` (named). Not BFS create.
 - [ ] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f.

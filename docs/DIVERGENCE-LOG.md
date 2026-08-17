@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1156 — fumaroles clear_heros_fault / Norep whoosh
+
+- **Status:** fixed (map-driven Open; named omit from D-1137/D-1146/D-1155;
+  not a public FAIL)
+- **Symptom:** JS `fumaroles` awaited `create_gas_cloud` on lava but
+  left `make_gas_cloud`'s `set_heros_fault` in place (`!in_mklev &&
+  !mon_moving`) and never Norep'd the whoosh. C
+  `clear_heros_fault` so natural steam is not the hero's (`killed` vs
+  `monkilled`), then `Norep("You hear a %swhoosh!", loud ? "loud " : "")`
+  when any burst happened and `!Deaf`. `loud` if any origin `distu<15`.
+- **C locus:** `mkmaze.c` `fumaroles` (~1484–1514); `region.h`
+  `clear_heros_fault`; callers `do.c` `goto_level` (~1833–1834) /
+  `allmain.c` `moveloop_core` (~376–377, still named).
+- **Fix:** after `create_gas_cloud`, `clear_heros_fault(r)`; track
+  `snd`/`loud`; `!Deaf` Norep whoosh. `Deaf` is H||E||uroleplay.
+  Did not pull allmain moveloop caller, `create_gas_cloud_selection`,
+  or walk `in_out_region`. Rule #2: no fs.
+- **JS:** `js/mklev.js` `fumaroles`; `js/region.js` exported
+  `clear_heros_fault`; comments in `fountain.js`.
+- **Not this iter:** allmain moveloop `fumaroles`; selection create;
+  geometric `hero_inside` bit; mfndpos `m_poisongas_ok` subset.
+- **Verify:** private canary **36**/36 (C/JS source order; export
+  bit; player-made cloud is heros_fault then clear undoes; fire+hot
+  lava bursts REG_NOT_HEROS + whoosh template; Deaf/EDeaf/uroleplay
+  silent; no lava / !flag silent; far not-loud; close loud;
+  sticky any-origin; in_mklev still NOT_HEROS; temp0 nmax=0);
+  green+strict seed8000/0900; cohort **14**/14 (0373 fire + 0002
+  drinksink + 0014 fountain + 0361/0383 fog + 0360/2200/0004/0006/
+  0012/1500/1800/0030/0108) + strict 8000/0900/0373/0002/0014/0361/
+  0383/0360/2200/0030/0004/0006 + 0012 alone. Path public-unhit on
+  whoosh (0373 fire arrival already matched RNG without a lava hit
+  or with matching silent nmax).
+- **Files:** `js/mklev.js`, `js/region.js`, `js/fountain.js` (comment).
+
 ## D-1155 — expire_gas_cloud dissipation plines
 
 - **Status:** fixed (map-driven Open; named omit from D-1146; not a public FAIL)

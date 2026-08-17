@@ -117,7 +117,8 @@ import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
-import { create_gas_cloud, clear_regions } from './region.js';
+import { create_gas_cloud, clear_regions, clear_heros_fault } from './region.js';
+import { Norep } from './display.js';
 import { ndemon } from './minion.js';
 import { readobjnam } from './readobjnam.js';
 
@@ -6418,8 +6419,9 @@ function load_earth() {
 
 /**
  * C ref: dat/fire.lua via load_special — Plane of Fire.
- * Named omissions: solidify/premap; water/astral planes; Norep whoosh
- * on fumaroles. Map load uses SpLev_Map lit epilogue (D-0569).
+ * Named omissions: solidify/premap; water/astral planes.
+ * Map load uses SpLev_Map lit epilogue (D-0569).
+ * fumaroles whoosh / clear_heros_fault D-1156 (moveloop caller named).
  */
 function load_fire() {
     const g = game;
@@ -7979,7 +7981,10 @@ function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax) {
 
 /**
  * C ref: mkmaze.c fumaroles — gas-cloud bursts on lava (arrival / moveloop).
- * Named omission: Norep whoosh; clear_heros_fault.
+ * make_gas_cloud set_heros_fault when !in_mklev; C then clear_heros_fault
+ * so natural steam is not the hero's (killed vs monkilled). Norep whoosh
+ * after the loop if any burst and !Deaf (D-1156).
+ * Named omission: allmain.c moveloop_core caller (goto_level wired).
  */
 export async function fumaroles() {
     const g = game;
@@ -7987,6 +7992,8 @@ export async function fumaroles() {
     if (!lf?.fumaroles) return;
     let nmax = rn2(3);
     let sizemin = 5;
+    let snd = false;
+    let loud = false;
     if (Is_firelevel(g.u?.uz)) {
         nmax++;
         sizemin += 5;
@@ -7999,10 +8006,21 @@ export async function fumaroles() {
         const x = rn1(COLNO - 4, 3);
         const y = rn1(ROWNO - 4, 3);
         if (g.level.at(x, y)?.typ === LAVAPOOL) {
-            await create_gas_cloud(x, y, rn1(10, sizemin), rn1(10, 5));
-            // Norep whoosh / clear_heros_fault deferred
+            const r = await create_gas_cloud(x, y, rn1(10, sizemin), rn1(10, 5));
+            clear_heros_fault(r);
+            snd = true;
+            if (dist2(x, y, g.u?.ux | 0, g.u?.uy | 0) < 15) loud = true;
         }
     }
+    if (snd && !Deaf_fumaroles()) {
+        await Norep(`You hear a ${loud ? 'loud ' : ''}whoosh!`);
+    }
+}
+
+/** C youprop.h Deaf — HDeaf || EDeaf || uroleplay.deaf. */
+function Deaf_fumaroles() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
 }
 
 /**

@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 13:05 — #1469 D-1156 fumaroles clear_heros_fault / Norep whoosh
+
+**Objective:** Open — `mklev.c` `fumaroles` `clear_heros_fault` /
+Norep whoosh (named). Not expire dissipation.
+**C locus:** `mkmaze.c` `fumaroles` 1484–1514; `region.h`
+`clear_heros_fault`; `do.c` `goto_level` 1833–1834.
+**Change:** after lava `create_gas_cloud`, `clear_heros_fault` so
+natural steam is not the hero's. `snd`/`loud` (`distu<15`); `!Deaf`
+Norep whoosh / loud whoosh. Exported `clear_heros_fault`. Did not
+pull allmain moveloop caller, selection create, or walk
+`in_out_region`. Filled D-1155 archive hash `df99ab32`. Rotated
+#1454. Open 8 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1465** **44**/44; next
+@**#1470**).
+**Verified:** private canary **36**/36 (src order; bit; player-made
+then clear; fire+hot REG_NOT_HEROS + template; Deaf/EDeaf/uroleplay
+silent; no lava / !flag; far not-loud; close loud; sticky;
+in_mklev; temp0 nmax=0); green+strict seed8000/0900; cohort
+**14**/14 (0373 fire + 0002 drinksink + 0014 fountain + 0361/0383
+fog + 0360/2200/0004/0006/0012/1500/1800/0030/0108) + strict
+8000/0900/0373/0002/0014/0361/0383/0360/2200/0030/0004/0006 +
+0012 alone. Path public-unhit on whoosh.
+**Next:** Open `hack.c` walk `in_out_region` (named). Not teleds.
+**Blocked:** none.
+
 ## 2026-08-17 12:50 — #1468 D-1155 expire_gas_cloud dissipation plines
 
 **Objective:** Open — `region.c` `expire_gas_cloud` dissipation
@@ -408,31 +433,6 @@ no fs.
 **Verified:** C read of the four loci vs JS hunks; grep
 FORCE/fs/seed; `teleok(` only in `teleport.js`; full `sessions`
 `__RESULTS_JSON__`.
-**Next:** Open `fountain.c` Excalibur `:441` `update_inventory`.
-Not artidisco save.
-**Blocked:** none.
-
-## 2026-08-17 07:12 — #1454 D-1144 djinni_from_bottle mongrantswish
-
-**Objective:** Open queue — `potion.c` `djinni_from_bottle`
-`mongrantswish` (named). Not bottle chance RNG.
-**C locus:** `potion.c` `djinni_from_bottle` 2815–2868 / `mongrantswish`
-2845; `apply.c` `dorub` MAGIC_LAMP 1816–1831.
-**Change:** port makemon djinni, Blind cloud/smell, `rn2(5)` BUC remap,
-wish `mongrantswish` / `tamedog` / peace / vanish `mongone` / hostile.
-MAGIC_LAMP: unpaid + OIL_LAMP transform + `begin_burn` if lamplit then
-djinni then `makeknown`/`update_inventory`. Did not wire dodrink smoky
-occupant chance. SetVoice / full `mongone` named. Filled D-1143 archive
-hash `bb8585ec`. Rotated #1439. Open 9 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1450** **44**/44; next
-@**#1455**).
-**Verified:** private canary **33**/33; green+strict seed8000/0900;
-cohort **24**/24 (0108 `#rub` lamp + 0105 lamp + 0006 demon + 0014
-fountain + 0002 drinksink + 0007 snake + 2200/4500/0360/0030/0004/
-0009/0012/1500/1800/0060/0116/0361/0367/0373/0383/5002/0106/0399)
-+ strict 8000/0900/0108/0006/0014/0002/0105/2200/4500/0360/0030/0004.
-Path public-unhit on djinni release.
 **Next:** Open `fountain.c` Excalibur `:441` `update_inventory`.
 Not artidisco save.
 **Blocked:** none.
