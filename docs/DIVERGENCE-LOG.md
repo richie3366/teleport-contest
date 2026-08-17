@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1191 — do.c `goto_level` `run_timers`
+
+- **Status:** fixed (map-driven; not a public FAIL)
+- **Symptom:** JS `goto_level` delivered migrating objs/mons and
+  wiped limbo genocide, then collided. C also calls `run_timers()`
+  so destination-level and delivered-object timers that expired
+  while away fire before `u_collide_m` / vision / pickup.
+- **C locus:** `do.c` `goto_level` `:1818–1823` after
+  `losedogs` / `obj_delivery` / `kill_genocided_monsters`,
+  before `u_collide_m`. Callee `timeout.c` `run_timers`
+  `:2222–2241` (JS `mkobj.js`; D-0405 / D-1037 peel).
+- **JS was:** `kill_genocided_monsters()` then `m_at`/`u_collide_m`.
+  `nh_timeout` already called the callee at EOT (too late).
+- **Fix:** `js/do.js` `goto_level` `await run_timers()` after
+  `kill_genocided_monsters`. Did not peel invent/migrating
+  RANGE_LEVEL (`obj_is_local` is false). Did not pull
+  `notice_mon_off`, cmd.c wiz-level-change, or REVIVE/ZOMBIFY.
+- **Not this iter:** `notice_mon_off`; cmd.c `#levelchange`;
+  REVIVE_MON / ZOMBIFY_MON dispatch. Rule #2: no fs.
+- **Verified:** green+strict seed8000/0900; cohort **16**/16
+  (1500/1800/0015/0002/0014/2200/4500/0367/0009/0012/0004/
+  0060/0102/0700/0006/0361) + strict lengths. Public-unhit
+  unless a due timer is on the restored or delivered queue.
+- **Files:** `js/do.js`.
+
 ## D-1190 — do.c `goto_level` `kill_genocided_monsters`
 
 - **Status:** fixed (map-driven; not a public FAIL)

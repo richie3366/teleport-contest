@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:50 — #1513 D-1191 goto_level run_timers
+
+**Objective:** Open — `do.c` `goto_level` `run_timers` (named).
+Not `kill_genocided`.
+**C locus:** `do.c` `goto_level` 1818–1823 after losedogs +
+`obj_delivery` + `kill_genocided_monsters` before `u_collide_m`;
+callee `timeout.c` 2222–2241 (JS `mkobj.js` D-0405/D-1037).
+**Change:** `await run_timers()` after `kill_genocided_monsters`
+so dest + delivered timers that expired while away fire before
+collide/vision/pickup. Did not peel invent/migrating RANGE_LEVEL
+(`obj_is_local` false). Did not pull `notice_mon_off`, cmd.c
+`#levelchange`, or REVIVE/ZOMBIFY. Filled D-1190 archive hash
+`9a2cbc27`. Rotated #1498. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1510** **44**/44; next
+@**#1515**).
+**Verified:** green+strict seed8000/0900; cohort **16**/16
+(1500/1800/0015/0002/0014/2200/4500/0367/0009/0012/0004/
+0060/0102/0700/0006/0361) + strict lengths. Public-unhit
+unless a due timer is on the restored or delivered queue.
+**Next:** Open `allmain.c` `newgame` wizkit `obj_delivery(FALSE)`
+(named). Not goto_level.
+**Blocked:** none.
+
 ## 2026-08-18 00:45 — #1512 D-1190 goto_level kill_genocided_monsters
 
 **Objective:** Open — `do.c` `goto_level` `kill_genocided_monsters`
@@ -367,29 +391,5 @@ screens. Path public-unhit unless a spotted monster teleports
 to a still-visible cell.
 **Next:** Open `teleport.c` `rloc` `RLOC_ERR` impossible()
 (named). Not vanish-msg.
-**Blocked:** none.
-
-## 2026-08-17 21:16 — #1498 D-1179 goto_level do_fall_dmg
-
-**Objective:** Open — `do.c` `goto_level` `do_fall_dmg` (named).
-Not fix_shop_damage.
-**C locus:** `do.c` `goto_level` 1805–1810 falling arm + 1988–1994
-after `!new` `fix_shop_damage` before `pickup`; `dist` at 1498.
-**Change:** capture `dist` before uz reassignment; on `falling`
-`selftouch` then set the flag; after shop repair
-`d(max(dist,1),6)` `maybe_half_phys` `losehp` ("falling down a
-mine shaft"); fatal skips pickup (C noreturn). Did not pull
-Punished `ballfall`, W-tower rndspot bit 2, `kill_genocided`,
-`run_timers`, or `notice_mon_off`. Filled D-1178 archive hash
-`4a700d08`. Rotated #1483. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1495** **44**/44; next
-@**#1500**).
-**Verified:** green+strict seed8000/0900; cohort **10**/10
-(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
-screens. Path public-unhit unless a session falls through a
-hole/trap door.
-**Next:** Open `teleport.c` `rloc_to_core` telemsg (named). Not
-RLOC_ERR.
 **Blocked:** none.
 

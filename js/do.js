@@ -73,7 +73,7 @@ import {
 } from './hack.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
-    save_timers, restore_timers,
+    save_timers, restore_timers, run_timers,
 } from './mkobj.js';
 import { ship_object, obj_delivery } from './dokick.js';
 import { doname, xname, the, The, vtense, an, cxname_singular } from './objnam.js';
@@ -1267,7 +1267,8 @@ function getlev_catchup_monsters(elapsed) {
  * assign uz → mklev or restore stash + getlev catchup + rest_track →
  * stairway_find_from → climb/descend pline (Flying / encumber|Punished|
  * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs →
- * kill_genocided_monsters (D-1190) → vision/docrt → pickup(1).
+ * kill_genocided_monsters (D-1190) → run_timers (D-1191) →
+ * vision/docrt → pickup(1).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
@@ -1282,8 +1283,10 @@ function getlev_catchup_monsters(elapsed) {
  * Punished `drag_down`/`ballrelease` on stair fall (D-0918);
  * `fix_shop_damage` catchup on !new after in_out_region (D-1178);
  * trap-door `do_fall_dmg` `d(max(dist,1),6)` after shop repair (D-1179);
- * `kill_genocided_monsters` after losedogs (D-1190; `run_timers` still
- * named);
+ * `kill_genocided_monsters` after losedogs (D-1190);
+ * `run_timers` after kill_genocided before u_collide_m (D-1191;
+ * C `do.c:1818–1823`; destination + delivered-object timers that
+ * expired while away; `notice_mon_off` still named);
  * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
@@ -1664,8 +1667,14 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     losedogs();
     // C do.c:1817 — after losedogs, before run_timers / u_collide_m.
     // Migrating mons (and eggs) genocided while in limbo die here so
-    // possessions land on this level. run_timers still named.
+    // possessions land on this level.
     kill_genocided_monsters();
+    // C do.c:1818–1823 — after losedogs + obj_delivery, before
+    // u_collide_m. Expire timers that went off while away (restored
+    // RANGE_LEVEL list + invent/migrating timers that save_timers
+    // left on gt.timer_base because obj_is_local is false). Do not
+    // peel invent/migrating here (D-1037).
+    await run_timers();
 
     // C: u_collide_m if still co-located — rn2(2)+enexto path
     let mtmp = m_at(u.ux, u.uy);
