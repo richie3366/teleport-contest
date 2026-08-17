@@ -38,7 +38,7 @@
 // inside_f dam>0 HP + m_poisongas_ok size-1 gate (D-1146 region.js).
 // Deferred: expire dissipation; mfndpos m_poisongas_ok subset; monstseesu
 // when Fire_resistance already set; sit/apply/pray/detect/do/wield/read
-// identity hcolor stubs; rndcolor.
+// identity hcolor stubs (rndcolor is D-1147 in do_name.js / chest_trap).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';

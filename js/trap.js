@@ -30,7 +30,7 @@ import {
 import { doname, an, the, The, xname, yname, makeplural, vtense } from './objnam.js';
 import {
     Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
-    christen_monst, rndmonnam, hliquid,
+    christen_monst, rndmonnam, hliquid, rndcolor,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
@@ -4709,11 +4709,17 @@ function delete_contents_chest(obj) {
     }
 }
 
+// C ref: trap.c blindgas[] — ROLL_FROM when Blind in chest_trap gas.
+const BLINDGAS = [
+    'humid', 'odorless', 'pungent', 'chilling', 'acrid', 'biting',
+];
+
 /**
  * C ref: trap.c chest_trap — hero triggers box trap (kick/open/force).
  * Returns true if chest destroyed.
- * Named omit: Soundeffect; bot() redraw polish; Blind gas rndcolor table
- * (uses "strange"); Halluc_resistance stagger suffix polish; shieldeff.
+ * Named omit: Soundeffect; bot() redraw polish; Halluc_resistance
+ * stagger suffix polish; shieldeff. Gas adjective is D-1147
+ * (Blind ? ROLL_FROM(blindgas) : rndcolor()).
  */
 export async function chest_trap(obj, bodypart, disarm) {
     if (!obj) return false;
@@ -4870,7 +4876,10 @@ export async function chest_trap(obj, bodypart, disarm) {
             break;
         }
         case 2: case 1: case 0: {
-            const gas = Blind() ? 'strange' : 'colorful';
+            // C trap.c:6474–6476 Blind ? ROLL_FROM(blindgas) : rndcolor()
+            const gas = Blind()
+                ? BLINDGAS[rn2(BLINDGAS.length)]
+                : rndcolor();
             await pline(
                 `A cloud of ${gas} gas billows from ${the(xname(obj))}.`,
             );

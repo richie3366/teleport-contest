@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline. **Addressed:** D-1146
+- [x] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs. **Addressed:** D-1147
+
+
+- [x] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline. **Addressed:** D-1146 `fe5cefad`
 
 
 - [x] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save. **Addressed:** D-1145 `623bc861`

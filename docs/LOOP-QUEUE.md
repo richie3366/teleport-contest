@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs.
 - [ ] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled.
 - [ ] `hack.c` `domove` `invocation_message` (named). Not teleds.
 - [ ] `hack.c` `classify_terrain` (named from switch_terrain). Not invocation.

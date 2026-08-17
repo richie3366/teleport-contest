@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 08:14 — #1458 D-1147 rndcolor chest_trap gas
+
+**Objective:** Open queue — `do_name.c` `rndcolor` (named from
+hcolor). Not sit/apply identity stubs.
+**C locus:** `do_name.c` `rndcolor` 1468–1477; `decl.c`
+`c_obj_colors[]` 20–37; `trap.c` `blindgas[]` 81–83 /
+`chest_trap` 6474–6476; `hack.h` `ROLL_FROM`; `color.h`
+`CLR_MAX`/`NO_COLOR`.
+**Change:** port `rndcolor` (always `rn2(CLR_MAX)` even Hallu;
+Hallu → `hcolor(NULL)` display-rng; else `k==NO_COLOR`
+`"colorless"` not table `"transparent"`). Wire chest_trap gas
+`Blind ? ROLL_FROM(blindgas) : rndcolor()`. Did not pull
+sit/apply/pray/detect/do/wield/read identity `hcolor` stubs.
+Filled D-1146 archive hash `fe5cefad`. Rotated #1443. Open 11
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1455** **44**/44; next
+@**#1460**).
+**Verified:** private canary **215**/215; green+strict seed8000/0900;
+cohort **19**/19 (0002 drinksink + 0014 fountain + 0383/0399 Hallu
++ 0006/0007/0106/0108/0360/2200/4500 + 0004/0009/0012/0030/0116/
+0060/1500/1800) + strict 8000/0900/0002/0014/0383/0399/0006/0106/
+0108/0360/2200/4500/0030/0060. seed0009 runner PASS (strict
+length pre-existing D-0989). Path public-unhit on chest gas.
+**Next:** Open `fountain.c` `gush` `deal_with_overcrowding`
+(named). Not lava xkilled.
+**Blocked:** none.
+
 ## 2026-08-17 08:03 — #1457 D-1146 inside_gas_cloud damage
 
 **Objective:** Open queue — `region.c` `inside_gas_cloud` damage
@@ -393,27 +420,3 @@ cohort **24**/24 (0006 demon + 0014 fountain + 0007 snakes +
 Not create_gas_cloud size-1. Audit @**#1445**.
 **Blocked:** none.
 
-## 2026-08-17 04:45 — #1443 D-1135 hcolor Hallucination drinksink
-
-**Objective:** Open queue — `do_name.c` `hcolor` Hallucination
-drinksink synonyms (named). Not hliquid.
-**C locus:** `do_name.c` `hcolor` 1460–1466 / `hcolors[]`
-1441–1458; `fountain.c` `drinksink` case 4 642–643;
-`youprop.h` Hallucination 120.
-**Change:** port `hcolors[]` SIZE 74 + `hcolor` in `do_name.js`
-(Hallu or NULL pref → `rn2_on_display_rng(SIZE)` only; pref is
-not a last choice; gameover does not skip). Wire drinksink case 4
-Blind ternary to the shared helper. Did not pull sit/apply/pray/
-detect/do/wield/read identity stubs or `rndcolor`. Did not rewrite
-`hliquid`. Filled D-1134 archive hash `5f55ceba`. Rotated #1428.
-Open 8 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1440** **44**/44; next
-@**#1445**).
-**Verified:** private canary **110**/110; green+strict seed8000/0900;
-cohort **21**/21 (0002 drinksink + 0014 fountain + 0383/0399 Hallu
-+ 0006/0007/0106/0108/0360/2200/4500/1500/1800/0004/0009/0012/
-0030/0116/0060/0367/0398) + strict 0002/0014/0383/0399/0006/0106/
-0108/0360/2200/4500/0030. Path public-unhit on Hallu faucet.
-**Next:** Open `fountain.c` `mongrantswish` `tmp_at` glyph hide.
-Not dowaterdemon makemon.
-**Blocked:** none.

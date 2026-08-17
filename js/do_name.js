@@ -18,9 +18,9 @@ import {
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
-    has_oname, ONAME,
+    has_oname, ONAME, CLR_MAX,
 } from './const.js';
-import { ATR_INVERSE } from './terminal.js';
+import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { shkname } from './shknam.js';
 import { monsterNames } from './generated/monsters_data.js';
 import {
@@ -246,6 +246,26 @@ export function hcolor(colorpref) {
         return HCOLORS[rn2_on_display_rng(HCOLORS.length)];
     }
     return colorpref;
+}
+
+// C ref: decl.c c_obj_colors[] — rndcolor uses this; NO_COLOR (8) is
+// "transparent" in the table but rndcolor maps that k to "colorless".
+const C_OBJ_COLORS = [
+    'black', 'red', 'green', 'brown', 'blue', 'magenta', 'cyan', 'gray',
+    'transparent', 'orange', 'bright green', 'yellow', 'bright blue',
+    'bright magenta', 'bright cyan', 'white',
+];
+
+/**
+ * C ref: do_name.c rndcolor — always rn2(CLR_MAX) on the core stream
+ * (even when Hallu). Hallu then hcolor(NULL) display-rng; else
+ * k==NO_COLOR → "colorless", else c_obj_colors[k].
+ */
+export function rndcolor() {
+    const k = rn2(CLR_MAX);
+    return Hallucination() ? hcolor(null)
+        : (k === NO_COLOR) ? 'colorless'
+            : C_OBJ_COLORS[k];
 }
 
 // C ref: do_name.c hliquids[] — Hallu substitutes for hliquid().

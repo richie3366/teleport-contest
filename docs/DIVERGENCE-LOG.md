@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1147 — do_name rndcolor chest_trap gas adjective
+
+- **Status:** fixed (map-driven Open; named omit from D-1135; not a public FAIL)
+- **Symptom:** JS `chest_trap` gas used identity `"strange"`/`"colorful"`
+  with no RNG. C `do_name.c:rndcolor` always `rn2(CLR_MAX)` on the
+  core stream; Hallu then `hcolor(NULL)` display-rng; else
+  `k==NO_COLOR` → `"colorless"` (not table `"transparent"`) else
+  `c_obj_colors[k]`. Call site `trap.c:6474–6476` is
+  `Blind ? ROLL_FROM(blindgas) : rndcolor()` — Blind burns
+  `rn2(6)` only, never `rndcolor`.
+- **C locus:** `do_name.c` `rndcolor` (~1468–1477);
+  `decl.c` `c_obj_colors[]` (~20–37); `trap.c` `blindgas[]` (~81–83)
+  + `chest_trap` (~6474–6476); `hack.h` `ROLL_FROM`;
+  `color.h` `CLR_MAX`/`NO_COLOR`.
+- **Fix:** port `rndcolor` + `c_obj_colors[]` in `js/do_name.js`;
+  wire chest_trap gas to C Blind ternary + `blindgas[]`. Did not
+  pull sit/apply/pray/detect/do/wield/read identity `hcolor` stubs.
+  Rule #2: no fs.
+- **JS:** `js/do_name.js` `rndcolor`; `js/trap.js` `chest_trap`
+  cases 0–2.
+- **Not this iter:** other-module `hcolor` stubs; Halluc_resistance
+  stagger suffix; Soundeffect; bot() redraw; shieldeff.
+- **Verify:** private canary **215**/215 (C/JS tables; always
+  `rn2(16)`; `k==8` colorless not transparent; Hallu still core
+  `rn2` then hcolors; resist identity; gameover still Hallu;
+  Blind ternary; sit/apply stubs remain); green+strict
+  seed8000/0900; cohort **19**/19 (0002 drinksink + 0014 fountain +
+  0383/0399 Hallu + 0006/0007/0106/0108/0360/2200/4500 +
+  0004/0009/0012/0030/0116/0060/1500/1800) + strict 8000/0900/
+  0002/0014/0383/0399/0006/0106/0108/0360/2200/4500/0030/0060.
+  seed0009 runner PASS (strict length pre-existing D-0989). Path
+  public-unhit on chest gas (was `"colorful"`/`"strange"`).
+- **Files:** `js/do_name.js`, `js/trap.js`, `js/fountain.js` (comment).
+
 ## D-1146 — inside_gas_cloud damage
 
 - **Status:** fixed (map-driven Open; named omit from D-1124/D-1137; not a public FAIL)
