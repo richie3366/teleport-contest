@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] Human canary seed8243: `teleport.c` `domagicportal` `"You activated a magic portal!"` / tutorial ATSTAIRS stunmsg. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1188
+- [x] Human canary seed8243: `teleport.c` `domagicportal` `"You activated a magic portal!"` / tutorial ATSTAIRS stunmsg. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1188 `c58efd08`
 
 
 - [x] Human canary seed8243: `hack.c` `avoid_trap_andor_region` ParanoidTrap `"Really step into that magic portal?"` yn. Not maybe_smudge_engr. Not kill_genocided. **Addressed:** D-1187 `77ead396`

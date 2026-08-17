@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1509** 44/44 @**#1510**. D-1188 (108→128). Next @117
-  `cmd.c` rhack `visctrl` `^C`. Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
+- **#1510** 44/44 @**#1515**. Reviews **147–150** ACCEPT /
+  ACCEPT-WITH-DEBT (no new Must-fix). Next @117 `cmd.c` rhack
+  `visctrl` `^C`. Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
 
 ## Don't re-check (≤15)
 
@@ -88,4 +89,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1509** **44**/44 @**#1510**. **D-1188**. Review **142–146** ACCEPT.
+- **#1510** **44**/44 @**#1515**. Review **147–150**. Next `visctrl`.

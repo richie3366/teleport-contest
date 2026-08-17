@@ -156,3 +156,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [144-d2512b22-rloc-ustuck-together.md](./144-d2512b22-rloc-ustuck-together.md) | `d2512b22` | D-1183 ustuck-together You() | **ACCEPT** |
 | [145-1b94d8d3-scrolltele-make-blinded.md](./145-1b94d8d3-scrolltele-make-blinded.md) | `1b94d8d3` | D-1184 `scrolltele` `make_blinded` | **ACCEPT** |
 | [146-8c51cfe8-seed8243-private-canary.md](./146-8c51cfe8-seed8243-private-canary.md) | `8c51cfe8` | private seed8243 canary (docs) | **ACCEPT** |
+| [147-4750946a-doddoremarm-empty-worn.md](./147-4750946a-doddoremarm-empty-worn.md) | `4750946a` | D-1185 `doddoremarm` empty-worn `A` | **ACCEPT** |
+| [148-4dd396cc-do-rush-do-run.md](./148-4dd396cc-do-rush-do-run.md) | `4dd396cc` | D-1186 `do_rush`/`do_run` PREFIXCMD | **ACCEPT** |
+| [149-77ead396-avoid-trap-paranoid.md](./149-77ead396-avoid-trap-paranoid.md) | `77ead396` | D-1187 ParanoidTrap portal yn | **ACCEPT-WITH-DEBT** |
+| [150-c58efd08-domagicportal.md](./150-c58efd08-domagicportal.md) | `c58efd08` | D-1188 `domagicportal` ATSTAIRS | **ACCEPT** |
