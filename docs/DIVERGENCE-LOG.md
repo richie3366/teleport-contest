@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1177 — do.c `goto_level` `obj_delivery`
+
+- **Status:** fixed (map-driven Open; named omit from D-1166 / reviews
+  127 / 137; not a public FAIL)
+- **Symptom:** JS `goto_level` restored/created the dest map, placed
+  the hero, then ran room messages and `in_out_region` without
+  delivering `migrating_objs`. C `obj_delivery(FALSE)` after
+  `placebc` (WITH_HERO trap-door objs at the hero) and
+  `obj_delivery(TRUE)` after `check_special_room` (stairs/random).
+  `obj_extract_self` also omitted `OBJ_MIGRATING` unlink, so a
+  delivery pass would have orphaned the rest of the chain.
+- **C locus:** `dokick.c` `obj_delivery` (~1769–1851). Callers
+  `do.c` `goto_level` `:1815` FALSE, `:1978` TRUE. Extract
+  `mkobj.c` `obj_extract_self` OBJ_MIGRATING →
+  `extract_nobj(&gm.migrating_objs)`. XOR:
+  `if (!near_hero ^ (where == MIGR_WITH_HERO)) continue`.
+  `noscatter = (where & MIGR_WITH_HERO) != 0` (bitmask 9, not
+  the 2048 flag). `nx`/`ny` persist across the loop; only
+  RANDOM/default zeros them. Soft terrain skips break;
+  WITH_HERO uses `breaks` (messages); else silent `breaktest`+
+  `delobj`; `!noscatter` → `scatter(..., rnd(2), 0, otmp)`;
+  else `newsym`; `nx==0` → dummy coords + `rloco`.
+- **Fix:** port the callee; wire both `goto_level` sites; unlink
+  `OBJ_MIGRATING` in `obj_extract_self`. Did not pull
+  `deliver_obj_to_mon`, wizkit FALSE, `fix_shop_damage`,
+  `do_fall_dmg`, `kill_genocided_monsters`, or `run_timers`.
+  Rule #2: no fs.
+- **JS:** `js/dokick.js` `obj_delivery`; `js/do.js` `goto_level`;
+  `js/mkobj.js` `obj_extract_self`.
+- **Not this iter:** `deliver_obj_to_mon`; allmain wizkit
+  `obj_delivery(FALSE)`; `fix_shop_damage`; `do_fall_dmg`;
+  `kill_genocided_monsters`; `run_timers`; `notice_mon_off` at
+  `goto_level`.
+- **Verify:** green+strict seed8000/0900; cohort **10**/10
+  (green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
+  screens. Path public-unhit when `migrating_objs` is empty.
+
 ## D-1176 — dothrow.c `mhurtle_step` `m_in_out_region`
 
 - **Status:** fixed (map-driven Open; named omit from D-1165 / reviews

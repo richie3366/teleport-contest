@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 21:00 — #1496 D-1177 goto_level obj_delivery
+
+**Objective:** Open — `do.c` `goto_level` `obj_delivery` (named).
+Not in_out_region.
+**C locus:** `dokick.c` `obj_delivery` 1769–1851; callers
+`do.c` `:1815` FALSE after placebc, `:1978` TRUE after
+`check_special_room`; `mkobj.c` `obj_extract_self` OBJ_MIGRATING.
+**Change:** port the callee (XOR WITH_HERO; bitmask noscatter;
+persistent nx/ny; soft skip; WITH_HERO `breaks` else silent
+`breaktest`+`delobj`; scatter `rnd(2)` or newsym; rloco). Wire
+both `goto_level` sites. Unlink `OBJ_MIGRATING` in extract.
+Did not pull `deliver_obj_to_mon`, wizkit FALSE, shop/fall,
+`kill_genocided_monsters`, or `run_timers`. Rotated #1481.
+Open 12 after archive+refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1495** **44**/44; next
+@**#1500**).
+**Verified:** green+strict seed8000/0900; cohort **10**/10
+(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
+screens. Path public-unhit when `migrating_objs` is empty.
+**Next:** Open `do.c` `goto_level` `fix_shop_damage` (named). Not
+obj_delivery.
+**Blocked:** none.
+
 ## 2026-08-17 20:50 — #1495 review D-1173–D-1176 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -395,28 +418,4 @@ green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
 a live restored region.
 **Next:** Open `hack.c` `m_postmove_effect` youmonst (named). Not
 in_out_region.
-**Blocked:** none.
-
-## 2026-08-17 16:15 — #1481 D-1165 hurtle_step in_out_region
-
-**Objective:** Open — `dothrow.c` `hurtle_step` `in_out_region`
-(named). Not walk.
-**C locus:** `dothrow.c` `hurtle_step` 787–790 after `isok` before
-`*range==0`; callee `region.c` `in_out_region` 480–527.
-**Change:** await `in_out_region(x,y)` at that site, C `else if`
-order so range==0 still updates `REG_HERO_INSIDE` then returns
-false without occupying. Gas `NO_CALLBACK` never rejects. Did not
-pull do.c `goto_level` or `mhurtle_step` `m_in_out_region`.
-Rotated #1466. Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1480** **44**/44; next
-@**#1485**).
-**Verified:** private canary **41**/41 (empty; enter/leave/stay-in/
-stay-out; can_enter/leave reject vs allow; gas NO_CALLBACK;
-`attach_2_u`; A→B; overlap; range==0 bit; isok skip; m_at bump
-bit; no-dir/ustuck/utrap); green+strict seed8000/0900; cohort
-**41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
-0101/0012/0360/4500/2200/0014/0004/0367/0373/0002. Path
-public-unhit on hurtle through a live region.
-**Next:** Open `do.c` `goto_level` `in_out_region` (named). Not
-walk.
 **Blocked:** none.

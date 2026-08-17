@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `goto_level` `obj_delivery` (named). Not in_out_region.
 - [ ] `do.c` `goto_level` `fix_shop_damage` (named). Not obj_delivery.
 - [ ] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage.
 - [ ] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `rloc_pos_ok` mx==0 updest/dndest (named). Not room lock.
 - [ ] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg.
 - [ ] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet.
+- [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
+- [ ] `do.c` `goto_level` `run_timers` (named). Not kill_genocided.
+- [ ] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level.
+- [ ] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery.
+- [ ] `do.c` `goto_level` `notice_mon_off` (named). Not docrt.
 
 ## Parked (do not pop)
 
