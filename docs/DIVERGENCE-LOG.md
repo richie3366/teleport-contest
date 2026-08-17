@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1173 — `mnexto` `control_mon_tele(..., FALSE)` + savemm
+
+- **Status:** fixed (map-driven Open; named omit from D-1122 / D-1172;
+  not a public FAIL)
+- **Symptom:** JS `mnexto` after a successful `enexto` jumped straight
+  to `rloc_to_flag`. C, when `iflags.mon_telecontrol` is set, lets the
+  wizard-mode player pick the dest via `control_mon_tele(..., FALSE)`
+  (`goodpos`, not `rloc_pos_ok`) and restores a coord copy of the
+  `enexto` result (`savemm`) if that returns FALSE — so a cancelled
+  getpos or a hero-cell pick cannot stick, even if the player would
+  have answered y to force.
+- **C locus:** `mon.c` `mnexto` (~3974–3978) after enexto success,
+  before `rloc_to_flag`. Callee `teleport.c` `control_mon_tele`
+  (~1898–1934). Caller gates only `iflags.mon_telecontrol` (not
+  wizard, not `mtmp->mx`); wizard is inside the callee. Distinct from
+  `rloc`'s via_rloc TRUE (D-1122).
+- **Fix:** after enexto, `if (game.iflags?.mon_telecontrol)` copy
+  `{x,y}` then `await control_mon_tele(mtmp, mm, rlocflags, false)`
+  and restore savemm on FALSE. Default Off: public paths unchanged.
+  Did not pull vanish-msg, `RLOC_ERR`, or OPTIONS= doset parse.
+  Rule #2: no fs.
+- **JS:** `js/mon.js` `mnexto`; callee `js/teleport.js`
+  `control_mon_tele`.
+- **Not this iter:** OPTIONS=`montelecontrol` doset page; telemsg
+  "vanishes and reappears"; ustuck-together; `RLOC_ERR`; `mnearto`
+  overcrowding; `mhitm` `mdisplacem` `update_monster_region`.
+- **Verify:** private canary **38**/38 (C/JS order; via_rloc FALSE;
+  savemm copy not alias; no wizard/mx gate at caller; default Off
+  (11,10); On without wizard; steed sync; wizard `.` / ESC / hero
+  `h.` restore savemm; STONE `l.y` force / `l.n` restore; mx==0
+  still prompts; rloc still rnd; thenable; getpos consumes `.`;
+  no fs/FORCE); green+strict seed8000/0900; cohort **41**/41
+  (CURRENT shared + 0014/0383/4500/2600) + strict 0101/0012/0360/
+  4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/0015/0116/0106.
+  Path public-unhit on wizard `montelecontrol`.
+- **Files:** `js/mon.js`, `js/teleport.js` (comments).
+
 ## D-1172 — `rloc` steed `tele()` then TRUE
 
 - **Status:** fixed (map-driven Open; named omit from D-1122 / D-1171;

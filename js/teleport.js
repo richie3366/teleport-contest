@@ -1100,8 +1100,9 @@ function stairway_find_forwiz(isladder, up) {
 /**
  * C ref: teleport.c control_mon_tele — wizard-mode getpos destination.
  * Gated on flags.debug||flags.wizard and iflags.mon_telecontrol (default
- * Off). mnexto still omits this caller. Named omit: OPTIONS= parse into
- * doset (iflags may be set directly); debug_fuzzer skips force y_n.
+ * Off). Callers: rloc via_rloc TRUE (D-1122); mnexto via_rloc FALSE
+ * (D-1173). Named omit: OPTIONS= parse into doset (iflags may be set
+ * directly); debug_fuzzer skips force y_n.
  */
 export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
     if (!isok(cc_p.x, cc_p.y)) {
@@ -1140,8 +1141,8 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * then unshuffled candy shuffle (D-1122).
  * Steed is hero teleport: tele() then TRUE even if tele() does not
  * move (noteleport) (D-1172; C 1808–1811). Not Wizard stair.
- * Named omissions: mnexto control_mon_tele; telemsg
- * "vanishes and reappears"; ustuck-together; RLOC_ERR impossible().
+ * Named omissions: telemsg "vanishes and reappears"; ustuck-together;
+ * RLOC_ERR impossible(). mnexto control_mon_tele is D-1173.
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;

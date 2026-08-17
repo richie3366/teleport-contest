@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc. **Addressed:** D-1173
+
+
 - [x] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair. **Addressed:** D-1172 `e7c5c8ac`
 
 

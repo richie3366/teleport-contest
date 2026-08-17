@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1172 | fixed | `rloc` steed `tele()` then TRUE | map-driven; C `teleport.c:1808–1811`; `rloc(usteed)` calls `tele()`/`scrolltele` and returns TRUE even if tele does not move (noteleport); before iswiz stair (D-1122); `mnexto` `control_mon_tele`, vanish-msg, RLOC_ERR still named |
+| D-1173 | fixed | `mnexto` `control_mon_tele` savemm | map-driven; C `mon.c:3974–3978` / `control_mon_tele` 1898–1934; after enexto, `iflags.mon_telecontrol` (not wizard at caller, not mx!=0) `control_mon_tele(..., FALSE)` then restore savemm; via_rloc FALSE uses goodpos; default Off; OPTIONS= doset / vanish-msg / RLOC_ERR still named |
+| D-1172 | fixed | `rloc` steed `tele()` then TRUE | map-driven; C `teleport.c:1808–1811`; `rloc(usteed)` calls `tele()`/`scrolltele` and returns TRUE even if tele does not move (noteleport); before iswiz stair (D-1122); vanish-msg, RLOC_ERR still named; mnexto telecontrol D-1173 |
 | D-1171 | fixed | `rloc_pos_ok` shk/priest room | map-driven; C `teleport.c:1620–1626`; on-map isshk+inhishop dest `levl.roomno` vs ESHK.shoproom unsigned char else-if ispriest+inhistemple vs EPRI.shroom; not in_rooms; then tele_jump_ok; mx==0 updest/dndest still named; rloc candy may still goodpos-fallback |
 | D-1170 | fixed | `rloc_to` occupation `dochugw` | map-driven; C `teleport.c:1761–1763` / `monmove.c` dochugw; `go.occupation` → `dochugw(mtmp, FALSE)` after bill before mintrap; no dochug, only newly-spotted threat stop; `rloc_to_flag` after appear; onscary / makemon occupation still named |
 | D-1169 | fixed | `run_regions` hero `inside_f` bit | map-driven; C `region.c:439–441` `f_indx != NO_CALLBACK && hero_inside` then `inside_gas_cloud(reg, Null)`; not `inside_region(u.ux,u.uy)`; monster list unchanged; `region_danger`/`region_safety` still geometric |

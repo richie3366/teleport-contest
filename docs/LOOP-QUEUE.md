@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
 - [ ] `mhitm.c` `mdisplacem` `update_monster_region` (named). Not rloc_to.
 - [ ] `allmain.c` `m_everyturn_effect` youmonst (named). Not m_postmove_effect.
 - [ ] `dothrow.c` `mhurtle_step` `m_in_out_region` (named). Not hurtle_step.
