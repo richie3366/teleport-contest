@@ -645,8 +645,9 @@ export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
  * place_worm_tail_randomly; ustuck swallow u_on_newpos/check_special_room/
- * docrt else !m_next2u unstuck; newsym(new) (D-1123).
- * Named omissions: shopkeeper home teleport; maybe_unhide_at;
+ * docrt else !m_next2u unstuck (D-1123); maybe_unhide_at then newsym(new)
+ * (D-1152).
+ * Named omissions: shopkeeper home teleport;
  * update_monster_region; set_apparxy; shop bill on leave.
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886).
  */
@@ -706,7 +707,10 @@ export async function rloc_to(mtmp, x, y) {
         }
     }
 
-    // C: newsym(x, y) after maybe_unhide_at (unhide named omit)
+    // C: maybe_unhide_at(x, y) then newsym(x, y) (teleport.c:1700–1701).
+    // Dynamic import: monmove.js already imports rloc from this file.
+    const { maybe_unhide_at } = await import('./monmove.js');
+    await maybe_unhide_at(x, y);
     newsym(x, y);
 }
 

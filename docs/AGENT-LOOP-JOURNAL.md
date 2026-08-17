@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 10:18 — #1464 D-1152 rloc_to maybe_unhide_at dest
+
+**Objective:** Open — `teleport.c` `rloc_to` `maybe_unhide_at`
+(named). Not vanish-msg.
+**C locus:** `teleport.c` `rloc_to_core` 1700–1701; `mon.c`
+`maybe_unhide_at` 4698–4719.
+**Change:** export `maybe_unhide_at`; `rloc_to` calls it at dest
+after ustuck, before `newsym` (dynamic import; monmove↔teleport
+cycle). Did not pull vanish-msg / `set_apparxy` /
+`update_monster_region` / shk-home / shop bill / trapped
+`mintrap` / youmonst arm. Filled D-1151 archive hash
+`6bdf4d49`. Rotated #1448–#1449. Open 7 after archive → refill
+to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1460** **44**/44; next
+@**#1465**).
+**Verified:** private canary **22**/22 (bare dest unhide; cover
+stays; visible; non-hider; same-cell; trapped; coins; eel
+dry/pool; empty; null; track); green+strict seed8000/0900;
+cohort **25**/25 (0012 vault + 0360/4500/0373/0367 +
+2200/0014/0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/
+0383/0007/0361/0108/0002/5002/2600/0006) + strict
+0012/0360/4500/0014/2200/0004/0002/0009/0367/0373/0030. Path
+public-unhit on hidden-hider rloc.
+**Next:** Open `teleport.c` `vault_tele` `tele()` fallback
+(named). Not teleds. Audit @**#1465**.
+**Blocked:** none.
+
 ## 2026-08-17 09:35 — #1463 D-1151 switch_terrain classify_terrain
 
 **Objective:** Open — `hack.c` `classify_terrain` (named from
@@ -401,51 +428,4 @@ hash `36fb8797`. Rotated #1436. Open 8 (no refill). Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `teleport.c` `teleds` `invocation_message`. Not
 vault_guard.
-**Blocked:** none.
-
-## 2026-08-17 06:10 — #1449 D-1140 teleds vault_guard uleftvault
-
-**Objective:** Open queue — `teleport.c` `teleds` `vault_guard`
-`uleftvault` (named). Not swallow docrt.
-**C locus:** `teleport.c` `teleds` 454, 553–566; `vault.c`
-`uleftvault` 254–278.
-**Change:** capture origin `vault_occupied`?`findgd`; after dest-typ
-`switch_terrain`, fake dest `in_rooms(...,VAULT)`, `uleftvault` if
-left, restore `u.urooms` before `spoteffects` (D-0639). Gold +
-`um_dist` → irate/`mpeaceful=0`; `!in_fcorridor` → `gd_move`. Did
-not pull hostile `gd_move` rloc/`gd_letknow`/`wallify`, invocation,
-or `notice_mon_*`. Filled D-1139 archive hash `4071a74d`. Open 8
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1445** **44**/44; next
-@**#1450**).
-**Verified:** private canary **23**/23; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0367 Pri ^T temple + 0004 scroll +
-0007 snake + 0009 swim + 0360/0373/4500/2200/1500/1800/0030/0002/
-0116/0060/0102/0700/0017/0361/0108/0383/5002/0006/0105) + strict
-8000/0900/0012/0367/0004/0360/4500/2200/0030/0009/0002. Path
-public-unhit on gold vault teleport.
-**Next:** Open `teleport.c` `teleds` `invocation_message`. Not
-vault_guard.
-**Blocked:** none.
-
-## 2026-08-17 05:55 — #1448 D-1139 teleds swallow set_ustuck + docrt
-
-**Objective:** Open queue — `teleport.c` `teleds` swallow `docrt`
-(named). Not hideunder.
-**C locus:** `teleport.c` `teleds` 487–504; `mon.c` `set_ustuck`
-3421–3435.
-**Change:** after `reset_utrap`, snapshot `uswallow`,
-`set_ustuck(null)` (not `unstuck`), then hideunder. If swallowed:
-Punished force `ball_active`/no-drag and `await docrt()` at the
-origin (gulp→map). Did not pull vault_guard / invocation /
-`notice_mon_*`. Filled D-1138 archive hash `068e78df`. Open 9
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1445** **44**/44; next
-@**#1450**).
-**Verified:** private canary **21**/21; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0004 scroll + 0007 snake + 0009
-swim + 0360/0367/0373/4500/2200/1500/1800/0030/0002/0116/0060/
-0102/0700/0017/0361/0108/0383/5002/0006/0105) + strict 8000/0900/
-0012/0360/4500/0004/2200/0367/0373/0030/0009/0002. Path
-public-unhit on swallowed teleds.
 **Blocked:** none.

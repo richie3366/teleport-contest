@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1152 | fixed | `rloc_to` `maybe_unhide_at` dest | map-driven; C `teleport.c:1700` / `mon.c` `maybe_unhide_at` 4698–4719; after ustuck before newsym; hiders/eels unhide when dest has no cover / not pool; `can_hide_under_obj` coins; hero youmonst path, vanish-msg, `set_apparxy`, `update_monster_region` still named |
 | D-1151 | fixed | `switch_terrain` `classify_terrain` | map-driven; C `hack.c:3131–3214` lastseentyp remaps into `iflags.terrain_typ`; Underwater≡uinwater; arboreal STONE; ROOM/CORR xFLOOR/xGROUND; door open/shut; DRAWBRIDGE_UP `db_under_typ`; Medusa sea / Juiblex swamp; WATER→xWATERWALL; botl iff terrainstatus && !run; option bag `flags.terrainstatus`; botl `terrain_descr[]` / options toggle / end_running MAX_TYPE / `spoteffects` callers still named |
 | D-1150 | fixed | `domove` walk `invocation_message` | map-driven; C `hack.c:2964–2973` after `vision_recalc(1)` when ux0!=ux\|\|uy0!=uy; callee D-1141; Invocation_lev && inv_pos && !On_stairs; nomul You_feel `uvibrated` candelabrum; `mkmaze.c` `inv_pos` placement still named |
 | D-1149 | fixed | `mongone` `mdrop_special_objs` then discard | map-driven Must-fix; C `mon.c:3275–3282`; clog victim Bell/Book/Candelabrum/Rider/quest arti drop before discard; unstuck when grabbing; `isgd`/`grddead`, `m_detach` wiz/shk/worm/MON_DETACH, worn `extract_from_minvent`, mongrantswish clone still named |

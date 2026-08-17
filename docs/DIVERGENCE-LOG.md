@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1152 — rloc_to maybe_unhide_at dest
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `rloc_to` placed then `newsym(new)` with no
+  `maybe_unhide_at`. C `rloc_to_core` calls it at the **dest**
+  cell after ustuck, so a hider that teleports onto bare floor
+  (or an eel onto dry land) stays `mundetected`.
+- **C locus:** `teleport.c` `rloc_to_core` (~1700–1701);
+  `mon.c` `maybe_unhide_at` (~4698–4719) / `hideunder`.
+- **Fix:** export `maybe_unhide_at` from `monmove.js` (already
+  used by `m_move`). `rloc_to` dynamic-imports it (monmove↔teleport
+  cycle) then `newsym`. Did not pull vanish-msg, `set_apparxy`,
+  `update_monster_region`, shk-home, shop bill, trapped `mintrap`,
+  or the hero youmonst arm. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to`; `js/monmove.js`
+  `maybe_unhide_at`.
+- **Not this iter:** vanish-msg; `set_apparxy`;
+  `update_monster_region`; `make_angry_shk`; minvent `stolen_value`;
+  occupation `dochugw`; trapped `mintrap`; youmonst unhide.
+- **Verify:** private canary **22**/22 (bare dest unhide; cover
+  stays; visible no-op; non-hider; same-cell; trapped; <10 vs ≥10
+  coins; eel dry/pool; empty cell; null; track clear); green+strict
+  seed8000/0900; cohort **25**/25 including 0012 vault +
+  0360/4500/0373/0367 + 2200/0014/0004/0009/1500/1800/0060/0102/
+  0700/0017/0030/0116/0383/0007/0361/0108/0002/5002/2600/0006 +
+  strict 0012/0360/4500/0014/2200/0004/0002/0009/0367/0373/0030.
+  Path public-unhit on hidden-hider rloc.
+- **Files:** `js/teleport.js`, `js/monmove.js`.
+
 ## D-1151 — switch_terrain classify_terrain
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

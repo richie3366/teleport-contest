@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg.
 - [ ] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds.
 - [ ] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds.
 - [ ] `region.c` `expire_gas_cloud` dissipation plines (named). Not inside_gas HP.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `hack.c` walk `in_out_region` (named). Not teleds.
 - [ ] `region.c` `create_gas_cloud_selection` (named). Not BFS create.
 - [ ] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f.
+- [ ] `teleport.c` `rloc_to` `set_apparxy` (named). Not vanish-msg.
+- [ ] `teleport.c` `rloc_to` `update_monster_region` (named). Not set_apparxy.
+- [ ] `teleport.c` `rloc_to` shk `make_angry_shk` (named). Not vanish-msg.
+- [ ] `teleport.c` `rloc_to` minvent shop bill (named). Not shk-home.
+- [ ] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation.
 
 ## Parked (do not pop)
 
