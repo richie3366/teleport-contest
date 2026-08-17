@@ -7,14 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1500** 44/44 @**#1505**. Human canary
+- **#1505** 44/44 @**#1510**. Human canary
   `private-sessions/seed8243-samurai-tutorial.session.json`: JS
   **FAIL** RNG 2361/2534 Scr 22/129. Step 0 is C vs JS `built` date
   (ignore). First real miss @step 8 chargen confirm `offx`.
   Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
   — if Scr still fails @0/`built` only, elide date and re-check @8.
   Keystream has `\x1b[A` arrows and `\x03`; replay as recorded, do not
-  “fix” keys. Do not add to public `sessions/`.
+  “fix” keys. Do not add to public `sessions/`. Dump C `cw->offx` /
+  `cw->maxcol` at confirm. Do not hardcode `\e[72C` or revert D-0078
+  H2344. Reviews **142–146** ACCEPT (no new Must-fix).
 
 ## Don't re-check (≤15)
 
@@ -89,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1500** **44**/44 @**#1505**. **D-1184**. Review **138–141** ACCEPT.
+- **#1505** **44**/44 @**#1510**. **D-1184**. Review **142–146** ACCEPT.

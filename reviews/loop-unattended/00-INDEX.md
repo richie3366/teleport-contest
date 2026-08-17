@@ -151,3 +151,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [139-4a700d08-goto-level-fix-shop-damage.md](./139-4a700d08-goto-level-fix-shop-damage.md) | `4a700d08` | D-1178 `goto_level` `fix_shop_damage` | **ACCEPT** |
 | [140-5f08f9e5-goto-level-do-fall-dmg.md](./140-5f08f9e5-goto-level-do-fall-dmg.md) | `5f08f9e5` | D-1179 `goto_level` `do_fall_dmg` | **ACCEPT** |
 | [141-665bbe09-rloc-to-core-telemsg.md](./141-665bbe09-rloc-to-core-telemsg.md) | `665bbe09` | D-1180 `rloc_to_core` telemsg | **ACCEPT** |
+| [142-0b488053-rloc-rloc-err.md](./142-0b488053-rloc-rloc-err.md) | `0b488053` | D-1181 `rloc` `RLOC_ERR` | **ACCEPT** |
+| [143-01c8c41f-rloc-pos-ok-migrating.md](./143-01c8c41f-rloc-pos-ok-migrating.md) | `01c8c41f` | D-1182 `rloc_pos_ok` mx==0 | **ACCEPT** |
+| [144-d2512b22-rloc-ustuck-together.md](./144-d2512b22-rloc-ustuck-together.md) | `d2512b22` | D-1183 ustuck-together You() | **ACCEPT** |
+| [145-1b94d8d3-scrolltele-make-blinded.md](./145-1b94d8d3-scrolltele-make-blinded.md) | `1b94d8d3` | D-1184 `scrolltele` `make_blinded` | **ACCEPT** |
+| [146-8c51cfe8-seed8243-private-canary.md](./146-8c51cfe8-seed8243-private-canary.md) | `8c51cfe8` | private seed8243 canary (docs) | **ACCEPT** |

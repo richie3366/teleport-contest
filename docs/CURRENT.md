@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1500** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `32+0.27/turn` (R² 0.87). Next audit (review + score) @**#1505**.
+**#1505** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `33+0.28/turn` (R² 0.87). Next audit (review + score) @**#1510**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `32+0.27/turn` (R² 0.87). Next audit (review + score) @**#1505**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `32+0.27/turn` (R² 0.87) |
+| Speed label | `33+0.28/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -92,7 +92,7 @@ tut-1 `create_object` box+food; tut-1 `place_lregion`/`levregion_add`; tut-1
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1181).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1184).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
