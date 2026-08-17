@@ -7,7 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1500** 44/44 @**#1505**. Next: kill_genocided.
+- **#1500** 44/44 @**#1505**. Human canary
+  `private-sessions/seed8243-samurai-tutorial.session.json`: JS
+  **FAIL** RNG 2361/2534 Scr 22/129. Step 0 is C vs JS `built` date
+  (ignore). First real miss @step 8 chargen confirm `offx`.
+  Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
+  — if Scr still fails @0/`built` only, elide date and re-check @8.
+  Keystream has `\x1b[A` arrows and `\x03`; replay as recorded, do not
+  “fix” keys. Do not add to public `sessions/`.
 
 ## Don't re-check (≤15)
 

@@ -59,20 +59,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Hold local suite as a regression fortress** (green gate + cohort;
-review + full `sessions` together every 5). Do **not** chase public leaderboard /
-cron / `data.json` / hub CDN session drift — out of agent scope. Do
-**not** invent FAIL peels, ALIGN/FORCE, or seed gates for already-
-matching public paths.
+**Human private canary first** (Must-fix): make
+`private-sessions/seed8243-samurai-tutorial.session.json` match C by
+porting `wintty.c` menu `offx` (chargen `Is this ok?`), then later
+tutorial/`maybe_smudge_engr` — not by ALIGN/FORCE or banner dates.
+Do **not** add it to `sessions/manifest.json`. Public 44/44 stays the
+regression fortress (green + cohort; review + full `sessions` every 5).
 
-**Work picker (map-driven, not FAIL-driven):** retire named omissions /
-constitutional debt from one `docs/c-js-map/*.md` section (prefer
-`debt.md` scenario-shaped code, then `absent.md` thin systems), or
-parked D-0006 only with reproducible C state. Optional: private C
-recorder canaries on thin spots — never memorize
-public traces.
+**After that canary:** map-driven named omissions (`debt.md` then
+`absent.md`). Do **not** chase public leaderboard / CDN drift. Parked
+D-0006 diagnose-only.
 
-**Next cluster:** Open `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
+**Next cluster:** Must-fix human canary seed8243 `wintty.c`
+`tty_end_menu`/`tty_display_nhwindow` NHW_MENU `offx` vs
+`nhw_menu_geometry` (`Is this ok?` C col 72 vs JS col 40). Not
+`kill_genocided`. Not `built` date.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1184. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).

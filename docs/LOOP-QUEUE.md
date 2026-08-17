@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] Human canary (no review stamp): `private-sessions/seed8243-samurai-tutorial.session.json`. First real screen miss @step 8: `wintty.c` `tty_end_menu`/`tty_display_nhwindow` NHW_MENU `offx` vs `invent.js` `nhw_menu_geometry` (`Is this ok?` C `\e[72C` vs JS `\e[40C`). Not banner `built` date. Not public `sessions/`. Do not ALIGN/FORCE. Keep 44/44. Later RNG @2326 `hack.c` `maybe_smudge_engr` vs extra JS `rn2(25)` is a follow-up cluster.
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
