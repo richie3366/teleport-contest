@@ -25,6 +25,11 @@ Options:
                         Fractions OK (e.g. 2.5 → 2_500_000). Not persisted
                         across supervisor launches. Last in-flight iteration
                         may overshoot; the loop stops before starting another.
+  --last-completed <n>  Pretend the last finished global iteration was n
+                        (writes iteration-count). Next iter is n+1. Use to
+                        retry a cadence slot that crashed before commit
+                        (e.g. 1464 → next is audit #1465). Must be >= the
+                        iter-*.log file count (that count is still a floor).
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
@@ -42,10 +47,19 @@ EOF
 
 # --- CLI (parsed before lock so --help is cheap) ---
 TOKEN_BUDGET_M=""
+LAST_COMPLETED=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --token-budget-m)
       TOKEN_BUDGET_M="${2:?error: --token-budget-m needs a value}"
+      shift 2
+      ;;
+    --last-completed)
+      LAST_COMPLETED="${2:?error: --last-completed needs a value}"
+      if [[ ! "$LAST_COMPLETED" =~ ^[0-9]+$ ]]; then
+        echo "error: --last-completed must be a non-negative integer" >&2
+        exit 2
+      fi
       shift 2
       ;;
     -h|--help)
@@ -583,9 +597,20 @@ if [[ "${LOOP_PREFLIGHT_ONLY:-0}" == "1" ]]; then
   exit 0
 fi
 
+if [[ -n "$LAST_COMPLETED" ]]; then
+  write_iter_count "$LAST_COMPLETED"
+  echo "$(date -Iseconds) === --last-completed ${LAST_COMPLETED} (iteration-count rewritten) ===" \
+    | tee -a "$MASTER_LOG"
+fi
 iter="$(read_iter_count)"
 write_iter_count "$iter"
-echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be $((iter + 1)) ===" \
+if [[ -n "$LAST_COMPLETED" && "$iter" != "$LAST_COMPLETED" ]]; then
+  echo "error: --last-completed ${LAST_COMPLETED} lost to iter-*.log floor (${iter})" >&2
+  echo "       that count is a bootstrap minimum; cannot rewind below it." >&2
+  exit 2
+fi
+next_iter=$((iter + 1))
+echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be ${next_iter} (mode=$(iter_mode "$next_iter")) ===" \
   | tee -a "$MASTER_LOG"
 if token_budget_active; then
   echo "$(date -Iseconds) === token budget this run: 0 / ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) ===" \
@@ -823,7 +848,9 @@ NODE
   read -r js_ins js_files <<<"$(js_worktree_stats "$before_head")"
 
   if [[ "$status" -ne 0 && "$after_head" == "$before_head" ]]; then
-    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting" 0
+    crashed_iter="$iter"
+    write_iter_count $((crashed_iter - 1))
+    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting; counter rewound to $((crashed_iter - 1)) (next launch retries #${crashed_iter})" 0
   fi
 
   origin_after=""

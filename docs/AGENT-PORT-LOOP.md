@@ -26,6 +26,10 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh
 
 # Cap this supervisor run at ~50M tokens (all usage kinds; not persisted)
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
+
+# Retry a cadence slot that crashed before commit (next iter = n+1).
+# Example: failed audit #1465 → treat last completed as 1464.
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50 --last-completed 1464
 ```
 
 **Stop before the next iteration:** edit `STOP_AGENT_LOOP.md` at the repo root
@@ -94,7 +98,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │         green fail, audit full-suite fail,                         │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
 │       uncommitted js/ or review after a crash: halt, **no** reset  │
-│       crash/timeout before commit: halt, **no** reset              │
+│       crash/timeout before commit: halt, **no** reset, rewind n    │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
@@ -193,7 +197,10 @@ Under `.agent-port-loop-logs/` (gitignored):
 - `last-halt-reason.txt` — why the supervisor stopped itself
 - `iteration-count` — total claimed global iterations (survives restarts).
   Bootstraps from the **count** of `iter-*.log` files if higher than the
-  stored value (not max `NNNN`, because early runs reused 0001…)
+  stored value (not max `NNNN`, because early runs reused 0001…).
+  `--last-completed n` rewrites this so the next iter is `n+1` (must stay
+  ≥ that log-file floor). A crash/timeout **before commit** also rewinds
+  the counter so the same global `#` / mode is retried on the next launch.
 ### Environment knobs
 
 | Variable | Default | Meaning |
@@ -207,6 +214,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
+| `--last-completed` (CLI) | unset | Rewrite `iteration-count` so the next iter is *n*+1 (retry a crashed cadence slot) |
 | `LOOP_CADENCE_EVERY` | `5` | Review + full-suite score when `n % this == 0` |
 | `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
 | `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
@@ -262,8 +270,8 @@ Halt reason is still `last-halt-reason.txt`.
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then gate fail | Halt without reset; human reverts origin |
-| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”) |
-| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review |
+| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”); counter rewound so the next launch retries the same `#` |
+| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review. `--last-completed 1464` (or the auto-rewind) retries audit **#1465** |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |
 | Dirty tree at start | Loop refuses to launch |
