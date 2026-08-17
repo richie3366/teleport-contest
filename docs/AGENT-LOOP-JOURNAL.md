@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 04:25 — #1441 D-1133 tele_trap teledest / else tele()
+
+**Objective:** Open queue — `teleport.c` `tele()` / trap teledest
+(named). Not tele_trap wrenching.
+**C locus:** `teleport.c` `tele_trap` 1506–1532; `tele()` 841–845;
+`track.c` `settrack`.
+**Change:** lift `next_to_u` to C's sibling of once. Port teledest:
+`settrack`, dest `m_at`, `enexto` fail → shudder, else `rloc_to` then
+`teleds(TELEDS_TELEPORT)`; unnamed dest → `tele()`. Did not pull
+`dotele` trap-at-feet or `vault_tele` tele() fallback. Rotated
+#1426. Open 10 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1440** **44**/44; next
+@**#1445**).
+**Verified:** private canary **32**/32; green+strict seed8000/0900;
+cohort **22**/22 (0012 vault + 0004 + 0007 snake + 0009 swim +
+0360/0367/0373/4500/2200/1500/1800/0030/0002/0116/0060/0102/0700/
+0017/0361/0108/0383/5002) + strict 0012/0360/4500/0004/2200/0367/
+0373/0030/0009/0002. Path public-unhit on named-dest / random TELEP.
+**Next:** Open `fountain.c` `dipfountain` `update_inventory` after
+switch. Not Excalibur gift.
+**Blocked:** none.
+
 ## 2026-08-17 04:10 — #1440 review D-1129–D-1132 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -377,28 +399,4 @@ cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
 Wizard rloc.
 **Next:** Open `teleport.c` `rloc_to` worm / ustuck-swallow
 `docrt`. Not newsym.
-**Blocked:** none.
-
-## 2026-08-17 01:05 — #1426 D-1121 teleds fill_pit after u_on_newpos
-
-**Objective:** Open queue — `teleport.c` `teleds` `fill_pit`
-(named). Not Punished ball.
-**C locus:** `teleport.c` `teleds` 523–528; `trap.c` `fill_pit`
-4008–4019.
-**Change:** after `u_on_newpos` subset, dynamic-import
-`fill_pit(u.ux0,u.uy0)` (teleport→dig→trap cycle). Existing
-thin helper: pit/hole+boulder extract+deltrap+delobj. C
-`flooreffects("settle")` still named. Did not pull Punished
-ball / swallow docrt / switch_terrain. Rotated #1411. Open 12
-after archive+refill from teleport named omits. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1425** **44**/44; next
-@**#1430**).
-**Verified:** private canary **22**/22; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
-0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/
-0361/0108/0002/5002/2600) + strict 0012/0360/4500/0014/2200/
-0004/0009/0367/0373/0030/0002/0116. Path public-unhit on
-boulder+pit teleport.
-**Next:** Open `teleport.c` `rloc` Wizard stair / `mon_telecontrol`.
-Not RLOC_MSG.
 **Blocked:** none.

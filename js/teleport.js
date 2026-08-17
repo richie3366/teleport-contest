@@ -1869,8 +1869,11 @@ export async function vault_tele() {
 /**
  * C ref: teleport.c tele_trap — hero TELEP_TRAP.
  * Envelope: In_endgame / Antimagic / noteleport_level wrenching +
- * Antimagic shieldeff (D-1120); !next_to_u shudder (D-1005); once →
- * deltrap + vault_tele. Named omissions: teledest / tele().
+ * Antimagic shieldeff (D-1120); !next_to_u sibling shudder (D-1005);
+ * once → deltrap + vault_tele; isok(teledest) settrack + displace via
+ * enexto/rloc_to then teleds, else tele() (D-1133).
+ * Named omissions: dotele trap-at-feet teledest; vault_tele tele()
+ * fallback when no vault/space.
  */
 export async function tele_trap(trap) {
     /* a fixed-destination teleport trap could theoretically place hero onto a
@@ -1884,18 +1887,39 @@ export async function tele_trap(trap) {
         if (In_endgame(u.uz) || Antimagic() || noteleport_level(game.youmonst)) {
             if (Antimagic()) await shieldeff(u.ux, u.uy);
             await You_feel('a wrenching sensation.');
-        } else if (trap?.once) {
+        } else {
             const { next_to_u } = await import('./apply.js');
             if (!(await next_to_u())) {
                 await pline('You shudder for a moment.');
-            } else {
+            } else if (trap?.once) {
                 const { deltrap } = await import('./trap.js');
                 deltrap(trap);
                 newsym(u.ux, u.uy); /* get rid of trap symbol */
                 await vault_tele();
+            } else if (isok(trap?.teledest?.x, trap?.teledest?.y)) {
+                const dx = trap.teledest.x | 0;
+                const dy = trap.teledest.y | 0;
+                let mtmp = m_at(dx, dy);
+                const { settrack } = await import('./track.js');
+                settrack();
+                if (mtmp) {
+                    const cc = { x: 0, y: 0 };
+                    if (!enexto(cc, mtmp.mx | 0, mtmp.my | 0, mtmp.data)) {
+                        /* could not find some other place to put mtmp; the level must
+                         * be nearly or completely full */
+                        await pline('You shudder for a moment.');
+                    } else {
+                        await rloc_to(mtmp, cc.x, cc.y);
+                        mtmp = null; /* no longer a monster at dest */
+                    }
+                }
+                if (!mtmp) {
+                    await teleds(dx, dy, TELEDS_TELEPORT);
+                }
+            } else {
+                await tele();
             }
         }
-        // else teledest / tele() named omit
     } finally {
         in_tele_trap = false;
     }

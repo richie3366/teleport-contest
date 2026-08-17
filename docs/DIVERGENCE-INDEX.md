@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1133 | fixed | `tele_trap` teledest / else `tele()` | map-driven; C `teleport.c:1506–1532`; lift `next_to_u` sibling of once; `isok(teledest)` `settrack`+`enexto`/`rloc_to` then `teleds`; else `tele()`/`scrolltele`; dest-trap `in_tele_trap`; dotele trap-at-feet / vault_tele tele() fallback still named |
 | D-1132 | fixed | `teleds` TT_BURIEDBALL `buried_ball_to_punishment` | map-driven; C `teleport.c:456–459` / `dig.c` `buried_ball_to_punishment` 1934–1955; before ball_active; extract+`punish` reuse+`reset_utrap(FALSE)`; type-only gate (not `u.utrap`); trapmove/unearth_objs/digactualhole/`level_tele`/`domagicportal` still named |
 | D-1131 | fixed | `teleds` `hideunder` / mimic | map-driven; C `teleport.c:493–496` / `mon.c` `hideunder` 4726–4801; after reset_utrap before drag_ball; youmonst `u.uundetected`+newsym; S_MIMIC `m_ap_type=M_AP_NOTHING` not seemimic; `is_pool`/`is_lava`/`couldsee`; can_hide_under_obj / cockatrice / swallow docrt still named |
 | D-1130 | fixed | `teleds` `update_player_regions` | map-driven; C `teleport.c:529` / `region.c` `update_player_regions` 582–592; after placebc before newsym; absolute REG_HERO_INSIDE from dest; attach_2_u always clear; not in_out_region enter/leave; geometric `is_hero_inside_gas_cloud` / walk `in_out_region` still named |

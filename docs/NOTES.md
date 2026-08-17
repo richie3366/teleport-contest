@@ -10,11 +10,11 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1440**;
   next @**#1445**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 11. Reviews **90–93** ACCEPT / **92** ACCEPT-WITH-DEBT
+  Open 10. Reviews **90–93** ACCEPT / **92** ACCEPT-WITH-DEBT
   (D-1129–D-1132; eel `Underwater` sticky named, not Must-fix).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- **Next cluster:** Open `teleport.c` `tele()` / trap teledest.
-- **Hypothesis:** none live. Cadence #1440 fortress held.
+- **Next cluster:** Open `fountain.c` `dipfountain` `update_inventory`.
+- **Hypothesis:** none live. Cadence #1440 fortress held. D-1133 shipped.
 
 ## Don't re-check (≤15)
 
@@ -88,11 +88,11 @@ Objective/score live in `CURRENT.md`.
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.
+- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`.

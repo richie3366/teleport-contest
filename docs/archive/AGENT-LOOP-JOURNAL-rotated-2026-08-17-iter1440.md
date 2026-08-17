@@ -1,5 +1,29 @@
 # Rotated from AGENT-LOOP-JOURNAL.md at cadence #1440
 
+## 2026-08-17 01:05 — #1426 D-1121 teleds fill_pit after u_on_newpos
+
+**Objective:** Open queue — `teleport.c` `teleds` `fill_pit`
+(named). Not Punished ball.
+**C locus:** `teleport.c` `teleds` 523–528; `trap.c` `fill_pit`
+4008–4019.
+**Change:** after `u_on_newpos` subset, dynamic-import
+`fill_pit(u.ux0,u.uy0)` (teleport→dig→trap cycle). Existing
+thin helper: pit/hole+boulder extract+deltrap+delobj. C
+`flooreffects("settle")` still named. Did not pull Punished
+ball / swallow docrt / switch_terrain. Rotated #1411. Open 12
+after archive+refill from teleport named omits. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1425** **44**/44; next
+@**#1430**).
+**Verified:** private canary **22**/22; green+strict seed8000/0900;
+cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
+0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/
+0361/0108/0002/5002/2600) + strict 0012/0360/4500/0014/2200/
+0004/0009/0367/0373/0030/0002/0116. Path public-unhit on
+boulder+pit teleport.
+**Next:** Open `teleport.c` `rloc` Wizard stair / `mon_telecontrol`.
+Not RLOC_MSG.
+**Blocked:** none.
+
 ## 2026-08-17 00:55 — #1425 review D-1117–D-1120 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full

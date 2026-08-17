@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1133 — tele_trap teledest / else tele()
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `tele_trap` nested `next_to_u` inside `trap.once` and
+  no-op'd the rest. C `else if (!next_to_u())` is a sibling that also
+  gates teledest/`tele()`. Non-once TELEP with `isok(teledest)`
+  `settrack`s, displaces a dest occupant via `enexto`+`rloc_to`, then
+  `teleds(TELEDS_TELEPORT)`; otherwise `tele()` → `scrolltele(NULL)`.
+- **C locus:** `teleport.c` `tele_trap` (~1506–1532);
+  `tele()` (~841–845) / `scrolltele`; `track.c` `settrack`.
+- **Fix:** lift `next_to_u` to C's sibling. Port teledest: `m_at`,
+  `settrack`, `enexto` fail → shudder (hero stays), else `rloc_to` then
+  `teleds`. Unnamed dest → `await tele()`. `in_tele_trap` still blocks
+  dest-trap recursion from `teleds`→`spoteffects`. Did not pull
+  `dotele` trap-at-feet teledest or `vault_tele`'s `tele()` fallback.
+  Rule #2: no fs.
+- **JS:** `js/teleport.js` `tele_trap`; `js/trap.js`
+  `trapeffect_telep_trap` comment.
+- **Not this iter:** `dotele` trap-at-feet; `vault_tele` tele()
+  fallback; `mtele_trap` dest-occupied skip (C: no displace);
+  wrenching (D-1120).
+- **Verify:** private canary **32**/32 (source order; AM/uprops/
+  noteleport wrench; !next_to_u non-once; once deltrap no teleds;
+  free dest land+settrack; occupied displace; full-level shudder;
+  unnamed dest RNG; dest TELEP recursion; teledest 0,0 not isok);
+  green+strict seed8000/0900; cohort **22**/22 including 0012 vault
+  + 0004 + 0007 snake + 0009 swim + 0360/0367/0373/4500/2200 +
+  strict 0012/0360/4500/0004/2200/0367/0373/0030/0009/0002. Path
+  public-unhit on named-dest / random TELEP.
+- **Files:** `js/teleport.js`, `js/trap.js`.
+
 ## D-1132 — teleds TT_BURIEDBALL buried_ball_to_punishment
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
