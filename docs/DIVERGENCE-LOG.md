@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1168 — allmain `moveloop` EOT fumaroles
+
+- **Status:** fixed (map-driven Open; named omit from D-1156/review 117;
+  not a public FAIL)
+- **Symptom:** JS `moveloop` EOT awaited `nh_timeout`/`run_regions` then
+  jumped to `multi<0` with no C `movebubbles`/`fumaroles` if/else.
+  Arrival already called the pair (`do.c` `goto_level` / D-1156 callee).
+  A turn spent on Plane of Fire therefore never re-rolled `rn2(3)` /
+  lava bursts after clouds aged.
+- **C locus:** `allmain.c` `moveloop_core` (~370–377) after
+  `u_wipe_engr` / udemigod `intervene` (named skip), before
+  `gm.multi < 0`. `Is_waterlevel || Is_airlevel` → `movebubbles()`;
+  else `svl.level.flags.fumaroles` → `fumaroles()`. Callee
+  `mkmaze.c` `fumaroles` (~1484–1514) already ported (D-1156).
+  Twin: `do.c` `goto_level` (~1831–1834) already awaited.
+- **Fix:** same if/else after the wipe stub, `await fumaroles()`.
+  Water/air short-circuit so a fumaroles flag cannot fire on those
+  planes. Did not pull udemigod `intervene`, `Glib` `glibr`,
+  `do_storms`, `amulet()`, `mkot_trap_warn`, or `m_everyturn_effect`
+  youmonst. Rule #2: no fs.
+- **JS:** `js/allmain.js` `moveloop_core`; comments in `mklev.js` /
+  `do.js` / `region.js` / `fountain.js`.
+- **Not this iter:** udemigod `intervene`; `glibr`; `do_storms`;
+  `amulet()`; `mkot_trap_warn`; `allmain` `m_everyturn_effect`
+  youmonst; `run_regions` `hero_inside` bit; water cons pickup
+  inside `movebubbles`.
+- **Verify:** private canary **27**/27 (C/JS if/else; wipe→fumaroles→
+  multi; import; water/air arm has no fumaroles; goto_level twin;
+  C body ungated; ordinary none / flag fumaroles / water+flag
+  bubbles / air+flag bubbles; !flag no RNG; flag-on `rn2(3)` coords;
+  callee still `clear_heros_fault`; thenable; ordinary movebubbles
+  no-op; no fs/FORCE); green+strict seed8000/0900; cohort **41**/41
+  (CURRENT shared + 0014/0383/4500/2600) + strict 0101/0012/0360/
+  4500/2200/0014/0004/0367/0373/0002/0700/0015. Path public-unhit
+  on EOT lava whoosh (0373 fire arrival already matched without
+  staying for this EOT arm).
+- **Files:** `js/allmain.js`; comments `js/mklev.js` `js/do.js`
+  `js/region.js` `js/fountain.js`.
+
 ## D-1167 — hack.c youmonst `m_postmove_effect`
 
 - **Status:** fixed (map-driven Open; named omit from D-1157/review 118;

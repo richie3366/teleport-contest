@@ -15,7 +15,7 @@
 // — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
 // in_out_region D-1157. hurtle_step in_out_region D-1165. goto_level
 // in_out_region D-1166. youmonst m_postmove_effect D-1167 (trail at
-// u.ux0). Selection create D-1158. rloc_to
+// u.ux0). allmain moveloop fumaroles D-1168. Selection create D-1158. rloc_to
 // update_monster_region D-1161 (mhitm displace / dbridge named).
 // Level leave stashes the regions array (D-0675).
 

@@ -1654,6 +1654,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     }
 
     // C: do.c goto_level — movebubbles / fumaroles before vision_recalc
+    // (allmain moveloop EOT twin D-1168).
     if (Is_waterlevel(u.uz) || Is_airlevel(u.uz)) {
         movebubbles();
     } else if (game.level?.flags?.fumaroles) {

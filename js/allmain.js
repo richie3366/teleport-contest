@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rnd, rn2, rn1 } from './rng.js';
-import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
+import { mklev, l_nhcore_init, u_on_upstairs, fumaroles, movebubbles } from './mklev.js';
 import { rhack, continue_run, run_active, continue_search, search_repeat_active } from './cmd.js';
 import {
     docrt, cls, bot, flush_screen, pline, flush_topl_more, see_monsters,
@@ -55,7 +55,7 @@ import {
     UTOTYPE_NONE, TIMEOUT, REGENERATION,
     MAXULEV, ENERGY_REGENERATION, MAGICAL_BREATHING,
     TELEPORT, POLYMORPH, UNCHANGING, NON_PM, POLY_NOFLAGS, ismnum,
-    WARNING, HALF_PHDAM, Is_waterlevel,
+    WARNING, HALF_PHDAM, Is_waterlevel, Is_airlevel,
 } from './const.js';
 
 // C ref: allmain.c static mvl_change — delayed polyself(1) / you_were(2).
@@ -869,6 +869,16 @@ export async function moveloop_core() {
                 // C: if (!rn2(40 + ACURR(A_DEX)*3)) u_wipe_engr(rnd(3));
                 if (!rn2(40 + (acurr(A_DEX) * 3))) {
                     rnd(3);
+                }
+
+                // C allmain.c:370–377 — after udemigod intervene (named)
+                // before multi<0. Water/air movebubbles else fumaroles.
+                // Callee D-1156; this is the once-per-turn twin of
+                // goto_level (D-1168).
+                if (Is_waterlevel(g.u?.uz) || Is_airlevel(g.u?.uz)) {
+                    movebubbles();
+                } else if (g.level?.flags?.fumaroles) {
+                    await fumaroles();
                 }
 
                 // C: when immobile, count is in turns — multi < 0 occupation

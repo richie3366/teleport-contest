@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1168 | fixed | allmain `moveloop` EOT fumaroles | map-driven; C `allmain.c:374–377` after wipe/udemigod before multi<0; `Is_waterlevel\|\|Is_airlevel` `movebubbles` else `flags.fumaroles` `await fumaroles`; callee D-1156; goto_level twin already wired; udemigod `intervene` / `glibr` / `do_storms` / `amulet()` / `mkot_trap_warn` / `m_everyturn` youmonst still named |
 | D-1167 | fixed | hack.c youmonst `m_postmove_effect` | map-driven; C `hack.c:2877` after occupy before steed; callee `monmove.c` 672–683 `is_u?u.ux0:mx`; Hezrou 1×8 / Steam `!mcan` 1×0 at trail cell; helper awaited; `allmain` `m_everyturn` youmonst / moveloop fumaroles still named |
 | D-1166 | fixed | do.c `goto_level` `in_out_region` | map-driven; C `do.c:1980–1981` after obj_delivery before pickup; `(void)` — do not abort level change; callee `region.c` 480–527; gas NO_CALLBACK never rejects; restored REG_HERO_INSIDE from landing cell; `obj_delivery`/`fix_shop_damage`/`do_fall_dmg` / `run_regions` bit still named |
 | D-1165 | fixed | dothrow `hurtle_step` `in_out_region` | map-driven; C `dothrow.c:787–790` after isok before `*range==0`; callee `region.c` 480–527; gas NO_CALLBACK never rejects; REG_HERO_INSIDE even on later bump; do.c `goto_level` D-1166 |
