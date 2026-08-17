@@ -10,12 +10,12 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1440**;
   next @**#1445**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 9 after D-1134 archive (no refill). Reviews **90–93** ACCEPT /
+  Open 8 after D-1135 archive (no refill). Reviews **90–93** ACCEPT /
   **92** ACCEPT-WITH-DEBT (eel `Underwater` sticky named).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- **Next cluster:** Open `do_name.c` `hcolor` Hallucination drinksink
-  synonyms. Not hliquid.
-- **Hypothesis:** none live. Cadence #1440 fortress held. D-1134 shipped.
+- **Next cluster:** Open `fountain.c` `mongrantswish` `tmp_at` glyph
+  hide. Not dowaterdemon makemon.
+- **Hypothesis:** none live. Cadence #1440 fortress held. D-1135 shipped.
 
 ## Don't re-check (≤15)
 
@@ -87,13 +87,13 @@ Objective/score live in `CURRENT.md`.
   `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
   void spewed (D-1127) / skip `dodip` pool yn or restore `IS_POOL`
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
-  or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
+  or `water_damage` (D-1128) /   skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` or restore Excalibur `:441` as this peel (D-1134).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` or restore Excalibur `:441` as this peel (D-1134) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1133:** `a956e990`. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`.
+- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1134:** `5f55ceba`. **D-1133:** `a956e990`. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`.

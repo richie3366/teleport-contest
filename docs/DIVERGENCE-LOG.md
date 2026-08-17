@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1135 — do_name hcolor Hallucination drinksink synonyms
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `fountain.js` `hcolor` was identity (`colorword ||
+  'odd'`). C `do_name.c:hcolor` when `Hallucination || !colorpref`
+  returns `hcolors[rn2_on_display_rng(SIZE(hcolors))]` (SIZE 74).
+  Pref is **not** a last choice (unlike `hliquid`). `gameover` does
+  **not** skip the Hallu arm (unlike `hliquid`). drinksink case 4
+  uses `Blind ? "odd" : hcolor(OBJ_DESCR(...))` — display-rng only
+  when `!Blind`.
+- **C locus:** `do_name.c` `hcolor` (~1460–1466) + `hcolors[]`
+  (~1441–1458); `fountain.c` `drinksink` case 4 (~642–643);
+  `youprop.h` `Hallucination` (~120).
+- **Fix:** port `hcolors[]` + `hcolor` in `js/do_name.js`; wire
+  drinksink case 4 to the shared helper (keep C Blind ternary).
+  Did not pull sit/apply/pray/detect/do/wield/read identity stubs
+  or `rndcolor`. Did not rewrite `hliquid`. Rule #2: no fs.
+- **JS:** `js/do_name.js` `hcolor`; `js/fountain.js` `drinksink`
+  case 4.
+- **Not this iter:** other-module `hcolor` stubs; `rndcolor`;
+  `hliquid`; drinksink `observe_object` sticky `u.Hallucination`
+  vs youprop; Blind youprop in case 4.
+- **Verify:** private canary **110**/110 (C/JS SIZE 74; identity
+  vs Hallu; null burns / pref does not; empty string live pref;
+  gameover still Hallu; resist identity; Blind ternary; fountain
+  import; sit stub remains); green+strict seed8000/0900; cohort
+  **21**/21 including 0002 drinksink + 0014 fountain + 0383/0399
+  Hallu + 0006/0007/0106/0108/0360/2200/4500 + strict 0002/0014/
+  0383/0399/0006/0106/0108/0360/2200/4500/0030. Path public-unhit
+  on Hallu faucet (identity was screen-safe).
+- **Files:** `js/do_name.js`, `js/fountain.js`.
+
 ## D-1134 — dipfountain after-switch update_inventory
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

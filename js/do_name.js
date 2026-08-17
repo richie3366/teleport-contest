@@ -215,6 +215,39 @@ export function rndmonnam(codeOut = null) {
     return pmname(name, g === 0 ? MALE : FEMALE);
 }
 
+// C ref: do_name.c hcolors[] — Hallu substitutes for hcolor().
+const HCOLORS = [
+    'ultraviolet', 'infrared', 'bluish-orange', 'reddish-green', 'dark white',
+    'light black', 'sky blue-pink', 'pinkish-cyan', 'indigo-chartreuse',
+    'salty', 'sweet', 'sour', 'bitter', 'umami', // basic tastes
+    'striped', 'spiral', 'swirly', 'plaid', 'checkered', 'argyle', 'paisley',
+    'blotchy', 'guernsey-spotted', 'polka-dotted', 'square', 'round',
+    'triangular', 'cabernet', 'sangria', 'fuchsia', 'wisteria', 'lemon-lime',
+    'strawberry-banana', 'peppermint', 'romantic', 'incandescent',
+    'octarine', // Discworld: the Colour of Magic
+    'excitingly dull', 'mauve', 'electric',
+    'neon', 'fluorescent', 'phosphorescent', 'translucent', 'opaque',
+    'psychedelic', 'iridescent', 'rainbow-colored', 'polychromatic',
+    'colorless', 'colorless green',
+    'dancing', 'singing', 'loving', 'loudy', 'noisy', 'clattery', 'silent',
+    'apocyan', 'infra-pink', 'opalescent', 'violant', 'tuneless',
+    'viridian', 'aureolin', 'cinnabar', 'purpurin', 'gamboge', 'madder',
+    'bistre', 'ecru', 'fulvous', 'tekhelet', 'selective yellow',
+];
+
+/**
+ * C ref: do_name.c hcolor — Hallu or NULL pref → rn2_on_display_rng
+ * over hcolors[] (SIZE only). Pref is not a last choice. Unlike
+ * hliquid, program_state.gameover does not skip the Hallu arm.
+ * Empty string is a live pref (C pointer), not NULL.
+ */
+export function hcolor(colorpref) {
+    if (Hallucination() || colorpref == null) {
+        return HCOLORS[rn2_on_display_rng(HCOLORS.length)];
+    }
+    return colorpref;
+}
+
 // C ref: do_name.c hliquids[] — Hallu substitutes for hliquid().
 const HLIQUIDS = [
     'yoghurt', 'oobleck', 'clotted blood', 'diluted water', 'purified water',

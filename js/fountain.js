@@ -32,9 +32,11 @@
 // case 9 sewage morehungry+vomit; case 10 Unchanging gate +
 // polyself(POLY_NOFLAGS) (D-1118); case 13 create_gas_cloud(1,4)
 // (D-1124; size-1: ttl rn1(3,4) only).
-// Deferred: Hallucination hcolor synonyms; make_gas_cloud enveloped
+// drinksink case 4 !Blind hcolor(OBJ_DESCR) (D-1135).
+// Deferred: make_gas_cloud enveloped
 // pline / inside_f damage (region.js); monstseesu when
-// Fire_resistance already set.
+// Fire_resistance already set; sit/apply/pray/detect/do/wield/read
+// identity hcolor stubs; rndcolor.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -88,7 +90,8 @@ import { del_engr_at, make_grave } from './engrave.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { observe_object, enlightenment, update_inventory } from './invent.js';
 import {
-    hliquid, x_monnam, Hallucination, rndmonnam, type_is_pname, oname, trycall,
+    hliquid, hcolor, x_monnam, Hallucination, rndmonnam, type_is_pname, oname,
+    trycall,
 } from './do_name.js';
 import {
     exist_artifact, artiname, discover_artifact, ART_EXCALIBUR,
@@ -277,11 +280,6 @@ function a_monnam(mtmp) {
     const plain = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
     const art = /^[aeiou]/i.test(plain) ? 'an' : 'a';
     return `${art} ${plain}`;
-}
-
-/** C ref: potion.c hcolor — Hallucination synonym deferred. */
-function hcolor(colorword) {
-    return colorword || 'odd';
 }
 
 /** Potion appearance string for faucet liquid (OBJ_DESCR). */

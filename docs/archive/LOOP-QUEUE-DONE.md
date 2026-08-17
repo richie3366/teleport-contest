@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift. **Addressed:** D-1134
+- [x] `do_name.c` `hcolor` Hallucination drinksink synonyms (named). Not hliquid. **Addressed:** D-1135
+
+
+- [x] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift. **Addressed:** D-1134 `5f55ceba`
 
 
 - [x] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching. **Addressed:** D-1133 `a956e990`
