@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 12:50 — #1468 D-1155 expire_gas_cloud dissipation plines
+
+**Objective:** Open — `region.c` `expire_gas_cloud` dissipation
+plines (named). Not inside_gas HP.
+**C locus:** `region.c` `expire_gas_cloud` 1046–1087;
+`run_regions` 419–473.
+**Change:** port `expire_gas_cloud` (thick `arg>=5` half+`ttl=2`;
+thin Blind one-pass; `!uswallow` `u_at` within else `cansee`
+seen++). `run_regions` resets gg flags, `NO_CALLBACK||callback`
+then remove, then around-you / `You_see a|some` with
+`xray_range<=1` suppress. Pass 1 unblock stays `remove_region`
+rebuild. Did not pull fumaroles whoosh, selection create, or
+geometric bit. Filled D-1154 archive hash `10904562`. Rotated
+#1453. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1465** **44**/44; next
+@**#1470**).
+**Verified:** private canary **54**/54 (src order; thick 8→4 ttl
+age 2→1 silent; 5/2 trunc; within; seen a/some; unseen; Blind/
+uswallow; xray -1/1/>1; overlap; two clouds; NO_CALLBACK; ttl>0;
+stale gg; arg=4 thin; second expire after half); green+strict
+seed8000/0900; cohort **14**/14 (0002 drinksink + 0014 fountain
++ 0361/0383 fog + 0006/0007/0360/2200/0030/0004/1500/1800/0012/
+0108) + strict 8000/0900/0002/0014/0361/0383/0360/2200/0030/
+0004/0006/0012. Path public-unhit on dissipation plines.
+**Next:** Open `mklev.c` `fumaroles` `clear_heros_fault` / Norep
+whoosh (named). Not expire dissipation.
+**Blocked:** none.
+
 ## 2026-08-17 12:32 — #1467 D-1154 inv_pos / VIBRATING_SQUARE
 
 **Objective:** Open — `mkmaze.c` `inv_pos` / VIBRATING_SQUARE
@@ -408,31 +436,3 @@ Path public-unhit on djinni release.
 **Next:** Open `fountain.c` Excalibur `:441` `update_inventory`.
 Not artidisco save.
 **Blocked:** none.
-
-## 2026-08-17 06:57 — #1453 D-1143 in_out_region enter_msg / leave_msg
-
-**Objective:** Open queue — `region.c` `in_out_region`
-enter_msg / leave_msg (named). Not update_player_regions.
-**C locus:** `region.c` `in_out_region` 505–506 / 519–520;
-`hack.h` `pline1`; `create_msg_region` 954–973 `#if 0`.
-**Change:** `in_out_region` awaits `pline(leave_msg)` after
-clear_hero_inside and `pline(enter_msg)` after set, when
-non-NULL, then the leave_f/enter_f callbacks. `teleok` is
-async and all its teleport.js callers await it. Did not
-pull force-field `#if 0` callbacks, hack.c/dothrow/`do.c`
-walk callers, or flip geometric gas. `teleds` still uses
-`update_player_regions` (D-1130). Filled D-1142 archive
-hash `52194cc9`. Rotated #1438. Open 10 after archive (no
-refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1450** **44**/44; next
-@**#1455**).
-**Verified:** private canary **40**/40; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0367 Pri ^T + 0004 scroll +
-0007 snake + 0009 swim + 0360/0373/4500/2200/1500/1800/0030/
-0002/0116/0060/0102/0700/0017/0361/0108/0383/5002/0006/0105)
-+ strict 8000/0900/0012/0367/0004/0360/4500/2200/0030/0009/0002.
-Path public-unhit (`create_msg_region` `#if 0`).
-**Next:** Open `potion.c` `djinni_from_bottle` `mongrantswish`.
-Not bottle chance RNG.
-**Blocked:** none.
-

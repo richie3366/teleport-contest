@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1155 — expire_gas_cloud dissipation plines
+
+- **Status:** fixed (map-driven Open; named omit from D-1146; not a public FAIL)
+- **Symptom:** JS `run_regions` inlined thick-cloud `arg>=5` → half arg,
+  `ttl=2`, else `remove_region`, and never printed C's dissipation
+  lines. C `expire_gas_cloud` returns FALSE for thick clouds; for
+  thin (`arg<5`) it scans the bounding box and sets
+  `gg.gas_cloud_diss_within` / `gg.gas_cloud_diss_seen`, then
+  `run_regions` plines after inside_f.
+- **C locus:** `region.c` `expire_gas_cloud` (~1046–1087);
+  `run_regions` (~419–473).
+- **Fix:** port `expire_gas_cloud` (thick `/=2` + `ttl=2`; Blind
+  one-pass; `!uswallow` `u_at` → within else `cansee` → seen++).
+  `run_regions` resets the gg flags, `NO_CALLBACK || callback` then
+  remove, then `"The gas cloud around you dissipates."` /
+  `You_see a|some gas cloud(s) dissipate.` with `xray_range<=1`
+  suppressing seen when within. Pass 1 unblock stays the
+  `remove_region` vision rebuild (C `does_block` still sees the
+  live region). Did not pull fumaroles `clear_heros_fault` / Norep,
+  `create_gas_cloud_selection`, or geometric `is_hero_inside_gas_cloud`.
+  Rule #2: no fs.
+- **JS:** `js/region.js` `expire_gas_cloud` / `run_regions`;
+  `js/fountain.js` comment.
+- **Not this iter:** fumaroles whoosh / `clear_heros_fault`;
+  `create_gas_cloud_selection`; walk `in_out_region`; mfndpos
+  `m_poisongas_ok` subset; `region_safety` enveloping strings
+  (already distinct).
+- **Verify:** private canary **54**/54 (C/JS source order; thick 8→4
+  ttl age 2→1 silent; 5/2 trunc; within; seen a/some; unseen
+  silent; Blind/uswallow skip pass 2; xray -1/1 suppress / >1
+  both; overlap once; two clouds; NO_CALLBACK silent; ttl>0
+  ages; stale gg reset; drinksink arg=4 thin; second expire
+  after half); green+strict seed8000/0900; cohort **14**/14
+  (0002 drinksink + 0014 fountain + 0361/0383 fog ttl +
+  0006/0007/0360/2200/0030/0004/1500/1800/0012/0108) + strict
+  8000/0900/0002/0014/0361/0383/0360/2200/0030/0004/0006/0012.
+  Path public-unhit on dissipation plines (fog ttl still matches).
+- **Files:** `js/region.js`, `js/fountain.js` (comment).
+
 ## D-1154 — mkmaze.c inv_pos / VIBRATING_SQUARE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

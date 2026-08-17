@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds. **Addressed:** D-1154
+- [x] `region.c` `expire_gas_cloud` dissipation plines (named). Not inside_gas HP. **Addressed:** D-1155
+
+
+- [x] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds. **Addressed:** D-1154 `10904562`
 
 
 - [x] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds. **Addressed:** D-1153 `b332516f`

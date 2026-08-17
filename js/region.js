@@ -1,18 +1,17 @@
 // region.js — gas-cloud / NhRegion subset.
 // C ref: region.c create_gas_cloud / make_gas_cloud / visible_region_at /
-// clear_regions / run_regions / in_out_region / m_in_out_region /
-// inside_gas_cloud; region_danger / region_safety (pray);
+// clear_regions / run_regions / expire_gas_cloud / in_out_region /
+// m_in_out_region / inside_gas_cloud; region_danger / region_safety (pray);
 // read.c valid_cloud_pos.
-// Named omissions: expire_gas_cloud dissipation plines;
-// numeric cmap glyph ints (JS tags 'S_poisoncloud'/'S_cloud');
-// create_gas_cloud_selection; binary save_regions format; force
-// fields; incremental fill_point (JS uses vision_reset);
-// create_msg_region (#if 0; never sets enter/leave_msg in live C);
-// can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
-// attach_2_m; is_hero_inside_gas_cloud still geometric not the bit
-// (walk `in_out_region` still named — do not flip until that bit is
-// live on steps); mfndpos m_poisongas_ok still the mon.js subset;
-// fumaroles clear_heros_fault / Norep whoosh.
+// Named omissions: numeric cmap glyph ints (JS tags
+// 'S_poisoncloud'/'S_cloud'); create_gas_cloud_selection; binary
+// save_regions format; force fields; incremental fill_point (JS uses
+// vision_reset); create_msg_region (#if 0; never sets enter/leave_msg
+// in live C); can_enter/leave/enter/leave table indices (gas
+// NO_CALLBACK); attach_2_m; is_hero_inside_gas_cloud still geometric
+// not the bit (walk `in_out_region` still named — do not flip until
+// that bit is live on steps); mfndpos m_poisongas_ok still the mon.js
+// subset; fumaroles clear_heros_fault / Norep whoosh.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -40,7 +39,8 @@ import { monstseesu, monstunseesu } from './mondata.js';
 import { dist2 } from './hacklib.js';
 
 const MAX_CLOUD_SIZE = 150;
-const INSIDE_GAS_CLOUD = 1; // callback index stand-in
+const INSIDE_GAS_CLOUD = 1; // JS inside_f tag (C callbacks[] uses 0)
+const EXPIRE_GAS_CLOUD = 1; // C region.c callbacks[] index
 const NO_CALLBACK = -1; // C region.c
 const AT_BREA = 12; // C monattk.h
 const AD_DRST = 7;
@@ -356,7 +356,7 @@ async function make_gas_cloud(cloud, damage, inside_cloud) {
         set_heros_fault(cloud);
     }
     cloud.inside_f = INSIDE_GAS_CLOUD;
-    cloud.expire_f = INSIDE_GAS_CLOUD; // gas expire marker (damage/pline deferred)
+    cloud.expire_f = EXPIRE_GAS_CLOUD;
     cloud.arg = damage | 0;
     // C: cmap_to_glyph(damage ? S_poisoncloud : S_cloud) — mfndpos only
     // avoids poisoncloud (damage>0). Numeric cmap deferred; tag suffices.
@@ -522,27 +522,108 @@ export function m_in_out_region(mon, x, y) {
 }
 
 /**
- * C ref: region.c run_regions — ttl expiry then age + inside_f callbacks.
+ * C hack.h plur — "" when n==1 else "s".
+ */
+function plur(n) {
+    return (n | 0) === 1 ? '' : 's';
+}
+
+/**
+ * C ref: pline.c You_see — "You see " prefix; Blind → "You sense".
+ * Unaware deferred.
+ */
+async function You_see(line) {
+    if (Blind()) await pline(`You sense ${line}`);
+    else await pline(`You see ${line}`);
+}
+
+/**
+ * C NhRegion bounding_box from rects — expire_gas_cloud scans this
+ * then inside_region, so overlapping rects count once.
+ */
+function region_bounding_box(reg) {
+    const rects = reg.rects || [];
+    if (!rects.length) return { lx: 1, hx: 0, ly: 0, hy: -1 };
+    let lx = rects[0].lx | 0;
+    let hx = rects[0].hx | 0;
+    let ly = rects[0].ly | 0;
+    let hy = rects[0].hy | 0;
+    for (let i = 1; i < rects.length; i++) {
+        const r = rects[i];
+        if ((r.lx | 0) < lx) lx = r.lx | 0;
+        if ((r.hx | 0) > hx) hx = r.hx | 0;
+        if ((r.ly | 0) < ly) ly = r.ly | 0;
+        if ((r.hy | 0) > hy) hy = r.hy | 0;
+    }
+    return { lx, hx, ly, hy };
+}
+
+/**
+ * C ref: region.c expire_gas_cloud — thick cloud halves arg and
+ * resets ttl=2 (keep); thin cloud counts dissipation cells then
+ * returns TRUE so run_regions remove_region. Pass 1 C unblock is a
+ * no-op while the region is still visible (does_block sees it);
+ * JS rebuilds in remove_region after ttl=-2. Pass 2 uses current
+ * cansee (C viz_array; unblock only sets vision_full_recalc).
+ */
+function expire_gas_cloud(reg) {
+    let damage = reg.arg | 0;
+    /* If it was a thick cloud, it dissipates a little first */
+    if (damage >= 5) {
+        damage = (damage / 2) | 0;
+        reg.arg = damage;
+        reg.ttl = 2; /* Here's the trick : reset ttl */
+        return false; /* still there */
+    }
+
+    const u = game.u || {};
+    const gg = game.gg || (game.gg = {});
+    const passes = Blind() ? 1 : 2;
+    const box = region_bounding_box(reg);
+    for (let pass = 1; pass <= passes; ++pass) {
+        for (let x = box.lx; x <= box.hx; x++) {
+            for (let y = box.ly; y <= box.hy; y++) {
+                if (!inside_region(reg, x, y)) continue;
+                if (pass === 1) {
+                    /* C: !does_block → unblock_point. Gas still
+                       visible so does_block stays true; remove_region
+                       unblocks after ttl=-2. */
+                } else if (!u.uswallow) {
+                    if (u_at(x, y)) gg.gas_cloud_diss_within = true;
+                    else if (cansee(x, y)) {
+                        gg.gas_cloud_diss_seen = (gg.gas_cloud_diss_seen | 0) + 1;
+                    }
+                }
+            }
+        }
+    }
+    return true; /* gone — caller free it */
+}
+
+/**
+ * C ref: region.c run_regions — ttl expiry then age + inside_f
+ * callbacks, then gas dissipation plines (D-1155).
  * Envelope: gas-cloud ttl; fog-in-cloud TTL refresh (D-0834);
- * inside_f dam>0 hero/mon HP (D-1146).
- * Named omissions: expire_gas_cloud dissipation plines.
+ * inside_f dam>0 hero/mon HP (D-1146); expire_gas_cloud thick
+ * halve + thin diss_within / diss_seen plines.
  * Hero inside_f uses geometry (not the bit) until walk in_out_region.
  */
 export async function run_regions() {
+    const gg = game.gg || (game.gg = {});
+    /* reset some messaging variables */
+    gg.gas_cloud_diss_within = false;
+    gg.gas_cloud_diss_seen = 0;
+
     const regs = game.regions || [];
     // End of life — backward because remove mutates the array
     for (let i = regs.length - 1; i >= 0; i--) {
         const reg = regs[i];
         if ((reg.ttl | 0) !== 0) continue;
-        // C: expire_f callback; gas with damage<5 unblocks and returns TRUE
-        const dmg = reg.arg | 0;
-        if (dmg >= 5) {
-            // C: thick cloud dissipates — halve damage, ttl=2, keep
-            reg.arg = (dmg / 2) | 0;
-            reg.ttl = 2;
-            continue;
+        // C: expire_f == NO_CALLBACK || callback() → remove_region
+        const f_indx = reg.expire_f ?? NO_CALLBACK;
+        if (f_indx === NO_CALLBACK || expire_gas_cloud(reg)) {
+            remove_region(reg);
         }
-        remove_region(reg);
     }
     // Age remaining + inside_f (fog maintains vapor; dam>0 HP)
     for (const reg of game.regions || []) {
@@ -564,6 +645,20 @@ export async function run_regions() {
             }
             if (game.program_state?.gameover) return;
         }
+    }
+
+    if (gg.gas_cloud_diss_within) {
+        await pline('The gas cloud around you dissipates.');
+        /* normally won't see additional dissipation when within */
+        if ((game.u?.xray_range | 0) <= 1) gg.gas_cloud_diss_seen = 0;
+        gg.gas_cloud_diss_within = false;
+    }
+    if (gg.gas_cloud_diss_seen) {
+        const n = gg.gas_cloud_diss_seen | 0;
+        await You_see(
+            `${n === 1 ? 'a' : 'some'} gas cloud${plur(n)} dissipate.`,
+        );
+        gg.gas_cloud_diss_seen = 0;
     }
 }
 
