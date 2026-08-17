@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1170 — `rloc_to` occupation `dochugw(mtmp, FALSE)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1164; not a
+  public FAIL)
+- **Symptom:** JS `rloc_to` after angry+bill jumped to trapped
+  `mintrap`. C, when the hero is busy, calls `dochugw(mtmp, FALSE)`
+  between those arms so a newly teleported nearby hostile can stop
+  occupation. Skipping it left a busy hero searching/digging while
+  C would have interrupted.
+- **C locus:** `teleport.c` `rloc_to_core` (~1761–1763) after
+  minvent shop bill, before trapped `mintrap`:
+  `if (go.occupation) (void) dochugw(mtmp, FALSE)`. Callee
+  `monmove.c` `dochugw` (~204–238): `chug` FALSE skips `dochug`
+  (no extra move); `already_saw_mon` is false so the teleported
+  dest is treated as newly spotted. Stop if occupation, hostile
+  (or Hallu), `mdistu <= (BOLT_LIM+1)^2`, `canspotmon`+`couldsee`
+  dest, `mcanmove`, `!onscary`. Wrappers `rloc_to` /
+  `rloc_to_flag` share the core.
+- **Fix:** `rloc_maybe_occupation` when `typeof game.occupation
+  === 'function'` dynamically imports existing `dochugw(mtmp,
+  false)`. Silent `rloc_to` after bill; `rloc_to_flag` after
+  appear+angry+bill (same `if (snap)` as mintrap). Same-cell
+  early return still skips. Did not pull `onscary` (still stubbed
+  false in `dochugw`) or makemon occupation. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to` / `rloc_to_flag`;
+  `js/monmove.js` `dochugw` (pre-existing callee).
+- **Not this iter:** vanish-msg; `rloc_pos_ok` shk/priest room
+  lock; `rloc` steed `tele()`; makemon `dochugw`; `onscary` in
+  `dochugw`.
+- **Verify:** private canary **38**/38 (C/JS order occupation
+  then mintrap; helper `dochugw(false)`; no fs/FORCE; hostile
+  dest in range stops; idle/peaceful/too-far/`!mcanmove`/unseen/
+  minvis keep; Hallu stops peaceful; `mdistu` 81 vs 82; same-cell
+  skip; adjacent-to-adjacent still stops; AT_BOOM-only keep;
+  thenable; defer until `rloc_to_flag`; dest-bare mintrap still
+  after; worm occupation-stops and skips mintrap); green+strict
+  seed8000/0900; cohort **41**/41 (CURRENT shared + 0014/0383/
+  4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/0367/
+  0373/0002/0700/0015. Path public-unhit on busy-hero + rloc
+  interrupt.
+- **Files:** `js/teleport.js`; comment `js/monmove.js`.
+
 ## D-1169 — `run_regions` hero `inside_f` uses `hero_inside` bit
 
 - **Status:** fixed (map-driven Open; named omit from D-1157/review 118

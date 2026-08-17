@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_to` occupation `dochugw` (named). Not mintrap.
 - [ ] `teleport.c` `rloc_pos_ok` isshk/ispriest room lock (named). Not make_angry_shk.
 - [ ] `teleport.c` `rloc` steed `tele()` (named). Not Wizard stair.
 - [ ] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.

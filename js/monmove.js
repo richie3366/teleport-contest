@@ -1872,7 +1872,9 @@ export async function dochug(mtmp) {
 
 /**
  * C ref: monmove.c dochugw — move mon; stop occupation if newly spotted threat.
- * onscary stubbed false (Elbereth / sanctuary deferred).
+ * rloc_to_core calls this with chug FALSE (teleport.c:1762, D-1170): no
+ * dochug, only the threat check. onscary stubbed false (Elbereth /
+ * sanctuary deferred). makemon occupation still named.
  */
 export async function dochugw(mtmp, chug) {
     const x = mtmp.mx;

@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 18:20 — #1487 D-1170 rloc_to occupation dochugw
+
+**Objective:** Open — `teleport.c` `rloc_to` occupation `dochugw`
+(named). Not mintrap.
+**C locus:** `teleport.c` `rloc_to_core` 1761–1763 after bill
+before mintrap; callee `monmove.c` `dochugw` 204–238 (`chug`
+FALSE).
+**Change:** `rloc_maybe_occupation` when occupation is a function
+→ existing `dochugw(mtmp, false)`. Silent `rloc_to` after bill;
+`rloc_to_flag` after appear+angry+bill. No extra `dochug`. Did
+not pull `onscary` or makemon occupation. Filled D-1169 archive
+hash `0f1ce7c6`. Rotated #1472. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1485** **44**/44; next
+@**#1490**).
+**Verified:** private canary **38**/38 (C/JS order; helper
+`dochugw(false)`; no fs/FORCE; hostile dest stops; idle/peaceful/
+too-far/`!mcanmove`/unseen/minvis keep; Hallu; 81 vs 82;
+same-cell; adjacent-to-adjacent; AT_BOOM; thenable; defer until
+flag; dest-bare mintrap after; worm skip mintrap); green+strict
+seed8000/0900; cohort **41**/41 (CURRENT shared + 0014/0383/4500/
+2600) + strict 0101/0012/0360/4500/2200/0014/0004/0367/0373/0002/
+0700/0015. Path public-unhit on busy-hero + rloc interrupt.
+**Next:** Open `teleport.c` `rloc_pos_ok` isshk/ispriest room lock
+(named). Not make_angry_shk.
+**Blocked:** none.
+
 ## 2026-08-17 18:05 — #1486 D-1169 run_regions hero_inside bit
 
 **Objective:** Open — `region.c` `run_regions` `hero_inside` bit
@@ -389,27 +416,4 @@ cohort **39**/39 (CURRENT shared + 0014/0383). Path public-unhit
 on vamp/eel/breath walking into poisoncloud.
 **Next:** Open `teleport.c` `rloc_to` `set_apparxy` (named). Not
 vanish-msg. Audit @**#1475**.
-**Blocked:** none.
-
-## 2026-08-17 13:55 — #1472 D-1158 create_gas_cloud_selection
-
-**Objective:** Open — `region.c` `create_gas_cloud_selection`
-(named). Not BFS create.
-**C locus:** `region.c` `create_gas_cloud_selection` 1311–1336;
-`sp_lev.c` `lspo_gas_cloud` 4928–4965; `themerms.lua` Cloud
-room 61–69.
-**Change:** bitmap 1×1 rects then `make_gas_cloud`; ttl stays −1
-(no Fisher-Yates / no `rn1`). `lspo_gas_cloud` xy/`coord` →
-size-1 BFS else selection; `ttl > -2` overwrite. Cloud fill:
-`selection.room()` + `floor(n/4)` asleep fog + `des.gas_cloud`.
-Did not pull Ice/Boulder/… fills or mfndpos `m_poisongas_ok`.
-Filled D-1157 archive hash `ed28eef1`. Rotated #1457. Open 11
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1470** **44**/44; next
-@**#1475**).
-**Verified:** private canary **41**/41; green+strict seed8000/0900;
-cohort **39**/39 (CURRENT shared + 0014/0383). Path public-unhit
-on Cloud fill (reservoir pick already burned).
-**Next:** Open `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath
-(named). Not inside_f. Audit @**#1475**.
 **Blocked:** none.

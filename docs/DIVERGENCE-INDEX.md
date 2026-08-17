@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1170 | fixed | `rloc_to` occupation `dochugw` | map-driven; C `teleport.c:1761–1763` / `monmove.c` dochugw; `go.occupation` → `dochugw(mtmp, FALSE)` after bill before mintrap; no dochug, only newly-spotted threat stop; `rloc_to_flag` after appear; onscary / makemon occupation still named |
 | D-1169 | fixed | `run_regions` hero `inside_f` bit | map-driven; C `region.c:439–441` `f_indx != NO_CALLBACK && hero_inside` then `inside_gas_cloud(reg, Null)`; not `inside_region(u.ux,u.uy)`; monster list unchanged; `region_danger`/`region_safety` still geometric |
 | D-1168 | fixed | allmain `moveloop` EOT fumaroles | map-driven; C `allmain.c:374–377` after wipe/udemigod before multi<0; `Is_waterlevel\|\|Is_airlevel` `movebubbles` else `flags.fumaroles` `await fumaroles`; callee D-1156; goto_level twin already wired; udemigod `intervene` / `glibr` / `do_storms` / `amulet()` / `mkot_trap_warn` / `m_everyturn` youmonst still named |
 | D-1167 | fixed | hack.c youmonst `m_postmove_effect` | map-driven; C `hack.c:2877` after occupy before steed; callee `monmove.c` 672–683 `is_u?u.ux0:mx`; Hezrou 1×8 / Steam `!mcan` 1×0 at trail cell; helper awaited; `allmain` `m_everyturn` youmonst / moveloop fumaroles still named |

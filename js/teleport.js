@@ -677,6 +677,20 @@ async function rloc_maybe_minvent_shop_bill(mtmp, destx, desty, oldx, oldy) {
 }
 
 /**
+ * C ref: teleport.c rloc_to_core 1761–1763 — if hero is busy, maybe
+ * stop occupation. After dest (and after appear when rloc_to_flag),
+ * after angry+bill, before mintrap. chug FALSE: do not move mtmp;
+ * only the newly-spotted threat check (monmove.c dochugw). Dynamic
+ * import: monmove.js already imports rloc from this file.
+ */
+async function rloc_maybe_occupation(mtmp) {
+    if (typeof game.occupation === 'function') {
+        const { dochugw } = await import('./monmove.js');
+        await dochugw(mtmp, false);
+    }
+}
+
+/**
  * C ref: teleport.c rloc_to_core 1765–1767 — trapped monster teleported
  * away. After dest (and after appear when rloc_to_flag). Worms skip.
  * mintrap at dest: no trap → clear mtrapped ("perhaps teleported?");
@@ -700,9 +714,11 @@ async function rloc_maybe_mintrap(mtmp) {
  * writes mx/my only); resident shk !inhishop dest → make_angry_shk
  * (D-1162; after dest, after vanish/appear when rloc_to_flag);
  * minvent shop bill after angry (D-1163; dest !costly_spot → clear
- * no_charge else stolen_value for onshopbill); trapped !wormno
- * mintrap after bill (D-1164; dest no trap clears mtrapped). Named
- * omission: occupation dochugw. RLOC_MSG vanish+appear live in async
+ * no_charge else stolen_value for onshopbill); occupation dochugw
+ * after bill (D-1170; go.occupation → dochugw(mtmp, FALSE) — no
+ * dochug, only stop-if-newly-spotted-threat); trapped !wormno
+ * mintrap after occupation (D-1164; dest no trap clears mtrapped).
+ * Named omission: vanish-msg. RLOC_MSG vanish+appear live in async
  * `rloc` (D-0885 / D-0886). rloc_opts.defer_shk_angry is JS-only so
  * rloc_to_flag can run appear pline before angry (C order).
  */
@@ -776,11 +792,12 @@ export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     // C: vanish/appear pline then resident_shk && !inhishop make_angry_shk
     // then minvent shop bill then occupation then trapped mintrap
     // (teleport.c:1739, 1748, 1762, 1766). Silent rloc_to (RLOC_NOMSG)
-    // skips the pline block; rloc_to_flag defers angry+bill+mintrap
-    // until after rloc_post_move_msg. Occupation dochugw still named.
+    // skips the pline block; rloc_to_flag defers angry+bill+occupation
+    // +mintrap until after rloc_post_move_msg.
     if (!rloc_opts?.defer_shk_angry) {
         await rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy);
         await rloc_maybe_minvent_shop_bill(mtmp, x, y, oldx, oldy);
+        await rloc_maybe_occupation(mtmp);
         await rloc_maybe_mintrap(mtmp);
     }
     return { resident_shk, oldx, oldy };
@@ -1036,6 +1053,7 @@ export async function rloc_to_flag(mtmp, x, y, rlocflags) {
     if (snap) {
         await rloc_maybe_angry_shk(mtmp, snap.resident_shk, snap.oldx, snap.oldy);
         await rloc_maybe_minvent_shop_bill(mtmp, x, y, snap.oldx, snap.oldy);
+        await rloc_maybe_occupation(mtmp);
         await rloc_maybe_mintrap(mtmp);
     }
 }
