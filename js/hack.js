@@ -1715,8 +1715,9 @@ export async function notice_all_mons(reset) {
  * C hack.c invocation_message — clue when standing on the Invocation
  * square (not a stair). teleds calls this after spoteffects (D-1141);
  * walk `domove` after vision_recalc(1) (D-1150 / hack.c:2973).
- * Named omit: mkmaze.c inv_pos placement; apply.js still uses a local
- * invocation_pos clone; shared dungeon.c Invocation_lev export.
+ * Named omit: apply.js still uses a local invocation_pos clone;
+ * shared dungeon.c Invocation_lev export. mkmaze.c inv_pos /
+ * VIBRATING_SQUARE placement is D-1154.
  */
 export async function invocation_message() {
     const u = game.u;

@@ -9560,6 +9560,73 @@ function maze_y_max() {
     return game.y_maze_max != null ? (game.y_maze_max | 0) : Y_MAZE_MAX;
 }
 
+/**
+ * C dungeon.c Invocation_lev — In_hell && dlevel == num_dunlevs-1.
+ * Local clone (hack.js / apply.js still have theirs; shared dungeon.c
+ * export named).
+ */
+function Invocation_lev_mk(lev) {
+    if (!lev) return false;
+    const dun = game.dungeons?.[lev.dnum | 0];
+    if (!dun?.flags?.hellish) return false;
+    return (lev.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
+}
+
+/** C decl.c svi.inv_pos — always a coord, never missing. */
+function svi_inv_pos() {
+    if (!game.svi) game.svi = {};
+    if (!game.svi.inv_pos) game.svi.inv_pos = { x: 0, y: 0 };
+    return game.svi.inv_pos;
+}
+
+/**
+ * C hack.c invocation_pos — Invocation_lev && (x,y)==svi.inv_pos.
+ * occupied uses this; unset {0,0} matches C (not a legal maze cell).
+ */
+function invocation_pos_mk(x, y) {
+    if (!Invocation_lev_mk(game.u?.uz)) return false;
+    const ip = svi_inv_pos();
+    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
+}
+
+/**
+ * C mkmaze.c pick_vibrasquare_location — choose svi.inv_pos away from
+ * upstairs (same row/col/diagonal / distmin<=11), on SPACE_POS,
+ * !occupied. No-upstairs short-circuit keeps the first rn1 pair.
+ * Named omit: makemaz("") create_maze Invocation_lev caller (load
+ * fallback still empty); Can_dig_down !Invocation_lev.
+ */
+export function pick_vibrasquare_location() {
+    const x_maze_min = 2;
+    const y_maze_min = 2;
+    const INVPOS_X_MARGIN = 6 - 2;
+    const INVPOS_Y_MARGIN = 5 - 2;
+    const INVPOS_DISTANCE = 11;
+    const x_range = maze_x_max() - x_maze_min - 2 * INVPOS_X_MARGIN - 1;
+    const y_range = maze_y_max() - y_maze_min - 2 * INVPOS_Y_MARGIN - 1;
+    const ip = svi_inv_pos();
+    /* {occupied() => invocation_pos()} */
+    ip.x = 0;
+    ip.y = 0;
+    let x = 0;
+    let y = 0;
+    let stway;
+    let trycnt = 0;
+    do {
+        x = rn1(x_range, x_maze_min + INVPOS_X_MARGIN + 1);
+        y = rn1(y_range, y_maze_min + INVPOS_Y_MARGIN + 1);
+        if (++trycnt > 1000)
+            break;
+    } while ((stway = stairway_find_dir(true))
+             && (x === stway.sx || y === stway.sy
+                 || Math.abs(x - stway.sx) === Math.abs(y - stway.sy)
+                 || distmin(x, y, stway.sx, stway.sy) <= INVPOS_DISTANCE
+                 || !SPACE_POS(game.level.at(x, y)?.typ)
+                 || occupied(x, y)));
+    ip.x = x;
+    ip.y = y;
+}
+
 function maze_okay(x, y, dir) {
     let xx = x, yy = y;
     const step = (d) => {
@@ -10536,7 +10603,14 @@ function splev_create_stair(up) {
 
 // C ref: sp_lev.c create_trap → mktrap(random) — retry until kind != NO_TRAP
 // Default spider_on_web=true → no MKTRAP_NOSPIDERONWEB (giant spider on WEB).
-function splev_create_trap() {
+// type===VIBRATING_SQUARE: pick_vibrasquare_location + maketrap, no DRY.
+function splev_create_trap(type) {
+    if ((type | 0) === VIBRATING_SQUARE) {
+        pick_vibrasquare_location();
+        const ip = svi_inv_pos();
+        maketrap(ip.x, ip.y, VIBRATING_SQUARE);
+        return;
+    }
     // C create_trap: get_location_coord(DRY) with stairs/ladder retry
     let pos = { x: -1, y: -1 };
     let trycnt = 0;
@@ -14101,7 +14175,6 @@ function load_sanctum() {
  * C ref: dat/hellfill.lua via load_special — Gehennom filler levels.
  * hellno = math.random(1,#hells) → 7 styles; stairs; populatemaze.
  * Named omissions: rnd_hell_prefab (styles 2/4/6 percent arms);
- * Invocation_lev vibrating square (always down stair);
  * hellobjects/hellmonsters (defined but unused in Lua).
  */
 function load_hellfill() {
@@ -14113,9 +14186,12 @@ function load_hellfill() {
     hellfill_run_style(hellno);
 
     splev_create_stair(true);
-    // C: if u.invocation_level then trap else down stair — Invocation_lev
-    // deferred (always place down stair).
-    splev_create_stair(false);
+    // hellfill.lua:437 — u.invocation_level → des.trap("vibrating square")
+    // else des.stair("down"). C create_trap VS = pick_vibrasquare + maketrap.
+    if (Invocation_lev_mk(g.u?.uz))
+        splev_create_trap(VIBRATING_SQUARE);
+    else
+        splev_create_stair(false);
 
     hellfill_populatemaze();
 
@@ -17906,16 +17982,16 @@ function somexy(croom, c) {
     return true;
 }
 
-// C ref: mklev.c occupied() — traps/furniture/lava/pool/invocation
-function occupied(x, y) {
+// C ref: mklev.c occupied() — traps/furniture/lava/pool/invocation_pos
+export function occupied(x, y) {
     if (!isok(x, y)) return false;
     const loc = game.level.at(x, y);
     if (!loc) return false;
-    // invocation_pos: omitted until inv_pos/Invocation_lev exist (always false)
     return !!(t_at(x, y)
         || IS_FURNITURE(loc.typ)
         || loc.typ === LAVAPOOL || loc.typ === LAVAWALL
-        || IS_POOL(loc.typ));
+        || IS_POOL(loc.typ)
+        || invocation_pos_mk(x, y));
 }
 
 function somexyspace(croom, c) {

@@ -1199,7 +1199,7 @@ export async function teleok(x, y, trapok) {
  * shop-enter plines beyond spoteffects subset;
  * hostile gd_move rloc/gd_letknow/wallify_vault (uleftvault calls
  * gd_move after mpeaceful=0; JS gd_move still early-returns hostile);
- * walk invocation_message is D-1150; mkmaze.c inv_pos;
+ * walk invocation_message is D-1150; mkmaze.c inv_pos is D-1154;
  * vision.c vision_recalc / goto_level / newgame / seffect_magic_mapping
  * / wizcmds / save / postmov notice_mon callers; spot_monsters option.
  *

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds. **Addressed:** D-1153
+- [x] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds. **Addressed:** D-1154
+
+
+- [x] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds. **Addressed:** D-1153 `b332516f`
 
 
 - [x] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg. **Addressed:** D-1152 `9b5ce7b3`

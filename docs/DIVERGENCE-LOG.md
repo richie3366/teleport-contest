@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1154 — mkmaze.c inv_pos / VIBRATING_SQUARE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS never set `svi.inv_pos` and hellfill always placed a
+  down stair. C `pick_vibrasquare_location` picks a SPACE_POS cell
+  away from upstairs, stores `svi.inv_pos`, and `maketrap` puts a
+  VIBRATING_SQUARE there. `occupied` includes `invocation_pos`.
+  `teleds`/`domove` `invocation_message` (D-1141/D-1150) therefore
+  never fired from a generated square.
+- **C locus:** `mkmaze.c` `pick_vibrasquare_location` (~1042–1093);
+  `makemaz` (~1214–1216); `sp_lev.c` `create_trap` VS (~1818–1821);
+  `dat/hellfill.lua` (~437–441); `mklev.c` `occupied` (~1806–1811);
+  `dungeon.c` `Invocation_lev` (~2026–2030).
+- **Fix:** port `pick_vibrasquare_location` (rn1 range, upstairs
+  row/col/diagonal/`distmin<=11`, `SPACE_POS`, `occupied`; no-upstairs
+  short-circuit; trycnt>1000 break). `create_trap(VS)` picks then
+  `maketrap` (no DRY). hellfill `u.invocation_level` → VS else down
+  stair. `occupied` adds `invocation_pos`. Unset `{0,0}` matches C
+  (not a legal maze cell). Did not pull `makemaz("")` `create_maze`,
+  `Can_dig_down` !Invocation_lev, apply.js clone, or shared
+  `dungeon.c` `Invocation_lev` export. Rule #2: no fs.
+- **JS:** `js/mklev.js` `pick_vibrasquare_location` /
+  `splev_create_trap` VS / `load_hellfill` / `occupied`; comments in
+  `hack.js` / `teleport.js`.
+- **Not this iter:** `makemaz("")` create_maze + VS; `Can_dig_down`
+  Invocation_lev; apply.js `invocation_pos_apply`; dungeon.c export;
+  `mkinvokearea`.
+- **Verify:** private canary **33**/33 (range; stairs
+  row/col/diag/distmin; SPACE_POS; no-stairs 2 `rn2`; occupied +
+  `invocation_pos` on/off Invocation_lev; botlevel/not-hellish;
+  maketrap VS / undestroyable; fountain/trap/STONE skip; pool;
+  stale 99,99 clear; (0,0) vs (1,0); !isok); green+strict
+  seed8000/0900; cohort **24**/24 including 0360/4500 hellfill +
+  0012 vault + 0004 pony + 2200/0030/0002/0006/0007/0009/0014/0017/
+  0060/0102/0106/0108/0116/0361/0367/0373/0383/0700/1500/1800 +
+  strict 0012/0004/0360/4500/2200/0030/0002/0367. Path
+  public-unhit on Invocation_lev.
+- **Files:** `js/mklev.js`, `js/hack.js`, `js/teleport.js`.
+
 ## D-1153 — vault_tele tele() fallback
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

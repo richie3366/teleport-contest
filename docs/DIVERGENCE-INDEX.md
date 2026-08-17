@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1154 | fixed | `mkmaze.c` `inv_pos` / VIBRATING_SQUARE | map-driven; C `pick_vibrasquare_location` 1042–1093 / `makemaz` 1214–1216 / `sp_lev.c` `create_trap` VS 1818–1821 / `hellfill.lua` 437–441 / `mklev.c` `occupied` invocation_pos; `svi.inv_pos` then `maketrap(VS)`; no-upstairs short-circuit; `makemaz("")` create_maze caller / `Can_dig_down` !Invocation_lev still named |
 | D-1153 | fixed | `vault_tele` `tele()` fallback | map-driven; C `teleport.c:772–783`; no vault / somexyspace fail / teleok fail → `tele()`/`scrolltele`/`safe_teleds`; success still `teleds(TELEDS_TELEPORT)`; dotele trap-at-feet teledest still named |
 | D-1152 | fixed | `rloc_to` `maybe_unhide_at` dest | map-driven; C `teleport.c:1700` / `mon.c` `maybe_unhide_at` 4698–4719; after ustuck before newsym; hiders/eels unhide when dest has no cover / not pool; `can_hide_under_obj` coins; hero youmonst path, vanish-msg, `set_apparxy`, `update_monster_region` still named |
 | D-1151 | fixed | `switch_terrain` `classify_terrain` | map-driven; C `hack.c:3131–3214` lastseentyp remaps into `iflags.terrain_typ`; Underwater≡uinwater; arboreal STONE; ROOM/CORR xFLOOR/xGROUND; door open/shut; DRAWBRIDGE_UP `db_under_typ`; Medusa sea / Juiblex swamp; WATER→xWATERWALL; botl iff terrainstatus && !run; option bag `flags.terrainstatus`; botl `terrain_descr[]` / options toggle / end_running MAX_TYPE / `spoteffects` callers still named |
