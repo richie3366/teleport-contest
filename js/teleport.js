@@ -718,8 +718,9 @@ async function rloc_maybe_mintrap(mtmp) {
  * after bill (D-1170; go.occupation → dochugw(mtmp, FALSE) — no
  * dochug, only stop-if-newly-spotted-threat); trapped !wormno
  * mintrap after occupation (D-1164; dest no trap clears mtrapped).
- * Named omission: vanish-msg. RLOC_MSG vanish+appear live in async
- * `rloc` (D-0885 / D-0886). rloc_opts.defer_shk_angry is JS-only so
+ * Named omission: ustuck-together / wand discovery / set_msg_xy.
+ * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886);
+ * telemsg "vanishes and reappears" D-1180. rloc_opts.defer_shk_angry is JS-only so
  * rloc_to_flag can run appear pline before angry (C order).
  */
 export async function rloc_to(mtmp, x, y, rloc_opts = null) {
@@ -1000,8 +1001,8 @@ function rloc_pos_ok(x, y, mtmp) {
 /**
  * C ref: teleport.c rloc_to_core message envelope — vanish before move,
  * appear after place. Returns msg state for the post-place arm.
- * Named omit: telemsg "vanishes and reappears" distance polish;
- * ustuck-together; wand discovery; set_msg_xy.
+ * Named omit: ustuck-together; wand discovery; set_msg_xy.
+ * Telemsg "vanishes and reappears" is D-1180.
  */
 async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
     const preventmsg = (rlocflags & RLOC_NOMSG) !== 0;
@@ -1024,10 +1025,13 @@ async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
 }
 
 /**
- * C ref: teleport.c rloc_to_core post-place appear / reappear pline.
+ * C ref: teleport.c rloc_to_core post-place appear / reappear pline
+ * (1703–1726). Telemsg "vanishes and reappears" + next/close-by/
+ * closer/farther (D-1180). Named omit: ustuck-together You();
+ * wand discovery makeknown(WAN_TELEPORTATION); set_msg_xy.
  */
 async function rloc_post_move_msg(mtmp, x, y, state) {
-    const { domsg, telemsg } = state;
+    const { domsg, telemsg, oldx, oldy } = state;
     let appearmsg = state.appearmsg;
     if (!domsg) return;
     if (!(canspotmon(mtmp) || appearmsg || mtmp === game.u?.ustuck)) return;
@@ -1035,16 +1039,28 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
     // C: mtmp->mstrategy &= ~STRAT_APPEARMSG
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_APPEARMSG;
 
+    const du = distu_xy(x, y);
+    const next = du <= 2 ? ' next to you' : null; /* next2u() */
+    const nearu = du <= BOLT_LIM * BOLT_LIM ? ' close by' : null;
+
     // ustuck-together ("You and %s teleport together") deferred
     if (telemsg && (couldsee(x, y) || sensemon(mtmp))) {
-        // telemsg "vanishes and reappears" + closer/farther deferred
+        // C: next ? next : nearu ? nearu : (olddu==du)?"" : closer/farther
+        let where;
+        if (next) {
+            where = next;
+        } else if (nearu) {
+            where = nearu;
+        } else {
+            const olddu = distu_xy(oldx | 0, oldy | 0);
+            where = olddu === du ? ''
+                : (du < olddu) ? ' closer to you' : ' farther away';
+        }
+        await pline(`${Monnam(mtmp)} vanishes and reappears${where}.`);
         return;
     }
 
-    const du = distu_xy(x, y);
-    const near = du <= 2
-        ? ' next to you'
-        : (du <= BOLT_LIM * BOLT_LIM) ? ' close by' : '';
+    const near = next || nearu || '';
     // C youprop.h Blind — poly brown mold is blind (D-0928 #1128).
     const u = game.u || {};
     const Blind = !!(((u.HBlinded | 0) || (u.EBlinded | 0) || u.Blind || u.ublind)
@@ -1060,6 +1076,11 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
  * C ref: teleport.c rloc_to_flag.
  */
 export async function rloc_to_flag(mtmp, x, y, rlocflags) {
+    if (!mtmp) return;
+    // C rloc_to_core: same-cell return before vanish/appear (1658–1659).
+    if (x === (mtmp.mx | 0) && y === (mtmp.my | 0) && m_at(x, y) === mtmp) {
+        return;
+    }
     const state = await rloc_pre_move_msg(mtmp, x, y, rlocflags);
     // Defer shk angry until after appear pline (C rloc_to_core 1703 then 1739).
     const snap = await rloc_to(mtmp, x, y, { defer_shk_angry: true });
@@ -1141,8 +1162,8 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * then unshuffled candy shuffle (D-1122).
  * Steed is hero teleport: tele() then TRUE even if tele() does not
  * move (noteleport) (D-1172; C 1808–1811). Not Wizard stair.
- * Named omissions: telemsg "vanishes and reappears"; ustuck-together;
- * RLOC_ERR impossible(). mnexto control_mon_tele is D-1173.
+ * Named omissions: ustuck-together; RLOC_ERR impossible();
+ * wand discovery; set_msg_xy. mnexto control_mon_tele is D-1173.
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;

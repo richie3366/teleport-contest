@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage. **Addressed:** D-1179
+- [x] `teleport.c` `rloc_to_core` telemsg vanishes-and-reappears (named). Not RLOC_ERR. **Addressed:** D-1180
+
+
+- [x] `do.c` `goto_level` `do_fall_dmg` (named). Not fix_shop_damage. **Addressed:** D-1179 `5f08f9e5`
 
 
 - [x] `do.c` `goto_level` `fix_shop_damage` (named). Not obj_delivery. **Addressed:** D-1178 `4a700d08`

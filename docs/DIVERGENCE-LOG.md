@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1180 — `rloc_to_core` telemsg "vanishes and reappears"
+
+- **Status:** fixed (map-driven Open; named omit from D-0885 / D-0886 /
+  D-1173; not a public FAIL)
+- **Symptom:** JS `rloc_post_move_msg` set `telemsg` when the dest was
+  in LOS or the monster was sensed, then returned without a pline.
+  C prints `"%s vanishes and reappears%s."` with next-to / close-by /
+  closer / farther / same-distance suffix. A spotted teleport that
+  landed still in sight was silent in JS.
+- **C locus:** `teleport.c` `rloc_to_core` `:1658–1659` same-cell
+  return before any message; `:1662–1672` set `telemsg` when
+  `couldsee(dest)||sensemon`; `:1712–1719` after dest, if telemsg
+  and still visible/sensed, `pline("%s vanishes and reappears%s.",
+  Monnam, next?next:nearu?nearu:(olddu==du)?"":(du<olddu)?" closer
+  to you":" farther away")`. `next` is `du<=2`; `nearu` is
+  `du<=BOLT_LIM²`.
+- **JS was:** vanish-away (`"%s vanishes!"`) and post-place appear
+  (D-0885/D-0886); telemsg arm was an early `return`.
+- **Fix:** emit the reappear pline with C suffix order; same-cell
+  `rloc_to_flag` return before vanish/appear so a no-op does not
+  speak. Did not pull ustuck-together You(), wand `makeknown`,
+  `set_msg_xy`, or `RLOC_ERR`.
+- **JS:** `js/teleport.js` `rloc_post_move_msg` / `rloc_to_flag`.
+- **Not this iter:** ustuck-together; wand discovery;
+  `set_msg_xy`; `RLOC_ERR` `impossible()`; `rloc_pos_ok` mx==0
+  updest/dndest. Rule #2: no fs.
+- **Verified:** green+strict seed8000/0900; cohort (see journal).
+  Path public-unhit unless a spotted monster teleports to a still-
+  visible cell.
+
 ## D-1179 — do.c `goto_level` `do_fall_dmg`
 
 - **Status:** fixed (map-driven Open; named omit from D-1178 / D-1177 /
