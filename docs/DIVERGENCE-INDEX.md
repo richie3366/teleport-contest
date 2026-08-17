@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1137 | fixed | `make_gas_cloud` enveloped pline | map-driven; C `region.c:1197–1203` after `add_region`; `!in_mklev && !inside_cloud && is_hero_inside_gas_cloud` → You noxious/steam + `PLNMSG_ENVELOPED_IN_GAS`; `set_heros_fault` player-made; `create_gas_cloud` async; `m_poisongas_ok` / inside_f damage / fumaroles `clear_heros_fault` still named |
 | D-1136 | fixed | `mongrantswish` `tmp_at` glyph hide | map-driven; C `potion.c:2794–2811` `glyph_at` then `mongone` then `tmp_at(DISP_ALWAYS)`/`tmp_at(mx,my)` around `makewish` + `DISP_END`; JS gbuf `disp_*` copy not `mon_glyph`; full `mongone` / `djinni_from_bottle` still named |
 | D-1135 | fixed | do_name `hcolor` Hallu drinksink synonyms | map-driven; C `do_name.c:1460–1466` `hcolors[]` SIZE 74; Hallu\|\|NULL → `rn2_on_display_rng(SIZE)` only (pref not last; no gameover skip); drinksink case 4 Blind short-circuit; sit/apply/pray/detect/do/wield/read stubs + `rndcolor` still named |
 | D-1134 | fixed | `dipfountain` after-switch `update_inventory` | map-driven; C `fountain.c:552` after switch before `dryup`; unconditional (not drink case 24 `buc_changed`); rust-gate/Levitation/Excalibur returns skip this site; default perm_invent Off tty no-op (D-1126 callee); Excalibur `:441` / On WIN_INVEN / `consume_obj_charge` still named |

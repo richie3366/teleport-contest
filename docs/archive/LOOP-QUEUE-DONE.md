@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `region.c` `make_gas_cloud` enveloped pline (named). Not create_gas_cloud size-1. **Addressed:** D-1137
+
+
 - [x] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon. **Addressed:** D-1136 `52aea3d1`
 
 

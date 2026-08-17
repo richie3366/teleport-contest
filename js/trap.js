@@ -4793,7 +4793,7 @@ export async function chest_trap(obj, bodypart, disarm) {
             if (rn2(3)) {
                 await poisoned('gas cloud', A_STR, 'cloud of poison gas', 15, false);
             } else {
-                create_gas_cloud(obj.ox | 0, obj.oy | 0, 1, 8);
+                await create_gas_cloud(obj.ox | 0, obj.oy | 0, 1, 8);
             }
             exercise(A_CON, false);
             break;

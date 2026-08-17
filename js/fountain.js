@@ -33,9 +33,9 @@
 // polyself(POLY_NOFLAGS) (D-1118); case 13 create_gas_cloud(1,4)
 // (D-1124; size-1: ttl rn1(3,4) only).
 // drinksink case 4 !Blind hcolor(OBJ_DESCR) (D-1135).
-// Deferred: make_gas_cloud enveloped
-// pline / inside_f damage (region.js); monstseesu when
-// Fire_resistance already set; sit/apply/pray/detect/do/wield/read
+// make_gas_cloud enveloped You + PLNMSG_ENVELOPED_IN_GAS (D-1137).
+// Deferred: inside_f damage / m_poisongas_ok (region.js); monstseesu
+// when Fire_resistance already set; sit/apply/pray/detect/do/wield/read
 // identity hcolor stubs; rndcolor.
 
 import { game } from './gstate.js';
@@ -475,10 +475,9 @@ export async function drinksink() {
     case 13:
         // C fountain.c:696–698 — stench then create_gas_cloud(ux,uy,1,4).
         // Size-1 skips BFS expand (no shuffle rn2); ttl = rn1(3,4).
-        // make_gas_cloud enveloped pline / inside_f damage stay named
-        // on region.js.
+        // Enveloped You after add_region (D-1137); inside_f damage named.
         await pline('Ew, what a stench!');
-        create_gas_cloud(u.ux, u.uy, 1, 4);
+        await create_gas_cloud(u.ux, u.uy, 1, 4);
         break;
     case 19:
         if (u.Hallucination) {

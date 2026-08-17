@@ -4,20 +4,24 @@
 // inside_gas_cloud; region_danger / region_safety (pray);
 // read.c valid_cloud_pos.
 // Named omissions: inside_f damage/pline (dam>0); dissipation plines;
-// numeric cmap glyph ints (JS tags 'S_poisoncloud'/'S_cloud'); hero
-// enveloped pline; create_gas_cloud_selection; binary save_regions
-// format; force fields; incremental fill_point (JS uses vision_reset);
+// numeric cmap glyph ints (JS tags 'S_poisoncloud'/'S_cloud');
+// create_gas_cloud_selection; binary save_regions format; force
+// fields; incremental fill_point (JS uses vision_reset);
 // enter_msg/leave_msg pline (async; gas has none; create_msg_region
 // #if 0); can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
 // attach_2_m; is_hero_inside_gas_cloud still geometric not the bit
 // (walk `in_out_region` still named — do not flip until that bit is
-// live on steps).
+// live on steps); m_poisongas_ok size-1 inside_cloud gate;
+// fumaroles clear_heros_fault / Norep whoosh.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
 import { rn2, rn1, d } from './rng.js';
 import { pline, You_feel } from './display.js';
-import { isok, ACCESSIBLE, u_at, TIMEOUT, REG_HERO_INSIDE } from './const.js';
+import {
+    isok, ACCESSIBLE, u_at, TIMEOUT, REG_HERO_INSIDE, REG_NOT_HEROS,
+    PLNMSG_ENVELOPED_IN_GAS,
+} from './const.js';
 import { is_pool, is_lava } from './hack.js';
 import { recalc_block_point } from './vision.js';
 import { monsterNames, nonliving, breathless } from './monsters.js';
@@ -74,6 +78,10 @@ function set_hero_inside(reg) {
 }
 function clear_hero_inside(reg) {
     reg.player_flags = (reg.player_flags | 0) & ~REG_HERO_INSIDE;
+}
+/** C region.h set_heros_fault — clear REG_NOT_HEROS. */
+function set_heros_fault(reg) {
+    reg.player_flags = (reg.player_flags | 0) & ~REG_NOT_HEROS;
 }
 
 function callback_set(f) {
@@ -158,11 +166,16 @@ function inside_gas_cloud(reg, mtmp) {
 }
 
 /**
- * C ref: region.c make_gas_cloud — register region; hero message deferred.
+ * C ref: region.c make_gas_cloud — register region then maybe envelop.
  * C add_region scans m_at into reg->monsters and block_point; JS rebuilds
  * vision via recalc_block_point (full vision_reset).
  */
-function make_gas_cloud(cloud, damage, _inside_cloud) {
+async function make_gas_cloud(cloud, damage, inside_cloud) {
+    // C: !gi.in_mklev && !svc.context.mon_moving → set_heros_fault
+    // (create_region already clear_heros_fault / REG_NOT_HEROS).
+    if (!game.in_mklev && !game.gi?.in_mklev && !game.context?.mon_moving) {
+        set_heros_fault(cloud);
+    }
     cloud.inside_f = INSIDE_GAS_CLOUD;
     cloud.expire_f = INSIDE_GAS_CLOUD; // gas expire marker (damage/pline deferred)
     cloud.arg = damage | 0;
@@ -183,7 +196,6 @@ function make_gas_cloud(cloud, damage, _inside_cloud) {
         if (inside_region(cloud, u.ux | 0, u.uy | 0)) set_hero_inside(cloud);
         else clear_hero_inside(cloud);
     }
-    // set_heros_fault / enveloped pline deferred
     if (!game.regions) game.regions = [];
     game.regions.push(cloud);
     // C add_region: m_at scan + if (reg->visible) block_point per cell
@@ -201,6 +213,16 @@ function make_gas_cloud(cloud, damage, _inside_cloud) {
         recalc_block_point(rects[0].lx | 0, rects[0].ly | 0);
     } else {
         game.vision_full_recalc = 1;
+    }
+    // C: !in_mklev && !inside_cloud && is_hero_inside_gas_cloud
+    if (!game.in_mklev && !game.gi?.in_mklev
+        && !inside_cloud && is_hero_inside_gas_cloud()) {
+        await pline(
+            `You are enveloped in a cloud of ${
+                damage ? 'noxious gas' : 'steam'}!`,
+        );
+        if (!game.iflags) game.iflags = {};
+        game.iflags.last_msg = PLNMSG_ENVELOPED_IN_GAS;
     }
 }
 
@@ -360,7 +382,7 @@ export function run_regions() {
  * C ref: region.c create_gas_cloud — BFS expand + ttl = rn1(3,4).
  * Size-1 (fog/Hezrou/Steam): no expand RNG, only ttl.
  */
-export function create_gas_cloud(x, y, cloudsize, damage) {
+export async function create_gas_cloud(x, y, cloudsize, damage) {
     const xcoords = new Array(MAX_CLOUD_SIZE);
     const ycoords = new Array(MAX_CLOUD_SIZE);
     xcoords[0] = x;
@@ -416,7 +438,11 @@ export function create_gas_cloud(x, y, cloudsize, damage) {
         }
     }
 
-    const cloud = { rects: [], ttl: -1, visible: false, inside_f: 0, arg: 0 };
+    // C create_region: clear_heros_fault (REG_NOT_HEROS) before make_gas_cloud
+    const cloud = {
+        rects: [], ttl: -1, visible: false, inside_f: 0, arg: 0,
+        player_flags: REG_NOT_HEROS,
+    };
     for (let i = 0; i < newidx; ++i) {
         cloud.rects.push({
             lx: xcoords[i], hx: xcoords[i],
@@ -427,7 +453,7 @@ export function create_gas_cloud(x, y, cloudsize, damage) {
     cloud.ttl = rn1(3, 4);
     cloud.ttl = Math.trunc((cloud.ttl * cloudsize) / newidx);
 
-    make_gas_cloud(cloud, damage, inside_cloud);
+    await make_gas_cloud(cloud, damage, inside_cloud);
     return cloud;
 }
 

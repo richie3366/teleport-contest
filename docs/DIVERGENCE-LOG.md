@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1137 — make_gas_cloud enveloped pline
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `make_gas_cloud` registered the region and ignored
+  `_inside_cloud`. C `region.c:1197–1203` after `add_region`
+  prints `You("are enveloped in a cloud of %s!")` (noxious gas
+  vs steam) and sets `iflags.last_msg = PLNMSG_ENVELOPED_IN_GAS`
+  when `!in_mklev && !inside_cloud && is_hero_inside_gas_cloud()`.
+  Zap fire-on-pool already skipped the hiss `Norep` when that
+  last_msg was set, but JS never set it.
+- **C locus:** `region.c` `make_gas_cloud` (~1182–1204);
+  `create_gas_cloud` (~1229–1236) inside_cloud probe;
+  `zap.c` `zap_over_floor` (~5186–5188) last_msg gate;
+  `fountain.c` `drinksink` case 13 caller.
+- **Fix:** after push/`set_hero_inside`, await C You + last_msg.
+  `set_heros_fault` when `!in_mklev && !mon_moving` (create_region
+  default `REG_NOT_HEROS`). `create_gas_cloud` async; await at
+  fountain/zap/trap/fumaroles. Size-1 `!damage` still forces
+  `inside_cloud` (skip). Did not pull `m_poisongas_ok` (Breathless
+  size-1 dmg>0 still named), `inside_gas_cloud` dam>0, fumaroles
+  `clear_heros_fault`/Norep whoosh, or walk `in_out_region` bit.
+  Rule #2: no fs.
+- **JS:** `js/region.js` `make_gas_cloud` / `create_gas_cloud`;
+  await sites in `fountain.js` / `zap.js` / `trap.js` /
+  `mklev.js` `fumaroles` / `do.js` `goto_level`.
+- **Not this iter:** `inside_gas_cloud` HP; `m_poisongas_ok`;
+  `create_gas_cloud_selection`; geometric vs `hero_inside` bit;
+  moveloop fumaroles; fog/Hezrou/Steam `monmove` await (size-1
+  at monster cell does not envelop).
+- **Verify:** private canary **35**/35 (noxious at hero; steam
+  size-1 skip; off-hero; in_mklev; mon_moving You+NOT_HEROS;
+  already-inside skip; size-5 steam; last_msg; heros_fault);
+  green+strict seed8000/0900; cohort **24**/24 including 0002
+  drinksink + 0014 fountain + 0016/2200 zap + 0373 + 0360/4500
+  + 0108 + strict those. Path public-unhit on fate 13 / zap
+  envelop.
+- **Files:** `js/region.js`, `js/fountain.js`, `js/zap.js`,
+  `js/trap.js`, `js/mklev.js`, `js/do.js`.
+
 ## D-1136 — mongrantswish tmp_at glyph hide
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
