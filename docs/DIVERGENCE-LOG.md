@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1183 — `rloc_to_core` ustuck-together You()
+
+- **Status:** fixed (map-driven Open; named omit from D-1180 / D-1123;
+  not a public FAIL)
+- **Symptom:** JS `rloc_post_move_msg` skipped C’s first post-place
+  arm. A swallowed engulfer (or other `u.ustuck` whose hero cell is
+  no longer `u.ux0,u.uy0`) that relocated with `RLOC_MSG` fell
+  through to `"%s vanishes and reappears"` or `"appears!"` instead
+  of `You("and %s teleport together.")`.
+- **C locus:** `teleport.c` `rloc_to_core` `:1710–1711` after dest
+  `set_apparxy`, inside `domsg && (canspotmon \|\| appearmsg \|\|
+  mtmp == u.ustuck)`. First arm: `mtmp == u.ustuck &&
+  !u_at(u.ux0, u.uy0)` then `You("and %s teleport together.",
+  mon_nam(mtmp))`; else-if telemsg reappear; else appear/arrives.
+  Swallow `u_on_newpos` already ran (`:1690–1694`); grab-far
+  `unstuck` already cleared `u.ustuck` (`:1695–1697`).
+- **JS was:** telemsg/appear only; together deferred.
+- **Fix:** same if / else-if / else; `pline("You and %s teleport
+  together.")` via `mon_nam` (C `You()` prefix). Did not pull wand
+  `makeknown(WAN_TELEPORTATION)` or `set_msg_xy`.
+- **JS:** `js/teleport.js` `rloc_post_move_msg`.
+- **Not this iter:** wand discovery; `set_msg_xy`; `scrolltele`
+  `make_blinded`. Rule #2: no fs.
+- **Verified:** private canary **44**/44 (C/JS order; together beats
+  telemsg; grab adjacent ux==ux0 silent; grab ux!=ux0 together;
+  grab far unstuck; RLOC_NOMSG; same-cell; in_mklev; Blind arrives;
+  `mon_nam` the- not The-; no fs/FORCE); green+strict seed8000/0900;
+  cohort **12**/12 + strict 1500/0012/0360/4500/2200/0014. Path
+  public-unhit unless a swallowed/ustuck monster teleports with
+  messages.
+- **Files:** `js/teleport.js`.
+
 ## D-1182 — `rloc_pos_ok` mx==0 updest/dndest / W-tower flags
 
 - **Status:** fixed (map-driven Open; named omit from D-1171 / D-0686;

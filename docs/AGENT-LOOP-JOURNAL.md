@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 22:25 — #1503 D-1183 rloc_to_core ustuck-together
+
+**Objective:** Open — `teleport.c` `rloc_to_core` ustuck-together
+pline (named). Not telemsg.
+**C locus:** `teleport.c` `rloc_to_core` 1710–1711 first post-msg
+arm after dest, before telemsg/appear.
+**Change:** `mtmp==ustuck && !u_at(ux0,uy0)` →
+`You("and %s teleport together.")` via `mon_nam`; else-if telemsg
+reappear; else appear/arrives. Did not pull wand `makeknown` or
+`set_msg_xy`. Filled D-1182 archive hash `01c8c41f`. Rotated
+#1488. Open 11 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1500** **44**/44; next
+@**#1505**).
+**Verified:** private canary **44**/44 (C/JS order; together beats
+telemsg; grab adjacent ux==ux0 silent; grab ux!=ux0 together;
+grab far unstuck; RLOC_NOMSG; same-cell; in_mklev; Blind arrives;
+`mon_nam` the- not The-; no fs/FORCE); green+strict seed8000/0900;
+cohort **12**/12 (green + 1500/1800/0015/0002/0014/2200/4500/0367/
+0360/0012) + strict 1500/0012/0360/4500/2200/0014. Path
+public-unhit unless swallowed/ustuck teleports with messages.
+**Next:** Open `teleport.c` `scrolltele` make_blinded (named). Not
+W-tower amulet.
+**Blocked:** none.
+
 ## 2026-08-17 22:10 — #1502 D-1182 rloc_pos_ok mx==0 updest/dndest
 
 **Objective:** Open — `teleport.c` `rloc_pos_ok` mx==0 updest/dndest
@@ -375,31 +399,5 @@ green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
 0103/0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
 riding `rloc(usteed)`.
 **Next:** Open `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
-**Blocked:** none.
-
-## 2026-08-17 18:57 — #1488 D-1171 rloc_pos_ok shk/priest room lock
-
-**Objective:** Open — `teleport.c` `rloc_pos_ok` isshk/ispriest room
-lock (named). Not make_angry_shk.
-**C locus:** `teleport.c` `rloc_pos_ok` 1620–1626 in the on-map
-`xx` arm after `goodpos` before `tele_jump_ok`.
-**Change:** dest `levl.roomno` vs ESHK.shoproom / EPRI.shroom
-(`unsigned char`) when `isshk && inhishop` else-if
-`ispriest && inhistemple`. Not `in_rooms`. Did not pull
-`make_angry_shk` (D-1162) or mx==0 updest/dndest. Filled D-1170
-archive hash `5a6be1fe`. Rotated #1473. Open 8 after archive
-(no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1485** **44**/44; next
-@**#1490**).
-**Verified:** private canary **25**/25 (C/JS order; dest roomno
-not in_rooms; unsigned char; mx==0 deferred; no angry/fs/FORCE;
-resident shk/priest stay; ordinary/`!inhishop`/`!shrine` not
-locked; candy fallback; SHARED skip; isshk else-if; tele_jump
-after; goodpos first; thenable); green+strict seed8000/0900;
-cohort **41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
-0101/0012/0360/4500/2200/0014/0004/0367/0373/0002/0700/0015/
-0116/0106. Path public-unhit on resident shk/priest dest filter.
-**Next:** Open `teleport.c` `rloc` steed `tele()` (named). Not
-Wizard stair.
 **Blocked:** none.
 

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg.
 - [ ] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet.
 - [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
 - [ ] `do.c` `goto_level` `run_timers` (named). Not kill_genocided.

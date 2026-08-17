@@ -718,9 +718,10 @@ async function rloc_maybe_mintrap(mtmp) {
  * after bill (D-1170; go.occupation → dochugw(mtmp, FALSE) — no
  * dochug, only stop-if-newly-spotted-threat); trapped !wormno
  * mintrap after occupation (D-1164; dest no trap clears mtrapped).
- * Named omission: ustuck-together / wand discovery / set_msg_xy.
+ * Named omission: wand discovery / set_msg_xy.
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886);
- * telemsg "vanishes and reappears" D-1180. rloc_opts.defer_shk_angry is JS-only so
+ * telemsg "vanishes and reappears" D-1180; ustuck-together You() D-1183.
+ * rloc_opts.defer_shk_angry is JS-only so
  * rloc_to_flag can run appear pline before angry (C order).
  */
 export async function rloc_to(mtmp, x, y, rloc_opts = null) {
@@ -1031,8 +1032,8 @@ function rloc_pos_ok(x, y, mtmp) {
 /**
  * C ref: teleport.c rloc_to_core message envelope — vanish before move,
  * appear after place. Returns msg state for the post-place arm.
- * Named omit: ustuck-together; wand discovery; set_msg_xy.
- * Telemsg "vanishes and reappears" is D-1180.
+ * Named omit: wand discovery; set_msg_xy.
+ * Telemsg "vanishes and reappears" is D-1180; ustuck-together You() D-1183.
  */
 async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
     const preventmsg = (rlocflags & RLOC_NOMSG) !== 0;
@@ -1057,14 +1058,16 @@ async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
 /**
  * C ref: teleport.c rloc_to_core post-place appear / reappear pline
  * (1703–1726). Telemsg "vanishes and reappears" + next/close-by/
- * closer/farther (D-1180). Named omit: ustuck-together You();
- * wand discovery makeknown(WAN_TELEPORTATION); set_msg_xy.
+ * closer/farther (D-1180). Ustuck-together You() first arm (D-1183;
+ * C 1710–1711). Named omit: wand discovery makeknown(WAN_TELEPORTATION);
+ * set_msg_xy.
  */
 async function rloc_post_move_msg(mtmp, x, y, state) {
     const { domsg, telemsg, oldx, oldy } = state;
     let appearmsg = state.appearmsg;
     if (!domsg) return;
-    if (!(canspotmon(mtmp) || appearmsg || mtmp === game.u?.ustuck)) return;
+    const u = game.u || {};
+    if (!(canspotmon(mtmp) || appearmsg || mtmp === u.ustuck)) return;
 
     // C: mtmp->mstrategy &= ~STRAT_APPEARMSG
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_APPEARMSG;
@@ -1073,8 +1076,11 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
     const next = du <= 2 ? ' next to you' : null; /* next2u() */
     const nearu = du <= BOLT_LIM * BOLT_LIM ? ' close by' : null;
 
-    // ustuck-together ("You and %s teleport together") deferred
-    if (telemsg && (couldsee(x, y) || sensemon(mtmp))) {
+    // C teleport.c:1708 set_msg_xy(x, y) — named omit
+    // C teleport.c:1710–1711 first arm; else-if telemsg; else appear
+    if (mtmp === u.ustuck && !u_at(u.ux0, u.uy0)) {
+        await pline(`You and ${mon_nam(mtmp)} teleport together.`);
+    } else if (telemsg && (couldsee(x, y) || sensemon(mtmp))) {
         // C: next ? next : nearu ? nearu : (olddu==du)?"" : closer/farther
         let where;
         if (next) {
@@ -1087,18 +1093,17 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
                 : (du < olddu) ? ' closer to you' : ' farther away';
         }
         await pline(`${Monnam(mtmp)} vanishes and reappears${where}.`);
-        return;
+    } else {
+        const near = next || nearu || '';
+        // C youprop.h Blind — poly brown mold is blind (D-0928 #1128).
+        const Blind = !!(((u.HBlinded | 0) || (u.EBlinded | 0) || u.Blind || u.ublind)
+            && !(u.BBlinded | 0));
+        const who = appearmsg ? Amonnam(mtmp) : Monnam(mtmp);
+        const sud = appearmsg ? 'suddenly ' : '';
+        const verb = Blind ? 'arrives' : 'appears';
+        await pline(`${who} ${sud}${verb}${near}!`);
     }
-
-    const near = next || nearu || '';
-    // C youprop.h Blind — poly brown mold is blind (D-0928 #1128).
-    const u = game.u || {};
-    const Blind = !!(((u.HBlinded | 0) || (u.EBlinded | 0) || u.Blind || u.ublind)
-        && !(u.BBlinded | 0));
-    const who = appearmsg ? Amonnam(mtmp) : Monnam(mtmp);
-    const sud = appearmsg ? 'suddenly ' : '';
-    const verb = Blind ? 'arrives' : 'appears';
-    await pline(`${who} ${sud}${verb}${near}!`);
+    // C: wand makeknown(WAN_TELEPORTATION) after any delivered msg — named omit
 }
 
 /**
@@ -1192,8 +1197,9 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * then unshuffled candy shuffle (D-1122).
  * Steed is hero teleport: tele() then TRUE even if tele() does not
  * move (noteleport) (D-1172; C 1808–1811). Not Wizard stair.
- * Named omissions: ustuck-together; wand discovery; set_msg_xy.
+ * Named omissions: wand discovery; set_msg_xy.
  * mnexto control_mon_tele is D-1173. RLOC_ERR impossible is D-1181.
+ * Ustuck-together You() is D-1183.
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1183 | fixed | `rloc_to_core` ustuck-together You() | map-driven; C `teleport.c:1710–1711` first post-msg arm; `mtmp==ustuck && !u_at(ux0,uy0)` → `You("and %s teleport together.")` else-if telemsg; swallow dest≠origin; grab far already unstuck; wand `makeknown` / `set_msg_xy` still named |
 | D-1182 | fixed | `rloc_pos_ok` mx==0 updest/dndest | map-driven; C `teleport.c:1592–1615`; migrating `!mx` `my` flags bit0 up / bit1 W-tower; `dndest.nlx`+`On_W_tower_level` dest-in-exclude XOR `my&2`; else updest.lx / dndest.lx arrival minus nlx; on-map room lock unchanged; `migrate_to_level` bit 2 / `mon_arrive` my=xyflags still named |
 | D-1181 | fixed | `rloc` RLOC_ERR `impossible()` | map-driven; C `teleport.c:1884–1888` / `pline.c` `impossible`; no-backup + `RLOC_ERR` → urgent `"rloc(): couldn't relocate monster"` then disorder/report then FALSE; silent FALSE without the bit; paniclog/recursive panic/debug_fuzzer/sysopt.support/CRASHREPORT named |
 | D-1180 | fixed | `rloc_to_core` telemsg vanishes-and-reappears | map-driven; C `teleport.c:1712–1719` after dest; spotted+couldsee dest → `"%s vanishes and reappears%s."` next/close-by/closer/farther; same-cell return before msg; ustuck-together / wand discovery / `set_msg_xy` still named |
