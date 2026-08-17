@@ -967,16 +967,30 @@ function tele_jump_ok(x1, y1, x2, y2) {
 }
 
 /**
- * C ref: teleport.c rloc_pos_ok — goodpos(GP_CHECKSCARY) + tele_jump_ok.
- * Named omissions: migrating mx==0 updest/dndest bit flags; shk/priest
- * room lock.
+ * C ref: teleport.c rloc_pos_ok — goodpos(GP_CHECKSCARY), then when
+ * already on the map keep resident shk/priest in their room, then
+ * tele_jump_ok. Dest is levl.roomno vs ESHK.shoproom / EPRI.shroom
+ * (unsigned char), not in_rooms; rloc may still goodpos-fallback.
+ * Named omissions: migrating mx==0 updest/dndest bit flags.
  */
 function rloc_pos_ok(x, y, mtmp) {
     if (!goodpos(x, y, mtmp, GP_CHECKSCARY)) return false;
     const xx = mtmp?.mx | 0;
     const yy = mtmp?.my | 0;
     if (xx) {
-        // isshk/ispriest room arms deferred
+        /* C teleport.c:1620–1626 — try to keep shopkeeper / temple
+         * priest in-room (caller may still resort to goodpos). */
+        if (mtmp.isshk && inhishop(mtmp)) {
+            const destRoom = (game.level?.at(x, y)?.roomno | 0) & 0xff;
+            if (destRoom !== ((ESHK(mtmp)?.shoproom | 0) & 0xff)) {
+                return false;
+            }
+        } else if (mtmp.ispriest && inhistemple(mtmp)) {
+            const destRoom = (game.level?.at(x, y)?.roomno | 0) & 0xff;
+            if (destRoom !== ((EPRI(mtmp)?.shroom | 0) & 0xff)) {
+                return false;
+            }
+        }
         if (!tele_jump_ok(xx, yy, x, y)) return false;
     }
     // migrating mx==0 restricted-arrival arms deferred
@@ -1125,8 +1139,7 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * C ref: teleport.c rloc — Wizard stair / control_mon_tele then 50× rnd/rn2
  * then unshuffled candy shuffle (D-1122).
  * Named omissions: steed→tele(); mnexto control_mon_tele; telemsg
- * "vanishes and reappears"; ustuck-together; shop bill on leave;
- * RLOC_ERR impossible().
+ * "vanishes and reappears"; ustuck-together; RLOC_ERR impossible().
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;

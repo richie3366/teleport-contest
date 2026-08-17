@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 18:57 — #1488 D-1171 rloc_pos_ok shk/priest room lock
+
+**Objective:** Open — `teleport.c` `rloc_pos_ok` isshk/ispriest room
+lock (named). Not make_angry_shk.
+**C locus:** `teleport.c` `rloc_pos_ok` 1620–1626 in the on-map
+`xx` arm after `goodpos` before `tele_jump_ok`.
+**Change:** dest `levl.roomno` vs ESHK.shoproom / EPRI.shroom
+(`unsigned char`) when `isshk && inhishop` else-if
+`ispriest && inhistemple`. Not `in_rooms`. Did not pull
+`make_angry_shk` (D-1162) or mx==0 updest/dndest. Filled D-1170
+archive hash `5a6be1fe`. Rotated #1473. Open 8 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1485** **44**/44; next
+@**#1490**).
+**Verified:** private canary **25**/25 (C/JS order; dest roomno
+not in_rooms; unsigned char; mx==0 deferred; no angry/fs/FORCE;
+resident shk/priest stay; ordinary/`!inhishop`/`!shrine` not
+locked; candy fallback; SHARED skip; isshk else-if; tele_jump
+after; goodpos first; thenable); green+strict seed8000/0900;
+cohort **41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
+0101/0012/0360/4500/2200/0014/0004/0367/0373/0002/0700/0015/
+0116/0106. Path public-unhit on resident shk/priest dest filter.
+**Next:** Open `teleport.c` `rloc` steed `tele()` (named). Not
+Wizard stair.
+**Blocked:** none.
+
 ## 2026-08-17 18:20 — #1487 D-1170 rloc_to occupation dochugw
 
 **Objective:** Open — `teleport.c` `rloc_to` occupation `dochugw`
@@ -395,25 +421,4 @@ green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
 with stale mux.
 **Next:** Open `teleport.c` `rloc_to` `update_monster_region`
 (named). Not set_apparxy. Audit @**#1475**.
-**Blocked:** none.
-
-## 2026-08-17 14:11 — #1473 D-1159 mfndpos m_poisongas_ok vamp/eel/breath
-
-**Objective:** Open — `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath
-(named). Not inside_f.
-**C locus:** `mon.c` `m_poisongas_ok` 330–357; `mfndpos` 2172/2240.
-**Change:** port C order in `js/mon.js`: vampshifter / Hezrou|Vrock
-/ eel-or-waterlevel+pool / AT_BREA AD_DRST|RBRE → OK; youmonst
-invuln/Breathless/Underwater → OK; resist → MINOR; else BAD.
-mfndpos still `=== OK`. region.js keeps a local clone. Did not
-pull Resists_Elem worn/artifact or `rloc_to` `set_apparxy`.
-Filled D-1158 archive hash `7cc347fc`. Rotated #1458. Open 10
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1470** **44**/44; next
-@**#1475**).
-**Verified:** private canary **32**/32; green+strict seed8000/0900;
-cohort **39**/39 (CURRENT shared + 0014/0383). Path public-unhit
-on vamp/eel/breath walking into poisoncloud.
-**Next:** Open `teleport.c` `rloc_to` `set_apparxy` (named). Not
-vanish-msg. Audit @**#1475**.
 **Blocked:** none.

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1171 — `rloc_pos_ok` isshk/ispriest dest room lock
+
+- **Status:** fixed (map-driven Open; named omit from D-0686 / D-1170;
+  not a public FAIL)
+- **Symptom:** JS `rloc_pos_ok` after `goodpos(GP_CHECKSCARY)` jumped
+  to `tele_jump_ok` for on-map monsters. C, when a shopkeeper is
+  already in their shop (or a priest in their temple), rejects a
+  dest whose `levl.roomno` is not `ESHK.shoproom` / `EPRI.shroom`
+  (unsigned char) so random `rloc` prefers staying in-room. Skipping
+  it offered corridor cells that C would not count as `rloc_pos_ok`
+  (caller may still goodpos-fallback).
+- **C locus:** `teleport.c` `rloc_pos_ok` (~1620–1626) in the `xx`
+  (on-map) arm, after `goodpos`, before `tele_jump_ok`:
+  `isshk && inhishop` then dest `roomno != (unsigned char)shoproom`;
+  else-if `ispriest && inhistemple` then dest `roomno != shroom`.
+  Callers `rloc` 50× random + candy; `control_mon_tele` via_rloc.
+- **Fix:** dest lock uses `game.level.at(x,y).roomno` vs ESHK/EPRI
+  (`& 0xff`), not `in_rooms`. Existing local `inhishop` /
+  `inhistemple` clones. Did not pull `make_angry_shk` (D-1162) or
+  migrating `mx==0` updest/dndest arms. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_pos_ok`.
+- **Not this iter:** migrating mx==0 restricted arrival; `rloc`
+  steed `tele()`; `mnexto` `control_mon_tele`; vanish-msg.
+- **Verify:** private canary **25**/25 (C/JS order; dest roomno vs
+  shoproom/shroom not in_rooms; unsigned char; mx==0 still deferred;
+  no make_angry_shk/fs/FORCE; resident shk/priest stay in-room;
+  ordinary/`!inhishop`/`!inhistemple`/wrong shoplevel not locked;
+  candy goodpos-fallback; SHARED dest skipped; isshk else-if over
+  ispriest; tele_jump_ok after room lock; goodpos first; thenable);
+  green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+  0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/
+  0367/0373/0002/0700/0015/0116/0106. Path public-unhit on resident
+  shk/priest rloc dest filter.
+- **Files:** `js/teleport.js`.
+
 ## D-1170 — `rloc_to` occupation `dochugw(mtmp, FALSE)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1164; not a

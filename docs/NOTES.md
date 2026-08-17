@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1485** 44/44 @**#1490**. Next: `rloc_pos_ok` isshk/ispriest.
+- **#1488** 44/44 @**#1490**. Next: `rloc` steed `tele()`.
 
 ## Don't re-check (≤15)
 
@@ -83,4 +83,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **D-1170**.
+- **D-1171**.
