@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1139 | fixed | `teleds` swallow `set_ustuck` + `docrt` | map-driven; C `teleport.c:487–504` / `mon.c` `set_ustuck`; snapshot uswallow; always `set_ustuck(Null)` (not `unstuck`); if swallowed Punished force `ball_active`/no-drag + `docrt` at origin; vault_guard / invocation / `notice_mon_*` still named |
 | D-1138 | fixed | minliquid lava on_fire / xkilled / fire_damage_chain | map-driven; C `mon.c:1023–1060` / `trap.c:4550–4572` / `mondata.c:1411–1445` / `allmain.c:210–216`; `mon_moving` → `mondead` else `xkilled(XKILL_NOMSG)`; survivor `fire_damage_chain(minvent,FALSE,FALSE)` then `rloc(RLOC_MSG)`; steed Fly/Lev, overcrowding, engulfing_u still named |
 | D-1137 | fixed | `make_gas_cloud` enveloped pline | map-driven; C `region.c:1197–1203` after `add_region`; `!in_mklev && !inside_cloud && is_hero_inside_gas_cloud` → You noxious/steam + `PLNMSG_ENVELOPED_IN_GAS`; `set_heros_fault` player-made; `create_gas_cloud` async; `m_poisongas_ok` / inside_f damage / fumaroles `clear_heros_fault` still named |
 | D-1136 | fixed | `mongrantswish` `tmp_at` glyph hide | map-driven; C `potion.c:2794–2811` `glyph_at` then `mongone` then `tmp_at(DISP_ALWAYS)`/`tmp_at(mx,my)` around `makewish` + `DISP_END`; JS gbuf `disp_*` copy not `mon_glyph`; full `mongone` / `djinni_from_bottle` still named |

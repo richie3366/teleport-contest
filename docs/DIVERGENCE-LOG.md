@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1139 — teleds swallow set_ustuck + docrt
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` never snapshotted `u.uswallow`, never called
+  `set_ustuck(Null)`, and never `docrt()` on swallow exit. C
+  `teleport.c:487–504` always releases grab/swallow, then if
+  `was_swallowed` forces Punished `ball_active` (ball&chain are
+  off map) and `docrt()` at the origin so the gulp view is
+  replaced by the dungeon map before `drag_ball` / `u_on_newpos`.
+  Calling `unstuck` would be wrong (`u_on_newpos` to the engulfer
+  + early `placebc` + `rnd(2)` `mspec_used`).
+- **C locus:** `teleport.c` `teleds` (~487–504);
+  `mon.c` `set_ustuck` (~3421–3435);
+  `display.c` `docrt` (uswallow already 0 → map, not `swallowed(1)`).
+- **Fix:** after `reset_utrap`, save `was_swallowed`, dynamic-import
+  `set_ustuck(null)`, then hideunder. If swallowed: Punished
+  `ball_active=TRUE` / no-drag; `await docrt()`. Did not pull
+  `unstuck`, vault_guard `uleftvault`, `invocation_message`, or
+  `notice_mon_*`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `teleds`.
+- **Not this iter:** vault_guard `uleftvault`; `invocation_message`;
+  `notice_mon_off`/`notice_mon_on`/`notice_all_mons`; `unstuck`
+  `mspec_used`; `gm.mswallower`.
+- **Verify:** private canary **21**/21 (swallow clears flags +
+  `docrt` at origin; grab no `docrt`; plain skip; Punished
+  `placebc` dest; hideunder after `set_ustuck`; not `unstuck`);
+  green+strict seed8000/0900; cohort **24**/24 including 0012
+  vault + 0004 scroll + 0007 snake + 0009 swim + 0360/0367/0373/
+  4500/2200 + strict 0012/0360/4500/0004/2200/0367/0373/0030/
+  0009/0002. Path public-unhit on swallowed teleds.
+- **Files:** `js/teleport.js`.
+
 ## D-1138 — minliquid lava on_fire / xkilled / fire_damage_chain
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -1179,11 +1179,11 @@ export function teleok(x, y, trapok) {
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
  * Envelope: TT_BURIEDBALL buried_ball_to_punishment before ball_active
  * (D-1132); Punished unplacebc/placebc (or drag_ball when in range);
- * hideunder(&youmonst)+mimic m_ap_type (D-1131); place + fill_pit(ux0,uy0)
- * + update_player_regions (D-1130) + vision; TELEDS_TELEPORT+verbose
- * materialize; dest-typ≠origin → switch_terrain (D-1129);
- * spoteffects(TRUE).
- * Named omissions: swallow docrt, vault_guard uleftvault,
+ * set_ustuck(Null)+swallow docrt (D-1139); hideunder(&youmonst)+mimic
+ * m_ap_type (D-1131); place + fill_pit(ux0,uy0) + update_player_regions
+ * (D-1130) + vision; TELEDS_TELEPORT+verbose materialize;
+ * dest-typ≠origin → switch_terrain (D-1129); spoteffects(TRUE).
+ * Named omissions: vault_guard uleftvault, invocation_message,
  * notice_mon_*; fill_pit still uses thin
  * extract+deltrap+delobj (C flooreffects("settle") named);
  * classify_terrain; shop-enter plines beyond spoteffects subset.
@@ -1227,20 +1227,39 @@ export async function teleds(nux, nuy, teleds_flags) {
         }
     }
 
-    u.ux0 = ox;
-    u.uy0 = oy;
     // u.utrap clear (C reset_utrap(FALSE) — messages deferred)
     u.utrap = 0;
     u.utraptype = 0;
-    /* C: hideunder(&youmonst) after reset_utrap, before drag_ball.
-     * Mimics that fail to hide drop m_ap_type (not seemimic).
-     * set_ustuck / swallow docrt still deferred. */
+    /* C: was_swallowed = u.uswallow; set_ustuck(Null) clears uswallow.
+     * Always release grab/swallow (not unstuck — that would u_on_newpos
+     * to the engulfer and placebc early). Then ux0/uy0, hideunder. */
+    const was_swallowed = !!(u.uswallow | 0);
+    {
+        const { set_ustuck } = await import('./mhitu.js');
+        set_ustuck(null);
+    }
+    u.ux0 = ox;
+    u.uy0 = oy;
+    /* C: hideunder(&youmonst) after reset_utrap/set_ustuck, before
+     * drag_ball. Mimics that fail to hide drop m_ap_type (not seemimic). */
     {
         const { hideunder } = await import('./mon.js');
         const you = game.youmonst;
         if (!hideunder(you) && you?.data?.mlet === 'S_MIMIC') {
             you.m_ap_type = M_AP_NOTHING;
         }
+    }
+
+    if (was_swallowed) {
+        /* C: ball&chain are off map while swallowed — force placebc later,
+         * skip drag. docrt after set_ustuck so uswallow is already 0
+         * (dungeon map, not gulp). */
+        if (u.uball) {
+            ball_active = true;
+            ball_still_in_range = false;
+            allow_drag = false;
+        }
+        await docrt();
     }
 
     if (ball_active && (ball_still_in_range || allow_drag)) {
