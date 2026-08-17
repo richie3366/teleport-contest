@@ -19,7 +19,7 @@ import {
     ESHK, EPRI, EMIN, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     M_AP_NOTHING,
-    UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER,
+    UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER, TT_BURIEDBALL,
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
@@ -1177,13 +1177,14 @@ export function teleok(x, y, trapok) {
 
 /**
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
- * Envelope: Punished unplacebc/placebc (or drag_ball when in range);
+ * Envelope: TT_BURIEDBALL buried_ball_to_punishment before ball_active
+ * (D-1132); Punished unplacebc/placebc (or drag_ball when in range);
  * hideunder(&youmonst)+mimic m_ap_type (D-1131); place + fill_pit(ux0,uy0)
  * + update_player_regions (D-1130) + vision; TELEDS_TELEPORT+verbose
  * materialize; dest-typ≠origin → switch_terrain (D-1129);
  * spoteffects(TRUE).
  * Named omissions: swallow docrt, vault_guard uleftvault,
- * notice_mon_*, buried-ball unearth; fill_pit still uses thin
+ * notice_mon_*; fill_pit still uses thin
  * extract+deltrap+delobj (C flooreffects("settle") named);
  * classify_terrain; shop-enter plines beyond spoteffects subset.
  *
@@ -1198,6 +1199,12 @@ export async function teleds(nux, nuy, teleds_flags) {
     let allow_drag = ((teleds_flags | 0) & TELEDS_ALLOW_DRAG) !== 0;
     const ox = u.ux | 0;
     const oy = u.uy | 0;
+    /* C: if (u.utraptype == TT_BURIEDBALL) buried_ball_to_punishment()
+     * before ball_active — unearth then Punished drag/unplace. */
+    if ((u.utraptype | 0) === TT_BURIEDBALL) {
+        const { buried_ball_to_punishment } = await import('./dig.js');
+        await buried_ball_to_punishment();
+    }
     // C: Punished ≡ (uball != 0); ball_active if ball not OBJ_FREE
     let ball_active = !!(u.uball && (u.uball.where | 0) !== OBJ_FREE);
     let ball_still_in_range = false;

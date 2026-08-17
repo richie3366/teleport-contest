@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1132 — teleds TT_BURIEDBALL buried_ball_to_punishment
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` never unearthed a `TT_BURIEDBALL` chain
+  before computing Punished `ball_active`. C calls
+  `buried_ball_to_punishment()` when `u.utraptype == TT_BURIEDBALL`
+  (no `u.utrap` conjunct) so the buried iron ball becomes `uball`
+  via `punish(ball)` reuse, then drag/unplace/placebc can run.
+- **C locus:** `teleport.c` `teleds` (~456–459);
+  `dig.c` `buried_ball_to_punishment` (~1934–1955) /
+  `buried_ball` (~1903–1931); `read.c` `punish` reuse_ball.
+- **Fix:** port `buried_ball_to_punishment` beside existing
+  `buried_ball_to_freedom`. Extract, `punish(ball)` (skip
+  misbehavior pline; reuse the unearthed ball), `reset_utrap(FALSE)`,
+  `del_engr_at`/`newsym` at possibly-mutated `cc`. `teleds` awaits
+  it before `ball_active`. Did not wire trapmove wriggle,
+  `unearth_objs`, `digactualhole`, `level_tele`, or `domagicportal`.
+  RUST_METAL timer is C `#if 0`. Rule #2: no fs.
+- **JS:** `js/dig.js` `buried_ball_to_punishment`; `js/teleport.js`
+  `teleds`.
+- **Not this iter:** Punished `unplacebc`/`placebc`/`drag_ball`
+  (already #1151); trapmove; `unearth_objs`; `digactualhole`;
+  `level_tele`; `domagicportal`; swallow `docrt`; vault_guard.
+- **Verify:** private canary **49**/49 (C/JS source order; type-only
+  gate; no-ball; feet reuse+chain; TT_PIT skip; dist2≤8 vs 9;
+  engr at ball coords; freedom still `place_object`; teleds far
+  dest Punished; TT_WEB skip; leftover type; already-Punished
+  heavier); green+strict seed8000/0900; cohort **22**/22 including
+  0012 vault + 0004 + 0007 snake + 0009 swim + 0360/0367/0373/
+  4500/2200 + strict 0012/0360/4500/0004/2200/0367/0373/0030/
+  0009/0002. Path public-unhit on buried-ball teleds.
+- **Files:** `js/teleport.js`, `js/dig.js`.
+
 ## D-1131 — teleds hideunder / mimic m_ap_type
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

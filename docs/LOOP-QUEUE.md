@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball.
 - [ ] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching.
 - [ ] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift.
 - [ ] `do_name.c` `hcolor` Hallucination drinksink synonyms (named). Not hliquid.
