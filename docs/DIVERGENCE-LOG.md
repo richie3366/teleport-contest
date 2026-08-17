@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1138 — minliquid lava on_fire / xkilled / fire_damage_chain
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `minliquid_core` lava used `mondead_liquid` (no
+  corpse, no invent drop) and skipped `fire_damage_chain`. C
+  `mon.c:1023–1060` prints `on_fire` fate (boils/melts/crisp),
+  then `mon_moving` → `mondead` else `xkilled(XKILL_NOMSG)`;
+  fire-resist −1 hp + surrenders/burns-slightly; survivors
+  `fire_damage_chain(minvent, FALSE, FALSE)` then `rloc(RLOC_MSG)`.
+  JS `allmain` also omitted C `allmain.c:210–216` `mon_moving`
+  around `movemon`, so a Gehennom mumak took the hero `xkilled`
+  arm (seed0360).
+- **C locus:** `mon.c` `minliquid_core` (~1010–1067);
+  `trap.c` `fire_damage_chain` (~4550–4572);
+  `mondata.c` `on_fire` (~1411–1445);
+  `allmain.c` moveloop (~210–216).
+- **Fix:** port `on_fire` + lava death/survive envelope; export
+  `fire_damage_chain` (nobj/nexthere snapshot, Blind smoke);
+  wrap `movemon` with `context.mon_moving`. Did not pull
+  `deal_with_overcrowding`, steed Flying/Levitation, or
+  `engulfing_u` drown flush. Rule #2: no fs.
+- **JS:** `js/mon.js` `minliquid_core`; `js/trap.js`
+  `fire_damage_chain`; `js/mondata.js` `on_fire`; `js/allmain.js`
+  `moveloop_core`.
+- **Not this iter:** `set_levltyp` side effects; steed air gate;
+  `deal_with_overcrowding`; `engulfing_u`; gush still pool-only.
+- **Verify:** private canary **42**/42 (`on_fire` phrases; goblin
+  crisp `mondead` vs `xkilled`; water boils / glass melts;
+  !cansee silent; fire-resist slightly/surrender; salamander
+  skip; bat flyer skip; pool drown D-1117; chain nobj walk;
+  Blind smoke; survivor luck `rn2(20)`); green+strict
+  seed8000/0900; cohort **24**/24 including 0360/0014/4500/2200/
+  0030/0004/0009/0367/0116/0373/0060/0383/1500/1800/0102/0700/
+  0017/0007/0361/0002/0006/0108 + strict 8000/0900/0014/0360/
+  4500/2200/0004/0030. Path public-unhit on gush (pool); lava
+  hit seed0360 mumak via `movemon`.
+- **Files:** `js/mon.js`, `js/trap.js`, `js/mondata.js`,
+  `js/allmain.js`.
+
 ## D-1137 — make_gas_cloud enveloped pline
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

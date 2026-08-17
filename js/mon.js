@@ -17,7 +17,7 @@ import {
     ismnum, M_POISONGAS_OK, u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_MIGRATING, MON_DETACH,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
 } from './const.js';
-import { t_at, m_harmless_trap, water_damage_chain } from './trap.js';
+import { t_at, m_harmless_trap, water_damage_chain, fire_damage_chain } from './trap.js';
 import {
     nohands, verysmall, throws_rocks, passes_walls, lays_eggs, mons,
     monsterNames, NON_PM, LOW_PM, mon_knows_traps, tunnels, needspick,
@@ -31,7 +31,7 @@ import {
 } from './monsters.js';
 import {
     little_to_big, big_to_little, hero_conflict, resist_conflict,
-    m_canseeu,
+    m_canseeu, on_fire,
 } from './mondata.js';
 import { objects_at, kill_egg } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
@@ -1079,21 +1079,6 @@ function resists_fire(mtmp) {
 }
 
 /**
- * C ref: mon.c mondead (lava/pool death subset) — no corpse; drop invent deferred.
- * Named omissions: lifesave, sad_feeling, unmap_object glyph_is_invisible,
- * full relobj_on_death chain.
- */
-function mondead_liquid(mtmp) {
-    mtmp.mhp = 0;
-    const mx = mtmp.mx | 0;
-    const my = mtmp.my | 0;
-    record_mvitals_died(mtmp.mnum ?? mtmp.data?.mndx);
-    // C: m_detach — stay on fmon until dmonsfree
-    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
-    if (mx > 0) newsym(mx, my);
-}
-
-/**
  * C ref: mon.c healmon. Monster HP bump + optional max overheal.
  * youmonst healup arm named (potion.js cycle via eat/sit).
  */
@@ -1115,9 +1100,9 @@ export function healmon(mtmp, amt, overheal) {
 /**
  * C ref: mon.c minliquid / minliquid_core — liquid compatibility; 1=died.
  * Envelope: gremlin pool/fountain rn2(3)→split_mon + dryup (D-1095);
- * iron-golem inpool rust (D-1117); pool drown mondied vs xkilled (D-1117).
- * Named omissions: steed Flying/Levitation gate; lava fire_damage_chain /
- * on_fire plines / xkilled(!mon_moving); deal_with_overcrowding;
+ * iron-golem inpool rust (D-1117); pool drown mondied vs xkilled (D-1117);
+ * lava on_fire / mondead vs xkilled / fire_damage_chain (D-1138).
+ * Named omissions: steed Flying/Levitation gate; deal_with_overcrowding;
  * engulfing_u drown flush.
  */
 export async function minliquid(mtmp) {
@@ -1176,28 +1161,53 @@ async function minliquid_core(mtmp) {
     }
 
     if (inlava) {
+        // C minliquid_core:1010–1067 — lava unlike pool: on_fire death
+        // pline; mon_moving → mondead (no corpse) else xkilled(XKILL_NOMSG);
+        // fire-resist −1 hp; survivor fire_damage_chain then rloc (D-1138).
         if (!is_clinger(ptr) && !likes_lava(ptr)) {
             if (can_teleport(ptr) && !(await tele_restrict(mtmp))) {
                 if (await rloc(mtmp, RLOC_MSG)) return 0;
             }
             if (!resists_fire(mtmp)) {
-                // C: mon_moving → mondead (no corpse); else xkilled — lava
-                // xkilled / on_fire plines still named (gush is pool-only).
-                mondead_liquid(mtmp);
-                return 1;
-            }
-            mtmp.mhp = (mtmp.mhp | 0) - 1;
-            if ((mtmp.mhp | 0) <= 0) {
-                mondead_liquid(mtmp);
-                return 1;
-            }
-            // fire_damage_chain deferred; try escape teleport
-            if (!m_in_air(mtmp) && !likes_lava(ptr)) {
-                if (!(await rloc(mtmp, RLOC_MSG))) {
-                    // deal_with_overcrowding deferred
+                if (cansee(mx, my)) {
+                    const dummy = ptr?.mattk?.[0];
+                    const how = on_fire(ptr, dummy);
+                    const fate = how === 'boiling' ? 'boils away'
+                        : how === 'melting' ? 'melts away'
+                        : 'burns to a crisp';
+                    await pline(`${Monnam(mtmp)} ${fate}.`);
+                }
+                if (game.context?.mon_moving) {
+                    mondead(mtmp);
+                } else {
+                    const { xkilled } = await import('./uhitm.js');
+                    await xkilled(mtmp, XKILL_NOMSG);
+                }
+            } else {
+                mtmp.mhp = (mtmp.mhp | 0) - 1;
+                if ((mtmp.mhp | 0) <= 0) {
+                    if (cansee(mx, my)) {
+                        await pline(`${Monnam(mtmp)} surrenders to the fire.`);
+                    }
+                    mondead(mtmp);
+                } else if (cansee(mx, my)) {
+                    await pline(`${Monnam(mtmp)} burns slightly.`);
                 }
             }
-            return 0;
+            if ((mtmp.mhp | 0) > 0) {
+                if (m_in_air(mtmp)) {
+                    /* vampshifter wolf → flyer: skip teleport */
+                } else if (likes_lava(ptr)) {
+                    /* hypothetical — outer gate already skipped likers */
+                } else {
+                    await fire_damage_chain(mtmp.minvent, false, false, mx, my);
+                    if (!(await rloc(mtmp, RLOC_MSG))) {
+                        // deal_with_overcrowding deferred
+                    }
+                }
+                return 0;
+            }
+            return 1;
         }
     } else if (inpool || waterwall) {
         if ((waterwall || !is_clinger(ptr)) && !cant_drown(ptr)) {

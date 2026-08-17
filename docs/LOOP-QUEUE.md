@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `gush` lava `fire_damage_chain` / `xkilled` (named). Not minliquid.
 - [ ] `teleport.c` `teleds` swallow `docrt` (named). Not hideunder.
 - [ ] `teleport.c` `teleds` `vault_guard` `uleftvault` (named). Not swallow docrt.
 - [ ] `teleport.c` `teleds` `invocation_message` (named). Not vault_guard.

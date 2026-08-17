@@ -4207,6 +4207,31 @@ export async function water_damage(obj, _ostr, force) {
 }
 
 /**
+ * C ref: trap.c fire_damage_chain — walk invent (nobj) or floor (nexthere).
+ * Snapshot next before fire_damage may delobj. Sets bhitpos for erode_obj.
+ * Blind && !couldsee → "You smell smoke." when any object burned (D-1138).
+ * @returns {Promise<number>} destroyed count
+ */
+export async function fire_damage_chain(chain, force, here, x, y) {
+    if (!chain) return 0;
+    const { fire_damage } = await import('./do.js');
+    if (!game.bhitpos) game.bhitpos = {};
+    game.bhitpos.x = x | 0;
+    game.bhitpos.y = y | 0;
+
+    let num = 0;
+    for (let obj = chain; obj; ) {
+        const nobj = here ? obj.nexthere : obj.nobj;
+        if (await fire_damage(obj, force, x, y)) num++;
+        obj = nobj;
+    }
+    if (num && Blind() && !couldsee(x, y)) {
+        await pline('You smell smoke.');
+    }
+    return num;
+}
+
+/**
  * C ref: trap.c water_damage_chain — walk invent / floor chain.
  * acid_ctx / bhitpos save deferred.
  */
