@@ -7,8 +7,8 @@
 // numeric cmap glyph ints (JS tags 'S_poisoncloud'/'S_cloud');
 // create_gas_cloud_selection; binary save_regions format; force
 // fields; incremental fill_point (JS uses vision_reset);
-// enter_msg/leave_msg pline (async; gas has none; create_msg_region
-// #if 0); can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
+// create_msg_region (#if 0; never sets enter/leave_msg in live C);
+// can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
 // attach_2_m; is_hero_inside_gas_cloud still geometric not the bit
 // (walk `in_out_region` still named — do not flip until that bit is
 // live on steps); m_poisongas_ok size-1 inside_cloud gate;
@@ -258,10 +258,13 @@ export function clear_regions() {
 /**
  * C ref: region.c in_out_region — can_enter/leave then membership.
  * Gas has NO_CALLBACK enter/leave so this never rejects; it still
- * updates REG_HERO_INSIDE. enter_msg/leave_msg pline deferred
- * (async; create_msg_region #if 0).
+ * updates REG_HERO_INSIDE. pline1(leave_msg) after clear, then
+ * pline1(enter_msg) after set, when the pointer is non-NULL (D-1143).
+ * create_msg_region is #if 0 so live gas never sets those strings;
+ * save/rest can still restore them. hack.c / dothrow.c / do.c
+ * callers still named.
  */
-export function in_out_region(x, y) {
+export async function in_out_region(x, y) {
     const regs = game.regions || [];
 
     /* First check if hero can do the move */
@@ -282,6 +285,8 @@ export function in_out_region(x, y) {
         if (reg.attach_2_u) continue;
         if (hero_inside(reg) && !inside_region(reg, x, y)) {
             clear_hero_inside(reg);
+            /* C: if (leave_msg != 0) pline1(leave_msg); */
+            if (reg.leave_msg != null) await pline(reg.leave_msg);
             const f_indx = reg.leave_f ?? NO_CALLBACK;
             if (callback_set(f_indx)) invoke_region_cb(f_indx, reg, null);
         }
@@ -292,6 +297,8 @@ export function in_out_region(x, y) {
         if (reg.attach_2_u) continue;
         if (!hero_inside(reg) && inside_region(reg, x, y)) {
             set_hero_inside(reg);
+            /* C: if (enter_msg != 0) pline1(enter_msg); */
+            if (reg.enter_msg != null) await pline(reg.enter_msg);
             const f_indx = reg.enter_f ?? NO_CALLBACK;
             if (callback_set(f_indx)) invoke_region_cb(f_indx, reg, null);
         }

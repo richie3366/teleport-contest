@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation. **Addressed:** D-1142
+- [x] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions. **Addressed:** D-1143
+
+
+- [x] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation. **Addressed:** D-1142 `52194cc9`
 
 
 - [x] `teleport.c` `teleds` `invocation_message` (named). Not vault_guard. **Addressed:** D-1141 `4d71520e`

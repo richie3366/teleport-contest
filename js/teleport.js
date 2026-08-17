@@ -1151,11 +1151,12 @@ export async function mtele_trap(mtmp, trap) {
 /**
  * C ref: teleport.c teleok — trapok; VIBRATING_SQUARE always ok;
  * pit/hole ok iff Levitation||Flying (D-1111); then goodpos,
- * tele_jump_ok, in_out_region (D-1119).
- * Named omit: enter_msg/leave_msg pline in in_out_region;
- * hack.c / dothrow.c in_out_region callers.
+ * tele_jump_ok, in_out_region (D-1119). in_out_region awaits
+ * pline1(enter_msg/leave_msg) when set (D-1143).
+ * Named omit: hack.c / dothrow.c / do.c in_out_region callers;
+ * force-field enter/leave callbacks.
  */
-export function teleok(x, y, trapok) {
+export async function teleok(x, y, trapok) {
     if (!trapok) {
         /* C: allow vibrating square (not a real trap); pits and holes
          * if levitating or flying. Local trapok is by-value. */
@@ -1174,7 +1175,7 @@ export function teleok(x, y, trapok) {
     if (!goodpos(x, y, you, 0)) return false;
     const u = game.u || {};
     if (!tele_jump_ok(u.ux, u.uy, x, y)) return false;
-    if (!in_out_region(x, y)) return false;
+    if (!(await in_out_region(x, y))) return false;
     return true;
 }
 
@@ -1387,7 +1388,7 @@ export async function tele_to_rnd_pet() {
     if (dx * dx + dy * dy <= 2) return; // m_next2u
     const tx = (pet.mx | 0) + rn2(3) - 1;
     const ty = (pet.my | 0) + rn2(3) - 1;
-    if (isok(tx, ty) && teleok(tx, ty, false)) {
+    if (isok(tx, ty) && await teleok(tx, ty, false)) {
         await teleds(tx, ty, TELEDS_TELEPORT);
     }
 }
@@ -1416,7 +1417,7 @@ export async function safe_teleds(teleds_flags) {
     for (let tcnt = 0; tcnt < 40; ++tcnt) {
         nux = rnd(COLNO - 1);
         nuy = rn2(ROWNO);
-        if (teleok(nux, nuy, false)) {
+        if (await teleok(nux, nuy, false)) {
             await teleds(nux, nuy, teleds_flags);
             return true;
         }
@@ -1434,11 +1435,11 @@ export async function safe_teleds(teleds_flags) {
     for (let tcnt = 0; tcnt < candycount; ++tcnt) {
         nux = candy[tcnt].x;
         nuy = candy[tcnt].y;
-        if (teleok(nux, nuy, false)) {
+        if (await teleok(nux, nuy, false)) {
             await teleds(nux, nuy, teleds_flags);
             return true;
         }
-        if (!backupspot.x && trap_at(nux, nuy) && teleok(nux, nuy, true)) {
+        if (!backupspot.x && trap_at(nux, nuy) && await teleok(nux, nuy, true)) {
             backupspot.x = nux;
             backupspot.y = nuy;
         }
@@ -1490,7 +1491,7 @@ export async function scrolltele(scroll) {
         }
         const { getpos } = await import('./getpos.js');
         if ((await getpos(cc, true, 'the desired position')) < 0) return;
-        if (teleok(cc.x, cc.y, false)) {
+        if (await teleok(cc.x, cc.y, false)) {
             await teleds(cc.x, cc.y, TELEDS_TELEPORT);
             // C: if (u_at(travelcc)) clear travelcc
             const tcc = game.iflags?.travelcc;
@@ -1912,7 +1913,7 @@ export async function level_tele() {
 export async function vault_tele() {
     const croom = search_special(VAULT);
     const c = { x: 0, y: 0 };
-    if (croom && somexyspace(croom, c) && teleok(c.x, c.y, false)) {
+    if (croom && somexyspace(croom, c) && await teleok(c.x, c.y, false)) {
         await teleds(c.x, c.y, TELEDS_TELEPORT);
         return true;
     }

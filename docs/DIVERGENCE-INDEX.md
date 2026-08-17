@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1143 | fixed | `in_out_region` enter_msg / leave_msg | map-driven; C `region.c:505–506,519–520` `pline1` after clear/set; JS `await pline`; `teleok` async; `create_msg_region` #if 0 so live gas never sets msgs; force-field callbacks / hack.c/dothrow/`do.c` callers / geometric gas still named |
 | D-1142 | fixed | `teleds` `notice_mon_off` / `notice_all_mons` | map-driven; C `teleport.c:540,570–571` / `flag.h` `notice_mon_off`/`on` / `hack.c` `notice_mon`/`notice_all_mons`; off before `vision_recalc`, on+`notice_all_mons(TRUE)` after invocation; distu sort You see/notice; default `spot_monsters` Off; vision_recalc / goto_level / newgame / seffect_magic_mapping / wizcmds / save / postmov / option wiring still named |
 | D-1141 | fixed | `teleds` `invocation_message` | map-driven; C `teleport.c:569` / `hack.c` `invocation_message`/`invocation_pos`; after `spoteffects`; Invocation_lev && (x,y)==inv_pos && !On_stairs; nomul; You_feel vibration; `uvibrated`; candelabrum spe==7&&lamplit throb/glow; walk caller / `mkmaze.c` `inv_pos` still named |
 | D-1140 | fixed | `teleds` vault_guard `uleftvault` | map-driven; C `teleport.c:454,553–566` / `vault.c` `uleftvault`; origin `vault_occupied`?`findgd`; dest `in_rooms(VAULT)` fake then restore before `spoteffects` (keep D-0639); gold+`um_dist` irate/`mpeaceful=0`; `!in_fcorridor` `gd_move`; hostile `gd_move` rloc/`gd_letknow`/`wallify` still named |

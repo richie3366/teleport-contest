@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1143 — in_out_region enter_msg / leave_msg
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `in_out_region` updated `REG_HERO_INSIDE` and
+  ran can_enter/leave then enter/leave callbacks, but skipped
+  C `pline1(leave_msg)` after `clear_hero_inside` and
+  `pline1(enter_msg)` after `set_hero_inside` when those
+  pointers are non-NULL. A restored (or future) named-message
+  region therefore stayed silent on teleok probes.
+- **C locus:** `region.c` `in_out_region` (~505–506, 519–520);
+  `hack.h` `pline1(cstr)` → `pline("%s", cstr)`;
+  `create_msg_region` (~954–973, `#if 0`).
+- **Fix:** await `pline(leave_msg)` then leave_f after clear;
+  await `pline(enter_msg)` then enter_f after set; NULL skip.
+  `in_out_region` / `teleok` are async so `--More--` can nest
+  like C. Live gas still has NULL msgs (`create_msg_region`
+  compiled out). Did not pull force-field `#if 0` callbacks,
+  `hack.c:2867` / `dothrow.c` / `do.c` callers, or flip
+  geometric `is_hero_inside_gas_cloud`. `teleds` still uses
+  `update_player_regions` (D-1130), not this callee. Rule #2:
+  no fs.
+- **JS:** `js/region.js` `in_out_region`; `js/teleport.js`
+  `teleok` + await at `safe_teleds` / `scrolltele` /
+  `tele_to_rnd_pet` / `vault_tele`.
+- **Not this iter:** `create_msg_region` (`#if 0`); force-field
+  enter/leave callbacks; walk `hack.c:2867`; `hurtle_step`
+  `dothrow.c:787`; `goto_level` `do.c:1981`; geometric gas bit.
+- **Verify:** private canary **40**/40 (empty; leave/enter
+  pline+bit; stay in/out silent; NULL no pline; attach_2_u
+  skip; can_enter reject before msg; leave_f/enter_f after
+  pline; leave-then-enter concat; already-in no enter;
+  thenable); green+strict seed8000/0900; cohort **24**/24
+  including 0012 vault + 0367 Pri ^T + 0004 scroll + 0009 swim
+  + 0360/0373/4500/2200 + strict 0012/0367/0004/0360/4500/
+  2200/0030/0009/0002. Path public-unhit (`create_msg_region`
+  `#if 0`).
+- **Files:** `js/region.js`, `js/teleport.js`.
+
 ## D-1142 — teleds notice_mon_off / notice_all_mons
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
