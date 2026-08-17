@@ -13,8 +13,9 @@
 // geometry for inside_f (do.c goto_level in_out_region still named);
 // mfndpos m_poisongas_ok D-1159 (mon.js; this file keeps a local clone
 // — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
-// in_out_region D-1157. Selection create D-1158.
-// rloc_to update_monster_region D-1161 (mhitm displace / dbridge named).
+// in_out_region D-1157. hurtle_step in_out_region D-1165. Selection
+// create D-1158. rloc_to update_monster_region D-1161 (mhitm displace /
+// dbridge named).
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -220,8 +221,9 @@ function invoke_region_cb(f_indx, reg, arg) {
 
 function is_hero_inside_gas_cloud() {
     /* C region.c:1168–1176 — REG_HERO_INSIDE bit, not geometry.
-     * Walk in_out_region (D-1157) and teleds update_player_regions
-     * keep the bit live; add_region still sets it from dest. */
+     * Walk in_out_region (D-1157), hurtle_step (D-1165), and teleds
+     * update_player_regions keep the bit live; add_region still sets
+     * it from dest. goto_level caller still named. */
     for (const reg of game.regions || []) {
         if (hero_inside(reg) && reg.inside_f === INSIDE_GAS_CLOUD) {
             return true;
@@ -450,7 +452,7 @@ export function clear_regions() {
  * pline1(enter_msg) after set, when the pointer is non-NULL (D-1143).
  * create_msg_region is #if 0 so live gas never sets those strings;
  * save/rest can still restore them. hack.c walk caller D-1157;
- * dothrow.c hurtle_step / do.c goto_level still named.
+ * dothrow.c hurtle_step D-1165; do.c goto_level still named.
  */
 export async function in_out_region(x, y) {
     const regs = game.regions || [];
@@ -499,7 +501,8 @@ export async function in_out_region(x, y) {
  * / fill_pit / placebc. Absolute REG_HERO_INSIDE from (u.ux,u.uy).
  * attach_2_u always clear_hero_inside (C dangling else of
  * !attach_2_u && inside). No enter/leave callbacks or msgs —
- * those are in_out_region (teleok probes; hack.c walk D-1157).
+ * those are in_out_region (teleok probes; hack.c walk D-1157;
+ * dothrow.c hurtle_step D-1165).
  */
 export function update_player_regions() {
     const u = game.u || {};
@@ -637,7 +640,8 @@ function expire_gas_cloud(reg) {
  * inside_f dam>0 hero/mon HP (D-1146); expire_gas_cloud thick
  * halve + thin diss_within / diss_seen plines.
  * Hero inside_f still uses geometry (not the bit) until do.c
- * goto_level in_out_region; walk steps now set the bit (D-1157).
+ * goto_level in_out_region; walk / hurtle_step set the bit
+ * (D-1157 / D-1165).
  */
 export async function run_regions() {
     const gg = game.gg || (game.gg = {});

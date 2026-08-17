@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 16:15 — #1481 D-1165 hurtle_step in_out_region
+
+**Objective:** Open — `dothrow.c` `hurtle_step` `in_out_region`
+(named). Not walk.
+**C locus:** `dothrow.c` `hurtle_step` 787–790 after `isok` before
+`*range==0`; callee `region.c` `in_out_region` 480–527.
+**Change:** await `in_out_region(x,y)` at that site, C `else if`
+order so range==0 still updates `REG_HERO_INSIDE` then returns
+false without occupying. Gas `NO_CALLBACK` never rejects. Did not
+pull do.c `goto_level` or `mhurtle_step` `m_in_out_region`.
+Rotated #1466. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1480** **44**/44; next
+@**#1485**).
+**Verified:** private canary **41**/41 (empty; enter/leave/stay-in/
+stay-out; can_enter/leave reject vs allow; gas NO_CALLBACK;
+`attach_2_u`; A→B; overlap; range==0 bit; isok skip; m_at bump
+bit; no-dir/ustuck/utrap); green+strict seed8000/0900; cohort
+**41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
+0101/0012/0360/4500/2200/0014/0004/0367/0373/0002. Path
+public-unhit on hurtle through a live region.
+**Next:** Open `do.c` `goto_level` `in_out_region` (named). Not
+walk.
+**Blocked:** none.
+
 ## 2026-08-17 15:55 — #1480 review D-1161–D-1164 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -379,31 +403,4 @@ cohort **24**/24 (0360/4500 hellfill + 0012 vault + 0004 pony +
 Invocation_lev.
 **Next:** Open `region.c` `expire_gas_cloud` dissipation plines
 (named). Not inside_gas HP.
-**Blocked:** none.
-
-## 2026-08-17 12:20 — #1466 D-1153 vault_tele tele() fallback
-
-**Objective:** Open — `teleport.c` `vault_tele` `tele()` fallback
-(named). Not teleds.
-**C locus:** `teleport.c` `vault_tele` 772–783; callee `tele` /
-`scrolltele` 840–912.
-**Change:** no vault / `somexyspace` fail / `teleok` fail →
-`await tele()` (`scrolltele(NULL)` → `safe_teleds`). Success still
-`teleds(TELEDS_TELEPORT)` then return. Drop invented boolean.
-Did not pull `dotele` trap-at-feet teledest. Filled no prior hash
-gap. Rotated #1451. Open 11 after archive (no refill). Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1465** **44**/44; next
-@**#1470**).
-**Verified:** private canary **33**/33 (src order; no-vault
-`safe_teleds` RNG; empty/OROOM skip; vault-with-space `teleds` no
-`rnd`; stone/trap/monster fallback; `hx<0` terminator; subroom
-VAULT; `tele_trap` once ± vault; noteleport stay); green+strict
-seed8000/0900; cohort **25**/25 (0012 vault + 0004 pony + 0367
-Pri ^T + 0360/4500/0373/2200/0014/0009/1500/1800/0060/0102/0700/
-0017/0030/0116/0383/0007/0361/0108/0002/5002/2600/0006) + strict
-0012/0004/0367/0360/4500/2200/0002/0009/0030/0014. Path
-public-unhit on no-vault once-TELEP.
-**Next:** Open `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from
-invocation_pos). Not teleds.
 **Blocked:** none.

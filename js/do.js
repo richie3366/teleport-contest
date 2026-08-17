@@ -1275,6 +1275,7 @@ function getlev_catchup_monsters(elapsed) {
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * trap-door fall damage (`do_fall_dmg`), Lua NHCB_LVL_LEAVE,
+ * in_out_region after obj_delivery (still named; walk D-1157 / hurtle D-1165),
  * MICRO display_nhwindow after Valley odor; ACH_ENDG/ASTR/BGRM;
  * poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb

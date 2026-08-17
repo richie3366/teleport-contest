@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1165 — dothrow.c hurtle_step `in_out_region`
+
+- **Status:** fixed (map-driven Open; named omit from D-1157/D-1119/D-1143;
+  not a public FAIL)
+- **Symptom:** JS `hurtle_step` occupied the dest after `isok` without
+  C `in_out_region(x,y)`, so `REG_HERO_INSIDE` stayed stale when the
+  hero was knocked through a region. Walk already called the helper
+  (D-1157); teleok probes (D-1119); teleds uses absolute
+  `update_player_regions` (D-1130), not this enter/leave path.
+- **C locus:** `dothrow.c` `hurtle_step` (~787–790) after `isok`,
+  before `*range==0`. Callee `region.c` `in_out_region` (~480–527)
+  already ported.
+- **Fix:** await `in_out_region(x, y)` at that site, matching C
+  `else if` order so a zero-range follow-up still updates membership
+  then returns false without occupying. Gas `NO_CALLBACK` never
+  rejects; still sets/clears the bit. False return matches C (no
+  occupy). Did not pull do.c `goto_level`, `mhurtle_step`
+  `m_in_out_region`, or `run_regions` inside_f off geometry. Rule #2:
+  no fs.
+- **JS:** `js/dothrow.js` `hurtle_step`; comments in `region.js` /
+  `teleport.js` / `cmd.js` / `do.js`.
+- **Not this iter:** do.c `goto_level` caller; `run_regions` /
+  `region_danger` still geometric; force-field callbacks;
+  `mhurtle_step` `m_in_out_region`; Passes_walls / drag_ball / drown.
+- **Verify:** private canary **41**/41 (empty occupy; enter/leave/
+  stay-in/stay-out bits; can_enter/leave reject vs allow; gas
+  NO_CALLBACK; `attach_2_u` skip; A→B; overlap; range==0 still sets
+  bit; isok fail skips callback; m_at bump still sets bit; no-dir /
+  ustuck / utrap stay); green+strict seed8000/0900; cohort **41**/41
+  (CURRENT shared + 0014/0383/4500/2600) + strict 0101/0012/0360/
+  4500/2200/0014/0004/0367/0373/0002. Path public-unhit on hurtle
+  through a live region (gas never rejects).
+- **Files:** `js/dothrow.js`; comments `js/region.js` `js/teleport.js`
+  `js/cmd.js` `js/do.js`.
+
 ## D-1164 — rloc_to trapped mintrap after dest
 
 - **Status:** fixed (map-driven Open; named omit from D-1163; not a

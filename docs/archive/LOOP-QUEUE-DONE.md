@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `dothrow.c` `hurtle_step` `in_out_region` (named). Not walk. **Addressed:** D-1165
+
+
 - [x] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation. **Addressed:** D-1164 `6f7e188b`
 
 

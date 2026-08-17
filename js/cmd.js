@@ -1822,8 +1822,8 @@ async function domove(dx, dy) {
     /* C hack.c:2866–2868 — Check regions entering/leaving after
      * drag_ball, before m_at / occupy. Gas NO_CALLBACK never
      * rejects; still updates REG_HERO_INSIDE (D-1157). C returns
-     * without move_bc put-down. dothrow hurtle_step / do.c
-     * goto_level callers still named. */
+     * without move_bc put-down. dothrow hurtle_step is D-1165;
+     * do.c goto_level caller still named. */
     if (!(await in_out_region(newx, newy))) {
         return;
     }
