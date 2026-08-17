@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1164 — rloc_to trapped mintrap after dest
+
+- **Status:** fixed (map-driven Open; named omit from D-1163; not a
+  public FAIL)
+- **Symptom:** JS `rloc_to` placed then angry/bill with no
+  `mintrap`. C `rloc_to_core` after dest (after vanish/appear when
+  flagged), when `mtrapped && !wormno`, calls
+  `mintrap(mtmp, NO_TRAP_FLAGS)`. No trap at dest clears
+  `mtrapped` ("perhaps teleported?"). A trap at dest takes the
+  already-trapped arm (`rn2(40)` escape), not a fresh step-on.
+  Worms skip. Untrapped monsters relocating onto a trap do not
+  fire `mintrap` here (`postmov` does that).
+- **C locus:** `teleport.c` `rloc_to_core` (~1765–1767); callee
+  `trap.c` `mintrap` (~3733–3789 no-trap / already-trapped).
+- **Fix:** after angry+bill (silent `rloc_to`; after appear in
+  `rloc_to_flag`), call `mintrap` when `mtrapped && !wormno`.
+  Dynamic import (trap.js already imports teleport.js). Did not
+  pull occupation `dochugw`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_to` / `rloc_to_flag` /
+  `rloc_maybe_mintrap`.
+- **Not this iter:** vanish-msg; occupation `dochugw`;
+  `m_easy_escape_pit` / boulder-fill / metallivorous already-trapped
+  arms inside `mintrap`; `rloc_pos_ok` shk/priest room lock.
+- **Verify:** private canary **35**/35 (dest-bare clear; free dest
+  pit/dart no step-on; worm skip ± dest trap; same-cell; null;
+  migrating mx=0; rloc_to_flag NOMSG/MSG; dest-dart/pit already-
+  trapped `rn2(40)` not `rn2(4)`; leave-origin-pit; undef;
+  second rloc); green+strict seed8000/0900; cohort **41**/41
+  (CURRENT shared + 0014/0383/4500/2600) + strict 0101/0012/
+  0360/4500/2200/0014/0004/0367/0373/0002. Path public-unhit on
+  a trapped monster rloc off a pit.
+- **Files:** `js/teleport.js`.
+
 ## D-1163 — rloc_to minvent shop bill stolen_value after angry
 
 - **Status:** fixed (map-driven Open; named omit from D-1162; not a

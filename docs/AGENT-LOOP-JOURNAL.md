@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 15:48 — #1479 D-1164 rloc_to trapped mintrap
+
+**Objective:** Open — `teleport.c` `rloc_to` trapped `mintrap`
+(named). Not occupation.
+**C locus:** `teleport.c` `rloc_to_core` 1765–1767; `trap.c`
+`mintrap` 3733–3789 (no-trap / already-trapped).
+**Change:** after angry+bill (silent `rloc_to`; after appear in
+`rloc_to_flag`), `mtrapped && !wormno` → `mintrap(NO_TRAP_FLAGS)`.
+Dest no trap clears mtrapped; dest trap is already-trapped
+`rn2(40)`, not a fresh step-on. Dynamic import trap.js. Did
+not pull occupation `dochugw`. Filled D-1163 archive hash
+`d24ff150`. Rotated #1464. Open 10 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1475** **44**/44; next
+@**#1480**).
+**Verified:** private canary **35**/35 (dest-bare clear; free dest
+pit/dart no step-on; worm skip ± dest trap; same-cell; null;
+migrating; flag NOMSG/MSG; dest-dart/pit `rn2(40)` not `rn2(4)`;
+leave-origin-pit; undef; second rloc); green+strict
+seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002. Path public-unhit on trapped rloc off a pit.
+**Next:** Open `dothrow.c` `hurtle_step` `in_out_region` (named).
+Not walk. Audit @**#1480**.
+**Blocked:** none.
+
 ## 2026-08-17 15:34 — #1478 D-1163 rloc_to minvent shop bill
 
 **Objective:** Open — `teleport.c` `rloc_to` minvent shop bill
@@ -380,31 +406,4 @@ Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `teleport.c` `vault_tele` `tele()` fallback
 (named). Not teleds.
-**Blocked:** none.
-
-## 2026-08-17 10:18 — #1464 D-1152 rloc_to maybe_unhide_at dest
-
-**Objective:** Open — `teleport.c` `rloc_to` `maybe_unhide_at`
-(named). Not vanish-msg.
-**C locus:** `teleport.c` `rloc_to_core` 1700–1701; `mon.c`
-`maybe_unhide_at` 4698–4719.
-**Change:** export `maybe_unhide_at`; `rloc_to` calls it at dest
-after ustuck, before `newsym` (dynamic import; monmove↔teleport
-cycle). Did not pull vanish-msg / `set_apparxy` /
-`update_monster_region` / shk-home / shop bill / trapped
-`mintrap` / youmonst arm. Filled D-1151 archive hash
-`6bdf4d49`. Rotated #1448–#1449. Open 7 after archive → refill
-to 12. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1460** **44**/44; next
-@**#1465**).
-**Verified:** private canary **22**/22 (bare dest unhide; cover
-stays; visible; non-hider; same-cell; trapped; coins; eel
-dry/pool; empty; null; track); green+strict seed8000/0900;
-cohort **25**/25 (0012 vault + 0360/4500/0373/0367 +
-2200/0014/0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/
-0383/0007/0361/0108/0002/5002/2600/0006) + strict
-0012/0360/4500/0014/2200/0004/0002/0009/0367/0373/0030. Path
-public-unhit on hidden-hider rloc.
-**Next:** Open `teleport.c` `vault_tele` `tele()` fallback
-(named). Not teleds. Audit @**#1465**.
 **Blocked:** none.

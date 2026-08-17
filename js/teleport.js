@@ -24,7 +24,7 @@ import {
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
     HOLE, TRAPDOOR, LEVEL_TELEP,
-    MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG,
+    MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, NO_TRAP_FLAGS,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
@@ -677,6 +677,20 @@ async function rloc_maybe_minvent_shop_bill(mtmp, destx, desty, oldx, oldy) {
 }
 
 /**
+ * C ref: teleport.c rloc_to_core 1765–1767 — trapped monster teleported
+ * away. After dest (and after appear when rloc_to_flag). Worms skip.
+ * mintrap at dest: no trap → clear mtrapped ("perhaps teleported?");
+ * trap still there → already-trapped escape, not a fresh step-on.
+ * Dynamic import: trap.js already imports teleport.js.
+ */
+async function rloc_maybe_mintrap(mtmp) {
+    if (mtmp?.mtrapped && !mtmp.wormno) {
+        const { mintrap } = await import('./trap.js');
+        await mintrap(mtmp, NO_TRAP_FLAGS);
+    }
+}
+
+/**
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
  * update_monster_region (D-1161; after place, before worm tail);
@@ -686,10 +700,11 @@ async function rloc_maybe_minvent_shop_bill(mtmp, destx, desty, oldx, oldy) {
  * writes mx/my only); resident shk !inhishop dest → make_angry_shk
  * (D-1162; after dest, after vanish/appear when rloc_to_flag);
  * minvent shop bill after angry (D-1163; dest !costly_spot → clear
- * no_charge else stolen_value for onshopbill). Named omissions:
- * occupation dochugw; trapped mintrap. RLOC_MSG vanish+appear live
- * in async `rloc` (D-0885 / D-0886). rloc_opts.defer_shk_angry is
- * JS-only so rloc_to_flag can run appear pline before angry (C order).
+ * no_charge else stolen_value for onshopbill); trapped !wormno
+ * mintrap after bill (D-1164; dest no trap clears mtrapped). Named
+ * omission: occupation dochugw. RLOC_MSG vanish+appear live in async
+ * `rloc` (D-0885 / D-0886). rloc_opts.defer_shk_angry is JS-only so
+ * rloc_to_flag can run appear pline before angry (C order).
  */
 export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     if (!mtmp) return null;
@@ -759,12 +774,14 @@ export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     newsym(x, y);
     set_apparxy(mtmp);
     // C: vanish/appear pline then resident_shk && !inhishop make_angry_shk
-    // then minvent shop bill (teleport.c:1739 then 1748). Silent rloc_to
-    // (RLOC_NOMSG) skips the pline block; rloc_to_flag defers angry+bill
-    // until after rloc_post_move_msg.
+    // then minvent shop bill then occupation then trapped mintrap
+    // (teleport.c:1739, 1748, 1762, 1766). Silent rloc_to (RLOC_NOMSG)
+    // skips the pline block; rloc_to_flag defers angry+bill+mintrap
+    // until after rloc_post_move_msg. Occupation dochugw still named.
     if (!rloc_opts?.defer_shk_angry) {
         await rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy);
         await rloc_maybe_minvent_shop_bill(mtmp, x, y, oldx, oldy);
+        await rloc_maybe_mintrap(mtmp);
     }
     return { resident_shk, oldx, oldy };
 }
@@ -1019,6 +1036,7 @@ export async function rloc_to_flag(mtmp, x, y, rlocflags) {
     if (snap) {
         await rloc_maybe_angry_shk(mtmp, snap.resident_shk, snap.oldx, snap.oldy);
         await rloc_maybe_minvent_shop_bill(mtmp, x, y, snap.oldx, snap.oldy);
+        await rloc_maybe_mintrap(mtmp);
     }
 }
 
