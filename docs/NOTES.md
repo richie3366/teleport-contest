@@ -8,15 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1435**;
-  next @**#1440**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 11
-  after archive (no refill). Reviews **86–89** ACCEPT (D-1125–D-1128).
-  Density: one cluster. Review + full `sessions` every 5.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1440**;
+  next @**#1445**. Mode: **map-driven** fortress. Must-fix empty.
+  Open 11. Reviews **90–93** ACCEPT / **92** ACCEPT-WITH-DEBT
+  (D-1129–D-1132; eel `Underwater` sticky named, not Must-fix).
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1132**. Reviews **86–89** ACCEPT.
 - **Next cluster:** Open `teleport.c` `tele()` / trap teledest.
-- **Hypothesis:** none live. Cadence #1435 fortress held.
+- **Hypothesis:** none live. Cadence #1440 fortress held.
 
 ## Don't re-check (≤15)
 
@@ -97,4 +95,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1435** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1440**. **D-1132:** (this commit). **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.
+- Suite **#1440** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1445**. **D-1132:** `a8d04dd2`. **D-1131:** `00956ae8`. **D-1130:** `6dd7a794`. **D-1129:** `410f22a2`. **D-1128:** `5b3923d7`. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.

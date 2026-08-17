@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1435** (**44**/44, Scr **11405**/11405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1440**.
+**#1440** (**44**/44, Scr **11405**/11405, RNG **100%**).
+Speed `31+0.27/turn` (R² 0.87). Next audit (review + score) @**#1445**.
 
 ## Score
 
@@ -72,7 +72,7 @@ parked D-0006 only with reproducible C state. Optional: private C
 recorder canaries on thin spots — never memorize
 public traces.
 
-**Next cluster:** Open `tele()` / trap teledest. Not tele_trap wrenching.
+**Next cluster:** Open `teleport.c` `tele()` / trap teledest. Not tele_trap wrenching.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1132. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).

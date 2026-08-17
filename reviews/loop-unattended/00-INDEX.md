@@ -99,3 +99,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [87-6497347e-drinkfountain-update-inventory.md](./87-6497347e-drinkfountain-update-inventory.md) | `6497347e` | D-1126 drinkfountain case 24 `update_inventory` | **ACCEPT** |
 | [88-b4954c6f-vomit-cantvomit-acid.md](./88-b4954c6f-vomit-cantvomit-acid.md) | `b4954c6f` | D-1127 `vomit` cantvomit/Sick/acid | **ACCEPT** |
 | [89-5b3923d7-dodip-pool-yn.md](./89-5b3923d7-dodip-pool-yn.md) | `5b3923d7` | D-1128 `dodip` pool yn | **ACCEPT** |
+| [90-410f22a2-teleds-switch-terrain.md](./90-410f22a2-teleds-switch-terrain.md) | `410f22a2` | D-1129 `teleds` `switch_terrain` dest-typ | **ACCEPT** |
+| [91-6dd7a794-teleds-update-player-regions.md](./91-6dd7a794-teleds-update-player-regions.md) | `6dd7a794` | D-1130 `teleds` `update_player_regions` | **ACCEPT** |
+| [92-00956ae8-teleds-hideunder-mimic.md](./92-00956ae8-teleds-hideunder-mimic.md) | `00956ae8` | D-1131 `teleds` hideunder / mimic | **ACCEPT-WITH-DEBT** |
+| [93-a8d04dd2-teleds-buried-ball.md](./93-a8d04dd2-teleds-buried-ball.md) | `a8d04dd2` | D-1132 `teleds` TT_BURIEDBALL unearth | **ACCEPT** |
