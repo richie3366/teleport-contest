@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift.
 - [ ] `do_name.c` `hcolor` Hallucination drinksink synonyms (named). Not hliquid.
 - [ ] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon.
 - [ ] `region.c` `make_gas_cloud` enveloped pline (named). Not create_gas_cloud size-1.

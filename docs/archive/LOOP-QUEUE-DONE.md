@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching. **Addressed:** D-1133
+- [x] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift. **Addressed:** D-1134
+
+
+- [x] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching. **Addressed:** D-1133 `a956e990`
 
 
 - [x] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball. **Addressed:** D-1132 `a8d04dd2`

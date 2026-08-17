@@ -24,6 +24,7 @@
 // dodip pool yn wash_hands / water_damage (D-1128).
 // dipfountain cases 17–20 uncurse (D-1114).
 // dipfountain case 29 mkgold coins (D-1115).
+// dipfountain after-switch update_inventory (D-1134). Excalibur :441 still named.
 //
 // Branch envelope (drinksink): Levitation floating_above; rn2(20)
 // switch cases 0–13 + 19/default sip; case 4 faucet → mkobj+dopotion;
@@ -1270,7 +1271,9 @@ export async function dipfountain(obj) {
                 artiname(ART_EXCALIBUR), lady,
             );
         }
-        // C update_inventory() — perm_invent redraw named omit.
+        // C fountain.c:441 update_inventory() — Excalibur gift path;
+        // named omit this iter (queue: not Excalibur). Post-switch
+        // :552 is D-1134.
         const loc = game.level?.at(u.ux, u.uy);
         if (loc) {
             // C set_levltyp(u.ux,u.uy,ROOM) + levl[].flags=0.
@@ -1410,5 +1413,10 @@ export async function dipfountain(obj) {
         }
         break;
     }
+    // C fountain.c:552 — update_inventory() after switch, before dryup.
+    // Unconditional (unlike drinkfountain case 24 buc_changed).
+    // Default perm_invent Off: tty without TTY_PERM_INVENT no-ops (D-1126).
+    // Excalibur LONG_SWORD path (C :441) still named omit.
+    update_inventory();
     await dryup(u.ux, u.uy, true);
 }

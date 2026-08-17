@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1134 — dipfountain after-switch update_inventory
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `dipfountain` ran `dryup` immediately after the
+  `rnd(30)` switch. C `fountain.c:552` calls `update_inventory()`
+  after the switch, then `dryup`. Unconditional (unlike drinkfountain
+  case 24 `if (buc_changed)`).
+- **C locus:** `fountain.c` `dipfountain` (~552);
+  `invent.c` `update_inventory` (~2781–2809);
+  `wintty.c` `tty_update_inventory` (~3606–3614) → no-op unless
+  `TTY_PERM_INVENT`; `invent.c` `sync_perminvent` (D-1126 callee).
+- **Fix:** `update_inventory()` after the switch, before `dryup`.
+  Levitation / rust-gate / Excalibur early returns still skip this
+  site (C). Default perm_invent Off: tty without `TTY_PERM_INVENT`
+  no-ops after in_moveloop/`suppress_map_output`/suppress_price=0
+  (no RNG). Did not pull Excalibur `:441` `update_inventory`,
+  perm_invent On WIN_INVEN redraw, or `consume_obj_charge` known.
+  Rule #2: no fs.
+- **JS:** `js/fountain.js` `dipfountain` (existing `invent.js`
+  `update_inventory`).
+- **Not this iter:** Excalibur `:441`; perm_invent On
+  `display_inventory` WIN_INVEN; `consume_obj_charge` known;
+  hangup `done_hup`.
+- **Verify:** private canary **28**/28 (C/JS source order;
+  unconditional vs buc_changed; rust-gate/Levitation/Excalibur skip;
+  drinkfountain case 24 still gated; gates; suppress_price restore;
+  perm_invent Off/On no core RNG); green+strict seed8000/0900;
+  fountain cohort + strict. Path public-unhit (perm_invent Off).
+- **Files:** `js/fountain.js`.
+
 ## D-1133 — tele_trap teledest / else tele()
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

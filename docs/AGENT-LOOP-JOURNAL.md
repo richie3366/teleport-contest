@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 04:35 — #1442 D-1134 dipfountain after-switch update_inventory
+
+**Objective:** Open queue — `fountain.c` `dipfountain`
+`update_inventory` after switch (named). Not Excalibur gift.
+**C locus:** `fountain.c` `dipfountain` 552; `invent.c`
+`update_inventory` 2781–2809; `wintty.c` `tty_update_inventory`
+3606–3614.
+**Change:** after the `rnd(30)` switch, call `update_inventory()`
+then `dryup` (C order; unconditional, unlike drinkfountain case 24
+`buc_changed`). Existing D-1126 callee: in_moveloop /
+`suppress_map_output` / suppress_price=0 around tty
+`sync_perminvent`. Default perm_invent Off no RNG. Did not pull
+Excalibur `:441`, On WIN_INVEN, or `consume_obj_charge` known.
+Filled D-1133 archive hash `a956e990`. Rotated #1427. Open 9 after
+archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1440** **44**/44; next
+@**#1445**).
+**Verified:** private canary **28**/28; green+strict seed8000/0900;
+cohort **21**/21 (0014 fountain + 0106 dip + 0007 snakes + 0002
+drinksink + 0006 demon + 0108 + 0360/2200/4500 + 0004/0009/0012/
+0030/0383/0399/0116/0367/0398 + 1500/1800/0060) + strict 0014/0007/
+0002/0006/0106/0108/0360/2200/4500/0030/0004/0009. Path
+public-unhit (perm_invent Off).
+**Next:** Open `do_name.c` `hcolor` Hallucination drinksink
+synonyms. Not hliquid.
+**Blocked:** none.
+
 ## 2026-08-17 04:25 — #1441 D-1133 tele_trap teledest / else tele()
 
 **Objective:** Open queue — `teleport.c` `tele()` / trap teledest
@@ -374,29 +401,4 @@ cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
 worm rloc / swallow-teleport.
 **Next:** Open `fountain.c` `drinksink` case 13 `create_gas_cloud`.
 Not polyself.
-**Blocked:** none.
-
-## 2026-08-17 01:20 — #1427 D-1122 rloc Wizard stair / control_mon_tele
-
-**Objective:** Open queue — `teleport.c` `rloc` Wizard stair /
-`mon_telecontrol` (named). Not RLOC_MSG.
-**C locus:** `teleport.c` `rloc` 1813–1841; `stairway_find_forwiz`
-1786–1794; `control_mon_tele` 1898–1934; `dungeon.c` `In_W_tower`
-1912–1938.
-**Change:** on-map `iswiz` prefers stair/ladder via `goodpos`
-(outside tower: up stair; in tower: down ladder, else up
-ladder). Then wizard-mode `control_mon_tele` getpos. Default
-Off. Did not pull steed→`tele()` / `mnexto` telecontrol /
-RLOC_MSG. Filled D-1121 hash `803a7f5c`. Rotated #1412. Open 11
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1425** **44**/44; next
-@**#1430**).
-**Verified:** private canary **33**/33; green+strict seed8000/0900;
-cohort **24**/24 (0012 vault + 0360/4500/0373/0367 + 2200/0014/
-0004/0009/1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/
-0361/0108/0002/5002/2600) + strict 0012/0360/4500/0014/2200/
-0004/0009/0367/0373/0030/0002/0116. Path public-unhit on live
-Wizard rloc.
-**Next:** Open `teleport.c` `rloc_to` worm / ustuck-swallow
-`docrt`. Not newsym.
 **Blocked:** none.
