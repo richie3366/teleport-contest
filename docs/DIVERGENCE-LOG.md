@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1128 — potion.c dodip pool yn
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `#dip` on a pool cancelled (`at_pool` ECMD_CANCEL).
+  C `dodip` asks yn with `waterbody_name`, then Levitation
+  `floating_above`, unskilled non-swimmer steed `rider_cant_reach`,
+  hands/uarmg `wash_hands`, else `water_damage` (POT_ACID `in_use`
+  then `useup` if not `ER_DESTROYED`).
+- **C locus:** `potion.c` `dodip` (~2335–2361); `fountain.c`
+  `wash_hands` / `floating_above`; `steed.c` `rider_cant_reach`;
+  `trap.c` `water_damage`; `engrave.c` `can_reach_floor(FALSE)`.
+- **Fix:** wire pool yn like fountain/sink. `at_pool` via
+  `is_pool(u.ux,u.uy)` not `IS_POOL(here)`. Outer
+  `can_reach_floor(FALSE)` (not sticky `u.Levitation`). Inner
+  Levitation is youprop H\|\|E && !B. Export `floating_above`;
+  add `rider_cant_reach`. Hands/gloves `wash_hands`; else
+  `water_damage(..., TRUE)` + acid `in_use`/`useup`. Rule #2:
+  no fs.
+- **JS:** `js/potion.js` `dodip`; `js/fountain.js` `floating_above`
+  export; `js/steed.js` `rider_cant_reach`.
+- **Not this iter:** `potion_dip` alchemy; `drink_ok_extra` potion
+  getobj after `'n'`; `pot_acid_damage` boom+delobj (ER_DESTROYED
+  leaves the potion); `inaccessible_equipment`; m-prefix already
+  skipped floor; `pair_of`→them; `floating_above` utrap surface.
+- **Verify:** private canary **64**/64 (is_pool vs IS_POOL;
+  waterbody_name pool/moat/wall; can_reach_floor lev/rider;
+  floating_above; rider_cant_reach; wash_hands; dilute/acid/water
+  water_damage; yn n/y; hands/gloves; air-lev float; sticky
+  Levitation ignored; BLevitation reaches; lava-bridge skip;
+  moat-bridge; m-prefix); green+strict seed8000/0900; cohort
+  **22**/22 including 0014/0002/0004/0103/0104/0009/0360/4500/
+  2200/0030 + strict 0014/0002/0004/0103/0108/0360/2200/4500/
+  0030/0009. Path public-unhit.
+- **Files:** `js/potion.js`, `js/fountain.js`, `js/steed.js`.
+
 ## D-1127 — `eat.c` `vomit` cantvomit/Sick/acid poly arms
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

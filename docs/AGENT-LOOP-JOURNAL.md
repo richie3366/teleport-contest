@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 02:50 — #1434 D-1128 potion.c dodip pool yn
+
+**Objective:** Open queue — `potion.c` pool dip yn (named from
+dipsink). Not drinkfountain.
+**C locus:** `potion.c` `dodip` 2335–2361; `fountain.c`
+`wash_hands`/`floating_above`; `steed.c` `rider_cant_reach`;
+`trap.c` `water_damage`; `engrave.c` `can_reach_floor(FALSE)`.
+**Change:** pool yn with `waterbody_name`. `at_pool` via `is_pool`
+not `IS_POOL`. Outer `can_reach_floor(FALSE)`. Inner Levitation
+youprop `floating_above`; unskilled non-swimmer steed
+`rider_cant_reach`; hands/uarmg `wash_hands`; else `water_damage`
++ POT_ACID `in_use`/`useup`. Did not pull `potion_dip`,
+`drink_ok_extra`, or `pot_acid_damage` boom+delobj. Filled
+D-1127 hash `b4954c6f`. Rotated #1419. Open 10 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1430** **44**/44; next
+@**#1435**).
+**Verified:** private canary **64**/64; green+strict seed8000/0900;
+cohort **22**/22 (0014 fountain + 0002 drinksink + 0004/0103/0104
+ride + 0009 swim + 0006/0007/0012/0030/0060/0102/0108/0116/
+0360/0367/0398/0700/1500/1800/2200/4500) + strict 0014/0002/
+0004/0103/0108/0360/2200/4500/0030/0009. Path public-unhit.
+**Next:** Open `teleport.c` `teleds` `switch_terrain` (named).
+Not fill_pit. Audit @**#1435**.
+**Blocked:** none.
+
 ## 2026-08-17 02:35 — #1433 D-1127 eat.c vomit cantvomit/Sick/acid
 
 **Objective:** Open queue — `eat.c` `vomit` cantvomit/Sick/acid
@@ -377,28 +403,4 @@ Rotated #1405. Open 12 (no refill). Rule #2: no fs.
 FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `fountain.c` `gush` `minliquid` body. Not
 dogushforth.
-**Blocked:** none.
-
-## 2026-08-16 23:36 — #1419 D-1116 drinkfountain MAGIC enlightenment
-
-**Objective:** Open queue — `fountain.c` `drinkfountain`
-enlightenment body (named). Not dryup.
-**C locus:** `fountain.c` `drinkfountain` 287–293; `insight.c`
-`enlightenment` 383–449 / `doattributes` 2009–2018.
-**Change:** case 19 calls `enlightenment(MAGICENLIGHTENMENT, 0)`.
-`doattributes(enl_mode)` skips Background/Basics/Characteristics
-when MAGIC-only; Status+Attributes+elapsed stay; bones/debug
-still BASIC-gated. ^X no-arg path unchanged. Did not pull gush
-`minliquid` / potion/zap callers / `update_inventory`. Filled
-D-1115 hash `79438232`. Rotated #1404. Open 12 after refill.
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1415** **44**/44; next
-@**#1420**).
-**Verified:** private canary **54**/54; green+strict seed8000/0900;
-cohort **22**/22 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
-0016/4500/0360/2200/0009/0367/0004/0030/0116/0373/0361/0007/
-0383) + strict 0014/0360/4500/2200/0004/0030/0009/0367/0116/
-0373/0060/0383. Path public-unhit.
-**Next:** Open `fountain.c` `gush` `minliquid` body. Not
-dogushforth. Audit @**#1420**.
 **Blocked:** none.

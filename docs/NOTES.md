@@ -10,13 +10,13 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1430**;
   next @**#1435**.
-- Mode: **map-driven** under fortress. Must-fix empty. Open 11
+- Mode: **map-driven** under fortress. Must-fix empty. Open 10
   after archive (no refill). Reviews **82** ACCEPT-WITH-DEBT
   (D-1121 thin `fill_pit`); **83–85** ACCEPT (D-1122–D-1124).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1127**. Prior **82–85** ACCEPT.
-- **Next cluster:** Open `potion.c` pool dip yn (named from dipsink).
+- Latest ports: **D-1089**…**D-1128**. Prior **82–85** ACCEPT.
+- **Next cluster:** Open `teleport.c` `teleds` `switch_terrain`.
 - **Hypothesis:** none live. Cadence #1430 fortress held.
 
 ## Don't re-check (≤15)
@@ -87,14 +87,14 @@ Objective/score live in `CURRENT.md`.
   Hallucination `rndmonnam` (D-1125) / skip drinkfountain case 24
   `update_inventory` or restore `void buc_changed` (D-1126) / skip
   `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
-  void spewed (D-1127).
+  void spewed (D-1127) / skip `dodip` pool yn or restore `IS_POOL`
+  for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
+  or `water_damage` (D-1128).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1430**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1435**.
-- **D-1127:** `eat.c` `vomit` cantvomit/Sick/acid poly.
-- **D-1126:** drinkfountain `update_inventory` `6497347e`. **D-1125:** `2fc408c0`.
+- Suite **#1430** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1435**.
+- **D-1128:** dodip pool yn. **D-1127:** `b4954c6f`. **D-1126:** `6497347e`. **D-1125:** `2fc408c0`.

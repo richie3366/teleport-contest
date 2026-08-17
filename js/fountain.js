@@ -21,6 +21,7 @@
 // dipfountain Excalibur LONG_SWORD body (D-1107).
 // wash_hands + dipfountain hands/uarmg wire (D-1108).
 // dipsink + dodip sink yn + local polymorph_sink (D-1113).
+// dodip pool yn wash_hands / water_damage (D-1128).
 // dipfountain cases 17–20 uncurse (D-1114).
 // dipfountain case 29 mkgold coins (D-1115).
 //
@@ -255,8 +256,8 @@ async function dofindgem() {
     exercise(A_WIS, true);
 }
 
-/** C ref: fountain.c floating_above */
-async function floating_above(what) {
+/** C ref: fountain.c floating_above — dip/drink while levitating. */
+export async function floating_above(what) {
     await pline(`You are floating high above the ${what}.`);
 }
 
@@ -984,7 +985,7 @@ function fingers_or_gloves(check_gloves) {
  * Always You-wash pline; clear Glib + slippery pline; water_damage(uarmg);
  * was_glib && ER_NOTHING → ER_GREASED so dipfountain's er!=NOTHING / !rn2(2)
  * skip can fire (C comment: not what ER_GREASED is for).
- * dipsink calls this (D-1113); potion.c pool dip still named.
+ * dipsink and potion.c pool dip call this (D-1113 / D-1128).
  * @returns {Promise<number>} ER_*
  */
 export async function wash_hands() {
@@ -1119,7 +1120,7 @@ async function polymorph_sink() {
  * C ref: fountain.c dipsink — #dip while standing on a sink (potion.c dodip).
  * Lottery !rn2(25/15) → breaksink (+ Glib hands still-slippery); hands/uarmg
  * → wash_hands; non-potion → tap + water_damage; potion pour + otyp switch
- * then trycall/useup. potion.c pool dip still named.
+ * then trycall/useup. potion.c pool dip yn is D-1128.
  */
 export async function dipsink(obj) {
     const u = game.u || {};

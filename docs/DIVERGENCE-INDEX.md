@@ -5,7 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1128 | fixed | `potion.c` dodip pool yn | map-driven; C `potion.c:2335–2361` / `fountain.c` `wash_hands`/`floating_above` / `steed.c` `rider_cant_reach` / `trap.c` `water_damage`; `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; Levitation youprop; hands/uarmg wash; else water_damage + POT_ACID in_use/useup; pot_acid_damage boom+delobj / drink_ok_extra / potion_dip still named |
 | D-1127 | fixed | `eat.c` `vomit` cantvomit/Sick/acid poly | map-driven; C `eat.c:3736–3784` / `mondata.c` `cantvomit` 663–673 / `zap.c` `ubreatheu`+`zhitu` ZT_ACID; jaw-gape; SICK_VOMITABLE `make_sick(0)`; FAINTING dry-heave vs spewed; AT_BREA AD_ACID; altar_wrath; acidic melt_ice; acid_damage/erode bodies + timeout vomiting_dialog still named |
+
 | D-1126 | fixed | drinkfountain case 24 `update_inventory` | map-driven; C `fountain.c:332–333` / `invent.c` `update_inventory` 2781–2809 / `display.c` `suppress_map_output`; `if (buc_changed)` then in_moveloop/`suppress_map_output`/suppress_price=0 around tty `sync_perminvent`; default perm_invent Off no `display_inventory`; On WIN_INVEN / dipfountain 441+552 named |
 | D-1125 | fixed | dowatersnakes Hallucination `rndmonnam` | map-driven; C `fountain.c:45–46` / `do_name.c` `rndmonnam`; `!Blind` Hallucination `makeplural(rndmonnam(NULL))` else `"snakes"`; display-rng only on hallu arm |
 | D-1124 | fixed | drinksink case 13 `create_gas_cloud` | map-driven; C `fountain.c:696–698` / `region.c` `create_gas_cloud`; size-1 poison `arg=4` + ttl `rn1(3,4)`; no expand shuffle; enveloped/`inside_f`/`hcolor` still named |
