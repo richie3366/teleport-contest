@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 13:20 — #1470 review D-1153–D-1156 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `teleport.c` `vault_tele` 772–783 / `tele` 841–845;
+`mkmaze.c` `pick_vibrasquare_location` 1042–1093 /
+`sp_lev.c` `create_trap` VS 1818–1821 / `hellfill.lua` 437–441 /
+`mklev.c` `occupied` 1806–1811; `region.c` `expire_gas_cloud`
+1046–1087 / `run_regions` 419–473; `mkmaze.c` `fumaroles`
+1484–1514 / `region.h` `clear_heros_fault`.
+**Change:** reviews **114** ACCEPT D-1153 (`tele()` else after
+vault `teleds`; `dotele` teledest named), **115** ACCEPT D-1154
+(hellfill picker + VS `maketrap`; `makemaz("")` named),
+**116** ACCEPT D-1155 (thin around-you / You_see; thick half+ttl=2),
+**117** ACCEPT D-1156 (`clear_heros_fault` + Norep whoosh;
+moveloop named). Must-fix empty. Filled D-1156 archive hash
+`16e8d88b`. Rotated #1455. Open 8 (no refill). Rule #2: no fs.
+**Score:** cadence **#1470** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.87). Next
+@**#1475**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `hack.c` walk `in_out_region` (named). Not teleds.
+**Blocked:** none.
+
 ## 2026-08-17 13:05 — #1469 D-1156 fumaroles clear_heros_fault / Norep whoosh
 
 **Objective:** Open — `mklev.c` `fumaroles` `clear_heros_fault` /
@@ -405,34 +430,4 @@ drinksink + 0006 demon + knight 0103/0104/4500 + 0108/0360/2200/
 Path public-unhit (perm_invent Off; Excalibur dip unhit).
 **Next:** Open `region.c` `inside_gas_cloud` damage. Not enveloped
 pline.
-**Blocked:** none.
-
-## 2026-08-17 07:25 — #1455 review D-1141–D-1144 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `teleport.c` `teleds` 569 / `hack.c`
-`invocation_message` 3064–3085 / `invocation_pos` 982–986;
-`teleport.c` 540, 570–571 / `flag.h` 233–237 / `hack.c`
-`notice_mon` 1708–1783; `region.c` `in_out_region` 505–506,
-519–520; `potion.c` `djinni_from_bottle` 2815–2868 /
-`apply.c` `dorub` 1816–1831.
-**Change:** reviews **102** ACCEPT D-1141 (`invocation_message`
-after `spoteffects`; walk/`inv_pos` named), **103**
-ACCEPT-WITH-DEBT D-1142 (teleds off/on + real `notice_all_mons`;
-`vision_recalc` still silent; `spot_monsters` still
-`flags` not `a11y`; not Must-fix), **104** ACCEPT D-1143
-(`pline1` after clear/set; `teleok` await; `#if 0` msgs),
-**105** ACCEPT D-1144 (MAGIC_LAMP transform then djinni;
-dodrink smoky named). Must-fix empty. Filled D-1144 archive
-hash `1c1f7ccb`. Rotated #1440. Open 9 (no refill). Rule #2:
-no fs.
-**Score:** cadence **#1455** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
-@**#1460**.
-**Verified:** C read of the four loci vs JS hunks; grep
-FORCE/fs/seed; `teleok(` only in `teleport.js`; full `sessions`
-`__RESULTS_JSON__`.
-**Next:** Open `fountain.c` Excalibur `:441` `update_inventory`.
-Not artidisco save.
 **Blocked:** none.

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation. **Addressed:** D-1156
+- [x] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation. **Addressed:** D-1156 `16e8d88b`
 
 
 - [x] `region.c` `expire_gas_cloud` dissipation plines (named). Not inside_gas HP. **Addressed:** D-1155 `df99ab32`

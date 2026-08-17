@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Suite **#1465** **44**/44; next @**#1470**. Open 8.
+- Suite **#1470** **44**/44; next @**#1475**. Open 8.
 - **Next:** `hack.c` walk `in_out_region` (named). Not teleds.
 - **Hypothesis:** C `domove` calls `in_out_region` on dest; JS omits.
 
@@ -86,4 +86,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1465** **44**/44. Next @**#1470**. **D-1155** `df99ab32`.
+- Suite **#1470** **44**/44. Next @**#1475**. **D-1156** `16e8d88b`.

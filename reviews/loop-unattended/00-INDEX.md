@@ -123,3 +123,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [111-505df513-domove-invocation.md](./111-505df513-domove-invocation.md) | `505df513` | D-1150 `domove` walk `invocation_message` | **ACCEPT** |
 | [112-6bdf4d49-classify-terrain.md](./112-6bdf4d49-classify-terrain.md) | `6bdf4d49` | D-1151 `switch_terrain` `classify_terrain` | **ACCEPT** |
 | [113-9b5ce7b3-rloc-maybe-unhide.md](./113-9b5ce7b3-rloc-maybe-unhide.md) | `9b5ce7b3` | D-1152 `rloc_to` `maybe_unhide_at` dest | **ACCEPT** |
+| [114-b332516f-vault-tele-fallback.md](./114-b332516f-vault-tele-fallback.md) | `b332516f` | D-1153 `vault_tele` `tele()` fallback | **ACCEPT** |
+| [115-10904562-pick-vibrasquare.md](./115-10904562-pick-vibrasquare.md) | `10904562` | D-1154 `pick_vibrasquare_location` / hellfill VS | **ACCEPT** |
+| [116-df99ab32-expire-gas-cloud.md](./116-df99ab32-expire-gas-cloud.md) | `df99ab32` | D-1155 `expire_gas_cloud` dissipation plines | **ACCEPT** |
+| [117-16e8d88b-fumaroles-whoosh.md](./117-16e8d88b-fumaroles-whoosh.md) | `16e8d88b` | D-1156 fumaroles `clear_heros_fault` / Norep whoosh | **ACCEPT** |
