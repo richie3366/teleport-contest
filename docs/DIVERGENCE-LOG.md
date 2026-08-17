@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1136 — mongrantswish tmp_at glyph hide
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `mongrantswish` spliced the demon off `fmon` and
+  `newsym`'d the cell before `makewish`, so the wish prompt showed
+  an empty fountain. C `potion.c:mongrantswish` captures
+  `glyph_at(mx,my)` (gbuf), `mongone`s, then
+  `tmp_at(DISP_ALWAYS, glyph)` / `tmp_at(mx, my)` so the map still
+  shows the monster until `tmp_at(DISP_END, 0)`.
+- **C locus:** `potion.c` `mongrantswish` (~2794–2811);
+  `display.c` `glyph_at` (~2478–2482) / `tmp_at` DISP_ALWAYS;
+  `fountain.c` `dowaterdemon` (~78–82) caller.
+- **Fix:** snapshot `loc.disp_*` (gbuf, not `mon_glyph` / Hallu
+  display-rng) before the existing D-0472 splice+newsym; wrap
+  `makewish` in `tmp_at(DISP_ALWAYS)` + `tmp_at(mx,my)` +
+  `DISP_END`. Did not pull full C `mongone` (`mdrop_special_objs` /
+  `discard_minvent` / `m_detach`) or `djinni_from_bottle`. Did not
+  rewrite `dowaterdemon` `makemon`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `mongrantswish` (existing `display.js`
+  `tmp_at`).
+- **Not this iter:** full `mongone`; `djinni_from_bottle`; uhitm
+  DISP_ALWAYS; nested `tmp_at` alloc; Blind youprop in
+  `dowaterdemon`.
+- **Verify:** private canary **27**/27 (source order; gbuf copy not
+  `mon_glyph`; ALWAYS vs FLASH `!cansee`; hide during `makewish`;
+  off-fmon bones; END restores fountain; nothing-wish no core rng;
+  null/`mx=0`); green+strict seed8000/0900; cohort **24**/24
+  including 0006 demon + 0014 fountain + 0007 snakes + 0002
+  drinksink + 0383/0399 Hallu + 0108/0360/2200/4500 + strict
+  8000/0900/0002/0014/0006/0106/0108/0360/2200/4500/0030. Path
+  public-unhit on the wish hide (seed0006 spawn still matches).
+- **Files:** `js/fountain.js`.
+
 ## D-1135 — do_name hcolor Hallucination drinksink synonyms
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

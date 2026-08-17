@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon.
 - [ ] `region.c` `make_gas_cloud` enveloped pline (named). Not create_gas_cloud size-1.
 - [ ] `fountain.c` `gush` lava `fire_damage_chain` / `xkilled` (named). Not minliquid.
 - [ ] `teleport.c` `teleds` swallow `docrt` (named). Not hideunder.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `teleds` `invocation_message` (named). Not vault_guard.
 - [ ] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation.
 - [ ] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions.
+- [ ] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG.
+- [ ] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save.
+- [ ] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline.
+- [ ] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs.
+- [ ] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled.
 
 ## Parked (do not pop)
 

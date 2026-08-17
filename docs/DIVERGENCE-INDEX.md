@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1136 | fixed | `mongrantswish` `tmp_at` glyph hide | map-driven; C `potion.c:2794–2811` `glyph_at` then `mongone` then `tmp_at(DISP_ALWAYS)`/`tmp_at(mx,my)` around `makewish` + `DISP_END`; JS gbuf `disp_*` copy not `mon_glyph`; full `mongone` / `djinni_from_bottle` still named |
 | D-1135 | fixed | do_name `hcolor` Hallu drinksink synonyms | map-driven; C `do_name.c:1460–1466` `hcolors[]` SIZE 74; Hallu\|\|NULL → `rn2_on_display_rng(SIZE)` only (pref not last; no gameover skip); drinksink case 4 Blind short-circuit; sit/apply/pray/detect/do/wield/read stubs + `rndcolor` still named |
 | D-1134 | fixed | `dipfountain` after-switch `update_inventory` | map-driven; C `fountain.c:552` after switch before `dryup`; unconditional (not drink case 24 `buc_changed`); rust-gate/Levitation/Excalibur returns skip this site; default perm_invent Off tty no-op (D-1126 callee); Excalibur `:441` / On WIN_INVEN / `consume_obj_charge` still named |
 | D-1133 | fixed | `tele_trap` teledest / else `tele()` | map-driven; C `teleport.c:1506–1532`; lift `next_to_u` sibling of once; `isok(teledest)` `settrack`+`enexto`/`rloc_to` then `teleds`; else `tele()`/`scrolltele`; dest-trap `in_tele_trap`; dotele trap-at-feet / vault_tele tele() fallback still named |

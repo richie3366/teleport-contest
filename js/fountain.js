@@ -11,8 +11,8 @@
 // drinkfountain case 19 MAGICENLIGHTENMENT body (D-1116).
 // drinkfountain case 24 buc_changed → update_inventory (D-1126).
 // gush m_at → minliquid else newsym (D-1117).
-// Deferred: set_levltyp side effects beyond typ/flags;
-// mongrantswish tmp_at glyph hide.
+// Deferred: set_levltyp side effects beyond typ/flags.
+// mongrantswish tmp_at(DISP_ALWAYS, glyph_at) hide (D-1136).
 // dowatersnakes Hallucination makeplural(rndmonnam(NULL)) (D-1125).
 // dryup wizard y_n after town warn (D-1096).
 // dryup angry_guards after real dryup (D-1104).
@@ -42,7 +42,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import {
     pline, newsym, You_feel, flush_topl_more, canspotmon, verbalize,
-    glyph_is_invisible,
+    glyph_is_invisible, tmp_at,
 } from './display.js';
 import {
     curse, bless, uncurse, mksobj_at, rnd_class, mkobj, mkobj_at,
@@ -69,6 +69,7 @@ import {
     is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
     POLY_NOFLAGS, UNCHANGING,
+    DISP_ALWAYS, DISP_END,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { PM_KNIGHT, monsterNames } from './generated/monsters_data.js';
@@ -527,20 +528,41 @@ function mhis(mtmp) {
 
 /**
  * C ref: potion.c mongrantswish — mongone then makewish.
- * tmp_at DISP_ALWAYS glyph hide deferred.
+ * Capture gbuf glyph_at before removal, then tmp_at(DISP_ALWAYS)
+ * so the map still shows the monster during the wish prompt
+ * (D-1136). Not a recomputed mon_to_glyph (no extra Hallu rng).
+ * Full C mongone (mdrop_special_objs / discard_minvent / m_detach)
+ * and djinni_from_bottle caller still named.
  */
-async function mongrantswish(mtmp) {
+export async function mongrantswish(mtmp) {
     if (!mtmp) return;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    // C display.c glyph_at — gbuf, not levl[].glyph. OOB → S_room.
+    const loc = game.level?.at?.(mx, my);
+    const glyph = loc
+        ? {
+            ch: loc.disp_ch,
+            color: loc.disp_color,
+            dec: !!loc.disp_decgfx,
+        }
+        : { ch: '.', color: 0, dec: false };
+
+    // C mongone subset (D-0472): off fmon + newsym. C keeps stale
+    // mx/my; JS zeros like the prior peel so later m_at misses.
     const list = game.fmon || [];
     const i = list.indexOf(mtmp);
     if (i >= 0) list.splice(i, 1);
-    const ox = mtmp.mx | 0;
-    const oy = mtmp.my | 0;
     mtmp.mx = 0;
     mtmp.my = 0;
-    if (ox || oy) newsym(ox, oy);
+    if (mx || my) newsym(mx, my);
+
+    // C: hide that removal from player — map is visible during wish.
+    tmp_at(DISP_ALWAYS, glyph);
+    tmp_at(mx, my);
     const { makewish } = await import('./zap.js');
     await makewish();
+    tmp_at(DISP_END, 0);
 }
 
 /**
