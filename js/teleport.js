@@ -642,22 +642,40 @@ export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
 }
 
 /**
+ * C ref: teleport.c rloc_to_core — resident shk leaving shop after dest
+ * (1734–1740). Snapshot inhishop at origin (before pickup); after place,
+ * !inhishop → make_angry_shk. C ox/oy ARGSUSED. Dynamic import: shk.js
+ * already imports rloc_to_flag from this file.
+ */
+async function rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy) {
+    if (resident_shk && !inhishop(mtmp)) {
+        const { make_angry_shk } = await import('./shk.js');
+        await make_angry_shk(mtmp, oldx, oldy);
+    }
+}
+
+/**
  * C ref: teleport.c rloc_to / rloc_to_core — place monster at (x,y).
  * RLOC_NOMSG path: worm remove_worm else remove+newsym(old); place;
  * update_monster_region (D-1161; after place, before worm tail);
  * place_worm_tail_randomly; ustuck swallow u_on_newpos/check_special_room/
  * docrt else !m_next2u unstuck (D-1123); maybe_unhide_at then newsym(new)
  * (D-1152); set_apparxy after dest newsym (D-1160; C place_monster
- * writes mx/my only).
- * Named omissions: shopkeeper home teleport; shop bill on leave.
- * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886).
+ * writes mx/my only); resident shk !inhishop dest → make_angry_shk
+ * (D-1162; after dest, after vanish/appear when rloc_to_flag).
+ * Named omissions: minvent shop bill stolen_value; occupation dochugw;
+ * trapped mintrap. RLOC_MSG vanish+appear live in async `rloc`
+ * (D-0885 / D-0886). rloc_opts.defer_shk_angry is JS-only so
+ * rloc_to_flag can run appear pline before angry (C order).
  */
-export async function rloc_to(mtmp, x, y) {
-    if (!mtmp) return;
+export async function rloc_to(mtmp, x, y, rloc_opts = null) {
+    if (!mtmp) return null;
     const oldx = mtmp.mx | 0;
     const oldy = mtmp.my | 0;
+    // C: resident_shk = isshk && inhishop — before same-cell return / pickup
+    const resident_shk = !!(mtmp.isshk && inhishop(mtmp));
     // C: if (x == mx && y == my && m_at(x, y) == mtmp) return;
-    if (x === oldx && y === oldy && m_at(x, y) === mtmp) return;
+    if (x === oldx && y === oldy && m_at(x, y) === mtmp) return null;
 
     if (oldx) {
         /* JS m_at scans fmon by mx/my; zero coords before newsym so the
@@ -717,6 +735,13 @@ export async function rloc_to(mtmp, x, y) {
     await maybe_unhide_at(x, y);
     newsym(x, y);
     set_apparxy(mtmp);
+    // C: vanish/appear pline then resident_shk && !inhishop make_angry_shk.
+    // Silent rloc_to (RLOC_NOMSG) skips the pline block; rloc_to_flag
+    // defers angry until after rloc_post_move_msg.
+    if (!rloc_opts?.defer_shk_angry) {
+        await rloc_maybe_angry_shk(mtmp, resident_shk, oldx, oldy);
+    }
+    return { resident_shk, oldx, oldy };
 }
 
 /**
@@ -963,8 +988,12 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
  */
 export async function rloc_to_flag(mtmp, x, y, rlocflags) {
     const state = await rloc_pre_move_msg(mtmp, x, y, rlocflags);
-    await rloc_to(mtmp, x, y);
+    // Defer shk angry until after appear pline (C rloc_to_core 1703 then 1739).
+    const snap = await rloc_to(mtmp, x, y, { defer_shk_angry: true });
     await rloc_post_move_msg(mtmp, x, y, state);
+    if (snap) {
+        await rloc_maybe_angry_shk(mtmp, snap.resident_shk, snap.oldx, snap.oldy);
+    }
 }
 
 /**

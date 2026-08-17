@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1162 — rloc_to resident shk make_angry_shk after dest
+
+- **Status:** fixed (map-driven Open; named omit from D-1161 /
+  review **121**; not a public FAIL)
+- **Symptom:** JS `rloc_to` placed then `set_apparxy` with no
+  shopkeeper-home check. C `rloc_to_core` snapshots
+  `resident_shk = isshk && inhishop` before pickup, then after dest
+  messages calls `make_angry_shk(mtmp, oldx, oldy)` when the shk is
+  no longer in their shop.
+- **C locus:** `teleport.c` `rloc_to_core` (~1651, 1734–1740);
+  callee `shk.c` `make_angry_shk` (~1470–1488) / `inhishop`
+  (~1039–1048). `ox`/`oy` ARGSUSED.
+- **Fix:** snapshot `resident_shk` before same-cell return / pickup.
+  Silent `rloc_to` calls `make_angry_shk` after dest `set_apparxy`.
+  `rloc_to_flag` defers that call until after appear pline (C order:
+  messages then angry). Existing `shk.js` `make_angry_shk` (bill fold
+  + pline + `hot_pursuit`). Did not pull vanish-msg polish, minvent
+  `stolen_value`, occupation `dochugw`, or trapped `mintrap`. Rule #2:
+  no fs.
+- **JS:** `js/teleport.js` `rloc_to` / `rloc_to_flag` /
+  `rloc_maybe_angry_shk`; `js/shk.js` `make_angry_shk`.
+- **Not this iter:** vanish-msg; minvent `stolen_value`; occupation
+  `dochugw`; trapped `mintrap`; `rloc_pos_ok` shk/priest room lock.
+- **Verify:** private canary **32**/32 (leave-shop angry+following+
+  "gets angry"; stay-shop; already-out; non-shk; same-cell; furious;
+  debit/loan/credit robbed fold + `setpaid`; null; `rloc_to_flag`
+  appear-then-angry; flag stay-shop; priest; migrating mx==0);
+  green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+  0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/
+  0367/0373/0002. Path public-unhit on a resident shk rloc out of
+  shop.
+- **Files:** `js/teleport.js`.
+
 ## D-1161 — rloc_to update_monster_region after place
 
 - **Status:** fixed (map-driven Open; named omit from D-1160 /
