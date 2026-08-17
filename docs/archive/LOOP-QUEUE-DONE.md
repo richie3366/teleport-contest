@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `region.c` `create_gas_cloud_selection` (named). Not BFS create. **Addressed:** D-1158
+- [x] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f. **Addressed:** D-1159
+
+
+- [x] `region.c` `create_gas_cloud_selection` (named). Not BFS create. **Addressed:** D-1158 `7cc347fc`
 
 
 - [x] `hack.c` walk `in_out_region` (named). Not teleds. **Addressed:** D-1157 `ed28eef1`

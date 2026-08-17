@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 14:11 — #1473 D-1159 mfndpos m_poisongas_ok vamp/eel/breath
+
+**Objective:** Open — `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath
+(named). Not inside_f.
+**C locus:** `mon.c` `m_poisongas_ok` 330–357; `mfndpos` 2172/2240.
+**Change:** port C order in `js/mon.js`: vampshifter / Hezrou|Vrock
+/ eel-or-waterlevel+pool / AT_BREA AD_DRST|RBRE → OK; youmonst
+invuln/Breathless/Underwater → OK; resist → MINOR; else BAD.
+mfndpos still `=== OK`. region.js keeps a local clone. Did not
+pull Resists_Elem worn/artifact or `rloc_to` `set_apparxy`.
+Filled D-1158 archive hash `7cc347fc`. Rotated #1458. Open 10
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1470** **44**/44; next
+@**#1475**).
+**Verified:** private canary **32**/32; green+strict seed8000/0900;
+cohort **39**/39 (CURRENT shared + 0014/0383). Path public-unhit
+on vamp/eel/breath walking into poisoncloud.
+**Next:** Open `teleport.c` `rloc_to` `set_apparxy` (named). Not
+vanish-msg. Audit @**#1475**.
+**Blocked:** none.
+
 ## 2026-08-17 13:55 — #1472 D-1158 create_gas_cloud_selection
 
 **Objective:** Open — `region.c` `create_gas_cloud_selection`
@@ -392,31 +413,4 @@ cohort **24**/24 (0014 gush + 0360 lava + 4500/2200/0030/0004/
 PASS). Path public-unhit on gush `m_at` overcrowding.
 **Next:** Open `hack.c` `domove` `invocation_message` (named).
 Not teleds. Audit @**#1460**.
-**Blocked:** none.
-
-## 2026-08-17 08:14 — #1458 D-1147 rndcolor chest_trap gas
-
-**Objective:** Open queue — `do_name.c` `rndcolor` (named from
-hcolor). Not sit/apply identity stubs.
-**C locus:** `do_name.c` `rndcolor` 1468–1477; `decl.c`
-`c_obj_colors[]` 20–37; `trap.c` `blindgas[]` 81–83 /
-`chest_trap` 6474–6476; `hack.h` `ROLL_FROM`; `color.h`
-`CLR_MAX`/`NO_COLOR`.
-**Change:** port `rndcolor` (always `rn2(CLR_MAX)` even Hallu;
-Hallu → `hcolor(NULL)` display-rng; else `k==NO_COLOR`
-`"colorless"` not table `"transparent"`). Wire chest_trap gas
-`Blind ? ROLL_FROM(blindgas) : rndcolor()`. Did not pull
-sit/apply/pray/detect/do/wield/read identity `hcolor` stubs.
-Filled D-1146 archive hash `fe5cefad`. Rotated #1443. Open 11
-after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1455** **44**/44; next
-@**#1460**).
-**Verified:** private canary **215**/215; green+strict seed8000/0900;
-cohort **19**/19 (0002 drinksink + 0014 fountain + 0383/0399 Hallu
-+ 0006/0007/0106/0108/0360/2200/4500 + 0004/0009/0012/0030/0116/
-0060/1500/1800) + strict 8000/0900/0002/0014/0383/0399/0006/0106/
-0108/0360/2200/4500/0030/0060. seed0009 runner PASS (strict
-length pre-existing D-0989). Path public-unhit on chest gas.
-**Next:** Open `fountain.c` `gush` `deal_with_overcrowding`
-(named). Not lava xkilled.
 **Blocked:** none.

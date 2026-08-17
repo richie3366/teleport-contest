@@ -38,7 +38,8 @@
 // inside_f dam>0 HP + m_poisongas_ok size-1 gate (D-1146 region.js).
 // expire_gas_cloud dissipation plines (D-1155 region.js).
 // fumaroles clear_heros_fault + Norep whoosh (D-1156 mklev.js).
-// Deferred: mfndpos m_poisongas_ok subset; monstseesu
+// mfndpos m_poisongas_ok vamp/eel/breath (D-1159 mon.js).
+// Deferred: monstseesu
 // when Fire_resistance already set; sit/apply/pray/detect/do/wield/read
 // identity hcolor stubs (rndcolor is D-1147 in do_name.js / chest_trap).
 

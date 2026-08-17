@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1159 — mon.c `m_poisongas_ok` mfndpos vamp/eel/breath
+
+- **Status:** fixed (map-driven Open; named omit from D-1146/D-1158;
+  not a public FAIL)
+- **Symptom:** JS `mfndpos` called a thinner `m_poisongas_ok` that
+  only treated `nonliving`/`breathless` as OK, so vampshifters, eels
+  in pool, poison-breath dragons, and Hezrou/Vrock still avoided
+  poisoncloud neighbours. C `mon.c:330–357` returns OK for those
+  and MINOR for poison resistance (mfndpos still skips MINOR).
+- **C locus:** `mon.c` `m_poisongas_ok` (~330–357); caller `mfndpos`
+  (~2172, ~2240). Callees `immune_poisongas` / `attacktype_fordmg` /
+  `resists_poison` subset.
+- **Fix:** port the C order into `js/mon.js`: vampshifter /
+  `immune_poisongas` (Hezrou/Vrock mndx) / eel-or-waterlevel +
+  `is_pool` / AT_BREA AD_DRST or AD_RBRE → OK; youmonst
+  uinvulnerable / Breathless / Underwater → OK; Poison_resistance
+  or `resists_poison` → MINOR; else BAD. mfndpos still gates on
+  `=== OK`. region.js keeps a local clone (import cycle). Did not
+  pull Resists_Elem worn/artifact or `rloc_to` `set_apparxy`.
+  Rule #2: no fs.
+- **JS:** `js/mon.js` `m_poisongas_ok`; comments in `region.js` /
+  `fountain.js`.
+- **Not this iter:** Resists_Elem worn/artifact grants; `rloc_to`
+  `set_apparxy` / `update_monster_region` / shk bill; `run_regions`
+  geometric `hero_inside` for inside_f.
+- **Verify:** private canary **32**/32 (nonliving/breathless;
+  vampshifter bat vs plain bat; Hezrou/Vrock; eel pool vs land;
+  waterlevel pool; green/chromatic vs red dragon; hero
+  invuln/breath/water/resist; kobold mresists MINOR; mintrinsics/
+  mextrinsics; mfndpos enter vs skip vs already-in-gas vs
+  `S_cloud`); green+strict seed8000/0900; cohort **39**/39
+  (CURRENT shared + 0014/0383) + isolated strict 0012. Path
+  public-unhit on vamp/eel/breath walking into poisoncloud.
+- **Files:** `js/mon.js`, `js/region.js` (comment), `js/fountain.js`
+  (comment).
+
 ## D-1158 — region.c `create_gas_cloud_selection` / Cloud room
 
 - **Status:** fixed (map-driven Open; named omit from D-1137/D-1155/D-1156;

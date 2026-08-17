@@ -10,8 +10,9 @@
 // can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
 // attach_2_m; run_regions / region_danger / region_safety still use
 // geometry for inside_f (do.c goto_level in_out_region still named);
-// mfndpos m_poisongas_ok still the mon.js subset. fumaroles whoosh
-// D-1156. Walk in_out_region D-1157. Selection create D-1158.
+// mfndpos m_poisongas_ok D-1159 (mon.js; this file keeps a local clone
+// — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
+// in_out_region D-1157. Selection create D-1158.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -172,7 +173,8 @@ function distu(x, y) {
 
 /**
  * C ref: mon.c m_poisongas_ok — OK / MINOR / BAD for gas clouds.
- * null mtmp ≡ hero (&youmonst). mfndpos still uses the mon.js subset.
+ * null mtmp ≡ hero (&youmonst). Local clone of mon.js (D-1159);
+ * import cycle: mon.js pulls visible_region_at from here.
  */
 function m_poisongas_ok(mtmp) {
     const is_you = !mtmp || mtmp === game.youmonst;
