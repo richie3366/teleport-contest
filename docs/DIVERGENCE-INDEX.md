@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1195 | fixed | `rloc_to_core` wand `makeknown` | map-driven; C `teleport.c:1727–1731` after delivered dest msg; `current_wand` WAN_TELEPORTATION → `makeknown` (WIS `rn2(19)` if new); Null/other/RLOC_NOMSG/no-msg skip; `set_msg_xy` still named |
+| D-1196 | fixed | `rloc_to_core` dest-msg `set_msg_xy` | map-driven; C `teleport.c:1708` after dest-msg gate before dest plines; `a11y.msg_loc` dest; silent/same-cell/`in_mklev`/unspotted skip; `accessiblemsg` pline consume still named |
+| D-1195 | fixed | `rloc_to_core` wand `makeknown` | map-driven; C `teleport.c:1727–1731` after delivered dest msg; `current_wand` WAN_TELEPORTATION → `makeknown` (WIS `rn2(19)` if new); Null/other/RLOC_NOMSG/no-msg skip; dest-msg `set_msg_xy` D-1196 |
 | D-1194 | fixed | do.c `goto_level` `notice_mon_off` | map-driven; C `do.c:1839` off before docrt + `:1971–1972` on+`notice_all_mons(TRUE)` after uz0; D-1142 callees; default `spot_monsters` Off; `reset_glyphmap` / vision_recalc caller / newgame wrap still named |
 | D-1193 | fixed | dokick.c `deliver_obj_to_mon` | map-driven; C `dokick.c:1853–1906` / `makemon.c:1469–1470` DF_NONE after invent; MIGR_TO_SPECIES + DELIVER_PM match; orc `christen_orc`/`free_oname`; dog leftovers / `mksobj_migr_to_species` / stolen_booty still named |
 | D-1192 | fixed | allmain.c `newgame` wizkit `obj_delivery(FALSE)` | map-driven; C `allmain.c:826–829` after skills before legacy; `files.c` `read_wizkit`/`wizkit_addinv` VFS `WIZKIT=`; overflow WITH_HERO\|NOBREAK\|NOSCATTER then FALSE; `deliver_obj_to_mon` D-1193; getenv / `wish_history` / `init_artifacts` / newgame `notice_mon_off` still named |

@@ -1764,7 +1764,7 @@ function notice_distu(x, y) {
 }
 
 /** C pline.c set_msg_xy — a11y.msg_loc; pline consume still named. */
-function set_msg_xy(x, y) {
+export function set_msg_xy(x, y) {
     const a = a11y_state();
     a.msg_loc.x = x | 0;
     a.msg_loc.y = y | 0;

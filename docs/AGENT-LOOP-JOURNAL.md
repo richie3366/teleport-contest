@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 01:32 — #1519 D-1196 rloc_to_core dest-msg set_msg_xy
+
+**Objective:** Open — `teleport.c` `rloc_to_core` `set_msg_xy`
+(named). Not makeknown.
+**C locus:** `teleport.c` `rloc_to_core` 1708 after dest-msg gate
+before dest plines. Callee `pline.c` `set_msg_xy`.
+**Change:** export `hack.js` `set_msg_xy` and call it at dest
+before `STRAT_APPEARMSG` clear. Silent / same-cell / `in_mklev`
+/ unspotted skip. Did not pull `accessiblemsg` consume or
+`scrolltele` W-tower Override. Filled D-1195 archive hash
+`143f9a46`. Rotated #1504. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1515** **44**/44; next
+@**#1520**).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **14**/14 + strict 1500/0012/0360/4500/
+2200/0014.
+**Next:** Open `teleport.c` `scrolltele` W-tower Override yn
+(named). Not make_blinded.
+**Blocked:** none.
+
 ## 2026-08-18 01:26 — #1518 D-1195 rloc_to_core wand makeknown
 
 **Objective:** Open — `teleport.c` `rloc_to_core` wand `makeknown`
@@ -356,30 +377,5 @@ Rotated #1490. Open 11 (no refill). Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Must-fix human canary seed8243 `wintty.c` NHW_MENU `offx`.
 Not `kill_genocided`. Not `built` date.
-**Blocked:** none.
-
-## 2026-08-17 22:40 — #1504 D-1184 scrolltele make_blinded
-
-**Objective:** Open — `teleport.c` `scrolltele` make_blinded (named).
-Not W-tower amulet.
-**C locus:** `teleport.c` `scrolltele` 861–863 after noteleport
-return, before amulet/W-tower `rn2(3)`.
-**Change:** `if (!Blinded()) await make_blinded(0, false)` via
-dynamic `do.js` import. `Blinded` ≡ `HBlinded && !BBlinded` (not
-Blindfold). Skip when Blinded so timeout/FROMFORM is not cured.
-Did not pull W-tower Override yn. Filled D-1183 archive hash
-`d2512b22`. Rotated #1489. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1500** **44**/44; next
-@**#1505**).
-**Verified:** private canary **52**/52 (C/JS order; Blinded≠Blind;
-0,FALSE not 1L; noteleport before; timeout/FROMFORM kept; Eyes
-leftover TIMEOUT cleared; Blindfold uses Blinded; wizard still
-calls; amulet after; no fs/FORCE); green+strict seed8000/0900;
-cohort **12**/12 (1500/1800/0015/0002/0014/2200/4500/0367/0360/
-0012/0004/0006) + strict 1500/0012/0360/4500/2200/0014/0004.
-Path public-unhit unless Eyes leftover timeout on teleport.
-**Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
-(named). Not run_timers.
 **Blocked:** none.
 

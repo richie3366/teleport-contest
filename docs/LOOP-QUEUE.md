@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_to_core` `set_msg_xy` (named). Not makeknown.
 - [ ] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded.
 - [ ] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive.
 - [ ] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit.

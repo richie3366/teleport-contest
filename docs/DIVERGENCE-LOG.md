@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1196 — `rloc_to_core` dest-msg `set_msg_xy`
+
+- **Status:** fixed (map-driven Open; named omit from D-1195 /
+  D-1183 / D-1180; not a public FAIL)
+- **Symptom:** JS `rloc_post_move_msg` entered the dest-msg gate
+  and printed together / telemsg / appear without writing
+  `a11y.msg_loc`. C `rloc_to_core` calls `set_msg_xy(x, y)` at
+  `:1708` after `du`/`next`/`nearu`, before clearing
+  `STRAT_APPEARMSG` and the dest plines. `pline.c` `set_msg_xy`
+  stores dest on `a11y.msg_loc`; `vpline` consume / prefix when
+  `accessiblemsg` stays named.
+- **C locus:** `teleport.c` `rloc_to_core` `:1708` inside
+  `domsg && (canspotmon \|\| appearmsg \|\| mtmp == u.ustuck)`.
+  Callee `pline.c` `set_msg_xy` `:93–97`.
+- **JS was:** dest plines + wand `makeknown` (D-1195); `set_msg_xy`
+  commented as named omit.
+- **Fix:** export `hack.js` `set_msg_xy` (already used by
+  `notice_mon`) and call it at the dest-msg site before strategy
+  clear. Silent `rloc_to` / `RLOC_NOMSG` / same-cell / `in_mklev`
+  / unspotted skip unchanged.
+- **JS:** `js/teleport.js` `rloc_post_move_msg`; `js/hack.js`
+  export.
+- **Not this iter:** `accessiblemsg` pline consume of `msg_loc`;
+  `scrolltele` W-tower Override yn. Rule #2: no fs.
+- **Verified:** private canary **18**/18 (write dest; `|0`;
+  telemsg / appearmsg / ustuck / swallow set dest; silent
+  `rloc_to` / RLOC_NOMSG / same-cell / `in_mklev` / unspotted
+  skip; mx==0 dest; dest≠origin; Null wand still sets; no fs);
+  green+strict seed8000/0900; cohort **14**/14 + strict
+  1500/0012/0360/4500/2200/0014. Path public-unhit unless
+  `accessiblemsg` is On (default Off).
+- **Files:** `js/teleport.js`, `js/hack.js`.
+
 ## D-1195 — `rloc_to_core` wand `makeknown(WAN_TELEPORTATION)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1183 /

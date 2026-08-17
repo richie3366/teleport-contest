@@ -47,6 +47,7 @@ import { vision_recalc, couldsee } from './vision.js';
 import {
     nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain,
     invocation_message, notice_mon_off, notice_mon_on, notice_all_mons,
+    set_msg_xy,
 } from './hack.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
@@ -720,7 +721,7 @@ async function rloc_maybe_mintrap(mtmp) {
  * after bill (D-1170; go.occupation → dochugw(mtmp, FALSE) — no
  * dochug, only stop-if-newly-spotted-threat); trapped !wormno
  * mintrap after occupation (D-1164; dest no trap clears mtrapped).
- * Named omission: set_msg_xy.
+ * `set_msg_xy` at dest-msg is D-1196 (rloc_to_flag / rloc_post_move_msg).
  * RLOC_MSG vanish+appear live in async `rloc` (D-0885 / D-0886);
  * telemsg "vanishes and reappears" D-1180; ustuck-together You() D-1183;
  * wand `makeknown(WAN_TELEPORTATION)` after a delivered dest msg D-1195.
@@ -1035,9 +1036,9 @@ function rloc_pos_ok(x, y, mtmp) {
 /**
  * C ref: teleport.c rloc_to_core message envelope — vanish before move,
  * appear after place. Returns msg state for the post-place arm.
- * Named omit: set_msg_xy.
  * Telemsg "vanishes and reappears" is D-1180; ustuck-together You() D-1183;
- * wand `makeknown` after a delivered dest msg is D-1195.
+ * wand `makeknown` after a delivered dest msg is D-1195;
+ * dest-msg `set_msg_xy` is D-1196.
  */
 async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
     const preventmsg = (rlocflags & RLOC_NOMSG) !== 0;
@@ -1064,7 +1065,8 @@ async function rloc_pre_move_msg(mtmp, x, y, rlocflags) {
  * (1703–1726). Telemsg "vanishes and reappears" + next/close-by/
  * closer/farther (D-1180). Ustuck-together You() first arm (D-1183;
  * C 1710–1711). Wand `makeknown(WAN_TELEPORTATION)` after any
- * delivered dest msg (D-1195; C 1727–1731). Named omit: set_msg_xy.
+ * delivered dest msg (D-1195; C 1727–1731). Dest-msg `set_msg_xy`
+ * before those plines (D-1196; C 1708).
  */
 async function rloc_post_move_msg(mtmp, x, y, state) {
     const { domsg, telemsg, oldx, oldy } = state;
@@ -1073,14 +1075,15 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
     const u = game.u || {};
     if (!(canspotmon(mtmp) || appearmsg || mtmp === u.ustuck)) return;
 
-    // C: mtmp->mstrategy &= ~STRAT_APPEARMSG
-    if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_APPEARMSG;
-
     const du = distu_xy(x, y);
     const next = du <= 2 ? ' next to you' : null; /* next2u() */
     const nearu = du <= BOLT_LIM * BOLT_LIM ? ' close by' : null;
 
-    // C teleport.c:1708 set_msg_xy(x, y) — named omit
+    // C teleport.c:1708 set_msg_xy(x, y) before dest plines (D-1196).
+    set_msg_xy(x, y);
+    // C: mtmp->mstrategy &= ~STRAT_APPEARMSG
+    if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_APPEARMSG;
+
     // C teleport.c:1710–1711 first arm; else-if telemsg; else appear
     if (mtmp === u.ustuck && !u_at(u.ux0, u.uy0)) {
         await pline(`You and ${mon_nam(mtmp)} teleport together.`);
@@ -1206,7 +1209,7 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * then unshuffled candy shuffle (D-1122).
  * Steed is hero teleport: tele() then TRUE even if tele() does not
  * move (noteleport) (D-1172; C 1808–1811). Not Wizard stair.
- * Named omissions: set_msg_xy.
+ * Dest-msg `set_msg_xy` is D-1196 (rloc_to_flag).
  * mnexto control_mon_tele is D-1173. RLOC_ERR impossible is D-1181.
  * Ustuck-together You() is D-1183. Wand makeknown is D-1195.
  */
