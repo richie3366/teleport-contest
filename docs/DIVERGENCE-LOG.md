@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1188 — `teleport.c` `domagicportal` activate / tutorial ATSTAIRS
+
+- **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
+- **Symptom:** After ParanoidTrap yn (D-1187), first miss @108. C
+  hero MAGIC_PORTAL `feeltrap`+`domagicportal` prints
+  `"You activated a magic portal!"` then
+  `schedule_goto` ATSTAIRS `"Resuming regular play."` when
+  leaving tutorial. JS `trapeffect_level_telep` no-op'd the
+  hero arm; seen-escape `rn2(5)` could also skip a portal
+  (C `undestroyable_trap`); `uz0` stayed the previous level
+  so the landing check would no-op every later step; tut-1
+  `mktrap` left `dst` at `{-1,-1}`.
+- **C locus:** `teleport.c` `domagicportal` `:1444–1488`;
+  caller `trap.c` `trapeffect_magic_portal` `:2710–2722`;
+  `dotrap` escape `!undestroyable_trap` `:3035`;
+  `mklev.c` `mktrap` dst←`ucamefrom` `:2108–2110`;
+  `do.c` `goto_level` reset uz0 `:1967`.
+- **JS was:** hero MAGIC_PORTAL returned Finished; escape
+  rolled `rn2(5)` on portals; no uz0 reset; no portal dst.
+- **Fix:** `js/teleport.js` `domagicportal`; `js/trap.js`
+  `trapeffect_magic_portal` + `dotrap` undestroyable skip;
+  `js/mklev.js` `mktrap_seen_victim` dst; `js/do.js` uz0
+  reset. Did not pull hero `level_tele_trap` or
+  `UTOTYPE_RMPORTAL`. Did not pull rhack `visctrl`.
+- **Not this iter:** `cmd.c` rhack `Unknown command`
+  `visctrl(key)` (`^C` vs raw ETX); `maybe_smudge_engr`;
+  `kill_genocided_monsters`. Rule #2: no fs.
+- **Verified:** private canary Scr **108→128**/129 RNG
+  **2570→2768**/2768 (leftover @117 `Unknown command '^C'`);
+  green+strict seed8000/0900; cohort **44**/44 (full public
+  fortress) + strict 1500/0700/0009/0361/0015/0012/2200.
+- **Files:** `js/teleport.js`, `js/trap.js`, `js/mklev.js`,
+  `js/do.js`.
+
 ## D-1187 — `hack.c` `avoid_trap_andor_region` ParanoidTrap portal yn
 
 - **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)

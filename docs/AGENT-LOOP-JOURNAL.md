@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:16 — #1509 D-1188 teleport.c domagicportal
+
+**Objective:** Must-fix human canary seed8243 `teleport.c`
+`domagicportal` activate / tutorial ATSTAIRS stunmsg. Not
+maybe_smudge. Not kill_genocided.
+**C locus:** `teleport.c` `domagicportal` 1444–1488 /
+`trap.c` `trapeffect_magic_portal` 2710–2722; `dotrap`
+`!undestroyable_trap` 3035; `mklev.c` `mktrap` dst 2108–2110;
+`do.c` `goto_level` reset uz0 1967.
+**Change:** hero MAGIC_PORTAL `feeltrap`+`domagicportal`.
+Activate pline; tutorial leave ATSTAIRS + "Resuming regular
+play."; else PORTAL + stunmsg + `make_stunned`. Seen-escape
+skips `rn2(5)` on undestroyable traps. `mktrap` dst from
+`ucamefrom`. `goto_level` resets uz0 so later steps fire.
+Did not pull `level_tele_trap` / `UTOTYPE_RMPORTAL` / rhack
+`visctrl`. Filled D-1187 archive hash `77ead396`. Rotated
+#1494. Open 10 + Must-fix visctrl = 11 (no refill). Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1505** **44**/44; next
+@**#1510**). Cohort this iter was the full public 44.
+**Verified:** canary Scr **108→128**/129 RNG **2570→2768**/2768
+(leftover @117 `Unknown command '^C'`); green+strict
+seed8000/0900; cohort **44**/44 + strict
+1500/0700/0009/0361/0015/0012/2200.
+**Next:** Must-fix seed8243 `cmd.c` rhack `visctrl` `^C`.
+Not maybe_smudge_engr.
+**Blocked:** none.
+
 ## 2026-08-18 00:08 — #1508 D-1187 avoid_trap_andor_region ParanoidTrap
 
 **Objective:** Must-fix human canary seed8243 `hack.c`
@@ -368,32 +396,5 @@ hash `b652fbf3`. Rotated #1480. Open 8 (no refill). Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `do.c` `goto_level` `obj_delivery` (named). Not
 in_out_region.
-**Blocked:** none.
-
-## 2026-08-17 20:25 — #1494 D-1176 mhurtle_step m_in_out_region
-
-**Objective:** Open — `dothrow.c` `mhurtle_step` `m_in_out_region`
-(named). Not hurtle_step.
-**C locus:** `dothrow.c` `mhurtle_step` `:1000`; callee `region.c`
-533–576.
-**Change:** three-loop `m_in_out_region` (attach_2_m skip;
-can_enter/leave then leave/enter; gas NO_CALLBACK never rejects).
-`mhurtle_step` `will_hurtle && m_in_out_region` before place.
-`make_gas_cloud` `attach_2_m=0`. Did not pull steed `u_on_newpos`,
-petrify, `place_monster` vs rloc, NODIAG, minliquid, or
-`goto_level` `obj_delivery`. Filled D-1175 archive hash
-`7188da5b`. Rotated #1479. Open 8 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1490** **44**/44; next
-@**#1495**).
-**Verified:** private canary **53**/53 (C/JS `&&` source; gas
-add/stay/remove; can_enter/leave reject; attach_2_m skip; leave
-then enter; NO_CALLBACK; null; empty; no fs/FORCE); green+strict
-seed8000/0900; cohort **43**/43 (CURRENT shared + 0014/0383/4500/
-2600 + green) + strict 0101/0012/0360/4500/2200/0014/0004/0103/
-0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
-knock through a live force field.
-**Next:** Open `do.c` `goto_level` `obj_delivery` (named). Not
-in_out_region. Audit @**#1495**.
 **Blocked:** none.
 

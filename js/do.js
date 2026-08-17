@@ -1771,6 +1771,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         await newexplevel();
     }
 
+    // C: assign_level(&u.uz0, &u.uz); /* reset u.uz0 */
+    // so later same-level portal steps are not treated as landing.
+    assign_level(u.uz0 || (u.uz0 = { dnum: 0, dlevel: 0 }), u.uz);
+
     // C: print_level_annotation() before check_special_room / pickup
     // (dungeon.c — #annotate custom → "You remember this level as …")
     await print_level_annotation();

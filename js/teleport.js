@@ -19,7 +19,8 @@ import {
     ESHK, EPRI, EMIN, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     M_AP_NOTHING,
-    UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER, TT_BURIEDBALL,
+    UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_PORTAL, TIMEOUT,
+    OBJ_FREE, SLT_ENCUMBER, TT_BURIEDBALL,
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
@@ -51,7 +52,7 @@ import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
 import { getlin, yn_function } from './getline.js';
-import { get_level, find_hell, In_W_tower, On_W_tower_level } from './dungeon.js';
+import { get_level, find_hell, In_W_tower, On_W_tower_level, In_tutorial } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
@@ -2105,6 +2106,72 @@ export async function level_tele() {
         flags.verbose ? 'You materialize on a different level!' : null,
     );
 }
+
+/**
+ * C ref: teleport.c domagicportal — hero MAGIC_PORTAL.
+ * Envelope: buried-ball punish; !next_to_u shudder; same-turn
+ * landing (uz!=uz0) no-op; "You activated a magic portal!";
+ * endgame without amulet dizzy-return; tutorial leave
+ * UTOTYPE_ATSTAIRS + "Resuming regular play."; else PORTAL +
+ * stunmsg + make_stunned((HStun&TIMEOUT)+3, FALSE).
+ * Named omissions: level_tele_trap; UTOTYPE_RMPORTAL deltrap.
+ */
+export async function domagicportal(ttmp) {
+    const u = game.u;
+    if (!u) return;
+
+    if (u.utrap && (u.utraptype | 0) === TT_BURIEDBALL) {
+        const { buried_ball_to_punishment } = await import('./dig.js');
+        await buried_ball_to_punishment();
+    }
+
+    const { next_to_u } = await import('./apply.js');
+    if (!(await next_to_u())) {
+        await pline('You shudder for a moment.');
+        return;
+    }
+
+    /* if landed from another portal, do nothing */
+    /* problem: level teleport landing escapes the check */
+    if (!on_level(u.uz, u.uz0)) return;
+
+    await pline('You activated a magic portal!');
+
+    /* prevent the poor shnook, whose amulet was stolen while in
+     * the endgame, from accidently triggering the portal to the
+     * next level, and thus losing the game
+     */
+    if (In_endgame(u.uz) && !(u.uhave?.amulet || u.uhave_amulet)) {
+        await You_feel('dizzy for a moment, but nothing happens...');
+        return;
+    }
+
+    const target_level = {
+        dnum: ttmp?.dst?.dnum | 0,
+        dlevel: ttmp?.dst?.dlevel | 0,
+    };
+
+    let totype;
+    let stunmsg;
+    /* coming back from tutorial doesn't trigger stunning */
+    if (In_tutorial(u.uz) && !In_tutorial(target_level)) {
+        /* returning to normal play => arrive on level 1 stairs */
+        totype = UTOTYPE_ATSTAIRS;
+        stunmsg = 'Resuming regular play.';
+    } else {
+        totype = UTOTYPE_PORTAL;
+        // C: Stunned ≡ HStun (youprop.h)
+        stunmsg = !(u.HStun | 0)
+            ? 'You feel slightly dizzy.'
+            : 'You feel dizzier.';
+        const { make_stunned } = await import('./potion.js');
+        await make_stunned(((u.HStun | 0) & TIMEOUT) + 3, false);
+    }
+
+    const { schedule_goto } = await import('./do.js');
+    schedule_goto(target_level, totype, stunmsg, null);
+}
+
 /**
  * C ref: teleport.c vault_tele — somexyspace into VAULT then teleds;
  * else tele() (D-1153). Named omit: dotele trap-at-feet still uses
@@ -2323,7 +2390,7 @@ function is_home_elemental(ptr) {
  * (D-0782) with endgame amulet/home-elemental/rn2(7) stay; LEVEL_TELEP
  * random_teleport_level+get_level; NO_TRAP same-level migrate unless
  * amulet/endgame/onscary(0,0). Named omissions: valley_level stronghold
- * dest; botlevel hole avoid pline; hero level_tele_trap / domagicportal.
+ * dest; botlevel hole avoid pline; hero level_tele_trap.
  */
 export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
     const tt = trap ? (trap.ttyp | 0) : NO_TRAP;

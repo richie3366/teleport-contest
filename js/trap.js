@@ -4,7 +4,8 @@
 // t_at, t_missile, thitm, mintrap, dotrap, trapeffect_dart_trap /
 // trapeffect_pit / trapeffect_rocktrap / trapeffect_rolling_boulder_trap /
 // launch_obj / trapeffect_sqky_board /
-// trapeffect_bear_trap / trapeffect_hole / trapeffect_magic_trap /
+// trapeffect_bear_trap / trapeffect_hole / trapeffect_magic_portal /
+// trapeffect_magic_trap /
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
 // mu_maybe_destroy_web, b_trapped,
@@ -97,7 +98,7 @@ import {
     maybe_half_phys, nomul, losehp, finish_maybe_wail, stop_occupation,
     in_rooms,
 } from './hack.js';
-import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap } from './teleport.js';
+import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, domagicportal } from './teleport.js';
 import {
     objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS,
@@ -1467,9 +1468,9 @@ export async function dotrap(trap, trflags = NO_TRAP_FLAGS) {
             }
             return;
         }
-        // undestroyable_trap / ANTI_MAGIC / Fumbling / plunge / conj_pit
-        // deferred — ordinary commons escape only
-        if (already_seen && !u.Fumbling && ttype !== ANTI_MAGIC
+        // plunge / conj_pit / adj_pit still named
+        if (already_seen && !u.Fumbling && !undestroyable_trap(ttype)
+            && ttype !== ANTI_MAGIC
             && !forcebungle
             && !rn2(5)) {
             const art = (ttype === ARROW_TRAP && !trap.madeby_u)
@@ -3013,17 +3014,30 @@ async function trapeffect_sqky_board(mtmp, trap, _trflags) {
 }
 
 /**
- * C ref: trap.c trapeffect_level_telep / trapeffect_magic_portal —
- * monster path both call mlevel_tele_trap. Hero arms deferred.
+ * C ref: trap.c trapeffect_level_telep — monster mlevel_tele_trap.
+ * Hero level_tele_trap still named.
  */
 async function trapeffect_level_telep(mtmp, trap, trflags) {
     if (is_youmonst(mtmp)) {
-        // level_tele_trap / domagicportal deferred
+        // level_tele_trap deferred
         return Trap_Effect_Finished;
     }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     const forcetrap = (trflags & FORCETRAP) !== 0;
     return await mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
+}
+
+/**
+ * C ref: trap.c trapeffect_magic_portal — hero feeltrap+domagicportal;
+ * monster trapeffect_level_telep (D-0782).
+ */
+async function trapeffect_magic_portal(mtmp, trap, trflags) {
+    if (is_youmonst(mtmp)) {
+        feeltrap(trap);
+        await domagicportal(trap);
+        return Trap_Effect_Finished;
+    }
+    return trapeffect_level_telep(mtmp, trap, trflags);
 }
 
 /**
@@ -4166,9 +4180,9 @@ async function trapeffect_selector(mtmp, trap, trflags) {
     case TRAPDOOR:
         return trapeffect_hole(mtmp, trap, trflags);
     case LEVEL_TELEP:
-    case MAGIC_PORTAL:
-        // C: MAGIC_PORTAL mon path → trapeffect_level_telep (D-0782)
         return trapeffect_level_telep(mtmp, trap, trflags);
+    case MAGIC_PORTAL:
+        return trapeffect_magic_portal(mtmp, trap, trflags);
     case FIRE_TRAP:
         return trapeffect_fire_trap(mtmp, trap, trflags);
     case MAGIC_TRAP:
