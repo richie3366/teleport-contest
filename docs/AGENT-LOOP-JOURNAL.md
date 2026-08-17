@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 01:05 — #1515 review D-1189–D-1192 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `cmd.c` rhack 3833–3834 / `hacklib.c` `visctrl`
+469–493; `do.c` `goto_level` 1817 / `mon.c` 5639–5677; `do.c`
+1818–1823 / `timeout.c` 2222–2241; `allmain.c` 826–829 /
+`files.c` 2537–2601 / `cfgfiles.c` 1214–1218.
+**Change:** reviews **151** ACCEPT D-1189 (`visctrl(key)` `^C`;
+callee live), **152** ACCEPT D-1190 (`kill_genocided` after
+`losedogs`; `newcham` named), **153** ACCEPT D-1191 (`run_timers`
+after wipe; REVIVE named), **154** ACCEPT-WITH-DEBT D-1192
+(overflow FALSE at hero live; `wizkit_wishing` unread / `WIZKIT=`
+spaces-colon / EOF leftover clone debt, not Must-fix). Filled
+D-1192 archive hash `cf9eb066`. No new Must-fix prepend. Open 12
+(no refill). Rotated #1500. Rule #2: no fs.
+**Score:** cadence **#1515** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.875). Next
+@**#1520**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
+obj_delivery.
+**Blocked:** none.
+
 ## 2026-08-18 00:55 — #1514 D-1192 newgame wizkit obj_delivery(FALSE)
 
 **Objective:** Open — `allmain.c` `newgame` wizkit
@@ -371,30 +396,5 @@ seed8000/0900; cohort **12**/12 (green + 1500/1800/0015/0002/
 public-unhit unless a RLOC_ERR caller cannot place.
 **Next:** Open `teleport.c` `rloc_pos_ok` mx==0 updest/dndest
 (named). Not room lock.
-**Blocked:** none.
-
-## 2026-08-17 21:40 — #1500 review D-1177–D-1180 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `dokick.c` `obj_delivery` 1769–1851 / `do.c` 1815+1978;
-`shk.c` `fix_shop_damage` 4849–4874 / `repair_damage` 4731–4845;
-`do.c` `do_fall_dmg` 1805–1809 + 1988–1994; `teleport.c`
-`rloc_to_core` 1658–1659 + 1712–1719.
-**Change:** reviews **138** ACCEPT D-1177 (XOR FALSE/TRUE +
-`OBJ_MIGRATING` extract; `rloco` internals / wizkit named), **139**
-ACCEPT D-1178 (`!new` catchup; silent post-`block_point`;
-`shk_fixes_damage` named), **140** ACCEPT D-1179 (`d(max(dist,1),6)`
-after catchup; `ballfall` / W-tower bit 2 named), **141** ACCEPT
-D-1180 (reappear suffix + same-cell return; ustuck / `RLOC_ERR`
-named). Must-fix empty. Filled D-1180 archive hash `665bbe09`.
-Rotated #1485. Open 9 (no refill). Rule #2: no fs.
-**Score:** cadence **#1500** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.87). Next
-@**#1505**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `teleport.c` `rloc` `RLOC_ERR` impossible() (named).
-Not vanish-msg.
 **Blocked:** none.
 

@@ -160,3 +160,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [148-4dd396cc-do-rush-do-run.md](./148-4dd396cc-do-rush-do-run.md) | `4dd396cc` | D-1186 `do_rush`/`do_run` PREFIXCMD | **ACCEPT** |
 | [149-77ead396-avoid-trap-paranoid.md](./149-77ead396-avoid-trap-paranoid.md) | `77ead396` | D-1187 ParanoidTrap portal yn | **ACCEPT-WITH-DEBT** |
 | [150-c58efd08-domagicportal.md](./150-c58efd08-domagicportal.md) | `c58efd08` | D-1188 `domagicportal` ATSTAIRS | **ACCEPT** |
+| [151-15dddffe-rhack-visctrl.md](./151-15dddffe-rhack-visctrl.md) | `15dddffe` | D-1189 rhack `visctrl` `^C` | **ACCEPT** |
+| [152-9a2cbc27-kill-genocided.md](./152-9a2cbc27-kill-genocided.md) | `9a2cbc27` | D-1190 `goto_level` `kill_genocided` | **ACCEPT** |
+| [153-cc7d0ef5-run-timers.md](./153-cc7d0ef5-run-timers.md) | `cc7d0ef5` | D-1191 `goto_level` `run_timers` | **ACCEPT** |
+| [154-cf9eb066-wizkit-obj-delivery.md](./154-cf9eb066-wizkit-obj-delivery.md) | `cf9eb066` | D-1192 newgame wizkit FALSE | **ACCEPT-WITH-DEBT** |

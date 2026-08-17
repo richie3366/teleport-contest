@@ -7,7 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1510** 44/44 @**#1515**. Next `deliver_obj_to_mon`.
+- **#1515** 44/44 @**#1520**. Next `deliver_obj_to_mon`.
+  Review **154** wizkit `wizkit_wishing` unread — not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -90,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1510; next `deliver_obj_to_mon`.
+- #1515; next `deliver_obj_to_mon`.
