@@ -21,6 +21,35 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 16:48 — #1483 D-1167 youmonst m_postmove_effect
+
+**Objective:** Open — `hack.c` `m_postmove_effect` youmonst
+(named). Not in_out_region.
+**C locus:** `hack.c` `domove_core` 2877 after occupy before
+steed; callee `monmove.c` `m_postmove_effect` 672–683.
+**Change:** await `m_postmove_effect(youmonst)` after occupy.
+Helper uses `is_u ? u.ux0 : mx/my`, `data.mndx`, awaits
+`create_gas_cloud`. Hezrou 1×8 / Steam `!mcan` 1×0 trail
+behind. Human form no-op. Monster `m_move` now awaits.
+Did not pull `allmain` `m_everyturn_effect` youmonst or
+moveloop fumaroles. Filled D-1166 archive hash `0cb3acbe`.
+Rotated #1468. Open 12 after archive (refilled 5 from
+`turns.md` / do.js named omits). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1480** **44**/44; next
+@**#1485**).
+**Verified:** private canary **30**/30 (src occupy/postmove/steed
++ helper `is_u` ux0; C same; import; null; human no cloud/RNG;
+fog not this fn; Hezrou ux0 not ux/not mx; damage 8; trail not
+inside / no envelop; Steam ux0 damage 0; `mcan`; monster mx/my;
+data vs stale mnum; same-cell immune; thenable; `mon_moving`);
+green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
+0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
+0004/0367/0373/0002/0700/0015. Path public-unhit on polyed
+Hezrou/Steam walk.
+**Next:** Open `allmain.c` `moveloop` `fumaroles` (named). Not
+mklev.
+**Blocked:** none.
+
 ## 2026-08-17 16:35 — #1482 D-1166 goto_level in_out_region
 
 **Objective:** Open — `do.c` `goto_level` `in_out_region` (named).
@@ -371,32 +400,4 @@ fog + 0360/2200/0004/0006/0012/1500/1800/0030/0108) + strict
 8000/0900/0373/0002/0014/0361/0383/0360/2200/0030/0004/0006 +
 0012 alone. Path public-unhit on whoosh.
 **Next:** Open `hack.c` walk `in_out_region` (named). Not teleds.
-**Blocked:** none.
-
-## 2026-08-17 12:50 — #1468 D-1155 expire_gas_cloud dissipation plines
-
-**Objective:** Open — `region.c` `expire_gas_cloud` dissipation
-plines (named). Not inside_gas HP.
-**C locus:** `region.c` `expire_gas_cloud` 1046–1087;
-`run_regions` 419–473.
-**Change:** port `expire_gas_cloud` (thick `arg>=5` half+`ttl=2`;
-thin Blind one-pass; `!uswallow` `u_at` within else `cansee`
-seen++). `run_regions` resets gg flags, `NO_CALLBACK||callback`
-then remove, then around-you / `You_see a|some` with
-`xray_range<=1` suppress. Pass 1 unblock stays `remove_region`
-rebuild. Did not pull fumaroles whoosh, selection create, or
-geometric bit. Filled D-1154 archive hash `10904562`. Rotated
-#1453. Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1465** **44**/44; next
-@**#1470**).
-**Verified:** private canary **54**/54 (src order; thick 8→4 ttl
-age 2→1 silent; 5/2 trunc; within; seen a/some; unseen; Blind/
-uswallow; xray -1/1/>1; overlap; two clouds; NO_CALLBACK; ttl>0;
-stale gg; arg=4 thin; second expire after half); green+strict
-seed8000/0900; cohort **14**/14 (0002 drinksink + 0014 fountain
-+ 0361/0383 fog + 0006/0007/0360/2200/0030/0004/1500/1800/0012/
-0108) + strict 8000/0900/0002/0014/0361/0383/0360/2200/0030/
-0004/0006/0012. Path public-unhit on dissipation plines.
-**Next:** Open `mklev.c` `fumaroles` `clear_heros_fault` / Norep
-whoosh (named). Not expire dissipation.
 **Blocked:** none.

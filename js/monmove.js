@@ -1088,18 +1088,24 @@ export function m_everyturn_effect(mtmp) {
 }
 
 /**
- * C ref: monmove.c m_postmove_effect — Hezrou stench / Steam vortex vapor
- * at pre-move cell. Called before place_monster in C.
+ * C ref: monmove.c m_postmove_effect — Hezrou stench / Steam vortex vapor.
+ * Hero: after occupy, cloud at u.ux0/u.uy0 (hack.c:2877) so the trail
+ * is behind, not under the new cell. Monster: before place_monster,
+ * cloud at mx/my (still the old cell). allmain m_everyturn youmonst
+ * (fog at u.ux) is a later queue item.
  */
-export function m_postmove_effect(mtmp) {
+export async function m_postmove_effect(mtmp) {
     if (!mtmp) return;
-    const mnum = mtmp.mnum ?? mtmp.data?.mndx ?? -1;
-    const x = mtmp.mx | 0;
-    const y = mtmp.my | 0;
+    const is_u = mtmp === game.youmonst;
+    const u = game.u || {};
+    const x = is_u ? (u.ux0 | 0) : (mtmp.mx | 0);
+    const y = is_u ? (u.uy0 | 0) : (mtmp.my | 0);
+    // C compares mtmp->data == &mons[PM_*], not mnum.
+    const mnum = mtmp.data?.mndx ?? mtmp.mnum ?? -1;
     if (mnum === PM_HEZROU) {
-        create_gas_cloud(x, y, 1, 8);
+        await create_gas_cloud(x, y, 1, 8);
     } else if (mnum === PM_STEAM_VORTEX && !mtmp.mcan) {
-        create_gas_cloud(x, y, 1, 0);
+        await create_gas_cloud(x, y, 1, 0);
     }
 }
 
@@ -1660,8 +1666,8 @@ export async function m_move(mtmp, after) {
         // Named: m_can_break_boulder / m_break_boulder deferred
     }
 
-    // C: m_postmove_effect before place (Hezrou/Steam at old cell)
-    m_postmove_effect(mtmp);
+    // C: m_postmove_effect before place (Hezrou/Steam at old mx/my)
+    await m_postmove_effect(mtmp);
 
     // C: place_monster + maybe_unhide_at + mon_track_add then postmov
     mtmp.mx = nix;

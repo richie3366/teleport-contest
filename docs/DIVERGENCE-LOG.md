@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1167 — hack.c youmonst `m_postmove_effect`
+
+- **Status:** fixed (map-driven Open; named omit from D-1157/review 118;
+  not a public FAIL)
+- **Symptom:** JS `domove` occupied the dest with no C
+  `m_postmove_effect(&youmonst)`, and the helper always used `mtmp.mx/my`.
+  A polyed Hezrou/Steam therefore left no trail at `u.ux0` (or would have
+  used the sentinel's unset `mx`). Monster `m_move` already called the
+  helper before place (D-0623). Walk `in_out_region` is D-1157 — region
+  membership, not stench/vapor.
+- **C locus:** `hack.c` `domove_core` (~2877) after `u.ux += u.dx`,
+  before steed `mx/my`. Callee `monmove.c` `m_postmove_effect`
+  (~672–683): `is_u ? u.ux0 : mtmp->mx`; Hezrou `create_gas_cloud(x,y,1,8)`;
+  Steam `!mcan` size-1 damage 0. Comment: hero after location change so
+  the trail is behind, not under the new cell.
+- **Fix:** await the helper after occupy and before steed update.
+  Helper: `mtmp === youmonst` → `u.ux0/u.uy0`; else `mx/my`; `data.mndx`
+  then `mnum`; await `create_gas_cloud`. Human form is a no-op (no RNG).
+  Did not pull `allmain.c` `m_everyturn_effect` youmonst (fog at `u.ux`)
+  or restructure mundisplaceable refuse (C tentative occupy still
+  named). Rule #2: no fs.
+- **JS:** `js/cmd.js` `domove`; `js/monmove.js` `m_postmove_effect`
+  (monster `m_move` now awaits). Comments in `region.js`.
+- **Not this iter:** `allmain.c` `m_everyturn_effect` youmonst;
+  `allmain.c` `moveloop` `fumaroles`; `run_regions` `hero_inside` bit;
+  mundisplaceable-refuse trail (C occupies then reverts);
+  `mhurtle_step` `m_in_out_region`.
+- **Verify:** private canary **30**/30 (src occupy/postmove/steed +
+  helper `is_u` ux0; C same; import; null; human no cloud/RNG; fog
+  not this function; Hezrou ux0 not ux/not mx; damage 8 poison;
+  trail not inside / no envelop; Steam ux0 damage 0; Steam `mcan`;
+  monster mx/my; data.mndx vs stale mnum; same-cell immune;
+  thenable; `mon_moving`); green+strict seed8000/0900; cohort
+  **41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
+  0101/0012/0360/4500/2200/0014/0004/0367/0373/0002/0700/0015.
+  Path public-unhit on polyed Hezrou/Steam walk.
+- **Files:** `js/cmd.js`; `js/monmove.js`; comments `js/region.js`.
+
 ## D-1166 — do.c goto_level `in_out_region`
 
 - **Status:** fixed (map-driven Open; named omit from D-1165/D-1157/D-1119;

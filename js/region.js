@@ -14,7 +14,8 @@
 // mfndpos m_poisongas_ok D-1159 (mon.js; this file keeps a local clone
 // — mon.js imports visible_region_at). fumaroles whoosh D-1156. Walk
 // in_out_region D-1157. hurtle_step in_out_region D-1165. goto_level
-// in_out_region D-1166. Selection create D-1158. rloc_to
+// in_out_region D-1166. youmonst m_postmove_effect D-1167 (trail at
+// u.ux0). Selection create D-1158. rloc_to
 // update_monster_region D-1161 (mhitm displace / dbridge named).
 // Level leave stashes the regions array (D-0675).
 
@@ -642,6 +643,7 @@ function expire_gas_cloud(reg) {
  * Hero inside_f still uses geometry (not the bit — C uses
  * hero_inside(); queue `run_regions` `hero_inside` bit). Walk /
  * hurtle_step / goto_level set the bit (D-1157 / D-1165 / D-1166).
+ * Polyed Hezrou/Steam walk leaves a size-1 trail at u.ux0 (D-1167).
  */
 export async function run_regions() {
     const gg = game.gg || (game.gg = {});

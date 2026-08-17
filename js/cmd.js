@@ -70,6 +70,7 @@ import {
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
+import { m_postmove_effect } from './monmove.js';
 
 /** C ref: cmd.c cmdq_clear(CQ_CANNED) */
 function cmdq_clear() {
@@ -1823,7 +1824,8 @@ async function domove(dx, dy) {
      * drag_ball, before m_at / occupy. Gas NO_CALLBACK never
      * rejects; still updates REG_HERO_INSIDE (D-1157). C returns
      * without move_bc put-down. dothrow hurtle_step is D-1165;
-     * do.c goto_level is D-1166. */
+     * do.c goto_level is D-1166. youmonst m_postmove_effect is
+     * D-1167 (after occupy). */
     if (!(await in_out_region(newx, newy))) {
         return;
     }
@@ -1861,9 +1863,11 @@ async function domove(dx, dy) {
         );
     }
 
-    // Move the hero (C u_on_newpos also updates usteed mx/my)
+    // Move the hero. C hack.c:2874–2884 — occupy, then
+    // m_postmove_effect(&youmonst) at u.ux0, then usteed mx/my.
     u.ux = newx;
     u.uy = newy;
+    await m_postmove_effect(game.youmonst);
     if (u.usteed) {
         u.usteed.mx = newx;
         u.usteed.my = newy;

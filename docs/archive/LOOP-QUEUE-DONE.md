@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do.c` `goto_level` `in_out_region` (named). Not walk. **Addressed:** D-1166
+- [x] `hack.c` `m_postmove_effect` youmonst (named). Not in_out_region. **Addressed:** D-1167
+
+
+- [x] `do.c` `goto_level` `in_out_region` (named). Not walk. **Addressed:** D-1166 `0cb3acbe`
 
 
 - [x] `dothrow.c` `hurtle_step` `in_out_region` (named). Not walk. **Addressed:** D-1165 `6d44ab7f`
