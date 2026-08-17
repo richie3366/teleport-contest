@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1131 — teleds hideunder / mimic m_ap_type
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` skipped `hideunder(&youmonst)` and never
+  cleared a poly'd mimic's `m_ap_type`. C re-evaluates hide at the
+  origin (after `reset_utrap`) and, if that fails and `mlet==S_MIMIC`,
+  sets `m_ap_type = M_AP_NOTHING` (not `seemimic`). JS `hideunder`
+  also skipped youmonst `newsym` and used typ macros instead of
+  `is_pool`/`is_lava`/`couldsee`.
+- **C locus:** `teleport.c` `teleds` (~493–496);
+  `mon.c` `hideunder` (~4726–4801).
+- **Fix:** `teleds` dynamic-imports `hideunder` after utrap clear,
+  before `drag_ball`. Mimic arm only assigns `M_AP_NOTHING`.
+  `hideunder` youmonst writes `u.uundetected` and `newsym` when the
+  flag changes; eel uses `is_pool`+`couldsee`; concealer uses
+  `!is_pool && !is_lava`. Did not pull `set_ustuck`, swallow `docrt`,
+  `can_hide_under_obj`, cockatrice skip, pet `cursed_object_at`, or
+  You_see. Rule #2: no fs.
+- **JS:** `js/teleport.js` `teleds`; `js/mon.js` `hideunder`.
+- **Not this iter:** swallow `docrt`; vault_guard `uleftvault`;
+  `notice_mon_*`; buried-ball; `set_ustuck`; `can_hide_under_obj`;
+  cockatrice; `cursed_object_at`; You_see.
+- **Verify:** private canary **47**/47 (human/garter/python/mimic/eel;
+  pit vs non-pit; lava/pool/drawbridge; waterlevel; Underwater
+  couldsee; origin-vs-dest cover; reset_utrap-before-hide; mimic
+  keeps mappearance; swallow flag left; source order); green+strict
+  seed8000/0900; cohort **22**/22 including 0012 vault + 0004 scroll
+  + 0007 snake + 0009 swim + 0360/0367/0373/4500/2200 + strict
+  0012/0360/4500/0004/2200/0367/0373/0030/0009/0002. Path
+  public-unhit on poly-hider / mimic teleds.
+- **Files:** `js/teleport.js`, `js/mon.js`.
+
 ## D-1130 — teleds update_player_regions after placebc
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

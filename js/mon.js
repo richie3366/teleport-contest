@@ -8,7 +8,7 @@ import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL, ALLOW_ALL, ALLOW_BARS,
     NOGARLIC, IRONBARS, IS_ALTAR, DISPLACED,
-    IS_WATERWALL, LAVAWALL, Is_waterlevel, POOL, MOAT, WATER, LAVAPOOL,
+    IS_WATERWALL, LAVAWALL, Is_waterlevel,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
@@ -42,7 +42,7 @@ import { newsym, pline, sensemon, canseemon, canspotmon } from './display.js';
 import { online2 } from './hacklib.js';
 import { worm_cross } from './worm.js';
 import { Monnam, mon_nam } from './do_name.js';
-import { cansee } from './vision.js';
+import { cansee, couldsee } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
 import { engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
@@ -1773,9 +1773,10 @@ export function restrap(mtmp) {
 
 /**
  * C ref: mon.c hideunder — set mundetected under object / pool for eels.
- * Used by hide_monst; monmove.js keeps a parallel local for postmov.
+ * Used by hide_monst and teleds(&youmonst) (D-1131). monmove.js keeps
+ * a parallel local for postmov.
  * Named omissions: You_see pline; pet cursed_object_at; cockatrice skip;
- * youmonst path; can_hide_under_obj filter.
+ * can_hide_under_obj filter.
  */
 export function hideunder(mtmp) {
     if (!mtmp?.data) return false;
@@ -1792,27 +1793,26 @@ export function hideunder(mtmp) {
         || (t && !is_pit(t.ttyp))) {
         // trapped or non-pit trap site
     } else if (mtmp.data.mlet === 'S_EEL') {
-        const typ = game.level?.at?.(x, y)?.typ;
-        const pool = typ === POOL || typ === MOAT || typ === WATER;
-        undetected = !!(pool && !Is_waterlevel(u.uz)
-            && (!(u.Underwater) || !cansee(x, y)));
+        /* C: is_pool && !Is_waterlevel && (!Underwater || !couldsee) */
+        undetected = !!(is_pool(x, y) && !Is_waterlevel(u.uz)
+            && (!(u.Underwater) || !couldsee(x, y)));
     } else if (hides_under(mtmp.data)) {
         const otmp = objects_at(x, y);
-        if (otmp) {
-            const typ = game.level?.at?.(x, y)?.typ;
-            const poolOrLava = typ === POOL || typ === MOAT || typ === WATER
-                || typ === LAVAPOOL || typ === LAVAWALL;
-            if (!poolOrLava) undetected = true;
+        /* C: !is_pool_or_lava — drawbridge-under via is_pool/is_lava */
+        if (otmp && !is_pool(x, y) && !is_lava(x, y)) {
+            undetected = true;
         }
     }
 
+    let oldundetctd;
     if (is_u) {
+        oldundetctd = !!(u.uundetected);
         u.uundetected = undetected ? 1 : 0;
     } else {
-        const oldundetctd = !!mtmp.mundetected;
+        oldundetctd = !!mtmp.mundetected;
         mtmp.mundetected = undetected ? 1 : 0;
-        if (undetected !== oldundetctd) newsym(x, y);
     }
+    if (undetected !== oldundetctd) newsym(x, y);
     return undetected;
 }
 

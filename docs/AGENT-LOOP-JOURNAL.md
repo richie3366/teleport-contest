@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 03:50 — #1438 D-1131 teleds hideunder / mimic
+
+**Objective:** Open queue — `teleport.c` `teleds` `hideunder` /
+mimic (named). Not swallow docrt.
+**C locus:** `teleport.c` `teleds` 493–496; `mon.c`
+`hideunder` 4726–4801.
+**Change:** `teleds` calls `hideunder(youmonst)` after
+reset_utrap, before drag_ball. Failed hide + S_MIMIC sets
+`m_ap_type=M_AP_NOTHING` (not seemimic). youmonst
+`u.uundetected` + newsym when the flag changes. eel
+`is_pool`/`couldsee`; concealer `!is_pool && !is_lava`.
+Did not pull set_ustuck, swallow docrt, can_hide_under_obj,
+cockatrice, or You_see. Filled D-1130 hash `6dd7a794`.
+Rotated #1423. Open 12 after archive+refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1435** **44**/44; next
+@**#1440**).
+**Verified:** private canary **47**/47; green+strict seed8000/0900;
+cohort **22**/22 (0012 vault + 0004 scroll + 0007 snake +
+0009 swim + 0360/0367/0373/4500/2200/1500/1800/0030/0002/
+0116/0060/0102/0700/0017/0361/0108/0383/5002) + strict
+0012/0360/4500/0004/2200/0367/0373/0030/0009/0002. Path
+public-unhit on poly-hider / mimic teleds.
+**Next:** Open `teleport.c` `teleds` `buried_ball_to_punishment`.
+Not Punished ball.
+**Blocked:** none.
+
 ## 2026-08-17 03:35 — #1437 D-1130 teleds update_player_regions
 
 **Objective:** Open queue — `teleport.c` `teleds`
@@ -353,8 +379,6 @@ FORCE/fs/seed; full `sessions` `__RESULTS_JSON__`.
 ball.
 **Blocked:** none.
 
-## 2026-08-17 00:50 — #1424 D-1120 tele_trap Antimagic wrenching pline
-
 **Objective:** Open queue — `teleport.c` `tele_trap` Antimagic
 wrenching pline (named). Not vault_tele.
 **C locus:** `teleport.c` `tele_trap` 1492–1535; `youprop.h`
@@ -380,28 +404,4 @@ TELEP.
 ball.
 **Blocked:** none.
 
-## 2026-08-17 00:40 — #1423 D-1119 teleok tele_jump_ok / in_out_region
-
-**Objective:** Open queue — `teleport.c` `teleok` `tele_jump_ok`
-/ `in_out_region` (named). Not vibrating.
-**C locus:** `teleport.c` `teleok` 440–443 / `tele_jump_ok`
-386–417; `region.c` `in_out_region` 480–527.
-**Change:** `teleok` after `goodpos` runs `tele_jump_ok(u.ux,
-u.uy,x,y)` then `in_out_region`. Port `in_out_region` three
-loops (can_enter/leave; leave bit; enter bit). Gas stays
-NO_CALLBACK so never rejects. `make_gas_cloud` inits those
-fields + `add_region` hero_inside. Did not pull enter_msg
-pline, force fields, `update_player_regions`, or
-hack.c/dothrow callers. Filled D-1118 hash `8a01c200`.
-Rotated #1408. Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1420** **44**/44; next
-@**#1425**).
-**Verified:** private canary **35**/35; green+strict seed8000/0900;
-cohort **24**/24 (0360/4500/0373/0367 + 2200/0014/0004/0009/
-1500/1800/0060/0102/0700/0017/0030/0116/0383/0007/0361/0108/
-0002/0012/5002/2600) + strict 0360/4500/0014/2200/0004/0009/
-0367/0373/0030/0012/0002/0116. Path public-unhit on restricted
-dests.
-**Next:** Open `teleport.c` `tele_trap` Antimagic wrenching
-pline. Not vault_tele.
-**Blocked:** none.
+## 2026-08-17 00:50 — #1424 D-1120 tele_trap Antimagic wrenching pline

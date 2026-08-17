@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1131 | fixed | `teleds` `hideunder` / mimic | map-driven; C `teleport.c:493–496` / `mon.c` `hideunder` 4726–4801; after reset_utrap before drag_ball; youmonst `u.uundetected`+newsym; S_MIMIC `m_ap_type=M_AP_NOTHING` not seemimic; `is_pool`/`is_lava`/`couldsee`; can_hide_under_obj / cockatrice / swallow docrt still named |
 | D-1130 | fixed | `teleds` `update_player_regions` | map-driven; C `teleport.c:529` / `region.c` `update_player_regions` 582–592; after placebc before newsym; absolute REG_HERO_INSIDE from dest; attach_2_u always clear; not in_out_region enter/leave; geometric `is_hero_inside_gas_cloud` / walk `in_out_region` still named |
 | D-1129 | fixed | `teleds` `switch_terrain` dest-typ | map-driven; C `teleport.c:551–552` / `hack.c` `switch_terrain` 3178–3217; dest typ≠origin after vision+materialize; obstructed/closed-door/waterwall/lavawall BLev/BFly FROMOUTSIDE skip float_down; unblock float_up/float_vs_flight; classify_terrain / other callers still named |
 | D-1128 | fixed | `potion.c` dodip pool yn | map-driven; C `potion.c:2335–2361` / `fountain.c` `wash_hands`/`floating_above` / `steed.c` `rider_cant_reach` / `trap.c` `water_damage`; `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; Levitation youprop; hands/uarmg wash; else water_damage + POT_ACID in_use/useup; pot_acid_damage boom+delobj / drink_ok_extra / potion_dip still named |

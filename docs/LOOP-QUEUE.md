@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `hideunder` / mimic (named). Not swallow docrt.
 - [ ] `teleport.c` `teleds` `buried_ball_to_punishment` (named). Not Punished ball.
 - [ ] `teleport.c` `tele()` / trap teledest (named). Not tele_trap wrenching.
 - [ ] `fountain.c` `dipfountain` `update_inventory` after switch (named). Not Excalibur gift.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `fountain.c` `mongrantswish` `tmp_at` glyph hide (named). Not dowaterdemon makemon.
 - [ ] `region.c` `make_gas_cloud` enveloped pline (named). Not create_gas_cloud size-1.
 - [ ] `fountain.c` `gush` lava `fire_damage_chain` / `xkilled` (named). Not minliquid.
+- [ ] `teleport.c` `teleds` swallow `docrt` (named). Not hideunder.
+- [ ] `teleport.c` `teleds` `vault_guard` `uleftvault` (named). Not swallow docrt.
+- [ ] `teleport.c` `teleds` `invocation_message` (named). Not vault_guard.
+- [ ] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation.
+- [ ] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions.
 
 ## Parked (do not pop)
 

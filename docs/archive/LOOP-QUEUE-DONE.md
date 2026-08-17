@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `teleds` `update_player_regions` (named). Not teleok in_out_region. **Addressed:** D-1130
+- [x] `teleport.c` `teleds` `hideunder` / mimic (named). Not swallow docrt. **Addressed:** D-1131
+
+
+- [x] `teleport.c` `teleds` `update_player_regions` (named). Not teleok in_out_region. **Addressed:** D-1130 `6dd7a794`
 
 
 - [x] `teleport.c` `teleds` `switch_terrain` (named). Not fill_pit. **Addressed:** D-1129 `410f22a2`

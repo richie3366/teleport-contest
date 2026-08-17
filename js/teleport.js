@@ -18,6 +18,7 @@ import {
     A_NONE, A_LAWFUL, A_CHAOTIC, A_NEUTRAL, AM_SHRINE, Amask2align,
     ESHK, EPRI, EMIN, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
+    M_AP_NOTHING,
     UTOTYPE_NONE, OBJ_FREE, SLT_ENCUMBER,
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
@@ -1177,14 +1178,14 @@ export function teleok(x, y, trapok) {
 /**
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
  * Envelope: Punished unplacebc/placebc (or drag_ball when in range);
- * place + fill_pit(ux0,uy0) + update_player_regions (D-1130) + vision;
- * TELEDS_TELEPORT+verbose materialize; dest-typ≠origin →
- * switch_terrain (D-1129); spoteffects(TRUE).
+ * hideunder(&youmonst)+mimic m_ap_type (D-1131); place + fill_pit(ux0,uy0)
+ * + update_player_regions (D-1130) + vision; TELEDS_TELEPORT+verbose
+ * materialize; dest-typ≠origin → switch_terrain (D-1129);
+ * spoteffects(TRUE).
  * Named omissions: swallow docrt, vault_guard uleftvault,
- * notice_mon_*, hideunder/mimic, buried-ball unearth;
- * fill_pit still uses thin extract+deltrap+delobj (C
- * flooreffects("settle") named); classify_terrain; shop-enter
- * plines beyond spoteffects subset.
+ * notice_mon_*, buried-ball unearth; fill_pit still uses thin
+ * extract+deltrap+delobj (C flooreffects("settle") named);
+ * classify_terrain; shop-enter plines beyond spoteffects subset.
  *
  * Do NOT set u.urooms before spoteffects — C only temporarily fakes
  * urooms for vault_guard exit, then restores so move_update can detect
@@ -1224,7 +1225,16 @@ export async function teleds(nux, nuy, teleds_flags) {
     // u.utrap clear (C reset_utrap(FALSE) — messages deferred)
     u.utrap = 0;
     u.utraptype = 0;
-    // set_ustuck / hideunder / swallow docrt deferred
+    /* C: hideunder(&youmonst) after reset_utrap, before drag_ball.
+     * Mimics that fail to hide drop m_ap_type (not seemimic).
+     * set_ustuck / swallow docrt still deferred. */
+    {
+        const { hideunder } = await import('./mon.js');
+        const you = game.youmonst;
+        if (!hideunder(you) && you?.data?.mlet === 'S_MIMIC') {
+            you.m_ap_type = M_AP_NOTHING;
+        }
+    }
 
     if (ball_active && (ball_still_in_range || allow_drag)) {
         const drag = await drag_ball(nux | 0, nuy | 0, allow_drag);
