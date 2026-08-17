@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1500** 44/44 @**#1505**. Next: make_blinded.
+- **#1500** 44/44 @**#1505**. Next: kill_genocided.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1500** **44**/44 @**#1505**. **D-1183**. Review **138–141** ACCEPT.
+- **#1500** **44**/44 @**#1505**. **D-1184**. Review **138–141** ACCEPT.

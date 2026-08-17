@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg. **Addressed:** D-1183
+- [x] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet. **Addressed:** D-1184
+
+
+- [x] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg. **Addressed:** D-1183 `d2512b22`
 
 
 - [x] `teleport.c` `rloc_pos_ok` mx==0 updest/dndest (named). Not room lock. **Addressed:** D-1182 `01c8c41f`

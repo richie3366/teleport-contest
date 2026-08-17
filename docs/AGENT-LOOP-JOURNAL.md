@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 22:40 — #1504 D-1184 scrolltele make_blinded
+
+**Objective:** Open — `teleport.c` `scrolltele` make_blinded (named).
+Not W-tower amulet.
+**C locus:** `teleport.c` `scrolltele` 861–863 after noteleport
+return, before amulet/W-tower `rn2(3)`.
+**Change:** `if (!Blinded()) await make_blinded(0, false)` via
+dynamic `do.js` import. `Blinded` ≡ `HBlinded && !BBlinded` (not
+Blindfold). Skip when Blinded so timeout/FROMFORM is not cured.
+Did not pull W-tower Override yn. Filled D-1183 archive hash
+`d2512b22`. Rotated #1489. Open 10 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1500** **44**/44; next
+@**#1505**).
+**Verified:** private canary **52**/52 (C/JS order; Blinded≠Blind;
+0,FALSE not 1L; noteleport before; timeout/FROMFORM kept; Eyes
+leftover TIMEOUT cleared; Blindfold uses Blinded; wizard still
+calls; amulet after; no fs/FORCE); green+strict seed8000/0900;
+cohort **12**/12 (1500/1800/0015/0002/0014/2200/4500/0367/0360/
+0012/0004/0006) + strict 1500/0012/0360/4500/2200/0014/0004.
+Path public-unhit unless Eyes leftover timeout on teleport.
+**Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
+(named). Not run_timers.
+**Blocked:** none.
+
 ## 2026-08-17 22:25 — #1503 D-1183 rloc_to_core ustuck-together
 
 **Objective:** Open — `teleport.c` `rloc_to_core` ustuck-together
@@ -374,30 +399,6 @@ Rule #2: no fs.
 @**#1495**.
 **Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
 full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
-**Blocked:** none.
-
-## 2026-08-17 19:10 — #1489 D-1172 rloc steed tele()
-
-**Objective:** Open — `teleport.c` `rloc` steed `tele()` (named). Not
-Wizard stair.
-**C locus:** `teleport.c` `rloc` 1808–1811 before iswiz stair.
-**Change:** `rloc(usteed)` `await tele(); return true` even if tele
-does not move (noteleport). Not Wizard stair (D-1122). Did not pull
-`mnexto` `control_mon_tele`, vanish-msg, or `RLOC_ERR`. Filled
-D-1171 archive hash `822498d3`. Rotated #1474. Open 7 after archive
-→ refill Open to 12 from teleport named omits. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1485** **44**/44; next
-@**#1490**).
-**Verified:** private canary **33**/33 (C tele()+TRUE before iswiz;
-teleport_pet FALSE other locus; JS await tele then true; no
-`return false` for steed; Wizard stair kept; noteleport TRUE + no
-50× rnd + stay + mysterious-force; ordinary still rnd; iswiz steed
-not stairs; teleport_pet still FALSE; thenable; no fs/FORCE);
-green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/0004/
-0103/0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
-riding `rloc(usteed)`.
 **Next:** Open `mon.c` `mnexto` `control_mon_tele` (named). Not rloc.
 **Blocked:** none.
 

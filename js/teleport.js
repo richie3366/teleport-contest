@@ -1637,11 +1637,18 @@ export async function safe_teleds(teleds_flags) {
     return false;
 }
 
+/** C youprop.h Blinded — HBlinded && !BBlinded (not EBlinded/Blindfolded). */
+function Blinded() {
+    const u = game.u || {};
+    return !!(u.HBlinded | 0) && !(u.BBlinded | 0);
+}
+
 /**
  * C ref: teleport.c scrolltele — scroll/intrinsic teleport placement.
- * Envelope: noteleport pline; wizard/Teleport_control getpos path;
- * uncontrolled → learnscroll + safe_teleds.
- * Named omissions: make_blinded clear; W-tower half of amulet gate;
+ * Envelope: noteleport pline; !Blinded make_blinded(0,FALSE);
+ * wizard/Teleport_control getpos path; uncontrolled → learnscroll +
+ * safe_teleds.
+ * Named omissions: W-tower half of amulet gate (Override yn);
  * unconscious controlled fail; steed whobuf.
  * dotele clears travelcc before tele (D-0789); scrolltele clears when
  * controlled dest equals travelcc.
@@ -1654,7 +1661,13 @@ export async function scrolltele(scroll) {
         if (scroll) learnscroll(scroll);
         return;
     }
-    // make_blinded(0, FALSE) deferred
+    /* C teleport.c:861–863 — don't show trap if "Sorry..."; skip when
+     * Blinded so timeout/FROMFORM blindness is not cured. Dynamic import:
+     * do.js → enexto cycle. */
+    if (!Blinded()) {
+        const { make_blinded } = await import('./do.js');
+        await make_blinded(0, false);
+    }
     const u = game.u || {};
     if ((u.uhave?.amulet || u.uhave_amulet) && !rn2(3)) {
         await pline('You feel disoriented for a moment.');

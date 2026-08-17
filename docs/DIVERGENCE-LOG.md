@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1184 — `scrolltele` `!Blinded` `make_blinded(0, FALSE)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1183 / D-0407;
+  not a public FAIL)
+- **Symptom:** JS `scrolltele` skipped C’s post-noteleport
+  `if (!Blinded) make_blinded(0L, FALSE)` before the amulet / W-tower
+  `rn2(3)` gate. Timeout/FROMFORM blindness stayed correctly (the
+  gate skips when Blinded), but Eyes-of-Overworld leftover TIMEOUT
+  was not cleared, and a Blindfold-only hero used the wrong
+  predicate if anyone later wired `!Blind`.
+- **C locus:** `teleport.c` `scrolltele` `:861–863` after the
+  noteleport return, before `u.uhave.amulet \|\| On_W_tower_level`.
+  `youprop.h` `Blinded` ≡ `HBlinded && !BBlinded` (not `EBlinded`).
+  Callee `potion.c` `make_blinded` talk=FALSE. Caller `tele()` →
+  `scrolltele(NULL)`; `seffects` SCR_TELEPORTATION.
+- **JS was:** `// make_blinded(0, FALSE) deferred` after noteleport.
+- **Fix:** `if (!Blinded()) await make_blinded(0, false)` via
+  dynamic `do.js` import (do.js already imports `enexto`). Did not
+  pull W-tower Override yn, unconscious, or steed whobuf.
+- **JS:** `js/teleport.js` `scrolltele` / local `Blinded()`.
+- **Not this iter:** W-tower half of amulet `y_n("Override?")`;
+  unconscious controlled fail; steed whobuf. Rule #2: no fs.
+- **Verified:** private canary **52**/52 (C/JS order; Blinded≠Blind;
+  0,FALSE not 1L; noteleport before call; timeout/FROMFORM not
+  cured; Eyes leftover TIMEOUT cleared; Blindfold uses Blinded;
+  wizard still calls; amulet after; no fs/FORCE); green+strict
+  seed8000/0900; cohort **12**/12 + strict 1500/0012/0360/4500/
+  2200/0014/0004. Path public-unhit unless Eyes leftover timeout
+  on teleport.
+- **Files:** `js/teleport.js`.
+
 ## D-1183 — `rloc_to_core` ustuck-together You()
 
 - **Status:** fixed (map-driven Open; named omit from D-1180 / D-1123;
