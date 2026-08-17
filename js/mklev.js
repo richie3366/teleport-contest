@@ -117,7 +117,10 @@ import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
-import { create_gas_cloud, clear_regions, clear_heros_fault } from './region.js';
+import {
+    create_gas_cloud, create_gas_cloud_selection, clear_regions,
+    clear_heros_fault,
+} from './region.js';
 import { Norep } from './display.js';
 import { ndemon } from './minion.js';
 import { readobjnam } from './readobjnam.js';
@@ -750,6 +753,34 @@ export function lspo_exclusion(opts) {
         next: game.exclusion_zones || null,
     };
     game.exclusion_zones = ez;
+}
+
+/**
+ * C ref: sp_lev.c lspo_gas_cloud.
+ * gas_cloud({ x, y } | { coord } | { selection, damage?, ttl? }).
+ * Coords go to create_gas_cloud size-1 (no get_location). Selection
+ * uses create_gas_cloud_selection (bitmap 1×1 rects, ttl stays -1).
+ * ttl > -2 overwrites after create. Default damage 0, ttl -2 (no
+ * overwrite). If x,y are both -1, C reads the selection field.
+ */
+export async function lspo_gas_cloud(opts) {
+    const tx = opts?.x ?? -1;
+    const ty = opts?.y ?? -1;
+    let x = tx | 0;
+    let y = ty | 0;
+    if (tx === -1 && ty === -1 && opts?.coord) {
+        x = opts.coord[0] | 0;
+        y = opts.coord[1] | 0;
+    }
+    let sel = null;
+    if (x === -1 && y === -1) sel = opts?.selection ?? null;
+    const damage = opts?.damage | 0;
+    const ttl = opts?.ttl != null ? (opts.ttl | 0) : -2;
+    const reg = sel
+        ? await create_gas_cloud_selection(sel, damage)
+        : await create_gas_cloud(x, y, 1, damage);
+    if (ttl > -2) reg.ttl = ttl;
+    return reg;
 }
 
 /** C ref: dungeon.c free_exclusions — drop the list on clear_level_structures. */
@@ -10755,9 +10786,9 @@ function splev_room_monster(croom, id_or_class, peaceful) {
     } else {
         pos = get_location_coord_in_room(croom, DRY);
     }
-    if (pos.x < 0) return;
+    if (pos.x < 0) return null;
     pos = splev_resolve_occupied(pos.x, pos.y, pm);
-    if (croom && !inside_room(croom, pos.x, pos.y)) return;
+    if (croom && !inside_room(croom, pos.x, pos.y)) return null;
     const mtmp = makemon(pm, pos.x, pos.y, 0);
     // C: create_monster always mtmp->female = m->female (D-0873)
     if (mtmp) {
@@ -10767,6 +10798,7 @@ function splev_room_monster(croom, id_or_class, peaceful) {
     }
     if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
         mtmp.mpeaceful = peaceful;
+    return mtmp;
 }
 
 /**
@@ -16736,6 +16768,23 @@ function themeroom_fill_buried_zombies(croom) {
     }
 }
 
+/**
+ * C ref: themerms.lua "Cloud room" contents + sp_lev.c lspo_gas_cloud.
+ * selection.room() then asleep fog clouds (numpoints/4, Lua float /)
+ * then des.gas_cloud({ selection = fog }) — damage 0, ttl default -1.
+ */
+function themeroom_fill_cloud(croom) {
+    const fog = selection_from_mkroom(croom);
+    const n = (selection_numpoints(fog) / 4) | 0;
+    for (let i = 0; i < n; i++) {
+        const mtmp = splev_room_monster(croom, 'fog cloud');
+        // C create_monster: asleep > BOOL_RANDOM → msleeping
+        if (mtmp) mtmp.msleeping = 1;
+    }
+    // in_mklev: make_gas_cloud has no await; registration is sync.
+    void lspo_gas_cloud({ selection: fog });
+}
+
 // C ref: themerms.lua "Ghost of an Adventurer" contents + sp_lev create_monster/object
 function themeroom_fill_ghost(croom) {
     const sel = selection_from_mkroom(croom);
@@ -16890,6 +16939,7 @@ const THEMEROOM_FILL_BODIES = {
     'Storeroom': themeroom_fill_storeroom,
     'Buried zombies': themeroom_fill_buried_zombies,
     'Temple of the gods': themeroom_fill_temple_of_the_gods,
+    'Cloud room': themeroom_fill_cloud,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -16908,7 +16958,7 @@ function themeroom_fill(croom) {
     croom._themeroom_fill = pick.name;
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
-    // Named omission: other fill contents (Ice/Cloud/Boulder/Spider/Trap/
+    // Named omission: other fill contents (Ice/Boulder/Spider/Trap/
     // Garden/Buried treasure/Massacre/Statuary/Light source/…)
 }
 

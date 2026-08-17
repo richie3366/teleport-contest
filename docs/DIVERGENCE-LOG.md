@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1158 — region.c `create_gas_cloud_selection` / Cloud room
+
+- **Status:** fixed (map-driven Open; named omit from D-1137/D-1155/D-1156;
+  not a public FAIL)
+- **Symptom:** JS had BFS `create_gas_cloud` (drinksink/fog/fumaroles) but
+  omitted C's selection creator, so themerms Cloud room never laid a
+  bitmap steam cloud or asleep fog clouds.
+- **C locus:** `region.c` `create_gas_cloud_selection` (~1311–1336);
+  `sp_lev.c` `lspo_gas_cloud` (~4928–4965); `dat/themerms.lua` Cloud
+  room (~61–69). Shared `make_gas_cloud` already D-1137.
+- **Fix:** `selection_getbounds` then x-outer/y-inner `getpoint` → 1×1
+  `add_rect_to_reg`; ttl stays `create_region` −1 (no `rn1(3,4)`).
+  `lspo_gas_cloud`: xy/`coord` → size-1 BFS; both −1 → selection;
+  `ttl > -2` overwrite. Cloud fill: `selection.room()` then
+  `floor(numpoints/4)` asleep fog clouds then `des.gas_cloud`. Did
+  not pull Ice/Boulder/… fills, `run_regions` hero_inside bit, or
+  mfndpos `m_poisongas_ok`. Rule #2: no fs.
+- **JS:** `js/region.js` `create_gas_cloud_selection`; `js/mklev.js`
+  `lspo_gas_cloud` / `themeroom_fill_cloud`.
+- **Not this iter:** Ice/Boulder/Spider/Trap/Garden/… themerms bodies;
+  `run_regions` / `region_danger` still geometric; mfndpos subset;
+  hurtle / goto_level `in_out_region`.
+- **Verify:** private canary **41**/41 (L-shape order, hole, ttl −1, no
+  RNG, glyphs, `in_mklev` NOT_HEROS, empty sel, lspo ttl overwrite,
+  xy vs selection, coord form, Lua `/4` floor); green+strict
+  seed8000/0900; cohort **39**/39 (CURRENT shared + 0014/0383). Path
+  public-unhit on Cloud fill (reservoir pick already burned).
+- **Files:** `js/region.js`, `js/mklev.js`.
+
 ## D-1157 — hack.c walk `in_out_region`
 
 - **Status:** fixed (map-driven Open; named omit from D-1119/D-1130/D-1143;

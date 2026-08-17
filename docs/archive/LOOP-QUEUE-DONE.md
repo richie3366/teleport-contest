@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `hack.c` walk `in_out_region` (named). Not teleds. **Addressed:** D-1157
+- [x] `region.c` `create_gas_cloud_selection` (named). Not BFS create. **Addressed:** D-1158
+
+
+- [x] `hack.c` walk `in_out_region` (named). Not teleds. **Addressed:** D-1157 `ed28eef1`
 
 
 - [x] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation. **Addressed:** D-1156 `16e8d88b`

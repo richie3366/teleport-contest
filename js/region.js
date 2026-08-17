@@ -4,21 +4,22 @@
 // m_in_out_region / inside_gas_cloud; region_danger / region_safety (pray);
 // read.c valid_cloud_pos.
 // Named omissions: numeric cmap glyph ints (JS tags
-// 'S_poisoncloud'/'S_cloud'); create_gas_cloud_selection; binary
-// save_regions format; force fields; incremental fill_point (JS uses
-// vision_reset); create_msg_region (#if 0; never sets enter/leave_msg
-// in live C); can_enter/leave/enter/leave table indices (gas
-// NO_CALLBACK); attach_2_m; run_regions / region_danger /
-// region_safety still use geometry for inside_f (do.c goto_level
-// in_out_region still named); mfndpos m_poisongas_ok still the
-// mon.js subset. fumaroles whoosh D-1156. Walk in_out_region D-1157.
+// 'S_poisoncloud'/'S_cloud'); binary save_regions format; force
+// fields; incremental fill_point (JS uses vision_reset);
+// create_msg_region (#if 0; never sets enter/leave_msg in live C);
+// can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
+// attach_2_m; run_regions / region_danger / region_safety still use
+// geometry for inside_f (do.c goto_level in_out_region still named);
+// mfndpos m_poisongas_ok still the mon.js subset. fumaroles whoosh
+// D-1156. Walk in_out_region D-1157. Selection create D-1158.
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
 import { pline, You_feel } from './display.js';
 import {
-    isok, ACCESSIBLE, u_at, TIMEOUT, REG_HERO_INSIDE, REG_NOT_HEROS,
+    isok, ACCESSIBLE, COLNO, ROWNO, u_at, TIMEOUT, REG_HERO_INSIDE,
+    REG_NOT_HEROS,
     PLNMSG_ENVELOPED_IN_GAS, KILLED_BY_AN, EYE, LUNG, POISON_RES,
     M_SEEN_POISON, M_POISONGAS_OK, M_POISONGAS_MINOR, M_POISONGAS_BAD,
     Is_waterlevel,
@@ -743,6 +744,53 @@ export async function create_gas_cloud(x, y, cloudsize, damage) {
     cloud.ttl = rn1(3, 4);
     cloud.ttl = Math.trunc((cloud.ttl * cloudsize) / newidx);
 
+    await make_gas_cloud(cloud, damage, inside_cloud);
+    return cloud;
+}
+
+/**
+ * C ref: selvar.c selection_getbounds — dirty recalc omitted (JS
+ * Set-backed sels keep lx..hy live). Empty (lx >= COLNO) → full map
+ * so the scan matches C's getpoint-all-false walk.
+ */
+function selection_getbounds(sel) {
+    if (!sel) return { lx: 0, ly: 0, hx: COLNO - 1, hy: ROWNO - 1 };
+    const lx = sel.lx | 0;
+    if (lx >= COLNO) return { lx: 0, ly: 0, hx: COLNO - 1, hy: ROWNO - 1 };
+    return {
+        lx,
+        ly: sel.ly | 0,
+        hx: sel.hx | 0,
+        hy: sel.hy | 0,
+    };
+}
+
+/** C ref: selvar.c selection_getpoint — Set-backed JS selection. */
+function selection_getpoint_sel(x, y, sel) {
+    if (!sel || x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return 0;
+    return sel.pts?.has(`${x},${y}`) ? 1 : 0;
+}
+
+/**
+ * C ref: region.c create_gas_cloud_selection — 1×1 rects from the
+ * selection bitmap, then make_gas_cloud. No BFS, no rn1 ttl (stays
+ * create_region -1 unless the caller overwrites). x-outer then y.
+ */
+export async function create_gas_cloud_selection(sel, damage) {
+    const inside_cloud = is_hero_inside_gas_cloud();
+    const r = selection_getbounds(sel);
+    // C create_region: clear_heros_fault (REG_NOT_HEROS) before make_gas_cloud
+    const cloud = {
+        rects: [], ttl: -1, visible: false, inside_f: 0, arg: 0,
+        player_flags: REG_NOT_HEROS,
+    };
+    for (let x = r.lx; x <= r.hx; x++) {
+        for (let y = r.ly; y <= r.hy; y++) {
+            if (selection_getpoint_sel(x, y, sel)) {
+                cloud.rects.push({ lx: x, hx: x, ly: y, hy: y });
+            }
+        }
+    }
     await make_gas_cloud(cloud, damage, inside_cloud);
     return cloud;
 }
