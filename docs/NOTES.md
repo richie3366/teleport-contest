@@ -10,12 +10,11 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1455**;
   next @**#1460**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 9. Reviews **102–105** ACCEPT / ACCEPT-WITH-DEBT
-  (D-1142 option/`vision_recalc` named).
-- Public LB / cron / hub CDN: **out of scope** (human).
-- **Next cluster:** Open `fountain.c` Excalibur `:441`
-  `update_inventory`.
-- **Hypothesis:** none live. D-1144.
+  Open 8.
+- Public LB / cron / hub CDN: **out of scope**.
+- **Next cluster:** Open `region.c` `inside_gas_cloud`
+  damage. Not enveloped pline.
+- **Hypothesis:** none live. D-1145.
 
 ## Don't re-check (≤15)
 
@@ -87,13 +86,13 @@ Objective/score live in `CURRENT.md`.
   `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
   void spewed (D-1127) / skip `dodip` pool yn or restore `IS_POOL`
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
-  or `water_damage` (D-1128) /   skip `teleds` dest-typ `switch_terrain`
+  or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` or restore Excalibur `:441` as this peel (D-1134) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1455** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1460**. **D-1144:** `1c1f7ccb`. **D-1143:** `bb8585ec`.
+- Suite **#1455** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1460**. **D-1144:** `1c1f7ccb`.

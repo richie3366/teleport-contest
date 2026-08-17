@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1145 — dipfountain Excalibur :441 update_inventory
+
+- **Status:** fixed (map-driven Open; named omit from D-1107/D-1134; not a public FAIL)
+- **Symptom:** JS `dipfountain` Lady of the Lake gift/deny set ROOM and
+  returned without `update_inventory()`. C `fountain.c:441` calls it
+  after both arms, before `set_levltyp` ROOM. The Excalibur `return`
+  also skips the post-switch `:552` site (D-1134), so skipping `:441`
+  skipped every invent refresh on that path.
+- **C locus:** `fountain.c` `dipfountain` (~441);
+  `invent.c` `update_inventory` (~2781–2809);
+  `wintty.c` `tty_update_inventory` (~3606–3614) → no-op unless
+  `TTY_PERM_INVENT`; `invent.c` `sync_perminvent` (D-1126 callee).
+- **Fix:** `update_inventory()` after gift or deny, before the ROOM
+  analog. Shared by both arms (C). Default perm_invent Off: tty
+  without `TTY_PERM_INVENT` no-ops after in_moveloop/
+  `suppress_map_output`/suppress_price=0 (no RNG). Did not pull
+  artidisco save/rest, perm_invent On WIN_INVEN redraw, or
+  `consume_obj_charge` known. Rule #2: no fs.
+- **JS:** `js/fountain.js` `dipfountain` (existing `invent.js`
+  `update_inventory`).
+- **Not this iter:** artidisco save/rest; perm_invent On
+  `display_inventory` WIN_INVEN; `consume_obj_charge` known;
+  hangup `done_hup`; full `set_levltyp`.
+- **Verify:** private canary **38**/38 (C/JS source order; shared
+  call after both arms; Excalibur return skips `:552`; drink case 24
+  still `buc_changed`; consume_obj_charge known still omit; artidisco
+  save still named; callee gates; lawful gift + unaligned deny call
+  before ROOM; Levitation skips both sites; ulevel<5 no gift);
+  green+strict seed8000/0900; cohort **20**/20 (0014 fountain + 0106
+  dip + 0007 snakes + 0002 drinksink + 0006 demon + knight
+  0103/0104/4500 + 0108/0360/2200/0004/0009/0030/0012/0116/0367/
+  1500/1800/0060) + strict 8000/0900/0014/0106/0006/0007/0002/0103/
+  0104/4500/0108/0360/2200/0004/0030. Path public-unhit
+  (perm_invent Off; Excalibur dip unhit).
+- **Files:** `js/fountain.js`.
+
 ## D-1144 — djinni_from_bottle mongrantswish
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

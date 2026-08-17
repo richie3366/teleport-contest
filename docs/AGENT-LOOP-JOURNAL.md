@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 07:42 — #1456 D-1145 Excalibur :441 update_inventory
+
+**Objective:** Open queue — `fountain.c` Excalibur `:441`
+`update_inventory` (named). Not artidisco save.
+**C locus:** `fountain.c` `dipfountain` 441; `invent.c`
+`update_inventory` 2781–2809; `wintty.c` `tty_update_inventory`
+3606–3614.
+**Change:** after Lady of the Lake gift or deny, call
+`update_inventory()` before the ROOM analog (C order; both arms).
+Existing D-1126 callee: in_moveloop / `suppress_map_output` /
+suppress_price=0 around tty `sync_perminvent`. Default perm_invent
+Off no RNG. Excalibur `return` still skips `:552` (C). Did not pull
+artidisco save/rest, On WIN_INVEN, or `consume_obj_charge` known.
+Filled no prior hash gap. Rotated #1441. Open 8 after archive (no
+refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1455** **44**/44; next
+@**#1460**).
+**Verified:** private canary **38**/38; green+strict seed8000/0900;
+cohort **20**/20 (0014 fountain + 0106 dip + 0007 snakes + 0002
+drinksink + 0006 demon + knight 0103/0104/4500 + 0108/0360/2200/
+0004/0009/0030/0012/0116/0367/1500/1800/0060) + strict 8000/0900/
+0014/0106/0006/0007/0002/0103/0104/4500/0108/0360/2200/0004/0030.
+Path public-unhit (perm_invent Off; Excalibur dip unhit).
+**Next:** Open `region.c` `inside_gas_cloud` damage. Not enveloped
+pline.
+**Blocked:** none.
+
 ## 2026-08-17 07:25 — #1455 review D-1141–D-1144 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -387,26 +414,4 @@ drinksink + 0006 demon + 0108 + 0360/2200/4500 + 0004/0009/0012/
 public-unhit (perm_invent Off).
 **Next:** Open `do_name.c` `hcolor` Hallucination drinksink
 synonyms. Not hliquid.
-**Blocked:** none.
-
-## 2026-08-17 04:25 — #1441 D-1133 tele_trap teledest / else tele()
-
-**Objective:** Open queue — `teleport.c` `tele()` / trap teledest
-(named). Not tele_trap wrenching.
-**C locus:** `teleport.c` `tele_trap` 1506–1532; `tele()` 841–845;
-`track.c` `settrack`.
-**Change:** lift `next_to_u` to C's sibling of once. Port teledest:
-`settrack`, dest `m_at`, `enexto` fail → shudder, else `rloc_to` then
-`teleds(TELEDS_TELEPORT)`; unnamed dest → `tele()`. Did not pull
-`dotele` trap-at-feet or `vault_tele` tele() fallback. Rotated
-#1426. Open 10 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1440** **44**/44; next
-@**#1445**).
-**Verified:** private canary **32**/32; green+strict seed8000/0900;
-cohort **22**/22 (0012 vault + 0004 + 0007 snake + 0009 swim +
-0360/0367/0373/4500/2200/1500/1800/0030/0002/0116/0060/0102/0700/
-0017/0361/0108/0383/5002) + strict 0012/0360/4500/0004/2200/0367/
-0373/0030/0009/0002. Path public-unhit on named-dest / random TELEP.
-**Next:** Open `fountain.c` `dipfountain` `update_inventory` after
-switch. Not Excalibur gift.
 **Blocked:** none.

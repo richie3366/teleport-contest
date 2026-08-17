@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save.
 - [ ] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline.
 - [ ] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs.
 - [ ] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled.
