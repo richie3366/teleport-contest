@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1140 — teleds vault_guard uleftvault
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` skipped C's origin `vault_guard =
+  vault_occupied(u.urooms) ? findgd() : 0` capture and the dest
+  `in_rooms(..., VAULT)` fake / `uleftvault` / restore before
+  `spoteffects`. Teleporting out of a vault with a live guard and
+  gold therefore never set the guard irate / `mpeaceful=0`.
+- **C locus:** `teleport.c` `teleds` (~454, 553–566);
+  `vault.c` `uleftvault` (~254–278).
+- **Fix:** capture `vault_guard` at origin (dynamic import; vault →
+  trap → teleport cycle). After dest-typ `switch_terrain`, save
+  `u.urooms`, fake dest VAULT occupancy, `uleftvault` if left, restore
+  so `move_update` still sees origin rooms (D-0639). `uleftvault`:
+  gold (`money_cnt` or `hidden_gold(TRUE)`) and `um_dist(...,1)` →
+  canspotmon irate pline + `mpeaceful=0` (not `setmangry`);
+  `!in_fcorridor` → `gd_move`. Did not pull hostile `gd_move`
+  rloc/`gd_letknow`/`wallify_vault`, `invocation_message`, or
+  `notice_mon_*`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `teleds`; `js/vault.js` `uleftvault`.
+- **Not this iter:** `invocation_message`; `notice_mon_off`/`on`/
+  `notice_all_mons`; hostile `gd_move` rloc/`clear_fcorr`/`gd_letknow`;
+  migrating `findgd` park.
+- **Verify:** private canary **23**/23 (leave+gold hostile + irate +
+  urooms0 origin vault + uentered dest; no-gold peaceful; stay-in-vault
+  skip; no occupancy skip; adjacent dest skip; hidden_gold; in_fcorridor
+  hostile still on map; dead/!isgd no-op); green+strict seed8000/0900;
+  cohort **24**/24 including 0012 vault + 0367 Pri ^T temple (D-0639)
+  + 0004 scroll + 0009 swim + 0360/0373/4500/2200 + strict 0012/0367/
+  0004/0360/4500/2200/0030/0009/0002. Path public-unhit on gold vault
+  teleport; 0012 escort stays peaceful (no gold leave).
+- **Files:** `js/teleport.js`, `js/vault.js`.
+
 ## D-1139 — teleds swallow set_ustuck + docrt
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

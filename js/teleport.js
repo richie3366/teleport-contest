@@ -1182,15 +1182,17 @@ export function teleok(x, y, trapok) {
  * set_ustuck(Null)+swallow docrt (D-1139); hideunder(&youmonst)+mimic
  * m_ap_type (D-1131); place + fill_pit(ux0,uy0) + update_player_regions
  * (D-1130) + vision; TELEDS_TELEPORT+verbose materialize;
- * dest-typ≠origin → switch_terrain (D-1129); spoteffects(TRUE).
- * Named omissions: vault_guard uleftvault, invocation_message,
- * notice_mon_*; fill_pit still uses thin
- * extract+deltrap+delobj (C flooreffects("settle") named);
- * classify_terrain; shop-enter plines beyond spoteffects subset.
+ * dest-typ≠origin → switch_terrain (D-1129); vault_guard save/restore
+ * + uleftvault (D-1140); spoteffects(TRUE).
+ * Named omissions: invocation_message, notice_mon_*; fill_pit still
+ * uses thin extract+deltrap+delobj (C flooreffects("settle") named);
+ * classify_terrain; shop-enter plines beyond spoteffects subset;
+ * hostile gd_move rloc/gd_letknow/wallify_vault (uleftvault calls
+ * gd_move after mpeaceful=0; JS gd_move still early-returns hostile).
  *
  * Do NOT set u.urooms before spoteffects — C only temporarily fakes
  * urooms for vault_guard exit, then restores so move_update can detect
- * newly entered TEMPLE/shop rooms (D-0639).
+ * newly entered TEMPLE/shop rooms (D-0639 / D-1140).
  */
 export async function teleds(nux, nuy, teleds_flags) {
     const u = game.u;
@@ -1199,6 +1201,11 @@ export async function teleds(nux, nuy, teleds_flags) {
     let allow_drag = ((teleds_flags | 0) & TELEDS_ALLOW_DRAG) !== 0;
     const ox = u.ux | 0;
     const oy = u.uy | 0;
+    /* C: vault_guard = vault_occupied(u.urooms) ? findgd() : 0
+     * captured at origin before buried-ball / move. Dynamic import:
+     * vault.js → trap.js → teleport.js cycle. */
+    const { vault_occupied, findgd, uleftvault } = await import('./vault.js');
+    const vault_guard = vault_occupied(u.urooms) ? findgd() : null;
     /* C: if (u.utraptype == TT_BURIEDBALL) buried_ball_to_punishment()
      * before ball_active — unearth then Punished drag/unplace. */
     if ((u.utraptype | 0) === TT_BURIEDBALL) {
@@ -1322,7 +1329,16 @@ export async function teleds(nux, nuy, teleds_flags) {
             await switch_terrain();
         }
     }
-    // C: vault_guard temporary urooms fake then restore — deferred (no guard)
+    /* C: vault_guard alarm before room-entry; fake dest VAULT occupancy
+     * then restore so spoteffects→move_update still sees origin urooms. */
+    if (vault_guard) {
+        const save_urooms = u.urooms || '';
+        u.urooms = in_rooms(u.ux, u.uy, VAULT);
+        if (!vault_occupied(u.urooms)) {
+            await uleftvault(vault_guard);
+        }
+        u.urooms = save_urooms;
+    }
     // C: spoteffects(TRUE) → move_update detects temple/shop entry
     const { spoteffects } = await import('./pickup.js');
     await spoteffects(true);
