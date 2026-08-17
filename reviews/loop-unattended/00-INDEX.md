@@ -91,3 +91,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [79-8a01c200-drinksink-polyself.md](./79-8a01c200-drinksink-polyself.md) | `8a01c200` | D-1118 drinksink case 10 `polyself` | **ACCEPT** |
 | [80-26560ccf-teleok-jump-region.md](./80-26560ccf-teleok-jump-region.md) | `26560ccf` | D-1119 teleok `tele_jump_ok` / `in_out_region` | **ACCEPT** |
 | [81-acfb0167-tele-trap-wrenching.md](./81-acfb0167-tele-trap-wrenching.md) | `acfb0167` | D-1120 `tele_trap` Antimagic wrenching | **ACCEPT** |
+| [82-803a7f5c-teleds-fill-pit.md](./82-803a7f5c-teleds-fill-pit.md) | `803a7f5c` | D-1121 `teleds` `fill_pit` after `u_on_newpos` | **ACCEPT-WITH-DEBT** |
+| [83-5a2f96ca-rloc-wizard-stair.md](./83-5a2f96ca-rloc-wizard-stair.md) | `5a2f96ca` | D-1122 `rloc` Wizard stair / `control_mon_tele` | **ACCEPT** |
+| [84-a55c4b24-rloc-to-worm-docrt.md](./84-a55c4b24-rloc-to-worm-docrt.md) | `a55c4b24` | D-1123 `rloc_to` worm / ustuck-swallow `docrt` | **ACCEPT** |
+| [85-3b7606b3-drinksink-gas-cloud.md](./85-3b7606b3-drinksink-gas-cloud.md) | `3b7606b3` | D-1124 drinksink case 13 `create_gas_cloud` | **ACCEPT** |

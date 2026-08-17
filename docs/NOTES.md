@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
-  speed `31+0.27/turn` R² 0.87) after cadence **#1425**;
-  next @**#1430**.
+  speed `31+0.27/turn` R² 0.87) after cadence **#1430**;
+  next @**#1435**.
 - Mode: **map-driven** under fortress. Must-fix empty. Open 9
-  after archive (no refill). Reviews **78–81** ACCEPT (D-1117–D-1120).
+  after archive (no refill). Reviews **82** ACCEPT-WITH-DEBT
+  (D-1121 thin `fill_pit`); **83–85** ACCEPT (D-1122–D-1124).
   Density: one cluster. Review + full `sessions` every 5.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- Latest ports: **D-1089**…**D-1124**. Prior **74–77** ACCEPT.
+- Latest ports: **D-1089**…**D-1124**. Prior **78–81** ACCEPT.
 - **Next cluster:** Open `dowatersnakes` Hallucination `rndmonnam`.
-- **Hypothesis:** none live. Cadence #1425 fortress held.
+- **Hypothesis:** none live. Cadence #1430 fortress held.
 
 ## Don't re-check (≤15)
 
@@ -89,12 +90,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite after cadence **#1425**: **44**/44 Scr **11405**/11405
-  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1430**.
+- Suite after cadence **#1430**: **44**/44 Scr **11405**/11405
+  RNG **100%** speed `31+0.27/turn` (R² 0.87). Next @**#1435**.
 - **D-1124:** drinksink case 13 `create_gas_cloud`.
 - **D-1123:** `rloc_to` worm / ustuck-swallow `docrt`. Hash `a55c4b24`.
 - **D-1122:** `rloc` Wizard stair / `control_mon_tele`. Hash `5a2f96ca`.
 - **D-1121:** `teleds` `fill_pit` after `u_on_newpos`. Hash `803a7f5c`.
 - **D-1120:** `tele_trap` Antimagic wrenching. Hash `acfb0167`.
 - **D-1119:** teleok `tele_jump_ok`/`in_out_region`. Hash `26560ccf`.
-- **D-1118:** drinksink case 10 `polyself`. Hash `8a01c200`.

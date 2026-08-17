@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 02:05 — #1430 review D-1121–D-1124 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `teleport.c` `teleds` 523–528 / `trap.c` `fill_pit`
+4010–4019 / `do.c` `flooreffects` 185–269; `teleport.c` `rloc`
+1813–1841 / `control_mon_tele` 1898–1934 / `dungeon.c`
+`In_W_tower` 1923–1937; `teleport.c` `rloc_to_core` 1675–1697 /
+`worm.c` `remove_worm` 714–726 / `mon.c` `unstuck`; `fountain.c`
+`drinksink` 696–698 / `region.c` `create_gas_cloud` 1213–1308.
+**Change:** reviews **82** ACCEPT-WITH-DEBT D-1121 (call after
+`u_on_newpos`; thin `fill_pit` still not `flooreffects("settle")`),
+**83** ACCEPT D-1122 (Wizard stair `goodpos` then telecontrol then
+50-try; steed/`mnexto` named), **84** ACCEPT D-1123 (`remove_worm`
++ tail + swallow `docrt` / grab `unstuck`; shk-home named), **85**
+ACCEPT D-1124 (size-1 cloud `rn1(3,4)`; enveloped/`inside_f` named).
+Must-fix empty. Filled D-1124 archive hash `3b7606b3`. Rotated
+#1415. Open 9 (no refill). Rule #2: no fs.
+**Score:** cadence **#1430** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
+@**#1435**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `fountain.c` `dowatersnakes` Hallucination `rndmonnam`.
+Not gush.
+**Blocked:** none.
+
 ## 2026-08-17 01:50 — #1429 D-1124 drinksink case 13 create_gas_cloud
 
 **Objective:** Open queue — `fountain.c` `drinksink` case 13
@@ -362,27 +389,4 @@ cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
 4500/2200/0004/0030/0009/0367. Path public-unhit.
 **Next:** Open `fountain.c` `dipfountain` cases 17–20 uncurse.
 Not Excalibur.
-**Blocked:** none.
-
-## 2026-08-16 22:48 — #1415 review D-1109–D-1112 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `sp_lev.c` `lspo_exclusion` 5498–5531 /
-`dungeon.c` `free_exclusions` / `sp_lev.c` `flip_level` 876–896;
-`teleport.c` `goodpos` 168–169 / `monmove.c` `onscary` 241–303;
-`teleport.c` `teleok` 420–445; `teleport.c` `mlevel_tele_trap`
-2033–2095.
-**Change:** reviews **70** ACCEPT D-1109 (opcode + wired soko/vault;
-soko2-2 named), **71** ACCEPT D-1110 (live `onscary` clone; mfndpos
-`mon.js` named), **72** ACCEPT D-1111 (VS/pit-fly trapok; `tele_jump_ok`
-named), **73** ACCEPT D-1112 (portal/levelport/no-trap; hole dest
-named). Must-fix empty. Filled D-1112 archive hash `bb552fba`.
-Rotated #1400. Open 11 (no refill). Rule #2: no fs.
-**Score:** cadence **#1415** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.87). Next
-@**#1420**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `fountain.c` `dipsink`. Not wash_hands.
 **Blocked:** none.
