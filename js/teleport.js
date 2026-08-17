@@ -1195,7 +1195,7 @@ export async function teleok(x, y, trapok) {
  * classify_terrain; shop-enter plines beyond spoteffects subset;
  * hostile gd_move rloc/gd_letknow/wallify_vault (uleftvault calls
  * gd_move after mpeaceful=0; JS gd_move still early-returns hostile);
- * hack.c:2973 walk invocation_message; mkmaze.c inv_pos;
+ * walk invocation_message is D-1150; mkmaze.c inv_pos;
  * vision.c vision_recalc / goto_level / newgame / seffect_magic_mapping
  * / wizcmds / save / postmov notice_mon callers; spot_monsters option.
  *
@@ -1356,7 +1356,7 @@ export async function teleds(nux, nuy, teleds_flags) {
     const { spoteffects } = await import('./pickup.js');
     await spoteffects(true);
     /* C: invocation_message() after spoteffects (hack.c). Walk
-     * caller (hack.c:2973) still named. */
+     * caller is D-1150 (hack.c:2973 / cmd.js domove). */
     await invocation_message();
     /* C: notice_mon_on(); notice_all_mons(TRUE); catch-up after the
      * wrap. Other callers (vision_recalc, goto_level, newgame) named. */

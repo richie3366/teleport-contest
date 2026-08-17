@@ -7,11 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Local suite **44**/44 after cadence **#1460**; next @**#1465**.
-  Map-driven. Must-fix 0. Open 10.
-- **Next:** Open `hack.c` `domove` `invocation_message`. Not teleds.
-- **Hypothesis:** C walk `invocation_message` on `inv_pos`; JS skips.
-  Falsify: Invocation square, not stairs — C You_feel vs silent.
+- Suite **#1460** **44**/44; next @**#1465**. Map-driven. Open 9.
+- **Next:** `hack.c` `classify_terrain` (named). Not invocation.
+- **Hypothesis:** C `classify_terrain` sets `iflags.terrain_typ` from
+  lastseentyp; JS skips. Falsify: ice/pool after `switch_terrain`.
 
 ## Don't re-check (≤15)
 
@@ -81,12 +80,12 @@ Objective/score live in `CURRENT.md`.
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149) / skip walk `domove` `invocation_message` (D-1150).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1460** **44**/44. Next @**#1465**. **D-1149:** mongone
-  specials (hash next commit). Review **109** shipped.
+- Suite **#1460** **44**/44. Next @**#1465**. **D-1150** walk
+  `invocation_message`. D-1149 hash `cdaccd3a`.

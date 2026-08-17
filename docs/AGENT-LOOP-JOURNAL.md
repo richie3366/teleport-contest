@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 09:22 — #1462 D-1150 domove walk invocation_message
+
+**Objective:** Open — `hack.c` `domove` `invocation_message` (named).
+Not teleds.
+**C locus:** `hack.c` `domove` 2964–2973; callee
+`invocation_message` 3064–3085 / `invocation_pos` 982–986.
+**Change:** after `vision_recalc(1)`, await `invocation_message`
+when `ux0!=ux||uy0!=uy`. Callee already D-1141. Did not place
+`mkmaze.c` `inv_pos`, share `dungeon.c` `Invocation_lev`, or fold
+apply.js clone. Filled review **109** D-1149 hash `cdaccd3a`.
+Rotated #1447. Open 9 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1460** **44**/44; next
+@**#1465**).
+**Verified:** private canary **19**/19 (walk onto inv_pos feet +
+nomul; off-square; On_stairs; not Invocation_lev; unset inv_pos;
+Lev/Fly/blocked-Lev; steed; spe==7 glow; Blind throb; walk away;
+STONE; diagonal); green+strict seed8000/0900; cohort **23**/23
+(0012 vault + 0004 pony + 0002/0006/0007/0009/0014/0017/0030/
+0060/0102/0106/0108/0116/0360/0367/0373/0383/0700/1500/1800/
+2200/4500) + isolated strict 0014/0012/0360/4500/2200/0030/
+0004/0002/0006/0367. Path public-unhit on Invocation_lev.
+**Next:** Open `hack.c` `classify_terrain` (named from
+switch_terrain). Not invocation. Audit @**#1465**.
+**Blocked:** none.
+
 ## 2026-08-17 09:05 — #1461 D-1149 mongone mdrop_special_objs
 
 **Objective:** Must-fix — `mon.c` `mongone` `mdrop_special_objs` then
@@ -398,29 +423,4 @@ swim + 0360/0367/0373/4500/2200/1500/1800/0030/0002/0116/0060/
 public-unhit on swallowed teleds.
 **Next:** Open `teleport.c` `teleds` `vault_guard` `uleftvault`.
 Not swallow docrt.
-**Blocked:** none.
-
-## 2026-08-17 05:40 — #1447 D-1138 minliquid lava on_fire / xkilled
-
-**Objective:** Open queue — `fountain.c` `gush` lava
-`fire_damage_chain` / `xkilled` (named). Not minliquid.
-**C locus:** `mon.c` `minliquid_core` 1010–1067;
-`trap.c` `fire_damage_chain` 4550–4572; `mondata.c` `on_fire`
-1411–1445; `allmain.c` 210–216.
-**Change:** lava `on_fire` fate pline; `mon_moving` → `mondead`
-else `xkilled(XKILL_NOMSG)`; fire-resist −1 hp +
-surrenders/burns-slightly; survivor `fire_damage_chain` then
-`rloc(RLOC_MSG)`. Wrap `movemon` with `context.mon_moving` so
-Gehennom mumak is `mondead` not hero `xkilled`. Did not pull
-overcrowding / steed Fly-Lev / `engulfing_u`. Filled D-1137
-archive hash `50136436`. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1445** **44**/44; next
-@**#1450**).
-**Verified:** private canary **42**/42; green+strict seed8000/0900;
-cohort **24**/24 (0360 lava + 0014 gush + 4500/2200/0030/0004/
-0009/0367/0116/0373/0060/0383/1500/1800/0102/0700/0017/0007/
-0361/0002/0006/0108) + strict 8000/0900/0014/0360/4500/2200/
-0004/0030.
-**Next:** Open `teleport.c` `teleds` swallow `docrt`. Not hideunder.
 **Blocked:** none.

@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1150 — domove walk invocation_message
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `domove` ran `newsym`/`vision_recalc(1)` after a
+  successful step and never called C `hack.c:2973`
+  `invocation_message`. Walking onto the Invocation square (not a
+  stair) therefore never stopped a run, never printed the vibration
+  You_feel, never set `u.uevent.uvibrated`, and never throbbed/glowed
+  a lit 7-candle candelabrum. `teleds` already called the callee
+  (D-1141).
+- **C locus:** `hack.c` `domove` (~2964–2973); callee
+  `invocation_message` (~3064–3085) / `invocation_pos` (~982–986).
+- **Fix:** after `vision_recalc(1)`, `await invocation_message()`
+  when `ux0 != ux || uy0 != uy` (same-cell swallow occupy skips).
+  Body unchanged (D-1141). Did not place `mkmaze.c` `inv_pos` /
+  VIBRATING_SQUARE, share `dungeon.c` `Invocation_lev`, or fold
+  apply.js's local `invocation_pos` clone. Rule #2: no fs.
+- **JS:** `js/cmd.js` `domove`; `js/hack.js` `invocation_message`
+  comment; `js/teleport.js` named-omit comments.
+- **Not this iter:** `mkmaze.c` `inv_pos` placement; `classify_terrain`;
+  walk `in_out_region`; apply.js clone.
+- **Verify:** private canary **19**/19 (walk onto inv_pos feet + nomul
+  run stop; off-square silent; On_stairs skip; not Invocation_lev;
+  unset inv_pos; (0,0) not other cells; Lev/Fly/blocked-Lev buf;
+  steed; spe==7 lit glow; spe!=7 / unlit skip glow; Blind throb;
+  walk away silent; direct callee; STONE blocked no clue; diagonal);
+  green+strict seed8000/0900; cohort **23**/23 (0012 vault + 0004
+  pony + 0002/0006/0007/0009/0014/0017/0030/0060/0102/0106/0108/
+  0116/0360/0367/0373/0383/0700/1500/1800/2200/4500) + isolated
+  strict 0014/0012/0360/4500/2200/0030/0004/0002/0006/0367. Path
+  public-unhit on Invocation_lev.
+- **Files:** `js/cmd.js`, `js/hack.js`, `js/teleport.js`.
+
 ## D-1149 — mongone mdrop_special_objs then discard
 
 - **Status:** fixed (map-driven Must-fix from review **109**; not a public FAIL)
