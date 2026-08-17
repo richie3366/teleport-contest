@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 00:40 — #1511 D-1189 cmd.c rhack visctrl ^C
+
+**Objective:** Must-fix human canary seed8243 `cmd.c` rhack
+`Unknown command` `visctrl(key)` so Ctrl-C is `^C` not raw ETX.
+Not `maybe_smudge_engr`. Not `kill_genocided`.
+**C locus:** `cmd.c` `rhack` 3833–3834 /
+`hacklib.c` `visctrl` 469–493.
+**Change:** unknown-command pline uses existing
+`dokeylist.js` `visctrl(key)`. Did not pull
+`custompline(SUPPRESS_HISTORY)`, `cmdq_clear` CQ_REPEAT, or
+`sanity_no_check`. Rotated #1496. Open 10 (no refill). Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1510** **44**/44; next
+@**#1515**).
+**Verified:** private canary Scr **129**/129 RNG **2768**/2768;
+green+strict seed8000/0900; cohort **18**/18 + strict
+1500/1800/2200/0009/0361/0012.
+**Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
+(named). Not `run_timers`.
+**Blocked:** none.
+
 ## 2026-08-18 00:35 — #1510 review D-1185–D-1188 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -373,28 +394,5 @@ screens. Path public-unhit unless a session revisits a damaged
 shop after 5 turns.
 **Next:** Open `do.c` `goto_level` `do_fall_dmg` (named). Not
 fix_shop_damage.
-**Blocked:** none.
-
-## 2026-08-17 21:00 — #1496 D-1177 goto_level obj_delivery
-
-**Objective:** Open — `do.c` `goto_level` `obj_delivery` (named).
-Not in_out_region.
-**C locus:** `dokick.c` `obj_delivery` 1769–1851; callers
-`do.c` `:1815` FALSE after placebc, `:1978` TRUE after
-`check_special_room`; `mkobj.c` `obj_extract_self` OBJ_MIGRATING.
-**Change:** port the callee (XOR WITH_HERO; bitmask noscatter;
-persistent nx/ny; soft skip; WITH_HERO `breaks` else silent
-`breaktest`+`delobj`; scatter `rnd(2)` or newsym; rloco). Wire
-both `goto_level` sites. Unlink `OBJ_MIGRATING` in extract.
-Did not pull `deliver_obj_to_mon`, wizkit FALSE, shop/fall,
-`kill_genocided_monsters`, or `run_timers`. Rotated #1481.
-Open 12 after archive+refill. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1495** **44**/44; next
-@**#1500**).
-**Verified:** green+strict seed8000/0900; cohort **10**/10
-(green + 1500/1800/0015/0002/0014/2200/4500/0367) full RNG+
-screens. Path public-unhit when `migrating_objs` is empty.
-**Next:** Open `do.c` `goto_level` `fix_shop_damage` (named). Not
-obj_delivery.
 **Blocked:** none.
 

@@ -7,9 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1510** 44/44 @**#1515**. Reviews **147–150** ACCEPT /
-  ACCEPT-WITH-DEBT (no new Must-fix). Next @117 `cmd.c` rhack
-  `visctrl` `^C`. Falsify: `node frozen/ps_test_runner.mjs private-sessions/seed8243-samurai-tutorial.session.json`
+- **#1510** 44/44 @**#1515**. D-1189 visctrl. Next Open
+  `goto_level` `kill_genocided` (named).
 
 ## Don't re-check (≤15)
 
@@ -19,6 +18,8 @@ Objective/score live in `CURRENT.md`.
   Do not skip ParanoidTrap portal yn (D-1187).
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
+- Do not restore rhack raw-ETX Unknown command (D-1189). Use
+  `visctrl(key)` (`^C`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -82,11 +83,12 @@ Objective/score live in `CURRENT.md`.
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
   `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149) / skip walk `domove` `invocation_message` (D-1150) / skip
-  `classify_terrain` (D-1151); D-1152…D-1188 in CURRENT Keep).
+  `classify_terrain` (D-1151); D-1152…D-1189 in CURRENT Keep).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 
 ## Landmarks (≤15)
 
-- **#1510** **44**/44 @**#1515**. Review **147–150**. Next `visctrl`.
+- **#1510** **44**/44 @**#1515**. D-1189 visctrl. Next
+  `kill_genocided`.

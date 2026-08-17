@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1189 — `cmd.c` rhack Unknown command `visctrl(key)`
+
+- **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)
+- **Symptom:** After `domagicportal` (D-1188), leftover @117. C
+  `rhack` prints `Unknown command '^C'.` via `visctrl(key)`.
+  JS interpolated raw `ch` (ETX) so the topline was not `^C`.
+- **C locus:** `cmd.c` `rhack` `:3833–3834`
+  `custompline(SUPPRESS_HISTORY, "Unknown command '%s'.", visctrl(key))`;
+  `hacklib.c` `visctrl` `:469–493` (`<040` → `^` + `(c|0100)`).
+- **JS was:** `pline(\`Unknown command '${ch}'.\`)` with
+  `ch = String.fromCharCode(key)` (raw ETX for Ctrl-C).
+- **Fix:** `js/cmd.js` rhack unknown arm uses existing
+  `dokeylist.js` `visctrl(key)`. Did not pull
+  `custompline(SUPPRESS_HISTORY)`, `cmdq_clear(CQ_REPEAT)`,
+  or `sanity_no_check`. Did not pull `maybe_smudge_engr`.
+- **Not this iter:** `goto_level` `kill_genocided_monsters`;
+  `run_timers`; `maybe_smudge_engr`. Rule #2: no fs.
+- **Verified:** private canary Scr **129**/129 RNG **2768**/2768;
+  green+strict seed8000/0900; cohort **18**/18 (1500/1800/0060/
+  0102/0700/1150/0017/0009/0012/0015/0361/2200/4500/0002/0014/
+  0367/0108/2600) + strict 1500/1800/2200/0009/0361/0012.
+- **Files:** `js/cmd.js`.
+
 ## D-1188 — `teleport.c` `domagicportal` activate / tutorial ATSTAIRS
 
 - **Status:** fixed (human canary seed8243 Must-fix; not a public FAIL)

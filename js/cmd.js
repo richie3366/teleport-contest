@@ -63,6 +63,7 @@ import { stairway_at, u_on_newpos } from './mklev.js';
 import { ATR_INVERSE } from './terminal.js';
 import { dopay } from './shk.js';
 import { getpos } from './getpos.js';
+import { visctrl } from './dokeylist.js';
 import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
     impaired_movement, is_pool, is_lava, carrying_too_much,
@@ -1593,12 +1594,14 @@ export async function rhack(key) {
         game.context.move = 0;
     } else {
         // Unknown command (includes unbound space when !rest_on_space)
+        // C rhack: custompline(SUPPRESS_HISTORY, "Unknown command '%s'.",
+        // visctrl(key)) — Ctrl-C is "^C", not raw ETX (D-1189).
         if (game.context?.forcefight) game.context.forcefight = 0;
         if (game.context?.run || (game.multi || 0) > 0) end_running();
         if (game.context) game.context.command_count = 0;
         game._repeat_search = false;
         game.context.move = 0;
-        await pline(`Unknown command '${ch}'.`);
+        await pline(`Unknown command '${visctrl(key)}'.`);
     }
 }
 

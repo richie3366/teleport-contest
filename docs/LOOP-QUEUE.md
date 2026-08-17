@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] Human canary seed8243: `cmd.c` rhack `Unknown command` `visctrl(key)` so Ctrl-C is `^C` not raw ETX. Not maybe_smudge_engr. Not kill_genocided.
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
