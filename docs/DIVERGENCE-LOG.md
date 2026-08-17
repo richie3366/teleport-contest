@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1142 — teleds notice_mon_off / notice_all_mons
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` never wrapped `vision_recalc` with C
+  `notice_mon_off`/`notice_mon_on` and never catch-up
+  `notice_all_mons(TRUE)` after `invocation_message`. With
+  `a11y.mon_notices` (`spot_monsters`) on, teleport therefore could not
+  defer You see/notice past materialize / switch_terrain / vault /
+  spoteffects / invocation, and never emitted the catch-up notices.
+- **C locus:** `teleport.c` `teleds` (~540, 570–571);
+  `include/flag.h` `notice_mon_off`/`notice_mon_on` (~233–237);
+  `hack.c` `notice_mon` (~1708–1731) / `notice_all_mons` (~1744–1783)
+  / `notice_mons_cmp` (~1735–1741).
+- **Fix:** port `a11y` block counter, `notice_mon`, and
+  `notice_all_mons` in `hack.js`. `teleds` calls `notice_mon_off`
+  after `nomul` before `vision_recalc`, then `notice_mon_on` +
+  `notice_all_mons(true)` after `invocation_message`. Default
+  `mon_notices` Off (optlist `spot_monsters`). Catch-up: canspotmon
+  collect, distu qsort, You see vs notice, hider furniture/object
+  skip, reset clears unspotted even when cnt==0. Did not pull
+  `vision.c` `vision_recalc` caller, `goto_level` / `newgame` /
+  `seffect_magic_mapping` / wizcmds / save / `postmov`, or option
+  wiring. Rule #2: no fs.
+- **JS:** `js/hack.js` `notice_mon_off`/`on`/`notice_mon`/
+  `notice_all_mons`; `js/teleport.js` `teleds`.
+- **Not this iter:** `vision.c:856` `notice_all_mons`; `do.c`
+  `goto_level`; `allmain.c` `newgame`; `read.c` mapping wrap;
+  `wizcmds.c`; `save.c`; `monmove.c` `postmov` `notice_mon`;
+  optlist `spot_monsters`; `accessiblemsg` pline consume of
+  `set_msg_xy`; `mon_movement` / `glyph_updates`.
+- **Verify:** private canary **48**/48 (source wrap order; default-off
+  no-op; nested block; extra on clamp; Detect_monsters notice vs
+  cansee see; already-mspotted; hider mundetected/furniture/object;
+  dead skip; reset TRUE/FALSE cnt0; distu nearer-first; tame your;
+  peaceful; named; mixed reset=FALSE); green+strict seed8000/0900;
+  cohort **24**/24 including 0012 vault + 0367 Pri ^T + 0004 scroll +
+  0009 swim + 0360/0373/4500/2200 + strict 0012/0367/0004/0360/
+  4500/2200/0030/0009/0002. Path public-unhit on `spot_monsters`.
+- **Files:** `js/hack.js`, `js/teleport.js`.
+
 ## D-1141 — teleds invocation_message
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

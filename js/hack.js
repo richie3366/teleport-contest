@@ -25,8 +25,9 @@ import {
     In_mines, ACH_TOWN, NO_PART,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
     FROMFORM, P_NONE, LEVITATION, FLYING, BLINDED, FOOT,
+    ARTICLE_NONE, ARTICLE_A, ARTICLE_YOUR, SUPPRESS_SADDLE, has_mgivenname,
 } from './const.js';
-import { pline, Norep, newsym, canspotmon, map_invisible, You_feel } from './display.js';
+import { pline, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel } from './display.js';
 import { gethungry, morehungry } from './eat.js';
 import { m_at } from './mon.js';
 import { recalc_block_point } from './vision.js';
@@ -41,7 +42,7 @@ import { midnight } from './calendar.js';
 import {
     PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE, PM_SAMURAI,
 } from './generated/monsters_data.js';
-import { hliquid, Hallucination, y_monnam } from './do_name.js';
+import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname } from './do_name.js';
 import { near_capacity } from './invent.js';
 import { record_achievement } from './insight.js';
 import { b_trapped, selftouch } from './trap.js';
@@ -1517,6 +1518,128 @@ export function invocation_pos(x, y) {
     const ip = game.svi?.inv_pos || game.inv_pos;
     if (!ip) return false;
     return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
+}
+
+/**
+ * C flag.h `struct accessibility_data` / `a11y`. Default Off matches
+ * optlist `spot_monsters`. Named omit: option wiring onto this struct;
+ * `accessiblemsg` pline consume of msg_loc; `mon_movement`; `glyph_updates`.
+ */
+function a11y_state() {
+    if (!game.a11y) {
+        game.a11y = {
+            accessiblemsg: false,
+            msg_loc: { x: 0, y: 0 },
+            mon_notices: false,
+            mon_notices_blocked: 0,
+            mon_movement: false,
+            glyph_updates: false,
+        };
+    }
+    if (typeof game.a11y.mon_notices_blocked !== 'number') {
+        game.a11y.mon_notices_blocked = 0;
+    }
+    if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
+    return game.a11y;
+}
+
+/** C flag.h notice_mon_off — bump block around vision messages. */
+export function notice_mon_off() {
+    a11y_state().mon_notices_blocked++;
+}
+
+/**
+ * C flag.h notice_mon_on — matching decrement. Clamp at 0
+ * (`impossible("mon_notices_blocked<0")` diagnostic named).
+ */
+export function notice_mon_on() {
+    const a = a11y_state();
+    a.mon_notices_blocked--;
+    if (a.mon_notices_blocked < 0) {
+        a.mon_notices_blocked = 0;
+    }
+}
+
+/** C hack.h distu — squared distance from hero. */
+function notice_distu(x, y) {
+    const u = game.u || {};
+    const dx = (x | 0) - (u.ux | 0);
+    const dy = (y | 0) - (u.uy | 0);
+    return dx * dx + dy * dy;
+}
+
+/** C pline.c set_msg_xy — a11y.msg_loc; pline consume still named. */
+function set_msg_xy(x, y) {
+    const a = a11y_state();
+    a.msg_loc.x = x | 0;
+    a.msg_loc.y = y | 0;
+}
+
+/**
+ * C hack.c notice_mon — a11y.mon_notices You see/notice once per mspotted.
+ * Hiders that are mundetected or appearing as furniture/object are not
+ * "spot". Named omit: monmove.c postmov caller.
+ */
+export async function notice_mon(mtmp) {
+    const a = a11y_state();
+    if (!a.mon_notices || a.mon_notices_blocked) return;
+    if (!mtmp) return;
+    const hider = is_hider(mtmp.data)
+        && (!!(mtmp.mundetected)
+            || M_AP_TYPE(mtmp) === M_AP_FURNITURE
+            || M_AP_TYPE(mtmp) === M_AP_OBJECT);
+    const spot = canspotmon(mtmp) && !hider;
+    if (spot && !mtmp.mspotted && (mtmp.mhp | 0) >= 1) {
+        mtmp.mspotted = true;
+        set_msg_xy(mtmp.mx | 0, mtmp.my | 0);
+        const article = mtmp.mtame
+            ? ARTICLE_YOUR
+            : (!has_mgivenname(mtmp) && !type_is_pname(mtmp.data))
+                ? ARTICLE_A
+                : ARTICLE_NONE;
+        const adj = (mtmp.mpeaceful && !mtmp.mtame) ? 'peaceful' : null;
+        const suppress = has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0;
+        const nam = x_monnam(mtmp, article, adj, suppress, false);
+        const verb = canseemon(mtmp) ? 'see' : 'notice';
+        await pline(`You ${verb} ${nam}.`);
+    } else if (!spot) {
+        mtmp.mspotted = false;
+    }
+}
+
+/** C hack.c notice_mons_cmp — qsort by distu (stable in JS). */
+function notice_mons_cmp(m1, m2) {
+    return notice_distu(m1.mx, m1.my) - notice_distu(m2.mx, m2.my);
+}
+
+/**
+ * C hack.c notice_all_mons — if a11y.mon_notices && !blocked, count
+ * canspotmon, qsort distu, notice_mon each. reset=TRUE clears mspotted
+ * on unspotted even when cnt==0 (first-loop else). Named omit:
+ * vision.c vision_recalc; do.c goto_level; allmain.c newgame;
+ * read.c seffect_magic_mapping; wizcmds.c; save.c.
+ */
+export async function notice_all_mons(reset) {
+    const a = a11y_state();
+    if (!a.mon_notices || a.mon_notices_blocked) return;
+    let cnt = 0;
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) < 1) continue; // DEADMONSTER
+        if (canspotmon(mtmp)) cnt++;
+        else if (reset) mtmp.mspotted = false;
+    }
+    if (!cnt) return;
+
+    const arr = [];
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) < 1) continue;
+        if (!canspotmon(mtmp)) mtmp.mspotted = false;
+        else arr.push(mtmp);
+    }
+    if (arr.length) {
+        arr.sort(notice_mons_cmp);
+        for (const m of arr) await notice_mon(m);
+    }
 }
 
 /**

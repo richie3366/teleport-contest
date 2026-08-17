@@ -10,11 +10,11 @@ Objective/score live in `CURRENT.md`.
 - Local suite **44**/44 (Scr **11405**/11405 RNG **100%**
   speed `31+0.27/turn` R² 0.87) after cadence **#1450**;
   next @**#1455**. Mode: **map-driven** fortress. Must-fix empty.
-  Open 12. Reviews **98–101** (101: hostile gd_move named).
+  Open 11.
 - Public LB / cron / hub CDN: **out of scope** (human).
-- **Next cluster:** Open `teleport.c` `teleds`
-  `notice_mon_off` / `notice_all_mons`. Not invocation.
-- **Hypothesis:** none live. D-1141 `invocation_message`.
+- **Next cluster:** Open `region.c` `in_out_region`
+  enter_msg / leave_msg. Not update_player_regions.
+- **Hypothesis:** none live. D-1142 `notice_mon_*`.
 
 ## Don't re-check (≤15)
 
@@ -88,11 +88,11 @@ Objective/score live in `CURRENT.md`.
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
   or `water_damage` (D-1128) /   skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` or restore Excalibur `:441` as this peel (D-1134) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation_message (D-1141).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` or restore Excalibur `:441` as this peel (D-1134) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1450** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1455**. **D-1141.** **D-1140:** `36fb8797`. **D-1139:** `4071a74d`.
+- Suite **#1450** **44**/44 Scr **11405**/11405 RNG **100%**. Next @**#1455**. **D-1142.** **D-1141:** `4d71520e`. **D-1140:** `36fb8797`. **D-1139:** `4071a74d`.

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `teleds` `notice_mon_off` / `notice_all_mons` (named). Not invocation.
 - [ ] `region.c` `in_out_region` enter_msg / leave_msg (named). Not update_player_regions.
 - [ ] `potion.c` `djinni_from_bottle` `mongrantswish` (named). Not bottle chance RNG.
 - [ ] `fountain.c` Excalibur `:441` `update_inventory` (named). Not artidisco save.
