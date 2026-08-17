@@ -70,6 +70,7 @@ import { enexto } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
     check_special_room, is_pool, is_lava, waterbody_name,
+    notice_mon_off, notice_mon_on, notice_all_mons,
 } from './hack.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
@@ -1286,7 +1287,10 @@ function getlev_catchup_monsters(elapsed) {
  * `kill_genocided_monsters` after losedogs (D-1190);
  * `run_timers` after kill_genocided before u_collide_m (D-1191;
  * C `do.c:1818–1823`; destination + delivered-object timers that
- * expired while away; `notice_mon_off` still named);
+ * expired while away);
+ * `notice_mon_off` before docrt + `notice_mon_on` /
+ * `notice_all_mons(TRUE)` after uz0 reset (D-1194; C `do.c:1839`,
+ * `:1971–1972`; `reset_glyphmap` / vision_recalc caller still named);
  * In_quest `onquest`;
  * In_endgame `newdungeon`+amulet `resurrect` new-Wizard makemon + appear
  * Norep; `familiar_level_msg` via `bones_include_name` (D-0577);
@@ -1691,6 +1695,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     }
 
     vision_reset();
+    // C do.c:1839 — notice_mon_off after vision_reset / reset_glyphmap
+    // (glyphmap still named), before docrt. Blocks vision.c
+    // notice_all_mons(TRUE) until after arrival plines + uz0 reset
+    // (D-1194). JS vision_recalc still omits that caller.
+    notice_mon_off();
     // C: docrt → cls flushes NEED_MORE (--More-- on stale Dlvl:N map) then redraws
     await docrt();
     await flush_screen(-1); // un-postpone + flush new map/botl
@@ -1789,6 +1798,13 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C: assign_level(&u.uz0, &u.uz); /* reset u.uz0 */
     // so later same-level portal steps are not treated as landing.
     assign_level(u.uz0 || (u.uz0 = { dnum: 0, dlevel: 0 }), u.uz);
+
+    // C do.c:1971–1972 — after uz0 reset (INSURANCE save_currentstate
+    // named), before print_level_annotation. Catch-up after the
+    // docrt wrap (D-1194). Default mon_notices Off (optlist
+    // spot_monsters). Did not pull newgame / mapping / wizcmds / save.
+    notice_mon_on();
+    await notice_all_mons(true);
 
     // C: print_level_annotation() before check_special_room / pickup
     // (dungeon.c — #annotate custom → "You remember this level as …")

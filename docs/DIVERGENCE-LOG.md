@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1194 — do.c `goto_level` `notice_mon_off`
+
+- **Status:** fixed (map-driven Open; named omit from D-1142 /
+  D-1191; not a public FAIL)
+- **Symptom:** JS `goto_level` reset vision and `docrt` then
+  printed arrival messages without C's a11y wrap. C
+  `notice_mon_off()` before `docrt` so `vision_recalc` →
+  `notice_all_mons(TRUE)` does not fire during Valley / quest /
+  splev plines, then `notice_mon_on()` + `notice_all_mons(TRUE)`
+  after `assign_level(&u.uz0,&u.uz)`.
+- **C locus:** `do.c` `goto_level` `:1839` after `vision_reset` /
+  `reset_glyphmap` before `docrt`; `:1971–1972` after uz0 reset
+  before `print_level_annotation`. Macros `flag.h` `:233–237`.
+  Callee `hack.c` `notice_all_mons` `:1744–1783` (D-1142).
+- **JS was:** `vision_reset(); await docrt();` then arrival
+  plines; uz0 then `print_level_annotation`. No off/on/catch-up.
+- **Fix:** `js/do.js` `goto_level` calls existing
+  `notice_mon_off` before `docrt`, then `notice_mon_on` +
+  `await notice_all_mons(true)` after uz0. Did not pull
+  `reset_glyphmap`, `docrt` internals, vision.c `:856`
+  `notice_all_mons`, newgame / mapping / wizcmds / save wraps,
+  or `spot_monsters` option wiring. Default `mon_notices` Off
+  so public catch-up is a no-op. JS `vision_recalc` still omits
+  the C caller (off is a no-op suppressor until that site).
+- **JS:** `js/do.js` `goto_level`; callees `js/hack.js`
+  `notice_mon_off`/`on`/`notice_all_mons` (D-1142).
+- **Not this iter:** `reset_glyphmap(gm_levelchange)`; vision.c
+  `notice_all_mons`; `allmain.c` `newgame` wrap; `read.c`
+  mapping; `wizcmds.c`; `save.c`; `monmove.c` `postmov`;
+  optlist `spot_monsters` → `a11y.mon_notices`. Rule #2: no fs.
+- **Verify:** private canary **29**/29 (C/JS source order;
+  default-off no-op; nested block; extra on clamp; blocked
+  wrap; catch-up after on; Detect_monsters; reset TRUE cnt0;
+  DEADMONSTER; no `reset_glyphmap()` / no docrt port).
+  green+strict seed8000/0900; cohort **41**/41 + strict
+  8000/0900/1500/1800/0700/0015/0002/0014/2200/4500/0367/
+  0009/0012/0360/0004/0361. Public-unhit on `spot_monsters`.
+- **Files:** `js/do.js`, `js/hack.js` (comment).
+
 ## D-1193 — dokick.c `deliver_obj_to_mon`
 
 - **Status:** fixed (map-driven Open; named omit from D-1177; not a

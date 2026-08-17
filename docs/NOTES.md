@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1516** 44/44 @**#1520**. Next `notice_mon_off`. Do not skip D-1193.
+- **#1517** 44/44 @**#1520**. Next wand `makeknown`. Do not skip D-1194.
 
 ## Don't re-check (≤15)
 
@@ -18,8 +18,8 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1193 (`kill_genocided` / `run_timers` / wizkit FALSE /
-  `deliver_obj_to_mon`).
+  D-1190…D-1194 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -74,20 +74,14 @@ Objective/score live in `CURRENT.md`.
   `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to`
   `remove_worm`/tail re-place or ustuck-swallow `docrt` /
   grab `!m_next2u` `unstuck` (D-1123) / skip drinksink case 13
-  `create_gas_cloud` (D-1124) / restore always-snakes skip of
-  Hallucination `rndmonnam` (D-1125) / skip drinkfountain case 24
-  `update_inventory` or restore `void buc_changed` (D-1126) / skip
-  `eat.c` `vomit` cantvomit/Sick/FAINTING/acid `ubreatheu` or restore
-  void spewed (D-1127) / skip `dodip` pool yn or restore `IS_POOL`
-  for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
-  or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
-  (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149) / skip walk `domove` `invocation_message` (D-1150) / skip
-  `classify_terrain` (D-1151); later D-ids in CURRENT).
+  `create_gas_cloud` (D-1124) / later D-ids in CURRENT).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
+- Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
+  newgame `notice_mon_off` with this wrap. Default `spot_monsters`
+  Off — public catch-up is a no-op.
 
 ## Landmarks (≤15)
 
-- #1516; next `notice_mon_off`.
+- #1517; next wand `makeknown`.
