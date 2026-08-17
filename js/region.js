@@ -9,8 +9,9 @@
 // format; force fields; incremental fill_point (JS uses vision_reset);
 // enter_msg/leave_msg pline (async; gas has none; create_msg_region
 // #if 0); can_enter/leave/enter/leave table indices (gas NO_CALLBACK);
-// attach_2_m; is_hero_inside_gas_cloud still geometric not the bit;
-// update_player_regions (teleds).
+// attach_2_m; is_hero_inside_gas_cloud still geometric not the bit
+// (walk `in_out_region` still named — do not flip until that bit is
+// live on steps).
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
@@ -274,6 +275,26 @@ export function in_out_region(x, y) {
         }
     }
     return true;
+}
+
+/**
+ * C ref: region.c update_player_regions — teleds after u_on_newpos
+ * / fill_pit / placebc. Absolute REG_HERO_INSIDE from (u.ux,u.uy).
+ * attach_2_u always clear_hero_inside (C dangling else of
+ * !attach_2_u && inside). No enter/leave callbacks or msgs —
+ * those are in_out_region (teleok probes; hack.c walk still named).
+ */
+export function update_player_regions() {
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    for (const reg of game.regions || []) {
+        if (!reg.attach_2_u && inside_region(reg, ux, uy)) {
+            set_hero_inside(reg);
+        } else {
+            clear_hero_inside(reg);
+        }
+    }
 }
 
 /**

@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1130 — teleds update_player_regions after placebc
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `teleds` never reset `REG_HERO_INSIDE` after
+  `u_on_newpos`. C `update_player_regions` sets the bit for
+  `!attach_2_u` regions covering `(u.ux,u.uy)` and clears it
+  otherwise (including `attach_2_u`). Discarded `teleok(TRUE)`
+  trap-backup probes can leave a stale bit; `teledest` can skip
+  `teleok` entirely. `in_out_region` is the wrong callee here
+  (enter/leave callbacks + skip `attach_2_u`).
+- **C locus:** `teleport.c` `teleds` (~529);
+  `region.c` `update_player_regions` (~582–592);
+  `region.h` `hero_inside` / `set_hero_inside` /
+  `clear_hero_inside`.
+- **Fix:** port `update_player_regions` in `region.js`. `teleds`
+  calls it after `placebc`, before `newsym`. Absolute membership
+  from dest; no enter/leave callbacks or msgs. Did not flip
+  `is_hero_inside_gas_cloud` to the bit (walk `in_out_region`
+  still named). Rule #2: no fs.
+- **JS:** `js/region.js` `update_player_regions`; `js/teleport.js`
+  `teleds`.
+- **Not this iter:** enter_msg/leave_msg; force-field callbacks;
+  `in_out_region` in `hack.c`/`dothrow.c`/`do.c`; geometric
+  `is_hero_inside_gas_cloud`; hideunder/mimic; buried-ball;
+  swallow `docrt`.
+- **Verify:** private canary **27**/27 (set/clear; attach_2_u
+  dangling-else; no enter_f/leave_f vs `in_out_region` contrast;
+  discarded-probe stale bit; teleds into/out/same-cell; source
+  order after placebc before newsym); green+strict seed8000/0900;
+  cohort **22**/22 including 0012 vault + 0004 scroll + 0360/0367/
+  0373/4500/2200 + strict 0012/0360/4500/0004/2200/0367/0373/
+  0030/0009/0002. Path public-unhit on gas-cloud teleds.
+- **Files:** `js/region.js`, `js/teleport.js`.
+
 ## D-1129 — teleds switch_terrain when dest typ ≠ origin
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

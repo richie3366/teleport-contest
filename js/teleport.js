@@ -52,7 +52,7 @@ import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
-import { in_out_region } from './region.js';
+import { in_out_region, update_player_regions } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
@@ -1149,7 +1149,7 @@ export async function mtele_trap(mtmp, trap) {
  * pit/hole ok iff Levitation||Flying (D-1111); then goodpos,
  * tele_jump_ok, in_out_region (D-1119).
  * Named omit: enter_msg/leave_msg pline in in_out_region;
- * update_player_regions in teleds.
+ * hack.c / dothrow.c in_out_region callers.
  */
 export function teleok(x, y, trapok) {
     if (!trapok) {
@@ -1177,10 +1177,10 @@ export function teleok(x, y, trapok) {
 /**
  * C ref: teleport.c teleds — hero placement (vault_tele / ^T / scroll).
  * Envelope: Punished unplacebc/placebc (or drag_ball when in range);
- * place + fill_pit(ux0,uy0) + vision; TELEDS_TELEPORT+verbose
- * materialize; dest-typ≠origin → switch_terrain (D-1129);
- * spoteffects(TRUE).
- * Named omissions: swallow docrt, vault_guard uleftvault, regions,
+ * place + fill_pit(ux0,uy0) + update_player_regions (D-1130) + vision;
+ * TELEDS_TELEPORT+verbose materialize; dest-typ≠origin →
+ * switch_terrain (D-1129); spoteffects(TRUE).
+ * Named omissions: swallow docrt, vault_guard uleftvault,
  * notice_mon_*, hideunder/mimic, buried-ball unearth;
  * fill_pit still uses thin extract+deltrap+delobj (C
  * flooreffects("settle") named); classify_terrain; shop-enter
@@ -1255,6 +1255,11 @@ export async function teleds(nux, nuy, teleds_flags) {
     if (ball_active && u.uchain && (u.uchain.where | 0) === OBJ_FREE) {
         placebc();
     }
+    /* C: update_player_regions after placebc, before newsym.
+     * Absolute REG_HERO_INSIDE from dest — not in_out_region
+     * (teleok already probed enter/leave; discarded teleok(TRUE)
+     * trap backups can leave a stale bit). */
+    update_player_regions();
 
     newsym(ox, oy);
     newsym(u.ux, u.uy);
