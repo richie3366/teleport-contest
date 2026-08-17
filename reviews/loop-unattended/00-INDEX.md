@@ -119,3 +119,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [107-fe5cefad-inside-gas-cloud.md](./107-fe5cefad-inside-gas-cloud.md) | `fe5cefad` | D-1146 `inside_gas_cloud` damage | **ACCEPT** |
 | [108-5c43dbc9-rndcolor.md](./108-5c43dbc9-rndcolor.md) | `5c43dbc9` | D-1147 `rndcolor` chest_trap gas | **ACCEPT** |
 | [109-27274b3b-overcrowding.md](./109-27274b3b-overcrowding.md) | `27274b3b` | D-1148 `deal_with_overcrowding` limbo / clog | **QUALITY-RISK** |
+| [110-cdaccd3a-mongone-mdrop-special.md](./110-cdaccd3a-mongone-mdrop-special.md) | `cdaccd3a` | D-1149 `mongone` `mdrop_special_objs` | **ACCEPT** |
+| [111-505df513-domove-invocation.md](./111-505df513-domove-invocation.md) | `505df513` | D-1150 `domove` walk `invocation_message` | **ACCEPT** |
+| [112-6bdf4d49-classify-terrain.md](./112-6bdf4d49-classify-terrain.md) | `6bdf4d49` | D-1151 `switch_terrain` `classify_terrain` | **ACCEPT** |
+| [113-9b5ce7b3-rloc-maybe-unhide.md](./113-9b5ce7b3-rloc-maybe-unhide.md) | `9b5ce7b3` | D-1152 `rloc_to` `maybe_unhide_at` dest | **ACCEPT** |

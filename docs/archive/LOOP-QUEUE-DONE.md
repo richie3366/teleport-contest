@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg. **Addressed:** D-1152
+- [x] `teleport.c` `rloc_to` `maybe_unhide_at` (named). Not vanish-msg. **Addressed:** D-1152 `9b5ce7b3`
 
 
 - [x] `hack.c` `classify_terrain` (named from switch_terrain). Not invocation. **Addressed:** D-1151 `6bdf4d49`

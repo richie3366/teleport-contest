@@ -7,7 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Suite **#1460** **44**/44; next @**#1465**. Map-driven. Open 12.
+- Suite **#1465** **44**/44; next @**#1470**. Map-driven. Open 12.
+  Review **110–113** ACCEPT D-1149…D-1152. Must-fix empty.
 - **Next:** `teleport.c` `vault_tele` `tele()` fallback (named). Not
   teleds.
 - **Hypothesis:** C `vault_tele` calls `tele()` when no vault/space;
@@ -89,5 +90,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1460** **44**/44. Next @**#1465**. **D-1152** `rloc_to`
-  `maybe_unhide_at`. D-1151 `6bdf4d49`.
+- Suite **#1465** **44**/44. Next @**#1470**. **D-1152** `9b5ce7b3`.
