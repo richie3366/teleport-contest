@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `fountain.c` `dowatersnakes` Hallucination `rndmonnam` (named). Not gush.
 - [ ] `fountain.c` `drinkfountain` case 24 `update_inventory` (named). Not enlightenment.
 - [ ] `eat.c` `vomit` cantvomit/Sick/acid poly arms (named from drinkfountain). Not dryup.
 - [ ] `potion.c` pool dip yn (named from dipsink). Not drinkfountain.

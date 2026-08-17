@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 02:10 — #1431 D-1125 dowatersnakes Hallucination rndmonnam
+
+**Objective:** Open queue — `fountain.c` `dowatersnakes` Hallucination
+`rndmonnam` (named). Not gush.
+**C locus:** `fountain.c` `dowatersnakes` 44–46; `do_name.c`
+`rndmonnam` 1388–1410; `objnam.c` `makeplural`; `youprop.h`
+`Hallucination`.
+**Change:** `!Blind` pline uses `Hallucination() ?
+makeplural(rndmonnam(null)) : 'snakes'`. Display-rng only on
+the hallu arm (C ternary). Did not pull case 24
+`update_inventory`, vomit, gush, `hcolor`, or Blind youprop
+in this helper. Filled D-1124 hash already on archive
+(`3b7606b3`). Rotated #1416. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1430** **44**/44; next
+@**#1435**).
+**Verified:** private canary **65**/65; green+strict seed8000/0900;
+cohort **21**/21 (0014 fountain + 0007 snakes + 0383/0399 hallu
++ 0002 drinksink + 0006 demon + 0108 + 0360/2200/4500/0004/
+0009/0012/0373/1500/1800/0060/0030/0116/0367/0398) + strict
+0014/0007/0002/0108/0360/2200/4500/0004/0009/0012/0030/0383/
+0399/0006. Path public-unhit.
+**Next:** Open `fountain.c` `drinkfountain` case 24
+`update_inventory`. Not enlightenment. Audit @**#1435**.
+**Blocked:** none.
+
 ## 2026-08-17 02:05 — #1430 review D-1121–D-1124 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -368,25 +394,4 @@ cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
 4500/2200/0004/0030/0009/0367. Path public-unhit.
 **Next:** Open `fountain.c` `dipfountain` case 29 `mkgold`.
 Not wash_hands.
-**Blocked:** none.
-
-## 2026-08-16 23:05 — #1416 D-1113 dipsink + dodip sink yn
-
-**Objective:** Open queue — `fountain.c` `dipsink` (named). Not
-wash_hands.
-**C locus:** `fountain.c` `dipsink` 716–801; `do.c`
-`polymorph_sink` 404–455; `potion.c` `dodip` 2325–2334.
-**Change:** port `dipsink` (lottery `breaksink`, hands/uarmg
-`wash_hands`, non-potion tap+`water_damage`, potion pour+switch);
-local `polymorph_sink` `rn2(4)`; wire dodip sink yn. Pool dip /
-uncurse 17–20 still named. Filled no prior hash gap. Rotated
-#1401. Open 10 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1415** **44**/44; next
-@**#1420**).
-**Verified:** private canary **60**/60; green+strict seed8000/0900;
-cohort **17**/17 (0014/1500/1800/0060/0102/0700/0017/0106/0105/
-0016/4500/0360/2200/0009/0367/0004/0030) + strict 0014/0360/
-4500/2200/0004/0030/0009/0367. Path public-unhit.
-**Next:** Open `fountain.c` `dipfountain` cases 17–20 uncurse.
-Not Excalibur.
 **Blocked:** none.

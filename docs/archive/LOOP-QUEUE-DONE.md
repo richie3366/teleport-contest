@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-17
+
+- [x] `fountain.c` `dowatersnakes` Hallucination `rndmonnam` (named). Not gush. **Addressed:** D-1125
+
 ## 2026-08-16
 
 - [x] `fountain.c` `drinksink` case 13 `create_gas_cloud` (named). Not polyself. **Addressed:** D-1124 `3b7606b3`

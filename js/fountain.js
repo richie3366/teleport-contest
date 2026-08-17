@@ -12,8 +12,8 @@
 // gush m_at → minliquid else newsym (D-1117).
 // Deferred: vomit cantvomit/Sick/acid poly arms,
 // set_levltyp side effects beyond typ/flags;
-// Hallucination rndmonnam in snakes pline; mongrantswish tmp_at
-// glyph hide.
+// mongrantswish tmp_at glyph hide.
+// dowatersnakes Hallucination makeplural(rndmonnam(NULL)) (D-1125).
 // dryup wizard y_n after town warn (D-1096).
 // dryup angry_guards after real dryup (D-1104).
 // watchman_warn_fountain Deaf shake/wave (D-1105).
@@ -85,7 +85,9 @@ import { cansee, couldsee, do_clear_area } from './vision.js';
 import { del_engr_at, make_grave } from './engrave.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { observe_object, enlightenment } from './invent.js';
-import { hliquid, x_monnam, Hallucination, type_is_pname, oname, trycall } from './do_name.js';
+import {
+    hliquid, x_monnam, Hallucination, rndmonnam, type_is_pname, oname, trycall,
+} from './do_name.js';
 import {
     exist_artifact, artiname, discover_artifact, ART_EXCALIBUR,
 } from './artifact.js';
@@ -543,7 +545,8 @@ async function mongrantswish(mtmp) {
 
 /**
  * C ref: fountain.c dowatersnakes — rn1(5,2) then makemon water moccasins.
- * Hallucination makeplural(rndmonnam) deferred (uses "snakes").
+ * !Blind pline: Hallucination ? makeplural(rndmonnam(NULL)) : "snakes"
+ * (D-1125). Display-rng only on the Hallucination arm (C ternary).
  */
 async function dowatersnakes() {
     const u = game.u || {};
@@ -553,8 +556,12 @@ async function dowatersnakes() {
     if (!gone) {
         const Blind = !!(u.Blind || u.ublind);
         if (!Blind) {
-            // C: Hallucination ? makeplural(rndmonnam(NULL)) : "snakes"
-            await pline('An endless stream of snakes pours forth!');
+            // C fountain.c:45–46 — ternary is the pline %s; rndmonnam
+            // is display-rng and is not evaluated when !Hallucination.
+            const what = Hallucination()
+                ? makeplural(rndmonnam(null))
+                : 'snakes';
+            await pline(`An endless stream of ${what} pours forth!`);
         } else {
             await You_hear('something hissing!');
         }

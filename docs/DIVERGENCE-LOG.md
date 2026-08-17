@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1125 — dowatersnakes Hallucination rndmonnam
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `dowatersnakes` always printed `"snakes"` when
+  `!Blind`. C `fountain.c:45–46` uses
+  `Hallucination ? makeplural(rndmonnam(NULL)) : "snakes"`.
+  `rndmonnam` is display-rng and is not evaluated when
+  `!Hallucination` (C ternary).
+- **C locus:** `fountain.c` `dowatersnakes` (~44–46);
+  `do_name.c` `rndmonnam` (~1388–1410); `objnam.c` `makeplural`;
+  `youprop.h` `Hallucination` (`HHallucination && !Halluc_resistance`).
+- **Fix:** `!Blind` pline `%s` is `Hallucination() ?
+  makeplural(rndmonnam(null)) : 'snakes'`. Existing `do_name.js`
+  `rndmonnam` / `Hallucination` and `objnam.js` `makeplural`. Did
+  not pull drinkfountain case 24 `update_inventory`, vomit arms,
+  gush, drinksink `hcolor`, or rewrite this function's Blind
+  local to youprop `Blind()`. Rule #2: no fs.
+- **JS:** `js/fountain.js` `dowatersnakes`.
+- **Not this iter:** drinkfountain case 24 `update_inventory`;
+  `eat.c` `vomit` cantvomit/Sick/acid; drinksink `hcolor`;
+  `mongrantswish` `tmp_at`; Blind youprop in this helper
+  (still `u.Blind || u.ublind`).
+- **Verify:** private canary **65**/65 (source ternary; no-hallu
+  `"snakes"` + no display rng; hallu matches
+  `makeplural(rndmonnam)` across seeds; H/E resist → snakes;
+  G_GONE/`!Blind`/drink 22/dip 23 wiring); green+strict
+  seed8000/0900; cohort **21**/21 including 0014 fountain +
+  0007 snakes + 0383/0399 hallu + 0002 drinksink + 0006 demon
+  + 0108 + 0360/2200/4500 + strict those. Path public-unhit
+  (public seats are not hallu at this pline).
+- **Files:** `js/fountain.js`.
+
 ## D-1124 — drinksink case 13 create_gas_cloud
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
