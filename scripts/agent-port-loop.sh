@@ -460,9 +460,37 @@ queue_first_cluster() {
   ' "$QUEUE_FILE"
 }
 
-js_diff_stats() {
+# Commit range $1..$2 (empty when the agent did not commit).
+js_commit_stats() {
   git diff --numstat "$1" "$2" -- js \
     | awk '{ ins += $1; if ($1 + $2 > 0) files++ } END { print ins+0, files+0 }'
+}
+
+# Working tree (tracked + untracked) vs $1. Counts the shipment even if
+# the agent crashed before git commit (#1463: HEAD..HEAD was empty, then
+# reset --hard wiped the js/ edits).
+js_worktree_stats() {
+  local from="$1"
+  local ins files add f
+  read -r ins files <<<"$(
+    git diff --numstat "$from" -- js \
+      | awk '{ ins += $1; if ($1 + $2 > 0) files++ } END { print ins+0, files+0 }'
+  )"
+  while IFS= read -r f; do
+    [[ -z "$f" ]] && continue
+    add="$(wc -l <"$f" | tr -d ' ')"
+    ins=$((ins + add))
+    files=$((files + 1))
+  done < <(git ls-files --others --exclude-standard -- js)
+  echo "$ins $files"
+}
+
+touched_since() {
+  local base="$1" path="$2"
+  if git diff --name-only "$base" -- "$path" | rg -q .; then
+    return 0
+  fi
+  git ls-files --others --exclude-standard -- "$path" | rg -q .
 }
 
 maybe_archive_checked_queue() {
@@ -782,7 +810,8 @@ NODE
   fi
 
   after_head="$(git rev-parse HEAD)"
-  read -r js_ins js_files <<<"$(js_diff_stats "$before_head" "$after_head")"
+  read -r js_c_ins js_c_files <<<"$(js_commit_stats "$before_head" "$after_head")"
+  read -r js_ins js_files <<<"$(js_worktree_stats "$before_head")"
 
   origin_after=""
   agent_pushed=0
@@ -816,11 +845,14 @@ NODE
   fi
 
   if [[ "$mode" == "port" ]]; then
-    if (( js_ins == 0 && js_files == 0 )); then
+    if (( js_ins == 0 && js_files == 0 && js_c_ins == 0 && js_c_files == 0 )); then
       if (( agent_pushed )); then
         halt_loop "empty port iteration (no js/ diff) already pushed" 0
       fi
       halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
+    fi
+    if (( js_c_ins == 0 && js_c_files == 0 )); then
+      halt_loop "port iteration left uncommitted js/ changes (agent did not commit; not reverting)" 0
     fi
     if (( js_ins > LOOP_MAX_JS_INSERTIONS || js_files > LOOP_MAX_JS_FILES )); then
       if (( agent_pushed )); then
@@ -831,11 +863,14 @@ NODE
   fi
 
   if [[ "$mode" == "review" || "$mode" == "audit" ]]; then
-    if ! git diff --name-only "$before_head" "$after_head" | rg -q 'reviews/loop-unattended/'; then
+    if ! touched_since "$before_head" "reviews/loop-unattended"; then
       if (( agent_pushed )); then
         halt_loop "review produced no reviews/loop-unattended/ file AND already pushed" 0
       fi
       halt_loop "review iteration wrote no reviews/loop-unattended/ file" 1
+    fi
+    if [[ "$after_head" == "$before_head" ]]; then
+      halt_loop "review iteration left uncommitted reviews/loop-unattended (agent did not commit; not reverting)" 0
     fi
     if git diff "$before_head" "$after_head" -- 'reviews/loop-unattended' \
       | rg -q '^\+Verdict: \*\*REJECT\*\*'; then

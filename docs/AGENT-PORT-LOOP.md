@@ -93,6 +93,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │         js/ on audit, empty port, density >400/8,                  │
 │         green fail, audit full-suite fail,                         │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
+│       uncommitted js/ or review after a crash: halt, **no** reset  │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
@@ -104,7 +105,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 | Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
 |------------|------|----------------------|------------------------|
 | `n % 5 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` PASS; REJECT → STOP |
-| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty `js/` diff → halt; still-empty queue after port → halt |
+| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty committed **and** working-tree `js/` → halt+revert; uncommitted `js/` after crash → halt, keep tree; still-empty queue after port → halt |
 
 Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
 the next port **must** fix them. A QUALITY-RISK or REJECT review that
@@ -260,6 +261,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then gate fail | Halt without reset; human reverts origin |
+| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit; supervisor only diffed commits. Now: uncommitted `js/` → halt, **keep tree** |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |
 | Dirty tree at start | Loop refuses to launch |
