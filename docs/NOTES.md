@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1517** 44/44 @**#1520**. Next wand `makeknown`. Do not skip D-1194.
+- **#1518** 44/44 @**#1520**. Next `set_msg_xy`. Do not skip D-1195.
 
 ## Don't re-check (≤15)
 
@@ -18,8 +18,9 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1194 (`kill_genocided` / `run_timers` / wizkit FALSE /
-  `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap).
+  D-1190…D-1195 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
+  rloc wand `makeknown`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -84,4 +85,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1517; next wand `makeknown`.
+- #1518; next `set_msg_xy`.

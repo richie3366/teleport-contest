@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1195 — `rloc_to_core` wand `makeknown(WAN_TELEPORTATION)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1183 /
+  D-1180; not a public FAIL)
+- **Symptom:** JS `rloc_post_move_msg` delivered vanish/reappear /
+  together / appear plines then returned. C, after any delivered
+  dest message, discovers a zapped teleport wand:
+  `gc.current_wand && otyp == WAN_TELEPORTATION` →
+  `makeknown(WAN_TELEPORTATION)` (credit WIS). Spell / q.mechanic
+  / artifact #invoke leave `current_wand` Null. C comment: discovery
+  only if a message is delivered.
+- **C locus:** `teleport.c` `rloc_to_core` `:1727–1731` inside
+  `domsg && (canspotmon \|\| appearmsg \|\| mtmp == u.ustuck)`,
+  after the together / telemsg / appear pline, before resident
+  shk angry. Caller wrap: `zap.c` `dozap` sets `gc.current_wand`
+  around `weffects` (`:2672–2675`).
+- **JS was:** dest plines only; wand discovery deferred.
+- **Fix:** same gate after the delivered dest pline. Did not pull
+  `set_msg_xy`. `makeknown` already imported (`invent.js`).
+- **JS:** `js/teleport.js` `rloc_post_move_msg`.
+- **Not this iter:** `set_msg_xy`; `scrolltele` W-tower Override
+  yn. Rule #2: no fs.
+- **Verified:** private canary **27**/27 (C/JS order; new known
+  `rn2(19)`; already-known no exercise; Null / WAN_LIGHT /
+  SPE_TELEPORT_AWAY skip; silent `rloc_to` / RLOC_NOMSG /
+  unspotted / same-cell / `in_mklev` skip; appearmsg +
+  ustuck-together still discover; otyp not pointer; no
+  fs/FORCE); green+strict seed8000/0900; cohort **14**/14 +
+  strict 1500/0012/0360/4500/2200/0014. Path public-unhit unless
+  a teleport wand is zapped and a dest relocate message is seen
+  while the type is still unknown.
+- **Files:** `js/teleport.js`.
+
 ## D-1194 — do.c `goto_level` `notice_mon_off`
 
 - **Status:** fixed (map-driven Open; named omit from D-1142 /

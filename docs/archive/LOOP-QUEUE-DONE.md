@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do.c` `goto_level` `notice_mon_off` (named). Not docrt. **Addressed:** D-1194
+- [x] `teleport.c` `rloc_to_core` wand `makeknown` (named). Not ustuck-together. **Addressed:** D-1195
+
+
+- [x] `do.c` `goto_level` `notice_mon_off` (named). Not docrt. **Addressed:** D-1194 `c4c57ac1`
 
 
 - [x] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery. **Addressed:** D-1193 `2d2e68c7`

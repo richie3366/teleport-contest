@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 01:26 — #1518 D-1195 rloc_to_core wand makeknown
+
+**Objective:** Open — `teleport.c` `rloc_to_core` wand `makeknown`
+(named). Not ustuck-together.
+**C locus:** `teleport.c` `rloc_to_core` 1727–1731 after delivered
+dest pline, before resident shk angry. `dozap` sets
+`gc.current_wand` around `weffects`.
+**Change:** if `current_wand.otyp === WAN_TELEPORTATION` after a
+delivered dest msg, `makeknown(WAN_TELEPORTATION)` (WIS
+`rn2(19)` when new). Null / other otyp / no dest msg skip.
+Did not pull `set_msg_xy`. Filled D-1194 archive hash
+`c4c57ac1`. Rotated #1503. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1515** **44**/44; next
+@**#1520**).
+**Verified:** private canary **27**/27; green+strict
+seed8000/0900; cohort **14**/14 + strict 1500/0012/0360/4500/
+2200/0014.
+**Next:** Open `teleport.c` `rloc_to_core` `set_msg_xy` (named).
+Not makeknown.
+**Blocked:** none.
+
 ## 2026-08-18 01:18 — #1517 D-1194 goto_level notice_mon_off
 
 **Objective:** Open — `do.c` `goto_level` `notice_mon_off`
@@ -359,29 +381,5 @@ cohort **12**/12 (1500/1800/0015/0002/0014/2200/4500/0367/0360/
 Path public-unhit unless Eyes leftover timeout on teleport.
 **Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
 (named). Not run_timers.
-**Blocked:** none.
-
-## 2026-08-17 22:25 — #1503 D-1183 rloc_to_core ustuck-together
-
-**Objective:** Open — `teleport.c` `rloc_to_core` ustuck-together
-pline (named). Not telemsg.
-**C locus:** `teleport.c` `rloc_to_core` 1710–1711 first post-msg
-arm after dest, before telemsg/appear.
-**Change:** `mtmp==ustuck && !u_at(ux0,uy0)` →
-`You("and %s teleport together.")` via `mon_nam`; else-if telemsg
-reappear; else appear/arrives. Did not pull wand `makeknown` or
-`set_msg_xy`. Filled D-1182 archive hash `01c8c41f`. Rotated
-#1488. Open 11 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1500** **44**/44; next
-@**#1505**).
-**Verified:** private canary **44**/44 (C/JS order; together beats
-telemsg; grab adjacent ux==ux0 silent; grab ux!=ux0 together;
-grab far unstuck; RLOC_NOMSG; same-cell; in_mklev; Blind arrives;
-`mon_nam` the- not The-; no fs/FORCE); green+strict seed8000/0900;
-cohort **12**/12 (green + 1500/1800/0015/0002/0014/2200/4500/0367/
-0360/0012) + strict 1500/0012/0360/4500/2200/0014. Path
-public-unhit unless swallowed/ustuck teleports with messages.
-**Next:** Open `teleport.c` `scrolltele` make_blinded (named). Not
-W-tower amulet.
 **Blocked:** none.
 
