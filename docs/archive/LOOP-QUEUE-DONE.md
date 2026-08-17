@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `mhitm.c` `mdisplacem` `update_monster_region` (named). Not rloc_to. **Addressed:** D-1174
+- [x] `allmain.c` `m_everyturn_effect` youmonst (named). Not m_postmove_effect. **Addressed:** D-1175
+
+
+- [x] `mhitm.c` `mdisplacem` `update_monster_region` (named). Not rloc_to. **Addressed:** D-1174 `e5ec6685`
 
 
 - [x] `mon.c` `mnexto` `control_mon_tele` (named). Not rloc. **Addressed:** D-1173 `e07eeae7`

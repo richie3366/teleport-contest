@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1490** 44/44 @**#1495**. Next: `m_everyturn_effect` youmonst.
+- **#1490** 44/44 @**#1495**. Next: `mhurtle_step` `m_in_out_region`.
 
 ## Don't re-check (≤15)
 
@@ -82,4 +82,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **#1490** **44**/44 @**#1495**. **D-1174**. Review **130–133** ACCEPT.
+- **#1490** **44**/44 @**#1495**. **D-1175**. Review **130–133** ACCEPT.

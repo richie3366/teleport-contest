@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1175 | fixed | allmain youmonst `m_everyturn_effect` fog at `u.ux` | map-driven; C `allmain.c:481` after bot before `context.move`; callee `monmove.c` 658–674 `is_u?u.ux:mx`; Fog `!closed_door && !visible_region_at` size-1 dmg 0; await create; not ux0 trail (D-1167); udemigod / `amulet()` / `glibr` / `do_storms` / `mkot_trap_warn` still named |
 | D-1174 | fixed | `mdisplacem` `update_monster_region` after both places | map-driven; C `mhitm.c:246–257` / `region.c` 598–611; swap then defender worm tail then update both; not rloc before-tail (D-1161); `should_displace` / dogmove caller / dbridge still named |
 | D-1173 | fixed | `mnexto` `control_mon_tele` savemm | map-driven; C `mon.c:3974–3978` / `control_mon_tele` 1898–1934; after enexto, `iflags.mon_telecontrol` (not wizard at caller, not mx!=0) `control_mon_tele(..., FALSE)` then restore savemm; via_rloc FALSE uses goodpos; default Off; OPTIONS= doset / vanish-msg / RLOC_ERR still named |
 | D-1172 | fixed | `rloc` steed `tele()` then TRUE | map-driven; C `teleport.c:1808–1811`; `rloc(usteed)` calls `tele()`/`scrolltele` and returns TRUE even if tele does not move (noteleport); before iswiz stair (D-1122); vanish-msg, RLOC_ERR still named; mnexto telecontrol D-1173 |

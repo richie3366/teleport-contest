@@ -21,6 +21,35 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 20:12 — #1493 D-1175 youmonst m_everyturn_effect
+
+**Objective:** Open — `allmain.c` `m_everyturn_effect` youmonst
+(named). Not m_postmove_effect.
+**C locus:** `allmain.c` 481 after bot before `context.move`;
+callee `monmove.c` `m_everyturn_effect` 658–674 `is_u?u.ux:mx`.
+**Change:** await `m_everyturn_effect(youmonst)` once-per-input.
+Helper: fog at current `u.ux` (`data.mndx`); await
+`create_gas_cloud(1,0)`; `movemon_singlemon` awaits. Human no-op.
+Did not pull udemigod/`amulet()`/`glibr`/`do_storms`/
+`mkot_trap_warn` or `mhurtle_step`. Filled D-1174 archive hash
+`e5ec6685`. Rotated #1478. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1490** **44**/44; next
+@**#1495**).
+**Verified:** private canary **27**/27 (C/JS after bot before
+context.move; helper `is_u` ux not ux0; import; await create;
+data.mndx first; null; human no cloud/RNG; Hezrou/Steam not this
+function; fog ux not ux0/not mx; size-1 dmg 0; ttl `rn1`;
+heros_fault; hero_inside; no envelop; thenable; door skip;
+visible_region skip; monster mx/my; stale mnum; `mon_moving`;
+region elsewhere; no fs/FORCE); green+strict seed8000/0900;
+cohort **43**/43 (CURRENT shared + 0014/0383/4500/2600 + green)
++ strict 0101/0012/0360/4500/2200/0014/0004/0103/0104/0367/
+0373/0002/0700/0015/0116/0106. Path public-unhit on polyed Fog.
+**Next:** Open `dothrow.c` `mhurtle_step` `m_in_out_region` (named).
+Not hurtle_step.
+**Blocked:** none.
+
 ## 2026-08-17 19:57 — #1492 D-1174 mdisplacem update_monster_region
 
 **Objective:** Open — `mhitm.c` `mdisplacem` `update_monster_region`
@@ -391,30 +420,4 @@ seed8000/0900; cohort **41**/41 (CURRENT shared +
 0004/0367/0373/0002. Path public-unhit on trapped rloc off a pit.
 **Next:** Open `dothrow.c` `hurtle_step` `in_out_region` (named).
 Not walk. Audit @**#1480**.
-**Blocked:** none.
-
-## 2026-08-17 15:34 — #1478 D-1163 rloc_to minvent shop bill
-
-**Objective:** Open — `teleport.c` `rloc_to` minvent shop bill
-(named). Not shk-home.
-**C locus:** `teleport.c` `rloc_to_core` 1742–1758; `shk.c`
-`find_objowner` / `onshopbill` / `stolen_value` / `costly_spot`.
-**Change:** after angry, dest `!costly_spot` walks minvent: clear
-`no_charge` else `stolen_value` for `onshopbill`. Export
-`onshopbill`; import `Norep` on stolen_value's angry arm. Did
-not pull occupation `dochugw` / trapped `mintrap`. Filled D-1162
-archive hash `38353d8a`. Rotated #1463. Open 11 after archive
-(no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1475** **44**/44; next
-@**#1480**).
-**Verified:** private canary **44**/44 (billed debit; no_charge;
-shop-to-shop; same-shop; ordinary unpaid; no minvent; same-cell;
-corridor; shk-home; chain; no_charge-beats-bill; angry robbed;
-flag; null; migrating; credit; two billed); green+strict
-seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
-0004/0367/0373/0002. Path public-unhit on billed-minvent rloc
-out of shop.
-**Next:** Open `teleport.c` `rloc_to` trapped `mintrap` (named).
-Not occupation.
 **Blocked:** none.

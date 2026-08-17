@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1175 — allmain.c youmonst `m_everyturn_effect`
+
+- **Status:** fixed (map-driven Open; named omit from D-1167/D-1168 /
+  reviews 128–130; not a public FAIL)
+- **Symptom:** JS `moveloop_core` once-per-player-input ran bot/flush
+  then `context.move=1` with no C `m_everyturn_effect(&youmonst)`, and
+  the helper always used `mtmp.mx/my` (mnum first). A polyed Fog Cloud
+  therefore left no size-1 vapor at **current** `u.ux` each input.
+  Monster `movemon_singlemon` already called the helper (D-0623). Walk
+  Hezrou/Steam trail is D-1167 (`u.ux0`, not this function).
+- **C locus:** `allmain.c` once-per-player-input (~481) after `bot` /
+  `timebot`, before `svc.context.move = 1` / occupation / rhack.
+  Callee `monmove.c` `m_everyturn_effect` (~658–674):
+  `is_u ? u.ux : mtmp->mx`; Fog `!closed_door && !visible_region_at`
+  → `create_gas_cloud(x,y,1,0)`. Comment: every living on-map mon
+  **and the hero**. Not Hezrou/Steam (those are `m_postmove_effect`).
+- **Fix:** await the helper after flush and before `context.move`.
+  Helper: `mtmp === youmonst` → `u.ux/u.uy`; else `mx/my`; `data.mndx`
+  then `mnum`; await `create_gas_cloud`. Human form is a no-op (no RNG).
+  `movemon_singlemon` now awaits the same helper. Did not pull
+  udemigod `intervene`, `amulet()`, `glibr`, `do_storms`,
+  `mkot_trap_warn`, or `mhurtle_step` `m_in_out_region`. Rule #2: no fs.
+- **JS:** `js/allmain.js` `moveloop_core`; `js/monmove.js`
+  `m_everyturn_effect`; `js/mon.js` await. Comments in `region.js` /
+  `cmd.js`.
+- **Not this iter:** udemigod `intervene`; `amulet()`; `Glib` `glibr`;
+  `do_storms`; `mkot_trap_warn`; `mhurtle_step` `m_in_out_region`;
+  occupation `umoved` order vs C (JS still sets `umoved` before
+  occupation); `any_visible_region` see_monsters.
+- **Verify:** private canary **27**/27 (C/JS after bot before
+  context.move; helper `is_u` ux not ux0; import; await create;
+  data.mndx first; null; human no cloud/RNG; Hezrou/Steam not this
+  function; fog ux not ux0/not mx; size-1 dmg 0 `S_cloud`; ttl
+  `rn1(3,4)`; heros_fault; hero_inside; no envelop; thenable;
+  closed/locked door skip; visible_region skip; monster mx/my;
+  stale mnum; `mon_moving` REG_NOT_HEROS; region elsewhere; no
+  fs/FORCE); green+strict seed8000/0900; cohort **43**/43 (CURRENT
+  shared + 0014/0383/4500/2600 + green) + strict 0101/0012/0360/
+  4500/2200/0014/0004/0103/0104/0367/0373/0002/0700/0015/0116/0106.
+  Path public-unhit on polyed Fog Cloud.
+- **Files:** `js/allmain.js`; `js/monmove.js`; `js/mon.js`; comments
+  `js/region.js` `js/cmd.js`.
+
 ## D-1174 — `mdisplacem` `update_monster_region` after both places
 
 - **Status:** fixed (map-driven Open; named omit from D-1161 / review 122;

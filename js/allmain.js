@@ -45,6 +45,7 @@ import { dosounds } from './sounds.js';
 import { invault } from './vault.js';
 import { nh_timeout } from './timeout.js';
 import { run_regions } from './region.js';
+import { m_everyturn_effect } from './monmove.js';
 import { tele } from './teleport.js';
 import { polyself } from './polyself.js';
 import { you_were } from './were.js';
@@ -956,6 +957,11 @@ export async function moveloop_core() {
     }
     await bot();
     await flush_screen(1);
+
+    // C allmain.c:481 — once-per-player-input m_everyturn_effect(&youmonst)
+    // after bot, before context.move = 1. Fog vapor at current u.ux
+    // (not ux0 trail — that is m_postmove_effect / D-1167).
+    await m_everyturn_effect(game.youmonst);
 
     // C: u.umoved = FALSE before occupation / rhack (allmain.c)
     g.u.umoved = false;

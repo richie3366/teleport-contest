@@ -1074,16 +1074,21 @@ async function maybe_spin_web(mtmp) {
 
 /**
  * C ref: monmove.c m_everyturn_effect — fog leaves size-1 vapor each visit.
- * Named omission: polyed-hero path (is_u).
+ * Hero: allmain.c:481 once-per-player-input at current u.ux/u.uy (not
+ * ux0 — that trail is m_postmove_effect). Monster: movemon_singlemon
+ * before the movement gate (even if idle).
  */
-export function m_everyturn_effect(mtmp) {
+export async function m_everyturn_effect(mtmp) {
     if (!mtmp) return;
-    const mnum = mtmp.mnum ?? mtmp.data?.mndx ?? -1;
+    const is_u = mtmp === game.youmonst;
+    const u = game.u || {};
+    const x = is_u ? (u.ux | 0) : (mtmp.mx | 0);
+    const y = is_u ? (u.uy | 0) : (mtmp.my | 0);
+    // C compares mtmp->data == &mons[PM_FOG_CLOUD], not mnum.
+    const mnum = mtmp.data?.mndx ?? mtmp.mnum ?? -1;
     if (mnum !== PM_FOG_CLOUD) return;
-    const x = mtmp.mx | 0;
-    const y = mtmp.my | 0;
     if (!closed_door(x, y) && !visible_region_at(x, y)) {
-        create_gas_cloud(x, y, 1, 0);
+        await create_gas_cloud(x, y, 1, 0);
     }
 }
 
@@ -1092,7 +1097,7 @@ export function m_everyturn_effect(mtmp) {
  * Hero: after occupy, cloud at u.ux0/u.uy0 (hack.c:2877) so the trail
  * is behind, not under the new cell. Monster: before place_monster,
  * cloud at mx/my (still the old cell). allmain m_everyturn youmonst
- * (fog at u.ux) is a later queue item.
+ * (fog at u.ux) is D-1175.
  */
 export async function m_postmove_effect(mtmp) {
     if (!mtmp) return;

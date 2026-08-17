@@ -1837,7 +1837,7 @@ async function movemon_singlemon(mtmp) {
     if (((mtmp.mstate | 0) !== MON_FLOOR)) return false;
 
     // C: m_everyturn_effect before movement gate (fog vapor even if idle)
-    m_everyturn_effect(mtmp);
+    await m_everyturn_effect(mtmp);
 
     if ((mtmp.movement | 0) < NORMAL_SPEED) return false;
 

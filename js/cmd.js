@@ -1825,7 +1825,8 @@ async function domove(dx, dy) {
      * rejects; still updates REG_HERO_INSIDE (D-1157). C returns
      * without move_bc put-down. dothrow hurtle_step is D-1165;
      * do.c goto_level is D-1166. youmonst m_postmove_effect is
-     * D-1167 (after occupy). */
+     * D-1167 (after occupy). allmain m_everyturn_effect youmonst
+     * is D-1175 (fog at u.ux, not this walk trail). */
     if (!(await in_out_region(newx, newy))) {
         return;
     }
