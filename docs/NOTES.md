@@ -7,9 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- Suite **#1470** **44**/44; next @**#1475**. Open 8.
-- **Next:** `hack.c` walk `in_out_region` (named). Not teleds.
-- **Hypothesis:** C `domove` calls `in_out_region` on dest; JS omits.
+- Suite **#1470** **44**/44; next @**#1475**. Open 12.
+- **Next:** `region.c` `create_gas_cloud_selection` (named). Not BFS.
+- **Hypothesis:** C selection create fills a bitmap; JS omits.
 
 ## Don't re-check (≤15)
 
@@ -79,11 +79,11 @@ Objective/score live in `CURRENT.md`.
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
   `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149) /   skip walk `domove` `invocation_message` (D-1150) / skip
-  `classify_terrain` (D-1151) / skip `rloc_to` `maybe_unhide_at` (D-1152) / vault_tele false (D-1153) / skip `pick_vibrasquare` / hellfill VS (D-1154) / skip `expire_gas_cloud` dissipation (D-1155) / skip fumaroles whoosh (D-1156).
+  `classify_terrain` (D-1151) / skip `rloc_to` `maybe_unhide_at` (D-1152) / vault_tele false (D-1153) / skip `pick_vibrasquare` / hellfill VS (D-1154) / skip `expire_gas_cloud` dissipation (D-1155) / skip fumaroles whoosh (D-1156) / D-1157).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 
 ## Landmarks (≤15)
 
-- Suite **#1470** **44**/44. Next @**#1475**. **D-1156** `16e8d88b`.
+- Suite **#1470** **44**/44. Next @**#1475**. **D-1157**.

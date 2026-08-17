@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 13:38 — #1471 D-1157 walk in_out_region
+
+**Objective:** Open — `hack.c` walk `in_out_region` (named). Not teleds.
+**C locus:** `hack.c` `domove_core` 2866–2868 after `drag_ball`;
+callee `region.c` `in_out_region` 480–527; `is_hero_inside_gas_cloud`
+1168–1176.
+**Change:** `cmd.js` `domove` awaits `in_out_region(newx,newy)`
+before occupy. Gas NO_CALLBACK never rejects; still updates
+REG_HERO_INSIDE. Flip `is_hero_inside_gas_cloud` to the bit.
+Did not pull hurtle / goto_level callers or `run_regions`
+geometry. D-1156 hash already `16e8d88b`. Rotated #1456. Open
+12 after refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1470** **44**/44; next
+@**#1475**).
+**Verified:** private canary **32**/32; green+strict seed8000/0900;
+cohort **39**/39 (CURRENT shared + 0014/0383) + strict 8000/0900/
+0002/0014/0012/0004/0030/0360/0361/0383/2200/0006. Path
+public-unhit on force-field reject.
+**Next:** Open `region.c` `create_gas_cloud_selection` (named).
+Not BFS create. Audit @**#1475**.
+**Blocked:** none.
+
 ## 2026-08-17 13:20 — #1470 review D-1153–D-1156 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -403,31 +425,4 @@ ttl + 0006/0007/0106/0108/0360/2200/0004/0009/0030/0012/0116/1500/
 (fog ttl still matches).
 **Next:** Open `do_name.c` `rndcolor` (named from hcolor). Not
 sit/apply identity stubs.
-**Blocked:** none.
-
-## 2026-08-17 07:42 — #1456 D-1145 Excalibur :441 update_inventory
-
-**Objective:** Open queue — `fountain.c` Excalibur `:441`
-`update_inventory` (named). Not artidisco save.
-**C locus:** `fountain.c` `dipfountain` 441; `invent.c`
-`update_inventory` 2781–2809; `wintty.c` `tty_update_inventory`
-3606–3614.
-**Change:** after Lady of the Lake gift or deny, call
-`update_inventory()` before the ROOM analog (C order; both arms).
-Existing D-1126 callee: in_moveloop / `suppress_map_output` /
-suppress_price=0 around tty `sync_perminvent`. Default perm_invent
-Off no RNG. Excalibur `return` still skips `:552` (C). Did not pull
-artidisco save/rest, On WIN_INVEN, or `consume_obj_charge` known.
-Filled no prior hash gap. Rotated #1441. Open 8 after archive (no
-refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1455** **44**/44; next
-@**#1460**).
-**Verified:** private canary **38**/38; green+strict seed8000/0900;
-cohort **20**/20 (0014 fountain + 0106 dip + 0007 snakes + 0002
-drinksink + 0006 demon + knight 0103/0104/4500 + 0108/0360/2200/
-0004/0009/0030/0012/0116/0367/1500/1800/0060) + strict 8000/0900/
-0014/0106/0006/0007/0002/0103/0104/4500/0108/0360/2200/0004/0030.
-Path public-unhit (perm_invent Off; Excalibur dip unhit).
-**Next:** Open `region.c` `inside_gas_cloud` damage. Not enveloped
-pline.
 **Blocked:** none.

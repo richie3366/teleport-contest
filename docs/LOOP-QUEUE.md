@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` walk `in_out_region` (named). Not teleds.
 - [ ] `region.c` `create_gas_cloud_selection` (named). Not BFS create.
 - [ ] `mon.c` `m_poisongas_ok` mfndpos vamp/eel/breath (named). Not inside_f.
 - [ ] `teleport.c` `rloc_to` `set_apparxy` (named). Not vanish-msg.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` `rloc_to` shk `make_angry_shk` (named). Not vanish-msg.
 - [ ] `teleport.c` `rloc_to` minvent shop bill (named). Not shk-home.
 - [ ] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation.
+- [ ] `dothrow.c` `hurtle_step` `in_out_region` (named). Not walk.
+- [ ] `do.c` `goto_level` `in_out_region` (named). Not walk.
+- [ ] `hack.c` `m_postmove_effect` youmonst (named). Not in_out_region.
+- [ ] `allmain.c` `moveloop` `fumaroles` (named). Not mklev.
+- [ ] `region.c` `run_regions` `hero_inside` bit (named). Not walk caller.
 
 ## Parked (do not pop)
 

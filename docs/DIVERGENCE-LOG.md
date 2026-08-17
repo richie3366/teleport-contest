@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1157 — hack.c walk `in_out_region`
+
+- **Status:** fixed (map-driven Open; named omit from D-1119/D-1130/D-1143;
+  not a public FAIL)
+- **Symptom:** JS `domove` occupied the dest after `drag_ball` without
+  C `in_out_region(x,y)`, so `REG_HERO_INSIDE` stayed stale on steps.
+  Teleok already called the helper (D-1119); teleds uses absolute
+  `update_player_regions` (D-1130), not this enter/leave path.
+- **C locus:** `hack.c` `domove_core` (~2866–2868) after `drag_ball`,
+  before `m_at` / `u.ux += u.dx`. Callee `region.c` `in_out_region`
+  (~480–527) already ported.
+- **Fix:** await `in_out_region(newx, newy)` at that site. Gas
+  `NO_CALLBACK` never rejects; still sets/clears the bit. False
+  return matches C (no occupy, no `move_bc` put-down). Flip
+  `is_hero_inside_gas_cloud` to the bit (C 1168–1176). Did not
+  pull dothrow `hurtle_step`, do.c `goto_level`, or `run_regions`
+  inside_f off geometry. Rule #2: no fs.
+- **JS:** `js/cmd.js` `domove`; `js/region.js` `is_hero_inside_gas_cloud`;
+  comments in `teleport.js`.
+- **Not this iter:** hurtle / goto_level callers; `run_regions` /
+  `region_danger` / `region_safety` still geometric; force-field
+  callbacks; `m_postmove_effect`.
+- **Verify:** private canary **32**/32 (empty; stay-out/enter/stay-in/
+  leave bits; `attach_2_u` skip; can_enter/leave reject vs allow;
+  gas NO_CALLBACK; A→B; overlap; same-cell stay; stale same-cell
+  enter); green+strict seed8000/0900; cohort **39**/39 (CURRENT
+  shared list + 0014 fountain + 0383 fog) + strict 8000/0900/0002/
+  0014/0012/0004/0030/0360/0361/0383/2200/0006. Path public-unhit
+  on force-field reject (gas never rejects).
+- **Files:** `js/cmd.js`, `js/region.js`, `js/teleport.js` (comment).
+
 ## D-1156 — fumaroles clear_heros_fault / Norep whoosh
 
 - **Status:** fixed (map-driven Open; named omit from D-1137/D-1146/D-1155;

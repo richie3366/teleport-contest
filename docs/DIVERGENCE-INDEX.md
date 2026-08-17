@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1157 | fixed | `domove` walk `in_out_region` | map-driven; C `hack.c:2866–2868` after `drag_ball` before occupy; callee `region.c` 480–527; gas NO_CALLBACK never rejects; REG_HERO_INSIDE; `is_hero_inside_gas_cloud` now the bit; dothrow hurtle / do.c goto_level / `run_regions` geometry still named |
 | D-1156 | fixed | `fumaroles` `clear_heros_fault` / Norep whoosh | map-driven; C `mkmaze.c:1484–1514` / `region.h` `clear_heros_fault`; after lava `create_gas_cloud` set REG_NOT_HEROS (undo player-made `set_heros_fault`); `snd`/`loud` `distu<15`; `!Deaf` Norep whoosh / loud whoosh; goto_level already awaited; allmain moveloop caller / selection create / walk `in_out_region` still named |
 | D-1155 | fixed | `expire_gas_cloud` dissipation plines | map-driven; C `region.c:1046–1087` / `run_regions` 419–473; thick `arg>=5` half+ttl=2; thin Blind/uswallow/`u_at` within / `cansee` seen; around-you + You_see a\|some; `xray_range<=1` suppress; fumaroles whoosh D-1156; `create_gas_cloud_selection` / geometric bit still named |
 | D-1154 | fixed | `mkmaze.c` `inv_pos` / VIBRATING_SQUARE | map-driven; C `pick_vibrasquare_location` 1042–1093 / `makemaz` 1214–1216 / `sp_lev.c` `create_trap` VS 1818–1821 / `hellfill.lua` 437–441 / `mklev.c` `occupied` invocation_pos; `svi.inv_pos` then `maketrap(VS)`; no-upstairs short-circuit; `makemaz("")` create_maze caller / `Can_dig_down` !Invocation_lev still named |
