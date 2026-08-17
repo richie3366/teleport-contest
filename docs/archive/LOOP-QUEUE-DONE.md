@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs. **Addressed:** D-1147
+- [x] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled. **Addressed:** D-1148
+
+
+- [x] `do_name.c` `rndcolor` (named from hcolor). Not sit/apply identity stubs. **Addressed:** D-1147 `5c43dbc9`
 
 
 - [x] `region.c` `inside_gas_cloud` damage (named). Not enveloped pline. **Addressed:** D-1146 `fe5cefad`

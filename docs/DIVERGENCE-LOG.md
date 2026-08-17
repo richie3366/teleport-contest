@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1148 — deal_with_overcrowding limbo / elemental_clog
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `minliquid_core` after failed survivor `rloc` and
+  `mnexto` after failed `enexto` no-oped. C `mon.c:3986–3995`
+  `deal_with_overcrowding` sends the monster into limbo
+  (`m_into_limbo` → `MON_LIMBO` + `migrate_mon` current ledger
+  `MIGR_APPROX_XY`) or, in the endgame, `elemental_clog`
+  (`You_feel("besieged.")`, pick a victim to `mongone` and
+  `rloc_to` into that cell, else migrate to the previous plane
+  unless already on Astral).
+- **C locus:** `mon.c` `deal_with_overcrowding` (~3986–3995);
+  `m_into_limbo` (~3833–3840); `migrate_mon` (~3843–3861);
+  `elemental_clog` / `ok_to_obliterate` (~3864–3949);
+  callers `minliquid_core` (~1061–1062 lava, ~1104–1105 pool)
+  and `mnexto` (~3966–3968).
+- **Fix:** port the dispatcher and both arms; wire minliquid
+  failed-rloc and mnexto failed-enexto. Thin `mdrop_special_objs`
+  (invocation/Rider/`obj_resists(0,0)` + quest arti). Did not
+  pull steed Flying/Levitation, `engulfing_u` drown flush, or
+  full `mdrop_obj` worn/saddle/`extract_from_minvent`. Rule #2:
+  no fs.
+- **JS:** `js/mon.js` `deal_with_overcrowding` / `m_into_limbo` /
+  `migrate_mon` / `elemental_clog`; `js/fountain.js` comment.
+- **Not this iter:** steed air gate; `engulfing_u`; `mon_telecontrol`
+  on `mnexto`; full `mdrop_obj` extrinsics; `mnearto` overcrowding.
+- **Verify:** private canary **46**/46 (dungeon limbo; ordinary
+  invent `rn2(100)`; Amulet drop; foreign vs home elemental;
+  wizard/rider/eshk skip; pet last-resort; astral stay; no-victim
+  prior-plane; besieged first/`msgmv` 200; `mnexto` STONE fail;
+  steed sync; lava fire-resist rloc-fail → limbo; pool drown
+  death not limbo); green+strict seed8000/0900; cohort **24**/24
+  including 0014 gush + 0360 lava + 4500/2200/0030/0004/0002/
+  0012/0006/0007/0009/0106/0108 + strict 8000/0900/0014/0360/
+  4500/2200/0004/0030/0002/0006/0106/0108 (seed0012 isolated
+  strict PASS). Path public-unhit on gush `m_at` overcrowding.
+- **Files:** `js/mon.js`, `js/fountain.js`.
+
 ## D-1147 — do_name rndcolor chest_trap gas adjective
 
 - **Status:** fixed (map-driven Open; named omit from D-1135; not a public FAIL)

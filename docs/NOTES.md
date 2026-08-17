@@ -8,8 +8,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 after cadence **#1455**; next @**#1460**.
-  Map-driven. Must-fix empty. Open 11.
-- **Next:** `fountain.c` `gush` `deal_with_overcrowding` (named).
+  Map-driven. Must-fix empty. Open 10.
+- **Next:** `hack.c` `domove` `invocation_message` (named). Not teleds.
 - **Hypothesis:** none live.
 
 ## Don't re-check (≤15)
@@ -84,11 +84,11 @@ Objective/score live in `CURRENT.md`.
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1455** **44**/44. Next @**#1460**. **D-1146:** `fe5cefad`. **D-1147:** hash next.
+- Suite **#1455** **44**/44. Next @**#1460**. **D-1147:** `5c43dbc9`.

@@ -711,6 +711,7 @@ function delfloortrap(ttmp) {
 /**
  * C ref: fountain.c gush — pool along LOS from overflowing fountain.
  * D-1117: m_at → minliquid; else newsym (C 157–160).
+ * D-1148: occupied minliquid survivor failed rloc → deal_with_overcrowding.
  * Named omissions: full set_levltyp side effects (typ/flags only).
  */
 async function gush(x, y, poolcnt) {
