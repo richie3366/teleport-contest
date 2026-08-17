@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 21:53 — #1501 D-1181 rloc RLOC_ERR impossible
+
+**Objective:** Open — `teleport.c` `rloc` `RLOC_ERR` impossible()
+(named). Not vanish-msg.
+**C locus:** `teleport.c` `rloc` 1884–1888 after candy; callee
+`pline.c` `impossible` 584–634.
+**Change:** no `rloc_pos_ok` and no `goodpos` backup + `RLOC_ERR`
+→ urgent `"rloc(): couldn't relocate monster"` then disorder /
+report then FALSE. Without the bit, silent FALSE. Thin
+`display.js` `impossible` (`in_sanity_check` skip extra;
+`something_worth_saving` save-hint). Did not pull ustuck-together,
+wand `makeknown`, `set_msg_xy`, or `rloc_pos_ok` mx==0. Named
+omit paniclog file / recursive panic / debug_fuzzer / CRASHREPORT.
+Filled no prior missing archive hash. Rotated #1486. Open 8 after
+archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1500** **44**/44; next
+@**#1505**).
+**Verified:** private canary **25**/25 (no-flag silent false;
+RLOC_MSG-only silent; RLOC_ERR bug+disorder+report; NOMSG still
+impossible; worth_saving hint; sanity skip extra; recursive
+no-op; %s; null; exact C string; flag bits); green+strict
+seed8000/0900; cohort **12**/12 (green + 1500/1800/0015/0002/
+0014/2200/4500/0367/0360/0012) full RNG+screens. Path
+public-unhit unless a RLOC_ERR caller cannot place.
+**Next:** Open `teleport.c` `rloc_pos_ok` mx==0 updest/dndest
+(named). Not room lock.
+**Blocked:** none.
+
 ## 2026-08-17 21:40 — #1500 review D-1177–D-1180 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -372,33 +400,4 @@ seed8000/0900; cohort **41**/41 (CURRENT shared + 0014/0383/4500/
 0700/0015. Path public-unhit on busy-hero + rloc interrupt.
 **Next:** Open `teleport.c` `rloc_pos_ok` isshk/ispriest room lock
 (named). Not make_angry_shk.
-**Blocked:** none.
-
-## 2026-08-17 18:05 — #1486 D-1169 run_regions hero_inside bit
-
-**Objective:** Open — `region.c` `run_regions` `hero_inside` bit
-(named). Not walk caller.
-**C locus:** `region.c` `run_regions` 439–441 after ttl age;
-callee `inside_gas_cloud` 1091–1165 (D-1146). Caller
-`allmain.c:274` after `nh_timeout`.
-**Change:** hero `inside_f` uses `hero_inside(reg)` (`REG_HERO_INSIDE`)
-instead of `inside_region(u.ux,u.uy)`. Gas tag + monster list
-unchanged. Did not flip `region_danger` / `region_safety`
-(still geometric). Filled D-1168 archive hash already
-`0ff54fb4`. Rotated #1471. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1485** **44**/44; next
-@**#1490**).
-**Verified:** private canary **26**/26 (C/JS hero_inside vs
-geometry; allmain nh_timeout then run_regions; danger/safety
-still geometric; no fs/FORCE; fog ttl bit-set/geo-miss fires,
-bit-clear/geo-hit does not; both/neither; NO_CALLBACK skip;
-monster list independent; ttl==0 expire; empty; overlap only
-bit-set; human dam0 no fog +5; age before inside_f; thenable);
-green+strict seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
-0004/0367/0373/0002/0700/0015. Path public-unhit on stale bit
-vs cell.
-**Next:** Open `teleport.c` `rloc_to` occupation `dochugw`
-(named). Not mintrap.
 **Blocked:** none.

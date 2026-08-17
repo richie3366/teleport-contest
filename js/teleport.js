@@ -24,7 +24,7 @@ import {
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
     HOLE, TRAPDOOR, LEVEL_TELEP,
-    MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, NO_TRAP_FLAGS,
+    MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, RLOC_ERR, NO_TRAP_FLAGS,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
@@ -40,7 +40,7 @@ import {
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
-    shieldeff, docrt,
+    shieldeff, docrt, impossible,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
 import {
@@ -1162,8 +1162,8 @@ export async function control_mon_tele(mon, cc_p, rlocflags, via_rloc) {
  * then unshuffled candy shuffle (D-1122).
  * Steed is hero teleport: tele() then TRUE even if tele() does not
  * move (noteleport) (D-1172; C 1808–1811). Not Wizard stair.
- * Named omissions: ustuck-together; RLOC_ERR impossible();
- * wand discovery; set_msg_xy. mnexto control_mon_tele is D-1173.
+ * Named omissions: ustuck-together; wand discovery; set_msg_xy.
+ * mnexto control_mon_tele is D-1173. RLOC_ERR impossible is D-1181.
  */
 export async function rloc(mtmp, rlocflags = 0) {
     if (!mtmp) return false;
@@ -1241,7 +1241,15 @@ export async function rloc(mtmp, rlocflags = 0) {
             }
         }
         if (!found) {
-            if (!backupx) return false;
+            /* C teleport.c:1884–1888 — no rloc_pos_ok and no goodpos
+             * backup: RLOC_ERR callers treat failure as a programming
+             * error (mkmaze baalz, dismount bones, mplayer insurance). */
+            if (!backupx) {
+                if ((rlocflags & RLOC_ERR) !== 0) {
+                    await impossible("rloc(): couldn't relocate monster");
+                }
+                return false;
+            }
             x = backupx;
             y = backupy;
         }

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1181 — `rloc` `RLOC_ERR` `impossible()` on no-backup fail
+
+- **Status:** fixed (map-driven Open; named omit from D-1180 / D-1172 /
+  D-1122; not a public FAIL)
+- **Symptom:** JS `rloc` after 50 random tries and unshuffled candy
+  returned false when neither `rloc_pos_ok` nor a `goodpos` backup
+  existed, with no diagnostic. C `impossible("rloc(): couldn't
+  relocate monster")` when `(rlocflags & RLOC_ERR)` (mkmaze baalz,
+  dismount bones, mplayer insurance) then FALSE. Without the bit,
+  both still return FALSE silently.
+- **C locus:** `teleport.c` `rloc` `:1884–1888` after candy;
+  callee `pline.c` `impossible` `:584–634` (URGENT_MESSAGE first
+  line; then `"Program in disorder!"` + optional save-hint; then
+  `"Please report these messages to %s."` DEVTEAM_EMAIL).
+- **JS was:** `if (!backupx) return false;` — no `impossible()`.
+- **Fix:** on no backup, if `RLOC_ERR` `await impossible(...)`
+  then `return false`. Thin `display.js` `impossible` matches the
+  pline envelope (`in_sanity_check` skips extra lines;
+  `something_worth_saving` save-hint). Did not pull vanish-msg,
+  ustuck-together, wand `makeknown`, `set_msg_xy`, or
+  `rloc_pos_ok` mx==0.
+- **JS:** `js/teleport.js` `rloc`; `js/display.js` `impossible`.
+- **Not this iter:** paniclog file (Rule #2); recursive `panic()`;
+  debug_fuzzer panic; sysopt.support; CRASHREPORT yn. ustuck-
+  together; `rloc_pos_ok` mx==0 updest/dndest. Rule #2: no fs.
+- **Verified:** private canary **25**/25; green+strict seed8000/0900;
+  cohort (see journal). Path public-unhit unless a `RLOC_ERR`
+  caller cannot place (baalz wallification still finds a cell).
+
 ## D-1180 — `rloc_to_core` telemsg "vanishes and reappears"
 
 - **Status:** fixed (map-driven Open; named omit from D-0885 / D-0886 /

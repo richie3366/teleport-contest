@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1180 | fixed | `rloc_to_core` telemsg vanishes-and-reappears | map-driven; C `teleport.c:1712–1719` after dest; spotted+couldsee dest → `"%s vanishes and reappears%s."` next/close-by/closer/farther; same-cell return before msg; ustuck-together / wand discovery / `set_msg_xy` / `RLOC_ERR` still named |
+| D-1181 | fixed | `rloc` RLOC_ERR `impossible()` | map-driven; C `teleport.c:1884–1888` / `pline.c` `impossible`; no-backup + `RLOC_ERR` → urgent `"rloc(): couldn't relocate monster"` then disorder/report then FALSE; silent FALSE without the bit; paniclog/recursive panic/debug_fuzzer/sysopt.support/CRASHREPORT named |
+| D-1180 | fixed | `rloc_to_core` telemsg vanishes-and-reappears | map-driven; C `teleport.c:1712–1719` after dest; spotted+couldsee dest → `"%s vanishes and reappears%s."` next/close-by/closer/farther; same-cell return before msg; ustuck-together / wand discovery / `set_msg_xy` still named |
 | D-1179 | fixed | do.c `goto_level` `do_fall_dmg` | map-driven; C `do.c:1805–1809` falling + `:1988–1994` `d(max(dist,1),6)` Maybe_Half_Phys after `!new` shop repair before pickup; dist from pre-uz `depth`; losehp noreturn skips pickup; Punished `ballfall` / W-tower rndspot bit 2 still named |
 | D-1178 | fixed | do.c `goto_level` `fix_shop_damage` | map-driven; C `do.c:1985–1986` `!new` after in_out_region; callee `shk.c` 4849–4874 / `repair_damage` catchup (post-block messages only); litter `rn2(9)` still runs; `shk_fixes_damage` / allmain / bones / `do_fall_dmg` still named |
 | D-1177 | fixed | do.c `goto_level` `obj_delivery` | map-driven; C `dokick.c:1769–1851` / `do.c:1815` FALSE + `:1978` TRUE; XOR WITH_HERO; OBJ_MIGRATING extract; `deliver_obj_to_mon` / wizkit FALSE / `do_fall_dmg` still named |
