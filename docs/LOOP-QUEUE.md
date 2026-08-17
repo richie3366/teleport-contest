@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `vault_tele` `tele()` fallback (named). Not teleds.
 - [ ] `mkmaze.c` `inv_pos` / VIBRATING_SQUARE (named from invocation_pos). Not teleds.
 - [ ] `region.c` `expire_gas_cloud` dissipation plines (named). Not inside_gas HP.
 - [ ] `mklev.c` `fumaroles` `clear_heros_fault` / Norep whoosh (named). Not expire dissipation.

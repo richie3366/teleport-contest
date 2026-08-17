@@ -1911,18 +1911,18 @@ export async function level_tele() {
     );
 }
 /**
- * C ref: teleport.c vault_tele — somexyspace into VAULT then teleds.
- * Named omission: tele() fallback RNG when no vault/space.
+ * C ref: teleport.c vault_tele — somexyspace into VAULT then teleds;
+ * else tele() (D-1153). Named omit: dotele trap-at-feet still uses
+ * teleds without this helper.
  */
 export async function vault_tele() {
     const croom = search_special(VAULT);
     const c = { x: 0, y: 0 };
     if (croom && somexyspace(croom, c) && await teleok(c.x, c.y, false)) {
         await teleds(c.x, c.y, TELEDS_TELEPORT);
-        return true;
+        return;
     }
-    // tele() deferred — no vault room / no free cell
-    return false;
+    await tele();
 }
 
 /**
@@ -1931,8 +1931,8 @@ export async function vault_tele() {
  * Antimagic shieldeff (D-1120); !next_to_u sibling shudder (D-1005);
  * once → deltrap + vault_tele; isok(teledest) settrack + displace via
  * enexto/rloc_to then teleds, else tele() (D-1133).
- * Named omissions: dotele trap-at-feet teledest; vault_tele tele()
- * fallback when no vault/space.
+ * vault_tele no-vault/space → tele() (D-1153).
+ * Named omission: dotele trap-at-feet teledest.
  */
 export async function tele_trap(trap) {
     /* a fixed-destination teleport trap could theoretically place hero onto a

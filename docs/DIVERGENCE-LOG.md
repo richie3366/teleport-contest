@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1153 — vault_tele tele() fallback
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** JS `vault_tele` returned false when there was no VAULT
+  room, `somexyspace` failed, or `teleok` failed. C always falls
+  through to `tele()` (`scrolltele(NULL)` → `safe_teleds`).
+- **C locus:** `teleport.c` `vault_tele` (~772–783); callee `tele`
+  / `scrolltele` (~840–912). Callers: `tele_trap` once (~1508–1511);
+  `dotele` trap-once (~1146–1147) still named.
+- **Fix:** after the vault `teleds` success `return`, `await tele()`.
+  Drop the invented boolean. Did not pull `dotele` trap-at-feet
+  teledest (`teleds` without displace/`settrack`). Rule #2: no fs.
+- **JS:** `js/teleport.js` `vault_tele`; `js/trap.js` trapeffect comment.
+- **Not this iter:** `dotele` trap-at-feet teledest; `scrolltele`
+  `make_blinded` / W-tower Override yn / unconscious; `mvault_tele`
+  `rloc` fallback already present.
+- **Verify:** private canary **33**/33 (src order; no-vault
+  `safe_teleds` RNG; empty/OROOM skip; vault-with-space `teleds` no
+  `rnd`; stone/trap/monster fallback; `hx<0` terminator; subroom
+  VAULT; `tele_trap` once ± vault; noteleport stay); green+strict
+  seed8000/0900; cohort **25**/25 including 0012 vault + 0004 pony +
+  0367 Pri ^T + 0360/4500/0373/2200/0014/0009/1500/1800/0060/0102/
+  0700/0017/0030/0116/0383/0007/0361/0108/0002/5002/2600/0006 +
+  strict 0012/0004/0367/0360/4500/2200/0002/0009/0030/0014.
+  Path public-unhit on no-vault once-TELEP.
+- **Files:** `js/teleport.js`, `js/trap.js`.
+
 ## D-1152 — rloc_to maybe_unhide_at dest
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
