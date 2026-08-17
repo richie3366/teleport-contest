@@ -21,6 +21,33 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 20:25 — #1494 D-1176 mhurtle_step m_in_out_region
+
+**Objective:** Open — `dothrow.c` `mhurtle_step` `m_in_out_region`
+(named). Not hurtle_step.
+**C locus:** `dothrow.c` `mhurtle_step` `:1000`; callee `region.c`
+533–576.
+**Change:** three-loop `m_in_out_region` (attach_2_m skip;
+can_enter/leave then leave/enter; gas NO_CALLBACK never rejects).
+`mhurtle_step` `will_hurtle && m_in_out_region` before place.
+`make_gas_cloud` `attach_2_m=0`. Did not pull steed `u_on_newpos`,
+petrify, `place_monster` vs rloc, NODIAG, minliquid, or
+`goto_level` `obj_delivery`. Filled D-1175 archive hash
+`7188da5b`. Rotated #1479. Open 8 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1490** **44**/44; next
+@**#1495**).
+**Verified:** private canary **53**/53 (C/JS `&&` source; gas
+add/stay/remove; can_enter/leave reject; attach_2_m skip; leave
+then enter; NO_CALLBACK; null; empty; no fs/FORCE); green+strict
+seed8000/0900; cohort **43**/43 (CURRENT shared + 0014/0383/4500/
+2600 + green) + strict 0101/0012/0360/4500/2200/0014/0004/0103/
+0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
+knock through a live force field.
+**Next:** Open `do.c` `goto_level` `obj_delivery` (named). Not
+in_out_region. Audit @**#1495**.
+**Blocked:** none.
+
 ## 2026-08-17 20:12 — #1493 D-1175 youmonst m_everyturn_effect
 
 **Objective:** Open — `allmain.c` `m_everyturn_effect` youmonst
@@ -394,30 +421,4 @@ hash `6f7e188b`. Rotated #1465. Open 10 (no refill). Rule #2: no fs.
 full `sessions` `__RESULTS_JSON__`.
 **Next:** Open `dothrow.c` `hurtle_step` `in_out_region` (named).
 Not walk.
-**Blocked:** none.
-
-## 2026-08-17 15:48 — #1479 D-1164 rloc_to trapped mintrap
-
-**Objective:** Open — `teleport.c` `rloc_to` trapped `mintrap`
-(named). Not occupation.
-**C locus:** `teleport.c` `rloc_to_core` 1765–1767; `trap.c`
-`mintrap` 3733–3789 (no-trap / already-trapped).
-**Change:** after angry+bill (silent `rloc_to`; after appear in
-`rloc_to_flag`), `mtrapped && !wormno` → `mintrap(NO_TRAP_FLAGS)`.
-Dest no trap clears mtrapped; dest trap is already-trapped
-`rn2(40)`, not a fresh step-on. Dynamic import trap.js. Did
-not pull occupation `dochugw`. Filled D-1163 archive hash
-`d24ff150`. Rotated #1464. Open 10 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1475** **44**/44; next
-@**#1480**).
-**Verified:** private canary **35**/35 (dest-bare clear; free dest
-pit/dart no step-on; worm skip ± dest trap; same-cell; null;
-migrating; flag NOMSG/MSG; dest-dart/pit `rn2(40)` not `rn2(4)`;
-leave-origin-pit; undef; second rloc); green+strict
-seed8000/0900; cohort **41**/41 (CURRENT shared +
-0014/0383/4500/2600) + strict 0101/0012/0360/4500/2200/0014/
-0004/0367/0373/0002. Path public-unhit on trapped rloc off a pit.
-**Next:** Open `dothrow.c` `hurtle_step` `in_out_region` (named).
-Not walk. Audit @**#1480**.
 **Blocked:** none.

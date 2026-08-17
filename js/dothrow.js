@@ -59,7 +59,7 @@ import { goodpos, rloc_to } from './teleport.js';
 import {
     mintrap, t_at, Trap_Killed_Mon, Trap_Caught_Mon, Trap_Moved_Mon,
 } from './trap.js';
-import { in_out_region } from './region.js';
+import { in_out_region, m_in_out_region } from './region.js';
 
 const GLASS = 19;
 const POT_WATER = objectNames.indexOf('POT_WATER');
@@ -1523,12 +1523,13 @@ function will_hurtle(mon, x, y) {
 
 /**
  * C ref: dothrow.c mhurtle_step — move along hurtle path (thin).
+ * will_hurtle && m_in_out_region before place (D-1176; C :1000).
  * Named omit: steed u_on_newpos; set_apparxy; waterwall stop; bump
- * petrify / hero touch; m_in_out_region.
+ * petrify / hero touch; place_monster vs rloc_to.
  */
 async function mhurtle_step(mon, x, y) {
     if (!isok(x, y)) return false;
-    if (will_hurtle(mon, x, y)) {
+    if (will_hurtle(mon, x, y) && m_in_out_region(mon, x, y)) {
         if (mon !== game.u?.usteed) {
             await rloc_to(mon, x, y);
         } else {
@@ -1560,8 +1561,8 @@ async function mhurtle_step(mon, x, y) {
 
 /**
  * C ref: dothrow.c mhurtle — knock monster through air for range steps.
- * Named omit: NODIAG grid-bug; minliquid after path; full mhurtle_step
- * petrify/steed vision.
+ * mhurtle_step region gate is D-1176. Named omit: NODIAG grid-bug;
+ * minliquid after path; full mhurtle_step petrify/steed vision.
  */
 export async function mhurtle(mon, dx, dy, range) {
     if (!mon) return;

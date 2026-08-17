@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1176 — dothrow.c `mhurtle_step` `m_in_out_region`
+
+- **Status:** fixed (map-driven Open; named omit from D-1165 / reviews
+  126–130; not a public FAIL)
+- **Symptom:** JS `mhurtle_step` placed on `will_hurtle` alone. C
+  `:1000` is `will_hurtle && m_in_out_region` before `place_monster`.
+  The callee was a geometric one-loop add/remove (always true; no
+  `attach_2_m` skip; no can_enter/leave). A knock through a region
+  therefore skipped the walk-style gate (force-field reject; dest
+  membership before place). `rloc_to` still synced lists after place
+  (D-1161) — that is teleport, not this walk analog. Hero hurtle is
+  D-1165 (`in_out_region`).
+- **C locus:** `dothrow.c` `mhurtle_step` (~991–1068), gate `:1000`.
+  Caller `mhurtle` `walk_path` (~1170). Callee `region.c`
+  `m_in_out_region` (~533–576): skip `attach_2_m == m_id`; can_enter/
+  can_leave may return FALSE; then leave remove+leave_f; then enter
+  add+enter_f. Gas `NO_CALLBACK` never rejects. `m_move` already
+  called the JS callee (D-0834).
+- **Fix:** port the three-loop callee (pass `mon` into callbacks).
+  Wire `mhurtle_step` `will_hurtle && m_in_out_region` (short-circuit:
+  bump/stop does not rewrite lists). Default `attach_2_m = 0` in
+  `make_gas_cloud` (C `create_region`). Keep `rloc_to` place (steed
+  `u_on_newpos` named). Did not pull NODIAG / minliquid / petrify /
+  `place_monster` / `goto_level` `obj_delivery`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `mhurtle_step`; `js/region.js`
+  `m_in_out_region`.
+- **Not this iter:** steed `u_on_newpos`; `set_apparxy`; waterwall;
+  petrify bump; `place_monster` vs `rloc_to`; NODIAG; minliquid;
+  `goto_level` `obj_delivery` / `fix_shop_damage` / `do_fall_dmg`;
+  `region_danger` / `region_safety` geometry; force-field `#if 0`;
+  dog_move `m_in_out_region` before `newdogpos`.
+- **Verify:** private canary **53**/53 (C/JS `&&` source; gas
+  add/stay/remove; can_enter/leave reject keeps lists; attach_2_m
+  skip vs other m_id; leave-then-enter; NO_CALLBACK never rejects;
+  null; empty; m_id 0==attach 0 skip; no fs/FORCE); green+strict
+  seed8000/0900; cohort **43**/43 (CURRENT shared + 0014/0383/4500/
+  2600 + green) + strict 0101/0012/0360/4500/2200/0014/0004/0103/
+  0104/0367/0373/0002/0700/0015/0116/0106. Path public-unhit on
+  knock through a live force field.
+- **Files:** `js/dothrow.js`; `js/region.js`.
+
 ## D-1175 — allmain.c youmonst `m_everyturn_effect`
 
 - **Status:** fixed (map-driven Open; named omit from D-1167/D-1168 /
