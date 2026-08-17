@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1149 — mongone mdrop_special_objs then discard
+
+- **Status:** fixed (map-driven Must-fix from review **109**; not a public FAIL)
+- **Symptom:** JS `mongone` set `minvent=null`, so an `elemental_clog`
+  victim's Amulet/invocation/Rider corpse/quest artifact vanished.
+  C `mon.c:3275–3282` is `unstuck`; `mdrop_special_objs`;
+  `discard_minvent(FALSE)`; `m_detach`. Clog pick already skips
+  Amulet *holders*; Bell/Book/Candelabrum/Rider/quest arti on the
+  victim still must drop.
+- **C locus:** `mon.c` `mongone` (~3267–3282); `steal.c`
+  `mdrop_special_objs` (~852–870); `mkobj.c` `discard_minvent`
+  (~2525–2536); caller `elemental_clog` (~3932–3936).
+- **Fix:** `unstuck` when grabbing; reuse D-1148 `mdrop_special_objs`;
+  discard remaining invent (no worn `extract_from_minvent`). Did not
+  pull `isgd`/`grddead`, `m_detach` wiz/shk/worm/`MON_DETACH`/
+  `dismount_steed`, or the `mongrantswish` clone. Rule #2: no fs.
+- **JS:** `js/mon.js` `mongone` / `discard_minvent`; await from
+  `elemental_clog`, `potion.js` djinni vanish, `zap.js` ghost
+  recorporealize, `read.js` wizard `*` genocide.
+- **Not this iter:** worn/saddle `extract_from_minvent`; `mnearto`
+  overcrowding; mongrantswish invent; vault `grddead`.
+- **Verify:** private canary **26**/26 (Bell/Book/Candelabrum/Amulet/
+  Rider/quest arti floor drop; ordinary `rn2(100)` then discard;
+  unstuck grab vs no-op; clog victim Bell drop + rloc_to; clog skips
+  Amulet holder); green+strict seed8000/0900; cohort **26**/26
+  (0014 gush + 0360 lava + 0006 djinni vanish + 4500/2200/0030/0004/
+  0002/0012/0007/0009/0106/0108/0116/0367/0373/0383/0398/1500/1800/
+  0060/0102/0700/0017) + strict 8000/0900/0014/0360/4500/2200/0004/
+  0030/0002/0006/0106/0108. Path public-unhit on endgame clog.
+- **Files:** `js/mon.js`, `js/potion.js`, `js/zap.js`, `js/read.js`.
+
 ## D-1148 — deal_with_overcrowding limbo / elemental_clog
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

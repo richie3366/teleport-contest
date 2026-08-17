@@ -949,8 +949,8 @@ function Blind() {
  * then wish / tame / peaceful / vanish / hostile.
  * Caller this peel: apply.c dorub MAGIC_LAMP after OIL_LAMP transform
  * (D-1144). dodrink smoky POTION_OCCUPANT_CHANCE still named.
- * SetVoice soundlib named omit. Full mongone still the D-0472 subset
- * via mongrantswish (wish) / mon.js mongone (vanish).
+ * SetVoice soundlib named omit. Vanish uses shared mongone specials
+ * drop (D-1149); mongrantswish still its own mongone subset (D-0472).
  * @param {object} obj bottle or transformed lamp (BUC flags)
  */
 export async function djinni_from_bottle(obj) {
@@ -997,7 +997,7 @@ export async function djinni_from_bottle(obj) {
         if (canspotmon(mtmp)) {
             await pline(`${Monnam(mtmp)} vanishes.`);
         }
-        mongone(mtmp);
+        await mongone(mtmp);
         break;
     default:
         await verbalize('You disturbed me, fool!');

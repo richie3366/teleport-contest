@@ -107,4 +107,4 @@ Named omits / do-nots (map / Open, not Must-fix):
 - Verdict: **ACCEPT**
 - Score: **9 / 10**
 - One sentence: chest gas now rolls C’s Blind `blindgas[rn2(6)]` or `rndcolor` (always `rn2(16)`, Hallu then display-rng `hcolor`, else colorless at `NO_COLOR`), replacing the no-RNG colorful/strange strings.
-- Must-fix stays empty for this SHA; next port popped Open `deal_with_overcrowding`. **Addressed:** D-1148 (hash filled in this review commit). Not sit `hcolor`.
+- Must-fix stays empty for this SHA; next port popped Open `deal_with_overcrowding`. **Addressed:** D-1148 `27274b3b`. Not sit `hcolor`.

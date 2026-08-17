@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `mon.c` `mongone` `mdrop_special_objs` then discard (elemental_clog victim). Not worn extract. Source: reviews/loop-unattended/109-27274b3b-overcrowding.md **Addressed:** D-1149
+
+
 - [x] `fountain.c` `gush` `deal_with_overcrowding` (named). Not lava xkilled. **Addressed:** D-1148 `27274b3b`
 
 

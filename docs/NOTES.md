@@ -8,13 +8,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - Local suite **44**/44 after cadence **#1460**; next @**#1465**.
-  Map-driven. Must-fix 1. Open 10.
-- **Next:** Must-fix `mon.c` `mongone` `mdrop_special_objs` then
-  discard (elemental_clog victim). Not worn extract.
-  Source: reviews/loop-unattended/109-27274b3b-overcrowding.md.
-- **Hypothesis:** C `mongone` 3277–3280 drops specials before
-  discard; JS `minvent=null`. Falsify: clog victim holding
-  Amulet — C floor drop vs JS vanish.
+  Map-driven. Must-fix 0. Open 10.
+- **Next:** Open `hack.c` `domove` `invocation_message`. Not teleds.
+- **Hypothesis:** C walk `invocation_message` on `inv_pos`; JS skips.
+  Falsify: Invocation square, not stairs — C You_feel vs silent.
 
 ## Don't re-check (≤15)
 
@@ -36,12 +33,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip hugs (D-1071) … priest/guardian mndx (D-1088) /
-  restore sit Antimagic H||E-only (D-1089) / restore `is_pool`
-  POOL/MOAT/WATER-only (D-1090) / restore `goodpos` `IS_POOL`/
-  `IS_LAVA` macros (D-1091) / invent `S_ELF` mlet (D-1092) /
-  restore dogmove string `'MS_LEADER'` (D-1093) / restore
-  MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
+- Do not skip D-1071…D-1093 (hugs through MS_LEADER) /
+  restore MS_NEMESIS mitem `urole.neminum` (D-1094) / skip rust/`minliquid`/
   uhitm AD_COLD `split_mon` (D-1095) / skip `dryup` wizard `y_n` or
   add `debug_fuzzer` skip there (D-1096) / skip `dryup`
   `angry_guards` after real dryup (D-1104) / skip Deaf shake/wave
@@ -88,12 +81,12 @@ Objective/score live in `CURRENT.md`.
   for `at_pool` / skip `can_reach_floor` / skip hands `wash_hands`
   or `water_damage` (D-1128) / skip `teleds` dest-typ `switch_terrain`
   (D-1129) / skip `teleds` `update_player_regions` (D-1130) / skip
-  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148).
+  `teleds` `hideunder`/mimic (D-1131) / skip `teleds` TT_BURIEDBALL `buried_ball_to_punishment` (D-1132) / skip `tele_trap` teledest/`tele()` or nest `next_to_u` inside `once` (D-1133) / skip dipfountain post-switch `update_inventory` (D-1134) / skip Excalibur `:441` `update_inventory` (D-1145) / restore drinksink identity `hcolor` or treat pref as last choice / skip Hallu at gameover (D-1135) / skip mongrantswish tmp_at hide (D-1136) / skip make_gas_cloud enveloped You/last_msg (D-1137) / skip lava on_fire/xkilled/fire_damage_chain / allmain mon_moving wrap (D-1138) / skip teleds swallow docrt or unstuck (D-1139 / D-1140) / skip teleds invocation/notice_mon_* (D-1141/D-1142) / skip `in_out_region` enter_msg `pline1` (D-1143) / skip `djinni_from_bottle` MAGIC_LAMP wire (D-1144) / restore inside_gas dam>0 no-op (D-1146) / restore colorful/strange chest gas or skip rndcolor always-`rn2(CLR_MAX)` / Blind `ROLL_FROM(blindgas)` (D-1147) / skip overcrowding (D-1148) / skip mongone `minvent=null` specials (D-1149).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones this peel.
 
 ## Landmarks (≤15)
 
-- Suite **#1460** **44**/44. Next @**#1465**. **D-1148:** `27274b3b`.
-  Review **109** QUALITY-RISK: clog victim `mongone`.
+- Suite **#1460** **44**/44. Next @**#1465**. **D-1149:** mongone
+  specials (hash next commit). Review **109** shipped.

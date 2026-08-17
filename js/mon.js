@@ -1065,7 +1065,8 @@ function mdrop_obj_overcrowd(mon, obj) {
 
 /**
  * C ref: steal.c mdrop_special_objs — drop Amulet/invocation/Rider/quest
- * arti before migrate. Ordinary items still burn obj_resists(0,0) rn2(100).
+ * arti before migrate or mongone. Ordinary items still burn
+ * obj_resists(0,0) rn2(100).
  */
 function mdrop_special_objs(mon) {
     if (!mon) return;
@@ -1125,8 +1126,9 @@ function ok_to_obliterate(mtmp) {
 /**
  * C ref: mon.c elemental_clog — endgame overcrowding: You_feel besieged
  * (first time, then every 200 moves with rn2(2)); pick a victim to mongone
- * and rloc_to the clogged mon into that cell; else migrate to the previous
- * plane unless already on Astral.
+ * (unstuck + mdrop_special_objs + discard, D-1149) and rloc_to the clogged
+ * mon into that cell; else migrate to the previous plane unless already
+ * on Astral.
  */
 async function elemental_clog(mon) {
     if (!In_endgame(game.u?.uz)) return;
@@ -1171,7 +1173,7 @@ async function elemental_clog(mon) {
         const mx = victim.mx | 0;
         const my = victim.my | 0;
         victim.mstate = (victim.mstate | 0) | MON_OBLITERATE;
-        mongone(victim);
+        await mongone(victim);
         await rloc_to(mon, mx, my);
     } else if (!Is_astralevel(game.u?.uz)) {
         const dest = {
@@ -1337,7 +1339,7 @@ export function healmon(mtmp, amt, overheal) {
  * lava on_fire / mondead vs xkilled / fire_damage_chain (D-1138);
  * deal_with_overcrowding after failed survivor rloc (D-1148).
  * Named omissions: steed Flying/Levitation gate; engulfing_u drown flush;
- * mdrop_special_objs worn/saddle/`extract_from_minvent`.
+ * mdrop_obj worn/saddle/`extract_from_minvent` (mongone specials D-1149).
  */
 export async function minliquid(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return 1;
@@ -1869,19 +1871,40 @@ export function find_mid(mid, _fm = 0) {
 }
 
 /**
- * C ref: mon.c mongone — remove living mon from map/fmon (ghost join).
- * Named omit: timers, worm segs, shop, light sources, invent drop.
+ * C ref: mkobj.c discard_minvent — remaining invent leaves the game.
+ * mongone passes FALSE. Named omit: extract_from_minvent worn extrinsics;
+ * artifact_exists when uncreate_artifacts.
  */
-export function mongone(mtmp) {
+function discard_minvent(mtmp, _uncreate_artifacts) {
     if (!mtmp) return;
-    // Drop invent silently — C transfers invent before mongone in revive
-    mtmp.minvent = null;
+    while (mtmp.minvent) {
+        const otmp = mtmp.minvent;
+        unlink_minvent(mtmp, otmp);
+        otmp.nobj = null;
+        otmp.nexthere = null;
+    }
+}
+
+/**
+ * C ref: mon.c mongone — unstuck, mdrop_special_objs, discard_minvent,
+ * then m_detach subset (D-1149). Clog victim must not vanish specials.
+ * Named omit: isgd && !grddead; m_detach wizdead/shkgone/wormgone/
+ * MON_DETACH/dismount_steed; extract_from_minvent worn.
+ */
+export async function mongone(mtmp) {
+    if (!mtmp) return;
+    mtmp.mhp = 0;
+    if (game.u?.ustuck === mtmp) {
+        const { unstuck } = await import('./mhitu.js');
+        await unstuck(mtmp);
+    }
+    mdrop_special_objs(mtmp);
+    discard_minvent(mtmp, false);
     const list = game.fmon;
     if (list) {
         const i = list.indexOf(mtmp);
         if (i >= 0) list.splice(i, 1);
     }
-    if (game.u?.ustuck === mtmp) game.u.ustuck = null;
     if (game.u?.usteed === mtmp) game.u.usteed = null;
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;

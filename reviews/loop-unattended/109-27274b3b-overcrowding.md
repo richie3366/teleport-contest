@@ -129,3 +129,5 @@ Named omits / do-nots (map / Open, not Must-fix):
 - Score: **5 / 10**
 - One sentence: failed `rloc`/`enexto` now leave via real limbo/`elemental_clog` pick+`rloc_to`, but clog’s victim still hits a `mongone` that nulls inventory instead of C’s `mdrop_special_objs`.
 - Must-fix prepends `mongone` `mdrop_special_objs` (this file). Next port ships that, not `invocation_message`.
+
+**Addressed:** D-1149

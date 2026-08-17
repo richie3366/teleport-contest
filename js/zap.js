@@ -2476,7 +2476,7 @@ export async function revive(corpse, by_hero) {
                 }
             }
             mtmp.mconf = 1;
-            mongone(ghost);
+            await mongone(ghost);
         }
         free_omid(used);
     }

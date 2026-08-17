@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `mon.c` `mongone` `mdrop_special_objs` then discard (elemental_clog victim). Not worn extract. Source: reviews/loop-unattended/109-27274b3b-overcrowding.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `hack.c` `domove` `invocation_message` (named). Not teleds.
