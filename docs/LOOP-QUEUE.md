@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `rloc_pos_ok` mx==0 updest/dndest (named). Not room lock.
 - [ ] `teleport.c` `rloc_to_core` ustuck-together pline (named). Not telemsg.
 - [ ] `teleport.c` `scrolltele` make_blinded (named). Not W-tower amulet.
 - [ ] `do.c` `goto_level` `kill_genocided_monsters` (named). Not run_timers.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level.
 - [ ] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery.
 - [ ] `do.c` `goto_level` `notice_mon_off` (named). Not docrt.
+- [ ] `teleport.c` `rloc_to_core` wand `makeknown` (named). Not ustuck-together.
+- [ ] `teleport.c` `rloc_to_core` `set_msg_xy` (named). Not makeknown.
+- [ ] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded.
+- [ ] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive.
+- [ ] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit.
 
 ## Parked (do not pop)
 

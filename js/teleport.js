@@ -51,7 +51,7 @@ import { remove_worm, place_worm_tail_randomly } from './worm.js';
 import { makeknown, prinv, near_capacity } from './invent.js';
 import { more_experienced } from './exper.js';
 import { getlin, yn_function } from './getline.js';
-import { get_level, find_hell, In_W_tower } from './dungeon.js';
+import { get_level, find_hell, In_W_tower, On_W_tower_level } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
@@ -968,17 +968,48 @@ function tele_jump_ok(x1, y1, x2, y2) {
 }
 
 /**
- * C ref: teleport.c rloc_pos_ok — goodpos(GP_CHECKSCARY), then when
- * already on the map keep resident shk/priest in their room, then
- * tele_jump_ok. Dest is levl.roomno vs ESHK.shoproom / EPRI.shroom
- * (unsigned char), not in_rooms; rloc may still goodpos-fallback.
- * Named omissions: migrating mx==0 updest/dndest bit flags.
+ * C ref: teleport.c rloc_pos_ok — goodpos(GP_CHECKSCARY), then either
+ * migrating mx==0 (my holds flags: bit 0 up, bit 1 W-tower) against
+ * updest/dndest, or on-map keep resident shk/priest in their room then
+ * tele_jump_ok. Dest roomno vs ESHK.shoproom / EPRI.shroom (unsigned
+ * char), not in_rooms; rloc may still goodpos-fallback.
+ * Named omissions: migrate_to_level In_W_tower xyflags bit 2;
+ * mon_arrive my=xyflags before rloc.
  */
 function rloc_pos_ok(x, y, mtmp) {
     if (!goodpos(x, y, mtmp, GP_CHECKSCARY)) return false;
     const xx = mtmp?.mx | 0;
     const yy = mtmp?.my | 0;
-    if (xx) {
+    if (!xx) {
+        /* C teleport.c:1592–1615 — no current location (migrating
+         * arrival). yy is flags, not a row. */
+        const dndest = game.dndest || {};
+        const updest = game.updest || {};
+        if ((dndest.nlx | 0) && On_W_tower_level(game.u?.uz)) {
+            return (((yy & 2) !== 0)
+                ^ !within_bounded_area(x, y,
+                    dndest.nlx | 0, dndest.nly | 0,
+                    dndest.nhx | 0, dndest.nhy | 0)) !== 0;
+        }
+        if ((updest.lx | 0) && ((yy & 1) !== 0)) {
+            return within_bounded_area(x, y,
+                    updest.lx | 0, updest.ly | 0,
+                    updest.hx | 0, updest.hy | 0)
+                && (!(updest.nlx | 0)
+                    || !within_bounded_area(x, y,
+                        updest.nlx | 0, updest.nly | 0,
+                        updest.nhx | 0, updest.nhy | 0));
+        }
+        if ((dndest.lx | 0) && ((yy & 1) === 0)) {
+            return within_bounded_area(x, y,
+                    dndest.lx | 0, dndest.ly | 0,
+                    dndest.hx | 0, dndest.hy | 0)
+                && (!(dndest.nlx | 0)
+                    || !within_bounded_area(x, y,
+                        dndest.nlx | 0, dndest.nly | 0,
+                        dndest.nhx | 0, dndest.nhy | 0));
+        }
+    } else {
         /* C teleport.c:1620–1626 — try to keep shopkeeper / temple
          * priest in-room (caller may still resort to goodpos). */
         if (mtmp.isshk && inhishop(mtmp)) {
@@ -994,7 +1025,6 @@ function rloc_pos_ok(x, y, mtmp) {
         }
         if (!tele_jump_ok(xx, yy, x, y)) return false;
     }
-    // migrating mx==0 restricted-arrival arms deferred
     return true;
 }
 

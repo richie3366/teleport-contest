@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-17 22:10 — #1502 D-1182 rloc_pos_ok mx==0 updest/dndest
+
+**Objective:** Open — `teleport.c` `rloc_pos_ok` mx==0 updest/dndest
+(named). Not room lock.
+**C locus:** `teleport.c` `rloc_pos_ok` 1592–1615 in the `!xx`
+arm after `goodpos`, before on-map room lock.
+**Change:** migrating `my` flags: `dndest.nlx`+`On_W_tower_level`
+dest-in-exclude XOR `my&2`; else updest.lx moving-up minus nlx;
+else dndest.lx moving-down minus nlx. On-map isshk/ispriest +
+`tele_jump_ok` unchanged. Did not pull `migrate_to_level` bit 2
+or `mon_arrive` `my=xyflags`. Filled D-1181 archive hash
+`0b488053`. Rotated #1487. Open 7 after archive; refilled to 12
+(wand makeknown / set_msg_xy / scrolltele Override / migrate
+bit 2 / mon_arrive my=xyflags). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1500** **44**/44; next
+@**#1505**).
+**Verified:** private canary **84**/84 (C/JS order; goodpos first;
+no dests fallthrough; down lx/exclude; up vs dndest.lx; W-tower
+XOR precedence; nlx==0; !On_W_tower uses lx; on-map ignores lx;
+tele_jump_ok; room lock on-map only; migrating shk unlocked;
+rloc lands in dndest; on-map rloc can leave lx; no fs/FORCE);
+green+strict seed8000/0900; cohort **12**/12 (green + 1500/1800/
+0015/0002/0014/2200/4500/0367/0360/0012) + strict 1500/0012/
+0360/4500/2200/0014. Path public-unhit on migrating arrival.
+**Next:** Open `teleport.c` `rloc_to_core` ustuck-together pline
+(named). Not telemsg.
+**Blocked:** none.
+
 ## 2026-08-17 21:53 — #1501 D-1181 rloc RLOC_ERR impossible
 
 **Objective:** Open — `teleport.c` `rloc` `RLOC_ERR` impossible()
@@ -375,29 +403,3 @@ cohort **41**/41 (CURRENT shared + 0014/0383/4500/2600) + strict
 Wizard stair.
 **Blocked:** none.
 
-## 2026-08-17 18:20 — #1487 D-1170 rloc_to occupation dochugw
-
-**Objective:** Open — `teleport.c` `rloc_to` occupation `dochugw`
-(named). Not mintrap.
-**C locus:** `teleport.c` `rloc_to_core` 1761–1763 after bill
-before mintrap; callee `monmove.c` `dochugw` 204–238 (`chug`
-FALSE).
-**Change:** `rloc_maybe_occupation` when occupation is a function
-→ existing `dochugw(mtmp, false)`. Silent `rloc_to` after bill;
-`rloc_to_flag` after appear+angry+bill. No extra `dochug`. Did
-not pull `onscary` or makemon occupation. Filled D-1169 archive
-hash `0f1ce7c6`. Rotated #1472. Open 9 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1485** **44**/44; next
-@**#1490**).
-**Verified:** private canary **38**/38 (C/JS order; helper
-`dochugw(false)`; no fs/FORCE; hostile dest stops; idle/peaceful/
-too-far/`!mcanmove`/unseen/minvis keep; Hallu; 81 vs 82;
-same-cell; adjacent-to-adjacent; AT_BOOM; thenable; defer until
-flag; dest-bare mintrap after; worm skip mintrap); green+strict
-seed8000/0900; cohort **41**/41 (CURRENT shared + 0014/0383/4500/
-2600) + strict 0101/0012/0360/4500/2200/0014/0004/0367/0373/0002/
-0700/0015. Path public-unhit on busy-hero + rloc interrupt.
-**Next:** Open `teleport.c` `rloc_pos_ok` isshk/ispriest room lock
-(named). Not make_angry_shk.
-**Blocked:** none.

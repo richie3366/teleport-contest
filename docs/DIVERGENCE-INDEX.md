@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1182 | fixed | `rloc_pos_ok` mx==0 updest/dndest | map-driven; C `teleport.c:1592–1615`; migrating `!mx` `my` flags bit0 up / bit1 W-tower; `dndest.nlx`+`On_W_tower_level` dest-in-exclude XOR `my&2`; else updest.lx / dndest.lx arrival minus nlx; on-map room lock unchanged; `migrate_to_level` bit 2 / `mon_arrive` my=xyflags still named |
 | D-1181 | fixed | `rloc` RLOC_ERR `impossible()` | map-driven; C `teleport.c:1884–1888` / `pline.c` `impossible`; no-backup + `RLOC_ERR` → urgent `"rloc(): couldn't relocate monster"` then disorder/report then FALSE; silent FALSE without the bit; paniclog/recursive panic/debug_fuzzer/sysopt.support/CRASHREPORT named |
 | D-1180 | fixed | `rloc_to_core` telemsg vanishes-and-reappears | map-driven; C `teleport.c:1712–1719` after dest; spotted+couldsee dest → `"%s vanishes and reappears%s."` next/close-by/closer/farther; same-cell return before msg; ustuck-together / wand discovery / `set_msg_xy` still named |
 | D-1179 | fixed | do.c `goto_level` `do_fall_dmg` | map-driven; C `do.c:1805–1809` falling + `:1988–1994` `d(max(dist,1),6)` Maybe_Half_Phys after `!new` shop repair before pickup; dist from pre-uz `depth`; losehp noreturn skips pickup; Punished `ballfall` / W-tower rndspot bit 2 still named |

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1182 — `rloc_pos_ok` mx==0 updest/dndest / W-tower flags
+
+- **Status:** fixed (map-driven Open; named omit from D-1171 / D-0686;
+  not a public FAIL)
+- **Symptom:** JS `rloc_pos_ok` after `goodpos(GP_CHECKSCARY)` treated
+  migrating `mx==0` as always-TRUE. C uses `my` as flags (bit 0 =
+  moving up, bit 1 = inside W-tower): on a Wizard-tower level with
+  `dndest.nlx`, dest-in-exclude XOR `my&2`; else moving-up
+  `updest.lx` arrival minus exclude; else moving-down `dndest.lx`
+  arrival minus exclude. Skipping it let arriving monsters land
+  outside the restricted TELEPORT_REGION (caller may still
+  goodpos-fallback).
+- **C locus:** `teleport.c` `rloc_pos_ok` (~1592–1615) in the
+  `!xx` arm after `goodpos`, before the on-map room lock.
+  Callers `rloc` 50× random + candy; `control_mon_tele` via_rloc;
+  `mon_arrive` sets `my=xyflags` then `rloc`.
+- **Fix:** `if (!xx)` W-tower XOR then updest then dndest, else
+  existing isshk/ispriest room lock + `tele_jump_ok`. Did not pull
+  `migrate_to_level` `In_W_tower` bit 2 or `mon_arrive`
+  `my=xyflags`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `rloc_pos_ok`.
+- **Not this iter:** `migrate_to_level` W-tower `xyflags|=2`;
+  `mon_arrive` copy flags into `my` before rloc; ustuck-together;
+  wand `makeknown`; `set_msg_xy`. Rule #2: no fs.
+- **Verified:** private canary **84**/84 (C/JS order; goodpos first;
+  no dests fallthrough; down lx/exclude; up vs dndest.lx;
+  W-tower XOR precedence; nlx==0; !On_W_tower_level uses lx;
+  on-map ignores lx; tele_jump_ok exclude jump; room lock
+  on-map only; migrating shk unlocked; rloc lands in dndest;
+  on-map rloc can leave lx; no fs/FORCE); green+strict
+  seed8000/0900; cohort **12**/12 (green + 1500/1800/0015/0002/
+  0014/2200/4500/0367/0360/0012) + strict 1500/0012/0360/4500/
+  2200/0014. Path public-unhit on migrating arrival.
+- **Files:** `js/teleport.js`.
+
 ## D-1181 — `rloc` `RLOC_ERR` `impossible()` on no-backup fail
 
 - **Status:** fixed (map-driven Open; named omit from D-1180 / D-1172 /
