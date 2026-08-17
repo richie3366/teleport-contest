@@ -94,6 +94,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │         green fail, audit full-suite fail,                         │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
 │       uncommitted js/ or review after a crash: halt, **no** reset  │
+│       crash/timeout before commit: halt, **no** reset              │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
@@ -261,7 +262,8 @@ Halt reason is still `last-halt-reason.txt`.
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then gate fail | Halt without reset; human reverts origin |
-| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit; supervisor only diffed commits. Now: uncommitted `js/` → halt, **keep tree** |
+| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”) |
+| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |
 | Dirty tree at start | Loop refuses to launch |

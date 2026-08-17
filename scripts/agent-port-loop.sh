@@ -493,6 +493,19 @@ touched_since() {
   git ls-files --others --exclude-standard -- "$path" | rg -q .
 }
 
+# Nonzero agent exit with no new commit: crash/exhaustion/timeout, not an
+# empty shipment. Never reset --hard here (#1463/#1465).
+agent_exit_hint() {
+  local raw="$1" log="$2" st="$3"
+  if [[ "$st" -eq 124 ]]; then
+    echo " timeout"
+  elif rg -q 'resource_exhausted|RetriableError' "$raw" "$log" 2>/dev/null; then
+    echo " resource_exhausted"
+  else
+    echo ""
+  fi
+}
+
 maybe_archive_checked_queue() {
   rg -q '^- \[x\]' "$QUEUE_FILE" || return 0
   echo "$(date -Iseconds) === archive checked LOOP-QUEUE items ===" | tee -a "$MASTER_LOG"
@@ -801,10 +814,6 @@ NODE
     halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
   fi
 
-  if [[ "$status" -eq 124 ]]; then
-    halt_loop "agent iteration timed out after ${ITERATION_TIMEOUT_SEC}s" 1
-  fi
-
   if [[ "$status" -ne 0 ]]; then
     echo "warning: agent iteration exit $status; raw=$iter_raw" | tee -a "$MASTER_LOG"
   fi
@@ -812,6 +821,10 @@ NODE
   after_head="$(git rev-parse HEAD)"
   read -r js_c_ins js_c_files <<<"$(js_commit_stats "$before_head" "$after_head")"
   read -r js_ins js_files <<<"$(js_worktree_stats "$before_head")"
+
+  if [[ "$status" -ne 0 && "$after_head" == "$before_head" ]]; then
+    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting" 0
+  fi
 
   origin_after=""
   agent_pushed=0
