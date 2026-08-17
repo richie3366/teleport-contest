@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation. **Addressed:** D-1164
+- [x] `teleport.c` `rloc_to` trapped `mintrap` (named). Not occupation. **Addressed:** D-1164 `6f7e188b`
 
 
 - [x] `teleport.c` `rloc_to` minvent shop bill (named). Not shk-home. **Addressed:** D-1163 `d24ff150`

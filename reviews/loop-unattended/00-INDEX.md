@@ -131,3 +131,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [119-7cc347fc-create-gas-cloud-selection.md](./119-7cc347fc-create-gas-cloud-selection.md) | `7cc347fc` | D-1158 `create_gas_cloud_selection` / Cloud room | **ACCEPT** |
 | [120-e42ace32-mfndpos-m-poisongas-ok.md](./120-e42ace32-mfndpos-m-poisongas-ok.md) | `e42ace32` | D-1159 mfndpos `m_poisongas_ok` vamp/eel/breath | **ACCEPT** |
 | [121-8efa62e9-rloc-set-apparxy.md](./121-8efa62e9-rloc-set-apparxy.md) | `8efa62e9` | D-1160 `rloc_to` `set_apparxy` dest | **ACCEPT** |
+| [122-4dfadf3a-rloc-update-monster-region.md](./122-4dfadf3a-rloc-update-monster-region.md) | `4dfadf3a` | D-1161 `rloc_to` `update_monster_region` | **ACCEPT** |
+| [123-38353d8a-rloc-make-angry-shk.md](./123-38353d8a-rloc-make-angry-shk.md) | `38353d8a` | D-1162 `rloc_to` `make_angry_shk` | **ACCEPT** |
+| [124-d24ff150-rloc-stolen-value.md](./124-d24ff150-rloc-stolen-value.md) | `d24ff150` | D-1163 `rloc_to` minvent `stolen_value` | **ACCEPT** |
+| [125-6f7e188b-rloc-mintrap.md](./125-6f7e188b-rloc-mintrap.md) | `6f7e188b` | D-1164 `rloc_to` trapped `mintrap` | **ACCEPT** |

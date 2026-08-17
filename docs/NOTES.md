@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1475** 44/44 @**#1480**. Next: dothrow `hurtle_step` in_out_region.
+- **#1480** 44/44 @**#1485**. Next: dothrow `hurtle_step` in_out_region.
 
 ## Don't re-check (≤15)
 
@@ -83,4 +83,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Suite **#1475** **44**/44. Next @**#1480**. **D-1164**.
+- Suite **#1480** **44**/44. Next @**#1485**. **D-1164**. Reviews **122–125** ACCEPT.
