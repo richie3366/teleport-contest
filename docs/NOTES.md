@@ -7,8 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1515** 44/44 @**#1520**. Next `deliver_obj_to_mon`.
-  Review **154** wizkit `wizkit_wishing` unread — not Must-fix.
+- **#1516** 44/44 @**#1520**. Next `notice_mon_off`. Do not skip D-1193.
 
 ## Don't re-check (≤15)
 
@@ -18,9 +17,9 @@ Objective/score live in `CURRENT.md`.
   Do not skip ParanoidTrap portal yn (D-1187).
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
-- Do not restore rhack raw-ETX (D-1189 `visctrl`). Do not skip
-  `goto_level` `kill_genocided` (D-1190) / `run_timers` (D-1191)
-  / newgame wizkit `obj_delivery(FALSE)` (D-1192).
+- Do not restore rhack raw-ETX (D-1189). Do not skip
+  D-1190…D-1193 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  `deliver_obj_to_mon`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -91,4 +90,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1515; next `deliver_obj_to_mon`.
+- #1516; next `notice_mon_off`.

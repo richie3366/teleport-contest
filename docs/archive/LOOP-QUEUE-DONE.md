@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
+- [x] `dokick.c` `deliver_obj_to_mon` (named). Not obj_delivery. **Addressed:** D-1193
+
+
 - [x] `allmain.c` `newgame` wizkit `obj_delivery(FALSE)` (named). Not goto_level. **Addressed:** D-1192 `cf9eb066`
 
 

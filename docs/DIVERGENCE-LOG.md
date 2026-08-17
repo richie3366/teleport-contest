@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1193 — dokick.c `deliver_obj_to_mon`
+
+- **Status:** fixed (map-driven Open; named omit from D-1177; not a
+  public FAIL)
+- **Symptom:** JS `obj_delivery` skipped `MIGR_TO_SPECIES` cargo and
+  left it on `migrating_objs`. C `deliver_obj_to_mon` extracts those
+  objects into a matching monster's minvent when `makemon` allows
+  inventory.
+- **C locus:** `dokick.c` `deliver_obj_to_mon` `:1853–1906`. Caller
+  `makemon.c` `:1469–1470` after allow_minvent (`DF_NONE`, cnt=1).
+  Helpers `do_name.c` `christen_orc`/`rndorcname`/`free_oname`.
+- **JS was:** named omit; `obj_delivery` continue without extract.
+- **Fix:** port the loop (DELIVER_PM mask; DF_RANDOM/DF_ALL/DF_NONE
+  maxobj; orc named booty `In_mines` gang vs `rn2(2)` Fence;
+  `free_oname`; `add_to_minv`). Wire makemon after invent before
+  `!in_mklev` newsym. Did not pull dog.c `mon_arrive` leftovers,
+  `mksobj_migr_to_species`, or `stolen_booty`.
+- **JS:** `js/dokick.js` `deliver_obj_to_mon`; `js/makemon.js`;
+  `js/do_name.js` `christen_orc`/`rndorcname`/`free_oname`.
+- **Not this iter:** dog.c `MIGR_LEFTOVERS` DF_ALL; mkobj
+  `mksobj_migr_to_species`; mkmaze `stolen_booty`; `add_to_minv`
+  merge; `discard_minvent` else. Rule #2: no fs.
+- **Verify:** private canary **25**/25 (DF_NONE head; DF_ALL;
+  species miss; no-bit skip; NON_PM skip; mines gang; named-mon
+  keep; Fence/`rn2`; helpers; DF_RANDOM 1..n; human match).
+  green+strict seed8000/0900; cohort **39**/39 + strict lengths
+  (seed0007 batch-isolation flake; alone PASS). Public-unhit
+  unless `MIGR_TO_SPECIES` cargo exists.
+
 ## D-1192 — allmain.c `newgame` wizkit `obj_delivery(FALSE)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1177; not a
