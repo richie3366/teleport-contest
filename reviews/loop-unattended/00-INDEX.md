@@ -139,3 +139,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [127-0cb3acbe-goto-level-in-out-region.md](./127-0cb3acbe-goto-level-in-out-region.md) | `0cb3acbe` | D-1166 `goto_level` `in_out_region` | **ACCEPT** |
 | [128-d6ba6ede-youmonst-m-postmove.md](./128-d6ba6ede-youmonst-m-postmove.md) | `d6ba6ede` | D-1167 youmonst `m_postmove_effect` | **ACCEPT** |
 | [129-0ff54fb4-moveloop-fumaroles.md](./129-0ff54fb4-moveloop-fumaroles.md) | `0ff54fb4` | D-1168 moveloop EOT fumaroles | **ACCEPT** |
+| [130-0f1ce7c6-run-regions-hero-inside.md](./130-0f1ce7c6-run-regions-hero-inside.md) | `0f1ce7c6` | D-1169 `run_regions` hero `inside_f` bit | **ACCEPT** |
+| [131-5a6be1fe-rloc-occupation-dochugw.md](./131-5a6be1fe-rloc-occupation-dochugw.md) | `5a6be1fe` | D-1170 `rloc_to` occupation `dochugw` | **ACCEPT** |
+| [132-822498d3-rloc-pos-ok-room-lock.md](./132-822498d3-rloc-pos-ok-room-lock.md) | `822498d3` | D-1171 `rloc_pos_ok` shk/priest room | **ACCEPT** |
+| [133-e7c5c8ac-rloc-steed-tele.md](./133-e7c5c8ac-rloc-steed-tele.md) | `e7c5c8ac` | D-1172 `rloc` steed `tele()` | **ACCEPT** |

@@ -21,8 +21,8 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-17** — full `sessions` after cadence
-**#1485** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `33+0.27/turn` (R² 0.86). Next audit (review + score) @**#1490**.
+**#1490** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `33+0.27/turn` (R² 0.86). Next audit (review + score) @**#1495**.
 
 ## Score
 
@@ -78,7 +78,7 @@ public traces.
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1171** (getdir/hurtle; pole
+**D-0948**…**D-1172** (getdir/hurtle; pole
 `glyph_at`; thitmonst; `find_mac`; `rnl(4)`; `urole.questarti`;
 HConfusion-only; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;

@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1489** 44/44 @**#1490**. Next: `mnexto` `control_mon_tele`.
+- **#1490** 44/44 @**#1495**. Next: `mnexto` `control_mon_tele`.
 
 ## Don't re-check (≤15)
 
@@ -83,4 +83,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- **D-1172**.
+- **#1490** **44**/44 @**#1495**. **D-1172**. Review **130–133** ACCEPT.
