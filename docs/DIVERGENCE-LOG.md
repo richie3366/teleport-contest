@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1213 — `rot_corpse` invent/minvent worn plines
+
+- **Status:** fixed (map-driven Open; named omit from D-0405 /
+  D-1202; not a public FAIL)
+- **Symptom:** a corpse that finished rotting in hero or monster
+  inventory (or migrating) was silent and left worn. C prints
+  verbose `Your [wielded ]<corpse> rot(s) away` for invent,
+  `remove_worn_item`+`stop_occupation` when `owornmask`,
+  `setmnotwielded` for a monster's wielded corpse, clears
+  migrating `owornmask` before `obfree`, splices invent, then
+  `update_inventory`. JS only extracted floor corpses.
+- **C locus:** `dig.c` `rot_corpse` `:2146–2189`. Callers
+  `timeout.c` `run_timers` ROT_CORPSE / `zombify_mon` fail
+  path. Callees `corpse_xname(CXN_NO_PFX)`, `otense`,
+  `remove_worn_item`, `stop_occupation`, `setmnotwielded`,
+  `rot_organic`/`obj_extract_self` invent `freeinv`,
+  `update_inventory`.
+- **JS was:** floor extract + `newsym`; invent/minvent/worn
+  deferred; `obj_extract_self` had no `OBJ_INVENT` splice.
+- **Fix:** C invent/minvent/migrating arms. Invent splice in
+  `obj_extract_self`. Dynamic import steal/hack/invent/display.
+  Did not pull hideunder/`mundetected` expose, `rot_organic`
+  contents bury, unique `corpse_xname` CXN_NO_PFX article, or
+  `setmnotwielded` `artifact_light`. Rule #2: no fs.
+- **JS:** `js/mkobj.js` `rot_corpse` / `obj_extract_self`.
+- **Not this iter:** hideunder expose; contents bury;
+  unique/pname CXN_NO_PFX; artifact_light shine;
+  `disturb_buried_zombies`.
+- **Verified:** private canary **28**/28 (invent Your / wielded
+  bang / verbose-off / plural otense / occupation stop /
+  minvent MON_NOWEP / migrating mask / floor silent /
+  contained skip); green+strict seed8000/0900; cohort **4**/4
+  + strict 1500/1800/0012/0004.
+- **Files:** `js/mkobj.js`.
+
 ## D-1212 — `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED
 
 - **Status:** fixed (map-driven Open; named omit from D-1081 /

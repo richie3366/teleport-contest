@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
+- [x] `dig.c` `rot_corpse` invent/minvent worn plines (named). Not REVIVE. **Addressed:** D-1213
+
+
 - [x] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED. **Addressed:** D-1212 `fc314871`
 
 

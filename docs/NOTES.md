@@ -5,9 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1540** review D-1209–D-1212 against pinned C. All four
-  ACCEPT-WITH-DEBT; Must-fix empty. Cadence **44**/44 R² 0.829.
-  Next `rot_corpse` invent worn plines. Do not revert D-1201–D-1212.
+- **#1541** D-1213 `rot_corpse` invent/minvent worn. Next
+  `disturb_buried_zombies`. Do not revert D-1201–D-1213.
 
 ## Don't re-check (≤15)
 
@@ -18,7 +17,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1212 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1213 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -28,7 +27,8 @@ Objective/score live in `CURRENT.md`.
   `whobuf` `mon_nam` / `vpline` accessiblemsg consume / `dotele`
   trap-at-feet teledest / `dotelecmd` m-prefix / xkilled
   `zombie_maker`+`gz.zombify` / mhitm `monkilled` zombify /
-  `revive_corpse` MINVENT/CONTAINED + Adjmonnam).
+  `revive_corpse` MINVENT/CONTAINED + Adjmonnam /
+  `rot_corpse` invent/minvent worn).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,21 +43,22 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1211 (hugs through mhitm zombify) / later
+- Do not skip D-1071…D-1213 (hugs through `rot_corpse` worn) / later
   D-ids in CURRENT. Do not skip D-1212 MINVENT/CONTAINED plines or
-  restore silent sack/nymph revive.
+  restore silent sack/nymph revive. Do not skip D-1213 invent Your /
+  minvent `setmnotwielded` or restore floor-only `rot_corpse`.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters` Off.
-  `rot_corpse` invent worn / `disturb_buried_zombies` /
-  LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd`
-  / BURIED `!is_zomb` impossible / Soundeffect still named.
+  `disturb_buried_zombies` / LEVEL_TELEP yn / energy/`spelleffects` /
+  `#teleport` `doextcmd` / BURIED `!is_zomb` impossible / Soundeffect
+  still named.
   Do not treat D-1209 `'s'` as live spellcast. Do not treat
   `dothrow` `game.thrownobj` as wired (review **172**).
 
 ## Landmarks (≤15)
 
-- #1540 review 171–174 ACCEPT-WITH-DEBT; next `rot_corpse` worn.
+- #1541 D-1213 `rot_corpse` worn; next `disturb_buried_zombies`.
