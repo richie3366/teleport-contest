@@ -205,3 +205,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [193-5cd4ab5c-gulpmm-m-at-swap.md](./193-5cd4ab5c-gulpmm-m-at-swap.md) | `5cd4ab5c` | D-1231 gulpmm `m_at` swap | **ACCEPT-WITH-DEBT** |
 | [194-83624a46-hmon-hitmon-troll-baned.md](./194-83624a46-hmon-hitmon-troll-baned.md) | `83624a46` | D-1232 `hmon_hitmon` `troll_baned` | **ACCEPT-WITH-DEBT** |
 | [195-976094e5-hmonas-damageum-troll-baned.md](./195-976094e5-hmonas-damageum-troll-baned.md) | `976094e5` | D-1233 `hmonas`/`damageum` `troll_baned` | **ACCEPT-WITH-DEBT** |
+| [196-e0ea385e-corpse-xname-unique-pname.md](./196-e0ea385e-corpse-xname-unique-pname.md) | `e0ea385e` | D-1234 unique/pname `corpse_xname` | **ACCEPT-WITH-DEBT** |
+| [197-f631610d-spot-monsters-a11y.md](./197-f631610d-spot-monsters-a11y.md) | `f631610d` | D-1235 `spot_monsters` → `a11y.mon_notices` | **ACCEPT-WITH-DEBT** |
+| [198-5c860b0e-mon-movement-a11y.md](./198-5c860b0e-mon-movement-a11y.md) | `5c860b0e` | D-1236 `mon_movement` → `a11y.mon_movement` | **ACCEPT-WITH-DEBT** |
+| [199-d81367e2-launch-obj-telep-pline-xy.md](./199-d81367e2-launch-obj-telep-pline-xy.md) | `d81367e2` | D-1237 rolling-boulder TELEP `pline_xy` | **ACCEPT-WITH-DEBT** |

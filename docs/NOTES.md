@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1237 rolling-boulder TELEP `pline_xy`
-  (`rloco`/migrate). Cadence **#1565** (`976094e5`). Next: Open
+  (`rloco`/migrate). Cadence **#1570** (`d81367e2`). Next: Open
   `monmove.c` `mind_blast`. Not msg_mon_movement. Must-fix empty.
   Do not skip D-1237…D-1229. Do not pull glob / doname
   CXN_ARTICLE|CXN_NOCORPSE / container_impact / hideunder /
@@ -75,8 +75,8 @@ Objective/score live in `CURRENT.md`.
   snuff_lit / !goodpos / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m.
-- Review **192–195** ACCEPT-WITH-DEBT. Cadence **#1565** **44**/44
-  including seed0383. Next audit @**#1570**.
+- Review **196–199** ACCEPT-WITH-DEBT. Cadence **#1570** **44**/44
+  including seed0383. Next audit @**#1575**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not

@@ -20,6 +20,26 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:40 — #1570 review D-1234–D-1237 + cadence
+
+**Objective:** audit — C-fidelity reviews **196–199** of JS SHAs
+since `824201ab`, plus full `sessions` score. No `js/` port.
+**C locus:** `objnam.c` `corpse_xname` unique/pname; `optlist.h`
+`spot_monsters`/`mon_movement` addrs; `trap.c` `launch_obj`
+TELEP/LEVEL_TELEP.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: glob/doname CXN, remaining optfn after-change,
+landmine/pit/`flooreffects`). Filled D-1237 archive hash
+`d81367e2`. Open 8 (no refill). Rule #2: no fs.
+**Score:** cadence **#1570** HEAD `d81367e2` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`35+0.30/turn` (R² 0.856). seed0383 PASS. Next audit @**#1575**.
+**Verified:** `__RESULTS_JSON__` at HEAD `d81367e2`; branch-by-branch
+vs pinned C (`corpse_xname` live; notice_mon/msg_mon_movement live
+addrs; `rloco`/migrate live, not stubs).
+**Next:** Open `monmove.c` `mind_blast` (named). Not
+msg_mon_movement.
+**Blocked:** none.
 ## 2026-08-18 23:30 — #1569 D-1237 rolling-boulder TELEP pline_xy
 
 **Objective:** Open `teleport.c` rolling-boulder TELEP `pline_xy`

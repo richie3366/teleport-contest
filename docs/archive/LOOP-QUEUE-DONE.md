@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `teleport.c` rolling-boulder TELEP `pline_xy` (named). Not `#teleport`. **Addressed:** D-1237
+- [x] `teleport.c` rolling-boulder TELEP `pline_xy` (named). Not `#teleport`. **Addressed:** D-1237 `d81367e2`
 
 
 - [x] `options.c` `optlist` `&a11y.mon_movement` (named). Not spot_monsters. **Addressed:** D-1236 `5c860b0e`
