@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate.
 - [ ] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm.
 - [ ] `mhitm.c` `gz.zombify` at monkilled (named). Not make_corpse.
 - [ ] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED.

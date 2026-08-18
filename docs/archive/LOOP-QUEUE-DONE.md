@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
+- [x] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate. **Addressed:** D-1209
+
+
 - [x] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele. **Addressed:** D-1208 `bd8c2161`
 
 

@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1209 — `dotelecmd` m-prefix mode menu
+
+- **Status:** fixed (map-driven Open; named omit from D-0590 /
+  D-1208; not a public FAIL)
+- **Symptom:** JS wizard `m ^T` still ignored restrictions. C
+  `dotelecmd` for non-wizard always `dotele(FALSE)` (ignore m).
+  Wizard without `menu_requested` sets ignore. With m, PICK_ONE
+  n/s/t/w (`w` preselected `*`): n confers `HTeleportation |= I_SPECIAL`
+  and hides teleport-away; s zeros H/E and adds the spell; t zeros
+  H/E and hides the spell; w ignores restrictions. ESC → ECMD_OK.
+  After `dotele`, restore H/E and reverse `tport_spell`. C rhack
+  keeps `menu_requested` for `CMD_M_PREFIX` `C('t')`.
+- **C locus:** `teleport.c` `dotelecmd` `:917–1031`; `spell.c`
+  `tport_spell` `:1707–1757`; `cmd.c` teleport `C('t')` `:1890–1891`.
+  Callers: rhack `^T`.
+- **JS was:** wizard always `dotele(true)`; m-prefix cleared with
+  a comment; `tport_spell` absent; rhack dropped `menu_requested`
+  before `dotelecmd`.
+- **Fix:** snapshot-then-clear `menu_requested` (JS split rhack
+  has no next-entry reset). Corner PICK_ONE n/s/t/w; space/return
+  → `'w'`; invalid re-prompt; ESC cancel. `tport_spell` hide/add/
+  unhide/remove with static hideaway. rhack `key===20` in
+  `accepts_m_prefix`. Did not pull energy/`spelleffects` (`'s'`
+  still fail-closed in `dotele`), LEVEL_TELEP yn, or `#teleport`
+  `doextcmd`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `dotelecmd`; `js/spell.js` `tport_spell`;
+  `js/cmd.js` rhack.
+- **Not this iter:** LEVEL_TELEP yn + `level_tele_trap(FORCETRAP)`;
+  energy/spellcast hunger/STR/uen/capacity/`spelleffects`;
+  `#teleport` extcmd wire.
+- **Verified:** private canary **28**/28 (`tport_spell` 14 + menu
+  envelope: non-wizard ignore-m; wizard `!m` ignore; n/s/t/w;
+  ESC; restore H/E/book; hide/unhide; invalid+ESC); green+strict
+  seed8000/0900; cohort **8**/8 + strict 1500/0012/0360/0361/
+  4500/2200/0014/0004. Path public-unhit (`m^T` absent; plain `^T`
+  still ignore).
+- **Files:** `js/teleport.js`, `js/spell.js`, `js/cmd.js`.
+
 ## D-1208 — `dotele` trap-at-feet teledest
 
 - **Status:** fixed (map-driven Open; named omit from D-1133 /

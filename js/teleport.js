@@ -29,7 +29,7 @@ import {
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
-    MAGICAL_BREATHING,
+    MAGICAL_BREATHING, I_SPECIAL,
 } from './const.js';
 import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
@@ -41,7 +41,7 @@ import {
 } from './monsters.js';
 import {
     newsym, pline, You_feel, see_monsters, canseemon, canspotmon, sensemon,
-    shieldeff, docrt, impossible,
+    shieldeff, docrt, impossible, flush_screen,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
 import {
@@ -50,7 +50,9 @@ import {
     set_msg_xy,
 } from './hack.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
-import { makeknown, prinv, near_capacity } from './invent.js';
+import { makeknown, prinv, near_capacity, paint_corner_nhw_menu } from './invent.js';
+import { nhgetch } from './input.js';
+import { ATR_INVERSE } from './terminal.js';
 import { more_experienced } from './exper.js';
 import { getlin, yn_function } from './getline.js';
 import { get_level, find_hell, In_W_tower, On_W_tower_level, In_tutorial } from './dungeon.js';
@@ -1677,10 +1679,11 @@ function unconscious() {
  * unconscious() fail pline then fall through; wizard/Teleport_control
  * getpos path; steed whobuf "you" + optional " and " + mon_nam(usteed);
  * uncontrolled → learnscroll + safe_teleds.
- * Named omissions: dotelecmd m-prefix; dotele LEVEL_TELEP yn;
+ * Named omissions: dotele LEVEL_TELEP yn;
  * non-wizard energy/spellcast. dotele trap-at-feet teledest D-1208.
- * dotele clears travelcc before tele when not trap-once/teledest
- * (D-0789); scrolltele clears when controlled dest equals travelcc.
+ * dotelecmd m-prefix D-1209. dotele clears travelcc before tele when
+ * not trap-once/teledest (D-0789); scrolltele clears when controlled
+ * dest equals travelcc.
  */
 export async function scrolltele(scroll) {
     const flags = game.flags || {};
@@ -1844,7 +1847,7 @@ function u_locomotion(defWord) {
  * Named omissions: LEVEL_TELEP yn + level_tele_trap FORCETRAP;
  * energy/spellcast (hunger/STR/uen/capacity/spelleffects) — keep
  * Teleportation fail-closed when !trap && !break_the_rules;
- * dotelecmd m-prefix; poly locomotion().
+ * poly locomotion(). dotelecmd m-prefix D-1209.
  */
 export async function dotele(break_the_rules) {
     const u = game.u || {};
@@ -1926,23 +1929,106 @@ export async function dotele(break_the_rules) {
 }
 
 /**
- * C ref: teleport.c dotelecmd — ^T command.
- * Wizard without menu_requested → ignore restrictions (debug ^T).
- * Named omissions: m-prefix mode menu; tport_spell hide/add.
+ * C ref: teleport.c dotelecmd PICK_ONE tports[] — n/s/t/w, w preselected.
+ * tty selected paints '*' at the '-' slot. space/return with preselected
+ * still on (or toggled off) → 'w'; ESC → null; letter → that mode.
+ * @returns {Promise<string|null>}
+ */
+async function dotelecmd_mode_menu() {
+    const tports = [
+        { menulet: 'n', menudesc: 'normal ^T on demand; no spell, obey restrictions' },
+        { menulet: 's', menudesc: 'via spellcast; no intrinsic teleport' },
+        { menulet: 't', menudesc: 'try ^T without having it; no spell' },
+        { menulet: 'w', menudesc: 'debug mode; ignore restrictions' },
+    ];
+    const body = tports.map((it) => {
+        const mark = it.menulet === 'w' ? '*' : '-';
+        return { text: `${it.menulet} ${mark} ${it.menudesc}`, attr: 0 };
+    });
+    const entries = [
+        { text: 'Which way do you want to teleport?', attr: ATR_INVERSE },
+        { text: '', attr: 0 },
+        ...body,
+    ];
+    for (;;) {
+        await paint_corner_nhw_menu(entries, '(end) ');
+        const key = await nhgetch();
+        game._menu_overlay = false;
+        await docrt();
+        await flush_screen(1);
+        if (key === 27) return null;
+        const ch = String.fromCharCode(key);
+        if (ch === ' ' || key === 13 || key === 10) return 'w';
+        if (ch === 'n' || ch === 's' || ch === 't' || ch === 'w') return ch;
+    }
+}
+
+/**
+ * C ref: teleport.c dotelecmd — ^T / #teleport command.
+ * Envelope: non-wizard dotele(FALSE) (ignore m-prefix); wizard save H/E
+ * Teleportation; !menu_requested → ignore_restrictions; else PICK_ONE
+ * n/s/t/w then tport_spell hide/add; dotele; restore H/E and reverse
+ * tport_spell (D-1209). Snapshot-then-clear menu_requested (JS split
+ * rhack has no next-entry reset).
+ * Named omissions: dotele LEVEL_TELEP yn; energy/spellcast (s-mode
+ * still fail-closed in dotele); #teleport doextcmd wire.
  */
 export async function dotelecmd() {
     const flags = game.flags || {};
     const wizard = !!(flags.debug || flags.wizard);
+    const menu_requested = !!(game.iflags?.menu_requested);
+    if (game.iflags) game.iflags.menu_requested = false;
+
     if (!wizard) {
         return (await dotele(false)) ? 1 : 0; // ECMD_TIME : ECMD_OK
     }
-    let ignore = true;
-    if (game.iflags?.menu_requested) {
-        // m ^T mode menu deferred — fall back to ignore restrictions
-        game.iflags.menu_requested = false;
-        ignore = true;
+
+    /* also defined in spell.c tport_spell */
+    const NOOP_SPELL = 0;
+    const HIDE_SPELL = 1;
+    const ADD_SPELL = 2;
+    let added = NOOP_SPELL;
+    let hidden = NOOP_SPELL;
+    const u = game.u || (game.u = {});
+    const save_HTele = u.HTeleportation | 0;
+    const save_ETele = u.ETeleportation | 0;
+    let ignore_restrictions = false;
+    let tport_spell = null;
+
+    if (!menu_requested) {
+        ignore_restrictions = true;
+    } else {
+        const tmode = await dotelecmd_mode_menu();
+        if (tmode == null) return 0; // ESC → ECMD_OK
+        tport_spell = (await import('./spell.js')).tport_spell;
+        switch (tmode) {
+        case 'n':
+            u.HTeleportation = (u.HTeleportation | 0) | I_SPECIAL;
+            hidden = await tport_spell(HIDE_SPELL);
+            break;
+        case 's':
+            u.HTeleportation = 0;
+            u.ETeleportation = 0;
+            added = await tport_spell(ADD_SPELL);
+            break;
+        case 't':
+            u.HTeleportation = 0;
+            u.ETeleportation = 0;
+            hidden = await tport_spell(HIDE_SPELL);
+            break;
+        case 'w':
+            ignore_restrictions = true;
+            break;
+        }
     }
-    return (await dotele(ignore)) ? 1 : 0;
+
+    const res = await dotele(ignore_restrictions);
+    u.HTeleportation = save_HTele;
+    u.ETeleportation = save_ETele;
+    if (tport_spell && (added !== NOOP_SPELL || hidden !== NOOP_SPELL)) {
+        await tport_spell(added + hidden - NOOP_SPELL);
+    }
+    return res ? 1 : 0;
 }
 
 /** C ref: dungeon.c single_level_branch — Is_knox only (Ludios). */

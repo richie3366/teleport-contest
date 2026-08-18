@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1209 | fixed | `dotelecmd` m-prefix mode menu | map-driven; C `teleport.c:917–1031` / `spell.c` `tport_spell` 1707–1757 / `cmd.c` `C('t')` CMD_M_PREFIX; non-wizard `dotele(FALSE)`; wizard save H/E; `!menu_requested` ignore; else PICK_ONE n/s/t/w (`w` preselected) + hide/add; ESC ECMD_OK; restore H/E + reverse op; rhack keeps `menu_requested` for ^T; LEVEL_TELEP yn / energy-spellcast / `#teleport` doextcmd still named |
 | D-1208 | fixed | `dotele` trap-at-feet teledest | map-driven; C `teleport.c:1041–1161`; `t_at` tseen TELEP_TRAP jump; trap_once vault yn/deltrap then `vault_tele`; `isok(teledest)` `teleds` no displace/settrack; else travelcc+`tele`; `!trap` morehungry; LEVEL_TELEP yn / energy-spellcast / dotelecmd m-prefix still named |
 | D-1207 | fixed | `vpline` accessiblemsg consume | map-driven; C `pline.c:162–189`; always snapshot+reset `a11y.msg_loc`; On+`isok` prefix `coord_desc: ` (NONE→COMFULL); unit `directionname`; Norep consumes before suppress; `pline_xy`/`set_msg_dir`/`opt_accessiblemsg` wire / `dolookaround` still named |
 | D-1206 | fixed | `scrolltele` steed `whobuf` `mon_nam` | map-driven; C `teleport.c:877–882`; `Strcpy` "you"; `u.usteed` `Sprintf(eos, " and %s", mon_nam)` not `y_monnam`; named SUPPRESS_SADDLE; usteed skips do_it "it"; unconscious still fall-through D-1205; dotele trap-at-feet / dotelecmd m-prefix still named |
