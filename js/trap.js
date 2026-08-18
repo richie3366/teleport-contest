@@ -2554,7 +2554,7 @@ export async function selftouch(arg) {
         const corpse_pm = obj_pmname(u.uwep);
         await pline(`${arg} touch the ${corpse_pm} corpse.`);
         await instapetrify(`${an(corpse_pm)} corpse`);
-        if (!u.uarmg && !Stone_resistance) uwepgone();
+        if (!u.uarmg && !Stone_resistance) await uwepgone();
     }
     if (u.twoweap && u.uswapwep && (u.uswapwep.otyp | 0) === CORPSE
         && touch_petrifies(mons(u.uswapwep.corpsenm))

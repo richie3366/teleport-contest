@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1204 — eat.c `eatspecial` SCR_MAIL + `uwepgone` artifact_light
+
+- **Status:** fixed (map-driven Open; named omit from D-0946 /
+  D-0956 `eatspecial`; not a public FAIL)
+- **Symptom:** eating `SCR_MAIL` (MAIL_STRUCTURES, D-0848) printed
+  "Needs salt..." instead of the junk-mail line. Destroying the
+  last wielded lit Sunsword skipped `end_burn` and the
+  "stops shining" pline.
+- **C locus:** `eat.c` `eatspecial` `:2432–2447` (`#ifdef
+  MAIL_STRUCTURES` `SCR_MAIL` before scare/YUM/salt);
+  `wield.c` `uwepgone` `:873–885`; `uswapwepgone`/`uqwepgone`
+  `update_inventory`; `apply.c` `o_unleash` `:711–722`.
+- **JS was:** PAPER arm jumped to scare; `uwepgone` only
+  `setuwep(null)`; gone trio / `o_unleash` skipped inventory.
+- **Fix:** MAIL_STRUCTURES `SCR_MAIL` pline; async `uwepgone`
+  `artifact_light`+`end_burn`+Tobjnam before `setuwep`;
+  `update_inventory` on gone trio and `o_unleash`. Await
+  `uwepgone` from `eatspecial` / steal / `selftouch`. Did not
+  pull lesshungry choke/fullwarn, setuwep/ready_weapon
+  begin_burn, or float_down→spoteffects sink. Rule #2: no fs.
+- **Not this iter:** `teleport.c` `scrolltele` unconscious;
+  lesshungry occupation choke; setuwep Sunsword begin_burn.
+- **Verified:** canary **17**/17 (PAPER order; Sunsword
+  `artifact_light`; Blind+sighted snuff); green+strict
+  seed8000/0900; cohort **16**/16 + strict lengths (1500/1800/
+  0014/0006/0361/0108/0116/0004/0012/0360/4500/2200/0002/0007/
+  0398/0373). Public-unhit unless a metallivore eats mail or
+  last lit Sunsword is destroyed.
+- **Files:** `js/eat.js`, `js/wield.js`, `js/steal.js`,
+  `js/trap.js`.
+
 ## D-1203 — wizcmds.c `wiz_level_change` drain
 
 - **Status:** fixed (map-driven Open; named omit from D-0061 /

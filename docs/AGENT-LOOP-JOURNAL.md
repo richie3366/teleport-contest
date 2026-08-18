@@ -21,6 +21,31 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 06:17 — #1529 D-1204 eatspecial SCR_MAIL + uwepgone light
+
+**Objective:** Open — `eat.c` `eatspecial` (named). Not
+doeat_nonfood.
+**C locus:** `eat.c` `eatspecial` 2432–2447 MAIL_STRUCTURES
+`SCR_MAIL` before scare/YUM/salt; `wield.c` `uwepgone` 873–885
+`artifact_light`/`end_burn`/Tobjnam; gone-trio + `apply.c`
+`o_unleash` `update_inventory`.
+**Change:** junk-mail PAPER arm; async `uwepgone` snuff+shine
+before `setuwep`; inventory on gone trio/`o_unleash`; await
+from eat/steal/`selftouch`. Did not pull lesshungry
+choke/fullwarn or setuwep begin_burn. Filled D-1203 archive
+hash `a16884ab`. Rotated #1514. Open 10 after archive (no
+refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1525** **44**/44; next
+@**#1530**).
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **16**/16 + strict lengths (1500/1800/0014/0006/0361/
+0108/0116/0004/0012/0360/4500/2200/0002/0007/0398/0373).
+Public-unhit unless a metallivore eats mail or last lit
+Sunsword is destroyed.
+**Next:** Open `teleport.c` `scrolltele` unconscious (named).
+Not Override yn.
+**Blocked:** none.
+
 ## 2026-08-18 06:02 — #1528 D-1203 wiz_level_change drain
 
 **Objective:** Open — `cmd.c` `wiz_level_change` (named). Not
@@ -340,33 +365,6 @@ D-1192 archive hash `cf9eb066`. No new Must-fix prepend. Open 12
 @**#1520**.
 **Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
 full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
-obj_delivery.
-**Blocked:** none.
-
-## 2026-08-18 00:55 — #1514 D-1192 newgame wizkit obj_delivery(FALSE)
-
-**Objective:** Open — `allmain.c` `newgame` wizkit
-`obj_delivery(FALSE)` (named). Not goto_level.
-**C locus:** `allmain.c` `newgame` 826–829 after skills before
-legacy; `files.c` `read_wizkit` 2584–2601 / `wizkit_addinv`
-2537–2559 / `proc_wizkit_line` 2562–2581; `cfgfiles.c`
-`cnf_line_WIZKIT`; callee `dokick.c` `obj_delivery` FALSE
-(D-1177).
-**Change:** VFS `read_wizkit` + `WIZKIT=` parse; wire wizard
-`read_wizkit` then `obj_delivery(FALSE)` so overflow kit items
-land at the hero. Did not pull `deliver_obj_to_mon`, getenv/
-HOME, `wish_history`, `config_error` UI, `option_help` WIZKIT,
-`init_artifacts`, or newgame `notice_mon_off`. Filled D-1191
-archive hash `cc7d0ef5`. Rotated #1499. Open 7 after archive
-→ refill to 12. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1510** **44**/44; next
-@**#1515**).
-**Verified:** private canary **18**/18; green+strict
-seed8000/0900; cohort **23**/23 (incl. wizard debug
-0006/0108/0116/0360/0373/0398/2200/4500/5002/5006) + strict
-lengths. Public-unhit unless a wizard session has WIZKIT= in
-VFS.
 **Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
 obj_delivery.
 **Blocked:** none.

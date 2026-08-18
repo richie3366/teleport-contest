@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `cmd.c` `wiz_level_change` (named). Not notice_mon_off. **Addressed:** D-1203
+- [x] `eat.c` `eatspecial` (named). Not doeat_nonfood. **Addressed:** D-1204
+
+
+- [x] `cmd.c` `wiz_level_change` (named). Not notice_mon_off. **Addressed:** D-1203 `a16884ab`
 
 
 - [x] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers. **Addressed:** D-1202 `dfed1743`
