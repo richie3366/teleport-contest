@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1220 — `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible`
+
+- **Status:** fixed (map-driven Open; named omit from D-1081 /
+  D-1202 / D-1212; not a public FAIL)
+- **Symptom:** a buried non-zombie corpse that `revive()` still
+  succeeded was silent. C `revive_corpse` `OBJ_BURIED` takes the
+  zomb pit/claw/`fill_pit` arm when `is_zomb`, else FALLTHROUGH
+  into `default` `impossible("revive_corpse: lost corpse @ %d",
+  where)`. JS commented the omit and `break`d.
+- **C locus:** `do.c` `revive_corpse` `:2217–2241` (`OBJ_BURIED`
+  `:2236–2240` FALLTHROUGH). `impossible` already live
+  (`display.js`). Snapshot `where` before `revive()` (D-1212).
+- **JS was:** `if (is_zomb) { … break; }` then silent `break`
+  (named omit). `default` already called `impossible`.
+- **Fix:** drop the silent break so `!is_zomb` falls into
+  `default` like C. Zomb pit/claw/`You_hear`/`fill_pit`
+  unchanged (D-1202). Did not pull `Soundeffect(se_scratching, 50)`
+  on the nearby-hear arm. Rule #2: no fs.
+- **JS:** `js/do.js` `revive_corpse`.
+- **Not this iter:** Soundeffect se_scratching; unique/pname
+  `corpse_xname` adjective placement; `zap.c` `revive` buried
+  non-zomb `panic` (still leaves the corpse).
+- **Verified:** private canary **25**/25 (source FALLTHROUGH;
+  buried human `revive` fails, no impossible; buried zombie/troll
+  pit path, no lost-corpse; getter snapshot BURIED+FLOOR revive →
+  `lost corpse @ 6`; default `@ 99`; invent uwep not lost-corpse);
+  green+strict seed8000/0900; cohort **5**/5 + strict 1500/1800/
+  0012/0004/0007. **Public-unhit** unless a buried non-zomb
+  `revive()` succeeds (C `get_obj_location` without `BURIED_TOO`
+  usually fails first).
+- **Follow-up:** Open `do.c` `revive_corpse` `Soundeffect`
+  se_scratching.
+
 ## D-1219 — `display.c` `show_glyph` `show_glyph_change` / `mention_map`
 
 - **Status:** fixed (map-driven Open; named omit from D-1207 /
@@ -51,7 +84,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `mention_map` / `a11y.glyph_updates` is On (default Off).
   seed0007 `O` still shows `[false]`.
 - **Follow-up:** Open `do.c` `revive_corpse` BURIED `!is_zomb`
-  FALLTHROUGH `impossible`.
+  FALLTHROUGH `impossible` (D-1220).
 
 ## D-1218 — `options.c` `opt_accessiblemsg` → `a11y.accessiblemsg`
 

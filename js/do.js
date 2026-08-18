@@ -4,7 +4,8 @@
 //         cmd_safety_prevention, dodrop/drop/dropx/dropy/dropz,
 //         canletgo; flooreffects / boulder_hits_pool (D-0987);
 //         doaltarobj / fire_damage / hot-ground potion (D-0992);
-//         revive_corpse (D-1081 invent/floor rider; D-1212 MINVENT/CONTAINED).
+//         revive_corpse (D-1081 invent/floor rider; D-1212 MINVENT/CONTAINED;
+//         D-1220 BURIED !is_zomb FALLTHROUGH impossible).
 
 import { game } from './gstate.js';
 import { rn2, rnd, d } from './rng.js';
@@ -2478,9 +2479,9 @@ function locomotion_revive(ptr, def) {
  * OBJ_MINVENT drop/appear (D-1212); OBJ_CONTAINED pack/floor/minvent
  * sack plines (D-1212); OBJ_BURIED zombie/reviver pit + claw pline /
  * nearby You_hear + fill_pit (D-1202 zombify); Adjmonnam bite-covered
- * when oeaten (FLOOR + MINVENT). Named omit: BURIED !is_zomb FALLTHROUGH
- * impossible; Soundeffect se_scratching; corpse_xname unique/pname
- * adjective placement.
+ * when oeaten (FLOOR + MINVENT); BURIED !is_zomb FALLTHROUGH
+ * impossible (D-1220). Named omit: Soundeffect se_scratching;
+ * corpse_xname unique/pname adjective placement.
  * @returns {Promise<boolean>}
  */
 export async function revive_corpse(corpse) {
@@ -2589,9 +2590,9 @@ export async function revive_corpse(corpse) {
             fill_pit(mx, my);
             break;
         }
-        // C FALLTHROUGH to impossible — named omit (Not BURIED)
-        break;
+        // FALLTHROUGH — C do.c:2236–2240 !is_zomb → impossible
     default:
+        /* we should be able to handle the other cases... */
         await impossible('revive_corpse: lost corpse @ %d', where);
         break;
     }

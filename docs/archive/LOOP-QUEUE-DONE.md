@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `display.c` `show_glyph_change` glyph_updates (named). Not opt_accessiblemsg. **Addressed:** D-1219
+- [x] `do.c` `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible` (named). Not Soundeffect. **Addressed:** D-1220
+
+
+- [x] `display.c` `show_glyph_change` glyph_updates (named). Not opt_accessiblemsg. **Addressed:** D-1219 `925e5b77`
 
 
 - [x] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround. **Addressed:** D-1218 `b59f294b`

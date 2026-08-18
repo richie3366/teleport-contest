@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible` (named). Not Soundeffect.
 - [ ] `do.c` `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED pit.
 - [ ] `mhitm.c` `troll_baned` `mkcorpstat_norevive` (named). Not gulpmm.
 - [ ] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast.
