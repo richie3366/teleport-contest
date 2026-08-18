@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED. **Addressed:** D-1212
+- [x] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED. **Addressed:** D-1212 `fc314871`
 
 
 - [x] `mhitm.c` `gz.zombify` at monkilled (named). Not make_corpse. **Addressed:** D-1211 `481e005b`

@@ -180,3 +180,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [168-319bf51c-scrolltele-steed-whobuf.md](./168-319bf51c-scrolltele-steed-whobuf.md) | `319bf51c` | D-1206 steed `whobuf` | **ACCEPT** |
 | [169-08d2e6b0-vpline-accessiblemsg.md](./169-08d2e6b0-vpline-accessiblemsg.md) | `08d2e6b0` | D-1207 `vpline` consume | **ACCEPT-WITH-DEBT** |
 | [170-bd8c2161-dotele-trap-at-feet.md](./170-bd8c2161-dotele-trap-at-feet.md) | `bd8c2161` | D-1208 `dotele` teledest | **ACCEPT-WITH-DEBT** |
+| [171-b3c0d228-dotelecmd-m-prefix.md](./171-b3c0d228-dotelecmd-m-prefix.md) | `b3c0d228` | D-1209 `dotelecmd` m-prefix | **ACCEPT-WITH-DEBT** |
+| [172-f1a3518a-zombie-maker-xkilled.md](./172-f1a3518a-zombie-maker-xkilled.md) | `f1a3518a` | D-1210 `zombie_maker` + xkilled | **ACCEPT-WITH-DEBT** |
+| [173-481e005b-mhitm-zombify.md](./173-481e005b-mhitm-zombify.md) | `481e005b` | D-1211 mhitm `gz.zombify` | **ACCEPT-WITH-DEBT** |
+| [174-fc314871-revive-corpse-minvent.md](./174-fc314871-revive-corpse-minvent.md) | `fc314871` | D-1212 `revive_corpse` MINVENT/CONTAINED | **ACCEPT-WITH-DEBT** |

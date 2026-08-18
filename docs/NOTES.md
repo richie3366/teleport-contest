@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1539** D-1212 `revive_corpse` MINVENT/CONTAINED + Adjmonnam.
-  Cadence 44/44 R² 0.871 @**#1540**. Next `rot_corpse` invent worn
-  plines. Do not revert D-1201–D-1212.
+- **#1540** review D-1209–D-1212 against pinned C. All four
+  ACCEPT-WITH-DEBT; Must-fix empty. Cadence **44**/44 R² 0.829.
+  Next `rot_corpse` invent worn plines. Do not revert D-1201–D-1212.
 
 ## Don't re-check (≤15)
 
@@ -55,7 +55,9 @@ Objective/score live in `CURRENT.md`.
   `rot_corpse` invent worn / `disturb_buried_zombies` /
   LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd`
   / BURIED `!is_zomb` impossible / Soundeffect still named.
+  Do not treat D-1209 `'s'` as live spellcast. Do not treat
+  `dothrow` `game.thrownobj` as wired (review **172**).
 
 ## Landmarks (≤15)
 
-- #1539 D-1212 revive MINVENT/CONTAINED; next `rot_corpse` worn.
+- #1540 review 171–174 ACCEPT-WITH-DEBT; next `rot_corpse` worn.
