@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy. **Addressed:** D-1207
+- [x] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele. **Addressed:** D-1208
+
+
+- [x] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy. **Addressed:** D-1207 `08d2e6b0`
 
 
 - [x] `teleport.c` `scrolltele` steed whobuf (named). Not unconscious. **Addressed:** D-1206 `319bf51c`

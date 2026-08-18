@@ -24,7 +24,7 @@ import {
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
-    HOLE, TRAPDOOR, LEVEL_TELEP,
+    HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, RLOC_ERR, NO_TRAP_FLAGS,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
@@ -1677,9 +1677,10 @@ function unconscious() {
  * unconscious() fail pline then fall through; wizard/Teleport_control
  * getpos path; steed whobuf "you" + optional " and " + mon_nam(usteed);
  * uncontrolled → learnscroll + safe_teleds.
- * Named omissions: dotele trap-at-feet teledest; dotelecmd m-prefix.
- * dotele clears travelcc before tele (D-0789); scrolltele clears when
- * controlled dest equals travelcc.
+ * Named omissions: dotelecmd m-prefix; dotele LEVEL_TELEP yn;
+ * non-wizard energy/spellcast. dotele trap-at-feet teledest D-1208.
+ * dotele clears travelcc before tele when not trap-once/teledest
+ * (D-0789); scrolltele clears when controlled dest equals travelcc.
  */
 export async function scrolltele(scroll) {
     const flags = game.flags || {};
@@ -1825,15 +1826,64 @@ export function rloco(obj) {
 }
 
 /**
+ * C ref: hack.c u_locomotion — Levitation/Flying verbs.
+ * Named omit: poly locomotion(youmonst.data, def).
+ */
+function u_locomotion(defWord) {
+    if (Levitation()) return 'float';
+    if (Flying()) return 'fly';
+    return defWord;
+}
+
+/**
  * C ref: teleport.c dotele — #teleport / ^T body.
- * Ported: wizard break_the_rules → clear travelcc + tele() + morehungry;
- * trap/vault/energy/spellcast arms deferred.
+ * Envelope: t_at + !tseen ignore; TELEP_TRAP jump pline; trap_once
+ * vault yn/deltrap then vault_tele(); isok(teledest) teleds (no
+ * displace/settrack — unlike tele_trap D-1133); else travelcc=0 +
+ * tele(); next_to_u leash; !trap morehungry(100) (D-1208).
+ * Named omissions: LEVEL_TELEP yn + level_tele_trap FORCETRAP;
+ * energy/spellcast (hunger/STR/uen/capacity/spelleffects) — keep
+ * Teleportation fail-closed when !trap && !break_the_rules;
+ * dotelecmd m-prefix; poly locomotion().
  */
 export async function dotele(break_the_rules) {
-    // trap-at-feet arms deferred
-    if (!break_the_rules) {
-        // energy / Teleportation / spellcast gate deferred — fail closed
-        const u = game.u || {};
+    const u = game.u || {};
+    const { t_at, deltrap } = await import('./trap.js');
+    let trap = t_at(u.ux | 0, u.uy | 0);
+    if (trap && !trap.tseen) trap = null;
+    let trap_once = false;
+
+    if (trap) {
+        const ttyp = trap.ttyp | 0;
+        if (ttyp === LEVEL_TELEP && trap.tseen) {
+            /* C: y_n("There is a level teleporter here. Trigger it?")
+             * then level_tele_trap(FORCETRAP) or trap=0. Deferred —
+             * treat as declined so we do not teleds a LEVEL_TELEP. */
+            trap = null;
+        } else if (ttyp === TELEP_TRAP) {
+            trap_once = !!trap.once;
+            if (trap.once) {
+                await pline('This is a vault teleport, usable once only.');
+                if ((await yn_function('Jump in?', 'yn', 'n')) === 'n') {
+                    trap = null;
+                } else {
+                    deltrap(trap);
+                    newsym(u.ux | 0, u.uy | 0);
+                    /* C keeps the (now-deleted) trap pointer as truthy. */
+                }
+            }
+            if (trap) {
+                await pline(
+                    `You ${u_locomotion('jump')} onto the teleportation trap.`,
+                );
+            }
+        } else {
+            trap = null;
+        }
+    }
+
+    if (!trap && !break_the_rules) {
+        /* energy / spellcast gate deferred — Teleportation fail-closed */
         const Teleportation = !!(u.HTeleportation || u.ETeleportation
             || u.Teleportation);
         if (!Teleportation) {
@@ -1841,7 +1891,7 @@ export async function dotele(break_the_rules) {
             return false;
         }
     }
-    // C: next_to_u leash gate before tele (D-1005)
+    /* C: next_to_u leash gate before vault_tele / teleds / tele (D-1005) */
     {
         const { next_to_u } = await import('./apply.js');
         if (!(await next_to_u())) {
@@ -1849,20 +1899,29 @@ export async function dotele(break_the_rules) {
             return false;
         }
     }
-    // C: iflags.travelcc.x = iflags.travelcc.y = 0 before tele()
-    // so scrolltele getpos starts at hero, not a stale '_' destination.
-    if (!game.iflags) game.iflags = {};
-    if (!game.iflags.travelcc) game.iflags.travelcc = { x: 0, y: 0 };
-    game.iflags.travelcc.x = 0;
-    game.iflags.travelcc.y = 0;
-    await tele();
+    if (trap && trap_once) {
+        await vault_tele();
+    } else if (trap && isok(trap.teledest?.x, trap.teledest?.y)) {
+        /* C: teleds only — no tele_trap settrack/displace. */
+        await teleds(trap.teledest.x | 0, trap.teledest.y | 0, TELEDS_TELEPORT);
+    } else {
+        /* C: iflags.travelcc.x = iflags.travelcc.y = 0 before tele()
+         * so scrolltele getpos starts at hero, not a stale '_' dest.
+         * Not cleared on trap_once / teledest arms. */
+        if (!game.iflags) game.iflags = {};
+        if (!game.iflags.travelcc) game.iflags.travelcc = { x: 0, y: 0 };
+        game.iflags.travelcc.x = 0;
+        game.iflags.travelcc.y = 0;
+        await tele();
+    }
     {
         const { next_to_u } = await import('./apply.js');
-        await next_to_u(); // C: (void) next_to_u() after tele
+        await next_to_u(); // C: (void) next_to_u() after
     }
-    // C: if (!trap) morehungry(100)
-    const { morehungry } = await import('./eat.js');
-    morehungry(100);
+    if (!trap) {
+        const { morehungry } = await import('./eat.js');
+        morehungry(100);
+    }
     return true;
 }
 
@@ -2219,8 +2278,7 @@ export async function domagicportal(ttmp) {
 
 /**
  * C ref: teleport.c vault_tele — somexyspace into VAULT then teleds;
- * else tele() (D-1153). Named omit: dotele trap-at-feet still uses
- * teleds without this helper.
+ * else tele() (D-1153). dotele trap_once calls this (D-1208).
  */
 export async function vault_tele() {
     const croom = search_special(VAULT);
@@ -2239,7 +2297,7 @@ export async function vault_tele() {
  * once → deltrap + vault_tele; isok(teledest) settrack + displace via
  * enexto/rloc_to then teleds, else tele() (D-1133).
  * vault_tele no-vault/space → tele() (D-1153).
- * Named omission: dotele trap-at-feet teledest.
+ * dotele trap-at-feet teledest is teleds without displace (D-1208).
  */
 export async function tele_trap(trap) {
     /* a fixed-destination teleport trap could theoretically place hero onto a

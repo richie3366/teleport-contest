@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele.
 - [ ] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate.
 - [ ] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm.
 - [ ] `mhitm.c` `gz.zombify` at monkilled (named). Not make_corpse.

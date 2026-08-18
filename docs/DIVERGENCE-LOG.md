@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1208 — `dotele` trap-at-feet teledest
+
+- **Status:** fixed (map-driven Open; named omit from D-1133 /
+  D-1153 / D-1206; not a public FAIL)
+- **Symptom:** JS `dotele` never read `t_at(u.ux,u.uy)`. C on a
+  seen TELEP_TRAP with `isok(teledest)` calls
+  `teleds(dest, TELEDS_TELEPORT)` (no `tele_trap` displace/
+  `settrack`), skips `travelcc` clear / `tele()`, and skips
+  `morehungry`. Unnamed dest still `tele()` but `!trap` is false
+  so hunger is not billed. `trap_once` is a sibling: vault yn/
+  `deltrap` then `vault_tele()` (callee D-1153).
+- **C locus:** `teleport.c` `dotele` `:1041–1161` after `t_at` /
+  tseen; TELEP_TRAP arm `:1054–1066`; dispatch `:1145–1153`;
+  `morehungry` `:1159–1160`. Callers: `dotelecmd`.
+- **JS was:** trap-at-feet deferred; always `travelcc=0` + `tele()`
+  + `morehungry(100)` after the Teleportation energy stub.
+- **Fix:** `t_at` + unseen ignore; TELEP_TRAP jump via
+  `u_locomotion` (Lev/Fly; poly `locomotion()` named); trap_once
+  yn/deltrap then `vault_tele()`; `isok(teledest)` `teleds`; else
+  D-0789 travelcc + `tele()`. Energy still Teleportation
+  fail-closed when `!trap && !break_the_rules`. LEVEL_TELEP yn
+  treated as declined (`trap=0`). Did not pull `dotelecmd`
+  m-prefix or the full hunger/STR/uen/capacity/`spelleffects`
+  gate. Rule #2: no fs.
+- **JS:** `js/teleport.js` `dotele`; `js/trap.js` comment.
+- **Not this iter:** LEVEL_TELEP yn + `level_tele_trap(FORCETRAP)`;
+  energy/spellcast; `dotelecmd` m-prefix / `tport_spell`.
+- **Verified:** private canary **20**/20 (named dest land+no
+  hunger+travelcc kept; no Teleportation still lands; unseen
+  ignore; unnamed/`0,0` not isok; energy fail; no-trap hunger;
+  PIT; LEVEL_TELEP declined; wizard `break_the_rules`; `next_to_u`
+  shudder; Lev float / Fly fly / jump; once Jump n/y; H/E
+  Teleportation; off-map trap; no fs); green+strict
+  seed8000/0900; cohort **8**/8 + strict 1500/0012/0360/0361/
+  4500/2200/0014/0004. Path public-unhit unless ^T on a seen
+  TELEP_TRAP.
+- **Files:** `js/teleport.js`, `js/trap.js`.
+
 ## D-1207 — `vpline` accessiblemsg consume of `msg_loc`
 
 - **Status:** fixed (map-driven Open; named omit from D-1196;
