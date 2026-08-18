@@ -8,7 +8,8 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
-    newsym, flush_screen, pline, see_nearby_objects, clear_nhwindow_message,
+    newsym, flush_screen, pline, pline_dir, see_nearby_objects,
+    clear_nhwindow_message,
     mon_visible, sensemon, glyph_is_invisible, unmap_object, map_object,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
@@ -17,7 +18,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          IS_FOUNTAIN, IS_SINK, IS_THRONE, IS_ALTAR,
          ACCESSIBLE, isok, Upolyd, Is_container, CLICK_1,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
-         xdir, ydir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
+         xdir, ydir, xytodir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, VIBRATING_SQUARE,
          PARANOID_TRAP,
@@ -452,9 +453,11 @@ function end_running() {
 /**
  * C ref: hack.c test_move DO_MOVE + flags.mention_walls on IS_OBSTRUCTED.
  * Uses defsyms[].explanation via an(); S_stone → "solid stone".
+ * C: pline_dir(xytodir(dx,dy), "It's %s.", buf) (D-1216).
  * Deferred: Blind feel_location, Passes_walls/may_passwall, Underwater,
  * IRONBARS chew, tunnels/still_chewing, autodig, is_db_wall, Sokoban
- * resist, full back_to_glyph/wall_angle→S_stone edge cases, pline_dir a11y.
+ * resist, full back_to_glyph/wall_angle→S_stone edge cases,
+ * run>=2 boulder pline_dir.
  */
 async function mention_walls_obstructed(x, y) {
     if (!game.flags?.mention_walls) return;
@@ -474,7 +477,10 @@ async function mention_walls_obstructed(x, y) {
         // STONE / SCORR / unseen wall (wall_angle→S_stone) / other rock
         buf = 'solid stone';
     }
-    await pline(`It's ${buf}.`);
+    const u = game.u || {};
+    const dx = ((x | 0) - (u.ux | 0)) | 0;
+    const dy = ((y | 0) - (u.uy | 0)) | 0;
+    await pline_dir(xytodir(dx, dy), `It's ${buf}.`);
 }
 
 /**

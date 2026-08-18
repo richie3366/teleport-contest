@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1216 — `pline.c` `set_msg_dir` / `pline_dir`
+
+- **Status:** fixed (map-driven Open; named omit from D-1207 /
+  D-1215 / review **169**; not a public FAIL)
+- **Symptom:** JS had `set_msg_xy` / `pline_xy` / `pline_mon`
+  (D-1215) and `vpline` consume (D-1207) but no C direction
+  writer. Callers that C routes through `pline_dir` used
+  `pline`, so `a11y.msg_loc` stayed 0,0 and `accessiblemsg` On
+  could not prefix those messages with the cell in that
+  direction from the hero.
+- **C locus:** `pline.c` `set_msg_dir` `:82–89`; `pline_dir`
+  `:113–123`; callee `cmd.c` `dirtocoord` `:3858–3865` then
+  `+= u.ux`/`u.uy`. Live already-ported callers:
+  `hack.c` mention_walls `It's %s.` 1069; `zap.c` dobuzz
+  `"%s hits you!"` 4964 via `xytodir(-dx,-dy)`.
+- **JS was:** `set_msg_xy` / `pline_xy` only; mention_walls and
+  buzz hits used `pline`.
+- **Fix:** `dirtocoord` in `const.js`; `set_msg_dir` + `pline_dir`
+  in `display.js`. Invalid dir is a `dirtocoord` no-op then
+  still adds hero. Up/down xdir/ydir are 0,0 so loc is the
+  hero cell. Wired those two live sites. Rule #2: no fs.
+- **JS:** `js/const.js`; `js/display.js`; callers `cmd.js` /
+  `zap.js`. `hack.js` comment only.
+- **Not this iter:** run>=2 boulder `pline_dir`; remaining
+  `pline_mon` sites; `msg_mon_movement`; rolling-boulder TELEP
+  `pline_xy`; `opt_accessiblemsg` wire; dobuzz steed `rn2(3)`.
+  Rule #2: no fs.
+- **Verified:** private canary **43**/43 (dirtocoord 8+up/down;
+  DIR_ERR leftover+ux,uy; `|0`; mention_walls east; buzz west;
+  Off consume/no prefix; On NONE→COMFULL / MAP / SCREEN; west
+  from x=1 no prefix; UP `(here)`; empty still resets; leftover
+  xy overwrite; no fs); green+strict seed8000/0900; cohort
+  **9**/9 + strict 1500/1800/0012/0360/4500/2200/0014/0004/0060.
+  Path public-unhit unless `accessiblemsg` is On (default Off).
+- **Files:** `js/display.js`, `js/const.js`, `js/cmd.js`,
+  `js/zap.js`, `js/hack.js`.
+
 ## D-1215 — `pline.c` `pline_xy` / `pline_mon`
 
 - **Status:** fixed (map-driven Open; named omit from D-1207 /

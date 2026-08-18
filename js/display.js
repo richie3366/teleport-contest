@@ -44,7 +44,7 @@ import {
     M_AP_OBJECT, M_AP_TYPE,
     MCORPSENM,
     isok,
-    xytodir, directionname,
+    xytodir, dirtocoord, directionname,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_COMFULL,
     GPCOORDS_SCREEN,
     SVALL,
@@ -3516,6 +3516,7 @@ export function coord_desc(x, y, cmode) {
 /**
  * C pline.c set_msg_xy 93–97 — store a11y.msg_loc for the next vpline.
  * Consume is D-1207; pline_xy/pline_mon writers are D-1215.
+ * set_msg_dir / pline_dir are D-1216.
  */
 export function set_msg_xy(x, y) {
     if (!game.a11y) {
@@ -3524,6 +3525,23 @@ export function set_msg_xy(x, y) {
     if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
     game.a11y.msg_loc.x = x | 0;
     game.a11y.msg_loc.y = y | 0;
+}
+
+/**
+ * C pline.c set_msg_dir 82–89 — dirtocoord then += u.ux/u.uy.
+ * Invalid dir (DIR_ERR / >= N_DIRS_Z) leaves loc unchanged then still
+ * adds hero (C: dirtocoord no-op, then +=). Up/down xdir/ydir are 0,0
+ * so loc becomes the hero cell (isok prefixes "here").
+ */
+export function set_msg_dir(dir) {
+    if (!game.a11y) {
+        game.a11y = { accessiblemsg: false, msg_loc: { x: 0, y: 0 } };
+    }
+    if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
+    dirtocoord(game.a11y.msg_loc, dir);
+    const u = game.u || {};
+    game.a11y.msg_loc.x = ((game.a11y.msg_loc.x | 0) + (u.ux | 0)) | 0;
+    game.a11y.msg_loc.y = ((game.a11y.msg_loc.y | 0) + (u.uy | 0)) | 0;
 }
 
 /**
@@ -3538,8 +3556,8 @@ export async function pline_xy(x, y, msg) {
  * C pline.c pline_mon 137–150 — &youmonst → (0,0) (not hero ux,uy);
  * else mx,my; then vpline. isok rejects x=0 so youmonst never prefixes.
  * Named omit: remaining pline sites that C calls as pline_mon;
- * set_msg_dir / pline_dir; msg_mon_movement; rolling-boulder TELEP
- * pline_xy; mention_walls path block.
+ * msg_mon_movement; rolling-boulder TELEP pline_xy;
+ * mention_walls run>=2 boulder path block.
  */
 export async function pline_mon(mtmp, msg) {
     if (mtmp === game.youmonst) {
@@ -3551,11 +3569,22 @@ export async function pline_mon(mtmp, msg) {
 }
 
 /**
+ * C pline.c pline_dir 113–123 — set_msg_dir then vpline.
+ * Live: mention_walls "It's %s."; dobuzz "%s hits you!" via
+ * xytodir(-dx,-dy). Named: run>=2 boulder pline_dir.
+ */
+export async function pline_dir(dir, msg) {
+    set_msg_dir(dir);
+    await pline(msg);
+}
+
+/**
  * C pline.c vpline 162–189 — snapshot a11y.msg_loc then always reset to
  * 0,0 (even empty / Norep-suppressed / accessiblemsg Off). If
  * accessiblemsg && isok(saved), prefix `coord_desc: ` (NONE→COMFULL).
- * D-1207. Writers: pline_xy/pline_mon D-1215. Named: set_msg_dir;
- * optlist wire onto a11y.accessiblemsg (JS doset still flags.accessiblemsg).
+ * D-1207. Writers: pline_xy/pline_mon D-1215; set_msg_dir/pline_dir
+ * D-1216. Named: optlist wire onto a11y.accessiblemsg (JS doset still
+ * flags.accessiblemsg).
  */
 function vpline_consume_msg_loc(msg) {
     if (!game.a11y) {

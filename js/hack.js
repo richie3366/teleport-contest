@@ -1775,7 +1775,8 @@ export function invocation_pos(x, y) {
  * optlist `spot_monsters`. Named omit: option wiring onto this struct
  * (`flags.accessiblemsg` vs `a11y.accessiblemsg`); `mon_movement`;
  * `glyph_updates`. vpline consume of msg_loc is D-1207;
- * pline_xy/pline_mon writers are D-1215 (`display.js`).
+ * pline_xy/pline_mon writers are D-1215; set_msg_dir/pline_dir D-1216
+ * (`display.js`).
  */
 function a11y_state() {
     if (!game.a11y) {

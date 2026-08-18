@@ -5,8 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1543** D-1215 `pline_xy`/`pline_mon`. Next `set_msg_dir`.
-  Do not revert D-1201–D-1215. youmonst stores (0,0), not ux,uy.
+- **#1544** D-1216 `set_msg_dir`/`pline_dir`. Next `dolookaround`.
+  Do not revert D-1201–D-1216. Invalid dir leftover+ux,uy; up/down
+  is hero cell. Do not restore youmonst `pline_mon` as ux,uy.
 
 ## Don't re-check (≤15)
 
@@ -17,7 +18,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1215 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1216 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -30,7 +31,8 @@ Objective/score live in `CURRENT.md`.
   `revive_corpse` MINVENT/CONTAINED + Adjmonnam /
   `rot_corpse` invent/minvent worn /
   `disturb_buried_zombies` rumble/tread/wake/grounded-move /
-  `pline_xy`/`pline_mon` youmonst (0,0)).
+  `pline_xy`/`pline_mon` youmonst (0,0) /
+  `set_msg_dir`/`pline_dir` dirtocoord+ux,uy).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,18 +47,19 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1215 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1216 / later D-ids in CURRENT. Do not skip
   D-1213 invent Your / minvent `setmnotwielded`. Do not skip D-1214
   rumble/tread/`wake_nearto`/grounded `MMOVE_MOVED`. Do not restore
-  youmonst `pline_mon` as ux,uy (D-1215).
+  youmonst `pline_mon` as ux,uy (D-1215). Do not skip `dirtocoord`
+  no-op then +=ux,uy (D-1216).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters` Off.
-  `set_msg_dir`/`pline_dir` / remaining `pline_mon` callers /
-  `msg_mon_movement` / rolling-boulder TELEP `pline_xy` /
+  remaining `pline_mon` callers / `msg_mon_movement` /
+  rolling-boulder TELEP `pline_xy` / run>=2 boulder `pline_dir` /
   LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd` /
   BURIED `!is_zomb` impossible / Soundeffect still named.
   Do not treat D-1209 `'s'` as live spellcast. Do not treat
@@ -64,4 +67,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1543 D-1215 `pline_xy`/`pline_mon`; next `set_msg_dir`.
+- #1544 D-1216 `set_msg_dir`/`pline_dir`; next `dolookaround`.

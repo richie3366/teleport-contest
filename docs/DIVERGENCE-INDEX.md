@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1216 | fixed | pline.c `set_msg_dir`/`pline_dir` | map-driven; C `pline.c:82–89` `dirtocoord` then +=ux,uy; `pline_dir` 113–123 then vpline; `cmd.c:3858–3865` invalid dir no-op; live mention_walls "It's %s." + dobuzz `xytodir(-dx,-dy)` hits you; remaining `pline_mon` / run>=2 boulder `pline_dir` / `opt_accessiblemsg` wire / `msg_mon_movement` still named |
 | D-1215 | fixed | pline.c `pline_xy`/`pline_mon` | map-driven; C `pline.c:126–150` set_msg_xy then vpline; youmonst→(0,0) not ux,uy (`isok` rejects prefix); live wield/zap/drop/pickup/`mb_trapped`; `set_msg_xy` lives in `display.js`; remaining callers / `set_msg_dir`/`pline_dir` / `opt_accessiblemsg` wire / `msg_mon_movement` still named |
 | D-1214 | fixed | hack.c `disturb_buried_zombies` | map-driven; C `hack.c:1798–1813` buried CORPSE 3×3 `peek_timer(ZOMBIFY_MON)>0` then `max(1,t*2/3)`; rumble `moverock`; tread `!Lev&&!Fly&&!Stealth&&cwt>=WT_ELF/2`; `wake_nearto_core`; grounded `MMOVE_MOVED`; `timeout.c` `peek_timer` absolute; `impact_disturbs_zombies` / local wake clones / hideunder after tread still named |
 | D-1213 | fixed | dig.c `rot_corpse` invent/minvent worn plines | map-driven; C `dig.c:2146–2189` invent verbose Your + owornmask `remove_worn_item(TRUE)`/`stop_occupation`; minvent wielded `setmnotwielded`; migrating `owornmask=0`; invent extract splice + `update_inventory`; hideunder expose / contents bury / unique CXN_NO_PFX / artifact_light still named |
