@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1203 — wizcmds.c `wiz_level_change` drain
+
+- **Status:** fixed (map-driven Open; named omit from D-0061 /
+  D-1190 “cmd.c wiz-level-change”; not a public FAIL)
+- **Symptom:** JS `#levelchange` raised via `pluslvl(FALSE)` but
+  the lower-level arm returned without `losexp`. Drain never
+  ran, `u.ulevelmax` was not capped, and `losexp` itself
+  honored `resists_drli` even for the wizard request.
+- **C locus:** `wizcmds.c` `wiz_level_change` `:444–487`;
+  `exper.c` `losexp` `:214–217` (`#levelchange` → `drainer=0`
+  before `resists_drli`, never fatal) then HP/EN/`uexp` strip
+  `:226–280`. Registered `cmd.c` extcmdlist `#levelchange`.
+- **JS was:** drain arm printed the L1 line or returned; no
+  `losexp("#levelchange")` loop; ESC/empty silent (C
+  `Never_mind`).
+- **Fix:** drain loop + clamp `newlevel<1` to 1; after drain
+  or raise, `u.ulevelmax = u.ulevel`; `losexp` `#levelchange`
+  override; ESC/empty/`sscanf` fail → `Never_mind` + `ECMD_OK`.
+  Did not pull `makemap_prepost` / `wiz_makemap`, Upolyd mh
+  strip, level-1 `done(DIED)`, livelog/SoundAchievement.
+  Rule #2: no fs.
+- **Not this iter:** `cmd.c` `makemap_prepost`; eat.c
+  `eatspecial`; `restore_artifacts`; `reset_glyphmap`.
+- **Verified:** `losexp` canary **9**/9 (resist bypass vs
+  ordinary drain; loop caps `ulevelmax`); green+strict
+  seed8000/0900; cohort **16**/16 + strict lengths (0360/0361/
+  0373/0108/0116/0006/2200/4500/1500/1800/0004/0012/0367/0398).
+  Public raise tours unhit on the drain arm.
+- **Files:** `js/wizcmds.js`, `js/exper.js`.
+
 ## D-1202 — timeout.c REVIVE_MON / ZOMBIFY_MON
 
 - **Status:** fixed (map-driven Open; named omit from D-1191 /

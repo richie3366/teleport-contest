@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` `wiz_level_change` (named). Not notice_mon_off.
 - [ ] `eat.c` `eatspecial` (named). Not doeat_nonfood.
 - [ ] `teleport.c` `scrolltele` unconscious (named). Not Override yn.
 - [ ] `teleport.c` `scrolltele` steed whobuf (named). Not unconscious.

@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 06:02 — #1528 D-1203 wiz_level_change drain
+
+**Objective:** Open — `cmd.c` `wiz_level_change` (named). Not
+notice_mon_off.
+**C locus:** `wizcmds.c` `wiz_level_change` 444–487; `exper.c`
+`losexp` 214–217 (`#levelchange` nulls drainer before
+`resists_drli`); registered `cmd.c` extcmdlist.
+**Change:** drain loop `losexp("#levelchange")` + clamp `<1` to
+1; `u.ulevelmax = u.ulevel` after drain/raise; `losexp`
+override so Drain_resistance does not block the wizard request
+and it is never fatal; ESC/empty → Never_mind + ECMD_OK.
+Did not pull `makemap_prepost` / `wiz_makemap`, Upolyd mh, or
+level-1 `done(DIED)`. Filled D-1202 archive hash `dfed1743`.
+Rotated #1513. Open 11 after archive (no refill). Rule #2: no
+fs.
+**Score:** fortress unchanged (cadence **#1525** **44**/44; next
+@**#1530**).
+**Verified:** `losexp` canary **9**/9; green+strict
+seed8000/0900; cohort **16**/16 + strict lengths (0360/0361/
+0373/0108/0116/0006/2200/4500/1500/1800/0004/0012/0367/0398).
+Public raise tours unhit on the drain arm.
+**Next:** Open `eat.c` `eatspecial` (named). Not doeat_nonfood.
+**Blocked:** none.
+
 ## 2026-08-18 05:52 — #1527 D-1202 REVIVE/ZOMBIFY
 
 **Objective:** Open — `timeout.c` REVIVE/ZOMBIFY (named). Not
@@ -345,28 +369,4 @@ lengths. Public-unhit unless a wizard session has WIZKIT= in
 VFS.
 **Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
 obj_delivery.
-**Blocked:** none.
-
-## 2026-08-18 00:50 — #1513 D-1191 goto_level run_timers
-
-**Objective:** Open — `do.c` `goto_level` `run_timers` (named).
-Not `kill_genocided`.
-**C locus:** `do.c` `goto_level` 1818–1823 after losedogs +
-`obj_delivery` + `kill_genocided_monsters` before `u_collide_m`;
-callee `timeout.c` 2222–2241 (JS `mkobj.js` D-0405/D-1037).
-**Change:** `await run_timers()` after `kill_genocided_monsters`
-so dest + delivered timers that expired while away fire before
-collide/vision/pickup. Did not peel invent/migrating RANGE_LEVEL
-(`obj_is_local` false). Did not pull `notice_mon_off`, cmd.c
-`#levelchange`, or REVIVE/ZOMBIFY. Filled D-1190 archive hash
-`9a2cbc27`. Rotated #1498. Open 8 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1510** **44**/44; next
-@**#1515**).
-**Verified:** green+strict seed8000/0900; cohort **16**/16
-(1500/1800/0015/0002/0014/2200/4500/0367/0009/0012/0004/
-0060/0102/0700/0006/0361) + strict lengths. Public-unhit
-unless a due timer is on the restored or delivered queue.
-**Next:** Open `allmain.c` `newgame` wizkit `obj_delivery(FALSE)`
-(named). Not goto_level.
 **Blocked:** none.
