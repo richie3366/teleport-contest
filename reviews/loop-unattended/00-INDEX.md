@@ -184,3 +184,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [172-f1a3518a-zombie-maker-xkilled.md](./172-f1a3518a-zombie-maker-xkilled.md) | `f1a3518a` | D-1210 `zombie_maker` + xkilled | **ACCEPT-WITH-DEBT** |
 | [173-481e005b-mhitm-zombify.md](./173-481e005b-mhitm-zombify.md) | `481e005b` | D-1211 mhitm `gz.zombify` | **ACCEPT-WITH-DEBT** |
 | [174-fc314871-revive-corpse-minvent.md](./174-fc314871-revive-corpse-minvent.md) | `fc314871` | D-1212 `revive_corpse` MINVENT/CONTAINED | **ACCEPT-WITH-DEBT** |
+| [175-c85424f4-rot-corpse-worn.md](./175-c85424f4-rot-corpse-worn.md) | `c85424f4` | D-1213 `rot_corpse` invent/minvent worn | **ACCEPT-WITH-DEBT** |
+| [176-b44c4847-disturb-buried-zombies.md](./176-b44c4847-disturb-buried-zombies.md) | `b44c4847` | D-1214 `disturb_buried_zombies` | **ACCEPT-WITH-DEBT** |
+| [177-eaf10f2d-pline-xy-pline-mon.md](./177-eaf10f2d-pline-xy-pline-mon.md) | `eaf10f2d` | D-1215 `pline_xy`/`pline_mon` | **ACCEPT-WITH-DEBT** |
+| [178-517cb217-set-msg-dir.md](./178-517cb217-set-msg-dir.md) | `517cb217` | D-1216 `set_msg_dir`/`pline_dir` | **ACCEPT-WITH-DEBT** |

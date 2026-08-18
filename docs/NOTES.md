@@ -5,9 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1544** D-1216 `set_msg_dir`/`pline_dir`. Next `dolookaround`.
+- **#1545** review D-1213–D-1216 ACCEPT-WITH-DEBT. Fortress **44**/44.
+  Next Open `cmd.c` `dolookaround` (named). Not glyph_updates.
   Do not revert D-1201–D-1216. Invalid dir leftover+ux,uy; up/down
   is hero cell. Do not restore youmonst `pline_mon` as ux,uy.
+  Do not prepend Must-fix for named omits (hideunder / impact /
+  remaining `pline_mon` / run≥2 boulder / `DIR_UP` const swap).
 
 ## Don't re-check (≤15)
 
@@ -51,7 +54,7 @@ Objective/score live in `CURRENT.md`.
   D-1213 invent Your / minvent `setmnotwielded`. Do not skip D-1214
   rumble/tread/`wake_nearto`/grounded `MMOVE_MOVED`. Do not restore
   youmonst `pline_mon` as ux,uy (D-1215). Do not skip `dirtocoord`
-  no-op then +=ux,uy (D-1216).
+  no-op then +=ux,uy (D-1216). Do not zero loc on invalid dir.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
@@ -64,7 +67,10 @@ Objective/score live in `CURRENT.md`.
   BURIED `!is_zomb` impossible / Soundeffect still named.
   Do not treat D-1209 `'s'` as live spellcast. Do not treat
   `dothrow` `game.thrownobj` as wired (review **172**).
+  Do not Must-fix `DIR_UP`/`DIR_DOWN` const swap on a pline writer
+  (arrays already match `decl.c`; review **178**).
 
 ## Landmarks (≤15)
 
-- #1544 D-1216 `set_msg_dir`/`pline_dir`; next `dolookaround`.
+- #1545 review 175–178 ACCEPT-WITH-DEBT; cadence 44/44; next
+  `dolookaround`. Map-driven / one cluster, not FAIL peels.
