@@ -1504,14 +1504,16 @@ export async function rhack(key) {
         return;
     }
     // C rhack: keep menu_requested for CMD_M_PREFIX commands (O→doset_simple
-    // reads it to call doset; ^T→dotelecmd m-prefix menu D-1209). Drop only
-    // when the next command rejects 'm'.
-    // Named omission: full accept_menu_prefix table — O/,/e/q/a/s/p/>/< /^T
+    // reads it to call doset; ^T→dotelecmd m-prefix menu D-1209; #→doextcmd
+    // then the resolved extcmd's own flag, D-1230). Drop only when the next
+    // command rejects 'm'.
+    // Named omission: full accept_menu_prefix table — O/,/e/q/a/s/p/>/< /^T /#
     // enough for current sessions; expand when m-prefix + other cmds desync.
     const accepts_m_prefix = ch === 'O' || ch === ',' || ch === 'e'
         || ch === 'q' || ch === 'a' || ch === 's' || ch === 'p'
         || ch === '>' || ch === '<'
-        || key === 20; // C('t') dotelecmd CMD_M_PREFIX
+        || key === 20 // C('t') dotelecmd CMD_M_PREFIX
+        || ch === '#'; // doextcmd CMD_M_PREFIX; resolved cmd checked in doextcmd
     if (ch !== 'm' && ch !== 'g' && ch !== 'G' && ch !== 'F'
         && !accepts_m_prefix && !isMovementKey(ch) && !isRunKey(ch)
         && !rushDir && game.iflags?.menu_requested) {

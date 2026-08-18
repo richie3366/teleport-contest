@@ -1851,7 +1851,7 @@ function u_locomotion(defWord) {
  * Energy/spellcast (D-1225): !trap && !break_the_rules hunger/STR/uen/
  * capacity; !Teleportation or low XL without can_teleport → known_spell
  * SPE_TELEPORT_AWAY (spe_Fresh, !Confusion) then spelleffects(atme);
- * else debit 5*oc_level and fall through. #teleport doextcmd named.
+ * else debit 5*oc_level and fall through. #teleport doextcmd D-1230.
  * Named omit: poly locomotion(). dotelecmd m-prefix D-1209.
  */
 export async function dotele(break_the_rules) {
@@ -2041,7 +2041,8 @@ async function dotelecmd_mode_menu() {
  * n/s/t/w then tport_spell hide/add; dotele; restore H/E and reverse
  * tport_spell (D-1209). Snapshot-then-clear menu_requested (JS split
  * rhack has no next-entry reset). Energy/spellcast D-1225 (s-mode
- * actually casts). Named omit: #teleport doextcmd wire. LEVEL_TELEP
+ * actually casts). #teleport doextcmd D-1230 (no AUTOCOMPLETE;
+ * rhack '#' keeps m; doextcmd accept_menu_prefix). LEVEL_TELEP
  * yn D-1224.
  */
 export async function dotelecmd() {

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1230 — `#teleport` `doextcmd` → `dotelecmd`
+
+- **Status:** fixed (map-driven Open; named omit from D-1209 /
+  D-1225 / review **171**/**186**/**187**; not a public FAIL)
+- **Symptom:** `#teleport` was `"unknown extended command"` while
+  `^T` already called `dotelecmd`. C extcmdlist `"teleport"` is
+  `dotelecmd` with `IFBURIED | CMD_M_PREFIX` and **no**
+  AUTOCOMPLETE; enter uses `ECM_IGNOREAC | ECM_EXACTMATCH`.
+  `doextcmd` itself is CMD_M_PREFIX so `m#teleport` keeps `m`
+  unless the resolved command rejects it.
+- **C locus:** `cmd.c` extcmdlist `"teleport"` `:1890–1891`;
+  `doextcmd` `:493–519`; `accept_menu_prefix` `:3508–3512`;
+  `win/tty/getline.c` `tty_get_ext_cmd`. Callee
+  `teleport.c` `dotelecmd` already live (D-1209/D-1225).
+- **JS was:** rhack `key===20` → `dotelecmd`; EXT_CMDS lacked
+  `"teleport"`; rhack dropped `menu_requested` on `#`.
+- **Fix:** EXT_CMDS `"teleport"` → `dotelecmd` (not EXT_CMD_AC).
+  rhack `#` in `accepts_m_prefix`. `doextcmd` prints C's
+  `'m' prefix has no effect for the %s command.` and clears when
+  the resolved name is not CMD_M_PREFIX. Rule #2: no fs.
+- **JS:** `js/getline.js` EXT_CMDS + `doextcmd`; `js/cmd.js`
+  rhack; comments `js/teleport.js` / `js/spell.js`.
+- **Not this iter:** rolling-boulder TELEP `pline_xy`;
+  directional `weffects`; Amulet drain; `cmd_from_func(do_reqmenu)`
+  (m-prefix key is always `m`); buried `can_do_extcmd`;
+  `doextlist` repeat loop.
+- **Verified:** private canary **23**/23 (C flags + exact-match;
+  JS not in AC; `#teleport` reaches `dotele` unknown-spell;
+  `m#teleport` keeps m; `m#jump` clears; unknown `xyzzy`/`tele`);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Path public-unhit unless
+  `#teleport` (plain `^T` unchanged).
+- **Files:** `js/getline.js`, `js/cmd.js`, `js/teleport.js`,
+  `js/spell.js`.
+
 ## D-1229 — `impact_disturbs_zombies`
 
 - **Status:** fixed (map-driven Open; named omit from D-1214 /

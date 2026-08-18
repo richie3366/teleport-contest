@@ -20,6 +20,30 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 21:50 — #1561 D-1230 #teleport doextcmd
+
+**Objective:** Open `teleport.c` `#teleport` `doextcmd` (named from
+D-1209). Not energy-spellcast.
+**C locus:** `cmd.c` extcmdlist `"teleport"` 1890–1891 /
+`doextcmd` 493–519 / `accept_menu_prefix` 3508–3512;
+`getline.c` `tty_get_ext_cmd` ECM_IGNOREAC|ECM_EXACTMATCH;
+callee `teleport.c` `dotelecmd` already live.
+**Change:** EXT_CMDS `"teleport"` → `dotelecmd` (no AUTOCOMPLETE).
+rhack `#` keeps `menu_requested`; `doextcmd` clears with C's
+prefix-no-effect pline unless the resolved name is CMD_M_PREFIX.
+Did not pull rolling-boulder TELEP `pline_xy`, directional
+`weffects`, or Amulet drain. Filled D-1229 archive hash
+`0ddfb189` already present. Open 10 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1560** **44**/44; next
+audit @**#1565**).
+**Verified:** private canary **23**/23; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. Public-unhit unless `#teleport` (plain `^T`
+unchanged).
+**Next:** Open `mhitm.c` gulpmm `m_at` swap (named). Not
+passivemm.
+**Blocked:** none.
 ## 2026-08-18 21:35 — #1560 review D-1226–D-1229 + cadence
 
 **Objective:** C-fidelity review of JS-touching SHAs since review
