@@ -2,10 +2,12 @@
 
 Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
-iteration; the script still fail-closes (revert+halt if the push has
-not landed, else halt without reset) on green/suite failure, density
-overflow, banned patterns, or protected-file edits. If the agent
-forgot to push, the supervisor pushes after those gates pass.
+iteration. Density overflow, banned patterns, protected-file edits,
+empty ports, and QUALITY-RISK without a Must-fix still fail-close
+(revert+halt if the push has not landed, else halt without reset).
+Green / full-suite regression is logged; the loop **continues** so the
+next iteration can recover. If the agent forgot to push, the supervisor
+pushes after those gates (including after a suite warning).
 
 Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
 Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
@@ -95,8 +97,9 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         timeout, tool denials, protected edit, banned pattern,     │
 │         js/ on audit, empty port, density >400/8,                  │
-│         green fail, audit full-suite fail,                         │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
+│       WARN + CONTINUE (no STOP, no revert; still push if needed):  │
+│         green fail, audit/cadence full-suite fail                  │
 │       uncommitted js/ or review after a crash: halt, **no** reset  │
 │       crash/timeout before commit: halt, **no** reset, rewind n    │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
@@ -109,7 +112,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 
 | Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
 |------------|------|----------------------|------------------------|
-| `n % 5 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` PASS; REJECT → STOP |
+| `n % 5 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` scored (FAIL is logged, loop continues); REJECT → STOP |
 | else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty committed **and** working-tree `js/` → halt+revert; uncommitted `js/` after crash → halt, keep tree; still-empty queue after port → halt |
 
 Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
@@ -124,10 +127,13 @@ The user wants each iteration’s work on `origin` as soon as it is
 written (including review files and queue Must-fix rows). Agents
 **commit and `git push origin HEAD`**. The frozen runner still
 **exits 0 even when sessions fail**, so the supervisor parses
-`__RESULTS_JSON__` after the agent returns. If a gate fails and the
-agent already pushed, **do not `git reset`** (that would require a
-force-push) — halt and ask a human to revert origin. If the agent
-committed but forgot to push, the supervisor pushes after gates.
+`__RESULTS_JSON__` after the agent returns. Green / full-suite FAIL
+does **not** halt: log a warning and continue (the next port is
+trusted to recover). If a density/authority/empty-port gate fails
+and the agent already pushed, **do not `git reset`** (that would
+require a force-push) — halt and ask a human to revert origin. If
+the agent committed but forgot to push, the supervisor pushes after
+gates (including after a suite warning).
 
 ### Token budget (`--token-budget-m`)
 
@@ -173,7 +179,7 @@ porting guide). The prompt emphasizes:
 4. Port one complete C semantic unit; no trace-derived implementation
 5. Verify focused + green + cohort behavior
 6. Remove diagnostics and update durable memory before exit
-7. **Commit and `git push origin HEAD`** (supervisor fail-closes; pushes if forgotten)
+7. **Commit and `git push origin HEAD`** (supervisor fail-closes on density/authority; suite FAIL continues; pushes if forgotten)
 
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
 in `docs/CURRENT.md`. **Every 5 global loop iterations** (`n % 5 == 0`) is
@@ -262,14 +268,15 @@ Halt reason is still `last-halt-reason.txt`.
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
 | Auth errors | `agent login` |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
-| banned-pattern / green / density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
+| banned-pattern / density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
 | `N consecutive agent runs <30s` | Out of tokens / quota — halt+revert |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
-| Green / full suite fail | Halt+revert; `last-halt-reason.txt` |
+| Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
-| Agent `git push` then gate fail | Halt without reset; human reverts origin |
+| Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
+| Agent `git push` then green/suite FAIL | Continue; next iter recovers |
 | Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”); counter rewound so the next launch retries the same `#` |
 | Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review. `--last-completed 1464` (or the auto-rewind) retries audit **#1465** |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
@@ -279,8 +286,9 @@ Halt reason is still `last-halt-reason.txt`.
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite
 iteration time, and a diff-based banned-pattern scan. Automatic halt
-writes `STOP_AGENT_LOOP.md=1`. `LOOP_FAIL_CLOSED=0` restores the old
-warn-and-continue behaviour for debugging only.
+writes `STOP_AGENT_LOOP.md=1`. Green / full-suite FAIL does **not**
+halt. `LOOP_FAIL_CLOSED=0` restores warn-and-continue for the remaining
+fail-closed gates (debugging only).
 
 ## Relation to in-chat `/loop`
 

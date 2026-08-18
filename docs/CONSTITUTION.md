@@ -217,10 +217,11 @@ clearly marked temporary and scheduled for deletion.
     and anti-patterns live there. They do not edit that playbook in-loop.
 11. After a verified loop iteration, **commit** stageable work and
     **`git push origin HEAD`**. The unattended supervisor
-    (`scripts/agent-port-loop.sh`) fail-closes (green / density /
-    authority) and pushes if the agent forgot (see
-    `docs/AGENT-PORT-LOOP.md`). No force-push, reset, or history rewrite.
-    If a gate fails after a push, halt without `git reset` (human reverts
+    (`scripts/agent-port-loop.sh`) fail-closes (density / authority)
+    and pushes if the agent forgot (see `docs/AGENT-PORT-LOOP.md`).
+    Green / full-suite regression is logged; the loop continues.
+    No force-push, reset, or history rewrite. If a density/authority
+    gate fails after a push, halt without `git reset` (human reverts
     origin).
 
 ---

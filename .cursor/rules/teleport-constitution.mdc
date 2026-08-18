@@ -27,7 +27,9 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
 - Loop agents **commit** and **`git push origin HEAD`** at the end of
   each iteration (no force-push, no amend of pushed commits, no
   `git reset --hard`). The supervisor fail-closes and pushes if the
-  agent forgot. `STOP_AGENT_LOOP.md` is gitignored; do not add it.
+  agent forgot. Green / full-suite regression is logged; the loop
+  continues so the next iteration can recover.
+  `STOP_AGENT_LOOP.md` is gitignored; do not add it.
   Do not write `1` except a **review/audit** iteration on REJECT.
   Do not write `0` (only the supervisor does, at launch).
 - **Contest Rule #2:** scored `js/` must be plain ESM for **Node and Chrome** —

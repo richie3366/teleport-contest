@@ -19,7 +19,8 @@ If any session failed: journal the failure, **do not** invent a peel,
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
 and fill missing Addressed hashes. If open `- [ ]` count is below 8,
 refill Open to ~12 from named map omits (`LOOP-QUEUE.md`). The
-supervisor will halt on the full-suite gate.
+supervisor logs a full-suite FAIL and continues; the next port pops
+Must-fix if an audit review prepended one.
 
 ## Git
 
@@ -31,5 +32,5 @@ open a second SHA just for the hash.
 ## Prohibitions
 
 Same authority bans as a port iteration. Do not write `1` to
-`STOP_AGENT_LOOP.md` unless the suite is no longer a fortress and you
-have nothing honest to record — prefer letting the supervisor halt.
+`STOP_AGENT_LOOP.md` for a suite FAIL — record it in CURRENT/journal
+and let the next port recover.

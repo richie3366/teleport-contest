@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 18:10 — supervisor continues on suite FAIL
+
+**Objective:** human — do not park the loop on green/full-suite
+regression; next iter recovers (Must-fix / Open).
+**Change:** `agent-port-loop.sh` warns and continues on post-iter
+green and audit/cadence full-suite FAIL (no STOP, no revert).
+Density / bans / protected / empty port / QUALITY-RISK-without-Must-fix
+still halt. Launch preflight green still refuses a dirty start.
+**Next:** restart the supervisor after this commit lands.
+
 ## 2026-08-18 18:00 — D-1221 gbuf_show_kind stop Hallu reroll
 
 **Objective:** Must-fix review **181** — `display.c` `show_glyph` /

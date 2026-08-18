@@ -2,8 +2,10 @@
 # agent-port-loop.sh — repeatedly continue the port until human stop,
 # token-budget exhaustion, short-run streak, or missing-usage streak.
 #
-# Ordinary iteration failures (nonzero exit, green regression, bans, etc.)
-# are logged and the loop continues. Stop: write "1" into STOP_AGENT_LOOP.md.
+# Green / full-suite regression is logged; the loop continues so the next
+# iteration can recover. Density, bans, protected files, empty ports, and
+# QUALITY-RISK without Must-fix still halt. Stop: write "1" into
+# STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
 #
 # Token budget (optional, this run only — not persisted):
@@ -33,8 +35,10 @@ Options:
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
-Fail-closed (default): green / full-suite / density / protected / banned
-halt and revert the iteration (or halt without reset if already pushed).
+Fail-closed (default): density / protected / banned / empty-port /
+QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
+without reset if already pushed). Green / full-suite regression is
+logged; the loop continues so the next iteration can recover.
 Every LOOP_CADENCE_EVERY (5) is review + full-suite score (no port).
 Queue below LOOP_QUEUE_MIN (8) must be refilled from the map
 (target LOOP_QUEUE_TARGET 12); halt after a port that still has no
@@ -557,6 +561,14 @@ maybe_halt() {
     | tee -a "$MASTER_LOG"
 }
 
+# Suite/green FAIL: keep the commit, keep going. Next port pops Must-fix
+# (or the next Open item) instead of parking the supervisor.
+warn_regression() {
+  local reason="$1"
+  echo "$(date -Iseconds) warning: $reason — continuing (next iteration should recover; not writing STOP)" \
+    | tee -a "$MASTER_LOG"
+}
+
 echo "=== agent-port-loop ==="
 echo "root:   $ROOT"
 echo "agent:  $AGENT_BIN"
@@ -932,19 +944,13 @@ NODE
 
   echo "$(date -Iseconds) === post-iteration green gate ===" | tee -a "$MASTER_LOG"
   if ! run_green_gate; then
-    if (( agent_pushed )); then
-      halt_loop "green regression AND already pushed — human must revert origin" 0
-    fi
-    halt_loop "green regression (seed8000/seed0900 or strict lengths)" 1
+    warn_regression "green regression (seed8000/seed0900 or strict lengths)"
   fi
 
   if [[ "$mode" == "cadence" || "$mode" == "audit" ]]; then
     echo "$(date -Iseconds) === post-iteration full suite gate ===" | tee -a "$MASTER_LOG"
     if ! run_full_suite_gate; then
-      if (( agent_pushed )); then
-        halt_loop "full-suite regression AND already pushed — human must revert origin" 0
-      fi
-      halt_loop "full public suite regression" 1
+      warn_regression "full public suite regression"
     fi
   fi
 
