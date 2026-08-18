@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1232 — `hmon_hitmon` `troll_baned` around `killed`
+
+- **Status:** fixed (map-driven Open; named omit from D-1223 /
+  review **185**; not a public FAIL)
+- **Symptom:** a hero melee/thrown kill of an `S_TROLL` with
+  Trollsbane as the hitting `obj` should set
+  `gm.mkcorpstat_norevive` around `killed` so `mkcorpstat` copies
+  `otmp->norevive`. JS `hmon` called `killed` with the flag unset.
+  Unlike mhitm/hmonas, C here sets TRUE only (does not force FALSE
+  when the weapon is not Trollsbane) then always resets after.
+- **C locus:** `monst.h` `troll_baned`; `uhitm.c` `hmon_hitmon`
+  `:1906–1909`; `mkobj.c` `mkcorpstat` `:2087`; `zap.c` `revive`
+  `:967` `norevive` twitch. Timer still starts (`mkobj.c:1418–1424`).
+- **JS was:** named omit; `troll_baned` already exported (D-1223);
+  `mkcorpstat` already copied the flag; `revive` already checked
+  `norevive`.
+- **Fix:** `hmon` `if (troll_baned(mon, obj))` then TRUE, `killed`,
+  FALSE. Hitting `obj` (not `uwep`). Did not pull hmonas
+  AT_WEAP||AT_CLAW ternary/`uwep` or poison `already_killed`.
+  Rule #2: no fs.
+- **JS:** `js/uhitm.js` `hmon`; `js/mhitm.js` comments.
+- **Not this iter:** `hmonas` `:4866–4880`; poiskilled/`already_killed`
+  skip; remaining uhitm `pline_mon`; unique/pname `corpse_xname`.
+- **Verified:** private canary **31**/31 (C TRUE-only vs hmonas
+  ternary; Trollsbane troll `norevive`+twitch; Excalibur/plain/null
+  /ogre skip; leftover TRUE copies; reset after); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless public combat has a hero
+  Trollsbane troll kill.
+- **Follow-up:** Open `uhitm.c` `hmonas` `troll_baned`.
+
 ## D-1231 — gulpmm `m_at` swap + `mattackm` AT_ENGL
 
 - **Status:** fixed (map-driven Open; named omit from D-1211 /

@@ -59,20 +59,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1231. **Next cluster:**
-Open `uhitm.c` `hmon_hitmon` `troll_baned` around `killed` (named). Not hmonas.
+**Map-driven fortress** after D-1232. **Next cluster:**
+Open `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive` (named). Not hmon_hitmon.
 Do not restore Hallu `gbuf_show_kind`. Keep mention_map addr.
 Do not wrap `msg_mon_movement` as `pline_mon`. Do not skip D-1229
 impact owt/flimsy. Do not skip D-1230 `#teleport` `doextcmd`. Do
-not skip D-1231 gulpmm `m_at` swap. Do not pull
+not skip D-1231 gulpmm `m_at` swap. Do not skip D-1232 `hmon_hitmon`
+`troll_baned`. Do not pull
 container_impact / hitfloor
 `dropz(TRUE)` / hideunder / passivemm shock / uhitm `hmonas`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1231. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1232. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1231** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
+**D-0948**…**D-1232** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
 `glyph_at`; `urole.questarti`; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
@@ -81,7 +82,7 @@ twice; sit Fire/Cold `uprops[]`; tut-1 mineralize/stairway/
 create_object/place_lregion/`tut_key`/tutorial nhcore; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1231`).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1232`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -124,7 +125,8 @@ unconscious / D-1206–D-1229 (`dolookaround`; no empty then-arm; no
 LEVEL_TELEP yn; no wrap `msg_mon_movement` as `pline_mon`; no skip D-1229
 `impact_disturbs_zombies` owt/flimsy); no skip D-1230 `#teleport`
 doextcmd / `#` CMD_M_PREFIX; no skip D-1231 gulpmm `m_at` swap /
-AT_ENGL `gulpmm`; no pull `reset_glyphmap` / vision_recalc
+AT_ENGL `gulpmm`; no skip D-1232 `hmon_hitmon` `troll_baned` TRUE-only;
+no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not

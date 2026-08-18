@@ -30,6 +30,7 @@ import { ammo_and_launcher } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
+    troll_baned,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
 } from './mhitm.js';
@@ -618,14 +619,10 @@ function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
 }
 
 /**
- * C ref: uhitm.c hmon / hmon_hitmon — melee weapon or bare-hand physical.
- * Poison / joust / hurtle body / pudding split deferred.
- * Hit pline: hmon_hitmon_msg_hit skips when destroyed (melee); thrown
- * multishot exception deferred.
- */
-/**
  * C ref: uhitm.c hmon → hmon_hitmon.
  * Thrown cream pie / blinding venom misc_obj arm (D-0693); melee weapon path.
+ * troll_baned around killed (D-1232): set TRUE only, always reset after.
+ * Poison / joust / hurtle / pudding split / hmonas troll_baned still named.
  */
 async function hmon(mon, obj, thrown, _dieroll) {
     // C hmon_hitmon_misc_obj CREAM_PIE / BLINDING_VENOM before weapon dmg
@@ -765,7 +762,13 @@ async function hmon(mon, obj, thrown, _dieroll) {
     }
 
     if (destroyed) {
+        // C uhitm.c hmon_hitmon :1906–1909 — TRUE only (not mhitm/hmonas
+        // ternary); always reset after killed. poiskilled/already_killed
+        // skip named. hmonas AT_WEAP||AT_CLAW uwep still named.
+        if (troll_baned(mon, obj))
+            game.mkcorpstat_norevive = true;
         await killed(mon);
+        game.mkcorpstat_norevive = false;
         return false; // died
     }
     // C: !destroyed → wakeup; maybe_knockback → mhitm_knockback

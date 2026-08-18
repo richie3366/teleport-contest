@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm. **Addressed:** D-1231
+- [x] `uhitm.c` `hmon_hitmon` `troll_baned` around `killed` (named). Not hmonas. **Addressed:** D-1232
+
+
+- [x] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm. **Addressed:** D-1231 `5cd4ab5c`
 
 
 - [x] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast. **Addressed:** D-1230 `a3c04dd7`

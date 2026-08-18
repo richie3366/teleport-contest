@@ -813,7 +813,8 @@ async function corpse_chance(mon) {
 
 // C ref: mon.c make_corpse — undead specials before G_NOCORPSE; pudding globs;
 // else default_1. gz.zombify / mkcorpstat_norevive are set by callers around
-// this call, not inside it: xkilled D-1210; mhitm mdamagem D-1211/D-1223.
+// this call, not inside it: xkilled D-1210; mhitm mdamagem D-1211/D-1223;
+// uhitm hmon_hitmon D-1232 (hmonas still named).
 // Named omission: dragon scales, unicorn horn, worm tooth,
 // golem drops, lich dust, and other pre-G_NOCORPSE switch arms (D-0271
 // undead; D-0993 pudding merge).
@@ -1119,7 +1120,8 @@ async function missmm(magr, mdef, mattk) {
 
 /**
  * C ref: monst.h troll_baned — victim S_TROLL and weapon is Trollsbane.
- * Callers: mhitm.c mdamagem; uhitm.c hmon_hitmon / hmonas still named.
+ * Callers: mhitm.c mdamagem (D-1223); uhitm.c hmon_hitmon (D-1232);
+ * hmonas still named.
  */
 export function troll_baned(m, o) {
     return !!(m && m.data && m.data.mlet === 'S_TROLL'
@@ -1131,8 +1133,7 @@ export function troll_baned(m, o) {
  * mkcorpstat_norevive + gz.zombify around monkilled, then reset both
  * (D-1223 / D-1211). Barehand TUCH/CLAW/BITE from a zombie_maker,
  * victim has zombie_form.
- * Named omit: passivemm/AD_RBRE shock monkilled; uhitm hmon_hitmon /
- * hmonas troll_baned.
+ * Named omit: passivemm/AD_RBRE shock monkilled; uhitm hmonas troll_baned.
  */
 async function mdamagem_monkilled(magr, mdef, mattk, mwep) {
     // C: mhitm.c:1075–1080 — gulpmm occupies mdef's cell; re-place
