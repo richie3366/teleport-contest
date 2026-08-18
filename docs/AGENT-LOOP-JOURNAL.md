@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 12:24 — #1548 D-1219 show_glyph glyph_updates
+
+**Objective:** Open — `display.c` `show_glyph_change` glyph_updates
+(named). Not opt_accessiblemsg.
+**C locus:** `display.c` `show_glyph` 2011–2028 / 2059–2070;
+`docrt_flags` `in_docrt` 1717–1720 / 1772; `optlist.h`
+`mention_map` `&a11y.glyph_updates` 427–428 Off.
+**Change:** doset/`OPTIONS=` write `a11y.glyph_updates`;
+`show_glyph_cell` announce analogue + `pline_xy`; `docrt`
+`in_docrt`. Did not pull integer glyphs / `in_getlev` /
+await-`newsym` More when On / `spot_monsters`/`mon_movement`
+addr. Filled D-1218 archive `b59f294b`. Rotated #1533. Open 10
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1545** **44**/44; next
+@**#1550**).
+**Verified:** private canary **26**/26; green+strict
+seed8000/0900; cohort **11**/11 + strict 0007/2200/1500/1800/
+0012/0360/4500/0014/0004. Public-unhit unless `mention_map` On.
+**Next:** Open `do.c` `revive_corpse` BURIED `!is_zomb`
+FALLTHROUGH `impossible` (named). Not Soundeffect.
+**Blocked:** none.
+
 ## 2026-08-18 12:00 — #1547 D-1218 opt_accessiblemsg → a11y.accessiblemsg
 
 **Objective:** Open — `options.c` `opt_accessiblemsg` wire
@@ -348,25 +370,4 @@ seed8000/0900; cohort **8**/8 + strict 1500/0012/0360/0361/
 TELEP_TRAP.
 **Next:** Open `teleport.c` `dotelecmd` m-prefix mode menu
 (named). Not energy gate.
-**Blocked:** none.
-
-## 2026-08-18 07:11 — #1533 D-1207 vpline accessiblemsg consume
-
-**Objective:** Open — `pline.c` `vpline` accessiblemsg consume
-(named). Not set_msg_xy.
-**C locus:** `pline.c` `vpline` 162–189; `getpos.c` `coord_desc`
-/`dxdy_to_dist_descr`; `cmd.c` `directionname`.
-**Change:** snapshot+reset `a11y.msg_loc` on every `pline`/`Norep`
-(empty and suppress included). On+`isok` prefix `coord_desc: `
-(NONE→COMFULL; unit `directionname`). Did not pull `pline_xy` /
-`set_msg_dir` / `opt_accessiblemsg` wire / `dolookaround`. Filled
-D-1206 archive hash `319bf51c`. Rotated #1518. Open 7 after
-archive; refilled Open to 12. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1530** **44**/44; next
-@**#1535**).
-**Verified:** private canary **36**/36; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
-2200/0014/0004. Public-unhit unless `accessiblemsg` On.
-**Next:** Open `teleport.c` `dotele` trap-at-feet teledest
-(named). Not vault_tele.
 **Blocked:** none.

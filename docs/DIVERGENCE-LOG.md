@@ -4,6 +4,55 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1219 — `display.c` `show_glyph` `show_glyph_change` / `mention_map`
+
+- **Status:** fixed (map-driven Open; named omit from D-1207 /
+  D-1217 / D-1218; not a public FAIL)
+- **Symptom:** JS `vpline` consumed `a11y.msg_loc` (D-1207) and
+  `opt_accessiblemsg` wrote `a11y.accessiblemsg` (D-1218), but
+  `show_glyph` never announced map changes and `OPTIONS=` /
+  doset stored `mention_map` on `flags`. C `show_glyph` sets
+  local `show_glyph_change` when `a11y.glyph_updates` is On and
+  the new cmap is furniture (or the old glyph was nothing /
+  unexplored) and not wall/room, then `do_screen_description` +
+  `pline_xy("%s.", firstmatch)` with accessiblemsg forced.
+  Default Off. `docrt` sets `program_state.in_docrt` so a full
+  redraw does not spam.
+- **C locus:** `display.c` `show_glyph` `:2011–2028` predicate /
+  `:2059–2070` then-arm; `docrt_flags` `in_docrt` `:1717–1720` /
+  `:1772`; `optlist.h` `NHOPTB(mention_map, … Off, …,
+  &a11y.glyph_updates)` `:427–428`. No `optfn_boolean` special
+  arm (unlike `opt_accessiblemsg`).
+- **JS was:** `DOSET_BOOL_ADDR.mention_map` → `flags`; unknown
+  `OPTIONS=` bools dumped to `flags[lname]`; `show_glyph_cell`
+  stored tty without the change-arm; `docrt` had no `in_docrt`.
+- **Fix:** addr `{ obj: 'a11y', key: 'glyph_updates' }`;
+  `parseNethackrc` uncoloned + colon true/yes/on/1; jsmain
+  applies rc; `show_glyph_change_wanted` analogue (no integer
+  glyph IDs — tty/`loc.typ` kinds); `emit_show_glyph_change`
+  forces accessiblemsg + `auto_describe_text` + `pline_xy`;
+  `docrt` `in_docrt` try/finally; `clear_glyph_buffer` sets
+  `disp_kind` unexplored. Default Off. Yields only when On.
+  Rule #2: no fs (dynamic `import('./getpos.js')` for cycle).
+- **JS:** `js/display.js`; `js/options.js`; `js/jsmain.js`;
+  comment `js/hack.js`.
+- **Not this iter:** integer `glyph_at` / full pager
+  `do_screen_description` table; `GLYPH_NOTHING` vs UNEXPLORED
+  IDs; `program_state.in_getlev`; await-`newsym` `--More--`
+  when On; `spot_monsters` → `a11y.mon_notices`; `mon_movement`;
+  `use_background_glyph` gbuf force-update. Rule #2: no fs.
+- **Verified:** private canary **26**/26 (OPTIONS= On/Off/combo;
+  colon words; negated/invalid colon not flags; doset addr;
+  unexplored→fountain/corr announce; room/stone silent; u_at;
+  Off; in_docrt; mon_notices_blocked; in_mklev; same-glyph
+  !gnew; room→fountain furniture; old-monster skip); green+
+  strict seed8000/0900; cohort **11**/11 + strict 0007/2200/
+  1500/1800/0012/0360/4500/0014/0004. **Public-unhit** unless
+  `mention_map` / `a11y.glyph_updates` is On (default Off).
+  seed0007 `O` still shows `[false]`.
+- **Follow-up:** Open `do.c` `revive_corpse` BURIED `!is_zomb`
+  FALLTHROUGH `impossible`.
+
 ## D-1218 — `options.c` `opt_accessiblemsg` → `a11y.accessiblemsg`
 
 - **Status:** fixed (map-driven Open; named omit from D-1207 /

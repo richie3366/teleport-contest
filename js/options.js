@@ -374,6 +374,11 @@ function parse_a11y_accessiblemsg(result, value) {
     result.a11y.accessiblemsg = !!value;
 }
 
+function parse_a11y_glyph_updates(result, value) {
+    if (!result.a11y) result.a11y = {};
+    result.a11y.glyph_updates = !!value;
+}
+
 export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
@@ -451,6 +456,13 @@ export function parseNethackrc(rc) {
                     if (parsed == null) continue;
                     parse_a11y_accessiblemsg(result, parsed);
                 }
+                else if (key === 'mention_map') {
+                    // C optlist.h NHOPTB mention_map addr &a11y.glyph_updates
+                    if (negated) continue;
+                    const parsed = optfn_boolean_word(val);
+                    if (parsed == null) continue;
+                    parse_a11y_glyph_updates(result, parsed);
+                }
                 else result.flags[key] = val;
             } else {
                 // Boolean flag
@@ -470,6 +482,9 @@ export function parseNethackrc(rc) {
                 else if (lname === 'decgraphics') result.flags.decgraphics = value;
                 else if (lname === 'accessiblemsg') {
                     parse_a11y_accessiblemsg(result, value);
+                }
+                else if (lname === 'mention_map') {
+                    parse_a11y_glyph_updates(result, value);
                 }
                 else result.flags[lname] = value;
             }
@@ -1296,7 +1311,7 @@ const DOSET_BOOL_ADDR = {
     lootabc: { obj: 'flags', key: 'lootabc' },
     mail: { obj: 'flags', key: 'mail' }, // C: flags.biff
     mention_decor: { obj: 'flags', key: 'mention_decor' },
-    mention_map: { obj: 'flags', key: 'mention_map' },
+    mention_map: { obj: 'a11y', key: 'glyph_updates' }, // C: &a11y.glyph_updates
     mention_walls: { obj: 'flags', key: 'mention_walls' },
     menu_overlay: { obj: 'iflags', key: 'menu_overlay' },
     menucolors: { obj: 'iflags', key: 'use_menu_color' },
@@ -1397,7 +1412,8 @@ function doset_bool_value(name) {
  * after-change. `initial` is `go.opt_initial`: config returns before the
  * in-game switch (no botl, no `opt_accessiblemsg` msg_loc zero, no
  * toggle pline). C optlist.h NHOPTB accessiblemsg addr is
- * `&a11y.accessiblemsg` (D-1218).
+ * `&a11y.accessiblemsg` (D-1218); mention_map is `&a11y.glyph_updates`
+ * (D-1219).
  */
 export function optfn_boolean_do_set(name, negated, initial = false) {
     const addr = DOSET_BOOL_ADDR[name];
