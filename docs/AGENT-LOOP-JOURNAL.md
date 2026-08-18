@@ -21,6 +21,26 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 18:55 — D-1223 mhitm troll_baned mkcorpstat_norevive
+
+**Objective:** Open — `mhitm.c` `troll_baned` `mkcorpstat_norevive`
+(named). Not gulpmm.
+**C locus:** `monst.h` `troll_baned`; `mhitm.c` `mdamagem`
+1081–1082 / 1090; `mkobj.c` `mkcorpstat` 2087.
+**Change:** `troll_baned` (S_TROLL + Trollsbane). Helper sets
+`mkcorpstat_norevive` on AT_WEAP||AT_CLAW around `monkilled`,
+then reset with zombify. Did not pull gulpmm swap or uhitm
+hmon_hitmon/hmonas. Filled D-1222 archive hash `7b0f9da7`.
+Rotated #1539. Open 7 after archive; refill to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1550** then D-1221
+**44**/44; next audit @**#1555**).
+**Verified:** private canary **37**/37; green+strict
+seed8000/0900; cohort **5**/5 + strict 1500/1800/0012/0004/0007.
+Public-unhit unless Trollsbane AT_WEAP/AT_CLAW troll kill.
+**Next:** Open `teleport.c` LEVEL_TELEP `y_n` (named from D-1209).
+Not energy-spellcast.
+**Blocked:** none.
+
 ## 2026-08-18 18:39 — D-1222 revive_corpse Soundeffect se_scratching
 
 **Objective:** Open — `do.c` `revive_corpse` `Soundeffect`
@@ -334,29 +354,6 @@ Open 12 (no refill). Rotated #1525. Rule #2: no fs.
 @**#1545**.
 **Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
 full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `dig.c` `rot_corpse` invent/minvent worn plines
-(named). Not REVIVE.
-**Blocked:** none.
-
-## 2026-08-18 09:15 — #1539 D-1212 revive_corpse MINVENT/CONTAINED
-
-**Objective:** Open — `do.c` `revive_corpse` OBJ_MINVENT /
-OBJ_CONTAINED (named). Not BURIED.
-**C locus:** `do.c` `revive_corpse` 2183–2215; `do_name.c`
-`Adjmonnam` 1142–1148; `mondata.c` `locomotion` 1380–1392;
-`zap.c` `get_obj_location` / `get_container_location`.
-**Change:** C MINVENT drop/appear + CONTAINED pack/floor/minvent
-sack plines after `revive`. `Adjmonnam` bite-covered (FLOOR +
-MINVENT). Pack verb via `locomotion`. Snapshot where/mcarry/
-container/oeaten before `revive`. `zap.js` `OBJ_FREE` for
-contained `obfree`. Did not pull BURIED `!is_zomb` FALLTHROUGH
-impossible or `Soundeffect`. Filled D-1211 archive hash
-`481e005b`. Rotated #1524. Open 7 after archive; refill to 12.
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1535** **44**/44; next
-@**#1540**).
-**Verified:** private canary **20**/20; green+strict
-seed8000/0900; cohort **4**/4 + strict 1500/1800/0012/0004.
 **Next:** Open `dig.c` `rot_corpse` invent/minvent worn plines
 (named). Not REVIVE.
 **Blocked:** none.

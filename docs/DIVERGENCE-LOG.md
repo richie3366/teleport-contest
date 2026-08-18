@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1223 — `mdamagem` `troll_baned` `mkcorpstat_norevive` around `monkilled`
+
+- **Status:** fixed (map-driven Open; named omit from D-1211 /
+  review **173**; not a public FAIL)
+- **Symptom:** a mon-vs-mon AT_WEAP/AT_CLAW kill of an `S_TROLL`
+  with Trollsbane as `mwep` should set `gm.mkcorpstat_norevive`
+  around `monkilled` so `mkcorpstat` copies `otmp->norevive`.
+  JS `mdamagem_monkilled` set only `gz.zombify`. Troll corpses
+  still got a `REVIVE_MON` timer (C does too); `revive()` then
+  twitches instead of returning a monster.
+- **C locus:** `monst.h` `troll_baned`; `mhitm.c` `mdamagem`
+  `:1081–1082` / `:1090`; `mkobj.c` `mkcorpstat` `:2087`
+  (`otmp->norevive = gm.mkcorpstat_norevive`); `zap.c` `revive`
+  `:967` `norevive` twitch. Timer still starts (`mkobj.c:1418–1424`).
+- **JS was:** named omit on the D-1211 helper; `mkcorpstat` already
+  copied the flag; `revive` already checked `norevive`.
+- **Fix:** `troll_baned` matches the C macro (`mlet == S_TROLL` &&
+  `o` && `oartifact == ART_TROLLSBANE`). Helper sets
+  `game.mkcorpstat_norevive` on AT_WEAP||AT_CLAW then zombify,
+  `monkilled`, reset both. Did not pull gulpmm `m_at` swap or
+  uhitm `hmon_hitmon`/`hmonas`. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `troll_baned` / `mdamagem_monkilled`.
+- **Not this iter:** gulpmm swap (`:1075–1080`); uhitm
+  `hmon_hitmon` `:1906–1909` / `hmonas` `:4866–4880`;
+  `passivemm`/`mon_poly` shock `monkilled`; unique/pname
+  `corpse_xname`.
+- **Verified:** private canary **37**/37 (C macro+ordinal 17;
+  helper order; troll+Trollsbane; Excalibur/plain/null/ogre skip;
+  AT_BITE does not write; `mkcorpstat` copies; `revive` null);
+  green+strict seed8000/0900; cohort **5**/5 + strict
+  1500/1800/0012/0004/0007. **Public-unhit** unless public combat
+  has a Trollsbane AT_WEAP/AT_CLAW troll kill.
+- **Follow-up:** Open `teleport.c` LEVEL_TELEP `y_n`. gulpmm /
+  uhitm troll_baned queued.
+
 ## D-1222 — `revive_corpse` `Soundeffect(se_scratching, 50)` before You_hear
 
 - **Status:** fixed (map-driven Open; named omit from D-1081 /
@@ -37,7 +72,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   seed8000/0900; cohort **5**/5 + strict 1500/1800/0012/0004/0007.
   **Public-unhit** unless a buried zomb/reviver revives `!cansee`
   within 5².
-- **Follow-up:** Open `mhitm.c` `troll_baned` `mkcorpstat_norevive`.
+- **Follow-up:** Open `teleport.c` LEVEL_TELEP `y_n`. `troll_baned` D-1223.
 
 ## D-1221 — `gbuf_show_kind` must not re-roll Hallu `mon_glyph`/`obj_glyph`
 
