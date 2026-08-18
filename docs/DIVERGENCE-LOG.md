@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1198 — `migrate_to_level` `In_W_tower` xyflags bit 2
+
+- **Status:** fixed (map-driven Open; named omit from D-1182;
+  not a public FAIL)
+- **Symptom:** JS `migrate_to_level` encoded only the up-bit
+  (`depth(dest) < depth(u.uz)` → `xyflags = 1`) into
+  `mtrack[0].y`. C also `xyflags |= 2` when the monster's
+  pre-relmon `(mx,my)` is inside the Wizard's Tower rectangle
+  on the **current** level (`In_W_tower(mx, my, &u.uz)`).
+  Without bit 2, D-1182's `rloc_pos_ok` W-tower XOR never sees
+  a migrant that left from inside the tower (once `mon_arrive`
+  copies flags into `my`).
+- **C locus:** `dog.c` `migrate_to_level` `:913–915` after
+  `new_lev` / depth-up, before `mtrack[]` / `mx=my=0`.
+  Callee `dungeon.c` `In_W_tower` (`On_W_tower_level` then
+  `dndest.nlx..nhy`). Callers: `mlevel_tele_trap` / hole path /
+  `keepdogs` `keep_mon_accessible` / muse / dig.
+- **Fix:** after the existing up-bit, `if (In_W_tower(mx, my,
+  u.uz)) xyflags |= 2`. Uses captured mx,my (not `cc`, not
+  dest level). Did not pull `mon_arrive` `my=xyflags`.
+  Rule #2: no fs.
+- **JS:** `js/teleport.js` `migrate_to_level`. `In_W_tower`
+  already imported.
+- **Not this iter:** `mon_arrive` copy flags into `my` before
+  `rloc`; keepdogs stay_behind / `keep_mon_accessible` caller;
+  `mon_leave` worm/isshk; leash; light. Rule #2: no fs.
+- **Verified:** private canary **40**/40 (inside+down=2 /
+  inside+up=3; outside 0/1; inclusive corners; one-cell
+  outside; !On_W_tower_level; nlx==0; wiz2/wiz3; `cc` unused
+  for bit 2; dest-wiz1 from ordinary; post mx,my=0; my stays 0
+  not xyflags; same-depth; updest unused; no fs/FORCE);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/0012/0360/4500/2200/0014/0004. Path public-unhit until
+  `mon_arrive` copies `mtrack[0].y` into `my`.
+- **Files:** `js/teleport.js`.
+
 ## D-1197 — `scrolltele` W-tower/amulet `y_n("Override?")`
 
 - **Status:** fixed (map-driven Open; named omit from D-1184 /

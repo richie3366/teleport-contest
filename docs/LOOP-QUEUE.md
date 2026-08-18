@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive.
 - [ ] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit.
 - [ ] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit.
 - [ ] `artifact.c` `init_artifacts` (named). Not wizkit.

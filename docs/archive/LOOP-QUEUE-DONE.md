@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded. **Addressed:** D-1197
+- [x] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive. **Addressed:** D-1198
+
+
+- [x] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded. **Addressed:** D-1197 `7deb2670`
 
 ## 2026-08-17
 

@@ -978,8 +978,7 @@ function tele_jump_ok(x1, y1, x2, y2) {
  * updest/dndest, or on-map keep resident shk/priest in their room then
  * tele_jump_ok. Dest roomno vs ESHK.shoproom / EPRI.shroom (unsigned
  * char), not in_rooms; rloc may still goodpos-fallback.
- * Named omissions: migrate_to_level In_W_tower xyflags bit 2;
- * mon_arrive my=xyflags before rloc.
+ * Named omissions: mon_arrive my=xyflags before rloc.
  */
 function rloc_pos_ok(x, y, mtmp) {
     if (!goodpos(x, y, mtmp, GP_CHECKSCARY)) return false;
@@ -2316,7 +2315,9 @@ function ledger_to_dlev(tolev) {
 /**
  * C ref: dog.c migrate_to_level — take mon off map onto migrating_mons.
  * Envelope: remove from fmon, encode destination, mx=my=0.
- * Named omissions: mon_leave worm/isshk residency; leash; light sources.
+ * D-1198: xyflags bit 2 when In_W_tower(mx,my,&u.uz) using pre-relmon
+ * coords (C dog.c:913–915). Named omissions: mon_leave worm/isshk
+ * residency; leash; light sources; mon_arrive my=xyflags.
  */
 export function migrate_to_level(mtmp, tolev, xyloc, cc) {
     if (!mtmp) return;
@@ -2345,6 +2346,11 @@ export function migrate_to_level(mtmp, tolev, xyloc, cc) {
         const depthOld = (game.dungeons?.[u.uz.dnum]?.depth_start | 0)
             + (u.uz.dlevel | 0) - 1;
         if (depthNew < depthOld) xyflags = 1;
+        /* C dog.c:914–915 — bit 1 (value 2) = left from inside the
+         * Wizard's Tower. In_W_tower tests current u.uz, not dest.
+         * Arrival rloc_pos_ok reads this as my&2 after mon_arrive. */
+        if (In_W_tower(mx, my, u.uz))
+            xyflags |= 2;
     }
     if (!mtmp.mtrack) {
         mtmp.mtrack = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }];
