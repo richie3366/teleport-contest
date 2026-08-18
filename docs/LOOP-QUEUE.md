@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder.
 - [ ] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast.
 - [ ] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm.
 - [ ] `uhitm.c` `hmon_hitmon` `troll_baned` around `killed` (named). Not hmonas.

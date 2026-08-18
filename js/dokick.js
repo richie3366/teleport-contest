@@ -31,6 +31,7 @@ import {
 import { AT_KICK } from './mhitm.js';
 import {
     overexertion, losehp, maybe_half_phys, in_rooms, in_town, is_pool,
+    impact_disturbs_zombies,
 } from './hack.js';
 import {
     set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage,
@@ -1099,8 +1100,7 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: snuff_candle; impact_disturbs_zombies; killer_xname polish
- * (xname stand-in).
+ * Named omit: snuff_candle; killer_xname polish (xname stand-in).
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1238,7 +1238,7 @@ async function really_kick_object(x, y) {
             const { flooreffects: fe } = await import('./do.js');
             if (!(await fe(kicked, u.ux | 0, u.uy | 0, 'fall'))) {
                 place_object(kicked, u.ux | 0, u.uy | 0);
-                // impact_disturbs_zombies deferred
+                impact_disturbs_zombies(kicked, true);
                 stackobj(kicked);
                 newsym(u.ux | 0, u.uy | 0);
             }
@@ -1370,7 +1370,7 @@ async function really_kick_object(x, y) {
         }
     }
     place_object(kicked, bx, by);
-    // impact_disturbs_zombies deferred
+    impact_disturbs_zombies(kicked, true);
     stackobj(kicked);
     newsym(kicked.ox | 0, kicked.oy | 0);
     return 1;

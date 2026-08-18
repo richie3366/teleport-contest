@@ -6,12 +6,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after review **183–187** + cadence **#1555**
-  (`89588300`). Next: map-driven Open `hack.c`
-  `impact_disturbs_zombies`. Not remaining uhitm `pline_mon`.
-  Must-fix empty. Do not wrap `msg_mon_movement` as `pline_mon`. Do not
-  restore Hallu `mon_glyph` in `gbuf_show_kind`. Do not FORCE
-  seed0383.
-- Do not revert D-1217–D-1228. Do not prepend Must-fix for named
+  (`89588300`). Next: map-driven Open `teleport.c` `#teleport`
+  `doextcmd`. Not energy-spellcast. Must-fix empty. Do not skip
+  D-1229 impact owt/flimsy. Do not pull container_impact /
+  hitfloor `dropz(TRUE)` / hideunder. Do not wrap
+  `msg_mon_movement` as `pline_mon`. Do not restore Hallu
+  `mon_glyph` in `gbuf_show_kind`. Do not FORCE seed0383.
+- Do not revert D-1217–D-1229. Do not prepend Must-fix for named
   omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
   other Soundeffect / remaining uhitm/worn/trap `pline_mon` /
   `#teleport`).
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1227 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1229 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -63,7 +64,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1228 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1229 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
   Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
@@ -78,6 +79,9 @@ Objective/score live in `CURRENT.md`.
   stay pline; do not wrap `msg_mon_movement` as `pline_mon`).
   Do not skip D-1228 `msg_mon_movement` dest `pline_xy` after place
   (optlist `&a11y.mon_movement` addr still named).
+  Do not skip D-1229 `impact_disturbs_zombies` owt/flimsy (dropz /
+  throwit `!IS_SOFT` / kick place; container_impact / hitfloor
+  `dropz(TRUE)` / hideunder / local wake clones still named).
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -99,6 +103,8 @@ Objective/score live in `CURRENT.md`.
 
 - Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
   **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
+  `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not
   `pline_mon`; optlist addr named.
 - D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck);

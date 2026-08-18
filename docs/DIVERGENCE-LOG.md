@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1229 — `impact_disturbs_zombies`
+
+- **Status:** fixed (map-driven Open; named omit from D-1214 /
+  review **176**; not a public FAIL)
+- **Symptom:** drop / throw / kick of a heavy non-flimsy object
+  never shrank nearby buried `ZOMBIFY_MON` remaining. C gates on
+  `owt < (violent ? 10U : 100U) || is_flimsy` then disturbs at
+  `obj->ox,oy` after `place_object`.
+- **C locus:** `hack.c` `impact_disturbs_zombies` `:1787–1794`.
+  Callers `do.c:832` `dropz(obj, with_impact)`; `dothrow.c:1831`
+  throwit land `!IS_SOFT` TRUE; `dokick.c:642` obstructed-loose
+  TRUE and `:786` kick land TRUE. `obj.h` `is_flimsy` material
+  ≤ LEATHER or rubber hose.
+- **JS was:** rumble/tread/wake/grounded disturb live (D-1214);
+  dropz ignored `_with_impact`; throwit/kick named skip after
+  place.
+- **Fix:** C body + those four callers. Throw still skips
+  `IS_SOFT`. No RNG. Rule #2: no fs.
+- **JS:** `js/hack.js` `impact_disturbs_zombies` / `is_flimsy`;
+  `js/do.js` `dropz`; `js/dothrow.js` throwit land; `js/dokick.js`
+  two place sites.
+- **Not this iter:** `container_impact_dmg` at the same sites;
+  hitfloor `dropz(TRUE)` (JS still `dropy`); hideunder after
+  tread; local `wake_nearby` clones.
+- **Verified:** private canary **21**/21 (owt 10/9 violent;
+  100/99 gentle; dart skip; leather/hose flimsy; long sword
+  violent vs gentle; remaining 1→1; 3×3 skip/hit; pair 9→6 and
+  15→10; dropz false chest / rock; dropz true rock / dart);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Files:** `js/hack.js`, `js/do.js`, `js/dothrow.js`,
+  `js/dokick.js`.
+
 ## D-1228 — monmove.c `msg_mon_movement`
 
 - **Status:** fixed (map-driven Open; named omit from D-1215 /

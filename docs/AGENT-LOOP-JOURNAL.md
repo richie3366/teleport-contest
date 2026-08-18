@@ -20,6 +20,28 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 21:20 — #1559 D-1229 impact_disturbs_zombies
+
+**Objective:** Open `hack.c` `impact_disturbs_zombies` (named from
+D-1214). Not hideunder.
+**C locus:** `hack.c` `impact_disturbs_zombies` 1787–1794;
+callers `do.c:832` dropz; `dothrow.c:1831` throwit `!IS_SOFT`;
+`dokick.c:642/:786` kick place.
+**Change:** owt/flimsy gate then disturb ox,oy after place.
+Violent 10 / gentle 100. `is_flimsy` ≤LEATHER or rubber hose.
+Did not pull container_impact, hitfloor `dropz(TRUE)`, hideunder,
+or local wake clones. Filled D-1228 archive hash `23f3f19e`.
+Open 11 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1555** **44**/44; next
+audit @**#1560**).
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. Public-unhit unless a ≥10 (throw/kick) or ≥100
+(drop) non-flimsy object lands on hard terrain over a buried
+ZOMBIFY corpse.
+**Next:** Open `teleport.c` `#teleport` `doextcmd` (named from
+D-1209). Not energy-spellcast.
+**Blocked:** none.
 ## 2026-08-18 21:05 — #1558 D-1228 msg_mon_movement
 
 **Objective:** Open `hack.c` `msg_mon_movement` (named). Not

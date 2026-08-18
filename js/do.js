@@ -74,6 +74,7 @@ import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
     check_special_room, is_pool, is_lava, waterbody_name,
     notice_mon_off, notice_mon_on, notice_all_mons,
+    impact_disturbs_zombies,
 } from './hack.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
@@ -2029,9 +2030,10 @@ function freeinv_drop(obj) {
  * C ref: do.c dropz — place at hero feet; always encumber_msg (polyself
  * break_armor armor-drop More packs load before gloves).
  * Named omissions: engulf digest; shop sell wired (D-0994); altar; ball;
- * container_impact; impact_disturbs_zombies.
+ * container_impact_dmg when with_impact; hitfloor dropz(TRUE) still
+ * dropy in mkobj.js.
  */
-export async function dropz(obj, _with_impact) {
+export async function dropz(obj, with_impact) {
     if (!obj) return;
     const u = game.u || {};
     if (obj === u.uwep) setuwep(null);
@@ -2048,6 +2050,8 @@ export async function dropz(obj, _with_impact) {
         return;
     }
     place_object(obj, u.ux, u.uy);
+    // C: container_impact_dmg when with_impact — named omit
+    impact_disturbs_zombies(obj, !!with_impact);
     // C: sellobj when has_shop (after place, before stack)
     if (game.level?.flags?.has_shop) {
         const { sellobj } = await import('./shk.js');

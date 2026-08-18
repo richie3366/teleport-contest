@@ -67,6 +67,9 @@ const DIRS_ORD = [
 const BOULDER = objectNames.indexOf('BOULDER');
 const CORPSE = objectNames.indexOf('CORPSE');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+const RUBBER_HOSE = objectNames.indexOf('RUBBER_HOSE');
+/** C materials.h LEATHER — is_flimsy ceiling (obj.h). */
+const LEATHER = 7;
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 
@@ -280,8 +283,7 @@ async function dopush(sx, sy, rx, ry, otmp) {
  * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
  * shop costly, trap/teleport/pool arms, Blind feel, Levitation (present),
  * verysmall, giant/squeeze/nopick, tunneling chew, revive_nasty,
- * next_boulder naming, y_monnam steed wording, cannot_push giant arms,
- * impact_disturbs_zombies.
+ * next_boulder naming, y_monnam steed wording, cannot_push giant arms.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */
 async function moverock_core(sx, sy) {
@@ -375,11 +377,32 @@ export async function moverock() {
 }
 
 /**
+ * C ref: obj.h is_flimsy — oc_material ≤ LEATHER or rubber hose.
+ */
+function is_flimsy(otmp) {
+    const mat = game.objects?.[otmp?.otyp]?.oc_material ?? 99;
+    return mat <= LEATHER || (otmp?.otyp | 0) === RUBBER_HOSE;
+}
+
+/**
+ * C ref: hack.c impact_disturbs_zombies — drop/throw/kick owt/flimsy
+ * gate then disturb at obj->ox,oy (D-1229). Call after place_object.
+ * Violent (throw/kick / dropz TRUE): owt < 10 skip; else owt < 100.
+ * Named omit: container_impact_dmg at the same sites; hitfloor
+ * dropz(TRUE); hideunder after tread.
+ */
+export function impact_disturbs_zombies(obj, violent) {
+    if ((obj.owt | 0) < (violent ? 10 : 100) || is_flimsy(obj)) {
+        return;
+    }
+    disturb_buried_zombies(obj.ox | 0, obj.oy | 0);
+}
+
+/**
  * C ref: hack.c disturb_buried_zombies — shrink ZOMBIFY_MON remaining
  * on buried CORPSE in the 3×3 around (x,y) to max(1, t*2/3).
  * peek_timer is absolute timeout (gate > 0); stop_timer returns
- * remaining; integer t*2/3 toward 0. Named omit:
- * impact_disturbs_zombies (drop/throw owt/flimsy gate).
+ * remaining; integer t*2/3 toward 0. Impact owt/flimsy is D-1229.
  */
 export function disturb_buried_zombies(x, y) {
     const px = x | 0;
