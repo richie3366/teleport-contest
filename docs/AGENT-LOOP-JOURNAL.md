@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 05:36 — #1526 D-1201 init_artifacts
+
+**Objective:** Open — `artifact.c` `init_artifacts` (named).
+Not wizkit.
+**C locus:** `artifact.c` `init_artifacts` 109–116 memset
+artiexist/artidisco then `hack_artifacts` 85–106. Caller
+`allmain.c` 792 after `init_dungeons`/`role_init`, before
+`u_init_misc`.
+**Change:** `init_artifacts` rebuilds artilist from generated
+raw then gift-role align / Excalibur `!Knight` `role=NON_PM` /
+`questarti` align+role. `newgame` calls it at the C site.
+Did not pull `save_artifacts`/`restore_artifacts`, wizkit, or
+`reset_glyphmap`. Rotated #1511. Open 8 after archive (no
+refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1525** **44**/44; next
+@**#1530**).
+**Verified:** private canary **27**/27; green+strict
+seed8000/0900; cohort **16**/16 + strict 1500/1800/0012/0360/
+4500/2200/0014/0004/0700/0006/0108/0116.
+**Next:** Open `timeout.c` REVIVE/ZOMBIFY (named). Not
+run_timers.
+**Blocked:** none.
+
 ## 2026-08-18 05:25 — #1525 review D-1197–D-1200 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -343,25 +366,4 @@ Rule #2: no fs.
 lengths. Public-unhit unless genocide-then-migrate.
 **Next:** Open `do.c` `goto_level` `run_timers` (named). Not
 kill_genocided.
-**Blocked:** none.
-
-## 2026-08-18 00:40 — #1511 D-1189 cmd.c rhack visctrl ^C
-
-**Objective:** Must-fix human canary seed8243 `cmd.c` rhack
-`Unknown command` `visctrl(key)` so Ctrl-C is `^C` not raw ETX.
-Not `maybe_smudge_engr`. Not `kill_genocided`.
-**C locus:** `cmd.c` `rhack` 3833–3834 /
-`hacklib.c` `visctrl` 469–493.
-**Change:** unknown-command pline uses existing
-`dokeylist.js` `visctrl(key)`. Did not pull
-`custompline(SUPPRESS_HISTORY)`, `cmdq_clear` CQ_REPEAT, or
-`sanity_no_check`. Rotated #1496. Open 10 (no refill). Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1510** **44**/44; next
-@**#1515**).
-**Verified:** private canary Scr **129**/129 RNG **2768**/2768;
-green+strict seed8000/0900; cohort **18**/18 + strict
-1500/1800/2200/0009/0361/0012.
-**Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
-(named). Not `run_timers`.
 **Blocked:** none.

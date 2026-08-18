@@ -13,6 +13,7 @@ import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { initrack, settrack } from './track.js';
 import { fastforward_pre_mklev } from './fastforward.js';
 import { init_objects } from './o_init.js';
+import { init_artifacts } from './artifact.js';
 import { init_dungeons, find_level } from './dungeon.js';
 import { depth } from './hacklib.js';
 import { schedule_goto, deferred_goto } from './do.js';
@@ -608,6 +609,10 @@ export async function newgame() {
 
     // C ref: allmain.c → init_dungeons() (dungeon.c) — peels fastforward_pre_mklev
     init_dungeons();
+    // C allmain.c:792 — init_artifacts after role_init/init_dungeons,
+    // before u_init_misc so WIZKIT can name artifacts (D-1201). Not
+    // wizkit delivery / reset_glyphmap.
+    init_artifacts();
     // C ref: allmain.c → u_init_misc() (u_init.c)
     await u_init_misc();
     fastforward_pre_mklev(); // emptied — kept as delete-only hook

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1201 — artifact.c `init_artifacts`
+
+- **Status:** fixed (map-driven Open; named omit from D-1192 /
+  D-1200; not a public FAIL)
+- **Symptom:** JS never called C `init_artifacts` from `newgame`.
+  `artifacts_globals_init` (from `init_objects`) built artilist
+  and zeroed `artiexist`/`artidisco` but skipped `hack_artifacts`
+  (gift-role alignment, Excalibur non-Knight `role=NON_PM`,
+  quest artifact align/role).
+- **C locus:** `artifact.c` `init_artifacts` `:109–116`
+  (memset both arrays then `hack_artifacts`); `hack_artifacts`
+  `:85–106`. Caller `allmain.c` `:792` after `init_dungeons`
+  / `role_init`, before `u_init_misc` (WIZKIT may name artifacts).
+- **JS was:** `init_objects` → `artifacts_globals_init` only;
+  no `newgame` call; artilist stayed at generated defaults.
+- **Fix:** `js/artifact.js` `init_artifacts` rebuilds artilist
+  from generated raw (JS process-reuse ≡ C compile-time table)
+  then `hack_artifacts`. `js/allmain.js` `newgame` calls it
+  after `init_dungeons`, before `u_init_misc`. Did not pull
+  `save_artifacts` / `restore_artifacts`, wizkit delivery, or
+  `reset_glyphmap`. `roles[].questarti` still 0 for roles that
+  never copied it; gift loop still matches `role==Role_switch`.
+  Rule #2: no fs.
+- **JS:** `js/artifact.js` `init_artifacts` / `hack_artifacts`;
+  `js/allmain.js` `newgame`.
+- **Not this iter:** save/rest `restore_artifacts`; `roles[]`
+  questarti fill; `mk_artifact` by_align; wizkit; `reset_glyphmap`.
+- **Verified:** private canary **27**/27 (Tourist Excalibur
+  NON_PM; chaotic gift-align; Knight keeps role + chaotic
+  Excalibur; process-reuse rebuild; memset exists; Wizard
+  Magicbane/Eye; Express Card questarti arm); green+strict
+  seed8000/0900; cohort **16**/16 + strict 8000/0900/1500/1800/
+  0012/0360/4500/2200/0014/0004/0700/0006/0108/0116.
+- **Files:** `js/artifact.js`, `js/allmain.js`.
+
 ## D-1200 — allmain.c `newgame` `notice_mon_off`
 
 - **Status:** fixed (map-driven Open; named omit from D-1142 /
