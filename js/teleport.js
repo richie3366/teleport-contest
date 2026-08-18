@@ -1557,7 +1557,8 @@ export async function teleds(nux, nuy, teleds_flags) {
      * caller is D-1150 (hack.c:2973 / cmd.js domove). */
     await invocation_message();
     /* C: notice_mon_on(); notice_all_mons(TRUE); catch-up after the
-     * wrap. Other callers (vision_recalc, goto_level, newgame) named. */
+     * wrap. vision_recalc / mapping / wizcmds / save still named.
+     * goto_level wrap D-1194; newgame wrap D-1200. */
     notice_mon_on();
     await notice_all_mons(true);
 }

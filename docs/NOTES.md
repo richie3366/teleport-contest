@@ -7,8 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1520** 44/44 @**#1525**. Next `newgame` `notice_mon_off`.
-  Do not skip D-1199.
+- **#1520** 44/44 @**#1525**. Next `init_artifacts`. Do not skip D-1200.
 
 ## Don't re-check (≤15)
 
@@ -19,11 +18,11 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1199 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1200 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
-  `mon_arrive` After_you `my=xyflags`).
+  `mon_arrive` After_you `my=xyflags` / newgame `notice_mon_off`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -83,9 +82,9 @@ Objective/score live in `CURRENT.md`.
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
-  newgame `notice_mon_off` with this wrap. Default `spot_monsters`
-  Off — public catch-up is a no-op.
+  `init_artifacts` with this wrap. Default `spot_monsters` Off —
+  public catch-up is a no-op.
 
 ## Landmarks (≤15)
 
-- #1520; next `newgame` `notice_mon_off`.
+- #1520; next `init_artifacts`.

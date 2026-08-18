@@ -31,7 +31,10 @@ import {
 } from './attrib.js';
 import { dosearch0, warnreveal } from './detect.js';
 import { nhgetch } from './input.js';
-import { unmul, monster_nearby, stop_occupation, overexert_hp, is_pool } from './hack.js';
+import {
+    unmul, monster_nearby, stop_occupation, overexert_hp, is_pool,
+    notice_mon_off, notice_mon_on, notice_all_mons,
+} from './hack.js';
 import { reset_justpicked } from './pickup.js';
 import { set_wear } from './do_wear.js';
 import { gethungry } from './eat.js';
@@ -555,6 +558,11 @@ export async function welcome(new_game) {
 export async function newgame() {
     const g = game;
 
+    // C allmain.c:771 — notice_mon_off first so welcome / legacy /
+    // docrt happen before noticing monsters (D-1200). Catch-up after
+    // welcome. Default mon_notices Off (optlist spot_monsters).
+    notice_mon_off();
+
     // C: moves starts 0 until u_init_role; reset align_shift statics
     g.moves = 0;
     reset_align_shift_cache();
@@ -676,6 +684,15 @@ export async function newgame() {
 
     // C ref: allmain.c welcome(TRUE)
     await welcome(true);
+
+    // C allmain.c:844–848 — notice_mon_on after welcome; glyph_updates
+    // dolookaround named; else notice_all_mons(TRUE) (D-1200).
+    notice_mon_on();
+    if (g.a11y?.glyph_updates) {
+        /* C: (void) dolookaround(); named — no JS lookaround export */
+    } else {
+        await notice_all_mons(true);
+    }
 
     // C ref: unixmain.c wd_message() after newgame() — explore/discovery
     if (g.flags.explore || g.flags.discover) {

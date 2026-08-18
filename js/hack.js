@@ -1811,9 +1811,9 @@ function notice_mons_cmp(m1, m2) {
  * C hack.c notice_all_mons — if a11y.mon_notices && !blocked, count
  * canspotmon, qsort distu, notice_mon each. reset=TRUE clears mspotted
  * on unspotted even when cnt==0 (first-loop else). Named omit:
- * vision.c vision_recalc; allmain.c newgame;
- * read.c seffect_magic_mapping; wizcmds.c; save.c.
- * do.c goto_level wrap is D-1194.
+ * vision.c vision_recalc; read.c seffect_magic_mapping;
+ * wizcmds.c; save.c. do.c goto_level wrap is D-1194;
+ * allmain.c newgame wrap is D-1200.
  */
 export async function notice_all_mons(reset) {
     const a = a11y_state();

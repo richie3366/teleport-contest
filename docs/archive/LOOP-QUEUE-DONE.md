@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit. **Addressed:** D-1199
+- [x] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit. **Addressed:** D-1200
+
+
+- [x] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit. **Addressed:** D-1199 `4dc76022`
 
 
 - [x] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive. **Addressed:** D-1198 `2f8f7d9f`

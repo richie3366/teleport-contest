@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit.
 - [ ] `artifact.c` `init_artifacts` (named). Not wizkit.
 - [ ] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers.
 - [ ] `cmd.c` `wiz_level_change` (named). Not notice_mon_off.

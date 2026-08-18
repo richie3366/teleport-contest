@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1200 — allmain.c `newgame` `notice_mon_off`
+
+- **Status:** fixed (map-driven Open; named omit from D-1142 /
+  D-1192 / D-1194; not a public FAIL)
+- **Symptom:** JS `newgame` ran `docrt` / legacy / `welcome`
+  without C's a11y wrap. C `notice_mon_off()` at the top of
+  `newgame` so welcome messages (and vision recalc inside
+  `docrt`) do not fire `notice_all_mons` mid-init, then
+  `notice_mon_on()` + `notice_all_mons(TRUE)` after
+  `welcome(TRUE)` (unless `a11y.glyph_updates` → `dolookaround`).
+- **C locus:** `allmain.c` `newgame` `:771` first statement
+  after locals; `:844–848` after `welcome(TRUE)` before
+  return. Macros `flag.h` `:233–237`. Callee `hack.c`
+  `notice_all_mons` `:1744–1783` (D-1142).
+- **JS was:** `newgame` went `welcome(true)` then unixmain
+  wd_message / `moveloop_preamble` with no off/on/catch-up.
+- **Fix:** `js/allmain.js` `newgame` calls existing
+  `notice_mon_off` at entry, then `notice_mon_on` +
+  `await notice_all_mons(true)` after welcome when
+  `!glyph_updates`. Did not pull `dolookaround`,
+  `reset_glyphmap(gm_newgame)`, vision.c `:856`
+  `notice_all_mons`, mapping / wizcmds / save wraps,
+  `init_artifacts`, or `spot_monsters` option wiring.
+  Default `mon_notices` Off so public catch-up is a no-op.
+  JS `vision_recalc` still omits the C caller (off is a
+  no-op suppressor until that site).
+- **JS:** `js/allmain.js` `newgame`; callees `js/hack.js`
+  `notice_mon_off`/`on`/`notice_all_mons` (D-1142).
+- **Not this iter:** `a11y.glyph_updates` `dolookaround`;
+  `reset_glyphmap`; vision.c `notice_all_mons`; `read.c`
+  mapping; `wizcmds.c`; `save.c`; `monmove.c` `postmov`;
+  optlist `spot_monsters` → `a11y.mon_notices`;
+  `init_artifacts`; cmd.c `#levelchange`. Rule #2: no fs.
+- **Verified:** private canary **38**/38 (C/JS source order;
+  off before ident/moves; welcome then on then glyph_updates
+  then `notice_all_mons`; one off; wizard before legacy;
+  no `init_artifacts`/`reset_glyphmap`/fs; nested block;
+  extra on clamp; blocked wrap skips fmon walk; catch-up
+  after on; default Off no-op); green+strict seed8000/0900;
+  cohort **14**/14 + strict 8000/0900/1500/1800/0012/0360/
+  4500/2200/0014/0004/0700/0006/0108/0116. Public-unhit on
+  `spot_monsters`.
+- **Files:** `js/allmain.js`, `js/hack.js` / `js/do.js` /
+  `js/teleport.js` (comments).
+
 ## D-1199 — `mon_arrive` After_you `my=xyflags` before rloc
 
 - **Status:** fixed (map-driven Open; named omit from D-1182 /

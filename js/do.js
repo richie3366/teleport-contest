@@ -1802,7 +1802,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C do.c:1971–1972 — after uz0 reset (INSURANCE save_currentstate
     // named), before print_level_annotation. Catch-up after the
     // docrt wrap (D-1194). Default mon_notices Off (optlist
-    // spot_monsters). Did not pull newgame / mapping / wizcmds / save.
+    // spot_monsters). newgame wrap is D-1200; mapping / wizcmds /
+    // save still named.
     notice_mon_on();
     await notice_all_mons(true);
 
