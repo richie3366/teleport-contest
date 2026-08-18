@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
+- [x] `mhitm.c` gulpmm `snuff_lit` minvent (named). Not `m_at` swap. **Addressed:** D-1242
+
+
 - [x] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned. **Addressed:** D-1241 `9b5bd39d`
 
 

@@ -5,21 +5,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1241 `mhitm.c` `passivemm` assess_dmg
-  `monkilled(magr)` (no zombify; AD_ACID goto skips `rn2(3)`).
+- **Fortress 44/44** after D-1242 `mhitm.c` gulpmm `snuff_lit`
+  minvent (`apply.c` lamps/candles `end_burn`; flaming skip).
   Cadence **#1575** (`9b5bd39d`) reviews **200–203** ACCEPT-WITH-DEBT.
-  Next: Open `mhitm.c` gulpmm `snuff_lit` minvent (named). Not
-  `m_at` swap. Must-fix empty.
-  Do not skip D-1241…D-1229. Do not pull giant pickup/maneuver /
+  Next: Open `mhitm.c` gulpmm `!goodpos` return-home (named). Not
+  snuff_lit. Must-fix empty.
+  Do not skip D-1242…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / container_impact /
   hideunder / gulpmm `!goodpos` / AD_DGST eat / AT_HUGS/EXPL/ENGL /
   altwep / `demonpet` / landmine·pit mid-roll / bee_eat / iron
   bars / `mon_yells` / unported uhitm `mhitm_ad_*` `pline_mon` /
-  mhitu `hitmsg`. Do not wrap `msg_mon_movement` as
+  mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff.
+  Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1241. Do not Must-fix named omits
+- Do not revert D-1217–D-1242. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
-  bee_eat / iron bars / `mon_yells` / giant pickup / snuff_lit).
+  bee_eat / iron bars / `mon_yells` / giant pickup / gulpmm
+  `!goodpos` / AD_DGST eat).
 
 ## Don't re-check (≤15)
 
@@ -30,8 +32,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1241 (CURRENT keep; passivemm assess_dmg `monkilled(magr)`
-  D-1241).
+  D-1190…D-1242 (CURRENT keep; gulpmm snuff_lit minvent D-1242).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,18 +47,18 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1241. Keep se_scratching; `troll_baned`
+- Do not skip D-1071…D-1242. Keep se_scratching; `troll_baned`
   wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
   `corpse_xname` adjective / rot CXN_NO_PFX; `spot_monsters` →
   `a11y.mon_notices`; `mon_movement` → `a11y.mon_movement`;
   rolling-boulder TELEP `pline_xy` D-1237; `mind_blast` D-1238;
   cannot_push squeeze D-1239; remaining already-ported uhitm
   `pline_mon` D-1240; passivemm assess_dmg `monkilled(magr)`
-  D-1241. Glob / doname
-  CXN_ARTICLE|CXN_NOCORPSE / snuff_lit / AT_HUGS /
-  `demonpet` / landmine·pit mid-roll / bee_eat / iron bars /
-  `mon_yells` / giant pickup / unported `mhitm_ad_*` `pline_mon` /
-  mhitu `hitmsg` still named. Do not “fix” seed0383
+  D-1241; gulpmm `snuff_lit` minvent D-1242. Glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE / gulpmm `!goodpos` / AD_DGST eat /
+  AT_HUGS / `demonpet` / landmine·pit mid-roll / bee_eat / iron
+  bars / `mon_yells` / giant pickup / unported `mhitm_ad_*`
+  `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
   with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -72,9 +73,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1242: `mhitm.c` gulpmm `snuff_lit` minvent + `apply.c`
+  `snuff_lit`/`snuff_candle`; flaming skip; gulpmu invent /
+  litroom / pickup / `!goodpos` / AD_DGST eat still named.
 - D-1241: `mhitm.c` `passivemm` assess_dmg `monkilled(magr)` (no
-  zombify; AD_ACID goto); gulpmm snuff_lit / `!goodpos` / AD_DGST
-  eat still named.
+  zombify; AD_ACID goto); gulpmm `!goodpos` / AD_DGST eat still
+  named.
 - D-1240: remaining already-ported `uhitm.c` `pline_mon`
   (gremlin light / xan nuzzle / sedu brag); unported `mhitm_ad_*` /
   mhitu `hitmsg` still named.
@@ -92,12 +96,10 @@ Objective/score live in `CURRENT.md`.
   AT_HUGS/EXPL/ENGL / altwep / `demonpet` still named.
 - D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
 - D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
-  snuff_lit / !goodpos / AD_DGST eat named.
+  snuff_lit D-1242; !goodpos / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m.
 - Review **200–203** ACCEPT-WITH-DEBT. Cadence **#1575** **44**/44
   including seed0383. Next audit @**#1580**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
-- D-1228: `msg_mon_movement` dest `pline_xy` after place; not
-  `pline_mon`; optlist `&a11y.mon_movement` addr D-1236.

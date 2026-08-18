@@ -20,6 +20,22 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 00:52 — #1576 D-1242 gulpmm snuff_lit minvent
+
+**Objective:** Open `mhitm.c` gulpmm `snuff_lit` minvent (named).
+Not `m_at` swap.
+**C locus:** `mhitm.c` `gulpmm` `:868–871`; `apply.c` `snuff_lit`
+`:1497–1514` / `snuff_candle` `:1472–1491`.
+**Change:** `!flaming` minvent `nobj` walk `snuff_lit` (lamps /
+lantern / `POT_OIL` then candles; `end_burn` TRUE). Sunsword otyp
+not snuffed. gulpmu invent / `!goodpos` / AD_DGST named.
+Rule #2: no fs.
+**Verified:** private canary **27**/27; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a non-flaming AT_ENGL gulps a minvent lamp.
+**Next:** Open `mhitm.c` gulpmm `!goodpos` return-home (named).
+Not snuff_lit.
+**Blocked:** none.
 ## 2026-08-19 00:35 — #1575 review D-1238–D-1241 + cadence
 
 **Objective:** audit — C-fidelity reviews **200–203** of JS SHAs

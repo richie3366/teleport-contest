@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1242 — mhitm.c gulpmm `snuff_lit` minvent
+
+- **Status:** fixed (map-driven Open; named omit from D-1231 /
+  D-1241; not a public FAIL)
+- **Symptom:** JS `gulpmm` skipped the defender's minvent after
+  the swallow pline. C walks `mdef->minvent` and `snuff_lit`s
+  each object unless `flaming(magr->data)`. `snuff_lit` has no
+  `rn2`: lamps/lantern/`POT_OIL` `end_burn(TRUE)` with a
+  cansee/`!Blind` pline, else `snuff_candle`. Artifact lights
+  (Sunsword) are not those otyps and stay lit.
+- **C locus:** `mhitm.c` `gulpmm` `:868–871`; `apply.c`
+  `snuff_lit` `:1497–1514`; `snuff_candle` `:1472–1491`.
+  Callers gulpmu invent / gulpum / `litroom` / pickup still
+  named.
+- **JS was:** occupancy + AT_ENGL + m_at swap (D-1231); comment
+  `snuff_lit minvent named` and no loop.
+- **Fix:** `!flaming` minvent `nobj` walk `await snuff_lit`.
+  Ported `snuff_lit`/`snuff_candle` in `apply.js` (Yname2 /
+  Shk_Your via objnam `yname`/`shk_your` so MINVENT uses
+  `mon_owns`). Did not pull `splash_lit`, gulpmu invent,
+  `!goodpos`, or AD_DGST eat. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `gulpmm`; `js/apply.js` `snuff_lit` /
+  `snuff_candle`.
+- **Not this iter:** `!goodpos` return-home; AD_DGST eat;
+  gulpmu invent snuff; gulpum; `litroom` artifact_light;
+  pickup `obj_is_burning`; dokick `snuff_candle`; `splash_lit`.
+- **Verified:** private canary **27**/27 (C loop; JS nobj walk;
+  fog gulpmm snuffs MAGIC_LAMP chain; unlit stays; Sunsword
+  otyp unsuffed; `snuff_candle` tallow; candelabrum via
+  `snuff_lit`; invent oil lamp; flaming vortex skip; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  a non-flaming AT_ENGL magr gulps a minvent lamp.
+- **Follow-up:** Open `mhitm.c` gulpmm `!goodpos` return-home.
+
 ## D-1241 — mhitm.c `passivemm` assess_dmg `monkilled(magr)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1211 /

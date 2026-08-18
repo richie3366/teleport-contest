@@ -84,7 +84,7 @@ import {
     is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_HUGE, amorphous,
     is_flyer, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
-    unsolid, is_whirly, passes_walls, haseyes,
+    unsolid, is_whirly, passes_walls, haseyes, flaming,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { ART_TROLLSBANE } from './generated/artifacts_data.js';
@@ -1472,7 +1472,8 @@ export function troll_baned(m, o) {
  * mkcorpstat_norevive + gz.zombify around monkilled, then reset both
  * (D-1223 / D-1211). Barehand TUCH/CLAW/BITE from a zombie_maker,
  * victim has zombie_form.
- * Named omit: gulpmm snuff_lit / !goodpos return-home / AD_DGST eat.
+ * Named omit: gulpmm !goodpos return-home / AD_DGST eat.
+ * gulpmm snuff_lit minvent is D-1242.
  * passivemm assess_dmg monkilled(magr) is D-1241 (no zombify in C).
  */
 async function mdamagem_monkilled(magr, mdef, mattk, mwep) {
@@ -1712,10 +1713,11 @@ async function failed_grab(magr, mdef, mattk) {
  * Occupancy: magr onto mdef's cell; mdef stays in fmon with mx/my
  * (C remove_monster clears the grid). mdamagem swap (D-1231) puts
  * mdef back before monkilled.
- * Named omit: snuff_lit minvent; !goodpos inhospitable dest return-home
- * (teleport.js m_at still sees dead fmon; C grid is empty after relmon);
- * AD_DGST post-monkilled cham/slime/wraith/nurse/mon_givit (partial
- * mdamagem).
+ * snuff_lit minvent when !flaming (D-1242). Named omit: !goodpos
+ * inhospitable dest return-home (teleport.js m_at still sees dead fmon;
+ * C grid is empty after relmon); AD_DGST post-monkilled cham/slime/
+ * wraith/nurse/mon_givit (partial mdamagem). gulpmu invent / gulpum /
+ * litroom / pickup snuff_lit callers still named.
  */
 async function gulpmm(magr, mdef, mattk) {
     if (!engulf_target(magr, mdef)) return M_ATTK_MISS;
@@ -1725,7 +1727,13 @@ async function gulpmm(magr, mdef, mattk) {
             : enfolds(magr.data) ? 'encloses' : 'engulfs';
         await pline(`${Monnam(magr)} ${how} ${mon_nam(mdef)}.`);
     }
-    // snuff_lit minvent named; flaming skip is C's gate around that loop
+    // C: mhitm.c:868–871 — non-flaming innards snuff defender minvent.
+    if (!flaming(magr.data)) {
+        const { snuff_lit } = await import('./apply.js');
+        for (let obj = mdef.minvent; obj; obj = obj.nobj) {
+            await snuff_lit(obj);
+        }
+    }
 
     if (is_vampshifter(mdef) && newcham(mdef, mons(mdef.cham), NO_NC_FLAGS)) {
         if (_mm_vis) {
