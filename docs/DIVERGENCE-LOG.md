@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1231 — gulpmm `m_at` swap + `mattackm` AT_ENGL
+
+- **Status:** fixed (map-driven Open; named omit from D-1211 /
+  D-1223 / review **173**/**185**; not a public FAIL)
+- **Symptom:** when one monster engulfed another, JS never moved
+  the aggressor onto the defender cell, and `mdamagem` never
+  re-placed the defender before `monkilled`. C `relmon` only
+  clears the grid when the occupant is the dying monster, so
+  without the swap `place_monster` / corpse coords follow magr.
+- **C locus:** `mhitm.c` `mdamagem` `:1075–1080` (`m_at(mdef)==magr`
+  then `remove_monster` / `mhp=1` / `place_monster` / `mhp=0`);
+  `gulpmm` `:849–967`; `mattackm` AT_ENGL `:510–536`;
+  `engulf_target` `:807–844`; `failed_grab` `:597–639`.
+  Callee `mdamagem` already live (PHYS+POLY).
+- **JS was:** AT_ENGL fell through to default miss; helper named
+  the swap as omit.
+- **Fix:** `gulpmm` occupancy (defender `MON_OFFMAP`, magr on the
+  cell — JS stand-in for C `level.monsters[][]`); `m_at` skips
+  `MON_OFFMAP`; swap before troll_baned/zombify; AT_ENGL shade /
+  usteed / distmin / `engulfing_u` / `failed_grab` / gulpmm.
+  `minliquid` + `mintrap` after digest death. Rule #2: no fs.
+- **JS:** `js/mhitm.js` gulpmm + AT_ENGL + helper swap;
+  `js/mon.js` `m_at`.
+- **Not this iter:** snuff_lit minvent; `!goodpos` inhospitable
+  dest return-home (`teleport.js` `m_at` still sees dead fmon);
+  AD_DGST post-monkilled cham/slime/wraith/nurse/`mon_givit`;
+  passivemm shock; uhitm `hmon_hitmon`/`hmonas` troll_baned.
+- **Verified:** private canary **38**/38 (C sites; OFFMAP `m_at`;
+  shade/trap/huge/bars/ghost/usteed/far; both-alive restore;
+  digest-kill magr occupies dest); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  Path public-unhit unless public mon-vs-mon engulf.
+- **Files:** `js/mhitm.js`, `js/mon.js`.
+
 ## D-1230 — `#teleport` `doextcmd` → `dotelecmd`
 
 - **Status:** fixed (map-driven Open; named omit from D-1209 /

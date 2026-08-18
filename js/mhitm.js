@@ -1,11 +1,11 @@
 // mhitm.js — Monster vs monster combat (minimal RNG-faithful peel).
-// C ref: mhitm.c — mdisplacem, mattackm, passivemm, mdamagem;
+// C ref: mhitm.c — mdisplacem, mattackm, gulpmm, passivemm, mdamagem;
 //         worn.c find_mac (re-export); uhitm.c mhitm_knockback (RNG order only).
 
 import { rn2, rnd, d } from './rng.js';
 import {
     distmin, m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
-    zombie_maker, zombie_form,
+    zombie_maker, zombie_form, minliquid,
 } from './mon.js';
 import { game } from './gstate.js';
 import { pline, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen } from './display.js';
@@ -34,8 +34,18 @@ import {
     NEED_WEAPON,
     NEED_HTH_WEAPON,
     MON_DETACH,
+    MON_FLOOR,
+    MON_OFFMAP,
     LOW_PM,
     NON_PM,
+    NO_NC_FLAGS,
+    NO_TRAP_FLAGS,
+    IS_OBSTRUCTED,
+    IS_TREE,
+    IS_DOOR,
+    IRONBARS,
+    D_CLOSED,
+    D_LOCKED,
     ismnum,
     has_mgivenname,
     MGIVENNAME,
@@ -59,9 +69,10 @@ import {
 import {
     verysmall, G_FREQ, G_NOCORPSE, G_UNIQ, is_neuter, nonliving,
     bigmonst, is_golem, is_mplayer, is_rider, monsterNames, mons,
-    is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, amorphous,
+    is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_HUGE, amorphous,
     is_flyer, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
+    unsolid, is_whirly, passes_walls,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { ART_TROLLSBANE } from './generated/artifacts_data.js';
@@ -121,6 +132,8 @@ const AD_ACID = 8; /* acid damage — monattk.h (was wrongly AD_DRDX=8) */
 const AD_STCK = 19;
 const AD_SITM = 21; /* steals item (nymphs) — monattk.h */
 const AD_SEDU = 22; /* seduces & steals multiple items */
+const AD_DGST = 26; /* digestion (engulf) — monattk.h */
+const AD_WRAP = 28; /* wrap / engulf hold — monattk.h */
 const AD_DRDX = 30; /* drains dexterity (quasit) — monattk.h */
 const AD_DRCO = 31; /* drains constitution — monattk.h */
 const AD_SSEX = 35; /* Succubus seduction (extended) */
@@ -1114,13 +1127,22 @@ export function troll_baned(m, o) {
 }
 
 /**
- * C ref: mhitm.c mdamagem — troll_baned mkcorpstat_norevive + gz.zombify
- * around monkilled, then reset both (D-1223 / D-1211).
- * Barehand TUCH/CLAW/BITE from a zombie_maker, victim has zombie_form.
- * Named omit: gulpmm m_at swap before this call; passivemm/AD_RBRE shock
- * monkilled; uhitm hmon_hitmon / hmonas troll_baned.
+ * C ref: mhitm.c mdamagem — gulpmm m_at swap (D-1231) then troll_baned
+ * mkcorpstat_norevive + gz.zombify around monkilled, then reset both
+ * (D-1223 / D-1211). Barehand TUCH/CLAW/BITE from a zombie_maker,
+ * victim has zombie_form.
+ * Named omit: passivemm/AD_RBRE shock monkilled; uhitm hmon_hitmon /
+ * hmonas troll_baned.
  */
 async function mdamagem_monkilled(magr, mdef, mattk, mwep) {
+    // C: mhitm.c:1075–1080 — gulpmm occupies mdef's cell; re-place
+    // mdef before monkilled so relmon removes the defender, not magr.
+    if (m_at(mdef.mx, mdef.my) === magr) { /* see gulpmm() */
+        remove_monster(mdef.mx, mdef.my);
+        mdef.mhp = 1; /* otherwise place_monster will complain */
+        place_monster(mdef, mdef.mx, mdef.my);
+        mdef.mhp = 0;
+    }
     const aatyp = mattk.aatyp | 0;
     // C: mhitm.c:1081–1082 / :1090 — AT_WEAP||AT_CLAW only; always reset
     if (aatyp === AT_WEAP || aatyp === AT_CLAW) {
@@ -1217,6 +1239,216 @@ async function hitmm(magr, mdef, mattk, mwep, dieroll) {
     return mdamagem(magr, mdef, mattk, mwep, dieroll);
 }
 
+/** C ref: hacklib.c s_suffix — local for shade futile / failed_grab. */
+function s_suffix_mm(s) {
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`;
+    if (low === 'you') return `${buf}r`;
+    if (buf.endsWith('s') || buf.endsWith('S')) return `${buf}'`;
+    return `${buf}'s`;
+}
+
+/** C ref: monmove.c closed_door — IS_DOOR && (CLOSED|LOCKED). */
+function closed_door_mm(x, y) {
+    const loc = game.level?.at?.(x, y);
+    if (!loc || !IS_DOOR(loc.typ)) return false;
+    return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
+}
+
+/**
+ * C ref: mondata.h digests — AT_ENGL + AD_DGST.
+ * Local copy: mhitu.js exports this; importing it would cycle.
+ */
+function digests(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.aatyp | 0) === AT_ENGL && (a.adtyp | 0) === AD_DGST) return true;
+    }
+    return false;
+}
+
+/** C ref: mondata.h enfolds — AT_ENGL + AD_WRAP. */
+function enfolds(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.aatyp | 0) === AT_ENGL && (a.adtyp | 0) === AD_WRAP) return true;
+    }
+    return false;
+}
+
+/**
+ * C rm.h remove_monster — clear level.monsters[x][y]; mx/my unchanged.
+ * JS occupancy is mx/my, so MON_OFFMAP makes m_at skip like C's empty
+ * grid cell (D-1231). C does not set this bit at this locus.
+ */
+function remove_monster(x, y) {
+    const m = m_at(x, y);
+    if (m) m.mstate = (m.mstate | 0) | MON_OFFMAP;
+}
+
+/**
+ * C steed.c place_monster — mx/my, grid occupant, mstate = MON_FLOOR.
+ */
+function place_monster(mon, x, y) {
+    mon.mx = x | 0;
+    mon.my = y | 0;
+    mon.mstate = MON_FLOOR;
+}
+
+/**
+ * C ref: mhitm.c engulf_target — size + whirly + trap + rock/door/tree/bars.
+ * gulpmm is mon-vs-mon; youmonst Passes_walls arms live in mhitu gulpmu.
+ */
+function engulf_target(magr, mdef) {
+    if (!magr?.data || !mdef?.data) return false;
+    if ((mdef.data.msize | 0) >= MZ_HUGE
+        || ((magr.data.msize | 0) < (mdef.data.msize | 0)
+            && !is_whirly(magr.data))) {
+        return false;
+    }
+    if (mdef.mtrapped || magr.mtrapped) return false;
+
+    const dx = mdef.mx | 0;
+    const dy = mdef.my | 0;
+    if (!passes_walls(mdef.data) && engulf_blocked(dx, dy, magr.data)) {
+        return false;
+    }
+    const ax = magr.mx | 0;
+    const ay = magr.my | 0;
+    if (!passes_walls(magr.data) && engulf_blocked(ax, ay, mdef.data)) {
+        return false;
+    }
+    return true;
+}
+
+/** C mhitm.c engulf_target — IS_OBSTRUCTED / closed_door / IS_TREE / bars. */
+function engulf_blocked(x, y, whirlyPtr) {
+    const lev = game.level?.at?.(x, y);
+    if (!lev) return true;
+    const typ = lev.typ | 0;
+    return !!(IS_OBSTRUCTED(typ) || closed_door_mm(x, y) || IS_TREE(typ)
+        || (typ === IRONBARS && !is_whirly(whirlyPtr)));
+}
+
+/**
+ * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
+ * Named omit: some_mon_nam tail wording (uses s_suffix(mon_nam)+" tail").
+ */
+async function failed_grab(magr, mdef, mattk) {
+    if (!(unsolid(mdef?.data) || game.notonhead)
+        || !((mattk.aatyp | 0) === AT_HUGS
+            || (mattk.adtyp | 0) === AD_WRAP
+            || (mattk.adtyp | 0) === AD_STCK
+            || (mattk.adtyp | 0) === AD_DGST)) {
+        return false;
+    }
+    if ((_mm_vis && canspotmon(mdef))
+        || magr === game.youmonst || mdef === game.youmonst) {
+        const verb = (mattk.adtyp | 0) === AD_DGST ? 'gulp'
+            : (mattk.adtyp | 0) === AD_STCK ? 'adhere' : 'grab';
+        const magrnam = magr === game.youmonst
+            ? 'Your' : s_suffix_mm(Monnam(magr));
+        let mdefnam;
+        if (!game.notonhead) {
+            mdefnam = mdef === game.youmonst ? 'you' : mon_nam(mdef);
+        } else {
+            mdefnam = `${s_suffix_mm(mon_nam(mdef))} tail`;
+        }
+        await pline(
+            `${magrnam} ${verb} attempt ${
+                game.notonhead ? 'fails to hold' : 'passes right through'
+            } ${mdefnam}!`,
+        );
+    }
+    return true;
+}
+
+/**
+ * C ref: mhitm.c gulpmm — swallow/enfold/engulf another monster.
+ * Occupancy: magr onto mdef's cell; mdef stays in fmon with mx/my
+ * (C remove_monster clears the grid). mdamagem swap (D-1231) puts
+ * mdef back before monkilled.
+ * Named omit: snuff_lit minvent; !goodpos inhospitable dest return-home
+ * (teleport.js m_at still sees dead fmon; C grid is empty after relmon);
+ * AD_DGST post-monkilled cham/slime/wraith/nurse/mon_givit (partial
+ * mdamagem).
+ */
+async function gulpmm(magr, mdef, mattk) {
+    if (!engulf_target(magr, mdef)) return M_ATTK_MISS;
+
+    if (_mm_vis) {
+        const how = digests(magr.data) ? 'swallows'
+            : enfolds(magr.data) ? 'encloses' : 'engulfs';
+        await pline(`${Monnam(magr)} ${how} ${mon_nam(mdef)}.`);
+    }
+    // snuff_lit minvent named; flaming skip is C's gate around that loop
+
+    if (is_vampshifter(mdef) && newcham(mdef, mons(mdef.cham), NO_NC_FLAGS)) {
+        if (_mm_vis) {
+            await pline(
+                `${Monnam(magr)} expels ${canspotmon(mdef) ? 'it' : 'something'}.`,
+            );
+            if (canspotmon(mdef)) {
+                await pline(`It turns into ${x_monnam(mdef, ARTICLE_A, null,
+                    (SUPPRESS_NAME | SUPPRESS_IT | SUPPRESS_INVISIBLE), false)}.`);
+            }
+        }
+        return M_ATTK_HIT; /* bypass mdamagem() */
+    }
+
+    const ax = magr.mx | 0;
+    const ay = magr.my | 0;
+    const dx = mdef.mx | 0;
+    const dy = mdef.my | 0;
+    // C: leave defender in the chain at current position, off the grid;
+    // move aggressor onto defender's cell.
+    remove_monster(dx, dy);
+    remove_monster(ax, ay);
+    place_monster(magr, dx, dy);
+    newsym(ax, ay);
+    newsym(dx, dy);
+
+    game.mswallower = magr; /* corpse_chance() wants this */
+    const status = await mdamagem(magr, mdef, mattk, null, 0);
+    game.mswallower = null;
+
+    if ((status & (M_ATTK_AGR_DIED | M_ATTK_DEF_DIED))
+        === (M_ATTK_AGR_DIED | M_ATTK_DEF_DIED)) {
+        ; /* both died -- do nothing */
+    } else if (status & M_ATTK_DEF_DIED) {
+        // Named omit: !goodpos(dx,dy,magr,MM_IGNOREWATER) return-home
+        if (m_at(dx, dy) !== magr) {
+            place_monster(magr, dx, dy);
+            newsym(dx, dy);
+        }
+        const { t_at, mintrap, Trap_Killed_Mon } = await import('./trap.js');
+        if (await minliquid(magr)
+            || (t_at(dx, dy)
+                && (await mintrap(magr, NO_TRAP_FLAGS)) === Trap_Killed_Mon)) {
+            return status | M_ATTK_AGR_DIED;
+        }
+    } else if (status & M_ATTK_AGR_DIED) {
+        place_monster(mdef, dx, dy);
+        newsym(dx, dy);
+    } else {
+        if (cansee(dx, dy)) {
+            const how = digests(magr.data) ? 'regurgitated'
+                : enfolds(magr.data) ? 'released' : 'expelled';
+            await pline(`${Monnam(mdef)} is ${how}!`);
+        }
+        remove_monster(dx, dy);
+        place_monster(magr, ax, ay);
+        place_monster(mdef, dx, dy);
+        newsym(ax, ay);
+        newsym(dx, dy);
+    }
+
+    return status;
+}
+
 /**
  * C ref: mhitm.c mattackm()
  * Returns M_ATTK_* bitmask. Async: combat pline may await --More--.
@@ -1286,6 +1518,37 @@ export async function mattackm(magr, mdef) {
                 if (mwep) tmp -= hitval(mwep, mdef);
                 if (strike) {
                     res[i] = await hitmm(magr, mdef, mattk, mwep, dieroll);
+                } else {
+                    await missmm(magr, mdef, mattk);
+                }
+                break;
+            }
+            case AT_ENGL: {
+                // C: mhitm.c mattackm AT_ENGL — shade futile; usteed skip;
+                // distmin>1 continue; engulfing_u miss; rnd hit then
+                // failed_grab / gulpmm (D-1231).
+                if ((mdef.data?.mndx ?? mdef.mnum) === PM_SHADE) {
+                    if (_mm_vis) {
+                        await pline(
+                            `${s_suffix_mm(Monnam(magr))} attempt to engulf ${mon_nam(mdef)} is futile.`,
+                        );
+                    }
+                    strike = 0;
+                    break;
+                }
+                if (game.u?.usteed && mdef === game.u.usteed) {
+                    strike = 0;
+                    break;
+                }
+                if (distmin(magr.mx, magr.my, mdef.mx, mdef.my) > 1) continue;
+                if (engulfing_u(magr)) {
+                    strike = 0;
+                } else if ((strike = (tmp > rnd(20 + i)) ? 1 : 0) !== 0) {
+                    if (await failed_grab(magr, mdef, mattk)) {
+                        strike = 0;
+                    } else {
+                        res[i] = await gulpmm(magr, mdef, mattk);
+                    }
                 } else {
                     await missmm(magr, mdef, mattk);
                 }

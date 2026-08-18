@@ -20,6 +20,27 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 22:05 — #1562 D-1231 gulpmm m_at swap
+
+**Objective:** Open `mhitm.c` gulpmm `m_at` swap (named). Not
+passivemm.
+**C locus:** `mhitm.c` `mdamagem` 1075–1080; `gulpmm` 849–967;
+`mattackm` AT_ENGL 510–536; `engulf_target` 807–844;
+`failed_grab` 597–639.
+**Change:** `gulpmm` puts magr on mdef's cell (`MON_OFFMAP` for
+C grid); `m_at` skips that bit; `mdamagem` re-places mdef
+before `monkilled`. AT_ENGL shade/usteed/distmin/`engulfing_u`/
+`failed_grab`. Did not pull snuff_lit, `!goodpos` return-home,
+AD_DGST eat, passivemm, or uhitm troll_baned. Filled D-1230
+archive hash `a3c04dd7`. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1560** **44**/44; next
+audit @**#1565**).
+**Verified:** private canary **38**/38; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. Public-unhit unless mon-vs-mon engulf.
+**Next:** Open `uhitm.c` `hmon_hitmon` `troll_baned` around
+`killed` (named). Not hmonas.
 ## 2026-08-18 21:50 — #1561 D-1230 #teleport doextcmd
 
 **Objective:** Open `teleport.c` `#teleport` `doextcmd` (named from

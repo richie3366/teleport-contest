@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1231 | fixed | mhitm.c gulpmm `m_at` swap + AT_ENGL | map-driven; C `mhitm.c:1075–1080` `m_at(mdef)==magr` re-place before `monkilled`; `gulpmm` 849–967 occupancy + `mattackm` AT_ENGL 510–536; JS `MON_OFFMAP` stands in for C grid; snuff_lit / `!goodpos` return-home / AD_DGST eat / passivemm shock / uhitm troll_baned still named |
 | D-1230 | fixed | `cmd.c` `#teleport` `doextcmd` | map-driven; C `cmd.c:1890–1891` extcmdlist `"teleport"` → `dotelecmd` IFBURIED\|CMD_M_PREFIX no AUTOCOMPLETE; `doextcmd:507–511` accept_menu_prefix; `getline.c` ECM_IGNOREAC\|ECM_EXACTMATCH; rhack `#` CMD_M_PREFIX; JS EXT_CMDS not EXT_CMD_AC; rolling-boulder TELEP `pline_xy` / weffects / Amulet drain still named |
 | D-1229 | fixed | hack.c `impact_disturbs_zombies` | map-driven; C `hack.c:1787–1794` `owt<(violent?10U:100U)||is_flimsy` then `disturb_buried_zombies(ox,oy)`; dropz `with_impact`; throwit `!IS_SOFT` TRUE; kick obstructed-loose+land TRUE; `obj.h` is_flimsy; container_impact_dmg / hitfloor `dropz(TRUE)` / hideunder / local wake clones still named |
 | D-1228 | fixed | monmove.c `msg_mon_movement` | map-driven; C `monmove.c:32–48` / caller `:2051–2053` after `place_monster`; `pline_xy(nix,niy)` dest not `pline_mon`; `a11y.mon_movement` + `canspotmon` + `mspotted`; next2u/closer/further/distance + `vtense(0, locomotion(…,"move"))`; default Off; optlist `&a11y.mon_movement` addr / `worm_move` / remaining `pline_mon` still named |

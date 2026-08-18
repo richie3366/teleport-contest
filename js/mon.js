@@ -16,7 +16,7 @@ import {
     Is_astralevel, Is_airlevel, Is_firelevel,
     IS_FOUNTAIN,
     ismnum, M_POISONGAS_OK, M_POISONGAS_MINOR, M_POISONGAS_BAD, POISON_RES,
-    u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_MIGRATING, MON_DETACH,
+    u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_OFFMAP, MON_MIGRATING, MON_DETACH,
     MON_LIMBO, MON_OBLITERATE, MON_ENDGAME_MIGR, MIGR_APPROX_XY, MIGR_RANDOM,
     has_emin, has_epri, has_eshk,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
@@ -1104,13 +1104,17 @@ export function m_at(x, y) {
     // C: level.monsters[][] — worm segs via place_worm_seg; heads on fmon.
     // Steed is remove_monster'd while mounted.
     // Dead mons stay on fmon until dmonsfree but are off the map grid (C).
+    // gulpmm remove_monster leaves mx/my; JS marks MON_OFFMAP so this
+    // skip matches C's empty grid cell (D-1231).
     const seg = game._level_monsters?.get(`${x},${y}`);
-    if (seg && (seg.mhp | 0) > 0) return seg;
+    if (seg && (seg.mhp | 0) > 0
+        && !((seg.mstate | 0) & MON_OFFMAP)) return seg;
     const list = game.fmon || [];
     const steed = game.u?.usteed;
     for (const m of list) {
         if (m === steed) continue;
         if ((m.mhp | 0) <= 0) continue; // DEADMONSTER — not on map
+        if ((m.mstate | 0) & MON_OFFMAP) continue;
         if (m.mx === x && m.my === y) return m;
     }
     return null;

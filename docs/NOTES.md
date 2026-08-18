@@ -5,15 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1230 `#teleport` `doextcmd`. Cadence
-  **#1560** (`0ddfb189`). Next: map-driven Open `mhitm.c` gulpmm
-  `m_at` swap. Not passivemm. Must-fix empty. Do not skip
-  D-1230 `#teleport` / D-1229 impact owt/flimsy. Do not pull
-  container_impact / hitfloor `dropz(TRUE)` / hideunder. Do
-  not wrap `msg_mon_movement` as `pline_mon`. Do not restore
-  Hallu `mon_glyph` in `gbuf_show_kind`. Do not FORCE seed0383.
-- Do not revert D-1217–D-1230. Do not prepend Must-fix for named
-  omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
+- **Fortress 44/44** after D-1231 gulpmm `m_at` swap. Cadence
+  **#1560** (`0ddfb189`). Next: map-driven Open `uhitm.c`
+  `hmon_hitmon` `troll_baned` around `killed`. Not hmonas.
+  Must-fix empty. Do not skip D-1231 gulpmm / D-1230 `#teleport` /
+  D-1229 impact owt/flimsy. Do not pull container_impact /
+  hitfloor `dropz(TRUE)` / hideunder / passivemm shock /
+  `hmonas` troll_baned. Do not wrap `msg_mon_movement` as
+  `pline_mon`. Do not restore Hallu `mon_glyph` in
+  `gbuf_show_kind`. Do not FORCE seed0383.
+- Do not revert D-1217–D-1231. Do not prepend Must-fix for named
+  omits (uhitm troll_baned / unique pname `corpse_xname` /
   other Soundeffect / remaining uhitm/worn/trap `pline_mon`).
 
 ## Don't re-check (≤15)
@@ -83,6 +85,8 @@ Objective/score live in `CURRENT.md`.
   `dropz(TRUE)` / hideunder / local wake clones still named).
   Do not skip D-1230 `#teleport` `doextcmd` (no AUTOCOMPLETE;
   rhack `#` CMD_M_PREFIX; resolved accept_menu_prefix).
+  Do not skip D-1231 gulpmm `m_at` swap / AT_ENGL `gulpmm`
+  (snuff_lit / !goodpos return-home / AD_DGST eat named).
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -92,7 +96,7 @@ Objective/score live in `CURRENT.md`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
   remaining uhitm/worn/trap/weapon drop·tether `pline_mon` /
   rolling-boulder TELEP `pline_xy`.
-  gulpmm `m_at` swap / uhitm `hmon_hitmon`+`hmonas` troll_baned named.
+  uhitm `hmon_hitmon`+`hmonas` troll_baned named.
   Other Soundeffect sites still named (not se_scratching).
   `spot_monsters` / `&a11y.mon_movement` addr still named. Integer glyph
   IDs / `in_getlev` / await-`newsym` More when mention_map On named.
@@ -102,6 +106,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
+  snuff_lit / !goodpos return-home / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m; rolling-boulder TELEP `pline_xy` named.
 - Review **188–191** ACCEPT-WITH-DEBT (D-1226…D-1229). Cadence
@@ -116,5 +122,5 @@ Objective/score live in `CURRENT.md`.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
   `#teleport` doextcmd D-1230; weffects / Amulet drain named.
 - D-1224: LEVEL_TELEP `y_n` + live `level_tele_trap`.
-- D-1223: mhitm `troll_baned`; uhitm / gulpmm named.
+- D-1223: mhitm `troll_baned`; gulpmm D-1231; uhitm named.
 - D-1221 closed review **181**. Map-driven / one cluster, not FAIL peels.

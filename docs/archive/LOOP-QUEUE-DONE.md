@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast. **Addressed:** D-1230
+- [x] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm. **Addressed:** D-1231
+
+
+- [x] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast. **Addressed:** D-1230 `a3c04dd7`
 
 
 - [x] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder. **Addressed:** D-1229 `0ddfb189`
