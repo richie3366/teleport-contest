@@ -21,6 +21,34 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 05:25 — #1525 review D-1197–D-1200 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `teleport.c` `scrolltele` 865–870 / `hack.h` `y_n` /
+`pline.c` `You_feel`; `dog.c` `migrate_to_level` 913–915 /
+`dungeon.c` `In_W_tower`; `dog.c` `mon_arrive` 607–613 /
+`losedogs` 390–401 / `mon.c` `mnearto` FALSE; `allmain.c`
+`newgame` 771 / 844–848 / `hack.c` `notice_all_mons`.
+**Change:** reviews **159** ACCEPT D-1197 (W-tower OR + live
+`yn_function` Override; unconscious/steed named), **160**
+ACCEPT D-1198 (`In_W_tower` `|=2` on pre-relmon coords; `my`
+still 0 until D-1199), **161** ACCEPT-WITH-DEBT D-1199
+(After_you copies `my=xyflags` then `rloc`/`mnearto`;
+failed_arrivals/wander/`MON_STILL_ARRIVING` named, not
+Must-fix), **162** ACCEPT D-1200 (newgame off/on + catch-up
+after Hello; `dolookaround` / vision.c caller named). Filled
+D-1200 archive hash `15cb4a37`. No new Must-fix prepend.
+Open 9 (no refill). Rotated #1510. Rule #2: no fs.
+**Score:** cadence **#1525** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `31+0.27/turn` (R² 0.878). Next
+@**#1530**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `artifact.c` `init_artifacts` (named). Not
+wizkit.
+**Blocked:** none.
+
 ## 2026-08-18 05:12 — #1524 D-1200 newgame notice_mon_off
 
 **Objective:** Open — `allmain.c` `newgame` `notice_mon_off`
@@ -336,30 +364,4 @@ green+strict seed8000/0900; cohort **18**/18 + strict
 1500/1800/2200/0009/0361/0012.
 **Next:** Open `do.c` `goto_level` `kill_genocided_monsters`
 (named). Not `run_timers`.
-**Blocked:** none.
-
-## 2026-08-18 00:35 — #1510 review D-1185–D-1188 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `do_wear.c` `doddoremarm` 3022–3056 / `invent.c`
-`wearing_armor` 2149–2152; `cmd.c` `do_rush`/`do_run` 1590–1617 /
-rhack PREFIXCMD 3762–3801; `hack.c` `avoid_trap_andor_region`
-2515–2581 / `trap.c` `immune_to_trap` 2783–2934; `teleport.c`
-`domagicportal` 1444–1488.
-**Change:** reviews **147** ACCEPT D-1185 (empty-worn `A`; `\e[72C`
-was truncated capture, not H2344), **148** ACCEPT D-1186 (`g`/`G`
-PREFIXCMD keep-run; `rhack(0)` firsttime multi), **149**
-ACCEPT-WITH-DEBT D-1187 (portal yn live; sticky
-`Stunned`/`Confusion` clone debt, not Must-fix), **150** ACCEPT
-D-1188 (`feeltrap`+`domagicportal`; ATSTAIRS; callees live).
-Filled D-1188 archive hash `c58efd08`. No new Must-fix prepend.
-Open 10 + visctrl = 11 (no refill). Rotated #1495. Rule #2: no fs.
-**Score:** cadence **#1510** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `33+0.28/turn` (R² 0.87). Next
-@**#1515**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Must-fix seed8243 `cmd.c` rhack `visctrl` `^C`. Not
-maybe_smudge_engr.
 **Blocked:** none.

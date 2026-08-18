@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1520** 44/44 @**#1525**. Next `init_artifacts`. Do not skip D-1200.
+- **#1525** 44/44 @**#1530**. Next `init_artifacts`. Do not skip D-1200.
 
 ## Don't re-check (≤15)
 
@@ -87,4 +87,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1520; next `init_artifacts`.
+- #1525; next `init_artifacts`.

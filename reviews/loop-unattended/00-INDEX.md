@@ -168,3 +168,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [156-c4c57ac1-notice-mon-off.md](./156-c4c57ac1-notice-mon-off.md) | `c4c57ac1` | D-1194 `goto_level` `notice_mon_off` | **ACCEPT** |
 | [157-143f9a46-rloc-wand-makeknown.md](./157-143f9a46-rloc-wand-makeknown.md) | `143f9a46` | D-1195 rloc wand `makeknown` | **ACCEPT** |
 | [158-d0cbc6e3-rloc-set-msg-xy.md](./158-d0cbc6e3-rloc-set-msg-xy.md) | `d0cbc6e3` | D-1196 dest-msg `set_msg_xy` | **ACCEPT-WITH-DEBT** |
+| [159-7deb2670-scrolltele-override-yn.md](./159-7deb2670-scrolltele-override-yn.md) | `7deb2670` | D-1197 scrolltele Override yn | **ACCEPT** |
+| [160-2f8f7d9f-migrate-xyflags-bit2.md](./160-2f8f7d9f-migrate-xyflags-bit2.md) | `2f8f7d9f` | D-1198 migrate bit 2 | **ACCEPT** |
+| [161-4dc76022-mon-arrive-xyflags.md](./161-4dc76022-mon-arrive-xyflags.md) | `4dc76022` | D-1199 `mon_arrive` `my=xyflags` | **ACCEPT-WITH-DEBT** |
+| [162-15cb4a37-newgame-notice-mon-off.md](./162-15cb4a37-newgame-notice-mon-off.md) | `15cb4a37` | D-1200 newgame `notice_mon_off` | **ACCEPT** |

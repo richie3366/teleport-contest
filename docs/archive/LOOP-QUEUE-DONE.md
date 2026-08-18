@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit. **Addressed:** D-1200
+- [x] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit. **Addressed:** D-1200 `15cb4a37`
 
 
 - [x] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit. **Addressed:** D-1199 `4dc76022`
