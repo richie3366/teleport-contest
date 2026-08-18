@@ -1657,12 +1657,26 @@ function Blinded() {
 }
 
 /**
+ * C ref: trap.c unconscious — multi < 0 and (usleep or wake-msg prefixes).
+ * Local clone: trap.js imports this file (cycle). eat.js has the same body.
+ */
+function unconscious() {
+    if ((game.multi || 0) >= 0) return false;
+    const u = game.u || {};
+    if (u.usleep) return true;
+    const msg = game.nomovemsg || '';
+    return msg.startsWith('You awake')
+        || msg.startsWith('You regain con')
+        || msg.startsWith('You are consci');
+}
+
+/**
  * C ref: teleport.c scrolltele — scroll/intrinsic teleport placement.
  * Envelope: noteleport pline; !Blinded make_blinded(0,FALSE);
  * amulet||On_W_tower_level !rn2(3) You_feel + wizard y_n Override;
- * wizard/Teleport_control getpos path; uncontrolled → learnscroll +
- * safe_teleds.
- * Named omissions: unconscious controlled fail; steed whobuf.
+ * unconscious() fail pline then fall through; wizard/Teleport_control
+ * getpos path; uncontrolled → learnscroll + safe_teleds.
+ * Named omissions: steed whobuf.
  * dotele clears travelcc before tele (D-0789); scrolltele clears when
  * controlled dest equals travelcc.
  */
@@ -1699,28 +1713,34 @@ export async function scrolltele(scroll) {
     const Stunned = !!(u.Stunned || u.HStun || u.EStun);
     if (((Teleport_control || (scroll && scroll.blessed)) && !Stunned)
         || wizard) {
-        // unconscious deferred; steed whobuf deferred
-        await pline('Where do you want to be teleported?');
-        if (scroll) learnscroll(scroll);
-        const cc = { x: u.ux | 0, y: u.uy | 0 };
-        const travel = game.iflags?.travelcc;
-        if (travel && isok(travel.x, travel.y)) {
-            cc.x = travel.x | 0;
-            cc.y = travel.y | 0;
-        }
-        const { getpos } = await import('./getpos.js');
-        if ((await getpos(cc, true, 'the desired position')) < 0) return;
-        if (await teleok(cc.x, cc.y, false)) {
-            await teleds(cc.x, cc.y, TELEDS_TELEPORT);
-            // C: if (u_at(travelcc)) clear travelcc
-            const tcc = game.iflags?.travelcc;
-            if (tcc && (u.ux | 0) === (tcc.x | 0) && (u.uy | 0) === (tcc.y | 0)) {
-                tcc.x = 0;
-                tcc.y = 0;
+        /* C teleport.c:874–876 — trap.c unconscious; skip getpos, then
+         * fall through to learnscroll + safe_teleds. */
+        if (unconscious()) {
+            await pline('Being unconscious, you cannot control your teleport.');
+        } else {
+            // steed whobuf deferred — C: "Where do %s want" (you [and steed])
+            await pline('Where do you want to be teleported?');
+            if (scroll) learnscroll(scroll);
+            const cc = { x: u.ux | 0, y: u.uy | 0 };
+            const travel = game.iflags?.travelcc;
+            if (travel && isok(travel.x, travel.y)) {
+                cc.x = travel.x | 0;
+                cc.y = travel.y | 0;
             }
-            return;
+            const { getpos } = await import('./getpos.js');
+            if ((await getpos(cc, true, 'the desired position')) < 0) return;
+            if (await teleok(cc.x, cc.y, false)) {
+                await teleds(cc.x, cc.y, TELEDS_TELEPORT);
+                // C: if (u_at(travelcc)) clear travelcc
+                const tcc = game.iflags?.travelcc;
+                if (tcc && (u.ux | 0) === (tcc.x | 0) && (u.uy | 0) === (tcc.y | 0)) {
+                    tcc.x = 0;
+                    tcc.y = 0;
+                }
+                return;
+            }
+            await pline('Sorry...');
         }
-        await pline('Sorry...');
     }
 
     if (scroll) learnscroll(scroll);

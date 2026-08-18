@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
+- [x] `teleport.c` `scrolltele` unconscious (named). Not Override yn. **Addressed:** D-1205
+
+
 - [x] `eat.c` `eatspecial` (named). Not doeat_nonfood. **Addressed:** D-1204 `dbd3a08b`
 
 

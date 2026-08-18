@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1205 — `scrolltele` `unconscious()` controlled fail
+
+- **Status:** fixed (map-driven Open; named omit from D-1197 /
+  D-1184 / D-0407; not a public FAIL)
+- **Symptom:** JS `scrolltele` entered the Teleport_control /
+  blessed / wizard arm and always asked getpos. C, when
+  `unconscious()`, prints `"Being unconscious, you cannot
+  control your teleport."` and **falls through** to
+  `learnscroll` + `safe_teleds` (no dest picker, no early
+  return). Sleep / wake-msg prefixes still cannot steer.
+- **C locus:** `teleport.c` `scrolltele` `:874–876` inside the
+  control arm after Override, before steed `whobuf`/`getpos`.
+  Callee `trap.c` `unconscious` `:6776–6786`: `gm.multi >= 0`
+  FALSE; else `u.usleep` or `nomovemsg` prefixes `"You awake"`
+  (9) / `"You regain con"` (14) / `"You are consci"` (14).
+  Callers: `tele()` → `scrolltele(NULL)`; `seffects`
+  SCR_TELEPORTATION.
+- **JS was:** `// unconscious deferred` then always
+  `"Where do you want to be teleported?"` + getpos.
+- **Fix:** local `unconscious()` clone (trap.js imports this
+  file); if true, the fail pline then the existing fall-through.
+  Wizard still fails (Override is the earlier amulet/W-tower
+  yn). Stunned keeps the outer if false so no fail pline.
+  Did not pull steed `whobuf`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `scrolltele` / local `unconscious()`.
+  eat.js already had the same clone.
+- **Not this iter:** steed `whobuf`; `dotele` trap-at-feet;
+  `dotelecmd` m-prefix. Rule #2: no fs.
+- **Verified:** private canary **37**/37 (C/JS order; usleep /
+  three prefixes; paralysis not unconscious; multi>=0;
+  Stunned skip; wizard/`flags.debug` still fail; no-control
+  silent; blessed scroll; learnscroll fall-through;
+  noteleport before; no getpos; steed still named; no fs);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/0012/0360/4500/2200/0014/0004. Path public-unhit
+  unless a controlled teleport fires while `multi<0` sleep
+  or a matching wake `nomovemsg`.
+- **Files:** `js/teleport.js`.
+
 ## D-1204 — eat.c `eatspecial` SCR_MAIL + `uwepgone` artifact_light
 
 - **Status:** fixed (map-driven Open; named omit from D-0946 /

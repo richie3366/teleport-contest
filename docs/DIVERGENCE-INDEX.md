@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1205 | fixed | `scrolltele` unconscious controlled fail | map-driven; C `teleport.c:874–876` / `trap.c` `unconscious` 6776–6786; `multi<0` and (`usleep` or wake-msg prefixes); pline then fall through `learnscroll`+`safe_teleds` (no getpos); wizard still fails; Stunned skips the outer if; steed whobuf still named |
 | D-1204 | fixed | eat.c `eatspecial` SCR_MAIL + `uwepgone` artifact_light | map-driven; C `eat.c:2432–2447` MAIL_STRUCTURES junk-mail before scare/YUM; `wield.c:873–885` `artifact_light` `end_burn` + Tobjnam shine + `update_inventory`; gone-trio + `o_unleash` inventory; lesshungry choke/fullwarn / setuwep begin_burn still named |
 | D-1203 | fixed | wizcmds.c `wiz_level_change` drain | map-driven; C `wizcmds.c:444–487` `#levelchange` + `exper.c:214–217` `#levelchange` nulls drainer (skip `resists_drli`, never fatal) then `losexp` loop + `u.ulevelmax=u.ulevel`; raise already D-0061; ESC/empty Never_mind; `makemap_prepost` / Upolyd mh / level-1 `done(DIED)` still named |
 | D-1202 | fixed | timeout.c REVIVE_MON / ZOMBIFY_MON | map-driven; C `do.c:2251–2315` `revive_mon`/`zombify_mon` (table `timeout.c:1982–1983`); `mon.c:386–413` `zombie_form`; `timeout.c:2404–2409` `obj_has_timer`; `mkobj.c:1425–1428` `gz.zombify` `rn1(15,5)`; displacer `rloc(RLOC_NOMSG)`; rider `rn2(99)` retry / `ROT_CORPSE` `d(5,50)`; buried pit in `revive_corpse`; make_corpse/mhitm `gz.zombify` setters / MINVENT+CONTAINED still named |
