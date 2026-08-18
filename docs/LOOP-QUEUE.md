@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive` (named). Not hmon_hitmon.
 - [ ] `do.c` `revive_corpse` unique/pname `corpse_xname` adjective (named). Not Soundeffect.
 - [ ] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates.
 - [ ] `options.c` `optlist` `&a11y.mon_movement` (named). Not spot_monsters.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `monmove.c` `mind_blast` (named). Not msg_mon_movement.
 - [ ] `hack.c` cannot_push squeeze (named from D-1226). Not run>=2 boulder.
 - [ ] `uhitm.c` remaining `pline_mon` (named). Not troll_baned.
+- [ ] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned.
+- [ ] `mhitm.c` gulpmm `snuff_lit` minvent (named). Not `m_at` swap.
+- [ ] `mhitm.c` gulpmm `!goodpos` return-home (named). Not snuff_lit.
+- [ ] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm.
+- [ ] `hack.c` hideunder after impact (named from D-1229). Not container_impact.
 
 ## Parked (do not pop)
 

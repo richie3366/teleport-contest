@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1232 `hmon_hitmon` `troll_baned` TRUE-only
-  around `killed`. Cadence **#1560** (`0ddfb189`). Next: map-driven
-  Open `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive`. Not
-  hmon_hitmon. Must-fix empty. Do not skip D-1232 / D-1231 gulpmm /
-  D-1230 `#teleport` / D-1229 impact owt/flimsy. Do not pull
-  container_impact / hitfloor `dropz(TRUE)` / hideunder /
-  passivemm / `hmonas` troll_baned. Do not wrap `msg_mon_movement`
-  as `pline_mon`. Do not restore Hallu `mon_glyph` in
-  `gbuf_show_kind`. Do not FORCE seed0383.
-- Do not revert D-1217–D-1232. Do not prepend Must-fix for named
-  omits (uhitm hmonas troll_baned / unique pname `corpse_xname` /
-  other Soundeffect / remaining uhitm/worn/trap `pline_mon`).
+- **Fortress 44/44** after D-1233 `hmonas`/`damageum` `troll_baned`
+  ternary/`uwep`. Cadence **#1560** (`0ddfb189`). Next: map-driven
+  Open `do.c` `revive_corpse` unique/pname `corpse_xname`. Not
+  Soundeffect. Must-fix empty. Do not skip D-1233 / D-1232 /
+  D-1231 gulpmm / D-1230 `#teleport` / D-1229 impact owt/flimsy.
+  Do not pull container_impact / hitfloor `dropz(TRUE)` / hideunder /
+  passivemm / AT_HUGS/EXPL/ENGL / altwep / `demonpet`. Do not wrap
+  `msg_mon_movement` as `pline_mon`. Do not restore Hallu `mon_glyph`
+  in `gbuf_show_kind`. Do not FORCE seed0383.
+- Do not revert D-1217–D-1233. Do not prepend Must-fix for named
+  omits (unique pname `corpse_xname` / other Soundeffect /
+  remaining uhitm/worn/trap `pline_mon`).
 
 ## Don't re-check (≤15)
 
@@ -65,7 +65,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1232 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1233 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
   Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
@@ -88,7 +88,8 @@ Objective/score live in `CURRENT.md`.
   Do not skip   D-1231 gulpmm `m_at` swap / AT_ENGL `gulpmm`
   (snuff_lit / !goodpos return-home / AD_DGST eat named).
   Do not skip D-1232 `hmon_hitmon` `troll_baned` TRUE-only around
-  `killed` (hmonas AT_WEAP||AT_CLAW `uwep` still named).
+  `killed`. Do not skip D-1233 `hmonas`/`damageum` ternary/`uwep`
+  (AT_HUGS/EXPL/ENGL / altwep / `demonpet` spawn still named).
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -98,7 +99,7 @@ Objective/score live in `CURRENT.md`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
   remaining uhitm/worn/trap/weapon drop·tether `pline_mon` /
   rolling-boulder TELEP `pline_xy`.
-  uhitm `hmonas` troll_baned named (hmon_hitmon D-1232).
+  uhitm AT_HUGS/EXPL/ENGL / altwep / `demonpet` named (hmonas D-1233).
   Other Soundeffect sites still named (not se_scratching).
   `spot_monsters` / `&a11y.mon_movement` addr still named. Integer glyph
   IDs / `in_getlev` / await-`newsym` More when mention_map On named.
@@ -108,8 +109,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`;
-  hmonas still named.
+- D-1233: `hmonas`/`damageum` `troll_baned` ternary/`uwep`;
+  AT_HUGS/EXPL/ENGL / altwep / `demonpet` still named.
+- D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
 - D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
   snuff_lit / !goodpos return-home / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
@@ -127,5 +129,5 @@ Objective/score live in `CURRENT.md`.
   `#teleport` doextcmd D-1230; weffects / Amulet drain named.
 - D-1224: LEVEL_TELEP `y_n` + live `level_tele_trap`.
 - D-1223: mhitm `troll_baned`; gulpmm D-1231; hmon_hitmon D-1232;
-  hmonas named.
+  hmonas D-1233.
 - D-1221 closed review **181**. Map-driven / one cluster, not FAIL peels.

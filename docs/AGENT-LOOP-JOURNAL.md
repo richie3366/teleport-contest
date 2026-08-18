@@ -20,6 +20,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 22:40 — #1564 D-1233 hmonas damageum troll_baned
+
+**Objective:** Open `uhitm.c` `hmonas` `troll_baned`
+`mkcorpstat_norevive` (named). Not hmon_hitmon.
+**C locus:** `uhitm.c` `damageum` 4866–4880 (ternary
+`troll_baned(mdef, uwep)` on AT_WEAP||AT_CLAW then killed/xkilled
+then FALSE); `do_attack` Upolyd → `hmonas`.
+**Change:** `damageum` wrap + thin `hmonas` (weapon → `known_hitum`;
+natural → `damageum`) + `do_attack` Upolyd. Did not pull
+AT_HUGS/EXPL/ENGL, altwep, or `demonpet` spawn. Filled D-1232
+archive hash `83624a46`. Open 7 after archive → refill to 12.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1560** **44**/44; next
+audit @**#1565**).
+**Verified:** private canary **38**/38; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Public-unhit unless Upolyd Trollsbane troll melee.
+**Next:** Open `do.c` `revive_corpse` unique/pname `corpse_xname`
+(named). Not Soundeffect.
 ## 2026-08-18 22:15 — #1563 D-1232 hmon_hitmon troll_baned
 
 **Objective:** Open `uhitm.c` `hmon_hitmon` `troll_baned` around

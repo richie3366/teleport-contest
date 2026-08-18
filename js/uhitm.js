@@ -1,11 +1,12 @@
 // uhitm.js — Hero hitting monsters (partial).
-// C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon;
+// C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / damageum;
 //         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
 import {
     IS_OBSTRUCTED, HMON_MELEE, HMON_THROWN, HMON_APPLIED, STRAT_WAITMASK,
+    STRAT_WAITFORU, AD_SPEL,
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK,
@@ -20,7 +21,7 @@ import {
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, acurr, adjalign, change_luck } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool } from './hack.js';
-import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more } from './display.js';
+import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more, You_feel } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -30,15 +31,16 @@ import { ammo_and_launcher } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
-    troll_baned,
-    AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT,
-    AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
+    troll_baned, mhitm_ad_poly, could_seduce,
+    AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
+    AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
+    AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY,
 } from './mhitm.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes,
     is_golem, is_mplayer, is_rider, is_undead, is_flyer, is_floater,
-    NON_PM,
+    is_demon, NON_PM,
 } from './monsters.js';
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
@@ -81,6 +83,9 @@ const AD_CORR = 42;
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
+const PM_SHADE = monsterNames.indexOf('PM_SHADE');
+const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const PM_BALROG = monsterNames.indexOf('PM_BALROG');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const TOWEL = objectNames.indexOf('TOWEL');
@@ -622,7 +627,7 @@ function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
  * C ref: uhitm.c hmon → hmon_hitmon.
  * Thrown cream pie / blinding venom misc_obj arm (D-0693); melee weapon path.
  * troll_baned around killed (D-1232): set TRUE only, always reset after.
- * Poison / joust / hurtle / pudding split / hmonas troll_baned still named.
+ * Poison / joust / hurtle / pudding split / poiskilled skip still named.
  */
 async function hmon(mon, obj, thrown, _dieroll) {
     // C hmon_hitmon_misc_obj CREAM_PIE / BLINDING_VENOM before weapon dmg
@@ -764,7 +769,7 @@ async function hmon(mon, obj, thrown, _dieroll) {
     if (destroyed) {
         // C uhitm.c hmon_hitmon :1906–1909 — TRUE only (not mhitm/hmonas
         // ternary); always reset after killed. poiskilled/already_killed
-        // skip named. hmonas AT_WEAP||AT_CLAW uwep still named.
+        // skip named. hmonas damageum ternary/uwep is D-1233.
         if (troll_baned(mon, obj))
             game.mkcorpstat_norevive = true;
         await killed(mon);
@@ -786,6 +791,107 @@ async function hmon(mon, obj, thrown, _dieroll) {
 }
 
 export { hmon, passive_obj };
+
+/**
+ * C ref: uhitm.c missum — near-miss armor pline, seduce pretend, miss/wakeup.
+ */
+async function missum(mdef, mattk, wouldhavehit) {
+    if (wouldhavehit) await pline('Your armor is rather cumbersome...');
+    if (could_seduce(game.youmonst, mdef, mattk)) {
+        await pline(`You pretend to be friendly to ${mon_nam(mdef)}.`);
+    } else if (canspotmon(mdef) && game.flags?.verbose !== false) {
+        await pline(`You miss ${mon_nam(mdef)}.`);
+    } else {
+        await pline('You miss it.');
+    }
+    if (!helpless(mdef)) await wakeup(mdef, true);
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_phys youmonst (hero→mon) arm used by damageum.
+ * AT_WEAP zeros extra phys (known_hitum already dealt it). mhitu/mhitm arms named.
+ */
+function damageum_ad_phys(mdef, mattk, mhm) {
+    const pd = mdef?.data;
+    if ((mdef.mnum ?? pd?.mndx) === PM_SHADE) mhm.damage = 0;
+    mhm.damage += mhm.specialdmg | 0;
+    const aatyp = mattk.aatyp | 0;
+    if (aatyp === AT_WEAP) {
+        mhm.damage = 0;
+    } else if (aatyp === AT_KICK || aatyp === AT_CLAW
+        || aatyp === AT_TUCH || aatyp === AT_HUGS) {
+        if (thick_skinned(pd)) {
+            mhm.damage = (aatyp === AT_KICK) ? 0
+                : Math.trunc((mhm.damage + 1) / 2);
+        }
+        const udaminc = game.u?.udaminc | 0;
+        if (udaminc > 0) {
+            mhm.damage += udaminc;
+        } else if (mhm.damage > 0) {
+            mhm.damage += udaminc;
+            if (mhm.damage < 1) mhm.damage = 1;
+        }
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_adtyping youmonst subset for damageum.
+ * AD_PHYS + AD_POLY live; remaining mhitm_ad_* youmonst arms named omit.
+ */
+async function damageum_adtyping(mattk, mdef, mhm) {
+    const adtyp = mattk.adtyp | 0;
+    if (adtyp === AD_PHYS) damageum_ad_phys(mdef, mattk, mhm);
+    else if (adtyp === AD_POLY) {
+        await mhitm_ad_poly(game.youmonst, mattk, mdef, mhm);
+    }
+}
+
+/**
+ * C ref: uhitm.c damageum — dice + adtyping then DEADMONSTER wrap.
+ * troll_baned ternary on AT_WEAP||AT_CLAW uses uwep (not hitting obj;
+ * C FIXME vs two-weapon secondary). Always reset after killed/xkilled.
+ * demonpet spawn named omit (rn2(13) still burned when is_demon).
+ */
+export async function damageum(mdef, mattk, specialdmg) {
+    const mhm = {
+        damage: d(mattk.damn | 0, mattk.damd | 0),
+        hitflags: M_ATTK_MISS,
+        permdmg: 0,
+        specialdmg: specialdmg | 0,
+        done: false,
+    };
+    const u = game.u || {};
+    const umon = u.umonnum | 0;
+    if (is_demon(game.youmonst?.data) && !rn2(13) && !u.uwep
+        && umon !== PM_AMOROUS_DEMON && umon !== PM_BALROG) {
+        // demonpet() named omit
+        return M_ATTK_MISS;
+    }
+    await damageum_adtyping(mattk, mdef, mhm);
+    if (mhm.done) return mhm.hitflags | 0;
+    mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    mdef.mhp = (mdef.mhp | 0) - (mhm.damage | 0);
+    if ((mdef.mhp | 0) < 1) {
+        mdef.mhp = 0;
+        const aatyp = mattk.aatyp | 0;
+        // C uhitm.c damageum :4866–4880 — ternary uwep (not hmon_hitmon TRUE-only)
+        if (aatyp === AT_WEAP || aatyp === AT_CLAW) {
+            game.mkcorpstat_norevive = troll_baned(mdef, u.uwep) ? true : false;
+        }
+        if (mdef.mtame && !cansee(mdef.mx, mdef.my)) {
+            await You_feel('embarrassed for a moment.');
+            if (mhm.damage) await xkilled(mdef, XKILL_NOMSG);
+        } else if (game.flags?.verbose === false) {
+            await pline('You destroy it!');
+            if (mhm.damage) await xkilled(mdef, XKILL_NOMSG);
+        } else if (mhm.damage) {
+            await killed(mdef);
+        }
+        game.mkcorpstat_norevive = false;
+        return M_ATTK_DEF_DIED;
+    }
+    return M_ATTK_HIT;
+}
 
 /**
  * C ref: uhitm.c known_hitum — missum or hmon; flee rn2(25) if survives low.
@@ -1163,6 +1269,134 @@ async function hitum(mon, uattk) {
 }
 
 /**
+ * C ref: uhitm.c hmonas — poly'd hero attacks as monster.
+ * AT_WEAP / weapon-using claw/touch/magc → known_hitum; natural hits → damageum
+ * (troll_baned ternary/uwep D-1233). Named omit: two-weapon altwep; AT_HUGS/
+ * EXPL/ENGL bodies; special_dmgval silver; failed_grab; skipdrin; pit kick;
+ * demonpet spawn.
+ */
+export async function hmonas(mon) {
+    const u = game.u || {};
+    const ym = game.youmonst || {};
+    const sum = new Array(NATTK).fill(M_ATTK_MISS);
+    let weapon = null;
+    let weapon_used = false;
+    let multi_weap = 0;
+    const attk_count = { v: 0 };
+    const role_roll_penalty = { v: 0 };
+
+    for (let i = 0; i < NATTK; i++) {
+        const pre = get_mattk(ym, i, mon);
+        if (pre.aatyp === AT_WEAP) multi_weap++;
+    }
+    gt_twohits = 0;
+
+    for (let i = 0; i < NATTK; i++) {
+        if (i > 0) {
+            const bp = game.bhitpos || {};
+            if (m_at(bp.x, bp.y) !== mon || (mon.mhp | 0) < 1) continue;
+        }
+        const mattk = get_mattk(ym, i, mon);
+        weapon = null;
+        const aatyp = mattk.aatyp | 0;
+        const mlet = ym.data?.mlet;
+        const use_wep = aatyp === AT_WEAP
+            || (aatyp === AT_CLAW && u.uwep && !cantwield(ym.data) && !weapon_used)
+            || (aatyp === AT_TUCH && u.uwep && mlet === 'S_LICH' && !weapon_used)
+            || (aatyp === AT_MAGC && !weapon_used
+                && (mlet === 'S_KOBOLD' || mlet === 'S_ORC' || mlet === 'S_GNOME'));
+
+        if (use_wep) {
+            if (weapon_used && (sum[i - 1] > M_ATTK_MISS)
+                && u.uwep && bimanual(u.uwep)) {
+                continue;
+            }
+            weapon_used = true;
+            weapon = u.uwep || null;
+            const tmp = find_roll_to_hit(mon, AT_WEAP, weapon, attk_count,
+                role_roll_penalty);
+            mon_maybe_unparalyze(mon);
+            const dieroll = rnd(20);
+            const dhit = (tmp > dieroll || !!u.uswallow) ? 1 : 0;
+            if (multi_weap > 1) gt_twohits++;
+            const survived = await known_hitum(mon, weapon, { v: dhit }, tmp,
+                role_roll_penalty.v, mattk, dieroll);
+            if (!survived) {
+                sum[i] = M_ATTK_DEF_DIED;
+            } else {
+                sum[i] = dhit ? M_ATTK_HIT : M_ATTK_MISS;
+                if (dhit && mattk.adtyp !== AD_SPEL && mattk.adtyp !== AD_PHYS) {
+                    sum[i] = await damageum(mon, mattk, 0);
+                }
+            }
+        } else if (aatyp === AT_CLAW || aatyp === AT_TUCH || aatyp === AT_KICK
+            || aatyp === AT_BITE || aatyp === AT_STNG || aatyp === AT_BUTT
+            || aatyp === AT_TENT) {
+            const tmp = find_roll_to_hit(mon, aatyp, null, attk_count,
+                role_roll_penalty);
+            mon_maybe_unparalyze(mon);
+            const dieroll = rnd(20);
+            const dhit = (tmp > dieroll || !!u.uswallow) ? 1 : 0;
+            if (dhit) {
+                if (!u.uswallow) {
+                    const compat = could_seduce(ym, mon, mattk);
+                    if (compat) {
+                        const see = mon.mcansee && haseyes(mon.data);
+                        await pline(
+                            `You ${see ? 'smile at' : 'talk to'} ${mon_nam(mon)} ${compat === 2 ? 'engagingly' : 'seductively'}.`,
+                        );
+                        sum[i] = await damageum(mon, mattk, 0);
+                    } else if ((mon.mnum ?? mon.data?.mndx) === PM_SHADE) {
+                        await wakeup(mon, true);
+                        await pline(
+                            `Your hit passes harmlessly through ${mon_nam(mon)}.`,
+                        );
+                        sum[i] = M_ATTK_MISS;
+                    } else {
+                        await wakeup(mon, true);
+                        if (aatyp === AT_TENT) {
+                            await pline(`Your tentacles suck ${mon_nam(mon)}.`);
+                        } else {
+                            let verb = 'hit';
+                            if (aatyp === AT_TUCH) verb = 'touch';
+                            else if (aatyp === AT_KICK) verb = 'kick';
+                            else if (aatyp === AT_BITE) verb = 'bite';
+                            else if (aatyp === AT_STNG) verb = 'sting';
+                            else if (aatyp === AT_BUTT) verb = 'head butt';
+                            await pline(`You ${verb} ${mon_nam(mon)}.`);
+                        }
+                        sum[i] = await damageum(mon, mattk, 0);
+                    }
+                } else {
+                    await wakeup(mon, true);
+                    sum[i] = await damageum(mon, mattk, 0);
+                }
+            } else {
+                await missum(mon, mattk, (tmp + role_roll_penalty.v > dieroll));
+                sum[i] = M_ATTK_MISS;
+            }
+        } else if (aatyp === AT_NONE || aatyp === AT_BOOM
+            || aatyp === AT_HUGS || aatyp === AT_EXPL || aatyp === AT_ENGL
+            || aatyp === AT_MAGC) {
+            continue;
+        } else if (aatyp === AT_BREA || aatyp === AT_SPIT || aatyp === AT_GAZE) {
+            sum[i] = M_ATTK_MISS;
+        } else {
+            continue;
+        }
+
+        const died = sum[i] === M_ATTK_DEF_DIED || (mon.mhp | 0) < 1;
+        await passive(mon, weapon, sum[i] !== M_ATTK_MISS, !died, aatyp, false);
+        mhitm_knockback(ym, mon, mattk, sum[i], weapon_used);
+        if ((mon.mhp | 0) < 1) break;
+        if (!Upolyd(u)) break;
+        if ((game.multi | 0) < 0) break;
+    }
+    gt_twohits = 0;
+    return (mon.mhp | 0) >= 1;
+}
+
+/**
  * C ref: do_name.c a_monnam — ARTICLE_A lowercase (hallu/invis deferred).
  */
 function a_monnam(mtmp) {
@@ -1526,6 +1760,11 @@ export async function do_attack(mtmp) {
     // Hostile / forcefight path — C do_attack → attack_checks then hitum
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
 
+    // C: gb.bhitpos = u.ux+u.dx, u.uy+u.dy before attack_checks (hmonas contract)
+    if (!game.bhitpos) game.bhitpos = {};
+    game.bhitpos.x = (game.u?.ux | 0) + (game.u?.dx | 0);
+    game.bhitpos.y = (game.u?.uy | 0) + (game.u?.dy | 0);
+
     // C: attack_checks before overexertion / hitum
     if (await attack_checks(mtmp, game.u?.uwep || null)) {
         return true;
@@ -1560,9 +1799,13 @@ export async function do_attack(mtmp) {
 
     // Leprechaun evade !rn2(7) deferred (not kobold)
 
-    // Human form → hitum with youmonst first mattk (AT_WEAP)
-    const uattk = { aatyp: AT_WEAP, adtyp: AD_PHYS, damn: 1, damd: 6 };
-    await hitum(mtmp, uattk);
+    // C: if (Upolyd) hmonas; else hitum(youmonst.data->mattk)
+    if (Upolyd(game.u)) {
+        await hmonas(mtmp);
+    } else {
+        const uattk = { aatyp: AT_WEAP, adtyp: AD_PHYS, damn: 1, damd: 6 };
+        await hitum(mtmp, uattk);
+    }
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
     return true;
 }

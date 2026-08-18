@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1233 — `hmonas`/`damageum` `troll_baned` `mkcorpstat_norevive`
+
+- **Status:** fixed (map-driven Open; named omit from D-1223 /
+  D-1232 / review **185**; not a public FAIL)
+- **Symptom:** a poly'd-hero AT_WEAP||AT_CLAW kill of an `S_TROLL`
+  should set `gm.mkcorpstat_norevive` from `troll_baned(mdef, uwep)`
+  (ternary TRUE:FALSE, unlike hmon_hitmon TRUE-only) around
+  `killed`/`xkilled` so `mkcorpstat` copies `otmp->norevive`. JS
+  `do_attack` always called `hitum`; `damageum` was absent.
+- **C locus:** `monst.h` `troll_baned`; `uhitm.c` `damageum`
+  `:4861–4880` (hmonas caller `:565–566` / `:5548+`); `mkobj.c`
+  `mkcorpstat` `:2087`; `zap.c` `revive` `:967` twitch. Timer still
+  starts. C FIXME: two-weapon secondary still checks `uwep`.
+- **JS was:** named omit; `troll_baned` already exported (D-1223);
+  `hmon` TRUE-only wrap live (D-1232); `mkcorpstat`/`revive` honor
+  the flag.
+- **Fix:** `damageum` rolls dice, `mhitm_ad_phys` youmonst + AD_POLY,
+  then ternary `uwep` on AT_WEAP||AT_CLAW around killed/xkilled,
+  always FALSE after. Thin `hmonas` (weapon → `known_hitum`; natural
+  → `damageum`). `do_attack` `Upolyd` → `hmonas`. Did not pull
+  AT_HUGS/EXPL/ENGL bodies, altwep, or `demonpet` spawn (`rn2(13)`
+  still burned when `is_demon`). Rule #2: no fs.
+- **JS:** `js/uhitm.js` `damageum` / `hmonas` / `do_attack`;
+  `js/mhitm.js` comments.
+- **Not this iter:** AT_HUGS/EXPL/ENGL; two-weapon `uswapwep`;
+  `special_dmgval` silver; `failed_grab`; `demonpet` body;
+  remaining `mhitm_ad_*`; remaining uhitm `pline_mon`; unique/pname
+  `corpse_xname`.
+- **Verified:** private canary **38**/38 (C ternary vs hmon TRUE-only;
+  Trollsbane claw `norevive`+twitch; leftover TRUE cleared on
+  WEAP/CLAW not BITE; null/ogre/plain unset; hmonas kill;
+  hmon leftover unchanged); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a public session Upolyd-melees a troll
+  with Trollsbane.
+- **Follow-up:** Open `do.c` `revive_corpse` unique/pname
+  `corpse_xname`.
+
 ## D-1232 — `hmon_hitmon` `troll_baned` around `killed`
 
 - **Status:** fixed (map-driven Open; named omit from D-1223 /

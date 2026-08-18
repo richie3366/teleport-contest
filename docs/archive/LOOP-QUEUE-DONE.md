@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `uhitm.c` `hmon_hitmon` `troll_baned` around `killed` (named). Not hmonas. **Addressed:** D-1232
+- [x] `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive` (named). Not hmon_hitmon. **Addressed:** D-1233
+
+
+- [x] `uhitm.c` `hmon_hitmon` `troll_baned` around `killed` (named). Not hmonas. **Addressed:** D-1232 `83624a46`
 
 
 - [x] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm. **Addressed:** D-1231 `5cd4ab5c`
