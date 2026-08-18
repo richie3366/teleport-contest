@@ -5,24 +5,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1243 `mhitm.c` gulpmm `!goodpos`
-  return-home (`teleport.js` m_at skip dead/OFFMAP; STONE dest
-  home; ROOM dest stay). Cadence **#1575** (`9b5bd39d`) reviews
-  **200–203** ACCEPT-WITH-DEBT.
-  Next: Open `mhitm.c` gulpmm AD_DGST eat (named). Not `!goodpos`.
-  Must-fix empty.
-  Do not skip D-1243…D-1229. Do not pull giant pickup/maneuver /
+- **Fortress 44/44** after D-1244 `mhitm.c` gulpmm AD_DGST eat
+  (`mhitm_ad_dgst` Burrrrp/`damage=mhp`; `monkilled` `mondead`;
+  cham/slime/wraith `grow_up(null)`/nurse/`mon_givit`). Cadence
+  **#1575** (`9b5bd39d`) reviews **200–203** ACCEPT-WITH-DEBT.
+  Next: Open `hack.c` hideunder after impact (named from D-1229).
+  Not AD_DGST eat. Must-fix empty.
+  Do not skip D-1244…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / container_impact /
-  hideunder / AD_DGST eat / AT_HUGS/EXPL/ENGL /
+  hideunder / AT_HUGS/EXPL/ENGL /
   altwep / `demonpet` / landmine·pit mid-roll / bee_eat / iron
   bars / `mon_yells` / unported uhitm `mhitm_ad_*` `pline_mon` /
-  mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff.
+  mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff /
+  digest-Medusa stone / `newcham` NC_SHOW_MSG pline /
+  `grow_up` little_to_big.
   Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1243. Do not Must-fix named omits
+- Do not revert D-1217–D-1244. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
   bee_eat / iron bars / `mon_yells` / giant pickup /
-  AD_DGST eat).
+  hideunder).
 
 ## Don't re-check (≤15)
 
@@ -33,7 +35,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1243 (CURRENT keep; gulpmm !goodpos return-home D-1243).
+  D-1190…D-1244 (CURRENT keep; gulpmm AD_DGST eat D-1244).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,7 +50,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1243. Keep se_scratching; `troll_baned`
+- Do not skip D-1071…D-1244. Keep se_scratching; `troll_baned`
   wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
   `corpse_xname` adjective / rot CXN_NO_PFX; `spot_monsters` →
   `a11y.mon_notices`; `mon_movement` → `a11y.mon_movement`;
@@ -56,8 +58,8 @@ Objective/score live in `CURRENT.md`.
   cannot_push squeeze D-1239; remaining already-ported uhitm
   `pline_mon` D-1240; passivemm assess_dmg `monkilled(magr)`
   D-1241; gulpmm `snuff_lit` minvent D-1242; gulpmm `!goodpos`
-  return-home D-1243. Glob / doname
-  CXN_ARTICLE|CXN_NOCORPSE / AD_DGST eat /
+  return-home D-1243; gulpmm AD_DGST eat D-1244. Glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE / hideunder /
   AT_HUGS / `demonpet` / landmine·pit mid-roll / bee_eat / iron
   bars / `mon_yells` / giant pickup / unported `mhitm_ad_*`
   `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
@@ -75,13 +77,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1244: `mhitm.c` gulpmm AD_DGST eat (`mhitm_ad_dgst` +
+  `mondead` + cham/slime/wraith/nurse/`mon_givit`); gulpmu
+  invent / Medusa stone / NC_SHOW_MSG pline / little_to_big named.
 - D-1243: `mhitm.c` gulpmm `!goodpos` return-home + `teleport.js`
-  m_at skip dead/OFFMAP; AD_DGST eat still named.
+  m_at skip dead/OFFMAP.
 - D-1242: `mhitm.c` gulpmm `snuff_lit` minvent + `apply.c`
   `snuff_lit`/`snuff_candle`; flaming skip; gulpmu invent /
-  litroom / pickup / AD_DGST eat still named.
+  litroom / pickup still named.
 - D-1241: `mhitm.c` `passivemm` assess_dmg `monkilled(magr)` (no
-  zombify; AD_ACID goto); AD_DGST eat still named.
+  zombify; AD_ACID goto).
 - D-1240: remaining already-ported `uhitm.c` `pline_mon`
   (gremlin light / xan nuzzle / sedu brag); unported `mhitm_ad_*` /
   mhitu `hitmsg` still named.
@@ -99,8 +104,6 @@ Objective/score live in `CURRENT.md`.
   AT_HUGS/EXPL/ENGL / altwep / `demonpet` still named.
 - D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
 - D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
-  snuff_lit D-1242; !goodpos D-1243; AD_DGST eat named.
-- D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
-  `#` keeps m.
+  snuff_lit D-1242; !goodpos D-1243; AD_DGST eat D-1244.
 - Review **200–203** ACCEPT-WITH-DEBT. Cadence **#1575** **44**/44
   including seed0383. Next audit @**#1580**.

@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1244 — mhitm.c gulpmm AD_DGST eat
+
+- **Status:** fixed (map-driven Open; named omit from D-1231 /
+  D-1242 / D-1243; not a public FAIL)
+- **Symptom:** mon-vs-mon engulf with AD_DGST used ordinary
+  `mdamagem` dice + `mondied` (corpse + extra `corpse_chance`
+  RNG). C instant-digests (`damage = mdef->mhp`), `mondead`s
+  (no corpse), then post-`monkilled` cham / green slime /
+  wraith `grow_up(NULL)` / nurse `healmon` / `mon_givit`.
+- **C locus:** `uhitm.c` `mhitm_ad_dgst` `:4506–4566` (mhitm
+  arm); `mhitm.c` `mdamagem` `:1096–1116`; `mon.c` `monkilled`
+  `:3398–3403` `disintegested`; `mon.c` `mon_givit` /
+  `mon_give_prop` `:1726–1824`; `mon.c` `corpse_chance`
+  swallowed boom `:3209–3230`; `makemon.c` `grow_up` null
+  victim `:2099–2106`.
+- **JS was:** named omit; AD_DGST fell through physical dice;
+  `monkilled` always `mondied`; `grow_up(null)` HP only.
+- **Fix:** mhitm arm of `mhitm_ad_dgst` (rider kills magr;
+  Burrrrp; `wake_nearto`; lifesaver `m_useup`;
+  `corpse_chance(mdef,magr,TRUE)`; tame virtual corpse
+  `dog_nutrition`); `monkilled` AD_DGST/`-AD_RBRE`/FIRE
+  completelyburns → `mondead`; post-death eat; `mon_givit`
+  rolls `corpse_intrinsic` before DEAD/stalker like C.
+  Rule #2: no fs; `eat.js`/`dogmove.js` via export + dynamic
+  import (no static cycle).
+- **JS:** `js/mhitm.js` `mhitm_ad_dgst` / `mdamagem_digest_eat`
+  / `monkilled` / `corpse_chance` swallowed boom / `grow_up`
+  null; `js/mon.js` `mon_givit`; `js/eat.js` export
+  `should_givit`/`corpse_intrinsic`; `js/dogmove.js` export
+  `dog_nutrition`.
+- **Not this iter:** SetVoice; youmonst/uhitm/mhitu arms;
+  digest-Medusa / `touch_petrifies` stone magr; `newcham`
+  NC_SHOW_MSG pline; `grow_up` little_to_big; gulpmu invent /
+  gulpum / litroom / pickup snuff; youmonst stomach boom.
+- **Verified:** private canary **29**/29 (C/JS source; lizard
+  no corpse + dest occupy; slime `newcham`; solid-clone
+  wraith `m_lev++`; nurse heal; rider magr dies; contained
+  spore boom; tame nutrition; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  a public AT_ENGL+AD_DGST magr gulps another mon.
+- **Follow-up:** Open `hack.c` hideunder after impact.
+
 ## D-1243 — mhitm.c gulpmm `!goodpos` return-home
 
 - **Status:** fixed (map-driven Open; named omit from D-1231 /

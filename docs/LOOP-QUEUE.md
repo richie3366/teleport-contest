@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm.
 - [ ] `hack.c` hideunder after impact (named from D-1229). Not container_impact.
 - [ ] `monmove.c` `bee_eat_jelly` (named). Not mind_blast.
 - [ ] `monmove.c` postmov iron bars (named). Not bee_eat.

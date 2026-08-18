@@ -20,6 +20,22 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 01:23 — #1578 D-1244 gulpmm AD_DGST eat
+
+**Objective:** Open `mhitm.c` gulpmm AD_DGST eat (named). Not
+`!goodpos`.
+**C locus:** `uhitm.c` `mhitm_ad_dgst` `:4506–4566` mhitm arm;
+`mhitm.c` `mdamagem` `:1096–1116`; `mon.c` `monkilled`
+disintegested; `mon_givit`; swallowed boom; `grow_up` null.
+**Change:** instant digest + `mondead` (no corpse); cham/slime/
+wraith `m_lev++`/nurse/`mon_givit`; tame `dog_nutrition`.
+gulpmu invent / Medusa stone / NC_SHOW_MSG pline named. Rule #2:
+no fs.
+**Verified:** private canary **29**/29; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless AT_ENGL+AD_DGST magr gulps another mon.
+**Next:** Open `hack.c` hideunder after impact (named from D-1229).
+**Blocked:** none.
 ## 2026-08-19 00:59 — #1577 D-1243 gulpmm !goodpos return-home
 
 **Objective:** Open `mhitm.c` gulpmm `!goodpos` return-home (named).

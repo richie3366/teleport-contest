@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1243 | fixed | mhitm.c gulpmm `!goodpos` return-home | map-driven; C `mhitm.c:932–947` `!goodpos(dx,dy,magr,MM_IGNOREWATER)` then `dx=ax,dy=ay` + place + minliquid/mintrap; JS teleport.js `m_at` skips dead/OFFMAP (C grid; D-1231 named the clone); ROOM dest stay; STONE dest home; AD_DGST eat / gulpmu invent still named |
+| D-1244 | fixed | mhitm.c gulpmm AD_DGST eat | map-driven; C `uhitm.c` `mhitm_ad_dgst` 4506–4566 mhitm arm + `mhitm.c` `mdamagem` 1096–1116 cham/slime/wraith/nurse/`mon_givit`; `monkilled` AD_DGST `mondead`; swallowed boom contained; `grow_up(null)` `m_lev++`; gulpmu invent / Medusa stone / NC_SHOW_MSG pline / little_to_big still named |
+| D-1243 | fixed | mhitm.c gulpmm `!goodpos` return-home | map-driven; C `mhitm.c:932–947` `!goodpos(dx,dy,magr,MM_IGNOREWATER)` then `dx=ax,dy=ay` + place + minliquid/mintrap; JS teleport.js `m_at` skips dead/OFFMAP (C grid; D-1231 named the clone); ROOM dest stay; STONE dest home; AD_DGST eat D-1244 |
 | D-1242 | fixed | mhitm.c gulpmm `snuff_lit` minvent | map-driven; C `mhitm.c:868–871` `!flaming` minvent `snuff_lit`; `apply.c` `snuff_lit` 1497–1514 lamps/lantern/POT_OIL then `snuff_candle` 1472–1491 `end_burn` TRUE; JS dynamic-import apply from gulpmm; no rn2; flaming magr skip; Sunsword otyp not snuffed; gulpmu invent / gulpum / litroom / pickup / dokick / AD_DGST eat still named; `!goodpos` D-1243 |
 | D-1241 | fixed | mhitm.c `passivemm` assess_dmg `monkilled(magr)` | map-driven; C `mhitm.c:1304–1457` / `paralyze_monst` 1209–1219 / caller `mattackm` 572–575; JS raw AT_NONE dice + AD_ACID goto (no rn2(3)) + live COLD/FIRE/ELEC/PLYS/STUN + monkilled(magr) no zombify; `mon_poly` AD_RBRE already D-1006; gulpmm snuff_lit / !goodpos / AD_DGST eat / drain ABON / golem MSLOW / arti_reflects still named |
 

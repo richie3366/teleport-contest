@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `mhitm.c` gulpmm `!goodpos` return-home (named). Not snuff_lit. **Addressed:** D-1243
+- [x] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm. **Addressed:** D-1244
+
+
+- [x] `mhitm.c` gulpmm `!goodpos` return-home (named). Not snuff_lit. **Addressed:** D-1243 `729b03dc`
 
 
 - [x] `mhitm.c` gulpmm `snuff_lit` minvent (named). Not `m_at` swap. **Addressed:** D-1242 `509b1355`
