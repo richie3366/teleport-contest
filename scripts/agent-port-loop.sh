@@ -175,6 +175,8 @@ CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadenc
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
 REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
 ARCHIVE_QUEUE="$ROOT/scripts/archive-loop-queue-done.mjs"
+ROTATE_JOURNAL="$ROOT/scripts/rotate-journal.mjs"
+CHECK_HOT_DOCS="$ROOT/scripts/check-hot-docs.mjs"
 
 PROMPT_FILE="${PROMPT_FILE:-$ROOT/scripts/agent-port-loop.prompt.md}"
 if [[ ! -f "$PROMPT_FILE" ]]; then
@@ -195,6 +197,14 @@ if [[ ! -f "$REQUIRE_PASS" ]]; then
 fi
 if [[ ! -f "$ARCHIVE_QUEUE" ]]; then
   echo "error: missing $ARCHIVE_QUEUE" >&2
+  exit 1
+fi
+if [[ ! -f "$ROTATE_JOURNAL" ]]; then
+  echo "error: missing $ROTATE_JOURNAL" >&2
+  exit 1
+fi
+if [[ ! -f "$CHECK_HOT_DOCS" ]]; then
+  echo "error: missing $CHECK_HOT_DOCS" >&2
   exit 1
 fi
 if [[ ! -f "$QUEUE_FILE" ]]; then
@@ -318,6 +328,8 @@ const protectedPaths = [
   'scripts/agent-port-loop.cadence.prompt.md',
   'scripts/loop-require-results-pass.mjs',
   'scripts/archive-loop-queue-done.mjs',
+  'scripts/check-hot-docs.mjs',
+  'scripts/rotate-journal.mjs',
   'frozen',
   'sessions',
   'nethack-c/upstream',
@@ -535,6 +547,35 @@ maybe_archive_checked_queue() {
   if ! git commit -m "Archive checked LOOP-QUEUE items."; then
     halt_loop "failed to commit archived LOOP-QUEUE items (local tree kept)" 0
   fi
+}
+
+maybe_rotate_journal() {
+  echo "$(date -Iseconds) === rotate journal if over cap ===" | tee -a "$MASTER_LOG"
+  node "$ROTATE_JOURNAL" | tee -a "$MASTER_LOG"
+  local newf
+  newf="$(git ls-files --others --exclude-standard -- docs/archive \
+    | rg 'AGENT-LOOP-JOURNAL-rotated-' || true)"
+  if git diff --quiet -- docs/AGENT-LOOP-JOURNAL.md && [[ -z "$newf" ]]; then
+    return 0
+  fi
+  git add docs/AGENT-LOOP-JOURNAL.md
+  if [[ -n "$newf" ]]; then
+    while IFS= read -r f; do
+      [[ -z "$f" ]] && continue
+      git add "$f"
+    done <<<"$newf"
+  fi
+  if git diff --cached --quiet; then
+    return 0
+  fi
+  if ! git commit -m "Rotate agent loop journal."; then
+    halt_loop "failed to commit rotated journal (local tree kept)" 0
+  fi
+}
+
+log_hot_docs() {
+  echo "$(date -Iseconds) === hot-doc check ===" | tee -a "$MASTER_LOG"
+  node "$CHECK_HOT_DOCS" | tee -a "$MASTER_LOG" || true
 }
 
 halt_loop() {
@@ -957,6 +998,8 @@ NODE
   rm -rf "$snapshot"
 
   maybe_archive_checked_queue
+  maybe_rotate_journal
+  log_hot_docs
 
   if [[ "$mode" == "port" ]] && ! queue_has_open; then
     if (( agent_pushed )); then

@@ -30,14 +30,14 @@ which unobserved branches, object types, roles, or map states are valid.
 |------|------|-----------------|
 | `CONSTITUTION.md` | Architecture and hard bans | A progress log |
 | `PORTING-RUNBOOK.md` | Repeatable workflow and gates | Current-session notes |
-| **`CURRENT.md`** | Score, green gate, primary objective (≤150 lines) | Completed D-chains / history |
+| **`CURRENT.md`** | Score, green gate, primary objective (target ~150 lines; `check-hot-docs.mjs`) | Completed D-chains / history |
 | `PROGRESS.md` | Stub pointing at `CURRENT.md` + archive | A second hot pack |
-| `NOTES.md` | Tiny unresolved hypothesis (≤100 lines) | Chronological history |
+| `NOTES.md` | Tiny unresolved hypothesis (target ~100 lines; `check-hot-docs.mjs`) | Chronological history |
 | `C-JS-MAP.md` + `c-js-map/*.md` | Structural coverage / omissions by subsystem | A score dashboard |
 | `DIVERGENCE-INDEX.md` | Compact ID → status table | Full entry bodies |
 | `DIVERGENCE-LOG.md` | Evidence-backed entry bodies (open one by ID) | Required full read |
 | `PORTING-STRATEGY.md` | Rationale and long-range options | Live operational truth |
-| `AGENT-LOOP-JOURNAL.md` | Latest ~10–15 iteration crumbs | Full history (use `archive/`) |
+| `AGENT-LOOP-JOURNAL.md` | Latest ~10–15 iteration crumbs (`rotate-journal.mjs`) | Full history (use `archive/`) |
 | `archive/**` | Cold history | Default iteration reading |
 
 If a fact is duplicated, update its owner and replace copies with a link.

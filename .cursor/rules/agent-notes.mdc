@@ -5,7 +5,8 @@ alwaysApply: true
 
 # Agent notes (self-evolve)
 
-`docs/NOTES.md` is the live unresolved scratchpad (≤100 lines).
+`docs/NOTES.md` is the live unresolved scratchpad (caps in
+`scripts/check-hot-docs.mjs` — do not count lines by hand).
 Measured objectives/scores live in **`docs/CURRENT.md`**, fixed causes in
 `DIVERGENCE-LOG.md` (+ `DIVERGENCE-INDEX.md`), structural omissions in one
 `docs/c-js-map/*.md` section, and loop chronology in the journal **tail**

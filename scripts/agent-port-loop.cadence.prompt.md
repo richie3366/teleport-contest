@@ -11,14 +11,15 @@ node frozen/ps_test_runner.mjs sessions
 
 Parse `__RESULTS_JSON__`. Rewrite `docs/CURRENT.md` Score: pass count,
 screen/RNG aggregates, speed label, PASS list, notable non-PASS.
-Update `docs/NOTES.md` landmarks/score echo. Prepend
-`docs/AGENT-LOOP-JOURNAL.md` (rotate to `docs/archive/` if >15 entries).
+Update `docs/NOTES.md` landmarks/score echo. Prepend a short crumb to
+`docs/AGENT-LOOP-JOURNAL.md`. Then `node scripts/check-hot-docs.mjs --fix`
+(do not count lines/boxes; do not copy crumbs by hand).
 
 If any session failed: journal the failure, **do not** invent a peel,
 **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
-and fill missing Addressed hashes. If open `- [ ]` count is below 8,
-refill Open to ~12 from named map omits (`LOOP-QUEUE.md`). The
+and fill missing Addressed hashes. If `check-hot-docs` says REFILL,
+append Open to ~12 from named map omits (`LOOP-QUEUE.md`). The
 supervisor logs a full-suite FAIL and continues; the next port pops
 Must-fix if an audit review prepended one.
 

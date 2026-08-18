@@ -11,7 +11,7 @@ Agentic C→JS port. Category `agentic`. No transpiled engine in scored `js/`.
 
 - `docs/GROK-PLAYBOOK.md` — loop-agent priority, anti-patterns, verification
 - `docs/CURRENT.md` — score, green gate, primary objective (chooses work)
-- `docs/NOTES.md` — unresolved hypothesis only (≤100 lines)
+- `docs/NOTES.md` — unresolved hypothesis only (`check-hot-docs.mjs`)
 - `docs/C-JS-MAP.md` — index; open one `docs/c-js-map/*.md` for the subsystem
 - `docs/CONSTITUTION.md` / `docs/PORTING-RUNBOOK.md` — when authority needed
 

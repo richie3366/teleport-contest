@@ -1,6 +1,6 @@
 # Working notes (scratchpad)
 
-Not a progress log. Keep ≤100 lines. See `.cursor/rules/agent-notes.mdc`.
+Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 Objective/score live in `CURRENT.md`.
 
 ## Active

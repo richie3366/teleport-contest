@@ -5,7 +5,7 @@ Unattended **port** iterations pop the **first unchecked** item, preferring
 Live file is **unchecked-only**. Done rows live in
 `docs/archive/LOOP-QUEUE-DONE.md`.
 
-**Keep 8–12 open `- [ ]` rows.** If Must-fix+Open drops below **8**
+**Keep 8–12 open `- [ ]` rows** (`check-hot-docs.mjs` reports the count). If Must-fix+Open drops below **8**
 (including after you archive this iter’s item), **refill Open** in the
 **same commit** up to **12**. Sources: named omits in the subsystem
 `docs/c-js-map/*.md` row you are in (prefer `data.md` / `debt.md`, then

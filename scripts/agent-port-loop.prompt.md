@@ -82,13 +82,13 @@ frozen `isaac64`/`terminal`/`storage`, and any `fastforward.js` additions.
 
 ## Durable handoff
 
-1. Keep `NOTES.md` ≤100 lines.
+1. Prepend a short journal crumb. Do **not** copy old crumbs into `archive/`.
 2. Update **`CURRENT.md`** when score/gate/objective change — never re-paste
    completed D-chains.
 3. Divergence entry + `DIVERGENCE-INDEX.md` row; one `c-js-map/*.md` section.
-4. Prepend a short entry to `AGENT-LOOP-JOURNAL.md` (rotate to `archive/` if >15).
-5. Optional: `node scripts/check-hot-docs.mjs`.
-6. **Commit and `git push origin HEAD`.** The supervisor also fail-closes
+4. `node scripts/check-hot-docs.mjs --fix` — read the report; do not count.
+   `ok` = no cap edit. Act only on FAIL / ROTATE / REFILL.
+5. **Commit and `git push origin HEAD`.** The supervisor also fail-closes
    (green / density / authority) and pushes if you forgot. No force-push.
 
 Ordinary loop agents may update: `CURRENT.md`, `NOTES.md`, `DIVERGENCE-LOG.md`,
@@ -107,7 +107,7 @@ this SHA, amend, or open a stamp-only commit. If a previous
 `**Addressed:** D-NNNN` line (review or `docs/archive/LOOP-QUEUE-DONE.md`)
 is still missing its short hash, fill it here from `git log --oneline`
 of that fix — bundled with this iteration’s real work. After archive, if
-open `- [ ]` count is below 8, refill Open to ~12 in this same commit.
+`check-hot-docs` says REFILL, append Open to ~12 in this commit.
 
 ## Absolute prohibitions
 

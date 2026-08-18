@@ -1,6 +1,6 @@
 # Current (hot pack)
 
-**Single source of truth for each loop iteration.** Cap: ~150 lines.
+**Single source of truth for each loop iteration.** Cap: `check-hot-docs.mjs`.
 Do not paste completed D-chains here — those live in `DIVERGENCE-INDEX.md`
 and `archive/PROGRESS-HISTORY.md`.
 

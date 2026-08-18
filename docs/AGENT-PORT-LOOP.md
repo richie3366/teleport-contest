@@ -190,7 +190,9 @@ done rows in `docs/archive/LOOP-QUEUE-DONE.md`). `STOP_AGENT_LOOP.md` is
 **gitignored**; only the supervisor writes `0`, at launch. Fixed causes belong in
 `DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
 `docs/c-js-map/*.md` section; each iteration prepends a short journal
-entry (rotate into `docs/archive/` when >15).
+entry. Do not copy old crumbs by hand: `node scripts/check-hot-docs.mjs --fix`
+in the iter, and the supervisor runs `scripts/rotate-journal.mjs` if
+the live file is still over cap.
 
 ### Logs
 

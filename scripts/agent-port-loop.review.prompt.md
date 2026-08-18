@@ -35,8 +35,9 @@ This is an audit against **pinned C**, not against the commit message.
 6. Density §2b. Verification: focused + green + **relevant** cohort, or
    admit public-unhit.
 
-Write in **English**. Target **150–350 lines** per JS-touching commit
-(docs-only: 40–80). No full-diff paste. Short C/JS citations (≤30 lines).
+Write in **English**. Length is `check-hot-docs.mjs --review NN` (JS-touching
+150–350, docs-only 40–80; +33% is still `ok`). No full-diff paste. Short
+C/JS citations (≤30 lines).
 
 ## Required output
 
@@ -46,9 +47,9 @@ Write in **English**. Target **150–350 lines** per JS-touching commit
    per distinct C-wrong family under `LOOP-QUEUE.md` **Must-fix** (not
    Open). Each line cites `Source: reviews/loop-unattended/NN-…`. Set
    `CURRENT.md` **Next cluster** to the first new Must-fix item.
-4. Journal crumb. If Must-fix+Open `- [ ]` count is below 8, **refill
-   Open** to ~12 from named map omits (same rules as `LOOP-QUEUE.md`).
-   Commit **and** `git push origin HEAD`.
+4. Journal crumb. `node scripts/check-hot-docs.mjs --fix --review NN …`
+   (this iter’s review ids; do not count). `ok` = no cap edit. If REFILL,
+   append Open to ~12 from named map omits. Commit **and** `git push origin HEAD`.
 
 ### Required headings
 

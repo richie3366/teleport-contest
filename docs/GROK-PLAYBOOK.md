@@ -200,10 +200,10 @@ Do not stack JS FORCE or WIN_STOP shims until C state at those loci is known.
 | Fact type | Owner |
 |-----------|-------|
 | Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 5 loop iters via full `sessions`) |
-| Unresolved hypothesis / dead end | `NOTES.md` (≤100 lines) |
+| Unresolved hypothesis / dead end | `NOTES.md` (target 100 lines; `check-hot-docs.mjs`) |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
 | Module status / omissions | one `c-js-map/*.md` |
-| Iteration audit | prepend `AGENT-LOOP-JOURNAL.md` (rotate into `archive/` when >15) |
+| Iteration audit | prepend `AGENT-LOOP-JOURNAL.md` (`rotate-journal.mjs` / `--fix`) |
 
 Loop agents may **not** edit Constitution, runbook, **this playbook**, strategy,
 loop scripts, `sessions/**`, `frozen/**`, or upstream C. Propose process fixes
@@ -248,15 +248,18 @@ a reason to exist). Never a stamp-only SHA, never hash prediction.
 **Queue archive:** live `LOOP-QUEUE.md` is unchecked-only. After
 shipping, mark `- [x]` and run `node scripts/archive-loop-queue-done.mjs`
 in the same commit (`docs/archive/LOOP-QUEUE-DONE.md`). The supervisor
-archives leftover `[x]` if you forget.
+archives leftover `[x]` if you forget. Journal rotate is the same:
+`node scripts/check-hot-docs.mjs --fix` in the iter; the supervisor
+runs `rotate-journal.mjs` if you skip it.
 
 ---
 
 ## 11. Quick commands
 
 ```bash
-# Hot-doc budget (optional sanity)
-node scripts/check-hot-docs.mjs
+# Caps (you run this; read statuses). Pass this iter’s review ids when you wrote reviews.
+node scripts/check-hot-docs.mjs --fix
+node scripts/check-hot-docs.mjs --fix --review 183-187
 
 # Green gate — exact commands also in CURRENT.md
 node frozen/ps_test_runner.mjs \

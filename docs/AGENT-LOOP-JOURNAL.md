@@ -6,8 +6,8 @@ this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
 
 The next agent reads **only this file** (latest ~10 entries), not the
-archive under `docs/archive/`. When this file exceeds ~15 entries,
-move older ones into `docs/archive/`.
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+`node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
 Use this shape:
 
