@@ -35,9 +35,9 @@ import {
     set_msg_xy,
 } from './display.js';
 import { gethungry, morehungry } from './eat.js';
-import { m_at } from './mon.js';
+import { m_at, hideunder } from './mon.js';
 import { recalc_block_point } from './vision.js';
-import { is_hider, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall } from './monsters.js';
+import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall } from './monsters.js';
 import {
     objects_at, obj_extract_self, place_object, delobj,
     peek_timer, stop_timer, start_timer,
@@ -398,7 +398,7 @@ function is_flimsy(otmp) {
  * gate then disturb at obj->ox,oy (D-1229). Call after place_object.
  * Violent (throw/kick / dropz TRUE): owt < 10 skip; else owt < 100.
  * Named omit: container_impact_dmg at the same sites; hitfloor
- * dropz(TRUE); hideunder after tread.
+ * dropz(TRUE). Hideunder after tread is D-1245.
  */
 export function impact_disturbs_zombies(obj, violent) {
     if ((obj.owt | 0) < (violent ? 10 : 100) || is_flimsy(obj)) {
@@ -447,6 +447,23 @@ export function hero_tread_disturb_buried_zombies() {
         && (game.youmonst?.data?.cwt | 0) >= ((WT_ELF / 2) | 0)) {
         disturb_buried_zombies(u.ux | 0, u.uy | 0);
     }
+}
+
+/**
+ * C ref: hack.c:2949–2951 — hideunder(&youmonst) after tread, before
+ * mimic unhide / check_leash. Gate: hides_under || S_EEL || dx || dy.
+ * Youmonst writes u.uundetected (mon.c hideunder; D-1131). Named:
+ * container_impact_dmg; hitfloor dropz(TRUE); mimic m_ap_type unhide.
+ */
+export function hero_hideunder_after_move() {
+    const u = game.u;
+    const you = game.youmonst;
+    const data = you?.data;
+    if (!u || !data) return;
+    if (!(hides_under(data) || data.mlet === 'S_EEL' || u.dx || u.dy)) {
+        return;
+    }
+    hideunder(you);
 }
 
 /** True if floor cell has a boulder (domove test_move gate). */

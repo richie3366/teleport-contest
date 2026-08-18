@@ -20,6 +20,21 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 01:40 — #1579 D-1245 hideunder after tread
+
+**Objective:** Open `hack.c` hideunder after impact (named from
+D-1229). Not container_impact.
+**C locus:** `hack.c` `domove_core` `:2949–2951` after tread
+`:2944–2947`; `mon.c` `hideunder` youmonst `u.uundetected`.
+**Change:** `hero_hideunder_after_move` after tread, before dest
+`newsym`. `hides_under||S_EEL||dx||dy`. Mimic unhide /
+container_impact named. Rule #2: no fs.
+**Verified:** private canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless Upolyd `hides_under`/eel or leftover
+`u.uundetected`.
+**Next:** Open `monmove.c` `bee_eat_jelly` (named). Not hideunder.
+**Blocked:** none.
 ## 2026-08-19 01:23 — #1578 D-1244 gulpmm AD_DGST eat
 
 **Objective:** Open `mhitm.c` gulpmm AD_DGST eat (named). Not

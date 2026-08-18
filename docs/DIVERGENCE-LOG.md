@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1245 — `hack.c` hideunder after tread
+
+- **Status:** fixed (map-driven Open; named omit from D-1229 /
+  D-1214; not a public FAIL)
+- **Symptom:** after occupy + run-stop + tread, JS never called
+  `hideunder(&youmonst)`, so a polyed `hides_under`/eel form
+  never set `u.uundetected` on the dest, and a leftover hidden
+  hero who stepped where they cannot hide stayed undetected.
+- **C locus:** `hack.c` `domove_core` `:2949–2951` after
+  `disturb_buried_zombies` `:2944–2947`, before mimic unhide /
+  `check_leash`. Gate: `hides_under || S_EEL || u.dx || u.dy`.
+  Callee `mon.c` `hideunder` `:4726–4801` youmonst writes
+  `u.uundetected`.
+- **JS was:** tread live (D-1214); hideunder callee live for
+  teleds (D-1131); `domove` skipped the caller.
+- **Fix:** `hero_hideunder_after_move` after tread, before
+  dest `newsym`. `dx||dy` still clears leftover `uundetected`
+  for non-hiders. Rule #2: no fs.
+- **JS:** `js/hack.js` `hero_hideunder_after_move`; `js/cmd.js`
+  after tread; `js/mon.js` `hideunder` youmonst path.
+- **Not this iter:** mimic `m_ap_type` unhide; `container_impact_dmg`;
+  hitfloor `dropz(TRUE)`; `can_hide_under_obj` / pet cursed /
+  cockatrice in hideunder body.
+- **Verified:** private canary **23**/23 (C order; tourist clear;
+  swallow skip; cave spider hide/reveal/trap/pit/pool; eel
+  pool vs land; west dx; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless Upolyd `hides_under`/eel or leftover
+  `u.uundetected`.
+- **Follow-up:** Open `monmove.c` `bee_eat_jelly`.
+
 ## D-1244 — mhitm.c gulpmm AD_DGST eat
 
 - **Status:** fixed (map-driven Open; named omit from D-1231 /

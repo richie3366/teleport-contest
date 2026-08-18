@@ -2280,7 +2280,8 @@ export function restrap(mtmp) {
 
 /**
  * C ref: mon.c hideunder — set mundetected under object / pool for eels.
- * Used by hide_monst and teleds(&youmonst) (D-1131). monmove.js keeps
+ * Used by hide_monst, teleds(&youmonst) (D-1131), and
+ * hack.js hero_hideunder_after_move (D-1245). monmove.js keeps
  * a parallel local for postmov.
  * Named omissions: You_see pline; pet cursed_object_at; cockatrice skip;
  * can_hide_under_obj filter.

@@ -5,15 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1244 `mhitm.c` gulpmm AD_DGST eat
-  (`mhitm_ad_dgst` Burrrrp/`damage=mhp`; `monkilled` `mondead`;
-  cham/slime/wraith `grow_up(null)`/nurse/`mon_givit`). Cadence
+- **Fortress 44/44** after D-1245 `hack.c` hideunder after tread
+  (`hides_under||S_EEL||dx||dy` → `hideunder(&youmonst)`). Cadence
   **#1575** (`9b5bd39d`) reviews **200–203** ACCEPT-WITH-DEBT.
-  Next: Open `hack.c` hideunder after impact (named from D-1229).
-  Not AD_DGST eat. Must-fix empty.
-  Do not skip D-1244…D-1229. Do not pull giant pickup/maneuver /
+  Next: Open `monmove.c` `bee_eat_jelly` (named). Not hideunder.
+  Must-fix empty.
+  Do not skip D-1245…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / container_impact /
-  hideunder / AT_HUGS/EXPL/ENGL /
+  mimic unhide / AT_HUGS/EXPL/ENGL /
   altwep / `demonpet` / landmine·pit mid-roll / bee_eat / iron
   bars / `mon_yells` / unported uhitm `mhitm_ad_*` `pline_mon` /
   mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff /
@@ -21,10 +20,10 @@ Objective/score live in `CURRENT.md`.
   `grow_up` little_to_big.
   Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1244. Do not Must-fix named omits
+- Do not revert D-1217–D-1245. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
   bee_eat / iron bars / `mon_yells` / giant pickup /
-  hideunder).
+  mimic unhide).
 
 ## Don't re-check (≤15)
 
@@ -35,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1244 (CURRENT keep; gulpmm AD_DGST eat D-1244).
+  D-1190…D-1245 (CURRENT keep; hideunder after tread D-1245).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -50,7 +49,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1244. Keep se_scratching; `troll_baned`
+- Do not skip D-1071…D-1245. Keep se_scratching; `troll_baned`
   wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
   `corpse_xname` adjective / rot CXN_NO_PFX; `spot_monsters` →
   `a11y.mon_notices`; `mon_movement` → `a11y.mon_movement`;
@@ -58,8 +57,9 @@ Objective/score live in `CURRENT.md`.
   cannot_push squeeze D-1239; remaining already-ported uhitm
   `pline_mon` D-1240; passivemm assess_dmg `monkilled(magr)`
   D-1241; gulpmm `snuff_lit` minvent D-1242; gulpmm `!goodpos`
-  return-home D-1243; gulpmm AD_DGST eat D-1244. Glob / doname
-  CXN_ARTICLE|CXN_NOCORPSE / hideunder /
+  return-home D-1243; gulpmm AD_DGST eat D-1244; hideunder after
+  tread D-1245. Glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE / mimic unhide /
   AT_HUGS / `demonpet` / landmine·pit mid-roll / bee_eat / iron
   bars / `mon_yells` / giant pickup / unported `mhitm_ad_*`
   `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
@@ -77,6 +77,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1245: `hack.c` `domove` hideunder after tread (`hides_under` ||
+  S_EEL || dx || dy → `hideunder(&youmonst)`); mimic unhide /
+  container_impact / hitfloor `dropz(TRUE)` named.
 - D-1244: `mhitm.c` gulpmm AD_DGST eat (`mhitm_ad_dgst` +
   `mondead` + cham/slime/wraith/nurse/`mon_givit`); gulpmu
   invent / Medusa stone / NC_SHOW_MSG pline / little_to_big named.
@@ -98,8 +101,6 @@ Objective/score live in `CURRENT.md`.
   landmine/pit still named.
 - D-1236: `mon_movement` addr `&a11y.mon_movement`; default Off.
 - D-1235: `spot_monsters` addr `&a11y.mon_notices`; default Off.
-- D-1234: unique/pname `corpse_xname` adjective + rot `CXN_NO_PFX`;
-  glob / doname CXN_ARTICLE|CXN_NOCORPSE still named.
 - D-1233: `hmonas`/`damageum` `troll_baned` ternary/`uwep`;
   AT_HUGS/EXPL/ENGL / altwep / `demonpet` still named.
 - D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
