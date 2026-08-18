@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `uhitm.c` remaining `pline_mon` (named). Not troll_baned. **Addressed:** D-1240
+- [x] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned. **Addressed:** D-1241
+
+
+- [x] `uhitm.c` remaining `pline_mon` (named). Not troll_baned. **Addressed:** D-1240 `d8f28958`
 
 
 - [x] `hack.c` cannot_push squeeze (named from D-1226). Not run>=2 boulder. **Addressed:** D-1239 `51a337e7`

@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1241 — mhitm.c `passivemm` assess_dmg `monkilled(magr)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1211 /
+  D-1231 as “passivemm/AD_RBRE shock”; not a public FAIL)
+- **Symptom:** JS `passivemm` only burned `rn2(3)` when the
+  defender lived, then returned. C rolls AT_NONE dice, applies
+  AD_ACID even if the defender already died (`goto assess_dmg`,
+  no `rn2(3)`), applies live COLD/FIRE/ELEC/PLYS/STUN when
+  `rn2(3)`, then `monkilled(magr, "", adtyp)` with no
+  `gz.zombify`. `mon_poly` system-shock `monkilled(..., AD_RBRE)`
+  was already ported (D-1006); the named omit was this caller.
+- **C locus:** `mhitm.c` `passivemm` `:1304–1457` (caller
+  `mattackm` `:572–575`); `paralyze_monst` `:1209–1219`.
+  Callees `erode_armor` / `acid_damage` / `golemeffects` /
+  `mon_reflects` / `split_mon` / `healmon`.
+- **JS was:** find AT_NONE via `get_mattk`, early-return if
+  dead, `rn2(3)`, never subtract HP, never `monkilled` magr.
+- **Fix:** raw `mddat.mattk`; dice; AD_ACID splash +
+  `erode_armor` `rn2(5)` loop + weapon `erode_obj`; thin
+  AD_ENCH `spe--`; live `rn2(3)` switch; assess_dmg
+  `monkilled(magr)` then `M_ATTK_AGR_DIED`. Did not pull
+  gulpmm snuff_lit / `!goodpos` / AD_DGST eat. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `passivemm` / `paralyze_monst` /
+  `erode_armor_mm` / `golemeffects_mm` / `mon_reflects_mm`.
+- **Not this iter:** gulpmm `snuff_lit` minvent; `!goodpos`
+  return-home; AD_DGST eat; `drain_item` ring/helm ABON /
+  `defends(AD_DRLI)`; golem MSLOW `mon_adjust_speed`;
+  `arti_reflects`; `stagger` locomotion table; grease_protect
+  / scroll fade in `acid_damage`.
+- **Verified:** private canary **20**/20 (C assess_dmg; no
+  zombify; AD_ACID goto; runtime acid `monkilled(magr)`; eye
+  paralyze; cancelled jelly skip; live jelly cold; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  m-vs-m hits a live AT_NONE acid/jelly/eye.
+- **Follow-up:** Open `mhitm.c` gulpmm `snuff_lit` minvent.
+
 ## D-1240 — uhitm.c remaining already-ported `pline_mon`
 
 - **Status:** fixed (map-driven Open; named omit from D-1227 /

@@ -20,6 +20,26 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 00:20 — #1574 D-1241 passivemm monkilled(magr)
+
+**Objective:** Open `mhitm.c` `passivemm` AD_RBRE shock
+`monkilled` (named). Not troll_baned.
+**C locus:** `mhitm.c` `passivemm` `:1304–1457`;
+`paralyze_monst` `:1209–1219`.
+**Change:** AT_NONE dice; AD_ACID goto assess (splash / erode
+`rn2(5)` / weapon acid); AD_ENCH `spe--` after `obj_resists`
+10/90; live `rn2(3)` COLD/FIRE/ELEC/PLYS/STUN; assess_dmg
+`monkilled(magr)` no zombify. `mon_poly` AD_RBRE already live.
+Golem MSLOW / `arti_reflects` / drain ABON named. Rule #2: no fs.
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless m-vs-m hits a live
+AT_NONE acid/jelly/eye.
+**Next:** Open `mhitm.c` gulpmm `snuff_lit` minvent (named).
+Not `m_at` swap. Filled D-1240 archive hash `d8f28958`.
+Open 9 after archive (no refill).
+**Blocked:** none.
+
 ## 2026-08-19 00:06 — #1573 D-1240 uhitm remaining pline_mon
 
 **Objective:** Open `uhitm.c` remaining `pline_mon` (named). Not
