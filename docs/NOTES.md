@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after D-1241 `mhitm.c` `passivemm` assess_dmg
   `monkilled(magr)` (no zombify; AD_ACID goto skips `rn2(3)`).
-  Cadence **#1570** (`d81367e2`). Next: Open `mhitm.c` gulpmm
-  `snuff_lit` minvent (named). Not `m_at` swap. Must-fix empty.
+  Cadence **#1575** (`9b5bd39d`) reviews **200–203** ACCEPT-WITH-DEBT.
+  Next: Open `mhitm.c` gulpmm `snuff_lit` minvent (named). Not
+  `m_at` swap. Must-fix empty.
   Do not skip D-1241…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / container_impact /
   hideunder / gulpmm `!goodpos` / AD_DGST eat / AT_HUGS/EXPL/ENGL /
@@ -94,8 +95,8 @@ Objective/score live in `CURRENT.md`.
   snuff_lit / !goodpos / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m.
-- Review **196–199** ACCEPT-WITH-DEBT. Cadence **#1570** **44**/44
-  including seed0383. Next audit @**#1575**.
+- Review **200–203** ACCEPT-WITH-DEBT. Cadence **#1575** **44**/44
+  including seed0383. Next audit @**#1580**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not

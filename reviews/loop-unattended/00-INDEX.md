@@ -209,3 +209,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [197-f631610d-spot-monsters-a11y.md](./197-f631610d-spot-monsters-a11y.md) | `f631610d` | D-1235 `spot_monsters` → `a11y.mon_notices` | **ACCEPT-WITH-DEBT** |
 | [198-5c860b0e-mon-movement-a11y.md](./198-5c860b0e-mon-movement-a11y.md) | `5c860b0e` | D-1236 `mon_movement` → `a11y.mon_movement` | **ACCEPT-WITH-DEBT** |
 | [199-d81367e2-launch-obj-telep-pline-xy.md](./199-d81367e2-launch-obj-telep-pline-xy.md) | `d81367e2` | D-1237 rolling-boulder TELEP `pline_xy` | **ACCEPT-WITH-DEBT** |
+| [200-6d2735b0-mind-blast.md](./200-6d2735b0-mind-blast.md) | `6d2735b0` | D-1238 `mind_blast` | **ACCEPT-WITH-DEBT** |
+| [201-51a337e7-cannot-push-squeeze.md](./201-51a337e7-cannot-push-squeeze.md) | `51a337e7` | D-1239 cannot_push squeeze + `sokoban_guilt` | **ACCEPT-WITH-DEBT** |
+| [202-d8f28958-uhitm-remaining-pline-mon.md](./202-d8f28958-uhitm-remaining-pline-mon.md) | `d8f28958` | D-1240 remaining already-ported `pline_mon` | **ACCEPT-WITH-DEBT** |
+| [203-9b5bd39d-passivemm-monkilled.md](./203-9b5bd39d-passivemm-monkilled.md) | `9b5bd39d` | D-1241 `passivemm` assess_dmg `monkilled(magr)` | **ACCEPT-WITH-DEBT** |

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned. **Addressed:** D-1241
+- [x] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned. **Addressed:** D-1241 `9b5bd39d`
 
 
 - [x] `uhitm.c` remaining `pline_mon` (named). Not troll_baned. **Addressed:** D-1240 `d8f28958`
