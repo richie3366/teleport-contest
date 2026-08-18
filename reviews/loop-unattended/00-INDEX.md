@@ -213,3 +213,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [201-51a337e7-cannot-push-squeeze.md](./201-51a337e7-cannot-push-squeeze.md) | `51a337e7` | D-1239 cannot_push squeeze + `sokoban_guilt` | **ACCEPT-WITH-DEBT** |
 | [202-d8f28958-uhitm-remaining-pline-mon.md](./202-d8f28958-uhitm-remaining-pline-mon.md) | `d8f28958` | D-1240 remaining already-ported `pline_mon` | **ACCEPT-WITH-DEBT** |
 | [203-9b5bd39d-passivemm-monkilled.md](./203-9b5bd39d-passivemm-monkilled.md) | `9b5bd39d` | D-1241 `passivemm` assess_dmg `monkilled(magr)` | **ACCEPT-WITH-DEBT** |
+| [204-509b1355-gulpmm-snuff-lit.md](./204-509b1355-gulpmm-snuff-lit.md) | `509b1355` | D-1242 gulpmm `snuff_lit` minvent | **ACCEPT-WITH-DEBT** |
+| [205-729b03dc-gulpmm-goodpos-home.md](./205-729b03dc-gulpmm-goodpos-home.md) | `729b03dc` | D-1243 gulpmm `!goodpos` return-home | **ACCEPT-WITH-DEBT** |
+| [206-293059d0-gulpmm-ad-dgst-eat.md](./206-293059d0-gulpmm-ad-dgst-eat.md) | `293059d0` | D-1244 gulpmm AD_DGST eat | **ACCEPT-WITH-DEBT** |
+| [207-6115dc58-hideunder-after-tread.md](./207-6115dc58-hideunder-after-tread.md) | `6115dc58` | D-1245 hideunder after tread | **ACCEPT-WITH-DEBT** |

@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after D-1245 `hack.c` hideunder after tread
   (`hides_under||S_EEL||dx||dy` → `hideunder(&youmonst)`). Cadence
-  **#1575** (`9b5bd39d`) reviews **200–203** ACCEPT-WITH-DEBT.
+  **#1580** (`6115dc58`) reviews **204–207** ACCEPT-WITH-DEBT.
   Next: Open `monmove.c` `bee_eat_jelly` (named). Not hideunder.
   Must-fix empty.
   Do not skip D-1245…D-1229. Do not pull giant pickup/maneuver /
@@ -106,5 +106,5 @@ Objective/score live in `CURRENT.md`.
 - D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
 - D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
   snuff_lit D-1242; !goodpos D-1243; AD_DGST eat D-1244.
-- Review **200–203** ACCEPT-WITH-DEBT. Cadence **#1575** **44**/44
-  including seed0383. Next audit @**#1580**.
+- Review **204–207** ACCEPT-WITH-DEBT. Cadence **#1580** **44**/44
+  including seed0383. Next audit @**#1585**.

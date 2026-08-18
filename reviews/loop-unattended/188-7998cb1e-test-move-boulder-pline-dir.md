@@ -123,7 +123,7 @@ None for Must-fix. `pline_dir` is live; `could_move_onto_boulder` is the C body.
 
 Named omits (map, not Must-fix):
 
-1. `cannot_push` squeeze pline + `sokoban_guilt` (`hack.c:304`) — **Addressed:** D-1239
+1. `cannot_push` squeeze pline + `sokoban_guilt` (`hack.c:304`) — **Addressed:** D-1239 `51a337e7`
 2. Giant pickup / maneuver-over in `cannot_push`
 3. Unified `test_move` TEST_TRAV consecutive-boulder walk
 4. Blind/Hallu sticky vs C H\|\|E / H&&!resist (youprop clones)

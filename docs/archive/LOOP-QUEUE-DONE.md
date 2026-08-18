@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `hack.c` hideunder after impact (named from D-1229). Not container_impact. **Addressed:** D-1245
+- [x] `hack.c` hideunder after impact (named from D-1229). Not container_impact. **Addressed:** D-1245 `6115dc58`
 
 
 - [x] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm. **Addressed:** D-1244 `293059d0`

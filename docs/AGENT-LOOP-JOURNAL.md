@@ -20,6 +20,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 01:50 — #1580 review D-1242–D-1245 + cadence
+
+**Objective:** audit — C-fidelity reviews **204–207** of JS SHAs
+since `271e92e2`, plus full `sessions` score. No `js/` port.
+**C locus:** `mhitm.c` gulpmm `snuff_lit` / `!goodpos` / AD_DGST
+eat; `hack.c` hideunder after tread.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: gulpmu invent; Medusa stone; NC_SHOW_MSG;
+little_to_big; mimic unhide; container_impact; bee/bars/yells).
+Filled D-1245 archive hash `6115dc58`. Open 10 (no refill).
+Rule #2: no fs.
+**Score:** cadence **#1580** HEAD `6115dc58` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.29/turn` (R² 0.853). seed0383 PASS. Next audit @**#1585**.
+**Verified:** `__RESULTS_JSON__` at HEAD `6115dc58`; branch-by-branch
+vs pinned C (`snuff_lit` live `end_burn`; `goodpos` live;
+`mondead` digest; `hideunder` youmonst live, not stubs).
+**Next:** Open `monmove.c` `bee_eat_jelly` (named). Not hideunder.
+**Blocked:** none.
 ## 2026-08-19 01:40 — #1579 D-1245 hideunder after tread
 
 **Objective:** Open `hack.c` hideunder after impact (named from
