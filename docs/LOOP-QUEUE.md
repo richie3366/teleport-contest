@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` `dolookaround` (named). Not glyph_updates.
 - [ ] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround.
 - [ ] `display.c` `show_glyph_change` glyph_updates (named). Not opt_accessiblemsg.
 - [ ] `do.c` `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible` (named). Not Soundeffect.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mhitm.c` `troll_baned` `mkcorpstat_norevive` (named). Not gulpmm.
 - [ ] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast.
 - [ ] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd.
+- [ ] `hack.c` run>=2 boulder `pline_dir` (named). Not mention_walls.
+- [ ] remaining `pline.c` `pline_mon` callers (named). Not msg_mon_movement.
+- [ ] `hack.c` `msg_mon_movement` (named). Not pline_mon.
+- [ ] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder.
+- [ ] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast.
 
 ## Parked (do not pop)
 

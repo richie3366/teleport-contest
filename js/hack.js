@@ -1776,7 +1776,8 @@ export function invocation_pos(x, y) {
  * (`flags.accessiblemsg` vs `a11y.accessiblemsg`); `mon_movement`;
  * `glyph_updates`. vpline consume of msg_loc is D-1207;
  * pline_xy/pline_mon writers are D-1215; set_msg_dir/pline_dir D-1216
- * (`display.js`).
+ * (`display.js`). `cmd.c` `dolookaround` is D-1217 (`cmd.js`; newgame
+ * then-arm + `#lookaround`).
  */
 function a11y_state() {
     if (!game.a11y) {

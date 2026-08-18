@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 11:46 — #1546 D-1217 dolookaround / #lookaround
+
+**Objective:** Open — `cmd.c` `dolookaround` (named). Not
+glyph_updates.
+**C locus:** `cmd.c` 1195–1368 helpers+body / extcmdlist
+1760–1761 IFBURIED|GENERALCMD no AUTOCOMPLETE; `getpos.c`
+482–503 GLOC_VALID FALLTHROUGH / GLOC_INTERESTING;
+`allmain.c` 845–848 glyph_updates then-arm.
+**Change:** local selvar floodfill + `lookaround_known_room` +
+scan `pline_xy`; `#lookaround` EXT_CMDS only; newgame then-arm
+`await dolookaround()`. Did not pull corridor-goes-to /
+glyph_at table / GFILTER_AREA / aA / `opt_accessiblemsg`.
+Filled D-1216 archive already `517cb217`. Rotated #1531. Open 12
+after archive+refill. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1545** **44**/44; next
+@**#1550**).
+**Verified:** private canary (GLOC_INTERESTING ROOM/CORR/unexplored
+vs FOUNTAIN; viz off/on room size; restore filter; doorway
+`--More--` is C); green+strict seed8000/0900; cohort **7**/7
++ strict 1500/1800/0012/0102/0108.
+**Next:** Open `options.c` `opt_accessiblemsg` wire
+`a11y.accessiblemsg` (named). Not dolookaround.
+**Blocked:** none.
+
 ## 2026-08-18 11:25 — #1545 review D-1213–D-1216 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -344,24 +368,4 @@ seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
 while riding.
 **Next:** Open `pline.c` `vpline` accessiblemsg consume (named).
 Not set_msg_xy.
-**Blocked:** none.
-
-## 2026-08-18 06:48 — #1531 D-1205 scrolltele unconscious
-
-**Objective:** Open — `teleport.c` `scrolltele` unconscious (named).
-Not Override yn.
-**C locus:** `teleport.c` `scrolltele` 874–876 / `trap.c`
-`unconscious` 6776–6786 after Override before steed whobuf.
-**Change:** local `unconscious()` clone; fail pline then
-fall through `learnscroll`+`safe_teleds` (no getpos). Did not
-pull steed whobuf. D-1204 archive already `dbd3a08b`. Rotated
-#1516. Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1530** **44**/44; next
-@**#1535**).
-**Verified:** private canary **37**/37; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
-2200/0014/0004. Public-unhit unless controlled teleport
-while `multi<0` sleep or a matching wake `nomovemsg`.
-**Next:** Open `teleport.c` `scrolltele` steed whobuf (named).
-Not unconscious.
 **Blocked:** none.

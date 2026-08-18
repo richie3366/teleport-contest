@@ -4,6 +4,54 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1217 — `cmd.c` `dolookaround` / `#lookaround`
+
+- **Status:** fixed (map-driven Open; named omit from D-1200 /
+  D-1207 / D-1216; not a public FAIL)
+- **Symptom:** JS had `vpline` accessiblemsg consume (D-1207),
+  `pline_xy` (D-1215), and newgame `notice_mon_off`/`on` (D-1200)
+  but `#lookaround` was missing and the glyph_updates then-arm
+  after welcome was empty. C `dolookaround` flood-fills the
+  current (or doorway-adjacent) room, prints a seen/guess size
+  line, then `pline_xy` of every in-view interesting (or shown
+  corridor) tile. Default `glyph_updates` Off so public newgame
+  still takes `notice_all_mons(TRUE)`.
+- **C locus:** `cmd.c` `u_have_seen_whole_selection` `:1195–1208`;
+  bounds `:1213–1238`; `u_can_see_whole_selection` `:1246–1258`;
+  `dolookaround_floodfill_findroom` `:1263–1271`;
+  `lookaround_known_room` `:1276–1306`; `dolookaround`
+  `:1310–1368`; extcmdlist `"lookaround"` IFBURIED|GENERALCMD
+  (no AUTOCOMPLETE) `:1760–1761`; `getpos.c`
+  `gather_locs_interesting` GLOC_VALID FALLTHROUGH /
+  GLOC_INTERESTING `:482–503`; `allmain.c` `:845–848`.
+- **JS was:** named omit; getpos `gather_locs_interesting` stopped
+  at GLOC_EXPLORE; newgame then-arm empty.
+- **Fix:** local selvar floodfill in `cmd.js` (mklev Lua
+  `matchTyp` stays). Seed always included; neighbors need the
+  findroom stop (STWALL/DOOR/TREE/WATERWALL/LAVAWALL/IRONBARS/
+  SCORR/SDOOR/DRAWBRIDGE_UP). `u.urooms[0]-ROOMOFFSET` even for
+  adjacent doorway rooms (C quirk). CORR/`DIR_W` step-2 doorway
+  rooms / else hero cell. Scan `!u_at` && (GLOC_INTERESTING ||
+  shown `#` CORR). Temporarily force `accessiblemsg` +
+  `GFILTER_VIEW`; restore both. `#lookaround` in EXT_CMDS only.
+  Rule #2: no fs.
+- **JS:** `js/cmd.js`; `js/getpos.js`; `js/allmain.js`;
+  `js/getline.js`; `js/hack.js` comment.
+- **Not this iter:** corridor-goes-to rooms TODO; stuff outside
+  current room TODO; integer `glyph_at` / full pager
+  `do_screen_description` table (firstmatch = existing
+  `auto_describe_text`); GFILTER_AREA; getpos `aA` cycle keys;
+  `show_glyph_change`; `opt_accessiblemsg` option wiring;
+  remaining `pline_mon`; run>=2 boulder `pline_dir`;
+  `msg_mon_movement`. Rule #2: no fs.
+- **Verified:** private canary (GLOC_INTERESTING: ROOM/plain CORR/
+  unexplored not interesting, FOUNTAIN is; viz off “remember this
+  as a square 5 by 5 room.” / viz on “are in”; filter+accessiblemsg
+  restored; doorway second pline `--More--` is C); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0102/0108.
+  Path public-unhit unless `#lookaround` or `glyph_updates` On
+  (default Off).
+
 ## D-1216 — `pline.c` `set_msg_dir` / `pline_dir`
 
 - **Status:** fixed (map-driven Open; named omit from D-1207 /
