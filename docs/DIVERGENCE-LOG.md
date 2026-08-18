@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1202 — timeout.c REVIVE_MON / ZOMBIFY_MON
+
+- **Status:** fixed (map-driven Open; named omit from D-1191 /
+  mkobj timer dispatch; not a public FAIL)
+- **Symptom:** `run_timers` popped REVIVE_MON / ZOMBIFY_MON
+  entries as no-ops. Troll/Rider corpses and buried-zombies
+  themerms never revived; `start_corpse_timeout` skipped the
+  `gz.zombify` queue arm.
+- **C locus:** `do.c` `revive_mon` `:2251–2295` /
+  `zombify_mon` `:2298–2315` (registered `timeout.c:1982–1983`);
+  `mon.c` `zombie_form` `:386–413`; `timeout.c` `obj_has_timer`
+  `:2404–2409`; `mkobj.c` `start_corpse_timeout` `:1425–1428`;
+  `do.c` `revive_corpse` OBJ_BURIED `:2217–2234`.
+- **JS was:** dispatch comment `REVIVE_MON / ZOMBIFY_MON
+  deferred`; `start_corpse_timeout` lacked the zombify arm;
+  `revive_corpse` skipped buried pit/claw.
+- **Fix:** `js/timeout.js` `revive_mon` / `zombify_mon`;
+  `js/mon.js` `zombie_form`; `js/mkobj.js` dispatch +
+  `obj_has_timer` + zombify `rn1(15,5)` arm; `js/do.js`
+  buried zombie pit; `js/monsters.js` `is_displacer`.
+  Did not pull `gz.zombify` setters at `make_corpse` /
+  mhitm, MINVENT/CONTAINED revive messages, or invent
+  `rot_corpse` worn plines. Rule #2: no fs.
+- **Not this iter:** `mon.c` `zombie_maker` / `gz.zombify`
+  at `make_corpse`; mhitm monkilled zombify; `disturb_buried_zombies`;
+  `revive_corpse` MINVENT/CONTAINED; `cmd.c` wiz-level-change.
+- **Verified:** `zombie_form` + `is_displacer` unit map;
+  green+strict seed8000/0900; cohort **16**/16 (1500/1800/
+  0015/0002/0014/2200/0006/0361/0060/0102/0700/0009/0012/
+  0004/0367/4500) + strict lengths (fresh process).
+  Public-unhit unless a REVIVE/ZOMBIFY timer expires.
+- **Files:** `js/timeout.js`, `js/mkobj.js`, `js/mon.js`,
+  `js/monsters.js`, `js/do.js`.
+
 ## D-1201 — artifact.c `init_artifacts`
 
 - **Status:** fixed (map-driven Open; named omit from D-1192 /

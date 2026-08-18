@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `artifact.c` `init_artifacts` (named). Not wizkit. **Addressed:** D-1201
+- [x] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers. **Addressed:** D-1202
+
+
+- [x] `artifact.c` `init_artifacts` (named). Not wizkit. **Addressed:** D-1201 `4ffc2264`
 
 
 - [x] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit. **Addressed:** D-1200 `15cb4a37`

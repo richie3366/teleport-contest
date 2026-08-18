@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers.
 - [ ] `cmd.c` `wiz_level_change` (named). Not notice_mon_off.
 - [ ] `eat.c` `eatspecial` (named). Not doeat_nonfood.
 - [ ] `teleport.c` `scrolltele` unconscious (named). Not Override yn.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy.
 - [ ] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele.
 - [ ] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate.
+- [ ] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm.
+- [ ] `mhitm.c` `gz.zombify` at monkilled (named). Not make_corpse.
+- [ ] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED.
+- [ ] `dig.c` `rot_corpse` invent/minvent worn plines (named). Not REVIVE.
+- [ ] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon.
 
 ## Parked (do not pop)
 

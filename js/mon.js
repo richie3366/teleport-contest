@@ -30,8 +30,8 @@ import {
     bigmonst, amorphous, is_whirly, noncorporeal, M1_SLITHY,
     is_vampshifter, is_male, is_female, is_neuter, likes_gems,
     is_rider, nonliving, breathless, is_giant, is_minion, is_human,
-    is_undead, amphibious, can_teleport, MR_FIRE, MR_POISON, mindless, G_UNIQ,
-    is_watch,
+    is_elf, is_dwarf, is_undead, amphibious, can_teleport, MR_FIRE,
+    MR_POISON, mindless, G_UNIQ, is_watch,
 } from './monsters.js';
 import {
     little_to_big, big_to_little, hero_conflict, resist_conflict,
@@ -565,6 +565,39 @@ export function undead_to_corpse(mndx) {
     default:
         return mndx;
     }
+}
+
+/**
+ * C ref: mon.c zombie_form — living species → zombie mndx, or NON_PM.
+ * Inverse of undead_to_corpse for the zombie half. Ettin is the only
+ * S_GIANT that maps to ETTIN_ZOMBIE; S_HUMANOID only dwarf; already
+ * S_ZOMBIE stays NON_PM (ghoul/skeleton/zombie keep their corpse).
+ * @param {object|null} ptr permonst
+ * @returns {number}
+ */
+export function zombie_form(ptr) {
+    if (!ptr) return NON_PM;
+    switch (ptr.mlet) {
+    case 'S_ZOMBIE':
+        return NON_PM;
+    case 'S_KOBOLD':
+        return pm('KOBOLD_ZOMBIE');
+    case 'S_ORC':
+        return pm('ORC_ZOMBIE');
+    case 'S_GIANT':
+        if ((ptr.mndx | 0) === pm('ETTIN')) return pm('ETTIN_ZOMBIE');
+        return pm('GIANT_ZOMBIE');
+    case 'S_HUMAN':
+    case 'S_KOP':
+        if (is_elf(ptr)) return pm('ELF_ZOMBIE');
+        return pm('HUMAN_ZOMBIE');
+    case 'S_HUMANOID':
+        if (is_dwarf(ptr)) return pm('DWARF_ZOMBIE');
+        break;
+    case 'S_GNOME':
+        return pm('GNOME_ZOMBIE');
+    }
+    return NON_PM;
 }
 
 export const ALLOW_U = 0x00040000;
