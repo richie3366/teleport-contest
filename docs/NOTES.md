@@ -5,17 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1237 rolling-boulder TELEP `pline_xy`
-  (`rloco`/migrate). Cadence **#1570** (`d81367e2`). Next: Open
-  `monmove.c` `mind_blast`. Not msg_mon_movement. Must-fix empty.
-  Do not skip D-1237…D-1229. Do not pull glob / doname
+- **Fortress 44/44** after D-1238 `monmove.c` `mind_blast`. Cadence
+  **#1570** (`d81367e2`). Next: Open `hack.c` cannot_push squeeze
+  (named from D-1226). Not run>=2 boulder. Must-fix empty.
+  Do not skip D-1238…D-1229. Do not pull glob / doname
   CXN_ARTICLE|CXN_NOCORPSE / container_impact / hideunder /
   passivemm / AT_HUGS/EXPL/ENGL / altwep / `demonpet` /
-  landmine·pit mid-roll. Do not wrap `msg_mon_movement` as
-  `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1237. Do not Must-fix named omits
+  landmine·pit mid-roll / bee_eat / iron bars / `mon_yells`.
+  Do not wrap `msg_mon_movement` as `pline_mon`. Do not restore
+  Hallu `gbuf_show_kind`. No FORCE.
+- Do not revert D-1217–D-1238. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / remaining `pline_mon` /
-  `mind_blast`).
+  bee_eat / iron bars / `mon_yells`).
 
 ## Don't re-check (≤15)
 
@@ -26,7 +27,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1237 (CURRENT keep; rolling-boulder TELEP D-1237).
+  D-1190…D-1238 (CURRENT keep; `mind_blast` D-1238).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,27 +42,29 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1237. Keep se_scratching; `troll_baned`
+- Do not skip D-1071…D-1238. Keep se_scratching; `troll_baned`
   wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
   `corpse_xname` adjective / rot CXN_NO_PFX; `spot_monsters` →
   `a11y.mon_notices`; `mon_movement` → `a11y.mon_movement`;
-  rolling-boulder TELEP `pline_xy` D-1237. Glob / doname
-  CXN_ARTICLE|CXN_NOCORPSE / snuff_lit / AT_HUGS / `demonpet` /
-  landmine·pit mid-roll / `mind_blast` still named. Do not “fix”
-  seed0383 with ALIGN/FORCE.
+  rolling-boulder TELEP `pline_xy` D-1237; `mind_blast` D-1238.
+  Glob / doname CXN_ARTICLE|CXN_NOCORPSE / snuff_lit / AT_HUGS /
+  `demonpet` / landmine·pit mid-roll / bee_eat / iron bars /
+  `mon_yells` still named. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters`/`glyph_updates`/`mon_movement` Off.
-  Remaining uhitm/worn/trap `pline_mon` / `mind_blast` / other
-  Soundeffect / landmine·pit mid-roll named. Do not treat `dothrow`
+  Remaining uhitm/worn/trap `pline_mon` / other Soundeffect /
+  landmine·pit mid-roll named. Do not treat `dothrow`
   `game.thrownobj` as wired (review **172**). Do not Must-fix
   `DIR_UP`/`DIR_DOWN` const swap (review **178**).
 
 ## Landmarks (≤15)
 
+- D-1238: `monmove.c` `mind_blast` body + `set_apparxy`/`distfleeck`;
+  bee_eat / iron bars / `mon_yells` still named.
 - D-1237: rolling-boulder TELEP `pline_xy` + `rloco`/migrate;
   landmine/pit still named.
 - D-1236: `mon_movement` addr `&a11y.mon_movement`; default Off.
@@ -84,5 +87,3 @@ Objective/score live in `CURRENT.md`.
 - D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck).
 - D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme.
-- D-1223: mhitm `troll_baned`; gulpmm D-1231; hmon D-1232;
-  hmonas D-1233.

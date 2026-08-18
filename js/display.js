@@ -3717,10 +3717,12 @@ export async function pline_xy(x, y, msg) {
  * C pline.c pline_mon 137–150 — &youmonst → (0,0) (not hero ux,uy);
  * else mx,my; then vpline. isok rejects x=0 so youmonst never prefixes.
  * Live callers: wield/zap/drop/pickup/mb_trapped (D-1215) + monmove
- * monflee/itsstuck/maybe_spin_web/postmov door (D-1227).
+ * monflee/itsstuck/maybe_spin_web/postmov door (D-1227) + mind_blast
+ * concentrates (D-1238).
  * Named omit: remaining uhitm/worn/trap/weapon drop·tether / muse drinks /
- * iron bars / mind_blast / bee_eat / mon_yells. Rolling-boulder TELEP
- * is pline_xy (D-1237). Do not wrap msg_mon_movement as pline_mon (D-1228).
+ * iron bars / bee_eat / mon_yells. mind_blast concentrates is pline_mon
+ * (D-1238). Rolling-boulder TELEP is pline_xy (D-1237). Do not wrap
+ * msg_mon_movement as pline_mon (D-1228).
  */
 export async function pline_mon(mtmp, msg) {
     if (mtmp === game.youmonst) {

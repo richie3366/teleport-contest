@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1238 — `monmove.c` `mind_blast`
+
+- **Status:** fixed (map-driven Open; named omit from D-1227 /
+  D-1237; not a public FAIL)
+- **Symptom:** JS `dochug` burned `is_mind_flayer && !rn2(20)` but
+  skipped the C `mind_blast` body, so a mind flayer never
+  concentrated, never poured a psychic wave, and never damaged the
+  hero or opposite-peace monsters. `set_apparxy`/`distfleeck` after
+  the blast were also skipped.
+- **C locus:** `monmove.c` `mind_blast` `:581–645`; `dochug`
+  `:827–835` (`is_watch` else `is_mind_flayer && !rn2(20)` then
+  `mind_blast` + `set_apparxy` + `distfleeck`).
+- **JS was:** comment “mind_blast deferred — still burn rn2(20)
+  gate only”; named omission of body + fleeck refresh.
+- **Fix:** `pline_mon` concentrates when `display_canseemon`; far
+  `mdistu > BOLT_LIM²` You-sense return (skips fmon); wave; peaceful
+  `!Conflict || resist_conflict` soothing; else `!uinvulnerable`
+  `sensemon || (Blind_telepat && rn2(2)) || !rn2(10)` lock-on
+  (unhide / U_AP_TYPE clear) + `rnd(15)` + Half_spell
+  `(dmg+1)/2` + `losehp("psychic blast", KILLED_BY_AN)`; fmon
+  snapshot nmon, skip dead/same-peace/mindless/self, telepathic
+  `(rn2(2)||mblinded) || !rn2(10)`, `wakeup(FALSE)`, cansee lock-on
+  `mon_nam`, `mhp -= rnd(15)`, `monkilled("", AD_DRIN)`; then
+  `set_apparxy`/`distfleeck`. Hero fatal skips fmon (C losehp
+  noreturn). bee_eat / iron bars / `mon_yells` still named. Rule #2:
+  no fs.
+- **JS:** `js/monmove.js` `mind_blast` + `dochug`; comment
+  `js/display.js` `pline_mon`.
+- **Not this iter:** `bee_eat_jelly`; postmov iron bars;
+  `mon_yells`; remaining uhitm/worn/trap `pline_mon`;
+  cannot_push squeeze.
+- **Verified:** private canary **31**/31 (C body+caller; JS
+  short-circuit; far return; soothing; uinvulnerable; m_sen no rn2
+  gate; latent `rn2(2)`; Half_spell integer half; uundetected;
+  U_AP_TYPE clear; same-peace skip; mindless skip; jackal `rn2(10)`;
+  telepathic `rn2(2)`; DEADMONSTER skip; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a mind flayer takes a `dochug`
+  turn with `!rn2(20)`.
+- **Follow-up:** Open `hack.c` cannot_push squeeze.
+
 ## D-1237 — rolling-boulder TELEP `pline_xy` + `rloco` / migrate
 
 - **Status:** fixed (map-driven Open; named omit from D-1215 /

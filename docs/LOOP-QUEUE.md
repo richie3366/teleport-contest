@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` `mind_blast` (named). Not msg_mon_movement.
 - [ ] `hack.c` cannot_push squeeze (named from D-1226). Not run>=2 boulder.
 - [ ] `uhitm.c` remaining `pline_mon` (named). Not troll_baned.
 - [ ] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mhitm.c` gulpmm `!goodpos` return-home (named). Not snuff_lit.
 - [ ] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm.
 - [ ] `hack.c` hideunder after impact (named from D-1229). Not container_impact.
+- [ ] `monmove.c` `bee_eat_jelly` (named). Not mind_blast.
+- [ ] `monmove.c` postmov iron bars (named). Not bee_eat.
+- [ ] `monmove.c` `mon_yells` (named). Not iron bars.
+- [ ] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder.
+- [ ] `uhitm.c` AT_HUGS (named from D-1233). Not remaining `pline_mon`.
 
 ## Parked (do not pop)
 

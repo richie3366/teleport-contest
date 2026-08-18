@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1238 | fixed | monmove.c `mind_blast` | map-driven; C `monmove.c:581–645` / dochug `:827–835`; JS `pline_mon` concentrates + far You-sense return + peaceful soothing vs `sensemon`/`Blind_telepat`/`!rn2(10)` lock-on + Half_spell integer half + fmon nmon `wakeup`/`rnd(15)`/`monkilled("", AD_DRIN)` then `set_apparxy`/`distfleeck`; bee_eat/iron bars/`mon_yells` still named |
 | D-1237 | fixed | trap.c `launch_obj` rolling-boulder TELEP `pline_xy` | map-driven; C `trap.c:3460–3488` ROLL TELEP/LEVEL_TELEP `pline_xy`/`You_hear` then `rloco` or `add_to_migration`+`get_level`; LEVEL_TELEP `random_teleport_level` same-depth skip; `seetrap`+used_up; landmine/pit/`flooreffects` still named |
 | D-1236 | fixed | options.c `optlist` `mon_movement` `a11y.mon_movement` | map-driven; C `optlist.h:493–494` `NHOPTB(mon_movement, … Off, …, &a11y.mon_movement)`; `options.c` `optfn_boolean` `*(addr)=!negated` no after-change arm; doset/`OPTIONS=` no longer `flags.mon_movement`; colon true/yes/on/1; default Off public unhit; leftover flags ignored |
 | D-1235 | fixed | options.c `optlist` `spot_monsters` `a11y.mon_notices` | map-driven; C `optlist.h:708–710` `NHOPTB(spot_monsters, … Off, …, &a11y.mon_notices)`; `options.c` `optfn_boolean` `*(addr)=!negated` no after-change arm; doset/`OPTIONS=` no longer `flags.spot_monsters`; colon true/yes/on/1; default Off public unhit; `mon_movement` addr D-1236 |

@@ -20,6 +20,23 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:48 — #1571 D-1238 mind_blast
+
+**Objective:** Open `monmove.c` `mind_blast` (named). Not
+msg_mon_movement.
+**C locus:** `monmove.c` `mind_blast` `:581–645`; `dochug`
+`:827–835`.
+**Change:** port body (`pline_mon` concentrates; far You-sense
+return; soothing vs lock-on + Half_spell `losehp`; fmon nmon
+`wakeup`/`rnd(15)`/`monkilled("", AD_DRIN)`) then `set_apparxy`/
+`distfleeck`. bee_eat / iron bars / `mon_yells` named. Rule #2:
+no fs.
+**Verified:** private canary **31**/31; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a mind flayer `dochug`s with `!rn2(20)`.
+**Next:** Open `hack.c` cannot_push squeeze (named from D-1226).
+Not run>=2 boulder. Refill Open to 12.
+**Blocked:** none.
 ## 2026-08-18 23:40 — #1570 review D-1234–D-1237 + cadence
 
 **Objective:** audit — C-fidelity reviews **196–199** of JS SHAs

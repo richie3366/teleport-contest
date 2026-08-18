@@ -9,7 +9,7 @@ import {
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
-    grounded,
+    grounded, telepathic,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -27,7 +27,7 @@ import {
     count_traps,
 } from './trap.js';
 import { mattacku } from './mhitu.js';
-import { mattackm, mdisplacem } from './mhitm.js';
+import { mattackm, mdisplacem, monkilled } from './mhitm.js';
 import { castmu, AD_SPEL, AD_CLRC } from './mcastu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point, m_cansee } from './vision.js';
 import {
@@ -38,21 +38,21 @@ import {
     NEED_PICK_AXE, NEED_AXE, NEED_PICK_OR_AXE, NEED_WEAPON, NEED_HTH_WEAPON,
     P_AXE, P_PICK_AXE, W_WEP, SQSRCHRADIUS, COLNO, ROWNO, NATTK,
     MON_POLE_DIST, AKLYS_LIM, engulfing_u, M_AP_TYPE, M_AP_OBJECT,
-    M_AP_FURNITURE,
+    M_AP_FURNITURE, M_AP_NOTHING, M_AP_MONSTER, KILLED_BY_AN,
     STRAT_WAITFORU, STRAT_WAITMASK, STRAT_CLOSE,
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
     STAIRS, LADDER, IRONBARS, WEB,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
-import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies } from './hack.js';
+import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail } from './hack.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
     objectNames,
 } from './objects.js';
-import { Monnam, y_monnam, Adjmonnam } from './do_name.js';
+import { Monnam, y_monnam, Adjmonnam, mon_nam } from './do_name.js';
 import { doname, distant_name, ansimpleoname, vtense } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
@@ -69,7 +69,7 @@ import { check_gear_next_turn } from './worn.js';
 import { picking_lock } from './lock.js';
 import {
     newsym, pline, canseemon as display_canseemon, pline_mon, pline_xy,
-    canspotmon as display_canspotmon,
+    canspotmon as display_canspotmon, sensemon,
 } from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { shk_move, gd_move, pri_move } from './shk.js';
@@ -85,6 +85,7 @@ import {
     m_at,
     m_avoid_kicked_loc,
     mnexto,
+    wakeup,
 } from './mon.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
@@ -104,6 +105,8 @@ const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
 const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
+/** C ref: monattk.h AD_DRIN — mind_blast monkilled how. */
+const AD_DRIN = 32;
 const GEMSTONE = 20; // objclass.h
 const MINERAL = 21; // objclass.h
 const MAX_CARR_CAP = 1000;
@@ -565,6 +568,19 @@ function Stealth() {
 function Aggravate_monster() {
     const u = game.u || {};
     return !!((u.HAggravate_monster | 0) || (u.EAggravate_monster | 0));
+}
+
+/** C ref: youprop.h Blind_telepat — HTelepat || ETelepat. */
+function Blind_telepat() {
+    const u = game.u || {};
+    return !!((u.HTelepat | 0) || (u.ETelepat | 0) || u.Blind_telepat);
+}
+
+/** C ref: youprop.h Half_spell_damage — HHalf_spell_damage || EHalf_spell_damage. */
+function Half_spell_damage() {
+    const u = game.u || {};
+    return !!(u.Half_spell_damage || (u.HHalf_spell_damage | 0)
+        || (u.EHalf_spell_damage | 0));
 }
 
 /** C ref: monmove.c / muse.c mdistu — squared distance to hero. */
@@ -1740,6 +1756,79 @@ export async function m_move(mtmp, after) {
     return postmov(mtmp, omx, omy, MMOVE_MOVED, can_tunnel, can_unlock, can_open);
 }
 
+/**
+ * C ref: monmove.c mind_blast — mind flayer psychic wave (dochug !rn2(20)).
+ * Named omissions: bee_eat_jelly / iron bars / mon_yells (other monmove
+ * pline_mon). Hero Half_spell_damage uses youprop H||E; other-mon dmg
+ * is raw rnd(15). fmon nmon snapshot: JS copies the live array.
+ */
+export async function mind_blast(mtmp) {
+    const u = game.u || (game.u = {});
+
+    // C: canseemon → pline_mon concentrates (display.h, not the local stub)
+    if (display_canseemon(mtmp)) {
+        await pline_mon(mtmp, `${Monnam(mtmp)} concentrates.`);
+    }
+    if (mdistu(mtmp) > BOLT_LIM * BOLT_LIM) {
+        await pline('You sense a faint wave of psychic energy.');
+        return;
+    }
+    await pline('A wave of psychic energy pours over you!');
+    // C: mpeaceful && (!Conflict || resist_conflict) — resist RNG only
+    // when Conflict is on.
+    if (mtmp.mpeaceful && (!hero_conflict() || resist_conflict(mtmp))) {
+        await pline('It feels quite soothing.');
+    } else if (!u.uinvulnerable) {
+        const m_sen = sensemon(mtmp);
+        // C short-circuit: m_sen || (Blind_telepat && rn2(2)) || !rn2(10)
+        if (m_sen || (Blind_telepat() && rn2(2)) || !rn2(10)) {
+            if (u.uundetected) {
+                u.uundetected = 0;
+                newsym(u.ux, u.uy);
+            } else if (M_AP_TYPE(game.youmonst) !== M_AP_NOTHING
+                && M_AP_TYPE(game.youmonst) !== M_AP_MONSTER) {
+                const you = game.youmonst;
+                if (you) {
+                    you.m_ap_type = M_AP_NOTHING;
+                    you.mappearance = 0;
+                }
+                newsym(u.ux, u.uy);
+            }
+            const lock = m_sen ? 'telepathy'
+                : Blind_telepat() ? 'latent telepathy'
+                    : 'mind';
+            await pline(`It locks on to your ${lock}!`);
+            let dmg = rnd(15);
+            if (Half_spell_damage()) dmg = Math.trunc((dmg + 1) / 2);
+            losehp(dmg, 'psychic blast', KILLED_BY_AN);
+            await finish_maybe_wail();
+            if (game._losehp_needs_done) {
+                const { finish_losehp_done } = await import('./end.js');
+                await finish_losehp_done();
+                return; /* C losehp noreturn — skip fmon loop */
+            }
+        }
+    }
+    // C: nmon = m2->nmon at the top of each iter (may mondead m2).
+    const fmon = (game.fmon || []).slice();
+    for (const m2 of fmon) {
+        if (!m2 || (m2.mhp | 0) < 1) continue;
+        if ((m2.mpeaceful | 0) === (mtmp.mpeaceful | 0)) continue;
+        if (mindless(m2.data)) continue;
+        if (m2 === mtmp) continue;
+        // C: (telepathic && (rn2(2) || mblinded)) || !rn2(10)
+        if ((telepathic(m2.data) && (rn2(2) || m2.mblinded)) || !rn2(10)) {
+            await wakeup(m2, false);
+            if (cansee(m2.mx, m2.my)) {
+                await pline(`It locks on to ${mon_nam(m2)}.`);
+            }
+            m2.mhp -= rnd(15);
+            if ((m2.mhp | 0) < 1) {
+                await monkilled(m2, '', AD_DRIN);
+            }
+        }
+    }
+}
 
 // C ref: monmove.c dochug()
 export async function dochug(mtmp) {
@@ -1825,8 +1914,10 @@ export async function dochug(mtmp) {
     if (is_watch(mdat)) {
         await watch_on_duty(mtmp);
     } else if (is_mind_flayer(mdat) && !rn2(20)) {
-        // mind_blast deferred — still burn rn2(20) gate only when watch N/A
-        // Named omission: mind_blast body + set_apparxy/distfleeck refresh
+        await mind_blast(mtmp);
+        if (game.program_state?.gameover) return 0;
+        set_apparxy(mtmp);
+        ({ inrange, nearby, scared } = distfleeck(mtmp));
     }
 
     // C ref: monmove.c dochug — nearby AT_WEAP may spend the turn wielding
