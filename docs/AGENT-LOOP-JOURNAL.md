@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 05:01 — #1523 D-1199 mon_arrive After_you my=xyflags before rloc
+
+**Objective:** Open — `dog.c` `mon_arrive` `my=xyflags` before
+rloc (named). Not migrate bit.
+**C locus:** `dog.c` `mon_arrive` 607–613 after xyloc switch
+before `mnearto`/`rloc(RLOC_NOMSG)`. Caller `losedogs`
+After_you 390–401 (`mux/muy` match `u.uz`, not EXACT_XY).
+**Change:** After_you copies `mtrack[0].y` into `my` (`mx`
+stays 0) then rloc when xlocale==0 else thin mnearto
+(move_other FALSE). RANDOM zeros locale. Did not pull
+kops/EXACT_XY Before_you/failed_arrivals/wander/leftovers/
+Wiz_arrive. Filled D-1198 archive hash `2f8f7d9f`. Rotated
+#1508. Open 10 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1520** **44**/44; next
+@**#1525**).
+**Verified:** private canary **32**/32; green+strict
+seed8000/0900; cohort **10**/10 + strict 1500/0012/0360/4500/
+2200/0014/0004/0700/1800/0006.
+**Next:** Open `allmain.c` `newgame` `notice_mon_off` (named).
+Not wizkit.
+**Blocked:** none.
+
 ## 2026-08-18 04:42 — #1522 D-1198 migrate_to_level W-tower xyflags bit 2
 
 **Objective:** Open — `dog.c` `migrate_to_level` `In_W_tower`
@@ -344,32 +366,6 @@ no fs.
 seed8000/0900; cohort **44**/44 + strict
 1500/0700/0009/0361/0015/0012/2200.
 **Next:** Must-fix seed8243 `cmd.c` rhack `visctrl` `^C`.
-Not maybe_smudge_engr.
-**Blocked:** none.
-
-## 2026-08-18 00:08 — #1508 D-1187 avoid_trap_andor_region ParanoidTrap
-
-**Objective:** Must-fix human canary seed8243 `hack.c`
-`avoid_trap_andor_region` ParanoidTrap portal yn. Not
-maybe_smudge. Not kill_genocided.
-**C locus:** `hack.c` `avoid_trap_andor_region` 2515–2581 /
-`domove_core` 2825–2828; `trap.c` `into_vs_onto` 5375–5388 /
-`immune_to_trap` 2783–2934 (MAGIC_PORTAL hero NOT_IMMUNE).
-**Change:** yn `"Really step into that magic portal?"` via
-`paranoid_query(ParanoidConfirm)` (default bits → yn, not
-getlin yes). Call after `u_rooted` before `u.utrap`. Silent
-TEST_MOVE subset. Gas-region arm via local clones. Did not
-pull hero `domagicportal`. Filled D-1186 archive hash
-`4dd396cc`. Rotated #1493. Open 10 + Must-fix portal
-activate = 11 (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1505** **44**/44; next
-@**#1510**).
-**Verified:** canary Scr **107→108**/129 (yn matches; @108
-leftover yn vs C activate); green+strict seed8000/0900;
-cohort **42**/42 (CURRENT shared + 0014/0383/0399/4500/2600
-+ green) + strict 1500/0700/0009/0361/0015/0012.
-**Next:** Must-fix seed8243 `teleport.c` `domagicportal`
-`"You activated a magic portal!"` / tutorial ATSTAIRS.
 Not maybe_smudge_engr.
 **Blocked:** none.
 

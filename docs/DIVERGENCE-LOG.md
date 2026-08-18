@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1199 — `mon_arrive` After_you `my=xyflags` before rloc
+
+- **Status:** fixed (map-driven Open; named omit from D-1182 /
+  D-1198; not a public FAIL)
+- **Symptom:** JS `losedogs` only placed `mydogs` (With_you).
+  Migrating monsters kept `mx=my=0` with xyflags left in
+  `mtrack[0].y`, so D-1182's `rloc_pos_ok` never saw up/W-tower
+  bits even after D-1198 encoded bit 2.
+- **C locus:** `dog.c` `mon_arrive` `:607–613` after xyloc
+  switch, before `mnearto`/`rloc(RLOC_NOMSG)`. Writer
+  `migrate_to_level` stores flags in `mtrack[0].y`. Caller
+  `losedogs` After_you `:390–401` (`mux/muy` match `u.uz`,
+  `xyloc != MIGR_EXACT_XY`).
+- **Fix:** After_you envelope copies `mtrack[0].y` into `my`
+  with `mx` still 0, then `rloc` when `xlocale==0` else thin
+  `mnearto` (move_other FALSE). `losedogs` walks matching
+  `migrating_mons`. Xyloc switch: RANDOM zeros locale so rloc
+  (not mnearto-at-old-xy) is used. Rule #2: no fs.
+- **JS:** `js/dog.js` `losedogs` / `mon_arrive_after_you`.
+  `js/do.js` `await losedogs()`.
+- **Not this iter:** kops dismiss; MIGR_EXACT_XY Before_you;
+  failed_arrivals/`m_into_limbo`; wander/somexy; MIGR_LEFTOVERS
+  DF_ALL; Wiz_arrive; worm/isshk residency; full mnearto yank.
+  Rule #2: no fs.
+- **Verified:** private canary **32**/32 (flag reads while
+  mx==0; other-level/EXACT_XY stay; updest bit0 / dndest
+  !bit0; W-tower XOR inside/outside + precedes updest; nlx==0;
+  !On_W_tower lx-minus-nlx; RANDOM not pinned to mtrack[1];
+  WITH_HERO/STAIRS_UP/PORTAL near dest; no-portal FALLTHROUGH;
+  usteed skip; two migrants; mtrack clear; With_you pets;
+  no fs/FORCE); green+strict seed8000/0900; cohort **10**/10
+  + strict 1500/0012/0360/4500/2200/0014/0004/0700/1800/0006.
+  Path public-unhit on After_you (fortress unchanged).
+- **Files:** `js/dog.js`, `js/do.js`, `js/teleport.js` (comments).
+
 ## D-1198 — `migrate_to_level` `In_W_tower` xyflags bit 2
 
 - **Status:** fixed (map-driven Open; named omit from D-1182;

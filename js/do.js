@@ -1668,7 +1668,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // XOR delivers MIGR_WITH_HERO (trap-door objs landing at the hero).
     await obj_delivery(false);
 
-    losedogs();
+    await losedogs();
     // C do.c:1817 — after losedogs, before run_timers / u_collide_m.
     // Migrating mons (and eggs) genocided while in limbo die here so
     // possessions land on this level.

@@ -978,7 +978,8 @@ function tele_jump_ok(x1, y1, x2, y2) {
  * updest/dndest, or on-map keep resident shk/priest in their room then
  * tele_jump_ok. Dest roomno vs ESHK.shoproom / EPRI.shroom (unsigned
  * char), not in_rooms; rloc may still goodpos-fallback.
- * Named omissions: mon_arrive my=xyflags before rloc.
+ * Writer: migrate_to_level xyflags (D-1198); mon_arrive copies into my
+ * before rloc (D-1199).
  */
 function rloc_pos_ok(x, y, mtmp) {
     if (!goodpos(x, y, mtmp, GP_CHECKSCARY)) return false;
@@ -2316,8 +2317,8 @@ function ledger_to_dlev(tolev) {
  * C ref: dog.c migrate_to_level — take mon off map onto migrating_mons.
  * Envelope: remove from fmon, encode destination, mx=my=0.
  * D-1198: xyflags bit 2 when In_W_tower(mx,my,&u.uz) using pre-relmon
- * coords (C dog.c:913–915). Named omissions: mon_leave worm/isshk
- * residency; leash; light sources; mon_arrive my=xyflags.
+ * coords (C dog.c:913–915). Arrival copies flags into my (D-1199).
+ * Named omissions: mon_leave worm/isshk residency; leash; light sources.
  */
 export function migrate_to_level(mtmp, tolev, xyloc, cc) {
     if (!mtmp) return;
