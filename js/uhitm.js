@@ -21,7 +21,7 @@ import {
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, acurr, adjalign, change_luck } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool } from './hack.js';
-import { pline, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more, You_feel } from './display.js';
+import { pline, pline_mon, newsym, canseemon, canspotmon, map_invisible, unmap_object, glyph_is_invisible, flush_topl_more, You_feel } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -1460,6 +1460,7 @@ function resists_blnd_mon(mtmp) {
 
 /**
  * C ref: uhitm.c light_hits_gremlin — light damage + cry + wake_nearto.
+ * Cry/recoil are pline_mon (D-1240); flash_hits_mon awaken/blind stay pline.
  * Named omissions: SetVoice; map_invisible when !canspotmon after hit.
  */
 async function light_hits_gremlin(mon, dmg) {
@@ -1473,13 +1474,14 @@ async function light_hits_gremlin(mon, dmg) {
     const dist = dx * dx + dy * dy;
     if (!Deaf && dist <= 90) {
         const half = ((mon.mhp | 0) / 2) | 0;
-        await pline(
+        await pline_mon(
+            mon,
             `${Monnam(mon)} ${
                 (dmg | 0) > half ? 'wails in agony' : 'cries out in pain'
             }!`,
         );
     } else if (canseemon(mon)) {
-        await pline(`${Monnam(mon)} recoils from the light!`);
+        await pline_mon(mon, `${Monnam(mon)} recoils from the light!`);
     }
     mon.mhp = (mon.mhp | 0) - (dmg | 0);
     await wake_nearto(mx, my, 30);
@@ -1497,7 +1499,8 @@ async function light_hits_gremlin(mon, dmg) {
 /**
  * C ref: uhitm.c flash_hits_mon — flash/light effect on monster.
  * Envelope: disguised mimic wakeup/seemimic; sleep awaken; blind + flee
- * RNG; gremlin light_hits; resists_blnd illuminate msgs; unlit More.
+ * RNG; gremlin light_hits (cry/recoil pline_mon D-1240); resists_blnd
+ * illuminate msgs; unlit More. Awaken/blind/illuminate stay pline like C.
  * Named omit: mhidden_description / glyph-diff exact pline; shieldeff
  * resists_blnd_by_arti. Camera caller wires see_monster_closeup (D-0999).
  * @returns {Promise<number>} 1 if noticeable effect, else 0

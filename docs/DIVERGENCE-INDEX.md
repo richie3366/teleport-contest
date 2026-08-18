@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1240 | fixed | uhitm.c remaining already-ported `pline_mon` | map-driven; C `uhitm.c` `light_hits_gremlin` 6425–6433 / `mhitm_ad_legs` nuzzle 4454 / `mhitm_ad_sedu` brag 4647; JS `pline`→`pline_mon` so `a11y.msg_loc` is mx,my; flash awaken/blind, legs reach/prick, sedu charm-fail stay `pline`; unported `mhitm_ad_*` / mhitu `hitmsg` / mgc avoids-harm / AT_HUGS still named |
 | D-1239 | fixed | hack.c `cannot_push` squeeze + `sokoban_guilt` | map-driven; C `hack.c:304–311` / `trap.c` `sokoban_guilt` 7039–7055; vain-push then squeeze pline + return 0 so hero occupies the boulder; Sokoban `sokocheat++` + `change_luck(-1)`; giant pickup/maneuver / nopick m-dir still named |
 | D-1238 | fixed | monmove.c `mind_blast` | map-driven; C `monmove.c:581–645` / dochug `:827–835`; JS `pline_mon` concentrates + far You-sense return + peaceful soothing vs `sensemon`/`Blind_telepat`/`!rn2(10)` lock-on + Half_spell integer half + fmon nmon `wakeup`/`rnd(15)`/`monkilled("", AD_DRIN)` then `set_apparxy`/`distfleeck`; bee_eat/iron bars/`mon_yells` still named |
 | D-1237 | fixed | trap.c `launch_obj` rolling-boulder TELEP `pline_xy` | map-driven; C `trap.c:3460–3488` ROLL TELEP/LEVEL_TELEP `pline_xy`/`You_hear` then `rloco` or `add_to_migration`+`get_level`; LEVEL_TELEP `random_teleport_level` same-depth skip; `seetrap`+used_up; landmine/pit/`flooreffects` still named |

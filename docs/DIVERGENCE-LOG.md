@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1240 — uhitm.c remaining already-ported `pline_mon`
+
+- **Status:** fixed (map-driven Open; named omit from D-1227 /
+  D-1239; not a public FAIL)
+- **Symptom:** after D-1215, `pline_mon` existed but already-ported
+  `uhitm.c` sites still used `pline`, so `a11y.msg_loc` stayed 0,0
+  and `accessiblemsg` On could not prefix those messages. C
+  `flash_hits_mon` awaken/blind, legs reach/prick, and sedu
+  charm-fail must not store loc.
+- **C locus:** `uhitm.c` `light_hits_gremlin` `:6425–6445` (cry
+  `:6429`; recoil `:6433`); `mhitm_ad_legs` nuzzle `:4454–4455`;
+  `mhitm_ad_sedu` brag `:4647–4651`. Callee `pline.c` `pline_mon`
+  `:137–150`.
+- **JS was:** `pline` on gremlin cry/recoil, xan nuzzle, nymph-vs-
+  seducer brag.
+- **Fix:** those live sites call `pline_mon`. flash awaken/blind/
+  illuminate stay `pline`. Legs reach/prick/scratch stay `pline`.
+  Sedu charm-fail stays `pline`. Did not pull unported
+  `mhitm_ad_*` (rust/fire/hugs/heal/wrap/…), mhitu `hitmsg`,
+  mgc monster “avoids harm”, or animal sedu flee. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `light_hits_gremlin`; `js/mhitu.js`
+  `mhitm_ad_legs_u` / `mhitm_ad_sedu`; comment `js/display.js`.
+- **Not this iter:** unported uhitm `mhitm_ad_*` `pline_mon`;
+  mhitu.c `hitmsg`/`missmu`; mgc avoids-harm; AT_HUGS grabs;
+  animal sedu flee; worn/trap `pline_mon`.
+- **Verified:** private canary **21**/21 (C vs JS writers; runtime
+  cry/recoil prefix; sleeping awaken unprefixed; Off no prefix;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  `accessiblemsg` is On (default Off).
+- **Follow-up:** Open `mhitm.c` `passivemm` AD_RBRE shock
+  `monkilled`.
+
 ## D-1239 — `hack.c` `cannot_push` squeeze + `sokoban_guilt`
 
 - **Status:** fixed (map-driven Open; named omit from D-1226 /

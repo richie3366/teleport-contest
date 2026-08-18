@@ -20,6 +20,24 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 00:06 — #1573 D-1240 uhitm remaining pline_mon
+
+**Objective:** Open `uhitm.c` remaining `pline_mon` (named). Not
+troll_baned.
+**C locus:** `uhitm.c` `light_hits_gremlin` `:6425–6433`;
+`mhitm_ad_legs` nuzzle `:4454`; `mhitm_ad_sedu` brag `:4647`.
+**Change:** already-ported cry/recoil / nuzzle / brag `pline`→
+`pline_mon`. flash awaken/blind, legs reach/prick, sedu charm-fail
+stay `pline`. Unported `mhitm_ad_*` / mhitu `hitmsg` named.
+Rule #2: no fs.
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless `accessiblemsg` is On.
+**Next:** Open `mhitm.c` `passivemm` AD_RBRE shock `monkilled`
+(named). Not troll_baned. Filled D-1239 archive hash `51a337e7`.
+Open 10 after archive (no refill).
+**Blocked:** none.
+
 ## 2026-08-18 23:55 — #1572 D-1239 cannot_push squeeze
 
 **Objective:** Open `hack.c` cannot_push squeeze (named from
