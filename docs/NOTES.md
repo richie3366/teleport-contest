@@ -5,14 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1549** D-1220 `revive_corpse` BURIED `!is_zomb` FALLTHROUGH
-  `impossible` shipped. Fortress **44**/44. Next Open `do.c`
-  `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED
-  pit. Do not revert D-1201–D-1220. Do not restore a silent
-  `break` on buried non-zomb. `spot_monsters` / `mon_movement`
-  addr still named. Do not prepend Must-fix for named omits
-  (Soundeffect / remaining `pline_mon` / run>=2 boulder /
-  hideunder / impact / integer glyph IDs / `in_getlev`).
+- **#1550** review D-1217–D-1220 + cadence. **181 QUALITY-RISK:**
+  D-1219 `gbuf_show_kind` calls `mon_glyph`/`obj_glyph` on every
+  `show_glyph_cell` (Off/`in_docrt` too) → extra Hallu
+  `rn2_on_display_rng`. C `show_glyph` classifies the already-chosen
+  glyph. Cadence **43**/44; seed0383 FAIL. Next port: Must-fix that
+  (keep mention_map addr). Not Soundeffect. Falsify: seed0383 PASS
+  without FORCE after classifier stops rolling Hallu.
+- Do not revert D-1217–D-1220 envelopes. Do not FORCE seed0383.
+  Do not prepend Must-fix for named omits (Soundeffect /
+  `do_screen_description` table / await-newsym More when On /
+  remaining `pline_mon` / integer glyph IDs).
 
 ## Don't re-check (≤15)
 
@@ -40,7 +43,7 @@ Objective/score live in `CURRENT.md`.
   `set_msg_dir`/`pline_dir` dirtocoord+ux,uy /
   `#lookaround`/`dolookaround` + GLOC_INTERESTING FALLTHROUGH /
   `opt_accessiblemsg` `&a11y.accessiblemsg` + in-game `msg_loc` zero /
-  `show_glyph` glyph_updates + `mention_map` `&a11y.glyph_updates` /
+  `mention_map` `&a11y.glyph_updates` + `docrt` `in_docrt` /
   BURIED `!is_zomb` FALLTHROUGH `impossible`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
@@ -56,15 +59,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1220 / later D-ids in CURRENT. Do not skip D-1213
-  invent Your / minvent `setmnotwielded`. Do not skip D-1214
-  rumble/tread/`wake_nearto`/grounded `MMOVE_MOVED`. Do not restore
-  youmonst `pline_mon` as ux,uy (D-1215). Do not skip `dirtocoord`
-  no-op then +=ux,uy (D-1216). Do not zero loc on invalid dir.
-  Do not restore empty glyph_updates then-arm (D-1217). Do not
-  restore `flags.accessiblemsg` as the option addr (D-1218). Do not
-  restore `flags.mention_map` as the option addr (D-1219). Do not
-  silent-break BURIED `!is_zomb` (D-1220).
+- Do not skip D-1071…D-1220 / later D-ids in CURRENT. Do not skip
+  D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
+  `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
+  Do not silent-break BURIED `!is_zomb` (D-1220). Do not “fix”
+  seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
@@ -84,6 +83,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1549 D-1220 BURIED `!is_zomb` FALLTHROUGH impossible; cadence
-  44/44; next Soundeffect se_scratching. Map-driven / one
-  cluster, not FAIL peels.
+- #1550 review **179** ACCEPT-WITH-DEBT D-1217; **180** ACCEPT
+  D-1218; **181** QUALITY-RISK D-1219 Hallu `gbuf_show_kind`;
+  **182** ACCEPT D-1220. Cadence **43**/44 seed0383. Must-fix
+  first. Map-driven / one cluster after that, not FAIL peels.

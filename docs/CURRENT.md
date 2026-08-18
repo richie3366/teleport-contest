@@ -21,28 +21,30 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-08-18** — full `sessions` after cadence
-**#1545** (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `31+0.27/turn` (R² 0.873). Next audit (review + score) @**#1550**.
+**#1550** (**43**/44, Scr **11,353**/11,405, RNG **99.30%**).
+Speed `35+0.29/turn` (R² 0.849). Next audit (review + score) @**#1555**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
-| Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `31+0.27/turn` (R² 0.873) |
+| Sessions passing | **43 / 44** |
+| Screens matched | **11,353 / 11,405** |
+| Positional RNG calls matched | **787,315 / 792,838** (99.30%) |
+| Speed label | `35+0.29/turn` (R² 0.849) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0383, seed0399, seed0014, seed2600, seed4500, seed2200.
+seed0360, seed0399, seed0014, seed2600, seed4500, seed2200.
 
-**Notable non-PASS:** none.
+**Notable non-PASS:** seed0383-wizard-hallucinate (RNG 11392/16915,
+Scr 167/219) — D-1219 `gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph`
+reroll on every `show_glyph_cell` (review **181** Must-fix).
 
 ## Green gate
 
@@ -59,9 +61,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven** after D-1220. **Next cluster:** `do.c`
-`revive_corpse` `Soundeffect` se_scratching (named).
-Not BURIED pit.
+**Must-fix first** after review **181**. **Next cluster:**
+`display.c` `show_glyph` / JS `gbuf_show_kind` must not re-call
+`mon_glyph`/`obj_glyph` (Hallu `rn2_on_display_rng`) on every
+`show_glyph_cell`. C classifies the already-chosen glyph. Keep
+mention_map `&a11y.glyph_updates`. seed0383. Not Soundeffect.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1220. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
@@ -115,7 +119,8 @@ yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
 D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
 `#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
 unconscious / D-1206–D-1220 (`dolookaround`; no empty then-arm; no
-`flags.accessiblemsg` / `flags.mention_map` addr); no pull `reset_glyphmap` / vision_recalc
+`flags.accessiblemsg` / `flags.mention_map` addr; **no
+`gbuf_show_kind` Hallu `mon_glyph` reroll** review **181**); no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
@@ -125,7 +130,8 @@ invent/migrating objects** (C `obj_is_local` is false).
 **Cohort after shared change:** green + seed1500/1800/0060/0102/0700/
 1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/0104/0030/
 0013-rogue/0013-friday13/0107/0009/0012/0004/0002/0006/0007/0398/
-0373/5006/0116/0361/0367/0108/5002/0360 + seed2200 + strict lengths.
+0373/5006/0116/0361/0367/0108/5002/0360 + seed2200 + seed0383
++ strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

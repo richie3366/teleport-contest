@@ -188,3 +188,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [176-b44c4847-disturb-buried-zombies.md](./176-b44c4847-disturb-buried-zombies.md) | `b44c4847` | D-1214 `disturb_buried_zombies` | **ACCEPT-WITH-DEBT** |
 | [177-eaf10f2d-pline-xy-pline-mon.md](./177-eaf10f2d-pline-xy-pline-mon.md) | `eaf10f2d` | D-1215 `pline_xy`/`pline_mon` | **ACCEPT-WITH-DEBT** |
 | [178-517cb217-set-msg-dir.md](./178-517cb217-set-msg-dir.md) | `517cb217` | D-1216 `set_msg_dir`/`pline_dir` | **ACCEPT-WITH-DEBT** |
+| [179-dc34d705-dolookaround.md](./179-dc34d705-dolookaround.md) | `dc34d705` | D-1217 `dolookaround` / `#lookaround` | **ACCEPT-WITH-DEBT** |
+| [180-b59f294b-opt-accessiblemsg.md](./180-b59f294b-opt-accessiblemsg.md) | `b59f294b` | D-1218 `opt_accessiblemsg` | **ACCEPT** |
+| [181-925e5b77-show-glyph-glyph-updates.md](./181-925e5b77-show-glyph-glyph-updates.md) | `925e5b77` | D-1219 `show_glyph` `glyph_updates` | **QUALITY-RISK** |
+| [182-b09b013d-revive-corpse-buried-fallthrough.md](./182-b09b013d-revive-corpse-buried-fallthrough.md) | `b09b013d` | D-1220 BURIED FALLTHROUGH `impossible` | **ACCEPT** |

@@ -21,6 +21,32 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 13:05 — #1550 review D-1217–D-1220 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `cmd.c` `dolookaround` 1262–1368 / `getpos.c`
+482–503 / `allmain.c` 845–848; `optlist.h` 140–142 /
+`options.c` `optfn_boolean` 5286 / 5428–5440; `display.c`
+`show_glyph` 2011–2070 / `docrt_flags` 1717–1772 /
+`optlist.h` 427–428; `do.c` `revive_corpse` 2217–2241.
+**Change:** reviews **179** ACCEPT-WITH-DEBT D-1217 (`dolookaround`
++ GLOC_INTERESTING; firstmatch is lookat clone), **180** ACCEPT
+D-1218 (`a11y.accessiblemsg` addr + in-game loc zero), **181**
+QUALITY-RISK D-1219 (`gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph`
+on every `show_glyph_cell`; mention_map addr kept), **182** ACCEPT
+D-1220 (BURIED FALLTHROUGH live `impossible`). Filled D-1220
+archive hash `b09b013d`. Must-fix prepend review **181** item 1.
+Open 9 + Must-fix 1 = 10 (no refill). Rotated #1535. Rule #2: no fs.
+**Score:** cadence **#1550** **43**/44 Scr **11353**/11405 RNG
+**787315**/792838 (99.30%) speed `35+0.29/turn` (R² 0.849).
+**Notable FAIL:** seed0383-wizard-hallucinate. Next audit @**#1555**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Must-fix `gbuf_show_kind` stop Hallu reroll. Keep
+mention_map addr. Not Soundeffect.
+**Blocked:** none.
+
 ## 2026-08-18 12:41 — #1549 D-1220 revive_corpse BURIED FALLTHROUGH impossible
 
 **Objective:** Open — `do.c` `revive_corpse` BURIED `!is_zomb`
@@ -340,31 +366,4 @@ seed8000/0900; cohort **8**/8 + strict 1500/0012/0360/0361/
 4500/2200/0014/0004.
 **Next:** Open `mon.c` `zombie_maker` + `gz.zombify` at
 `make_corpse` (named). Not mhitm.
-**Blocked:** none.
-
-## 2026-08-18 07:55 — #1535 review D-1205–D-1208 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `teleport.c` `scrolltele` 874–882 / `trap.c`
-`unconscious` 6776–6786; `do_name.c` `mon_nam` 1041–1046;
-`pline.c` `vpline` 162–189 / `getpos.c` `coord_desc` 557–635 /
-`cmd.c` `directionname` 4313–4322; `teleport.c` `dotele`
-1041–1161 / `hack.c` `u_locomotion` 1817–1828.
-**Change:** reviews **167** ACCEPT D-1205 (unconscious fail then
-`safe_teleds`; clone matches `trap.c` prefixes), **168** ACCEPT
-D-1206 (`whobuf` + imported `mon_nam`, not `y_monnam`; §2b thin
-but C-exact), **169** ACCEPT-WITH-DEBT D-1207 (`pline`/`Norep`
-consume live; `opt_accessiblemsg`/`pline_xy` named Open, not
-Must-fix), **170** ACCEPT-WITH-DEBT D-1208 (`teleds`/vault/`!trap`
-hunger live; LEVEL_TELEP yn + energy named, not Must-fix).
-Filled D-1208 archive hash `bd8c2161`. No new Must-fix prepend.
-Open 11 (no refill). Rotated #1520. Rule #2: no fs.
-**Score:** cadence **#1535** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `34+0.28/turn` (R² 0.871). Next
-@**#1540**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `teleport.c` `dotelecmd` m-prefix mode menu
-(named). Not energy gate.
 **Blocked:** none.
