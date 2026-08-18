@@ -52,7 +52,7 @@ import {
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
     objectNames,
 } from './objects.js';
-import { Monnam, y_monnam } from './do_name.js';
+import { Monnam, y_monnam, Adjmonnam } from './do_name.js';
 import { doname, distant_name, ansimpleoname } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
@@ -134,6 +134,13 @@ function findgold(argchain) {
     let chain = argchain;
     while (chain && chain.otyp !== GOLD_PIECE) chain = chain.nobj;
     return chain || null;
+}
+
+/** C hack.h upstart — highc first character (YMonnam / web mbuf). */
+function upstart(str) {
+    const s = String(str ?? '');
+    if (!s) return s;
+    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /**
@@ -718,8 +725,9 @@ export function set_apparxy(mtmp) {
 
 /**
  * C ref: monmove.c monflee — set mflee; optional fleetime / fleemsg.
+ * Live pline_mon (D-1227): immobile Adjmonnam flinch; else turns to flee.
  * Named omissions: release_hero on ustuck; flees_light rn2(10)/verbalize /
- * light-source pline; Vrock gas cloud; Adjmonnam immobile flinch wording.
+ * Unaware "is frightened." / light-source pline; Vrock gas cloud.
  */
 export async function monflee(mtmp, fleetime, first, fleemsg) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
@@ -737,10 +745,11 @@ export async function monflee(mtmp, fleetime, first, fleemsg) {
             && M_AP_TYPE(mtmp) !== M_AP_FURNITURE
             && M_AP_TYPE(mtmp) !== M_AP_OBJECT) {
             if (!mtmp.mcanmove || !(mtmp.data?.mmove | 0)) {
-                await pline(`${Monnam(mtmp)} seems to flinch.`);
+                // C: pline_mon("%s seems to flinch.", Adjmonnam(..., "immobile"))
+                await pline_mon(mtmp, `${Adjmonnam(mtmp, 'immobile')} seems to flinch.`);
             } else {
                 // flees_light arm deferred (no extra rn2(10))
-                await pline(`${Monnam(mtmp)} turns to flee.`);
+                await pline_mon(mtmp, `${Monnam(mtmp)} turns to flee.`);
             }
         }
         // Vrock gas cloud deferred (create_gas_cloud + mspec_used)
@@ -1043,7 +1052,8 @@ function soko_allow_web(mon) {
 
 /**
  * C ref: monmove.c maybe_spin_web — webmaker postmov chance rn2(1000)<prob.
- * Named omissions: shop add_damage; y_monnam/something pline polish.
+ * C always pline_mon even for "Something" (canspotmon ? y_monnam : something).
+ * Named omissions: shop add_damage.
  */
 async function maybe_spin_web(mtmp) {
     if (!webmaker(mtmp?.data)
@@ -1061,11 +1071,8 @@ async function maybe_spin_web(mtmp) {
         if (trap) {
             mtmp.mspec_used = d(4, 4); // 4..16
             if (cansee(mtmp.mx, mtmp.my)) {
-                if (canspotmon(mtmp)) {
-                    await pline(`${Monnam(mtmp)} spins a web.`);
-                } else {
-                    await pline('Something spins a web.');
-                }
+                const mbuf = canspotmon(mtmp) ? y_monnam(mtmp) : 'something';
+                await pline_mon(mtmp, `${upstart(mbuf)} spins a web.`);
                 trap.tseen = 1;
             }
             // shop add_damage deferred
@@ -1119,8 +1126,10 @@ export async function m_postmove_effect(mtmp) {
  * C ref: monmove.c postmov — after a successful step: traps then doors,
  * then shared OBJ_AT / mpickstuff for MOVED|DONE.
  * Branch envelope: D_CLOSED open / D_LOCKED unlock / smash doorbuster;
- * amorphous squeeze message; mb_trapped; mpickstuff one-object pickup;
- * hides_under / S_EEL rn2(5) → hideunder (D-0496); maybe_spin_web (D-0595).
+ * amorphous squeeze pline_mon (YMonnam + fog/S_LIGHT flows); mb_trapped;
+ * mpickstuff one-object pickup; hides_under / S_EEL rn2(5) → hideunder
+ * (D-0496); maybe_spin_web (D-0595); door/flee/web/itsstuck pline_mon
+ * D-1227.
  * Named omissions: vampshift fog; iron bars; shop add_damage;
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
  * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish.
@@ -1160,9 +1169,12 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
         if ((dm & (D_LOCKED | D_CLOSED)) !== 0
             && ((ptr?.mflags1 ?? 0) & M1_AMORPHOUS)) {
             if (verbose && canseemon(mtmp)) {
-                const flows = (ptr?.mlet === 'S_LIGHT');
-                await pline(
-                    `${Monnam(mtmp)} ${flows ? 'flows' : 'oozes'} under the door.`,
+                // C: YMonnam + fog-cloud or S_LIGHT → "flows" else "oozes"
+                const flows = (ptr?.mndx === PM_FOG_CLOUD
+                    || ptr?.mlet === 'S_LIGHT');
+                await pline_mon(
+                    mtmp,
+                    `${upstart(y_monnam(mtmp))} ${flows ? 'flows' : 'oozes'} under the door.`,
                 );
             }
         } else if ((dm & D_LOCKED) !== 0 && can_unlock) {
@@ -1173,7 +1185,7 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
                 if (canseeit && canspotmon(mtmp)) {
-                    await pline(`${Monnam(mtmp)} unlocks and opens a door.`);
+                    await pline_mon(mtmp, `${Monnam(mtmp)} unlocks and opens a door.`);
                 } else if (canseeit) {
                     await pline('You see a door unlock and open.');
                 } else if (!game.u?.Deaf) {
@@ -1188,7 +1200,7 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
                 if (canseeit && canspotmon(mtmp)) {
-                    await pline(`${Monnam(mtmp)} opens a door.`);
+                    await pline_mon(mtmp, `${Monnam(mtmp)} opens a door.`);
                 } else if (canseeit) {
                     await pline('You see a door open.');
                 } else if (!game.u?.Deaf) {
@@ -1206,7 +1218,7 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
                 if (canseeit && canspotmon(mtmp)) {
-                    await pline(`${Monnam(mtmp)} smashes down a door.`);
+                    await pline_mon(mtmp, `${Monnam(mtmp)} smashes down a door.`);
                 } else if (canseeit) {
                     await pline('You see a door crash open.');
                 } else if (!game.u?.Deaf) {
@@ -1343,11 +1355,12 @@ export function sticks(ptr) {
 
 /**
  * C ref: monmove.c itsstuck — stuck grabber cannot walk away.
+ * C pline_mon (D-1227); You_hear/You_see arms elsewhere stay pline.
  */
 async function itsstuck(mtmp) {
     const u = game.u;
     if (sticks(game.youmonst?.data) && mtmp === u?.ustuck && !u?.uswallow) {
-        await pline(`${Monnam(mtmp)} cannot escape from you!`);
+        await pline_mon(mtmp, `${Monnam(mtmp)} cannot escape from you!`);
         return true;
     }
     return false;

@@ -3714,8 +3714,11 @@ export async function pline_xy(x, y, msg) {
 /**
  * C pline.c pline_mon 137–150 — &youmonst → (0,0) (not hero ux,uy);
  * else mx,my; then vpline. isok rejects x=0 so youmonst never prefixes.
- * Named omit: remaining pline sites that C calls as pline_mon;
- * msg_mon_movement; rolling-boulder TELEP pline_xy.
+ * Live callers: wield/zap/drop/pickup/mb_trapped (D-1215) + monmove
+ * monflee/itsstuck/maybe_spin_web/postmov door (D-1227).
+ * Named omit: remaining uhitm/worn/trap/weapon drop·tether / muse drinks /
+ * iron bars / mind_blast / bee_eat / mon_yells; msg_mon_movement;
+ * rolling-boulder TELEP pline_xy.
  */
 export async function pline_mon(mtmp, msg) {
     if (mtmp === game.youmonst) {

@@ -6,13 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after review **183–187** + cadence **#1555**
-  (`89588300`). Next: map-driven Open remaining `pline.c`
-  `pline_mon` callers. Not msg_mon_movement. Must-fix empty
+  (`89588300`). Next: map-driven Open `hack.c` `msg_mon_movement`.
+  Not remaining uhitm/worn/trap `pline_mon`. Must-fix empty
   (no QUALITY-RISK). Do not restore Hallu `mon_glyph` in
   `gbuf_show_kind`. Do not FORCE seed0383.
-- Do not revert D-1217–D-1226. Do not prepend Must-fix for named
+- Do not revert D-1217–D-1227. Do not prepend Must-fix for named
   omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
-  other Soundeffect / remaining `pline_mon` / `#teleport`).
+  other Soundeffect / remaining uhitm/worn/trap `pline_mon` /
+  `#teleport`).
 
 ## Don't re-check (≤15)
 
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1226 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1227 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -45,7 +46,8 @@ Objective/score live in `CURRENT.md`.
   `gbuf_show_kind` occupancy/tty not Hallu `mon_glyph` /
   `Soundeffect(se_scratching, 50)` before buried You_hear /
   mhitm `troll_baned` `mkcorpstat_norevive` AT_WEAP||AT_CLAW /
-  run>=2 boulder `pline_dir`).
+  run>=2 boulder `pline_dir` /
+  monmove remaining `pline_mon` flee/web/door/itsstuck).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -60,7 +62,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1225 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1227 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
   Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
@@ -71,6 +73,8 @@ Objective/score live in `CURRENT.md`.
   Do not restore Teleportation-only `dotele` fail-closed (D-1225).
   Do not skip D-1226 run>=2 boulder `pline_dir` / restore vain-push
   on g/G/travel when `!could_move_onto_boulder`.
+  Do not skip D-1227 monmove remaining `pline_mon` (You_see/You_hear
+  stay pline; do not wrap `msg_mon_movement` as `pline_mon`).
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -78,7 +82,8 @@ Objective/score live in `CURRENT.md`.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
-  remaining `pline_mon` callers / `msg_mon_movement` /
+  remaining uhitm/worn/trap/weapon drop·tether `pline_mon` /
+  `msg_mon_movement` /
   rolling-boulder TELEP `pline_xy` / `#teleport` `doextcmd`.
   gulpmm `m_at` swap / uhitm `hmon_hitmon`+`hmonas` troll_baned named.
   Other Soundeffect sites still named (not se_scratching).
@@ -92,6 +97,8 @@ Objective/score live in `CURRENT.md`.
 
 - Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
   **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck);
+  You_see/You_hear stay pline; `msg_mon_movement` named.
 - D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push squeeze named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
   `#teleport` / weffects / Amulet drain named.

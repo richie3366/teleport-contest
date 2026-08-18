@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1227 — monmove remaining `pline_mon`
+
+- **Status:** fixed (map-driven Open; named omit from D-1215 /
+  review **177**; not a public FAIL)
+- **Symptom:** after D-1215, `pline_mon` existed but remaining
+  already-ported `monmove.c` sites still used `pline`, so
+  `a11y.msg_loc` stayed 0,0 and `accessiblemsg` On could not
+  prefix those messages. C `You_see` / `You_hear` door arms must
+  not store loc.
+- **C locus:** `monmove.c` `monflee` `:493–517`; `itsstuck`
+  `:1056`; `maybe_spin_web` `:1282–1286`; `postmov` door
+  `:1551–1610`. Callee `pline.c` `pline_mon` `:137–150`.
+- **JS was:** `pline` on flee/flinch/web/door/itsstuck (KABOOM
+  already D-1215).
+- **Fix:** those live sites call `pline_mon`; spotted web uses
+  `upstart(y_monnam)` even when the text is `Something`; squeeze
+  uses `upstart(y_monnam)` + fog-cloud/`S_LIGHT` flows; immobile
+  flee uses `Adjmonnam(..., "immobile")`. Hear/see door arms stay
+  `pline`. Did not pull `msg_mon_movement`, flees_light `rn2(10)`,
+  mind_blast, bee_eat, iron bars, or `mon_yells`. Rule #2: no fs.
+- **JS:** `js/monmove.js`; comment `js/display.js`.
+- **Not this iter:** remaining uhitm/worn/trap/weapon drop·tether /
+  muse drinks `pline_mon`; `msg_mon_movement`; rolling-boulder
+  TELEP `pline_xy`.
+- **Verified:** private canary **33**/33; green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. Path public-unhit unless `accessiblemsg` is On
+  (default Off).
+- **Files:** `js/monmove.js`, `js/display.js` (comments).
+
 ## D-1226 — `hack.c` `test_move` run>=2 boulder `pline_dir`
 
 - **Status:** fixed (map-driven Open; named omit from D-1216 /
