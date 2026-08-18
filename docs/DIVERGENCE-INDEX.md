@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1234 | fixed | do.c `revive_corpse` unique/pname `corpse_xname` adjective | map-driven; C `objnam.c:1824–1919` unique/pname `s_suffix` + adjective after possessive vs before ordinary; `do.c:2131–2133` `corpse_xname(..., chewed?"bite-covered":0, CXN_SINGULAR)`; `dig.c:2158` `CXN_NO_PFX`; glob / doname CXN_ARTICLE\|CXN_NOCORPSE prefix-as-adjective still named |
 | D-1233 | fixed | uhitm.c `hmonas`/`damageum` `troll_baned` ternary/`uwep` | map-driven; C `uhitm.c:4866–4880` AT_WEAP\|\|AT_CLAW `troll_baned(mdef, uwep) ? TRUE : FALSE` then killed/xkilled then FALSE (not hmon_hitmon TRUE-only / hitting obj); `do_attack` Upolyd → hmonas; `mkcorpstat` copies `norevive`; `revive` twitch already live; AT_HUGS/EXPL/ENGL / altwep / `demonpet` spawn still named |
 | D-1232 | fixed | uhitm.c `hmon_hitmon` `troll_baned` around `killed` | map-driven; C `uhitm.c:1906–1909` TRUE-only then `killed` then FALSE (not mhitm/hmonas ternary); hitting `obj` not `uwep`; `mkcorpstat` copies `norevive`; `revive` twitch already live; hmonas AT_WEAP\|\|AT_CLAW `uwep` D-1233; poiskilled skip still named |
 | D-1231 | fixed | mhitm.c gulpmm `m_at` swap + AT_ENGL | map-driven; C `mhitm.c:1075–1080` `m_at(mdef)==magr` re-place before `monkilled`; `gulpmm` 849–967 occupancy + `mattackm` AT_ENGL 510–536; JS `MON_OFFMAP` stands in for C grid; snuff_lit / `!goodpos` return-home / AD_DGST eat / passivemm shock still named; uhitm hmonas troll_baned D-1233 |

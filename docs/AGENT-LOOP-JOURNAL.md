@@ -20,6 +20,23 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:05 — #1566 D-1234 unique/pname corpse_xname adjective
+
+**Objective:** Open `do.c` `revive_corpse` unique/pname
+`corpse_xname` adjective (named). Not Soundeffect.
+**C locus:** `objnam.c` `corpse_xname` 1824–1919; `do.c`
+`revive_corpse` 2131–2133; `dig.c` `rot_corpse` 2158 CXN_NO_PFX.
+**Change:** unique/pname `s_suffix` + adjective after possessive;
+`revive_corpse` passes `"bite-covered"`; `rot_corpse` CXN_NO_PFX.
+Did not wire glob / doname CXN_ARTICLE|CXN_NOCORPSE. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1565** **44**/44; next
+audit @**#1570**).
+**Verified:** private canary **45**/45; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Public-unhit unless a unique/pname corpse revives.
+**Next:** Open `options.c` `optlist` `&a11y.spot_monsters`
+(named). Not glyph_updates.
+**Blocked:** none.
 ## 2026-08-18 22:50 — #1565 review D-1230–D-1233 + cadence
 
 **Objective:** audit — C-fidelity reviews **192–195** of JS SHAs

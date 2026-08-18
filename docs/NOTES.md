@@ -5,53 +5,27 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1233 `hmonas`/`damageum` `troll_baned`
-  ternary/`uwep`. Cadence **#1565** (`976094e5`) reviews **192–195**
-  ACCEPT-WITH-DEBT. Next: map-driven Open `do.c` `revive_corpse`
-  unique/pname `corpse_xname`. Not Soundeffect. Must-fix empty. Do
-  not skip D-1233 / D-1232 / D-1231 gulpmm / D-1230 `#teleport` /
-  D-1229 impact owt/flimsy.
-  Do not pull container_impact / hitfloor `dropz(TRUE)` / hideunder /
-  passivemm / AT_HUGS/EXPL/ENGL / altwep / `demonpet`. Do not wrap
-  `msg_mon_movement` as `pline_mon`. Do not restore Hallu `mon_glyph`
-  in `gbuf_show_kind`. Do not FORCE seed0383.
-- Do not revert D-1217–D-1233. Do not prepend Must-fix for named
-  omits (unique pname `corpse_xname` / other Soundeffect /
-  remaining uhitm/worn/trap `pline_mon`).
+- **Fortress 44/44** after D-1234 unique/pname `corpse_xname`
+  adjective + rot `CXN_NO_PFX`. Cadence **#1565** (`976094e5`).
+  Next: Open `options.c` `optlist` `&a11y.spot_monsters`. Not
+  glyph_updates. Must-fix empty. Do not skip D-1234…D-1229.
+  Do not pull glob / doname CXN_ARTICLE|CXN_NOCORPSE /
+  container_impact / hideunder / passivemm / AT_HUGS/EXPL/ENGL /
+  altwep / `demonpet`. Do not wrap `msg_mon_movement` as
+  `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
+- Do not revert D-1217–D-1234. Do not Must-fix named omits
+  (glob/doname CXN / other Soundeffect / remaining `pline_mon`).
 
 ## Don't re-check (≤15)
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
-  Do not skip ParanoidTrap portal yn (D-1187).
-  Do not skip hero `domagicportal` / `undestroyable_trap` escape
-  / `mktrap` dst / `goto_level` uz0 reset (D-1188).
+  Do not skip ParanoidTrap portal yn (D-1187) / hero
+  `domagicportal` / `undestroyable_trap` / `mktrap` dst /
+  `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1229 (`kill_genocided` / `run_timers` / wizkit FALSE /
-  `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
-  rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
-  W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
-  `mon_arrive` After_you `my=xyflags` / newgame `notice_mon_off` /
-  `init_artifacts` / REVIVE/ZOMBIFY / `#levelchange` drain /
-  `SCR_MAIL`/`uwepgone` light / `scrolltele` unconscious / steed
-  `whobuf` `mon_nam` / `vpline` accessiblemsg consume / `dotele`
-  trap-at-feet teledest / `dotelecmd` m-prefix / energy-spellcast /
-  xkilled `zombie_maker`+`gz.zombify` / mhitm `monkilled` zombify /
-  `revive_corpse` MINVENT/CONTAINED + Adjmonnam /
-  `rot_corpse` invent/minvent worn /
-  `disturb_buried_zombies` rumble/tread/wake/grounded-move /
-  `pline_xy`/`pline_mon` youmonst (0,0) /
-  `set_msg_dir`/`pline_dir` dirtocoord+ux,uy /
-  `#lookaround`/`dolookaround` + GLOC_INTERESTING FALLTHROUGH /
-  `opt_accessiblemsg` `&a11y.accessiblemsg` + in-game `msg_loc` zero /
-  `mention_map` `&a11y.glyph_updates` + `docrt` `in_docrt` /
-  BURIED `!is_zomb` FALLTHROUGH `impossible` /
-  `gbuf_show_kind` occupancy/tty not Hallu `mon_glyph` /
-  `Soundeffect(se_scratching, 50)` before buried You_hear /
-  mhitm `troll_baned` `mkcorpstat_norevive` AT_WEAP||AT_CLAW /
-  run>=2 boulder `pline_dir` /
-  monmove remaining `pline_mon` flee/web/door/itsstuck).
+  D-1190…D-1234 (CURRENT keep; unique/pname `corpse_xname` D-1234).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -66,68 +40,42 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1233 / later D-ids in CURRENT. Do not skip
-  D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
-  `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
-  Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
-  `gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph` (D-1221).
-  Do not skip `Soundeffect(se_scratching, 50)` (D-1222).
-  Do not skip D-1223 `troll_baned` `mkcorpstat_norevive`.
-  Do not skip D-1224 LEVEL_TELEP yn / `level_tele_trap(FORCETRAP)`.
-  Do not restore Teleportation-only `dotele` fail-closed (D-1225).
-  Do not skip   D-1226 run>=2 boulder `pline_dir` / restore vain-push
-  on g/G/travel when `!could_move_onto_boulder`.
-  Do not skip D-1227 monmove remaining `pline_mon` (You_see/You_hear
-  stay pline; do not wrap `msg_mon_movement` as `pline_mon`).
-  Do not skip D-1228 `msg_mon_movement` dest `pline_xy` after place
-  (optlist `&a11y.mon_movement` addr still named).
-  Do not skip D-1229 `impact_disturbs_zombies` owt/flimsy (dropz /
-  throwit `!IS_SOFT` / kick place; container_impact / hitfloor
-  `dropz(TRUE)` / hideunder / local wake clones still named).
-  Do not skip D-1230 `#teleport` `doextcmd` (no AUTOCOMPLETE;
-  rhack `#` CMD_M_PREFIX; resolved accept_menu_prefix).
-  Do not skip   D-1231 gulpmm `m_at` swap / AT_ENGL `gulpmm`
-  (snuff_lit / !goodpos return-home / AD_DGST eat named).
-  Do not skip D-1232 `hmon_hitmon` `troll_baned` TRUE-only around
-  `killed`. Do not skip D-1233 `hmonas`/`damageum` ternary/`uwep`
-  (AT_HUGS/EXPL/ENGL / altwep / `demonpet` spawn still named).
-  Do not “fix” seed0383 with ALIGN/FORCE.
+- Do not skip D-1071…D-1234. Keep se_scratching; `troll_baned`
+  wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
+  `corpse_xname` adjective / rot CXN_NO_PFX. Glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE / snuff_lit / AT_HUGS / `demonpet`
+  still named. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
-  D-1089). Do not rewrite other `Antimagic()` clones.
+  `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
+  D-1089).
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
-  Default `spot_monsters` Off. Default `glyph_updates` Off.
-  remaining uhitm/worn/trap/weapon drop·tether `pline_mon` /
-  rolling-boulder TELEP `pline_xy`.
-  uhitm AT_HUGS/EXPL/ENGL / altwep / `demonpet` named (hmonas D-1233).
-  Other Soundeffect sites still named (not se_scratching).
-  `spot_monsters` / `&a11y.mon_movement` addr still named. Integer glyph
-  IDs / `in_getlev` / await-`newsym` More when mention_map On named.
-  Do not treat `dothrow` `game.thrownobj` as wired (review **172**).
-  Do not Must-fix `DIR_UP`/`DIR_DOWN` const swap on a pline writer
-  (arrays already match `decl.c`; review **178**).
+  Default `spot_monsters`/`glyph_updates` Off. Remaining
+  uhitm/worn/trap `pline_mon` / rolling-boulder TELEP `pline_xy`
+  / other Soundeffect / `spot_monsters` addr named. Do not treat
+  `dothrow` `game.thrownobj` as wired (review **172**). Do not
+  Must-fix `DIR_UP`/`DIR_DOWN` const swap (review **178**).
 
 ## Landmarks (≤15)
 
+- D-1234: unique/pname `corpse_xname` adjective + rot `CXN_NO_PFX`;
+  glob / doname CXN_ARTICLE|CXN_NOCORPSE still named.
 - D-1233: `hmonas`/`damageum` `troll_baned` ternary/`uwep`;
   AT_HUGS/EXPL/ENGL / altwep / `demonpet` still named.
 - D-1232: `hmon_hitmon` `troll_baned` TRUE-only around `killed`.
 - D-1231: gulpmm `m_at` swap + `mattackm` AT_ENGL `gulpmm`;
-  snuff_lit / !goodpos return-home / AD_DGST eat named.
+  snuff_lit / !goodpos / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m; rolling-boulder TELEP `pline_xy` named.
-- Review **192–195** ACCEPT-WITH-DEBT (D-1230…D-1233). Cadence
-  **#1565** **44**/44 including seed0383. Next audit @**#1570**.
+- Review **192–195** ACCEPT-WITH-DEBT. Cadence **#1565** **44**/44
+  including seed0383. Next audit @**#1570**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not
   `pline_mon`; optlist addr named.
-- D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck);
-  You_see/You_hear stay pline.
-- D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push squeeze named.
-- D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
-  LEVEL_TELEP yn D-1224; weffects / Amulet drain named.
-- D-1223: mhitm `troll_baned`; gulpmm D-1231; hmon_hitmon D-1232;
+- D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck).
+- D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push named.
+- D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme.
+- D-1223: mhitm `troll_baned`; gulpmm D-1231; hmon D-1232;
   hmonas D-1233.
 - D-1221 closed review **181**. Map-driven / one cluster, not FAIL peels.

@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1234 — `revive_corpse` unique/pname `corpse_xname` adjective
+
+- **Status:** fixed (map-driven Open; named omit from D-1081 /
+  D-1212 / D-1213 / D-1222; not a public FAIL)
+- **Symptom:** a unique or pname corpse that revives used a
+  lowercase `"bite-covered ${cxname_singular}"` prefix. C
+  `corpse_xname` makes unique/pname names possessive
+  (`Medusa's`, `the Oracle's`) and puts the adjective *after*
+  that possessive (`Medusa's bite-covered corpse`), not before.
+- **C locus:** `objnam.c` `corpse_xname` `:1824–1919`
+  (`obj_pmname`, `the_unique_pm` / `type_is_pname`, `s_suffix`,
+  adjective order, CXN bitmask); `do.c` `revive_corpse`
+  `:2131–2133`; `dig.c` `rot_corpse` `:2158` `CXN_NO_PFX`.
+- **JS was:** `cxname_singular` then `bite-covered ${cname}`;
+  `corpse_xname` ignored unique/pname and the adjective arg.
+- **Fix:** `corpse_xname` unique/pname possessive + adjective
+  placement + CXN_SINGULAR/NO_PFX/PFX_THE/ARTICLE/NOCORPSE;
+  `obj_pmname` gender + aligned-cleric remap; `revive_corpse`
+  calls `corpse_xname(corpse, chewed?"bite-covered":null,
+  CXN_SINGULAR)` before `revive`; `rot_corpse` uses CXN_NO_PFX
+  so invent unique rot is not `"Your the Oracle's corpse"`.
+  Did not wire doname FOOD_CLASS prefix-as-adjective. Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `corpse_xname` / `cxname` /
+  `cxname_singular`; `js/do.js` `revive_corpse`; `js/mkobj.js`
+  `rot_corpse`.
+- **Not this iter:** glob (globby non-CORPSE); doname
+  CXN_ARTICLE|CXN_NOCORPSE prefix-as-adjective / EGG / MEAT_RING;
+  other Soundeffect sites.
+- **Verified:** private canary **45**/45 (C unique/pname +
+  adjective order; Medusa/Oracle/Wizard/troll strings;
+  CXN_NO_PFX; live uwep Medusa/Oracle/troll plines); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a public session revives a
+  unique/pname corpse.
+- **Follow-up:** Open `options.c` `optlist` `&a11y.spot_monsters`.
+
 ## D-1233 — `hmonas`/`damageum` `troll_baned` `mkcorpstat_norevive`
 
 - **Status:** fixed (map-driven Open; named omit from D-1223 /
