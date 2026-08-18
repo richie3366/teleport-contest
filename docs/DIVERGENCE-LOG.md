@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1239 — `hack.c` `cannot_push` squeeze + `sokoban_guilt`
+
+- **Status:** fixed (map-driven Open; named omit from D-1226 /
+  review **188**; not a public FAIL)
+- **Symptom:** After a vain boulder push, JS `cannot_push` always
+  returned `-1`, so a tiny / empty-pack / phazing hero never
+  occupied the boulder cell. C `hack.c:304–311` prints
+  `"However, you can squeeze yourself into a small opening."`,
+  calls `sokoban_guilt()`, and returns `0` so `test_move`/`domove`
+  advance onto the boulder. On Sokoban that increments
+  `u.uconduct.sokocheat` and `change_luck(-1)`.
+- **C locus:** `hack.c` `cannot_push` `:261–312` (squeeze after
+  `throws_rocks`); `trap.c` `sokoban_guilt` `:7039–7055`.
+- **JS was:** comment “squeeze-over pline / sokoban_guilt deferred”;
+  always `-1`. `could_move_onto_boulder` already live for
+  test_move (D-1226).
+- **Fix:** if not giant, `could_move_onto_boulder` → squeeze
+  `pline` + `sokoban_guilt` + return `0`; else `-1`.
+  `sokoban_guilt` no-op off Sokoban. Giant pickup/maneuver still
+  abort (`-1`). Rule #2: no fs.
+- **JS:** `js/hack.js` `cannot_push`; `js/trap.js` `sokoban_guilt`;
+  comment `js/cmd.js`.
+- **Not this iter:** throws_rocks pickup/maneuver + return 0;
+  nopick `m<dir>` squeeze in `moverock_core`; `maybe_finish_sokoban`;
+  other `sokoban_guilt` callers (zap/read/steed/dig); remaining
+  `pline_mon`.
+- **Verified:** private canary **32**/32 (C order; JS squeeze;
+  empty/load/Sokoban/steed/phaze/tiny/giant named abort;
+  moverock vain-push then occupy; luck clamp; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  walk/push against an unpushable boulder with a squeezable hero.
+- **Follow-up:** Open `uhitm.c` remaining `pline_mon`.
+
 ## D-1238 — `monmove.c` `mind_blast`
 
 - **Status:** fixed (map-driven Open; named omit from D-1227 /

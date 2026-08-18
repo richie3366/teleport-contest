@@ -9,7 +9,7 @@
 // trapeffect_magic_trap /
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
-// mu_maybe_destroy_web, b_trapped,
+// mu_maybe_destroy_web, b_trapped, sokoban_guilt (D-1239),
 // uteetering_at_seen_pit / uescaped_shaft (D-1073 sit OBJ_AT gate +
 // do.c flooreffects; D-1083 can_reach_floor(check_pit)),
 // make_corpse ordinary path via thitm death.
@@ -112,6 +112,7 @@ import { observe_object, encumber_msg, near_capacity } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, adjattrib, exercise, adjalign, poisoned,
+    change_luck,
 } from './attrib.js';
 import { tamedog, wary_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
@@ -1284,6 +1285,21 @@ const TRAP_EXPLANATIONS = [
     'trapped door',
     'trapped chest',
 ];
+
+/**
+ * C ref: trap.c sokoban_guilt — Sokoban ≡ level.flags.sokoban_rules.
+ * Conduct + luck only; C TODO feedback still unnamed. maybe_finish_sokoban
+ * and other callers (zap/read/steed/dig/nopick m-dir) still named.
+ */
+export function sokoban_guilt() {
+    const Sokoban = !!(game.Sokoban || game.level?.flags?.sokoban_rules);
+    if (Sokoban) {
+        const u = game.u || (game.u = {});
+        if (!u.uconduct) u.uconduct = {};
+        u.uconduct.sokocheat = (u.uconduct.sokocheat | 0) + 1;
+        change_luck(-1);
+    }
+}
 
 /** C ref: trap.c trapname(ttyp, override) — non-hallucination only. */
 export function trapname(ttyp, _override) {

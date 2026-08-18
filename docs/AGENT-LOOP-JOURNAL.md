@@ -20,6 +20,24 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:55 — #1572 D-1239 cannot_push squeeze
+
+**Objective:** Open `hack.c` cannot_push squeeze (named from
+D-1226). Not run>=2 boulder.
+**C locus:** `hack.c` `cannot_push` `:304–311`; `trap.c`
+`sokoban_guilt` `:7039–7055`.
+**Change:** vain-push then squeeze pline + `sokoban_guilt` +
+return `0` so the hero occupies the boulder. Sokoban
+`sokocheat++`/`change_luck(-1)`. Giant pickup/maneuver still
+abort. Rule #2: no fs.
+**Verified:** private canary **32**/32; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless a squeezable hero walks
+into an unpushable boulder.
+**Next:** Open `uhitm.c` remaining `pline_mon` (named). Not
+troll_baned. Filled D-1238 archive hash `6d2735b0`. Open 11
+after archive (no refill).
+**Blocked:** none.
 ## 2026-08-18 23:48 — #1571 D-1238 mind_blast
 
 **Objective:** Open `monmove.c` `mind_blast` (named). Not

@@ -2149,7 +2149,8 @@ async function domove(dx, dy) {
     // C hack.c test_move 1216–1230 — sobj_at(BOULDER) && (Sokoban ||
     // !Passes_walls): run>=2 abort before moverock (D-1226). TEST_TRAV
     // excluded in C; this is DO_MOVE. Passes_walls && !Sokoban skips the
-    // whole arm (walk onto the boulder). cannot_push squeeze named.
+    // whole arm (walk onto the boulder). cannot_push squeeze D-1239;
+    // giant pickup/maneuver still named.
     if (test_move_boulder_is_blocking(newx, newy)) {
         if (test_move_run_blocked_by_boulder(newx, newy)) {
             if (game.flags?.mention_walls) {

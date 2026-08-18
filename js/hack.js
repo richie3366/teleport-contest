@@ -54,7 +54,10 @@ import {
 import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname } from './do_name.js';
 import { near_capacity, inv_weight } from './invent.js';
 import { record_achievement } from './insight.js';
-import { b_trapped, selftouch, t_at, into_vs_onto, immune_to_trap, trapname } from './trap.js';
+import {
+    b_trapped, selftouch, t_at, into_vs_onto, immune_to_trap, trapname,
+    sokoban_guilt,
+} from './trap.js';
 import { paranoid_query } from './getline.js';
 
 export { set_msg_xy };
@@ -206,15 +209,21 @@ export function test_move_run_blocked_by_boulder(x, y) {
 
 /**
  * C ref: hack.c cannot_push — giant/squeeze may return 0; else -1.
- * Named omissions: throws_rocks pickup/maneuver arms, squeeze pline
- * + sokoban_guilt (could_move_onto_boulder is live for test_move D-1226).
+ * Squeeze pline + sokoban_guilt (D-1239). Named: throws_rocks pickup /
+ * maneuver-over (still abort); nopick m-dir squeeze in moverock_core.
  */
-async function cannot_push(otmp, sx, sy) {
+export async function cannot_push(otmp, sx, sy) {
     if (throws_rocks(game.youmonst?.data)) {
-        // giant pickup / maneuver-over plines deferred — still abort push
+        // giant pickup / maneuver-over plines + return 0 deferred
         return -1;
     }
-    // squeeze-over pline / sokoban_guilt deferred
+    if (could_move_onto_boulder(sx, sy)) {
+        await pline(
+            'However, you can squeeze yourself into a small opening.',
+        );
+        sokoban_guilt();
+        return 0;
+    }
     return -1;
 }
 
@@ -282,7 +291,7 @@ async function dopush(sx, sy, rx, ry, otmp) {
  * + closed_door cannot_push_msg (D-0317) + rumbling
  * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
  * shop costly, trap/teleport/pool arms, Blind feel, Levitation (present),
- * verysmall, giant/squeeze/nopick, tunneling chew, revive_nasty,
+ * verysmall, giant/nopick, tunneling chew, revive_nasty,
  * next_boulder naming, y_monnam steed wording, cannot_push giant arms.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */

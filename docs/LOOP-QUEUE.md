@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` cannot_push squeeze (named from D-1226). Not run>=2 boulder.
 - [ ] `uhitm.c` remaining `pline_mon` (named). Not troll_baned.
 - [ ] `mhitm.c` `passivemm` AD_RBRE shock `monkilled` (named). Not troll_baned.
 - [ ] `mhitm.c` gulpmm `snuff_lit` minvent (named). Not `m_at` swap.
