@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `display.c` `show_glyph` / JS `gbuf_show_kind`: do not re-call `mon_glyph`/`obj_glyph` (Hallu `rn2_on_display_rng`) on every `show_glyph_cell`. C classifies the already-chosen glyph. Keep mention_map addr. seed0383. Source: reviews/loop-unattended/181-925e5b77-show-glyph-glyph-updates.md **Addressed:** D-1221
+- [x] `do.c` `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED pit. **Addressed:** D-1222
+
+
+- [x] `display.c` `show_glyph` / JS `gbuf_show_kind`: do not re-call `mon_glyph`/`obj_glyph` (Hallu `rn2_on_display_rng`) on every `show_glyph_cell`. C classifies the already-chosen glyph. Keep mention_map addr. seed0383. Source: reviews/loop-unattended/181-925e5b77-show-glyph-glyph-updates.md **Addressed:** D-1221 `c7071a4a`
 
 
 - [x] `do.c` `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible` (named). Not Soundeffect. **Addressed:** D-1220 `b09b013d`

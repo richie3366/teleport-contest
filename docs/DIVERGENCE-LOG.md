@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1222 — `revive_corpse` `Soundeffect(se_scratching, 50)` before You_hear
+
+- **Status:** fixed (map-driven Open; named omit from D-1081 /
+  D-1202 / D-1212 / D-1220 / review **182**; not a public FAIL)
+- **Symptom:** buried zombie/reviver that revives out of sight
+  but within `mdistu < 5*5` already `You_hear("scratching noises.")`.
+  C calls `Soundeffect(se_scratching, 50)` immediately before
+  that. JS omitted the callee. Review **182**: port as a real
+  callee (extracted `se_scratching`), not a silent local no-op
+  comment.
+- **C locus:** `do.c` `revive_corpse` `:2230` (hear arm after
+  `!cansee` / `mdistu < 5*5`); `sndprocs.h` `Soundeffect` empty
+  when `!SND_LIB_INTEGRATED`; `seffects.h` / `sndprocs.h` enum
+  `sound_effect_entries` (`se_zero_invalid=0`, `se_scratching=145`).
+  Contest recorder: `SND_LIB_PORTAUDIO` false (extract-optlist).
+- **JS was:** hear arm `You_hear` only; named omit.
+- **Fix:** `scripts/extract-seffects.py` →
+  `js/generated/seffects_data.js`; `js/sndprocs.js` `Soundeffect`
+  matches the contest empty macro (no RNG, no Deaf gate — C does
+  not evaluate the macro body). Call `Soundeffect(se_scratching, 50)`
+  then `You_hear` on the buried hear arm. Pit/claw/`fill_pit` /
+  FALLTHROUGH `impossible` unchanged. Rule #2: no fs.
+- **JS:** `js/do.js` `revive_corpse`; `js/sndprocs.js`;
+  `js/generated/seffects_data.js`.
+- **Not this iter:** other `Soundeffect` call sites (valley
+  groans, rustling paper, shk mutter, …); unique/pname
+  `corpse_xname` adjective; SND_LIB backends.
+- **Verified:** private canary **33**/33 (C ordinal 145; call
+  before You_hear; nearby !cansee hear; far silent; Deaf skips
+  pline; FALLTHROUGH still `impossible`; invent uwep); green+strict
+  seed8000/0900; cohort **5**/5 + strict 1500/1800/0012/0004/0007.
+  **Public-unhit** unless a buried zomb/reviver revives `!cansee`
+  within 5².
+- **Follow-up:** Open `mhitm.c` `troll_baned` `mkcorpstat_norevive`.
+
 ## D-1221 — `gbuf_show_kind` must not re-roll Hallu `mon_glyph`/`obj_glyph`
 
 - **Status:** fixed (Must-fix from review **181** QUALITY-RISK of

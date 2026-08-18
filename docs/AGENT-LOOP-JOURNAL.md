@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 18:39 — D-1222 revive_corpse Soundeffect se_scratching
+
+**Objective:** Open — `do.c` `revive_corpse` `Soundeffect`
+se_scratching (named). Not BURIED pit.
+**C locus:** `do.c` `revive_corpse` 2230; `sndprocs.h`
+`Soundeffect` empty `!SND_LIB_INTEGRATED`; `seffects.h`
+`se_scratching=145`.
+**Change:** extract seffects enum; `sndprocs.js` `Soundeffect`
+matches contest empty macro; call `Soundeffect(se_scratching, 50)`
+then `You_hear` on the buried hear arm. Pit/claw/`fill_pit` /
+FALLTHROUGH unchanged. Did not pull other Soundeffect sites.
+Filled D-1221 archive/review hash `c7071a4a`. Rotated #1536–#1538.
+Open 8 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1550** then D-1221
+**44**/44; next audit @**#1555**).
+**Verified:** private canary **33**/33; green+strict
+seed8000/0900; cohort **5**/5 + strict 1500/1800/0012/0004/0007.
+Public-unhit unless buried zomb/reviver `!cansee` within 5².
+**Next:** Open `mhitm.c` `troll_baned` `mkcorpstat_norevive`
+(named). Not gulpmm.
+**Blocked:** none.
+
 ## 2026-08-18 18:10 — supervisor continues on suite FAIL
 
 **Objective:** human — do not park the loop on green/full-suite
@@ -337,65 +359,4 @@ Rule #2: no fs.
 seed8000/0900; cohort **4**/4 + strict 1500/1800/0012/0004.
 **Next:** Open `dig.c` `rot_corpse` invent/minvent worn plines
 (named). Not REVIVE.
-**Blocked:** none.
-
-## 2026-08-18 09:00 — #1538 D-1211 mhitm mdamagem gz.zombify around monkilled
-
-**Objective:** Open — `mhitm.c` `gz.zombify` at monkilled
-(named). Not make_corpse.
-**C locus:** `mhitm.c` `mdamagem` 1083–1089.
-**Change:** wrap both `mdamagem` death `monkilled` calls with
-`game.zombify = (!mwep && zombie_maker(magr) && (AT_TUCH ||
-AT_CLAW || AT_BITE) && zombie_form(mdef) !== NON_PM)` then
-FALSE. Did not pull troll_baned, gulpmm swap, or passivemm
-shock. Filled D-1210 archive hash `f1a3518a`. Rotated #1523.
-Open 8 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1535** **44**/44; next
-@**#1540**).
-**Verified:** private canary **23**/23; green+strict
-seed8000/0900; cohort **12**/12 + strict 0012/0004/1500/1800.
-**Next:** Open `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED
-(named). Not BURIED.
-**Blocked:** none.
-
-## 2026-08-18 08:50 — #1537 D-1210 zombie_maker + xkilled gz.zombify
-
-**Objective:** Open — `mon.c` `zombie_maker` + `gz.zombify` at
-`make_corpse` (named). Not mhitm.
-**C locus:** `mon.c` `zombie_maker` 362–379; `xkilled` 3619–3624.
-**Change:** `zombie_maker` (S_ZOMBIE except ghoul/skeleton, S_LICH,
-!mcan; mndx compare). `xkilled` sets `game.zombify` around
-`make_corpse` (`!thrownobj && !stoned && !uwep` + youmonst +
-victim `zombie_form`) then FALSE. Did not pull mhitm monkilled
-zombify. Filled D-1209 archive hash `b3c0d228`. Rotated #1522.
-Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1535** **44**/44; next
-@**#1540**).
-**Verified:** private canary **36**/36; green+strict
-seed8000/0900; cohort **12**/12 + strict lengths (fresh
-process seed0012).
-**Next:** Open `mhitm.c` `gz.zombify` at monkilled (named). Not
-make_corpse.
-**Blocked:** none.
-
-## 2026-08-18 08:33 — #1536 D-1209 dotelecmd m-prefix mode menu
-
-**Objective:** Open — `teleport.c` `dotelecmd` m-prefix mode menu
-(named). Not energy gate.
-**C locus:** `teleport.c` `dotelecmd` 917–1031; `spell.c`
-`tport_spell` 1707–1757; `cmd.c` `C('t')` CMD_M_PREFIX 1890–1891.
-**Change:** non-wizard `dotele(FALSE)`; wizard save H/E; `!m`
-ignore restrictions; else PICK_ONE n/s/t/w (`w` preselected);
-ESC ECMD_OK; `tport_spell` hide/add then reverse; rhack keeps
-`menu_requested` for ^T. Snapshot-then-clear (JS split rhack).
-Did not pull energy/`spelleffects`, LEVEL_TELEP yn, or
-`#teleport` doextcmd. Rotated #1521. Open 10 after archive
-(no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1535** **44**/44; next
-@**#1540**).
-**Verified:** private canary **28**/28; green+strict
-seed8000/0900; cohort **8**/8 + strict 1500/0012/0360/0361/
-4500/2200/0014/0004.
-**Next:** Open `mon.c` `zombie_maker` + `gz.zombify` at
-`make_corpse` (named). Not mhitm.
 **Blocked:** none.
