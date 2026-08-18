@@ -3,13 +3,11 @@
 Not a progress log. Keep ≤100 lines. See `.cursor/rules/agent-notes.mdc`.
 Objective/score live in `CURRENT.md`.
 
----
-
 ## Active
 
-- **#1536** D-1209 `dotelecmd` m-prefix. Cadence 44/44 R² 0.871 @**#1540**.
-  Next `zombie_maker` + `gz.zombify` at `make_corpse`. No Must-fix.
-  Do not revert D-1201–D-1209.
+- **#1537** D-1210 `zombie_maker` + xkilled `gz.zombify`. Cadence
+  44/44 R² 0.871 @**#1540**. Next mhitm monkilled zombify. No
+  Must-fix. Do not revert D-1201–D-1210.
 
 ## Don't re-check (≤15)
 
@@ -20,7 +18,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1209 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1210 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -28,7 +26,8 @@ Objective/score live in `CURRENT.md`.
   `init_artifacts` / REVIVE/ZOMBIFY / `#levelchange` drain /
   `SCR_MAIL`/`uwepgone` light / `scrolltele` unconscious / steed
   `whobuf` `mon_nam` / `vpline` accessiblemsg consume / `dotele`
-  trap-at-feet teledest / `dotelecmd` m-prefix).
+  trap-at-feet teledest / `dotelecmd` m-prefix / xkilled
+  `zombie_maker`+`gz.zombify`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -89,11 +88,12 @@ Objective/score live in `CURRENT.md`.
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
-  Default `spot_monsters` Off. Do not skip D-1207–D-1209
-  (`vpline` consume; `dotele` trap-at-feet; `dotelecmd` m-prefix
-  n/s/t/w + `tport_spell`). LEVEL_TELEP yn / energy/`spelleffects`
-  / `#teleport` `doextcmd` still named.
+  Default `spot_monsters` Off. Do not skip D-1207–D-1210
+  (`vpline` consume; `dotele` trap-at-feet; `dotelecmd` m-prefix;
+  xkilled `zombie_maker`/`gz.zombify`). mhitm monkilled zombify /
+  LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd`
+  still named.
 
 ## Landmarks (≤15)
 
-- #1536 D-1209 dotelecmd m-prefix; next zombie_maker make_corpse.
+- #1537 D-1210 zombie_maker xkilled zombify; next mhitm monkilled.

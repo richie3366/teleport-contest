@@ -568,6 +568,31 @@ export function undead_to_corpse(mndx) {
 }
 
 /**
+ * C ref: mon.c zombie_maker — True if mon can convert others into zombies.
+ * Cancelled monsters cannot. S_ZOMBIE except ghoul/skeleton; all S_LICH.
+ * Compare mndx not pointer: JS mons() allocates a fresh permonst.
+ * @param {object|null} mon
+ * @returns {boolean}
+ */
+export function zombie_maker(mon) {
+    if (!mon) return false;
+    if (mon.mcan) return false;
+    const ptr = mon.data;
+    if (!ptr) return false;
+    switch (ptr.mlet) {
+    case 'S_ZOMBIE':
+        /* Z-class that are not actually zombies */
+        if ((ptr.mndx | 0) === pm('GHOUL') || (ptr.mndx | 0) === pm('SKELETON')) {
+            return false;
+        }
+        return true;
+    case 'S_LICH':
+        return true;
+    }
+    return false;
+}
+
+/**
  * C ref: mon.c zombie_form — living species → zombie mndx, or NON_PM.
  * Inverse of undead_to_corpse for the zombie half. Ettin is the only
  * S_GIANT that maps to ETTIN_ZOMBIE; S_HUMANOID only dwarf; already

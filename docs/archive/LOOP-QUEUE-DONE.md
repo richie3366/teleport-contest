@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate. **Addressed:** D-1209
+- [x] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm. **Addressed:** D-1210
+
+
+- [x] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate. **Addressed:** D-1209 `b3c0d228`
 
 
 - [x] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele. **Addressed:** D-1208 `bd8c2161`

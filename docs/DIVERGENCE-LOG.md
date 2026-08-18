@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1210 — `zombie_maker` + xkilled `gz.zombify` at `make_corpse`
+
+- **Status:** fixed (map-driven Open; named omit from D-1202;
+  not a public FAIL)
+- **Symptom:** `start_corpse_timeout` could queue `ZOMBIFY_MON`
+  (`rn1(15,5)`) when `game.zombify` was set, but no hero-kill
+  producer ever set the flag. Poly zombie/lich barehand kills
+  left ordinary `ROT_CORPSE` timers.
+- **C locus:** `mon.c` `zombie_maker` `:362–379`; `xkilled`
+  `:3619–3624` (`gz.zombify` around `make_corpse`). `mkobj.c`
+  `start_corpse_timeout` `:1425–1428` / `mkcorpstat` `:2110–2115`
+  already live (D-1202).
+- **JS was:** `zombie_form` + zombify timer arm present;
+  `zombie_maker` absent; `xkilled` called `make_corpse` with
+  `game.zombify` unset.
+- **Fix:** port `zombie_maker` (S_ZOMBIE except ghoul/skeleton;
+  all S_LICH; cancelled false; mndx compare). `xkilled` sets
+  `game.zombify = !thrownobj && !stoned && !uwep &&
+  zombie_maker(youmonst) && zombie_form(victim) !== NON_PM`
+  then resets after `make_corpse`. Did not pull mhitm
+  `monkilled` zombify (AT_TUCH/CLAW/BITE + !mwep). Rule #2: no fs.
+- **JS:** `js/mon.js` `zombie_maker`; `js/uhitm.js` `xkilled`.
+- **Not this iter:** mhitm monkilled `gz.zombify`; `mondied`
+  does not set the flag; `disturb_buried_zombies`;
+  `revive_corpse` MINVENT/CONTAINED; invent `rot_corpse` worn
+  plines; `mm_2way_aggression` zombie hunt.
+- **Verified:** private canary **36**/36 (`zombie_maker` truth
+  table; xkilled assignment; human corpse → `ZOMBIFY_MON`
+  `when` in 5..19; wielded skip); green+strict seed8000/0900;
+  cohort **12**/12 + strict lengths (fresh process seed0012).
+- **Files:** `js/mon.js`, `js/uhitm.js`.
+
 ## D-1209 — `dotelecmd` m-prefix mode menu
 
 - **Status:** fixed (map-driven Open; named omit from D-0590 /

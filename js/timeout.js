@@ -1217,7 +1217,7 @@ export async function revive_mon(body, timeout) {
 /**
  * C ref: do.c zombify_mon — timeout.c ZOMBIFY_MON callback.
  * zombie_form + !G_GENOD → drop omid/omonst, set_corpsenm, revive_mon;
- * else rot_corpse. Named omit: gz.zombify setters at make_corpse/mhitm.
+ * else rot_corpse. xkilled gz.zombify is D-1210; mhitm monkilled still named.
  * @param {object} body corpse
  * @param {number} timeout passed through to revive_mon
  */

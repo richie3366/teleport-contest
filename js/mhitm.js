@@ -795,7 +795,9 @@ async function corpse_chance(mon) {
 }
 
 // C ref: mon.c make_corpse — undead specials before G_NOCORPSE; pudding globs;
-// else default_1. Named omission: dragon scales, unicorn horn, worm tooth,
+// else default_1. gz.zombify is set by callers (xkilled D-1210; mhitm
+// monkilled still named) around this call, not inside it.
+// Named omission: dragon scales, unicorn horn, worm tooth,
 // golem drops, lich dust, and other pre-G_NOCORPSE switch arms (D-0271
 // undead; D-0993 pudding merge).
 export function make_corpse(mtmp) {
