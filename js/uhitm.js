@@ -503,7 +503,7 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         // accessible/pool gate deferred — always attempt RNG like floor tile
         if (!rn2(6)) xkilled_treasure_drop(mtmp, mdat, mndx, x, y);
         // C: if (!wasinside && corpse_chance(...)) { gz.zombify=...; make_corpse; reset }
-        // wasinside skip still named. mhitm monkilled zombify is a later Open.
+        // wasinside skip still named. mhitm mdamagem monkilled zombify is D-1211.
         if (await corpse_chance(mtmp)) {
             game.zombify = (!game.thrownobj && !game.context?.stoned
                 && !game.u?.uwep

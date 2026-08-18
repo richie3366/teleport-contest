@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1537** D-1210 `zombie_maker` + xkilled `gz.zombify`. Cadence
-  44/44 R² 0.871 @**#1540**. Next mhitm monkilled zombify. No
-  Must-fix. Do not revert D-1201–D-1210.
+- **#1538** D-1211 mhitm `mdamagem` `gz.zombify` around
+  `monkilled`. Cadence 44/44 R² 0.871 @**#1540**. Next
+  `revive_corpse` MINVENT/CONTAINED. Do not revert D-1201–D-1211.
 
 ## Don't re-check (≤15)
 
@@ -18,7 +18,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1210 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1211 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -27,7 +27,7 @@ Objective/score live in `CURRENT.md`.
   `SCR_MAIL`/`uwepgone` light / `scrolltele` unconscious / steed
   `whobuf` `mon_nam` / `vpline` accessiblemsg consume / `dotele`
   trap-at-feet teledest / `dotelecmd` m-prefix / xkilled
-  `zombie_maker`+`gz.zombify`).
+  `zombie_maker`+`gz.zombify` / mhitm `monkilled` zombify).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -88,12 +88,12 @@ Objective/score live in `CURRENT.md`.
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
-  Default `spot_monsters` Off. Do not skip D-1207–D-1210
+  Default `spot_monsters` Off. Do not skip D-1207–D-1211
   (`vpline` consume; `dotele` trap-at-feet; `dotelecmd` m-prefix;
-  xkilled `zombie_maker`/`gz.zombify`). mhitm monkilled zombify /
-  LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd`
-  still named.
+  xkilled `zombie_maker`/`gz.zombify`; mhitm monkilled zombify).
+  `revive_corpse` MINVENT / LEVEL_TELEP yn / energy/`spelleffects`
+  / `#teleport` `doextcmd` still named.
 
 ## Landmarks (≤15)
 
-- #1537 D-1210 zombie_maker xkilled zombify; next mhitm monkilled.
+- #1538 D-1211 mhitm monkilled zombify; next revive MINVENT.

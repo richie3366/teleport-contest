@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1211 — mhitm `mdamagem` `gz.zombify` around `monkilled`
+
+- **Status:** fixed (map-driven Open; named omit from D-1210;
+  not a public FAIL)
+- **Symptom:** a zombie/lich claw/touch/bite kill of a living
+  species that has `zombie_form` left ordinary `ROT_CORPSE`
+  timers. C sets `gz.zombify` around `monkilled` in `mdamagem`;
+  JS `mdamagem` called `monkilled` with the flag unset.
+- **C locus:** `mhitm.c` `mdamagem` `:1083–1089` (`gz.zombify`
+  around `monkilled`). `mon.c` `zombie_maker` / `xkilled` setter
+  already live (D-1210). `mkobj.c` `start_corpse_timeout`
+  `:1425–1428` zombify arm live (D-1202).
+- **JS was:** `zombie_maker` + xkilled wrap present; `mdamagem`
+  death paths called `monkilled` → `mondied` → `make_corpse`
+  with `game.zombify` unset.
+- **Fix:** wrap both `mdamagem` death `monkilled` calls:
+  `game.zombify = (!mwep && zombie_maker(magr) && (AT_TUCH ||
+  AT_CLAW || AT_BITE) && zombie_form(mdef.data) !== NON_PM)`
+  then reset. Did not pull `troll_baned` `mkcorpstat_norevive`,
+  gulpmm `m_at` swap, or passivemm/AD_RBRE shock `monkilled`.
+  Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mdamagem_monkilled`.
+- **Not this iter:** `disturb_buried_zombies`; `revive_corpse`
+  MINVENT/CONTAINED; invent `rot_corpse` worn plines;
+  `mondied` does not set the flag itself.
+- **Verified:** private canary **23**/23 (maker truth table;
+  zombie/lich/TUCH/BITE queue `ZOMBIFY_MON`; kick/wielded/ghoul/
+  cancelled/already-zombie skip); green+strict seed8000/0900;
+  cohort **12**/12 + strict 0012/0004/1500/1800.
+- **Files:** `js/mhitm.js` (comments in `uhitm.js` / `timeout.js`).
+
 ## D-1210 — `zombie_maker` + xkilled `gz.zombify` at `make_corpse`
 
 - **Status:** fixed (map-driven Open; named omit from D-1202;

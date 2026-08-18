@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm. **Addressed:** D-1210
+- [x] `mhitm.c` `gz.zombify` at monkilled (named). Not make_corpse. **Addressed:** D-1211
+
+
+- [x] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm. **Addressed:** D-1210 `f1a3518a`
 
 
 - [x] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate. **Addressed:** D-1209 `b3c0d228`

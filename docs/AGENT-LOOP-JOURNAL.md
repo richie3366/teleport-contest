@@ -21,6 +21,25 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 09:00 — #1538 D-1211 mhitm mdamagem gz.zombify around monkilled
+
+**Objective:** Open — `mhitm.c` `gz.zombify` at monkilled
+(named). Not make_corpse.
+**C locus:** `mhitm.c` `mdamagem` 1083–1089.
+**Change:** wrap both `mdamagem` death `monkilled` calls with
+`game.zombify = (!mwep && zombie_maker(magr) && (AT_TUCH ||
+AT_CLAW || AT_BITE) && zombie_form(mdef) !== NON_PM)` then
+FALSE. Did not pull troll_baned, gulpmm swap, or passivemm
+shock. Filled D-1210 archive hash `f1a3518a`. Rotated #1523.
+Open 8 after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1535** **44**/44; next
+@**#1540**).
+**Verified:** private canary **23**/23; green+strict
+seed8000/0900; cohort **12**/12 + strict 0012/0004/1500/1800.
+**Next:** Open `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED
+(named). Not BURIED.
+**Blocked:** none.
+
 ## 2026-08-18 08:50 — #1537 D-1210 zombie_maker + xkilled gz.zombify
 
 **Objective:** Open — `mon.c` `zombie_maker` + `gz.zombify` at
@@ -351,26 +370,4 @@ seed8000/0900; cohort **14**/14 + strict 1500/1800/0012/0360/
 4500/2200/0014/0004/0700/0006/0108/0116.
 **Next:** Open `artifact.c` `init_artifacts` (named). Not
 wizkit.
-**Blocked:** none.
-
-## 2026-08-18 05:01 — #1523 D-1199 mon_arrive After_you my=xyflags before rloc
-
-**Objective:** Open — `dog.c` `mon_arrive` `my=xyflags` before
-rloc (named). Not migrate bit.
-**C locus:** `dog.c` `mon_arrive` 607–613 after xyloc switch
-before `mnearto`/`rloc(RLOC_NOMSG)`. Caller `losedogs`
-After_you 390–401 (`mux/muy` match `u.uz`, not EXACT_XY).
-**Change:** After_you copies `mtrack[0].y` into `my` (`mx`
-stays 0) then rloc when xlocale==0 else thin mnearto
-(move_other FALSE). RANDOM zeros locale. Did not pull
-kops/EXACT_XY Before_you/failed_arrivals/wander/leftovers/
-Wiz_arrive. Filled D-1198 archive hash `2f8f7d9f`. Rotated
-#1508. Open 10 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1520** **44**/44; next
-@**#1525**).
-**Verified:** private canary **32**/32; green+strict
-seed8000/0900; cohort **10**/10 + strict 1500/0012/0360/4500/
-2200/0014/0004/0700/1800/0006.
-**Next:** Open `allmain.c` `newgame` `notice_mon_off` (named).
-Not wizkit.
 **Blocked:** none.
