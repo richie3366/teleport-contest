@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1225 — `dotele` energy/`spelleffects` SPE_TELEPORT_AWAY
+
+- **Status:** fixed (map-driven Open; named omit from D-1209 /
+  D-1208 / D-1224 / review **170**/**171**; not a public FAIL)
+- **Symptom:** JS `dotele` fail-closed on `!Teleportation` with
+  "are not able to teleport at will" and skipped hunger/STR/`uen`/
+  capacity. C `!trap && !break_the_rules`: if `!Teleportation` or
+  XL below 8 (wizard) / 12 (else) without `can_teleport(youmonst)`,
+  try `known_spell(SPE_TELEPORT_AWAY)`; `castit` is `spe_Fresh` (or
+  GoingStale) and `!Confusion`. Else You don't-know / can't-cast /
+  not-at-will and return 0. Energy is `5 * objects[].oc_level`.
+  Hunger≤10 / STR<4 / `uen` short → return 0; `check_capacity`
+  → return 1. `castit` exercises WIS then
+  `spelleffects(SPE_TELEPORT_AWAY, TRUE, FALSE)` and returns
+  (no second `tele` / no `morehungry(100)`). Else debit `uen`.
+- **C locus:** `teleport.c` `dotele` `:1070–1142`; `spell.c`
+  `known_spell` `:2363–2375`; `spelleffects` SPE_TELEPORT_AWAY
+  atme `zapyourself`; `spelleffects_check` `check_capacity`
+  `:1279–1283`. Callers: `dotelecmd` including wizard `'s'`.
+- **JS was:** Teleportation-only fail-closed; `spelleffects`
+  printed "Nothing happens." for SPE_TELEPORT_AWAY; `known_spell`
+  absent; `check_capacity` deferred in `spelleffects_check`.
+- **Fix:** `known_spell` enum; dotele energy gate; export
+  `spelleffects`; SPE_TELEPORT_AWAY self-zap; capacity TIME in
+  `spelleffects_check`. Did not pull `#teleport` `doextcmd`,
+  amulet drain, `spell_backfire`, or directional `weffects`.
+  Rule #2: no fs.
+- **JS:** `js/teleport.js` `dotele`; `js/spell.js` `known_spell`
+  / `spelleffects` / `spelleffects_check`.
+- **Not this iter:** `#teleport` extcmd wire; other `spelleffects`
+  otyps; directional `weffects`; amulet drain; `spell_backfire`.
+- **Verified:** private canary **61**/61; green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. Path public-unhit unless `^T` without a trap.
+- **Files:** `js/teleport.js`, `js/spell.js`.
+
 ## D-1224 — `dotele` LEVEL_TELEP `y_n` + `level_tele_trap`
 
 - **Status:** fixed (map-driven Open; named omit from D-1208 /

@@ -20,7 +20,7 @@ import {
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     M_AP_NOTHING,
     UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_PORTAL, TIMEOUT,
-    OBJ_FREE, SLT_ENCUMBER, TT_BURIEDBALL,
+    OBJ_FREE, SLT_ENCUMBER, EXT_ENCUMBER, TT_BURIEDBALL,
     is_hole, is_pit, Is_stronghold, Is_botlevel, Is_knox_level,
     In_endgame, In_sokoban, In_quest, Is_waterlevel,
     Is_airlevel, Is_firelevel, Is_earthlevel,
@@ -30,14 +30,14 @@ import {
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
-    MAGICAL_BREATHING, I_SPECIAL,
+    MAGICAL_BREATHING, I_SPECIAL, ECMD_TIME,
 } from './const.js';
 import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
     amphibious, monsterNames, passes_walls, is_dlord, is_dprince,
-    is_rider, control_teleport, haseyes, G_UNIQ,
+    is_rider, control_teleport, can_teleport, haseyes, G_UNIQ,
     is_minion, is_vampshifter,
 } from './monsters.js';
 import {
@@ -61,9 +61,12 @@ import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
 import { mon_nam, Monnam, x_monnam, noit_mon_nam, Hallucination } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
+import { acurr, A_STR, A_WIS, exercise } from './attrib.js';
 import { in_out_region, update_player_regions, update_monster_region } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
+const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
+const PM_WIZARD = monsterNames.indexOf('PM_WIZARD');
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
 function Amonnam(mtmp) {
@@ -1680,7 +1683,7 @@ function unconscious() {
  * unconscious() fail pline then fall through; wizard/Teleport_control
  * getpos path; steed whobuf "you" + optional " and " + mon_nam(usteed);
  * uncontrolled → learnscroll + safe_teleds.
- * Named omissions: non-wizard energy/spellcast. dotele trap-at-feet
+ * Named omissions: dotele energy/spellcast D-1225. dotele trap-at-feet
  * teledest D-1208. dotelecmd m-prefix D-1209. LEVEL_TELEP yn D-1224.
  * dotele clears travelcc before tele when not trap-once/teledest
  * (D-0789); scrolltele clears when controlled dest equals travelcc.
@@ -1845,9 +1848,11 @@ function u_locomotion(defWord) {
  * pline; trap_once vault yn/deltrap then vault_tele(); isok(teledest)
  * teleds (no displace/settrack — unlike tele_trap D-1133); else
  * travelcc=0 + tele(); next_to_u leash; !trap morehungry(100) (D-1208).
- * Named omissions: energy/spellcast (hunger/STR/uen/capacity/
- * spelleffects) — keep Teleportation fail-closed when !trap &&
- * !break_the_rules; poly locomotion(). dotelecmd m-prefix D-1209.
+ * Energy/spellcast (D-1225): !trap && !break_the_rules hunger/STR/uen/
+ * capacity; !Teleportation or low XL without can_teleport → known_spell
+ * SPE_TELEPORT_AWAY (spe_Fresh, !Confusion) then spelleffects(atme);
+ * else debit 5*oc_level and fall through. #teleport doextcmd named.
+ * Named omit: poly locomotion(). dotelecmd m-prefix D-1209.
  */
 export async function dotele(break_the_rules) {
     const u = game.u || {};
@@ -1894,12 +1899,70 @@ export async function dotele(break_the_rules) {
     }
 
     if (!trap && !break_the_rules) {
-        /* energy / spellcast gate deferred — Teleportation fail-closed */
+        /* C teleport.c:1070–1142 — hunger/STR/uen/capacity then
+         * spelleffects(SPE_TELEPORT_AWAY, TRUE) or direct uen debit. */
+        let castit = false;
         const Teleportation = !!(u.HTeleportation || u.ETeleportation
             || u.Teleportation);
-        if (!Teleportation) {
-            await pline('You are not able to teleport at will.');
+        const xlNeed = (game.urole?.mnum === PM_WIZARD) ? 8 : 12;
+        let spellMod = null;
+        if (!Teleportation
+            || ((u.ulevel | 0) < xlNeed
+                && !can_teleport(game.youmonst?.data))) {
+            spellMod = await import('./spell.js');
+            const knownsp = spellMod.known_spell(SPE_TELEPORT_AWAY);
+            /* casting isn't inhibited by being Stunned (...it ought to be) */
+            const Confusion = !!((u.HConfusion | 0) || u.Confusion);
+            castit = knownsp >= spellMod.spe_Fresh && !Confusion;
+            if (!castit && !break_the_rules) {
+                const why = !Teleportation
+                    ? (knownsp !== spellMod.spe_Unknown
+                        ? "can't cast that spell"
+                        : "don't know that spell")
+                    : 'are not able to teleport at will';
+                await pline(`You ${why}.`);
+                return false;
+            }
+        }
+
+        /* C: energy = 5 * objects[SPE_TELEPORT_AWAY].oc_level
+         * (local spellev #define; same result as spell.c spellev). */
+        const energy = 5 * (game.objects?.[SPE_TELEPORT_AWAY]?.oc_level | 0);
+        let cantdoit = null;
+        if (u.uhunger <= 10) {
+            cantdoit = 'are too weak from hunger';
+        } else if (acurr(A_STR) < 4) {
+            cantdoit = 'lack the strength';
+        } else if (energy > (u.uen | 0)) {
+            cantdoit = 'lack the energy';
+        }
+        if (cantdoit) {
+            await pline(
+                `You ${cantdoit} ${castit ? 'for a teleport spell' : 'to teleport'}.`,
+            );
             return false;
+        }
+        if (near_capacity() >= EXT_ENCUMBER) {
+            await pline(
+                'Your concentration falters from carrying so much.',
+            );
+            return true; /* C: this failure in spelleffects() also uses the move */
+        }
+
+        if (castit) {
+            /* energy cost is deducted in spelleffects() */
+            exercise(A_WIS, true);
+            if (!spellMod) spellMod = await import('./spell.js');
+            const spellRes = await spellMod.spelleffects(
+                SPE_TELEPORT_AWAY, true, false,
+            );
+            if (spellRes & ECMD_TIME) return true;
+            else if (!break_the_rules) return false;
+        } else {
+            /* bypassing spelleffects(); apply energy cost directly */
+            u.uen = (u.uen | 0) - energy;
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true;
         }
     }
     /* C: next_to_u leash gate before vault_tele / teleds / tele (D-1005) */
@@ -1977,9 +2040,9 @@ async function dotelecmd_mode_menu() {
  * Teleportation; !menu_requested → ignore_restrictions; else PICK_ONE
  * n/s/t/w then tport_spell hide/add; dotele; restore H/E and reverse
  * tport_spell (D-1209). Snapshot-then-clear menu_requested (JS split
- * rhack has no next-entry reset).
- * Named omissions: energy/spellcast (s-mode still fail-closed in
- * dotele); #teleport doextcmd wire. LEVEL_TELEP yn D-1224.
+ * rhack has no next-entry reset). Energy/spellcast D-1225 (s-mode
+ * actually casts). Named omit: #teleport doextcmd wire. LEVEL_TELEP
+ * yn D-1224.
  */
 export async function dotelecmd() {
     const flags = game.flags || {};
