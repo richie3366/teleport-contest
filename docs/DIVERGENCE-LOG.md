@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1224 — `dotele` LEVEL_TELEP `y_n` + `level_tele_trap`
+
+- **Status:** fixed (map-driven Open; named omit from D-1208 /
+  D-1209 / review **170**/**171**; not a public FAIL)
+- **Symptom:** JS `dotele` treated a seen LEVEL_TELEP at the hero's
+  feet as declined (`trap=null`) with no `y_n`. C asks
+  `y_n("There is a level teleporter here. Trigger it?")`; `'y'`
+  calls `level_tele_trap(trap, FORCETRAP)` and returns 1 (time even
+  if the port wrenches). Else `trap=0` and horizontal teleport
+  continues. Hero `trapeffect_level_telep` still Finished.
+- **C locus:** `teleport.c` `dotele` `:1046–1053`;
+  `level_tele_trap` `:1538–1571`; `trap.c` `trapeffect_level_telep`
+  `:2093–2095` `seetrap` then `level_tele_trap(trap, trflags)`.
+  `y_n` ≡ `yn_function(query, ynchars, 'n', TRUE)`.
+- **JS was:** named omit; always `trap=null`. Hero trapeffect
+  returned Finished.
+- **Fix:** yn then `level_tele_trap(FORCETRAP)` or `trap=0`.
+  `level_tele_trap`: VIASITTING|FORCETRAP → "trigger" + intentional
+  (skip Antimagic shield/wrench); else `u_locomotion("step")+" onto"`.
+  You trigger/step; Antimagic&&!intentional `shieldeff`;
+  (Antimagic&&!intentional)||In_endgame wrenching return (trap
+  stays); else deltrap+newsym+`level_tele`; Hallu/TC "briefly feel"
+  else You_feel disoriented; !TC `make_confused` after the port so
+  Oops is not this-trap confuse. `trapeffect_level_telep` hero
+  `seetrap`+call. Did not pull energy/`spelleffects` or `#teleport`
+  `doextcmd`. Rule #2: no fs.
+- **JS:** `js/teleport.js` `dotele` / `level_tele_trap`;
+  `js/trap.js` `trapeffect_level_telep`.
+- **Not this iter:** energy/spellcast hunger/STR/uen/capacity/
+  `spelleffects`; `#teleport` extcmd wire; heaven/escape
+  `level_tele` named omits.
+- **Verified:** private canary **49**/49 (unseen ignore; yn n/ESC/
+  space decline + fail-closed; `'y'` deltrap+centered no hunger;
+  endgame `'y'` time+wrench trap stays; AM accidental wrench;
+  FORCETRAP skips AM; FORCETRAP+endgame still wrenches; Hallu
+  oriented+confuse; plain/even-more disoriented; VIASITTING;
+  PIT not yn; dotrap FORCETRAP wire; no teleds of LEVEL_TELEP
+  dest; confuse TIMEOUT +3; TC skips confuse); green+strict
+  seed8000/0900; cohort **5**/5 + strict 1500/1800/0012/0004/0007.
+  **Public-unhit** unless `^T`/step/sit on a seen LEVEL_TELEP.
+- **Follow-up:** Open `spell.c` energy/`spelleffects` teleport.
+
 ## D-1223 — `mdamagem` `troll_baned` `mkcorpstat_norevive` around `monkilled`
 
 - **Status:** fixed (map-driven Open; named omit from D-1211 /

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `mhitm.c` `troll_baned` `mkcorpstat_norevive` (named). Not gulpmm. **Addressed:** D-1223
+- [x] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast. **Addressed:** D-1224
+
+
+- [x] `mhitm.c` `troll_baned` `mkcorpstat_norevive` (named). Not gulpmm. **Addressed:** D-1223 `d4f9b432`
 
 
 - [x] `do.c` `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED pit. **Addressed:** D-1222 `7b0f9da7`

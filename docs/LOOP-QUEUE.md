@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast.
 - [ ] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd.
 - [ ] `hack.c` run>=2 boulder `pline_dir` (named). Not mention_walls.
 - [ ] remaining `pline.c` `pline_mon` callers (named). Not msg_mon_movement.

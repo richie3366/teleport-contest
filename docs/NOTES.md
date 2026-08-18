@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1223. Next: map-driven Open `teleport.c`
-  LEVEL_TELEP `y_n`. Not energy-spellcast.
+- **Fortress 44/44** after D-1224. Next: map-driven Open `spell.c`
+  energy/`spelleffects` teleport. Not `#teleport` doextcmd.
   Do not restore the Hallu classifier. Do not FORCE seed0383.
-  Do not skip D-1223 `troll_baned` / D-1222 `Soundeffect`.
-- Do not revert D-1217–D-1223 envelopes. Do not prepend Must-fix for
+  Do not skip D-1224 LEVEL_TELEP yn / `level_tele_trap`.
+- Do not revert D-1217–D-1224 envelopes. Do not prepend Must-fix for
   named omits (gulpmm swap / uhitm troll_baned / unique pname
   `corpse_xname` / other Soundeffect / remaining `pline_mon`).
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1223 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1224 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -58,13 +58,15 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1223 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1224 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
   Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
   `gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph` (D-1221).
   Do not skip `Soundeffect(se_scratching, 50)` (D-1222).
-  Do not skip mhitm `troll_baned` `mkcorpstat_norevive` (D-1223).
+  Do not skip D-1223 `troll_baned` `mkcorpstat_norevive`.
+  Do not skip D-1224 LEVEL_TELEP yn / `level_tele_trap(FORCETRAP)` /
+  trap.c `trapeffect_level_telep` hero `seetrap`.
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -74,7 +76,7 @@ Objective/score live in `CURRENT.md`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
   remaining `pline_mon` callers / `msg_mon_movement` /
   rolling-boulder TELEP `pline_xy` / run>=2 boulder `pline_dir` /
-  LEVEL_TELEP yn / energy/`spelleffects` / `#teleport` `doextcmd`.
+  energy/`spelleffects` / `#teleport` `doextcmd`.
   gulpmm `m_at` swap / uhitm `hmon_hitmon`+`hmonas` troll_baned named.
   Other Soundeffect sites still named (not se_scratching).
   `spot_monsters`/`mon_movement` addr still named. Integer glyph
@@ -86,6 +88,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1224 Open: `dotele` seen LEVEL_TELEP `y_n` then
+  `level_tele_trap(FORCETRAP)`; trap.c hero `seetrap`+call. Energy
+  / `#teleport` doextcmd still named.
 - D-1223 Open: `mdamagem` `troll_baned` sets `mkcorpstat_norevive`
   around `monkilled` (AT_WEAP||AT_CLAW); gulpmm / uhitm still named.
 - D-1222 Open: `revive_corpse` `Soundeffect(se_scratching, 50)`

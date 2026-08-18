@@ -26,6 +26,7 @@ import {
     Is_airlevel, Is_firelevel, Is_earthlevel,
     HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, RLOC_ERR, NO_TRAP_FLAGS,
+    FORCETRAP, VIASITTING,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
     MON_FLOOR, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
@@ -58,7 +59,7 @@ import { getlin, yn_function } from './getline.js';
 import { get_level, find_hell, In_W_tower, On_W_tower_level, In_tutorial } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
-import { mon_nam, Monnam, x_monnam, noit_mon_nam } from './do_name.js';
+import { mon_nam, Monnam, x_monnam, noit_mon_nam, Hallucination } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
 import { in_out_region, update_player_regions, update_monster_region } from './region.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
@@ -1679,11 +1680,10 @@ function unconscious() {
  * unconscious() fail pline then fall through; wizard/Teleport_control
  * getpos path; steed whobuf "you" + optional " and " + mon_nam(usteed);
  * uncontrolled → learnscroll + safe_teleds.
- * Named omissions: dotele LEVEL_TELEP yn;
- * non-wizard energy/spellcast. dotele trap-at-feet teledest D-1208.
- * dotelecmd m-prefix D-1209. dotele clears travelcc before tele when
- * not trap-once/teledest (D-0789); scrolltele clears when controlled
- * dest equals travelcc.
+ * Named omissions: non-wizard energy/spellcast. dotele trap-at-feet
+ * teledest D-1208. dotelecmd m-prefix D-1209. LEVEL_TELEP yn D-1224.
+ * dotele clears travelcc before tele when not trap-once/teledest
+ * (D-0789); scrolltele clears when controlled dest equals travelcc.
  */
 export async function scrolltele(scroll) {
     const flags = game.flags || {};
@@ -1840,14 +1840,14 @@ function u_locomotion(defWord) {
 
 /**
  * C ref: teleport.c dotele — #teleport / ^T body.
- * Envelope: t_at + !tseen ignore; TELEP_TRAP jump pline; trap_once
- * vault yn/deltrap then vault_tele(); isok(teledest) teleds (no
- * displace/settrack — unlike tele_trap D-1133); else travelcc=0 +
- * tele(); next_to_u leash; !trap morehungry(100) (D-1208).
- * Named omissions: LEVEL_TELEP yn + level_tele_trap FORCETRAP;
- * energy/spellcast (hunger/STR/uen/capacity/spelleffects) — keep
- * Teleportation fail-closed when !trap && !break_the_rules;
- * poly locomotion(). dotelecmd m-prefix D-1209.
+ * Envelope: t_at + !tseen ignore; LEVEL_TELEP tseen y_n then
+ * level_tele_trap(FORCETRAP) or trap=0 (D-1224); TELEP_TRAP jump
+ * pline; trap_once vault yn/deltrap then vault_tele(); isok(teledest)
+ * teleds (no displace/settrack — unlike tele_trap D-1133); else
+ * travelcc=0 + tele(); next_to_u leash; !trap morehungry(100) (D-1208).
+ * Named omissions: energy/spellcast (hunger/STR/uen/capacity/
+ * spelleffects) — keep Teleportation fail-closed when !trap &&
+ * !break_the_rules; poly locomotion(). dotelecmd m-prefix D-1209.
  */
 export async function dotele(break_the_rules) {
     const u = game.u || {};
@@ -1859,9 +1859,17 @@ export async function dotele(break_the_rules) {
     if (trap) {
         const ttyp = trap.ttyp | 0;
         if (ttyp === LEVEL_TELEP && trap.tseen) {
-            /* C: y_n("There is a level teleporter here. Trigger it?")
-             * then level_tele_trap(FORCETRAP) or trap=0. Deferred —
-             * treat as declined so we do not teleds a LEVEL_TELEP. */
+            /* C teleport.c:1046–1053 — y_n ≡ yn_function(query, ynchars, 'n').
+             * 'y' → level_tele_trap(FORCETRAP) and return 1 (time even if
+             * the port wrenches). Else trap=0, continue horizontal. */
+            if ((await yn_function(
+                'There is a level teleporter here. Trigger it?',
+                'yn',
+                'n',
+            )) === 'y') {
+                await level_tele_trap(trap, FORCETRAP);
+                return true;
+            }
             trap = null;
         } else if (ttyp === TELEP_TRAP) {
             trap_once = !!trap.once;
@@ -1970,8 +1978,8 @@ async function dotelecmd_mode_menu() {
  * n/s/t/w then tport_spell hide/add; dotele; restore H/E and reverse
  * tport_spell (D-1209). Snapshot-then-clear menu_requested (JS split
  * rhack has no next-entry reset).
- * Named omissions: dotele LEVEL_TELEP yn; energy/spellcast (s-mode
- * still fail-closed in dotele); #teleport doextcmd wire.
+ * Named omissions: energy/spellcast (s-mode still fail-closed in
+ * dotele); #teleport doextcmd wire. LEVEL_TELEP yn D-1224.
  */
 export async function dotelecmd() {
     const flags = game.flags || {};
@@ -2304,7 +2312,7 @@ export async function level_tele() {
  * endgame without amulet dizzy-return; tutorial leave
  * UTOTYPE_ATSTAIRS + "Resuming regular play."; else PORTAL +
  * stunmsg + make_stunned((HStun&TIMEOUT)+3, FALSE).
- * Named omissions: level_tele_trap; UTOTYPE_RMPORTAL deltrap.
+ * Named omissions: UTOTYPE_RMPORTAL deltrap.
  */
 export async function domagicportal(ttmp) {
     const u = game.u;
@@ -2432,6 +2440,67 @@ export async function tele_trap(trap) {
         }
     } finally {
         in_tele_trap = false;
+    }
+}
+
+/**
+ * C youprop.h Teleport_control — HTeleport_control || ETeleport_control.
+ * Sticky u.Teleport_control kept for poly/eat flats.
+ */
+function Teleport_control() {
+    const u = game.u || {};
+    return !!((u.HTeleport_control | 0) || (u.ETeleport_control | 0)
+        || u.Teleport_control);
+}
+
+/**
+ * C ref: teleport.c level_tele_trap — hero LEVEL_TELEP.
+ * Envelope: VIASITTING|FORCETRAP → "trigger" + intentional (skip
+ * Antimagic shield/wrench); else u_locomotion("step")+" onto".
+ * You("%s a level teleport trap!"); Antimagic&&!intentional shieldeff;
+ * (Antimagic&&!intentional)||In_endgame wrenching return (trap stays);
+ * else deltrap+newsym+level_tele; then Hallu/TC "briefly feel" else
+ * You_feel disoriented; !TC make_confused((HConfusion&TIMEOUT)+3,FALSE)
+ * after the port so Oops is not this-trap confuse (D-1224).
+ * Callers: dotele yn 'y' FORCETRAP; trap.c trapeffect_level_telep.
+ */
+export async function level_tele_trap(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    const flags = (trflags | 0);
+    const intentional = (flags & (VIASITTING | FORCETRAP)) !== 0;
+    const verbbuf = intentional
+        ? 'trigger'
+        : `${u_locomotion('step')} onto`;
+    await pline(`You ${verbbuf} a level teleport trap!`);
+
+    if (Antimagic() && !intentional) {
+        await shieldeff(u.ux, u.uy);
+    }
+    if ((Antimagic() && !intentional) || In_endgame(u.uz)) {
+        await You_feel('a wrenching sensation.');
+        return;
+    }
+    const { deltrap } = await import('./trap.js');
+    deltrap(trap);
+    newsym(u.ux, u.uy); /* get rid of trap symbol */
+    await level_tele();
+
+    if (Hallucination() || Teleport_control()) {
+        await pline(
+            `You briefly feel ${Hallucination() ? 'oriented' : 'centered'}.`,
+        );
+    } else {
+        const confused = !!(u.HConfusion | 0);
+        await You_feel(`${confused ? 'even more ' : ''}disoriented.`);
+    }
+    /* magic portal traversal causes brief Stun; for level teleport, use
+       confusion instead, and only when hero lacks control; do this after
+       processing the level teleportation attempt because being confused
+       can affect the outcome ("Oops" result) */
+    if (!Teleport_control()) {
+        const { make_confused } = await import('./potion.js');
+        await make_confused(((u.HConfusion | 0) & TIMEOUT) + 3, false);
     }
 }
 
@@ -2586,7 +2655,7 @@ function is_home_elemental(ptr) {
  * (D-0782) with endgame amulet/home-elemental/rn2(7) stay; LEVEL_TELEP
  * random_teleport_level+get_level; NO_TRAP same-level migrate unless
  * amulet/endgame/onscary(0,0). Named omissions: valley_level stronghold
- * dest; botlevel hole avoid pline; hero level_tele_trap.
+ * dest; botlevel hole avoid pline. Hero level_tele_trap D-1224.
  */
 export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
     const tt = trap ? (trap.ttyp | 0) : NO_TRAP;
