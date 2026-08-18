@@ -20,6 +20,27 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 21:05 — #1558 D-1228 msg_mon_movement
+
+**Objective:** Open `hack.c` `msg_mon_movement` (named). Not
+pline_mon. C is `monmove.c`.
+**C locus:** `monmove.c` `msg_mon_movement` 32–48 / `m_move`
+2051–2053 after `place_monster`.
+**Change:** dest `pline_xy` after place (not `pline_mon`);
+`a11y.mon_movement` + `canspotmon` + `mspotted`; next2u/closer/
+further/distance + `vtense(null, locomotion(…,"move"))`. Did not
+wire optlist addr, `worm_move`, remaining `pline_mon`, or TELEP
+`pline_xy`. Filled D-1227 archive hash `1da251ee`. Refill Open
+to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1555** **44**/44; next
+audit @**#1560**).
+**Verified:** private canary **23**/23; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. Public-unhit unless `mon_movement` On (default
+Off) and already `mspotted`.
+**Next:** Open `hack.c` `impact_disturbs_zombies` (named from
+D-1214). Not hideunder.
+**Blocked:** none.
 ## 2026-08-18 20:55 — #1557 D-1227 monmove remaining pline_mon
 
 **Objective:** Open remaining `pline.c` `pline_mon` callers

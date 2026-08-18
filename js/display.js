@@ -3705,6 +3705,8 @@ export function set_msg_dir(dir) {
 
 /**
  * C pline.c pline_xy 126–135 — set_msg_xy then vpline.
+ * Live dest: msg_mon_movement after place (D-1228). Named omit:
+ * rolling-boulder TELEP pline_xy.
  */
 export async function pline_xy(x, y, msg) {
     set_msg_xy(x, y);
@@ -3717,8 +3719,8 @@ export async function pline_xy(x, y, msg) {
  * Live callers: wield/zap/drop/pickup/mb_trapped (D-1215) + monmove
  * monflee/itsstuck/maybe_spin_web/postmov door (D-1227).
  * Named omit: remaining uhitm/worn/trap/weapon drop·tether / muse drinks /
- * iron bars / mind_blast / bee_eat / mon_yells; msg_mon_movement;
- * rolling-boulder TELEP pline_xy.
+ * iron bars / mind_blast / bee_eat / mon_yells; rolling-boulder TELEP
+ * pline_xy. Do not wrap msg_mon_movement as pline_mon (D-1228).
  */
 export async function pline_mon(mtmp, msg) {
     if (mtmp === game.youmonst) {

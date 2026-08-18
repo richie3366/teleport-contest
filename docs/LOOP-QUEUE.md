@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `msg_mon_movement` (named). Not pline_mon.
 - [ ] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder.
 - [ ] `teleport.c` `#teleport` `doextcmd` (named from D-1209). Not energy-spellcast.
 - [ ] `mhitm.c` gulpmm `m_at` swap (named). Not passivemm.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive` (named). Not hmon_hitmon.
 - [ ] `do.c` `revive_corpse` unique/pname `corpse_xname` adjective (named). Not Soundeffect.
 - [ ] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates.
+- [ ] `options.c` `optlist` `&a11y.mon_movement` (named). Not spot_monsters.
+- [ ] `teleport.c` rolling-boulder TELEP `pline_xy` (named). Not `#teleport`.
+- [ ] `monmove.c` `mind_blast` (named). Not msg_mon_movement.
+- [ ] `hack.c` cannot_push squeeze (named from D-1226). Not run>=2 boulder.
+- [ ] `uhitm.c` remaining `pline_mon` (named). Not troll_baned.
 
 ## Parked (do not pop)
 

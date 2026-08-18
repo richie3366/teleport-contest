@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1228 — monmove.c `msg_mon_movement`
+
+- **Status:** fixed (map-driven Open; named omit from D-1215 /
+  review **177** / D-1227; not a public FAIL). Queue said
+  `hack.c`; C is `monmove.c`.
+- **Symptom:** after D-1215, dest movement messages never stored
+  `a11y.msg_loc`. C prints only when `a11y.mon_movement` and the
+  monster is already spotted.
+- **C locus:** `monmove.c` `msg_mon_movement` `:32–48`; caller
+  `m_move` `:2051–2053` after `place_monster` before `worm_move`.
+  `optlist.h:493–494` `&a11y.mon_movement` default Off.
+- **JS was:** named omit; `m_move` placed then `maybe_unhide_at`
+  with no movement pline.
+- **Fix:** `msg_mon_movement` uses `pline_xy(nix,niy)` (not
+  `pline_mon`); `display.canspotmon`; `vtense(null, locomotion(…,
+  "move"))`; next2u / closer / further away / in the distance.
+  Did not wire optlist addr (still `flags`). Did not pull
+  `worm_move`, remaining `pline_mon`, or TELEP `pline_xy`.
+  Rule #2: no fs.
+- **JS:** `js/monmove.js`; comments `js/display.js` / `js/hack.js`.
+- **Not this iter:** `&a11y.mon_movement` addr; remaining
+  uhitm/worn/trap `pline_mon`; rolling-boulder TELEP `pline_xy`;
+  `impact_disturbs_zombies`.
+- **Verified:** private canary **23**/23; green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. Path public-unhit unless `mon_movement` is On
+  (default Off) and the mon was already `mspotted`.
+- **Files:** `js/monmove.js`, `js/display.js` (comments),
+  `js/hack.js` (comments).
+
 ## D-1227 — monmove remaining `pline_mon`
 
 - **Status:** fixed (map-driven Open; named omit from D-1215 /

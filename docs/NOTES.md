@@ -6,11 +6,12 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after review **183–187** + cadence **#1555**
-  (`89588300`). Next: map-driven Open `hack.c` `msg_mon_movement`.
-  Not remaining uhitm/worn/trap `pline_mon`. Must-fix empty
-  (no QUALITY-RISK). Do not restore Hallu `mon_glyph` in
-  `gbuf_show_kind`. Do not FORCE seed0383.
-- Do not revert D-1217–D-1227. Do not prepend Must-fix for named
+  (`89588300`). Next: map-driven Open `hack.c`
+  `impact_disturbs_zombies`. Not remaining uhitm `pline_mon`.
+  Must-fix empty. Do not wrap `msg_mon_movement` as `pline_mon`. Do not
+  restore Hallu `mon_glyph` in `gbuf_show_kind`. Do not FORCE
+  seed0383.
+- Do not revert D-1217–D-1228. Do not prepend Must-fix for named
   omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
   other Soundeffect / remaining uhitm/worn/trap `pline_mon` /
   `#teleport`).
@@ -62,7 +63,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1227 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1228 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
   Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
@@ -71,10 +72,12 @@ Objective/score live in `CURRENT.md`.
   Do not skip D-1223 `troll_baned` `mkcorpstat_norevive`.
   Do not skip D-1224 LEVEL_TELEP yn / `level_tele_trap(FORCETRAP)`.
   Do not restore Teleportation-only `dotele` fail-closed (D-1225).
-  Do not skip D-1226 run>=2 boulder `pline_dir` / restore vain-push
+  Do not skip   D-1226 run>=2 boulder `pline_dir` / restore vain-push
   on g/G/travel when `!could_move_onto_boulder`.
   Do not skip D-1227 monmove remaining `pline_mon` (You_see/You_hear
   stay pline; do not wrap `msg_mon_movement` as `pline_mon`).
+  Do not skip D-1228 `msg_mon_movement` dest `pline_xy` after place
+  (optlist `&a11y.mon_movement` addr still named).
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -83,11 +86,10 @@ Objective/score live in `CURRENT.md`.
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
   remaining uhitm/worn/trap/weapon drop·tether `pline_mon` /
-  `msg_mon_movement` /
   rolling-boulder TELEP `pline_xy` / `#teleport` `doextcmd`.
   gulpmm `m_at` swap / uhitm `hmon_hitmon`+`hmonas` troll_baned named.
   Other Soundeffect sites still named (not se_scratching).
-  `spot_monsters`/`mon_movement` addr still named. Integer glyph
+  `spot_monsters` / `&a11y.mon_movement` addr still named. Integer glyph
   IDs / `in_getlev` / await-`newsym` More when mention_map On named.
   Do not treat `dothrow` `game.thrownobj` as wired (review **172**).
   Do not Must-fix `DIR_UP`/`DIR_DOWN` const swap on a pline writer
@@ -97,8 +99,10 @@ Objective/score live in `CURRENT.md`.
 
 - Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
   **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- D-1228: `msg_mon_movement` dest `pline_xy` after place; not
+  `pline_mon`; optlist addr named.
 - D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck);
-  You_see/You_hear stay pline; `msg_mon_movement` named.
+  You_see/You_hear stay pline.
 - D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push squeeze named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
   `#teleport` / weffects / Amulet drain named.

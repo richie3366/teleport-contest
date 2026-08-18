@@ -53,7 +53,7 @@ import {
     objectNames,
 } from './objects.js';
 import { Monnam, y_monnam, Adjmonnam } from './do_name.js';
-import { doname, distant_name, ansimpleoname } from './objnam.js';
+import { doname, distant_name, ansimpleoname, vtense } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
 import { MON_WEP, mon_wield_item, select_rwep } from './weapon.js';
@@ -67,7 +67,10 @@ import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
 import { check_gear_next_turn } from './worn.js';
 import { picking_lock } from './lock.js';
-import { newsym, pline, canseemon as display_canseemon, pline_mon } from './display.js';
+import {
+    newsym, pline, canseemon as display_canseemon, pline_mon, pline_xy,
+    canspotmon as display_canspotmon,
+} from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { shk_move, gd_move, pri_move } from './shk.js';
 import { tactics } from './wizard.js';
@@ -932,6 +935,38 @@ function locomotion(ptr, def) {
 }
 
 /**
+ * C monmove.c msg_mon_movement 32–48 — a11y.mon_movement dest pline_xy
+ * after place_monster. Not pline_mon (C uses nix,niy). Requires already
+ * spotted (`mspotted`; notice_mon when mon_notices On). Default Off.
+ * Named omit: optlist `&a11y.mon_movement` addr (still flags).
+ */
+export async function msg_mon_movement(mtmp, omx, omy) {
+    const a = game.a11y || {};
+    if (!a.mon_movement || !display_canspotmon(mtmp) || !mtmp.mspotted) {
+        return;
+    }
+    const nix = mtmp.mx | 0;
+    const niy = mtmp.my | 0;
+    const ux = game.u?.ux | 0;
+    const uy = game.u?.uy | 0;
+    const duNew = dist2(nix, niy, ux, uy);
+    const duOld = dist2(omx | 0, omy | 0, ux, uy);
+    const n2u = duNew <= 2;
+    const close = !n2u && duNew <= (BOLT_LIM * BOLT_LIM);
+    const closer = !n2u && duNew <= duOld;
+    const where = n2u
+        ? ' next to you'
+        : (close && closer) ? ' closer'
+        : (close && !closer) ? ' further away'
+        : ' in the distance';
+    await pline_xy(
+        nix,
+        niy,
+        `${Monnam(mtmp)} ${vtense(null, locomotion(mtmp.data, 'move'))}${where}.`,
+    );
+}
+
+/**
  * C ref: mon.c hideunder — set mundetected under object / pool for eels.
  * You_see "%s %s under %s" when canseemon before hide (forces --More--
  * when prior topline cannot append). Named omissions: pet
@@ -1693,9 +1728,11 @@ export async function m_move(mtmp, after) {
     // C: m_postmove_effect before place (Hezrou/Steam at old mx/my)
     await m_postmove_effect(mtmp);
 
-    // C: place_monster + maybe_unhide_at + mon_track_add then postmov
+    // C: place_monster + msg_mon_movement then worm_move (named) /
+    // maybe_unhide_at + mon_track_add then postmov
     mtmp.mx = nix;
     mtmp.my = niy;
+    await msg_mon_movement(mtmp, omx, omy);
     // C ref: monmove.c m_move — maybe_unhide_at before mon_track_add/postmov
     // so postmov hide rn2(5) sees cleared mundetected when dest has no cover.
     await maybe_unhide_at(mtmp.mx, mtmp.my);
