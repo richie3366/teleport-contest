@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1207 — `vpline` accessiblemsg consume of `msg_loc`
+
+- **Status:** fixed (map-driven Open; named omit from D-1196;
+  not a public FAIL)
+- **Symptom:** JS `pline` never read `a11y.msg_loc`. C `vpline`
+  always copies `a11y.msg_loc` then resets it to 0,0 (empty,
+  Norep-suppressed, and Off included). When `accessiblemsg` is
+  On and `isok(saved)`, it prefixes `coord_desc` + `": "` and
+  re-enters `vpline`. After dest-msg `set_msg_xy` (D-1196) JS
+  left dest coords until the next store.
+- **C locus:** `pline.c` `vpline` `:162–189`. `coord_desc` /
+  `dxdy_to_dist_descr` in `getpos.c` `:557–635`; `directionname`
+  in `cmd.c` `:4321–4331`. Default `getpos_coords` NONE →
+  COMFULL. `isok` rejects x=0 so a zeroed loc never prefixes.
+- **JS was:** `set_msg_xy` store only; `display.js` `pline` did
+  not snapshot or reset.
+- **Fix:** consume at the start of `pline` and `Norep` (C Norep
+  always enters `vpline`). Prefix uses MAP `<%d,%d>` (no look_all
+  y<10 pad), SCREEN `[y+2,x]`, COMPASS/COMFULL `(dxdy…)`. Unit
+  steps use `directionname` (`east` not `1e`).
+- **JS:** `js/display.js` `pline`/`Norep`; `js/const.js`
+  `directionname`.
+- **Not this iter:** `pline_xy`/`pline_mon`/`set_msg_dir`
+  writers; `opt_accessiblemsg` wire onto `a11y.accessiblemsg`
+  (JS doset still `flags.accessiblemsg`); `dolookaround`;
+  `glyph_updates` `show_glyph_change`. Rule #2: no fs.
+- **Verified:** private canary **36**/36 (Off reset; empty and
+  Norep-suppress reset; (0,0) no prefix; unit east/north/west/NW;
+  `(here)`; 2east vs 2e; mixed 2south,4east; MAP/SCREEN/NONE;
+  second pline no leftover; Norep prefix vs prevmsg; `|0`;
+  You_feel; 9999 clamp; no fs); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/0012/0360/4500/2200/0014/0004.
+  Path public-unhit unless `accessiblemsg` is On (default Off).
+- **Files:** `js/display.js`, `js/const.js`, `js/hack.js` (comment).
+
 ## D-1206 — `scrolltele` steed `whobuf` `mon_nam`
 
 - **Status:** fixed (map-driven Open; named omit from D-1205 /

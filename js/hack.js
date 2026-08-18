@@ -1717,8 +1717,9 @@ export function invocation_pos(x, y) {
 
 /**
  * C flag.h `struct accessibility_data` / `a11y`. Default Off matches
- * optlist `spot_monsters`. Named omit: option wiring onto this struct;
- * `accessiblemsg` pline consume of msg_loc; `mon_movement`; `glyph_updates`.
+ * optlist `spot_monsters`. Named omit: option wiring onto this struct
+ * (`flags.accessiblemsg` vs `a11y.accessiblemsg`); `mon_movement`;
+ * `glyph_updates`. vpline consume of msg_loc is D-1207.
  */
 function a11y_state() {
     if (!game.a11y) {
@@ -1763,7 +1764,7 @@ function notice_distu(x, y) {
     return dx * dx + dy * dy;
 }
 
-/** C pline.c set_msg_xy — a11y.msg_loc; pline consume still named. */
+/** C pline.c set_msg_xy — a11y.msg_loc; vpline consume is D-1207. */
 export function set_msg_xy(x, y) {
     const a = a11y_state();
     a.msg_loc.x = x | 0;

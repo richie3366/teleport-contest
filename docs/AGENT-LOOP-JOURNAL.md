@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 07:11 — #1533 D-1207 vpline accessiblemsg consume
+
+**Objective:** Open — `pline.c` `vpline` accessiblemsg consume
+(named). Not set_msg_xy.
+**C locus:** `pline.c` `vpline` 162–189; `getpos.c` `coord_desc`
+/`dxdy_to_dist_descr`; `cmd.c` `directionname`.
+**Change:** snapshot+reset `a11y.msg_loc` on every `pline`/`Norep`
+(empty and suppress included). On+`isok` prefix `coord_desc: `
+(NONE→COMFULL; unit `directionname`). Did not pull `pline_xy` /
+`set_msg_dir` / `opt_accessiblemsg` wire / `dolookaround`. Filled
+D-1206 archive hash `319bf51c`. Rotated #1518. Open 7 after
+archive; refilled Open to 12. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1530** **44**/44; next
+@**#1535**).
+**Verified:** private canary **36**/36; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
+2200/0014/0004. Public-unhit unless `accessiblemsg` On.
+**Next:** Open `teleport.c` `dotele` trap-at-feet teledest
+(named). Not vault_tele.
+**Blocked:** none.
+
 ## 2026-08-18 06:56 — #1532 D-1206 scrolltele steed whobuf
 
 **Objective:** Open — `teleport.c` `scrolltele` steed whobuf
@@ -350,24 +371,3 @@ seed8000/0900; cohort **14**/14 + strict 1500/0012/0360/4500/
 (named). Not make_blinded.
 **Blocked:** none.
 
-## 2026-08-18 01:26 — #1518 D-1195 rloc_to_core wand makeknown
-
-**Objective:** Open — `teleport.c` `rloc_to_core` wand `makeknown`
-(named). Not ustuck-together.
-**C locus:** `teleport.c` `rloc_to_core` 1727–1731 after delivered
-dest pline, before resident shk angry. `dozap` sets
-`gc.current_wand` around `weffects`.
-**Change:** if `current_wand.otyp === WAN_TELEPORTATION` after a
-delivered dest msg, `makeknown(WAN_TELEPORTATION)` (WIS
-`rn2(19)` when new). Null / other otyp / no dest msg skip.
-Did not pull `set_msg_xy`. Filled D-1194 archive hash
-`c4c57ac1`. Rotated #1503. Open 9 after archive (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1515** **44**/44; next
-@**#1520**).
-**Verified:** private canary **27**/27; green+strict
-seed8000/0900; cohort **14**/14 + strict 1500/0012/0360/4500/
-2200/0014.
-**Next:** Open `teleport.c` `rloc_to_core` `set_msg_xy` (named).
-Not makeknown.
-**Blocked:** none.

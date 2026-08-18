@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `teleport.c` `scrolltele` steed whobuf (named). Not unconscious. **Addressed:** D-1206
+- [x] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy. **Addressed:** D-1207
+
+
+- [x] `teleport.c` `scrolltele` steed whobuf (named). Not unconscious. **Addressed:** D-1206 `319bf51c`
 
 
 - [x] `teleport.c` `scrolltele` unconscious (named). Not Override yn. **Addressed:** D-1205 `f389c2b4`

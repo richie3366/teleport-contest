@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy.
 - [ ] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele.
 - [ ] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate.
 - [ ] `mon.c` `zombie_maker` + `gz.zombify` at `make_corpse` (named). Not mhitm.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED.
 - [ ] `dig.c` `rot_corpse` invent/minvent worn plines (named). Not REVIVE.
 - [ ] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon.
+- [ ] `pline.c` `pline_xy`/`pline_mon` (named). Not set_msg_dir.
+- [ ] `pline.c` `set_msg_dir` (named). Not pline_xy.
+- [ ] `cmd.c` `dolookaround` (named). Not glyph_updates.
+- [ ] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround.
+- [ ] `display.c` `show_glyph_change` glyph_updates (named). Not opt_accessiblemsg.
 
 ## Parked (do not pop)
 

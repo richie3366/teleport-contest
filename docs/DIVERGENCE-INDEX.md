@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1207 | fixed | `vpline` accessiblemsg consume | map-driven; C `pline.c:162–189`; always snapshot+reset `a11y.msg_loc`; On+`isok` prefix `coord_desc: ` (NONE→COMFULL); unit `directionname`; Norep consumes before suppress; `pline_xy`/`set_msg_dir`/`opt_accessiblemsg` wire / `dolookaround` still named |
 | D-1206 | fixed | `scrolltele` steed `whobuf` `mon_nam` | map-driven; C `teleport.c:877–882`; `Strcpy` "you"; `u.usteed` `Sprintf(eos, " and %s", mon_nam)` not `y_monnam`; named SUPPRESS_SADDLE; usteed skips do_it "it"; unconscious still fall-through D-1205; dotele trap-at-feet / dotelecmd m-prefix still named |
 | D-1205 | fixed | `scrolltele` unconscious controlled fail | map-driven; C `teleport.c:874–876` / `trap.c` `unconscious` 6776–6786; `multi<0` and (`usleep` or wake-msg prefixes); pline then fall through `learnscroll`+`safe_teleds` (no getpos); wizard still fails; Stunned skips the outer if; steed whobuf D-1206 |
 | D-1204 | fixed | eat.c `eatspecial` SCR_MAIL + `uwepgone` artifact_light | map-driven; C `eat.c:2432–2447` MAIL_STRUCTURES junk-mail before scare/YUM; `wield.c:873–885` `artifact_light` `end_burn` + Tobjnam shine + `update_inventory`; gone-trio + `o_unleash` inventory; lesshungry choke/fullwarn / setuwep begin_burn still named |
