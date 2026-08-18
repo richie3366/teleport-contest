@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder. **Addressed:** D-1229
+- [x] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder. **Addressed:** D-1229 `0ddfb189`
 
 
 - [x] `hack.c` `msg_mon_movement` (named). Not pline_mon. **Addressed:** D-1228 `23f3f19e`

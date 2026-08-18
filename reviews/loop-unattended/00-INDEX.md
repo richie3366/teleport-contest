@@ -197,3 +197,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [185-d4f9b432-troll-baned-mkcorpstat.md](./185-d4f9b432-troll-baned-mkcorpstat.md) | `d4f9b432` | D-1223 `troll_baned` `mkcorpstat_norevive` | **ACCEPT-WITH-DEBT** |
 | [186-790ca8b7-level-telep-yn.md](./186-790ca8b7-level-telep-yn.md) | `790ca8b7` | D-1224 LEVEL_TELEP `y_n` + `level_tele_trap` | **ACCEPT-WITH-DEBT** |
 | [187-89588300-dotele-energy-spellcast.md](./187-89588300-dotele-energy-spellcast.md) | `89588300` | D-1225 `dotele` energy/`spelleffects` | **ACCEPT-WITH-DEBT** |
+| [188-7998cb1e-test-move-boulder-pline-dir.md](./188-7998cb1e-test-move-boulder-pline-dir.md) | `7998cb1e` | D-1226 `test_move` run>=2 boulder `pline_dir` | **ACCEPT-WITH-DEBT** |
+| [189-1da251ee-monmove-remaining-pline-mon.md](./189-1da251ee-monmove-remaining-pline-mon.md) | `1da251ee` | D-1227 monmove remaining `pline_mon` | **ACCEPT-WITH-DEBT** |
+| [190-23f3f19e-msg-mon-movement.md](./190-23f3f19e-msg-mon-movement.md) | `23f3f19e` | D-1228 `msg_mon_movement` dest `pline_xy` | **ACCEPT-WITH-DEBT** |
+| [191-0ddfb189-impact-disturbs-zombies.md](./191-0ddfb189-impact-disturbs-zombies.md) | `0ddfb189` | D-1229 `impact_disturbs_zombies` | **ACCEPT-WITH-DEBT** |

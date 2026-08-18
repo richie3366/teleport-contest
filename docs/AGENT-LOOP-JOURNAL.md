@@ -20,6 +20,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 21:35 — #1560 review D-1226–D-1229 + cadence
+
+**Objective:** C-fidelity review of JS-touching SHAs since review
+**187**; cadence full `sessions`.
+**C locus:** `hack.c` `test_move` 1216–1230 /
+`could_move_onto_boulder` 145–163; `monmove.c` remaining
+`pline_mon` 493–1610; `msg_mon_movement` 32–48;
+`impact_disturbs_zombies` 1787–1794.
+**Change:** reviews **188–191** ACCEPT-WITH-DEBT. Filled archive
+**Addressed:** D-1229 `0ddfb189`. Must-fix empty. No `js/` edits.
+**Score:** cadence **#1560** HEAD `0ddfb189` **44**/44 Scr
+**11405**/11405 RNG **100%** speed `36+0.30/turn` (R² 0.852).
+Next audit @**#1565**.
+**Verified:** full `sessions` this iter. Public-unhit admitted in
+188–191 (mention_walls / accessiblemsg / mon_movement Off;
+impact unless heavy land over buried ZOMBIFY).
+**Next:** Open `teleport.c` `#teleport` `doextcmd` (named from
+D-1209). Not energy-spellcast.
+**Blocked:** none.
 ## 2026-08-18 21:20 — #1559 D-1229 impact_disturbs_zombies
 
 **Objective:** Open `hack.c` `impact_disturbs_zombies` (named from

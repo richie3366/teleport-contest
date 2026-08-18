@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after review **183–187** + cadence **#1555**
-  (`89588300`). Next: map-driven Open `teleport.c` `#teleport`
+- **Fortress 44/44** after review **188–191** + cadence **#1560**
+  (`0ddfb189`). Next: map-driven Open `teleport.c` `#teleport`
   `doextcmd`. Not energy-spellcast. Must-fix empty. Do not skip
   D-1229 impact owt/flimsy. Do not pull container_impact /
   hitfloor `dropz(TRUE)` / hideunder. Do not wrap
@@ -101,8 +101,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
-  **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- Review **188–191** ACCEPT-WITH-DEBT (D-1226…D-1229). Cadence
+  **#1560** **44**/44 including seed0383. Next audit @**#1565**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not
