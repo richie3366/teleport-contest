@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 19:55 — #1556 D-1226 test_move run>=2 boulder pline_dir
+
+**Objective:** Open — `hack.c` run>=2 boulder `pline_dir`
+(named). Not mention_walls.
+**C locus:** `hack.c` `test_move` 1216–1221 /
+`could_move_onto_boulder` 145–163.
+**Change:** run>=2 abort before moverock; DO_MOVE +
+`flags.mention_walls` `pline_dir(xytodir(dx,dy), "A boulder
+blocks your path.")`; TEST_MOVE silent; Passes_walls skip
+outer arm. Did not pull cannot_push squeeze / sokoban_guilt /
+mention_walls `"It's %s."`. Open 9 after archive (no refill).
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1555** **44**/44; next
+audit @**#1560**).
+**Verified:** private canary **35**/35; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. Public-unhit unless g/G/travel onto a boulder
+with mention_walls On (default Off).
+**Next:** Open remaining `pline.c` `pline_mon` callers (named).
+Not msg_mon_movement.
+**Blocked:** none.
+
 ## 2026-08-18 19:50 — #1555 review D-1221–D-1225 + cadence score
 
 **Objective:** audit — C-fidelity reviews **183–187** of JS SHAs
@@ -328,26 +350,4 @@ seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0360/
 4500/2200/0014/0004/0060.
 **Next:** Open `cmd.c` `dolookaround` (named). Not
 glyph_updates.
-**Blocked:** none.
-
-## 2026-08-18 10:47 — #1543 D-1215 pline_xy/pline_mon
-
-**Objective:** Open — `pline.c` `pline_xy`/`pline_mon`
-(named). Not set_msg_dir.
-**C locus:** `pline.c` `pline_xy` 126–135 / `pline_mon`
-137–150; callee `set_msg_xy` 93–97 then `vpline`. Callers
-`weapon.c` 892, `muse.c` 187, `steal.c` 836, `dogmove.c` 460,
-`monmove.c` `mb_trapped` 58.
-**Change:** `set_msg_xy`+writers in `display.js`; hack
-re-exports store. youmonst → (0,0) not ux,uy. Wired live
-wield/zap/drop/pickup/`mb_trapped`. Did not pull `set_msg_dir`
-/ remaining `pline_mon` / `msg_mon_movement`. Filled D-1214
-archive hash `b44c4847`. Rotated #1528. Open 9 after archive
-(no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1540** **44**/44; next
-@**#1545**).
-**Verified:** private canary **31**/31; green+strict
-seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0360/
-4500/2200/0014/0004/0060.
-**Next:** Open `pline.c` `set_msg_dir` (named). Not pline_xy.
 **Blocked:** none.

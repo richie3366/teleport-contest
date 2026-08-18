@@ -6,11 +6,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after review **183–187** + cadence **#1555**
-  (`89588300`). Next: map-driven Open `hack.c` run>=2 boulder
-  `pline_dir`. Not mention_walls. Must-fix empty (no QUALITY-RISK).
-  Do not restore Hallu `mon_glyph` in `gbuf_show_kind`. Do not FORCE
-  seed0383. Do not skip D-1225 energy/`spelleffects` atme.
-- Do not revert D-1217–D-1225. Do not prepend Must-fix for named
+  (`89588300`). Next: map-driven Open remaining `pline.c`
+  `pline_mon` callers. Not msg_mon_movement. Must-fix empty
+  (no QUALITY-RISK). Do not restore Hallu `mon_glyph` in
+  `gbuf_show_kind`. Do not FORCE seed0383.
+- Do not revert D-1217–D-1226. Do not prepend Must-fix for named
   omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
   other Soundeffect / remaining `pline_mon` / `#teleport`).
 
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1225 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1226 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -44,7 +44,8 @@ Objective/score live in `CURRENT.md`.
   BURIED `!is_zomb` FALLTHROUGH `impossible` /
   `gbuf_show_kind` occupancy/tty not Hallu `mon_glyph` /
   `Soundeffect(se_scratching, 50)` before buried You_hear /
-  mhitm `troll_baned` `mkcorpstat_norevive` AT_WEAP||AT_CLAW).
+  mhitm `troll_baned` `mkcorpstat_norevive` AT_WEAP||AT_CLAW /
+  run>=2 boulder `pline_dir`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -68,6 +69,8 @@ Objective/score live in `CURRENT.md`.
   Do not skip D-1223 `troll_baned` `mkcorpstat_norevive`.
   Do not skip D-1224 LEVEL_TELEP yn / `level_tele_trap(FORCETRAP)`.
   Do not restore Teleportation-only `dotele` fail-closed (D-1225).
+  Do not skip D-1226 run>=2 boulder `pline_dir` / restore vain-push
+  on g/G/travel when `!could_move_onto_boulder`.
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
@@ -76,8 +79,7 @@ Objective/score live in `CURRENT.md`.
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters` Off. Default `glyph_updates` Off.
   remaining `pline_mon` callers / `msg_mon_movement` /
-  rolling-boulder TELEP `pline_xy` / run>=2 boulder `pline_dir` /
-  `#teleport` `doextcmd`.
+  rolling-boulder TELEP `pline_xy` / `#teleport` `doextcmd`.
   gulpmm `m_at` swap / uhitm `hmon_hitmon`+`hmonas` troll_baned named.
   Other Soundeffect sites still named (not se_scratching).
   `spot_monsters`/`mon_movement` addr still named. Integer glyph
@@ -90,9 +92,9 @@ Objective/score live in `CURRENT.md`.
 
 - Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
   **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push squeeze named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
   `#teleport` / weffects / Amulet drain named.
 - D-1224: LEVEL_TELEP `y_n` + live `level_tele_trap`.
 - D-1223: mhitm `troll_baned`; uhitm / gulpmm named.
-- D-1221 closed review **181** Must-fix (no Hallu reroll).
-  Map-driven / one cluster, not FAIL peels.
+- D-1221 closed review **181**. Map-driven / one cluster, not FAIL peels.

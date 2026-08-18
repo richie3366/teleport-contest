@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
+- [x] `hack.c` run>=2 boulder `pline_dir` (named). Not mention_walls. **Addressed:** D-1226
+
+
 - [x] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd. **Addressed:** D-1225 `89588300`
 
 

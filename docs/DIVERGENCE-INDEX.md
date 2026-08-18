@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1226 | fixed | hack.c `test_move` run>=2 boulder `pline_dir` | map-driven; C `hack.c:1216–1221` / `could_move_onto_boulder` 145–163; g/G/travel DO_MOVE + mention_walls `"A boulder blocks your path."` via `pline_dir(xytodir(dx,dy))`; TEST_MOVE silent; Passes_walls skip outer arm; empty pack / giant / tiny / Blind / Hallu skip abort; cannot_push squeeze + sokoban_guilt still named |
 | D-1225 | fixed | `dotele` energy/`spelleffects` SPE_TELEPORT_AWAY | map-driven; C `teleport.c:1070–1142` / `spell.c` `known_spell` 2363–2375 / `spelleffects` SPE_TELEPORT_AWAY atme / `spelleffects_check` `check_capacity`; hunger/STR/uen then capacity TIME; `castit` `spe_Fresh` !Confusion → `spelleffects(TRUE)` return before `tele`/`morehungry(100)`; else debit `5*oc_level`; `#teleport` doextcmd still named |
 | D-1224 | fixed | `dotele` LEVEL_TELEP `y_n` + `level_tele_trap` | map-driven; C `teleport.c:1046–1053`/`1538–1571` / `trap.c` `trapeffect_level_telep` 2093–2095; seen LEVEL_TELEP `y_n` then `level_tele_trap(FORCETRAP)` return 1; decline `trap=0`; VIASITTING\|FORCETRAP trigger+intentional; Antimagic wrench unless intentional; In_endgame wrench always; deltrap+`level_tele`; Hallu/TC briefly feel else You_feel disoriented; !TC `make_confused` after port; energy-spellcast D-1225; `#teleport` doextcmd still named |
 

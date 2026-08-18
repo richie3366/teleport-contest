@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1226 — `hack.c` `test_move` run>=2 boulder `pline_dir`
+
+- **Status:** fixed (map-driven Open; named omit from D-1216 /
+  review **178**; not a public FAIL)
+- **Symptom:** JS `domove` always called `moverock` on a dest
+  boulder. C `test_move` `mode != TEST_TRAV && run >= 2 &&
+  !(Blind || Hallucination) && !could_move_onto_boulder` returns
+  FALSE first; DO_MOVE + `flags.mention_walls` uses
+  `pline_dir(xytodir(dx,dy), "A boulder blocks your path.")`.
+  Default mention_walls Off is silent (no vain-push).
+- **C locus:** `hack.c` `test_move` `:1216–1230`;
+  `could_move_onto_boulder` `:145–163`; `squeezeablylightinvent`.
+  Caller `domove_core` `:2843–2848` `move=0` + `nomul(0)` when
+  `!door_opened`.
+- **JS was:** named omit; `boulder_at` → `moverock` even on g/G/
+  travel.
+- **Fix:** `could_move_onto_boulder` (phaze / steed / giant
+  flanks / tiny / light pack); outer `Sokoban || !Passes_walls`;
+  run>=2 abort + `pline_dir`; TEST_MOVE silent in
+  `test_move_viable`. Did not pull cannot_push squeeze /
+  `sokoban_guilt` / mention_walls `"It's %s."`. Rule #2: no fs.
+- **JS:** `js/hack.js` `could_move_onto_boulder` /
+  `test_move_run_blocked_by_boulder`; `js/cmd.js` DO_MOVE arm.
+- **Not this iter:** cannot_push giant pickup/maneuver/squeeze
+  pline; remaining `pline_mon`; `msg_mon_movement`;
+  rolling-boulder TELEP `pline_xy`.
+- **Verified:** private canary **35**/35; green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. Path public-unhit unless g/G/travel onto a
+  boulder with mention_walls On (default Off).
+- **Files:** `js/hack.js`, `js/cmd.js`, `js/display.js` (comments).
+
 ## D-1225 — `dotele` energy/`spelleffects` SPE_TELEPORT_AWAY
 
 - **Status:** fixed (map-driven Open; named omit from D-1209 /

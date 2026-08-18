@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` run>=2 boulder `pline_dir` (named). Not mention_walls.
 - [ ] remaining `pline.c` `pline_mon` callers (named). Not msg_mon_movement.
 - [ ] `hack.c` `msg_mon_movement` (named). Not pline_mon.
 - [ ] `hack.c` `impact_disturbs_zombies` (named from D-1214). Not hideunder.
