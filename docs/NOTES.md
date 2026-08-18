@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1531** D-1205 `scrolltele` unconscious. 44/44 R² 0.868 @**#1535**.
-  Next `scrolltele` steed whobuf. Do not revert D-1201–D-1205.
+- **#1532** D-1206 `scrolltele` steed whobuf. 44/44 R² 0.868 @**#1535**.
+  Next `vpline` accessiblemsg consume. Do not revert D-1201–D-1206.
 
 ## Don't re-check (≤15)
 
@@ -19,13 +19,14 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1205 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1206 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
   `mon_arrive` After_you `my=xyflags` / newgame `notice_mon_off` /
   `init_artifacts` / REVIVE/ZOMBIFY / `#levelchange` drain /
-  `SCR_MAIL`/`uwepgone` light / `scrolltele` unconscious).
+  `SCR_MAIL`/`uwepgone` light / `scrolltele` unconscious / steed
+  `whobuf` `mon_nam`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -86,11 +87,12 @@ Objective/score live in `CURRENT.md`.
   D-1089). Do not rewrite other `Antimagic()` clones.
 - Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
-  Default `spot_monsters` Off. Do not skip D-1205 `scrolltele`
-  unconscious (fall-through `safe_teleds`, not getpos). Do not skip
-  D-1204 `SCR_MAIL` / `uwepgone` `artifact_light`. Do not skip
-  D-1203 `losexp("#levelchange")`.
+  Default `spot_monsters` Off. Do not skip D-1206 `scrolltele`
+  steed `whobuf` `mon_nam` (not `y_monnam`). Do not skip D-1205
+  `scrolltele` unconscious (fall-through `safe_teleds`, not
+  getpos). Do not skip D-1204 `SCR_MAIL` / `uwepgone`
+  `artifact_light`. Do not skip D-1203 `losexp("#levelchange")`.
 
 ## Landmarks (≤15)
 
-- #1531 D-1205; #1530; next scrolltele steed whobuf.
+- #1532 D-1206; #1530; next vpline accessiblemsg.

@@ -21,6 +21,27 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 06:56 — #1532 D-1206 scrolltele steed whobuf
+
+**Objective:** Open — `teleport.c` `scrolltele` steed whobuf
+(named). Not unconscious.
+**C locus:** `teleport.c` `scrolltele` 877–882 after unconscious
+before learnscroll/getpos; `do_name.c` `mon_nam`.
+**Change:** `whobuf` `"you"` then if `u.usteed` append
+`" and " + mon_nam(usteed)` (not `y_monnam`). Did not pull
+dotele trap-at-feet or dotelecmd m-prefix. Filled D-1205
+archive hash `f389c2b4`. Rotated #1517. Open 8 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1530** **44**/44; next
+@**#1535**).
+**Verified:** private canary **33**/33; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
+2200/0014/0004. Public-unhit unless controlled teleport
+while riding.
+**Next:** Open `pline.c` `vpline` accessiblemsg consume (named).
+Not set_msg_xy.
+**Blocked:** none.
+
 ## 2026-08-18 06:48 — #1531 D-1205 scrolltele unconscious
 
 **Objective:** Open — `teleport.c` `scrolltele` unconscious (named).
@@ -349,26 +370,4 @@ seed8000/0900; cohort **14**/14 + strict 1500/0012/0360/4500/
 2200/0014.
 **Next:** Open `teleport.c` `rloc_to_core` `set_msg_xy` (named).
 Not makeknown.
-**Blocked:** none.
-
-## 2026-08-18 01:18 — #1517 D-1194 goto_level notice_mon_off
-
-**Objective:** Open — `do.c` `goto_level` `notice_mon_off`
-(named). Not docrt.
-**C locus:** `do.c` `goto_level` 1839 after vision_reset before
-docrt; 1971–1972 after uz0 before print_level_annotation.
-Macros `flag.h` 233–237; callee `hack.c` `notice_all_mons`
-1744–1783 (D-1142).
-**Change:** `notice_mon_off` before `docrt`; `notice_mon_on` +
-`notice_all_mons(TRUE)` after uz0. Did not pull `reset_glyphmap`,
-docrt, vision.c `:856`, newgame/mapping/wizcmds/save, or
-`spot_monsters` wiring. Default Off so public catch-up is a
-no-op. Filled D-1193 archive hash `2d2e68c7`. Rotated #1502.
-Open 10 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1515** **44**/44; next
-@**#1520**).
-**Verified:** private canary **29**/29; green+strict
-seed8000/0900; cohort **41**/41 + strict lengths.
-**Next:** Open `teleport.c` `rloc_to_core` wand `makeknown`
-(named). Not ustuck-together.
 **Blocked:** none.

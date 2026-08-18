@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1206 — `scrolltele` steed `whobuf` `mon_nam`
+
+- **Status:** fixed (map-driven Open; named omit from D-1205 /
+  D-1197 / D-0407; not a public FAIL)
+- **Symptom:** JS `scrolltele` in the Teleport_control / blessed /
+  wizard getpos arm always printed `"Where do you want to be
+  teleported?"`. C builds `whobuf` `"you"` then, if `u.usteed`,
+  appends `" and %s"` via `mon_nam(u.usteed)` (not `y_monnam`).
+- **C locus:** `teleport.c` `scrolltele` `:877–882` inside the
+  control arm after `unconscious()`, before `learnscroll`/`getpos`.
+  `do_name.c` `mon_nam` ARTICLE_THE; named `SUPPRESS_SADDLE`;
+  `x_monnam` skips do_it `"it"` when `mtmp == u.usteed`.
+  Callers: `tele()` → `scrolltele(NULL)`; `seffects`
+  SCR_TELEPORTATION.
+- **JS was:** `// steed whobuf deferred` then always `"you"`.
+- **Fix:** local `whobuf` `"you"` + optional `" and " +
+  mon_nam(usteed)` then the C pline format. Unconscious still
+  fall-through (D-1205). Did not pull `dotele` trap-at-feet or
+  `dotelecmd` m-prefix. Rule #2: no fs.
+- **JS:** `js/teleport.js` `scrolltele` (`mon_nam` already imported).
+- **Not this iter:** `dotele` trap-at-feet teledest; `dotelecmd`
+  m-prefix mode menu; non-wizard energy gate. Rule #2: no fs.
+- **Verified:** private canary **33**/33 (no-steed you; unnamed
+  the-pony not your-pony; named Lightning; saddled; named
+  SUPPRESS_SADDLE; minvis usteed not it; unconscious skip;
+  wake prefixes; paralysis still asks; Stunned skip; wizard
+  bypass; flags.debug; blessed scroll; no-control skip;
+  noteleport before; `tele()`; ESC no Sorry; ETeleport_control;
+  no fs); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/0012/0360/4500/2200/0014/0004. Path public-unhit unless
+  a controlled teleport fires while riding.
+- **Files:** `js/teleport.js`.
+
 ## D-1205 — `scrolltele` `unconscious()` controlled fail
 
 - **Status:** fixed (map-driven Open; named omit from D-1197 /

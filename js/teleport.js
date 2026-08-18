@@ -1675,8 +1675,9 @@ function unconscious() {
  * Envelope: noteleport pline; !Blinded make_blinded(0,FALSE);
  * amulet||On_W_tower_level !rn2(3) You_feel + wizard y_n Override;
  * unconscious() fail pline then fall through; wizard/Teleport_control
- * getpos path; uncontrolled → learnscroll + safe_teleds.
- * Named omissions: steed whobuf.
+ * getpos path; steed whobuf "you" + optional " and " + mon_nam(usteed);
+ * uncontrolled → learnscroll + safe_teleds.
+ * Named omissions: dotele trap-at-feet teledest; dotelecmd m-prefix.
  * dotele clears travelcc before tele (D-0789); scrolltele clears when
  * controlled dest equals travelcc.
  */
@@ -1718,8 +1719,13 @@ export async function scrolltele(scroll) {
         if (unconscious()) {
             await pline('Being unconscious, you cannot control your teleport.');
         } else {
-            // steed whobuf deferred — C: "Where do %s want" (you [and steed])
-            await pline('Where do you want to be teleported?');
+            /* C teleport.c:877–882 — whobuf "you" then eos " and %s"
+             * mon_nam(usteed). Not y_monnam ("your pony"). */
+            let whobuf = 'you';
+            if (u.usteed) {
+                whobuf += ` and ${mon_nam(u.usteed)}`;
+            }
+            await pline(`Where do ${whobuf} want to be teleported?`);
             if (scroll) learnscroll(scroll);
             const cc = { x: u.ux | 0, y: u.uy | 0 };
             const travel = game.iflags?.travelcc;
