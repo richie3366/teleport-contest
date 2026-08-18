@@ -20,6 +20,26 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 22:50 — #1565 review D-1230–D-1233 + cadence
+
+**Objective:** audit — C-fidelity reviews **192–195** of JS SHAs
+since `f8231830`, plus full `sessions` score. No `js/` port.
+**C locus:** `cmd.c` `#teleport`/`doextcmd`; `mhitm.c` gulpmm
+`m_at` swap + AT_ENGL; `uhitm.c` `hmon_hitmon` / `damageum`
+`troll_baned`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: rolling-boulder TELEP, snuff_lit/`!goodpos`/
+AD_DGST eat, AT_HUGS/EXPL/ENGL, altwep, `demonpet` spawn). Filled
+D-1233 archive hash `976094e5`. Open 12 (no refill). Rule #2: no fs.
+**Score:** cadence **#1565** HEAD `976094e5` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.29/turn` (R² 0.847). seed0383 PASS. Next audit @**#1570**.
+**Verified:** `__RESULTS_JSON__` at HEAD `976094e5`; branch-by-branch
+vs pinned C (`dotelecmd` live; gulpmm occupancy stand-in;
+TRUE-only vs ternary wraps; Upolyd→hmonas).
+**Next:** Open `do.c` `revive_corpse` unique/pname `corpse_xname`
+(named). Not Soundeffect.
+**Blocked:** none.
 ## 2026-08-18 22:40 — #1564 D-1233 hmonas damageum troll_baned
 
 **Objective:** Open `uhitm.c` `hmonas` `troll_baned`

@@ -6,10 +6,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1233 `hmonas`/`damageum` `troll_baned`
-  ternary/`uwep`. Cadence **#1560** (`0ddfb189`). Next: map-driven
-  Open `do.c` `revive_corpse` unique/pname `corpse_xname`. Not
-  Soundeffect. Must-fix empty. Do not skip D-1233 / D-1232 /
-  D-1231 gulpmm / D-1230 `#teleport` / D-1229 impact owt/flimsy.
+  ternary/`uwep`. Cadence **#1565** (`976094e5`) reviews **192–195**
+  ACCEPT-WITH-DEBT. Next: map-driven Open `do.c` `revive_corpse`
+  unique/pname `corpse_xname`. Not Soundeffect. Must-fix empty. Do
+  not skip D-1233 / D-1232 / D-1231 gulpmm / D-1230 `#teleport` /
+  D-1229 impact owt/flimsy.
   Do not pull container_impact / hitfloor `dropz(TRUE)` / hideunder /
   passivemm / AT_HUGS/EXPL/ENGL / altwep / `demonpet`. Do not wrap
   `msg_mon_movement` as `pline_mon`. Do not restore Hallu `mon_glyph`
@@ -116,8 +117,8 @@ Objective/score live in `CURRENT.md`.
   snuff_lit / !goodpos return-home / AD_DGST eat named.
 - D-1230: `#teleport` `doextcmd` → `dotelecmd`; no AUTOCOMPLETE;
   `#` keeps m; rolling-boulder TELEP `pline_xy` named.
-- Review **188–191** ACCEPT-WITH-DEBT (D-1226…D-1229). Cadence
-  **#1560** **44**/44 including seed0383. Next audit @**#1565**.
+- Review **192–195** ACCEPT-WITH-DEBT (D-1230…D-1233). Cadence
+  **#1565** **44**/44 including seed0383. Next audit @**#1570**.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not
@@ -126,8 +127,7 @@ Objective/score live in `CURRENT.md`.
   You_see/You_hear stay pline.
 - D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push squeeze named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
-  `#teleport` doextcmd D-1230; weffects / Amulet drain named.
-- D-1224: LEVEL_TELEP `y_n` + live `level_tele_trap`.
+  LEVEL_TELEP yn D-1224; weffects / Amulet drain named.
 - D-1223: mhitm `troll_baned`; gulpmm D-1231; hmon_hitmon D-1232;
   hmonas D-1233.
 - D-1221 closed review **181**. Map-driven / one cluster, not FAIL peels.

@@ -201,3 +201,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [189-1da251ee-monmove-remaining-pline-mon.md](./189-1da251ee-monmove-remaining-pline-mon.md) | `1da251ee` | D-1227 monmove remaining `pline_mon` | **ACCEPT-WITH-DEBT** |
 | [190-23f3f19e-msg-mon-movement.md](./190-23f3f19e-msg-mon-movement.md) | `23f3f19e` | D-1228 `msg_mon_movement` dest `pline_xy` | **ACCEPT-WITH-DEBT** |
 | [191-0ddfb189-impact-disturbs-zombies.md](./191-0ddfb189-impact-disturbs-zombies.md) | `0ddfb189` | D-1229 `impact_disturbs_zombies` | **ACCEPT-WITH-DEBT** |
+| [192-a3c04dd7-teleport-doextcmd.md](./192-a3c04dd7-teleport-doextcmd.md) | `a3c04dd7` | D-1230 `#teleport` `doextcmd` | **ACCEPT-WITH-DEBT** |
+| [193-5cd4ab5c-gulpmm-m-at-swap.md](./193-5cd4ab5c-gulpmm-m-at-swap.md) | `5cd4ab5c` | D-1231 gulpmm `m_at` swap | **ACCEPT-WITH-DEBT** |
+| [194-83624a46-hmon-hitmon-troll-baned.md](./194-83624a46-hmon-hitmon-troll-baned.md) | `83624a46` | D-1232 `hmon_hitmon` `troll_baned` | **ACCEPT-WITH-DEBT** |
+| [195-976094e5-hmonas-damageum-troll-baned.md](./195-976094e5-hmonas-damageum-troll-baned.md) | `976094e5` | D-1233 `hmonas`/`damageum` `troll_baned` | **ACCEPT-WITH-DEBT** |
