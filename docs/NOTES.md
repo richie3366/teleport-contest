@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1534** D-1208 `dotele` trap-at-feet teledest. 44/44 R² 0.868
-  @**#1535**. Next `dotelecmd` m-prefix. Do not revert D-1201–D-1208.
+- **#1535** review D-1205–D-1208 (ACCEPT / ACCEPT / ACCEPT-WITH-DEBT
+  ×2). Cadence 44/44 R² 0.871 @**#1540**. Next `dotelecmd` m-prefix.
+  No Must-fix. Do not revert D-1201–D-1208.
 
 ## Don't re-check (≤15)
 
@@ -95,4 +96,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1534 D-1208; #1530; next dotelecmd m-prefix.
+- #1535 review D-1205–D-1208; next dotelecmd m-prefix.

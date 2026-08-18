@@ -176,3 +176,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [164-dfed1743-revive-zombify.md](./164-dfed1743-revive-zombify.md) | `dfed1743` | D-1202 REVIVE/ZOMBIFY | **ACCEPT-WITH-DEBT** |
 | [165-a16884ab-wiz-level-change.md](./165-a16884ab-wiz-level-change.md) | `a16884ab` | D-1203 `#levelchange` drain | **ACCEPT** |
 | [166-dbd3a08b-eatspecial-mail-uwepgone.md](./166-dbd3a08b-eatspecial-mail-uwepgone.md) | `dbd3a08b` | D-1204 `eatspecial` MAIL + `uwepgone` | **ACCEPT-WITH-DEBT** |
+| [167-f389c2b4-scrolltele-unconscious.md](./167-f389c2b4-scrolltele-unconscious.md) | `f389c2b4` | D-1205 `scrolltele` unconscious | **ACCEPT** |
+| [168-319bf51c-scrolltele-steed-whobuf.md](./168-319bf51c-scrolltele-steed-whobuf.md) | `319bf51c` | D-1206 steed `whobuf` | **ACCEPT** |
+| [169-08d2e6b0-vpline-accessiblemsg.md](./169-08d2e6b0-vpline-accessiblemsg.md) | `08d2e6b0` | D-1207 `vpline` consume | **ACCEPT-WITH-DEBT** |
+| [170-bd8c2161-dotele-trap-at-feet.md](./170-bd8c2161-dotele-trap-at-feet.md) | `bd8c2161` | D-1208 `dotele` teledest | **ACCEPT-WITH-DEBT** |
