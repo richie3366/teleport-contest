@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1243 — mhitm.c gulpmm `!goodpos` return-home
+
+- **Status:** fixed (map-driven Open; named omit from D-1231 /
+  D-1242 / review **193**; not a public FAIL)
+- **Symptom:** after a mon-vs-mon engulf killed the defender, JS
+  always `place_monster`d magr on the dest cell. C
+  `!goodpos(dx,dy,magr,MM_IGNOREWATER)` sends magr home when the
+  gulp targeted an inhospitable spot (wall-walk victim in stone,
+  lava the swallower cannot occupy). Water is allowed
+  (`MM_IGNOREWATER`); then `minliquid`/`mintrap` run at the
+  possibly redirected cell.
+- **C locus:** `mhitm.c` `gulpmm` `:932–947`; occupancy via
+  `teleport.c` `goodpos` `m_at` (grid; dead not on map after
+  `mon_leaving_level`). Caller is gulpmm DEF_DIED after the
+  D-1231 swap.
+- **JS was:** named omit comment; dest place + `minliquid` only.
+  `teleport.js` `m_at` still returned dead fmon, so a naive
+  `goodpos` would treat hospitable dest as occupied.
+- **Fix:** DEF_DIED arm matches C (redirect `dx,dy` to `ax,ay`,
+  re-place, `status |= AGR_DIED`). `teleport.js` `m_at` skips
+  dead and `MON_OFFMAP` like C grid / `mon.js` (D-1231). Did not
+  pull AD_DGST eat, gulpmu invent, or steed skip on this clone.
+  Rule #2: no fs.
+- **JS:** `js/mhitm.js` `gulpmm`; `js/teleport.js` `m_at`.
+- **Not this iter:** AD_DGST post-`monkilled` cham/slime/wraith/
+  nurse/`mon_givit`; gulpmu invent snuff; gulpum; `litroom`;
+  pickup; dokick; `splash_lit`.
+- **Verified:** private canary **26**/26 (C redirect; JS
+  `goodpos`; dead-first fmon occupancy; ROOM dest stay; STONE
+  dest home; bars `engulf_target`; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  public AT_ENGL magr gulps a wall-walk victim on stone/lava.
+- **Follow-up:** Open `mhitm.c` gulpmm AD_DGST eat.
+
 ## D-1242 — mhitm.c gulpmm `snuff_lit` minvent
 
 - **Status:** fixed (map-driven Open; named omit from D-1231 /

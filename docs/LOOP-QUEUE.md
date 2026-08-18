@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` gulpmm `!goodpos` return-home (named). Not snuff_lit.
 - [ ] `mhitm.c` gulpmm AD_DGST eat (named). Not passivemm.
 - [ ] `hack.c` hideunder after impact (named from D-1229). Not container_impact.
 - [ ] `monmove.c` `bee_eat_jelly` (named). Not mind_blast.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `monmove.c` `mon_yells` (named). Not iron bars.
 - [ ] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder.
 - [ ] `uhitm.c` AT_HUGS (named from D-1233). Not remaining `pline_mon`.
+- [ ] `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
+- [ ] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL.
+- [ ] `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push.
+- [ ] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective.
+- [ ] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP.
 
 ## Parked (do not pop)
 

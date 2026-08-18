@@ -40,6 +40,7 @@ import {
     NON_PM,
     NO_NC_FLAGS,
     NO_TRAP_FLAGS,
+    MM_IGNOREWATER,
     IS_OBSTRUCTED,
     IS_TREE,
     IS_DOOR,
@@ -99,7 +100,7 @@ import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
 import { polyself } from './polyself.js';
 import { you_were, you_unwere } from './were.js';
-import { rloc, tele_restrict, tele } from './teleport.js';
+import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
@@ -1472,8 +1473,8 @@ export function troll_baned(m, o) {
  * mkcorpstat_norevive + gz.zombify around monkilled, then reset both
  * (D-1223 / D-1211). Barehand TUCH/CLAW/BITE from a zombie_maker,
  * victim has zombie_form.
- * Named omit: gulpmm !goodpos return-home / AD_DGST eat.
- * gulpmm snuff_lit minvent is D-1242.
+ * Named omit: gulpmm AD_DGST eat.
+ * gulpmm snuff_lit minvent is D-1242. !goodpos return-home is D-1243.
  * passivemm assess_dmg monkilled(magr) is D-1241 (no zombify in C).
  */
 async function mdamagem_monkilled(magr, mdef, mattk, mwep) {
@@ -1713,11 +1714,11 @@ async function failed_grab(magr, mdef, mattk) {
  * Occupancy: magr onto mdef's cell; mdef stays in fmon with mx/my
  * (C remove_monster clears the grid). mdamagem swap (D-1231) puts
  * mdef back before monkilled.
- * snuff_lit minvent when !flaming (D-1242). Named omit: !goodpos
- * inhospitable dest return-home (teleport.js m_at still sees dead fmon;
- * C grid is empty after relmon); AD_DGST post-monkilled cham/slime/
- * wraith/nurse/mon_givit (partial mdamagem). gulpmu invent / gulpum /
- * litroom / pickup snuff_lit callers still named.
+ * snuff_lit minvent when !flaming (D-1242). !goodpos inhospitable dest
+ * return-home (D-1243; teleport.js m_at skips dead/OFFMAP like C grid).
+ * Named omit: AD_DGST post-monkilled cham/slime/wraith/nurse/mon_givit
+ * (partial mdamagem). gulpmu invent / gulpum / litroom / pickup
+ * snuff_lit callers still named.
  */
 async function gulpmm(magr, mdef, mattk) {
     if (!engulf_target(magr, mdef)) return M_ATTK_MISS;
@@ -1750,8 +1751,8 @@ async function gulpmm(magr, mdef, mattk) {
 
     const ax = magr.mx | 0;
     const ay = magr.my | 0;
-    const dx = mdef.mx | 0;
-    const dy = mdef.my | 0;
+    let dx = mdef.mx | 0;
+    let dy = mdef.my | 0;
     // C: leave defender in the chain at current position, off the grid;
     // move aggressor onto defender's cell.
     remove_monster(dx, dy);
@@ -1761,14 +1762,24 @@ async function gulpmm(magr, mdef, mattk) {
     newsym(dx, dy);
 
     game.mswallower = magr; /* corpse_chance() wants this */
-    const status = await mdamagem(magr, mdef, mattk, null, 0);
+    let status = await mdamagem(magr, mdef, mattk, null, 0);
     game.mswallower = null;
 
     if ((status & (M_ATTK_AGR_DIED | M_ATTK_DEF_DIED))
         === (M_ATTK_AGR_DIED | M_ATTK_DEF_DIED)) {
         ; /* both died -- do nothing */
     } else if (status & M_ATTK_DEF_DIED) {
-        // Named omit: !goodpos(dx,dy,magr,MM_IGNOREWATER) return-home
+        // C: mhitm.c:932–947 — inhospitable gulp dest: magr returns home
+        // instead of staying (MM_IGNOREWATER). Occupancy after the D-1231
+        // swap is an empty grid; JS m_at skips dead/OFFMAP (D-1243).
+        if (!goodpos(dx, dy, magr, MM_IGNOREWATER)) {
+            if (m_at(dx, dy) === magr) {
+                remove_monster(dx, dy);
+                newsym(dx, dy);
+            }
+            dx = ax;
+            dy = ay; /* magr's spot at start of the attack */
+        }
         if (m_at(dx, dy) !== magr) {
             place_monster(magr, dx, dy);
             newsym(dx, dy);
@@ -1777,7 +1788,7 @@ async function gulpmm(magr, mdef, mattk) {
         if (await minliquid(magr)
             || (t_at(dx, dy)
                 && (await mintrap(magr, NO_TRAP_FLAGS)) === Trap_Killed_Mon)) {
-            return status | M_ATTK_AGR_DIED;
+            status |= M_ATTK_AGR_DIED;
         }
     } else if (status & M_ATTK_AGR_DIED) {
         place_monster(mdef, dx, dy);

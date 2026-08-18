@@ -28,7 +28,7 @@ import {
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, RLOC_ERR, NO_TRAP_FLAGS,
     FORCETRAP, VIASITTING,
     BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
-    MON_FLOOR, Upolyd,
+    MON_FLOOR, MON_OFFMAP, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
     MAGICAL_BREATHING, I_SPECIAL, ECMD_TIME,
 } from './const.js';
@@ -105,11 +105,18 @@ function u_at(x, y) {
 }
 
 function m_at(x, y) {
-    // C: level.monsters[][] — include worm body segs (place_worm_seg).
+    // C: level.monsters[][] — worm segs via place_worm_seg; heads on fmon.
+    // Dead mons stay on fmon until dmonsfree but are off the map grid.
+    // gulpmm remove_monster leaves mx/my; JS MON_OFFMAP matches C's empty
+    // cell so goodpos occupancy after digest death is not the corpse
+    // (D-1243; D-1231 named this clone seeing dead fmon).
     const seg = game._level_monsters?.get(`${x},${y}`);
-    if (seg) return seg;
+    if (seg && (seg.mhp | 0) > 0
+        && !((seg.mstate | 0) & MON_OFFMAP)) return seg;
     const list = game.fmon || [];
     for (const m of list) {
+        if ((m.mhp | 0) <= 0) continue; // DEADMONSTER — not on map
+        if ((m.mstate | 0) & MON_OFFMAP) continue;
         if (m.mx === x && m.my === y) return m;
     }
     return null;

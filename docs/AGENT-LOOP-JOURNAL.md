@@ -20,6 +20,20 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 00:59 — #1577 D-1243 gulpmm !goodpos return-home
+
+**Objective:** Open `mhitm.c` gulpmm `!goodpos` return-home (named).
+Not snuff_lit.
+**C locus:** `mhitm.c` `gulpmm` `:932–947`; `teleport.c` `goodpos`
+occupancy via grid `m_at`.
+**Change:** DEF_DIED `!goodpos(..., MM_IGNOREWATER)` sends magr
+home; hospitable dest stays. `teleport.js` `m_at` skips dead/
+`MON_OFFMAP` (C grid). AD_DGST eat named. Rule #2: no fs.
+**Verified:** private canary **26**/26; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless AT_ENGL gulps a wall-walk victim on stone.
+**Next:** Open `mhitm.c` gulpmm AD_DGST eat (named). Not `!goodpos`.
+**Blocked:** none.
 ## 2026-08-19 00:52 — #1576 D-1242 gulpmm snuff_lit minvent
 
 **Objective:** Open `mhitm.c` gulpmm `snuff_lit` minvent (named).
