@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1212 — `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED
+
+- **Status:** fixed (map-driven Open; named omit from D-1081 /
+  D-1202; not a public FAIL)
+- **Symptom:** a corpse that `revive()` succeeded from a
+  monster's inventory or a sack was silent. C prints MINVENT
+  drop/appear and CONTAINED pack/floor/minvent sack plines
+  after `revive` consumes the corpse. JS only messaged
+  INVENT/FLOOR/BURIED. Chewed floor/minvent also skipped
+  `Adjmonnam`. CONTAINED `obfree` referenced undefined
+  `OBJ_FREE`.
+- **C locus:** `do.c` `revive_corpse` `:2183–2215` (MINVENT /
+  CONTAINED). `do_name.c` `Adjmonnam` `:1142–1148`.
+  `mondata.c` `locomotion` `:1380–1392`. `zap.c`
+  `get_obj_location` CONTAINED_TOO|BURIED_TOO +
+  `get_container_location`. Snapshot `where` / `mcarry` /
+  `container` / `oeaten` before `revive()`.
+- **JS was:** invent/floor/buried messages; MINVENT/CONTAINED
+  fell off the switch; `cxname_singular` without bite-covered;
+  FLOOR always `Monnam`.
+- **Fix:** C switch arms. `Adjmonnam` wrapper. Pack verb via
+  `locomotion`. Local get_obj/get_container copies (do↔timeout
+  cycle). `zap.js` imports `OBJ_FREE` for contained `obfree`.
+  Did not pull BURIED `!is_zomb` FALLTHROUGH `impossible` or
+  `Soundeffect(se_scratching)`. Rule #2: no fs.
+- **JS:** `js/do.js` `revive_corpse`; `js/do_name.js`
+  `Adjmonnam`; `js/zap.js` `OBJ_FREE`.
+- **Not this iter:** BURIED non-zomb impossible; Soundeffect;
+  unique/pname `corpse_xname` adjective placement;
+  `disturb_buried_zombies`; invent `rot_corpse` worn plines.
+- **Verified:** private canary **20**/20 (MINVENT drop/appear +
+  Adjmonnam; CONTAINED pack writhes/slither + floor escape +
+  minvent yname; invent backpack + floor chewed); green+strict
+  seed8000/0900; cohort **4**/4 + strict 1500/1800/0012/0004.
+- **Files:** `js/do.js`, `js/do_name.js`, `js/zap.js`.
+
 ## D-1211 — mhitm `mdamagem` `gz.zombify` around `monkilled`
 
 - **Status:** fixed (map-driven Open; named omit from D-1210;

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` `revive_corpse` OBJ_MINVENT / OBJ_CONTAINED (named). Not BURIED.
 - [ ] `dig.c` `rot_corpse` invent/minvent worn plines (named). Not REVIVE.
 - [ ] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon.
 - [ ] `pline.c` `pline_xy`/`pline_mon` (named). Not set_msg_dir.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `cmd.c` `dolookaround` (named). Not glyph_updates.
 - [ ] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround.
 - [ ] `display.c` `show_glyph_change` glyph_updates (named). Not opt_accessiblemsg.
+- [ ] `do.c` `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible` (named). Not Soundeffect.
+- [ ] `do.c` `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED pit.
+- [ ] `mhitm.c` `troll_baned` `mkcorpstat_norevive` (named). Not gulpmm.
+- [ ] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast.
+- [ ] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd.
 
 ## Parked (do not pop)
 

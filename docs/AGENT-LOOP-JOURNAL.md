@@ -21,6 +21,29 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 09:15 — #1539 D-1212 revive_corpse MINVENT/CONTAINED
+
+**Objective:** Open — `do.c` `revive_corpse` OBJ_MINVENT /
+OBJ_CONTAINED (named). Not BURIED.
+**C locus:** `do.c` `revive_corpse` 2183–2215; `do_name.c`
+`Adjmonnam` 1142–1148; `mondata.c` `locomotion` 1380–1392;
+`zap.c` `get_obj_location` / `get_container_location`.
+**Change:** C MINVENT drop/appear + CONTAINED pack/floor/minvent
+sack plines after `revive`. `Adjmonnam` bite-covered (FLOOR +
+MINVENT). Pack verb via `locomotion`. Snapshot where/mcarry/
+container/oeaten before `revive`. `zap.js` `OBJ_FREE` for
+contained `obfree`. Did not pull BURIED `!is_zomb` FALLTHROUGH
+impossible or `Soundeffect`. Filled D-1211 archive hash
+`481e005b`. Rotated #1524. Open 7 after archive; refill to 12.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1535** **44**/44; next
+@**#1540**).
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **4**/4 + strict 1500/1800/0012/0004.
+**Next:** Open `dig.c` `rot_corpse` invent/minvent worn plines
+(named). Not REVIVE.
+**Blocked:** none.
+
 ## 2026-08-18 09:00 — #1538 D-1211 mhitm mdamagem gz.zombify around monkilled
 
 **Objective:** Open — `mhitm.c` `gz.zombify` at monkilled
@@ -345,29 +368,6 @@ Open 9 (no refill). Rotated #1510. Rule #2: no fs.
 @**#1530**.
 **Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
 full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `artifact.c` `init_artifacts` (named). Not
-wizkit.
-**Blocked:** none.
-
-## 2026-08-18 05:12 — #1524 D-1200 newgame notice_mon_off
-
-**Objective:** Open — `allmain.c` `newgame` `notice_mon_off`
-(named). Not wizkit.
-**C locus:** `allmain.c` `newgame` 771 first after locals;
-844–848 after `welcome(TRUE)`. Macros `flag.h` 233–237;
-callee `hack.c` `notice_all_mons` 1744–1783 (D-1142).
-**Change:** `notice_mon_off` at newgame entry; `notice_mon_on`
-+ `notice_all_mons(TRUE)` after welcome (`!glyph_updates`).
-Did not pull `dolookaround`, `reset_glyphmap`, vision.c
-`:856`, mapping/wizcmds/save, `init_artifacts`, or
-`spot_monsters` wiring. Default Off so public catch-up is a
-no-op. Filled D-1199 archive hash `4dc76022`. Rotated #1509.
-Open 9 after archive (no refill). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1520** **44**/44; next
-@**#1525**).
-**Verified:** private canary **38**/38; green+strict
-seed8000/0900; cohort **14**/14 + strict 1500/1800/0012/0360/
-4500/2200/0014/0004/0700/0006/0108/0116.
 **Next:** Open `artifact.c` `init_artifacts` (named). Not
 wizkit.
 **Blocked:** none.
