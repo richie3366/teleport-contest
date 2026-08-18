@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 18:00 — D-1221 gbuf_show_kind stop Hallu reroll
+
+**Objective:** Must-fix review **181** — `display.c` `show_glyph` /
+JS `gbuf_show_kind` must not re-call `mon_glyph`/`obj_glyph` on
+every `show_glyph_cell`. Keep mention_map addr. seed0383.
+**C locus:** `display.c` `show_glyph` 2011–2028; `glyphs.c`
+`glyph_to_cmap`; `display.h` `glyph_is_monster`.
+**Change:** classifier uses displayable-monster occupancy +
+`M_AP_TYPE` mimic, cansee floor object, trap/terrain ch match.
+No Hallu `rn2_on_display_rng`. Addr/`in_docrt` unchanged. Did
+not pull integer glyphs / Soundeffect. Stamped review **181**
+**Addressed:** D-1221 (hash next SHA). Open 9 after archive
+(no refill). Rule #2: no fs.
+**Score:** full `sessions` **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `38+0.31/turn` (R² 0.848).
+seed0383 PASS. Next audit @**#1555**.
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; focused seed0383; cohort + full `sessions`.
+**Next:** Open `do.c` `revive_corpse` `Soundeffect` se_scratching
+(named). Not BURIED pit.
+**Blocked:** none.
+
 ## 2026-08-18 13:05 — #1550 review D-1217–D-1220 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full

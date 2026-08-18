@@ -5,17 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1550** review D-1217–D-1220 + cadence. **181 QUALITY-RISK:**
-  D-1219 `gbuf_show_kind` calls `mon_glyph`/`obj_glyph` on every
-  `show_glyph_cell` (Off/`in_docrt` too) → extra Hallu
-  `rn2_on_display_rng`. C `show_glyph` classifies the already-chosen
-  glyph. Cadence **43**/44; seed0383 FAIL. Next port: Must-fix that
-  (keep mention_map addr). Not Soundeffect. Falsify: seed0383 PASS
-  without FORCE after classifier stops rolling Hallu.
-- Do not revert D-1217–D-1220 envelopes. Do not FORCE seed0383.
-  Do not prepend Must-fix for named omits (Soundeffect /
-  `do_screen_description` table / await-newsym More when On /
-  remaining `pline_mon` / integer glyph IDs).
+- **Fortress 44/44** after D-1221. Review **181** Hallu `gbuf_show_kind`
+  reroll is fixed: classifier uses occupancy + tty, not `mon_glyph`/
+  `obj_glyph`. seed0383 PASS. Next: map-driven Open `do.c`
+  `revive_corpse` `Soundeffect` se_scratching. Not BURIED pit.
+  Do not restore the Hallu classifier. Do not FORCE seed0383.
+- Do not revert D-1217–D-1221 envelopes. Do not prepend Must-fix for
+  named omits (Soundeffect / `do_screen_description` table /
+  await-newsym More when On / remaining `pline_mon` / integer glyph IDs).
 
 ## Don't re-check (≤15)
 
@@ -26,7 +23,7 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1220 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1221 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
   rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
   W-tower Override yn / `migrate_to_level` W-tower xyflags bit 2 /
@@ -44,7 +41,8 @@ Objective/score live in `CURRENT.md`.
   `#lookaround`/`dolookaround` + GLOC_INTERESTING FALLTHROUGH /
   `opt_accessiblemsg` `&a11y.accessiblemsg` + in-game `msg_loc` zero /
   `mention_map` `&a11y.glyph_updates` + `docrt` `in_docrt` /
-  BURIED `!is_zomb` FALLTHROUGH `impossible`).
+  BURIED `!is_zomb` FALLTHROUGH `impossible` /
+  `gbuf_show_kind` occupancy/tty not Hallu `mon_glyph`).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -59,11 +57,12 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1220 / later D-ids in CURRENT. Do not skip
+- Do not skip D-1071…D-1221 / later D-ids in CURRENT. Do not skip
   D-1217 `#lookaround` / GLOC_INTERESTING. Do not restore
   `flags.accessiblemsg` (D-1218) or `flags.mention_map` (D-1219).
-  Do not silent-break BURIED `!is_zomb` (D-1220). Do not “fix”
-  seed0383 with ALIGN/FORCE.
+  Do not silent-break BURIED `!is_zomb` (D-1220). Do not restore
+  `gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph` (D-1221).
+  Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` to save a youprop clone (D-1060 / D-1085 /
   D-1089). Do not rewrite other `Antimagic()` clones.
@@ -83,7 +82,6 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1550 review **179** ACCEPT-WITH-DEBT D-1217; **180** ACCEPT
-  D-1218; **181** QUALITY-RISK D-1219 Hallu `gbuf_show_kind`;
-  **182** ACCEPT D-1220. Cadence **43**/44 seed0383. Must-fix
-  first. Map-driven / one cluster after that, not FAIL peels.
+- D-1221 review **181** Must-fix: `gbuf_show_kind` occupancy/tty,
+  no Hallu reroll; seed0383 PASS; full `sessions` **44**/44.
+  #1550 reviews **179**–**182**. Map-driven / one cluster, not FAIL peels.

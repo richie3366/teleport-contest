@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `display.c` `show_glyph` / JS `gbuf_show_kind`: do not re-call `mon_glyph`/`obj_glyph` (Hallu `rn2_on_display_rng`) on every `show_glyph_cell`. C classifies the already-chosen glyph. Keep mention_map addr. seed0383. Source: reviews/loop-unattended/181-925e5b77-show-glyph-glyph-updates.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `do.c` `revive_corpse` `Soundeffect` se_scratching (named). Not BURIED pit.

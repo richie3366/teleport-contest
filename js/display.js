@@ -1,6 +1,6 @@
 // display.js — Map rendering and terminal output.
 // C ref: display.c — newsym, show_glyph (glyph_updates / show_glyph_change
-// D-1219), docrt (in_docrt), cls, flush_screen,
+// D-1219; Hallu classifier D-1221), docrt (in_docrt), cls, flush_screen,
 // suppress_map_output (D-1126),
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
@@ -1419,31 +1419,53 @@ export function terrain_glyph(loc, x, y) {
 }
 
 /**
- * C display.c show_glyph — JS has no integer glyph IDs. Classify the
- * tty cell about to be stored so is_cmap_* / glyph_is_monster can run.
+ * C display.c newsym display_monster / sensed / Detect_monsters arms —
+ * would this cell be painted as a monster (or mimic object) glyph?
+ * Warning-only is display_warning, not glyph_is_monster.
+ */
+function cell_shows_displayed_monster(mtmp, x, y) {
+    if (!mtmp) return false;
+    if (game.u?.uswallow) return false;
+    if (cansee(x, y) && (mon_visible(mtmp) || tp_sensemon(mtmp))) return true;
+    if (tp_sensemon(mtmp) || (mon_visible(mtmp) && see_with_infrared(mtmp))) {
+        return true;
+    }
+    const u = game.u || {};
+    return !!(u.Detect_monsters
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+}
+
+/**
+ * C display.c show_glyph — glyph_is_* / glyph_to_cmap inspect the
+ * already-chosen glyph id (what_mon / random_obj already ran in newsym).
+ * JS has no integer IDs. Classify occupancy + tty without re-calling
+ * mon_glyph / obj_glyph (Hallu rn2_on_display_rng; D-1221 / review 181).
  * Named: full cmap_to_glyph / GLYPH_NOTHING vs UNEXPLORED IDs.
  */
 function gbuf_show_kind(x, y, ch, color, decgfx, loc) {
-    const mtmp = mon_at_display(x, y);
-    if (mtmp) {
-        const mg = mon_glyph(mtmp);
-        if (ch === mg.ch) return 'monster';
-        const apg = mimic_object_appearance_glyph(mtmp);
-        if (apg && ch === apg.ch) return 'object';
-    }
     if (ch === 'I' && !decgfx) return 'invisible';
+    const mtmp = mon_at_display(x, y);
+    if (mtmp && cell_shows_displayed_monster(mtmp, x, y)) {
+        // Mimic object: M_AP_TYPE, not a second obj_glyph Hallu roll.
+        if (M_AP_TYPE(mtmp) === M_AP_OBJECT && !sensemon(mtmp)) {
+            return 'object';
+        }
+        return 'monster';
+    }
     const trap = t_at_display(x, y);
-    if (trap && trap.tseen) {
+    if (trap && trap.tseen && !covers_traps(x, y)) {
         const tg = trap_glyph(trap);
         if (tg.ch === ch) return 'trap';
     }
     const obj = objects_at(x, y);
-    if (obj && !covers_objects(x, y)) {
-        const og = obj_glyph(obj);
-        if (og.ch === ch) return 'object';
+    if (obj && !covers_objects(x, y) && cansee(x, y)) {
+        // newsym paints map_object before terrain; occupancy is the
+        // analogue of glyph_is_object on the already-stored id.
+        return 'object';
     }
     const tg = terrain_glyph(loc, x, y);
     if (tg && ch === tg.ch) return 'terrain';
+    if (obj && !covers_objects(x, y)) return 'object';
     if ((!ch || ch === ' ') && !decgfx
         && (color == null || color === NO_COLOR)) {
         return 'unexplored';
@@ -1536,6 +1558,7 @@ async function emit_show_glyph_change(x, y) {
 /**
  * C ref: display.c show_glyph — store gbuf then optional glyph_updates pline.
  * Async only yields when mention_map/glyph_updates fires (default Off).
+ * Classifier does not re-roll Hallu (D-1221).
  */
 export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr = 0) {
     const loc = game.level?.at(x, y);
@@ -1546,6 +1569,8 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
         decgfx = false;
     }
     const announce = show_glyph_change_wanted(loc, x, y, ch, color, decgfx, attr);
+    // C classifies the already-chosen glyph id; stamp JS kind the same way
+    // (no mon_glyph / obj_glyph). Always store so later On sees real old kind.
     const kind = gbuf_show_kind(x, y, ch, color, decgfx, loc);
     loc.disp_ch = ch;
     loc.disp_color = tty_map_color(color);

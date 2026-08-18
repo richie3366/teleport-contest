@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1221 — `gbuf_show_kind` must not re-roll Hallu `mon_glyph`/`obj_glyph`
+
+- **Status:** fixed (Must-fix from review **181** QUALITY-RISK of
+  D-1219; public FAIL seed0383)
+- **Symptom:** D-1219 `show_glyph_cell` always classified the tty
+  cell via `gbuf_show_kind`, which called `mon_glyph`/`obj_glyph`
+  (and mimic `obj_glyph`) to match `ch`. Under Hallucination those
+  helpers burn `rn2_on_display_rng`. C `show_glyph` uses
+  `glyph_is_monster` / `glyph_to_cmap` on the **already-chosen**
+  glyph id `newsym` stored; it does not call `what_mon` /
+  `random_obj_to_glyph` again. Extra display RNG desynced
+  seed0383 (RNG 11392/16915, Scr 167/219) after cadence #1545
+  was 44/44. Default `glyph_updates` Off — announce skipped, but
+  the classifier still ran on every store including `in_docrt`.
+- **C locus:** `display.c` `show_glyph` `:2011–2028` (classify
+  inside `a11y.glyph_updates` from `glyph`); `glyphs.c`
+  `glyph_to_cmap`; `display.h` `glyph_is_monster`. Review **181**.
+- **JS was:** `gbuf_show_kind` `mon_glyph(mtmp)` / `obj_glyph(obj)`
+  / `mimic_object_appearance_glyph` on every `show_glyph_cell`.
+- **Fix:** classify occupancy + already-chosen tty: displayable
+  monster (newsym display_monster / sensed / Detect arms; mimic
+  via `M_AP_TYPE` not a second `obj_glyph`); cansee floor object;
+  `trap_glyph`/`terrain_glyph` ch match. No Hallu re-roll.
+  Keep `mention_map` → `&a11y.glyph_updates` and `in_docrt`.
+  Rule #2: no fs.
+- **JS:** `js/display.js` `gbuf_show_kind` /
+  `cell_shows_displayed_monster`.
+- **Not this iter:** integer `GLYPH_NOTHING` vs UNEXPLORED ids;
+  full `do_screen_description`; await-`newsym` More when On;
+  `spot_monsters` addr; `docrt` underwater/buried.
+- **Verified:** private canary **17**/17 (no `mon_glyph`/`obj_glyph`
+  in classifier; Off+Hallu mon/obj store does not advance
+  display ISAAC; fountain terrain; On unexplored→fountain
+  announce; ROOM silent; `in_docrt` skip); green+strict
+  seed8000/0900; focused seed0383 **PASS** RNG 16915/16915 Scr
+  219/219; cohort + full `sessions` **44**/44 Scr **11405**/11405
+  RNG **792838**/792838. Speed `38+0.31/turn` (R² 0.848).
+- **Follow-up:** Open `do.c` `revive_corpse` `Soundeffect`
+  se_scratching.
+
 ## D-1220 — `revive_corpse` BURIED `!is_zomb` FALLTHROUGH `impossible`
 
 - **Status:** fixed (map-driven Open; named omit from D-1081 /
@@ -83,8 +123,9 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   1500/1800/0012/0360/4500/0014/0004. **Public-unhit** unless
   `mention_map` / `a11y.glyph_updates` is On (default Off).
   seed0007 `O` still shows `[false]`.
-- **Follow-up:** Open `do.c` `revive_corpse` BURIED `!is_zomb`
-  FALLTHROUGH `impossible` (D-1220).
+- **Follow-up:** Hallu `gbuf_show_kind` reroll is D-1221
+  (review **181**). Open after that: `do.c` `revive_corpse`
+  `Soundeffect` se_scratching.
 
 ## D-1218 — `options.c` `opt_accessiblemsg` → `a11y.accessiblemsg`
 

@@ -157,3 +157,5 @@ Do not Must-fix “always await `show_glyph_cell`” as the first item — that 
 - Verdict: **QUALITY-RISK**
 - One sentence: `mention_map` now writes `a11y.glyph_updates` and the announce gates match C, but `gbuf_show_kind` re-rolls Hallu `mon_glyph`/`obj_glyph` on every `show_glyph_cell` (including Off/`in_docrt`), which C `show_glyph` never does — cadence seed0383 FAIL.
 - Must-fix prepends item 1. Next port ships that, not Soundeffect.
+
+**Addressed:** D-1221

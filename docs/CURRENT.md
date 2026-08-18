@@ -20,31 +20,29 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-18** — full `sessions` after cadence
-**#1550** (**43**/44, Scr **11,353**/11,405, RNG **99.30%**).
-Speed `35+0.29/turn` (R² 0.849). Next audit (review + score) @**#1555**.
+Score last measured: **2026-08-18** — full `sessions` after D-1221
+(**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `38+0.31/turn` (R² 0.848). Next audit (review + score) @**#1555**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** |
-| Screens matched | **11,353 / 11,405** |
-| Positional RNG calls matched | **787,315 / 792,838** (99.30%) |
-| Speed label | `35+0.29/turn` (R² 0.849) |
+| Sessions passing | **44 / 44** |
+| Screens matched | **11,405 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** (100%) |
+| Speed label | `38+0.31/turn` (R² 0.848) |
 | Role-init throws | **0 / 44** |
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed0014, seed2600, seed4500, seed2200.
+seed0360, seed0399, seed0014, seed2600, seed4500, seed2200, seed0383.
 
-**Notable non-PASS:** seed0383-wizard-hallucinate (RNG 11392/16915,
-Scr 167/219) — D-1219 `gbuf_show_kind` Hallu `mon_glyph`/`obj_glyph`
-reroll on every `show_glyph_cell` (review **181** Must-fix).
+**Notable non-PASS:** none (regression fortress).
 
 ## Green gate
 
@@ -61,17 +59,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Must-fix first** after review **181**. **Next cluster:**
-`display.c` `show_glyph` / JS `gbuf_show_kind` must not re-call
-`mon_glyph`/`obj_glyph` (Hallu `rn2_on_display_rng`) on every
-`show_glyph_cell`. C classifies the already-chosen glyph. Keep
-mention_map `&a11y.glyph_updates`. seed0383. Not Soundeffect.
+**Map-driven fortress** after D-1221 (review **181**). **Next cluster:**
+Open `do.c` `revive_corpse` `Soundeffect` se_scratching (named).
+Not BURIED pit. Do not restore `gbuf_show_kind` Hallu
+`mon_glyph`/`obj_glyph`. Keep mention_map `&a11y.glyph_updates`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1220. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1221. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1220** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
+**D-0948**…**D-1221** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
 `glyph_at`; `urole.questarti`; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
@@ -82,7 +79,7 @@ tut-1 `create_object` box+food; tut-1 `place_lregion`/`levregion_add`; tut-1
 `tut_key`/`nh.eckey`; tut-1 `tutorial()` nhcore disable; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1220).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; D-1078–D-1221).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -109,7 +106,7 @@ after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
 no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
 restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
 skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
-dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123) / skip drinksink case 13 `create_gas_cloud` (D-1124) / D-1125…D-1220;
+dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123) / skip drinksink case 13 `create_gas_cloud` (D-1124) / D-1125…D-1221;
 no restore rhack raw-ETX `Unknown command` / skip `visctrl(key)`;
 no skip `goto_level` `kill_genocided`/`run_timers` (D-1190/D-1191);
 no skip wizkit FALSE (D-1192) / `deliver_obj_to_mon` (D-1193);
@@ -118,9 +115,9 @@ no skip D-1194 wrap; no skip D-1195 wand
 yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
 D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
 `#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
-unconscious / D-1206–D-1220 (`dolookaround`; no empty then-arm; no
-`flags.accessiblemsg` / `flags.mention_map` addr; **no
-`gbuf_show_kind` Hallu `mon_glyph` reroll** review **181**); no pull `reset_glyphmap` / vision_recalc
+unconscious / D-1206–D-1221 (`dolookaround`; no empty then-arm; no
+`flags.accessiblemsg` / `flags.mention_map` addr; **D-1221** no
+restore `gbuf_show_kind` Hallu `mon_glyph` reroll); no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
