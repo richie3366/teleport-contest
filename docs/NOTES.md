@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1225. Next: map-driven Open `hack.c`
-  run>=2 boulder `pline_dir`. Not mention_walls.
-  Do not restore the Hallu classifier. Do not FORCE seed0383.
-  Do not skip D-1225 energy/`spelleffects` SPE_TELEPORT_AWAY atme.
-- Do not revert D-1217–D-1225 envelopes. Do not prepend Must-fix for
-  named omits (gulpmm swap / uhitm troll_baned / unique pname
-  `corpse_xname` / other Soundeffect / remaining `pline_mon`).
+- **Fortress 44/44** after review **183–187** + cadence **#1555**
+  (`89588300`). Next: map-driven Open `hack.c` run>=2 boulder
+  `pline_dir`. Not mention_walls. Must-fix empty (no QUALITY-RISK).
+  Do not restore Hallu `mon_glyph` in `gbuf_show_kind`. Do not FORCE
+  seed0383. Do not skip D-1225 energy/`spelleffects` atme.
+- Do not revert D-1217–D-1225. Do not prepend Must-fix for named
+  omits (gulpmm / uhitm troll_baned / unique pname `corpse_xname` /
+  other Soundeffect / remaining `pline_mon` / `#teleport`).
 
 ## Don't re-check (≤15)
 
@@ -87,12 +88,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- D-1225 Open: `dotele` energy/spellcast + `known_spell` +
-  `spelleffects` SPE_TELEPORT_AWAY atme. `#teleport` doextcmd named.
-- D-1224 Open: `dotele` seen LEVEL_TELEP `y_n` then
-  `level_tele_trap(FORCETRAP)`; trap.c hero `seetrap`+call.
-- D-1223 Open: `mdamagem` `troll_baned` sets `mkcorpstat_norevive`
-  around `monkilled` (AT_WEAP||AT_CLAW); gulpmm / uhitm still named.
-- D-1221 review **181** Must-fix: `gbuf_show_kind` occupancy/tty,
-  no Hallu reroll; seed0383 PASS; full `sessions` **44**/44.
+- Review **183–187** ACCEPT-WITH-DEBT (D-1221…D-1225). Cadence
+  **#1555** **44**/44 including seed0383. Next audit @**#1560**.
+- D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme;
+  `#teleport` / weffects / Amulet drain named.
+- D-1224: LEVEL_TELEP `y_n` + live `level_tele_trap`.
+- D-1223: mhitm `troll_baned`; uhitm / gulpmm named.
+- D-1221 closed review **181** Must-fix (no Hallu reroll).
   Map-driven / one cluster, not FAIL peels.

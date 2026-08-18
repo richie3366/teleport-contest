@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 19:50 — #1555 review D-1221–D-1225 + cadence score
+
+**Objective:** audit — C-fidelity reviews **183–187** of JS SHAs
+since `7b24ec10`, plus full `sessions` score. No `js/` port.
+**C locus:** `display.c` `gbuf_show_kind`; `do.c` `Soundeffect`;
+`mhitm.c` `troll_baned`; `teleport.c` LEVEL_TELEP / energy;
+`spell.c` `known_spell` / `spelleffects` SPE_TELEPORT_AWAY atme.
+**Change:** five reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: integer glyphs, other Soundeffect, gulpmm/
+uhitm troll_baned, `#teleport`, weffects, Amulet drain). Filled
+D-1225 archive hash `89588300`. Open 10 (no refill). Rotated #1542.
+Rule #2: no fs.
+**Score:** cadence **#1555** **44**/44 Scr **11,405**/11,405 RNG
+**792,838**/792,838 (100%) speed `34+0.31/turn` (R² 0.878).
+seed0383 PASS. Next audit @**#1560**.
+**Verified:** `__RESULTS_JSON__` at HEAD `89588300`; branch-by-branch
+vs pinned C (no Hallu reroll; empty contest `Soundeffect`; live
+`norevive`/`level_tele`/`zapyourself` tele).
+**Next:** Open `hack.c` run>=2 boulder `pline_dir` (named). Not
+mention_walls.
+**Blocked:** none.
+
 ## 2026-08-18 19:35 — D-1225 dotele energy/spelleffects SPE_TELEPORT_AWAY
 
 **Objective:** Open — `spell.c` energy/`spelleffects` teleport
@@ -328,28 +350,4 @@ archive hash `b44c4847`. Rotated #1528. Open 9 after archive
 seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0360/
 4500/2200/0014/0004/0060.
 **Next:** Open `pline.c` `set_msg_dir` (named). Not pline_xy.
-**Blocked:** none.
-
-## 2026-08-18 10:36 — #1542 D-1214 disturb_buried_zombies
-
-**Objective:** Open — `hack.c` `disturb_buried_zombies`
-(named). Not zombify_mon.
-**C locus:** `hack.c` `disturb_buried_zombies` 1798–1813;
-callers rumble `:494`, tread `:2944–2947`, `mon.c`
-`wake_nearto_core` `:4398`, `monmove.c` grounded `MMOVE_MOVED`
-`:938–939`; `timeout.c` `peek_timer` 2324.
-**Change:** buried CORPSE 3×3 `peek` then `max(1,t*2/3)`;
-rumble after closed_door; tread `!Lev&&!Fly&&!Stealth&&
-cwt>=WT_ELF/2`; wake; grounded move before nearby return.
-Did not pull `impact_disturbs_zombies`, local wake clones,
-hideunder after tread. Filled D-1213 archive hash `c85424f4`.
-Rotated #1527. Open 10 after archive (no refill). Rule #2:
-no fs.
-**Score:** fortress unchanged (cadence **#1540** **44**/44; next
-@**#1545**).
-**Verified:** private canary **29**/29; green+strict
-seed8000/0900; cohort **6**/6 + strict 1500/1800/0012/0004/
-2200/0060.
-**Next:** Open `pline.c` `pline_xy`/`pline_mon` (named). Not
-set_msg_dir.
 **Blocked:** none.

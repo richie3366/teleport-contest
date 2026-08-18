@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-18** — full `sessions` after D-1221
-(**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `38+0.31/turn` (R² 0.848). Next audit (review + score) @**#1555**.
+Score last measured: **2026-08-18** — full `sessions` at review **#1555**
+HEAD `89588300` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `34+0.31/turn` (R² 0.878). Next audit (review + score) @**#1560**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `38+0.31/turn` (R² 0.848). Next audit (review + score) @**#1555**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.31/turn` (R² 0.848) |
+| Speed label | `34+0.31/turn` (R² 0.878) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,7 +59,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1225. **Next cluster:**
+**Map-driven fortress** after D-1225 / review **183–187**. **Next cluster:**
 Open `hack.c` run>=2 boulder `pline_dir` (named). Not mention_walls.
 Do not restore Hallu `gbuf_show_kind`. Keep mention_map addr.
 

@@ -192,3 +192,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [180-b59f294b-opt-accessiblemsg.md](./180-b59f294b-opt-accessiblemsg.md) | `b59f294b` | D-1218 `opt_accessiblemsg` | **ACCEPT** |
 | [181-925e5b77-show-glyph-glyph-updates.md](./181-925e5b77-show-glyph-glyph-updates.md) | `925e5b77` | D-1219 `show_glyph` `glyph_updates` | **QUALITY-RISK** |
 | [182-b09b013d-revive-corpse-buried-fallthrough.md](./182-b09b013d-revive-corpse-buried-fallthrough.md) | `b09b013d` | D-1220 BURIED FALLTHROUGH `impossible` | **ACCEPT** |
+| [183-c7071a4a-gbuf-show-kind-hallu.md](./183-c7071a4a-gbuf-show-kind-hallu.md) | `c7071a4a` | D-1221 `gbuf_show_kind` Hallu reroll | **ACCEPT-WITH-DEBT** |
+| [184-7b0f9da7-soundeffect-se-scratching.md](./184-7b0f9da7-soundeffect-se-scratching.md) | `7b0f9da7` | D-1222 `Soundeffect` se_scratching | **ACCEPT-WITH-DEBT** |
+| [185-d4f9b432-troll-baned-mkcorpstat.md](./185-d4f9b432-troll-baned-mkcorpstat.md) | `d4f9b432` | D-1223 `troll_baned` `mkcorpstat_norevive` | **ACCEPT-WITH-DEBT** |
+| [186-790ca8b7-level-telep-yn.md](./186-790ca8b7-level-telep-yn.md) | `790ca8b7` | D-1224 LEVEL_TELEP `y_n` + `level_tele_trap` | **ACCEPT-WITH-DEBT** |
+| [187-89588300-dotele-energy-spellcast.md](./187-89588300-dotele-energy-spellcast.md) | `89588300` | D-1225 `dotele` energy/`spelleffects` | **ACCEPT-WITH-DEBT** |

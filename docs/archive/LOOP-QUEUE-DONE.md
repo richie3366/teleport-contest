@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd. **Addressed:** D-1225
+- [x] `spell.c` energy/`spelleffects` teleport (named from D-1209). Not `#teleport` doextcmd. **Addressed:** D-1225 `89588300`
 
 
 - [x] `teleport.c` LEVEL_TELEP `y_n` (named from D-1209). Not energy-spellcast. **Addressed:** D-1224 `790ca8b7`
