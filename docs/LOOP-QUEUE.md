@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded.
 - [ ] `dog.c` `migrate_to_level` `In_W_tower` xyflags bit 2 (named). Not mon_arrive.
 - [ ] `dog.c` `mon_arrive` `my=xyflags` before rloc (named). Not migrate bit.
 - [ ] `allmain.c` `newgame` `notice_mon_off` (named). Not wizkit.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `timeout.c` REVIVE/ZOMBIFY (named). Not run_timers.
 - [ ] `cmd.c` `wiz_level_change` (named). Not notice_mon_off.
 - [ ] `eat.c` `eatspecial` (named). Not doeat_nonfood.
+- [ ] `teleport.c` `scrolltele` unconscious (named). Not Override yn.
+- [ ] `teleport.c` `scrolltele` steed whobuf (named). Not unconscious.
+- [ ] `pline.c` `vpline` accessiblemsg consume (named). Not set_msg_xy.
+- [ ] `teleport.c` `dotele` trap-at-feet teledest (named). Not vault_tele.
+- [ ] `teleport.c` `dotelecmd` m-prefix mode menu (named). Not energy gate.
 
 ## Parked (do not pop)
 

@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 04:35 — #1521 D-1197 scrolltele W-tower Override yn
+
+**Objective:** Open — `teleport.c` `scrolltele` W-tower Override yn
+(named). Not make_blinded.
+**C locus:** `teleport.c` `scrolltele` 865–870 after make_blinded.
+`y_n` ≡ `yn_function(..., ynchars, 'n', TRUE)`. `On_W_tower_level`
+wiz1/2/3. Callers `tele()` / `seffects` SCR_TELEPORTATION.
+**Change:** gate is `amulet || On_W_tower_level` then `!rn2(3)`
+`You_feel`; `!wizard || yn_function('Override?') !== 'y'` return
+(no learnscroll). `!wizard` short-circuits yn. Did not pull
+unconscious or steed whobuf. Filled no prior missing archive
+hash. Rotated #1506. Open 7 after archive; refilled to 12.
+Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1520** **44**/44; next
+@**#1525**).
+**Verified:** private canary **44**/44; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
+2200/0014/0004.
+**Next:** Open `dog.c` `migrate_to_level` `In_W_tower` xyflags
+bit 2 (named). Not mon_arrive.
+**Blocked:** none.
+
 ## 2026-08-18 04:15 — #1520 review D-1193–D-1196 + cadence score
 
 **Objective:** audit = written C-fidelity review **and** full
@@ -352,28 +374,5 @@ seed8000/0900; cohort **8**/8
 1500/0700/0009/0361.
 **Next:** Must-fix seed8243 `hack.c` `avoid_trap_andor_region`
 ParanoidTrap portal yn. Not maybe_smudge_engr.
-**Blocked:** none.
-
-## 2026-08-17 23:35 — #1506 D-1185 doddoremarm A empty-worn
-
-**Objective:** Must-fix human canary seed8243. Queued as chargen
-`offx`; dump first.
-**C locus:** `wintty.c` H2344 `tty_display_nhwindow` NHW_MENU offx
-(confirm already matched); first real miss `do_wear.c`
-`doddoremarm` 3022–3034 / `cmd.c` `'A'` takeoffall.
-**Change:** local C re-record replaces truncated `\e[72C` capture
-(H2344 `\e[40C` already matched JS; do not revert D-0078).
-`doddoremarm` empty-worn You are not wearing anything. Did not
-pull `ggetobj`/`menu_remarm`/`take_off`. Did not port `g` rush.
-Rotated #1491. Open 10 + Must-fix `g` prefix = 11 (no refill).
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1505** **44**/44; next
-@**#1510**).
-**Verified:** canary Scr **102→106**/129 (four `A`); remaining @22
-`g`; green+strict seed8000/0900; cohort **8**/8
-(1500/1800/0700/0361/0014/2200/0009/0012) + strict
-1500/0700/0009/0361.
-**Next:** Must-fix seed8243 `cmd.c` `g` rush prefix. Not
-maybe_smudge_engr.
 **Blocked:** none.
 

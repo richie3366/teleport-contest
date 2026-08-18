@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1520** 44/44 @**#1525**. Next `scrolltele` W-tower Override yn.
-  Do not skip D-1196.
+- **#1520** 44/44 @**#1525**. Next `migrate_to_level` W-tower xyflags
+  bit 2. Do not skip D-1197.
 
 ## Don't re-check (≤15)
 
@@ -19,9 +19,10 @@ Objective/score live in `CURRENT.md`.
   Do not skip hero `domagicportal` / `undestroyable_trap` escape
   / `mktrap` dst / `goto_level` uz0 reset (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1196 (`kill_genocided` / `run_timers` / wizkit FALSE /
+  D-1190…D-1197 (`kill_genocided` / `run_timers` / wizkit FALSE /
   `deliver_obj_to_mon` / `goto_level` `notice_mon_off` wrap /
-  rloc wand `makeknown` / dest-msg `set_msg_xy`).
+  rloc wand `makeknown` / dest-msg `set_msg_xy` / `scrolltele`
+  W-tower Override yn).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -86,4 +87,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1520; next `scrolltele` W-tower Override yn.
+- #1520; next `migrate_to_level` W-tower xyflags bit 2.

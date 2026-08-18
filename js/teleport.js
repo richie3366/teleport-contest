@@ -1658,10 +1658,10 @@ function Blinded() {
 /**
  * C ref: teleport.c scrolltele — scroll/intrinsic teleport placement.
  * Envelope: noteleport pline; !Blinded make_blinded(0,FALSE);
+ * amulet||On_W_tower_level !rn2(3) You_feel + wizard y_n Override;
  * wizard/Teleport_control getpos path; uncontrolled → learnscroll +
  * safe_teleds.
- * Named omissions: W-tower half of amulet gate (Override yn);
- * unconscious controlled fail; steed whobuf.
+ * Named omissions: unconscious controlled fail; steed whobuf.
  * dotele clears travelcc before tele (D-0789); scrolltele clears when
  * controlled dest equals travelcc.
  */
@@ -1681,17 +1681,24 @@ export async function scrolltele(scroll) {
         await make_blinded(0, false);
     }
     const u = game.u || {};
-    if ((u.uhave?.amulet || u.uhave_amulet) && !rn2(3)) {
-        await pline('You feel disoriented for a moment.');
-        if (!wizard) return;
-        // wizard Override? yn deferred — treat as accept for now
+    /* C teleport.c:865–870 — amulet or Wizard's Tower, then 1/3.
+     * y_n ≡ yn_function(query, ynchars, 'n', TRUE); JS 3-arg yn.
+     * !wizard short-circuits so Override is wizard-only. */
+    if ((u.uhave?.amulet || u.uhave_amulet || On_W_tower_level(u.uz))
+        && !rn2(3)) {
+        await You_feel('disoriented for a moment.');
+        /* don't discover the scroll [not yet for wizard override] */
+        if (!wizard
+            || (await yn_function('Override?', 'yn', 'n')) !== 'y') {
+            return;
+        }
     }
     const Teleport_control = !!(u.HTeleport_control || u.ETeleport_control
         || u.Teleport_control);
     const Stunned = !!(u.Stunned || u.HStun || u.EStun);
     if (((Teleport_control || (scroll && scroll.blessed)) && !Stunned)
         || wizard) {
-        // unconscious deferred
+        // unconscious deferred; steed whobuf deferred
         await pline('Where do you want to be teleported?');
         if (scroll) learnscroll(scroll);
         const cc = { x: u.ux | 0, y: u.uy | 0 };

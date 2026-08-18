@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-18
+
+- [x] `teleport.c` `scrolltele` W-tower Override yn (named). Not make_blinded. **Addressed:** D-1197
+
 ## 2026-08-17
 
 - [x] `teleport.c` `rloc_to_core` `set_msg_xy` (named). Not makeknown. **Addressed:** D-1196 `d0cbc6e3`

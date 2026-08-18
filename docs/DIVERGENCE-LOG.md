@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1197 — `scrolltele` W-tower/amulet `y_n("Override?")`
+
+- **Status:** fixed (map-driven Open; named omit from D-1184 /
+  D-0407; not a public FAIL)
+- **Symptom:** JS `scrolltele` after `make_blinded` gated only on
+  `uhave.amulet && !rn2(3)` and, for wizard, treated Override as
+  always-yes (no `y_n`). C ORs `On_W_tower_level(&u.uz)` so a
+  non-amulet hero on wizard1/2/3 still hits the 1/3 disorient, and
+  wizard must answer `y_n("Override?")` (`ynchars`, def `'n'`) to
+  continue. Abort does not `learnscroll`.
+- **C locus:** `teleport.c` `scrolltele` `:865–870` after
+  `make_blinded`, before Teleport_control/`getpos`. Callee
+  `y_n` ≡ `yn_function(query, ynchars, 'n', TRUE)` (`hack.h`).
+  `On_W_tower_level` is `dungeon.c` wiz1/2/3 specials.
+  Callers: `tele()` → `scrolltele(NULL)`; `seffects`
+  SCR_TELEPORTATION.
+- **JS was:** amulet-only gate; `if (!wizard) return;` then
+  `// wizard Override? yn deferred — treat as accept`.
+- **Fix:** `(amulet \|\| On_W_tower_level(u.uz)) && !rn2(3)` then
+  `You_feel`; `!wizard \|\| yn_function('Override?','yn','n') !== 'y'`
+  return. `!wizard` short-circuits the yn. Did not pull
+  unconscious or steed whobuf.
+- **JS:** `js/teleport.js` `scrolltele`. `On_W_tower_level` and
+  `yn_function` already imported.
+- **Not this iter:** unconscious controlled fail; steed whobuf;
+  `dotele` trap-at-feet; `dotelecmd` m-prefix. Rule #2: no fs.
+- **Verified:** private canary **44**/44 (wiz1/2/3; neither skips
+  `rn2(3)`; amulet skip-roll; non-wizard abort no yn; wizard n /
+  default / ESC abort; wizard y continues to Where; `flags.debug`;
+  no learnscroll on abort; no fs/FORCE); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/0012/0360/4500/
+  2200/0014/0004. Path public-unhit unless amulet or W-tower
+  teleport rolls `!rn2(3)`.
+- **Files:** `js/teleport.js`.
+
 ## D-1196 — `rloc_to_core` dest-msg `set_msg_xy`
 
 - **Status:** fixed (map-driven Open; named omit from D-1195 /

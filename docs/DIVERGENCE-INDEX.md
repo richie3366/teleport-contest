@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1197 | fixed | `scrolltele` W-tower/amulet `y_n("Override?")` | map-driven; C `teleport.c:865–870` after make_blinded; `uhave.amulet \|\| On_W_tower_level` then `!rn2(3)` You_feel; `!wizard \|\| y_n != 'y'` return (no learnscroll); wizard ynchars def n; unconscious / steed whobuf still named |
 | D-1196 | fixed | `rloc_to_core` dest-msg `set_msg_xy` | map-driven; C `teleport.c:1708` after dest-msg gate before dest plines; `a11y.msg_loc` dest; silent/same-cell/`in_mklev`/unspotted skip; `accessiblemsg` pline consume still named |
 | D-1195 | fixed | `rloc_to_core` wand `makeknown` | map-driven; C `teleport.c:1727–1731` after delivered dest msg; `current_wand` WAN_TELEPORTATION → `makeknown` (WIS `rn2(19)` if new); Null/other/RLOC_NOMSG/no-msg skip; dest-msg `set_msg_xy` D-1196 |
 | D-1194 | fixed | do.c `goto_level` `notice_mon_off` | map-driven; C `do.c:1839` off before docrt + `:1971–1972` on+`notice_all_mons(TRUE)` after uz0; D-1142 callees; default `spot_monsters` Off; `reset_glyphmap` / vision_recalc caller / newgame wrap still named |
