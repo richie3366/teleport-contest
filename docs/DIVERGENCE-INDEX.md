@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1237 | fixed | trap.c `launch_obj` rolling-boulder TELEP `pline_xy` | map-driven; C `trap.c:3460–3488` ROLL TELEP/LEVEL_TELEP `pline_xy`/`You_hear` then `rloco` or `add_to_migration`+`get_level`; LEVEL_TELEP `random_teleport_level` same-depth skip; `seetrap`+used_up; landmine/pit/`flooreffects` still named |
 | D-1236 | fixed | options.c `optlist` `mon_movement` `a11y.mon_movement` | map-driven; C `optlist.h:493–494` `NHOPTB(mon_movement, … Off, …, &a11y.mon_movement)`; `options.c` `optfn_boolean` `*(addr)=!negated` no after-change arm; doset/`OPTIONS=` no longer `flags.mon_movement`; colon true/yes/on/1; default Off public unhit; leftover flags ignored |
 | D-1235 | fixed | options.c `optlist` `spot_monsters` `a11y.mon_notices` | map-driven; C `optlist.h:708–710` `NHOPTB(spot_monsters, … Off, …, &a11y.mon_notices)`; `options.c` `optfn_boolean` `*(addr)=!negated` no after-change arm; doset/`OPTIONS=` no longer `flags.spot_monsters`; colon true/yes/on/1; default Off public unhit; `mon_movement` addr D-1236 |
 | D-1234 | fixed | do.c `revive_corpse` unique/pname `corpse_xname` adjective | map-driven; C `objnam.c:1824–1919` unique/pname `s_suffix` + adjective after possessive vs before ordinary; `do.c:2131–2133` `corpse_xname(..., chewed?"bite-covered":0, CXN_SINGULAR)`; `dig.c:2158` `CXN_NO_PFX`; glob / doname CXN_ARTICLE\|CXN_NOCORPSE prefix-as-adjective still named |

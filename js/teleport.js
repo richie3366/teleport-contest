@@ -1806,9 +1806,9 @@ export async function u_teleport_mon(mtmp, give_feedback) {
 
 /**
  * C ref: teleport.c rloco — relocate a floor object.
- * Envelope: extract + goodpos pick + place_object. Named omit:
- * Rider corpse revive; flooreffects; shop bill/stolen_value; W-tower
- * /dndest restricted_fall.
+ * Caller: trap.c launch_obj TELEP_TRAP (D-1237). Envelope: extract +
+ * goodpos pick + place_object. Named omit: Rider corpse revive;
+ * flooreffects; shop bill/stolen_value; W-tower /dndest restricted_fall.
  * @returns {boolean} true if placed elsewhere
  */
 export function rloco(obj) {

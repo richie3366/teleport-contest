@@ -59,25 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1236. **Next cluster:**
-Open `teleport.c` rolling-boulder TELEP `pline_xy` (named). Not
-`#teleport`. Do not restore Hallu `gbuf_show_kind`. Keep
-mention_map addr. Do not wrap `msg_mon_movement` as `pline_mon`.
-Do not skip D-1229 impact owt/flimsy. Do not skip D-1230
-`#teleport` `doextcmd`. Do not skip D-1231 gulpmm `m_at` swap.
-Do not skip D-1232 `hmon_hitmon` `troll_baned`. Do not skip
-D-1233 `hmonas`/`damageum` `troll_baned`. Do not skip D-1234
+**Map-driven fortress** after D-1237. **Next cluster:**
+Open `monmove.c` `mind_blast` (named). Not msg_mon_movement.
+Do not restore Hallu `gbuf_show_kind`. Keep mention_map addr.
+Do not wrap `msg_mon_movement` as `pline_mon`. Do not skip D-1229
+impact owt/flimsy. Do not skip D-1230 `#teleport` `doextcmd`.
+Do not skip D-1231 gulpmm `m_at` swap. Do not skip D-1232
+`hmon_hitmon` `troll_baned`. Do not skip D-1233
+`hmonas`/`damageum` `troll_baned`. Do not skip D-1234
 unique/pname `corpse_xname` adjective. Do not skip D-1235
 `spot_monsters` → `a11y.mon_notices`. Do not skip D-1236
-`mon_movement` → `a11y.mon_movement`.
-Do not pull container_impact / hitfloor `dropz(TRUE)` / hideunder /
-passivemm shock / AT_HUGS/EXPL/ENGL / altwep / `demonpet`.
+`mon_movement` → `a11y.mon_movement`. Do not skip D-1237
+rolling-boulder TELEP `pline_xy`. Do not pull container_impact /
+hitfloor `dropz(TRUE)` / hideunder / passivemm shock /
+AT_HUGS/EXPL/ENGL / altwep / `demonpet` / landmine·pit mid-roll.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1236. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1237. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1236** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
+**D-0948**…**D-1237** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
 `glyph_at`; `urole.questarti`; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
@@ -86,7 +87,7 @@ twice; sit Fire/Cold `uprops[]`; tut-1 mineralize/stairway/
 create_object/place_lregion/`tut_key`/tutorial nhcore; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1236`).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1237`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -123,7 +124,7 @@ no skip D-1194 wrap; no skip D-1195 wand
 yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
 D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
 `#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
-unconscious / D-1206–D-1236 (`dolookaround`; no empty then-arm; no
+unconscious / D-1206–D-1237 (`dolookaround`; no empty then-arm; no
 `flags.accessiblemsg` / `flags.mention_map` / `flags.spot_monsters` /
 `flags.mon_movement` addr; no Hallu
 `gbuf_show_kind` reroll; no skip se_scratching / `troll_baned` /
@@ -136,6 +137,8 @@ no skip D-1234 unique/pname `corpse_xname` adjective / rot
 `CXN_NO_PFX` (glob / doname CXN_ARTICLE|CXN_NOCORPSE still named);
 no skip D-1235 `spot_monsters` → `a11y.mon_notices` (default Off);
 no skip D-1236 `mon_movement` → `a11y.mon_movement` (default Off);
+no skip D-1237 rolling-boulder TELEP `pline_xy` (`rloco`/migrate;
+landmine/pit still named);
 no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).

@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1237 — rolling-boulder TELEP `pline_xy` + `rloco` / migrate
+
+- **Status:** fixed (map-driven Open; named omit from D-1215 /
+  D-1228 / D-1230; not a public FAIL)
+- **Symptom:** JS `launch_obj` rolled a boulder through a TELEP_TRAP
+  or LEVEL_TELEP as if the cell were empty, then placed it at rest.
+  C `trap.c` `launch_obj` `style==ROLL` mid-cell switch: LEVEL_TELEP
+  `random_teleport_level()` same-depth skips the message;
+  otherwise `pline_xy` (cansee) or `You_hear` (!Deaf), then
+  TELEP_TRAP `rloco` else `add_to_migration`+`get_level`+
+  `owornmask=MIGR_RANDOM`, `seetrap`, used_up.
+- **C locus:** `trap.c` `launch_obj` `:3423–3508` (TELEP/LEVEL_TELEP
+  arms); `teleport.c` `rloco` `:2100–2187`;
+  `random_teleport_level` `:2190–`. Queue named `teleport.c`
+  because the relocate is `rloco`; the writer is `pline_xy`.
+- **JS was:** comment “Mid-roll trap interactions (landmine/telep/pit)
+  deferred”; boulder continued to `place_object` at rest.
+- **Fix:** ROLL + BOULDER + `t_at`: TELEP always; LEVEL_TELEP unless
+  `newlev==depth(u.uz)`; `pline_xy(x,y,"Suddenly the rolling
+  boulder disappears!")` else `You_hear("a rumbling stop
+  abruptly.")`; `rloco` vs migrate; `seetrap`; used_up. Landmine /
+  pit / flooreffects / boulder-on-boulder still named. Rule #2:
+  no fs.
+- **JS:** `js/trap.js` `launch_obj`; comments `js/display.js`,
+  `js/teleport.js` `rloco`.
+- **Not this iter:** mid-roll landmine KAABLAMM/`fracture_rock`;
+  pit/hole `flooreffects`; boulder-on-boulder chain; `ship_object`
+  `down_gate`; LAUNCH_UNSEEN bowling; `launch_drop_spot`; remaining
+  `pline_mon`; `mind_blast`.
+- **Verified:** private canary **18**/18 (C FALLTHROUGH; JS
+  `pline_xy`; cansee disappears + rest empty + seetrap + rloco;
+  accessiblemsg prefix; Blind You_hear; Blind+Deaf silent;
+  LEVEL_TELEP In_endgame skip; off-depth migrate); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a rolling boulder crosses a
+  TELEP/LEVEL_TELEP.
+- **Follow-up:** Open `monmove.c` `mind_blast`.
+
 ## D-1236 — `options.c` `optlist` `mon_movement` → `a11y.mon_movement`
 
 - **Status:** fixed (map-driven Open; named omit from D-1228 /
