@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates. **Addressed:** D-1235
+- [x] `options.c` `optlist` `&a11y.mon_movement` (named). Not spot_monsters. **Addressed:** D-1236
+
+
+- [x] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates. **Addressed:** D-1235 `f631610d`
 
 
 - [x] `do.c` `revive_corpse` unique/pname `corpse_xname` adjective (named). Not Soundeffect. **Addressed:** D-1234 `e0ea385e`

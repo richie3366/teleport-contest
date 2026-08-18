@@ -938,7 +938,7 @@ function locomotion(ptr, def) {
  * C monmove.c msg_mon_movement 32–48 — a11y.mon_movement dest pline_xy
  * after place_monster. Not pline_mon (C uses nix,niy). Requires already
  * spotted (`mspotted`; notice_mon when mon_notices On). Default Off.
- * Named omit: optlist `&a11y.mon_movement` addr (still flags).
+ * optlist `&a11y.mon_movement` addr is D-1236.
  */
 export async function msg_mon_movement(mtmp, omx, omy) {
     const a = game.a11y || {};

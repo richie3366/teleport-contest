@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1236 — `options.c` `optlist` `mon_movement` → `a11y.mon_movement`
+
+- **Status:** fixed (map-driven Open; named omit from D-1228 /
+  D-1218 / D-1219 / D-1235; not a public FAIL)
+- **Symptom:** JS `msg_mon_movement` already read `a11y.mon_movement`
+  (D-1228), but doset / `OPTIONS=` wrote `flags.mon_movement`.
+  Turning the option On in JS could not enable dest-cell move
+  plines. C `NHOPTB` addr is `&a11y.mon_movement`. Default Off.
+  No `optfn_boolean` after-change arm (unlike `opt_accessiblemsg`
+  msg_loc zero).
+- **C locus:** `optlist.h` `NHOPTB(mon_movement, … Off, …,
+  &a11y.mon_movement)` `:493–494`; `options.c` `optfn_boolean`
+  `*(allopt[].addr) = !negated` `:5286`; `if (go.opt_initial)
+  return` `:5327–5328`; no `case opt_mon_movement`.
+- **JS was:** `DOSET_BOOL_ADDR.mon_movement` → `flags`; unknown
+  `OPTIONS=` bools dumped to `flags[lname]`.
+- **Fix:** addr `{ obj: 'a11y', key: 'mon_movement' }`;
+  `parseNethackrc` uncoloned + colon true/yes/on/1 (C `strncmpi`);
+  jsmain applies `opts.a11y.mon_movement`. Config (`opt_initial`)
+  writes without a toggle pline. Default Off. Leftover
+  `flags.mon_movement` does not enable `msg_mon_movement`. Rule #2:
+  no fs.
+- **JS:** `js/options.js`; `js/jsmain.js`; comments `js/hack.js`,
+  `js/monmove.js`.
+- **Not this iter:** remaining `optfn_boolean` after-change arms;
+  `noaccessiblemsg` `no`-prefix parse; rolling-boulder TELEP
+  `pline_xy`; `worm_move`; remaining `pline_mon`. Rule #2: no fs.
+- **Verified:** private canary **35**/35 (OPTIONS= On/Off/combo;
+  colon words including `t`; negated/invalid colon not flags;
+  doset addr; no msg_loc zero; `opt_initial`; leftover flags
+  ignored; jsmain-like apply); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless `mon_movement` is On (default Off).
+- **Follow-up:** Open `teleport.c` rolling-boulder TELEP
+  `pline_xy`.
+
 ## D-1235 — `options.c` `optlist` `spot_monsters` → `a11y.mon_notices`
 
 - **Status:** fixed (map-driven Open; named omit from D-1142 /

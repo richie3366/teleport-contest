@@ -20,6 +20,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:20 — #1568 D-1236 mon_movement → a11y.mon_movement
+
+**Objective:** Open `options.c` `optlist` `&a11y.mon_movement`
+(named). Not spot_monsters.
+**C locus:** `optlist.h` 493–494 `NHOPTB(mon_movement, … Off, …,
+&a11y.mon_movement)`; `options.c` `optfn_boolean` 5286 no
+after-change arm.
+**Change:** doset/`OPTIONS=` write `a11y.mon_movement`; colon
+true/yes/on/1; jsmain rc apply. Did not pull rolling-boulder
+TELEP `pline_xy`. Filled D-1235 archive hash `f631610d`. Open 9
+after archive (no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1565** **44**/44; next
+audit @**#1570**).
+**Verified:** private canary **35**/35; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Public-unhit unless `mon_movement` On (default Off).
+**Next:** Open `teleport.c` rolling-boulder TELEP `pline_xy`
+(named). Not `#teleport`.
+**Blocked:** none.
 ## 2026-08-18 23:15 — #1567 D-1235 spot_monsters → a11y.mon_notices
 
 **Objective:** Open `options.c` `optlist` `&a11y.spot_monsters`

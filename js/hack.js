@@ -1863,9 +1863,9 @@ export function invocation_pos(x, y) {
  * optlist `spot_monsters`. `opt_accessiblemsg` addr is D-1218
  * (`options.js` / `jsmain.js`). `mention_map` addr is D-1219
  * (`&a11y.glyph_updates` + `display.c` `show_glyph`). `spot_monsters`
- * addr is D-1235 (`&a11y.mon_notices`). `msg_mon_movement` dest
- * pline_xy is D-1228 (`monmove.js`). Named omit: optlist
- * `&a11y.mon_movement` addr. vpline consume of msg_loc is D-1207;
+ * addr is D-1235 (`&a11y.mon_notices`). `mon_movement` addr is
+ * D-1236 (`&a11y.mon_movement`). `msg_mon_movement` dest
+ * pline_xy is D-1228 (`monmove.js`). vpline consume of msg_loc is D-1207;
  * pline_xy/pline_mon writers are D-1215; set_msg_dir/pline_dir D-1216
  * (`display.js`). `cmd.c` `dolookaround` is D-1217 (`cmd.js`; newgame
  * then-arm + `#lookaround`).
