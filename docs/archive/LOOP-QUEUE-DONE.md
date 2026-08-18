@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `cmd.c` `dolookaround` (named). Not glyph_updates. **Addressed:** D-1217
+- [x] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround. **Addressed:** D-1218
+
+
+- [x] `cmd.c` `dolookaround` (named). Not glyph_updates. **Addressed:** D-1217 `dc34d705`
 
 
 - [x] `pline.c` `set_msg_dir` (named). Not pline_xy. **Addressed:** D-1216 `517cb217`

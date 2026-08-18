@@ -3583,8 +3583,7 @@ export async function pline_dir(dir, msg) {
  * 0,0 (even empty / Norep-suppressed / accessiblemsg Off). If
  * accessiblemsg && isok(saved), prefix `coord_desc: ` (NONE→COMFULL).
  * D-1207. Writers: pline_xy/pline_mon D-1215; set_msg_dir/pline_dir
- * D-1216. Named: optlist wire onto a11y.accessiblemsg (JS doset still
- * flags.accessiblemsg).
+ * D-1216. Option addr `&a11y.accessiblemsg` is D-1218.
  */
 function vpline_consume_msg_loc(msg) {
     if (!game.a11y) {

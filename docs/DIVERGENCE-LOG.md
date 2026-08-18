@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1218 — `options.c` `opt_accessiblemsg` → `a11y.accessiblemsg`
+
+- **Status:** fixed (map-driven Open; named omit from D-1207 /
+  D-1215 / D-1216 / D-1217; not a public FAIL)
+- **Symptom:** JS `vpline` already consumed `a11y.msg_loc` and
+  prefixed `coord_desc` when `a11y.accessiblemsg` was On (D-1207),
+  but doset / `OPTIONS=` wrote `flags.accessiblemsg`. Turning the
+  option On in JS could not enable the prefix. C `NHOPTB` addr is
+  `&a11y.accessiblemsg`. In-game `optfn_boolean` also zeros
+  `a11y.msg_loc` after the toggle so the "'accessiblemsg' option
+  toggled …" pline is unprefixed.
+- **C locus:** `optlist.h` `NHOPTB(accessiblemsg, … Off, …,
+  &a11y.accessiblemsg)` `:140–142`; `options.c` `optfn_boolean`
+  `*(allopt[].addr) = !negated` `:5286`; `if (go.opt_initial)
+  return` `:5327–5328`; `case opt_accessiblemsg:` `msg_loc` zero
+  `:5428–5430`; toggle pline `:5438–5440`.
+- **JS was:** `DOSET_BOOL_ADDR.accessiblemsg` → `flags`; unknown
+  `OPTIONS=` bools dumped to `flags[lname]`; no in-game `msg_loc`
+  zero.
+- **Fix:** addr `{ obj: 'a11y', key: 'accessiblemsg' }`;
+  `optfn_boolean_do_set` in-game zero; `parseNethackrc`
+  uncoloned + colon true/yes/on/1 (C `strncmpi`); jsmain applies
+  `opts.a11y.accessiblemsg`. Config (`opt_initial`) does not zero
+  loc. Default Off. Rule #2: no fs.
+- **JS:** `js/options.js`; `js/jsmain.js`; comments
+  `js/display.js` / `js/hack.js`.
+- **Not this iter:** `spot_monsters` → `a11y.mon_notices`;
+  `glyph_updates` / `show_glyph_change`; `mon_movement`; remaining
+  `parseoptions` after-change arms; `allopt_array_init`;
+  `noaccessiblemsg` `no`-prefix parse. Rule #2: no fs.
+- **Verified:** private canary **42**/42 (OPTIONS= On/Off/combo;
+  colon words; negated/invalid colon not flags; in-game On zeros
+  leftover; `opt_initial` keeps loc; Off toggle zeros; showexp
+  botl; create bag; Off consume; `flags.accessiblemsg` ignored;
+  On NONE→COMFULL east / MAP / SCREEN; (0,0) no prefix; toggle
+  pline unprefixed; jsmain-like OPTIONS prefix; no fs); green+
+  strict seed8000/0900; cohort **9**/9 + strict 0007/2200/1500/
+  1800/0012/0360/4500/0014/0004. **Public-unhit** unless
+  `accessiblemsg` is On (default Off). seed0007 `O` still shows
+  `[false]`.
+- **Follow-up:** Open `display.c` `show_glyph_change`.
+
 ## D-1217 — `cmd.c` `dolookaround` / `#lookaround`
 
 - **Status:** fixed (map-driven Open; named omit from D-1200 /

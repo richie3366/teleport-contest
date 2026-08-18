@@ -1772,12 +1772,12 @@ export function invocation_pos(x, y) {
 
 /**
  * C flag.h `struct accessibility_data` / `a11y`. Default Off matches
- * optlist `spot_monsters`. Named omit: option wiring onto this struct
- * (`flags.accessiblemsg` vs `a11y.accessiblemsg`); `mon_movement`;
- * `glyph_updates`. vpline consume of msg_loc is D-1207;
- * pline_xy/pline_mon writers are D-1215; set_msg_dir/pline_dir D-1216
- * (`display.js`). `cmd.c` `dolookaround` is D-1217 (`cmd.js`; newgame
- * then-arm + `#lookaround`).
+ * optlist `spot_monsters`. `opt_accessiblemsg` addr is D-1218
+ * (`options.js` / `jsmain.js`). Named omit: `spot_monsters` →
+ * `mon_notices`; `mon_movement`; `glyph_updates`. vpline consume of
+ * msg_loc is D-1207; pline_xy/pline_mon writers are D-1215;
+ * set_msg_dir/pline_dir D-1216 (`display.js`). `cmd.c` `dolookaround`
+ * is D-1217 (`cmd.js`; newgame then-arm + `#lookaround`).
  */
 function a11y_state() {
     if (!game.a11y) {
