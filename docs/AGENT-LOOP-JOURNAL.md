@@ -20,6 +20,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-18 23:15 — #1567 D-1235 spot_monsters → a11y.mon_notices
+
+**Objective:** Open `options.c` `optlist` `&a11y.spot_monsters`
+(named). Not glyph_updates.
+**C locus:** `optlist.h` 708–710 `NHOPTB(spot_monsters, … Off, …,
+&a11y.mon_notices)`; `options.c` `optfn_boolean` 5286 no
+after-change arm.
+**Change:** doset/`OPTIONS=` write `a11y.mon_notices`; colon
+true/yes/on/1; jsmain rc apply. Did not wire `mon_movement`.
+Filled D-1234 archive hash `e0ea385e`. Open 10 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1565** **44**/44; next
+audit @**#1570**).
+**Verified:** private canary **36**/36; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Public-unhit unless `spot_monsters` On (default Off).
+**Next:** Open `options.c` `optlist` `&a11y.mon_movement`
+(named). Not spot_monsters.
+**Blocked:** none.
 ## 2026-08-18 23:05 — #1566 D-1234 unique/pname corpse_xname adjective
 
 **Objective:** Open `do.c` `revive_corpse` unique/pname

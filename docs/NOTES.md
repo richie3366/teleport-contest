@@ -5,16 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1234 unique/pname `corpse_xname`
-  adjective + rot `CXN_NO_PFX`. Cadence **#1565** (`976094e5`).
-  Next: Open `options.c` `optlist` `&a11y.spot_monsters`. Not
-  glyph_updates. Must-fix empty. Do not skip D-1234…D-1229.
-  Do not pull glob / doname CXN_ARTICLE|CXN_NOCORPSE /
-  container_impact / hideunder / passivemm / AT_HUGS/EXPL/ENGL /
-  altwep / `demonpet`. Do not wrap `msg_mon_movement` as
-  `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1234. Do not Must-fix named omits
-  (glob/doname CXN / other Soundeffect / remaining `pline_mon`).
+- **Fortress 44/44** after D-1235 `spot_monsters` → `a11y.mon_notices`.
+  Cadence **#1565** (`976094e5`). Next: Open `options.c`
+  `optlist` `&a11y.mon_movement`. Not spot_monsters. Must-fix
+  empty. Do not skip D-1235…D-1229. Do not pull glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE / container_impact / hideunder /
+  passivemm / AT_HUGS/EXPL/ENGL / altwep / `demonpet`. Do not
+  wrap `msg_mon_movement` as `pline_mon`. Do not restore Hallu
+  `gbuf_show_kind`. No FORCE.
+- Do not revert D-1217–D-1235. Do not Must-fix named omits
+  (glob/doname CXN / other Soundeffect / remaining `pline_mon` /
+  `mon_movement` addr).
 
 ## Don't re-check (≤15)
 
@@ -25,7 +26,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1234 (CURRENT keep; unique/pname `corpse_xname` D-1234).
+  D-1190…D-1235 (CURRENT keep; `spot_monsters` addr D-1235).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,11 +41,12 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1234. Keep se_scratching; `troll_baned`
+- Do not skip D-1071…D-1235. Keep se_scratching; `troll_baned`
   wraps; `#teleport` doextcmd; gulpmm `m_at` swap; unique/pname
-  `corpse_xname` adjective / rot CXN_NO_PFX. Glob / doname
-  CXN_ARTICLE|CXN_NOCORPSE / snuff_lit / AT_HUGS / `demonpet`
-  still named. Do not “fix” seed0383 with ALIGN/FORCE.
+  `corpse_xname` adjective / rot CXN_NO_PFX; `spot_monsters` →
+  `a11y.mon_notices`. Glob / doname CXN_ARTICLE|CXN_NOCORPSE /
+  snuff_lit / AT_HUGS / `demonpet` / `mon_movement` addr still
+  named. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -52,12 +54,14 @@ Objective/score live in `CURRENT.md`.
   `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
   Default `spot_monsters`/`glyph_updates` Off. Remaining
   uhitm/worn/trap `pline_mon` / rolling-boulder TELEP `pline_xy`
-  / other Soundeffect / `spot_monsters` addr named. Do not treat
+  / other Soundeffect / `mon_movement` addr named. Do not treat
   `dothrow` `game.thrownobj` as wired (review **172**). Do not
   Must-fix `DIR_UP`/`DIR_DOWN` const swap (review **178**).
 
 ## Landmarks (≤15)
 
+- D-1235: `spot_monsters` addr `&a11y.mon_notices`; default Off;
+  `mon_movement` addr still named.
 - D-1234: unique/pname `corpse_xname` adjective + rot `CXN_NO_PFX`;
   glob / doname CXN_ARTICLE|CXN_NOCORPSE still named.
 - D-1233: `hmonas`/`damageum` `troll_baned` ternary/`uwep`;
@@ -72,7 +76,7 @@ Objective/score live in `CURRENT.md`.
 - D-1229: `impact_disturbs_zombies` owt/flimsy; dropz / throwit
   `!IS_SOFT` / kick place; hideunder / container_impact named.
 - D-1228: `msg_mon_movement` dest `pline_xy` after place; not
-  `pline_mon`; optlist addr named.
+  `pline_mon`; optlist `&a11y.mon_movement` addr named.
 - D-1227: monmove remaining `pline_mon` (flee/web/door/itsstuck).
 - D-1226: `test_move` run>=2 boulder `pline_dir`; cannot_push named.
 - D-1225: `known_spell` + `spelleffects` SPE_TELEPORT_AWAY atme.

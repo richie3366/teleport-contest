@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates.
 - [ ] `options.c` `optlist` `&a11y.mon_movement` (named). Not spot_monsters.
 - [ ] `teleport.c` rolling-boulder TELEP `pline_xy` (named). Not `#teleport`.
 - [ ] `monmove.c` `mind_blast` (named). Not msg_mon_movement.

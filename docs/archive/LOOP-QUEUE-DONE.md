@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `do.c` `revive_corpse` unique/pname `corpse_xname` adjective (named). Not Soundeffect. **Addressed:** D-1234
+- [x] `options.c` `optlist` `&a11y.spot_monsters` (named). Not glyph_updates. **Addressed:** D-1235
+
+
+- [x] `do.c` `revive_corpse` unique/pname `corpse_xname` adjective (named). Not Soundeffect. **Addressed:** D-1234 `e0ea385e`
 
 
 - [x] `uhitm.c` `hmonas` `troll_baned` `mkcorpstat_norevive` (named). Not hmon_hitmon. **Addressed:** D-1233 `976094e5`

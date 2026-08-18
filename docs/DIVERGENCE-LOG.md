@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1235 — `options.c` `optlist` `spot_monsters` → `a11y.mon_notices`
+
+- **Status:** fixed (map-driven Open; named omit from D-1142 /
+  D-1200 / D-1218 / D-1219; not a public FAIL)
+- **Symptom:** JS `notice_mon` / `notice_all_mons` already read
+  `a11y.mon_notices` (D-1142), but doset / `OPTIONS=` wrote
+  `flags.spot_monsters`. Turning the option On in JS could not
+  enable You see/notice. C `NHOPTB` addr is `&a11y.mon_notices`.
+  Default Off. No `optfn_boolean` after-change arm (unlike
+  `opt_accessiblemsg` msg_loc zero).
+- **C locus:** `optlist.h` `NHOPTB(spot_monsters, … Off, …,
+  &a11y.mon_notices)` `:708–710`; `options.c` `optfn_boolean`
+  `*(allopt[].addr) = !negated` `:5286`; `if (go.opt_initial)
+  return` `:5327–5328`; no `case opt_spot_monsters`.
+- **JS was:** `DOSET_BOOL_ADDR.spot_monsters` → `flags`; unknown
+  `OPTIONS=` bools dumped to `flags[lname]`.
+- **Fix:** addr `{ obj: 'a11y', key: 'mon_notices' }`;
+  `parseNethackrc` uncoloned + colon true/yes/on/1 (C `strncmpi`);
+  jsmain applies `opts.a11y.mon_notices`. Config (`opt_initial`)
+  writes without a toggle pline. Default Off. Leftover
+  `flags.spot_monsters` does not enable catch-up. Rule #2: no fs.
+- **JS:** `js/options.js`; `js/jsmain.js`; comment `js/hack.js`.
+- **Not this iter:** `&a11y.mon_movement` addr; remaining
+  `optfn_boolean` after-change arms; `noaccessiblemsg` `no`-prefix
+  parse; vision.c `notice_all_mons` caller. Rule #2: no fs.
+- **Verified:** private canary **36**/36 (OPTIONS= On/Off/combo;
+  colon words including `t`; negated/invalid colon not flags;
+  doset addr; no msg_loc zero; `opt_initial`; leftover flags
+  ignored; On reset clears `mspotted` when `!canspotmon`; Off
+  leaves mspotted; jsmain-like apply); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless `spot_monsters` is On
+  (default Off). seed0007 `O` still shows `[false]`.
+- **Follow-up:** Open `options.c` `optlist` `&a11y.mon_movement`.
+
 ## D-1234 — `revive_corpse` unique/pname `corpse_xname` adjective
 
 - **Status:** fixed (map-driven Open; named omit from D-1081 /
