@@ -3514,11 +3514,48 @@ export function coord_desc(x, y, cmode) {
 }
 
 /**
+ * C pline.c set_msg_xy 93–97 — store a11y.msg_loc for the next vpline.
+ * Consume is D-1207; pline_xy/pline_mon writers are D-1215.
+ */
+export function set_msg_xy(x, y) {
+    if (!game.a11y) {
+        game.a11y = { accessiblemsg: false, msg_loc: { x: 0, y: 0 } };
+    }
+    if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
+    game.a11y.msg_loc.x = x | 0;
+    game.a11y.msg_loc.y = y | 0;
+}
+
+/**
+ * C pline.c pline_xy 126–135 — set_msg_xy then vpline.
+ */
+export async function pline_xy(x, y, msg) {
+    set_msg_xy(x, y);
+    await pline(msg);
+}
+
+/**
+ * C pline.c pline_mon 137–150 — &youmonst → (0,0) (not hero ux,uy);
+ * else mx,my; then vpline. isok rejects x=0 so youmonst never prefixes.
+ * Named omit: remaining pline sites that C calls as pline_mon;
+ * set_msg_dir / pline_dir; msg_mon_movement; rolling-boulder TELEP
+ * pline_xy; mention_walls path block.
+ */
+export async function pline_mon(mtmp, msg) {
+    if (mtmp === game.youmonst) {
+        set_msg_xy(0, 0);
+    } else {
+        set_msg_xy(mtmp.mx, mtmp.my);
+    }
+    await pline(msg);
+}
+
+/**
  * C pline.c vpline 162–189 — snapshot a11y.msg_loc then always reset to
  * 0,0 (even empty / Norep-suppressed / accessiblemsg Off). If
  * accessiblemsg && isok(saved), prefix `coord_desc: ` (NONE→COMFULL).
- * D-1207. Named: pline_xy/pline_mon/set_msg_dir writers; optlist wire
- * onto a11y.accessiblemsg (JS doset still flags.accessiblemsg).
+ * D-1207. Writers: pline_xy/pline_mon D-1215. Named: set_msg_dir;
+ * optlist wire onto a11y.accessiblemsg (JS doset still flags.accessiblemsg).
  */
 function vpline_consume_msg_loc(msg) {
     if (!game.a11y) {

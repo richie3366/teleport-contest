@@ -21,6 +21,28 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 10:47 — #1543 D-1215 pline_xy/pline_mon
+
+**Objective:** Open — `pline.c` `pline_xy`/`pline_mon`
+(named). Not set_msg_dir.
+**C locus:** `pline.c` `pline_xy` 126–135 / `pline_mon`
+137–150; callee `set_msg_xy` 93–97 then `vpline`. Callers
+`weapon.c` 892, `muse.c` 187, `steal.c` 836, `dogmove.c` 460,
+`monmove.c` `mb_trapped` 58.
+**Change:** `set_msg_xy`+writers in `display.js`; hack
+re-exports store. youmonst → (0,0) not ux,uy. Wired live
+wield/zap/drop/pickup/`mb_trapped`. Did not pull `set_msg_dir`
+/ remaining `pline_mon` / `msg_mon_movement`. Filled D-1214
+archive hash `b44c4847`. Rotated #1528. Open 9 after archive
+(no refill). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1540** **44**/44; next
+@**#1545**).
+**Verified:** private canary **31**/31; green+strict
+seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0360/
+4500/2200/0014/0004/0060.
+**Next:** Open `pline.c` `set_msg_dir` (named). Not pline_xy.
+**Blocked:** none.
+
 ## 2026-08-18 10:36 — #1542 D-1214 disturb_buried_zombies
 
 **Objective:** Open — `hack.c` `disturb_buried_zombies`
@@ -344,28 +366,4 @@ Public-unhit unless a metallivore eats mail or last lit
 Sunsword is destroyed.
 **Next:** Open `teleport.c` `scrolltele` unconscious (named).
 Not Override yn.
-**Blocked:** none.
-
-## 2026-08-18 06:02 — #1528 D-1203 wiz_level_change drain
-
-**Objective:** Open — `cmd.c` `wiz_level_change` (named). Not
-notice_mon_off.
-**C locus:** `wizcmds.c` `wiz_level_change` 444–487; `exper.c`
-`losexp` 214–217 (`#levelchange` nulls drainer before
-`resists_drli`); registered `cmd.c` extcmdlist.
-**Change:** drain loop `losexp("#levelchange")` + clamp `<1` to
-1; `u.ulevelmax = u.ulevel` after drain/raise; `losexp`
-override so Drain_resistance does not block the wizard request
-and it is never fatal; ESC/empty → Never_mind + ECMD_OK.
-Did not pull `makemap_prepost` / `wiz_makemap`, Upolyd mh, or
-level-1 `done(DIED)`. Filled D-1202 archive hash `dfed1743`.
-Rotated #1513. Open 11 after archive (no refill). Rule #2: no
-fs.
-**Score:** fortress unchanged (cadence **#1525** **44**/44; next
-@**#1530**).
-**Verified:** `losexp` canary **9**/9; green+strict
-seed8000/0900; cohort **16**/16 + strict lengths (0360/0361/
-0373/0108/0116/0006/2200/4500/1500/1800/0004/0012/0367/0398).
-Public raise tours unhit on the drain arm.
-**Next:** Open `eat.c` `eatspecial` (named). Not doeat_nonfood.
 **Blocked:** none.

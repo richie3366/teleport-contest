@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon. **Addressed:** D-1214
+- [x] `pline.c` `pline_xy`/`pline_mon` (named). Not set_msg_dir. **Addressed:** D-1215
+
+
+- [x] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon. **Addressed:** D-1214 `b44c4847`
 
 
 - [x] `dig.c` `rot_corpse` invent/minvent worn plines (named). Not REVIVE. **Addressed:** D-1213 `c85424f4`

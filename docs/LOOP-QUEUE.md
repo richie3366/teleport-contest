@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pline.c` `pline_xy`/`pline_mon` (named). Not set_msg_dir.
 - [ ] `pline.c` `set_msg_dir` (named). Not pline_xy.
 - [ ] `cmd.c` `dolookaround` (named). Not glyph_updates.
 - [ ] `options.c` `opt_accessiblemsg` wire `a11y.accessiblemsg` (named). Not dolookaround.

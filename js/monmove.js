@@ -67,7 +67,7 @@ import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
 import { check_gear_next_turn } from './worn.js';
 import { picking_lock } from './lock.js';
-import { newsym, pline, canseemon as display_canseemon } from './display.js';
+import { newsym, pline, canseemon as display_canseemon, pline_mon } from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { shk_move, gd_move, pri_move } from './shk.js';
 import { tactics } from './wizard.js';
@@ -831,7 +831,7 @@ function monhaskey(mon, for_unlocking) {
 async function mb_trapped(mtmp, canseeit) {
     if (game.flags?.verbose !== false) {
         if (canseeit && !game.u?.Unaware) {
-            await pline('KABOOM!!  You see a door explode.');
+            await pline_mon(mtmp, 'KABOOM!!  You see a door explode.');
         } else if (!game.u?.Deaf) {
             const far = dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy) > 7 * 7;
             await pline(`You hear a ${far ? 'distant' : 'nearby'} explosion.`);

@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1215 — `pline.c` `pline_xy` / `pline_mon`
+
+- **Status:** fixed (map-driven Open; named omit from D-1207 /
+  review **169**; not a public FAIL)
+- **Symptom:** JS had `set_msg_xy` + `vpline` consume (D-1207)
+  but no C writers. Callers that C routes through `pline_xy` /
+  `pline_mon` used `pline`, so `a11y.msg_loc` stayed 0,0 and
+  `accessiblemsg` On could not prefix those messages. `pline_mon`
+  of `&gy.youmonst` must store (0,0), not hero `ux,uy`.
+- **C locus:** `pline.c` `pline_xy` `:126–135`; `pline_mon`
+  `:137–150`; callee `set_msg_xy` `:93–97` then `vpline`.
+  Live already-ported callers: `weapon.c` `mon_wield_item` 892;
+  `muse.c` `mzapwand` 187; `steal.c` `mdrop_obj` 836;
+  `dogmove.c` pickup 460 (`pline_xy`); `monmove.c` `mb_trapped`
+  58 (dig.c clone of the same C helper).
+- **JS was:** `set_msg_xy` in `hack.js`; `pline` only.
+- **Fix:** `set_msg_xy` + `pline_xy` + `pline_mon` in
+  `display.js` (C `pline.c` home); `hack.js` re-exports
+  `set_msg_xy`. youmonst pointer → (0,0); else `mx,my`. Wired
+  those live sites. Rule #2: no fs.
+- **JS:** `js/display.js`; re-export `js/hack.js`; callers
+  `weapon.js` / `muse.js` / `dogmove.js` / `monmove.js` /
+  `dig.js`.
+- **Not this iter:** `set_msg_dir` / `pline_dir`; remaining
+  `pline_mon` sites; `msg_mon_movement`; rolling-boulder TELEP
+  `pline_xy`; mention_walls path block; `opt_accessiblemsg`
+  wire. Rule #2: no fs.
+- **Verified:** private canary **31**/31 (Off consume/no prefix;
+  On NONE→COMFULL; (0,0) no prefix; youmonst vs same-coords
+  pointer; MAP/SCREEN; unit east; `|0`; empty still resets;
+  leftover consume; hack re-export identity; null throws; no
+  fs); green+strict seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0360/4500/2200/0014/0004/0060. Path
+  public-unhit unless `accessiblemsg` is On (default Off).
+- **Files:** `js/display.js`, `js/hack.js`, `js/weapon.js`,
+  `js/muse.js`, `js/dogmove.js`, `js/monmove.js`, `js/dig.js`.
+
 ## D-1214 — `disturb_buried_zombies`
 
 - **Status:** fixed (map-driven Open; named omit from D-1202 /
