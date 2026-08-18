@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1525** 44/44 @**#1530**. Next `scrolltele` unconscious.
-  Do not skip D-1204.
+- **#1530** 44/44 R² 0.868 @**#1535**. Next `scrolltele` unconscious.
+  Reviews **163–166** ACCEPT / ACCEPT-WITH-DEBT; no new Must-fix.
+  Do not revert D-1201–D-1204.
 
 ## Don't re-check (≤15)
 
@@ -90,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1525; #1529 D-1204; next scrolltele unconscious.
+- #1530; #1529 D-1204; next scrolltele unconscious.

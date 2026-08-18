@@ -172,3 +172,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [160-2f8f7d9f-migrate-xyflags-bit2.md](./160-2f8f7d9f-migrate-xyflags-bit2.md) | `2f8f7d9f` | D-1198 migrate bit 2 | **ACCEPT** |
 | [161-4dc76022-mon-arrive-xyflags.md](./161-4dc76022-mon-arrive-xyflags.md) | `4dc76022` | D-1199 `mon_arrive` `my=xyflags` | **ACCEPT-WITH-DEBT** |
 | [162-15cb4a37-newgame-notice-mon-off.md](./162-15cb4a37-newgame-notice-mon-off.md) | `15cb4a37` | D-1200 newgame `notice_mon_off` | **ACCEPT** |
+| [163-4ffc2264-init-artifacts.md](./163-4ffc2264-init-artifacts.md) | `4ffc2264` | D-1201 `init_artifacts` | **ACCEPT** |
+| [164-dfed1743-revive-zombify.md](./164-dfed1743-revive-zombify.md) | `dfed1743` | D-1202 REVIVE/ZOMBIFY | **ACCEPT-WITH-DEBT** |
+| [165-a16884ab-wiz-level-change.md](./165-a16884ab-wiz-level-change.md) | `a16884ab` | D-1203 `#levelchange` drain | **ACCEPT** |
+| [166-dbd3a08b-eatspecial-mail-uwepgone.md](./166-dbd3a08b-eatspecial-mail-uwepgone.md) | `dbd3a08b` | D-1204 `eatspecial` MAIL + `uwepgone` | **ACCEPT-WITH-DEBT** |

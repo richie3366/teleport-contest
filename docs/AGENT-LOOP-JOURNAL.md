@@ -21,6 +21,36 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 06:35 — #1530 review D-1201–D-1204 + cadence score
+
+**Objective:** audit = written C-fidelity review **and** full
+`sessions` score (iteration-count % 5 == 0). No `js/` port.
+**C locus:** `artifact.c` `init_artifacts` 111–116 /
+`hack_artifacts` 87–107 / `allmain.c` 792; `do.c` `revive_mon`
+2251–2295 / `zombify_mon` 2298–2315 / `timeout.c` 1982–1983 /
+`mon.c` `zombie_form` 386–413; `wizcmds.c` `wiz_level_change`
+444–487 / `exper.c` `losexp` 214–217; `eat.c` `eatspecial`
+2432–2447 / `wield.c` `uwepgone` 873–885 / `apply.c`
+`o_unleash` 711–722.
+**Change:** reviews **163** ACCEPT D-1201 (memset + gift/Excalibur/
+questarti live; `restore_artifacts` / sparse `questarti` named),
+**164** ACCEPT-WITH-DEBT D-1202 (callbacks + `mkobj.js` dispatch
+live; `gz.zombify` setters / `set_corpsenm` `oeaten` / `fill_pit`
+settle named, not Must-fix), **165** ACCEPT D-1203 (drain loop +
+`#levelchange` override + `ulevelmax`; `+N sscanf` named),
+**166** ACCEPT-WITH-DEBT D-1204 (MAIL pline + snuff/`end_burn`
+live; sticky `Blind_w` / local `Tobjnam` clone debt, not
+Must-fix). Filled D-1204 archive hash `dbd3a08b`. No new Must-fix
+prepend. Open 10 (no refill). Rotated #1515. Rule #2: no fs.
+**Score:** cadence **#1530** **44**/44 Scr **11405**/11405 RNG
+**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.868). Next
+@**#1535**.
+**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
+full `sessions` `__RESULTS_JSON__`.
+**Next:** Open `teleport.c` `scrolltele` unconscious (named).
+Not Override yn.
+**Blocked:** none.
+
 ## 2026-08-18 06:17 — #1529 D-1204 eatspecial SCR_MAIL + uwepgone light
 
 **Objective:** Open — `eat.c` `eatspecial` (named). Not
@@ -342,29 +372,4 @@ Open 11 after archive (no refill). Rule #2: no fs.
 seed8000/0900; cohort **39**/39 + strict lengths.
 **Next:** Open `do.c` `goto_level` `notice_mon_off` (named).
 Not docrt.
-**Blocked:** none.
-
-## 2026-08-18 01:05 — #1515 review D-1189–D-1192 + cadence score
-
-**Objective:** audit = written C-fidelity review **and** full
-`sessions` score (iteration-count % 5 == 0). No `js/` port.
-**C locus:** `cmd.c` rhack 3833–3834 / `hacklib.c` `visctrl`
-469–493; `do.c` `goto_level` 1817 / `mon.c` 5639–5677; `do.c`
-1818–1823 / `timeout.c` 2222–2241; `allmain.c` 826–829 /
-`files.c` 2537–2601 / `cfgfiles.c` 1214–1218.
-**Change:** reviews **151** ACCEPT D-1189 (`visctrl(key)` `^C`;
-callee live), **152** ACCEPT D-1190 (`kill_genocided` after
-`losedogs`; `newcham` named), **153** ACCEPT D-1191 (`run_timers`
-after wipe; REVIVE named), **154** ACCEPT-WITH-DEBT D-1192
-(overflow FALSE at hero live; `wizkit_wishing` unread / `WIZKIT=`
-spaces-colon / EOF leftover clone debt, not Must-fix). Filled
-D-1192 archive hash `cf9eb066`. No new Must-fix prepend. Open 12
-(no refill). Rotated #1500. Rule #2: no fs.
-**Score:** cadence **#1515** **44**/44 Scr **11405**/11405 RNG
-**792838**/792838 (100%) speed `32+0.27/turn` (R² 0.875). Next
-@**#1520**.
-**Verified:** C read of the four loci vs JS hunks; grep FORCE/fs/seed;
-full `sessions` `__RESULTS_JSON__`.
-**Next:** Open `dokick.c` `deliver_obj_to_mon` (named). Not
-obj_delivery.
 **Blocked:** none.

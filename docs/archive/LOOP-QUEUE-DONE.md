@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-18
 
-- [x] `eat.c` `eatspecial` (named). Not doeat_nonfood. **Addressed:** D-1204
+- [x] `eat.c` `eatspecial` (named). Not doeat_nonfood. **Addressed:** D-1204 `dbd3a08b`
 
 
 - [x] `cmd.c` `wiz_level_change` (named). Not notice_mon_off. **Addressed:** D-1203 `a16884ab`
