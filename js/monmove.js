@@ -9,6 +9,7 @@ import {
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
+    grounded,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -44,7 +45,7 @@ import {
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
-import { is_pool, is_lava, in_town, stop_occupation, noattacks } from './hack.js';
+import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies } from './hack.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
@@ -1846,6 +1847,10 @@ export async function dochug(mtmp) {
             }
         }
         if (status === MMOVE_MOVED) {
+            // C: unstuck grabber / helpless after disturb still named
+            if (grounded(mdat)) {
+                disturb_buried_zombies(mtmp.mx | 0, mtmp.my | 0);
+            }
             /* Monsters can move and then shoot on same turn;
                C: ranged_attk_available || AT_WEAP || find_offensive */
             if (nearby

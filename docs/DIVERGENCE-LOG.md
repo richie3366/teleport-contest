@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1214 — `disturb_buried_zombies`
+
+- **Status:** fixed (map-driven Open; named omit from D-1202 /
+  D-1210 / D-1211 / D-1213; not a public FAIL)
+- **Symptom:** a buried CORPSE with a live `ZOMBIFY_MON` timer
+  in the 3×3 of a rumble, grounded hero tread, `wake_nearto`,
+  or grounded monster step kept its remaining turns. C shrinks
+  remaining to `max(1, t*2/3)` (integer toward 0).
+- **C locus:** `hack.c` `disturb_buried_zombies` `:1798–1813`.
+  Callers `hack.c:494` rumble after `closed_door`; `:2944–2947`
+  tread after occupy+run-stop (`!Levitation && !Flying &&
+  !Stealth && cwt >= WT_ELF/2`); `mon.c:4398` `wake_nearto_core`;
+  `monmove.c:938–939` grounded `MMOVE_MOVED`. Callee
+  `timeout.c` `peek_timer` `:2324` (absolute timeout; `> 0`
+  means present); `stop_timer` remaining; `start_timer`.
+- **JS was:** no buried-list walk; rumble/tread/wake/move
+  never touched `ZOMBIFY_MON`.
+- **Fix:** C body + those four callers. `peek_timer` matches
+  action+obj (not kind); `obj_has_timer` is `peek != 0`.
+  Grounded `MMOVE_MOVED` runs before the nearby/ranged early
+  return. Rule #2: no fs.
+- **JS:** `js/hack.js` `disturb_buried_zombies` /
+  `hero_tread_disturb_buried_zombies` / rumble; `js/mkobj.js`
+  `peek_timer`; `js/cmd.js` tread; `js/mon.js`
+  `wake_nearto_core`; `js/monmove.js` grounded `MMOVE_MOVED`.
+- **Not this iter:** `impact_disturbs_zombies` (drop/throw
+  owt/flimsy); local `wake_nearby` clones in trap/lock/timeout/dig;
+  hideunder after tread; unstuck grabber / helpless after disturb.
+- **Verified:** private canary **29**/29 (9→6 / 1→1 / 2→1 /
+  3→2 / 8→5; 3×3 skip; ROT-only skip; non-CORPSE; untimed;
+  due→1; pair 9→6 and 15→10; tread / Lev / Fly / Stealth skip /
+  `BStealth` still treads / cwt 399 skip / 400 treads;
+  `peek_timer`/`obj_has_timer`; goblin grounded, bat not);
+  green+strict seed8000/0900; cohort **6**/6 + strict
+  1500/1800/0012/0004/2200/0060.
+- **Files:** `js/hack.js`, `js/mkobj.js`, `js/cmd.js`,
+  `js/mon.js`, `js/monmove.js`.
+
 ## D-1213 — `rot_corpse` invent/minvent worn plines
 
 - **Status:** fixed (map-driven Open; named omit from D-0405 /

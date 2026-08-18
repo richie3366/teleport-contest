@@ -68,6 +68,7 @@ import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
     impaired_movement, is_pool, is_lava, carrying_too_much,
     invocation_message, avoid_trap_andor_region,
+    hero_tread_disturb_buried_zombies,
 } from './hack.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
@@ -1974,6 +1975,9 @@ async function domove(dx, dy) {
             end_running();
         }
     }
+
+    // C hack.c:2944–2947 — tread may disturb buried zombies
+    hero_tread_disturb_buried_zombies();
 
     // Update display. C hack.c:2964–2973 — newsym(ux0,uy0);
     // vision_recalc(1); invocation_message(); only when the hero

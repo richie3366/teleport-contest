@@ -21,6 +21,30 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-08-18 10:36 — #1542 D-1214 disturb_buried_zombies
+
+**Objective:** Open — `hack.c` `disturb_buried_zombies`
+(named). Not zombify_mon.
+**C locus:** `hack.c` `disturb_buried_zombies` 1798–1813;
+callers rumble `:494`, tread `:2944–2947`, `mon.c`
+`wake_nearto_core` `:4398`, `monmove.c` grounded `MMOVE_MOVED`
+`:938–939`; `timeout.c` `peek_timer` 2324.
+**Change:** buried CORPSE 3×3 `peek` then `max(1,t*2/3)`;
+rumble after closed_door; tread `!Lev&&!Fly&&!Stealth&&
+cwt>=WT_ELF/2`; wake; grounded move before nearby return.
+Did not pull `impact_disturbs_zombies`, local wake clones,
+hideunder after tread. Filled D-1213 archive hash `c85424f4`.
+Rotated #1527. Open 10 after archive (no refill). Rule #2:
+no fs.
+**Score:** fortress unchanged (cadence **#1540** **44**/44; next
+@**#1545**).
+**Verified:** private canary **29**/29; green+strict
+seed8000/0900; cohort **6**/6 + strict 1500/1800/0012/0004/
+2200/0060.
+**Next:** Open `pline.c` `pline_xy`/`pline_mon` (named). Not
+set_msg_dir.
+**Blocked:** none.
+
 ## 2026-08-18 10:20 — #1541 D-1213 rot_corpse invent/minvent worn plines
 
 **Objective:** Open — `dig.c` `rot_corpse` invent/minvent worn
@@ -344,28 +368,4 @@ seed8000/0900; cohort **16**/16 + strict lengths (0360/0361/
 0373/0108/0116/0006/2200/4500/1500/1800/0004/0012/0367/0398).
 Public raise tours unhit on the drain arm.
 **Next:** Open `eat.c` `eatspecial` (named). Not doeat_nonfood.
-**Blocked:** none.
-
-## 2026-08-18 05:52 — #1527 D-1202 REVIVE/ZOMBIFY
-
-**Objective:** Open — `timeout.c` REVIVE/ZOMBIFY (named). Not
-`run_timers`.
-**C locus:** `do.c` `revive_mon` 2251–2295 / `zombify_mon`
-2298–2315 (table `timeout.c` 1982–1983); `mon.c` `zombie_form`
-386–413; `timeout.c` `obj_has_timer` 2404–2409; `mkobj.c`
-`start_corpse_timeout` 1425–1428; buried pit `do.c`
-`revive_corpse` 2217–2234.
-**Change:** `revive_mon`/`zombify_mon` + `run_timers` dispatch;
-`zombie_form`; zombify `rn1(15,5)` arm; `obj_has_timer`; buried
-zombie pit. Did not pull `gz.zombify` setters, MINVENT/CONTAINED,
-or `rot_corpse` worn plines. Filled D-1201 archive hash
-`4ffc2264`. Rotated #1512. Open 7 after archive → refill to 12.
-Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1525** **44**/44; next
-@**#1530**).
-**Verified:** `zombie_form`/`is_displacer` unit; green+strict
-seed8000/0900; cohort **16**/16 + strict lengths (fresh
-process). Public-unhit unless a REVIVE/ZOMBIFY timer expires.
-**Next:** Open `cmd.c` `wiz_level_change` (named). Not
-notice_mon_off.
 **Blocked:** none.

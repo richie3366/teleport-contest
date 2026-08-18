@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `disturb_buried_zombies` (named). Not zombify_mon.
 - [ ] `pline.c` `pline_xy`/`pline_mon` (named). Not set_msg_dir.
 - [ ] `pline.c` `set_msg_dir` (named). Not pline_xy.
 - [ ] `cmd.c` `dolookaround` (named). Not glyph_updates.

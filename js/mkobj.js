@@ -789,20 +789,27 @@ export function stop_timer(action, obj) {
 }
 
 /**
- * C ref: timeout.c obj_has_timer / peek_timer — true if this object
- * already has a TIMER_OBJECT of the given action (absolute timeout
- * is never 0 for a live entry).
+ * C ref: timeout.c peek_timer — absolute timeout for this
+ * (func_index, obj), or 0 if none. Does not subtract moves
+ * (unlike stop_timer remaining). C matches func_index + arg
+ * pointer, not kind.
  */
-export function obj_has_timer(obj, action) {
-    if (!obj) return false;
+export function peek_timer(type, obj) {
+    if (!obj) return 0;
     for (let curr = timer_base()._timer_base; curr; curr = curr.next) {
-        if ((curr.kind | 0) === TIMER_OBJECT
-            && curr.obj === obj
-            && curr.action === action) {
-            return true;
+        if (curr.action === type && curr.obj === obj) {
+            return curr.timeout | 0;
         }
     }
-    return false;
+    return 0;
+}
+
+/**
+ * C ref: timeout.c obj_has_timer — peek_timer != 0. Absolute
+ * timeout is never 0 for a live entry.
+ */
+export function obj_has_timer(obj, action) {
+    return peek_timer(action, obj) !== 0;
 }
 
 /**

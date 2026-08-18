@@ -25,7 +25,7 @@ import {
     TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
     SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
     INTRINSIC, UNCHANGING,
-    In_mines, ACH_TOWN, NO_PART,
+    In_mines, ACH_TOWN, NO_PART, WT_ELF, TIMER_OBJECT, ZOMBIFY_MON,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
     FROMFORM, P_NONE, LEVITATION, FLYING, BLINDED, FOOT,
     ARTICLE_NONE, ARTICLE_A, ARTICLE_YOUR, SUPPRESS_SADDLE, has_mgivenname,
@@ -35,7 +35,10 @@ import { gethungry, morehungry } from './eat.js';
 import { m_at } from './mon.js';
 import { recalc_block_point } from './vision.js';
 import { is_hider, throws_rocks, noncorporeal, metallivorous, mons, is_flyer } from './monsters.js';
-import { objects_at, obj_extract_self, place_object, delobj } from './mkobj.js';
+import {
+    objects_at, obj_extract_self, place_object, delobj,
+    peek_timer, stop_timer, start_timer,
+} from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS } from './objects.js';
 import { xname, The, makeplural } from './objnam.js';
@@ -57,6 +60,7 @@ const DIRS_ORD = [
 ];
 
 const BOULDER = objectNames.indexOf('BOULDER');
+const CORPSE = objectNames.indexOf('CORPSE');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
@@ -203,10 +207,12 @@ async function dopush(sx, sy, rx, ry, otmp) {
 /**
  * C ref: hack.c moverock_core — push boulder(s) at (sx,sy) along u.dx/u.dy.
  * Branch envelope: clear-dest dopush + monster-behind You_hear/canspotmon
- * + closed_door cannot_push_msg (D-0317). Named omissions: Sokoban diagonal,
+ * + closed_door cannot_push_msg (D-0317) + rumbling
+ * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
  * shop costly, trap/teleport/pool arms, Blind feel, Levitation (present),
  * verysmall, giant/squeeze/nopick, tunneling chew, revive_nasty,
- * next_boulder naming, y_monnam steed wording, cannot_push giant arms.
+ * next_boulder naming, y_monnam steed wording, cannot_push giant arms,
+ * impact_disturbs_zombies.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */
 async function moverock_core(sx, sy) {
@@ -277,7 +283,8 @@ async function moverock_core(sx, sy) {
                 return cannot_push(otmp, sx, sy);
             }
 
-            // Trap / pool / disturb_buried_zombies arms deferred
+            disturb_buried_zombies(sx, sy);
+            // Trap / pool arms deferred
             await dopush(sx, sy, rx, ry, otmp);
         } else {
             await cannot_push_msg(otmp, sx, sy);
@@ -296,6 +303,49 @@ export async function moverock() {
     const sx = u.ux + u.dx;
     const sy = u.uy + u.dy;
     return moverock_core(sx, sy);
+}
+
+/**
+ * C ref: hack.c disturb_buried_zombies — shrink ZOMBIFY_MON remaining
+ * on buried CORPSE in the 3×3 around (x,y) to max(1, t*2/3).
+ * peek_timer is absolute timeout (gate > 0); stop_timer returns
+ * remaining; integer t*2/3 toward 0. Named omit:
+ * impact_disturbs_zombies (drop/throw owt/flimsy gate).
+ */
+export function disturb_buried_zombies(x, y) {
+    const px = x | 0;
+    const py = y | 0;
+    for (let otmp = game.level?.buriedobjlist || null; otmp; otmp = otmp.nobj) {
+        let t;
+        if ((otmp.otyp | 0) === CORPSE && (otmp.timed | 0)
+            && (otmp.ox | 0) >= px - 1 && (otmp.ox | 0) <= px + 1
+            && (otmp.oy | 0) >= py - 1 && (otmp.oy | 0) <= py + 1
+            && (t = peek_timer(ZOMBIFY_MON, otmp)) > 0) {
+            t = stop_timer(ZOMBIFY_MON, otmp);
+            start_timer(
+                Math.max(1, ((t * 2) / 3) | 0),
+                TIMER_OBJECT,
+                ZOMBIFY_MON,
+                otmp,
+            );
+        }
+    }
+}
+
+/**
+ * C ref: hack.c:2944–2947 — tread may disturb buried zombies after
+ * occupy + run-stop, before hideunder. Levitation/Flying youprop.h;
+ * Stealth (H||E)&&!B; cwt >= WT_ELF/2.
+ */
+export function hero_tread_disturb_buried_zombies() {
+    const u = game.u;
+    if (!u) return;
+    const Stealth = !!(_uprop_he_st(u, 'HStealth', 'EStealth', STEALTH)
+        && !((u.BStealth | 0) || (u.uprops?.[STEALTH]?.blocked | 0)));
+    if (!Levitation_st() && !Flying_st() && !Stealth
+        && (game.youmonst?.data?.cwt | 0) >= ((WT_ELF / 2) | 0)) {
+        disturb_buried_zombies(u.ux | 0, u.uy | 0);
+    }
 }
 
 /** True if floor cell has a boulder (domove test_move gate). */
