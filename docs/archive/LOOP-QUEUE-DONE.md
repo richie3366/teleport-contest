@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-17
 
-- [x] `teleport.c` `rloc_to_core` `set_msg_xy` (named). Not makeknown. **Addressed:** D-1196
+- [x] `teleport.c` `rloc_to_core` `set_msg_xy` (named). Not makeknown. **Addressed:** D-1196 `d0cbc6e3`
 
 
 - [x] `teleport.c` `rloc_to_core` wand `makeknown` (named). Not ustuck-together. **Addressed:** D-1195 `143f9a46`

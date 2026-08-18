@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#1519** 44/44 @**#1520**. Next `scrolltele` W-tower Override yn.
+- **#1520** 44/44 @**#1525**. Next `scrolltele` W-tower Override yn.
   Do not skip D-1196.
 
 ## Don't re-check (≤15)
@@ -86,4 +86,4 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- #1519; next `scrolltele` W-tower Override yn.
+- #1520; next `scrolltele` W-tower Override yn.

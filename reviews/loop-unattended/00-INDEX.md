@@ -164,3 +164,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [152-9a2cbc27-kill-genocided.md](./152-9a2cbc27-kill-genocided.md) | `9a2cbc27` | D-1190 `goto_level` `kill_genocided` | **ACCEPT** |
 | [153-cc7d0ef5-run-timers.md](./153-cc7d0ef5-run-timers.md) | `cc7d0ef5` | D-1191 `goto_level` `run_timers` | **ACCEPT** |
 | [154-cf9eb066-wizkit-obj-delivery.md](./154-cf9eb066-wizkit-obj-delivery.md) | `cf9eb066` | D-1192 newgame wizkit FALSE | **ACCEPT-WITH-DEBT** |
+| [155-2d2e68c7-deliver-obj-to-mon.md](./155-2d2e68c7-deliver-obj-to-mon.md) | `2d2e68c7` | D-1193 `deliver_obj_to_mon` | **ACCEPT-WITH-DEBT** |
+| [156-c4c57ac1-notice-mon-off.md](./156-c4c57ac1-notice-mon-off.md) | `c4c57ac1` | D-1194 `goto_level` `notice_mon_off` | **ACCEPT** |
+| [157-143f9a46-rloc-wand-makeknown.md](./157-143f9a46-rloc-wand-makeknown.md) | `143f9a46` | D-1195 rloc wand `makeknown` | **ACCEPT** |
+| [158-d0cbc6e3-rloc-set-msg-xy.md](./158-d0cbc6e3-rloc-set-msg-xy.md) | `d0cbc6e3` | D-1196 dest-msg `set_msg_xy` | **ACCEPT-WITH-DEBT** |
