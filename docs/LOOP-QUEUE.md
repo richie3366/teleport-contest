@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` mimic unhide (named from D-1245). Not hideunder.
 - [ ] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`.
 - [ ] `hack.c` nopick `m<dir>` over/against (named from D-1253). Not giant pickup.
 - [ ] `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not container_impact.

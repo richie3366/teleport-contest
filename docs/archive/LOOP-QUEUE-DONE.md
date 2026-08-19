@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS. **Addressed:** D-1259
+- [x] `hack.c` mimic unhide (named from D-1245). Not hideunder. **Addressed:** D-1260
+
+
+- [x] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS. **Addressed:** D-1259 `78707282`
 
 
 - [x] `monmove.c` ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube. **Addressed:** D-1258 `c63ac778`

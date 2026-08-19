@@ -3,7 +3,8 @@
 
 import { game } from './gstate.js';
 import {
-    Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPE, isok, u_at,
+    Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_NOTHING,
+    M_AP_TYPMASK, M_AP_TYPE, isok, u_at,
     IS_OBSTRUCTED, IRONBARS, IS_DOOR, IS_WALL, IS_TREE, IS_STWALL,
     D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
     NO_ROOM, SHARED, SHARED_PLUS, ROOMOFFSET, SHOPBASE, COLNO, ROWNO,
@@ -502,7 +503,7 @@ export function hero_tread_disturb_buried_zombies() {
  * C ref: hack.c:2949–2951 — hideunder(&youmonst) after tread, before
  * mimic unhide / check_leash. Gate: hides_under || S_EEL || dx || dy.
  * Youmonst writes u.uundetected (mon.c hideunder; D-1131). Named:
- * hitfloor dropz(TRUE); mimic m_ap_type unhide.
+ * hitfloor dropz(TRUE).
  */
 export function hero_hideunder_after_move() {
     const u = game.u;
@@ -513,6 +514,25 @@ export function hero_hideunder_after_move() {
         return;
     }
     hideunder(you);
+}
+
+/**
+ * C ref: hack.c:2953–2960 — after hideunder, before check_leash.
+ * Mimics (or whatever) become noticeable if they move while imitating
+ * something that doesn't move. U_AP_TYPE is m_ap_type & M_AP_TYPMASK.
+ * Assignment is M_AP_NOTHING (not seemimic; mappearance leftover).
+ * Named: display_self U_AP_TYPE glyphs; swap-with-pet seemimic;
+ * bump_mon stumble_onto_mimic.
+ */
+export function hero_mimic_unhide_after_move() {
+    const u = game.u;
+    const you = game.youmonst;
+    if (!u || !you) return;
+    if (!(u.dx || u.dy)) return;
+    const ap = (you.m_ap_type | 0) & M_AP_TYPMASK;
+    if (ap === M_AP_OBJECT || ap === M_AP_FURNITURE) {
+        you.m_ap_type = M_AP_NOTHING;
+    }
 }
 
 /** True if floor cell has a boulder (domove test_move gate). */

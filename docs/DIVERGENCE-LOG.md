@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1260 — `hack.c` mimic unhide after hideunder
+
+- **Status:** fixed (map-driven Open; named omit from D-1245; not a
+  public FAIL)
+- **Symptom:** after a real step, a hero imitating furniture or an
+  object (`U_AP_TYPE`) kept that appearance, so dest `newsym` and
+  later `M_AP_TYPE(youmonst)` still treated them as disguised.
+- **C locus:** `hack.c` `domove_core` `:2953–2960` after
+  `hideunder(&youmonst)` `:2949–2951`, before `check_leash`.
+  Gate: `(u.dx || u.dy) && (U_AP_TYPE == M_AP_OBJECT ||
+  U_AP_TYPE == M_AP_FURNITURE)`. Assignment
+  `youmonst.m_ap_type = M_AP_NOTHING` (not `seemimic`;
+  `mappearance` leftover). `monst.h` `U_AP_TYPE` is
+  `m_ap_type & M_AP_TYPMASK`.
+- **JS was:** hideunder live (D-1245); this caller omitted.
+- **Fix:** `hero_mimic_unhide_after_move` after hideunder, before
+  dest `newsym`. `M_AP_MONSTER` and zero-dir (swallow occupy) keep
+  appearance. Rule #2: no fs.
+- **JS:** `js/hack.js` `hero_mimic_unhide_after_move`; `js/cmd.js`
+  after `hero_hideunder_after_move`.
+- **Not this iter:** `display_self` U_AP_TYPE furniture/object/
+  monster glyphs; `domove_swap_with_pet` `seemimic`;
+  `domove_bump_mon` `stumble_onto_mimic`; hitfloor `dropz(TRUE)`.
+- **Verified:** private canary **15**/15 (C order+U_AP_TYPE; JS
+  helper after hideunder; object/furniture drop; leftover
+  mappearance; zero-dir keep; M_AP_MONSTER keep; F_DKNOWN mask;
+  west dx; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless the hero steps while imitating furniture/object.
+- **Follow-up:** Open `mhitu.c` `hitmsg`.
+
 ## D-1259 — `dissolve_bars` `u_at` `switch_terrain`
 
 - **Status:** fixed (map-driven Open; named omit from D-1247;

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 08:53 — D-1260 hack.c mimic unhide
+
+**Objective:** Open `hack.c` mimic unhide (named from D-1245). Not
+hideunder.
+**C locus:** `hack.c` `domove_core` `:2953–2960` after hideunder
+before `check_leash`. `monst.h` `U_AP_TYPE` = `m_ap_type &
+M_AP_TYPMASK`.
+**Change:** `(dx||dy)` + OBJECT/FURNITURE → `m_ap_type=M_AP_NOTHING`
+(not `seemimic`; mappearance leftover). After hideunder, before dest
+`newsym`. Rule #2: no fs.
+**Verified:** private canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless the hero steps while `U_AP_TYPE` is
+furniture/object (eat-mimic gold / `#monster`).
+**Next:** Open `mhitu.c` `hitmsg` (named from D-1240). Not remaining
+uhitm `pline_mon`.
+**Blocked:** none.
 ## 2026-08-19 08:42 — #1597 D-1259 dissolve_bars switch_terrain
 
 **Objective:** Open `hack.c` `switch_terrain` from `dissolve_bars`
