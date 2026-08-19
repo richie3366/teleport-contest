@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 04:45 — #1592 D-1255 glob / doname CXN
+
+**Objective:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE
+(named from D-1234). Not unique/pname adjective.
+**C locus:** `objnam.c` `corpse_xname` `:1841–1900`; `xname_flags`
+FOOD_CLASS `:783–789`; `doname_base` `:1288–1291` / `:1507–1523`.
+**Change:** glob `OBJ_NAME` + skip omit_corpse; xname small/medium/
+large/very large from owt; doname skip article on CORPSE and
+`corpse_xname(prefix, CXN_ARTICLE|CXN_NOCORPSE)` so unique/pname
+invent is possessive. EGG / MEAT_RING still named. Rule #2: no fs.
+**Verified:** private canary **45**/45; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a public session shows a glob or unique/pname
+corpse in invent.
+**Next:** Open `trap.c` landmine·pit mid-roll (named from D-1237).
+Not rolling-boulder TELEP.
+**Blocked:** none.
 ## 2026-08-19 04:30 — #1591 D-1254 hates_silver
 
 **Objective:** Must-fix `weapon.c` `special_dmgval` `mon_hates_silver`

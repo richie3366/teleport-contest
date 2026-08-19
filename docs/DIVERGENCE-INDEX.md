@@ -5,7 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1255 | fixed | objnam.c glob / doname CXN_ARTICLE\|CXN_NOCORPSE | map-driven Open from D-1234; C `objnam.c:1841–1900` glob OBJ_NAME skip omit_corpse; `:783–789` xname size small/medium/large/very large; `doname_base` `:1288–1291` skip article + `:1507–1523` `corpse_xname(prefix, CXN_ARTICLE\|CXN_NOCORPSE)`; EGG / MEAT_RING / candle `partly used` still named |
 | D-1254 | fixed | mondata.c `hates_silver` / `mon_hates_silver` | map-driven Must-fix review **212**; C `mondata.c:524–528` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu + `:517–519` `is_vampshifter`; live in `monsters.js`; deleted `M2_WERE\|M2_DEMON` clones in `weapon.js`/`muse.js`; `dmgval` silver still named |
+
 | D-1253 | fixed | hack.c `cannot_push` giant pickup/maneuver | map-driven; C `hack.c:264–301` `throws_rocks` `inv_cnt(FALSE)<invlet_basic\|\|!carrying(BOULDER)` + `flags.pickup&&!nopick&&autopick_testobj` plines easily-pick / maneuver-and-could / maneuver; unskilled riding You skip `sokoban_guilt`; else guilt + always `return 0`; squeeze D-1239; nopick m-dir still named |
 | D-1252 | fixed | uhitm.c `demonpet` spawn | map-driven; C `uhitm.c:2133–2145` pline hell-p / 1/6 `ndemon(ualign)` else `youmonst.data` / `makemon` NO_MM_FLAGS / `tamedog` null FALSE / `exercise(A_WIS)`; `damageum` `:4848–4851` unarmed M2_DEMON not succubus/balrog; JS `makemon_appear_msg` split (C in-body); AT_ENGL `gulpum` / fight_empty `explum` / altwep still named |
 | D-1251 | fixed | uhitm.c `hmonas` AT_EXPL `explum` | map-driven; C `uhitm.c:4891–4928` `explum` + `hmonas` `:5762–5767` dhit=-1 wakeup/You explode/`explum`/break then `:5821–5824` mh=-1 `rehumanize` before passive; AD_BLND/HALU + COLD/FIRE/ELEC `(adtyp-1)+20` you-caused `explode`; `explode.c` `adtyp_to_expltype` export; fight_empty `explum(null)` / AT_ENGL `gulpum` / altwep still named |

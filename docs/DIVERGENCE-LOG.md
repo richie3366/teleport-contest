@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1255 — `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE
+
+- **Status:** fixed (map-driven Open; named omit from D-1234; not a
+  public FAIL)
+- **Symptom:** `corpse_xname` ignored globby non-CORPSE objects
+  (`OBJ_NAME` "glob of …") and `doname` never passed the BUC/greased/
+  oeaten prefix into `corpse_xname` as adjective, so unique/pname
+  invent lines stayed `"a Medusa corpse"` instead of
+  `"Medusa's corpse"` / `"the Oracle's cursed corpse"`.
+- **C locus:** `objnam.c` `corpse_xname` `:1841–1900` (`glob`,
+  `OBJ_NAME`, skip omit_corpse/quan); `xname_flags` FOOD_CLASS
+  `:783–789` owt size; `doname_base` `:1288–1291` skip article for
+  CORPSE + `:1507–1523` `corpse_xname(obj, prefix, CXN_ARTICLE|CXN_NOCORPSE)`.
+- **JS was:** unique/pname live in `corpse_xname` (D-1234) but glob
+  omitted; `doname` used `pretty_base` `"<mon> corpse"` plus a leading
+  `"a "`/`"the "`.
+- **Fix:** glob `OBJ_NAME` arm; xname size prefixes; doname skip
+  article and rewrite prefix via `corpse_xname` so xname's bare
+  `"corpse"` is prepended with the monster+adjective string. Did not
+  wire EGG / MEAT_RING / candle `partly used` or
+  `iflags.partly_eaten_hack`. Rule #2: no fs.
+- **JS:** `js/objnam.js` `corpse_xname` / `pretty_base` / `doname`.
+- **Not this iter:** doname EGG / MEAT_RING; candle `partly used`;
+  `partly_eaten_hack` shrink_glob `Yname2`; food_xname eat.c.
+- **Verified:** private canary **45**/45 (C glob/doname/xname
+  thresholds; glob OBJ_NAME + size + doname; newt/ogre/troll ordinary
+  unchanged; Medusa/Oracle/Wizard possessive doname; stack quan);
+  green+strict seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/
+  0004/0007/2200/0383. **Public-unhit** unless a public session shows
+  a glob or unique/pname corpse in invent.
+- **Follow-up:** Open `trap.c` landmine·pit mid-roll.
+
 ## D-1254 — `mondata.c` `hates_silver` / `mon_hates_silver`
 
 - **Status:** fixed (map-driven Must-fix from review **212** of

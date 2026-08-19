@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective.
 - [ ] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP.
 - [ ] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`.
 - [ ] `monmove.c` ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube.
