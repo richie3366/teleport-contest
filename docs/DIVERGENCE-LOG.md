@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1249 — `container_impact_dmg` dropz/throwit
+
+- **Status:** fixed (map-driven Open; named omit from D-1229 /
+  review **191**; not a public FAIL)
+- **Symptom:** impact `dropz(TRUE)` and throwit land on hard
+  terrain never shattered glass or cracked eggs inside a
+  non-mbag container. Kick Is_box already called the helper
+  (D-0989).
+- **C locus:** `dokick.c` `container_impact_dmg` `:409–485`.
+  Callers `do.c:831` `if (with_impact)` after `place_object`;
+  `dothrow.c:1828–1831` `!IS_SOFT` with coords `u.ux,u.uy`
+  (throw origin, not `gb.bhitpos`). Kick `:655` Is_box already
+  live. Kick land / obstructed-loose have **no** C call.
+- **JS was:** helper local to `dokick.js`; dropz/throwit named
+  skip after D-1229 impact_disturbs.
+- **Fix:** export helper; wire those two callers. `frominv`
+  remains `obj !== kickedobj`. Soundeffect still empty.
+  Rule #2: no fs.
+- **JS:** `js/dokick.js` export; `js/do.js` `dropz`;
+  `js/dothrow.js` throwit land.
+- **Not this iter:** hitfloor `dropz(TRUE)` (JS `mkobj.js`
+  still `dropy`); `useup` vs quan-- polish; `inside_shop`;
+  mimic unhide; AT_HUGS.
+- **Verified:** private canary **19**/19 (C 3 callers; throw
+  origin coords; kick land skip; dropz true shatter; dropy
+  keep; mbag skip; empty skip; egg crack; GEM skip; swallow
+  skip); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a glass/egg container is
+  impact-dropped or thrown onto hard terrain.
+- **Follow-up:** Open `uhitm.c` AT_HUGS.
+- **Files:** `js/dokick.js`, `js/do.js`, `js/dothrow.js`,
+  `js/hack.js` (comments).
+
 ## D-1248 — `monmove.c` `mon_yells`
 
 - **Status:** fixed (map-driven Open; named omit from D-1247 /

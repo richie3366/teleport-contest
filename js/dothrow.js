@@ -987,7 +987,8 @@ export async function breaks(obj, x, y) {
  * !ZAP_POS / closed door (bhit backs up one step), then place / breaktest.
  * Monster hit → thitmonst (D-0415 food; D-0693 pie/egg DEX;
  * D-1041 weapon/weptool/gem hit-vs-miss). After place, !IS_SOFT
- * impact_disturbs_zombies TRUE (D-1229; container_impact named).
+ * container_impact_dmg(obj, u.ux, u.uy) then impact_disturbs TRUE
+ * (D-1249 / D-1229). hitfloor dropz(TRUE) still named.
  */
 async function throwit(obj) {
     const u = game.u;
@@ -1094,14 +1095,14 @@ async function throwit(obj) {
     }
     // C: !mon && ship_object(obj, bhitpos, FALSE) before place
     {
-        const { ship_object } = await import('./dokick.js');
+        const { ship_object, container_impact_dmg } = await import('./dokick.js');
         if (await ship_object(obj, x, y, false)) return;
-    }
-    place_object(obj, x, y);
-    // C: !IS_SOFT → container_impact_dmg (named) + impact_disturbs TRUE
-    {
+        place_object(obj, x, y);
+        // C dothrow.c:1828–1831 — !IS_SOFT → container at throw origin
+        // (u.ux,u.uy, not bhitpos) then impact_disturbs TRUE
         const land = game.level?.at?.(x, y);
         if (land && !IS_SOFT(land.typ)) {
+            await container_impact_dmg(obj, u.ux | 0, u.uy | 0);
             impact_disturbs_zombies(obj, true);
         }
     }

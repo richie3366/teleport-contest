@@ -20,7 +20,24 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
-## 2026-08-19 02:31 — #1583 D-1248 mon_yells
+## 2026-08-19 02:44 — #1584 D-1249 container_impact_dmg
+
+**Objective:** Open `hack.c` `container_impact_dmg` (named from
+D-1229). Not hideunder. Queue said hack.c; C is `dokick.c`.
+**C locus:** `dokick.c` `container_impact_dmg` `:409–485`; callers
+`do.c:831` dropz `with_impact`; `dothrow.c:1830` throwit `!IS_SOFT`
+at throw origin `u.ux,u.uy` (not bhitpos). Kick Is_box `:655`
+already D-0989.
+**Change:** export live helper; wire those two callers. Kick land
+has no C call. hitfloor `dropz(TRUE)` still named. Rule #2: no fs.
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a container with glass/eggs is impact-dropped
+or thrown onto hard terrain.
+**Next:** Open `uhitm.c` AT_HUGS (named from D-1233). Not remaining
+`pline_mon`.
+**Blocked:** none.
+
 
 **Objective:** Open `monmove.c` `mon_yells` (named). Not iron bars.
 **C locus:** `monmove.c` `mon_yells` `:106–129`; `watch_on_duty`

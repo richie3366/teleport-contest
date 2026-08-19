@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder.
 - [ ] `uhitm.c` AT_HUGS (named from D-1233). Not remaining `pline_mon`.
 - [ ] `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
 - [ ] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL.
