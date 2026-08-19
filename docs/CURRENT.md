@@ -59,20 +59,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1249. **Next cluster:**
-Open `uhitm.c` AT_HUGS (named from D-1233). Not remaining `pline_mon`.
-Do not skip D-1249…D-1229 (index). Keep mention_map addr. Do not wrap
+**Map-driven fortress** after D-1250. **Next cluster:**
+Open `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
+Do not skip D-1250…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull giant pickup/maneuver / hitfloor
-`dropz(TRUE)` / mimic unhide / AT_EXPL/ENGL / altwep / `demonpet`
+`dropz(TRUE)` / mimic unhide / AT_ENGL / altwep / `demonpet`
 / landmine·pit mid-roll / `gelcube_digests` / unported
 uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1249. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1250. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1249** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
+**D-0948**…**D-1250** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
 `glyph_at`; `urole.questarti`; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
@@ -118,7 +118,7 @@ no skip D-1194 wrap; no skip D-1195 wand
 yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
 D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
 `#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
-unconscious / D-1206–D-1249 (`dolookaround`; no empty then-arm; no
+unconscious / D-1206–D-1250 (`dolookaround`; no empty then-arm; no
 `flags.accessiblemsg` / `flags.mention_map` / `flags.spot_monsters` /
 `flags.mon_movement` addr; no Hallu
 `gbuf_show_kind` reroll; no skip se_scratching / `troll_baned` /
@@ -154,6 +154,8 @@ waves/`You_hear`/verbalize1; SetVoice empty; `gelcube_digests` /
 ALLOW_BARS rust / `watch_dig` named);
 no skip D-1249 `container_impact_dmg` dropz/throwit (kick Is_box already
 D-0989; hitfloor `dropz(TRUE)` named);
+no skip D-1250 `hmonas` AT_HUGS (grab/crush/throttle + `special_dmgval`;
+AT_EXPL `explum` / AT_ENGL `gulpum` still named);
 no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).

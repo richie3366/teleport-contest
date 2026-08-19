@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1249 `dokick.c` `container_impact_dmg`
-  at dropz `with_impact` + throwit `!IS_SOFT` (throw origin
-  `u.ux,u.uy`; kick Is_box already D-0989). Cadence
-  **#1585** (`7f54b762`) reviews **208–211** ACCEPT-WITH-DEBT.
-  Next: Open `uhitm.c` AT_HUGS (named from D-1233). Not remaining
-  `pline_mon`. Must-fix empty.
-  Do not skip D-1249…D-1229. Do not pull giant pickup/maneuver /
+- **Fortress 44/44** after D-1250 `uhitm.c` `hmonas` AT_HUGS
+  (grab/crush/throttle + `special_dmgval`/`silver_sears` +
+  `do_attack` `notonhead`). Cadence **#1585** (`7f54b762`)
+  reviews **208–211** ACCEPT-WITH-DEBT.
+  Next: Open `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
+  Must-fix empty.
+  Do not skip D-1250…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / hitfloor `dropz(TRUE)` /
   mimic unhide / AT_EXPL/ENGL /
   altwep / `demonpet` / landmine·pit mid-roll /
@@ -22,9 +22,9 @@ Objective/score live in `CURRENT.md`.
   rust/corr/metallivore / `watch_dig` SetVoice+verbalize.
   Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1249. Do not Must-fix named omits
+- Do not revert D-1217–D-1250. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
-  giant pickup / mimic unhide / hitfloor `dropz(TRUE)`).
+  giant pickup / mimic unhide / hitfloor `dropz(TRUE)` / AT_EXPL).
 
 ## Don't re-check (≤15)
 
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1249 (CURRENT keep; `container_impact_dmg` D-1249).
+  D-1190…D-1250 (CURRENT keep; AT_HUGS D-1250).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -60,10 +60,11 @@ Objective/score live in `CURRENT.md`.
   D-1241; gulpmm `snuff_lit` minvent D-1242; gulpmm `!goodpos`
   return-home D-1243; gulpmm AD_DGST eat D-1244; hideunder after
   tread D-1245; `bee_eat_jelly` D-1246; postmov IRONBARS D-1247;
-  `mon_yells` D-1248; `container_impact_dmg` dropz/throwit D-1249.
+  `mon_yells` D-1248; `container_impact_dmg` dropz/throwit D-1249;
+  `hmonas` AT_HUGS D-1250.
   Glob / doname
   CXN_ARTICLE|CXN_NOCORPSE / mimic unhide /
-  AT_HUGS / `demonpet` / landmine·pit mid-roll /
+  AT_EXPL / `demonpet` / landmine·pit mid-roll /
   giant pickup / unported `mhitm_ad_*`
   `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
   with ALIGN/FORCE.
@@ -80,6 +81,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1250: `uhitm.c` `hmonas` AT_HUGS grab/crush/throttle +
+  `weapon.c` `special_dmgval`/`silver_sears`; `do_attack`
+  `notonhead`. AT_EXPL `explum` / AT_ENGL `gulpum` still named.
 - D-1249: `dokick.c` `container_impact_dmg` export + dropz
   `with_impact` + throwit `!IS_SOFT` at `u.ux,u.uy`. Kick Is_box
   already D-0989. hitfloor `dropz(TRUE)` still named.
@@ -119,6 +123,5 @@ Objective/score live in `CURRENT.md`.
   bee_eat D-1246; IRONBARS D-1247; `mon_yells` D-1248.
 - D-1237: rolling-boulder TELEP `pline_xy` + `rloco`/migrate;
   landmine/pit still named.
-- D-1236: `mon_movement` addr `&a11y.mon_movement`; default Off.
 - Review **208–211** ACCEPT-WITH-DEBT. Cadence **#1585** **44**/44
   including seed0383. Next audit @**#1590**.

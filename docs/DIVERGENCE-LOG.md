@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1250 — `hmonas` AT_HUGS grab/crush/throttle
+
+- **Status:** fixed (map-driven Open; named omit from D-1233 /
+  review **195**; not a public FAIL)
+- **Symptom:** a poly'd hero with an `AT_HUGS` slot skipped the
+  hug entirely (`continue` with AT_NONE), so two successful
+  natural hits never grabbed, an already-held foe was never
+  crushed/throttled, and holder/notonhead skips never bypassed
+  passive the C way.
+- **C locus:** `uhitm.c` `hmonas` AT_HUGS `:5671–5759`;
+  `do_attack` `gn.notonhead` `:518–520`; `mondata.h`
+  `hug_throttles`; `mondata.c` `can_be_strangled` `:591–618` /
+  `sticks`; `polyself.c` `uunstick` `:1941–1951`; `weapon.c`
+  `special_dmgval` `:361–431` / `silver_sears` `:436–466`;
+  `mhitm.c` `failed_grab` `:597–640`.
+- **JS was:** named omit; `hmonas` `continue` on AT_HUGS (skipped
+  passive like AT_NONE); `do_attack` set `bhitpos` but not
+  `notonhead`.
+- **Fix:** AT_HUGS body: skip holders/swallow/notonhead/
+  byhand+weapon/headless via `continue`; wakeup +
+  `special_dmgval`; shade miss vs extra-dmg; `failed_grab`
+  unsolid; crush if `ustuck` else grab after two hits +
+  `set_ustuck` + `damageum`. `do_attack` sets `notonhead`.
+  Did not pull AT_EXPL `explum` / AT_ENGL `gulpum` / altwep /
+  `demonpet` spawn. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `hmonas_hugs` / `do_attack`;
+  `js/weapon.js` `special_dmgval` / `silver_sears`.
+- **Not this iter:** AT_EXPL `explum`; AT_ENGL `gulpum`;
+  two-weapon `uswapwep`; `demonpet` body; remaining
+  `mhitm_ad_*`; mhitu `hitmsg`.
+- **Verified:** private canary **35**/35 (C skip/grab/crush;
+  owlbear already-ustuck crush; two-claw grab; python holder
+  skip; notonhead skip; shade no specialdmg; fog `failed_grab`;
+  rope-golem wield `uunstick`; `do_attack` notonhead;
+  blessed-cloak `rnd(4)` vs demon); green+strict
+  seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0004/
+  0007/2200/0383. **Public-unhit** unless a public session
+  Upolyd-hugs.
+- **Follow-up:** Open `uhitm.c` AT_EXPL.
+
 ## D-1249 — `container_impact_dmg` dropz/throwit
 
 - **Status:** fixed (map-driven Open; named omit from D-1229 /

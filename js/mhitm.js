@@ -1236,7 +1236,7 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
 // C ref: mon.c make_corpse — undead specials before G_NOCORPSE; pudding globs;
 // else default_1. gz.zombify / mkcorpstat_norevive are set by callers around
 // this call, not inside it: xkilled D-1210; mhitm mdamagem D-1211/D-1223;
-// uhitm hmon_hitmon D-1232 / hmonas damageum D-1233.
+// uhitm hmon_hitmon D-1232 / hmonas damageum D-1233 / AT_HUGS D-1250.
 // Named omission: dragon scales, unicorn horn, worm tooth,
 // golem drops, lich dust, and other pre-G_NOCORPSE switch arms (D-0271
 // undead; D-0993 pudding merge).

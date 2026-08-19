@@ -14,6 +14,7 @@ import {
     MIM_REVEAL, engulfing_u, OBJ_FREE, MON_DETACH,
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
     HAND, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT,
+    W_ARM, W_ARMC, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_AMUL,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -26,6 +27,7 @@ import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
     dbon, weapon_dam_bonus, use_skill, weapon_type,
+    special_dmgval, silver_sears,
 } from './weapon.js';
 import { ammo_and_launcher } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
@@ -40,7 +42,7 @@ import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes,
     is_golem, is_mplayer, is_rider, is_undead, is_flyer, is_floater,
-    is_demon, NON_PM,
+    is_demon, NON_PM, has_head, mindless, unsolid, breathless,
 } from './monsters.js';
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
@@ -59,6 +61,7 @@ import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.j
 import { abuse_dog } from './dog.js';
 import { ART_GIANTSLAYER, ART_STORMBRINGER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
+import { which_armor } from './worn.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
@@ -77,7 +80,10 @@ const AD_ACID = 8;
 const AD_STUN = 12;
 const AD_PLYS = 14;
 const AD_STON = 18;
+const AD_STCK = 19;
 const AD_RUST = 24;
+const AD_DGST = 26;
+const AD_WRAP = 28;
 const AD_ENCH = 41;
 const AD_CORR = 42;
 
@@ -87,6 +93,8 @@ const PM_SHADE = monsterNames.indexOf('PM_SHADE');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 const PM_BALROG = monsterNames.indexOf('PM_BALROG');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+const PM_ROPE_GOLEM = monsterNames.indexOf('PM_ROPE_GOLEM');
+const AMULET_OF_MAGICAL_BREATHING = objectNames.indexOf('AMULET_OF_MAGICAL_BREATHING');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
@@ -586,7 +594,7 @@ function bimanual(obj) {
 
 /**
  * C ref: uhitm.c hmon_hitmon_dmg_recalc — udaminc + dbon + weapon_dam_bonus.
- * Named omissions: special_dmgval gloves/silver; PROJECTILE→launcher
+ * Named omissions: PROJECTILE→launcher
  * skillwep swap (ammo uses weapon_type(obj) until shot path ports).
  */
 function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
@@ -1269,11 +1277,187 @@ async function hitum(mon, uattk) {
 }
 
 /**
+ * C ref: mondata.h hug_throttles — rope golem form uses hands to choke.
+ * C: (ptr) == &mons[PM_ROPE_GOLEM] via &mons[u.umonnum].
+ */
+function hug_throttles_umon() {
+    return (game.u?.umonnum | 0) === PM_ROPE_GOLEM;
+}
+
+/**
+ * C ref: mondata.c can_be_strangled — headless immune; mindless+breathless
+ * immune. AT_HUGS mdef is never youmonst; hero arm kept for C shape.
+ */
+function can_be_strangled(mon) {
+    if (!has_head(mon?.data)) return false;
+    let nobrainer;
+    let nonbreathing;
+    if (mon === game.youmonst) {
+        nobrainer = mindless(game.youmonst?.data);
+        const u = game.u || {};
+        nonbreathing = !!(u.Breathless || u.HBreathless || u.EBreathless
+            || u.HMagical_breathing || u.EMagical_breathing
+            || breathless(game.youmonst?.data));
+    } else {
+        nobrainer = mindless(mon.data);
+        const mamul = which_armor(mon, W_AMUL);
+        nonbreathing = !!(breathless(mon.data)
+            || (mamul && (mamul.otyp | 0) === AMULET_OF_MAGICAL_BREATHING));
+    }
+    return !nobrainer || !nonbreathing;
+}
+
+/**
+ * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
+ * Local clone (C AT_HUGS=7 / AT_ENGL=11). Do not import monmove.js sticks.
+ */
+function sticks(ptr) {
+    const slots = ptr?.mattk || [];
+    let hasStck = false;
+    let hasWrap = false;
+    let hasEngl = false;
+    let hasHugs = false;
+    for (const a of slots) {
+        const ad = a?.adtyp | 0;
+        const aa = a?.aatyp | 0;
+        if (ad === AD_STCK) hasStck = true;
+        if (ad === AD_WRAP) hasWrap = true;
+        if (aa === AT_ENGL) hasEngl = true;
+        if (aa === AT_HUGS) hasHugs = true;
+    }
+    return !!(hasStck || (hasWrap && !hasEngl) || hasHugs);
+}
+
+/**
+ * C ref: mon.c set_ustuck — bind / clear hero grab; clear swallow on null.
+ * Local clone (mhitu.js export; avoid uhitm↔mhitu cycle).
+ */
+function set_ustuck(mtmp) {
+    const u = game.u || (game.u = {});
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    u.ustuck = mtmp || null;
+    if (!u.ustuck) {
+        u.uswallow = 0;
+        u.uswldtim = 0;
+    }
+}
+
+/**
+ * C ref: polyself.c uunstick — release u.ustuck then pline.
+ */
+async function uunstick() {
+    const mtmp = game.u?.ustuck;
+    if (!mtmp) return;
+    set_ustuck(null);
+    await pline(`${Monnam(mtmp)} is no longer in your clutches.`);
+}
+
+/**
+ * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
+ * hmonas magr is always youmonst so the vis||youmonst arm always plines.
+ * Named omit: some_mon_nam tail (s_suffix(mon_nam)+" tail" like mhitm).
+ */
+async function failed_grab_you(mdef, mattk) {
+    if (!(unsolid(mdef?.data) || game.notonhead)
+        || !((mattk.aatyp | 0) === AT_HUGS
+            || (mattk.adtyp | 0) === AD_WRAP
+            || (mattk.adtyp | 0) === AD_STCK
+            || (mattk.adtyp | 0) === AD_DGST)) {
+        return false;
+    }
+    const verb = (mattk.adtyp | 0) === AD_DGST ? 'gulp'
+        : (mattk.adtyp | 0) === AD_STCK ? 'adhere' : 'grab';
+    let mdefnam;
+    if (!game.notonhead) {
+        mdefnam = mon_nam(mdef);
+    } else {
+        const n = mon_nam(mdef);
+        mdefnam = `${/s$/i.test(n) ? `${n}'` : `${n}'s`} tail`;
+    }
+    await pline(
+        `Your ${verb} attempt ${
+            game.notonhead ? 'fails to hold' : 'passes right through'
+        } ${mdefnam}!`,
+    );
+    return true;
+}
+
+/**
+ * C ref: uhitm.c hmonas AT_HUGS :5671–5759.
+ * Returns true when C `continue`s (bypass passive). Mutates sum[i].
+ */
+async function hmonas_hugs(mon, mattk, i, sum) {
+    const u = game.u || {};
+    const byhand = hug_throttles_umon();
+    let unconcerned = byhand && !can_be_strangled(mon);
+
+    if (sticks(mon.data) || u.uswallow || game.notonhead
+        || (byhand && (u.uwep || !has_head(mon.data)))) {
+        if (byhand && u.uwep && u.ustuck
+            && !(sticks(u.ustuck.data) || u.uswallow)) {
+            await uunstick();
+        }
+        return true;
+    }
+    await wakeup(mon, true);
+    const silverhit = { v: 0 };
+    const armask = byhand
+        ? (W_ARMG | W_RINGL | W_RINGR)
+        : (W_ARMC | W_ARM | W_ARMU);
+    const specialdmg = special_dmgval(game.youmonst, mon, armask, silverhit);
+    if (unconcerned) {
+        // C copies onto alt_attk; JS get_mattk already returns a copy
+        mattk.damn = 1;
+        mattk.damd = 1;
+        if (specialdmg || mindless(mon.data)
+            || (mon.mhp | 0) <= 1 + Math.max(u.udaminc | 0, 1)) {
+            unconcerned = false;
+        }
+    }
+    if ((mon.mnum ?? mon.data?.mndx) === PM_SHADE) {
+        const verb = byhand ? 'grasp' : 'hug';
+        if (specialdmg) {
+            await pline(`You ${verb} ${mon_nam(mon)}${exclam(specialdmg)}`);
+            if (silverhit.v && game.flags?.verbose !== false) {
+                await silver_sears(game.youmonst, mon, silverhit.v);
+            }
+            sum[i] = await damageum(mon, mattk, specialdmg);
+        } else {
+            await pline(
+                `Your ${verb} passes harmlessly through ${mon_nam(mon)}.`,
+            );
+        }
+        return false;
+    }
+    if (await failed_grab_you(mon, mattk)) return false;
+    if (mon === u.ustuck) {
+        await pline(`${Monnam(mon)} is being ${
+            byhand ? 'throttled' : 'crushed'
+        }${unconcerned ? " but doesn't seem concerned" : ''}.`);
+        if (silverhit.v && game.flags?.verbose !== false) {
+            await silver_sears(game.youmonst, mon, silverhit.v);
+        }
+        sum[i] = await damageum(mon, mattk, specialdmg);
+    } else if (i >= 2 && (sum[i - 1] > M_ATTK_MISS)
+        && (sum[i - 2] > M_ATTK_MISS)) {
+        if (u.ustuck && u.ustuck !== mon) await uunstick();
+        await pline(`You grab ${mon_nam(mon)}!`);
+        set_ustuck(mon);
+        if (silverhit.v && game.flags?.verbose !== false) {
+            await silver_sears(game.youmonst, mon, silverhit.v);
+        }
+        sum[i] = await damageum(mon, mattk, specialdmg);
+    }
+    return false;
+}
+
+/**
  * C ref: uhitm.c hmonas — poly'd hero attacks as monster.
  * AT_WEAP / weapon-using claw/touch/magc → known_hitum; natural hits → damageum
- * (troll_baned ternary/uwep D-1233). Named omit: two-weapon altwep; AT_HUGS/
- * EXPL/ENGL bodies; special_dmgval silver; failed_grab; skipdrin; pit kick;
- * demonpet spawn.
+ * (troll_baned ternary/uwep D-1233). AT_HUGS grab/crush/throttle D-1250
+ * (special_dmgval callee). Named omit: two-weapon altwep; AT_EXPL/ENGL
+ * bodies; skipdrin; pit kick; demonpet spawn.
  */
 export async function hmonas(mon) {
     const u = game.u || {};
@@ -1375,8 +1559,10 @@ export async function hmonas(mon) {
                 await missum(mon, mattk, (tmp + role_roll_penalty.v > dieroll));
                 sum[i] = M_ATTK_MISS;
             }
+        } else if (aatyp === AT_HUGS) {
+            if (await hmonas_hugs(mon, mattk, i, sum)) continue;
         } else if (aatyp === AT_NONE || aatyp === AT_BOOM
-            || aatyp === AT_HUGS || aatyp === AT_EXPL || aatyp === AT_ENGL
+            || aatyp === AT_EXPL || aatyp === AT_ENGL
             || aatyp === AT_MAGC) {
             continue;
         } else if (aatyp === AT_BREA || aatyp === AT_SPIT || aatyp === AT_GAZE) {
@@ -1767,6 +1953,9 @@ export async function do_attack(mtmp) {
     if (!game.bhitpos) game.bhitpos = {};
     game.bhitpos.x = (game.u?.ux | 0) + (game.u?.dx | 0);
     game.bhitpos.y = (game.u?.uy | 0) + (game.u?.dy | 0);
+    // C: gn.notonhead = (bhitpos != mtmp mx/my) — hug/failed_grab (D-1250)
+    game.notonhead = (game.bhitpos.x !== (mtmp.mx | 0)
+        || game.bhitpos.y !== (mtmp.my | 0));
 
     // C: attack_checks before overexertion / hitum
     if (await attack_checks(mtmp, game.u?.uwep || null)) {

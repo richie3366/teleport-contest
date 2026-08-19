@@ -20,6 +20,22 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 03:22 — #1586 D-1250 hmonas AT_HUGS
+
+**Objective:** Open `uhitm.c` AT_HUGS (named from D-1233). Not
+remaining `pline_mon`.
+**C locus:** `uhitm.c` `hmonas` AT_HUGS `:5671–5759`; `do_attack`
+`notonhead` `:518–520`; `weapon.c` `special_dmgval`/`silver_sears`;
+`mondata.c` `can_be_strangled`/`sticks`; `polyself.c` `uunstick`.
+**Change:** poly hug grab/crush/throttle (skip holders/swallow/
+notonhead/byhand+uwep via continue); `special_dmgval` callee;
+`do_attack` sets `notonhead`. AT_EXPL/ENGL still named. Rule #2:
+no fs.
+**Verified:** private canary **35**/35; green+strict seed8000/0900;
+cohort **9**/9 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a public session Upolyd-hugs.
+**Next:** Open `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
+**Blocked:** none.
 ## 2026-08-19 03:00 — #1585 review D-1246–D-1249 + cadence
 
 **Objective:** audit — C-fidelity reviews **208–211** of JS SHAs

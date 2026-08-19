@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1250 | fixed | uhitm.c `hmonas` AT_HUGS | map-driven; C `uhitm.c:5671–5759` grab/crush/throttle + `continue` skip holders/swallow/notonhead/byhand+uwep; `weapon.c` `special_dmgval`/`silver_sears`; `do_attack` `notonhead` from bhitpos; `mondata.c` `can_be_strangled`/`sticks`; `polyself.c` `uunstick`; AT_EXPL `explum` / AT_ENGL `gulpum` / altwep / `demonpet` still named |
 | D-1249 | fixed | dokick.c `container_impact_dmg` dropz/throwit | map-driven; C `dokick.c:409–485` + `do.c:831` `with_impact` + `dothrow.c:1830` `!IS_SOFT` at `u.ux,u.uy` not bhitpos; export live D-0989 helper; kick Is_box already; kick land no C call; hitfloor `dropz(TRUE)` still named |
 | D-1248 | fixed | monmove.c `mon_yells` | map-driven; C `monmove.c:106–129` + `watch_on_duty` `:186–189` + `dokick.c` watchman `:838–855`; JS Deaf spotted `pline_mon` angrily waves/shakes HEAD/arms; else `Amonnam` yells or You_hear someone yell then `verbalize1`; SetVoice empty without SND_LIB; `gelcube_digests` / ALLOW_BARS rust / `watch_dig` still named |
 | D-1247 | fixed | monmove.c postmov IRONBARS | map-driven; C `monmove.c:1624–1640` else-if door arm + `dissolve_bars` `:2170–2178`; JS rust/corr/metallivore `pline_mon` eat + return MMOVE_DONE (skip mdig rnd(12)); else verbose `Norep` through/between; W_NONDIGGABLE skips eat; ALLOW_BARS rust/corr/metallivore / `mon_yells` D-1248 / switch_terrain / `gelcube_digests` still named |
