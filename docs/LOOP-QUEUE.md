@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `weapon.c` `special_dmgval` `mon_hates_silver` must match C `mondata.c` `hates_silver` (shade, S_VAMPIRE, imp except tengu, were, demon) + `is_vampshifter`, not the local M2_WERE|M2_DEMON clone. Source: reviews/loop-unattended/212-87b4705a-hmonas-at-hugs.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective.

@@ -741,6 +741,28 @@ export function is_vampshifter(mon) {
     return is_vampire(mons(cham));
 }
 
+const PM_SHADE = monsterNames.indexOf('PM_SHADE');
+const PM_TENGU = monsterNames.indexOf('PM_TENGU');
+
+/**
+ * C ref: mondata.c hates_silver :524–528 — were / S_VAMPIRE / demon /
+ * PM_SHADE / (S_IMP && not tengu). JS uses mndx (mons() is not a stable
+ * &mons[PM] pointer).
+ */
+export function hates_silver(ptr) {
+    if (!ptr) return false;
+    return !!(is_were(ptr) || ptr.mlet === 'S_VAMPIRE' || is_demon(ptr)
+        || (ptr.mndx | 0) === PM_SHADE
+        || (ptr.mlet === 'S_IMP' && (ptr.mndx | 0) !== PM_TENGU));
+}
+
+/**
+ * C ref: mondata.c mon_hates_silver :517–519 — vampshifter or hates_silver.
+ */
+export function mon_hates_silver(mon) {
+    return !!(is_vampshifter(mon) || hates_silver(mon?.data));
+}
+
 /**
  * C ref: mondata.c hates_blessings — undead or demon type.
  */

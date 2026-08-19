@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 04:30 — #1591 D-1254 hates_silver
+
+**Objective:** Must-fix `weapon.c` `special_dmgval` `mon_hates_silver`
+= C `hates_silver` (review **212**). Not glob/doname.
+**C locus:** `mondata.c` `hates_silver` `:524–528` /
+`mon_hates_silver` `:517–519`; callers `weapon.c` `special_dmgval`
+`:401–422` / `select_hwep` `:734–735`; `muse.c` whip yank.
+**Change:** canonical `hates_silver`/`mon_hates_silver` in
+`monsters.js` (were / S_VAMPIRE / demon / shade / S_IMP except tengu
++ `is_vampshifter`). Deleted `M2_WERE|M2_DEMON` clones in
+`weapon.js`/`muse.js`. Did not pull `dmgval` silver or AT_ENGL.
+Rule #2: no fs.
+**Verified:** private canary **21**/21; green+strict seed8000/0900;
+cohort **9**/9 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a public session hugs a shade with silver
+or a shade/vampire/imp selects a silver hwep.
+**Next:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE
+(named from D-1234). Not unique/pname adjective.
+**Blocked:** none.
 ## 2026-08-19 04:20 — #1590 review D-1250–D-1253 + cadence
 
 **Objective:** audit — C-fidelity reviews **212–215** of JS SHAs

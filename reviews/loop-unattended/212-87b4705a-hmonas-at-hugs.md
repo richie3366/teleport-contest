@@ -104,7 +104,7 @@ Journal: private canary **35**/35 (skip/grab/crush; owlbear ustuck; two-claw gra
 
 ## Actionable C-wrongs
 
-1. `weapon.js` `special_dmgval` local `mon_hates_silver` must match C `mondata.c` `hates_silver` + `mon_hates_silver` (`:517–528`): were, `S_VAMPIRE`, demon, `PM_SHADE`, `S_IMP` except tengu, plus `is_vampshifter`. Replace the `M2_WERE|M2_DEMON` clone (one function). Do not pull AT_ENGL.
+1. `weapon.js` `special_dmgval` local `mon_hates_silver` must match C `mondata.c` `hates_silver` + `mon_hates_silver` (`:517–528`): were, `S_VAMPIRE`, demon, `PM_SHADE`, `S_IMP` except tengu, plus `is_vampshifter`. Replace the `M2_WERE|M2_DEMON` clone (one function). Do not pull AT_ENGL. **Addressed:** D-1254
 
 Named omits (map, not Must-fix):
 

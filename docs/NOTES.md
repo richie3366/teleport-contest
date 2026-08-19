@@ -5,19 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1253 `hack.c` cannot_push giant
-  pickup/maneuver. Cadence **#1590** (`d384e339`) reviews
-  **212–215**: **212 QUALITY-RISK** (AT_HUGS `special_dmgval`
-  `mon_hates_silver` clone misses shade/vampire/imp);
-  **213–215** ACCEPT-WITH-DEBT. Next: Must-fix that clone
-  (review **212**). Not glob/doname. Do not skip D-1253…D-1229.
+- **Fortress 44/44** after D-1254 `hates_silver` (review **212**).
+  Cadence **#1590** (`d384e339`). Next: Open glob/doname CXN
+  (named from D-1234). Not unique/pname. Do not skip D-1254…D-1229.
   Do not pull nopick m-dir / glob / hitfloor `dropz(TRUE)` /
   mimic unhide / AT_ENGL gulpum / fight_empty `explum` / altwep /
   landmine·pit / `gelcube_digests` / ALLOW_BARS rust / unported
-  `mhitm_ad_*` `pline_mon` / mhitu `hitmsg`.
+  `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / `dmgval` silver.
   Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1253. Named omits stay map, not Must-fix
-  except **212** silver clone.
+- Do not revert D-1217–D-1254. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -26,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1253.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1254.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,10 +37,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1253 (index). Named still: glob/doname CXN;
+- Do not skip D-1071…D-1254 (index). Named still: glob/doname CXN;
   nopick m-dir; mimic unhide; hitfloor `dropz(TRUE)`; AT_ENGL gulpum;
-  fight_empty explum; landmine·pit; `gelcube_digests`; mhitu `hitmsg`.
-  Do not “fix” seed0383 with ALIGN/FORCE.
+  fight_empty explum; landmine·pit; `gelcube_digests`; mhitu `hitmsg`;
+  `dmgval` silver. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -56,6 +52,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1254: `mondata.c` `hates_silver`/`mon_hates_silver` in
+  `monsters.js` (were / S_VAMPIRE / demon / shade / imp-except-tengu
+  + `is_vampshifter`). Review **212**. `dmgval` silver still named.
 - D-1253: `hack.c` `cannot_push` giant pickup/maneuver + `return 0`;
   Sokoban maneuver + `sokoban_guilt`; unskilled riding skips guilt.
   nopick m-dir still named.
@@ -63,7 +62,7 @@ Objective/score live in `CURRENT.md`.
   `makemon` NO_MM_FLAGS + `tamedog` FALSE. AT_ENGL/fight_empty/altwep named.
 - D-1251: `uhitm.c` `explum` + hmonas AT_EXPL dhit=-1 rehumanize.
 - D-1250: `uhitm.c` hmonas AT_HUGS grab/crush/throttle + `special_dmgval`.
-  Review **212** Must-fix: `mon_hates_silver` clone ≠ C `hates_silver`.
+  Silver clone D-1254.
 - D-1249: `container_impact_dmg` dropz/throwit. hitfloor `dropz(TRUE)` named.
 - D-1248: `mon_yells` watch_on_duty + dokick Deaf waves vs verbalize1.
 - D-1247: postmov IRONBARS eat/`dissolve_bars`/Norep. ALLOW_BARS named.
@@ -73,6 +72,5 @@ Objective/score live in `CURRENT.md`.
 - D-1243: gulpmm `!goodpos` return-home.
 - D-1242: gulpmm `snuff_lit` minvent.
 - D-1241: `passivemm` assess_dmg `monkilled(magr)`.
-- D-1240: remaining uhitm `pline_mon`. mhitu `hitmsg` named.
-- Review **212–215** (212 QUALITY-RISK). Cadence **#1590** **44**/44.
-  Next audit @**#1595**.
+- Review **212–215** (212 QUALITY-RISK, D-1254). Cadence **#1590**
+  **44**/44. Next audit @**#1595**.

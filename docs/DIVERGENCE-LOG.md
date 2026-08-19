@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1254 — `mondata.c` `hates_silver` / `mon_hates_silver`
+
+- **Status:** fixed (map-driven Must-fix from review **212** of
+  D-1250; not a public FAIL)
+- **Symptom:** `special_dmgval`’s local `mon_hates_silver` was only
+  `M2_WERE|M2_DEMON`, so silver vs shade / vampire / imp never added
+  `rnd(20)`. A rope-golem choke with a silver ring printed
+  “passes harmlessly through” a shade when C would `You grasp` +
+  `damageum`.
+- **C locus:** `mondata.c` `hates_silver` `:524–528` (were /
+  `S_VAMPIRE` / demon / `PM_SHADE` / `S_IMP` except tengu);
+  `mon_hates_silver` `:517–519` ORs `is_vampshifter`; callers
+  `weapon.c` `special_dmgval` `:401–422` / `select_hwep` `:734–735`;
+  `muse.c` whip yank.
+- **JS was:** `weapon.js` / `muse.js` clones `f2 & (M2_WERE|M2_DEMON)`
+  with a named omit of the rest.
+- **Fix:** live `hates_silver`/`mon_hates_silver` in `monsters.js`
+  next to `hates_blessings` (mndx, not `mons()` identity — `mons()`
+  allocates). Both callers import. Did not pull `dmgval` silver /
+  blessed / axe or AT_ENGL. Rule #2: no fs.
+- **JS:** `js/monsters.js`; `js/weapon.js`; `js/muse.js`.
+- **Not this iter:** `dmgval` silver/blessed/axe; AT_ENGL `gulpum`;
+  `failed_grab` `some_mon_nam`; hug outer `dhit = 1`.
+- **Verified:** private canary **21**/21 (C body; shade/imp/vampire/
+  were/demon true; tengu/human/grid-bug/fog false; vampshifter fog
+  true; silver ring vs shade `rnd(20)` + `W_RINGL`; tengu 0;
+  rope-golem choke damages shade; no-silver still through);
+  green+strict seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  public session Upolyd-chokes a shade with silver or a
+  shade/vampire/imp `select_hwep`s silver.
+- **Follow-up:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE.
+
 ## D-1253 — `hack.c` `cannot_push` giant pickup/maneuver
 
 - **Status:** fixed (map-driven Open; named omit from D-1239 /

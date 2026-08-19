@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
+- [x] `weapon.c` `special_dmgval` `mon_hates_silver` must match C `mondata.c` `hates_silver` (shade, S_VAMPIRE, imp except tengu, were, demon) + `is_vampshifter`, not the local M2_WERE|M2_DEMON clone. Source: reviews/loop-unattended/212-87b4705a-hmonas-at-hugs.md **Addressed:** D-1254
+
+
 - [x] `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push. **Addressed:** D-1253 `d384e339`
 
 
