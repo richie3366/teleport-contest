@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL.
 - [ ] `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push.
 - [ ] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective.
 - [ ] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP.

@@ -15,7 +15,7 @@ import {
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
     HAND, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT,
     W_ARM, W_ARMC, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_AMUL,
-    MON_EXPLODE,
+    MON_EXPLODE, NO_MM_FLAGS,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -43,7 +43,7 @@ import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes,
     is_golem, is_mplayer, is_rider, is_undead, is_flyer, is_floater,
-    is_demon, NON_PM, has_head, mindless, unsolid, breathless,
+    is_demon, NON_PM, has_head, mindless, unsolid, breathless, mons,
 } from './monsters.js';
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
@@ -60,7 +60,9 @@ import { rehumanize } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
 import { artifact_hit, youmonst, is_art } from './artifact.js';
 import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.js';
-import { abuse_dog } from './dog.js';
+import { abuse_dog, tamedog } from './dog.js';
+import { makemon, makemon_appear_msg } from './makemon.js';
+import { ndemon } from './minion.js';
 import { ART_GIANTSLAYER, ART_STORMBRINGER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
 import { which_armor } from './worn.js';
@@ -859,10 +861,29 @@ async function damageum_adtyping(mattk, mdef, mhm) {
 }
 
 /**
+ * C ref: uhitm.c demonpet `:2133–2145` — send in a demon pet; exercise WIS.
+ * 1/6 ndemon(u.ualign.type); else hero's current form. makemon(pm, ux, uy,
+ * NO_MM_FLAGS) then tamedog(null, FALSE). Appear Norep is JS's split
+ * makemon_appear_msg (C in-body; D-0928 #1164).
+ */
+export async function demonpet() {
+    const u = game.u || {};
+    await pline('Some hell-p has arrived!');
+    const i = !rn2(6) ? ndemon(u.ualign?.type | 0) : NON_PM;
+    const pm = i !== NON_PM ? mons(i) : game.youmonst?.data;
+    const dtmp = pm ? makemon(pm, u.ux | 0, u.uy | 0, NO_MM_FLAGS) : null;
+    if (dtmp) {
+        await makemon_appear_msg(dtmp, u.ux | 0, u.uy | 0, NO_MM_FLAGS);
+        await tamedog(dtmp, null, false);
+    }
+    exercise(A_WIS, true);
+}
+
+/**
  * C ref: uhitm.c damageum — dice + adtyping then DEADMONSTER wrap.
  * troll_baned ternary on AT_WEAP||AT_CLAW uses uwep (not hitting obj;
  * C FIXME vs two-weapon secondary). Always reset after killed/xkilled.
- * demonpet spawn named omit (rn2(13) still burned when is_demon).
+ * Unarmed demon poly (not succubus/balrog) 1/13 → demonpet then MISS.
  */
 export async function damageum(mdef, mattk, specialdmg) {
     const mhm = {
@@ -876,7 +897,7 @@ export async function damageum(mdef, mattk, specialdmg) {
     const umon = u.umonnum | 0;
     if (is_demon(game.youmonst?.data) && !rn2(13) && !u.uwep
         && umon !== PM_AMOROUS_DEMON && umon !== PM_BALROG) {
-        // demonpet() named omit
+        await demonpet();
         return M_ATTK_MISS;
     }
     await damageum_adtyping(mattk, mdef, mhm);
@@ -1510,7 +1531,7 @@ export async function explum(mdef, mattk) {
  * (troll_baned ternary/uwep D-1233). AT_HUGS grab/crush/throttle D-1250
  * (special_dmgval callee). AT_EXPL explum + dhit==-1 rehumanize D-1251.
  * Named omit: two-weapon altwep; AT_ENGL gulpum; fight_empty explum;
- * skipdrin; pit kick; demonpet spawn.
+ * skipdrin; pit kick.
  */
 export async function hmonas(mon) {
     const u = game.u || {};

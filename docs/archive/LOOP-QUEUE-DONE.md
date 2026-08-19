@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS. **Addressed:** D-1251
+- [x] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL. **Addressed:** D-1252
+
+
+- [x] `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS. **Addressed:** D-1251 `e097a5df`
 
 
 - [x] `uhitm.c` AT_HUGS (named from D-1233). Not remaining `pline_mon`. **Addressed:** D-1250 `87b4705a`

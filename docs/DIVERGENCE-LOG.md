@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1252 — `demonpet` spawn
+
+- **Status:** fixed (map-driven Open; named omit from D-1233 /
+  D-1251 follow-up; not a public FAIL)
+- **Symptom:** an unarmed poly'd M2_DEMON hero (not succubus or
+  balrog) that rolls `!rn2(13)` in `damageum` skipped the pet
+  entirely: JS burned the die and returned `M_ATTK_MISS` without
+  `pline` / `makemon` / `tamedog` / WIS exercise.
+- **C locus:** `uhitm.c` `demonpet` `:2133–2145`; `damageum`
+  `:4848–4851`; `minion.c` `ndemon`; `makemon.c` `makemon`
+  NO_MM_FLAGS; `dog.c` `tamedog(obj=0, FALSE)`; `attrib.c`
+  `exercise(A_WIS, TRUE)`.
+- **JS was:** named omit; `rn2(13)` still burned; return MISS.
+- **Fix:** `demonpet` plines `"Some hell-p has arrived!"`,
+  `i = !rn2(6) ? ndemon(u.ualign.type) : NON_PM`, `pm = i!=NON_PM
+  ? mons[i] : youmonst.data`, `makemon` at `u.ux,u.uy`, appear_msg
+  (JS split of C in-body Norep), `tamedog(null, false)`,
+  `exercise(A_WIS, true)`. Did not pull AT_ENGL `gulpum` /
+  fight_empty `explum` / altwep. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `demonpet` / `damageum`.
+- **Not this iter:** AT_ENGL `gulpum`; fight_empty `explum`;
+  two-weapon `uswapwep`; remaining `mhitm_ad_*`; mhitu `hitmsg`;
+  tamedog is_demon/covetous named omit (hero is demon here).
+- **Verified:** private canary **24**/24 (C body/gate; hell-p;
+  rn2(6) clone-of-form; WIS `rn2(19)`; tame+edog off-hero tile;
+  damageum d then rn2(13); unarmed horned-devil 0 → MISS+pet;
+  human skips; uwep/balrog/amorous 0 still hit); green+strict
+  seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  public session Upolyd-melees as an unarmed demon.
+- **Follow-up:** Open `hack.c` giant pickup/maneuver.
+
 ## D-1251 — `hmonas` AT_EXPL `explum`
 
 - **Status:** fixed (map-driven Open; named omit from D-1233 /

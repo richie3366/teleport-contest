@@ -5,16 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1251 `uhitm.c` `hmonas` AT_EXPL
-  `explum` (dhit=-1 wakeup/You explode/rehumanize; AD_BLND/HALU +
-  sphere COLD/FIRE/ELEC you-caused `explode`). Cadence **#1585**
-  (`7f54b762`) reviews **208–211** ACCEPT-WITH-DEBT.
-  Next: Open `makemon.c` `demonpet` spawn (named from D-1233).
-  Not AT_EXPL. Must-fix empty.
-  Do not skip D-1251…D-1229. Do not pull giant pickup/maneuver /
+- **Fortress 44/44** after D-1252 `uhitm.c` `demonpet` (pline
+  hell-p; 1/6 `ndemon(ualign)` else `youmonst.data`; `makemon`
+  NO_MM_FLAGS + `tamedog` FALSE + appear_msg; `exercise` WIS).
+  Cadence **#1585** (`7f54b762`) reviews **208–211**
+  ACCEPT-WITH-DEBT. Next: Open `hack.c` giant pickup/maneuver
+  (named from D-1239). Not cannot_push. Must-fix empty.
+  Do not skip D-1252…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / hitfloor `dropz(TRUE)` /
   mimic unhide / AT_ENGL gulpum / fight_empty `explum` /
-  altwep / `demonpet` / landmine·pit mid-roll /
+  altwep / landmine·pit mid-roll /
   unported uhitm `mhitm_ad_*` `pline_mon` /
   mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff /
   digest-Medusa stone / `newcham` NC_SHOW_MSG pline /
@@ -22,10 +22,10 @@ Objective/score live in `CURRENT.md`.
   rust/corr/metallivore / `watch_dig` SetVoice+verbalize.
   Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1251. Do not Must-fix named omits
+- Do not revert D-1217–D-1252. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
   giant pickup / mimic unhide / hitfloor `dropz(TRUE)` /
-  fight_empty explum / AT_ENGL gulpum / `demonpet`).
+  fight_empty explum / AT_ENGL gulpum / altwep).
 
 ## Don't re-check (≤15)
 
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1251 (CURRENT keep; AT_EXPL explum D-1251).
+  D-1190…D-1252 (CURRENT keep; `demonpet` D-1252).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -62,10 +62,10 @@ Objective/score live in `CURRENT.md`.
   return-home D-1243; gulpmm AD_DGST eat D-1244; hideunder after
   tread D-1245; `bee_eat_jelly` D-1246; postmov IRONBARS D-1247;
   `mon_yells` D-1248; `container_impact_dmg` dropz/throwit D-1249;
-  `hmonas` AT_HUGS D-1250; `hmonas` AT_EXPL `explum` D-1251.
-  Glob / doname
+  `hmonas` AT_HUGS D-1250; `hmonas` AT_EXPL `explum` D-1251;
+  `demonpet` D-1252. Glob / doname
   CXN_ARTICLE|CXN_NOCORPSE / mimic unhide /
-  AT_ENGL gulpum / fight_empty explum / `demonpet` / landmine·pit mid-roll /
+  AT_ENGL gulpum / fight_empty explum / landmine·pit mid-roll /
   giant pickup / unported `mhitm_ad_*`
   `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
   with ALIGN/FORCE.
@@ -82,6 +82,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1252: `uhitm.c` `demonpet` + `damageum` gate; 1/6 `ndemon`
+  else `youmonst.data`; `makemon` NO_MM_FLAGS + `tamedog` FALSE.
+  AT_ENGL `gulpum` / fight_empty `explum` / altwep still named.
 - D-1251: `uhitm.c` `explum` + `hmonas` AT_EXPL dhit=-1
   wakeup/You explode/rehumanize; AD_BLND/HALU + COLD/FIRE/ELEC
   you-caused `explode`. fight_empty `explum` / AT_ENGL `gulpum`
@@ -124,9 +127,5 @@ Objective/score live in `CURRENT.md`.
   mhitu `hitmsg` still named.
 - D-1239: `hack.c` cannot_push squeeze + `sokoban_guilt`;
   giant pickup / nopick m-dir still named.
-- D-1238: `monmove.c` `mind_blast` body + `set_apparxy`/`distfleeck`;
-  bee_eat D-1246; IRONBARS D-1247; `mon_yells` D-1248.
-- D-1237: rolling-boulder TELEP `pline_xy` + `rloco`/migrate;
-  landmine/pit still named.
 - Review **208–211** ACCEPT-WITH-DEBT. Cadence **#1585** **44**/44
   including seed0383. Next audit @**#1590**.
