@@ -20,6 +20,27 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 03:00 — #1585 review D-1246–D-1249 + cadence
+
+**Objective:** audit — C-fidelity reviews **208–211** of JS SHAs
+since `e86c2788`, plus full `sessions` score. No `js/` port.
+**C locus:** `monmove.c` `bee_eat_jelly`/`find_pmmonst`/`grow_up`
+bee `!victim`; postmov IRONBARS; `mon_yells`; `dokick.c`
+`container_impact_dmg` dropz/throwit.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: `little_to_big`; `gelcube_digests`;
+ALLOW_BARS rust; `switch_terrain`; `watch_dig`; hitfloor
+`dropz(TRUE)`). Filled D-1249 archive hash `7f54b762`. Open 11
+(no refill). Rule #2: no fs.
+**Score:** cadence **#1585** HEAD `7f54b762` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.29/turn` (R² 0.852). seed0383 PASS. Next audit @**#1590**.
+**Verified:** `__RESULTS_JSON__` at HEAD `7f54b762`; branch-by-branch
+vs pinned C (`grow_up` bee arm live `set_mon_data`; `dissolve_bars`
+live; `Amonnam`/`verbalize` live; helper D-0989 not a stub).
+**Next:** Open `uhitm.c` AT_HUGS (named from D-1233). Not remaining
+`pline_mon`.
+**Blocked:** none.
 ## 2026-08-19 02:44 — #1584 D-1249 container_impact_dmg
 
 **Objective:** Open `hack.c` `container_impact_dmg` (named from

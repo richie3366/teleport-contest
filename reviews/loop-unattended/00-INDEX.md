@@ -217,3 +217,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [205-729b03dc-gulpmm-goodpos-home.md](./205-729b03dc-gulpmm-goodpos-home.md) | `729b03dc` | D-1243 gulpmm `!goodpos` return-home | **ACCEPT-WITH-DEBT** |
 | [206-293059d0-gulpmm-ad-dgst-eat.md](./206-293059d0-gulpmm-ad-dgst-eat.md) | `293059d0` | D-1244 gulpmm AD_DGST eat | **ACCEPT-WITH-DEBT** |
 | [207-6115dc58-hideunder-after-tread.md](./207-6115dc58-hideunder-after-tread.md) | `6115dc58` | D-1245 hideunder after tread | **ACCEPT-WITH-DEBT** |
+| [208-2cce0dc8-bee-eat-jelly.md](./208-2cce0dc8-bee-eat-jelly.md) | `2cce0dc8` | D-1246 `bee_eat_jelly` | **ACCEPT-WITH-DEBT** |
+| [209-4dfec66a-postmov-iron-bars.md](./209-4dfec66a-postmov-iron-bars.md) | `4dfec66a` | D-1247 postmov IRONBARS | **ACCEPT-WITH-DEBT** |
+| [210-6e18c402-mon-yells.md](./210-6e18c402-mon-yells.md) | `6e18c402` | D-1248 `mon_yells` | **ACCEPT-WITH-DEBT** |
+| [211-7f54b762-container-impact-dmg.md](./211-7f54b762-container-impact-dmg.md) | `7f54b762` | D-1249 `container_impact_dmg` dropz/throwit | **ACCEPT-WITH-DEBT** |

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder. **Addressed:** D-1249
+- [x] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder. **Addressed:** D-1249 `7f54b762`
 
 
 - [x] `monmove.c` `mon_yells` (named). Not iron bars. **Addressed:** D-1248 `6e18c402`

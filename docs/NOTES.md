@@ -8,7 +8,7 @@ Objective/score live in `CURRENT.md`.
 - **Fortress 44/44** after D-1249 `dokick.c` `container_impact_dmg`
   at dropz `with_impact` + throwit `!IS_SOFT` (throw origin
   `u.ux,u.uy`; kick Is_box already D-0989). Cadence
-  **#1580** (`6115dc58`) reviews **204–207** ACCEPT-WITH-DEBT.
+  **#1585** (`7f54b762`) reviews **208–211** ACCEPT-WITH-DEBT.
   Next: Open `uhitm.c` AT_HUGS (named from D-1233). Not remaining
   `pline_mon`. Must-fix empty.
   Do not skip D-1249…D-1229. Do not pull giant pickup/maneuver /
@@ -120,5 +120,5 @@ Objective/score live in `CURRENT.md`.
 - D-1237: rolling-boulder TELEP `pline_xy` + `rloco`/migrate;
   landmine/pit still named.
 - D-1236: `mon_movement` addr `&a11y.mon_movement`; default Off.
-- Review **204–207** ACCEPT-WITH-DEBT. Cadence **#1580** **44**/44
-  including seed0383. Next audit @**#1585**.
+- Review **208–211** ACCEPT-WITH-DEBT. Cadence **#1585** **44**/44
+  including seed0383. Next audit @**#1590**.

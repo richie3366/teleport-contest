@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-19** — full `sessions` at review **#1580**
-HEAD `6115dc58` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.29/turn` (R² 0.853). Next audit (review + score) @**#1585**.
+Score last measured: **2026-08-19** — full `sessions` at review **#1585**
+HEAD `7f54b762` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.29/turn` (R² 0.852). Next audit (review + score) @**#1590**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `36+0.29/turn` (R² 0.853). Next audit (review + score) @**#1585**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.29/turn` (R² 0.853) |
+| Speed label | `36+0.29/turn` (R² 0.852) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
