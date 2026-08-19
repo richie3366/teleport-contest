@@ -38,7 +38,7 @@ import {
     little_to_big, big_to_little, hero_conflict, resist_conflict,
     m_canseeu, on_fire,
 } from './mondata.js';
-import { objects_at, kill_egg, place_object, stackobj } from './mkobj.js';
+import { objects_at, kill_egg, place_object, stackobj, delobj } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, migrate_to_level, rloco, control_mon_tele } from './teleport.js';
@@ -1488,6 +1488,22 @@ export function healmon(mtmp, amt, overheal) {
         if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhpmax = mtmp.mhp | 0;
     }
     return (mtmp.mhp | 0) - oldhp;
+}
+
+/**
+ * C ref: mon.c m_consume_obj — non-pet heal by oc_weight then delobj.
+ * Named omit: Has_contents meatbox; uball/uchain unpunish; polyfood/slime
+ * newcham; mlevelgain grow_up; mstoning; mhealup/carrot mcureblindness;
+ * deadmimic quickmimic; pyrolisk egg explode; mon_givit.
+ */
+export function m_consume_obj(mtmp, otmp) {
+    if (!mtmp || !otmp) return;
+    const ispet = !!mtmp.mtame;
+    if (!ispet && (mtmp.mhp | 0) < (mtmp.mhpmax | 0)) {
+        const ocw = game.objects?.[otmp.otyp]?.oc_weight | 0;
+        healmon(mtmp, ocw, 0);
+    }
+    delobj(otmp);
 }
 
 /** C ref: prop.h res_to_mr — FIRE_RES..STONE_RES → MR_* bit. */

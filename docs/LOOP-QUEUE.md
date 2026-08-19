@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`.
 - [ ] `monmove.c` ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube.
 - [ ] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS.
 - [ ] `hack.c` mimic unhide (named from D-1245). Not hideunder.

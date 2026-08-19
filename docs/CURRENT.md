@@ -59,20 +59,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1256. **Next cluster:**
-Open `monmove.c` `gelcube_digests` (named from D-1246). Not
-`mon_yells`.
-Do not skip D-1256…D-1229 (index). Keep mention_map addr. Do not wrap
+**Map-driven fortress** after D-1257. **Next cluster:**
+Open `monmove.c` ALLOW_BARS rust/corr/metallivore (named from
+D-1247). Not gelcube.
+Do not skip D-1257…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull nopick m-dir / hitfloor
 `dropz(TRUE)` / mimic unhide / AT_ENGL / fight_empty `explum` / altwep
-/ ALLOW_BARS rust / unported
+/ `switch_terrain` / unported
 uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / doname EGG.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1256. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1257. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1256 (index). Recent: **D-1256** launch_obj
+**Keep:** D-0845…D-1257 (index). Recent: **D-1257** `gelcube_digests`
+organic minvent (`meatobj` / meatbox named); **D-1256** launch_obj
 landmine·pit mid-roll (down_gate / boulder-chain / post-switch
 `flooreffects` still named); **D-1255** glob / doname CXN (EGG /
 MEAT_RING named); **D-1254** `hates_silver` (`dmgval` silver named);
@@ -85,10 +86,11 @@ D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
 no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
 no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
 no skip D-1237 TELEP `pline_xy`; no skip D-1238 `mind_blast`;
-no skip D-1240–D-1248 (`hitmsg` / gelcube / ALLOW_BARS / mimic unhide
+no skip D-1240–D-1248 (`hitmsg` / ALLOW_BARS / mimic unhide
 named); no skip D-1253 (nopick m-dir named); no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (EGG / MEAT_RING named);
 no skip D-1256 (down_gate / boulder-chain named);
+no skip D-1257 (`meatobj` / meatbox named);
 no pull `reset_glyphmap` / vision_recalc `notice_all_mons` /
 `makemap_prepost` / peel RANGE_LEVEL / `restore_artifacts` this SHA.
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not

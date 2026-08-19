@@ -5,14 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1256 launch_obj landmine·pit (review
+- **Fortress 44/44** after D-1257 `gelcube_digests` (review
   **212** cadence **#1590** `d384e339`). Next: Open
-  `gelcube_digests` (named from D-1246). Not `mon_yells`. Do not skip
-  D-1256…D-1229. Do not pull nopick m-dir / hitfloor `dropz(TRUE)` /
-  mimic unhide / AT_ENGL gulpum / fight_empty `explum` / altwep /
-  ALLOW_BARS rust / unported `mhitm_ad_*` `pline_mon` / mhitu `hitmsg`
-  / doname EGG. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1256. Named omits stay map, not Must-fix.
+  ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube.
+  Do not skip D-1257…D-1229. Do not pull nopick m-dir / hitfloor
+  `dropz(TRUE)` / mimic unhide / AT_ENGL gulpum / fight_empty
+  `explum` / altwep / `switch_terrain` / unported `mhitm_ad_*`
+  `pline_mon` / mhitu `hitmsg` / doname EGG. Do not wrap
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1257. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1256.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1257.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,10 +37,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1256 (index). Named still: nopick m-dir;
+- Do not skip D-1071…D-1257 (index). Named still: nopick m-dir;
   mimic unhide; hitfloor `dropz(TRUE)`; AT_ENGL gulpum; fight_empty
-  explum; `gelcube_digests`; mhitu `hitmsg`; doname EGG; launch_obj
-  down_gate / boulder-chain. Do not “fix” seed0383 with ALIGN/FORCE.
+  explum; mhitu `hitmsg`; doname EGG; launch_obj
+  down_gate / boulder-chain; `meatobj` / meatbox. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -51,6 +52,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1257: `monmove.c` `gelcube_digests` first organic non-artifact
+  non-prize minvent; `eaten_stat` + `extract_from_minvent` +
+  `m_consume_obj` heal/`delobj`. `meatobj` / meatbox / poly still named.
 - D-1256: `trap.c` `launch_obj` ROLL LANDMINE `rn2(10)>2` KAABLAMM /
   `fracture_rock`/`scatter` + PIT/SPIKED/HOLE/TRAPDOOR `flooreffects`
   + `dist=-1`. down_gate / boulder-chain / post-switch flooreffects
@@ -75,6 +79,5 @@ Objective/score live in `CURRENT.md`.
 - D-1246: `bee_eat_jelly` + grow_up killer-bee `!victim` → queen.
 - D-1245: `domove` hideunder after tread. mimic unhide named.
 - D-1244: gulpmm AD_DGST eat. gulpmu invent / Medusa named.
-- D-1243: gulpmm `!goodpos` return-home.
 - Review **212–215** (212 QUALITY-RISK, D-1254). Cadence **#1590**
   **44**/44. Next audit @**#1595**.

@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1257 — `monmove.c` `gelcube_digests`
+
+- **Status:** fixed (map-driven Open; named omit from D-1246; not a
+  public FAIL)
+- **Symptom:** a gelatinous cube with organic (non-artifact,
+  non-prize) inventory never digested it in `dochug`, so it still
+  took a full movement turn and the object stayed in `minvent`.
+- **C locus:** `monmove.c` `gelcube_digests` `:422–445`; caller
+  `dochug` `:876–878` after `bee_eat_jelly`, before `want_move`.
+  `worn.c` `extract_from_minvent` `:1377–1417`; `mon.c`
+  `m_consume_obj` `:1392–1453`; `obj.h` prize macros `:435–436`.
+- **JS was:** named omit after D-1246 `bee_eat_jelly`; cube skipped
+  the digest slot.
+- **Fix:** walk `minvent` for first `is_organic` && !artifact &&
+  !prize; `eaten_stat` (0 → 1); `extract_from_minvent(TRUE,TRUE)`;
+  `m_consume_obj` non-pet `healmon(oc_weight)` then `delobj`.
+  Prize helpers from `obj.h`. Rule #2: no fs.
+- **JS:** `js/monmove.js` `gelcube_digests` / `dochug`; `js/worn.js`
+  `extract_from_minvent`; `js/mon.js` `m_consume_obj`; `js/mkobj.js`
+  prize macros; `js/dogmove.js` uses shared consume.
+- **Not this iter:** `meatobj` floor engulf; `m_consume_obj`
+  meatbox/poly/slime/grow/stone/uball/`mon_givit`; ALLOW_BARS
+  rust/corr/metallivore; `switch_terrain`; mpickstuff prize skip
+  (helpers live, unwired); `obj_no_longer_held`.
+- **Verified:** private canary **40**/40 (C body+caller; JS organic
+  eat / metal skip / artifact / prizes / heal / pet skip / worn
+  extract / dochug return; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a cube `dochug`s with digestible minvent.
+- **Follow-up:** Open `monmove.c` ALLOW_BARS rust/corr/metallivore.
+
 ## D-1256 — `trap.c` `launch_obj` landmine·pit mid-roll
 
 - **Status:** fixed (map-driven Open; named omit from D-1237; not a

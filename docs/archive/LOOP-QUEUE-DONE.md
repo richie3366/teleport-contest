@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP. **Addressed:** D-1256
+- [x] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`. **Addressed:** D-1257
+
+
+- [x] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP. **Addressed:** D-1256 `03e8b10c`
 
 
 - [x] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective. **Addressed:** D-1255 `25a81ff1`
