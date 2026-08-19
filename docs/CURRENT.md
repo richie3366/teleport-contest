@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-19** — full `sessions` at review **#1585**
-HEAD `7f54b762` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.29/turn` (R² 0.852). Next audit (review + score) @**#1590**.
+Score last measured: **2026-08-19** — full `sessions` at review **#1590**
+HEAD `d384e339` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.29/turn` (R² 0.854). Next audit (review + score) @**#1595**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `36+0.29/turn` (R² 0.852). Next audit (review + score) @**#1590**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.29/turn` (R² 0.852) |
+| Speed label | `36+0.29/turn` (R² 0.854) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -60,8 +60,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Map-driven fortress** after D-1253. **Next cluster:**
-Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234).
-Not unique/pname adjective.
+Must-fix `weapon.c` `special_dmgval` `mon_hates_silver` = C
+`hates_silver` (shade/vampire/imp) — review **212**. Not glob/doname.
 Do not skip D-1253…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull nopick m-dir / hitfloor

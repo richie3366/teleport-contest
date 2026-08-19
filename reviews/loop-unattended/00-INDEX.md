@@ -221,3 +221,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [209-4dfec66a-postmov-iron-bars.md](./209-4dfec66a-postmov-iron-bars.md) | `4dfec66a` | D-1247 postmov IRONBARS | **ACCEPT-WITH-DEBT** |
 | [210-6e18c402-mon-yells.md](./210-6e18c402-mon-yells.md) | `6e18c402` | D-1248 `mon_yells` | **ACCEPT-WITH-DEBT** |
 | [211-7f54b762-container-impact-dmg.md](./211-7f54b762-container-impact-dmg.md) | `7f54b762` | D-1249 `container_impact_dmg` dropz/throwit | **ACCEPT-WITH-DEBT** |
+| [212-87b4705a-hmonas-at-hugs.md](./212-87b4705a-hmonas-at-hugs.md) | `87b4705a` | D-1250 hmonas AT_HUGS | **QUALITY-RISK** |
+| [213-e097a5df-explum.md](./213-e097a5df-explum.md) | `e097a5df` | D-1251 `explum` / AT_EXPL | **ACCEPT-WITH-DEBT** |
+| [214-f7714f94-demonpet.md](./214-f7714f94-demonpet.md) | `f7714f94` | D-1252 `demonpet` spawn | **ACCEPT-WITH-DEBT** |
+| [215-d384e339-cannot-push-giant.md](./215-d384e339-cannot-push-giant.md) | `d384e339` | D-1253 cannot_push giant pickup | **ACCEPT-WITH-DEBT** |

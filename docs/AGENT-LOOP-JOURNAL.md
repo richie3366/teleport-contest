@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 04:20 — #1590 review D-1250–D-1253 + cadence
+
+**Objective:** audit — C-fidelity reviews **212–215** of JS SHAs
+since `a0c40286`, plus full `sessions` score. No `js/` port.
+**C locus:** `uhitm.c` hmonas AT_HUGS / `explum` / `demonpet`;
+`hack.c` `cannot_push` giant pickup; `weapon.c` `special_dmgval`.
+**Change:** **212 QUALITY-RISK** — hug grab/crush live, but
+`special_dmgval` `mon_hates_silver` is M2_WERE|M2_DEMON only
+(C `hates_silver` includes shade/vampire/imp). Must-fix prepend.
+**213–215 ACCEPT-WITH-DEBT.** Filled D-1253 archive hash
+`d384e339`. Cadence HEAD `d384e339` **44**/44 Scr **11405**
+RNG **100%** speed `36+0.29/turn` (R² 0.854).
+**Next:** Must-fix `weapon.c` `mon_hates_silver` (review **212**).
+**Blocked:** none.
 ## 2026-08-19 04:05 — #1589 D-1253 cannot_push giant pickup
 
 **Objective:** Open `hack.c` giant pickup/maneuver (named from
