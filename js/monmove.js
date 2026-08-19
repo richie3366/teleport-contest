@@ -9,7 +9,7 @@ import {
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
-    grounded, telepathic, mons, metallivorous,
+    grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -41,7 +41,7 @@ import {
     M_AP_FURNITURE, M_AP_NOTHING, M_AP_MONSTER, KILLED_BY_AN,
     STRAT_WAITFORU, STRAT_WAITMASK, STRAT_CLOSE,
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
-    STAIRS, LADDER, IRONBARS, WEB, W_NONDIGGABLE,
+    STAIRS, LADDER, IRONBARS, WEB, W_NONDIGGABLE, ARM, HEAD,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
@@ -52,7 +52,10 @@ import {
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
     objectNames,
 } from './objects.js';
-import { Monnam, y_monnam, Adjmonnam, mon_nam } from './do_name.js';
+import {
+    Monnam, y_monnam, Adjmonnam, mon_nam, Amonnam, Hallucination,
+    type_is_pname,
+} from './do_name.js';
 import { doname, distant_name, ansimpleoname, vtense, an, xname, makeplural } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
@@ -67,9 +70,10 @@ import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
 import { check_gear_next_turn } from './worn.js';
 import { picking_lock } from './lock.js';
+import { mbodypart } from './polyself.js';
 import {
     newsym, pline, canseemon as display_canseemon, pline_mon, pline_xy,
-    canspotmon as display_canspotmon, sensemon, Norep,
+    canspotmon as display_canspotmon, sensemon, Norep, verbalize,
 } from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { shk_move, gd_move, pri_move } from './shk.js';
@@ -798,11 +802,71 @@ export function distfleeck(mtmp) {
     return { inrange: inrange ? 1 : 0, nearby: nearby ? 1 : 0, scared };
 }
 
+/** C youprop.h Deaf ≡ HDeaf || EDeaf || uroleplay.deaf (plus u.Deaf flag). */
+function hero_Deaf() {
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0)
+        || u.uroleplay?.deaf || u.Deaf);
+}
+
+/**
+ * C you.h mhis → genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his.
+ * C mondata.c pronoun_gender: hallu rn2(4); !canspotmon / is_neuter /
+ * non-(humanoid|G_UNIQ|pname) → 2 (its); else female.
+ */
+function mhis_yell(mtmp) {
+    if (Hallucination()) {
+        return ['his', 'her', 'its', 'their'][rn2(4)];
+    }
+    if (!display_canspotmon(mtmp)) return 'its';
+    const ptr = mtmp?.data;
+    if (!ptr || is_neuter(ptr)) return 'its';
+    if (humanoid(ptr)
+        || ((ptr.geno | 0) & G_UNIQ)
+        || type_is_pname(ptr)) {
+        return mtmp.female ? 'her' : 'his';
+    }
+    return 'its';
+}
+
+/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
+async function You_hear_yell(line) {
+    if (hero_Deaf() || game.flags?.acoustics === false) return;
+    await pline(`You hear ${line}`);
+}
+
+/**
+ * C ref: monmove.c mon_yells — Deaf spotted waves/shakes; else
+ * "X yells:" or You_hear someone yell, then verbalize1(shout).
+ * SetVoice is empty without SND_LIB_INTEGRATED (contest sndprocs.h).
+ * C Soundeffect(se_someone_yells) is commented out.
+ */
+export async function mon_yells(mon, shout) {
+    if (hero_Deaf()) {
+        if (display_canspotmon(mon)) {
+            const who = Amonnam(mon);
+            const verb = nolimbs(mon.data) ? 'shakes' : 'waves';
+            const his = mhis_yell(mon);
+            const part = nolimbs(mon.data)
+                ? mbodypart(mon, HEAD)
+                : makeplural(mbodypart(mon, ARM));
+            await pline_mon(mon, `${who} angrily ${verb} ${his} ${part}!`);
+        }
+        return;
+    }
+    if (display_canspotmon(mon)) {
+        await pline_mon(mon, `${Amonnam(mon)} yells:`);
+    } else {
+        await You_hear_yell('someone yell:');
+    }
+    await verbalize(shout);
+}
+
 /**
  * C ref: monmove.c watch_on_duty — peaceful watch that can see hero in town
  * may notice lockpicking / digging (!rn2(3) gate).
- * Named omissions: mon_yells polish (plain pline); pickaxe dig occupation
- * via dig.js is_digging() (D-0951).
+ * Named omissions: pickaxe dig occupation via dig.js is_digging() (D-0951).
+ * mon_yells is D-1248.
  */
 async function watch_on_duty(mtmp) {
     const u = game.u || {};
@@ -818,15 +882,11 @@ async function watch_on_duty(mtmp) {
             && ((loc.doormask || loc.flags || 0) & D_LOCKED)) {
             if (couldsee(mtmp.mx, mtmp.my)) {
                 if ((loc.looted | 0) & D_WARNED) {
-                    // mon_yells deferred — arrest pline + angry_guards
-                    await pline('Halt, thief!  You\'re under arrest!');
-                    const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
-                        || u.uroleplay?.deaf || u.Deaf);
+                    await mon_yells(mtmp, 'Halt, thief!  You\'re under arrest!');
                     const { angry_guards } = await import('./mon.js');
-                    await angry_guards(!!Deaf);
+                    await angry_guards(!!hero_Deaf());
                 } else {
-                    // mon_yells deferred
-                    await pline('Hey, stop picking that lock!');
+                    await mon_yells(mtmp, 'Hey, stop picking that lock!');
                     loc.looted = (loc.looted | 0) | D_WARNED;
                 }
                 await stop_occupation();
@@ -1201,7 +1261,7 @@ export async function m_postmove_effect(mtmp) {
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
  * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish;
  * ALLOW_BARS rust/corr/metallivore in mon_allowflags; dissolve_bars
- * switch_terrain; mon_yells.
+ * switch_terrain. mon_yells is D-1248.
  * (shk/gd/priest via shk.js D-0205)
  */
 export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
@@ -1824,7 +1884,8 @@ function sobj_at_monmove(otyp, x, y) {
 /**
  * C ref: monmove.c bee_eat_jelly — killer bee on royal jelly becomes
  * queen if none on the level. 1 died, 0 ate and froze, -1 queen present.
- * gelcube_digests / mon_yells still named. postmov IRONBARS is D-1247.
+ * gelcube_digests still named. postmov IRONBARS is D-1247.
+ * mon_yells is D-1248.
  */
 export async function bee_eat_jelly(mon, obj) {
     const queen = find_pmmonst(PM_QUEEN_BEE);
@@ -1852,10 +1913,9 @@ export async function bee_eat_jelly(mon, obj) {
 
 /**
  * C ref: monmove.c mind_blast — mind flayer psychic wave (dochug !rn2(20)).
- * Named omissions: mon_yells (other monmove pline_mon).
  * Hero Half_spell_damage uses youprop H||E; other-mon dmg is raw rnd(15).
  * fmon nmon snapshot: JS copies the live array. bee_eat_jelly is D-1246.
- * postmov IRONBARS eat/Norep is D-1247.
+ * postmov IRONBARS eat/Norep is D-1247. mon_yells is D-1248.
  */
 export async function mind_blast(mtmp) {
     const u = game.u || (game.u = {});

@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1248 — `monmove.c` `mon_yells`
+
+- **Status:** fixed (map-driven Open; named omit from D-1247 /
+  D-1246 / D-1238 / D-0876; not a public FAIL)
+- **Symptom:** town watch lockpick/kick arrest used raw `pline` /
+  `verbalize` without Deaf waves/shakes, `"X yells:"`, or unseen
+  `You_hear("someone yell:")`, so `a11y.msg_loc` and quoted speech
+  diverged from C `mon_yells`.
+- **C locus:** `monmove.c` `mon_yells` `:106–129`; callers
+  `watch_on_duty` `:186–189`; `dokick.c` `watchman_thief_arrest`
+  `:838` and `watchman_door_damage` `:851–855`. Deaf spotted
+  `pline_mon` angrily waves/shakes; else `Amonnam` yells or
+  `You_hear` then `SetVoice` (empty without SND_LIB) +
+  `verbalize1`. Arrest `angry_guards(!!Deaf)` only on
+  `watch_on_duty`; dokick uses `FALSE`.
+- **JS was:** `watch_on_duty` plain `pline` shout; dokick
+  `verbalize` only (no yells prefix / Deaf arm).
+- **Fix:** shared `mon_yells` in `monmove.js`; wire three
+  callers. `mhis` via `pronoun_gender` Hallu `rn2(4)`. Rule #2:
+  no fs. dokick dynamic-imports (makemon cycle).
+- **JS:** `js/monmove.js` `mon_yells` + `watch_on_duty`;
+  `js/dokick.js` watchman thief/door.
+- **Not this iter:** `gelcube_digests`; ALLOW_BARS
+  rust/corr/metallivore; `dissolve_bars` `switch_terrain`;
+  `watch_dig` SetVoice+verbalize (C does not call `mon_yells`);
+  fountain `watchman_warn_fountain` earnestly clone.
+- **Verified:** private canary **16**/16 (C body+callers; JS
+  Deaf waves/her/shakes; unseen You_hear; unseen Deaf silent;
+  Hallu `rn2(4)`; acoustics; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a peaceful watch yells at lockpick/kick.
+- **Follow-up:** Open `hack.c` `container_impact_dmg`.
+
 ## D-1247 — `monmove.c` postmov IRONBARS
 
 - **Status:** fixed (map-driven Open; named omit from D-1246 /

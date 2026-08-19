@@ -20,6 +20,21 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 02:31 — #1583 D-1248 mon_yells
+
+**Objective:** Open `monmove.c` `mon_yells` (named). Not iron bars.
+**C locus:** `monmove.c` `mon_yells` `:106–129`; `watch_on_duty`
+`:186–189`; `dokick.c` watchman `:838–855`.
+**Change:** Deaf spotted `pline_mon` angrily waves/shakes; else
+`Amonnam` yells or You_hear someone yell then `verbalize1`.
+SetVoice empty. Wire watch_on_duty + dokick watchman.
+`gelcube_digests` / ALLOW_BARS rust still named. Rule #2: no fs.
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a peaceful watch yells at lockpick/kick.
+**Next:** Open `hack.c` `container_impact_dmg` (named from D-1229).
+Not hideunder.
+**Blocked:** none.
 ## 2026-08-19 02:17 — #1582 D-1247 postmov IRONBARS
 
 **Objective:** Open `monmove.c` postmov iron bars (named). Not

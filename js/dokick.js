@@ -314,13 +314,13 @@ async function get_iter_mons_xy(bfunc, x, y) {
 
 /**
  * C ref: dokick.c watchman_thief_arrest — peaceful watch who can see hero
- * yells and angry_guards. Named omit: mon_yells SetVoice/Deaf arms
- * (verbalize like dig.js watch_dig).
+ * yells and angry_guards. mon_yells is D-1248 (SetVoice empty without
+ * SND_LIB_INTEGRATED). Dynamic import: dokick←makemon←monmove cycle.
  */
 async function watchman_thief_arrest(mtmp) {
     if (is_watch(mtmp?.data) && couldsee(mtmp.mx, mtmp.my) && mtmp.mpeaceful) {
-        await verbalize("Halt, thief!  You're under arrest!");
-        const { angry_guards } = await import('./mon.js');
+        const { mon_yells } = await import('./monmove.js');
+        await mon_yells(mtmp, "Halt, thief!  You're under arrest!");
         await angry_guards(false);
         return true;
     }
@@ -329,7 +329,7 @@ async function watchman_thief_arrest(mtmp) {
 
 /**
  * C ref: dokick.c watchman_door_damage — warn once (D_WARNED) then arrest.
- * Named omit: mon_yells SetVoice/Deaf arms.
+ * mon_yells is D-1248. Dynamic import: dokick←makemon←monmove cycle.
  */
 async function watchman_door_damage(mtmp, x, y) {
     if (!(is_watch(mtmp?.data) && mtmp.mpeaceful
@@ -337,12 +337,12 @@ async function watchman_door_damage(mtmp, x, y) {
         return false;
     }
     const loc = game.level?.at(x, y);
+    const { mon_yells } = await import('./monmove.js');
     if ((loc?.looted | 0) & D_WARNED) {
-        await verbalize("Halt, vandal!  You're under arrest!");
-        const { angry_guards } = await import('./mon.js');
+        await mon_yells(mtmp, "Halt, vandal!  You're under arrest!");
         await angry_guards(false);
     } else {
-        await verbalize('Hey, stop damaging that door!');
+        await mon_yells(mtmp, 'Hey, stop damaging that door!');
         if (loc) loc.looted = (loc.looted | 0) | D_WARNED;
     }
     return true;
@@ -353,8 +353,7 @@ async function watchman_door_damage(mtmp, x, y) {
  * CLOSED/LOCKED bust attempt (exercise DEX, rnl(35) vs avrg_attrib).
  * Shop in_rooms + add_damage/pay_for_damage + town watch wired (D-0947).
  * Blind feel_location / feel_newsym wired (D-0997).
- * Named omit: mon_yells SetVoice/Deaf polish; giant doorbuster poly
- * completeness.
+ * Named omit: giant doorbuster poly completeness. mon_yells is D-1248.
  */
 async function kick_door(x, y, avrg_attrib) {
     const loc = game.level?.at(x, y);

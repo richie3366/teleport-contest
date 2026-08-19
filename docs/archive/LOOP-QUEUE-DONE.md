@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `monmove.c` postmov iron bars (named). Not bee_eat. **Addressed:** D-1247
+- [x] `monmove.c` `mon_yells` (named). Not iron bars. **Addressed:** D-1248
+
+
+- [x] `monmove.c` postmov iron bars (named). Not bee_eat. **Addressed:** D-1247 `4dfec66a`
 
 
 - [x] `monmove.c` `bee_eat_jelly` (named). Not mind_blast. **Addressed:** D-1246 `2cce0dc8`

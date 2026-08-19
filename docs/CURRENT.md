@@ -59,20 +59,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1247. **Next cluster:**
-Open `monmove.c` `mon_yells` (named). Not iron bars.
-Do not skip D-1247…D-1229 (index). Keep mention_map addr. Do not wrap
+**Map-driven fortress** after D-1248. **Next cluster:**
+Open `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder.
+Do not skip D-1248…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull giant pickup/maneuver / container_impact / hitfloor
 `dropz(TRUE)` / mimic unhide / AT_HUGS/EXPL/ENGL / altwep / `demonpet`
-/ landmine·pit mid-roll / `mon_yells` / `gelcube_digests` / unported
+/ landmine·pit mid-roll / `gelcube_digests` / unported
 uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1247. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1248. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1247** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
+**D-0948**…**D-1248** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
 `glyph_at`; `urole.questarti`; take_gold
 `remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
 `msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
@@ -81,7 +81,7 @@ twice; sit Fire/Cold `uprops[]`; tut-1 mineralize/stairway/
 create_object/place_lregion/`tut_key`/tutorial nhcore; dosit
 steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
 D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1247`).
+DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1248`).
 **Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
 `owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
 leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
@@ -108,7 +108,7 @@ after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
 no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
 restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
 skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
-dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123) / skip drinksink case 13 `create_gas_cloud` (D-1124) / D-1125…D-1247;
+dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123) / skip drinksink case 13 `create_gas_cloud` (D-1124) / D-1125…D-1248;
 no restore energy fail-closed / skip SPE_TELEPORT_AWAY atme;
 no restore rhack raw-ETX `Unknown command` / skip `visctrl(key)`;
 no skip `goto_level` `kill_genocided`/`run_timers` (D-1190/D-1191);
@@ -118,7 +118,7 @@ no skip D-1194 wrap; no skip D-1195 wand
 yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
 D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
 `#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
-unconscious / D-1206–D-1247 (`dolookaround`; no empty then-arm; no
+unconscious / D-1206–D-1248 (`dolookaround`; no empty then-arm; no
 `flags.accessiblemsg` / `flags.mention_map` / `flags.spot_monsters` /
 `flags.mon_movement` addr; no Hallu
 `gbuf_show_kind` reroll; no skip se_scratching / `troll_baned` /
@@ -133,7 +133,7 @@ no skip D-1235 `spot_monsters` → `a11y.mon_notices` (default Off);
 no skip D-1236 `mon_movement` → `a11y.mon_movement` (default Off);
 no skip D-1237 rolling-boulder TELEP `pline_xy` (`rloco`/migrate;
 landmine/pit still named);
-no skip D-1238 `mind_blast` (bee_eat D-1246; IRONBARS D-1247; `mon_yells` named);
+no skip D-1238 `mind_blast` (bee_eat D-1246; IRONBARS D-1247; `mon_yells` D-1248);
 no skip D-1239 cannot_push squeeze + `sokoban_guilt` (giant pickup /
 maneuver / nopick m-dir still named);
 no skip D-1240 remaining already-ported uhitm `pline_mon` (gremlin
@@ -145,9 +145,12 @@ no skip D-1243 gulpmm `!goodpos` return-home;
 no skip D-1244 gulpmm AD_DGST eat / D-1245 hideunder after tread
 (gulpmu invent / Medusa / NC_SHOW_MSG / mimic unhide still named);
 no skip D-1246 `bee_eat_jelly` (`find_pmmonst` + grow_up killer-bee
-`!victim` → queen; `gelcube_digests` / `mon_yells` named);
+`!victim` → queen; `gelcube_digests` named);
 no skip D-1247 postmov IRONBARS (`dissolve_bars` eat/Norep; ALLOW_BARS
-rust/corr/metallivore / `mon_yells` / `gelcube_digests` named);
+rust/corr/metallivore / `gelcube_digests` named);
+no skip D-1248 `mon_yells` (watch_on_duty + dokick watchman Deaf
+waves/`You_hear`/verbalize1; SetVoice empty; `gelcube_digests` /
+ALLOW_BARS rust / `watch_dig` named);
 no pull `reset_glyphmap` / vision_recalc
 `notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
 `restore_artifacts` this SHA).

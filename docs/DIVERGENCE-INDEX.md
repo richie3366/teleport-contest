@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1247 | fixed | monmove.c postmov IRONBARS | map-driven; C `monmove.c:1624–1640` else-if door arm + `dissolve_bars` `:2170–2178`; JS rust/corr/metallivore `pline_mon` eat + return MMOVE_DONE (skip mdig rnd(12)); else verbose `Norep` through/between; W_NONDIGGABLE skips eat; ALLOW_BARS rust/corr/metallivore / `mon_yells` / switch_terrain / `gelcube_digests` still named |
+| D-1248 | fixed | monmove.c `mon_yells` | map-driven; C `monmove.c:106–129` + `watch_on_duty` `:186–189` + `dokick.c` watchman `:838–855`; JS Deaf spotted `pline_mon` angrily waves/shakes HEAD/arms; else `Amonnam` yells or You_hear someone yell then `verbalize1`; SetVoice empty without SND_LIB; `gelcube_digests` / ALLOW_BARS rust / `watch_dig` still named |
+| D-1247 | fixed | monmove.c postmov IRONBARS | map-driven; C `monmove.c:1624–1640` else-if door arm + `dissolve_bars` `:2170–2178`; JS rust/corr/metallivore `pline_mon` eat + return MMOVE_DONE (skip mdig rnd(12)); else verbose `Norep` through/between; W_NONDIGGABLE skips eat; ALLOW_BARS rust/corr/metallivore / `mon_yells` D-1248 / switch_terrain / `gelcube_digests` still named |
 | D-1246 | fixed | monmove.c `bee_eat_jelly` | map-driven; C `monmove.c:374–420` `find_pmmonst`/`bee_eat_jelly` + dochug `:868–874`; `makemon.c` grow_up killer-bee `!victim` → queen; JS delay 3/5/7 + splitobj + `pline_mon` eat + `delobj` + freeze; geno `mondied`; IRONBARS D-1247; `mon_yells`/`gelcube_digests`/little_to_big still named |
 
 | D-1244 | fixed | mhitm.c gulpmm AD_DGST eat | map-driven; C `uhitm.c` `mhitm_ad_dgst` 4506–4566 mhitm arm + `mhitm.c` `mdamagem` 1096–1116 cham/slime/wraith/nurse/`mon_givit`; `monkilled` AD_DGST `mondead`; swallowed boom contained; `grow_up(null)` `m_lev++`; gulpmu invent / Medusa stone / NC_SHOW_MSG pline / little_to_big still named |
