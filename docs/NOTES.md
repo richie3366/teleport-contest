@@ -5,17 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1260 `domove` mimic unhide (reviews
-  **216–219** cadence **#1595** `466adf3e`). Next: Open `mhitu.c`
-  `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`.
-  Do not skip D-1260…D-1229. Do not pull nopick m-dir / hitfloor
-  `dropz(TRUE)` / AT_ENGL gulpum / fight_empty `explum` / altwep /
-  hero `test_move` `passes_bars` / unported `mhitm_ad_*` `pline_mon`
+- **Fortress 44/44** after D-1261 `mhitu.c` `hitmsg` (reviews
+  **216–219** cadence **#1595** `466adf3e`). Next: Open `hack.c`
+  nopick `m<dir>` over/against (named from D-1253). Not giant
+  pickup. Do not skip D-1261…D-1229. Do not pull missmu /
+  mattacku AT_TENT / explmu / AT_HUGS / hitfloor `dropz(TRUE)` /
+  AT_ENGL gulpum / fight_empty `explum` / altwep / hero
+  `test_move` `passes_bars` / unported `mhitm_ad_*` `pline_mon`
   / doname EGG / `set_uinwater` / `spoteffects` / `digactualhole`
   `switch_terrain` / `display_self` U_AP_TYPE glyphs /
   swap-with-pet `seemimic`. Do not wrap `msg_mon_movement` as
   `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1260. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1261. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -24,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1260.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1261.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +40,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1260 (index). Named still: nopick m-dir;
+- Do not skip D-1071…D-1261 (index). Named still: nopick m-dir;
   hitfloor `dropz(TRUE)`; AT_ENGL gulpum; fight_empty
-  explum; mhitu `hitmsg`; doname EGG; launch_obj
+  explum; missmu/explmu; doname EGG; launch_obj
   down_gate / boulder-chain; `meatobj` / meatbox;
   `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain`;
   hero `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs.
@@ -57,6 +58,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1261: `mhitu.c` `hitmsg` `pline_mon` + AT_TENT `s_suffix`
+  tentacles + AT_EXPL/BOOM explodes + thick_skinned kick punct
+  ".". missmu/wildmiss/mswings stay pline; mattacku AT_TENT /
+  explmu named.
 - D-1260: `hack.c` `domove_core` after hideunder: `(dx||dy)` +
   `U_AP_TYPE` OBJECT/FURNITURE → `m_ap_type=M_AP_NOTHING` (not
   `seemimic`). `display_self` U_AP_TYPE glyphs named.
@@ -90,6 +95,5 @@ Objective/score live in `CURRENT.md`.
 - D-1249: `container_impact_dmg` dropz/throwit. hitfloor `dropz(TRUE)` named.
 - D-1247: postmov IRONBARS eat/`dissolve_bars`/Norep. ALLOW_BARS D-1258;
   `switch_terrain` D-1259.
-- D-1245: `domove` hideunder after tread. mimic unhide D-1260.
 - Reviews **216–219** all ACCEPT-WITH-DEBT (D-1254 closed **212**).
   Cadence **#1595** **44**/44. Next audit @**#1600**.

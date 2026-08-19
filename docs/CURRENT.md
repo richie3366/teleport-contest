@@ -59,24 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1260. Reviews **216–219** all
+**Map-driven fortress** after D-1261. Reviews **216–219** all
 **ACCEPT-WITH-DEBT** (D-1254 closed review **212** Must-fix).
 **Next cluster:**
-Open `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm
-`pline_mon`.
-Do not skip D-1260…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `hack.c` nopick `m<dir>` over/against (named from D-1253).
+Not giant pickup.
+Do not skip D-1261…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
-Do not pull nopick m-dir / hitfloor
+Do not pull missmu/wildmiss/mswings `pline_mon` / mattacku AT_TENT /
+explmu / AT_HUGS / hitfloor
 `dropz(TRUE)` / AT_ENGL / fight_empty `explum` / altwep
 / hero `test_move` `passes_bars` / unported
 uhitm `mhitm_ad_*` `pline_mon` / doname EGG /
 `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain` /
 `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1260. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1261. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1260 (index). Recent: **D-1260** `domove` mimic
+**Keep:** D-0845…D-1261 (index). Recent: **D-1261** `mhitu.c` `hitmsg`
+(`pline_mon` + AT_TENT `s_suffix` + AT_EXPL/BOOM + thick_skinned kick
+punct; missmu/wildmiss/mswings / mattacku AT_TENT / explmu named);
+**D-1260** `domove` mimic
 unhide (`display_self` U_AP_TYPE / swap-with-pet `seemimic` named);
 **D-1259** `dissolve_bars` `u_at` `switch_terrain` (`set_uinwater` /
 `spoteffects` / `digactualhole` named); **D-1258** `passes_bars`
@@ -93,7 +97,8 @@ D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
 no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
 no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
 no skip D-1237 TELEP `pline_xy`; no skip D-1238 `mind_blast`;
-no skip D-1240–D-1248 (`hitmsg` named); no skip D-1260
+no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1261
+(`missmu` / mattacku AT_TENT / explmu named); no skip D-1260
 (`display_self` U_AP_TYPE / swap-with-pet `seemimic` named);
 no skip D-1253 (nopick m-dir named); no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (EGG / MEAT_RING named);

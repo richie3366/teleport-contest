@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1261 | fixed | mhitu.c `hitmsg` | map-driven Open from D-1240; C `mhitu.c:29–81` `pline_mon` + AT_TENT `s_suffix` tentacles + AT_EXPL/BOOM explodes + AT_KICK `thick_skinned` punct "."; JS was `pline` + those arms omitted; missmu/wildmiss/mswings stay `pline`; mattacku AT_TENT / explmu / AT_HUGS still named |
 | D-1260 | fixed | hack.c mimic unhide after hideunder | map-driven Open from D-1245; C `hack.c:2953–2960` `(dx\|\|dy)&&(U_AP_TYPE==OBJECT\|\|FURNITURE)` → `m_ap_type=M_AP_NOTHING` not `seemimic`; `monst.h` `U_AP_TYPE` mask; after hideunder before `check_leash`; `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` / bump_mon stumble still named |
 | D-1259 | fixed | monmove.c `dissolve_bars` `switch_terrain` | map-driven Open from D-1247; C `monmove.c:2170–2178` `u_at` → `switch_terrain` after `newsym`; JS async `hack.js` `dissolve_bars` awaits live D-1129 body; still_chewing / postmov / zap / hit_bars await; `set_uinwater` / `spoteffects` / `digactualhole` / dothrow / goto_level still named |
 | D-1258 | fixed | mon.c ALLOW_BARS `passes_bars` | map-driven Open from D-1247; C `mondata.c:552–563` `passes_bars` + `mon.c` `mon_allowflags` `:2104–2109` ustuck unsolid/verysmall subset + `mfndpos` `:2225–2230` W_NONDIGGABLE rust/corr skip; JS live in `monsters.js`; **`dissolve_bars` `switch_terrain` D-1259**; hero `hack.c` `test_move` `passes_bars` still named |

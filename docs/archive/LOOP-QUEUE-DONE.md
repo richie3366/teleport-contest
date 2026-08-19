@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `hack.c` mimic unhide (named from D-1245). Not hideunder. **Addressed:** D-1260
+- [x] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`. **Addressed:** D-1261
+
+
+- [x] `hack.c` mimic unhide (named from D-1245). Not hideunder. **Addressed:** D-1260 `8729fa24`
 
 
 - [x] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS. **Addressed:** D-1259 `78707282`

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1261 — `mhitu.c` `hitmsg`
+
+- **Status:** fixed (map-driven Open; named omit from D-1240; not a
+  public FAIL)
+- **Symptom:** JS `hitmsg` used `pline` (so `a11y.msg_loc` stayed
+  0,0) and omitted AT_TENT possessive tentacles, AT_EXPL/BOOM
+  "explodes", and thick-skinned kick period punctuation.
+- **C locus:** `mhitu.c` `hitmsg` `:29–81`; callee `pline.c`
+  `pline_mon` `:137–150`; `hacklib.c` `s_suffix` `:345–358`;
+  `mondata.h` `thick_skinned`. Callers: `hitmu`/`explmu` and
+  `uhitm.c` `mhitm_ad_*` mhitu arms.
+- **JS was:** `pline` + bite/kick/sting/butt/touch/hits only;
+  named omit AT_TENT/`s_suffix`, AT_EXPL/BOOM, kick punct.
+- **Fix:** both arms `pline_mon`. AT_TENT `s_suffix(Monnam)` +
+  "tentacles suck your brain". AT_EXPL/BOOM "explodes". AT_KICK
+  `thick_skinned(youmonst.data)` punct ".". Consecutive `" again"`
+  unchanged (D-0840). Rule #2: no fs.
+- **JS:** `js/mhitu.js` `hitmsg` / `s_suffix_hitmsg`; comment
+  `js/display.js`.
+- **Not this iter:** `missmu`/`wildmiss`/`mswings` still `pline`;
+  `mattacku` AT_TENT melee case / `explmu` / AT_HUGS; remaining
+  unported `mhitm_ad_*` `pline_mon`.
+- **Verified:** private canary **19**/19 (C arms; JS `pline_mon`;
+  bite prefix; Off no prefix; tentacles; BOOM/EXPL; human `!`;
+  dragon `.`; again; seduce smile; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  `accessiblemsg` On or AT_TENT/EXPL/BOOM / thick-skinned kick.
+- **Follow-up:** Open `hack.c` nopick `m<dir>`.
+
 ## D-1260 — `hack.c` mimic unhide after hideunder
 
 - **Status:** fixed (map-driven Open; named omit from D-1245; not a

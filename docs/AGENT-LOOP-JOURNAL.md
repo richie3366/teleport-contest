@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 09:25 — D-1261 mhitu.c hitmsg
+
+**Objective:** Open `mhitu.c` `hitmsg` (named from D-1240). Not
+remaining uhitm `pline_mon`.
+**C locus:** `mhitu.c` `hitmsg` `:29–81`. Callee `pline_mon`.
+`hacklib.c` `s_suffix`; `mondata.h` `thick_skinned`.
+**Change:** `pline`→`pline_mon`; AT_TENT `s_suffix` tentacles;
+AT_EXPL/BOOM explodes; AT_KICK thick_skinned punct ".". Rule #2:
+no fs.
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless `accessiblemsg` On or AT_TENT/EXPL/BOOM /
+thick-skinned kick (default Tourist human).
+**Next:** Open `hack.c` nopick `m<dir>` over/against (named from
+D-1253). Not giant pickup.
+**Blocked:** none.
 ## 2026-08-19 08:53 — D-1260 hack.c mimic unhide
 
 **Objective:** Open `hack.c` mimic unhide (named from D-1245). Not
