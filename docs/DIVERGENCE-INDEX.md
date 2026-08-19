@@ -5,7 +5,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
-| D-1246 | fixed | monmove.c `bee_eat_jelly` | map-driven; C `monmove.c:374–420` `find_pmmonst`/`bee_eat_jelly` + dochug `:868–874`; `makemon.c` grow_up killer-bee `!victim` → queen; JS delay 3/5/7 + splitobj + `pline_mon` eat + `delobj` + freeze; geno `mondied`; iron bars/`mon_yells`/`gelcube_digests`/little_to_big still named |
+| D-1247 | fixed | monmove.c postmov IRONBARS | map-driven; C `monmove.c:1624–1640` else-if door arm + `dissolve_bars` `:2170–2178`; JS rust/corr/metallivore `pline_mon` eat + return MMOVE_DONE (skip mdig rnd(12)); else verbose `Norep` through/between; W_NONDIGGABLE skips eat; ALLOW_BARS rust/corr/metallivore / `mon_yells` / switch_terrain / `gelcube_digests` still named |
+| D-1246 | fixed | monmove.c `bee_eat_jelly` | map-driven; C `monmove.c:374–420` `find_pmmonst`/`bee_eat_jelly` + dochug `:868–874`; `makemon.c` grow_up killer-bee `!victim` → queen; JS delay 3/5/7 + splitobj + `pline_mon` eat + `delobj` + freeze; geno `mondied`; IRONBARS D-1247; `mon_yells`/`gelcube_digests`/little_to_big still named |
 
 | D-1244 | fixed | mhitm.c gulpmm AD_DGST eat | map-driven; C `uhitm.c` `mhitm_ad_dgst` 4506–4566 mhitm arm + `mhitm.c` `mdamagem` 1096–1116 cham/slime/wraith/nurse/`mon_givit`; `monkilled` AD_DGST `mondead`; swallowed boom contained; `grow_up(null)` `m_lev++`; gulpmu invent / Medusa stone / NC_SHOW_MSG pline / little_to_big still named |
 | D-1243 | fixed | mhitm.c gulpmm `!goodpos` return-home | map-driven; C `mhitm.c:932–947` `!goodpos(dx,dy,magr,MM_IGNOREWATER)` then `dx=ax,dy=ay` + place + minliquid/mintrap; JS teleport.js `m_at` skips dead/OFFMAP (C grid; D-1231 named the clone); ROOM dest stay; STONE dest home; AD_DGST eat D-1244 |

@@ -20,6 +20,22 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 02:17 — #1582 D-1247 postmov IRONBARS
+
+**Objective:** Open `monmove.c` postmov iron bars (named). Not
+bee_eat.
+**C locus:** `monmove.c` `postmov` `:1624–1640` else-if of door
+arm; `dissolve_bars` `:2170–2178`.
+**Change:** rust/corr/metallivore eat + `dissolve_bars` +
+return MMOVE_DONE (skip `mdig_tunnel` rnd(12)); else verbose
+`Norep` through/between; W_NONDIGGABLE skips eat. `mon_yells` /
+ALLOW_BARS rust still named. Rule #2: no fs.
+**Verified:** private canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a bars-eater or bars-passer `postmov`s
+onto IRONBARS.
+**Next:** Open `monmove.c` `mon_yells` (named). Not iron bars.
+**Blocked:** none.
 ## 2026-08-19 02:05 — #1581 D-1246 bee_eat_jelly
 
 **Objective:** Open `monmove.c` `bee_eat_jelly` (named). Not

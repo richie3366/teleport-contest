@@ -9,7 +9,7 @@ import {
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
-    grounded, telepathic, mons,
+    grounded, telepathic, mons, metallivorous,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -41,11 +41,11 @@ import {
     M_AP_FURNITURE, M_AP_NOTHING, M_AP_MONSTER, KILLED_BY_AN,
     STRAT_WAITFORU, STRAT_WAITMASK, STRAT_CLOSE,
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
-    STAIRS, LADDER, IRONBARS, WEB,
+    STAIRS, LADDER, IRONBARS, WEB, W_NONDIGGABLE,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
-import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail } from './hack.js';
+import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars } from './hack.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
@@ -53,7 +53,7 @@ import {
     objectNames,
 } from './objects.js';
 import { Monnam, y_monnam, Adjmonnam, mon_nam } from './do_name.js';
-import { doname, distant_name, ansimpleoname, vtense, an, xname } from './objnam.js';
+import { doname, distant_name, ansimpleoname, vtense, an, xname, makeplural } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
 import { MON_WEP, mon_wield_item, select_rwep } from './weapon.js';
@@ -69,7 +69,7 @@ import { check_gear_next_turn } from './worn.js';
 import { picking_lock } from './lock.js';
 import {
     newsym, pline, canseemon as display_canseemon, pline_mon, pline_xy,
-    canspotmon as display_canspotmon, sensemon,
+    canspotmon as display_canspotmon, sensemon, Norep,
 } from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { shk_move, gd_move, pri_move } from './shk.js';
@@ -110,6 +110,9 @@ const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
 const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 /** C ref: monattk.h AD_DRIN — mind_blast monkilled how. */
 const AD_DRIN = 32;
+/** C ref: monattk.h — postmov iron-bars eat (rust monster / gray ooze / pudding). */
+const AD_RUST = 24;
+const AD_CORR = 42;
 const GEMSTONE = 20; // objclass.h
 const MINERAL = 21; // objclass.h
 const MAX_CARR_CAP = 1000;
@@ -953,6 +956,16 @@ function locomotion(ptr, def) {
     return def;
 }
 
+/** C ref: mondata.c dmgtype — any mattk slot matches adtyp (AT_ANY). */
+function dmgtype(ptr, adtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.adtyp | 0) === (adtyp | 0)) return true;
+    }
+    return false;
+}
+
 /**
  * C monmove.c msg_mon_movement 32–48 — a11y.mon_movement dest pline_xy
  * after place_monster. Not pline_mon (C uses nix,niy). Requires already
@@ -1183,13 +1196,15 @@ export async function m_postmove_effect(mtmp) {
  * amorphous squeeze pline_mon (YMonnam + fog/S_LIGHT flows); mb_trapped;
  * mpickstuff one-object pickup; hides_under / S_EEL rn2(5) → hideunder
  * (D-0496); maybe_spin_web (D-0595); door/flee/web/itsstuck pline_mon
- * D-1227.
- * Named omissions: vampshift fog; iron bars; shop add_damage;
+ * D-1227; IRONBARS eat/Norep (D-1247).
+ * Named omissions: vampshift fog; shop add_damage;
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
- * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish.
+ * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish;
+ * ALLOW_BARS rust/corr/metallivore in mon_allowflags; dissolve_bars
+ * switch_terrain; mon_yells.
  * (shk/gd/priest via shk.js D-0205)
  */
-async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
+export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
     if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved;
 
     const ptr = mtmp.data;
@@ -1281,6 +1296,32 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
             }
             // shop add_damage deferred
         }
+    } else if (loc && loc.typ === IRONBARS) {
+        // C ref: monmove.c postmov :1624–1640 — else-if of the door arm.
+        // Eat (AD_RUST / AD_CORR / metallivorous) unless W_NONDIGGABLE,
+        // then dissolve_bars and return MMOVE_DONE (skips mdig_tunnel
+        // rnd(12) and OBJ_AT pickup). Else Norep pass through/between.
+        // Named: ALLOW_BARS rust/corr/metallivore (mon_allowflags);
+        // dissolve_bars switch_terrain; meatmetal.
+        const wi = (loc.wall_info | 0) | (loc.flags | 0);
+        if (!(wi & W_NONDIGGABLE)
+            && (dmgtype(ptr, AD_RUST) || dmgtype(ptr, AD_CORR)
+                || metallivorous(ptr))) {
+            if (display_canseemon(mtmp)) {
+                await pline_mon(
+                    mtmp,
+                    `${Monnam(mtmp)} eats through the iron bars.`,
+                );
+            }
+            dissolve_bars(mtmp.mx, mtmp.my);
+            return MMOVE_DONE;
+        } else if (game.flags?.verbose !== false && display_canseemon(mtmp)) {
+            await Norep(
+                `${Monnam(mtmp)} ${makeplural(locomotion(ptr, 'pass'))} ${
+                    passes_walls(ptr) ? 'through' : 'between'
+                } the iron bars.`,
+            );
+        }
     }
 
     // C: possibly dig — can_tunnel && may_dig → mdig_tunnel (burns rnd(12)
@@ -1301,7 +1342,6 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
     } else if (mtmp.mx) {
         newsym(mtmp.mx, mtmp.my);
     }
-    // IRONBARS deferred
     } // end MMOVE_MOVED
 
     // C: shared MOVED|DONE floor pickup
@@ -1784,7 +1824,7 @@ function sobj_at_monmove(otyp, x, y) {
 /**
  * C ref: monmove.c bee_eat_jelly — killer bee on royal jelly becomes
  * queen if none on the level. 1 died, 0 ate and froze, -1 queen present.
- * gelcube_digests / iron bars / mon_yells still named.
+ * gelcube_digests / mon_yells still named. postmov IRONBARS is D-1247.
  */
 export async function bee_eat_jelly(mon, obj) {
     const queen = find_pmmonst(PM_QUEEN_BEE);
@@ -1812,9 +1852,10 @@ export async function bee_eat_jelly(mon, obj) {
 
 /**
  * C ref: monmove.c mind_blast — mind flayer psychic wave (dochug !rn2(20)).
- * Named omissions: iron bars / mon_yells (other monmove pline_mon).
+ * Named omissions: mon_yells (other monmove pline_mon).
  * Hero Half_spell_damage uses youprop H||E; other-mon dmg is raw rnd(15).
  * fmon nmon snapshot: JS copies the live array. bee_eat_jelly is D-1246.
+ * postmov IRONBARS eat/Norep is D-1247.
  */
 export async function mind_blast(mtmp) {
     const u = game.u || (game.u = {});

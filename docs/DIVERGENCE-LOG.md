@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1247 — `monmove.c` postmov IRONBARS
+
+- **Status:** fixed (map-driven Open; named omit from D-1246 /
+  D-1238 / D-1227; not a public FAIL)
+- **Symptom:** a monster that had already stepped onto IRONBARS
+  never ate them (rust/corr/metallivore) and never Norep-passed
+  through or between, so bars stayed forever and tunnelers
+  still burned `mdig_tunnel` `rnd(12)` on that cell.
+- **C locus:** `monmove.c` `postmov` `:1624–1640` else-if of the
+  door arm; `dissolve_bars` `:2170–2178`. Eat unless
+  `W_NONDIGGABLE` when `dmgtype(AD_RUST|AD_CORR)` or
+  `metallivorous`; `pline_mon` eats; return `MMOVE_DONE`.
+  Else `flags.verbose && canseemon` `Norep` through/between.
+- **JS was:** `// IRONBARS deferred` after engulf/newsym.
+- **Fix:** else-if on the door `if`; eat then `dissolve_bars`
+  + return DONE (skips `mdig_tunnel` rnd(12) and OBJ_AT);
+  pass uses `Norep` not `pline_mon`. Wall_info|flags
+  `W_NONDIGGABLE`. Rule #2: no fs.
+- **JS:** `js/monmove.js` `postmov`; existing `hack.js`
+  `dissolve_bars`.
+- **Not this iter:** ALLOW_BARS rust/corr/metallivore in
+  `mon_allowflags`; `dissolve_bars` `switch_terrain`;
+  `mon_yells`; `meatmetal`; shop `add_damage`.
+- **Verified:** private canary **24**/24 (C else-if; rust/ooze/
+  pudding/mole/xorn eat; fog/ghost/jackal Norep; nondiggable;
+  MMOVE_DONE skip; unseen; !verbose; rnd(12) skip vs burn;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a rust/corr/metallivore or bars-passer `postmov`s
+  onto IRONBARS.
+- **Follow-up:** Open `monmove.c` `mon_yells`.
+
 ## D-1246 — `monmove.c` `bee_eat_jelly`
 
 - **Status:** fixed (map-driven Open; named omit from D-1238 /
