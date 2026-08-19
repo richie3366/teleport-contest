@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 04:55 — #1593 D-1256 landmine·pit mid-roll
+
+**Objective:** Open `trap.c` landmine·pit mid-roll (named from
+D-1237). Not rolling-boulder TELEP.
+**C locus:** `trap.c` `launch_obj` `:3436–3507` LANDMINE / PIT /
+SPIKED_PIT / HOLE / TRAPDOOR; `do.c` `flooreffects` boulder+pit;
+`zap.c` `fracture_rock`.
+**Change:** ROLL + BOULDER + `t_at`: LANDMINE `rn2(10)>2` `set_msg_xy`
+then KAABLAMM / `deltrap` / `fracture_rock` / `scatter`; pit family
+`flooreffects("fall")` + `dist=-1`. TELEP D-1237 unchanged.
+down_gate / boulder-chain / post-switch flooreffects still named.
+Rule #2: no fs.
+**Verified:** private canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a rolling boulder crosses a landmine or pit.
+**Next:** Open `monmove.c` `gelcube_digests` (named from D-1246).
+Not `mon_yells`.
+**Blocked:** none.
 ## 2026-08-19 04:45 — #1592 D-1255 glob / doname CXN
 
 **Objective:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE

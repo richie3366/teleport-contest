@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1256 | fixed | trap.c `launch_obj` landmine·pit mid-roll | map-driven Open from D-1237; C `trap.c:3436–3507` LANDMINE `rn2(10)>2` KAABLAMM/`fracture_rock`/`scatter` + PIT/SPIKED/HOLE/TRAPDOOR `flooreffects`+`dist=-1`; miss keeps rolling; TELEP D-1237 unchanged; down_gate / boulder-chain / post-switch flooreffects still named |
 | D-1255 | fixed | objnam.c glob / doname CXN_ARTICLE\|CXN_NOCORPSE | map-driven Open from D-1234; C `objnam.c:1841–1900` glob OBJ_NAME skip omit_corpse; `:783–789` xname size small/medium/large/very large; `doname_base` `:1288–1291` skip article + `:1507–1523` `corpse_xname(prefix, CXN_ARTICLE\|CXN_NOCORPSE)`; EGG / MEAT_RING / candle `partly used` still named |
 | D-1254 | fixed | mondata.c `hates_silver` / `mon_hates_silver` | map-driven Must-fix review **212**; C `mondata.c:524–528` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu + `:517–519` `is_vampshifter`; live in `monsters.js`; deleted `M2_WERE\|M2_DEMON` clones in `weapon.js`/`muse.js`; `dmgval` silver still named |
 

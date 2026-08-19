@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective. **Addressed:** D-1255
+- [x] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP. **Addressed:** D-1256
+
+
+- [x] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective. **Addressed:** D-1255 `25a81ff1`
 
 
 - [x] `weapon.c` `special_dmgval` `mon_hates_silver` must match C `mondata.c` `hates_silver` (shade, S_VAMPIRE, imp except tengu, were, demon) + `is_vampshifter`, not the local M2_WERE|M2_DEMON clone. Source: reviews/loop-unattended/212-87b4705a-hmonas-at-hugs.md **Addressed:** D-1254 `fd5ebd92`

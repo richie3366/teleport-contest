@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1256 — `trap.c` `launch_obj` landmine·pit mid-roll
+
+- **Status:** fixed (map-driven Open; named omit from D-1237; not a
+  public FAIL)
+- **Symptom:** JS `launch_obj` rolled a boulder through a LANDMINE
+  without `rn2(10)` / KAABLAMM / `fracture_rock`, and through a
+  PIT/SPIKED_PIT/HOLE/TRAPDOOR without `flooreffects` + stop.
+- **C locus:** `trap.c` `launch_obj` `:3436–3507` (LANDMINE
+  `:3437–3459`; pit family `:3489–3501`); `do.c` `flooreffects`
+  boulder+pit `:187–269`; `zap.c` `fracture_rock`.
+- **JS was:** TELEP/LEVEL_TELEP only (D-1237); landmine/pit comment
+  “still named”; boulder continued to `place_object` at rest.
+- **Fix:** ROLL + BOULDER + `t_at`: LANDMINE `rn2(10)>2` `set_msg_xy`
+  then `pline` KAABLAMM (extra sentence iff cansee), `deltrap`,
+  `del_engr_at`, `place_object`, `fracture_rock`, `scatter` with C
+  flags, `newsym`, used_up; pit family set rest cell, `flooreffects`
+  `"fall"`, `dist=-1`; then `used_up||dist==-1` break. Missed
+  landmine (`rn2<=2`) keeps rolling. Rule #2: no fs.
+- **JS:** `js/trap.js` `launch_obj`; comments `js/display.js`
+  `set_msg_xy`, `js/explode.js` `scatter`.
+- **Not this iter:** `down_gate`/`ship_object`; post-switch
+  `flooreffects`; boulder-on-boulder chain; `launch_drop_spot`;
+  scatter MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS; `gelcube_digests`.
+- **Verified:** private canary **23**/23 (C arms; JS KAABLAMM +
+  fracture + deltrap; miss continues; accessiblemsg prefix; Blind
+  KAABLAMM no extra; pit fill + You_hear; SPIKED/HOLE/TRAPDOOR stop;
+  TELEP regression); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  a rolling boulder crosses a landmine or pit.
+- **Follow-up:** Open `monmove.c` `gelcube_digests`.
+
 ## D-1255 — `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE
 
 - **Status:** fixed (map-driven Open; named omit from D-1234; not a
