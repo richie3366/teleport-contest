@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1246 — `monmove.c` `bee_eat_jelly`
+
+- **Status:** fixed (map-driven Open; named omit from D-1238 /
+  D-1227; not a public FAIL)
+- **Symptom:** a killer bee standing on royal jelly never ate
+  it, so it could not become a queen when none was on the
+  level, and still took a full movement turn.
+- **C locus:** `monmove.c` `find_pmmonst` `:374–388`;
+  `bee_eat_jelly` `:394–420`; caller `dochug` `:868–874`
+  after wield, before `gelcube_digests`. `makemon.c`
+  `grow_up` `:2066–2067` killer-bee `!victim` → `PM_QUEEN_BEE`
+  then form-change when `++m_lev >= queen.mlevel`.
+- **JS was:** named omit after D-1238 `mind_blast`; `grow_up`
+  HP/`m_lev++` only.
+- **Fix:** `find_pmmonst` (G_GENOD / DEADMONSTER / mndx);
+  eat delay 3/5/7; `splitobj`+`delobj`; `canseemon`
+  `pline_mon` eats; bump `m_lev` to queen.mlevel-1;
+  `grow_up(null)` queen form + freeze. Live queen → -1.
+  Genocided queen → eat then `mondied`. Rule #2: no fs.
+- **JS:** `js/monmove.js` `find_pmmonst` / `bee_eat_jelly` /
+  `dochug`; `js/mhitm.js` `grow_up` bee `!victim` arm.
+- **Not this iter:** `gelcube_digests`; postmov iron bars;
+  `mon_yells`; `grow_up` little_to_big; mleashed
+  `update_inventory`.
+- **Verified:** private canary **31**/31 (C body+caller;
+  delay BUC; split; live/dead/geno queen; dochug return;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a killer bee `dochug`s on jelly with no living queen.
+- **Follow-up:** Open `monmove.c` postmov iron bars.
+
 ## D-1245 — `hack.c` hideunder after tread
 
 - **Status:** fixed (map-driven Open; named omit from D-1229 /

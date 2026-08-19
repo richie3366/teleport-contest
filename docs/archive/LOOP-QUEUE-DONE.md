@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-19
+
+- [x] `monmove.c` `bee_eat_jelly` (named). Not mind_blast. **Addressed:** D-1246
+
 ## 2026-08-18
 
 - [x] `hack.c` hideunder after impact (named from D-1229). Not container_impact. **Addressed:** D-1245 `6115dc58`

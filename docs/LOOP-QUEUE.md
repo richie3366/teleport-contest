@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` `bee_eat_jelly` (named). Not mind_blast.
 - [ ] `monmove.c` postmov iron bars (named). Not bee_eat.
 - [ ] `monmove.c` `mon_yells` (named). Not iron bars.
 - [ ] `hack.c` `container_impact_dmg` (named from D-1229). Not hideunder.

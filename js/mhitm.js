@@ -11,7 +11,7 @@ import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen, verbalize } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
-import { resist_conflict } from './mondata.js';
+import { resist_conflict, set_mon_data } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval } from './weapon.js';
 import { find_mac, which_armor } from './worn.js';
 import { update_monster_region } from './region.js';
@@ -87,6 +87,7 @@ import {
     is_flyer, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
+    is_male, is_female, is_shapeshifter,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { ART_TROLLSBANE } from './generated/artifacts_data.js';
@@ -95,7 +96,7 @@ import {
     obj_meld, pudding_merge_message, place_object, add_to_container,
     weight, mksobj, set_corpsenm, obj_stop_timers,
 } from './mkobj.js';
-import { Monnam, mon_nam, oname, pmname, x_monnam, hliquid } from './do_name.js';
+import { Monnam, mon_nam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
 import { an, xname, makeplural } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
@@ -127,6 +128,8 @@ const PM_GRID_BUG = monsterNames.indexOf('PM_GRID_BUG');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CHROMATIC_DRAGON = monsterNames.indexOf('PM_CHROMATIC_DRAGON');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
@@ -1494,9 +1497,16 @@ export async function monkilled(mdef, fltxt, how) {
 }
 
 // C ref: makemon.c grow_up() — HP gain from kill; null victim = wraith/potion.
-// Named omit: little_to_big form change; mplayer/golem/home-elemental caps.
-function grow_up(mtmp, victim) {
+// Killer bee + !victim → queen (D-1246; not in little_to_big). Named omit:
+// little_to_big form change; mplayer/golem/home-elemental caps; mleashed
+// update_inventory.
+export async function grow_up(mtmp, victim) {
     if (deadmonster(mtmp)) return null;
+    const oldtype = mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM;
+    const newtype = (oldtype === PM_KILLER_BEE && !victim)
+        ? PM_QUEEN_BEE
+        : oldtype;
+
     if (!victim) {
         const gain = rnd(8);
         mtmp.mhpmax += gain;
@@ -1504,20 +1514,70 @@ function grow_up(mtmp, victim) {
         let lev = (mtmp.m_lev | 0) + 1;
         if (lev > 50) lev = 50;
         mtmp.m_lev = lev;
-        return mtmp.data;
+    } else {
+        let hp_threshold = (mtmp.m_lev || 0) * 8;
+        if (!mtmp.m_lev) hp_threshold = 4;
+        let max_increase = rnd((victim.m_lev || 0) + 1);
+        if (mtmp.mhpmax + max_increase > hp_threshold + 1) {
+            max_increase = Math.max((hp_threshold + 1) - mtmp.mhpmax, 0);
+        }
+        const cur_increase = max_increase > 1 ? rn2(max_increase) : 0;
+        mtmp.mhpmax += max_increase;
+        mtmp.mhp += cur_increase;
+        if (mtmp.mhpmax <= hp_threshold) return mtmp.data;
+        mtmp.m_lev = (mtmp.m_lev || 0) + 1;
     }
-    let hp_threshold = (mtmp.m_lev || 0) * 8;
-    if (!mtmp.m_lev) hp_threshold = 4;
-    let max_increase = rnd((victim.m_lev || 0) + 1);
-    if (mtmp.mhpmax + max_increase > hp_threshold + 1) {
-        max_increase = Math.max((hp_threshold + 1) - mtmp.mhpmax, 0);
+
+    // C: ++m_lev >= mons[newtype].mlevel && newtype != oldtype
+    if (newtype !== oldtype
+        && (mtmp.m_lev | 0) >= (mons(newtype)?.mlevel | 0)) {
+        const ptr = mons(newtype);
+        const fem = is_male(ptr) ? 0 : is_female(ptr) ? 1 : (mtmp.female ? 1 : 0);
+        if (((game.mvitals?.[newtype]?.mvflags ?? 0) & G_GENOD) !== 0) {
+            if (canspotmon(mtmp)) {
+                const who = mon_nam(mtmp);
+                const into = an(pmname(ptr, mtmp.female ? FEMALE : MALE));
+                const dies = nonliving(ptr) ? 'expires' : 'dies';
+                await pline(
+                    `As ${who} grows up into ${into}, ${mhe_grow(mtmp)} ${dies}!`,
+                );
+            }
+            set_mon_data(mtmp, ptr);
+            await mondied(mtmp);
+            return null;
+        }
+        if (canspotmon(mtmp)) {
+            const genderAdj = (mtmp.female && !fem) ? 'male '
+                : (fem && !mtmp.female) ? 'female ' : '';
+            const buf = `${genderAdj}${pmname(ptr, fem ? FEMALE : MALE)}`;
+            const verb = (fem !== (mtmp.female ? 1 : 0))
+                ? 'changes into'
+                : humanoid(ptr) ? 'becomes' : 'grows up into';
+            await pline_mon(mtmp, `${YMonnam_grow(mtmp)} ${verb} ${an(buf)}.`);
+        }
+        set_mon_data(mtmp, ptr);
+        if ((mtmp.cham | 0) === oldtype && is_shapeshifter(ptr)) {
+            mtmp.cham = newtype;
+        }
+        newsym(mtmp.mx, mtmp.my);
+        mtmp.female = fem;
+        // mleashed update_inventory named
+        if ((mtmp.mhpmax | 0) > 50 * 8) mtmp.mhpmax = 50 * 8;
+        if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhp = mtmp.mhpmax;
     }
-    const cur_increase = max_increase > 1 ? rn2(max_increase) : 0;
-    mtmp.mhpmax += max_increase;
-    mtmp.mhp += cur_increase;
-    if (mtmp.mhpmax <= hp_threshold) return mtmp.data;
-    mtmp.m_lev = (mtmp.m_lev || 0) + 1;
-    return mtmp.data;
+    return deadmonster(mtmp) ? null : mtmp.data;
+}
+
+/** C do_name.c YMonnam — highc(y_monnam). */
+function YMonnam_grow(mtmp) {
+    const s = y_monnam(mtmp) || '';
+    if (!s) return s;
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/** C you.h mhe — genders[pronoun_gender].he; Hallu named. */
+function mhe_grow(mtmp) {
+    return ['he', 'she', 'it'][gender(mtmp)] || 'it';
 }
 
 // C ref: mhitm.c pre_mm_attack — reveal + map_invisible when gv.vis
@@ -1631,14 +1691,14 @@ async function mdamagem_digest_eat(magr, mdef, pa, pd) {
     } else if ((pd?.mndx | 0) === PM_GREEN_SLIME && !slimeproof(pa)) {
         newcham(magr, mons(PM_GREEN_SLIME), NC_SHOW_MSG);
     } else if ((pd?.mndx | 0) === PM_WRAITH) {
-        grow_up(magr, null);
+        await grow_up(magr, null);
         return M_ATTK_DEF_DIED
             | (deadmonster(magr) ? M_ATTK_AGR_DIED : 0);
     } else if ((pd?.mndx | 0) === PM_NURSE) {
         healmon(magr, magr.mhpmax | 0, 0);
     }
     await mon_givit(magr, pd);
-    const grew = grow_up(magr, mdef);
+    const grew = await grow_up(magr, mdef);
     return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
 }
 
@@ -1700,7 +1760,7 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         if (mdef.mhp < 1) {
             mdef.mhp = 0;
             await mdamagem_monkilled(magr, mdef, mattk, mwep);
-            const grew = grow_up(magr, mdef);
+            const grew = await grow_up(magr, mdef);
             return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
         }
         return hitflags || M_ATTK_HIT;
@@ -1743,7 +1803,7 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         mdef.mhp = 0;
         // C: mdamagem → troll_baned + gz.zombify; monkilled; reset both
         await mdamagem_monkilled(magr, mdef, mattk, mwep);
-        const grew = grow_up(magr, mdef);
+        const grew = await grow_up(magr, mdef);
         return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
     }
     return M_ATTK_HIT;
@@ -1919,9 +1979,10 @@ async function failed_grab(magr, mdef, mattk) {
  * snuff_lit minvent when !flaming (D-1242). !goodpos inhospitable dest
  * return-home (D-1243; teleport.js m_at skips dead/OFFMAP like C grid).
  * AD_DGST eat (mhitm_ad_dgst + post-monkilled cham/slime/wraith/nurse/
- * mon_givit) is D-1244. gulpmu invent / gulpum / litroom / pickup
- * snuff_lit callers still named. Digest-Medusa stone magr / newcham
- * NC_SHOW_MSG pline / grow_up little_to_big still named.
+ * mon_givit) is D-1244. grow_up killer-bee !victim → queen is D-1246.
+ * gulpmu invent / gulpum / litroom / pickup snuff_lit callers still
+ * named. Digest-Medusa stone magr / newcham NC_SHOW_MSG pline /
+ * grow_up little_to_big still named.
  */
 async function gulpmm(magr, mdef, mattk) {
     if (!engulf_target(magr, mdef)) return M_ATTK_MISS;

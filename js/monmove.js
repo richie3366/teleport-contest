@@ -9,11 +9,11 @@ import {
     mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
-    grounded, telepathic,
+    grounded, telepathic, mons,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
-import { objects_at, obj_extract_self, splitobj } from './mkobj.js';
+import { objects_at, obj_extract_self, splitobj, delobj } from './mkobj.js';
 import { find_defensive, use_defensive, find_misc, use_misc, find_offensive, searches_for_item } from './muse.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
 import {
@@ -27,7 +27,7 @@ import {
     count_traps,
 } from './trap.js';
 import { mattacku } from './mhitu.js';
-import { mattackm, mdisplacem, monkilled } from './mhitm.js';
+import { mattackm, mdisplacem, monkilled, grow_up } from './mhitm.js';
 import { castmu, AD_SPEL, AD_CLRC } from './mcastu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point, m_cansee } from './vision.js';
 import {
@@ -53,7 +53,7 @@ import {
     objectNames,
 } from './objects.js';
 import { Monnam, y_monnam, Adjmonnam, mon_nam } from './do_name.js';
-import { doname, distant_name, ansimpleoname, vtense } from './objnam.js';
+import { doname, distant_name, ansimpleoname, vtense, an, xname } from './objnam.js';
 import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
 import { MON_WEP, mon_wield_item, select_rwep } from './weapon.js';
@@ -105,6 +105,9 @@ const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
 const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
+const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
+const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
+const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 /** C ref: monattk.h AD_DRIN — mind_blast monkilled how. */
 const AD_DRIN = 32;
 const GEMSTONE = 20; // objclass.h
@@ -1757,10 +1760,61 @@ export async function m_move(mtmp, after) {
 }
 
 /**
+ * C ref: monmove.c find_pmmonst — first living mons[pm] on fmon, or null
+ * when G_GENOD. DEADMONSTER skipped. data compared by mndx (JS mons()
+ * allocates).
+ */
+export function find_pmmonst(pm) {
+    if (((game.mvitals?.[pm]?.mvflags ?? 0) & G_GENOD) !== 0) return null;
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) < 1) continue;
+        if ((mtmp.data?.mndx ?? mtmp.mnum) === pm) return mtmp;
+    }
+    return null;
+}
+
+/** C ref: mkobj.c sobj_at — first floor object of otyp. */
+function sobj_at_monmove(otyp, x, y) {
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if ((o.otyp | 0) === otyp) return o;
+    }
+    return null;
+}
+
+/**
+ * C ref: monmove.c bee_eat_jelly — killer bee on royal jelly becomes
+ * queen if none on the level. 1 died, 0 ate and froze, -1 queen present.
+ * gelcube_digests / iron bars / mon_yells still named.
+ */
+export async function bee_eat_jelly(mon, obj) {
+    const queen = find_pmmonst(PM_QUEEN_BEE);
+    if (queen) return -1;
+
+    const m_delay = obj.blessed ? 3 : !obj.cursed ? 5 : 7;
+    let lump = obj;
+    if ((lump.quan || 1) > 1) {
+        lump = splitobj(lump, 1) || lump;
+    }
+    if (display_canseemon(mon)) {
+        await pline_mon(mon, `${Monnam(mon)} eats ${an(xname(lump))}.`);
+    }
+    delobj(lump);
+
+    const queenLev = (mons(PM_QUEEN_BEE)?.mlevel | 0) - 1;
+    if ((mon.m_lev | 0) < queenLev) mon.m_lev = queenLev;
+    await grow_up(mon, null);
+
+    if ((mon.mhp | 0) < 1) return 1; /* queen bees genocided */
+    mon.mfrozen = m_delay;
+    mon.mcanmove = 0;
+    return 0;
+}
+
+/**
  * C ref: monmove.c mind_blast — mind flayer psychic wave (dochug !rn2(20)).
- * Named omissions: bee_eat_jelly / iron bars / mon_yells (other monmove
- * pline_mon). Hero Half_spell_damage uses youprop H||E; other-mon dmg
- * is raw rnd(15). fmon nmon snapshot: JS copies the live array.
+ * Named omissions: iron bars / mon_yells (other monmove pline_mon).
+ * Hero Half_spell_damage uses youprop H||E; other-mon dmg is raw rnd(15).
+ * fmon nmon snapshot: JS copies the live array. bee_eat_jelly is D-1246.
  */
 export async function mind_blast(mtmp) {
     const u = game.u || (game.u = {});
@@ -1930,6 +1984,16 @@ export async function dochug(mtmp) {
             && !(mtmp.mtrapped && !nearby && select_rwep(mtmp))) {
             mtmp.weapon_check = NEED_HTH_WEAPON;
             if ((await mon_wield_item(mtmp)) !== 0) return 0;
+        }
+    }
+
+    // C ref: monmove.c dochug — killer bee may eat royal jelly (no queen).
+    // gelcube_digests named.
+    if ((mdat?.mndx | 0) === PM_KILLER_BEE) {
+        const otmp = sobj_at_monmove(LUMP_OF_ROYAL_JELLY, mtmp.mx, mtmp.my);
+        if (otmp) {
+            const res = await bee_eat_jelly(mtmp, otmp);
+            if (res >= 0) return res;
         }
     }
 
