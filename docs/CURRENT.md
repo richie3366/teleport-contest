@@ -59,25 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1261. Reviews **216–219** all
+**Map-driven fortress** after D-1262. Reviews **216–219** all
 **ACCEPT-WITH-DEBT** (D-1254 closed review **212** Must-fix).
 **Next cluster:**
-Open `hack.c` nopick `m<dir>` over/against (named from D-1253).
-Not giant pickup.
-Do not skip D-1261…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not
+container_impact.
+Do not skip D-1262…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull missmu/wildmiss/mswings `pline_mon` / mattacku AT_TENT /
-explmu / AT_HUGS / hitfloor
-`dropz(TRUE)` / AT_ENGL / fight_empty `explum` / altwep
+explmu / AT_HUGS / AT_ENGL / fight_empty `explum` / altwep
 / hero `test_move` `passes_bars` / unported
 uhitm `mhitm_ad_*` `pline_mon` / doname EGG /
 `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain` /
-`display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic`.
+`display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` /
+Blind unseen boulder feel / next_boulder / verysmall vain.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1261. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1262. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1261 (index). Recent: **D-1261** `mhitu.c` `hitmsg`
+**Keep:** D-0845…D-1262 (index). Recent: **D-1262** `hack.c`
+`moverock_core` nopick `m<dir>` over/against (before Levitation;
+glyph `door_opened`; Blind unseen / next_boulder / verysmall named);
+**D-1261** `mhitu.c` `hitmsg`
 (`pline_mon` + AT_TENT `s_suffix` + AT_EXPL/BOOM + thick_skinned kick
 punct; missmu/wildmiss/mswings / mattacku AT_TENT / explmu named);
 **D-1260** `domove` mimic
@@ -88,7 +91,7 @@ ALLOW_BARS (hero `test_move` named); **D-1257** `gelcube_digests`
 (`meatobj` / meatbox named); **D-1256** launch_obj landmine·pit
 (down_gate / boulder-chain named); **D-1255** glob / doname CXN
 (EGG / MEAT_RING named); **D-1254** `hates_silver` (`dmgval` silver
-named); D-1253 giant pickup (nopick m-dir named); D-1249
+named); D-1253 giant pickup (nopick D-1262); D-1249
 container_impact (hitfloor `dropz(TRUE)` named); D-1250–D-1252
 AT_HUGS / AT_EXPL / `demonpet` (AT_ENGL / fight_empty / altwep named).
 **Do not / recent rejects:** FORCE/RNG/appear; HEAVY_IRON_BALL `owt!=0`;
@@ -97,10 +100,10 @@ D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
 no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
 no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
 no skip D-1237 TELEP `pline_xy`; no skip D-1238 `mind_blast`;
-no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1261
-(`missmu` / mattacku AT_TENT / explmu named); no skip D-1260
-(`display_self` U_AP_TYPE / swap-with-pet `seemimic` named);
-no skip D-1253 (nopick m-dir named); no skip D-1254 (`dmgval`
+no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1262 (Blind unseen / next_boulder / verysmall named);
+no skip D-1261 (`missmu` / mattacku AT_TENT / explmu named); no skip
+D-1260 (`display_self` U_AP_TYPE / swap-with-pet `seemimic` named);
+no skip D-1253; no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (EGG / MEAT_RING named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);

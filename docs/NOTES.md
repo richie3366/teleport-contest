@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1261 `mhitu.c` `hitmsg` (reviews
-  **216–219** cadence **#1595** `466adf3e`). Next: Open `hack.c`
-  nopick `m<dir>` over/against (named from D-1253). Not giant
-  pickup. Do not skip D-1261…D-1229. Do not pull missmu /
-  mattacku AT_TENT / explmu / AT_HUGS / hitfloor `dropz(TRUE)` /
-  AT_ENGL gulpum / fight_empty `explum` / altwep / hero
-  `test_move` `passes_bars` / unported `mhitm_ad_*` `pline_mon`
-  / doname EGG / `set_uinwater` / `spoteffects` / `digactualhole`
+- **Fortress 44/44** after D-1262 `hack.c` nopick `m<dir>`
+  over/against (reviews **216–219** cadence **#1595** `466adf3e`).
+  Next: Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249).
+  Not container_impact. Do not skip D-1262…D-1229. Do not pull
+  missmu / mattacku AT_TENT / explmu / AT_HUGS / AT_ENGL gulpum
+  / fight_empty `explum` / altwep / hero `test_move`
+  `passes_bars` / unported `mhitm_ad_*` `pline_mon` / doname EGG
+  / `set_uinwater` / `spoteffects` / `digactualhole`
   `switch_terrain` / `display_self` U_AP_TYPE glyphs /
-  swap-with-pet `seemimic`. Do not wrap `msg_mon_movement` as
-  `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1261. Named omits stay map, not Must-fix.
+  swap-with-pet `seemimic` / Blind unseen boulder feel. Do not
+  wrap `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1262. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1261.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1262.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,12 +40,13 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1261 (index). Named still: nopick m-dir;
-  hitfloor `dropz(TRUE)`; AT_ENGL gulpum; fight_empty
-  explum; missmu/explmu; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox;
-  `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain`;
-  hero `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs.
+- Do not skip D-1071…D-1262 (index). Named still: hitfloor
+  `dropz(TRUE)`; AT_ENGL gulpum; fight_empty explum;
+  missmu/explmu; doname EGG; launch_obj down_gate /
+  boulder-chain; `meatobj` / meatbox; `set_uinwater` /
+  `spoteffects` / `digactualhole` `switch_terrain`; hero
+  `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs;
+  Blind unseen boulder feel.
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -58,6 +59,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1262: `hack.c` `moverock_core` nopick `m<dir>` over/against
+  before Levitation; giant `u_locomotion` over; squeeze Flying
+  over/against; else in-way + glyph `door_opened`. Blind unseen
+  start-of-loop / next_boulder / verysmall vain named.
 - D-1261: `mhitu.c` `hitmsg` `pline_mon` + AT_TENT `s_suffix`
   tentacles + AT_EXPL/BOOM explodes + thick_skinned kick punct
   ".". missmu/wildmiss/mswings stay pline; mattacku AT_TENT /
@@ -86,14 +91,12 @@ Objective/score live in `CURRENT.md`.
   + `is_vampshifter`). Review **212**. `dmgval` silver still named.
 - D-1253: `hack.c` `cannot_push` giant pickup/maneuver + `return 0`;
   Sokoban maneuver + `sokoban_guilt`; unskilled riding skips guilt.
-  nopick m-dir still named.
+  nopick m-dir D-1262.
 - D-1252: `uhitm.c` `demonpet` 1/6 `ndemon` else `youmonst.data`;
   `makemon` NO_MM_FLAGS + `tamedog` FALSE. AT_ENGL/fight_empty/altwep named.
 - D-1251: `uhitm.c` `explum` + hmonas AT_EXPL dhit=-1 rehumanize.
 - D-1250: `uhitm.c` hmonas AT_HUGS grab/crush/throttle + `special_dmgval`.
   Silver clone D-1254.
 - D-1249: `container_impact_dmg` dropz/throwit. hitfloor `dropz(TRUE)` named.
-- D-1247: postmov IRONBARS eat/`dissolve_bars`/Norep. ALLOW_BARS D-1258;
-  `switch_terrain` D-1259.
 - Reviews **216–219** all ACCEPT-WITH-DEBT (D-1254 closed **212**).
   Cadence **#1595** **44**/44. Next audit @**#1600**.

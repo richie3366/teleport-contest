@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`. **Addressed:** D-1261
+- [x] `hack.c` nopick `m<dir>` over/against (named from D-1253). Not giant pickup. **Addressed:** D-1262
+
+
+- [x] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`. **Addressed:** D-1261 `8e2808ad`
 
 
 - [x] `hack.c` mimic unhide (named from D-1245). Not hideunder. **Addressed:** D-1260 `8729fa24`

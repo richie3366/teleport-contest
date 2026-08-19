@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1262 — `hack.c` `moverock_core` nopick `m<dir>` over/against
+
+- **Status:** fixed (map-driven Open; named omit from D-1253 /
+  review **201**/**215**; not a public FAIL)
+- **Symptom:** `m<dir>` into an adjacent boulder still fell through
+  to Levitation leverage abort or a vain push. C `hack.c:382–413`
+  treats `context.nopick` first: giant steps over, tiny/light pack
+  squeezes over/against, else `"There is a boulder in your way."`
+  (glyph change spends the turn via `door_opened`).
+- **C locus:** `hack.c` `moverock_core` `:382–413` (after `nomul(0)`,
+  before Levitation); `feel_location`; `throws_rocks`;
+  `could_move_onto_boulder`; `u_locomotion`; `sokoban_guilt`;
+  `test_move`/`domove_core` `:2843–2848` keep `move` when
+  `door_opened`.
+- **JS was:** named omit; Levitation abort ran first; `moverock`
+  `-1` always zeroed `context.move`.
+- **Fix:** nopick arm before Levitation. Giant
+  `You ${u_locomotion("step")} over a boulder here.` +
+  `sokoban_guilt` + return 0. Squeeze Flying over else against.
+  Else in-way; gbuf/memory fingerprint ≠ old → `door_opened` and
+  `move`. Caller skips `move=0` when `door_opened`. Rule #2: no fs.
+- **JS:** `js/hack.js` `moverock_core`; `js/cmd.js` boulder arm;
+  comment `js/trap.js`.
+- **Not this iter:** Blind unseen start-of-loop feel; next_boulder
+  naming; verysmall vain-push after nopick; Sokoban diagonal;
+  shop costly; trap/pool arms.
+- **Verified:** private canary **15**/15 (C order; JS live; giant
+  over; Levitation giant still over; Sokoban guilt; empty squeeze
+  against; flying over; loaded in-way; non-nopick vain; verysmall
+  squeeze; glyph `door_opened`); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  hero uses `m<dir>` onto a boulder.
+- **Follow-up:** Open `do.c` hitfloor `dropz(TRUE)`.
+
 ## D-1261 — `mhitu.c` `hitmsg`
 
 - **Status:** fixed (map-driven Open; named omit from D-1240; not a
