@@ -91,7 +91,7 @@ None for Must-fix. Squeeze through live `could_move_onto_boulder` + live `change
 
 Named omits (map, not Must-fix):
 
-1. `throws_rocks` pickup / maneuver-over + `return 0`
+1. `throws_rocks` pickup / maneuver-over + `return 0` — **Addressed:** D-1253
 2. nopick `m<dir>` over/against + `sokoban_guilt` in `moverock_core`
 3. other `sokoban_guilt` callers (zap/read/steed/dig)
 4. C TODO squeeze feedback pline (C also silent)

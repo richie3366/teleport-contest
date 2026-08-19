@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL. **Addressed:** D-1252
+- [x] `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push. **Addressed:** D-1253
+
+
+- [x] `makemon.c` `demonpet` spawn (named from D-1233). Not AT_EXPL. **Addressed:** D-1252 `f7714f94`
 
 
 - [x] `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS. **Addressed:** D-1251 `e097a5df`

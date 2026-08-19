@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 04:05 — #1589 D-1253 cannot_push giant pickup
+
+**Objective:** Open `hack.c` giant pickup/maneuver (named from
+D-1239). Not cannot_push squeeze.
+**C locus:** `hack.c` `cannot_push` `:264–301`; callees
+`inv_cnt`, `carrying`, `pickup.c` `autopick_testobj`.
+**Change:** `throws_rocks` vain-push no longer abort `-1`:
+`canpickup`/`willpickup` plines easily-pick / maneuver-and-could /
+maneuver; unskilled riding You skip `sokoban_guilt`; else guilt;
+always `return 0` occupy. Squeeze D-1239 unchanged. nopick m-dir
+still named. Rule #2: no fs.
+**Verified:** private canary **29**/29; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a `throws_rocks` hero vain-pushes a boulder.
+**Next:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE
+(named from D-1234). Not unique/pname adjective.
+**Blocked:** none.
 ## 2026-08-19 03:49 — #1588 D-1252 demonpet spawn
 
 **Objective:** Open `makemon.c` `demonpet` spawn (named from

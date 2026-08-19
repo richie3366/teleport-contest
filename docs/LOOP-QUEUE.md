@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push.
 - [ ] `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234). Not unique/pname adjective.
 - [ ] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP.
 - [ ] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS.
 - [ ] `hack.c` mimic unhide (named from D-1245). Not hideunder.
 - [ ] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`.
+- [ ] `hack.c` nopick `m<dir>` over/against (named from D-1253). Not giant pickup.
+- [ ] `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not container_impact.
+- [ ] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty.
+- [ ] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL.
+- [ ] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL.
 
 ## Parked (do not pop)
 

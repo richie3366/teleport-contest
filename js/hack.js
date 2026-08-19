@@ -27,7 +27,7 @@ import {
     INTRINSIC, UNCHANGING, PASSES_WALLS, WT_SQUEEZABLE_INV,
     In_mines, ACH_TOWN, NO_PART, WT_ELF, TIMER_OBJECT, ZOMBIFY_MON,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
-    FROMFORM, P_NONE, LEVITATION, FLYING, BLINDED, FOOT,
+    FROMFORM, P_NONE, P_RIDING, P_BASIC, LEVITATION, FLYING, BLINDED, FOOT,
     ARTICLE_NONE, ARTICLE_A, ARTICLE_YOUR, SUPPRESS_SADDLE, has_mgivenname,
 } from './const.js';
 import {
@@ -43,8 +43,9 @@ import {
     peek_timer, stop_timer, start_timer,
 } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
-import { WEAPON_CLASS, TOOL_CLASS } from './objects.js';
-import { xname, The, makeplural } from './objnam.js';
+import { WEAPON_CLASS, TOOL_CLASS, COIN_CLASS } from './objects.js';
+import { xname, the, The, makeplural } from './objnam.js';
+import { oclass_to_sym } from './options.js';
 import { A_STR, A_CON, A_DEX, acurr, exercise } from './attrib.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { midnight } from './calendar.js';
@@ -68,6 +69,8 @@ const DIRS_ORD = [
 ];
 
 const BOULDER = objectNames.indexOf('BOULDER');
+/** C hack.h invlet_basic — a-zA-Z slots; overflow '#' is extra. */
+const INVLET_BASIC = 52;
 const CORPSE = objectNames.indexOf('CORPSE');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const RUBBER_HOSE = objectNames.indexOf('RUBBER_HOSE');
@@ -208,14 +211,60 @@ export function test_move_run_blocked_by_boulder(x, y) {
 }
 
 /**
+ * C pickup.c autopick_testobj — pickup_types symbol filter.
+ * calc_costly TRUE unused: costly_spot / thrown/stolen/dropped named omit
+ * (same envelope as pickup.js).
+ */
+function autopick_testobj(otmp, _calc_costly) {
+    const otypes = String(game.flags?.pickup_types || '');
+    if (!otypes) return true;
+    const sym = oclass_to_sym(otmp.oclass);
+    return !!(sym && otypes.includes(sym));
+}
+
+/**
+ * C hack.c inv_cnt — count invent entries; !inclgold skips coins.
+ */
+function inv_cnt(inclgold) {
+    let n = 0;
+    for (const otmp of game.invent || []) {
+        if (!inclgold && otmp.oclass === COIN_CLASS) continue;
+        n++;
+    }
+    return n;
+}
+
+/**
  * C ref: hack.c cannot_push — giant/squeeze may return 0; else -1.
- * Squeeze pline + sokoban_guilt (D-1239). Named: throws_rocks pickup /
- * maneuver-over (still abort); nopick m-dir squeeze in moverock_core.
+ * Giant pickup/maneuver + sokoban_guilt (D-1253). Squeeze D-1239.
+ * Named: nopick m-dir over/against in moverock_core; costly autopick.
  */
 export async function cannot_push(otmp, sx, sy) {
     if (throws_rocks(game.youmonst?.data)) {
-        // giant pickup / maneuver-over plines + return 0 deferred
-        return -1;
+        /* similar exception as in can_lift(): when poly'd into a giant,
+           pick up a boulder if a free a-zA-Z slot or overflow '#' unless
+           already carrying at least one */
+        const canpickup = !Sokoban_here()
+            && (inv_cnt(false) < INVLET_BASIC || !carrying(BOULDER));
+        const willpickup = !!(canpickup
+            && game.flags?.pickup && !game.context?.nopick
+            && autopick_testobj(otmp, true));
+        const u = game.u || {};
+        const riding = u.weapon_skills?.[P_RIDING]?.skill ?? 0;
+        if (u.usteed && riding < P_BASIC) {
+            const verb = willpickup ? 'pick up' : 'push aside';
+            await pline(
+                `You aren't skilled enough to ${verb} ${the(xname(otmp))} from ${y_monnam(u.usteed)}.`,
+            );
+        } else {
+            const act = willpickup ? 'easily pick it up' : 'maneuver over it';
+            const extra = (canpickup && !willpickup)
+                ? ' and could pick it up'
+                : '';
+            await pline(`However, you ${act}${extra}.`);
+            sokoban_guilt();
+        }
+        return 0;
     }
     if (could_move_onto_boulder(sx, sy)) {
         await pline(
@@ -291,8 +340,8 @@ async function dopush(sx, sy, rx, ry, otmp) {
  * + closed_door cannot_push_msg (D-0317) + rumbling
  * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
  * shop costly, trap/teleport/pool arms, Blind feel, Levitation (present),
- * verysmall, giant/nopick, tunneling chew, revive_nasty,
- * next_boulder naming, y_monnam steed wording, cannot_push giant arms.
+ * verysmall, nopick m-dir, tunneling chew, revive_nasty,
+ * next_boulder naming, y_monnam steed wording. Giant pickup/maneuver D-1253.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */
 async function moverock_core(sx, sy) {

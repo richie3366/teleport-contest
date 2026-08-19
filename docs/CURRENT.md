@@ -59,110 +59,34 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1252. **Next cluster:**
-Open `hack.c` giant pickup/maneuver (named from D-1239). Not cannot_push.
-Do not skip D-1252…D-1229 (index). Keep mention_map addr. Do not wrap
+**Map-driven fortress** after D-1253. **Next cluster:**
+Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE (named from D-1234).
+Not unique/pname adjective.
+Do not skip D-1253…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
-Do not pull giant pickup/maneuver / hitfloor
+Do not pull nopick m-dir / hitfloor
 `dropz(TRUE)` / mimic unhide / AT_ENGL / fight_empty `explum` / altwep
 / landmine·pit mid-roll / `gelcube_digests` / unported
 uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1252. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1253. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-0927; D-0928 #1119–#1194; D-0929…D-0947;
-**D-0948**…**D-1252** (getdir/hurtle; `obj_delivery`; wizkit FALSE; pole
-`glyph_at`; `urole.questarti`; take_gold
-`remove_worn_item` D-1086 `*_off`; telekinesis; wipe/`tmp_at`; Glib TIMEOUT;
-`msounds[]`/`cry_sound`; restore cobj `OBJ_CONTAINED`; dosit
-`in_water` body / early pool-gremlin goto / `water_damage(uarm)`
-twice; sit Fire/Cold `uprops[]`; tut-1 mineralize/stairway/
-create_object/place_lregion/`tut_key`/tutorial nhcore; dosit
-steed `mon_nam`; hider except trapper; `can_reach_floor(FALSE)`
-D-1070–D-1076; `is_lava`
-DRAWBRIDGE_UP+`DB_LAVA` D-1077; `D-1078–D-1249`).
-**Do not / recent rejects:** FORCE/RNG/appear gates; HEAVY_IRON_BALL
-`owt!=0`; @1808/@1799/@1770; D-0928/NOTES; skip painting spaces;
-leading bold pads; judge-elides-RC (D-0933); extend §1.2; LB peels;
-shared `maketrap` PIT morph; tutorial worn without `setnotworn`;
-invert `shopdig(1)` far-skip; drop `objects_at` (D-0980); mask
-`setnotworn`; live `m_at` pole target; re-stub D-0983…D-1070
-(no `spe--` unpaid; no extra `u.Confusion`; no gold splice; no
-`void telekinesis`; no wipe/`tmp_at` no-ops; no `u.Glib` TIMEOUT;
-no empty-`msound` chitter; no deser cobj parent `where`; no skip
-`dosit` pool/gremlin `in_water`; no “fix” second `water_damage` to
-`uarmf`; no restore sit `u.Underwater` alias; no restore sticky
-`u.Levitation` in `can_reach_floor` / sit `Levitation()` (D-1070);
-no skip hugs (D-1071) / lap (D-1072) / picnic teeter (D-1073) / meager hoard (D-1074) / oviparous having-fun (D-1075) / hero pit/hole `dotrap` stub (D-1076) / `monmove.js` `sticks`;
-no skip furniture sit_message /
-`altar_wrath` on `IS_ALTAR`; no skip lava/ice/
-DRAWBRIDGE_DOWN sit; no restore trap TT_LAVA as terrain lava;
-no restore `is_lava`/`is_pool` LAVAPOOL/POOL-only (D-1077/D-1090); no restore `goodpos` typ macros (D-1091); no restore youmonst pool/lava to `is_swimmer` (D-1099); no skip wallwalk `may_passwall` (D-1100); no skip mongen exclusion after boulder (D-1101); no skip D-1109 `lspo_exclusion`; no D-1102 onscary stub / always-goodpos_onscary (D-1110); no teleok any-trap reject (D-1111); no D-1103 waterbody raw; no skip D-1104 `angry_guards`/D-1106; no restore `split_mon` monster null (D-1078); no skip D-1095 split_mon callers; no skip peace/malign `msound` (D-1079); no restore priest/guardian mndx (D-1088) / neminum mitem (D-1094); no steal setworn-only unwear; no skip `mineralize` `In_endgame` before kelp; no WATER kelp
-without `!Is_waterlevel`; no restore sit Fire/Cold H||E-only as C
-`youprop.h`; no restore sit Antimagic H||E-only (D-1089); no skip `mkstairs` `force` ROOM before dungeon-end
-return; no raw `mkstairs` for tut-1 packed `des.stair`; no raw
-`rn2(sx/sy)` nested tut-1 box contents / skip `delete_contents`
-after `mkbox_cnts`; no restore `tut1_object` for tut-1 food or skip
-`create_object` `corpsenm` / `find_montype` gender RNG for `montype`;
-no restore tut-1 `updest`/`dndest` copy or exclude `0,0,0,0`; no
-restore hardcoded tut-1 key strings vs `nh.eckey`/`tut_key`; no
-skip `tutorial()` available[] / raw `nhl_gamestate`; no restore
-dosit `"your steed"` / skip hider clear / Levitation-only `dosit` / gush (D-1117) / drinksink poly (D-1118) / teleok jump (D-1119) / tele_trap AM (D-1120) / skip `teleds` `fill_pit` (D-1121) / skip Wizard stair `goodpos` or `control_mon_tele` (D-1122) / skip `rloc_to` worm `remove_worm`/tail or swallow `docrt` (D-1123) / skip drinksink case 13 `create_gas_cloud` (D-1124) / D-1125…D-1249;
-no restore energy fail-closed / skip SPE_TELEPORT_AWAY atme;
-no restore rhack raw-ETX `Unknown command` / skip `visctrl(key)`;
-no skip `goto_level` `kill_genocided`/`run_timers` (D-1190/D-1191);
-no skip wizkit FALSE (D-1192) / `deliver_obj_to_mon` (D-1193);
-no skip D-1194 wrap; no skip D-1195 wand
-`makeknown`; no skip D-1196 `set_msg_xy`; no skip D-1197 Override
-yn / D-1198 bit 2 / D-1199 my=xyflags; no skip D-1200 wrap /
-D-1201 `init_artifacts` / D-1202 REVIVE/ZOMBIFY / D-1203
-`#levelchange` drain / D-1204 `SCR_MAIL`/`uwepgone` light / D-1205
-unconscious / D-1206–D-1252 (`dolookaround`; no empty then-arm; no
-`flags.accessiblemsg` / `flags.mention_map` / `flags.spot_monsters` /
-`flags.mon_movement` addr; no Hallu
-`gbuf_show_kind` reroll; no skip se_scratching / `troll_baned` /
-LEVEL_TELEP yn; no wrap `msg_mon_movement` as `pline_mon`; no skip D-1229
-`impact_disturbs_zombies` owt/flimsy); no skip D-1249 `container_impact_dmg`
-at dropz/throwit (hitfloor `dropz(TRUE)` still named); no skip D-1230 `#teleport`
-doextcmd / `#` CMD_M_PREFIX; no skip D-1231 gulpmm `m_at` swap /
-AT_ENGL `gulpmm`; no skip D-1232 `hmon_hitmon` `troll_baned` TRUE-only;
-no skip D-1233 `hmonas`/`damageum` ternary/`uwep`;
-no skip D-1234 unique/pname `corpse_xname` adjective / rot
-`CXN_NO_PFX` (glob / doname CXN_ARTICLE|CXN_NOCORPSE still named);
-no skip D-1235 `spot_monsters` → `a11y.mon_notices` (default Off);
-no skip D-1236 `mon_movement` → `a11y.mon_movement` (default Off);
-no skip D-1237 rolling-boulder TELEP `pline_xy` (`rloco`/migrate;
-landmine/pit still named);
-no skip D-1238 `mind_blast` (bee_eat D-1246; IRONBARS D-1247; `mon_yells` D-1248);
-no skip D-1239 cannot_push squeeze + `sokoban_guilt` (giant pickup /
-maneuver / nopick m-dir still named);
-no skip D-1240 remaining already-ported uhitm `pline_mon` (gremlin
-light / xan nuzzle / sedu brag; unported `mhitm_ad_*` / mhitu
-`hitmsg` still named);
-no skip D-1241 `passivemm` assess_dmg `monkilled(magr)`;
-no skip D-1242 gulpmm `snuff_lit` minvent;
-no skip D-1243 gulpmm `!goodpos` return-home;
-no skip D-1244 gulpmm AD_DGST eat / D-1245 hideunder after tread
-(gulpmu invent / Medusa / NC_SHOW_MSG / mimic unhide still named);
-no skip D-1246 `bee_eat_jelly` (`find_pmmonst` + grow_up killer-bee
-`!victim` → queen; `gelcube_digests` named);
-no skip D-1247 postmov IRONBARS (`dissolve_bars` eat/Norep; ALLOW_BARS
-rust/corr/metallivore / `gelcube_digests` named);
-no skip D-1248 `mon_yells` (watch_on_duty + dokick watchman Deaf
-waves/`You_hear`/verbalize1; SetVoice empty; `gelcube_digests` /
-ALLOW_BARS rust / `watch_dig` named);
-no skip D-1249 `container_impact_dmg` dropz/throwit (kick Is_box already
-D-0989; hitfloor `dropz(TRUE)` named);
-no skip D-1250 `hmonas` AT_HUGS (grab/crush/throttle + `special_dmgval`;
-AT_EXPL `explum` D-1251; AT_ENGL `gulpum` / fight_empty still named);
-no skip D-1251 `hmonas` AT_EXPL `explum` (dhit=-1 wakeup/You explode/
-rehumanize; AD_BLND/HALU + COLD/FIRE/ELEC you-caused `explode`);
-no skip D-1252 `demonpet` (1/6 `ndemon` else `youmonst.data`;
-`makemon` NO_MM_FLAGS + `tamedog` FALSE; AT_ENGL / fight_empty / altwep named);
-no pull `reset_glyphmap` / vision_recalc
-`notice_all_mons` / `makemap_prepost` / peel RANGE_LEVEL /
-`restore_artifacts` this SHA).
+**Keep:** D-0845…D-1253 (index). Recent: D-1234 unique/pname adjective
+(glob/doname CXN still named); D-1239 squeeze; **D-1253** giant pickup
+`return 0`; D-1249 container_impact (hitfloor `dropz(TRUE)` named);
+D-1250–D-1252 AT_HUGS / AT_EXPL / `demonpet` (AT_ENGL / fight_empty /
+altwep named).
+**Do not / recent rejects:** FORCE/RNG/appear; HEAVY_IRON_BALL `owt!=0`;
+judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting spaces;
+D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
+no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
+no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
+no skip D-1237 TELEP `pline_xy` (landmine/pit named); no skip D-1238
+`mind_blast`; no skip D-1240–D-1248 (`hitmsg` / gelcube / ALLOW_BARS /
+mimic unhide named); no skip D-1253 (nopick m-dir named);
+no pull `reset_glyphmap` / vision_recalc `notice_all_mons` /
+`makemap_prepost` / peel RANGE_LEVEL / `restore_artifacts` this SHA.
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not
 add help_dir / “strange direction” pline to lock `getdir`**. Throw
 keeps `getdir_cmdassist`. **Do not peel RANGE_LEVEL timers from

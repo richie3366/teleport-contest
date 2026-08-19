@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1253 — `hack.c` `cannot_push` giant pickup/maneuver
+
+- **Status:** fixed (map-driven Open; named omit from D-1239 /
+  review **201**; not a public FAIL)
+- **Symptom:** After a vain boulder push, JS `cannot_push` still
+  returned `-1` for `throws_rocks` forms, so a poly'd giant aborted
+  instead of occupying the boulder cell. C `hack.c:264–301` prints
+  easily-pick / maneuver-and-could / maneuver, calls `sokoban_guilt()`
+  unless unskilled-on-steed, and always `return 0`.
+- **C locus:** `hack.c` `cannot_push` `:264–301` (before squeeze);
+  `pickup.c` `autopick_testobj`; `hack.c` `inv_cnt`.
+- **JS was:** comment “giant pickup / maneuver-over plines + return 0
+  deferred”; `return -1`. Squeeze D-1239 already live after this arm.
+- **Fix:** `canpickup = !Sokoban && (inv_cnt(FALSE) < 52 ||
+  !carrying(BOULDER))`; `willpickup = canpickup && flags.pickup &&
+  !nopick && autopick_testobj(otmp, TRUE)` (pickup_types only;
+  costly/thrown/stolen named omit). Unskilled riding You skip guilt;
+  else However-pline + `sokoban_guilt`; always `return 0`. Did not
+  pull nopick `m<dir>` in `moverock_core`. Rule #2: no fs.
+- **JS:** `js/hack.js` `cannot_push`; comment `js/cmd.js`.
+- **Not this iter:** nopick `m<dir>` over/against in `moverock_core`;
+  costly_spot autopick; Blind `feel_location`; glob / doname
+  CXN_ARTICLE|CXN_NOCORPSE; remaining `pline_mon`.
+- **Verified:** private canary **29**/29 (C order; JS live; easily-pick;
+  can-but-wont; pickup_types; nopick predicate; overflow `#`; full+
+  carrying boulder; Sokoban guilt; unskilled riding skip guilt;
+  basic riding guilt; human squeeze; moverock occupy); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  `throws_rocks` hero vain-pushes a boulder.
+- **Follow-up:** Open `objnam.c` glob / doname CXN_ARTICLE|CXN_NOCORPSE.
+
 ## D-1252 — `demonpet` spawn
 
 - **Status:** fixed (map-driven Open; named omit from D-1233 /
