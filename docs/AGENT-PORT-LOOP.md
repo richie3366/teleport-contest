@@ -11,7 +11,10 @@ pushes after those gates (including after a suite warning).
 
 Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
 Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
-the script now **refuses to start** if the tracked tree is dirty.
+the script **refuses to start** if the tracked tree is dirty, except
+when a **continue-unfinished** latch is armed (crash-before-commit, or
+`--continue-unfinished` / `NEXT_AGENT_PROMPT.md`) so the next iter can
+finish leftover work.
 `STOP_AGENT_LOOP.md` is gitignored.
 
 ## Quick start
@@ -32,6 +35,15 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 # Retry a cadence slot that crashed before commit (next iter = n+1).
 # Example: failed audit #1465 → treat last completed as 1464.
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50 --last-completed 1464
+
+# Finish leftover work after a crash that left js/ dirty (ignores n%5 audit).
+# Also armed automatically: relaunch after HALT … before commit is enough.
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished --token-budget-m 50
+
+# Extra standing orders for the next iter only (gitignored file, consumed):
+#   printf '%s\n' 'Finish the dirty ALLOW_BARS port; do not pop queue.' \
+#     > NEXT_AGENT_PROMPT.md
+#   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 ```
 
 **Stop before the next iteration:** edit `STOP_AGENT_LOOP.md` at the repo root
@@ -52,7 +64,9 @@ without it, `--print` mode **auto-denies** Shell/tool approvals and the
 fail-closed script will halt. `--trust` only skips the workspace-trust
 question.
 
-1. Commit everything you care about (`git status` clean; STOP is gitignored).
+1. Commit everything you care about (`git status` clean; STOP and
+   `NEXT_AGENT_PROMPT.md` are gitignored), unless you are relaunching
+   to finish a crash leftover (continue latch / `--continue-unfinished`).
 2. Confirm `docs/LOOP-QUEUE.md` will be refilled in-loop if below 8 open items.
 3. Confirm the green gate (the script re-runs it as preflight).
 4. Run only one loop against this checkout; do not edit concurrently.
@@ -87,10 +101,14 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 ┌───────────────────────────────────────────────────────────────┐
 │  ./scripts/agent-port-loop.sh                                 │
 │                                                               │
-│  1. lock; STOP=0 (gitignored file); refuse dirty tracked tree │
-│  2. preflight green (RESULTS_JSON must all pass + strict)     │
-│  3. loop until STOP, token budget, or halt:                   │
-│       mode = audit when n%5==0 (review + full suite) / else port │
+│  1. lock; STOP=0 (gitignored file); refuse dirty tracked tree       │
+│     unless continue-unfinished latch / --continue-unfinished        │
+│  2. preflight green (RESULTS_JSON must all pass + strict;           │
+│     continue-unfinished warns and starts if leftover broke green)   │
+│  3. loop until STOP, token budget, or halt:                         │
+│       mode = audit when n%5==0 (review + full suite) / else port    │
+│       continue latch: force port (or audit) and skip n%5 for        │
+│             that one global #; leftover dirty tree is the cluster   │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
 │             Open from the map (target 12) then ships one cluster   │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
@@ -101,7 +119,8 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       WARN + CONTINUE (no STOP, no revert; still push if needed):  │
 │         green fail, audit/cadence full-suite fail                  │
 │       uncommitted js/ or review after a crash: halt, **no** reset  │
-│       crash/timeout before commit: halt, **no** reset, rewind n    │
+│       crash/timeout before commit: halt, **no** reset, rewind n,   │
+│         arm continue-unfinished if the tree is dirty               │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
@@ -120,6 +139,38 @@ the next port **must** fix them. A QUALITY-RISK or REJECT review that
 does not add a Must-fix row is a failed review (halt). Review and
 public-score cadence run **together** every 5 iterations (not on
 separate cadences). Must-fix does not skip that audit.
+
+### Continue unfinished (ignore `n % 5`)
+
+A crash / timeout / `resource_exhausted` **before commit** still keeps
+the dirty tree and rewinds the counter. If the tree is dirty, the
+supervisor also arms a **one-shot continue latch**
+(`.agent-port-loop-logs/continue-unfinished`: `port` or `audit`, plus a
+git-status snapshot). The **next launch** allows that dirty tree, feeds
+`scripts/agent-port-loop.continue.prompt.md` (finish leftover work; do
+**not** pop a new `LOOP-QUEUE` item), and **forces that mode even when
+the global `#` is divisible by 5**. That audit slot is skipped; the next
+audit is the following multiple of `LOOP_CADENCE_EVERY`.
+
+Relaunch after a halt is enough (latch already armed). Operators can also:
+
+```bash
+# Force the next iter to finish leftover work (dirty js/ or reviews/).
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished
+
+# Extra prompt text for the next iter only (consumed after attach).
+./scripts/agent-port-loop.sh --next-prompt /tmp/orders.md --continue-unfinished
+# or: write gitignored NEXT_AGENT_PROMPT.md at the repo root (dirty tree
+#     + that file also arms continue, without the flag).
+
+# Override inferred mode (default: js/ dirty → port, reviews/ → audit).
+./scripts/agent-port-loop.sh --continue-unfinished --next-mode port
+```
+
+On a **clean** tree, `--next-prompt` / `NEXT_AGENT_PROMPT.md` only
+**appends** extra text to the normal port or audit prompt (cadence
+unchanged). Combine with `--continue-unfinished` to force port/audit
+regardless of `n % 5`.
 
 ### Why agents push inside the iteration
 
@@ -209,6 +260,11 @@ Under `.agent-port-loop-logs/` (gitignored):
   `--last-completed n` rewrites this so the next iter is `n+1` (must stay
   ≥ that log-file floor). A crash/timeout **before commit** also rewinds
   the counter so the same global `#` / mode is retried on the next launch.
+- `continue-unfinished` — one-shot latch (`port` or `audit`). Armed on
+  crash-before-commit when the tree is dirty; consumed at the start of
+  the next iter. Paired `next-iter.prompt.md` / `next-iter.context.md`
+  hold extra operator text and a git-status snapshot.
+
 ### Environment knobs
 
 | Variable | Default | Meaning |
@@ -223,6 +279,12 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
 | `--last-completed` (CLI) | unset | Rewrite `iteration-count` so the next iter is *n*+1 (retry a crashed cadence slot) |
+| `--continue-unfinished` (CLI) | unset | Allow dirty tree; next iter finishes leftover work and **ignores** `n%5` audit |
+| `--next-prompt` (CLI) | unset | Extra prompt file for the next iter only (consumed) |
+| `--next-mode` (CLI) | inferred | `port` or `audit` for a continue-unfinished iter |
+| `LOOP_CONTINUE_UNFINISHED` | `0` | Same as `--continue-unfinished` |
+| `LOOP_NEXT_PROMPT` | unset | Path copied like `--next-prompt` |
+| `LOOP_NEXT_MODE` | unset | Same as `--next-mode` |
 | `LOOP_CADENCE_EVERY` | `5` | Review + full-suite score when `n % this == 0` |
 | `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
 | `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
@@ -233,8 +295,11 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
 | `LOOP_SLEEP_SEC` | `2` | Pause between iterations |
 | `STOP_FILE` | `$ROOT/STOP_AGENT_LOOP.md` | Stop latch path |
+| `HUMAN_NEXT_PROMPT` | `$ROOT/NEXT_AGENT_PROMPT.md` | Gitignored extra prompt for the next iter (consumed) |
+| `CONTINUE_LATCH` | `$LOG_DIR/continue-unfinished` | One-shot continue mode (`port`/`audit`) |
 | `ITER_COUNT_FILE` | `$LOG_DIR/iteration-count` | Monotonic global iteration counter |
-| `PROMPT_FILE` | `$ROOT/scripts/agent-port-loop.prompt.md` | Prompt body |
+| `PROMPT_FILE` | `$ROOT/scripts/agent-port-loop.prompt.md` | Port prompt body |
+| `CONTINUE_PROMPT_FILE` | `$ROOT/scripts/agent-port-loop.continue.prompt.md` | Continue-unfinished prompt |
 | `LOG_DIR` | `$ROOT/.agent-port-loop-logs` | Log directory |
 
 ## Loop observer
@@ -256,12 +321,14 @@ Halt reason is still `last-halt-reason.txt`.
 ## Operator checklist
 
 1. `agent login` (once) so `--list-models` / runs work.
-2. Clean committed tree. Queue below 8 open items is refilled in-loop.
+2. Clean committed tree (or continue-unfinished leftover). Queue below 8 open items is refilled in-loop.
 3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`
 4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
-6. After stop, inspect `git log`, Notes, `CURRENT.md`, queue, and journal.
+6. After a crash-before-commit HALT: just relaunch (latch allows the dirty
+   tree and ignores `n%5`). After a clean stop, inspect `git log`, Notes,
+   `CURRENT.md`, queue, and journal.
 
 ## Failure modes
 
@@ -274,16 +341,16 @@ Halt reason is still `last-halt-reason.txt`.
 | `N consecutive agent runs <30s` | Out of tokens / quota — halt+revert |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
-| Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start |
+| Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
-| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”); counter rewound so the next launch retries the same `#` |
-| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review. `--last-completed 1464` (or the auto-rewind) retries audit **#1465** |
+| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree, **arm continue-unfinished**. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”); counter rewound so the next launch retries the same `#` |
+| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review. `--last-completed 1464` (or the auto-rewind) retries audit **#1465**. Dirty reviews/ also arm continue so a later `#` that is `n%5==0` still finishes the review instead of starting a fresh audit prompt |
+| Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |
-| Dirty tree at start | Loop refuses to launch |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

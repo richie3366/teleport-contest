@@ -10,7 +10,8 @@
 #
 # Token budget (optional, this run only — not persisted):
 #   ./scripts/agent-port-loop.sh --token-budget-m 50
-#   # 50 → 50_000_000 tokens; last iteration may overshoot; then halt
+# Crash leftover: relaunch, or --continue-unfinished / NEXT_AGENT_PROMPT.md
+# (forces port even when n%5==0). Design: docs/AGENT-PORT-LOOP.md
 
 set -euo pipefail
 
@@ -32,6 +33,18 @@ Options:
                         retry a cadence slot that crashed before commit
                         (e.g. 1464 → next is audit #1465). Must be >= the
                         iter-*.log file count (that count is still a floor).
+  --continue-unfinished Allow a dirty tree and force the next iteration to
+                        finish leftover work (port unless --next-mode).
+                        Ignores n%LOOP_CADENCE_EVERY (audit is skipped for
+                        that one global #). Also armed automatically when
+                        an agent crashes before commit with a dirty tree.
+  --next-prompt <file>  Extra prompt text for the next iteration only
+                        (copied into the log dir). With --continue-unfinished
+                        or a continue latch, appended to the continue
+                        prompt; otherwise appended to the normal port/audit
+                        prompt. Same as gitignored NEXT_AGENT_PROMPT.md.
+  --next-mode <mode>    port|audit — mode for a continue-unfinished iter
+                        (default: infer from dirty js/ vs reviews/).
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
@@ -40,6 +53,8 @@ QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
 without reset if already pushed). Green / full-suite regression is
 logged; the loop continues so the next iteration can recover.
 Every LOOP_CADENCE_EVERY (5) is review + full-suite score (no port).
+Crash-before-commit with a dirty tree arms continue-unfinished so the
+next launch finishes leftover work even if that global # is n%5==0.
 Queue below LOOP_QUEUE_MIN (8) must be refilled from the map
 (target LOOP_QUEUE_TARGET 12); halt after a port that still has no
 open items. Agents commit and push; the script fail-closes and pushes
@@ -52,6 +67,9 @@ EOF
 # --- CLI (parsed before lock so --help is cheap) ---
 TOKEN_BUDGET_M=""
 LAST_COMPLETED=""
+CONTINUE_CLI="${LOOP_CONTINUE_UNFINISHED:-0}"
+NEXT_PROMPT_SRC="${LOOP_NEXT_PROMPT:-}"
+NEXT_MODE_CLI="${LOOP_NEXT_MODE:-}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --token-budget-m)
@@ -62,6 +80,22 @@ while [[ $# -gt 0 ]]; do
       LAST_COMPLETED="${2:?error: --last-completed needs a value}"
       if [[ ! "$LAST_COMPLETED" =~ ^[0-9]+$ ]]; then
         echo "error: --last-completed must be a non-negative integer" >&2
+        exit 2
+      fi
+      shift 2
+      ;;
+    --continue-unfinished)
+      CONTINUE_CLI=1
+      shift
+      ;;
+    --next-prompt)
+      NEXT_PROMPT_SRC="${2:?error: --next-prompt needs a file path}"
+      shift 2
+      ;;
+    --next-mode)
+      NEXT_MODE_CLI="${2:?error: --next-mode needs port or audit}"
+      if [[ "$NEXT_MODE_CLI" != "port" && "$NEXT_MODE_CLI" != "audit" ]]; then
+        echo "error: --next-mode must be port or audit (got ${NEXT_MODE_CLI})" >&2
         exit 2
       fi
       shift 2
@@ -77,6 +111,14 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+if [[ -n "$NEXT_MODE_CLI" && "$NEXT_MODE_CLI" != "port" && "$NEXT_MODE_CLI" != "audit" ]]; then
+  echo "error: LOOP_NEXT_MODE / --next-mode must be port or audit" >&2
+  exit 2
+fi
+if [[ -n "$NEXT_PROMPT_SRC" && ! -f "$NEXT_PROMPT_SRC" ]]; then
+  echo "error: --next-prompt file not found: $NEXT_PROMPT_SRC" >&2
+  exit 2
+fi
 
 TOKEN_BUDGET=0
 TOKENS_USED=0
@@ -101,6 +143,14 @@ LOG_DIR="${LOG_DIR:-$ROOT/.agent-port-loop-logs}"
 mkdir -p "$LOG_DIR"
 # Global monotonic iteration counter (survives loop restarts).
 ITER_COUNT_FILE="${ITER_COUNT_FILE:-$LOG_DIR/iteration-count}"
+# One-shot continue latch (gitignored via LOG_DIR). Crash-before-commit
+# with a dirty tree writes this so the next launch finishes leftover
+# work even if that global # would have been an audit (n%5==0).
+CONTINUE_LATCH="${CONTINUE_LATCH:-$LOG_DIR/continue-unfinished}"
+NEXT_ITER_PROMPT="${NEXT_ITER_PROMPT:-$LOG_DIR/next-iter.prompt.md}"
+NEXT_ITER_CONTEXT="${NEXT_ITER_CONTEXT:-$LOG_DIR/next-iter.context.md}"
+HUMAN_NEXT_PROMPT="${HUMAN_NEXT_PROMPT:-$ROOT/NEXT_AGENT_PROMPT.md}"
+CONTINUE_PROMPT_FILE="${CONTINUE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.continue.prompt.md}"
 
 # Only one loop may mutate this checkout. Acquire the lock before resetting the
 # stop latch so a mistaken second launch cannot restart an existing loop.
@@ -117,11 +167,105 @@ trap cleanup EXIT
 # loop-agent `git reset --hard` cannot restore a tracked 0.
 printf '0\n' >"$STOP_FILE"
 
+infer_continue_mode() {
+  if [[ -n "$(git status --porcelain -- js)" ]]; then
+    echo port
+  elif [[ -n "$(git status --porcelain -- reviews)" ]]; then
+    echo audit
+  else
+    echo port
+  fi
+}
+
+write_continue_context() {
+  local reason="$1"
+  {
+    echo "## Worktree at latch (this leftover is the cluster)"
+    echo
+    echo "Reason: $reason"
+    echo "Time: $(date -Iseconds)"
+    echo "HEAD: $(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+    echo
+    echo '### git status --short'
+    echo '```'
+    git status --short
+    echo '```'
+    echo
+    echo '### git diff --stat'
+    echo '```'
+    git diff --stat || true
+    echo '```'
+  } >"$NEXT_ITER_CONTEXT"
+}
+
+arm_continue_unfinished() {
+  local mode="$1"
+  local reason="$2"
+  if [[ "$mode" != "port" && "$mode" != "audit" ]]; then
+    mode=port
+  fi
+  printf '%s\n' "$mode" >"$CONTINUE_LATCH"
+  write_continue_context "$reason"
+}
+
+# Crash / uncommitted halt: keep the tree and arm a continue iter so the
+# next launch finishes leftover work even if that # is n%5==0 (audit).
+arm_continue_if_dirty() {
+  local reason="$1"
+  local ran_as="${2:-port}"
+  if [[ -z "$(git status --porcelain)" ]]; then
+    return 0
+  fi
+  local m
+  if [[ -n "$(git status --porcelain -- js)" ]]; then
+    m=port
+  elif [[ "$ran_as" == "audit" || "$ran_as" == "review" || "$ran_as" == "cadence" ]]; then
+    m=audit
+  else
+    m=port
+  fi
+  arm_continue_unfinished "$m" "$reason"
+}
+
+if [[ -n "$NEXT_PROMPT_SRC" ]]; then
+  cp "$NEXT_PROMPT_SRC" "$NEXT_ITER_PROMPT"
+elif [[ -f "$HUMAN_NEXT_PROMPT" ]]; then
+  cp "$HUMAN_NEXT_PROMPT" "$NEXT_ITER_PROMPT"
+fi
+
+if [[ "$CONTINUE_CLI" == "1" ]]; then
+  if [[ -z "$(git status --porcelain)" && ! -f "$NEXT_ITER_PROMPT" && ! -f "$CONTINUE_LATCH" ]]; then
+    echo "error: --continue-unfinished needs a dirty tree, a continue latch, or --next-prompt / NEXT_AGENT_PROMPT.md" >&2
+    exit 1
+  fi
+  arm_mode="${NEXT_MODE_CLI:-}"
+  if [[ -z "$arm_mode" ]]; then
+    if [[ -f "$CONTINUE_LATCH" ]]; then
+      arm_mode="$(tr -d '[:space:]' <"$CONTINUE_LATCH")"
+    else
+      arm_mode="$(infer_continue_mode)"
+    fi
+  fi
+  arm_continue_unfinished "$arm_mode" "CLI --continue-unfinished"
+elif [[ -f "$CONTINUE_LATCH" ]]; then
+  write_continue_context "relaunch with existing continue latch"
+fi
+
 dirty="$(git status --porcelain)"
 if [[ -n "$dirty" ]]; then
-  echo "error: dirty worktree; commit or stash before launching the unattended loop:" >&2
-  printf '%s\n' "$dirty" >&2
-  exit 1
+  if [[ ! -f "$CONTINUE_LATCH" && -f "$NEXT_ITER_PROMPT" ]]; then
+    arm_continue_unfinished "${NEXT_MODE_CLI:-$(infer_continue_mode)}" \
+      "dirty tree + next-iter / NEXT_AGENT_PROMPT.md extra prompt"
+  fi
+  if [[ -f "$CONTINUE_LATCH" ]]; then
+    echo "warning: dirty worktree allowed (continue-unfinished latch; leftover is the next cluster):" >&2
+    printf '%s\n' "$dirty" >&2
+  else
+    echo "error: dirty worktree; commit or stash before launching the unattended loop" >&2
+    echo "       or pass --continue-unfinished / write NEXT_AGENT_PROMPT.md (gitignored) to finish leftover work:" >&2
+    printf '%s\n' "$dirty" >&2
+    exit 1
+  fi
 fi
 
 # Default: Cursor Grok 4.6 Extra High, non-fast
@@ -189,6 +333,10 @@ if [[ ! -f "$REVIEW_PROMPT_FILE" ]]; then
 fi
 if [[ ! -f "$CADENCE_PROMPT_FILE" ]]; then
   echo "error: missing cadence prompt: $CADENCE_PROMPT_FILE" >&2
+  exit 1
+fi
+if [[ ! -f "$CONTINUE_PROMPT_FILE" ]]; then
+  echo "error: missing continue prompt: $CONTINUE_PROMPT_FILE" >&2
   exit 1
 fi
 if [[ ! -f "$REQUIRE_PASS" ]]; then
@@ -326,6 +474,7 @@ const protectedPaths = [
   'scripts/agent-port-loop.prompt.md',
   'scripts/agent-port-loop.review.prompt.md',
   'scripts/agent-port-loop.cadence.prompt.md',
+  'scripts/agent-port-loop.continue.prompt.md',
   'scripts/loop-require-results-pass.mjs',
   'scripts/archive-loop-queue-done.mjs',
   'scripts/check-hot-docs.mjs',
@@ -457,6 +606,40 @@ iter_mode() {
     echo audit
   else
     echo port
+  fi
+}
+
+# Consume one-shot continue latch / extra prompt. Sets: mode,
+# resume_unfinished, prompt_extra, prompt_context.
+apply_iteration_overlays() {
+  local cadence
+  resume_unfinished=0
+  prompt_extra=""
+  prompt_context=""
+  cadence="$(iter_mode "$iter")"
+  if [[ -f "$CONTINUE_LATCH" ]]; then
+    resume_unfinished=1
+    mode="$(tr -d '[:space:]' <"$CONTINUE_LATCH")"
+    if [[ "$mode" != "port" && "$mode" != "audit" ]]; then
+      mode=port
+    fi
+    echo "$(date -Iseconds) === continue-unfinished: forcing mode=$mode (cadence would be $cadence) ===" \
+      | tee -a "$MASTER_LOG"
+    mv "$CONTINUE_LATCH" "$LOG_DIR/continue-unfinished.used-$STAMP-$iter"
+  else
+    mode="$cadence"
+  fi
+  if [[ -f "$NEXT_ITER_PROMPT" ]]; then
+    prompt_extra="$(cat "$NEXT_ITER_PROMPT")"
+    mv "$NEXT_ITER_PROMPT" "$LOG_DIR/next-iter.prompt.used-$STAMP-$iter.md"
+  fi
+  # Consume the repo-root one-shot only when it was the extra-prompt source.
+  if [[ -z "$NEXT_PROMPT_SRC" && -f "$HUMAN_NEXT_PROMPT" ]]; then
+    mv "$HUMAN_NEXT_PROMPT" "$LOG_DIR/NEXT_AGENT_PROMPT.used-$STAMP-$iter.md"
+  fi
+  if [[ -f "$NEXT_ITER_CONTEXT" ]]; then
+    prompt_context="$(cat "$NEXT_ITER_CONTEXT")"
+    mv "$NEXT_ITER_CONTEXT" "$LOG_DIR/next-iter.context.used-$STAMP-$iter.md"
   fi
 }
 
@@ -634,6 +817,8 @@ echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
 echo "audit:  every ${LOOP_CADENCE_EVERY} (review + full suite); else port"
+echo "        continue latch: $CONTINUE_LATCH"
+echo "        extra prompt:   $HUMAN_NEXT_PROMPT (gitignored) or --next-prompt"
 echo "queue:  min ${LOOP_QUEUE_MIN} open / target ${LOOP_QUEUE_TARGET} (refill from map)"
 echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
 echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
@@ -642,8 +827,13 @@ echo
 AUTHORITY_HASH="$(protected_fingerprint)"
 echo "$(date -Iseconds) === preflight green gate ===" | tee -a "$MASTER_LOG"
 if ! run_green_gate; then
-  echo "error: preflight green gate failed; loop not started" | tee -a "$MASTER_LOG"
-  exit 1
+  if [[ -f "$CONTINUE_LATCH" ]]; then
+    echo "warning: preflight green gate failed; starting anyway (continue-unfinished leftover may be half-written)" \
+      | tee -a "$MASTER_LOG"
+  else
+    echo "error: preflight green gate failed; loop not started" | tee -a "$MASTER_LOG"
+    exit 1
+  fi
 fi
 if [[ "${LOOP_PREFLIGHT_ONLY:-0}" == "1" ]]; then
   echo "$(date -Iseconds) preflight-only check passed" | tee -a "$MASTER_LOG"
@@ -663,13 +853,23 @@ if [[ -n "$LAST_COMPLETED" && "$iter" != "$LAST_COMPLETED" ]]; then
   exit 2
 fi
 next_iter=$((iter + 1))
-echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be ${next_iter} (mode=$(iter_mode "$next_iter")) ===" \
-  | tee -a "$MASTER_LOG"
+next_mode="$(iter_mode "$next_iter")"
+if [[ -f "$CONTINUE_LATCH" ]]; then
+  next_mode="$(tr -d '[:space:]' <"$CONTINUE_LATCH")"
+  echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be ${next_iter} (CONTINUE mode=${next_mode}; cadence would be $(iter_mode "$next_iter")) ===" \
+    | tee -a "$MASTER_LOG"
+else
+  echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be ${next_iter} (mode=${next_mode}) ===" \
+    | tee -a "$MASTER_LOG"
+fi
 if token_budget_active; then
   echo "$(date -Iseconds) === token budget this run: 0 / ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) ===" \
     | tee -a "$MASTER_LOG"
 fi
 short_streak=0
+resume_unfinished=0
+prompt_extra=""
+prompt_context=""
 while true; do
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting before iteration $((iter + 1))"
@@ -684,7 +884,7 @@ while true; do
 
   iter=$((iter + 1))
   write_iter_count "$iter"
-  mode="$(iter_mode "$iter")"
+  apply_iteration_overlays
   mustfix_before="$(mustfix_open_count)"
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
@@ -696,58 +896,95 @@ while true; do
     git fetch origin >/dev/null 2>&1 || true
     origin_before="$(git rev-parse '@{u}' 2>/dev/null || true)"
   fi
-  echo "$(date -Iseconds) === iteration $iter starting (global #$iter mode=$mode) ===" \
-    | tee -a "$MASTER_LOG"
+  if [[ "$resume_unfinished" == "1" ]]; then
+    echo "$(date -Iseconds) === iteration $iter starting (global #$iter mode=$mode continue-unfinished) ===" \
+      | tee -a "$MASTER_LOG"
+  else
+    echo "$(date -Iseconds) === iteration $iter starting (global #$iter mode=$mode) ===" \
+      | tee -a "$MASTER_LOG"
+  fi
   echo "log: $iter_log" | tee -a "$MASTER_LOG"
   echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
     | tee -a "$MASTER_LOG"
 
   # Each iteration is a fresh agent session (new context).
   # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
-  case "$mode" in
-    review)
-      prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
-      echo "$(date -Iseconds) === review iteration (no js/ port) ===" | tee -a "$MASTER_LOG"
-      ;;
-    cadence)
-      prompt_body="$(cat "$CADENCE_PROMPT_FILE")"
-      echo "$(date -Iseconds) === cadence score-only (iteration $iter % ${LOOP_CADENCE_EVERY} == 0) ===" \
-        | tee -a "$MASTER_LOG"
-      ;;
-    audit)
-      prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
+  if [[ "$resume_unfinished" == "1" ]]; then
+    prompt_body="$(cat "$CONTINUE_PROMPT_FILE")"
+    prompt_body+=$'\n\n**Forced mode:** `'"$mode"$'`. Cadence for this global # would have been `'
+    prompt_body+="$(iter_mode "$iter")"
+    prompt_body+=$'` — ignore n%5; do not switch to audit/port because of the number.\n'
+    if [[ "$mode" == "audit" ]]; then
+      prompt_body+=$'\n\n## Unfinished work is an audit (no js/ edits)\n'
+      prompt_body+="$(cat "$REVIEW_PROMPT_FILE")"
       prompt_body+=$'\n\n## ALSO this iteration: cadence score (audit = review + score, no port)\n'
       prompt_body+=$'Run `node frozen/ps_test_runner.mjs sessions`, rewrite CURRENT Score\n'
       prompt_body+=$'from __RESULTS_JSON__, journal. Still no js/ edits.\n'
-      echo "$(date -Iseconds) === audit iteration (review + full suite, no port) ===" \
+      echo "$(date -Iseconds) === continue-unfinished audit (review + full suite, no port) ===" \
         | tee -a "$MASTER_LOG"
-      ;;
-    *)
-      prompt_body="$(cat "$PROMPT_FILE")"
-      prompt_body+=$'\n\n## This iteration cluster\n'
-      prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any,\n'
-      prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
-      prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
-      prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
-      prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
-      prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
-      prompt_body+=$'commit hash, amend, or make a stamp-only SHA. If a previous Addressed line\n'
-      prompt_body+=$'(review or LOOP-QUEUE-DONE.md) is missing its short hash, fill it in this\n'
-      prompt_body+=$'same commit from `git log` (bundled with this fix).\n'
-      cluster_line="$(queue_first_cluster)"
-      if [[ -n "$cluster_line" ]]; then
-        prompt_body+=$'\n**Queue head:** '
-        prompt_body+="$cluster_line"
-        prompt_body+=$'\n'
-      else
-        prompt_body+=$'\n**Queue is empty.** Refill Open from the map first, then ship the\n'
-        prompt_body+=$'first new `- [ ]` line in this same iteration (js/ required).\n'
-      fi
-      ;;
-  esac
+    else
+      echo "$(date -Iseconds) === continue-unfinished port (finish dirty tree; do not pop queue) ===" \
+        | tee -a "$MASTER_LOG"
+    fi
+  else
+    case "$mode" in
+      review)
+        prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
+        echo "$(date -Iseconds) === review iteration (no js/ port) ===" | tee -a "$MASTER_LOG"
+        ;;
+      cadence)
+        prompt_body="$(cat "$CADENCE_PROMPT_FILE")"
+        echo "$(date -Iseconds) === cadence score-only (iteration $iter % ${LOOP_CADENCE_EVERY} == 0) ===" \
+          | tee -a "$MASTER_LOG"
+        ;;
+      audit)
+        prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
+        prompt_body+=$'\n\n## ALSO this iteration: cadence score (audit = review + score, no port)\n'
+        prompt_body+=$'Run `node frozen/ps_test_runner.mjs sessions`, rewrite CURRENT Score\n'
+        prompt_body+=$'from __RESULTS_JSON__, journal. Still no js/ edits.\n'
+        echo "$(date -Iseconds) === audit iteration (review + full suite, no port) ===" \
+          | tee -a "$MASTER_LOG"
+        ;;
+      *)
+        prompt_body="$(cat "$PROMPT_FILE")"
+        prompt_body+=$'\n\n## This iteration cluster\n'
+        prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any,\n'
+        prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
+        prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
+        prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
+        prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
+        prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
+        prompt_body+=$'commit hash, amend, or make a stamp-only SHA. If a previous Addressed line\n'
+        prompt_body+=$'(review or LOOP-QUEUE-DONE.md) is missing its short hash, fill it in this\n'
+        prompt_body+=$'same commit from `git log` (bundled with this fix).\n'
+        cluster_line="$(queue_first_cluster)"
+        if [[ -n "$cluster_line" ]]; then
+          prompt_body+=$'\n**Queue head:** '
+          prompt_body+="$cluster_line"
+          prompt_body+=$'\n'
+        else
+          prompt_body+=$'\n**Queue is empty.** Refill Open from the map first, then ship the\n'
+          prompt_body+=$'first new `- [ ]` line in this same iteration (js/ required).\n'
+        fi
+        ;;
+    esac
+  fi
+
+  if [[ -n "$prompt_extra" ]]; then
+    prompt_body+=$'\n\n## Operator prompt for this iteration only\n'
+    prompt_body+="$prompt_extra"
+    prompt_body+=$'\n'
+    echo "$(date -Iseconds) === extra operator prompt attached (${#prompt_extra} bytes) ===" \
+      | tee -a "$MASTER_LOG"
+  fi
+  if [[ -n "$prompt_context" ]]; then
+    prompt_body+=$'\n\n'
+    prompt_body+="$prompt_context"
+    prompt_body+=$'\n'
+  fi
 
   open_now="$(queue_open_count)"
-  if (( open_now < LOOP_QUEUE_MIN )); then
+  if [[ "$resume_unfinished" != "1" ]] && (( open_now < LOOP_QUEUE_MIN )); then
     echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
       | tee -a "$MASTER_LOG"
     prompt_body+=$'\n\n## Queue refill (mandatory this iteration)\n'
@@ -903,7 +1140,8 @@ NODE
   if [[ "$status" -ne 0 && "$after_head" == "$before_head" ]]; then
     crashed_iter="$iter"
     write_iter_count $((crashed_iter - 1))
-    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting; counter rewound to $((crashed_iter - 1)) (next launch retries #${crashed_iter})" 0
+    arm_continue_if_dirty "agent iteration #${crashed_iter} exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit" "$mode"
+    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting; counter rewound to $((crashed_iter - 1)) (next launch retries #${crashed_iter}; continue-unfinished armed if dirty)" 0
   fi
 
   origin_after=""
@@ -945,6 +1183,7 @@ NODE
       halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
     fi
     if (( js_c_ins == 0 && js_c_files == 0 )); then
+      arm_continue_if_dirty "port iteration left uncommitted js/ changes (agent did not commit)" "$mode"
       halt_loop "port iteration left uncommitted js/ changes (agent did not commit; not reverting)" 0
     fi
     if (( js_ins > LOOP_MAX_JS_INSERTIONS || js_files > LOOP_MAX_JS_FILES )); then
@@ -963,6 +1202,7 @@ NODE
       halt_loop "review iteration wrote no reviews/loop-unattended/ file" 1
     fi
     if [[ "$after_head" == "$before_head" ]]; then
+      arm_continue_if_dirty "review iteration left uncommitted reviews/loop-unattended (agent did not commit)" "$mode"
       halt_loop "review iteration left uncommitted reviews/loop-unattended (agent did not commit; not reverting)" 0
     fi
     if git diff "$before_head" "$after_head" -- 'reviews/loop-unattended' \
@@ -1001,7 +1241,7 @@ NODE
   maybe_rotate_journal
   log_hot_docs
 
-  if [[ "$mode" == "port" ]] && ! queue_has_open; then
+  if [[ "$mode" == "port" && "$resume_unfinished" != "1" ]] && ! queue_has_open; then
     if (( agent_pushed )); then
       halt_loop "queue still empty after port (map refill failed) AND already pushed" 0
     fi

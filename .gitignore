@@ -7,6 +7,8 @@ node_modules/
 # Local stop latch. Only the supervisor writes 0 at launch; git reset
 # must not restore a tracked 0 and continue a stopped loop.
 STOP_AGENT_LOOP.md
+# One-shot extra prompt for the next loop iteration (consumed on use).
+NEXT_AGENT_PROMPT.md
 
 # Python bytecode
 *.pyc
