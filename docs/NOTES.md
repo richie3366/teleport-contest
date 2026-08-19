@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1250 `uhitm.c` `hmonas` AT_HUGS
-  (grab/crush/throttle + `special_dmgval`/`silver_sears` +
-  `do_attack` `notonhead`). Cadence **#1585** (`7f54b762`)
-  reviews **208–211** ACCEPT-WITH-DEBT.
-  Next: Open `uhitm.c` AT_EXPL (named from D-1233). Not AT_HUGS.
-  Must-fix empty.
-  Do not skip D-1250…D-1229. Do not pull giant pickup/maneuver /
+- **Fortress 44/44** after D-1251 `uhitm.c` `hmonas` AT_EXPL
+  `explum` (dhit=-1 wakeup/You explode/rehumanize; AD_BLND/HALU +
+  sphere COLD/FIRE/ELEC you-caused `explode`). Cadence **#1585**
+  (`7f54b762`) reviews **208–211** ACCEPT-WITH-DEBT.
+  Next: Open `makemon.c` `demonpet` spawn (named from D-1233).
+  Not AT_EXPL. Must-fix empty.
+  Do not skip D-1251…D-1229. Do not pull giant pickup/maneuver /
   glob / doname CXN_ARTICLE|CXN_NOCORPSE / hitfloor `dropz(TRUE)` /
-  mimic unhide / AT_EXPL/ENGL /
+  mimic unhide / AT_ENGL gulpum / fight_empty `explum` /
   altwep / `demonpet` / landmine·pit mid-roll /
   unported uhitm `mhitm_ad_*` `pline_mon` /
   mhitu `hitmsg` / gulpmu invent / litroom / pickup snuff /
@@ -22,9 +22,10 @@ Objective/score live in `CURRENT.md`.
   rust/corr/metallivore / `watch_dig` SetVoice+verbalize.
   Do not wrap `msg_mon_movement` as
   `pline_mon`. Do not restore Hallu `gbuf_show_kind`. No FORCE.
-- Do not revert D-1217–D-1250. Do not Must-fix named omits
+- Do not revert D-1217–D-1251. Do not Must-fix named omits
   (glob/doname CXN / other Soundeffect / unported `pline_mon` /
-  giant pickup / mimic unhide / hitfloor `dropz(TRUE)` / AT_EXPL).
+  giant pickup / mimic unhide / hitfloor `dropz(TRUE)` /
+  fight_empty explum / AT_ENGL gulpum / `demonpet`).
 
 ## Don't re-check (≤15)
 
@@ -35,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
 - Do not restore rhack raw-ETX (D-1189). Do not skip
-  D-1190…D-1250 (CURRENT keep; AT_HUGS D-1250).
+  D-1190…D-1251 (CURRENT keep; AT_EXPL explum D-1251).
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -61,10 +62,10 @@ Objective/score live in `CURRENT.md`.
   return-home D-1243; gulpmm AD_DGST eat D-1244; hideunder after
   tread D-1245; `bee_eat_jelly` D-1246; postmov IRONBARS D-1247;
   `mon_yells` D-1248; `container_impact_dmg` dropz/throwit D-1249;
-  `hmonas` AT_HUGS D-1250.
+  `hmonas` AT_HUGS D-1250; `hmonas` AT_EXPL `explum` D-1251.
   Glob / doname
   CXN_ARTICLE|CXN_NOCORPSE / mimic unhide /
-  AT_EXPL / `demonpet` / landmine·pit mid-roll /
+  AT_ENGL gulpum / fight_empty explum / `demonpet` / landmine·pit mid-roll /
   giant pickup / unported `mhitm_ad_*`
   `pline_mon` / mhitu `hitmsg` still named. Do not “fix” seed0383
   with ALIGN/FORCE.
@@ -81,9 +82,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1251: `uhitm.c` `explum` + `hmonas` AT_EXPL dhit=-1
+  wakeup/You explode/rehumanize; AD_BLND/HALU + COLD/FIRE/ELEC
+  you-caused `explode`. fight_empty `explum` / AT_ENGL `gulpum`
+  still named.
 - D-1250: `uhitm.c` `hmonas` AT_HUGS grab/crush/throttle +
   `weapon.c` `special_dmgval`/`silver_sears`; `do_attack`
-  `notonhead`. AT_EXPL `explum` / AT_ENGL `gulpum` still named.
+  `notonhead`. AT_ENGL `gulpum` / fight_empty still named.
 - D-1249: `dokick.c` `container_impact_dmg` export + dropz
   `with_impact` + throwit `!IS_SOFT` at `u.ux,u.uy`. Kick Is_box
   already D-0989. hitfloor `dropz(TRUE)` still named.

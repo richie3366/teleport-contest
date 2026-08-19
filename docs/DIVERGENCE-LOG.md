@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1251 — `hmonas` AT_EXPL `explum`
+
+- **Status:** fixed (map-driven Open; named omit from D-1233 /
+  D-1250 follow-up; not a public FAIL)
+- **Symptom:** a poly'd hero with an `AT_EXPL` slot skipped the
+  explosion entirely (`continue` with AT_NONE), so yellow/black
+  lights never flashed, spheres never `explode()`d, and the
+  poly form never `rehumanize`d after a proximity blast.
+- **C locus:** `uhitm.c` `explum` `:4891–4928`; `hmonas`
+  AT_EXPL `:5762–5767`; post-switch `dhit == -1` `:5821–5824`;
+  `explode.c` `adtyp_to_expltype` / `explode` you-caused
+  `MON_EXPLODE && type >= 0`. Other caller `hack.c`
+  fight_empty `:2324–2333` named.
+- **JS was:** named omit; `hmonas` `continue` on AT_EXPL
+  (skipped explum, rehumanize, and passive like AT_NONE).
+- **Fix:** `explum` rolls `d(damn,damd)` then AD_BLND
+  (`resists_blnd` already-blind/noeyes/sleep; min 127) /
+  AD_HALU (`haseyes`+`mcansee` → `mconf`) / AD_COLD|FIRE|ELEC
+  `explode(u.ux,u.uy,(adtyp-1)+20,tmp,MON_EXPLODE,adtyp_to_expltype)`
+  then `DEADMONSTER` → `M_ATTK_DEF_DIED`; always
+  `wake_nearto(7*7)`. `hmonas` sets `dhit=-1`, wakeup,
+  `You explode!`, `explum`, then `u.mh=-1; rehumanize()`
+  before passive. Did not pull fight_empty `explum(null)` /
+  AT_ENGL `gulpum` / altwep / `demonpet`. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `explum` / `hmonas`; `js/explode.js`
+  export `adtyp_to_expltype`.
+- **Not this iter:** fight_empty `explum`; AT_ENGL `gulpum`;
+  two-weapon `uswapwep`; `demonpet` body; remaining
+  `mhitm_ad_*`; mhitu `hitmsg`; explmm.
+- **Verified:** private canary **42**/42 (C switch/dhit/-1
+  rehumanize; JS not continue-skip; BLND/HALU/null-mdef;
+  already-blind skip still rolls `d`; FIRE adjacent damage
+  without hero HP; yellow-light `hmonas` rehumanize);
+  green+strict seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a public session Upolyd-explodes.
+- **Follow-up:** Open `makemon.c` `demonpet` spawn.
+
 ## D-1250 — `hmonas` AT_HUGS grab/crush/throttle
 
 - **Status:** fixed (map-driven Open; named omit from D-1233 /

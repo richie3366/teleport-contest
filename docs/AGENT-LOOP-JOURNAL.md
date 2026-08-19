@@ -20,6 +20,24 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-08-19 03:35 — #1587 D-1251 hmonas AT_EXPL explum
+
+**Objective:** Open `uhitm.c` AT_EXPL (named from D-1233). Not
+AT_HUGS.
+**C locus:** `uhitm.c` `explum` `:4891–4928`; `hmonas` AT_EXPL
+`:5762–5767`; post-switch `dhit==-1` `:5821–5824`; `explode.c`
+`adtyp_to_expltype`.
+**Change:** poly AT_EXPL no longer `continue`s like AT_NONE:
+wakeup, `You explode!`, `explum` (BLND/HALU + COLD/FIRE/ELEC
+you-caused `explode`), then `mh=-1` `rehumanize` before
+passive. fight_empty `explum` / AT_ENGL still named. Rule #2:
+no fs.
+**Verified:** private canary **42**/42; green+strict seed8000/0900;
+cohort **9**/9 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a public session Upolyd-explodes.
+**Next:** Open `makemon.c` `demonpet` spawn (named from D-1233).
+Not AT_EXPL.
+**Blocked:** none.
 ## 2026-08-19 03:22 — #1586 D-1250 hmonas AT_HUGS
 
 **Objective:** Open `uhitm.c` AT_HUGS (named from D-1233). Not

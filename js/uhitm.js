@@ -1,5 +1,5 @@
 // uhitm.js — Hero hitting monsters (partial).
-// C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / damageum;
+// C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / explum / damageum;
 //         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
@@ -15,6 +15,7 @@ import {
     has_mgivenname, ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE,
     HAND, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT,
     W_ARM, W_ARMC, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_AMUL,
+    MON_EXPLODE,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -54,7 +55,8 @@ import {
 import { monflee } from './monmove.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
-import { mon_explodes } from './explode.js';
+import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
+import { rehumanize } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination } from './do_name.js';
 import { artifact_hit, youmonst, is_art } from './artifact.js';
 import { xname, vtense, The, An, singular, makeplural, cxname } from './objnam.js';
@@ -76,6 +78,8 @@ const AD_MAGM = 1;
 const AD_FIRE = 2;
 const AD_COLD = 3;
 const AD_ELEC = 6;
+const AD_BLND = 11; // monattk.h — yellow-light AT_EXPL
+const AD_HALU = 36; // monattk.h — black-light AT_EXPL
 const AD_ACID = 8;
 const AD_STUN = 12;
 const AD_PLYS = 14;
@@ -1453,11 +1457,60 @@ async function hmonas_hugs(mon, mattk, i, sum) {
 }
 
 /**
+ * C ref: uhitm.c explum :4891–4928.
+ * Hero exploding at mdef, or at nothing (forcefight) when mdef is null.
+ * Always rolls d(damn,damd) then wake_nearto(7*7). Named omit: fight_empty
+ * caller (hack.c); explmm; AT_ENGL gulpum.
+ */
+export async function explum(mdef, mattk) {
+    const tmp = d(mattk.damn | 0, mattk.damd | 0);
+    const ad = mattk.adtyp | 0;
+    const u = game.u || {};
+
+    switch (ad) {
+    case AD_BLND:
+        if (mdef && !resists_blnd_mon(mdef)) {
+            await pline(`${Monnam(mdef)} is blinded by your flash of light!`);
+            mdef.mblinded = Math.min((mdef.mblinded | 0) + tmp, 127);
+            mdef.mcansee = 0;
+        }
+        break;
+    case AD_HALU:
+        if (mdef && haseyes(mdef.data) && mdef.mcansee) {
+            await pline(`${Monnam(mdef)} is affected by your flash of light!`);
+            mdef.mconf = 1;
+        }
+        break;
+    case AD_COLD:
+    case AD_FIRE:
+    case AD_ELEC:
+        /* C: player-caused blast is +20..+29 so you_exploding (type >= 0). */
+        await explode(
+            u.ux | 0,
+            u.uy | 0,
+            (ad - 1) + 20,
+            tmp,
+            MON_EXPLODE,
+            adtyp_to_expltype(ad),
+        );
+        if (mdef && (mdef.mhp | 0) < 1) {
+            return M_ATTK_DEF_DIED;
+        }
+        break;
+    default:
+        break;
+    }
+    await wake_nearto(u.ux | 0, u.uy | 0, 7 * 7);
+    return M_ATTK_HIT;
+}
+
+/**
  * C ref: uhitm.c hmonas — poly'd hero attacks as monster.
  * AT_WEAP / weapon-using claw/touch/magc → known_hitum; natural hits → damageum
  * (troll_baned ternary/uwep D-1233). AT_HUGS grab/crush/throttle D-1250
- * (special_dmgval callee). Named omit: two-weapon altwep; AT_EXPL/ENGL
- * bodies; skipdrin; pit kick; demonpet spawn.
+ * (special_dmgval callee). AT_EXPL explum + dhit==-1 rehumanize D-1251.
+ * Named omit: two-weapon altwep; AT_ENGL gulpum; fight_empty explum;
+ * skipdrin; pit kick; demonpet spawn.
  */
 export async function hmonas(mon) {
     const u = game.u || {};
@@ -1466,6 +1519,7 @@ export async function hmonas(mon) {
     let weapon = null;
     let weapon_used = false;
     let multi_weap = 0;
+    let dhit = 0;
     const attk_count = { v: 0 };
     const role_roll_penalty = { v: 0 };
 
@@ -1561,8 +1615,15 @@ export async function hmonas(mon) {
             }
         } else if (aatyp === AT_HUGS) {
             if (await hmonas_hugs(mon, mattk, i, sum)) continue;
+        } else if (aatyp === AT_EXPL) {
+            // C uhitm.c hmonas AT_EXPL :5762–5767 — automatic hit; dhit=-1
+            // then rehumanize after the switch (not continue; passive runs).
+            dhit = -1;
+            await wakeup(mon, true);
+            await pline('You explode!');
+            sum[i] = await explum(mon, mattk);
         } else if (aatyp === AT_NONE || aatyp === AT_BOOM
-            || aatyp === AT_EXPL || aatyp === AT_ENGL
+            || aatyp === AT_ENGL
             || aatyp === AT_MAGC) {
             continue;
         } else if (aatyp === AT_BREA || aatyp === AT_SPIT || aatyp === AT_GAZE) {
@@ -1571,6 +1632,10 @@ export async function hmonas(mon) {
             continue;
         }
 
+        if (dhit === -1) {
+            u.mh = -1; /* dead in the current form */
+            await rehumanize();
+        }
         const died = sum[i] === M_ATTK_DEF_DIED || (mon.mhp | 0) < 1;
         await passive(mon, weapon, sum[i] !== M_ATTK_MISS, !died, aatyp, false);
         mhitm_knockback(ym, mon, mattk, sum[i], weapon_used);
