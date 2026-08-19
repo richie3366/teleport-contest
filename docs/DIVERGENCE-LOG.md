@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1258 — `mon.c` ALLOW_BARS `passes_bars`
+
+- **Status:** fixed (map-driven Open; named omit from D-1247; not a
+  public FAIL)
+- **Symptom:** `mon_allowflags` only set ALLOW_BARS for wallwalk /
+  amorphous / whirly / verysmall, so rust/corr/metallivore / unsolid /
+  slithy-small monsters never path onto IRONBARS; `mfndpos` also
+  skipped the C W_NONDIGGABLE rust/corr continue.
+- **C locus:** `mondata.c` `passes_bars` `:552–563`; `mon.c`
+  `mon_allowflags` `:2104–2109` (ustuck carrying hero unless
+  `unsolid`/`verysmall` youmonst — not full `passes_bars(youmonst)`);
+  `mfndpos` `:2225–2230`.
+- **JS was:** subset of `passes_bars`; IRONBARS `!(flag & ALLOW_BARS)`
+  only.
+- **Fix:** export `dmgtype` / `slithy` / `passes_bars`; ALLOW_BARS
+  from C predicate + ustuck gate; rust/corr cannot path onto
+  `W_NONDIGGABLE` bars (metallivore still can). Rule #2: no fs.
+- **JS:** `js/monsters.js` `passes_bars`/`dmgtype`; `js/mon.js`
+  `mon_allowflags`/`mfndpos`.
+- **Not this iter:** `hack.c` hero `test_move` `passes_bars` /
+  still_chewing; `dissolve_bars` `switch_terrain`; `meatmetal`.
+- **Verified:** private canary **40**/40 (C body+callers; rust/ooze/
+  pudding/mole/xorn/fog/garter bars; jackal/python/cube skip; ustuck
+  human vs unsolid/verysmall vs rust-poly subset; mfndpos
+  W_NONDIGGABLE rust skip / mole keep; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a rust/corr/metallivore or
+  bars-passer `mfndpos`s toward IRONBARS.
+- **Follow-up:** Open `hack.c` `switch_terrain` from `dissolve_bars`.
+
 ## D-1257 — `monmove.c` `gelcube_digests`
 
 - **Status:** fixed (map-driven Open; named omit from D-1246; not a

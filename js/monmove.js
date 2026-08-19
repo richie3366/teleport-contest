@@ -1261,8 +1261,8 @@ export async function m_postmove_effect(mtmp) {
  * Named omissions: vampshift fog; shop add_damage;
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
  * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish;
- * ALLOW_BARS rust/corr/metallivore in mon_allowflags; dissolve_bars
- * switch_terrain. mon_yells is D-1248.
+ * dissolve_bars switch_terrain. ALLOW_BARS rust/corr/metallivore is
+ * D-1258. mon_yells is D-1248.
  * (shk/gd/priest via shk.js D-0205)
  */
 export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
@@ -1362,8 +1362,8 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
         // Eat (AD_RUST / AD_CORR / metallivorous) unless W_NONDIGGABLE,
         // then dissolve_bars and return MMOVE_DONE (skips mdig_tunnel
         // rnd(12) and OBJ_AT pickup). Else Norep pass through/between.
-        // Named: ALLOW_BARS rust/corr/metallivore (mon_allowflags);
-        // dissolve_bars switch_terrain; meatmetal.
+        // Named: dissolve_bars switch_terrain; meatmetal.
+        // ALLOW_BARS rust/corr/metallivore is D-1258 (mon_allowflags).
         const wi = (loc.wall_info | 0) | (loc.flags | 0);
         if (!(wi & W_NONDIGGABLE)
             && (dmgtype(ptr, AD_RUST) || dmgtype(ptr, AD_CORR)

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
+- [x] `monmove.c` ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube. **Addressed:** D-1258
+
+
 - [x] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`. **Addressed:** D-1257 `466adf3e`
 
 

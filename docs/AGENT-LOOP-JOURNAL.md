@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 07:40 — #1596 D-1258 ALLOW_BARS passes_bars
+
+**Objective:** Open `monmove.c` ALLOW_BARS rust/corr/metallivore
+(named from D-1247). Not gelcube. Recover iter-1596
+`resource_exhausted` before commit.
+**C locus:** `mondata.c` `passes_bars` `:552–563`; `mon.c`
+`mon_allowflags` `:2104–2109`; `mfndpos` `:2225–2230`.
+**Change:** export `passes_bars`/`dmgtype`/`slithy`; ALLOW_BARS from
+C predicate + ustuck unsolid/verysmall subset; rust/corr skip
+W_NONDIGGABLE bars. Hero `test_move` / `switch_terrain` named.
+Rule #2: no fs.
+**Verified:** private canary **40**/40; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a bars-passer `mfndpos`s toward IRONBARS.
+**Next:** Open `hack.c` `switch_terrain` from `dissolve_bars` (named
+from D-1247). Not ALLOW_BARS.
+**Blocked:** none.
 ## 2026-08-19 05:20 — #1595 review D-1254–D-1257 + cadence
 
 **Objective:** audit — C-fidelity reviews **216–219** of JS SHAs

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube.
 - [ ] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS.
 - [ ] `hack.c` mimic unhide (named from D-1245). Not hideunder.
 - [ ] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`.

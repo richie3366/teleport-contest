@@ -482,6 +482,43 @@ export function passes_walls(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_WALLWALK);
 }
 
+/** C ref: mondata.h slithy — M1_SLITHY. */
+export function slithy(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_SLITHY);
+}
+
+/* C monattk.h — rust monster / gray ooze·pudding (passes_bars). */
+const AD_RUST = 24;
+const AD_CORR = 42;
+
+/**
+ * C ref: mondata.c dmgtype :712–715 — any mattk slot matches adtyp
+ * (AT_ANY). Empty slots are adtyp 0, not rust/corr.
+ */
+export function dmgtype(ptr, dtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    const want = dtyp | 0;
+    for (const a of slots) {
+        if ((a.adtyp | 0) === want) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c passes_bars :552–563 — walls / amorphous / unsolid /
+ * whirly / verysmall, rust or corr dmgtype, metallivorous, or
+ * slithy && !bigmonst. Callers: mon_allowflags ALLOW_BARS (D-1258).
+ * Hero hack.c test_move still named.
+ */
+export function passes_bars(mptr) {
+    return !!(passes_walls(mptr) || amorphous(mptr) || unsolid(mptr)
+        || is_whirly(mptr) || verysmall(mptr)
+        || dmgtype(mptr, AD_RUST) || dmgtype(mptr, AD_CORR)
+        || metallivorous(mptr)
+        || (slithy(mptr) && !bigmonst(mptr)));
+}
+
 /** C ref: mondata.h tunnels / needspick */
 export function tunnels(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_TUNNEL);
