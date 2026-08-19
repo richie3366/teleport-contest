@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-19
 
-- [x] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`. **Addressed:** D-1257
+- [x] `monmove.c` `gelcube_digests` (named from D-1246). Not `mon_yells`. **Addressed:** D-1257 `466adf3e`
 
 
 - [x] `trap.c` landmine·pit mid-roll (named from D-1237). Not rolling-boulder TELEP. **Addressed:** D-1256 `03e8b10c`

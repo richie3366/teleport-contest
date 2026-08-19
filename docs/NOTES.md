@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1257 `gelcube_digests` (review
-  **212** cadence **#1590** `d384e339`). Next: Open
+- **Fortress 44/44** after D-1257 `gelcube_digests` (reviews
+  **216–219** cadence **#1595** `466adf3e`). Next: Open
   ALLOW_BARS rust/corr/metallivore (named from D-1247). Not gelcube.
   Do not skip D-1257…D-1229. Do not pull nopick m-dir / hitfloor
   `dropz(TRUE)` / mimic unhide / AT_ENGL gulpum / fight_empty
@@ -79,5 +79,5 @@ Objective/score live in `CURRENT.md`.
 - D-1246: `bee_eat_jelly` + grow_up killer-bee `!victim` → queen.
 - D-1245: `domove` hideunder after tread. mimic unhide named.
 - D-1244: gulpmm AD_DGST eat. gulpmu invent / Medusa named.
-- Review **212–215** (212 QUALITY-RISK, D-1254). Cadence **#1590**
-  **44**/44. Next audit @**#1595**.
+- Reviews **216–219** all ACCEPT-WITH-DEBT (D-1254 closed **212**).
+  Cadence **#1595** **44**/44. Next audit @**#1600**.

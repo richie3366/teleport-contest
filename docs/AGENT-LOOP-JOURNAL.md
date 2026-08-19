@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 05:20 — #1595 review D-1254–D-1257 + cadence
+
+**Objective:** audit — C-fidelity reviews **216–219** of JS SHAs
+since `218836ee`, plus full `sessions` score. No `js/` port.
+**C locus:** `mondata.c` `hates_silver`; `objnam.c` glob/doname CXN;
+`trap.c` `launch_obj` LANDMINE/PIT; `monmove.c` `gelcube_digests`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(review **212** silver clone shipped as D-1254; named omits stay
+map: `dmgval` silver; EGG/MEAT_RING; `down_gate`; scatter
+MAY_FRACTURE; `meatobj`/meatbox/poly). Filled D-1257 archive hash
+`466adf3e`. Open 9 (no refill). Rule #2: no fs.
+**Score:** cadence **#1595** HEAD `466adf3e` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`40+0.33/turn` (R² 0.854). seed0383 PASS. Next audit @**#1600**.
+**Verified:** `__RESULTS_JSON__` at HEAD `466adf3e`; branch-by-branch
+vs pinned C (`hates_silver` mndx; doname skip-article + CXN;
+LANDMINE `rn2(10)>2` live `fracture_rock`; gelcube extract+`delobj`).
+**Next:** Open `monmove.c` ALLOW_BARS rust/corr/metallivore (named
+from D-1247). Not gelcube.
+**Blocked:** none.
 ## 2026-08-19 05:10 — #1594 D-1257 gelcube_digests
 
 **Objective:** Open `monmove.c` `gelcube_digests` (named from D-1246).

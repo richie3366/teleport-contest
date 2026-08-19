@@ -225,3 +225,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [213-e097a5df-explum.md](./213-e097a5df-explum.md) | `e097a5df` | D-1251 `explum` / AT_EXPL | **ACCEPT-WITH-DEBT** |
 | [214-f7714f94-demonpet.md](./214-f7714f94-demonpet.md) | `f7714f94` | D-1252 `demonpet` spawn | **ACCEPT-WITH-DEBT** |
 | [215-d384e339-cannot-push-giant.md](./215-d384e339-cannot-push-giant.md) | `d384e339` | D-1253 cannot_push giant pickup | **ACCEPT-WITH-DEBT** |
+| [216-fd5ebd92-hates-silver.md](./216-fd5ebd92-hates-silver.md) | `fd5ebd92` | D-1254 `hates_silver` / `mon_hates_silver` | **ACCEPT-WITH-DEBT** |
+| [217-25a81ff1-glob-doname-cxn.md](./217-25a81ff1-glob-doname-cxn.md) | `25a81ff1` | D-1255 glob / doname CXN | **ACCEPT-WITH-DEBT** |
+| [218-03e8b10c-launch-obj-landmine-pit.md](./218-03e8b10c-launch-obj-landmine-pit.md) | `03e8b10c` | D-1256 `launch_obj` LANDMINE/PIT | **ACCEPT-WITH-DEBT** |
+| [219-466adf3e-gelcube-digests.md](./219-466adf3e-gelcube-digests.md) | `466adf3e` | D-1257 `gelcube_digests` | **ACCEPT-WITH-DEBT** |
