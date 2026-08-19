@@ -5,15 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1258 `passes_bars` ALLOW_BARS (reviews
-  **216–219** cadence **#1595** `466adf3e`). Next: Open
-  `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247).
-  Not ALLOW_BARS. Do not skip D-1258…D-1229. Do not pull nopick
-  m-dir / hitfloor `dropz(TRUE)` / mimic unhide / AT_ENGL gulpum /
+- **Fortress 44/44** after D-1259 `dissolve_bars` `u_at`
+  `switch_terrain` (reviews **216–219** cadence **#1595**
+  `466adf3e`). Next: Open `hack.c` mimic unhide (named from
+  D-1245). Not hideunder. Do not skip D-1259…D-1229. Do not
+  pull nopick m-dir / hitfloor `dropz(TRUE)` / AT_ENGL gulpum /
   fight_empty `explum` / altwep / hero `test_move` `passes_bars` /
-  unported `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / doname EGG.
+  unported `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / doname EGG /
+  `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain`.
   Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1258. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1259. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1258.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1259.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,10 +38,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1258 (index). Named still: nopick m-dir;
+- Do not skip D-1071…D-1259 (index). Named still: nopick m-dir;
   mimic unhide; hitfloor `dropz(TRUE)`; AT_ENGL gulpum; fight_empty
   explum; mhitu `hitmsg`; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox; `switch_terrain`;
+  down_gate / boulder-chain; `meatobj` / meatbox;
+  `set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain`;
   hero `test_move` `passes_bars`. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -53,6 +55,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1259: `monmove.c` `dissolve_bars` `u_at` → `switch_terrain`
+  after `newsym`. still_chewing / postmov / zap / hit_bars await.
+  `set_uinwater` / `spoteffects` / `digactualhole` named.
 - D-1258: `mondata.c` `passes_bars` + `mon.c` `mon_allowflags`
   ALLOW_BARS rust/corr/metallivore/slithy-small + ustuck subset;
   `mfndpos` W_NONDIGGABLE rust/corr skip. Hero `test_move` named.
@@ -79,8 +84,8 @@ Objective/score live in `CURRENT.md`.
   Silver clone D-1254.
 - D-1249: `container_impact_dmg` dropz/throwit. hitfloor `dropz(TRUE)` named.
 - D-1248: `mon_yells` watch_on_duty + dokick Deaf waves vs verbalize1.
-- D-1247: postmov IRONBARS eat/`dissolve_bars`/Norep. ALLOW_BARS D-1258.
-- D-1246: `bee_eat_jelly` + grow_up killer-bee `!victim` → queen.
+- D-1247: postmov IRONBARS eat/`dissolve_bars`/Norep. ALLOW_BARS D-1258;
+  `switch_terrain` D-1259.
 - D-1245: `domove` hideunder after tread. mimic unhide named.
 - Reviews **216–219** all ACCEPT-WITH-DEBT (D-1254 closed **212**).
   Cadence **#1595** **44**/44. Next audit @**#1600**.

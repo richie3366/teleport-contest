@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1259 — `dissolve_bars` `u_at` `switch_terrain`
+
+- **Status:** fixed (map-driven Open; named omit from D-1247;
+  not a public FAIL)
+- **Symptom:** dissolving IRONBARS under the hero never called
+  `switch_terrain`, so Lev/Fly `FROMOUTSIDE` and
+  `classify_terrain` stayed on the pre-bars cell.
+- **C locus:** `monmove.c` `dissolve_bars` `:2170–2178` (typ
+  DOOR/ROOM/CORR, flags 0, `newsym`, then `if (u_at(x, y))
+  switch_terrain()`). Callers: `hack.c` `still_chewing` `:784`;
+  `monmove.c` `postmov` `:1634`; `zap.c` `:5362`; `mthrowu.c`
+  `hit_bars` `:1444` / `:1487`. `hack.c` `switch_terrain`
+  `:3178–3217` (already live D-1129 / D-1151).
+- **JS was:** `// switch_terrain deferred` after `newsym`.
+- **Fix:** `dissolve_bars` awaits `switch_terrain` iff `u_at`.
+  IRONBARS is not `IS_OBSTRUCTED` (`typ` 22 ≥ `POOL`), so the
+  usual effect is unblocking Lev/Fly `FROMOUTSIDE` (and
+  `classify_terrain` when `terrainstatus`). Callers await.
+  Rule #2: no fs.
+- **JS:** `js/hack.js` `dissolve_bars`; await in `still_chewing`,
+  `js/monmove.js` `postmov`, `js/zap.js` `zap_over_floor`,
+  `js/mthrowu.js` `hit_bars`.
+- **Not this iter:** `set_uinwater` / `spoteffects` /
+  `digactualhole` / `dothrow` / `goto_level` `switch_terrain`;
+  `meatmetal`; hero `test_move` `passes_bars`.
+- **Verified:** private canary **18**/18 (C body+callers; JS
+  `u_at` await; off-hero bits stay; on-hero BLev/BFly clear;
+  edge DOOR / in-room ROOM / maze CORR; HFlying resume pline;
+  postmov rust on hero cell; leftover BLev bits; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  bars dissolve on `u.ux,u.uy`.
+- **Follow-up:** Open `hack.c` mimic unhide.
+
 ## D-1258 — `mon.c` ALLOW_BARS `passes_bars`
 
 - **Status:** fixed (map-driven Open; named omit from D-1247; not a

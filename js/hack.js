@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import {
-    Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPE, isok,
+    Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPE, isok, u_at,
     IS_OBSTRUCTED, IRONBARS, IS_DOOR, IS_WALL, IS_TREE, IS_STWALL,
     D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
     NO_ROOM, SHARED, SHARED_PLUS, ROOMOFFSET, SHOPBASE, COLNO, ROWNO,
@@ -1762,7 +1762,8 @@ function Flying_st() {
  * flags.terrainstatus && !context.run. C youprop.h Underwater ≡
  * u.uinwater. Named omit: botl terrain_descr[] paint; options.c
  * toggle; end_running MAX_TYPE reset; dungeon.c u_on_newpos
- * MAX_TYPE; spoteffects / set_uinwater / dissolve_bars callers.
+ * MAX_TYPE; spoteffects / set_uinwater / digactualhole callers.
+ * dissolve_bars u_at is D-1259.
  */
 export function classify_terrain() {
     const u = game.u;
@@ -2092,9 +2093,10 @@ export async function invocation_message() {
 
 /**
  * C ref: monmove.c dissolve_bars — replace IRONBARS with DOOR/ROOM/CORR.
- * Named omission: switch_terrain when hero stands on the cell.
+ * After newsym, u_at → switch_terrain (D-1259). Named: set_uinwater /
+ * spoteffects / digactualhole switch_terrain.
  */
-export function dissolve_bars(x, y) {
+export async function dissolve_bars(x, y) {
     const lev = game.level?.at(x, y);
     if (!lev) return;
     const u = game.u || {};
@@ -2108,7 +2110,7 @@ export function dissolve_bars(x, y) {
     lev.flags = 0;
     lev.doormask = D_NODOOR;
     newsym(x, y);
-    // switch_terrain deferred
+    if (u_at(x, y)) await switch_terrain();
 }
 
 /**
@@ -2118,8 +2120,8 @@ export function dissolve_bars(x, y) {
  * effort; finish boulder/wall/tree/IRONBARS/SDOOR/door/rock;
  * watch_dig on start/continue; shop add_damage on wall/door (D-0941);
  * pay_for_damage after chew (D-0942).
- * Named omissions: livelog first-food; switch_terrain
- * after bars.
+ * Named omissions: livelog first-food. Bars switch_terrain is
+ * D-1259 (dissolve_bars).
  */
 export async function still_chewing(x, y) {
     const lev = game.level?.at(x, y);
@@ -2252,7 +2254,7 @@ export async function still_chewing(x, y) {
         digtxt = ((u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0))
             ? 'devour the iron bars.'
             : 'eat through the bars.';
-        dissolve_bars(x, y);
+        await dissolve_bars(x, y);
     } else if (lev.typ === SDOOR) {
         if ((lev.doormask | 0) & D_TRAPPED) {
             lev.doormask = D_NODOOR;

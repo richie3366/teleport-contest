@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `switch_terrain` from `dissolve_bars` (named from D-1247). Not ALLOW_BARS.
 - [ ] `hack.c` mimic unhide (named from D-1245). Not hideunder.
 - [ ] `mhitu.c` `hitmsg` (named from D-1240). Not remaining uhitm `pline_mon`.
 - [ ] `hack.c` nopick `m<dir>` over/against (named from D-1253). Not giant pickup.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty.
 - [ ] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL.
 - [ ] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL.
+- [ ] `hack.c` `set_uinwater` `switch_terrain` (named from D-1129). Not dissolve_bars.
+- [ ] `hack.c` `spoteffects` `switch_terrain` (named from D-1129). Not dissolve_bars.
+- [ ] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars.
+- [ ] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS.
+- [ ] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.
 
 ## Parked (do not pop)
 

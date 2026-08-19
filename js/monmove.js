@@ -1260,9 +1260,9 @@ export async function m_postmove_effect(mtmp) {
  * D-1227; IRONBARS eat/Norep (D-1247).
  * Named omissions: vampshift fog; shop add_damage;
  * has_magic_key disarm; metallivorous/cube/corpse_eater meat*;
- * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish;
- * dissolve_bars switch_terrain. ALLOW_BARS rust/corr/metallivore is
- * D-1258. mon_yells is D-1248.
+ * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish.
+ * ALLOW_BARS is D-1258; dissolve_bars switch_terrain is D-1259;
+ * mon_yells is D-1248.
  * (shk/gd/priest via shk.js D-0205)
  */
 export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
@@ -1362,8 +1362,8 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
         // Eat (AD_RUST / AD_CORR / metallivorous) unless W_NONDIGGABLE,
         // then dissolve_bars and return MMOVE_DONE (skips mdig_tunnel
         // rnd(12) and OBJ_AT pickup). Else Norep pass through/between.
-        // Named: dissolve_bars switch_terrain; meatmetal.
-        // ALLOW_BARS rust/corr/metallivore is D-1258 (mon_allowflags).
+        // Named: meatmetal. ALLOW_BARS rust/corr/metallivore is
+        // D-1258 (mon_allowflags). switch_terrain is D-1259.
         const wi = (loc.wall_info | 0) | (loc.flags | 0);
         if (!(wi & W_NONDIGGABLE)
             && (dmgtype(ptr, AD_RUST) || dmgtype(ptr, AD_CORR)
@@ -1374,7 +1374,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
                     `${Monnam(mtmp)} eats through the iron bars.`,
                 );
             }
-            dissolve_bars(mtmp.mx, mtmp.my);
+            await dissolve_bars(mtmp.mx, mtmp.my);
             return MMOVE_DONE;
         } else if (game.flags?.verbose !== false && display_canseemon(mtmp)) {
             await Norep(

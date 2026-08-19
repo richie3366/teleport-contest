@@ -59,30 +59,31 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1258. Reviews **216–219** all
+**Map-driven fortress** after D-1259. Reviews **216–219** all
 **ACCEPT-WITH-DEBT** (D-1254 closed review **212** Must-fix).
 **Next cluster:**
-Open `hack.c` `switch_terrain` from `dissolve_bars` (named from
-D-1247). Not ALLOW_BARS.
-Do not skip D-1258…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `hack.c` mimic unhide (named from D-1245). Not hideunder.
+Do not skip D-1259…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull nopick m-dir / hitfloor
-`dropz(TRUE)` / mimic unhide / AT_ENGL / fight_empty `explum` / altwep
+`dropz(TRUE)` / AT_ENGL / fight_empty `explum` / altwep
 / hero `test_move` `passes_bars` / unported
-uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / doname EGG.
+uhitm `mhitm_ad_*` `pline_mon` / mhitu `hitmsg` / doname EGG /
+`set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1258. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1259. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1258 (index). Recent: **D-1258** `passes_bars`
-ALLOW_BARS rust/corr/metallivore (hero `test_move` named);
-**D-1257** `gelcube_digests` (`meatobj` / meatbox named); **D-1256**
-launch_obj landmine·pit (down_gate / boulder-chain named); **D-1255**
-glob / doname CXN (EGG / MEAT_RING named); **D-1254** `hates_silver`
-(`dmgval` silver named); D-1253 giant pickup (nopick m-dir named);
-D-1249 container_impact (hitfloor `dropz(TRUE)` named);
-D-1250–D-1252 AT_HUGS / AT_EXPL / `demonpet` (AT_ENGL / fight_empty /
-altwep named).
+**Keep:** D-0845…D-1259 (index). Recent: **D-1259** `dissolve_bars`
+`u_at` `switch_terrain` (`set_uinwater` / `spoteffects` /
+`digactualhole` named); **D-1258** `passes_bars` ALLOW_BARS
+(hero `test_move` named); **D-1257** `gelcube_digests` (`meatobj` /
+meatbox named); **D-1256** launch_obj landmine·pit (down_gate /
+boulder-chain named); **D-1255** glob / doname CXN (EGG / MEAT_RING
+named); **D-1254** `hates_silver` (`dmgval` silver named); D-1253
+giant pickup (nopick m-dir named); D-1249 container_impact (hitfloor
+`dropz(TRUE)` named); D-1250–D-1252 AT_HUGS / AT_EXPL / `demonpet`
+(AT_ENGL / fight_empty / altwep named).
 **Do not / recent rejects:** FORCE/RNG/appear; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting spaces;
 D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
@@ -95,6 +96,8 @@ silver named); no skip D-1255 (EGG / MEAT_RING named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);
 no skip D-1258 (hero `test_move` `passes_bars` named);
+no skip D-1259 (`set_uinwater` / `spoteffects` / `digactualhole`
+`switch_terrain` named);
 no pull `reset_glyphmap` / vision_recalc `notice_all_mons` /
 `makemap_prepost` / peel RANGE_LEVEL / `restore_artifacts` this SHA.
 **Do not put trailing `confdir` inside shared `getdir`**. **Do not

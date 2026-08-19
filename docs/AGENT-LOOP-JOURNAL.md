@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-19 08:42 — #1597 D-1259 dissolve_bars switch_terrain
+
+**Objective:** Open `hack.c` `switch_terrain` from `dissolve_bars`
+(named from D-1247). Not ALLOW_BARS.
+**C locus:** `monmove.c` `dissolve_bars` `:2170–2178`; callers
+`still_chewing` / `postmov` / `zap.c` / `hit_bars`; body
+`hack.c` `switch_terrain` `:3178–3217`.
+**Change:** after `newsym`, `u_at` awaits live `switch_terrain`.
+Callers await. IRONBARS is not `IS_OBSTRUCTED`. Rule #2: no fs.
+**Verified:** private canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless bars dissolve on the hero cell.
+**Next:** Open `hack.c` mimic unhide (named from D-1245). Not
+hideunder.
+**Blocked:** none.
 ## 2026-08-19 07:40 — #1596 D-1258 ALLOW_BARS passes_bars
 
 **Objective:** Open `monmove.c` ALLOW_BARS rust/corr/metallivore
