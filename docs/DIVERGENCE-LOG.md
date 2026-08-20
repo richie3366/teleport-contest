@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1285 — `mon.c` `meatcorpse`
+
+- **Status:** fixed (map-driven Open from D-1271; not a public FAIL)
+- **Symptom:** a purple worm / ghoul / piranha that `postmov`s onto a
+  floor CORPSE never ate it, so the corpse stayed for `mpickstuff`.
+- **C locus:** `mon.c` `meatcorpse` `:1653–1722`; caller `monmove.c`
+  `postmov` `:1674–1678` (`corpse_eater(ptr)`, after cube `meatobj`,
+  before `mpickstuff`). Macro `mondata.h` `:243–247` (purple worm /
+  baby / ghoul / piranha). Tame return 0; `sobj_at(CORPSE)` skips
+  globs; vegan or `flesh_petrifies && !resists_ston` continue;
+  rider `revive_corpse` then break; `quan>1` `splitobj(1)`;
+  cansee+canseemon eat pline else You_hear masticating;
+  `m_consume_obj`; poly/death `ptr != original_ptr` → `!ptr ? 2 :
+  1`; return 1 after one corpse. Instant (no `meating`).
+- **JS was:** `// corpse_eater meatcorpse named` after `meatobj` in
+  `postmov` OBJ_AT.
+- **Fix:** live `meatcorpse` in `js/mon.js`; `corpse_eater` in
+  `js/monsters.js` (mndx: `mons()` allocates); `postmov` calls it
+  and returns `etmp` when `>= 2`. Rider uses dynamic `do.js`
+  `revive_corpse` (cycle). Poly check is mndx. Soundeffect empty
+  without SND_LIB. Rule #2: no fs.
+- **JS:** `js/mon.js` `meatcorpse`; `js/monmove.js` `postmov`;
+  `js/monsters.js` `corpse_eater`.
+- **Not this iter:** `mon_would_consume_item`; `m_consume_obj`
+  meatbox/poly/uball/grow/stone/`mon_givit`; rider off-level
+  return 3 (C comments unimplemented).
+- **Verified:** private canary **19**/19 (C body+caller+macro; JS
+  live; tame / empty / non-corpse; eat+heal; glob skip; vegan
+  skip; petrify skip; split quan 3→2; postmov worm vs jackal vs
+  cube; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a corpse_eater `postmov`s onto a CORPSE.
+- **Follow-up:** Open `mhitu.c` `missmu` `pline_mon`.
+- **Files:** `js/mon.js`, `js/monmove.js`, `js/monsters.js`.
+
+
 ## D-1284 — `mon.c` `meatobj`
 
 - **Status:** fixed (map-driven Open from D-1271; not a public FAIL)
@@ -39,7 +75,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
   1500/1800/0012/0004/0007/2200/0383.
   **Public-unhit** unless a cube `postmov`s onto a floor pile.
-- **Follow-up:** Open `mon.c` `meatcorpse`.
+- **Follow-up:** **meatcorpse D-1285**.
 - **Files:** `js/mon.js`, `js/monmove.js`.
 
 
