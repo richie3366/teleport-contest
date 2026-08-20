@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1320 — `objnam.c` doname POTION POT_OIL `(lit)`
+
+- **Status:** fixed (map-driven Open from D-1308; not a public FAIL)
+- **Symptom:** JS `doname` POTION never appended `" (lit)"` for
+  `otyp == POT_OIL && lamplit`, so a burning flask of oil looked like
+  a bare potion (inventory, `hold_another_object` drop, look).
+- **C locus:** `objnam.c` `doname_base` POTION_CLASS `:1488–1491`
+  after TOOL charges `goto`, before RING. `if (obj->otyp == POT_OIL
+  && obj->lamplit) Concat(bp, 0, " (lit)");` then `break`. No
+  known/dknown gate. Callers: invent `prinv`/`xprname`;
+  `apply.c` `light_cocktail` `hold_another_object(..., doname(obj))`
+  after `begin_burn`. `xname` stays bare. Producer `timeout.c`
+  `begin_burn` sets `lamplit`; `mksobj` `age = MAX_OIL_IN_FLASK`
+  still named.
+- **JS was:** TOOL lamp/candle `(lit)` D-1308; candelabrum D-1317;
+  W_TOOL worn D-1318; LEASH D-1319; POTION oil omit.
+- **Fix:** `doname` POTION arm Concat `" (lit)"` before post-switch
+  W_WEP/W_QUIVER. Did not pull W_WEP `body_part(HAND)` poly or
+  `mksobj` oil age. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`.
+- **Not this iter:** W_WEP `body_part(HAND)` poly; `mksobj`
+  `MAX_OIL_IN_FLASK`; wet-towel xname; full `mbodypart`.
+- **Verified:** private canary **33**/33 (C arm order+Concat; id/unid
+  murky; blessed/cursed/diluted/named/stack; `(lit)` before
+  wielded/quiver; other potion not oil; xname bare; `begin_burn`/
+  `end_burn`; lamp/candle/candelabrum/worn/leash/MEAT_RING/armor
+  regression; Rule #2); green+strict seed8000/0900; cohort **8**/8
+  + strict 1500/1800/0012/0004/0007/2200/0383/0361. **Public-unhit**
+  unless a session `doname`s a lit oil flask.
+- **Follow-up:** Open `objnam.c` doname W_WEP `body_part(HAND)` poly
+  (named from D-1295).
+- **Files:** `js/objnam.js`.
+
 ## D-1319 — `objnam.c` doname LEASH attached
 
 - **Status:** fixed (map-driven Open from D-1308; not a public FAIL)

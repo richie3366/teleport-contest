@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1320 objnam.c doname POTION POT_OIL (lit)
+
+**Objective:** Open `objnam.c` doname POTION POT_OIL (lit) (named from
+D-1308). Not candle.
+**C locus:** `objnam.c` `doname_base` POTION `:1488–1491` after TOOL
+charges before RING; `otyp==POT_OIL && lamplit` Concat `" (lit)"`.
+**Change:** suffix on lit oil; no known gate; xname bare; W_WEP after.
+`mksobj` `MAX_OIL_IN_FLASK` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1675**.
+**Verified:** canary **33**/33; green+strict seed8000/0900; cohort
+**8**/8 + strict 1500/1800/0012/0004/0007/2200/0383/0361.
+Filled D-1319 archive hash `cd867647`.
+**Next:** Open `objnam.c` doname W_WEP `body_part(HAND)` poly (named
+from D-1295). Not MEAT_RING.
+**Blocked:** none.
 ## 2026-08-20 — D-1319 objnam.c doname LEASH attached
 
 **Objective:** Open `objnam.c` doname LEASH attached (named from

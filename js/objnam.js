@@ -47,6 +47,7 @@ import {
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const BOULDER = objectNames.indexOf('BOULDER');
+const POT_OIL = objectNames.indexOf('POT_OIL');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky u.Blind). */
 function Blind() {
@@ -1659,7 +1660,7 @@ export function doname(obj) {
     // pmnames[NEUTRAL] + optional "(laid by you)" (D-1276). MEAT_RING
     // goto ring worn/+spe (D-1295). TOOL candle partly used / lamp (lit)
     // (D-1308). Candelabrum (n of 7) D-1317. W_TOOL|W_SADDLE worn D-1318.
-    // LEASH attached D-1319. POT_OIL (lit) named.
+    // LEASH attached D-1319. POT_OIL (lit) D-1320.
     const isMeatRing = oname === 'MEAT_RING';
     const isCandelabrum = donameClass === TOOL_CLASS
         && oname === 'CANDELABRUM_OF_INVOCATION';
@@ -1697,7 +1698,7 @@ export function doname(obj) {
     // Then (lit) on bp after prefix+base. Candelabrum is the prior if
     // (objnam.c:1447–1454) and breaks before this arm. Worn W_TOOL|W_SADDLE
     // then LEASH leashmon (D-1319) break before candelabrum/lamp/charges.
-    // POT_OIL (lit) named.
+    // POTION POT_OIL (lit) is a later class arm (D-1320).
     if (Is_candle_obj(obj) && donameClass === TOOL_CLASS) {
         const full_burn_time = 20 * (game.objects?.[otyp]?.oc_cost | 0);
         let turns_left = obj.age | 0;
@@ -1776,6 +1777,13 @@ export function doname(obj) {
     }
     // C doname_base TOOL lamp/candle Concat " (lit)" (objnam.c:1476–1477).
     if (isLampOrCandle && obj.lamplit && !toolWorn && !leashArm) bp += ' (lit)';
+    // C doname_base POTION_CLASS (objnam.c:1488–1491): otyp==POT_OIL &&
+    // lamplit → Concat " (lit)". No known/dknown gate. xname stays bare.
+    // Post-switch W_WEP/W_QUIVER suffixes still follow (C after the switch).
+    if (donameClass === POTION_CLASS && (obj.otyp | 0) === POT_OIL
+        && obj.lamplit) {
+        bp += ' (lit)';
+    }
 
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
