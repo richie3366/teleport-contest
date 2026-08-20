@@ -489,9 +489,9 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
  * goto_level. After place_lregion, switch_terrain (D-1278; C :1636–1637)
  * so leftover Lev/Fly FROMOUTSIDE from solid rock unblocks. Unconditional
  * (not dest-typ gated like teleds / hurtle_step). Named: On_W_tower_level
- * gate; W-tower bit 2 at goto_level (D-1179); cmd.c wiz_level_tele.
- * stairs.c u_on_sstairs fallback is D-1287. objnam wish is a
- * separate caller.
+ * gate; W-tower bit 2 at goto_level (D-1179).
+ * stairs.c u_on_sstairs fallback is D-1287. cmd.c makemap_prepost
+ * amulet|wiztower flags is D-1288. objnam wish is a separate caller.
  */
 export async function u_on_rndspot(upflag) {
     const up = !!(upflag & 1);
@@ -919,8 +919,8 @@ function fixup_special() {
 
 /**
  * C ref: stairs.c u_on_sstairs — place on special/branch staircase,
- * else u_on_rndspot(upflag) (D-1287; C :111–120). Named: cmd.c
- * wiz-level still calls rndspot directly.
+ * else u_on_rndspot(upflag) (D-1287; C :111–120). cmd.c
+ * makemap_prepost post rndspot is D-1288.
  */
 export async function u_on_sstairs(upflag) {
     const stway = stairway_find_special_dir(upflag);
@@ -2958,7 +2958,9 @@ function load_bar_strt() {
  * C ref: dat/Wiz-strt.lua via load_special — Wizard quest start (Neferet).
  * solidfill + cloud replace_terrain + tower clear + leader invent.
  * Named omissions: spo_end_moninvent m_dowear; count_level_features /
- * level_finalize_topology / fill_special_room / makemap_prepost deferred;
+ * level_finalize_topology / fill_special_room;
+ * sp_lev.c lspo_reset_level / lspo_finalize_level still named
+ * (cmd.c makemap_prepost post rndspot is D-1288);
  * Wiz-goal/fila/filb deferred.
  * Branch levregion stored pre-flip (D-0782) so FlipY remaps MAGIC_PORTAL.
  */

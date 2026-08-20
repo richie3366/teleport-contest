@@ -1290,7 +1290,7 @@ function getlev_catchup_monsters(elapsed) {
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
  * (rndspot itself awaits switch_terrain D-1278; stairs u_on_sstairs
- * fallback is D-1287; cmd wiz-level still named),
+ * fallback is D-1287; cmd.c makemap_prepost amulet|wiztower is D-1288),
  * Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after Valley odor;
  * ACH_ENDG/ASTR/BGRM; poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb
@@ -1863,8 +1863,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
 /**
  * C ref: questpgr.c deliver_splev_message — pline lev_message lines then free.
+ * Also cmd.c makemap_prepost post (D-1288).
  */
-async function deliver_splev_message() {
+export async function deliver_splev_message() {
     const msg = game.lev_message;
     if (!msg) return;
     game.lev_message = null;
@@ -1956,8 +1957,9 @@ export async function deferred_goto() {
 
 /**
  * C ref: do.c u_collide_m — move hero or monster when sharing a spot.
+ * Callers: goto_level; cmd.c makemap_prepost post (D-1288).
  */
-async function u_collide_m(mtmp) {
+export async function u_collide_m(mtmp) {
     const u = game.u;
     if (!mtmp || mtmp === u.usteed || m_at(u.ux, u.uy) !== mtmp) return;
 

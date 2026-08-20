@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1288 — `cmd.c` `makemap_prepost` → `u_on_rndspot`
+
+- **Status:** fixed (map-driven Open from D-1278; not a public FAIL)
+- **Symptom:** JS never called `u_on_rndspot` from the wizard
+  level-recreate path. C `makemap_prepost(FALSE)` places via
+  `u_on_rndspot((u.uhave.amulet ? 1 : 0) | (wiztower ? 2 : 0))`
+  instead of `safe_teleds`, so leftover Lev/Fly `FROMOUTSIDE` never
+  unblocked and W-tower exclusion / updest never applied.
+- **C locus:** `cmd.c` `makemap_prepost` `:1039–1066` (`u_on_rndspot`
+  `:1045–1046`); caller `wizcmds.c` `wiz_makemap` `:154–171`.
+  Callee live D-1278 (`dungeon.c` `:1605–1637`).
+- **JS was:** no `#wizmakemap` / `makemap_prepost`; stairs
+  `u_on_sstairs` already D-1287; `goto_level` trap-door still omits
+  bit 2 (D-1179).
+- **Fix:** port post-arm `u_on_rndspot` with C amulet|wiztower flags,
+  then live `losedogs` / `kill_genocided_monsters` / `u_collide_m` /
+  `initrack` / Punished `placebc` / `docrt` / `flush_screen(1)` /
+  `deliver_splev_message` / `check_special_room(FALSE)`. Thin pre:
+  dest-area zero, travelcc, `reset_utrap`, leave-room,
+  `set_uinwater(0)`, ustuck/swallow. Wire `#wizmakemap` (no
+  AUTOCOMPLETE). Did not pull `makemap_remove_mons`, mine/soko prize,
+  savelev-freeing, lua `lspo_reset_level`/`lspo_finalize_level`,
+  `On_W_tower_level`, or `goto_level` bit 2. Rule #2: no fs.
+- **JS:** `js/wizcmds.js` `makemap_prepost`/`wiz_makemap`;
+  `js/getline.js` EXT_CMDS; `js/do.js` exports.
+- **Not this iter:** `makemap_remove_mons`; savelev freeing nhfile;
+  lua lspo; `On_W_tower_level`; W-tower bit 2 at `goto_level`;
+  objnam wish traps.
+- **Verified:** private canary **10**/10 (C post flags; wiz_makemap
+  envelope; JS await rndspot not safe_teleds; `#wizmakemap` runner;
+  goto_level bit 2 still omit; no-amulet dndest leftover BLev;
+  amulet updest; wiztower+nlx exclusion; pre dest/travel/uinwater
+  zero; non-wizard unavail; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a wizard session `#wizmakemap`s with
+  leftover Lev/Fly FROMOUTSIDE.
+- **Follow-up:** Open `objnam.c` wizterrainwish traps.
+- **Files:** `js/wizcmds.js`, `js/getline.js`, `js/do.js`,
+  `js/mklev.js`, `js/hack.js`, `js/mon.js` (comments).
+
 ## D-1287 — `stairs.c` `u_on_sstairs` → `u_on_rndspot`
 
 - **Status:** fixed (map-driven Open from D-1278; not a public FAIL)

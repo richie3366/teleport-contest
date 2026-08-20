@@ -1959,6 +1959,7 @@ export function classify_terrain() {
  * dothrow hurtle_step dest-typ is D-1277.
  * dungeon.c u_on_rndspot after place is D-1278.
  * stairs.c u_on_sstairs fallback is D-1287.
+ * cmd.c makemap_prepost post u_on_rndspot is D-1288.
  * objnam.c wizterrainwish after madeterrain is D-1279.
  * **maketrap PIT/HOLE set_levltyp D-1280**.
  */
@@ -2014,9 +2015,10 @@ export async function switch_terrain() {
  * C ref: hack.c set_uinwater — set or clear u.uinwater; when in_out
  * differs from (int)u.uinwater, write 0/1 then switch_terrain
  * (D-1267). Same-value is a no-op. Wired: boulder_hits_pool dry-land,
- * drown fail-crawl, goto_level leave + after getlev. Named:
+ * drown fail-crawl, goto_level leave + after getlev,
+ * cmd.c makemap_prepost pre (D-1288). Named:
  * pooleffects leave-water; drown Amphibious wade / post-rescue;
- * zap freeze; cmd leave-level; detect/save bypass
+ * zap freeze; detect/save bypass
  * (C writes u.uinwater directly). spoteffects dest-typ is D-1268.
  * digactualhole PIT/HOLE is D-1269. **dothrow hurtle_step D-1277**.
  * **u_on_rndspot D-1278**. **objnam wish D-1279**.

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1288 cmd.c makemap_prepost → u_on_rndspot
+
+**Objective:** Open `cmd.c` wiz-level `u_on_rndspot` (named from
+D-1278). Not sstairs.
+**C locus:** `cmd.c` `makemap_prepost` `:1045–1046`; caller
+`wizcmds.c` `wiz_makemap` `:154–171`.
+**Change:** post-arm places via live `u_on_rndspot` with C
+amulet|wiztower flags (not safe_teleds), then losedogs/collide/
+initrack/docrt. Thin pre zeros dest. `#wizmakemap` no AUTOCOMPLETE.
+Named: `makemap_remove_mons`; savelev-freeing; lua lspo;
+`On_W_tower_level`; goto_level bit 2. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless `#wizmakemap` with
+leftover Lev/Fly FROMOUTSIDE. Next audit @**#1635**.
+**Verified:** private canary **10**/10; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## 2026-08-20 — D-1287 stairs.c u_on_sstairs → u_on_rndspot
 
 **Objective:** Open `stairs.c` `u_on_sstairs` → `u_on_rndspot`

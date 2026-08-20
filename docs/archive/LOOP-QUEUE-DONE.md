@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd wiz. **Addressed:** D-1287
+- [x] `cmd.c` wiz-level `u_on_rndspot` (named from D-1278). Not sstairs. **Addressed:** D-1288
+
+
+- [x] `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd wiz. **Addressed:** D-1287 `04b325fd`
 
 
 - [x] `mhitu.c` `missmu` `pline_mon` (named from D-1261). Not wildmiss. **Addressed:** D-1286 `9486280d`
