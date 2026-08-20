@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1298 `uhitm.c` hmonas skipdrin /
-  pit kick (cadence **#1640** `c37bd683`; reviews **253–256**
+  pit kick (cadence **#1645** `086eb03d`; reviews **257–260**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `hack.c`
   swap-with-pet `seemimic` (named from D-1275). Not display_self.
   Do not skip D-1298…D-1229. Do not pull shop add_damage /

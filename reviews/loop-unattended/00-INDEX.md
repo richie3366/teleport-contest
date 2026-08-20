@@ -266,3 +266,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [254-2e893032-throwit-slip.md](./254-2e893032-throwit-slip.md) | `2e893032` | D-1292 throwit cursed/greased slip | **ACCEPT-WITH-DEBT** |
 | [255-31e55930-throwit-stamina.md](./255-31e55930-throwit-stamina.md) | `31e55930` | D-1293 throwit stamina drop | **ACCEPT-WITH-DEBT** |
 | [256-c37bd683-moverock-next-boulder.md](./256-c37bd683-moverock-next-boulder.md) | `c37bd683` | D-1294 moverock `next_boulder` | **ACCEPT-WITH-DEBT** |
+| [257-dd02dc1b-doname-meat-ring.md](./257-dd02dc1b-doname-meat-ring.md) | `dd02dc1b` | D-1295 doname MEAT_RING | **ACCEPT-WITH-DEBT** |
+| [258-993e17ea-maketrap-drawbridge-ice.md](./258-993e17ea-maketrap-drawbridge-ice.md) | `993e17ea` | D-1296 maketrap DRAWBRIDGE_UP ice | **ACCEPT-WITH-DEBT** |
+| [259-6dfb7d2c-throwit-steed-potionhit.md](./259-6dfb7d2c-throwit-steed-potionhit.md) | `6dfb7d2c` | D-1297 throwit steed potionhit | **ACCEPT-WITH-DEBT** |
+| [260-086eb03d-hmonas-skipdrin-pit-kick.md](./260-086eb03d-hmonas-skipdrin-pit-kick.md) | `086eb03d` | D-1298 hmonas skipdrin / pit kick | **ACCEPT-WITH-DEBT** |

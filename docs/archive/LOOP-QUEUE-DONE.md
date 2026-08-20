@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep. **Addressed:** D-1298
+- [x] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep. **Addressed:** D-1298 `086eb03d`
 
 
 - [x] `dothrow.c` throwit steed potion (named from D-1283). Not slip. **Addressed:** D-1297 `6dfb7d2c`

@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1645 review D-1295–D-1298 + cadence
+
+**Objective:** audit — C-fidelity reviews **257–260** of JS SHAs
+since `25fd80e4`, plus full `sessions` score. No `js/` port.
+**C locus:** `objnam.c` doname MEAT_RING; `trap.c` maketrap
+DRAWBRIDGE_UP ice; `dothrow.c` throwit steed `rn2(6)` +
+`potion.c` potionhit crash/saddle/water; `uhitm.c` hmonas
+skipdrin / pit kick.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: candle / shop `add_damage`; remaining
+potionhit otyps / boomhit; eat_brains / mhitu+mhitm DRIN
+setters). Filled D-1298 archive hash `086eb03d`. Open first row
+still `hack.c` swap-with-pet `seemimic`. Rule #2: no fs.
+**Score:** cadence **#1645** HEAD `086eb03d` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`37+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1650**.
+**Verified:** `__RESULTS_JSON__` at HEAD `086eb03d`; branch-by-branch
+vs pinned C (`goto ring` worn Concat; ice `DB_FLOOR` +
+`is_pool||is_lava`; `rn2(6)` then live crash/saddle/water not
+remaining otyps; hmonas skipdrin setter + pit `mtrapped_in_pit`).
+**Next:** Open `hack.c` swap-with-pet `seemimic`. Not display_self.
+**Blocked:** none.
 ## 2026-08-20 — D-1298 uhitm.c hmonas skipdrin / pit kick
 
 **Objective:** Open `uhitm.c` skipdrin / pit kick (named
