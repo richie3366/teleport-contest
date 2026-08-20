@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1325; cadence **#1680** `2cdf2b1f`
+- **Fortress 44/44** after D-1326; cadence **#1680** `2cdf2b1f`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **284–287**
-  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitu.c` explmu
-  (named). Not AT_HUGS. Not gazemu / mhitu AD_DRIN / kickdmg
-  `special_dmgval`. Do not skip D-1325…D-1229. Do not wrap
+  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitu.c` AT_HUGS
+  (named). Not explmu. Not gazemu / mhitu AD_DRIN / kickdmg
+  `special_dmgval`. Do not skip D-1326…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1325. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1326. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1325.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1326.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1325 (index). Named still: mhitu+mhitm
-  AD_DRIN / AD_WRAP `u_slip_free`; explmu / AT_HUGS; gazemu;
+- Do not skip D-1071…D-1326 (index). Named still: mhitu+mhitm
+  AD_DRIN / AD_WRAP `u_slip_free`; AT_HUGS; gazemu;
   throwit land / mthrowu `snuff_candle`; kickdmg `special_dmgval`.
   No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -49,6 +49,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1326: `mhitu.c` `explmu` `:1591–1664` + `mattacku` AT_EXPL
+  `:839–842`. `mcan` miss before `d()`; thin-air/`empty water`;
+  COLD/FIRE/ELEC `mon_explodes`; BLND visible skip-`rnd`; HALU
+  kaleidoscope then `mondead`. `defended` / AT_HUGS / gazemu named.
 - D-1325: dokick `really_kick_object` `:733–736` extract then
   `snuff_candle` then newsym then `bhit(KICKED_WEAPON)`. Candles /
   candelabrum only (not `snuff_lit`). Throwit land `:1818` /

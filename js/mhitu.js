@@ -3,7 +3,7 @@
 //         uhitm.c mhitm_ad_phys (mhitu bare / weapon subset).
 
 import { game } from './gstate.js';
-import { monnear, mnexto, mtrapped_in_pit } from './mon.js';
+import { monnear, mnexto, mtrapped_in_pit, wake_nearto } from './mon.js';
 import {
     Is_rogue_level, NEED_WEAPON, NEED_HTH_WEAPON, NATTK,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
@@ -22,7 +22,7 @@ import {
     canseemon, newsym, docrt, swallowed, flush_topl_more, tp_sensemon,
 } from './display.js';
 import { cansee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
-import { Monnam, mon_nam, pmname, hliquid, x_monnam } from './do_name.js';
+import { Monnam, mon_nam, pmname, hliquid, x_monnam, Hallucination } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
 import { is_pole } from './wield.js';
 import { xname, doname } from './objnam.js';
@@ -44,7 +44,7 @@ import { A_STR, A_DEX, A_CON, acurr, exercise, poisoned } from './attrib.js';
 import { xkilled } from './uhitm.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm,
-    could_seduce, mon_poly,
+    could_seduce, mon_poly, mondead,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
     AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
@@ -53,6 +53,8 @@ import {
 import { castmu, buzzmu } from './mcastu.js';
 import { rehumanize } from './polyself.js';
 import { set_wounded_legs } from './trap.js';
+import { mon_explodes } from './explode.js';
+import { make_hallucinated } from './potion.js';
 
 /** C ref: monattk.h — passiveum damage types beyond mhitm export set. */
 const AD_STUN = 12;
@@ -65,6 +67,10 @@ const LOW_BOOTS = objectNames.indexOf('LOW_BOOTS');
 const IRON_SHOES = objectNames.indexOf('IRON_SHOES');
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
+const PM_BLACK_LIGHT = monsterNames.indexOf('PM_BLACK_LIGHT');
+const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
+const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
+const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
 
 /** C ref: monst.h resists_* — mresists|mextrinsics|mintrinsics bit. */
 function resists_mr(mon, mrBit) {
@@ -86,6 +92,7 @@ const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 
 /** C ref: monattk.h — engulf damage types used by gulpmu. */
 const AD_BLND = 11;
+const AD_HALU = 36; /* monattk.h — black-light AT_EXPL */
 const AD_DREN = 16;
 const AD_DGST = 26;
 const AD_WRAP = 28;
@@ -236,8 +243,8 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * mattacku AT_TENT melee is D-1309. Named omit: explmu / AT_HUGS;
- * remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
+ * mattacku AT_TENT melee is D-1309. explmu is D-1326. Named omit:
+ * AT_HUGS; remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
  * wildmiss set_msg_xy then pline is D-1291. mswings pline_mon
  * is D-1305.
  */
@@ -328,7 +335,8 @@ export async function missmu(mtmp, nearmiss, mattk) {
  * Monnam, then set_msg_xy(mx,my), then pline (not pline_mon;
  * D-1291). nolimbs uses "lunges" like C :210–213.
  * Named omit: Some_Monnam impossible; mattacku AT_ENGL gulps/lunges
- * pline_mon; explmu / AT_HUGS. mattacku AT_TENT melee is D-1309.
+ * pline_mon; AT_HUGS. mattacku AT_TENT melee is D-1309. explmu
+ * is D-1326.
  * mswings pline_mon is D-1305.
  */
 export async function wildmiss(mtmp, mattk) {
@@ -442,6 +450,65 @@ function Blind() {
     if (u.uroleplay?.blind) return true;
     if (u.ublind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/**
+ * C ref: youprop.h Unaware — multi < 0 && (unconscious || fainted).
+ * Full unconscious prefixes / is_fainted named omit.
+ */
+function Unaware_explmu() {
+    if ((game.multi | 0) >= 0) return false;
+    const u = game.u || {};
+    return !!(u.usleep || u.Unaware);
+}
+
+/**
+ * C ref: mondata.c dmgtype_fromattack — mattk slot matches adtyp+aatyp.
+ */
+function dmgtype_fromattack(ptr, adtyp, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    const ad = adtyp | 0;
+    const at = aatyp | 0;
+    for (const a of slots) {
+        if ((a.adtyp | 0) === ad && (a.aatyp | 0) === at) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c resists_blnd youmonst arm :248–272.
+ * Named omit: resists_blnd_by_arti (Sunsword).
+ */
+function resists_blnd_you() {
+    if (Blind() || Unaware_explmu()) return true;
+    const ptr = game.youmonst?.data;
+    return dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
+        || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE);
+}
+
+/**
+ * C ref: polyself.c ugolemeffects :2160–2187 — flesh golem elec /
+ * iron golem fire heal when not_affected.
+ */
+async function ugolemeffects(damtype, dam) {
+    const u = game.u || {};
+    const umon = u.umonnum | 0;
+    if (umon !== PM_FLESH_GOLEM && umon !== PM_IRON_GOLEM) return;
+    let heal = 0;
+    if ((damtype | 0) === AD_ELEC && umon === PM_FLESH_GOLEM) {
+        heal = Math.trunc(((dam | 0) + 5) / 6);
+    } else if ((damtype | 0) === AD_FIRE && umon === PM_IRON_GOLEM) {
+        heal = dam | 0;
+    }
+    if (heal && (u.mh | 0) < (u.mhmax | 0)) {
+        u.mh = (u.mh | 0) + heal;
+        if (u.mh > u.mhmax) u.mh = u.mhmax;
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        await pline('Strangely, you feel better than before.');
+        exercise(A_STR, true);
+    }
 }
 
 /** C ref: youprop.h Levitation — (H||E) && !B. */
@@ -1511,9 +1578,102 @@ async function summonmu(mtmp, youseeit) {
 }
 
 /**
+ * C ref: mhitu.c explmu :1591–1664 — monster explodes in the hero's
+ * face. Caller mattacku AT_EXPL when !range2 (:839–842).
+ * Named omit: defended(mtmp, adtyp) exploder artifact/dragon scales
+ * (no RNG; AT_EXPL spheres/lights never qualify);
+ * resists_blnd_by_arti; gazemu; AT_HUGS; mhitm explmm.
+ */
+export async function explmu(mtmp, mattk, ufound) {
+    if (!mtmp) return M_ATTK_MISS;
+    if (mtmp.mcan) return M_ATTK_MISS;
+
+    let kill_agr = true;
+    let tmp = d(mattk.damn | 0, mattk.damd | 0);
+    // C: not_affected = defended(mtmp, adtyp) — the exploder, not hero.
+    let not_affected = false;
+    const ad = mattk.adtyp | 0;
+    const u = game.u || {};
+
+    if (!ufound) {
+        const who = canseemon(mtmp) ? Monnam(mtmp) : 'It';
+        const mux = mtmp.mux | 0;
+        const muy = mtmp.muy | 0;
+        const wall = IS_WATERWALL(game.level?.at?.(mux, muy)?.typ);
+        await pline(
+            `${who} explodes at a spot in ${wall ? 'empty water' : 'thin air'}!`,
+        );
+    } else {
+        await hitmsg(mtmp, mattk);
+    }
+
+    switch (ad) {
+    case AD_COLD:
+    case AD_FIRE:
+    case AD_ELEC:
+        await mon_explodes(mtmp, mattk);
+        if ((mtmp.mhp | 0) >= 1) kill_agr = false;
+        break;
+    case AD_BLND:
+        not_affected = resists_blnd_you();
+        if (ufound && !not_affected) {
+            /* C: mon_visible || (rnd(tmp /= 2) > u.ulevel) — short-circuit
+             * skips the halve+rnd when the exploder is visible. */
+            if (mon_visible(mtmp)
+                || (rnd(tmp = Math.trunc(tmp / 2)) > (u.ulevel | 0))) {
+                await pline('You are blinded by a blast of light!');
+                make_blinded(tmp, false);
+                if (!Blind()) await pline('Your vision clears.');
+            } else if (game.flags?.verbose !== false) {
+                await pline(
+                    'You get the impression it was not terribly bright.',
+                );
+            }
+        }
+        break;
+    case AD_HALU: {
+        const umon = u.umonnum | 0;
+        not_affected = not_affected
+            || Blind()
+            || umon === PM_BLACK_LIGHT
+            || umon === PM_VIOLET_FUNGUS
+            || dmgtype(game.youmonst?.data, AD_STUN);
+        if (ufound && !not_affected) {
+            if (!Hallucination()) {
+                await pline(
+                    'You are caught in a blast of kaleidoscopic light!',
+                );
+            }
+            mondead(mtmp);
+            kill_agr = false;
+            const chg = await make_hallucinated(
+                (u.HHallucination | 0) + tmp,
+                false,
+                0,
+            );
+            await pline(
+                `You ${chg ? 'are freaked out' : 'seem unaffected'}.`,
+            );
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    if (not_affected) {
+        await pline('You seem unaffected by it.');
+        await ugolemeffects(ad, tmp);
+    }
+    if (kill_agr && (mtmp.mhp | 0) >= 1) mondead(mtmp);
+    await wake_nearto(mtmp.mx | 0, mtmp.my | 0, 7 * 7);
+    return (mtmp.mhp | 0) >= 1 ? M_ATTK_MISS : M_ATTK_AGR_DIED;
+}
+
+/**
  * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit
- * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_ENGL gulpmu;
- * AT_BREA/SPIT/MAGC. Gaze/expl/hugs deferred. Returns 1 if monster died.
+ * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_EXPL explmu
+ * (D-1326); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC. Gaze/hugs deferred.
+ * Returns 1 if monster died.
  */
 export async function mattacku(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) < 1) return 1;
@@ -1633,6 +1793,11 @@ export async function mattacku(mtmp) {
                     skipnonmagc = true;
                 }
             }
+            break;
+
+        case AT_EXPL: /* automatic hit if next to, and aimed at you */
+            // C mhitu.c mattacku `:839–842` — explmu when !range2.
+            if (!range2) sum[i] = await explmu(mtmp, mattk, foundyou);
             break;
 
         case AT_ENGL:

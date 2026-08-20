@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1326 mhitu.c explmu + mattacku AT_EXPL
+
+**Objective:** Open `mhitu.c` explmu (named). Not AT_HUGS.
+**C locus:** `mhitu.c` `explmu` `:1591–1664`; `mattacku` AT_EXPL
+`:839–842`.
+**Change:** adjacent AT_EXPL now explodes (`mcan` miss before `d()`,
+thin-air/`empty water` vs `hitmsg`, elemental `mon_explodes`,
+BLND visible skip-`rnd`, HALU kaleidoscope/`mondead`,
+`ugolemeffects`, `wake_nearto 7*7`). `defended` / gazemu / AT_HUGS
+still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1685**.
+**Verified:** canary **29**/29; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitu.c` AT_HUGS (named). Not explmu.
+**Blocked:** none.
 ## 2026-08-21 — #1680 review D-1322–D-1325 + cadence
 
 **Objective:** audit — C-fidelity reviews **284–287** of JS SHAs

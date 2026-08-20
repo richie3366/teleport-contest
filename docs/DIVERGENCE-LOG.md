@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1326 — mhitu.c explmu + mattacku AT_EXPL
+
+- **Status:** fixed (map-driven Open from D-1309; not a public FAIL)
+- **Symptom:** an adjacent AT_EXPL monster (freezing/flaming/shocking
+  sphere, yellow light, black light) never exploded. C `mattacku`
+  `case AT_EXPL` calls `explmu` when `!range2`. JS fell through
+  `default` and skipped the blast, `mondead`, and `wake_nearto`.
+- **C locus:** `mhitu.c` `explmu` `:1591–1664`; caller `mattacku`
+  `:839–842`. Callees `mon_explodes`, `resists_blnd(&gy.youmonst)`,
+  `make_hallucinated`, `mondead`, `ugolemeffects`, `wake_nearto`.
+- **JS was:** `hitmsg` AT_EXPL `"explodes"` live (D-1261); no
+  `case AT_EXPL` in `mattacku`; no `explmu`.
+- **Fix:** `mcan` → `M_ATTK_MISS` before `d()`; always `d(damn,damd)`
+  then `defended` stand-in (`not_affected = false`; AT_EXPL
+  spheres/lights never qualify); `!ufound` bare `pline` `"It"` /
+  `Monnam` + waterwall `"empty water"` else `"thin air"`; `ufound`
+  `hitmsg`; AD_COLD/FIRE/ELEC `mon_explodes` then live `kill_agr =
+  false`; AD_BLND `resists_blnd_you` + visible short-circuit skip
+  `tmp/=2`/`rnd`; AD_HALU kaleidoscopic pline then `mondead` then
+  `make_hallucinated`; `not_affected` `"You seem unaffected"` +
+  local `ugolemeffects`; `kill_agr` `mondead`; always
+  `wake_nearto(mx,my,7*7)`. Rule #2: no fs.
+- **JS:** `js/mhitu.js` `explmu` + `mattacku` `case AT_EXPL`.
+- **Not this iter:** `defended()` body; `resists_blnd_by_arti`
+  (Sunsword); gazemu; AT_HUGS; mhitm `explmm`; AT_ENGL gulps/
+  lunges `pline_mon`; mhitu AD_DRIN. Do not add `case AT_BOOM`
+  (gas spore is not this arm).
+- **Verified:** private canary **29**/29 (cancelled no `d()`; `It`/
+  empty water; visible BLND no `rnd`; invisible BLND consumes
+  `rnd`; already-Blind / HALU / poly black-light; `mattacku`
+  range2 skip vs `!range2`; FIRE two `d()`; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session walks next to an
+  AT_EXPL monster.
+- **Follow-up:** Open `mhitu.c` AT_HUGS.
+- **Files:** `js/mhitu.js`.
+
 ## D-1325 — dokick.c really_kick_object snuff_candle
 
 - **Status:** fixed (map-driven Open from D-1242; not a public FAIL)
