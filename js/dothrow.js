@@ -1001,9 +1001,10 @@ function hitfloor_surface(x, y) {
  * Soft/water/swallow → dropy; altar doaltarobj then continues;
  * verbosely WAN_STRIKING "strike" else "hit" + tseen trap overlay;
  * hero_breaks BRK_FROM_INV; ship_object; dropz(TRUE) (D-1263).
- * Wired: do.c drop !can_reach_floor; mkobj hornoplenty tip.
- * Named omit: invent hold_another_object; pickup highdrop; toss_up /
- * throwit dz; ball litter; artifact; finesse_ahriman float_down.
+ * Wired: do.c drop !can_reach_floor; mkobj hornoplenty tip;
+ * invent hold_another_object drop_it hitfloor(FALSE) (D-1272).
+ * Named omit: pickup highdrop; toss_up / throwit dz; ball litter;
+ * artifact; finesse_ahriman float_down.
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1053,6 +1054,7 @@ export async function hitfloor(obj, verbosely) {
  * D-1041 weapon/weptool/gem hit-vs-miss). After place, !IS_SOFT
  * container_impact_dmg(obj, u.ux, u.uy) then impact_disturbs TRUE
  * (D-1249 / D-1229). hitfloor dropz(TRUE) is D-1263 (drop/horn);
+ * invent hold_another_object hitfloor(FALSE) is D-1272;
  * toss_up / throwit dz still named.
  */
 async function throwit(obj) {

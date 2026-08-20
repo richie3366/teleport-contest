@@ -4,7 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
-## D-1271 — `mon.c` `meatmetal`
+## D-1272 — invent.c `hold_another_object` `hitfloor(FALSE)`
+
+- **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
+- **Symptom:** `hold_another_object` always `addinv`+`prinv`+`encumber_msg`.
+  C `drop_it` (Fumbling / 53rd invlet / burden past `pickup_burden`)
+  either `dropx` or `freeinv`+`hitfloor(obj, FALSE)` so a levitating
+  hero's dropped wish/horn/catch hits the floor with impact.
+- **C locus:** `invent.c` `hold_another_object` `:1245–1305`.
+  `drop_it` `:1295–1305` — `can_reach_floor(TRUE)||u.uswallow` →
+  `dropx`; else `freeinv` then `hitfloor(obj, FALSE)`. Stay arm
+  still `prinv`/`update_inventory`/`encumber_msg` (D-0863) plus
+  `flags.autoquiver` `setuqwep`.
+- **JS was:** success-only; Fumbling/invlet/encumbrance/autoquiver
+  / `hitfloor(FALSE)` omitted.
+- **Fix:** live drop_it in `invent.js`; cursed LOADSTONE skips
+  burden drop (still drops on invlet overflow). Rule #2: no fs.
+- **JS:** `js/invent.js` `hold_another_object`; comment
+  `js/dothrow.js` `hitfloor`.
+- **Not this iter:** fatal wished corpse; artifact fail `dropy` /
+  wasUpolyd / crysknife; pickup highdrop; toss_up / throwit `dz`;
+  ball litter; perm_invent WIN_INVEN.
+- **Verified:** private canary **13**/13 (C drop_it order; JS
+  hitfloor false; stay invent; Fumbling dropx; Fumbling+Lev no
+  verbose hit; swallow dropx; burden UNENCUMBERED drop; cursed
+  LOADSTONE keep; invlet>52 drop; autoquiver; Lev stay no
+  hitfloor; glass never stays); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session Fumbles / overflows letters /
+  exceeds pickup_burden during wish/horn/catch.
+- **Follow-up:** Open `pickup.c` highdrop `hitfloor`.
+- **Files:** `js/invent.js`, `js/dothrow.js` (comment).
+
 
 - **Status:** fixed (map-driven Open; named omit from D-1247 /
   D-1257 / D-1270; not a public FAIL)

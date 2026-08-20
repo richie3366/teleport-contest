@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1272 invent.c hold_another_object hitfloor(FALSE)
+
+**Objective:** Open `invent.c` `hold_another_object` `hitfloor(FALSE)`
+(named from D-1263). Not pickup highdrop.
+**C locus:** `invent.c` `hold_another_object` `:1245–1305` drop_it
+`:1299–1304`.
+**Change:** Fumbling / invlet overflow / encumbrance>`pickup_burden`
+then `dropx` or `freeinv`+`hitfloor(FALSE)`. Autoquiver on stay.
+Named: fatal wished corpse; pickup highdrop; toss_up. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless wish/horn/catch while
+Fumbling, letter-full, or over burden. Next audit @**#1615**.
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `pickup.c` highdrop `hitfloor` (named from D-1263).
+Not toss_up.
+**Blocked:** none.
 ## 2026-08-20 — D-1271 mon.c meatmetal
 
 **Objective:** Open `monmove.c` `meatmetal` (named from D-1247). Not

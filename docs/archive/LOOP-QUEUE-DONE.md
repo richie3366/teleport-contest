@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain. **Addressed:** D-1271
+- [x] `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not pickup highdrop. **Addressed:** D-1272
+
+
+- [x] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain. **Addressed:** D-1271 `3925f2b3`
 
 
 - [x] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS. **Addressed:** D-1270 `a4aa34d3`

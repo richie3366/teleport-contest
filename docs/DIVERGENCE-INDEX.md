@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1272 | fixed | invent.c `hold_another_object` `hitfloor(FALSE)` | map-driven Open from D-1263; C `invent.c:1245–1305` drop_it Fumbling / `inv_cnt(FALSE)>invlet_basic` / `near_capacity>pickup_burden` (cursed LOADSTONE excepted) then `dropx` or `freeinv`+`hitfloor(FALSE)`; JS autoquiver on stay; fatal wished corpse / artifact dropy / pickup highdrop / toss_up still named |
 | D-1271 | fixed | mon.c `meatmetal` | map-driven Open from D-1247; C `mon.c:1462–1528` + `monmove.c` postmov `:1663–1667`; JS non-pet top metallic floor obj; rust !rustprone skip / rustproof spit+stun; `obj_resists(5,95)` + `touch_artifact`; `meating=owt/2+1` then `m_consume_obj`; leftover ROCK `rnd(25)<3`; meatobj / meatcorpse still named |
 | D-1270 | fixed | hack.c hero `test_move` IRONBARS `passes_bars` | map-driven Open from D-1258; C `hack.c:1024–1036` DO_MOVE rust/corr/metallivore `still_chewing` then `Passes_walls \|\| passes_bars(youmonst.data)`; JS `blocksMove`/`test_move_viable` no longer always block bars; Underwater / rock Passes_walls / tunnels / autodig still named |
 | D-1269 | fixed | dig.c `digactualhole` PIT/HOLE `switch_terrain` | map-driven Open from D-1129; C `dig.c:731–735` PIT after `wake_nearby` (unconditional) + `:754–759` HOLE `at_u` then Lev/Fly re-read `wont_fall`; JS `dig.js` async youprop helpers; `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR / dothrow hurtle / `u_on_rndspot` / objnam wish still named |

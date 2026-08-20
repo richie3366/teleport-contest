@@ -5,20 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1271 `mon.c` `meatmetal` (reviews
-  **229–232** cadence **#1610** `a4aa34d3`). Next: Open `invent.c`
-  `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not
-  pickup highdrop. Do not skip D-1271…D-1229.
+- **Fortress 44/44** after D-1272 `invent.c` `hold_another_object`
+  drop_it `hitfloor(FALSE)` (reviews **229–232** cadence **#1610**
+  `a4aa34d3`). Next: Open `pickup.c` highdrop `hitfloor` (named from
+  D-1263). Not toss_up. Do not skip D-1272…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
   explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / doname EGG /
   `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` / Blind
-  unseen boulder feel / invent hold_another_object hitfloor / pickup
-  highdrop / toss_up / dothrow hurtle / `u_on_rndspot` / objnam wish /
-  `maketrap` PIT/HOLE `set_levltyp` / Underwater bars / rock
-  Passes_walls / `meatobj` / meatcorpse. Do not wrap `msg_mon_movement`
-  as `pline_mon`.
+  unseen boulder feel / pickup highdrop / toss_up / dothrow hurtle /
+  `u_on_rndspot` / objnam wish / `maketrap` PIT/HOLE `set_levltyp` /
+  Underwater bars / rock Passes_walls / `meatobj` / meatcorpse. Do
+  not wrap `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1271. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1272. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -27,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1271.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1272.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,13 +41,12 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1271 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1272 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname EGG; launch_obj
   down_gate / boulder-chain; `meatobj` / meatbox / meatcorpse; dothrow hurtle /
   `u_on_rndspot` / objnam wish; `maketrap` PIT/HOLE `set_levltyp`;
   Underwater bars / rock Passes_walls; `display_self` U_AP_TYPE glyphs;
-  Blind unseen boulder feel; invent hold_another_object hitfloor;
-  pickup highdrop; toss_up.
+  Blind unseen boulder feel; pickup highdrop; toss_up.
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -61,6 +59,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1272: `invent.c` `hold_another_object` drop_it — Fumbling /
+  invlet overflow / encumbrance>`pickup_burden` (cursed LOADSTONE
+  excepted) then `dropx` if `can_reach_floor||uswallow` else
+  `freeinv`+`hitfloor(FALSE)`. Autoquiver on stay. Fatal wished
+  corpse / artifact dropy still named. Pickup highdrop / toss_up
+  still named.
 - D-1271: `mon.c` `meatmetal` — non-pet metallivore eats top metallic
   floor object (`obj_resists(5,95)` + `touch_artifact`); rust monster
   skips !rustprone / rustproof spit+stun; leftover ROCK `rnd(25)<3`.
@@ -93,8 +97,8 @@ Objective/score live in `CURRENT.md`.
   + `hmonas` `rnd(20+i)` (was `continue` with AT_NONE). altwep
   D-1266.
 - D-1263: `dothrow.c` `hitfloor` `dropz(TRUE)` after hero_breaks /
-  ship_object; drop `!can_reach_floor` + hornoplenty wired.
-  invent hold_another_object / pickup highdrop / toss_up named.
+  ship_object; drop `!can_reach_floor` + hornoplenty tip. invent
+  hold_another_object D-1272; pickup highdrop / toss_up named.
 - D-1262: `hack.c` `moverock_core` nopick `m<dir>` over/against
   before Levitation; giant `u_locomotion` over; squeeze Flying
   over/against; else in-way + glyph `door_opened`. Blind unseen
@@ -112,6 +116,3 @@ Objective/score live in `CURRENT.md`.
 - D-1258: `mondata.c` `passes_bars` + `mon.c` `mon_allowflags`
   ALLOW_BARS rust/corr/metallivore/slithy-small + ustuck subset;
   `mfndpos` W_NONDIGGABLE rust/corr skip. Hero `test_move` D-1270.
-- D-1257: `monmove.c` `gelcube_digests` first organic non-artifact
-  non-prize minvent; `eaten_stat` + `extract_from_minvent` +
-  `m_consume_obj` heal/`delobj`. `meatobj` / meatbox / poly still named.
