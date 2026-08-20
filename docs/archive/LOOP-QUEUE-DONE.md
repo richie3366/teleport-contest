@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS. **Addressed:** D-1270
+- [x] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS. **Addressed:** D-1270 `a4aa34d3`
 
 
 - [x] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars. **Addressed:** D-1269 `76f7018d`

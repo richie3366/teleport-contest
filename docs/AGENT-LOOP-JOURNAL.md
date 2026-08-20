@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1610 review D-1267–D-1270 + cadence
+
+**Objective:** audit — C-fidelity reviews **229–232** of JS SHAs
+since `42d50a53`, plus full `sessions` score. No `js/` port.
+**C locus:** `hack.c` `set_uinwater` / `spoteffects`; `dig.c`
+`digactualhole`; `hack.c` `test_move` IRONBARS.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: pooleffects leave / drown wade; `u_on_newpos`
+MAX_TYPE writer; `maketrap` PIT/HOLE `set_levltyp`; Underwater /
+rock Passes_walls). Filled D-1270 archive hash `a4aa34d3`. Open 11
+(no refill). Rule #2: no fs.
+**Score:** cadence **#1610** HEAD `a4aa34d3` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`35+0.30/turn` (R² 0.858). seed0383 PASS. Next audit @**#1615**.
+**Verified:** `__RESULTS_JSON__` at HEAD `a4aa34d3`; branch-by-branch
+vs pinned C (`set_uinwater` change-gate; dest-typ before pooleffects;
+PIT/HOLE `switch_terrain` sites; chew-then-`passes_bars`).
+**Next:** Open `monmove.c` `meatmetal` (named from D-1247). Not
+switch_terrain.
+**Blocked:** none.
 ## 2026-08-20 — D-1270 hack.c hero test_move passes_bars
 
 **Objective:** Open `hack.c` hero `test_move` `passes_bars` (named

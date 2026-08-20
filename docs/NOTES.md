@@ -6,8 +6,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1270 `hack.c` hero `test_move`
-  IRONBARS `passes_bars` (reviews **225–228** cadence **#1605**
-  `42d50a53`). Next: Open `monmove.c` `meatmetal` (named from
+  IRONBARS `passes_bars` (reviews **229–232** cadence **#1610**
+  `a4aa34d3`). Next: Open `monmove.c` `meatmetal` (named from
   D-1247). Not switch_terrain. Do not skip D-1270…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
   explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / doname EGG /

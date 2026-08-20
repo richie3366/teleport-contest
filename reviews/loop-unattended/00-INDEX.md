@@ -238,3 +238,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [226-d86fe2fe-gulpum.md](./226-d86fe2fe-gulpum.md) | `d86fe2fe` | D-1264 AT_ENGL `gulpum` | **ACCEPT-WITH-DEBT** |
 | [227-9859426c-fight-empty-explum.md](./227-9859426c-fight-empty-explum.md) | `9859426c` | D-1265 fight_empty `explum(null)` | **ACCEPT-WITH-DEBT** |
 | [228-42d50a53-hmonas-altwep.md](./228-42d50a53-hmonas-altwep.md) | `42d50a53` | D-1266 hmonas altwep / `uswapwep` | **ACCEPT-WITH-DEBT** |
+| [229-f7676db6-set-uinwater.md](./229-f7676db6-set-uinwater.md) | `f7676db6` | D-1267 `set_uinwater` `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [230-26fb4aa0-spoteffects-switch-terrain.md](./230-26fb4aa0-spoteffects-switch-terrain.md) | `26fb4aa0` | D-1268 `spoteffects` dest-typ `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [231-76f7018d-digactualhole-switch-terrain.md](./231-76f7018d-digactualhole-switch-terrain.md) | `76f7018d` | D-1269 `digactualhole` PIT/HOLE `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [232-a4aa34d3-test-move-passes-bars.md](./232-a4aa34d3-test-move-passes-bars.md) | `a4aa34d3` | D-1270 hero `test_move` IRONBARS `passes_bars` | **ACCEPT-WITH-DEBT** |
