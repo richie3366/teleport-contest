@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1284 mon.c meatobj
+
+**Objective:** Open `mon.c` `meatobj` (named from D-1271). Not
+meatcorpse.
+**C locus:** `mon.c` `meatobj` `:1531–1648`; caller `monmove.c`
+`postmov` `:1669–1672` (`PM_GELATINOUS_CUBE`).
+**Change:** non-pet cube prize-skips; rider `revive_corpse`;
+rock/ball/scare/petrify-corpse continue; else engulf `mpickobj` or
+devour `m_consume_obj` (YUM YUM). Return 2 if data gone. Named:
+meatcorpse; consume meatbox/poly/uball. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a cube `postmov`s
+onto a floor pile. Next audit @**#1630**.
+**Verified:** private canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mon.c` `meatcorpse` (named from D-1271). Not meatobj.
+**Blocked:** none.
 ## 2026-08-20 — D-1283 dothrow.c throwit swallowit
 
 **Objective:** Open `dothrow.c` throwit swallowit (named from

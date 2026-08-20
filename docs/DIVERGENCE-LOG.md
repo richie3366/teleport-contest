@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1284 — `mon.c` `meatobj`
+
+- **Status:** fixed (map-driven Open from D-1271; not a public FAIL)
+- **Symptom:** a gelatinous cube that `postmov`s onto a floor pile
+  never ate or engulfed it, so organic objects stayed for
+  `mpickstuff` and metal/other inedibles were never slurped into
+  minvent.
+- **C locus:** `mon.c` `meatobj` `:1531–1648`; caller `monmove.c`
+  `postmov` `:1669–1672` (`ptr == &mons[PM_GELATINOUS_CUBE]`, after
+  `meatmetal`, before `meatcorpse` / `mpickstuff`). Tame return 0;
+  prize skip; rider corpse `revive_corpse` then break; petrify
+  corpse / ROCK_CLASS / uball / uchain / SCR_SCARE_MONSTER continue;
+  else `!is_organic \|\| obj_resists(5,95) \|\| !touch_artifact`
+  (plus strangulation / slow-digest / poison / mstoning /
+  green-slime) engulf via `obj_extract_self`+`mpickobj`; else devour
+  `m_consume_obj` (YUM YUM even if !verbose). Poly/death: `ptr !=
+  original_ptr` → `!ptr ? 2 : 1`. Engulf summary `pline1` / You_hear
+  slurping. Return 1 if count or ecount.
+- **JS was:** `// gelatinous cube meatobj / corpse_eater meatcorpse named`
+  after `meatmetal` in `postmov` OBJ_AT.
+- **Fix:** live `meatobj` in `js/mon.js`; `postmov` calls it for
+  cube mndx and returns `etmp` when `>= 2`. Rider uses dynamic
+  `do.js` `revive_corpse` (cycle). `mons()` allocates — poly check
+  is mndx. Soundeffect empty without SND_LIB. Rule #2: no fs.
+- **JS:** `js/mon.js` `meatobj`; `js/monmove.js` `postmov`.
+- **Not this iter:** `meatcorpse`; `m_consume_obj` meatbox/poly/
+  uball/grow/stone/`mon_givit`; rider off-level return 3 (C
+  comments unimplemented).
+- **Verified:** private canary **23**/23 (C body+caller; tame /
+  empty; metal engulf no `obj_resists` rn2; two metals; boulder /
+  scare / prize skip; cockatrice skip for !resists_ston; slime glob
+  engulf; food eat+resist+heal; YUM YUM; postmov cube vs jackal;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a cube `postmov`s onto a floor pile.
+- **Follow-up:** Open `mon.c` `meatcorpse`.
+- **Files:** `js/mon.js`, `js/monmove.js`.
+
+
 ## D-1283 — dothrow.c throwit swallowit
 
 - **Status:** fixed (map-driven Open from D-1274; not a public FAIL)

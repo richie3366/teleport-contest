@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit swallowit (named from D-1274). Not returning_missile. **Addressed:** D-1283
+- [x] `mon.c` `meatobj` (named from D-1271). Not meatcorpse. **Addressed:** D-1284
+
+
+- [x] `dothrow.c` throwit swallowit (named from D-1274). Not returning_missile. **Addressed:** D-1283 `5b4788e1`
 
 
 - [x] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit. **Addressed:** D-1282 `7d61ee8b`

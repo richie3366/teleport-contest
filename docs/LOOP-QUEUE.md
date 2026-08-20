@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `meatobj` (named from D-1271). Not meatcorpse.
 - [ ] `mon.c` `meatcorpse` (named from D-1271). Not meatobj.
 - [ ] `mhitu.c` `missmu` `pline_mon` (named from D-1261). Not wildmiss.
 - [ ] `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd wiz.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall.
 - [ ] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps.
 - [ ] `mhitu.c` `wildmiss` `pline_mon` (named from D-1261). Not missmu.
+- [ ] `dothrow.c` throwit slip (named from D-1283). Not stamina.
+- [ ] `dothrow.c` throwit stamina (named from D-1283). Not slip.
+- [ ] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel.
+- [ ] `objnam.c` doname MEAT_RING (named from D-1276). Not candle.
+- [ ] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage.
 
 ## Parked (do not pop)
 

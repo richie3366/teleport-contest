@@ -92,6 +92,7 @@ import {
     wakeup,
     m_consume_obj,
     meatmetal,
+    meatobj,
 } from './mon.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
@@ -1260,10 +1261,10 @@ export async function m_postmove_effect(mtmp) {
  * (D-0496); maybe_spin_web (D-0595); door/flee/web/itsstuck pline_mon
  * D-1227; IRONBARS eat/Norep (D-1247).
  * Named omissions: vampshift fog; shop add_damage;
- * has_magic_key disarm; gelatinous cube meatobj / corpse_eater meatcorpse;
+ * has_magic_key disarm; corpse_eater meatcorpse;
  * hideunder You_see (ported); check_gear_next_turn; swallowed() display polish.
  * ALLOW_BARS is D-1258; dissolve_bars switch_terrain is D-1259;
- * mon_yells is D-1248; meatmetal is D-1271.
+ * mon_yells is D-1248; meatmetal is D-1271; meatobj is D-1284.
  * (shk/gd/priest via shk.js D-0205)
  */
 export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
@@ -1412,7 +1413,12 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
         if (metallivorous(ptr)) {
             if ((await meatmetal(mtmp)) === 2) return MMOVE_DIED;
         }
-        // gelatinous cube meatobj / corpse_eater meatcorpse named
+        // C ref: monmove.c postmov :1669–1672 — gelatinous cube meatobj
+        if ((ptr?.mndx ?? -1) === PM_GELATINOUS_CUBE) {
+            const etmp = await meatobj(mtmp);
+            if (etmp >= 2) return etmp;
+        }
+        // corpse_eater meatcorpse named
         if (await mpickstuff(mtmp)) {
             mmoved = MMOVE_DONE;
         }
@@ -1920,7 +1926,7 @@ export async function bee_eat_jelly(mon, obj) {
 /**
  * C ref: monmove.c gelcube_digests — cube spends a turn digesting the first
  * organic non-artifact non-prize minvent object. 0 ate, -1 nothing.
- * meatobj floor engulf still named. m_consume_obj meatbox/poly/uball named.
+ * meatobj is D-1284. m_consume_obj meatbox/poly/uball named.
  * meatmetal is D-1271.
  */
 export function gelcube_digests(mtmp) {
