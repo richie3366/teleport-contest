@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1296 — `trap.c` `maketrap` DRAWBRIDGE_UP ice→`DB_FLOOR`
+
+- **Status:** fixed (map-driven Open from D-1280; not a public FAIL)
+- **Symptom:** a PIT/HOLE/TRAPDOOR/SPIKED_PIT on a closed drawbridge
+  span left ice (or moat/lava) under-type in place. C turns the
+  span to floor under-type, melts ice timers, and keeps the
+  drawbridge mask. JS only skipped `flags=0`. New traps never
+  reached the arm because `is_pool_or_lava` used `IS_POOL(typ)`,
+  which is true for every `DRAWBRIDGE_UP`.
+- **C locus:** `trap.c` `maketrap` `:532–545`; callee
+  `obj_ice_effects` / `spot_stop_timers(MELT_ICE_AWAY)`. Gate
+  `dbridge.c` `is_pool_or_lava` `:77–80` is `is_pool || is_lava`
+  (ice/floor spans are not pool; `DB_MOAT`/`DB_LAVA` still reject
+  a *new* trap). Overwrite of an existing trap still morphs.
+- **JS was:** named omit after D-1280; `clear_flags=false` only;
+  local `is_pool_or_lava` used `IS_POOL`.
+- **Fix:** keep mask, `&= ~DB_UNDER`, `|= DB_FLOOR`; if `was_ice`
+  then `obj_ice_effects(x,y,true)` + stop melt timer. Shared
+  `is_pool_or_lava` now rides `hack.js` `is_pool`/`is_lava`.
+  Did not pull shop `add_damage`, overwrite `reset_utrap`,
+  Sokoban finish. Rule #2: no fs.
+- **JS:** `js/trap.js` `maketrap` / `is_pool_or_lava`.
+- **Not this iter:** shop hole `add_damage`; overwrite
+  `reset_utrap`; Knox `LEVEL_TELEP`; Sokoban finish;
+  throwit steed potion.
+- **Verified:** private canary **17**/17 (C ice arm +
+  `is_pool||is_lava`; JS DB_FLOOR+dir; melt timer stop; corpse
+  `on_ice` clear; already-floor keeps flags; new lava/moat
+  reject; overwrite lava still floors; MAGIC_PORTAL reject;
+  SPIKED/TRAPDOOR; STONE D-1280; non-pit no morph; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session pits a closed ice drawbridge span.
+- **Follow-up:** Open `dothrow.c` throwit steed potion.
+- **Files:** `js/trap.js`, `js/dig.js` (omit note), `js/music.js`
+  (omit note).
+
 ## D-1295 — `objnam.c` doname MEAT_RING `goto ring`
 
 - **Status:** fixed (map-driven Open from D-1276; not a public FAIL)

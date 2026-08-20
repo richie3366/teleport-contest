@@ -62,9 +62,10 @@ import {
     In_endgame, In_sokoban, Is_earthlevel,
     STONE_RES, FAILEDUNTRAP,
     NO_TRAP, TRAPNUM, WT_ELF,
-    is_hole, is_pit, unhideable_trap, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
+    is_hole, is_pit, unhideable_trap, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_LAVA,
     IS_ROOM, IS_WALL, IS_AIR, IS_FURNITURE, IS_FOUNTAIN, IS_SINK,
     STONE, SCORR, CORR, ROOM, DOOR, ICE, MAX_TYPE, SDOOR, STAIRS, LADDER, DRAWBRIDGE_UP,
+    DB_UNDER, DB_ICE, DB_FLOOR,
     MELT_ICE_AWAY, ROT_ORGANIC,
     MAGIC_PORTAL, LEVEL_TELEP, Is_waterlevel, Is_airlevel,
     D_CLOSED, D_LOCKED, D_BROKEN,
@@ -623,12 +624,12 @@ export function choose_trapnote(ttmp) {
     return tcnt > 0 ? tpick[rn2(tcnt)] : rn2(12);
 }
 
-// C ref: dbridge.c is_pool_or_lava — drawbridge-under POOL/LAVA deferred.
+/**
+ * C ref: dbridge.c is_pool_or_lava — is_pool || is_lava (D-1296).
+ * DRAWBRIDGE_UP ice/floor are not pool; DB_MOAT/DB_LAVA still reject.
+ */
 function is_pool_or_lava(x, y) {
-    if (!isok(x, y)) return false;
-    const typ = game.level?.at?.(x, y)?.typ;
-    if (typ == null) return false;
-    return IS_POOL(typ) || IS_LAVA(typ);
+    return is_pool(x, y) || is_lava(x, y);
 }
 
 /** C ref: trap.h undestroyable_trap — portal / vibrating square. */
@@ -833,10 +834,9 @@ function maketrap_unearth_objs(x, y) {
 
 // C ref: trap.c maketrap — creation + SQKY_BOARD / HOLE|TRAPDOOR /
 // ROLLING_BOULDER_TRAP mkroll_launch / STATUE_TRAP mk_trap_statue +
-// PIT/HOLE set_levltyp (D-1280).
+// PIT/HOLE set_levltyp (D-1280) + DRAWBRIDGE_UP ice→floor (D-1296).
 // Named omissions: overwrite reset_utrap / Knox LEVEL_TELEP /
-// shop add_damage / DRAWBRIDGE_UP ice→floor morph / Sokoban finish /
-// drawbridge-under pool/lava in is_pool_or_lava; mongone full body.
+// shop add_damage / Sokoban finish; mongone full body.
 // TELEP teledest may be set by caller after create (themerms make_a_trap).
 export function maketrap(x, y, typ) {
     // C ref: trap.c maketrap — reject door/chest map traps; terrain gates.
@@ -907,14 +907,23 @@ export function maketrap(x, y, typ) {
     case TRAPDOOR: {
         if (is_hole(typ)) hole_destination(ttmp.dst);
         // C trap.c:514–565 — shop add_damage named; DRAWBRIDGE_UP keeps
-        // drawbridgemask (ice→floor morph named); else set_levltyp
-        // IS_ROOM→ROOM / STONE|SCORR→CORR / wall|SDOOR→maze ROOM /
-        // cavern CORR / DOOR; flags=0; unearth; recalc_block_point.
+        // drawbridgemask and forces DB_FLOOR (ice melt D-1296); else
+        // set_levltyp IS_ROOM→ROOM / STONE|SCORR→CORR / wall|SDOOR→maze
+        // ROOM / cavern CORR / DOOR; flags=0; unearth; recalc_block_point.
         const lev = game.level?.at?.(x, y);
         if (lev) {
             let clear_flags = true;
             if (lev.typ === DRAWBRIDGE_UP) {
+                /* C: closed span keeps drawbridgemask; under-type
+                 * becomes floor even if it was moat, lava, or ice. */
                 clear_flags = false;
+                const was_ice = ((lev.drawbridgemask | 0) & DB_UNDER) === DB_ICE;
+                lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+                lev.drawbridgemask |= DB_FLOOR;
+                if (was_ice) {
+                    obj_ice_effects(x, y, true);
+                    spot_stop_timers(x, y, MELT_ICE_AWAY);
+                }
             } else if (IS_ROOM(lev.typ)) {
                 set_levltyp(x, y, ROOM);
             } else if (lev.typ === STONE || lev.typ === SCORR) {

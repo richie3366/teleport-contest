@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `objnam.c` doname MEAT_RING (named from D-1276). Not candle. **Addressed:** D-1295
+- [x] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage. **Addressed:** D-1296
+
+
+- [x] `objnam.c` doname MEAT_RING (named from D-1276). Not candle. **Addressed:** D-1295 `dd02dc1b`
 
 
 - [x] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel. **Addressed:** D-1294 `c37bd683`

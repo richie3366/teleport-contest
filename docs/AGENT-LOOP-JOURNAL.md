@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1296 trap.c maketrap DRAWBRIDGE_UP ice→DB_FLOOR
+
+**Objective:** Open `trap.c` maketrap DRAWBRIDGE_UP ice (named
+from D-1280). Not shop add_damage.
+**C locus:** `trap.c` `maketrap` `:532–545`; `dbridge.c`
+`is_pool_or_lava` `:77–80`.
+**Change:** closed span keeps mask, forces `DB_FLOOR`, melts
+ice via `obj_ice_effects` + `MELT_ICE_AWAY`. Gate is
+`is_pool||is_lava` so ice/floor spans accept a new pit.
+Shop `add_damage` named. Rule #2: no fs.
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless a session pits a
+closed ice drawbridge.
+**Next:** Open `dothrow.c` throwit steed potion. Not slip.
+**Blocked:** none.
 ## 2026-08-20 — D-1295 objnam.c doname MEAT_RING goto ring
 
 **Objective:** Open `objnam.c` doname MEAT_RING (named from
