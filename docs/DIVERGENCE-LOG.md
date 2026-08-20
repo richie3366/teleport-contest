@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1291 — `mhitu.c` `wildmiss` `set_msg_xy` then `pline`
+
+- **Status:** fixed (map-driven Open from D-1286; not a public FAIL)
+- **Symptom:** JS `wildmiss` used bare `pline` without `set_msg_xy`, so
+  `a11y.msg_loc` stayed 0,0 on displaced / unseen / underwater miss
+  lines. C sets the attacker cell then `pline` (not `pline_mon`).
+- **C locus:** `mhitu.c` `wildmiss` `:176–261`; `set_msg_xy` `:206`
+  then `pline` arms. Callers: `mattacku` melee `:816`, AT_WEAP `:920`
+  (`!foundyou`). Callee `pline.c` `set_msg_xy` `:93–97` + `pline`
+  `:103–110`. `nolimbs` `"lunges"` `:210–213`.
+- **JS was:** Displaced/Invis/Underwater arms live (D-0816) but no
+  `set_msg_xy`; nolimbs used `"swings"` fallback.
+- **Fix:** one `set_msg_xy(mtmp.mx, mtmp.my)` after `Monnam`, then
+  existing `pline` arms. `nolimbs(mtmp.data)` → `"lunges"`. Did not
+  wrap as `pline_mon`. Rule #2: no fs.
+- **JS:** `js/mhitu.js` `wildmiss`; comment `js/display.js`.
+- **Not this iter:** Some_Monnam `impossible`; mswings `pline_mon`;
+  `mattacku` AT_ENGL gulps/lunges `pline_mon`; AT_TENT / `explmu` /
+  AT_HUGS.
+- **Verified:** private canary **20**/20 (C `set_msg_xy`+`pline` not
+  `pline_mon`; JS same; Displaced prefix; Off no prefix; perceives
+  Invis+Displaced `"invisible "`; quiet/`!cansee` silent; Underwater;
+  seduce smile; unseen bite; fog `lunges`; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  `accessiblemsg` On on a wildmiss line.
+- **Follow-up:** Open `dothrow.c` throwit slip.
+- **Files:** `js/mhitu.js`, `js/display.js`.
+
 ## D-1290 — `objnam.c` `wizterrainwish` door/wall
 
 - **Status:** fixed (map-driven Open from D-1279; not a public FAIL)

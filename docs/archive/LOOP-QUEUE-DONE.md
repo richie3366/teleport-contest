@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
+- [x] `mhitu.c` wildmiss `set_msg_xy` then `pline` (named from D-1286 / D-1261). Not `pline_mon`. Not missmu. **Addressed:** D-1291
+
+
 - [x] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps. **Addressed:** D-1290 `67c863ad`
 
 

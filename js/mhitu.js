@@ -18,8 +18,8 @@ import { destroy_items } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys, is_pool } from './hack.js';
 import { rnd, d, rn2 } from './rng.js';
 import {
-    pline, pline_mon, mon_visible, canspotmon, map_invisible, canseemon, newsym,
-    docrt, swallowed, flush_topl_more, tp_sensemon,
+    pline, pline_mon, set_msg_xy, mon_visible, canspotmon, map_invisible,
+    canseemon, newsym, docrt, swallowed, flush_topl_more, tp_sensemon,
 } from './display.js';
 import { cansee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { Monnam, mon_nam, pmname, hliquid, x_monnam } from './do_name.js';
@@ -34,7 +34,7 @@ import { monflee } from './monmove.js';
 import {
     is_orc, is_demon, is_were, is_animal, is_whirly, amorphous, unsolid,
     MZ_HUGE, M1_SEE_INVIS, MALE, FEMALE, haseyes, resists_ston,
-    hides_under, is_flyer, thick_skinned,
+    hides_under, is_flyer, thick_skinned, nolimbs,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
 import { done_in_by } from './end.js';
@@ -223,9 +223,9 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * Named omit: wildmiss (C set_msg_xy then pline) / mswings still
- * pline; mattacku AT_TENT melee case / explmu / AT_HUGS; remaining
- * unported mhitm_ad_*. missmu pline_mon is D-1286.
+ * Named omit: mswings still pline; mattacku AT_TENT melee case /
+ * explmu / AT_HUGS; remaining unported mhitm_ad_*. missmu pline_mon
+ * is D-1286. wildmiss set_msg_xy then pline is D-1291.
  */
 export async function hitmsg(mtmp, mattk) {
     const youmonst = game.youmonst;
@@ -291,8 +291,8 @@ export async function hitmsg(mtmp, mattk) {
  * C ref: mhitu.c missmu :83–99 — clear hitmsg_mid/prev; map_invisible
  * when unseen; seduce pretend-friendly or "just " near-miss when
  * flags.verbose; both arms pline_mon (D-1286). stop_occupation after
- * the line like C. Named omit: wildmiss set_msg_xy+pline; mswings
- * pline_mon; mattacku AT_ENGL gulps/lunges pline_mon.
+ * the line like C. Named omit: mswings pline_mon; mattacku AT_ENGL
+ * gulps/lunges pline_mon. wildmiss set_msg_xy then pline is D-1291.
  */
 export async function missmu(mtmp, nearmiss, mattk) {
     game.hitmsg_mid = 0;
@@ -308,17 +308,21 @@ export async function missmu(mtmp, nearmiss, mattk) {
 }
 
 /**
- * C ref: mhitu.c wildmiss — attack at wrong spot (Invis / Displaced /
- * Underwater). Named omissions: set_msg_xy; Some_Monnam impossible;
- * nolimbs lunge polish (uses swings fallback).
+ * C ref: mhitu.c wildmiss :176–261 — attack at wrong spot (Invis /
+ * Displaced / Underwater). After verbose/cansee early returns:
+ * Monnam, then set_msg_xy(mx,my), then pline (not pline_mon;
+ * D-1291). nolimbs uses "lunges" like C :210–213.
+ * Named omit: Some_Monnam impossible; mswings pline_mon; mattacku
+ * AT_ENGL gulps/lunges pline_mon; AT_TENT / explmu / AT_HUGS.
  */
-async function wildmiss(mtmp, mattk) {
+export async function wildmiss(mtmp, mattk) {
     const unotseen = !mtmp.mcansee || (Invis() && !perceives(mtmp.data));
     const unotthere = Displaced();
     const usubmerged = !!(game.u?.Underwater);
 
     if (!unotseen && !unotthere && !usubmerged) {
-        // C: impossible(...); skip
+        // C: impossible("%s attacks you without knowing your location?",
+        // Some_Monnam(mtmp)); Some_Monnam still named.
         return;
     }
     if (game.flags?.verbose === false) return;
@@ -330,13 +334,15 @@ async function wildmiss(mtmp, mattk) {
     const Monst_name = Monnam(mtmp);
     const inv = Invis() ? 'invisible ' : '';
 
+    set_msg_xy(mtmp.mx, mtmp.my);
     if (unotseen) {
         const aatyp = mattk?.aatyp | 0;
         let swings = 'swings';
         if (aatyp === AT_BITE) swings = 'snaps';
         else if (aatyp === AT_KICK) swings = 'kicks';
-        else if (aatyp === AT_STNG || aatyp === AT_BUTT) swings = 'lunges';
-        // nolimbs → lunges deferred
+        else if (aatyp === AT_STNG || aatyp === AT_BUTT || nolimbs(mtmp.data)) {
+            swings = 'lunges';
+        }
         if (compat) {
             await pline(`${Monst_name} tries to touch you and misses!`);
         } else {

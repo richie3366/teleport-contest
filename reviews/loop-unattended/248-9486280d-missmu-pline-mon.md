@@ -94,6 +94,7 @@ None for Must-fix. Both miss arms call live `pline_mon`; seduce/`just` guards ma
 Named omits (map, not Must-fix):
 
 1. wildmiss `set_msg_xy` then `pline` (Open `mhitu.c` `wildmiss` `set_msg_xy` — not `pline_mon`)
+   **Addressed:** D-1291
 2. mswings `pline_mon`
 3. `mattacku` AT_ENGL gulps/lunges `pline_mon`
 4. `mattacku` AT_TENT / `explmu` / AT_HUGS (pre-existing from D-1261)

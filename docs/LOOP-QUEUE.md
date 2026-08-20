@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitu.c` wildmiss `set_msg_xy` then `pline` (named from D-1286 / D-1261). Not `pline_mon`. Not missmu.
 - [ ] `dothrow.c` throwit slip (named from D-1283). Not stamina.
 - [ ] `dothrow.c` throwit stamina (named from D-1283). Not slip.
 - [ ] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel.

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1291 mhitu.c wildmiss set_msg_xy then pline
+
+**Objective:** Open `mhitu.c` wildmiss `set_msg_xy` then `pline`
+(named from D-1286). Not `pline_mon`. Not missmu.
+**C locus:** `mhitu.c` `wildmiss` `:176–261` (`:206` `set_msg_xy`
+then `pline`); callers `mattacku` `:816`/`:920`.
+**Change:** one `set_msg_xy(mx,my)` then existing `pline` arms;
+`nolimbs` `"lunges"`. Did not wrap as `pline_mon`. Some_Monnam
+impossible / mswings / AT_ENGL gulps/lunges named. Rule #2: no fs.
+**Verified:** private canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless `accessiblemsg` On on a wildmiss line.
+**Next:** Open `dothrow.c` throwit slip. Not stamina.
+**Blocked:** none.
 ## 2026-08-20 — #1635 review D-1287–D-1290 + cadence
 
 **Objective:** audit — C-fidelity reviews **249–252** of JS SHAs
