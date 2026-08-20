@@ -33,7 +33,7 @@ import {
 } from './const.js';
 import {
     pline, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
-    set_msg_xy, feel_location,
+    set_msg_xy, feel_location, map_object,
 } from './display.js';
 import { gethungry, morehungry } from './eat.js';
 import { m_at, hideunder } from './mon.js';
@@ -364,19 +364,30 @@ async function dopush(sx, sy, rx, ry, otmp) {
 
 /**
  * C ref: hack.c moverock_core — push boulder(s) at (sx,sy) along u.dx/u.dy.
- * Branch envelope: nopick m-dir over/against (D-1262) + clear-dest dopush
- * + monster-behind You_hear/canspotmon + closed_door cannot_push_msg
- * (D-0317) + rumbling disturb_buried_zombies (D-1214). Named omissions:
- * Sokoban diagonal, shop costly, trap/teleport/pool arms, Blind unseen
- * start-of-loop feel, Levitation (after nopick), verysmall vain-push,
- * tunneling chew, revive_nasty, next_boulder naming, y_monnam steed
- * wording. Giant pickup/maneuver D-1253.
+ * Branch envelope: Blind unseen start-of-loop feel (D-1281) + nopick
+ * m-dir over/against (D-1262) + clear-dest dopush + monster-behind
+ * You_hear/canspotmon + closed_door cannot_push_msg (D-0317) + rumbling
+ * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
+ * shop costly, trap/teleport/pool arms, Levitation (after nopick),
+ * verysmall vain-push, tunneling chew, revive_nasty, next_boulder
+ * naming, y_monnam steed wording, dopush/cannot_push_msg Blind
+ * feel_location. Giant pickup/maneuver D-1253.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */
 async function moverock_core(sx, sy) {
     const u = game.u;
     while (sobj_at(BOULDER, sx, sy)) {
         const otmp = sobj_at(BOULDER, sx, sy);
+
+        /* C hack.c moverock_core :358–363 — Blind + glyph_to_obj(glyph_at)
+           != BOULDER before next_boulder / top-of-pile / nopick. D-1281. */
+        if (Blind_im() && !glyph_to_obj_is_boulder(sx, sy)) {
+            await pline('That feels like a boulder.');
+            map_object(otmp, true);
+            await nomul(0);
+            return -1;
+        }
+
         // Ensure boulder is top of pile
         const head = objects_at(sx, sy);
         if (otmp && head && otmp !== head) movobj(otmp, sx, sy);
@@ -509,6 +520,20 @@ function glyph_at_fp(x, y) {
         rg?.color ?? '',
         rg?.invisible ? 1 : 0,
     ].join('\0');
+}
+
+/**
+ * C display.h glyph_to_obj(glyph_at(x,y)) == BOULDER.
+ * C glyph_at is gbuf, not live floor — never use sobj_at here (the
+ * while loop already knows a boulder is present). JS has no integer
+ * glyph IDs; map_object stamps remembered_glyph.boulder (D-1281).
+ */
+function glyph_to_obj_is_boulder(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    const rg = loc.remembered_glyph;
+    if (rg?.invisible) return false;
+    return !!rg?.boulder;
 }
 
 /**

@@ -5,20 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1280 `trap.c` `maketrap` PIT/HOLE
-  `set_levltyp` (reviews **237–240** cadence **#1620**
-  `851d3e08`). Next: Open `hack.c` Blind unseen boulder feel
-  (named from D-1262). Not next_boulder. Do not skip D-1280…D-1229.
-  Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
-  explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / MEAT_RING /
-  candle `partly used` / swap-with-pet `seemimic` / next_boulder /
-  throwit returning_missile / swallow / slip / stamina / steed
-  potion / wizterrainwish traps / door/wall / Underwater bars /
-  rock Passes_walls / `meatobj` / meatcorpse / find_trap cls /
-  muse `display_self` / On_W_tower / sstairs / cmd wiz /
-  DRAWBRIDGE_UP ice / shop add_damage / liquid_flow. Do not wrap
+- **Fortress 44/44** after D-1281 `hack.c` `moverock_core` Blind
+  unseen boulder feel (reviews **237–240** cadence **#1620**
+  `851d3e08`). Next: Open `dothrow.c` throwit returning_missile
+  (named from D-1274). Not swallowit. Do not skip D-1281…D-1229.
+  Do not pull swallowit / skipdrin / pit kick / missmu / mattacku
+  AT_TENT / explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` /
+  MEAT_RING / candle `partly used` / swap-with-pet `seemimic` /
+  next_boulder / swallow / slip / stamina / steed potion /
+  wizterrainwish traps / door/wall / Underwater bars / rock
+  Passes_walls / `meatobj` / meatcorpse / find_trap cls / muse
+  `display_self` / On_W_tower / sstairs / cmd wiz / DRAWBRIDGE_UP
+  ice / shop add_damage / liquid_flow. Do not wrap
   `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1280. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1281. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -27,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1280.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1281.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,13 +41,13 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1280 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1281 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname MEAT_RING / candle `partly used`;
   launch_obj down_gate / boulder-chain; `meatobj` / meatbox /
   meatcorpse; wizterrainwish traps / door/wall; DRAWBRIDGE_UP ice /
-  shop add_damage; Underwater bars / rock Passes_walls; Blind unseen
-  boulder feel; throwit returning_missile / swallow / steed potion;
-  find_trap cls / muse `display_self`; swap-with-pet `seemimic`;
+  shop add_damage; Underwater bars / rock Passes_walls;
+  throwit returning_missile / swallow / steed potion; find_trap
+  cls / muse `display_self`; swap-with-pet `seemimic`; next_boulder;
   On_W_tower / sstairs / cmd wiz. Do not “fix” seed0383 with
   ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -61,6 +61,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1281: `hack.c` `moverock_core` Blind unseen feel — C `:358–363`
+  `Blind && glyph_to_obj(glyph_at)!=BOULDER` then pline + `map_object`
+  + `nomul(0)` + `-1` before next_boulder / nopick. JS stamps
+  `remembered_glyph.boulder`. next_boulder / dopush Blind feel named.
 - D-1280: `trap.c` `maketrap` PIT/HOLE `set_levltyp` — IS_ROOM→ROOM /
   STONE/SCORR→CORR / wall|SDOOR maze ROOM / cavern CORR / DOOR then
   `flags=0` + unearth + `recalc_block_point`. STONE pit unblocks
@@ -121,9 +125,4 @@ Objective/score live in `CURRENT.md`.
   0/1 then `switch_terrain`. boulder_hits_pool dry-land, drown
   fail-crawl, goto_level leave+after-getlev. pooleffects leave /
   drown Amphibious wade / zap freeze named.
-- D-1266: `uhitm.c` `hmonas` altwep / `uswapwep` — first AT_WEAP
-  uses uwep then toggles to uswapwep when one-handed / no shield /
-  not launcher-ammo-missile / not silver+Hate_silver; re-read slot
-  after known_hitum; passivedone `drop_uswapwep` if cursed.
-  skipdrin / pit kick named.
 

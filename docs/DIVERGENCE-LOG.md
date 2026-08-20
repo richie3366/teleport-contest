@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1281 — `hack.c` `moverock_core` Blind unseen boulder feel
+
+- **Status:** fixed (map-driven Open from D-1262; not a public FAIL)
+- **Symptom:** a Blind hero walking into an adjacent boulder whose
+  displayed glyph was not already a boulder skipped C's feel and
+  fell through to nopick over/against or a vain push. C
+  `hack.c:358–363` at the start of `moverock_core`'s loop: if
+  `Blind && glyph_to_obj(glyph_at(sx,sy)) != BOULDER`, pline
+  `"That feels like a boulder."`, `map_object(otmp, TRUE)`,
+  `nomul(0)`, `return -1` — before `next_boulder`, top-of-pile,
+  and nopick.
+- **C locus:** `hack.c` `moverock_core` `:358–363`; `display.h`
+  `glyph_to_obj`; `display.c` `glyph_at` (gbuf, not live floor);
+  `map_object`; `nomul`. Caller `test_move` `:1229` / `domove_core`
+  `:2843–2848` (`door_opened` stays false).
+- **JS was:** named omit after D-1262; nopick ran first for Blind
+  giants; live `sobj_at` would have made the feel unreachable.
+- **Fix:** Blind + `!remembered_glyph.boulder` (and not remembered
+  `I`) before top-of-pile. `map_object` stamps `boulder:true`.
+  Did not pull `next_boulder` naming, dopush/cannot_push_msg/
+  Levitation Blind `feel_location`. Rule #2: no fs.
+- **JS:** `js/hack.js` `moverock_core` / `glyph_to_obj_is_boulder`.
+- **Not this iter:** `next_boulder`; dopush dest+src Blind feel;
+  `cannot_push_msg` Blind feel; Levitation Blind feel; verysmall
+  vain-push after nopick.
+- **Verified:** private canary **17**/17 (C order; JS live; unseen
+  feel+map+abort; known skip; sighted no feel; Blind giant m-dir
+  feels not over; known giant still over; remembered I feels;
+  human m-dir feels not squeeze; loaded feels not in-way; D-1262
+  squeeze intact; nomul; second bump skips; Rule #2); green+strict
+  seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  Blind hero walks onto an unmapped boulder.
+- **Follow-up:** Open `dothrow.c` throwit returning_missile.
+- **Files:** `js/hack.js`.
+
 ## D-1280 — `trap.c` `maketrap` PIT/HOLE `set_levltyp`
 
 - **Status:** fixed (map-driven Open from D-1269; not a public FAIL)

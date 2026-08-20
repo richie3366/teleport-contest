@@ -59,30 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1280. Reviews **237–240** all
+**Map-driven fortress** after D-1281. Reviews **237–240** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder.
-Do not skip D-1280…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit.
+Do not skip D-1281…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
-Do not pull next_boulder / skipdrin / pit kick / missmu `pline_mon` /
-MEAT_RING / seemimic / throwit returning_missile / wizterrainwish
-traps / DRAWBRIDGE_UP ice / shop add_damage / liquid_flow.
+Do not pull swallowit / next_boulder / skipdrin / pit kick /
+missmu `pline_mon` / MEAT_RING / seemimic / wizterrainwish traps /
+DRAWBRIDGE_UP ice / shop add_damage / liquid_flow.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1280.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1281.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1280 (index). Recent: **D-1280** `trap.c`
-`maketrap` PIT/HOLE `set_levltyp` (`:546–565` IS_ROOM→ROOM /
-STONE/SCORR→CORR / wall|SDOOR maze ROOM / cavern CORR / DOOR then
-`flags=0` + unearth + recalc; DRAWBRIDGE_UP ice / shop add_damage /
-liquid_flow named). Prior: D-1279 wish `switch_terrain`; D-1278
-rndspot; D-1277 hurtle; D-1276 EGG; D-1275 `display_self`; D-1274
-`toss_up`; D-1269 `digactualhole`; D-1262 nopick `m<dir>` (Blind
-unseen named).
+**Keep:** D-0845…D-1281 (index). Recent: **D-1281** `hack.c`
+`moverock_core` Blind unseen feel (`:358–363` `glyph_to_obj(glyph_at)
+!= BOULDER` then pline + `map_object` + `nomul(0)` + `-1` before
+next_boulder / nopick). Prior: D-1280 `maketrap` `set_levltyp`;
+D-1279 wish `switch_terrain`; D-1278 rndspot; D-1277 hurtle;
+D-1276 EGG; D-1275 `display_self`; D-1274 `toss_up`; D-1262 nopick
+`m<dir>`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1280
+spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1281
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_prepost`
 / RANGE_LEVEL / `restore_artifacts`. No trailing `confdir` inside
 shared `getdir`. Throw keeps `getdir_cmdassist`.
