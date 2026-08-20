@@ -1319,6 +1319,15 @@ export function set_y_monnam(fn) {
 }
 
 /**
+ * Late-bound from do_name.js — C objnam.c doname LEASH uses noit_mon_nam.
+ * Same cycle as y_monnam.
+ */
+let _noit_mon_nam = null;
+export function set_noit_mon_nam(fn) {
+    _noit_mon_nam = fn;
+}
+
+/**
  * C ref: objnam.c the_unique_obj — "the unique_item" vs "a unique_item".
  * Named omissions: iflags.override_ID ID-reveal paths.
  */
@@ -1650,7 +1659,7 @@ export function doname(obj) {
     // pmnames[NEUTRAL] + optional "(laid by you)" (D-1276). MEAT_RING
     // goto ring worn/+spe (D-1295). TOOL candle partly used / lamp (lit)
     // (D-1308). Candelabrum (n of 7) D-1317. W_TOOL|W_SADDLE worn D-1318.
-    // Leash / POT_OIL (lit) named.
+    // LEASH attached D-1319. POT_OIL (lit) named.
     const isMeatRing = oname === 'MEAT_RING';
     const isCandelabrum = donameClass === TOOL_CLASS
         && oname === 'CANDELABRUM_OF_INVOCATION';
@@ -1687,7 +1696,8 @@ export function doname(obj) {
     // (BURN_OBJECT) − moves; turns_left < 20*oc_cost → "partly used ".
     // Then (lit) on bp after prefix+base. Candelabrum is the prior if
     // (objnam.c:1447–1454) and breaks before this arm. Worn W_TOOL|W_SADDLE
-    // breaks before all three (D-1318). Leash / POT_OIL (lit) named.
+    // then LEASH leashmon (D-1319) break before candelabrum/lamp/charges.
+    // POT_OIL (lit) named.
     if (Is_candle_obj(obj) && donameClass === TOOL_CLASS) {
         const full_burn_time = 20 * (game.objects?.[otyp]?.oc_cost | 0);
         let turns_left = obj.age | 0;
@@ -1729,17 +1739,43 @@ export function doname(obj) {
     const toolWorn = donameClass === TOOL_CLASS
         && ((obj.owornmask | 0) & (W_TOOL | W_SADDLE)) !== 0;
     if (toolWorn) bp += ' (being worn)';
+    // C doname_base TOOL LEASH (objnam.c:1431–1445): after worn, before
+    // candelabrum. find_mid(leashmon, FM_FMON) skips DEADMONSTER
+    // (light.c); live → Concat " (attached to %s)" noit_mon_nam;
+    // else impossible + leashmon=0. Always break (skips candelabrum /
+    // lamp / charges). doname is sync so impossible() pline is named.
+    const leashArm = donameClass === TOOL_CLASS
+        && oname === 'LEASH'
+        && (obj.leashmon | 0) !== 0
+        && !toolWorn;
+    if (leashArm) {
+        const nid = obj.leashmon | 0;
+        let mlsh = null;
+        for (const m of game.fmon || []) {
+            if ((m.mhp | 0) < 1) continue; // C find_mid FM_FMON
+            if ((m.m_id | 0) === nid) {
+                mlsh = m;
+                break;
+            }
+        }
+        if (mlsh && (mlsh.mhp | 0) >= 1) {
+            const nam = _noit_mon_nam ? _noit_mon_nam(mlsh) : 'it';
+            bp += ` (attached to ${nam})`;
+        } else {
+            obj.leashmon = 0;
+        }
+    }
     // C doname_base TOOL CANDELABRUM_OF_INVOCATION (objnam.c:1447–1454):
     // suffix = plur(spe) + (!lamplit ? " attached" : ", lit"); then
     // Concat " (%d of 7 candle%s)" and break (no lamp (lit), no charges).
-    if (isCandelabrum && !toolWorn) {
+    if (isCandelabrum && !toolWorn && !leashArm) {
         const spe = obj.spe | 0;
         const plurS = spe === 1 ? '' : 's';
         const litOrAtt = obj.lamplit ? ', lit' : ' attached';
         bp += ` (${spe} of 7 candle${plurS}${litOrAtt})`;
     }
     // C doname_base TOOL lamp/candle Concat " (lit)" (objnam.c:1476–1477).
-    if (isLampOrCandle && obj.lamplit && !toolWorn) bp += ' (lit)';
+    if (isLampOrCandle && obj.lamplit && !toolWorn && !leashArm) bp += ' (lit)';
 
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
@@ -1814,10 +1850,10 @@ export function doname(obj) {
     }
 
     // C TOOL_CLASS charges — weptools remapped to WEAPON so they get +spe.
-    // Worn / lamp/candle / candelabrum arms break before charges
-    // (objnam.c:1429/1454/1478).
+    // Worn / leash / lamp/candle / candelabrum arms break before charges
+    // (objnam.c:1429/1445/1454/1478).
     if (known && is_charged_otyp(otyp) && donameClass === TOOL_CLASS
-        && !isLampOrCandle && !isCandelabrum && !toolWorn)
+        && !isLampOrCandle && !isCandelabrum && !toolWorn && !leashArm)
         bp += ` (${obj.recharged | 0}:${obj.spe | 0})`;
     // C ref: objnam.c WAND_CLASS → charges
     if (known && donameClass === WAND_CLASS)

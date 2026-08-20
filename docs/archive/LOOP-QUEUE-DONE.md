@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
+- [x] `objnam.c` doname LEASH attached (named from D-1308). Not candle. **Addressed:** D-1319
+
+
 - [x] `objnam.c` doname TOOL W_TOOL|W_SADDLE worn (named from D-1308). Not candle. **Addressed:** D-1318 `ccdc8670`
 
 

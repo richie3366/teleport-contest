@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` doname LEASH attached (named from D-1308). Not candle.
 - [ ] `objnam.c` doname POTION POT_OIL (lit) (named from D-1308). Not candle.
 - [ ] `objnam.c` doname W_WEP `body_part(HAND)` poly (named from D-1295). Not MEAT_RING.
 - [ ] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit.
 - [ ] `mhitu.c` explmu (named). Not AT_HUGS.
 - [ ] `mhitu.c` AT_HUGS (named). Not explmu.
+- [ ] `mhitu.c` gazemu (named from D-1314). Not explmu.
+- [ ] `mhitu.c` AD_DRIN (named from D-1309). Not gazemu.
+- [ ] `mhitm.c` AD_DRIN (named from D-1307). Not mhitu AD_DRIN.
+- [ ] `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN.
+- [ ] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle.
 
 ## Parked (do not pop)
 

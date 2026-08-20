@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1319 — `objnam.c` doname LEASH attached
+
+- **Status:** fixed (map-driven Open from D-1308; not a public FAIL)
+- **Symptom:** JS `doname` TOOL never appended `" (attached to %s)"`
+  for `otyp == LEASH && leashmon != 0`, so a leash on a live pet
+  looked like a bare tool name.
+- **C locus:** `objnam.c` `doname_base` TOOL_CLASS `:1431–1445` after
+  worn (`:1427–1429`), before candelabrum (`:1447`).
+  `find_mid(obj->leashmon, FM_FMON)` (`light.c`) skips
+  `DEADMONSTER`; live Concat `" (attached to %s)"` `noit_mon_nam`;
+  else `impossible` + `leashmon = 0`; always `break` (skips
+  candelabrum / lamp / charges). Callers: invent `prinv` /
+  `xprname`. `xname` stays bare.
+- **JS was:** worn D-1318; candelabrum D-1317; lamp/candle D-1308;
+  leash omit.
+- **Fix:** `doname` LEASH suffix via late-bound `noit_mon_nam`
+  (objnam↔do_name cycle). Inline FM_FMON skip-dead. Missing/dead
+  clears `leashmon`. `impossible()` pline named (doname is sync).
+  Did not pull POTION POT_OIL `(lit)` or `js/mon.js` `find_mid`
+  DEADMONSTER skip. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`; `js/do_name.js` `set_noit_mon_nam`.
+- **Not this iter:** POT_OIL `(lit)`; `impossible` pline; `find_mid`
+  FM_MIGRATE/MYDOGS / DEADMONSTER skip in `mon.js`; wet-towel
+  xname; full `mbodypart`.
+- **Verified:** private canary **30**/30 (C arm order+Concat+find_mid
+  skip-dead; tame/named/hostile `noit_mon_nam`; xname bare; worn
+  skip; dead/missing clear; unleashed; marker/candelabrum/candle/
+  lamp/MEAT_RING/armor/amulet/worn regression; POT_OIL still omit;
+  Rule #2); green+strict seed8000/0900; cohort **8**/8 + strict
+  1500/1800/0012/0004/0007/2200/0383/0361. **Public-unhit** unless
+  a session `doname`s a leashed pet.
+- **Follow-up:** Open `objnam.c` doname POTION POT_OIL (lit) (named
+  from D-1308).
+- **Files:** `js/objnam.js`, `js/do_name.js`.
+
 ## D-1318 — `objnam.c` doname TOOL W_TOOL|W_SADDLE worn
 
 - **Status:** fixed (map-driven Open from D-1308; not a public FAIL)
