@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1270 hack.c hero test_move passes_bars
+
+**Objective:** Open `hack.c` hero `test_move` `passes_bars` (named
+from D-1258). Not ALLOW_BARS.
+**C locus:** `hack.c` `test_move` `:1024–1036` IRONBARS arm.
+**Change:** Passes_walls || `passes_bars(youmonst.data)` allows
+bars in TEST_MOVE/`blocksMove`; DO_MOVE rust/corr/metallivore
+awaits live `still_chewing`. Named: Underwater; rock Passes_walls
+/ tunnels / autodig. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session
+Upolyd-walks onto IRONBARS. Next audit @**#1610**.
+**Verified:** private canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `monmove.c` `meatmetal` (named from D-1247). Not
+switch_terrain.
+**Blocked:** none.
 ## 2026-08-20 — D-1269 dig.c digactualhole switch_terrain
 
 **Objective:** Open `dig.c` `digactualhole` `switch_terrain` (named

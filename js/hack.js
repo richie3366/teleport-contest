@@ -38,7 +38,7 @@ import {
 import { gethungry, morehungry } from './eat.js';
 import { m_at, hideunder } from './mon.js';
 import { recalc_block_point } from './vision.js';
-import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall } from './monsters.js';
+import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall, passes_bars, dmgtype } from './monsters.js';
 import {
     objects_at, obj_extract_self, place_object, delobj,
     peek_timer, stop_timer, start_timer,
@@ -158,6 +158,33 @@ function Passes_walls_prop() {
 }
 function Sokoban_here() {
     return !!(game.Sokoban || game.level?.flags?.sokoban_rules);
+}
+
+/* C monattk.h — rust monster / gray ooze·pudding (test_move bars chew). */
+const AD_RUST = 24;
+const AD_CORR = 42;
+
+/**
+ * C hack.c test_move :1032 — Passes_walls || passes_bars(youmonst.data).
+ * On IRONBARS the first obstacle branch (Passes_walls && may_passwall)
+ * is Passes_walls: may_passwall is true because bars are not IS_STWALL.
+ * TEST_MOVE / TEST_TRAV never chew. D-1270.
+ */
+export function test_move_hero_passes_bars() {
+    return !!(Passes_walls_prop() || passes_bars(game.youmonst?.data));
+}
+
+/**
+ * C hack.c test_move :1025–1028 — DO_MOVE rust/corr/metallivore chew
+ * instead of occupying bars. Passes_walls already allowed the cell in
+ * C's first branch, so skip chew. Named: Underwater obstacle; generic
+ * rock Passes_walls / tunnels / autodig.
+ */
+export function test_move_hero_chews_bars() {
+    if (Passes_walls_prop()) return false;
+    const data = game.youmonst?.data;
+    return !!(dmgtype(data, AD_RUST) || dmgtype(data, AD_CORR)
+        || metallivorous(data));
 }
 
 /**
@@ -1301,9 +1328,11 @@ function reg_damg(reg) {
 
 /**
  * C ref: hack.c test_move(TEST_MOVE) — silent viability for
- * avoid_trap_andor_region. Named omissions: Passes_walls/ooze/chew/
- * autodig/Underwater/squeeze/worm_cross. C always clears
- * context.door_opened. run>=2 boulder abort is D-1226 (silent here).
+ * avoid_trap_andor_region. IRONBARS allow via Passes_walls ||
+ * passes_bars (D-1270; chew is DO_MOVE only). Named omissions:
+ * Passes_walls/ooze/autodig/Underwater/squeeze/worm_cross. C always
+ * clears context.door_opened. run>=2 boulder abort is D-1226 (silent
+ * here).
  */
 function test_move_viable(dx, dy) {
     const u = game.u;
@@ -1314,7 +1343,8 @@ function test_move_viable(dx, dy) {
     if (!isok(x, y)) return false;
     const loc = game.level?.at(x, y);
     if (!loc) return false;
-    if (IS_OBSTRUCTED(loc.typ) || loc.typ === IRONBARS) return false;
+    if (IS_OBSTRUCTED(loc.typ)) return false;
+    if (loc.typ === IRONBARS && !test_move_hero_passes_bars()) return false;
     if (closed_door(x, y)) return false;
     if (dx && dy) {
         if (IS_DOOR(loc.typ) && !doorless_door(x, y)) return false;
@@ -1386,8 +1416,9 @@ export async function avoid_trap_andor_region(x, y) {
 
 /**
  * C ref: hack.c crawl_destination — orthogonal always; diagonal door/
- * squeeze checks. NODIAG / Passes_walls / bad_rock squeeze deferred →
- * diagonal allowed when goodpos.
+ * squeeze checks. NODIAG / Passes_walls / bad_rock squeeze / IRONBARS
+ * via goodpos deferred → diagonal allowed when goodpos. Hero walk
+ * bars are test_move D-1270, not this helper.
  */
 export function crawl_destination(x, y) {
     const u = game.u;

@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1270 — `hack.c` hero `test_move` IRONBARS `passes_bars`
+
+- **Status:** fixed (map-driven Open; named omit from D-1258; not a
+  public FAIL)
+- **Symptom:** JS `test_move` / `blocksMove` treated every IRONBARS
+  cell as blocked, so a poly'd bars-passer (fog, xorn, garter,
+  rust, ooze, rock mole, …) could not occupy bars the way C
+  `test_move` does.
+- **C locus:** `hack.c` `test_move` `:1024–1036` (IRONBARS arm:
+  DO_MOVE rust/corr/metallivore `still_chewing` then
+  `!(Passes_walls || passes_bars(youmonst.data))` abort). First
+  obstacle branch `Passes_walls && may_passwall` is Passes_walls
+  on bars (not IS_STWALL). Callers: `domove_core` DO_MOVE
+  `:2843`; ParanoidTrap TEST_MOVE; `findtravelpath` TEST_TRAV.
+- **JS was:** `IS_OBSTRUCTED || IRONBARS` always false-viable /
+  `blocksMove` true. Monster `passes_bars` already D-1258.
+- **Fix:** `test_move_hero_passes_bars` + `test_move_hero_chews_bars`;
+  TEST_MOVE/`blocksMove` allow when Passes_walls || passes_bars;
+  DO_MOVE rust/corr/metallivore awaits live `still_chewing` (C
+  `:2843–2848` move=0 + `nomul(0)` while still eating). Did not
+  pull Underwater obstacle, generic rock Passes_walls/tunnels/
+  autodig, or monster ALLOW_BARS. Rule #2: no fs.
+- **JS:** `js/hack.js` helpers + `test_move_viable`; `js/cmd.js`
+  `blocksMove` / DO_MOVE chew; `js/monsters.js` comment.
+- **Not this iter:** Underwater bars abort; generic rock
+  Passes_walls / tunnels / autodig; Blind `feel_location`;
+  `crawl_destination` goodpos IRONBARS; `meatmetal`.
+- **Verified:** private canary **17**/17 (C chew-then-passes_bars
+  order; JS helpers + cmd chew before blocksMove; fog/garter pass
+  no chew; rust/ooze/mole chew; jackal/python/cube/human block;
+  Passes_walls youprop skip chew; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session Upolyd-walks onto
+  IRONBARS.
+- **Follow-up:** Open `monmove.c` `meatmetal`.
+
 ## D-1269 — `dig.c` `digactualhole` PIT/HOLE → `switch_terrain`
 
 - **Status:** fixed (map-driven Open; named omit from D-1129 /
