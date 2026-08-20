@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up. **Addressed:** D-1273
+- [x] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object. **Addressed:** D-1274
+
+
+- [x] `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up. **Addressed:** D-1273 `2a6bf680`
 
 
 - [x] `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not pickup highdrop. **Addressed:** D-1272 `175707ca`

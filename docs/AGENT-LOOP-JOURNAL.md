@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1274 dothrow.c toss_up + throwit u.dz
+
+**Objective:** Open `dothrow.c` `toss_up` (named from D-1263). Not
+hold_another_object.
+**C locus:** `dothrow.c` `toss_up` `:1256–1426`; `throwit` `:1579–1599`.
+**Change:** `t`+`<` `toss_up(obj, rn2(5)&&!Underwater)`; getdir `<>`
+set dz; downward `hitfloor(TRUE)`. Named: returning_missile /
+swallowit / slip / stamina / steed potion. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session throws
+`t`+`<`/`>`. Next audit @**#1615**.
+**Verified:** private canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `display.c` `display_self` U_AP_TYPE glyphs (named from
+D-1260). Not seemimic.
+**Blocked:** none.
 ## 2026-08-20 — D-1273 pickup.c tipcontainer highdrop hitfloor(TRUE)
 
 **Objective:** Open `pickup.c` highdrop `hitfloor` (named from

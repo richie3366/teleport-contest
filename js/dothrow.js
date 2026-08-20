@@ -8,21 +8,23 @@ import {
     canseemon, canspotmon, nh_delay_output,
 } from './display.js';
 import { cansee, vision_recalc } from './vision.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, rn1 } from './rng.js';
 import {
     place_object, splitobj, stackobj, delobj, is_crackable, objects_at,
 } from './mkobj.js';
-import { losehp, maybe_half_phys, nomul, impact_disturbs_zombies } from './hack.js';
+import {
+    losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
+} from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
-    POTION_CLASS, objectNames, objectNameStrs,
+    POTION_CLASS, SCROLL_CLASS, RING_CLASS, objectNames, objectNameStrs,
 } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
-    D_ISOPEN, IS_OBSTRUCTED, IS_TREE, KILLED_BY, OBJ_INVENT, OBJ_FREE,
+    D_ISOPEN, IS_OBSTRUCTED, IS_TREE, KILLED_BY, KILLED_BY_AN, OBJ_INVENT, OBJ_FREE,
     TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
-    IS_ALTAR, IS_FOUNTAIN, IS_ROOM, ICE, PIT, SPIKED_PIT, HOLE, TRAPDOOR,
-    Is_earthlevel,
+    IS_ALTAR, IS_FOUNTAIN, IS_ROOM, IS_AIR, IS_WALL, ICE, PIT, SPIKED_PIT, HOLE,
+    TRAPDOOR, SDOOR, Is_earthlevel, In_endgame,
     P_NONE, P_SPEAR, P_SLING, P_DAGGER, P_SHURIKEN, P_DART, P_CROSSBOW, P_KNIFE,
     P_BOW, P_BOOMERANG, P_SHORT_SWORD, P_SABER, P_AXE,
     P_SKILLED, P_EXPERT, P_BASIC, P_UNSKILLED,
@@ -30,7 +32,8 @@ import {
     M_AP_TYPE, M_AP_MONSTER, M_AP_NOTHING,
     BRK_FROM_INV, BRK_KNOWN2BREAK, BRK_KNOWN2NOTBREAK, BRK_KNOWN_OUTCOME,
     ismnum, isok, u_at, MM_IGNOREWATER, MM_IGNORELAVA,
-    HURTLING, FORCEBUNGLE, IRONBARS, Upolyd,
+    HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, STONING, TIMEOUT,
+    WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -39,24 +42,27 @@ import {
 } from './wield.js';
 import { acurr, A_DEX, change_luck, exercise } from './attrib.js';
 import { find_mac } from './mhitm.js';
-import { hitval, weapon_hit_bonus, should_mulch_missile } from './weapon.js';
-import { spec_abon } from './artifact.js';
+import { hitval, weapon_hit_bonus, should_mulch_missile, dmgval } from './weapon.js';
+import { spec_abon, artifact_hit } from './artifact.js';
 import {
     PM_CAVE_DWELLER, PM_MONK, PM_RANGER, PM_ROGUE, PM_SAMURAI,
     PM_WIZARD, PM_HEALER, PM_TOURIST, PM_CLERIC,
     PM_ELF, PM_ORC, PM_GNOME,
     monsterNames,
 } from './generated/monsters_data.js';
-import { xname, singular, an, the, vtense, doname } from './objnam.js';
+import { xname, singular, an, the, vtense, doname, thesimpleoname } from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, distmin } from './mon.js';
 import { mon_nam, Monnam, hliquid } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
     is_unicorn, is_orc, is_elf, your_race,
+    touch_petrifies, poly_when_stoned, hates_silver, mon_hates_blessings,
+    haseyes, passes_walls, unsolid, mons,
 } from './monsters.js';
 import { tamedog } from './dog.js';
 import { hmon, passive_obj } from './uhitm.js';
-import { potionbreathe } from './potion.js';
+import { potionbreathe, potionhit } from './potion.js';
+import { body_part, polymon } from './polyself.js';
 import { goodpos, rloc_to } from './teleport.js';
 import {
     mintrap, t_at, Trap_Killed_Mon, Trap_Caught_Mon, Trap_Moved_Mon,
@@ -89,9 +95,28 @@ const GAUNTLETS_OF_FUMBLING = objectNames.indexOf('GAUNTLETS_OF_FUMBLING');
 const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
+const CORPSE = objectNames.indexOf('CORPSE');
+const SLING = objectNames.indexOf('SLING');
+const EUCALYPTUS_LEAF = objectNames.indexOf('EUCALYPTUS_LEAF');
+const KELP_FROND = objectNames.indexOf('KELP_FROND');
+const SPRIG_OF_WOLFSBANE = objectNames.indexOf('SPRIG_OF_WOLFSBANE');
+const FORTUNE_COOKIE = objectNames.indexOf('FORTUNE_COOKIE');
+const PANCAKE = objectNames.indexOf('PANCAKE');
+const RUBBER_HOSE = objectNames.indexOf('RUBBER_HOSE');
+const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
+const SACK = objectNames.indexOf('SACK');
+const OILSKIN_SACK = objectNames.indexOf('OILSKIN_SACK');
+const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const MINERAL = 21; // objclass.h
+const GEMSTONE = 20;
+const CLOTH = 6;
+const SILVER = 14;
+const IRON = 11;
+const MITHRIL = 15;
 const PIERCE = 1; // objclass.h weapon oc_dir
 const PM_PYROLISK = monsterNames.indexOf('PM_PYROLISK');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
+const PM_SHADE = monsterNames.indexOf('PM_SHADE');
 
 /** C ref: mondata.h notake — M1_NOTAKE (cannot pick up / throw). */
 function notake(ptr) {
@@ -141,18 +166,21 @@ const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 /**
  * C ref: cmd.c movecmd(sym, MV_ANY) — walk/run/rush bindings all yield a
  * direction. Capital HJKLYUBN (run) and Ctrl-dir (rush) count like h/j/…
- * @returns {{dx:number,dy:number}|null}
+ * @returns {{dx:number,dy:number,dz?:number}|null}
  */
 function dir_from_key(key, ch) {
-    if (ch in DIR_DX) return { dx: DIR_DX[ch], dy: DIR_DY[ch] };
+    // C cmd.c movecmd — '<' up / '>' down set zdir, dx=dy=0
+    if (ch === '<') return { dx: 0, dy: 0, dz: -1 };
+    if (ch === '>') return { dx: 0, dy: 0, dz: 1 };
+    if (ch in DIR_DX) return { dx: DIR_DX[ch], dy: DIR_DY[ch], dz: 0 };
     const low = typeof ch === 'string' ? ch.toLowerCase() : '';
     if (low in DIR_DX && ch === low.toUpperCase()) {
-        return { dx: DIR_DX[low], dy: DIR_DY[low] };
+        return { dx: DIR_DX[low], dy: DIR_DY[low], dz: 0 };
     }
     // rush: C(dir) — keys 1..26 (ICRNL maps CR→LF = C('j'))
     if (typeof key === 'number' && key >= 1 && key <= 26) {
         const rushCh = String.fromCharCode(key + 96);
-        if (rushCh in DIR_DX) return { dx: DIR_DX[rushCh], dy: DIR_DY[rushCh] };
+        if (rushCh in DIR_DX) return { dx: DIR_DX[rushCh], dy: DIR_DY[rushCh], dz: 0 };
     }
     return null;
 }
@@ -279,7 +307,7 @@ async function getdir(prompt) {
     // Clear yn prompt before returning to the command loop (next capture).
     game._pending_message = '';
     // C: NHKF_GETDIR_SELF / SELF2 → u.dx=u.dy=u.dz=0, return 1
-    if (ch === '.' || ch === 's') return { dx: 0, dy: 0 };
+    if (ch === '.' || ch === 's') return { dx: 0, dy: 0, dz: 0 };
     // C: strchr(quitchars, dirsym) → return 0 without "strange direction"
     if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r')
         return null;
@@ -810,6 +838,121 @@ function Doname2(obj) {
     return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 }
 
+/** C dungeon.c has_ceiling — endgame non-earth has no ceiling. */
+function has_ceiling(lev) {
+    if (In_endgame(lev) && !Is_earthlevel(lev)) return false;
+    return true;
+}
+
+/**
+ * C dungeon.c ceiling — room/air labels for toss_up plines.
+ * Named omit: vault/temple/shop in_rooms; water/fire/quest/Underwater.
+ */
+function ceiling_at(x, y) {
+    const typ = game.level?.at?.(x, y)?.typ ?? 0;
+    if (IS_AIR(typ)) return 'sky';
+    if (IS_ROOM(typ) || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR) {
+        return 'ceiling';
+    }
+    return 'rock cavern';
+}
+
+/** C youprop.h BlindedTimeout — HBlinded & TIMEOUT. */
+function BlindedTimeout() {
+    return (game.u?.HBlinded | 0) & TIMEOUT;
+}
+
+/** C youprop.h Hate_silver — lycanthrope or poly form hates_silver. */
+function Hate_silver() {
+    const u = game.u || {};
+    return ((u.ulycn ?? NON_PM) | 0) >= LOW_PM
+        || hates_silver(game.youmonst?.data);
+}
+
+/** C youprop.h Stone_resistance. */
+function Stone_resistance_hero() {
+    const u = game.u || {};
+    return !!(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance);
+}
+
+/** C do_wear.c hard_helmet — metallic or glass helm. */
+function hard_helmet(obj) {
+    if (!obj) return false;
+    const mat = game.objects?.[obj.otyp]?.oc_material ?? 0;
+    if (mat >= IRON && mat <= MITHRIL) return true;
+    if (mat === GLASS && (obj.oclass === ARMOR_CLASS
+        || game.objects?.[obj.otyp]?.oc_class === ARMOR_CLASS)) return true;
+    return false;
+}
+
+/** C objnam.c helm_simple_name — "hat" polish deferred. */
+function helm_simple_name(_obj) {
+    return 'helmet';
+}
+
+/** C mondata.h passes_rocks. */
+function passes_rocks(ptr) {
+    return !!(passes_walls(ptr) && !unsolid(ptr));
+}
+
+/** C obj.h stone_missile. */
+function stone_missile(obj) {
+    if (!obj) return false;
+    const mat = game.objects?.[obj.otyp | 0]?.oc_material | 0;
+    return (mat === GEMSTONE || mat === MINERAL)
+        && (obj.oclass | 0) !== RING_CLASS;
+}
+
+/**
+ * C ref: dothrow.c harmless_missile — soft items that bounce quietly.
+ * Canonical here (C dothrow.c); mthrowu.js keeps a local copy for hit_bars.
+ */
+function harmless_missile(obj) {
+    if (!obj) return false;
+    const otyp = obj.otyp | 0;
+    switch (otyp) {
+    case SLING:
+    case EUCALYPTUS_LEAF:
+    case KELP_FROND:
+    case SPRIG_OF_WOLFSBANE:
+    case FORTUNE_COOKIE:
+    case PANCAKE:
+        return true;
+    case RUBBER_HOSE:
+    case BAG_OF_TRICKS:
+        return (obj.spe | 0) < 1;
+    case SACK:
+    case OILSKIN_SACK:
+    case BAG_OF_HOLDING:
+        return !Has_contents(obj);
+    default:
+        if ((obj.oclass | 0) === SCROLL_CLASS) return true;
+        if ((game.objects?.[otyp]?.oc_material | 0) === CLOTH) return true;
+        break;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c can_blnd — toss_up AT_WEAP cream pie / blinding venom
+ * vs you. Named omit: Blindfolded/ublindf/visor; other aatyp.
+ */
+function can_blnd_toss_self(obj) {
+    if (!haseyes(game.youmonst?.data)) return false;
+    const otyp = obj?.otyp | 0;
+    if (otyp !== CREAM_PIE && otyp !== BLINDING_VENOM) return false;
+    if (game.u?.uswallow) return false;
+    return true;
+}
+
+/**
+ * C zap.c hit when mtmp == youmonst — always verbose, mon_nam → "you"
+ * (x_monnam youmonst still named in do_name.js).
+ */
+async function hit_youmonst(str, force) {
+    await pline(`${The(str)} ${vtense(str, 'hit')} you${force}`);
+}
+
 /**
  * C ref: dothrow.c breaktest — obj_resists then glass / potion / egg /
  * cream pie / melon / venom / camera.
@@ -1003,9 +1146,10 @@ function hitfloor_surface(x, y) {
  * hero_breaks BRK_FROM_INV; ship_object; dropz(TRUE) (D-1263).
  * Wired: do.c drop !can_reach_floor; mkobj hornoplenty tip;
  * invent hold_another_object drop_it hitfloor(FALSE) (D-1272);
- * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273).
- * Named omit: toss_up / throwit dz; ball litter; artifact;
- * finesse_ahriman float_down.
+ * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273);
+ * toss_up / throwit u.dz (D-1274).
+ * Named omit: ball litter; artifact; finesse_ahriman float_down;
+ * throwit returning_missile / swallow / slip / stamina / steed potion.
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1049,6 +1193,187 @@ export async function hitfloor(obj, verbosely) {
 }
 
 /**
+ * C ref: dothrow.c toss_up — hero tosses an object upward.
+ * Returns false if the object is gone. Caller throwit u.dz<0
+ * (D-1274): toss_up(obj, rn2(5) && !Underwater).
+ * Named omit: returning_missile ceiling-return; crackable breakobj
+ * erode (existing); potionhit youmonst-pointer (JS null=you);
+ * ceiling vault/temple/shop/water/fire/quest/Underwater labels;
+ * helm "hat" polish; Eyes vision_clears.
+ */
+export async function toss_up(obj, hitsroof) {
+    if (!obj) return false;
+    const u = game.u || {};
+    const otyp = obj.otyp | 0;
+    const corpsePtr = ismnum(obj.corpsenm) ? mons(obj.corpsenm) : null;
+    const isPetrifier = ((otyp === EGG || otyp === CORPSE)
+        && ismnum(obj.corpsenm)
+        && touch_petrifies(corpsePtr));
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    let action;
+    if (!has_ceiling(u.uz)) {
+        action = 'flies up into';
+    } else if (hitsroof) {
+        if (breaktest(obj)) {
+            await pline(`${Doname2(obj)} hits the ${ceiling_at(ux, uy)}.`);
+            await breakmsg(obj, !Blind());
+            if (!(await breakobj(obj, ux, uy, true, true))) {
+                await hitfloor(obj, false);
+                game.thrownobj = null;
+                return true;
+            }
+            return false;
+        }
+        action = 'hits';
+    } else {
+        action = 'almost hits';
+    }
+    await pline(
+        `${Doname2(obj)} ${action} the ${ceiling_at(ux, uy)}, then falls back on top of your ${body_part(HEAD)}.`,
+    );
+
+    if ((obj.oclass | 0) === POTION_CLASS) {
+        // C: potionhit(&gy.youmonst, obj, POTHIT_HERO_THROW)
+        // JS potionhit: null = you (youmonst identity still named)
+        await potionhit(null, obj, POTHIT_HERO_THROW);
+    } else if (breaktest(obj)) {
+        const blindinc = ((otyp === CREAM_PIE || otyp === BLINDING_VENOM)
+            && can_blnd_toss_self(obj))
+            ? rnd(25)
+            : 0;
+        await breakmsg(obj, !Blind());
+        let still = obj;
+        if (await breakobj(obj, ux, uy, true, true)) {
+            still = null;
+        }
+        switch (otyp) {
+        case EGG:
+            if (isPetrifier && !Stone_resistance_hero()
+                && !(poly_when_stoned(game.youmonst?.data, game.mvitals)
+                    && await polymon(PM_STONE_GOLEM))) {
+                if (u.uarmh) {
+                    await pline(
+                        `Your ${helm_simple_name(u.uarmh)} fails to protect you.`,
+                    );
+                }
+                return await toss_up_petrify(still);
+            }
+            // FALLTHROUGH
+        case CREAM_PIE:
+        case BLINDING_VENOM:
+            await pline(`You've got it all over your ${body_part(FACE)}!`);
+            if (blindinc) {
+                if (otyp === BLINDING_VENOM && !Blind()) {
+                    await pline('It blinds you!');
+                }
+                u.ucreamed = (u.ucreamed | 0) + blindinc;
+                const { make_blinded } = await import('./do.js');
+                await make_blinded(BlindedTimeout() + blindinc, false);
+                if (!Blind()) await pline('Your vision clears.');
+            }
+            break;
+        default:
+            break;
+        }
+        if (!still) return false;
+        await hitfloor(still, false);
+        game.thrownobj = null;
+    } else if (harmless_missile(obj)) {
+        await pline("It doesn't hurt.");
+        await hitfloor(obj, false);
+        game.thrownobj = null;
+    } else {
+        const material = game.objects?.[otyp]?.oc_material | 0;
+        const is_silver = material === SILVER;
+        let less_damage = !!(hard_helmet(u.uarmh)
+            && (!is_silver || !Hate_silver()));
+        let harmless = !!(stone_missile(obj)
+            && passes_rocks(game.youmonst?.data));
+        let artimsg = false;
+        let dmg = dmgval(obj, game.youmonst);
+        if (obj.oartifact && !harmless) {
+            const dmgBox = { dmg };
+            artimsg = artifact_hit(null, game.youmonst, obj, dmgBox, rn1(18, 2));
+            dmg = dmgBox.dmg | 0;
+        }
+        if (!dmg) {
+            dmg = Math.trunc(((obj.owt | 0) + (WT_TO_DMG - 1)) / WT_TO_DMG);
+            dmg = (dmg <= 1) ? 1 : rnd(dmg);
+            if (dmg > 6) dmg = 6;
+            if ((game.youmonst?.data?.mndx | 0) === PM_SHADE && !is_silver) {
+                dmg = 0;
+            }
+            if (obj.blessed && mon_hates_blessings(game.youmonst)) {
+                dmg += rnd(4);
+            }
+            if (is_silver && Hate_silver()) dmg += rnd(20);
+        }
+        if (dmg > 1 && less_damage) dmg = 1;
+        if (dmg > 0) dmg += u.udaminc | 0;
+        if (dmg < 0) dmg = 0;
+        dmg = maybe_half_phys(dmg);
+
+        const hp = Upolyd(u) ? (u.mh | 0) : (u.uhp | 0);
+        if (u.uarmh) {
+            if ((less_damage && dmg < hp) || harmless) {
+                if (!artimsg) {
+                    if (!harmless) {
+                        await pline('Fortunately, you are wearing a hard helmet.');
+                    } else {
+                        await pline(
+                            `Unfortunately, you are wearing ${an(helm_simple_name(u.uarmh))}.`,
+                        );
+                    }
+                }
+            } else if (!isPetrifier) {
+                if (game.flags?.verbose !== false) {
+                    await pline(
+                        `Your ${helm_simple_name(u.uarmh)} does not protect you.`,
+                    );
+                }
+            }
+            harmless = false;
+        } else if (isPetrifier && !Stone_resistance_hero()
+            && !(poly_when_stoned(game.youmonst?.data, game.mvitals)
+                && await polymon(PM_STONE_GOLEM))) {
+            return await toss_up_petrify(obj);
+        }
+        if (is_silver && Hate_silver()) {
+            await pline('The silver sears you!');
+        }
+        if (harmless) {
+            await hit_youmonst(thesimpleoname(obj), " but doesn't hurt.");
+        }
+        await hitfloor(obj, true);
+        game.thrownobj = null;
+        if (!harmless) {
+            losehp(dmg, 'falling object', KILLED_BY_AN);
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            await finish_maybe_wail();
+        }
+    }
+    return true;
+}
+
+/** C toss_up petrify: goto petrify — killer, You turn to stone, dropy, done. */
+async function toss_up_petrify(obj) {
+    if (!game.killer) game.killer = { name: '', format: 0 };
+    game.killer.format = KILLED_BY;
+    game.killer.name = 'elementary physics';
+    await pline('You turn to stone.');
+    if (obj) {
+        const { dropy } = await import('./do.js');
+        await dropy(obj);
+    }
+    game.thrownobj = null;
+    const { done } = await import('./end.js');
+    await done(STONING);
+    return !!obj;
+}
+
+/**
  * C ref: zap.c bhit + dothrow.c throwit — fly along dx/dy; stop before
  * !ZAP_POS / closed door (bhit backs up one step), then place / breaktest.
  * Monster hit → thitmonst (D-0415 food; D-0693 pie/egg DEX;
@@ -1057,10 +1382,26 @@ export async function hitfloor(obj, verbosely) {
  * (D-1249 / D-1229). hitfloor dropz(TRUE) is D-1263 (drop/horn);
  * invent hold_another_object hitfloor(FALSE) is D-1272;
  * pickup highdrop hitfloor(TRUE) is D-1273;
- * toss_up / throwit dz still named.
+ * toss_up / throwit u.dz is D-1274.
+ * Named omit: returning_missile; swallowit; slip; stamina drop;
+ * steed potionhit; throwit_return returning_missile flag.
  */
 async function throwit(obj) {
     const u = game.u;
+    game.thrownobj = obj;
+    obj.how_lost = LOST_THROWN;
+    // C throwit: swallow named; then if (u.dz)
+    if (u.dz) {
+        if ((u.dz | 0) < 0) {
+            // returning_missile ceiling-return named
+            await toss_up(obj, !!(rn2(5) && !(u.uinwater)));
+        } else {
+            // steed potionhit rn2(6) named
+            await hitfloor(obj, true);
+        }
+        game.thrownobj = null;
+        return;
+    }
     const dx = u.dx || 0;
     const dy = u.dy || 0;
     // C: urange = ACURRSTR/2, then range capped; adjacent wall needs ≥1
@@ -1094,7 +1435,6 @@ async function throwit(obj) {
             `You aren't wielding ${an(skillName)}, so you throw your ${descr} by hand.`,
         );
     }
-    obj.how_lost = LOST_THROWN;
     let x = u.ux;
     let y = u.uy;
     let hitmon = null;
@@ -1268,7 +1608,7 @@ async function help_dir(msg) {
  * C ref: cmd.c getdir via yn_function + help_dir.
  * Esc / '.' / space / return cancel. '?' shows help and retries.
  * Other invalid keys: cmdassist NHW_TEXT then return cancel (no retry).
- * Returns {dx,dy} or null.
+ * Returns {dx,dy,dz} or null. '<' / '>' set dz (C movecmd).
  */
 export async function getdir_cmdassist(prompt) {
     // C ref: cmd.c yn_function — flush pending topline --More-- before prompt
@@ -1285,7 +1625,7 @@ export async function getdir_cmdassist(prompt) {
         const ch = String.fromCharCode(key);
         game._pending_message = '';
         // C: NHKF_GETDIR_SELF / SELF2 → dx=dy=dz=0, success (not cancel)
-        if (ch === '.' || ch === 's') return { dx: 0, dy: 0 };
+        if (ch === '.' || ch === 's') return { dx: 0, dy: 0, dz: 0 };
         // C: strchr(quitchars, dirsym) → return 0 without help_dir
         if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r')
             return null;
@@ -1357,9 +1697,9 @@ export async function dofire() {
     // C: post-quiver fireassist launcher swap deferred for non-ammo
     const dir = await getdir_cmdassist('In what direction?');
     if (!dir) return 0;
-    game.u.dx = dir.dx;
-    game.u.dy = dir.dy;
-    game.u.dz = 0;
+    game.u.dx = dir.dx | 0;
+    game.u.dy = dir.dy | 0;
+    game.u.dz = dir.dz | 0;
     return await throw_obj(obj, 0);
 }
 
@@ -1373,9 +1713,9 @@ export async function dothrow() {
     // C: getdir — cmdassist on invalid keys (same as dofire)
     const dir = await getdir_cmdassist('In what direction?');
     if (!dir) return 0;
-    game.u.dx = dir.dx;
-    game.u.dy = dir.dy;
-    game.u.dz = 0;
+    game.u.dx = dir.dx | 0;
+    game.u.dy = dir.dy | 0;
+    game.u.dz = dir.dz | 0;
 
     return await throw_obj(obj, 0);
 }

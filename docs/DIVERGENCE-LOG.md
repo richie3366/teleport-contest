@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1274 — dothrow.c `toss_up` + throwit `u.dz`
+
+- **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
+- **Symptom:** `throwit` ignored `u.dz`. C `t` then `<` calls
+  `toss_up(obj, rn2(5) && !Underwater)` so the object hits the ceiling
+  (or the sky) then the hero's head; `>` uses `hitfloor(TRUE)`. JS
+  flew the dart on dx/dy=0 as if no vertical throw.
+- **C locus:** `dothrow.c` `toss_up` `:1256–1426`. Caller `throwit`
+  `:1579–1599` after swallow (named). `getdir`/`movecmd` `'<'`/`'>'`
+  set `u.dz`. Ceiling shatter `breaktest` then `breakobj` else
+  `hitfloor(FALSE)`. Potion → `potionhit(&youmonst, …, POTHIT_HERO_THROW)`.
+  Cream/egg/venom `can_blnd` splat + `make_blinded`. Harmless missile
+  quiet. Else `dmgval`/`artifact_hit`/`WT_TO_DMG`/helmet/`Maybe_Half_Phys`
+  / `losehp`. Petrify killer `"elementary physics"` + `dropy` +
+  `done(STONING)`.
+- **JS was:** `dothrow`/`dofire` forced `dz=0`; `throwit` had no `u.dz`
+  arm.
+- **Fix:** live `toss_up` in `js/dothrow.js`; `dir_from_key` `'<'`/`'>'`;
+  throwit `dz<0` → `toss_up`, else `hitfloor(TRUE)`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `toss_up` / `throwit` / `dir_from_key` /
+  `dothrow` / `dofire`.
+- **Not this iter:** returning_missile ceiling-return; swallowit;
+  slip; stamina drop; steed potionhit `rn2(6)`; crackable `erode_obj`;
+  ceiling vault/temple/shop/water/fire/quest labels; helm `"hat"`;
+  `x_monnam` youmonst.
+- **Verified:** private canary **11**/11; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws `t`+`<`/`>`.
+- **Follow-up:** Open `display.c` `display_self` U_AP_TYPE glyphs.
+- **Files:** `js/dothrow.js`.
+
 ## D-1273 — pickup.c `tipcontainer` highdrop `hitfloor(TRUE)`
 
 - **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
@@ -24,7 +55,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   `hitfloor`, `js/invent.js` `hold_another_object`.
 - **Not this iter:** altarizing `doaltarobj`; dropy terse comma-list;
   tipcontainer_gettarget; ice-box; cursed mbag; shop; BoH explode;
-  invent getobj tip; toss_up / throwit `dz`.
+  invent getobj tip; **toss_up D-1274**.
 - **Verified:** private canary **10**/10 (C order; JS hitfloor true;
   reachable floor no verbose hit; Lev LOST_DROPPED+hits-floor;
   swallow clear; two contents; WAN_STRIKING strike; glass
@@ -32,7 +63,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
   2200/0383. **Public-unhit** unless a session tips a container
   while `!can_reach_floor(TRUE)` and not swallowed.
-- **Follow-up:** Open `dothrow.c` `toss_up`.
+- **Follow-up:** shipped D-1274 `toss_up`.
 - **Files:** `js/pickup.js`, comments `js/dothrow.js` / `js/invent.js`.
 
 ## D-1272 — invent.c `hold_another_object` `hitfloor(FALSE)`

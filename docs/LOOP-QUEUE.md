@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.
 - [ ] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic.
 - [ ] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.
 - [ ] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
 - [ ] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow.
 - [ ] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder.
+- [ ] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit.
+- [ ] `dothrow.c` throwit swallowit (named from D-1274). Not returning_missile.
+- [ ] `mon.c` `meatobj` (named from D-1271). Not meatcorpse.
+- [ ] `mon.c` `meatcorpse` (named from D-1271). Not meatobj.
+- [ ] `mhitu.c` `missmu` `pline_mon` (named from D-1261). Not wildmiss.
 
 ## Parked (do not pop)
 
