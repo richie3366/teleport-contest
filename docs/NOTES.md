@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1303 `dothrow.c` sho_obj_return_to_u
-  (cadence **#1650** `1a7839f7`; reviews **261–264** ACCEPT-WITH-DEBT,
-  no Must-fix). Next: Open `objnam.c` wizterrainwish secret corridor
-  (named from D-1290). Not door/wall. Do not skip D-1303…D-1229.
-  Do not pull mswings / candle `partly used` / eat_brains / helmet.
-  Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1303. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1304 `objnam.c` wizterrainwish secret
+  corridor (cadence **#1650** `1a7839f7`; reviews **261–264**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mhitu.c` mswings
+  `pline_mon` (named from D-1291). Not wildmiss. Do not skip
+  D-1304…D-1229. Do not pull candle `partly used` / eat_brains /
+  helmet. Do not wrap `wildmiss` or `msg_mon_movement` as
+  `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1304. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -20,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1303.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1304.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1303 (index). Named still: eat_brains /
-  helmet / m_slips_free; candle `partly used`; secret corridor;
+- Do not skip D-1071…D-1304 (index). Named still: eat_brains /
+  helmet / m_slips_free; candle `partly used`;
   tethered DISP_TETHER/BACKTRACK. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -47,6 +48,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1304: `wizterrainwish` secret corridor. Suffix after wall
+  before room; CORR→SCORR `"Secret corridor."`; else requires
+  corridor location. Leftover BLev FROMOUTSIDE (SCORR obstructed).
+  **drawbridge / lava pooleffects named**. **mswings D-1291 named**.
 - D-1303: `dothrow.c` sho_obj_return_to_u — after `rn2(100)` success,
   non-tethered (Mjollnir) `tmp_at(DISP_FLASH, obj_to_glyph display rng)`
   then walk `bhitpos-dir` toward @ with `nh_delay_output`; dx=dy=0 or
@@ -111,14 +116,4 @@ Objective/score live in `CURRENT.md`.
   DOOR/SDOOR/wall(!DBWALL)/bars; rogue doorless; doormask
   locked/open/broken/doorless/secret; trapped closed/locked only;
   isolated wall HWALL else VWALL + `fix_wall_spines`;
-  `set_wallprop_from_str`. **secret corridor named**.
-- D-1289: `wizterrainwish` trap loop `maketrap` before furniture.
-  `str_start_is` + hole `!Can_fall_thru`→ROCKTRAP; portal "to
-  nowhere"; fail still `hands_obj`. **door/wall D-1290**.
-- D-1288: `#wizmakemap` `makemap_prepost` post
-  `u_on_rndspot((amulet?1:0)|(wiztower?2:0))` not safe_teleds.
-  Named: `makemap_remove_mons` / savelev-freeing / lua lspo;
-  `On_W_tower_level`; goto_level W-tower bit 2.
-- D-1287: `u_on_sstairs` else `u_on_rndspot(upflag)`; upstairs /
-  dnstairs wrappers; `goto_level` newdungeon awaits. Special-dir
-  C boolean `!=`. **cmd wiz D-1288**.
+  `set_wallprop_from_str`. **secret corridor D-1304**.

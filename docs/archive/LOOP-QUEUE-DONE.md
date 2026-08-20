@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit. **Addressed:** D-1303
+- [x] `objnam.c` wizterrainwish secret corridor (named from D-1290). Not door/wall. **Addressed:** D-1304
+
+
+- [x] `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit. **Addressed:** D-1303 `2b1a575c`
 
 
 - [x] `dothrow.c` throw_gold swallow (named from D-1283). Not boomhit. **Addressed:** D-1302 `1a7839f7`

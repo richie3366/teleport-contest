@@ -32,6 +32,7 @@ import {
     FOUNTAIN, THRONE, SINK, ALTAR, TREE, IRONBARS, CLOUD,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, ROOM,
     DRAWBRIDGE_UP, DRAWBRIDGE_DOWN, STAIRS, LADDER, SDOOR, DOOR,
+    CORR, SCORR,
     HWALL, VWALL, DBWALL, COLNO, ROWNO, isok, Is_rogue_level,
     F_LOOTED, T_LOOTED, S_LPUDDING, S_LDWASHER, S_LRING,
     TREE_LOOTED, TREE_SWARM, ICED_POOL, ICED_MOAT,
@@ -371,8 +372,8 @@ function readobjnam_any(d) {
 /**
  * C ref: objnam.c wizterrainwish — trap loop then furniture/terrain wish
  * then madeterrain postamble switch_terrain (D-1279 furniture; D-1289
- * traps; D-1290 door/wall; C :3563–3582 then :3740–3835 then :3872–3910).
- * Secret corridor, drawbridge under, lava pooleffects,
+ * traps; D-1290 door/wall; D-1304 secret corridor; C :3563–3582 then
+ * :3740–3845 then :3872–3910). Drawbridge under, lava pooleffects,
  * water/fire_damage_chain, melting ice still named.
  */
 async function wizterrainwish(d) {
@@ -584,6 +585,16 @@ async function wizterrainwish(d) {
             Math.min(ROWNO, u.uy + 1),
         );
         await pline('A wall.');
+    } else if (bstrcmpi_end(bp, 'secret corridor')) {
+        /* C :3836–3845 — CORR only; neither CORR nor SCORR uses flags */
+        if ((lev.typ | 0) === CORR) {
+            lev.typ = SCORR;
+            await pline('Secret corridor.');
+            madeterrain = true;
+        } else {
+            await pline('Secret corridor requires corridor location.');
+            badterrain = true;
+        }
     } else if (!is_dbridge && (bstrcmpi_end(bp, 'room')
             || bstrcmpi_end(bp, 'floor')
             || bstrcmpi_end(bp, 'ground'))) {
@@ -644,7 +655,7 @@ async function wizterrainwish(d) {
 /**
  * C ref: objnam.c readobjnam wiztrap — wizard && !wizkit_wishing &&
  * !d.oclass then wizterrainwish (D-1279 furniture; D-1289 traps;
- * D-1290 door/wall).
+ * D-1290 door/wall; D-1304 secret corridor).
  * Object-only readobjnam stays sync for wizkit/mklev (C skips terrain
  * when wizkit_wishing).
  */
@@ -664,7 +675,7 @@ export async function readobjnam_wish(bp, no_wish) {
  * C ref: objnam.c readobjnam — wish subset for artifact / named armor / amulet.
  * Empty/NULL → `any` (D-0559); qualifier-only empty (blessed/rustproof/…) deferred.
  * Terrain wish is readobjnam_wish (D-1279 furniture; D-1289 traps;
- * D-1290 door/wall).
+ * D-1290 door/wall; D-1304 secret corridor).
  */
 export function readobjnam(bp, no_wish, missOut) {
     // C: readobjnam_init + if (!bp) goto any

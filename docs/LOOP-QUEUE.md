@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` wizterrainwish secret corridor (named from D-1290). Not door/wall.
 - [ ] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss.
 - [ ] `eat.c` eat_brains (named from D-1298). Not helmet.
 - [ ] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains.

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1304 objnam.c wizterrainwish secret corridor
+
+**Objective:** Open `objnam.c` wizterrainwish secret corridor (named
+from D-1290). Not door/wall.
+**C locus:** `objnam.c` `wizterrainwish` `:3836–3845` after wall
+before room; CORR→SCORR else location pline. Dispatch D-1279
+wiztrap; leftover BLev via live `switch_terrain`.
+**Change:** secret-corridor arm in `readobjnam.js`. Did not pull
+drawbridge under / lava `pooleffects` / melting ice. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1650**). Public-unhit
+unless a wizard session wishes secret corridor.
+**Verified:** private canary 19/19; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1303 archive hash `2b1a575c`.
+**Next:** Open `mhitu.c` mswings `pline_mon`. Not wildmiss.
+**Blocked:** none.
 ## 2026-08-20 — D-1303 dothrow.c sho_obj_return_to_u
 
 **Objective:** Open `dothrow.c` sho_obj_return_to_u (named from

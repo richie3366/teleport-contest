@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1304 — `objnam.c` `wizterrainwish` secret corridor
+
+- **Status:** fixed (map-driven Open from D-1290; not a public FAIL)
+- **Symptom:** JS `wizterrainwish` skipped C’s secret-corridor arm, so a
+  wizard wish for `secret corridor` never mutated a CORR cell and fell
+  through instead of returning `&hands_obj`.
+- **C locus:** `objnam.c` `wizterrainwish` `:3836–3845` (after wall,
+  before room/floor). Suffix `"secret corridor"`; `lev->typ == CORR`
+  → `SCORR` + `"Secret corridor."`; else `"Secret corridor requires
+  corridor location."` `badterrain`. Neither CORR nor SCORR uses
+  `flags`/`horizontal`. Dispatch still D-1279 `readobjnam` wiztrap.
+  Callee live D-1129 `switch_terrain` (SCORR is `IS_OBSTRUCTED` →
+  leftover BLev FROMOUTSIDE).
+- **JS was:** furniture + trap loop + door/wall (D-1279/D-1289/D-1290);
+  secret corridor named omit.
+- **Fix:** secret-corridor arm after wall before floor. Did not pull
+  drawbridge under, lava `pooleffects`, water/fire_damage_chain,
+  melting ice, or `looted`/`disturbed` preparse. Rule #2: no fs.
+- **JS:** `js/readobjnam.js` `wizterrainwish`; `js/zap.js` comment.
+- **Not this iter:** drawbridge under; lava `pooleffects`;
+  water/fire_damage_chain; melting ice; `looted`/`disturbed` preparse.
+- **Verified:** private canary **19**/19 (C after wall before room;
+  JS envelope; non-wizard/wizkit skip; CORR→SCORR; `a secret corridor`
+  prefix; ROOM/STONE/SCORR/HWALL badterrain; bare `corridor` miss;
+  secret door still SDOOR; door/wall regression; leftover BLev set;
+  pit + fountain still; sync `readobjnam` no mutate; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a wizard session wishes secret corridor.
+- **Follow-up:** Open `mhitu.c` mswings `pline_mon`.
+- **Files:** `js/readobjnam.js`, `js/zap.js`.
+
 ## D-1303 — dothrow.c sho_obj_return_to_u
 
 - **Status:** fixed (map-driven Open from D-1282; not a public FAIL)
