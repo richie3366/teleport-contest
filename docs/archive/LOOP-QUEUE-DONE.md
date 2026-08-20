@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether. **Addressed:** D-1323
+- [x] `dothrow.c` thitmonst vanish pline (named from D-1312). Not leader catch. **Addressed:** D-1324
+
+
+- [x] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether. **Addressed:** D-1323 `b50daaea`
 
 
 - [x] `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"` (C `:1561–1595`; this SHA rewrote the if). Source: reviews/loop-unattended/283-b7a0c3c7-doname-wep-body-part.md. Not warn_obj. **Addressed:** D-1322 `843343cc`

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` thitmonst vanish pline (named from D-1312). Not leader catch.
 - [ ] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit.
 - [ ] `mhitu.c` explmu (named). Not AT_HUGS.
 - [ ] `mhitu.c` AT_HUGS (named). Not explmu.

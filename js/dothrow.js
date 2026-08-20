@@ -70,7 +70,7 @@ import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond } from
 import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
-    is_unicorn, is_orc, is_elf, your_race, is_animal,
+    is_unicorn, is_orc, is_elf, your_race, is_animal, is_whirly,
     touch_petrifies, poly_when_stoned, hates_silver, mon_hates_blessings,
     haseyes, passes_walls, unsolid, mons,
 } from './monsters.js';
@@ -81,6 +81,7 @@ import { body_part, polymon } from './polyself.js';
 import { goodpos, rloc_to } from './teleport.js';
 import {
     mintrap, t_at, Trap_Killed_Mon, Trap_Caught_Mon, Trap_Moved_Mon,
+    minstapetrify,
 } from './trap.js';
 import { in_out_region, m_in_out_region } from './region.js';
 
@@ -591,10 +592,10 @@ function Some_Monnam(mtmp) {
  * Ported: tmp (Luck/DEX/distmin/bow-gloves/omon_adj/elf-orc);
  * WEAPON/weptool/GEM hit-vs-miss (kicked/ammo/thrown/applied) → hmon /
  * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog;
- * leader catch / finish_quest (D-1312).
+ * leader catch / finish_quest (D-1312); swallow vanish pline
+ * (D-1324; entrails/currents + cockatrice minstapetrify/delobj).
  * Deferred: gem_accept luck/mpickobj; iron ball / boulder hit;
- * potionhit; swallow vanish pline (swallowit D-1283); cutworm;
- * check_shop_obj on mulch; mshot_xname.
+ * potionhit; cutworm; check_shop_obj on mulch; mshot_xname.
  * @returns {boolean} true if obj was consumed / taken care of
  */
 export async function thitmonst(mon, obj) {
@@ -782,8 +783,24 @@ export async function thitmonst(mon, obj) {
     }
 
     if (guaranteed_hit) {
-        // C swallow vanish arm deferred — still wake like C before body
+        // C dothrow.c:2276–2298 — swallow vanish; md is ustuck->data.
+        const md = game.u?.ustuck?.data;
         await wakeup(mon, true);
+        if ((obj.otyp | 0) === CORPSE && touch_petrifies(mons(obj.corpsenm))) {
+            if (is_animal(md)) {
+                await minstapetrify(game.u.ustuck, true);
+                // Don't leave a cockatrice corpse available in a statue
+                if (!game.u?.uswallow) {
+                    delobj(obj);
+                    return true;
+                }
+            }
+        }
+        const trail = digests(md) ? ' entrails'
+            : is_whirly(md) ? ' currents' : '';
+        let monname = mon_nam(mon);
+        if (trail) monname = s_suffix_throw_gold(monname);
+        await pline(`${Tobjnam(obj, 'vanish')} into ${monname}${trail}.`);
         return false;
     }
 
@@ -1993,8 +2010,8 @@ export async function boomhit(obj, dx, dy) {
  * throwit_mon_hit snuff / hot_pursuit (D-1313); throwit caller (D-1315).
  * throwit ACURRSTR urange / post-bhit lev hurtle (D-1316).
  * tethered THROWN_TETHERED_WEAPON bhit + isqrt(arw->range) (D-1323).
- * Named omit: thitmonst vanish
- * pline; objsplit unsplit; killer_xname polish;
+ * thitmonst swallow vanish pline (D-1324).
+ * Named omit: objsplit unsplit; killer_xname polish;
  * THROWN_WEAPON still uses the JS fly stand-in (not zap.js bhit).
  */
 

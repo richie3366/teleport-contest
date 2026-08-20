@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1323; cadence **#1675** `b7a0c3c7`
+- **Fortress 44/44** after D-1324; cadence **#1675** `b7a0c3c7`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Review **283**
-  closed. Next: Open `dothrow.c` thitmonst vanish pline (named
-  from D-1312). Not leader catch. Not warn_obj.
-  Do not skip D-1323…D-1229. Do not pull gazemu / explmu /
-  AT_HUGS / mhitu AD_DRIN / dokick snuff.
-  Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1323. warn_obj / `artifact_light` `)`
+  closed. Next: Open `dokick.c` snuff_candle (named from D-1242).
+  Not throwit_mon_hit. Not gazemu / explmu / AT_HUGS / mhitu AD_DRIN.
+  Do not skip D-1324…D-1229. Do not wrap `wildmiss` as `pline_mon`.
+  No FORCE.
+- Do not revert D-1217–D-1324. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -22,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1323.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1324.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,9 +35,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1323 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1324 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
-  AT_TENT; AT_ENGL gulps/lunges; thitmonst vanish pline.
+  AT_TENT; AT_ENGL gulps/lunges; dokick snuff_candle.
   No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -50,10 +49,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1324: thitmonst swallow vanish pline C `:2276–2298` — wakeup,
+  cockatrice `minstapetrify`/`delobj` if `!uswallow`, then
+  `Tobjnam` vanish + digests entrails / whirly currents.
+  Weapon/hmon swallow path unchanged. potionhit / ball / boulder
+  still named.
 - D-1323: `zap.c` bhit THROWN_TETHERED remap + DISP_TETHER, skip
   END for caller; throwit `min(range, isqrt(arw->range))` and
   calls bhit (C `:1664–1677` / `:3863–4127`). THROWN_WEAPON fly
-  stand-in named. **vanish pline named**.
+  stand-in named.
 - D-1322: `objnam.c` doname W_WEP `:1561` `!mrg_to_wielded` +
   `:1591–1595` AKLYS `"tethered to"` (review **283**). Pickup
   `pickup_prinv` flag already live. **warn_obj named**.
@@ -77,10 +81,6 @@ Objective/score live in `CURRENT.md`.
 - D-1313: throwit_mon_hit `snuff_candle` then `thitmonst` then shk
   `hot_pursuit` (`inside_shop` / `*ushops` NUL). Lamps not snuffed.
 - D-1312: thitmonst leader catch / `finish_quest` (questarti/unique/AoY;
-  keep invoked unique or `!mpeaceful`). **vanish pline named**.
+  keep invoked unique or `!mpeaceful`). Vanish pline D-1324.
 - D-1311: throwit tethered DISP_TETHER / BACKTRACK (`arw->tethered &&
   W_WEP`). bhit THROWN_TETHERED / isqrt D-1323.
-- D-1310: `kick_monster` poly AT_KICK loop `rnd(20)` /
-  `special_dmgval(W_ARMF)` / `damageum`+`passive`. kickdmg named.
-- D-1309: `mattacku` AT_TENT melee with claw/kick/bite. explmu /
-  AT_HUGS / mhitu AD_DRIN named.

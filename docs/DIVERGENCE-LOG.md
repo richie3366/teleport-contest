@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1324 — dothrow.c thitmonst swallow vanish pline
+
+- **Status:** fixed (map-driven Open from D-1312; not a public FAIL)
+- **Symptom:** a non-weapon missile thrown while swallowed only woke
+  the engulfer. C prints `Tobjnam` vanish into entrails (digesting)
+  or currents (whirly) or the monster name, and a cockatrice corpse
+  `minstapetrify`s an animal swallower then `delobj`s if the hero
+  is expelled.
+- **C locus:** `dothrow.c` `thitmonst` `:2276–2298` after
+  `befriend_with_obj`/`tamedog` before the miss `tmiss`. `md =
+  u.ustuck->data`. Callers: `throwit_mon_hit` while `u.uswallow`
+  (`engulfing_u`). `swallowit` still ingests when `thitmonst`
+  returns 0 (D-1283).
+- **JS was:** `wakeup` then `return false`; vanish pline named
+  after D-1312.
+- **Fix:** live trail ternary + `s_suffix` when trail nonempty;
+  petrify/delobj matches C. Weapon/weptool/gem swallow still
+  `hmon` (guaranteed tmp+1000). potionhit / iron ball / boulder
+  arms still named (those would not reach vanish in C). Rule #2:
+  no fs.
+- **JS:** `js/dothrow.js` `thitmonst`.
+- **Not this iter:** potionhit DEX/swallow; iron ball / boulder
+  hit; `gem_accept`; `cutworm`; mulch `check_shop_obj`; dokick
+  `snuff_candle`.
+- **Verified:** private canary **11**/11 (C trail+petrify; JS
+  same; purple-worm entrails; air-elemental currents; gel-cube
+  bare name; dart stays weapon/hmon; not-swallowed tmiss;
+  cockatrice vs whirly skip petrify; animal `resists_ston` kept;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session throws a non-weapon while swallowed.
+- **Follow-up:** Open `dokick.c` snuff_candle.
+- **Files:** `js/dothrow.js`.
+
 ## D-1323 — zap.c bhit THROWN_TETHERED_WEAPON / isqrt
 
 - **Status:** fixed (map-driven Open from D-1311; not a public FAIL)
