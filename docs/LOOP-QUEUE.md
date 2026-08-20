@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall.
 - [ ] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps.
 - [ ] `mhitu.c` `wildmiss` `pline_mon` (named from D-1261). Not missmu.
 - [ ] `dothrow.c` throwit slip (named from D-1283). Not stamina.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel.
 - [ ] `objnam.c` doname MEAT_RING (named from D-1276). Not candle.
 - [ ] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage.
+- [ ] `dothrow.c` throwit steed potion (named from D-1283). Not slip.
+- [ ] `mhitu.c` wildmiss `set_msg_xy` (named from D-1286). Not pline_mon.
+- [ ] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep.
+- [ ] `hack.c` swap-with-pet `seemimic` (named from D-1275). Not display_self.
+- [ ] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice.
 
 ## Parked (do not pop)
 

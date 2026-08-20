@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1289 objnam.c wizterrainwish trap loop maketrap
+
+**Objective:** Open `objnam.c` wizterrainwish traps (named from
+D-1279). Not door/wall.
+**C locus:** `objnam.c` `wizterrainwish` `:3563–3582` before furniture;
+callee live `trap.c` `maketrap`; `hacklib.c` `str_start_is`.
+**Change:** trap names via `str_start_is` + live `maketrap`/`trapname`;
+hole `!Can_fall_thru`→ROCKTRAP; portal "to nowhere"; fail still
+`hands_obj`. Named: door/wall/secret corridor; drawbridge;
+`pooleffects`; `trapped ` preparse. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a wizard wishes a
+trap by `trapname`. Next audit @**#1635**.
+**Verified:** private canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` wizterrainwish door/wall (named from
+D-1279). Not traps.
+**Blocked:** none.
 ## 2026-08-20 — D-1288 cmd.c makemap_prepost → u_on_rndspot
 
 **Objective:** Open `cmd.c` wiz-level `u_on_rndspot` (named from

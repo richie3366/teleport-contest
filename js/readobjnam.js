@@ -25,7 +25,7 @@ import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers } from './m
 import { artifact_name, nartifact_exist } from './artifact.js';
 import { oname } from './do_name.js';
 import { name_to_monplus } from './mondata.js';
-import { makesingular, An } from './objnam.js';
+import { makesingular, An, an } from './objnam.js';
 import { NON_PM, LOW_PM, monsterNames } from './monsters.js';
 import {
     ONAME_WISH, SPE_LIM,
@@ -37,6 +37,7 @@ import {
     A_CHAOTIC, A_NEUTRAL, A_LAWFUL, A_NONE, Align2amask,
     IS_FOUNTAIN, IS_SINK, IS_GRAVE, IS_WALL, IS_DOOR, IS_FURNITURE,
     MAGIC_PORTAL, MELT_ICE_AWAY, TT_LAVA, TT_NONE,
+    NO_TRAP, TRAPNUM, ROCKTRAP, is_hole, Can_fall_thru,
 } from './const.js';
 
 const STRANGE_OBJECT = 0;
@@ -91,6 +92,24 @@ function strncmpi_start(bp, pref) {
     const s = String(bp || '');
     const t = String(pref);
     return s.slice(0, t.length).toLowerCase() === t.toLowerCase();
+}
+
+/**
+ * C ref: hacklib.c str_start_is — caseblind prefix; chkstr may be shorter
+ * than str (wish "arrow trap extra" matches trapname "arrow trap").
+ */
+function str_start_is(str, chkstr, caseblind) {
+    const s = String(str || '');
+    const c = String(chkstr || '');
+    let i = 0;
+    for (;;) {
+        if (i >= s.length) return i >= c.length;
+        if (i >= c.length) return true;
+        const t1 = caseblind ? s.charAt(i).toLowerCase() : s.charAt(i);
+        const t2 = caseblind ? c.charAt(i).toLowerCase() : c.charAt(i);
+        if (t1 !== t2) return false;
+        i++;
+    }
 }
 
 function upstart(str) {
@@ -315,11 +334,11 @@ function readobjnam_any(d) {
 }
 
 /**
- * C ref: objnam.c wizterrainwish — wizard furniture/terrain wish then
- * madeterrain postamble switch_terrain (D-1279; C :3872–3910).
- * Trap loop, door/wall/secret corridor, drawbridge under, lava
- * pooleffects, water/fire_damage_chain, melting ice, set_wallprop_from_str
- * still named.
+ * C ref: objnam.c wizterrainwish — trap loop then furniture/terrain wish
+ * then madeterrain postamble switch_terrain (D-1279 furniture; D-1289
+ * traps; C :3563–3582 then :3872–3910). Door/wall/secret corridor,
+ * drawbridge under, lava pooleffects, water/fire_damage_chain, melting
+ * ice, set_wallprop_from_str still named.
  */
 async function wizterrainwish(d) {
     const u = game.u;
@@ -333,12 +352,29 @@ async function wizterrainwish(d) {
     } = await import('./hack.js');
     const { feel_newsym, pline, docrt } = await import('./display.js');
     const { recalc_block_point } = await import('./vision.js');
+    const { maketrap, trapname } = await import('./trap.js');
     const bp = d.bp || '';
     let madeterrain = false;
     let badterrain = false;
     const oldtyp = lev.typ | 0;
     const is_dbridge = oldtyp === DRAWBRIDGE_DOWN || oldtyp === DRAWBRIDGE_UP;
     const lf = game.level.flags || (game.level.flags = {});
+
+    /* C :3563–3582 — trap names before furniture; always return hands_obj */
+    for (let trap = NO_TRAP + 1; trap < TRAPNUM; trap++) {
+        let tname = trapname(trap, true);
+        if (!str_start_is(bp, tname, true)) continue;
+        if (is_hole(trap) && !Can_fall_thru(u.uz)) trap = ROCKTRAP;
+        const t = maketrap(x, y, trap);
+        if (t) {
+            trap = t.ttyp | 0;
+            tname = trapname(trap, true);
+            await pline(`${An(tname)}${trap !== MAGIC_PORTAL ? '' : ' to nowhere'}.`);
+        } else {
+            await pline(`Creation of ${an(tname)} failed.`);
+        }
+        return HANDS_OBJ;
+    }
 
     if (bstrcmpi_end(bp, 'fountain')) {
         lev.typ = FOUNTAIN;
@@ -494,8 +530,9 @@ async function wizterrainwish(d) {
 
 /**
  * C ref: objnam.c readobjnam wiztrap — wizard && !wizkit_wishing &&
- * !d.oclass then wizterrainwish (D-1279). Object-only readobjnam stays
- * sync for wizkit/mklev (C skips terrain when wizkit_wishing).
+ * !d.oclass then wizterrainwish (D-1279 furniture; D-1289 traps).
+ * Object-only readobjnam stays sync for wizkit/mklev (C skips terrain
+ * when wizkit_wishing).
  */
 export async function readobjnam_wish(bp, no_wish) {
     const missOut = {};
@@ -512,7 +549,7 @@ export async function readobjnam_wish(bp, no_wish) {
 /**
  * C ref: objnam.c readobjnam — wish subset for artifact / named armor / amulet.
  * Empty/NULL → `any` (D-0559); qualifier-only empty (blessed/rustproof/…) deferred.
- * Terrain wish is readobjnam_wish (D-1279).
+ * Terrain wish is readobjnam_wish (D-1279 furniture; D-1289 traps).
  */
 export function readobjnam(bp, no_wish, missOut) {
     // C: readobjnam_init + if (!bp) goto any

@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1289 — `objnam.c` `wizterrainwish` trap loop → `maketrap`
+
+- **Status:** fixed (map-driven Open from D-1279; not a public FAIL)
+- **Symptom:** JS `wizterrainwish` skipped C’s trap-name loop, so a
+  wizard wish for `pit` / `arrow trap` / `hole` / `magic portal`
+  never called `maketrap` and fell through (or missed) instead of
+  returning `&hands_obj`.
+- **C locus:** `objnam.c` `wizterrainwish` `:3563–3582` (before
+  furniture). `trapname(trap, TRUE)` + `str_start_is(bp, tname, TRUE)`;
+  `is_hole && !Can_fall_thru` → `ROCKTRAP`; `maketrap`; success
+  `An(tname)` + portal `" to nowhere"`; fail `Creation of %s failed`;
+  always `return &hands_obj`. Dispatch still D-1279
+  `readobjnam` wiztrap `:4975–4979`. Callee live D-1280 `maketrap`.
+- **JS was:** furniture/liquid envelope + `switch_terrain` (D-1279);
+  trap loop named omit.
+- **Fix:** trap loop first via live `trap.js` `maketrap`/`trapname`
+  and `hacklib.c` `str_start_is`. Hole on hardfloor/botlevel becomes
+  ROCKTRAP. Did not pull door/wall/secret corridor, drawbridge under,
+  lava `pooleffects`, water/fire_damage_chain, melting ice, or
+  `set_wallprop_from_str`. `trapped ` preparse still named (C strips
+  it before the loop). Rule #2: no fs (dynamic import of trap.js).
+- **JS:** `js/readobjnam.js` `wizterrainwish`; `js/zap.js` comment.
+- **Not this iter:** door/wall/secret corridor; drawbridge under;
+  lava `pooleffects`; water/fire_damage_chain; melting ice;
+  `set_wallprop_from_str`; `trapped `/`looted` preparse.
+- **Verified:** private canary **20**/20 (C loop before fountain;
+  JS `str_start_is` + live maketrap; non-wizard/wizkit skip; pit /
+  spiked pit / arrow / dart / web / magic portal; hole
+  Can_fall_thru vs hardfloor ROCKTRAP; pit on STONE → CORR;
+  furniture fail on fountain; furniture fountain leftover BLev
+  still clears; door still miss; sync `readobjnam` no trap; Rule
+  #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  wizard session wishes a trap by `trapname`.
+- **Follow-up:** Open `objnam.c` wizterrainwish door/wall.
+- **Files:** `js/readobjnam.js`, `js/zap.js`.
+
 ## D-1288 — `cmd.c` `makemap_prepost` → `u_on_rndspot`
 
 - **Status:** fixed (map-driven Open from D-1278; not a public FAIL)

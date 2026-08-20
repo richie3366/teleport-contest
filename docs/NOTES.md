@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1288 `makemap_prepost` → `u_on_rndspot`
-  (cadence **#1630** `9486280d`; reviews **245–248**
+- **Fortress 44/44** after D-1289 `wizterrainwish` trap loop
+  `maketrap` (cadence **#1630** `9486280d`; reviews **245–248**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `objnam.c`
-  wizterrainwish traps (named from D-1279). Not door/wall. Do not
-  skip D-1288…D-1229. Do not pull skipdrin / pit kick / wildmiss
+  wizterrainwish door/wall (named from D-1279). Not traps. Do not
+  skip D-1289…D-1229. Do not pull skipdrin / pit kick / wildmiss
   `set_msg_xy` / MEAT_RING / seemimic / next_boulder / slip /
-  stamina / steed potion / wizterrainwish door/wall / DRAWBRIDGE_UP
-  ice. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1288. Named omits stay map, not Must-fix.
+  stamina / steed potion / DRAWBRIDGE_UP ice. Do not wrap
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1289. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1288.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1289.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1288 (index). Named still: skipdrin / pit
+- Do not skip D-1071…D-1289 (index). Named still: skipdrin / pit
   kick; wildmiss `set_msg_xy`; MEAT_RING; throwit slip /
   stamina / steed; next_boulder. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -49,6 +49,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1289: `wizterrainwish` trap loop `maketrap` before furniture.
+  `str_start_is` + hole `!Can_fall_thru`→ROCKTRAP; portal "to
+  nowhere"; fail still `hands_obj`. Door/wall/secret corridor /
+  drawbridge / lava `pooleffects` named. **furniture D-1279**.
 - D-1288: `#wizmakemap` `makemap_prepost` post
   `u_on_rndspot((amulet?1:0)|(wiztower?2:0))` not safe_teleds.
   Named: `makemap_remove_mons` / savelev-freeing / lua lspo;
@@ -75,8 +79,8 @@ Objective/score live in `CURRENT.md`.
   nopick. JS `remembered_glyph.boulder`. next_boulder named.
 - D-1280: `maketrap` PIT/HOLE `set_levltyp`. DRAWBRIDGE_UP ice /
   shop add_damage / liquid_flow named.
-- D-1279: `wizterrainwish` → `switch_terrain`. Traps / door/wall
-  named.
+- D-1279: `wizterrainwish` → `switch_terrain`. **traps D-1289**.
+  Door/wall named.
 - D-1278: `u_on_rndspot` → `switch_terrain`. On_W_tower /
   **sstairs D-1287**; **cmd wiz D-1288**.
 - D-1277: `hurtle_step` dest-typ `switch_terrain`. Drown /
@@ -84,5 +88,3 @@ Objective/score live in `CURRENT.md`.
 - D-1276: doname EGG `ismnum`+laid. MEAT_RING / candle named.
 - D-1275: `display_self` U_AP_TYPE glyphs. find_trap / seemimic
   named.
-- D-1274: `toss_up` + throwit `u.dz`. **returning_missile D-1282**.
-  **swallowit D-1283**. slip / stamina / steed named.
