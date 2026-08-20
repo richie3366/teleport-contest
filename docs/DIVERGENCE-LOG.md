@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1283 — dothrow.c throwit swallowit
+
+- **Status:** fixed (map-driven Open from D-1274; not a public FAIL)
+- **Symptom:** `throwit` ignored `u.uswallow`. C sets `mon = u.ustuck`
+  before `u.dz` / boomhit / `bhit`, then `swallowit` →
+  `mpickobj(ustuck)` (clears `gt.thrownobj`) unless the missile is
+  AutoReturn (then fail-catch / fail-to-return still `swallowit`).
+  JS `t`+`<` while engulfed ran `toss_up` / flew and landed.
+- **C locus:** `dothrow.c` `swallowit` `:1468–1475`; caller `throwit`
+  `:1569–1578` before `u.dz`; `:1704–1706` after `throwit_mon_hit`;
+  fail-path `:1751–1754` / `:1772–1775`. `steal.c` `mpickobj` clears
+  `gt.thrownobj`.
+- **JS was:** named omit after D-1282; `throwit` always `u.dz` then
+  bhit.
+- **Fix:** live `swallowit`; skip `u.dz`/bhit while swallowed;
+  `thitmonst(ustuck)` then `mpickobj`; returning fail-paths swallow
+  instead of dropy/land. `mpickobj` clears `thrownobj`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `swallowit` / `throwit` /
+  `throwit_returning_missile`; `js/makemon.js` `mpickobj`.
+- **Not this iter:** slip `rn2(7)`; stamina drop; steed potionhit
+  `rn2(6)`; boomhit; `sho_obj_return_to_u` / tethered `tmp_at`;
+  throw_gold swallow; thitmonst vanish pline (`entrails`/`currents`);
+  objsplit unsplit; `killer_xname` polish.
+- **Verified:** private canary **13**/13 (C swallowit/before-dz/fail
+  paths; JS live; swallowed ring minvent not toss_up; dart not
+  distant land; aklys return-or-swallow; uball skip mpickobj;
+  thrownobj clear; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws while `u.uswallow`.
+- **Follow-up:** Open `mon.c` `meatobj`.
+- **Files:** `js/dothrow.js`, `js/makemon.js`.
+
 ## D-1282 — dothrow.c throwit returning_missile
 
 - **Status:** fixed (map-driven Open from D-1274; not a public FAIL)

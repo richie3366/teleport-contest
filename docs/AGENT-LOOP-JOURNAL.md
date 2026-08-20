@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1283 dothrow.c throwit swallowit
+
+**Objective:** Open `dothrow.c` throwit swallowit (named from
+D-1274). Not returning_missile.
+**C locus:** `dothrow.c` `swallowit` `:1468–1475`; `throwit`
+`:1569–1578` before `u.dz`; `:1704–1706`; fail-path `:1751/:1772`.
+**Change:** swallowed throw skips `u.dz`/bhit; `thitmonst(ustuck)`
+then `mpickobj`; AutoReturn fail-catch / fail-to-return swallowit
+not dropy/land. `mpickobj` clears `thrownobj`. Named: slip;
+stamina; steed; boomhit; throw_gold swallow; vanish pline.
+Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session throws
+while swallowed. Next audit @**#1630**.
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mon.c` `meatobj` (named from D-1271). Not meatcorpse.
+**Blocked:** none.
 ## 2026-08-20 — #1625 review D-1279–D-1282 + cadence
 
 **Objective:** audit — C-fidelity reviews **241–244** of JS SHAs

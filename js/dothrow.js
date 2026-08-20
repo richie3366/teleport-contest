@@ -524,8 +524,8 @@ export function special_obj_hits_leader(obj, mon) {
  * WEAPON/weptool/GEM hit-vs-miss (kicked/ammo/thrown/applied) → hmon /
  * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog.
  * Deferred: gem_accept luck/mpickobj; leader catch/return; iron ball /
- * boulder hit; potionhit; swallow vanish body; cutworm; check_shop_obj
- * on mulch; mshot_xname.
+ * boulder hit; potionhit; swallow vanish pline (swallowit D-1283);
+ * cutworm; check_shop_obj on mulch; mshot_xname.
  * @returns {boolean} true if obj was consumed / taken care of
  */
 export async function thitmonst(mon, obj) {
@@ -1188,7 +1188,7 @@ function hitfloor_surface(x, y) {
  * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273);
  * toss_up / throwit u.dz (D-1274).
  * Named omit: ball litter; artifact; finesse_ahriman float_down;
- * throwit swallow / slip / stamina / steed potion.
+ * throwit slip / stamina / steed potion (swallowit is D-1283).
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1494,9 +1494,27 @@ async function return_throw_to_inv(obj, wep_mask, twoweap, oldslot) {
 }
 
 /**
+ * C dothrow.c swallowit — ingested by u.ustuck. mpickobj clears
+ * thrownobj (steal.c); throwit_return(FALSE). uball: throwit_return(TRUE).
+ */
+async function swallowit(obj) {
+    const u = game.u || {};
+    if (obj !== u.uball) {
+        const stuck = u.ustuck;
+        if (stuck && obj) {
+            const { mpickobj } = await import('./makemon.js');
+            mpickobj(stuck, obj);
+        }
+        throwit_return(false);
+    } else {
+        throwit_return(true);
+    }
+}
+
+/**
  * C dothrow.c throwit returning_missile after bhit (Mjollnir or aklys).
  * Returns true if the object was handled (do not land).
- * Named omit: sho_obj_return_to_u / tmp_at tether; swallowit on fail.
+ * Named omit: sho_obj_return_to_u / tmp_at tether.
  */
 async function throwit_returning_missile(
     obj, wep_mask, twoweap, oldslot, x, y, impaired,
@@ -1504,7 +1522,11 @@ async function throwit_returning_missile(
     if (!game.iflags?.returning_missile) return false;
     if (!rn2(100)) {
         await pline(`${Tobjnam(obj, 'fail')} to return!`);
-        // C swallowit named omit — continue to land at target
+        // C :1772 — fail-to-return while swallowed → swallowit, do not land
+        if (game.u?.uswallow) {
+            await swallowit(obj);
+            return true;
+        }
         return false;
     }
     // sho_obj_return_to_u named omit (display RNG / tmp_at)
@@ -1550,7 +1572,11 @@ async function throwit_returning_missile(
         await finish_losehp_done();
         await finish_maybe_wail();
     }
-    // C swallowit named omit
+    // C :1751 — fail-catch while swallowed → swallowit, not dropy
+    if (game.u?.uswallow) {
+        await swallowit(obj);
+        return true;
+    }
     {
         const { ship_object } = await import('./dokick.js');
         const { dropy } = await import('./do.js');
@@ -1573,9 +1599,10 @@ async function throwit_returning_missile(
  * pickup highdrop hitfloor(TRUE) is D-1273;
  * toss_up / throwit u.dz is D-1274.
  * returning_missile AutoReturn / throwit_return / ceiling + post-flight
- * return-to-hand is D-1282. Named omit: swallowit; slip; stamina drop;
- * steed potionhit; boomhit; sho_obj_return_to_u / tethered tmp_at;
- * objsplit unsplit; killer_xname polish.
+ * return-to-hand is D-1282. swallowit / u.uswallow before u.dz is D-1283.
+ * Named omit: slip; stamina drop; steed potionhit; boomhit;
+ * sho_obj_return_to_u / tethered tmp_at; throw_gold swallow;
+ * thitmonst vanish pline; objsplit unsplit; killer_xname polish.
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
@@ -1586,8 +1613,32 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     game.iflags.returning_missile = AutoReturn(obj, wep_mask) ? obj : null;
     // NOTE: no early return without throwit_return after this point.
 
-    // C throwit: swallow named; then if (u.dz)
-    if (u.dz) {
+    let x = u.ux | 0;
+    let y = u.uy | 0;
+    let hitmon = null;
+
+    // C throwit :1569 — swallowed before u.dz / boomhit / bhit
+    if (u.uswallow) {
+        if (obj === u.uball) {
+            const chain = u.uchain;
+            const ux = u.ux | 0;
+            const uy = u.uy | 0;
+            if (u.uball) {
+                u.uball.ox = chain ? (chain.ox | 0) : ux;
+                u.uball.oy = chain ? (chain.oy | 0) : uy;
+            }
+            if (chain) {
+                chain.ox = ux;
+                chain.oy = uy;
+            }
+        }
+        hitmon = u.ustuck || null;
+        if (hitmon) {
+            x = hitmon.mx | 0;
+            y = hitmon.my | 0;
+        }
+        // tethered tmp_at named omit (display RNG)
+    } else if (u.dz) {
         if ((u.dz | 0) < 0
             && game.iflags.returning_missile
             && !impaired) {
@@ -1604,6 +1655,8 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         throwit_return(true);
         return;
     }
+
+    if (!u.uswallow) {
     // C boomhit named omit — after that path C clears returning_missile
     if ((obj.otyp | 0) === BOOMERANG && !u.uinwater) {
         game.iflags.returning_missile = null;
@@ -1641,9 +1694,6 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             `You aren't wielding ${an(skillName)}, so you throw your ${descr} by hand.`,
         );
     }
-    let x = u.ux;
-    let y = u.uy;
-    let hitmon = null;
     let point_blank = true;
     while (range-- > 0) {
         const nx = x + dx;
@@ -1682,18 +1732,35 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             break;
         }
     }
+    } // !uswallow: boomhit skip + bhit
     if (hitmon) {
         if (await thitmonst(hitmon, obj)) {
+            // C throwit_mon_hit: obj_gone clears gt.thrownobj
+            game.thrownobj = null;
             throwit_return(false);
             return;
         }
         // miss / not consumed — fall through to place at mon cell
-        x = hitmon.mx;
-        y = hitmon.my;
+        x = hitmon.mx | 0;
+        y = hitmon.my | 0;
+    }
+    if (!game.thrownobj) {
+        throwit_return(false);
+        return;
+    }
+    // C :1704 — swallowed and not AutoReturn → engulfer inventory
+    if (u.uswallow && !game.iflags.returning_missile) {
+        await swallowit(obj);
+        return;
     }
     if (await throwit_returning_missile(
         obj, wep_mask, twoweap, oldslot, x, y, impaired,
     )) {
+        return;
+    }
+    // C :1772 — fail-to-return while still swallowed does not land
+    if (u.uswallow) {
+        await swallowit(obj);
         return;
     }
     const loc = game.level?.at?.(x, y);

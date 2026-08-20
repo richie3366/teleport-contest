@@ -5,16 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1282 throwit returning_missile
+- **Fortress 44/44** after D-1283 throwit swallowit
   (cadence **#1625** `7d61ee8b`; reviews **241–244**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` throwit
-  swallowit (named from D-1274). Not returning_missile. Do not skip
-  D-1282…D-1229. Do not pull skipdrin / pit kick / missmu /
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mon.c` `meatobj`
+  (named from D-1271). Not meatcorpse. Do not skip
+  D-1283…D-1229. Do not pull skipdrin / pit kick / missmu /
   MEAT_RING / seemimic / next_boulder / slip / stamina / steed
-  potion / wizterrainwish traps / meatobj / meatcorpse /
+  potion / wizterrainwish traps / meatcorpse /
   DRAWBRIDGE_UP ice. Do not wrap `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1282. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1283. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1282.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1283.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,9 +37,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1282 (index). Named still: skipdrin / pit
-  kick; missmu; MEAT_RING; meatobj / meatcorpse; throwit swallow /
-  slip / stamina / steed; next_boulder. No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1283 (index). Named still: skipdrin / pit
+  kick; missmu; MEAT_RING; meatobj / meatcorpse; throwit slip /
+  stamina / steed; next_boulder. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -49,9 +49,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1283: throwit swallowit — `u.uswallow` before `u.dz`;
+  `mpickobj(ustuck)`; fail-path swallowit. slip / stamina / steed /
+  boomhit / throw_gold swallow / vanish pline named.
 - D-1282: throwit returning_missile — AutoReturn / throwit_return /
-  ceiling-return / post-bhit `rn2(100)` addinv+setuwep. swallowit
-  / boomhit / `sho_obj_return_to_u` named.
+  ceiling-return / post-bhit `rn2(100)` addinv+setuwep. **swallowit
+  D-1283**. boomhit / `sho_obj_return_to_u` named.
 - D-1281: `moverock_core` Blind unseen feel before next_boulder /
   nopick. JS `remembered_glyph.boulder`. next_boulder named.
 - D-1280: `maketrap` PIT/HOLE `set_levltyp`. DRAWBRIDGE_UP ice /
@@ -66,10 +69,9 @@ Objective/score live in `CURRENT.md`.
 - D-1275: `display_self` U_AP_TYPE glyphs. find_trap / seemimic
   named.
 - D-1274: `toss_up` + throwit `u.dz`. **returning_missile D-1282**.
-  swallowit / slip / stamina / steed named.
+  **swallowit D-1283**. slip / stamina / steed named.
 - D-1273: `tipcontainer` highdrop `hitfloor(TRUE)`.
 - D-1272: `hold_another_object` `hitfloor(FALSE)`.
 - D-1271: `meatmetal`. meatobj / meatcorpse named.
 - D-1270: hero `test_move` IRONBARS `passes_bars`.
 - D-1269: `digactualhole` PIT/HOLE `switch_terrain`.
-- D-1268: `spoteffects` dest-typ `switch_terrain`.
