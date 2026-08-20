@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1322 objnam.c doname W_WEP !mrg_to_wielded + AKLYS tethered
+
+**Objective:** Must-fix `objnam.c` doname W_WEP `!mrg_to_wielded`
++ AKLYS `"tethered to"` (review **283**). Not warn_obj.
+**C locus:** `objnam.c` `doname_base` W_WEP `:1561` conjunct +
+`:1563` / `:1591–1595` 3-arm ConcatF2; `pickup.c:1881` flag.
+**Change:** restore live `!game.mrg_to_wielded` on the rewritten
+if; `otyp==AKLYS` `"tethered to"` before twoweap/`weapon in`.
+warn_obj / `artifact_light` still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1680**.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled none (D-1321 archive already `b7a0c3c7`).
+**Next:** Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt
+(named from D-1311). Not throwit tether.
+**Blocked:** none.
 ## 2026-08-21 — #1675 review D-1319–D-1321 + cadence
 
 **Objective:** audit — C-fidelity reviews **281–283** of JS SHAs

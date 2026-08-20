@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1321; cadence **#1675** `b7a0c3c7`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
-  **281–282** ACCEPT-WITH-DEBT; **283** QUALITY-RISK. Next:
-  Must-fix W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"`. Not
-  zap bhit. Do not skip D-1321…D-1229. Do not pull gazemu /
-  explmu / AT_HUGS / mhitu AD_DRIN / thitmonst vanish / dokick
-  snuff. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1321. Review **283** Must-fix is the
-  rewritten W_WEP if, not a named omit.
+- **Fortress 44/44** after D-1322; cadence **#1675** `b7a0c3c7`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Review **283**
+  closed. Next: Open `zap.c` bhit THROWN_TETHERED_WEAPON /
+  isqrt (named from D-1311). Not throwit tether. Not warn_obj.
+  Do not skip D-1322…D-1229. Do not pull gazemu / explmu /
+  AT_HUGS / mhitu AD_DRIN / thitmonst vanish / dokick snuff.
+  Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1322. warn_obj / `artifact_light` `)`
+  rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1321.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1322.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1321 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1322 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; AT_ENGL gulps/lunges; zap bhit tether/isqrt.
   No ALIGN/FORCE on seed0383.
@@ -50,9 +50,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1322: `objnam.c` doname W_WEP `:1561` `!mrg_to_wielded` +
+  `:1591–1595` AKLYS `"tethered to"` (review **283**). Pickup
+  `pickup_prinv` flag already live. **warn_obj named**.
 - D-1321: `objnam.c` doname W_WEP `:1578–1595` `body_part(HAND)` +
   bimanual `makeplural` / URIGHTY; SWAPWEP `:1616`; RING `:1499`.
-  Late-bind (objnam↔polyself). **AKLYS tether / warn_obj named**.
+  Late-bind (objnam↔polyself).
 - D-1320: `objnam.c` doname POTION POT_OIL `:1488–1491` `lamplit`
   Concat `" (lit)"` (no known gate). xname bare.
 - D-1319: LEASH `:1431–1445` after worn; `find_mid(FM_FMON)` skip-dead

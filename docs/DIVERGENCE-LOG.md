@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1322 — `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"`
+
+- **Status:** fixed (Must-fix review **283**; not a public FAIL)
+- **Symptom:** D-1321 rewrote `doname_base` W_WEP but dropped C's
+  `!gm.mrg_to_wielded` conjunct and the ConcatF2 `"tethered to"`
+  arm. Pickup merge into `uwep` still printed `(wielded)` /
+  `(weapon in …)`; a wielded aklys said `(weapon in right hand)`
+  instead of `(tethered to right hand)` (or poly `paw`).
+- **C locus:** `objnam.c` `doname_base` W_WEP `:1561`
+  `(obj->owornmask & W_WEP) && !gm.mrg_to_wielded`; `:1562–1563`
+  `twoweap_primary` / `tethered = (obj->otyp == AKLYS)`;
+  `:1591–1595` ConcatF2 `" (%s %s)"` how =
+  `tethered ? "tethered to" : twoweap_primary ? "wielded in"
+  : "weapon in"`. Callers: invent `prinv`/`xprname`.
+  `pickup.c:1881–1886` sets `gm.mrg_to_wielded` around
+  `pickup_prinv` when `uwep==obj` after merge. `xname` stays bare.
+- **JS was:** `owornmask & W_WEP` only; 2-arm how-string
+  (`wielded in` / `weapon in`). `game.mrg_to_wielded` already
+  set/cleared in `pickup.js` (review **11**). `body_part(HAND)`
+  live (D-1321).
+- **Fix:** restore `!game.mrg_to_wielded` on the same if; 3-arm
+  how-string with `otyp==AKLYS` first. Did not pull warn_obj /
+  `artifact_light` closing-paren rewrite (`:1599–1609`). Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `doname`. Pickup flag unchanged.
+- **Not this iter:** warn_obj / `artifact_light` `)` rewrite;
+  `zap.c` bhit `THROWN_TETHERED_WEAPON` / isqrt.
+- **Verified:** private canary **21**/21 (C conjunct+ternary;
+  JS guard+how-arm; pickup flag; aklys humanoid/wolf/twoweap
+  first-arm; stack `(wielded)`; `mrg_to_wielded` omits suffix;
+  SWAPWEP / xname / POT_OIL `(lit)(wielded)` regression;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session `doname`s a wielded aklys or merge-to-uwep.
+- **Follow-up:** Open `zap.c` bhit THROWN_TETHERED_WEAPON /
+  isqrt (named from D-1311).
+- **Files:** `js/objnam.js`.
+
 ## D-1321 — `objnam.c` doname W_WEP `body_part(HAND)` poly
 
 - **Status:** fixed (map-driven Open from D-1295; not a public FAIL)

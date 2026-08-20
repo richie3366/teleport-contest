@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
+- [x] `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"` (C `:1561–1595`; this SHA rewrote the if). Source: reviews/loop-unattended/283-b7a0c3c7-doname-wep-body-part.md. Not warn_obj. **Addressed:** D-1322
+
+
 - [x] `objnam.c` doname W_WEP `body_part(HAND)` poly (named from D-1295). Not MEAT_RING. **Addressed:** D-1321 `b7a0c3c7`
 
 

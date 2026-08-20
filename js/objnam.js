@@ -48,6 +48,7 @@ import {
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const BOULDER = objectNames.indexOf('BOULDER');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+const AKLYS = objectNames.indexOf('AKLYS');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky u.Blind). */
 function Blind() {
@@ -1819,12 +1820,15 @@ export function doname(obj) {
     if (obj.owornmask & (W_BALL | W_CHAIN)) {
         bp += ` (${(obj.owornmask & W_BALL) ? 'chained' : 'attached'} to you)`;
     }
-    // C ref: objnam.c doname_base W_WEP (objnam.c:1561–1611) — stack/ammo/
-    // missile/non-weptool → "(wielded)"; else ConcatF2 " (%s %s)" with
-    // body_part(HAND) (bimanual makeplural; else URIGHTY right/left).
-    // mrg_to_wielded, AKLYS tethered, warn_obj/artifact_light rewrite named.
-    if (obj.owornmask & W_WEP) {
+    // C ref: objnam.c doname_base W_WEP (objnam.c:1561–1595) — skip when
+    // gm.mrg_to_wielded (pickup.c pickup_prinv merge into uwep). Stack/ammo/
+    // missile/non-weptool → "(wielded)"; else ConcatF2 " (%s %s)" how-arm
+    // tethered? "tethered to" : twoweap_primary? "wielded in" : "weapon in"
+    // + body_part(HAND) (bimanual makeplural; else URIGHTY right/left).
+    // Named omit: warn_obj / artifact_light overwrite closing paren :1599–1609.
+    if ((obj.owornmask & W_WEP) && !game.mrg_to_wielded) {
         const twoweap_primary = !!(obj === game.u?.uwep && game.u?.twoweap);
+        const tethered = (obj.otyp | 0) === AKLYS;
         const alt_wielded = (quan !== 1
             || ((oclass === WEAPON_CLASS)
                 ? (is_ammo_obj(obj) || is_missile_obj(obj))
@@ -1840,7 +1844,9 @@ export function doname(obj) {
                 const urighty = ((game.u?.uhandedness | 0) === RIGHT_HANDED);
                 hand_s = `${urighty ? 'right' : 'left'} ${hand_s}`;
             }
-            const how = twoweap_primary ? 'wielded in' : 'weapon in';
+            const how = tethered ? 'tethered to'
+                : twoweap_primary ? 'wielded in'
+                    : 'weapon in';
             bp += ` (${how} ${hand_s})`;
         }
     }
