@@ -282,3 +282,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [270-2b9c2c6a-doname-candle-lit.md](./270-2b9c2c6a-doname-candle-lit.md) | `2b9c2c6a` | D-1308 candle `partly used` / lamp `(lit)` | **ACCEPT-WITH-DEBT** |
 | [271-07ac10e0-mattacku-at-tent.md](./271-07ac10e0-mattacku-at-tent.md) | `07ac10e0` | D-1309 `mattacku` AT_TENT melee | **ACCEPT-WITH-DEBT** |
 | [272-734449dc-kick-monster-poly-at-kick.md](./272-734449dc-kick-monster-poly-at-kick.md) | `734449dc` | D-1310 `kick_monster` poly AT_KICK | **ACCEPT-WITH-DEBT** |
+| [273-3633eb61-throwit-tether-backtrack.md](./273-3633eb61-throwit-tether-backtrack.md) | `3633eb61` | D-1311 throwit DISP_TETHER / BACKTRACK | **ACCEPT-WITH-DEBT** |
+| [274-77606a78-thitmonst-leader-catch.md](./274-77606a78-thitmonst-leader-catch.md) | `77606a78` | D-1312 thitmonst leader catch / `finish_quest` | **ACCEPT-WITH-DEBT** |
+| [275-27751021-throwit-mon-hit-snuff.md](./275-27751021-throwit-mon-hit-snuff.md) | `27751021` | D-1313 `throwit_mon_hit` snuff / `hot_pursuit` | **QUALITY-RISK** |
+| [276-a1d48196-m-respond.md](./276-a1d48196-m-respond.md) | `a1d48196` | D-1314 `mon.c` `m_respond` | **ACCEPT-WITH-DEBT** |

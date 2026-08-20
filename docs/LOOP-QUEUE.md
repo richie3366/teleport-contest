@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `dothrow.c` throwit must call `throwit_mon_hit` (not `thitmonst`) after bhit/swallow so `snuff_candle` and shk `hot_pursuit` fire. Source: reviews/loop-unattended/275-27751021-throwit-mon-hit-snuff.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dothrow.c` throwit ACURRSTR urange (named). Not tether.

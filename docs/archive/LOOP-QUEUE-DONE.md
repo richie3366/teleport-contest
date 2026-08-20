@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `mon.c` m_respond (named from D-1301). Not snuff_candle. **Addressed:** D-1314
+- [x] `mon.c` m_respond (named from D-1301). Not snuff_candle. **Addressed:** D-1314 `a1d48196`
 
 
 - [x] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond. **Addressed:** D-1313 `27751021`

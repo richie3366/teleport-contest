@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-20** — full `sessions` at review **#1660**
-HEAD `734449dc` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1665**.
+Score last measured: **2026-08-20** — full `sessions` at review **#1665**
+HEAD `a1d48196` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.32/turn` (R² 0.85). Next audit (review + score) @**#1670**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1665**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.30/turn` (R² 0.85) |
+| Speed label | `37+0.32/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,10 +59,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1314. Reviews **269–272** all
-**ACCEPT-WITH-DEBT** (no Must-fix).
+**Map-driven fortress** after D-1314. Reviews **273–276**:
+**273/274/276** ACCEPT-WITH-DEBT; **275** QUALITY-RISK.
 **Next cluster:**
-Open `dothrow.c` throwit ACURRSTR urange (named). Not tether.
+Must-fix `dothrow.c` throwit → `throwit_mon_hit` (not
+`thitmonst`) so snuff/`hot_pursuit` fire. Source: review **275**.
+Not ACURRSTR urange until Must-fix is empty.
 Do not skip D-1314…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN /

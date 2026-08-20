@@ -6,9 +6,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1314 `mon.c` `m_respond` (cadence
-  **#1660** `734449dc`; reviews **269–272** ACCEPT-WITH-DEBT, no
-  Must-fix). Next: Open `dothrow.c` throwit ACURRSTR urange (named).
-  Not tether. Do not skip D-1314…D-1229. Do not pull gazemu /
+  **#1665** `a1d48196`; reviews **273/274/276** ACCEPT-WITH-DEBT,
+  **275** QUALITY-RISK). Next: Must-fix throwit → `throwit_mon_hit`
+  (not `thitmonst`) so snuff/`hot_pursuit` fire. Not ACURRSTR
+  urange. Do not skip D-1314…D-1229. Do not pull gazemu /
   explmu / AT_HUGS / mhitu AD_DRIN / candelabrum / zap bhit
   `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline /
   dokick snuff_candle.
