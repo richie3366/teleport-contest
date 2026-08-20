@@ -65,7 +65,7 @@ import {
 import {
     xname, singular, an, the, vtense, doname, thesimpleoname, makeplural,
 } from './objnam.js';
-import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear } from './mon.js';
+import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond } from './mon.js';
 import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
@@ -1851,7 +1851,7 @@ function closed_door_boom(x, y) {
 
 /**
  * C dothrow.c throwit_mon_hit — snuff_candle, thitmonst, shk hot_pursuit.
- * Callers: throwit, boomhit. Named omit: m_respond (boomhit).
+ * Callers: throwit, boomhit. boomhit m_respond is D-1314.
  * apply.js imports thitmonst — snuff_candle is a dynamic import.
  */
 export async function throwit_mon_hit(obj, mon) {
@@ -1885,7 +1885,7 @@ export async function throwit_mon_hit(obj, mon) {
 
 /**
  * C zap.c boomhit — thrown boomerang 10-step curve (not linear bhit).
- * m_respond shrieker/Medusa/Erinys named omit. Soundeffect named.
+ * m_respond D-1314. Soundeffect named.
  */
 export async function boomhit(obj, dx, dy) {
     const u = game.u || {};
@@ -1912,7 +1912,7 @@ export async function boomhit(obj, dx, dy) {
         }
         const mtmp = m_at(game.bhitpos.x, game.bhitpos.y);
         if (mtmp) {
-            // C mon.c m_respond — shrieker / Medusa / Erinys named omit
+            await m_respond(mtmp);
             const oldHits = nhits;
             nhits = oldHits - 1;
             if (oldHits < 0) {
@@ -1977,7 +1977,7 @@ export async function boomhit(obj, dx, dy) {
  * sho_obj_return_to_u (D-1303). tethered DISP_TETHER/BACKTRACK (D-1311).
  * thitmonst leader catch / finish_quest (D-1312).
  * Named omit: thitmonst vanish
- * pline; objsplit unsplit; killer_xname polish; m_respond;
+ * pline; objsplit unsplit; killer_xname polish;
  * THROWN_TETHERED_WEAPON zap bhit / isqrt range (ACURRSTR urange Open).
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {

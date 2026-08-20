@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond. **Addressed:** D-1313
+- [x] `mon.c` m_respond (named from D-1301). Not snuff_candle. **Addressed:** D-1314
+
+
+- [x] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond. **Addressed:** D-1313 `27751021`
 
 
 - [x] `dothrow.c` thitmonst leader catch / finish_quest (named). Not vanish pline. **Addressed:** D-1312 `77606a78`

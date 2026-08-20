@@ -74,7 +74,7 @@ import {
     MR_POISON, MR_ACID, is_undead, is_vampshifter, monsterNames, mons,
     G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond } from './mon.js';
 import { find_mac, monkilled } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
@@ -100,7 +100,7 @@ import { newcham, makemon, monhp_per_lvl, neweshk, add_to_minv } from './makemon
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize } from './polyself.js';
-import { costly_alteration, stolen_value, costly_spot, shop_keeper } from './shk.js';
+import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish } from './read.js';
@@ -3039,6 +3039,11 @@ export async function bhitm(mtmp, otmp) {
 
     if (wake && (mtmp.mhp | 0) > 0) {
         await wakeup(mtmp, helpful_gesture ? false : true);
+        await m_respond(mtmp);
+        // C zap.c bhitm: isshk && !*u.ushops → hot_pursuit
+        if (mtmp.isshk && !((game.u?.ushops || '')[0])) {
+            hot_pursuit(mtmp);
+        }
     }
     void reveal_invis;
     if (learn_it) learnwand(otmp);

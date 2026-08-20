@@ -59,30 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1313. Reviews **269–272** all
+**Map-driven fortress** after D-1314. Reviews **269–272** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `mon.c` m_respond (named from D-1301). Not snuff_candle.
-Do not skip D-1313…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` throwit ACURRSTR urange (named). Not tether.
+Do not skip D-1314…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull explmu / AT_HUGS / mhitu AD_DRIN / candelabrum n-of-7 /
-throwit ACURRSTR urange / zap bhit `THROWN_TETHERED_WEAPON` isqrt /
-thitmonst vanish pline.
+Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN /
+candelabrum n-of-7 / zap bhit `THROWN_TETHERED_WEAPON` isqrt /
+thitmonst vanish pline / dokick snuff_candle.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1313.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1314.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1313 (index). Recent: **D-1313** `dothrow.c`
-throwit_mon_hit `snuff_candle` / `hot_pursuit`. Prior: **D-1312**
-`dothrow.c` thitmonst leader catch / `finish_quest`. D-1311 `dothrow.c`
-throwit tethered DISP_TETHER/BACKTRACK. D-1310 `dokick.c`
-`kick_monster` poly AT_KICK. D-1309 `mhitu.c` `mattacku`
-AT_TENT melee; D-1308 candle `partly used` / lamp `(lit)`; D-1307
-uhitm helmet / `m_slips_free`; D-1306 eat_brains; D-1305 mswings
-`pline_mon`; D-1304 secret corridor.
+**Keep:** D-0845…D-1314 (index). Recent: **D-1314** `mon.c` `m_respond`.
+Prior: **D-1313** `dothrow.c` throwit_mon_hit `snuff_candle` /
+`hot_pursuit`. D-1312 `dothrow.c` thitmonst leader catch /
+`finish_quest`. D-1311 `dothrow.c` throwit tethered
+DISP_TETHER/BACKTRACK. D-1310 `dokick.c` `kick_monster` poly AT_KICK.
+D-1309 `mhitu.c` `mattacku` AT_TENT melee; D-1308 candle `partly used`
+/ lamp `(lit)`; D-1307 uhitm helmet / `m_slips_free`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1313
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1314
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

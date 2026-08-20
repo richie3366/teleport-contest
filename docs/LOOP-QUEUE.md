@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` m_respond (named from D-1301). Not snuff_candle.
 - [ ] `dothrow.c` throwit ACURRSTR urange (named). Not tether.
 - [ ] `objnam.c` doname CANDELABRUM (n of 7) (named from D-1308). Not candle.
 - [ ] `objnam.c` doname TOOL W_TOOL|W_SADDLE worn (named from D-1308). Not candle.

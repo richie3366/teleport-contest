@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1314 mon.c m_respond
+
+**Objective:** Open `mon.c` m_respond (named from D-1301). Not
+snuff_candle.
+**C locus:** `mon.c` `m_respond` `:4120–4131` + shrieker/medusa
+helpers; callers `dochug` / boomhit / `bhitm`.
+**Change:** adjacent `MS_SHRIEK` shriek + 1/10 summon + always
+`aggravate`; Medusa `couldsee` AT_GAZE walk (**gazemu named**);
+hostile Erinys `m_canseeu` `aggravate`; `bhitm` `!*ushops`
+`hot_pursuit`. Compare mndx. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1665**.
+**Verified:** canary **14**/14; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1313 archive hash `27751021`.
+**Next:** Open `dothrow.c` throwit ACURRSTR urange (named). Not tether.
+**Blocked:** none.
 ## 2026-08-20 — D-1313 dothrow.c throwit_mon_hit snuff_candle / hot_pursuit
 
 **Objective:** Open `dothrow.c` throwit_mon_hit snuff_candle /

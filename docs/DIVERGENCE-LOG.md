@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1314 — mon.c m_respond
+
+- **Status:** fixed (map-driven Open from D-1301; not a public FAIL)
+- **Symptom:** an adjacent shrieker did not shriek/`aggravate` (or roll
+  the 1/10 summon), a visible Medusa skipped the AT_GAZE slot walk,
+  and a hostile Erinys who could see the hero did not wake the
+  level. `dochug` / boomhit / `bhitm` omitted the C call.
+- **C locus:** `mon.c` `m_respond` `:4120–4131` + helpers
+  `m_respond_shrieker` `:4088–4105` / `m_respond_medusa` `:4109–4118`.
+  Callers `monmove.c` `dochug` `:753–755` (`DEADMONSTER` → return 1);
+  `zap.c` `boomhit` `:4188`; `zap.c` `bhitm` `:552–557` after
+  `wakeup`, then `isshk && !*u.ushops` → `hot_pursuit`.
+- **JS was:** named omit (D-1301 / D-1313). Independent C `if`s, not
+  else-if. Compare **mndx**, not `mons()` identity (D-0928).
+- **Fix:** shrieker `!um_dist(1)`: `!Deaf` pline + `stop_occupation`;
+  `!rn2(10)` then `rn2(13)?NULL:purple/baby` via
+  `montoostrong(PM_PURPLE_WORM, monmax_difficulty_lev())`;
+  `makemon(0,0,NO_MM_FLAGS)` + appear-msg (C in-body, D-0559); always
+  `aggravate`. Medusa `couldsee` first `AT_GAZE` (**gazemu named**).
+  Hostile Erinys `m_canseeu` `aggravate`. Dynamic `wizard.js` import
+  (cycle: wizard imports `mnexto` from `mon.js`). Rule #2: no fs.
+- **JS:** `js/mon.js` `m_respond`; `js/monmove.js` `dochug`;
+  `js/dothrow.js` `boomhit`; `js/zap.js` `bhitm`.
+- **Not this iter:** `gazemu` (`mhitu.c`); `qst_guardians_respond` /
+  `peacefuls_respond`; explmu / AT_HUGS; ACURRSTR urange; zap bhit
+  `THROWN_TETHERED_WEAPON` / isqrt; thitmonst vanish pline; dokick
+  `snuff_candle`.
+- **Verified:** private canary **14**/14 (C/JS shape; far shrieker no
+  RNG; adjacent shriek+`rn2(10)`+aggravate; Deaf skip pline; goblin
+  no-op; Erinys peaceful/`!couldsee` skip; hostile Erinys wake;
+  Medusa no Hallu `rn2(4)`; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has adjacent `MS_SHRIEK` / visible
+  Medusa / hostile seeing Erinys.
+- **Follow-up:** Open `dothrow.c` throwit ACURRSTR urange (named).
+- **Files:** `js/mon.js`, `js/monmove.js`, `js/dothrow.js`, `js/zap.js`.
+
 ## D-1313 — dothrow.c throwit_mon_hit snuff_candle / hot_pursuit
 
 - **Status:** fixed (map-driven Open from D-1301; not a public FAIL)
