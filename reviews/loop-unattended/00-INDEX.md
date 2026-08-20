@@ -246,3 +246,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [234-175707ca-hold-another-object.md](./234-175707ca-hold-another-object.md) | `175707ca` | D-1272 `hold_another_object` `hitfloor(FALSE)` | **ACCEPT-WITH-DEBT** |
 | [235-2a6bf680-tipcontainer-highdrop.md](./235-2a6bf680-tipcontainer-highdrop.md) | `2a6bf680` | D-1273 `tipcontainer` highdrop `hitfloor(TRUE)` | **ACCEPT-WITH-DEBT** |
 | [236-b166de10-toss-up.md](./236-b166de10-toss-up.md) | `b166de10` | D-1274 `toss_up` + throwit `u.dz` | **ACCEPT-WITH-DEBT** |
+| [237-18bec04d-display-self.md](./237-18bec04d-display-self.md) | `18bec04d` | D-1275 `display_self` U_AP_TYPE glyphs | **ACCEPT-WITH-DEBT** |
+| [238-2860794e-doname-egg.md](./238-2860794e-doname-egg.md) | `2860794e` | D-1276 doname EGG | **ACCEPT-WITH-DEBT** |
+| [239-20c69ccf-hurtle-step.md](./239-20c69ccf-hurtle-step.md) | `20c69ccf` | D-1277 `hurtle_step` dest-typ `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [240-851d3e08-u-on-rndspot.md](./240-851d3e08-u-on-rndspot.md) | `851d3e08` | D-1278 `u_on_rndspot` `switch_terrain` | **ACCEPT-WITH-DEBT** |

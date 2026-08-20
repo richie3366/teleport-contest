@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1620 review D-1275–D-1278 + cadence
+
+**Objective:** audit — C-fidelity reviews **237–240** of JS SHAs
+since `b166de10`, plus full `sessions` score. No `js/` port.
+**C locus:** `display.h` `display_self`; `objnam.c` doname EGG;
+`dothrow.c` `hurtle_step`; `dungeon.c` `u_on_rndspot`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: find_trap/muse/gender/seemimic; MEAT_RING /
+candle; drown/Passes_walls; On_W_tower / sstairs / cmd / wish).
+Filled D-1278 archive hash `851d3e08`. Open 8 (no refill). Rule #2:
+no fs.
+**Score:** cadence **#1620** HEAD `851d3e08` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.849). seed0383 PASS. Next audit @**#1625**.
+**Verified:** `__RESULTS_JSON__` at HEAD `851d3e08`; branch-by-branch
+vs pinned C (`display_self` ternary; EGG `ismnum`+laid; hurtle
+dest-typ after flush; rndspot unconditional after place).
+**Next:** Open `objnam.c` wish `switch_terrain` (named from D-1129).
+Not doname EGG.
+**Blocked:** none.
 ## 2026-08-20 — D-1278 dungeon.c u_on_rndspot switch_terrain
 
 **Objective:** Open `dungeon.c` `u_on_rndspot` `switch_terrain`

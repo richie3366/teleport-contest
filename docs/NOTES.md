@@ -6,8 +6,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1278 `dungeon.c` `u_on_rndspot`
-  after place `switch_terrain` (reviews **233–236** cadence **#1615**
-  `b166de10`). Next: Open `objnam.c` wish `switch_terrain`
+  after place `switch_terrain` (reviews **237–240** cadence **#1620**
+  `851d3e08`). Next: Open `objnam.c` wish `switch_terrain`
   (named from D-1129). Not doname EGG. Do not skip D-1278…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
   explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / MEAT_RING /

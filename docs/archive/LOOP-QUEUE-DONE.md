@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle. **Addressed:** D-1278
+- [x] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle. **Addressed:** D-1278 `851d3e08`
 
 
 - [x] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot. **Addressed:** D-1277 `20c69ccf`

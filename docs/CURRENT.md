@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-20** — full `sessions` at review **#1615**
-HEAD `b166de10` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `35+0.29/turn` (R² 0.853). Next audit (review + score) @**#1620**.
+Score last measured: **2026-08-20** — full `sessions` at review **#1620**
+HEAD `851d3e08` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.849). Next audit (review + score) @**#1625**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `35+0.29/turn` (R² 0.853). Next audit (review + score) @**#1620**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `35+0.29/turn` (R² 0.853) |
+| Speed label | `36+0.30/turn` (R² 0.849) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,7 +59,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1278. Reviews **233–236** all
+**Map-driven fortress** after D-1278. Reviews **237–240** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
 Open `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
