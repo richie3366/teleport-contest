@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `mhitu.c` explmu (named). Not AT_HUGS. **Addressed:** D-1326
+- [x] `mhitu.c` AT_HUGS (named). Not explmu. **Addressed:** D-1327
+
+
+- [x] `mhitu.c` explmu (named). Not AT_HUGS. **Addressed:** D-1326 `9570f32a`
 
 
 - [x] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit. **Addressed:** D-1325 `2cdf2b1f`

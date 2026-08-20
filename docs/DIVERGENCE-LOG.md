@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1327 — mhitu.c mattacku AT_HUGS
+
+- **Status:** fixed (map-driven Open from D-1326; not a public FAIL)
+- **Symptom:** a monster with an `AT_HUGS` slot (owlbear, rope golem,
+  python's PHYS hug) never hugged. C `mattacku` `case AT_HUGS`
+  auto-hits when the previous two attacks succeeded (or the monster
+  already holds `u.ustuck`). JS fell through `default`.
+- **C locus:** `mhitu.c` `mattacku` `:823–830`; `u_slip_free`
+  `:1045–1085`; callee `uhitm.c` `mhitm_ad_phys` mhitu `:4023–4037`.
+  `failed_grab` (`mhitm.c` `:597–639`). Local `sticks` (`mondata.c`).
+- **JS was:** named omit; no `case AT_HUGS`; `mhitm_ad_phys_u` treated
+  hugs as ordinary `hitmsg`; `failed_grab` returned true with no
+  pline.
+- **Fix:** `!range2 && i>=2 && sum[i-1] && sum[i-2]` or `ustuck` then
+  `!failed_grab` → `hitmu`. PHYS hug: `rn2(2)` grab (`set_ustuck` +
+  `pline_mon` `"grabs you!"`) or already-held crush/choke (rope
+  golem); `u_slip_free` greased/oilskin (AT_ENGL never slips).
+  Unsolid/`notonhead` prints C pass-through pline. Rule #2: no fs.
+- **JS:** `js/mhitu.js` `mattacku` `case AT_HUGS`, `u_slip_free`,
+  `mhitm_ad_phys_u` hug arm, `failed_grab` pline.
+- **Not this iter:** gazemu; `mhitm_ad_wrap` AD_WRAP (queue
+  `u_slip_free` AD_WRAP still names the caller); mhitu AD_DRIN;
+  mattackm AT_HUGS; `defended`.
+- **Verified:** private canary **27**/27 (bare/`AT_ENGL` no RNG;
+  greased/oilskin slip; range2 skip; adjacent `rn2(2)` grab; rope
+  golem choke; ustuck+range2 still crushes; unsolid pass-through;
+  `sticks` poly skips grab; i=0 hug without prev skips; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict 1500/1800/
+  0012/0004/0007/2200/0383. **Public-unhit** unless a session is
+  hugged by an owlbear-class monster.
+- **Follow-up:** Open `mhitu.c` gazemu.
+- **Files:** `js/mhitu.js`.
+
 ## D-1326 — mhitu.c explmu + mattacku AT_EXPL
 
 - **Status:** fixed (map-driven Open from D-1309; not a public FAIL)

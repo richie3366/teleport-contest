@@ -47,6 +47,7 @@ import {
     could_seduce, mon_poly, mondead,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
+    AT_HUGS,
     AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
     AD_SITM, AD_SEDU, AD_SSEX, AD_POLY, AD_DRIN,
 } from './mhitm.js';
@@ -71,6 +72,11 @@ const PM_BLACK_LIGHT = monsterNames.indexOf('PM_BLACK_LIGHT');
 const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
+const PM_ROPE_GOLEM = monsterNames.indexOf('PM_ROPE_GOLEM');
+const OILSKIN_CLOAK = objectNames.indexOf('OILSKIN_CLOAK');
+const ROBE = objectNames.indexOf('ROBE');
+const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
+const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
 
 /** C ref: monst.h resists_* — mresists|mextrinsics|mintrinsics bit. */
 function resists_mr(mon, mrBit) {
@@ -94,6 +100,7 @@ const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 const AD_BLND = 11;
 const AD_HALU = 36; /* monattk.h — black-light AT_EXPL */
 const AD_DREN = 16;
+const AD_STCK = 19; /* stick-to (mimic, lichen) — monattk.h */
 const AD_DGST = 26;
 const AD_WRAP = 28;
 const AD_DISE = 33;
@@ -243,8 +250,9 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * mattacku AT_TENT melee is D-1309. explmu is D-1326. Named omit:
- * AT_HUGS; remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
+ * mattacku AT_TENT melee is D-1309. explmu is D-1326. AT_HUGS
+ * grab/crush is D-1327 (hitmsg has no AT_HUGS verb; C default "hits").
+ * Named omit: remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
  * wildmiss set_msg_xy then pline is D-1291. mswings pline_mon
  * is D-1305.
  */
@@ -335,8 +343,8 @@ export async function missmu(mtmp, nearmiss, mattk) {
  * Monnam, then set_msg_xy(mx,my), then pline (not pline_mon;
  * D-1291). nolimbs uses "lunges" like C :210–213.
  * Named omit: Some_Monnam impossible; mattacku AT_ENGL gulps/lunges
- * pline_mon; AT_HUGS. mattacku AT_TENT melee is D-1309. explmu
- * is D-1326.
+ * pline_mon. mattacku AT_TENT melee is D-1309. explmu is D-1326.
+ * AT_HUGS grab/crush is D-1327.
  * mswings pline_mon is D-1305.
  */
 export async function wildmiss(mtmp, mattk) {
@@ -596,10 +604,33 @@ async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_phys mhitu branch — bare hitmsg or weapon+dmgval.
- * Hugs / corpse / silver / poison / pudding clone deferred.
+ * C ref: uhitm.c mhitm_ad_phys mhitu branch (mdef == youmonst).
+ * AT_HUGS + !sticks(youmonst): rn2(2) grab / already-ustuck crush
+ * (D-1327). Weapon / non-hug hitmsg path otherwise.
+ * Corpse / silver / poison / pudding clone deferred.
  */
 async function mhitm_ad_phys_u(mtmp, mattk, mhm) {
+    const pd = game.youmonst?.data;
+    // C uhitm.c mhitm_ad_phys `:4023–4037` — hug grab/crush before wep.
+    if ((mattk.aatyp | 0) === AT_HUGS && !sticks(pd)) {
+        const u = game.u || {};
+        if (!u.ustuck && rn2(2)) {
+            if (await u_slip_free(mtmp, mattk)) {
+                mhm.damage = 0;
+                mhm.hitflags |= M_ATTK_MISS;
+            } else {
+                set_ustuck(mtmp);
+                await pline_mon(mtmp, `${Monnam(mtmp)} grabs you!`);
+                mhm.hitflags |= M_ATTK_HIT;
+            }
+        } else if (u.ustuck === mtmp) {
+            exercise(A_STR, false);
+            const n = mtmp.data?.mndx ?? mtmp.mnum;
+            const how = n === PM_ROPE_GOLEM ? 'choked' : 'crushed';
+            await pline(`You are being ${how}.`);
+        }
+        return;
+    }
     const otmp = MON_WEP(mtmp);
     if (mattk.aatyp === AT_WEAP && otmp) {
         mhm.damage += dmgval(otmp, null);
@@ -780,18 +811,98 @@ function engulf_target(magr, mdefIsHero) {
 }
 
 /**
- * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
- * Named omission: pline feedback when grab passes through.
+ * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
+ * Local clone (C AT_HUGS=7 / AT_ENGL=11). Do not import monmove.js sticks.
  */
-function failed_grab(_magr, mattk) {
+function attacktype_aatyp(ptr, aatyp) {
+    const at = aatyp | 0;
+    return !!(ptr?.mattk || []).some((a) => (a.aatyp | 0) === at);
+}
+function sticks(ptr) {
+    return dmgtype(ptr, AD_STCK)
+        || (dmgtype(ptr, AD_WRAP) && !attacktype_aatyp(ptr, AT_ENGL))
+        || attacktype_aatyp(ptr, AT_HUGS);
+}
+
+/**
+ * C ref: objnam.c cloak_simple_name `:5492–5509`.
+ * u_slip_free uses this for undiscovered oilskin (not "slippery cloak").
+ */
+function cloak_simple_name(cloak) {
+    if (cloak) {
+        const t = cloak.otyp | 0;
+        if (t === ROBE) return 'robe';
+        if (t === MUMMY_WRAPPING) return 'wrapping';
+        if (t === ALCHEMY_SMOCK) {
+            const ocl = game.objects?.[t];
+            return (ocl?.oc_name_known && cloak.dknown) ? 'smock' : 'apron';
+        }
+    }
+    return 'cloak';
+}
+
+/**
+ * C ref: mhitu.c u_slip_free `:1045–1085` — greased/oilskin clothing
+ * slips a hug or wrap. AT_ENGL never slips. AD_DRIN looks at uarmh;
+ * other attacks walk cloak then suit then shirt. AD_WRAP caller
+ * (mhitm_ad_wrap) still named.
+ */
+export async function u_slip_free(mtmp, mattk) {
+    if ((mattk?.aatyp | 0) === AT_ENGL) return false;
+    const u = game.u || {};
+    let obj = u.uarmc ? u.uarmc : u.uarm;
+    if (!obj) obj = u.uarmu;
+    if ((mattk?.adtyp | 0) === AD_DRIN) obj = u.uarmh;
+    if (obj && (obj.greased || (obj.otyp | 0) === OILSKIN_CLOAK)
+        && (!obj.cursed || rn2(3))) {
+        const verb = (mattk.adtyp | 0) === AD_WRAP
+            ? 'slips off of'
+            : 'grabs you, but cannot hold onto';
+        const greasy = obj.greased ? 'greased' : 'slippery';
+        const ocl = game.objects?.[obj.otyp | 0];
+        const what = (obj.greased || ocl?.oc_name_known)
+            ? xname(obj)
+            : cloak_simple_name(obj);
+        await pline_mon(mtmp, `${Monnam(mtmp)} ${verb} your ${greasy} ${what}!`);
+        if (obj.greased && !rn2(2)) {
+            await pline('The grease wears off.');
+            obj.greased = 0;
+            const { update_inventory } = await import('./invent.js');
+            update_inventory();
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
+ * mhitu mdef is always youmonst; magr is the monster.
+ */
+async function failed_grab(magr, mattk) {
     const youdat = game.youmonst?.data;
     if (!(unsolid(youdat) || game.notonhead)
-        || !((mattk.aatyp | 0) === 7 /* AT_HUGS */
+        || !((mattk.aatyp | 0) === AT_HUGS
             || (mattk.adtyp | 0) === AD_WRAP
-            || (mattk.adtyp | 0) === 19 /* AD_STCK */
+            || (mattk.adtyp | 0) === AD_STCK
             || (mattk.adtyp | 0) === AD_DGST)) {
         return false;
     }
+    const verb = (mattk.adtyp | 0) === AD_DGST ? 'gulp'
+        : (mattk.adtyp | 0) === AD_STCK ? 'adhere' : 'grab';
+    const magrnam = s_suffix_hitmsg(Monnam(magr));
+    let mdefnam;
+    if (!game.notonhead) {
+        mdefnam = 'you';
+    } else {
+        /* C some_mon_nam(mdef); named omit — s_suffix(mon_nam) stand-in. */
+        mdefnam = `${s_suffix_hitmsg(mon_nam(game.youmonst))} tail`;
+    }
+    await pline(
+        `${magrnam} ${verb} attempt ${
+            game.notonhead ? 'fails to hold' : 'passes right through'
+        } ${mdefnam}!`,
+    );
     return true;
 }
 
@@ -829,9 +940,9 @@ export async function unstuck(mtmp) {
         await docrt();
     }
     if (!(mtmp.mspec_used | 0)
-        && (dmgtype(ptr, 19 /* AD_STCK */)
-            || (ptr?.mattk || []).some((a) => (a.aatyp | 0) === AT_ENGL)
-            || (ptr?.mattk || []).some((a) => (a.aatyp | 0) === 7 /* AT_HUGS */))) {
+        && (dmgtype(ptr, AD_STCK)
+            || attacktype_aatyp(ptr, AT_ENGL)
+            || attacktype_aatyp(ptr, AT_HUGS))) {
         mtmp.mspec_used = rnd(2);
     }
 }
@@ -882,7 +993,7 @@ async function gulpmu(mtmp, mattk) {
 
     if (!(u.uswallow | 0)) {
         if (!engulf_target(mtmp, true)) return M_ATTK_MISS;
-        if (failed_grab(mtmp, mattk)) return M_ATTK_MISS;
+        if (await failed_grab(mtmp, mattk)) return M_ATTK_MISS;
 
         mtmp.mtrapped = 0;
         mtmp.mx = u.ux | 0;
@@ -1582,7 +1693,7 @@ async function summonmu(mtmp, youseeit) {
  * face. Caller mattacku AT_EXPL when !range2 (:839–842).
  * Named omit: defended(mtmp, adtyp) exploder artifact/dragon scales
  * (no RNG; AT_EXPL spheres/lights never qualify);
- * resists_blnd_by_arti; gazemu; AT_HUGS; mhitm explmm.
+ * resists_blnd_by_arti; gazemu; mhitm explmm.
  */
 export async function explmu(mtmp, mattk, ufound) {
     if (!mtmp) return M_ATTK_MISS;
@@ -1672,7 +1783,8 @@ export async function explmu(mtmp, mattk, ufound) {
 /**
  * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit
  * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_EXPL explmu
- * (D-1326); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC. Gaze/hugs deferred.
+ * (D-1326); AT_HUGS grab/crush (D-1327); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC.
+ * Gaze deferred.
  * Returns 1 if monster died.
  */
 export async function mattacku(mtmp) {
@@ -1778,7 +1890,7 @@ export async function mattacku(mtmp) {
                     const j = rnd(20 + i);
                     if (tmp > j) {
                         if (unsolid(game.youmonst?.data)
-                            && failed_grab(mtmp, mattk)) {
+                            && await failed_grab(mtmp, mattk)) {
                             continue;
                         }
                         if ((mattk.aatyp | 0) !== AT_KICK
@@ -1791,6 +1903,18 @@ export async function mattacku(mtmp) {
                 } else {
                     await wildmiss(mtmp, mattk);
                     skipnonmagc = true;
+                }
+            }
+            break;
+
+        case AT_HUGS: /* automatic if prev two attacks succeed */
+            /* C mhitu.c mattacku `:823–830` — displaced prev never
+             * succeeded. Auto-hit when !range2 and both prior slots
+             * hit, or already grabbing. */
+            if ((!range2 && i >= 2 && sum[i - 1] && sum[i - 2])
+                || mtmp === u.ustuck) {
+                if (!(await failed_grab(mtmp, mattk))) {
+                    sum[i] = await hitmu(mtmp, mattk);
                 }
             }
             break;

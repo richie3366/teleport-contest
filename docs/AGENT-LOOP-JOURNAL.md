@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1327 mhitu.c mattacku AT_HUGS
+
+**Objective:** Open `mhitu.c` AT_HUGS (named). Not explmu.
+**C locus:** `mhitu.c` `mattacku` AT_HUGS `:823–830`; `u_slip_free`
+`:1045–1085`; `uhitm.c` `mhitm_ad_phys` mhitu `:4023–4037`.
+**Change:** hug auto-hits after two prior successes or while
+ustuck; `failed_grab` pline; `rn2(2)` grab / `u_slip_free` /
+crush; rope golem choke. gazemu / AD_WRAP caller still named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1685**.
+**Verified:** canary **27**/27; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitu.c` gazemu (named from D-1314). Not explmu.
+**Blocked:** none.
 ## 2026-08-21 — D-1326 mhitu.c explmu + mattacku AT_EXPL
 
 **Objective:** Open `mhitu.c` explmu (named). Not AT_HUGS.

@@ -59,18 +59,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1326. Reviews **284–287**
+**Map-driven fortress** after D-1327. Reviews **284–287**
 ACCEPT-WITH-DEBT (review **283** closed by D-1322). **Next
-cluster:** Open `mhitu.c` AT_HUGS (named). Not explmu. Not gazemu /
-mhitu AD_DRIN / kickdmg `special_dmgval`. Do not skip D-1326…D-1229
-(index). Keep mention_map addr. Do not wrap `wildmiss` or
-`msg_mon_movement` as `pline_mon`.
+cluster:** Open `mhitu.c` gazemu (named from D-1314). Not explmu.
+Not mhitu AD_DRIN / kickdmg `special_dmgval`. Do not skip
+D-1327…D-1229 (index). Keep mention_map addr. Do not wrap
+`wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1326.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1327.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1326 (index). Recent: **D-1326** `mhitu.c`
-`explmu` + `mattacku` AT_EXPL. Prior: **D-1325** `dokick.c`
+**Keep:** D-0845…D-1327 (index). Recent: **D-1327** `mhitu.c`
+`mattacku` AT_HUGS + `mhitm_ad_phys` grab/`u_slip_free`/crush.
+Prior: **D-1326** `mhitu.c` `explmu` + `mattacku` AT_EXPL.
+**D-1325** `dokick.c`
 `really_kick_object` `snuff_candle` after extract before `bhit`
 (candles/candelabrum; not `snuff_lit`). **D-1324** `dothrow.c`
 thitmonst swallow vanish pline. **D-1323** `zap.c` bhit
@@ -82,7 +84,7 @@ urange. D-1315 `throwit_mon_hit`. D-1314 `m_respond`. D-1313 snuff /
 `hot_pursuit`. D-1312 leader catch. D-1311 DISP_TETHER.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1326
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1327
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

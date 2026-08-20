@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitu.c` AT_HUGS (named). Not explmu.
 - [ ] `mhitu.c` gazemu (named from D-1314). Not explmu.
 - [ ] `mhitu.c` AD_DRIN (named from D-1309). Not gazemu.
 - [ ] `mhitm.c` AD_DRIN (named from D-1307). Not mhitu AD_DRIN.
