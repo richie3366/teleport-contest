@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` throwit steed potion (named from D-1283). Not slip.
 - [ ] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep.
 - [ ] `hack.c` swap-with-pet `seemimic` (named from D-1275). Not display_self.
 - [ ] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice.

@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1297 — `dothrow.c` `throwit` steed potionhit `rn2(6)`
+
+- **Status:** fixed (map-driven Open from D-1283; not a public FAIL)
+- **Symptom:** a downward potion while mounted always hit the floor.
+  C can splash the steed (`rn2(6)` after `dz>0 && usteed &&
+  POTION_CLASS`) so holy water can uncurse a saddle. JS skipped
+  that arm (named after D-1283 / D-1293).
+- **C locus:** `dothrow.c` `throwit` `:1590–1594` after `toss_up`,
+  before `hitfloor`. Callee `potion.c` `potionhit` `:1623–` monster
+  crash / `which_armor(W_SADDLE)` / `!rn2(10)` or POT_WATER
+  `rnl`/`rn2(3)` / `H2Opotion_dip` / POT_WATER body / `potionbreathe`
+  if `distance==0 || (distance<3 && !rn2((1+ACURR(A_DEX))/2))` /
+  `obfree`. `rn2(6)` only after the three conjuncts.
+- **JS was:** named omit; `u.dz` always `hitfloor` when not
+  ceiling-return / `toss_up`. `potionhit(mon)` stubbed past hero.
+- **Fix:** live `throwit` arm + monster `potionhit` crash/saddle/
+  `H2Opotion_dip` / POT_WATER undead-were-vamp / gremlin `split_mon`
+  / iron golem rust. Remaining monster otyp switch and shop unpaid
+  named. Hero crash-on-head / evaporate wording kept. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit`; `js/potion.js` `potionhit` /
+  `H2Opotion_dip` / `potionhit_mon_water`.
+- **Not this iter:** boomhit; `sho_obj_return_to_u`; throw_gold
+  swallow; remaining potionhit otyps; shop unpaid; thitmonst
+  potionhit DEX arm.
+- **Verified:** private canary **18**/18 (C order; JS live; dart
+  still hitfloor; no-steed potion shatters; saddle uncurse/wet;
+  `rn2(6)` hit vs miss; non-potion no `rn2(6)`; hero crash);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session throws a potion down while mounted (or `mthrowu` hits a
+  monster with a potion — crash/saddle RNG now live).
+- **Follow-up:** Open `uhitm.c` skipdrin / pit kick.
+- **Files:** `js/dothrow.js`, `js/potion.js`.
+
 ## D-1296 — `trap.c` `maketrap` DRAWBRIDGE_UP ice→`DB_FLOOR`
 
 - **Status:** fixed (map-driven Open from D-1280; not a public FAIL)

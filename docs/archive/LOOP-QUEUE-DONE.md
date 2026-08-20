@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage. **Addressed:** D-1296
+- [x] `dothrow.c` throwit steed potion (named from D-1283). Not slip. **Addressed:** D-1297
+
+
+- [x] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage. **Addressed:** D-1296 `993e17ea`
 
 
 - [x] `objnam.c` doname MEAT_RING (named from D-1276). Not candle. **Addressed:** D-1295 `dd02dc1b`

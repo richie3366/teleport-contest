@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1297 dothrow.c throwit steed potionhit rn2(6)
+
+**Objective:** Open `dothrow.c` throwit steed potion (named
+from D-1283). Not slip.
+**C locus:** `dothrow.c` `throwit` `:1590–1594`; `potion.c`
+`potionhit` crash/saddle/`H2Opotion_dip`/POT_WATER.
+**Change:** downward potion while mounted can hit the steed
+(`rn2(6)` after `dz>0 && usteed && POTION_CLASS`). Monster
+`potionhit` crash/saddle/holy-water live. Remaining otyp /
+shop unpaid / boomhit named. Rule #2: no fs.
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless a session throws a
+potion down while mounted.
+**Next:** Open `uhitm.c` skipdrin / pit kick. Not altwep.
+**Blocked:** none.
 ## 2026-08-20 — D-1296 trap.c maketrap DRAWBRIDGE_UP ice→DB_FLOOR
 
 **Objective:** Open `trap.c` maketrap DRAWBRIDGE_UP ice (named

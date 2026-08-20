@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1297 | fixed | dothrow.c `throwit` steed potionhit | map-driven Open from D-1283; C `dothrow.c:1590–1594` `dz>0 && usteed && POTION_CLASS && rn2(6)` → `potionhit(usteed, POTHIT_HERO_THROW)`; callee crash/saddle/`H2Opotion_dip`/POT_WATER; JS live; remaining otyp / shop unpaid / boomhit still named |
 | D-1296 | fixed | trap.c `maketrap` DRAWBRIDGE_UP ice→`DB_FLOOR` | map-driven Open from D-1280; C `trap.c:532–545` keep mask `&= ~DB_UNDER` `|= DB_FLOOR` + ice `obj_ice_effects`/`spot_stop_timers`; `dbridge.c` `is_pool_or_lava` is `is_pool\|\|is_lava`; JS live; shop `add_damage` / overwrite `reset_utrap` still named |
 | D-1295 | fixed | objnam.c doname MEAT_RING `goto ring` | map-driven Open from D-1276; C `objnam.c:1536–1538` FOOD MEAT_RING `goto ring` `:1492–1503` W_RINGR/L `" (on right "`/`" (on left "` then `body_part(HAND)` + `known&&oc_charged` `+spe` after oeaten; JS live; `objects.h` BITS chrg=0; candle `partly used` / full mbodypart still named |
 | D-1294 | fixed | hack.c `moverock` `next_boulder` naming | map-driven Open from D-1281; C `hack.c:365–372` `otmp->next_boulder = firstboulder ? 0 : 1` after Blind feel before top-of-pile; `xname` ROCK_CLASS `:814–823` `==1` → `"next boulder"` then clear (not `!=0`; overloaded `corpsenm` defaults NON_PM); `moverock_done` zeros leftovers; dopush already zeros before `movobj`; JS dedicated field; Blind `feel_location` still named |

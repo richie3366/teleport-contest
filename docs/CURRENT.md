@@ -59,27 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1296. Reviews **253–256** all
+**Map-driven fortress** after D-1297. Reviews **253–256** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `dothrow.c` throwit steed potion (named from D-1283). Not
-slip.
-Do not skip D-1296…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `uhitm.c` skipdrin / pit kick (named from D-1266). Not
+altwep.
+Do not skip D-1297…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull skipdrin / pit kick / seemimic / shop add_damage /
-liquid_flow / boomhit / secret corridor / candle `partly used`.
+Do not pull seemimic / shop add_damage / boomhit / throw_gold
+swallow / `sho_obj_return_to_u` / secret corridor / mswings /
+candle `partly used`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1296.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1297.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1296 (index). Recent: **D-1296** `trap.c`
-`maketrap` DRAWBRIDGE_UP ice→`DB_FLOOR` (not shop `add_damage`).
-Prior: D-1295 `doname` MEAT_RING; D-1294 `next_boulder`; D-1293
-throwit stamina; D-1292 throwit slip; D-1291 `wildmiss`
-`set_msg_xy`.
+**Keep:** D-0845…D-1297 (index). Recent: **D-1297** `dothrow.c`
+`throwit` steed potionhit `rn2(6)` (not boomhit).
+Prior: D-1296 DRAWBRIDGE_UP ice; D-1295 `doname` MEAT_RING;
+D-1294 `next_boulder`; D-1293 throwit stamina; D-1292 throwit
+slip; D-1291 `wildmiss` `set_msg_xy`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1296
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1297
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
