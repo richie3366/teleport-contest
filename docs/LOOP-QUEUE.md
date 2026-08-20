@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.
 - [ ] `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not pickup highdrop.
 - [ ] `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up.
 - [ ] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.

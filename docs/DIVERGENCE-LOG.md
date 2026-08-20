@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1271 — `mon.c` `meatmetal`
+
+- **Status:** fixed (map-driven Open; named omit from D-1247 /
+  D-1257 / D-1270; not a public FAIL)
+- **Symptom:** a metallivorous non-pet that `postmov`s onto a
+  metallic floor object never ate it, so the object stayed for
+  `mpickstuff` and `meating` never started.
+- **C locus:** `mon.c` `meatmetal` `:1462–1528`; caller
+  `monmove.c` `postmov` `:1663–1667` (`OBJ_AT && mcanmove` then
+  `metallivorous(ptr)`). Tame return 0; skip rust+!rustprone /
+  AMULET_OF_STRANGULATION / RIN_SLOW_DIGESTION / poisoned
+  `!resists_poison`; `is_metallic && !obj_resists(5,95) &&
+  touch_artifact`; rust+oerodeproof spit+stun (object stays);
+  else cansee `distant_name`/`pline_mon` else verbose You_hear
+  crunch; `meating = owt/2+1`; `m_consume_obj`; DEADMONSTER → 2;
+  leftover ROCK `rnd(25)<3`.
+- **JS was:** `// metallivorous / cube / corpse_eater meat* deferred`
+  in `postmov` OBJ_AT.
+- **Fix:** live `meatmetal` in `js/mon.js`; `postmov` calls it
+  before `mpickstuff` and returns MMOVE_DIED on 2. mndx compare
+  for rust monster (`mons()` allocates). Soundeffect empty
+  without SND_LIB. Rule #2: no fs.
+- **JS:** `js/mon.js` `meatmetal`; `js/monmove.js` `postmov`.
+- **Not this iter:** `meatobj` floor engulf; `meatcorpse`;
+  `m_consume_obj` meatbox/poly/uball/`mon_givit`; rust-monster
+  class/align in `touch_artifact`.
+- **Verified:** private canary **25**/25 (C body+caller; tame /
+  empty / club; rust skip silver+gold; rustproof spit; mole/xorn
+  eat dagger+gold; amulet/ring/poison skip; resist+eat
+  `obj_resists`; leftover ROCK; postmov DONE mole; jackal/cube
+  skip meatmetal; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a metallivore `postmov`s onto metal.
+- **Follow-up:** Open `invent.c` `hold_another_object`
+  `hitfloor(FALSE)`.
+
 ## D-1270 — `hack.c` hero `test_move` IRONBARS `passes_bars`
 
 - **Status:** fixed (map-driven Open; named omit from D-1258; not a

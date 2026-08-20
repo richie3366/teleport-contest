@@ -5,19 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1270 `hack.c` hero `test_move`
-  IRONBARS `passes_bars` (reviews **229–232** cadence **#1610**
-  `a4aa34d3`). Next: Open `monmove.c` `meatmetal` (named from
-  D-1247). Not switch_terrain. Do not skip D-1270…D-1229.
+- **Fortress 44/44** after D-1271 `mon.c` `meatmetal` (reviews
+  **229–232** cadence **#1610** `a4aa34d3`). Next: Open `invent.c`
+  `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not
+  pickup highdrop. Do not skip D-1271…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
   explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / doname EGG /
   `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` / Blind
   unseen boulder feel / invent hold_another_object hitfloor / pickup
   highdrop / toss_up / dothrow hurtle / `u_on_rndspot` / objnam wish /
   `maketrap` PIT/HOLE `set_levltyp` / Underwater bars / rock
-  Passes_walls. Do not wrap `msg_mon_movement` as `pline_mon`.
+  Passes_walls / `meatobj` / meatcorpse. Do not wrap `msg_mon_movement`
+  as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1270. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1271. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -26,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1270.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1271.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,9 +42,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1270 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1271 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox; dothrow hurtle /
+  down_gate / boulder-chain; `meatobj` / meatbox / meatcorpse; dothrow hurtle /
   `u_on_rndspot` / objnam wish; `maketrap` PIT/HOLE `set_levltyp`;
   Underwater bars / rock Passes_walls; `display_self` U_AP_TYPE glyphs;
   Blind unseen boulder feel; invent hold_another_object hitfloor;
@@ -60,6 +61,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1271: `mon.c` `meatmetal` — non-pet metallivore eats top metallic
+  floor object (`obj_resists(5,95)` + `touch_artifact`); rust monster
+  skips !rustprone / rustproof spit+stun; leftover ROCK `rnd(25)<3`.
+  Caller `postmov` OBJ_AT. meatobj / meatcorpse still named.
 - D-1270: `hack.c` hero `test_move` IRONBARS — Passes_walls ||
   `passes_bars(youmonst.data)` allow; DO_MOVE rust/corr/metallivore
   `still_chewing` then occupy if done. Underwater obstacle /
@@ -110,7 +115,3 @@ Objective/score live in `CURRENT.md`.
 - D-1257: `monmove.c` `gelcube_digests` first organic non-artifact
   non-prize minvent; `eaten_stat` + `extract_from_minvent` +
   `m_consume_obj` heal/`delobj`. `meatobj` / meatbox / poly still named.
-- D-1256: `trap.c` `launch_obj` ROLL LANDMINE `rn2(10)>2` KAABLAMM /
-  `fracture_rock`/`scatter` + PIT/SPIKED/HOLE/TRAPDOOR `flooreffects`
-  + `dist=-1`. down_gate / boulder-chain / post-switch flooreffects
-  still named.

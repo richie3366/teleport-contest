@@ -59,11 +59,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1270. Reviews **229–232** all
+**Map-driven fortress** after D-1271. Reviews **229–232** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
-Open `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.
-Do not skip D-1270…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from
+D-1263). Not pickup highdrop.
+Do not skip D-1271…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull skipdrin / pit kick / missmu/wildmiss/mswings `pline_mon`
 / mattacku AT_TENT / explmu / AT_HUGS / unported uhitm `mhitm_ad_*`
@@ -72,12 +73,15 @@ swap-with-pet `seemimic` / Blind unseen boulder feel / next_boulder /
 verysmall vain / invent `hold_another_object` hitfloor / pickup
 highdrop / toss_up / dothrow hurtle / `u_on_rndspot` / objnam wish
 `switch_terrain` / `maketrap` PIT/HOLE `set_levltyp` / Underwater
-bars / generic rock Passes_walls.
+bars / generic rock Passes_walls / `meatobj` / meatcorpse.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1270. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1271. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1270 (index). Recent: **D-1270** `hack.c`
+**Keep:** D-0845…D-1271 (index). Recent: **D-1271** `mon.c`
+`meatmetal` (postmov OBJ_AT metallivorous; rustproof spit+stun;
+`obj_resists(5,95)`; leftover ROCK; meatobj / meatcorpse named);
+**D-1270** `hack.c`
 hero `test_move` IRONBARS `passes_bars` (Passes_walls ||
 `passes_bars(youmonst.data)`; DO_MOVE rust/corr/metallivore
 `still_chewing`; Underwater / rock Passes_walls named);
@@ -136,8 +140,8 @@ no skip D-1253; no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (EGG / MEAT_RING named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);
-no skip D-1258; no skip D-1270 (Underwater bars / rock
-Passes_walls named);
+no skip D-1258; no skip D-1271 (`meatobj` / meatcorpse named);
+no skip D-1270 (Underwater bars / rock Passes_walls named);
 no skip D-1259 (`digactualhole` D-1269);
 no pull `reset_glyphmap` / vision_recalc `notice_all_mons` /
 `makemap_prepost` / peel RANGE_LEVEL / `restore_artifacts` this SHA.
