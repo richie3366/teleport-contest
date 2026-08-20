@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-20** — full `sessions` at review **#1635**
-HEAD `67c863ad` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1640**.
+Score last measured: **2026-08-20** — full `sessions` at review **#1640**
+HEAD `c37bd683` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1645**.
 
 ## Score
 
@@ -59,7 +59,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1294. Reviews **249–252** all
+**Map-driven fortress** after D-1294. Reviews **253–256** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
 Open `objnam.c` doname MEAT_RING (named from D-1276). Not candle.

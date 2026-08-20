@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1640 review D-1291–D-1294 + cadence
+
+**Objective:** audit — C-fidelity reviews **253–256** of JS SHAs
+since `8392595f`, plus full `sessions` score. No `js/` port.
+**C locus:** `mhitu.c` `wildmiss`; `dothrow.c` throwit slip /
+stamina; `hack.c` `moverock` `next_boulder` + `objnam.c` `xname`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: Some_Monnam / mswings; steed / boomhit;
+Blind `feel_location` / trap arms). Filled D-1294 archive hash
+`c37bd683`. Open first row still doname MEAT_RING. Rule #2: no fs.
+**Score:** cadence **#1640** HEAD `c37bd683` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1645**.
+**Verified:** `__RESULTS_JSON__` at HEAD `c37bd683`; branch-by-branch
+vs pinned C (`set_msg_xy` then `pline` not `pline_mon`; `!rn2(7)`
+slip; stamina after slip; `next_boulder==1` + `moverock_done`).
+**Next:** Open `objnam.c` doname MEAT_RING. Not candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1294 hack.c moverock next_boulder
 
 **Objective:** Open `hack.c` moverock next_boulder (named from

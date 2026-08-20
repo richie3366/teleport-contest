@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel. **Addressed:** D-1294
+- [x] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel. **Addressed:** D-1294 `c37bd683`
 
 
 - [x] `dothrow.c` throwit stamina (named from D-1283). Not slip. **Addressed:** D-1293 `31e55930`

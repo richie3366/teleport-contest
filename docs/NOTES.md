@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1294 `moverock` `next_boulder`
-  (cadence **#1635** `67c863ad`; reviews **249–252**
+  (cadence **#1640** `c37bd683`; reviews **253–256**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `objnam.c` doname
   MEAT_RING (named from D-1276). Not candle. Do not skip
   D-1294…D-1229. Do not pull skipdrin / pit kick / seemimic /

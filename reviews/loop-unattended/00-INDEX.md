@@ -262,3 +262,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [250-b741fb93-makemap-prepost.md](./250-b741fb93-makemap-prepost.md) | `b741fb93` | D-1288 `makemap_prepost` rndspot | **ACCEPT-WITH-DEBT** |
 | [251-44b22432-wizterrainwish-traps.md](./251-44b22432-wizterrainwish-traps.md) | `44b22432` | D-1289 wizterrainwish trap loop | **ACCEPT-WITH-DEBT** |
 | [252-67c863ad-wizterrainwish-door-wall.md](./252-67c863ad-wizterrainwish-door-wall.md) | `67c863ad` | D-1290 wizterrainwish door/wall | **ACCEPT-WITH-DEBT** |
+| [253-c6fa1420-wildmiss-set-msg-xy.md](./253-c6fa1420-wildmiss-set-msg-xy.md) | `c6fa1420` | D-1291 wildmiss `set_msg_xy` then `pline` | **ACCEPT-WITH-DEBT** |
+| [254-2e893032-throwit-slip.md](./254-2e893032-throwit-slip.md) | `2e893032` | D-1292 throwit cursed/greased slip | **ACCEPT-WITH-DEBT** |
+| [255-31e55930-throwit-stamina.md](./255-31e55930-throwit-stamina.md) | `31e55930` | D-1293 throwit stamina drop | **ACCEPT-WITH-DEBT** |
+| [256-c37bd683-moverock-next-boulder.md](./256-c37bd683-moverock-next-boulder.md) | `c37bd683` | D-1294 moverock `next_boulder` | **ACCEPT-WITH-DEBT** |
