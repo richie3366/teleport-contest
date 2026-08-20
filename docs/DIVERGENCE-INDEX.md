@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1293 | fixed | dothrow.c throwit stamina | map-driven Open from D-1283; C `dothrow.c` throwit `:1549–1560` after slip before thrownobj; `(dx\|\|dy\|\|dz<1)` + `calc_capacity(owt)>SLT_ENCUMBER` + Upolyd mh<5≠max else uhp<10≠max + `owt>hp*2` + `!Is_airlevel` → You drop + `exercise(A_CON,FALSE)` + `dx=dy=0` `dz=1`; JS live; steed potion / boomhit / `sho_obj_return_to_u` still named |
 | D-1292 | fixed | dothrow.c throwit slip | map-driven Open from D-1283; C `dothrow.c` throwit `:1526–1547` cursed/greased `(dx\|\|dy) && !rn2(7)` misfire/slip then `rn2(3)-1` dx/dy / `dz=1` / impaired; JS before thrownobj; `notonhead` reset; stamina / steed potion / boomhit still named |
 | D-1291 | fixed | mhitu.c `wildmiss` `set_msg_xy` then `pline` | map-driven Open from D-1286; C `mhitu.c:206` `set_msg_xy(mx,my)` then `pline` (not `pline_mon`); JS was bare `pline` so `a11y.msg_loc` stayed 0,0; nolimbs `"lunges"` live; Some_Monnam impossible / mswings / AT_ENGL gulps/lunges still named |
 | D-1290 | fixed | objnam.c `wizterrainwish` door/wall | map-driven Open from D-1279; C `objnam.c:3740–3835` after cloud before SCORR; JS location gate DOOR/SDOOR/wall(!DBWALL)/bars + rogue doorless + doormask + live `fix_wall_spines` + `set_wallprop_from_str`; door-state preparse; secret corridor/drawbridge/lava `pooleffects` named |

@@ -35,7 +35,7 @@ import {
     ismnum, isok, u_at, MM_IGNOREWATER, MM_IGNORELAVA,
     HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, ARM, FOOT, STONING,
     TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
-    W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE,
+    W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -43,7 +43,8 @@ import {
     ammo_and_launcher, is_ammo, is_missile, doswapweapon, doquiver_core, welded,
     setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
-import { acurr, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
+import { acurr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
+import { calc_capacity } from './invent.js';
 import { find_mac } from './mhitm.js';
 import { hitval, weapon_hit_bonus, should_mulch_missile, dmgval } from './weapon.js';
 import { spec_abon, artifact_hit, is_art } from './artifact.js';
@@ -1188,7 +1189,7 @@ function hitfloor_surface(x, y) {
  * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273);
  * toss_up / throwit u.dz (D-1274).
  * Named omit: ball litter; artifact; finesse_ahriman float_down;
- * throwit stamina / steed potion (slip is D-1292; swallowit is D-1283).
+ * throwit steed potion (stamina is D-1293; slip is D-1292; swallowit is D-1283).
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1601,14 +1602,15 @@ async function throwit_returning_missile(
  * returning_missile AutoReturn / throwit_return / ceiling + post-flight
  * return-to-hand is D-1282. swallowit / u.uswallow before u.dz is D-1283.
  * cursed/greased horizontal slip/misfire is D-1292.
- * Named omit: stamina drop; steed potionhit; boomhit;
+ * low-HP encumbered stamina drop is D-1293.
+ * Named omit: steed potionhit; boomhit;
  * sho_obj_return_to_u / tethered tmp_at; throw_gold swallow;
  * thitmonst vanish pline; objsplit unsplit; killer_xname polish.
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
     let impaired = throw_impaired();
-    // C throwit :1525 — reset stale gn.notonhead before slip / thrownobj
+    // C throwit :1525 — reset stale gn.notonhead before slip / stamina / thrownobj
     game.notonhead = false;
     // C throwit :1526–1547 — cursed/greased && (dx||dy) && !rn2(7)
     if ((obj.cursed || obj.greased) && (u.dx || u.dy) && !rn2(7)) {
@@ -1626,6 +1628,21 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             if (!u.dx && !u.dy) u.dz = 1;
             impaired = true;
         }
+    }
+    // C throwit :1549–1560 — after slip, before thrownobj
+    if ((u.dx || u.dy || (u.dz < 1))
+        && calc_capacity(obj.owt | 0) > SLT_ENCUMBER
+        && (Upolyd(u) ? ((u.mh | 0) < 5 && (u.mh | 0) !== (u.mhmax | 0))
+                      : ((u.uhp | 0) < 10 && (u.uhp | 0) !== (u.uhpmax | 0)))
+        && (obj.owt | 0) > ((Upolyd(u) ? (u.mh | 0) : (u.uhp | 0)) * 2)
+        && !Is_airlevel(u.uz)) {
+        await pline(
+            `You have so little stamina, ${the(xname(obj))} drops from your grasp.`,
+        );
+        exercise(A_CON, false);
+        u.dx = 0;
+        u.dy = 0;
+        u.dz = 1;
     }
     game.thrownobj = obj;
     obj.how_lost = LOST_THROWN;

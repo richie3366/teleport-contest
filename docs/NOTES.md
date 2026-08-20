@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1292 `throwit` cursed/greased
-  `!rn2(7)` slip (cadence **#1635** `67c863ad`; reviews **249–252**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c`
-  throwit stamina (named from D-1283). Not slip. Do not skip
-  D-1292…D-1229. Do not pull skipdrin / pit kick / MEAT_RING /
-  seemimic / next_boulder / slip / steed potion /
-  DRAWBRIDGE_UP ice / secret corridor. Do not wrap `wildmiss`
-  or `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1292. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1293 `throwit` low-HP encumbered
+  stamina drop (cadence **#1635** `67c863ad`; reviews **249–252**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `hack.c`
+  moverock next_boulder (named from D-1281). Not Blind feel. Do not
+  skip D-1293…D-1229. Do not pull skipdrin / pit kick / MEAT_RING /
+  seemimic / DRAWBRIDGE_UP ice / shop add_damage / secret corridor /
+  throwit steed / boomhit. Do not wrap `wildmiss` or
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1293. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1292.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1293.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,9 +36,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1292 (index). Named still: skipdrin / pit
-  kick; MEAT_RING; throwit stamina / steed; next_boulder;
-  secret corridor. No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1293 (index). Named still: skipdrin / pit
+  kick; MEAT_RING; throwit steed; next_boulder; secret corridor.
+  No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -49,9 +49,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1293: throwit stamina — after slip, before thrownobj;
+  `(dx||dy||dz<1)` + `calc_capacity(owt)>SLT` + low HP ≠ max +
+  `owt>hp*2` + `!Is_airlevel` → You drop + `exercise(A_CON,FALSE)`
+  + `dx=dy=0` `dz=1`. **slip D-1292**. steed potion / boomhit named.
 - D-1292: throwit cursed/greased `!rn2(7)` slip/misfire before
   thrownobj; `rn2(3)-1` dx/dy, `dz=1` if both 0, impaired.
-  stamina / steed potion / boomhit named.
 - D-1291: `wildmiss` `set_msg_xy(mx,my)` then `pline` (not
   `pline_mon`). nolimbs `"lunges"`. Some_Monnam impossible /
   mswings / AT_ENGL gulps/lunges named.
@@ -80,8 +83,8 @@ Objective/score live in `CURRENT.md`.
   scare/petrify-corpse skip; engulf `mpickobj` vs devour
   `m_consume_obj`; YUM YUM. **meatcorpse D-1285**.
 - D-1283: throwit swallowit — `u.uswallow` before `u.dz`;
-  `mpickobj(ustuck)`; fail-path swallowit. **slip D-1292**. stamina /
-  steed / boomhit / throw_gold swallow / vanish pline named.
+  `mpickobj(ustuck)`; fail-path swallowit. **slip D-1292**;
+  **stamina D-1293**. steed / boomhit / throw_gold swallow named.
 - D-1282: throwit returning_missile — AutoReturn / throwit_return /
   ceiling-return / post-bhit `rn2(100)` addinv+setuwep. **swallowit
   D-1283**. boomhit / `sho_obj_return_to_u` named.
@@ -91,5 +94,3 @@ Objective/score live in `CURRENT.md`.
   shop add_damage / liquid_flow named.
 - D-1279: `wizterrainwish` → `switch_terrain`. **traps D-1289**.
   **door/wall D-1290**.
-- D-1278: `u_on_rndspot` → `switch_terrain`. On_W_tower /
-  **sstairs D-1287**; **cmd wiz D-1288**.

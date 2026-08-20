@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1293 dothrow.c throwit stamina
+
+**Objective:** Open `dothrow.c` throwit stamina (named from D-1283).
+Not slip.
+**C locus:** `dothrow.c` `throwit` `:1549–1560` (after slip, before
+thrownobj); callees `calc_capacity` / `exercise` / `Is_airlevel`.
+**Change:** low-HP encumbered heavy throw drops at feet (`You` +
+`exercise(A_CON,FALSE)` + `dx=dy=0` `dz=1`). Steed / boomhit named.
+Rule #2: no fs.
+**Verified:** private canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a session throws while HP is low and
+encumbered above SLT with a heavy object.
+**Next:** Open `hack.c` moverock next_boulder. Not Blind feel.
+**Blocked:** none.
 ## 2026-08-20 — D-1292 dothrow.c throwit slip
 
 **Objective:** Open `dothrow.c` throwit slip (named from D-1283).

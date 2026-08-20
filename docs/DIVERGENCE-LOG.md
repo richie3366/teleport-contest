@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1293 — dothrow.c throwit stamina
+
+- **Status:** fixed (map-driven Open from D-1283; not a public FAIL)
+- **Symptom:** `throwit` skipped C's low-stamina drop. A heavy missile
+  always flew the chosen `dx/dy` even when HP was low and the hero was
+  more than slightly encumbered. C `:1549–1560` — if
+  `(dx||dy||dz<1)` && `calc_capacity(owt)>SLT_ENCUMBER` &&
+  (Upolyd ? mh<5 && mh!=mhmax : uhp<10 && uhp!=uhpmax) &&
+  `owt>(hp*2)` && `!Is_airlevel`: You drop + `exercise(A_CON,FALSE)`
+  then `dx=dy=0` `dz=1` (hitfloor). After slip, before `gt.thrownobj`.
+- **C locus:** `dothrow.c` `throwit` `:1549–1560`; callees
+  `calc_capacity`, `exercise`, `the`/`xname`, `Is_airlevel`. Caller
+  `throw_obj` (object already `freeinv`'d so extra weight is `owt`).
+- **JS was:** named omit after D-1292; `throwit` set thrownobj after
+  slip with the getdir (or slipped) vector.
+- **Fix:** live stamina after slip before thrownobj; short-circuit
+  order matches C; `You` + CON exercise + force downward. Rule #2:
+  no fs.
+- **JS:** `js/dothrow.js` `throwit` (`calc_capacity` from invent.js).
+- **Not this iter:** steed potionhit `rn2(6)`; boomhit;
+  `sho_obj_return_to_u` / tethered `tmp_at`; throw_gold swallow;
+  thitmonst vanish pline; objsplit unsplit; `killer_xname` polish.
+- **Verified:** private canary **15**/15 (C stamina after slip before
+  thrownobj; JS live; low-HP+load east drops at feet; full HP / uhp==max
+  / owt==hp*2 / empty leftover / down / airlevel skip; Upolyd mh arms;
+  upward becomes hitfloor; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws while HP is low and
+  encumbered above SLT with a heavy object.
+- **Follow-up:** Open `hack.c` moverock next_boulder.
+- **Files:** `js/dothrow.js`.
+
 ## D-1292 — dothrow.c throwit slip
 
 - **Status:** fixed (map-driven Open from D-1283; not a public FAIL)

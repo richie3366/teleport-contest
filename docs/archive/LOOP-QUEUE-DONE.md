@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit slip (named from D-1283). Not stamina. **Addressed:** D-1292
+- [x] `dothrow.c` throwit stamina (named from D-1283). Not slip. **Addressed:** D-1293
+
+
+- [x] `dothrow.c` throwit slip (named from D-1283). Not stamina. **Addressed:** D-1292 `2e893032`
 
 
 - [x] `mhitu.c` wildmiss `set_msg_xy` then `pline` (named from D-1286 / D-1261). Not `pline_mon`. Not missmu. **Addressed:** D-1291 `c6fa1420`
