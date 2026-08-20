@@ -254,3 +254,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [242-5f8a620a-maketrap-set-levltyp.md](./242-5f8a620a-maketrap-set-levltyp.md) | `5f8a620a` | D-1280 `maketrap` PIT/HOLE `set_levltyp` | **ACCEPT-WITH-DEBT** |
 | [243-7a783c86-moverock-blind-feel.md](./243-7a783c86-moverock-blind-feel.md) | `7a783c86` | D-1281 Blind unseen boulder feel | **ACCEPT-WITH-DEBT** |
 | [244-7d61ee8b-throwit-returning-missile.md](./244-7d61ee8b-throwit-returning-missile.md) | `7d61ee8b` | D-1282 throwit returning_missile | **ACCEPT-WITH-DEBT** |
+| [245-5b4788e1-throwit-swallowit.md](./245-5b4788e1-throwit-swallowit.md) | `5b4788e1` | D-1283 throwit swallowit | **ACCEPT-WITH-DEBT** |
+| [246-433ad843-meatobj.md](./246-433ad843-meatobj.md) | `433ad843` | D-1284 `meatobj` | **ACCEPT-WITH-DEBT** |
+| [247-965d2beb-meatcorpse.md](./247-965d2beb-meatcorpse.md) | `965d2beb` | D-1285 `meatcorpse` | **ACCEPT-WITH-DEBT** |
+| [248-9486280d-missmu-pline-mon.md](./248-9486280d-missmu-pline-mon.md) | `9486280d` | D-1286 `missmu` `pline_mon` | **ACCEPT-WITH-DEBT** |

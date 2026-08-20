@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1286 missmu `pline_mon`
-  (cadence **#1625** `7d61ee8b`; reviews **241–244**
+  (cadence **#1630** `9486280d`; reviews **245–248**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `stairs.c`
   `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd
   wiz. Do not skip D-1286…D-1229. Do not pull skipdrin / pit

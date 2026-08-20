@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1630 review D-1283–D-1286 + cadence
+
+**Objective:** audit — C-fidelity reviews **245–248** of JS SHAs
+since `ad42d04e`, plus full `sessions` score. No `js/` port.
+**C locus:** `dothrow.c` swallowit; `mon.c` `meatobj`; `mon.c`
+`meatcorpse`; `mhitu.c` `missmu` `pline_mon`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: throw_gold swallow/slip; meatbox/poly;
+`mon_would_consume_item`; wildmiss `set_msg_xy`). Filled D-1286
+archive hash `9486280d`. Open 10 (no refill). Rule #2: no fs.
+**Score:** cadence **#1630** HEAD `9486280d` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1635**.
+**Verified:** `__RESULTS_JSON__` at HEAD `9486280d`; branch-by-branch
+vs pinned C (uswallow before `u.dz` + live `mpickobj`; cube
+engulf/devour; corpse_eater one CORPSE; missmu both arms
+`pline_mon`).
+**Next:** Open `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named
+from D-1278). Not cmd wiz.
+**Blocked:** none.
 ## 2026-08-20 — D-1286 mhitu.c missmu pline_mon
 
 **Objective:** Open `mhitu.c` `missmu` `pline_mon` (named from
