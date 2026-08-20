@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1302 `dothrow.c` throw_gold swallow
+- **Fortress 44/44** after D-1303 `dothrow.c` sho_obj_return_to_u
   (cadence **#1650** `1a7839f7`; reviews **261–264** ACCEPT-WITH-DEBT,
-  no Must-fix). Next: Open `dothrow.c` sho_obj_return_to_u
-  (named from D-1282). Not boomhit. Do not skip D-1302…D-1229.
-  Do not pull secret corridor / candle `partly used` / eat_brains.
+  no Must-fix). Next: Open `objnam.c` wizterrainwish secret corridor
+  (named from D-1290). Not door/wall. Do not skip D-1303…D-1229.
+  Do not pull mswings / candle `partly used` / eat_brains / helmet.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1302. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1303. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1302.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1303.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,9 +34,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1302 (index). Named still: eat_brains /
+- Do not skip D-1071…D-1303 (index). Named still: eat_brains /
   helmet / m_slips_free; candle `partly used`; secret corridor;
-  sho_obj_return_to_u. No ALIGN/FORCE on seed0383.
+  tethered DISP_TETHER/BACKTRACK. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -47,6 +47,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1303: `dothrow.c` sho_obj_return_to_u — after `rn2(100)` success,
+  non-tethered (Mjollnir) `tmp_at(DISP_FLASH, obj_to_glyph display rng)`
+  then walk `bhitpos-dir` toward @ with `nh_delay_output`; dx=dy=0 or
+  already-on-@ no-op. Wielded aklys skips (C BACKTRACK). Leader
+  `!next2u` / outbound DISP_TETHER named. **throw_gold D-1302**.
 - D-1302: `dothrow.c` throw_gold swallow — after self-cancel, `freeinv`
   then `add_to_minv(ustuck)` (not `swallowit`/`mpickobj`);
   `digests` → `s_suffix(mon_nam)` + `" entrails"`; `pline_The`.

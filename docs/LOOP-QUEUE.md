@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit.
 - [ ] `objnam.c` wizterrainwish secret corridor (named from D-1290). Not door/wall.
 - [ ] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss.
 - [ ] `eat.c` eat_brains (named from D-1298). Not helmet.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING.
 - [ ] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings.
 - [ ] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick.
+- [ ] `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader catch.
+- [ ] `dothrow.c` thitmonst leader catch / finish_quest (named). Not vanish pline.
+- [ ] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond.
+- [ ] `mon.c` m_respond (named from D-1301). Not snuff_candle.
+- [ ] `dothrow.c` throwit ACURRSTR urange (named). Not tether.
 
 ## Parked (do not pop)
 

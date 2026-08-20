@@ -59,25 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1302. Reviews **261–264** all
+**Map-driven fortress** after D-1303. Reviews **261–264** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit.
-Do not skip D-1302…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `objnam.c` wizterrainwish secret corridor (named from D-1290).
+Not door/wall.
+Do not skip D-1303…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull secret corridor / mswings / candle `partly used` /
-eat_brains / helmet / poly AT_KICK.
+Do not pull mswings / candle `partly used` / eat_brains / helmet /
+poly AT_KICK / tethered BACKTRACK.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1302.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1303.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1302 (index). Recent: **D-1302** `dothrow.c`
-`throw_gold` swallow (`add_to_minv` + entrails).
-Prior: D-1301 `zap.c` boomhit; D-1300 shop `add_damage`; D-1299
-swap-with-pet seemimic; D-1298 hmonas skipdrin / pit kick.
+**Keep:** D-0845…D-1303 (index). Recent: **D-1303** `dothrow.c`
+`sho_obj_return_to_u` (FLASH walk; aklys tether skip).
+Prior: D-1302 throw_gold swallow; D-1301 boomhit; D-1300 shop
+`add_damage`; D-1299 swap-with-pet seemimic.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1302
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1303
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1303 dothrow.c sho_obj_return_to_u
+
+**Objective:** Open `dothrow.c` sho_obj_return_to_u (named from
+D-1282). Not boomhit.
+**C locus:** `dothrow.c` `sho_obj_return_to_u` `:1440–1456`; throwit
+`:1712–1715` tethered BACKTRACK else FLASH walk after `rn2(100)`.
+Leader `:2141–2142` named.
+**Change:** live walk `bhitpos-dir` + `nh_delay_output`;
+`autoreturn_weapon` so wielded aklys skips (BACKTRACK named).
+dx=dy=0 / already-on-@ no-op. Display rng only. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1650**). Public-unhit
+unless a session throws wielded Valk Mjollnir.
+**Verified:** private canary 16/16; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` wizterrainwish secret corridor. Not
+door/wall.
+**Blocked:** none.
 ## 2026-08-20 — #1650 review D-1299–D-1302 + cadence
 
 **Objective:** audit — C-fidelity reviews **261–264** of JS SHAs

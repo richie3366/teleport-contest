@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1303 — dothrow.c sho_obj_return_to_u
+
+- **Status:** fixed (map-driven Open from D-1282; not a public FAIL)
+- **Symptom:** a returning Mjollnir (or other non-tethered AutoReturn
+  missile) snapped to the hero's hand with no return-flight glyph.
+  C `sho_obj_return_to_u` flashes `obj_to_glyph(..., rn2_on_display_rng)`
+  from one step before `bhitpos` back along `-u.dx/-u.dy` until the
+  hero cell, delaying each step. Wielded aklys does **not** take this
+  path (`tmp_at(DISP_END, BACKTRACK)` after outbound DISP_TETHER).
+- **C locus:** `dothrow.c` `sho_obj_return_to_u` `:1440–1456`; caller
+  throwit `:1712–1715` after `rn2(100)` success, before catch
+  `!impaired && rn2(100)`. Second caller thitmonst leader `!next2u`
+  `:2141–2142` named (catch/`finish_quest` still omitted).
+  `weapon.c` `autoreturn_weapon` AKLYS tethered (boomerang row
+  commented out). `display.c` `tmp_at` DISP_FLASH + `obj_to_glyph`.
+- **JS was:** named omit after D-1282; `throwit_returning_missile`
+  skipped the display walk (comment: display RNG / tmp_at).
+- **Fix:** live `sho_obj_return_to_u`; sync `game.bhitpos` from the
+  fly stop cell; `autoreturn_weapon` so wielded AKLYS skips FLASH
+  (BACKTRACK still named). dx=dy=0 or already-on-@ no-op. Display
+  stream only; no positional RNG. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `sho_obj_return_to_u` / `throwit_returning_missile`
+  / `autoreturn_weapon`.
+- **Not this iter:** tethered outbound DISP_TETHER / BACKTRACK /
+  `THROWN_TETHERED_WEAPON` / `isqrt` range; leader catch
+  `finish_quest`; throwit_mon_hit `snuff_candle`/`hot_pursuit`;
+  `m_respond`; objsplit unsplit; `killer_xname`.
+- **Verified:** private canary **16**/16 (C body+callers+AKLYS table;
+  JS live; east 4 delays / diagonal 2 / @ or dx=0 no-op; no
+  positional rng incl. Hallu; Valk Mjollnir 4 delays; wielded aklys
+  skip; dart no AutoReturn; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws wielded Valk Mjollnir.
+- **Follow-up:** Open `objnam.c` wizterrainwish secret corridor.
+- **Files:** `js/dothrow.js`.
+
 ## D-1302 — dothrow.c throw_gold swallow
 
 - **Status:** fixed (map-driven Open from D-1283; not a public FAIL)

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1303 | fixed | dothrow.c `sho_obj_return_to_u` | map-driven Open from D-1282; C `dothrow.c:1440–1456` FLASH `obj_to_glyph(rn2_on_display_rng)` walk `bhitpos-dir` + `nh_delay_output`; caller throwit `:1712–1715` tethered BACKTRACK else sho_obj after `rn2(100)`; JS live; wielded aklys skips; leader `!next2u` / DISP_TETHER outbound still named |
 | D-1302 | fixed | dothrow.c throw_gold swallow | map-driven Open from D-1283; C `dothrow.c:2671–2679` after self `:2661`; caller `:112` `COIN_CLASS && obj!=uquiver`; `freeinv` then `add_to_minv(ustuck)` not `swallowit`/`mpickobj`; `digests` → `s_suffix(mon_nam)` + `" entrails"`; JS live; You() self / unsplit / dz / bhit / ghitm / quivered throwit / `sho_obj_return_to_u` still named |
 | D-1301 | fixed | zap.c `boomhit` | map-driven Open from D-1282; C `zap.c:4148–4233` 10-step curve + `dothrow.c:1601–1611` `BOOMERANG && !Underwater` hurtle then boomhit, clear AutoReturn, catch `return_throw_to_inv`; JS `dothrow.js`; m_respond / Soundeffect / `sho_obj_return_to_u` still named |
 | D-1300 | fixed | trap.c `maketrap` shop `add_damage` | map-driven Open from D-1280; C `trap.c:523–527` `*in_rooms(SHOPBASE)` && (`is_hole`\|\|`IS_DOOR`\|\|`IS_WALL`) then `add_damage` before DRAWBRIDGE_UP/`set_levltyp`; cost `SHOP_HOLE_COST` iff door/wall && `!mon_moving` else 0; JS live; overwrite `reset_utrap` / Knox / Sokoban finish still named |
