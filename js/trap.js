@@ -98,7 +98,7 @@ import {
     Is_container, Waterproof_container,
     xytodir, DIR_180, DIR_ERR,
     OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC,
-    A_LAWFUL, XKILL_NOMSG,
+    A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -127,7 +127,7 @@ import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { get_obj_location } from './timeout.js';
-import { costly_spot, shop_keeper, stolen_value, make_angry_shk } from './shk.js';
+import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage } from './shk.js';
 import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
 import { polymon } from './polyself.js';
@@ -834,9 +834,10 @@ function maketrap_unearth_objs(x, y) {
 
 // C ref: trap.c maketrap — creation + SQKY_BOARD / HOLE|TRAPDOOR /
 // ROLLING_BOULDER_TRAP mkroll_launch / STATUE_TRAP mk_trap_statue +
-// PIT/HOLE set_levltyp (D-1280) + DRAWBRIDGE_UP ice→floor (D-1296).
+// PIT/HOLE set_levltyp (D-1280) + DRAWBRIDGE_UP ice→floor (D-1296) +
+// shop add_damage (D-1300).
 // Named omissions: overwrite reset_utrap / Knox LEVEL_TELEP /
-// shop add_damage / Sokoban finish; mongone full body.
+// Sokoban finish; mongone full body.
 // TELEP teledest may be set by caller after create (themerms make_a_trap).
 export function maketrap(x, y, typ) {
     // C ref: trap.c maketrap — reject door/chest map traps; terrain gates.
@@ -906,11 +907,24 @@ export function maketrap(x, y, typ) {
     case HOLE:
     case TRAPDOOR: {
         if (is_hole(typ)) hole_destination(ttmp.dst);
-        // C trap.c:514–565 — shop add_damage named; DRAWBRIDGE_UP keeps
-        // drawbridgemask and forces DB_FLOOR (ice melt D-1296); else
-        // set_levltyp IS_ROOM→ROOM / STONE|SCORR→CORR / wall|SDOOR→maze
-        // ROOM / cavern CORR / DOOR; flags=0; unearth; recalc_block_point.
+        // C trap.c:523–527 — shop add_damage before terrain morph so
+        // IS_DOOR/IS_WALL and the damagelist typ snapshot the original
+        // cell (D-1300). Floor holes bill 0; door/wall bill SHOP_HOLE_COST
+        // only when the hero is moving.
         const lev = game.level?.at?.(x, y);
+        if (in_rooms(x, y, SHOPBASE)
+            && (is_hole(typ) || IS_DOOR(lev?.typ) || IS_WALL(lev?.typ))) {
+            add_damage(
+                x, y,
+                ((IS_DOOR(lev?.typ) || IS_WALL(lev?.typ))
+                    && !game.context?.mon_moving)
+                    ? SHOP_HOLE_COST : 0,
+            );
+        }
+        // C trap.c:529–564 — DRAWBRIDGE_UP keeps drawbridgemask and
+        // forces DB_FLOOR (ice melt D-1296); else set_levltyp
+        // IS_ROOM→ROOM / STONE|SCORR→CORR / wall|SDOOR→maze ROOM /
+        // cavern CORR / DOOR; flags=0; unearth; recalc_block_point.
         if (lev) {
             let clear_flags = true;
             if (lev.typ === DRAWBRIDGE_UP) {

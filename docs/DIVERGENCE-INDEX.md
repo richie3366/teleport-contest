@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1300 | fixed | trap.c `maketrap` shop `add_damage` | map-driven Open from D-1280; C `trap.c:523–527` `*in_rooms(SHOPBASE)` && (`is_hole`\|\|`IS_DOOR`\|\|`IS_WALL`) then `add_damage` before DRAWBRIDGE_UP/`set_levltyp`; cost `SHOP_HOLE_COST` iff door/wall && `!mon_moving` else 0; JS live; overwrite `reset_utrap` / Knox / Sokoban finish still named |
 | D-1299 | fixed | hack.c `domove_swap_with_pet` seemimic | map-driven Open from D-1275; C `hack.c:2107–2114` park `u.ux0` then `mundetected=0` + `M_AP_TYPE`→`seemimic` before refuse/place; caller `:2920–2926` skip ceiling hiders + restore ux on fail; pit/NODIAG/boulder/mtrapped/`t_at`/mundisplaceable + TIP_UNTRAP_MON; JS `hack.js`/`cmd.js`; `goodpos` / mintrap aftermath / bump_mon stumble still named |
 | D-1298 | fixed | uhitm.c hmonas skipdrin / pit kick | map-driven Open from D-1266; C `uhitm.c:5451`/`5464` `gs.skipdrin` AT_TENT+AD_DRIN continue + `:5558` AT_KICK `mtrapped_in_pit(&youmonst)`; `mhitm_ad_drin` `:3189–3202` uhitm headless/notonhead; `mhitu.c:465–479` helper; `mattackm`/`mattacku` same continues; JS live; eat_brains / helmet / m_slips_free still named |
 | D-1297 | fixed | dothrow.c `throwit` steed potionhit | map-driven Open from D-1283; C `dothrow.c:1590–1594` `dz>0 && usteed && POTION_CLASS && rn2(6)` → `potionhit(usteed, POTHIT_HERO_THROW)`; callee crash/saddle/`H2Opotion_dip`/POT_WATER; JS live; remaining otyp / shop unpaid / boomhit still named |

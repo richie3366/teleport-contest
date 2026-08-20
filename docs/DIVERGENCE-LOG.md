@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1300 — trap.c `maketrap` shop `add_damage`
+
+- **Status:** fixed (map-driven Open from D-1280; not a public FAIL)
+- **Symptom:** a PIT/HOLE/TRAPDOOR created in a shop never entered
+  `damagelist`. C bills repair from `maketrap` before terrain morph
+  so `add_damage` snapshots the original door/wall/room typ. JS
+  named the call after D-1280 / D-1296.
+- **C locus:** `trap.c` `maketrap` `:523–527` after
+  `hole_destination`, before DRAWBRIDGE_UP / `set_levltyp`.
+  `*in_rooms(x,y,SHOPBASE)` && (`is_hole(typ)` || `IS_DOOR` ||
+  `IS_WALL`) then `add_damage` with `SHOP_HOLE_COST` iff door/wall
+  && `!svc.context.mon_moving`, else `0L`. Callee `shk.c`
+  `add_damage` `:4398–4437` (door cells only if shop entrance
+  `shd`).
+- **JS was:** named omit in `trap.js` `maketrap` PIT/HOLE arm;
+  `digactualhole` still bills `SHOP_PIT_COST` on PIT after create
+  (unchanged C).
+- **Fix:** live `add_damage` before morph so wall/door snapshots
+  keep HWALL/DOOR, not the post-morph ROOM/CORR/DOOR. Floor holes
+  schedule cost 0. Non-shop / SQKY / shop-floor PIT skip. Door
+  without `shd` still early-returns in `add_damage`. Rule #2: no fs.
+- **JS:** `js/trap.js` `maketrap`.
+- **Not this iter:** overwrite `reset_utrap`; Knox
+  `single_level_branch`; Sokoban `maybe_finish_sokoban`; TELEP
+  `teledest`; `liquid_flow`.
+- **Verified:** private canary **21**/21 (C order + SHOP_HOLE_COST;
+  JS live; shop ROOM HOLE cost 0 / PIT skip; wall snapshot before
+  morph; `mon_moving` 0; door `shd` vs early-return; SDOOR cost 0;
+  D-1296 ice / D-1280 STONE→CORR); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session plants a shop hole/door/wall
+  trap.
+- **Follow-up:** Open `dothrow.c` boomhit.
+- **Files:** `js/trap.js`.
+
 ## D-1299 — hack.c `domove_swap_with_pet` seemimic
 
 - **Status:** fixed (map-driven Open from D-1275; not a public FAIL)

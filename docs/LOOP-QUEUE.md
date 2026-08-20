@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice.
 - [ ] `dothrow.c` boomhit (named from D-1282). Not steed.
 - [ ] `dothrow.c` throw_gold swallow (named from D-1283). Not boomhit.
 - [ ] `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit.
