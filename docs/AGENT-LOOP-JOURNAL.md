@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1302 dothrow.c throw_gold swallow
+
+**Objective:** Open `dothrow.c` throw_gold swallow (named from
+D-1283). Not boomhit.
+**C locus:** `dothrow.c` `throw_gold` `:2671–2679` after self
+`:2661`; caller `throw_obj` `:112` `COIN_CLASS && obj!=uquiver`.
+`add_to_minv(ustuck)` not `swallowit`/`mpickobj`; `digests` →
+`s_suffix(mon_nam)` + `" entrails"`; `pline_The`.
+**Change:** live swallow in `dothrow.js`; wallet `_goldCount`;
+self-dot cancels without ingest (You()/unsplit named). Rest of
+throw_gold (dz/bhit/ghitm/ship/floor) and quivered gold via
+throwit named. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1645**). Public-unhit
+unless a session throws gold while `u.uswallow`.
+**Verified:** private canary 33/33; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` sho_obj_return_to_u. Not boomhit.
+**Blocked:** none.
 ## 2026-08-20 — D-1301 zap.c boomhit
 
 **Objective:** Open `dothrow.c` boomhit (named from D-1282). Not

@@ -37,7 +37,7 @@ import {
     TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
-    DISP_FLASH, DISP_CHANGE, DISP_END,
+    DISP_FLASH, DISP_CHANGE, DISP_END, ECMD_TIME,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -47,7 +47,9 @@ import {
 } from './wield.js';
 import { acurr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
 import { calc_capacity } from './invent.js';
+import { add_to_minv } from './makemon.js';
 import { find_mac } from './mhitm.js';
+import { digests } from './mhitu.js';
 import { hitval, weapon_hit_bonus, should_mulch_missile, dmgval } from './weapon.js';
 import { spec_abon, artifact_hit, is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
@@ -351,7 +353,10 @@ function freeinv(otmp) {
     const inv = game.invent || [];
     const idx = inv.indexOf(otmp);
     if (idx >= 0) inv.splice(idx, 1);
-    // Also handle when otmp was split from a stack still in invent
+    if (otmp) {
+        otmp.nobj = null;
+        otmp.where = OBJ_FREE;
+    }
 }
 
 /** C ref: mondata.h befriend_with_obj — banana→monkey/ape; domestic+food. */
@@ -772,16 +777,68 @@ async function endmultishot(verbose) {
 }
 
 /**
+ * C hacklib.c s_suffix — it→its, you→your, *s→*', else *'s.
+ * throw_gold strcat's " entrails" onto that buffer (dothrow.c:2674–2676).
+ */
+function s_suffix_throw_gold(s) {
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`;
+    if (low === 'you') return `${buf}r`;
+    if (buf.endsWith('s') || buf.endsWith('S')) return `${buf}'`;
+    return `${buf}'s`;
+}
+
+/**
+ * C dothrow.c throw_gold. Swallow (D-1302): after the self-cancel gate,
+ * freeinv then add_to_minv(ustuck) — not swallowit/mpickobj — with
+ * pline_The entrails when digests(ustuck->data). Named omit: You()
+ * self pline / unsplitobj (D-0720); dz ceiling; bhit; ghitm;
+ * ship_object; flooreffects; sellobj; quivered gold via throwit.
+ */
+export async function throw_gold(obj) {
+    const u = game.u || {};
+    // C :2661 — self before freeinv. Do not ingest gold thrown at `.`.
+    if (!(u.dx || 0) && !(u.dy || 0) && !(u.dz || 0)) {
+        // C You("cannot throw gold at yourself.") + unsplitobj named.
+        return 0; // C ECMD_CANCEL; JS cmd.js treats truthy as time
+    }
+    if (u.uswallow) {
+        freeinv(obj);
+        if (obj?.oclass === COIN_CLASS) {
+            game._goldCount = Math.max(
+                0, (game._goldCount || 0) - (obj.quan || 0),
+            );
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true;
+        }
+        let swallower = mon_nam(u.ustuck);
+        // C :2674 — digests → s_suffix(mon_nam) + " entrails"
+        if (u.ustuck?.data && digests(u.ustuck.data)) {
+            swallower = `${s_suffix_throw_gold(swallower)} entrails`;
+        }
+        await pline(`The gold disappears into ${swallower}.`);
+        if (u.ustuck && obj) add_to_minv(u.ustuck, obj);
+        return ECMD_TIME;
+    }
+    // Named omit: rest of throw_gold (dz / bhit / ghitm / ship / floor)
+    return 0;
+}
+
+/**
  * C ref: dothrow.c throw_obj — multishot + split + throwit.
  * getdir is done by caller (dofire/dothrow) matching JS input boundary;
  * C calls getdir inside throw_obj — same one prompt either way.
  */
-async function throw_obj(obj, shotlimit) {
-    // C: coin class → throw_gold (body deferred; `$` still in getobj suggest list)
-    if (obj.oclass === COIN_CLASS) return 0;
+export async function throw_obj(obj, shotlimit) {
+    const u = game.u || {};
+    // C throw_obj :112 — non-quiver coins → throw_gold (swallow D-1302)
+    if (obj.oclass === COIN_CLASS) {
+        if (obj !== (u.uquiver || null)) return throw_gold(obj);
+        return 0; // quivered gold via throwit named omit
+    }
 
     // C ref: dothrow.c throw_obj — after getdir, self (dx=dy=dz=0) refuses
-    const u = game.u || {};
     if (!(u.dx || 0) && !(u.dy || 0) && !(u.dz || 0)) {
         await pline('You cannot throw an object at yourself.');
         return 0; // ECMD_OK — no time
@@ -1777,9 +1834,9 @@ export async function boomhit(obj, dx, dy) {
  * cursed/greased horizontal slip/misfire is D-1292.
  * low-HP encumbered stamina drop is D-1293.
  * throwit steed potionhit rn2(6) is D-1297.
- * boomhit curve (D-1301). Named omit: sho_obj_return_to_u / tethered tmp_at;
- * throw_gold swallow; thitmonst vanish pline; objsplit unsplit;
- * killer_xname polish; m_respond.
+ * boomhit curve (D-1301). throw_gold swallow (D-1302). Named omit:
+ * sho_obj_return_to_u / tethered tmp_at; thitmonst vanish pline;
+ * objsplit unsplit; killer_xname polish; m_respond.
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1302 — dothrow.c throw_gold swallow
+
+- **Status:** fixed (map-driven Open from D-1283; not a public FAIL)
+- **Symptom:** throwing gold while swallowed was a silent no-op
+  (`throw_obj` returned 0 for all coins). C `throw_gold` `freeinv`s
+  then `add_to_minv(u.ustuck)` with `"The gold disappears into …"`
+  (`s_suffix(mon_nam)` + `" entrails"` when `digests`). That is
+  **not** `swallowit`/`mpickobj` (no `carry_obj_effects`).
+- **C locus:** `dothrow.c` `throw_gold` `:2661–2679` (self then
+  swallow); caller `throw_obj` `:112` `COIN_CLASS && obj != uquiver`.
+  `mkobj.c` `add_to_minv`; `mondata.h` `digests`; `hacklib.c`
+  `s_suffix`; `pline.c` `pline_The`.
+- **JS was:** named omit after D-1283; all coins `return 0`.
+- **Fix:** live swallow after the self-cancel gate; `freeinv` sets
+  `OBJ_FREE`; wallet `_goldCount`; cube has no entrails. You() self
+  pline / unsplitobj named (D-0720). Rest of throw_gold and quivered
+  gold via throwit named. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throw_gold` / `throw_obj`.
+- **Not this iter:** You() gold-at-self; unsplitobj; dz ceiling;
+  bhit; ghitm; ship_object; flooreffects; sellobj; quivered gold
+  via throwit; `sho_obj_return_to_u`.
+- **Verified:** private canary **33**/33 (C digests worm vs cube;
+  JS live add_to_minv; entrails vs not; self-dot no ingest;
+  non-swallow gold stays; throw_obj gate; quiver skip; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws gold while swallowed.
+- **Follow-up:** Open `dothrow.c` sho_obj_return_to_u.
+- **Files:** `js/dothrow.js`.
+
 ## D-1301 — zap.c `boomhit`
 
 - **Status:** fixed (map-driven Open from D-1282; not a public FAIL)
