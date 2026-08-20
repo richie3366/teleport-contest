@@ -4,7 +4,7 @@
 import { game } from './gstate.js';
 import {
     Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_NOTHING,
-    M_AP_TYPMASK, M_AP_TYPE, isok, u_at,
+    M_AP_TYPMASK, M_AP_TYPE, isok, u_at, TIP_UNTRAP_MON,
     IS_OBSTRUCTED, IRONBARS, IS_DOOR, IS_WALL, IS_TREE, IS_STWALL,
     D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
     NO_ROOM, SHARED, SHARED_PLUS, ROOMOFFSET, SHOPBASE, COLNO, ROWNO,
@@ -29,16 +29,17 @@ import {
     In_mines, ACH_TOWN, NO_PART, WT_ELF, TIMER_OBJECT, ZOMBIFY_MON,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
     FROMFORM, P_NONE, P_RIDING, P_BASIC, LEVITATION, FLYING, BLINDED, FOOT,
-    ARTICLE_NONE, ARTICLE_A, ARTICLE_YOUR, SUPPRESS_SADDLE, has_mgivenname,
+    ARTICLE_NONE, ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE,
+    has_mgivenname,
 } from './const.js';
 import {
     pline, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
     set_msg_xy, feel_location, map_object,
 } from './display.js';
 import { gethungry, morehungry } from './eat.js';
-import { m_at, hideunder } from './mon.js';
+import { m_at, hideunder, seemimic, bad_rock } from './mon.js';
 import { recalc_block_point } from './vision.js';
-import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall, passes_bars, dmgtype } from './monsters.js';
+import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall, bigmonst, passes_bars, dmgtype } from './monsters.js';
 import {
     objects_at, obj_extract_self, place_object, delobj,
     peek_timer, stop_timer, start_timer,
@@ -52,13 +53,14 @@ import { rn2, rnd, rn1 } from './rng.js';
 import { midnight } from './calendar.js';
 import {
     PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE, PM_SAMURAI,
+    monsterNames,
 } from './generated/monsters_data.js';
 import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname } from './do_name.js';
 import { near_capacity, inv_weight } from './invent.js';
 import { record_achievement } from './insight.js';
 import {
     b_trapped, selftouch, t_at, into_vs_onto, immune_to_trap, trapname,
-    sokoban_guilt,
+    sokoban_guilt, feeltrap,
 } from './trap.js';
 import { paranoid_query } from './getline.js';
 
@@ -70,6 +72,7 @@ const DIRS_ORD = [
 ];
 
 const BOULDER = objectNames.indexOf('BOULDER');
+const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
 /** C hack.h invlet_basic — a-zA-Z slots; overflow '#' is extra. */
 const INVLET_BASIC = 52;
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -640,8 +643,8 @@ export function hero_hideunder_after_move() {
  * Mimics (or whatever) become noticeable if they move while imitating
  * something that doesn't move. U_AP_TYPE is m_ap_type & M_AP_TYPMASK.
  * Assignment is M_AP_NOTHING (not seemimic; mappearance leftover).
- * Named: swap-with-pet seemimic; bump_mon stumble_onto_mimic.
- * display_self U_AP_TYPE glyphs: D-1275.
+ * Named: bump_mon stumble_onto_mimic.
+ * display_self U_AP_TYPE glyphs: D-1275. swap-with-pet seemimic: D-1299.
  */
 export function hero_mimic_unhide_after_move() {
     const u = game.u;
@@ -652,6 +655,150 @@ export function hero_mimic_unhide_after_move() {
     if (ap === M_AP_OBJECT || ap === M_AP_FURNITURE) {
         you.m_ap_type = M_AP_NOTHING;
     }
+}
+
+/** C hack.h NODIAG — grid bug only (`mtmp->data - mons`). */
+function swap_nodiag(mtmp) {
+    const monnum = mtmp?.mnum ?? mtmp?.data?.mndx;
+    return monnum === PM_GRID_BUG;
+}
+
+/** C mon.c curr_mon_load — skip boulder weight when throws_rocks. */
+function swap_curr_mon_load(mtmp) {
+    let curload = 0;
+    for (let obj = mtmp?.minvent; obj; obj = obj.nobj) {
+        if (obj.otyp !== BOULDER || !throws_rocks(mtmp.data)) {
+            curload += obj.owt || 0;
+        }
+    }
+    return curload;
+}
+
+/**
+ * C monst.h mundisplaceable — priest/shk/gd/Oracle/quest leader.
+ * Local clone: uhitm.js already exports this, but hack.js cannot import
+ * uhitm.js (uhitm imports hack).
+ */
+function swap_mundisplaceable(mon) {
+    if (!mon) return false;
+    if (mon.ispriest || mon.isshk || mon.isgd) return true;
+    const mndx = mon.mnum ?? mon.data?.mndx;
+    if (PM_ORACLE >= 0 && mndx === PM_ORACLE) return true;
+    const lid = game.quest_status?.leader_m_id;
+    if (lid != null && (mon.m_id | 0) === (lid | 0)) return true;
+    return false;
+}
+
+function YMonnam_swap(mtmp) {
+    const s = y_monnam(mtmp) || '';
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+/** C objnam.c just_an — article only, for trapname "a pit" / "an arrow trap". */
+function just_an_swap(str) {
+    const s = String(str ?? '').replace(/^\s+/, '');
+    if (!s) return 'a ';
+    const c0 = s[0].toLowerCase();
+    if (!s[1] || s[1] === ' ') {
+        return 'aefhilmnosx'.includes(c0) ? 'an ' : 'a ';
+    }
+    if (/^the /i.test(s) || /^molten lava$/i.test(s)
+        || /^iron bars$/i.test(s) || /^ice$/i.test(s)) {
+        return '';
+    }
+    return 'aeiou'.includes(c0) ? 'an ' : 'a ';
+}
+
+/**
+ * C ref: hack.c:2098–2224 domove_swap_with_pet.
+ * Caller has tentatively occupied dest (u.ux+=dx). Park hero at ux0
+ * for seemimic/newsym, then resume dest. Returns true if the pet
+ * moved to ux0.
+ * Named: teleport.c goodpos origin conjunct; minliquid/mintrap
+ * aftermath (experience/guilt/abuse_dog); displaceu; livelog killer.
+ */
+export async function domove_swap_with_pet(mtmp, x, y) {
+    const u = game.u;
+    if (!mtmp || !u) return false;
+    let didnt_move = false;
+    // C: captured at dest after occupy, before parking at ux0.
+    const u_with_boulder = !!sobj_at(BOULDER, u.ux, u.uy);
+
+    /* C: seemimic/newsym before moving hero, otherwise display draws
+       the hero here before a cancelled swap (ignore steed mx,my). */
+    u.ux = u.ux0;
+    u.uy = u.uy0;
+    mtmp.mundetected = 0;
+    if (((mtmp.m_ap_type | 0) & M_AP_TYPMASK) !== M_AP_NOTHING) {
+        seemimic(mtmp);
+    }
+    u.ux = mtmp.mx;
+    u.uy = mtmp.my;
+
+    let trap = mtmp.mtrapped ? t_at(mtmp.mx, mtmp.my) : null;
+    if (!trap) mtmp.mtrapped = 0;
+
+    if (mtmp.mtrapped && is_pit(trap?.ttyp) && sobj_at(BOULDER, trap.tx, trap.ty)) {
+        didnt_move = true;
+    } else if ((u.ux0 | 0) !== (x | 0) && (u.uy0 | 0) !== (y | 0)
+        && swap_nodiag(mtmp)) {
+        await pline(`You stop.  ${YMonnam_swap(mtmp)} can't move diagonally.`);
+        didnt_move = true;
+    } else if (u_with_boulder
+        && !(verysmall(mtmp.data)
+            && (!mtmp.minvent || swap_curr_mon_load(mtmp) <= 600))) {
+        await pline(
+            `You stop.  ${YMonnam_swap(mtmp)} won't fit into the same spot that you're at.`,
+        );
+        didnt_move = true;
+    } else if ((u.ux0 | 0) !== (x | 0) && (u.uy0 | 0) !== (y | 0)
+        && bad_rock(mtmp.data, x, u.uy0)
+        && bad_rock(mtmp.data, u.ux0, y)
+        && (bigmonst(mtmp.data) || swap_curr_mon_load(mtmp) > 600)) {
+        await pline(`You stop.  ${YMonnam_swap(mtmp)} won't fit through.`);
+        didnt_move = true;
+    } else if (mtmp.mpeaceful && mtmp.mtrapped) {
+        const what = trapname(trap.ttyp, false);
+        let which = 'that ';
+        if (!trap.tseen) {
+            feeltrap(trap);
+            which = just_an_swap(what);
+        }
+        await pline(
+            `You stop.  ${YMonnam_swap(mtmp)} can't move out of ${which}${what}.`,
+        );
+        await handle_tip(TIP_UNTRAP_MON);
+        didnt_move = true;
+    } else if (mtmp.mpeaceful
+        && (/* goodpos(u.ux0, u.uy0, mtmp, 0) named */
+            t_at(u.ux0, u.uy0) != null
+            || swap_mundisplaceable(mtmp))) {
+        await pline(
+            `You stop.  ${YMonnam_swap(mtmp)} doesn't want to swap places.`,
+        );
+        didnt_move = true;
+    } else {
+        mtmp.mtrapped = 0;
+        mtmp.mx = u.ux0 | 0;
+        mtmp.my = u.uy0 | 0;
+        newsym(x, y);
+        newsym(u.ux0, u.uy0);
+
+        const swapArt = mtmp.mtame
+            ? ARTICLE_YOUR
+            : (!has_mgivenname(mtmp) && !type_is_pname(mtmp.data))
+                ? ARTICLE_THE
+                : ARTICLE_NONE;
+        const swapAdj = (mtmp.mpeaceful && !mtmp.mtame) ? 'peaceful' : null;
+        const swapSupp = has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0;
+        const swapVerb = mtmp.mpeaceful ? 'swap places with' : 'frighten';
+        await pline(
+            `You ${swapVerb} ${x_monnam(mtmp, swapArt, swapAdj, swapSupp, false)}.`,
+        );
+        // minliquid / mintrap switch (Trap_Caught/Moved/Killed + abuse_dog
+        // / adjalign / experience / rn2(4) guilt) named
+    }
+    return !didnt_move;
 }
 
 /** True if floor cell has a boulder (domove test_move gate). */
@@ -1273,7 +1420,7 @@ function u_simple_floortyp(x, y) {
 
 /**
  * C ref: hack.c handle_tip — tips option + once-per-bit context.tips.
- * TIP_ENHANCE / TIP_UNTRAP_MON / TIP_GETPOS deferred (callers elsewhere).
+ * TIP_ENHANCE / TIP_GETPOS (lua NHCORE) named.
  */
 export async function handle_tip(tip) {
     if (game.flags?.tips === false) return false;
@@ -1285,6 +1432,10 @@ export async function handle_tip(tip) {
     if (tip === TIP_SWIM) {
         // C: visctrl(cmd_from_func(do_reqmenu)) → 'm' under default binds
         await pline("(Tip: use 'm' prefix to step in if you really want to.)");
+        return true;
+    }
+    if (tip === TIP_UNTRAP_MON) {
+        await pline('(Tip: perhaps #untrap would help?)');
         return true;
     }
     return false;

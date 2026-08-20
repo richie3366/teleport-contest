@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1298. Reviews **257–260** all
+**Map-driven fortress** after D-1299. Reviews **257–260** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `hack.c` swap-with-pet `seemimic` (named from D-1275). Not
-display_self.
-Do not skip D-1298…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `trap.c` maketrap shop `add_damage` (named from D-1280). Not
+DRAWBRIDGE_UP ice.
+Do not skip D-1299…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull shop add_damage / boomhit / throw_gold swallow /
-`sho_obj_return_to_u` / secret corridor / mswings / candle
-`partly used` / eat_brains / helmet.
+Do not pull boomhit / throw_gold swallow / `sho_obj_return_to_u` /
+secret corridor / mswings / candle `partly used` / eat_brains /
+helmet.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1298.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1299.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1298 (index). Recent: **D-1298** `uhitm.c`
-hmonas skipdrin / pit kick (not altwep).
-Prior: D-1297 throwit steed potionhit; D-1296 DRAWBRIDGE_UP ice;
-D-1295 `doname` MEAT_RING; D-1294 `next_boulder`.
+**Keep:** D-0845…D-1299 (index). Recent: **D-1299** `hack.c`
+`domove_swap_with_pet` seemimic (not display_self).
+Prior: D-1298 hmonas skipdrin / pit kick; D-1297 throwit steed
+potionhit; D-1296 DRAWBRIDGE_UP ice; D-1295 `doname` MEAT_RING.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1298
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1299
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

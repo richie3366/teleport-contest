@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
+- [x] `hack.c` swap-with-pet `seemimic` (named from D-1275). Not display_self. **Addressed:** D-1299
+
+
 - [x] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep. **Addressed:** D-1298 `086eb03d`
 
 

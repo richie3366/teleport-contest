@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1299 hack.c swap-with-pet seemimic
+
+**Objective:** Open `hack.c` swap-with-pet `seemimic` (named
+from D-1275). Not display_self.
+**C locus:** `hack.c` `domove_swap_with_pet` `:2098–2224`
+(park ux0 / `mundetected=0` / `M_AP_TYPE`→`seemimic` before
+refuse); caller `:2920–2926` skip ceiling hiders + restore ux.
+**Change:** live swap helper in `hack.js`; occupy then swap;
+pit/NODIAG/boulder/mtrapped/`t_at`/mundisplaceable +
+`handle_tip(TIP_UNTRAP_MON)`. `goodpos` / mintrap aftermath
+named (teleport.js cycle). Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1645**). Public-unhit
+unless a session walks into a disguised safemon.
+**Verified:** private canary 19/19; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `trap.c` maketrap shop `add_damage`. Not ice.
+**Blocked:** none.
 ## 2026-08-20 — #1645 review D-1295–D-1298 + cadence
 
 **Objective:** audit — C-fidelity reviews **257–260** of JS SHAs

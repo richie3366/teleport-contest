@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1299 — hack.c `domove_swap_with_pet` seemimic
+
+- **Status:** fixed (map-driven Open from D-1275; not a public FAIL)
+- **Symptom:** walking into a safemon never revealed a disguised
+  mimic. C parks the hero at `ux0`, clears `mundetected`, and
+  `seemimic`s before any cancel so `newsym` does not paint `@` on
+  the mimic cell. JS swapped `mx/my` first and skipped seemimic.
+- **C locus:** `hack.c` `domove_swap_with_pet` `:2098–2224`
+  (`:2107–2114` park/`mundetected`/`M_AP_TYPE`→`seemimic`/resume);
+  caller `:2870` `m_at` before occupy, `:2874–2884` occupy +
+  `m_postmove_effect`, `:2920–2926` `is_safemon && !(is_hider &&
+  mundetected)` then restore ux on fail. Callee `mon.c`
+  `seemimic` `:4409–4426`. Refuse arms: pit+boulder, NODIAG,
+  dest boulder load, diagonal `bad_rock` squeeze, peaceful
+  trapped (`feeltrap`/`trapname`/`handle_tip(TIP_UNTRAP_MON)`),
+  peaceful `t_at(ux0)` / mundisplaceable.
+- **JS was:** named omit after D-1275 / D-0889; cmd.js moved the
+  pet then printed `x_monnam` before occupy; mundisplaceable
+  early-returned `move=0`.
+- **Fix:** live `domove_swap_with_pet` in `hack.js`; occupy then
+  swap; fail restores `ux0` and does not set `umoved`. `goodpos`
+  origin conjunct named (teleport.js cycle). minliquid/mintrap
+  aftermath named. Rule #2: no fs.
+- **JS:** `js/hack.js` `domove_swap_with_pet` / `handle_tip`
+  TIP_UNTRAP_MON; `js/cmd.js` caller.
+- **Not this iter:** `goodpos(ux0)`; minliquid/mintrap switch;
+  experience/guilt/`abuse_dog`; displaceu; bump_mon
+  `stumble_onto_mimic`; livelog killer.
+- **Verified:** private canary **19**/19 (C park+seemimic-before-refuse;
+  JS live; object/furniture mimic clear; mundisplaceable refuse
+  still seemimics; NODIAG after seemimic; seen/unseen pit);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session walks into a disguised safemon (eat-mimic pet / `#monster`
+  hide).
+- **Follow-up:** Open `trap.c` maketrap shop `add_damage`.
+- **Files:** `js/hack.js`, `js/cmd.js`.
+
 ## D-1298 — uhitm.c hmonas skipdrin / pit kick
 
 - **Status:** fixed (map-driven Open from D-1266; not a public FAIL)
