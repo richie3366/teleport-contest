@@ -5,16 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1285 meatcorpse
+- **Fortress 44/44** after D-1286 missmu `pline_mon`
   (cadence **#1625** `7d61ee8b`; reviews **241–244**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mhitu.c` `missmu`
-  `pline_mon` (named from D-1261). Not wildmiss. Do not skip
-  D-1285…D-1229. Do not pull skipdrin / pit kick / wildmiss /
-  MEAT_RING / seemimic / next_boulder / slip / stamina / steed
-  potion / wizterrainwish traps /
-  DRAWBRIDGE_UP ice. Do not wrap `msg_mon_movement` as `pline_mon`.
-  No FORCE.
-- Do not revert D-1217–D-1285. Named omits stay map, not Must-fix.
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `stairs.c`
+  `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd
+  wiz. Do not skip D-1286…D-1229. Do not pull skipdrin / pit
+  kick / wildmiss `set_msg_xy` / MEAT_RING / seemimic /
+  next_boulder / slip / stamina / steed potion /
+  wizterrainwish traps / DRAWBRIDGE_UP ice. Do not wrap
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1286. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1285.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1286.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,8 +37,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1285 (index). Named still: skipdrin / pit
-  kick; missmu; MEAT_RING; throwit slip /
+- Do not skip D-1071…D-1286 (index). Named still: skipdrin / pit
+  kick; wildmiss `set_msg_xy`; MEAT_RING; throwit slip /
   stamina / steed; next_boulder. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -49,6 +49,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1286: `missmu` both arms `pline_mon` (seduce pretend +
+  verbose `"just "` miss). wildmiss C is `set_msg_xy` then
+  `pline`; mswings / AT_ENGL gulps/lunges named.
 - D-1285: `meatcorpse` — corpse_eater `sobj_at(CORPSE)` vegan/petrify
   skip; rider `revive_corpse`; `splitobj` quan>1; `m_consume_obj`.
   `mon_would_consume_item` still named.
@@ -78,4 +81,3 @@ Objective/score live in `CURRENT.md`.
   **swallowit D-1283**. slip / stamina / steed named.
 - D-1273: `tipcontainer` highdrop `hitfloor(TRUE)`.
 - D-1272: `hold_another_object` `hitfloor(FALSE)`.
-- D-1271: `meatmetal`. **meatobj D-1284**. **meatcorpse D-1285**.

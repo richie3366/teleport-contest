@@ -223,8 +223,9 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * Named omit: missmu/wildmiss/mswings still pline; mattacku AT_TENT
- * melee case / explmu / AT_HUGS; remaining unported mhitm_ad_*.
+ * Named omit: wildmiss (C set_msg_xy then pline) / mswings still
+ * pline; mattacku AT_TENT melee case / explmu / AT_HUGS; remaining
+ * unported mhitm_ad_*. missmu pline_mon is D-1286.
  */
 export async function hitmsg(mtmp, mattk) {
     const youmonst = game.youmonst;
@@ -287,19 +288,21 @@ export async function hitmsg(mtmp, mattk) {
 }
 
 /**
- * C ref: mhitu.c missmu — map_invisible when unseen; seduce pretend-friendly;
- * "just " on near-miss when flags.verbose. Named omission: stop_occupation
- * already called by some callers — also invoke here like C.
+ * C ref: mhitu.c missmu :83–99 — clear hitmsg_mid/prev; map_invisible
+ * when unseen; seduce pretend-friendly or "just " near-miss when
+ * flags.verbose; both arms pline_mon (D-1286). stop_occupation after
+ * the line like C. Named omit: wildmiss set_msg_xy+pline; mswings
+ * pline_mon; mattacku AT_ENGL gulps/lunges pline_mon.
  */
-async function missmu(mtmp, nearmiss, mattk) {
+export async function missmu(mtmp, nearmiss, mattk) {
     game.hitmsg_mid = 0;
     game.hitmsg_prev = null;
     if (!canspotmon(mtmp)) map_invisible(mtmp.mx, mtmp.my);
     if (could_seduce(mtmp, game.youmonst, mattk) && !mtmp.mcan) {
-        await pline(`${Monnam(mtmp)} pretends to be friendly.`);
+        await pline_mon(mtmp, `${Monnam(mtmp)} pretends to be friendly.`);
     } else {
         const just = nearmiss && game.flags?.verbose !== false ? 'just ' : '';
-        await pline(`${Monnam(mtmp)} ${just}misses!`);
+        await pline_mon(mtmp, `${Monnam(mtmp)} ${just}misses!`);
     }
     await stop_occupation();
 }

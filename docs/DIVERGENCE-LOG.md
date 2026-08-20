@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1286 — `mhitu.c` `missmu` `pline_mon`
+
+- **Status:** fixed (map-driven Open from D-1261; not a public FAIL)
+- **Symptom:** JS `missmu` used `pline` (so `a11y.msg_loc` stayed
+  0,0) for the seduce-pretend and `"just "` miss lines. C uses
+  `pline_mon`.
+- **C locus:** `mhitu.c` `missmu` `:83–99`; callee `pline.c`
+  `pline_mon` `:137–150`. Callers: `mattacku` melee `:814`, AT_ENGL
+  `:854`, AT_WEAP `:915` (`tmp == j` is nearmiss).
+- **JS was:** both arms `pline`; `map_invisible` / `stop_occupation`
+  / hitmsg_mid clear already live (D-0301).
+- **Fix:** both arms `pline_mon`. Near-miss `"just "` still gated
+  on `nearmiss && flags.verbose`. Seduce still `could_seduce &&
+  !mcan` (no `mspec_used`, unlike `hitmsg`). Rule #2: no fs.
+- **JS:** `js/mhitu.js` `missmu`; comment `js/display.js`.
+- **Not this iter:** wildmiss C is `set_msg_xy` then `pline` (JS
+  still bare `pline`); mswings `pline_mon`; `mattacku` AT_ENGL
+  gulps/lunges `pline_mon`; `mattacku` AT_TENT / `explmu` / AT_HUGS.
+- **Verified:** private canary **16**/16 (C both arms; JS
+  `pline_mon`; prefix On; Off no prefix; `"just "` verbose; quiet
+  omits just; seduce pretend; cancelled falls through; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  `accessiblemsg` On on a miss line.
+- **Follow-up:** Open `stairs.c` `u_on_sstairs` → `u_on_rndspot`.
+- **Files:** `js/mhitu.js`, `js/display.js`.
+
+
 ## D-1285 — `mon.c` `meatcorpse`
 
 - **Status:** fixed (map-driven Open from D-1271; not a public FAIL)

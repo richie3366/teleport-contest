@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `mon.c` `meatcorpse` (named from D-1271). Not meatobj. **Addressed:** D-1285
+- [x] `mhitu.c` `missmu` `pline_mon` (named from D-1261). Not wildmiss. **Addressed:** D-1286
+
+
+- [x] `mon.c` `meatcorpse` (named from D-1271). Not meatobj. **Addressed:** D-1285 `965d2beb`
 
 
 - [x] `mon.c` `meatobj` (named from D-1271). Not meatcorpse. **Addressed:** D-1284 `433ad843`
