@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit. **Addressed:** D-1282
+- [x] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit. **Addressed:** D-1282 `7d61ee8b`
 
 
 - [x] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder. **Addressed:** D-1281 `7a783c86`

@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1625 review D-1279–D-1282 + cadence
+
+**Objective:** audit — C-fidelity reviews **241–244** of JS SHAs
+since `bc4e5a2f`, plus full `sessions` score. No `js/` port.
+**C locus:** `objnam.c` `wizterrainwish`; `trap.c` `maketrap`
+`set_levltyp`; `hack.c` `moverock_core` Blind feel; `dothrow.c`
+`throwit` returning_missile.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: traps/door/wall/drawbridge; DRAWBRIDGE_UP
+ice/shop add_damage; next_boulder/Blind feel_location; swallowit/
+boomhit/slip). Filled D-1282 archive hash `7d61ee8b`. Open 9 (no
+refill). Rule #2: no fs.
+**Score:** cadence **#1625** HEAD `7d61ee8b` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`38+0.31/turn` (R² 0.844). seed0383 PASS. Next audit @**#1630**.
+**Verified:** `__RESULTS_JSON__` at HEAD `7d61ee8b`; branch-by-branch
+vs pinned C (madeterrain `switch_terrain`; STONE→CORR morph; Blind
+gbuf feel before nopick; AutoReturn ceiling + `rn2(100)`).
+**Next:** Open `dothrow.c` throwit swallowit (named from D-1274).
+Not returning_missile.
+**Blocked:** none.
 ## 2026-08-20 — D-1282 dothrow.c throwit returning_missile
 
 **Objective:** Open `dothrow.c` throwit returning_missile (named from

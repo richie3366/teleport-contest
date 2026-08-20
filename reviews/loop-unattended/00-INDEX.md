@@ -250,3 +250,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [238-2860794e-doname-egg.md](./238-2860794e-doname-egg.md) | `2860794e` | D-1276 doname EGG | **ACCEPT-WITH-DEBT** |
 | [239-20c69ccf-hurtle-step.md](./239-20c69ccf-hurtle-step.md) | `20c69ccf` | D-1277 `hurtle_step` dest-typ `switch_terrain` | **ACCEPT-WITH-DEBT** |
 | [240-851d3e08-u-on-rndspot.md](./240-851d3e08-u-on-rndspot.md) | `851d3e08` | D-1278 `u_on_rndspot` `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [241-12d815ca-wizterrainwish.md](./241-12d815ca-wizterrainwish.md) | `12d815ca` | D-1279 `wizterrainwish` `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [242-5f8a620a-maketrap-set-levltyp.md](./242-5f8a620a-maketrap-set-levltyp.md) | `5f8a620a` | D-1280 `maketrap` PIT/HOLE `set_levltyp` | **ACCEPT-WITH-DEBT** |
+| [243-7a783c86-moverock-blind-feel.md](./243-7a783c86-moverock-blind-feel.md) | `7a783c86` | D-1281 Blind unseen boulder feel | **ACCEPT-WITH-DEBT** |
+| [244-7d61ee8b-throwit-returning-missile.md](./244-7d61ee8b-throwit-returning-missile.md) | `7d61ee8b` | D-1282 throwit returning_missile | **ACCEPT-WITH-DEBT** |

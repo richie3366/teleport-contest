@@ -6,12 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1282 throwit returning_missile
-  (cadence **#1620** `851d3e08`). Next: Open `dothrow.c` throwit
+  (cadence **#1625** `7d61ee8b`; reviews **241–244**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` throwit
   swallowit (named from D-1274). Not returning_missile. Do not skip
   D-1282…D-1229. Do not pull skipdrin / pit kick / missmu /
   MEAT_RING / seemimic / next_boulder / slip / stamina / steed
-  potion / wizterrainwish / meatobj / meatcorpse / DRAWBRIDGE_UP
-  ice. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
+  potion / wizterrainwish traps / meatobj / meatcorpse /
+  DRAWBRIDGE_UP ice. Do not wrap `msg_mon_movement` as `pline_mon`.
+  No FORCE.
 - Do not revert D-1217–D-1282. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
