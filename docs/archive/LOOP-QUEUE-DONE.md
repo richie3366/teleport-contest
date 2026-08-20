@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains. **Addressed:** D-1307
+- [x] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING. **Addressed:** D-1308
+
+
+- [x] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains. **Addressed:** D-1307 `b97b1fc6`
 
 
 - [x] `eat.c` eat_brains (named from D-1298). Not helmet. **Addressed:** D-1306 `49dab44b`

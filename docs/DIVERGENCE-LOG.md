@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1308 — `objnam.c` doname candle `partly used` / lamp `(lit)`
+
+- **Status:** fixed (map-driven Open from D-1295; not a public FAIL)
+- **Symptom:** JS `doname` TOOL never prefixed `"partly used "` from remaining
+  burn vs `20*oc_cost`, and never suffixed `" (lit)"` on oil/magic lamps,
+  brass lanterns, or candles. Fresh `mksobj` candles also kept the generic
+  corpse-style `age=moves` so the comparison would have mis-fired.
+- **C locus:** `objnam.c` `doname_base` TOOL_CLASS `:1455–1478`
+  (`OIL_LAMP`/`MAGIC_LAMP`/`BRASS_LANTERN`/`Is_candle`; candle
+  `turns_left = age`, lit `+= peek_timer(BURN_OBJECT) - moves`;
+  `turns_left < 20L * oc_cost` → `"partly used "`; then `" (lit)"`;
+  `break` before charges). Producer `mkobj.c` `mksobj_init`
+  `:989–993` `age = 20L * oc_cost` (tallow 200 / wax 400).
+  `timeout.c` `begin_burn` splits age into leftover + timer.
+- **JS was:** FOOD MEAT_RING live (D-1295); TOOL charges only; candle
+  age unnamed omit in `mksobj_init`.
+- **Fix:** `doname` candle prefix + lamp/candle `(lit)`; skip charges
+  on that arm; `mksobj` start age. Local `peek_timer` walk (no
+  objnam↔mkobj import). Did not pull candelabrum `(n of 7)`, LEASH,
+  W_TOOL worn, or POT_OIL `(lit)`. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`; `js/mkobj.js` `mksobj_init`.
+- **Not this iter:** CANDELABRUM_OF_INVOCATION; LEASH `leashmon`;
+  W_TOOL|W_SADDLE `"(being worn)"`; POTION POT_OIL `(lit)`; full
+  `mbodypart`; `food_xname`; `iflags.partly_eaten_hack`.
+- **Verified:** private canary **35**/35 (C arm+peek+`<` not `<=`;
+  full/used/id/unid/blessed/stack; lit `begin_burn` reconstructs;
+  manual timer; lamps; candelabrum/POT_OIL/charges/MEAT_RING
+  regression; mksobj 200/400; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383;
+  seed0361 tower candles **PASS**. **Public-unhit** unless a session
+  shows a burned-down or lit candle/lamp name.
+- **Follow-up:** Open `mhitu.c` AT_TENT melee.
+- **Files:** `js/objnam.js`, `js/mkobj.js`.
+
 ## D-1307 — uhitm.c mhitm_ad_drin helmet / m_slips_free
 
 - **Status:** fixed (map-driven Open from D-1298 / D-1306; not a public FAIL)

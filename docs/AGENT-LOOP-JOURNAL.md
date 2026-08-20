@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1308 objnam candle partly used / lamp (lit)
+
+**Objective:** Open `objnam.c` candle `partly used` (named from
+D-1295). Not MEAT_RING.
+**C locus:** `objnam.c` `doname_base` TOOL `:1455–1478`;
+`mkobj.c` `mksobj_init` `:989–993`.
+**Change:** `"partly used "` from remaining burn vs `20*oc_cost`
+(lit reconstructs via `peek_timer(BURN_OBJECT)-moves`); lamp/candle
+`" (lit)"`; `mksobj` tallow 200 / wax 400. Candelabrum / leash /
+W_TOOL / POT_OIL named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1660**.
+**Verified:** canary **35**/35; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383; seed0361 PASS.
+Filled D-1307 archive hash `b97b1fc6`.
+**Next:** Open `mhitu.c` AT_TENT melee. Not mswings.
+**Blocked:** none.
 ## 2026-08-20 — D-1307 uhitm helmet / m_slips_free
 
 **Objective:** Open `uhitm.c` mhitm_ad_drin helmet / m_slips_free

@@ -5,14 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1307 `uhitm.c` helmet /
-  `m_slips_free` (cadence **#1655** `49dab44b`; reviews **265–268**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `objnam.c` candle
-  `partly used` (named from D-1295). Not MEAT_RING. Do not skip
-  D-1307…D-1229. Do not pull poly AT_KICK / tethered BACKTRACK.
+- **Fortress 44/44** after D-1308 `objnam.c` candle `partly used` /
+  lamp `(lit)` + `mksobj` age (cadence **#1655** `49dab44b`; reviews
+  **265–268** ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mhitu.c`
+  AT_TENT melee (named from D-1261). Not mswings. Do not skip
+  D-1308…D-1229. Do not pull candelabrum / leash / W_TOOL /
+  POT_OIL `(lit)` / poly AT_KICK / tethered BACKTRACK.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1307. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1308. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1307.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1308.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +36,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1307 (index). Named still: mhitu+mhitm
-  AD_DRIN / AD_WRAP `m_slips_free`; candle `partly used`;
+- Do not skip D-1071…D-1308 (index). Named still: mhitu+mhitm
+  AD_DRIN / AD_WRAP `m_slips_free`; candelabrum `(n of 7)` /
+  leash / W_TOOL worn / POT_OIL `(lit)`;
   tethered DISP_TETHER/BACKTRACK; AT_ENGL gulps/lunges. No
   ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -49,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1308: `objnam.c` doname TOOL lamp/candle. `partly used ` when
+  remaining burn (`age`, lit `peek_timer(BURN_OBJECT)-moves`)
+  `< 20*oc_cost`; then `" (lit)"`. `mksobj` tallow 200 / wax 400.
+  Candelabrum / leash / W_TOOL worn / POT_OIL `(lit)` named.
+  **helmet D-1307**.
 - D-1307: uhitm helmet / `m_slips_free`. After headless return,
   AD_DRIN W_ARMH grease/oilskin slip (no skipdrin); then
   `which_armor(W_ARMH) && rn2(8)` helm/hat block; then eat_brains
@@ -112,14 +119,10 @@ Objective/score live in `CURRENT.md`.
 - D-1295: `doname_base` FOOD MEAT_RING `goto ring` — worn
   W_RINGR/L + `W_RING` `"hand)"` (humanoid `body_part(HAND)`);
   known+`oc_charged` `+spe` after oeaten (`BITS` chrg=0 idle).
-  Candle `partly used` / full mbodypart named.
+  Candle `partly used` / lamp `(lit)` D-1308; full mbodypart named.
 - D-1294: `moverock_core` `next_boulder` after Blind feel;
   firstboulder 0 else 1; `xname` `==1` → `"next boulder"` then
   clear; `moverock_done` zeros leftovers; dopush already zeros
   before movobj. Dedicated field (C overloads `corpsenm`). **Blind
   feel D-1281**. dopush/cannot_push_msg/Levitation Blind
   `feel_location` named.
-- D-1293: throwit stamina — after slip, before thrownobj;
-  `(dx||dy||dz<1)` + `calc_capacity(owt)>SLT` + low HP ≠ max +
-  `owt>hp*2` + `!Is_airlevel` → You drop + `exercise(A_CON,FALSE)`
-  + `dx=dy=0` `dz=1`. **slip D-1292**. **steed D-1297**. **boomhit D-1301**.

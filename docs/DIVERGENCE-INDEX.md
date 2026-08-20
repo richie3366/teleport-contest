@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1308 | fixed | objnam.c doname candle `partly used` / lamp `(lit)` | map-driven Open from D-1295; C `objnam.c:1455–1478` TOOL lamp/candle `turns_left=age` lit `peek_timer(BURN_OBJECT)-moves` then `< 20*oc_cost` `"partly used "` + `" (lit)"` break; `mkobj.c:989–993` `age=20*oc_cost`; JS live; candelabrum / leash / W_TOOL worn / POT_OIL `(lit)` still named |
 | D-1307 | fixed | uhitm.c mhitm_ad_drin helmet / m_slips_free | map-driven Open from D-1298/D-1306; C `uhitm.c:2053–2093` `m_slips_free` + `:3204–3220` helmet `which_armor(W_ARMH)&&rn2(8)` then eat_brains then lifsav skipdrin; JS live on uhitm arm; helm_simple_name hat/helm; slip/helmet do not skipdrin; mhitu `u_slip_free`/`uarmh` + mhitm + AD_WRAP caller still named |
 | D-1306 | fixed | eat.c eat_brains | map-driven Open from D-1298; C `eat.c:601–754` tentacle side-effects (`rnd(10)` before DEADMONSTER/noncorporeal; hero conducts/mindless/rider/`morehungry`+INT/`maybe_cannibal`; mhitu/mhitm branches in the function); JS `eat.js` + uhitm headed `mhitm_ad_drin` call; helmet / `m_slips_free` D-1307 |
 | D-1305 | fixed | mhitu.c `mswings` `pline_mon` | map-driven Open from D-1291; C `mhitu.c:128–141` `pline_mon` after verbose/`!Blind`/`mon_visible`; JS was bare `pline` so `a11y.msg_loc` stayed 0,0; verb/quan/`mhis`/`xname` already D-0286; did not wrap `wildmiss`; AT_ENGL gulps/lunges / AT_TENT / Snickersnee bash still named |

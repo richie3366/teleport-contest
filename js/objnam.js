@@ -42,6 +42,7 @@ import {
     CXN_NORMAL, CXN_SINGULAR, CXN_NO_PFX, CXN_PFX_THE, CXN_ARTICLE,
     CXN_NOCORPSE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_RANDOM,
+    BURN_OBJECT,
 } from './const.js';
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
@@ -160,6 +161,26 @@ const MAT_GLASS = 19;
 /** C ref: objclass.h is_rustprone — iron material. */
 function is_rustprone_obj(obj) {
     return (game.objects?.[obj.otyp]?.oc_material ?? 0) === MAT_IRON;
+}
+
+/** C ref: obj.h Is_candle — local copy (objnam↔timeout cycle). */
+function Is_candle_obj(obj) {
+    const n = objectNames[obj?.otyp];
+    return n === 'TALLOW_CANDLE' || n === 'WAX_CANDLE';
+}
+
+/**
+ * C ref: timeout.c peek_timer(BURN_OBJECT) — absolute timeout, or 0.
+ * Local walk of game._timer_base (objnam↔mkobj cycle).
+ */
+function peek_burn_object(obj) {
+    if (!obj) return 0;
+    for (let curr = game._timer_base; curr; curr = curr.next) {
+        if ((curr.action | 0) === BURN_OBJECT && curr.obj === obj) {
+            return curr.timeout | 0;
+        }
+    }
+    return 0;
 }
 
 /** C ref: mkobj.c is_flammable — local copy (objnam↔mkobj cycle). */
@@ -830,7 +851,6 @@ function obj_pmname_corpse(obj) {
  * C ref: objnam.c corpse_xname — unique/pname possessive + adjective
  * placement (D-1234); glob OBJ_NAME (D-1255). CXN_SINGULAR / NO_PFX /
  * PFX_THE / ARTICLE / NOCORPSE.
- * Named omit: doname candle partly used.
  */
 export function corpse_xname(obj, adjective, cxn_flags) {
     const flags = cxn_flags | 0;
@@ -1628,8 +1648,12 @@ export function doname(obj) {
     // CORPSE → corpse_xname(prefix, CXN_ARTICLE|CXN_NOCORPSE) so unique/
     // pname adjectives sit after the possessive (D-1255). EGG →
     // pmnames[NEUTRAL] + optional "(laid by you)" (D-1276). MEAT_RING
-    // goto ring worn/+spe (D-1295). Candle partly used still named.
+    // goto ring worn/+spe (D-1295). TOOL candle partly used / lamp (lit)
+    // (D-1308). Candelabrum / leash / W_TOOL worn named.
     const isMeatRing = oname === 'MEAT_RING';
+    const isLampOrCandle = donameClass === TOOL_CLASS
+        && (oname === 'OIL_LAMP' || oname === 'MAGIC_LAMP'
+            || oname === 'BRASS_LANTERN' || Is_candle_obj(obj));
     let eggLaidByYou = false;
     if (donameClass === FOOD_CLASS && obj.oeaten) {
         prefix += 'partly eaten ';
@@ -1654,6 +1678,18 @@ export function doname(obj) {
             const spe = obj.spe | 0;
             prefix += (spe >= 0 ? `+${spe} ` : `${spe} `);
         }
+    }
+    // C doname_base TOOL_CLASS OIL_LAMP/MAGIC_LAMP/BRASS_LANTERN/Is_candle
+    // (objnam.c:1455–1478): candle turns_left = age, lit → += peek_timer
+    // (BURN_OBJECT) − moves; turns_left < 20*oc_cost → "partly used ".
+    // Then (lit) on bp after prefix+base. Candelabrum / leash / W_TOOL named.
+    if (Is_candle_obj(obj) && donameClass === TOOL_CLASS) {
+        const full_burn_time = 20 * (game.objects?.[otyp]?.oc_cost | 0);
+        let turns_left = obj.age | 0;
+        if (obj.lamplit) {
+            turns_left += peek_burn_object(obj) - (game.moves | 0);
+        }
+        if (turns_left < full_burn_time) prefix += 'partly used ';
     }
 
     // C ref: objnam.c — redo article based on text after "a "
@@ -1681,6 +1717,8 @@ export function doname(obj) {
         for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) itemcount += 1;
         bp += ` containing ${itemcount} item${itemcount !== 1 ? 's' : ''}`;
     }
+    // C doname_base TOOL lamp/candle Concat " (lit)" (objnam.c:1476–1477).
+    if (isLampOrCandle && obj.lamplit) bp += ' (lit)';
 
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
@@ -1754,8 +1792,10 @@ export function doname(obj) {
                 : 'at the ready'})`;
     }
 
-    // C TOOL_CLASS charges — weptools remapped to WEAPON so they get +spe
-    if (known && is_charged_otyp(otyp) && donameClass === TOOL_CLASS)
+    // C TOOL_CLASS charges — weptools remapped to WEAPON so they get +spe.
+    // Lamp/candle arm breaks before charges (objnam.c:1478).
+    if (known && is_charged_otyp(otyp) && donameClass === TOOL_CLASS
+        && !isLampOrCandle)
         bp += ` (${obj.recharged | 0}:${obj.spe | 0})`;
     // C ref: objnam.c WAND_CLASS → charges
     if (known && donameClass === WAND_CLASS)
