@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1600 review D-1258–D-1262 + cadence
+
+**Objective:** audit — C-fidelity reviews **220–224** of JS SHAs
+since `466adf3e`, plus full `sessions` score. No `js/` port.
+**C locus:** `mondata.c` `passes_bars`; `monmove.c` `dissolve_bars`;
+`hack.c` mimic unhide / `moverock_core` nopick; `mhitu.c` `hitmsg`.
+**Change:** five reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: hero `test_move` `passes_bars`;
+`set_uinwater`/`spoteffects`/`digactualhole`; `display_self`
+U_AP_TYPE; `missmu`/`mattacku` AT_TENT/`explmu`; Blind unseen
+boulder feel). Filled D-1262 archive hash `72757d4c`. Open 9
+(no refill). Rule #2: no fs.
+**Score:** cadence **#1600** HEAD `e2aa4dbe` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.842). seed0383 PASS. Next audit @**#1605**.
+**Verified:** `__RESULTS_JSON__` at HEAD `e2aa4dbe`; branch-by-branch
+vs pinned C (`passes_bars` eight arms + ustuck; `u_at`
+`switch_terrain`; `m_ap_type=NOTHING`; `hitmsg` `pline_mon`;
+nopick before Levitation).
+**Next:** Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249).
+Not container_impact.
+**Blocked:** none.
 ## 2026-08-19 09:52 — D-1262 hack.c nopick m-dir over/against
 
 **Objective:** Open `hack.c` nopick `m<dir>` over/against (named from

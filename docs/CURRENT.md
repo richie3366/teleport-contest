@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-19** — full `sessions` at review **#1595**
-HEAD `466adf3e` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `40+0.33/turn` (R² 0.854). Next audit (review + score) @**#1600**.
+Score last measured: **2026-08-20** — full `sessions` at review **#1600**
+HEAD `e2aa4dbe` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.842). Next audit (review + score) @**#1605**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `40+0.33/turn` (R² 0.854). Next audit (review + score) @**#1600**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `40+0.33/turn` (R² 0.854) |
+| Speed label | `36+0.30/turn` (R² 0.842) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,8 +59,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1262. Reviews **216–219** all
-**ACCEPT-WITH-DEBT** (D-1254 closed review **212** Must-fix).
+**Map-driven fortress** after D-1262. Reviews **220–224** all
+**ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
 Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not
 container_impact.

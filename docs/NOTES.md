@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1262 `hack.c` nopick `m<dir>`
-  over/against (reviews **216–219** cadence **#1595** `466adf3e`).
+  over/against (reviews **220–224** cadence **#1600** `e2aa4dbe`).
   Next: Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249).
   Not container_impact. Do not skip D-1262…D-1229. Do not pull
   missmu / mattacku AT_TENT / explmu / AT_HUGS / AT_ENGL gulpum
@@ -98,5 +98,5 @@ Objective/score live in `CURRENT.md`.
 - D-1250: `uhitm.c` hmonas AT_HUGS grab/crush/throttle + `special_dmgval`.
   Silver clone D-1254.
 - D-1249: `container_impact_dmg` dropz/throwit. hitfloor `dropz(TRUE)` named.
-- Reviews **216–219** all ACCEPT-WITH-DEBT (D-1254 closed **212**).
-  Cadence **#1595** **44**/44. Next audit @**#1600**.
+- Reviews **220–224** all ACCEPT-WITH-DEBT (no Must-fix).
+  Cadence **#1600** **44**/44. Next audit @**#1605**.

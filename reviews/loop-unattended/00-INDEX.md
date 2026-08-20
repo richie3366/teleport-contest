@@ -229,3 +229,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [217-25a81ff1-glob-doname-cxn.md](./217-25a81ff1-glob-doname-cxn.md) | `25a81ff1` | D-1255 glob / doname CXN | **ACCEPT-WITH-DEBT** |
 | [218-03e8b10c-launch-obj-landmine-pit.md](./218-03e8b10c-launch-obj-landmine-pit.md) | `03e8b10c` | D-1256 `launch_obj` LANDMINE/PIT | **ACCEPT-WITH-DEBT** |
 | [219-466adf3e-gelcube-digests.md](./219-466adf3e-gelcube-digests.md) | `466adf3e` | D-1257 `gelcube_digests` | **ACCEPT-WITH-DEBT** |
+| [220-c63ac778-passes-bars.md](./220-c63ac778-passes-bars.md) | `c63ac778` | D-1258 `passes_bars` / ALLOW_BARS | **ACCEPT-WITH-DEBT** |
+| [221-78707282-dissolve-bars-switch-terrain.md](./221-78707282-dissolve-bars-switch-terrain.md) | `78707282` | D-1259 `dissolve_bars` `switch_terrain` | **ACCEPT-WITH-DEBT** |
+| [222-8729fa24-mimic-unhide.md](./222-8729fa24-mimic-unhide.md) | `8729fa24` | D-1260 mimic unhide after hideunder | **ACCEPT-WITH-DEBT** |
+| [223-8e2808ad-hitmsg.md](./223-8e2808ad-hitmsg.md) | `8e2808ad` | D-1261 mhitu `hitmsg` | **ACCEPT-WITH-DEBT** |
+| [224-72757d4c-moverock-nopick.md](./224-72757d4c-moverock-nopick.md) | `72757d4c` | D-1262 nopick `m<dir>` over/against | **ACCEPT-WITH-DEBT** |
