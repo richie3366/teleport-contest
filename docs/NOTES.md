@@ -5,19 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1279 `objnam.c` `wizterrainwish`
-  madeterrain `switch_terrain` (reviews **237–240** cadence **#1620**
-  `851d3e08`). Next: Open `trap.c` `maketrap` PIT/HOLE `set_levltyp`
-  (named from D-1269). Not liquid_flow. Do not skip D-1279…D-1229.
+- **Fortress 44/44** after D-1280 `trap.c` `maketrap` PIT/HOLE
+  `set_levltyp` (reviews **237–240** cadence **#1620**
+  `851d3e08`). Next: Open `hack.c` Blind unseen boulder feel
+  (named from D-1262). Not next_boulder. Do not skip D-1280…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
   explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / MEAT_RING /
-  candle `partly used` / swap-with-pet `seemimic` / Blind unseen
-  boulder feel / throwit returning_missile / swallow / slip /
-  stamina / steed potion / wizterrainwish traps / door/wall /
-  Underwater bars / rock Passes_walls / `meatobj` / meatcorpse /
-  find_trap cls / muse `display_self` / On_W_tower / sstairs /
-  cmd wiz. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1279. Named omits stay map, not Must-fix.
+  candle `partly used` / swap-with-pet `seemimic` / next_boulder /
+  throwit returning_missile / swallow / slip / stamina / steed
+  potion / wizterrainwish traps / door/wall / Underwater bars /
+  rock Passes_walls / `meatobj` / meatcorpse / find_trap cls /
+  muse `display_self` / On_W_tower / sstairs / cmd wiz /
+  DRAWBRIDGE_UP ice / shop add_damage / liquid_flow. Do not wrap
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1280. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -26,14 +27,13 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1279.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1280.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
 - Do not blanket-restore overlay `_pending_message` (D-0929).
 - Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide
   RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not push shared `maketrap` PIT morph (D-0972).
 - Do not memcpy gi worn/ball pointers (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
@@ -41,11 +41,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1279 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1280 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname MEAT_RING / candle `partly used`;
   launch_obj down_gate / boulder-chain; `meatobj` / meatbox /
-  meatcorpse; wizterrainwish traps / door/wall; `maketrap` PIT/HOLE
-  `set_levltyp`; Underwater bars / rock Passes_walls; Blind unseen
+  meatcorpse; wizterrainwish traps / door/wall; DRAWBRIDGE_UP ice /
+  shop add_damage; Underwater bars / rock Passes_walls; Blind unseen
   boulder feel; throwit returning_missile / swallow / steed potion;
   find_trap cls / muse `display_self`; swap-with-pet `seemimic`;
   On_W_tower / sstairs / cmd wiz. Do not “fix” seed0383 with
@@ -61,6 +61,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1280: `trap.c` `maketrap` PIT/HOLE `set_levltyp` — IS_ROOM→ROOM /
+  STONE/SCORR→CORR / wall|SDOOR maze ROOM / cavern CORR / DOOR then
+  `flags=0` + unearth + `recalc_block_point`. STONE pit unblocks
+  leftover Lev/Fly. DRAWBRIDGE_UP ice / shop add_damage / liquid_flow
+  named. `do_pit` no longer inlines the morph.
 - D-1279: `objnam.c` `wizterrainwish` after madeterrain →
   `switch_terrain` (C `:3907–3910`). Furniture/liquid/ice/tree/
   bars/cloud/floor; leftover BLev/BFly FROMOUTSIDE. Traps /
@@ -106,10 +111,9 @@ Objective/score live in `CURRENT.md`.
   `still_chewing` then occupy if done. Underwater obstacle /
   generic rock Passes_walls / tunnels / autodig still named.
 - D-1269: `dig.c` `digactualhole` PIT after `wake_nearby` and
-  HOLE `at_u` → `switch_terrain` then Lev/Fly re-read. C
-  `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR still named
-  (STONE stay blocklev). **hurtle D-1277**; **u_on_rndspot D-1278**;
-  **objnam D-1279**.
+  HOLE `at_u` → `switch_terrain` then Lev/Fly re-read.
+  **maketrap set_levltyp D-1280**. **hurtle D-1277**;
+  **u_on_rndspot D-1278**; **objnam D-1279**.
 - D-1268: `hack.c` `spoteffects` dest-typ ≠ origin or
   `iflags.terrain_typ == MAX_TYPE` → `switch_terrain` before
   `pooleffects`.
@@ -122,7 +126,4 @@ Objective/score live in `CURRENT.md`.
   not launcher-ammo-missile / not silver+Hate_silver; re-read slot
   after known_hitum; passivedone `drop_uswapwep` if cursed.
   skipdrin / pit kick named.
-- D-1265: `hack.c` fight_empty Upolyd AT_EXPL `explum(null)` +
-  wake_nearto(7*7) then mh=-1 `rehumanize`; You explode-at /
-  futilely. pick-dig named.
 

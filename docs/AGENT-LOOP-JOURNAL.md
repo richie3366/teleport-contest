@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1280 trap.c maketrap PIT/HOLE set_levltyp
+
+**Objective:** Open `trap.c` `maketrap` PIT/HOLE `set_levltyp`
+(named from D-1269). Not liquid_flow.
+**C locus:** `trap.c` `maketrap` `:514–565`; callee `mkmaze.c`
+`set_levltyp`.
+**Change:** shared `maketrap` IS_ROOM→ROOM / STONE|SCORR→CORR /
+wall|SDOOR maze ROOM / cavern CORR / DOOR then `flags=0` + unearth
++ `recalc_block_point`. `do_pit` dropped the D-0972 inline subset.
+Named: DRAWBRIDGE_UP ice; shop `add_damage`; liquid_flow. Rule #2:
+no fs.
+**Score:** fortress 44/44; public-unhit unless a session digs a pit
+in STONE with leftover Lev/Fly FROMOUTSIDE. Next audit @**#1625**.
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **9**/9 + strict 1500/1800/0012/0004/0007/2200/0383 +
+seed0002/0015.
+**Next:** Open `hack.c` Blind unseen boulder feel (named from
+D-1262). Not next_boulder.
+**Blocked:** none.
 ## 2026-08-20 — D-1279 objnam.c wizterrainwish switch_terrain
 
 **Objective:** Open `objnam.c` wish `switch_terrain` (named from

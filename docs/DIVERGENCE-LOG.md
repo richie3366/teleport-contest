@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1280 — `trap.c` `maketrap` PIT/HOLE `set_levltyp`
+
+- **Status:** fixed (map-driven Open from D-1269; not a public FAIL)
+- **Symptom:** JS `maketrap` created PIT/HOLE/TRAPDOOR/SPIKED_PIT
+  without morphing terrain, so a pit dug in STONE/SCORR stayed
+  `IS_OBSTRUCTED` and `switch_terrain` re-set leftover Lev/Fly
+  `FROMOUTSIDE` (hero fell while C would float). D-0972 had parked
+  IS_ROOM→ROOM in `do_pit` only.
+- **C locus:** `trap.c` `maketrap` `:514–565` (PIT/SPIKED fallthrough
+  HOLE/TRAPDOOR). `set_levltyp` IS_ROOM→ROOM / STONE|SCORR→CORR /
+  wall|SDOOR maze?ROOM:cavernous?CORR:DOOR then `flags=0` unless
+  DRAWBRIDGE_UP, then `unearth_objs` + `recalc_block_point`.
+  Callee `mkmaze.c` `set_levltyp` `:77–121`. Caller
+  `dig.c` `digactualhole` `:690` before D-1269 `switch_terrain`.
+  `music.c` `do_pit` `:228` then liquid_flow, no duplicate morph.
+- **JS was:** HOLE/TRAPDOOR `hole_destination` only; `do_pit` inlined
+  IS_ROOM/STONE subset (D-0972).
+- **Fix:** analog `set_levltyp` in `trap.js` (CAN_OVERWRITE, ice melt,
+  incremental fountain/sink counts) plus local `unearth_objs` (cycle
+  with `dig.js`). Shared `maketrap` now runs the C if-else. `do_pit`
+  dropped the inline. Did not pull DRAWBRIDGE_UP ice→floor,
+  shop `add_damage`, `liquid_flow`, overwrite `reset_utrap`, Sokoban
+  finish. Rule #2: no fs.
+- **JS:** `js/trap.js` `maketrap`; `js/music.js` `do_pit`.
+- **Not this iter:** DRAWBRIDGE_UP ice morph; shop hole `add_damage`;
+  `liquid_flow`; Blind unseen boulder feel; throwit
+  returning_missile.
+- **Verified:** private canary **19**/19 (C STONE/SCORR/wall/flags;
+  JS morph + unearth/recalc; STONE PIT leftover HLev unblocks; maze
+  WALL→ROOM / cavern WALL→CORR / ordinary WALL→DOOR; FOUNTAIN
+  nfountains--; DRAWBRIDGE_UP keeps flags; Rule #2); green+strict
+  seed8000/0900; cohort **9**/9 + strict 1500/1800/0012/0004/0007/
+  2200/0383 + seed0002 drummer / seed0015 pit. **Public-unhit**
+  unless a session digs a pit/hole in STONE with leftover Lev/Fly
+  FROMOUTSIDE.
+- **Follow-up:** Open `hack.c` Blind unseen boulder feel.
+- **Files:** `js/trap.js`, `js/music.js`, `js/dig.js` (omit note).
+
 ## D-1279 — `objnam.c` `wizterrainwish` after madeterrain → `switch_terrain`
 
 - **Status:** fixed (map-driven Open from D-1129; not a public FAIL)

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1280 | fixed | trap.c `maketrap` PIT/HOLE `set_levltyp` | map-driven Open from D-1269; C `trap.c:514–565` IS_ROOM→ROOM / STONE/SCORR→CORR / wall\|SDOOR maze ROOM / cavern CORR / DOOR then flags=0 + unearth + recalc; JS analog in `trap.js` (cycle-local unearth); `do_pit` dropped D-0972 inline; DRAWBRIDGE_UP ice / shop add_damage / liquid_flow named |
 | D-1279 | fixed | objnam.c `wizterrainwish` madeterrain `switch_terrain` | map-driven Open from D-1129; C `objnam.c:3907–3910` after madeterrain; JS `readobjnam_wish` + `makewish` await live D-1129 body; furniture/liquid/ice/tree/bars/cloud/floor; leftover BLev/BFly FROMOUTSIDE on STONE→furniture; traps / door / wall / secret corridor / drawbridge / lava pooleffects named |
 | D-1278 | fixed | dungeon.c `u_on_rndspot` after place `switch_terrain` | map-driven Open from D-1129; C `dungeon.c:1636–1637` unconditional `switch_terrain` after `place_lregion`; JS `mklev.js` async + `goto_level` await; leftover BLev/BFly FROMOUTSIDE on ROOM/AIR/CORR; On_W_tower_level / stairs `u_on_sstairs` / cmd wiz named; **objnam wish D-1279** |
 | D-1277 | fixed | dothrow.c `hurtle_step` dest-typ `switch_terrain` | map-driven Open from D-1129; C `dothrow.c:916–917` dest ltyp≠origin after flush then `switch_terrain`; JS occupy then leftover BLev/BFly FROMOUTSIDE; drown / check_special_room / traps / Passes_walls named; **`u_on_rndspot` D-1278**; objnam wish still named |

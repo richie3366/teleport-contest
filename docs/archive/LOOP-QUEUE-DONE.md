@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG. **Addressed:** D-1279
+- [x] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow. **Addressed:** D-1280
+
+
+- [x] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG. **Addressed:** D-1279 `12d815ca`
 
 
 - [x] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle. **Addressed:** D-1278 `851d3e08`
