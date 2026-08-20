@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1309 `mhitu.c` `mattacku` AT_TENT
-  melee (cadence **#1655** `49dab44b`; reviews **265–268**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dokick.c` poly
-  AT_KICK loop (named). Not hmonas pit kick. Do not skip
-  D-1309…D-1229. Do not pull explmu / AT_HUGS / mhitu AD_DRIN /
-  candelabrum / tethered BACKTRACK.
+- **Fortress 44/44** after D-1310 `dokick.c` `kick_monster` poly
+  AT_KICK loop (cadence **#1655** `49dab44b`; reviews **265–268**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` throwit
+  tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader
+  catch. Do not skip D-1310…D-1229. Do not pull explmu / AT_HUGS /
+  mhitu AD_DRIN / candelabrum / thitmonst leader catch.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1309. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1310. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1309.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1310.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1309 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1310 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; candelabrum `(n of 7)` / leash / W_TOOL worn /
   POT_OIL `(lit)`; tethered DISP_TETHER/BACKTRACK; AT_ENGL
@@ -51,6 +51,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1310: `dokick.c` `kick_monster` poly AT_KICK. `Upolyd &&
+  attacktype(AT_KICK)` then `find_roll_to_hit` once + unparalyze
+  + NATTK continue-only-KICK `rnd(20)` / `special_dmgval(W_ARMF)`
+  / shade break / `damageum`+`passive` or `missum`+`passive`;
+  `multi<0` / DEF_DIED break then return. kickdmg `special_dmgval`
+  / `maybe_mnexto` evade named. **AT_TENT D-1309**.
 - D-1309: `mhitu.c` `mattacku` AT_TENT melee. Same HTH arm as
   claw/kick/bite; pit kick; `!MON_WEP || mconf || Conflict ||
   !touch_petrifies`; unsolid `failed_grab` continue; thick-skinned
@@ -122,8 +128,4 @@ Objective/score live in `CURRENT.md`.
   `MELT_ICE_AWAY`. `is_pool_or_lava` is `is_pool||is_lava` so
   ice/floor spans accept a new pit; moat/lava still reject.
   Shop `add_damage` D-1300. **PIT/HOLE morph D-1280**.
-- D-1295: `doname_base` FOOD MEAT_RING `goto ring` — worn
-  W_RINGR/L + `W_RING` `"hand)"` (humanoid `body_part(HAND)`);
-  known+`oc_charged` `+spe` after oeaten (`BITS` chrg=0 idle).
-  Candle `partly used` / lamp `(lit)` D-1308; full mbodypart named.
 

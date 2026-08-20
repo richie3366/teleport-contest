@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings. **Addressed:** D-1309
+- [x] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick. **Addressed:** D-1310
+
+
+- [x] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings. **Addressed:** D-1309 `07ac10e0`
 
 
 - [x] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING. **Addressed:** D-1308 `2b9c2c6a`

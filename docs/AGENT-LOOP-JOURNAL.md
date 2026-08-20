@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1310 dokick.c kick_monster poly AT_KICK
+
+**Objective:** Open `dokick.c` poly AT_KICK loop (named). Not
+hmonas pit kick.
+**C locus:** `dokick.c` `kick_monster` `:183–223` `Upolyd &&
+attacktype(AT_KICK)` then return; `uhitm.c` `find_roll_to_hit`
+AT_KICK martial_bonus.
+**Change:** NATTK KICK-only `rnd(20)` / `special_dmgval(W_ARMF)` /
+shade break / `damageum`+`passive` or `missum`+`passive`. kickdmg
+`special_dmgval` / `maybe_mnexto` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1660**.
+**Verified:** canary **17**/17; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1309 archive hash `07ac10e0`.
+**Next:** Open `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK.
+Not leader catch.
+**Blocked:** none.
 ## 2026-08-20 — D-1309 mhitu.c mattacku AT_TENT melee
 
 **Objective:** Open `mhitu.c` AT_TENT melee (named from D-1261).
@@ -160,117 +177,4 @@ still `dothrow.c` `sho_obj_return_to_u`. Rule #2: no fs.
 vs pinned C (park+live `seemimic`; shop bill before morph; 10-step
 `nhits--` curve+catch; swallow `add_to_minv` not `mpickobj`).
 **Next:** Open `dothrow.c` `sho_obj_return_to_u`. Not boomhit.
-**Blocked:** none.
-## 2026-08-20 — D-1302 dothrow.c throw_gold swallow
-
-**Objective:** Open `dothrow.c` throw_gold swallow (named from
-D-1283). Not boomhit.
-**C locus:** `dothrow.c` `throw_gold` `:2671–2679` after self
-`:2661`; caller `throw_obj` `:112` `COIN_CLASS && obj!=uquiver`.
-`add_to_minv(ustuck)` not `swallowit`/`mpickobj`; `digests` →
-`s_suffix(mon_nam)` + `" entrails"`; `pline_The`.
-**Change:** live swallow in `dothrow.js`; wallet `_goldCount`;
-self-dot cancels without ingest (You()/unsplit named). Rest of
-throw_gold (dz/bhit/ghitm/ship/floor) and quivered gold via
-throwit named. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1645**). Public-unhit
-unless a session throws gold while `u.uswallow`.
-**Verified:** private canary 33/33; green+strict 8000/0900;
-cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `dothrow.c` sho_obj_return_to_u. Not boomhit.
-**Blocked:** none.
-## 2026-08-20 — D-1301 zap.c boomhit
-
-**Objective:** Open `dothrow.c` boomhit (named from D-1282). Not
-steed.
-**C locus:** `zap.c` `boomhit` `:4148–4233` + `dothrow.c`
-throwit `:1601–1611` `BOOMERANG && !Underwater` (air/lev
-`hurtle` then boomhit; clear AutoReturn; catch
-`return_throw_to_inv`).
-**Change:** live 10-step curve in `dothrow.js` (zap.c callee;
-throwit-only). Catch DEX/`Fumbling`; self-hit `thitu`+
-`endmultishot`; sink Klonk; `!ZAP_POS` backup. m_shot in
-throw_obj. m_respond / Soundeffect / `sho_obj_return_to_u`
-named. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1645**). Public-unhit
-unless a session throws a boomerang.
-**Verified:** private canary 32/32; green+strict 8000/0900;
-cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `dothrow.c` throw_gold swallow. Not boomhit.
-**Blocked:** none.
-## 2026-08-20 — D-1300 trap.c maketrap shop add_damage
-
-**Objective:** Open `trap.c` maketrap shop `add_damage` (named
-from D-1280). Not DRAWBRIDGE_UP ice.
-**C locus:** `trap.c` `maketrap` `:523–527` after
-`hole_destination`, before DRAWBRIDGE_UP/`set_levltyp`.
-`*in_rooms(SHOPBASE)` && (`is_hole` || door || wall) then
-`add_damage` (`SHOP_HOLE_COST` iff door/wall && `!mon_moving`
-else 0).
-**Change:** live `add_damage` in `trap.js` before morph so
-damagelist snapshots original typ. Floor holes bill 0; shop
-entrance door/wall bills 200. overwrite `reset_utrap` / Knox /
-Sokoban finish named. Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1645**). Public-unhit
-unless a session plants a shop hole/door/wall trap.
-**Verified:** private canary 21/21; green+strict 8000/0900;
-cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `dothrow.c` boomhit. Not steed.
-**Blocked:** none.
-## 2026-08-20 — D-1299 hack.c swap-with-pet seemimic
-
-**Objective:** Open `hack.c` swap-with-pet `seemimic` (named
-from D-1275). Not display_self.
-**C locus:** `hack.c` `domove_swap_with_pet` `:2098–2224`
-(park ux0 / `mundetected=0` / `M_AP_TYPE`→`seemimic` before
-refuse); caller `:2920–2926` skip ceiling hiders + restore ux.
-**Change:** live swap helper in `hack.js`; occupy then swap;
-pit/NODIAG/boulder/mtrapped/`t_at`/mundisplaceable +
-`handle_tip(TIP_UNTRAP_MON)`. `goodpos` / mintrap aftermath
-named (teleport.js cycle). Rule #2: no fs.
-**Score:** fortress unchanged (cadence **#1645**). Public-unhit
-unless a session walks into a disguised safemon.
-**Verified:** private canary 19/19; green+strict 8000/0900;
-cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `trap.c` maketrap shop `add_damage`. Not ice.
-**Blocked:** none.
-## 2026-08-20 — #1645 review D-1295–D-1298 + cadence
-
-**Objective:** audit — C-fidelity reviews **257–260** of JS SHAs
-since `25fd80e4`, plus full `sessions` score. No `js/` port.
-**C locus:** `objnam.c` doname MEAT_RING; `trap.c` maketrap
-DRAWBRIDGE_UP ice; `dothrow.c` throwit steed `rn2(6)` +
-`potion.c` potionhit crash/saddle/water; `uhitm.c` hmonas
-skipdrin / pit kick.
-**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
-(named omits stay map: candle / shop `add_damage`; remaining
-potionhit otyps / boomhit; eat_brains / mhitu+mhitm DRIN
-setters). Filled D-1298 archive hash `086eb03d`. Open first row
-still `hack.c` swap-with-pet `seemimic`. Rule #2: no fs.
-**Score:** cadence **#1645** HEAD `086eb03d` **44**/44 Scr
-**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
-`37+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1650**.
-**Verified:** `__RESULTS_JSON__` at HEAD `086eb03d`; branch-by-branch
-vs pinned C (`goto ring` worn Concat; ice `DB_FLOOR` +
-`is_pool||is_lava`; `rn2(6)` then live crash/saddle/water not
-remaining otyps; hmonas skipdrin setter + pit `mtrapped_in_pit`).
-**Next:** Open `hack.c` swap-with-pet `seemimic`. Not display_self.
-**Blocked:** none.
-## 2026-08-20 — D-1298 uhitm.c hmonas skipdrin / pit kick
-
-**Objective:** Open `uhitm.c` skipdrin / pit kick (named
-from D-1266). Not altwep.
-**C locus:** `uhitm.c` `hmonas` `:5451`/`5464`/`5558`;
-`mhitm_ad_drin` `:3189`; `mhitu.c` `mtrapped_in_pit`;
-`mattackm`/`mattacku` continues.
-**Change:** skipdrin continue after wasted tentacle-DRIN;
-pit AT_KICK `continue`; shared `mtrapped_in_pit`; uhitm
-`mhitm_ad_drin` headless/notonhead setter + slime. eat_brains
-/ helmet named. Rule #2: no fs.
-**Verified:** private canary **27**/27; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383. **Public-unhit** unless Upolyd pit-kick or
-mind-flayer vs headless.
-**Next:** Open `hack.c` swap-with-pet `seemimic`. Not
-display_self.
 **Blocked:** none.

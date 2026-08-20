@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1310 — `dokick.c` `kick_monster` poly AT_KICK loop
+
+- **Status:** fixed (map-driven Open from D-1309; not a public FAIL)
+- **Symptom:** JS `kick_monster` skipped C's `Upolyd && attacktype(AT_KICK)`
+  loop and always fell through to human `kickdmg`, so a poly'd pony or
+  mountain centaur spent one clumsy/encumbrance kick instead of rolling
+  each AT_KICK slot via `find_roll_to_hit` / `rnd(20)` / `damageum`.
+- **C locus:** `dokick.c` `kick_monster` `:183–223` after hidden-target
+  reveal, before `inv_weight`. `find_roll_to_hit(mon, AT_KICK, NULL,
+  &attknum, &armorpenalty)` once; `mon_maybe_unparalyze`; NATTK continue
+  unless `aatyp==AT_KICK`; `gm.multi<0` break; `rnd(20)` then
+  `special_dmgval(&youmonst, mon, W_ARMF, NULL)`; shade `Your kick
+  passes harmlessly through` break (no passive); hit `You kick` +
+  `damageum` + `passive(sum!=MISS, !(sum&DEF_DIED))` then DEF_DIED
+  break; miss `missum` + `passive(FALSE,1)`; then `return`. Callee
+  `uhitm.c` `find_roll_to_hit` `:422–424` `AT_KICK && martial_bonus()`
+  `weapon_hit_bonus(NULL)`.
+- **JS was:** comment `Upolyd AT_KICK attacktype loop deferred`;
+  `find_roll_to_hit` omitted the AT_KICK martial arm.
+- **Fix:** port the loop and return. Export `find_roll_to_hit` /
+  `missum` / `mon_maybe_unparalyze`. Poly-loop `special_dmgval(W_ARMF)`
+  is live; kickdmg still stubs it 0. Did not pull `maybe_mnexto` evade,
+  kickdmg silver/blessed boots, martial knockback, or hmonas pit kick
+  (already D-1298). Rule #2: no fs.
+- **JS:** `js/dokick.js` `kick_monster`; `js/uhitm.js` exports +
+  AT_KICK martial_bonus arm.
+- **Not this iter:** kickdmg `special_dmgval`; `maybe_mnexto` evade;
+  `abuse_dog` / martial knockback; `wake_nearby`; `u_wipe_engr`;
+  shop-town watchman; `kickstr`; find_roll_to_hit maybe_polyd(mlevel)
+  / monk / encumbrance / utrap.
+- **Verified:** private canary **17**/17 (C arm+gates; JS same; pony
+  one kick; plains skip AT_WEAP; mountain two kicks; shade break;
+  missum; `multi<0`; non-poly + poly-jackal fallthrough; DEF_DIED
+  one rnd(20); Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session poly-kicks a monster (`#kick`
+  while `Upolyd` with an AT_KICK form).
+- **Follow-up:** Open `dothrow.c` throwit tethered DISP_TETHER /
+  BACKTRACK.
+- **Files:** `js/dokick.js`, `js/uhitm.js`.
+
 ## D-1309 — `mhitu.c` `mattacku` AT_TENT melee
 
 - **Status:** fixed (map-driven Open from D-1261; not a public FAIL)
