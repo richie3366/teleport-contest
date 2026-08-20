@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1325 | fixed | dokick.c really_kick_object snuff_candle | map-driven Open from D-1242; C `dokick.c:733–736` `obj_extract_self` then `snuff_candle` then `newsym` then `bhit(KICKED_WEAPON)`; JS was extract+bhit with snuff named; live `apply.js` callee (candles/candelabrum only, not `snuff_lit`); throwit land `:1818` / mthrowu `:942` / killer_xname still named |
 | D-1324 | fixed | dothrow.c thitmonst swallow vanish pline | map-driven Open from D-1312; C `dothrow.c:2276–2298` after tamedog: wakeup, cockatrice `minstapetrify`/`delobj` if `!uswallow`, `Tobjnam` vanish + digests `" entrails"` / whirly `" currents"` + `s_suffix`; JS was wakeup-only; live; potionhit / ball / boulder / `gem_accept` / `cutworm` still named |
 | D-1323 | fixed | zap.c bhit THROWN_TETHERED_WEAPON / isqrt | map-driven Open from D-1311; C `dothrow.c:1664–1677` `min(range,isqrt(arw->range))` then `bhit(THROWN_TETHERED)`; `zap.c` bhit `:3863–3866` remap+DISP_TETHER, `:4023` skip END, `:4125–4127` after-loop skip unless returning cleared; JS live; THROWN_WEAPON fly / WEB stick still named; vanish pline D-1324 |
 | D-1322 | fixed | objnam.c doname W_WEP !mrg_to_wielded + AKLYS tethered | Must-fix review **283**; C `objnam.c:1561` `(W_WEP) && !gm.mrg_to_wielded` + `:1591–1595` ConcatF2 `tethered ? "tethered to"` (`otyp==AKLYS`); JS D-1321 rewrote the if and dropped both; live; warn_obj / artifact_light `)` rewrite still named |

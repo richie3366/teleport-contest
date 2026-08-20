@@ -1137,7 +1137,8 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: snuff_candle; killer_xname polish (xname stand-in).
+ * Named omit: killer_xname polish (xname stand-in); throwit land /
+ * mthrowu snuff_candle.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1347,7 +1348,11 @@ async function really_kick_object(x, y) {
     }
 
     obj_extract_self(kicked);
-    // snuff_candle deferred
+    // C dokick.c really_kick_object :734 — candles/candelabrum, not snuff_lit
+    {
+        const { snuff_candle } = await import('./apply.js');
+        await snuff_candle(kicked);
+    }
     newsym(x, y);
 
     const { bhit } = await import('./zap.js');

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1325 dokick.c really_kick_object snuff_candle
+
+**Objective:** Open `dokick.c` snuff_candle (named from D-1242).
+Not throwit_mon_hit.
+**C locus:** `dokick.c` `really_kick_object` `:733–736`;
+`apply.c` `snuff_candle` `:1472–1491`.
+**Change:** extract then `snuff_candle` then newsym then
+`bhit(KICKED_WEAPON)`. Lamps stay lit. Throwit land / mthrowu /
+killer_xname still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1680**.
+**Verified:** canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1324 archive hash `1d5b0b66`.
+**Next:** Open `mhitu.c` explmu (named). Not AT_HUGS.
+**Blocked:** none.
 ## 2026-08-21 — D-1324 dothrow.c thitmonst swallow vanish pline
 
 **Objective:** Open `dothrow.c` thitmonst vanish pline (named from

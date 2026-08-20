@@ -1884,6 +1884,7 @@ function closed_door_boom(x, y) {
  * C dothrow.c throwit_mon_hit — snuff_candle, thitmonst, shk hot_pursuit.
  * Callers: throwit (D-1315), boomhit (D-1301). boomhit m_respond is D-1314.
  * apply.js imports thitmonst — snuff_candle is a dynamic import.
+ * dokick really_kick_object snuff is D-1325 (not this helper).
  */
 export async function throwit_mon_hit(obj, mon) {
     if (!mon) return false;

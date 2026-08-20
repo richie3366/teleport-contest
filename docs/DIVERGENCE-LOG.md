@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1325 — dokick.c really_kick_object snuff_candle
+
+- **Status:** fixed (map-driven Open from D-1242; not a public FAIL)
+- **Symptom:** a kicked lit candle or candelabrum stayed burning in
+  flight. C snuffs candles/candelabrum after `obj_extract_self` and
+  before `bhit(KICKED_WEAPON)`. Lamps stay lit (`snuff_candle`, not
+  `snuff_lit`).
+- **C locus:** `dokick.c` `really_kick_object` `:733–736`. Callee
+  `apply.c` `snuff_candle` `:1472–1491` (`Is_candle` or
+  CANDELABRUM, `end_burn(TRUE)`). Caller `kick_object` `:500`.
+- **JS was:** `obj_extract_self` then `newsym` then `bhit`;
+  `// snuff_candle deferred`.
+- **Fix:** dynamic-import `snuff_candle` (apply↔dokick via dothrow
+  `thitmonst`). Gold/dart/lamp kicks still call it; non-candles
+  return false. Rule #2: no fs.
+- **JS:** `js/dokick.js` `really_kick_object`; `js/apply.js` caller
+  comment.
+- **Not this iter:** throwit land `:1818`; mthrowu `:942`;
+  `killer_xname`; kickdmg `special_dmgval`; `splash_lit`.
+- **Verified:** private canary **13**/13 (C/JS extract→snuff→newsym
+  →bhit; tallow flame pline; magic/oil lamp stay lit; candelabrum
+  snuffed; unlit no-op; Blind still snuffs; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session kicks a lit candle.
+- **Follow-up:** Open `mhitu.c` explmu.
+- **Files:** `js/dokick.js`, `js/apply.js`, `js/dothrow.js`.
+
 ## D-1324 — dothrow.c thitmonst swallow vanish pline
 
 - **Status:** fixed (map-driven Open from D-1312; not a public FAIL)
