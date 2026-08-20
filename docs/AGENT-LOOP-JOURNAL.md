@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1277 dothrow.c hurtle_step switch_terrain
+
+**Objective:** Open `dothrow.c` `hurtle_step` `switch_terrain`
+(named from D-1129). Not u_on_rndspot.
+**C locus:** `dothrow.c` `hurtle_step` `:916–917` dest-typ ≠ origin
+after `flush_screen`.
+**Change:** `dothrow.js` awaits live D-1129 body when dest `ltyp`
+differs from origin. Named: drown / check_special_room / traps /
+Passes_walls; `u_on_rndspot`; objnam wish. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a hurtle changes
+terrain with leftover Lev/Fly FROMOUTSIDE. Next audit @**#1620**.
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dungeon.c` `u_on_rndspot` `switch_terrain` (named
+from D-1129). Not dothrow hurtle.
+**Blocked:** none.
 ## 2026-08-20 — D-1276 objnam.c doname EGG
 
 **Objective:** Open `objnam.c` doname EGG (named from D-1255). Not

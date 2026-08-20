@@ -1861,8 +1861,8 @@ function Flying_st() {
  * flags.terrainstatus && !context.run. C youprop.h Underwater ≡
  * u.uinwater. Named omit: botl terrain_descr[] paint; options.c
  * toggle; end_running MAX_TYPE reset; dungeon.c u_on_newpos
- * MAX_TYPE; dothrow hurtle / u_on_rndspot / objnam wish callers.
- * digactualhole PIT/HOLE is D-1269.
+ * MAX_TYPE; **dothrow hurtle_step D-1277**; u_on_rndspot / objnam
+ * wish callers. digactualhole PIT/HOLE is D-1269.
  * dissolve_bars u_at is D-1259; set_uinwater is D-1267;
  * spoteffects dest-typ is D-1268.
  */
@@ -1930,6 +1930,7 @@ export function classify_terrain() {
  * set_uinwater change-gate is D-1267.
  * spoteffects dest-typ / MAX_TYPE is D-1268.
  * digactualhole PIT/HOLE is D-1269.
+ * dothrow hurtle_step dest-typ is D-1277.
  */
 export async function switch_terrain() {
     const u = game.u;
@@ -1987,8 +1988,8 @@ export async function switch_terrain() {
  * pooleffects leave-water; drown Amphibious wade / post-rescue;
  * zap freeze; objnam wish; cmd leave-level; detect/save bypass
  * (C writes u.uinwater directly). spoteffects dest-typ is D-1268.
- * digactualhole PIT/HOLE is D-1269. dothrow hurtle / u_on_rndspot /
- * objnam wish still call switch_terrain themselves.
+ * digactualhole PIT/HOLE is D-1269. **dothrow hurtle_step D-1277**.
+ * u_on_rndspot / objnam wish still call switch_terrain themselves.
  */
 export async function set_uinwater(in_out) {
     const u = game.u;
@@ -2220,7 +2221,8 @@ export async function invocation_message() {
  * C ref: monmove.c dissolve_bars — replace IRONBARS with DOOR/ROOM/CORR.
  * After newsym, u_at → switch_terrain (D-1259). set_uinwater is
  * D-1267. spoteffects dest-typ is D-1268. digactualhole PIT/HOLE
- * is D-1269. Named: dothrow hurtle / u_on_rndspot / objnam wish.
+ * is D-1269. **dothrow hurtle_step D-1277**. Named: u_on_rndspot /
+ * objnam wish.
  */
 export async function dissolve_bars(x, y) {
     const lev = game.level?.at(x, y);

@@ -14,6 +14,7 @@ import {
 } from './mkobj.js';
 import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
+    switch_terrain,
 } from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
@@ -1802,8 +1803,9 @@ function sobj_at_hurtle(otyp, x, y) {
 /**
  * C ref: dothrow.c hurtle_step — one cell of hero hurtle.
  * in_out_region after isok, before *range==0 (D-1165; C 787–790).
- * Named omit: Passes_walls/may_passwall; bad_rock squeeze;
- * Sokoban diagonal halt; drag_ball; switch_terrain; check_special_room;
+ * dest-typ ≠ origin after flush_screen → switch_terrain (D-1277;
+ * C :916–917). Named omit: Passes_walls/may_passwall; bad_rock
+ * squeeze; Sokoban diagonal halt; drag_ball; check_special_room;
  * drown/waterwall; jumping I_SPECIAL; petrify bump; setmangry; trap
  * pass-over dotrap; nh_delay_output.
  */
@@ -1860,6 +1862,9 @@ export async function hurtle_step(rangeArg, x, y) {
 
     const ox = u.ux | 0;
     const oy = u.uy | 0;
+    /* C dothrow.c:907–917 — u_on_newpos then newsym/vision/flush, then
+     * switch_terrain iff dest typ differs from the origin cell. */
+    const originTyp = game.level?.at?.(ox, oy)?.typ | 0;
     u.ux = x;
     u.uy = y;
     if (u.usteed) {
@@ -1869,6 +1874,7 @@ export async function hurtle_step(rangeArg, x, y) {
     newsym(ox, oy);
     vision_recalc(1);
     flush_screen(1);
+    if (ltyp !== originTyp) await switch_terrain();
 
     rangeArg.n = (rangeArg.n | 0) - 1;
     if (rangeArg.n < 0) rangeArg.n = 0;

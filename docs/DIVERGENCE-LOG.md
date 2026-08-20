@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1277 — `dothrow.c` `hurtle_step` dest-typ → `switch_terrain`
+
+- **Status:** fixed (map-driven Open from D-1129; not a public FAIL)
+- **Symptom:** JS `hurtle_step` occupied the dest and flushed vision
+  without calling `switch_terrain`. C does when dest `ltyp !=
+  levl[ox][oy].typ` after `u_on_newpos` + `newsym` + `vision_recalc` +
+  `flush_screen`, so leftover Lev/Fly `FROMOUTSIDE` never unblocked
+  (STONE→ROOM) and waterwall/lavawall never blocked.
+- **C locus:** `dothrow.c` `hurtle_step` `:907–917` (`if (ltyp !=
+  levl[ox][oy].typ) switch_terrain()` after `flush_screen(1)`, before
+  `check_special_room`). Body live D-1129 / D-1151 (`hack.c`
+  `:3178–3217`). Callers: `hurtle` via `walk_path`; `hurtle_jump`.
+- **JS was:** occupy + `newsym`/`vision_recalc`/`flush_screen` then
+  decrement `*range`; named omit listed `switch_terrain`.
+- **Fix:** await live `switch_terrain` under that C dest-typ gate.
+  Did not pull Passes_walls/may_passwall, Sokoban diagonal,
+  `drag_ball`, `check_special_room`, drown/waterwall, jumping
+  `I_SPECIAL`, petrify bump, trap pass-over, `u_on_rndspot`, or
+  objnam wish. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `hurtle_step`.
+- **Not this iter:** `check_special_room`; drown/`is_waterwall`;
+  lava Norep; trap `dotrap`; Sokoban; `drag_ball`;
+  Passes_walls/`may_passwall`; dungeon.c `u_on_rndspot`; objnam
+  wish `switch_terrain`.
+- **Verified:** private canary **13**/13 (C dest-typ after flush;
+  JS await after flush; ROOM→ROOM skip leftover BLev; STONE→ROOM
+  clear BLev/BFly; ROOM→WATER You_cant; ROOM→LAVAWALL fly;
+  ROOM→STONE bump no occupy; ROOM→CORR range--; `*range==0` skip;
+  ROOM→ICE unblock; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session hurtles onto different terrain
+  with leftover Lev/Fly FROMOUTSIDE.
+- **Follow-up:** Open `dungeon.c` `u_on_rndspot` `switch_terrain`.
+- **Files:** `js/dothrow.js`, `js/hack.js` (caller comments).
+
 ## D-1276 — `objnam.c` doname EGG
 
 - **Status:** fixed (map-driven Open from D-1255; not a public FAIL)
