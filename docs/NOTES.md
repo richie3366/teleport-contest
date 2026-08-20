@@ -5,16 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1320 `objnam.c` doname POTION
-  POT_OIL `(lit)` (cadence **#1670** `ccdc8670`; reviews
+- **Fortress 44/44** after D-1321 `objnam.c` doname W_WEP
+  `body_part(HAND)` poly (cadence **#1670** `ccdc8670`; reviews
   **277–280** ACCEPT-WITH-DEBT; **275** caller is D-1315). Next:
-  Open `objnam.c` doname W_WEP `body_part(HAND)` poly. Not MEAT_RING.
-  Do not skip D-1320…D-1229. Do not pull gazemu / explmu / AT_HUGS /
-  mhitu AD_DRIN / zap bhit `THROWN_TETHERED_WEAPON` isqrt /
-  thitmonst vanish pline / dokick snuff_candle.
-  Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
-  No FORCE.
-- Do not revert D-1217–D-1320. Named omits stay map, not Must-fix.
+  Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt. Not throwit
+  tether. Do not skip D-1321…D-1229. Do not pull gazemu / explmu /
+  AT_HUGS / mhitu AD_DRIN / thitmonst vanish pline / dokick
+  snuff_candle. Do not wrap `wildmiss` or `msg_mon_movement` as
+  `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1321. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -23,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1320.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1321.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,9 +36,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1320 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1321 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
-  AT_TENT; W_WEP `body_part(HAND)` poly; AT_ENGL gulps/lunges.
+  AT_TENT; AT_ENGL gulps/lunges; zap bhit tether/isqrt.
   No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -51,8 +50,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1321: `objnam.c` doname W_WEP `:1578–1595` `body_part(HAND)` +
+  bimanual `makeplural` / URIGHTY; SWAPWEP `:1616`; RING `:1499`.
+  Late-bind (objnam↔polyself). **AKLYS tether / warn_obj named**.
 - D-1320: `objnam.c` doname POTION POT_OIL `:1488–1491` `lamplit`
-  Concat `" (lit)"` (no known gate). xname bare. **W_WEP HAND poly named**.
+  Concat `" (lit)"` (no known gate). xname bare.
 - D-1319: LEASH `:1431–1445` after worn; `find_mid(FM_FMON)` skip-dead
   `" (attached to %s)"` `noit_mon_nam`; else `leashmon=0`. Worn skip.
 - D-1318: TOOL W_TOOL|W_SADDLE `:1427–1429` `" (being worn)"` then
@@ -77,6 +79,4 @@ Objective/score live in `CURRENT.md`.
   AT_HUGS / mhitu AD_DRIN named.
 - D-1308: TOOL lamp/candle `partly used ` (`age`/peek `< 20*oc_cost`)
   + `" (lit)"`. mksobj tallow 200 / wax 400.
-- D-1307: uhitm helmet / `m_slips_free` then `rn2(8)` helm/hat then
-  eat_brains. mhitu `u_slip_free` / mhitm / AD_WRAP named.
 

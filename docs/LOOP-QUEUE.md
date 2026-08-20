@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` doname W_WEP `body_part(HAND)` poly (named from D-1295). Not MEAT_RING.
 - [ ] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether.
 - [ ] `dothrow.c` thitmonst vanish pline (named from D-1312). Not leader catch.
 - [ ] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit.

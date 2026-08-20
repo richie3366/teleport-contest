@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1321 objnam.c doname W_WEP body_part(HAND) poly
+
+**Objective:** Open `objnam.c` doname W_WEP `body_part(HAND)` poly
+(named from D-1295). Not MEAT_RING.
+**C locus:** `objnam.c` `doname_base` W_WEP `:1578–1595`
+`body_part(HAND)` + bimanual `makeplural` / URIGHTY ConcatF2;
+SWAPWEP `:1616`; RING `:1499`. `polyself.c` `body_part`.
+**Change:** late-bind `set_body_part`; wielded/swap/ring use form
+noun (`paw`/`hands`). AKLYS tether / warn_obj / `mrg_to_wielded`
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1675**.
+**Verified:** canary **28**/28; green+strict seed8000/0900; cohort
+**8**/8 + strict 1500/1800/0012/0004/0007/2200/0383/0361.
+Filled D-1320 archive hash `cf309315`.
+**Next:** Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named
+from D-1311). Not throwit tether.
+**Blocked:** none.
 ## 2026-08-20 — D-1320 objnam.c doname POTION POT_OIL (lit)
 
 **Objective:** Open `objnam.c` doname POTION POT_OIL (lit) (named from

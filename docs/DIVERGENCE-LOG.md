@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1321 — `objnam.c` doname W_WEP `body_part(HAND)` poly
+
+- **Status:** fixed (map-driven Open from D-1295; not a public FAIL)
+- **Symptom:** JS `doname` W_WEP / W_SWAPWEP / RING hardcoded `"hand"` /
+  `"hands"` instead of C `body_part(HAND)` (+ bimanual `makeplural`).
+  A polymorphed hero's wielded weapon still said `"weapon in right
+  hand"` rather than `"paw"` / `"claw"` / form noun.
+- **C locus:** `objnam.c` `doname_base` W_WEP `:1561–1611` else arm
+  `:1578` `hand_s = body_part(HAND)`; bimanual `:1581–1583`
+  `makeplural`; else URIGHTY `"right"`/`"left"` + `hand_s`; ConcatF2
+  `" (%s %s)"` `"weapon in"` / twoweap `"wielded in"`. W_SWAPWEP
+  `:1613–1616` opposite URIGHTY + `body_part(HAND)`. RING `:1492–1499`
+  (MEAT_RING `goto ring`) ConcatF1 `"%s)"` `body_part(HAND)`.
+  `polyself.c` `body_part` ≡ `mbodypart(&youmonst, HAND)`. Callers:
+  invent `prinv`/`xprname`. `xname` stays bare.
+- **JS was:** humanoid `"hand"`/`"hands"` after D-0661 / D-1295;
+  `mbodypart` live in `polyself.js`; doname omit.
+- **Fix:** late-bound `set_body_part` (objnam↔polyself cycle;
+  polyself already imports `an`). W_WEP ConcatF2 uses `doname_hand`
+  + `makeplural` / URIGHTY; SWAPWEP + RING same helper. Did not pull
+  `mrg_to_wielded`, AKLYS `"tethered to"`, warn_obj glow, or
+  `artifact_light` paren rewrite. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`; `js/polyself.js` `set_body_part`.
+- **Not this iter:** `mrg_to_wielded`; AKLYS tethered; warn_obj /
+  `artifact_light` `)` rewrite; `mksobj` `MAX_OIL_IN_FLASK`; zap
+  bhit `THROWN_TETHERED_WEAPON` / isqrt.
+- **Verified:** private canary **28**/28 (C ConcatF2 + RING/SWAPWEP
+  `body_part(HAND)`; JS late-bind; humanoid right/left/hands;
+  stack/ammo `(wielded)`; twoweap primary/swap; wolf paw/paws +
+  RING/MEAT_RING poly; humanoid restore; xname bare; quiver /
+  POT_OIL `(lit)(wielded)` / armor regression; Rule #2);
+  green+strict seed8000/0900; cohort **8**/8 + strict
+  1500/1800/0012/0004/0007/2200/0383/0361. **Public-unhit** unless
+  a session `doname`s a wielded weapon while Upolyd.
+- **Follow-up:** Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt
+  (named from D-1311).
+- **Files:** `js/objnam.js`, `js/polyself.js`.
+
 ## D-1320 — `objnam.c` doname POTION POT_OIL `(lit)`
 
 - **Status:** fixed (map-driven Open from D-1308; not a public FAIL)

@@ -42,7 +42,7 @@ import {
     CXN_NORMAL, CXN_SINGULAR, CXN_NO_PFX, CXN_PFX_THE, CXN_ARTICLE,
     CXN_NOCORPSE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_RANDOM,
-    BURN_OBJECT,
+    BURN_OBJECT, HAND, RIGHT_HANDED,
 } from './const.js';
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
@@ -1329,6 +1329,21 @@ export function set_noit_mon_nam(fn) {
 }
 
 /**
+ * Late-bound from polyself.js — C objnam.c doname_base body_part(HAND).
+ * Avoids static objnam↔polyself cycle (polyself already imports an).
+ * Unset → C mbodypart null-data humanoid "hand".
+ */
+let _body_part = null;
+export function set_body_part(fn) {
+    _body_part = fn;
+}
+
+/** C polyself.c body_part(HAND) via doname_base W_WEP / W_SWAPWEP / RING. */
+function doname_hand() {
+    return _body_part ? _body_part(HAND) : 'hand';
+}
+
+/**
  * C ref: objnam.c the_unique_obj — "the unique_item" vs "a unique_item".
  * Named omissions: iflags.override_ID ID-reveal paths.
  */
@@ -1790,25 +1805,24 @@ export function doname(obj) {
     if (obj.owornmask & W_AMUL)
         bp += ' (being worn)';
     // C doname_base RING_CLASS ring: + FOOD MEAT_RING goto ring —
-    // " (on right " / " (on left " then body_part(HAND) + ")".
-    // Humanoid default is "hand"; full mbodypart poly variants named
-    // (same as W_WEP hardcoded hands).
+    // " (on right " / " (on left " then body_part(HAND) + ")" (objnam.c:1492–1499).
     if (donameClass === RING_CLASS || isMeatRing) {
         if (obj.owornmask & W_RINGR)
             bp += ' (on right ';
         if (obj.owornmask & W_RINGL)
             bp += ' (on left ';
         if (obj.owornmask & W_RING)
-            bp += 'hand)';
+            bp += `${doname_hand()})`;
     }
     // C ref: objnam.c doname_base BALL_CLASS/CHAIN_CLASS —
     // W_BALL → "(chained to you)"; W_CHAIN → "(attached to you)".
     if (obj.owornmask & (W_BALL | W_CHAIN)) {
         bp += ` (${(obj.owornmask & W_BALL) ? 'chained' : 'attached'} to you)`;
     }
-    // C ref: objnam.c doname_base W_WEP — stack/ammo/missile/non-weptool →
-    // "(wielded)"; else "weapon in"/"wielded in" hand(s). mrg_to_wielded,
-    // AKLYS tethered, warn_obj/artifact_light paren rewrite deferred.
+    // C ref: objnam.c doname_base W_WEP (objnam.c:1561–1611) — stack/ammo/
+    // missile/non-weptool → "(wielded)"; else ConcatF2 " (%s %s)" with
+    // body_part(HAND) (bimanual makeplural; else URIGHTY right/left).
+    // mrg_to_wielded, AKLYS tethered, warn_obj/artifact_light rewrite named.
     if (obj.owornmask & W_WEP) {
         const twoweap_primary = !!(obj === game.u?.uwep && game.u?.twoweap);
         const alt_wielded = (quan !== 1
@@ -1819,21 +1833,23 @@ export function doname(obj) {
         if (alt_wielded) {
             bp += ' (wielded)';
         } else {
-            const right = (game.u?.uhandedness !== 1); // LEFT_HANDED=1
+            let hand_s = doname_hand();
             if (bimanual(obj)) {
-                bp += ' (weapon in hands)';
-            } else if (twoweap_primary) {
-                bp += ` (wielded in ${right ? 'right' : 'left'} hand)`;
+                hand_s = makeplural(hand_s);
             } else {
-                bp += ` (weapon in ${right ? 'right' : 'left'} hand)`;
+                const urighty = ((game.u?.uhandedness | 0) === RIGHT_HANDED);
+                hand_s = `${urighty ? 'right' : 'left'} ${hand_s}`;
             }
+            const how = twoweap_primary ? 'wielded in' : 'weapon in';
+            bp += ` (${how} ${hand_s})`;
         }
     }
-    // C: W_SWAPWEP, !twoweap → "(alternate weapon(s); not wielded)"
+    // C: W_SWAPWEP twoweap → "wielded in" opposite URIGHTY + body_part(HAND)
+    // (objnam.c:1613–1616); else "(alternate weapon(s); not wielded)".
     if (obj.owornmask & W_SWAPWEP) {
         if (game.u?.twoweap) {
-            const right = (game.u?.uhandedness !== 1);
-            bp += ` (wielded in ${right ? 'left' : 'right'} hand)`;
+            const urighty = ((game.u?.uhandedness | 0) === RIGHT_HANDED);
+            bp += ` (wielded in ${urighty ? 'left' : 'right'} ${doname_hand()})`;
         } else {
             bp += ` (alternate weapon${quan === 1 ? '' : 's'}; not wielded)`;
         }

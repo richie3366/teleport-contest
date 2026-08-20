@@ -59,32 +59,32 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1320. Reviews **277–280**
+**Map-driven fortress** after D-1321. Reviews **277–280**
 ACCEPT-WITH-DEBT (review **275** caller wired as D-1315).
 **Next cluster:**
-Open `objnam.c` doname W_WEP `body_part(HAND)` poly (named from
-D-1295). Not MEAT_RING.
-Do not skip D-1320…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from
+D-1311). Not throwit tether.
+Do not skip D-1321…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN / zap bhit
-`THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline / dokick
-snuff_candle.
+Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN / thitmonst
+vanish pline / dokick snuff_candle.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1320.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1321.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1320 (index). Recent: **D-1320** `objnam.c`
-doname POTION POT_OIL `(lit)`. Prior: **D-1319** LEASH attached.
-D-1318 TOOL W_TOOL|W_SADDLE worn. D-1317 CANDELABRUM `(n of 7)`.
-D-1316 throwit ACURRSTR urange. D-1315 throwit → `throwit_mon_hit`.
-D-1314 `mon.c` `m_respond`. D-1313 throwit_mon_hit `snuff_candle` /
-`hot_pursuit`. D-1312 thitmonst leader catch / `finish_quest`.
-D-1311 throwit tethered DISP_TETHER/BACKTRACK. D-1310 `dokick.c`
-`kick_monster` poly AT_KICK. D-1309 `mhitu.c` `mattacku` AT_TENT
-melee; D-1308 candle `partly used` / lamp `(lit)`.
+**Keep:** D-0845…D-1321 (index). Recent: **D-1321** `objnam.c`
+doname W_WEP `body_part(HAND)` poly. Prior: **D-1320** POT_OIL
+`(lit)`. D-1319 LEASH attached. D-1318 TOOL W_TOOL|W_SADDLE worn.
+D-1317 CANDELABRUM `(n of 7)`. D-1316 throwit ACURRSTR urange.
+D-1315 throwit → `throwit_mon_hit`. D-1314 `mon.c` `m_respond`.
+D-1313 throwit_mon_hit `snuff_candle` / `hot_pursuit`. D-1312
+thitmonst leader catch / `finish_quest`. D-1311 throwit tethered
+DISP_TETHER/BACKTRACK. D-1310 `dokick.c` `kick_monster` poly
+AT_KICK. D-1309 `mhitu.c` `mattacku` AT_TENT melee; D-1308 candle
+`partly used` / lamp `(lit)`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1320
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1321
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

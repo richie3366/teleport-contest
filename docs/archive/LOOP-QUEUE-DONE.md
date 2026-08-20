@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `objnam.c` doname POTION POT_OIL (lit) (named from D-1308). Not candle. **Addressed:** D-1320
+- [x] `objnam.c` doname W_WEP `body_part(HAND)` poly (named from D-1295). Not MEAT_RING. **Addressed:** D-1321
+
+
+- [x] `objnam.c` doname POTION POT_OIL (lit) (named from D-1308). Not candle. **Addressed:** D-1320 `cf309315`
 
 
 - [x] `objnam.c` doname LEASH attached (named from D-1308). Not candle. **Addressed:** D-1319 `cd867647`
