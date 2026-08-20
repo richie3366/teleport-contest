@@ -59,29 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1277. Reviews **233–236** all
+**Map-driven fortress** after D-1278. Reviews **233–236** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
-Open `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not
-dothrow hurtle.
-Do not skip D-1277…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
+Do not skip D-1278…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull skipdrin / pit kick / missmu/wildmiss/mswings `pline_mon`
 / mattacku AT_TENT / explmu / AT_HUGS / unported uhitm `mhitm_ad_*`
 `pline_mon` / MEAT_RING / candle `partly used` / swap-with-pet `seemimic`
 / Blind unseen boulder feel / next_boulder / verysmall vain / throwit
 returning_missile / swallow / slip / stamina / steed potion /
-objnam wish `switch_terrain` / `maketrap` PIT/HOLE `set_levltyp` /
+On_W_tower / sstairs / cmd wiz / `maketrap` PIT/HOLE `set_levltyp` /
 Underwater bars / generic rock Passes_walls / `meatobj` / meatcorpse /
 find_trap cls `display_self` / muse `display_self`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1277. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1278. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1277 (index). Recent: **D-1277** `dothrow.c`
-`hurtle_step` dest-typ ≠ origin after flush → `switch_terrain`
-(C `:916–917`; leftover BLev/BFly FROMOUTSIDE; **`u_on_rndspot` /
-objnam wish named**); **D-1276** `objnam.c` doname EGG (`ismnum` +
+**Keep:** D-0845…D-1278 (index). Recent: **D-1278** `dungeon.c`
+`u_on_rndspot` after place → `switch_terrain` (`:1636–1637`
+unconditional leftover BLev/BFly; On_W_tower / sstairs / cmd named);
+**D-1277** `dothrow.c` hurtle dest-typ after flush; **D-1276** `objnam.c` doname EGG (`ismnum` +
 `(known||MV_KNOWS_EGG)` `pmnames[NEUTRAL]` + `spe==1` `(laid by you)`;
 MEAT_RING named); **D-1275** `display.h`
 `display_self` U_AP_TYPE (`maybe_display_usteed` then NOTHING
@@ -107,7 +106,7 @@ hero `test_move` IRONBARS `passes_bars` (Passes_walls ||
 **D-1269** `dig.c`
 `digactualhole` PIT after `wake_nearby` + HOLE `at_u` →
 `switch_terrain` then Lev/Fly re-read; `maketrap` PIT/HOLE
-`set_levltyp`; **hurtle D-1277**; `u_on_rndspot` / objnam wish named;
+`set_levltyp`; **hurtle D-1277**; **u_on_rndspot D-1278**; objnam wish named;
 **D-1268** `hack.c`
 `spoteffects` dest-typ / `MAX_TYPE` → `switch_terrain` before
 `pooleffects`; **D-1267** `hack.c`
@@ -148,7 +147,7 @@ no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
 no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
 no skip D-1237 TELEP `pline_xy`; no skip D-1238 `mind_blast`;
 no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1269 (`maketrap` PIT/HOLE `set_levltyp`; **hurtle D-1277**;
-`u_on_rndspot` / objnam named); no skip D-1268; no skip D-1267
+**u_on_rndspot D-1278**; objnam named); no skip D-1268; no skip D-1267
 (pooleffects leave / drown wade named); no skip D-1266 (skipdrin /
 pit kick named); no skip D-1265 (pick-dig named); no skip D-1264;
 no skip D-1263 (**hold_another_object D-1272**; **pickup highdrop D-1273**;
@@ -158,7 +157,8 @@ no skip D-1261 (`missmu` / mattacku AT_TENT / explmu named); no skip
 D-1260 (glyphs D-1275; swap-with-pet `seemimic` named);
 no skip D-1253; no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (**EGG D-1276**; MEAT_RING named);
-no skip D-1277 (`u_on_rndspot` / objnam wish named);
+no skip D-1278 (objnam wish / sstairs / cmd named);
+no skip D-1277;
 no skip D-1276 (MEAT_RING / candle `partly used` named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);

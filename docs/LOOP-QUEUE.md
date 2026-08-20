@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle.
 - [ ] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
 - [ ] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow.
 - [ ] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder.

@@ -5,20 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1277 `dothrow.c` `hurtle_step`
-  dest-typ `switch_terrain` (reviews **233–236** cadence **#1615**
-  `b166de10`). Next: Open `dungeon.c` `u_on_rndspot`
-  `switch_terrain` (named from D-1129). Not dothrow hurtle. Do not
-  skip D-1277…D-1229. Do not pull skipdrin / pit kick / missmu /
-  mattacku AT_TENT / explmu / AT_HUGS / unported `mhitm_ad_*`
-  `pline_mon` / MEAT_RING / candle `partly used` / swap-with-pet
-  `seemimic` / Blind unseen boulder feel / throwit
-  returning_missile / swallow / slip / stamina / steed potion /
-  objnam wish / `maketrap` PIT/HOLE `set_levltyp` / Underwater bars
-  / rock Passes_walls / `meatobj` / meatcorpse / find_trap cls /
-  muse `display_self`. Do not wrap `msg_mon_movement` as
+- **Fortress 44/44** after D-1278 `dungeon.c` `u_on_rndspot`
+  after place `switch_terrain` (reviews **233–236** cadence **#1615**
+  `b166de10`). Next: Open `objnam.c` wish `switch_terrain`
+  (named from D-1129). Not doname EGG. Do not skip D-1278…D-1229.
+  Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
+  explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / MEAT_RING /
+  candle `partly used` / swap-with-pet `seemimic` / Blind unseen
+  boulder feel / throwit returning_missile / swallow / slip /
+  stamina / steed potion / objnam wish / `maketrap` PIT/HOLE
+  `set_levltyp` / Underwater bars / rock Passes_walls / `meatobj` /
+  meatcorpse / find_trap cls / muse `display_self` / On_W_tower /
+  sstairs / cmd wiz. Do not wrap `msg_mon_movement` as
   `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1277. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1278. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -42,14 +42,14 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1277 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1278 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname MEAT_RING / candle `partly used`;
   launch_obj down_gate / boulder-chain; `meatobj` / meatbox /
-  meatcorpse; `u_on_rndspot` / objnam wish; `maketrap` PIT/HOLE
-  `set_levltyp`; Underwater bars / rock Passes_walls; Blind unseen
-  boulder feel; throwit returning_missile / swallow / steed potion;
-  find_trap cls / muse `display_self`; swap-with-pet `seemimic`.
-  Do not “fix” seed0383 with ALIGN/FORCE.
+  meatcorpse; objnam wish; `maketrap` PIT/HOLE `set_levltyp`;
+  Underwater bars / rock Passes_walls; Blind unseen boulder feel;
+  throwit returning_missile / swallow / steed potion; find_trap
+  cls / muse `display_self`; swap-with-pet `seemimic`; On_W_tower
+  / sstairs / cmd wiz. Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -61,11 +61,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1278: `dungeon.c` `u_on_rndspot` after `place_lregion` →
+  `switch_terrain` (C `:1636–1637` unconditional). ROOM/AIR/CORR
+  landing clears leftover BLev/BFly FROMOUTSIDE. On_W_tower_level
+  / stairs `u_on_sstairs` / cmd wiz named. **objnam wish named.**
 - D-1277: `dothrow.c` `hurtle_step` dest-typ ≠ origin after
   `flush_screen` → `switch_terrain` (C `:916–917`). ROOM→ROOM skips;
   STONE→ROOM clears leftover BLev/BFly FROMOUTSIDE; WATER/LAVAWALL
   block. Drown / check_special_room / traps / Passes_walls named.
-  **`u_on_rndspot` / objnam wish named.**
 - D-1276: `objnam.c` `doname_base` FOOD EGG — `ismnum(corpsenm)` and
   `(known || MV_KNOWS_EGG)` prepend `pmnames[NEUTRAL]`; `spe==1`
   `(laid by you)` after named. Generic/`#if 0` stale stay "an egg".
@@ -101,8 +104,8 @@ Objective/score live in `CURRENT.md`.
 - D-1269: `dig.c` `digactualhole` PIT after `wake_nearby` and
   HOLE `at_u` → `switch_terrain` then Lev/Fly re-read. C
   `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR still named
-  (STONE stay blocklev). **hurtle D-1277**; `u_on_rndspot` / objnam
-  wish named.
+  (STONE stay blocklev). **hurtle D-1277**; **u_on_rndspot D-1278**;
+  objnam wish named.
 - D-1268: `hack.c` `spoteffects` dest-typ ≠ origin or
   `iflags.terrain_typ == MAX_TYPE` → `switch_terrain` before
   `pooleffects`.
@@ -121,7 +124,4 @@ Objective/score live in `CURRENT.md`.
 - D-1264: `uhitm.c` AT_ENGL `gulpum` + `start_engulf`/`end_engulf`
   + `hmonas` `rnd(20+i)` (was `continue` with AT_NONE). altwep
   D-1266.
-- D-1263: `dothrow.c` `hitfloor` `dropz(TRUE)` after hero_breaks /
-  ship_object; drop `!can_reach_floor` + hornoplenty tip. invent
-  hold_another_object D-1272; pickup highdrop D-1273; **toss_up D-1274**.
 

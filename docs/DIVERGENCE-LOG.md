@@ -4,7 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1278 — `dungeon.c` `u_on_rndspot` after place → `switch_terrain`
+
+- **Status:** fixed (map-driven Open from D-1129; not a public FAIL)
+- **Symptom:** JS `u_on_rndspot` placed the hero via `place_lregion`
+  without calling `switch_terrain`. C does unconditionally after
+  place (`dungeon.c:1636–1637`), so leftover Lev/Fly `FROMOUTSIDE`
+  from solid rock never unblocked on ROOM/CORR/AIR arrival.
+- **C locus:** `dungeon.c` `u_on_rndspot` `:1605–1638` (`switch_terrain()`
+  after `place_lregion`, comment "might have just left solid rock").
+  Body live D-1129 / D-1151 (`hack.c` `:3178–3217`). Callers:
+  `do.c` `goto_level` portal-missing `:1736/:1740` and trap-door
+  `:1804`; `stairs.c` `u_on_sstairs` `:120`; `cmd.c` wiz-level
+  `:1045`.
+- **JS was:** `place_lregion` only; named omit listed
+  `switch_terrain after place`.
+- **Fix:** await live `switch_terrain` after place (dynamic import
+  to keep `mklev.js`/`hack.js` acyclic). `goto_level` awaits both
+  call sites. Did not pull `On_W_tower_level`, W-tower bit 2 at
+  `goto_level` (D-1179), `stairs.c` `u_on_sstairs` fallback, cmd
+  wiz, `u_on_newpos` `map_location`/`MAX_TYPE`, or objnam wish.
+  Rule #2: no fs.
+- **JS:** `js/mklev.js` `u_on_rndspot`; `js/do.js` `goto_level`.
+- **Not this iter:** objnam wish `switch_terrain`; stairs
+  `u_on_sstairs` → `u_on_rndspot`; cmd wiz-level-change;
+  `On_W_tower_level`; `u_on_newpos` lastseentyp/`MAX_TYPE`.
+- **Verified:** private canary **14**/14 (C unconditional after
+  place; JS await after place; ROOM/AIR/maze CORR unblock leftover
+  BLev/BFly; upflag bit 1 updest; HLev then float_up; W-tower bit 2
+  + nlx exclusion; quiet no leftover; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session arrives via rndspot
+  with leftover Lev/Fly FROMOUTSIDE.
+- **Follow-up:** Open `objnam.c` wish `switch_terrain`.
+- **Files:** `js/mklev.js`, `js/do.js`, `js/hack.js` (caller comments).
+
 ## D-1277 — `dothrow.c` `hurtle_step` dest-typ → `switch_terrain`
+
 
 - **Status:** fixed (map-driven Open from D-1129; not a public FAIL)
 - **Symptom:** JS `hurtle_step` occupied the dest and flushed vision

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot. **Addressed:** D-1277
+- [x] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle. **Addressed:** D-1278
+
+
+- [x] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot. **Addressed:** D-1277 `20c69ccf`
 
 
 - [x] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING. **Addressed:** D-1276 `2860794e`

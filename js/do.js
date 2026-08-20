@@ -1286,7 +1286,8 @@ function getlev_catchup_monsters(elapsed) {
  * → "mysterious force prevents you from descending" (D-0798).
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
- * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2,
+ * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
+ * (rndspot itself awaits switch_terrain D-1278),
  * Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after Valley odor;
  * ACH_ENDG/ASTR/BGRM; poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb
@@ -1563,7 +1564,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         }
         if (!ttrap) {
             // C: qexpelled quest return / missing portal → u_on_rndspot(0)
-            u_on_rndspot(0);
+            await u_on_rndspot(0);
         } else {
             seetrap(ttrap);
             u_on_newpos(ttrap.tx, ttrap.ty);
@@ -1662,7 +1663,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     } else if (!at_stairs) {
         // C: trap door / level_tele / In_endgame → u_on_rndspot
         // Named omit: was_in_W_tower bit 2 (D-1179).
-        u_on_rndspot(up ? 1 : 0);
+        await u_on_rndspot(up ? 1 : 0);
         if (falling) {
             // C do.c:1805–1809 — Punished && !welded(uball) ballfall still
             // named (ball.js). selftouch then do_fall_dmg (D-1179).
