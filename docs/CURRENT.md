@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1289. Reviews **245–248** all
+**Map-driven fortress** after D-1290. Reviews **245–248** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `objnam.c` wizterrainwish door/wall (named from D-1279). Not
-traps.
-Do not skip D-1289…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `mhitu.c` `wildmiss` `pline_mon` (named from D-1261). Not
+missmu.
+Do not skip D-1290…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull next_boulder / skipdrin / pit kick /
-wildmiss `set_msg_xy` / MEAT_RING / seemimic / wizterrainwish traps /
+wildmiss `set_msg_xy` / MEAT_RING / seemimic / secret corridor /
 DRAWBRIDGE_UP ice / shop add_damage / liquid_flow / throwit slip.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1289.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1290.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1289 (index). Recent: **D-1289** `objnam.c`
-`wizterrainwish` trap loop `maketrap`. Prior: D-1288 `makemap_prepost`;
-D-1287 `u_on_sstairs`; D-1286 `missmu` `pline_mon`; D-1285
-`meatcorpse`; D-1284 `meatobj`.
+**Keep:** D-0845…D-1290 (index). Recent: **D-1290** `objnam.c`
+`wizterrainwish` door/wall. Prior: D-1289 trap loop `maketrap`;
+D-1288 `makemap_prepost`; D-1287 `u_on_sstairs`; D-1286 `missmu`
+`pline_mon`; D-1285 `meatcorpse`; D-1284 `meatobj`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1289
+spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1290
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

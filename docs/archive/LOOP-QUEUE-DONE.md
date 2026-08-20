@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall. **Addressed:** D-1289
+- [x] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps. **Addressed:** D-1290
+
+
+- [x] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall. **Addressed:** D-1289 `44b22432`
 
 
 - [x] `cmd.c` wiz-level `u_on_rndspot` (named from D-1278). Not sstairs. **Addressed:** D-1288 `b741fb93`

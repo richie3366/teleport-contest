@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps.
 - [ ] `mhitu.c` `wildmiss` `pline_mon` (named from D-1261). Not missmu.
 - [ ] `dothrow.c` throwit slip (named from D-1283). Not stamina.
 - [ ] `dothrow.c` throwit stamina (named from D-1283). Not slip.

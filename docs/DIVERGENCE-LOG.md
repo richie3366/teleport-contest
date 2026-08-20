@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1290 — `objnam.c` `wizterrainwish` door/wall
+
+- **Status:** fixed (map-driven Open from D-1279; not a public FAIL)
+- **Symptom:** JS `wizterrainwish` skipped C’s door and wall arms, so a
+  wizard wish for `door` / `locked door` / `secret door` / `wall`
+  never mutated the hero’s cell and fell through instead of returning
+  `&hands_obj`.
+- **C locus:** `objnam.c` `wizterrainwish` `:3740–3835` (after cloud,
+  before secret corridor). Door: suffix `"door"` or `doorless`+
+  `"doorway"`; location DOOR/SDOOR/`IS_WALL` except DBWALL / IRONBARS;
+  rogue forces doorless; doormask locked/doorless|secret/open/broken/
+  else CLOSED; secret restores `WM_MASK`; trapped only if closed/locked
+  (or secret); else `"requires door or wall location"`. Wall: suffix
+  `"wall"` with space-or-start; HWALL unless N/S neighbor `IS_WALL`
+  then VWALL; `flags=0`; `set_wallprop_from_str`; `fix_wall_spines`;
+  `"A wall."`. Door-state preparse `:4037–4065` (`trapped`/`untrapped`/
+  locked/unlocked/broken/open/closed/doorless). Dispatch still D-1279
+  `readobjnam` wiztrap. Callee live D-1129 `switch_terrain`.
+- **JS was:** furniture + trap loop (D-1279/D-1289); door/wall named omit.
+- **Fix:** door/wall arms + `set_wallprop_from_str` (also tree/bars);
+  live `mklev.js` `fix_wall_spines`; door-state prefixes so
+  `doorless doorway` / `locked door` match C. Did not pull secret
+  corridor, drawbridge under, lava `pooleffects`, water/fire_damage_chain,
+  melting ice, or `looted`/`disturbed` preparse. Rule #2: no fs
+  (dynamic import of mklev.js).
+- **JS:** `js/readobjnam.js` `wizterrainwish` / prefix loop;
+  `js/zap.js` comment.
+- **Not this iter:** secret corridor; drawbridge under; lava
+  `pooleffects`; water/fire_damage_chain; melting ice;
+  `looted`/`disturbed` preparse.
+- **Verified:** private canary **30**/30 (C door before wall; JS
+  after cloud before floor; non-wizard/wizkit skip; ROOM badterrain;
+  HWALL→closed/locked/open/broken/doorless/secret/trapped; IRONBARS
+  ok; DBWALL reject; rogue doorless; isolated HWALL; N-neighbor
+  VWALL; undiggable/nonpasswall; fused `firewall` miss; `wall of lava`
+  still lava; secret corridor still miss; open door clears leftover
+  BLev; closed door keeps block; pit + fountain still; sync
+  `readobjnam` no mutate; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a wizard session wishes door/wall terrain.
+- **Follow-up:** Open `mhitu.c` `wildmiss` `pline_mon`.
+- **Files:** `js/readobjnam.js`, `js/zap.js`.
+
 ## D-1289 — `objnam.c` `wizterrainwish` trap loop → `maketrap`
 
 - **Status:** fixed (map-driven Open from D-1279; not a public FAIL)

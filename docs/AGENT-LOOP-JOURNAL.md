@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1290 objnam.c wizterrainwish door/wall
+
+**Objective:** Open `objnam.c` wizterrainwish door/wall (named from
+D-1279). Not traps.
+**C locus:** `objnam.c` `wizterrainwish` `:3740–3835`; helper
+`set_wallprop_from_str`; door-state preparse `:4037–4065`.
+**Change:** door location gate + doormask/secret/rogue/trapped;
+wall HWALL/VWALL + live `fix_wall_spines`; `set_wallprop_from_str`
+on tree/bars/wall; locked/open/broken/doorless/`trapped ` prefixes.
+Named: secret corridor; drawbridge; `pooleffects`. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a wizard wishes
+door/wall. Next audit @**#1635**.
+**Verified:** private canary **30**/30; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitu.c` `wildmiss` `pline_mon` (named from
+D-1261). Not missmu.
+**Blocked:** none.
 ## 2026-08-20 — D-1289 objnam.c wizterrainwish trap loop maketrap
 
 **Objective:** Open `objnam.c` wizterrainwish traps (named from

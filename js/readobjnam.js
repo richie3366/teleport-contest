@@ -31,13 +31,16 @@ import {
     ONAME_WISH, SPE_LIM,
     FOUNTAIN, THRONE, SINK, ALTAR, TREE, IRONBARS, CLOUD,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, ROOM,
-    DRAWBRIDGE_UP, DRAWBRIDGE_DOWN, STAIRS, LADDER, SDOOR,
+    DRAWBRIDGE_UP, DRAWBRIDGE_DOWN, STAIRS, LADDER, SDOOR, DOOR,
+    HWALL, VWALL, DBWALL, COLNO, ROWNO, isok, Is_rogue_level,
     F_LOOTED, T_LOOTED, S_LPUDDING, S_LDWASHER, S_LRING,
     TREE_LOOTED, TREE_SWARM, ICED_POOL, ICED_MOAT,
     A_CHAOTIC, A_NEUTRAL, A_LAWFUL, A_NONE, Align2amask,
     IS_FOUNTAIN, IS_SINK, IS_GRAVE, IS_WALL, IS_DOOR, IS_FURNITURE,
     MAGIC_PORTAL, MELT_ICE_AWAY, TT_LAVA, TT_NONE,
     NO_TRAP, TRAPNUM, ROCKTRAP, is_hole, Can_fall_thru,
+    D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
+    WM_MASK, W_NONDIGGABLE, W_NONPASSWALL,
 } from './const.js';
 
 const STRANGE_OBJECT = 0;
@@ -92,6 +95,38 @@ function strncmpi_start(bp, pref) {
     const s = String(bp || '');
     const t = String(pref);
     return s.slice(0, t.length).toLowerCase() === t.toLowerCase();
+}
+
+/**
+ * C BSTRCMPI(bp, p-4, "wall") && (bp == p-4 || p[-5] == ' ') —
+ * reject fused suffixes like "swallow".
+ */
+function is_wall_wish(bp) {
+    if (!bstrcmpi_end(bp, 'wall')) return false;
+    const s = String(bp || '');
+    return s.length === 4 || s.charAt(s.length - 5) === ' ';
+}
+
+/**
+ * C ref: objnam.c set_wallprop_from_str — case-sensitive strstr on
+ * remaining bp; |= into wall_info (overlays flags).
+ */
+function set_wallprop_from_str(bp) {
+    const u = game.u;
+    const lev = u && game.level?.at(u.ux | 0, u.uy | 0);
+    if (!lev) return;
+    const s = String(bp || '');
+    let wall_prop = 0;
+    if (s.includes('undiggable ') || s.includes('nondiggable ')) {
+        wall_prop |= W_NONDIGGABLE;
+    }
+    if (s.includes('unphaseable ') || s.includes('nonpasswall ')) {
+        wall_prop |= W_NONPASSWALL;
+    }
+    if (wall_prop) {
+        lev.wall_info = (lev.wall_info | 0) | wall_prop;
+        if (lev.flags !== undefined) lev.flags = (lev.flags | 0) | wall_prop;
+    }
 }
 
 /**
@@ -336,9 +371,9 @@ function readobjnam_any(d) {
 /**
  * C ref: objnam.c wizterrainwish — trap loop then furniture/terrain wish
  * then madeterrain postamble switch_terrain (D-1279 furniture; D-1289
- * traps; C :3563–3582 then :3872–3910). Door/wall/secret corridor,
- * drawbridge under, lava pooleffects, water/fire_damage_chain, melting
- * ice, set_wallprop_from_str still named.
+ * traps; D-1290 door/wall; C :3563–3582 then :3740–3835 then :3872–3910).
+ * Secret corridor, drawbridge under, lava pooleffects,
+ * water/fire_damage_chain, melting ice still named.
  */
 async function wizterrainwish(d) {
     const u = game.u;
@@ -457,11 +492,13 @@ async function wizterrainwish(d) {
     } else if (bstrcmpi_end(bp, 'tree')) {
         lev.typ = TREE;
         lev.looted = d.looted ? (TREE_LOOTED | TREE_SWARM) : 0;
+        set_wallprop_from_str(bp);
         await pline('A tree.');
         madeterrain = true;
     } else if (bstrcmpi_end(bp, 'bars')) {
         lev.typ = IRONBARS;
         lev.flags = 0;
+        set_wallprop_from_str(bp);
         await pline('Iron bars.');
         madeterrain = true;
     } else if (bstrcmpi_end(bp, 'cloud')) {
@@ -471,6 +508,82 @@ async function wizterrainwish(d) {
         const { del_engr_at } = await import('./engrave.js');
         del_engr_at(x, y);
         madeterrain = true;
+    } else if (bstrcmpi_end(bp, 'door')
+            || ((d.doorless | 0) && bstrcmpi_end(bp, 'doorway'))) {
+        /* C :3740–3821 — require door/wall/bars so horizontal is set */
+        const secret = bstrcmpi_end(bp, 'secret door');
+        const okLoc = (lev.typ | 0) === DOOR || (lev.typ | 0) === SDOOR
+            || (IS_WALL(lev.typ) && (lev.typ | 0) !== DBWALL)
+            || (lev.typ | 0) === IRONBARS;
+        if (okLoc) {
+            const old_wall_info = ((lev.typ | 0) !== DOOR)
+                ? (lev.wall_info | 0) : 0;
+            lev.typ = secret ? SDOOR : DOOR;
+            lev.wall_info = 0;
+            if (Is_rogue_level(u.uz)) {
+                d.doorless = 1;
+                d.locked = 0;
+                d.closed = 0;
+                d.open = 0;
+                d.broken = 0;
+            }
+            lev.doormask = (d.locked | 0) ? D_LOCKED
+                : ((d.doorless | 0) || secret) ? D_NODOOR
+                  : (d.open | 0) ? D_ISOPEN
+                    : (d.broken | 0) ? D_BROKEN
+                      : D_CLOSED;
+            if (secret) lev.wall_info |= (old_wall_info & WM_MASK);
+            if ((d.trapped | 0) === 2
+                || (((lev.doormask & (D_LOCKED | D_CLOSED)) === 0)
+                    && !secret)) {
+                d.trapped = 0;
+            }
+            if (d.trapped) lev.doormask |= D_TRAPPED;
+            if (lev.flags !== undefined) lev.flags = lev.doormask;
+            let dbuf = '';
+            if (lev.doormask & D_TRAPPED) dbuf += 'trapped ';
+            if (lev.doormask & D_LOCKED) dbuf += 'locked ';
+            if ((lev.typ | 0) === SDOOR) {
+                dbuf += 'secret door';
+            } else {
+                if (lev.doormask & D_CLOSED) dbuf += 'closed ';
+                if (lev.doormask & D_ISOPEN) dbuf += 'open ';
+                if (lev.doormask & D_BROKEN) dbuf += 'broken ';
+                if ((lev.doormask & ~D_TRAPPED) === D_NODOOR) {
+                    dbuf += 'doorless doorway';
+                } else {
+                    dbuf += 'door';
+                }
+            }
+            await pline(`${upstart(an(dbuf))}.`);
+            madeterrain = true;
+        } else {
+            const dbuf = secret ? 'secret door' : 'door';
+            await pline(`${upstart(dbuf)} requires door or wall location.`);
+            badterrain = true;
+        }
+    } else if (is_wall_wish(bp)) {
+        /* C :3822–3835 — HWALL unless N/S neighbor is a wall */
+        let wall = HWALL;
+        if ((isok(u.ux, u.uy - 1)
+                && IS_WALL(game.level.at(u.ux, u.uy - 1)?.typ))
+            || (isok(u.ux, u.uy + 1)
+                && IS_WALL(game.level.at(u.ux, u.uy + 1)?.typ))) {
+            wall = VWALL;
+        }
+        madeterrain = true;
+        lev.typ = wall;
+        lev.flags = 0;
+        lev.wall_info = 0;
+        set_wallprop_from_str(bp);
+        const { fix_wall_spines } = await import('./mklev.js');
+        fix_wall_spines(
+            Math.max(0, u.ux - 1),
+            Math.max(0, u.uy - 1),
+            Math.min(COLNO, u.ux + 1),
+            Math.min(ROWNO, u.uy + 1),
+        );
+        await pline('A wall.');
     } else if (!is_dbridge && (bstrcmpi_end(bp, 'room')
             || bstrcmpi_end(bp, 'floor')
             || bstrcmpi_end(bp, 'ground'))) {
@@ -530,7 +643,8 @@ async function wizterrainwish(d) {
 
 /**
  * C ref: objnam.c readobjnam wiztrap — wizard && !wizkit_wishing &&
- * !d.oclass then wizterrainwish (D-1279 furniture; D-1289 traps).
+ * !d.oclass then wizterrainwish (D-1279 furniture; D-1289 traps;
+ * D-1290 door/wall).
  * Object-only readobjnam stays sync for wizkit/mklev (C skips terrain
  * when wizkit_wishing).
  */
@@ -549,7 +663,8 @@ export async function readobjnam_wish(bp, no_wish) {
 /**
  * C ref: objnam.c readobjnam — wish subset for artifact / named armor / amulet.
  * Empty/NULL → `any` (D-0559); qualifier-only empty (blessed/rustproof/…) deferred.
- * Terrain wish is readobjnam_wish (D-1279 furniture; D-1289 traps).
+ * Terrain wish is readobjnam_wish (D-1279 furniture; D-1289 traps;
+ * D-1290 door/wall).
  */
 export function readobjnam(bp, no_wish, missOut) {
     // C: readobjnam_init + if (!bp) goto any
@@ -588,6 +703,13 @@ export function readobjnam(bp, no_wish, missOut) {
         otmp: null,
         islit: 0,
         looted: 0,
+        trapped: 0,
+        locked: 0,
+        unlocked: 0,
+        broken: 0,
+        open: 0,
+        closed: 0,
+        doorless: 0,
     };
 
     for (;;) {
@@ -617,6 +739,40 @@ export function readobjnam(bp, no_wish, missOut) {
             l = 7;
         } else if (/^uncursed /i.test(s)) {
             d.uncursed = 1; d.blessed = 0; d.iscursed = 0;
+            l = 9;
+        } else if (/^trapped /i.test(s)) {
+            /* C :4038–4041 — honor trapped only in wizard mode */
+            d.trapped = 0;
+            if (wizardMode()) d.trapped = 1;
+            l = 8;
+        } else if (/^untrapped /i.test(s)) {
+            d.trapped = 2;
+            l = 10;
+        } else if (/^locked /i.test(s)) {
+            d.locked = 1; d.closed = 1;
+            d.unlocked = 0; d.broken = 0; d.open = 0; d.doorless = 0;
+            l = 7;
+        } else if (/^unlocked /i.test(s)) {
+            d.unlocked = 1; d.closed = 1;
+            d.locked = 0; d.broken = 0; d.open = 0; d.doorless = 0;
+            l = 9;
+        } else if (/^broken /i.test(s)) {
+            d.broken = 1;
+            d.locked = 0; d.unlocked = 0; d.open = 0; d.closed = 0;
+            d.doorless = 0;
+            l = 7;
+        } else if (/^open /i.test(s)) {
+            d.open = 1;
+            d.closed = 0; d.locked = 0; d.broken = 0; d.doorless = 0;
+            l = 5;
+        } else if (/^closed /i.test(s)) {
+            d.closed = 1;
+            d.open = 0; d.locked = 0; d.broken = 0; d.doorless = 0;
+            l = 7;
+        } else if (/^doorless /i.test(s)) {
+            d.doorless = 1;
+            d.open = 0; d.closed = 0; d.locked = 0; d.unlocked = 0;
+            d.broken = 0;
             l = 9;
         } else {
             break;
