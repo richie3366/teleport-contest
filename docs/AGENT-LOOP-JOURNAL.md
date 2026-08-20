@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1298 uhitm.c hmonas skipdrin / pit kick
+
+**Objective:** Open `uhitm.c` skipdrin / pit kick (named
+from D-1266). Not altwep.
+**C locus:** `uhitm.c` `hmonas` `:5451`/`5464`/`5558`;
+`mhitm_ad_drin` `:3189`; `mhitu.c` `mtrapped_in_pit`;
+`mattackm`/`mattacku` continues.
+**Change:** skipdrin continue after wasted tentacle-DRIN;
+pit AT_KICK `continue`; shared `mtrapped_in_pit`; uhitm
+`mhitm_ad_drin` headless/notonhead setter + slime. eat_brains
+/ helmet named. Rule #2: no fs.
+**Verified:** private canary **27**/27; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383. **Public-unhit** unless Upolyd pit-kick or
+mind-flayer vs headless.
+**Next:** Open `hack.c` swap-with-pet `seemimic`. Not
+display_self.
+**Blocked:** none.
 ## 2026-08-20 — D-1297 dothrow.c throwit steed potionhit rn2(6)
 
 **Objective:** Open `dothrow.c` throwit steed potion (named

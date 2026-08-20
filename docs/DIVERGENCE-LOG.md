@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1298 — uhitm.c hmonas skipdrin / pit kick
+
+- **Status:** fixed (map-driven Open from D-1266; not a public FAIL)
+- **Symptom:** a poly'd mind flayer kept tentacle-draining a
+  headless defender (or worm tail) on every AT_TENT+AD_DRIN slot,
+  and a poly'd kicker in a pit still swung AT_KICK. C skips the
+  rest of the drain loop after the first wasted hit and skips
+  pit kicks that cannot reach.
+- **C locus:** `uhitm.c` `hmonas` `:5451` `gs.skipdrin = FALSE`,
+  `:5464–5465` skipdrin AT_TENT+AD_DRIN `continue`, `:5558–5560`
+  AT_KICK `mtrapped_in_pit(&gy.youmonst)`; `mhitm_ad_drin`
+  `:3189–3202` uhitm `notonhead \|\| !has_head` pline / skipdrin /
+  damage 0 / green-slime `make_slimed(10)`; `mhitu.c`
+  `mtrapped_in_pit` `:465–479`; `mhitm.c` `mattackm` `:372` /
+  `:387` / `:426`; `mhitu.c` `mattacku` `:765` / `:789–790` /
+  `:801`.
+- **JS was:** named omit after D-1266; no `game.skipdrin`; AT_KICK
+  always rolled; AD_DRIN fell through dice in `damageum`.
+- **Fix:** shared `mtrapped_in_pit`; hmonas/mattackm/mattacku
+  reset + skipdrin continue + pit AT_KICK continue; damageum
+  AD_DRIN → uhitm `mhitm_ad_drin` headless/notonhead setter
+  (slime suck-in). Headed DRIN still dice (eat_brains named).
+  Helmet / `m_slips_free` / lifsav skipdrin / mhitu+mhitm
+  AD_DRIN arms named. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `hmonas` / `mhitm_ad_drin` /
+  `damageum_adtyping`; `js/mon.js` `mtrapped_in_pit`;
+  `js/mhitm.js` `mattackm`; `js/mhitu.js` `mattacku`.
+- **Not this iter:** `eat_brains`; helmet `rn2(8)`; `m_slips_free`;
+  lifsav skipdrin; mhitu/mhitm `mhitm_ad_drin` arms; mattacku
+  AT_TENT melee; seemimic.
+- **Verified:** private canary **27**/27 (C skipdrin/pit/`mtrapped_in_pit`
+  gates; JS live; blob/notonhead skip + remaining tentacles;
+  headed DRIN still damages; slime `make_slimed`; pit kick no
+  `rnd(20)`; floor kick hits; mattackm pit skip; web/no-trap
+  false); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session Upolyd-melees as a kicker in a pit or as a mind flayer
+  vs a headless form.
+- **Follow-up:** Open `hack.c` swap-with-pet `seemimic`.
+- **Files:** `js/uhitm.js`, `js/mon.js`, `js/mhitm.js`, `js/mhitu.js`.
+
 ## D-1297 — `dothrow.c` `throwit` steed potionhit `rn2(6)`
 
 - **Status:** fixed (map-driven Open from D-1283; not a public FAIL)

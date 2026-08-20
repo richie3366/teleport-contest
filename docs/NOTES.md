@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1297 `throwit` steed potionhit
-  `rn2(6)` (cadence **#1640** `c37bd683`; reviews **253–256**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `uhitm.c`
-  skipdrin / pit kick (named from D-1266). Not altwep.
-  Do not skip D-1297…D-1229. Do not pull seemimic / shop
-  add_damage / secret corridor / boomhit / throw_gold /
-  `sho_obj_return_to_u` / candle `partly used`. Do not wrap
-  `wildmiss` or `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1297. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1298 `uhitm.c` hmonas skipdrin /
+  pit kick (cadence **#1640** `c37bd683`; reviews **253–256**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `hack.c`
+  swap-with-pet `seemimic` (named from D-1275). Not display_self.
+  Do not skip D-1298…D-1229. Do not pull shop add_damage /
+  secret corridor / boomhit / throw_gold / `sho_obj_return_to_u`
+  / candle `partly used` / eat_brains. Do not wrap `wildmiss` or
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1298. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1297.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1298.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,9 +36,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1297 (index). Named still: skipdrin / pit
-  kick; candle `partly used`; secret corridor; shop `add_damage`;
-  boomhit. No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1298 (index). Named still: eat_brains /
+  helmet / m_slips_free; candle `partly used`; secret corridor;
+  shop `add_damage`; boomhit. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -49,6 +49,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1298: hmonas skipdrin / pit kick — `gs.skipdrin=FALSE` then
+  AT_TENT+AD_DRIN continue; AT_KICK `mtrapped_in_pit(&youmonst)`.
+  `mhitm_ad_drin` uhitm `notonhead||!has_head` zeros dmg + slime
+  suck-in. Same continues in mattackm/mattacku. eat_brains /
+  helmet / m_slips_free / lifsav named. **altwep D-1266**.
 - D-1297: throwit steed potionhit — `dz>0 && usteed &&
   POTION_CLASS && rn2(6)` after toss_up before hitfloor;
   `potionhit` crash/`which_armor(W_SADDLE)`/`H2Opotion_dip`/
@@ -102,6 +107,3 @@ Objective/score live in `CURRENT.md`.
 - D-1284: `meatobj` cube floor — prize skip; rider revive; rock/ball/
   scare/petrify-corpse skip; engulf `mpickobj` vs devour
   `m_consume_obj`; YUM YUM. **meatcorpse D-1285**.
-- D-1283: throwit swallowit — `u.uswallow` before `u.dz`;
-  `mpickobj(ustuck)`; fail-path swallowit. **slip D-1292**;
-  **stamina D-1293**; **steed D-1297**. boomhit / throw_gold swallow named.

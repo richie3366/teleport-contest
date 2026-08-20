@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit steed potion (named from D-1283). Not slip. **Addressed:** D-1297
+- [x] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep. **Addressed:** D-1298
+
+
+- [x] `dothrow.c` throwit steed potion (named from D-1283). Not slip. **Addressed:** D-1297 `6dfb7d2c`
 
 
 - [x] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage. **Addressed:** D-1296 `993e17ea`

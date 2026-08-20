@@ -43,7 +43,7 @@ import {
     troll_baned, mhitm_ad_poly, could_seduce,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
-    AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY,
+    AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN,
 } from './mhitm.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM, MZ_HUGE,
@@ -59,6 +59,7 @@ import {
 import {
     monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
     wake_nearto, m_carrying, healmon, zombie_maker, zombie_form,
+    mtrapped_in_pit,
 } from './mon.js';
 import { monflee } from './monmove.js';
 import { livelog_printf } from './pline.js';
@@ -941,14 +942,43 @@ function damageum_ad_phys(mdef, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_drin `:3167–3303` — uhitm (hero→mon) skipdrin
+ * setter. Headless / notonhead wastes the tentacle, zeros damage, and
+ * sets gs.skipdrin so hmonas skips remaining AT_TENT+AD_DRIN. Green-slime
+ * suck-in is in the same C if. Helmet rn2(8) / m_slips_free / eat_brains /
+ * lifsav skipdrin / mhitu+mhitm arms named.
+ */
+async function mhitm_ad_drin(magr, _mattk, mdef, mhm) {
+    const pd = mdef?.data;
+    if (magr !== game.youmonst) return;
+    if (game.notonhead || !has_head(pd)) {
+        await pline(`${Monnam(mdef)} doesn't seem harmed.`);
+        game.skipdrin = true;
+        mhm.damage = 0;
+        const pdn = pd?.mndx ?? mdef.mnum;
+        if (!he_prop('Unchanging', 'HUnchanging', 'EUnchanging')
+            && pdn === PM_GREEN_SLIME) {
+            const u = game.u || {};
+            if (!(u.Slimed | 0)) {
+                await pline("You suck in some slime and don't feel very well.");
+                await (await import('./potion.js')).make_slimed(10, null);
+            }
+        }
+    }
+    // headed: m_slips_free / helmet / eat_brains / lifsav named — dice stay
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping youmonst subset for damageum.
- * AD_PHYS + AD_POLY live; remaining mhitm_ad_* youmonst arms named omit.
+ * AD_PHYS + AD_POLY + AD_DRIN skipdrin live; remaining mhitm_ad_* named.
  */
 async function damageum_adtyping(mattk, mdef, mhm) {
     const adtyp = mattk.adtyp | 0;
     if (adtyp === AD_PHYS) damageum_ad_phys(mdef, mattk, mhm);
     else if (adtyp === AD_POLY) {
         await mhitm_ad_poly(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_DRIN) {
+        await mhitm_ad_drin(game.youmonst, mattk, mdef, mhm);
     }
 }
 
@@ -1925,8 +1955,10 @@ export async function gulpum(mdef, mattk) {
  * AT_EXPL explum + dhit==-1 rehumanize D-1251.
  * AT_ENGL gulpum D-1264 (rnd(20+i); shade surround; zombie/mummy Sick).
  * fight_empty explum(null) D-1265. altwep / uswapwep D-1266 (toggle +
- * originalweapon re-read + passivedone drop_uswapwep). Named omit:
- * skipdrin; pit kick.
+ * originalweapon re-read + passivedone drop_uswapwep). skipdrin AT_TENT
+ * AD_DRIN + pit AT_KICK D-1298 (`gs.skipdrin`; `mtrapped_in_pit`). Named:
+ * eat_brains / helmet / m_slips_free / lifsav skipdrin; remaining
+ * mhitm_ad_*; mattacku AT_TENT melee.
  */
 export async function hmonas(mon) {
     const u = game.u || {};
@@ -1946,12 +1978,20 @@ export async function hmonas(mon) {
     }
     gt_twohits = 0;
 
+    // C uhitm.c hmonas `:5451` — [see mattackm]
+    game.skipdrin = false;
+
     for (let i = 0; i < NATTK; i++) {
         if (i > 0) {
             const bp = game.bhitpos || {};
             if (m_at(bp.x, bp.y) !== mon || (mon.mhp | 0) < 1) continue;
         }
         const mattk = get_mattk(ym, i, mon);
+        // C `:5464` — skip remaining tentacle-DRIN after skipdrin
+        if (game.skipdrin && (mattk.aatyp | 0) === AT_TENT
+            && (mattk.adtyp | 0) === AD_DRIN) {
+            continue;
+        }
         weapon = null;
         let skip_passive = false;
         const aatyp = mattk.aatyp | 0;
@@ -1999,6 +2039,10 @@ export async function hmonas(mon) {
         } else if (aatyp === AT_CLAW || aatyp === AT_TUCH || aatyp === AT_KICK
             || aatyp === AT_BITE || aatyp === AT_STNG || aatyp === AT_BUTT
             || aatyp === AT_TENT) {
+            // C `:5558–5560` — pit-trapped poly kick cannot reach
+            if (aatyp === AT_KICK && mtrapped_in_pit(game.youmonst)) {
+                continue;
+            }
             const tmp = find_roll_to_hit(mon, aatyp, null, attk_count,
                 role_roll_penalty);
             mon_maybe_unparalyze(mon);

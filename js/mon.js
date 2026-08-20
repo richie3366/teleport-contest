@@ -12,7 +12,7 @@ import {
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
-    ROOM, IN_SIGHT, COULD_SEE, is_pit, In_endgame, Is_earthlevel,
+    ROOM, IN_SIGHT, COULD_SEE, is_pit, TT_PIT, In_endgame, Is_earthlevel,
     Is_astralevel, Is_airlevel, Is_firelevel,
     IS_FOUNTAIN,
     ismnum, M_POISONGAS_OK, M_POISONGAS_MINOR, M_POISONGAS_BAD, POISON_RES,
@@ -2717,4 +2717,23 @@ export function kill_genocided_monsters() {
     kill_eggs(game.fobj);
     kill_eggs(game.migrating_objs);
     kill_eggs(game.level?.buriedobjlist);
+}
+
+/**
+ * C ref: mhitu.c mtrapped_in_pit `:465–479` — TRUE iff monster or hero is
+ * trapped in a (spiked) pit. Hero: utrap && TT_PIT then t_at(ux,uy).
+ * Monster: mtrapped then t_at(mx,my). Then is_pit(ttyp). Shared by
+ * hmonas / mattackm / mattacku AT_KICK continues (D-1298).
+ */
+export function mtrapped_in_pit(mtmp) {
+    if (!mtmp) return false;
+    let ttmp = null;
+    if (mtmp === game.youmonst) {
+        const u = game.u || {};
+        ttmp = (u.utrap && (u.utraptype | 0) === TT_PIT)
+            ? t_at(u.ux | 0, u.uy | 0) : null;
+    } else {
+        ttmp = mtmp.mtrapped ? t_at(mtmp.mx | 0, mtmp.my | 0) : null;
+    }
+    return !!(ttmp && is_pit(ttmp.ttyp));
 }

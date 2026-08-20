@@ -3,7 +3,7 @@
 //         uhitm.c mhitm_ad_phys (mhitu bare / weapon subset).
 
 import { game } from './gstate.js';
-import { monnear, mnexto } from './mon.js';
+import { monnear, mnexto, mtrapped_in_pit } from './mon.js';
 import {
     Is_rogue_level, NEED_WEAPON, NEED_HTH_WEAPON, NATTK,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
@@ -48,7 +48,7 @@ import {
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
     AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
-    AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
+    AD_SITM, AD_SEDU, AD_SSEX, AD_POLY, AD_DRIN,
 } from './mhitm.js';
 import { castmu, buzzmu } from './mcastu.js';
 import { rehumanize } from './polyself.js';
@@ -1562,6 +1562,8 @@ export async function mattacku(mtmp) {
     const sum = new Array(NATTK).fill(M_ATTK_MISS);
     const firstfoundyou = foundyou;
     let skipnonmagc = false;
+    // C mhitu.c mattacku `:765` — [see mattackm]
+    game.skipdrin = false;
 
     for (let i = 0; i < NATTK; i++) {
         sum[i] = M_ATTK_MISS;
@@ -1574,9 +1576,12 @@ export async function mattacku(mtmp) {
 
         const mattk = get_mattk(mtmp, i, null); // null = hero defender
         if (mattk.aatyp === AT_NONE) continue;
-        // C: uswallow skips non-ENGL; skipnonmagc skips non-MAGC
+        // C: uswallow skips non-ENGL; skipnonmagc skips non-MAGC;
+        // skipdrin skips remaining AT_TENT+AD_DRIN (`:787–790`)
         if ((u.uswallow | 0) && (mattk.aatyp | 0) !== AT_ENGL) continue;
         if (skipnonmagc && (mattk.aatyp | 0) !== AT_MAGC) continue;
+        if (game.skipdrin && (mattk.aatyp | 0) === AT_TENT
+            && (mattk.adtyp | 0) === AD_DRIN) continue;
 
         switch (mattk.aatyp) {
         case AT_CLAW:
@@ -1585,6 +1590,10 @@ export async function mattacku(mtmp) {
         case AT_STNG:
         case AT_TUCH:
         case AT_BUTT:
+            // C mhitu.c mattacku `:801` — pit-trapped kicker skips AT_KICK
+            if ((mattk.aatyp | 0) === AT_KICK && mtrapped_in_pit(mtmp)) {
+                continue;
+            }
             if (!range2) {
                 if (foundyou) {
                     const j = rnd(20 + i);

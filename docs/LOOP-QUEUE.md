@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` skipdrin / pit kick (named from D-1266). Not altwep.
 - [ ] `hack.c` swap-with-pet `seemimic` (named from D-1275). Not display_self.
 - [ ] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice.
 - [ ] `dothrow.c` boomhit (named from D-1282). Not steed.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dothrow.c` sho_obj_return_to_u (named from D-1282). Not boomhit.
 - [ ] `objnam.c` wizterrainwish secret corridor (named from D-1290). Not door/wall.
 - [ ] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss.
+- [ ] `eat.c` eat_brains (named from D-1298). Not helmet.
+- [ ] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains.
+- [ ] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING.
+- [ ] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings.
+- [ ] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick.
 
 ## Parked (do not pop)
 
