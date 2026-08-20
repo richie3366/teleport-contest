@@ -286,3 +286,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [274-77606a78-thitmonst-leader-catch.md](./274-77606a78-thitmonst-leader-catch.md) | `77606a78` | D-1312 thitmonst leader catch / `finish_quest` | **ACCEPT-WITH-DEBT** |
 | [275-27751021-throwit-mon-hit-snuff.md](./275-27751021-throwit-mon-hit-snuff.md) | `27751021` | D-1313 `throwit_mon_hit` snuff / `hot_pursuit` | **QUALITY-RISK** |
 | [276-a1d48196-m-respond.md](./276-a1d48196-m-respond.md) | `a1d48196` | D-1314 `mon.c` `m_respond` | **ACCEPT-WITH-DEBT** |
+| [277-44a786aa-throwit-calls-throwit-mon-hit.md](./277-44a786aa-throwit-calls-throwit-mon-hit.md) | `44a786aa` | D-1315 throwit → `throwit_mon_hit` | **ACCEPT-WITH-DEBT** |
+| [278-75c08164-throwit-acurrstr-urange.md](./278-75c08164-throwit-acurrstr-urange.md) | `75c08164` | D-1316 throwit ACURRSTR urange | **ACCEPT-WITH-DEBT** |
+| [279-9b1b4ba4-doname-candelabrum.md](./279-9b1b4ba4-doname-candelabrum.md) | `9b1b4ba4` | D-1317 doname CANDELABRUM `(n of 7)` | **ACCEPT-WITH-DEBT** |
+| [280-ccdc8670-doname-tool-worn.md](./280-ccdc8670-doname-tool-worn.md) | `ccdc8670` | D-1318 doname TOOL W_TOOL\|W_SADDLE worn | **ACCEPT-WITH-DEBT** |

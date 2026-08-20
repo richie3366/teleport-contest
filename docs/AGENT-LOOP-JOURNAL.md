@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1670 review D-1315–D-1318 + cadence
+
+**Objective:** audit — C-fidelity reviews **277–280** of JS SHAs
+since `e176215d`, plus full `sessions` score. No `js/` port.
+**C locus:** `dothrow.c` throwit → `throwit_mon_hit`; throwit
+ACURRSTR urange; `objnam.c` doname CANDELABRUM; TOOL worn.
+**Change:** four reviews ACCEPT-WITH-DEBT. **275** caller miss is
+wired (D-1315). No Must-fix. Filled D-1318 archive hash
+`ccdc8670`. Cadence **44**/44 Scr **11,405**/11,405 RNG
+**792,838**/792,838 (100%) speed `36+0.30/turn` (R² 0.85) at
+`ccdc8670`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1675**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` (this iter).
+**Next:** Open `objnam.c` doname LEASH attached (named from D-1308).
+Not candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1318 objnam.c doname TOOL W_TOOL|W_SADDLE worn
 
 **Objective:** Open `objnam.c` doname TOOL W_TOOL|W_SADDLE worn (named

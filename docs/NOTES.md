@@ -6,9 +6,9 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1318 `objnam.c` doname TOOL
-  W_TOOL|W_SADDLE worn (cadence **#1665** `a1d48196`; reviews
-  **273/274/276** ACCEPT-WITH-DEBT, **275** QUALITY-RISK caller
-  wired). Next: Open `objnam.c` doname LEASH attached. Not candle.
+  W_TOOL|W_SADDLE worn (cadence **#1670** `ccdc8670`; reviews
+  **277–280** ACCEPT-WITH-DEBT; **275** caller is D-1315). Next:
+  Open `objnam.c` doname LEASH attached. Not candle.
   Do not skip D-1318…D-1229. Do not pull gazemu / explmu / AT_HUGS /
   mhitu AD_DRIN / leash / POT_OIL `(lit)` / zap bhit
   `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline / dokick

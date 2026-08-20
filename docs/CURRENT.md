@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-20** — full `sessions` at review **#1665**
-HEAD `a1d48196` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.32/turn` (R² 0.85). Next audit (review + score) @**#1670**.
+Score last measured: **2026-08-20** — full `sessions` at review **#1670**
+HEAD `ccdc8670` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1675**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `37+0.32/turn` (R² 0.85). Next audit (review + score) @**#1670**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `37+0.32/turn` (R² 0.85) |
+| Speed label | `36+0.30/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,9 +59,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1318. Reviews **273–276**:
-**273/274/276** ACCEPT-WITH-DEBT; **275** QUALITY-RISK (caller now
-wired).
+**Map-driven fortress** after D-1318. Reviews **277–280**
+ACCEPT-WITH-DEBT (review **275** caller wired as D-1315).
 **Next cluster:**
 Open `objnam.c` doname LEASH attached (named from D-1308). Not
 candle.
